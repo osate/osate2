@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright © 2011 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -9,14 +9,14 @@
  * 
  * This program is free software: you can redistribute it and/or modify 
  * it under the terms of the Eclipse Public License as published by Eclipse,
- * either version 1.0 of the License, or (at your option) any later version.
+ * either version 2.0 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Eclipse Public License for more details.
  * You should have received a copy of the Eclipse Public License
  * along with this program.  If not, see 
- * http://www.eclipse.org/org/documents/epl-v10.php
+ * https://www.eclipse.org/legal/epl-2.0/
  */
 
 package org.osate.ba.analyzers;
@@ -43,6 +43,7 @@ import org.osate.aadl2.ListType ;
 import org.osate.aadl2.ListValue ;
 import org.osate.aadl2.ModalPropertyValue ;
 import org.osate.aadl2.Mode ;
+import org.osate.aadl2.ModeTransitionTrigger ;
 import org.osate.aadl2.NamedElement ;
 import org.osate.aadl2.PackageSection ;
 import org.osate.aadl2.ProcessorClassifier ;
@@ -88,6 +89,10 @@ import org.osate.ba.aadlba.IntegerValue ;
 import org.osate.ba.aadlba.IntegerValueConstant ;
 import org.osate.ba.aadlba.IntegerValueVariable ;
 import org.osate.ba.aadlba.IterativeVariable ;
+import org.osate.ba.aadlba.ModeSwitchConjunction ;
+import org.osate.ba.aadlba.ModeSwitchTrigger ;
+import org.osate.ba.aadlba.ModeSwitchTriggerCondition ;
+import org.osate.ba.aadlba.ModeSwitchTriggerLogicalExpression ;
 import org.osate.ba.aadlba.ParameterLabel ;
 import org.osate.ba.aadlba.PropertyNameField ;
 import org.osate.ba.aadlba.Relation ;
@@ -375,6 +380,12 @@ public class AadlBaNameResolver
               {
                  result &= dispatchConditionResolver((DispatchCondition)cond);
               }
+              // Case of mode switch condition
+              else if( cond instanceof ModeSwitchTriggerLogicalExpression)
+              {
+                result &= modeSwitchTriggerLogicalExpression((ModeSwitchTriggerLogicalExpression)cond);
+              }
+              // ModeSwitchTriggerLogicalExpression
               else // Case of a execute condition
               {
                  if( cond instanceof ValueExpression)
@@ -395,17 +406,33 @@ public class AadlBaNameResolver
         return result ;
    }
    
+   private boolean modeSwitchTriggerLogicalExpression(ModeSwitchTriggerLogicalExpression cond)
+   {
+     boolean result = true ;
+
+     for(ModeSwitchConjunction msc: cond.getModeSwitchConjunctions())
+     {
+       for(ModeSwitchTrigger mst: msc.getModeSwitchTriggers())
+       {
+         Reference trigg = (Reference) mst ;
+         result &= refResolver(trigg);
+       }
+     }
+     
+     return result ;
+   }
+
    private boolean behaviorActionBlockResolver(BehaviorActionBlock block)
    {
-      boolean result = behaviorActionsResolver(block.getContent());
-      
-      // Check timeout option.
-      if(block.getTimeout() != null)
-      {
-         result &= behaviorTimeResolver((DeclarativeTime) block.getTimeout()) ;
-      }
-      
-      return result ;
+     boolean result = behaviorActionsResolver(block.getContent());
+
+     // Check timeout option.
+     if(block.getTimeout() != null)
+     {
+       result &= behaviorTimeResolver((DeclarativeTime) block.getTimeout()) ;
+     }
+
+     return result ;
    }
 
    private boolean baVariableResolver(Identifier id, boolean hasToReport)
@@ -1442,33 +1469,36 @@ public class AadlBaNameResolver
      {
         packageName = qne.getBaNamespace().getId() ;
      }
-
+     
      // Now check the type in each current package's sections.
      for(PackageSection context: _contextsTab)
      {
-        ne = Aadl2Visitors.findElementInPackage(qne.getBaName().getId(),
-                                                packageName, context) ;
-        
-        if(ne == null)
-        {
-          ne = Aadl2Visitors.findElementInPropertySet(qne.getBaName().getId(),
-                                                  packageName, context) ;
-        }
+       NamedElement parent = (NamedElement) _ba.eContainer().eContainer();
+       ne = Aadl2Visitors.findSubcomponentInComponent((Classifier) parent,
+                                                      qne.getBaName().getId());
+       if(ne==null)
+         ne = Aadl2Visitors.findFeatureInComponent((Classifier) parent,
+                                                   qne.getBaName().getId());
+       if(ne==null)
+         ne = Aadl2Visitors.findElementInPackage(qne.getBaName().getId(),
+                                                 packageName, context) ;
+       if(ne == null)
+         ne = Aadl2Visitors.findElementInPropertySet(qne.getBaName().getId(),
+                                                     packageName, context) ;
+       // An element is found.
+       if(ne != null && ne instanceof NamedElement)
+       {
+         // Links unique component classifier reference with named element found.
+         qne.setOsateRef((Element) ne) ;
+         qne.getBaName().setOsateRef((Element) ne);
 
-        // An element is found.
-        if(ne != null && ne instanceof NamedElement)
-        {
-          // Links unique component classifier reference with named element found.
-          qne.setOsateRef((Element) ne) ;
-          qne.getBaName().setOsateRef((Element) ne);
-          
-          if(hasNamespace)
-          {
+         if(hasNamespace)
+         {
            qne.getBaNamespace().setOsateRef(((NamedElement) ne).getNamespace());
-          }
-                              
-          return true ;
-        }
+         }
+
+         return true ;
+       }
      }
         
      // The element is not found.

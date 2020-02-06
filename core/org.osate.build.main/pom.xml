@@ -5,15 +5,15 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.osate</groupId>
-	<artifactId>osate2</artifactId>
+	<artifactId>osate2.main-pom</artifactId>
 	<version>2.7.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
 		<tycho.version>1.5.1</tycho.version>
 		<tycho-extras.version>1.5.1</tycho-extras.version>
-		<xtext.version>2.19.0</xtext.version>
-		<xsemantics.version>1.18.0-SNAPSHOT</xsemantics.version>
+		<xtext.version>2.20.0</xtext.version>
+		<xsemantics.version>1.19.0-SNAPSHOT</xsemantics.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<osate.version>2.7.0-SNAPSHOT</osate.version>
 
@@ -41,11 +41,11 @@
 		<sonar.scm.exclusions.disabled>true</sonar.scm.exclusions.disabled>
 
 		<!-- The following are for use in poms for test plugins -->
-		<eclipse.repo.url>http://download.eclipse.org/releases/2019-09</eclipse.repo.url>
+		<eclipse.repo.url>http://download.eclipse.org/releases/2019-12</eclipse.repo.url>
 		<xtext-testing.repo.url>https://dl.bintray.com/itemis/generic/xtext-testing/updates/0.2</xtext-testing.repo.url>
 
 		<!-- Used in pull request build -->
-		<ocarina.repo.url>http://osate-build.sei.cmu.edu/p2/ocarina/</ocarina.repo.url>
+		<ocarina.repo.url>http://osate-build.sei.cmu.edu/p2/ocarina</ocarina.repo.url>
 
 		<spotbugs.configdir>${project.parent.parent.basedir}/core/org.osate.build.main/src/main/resources/spotbugs</spotbugs.configdir>
 		<jgit.dirtyWorkingTree>warning</jgit.dirtyWorkingTree>
@@ -127,15 +127,6 @@
 			<properties>
 				<jgit.dirtyWorkingTree>warning</jgit.dirtyWorkingTree>
 			</properties>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.eclipse.tycho</groupId>
-						<artifactId>target-platform-configuration</artifactId>
-						<version>${tycho.version}</version>
-					</plugin>
-				</plugins>
-			</build>
 		</profile>
 
 		<profile>

@@ -1,36 +1,25 @@
 /**
- * <copyright>
- * Copyright  2011 by Carnegie Mellon University, all rights reserved.
- *
- * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
- * at http://www.eclipse.org/org/documents/epl-v10.html.
- *
- * NO WARRANTY
- *
- * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
- * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
- * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
- * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
- * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
- * CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
- * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
- * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
- * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- *
- * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
- * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
- * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
- * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
- * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
- * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- *
- * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
- * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
- * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
- * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
- * under the contract clause at 252.227.7013.
- * </copyright>
- *
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.aadl2.impl;
 
@@ -2018,7 +2007,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 
 		// Register package validator
 		EValidator.Registry.INSTANCE.put(theAadl2Package, new EValidator.Descriptor() {
-			@Override
 			public EValidator getEValidator() {
 				return Aadl2Validator.INSTANCE;
 			}
@@ -2037,7 +2025,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getElement() {
 		return elementEClass;
 	}
@@ -2047,7 +2034,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getElement_OwnedElement() {
 		return (EReference) elementEClass.getEStructuralFeatures().get(0);
 	}
@@ -2057,7 +2043,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getElement_OwnedComment() {
 		return (EReference) elementEClass.getEStructuralFeatures().get(1);
 	}
@@ -2067,7 +2052,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getComment() {
 		return commentEClass;
 	}
@@ -2077,7 +2061,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getComment_Body() {
 		return (EAttribute) commentEClass.getEStructuralFeatures().get(0);
 	}
@@ -2087,7 +2070,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getType() {
 		return typeEClass;
 	}
@@ -2097,7 +2079,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getNamedElement() {
 		return namedElementEClass;
 	}
@@ -2107,7 +2088,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getNamedElement_Name() {
 		return (EAttribute) namedElementEClass.getEStructuralFeatures().get(0);
 	}
@@ -2117,7 +2097,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getNamedElement_QualifiedName() {
 		return (EAttribute) namedElementEClass.getEStructuralFeatures().get(1);
 	}
@@ -2127,7 +2106,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getNamedElement_OwnedPropertyAssociation() {
 		return (EReference) namedElementEClass.getEStructuralFeatures().get(2);
 	}
@@ -2137,7 +2115,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getPropertyAssociation() {
 		return propertyAssociationEClass;
 	}
@@ -2147,7 +2124,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPropertyAssociation_Property() {
 		return (EReference) propertyAssociationEClass.getEStructuralFeatures().get(0);
 	}
@@ -2157,7 +2133,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPropertyAssociation_AppliesTo() {
 		return (EReference) propertyAssociationEClass.getEStructuralFeatures().get(1);
 	}
@@ -2167,7 +2142,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPropertyAssociation_InBinding() {
 		return (EReference) propertyAssociationEClass.getEStructuralFeatures().get(2);
 	}
@@ -2177,7 +2151,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getPropertyAssociation_Append() {
 		return (EAttribute) propertyAssociationEClass.getEStructuralFeatures().get(3);
 	}
@@ -2187,7 +2160,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getPropertyAssociation_Constant() {
 		return (EAttribute) propertyAssociationEClass.getEStructuralFeatures().get(4);
 	}
@@ -2197,7 +2169,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPropertyAssociation_OwnedValue() {
 		return (EReference) propertyAssociationEClass.getEStructuralFeatures().get(5);
 	}
@@ -2207,7 +2178,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getProperty() {
 		return propertyEClass;
 	}
@@ -2217,7 +2187,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getProperty_Inherit() {
 		return (EAttribute) propertyEClass.getEStructuralFeatures().get(0);
 	}
@@ -2227,7 +2196,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getProperty_DefaultValue() {
 		return (EReference) propertyEClass.getEStructuralFeatures().get(1);
 	}
@@ -2237,7 +2205,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getProperty_AppliesToMetaclass() {
 		return (EReference) propertyEClass.getEStructuralFeatures().get(2);
 	}
@@ -2247,7 +2214,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getProperty_AppliesToClassifier() {
 		return (EReference) propertyEClass.getEStructuralFeatures().get(3);
 	}
@@ -2257,7 +2223,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getProperty_AppliesTo() {
 		return (EReference) propertyEClass.getEStructuralFeatures().get(4);
 	}
@@ -2267,7 +2232,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getProperty_EmptyListDefault() {
 		return (EAttribute) propertyEClass.getEStructuralFeatures().get(5);
 	}
@@ -2277,7 +2241,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getBasicProperty() {
 		return basicPropertyEClass;
 	}
@@ -2287,7 +2250,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getBasicProperty_ReferencedPropertyType() {
 		return (EReference) basicPropertyEClass.getEStructuralFeatures().get(0);
 	}
@@ -2297,7 +2259,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getBasicProperty_PropertyType() {
 		return (EReference) basicPropertyEClass.getEStructuralFeatures().get(2);
 	}
@@ -2307,7 +2268,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getBasicProperty_OwnedPropertyType() {
 		return (EReference) basicPropertyEClass.getEStructuralFeatures().get(1);
 	}
@@ -2317,7 +2277,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getTypedElement() {
 		return typedElementEClass;
 	}
@@ -2327,7 +2286,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getTypedElement_Type() {
 		return (EReference) typedElementEClass.getEStructuralFeatures().get(0);
 	}
@@ -2337,7 +2295,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getPropertyType() {
 		return propertyTypeEClass;
 	}
@@ -2347,7 +2304,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getPropertyExpression() {
 		return propertyExpressionEClass;
 	}
@@ -2357,7 +2313,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getMetaclassReference() {
 		return metaclassReferenceEClass;
 	}
@@ -2367,7 +2322,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getMetaclassReference_AnnexName() {
 		return (EAttribute) metaclassReferenceEClass.getEStructuralFeatures().get(0);
 	}
@@ -2377,7 +2331,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getMetaclassReference_MetaclassName() {
 		return (EAttribute) metaclassReferenceEClass.getEStructuralFeatures().get(1);
 	}
@@ -2387,7 +2340,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getPropertyOwner() {
 		return propertyOwnerEClass;
 	}
@@ -2397,7 +2349,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getClassifier() {
 		return classifierEClass;
 	}
@@ -2407,7 +2358,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getClassifier_ClassifierFeature() {
 		return (EReference) classifierEClass.getEStructuralFeatures().get(0);
 	}
@@ -2417,7 +2367,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getClassifier_InheritedMember() {
 		return (EReference) classifierEClass.getEStructuralFeatures().get(1);
 	}
@@ -2427,7 +2376,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getClassifier_Generalization() {
 		return (EReference) classifierEClass.getEStructuralFeatures().get(2);
 	}
@@ -2437,7 +2385,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getClassifier_General() {
 		return (EReference) classifierEClass.getEStructuralFeatures().get(3);
 	}
@@ -2447,7 +2394,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getClassifier_OwnedAnnexSubclause() {
 		return (EReference) classifierEClass.getEStructuralFeatures().get(4);
 	}
@@ -2457,7 +2403,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getClassifier_OwnedPrototype() {
 		return (EReference) classifierEClass.getEStructuralFeatures().get(5);
 	}
@@ -2467,7 +2412,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getClassifier_OwnedPrototypeBinding() {
 		return (EReference) classifierEClass.getEStructuralFeatures().get(6);
 	}
@@ -2477,7 +2421,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getClassifier_NoPrototypes() {
 		return (EAttribute) classifierEClass.getEStructuralFeatures().get(7);
 	}
@@ -2487,7 +2430,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getClassifier_NoAnnexes() {
 		return (EAttribute) classifierEClass.getEStructuralFeatures().get(8);
 	}
@@ -2497,7 +2439,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getClassifier_NoProperties() {
 		return (EAttribute) classifierEClass.getEStructuralFeatures().get(9);
 	}
@@ -2507,7 +2448,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getNamespace() {
 		return namespaceEClass;
 	}
@@ -2517,7 +2457,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getNamespace_OwnedMember() {
 		return (EReference) namespaceEClass.getEStructuralFeatures().get(0);
 	}
@@ -2527,7 +2466,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getNamespace_Member() {
 		return (EReference) namespaceEClass.getEStructuralFeatures().get(1);
 	}
@@ -2537,7 +2475,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getClassifierFeature() {
 		return classifierFeatureEClass;
 	}
@@ -2547,7 +2484,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getClassifierFeature_FeaturingClassifier() {
 		return (EReference) classifierFeatureEClass.getEStructuralFeatures().get(0);
 	}
@@ -2557,7 +2493,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getGeneralization() {
 		return generalizationEClass;
 	}
@@ -2567,7 +2502,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getGeneralization_General() {
 		return (EReference) generalizationEClass.getEStructuralFeatures().get(0);
 	}
@@ -2577,7 +2511,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getGeneralization_Specific() {
 		return (EReference) generalizationEClass.getEStructuralFeatures().get(1);
 	}
@@ -2587,7 +2520,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getDirectedRelationship() {
 		return directedRelationshipEClass;
 	}
@@ -2597,7 +2529,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getDirectedRelationship_Source() {
 		return (EReference) directedRelationshipEClass.getEStructuralFeatures().get(0);
 	}
@@ -2607,7 +2538,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getDirectedRelationship_Target() {
 		return (EReference) directedRelationshipEClass.getEStructuralFeatures().get(1);
 	}
@@ -2617,7 +2547,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getRelationship() {
 		return relationshipEClass;
 	}
@@ -2627,7 +2556,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getRelationship_RelatedElement() {
 		return (EReference) relationshipEClass.getEStructuralFeatures().get(0);
 	}
@@ -2637,7 +2565,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAnnexSubclause() {
 		return annexSubclauseEClass;
 	}
@@ -2647,7 +2574,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getModalElement() {
 		return modalElementEClass;
 	}
@@ -2657,7 +2583,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getModalElement_InMode() {
 		return (EReference) modalElementEClass.getEStructuralFeatures().get(0);
 	}
@@ -2667,7 +2592,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getMode() {
 		return modeEClass;
 	}
@@ -2677,7 +2601,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getMode_Initial() {
 		return (EAttribute) modeEClass.getEStructuralFeatures().get(0);
 	}
@@ -2687,7 +2610,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getMode_Derived() {
 		return (EAttribute) modeEClass.getEStructuralFeatures().get(1);
 	}
@@ -2697,7 +2619,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getModeFeature() {
 		return modeFeatureEClass;
 	}
@@ -2707,7 +2628,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getPrototype() {
 		return prototypeEClass;
 	}
@@ -2717,7 +2637,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPrototype_Refined() {
 		return (EReference) prototypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -2727,7 +2646,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getStructuralFeature() {
 		return structuralFeatureEClass;
 	}
@@ -2737,7 +2655,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getRefinableElement() {
 		return refinableElementEClass;
 	}
@@ -2747,7 +2664,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getRefinableElement_RefinementContext() {
 		return (EReference) refinableElementEClass.getEStructuralFeatures().get(0);
 	}
@@ -2757,7 +2673,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getRefinableElement_RefinedElement() {
 		return (EReference) refinableElementEClass.getEStructuralFeatures().get(1);
 	}
@@ -2767,7 +2682,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFeatureClassifier() {
 		return featureClassifierEClass;
 	}
@@ -2777,7 +2691,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getPrototypeBinding() {
 		return prototypeBindingEClass;
 	}
@@ -2787,7 +2700,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPrototypeBinding_Formal() {
 		return (EReference) prototypeBindingEClass.getEStructuralFeatures().get(0);
 	}
@@ -2797,7 +2709,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getContainedNamedElement() {
 		return containedNamedElementEClass;
 	}
@@ -2807,7 +2718,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getContainedNamedElement_Path() {
 		return (EReference) containedNamedElementEClass.getEStructuralFeatures().get(0);
 	}
@@ -2817,7 +2727,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getContainedNamedElement_ContainmentPathElement() {
 		return (EReference) containedNamedElementEClass.getEStructuralFeatures().get(1);
 	}
@@ -2827,7 +2736,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getContainmentPathElement() {
 		return containmentPathElementEClass;
 	}
@@ -2837,7 +2745,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getContainmentPathElement_ArrayRange() {
 		return (EReference) containmentPathElementEClass.getEStructuralFeatures().get(0);
 	}
@@ -2847,7 +2754,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getContainmentPathElement_NamedElement() {
 		return (EReference) containmentPathElementEClass.getEStructuralFeatures().get(1);
 	}
@@ -2857,7 +2763,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getContainmentPathElement_AnnexName() {
 		return (EAttribute) containmentPathElementEClass.getEStructuralFeatures().get(2);
 	}
@@ -2867,7 +2772,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getContainmentPathElement_Path() {
 		return (EReference) containmentPathElementEClass.getEStructuralFeatures().get(3);
 	}
@@ -2877,7 +2781,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getArrayRange() {
 		return arrayRangeEClass;
 	}
@@ -2887,7 +2790,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getArrayRange_LowerBound() {
 		return (EAttribute) arrayRangeEClass.getEStructuralFeatures().get(0);
 	}
@@ -2897,7 +2799,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getArrayRange_UpperBound() {
 		return (EAttribute) arrayRangeEClass.getEStructuralFeatures().get(1);
 	}
@@ -2907,7 +2808,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getModalPropertyValue() {
 		return modalPropertyValueEClass;
 	}
@@ -2917,7 +2817,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getModalPropertyValue_OwnedValue() {
 		return (EReference) modalPropertyValueEClass.getEStructuralFeatures().get(0);
 	}
@@ -2927,7 +2826,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getBehavioralFeature() {
 		return behavioralFeatureEClass;
 	}
@@ -2937,7 +2835,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getArrayDimension() {
 		return arrayDimensionEClass;
 	}
@@ -2947,7 +2844,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getArrayDimension_Size() {
 		return (EReference) arrayDimensionEClass.getEStructuralFeatures().get(0);
 	}
@@ -2957,7 +2853,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getArraySize() {
 		return arraySizeEClass;
 	}
@@ -2967,7 +2862,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getArraySize_Size() {
 		return (EAttribute) arraySizeEClass.getEStructuralFeatures().get(0);
 	}
@@ -2977,7 +2871,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getArraySize_SizeProperty() {
 		return (EReference) arraySizeEClass.getEStructuralFeatures().get(1);
 	}
@@ -2987,7 +2880,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getArrayableElement() {
 		return arrayableElementEClass;
 	}
@@ -2997,7 +2889,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getArrayableElement_ArrayDimension() {
 		return (EReference) arrayableElementEClass.getEStructuralFeatures().get(0);
 	}
@@ -3007,7 +2898,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getComponentImplementationReference() {
 		return componentImplementationReferenceEClass;
 	}
@@ -3017,7 +2907,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentImplementationReference_Implementation() {
 		return (EReference) componentImplementationReferenceEClass.getEStructuralFeatures().get(0);
 	}
@@ -3027,7 +2916,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentImplementationReference_OwnedPrototypeBinding() {
 		return (EReference) componentImplementationReferenceEClass.getEStructuralFeatures().get(1);
 	}
@@ -3037,7 +2925,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getComponentImplementation() {
 		return componentImplementationEClass;
 	}
@@ -3047,7 +2934,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentImplementation_Type() {
 		return (EReference) componentImplementationEClass.getEStructuralFeatures().get(0);
 	}
@@ -3057,7 +2943,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentImplementation_OwnedSubcomponent() {
 		return (EReference) componentImplementationEClass.getEStructuralFeatures().get(1);
 	}
@@ -3067,7 +2952,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentImplementation_Extended() {
 		return (EReference) componentImplementationEClass.getEStructuralFeatures().get(2);
 	}
@@ -3077,7 +2961,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentImplementation_OwnedFlowImplementation() {
 		return (EReference) componentImplementationEClass.getEStructuralFeatures().get(3);
 	}
@@ -3087,7 +2970,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentImplementation_OwnedConnection() {
 		return (EReference) componentImplementationEClass.getEStructuralFeatures().get(4);
 	}
@@ -3097,7 +2979,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentImplementation_OwnedExtension() {
 		return (EReference) componentImplementationEClass.getEStructuralFeatures().get(5);
 	}
@@ -3107,7 +2988,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentImplementation_OwnedRealization() {
 		return (EReference) componentImplementationEClass.getEStructuralFeatures().get(6);
 	}
@@ -3117,7 +2997,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentImplementation_OwnedEndToEndFlow() {
 		return (EReference) componentImplementationEClass.getEStructuralFeatures().get(7);
 	}
@@ -3127,7 +3006,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentImplementation_OwnedAbstractSubcomponent() {
 		return (EReference) componentImplementationEClass.getEStructuralFeatures().get(8);
 	}
@@ -3137,7 +3015,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentImplementation_OwnedAccessConnection() {
 		return (EReference) componentImplementationEClass.getEStructuralFeatures().get(9);
 	}
@@ -3147,7 +3024,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentImplementation_OwnedParameterConnection() {
 		return (EReference) componentImplementationEClass.getEStructuralFeatures().get(10);
 	}
@@ -3157,7 +3033,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentImplementation_OwnedPortConnection() {
 		return (EReference) componentImplementationEClass.getEStructuralFeatures().get(11);
 	}
@@ -3167,7 +3042,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentImplementation_OwnedFeatureConnection() {
 		return (EReference) componentImplementationEClass.getEStructuralFeatures().get(12);
 	}
@@ -3177,7 +3051,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentImplementation_OwnedFeatureGroupConnection() {
 		return (EReference) componentImplementationEClass.getEStructuralFeatures().get(13);
 	}
@@ -3187,7 +3060,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getComponentImplementation_NoSubcomponents() {
 		return (EAttribute) componentImplementationEClass.getEStructuralFeatures().get(14);
 	}
@@ -3197,7 +3069,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getComponentImplementation_NoConnections() {
 		return (EAttribute) componentImplementationEClass.getEStructuralFeatures().get(15);
 	}
@@ -3207,7 +3078,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getComponentImplementation_NoCalls() {
 		return (EAttribute) componentImplementationEClass.getEStructuralFeatures().get(16);
 	}
@@ -3217,7 +3087,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentImplementation_OwnedProcessorFeature() {
 		return (EReference) componentImplementationEClass.getEStructuralFeatures().get(17);
 	}
@@ -3227,7 +3096,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentImplementation_OwnedInternalFeature() {
 		return (EReference) componentImplementationEClass.getEStructuralFeatures().get(18);
 	}
@@ -3237,7 +3105,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentImplementation_OwnedEventSource() {
 		return (EReference) componentImplementationEClass.getEStructuralFeatures().get(19);
 	}
@@ -3247,7 +3114,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentImplementation_OwnedEventDataSource() {
 		return (EReference) componentImplementationEClass.getEStructuralFeatures().get(20);
 	}
@@ -3257,7 +3123,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentImplementation_OwnedPortProxy() {
 		return (EReference) componentImplementationEClass.getEStructuralFeatures().get(21);
 	}
@@ -3267,7 +3132,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentImplementation_OwnedSubprogramProxy() {
 		return (EReference) componentImplementationEClass.getEStructuralFeatures().get(22);
 	}
@@ -3277,7 +3141,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getComponentClassifier() {
 		return componentClassifierEClass;
 	}
@@ -3287,7 +3150,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentClassifier_OwnedMode() {
 		return (EReference) componentClassifierEClass.getEStructuralFeatures().get(0);
 	}
@@ -3297,7 +3159,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentClassifier_OwnedModeTransition() {
 		return (EReference) componentClassifierEClass.getEStructuralFeatures().get(1);
 	}
@@ -3307,7 +3168,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getComponentClassifier_DerivedModes() {
 		return (EAttribute) componentClassifierEClass.getEStructuralFeatures().get(2);
 	}
@@ -3317,7 +3177,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getComponentClassifier_NoFlows() {
 		return (EAttribute) componentClassifierEClass.getEStructuralFeatures().get(3);
 	}
@@ -3327,7 +3186,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getComponentClassifier_NoModes() {
 		return (EAttribute) componentClassifierEClass.getEStructuralFeatures().get(4);
 	}
@@ -3337,7 +3195,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSubcomponentType() {
 		return subcomponentTypeEClass;
 	}
@@ -3347,7 +3204,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getModeTransition() {
 		return modeTransitionEClass;
 	}
@@ -3357,7 +3213,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getModeTransition_Source() {
 		return (EReference) modeTransitionEClass.getEStructuralFeatures().get(0);
 	}
@@ -3367,7 +3222,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getModeTransition_Destination() {
 		return (EReference) modeTransitionEClass.getEStructuralFeatures().get(1);
 	}
@@ -3377,7 +3231,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getModeTransition_OwnedTrigger() {
 		return (EReference) modeTransitionEClass.getEStructuralFeatures().get(2);
 	}
@@ -3387,7 +3240,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getModeTransitionTrigger() {
 		return modeTransitionTriggerEClass;
 	}
@@ -3397,7 +3249,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getModeTransitionTrigger_Context() {
 		return (EReference) modeTransitionTriggerEClass.getEStructuralFeatures().get(0);
 	}
@@ -3407,7 +3258,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getModeTransitionTrigger_TriggerPort() {
 		return (EReference) modeTransitionTriggerEClass.getEStructuralFeatures().get(1);
 	}
@@ -3417,7 +3267,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getTriggerPort() {
 		return triggerPortEClass;
 	}
@@ -3427,7 +3276,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getContext() {
 		return contextEClass;
 	}
@@ -3437,7 +3285,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getPort() {
 		return portEClass;
 	}
@@ -3447,7 +3294,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getPort_Category() {
 		return (EAttribute) portEClass.getEStructuralFeatures().get(0);
 	}
@@ -3457,7 +3303,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getDirectedFeature() {
 		return directedFeatureEClass;
 	}
@@ -3467,7 +3312,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getDirectedFeature_Direction() {
 		return (EAttribute) directedFeatureEClass.getEStructuralFeatures().get(0);
 	}
@@ -3477,7 +3321,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getDirectedFeature_In() {
 		return (EAttribute) directedFeatureEClass.getEStructuralFeatures().get(1);
 	}
@@ -3487,7 +3330,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getDirectedFeature_Out() {
 		return (EAttribute) directedFeatureEClass.getEStructuralFeatures().get(2);
 	}
@@ -3497,7 +3339,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFeature() {
 		return featureEClass;
 	}
@@ -3507,7 +3348,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeature_Prototype() {
 		return (EReference) featureEClass.getEStructuralFeatures().get(0);
 	}
@@ -3517,7 +3357,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeature_FeatureClassifier() {
 		return (EReference) featureEClass.getEStructuralFeatures().get(1);
 	}
@@ -3527,7 +3366,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeature_Classifier() {
 		return (EReference) featureEClass.getEStructuralFeatures().get(3);
 	}
@@ -3537,7 +3375,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeature_Refined() {
 		return (EReference) featureEClass.getEStructuralFeatures().get(2);
 	}
@@ -3547,7 +3384,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFeatureConnectionEnd() {
 		return featureConnectionEndEClass;
 	}
@@ -3557,7 +3393,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getConnectionEnd() {
 		return connectionEndEClass;
 	}
@@ -3567,7 +3402,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getPortConnectionEnd() {
 		return portConnectionEndEClass;
 	}
@@ -3577,7 +3411,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getComponentType() {
 		return componentTypeEClass;
 	}
@@ -3587,7 +3420,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentType_OwnedFeature() {
 		return (EReference) componentTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -3597,7 +3429,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentType_Extended() {
 		return (EReference) componentTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -3607,7 +3438,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentType_OwnedFlowSpecification() {
 		return (EReference) componentTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -3617,7 +3447,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentType_OwnedExtension() {
 		return (EReference) componentTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -3627,7 +3456,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentType_OwnedFeatureGroup() {
 		return (EReference) componentTypeEClass.getEStructuralFeatures().get(4);
 	}
@@ -3637,7 +3465,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentType_OwnedAbstractFeature() {
 		return (EReference) componentTypeEClass.getEStructuralFeatures().get(5);
 	}
@@ -3647,7 +3474,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getComponentType_NoFeatures() {
 		return (EAttribute) componentTypeEClass.getEStructuralFeatures().get(6);
 	}
@@ -3657,7 +3483,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFlowSpecification() {
 		return flowSpecificationEClass;
 	}
@@ -3667,7 +3492,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFlowSpecification_Refined() {
 		return (EReference) flowSpecificationEClass.getEStructuralFeatures().get(0);
 	}
@@ -3677,7 +3501,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getFlowSpecification_Kind() {
 		return (EAttribute) flowSpecificationEClass.getEStructuralFeatures().get(1);
 	}
@@ -3687,7 +3510,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFlowSpecification_OutEnd() {
 		return (EReference) flowSpecificationEClass.getEStructuralFeatures().get(2);
 	}
@@ -3697,7 +3519,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFlowSpecification_InEnd() {
 		return (EReference) flowSpecificationEClass.getEStructuralFeatures().get(3);
 	}
@@ -3707,7 +3528,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFlowFeature() {
 		return flowFeatureEClass;
 	}
@@ -3717,7 +3537,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFlow() {
 		return flowEClass;
 	}
@@ -3727,7 +3546,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getTypeExtension() {
 		return typeExtensionEClass;
 	}
@@ -3737,7 +3555,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getTypeExtension_Extended() {
 		return (EReference) typeExtensionEClass.getEStructuralFeatures().get(0);
 	}
@@ -3747,7 +3564,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFeatureGroup() {
 		return featureGroupEClass;
 	}
@@ -3757,7 +3573,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getFeatureGroup_Inverse() {
 		return (EAttribute) featureGroupEClass.getEStructuralFeatures().get(0);
 	}
@@ -3767,7 +3582,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeatureGroup_FeatureType() {
 		return (EReference) featureGroupEClass.getEStructuralFeatures().get(1);
 	}
@@ -3777,7 +3591,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeatureGroup_FeatureGroupType() {
 		return (EReference) featureGroupEClass.getEStructuralFeatures().get(2);
 	}
@@ -3787,7 +3600,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeatureGroup_FeatureGroupPrototype() {
 		return (EReference) featureGroupEClass.getEStructuralFeatures().get(3);
 	}
@@ -3797,7 +3609,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFeatureGroupConnectionEnd() {
 		return featureGroupConnectionEndEClass;
 	}
@@ -3807,7 +3618,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFeatureType() {
 		return featureTypeEClass;
 	}
@@ -3817,7 +3627,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getCallContext() {
 		return callContextEClass;
 	}
@@ -3827,7 +3636,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFeatureGroupType() {
 		return featureGroupTypeEClass;
 	}
@@ -3837,7 +3645,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeatureGroupType_OwnedFeature() {
 		return (EReference) featureGroupTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -3847,7 +3654,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeatureGroupType_Extended() {
 		return (EReference) featureGroupTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -3857,7 +3663,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeatureGroupType_Inverse() {
 		return (EReference) featureGroupTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -3867,7 +3672,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeatureGroupType_OwnedExtension() {
 		return (EReference) featureGroupTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -3877,7 +3681,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeatureGroupType_OwnedBusAccess() {
 		return (EReference) featureGroupTypeEClass.getEStructuralFeatures().get(4);
 	}
@@ -3887,7 +3690,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeatureGroupType_OwnedDataAccess() {
 		return (EReference) featureGroupTypeEClass.getEStructuralFeatures().get(5);
 	}
@@ -3897,7 +3699,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeatureGroupType_OwnedDataPort() {
 		return (EReference) featureGroupTypeEClass.getEStructuralFeatures().get(6);
 	}
@@ -3907,7 +3708,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeatureGroupType_OwnedEventDataPort() {
 		return (EReference) featureGroupTypeEClass.getEStructuralFeatures().get(7);
 	}
@@ -3917,7 +3717,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeatureGroupType_OwnedEventPort() {
 		return (EReference) featureGroupTypeEClass.getEStructuralFeatures().get(8);
 	}
@@ -3927,7 +3726,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeatureGroupType_OwnedFeatureGroup() {
 		return (EReference) featureGroupTypeEClass.getEStructuralFeatures().get(9);
 	}
@@ -3937,7 +3735,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeatureGroupType_OwnedParameter() {
 		return (EReference) featureGroupTypeEClass.getEStructuralFeatures().get(10);
 	}
@@ -3947,7 +3744,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeatureGroupType_OwnedSubprogramAccess() {
 		return (EReference) featureGroupTypeEClass.getEStructuralFeatures().get(11);
 	}
@@ -3957,7 +3753,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeatureGroupType_OwnedSubprogramGroupAccess() {
 		return (EReference) featureGroupTypeEClass.getEStructuralFeatures().get(12);
 	}
@@ -3967,7 +3762,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeatureGroupType_OwnedAbstractFeature() {
 		return (EReference) featureGroupTypeEClass.getEStructuralFeatures().get(13);
 	}
@@ -3977,7 +3771,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getGroupExtension() {
 		return groupExtensionEClass;
 	}
@@ -3987,7 +3780,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getGroupExtension_Extended() {
 		return (EReference) groupExtensionEClass.getEStructuralFeatures().get(0);
 	}
@@ -3997,7 +3789,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getBusAccess() {
 		return busAccessEClass;
 	}
@@ -4007,7 +3798,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getBusAccess_BusFeatureClassifier() {
 		return (EReference) busAccessEClass.getEStructuralFeatures().get(0);
 	}
@@ -4017,7 +3807,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getBusAccess_Virtual() {
 		return (EAttribute) busAccessEClass.getEStructuralFeatures().get(1);
 	}
@@ -4027,7 +3816,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAccess() {
 		return accessEClass;
 	}
@@ -4037,7 +3825,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getAccess_Kind() {
 		return (EAttribute) accessEClass.getEStructuralFeatures().get(0);
 	}
@@ -4047,7 +3834,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getAccess_Category() {
 		return (EAttribute) accessEClass.getEStructuralFeatures().get(1);
 	}
@@ -4057,7 +3843,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAccessConnectionEnd() {
 		return accessConnectionEndEClass;
 	}
@@ -4067,7 +3852,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getBusFeatureClassifier() {
 		return busFeatureClassifierEClass;
 	}
@@ -4077,7 +3861,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getBusClassifier() {
 		return busClassifierEClass;
 	}
@@ -4087,7 +3870,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getBusSubcomponentType() {
 		return busSubcomponentTypeEClass;
 	}
@@ -4097,7 +3879,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getBus() {
 		return busEClass;
 	}
@@ -4107,7 +3888,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getDataAccess() {
 		return dataAccessEClass;
 	}
@@ -4117,7 +3897,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getDataAccess_DataFeatureClassifier() {
 		return (EReference) dataAccessEClass.getEStructuralFeatures().get(0);
 	}
@@ -4127,7 +3906,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getParameterConnectionEnd() {
 		return parameterConnectionEndEClass;
 	}
@@ -4137,7 +3915,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFlowElement() {
 		return flowElementEClass;
 	}
@@ -4147,7 +3924,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getEndToEndFlowElement() {
 		return endToEndFlowElementEClass;
 	}
@@ -4157,7 +3933,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFlowEnd() {
 		return flowEndEClass;
 	}
@@ -4167,7 +3942,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFlowEnd_Context() {
 		return (EReference) flowEndEClass.getEStructuralFeatures().get(0);
 	}
@@ -4177,7 +3951,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFlowEnd_Feature() {
 		return (EReference) flowEndEClass.getEStructuralFeatures().get(1);
 	}
@@ -4187,7 +3960,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getDataClassifier() {
 		return dataClassifierEClass;
 	}
@@ -4197,7 +3969,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getDataSubcomponentType() {
 		return dataSubcomponentTypeEClass;
 	}
@@ -4207,7 +3978,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getData() {
 		return dataEClass;
 	}
@@ -4217,7 +3987,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getDataPort() {
 		return dataPortEClass;
 	}
@@ -4227,7 +3996,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getDataPort_DataFeatureClassifier() {
 		return (EReference) dataPortEClass.getEStructuralFeatures().get(0);
 	}
@@ -4237,7 +4005,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getEventDataPort() {
 		return eventDataPortEClass;
 	}
@@ -4247,7 +4014,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getEventDataPort_DataFeatureClassifier() {
 		return (EReference) eventDataPortEClass.getEStructuralFeatures().get(0);
 	}
@@ -4257,7 +4023,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getEventPort() {
 		return eventPortEClass;
 	}
@@ -4267,7 +4032,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getParameter() {
 		return parameterEClass;
 	}
@@ -4277,7 +4041,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getParameter_DataFeatureClassifier() {
 		return (EReference) parameterEClass.getEStructuralFeatures().get(0);
 	}
@@ -4287,7 +4050,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSubprogramAccess() {
 		return subprogramAccessEClass;
 	}
@@ -4297,7 +4059,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubprogramAccess_SubprogramFeatureClassifier() {
 		return (EReference) subprogramAccessEClass.getEStructuralFeatures().get(0);
 	}
@@ -4307,7 +4068,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getCalledSubprogram() {
 		return calledSubprogramEClass;
 	}
@@ -4317,7 +4077,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSubprogramClassifier() {
 		return subprogramClassifierEClass;
 	}
@@ -4327,7 +4086,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSubprogramSubcomponentType() {
 		return subprogramSubcomponentTypeEClass;
 	}
@@ -4337,7 +4095,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSubprogram() {
 		return subprogramEClass;
 	}
@@ -4347,7 +4104,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSubprogramGroupAccess() {
 		return subprogramGroupAccessEClass;
 	}
@@ -4357,7 +4113,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubprogramGroupAccess_SubprogramGroupFeatureClassifier() {
 		return (EReference) subprogramGroupAccessEClass.getEStructuralFeatures().get(0);
 	}
@@ -4367,7 +4122,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSubprogramGroupClassifier() {
 		return subprogramGroupClassifierEClass;
 	}
@@ -4377,7 +4131,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSubprogramGroupSubcomponentType() {
 		return subprogramGroupSubcomponentTypeEClass;
 	}
@@ -4387,7 +4140,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSubprogramGroup() {
 		return subprogramGroupEClass;
 	}
@@ -4397,7 +4149,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAbstractFeature() {
 		return abstractFeatureEClass;
 	}
@@ -4407,7 +4158,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAbstractFeature_FeaturePrototype() {
 		return (EReference) abstractFeatureEClass.getEStructuralFeatures().get(0);
 	}
@@ -4417,7 +4167,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAbstractFeature_AbstractFeatureClassifier() {
 		return (EReference) abstractFeatureEClass.getEStructuralFeatures().get(1);
 	}
@@ -4427,7 +4176,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSubcomponent() {
 		return subcomponentEClass;
 	}
@@ -4437,7 +4185,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubcomponent_SubcomponentType() {
 		return (EReference) subcomponentEClass.getEStructuralFeatures().get(0);
 	}
@@ -4447,7 +4194,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubcomponent_Classifier() {
 		return (EReference) subcomponentEClass.getEStructuralFeatures().get(7);
 	}
@@ -4457,7 +4203,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubcomponent_OwnedPrototypeBinding() {
 		return (EReference) subcomponentEClass.getEStructuralFeatures().get(1);
 	}
@@ -4467,7 +4212,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubcomponent_Prototype() {
 		return (EReference) subcomponentEClass.getEStructuralFeatures().get(2);
 	}
@@ -4477,7 +4221,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubcomponent_OwnedModeBinding() {
 		return (EReference) subcomponentEClass.getEStructuralFeatures().get(3);
 	}
@@ -4487,7 +4230,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getSubcomponent_AllModes() {
 		return (EAttribute) subcomponentEClass.getEStructuralFeatures().get(4);
 	}
@@ -4497,7 +4239,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubcomponent_ImplementationReference() {
 		return (EReference) subcomponentEClass.getEStructuralFeatures().get(5);
 	}
@@ -4507,7 +4248,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubcomponent_Refined() {
 		return (EReference) subcomponentEClass.getEStructuralFeatures().get(6);
 	}
@@ -4517,7 +4257,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getComponentPrototype() {
 		return componentPrototypeEClass;
 	}
@@ -4527,7 +4266,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getComponentPrototype_Array() {
 		return (EAttribute) componentPrototypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -4537,7 +4275,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentPrototype_ConstrainingClassifier() {
 		return (EReference) componentPrototypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -4547,7 +4284,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getModeBinding() {
 		return modeBindingEClass;
 	}
@@ -4557,7 +4293,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getModeBinding_ParentMode() {
 		return (EReference) modeBindingEClass.getEStructuralFeatures().get(0);
 	}
@@ -4567,7 +4302,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getModeBinding_DerivedMode() {
 		return (EReference) modeBindingEClass.getEStructuralFeatures().get(1);
 	}
@@ -4577,7 +4311,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAbstractSubcomponentType() {
 		return abstractSubcomponentTypeEClass;
 	}
@@ -4587,7 +4320,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAbstractClassifier() {
 		return abstractClassifierEClass;
 	}
@@ -4597,7 +4329,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAbstract() {
 		return abstractEClass;
 	}
@@ -4607,7 +4338,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFlowImplementation() {
 		return flowImplementationEClass;
 	}
@@ -4617,7 +4347,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getFlowImplementation_Kind() {
 		return (EAttribute) flowImplementationEClass.getEStructuralFeatures().get(0);
 	}
@@ -4627,7 +4356,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFlowImplementation_Specification() {
 		return (EReference) flowImplementationEClass.getEStructuralFeatures().get(1);
 	}
@@ -4637,7 +4365,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFlowImplementation_OwnedFlowSegment() {
 		return (EReference) flowImplementationEClass.getEStructuralFeatures().get(2);
 	}
@@ -4647,7 +4374,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFlowImplementation_InEnd() {
 		return (EReference) flowImplementationEClass.getEStructuralFeatures().get(3);
 	}
@@ -4657,7 +4383,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFlowImplementation_OutEnd() {
 		return (EReference) flowImplementationEClass.getEStructuralFeatures().get(4);
 	}
@@ -4667,7 +4392,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getModalPath() {
 		return modalPathEClass;
 	}
@@ -4677,7 +4401,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getModalPath_InModeOrTransition() {
 		return (EReference) modalPathEClass.getEStructuralFeatures().get(0);
 	}
@@ -4687,7 +4410,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFlowSegment() {
 		return flowSegmentEClass;
 	}
@@ -4697,7 +4419,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFlowSegment_FlowElement() {
 		return (EReference) flowSegmentEClass.getEStructuralFeatures().get(0);
 	}
@@ -4707,7 +4428,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFlowSegment_Context() {
 		return (EReference) flowSegmentEClass.getEStructuralFeatures().get(1);
 	}
@@ -4717,7 +4437,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getConnection() {
 		return connectionEClass;
 	}
@@ -4727,7 +4446,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getConnection_Destination() {
 		return (EReference) connectionEClass.getEStructuralFeatures().get(0);
 	}
@@ -4737,7 +4455,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getConnection_Source() {
 		return (EReference) connectionEClass.getEStructuralFeatures().get(1);
 	}
@@ -4747,7 +4464,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getConnection_Bidirectional() {
 		return (EAttribute) connectionEClass.getEStructuralFeatures().get(2);
 	}
@@ -4757,7 +4473,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getConnection_Refined() {
 		return (EReference) connectionEClass.getEStructuralFeatures().get(3);
 	}
@@ -4767,7 +4482,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getConnectedElement() {
 		return connectedElementEClass;
 	}
@@ -4777,7 +4491,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getConnectedElement_Context() {
 		return (EReference) connectedElementEClass.getEStructuralFeatures().get(0);
 	}
@@ -4787,7 +4500,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getConnectedElement_ConnectionEnd() {
 		return (EReference) connectedElementEClass.getEStructuralFeatures().get(1);
 	}
@@ -4797,7 +4509,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getConnectedElement_Next() {
 		return (EReference) connectedElementEClass.getEStructuralFeatures().get(2);
 	}
@@ -4807,7 +4518,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getImplementationExtension() {
 		return implementationExtensionEClass;
 	}
@@ -4817,7 +4527,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getImplementationExtension_Extended() {
 		return (EReference) implementationExtensionEClass.getEStructuralFeatures().get(0);
 	}
@@ -4827,7 +4536,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getRealization() {
 		return realizationEClass;
 	}
@@ -4837,7 +4545,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getRealization_Implemented() {
 		return (EReference) realizationEClass.getEStructuralFeatures().get(0);
 	}
@@ -4847,7 +4554,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getEndToEndFlow() {
 		return endToEndFlowEClass;
 	}
@@ -4857,7 +4563,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getEndToEndFlow_Refined() {
 		return (EReference) endToEndFlowEClass.getEStructuralFeatures().get(0);
 	}
@@ -4867,7 +4572,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getEndToEndFlow_OwnedEndToEndFlowSegment() {
 		return (EReference) endToEndFlowEClass.getEStructuralFeatures().get(1);
 	}
@@ -4877,7 +4581,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getEndToEndFlowSegment() {
 		return endToEndFlowSegmentEClass;
 	}
@@ -4887,7 +4590,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getEndToEndFlowSegment_FlowElement() {
 		return (EReference) endToEndFlowSegmentEClass.getEStructuralFeatures().get(0);
 	}
@@ -4897,7 +4599,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getEndToEndFlowSegment_Context() {
 		return (EReference) endToEndFlowSegmentEClass.getEStructuralFeatures().get(1);
 	}
@@ -4907,7 +4608,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAbstractSubcomponent() {
 		return abstractSubcomponentEClass;
 	}
@@ -4917,7 +4617,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAbstractSubcomponent_AbstractSubcomponentType() {
 		return (EReference) abstractSubcomponentEClass.getEStructuralFeatures().get(0);
 	}
@@ -4927,7 +4626,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAccessConnection() {
 		return accessConnectionEClass;
 	}
@@ -4937,7 +4635,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getAccessConnection_AccessCategory() {
 		return (EAttribute) accessConnectionEClass.getEStructuralFeatures().get(0);
 	}
@@ -4947,7 +4644,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getParameterConnection() {
 		return parameterConnectionEClass;
 	}
@@ -4957,7 +4653,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getPortConnection() {
 		return portConnectionEClass;
 	}
@@ -4967,7 +4662,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFeatureConnection() {
 		return featureConnectionEClass;
 	}
@@ -4977,7 +4671,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFeatureGroupConnection() {
 		return featureGroupConnectionEClass;
 	}
@@ -4987,7 +4680,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getProcessorFeature() {
 		return processorFeatureEClass;
 	}
@@ -4997,7 +4689,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getInternalFeature() {
 		return internalFeatureEClass;
 	}
@@ -5007,7 +4698,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getInternalFeature_Direction() {
 		return (EAttribute) internalFeatureEClass.getEStructuralFeatures().get(0);
 	}
@@ -5017,7 +4707,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getInternalFeature_In() {
 		return (EAttribute) internalFeatureEClass.getEStructuralFeatures().get(1);
 	}
@@ -5027,7 +4716,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getInternalFeature_Out() {
 		return (EAttribute) internalFeatureEClass.getEStructuralFeatures().get(2);
 	}
@@ -5037,7 +4725,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getEventSource() {
 		return eventSourceEClass;
 	}
@@ -5047,7 +4734,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getEventDataSource() {
 		return eventDataSourceEClass;
 	}
@@ -5057,7 +4743,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getEventDataSource_DataClassifier() {
 		return (EReference) eventDataSourceEClass.getEStructuralFeatures().get(0);
 	}
@@ -5067,7 +4752,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getPortProxy() {
 		return portProxyEClass;
 	}
@@ -5077,7 +4761,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getPortProxy_Direction() {
 		return (EAttribute) portProxyEClass.getEStructuralFeatures().get(0);
 	}
@@ -5087,7 +4770,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPortProxy_DataClassifier() {
 		return (EReference) portProxyEClass.getEStructuralFeatures().get(1);
 	}
@@ -5097,7 +4779,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getPortProxy_In() {
 		return (EAttribute) portProxyEClass.getEStructuralFeatures().get(2);
 	}
@@ -5107,7 +4788,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getPortProxy_Out() {
 		return (EAttribute) portProxyEClass.getEStructuralFeatures().get(3);
 	}
@@ -5117,7 +4797,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSubprogramProxy() {
 		return subprogramProxyEClass;
 	}
@@ -5127,7 +4806,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubprogramProxy_SubprogramClassifier() {
 		return (EReference) subprogramProxyEClass.getEStructuralFeatures().get(0);
 	}
@@ -5137,7 +4815,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAnnexLibrary() {
 		return annexLibraryEClass;
 	}
@@ -5147,7 +4824,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getDefaultAnnexLibrary() {
 		return defaultAnnexLibraryEClass;
 	}
@@ -5157,7 +4833,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getDefaultAnnexLibrary_SourceText() {
 		return (EAttribute) defaultAnnexLibraryEClass.getEStructuralFeatures().get(0);
 	}
@@ -5167,7 +4842,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getDefaultAnnexLibrary_ParsedAnnexLibrary() {
 		return (EReference) defaultAnnexLibraryEClass.getEStructuralFeatures().get(1);
 	}
@@ -5177,7 +4851,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getDefaultAnnexSubclause() {
 		return defaultAnnexSubclauseEClass;
 	}
@@ -5187,7 +4860,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getDefaultAnnexSubclause_SourceText() {
 		return (EAttribute) defaultAnnexSubclauseEClass.getEStructuralFeatures().get(0);
 	}
@@ -5197,7 +4869,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getDefaultAnnexSubclause_ParsedAnnexSubclause() {
 		return (EReference) defaultAnnexSubclauseEClass.getEStructuralFeatures().get(1);
 	}
@@ -5207,7 +4878,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getPublicPackageSection() {
 		return publicPackageSectionEClass;
 	}
@@ -5217,7 +4887,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPublicPackageSection_PrivateSection() {
 		return (EReference) publicPackageSectionEClass.getEStructuralFeatures().get(0);
 	}
@@ -5227,7 +4896,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getPackageSection() {
 		return packageSectionEClass;
 	}
@@ -5237,7 +4905,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPackageSection_OwnedPackageRename() {
 		return (EReference) packageSectionEClass.getEStructuralFeatures().get(0);
 	}
@@ -5247,7 +4914,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPackageSection_OwnedComponentTypeRename() {
 		return (EReference) packageSectionEClass.getEStructuralFeatures().get(1);
 	}
@@ -5257,7 +4923,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPackageSection_OwnedClassifier() {
 		return (EReference) packageSectionEClass.getEStructuralFeatures().get(2);
 	}
@@ -5267,7 +4932,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPackageSection_OwnedFeatureGroupTypeRename() {
 		return (EReference) packageSectionEClass.getEStructuralFeatures().get(3);
 	}
@@ -5277,7 +4941,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPackageSection_OwnedAnnexLibrary() {
 		return (EReference) packageSectionEClass.getEStructuralFeatures().get(4);
 	}
@@ -5287,7 +4950,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPackageSection_ImportedUnit() {
 		return (EReference) packageSectionEClass.getEStructuralFeatures().get(5);
 	}
@@ -5297,7 +4959,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getPackageSection_NoAnnexes() {
 		return (EAttribute) packageSectionEClass.getEStructuralFeatures().get(6);
 	}
@@ -5307,7 +4968,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getPackageSection_NoProperties() {
 		return (EAttribute) packageSectionEClass.getEStructuralFeatures().get(7);
 	}
@@ -5317,7 +4977,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getPackageRename() {
 		return packageRenameEClass;
 	}
@@ -5327,7 +4986,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPackageRename_RenamedPackage() {
 		return (EReference) packageRenameEClass.getEStructuralFeatures().get(0);
 	}
@@ -5337,7 +4995,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getPackageRename_RenameAll() {
 		return (EAttribute) packageRenameEClass.getEStructuralFeatures().get(1);
 	}
@@ -5347,7 +5004,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAadlPackage() {
 		return aadlPackageEClass;
 	}
@@ -5357,7 +5013,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAadlPackage_OwnedPublicSection() {
 		return (EReference) aadlPackageEClass.getEStructuralFeatures().get(0);
 	}
@@ -5367,7 +5022,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAadlPackage_OwnedPrivateSection() {
 		return (EReference) aadlPackageEClass.getEStructuralFeatures().get(1);
 	}
@@ -5377,7 +5031,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAadlPackage_PublicSection() {
 		return (EReference) aadlPackageEClass.getEStructuralFeatures().get(2);
 	}
@@ -5387,7 +5040,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAadlPackage_PrivateSection() {
 		return (EReference) aadlPackageEClass.getEStructuralFeatures().get(3);
 	}
@@ -5397,7 +5049,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getModelUnit() {
 		return modelUnitEClass;
 	}
@@ -5407,7 +5058,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getPrivatePackageSection() {
 		return privatePackageSectionEClass;
 	}
@@ -5417,7 +5067,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPrivatePackageSection_PublicSection() {
 		return (EReference) privatePackageSectionEClass.getEStructuralFeatures().get(0);
 	}
@@ -5427,7 +5076,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getComponentTypeRename() {
 		return componentTypeRenameEClass;
 	}
@@ -5437,7 +5085,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getComponentTypeRename_Category() {
 		return (EAttribute) componentTypeRenameEClass.getEStructuralFeatures().get(0);
 	}
@@ -5447,7 +5094,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentTypeRename_RenamedComponentType() {
 		return (EReference) componentTypeRenameEClass.getEStructuralFeatures().get(1);
 	}
@@ -5457,7 +5103,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFeatureGroupTypeRename() {
 		return featureGroupTypeRenameEClass;
 	}
@@ -5467,7 +5112,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeatureGroupTypeRename_RenamedFeatureGroupType() {
 		return (EReference) featureGroupTypeRenameEClass.getEStructuralFeatures().get(0);
 	}
@@ -5477,7 +5121,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAbstractType() {
 		return abstractTypeEClass;
 	}
@@ -5487,7 +5130,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAbstractType_OwnedBusAccess() {
 		return (EReference) abstractTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -5497,7 +5139,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAbstractType_OwnedDataAccess() {
 		return (EReference) abstractTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -5507,7 +5148,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAbstractType_OwnedSubprogramAccess() {
 		return (EReference) abstractTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -5517,7 +5157,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAbstractType_OwnedDataPort() {
 		return (EReference) abstractTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -5527,7 +5166,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAbstractType_OwnedEventPort() {
 		return (EReference) abstractTypeEClass.getEStructuralFeatures().get(4);
 	}
@@ -5537,7 +5175,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAbstractType_OwnedEventDataPort() {
 		return (EReference) abstractTypeEClass.getEStructuralFeatures().get(5);
 	}
@@ -5547,7 +5184,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAbstractType_OwnedSubprogramGroupAccess() {
 		return (EReference) abstractTypeEClass.getEStructuralFeatures().get(6);
 	}
@@ -5557,7 +5193,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAbstractImplementation() {
 		return abstractImplementationEClass;
 	}
@@ -5567,7 +5202,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAbstractImplementation_OwnedBusSubcomponent() {
 		return (EReference) abstractImplementationEClass.getEStructuralFeatures().get(0);
 	}
@@ -5577,7 +5211,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAbstractImplementation_OwnedDataSubcomponent() {
 		return (EReference) abstractImplementationEClass.getEStructuralFeatures().get(1);
 	}
@@ -5587,7 +5220,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAbstractImplementation_OwnedDeviceSubcomponent() {
 		return (EReference) abstractImplementationEClass.getEStructuralFeatures().get(2);
 	}
@@ -5597,7 +5229,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAbstractImplementation_OwnedMemorySubcomponent() {
 		return (EReference) abstractImplementationEClass.getEStructuralFeatures().get(3);
 	}
@@ -5607,7 +5238,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAbstractImplementation_OwnedProcessSubcomponent() {
 		return (EReference) abstractImplementationEClass.getEStructuralFeatures().get(4);
 	}
@@ -5617,7 +5247,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAbstractImplementation_OwnedProcessorSubcomponent() {
 		return (EReference) abstractImplementationEClass.getEStructuralFeatures().get(5);
 	}
@@ -5627,7 +5256,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAbstractImplementation_OwnedSystemSubcomponent() {
 		return (EReference) abstractImplementationEClass.getEStructuralFeatures().get(6);
 	}
@@ -5637,7 +5265,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAbstractImplementation_OwnedSubprogramSubcomponent() {
 		return (EReference) abstractImplementationEClass.getEStructuralFeatures().get(7);
 	}
@@ -5647,7 +5274,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAbstractImplementation_OwnedSubprogramGroupSubcomponent() {
 		return (EReference) abstractImplementationEClass.getEStructuralFeatures().get(8);
 	}
@@ -5657,7 +5283,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAbstractImplementation_OwnedThreadSubcomponent() {
 		return (EReference) abstractImplementationEClass.getEStructuralFeatures().get(9);
 	}
@@ -5667,7 +5292,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAbstractImplementation_OwnedThreadGroupSubcomponent() {
 		return (EReference) abstractImplementationEClass.getEStructuralFeatures().get(10);
 	}
@@ -5677,7 +5301,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAbstractImplementation_OwnedVirtualBusSubcomponent() {
 		return (EReference) abstractImplementationEClass.getEStructuralFeatures().get(11);
 	}
@@ -5687,7 +5310,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAbstractImplementation_OwnedVirtualProcessorSubcomponent() {
 		return (EReference) abstractImplementationEClass.getEStructuralFeatures().get(12);
 	}
@@ -5697,7 +5319,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getBehavioredImplementation() {
 		return behavioredImplementationEClass;
 	}
@@ -5707,7 +5328,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getBehavioredImplementation_SubprogramCall() {
 		return (EReference) behavioredImplementationEClass.getEStructuralFeatures().get(0);
 	}
@@ -5717,7 +5337,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getBehavioredImplementation_OwnedSubprogramCallSequence() {
 		return (EReference) behavioredImplementationEClass.getEStructuralFeatures().get(1);
 	}
@@ -5727,7 +5346,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSubprogramCallSequence() {
 		return subprogramCallSequenceEClass;
 	}
@@ -5737,7 +5355,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubprogramCallSequence_OwnedSubprogramCall() {
 		return (EReference) subprogramCallSequenceEClass.getEStructuralFeatures().get(0);
 	}
@@ -5747,7 +5364,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getBusSubcomponent() {
 		return busSubcomponentEClass;
 	}
@@ -5757,7 +5373,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getBusSubcomponent_BusSubcomponentType() {
 		return (EReference) busSubcomponentEClass.getEStructuralFeatures().get(0);
 	}
@@ -5767,7 +5382,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getDataSubcomponent() {
 		return dataSubcomponentEClass;
 	}
@@ -5777,7 +5391,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getDataSubcomponent_DataSubcomponentType() {
 		return (EReference) dataSubcomponentEClass.getEStructuralFeatures().get(0);
 	}
@@ -5787,7 +5400,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getDeviceSubcomponent() {
 		return deviceSubcomponentEClass;
 	}
@@ -5797,7 +5409,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getDeviceSubcomponent_DeviceSubcomponentType() {
 		return (EReference) deviceSubcomponentEClass.getEStructuralFeatures().get(0);
 	}
@@ -5807,7 +5418,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getDevice() {
 		return deviceEClass;
 	}
@@ -5817,7 +5427,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getDeviceSubcomponentType() {
 		return deviceSubcomponentTypeEClass;
 	}
@@ -5827,7 +5436,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getDeviceClassifier() {
 		return deviceClassifierEClass;
 	}
@@ -5837,7 +5445,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getMemorySubcomponent() {
 		return memorySubcomponentEClass;
 	}
@@ -5847,7 +5454,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getMemorySubcomponent_MemorySubcomponentType() {
 		return (EReference) memorySubcomponentEClass.getEStructuralFeatures().get(0);
 	}
@@ -5857,7 +5463,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getMemory() {
 		return memoryEClass;
 	}
@@ -5867,7 +5472,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getMemorySubcomponentType() {
 		return memorySubcomponentTypeEClass;
 	}
@@ -5877,7 +5481,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getMemoryClassifier() {
 		return memoryClassifierEClass;
 	}
@@ -5887,7 +5490,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getProcessSubcomponent() {
 		return processSubcomponentEClass;
 	}
@@ -5897,7 +5499,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getProcessSubcomponent_ProcessSubcomponentType() {
 		return (EReference) processSubcomponentEClass.getEStructuralFeatures().get(0);
 	}
@@ -5907,7 +5508,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getProcess() {
 		return processEClass;
 	}
@@ -5917,7 +5517,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getProcessSubcomponentType() {
 		return processSubcomponentTypeEClass;
 	}
@@ -5927,7 +5526,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getProcessClassifier() {
 		return processClassifierEClass;
 	}
@@ -5937,7 +5535,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getProcessorSubcomponent() {
 		return processorSubcomponentEClass;
 	}
@@ -5947,7 +5544,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getProcessorSubcomponent_ProcessorSubcomponentType() {
 		return (EReference) processorSubcomponentEClass.getEStructuralFeatures().get(0);
 	}
@@ -5957,7 +5553,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getProcessor() {
 		return processorEClass;
 	}
@@ -5967,7 +5562,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getProcessorSubcomponentType() {
 		return processorSubcomponentTypeEClass;
 	}
@@ -5977,7 +5571,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getProcessorClassifier() {
 		return processorClassifierEClass;
 	}
@@ -5987,7 +5580,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSystemSubcomponent() {
 		return systemSubcomponentEClass;
 	}
@@ -5997,7 +5589,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSystemSubcomponent_SystemSubcomponentType() {
 		return (EReference) systemSubcomponentEClass.getEStructuralFeatures().get(0);
 	}
@@ -6007,7 +5598,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSystem() {
 		return systemEClass;
 	}
@@ -6017,7 +5607,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSystemSubcomponentType() {
 		return systemSubcomponentTypeEClass;
 	}
@@ -6027,7 +5616,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSystemClassifier() {
 		return systemClassifierEClass;
 	}
@@ -6037,7 +5625,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSubprogramSubcomponent() {
 		return subprogramSubcomponentEClass;
 	}
@@ -6047,7 +5634,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubprogramSubcomponent_SubprogramSubcomponentType() {
 		return (EReference) subprogramSubcomponentEClass.getEStructuralFeatures().get(0);
 	}
@@ -6057,7 +5643,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSubprogramGroupSubcomponent() {
 		return subprogramGroupSubcomponentEClass;
 	}
@@ -6067,7 +5652,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubprogramGroupSubcomponent_SubprogramGroupSubcomponentType() {
 		return (EReference) subprogramGroupSubcomponentEClass.getEStructuralFeatures().get(0);
 	}
@@ -6077,7 +5661,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getThreadSubcomponent() {
 		return threadSubcomponentEClass;
 	}
@@ -6087,7 +5670,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getThreadSubcomponent_ThreadSubcomponentType() {
 		return (EReference) threadSubcomponentEClass.getEStructuralFeatures().get(0);
 	}
@@ -6097,7 +5679,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getThread() {
 		return threadEClass;
 	}
@@ -6107,7 +5688,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getThreadSubcomponentType() {
 		return threadSubcomponentTypeEClass;
 	}
@@ -6117,7 +5697,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getThreadClassifier() {
 		return threadClassifierEClass;
 	}
@@ -6127,7 +5706,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getThreadGroupSubcomponent() {
 		return threadGroupSubcomponentEClass;
 	}
@@ -6137,7 +5715,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getThreadGroupSubcomponent_ThreadGroupSubcomponentType() {
 		return (EReference) threadGroupSubcomponentEClass.getEStructuralFeatures().get(0);
 	}
@@ -6147,7 +5724,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getThreadGroup() {
 		return threadGroupEClass;
 	}
@@ -6157,7 +5733,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getThreadGroupSubcomponentType() {
 		return threadGroupSubcomponentTypeEClass;
 	}
@@ -6167,7 +5742,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getThreadGroupClassifier() {
 		return threadGroupClassifierEClass;
 	}
@@ -6177,7 +5751,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getVirtualBusSubcomponent() {
 		return virtualBusSubcomponentEClass;
 	}
@@ -6187,7 +5760,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getVirtualBusSubcomponent_VirtualBusSubcomponentType() {
 		return (EReference) virtualBusSubcomponentEClass.getEStructuralFeatures().get(0);
 	}
@@ -6197,7 +5769,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getVirtualBus() {
 		return virtualBusEClass;
 	}
@@ -6207,7 +5778,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getVirtualBusClassifier() {
 		return virtualBusClassifierEClass;
 	}
@@ -6217,7 +5787,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getVirtualProcessorSubcomponent() {
 		return virtualProcessorSubcomponentEClass;
 	}
@@ -6227,7 +5796,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getVirtualProcessorSubcomponent_VirtualProcessorSubcomponentType() {
 		return (EReference) virtualProcessorSubcomponentEClass.getEStructuralFeatures().get(0);
 	}
@@ -6237,7 +5805,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getVirtualProcessor() {
 		return virtualProcessorEClass;
 	}
@@ -6247,7 +5814,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getVirtualBusSubcomponentType() {
 		return virtualBusSubcomponentTypeEClass;
 	}
@@ -6257,7 +5823,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getVirtualProcessorSubcomponentType() {
 		return virtualProcessorSubcomponentTypeEClass;
 	}
@@ -6267,7 +5832,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAbstractPrototype() {
 		return abstractPrototypeEClass;
 	}
@@ -6277,7 +5841,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getVirtualProcessorClassifier() {
 		return virtualProcessorClassifierEClass;
 	}
@@ -6287,7 +5850,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getBusType() {
 		return busTypeEClass;
 	}
@@ -6297,7 +5859,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getBusType_OwnedBusAccess() {
 		return (EReference) busTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -6307,7 +5868,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getBusType_OwnedDataPort() {
 		return (EReference) busTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -6317,7 +5877,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getBusType_OwnedEventDataPort() {
 		return (EReference) busTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -6327,7 +5886,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getBusType_OwnedEventPort() {
 		return (EReference) busTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -6337,7 +5895,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getBusImplementation() {
 		return busImplementationEClass;
 	}
@@ -6347,7 +5904,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getBusImplementation_OwnedVirtualBusSubcomponent() {
 		return (EReference) busImplementationEClass.getEStructuralFeatures().get(0);
 	}
@@ -6357,7 +5913,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getBusPrototype() {
 		return busPrototypeEClass;
 	}
@@ -6367,7 +5922,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getDataType() {
 		return dataTypeEClass;
 	}
@@ -6377,7 +5931,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getDataType_OwnedSubprogramAccess() {
 		return (EReference) dataTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -6387,7 +5940,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getDataType_OwnedDataAccess() {
 		return (EReference) dataTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -6397,7 +5949,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getDataType_OwnedSubprogramGroupAccess() {
 		return (EReference) dataTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -6407,7 +5958,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getDataImplementation() {
 		return dataImplementationEClass;
 	}
@@ -6417,7 +5967,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getDataImplementation_OwnedDataSubcomponent() {
 		return (EReference) dataImplementationEClass.getEStructuralFeatures().get(0);
 	}
@@ -6427,7 +5976,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getDataImplementation_OwnedSubprogramSubcomponent() {
 		return (EReference) dataImplementationEClass.getEStructuralFeatures().get(1);
 	}
@@ -6437,7 +5985,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getDataPrototype() {
 		return dataPrototypeEClass;
 	}
@@ -6447,7 +5994,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getDeviceType() {
 		return deviceTypeEClass;
 	}
@@ -6457,7 +6003,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getDeviceType_OwnedDataPort() {
 		return (EReference) deviceTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -6467,7 +6012,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getDeviceType_OwnedEventDataPort() {
 		return (EReference) deviceTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -6477,7 +6021,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getDeviceType_OwnedEventPort() {
 		return (EReference) deviceTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -6487,7 +6030,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getDeviceType_OwnedBusAccess() {
 		return (EReference) deviceTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -6497,7 +6039,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getDeviceType_OwnedSubprogramAccess() {
 		return (EReference) deviceTypeEClass.getEStructuralFeatures().get(4);
 	}
@@ -6507,7 +6048,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getDeviceType_OwnedSubprogramGroupAccess() {
 		return (EReference) deviceTypeEClass.getEStructuralFeatures().get(5);
 	}
@@ -6517,7 +6057,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getDeviceImplementation() {
 		return deviceImplementationEClass;
 	}
@@ -6527,7 +6066,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getDeviceImplementation_OwnedBusSubcomponent() {
 		return (EReference) deviceImplementationEClass.getEStructuralFeatures().get(0);
 	}
@@ -6537,7 +6075,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getDeviceImplementation_OwnedDataSubcomponent() {
 		return (EReference) deviceImplementationEClass.getEStructuralFeatures().get(1);
 	}
@@ -6547,7 +6084,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getDeviceImplementation_OwnedVirtualBusSubcomponent() {
 		return (EReference) deviceImplementationEClass.getEStructuralFeatures().get(2);
 	}
@@ -6557,7 +6093,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getDevicePrototype() {
 		return devicePrototypeEClass;
 	}
@@ -6567,7 +6102,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getMemoryType() {
 		return memoryTypeEClass;
 	}
@@ -6577,7 +6111,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getMemoryType_OwnedBusAccess() {
 		return (EReference) memoryTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -6587,7 +6120,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getMemoryType_OwnedDataPort() {
 		return (EReference) memoryTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -6597,7 +6129,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getMemoryType_OwnedEventDataPort() {
 		return (EReference) memoryTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -6607,7 +6138,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getMemoryType_OwnedEventPort() {
 		return (EReference) memoryTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -6617,7 +6147,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getMemoryImplementation() {
 		return memoryImplementationEClass;
 	}
@@ -6627,7 +6156,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getMemoryImplementation_OwnedBusSubcomponent() {
 		return (EReference) memoryImplementationEClass.getEStructuralFeatures().get(0);
 	}
@@ -6637,7 +6165,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getMemoryImplementation_OwnedMemorySubcomponent() {
 		return (EReference) memoryImplementationEClass.getEStructuralFeatures().get(1);
 	}
@@ -6647,7 +6174,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getMemoryPrototype() {
 		return memoryPrototypeEClass;
 	}
@@ -6657,7 +6183,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getProcessType() {
 		return processTypeEClass;
 	}
@@ -6667,7 +6192,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getProcessType_OwnedDataPort() {
 		return (EReference) processTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -6677,7 +6201,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getProcessType_OwnedEventDataPort() {
 		return (EReference) processTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -6687,7 +6210,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getProcessType_OwnedEventPort() {
 		return (EReference) processTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -6697,7 +6219,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getProcessType_OwnedDataAccess() {
 		return (EReference) processTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -6707,7 +6228,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getProcessType_OwnedSubprogramAccess() {
 		return (EReference) processTypeEClass.getEStructuralFeatures().get(4);
 	}
@@ -6717,7 +6237,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getProcessType_OwnedSubprogramGroupAccess() {
 		return (EReference) processTypeEClass.getEStructuralFeatures().get(5);
 	}
@@ -6727,7 +6246,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getProcessorType() {
 		return processorTypeEClass;
 	}
@@ -6737,7 +6255,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getProcessorType_OwnedDataPort() {
 		return (EReference) processorTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -6747,7 +6264,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getProcessorType_OwnedEventDataPort() {
 		return (EReference) processorTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -6757,7 +6273,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getProcessorType_OwnedEventPort() {
 		return (EReference) processorTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -6767,7 +6282,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getProcessorType_OwnedBusAccess() {
 		return (EReference) processorTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -6777,7 +6291,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getProcessorType_OwnedSubprogramAccess() {
 		return (EReference) processorTypeEClass.getEStructuralFeatures().get(4);
 	}
@@ -6787,7 +6300,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getProcessorType_OwnedSubprogramGroupAccess() {
 		return (EReference) processorTypeEClass.getEStructuralFeatures().get(5);
 	}
@@ -6797,7 +6309,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getProcessImplementation() {
 		return processImplementationEClass;
 	}
@@ -6807,7 +6318,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getProcessImplementation_OwnedDataSubcomponent() {
 		return (EReference) processImplementationEClass.getEStructuralFeatures().get(0);
 	}
@@ -6817,7 +6327,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getProcessImplementation_OwnedSubprogramSubcomponent() {
 		return (EReference) processImplementationEClass.getEStructuralFeatures().get(1);
 	}
@@ -6827,7 +6336,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getProcessImplementation_OwnedSubprogramGroupSubcomponent() {
 		return (EReference) processImplementationEClass.getEStructuralFeatures().get(2);
 	}
@@ -6837,7 +6345,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getProcessImplementation_OwnedThreadSubcomponent() {
 		return (EReference) processImplementationEClass.getEStructuralFeatures().get(3);
 	}
@@ -6847,7 +6354,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getProcessImplementation_OwnedThreadGroupSubcomponent() {
 		return (EReference) processImplementationEClass.getEStructuralFeatures().get(4);
 	}
@@ -6857,7 +6363,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getProcessPrototype() {
 		return processPrototypeEClass;
 	}
@@ -6867,7 +6372,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getProcessorImplementation() {
 		return processorImplementationEClass;
 	}
@@ -6877,7 +6381,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getProcessorImplementation_OwnedBusSubcomponent() {
 		return (EReference) processorImplementationEClass.getEStructuralFeatures().get(0);
 	}
@@ -6887,7 +6390,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getProcessorImplementation_OwnedMemorySubcomponent() {
 		return (EReference) processorImplementationEClass.getEStructuralFeatures().get(1);
 	}
@@ -6897,7 +6399,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getProcessorImplementation_OwnedVirtualBusSubcomponent() {
 		return (EReference) processorImplementationEClass.getEStructuralFeatures().get(2);
 	}
@@ -6907,7 +6408,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getProcessorImplementation_OwnedVirtualProcessorSubcomponent() {
 		return (EReference) processorImplementationEClass.getEStructuralFeatures().get(3);
 	}
@@ -6917,7 +6417,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getProcessorPrototype() {
 		return processorPrototypeEClass;
 	}
@@ -6927,7 +6426,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSubprogramType() {
 		return subprogramTypeEClass;
 	}
@@ -6937,7 +6435,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubprogramType_OwnedEventDataPort() {
 		return (EReference) subprogramTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -6947,7 +6444,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubprogramType_OwnedEventPort() {
 		return (EReference) subprogramTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -6957,7 +6453,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubprogramType_OwnedParameter() {
 		return (EReference) subprogramTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -6967,7 +6462,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubprogramType_OwnedDataAccess() {
 		return (EReference) subprogramTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -6977,7 +6471,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubprogramType_OwnedSubprogramAccess() {
 		return (EReference) subprogramTypeEClass.getEStructuralFeatures().get(4);
 	}
@@ -6987,7 +6480,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubprogramType_OwnedSubprogramGroupAccess() {
 		return (EReference) subprogramTypeEClass.getEStructuralFeatures().get(5);
 	}
@@ -6997,7 +6489,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSubprogramImplementation() {
 		return subprogramImplementationEClass;
 	}
@@ -7007,7 +6498,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubprogramImplementation_OwnedDataSubcomponent() {
 		return (EReference) subprogramImplementationEClass.getEStructuralFeatures().get(0);
 	}
@@ -7017,7 +6507,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubprogramImplementation_OwnedSubprogramSubcomponent() {
 		return (EReference) subprogramImplementationEClass.getEStructuralFeatures().get(1);
 	}
@@ -7027,7 +6516,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSubprogramPrototype() {
 		return subprogramPrototypeEClass;
 	}
@@ -7037,7 +6525,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSubprogramGroupType() {
 		return subprogramGroupTypeEClass;
 	}
@@ -7047,7 +6534,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubprogramGroupType_OwnedSubprogramAccess() {
 		return (EReference) subprogramGroupTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -7057,7 +6543,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubprogramGroupType_OwnedSubprogramGroupAccess() {
 		return (EReference) subprogramGroupTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -7067,7 +6552,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSubprogramGroupImplementation() {
 		return subprogramGroupImplementationEClass;
 	}
@@ -7077,7 +6561,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubprogramGroupImplementation_OwnedSubprogramSubcomponent() {
 		return (EReference) subprogramGroupImplementationEClass.getEStructuralFeatures().get(0);
 	}
@@ -7087,7 +6570,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubprogramGroupImplementation_OwnedSubprogramGroupSubcomponent() {
 		return (EReference) subprogramGroupImplementationEClass.getEStructuralFeatures().get(1);
 	}
@@ -7097,7 +6579,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubprogramGroupImplementation_OwnedDataSubcomponent() {
 		return (EReference) subprogramGroupImplementationEClass.getEStructuralFeatures().get(2);
 	}
@@ -7107,7 +6588,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSubprogramGroupPrototype() {
 		return subprogramGroupPrototypeEClass;
 	}
@@ -7117,7 +6597,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSystemType() {
 		return systemTypeEClass;
 	}
@@ -7127,7 +6606,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSystemType_OwnedBusAccess() {
 		return (EReference) systemTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -7137,7 +6615,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSystemType_OwnedDataAccess() {
 		return (EReference) systemTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -7147,7 +6624,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSystemType_OwnedDataPort() {
 		return (EReference) systemTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -7157,7 +6633,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSystemType_OwnedSubprogramGroupAccess() {
 		return (EReference) systemTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -7167,7 +6642,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSystemType_OwnedSubprogramAccess() {
 		return (EReference) systemTypeEClass.getEStructuralFeatures().get(4);
 	}
@@ -7177,7 +6651,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSystemType_OwnedEventPort() {
 		return (EReference) systemTypeEClass.getEStructuralFeatures().get(5);
 	}
@@ -7187,7 +6660,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSystemType_OwnedEventDataPort() {
 		return (EReference) systemTypeEClass.getEStructuralFeatures().get(6);
 	}
@@ -7197,7 +6669,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSystemImplementation() {
 		return systemImplementationEClass;
 	}
@@ -7207,7 +6678,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSystemImplementation_OwnedBusSubcomponent() {
 		return (EReference) systemImplementationEClass.getEStructuralFeatures().get(0);
 	}
@@ -7217,7 +6687,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSystemImplementation_OwnedDataSubcomponent() {
 		return (EReference) systemImplementationEClass.getEStructuralFeatures().get(1);
 	}
@@ -7227,7 +6696,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSystemImplementation_OwnedDeviceSubcomponent() {
 		return (EReference) systemImplementationEClass.getEStructuralFeatures().get(2);
 	}
@@ -7237,7 +6705,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSystemImplementation_OwnedMemorySubcomponent() {
 		return (EReference) systemImplementationEClass.getEStructuralFeatures().get(3);
 	}
@@ -7247,7 +6714,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSystemImplementation_OwnedProcessSubcomponent() {
 		return (EReference) systemImplementationEClass.getEStructuralFeatures().get(4);
 	}
@@ -7257,7 +6723,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSystemImplementation_OwnedProcessorSubcomponent() {
 		return (EReference) systemImplementationEClass.getEStructuralFeatures().get(5);
 	}
@@ -7267,7 +6732,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSystemImplementation_OwnedSubprogramSubcomponent() {
 		return (EReference) systemImplementationEClass.getEStructuralFeatures().get(6);
 	}
@@ -7277,7 +6741,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSystemImplementation_OwnedSubprogramGroupSubcomponent() {
 		return (EReference) systemImplementationEClass.getEStructuralFeatures().get(7);
 	}
@@ -7287,7 +6750,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSystemImplementation_OwnedSystemSubcomponent() {
 		return (EReference) systemImplementationEClass.getEStructuralFeatures().get(8);
 	}
@@ -7297,7 +6759,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSystemImplementation_OwnedVirtualBusSubcomponent() {
 		return (EReference) systemImplementationEClass.getEStructuralFeatures().get(9);
 	}
@@ -7307,7 +6768,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSystemImplementation_OwnedVirtualProcessorSubcomponent() {
 		return (EReference) systemImplementationEClass.getEStructuralFeatures().get(10);
 	}
@@ -7317,7 +6777,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSystemPrototype() {
 		return systemPrototypeEClass;
 	}
@@ -7327,7 +6786,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getThreadType() {
 		return threadTypeEClass;
 	}
@@ -7337,7 +6795,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getThreadType_OwnedDataPort() {
 		return (EReference) threadTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -7347,7 +6804,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getThreadType_OwnedEventDataPort() {
 		return (EReference) threadTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -7357,7 +6813,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getThreadType_OwnedEventPort() {
 		return (EReference) threadTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -7367,7 +6822,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getThreadType_OwnedDataAccess() {
 		return (EReference) threadTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -7377,7 +6831,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getThreadType_OwnedSubprogramAccess() {
 		return (EReference) threadTypeEClass.getEStructuralFeatures().get(4);
 	}
@@ -7387,7 +6840,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getThreadType_OwnedSubprogramGroupAccess() {
 		return (EReference) threadTypeEClass.getEStructuralFeatures().get(5);
 	}
@@ -7397,7 +6849,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getThreadImplementation() {
 		return threadImplementationEClass;
 	}
@@ -7407,7 +6858,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getThreadImplementation_OwnedSubprogramGroupSubcomponent() {
 		return (EReference) threadImplementationEClass.getEStructuralFeatures().get(0);
 	}
@@ -7417,7 +6867,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getThreadImplementation_OwnedSubprogramSubcomponent() {
 		return (EReference) threadImplementationEClass.getEStructuralFeatures().get(1);
 	}
@@ -7427,7 +6876,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getThreadImplementation_OwnedDataSubcomponent() {
 		return (EReference) threadImplementationEClass.getEStructuralFeatures().get(2);
 	}
@@ -7437,7 +6885,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getThreadPrototype() {
 		return threadPrototypeEClass;
 	}
@@ -7447,7 +6894,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getThreadGroupType() {
 		return threadGroupTypeEClass;
 	}
@@ -7457,7 +6903,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getThreadGroupType_OwnedDataPort() {
 		return (EReference) threadGroupTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -7467,7 +6912,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getThreadGroupType_OwnedEventDataPort() {
 		return (EReference) threadGroupTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -7477,7 +6921,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getThreadGroupType_OwnedEventPort() {
 		return (EReference) threadGroupTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -7487,7 +6930,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getThreadGroupType_OwnedDataAccess() {
 		return (EReference) threadGroupTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -7497,7 +6939,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getThreadGroupType_OwnedSubprogramAccess() {
 		return (EReference) threadGroupTypeEClass.getEStructuralFeatures().get(4);
 	}
@@ -7507,7 +6948,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getThreadGroupType_OwnedSubprogramGroupAccess() {
 		return (EReference) threadGroupTypeEClass.getEStructuralFeatures().get(5);
 	}
@@ -7517,7 +6957,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getThreadGroupImplementation() {
 		return threadGroupImplementationEClass;
 	}
@@ -7527,7 +6966,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getThreadGroupImplementation_OwnedDataSubcomponent() {
 		return (EReference) threadGroupImplementationEClass.getEStructuralFeatures().get(0);
 	}
@@ -7537,7 +6975,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getThreadGroupImplementation_OwnedThreadSubcomponent() {
 		return (EReference) threadGroupImplementationEClass.getEStructuralFeatures().get(1);
 	}
@@ -7547,7 +6984,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getThreadGroupImplementation_OwnedThreadGroupSubcomponent() {
 		return (EReference) threadGroupImplementationEClass.getEStructuralFeatures().get(2);
 	}
@@ -7557,7 +6993,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getThreadGroupImplementation_OwnedSubprogramSubcomponent() {
 		return (EReference) threadGroupImplementationEClass.getEStructuralFeatures().get(3);
 	}
@@ -7567,7 +7002,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getThreadGroupImplementation_OwnedSubprogramGroupSubcomponent() {
 		return (EReference) threadGroupImplementationEClass.getEStructuralFeatures().get(4);
 	}
@@ -7577,7 +7011,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getThreadGroupPrototype() {
 		return threadGroupPrototypeEClass;
 	}
@@ -7587,7 +7020,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getVirtualBusType() {
 		return virtualBusTypeEClass;
 	}
@@ -7597,7 +7029,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getVirtualBusType_OwnedDataPort() {
 		return (EReference) virtualBusTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -7607,7 +7038,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getVirtualBusType_OwnedEventDataPort() {
 		return (EReference) virtualBusTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -7617,7 +7047,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getVirtualBusType_OwnedEventPort() {
 		return (EReference) virtualBusTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -7627,7 +7056,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getVirtualBusType_OwnedBusAccess() {
 		return (EReference) virtualBusTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -7637,7 +7065,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getVirtualBusImplementation() {
 		return virtualBusImplementationEClass;
 	}
@@ -7647,7 +7074,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getVirtualBusImplementation_OwnedVirtualBusSubcomponent() {
 		return (EReference) virtualBusImplementationEClass.getEStructuralFeatures().get(0);
 	}
@@ -7657,7 +7083,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getVirtualBusPrototype() {
 		return virtualBusPrototypeEClass;
 	}
@@ -7667,7 +7092,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getVirtualProcessorType() {
 		return virtualProcessorTypeEClass;
 	}
@@ -7677,7 +7101,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getVirtualProcessorType_OwnedDataPort() {
 		return (EReference) virtualProcessorTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -7687,7 +7110,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getVirtualProcessorType_OwnedEventDataPort() {
 		return (EReference) virtualProcessorTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -7697,7 +7119,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getVirtualProcessorType_OwnedEventPort() {
 		return (EReference) virtualProcessorTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -7707,7 +7128,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getVirtualProcessorType_OwnedSubprogramAccess() {
 		return (EReference) virtualProcessorTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -7717,7 +7137,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getVirtualProcessorType_OwnedSubprogramGroupAccess() {
 		return (EReference) virtualProcessorTypeEClass.getEStructuralFeatures().get(4);
 	}
@@ -7727,7 +7146,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getVirtualProcessorType_OwnedBusAccess() {
 		return (EReference) virtualProcessorTypeEClass.getEStructuralFeatures().get(5);
 	}
@@ -7737,7 +7155,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getVirtualProcessorImplementation() {
 		return virtualProcessorImplementationEClass;
 	}
@@ -7747,7 +7164,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getVirtualProcessorImplementation_OwnedVirtualBusSubcomponent() {
 		return (EReference) virtualProcessorImplementationEClass.getEStructuralFeatures().get(0);
 	}
@@ -7757,7 +7173,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getVirtualProcessorImplementation_OwnedVirtualProcessorSubcomponent() {
 		return (EReference) virtualProcessorImplementationEClass.getEStructuralFeatures().get(1);
 	}
@@ -7767,7 +7182,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getVirtualProcessorPrototype() {
 		return virtualProcessorPrototypeEClass;
 	}
@@ -7777,7 +7191,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getComponentPrototypeBinding() {
 		return componentPrototypeBindingEClass;
 	}
@@ -7787,7 +7200,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentPrototypeBinding_Actual() {
 		return (EReference) componentPrototypeBindingEClass.getEStructuralFeatures().get(0);
 	}
@@ -7797,7 +7209,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getComponentPrototypeActual() {
 		return componentPrototypeActualEClass;
 	}
@@ -7807,7 +7218,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getComponentPrototypeActual_Category() {
 		return (EAttribute) componentPrototypeActualEClass.getEStructuralFeatures().get(0);
 	}
@@ -7817,7 +7227,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentPrototypeActual_Binding() {
 		return (EReference) componentPrototypeActualEClass.getEStructuralFeatures().get(1);
 	}
@@ -7827,7 +7236,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getComponentPrototypeActual_SubcomponentType() {
 		return (EReference) componentPrototypeActualEClass.getEStructuralFeatures().get(2);
 	}
@@ -7837,7 +7245,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFeatureGroupPrototype() {
 		return featureGroupPrototypeEClass;
 	}
@@ -7847,7 +7254,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeatureGroupPrototype_ConstrainingFeatureGroupType() {
 		return (EReference) featureGroupPrototypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -7857,7 +7263,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFeatureGroupPrototypeBinding() {
 		return featureGroupPrototypeBindingEClass;
 	}
@@ -7867,7 +7272,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeatureGroupPrototypeBinding_Actual() {
 		return (EReference) featureGroupPrototypeBindingEClass.getEStructuralFeatures().get(0);
 	}
@@ -7877,7 +7281,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFeatureGroupPrototypeActual() {
 		return featureGroupPrototypeActualEClass;
 	}
@@ -7887,7 +7290,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeatureGroupPrototypeActual_Binding() {
 		return (EReference) featureGroupPrototypeActualEClass.getEStructuralFeatures().get(0);
 	}
@@ -7897,7 +7299,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeatureGroupPrototypeActual_FeatureType() {
 		return (EReference) featureGroupPrototypeActualEClass.getEStructuralFeatures().get(1);
 	}
@@ -7907,7 +7308,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFeaturePrototype() {
 		return featurePrototypeEClass;
 	}
@@ -7917,7 +7317,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getFeaturePrototype_Direction() {
 		return (EAttribute) featurePrototypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -7927,7 +7326,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeaturePrototype_ConstrainingClassifier() {
 		return (EReference) featurePrototypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -7937,7 +7335,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getFeaturePrototype_In() {
 		return (EAttribute) featurePrototypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -7947,7 +7344,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getFeaturePrototype_Out() {
 		return (EAttribute) featurePrototypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -7957,7 +7353,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFeaturePrototypeBinding() {
 		return featurePrototypeBindingEClass;
 	}
@@ -7967,7 +7362,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeaturePrototypeBinding_Actual() {
 		return (EReference) featurePrototypeBindingEClass.getEStructuralFeatures().get(0);
 	}
@@ -7977,7 +7371,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFeaturePrototypeActual() {
 		return featurePrototypeActualEClass;
 	}
@@ -7987,7 +7380,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAccessSpecification() {
 		return accessSpecificationEClass;
 	}
@@ -7997,7 +7389,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getAccessSpecification_Kind() {
 		return (EAttribute) accessSpecificationEClass.getEStructuralFeatures().get(0);
 	}
@@ -8007,7 +7398,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getAccessSpecification_Category() {
 		return (EAttribute) accessSpecificationEClass.getEStructuralFeatures().get(1);
 	}
@@ -8017,7 +7407,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAccessSpecification_Classifier() {
 		return (EReference) accessSpecificationEClass.getEStructuralFeatures().get(2);
 	}
@@ -8027,7 +7416,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getAccessSpecification_ComponentPrototype() {
 		return (EReference) accessSpecificationEClass.getEStructuralFeatures().get(3);
 	}
@@ -8037,7 +7425,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getPortSpecification() {
 		return portSpecificationEClass;
 	}
@@ -8047,7 +7434,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getPortSpecification_Direction() {
 		return (EAttribute) portSpecificationEClass.getEStructuralFeatures().get(0);
 	}
@@ -8057,7 +7443,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getPortSpecification_Category() {
 		return (EAttribute) portSpecificationEClass.getEStructuralFeatures().get(1);
 	}
@@ -8067,7 +7452,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPortSpecification_Classifier() {
 		return (EReference) portSpecificationEClass.getEStructuralFeatures().get(2);
 	}
@@ -8077,7 +7461,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPortSpecification_ComponentPrototype() {
 		return (EReference) portSpecificationEClass.getEStructuralFeatures().get(3);
 	}
@@ -8087,7 +7470,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getPortSpecification_In() {
 		return (EAttribute) portSpecificationEClass.getEStructuralFeatures().get(4);
 	}
@@ -8097,7 +7479,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getPortSpecification_Out() {
 		return (EAttribute) portSpecificationEClass.getEStructuralFeatures().get(5);
 	}
@@ -8107,7 +7488,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getFeaturePrototypeReference() {
 		return featurePrototypeReferenceEClass;
 	}
@@ -8117,7 +7497,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getFeaturePrototypeReference_Direction() {
 		return (EAttribute) featurePrototypeReferenceEClass.getEStructuralFeatures().get(0);
 	}
@@ -8127,7 +7506,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getFeaturePrototypeReference_Prototype() {
 		return (EReference) featurePrototypeReferenceEClass.getEStructuralFeatures().get(1);
 	}
@@ -8137,7 +7515,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getFeaturePrototypeReference_In() {
 		return (EAttribute) featurePrototypeReferenceEClass.getEStructuralFeatures().get(2);
 	}
@@ -8147,7 +7524,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getFeaturePrototypeReference_Out() {
 		return (EAttribute) featurePrototypeReferenceEClass.getEStructuralFeatures().get(3);
 	}
@@ -8157,7 +7533,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getSubprogramCall() {
 		return subprogramCallEClass;
 	}
@@ -8167,7 +7542,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubprogramCall_CalledSubprogram() {
 		return (EReference) subprogramCallEClass.getEStructuralFeatures().get(0);
 	}
@@ -8177,7 +7551,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getSubprogramCall_Context() {
 		return (EReference) subprogramCallEClass.getEStructuralFeatures().get(1);
 	}
@@ -8187,7 +7560,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getBasicPropertyAssociation() {
 		return basicPropertyAssociationEClass;
 	}
@@ -8197,7 +7569,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getBasicPropertyAssociation_Property() {
 		return (EReference) basicPropertyAssociationEClass.getEStructuralFeatures().get(0);
 	}
@@ -8207,7 +7578,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getBasicPropertyAssociation_OwnedValue() {
 		return (EReference) basicPropertyAssociationEClass.getEStructuralFeatures().get(1);
 	}
@@ -8217,7 +7587,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getPropertyConstant() {
 		return propertyConstantEClass;
 	}
@@ -8227,7 +7596,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPropertyConstant_ReferencedPropertyType() {
 		return (EReference) propertyConstantEClass.getEStructuralFeatures().get(0);
 	}
@@ -8237,7 +7605,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPropertyConstant_PropertyType() {
 		return (EReference) propertyConstantEClass.getEStructuralFeatures().get(3);
 	}
@@ -8247,7 +7614,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPropertyConstant_OwnedPropertyType() {
 		return (EReference) propertyConstantEClass.getEStructuralFeatures().get(1);
 	}
@@ -8257,7 +7623,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPropertyConstant_ConstantValue() {
 		return (EReference) propertyConstantEClass.getEStructuralFeatures().get(2);
 	}
@@ -8267,7 +7632,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAbstractNamedValue() {
 		return abstractNamedValueEClass;
 	}
@@ -8277,7 +7641,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getArraySizeProperty() {
 		return arraySizePropertyEClass;
 	}
@@ -8287,7 +7650,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getPropertyValue() {
 		return propertyValueEClass;
 	}
@@ -8297,7 +7659,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getEnumerationLiteral() {
 		return enumerationLiteralEClass;
 	}
@@ -8307,7 +7668,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getUnitLiteral() {
 		return unitLiteralEClass;
 	}
@@ -8317,7 +7677,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getUnitLiteral_BaseUnit() {
 		return (EReference) unitLiteralEClass.getEStructuralFeatures().get(0);
 	}
@@ -8327,7 +7686,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getUnitLiteral_Factor() {
 		return (EReference) unitLiteralEClass.getEStructuralFeatures().get(1);
 	}
@@ -8337,7 +7695,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getNumberValue() {
 		return numberValueEClass;
 	}
@@ -8347,7 +7704,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getNumberValue_Unit() {
 		return (EReference) numberValueEClass.getEStructuralFeatures().get(0);
 	}
@@ -8357,7 +7713,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getStringLiteral() {
 		return stringLiteralEClass;
 	}
@@ -8367,7 +7722,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getStringLiteral_Value() {
 		return (EAttribute) stringLiteralEClass.getEStructuralFeatures().get(0);
 	}
@@ -8377,7 +7731,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getClassifierValue() {
 		return classifierValueEClass;
 	}
@@ -8387,7 +7740,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getClassifierValue_Classifier() {
 		return (EReference) classifierValueEClass.getEStructuralFeatures().get(0);
 	}
@@ -8397,7 +7749,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getReferenceValue() {
 		return referenceValueEClass;
 	}
@@ -8407,7 +7758,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getBooleanLiteral() {
 		return booleanLiteralEClass;
 	}
@@ -8417,7 +7767,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getBooleanLiteral_Value() {
 		return (EAttribute) booleanLiteralEClass.getEStructuralFeatures().get(0);
 	}
@@ -8427,7 +7776,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getRangeValue() {
 		return rangeValueEClass;
 	}
@@ -8437,7 +7785,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getRangeValue_Minimum() {
 		return (EReference) rangeValueEClass.getEStructuralFeatures().get(0);
 	}
@@ -8447,7 +7794,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getRangeValue_Maximum() {
 		return (EReference) rangeValueEClass.getEStructuralFeatures().get(1);
 	}
@@ -8457,7 +7803,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getRangeValue_Delta() {
 		return (EReference) rangeValueEClass.getEStructuralFeatures().get(2);
 	}
@@ -8467,7 +7812,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getIntegerLiteral() {
 		return integerLiteralEClass;
 	}
@@ -8477,7 +7821,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getIntegerLiteral_Base() {
 		return (EAttribute) integerLiteralEClass.getEStructuralFeatures().get(0);
 	}
@@ -8487,7 +7830,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getIntegerLiteral_Value() {
 		return (EAttribute) integerLiteralEClass.getEStructuralFeatures().get(1);
 	}
@@ -8497,7 +7839,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getRealLiteral() {
 		return realLiteralEClass;
 	}
@@ -8507,7 +7848,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getRealLiteral_Value() {
 		return (EAttribute) realLiteralEClass.getEStructuralFeatures().get(0);
 	}
@@ -8517,7 +7857,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getOperation() {
 		return operationEClass;
 	}
@@ -8527,7 +7866,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getOperation_Op() {
 		return (EAttribute) operationEClass.getEStructuralFeatures().get(0);
 	}
@@ -8537,7 +7875,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getOperation_OwnedPropertyExpression() {
 		return (EReference) operationEClass.getEStructuralFeatures().get(1);
 	}
@@ -8547,7 +7884,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getRecordValue() {
 		return recordValueEClass;
 	}
@@ -8557,7 +7893,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getRecordValue_OwnedFieldValue() {
 		return (EReference) recordValueEClass.getEStructuralFeatures().get(0);
 	}
@@ -8567,7 +7902,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getComputedValue() {
 		return computedValueEClass;
 	}
@@ -8577,7 +7911,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EAttribute getComputedValue_Function() {
 		return (EAttribute) computedValueEClass.getEStructuralFeatures().get(0);
 	}
@@ -8587,7 +7920,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getListValue() {
 		return listValueEClass;
 	}
@@ -8597,7 +7929,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getListValue_OwnedListElement() {
 		return (EReference) listValueEClass.getEStructuralFeatures().get(0);
 	}
@@ -8607,7 +7938,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getNamedValue() {
 		return namedValueEClass;
 	}
@@ -8617,7 +7947,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getNamedValue_NamedValue() {
 		return (EReference) namedValueEClass.getEStructuralFeatures().get(0);
 	}
@@ -8627,7 +7956,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getPropertySet() {
 		return propertySetEClass;
 	}
@@ -8637,7 +7965,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPropertySet_OwnedPropertyType() {
 		return (EReference) propertySetEClass.getEStructuralFeatures().get(0);
 	}
@@ -8647,7 +7974,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPropertySet_OwnedProperty() {
 		return (EReference) propertySetEClass.getEStructuralFeatures().get(1);
 	}
@@ -8657,7 +7983,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPropertySet_OwnedPropertyConstant() {
 		return (EReference) propertySetEClass.getEStructuralFeatures().get(2);
 	}
@@ -8667,7 +7992,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPropertySet_ImportedUnit() {
 		return (EReference) propertySetEClass.getEStructuralFeatures().get(3);
 	}
@@ -8677,7 +8001,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getPropertySet_OwnedAnnexSubclause() {
 		return (EReference) propertySetEClass.getEStructuralFeatures().get(4);
 	}
@@ -8687,7 +8010,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getGlobalNamespace() {
 		return globalNamespaceEClass;
 	}
@@ -8697,7 +8019,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getGlobalNamespace_Package() {
 		return (EReference) globalNamespaceEClass.getEStructuralFeatures().get(0);
 	}
@@ -8707,7 +8028,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getGlobalNamespace_PropertySet() {
 		return (EReference) globalNamespaceEClass.getEStructuralFeatures().get(1);
 	}
@@ -8717,7 +8037,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getNonListType() {
 		return nonListTypeEClass;
 	}
@@ -8727,7 +8046,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAadlBoolean() {
 		return aadlBooleanEClass;
 	}
@@ -8737,7 +8055,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAadlString() {
 		return aadlStringEClass;
 	}
@@ -8747,7 +8064,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAadlInteger() {
 		return aadlIntegerEClass;
 	}
@@ -8757,7 +8073,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getNumberType() {
 		return numberTypeEClass;
 	}
@@ -8767,7 +8082,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getNumberType_OwnedUnitsType() {
 		return (EReference) numberTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -8777,7 +8091,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getNumberType_ReferencedUnitsType() {
 		return (EReference) numberTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -8787,7 +8100,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getNumberType_UnitsType() {
 		return (EReference) numberTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -8797,7 +8109,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getNumberType_Range() {
 		return (EReference) numberTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -8807,7 +8118,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getUnitsType() {
 		return unitsTypeEClass;
 	}
@@ -8817,7 +8127,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getEnumerationType() {
 		return enumerationTypeEClass;
 	}
@@ -8827,7 +8136,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getEnumerationType_OwnedLiteral() {
 		return (EReference) enumerationTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -8837,7 +8145,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getNumericRange() {
 		return numericRangeEClass;
 	}
@@ -8847,7 +8154,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getNumericRange_UpperBound() {
 		return (EReference) numericRangeEClass.getEStructuralFeatures().get(0);
 	}
@@ -8857,7 +8163,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getNumericRange_LowerBound() {
 		return (EReference) numericRangeEClass.getEStructuralFeatures().get(1);
 	}
@@ -8867,7 +8172,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getAadlReal() {
 		return aadlRealEClass;
 	}
@@ -8877,7 +8181,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getClassifierType() {
 		return classifierTypeEClass;
 	}
@@ -8887,7 +8190,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getClassifierType_ClassifierReference() {
 		return (EReference) classifierTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -8897,7 +8199,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getRangeType() {
 		return rangeTypeEClass;
 	}
@@ -8907,7 +8208,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getRangeType_OwnedNumberType() {
 		return (EReference) rangeTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -8917,7 +8217,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getRangeType_NumberType() {
 		return (EReference) rangeTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -8927,7 +8226,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getRangeType_ReferencedNumberType() {
 		return (EReference) rangeTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -8937,7 +8235,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getRecordType() {
 		return recordTypeEClass;
 	}
@@ -8947,7 +8244,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getRecordType_OwnedField() {
 		return (EReference) recordTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -8957,7 +8253,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getRecordField() {
 		return recordFieldEClass;
 	}
@@ -8967,7 +8262,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getReferenceType() {
 		return referenceTypeEClass;
 	}
@@ -8977,7 +8271,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getReferenceType_NamedElementReference() {
 		return (EReference) referenceTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -8987,7 +8280,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EClass getListType() {
 		return listTypeEClass;
 	}
@@ -8997,7 +8289,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getListType_OwnedElementType() {
 		return (EReference) listTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -9007,7 +8298,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getListType_ReferencedElementType() {
 		return (EReference) listTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -9017,7 +8307,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EReference getListType_ElementType() {
 		return (EReference) listTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -9027,7 +8316,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EEnum getDirectionType() {
 		return directionTypeEEnum;
 	}
@@ -9037,7 +8325,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EEnum getPortCategory() {
 		return portCategoryEEnum;
 	}
@@ -9047,7 +8334,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EEnum getFlowKind() {
 		return flowKindEEnum;
 	}
@@ -9057,7 +8343,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EEnum getAccessType() {
 		return accessTypeEEnum;
 	}
@@ -9067,7 +8352,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EEnum getAccessCategory() {
 		return accessCategoryEEnum;
 	}
@@ -9077,7 +8361,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EEnum getComponentCategory() {
 		return componentCategoryEEnum;
 	}
@@ -9087,7 +8370,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EEnum getOperationKind() {
 		return operationKindEEnum;
 	}
@@ -9097,7 +8379,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EDataType getString() {
 		return stringEDataType;
 	}
@@ -9107,7 +8388,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EDataType getBoolean() {
 		return booleanEDataType;
 	}
@@ -9117,7 +8397,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EDataType getInteger() {
 		return integerEDataType;
 	}
@@ -9127,7 +8406,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EDataType getReal() {
 		return realEDataType;
 	}
@@ -9137,7 +8415,6 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Aadl2Factory getAadl2Factory() {
 		return (Aadl2Factory) getEFactoryInstance();
 	}

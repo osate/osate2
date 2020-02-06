@@ -1,3 +1,26 @@
+/**
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ */
 package org.osate.ge.tests.endToEnd.util;
 
 import static org.eclipse.swtbot.swt.finder.SWTBotAssert.*;
@@ -36,6 +59,7 @@ import org.eclipse.swtbot.swt.finder.widgets.AbstractSWTBot;
 import org.eclipse.swtbot.swt.finder.widgets.AbstractSWTBotControl;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotCanvas;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotSpinner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTableItem;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
@@ -124,6 +148,24 @@ public class UiTestUtil {
 	}
 
 	/**
+	 * Asserts that the nth spinner has the specified value.
+	 */
+	public static void assertSpinnerValue(final String message, final int index, final int expectedValue) {
+		final SWTBotSpinner spinner = bot.spinner(index);
+		assertEquals(message, expectedValue, spinner.getSelection());
+	}
+
+	/**
+	 * Sets the text in the nth spinner to the specified value.
+	 * @param index
+	 * @param value
+	 */
+	public static void setSpinnerValue(final int index, final int value) {
+		bot.spinner(index).setSelection(value);
+		assertSpinnerValue("New value not valid", index, value);
+	}
+
+	/**
 	 * Asserts that the nth combo box has the specified selection.
 	 */
 	public static void assertComboBoxSelection(final String message, final int index, final String expected) {
@@ -203,6 +245,23 @@ public class UiTestUtil {
 
 	public static void clickTableItem(final int tableIndex, final String tableItem) {
 		bot.table().getTableItem(tableItem).click();
+	}
+
+	public static void clickTableItem(final int tableIndex, final int rowIndex) {
+		bot.table().getTableItem(rowIndex).click();
+	}
+
+	public static int getNumberOfTableRows(final int tableIndex) {
+		return bot.table().rowCount();
+	}
+
+	public static void assertNumberOfTableRows(final int tableIndex, final int expectedValue) {
+		assertEquals("Unexpected number of table rows", expectedValue, getNumberOfTableRows(tableIndex));
+	}
+
+	public static void assertTableItemText(final int tableIndex, final int rowIndex,
+			final String expectedValue) {
+		assertEquals("Unexpected table item text", expectedValue, bot.table().getTableItem(rowIndex).getText());
 	}
 
 	/**
