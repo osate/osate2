@@ -7,7 +7,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.DefaultAnnexSubclause
-import org.osate.ba.aadlba.BehaviorAnnex
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
@@ -34,7 +33,7 @@ class Issue1884Test {
 				]
 			]
 		]
-		3.assertEquals(result.issues.size)
+		4.assertEquals(result.issues.size)
 		result.issues.get(0) => [
 			"unterminated behavior state (missing ending ';')".assertEquals(message)
 			7.assertEquals(lineNumber)
@@ -44,7 +43,11 @@ class Issue1884Test {
 			17.assertEquals(lineNumber)
 		]
 		result.issues.get(2) => [
-			"abstract components cannot contain a dispatch condition in any of its transitions: they cannot be dispatched (extention of Behavior Annex D.3.(L5) legality rule).".assertEquals(message)
+			"The dispatch relative timeout and catch statement must only be declared for timed thread: Behavior Annex D.4.(L1) legality rule failed.".assertEquals(message)
+			27.assertEquals(lineNumber)
+		]
+		result.issues.get(3) => [
+			"Using a dispatch condition in an abstract component means this component can only be refined into a component category on which the Dispatch_Protocol property can be applied.".assertEquals(message)
 			27.assertEquals(lineNumber)
 		]
 	}

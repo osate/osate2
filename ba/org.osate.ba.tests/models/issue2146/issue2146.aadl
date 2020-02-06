@@ -1,0 +1,33 @@
+package issue2146
+public
+	
+  feature group RodentsRequired
+    features
+      Hamster: in event data port;
+  end RodentsRequired;
+
+  feature group RodentsProvided
+    features 
+      Gerbil: out event data port;
+  end RodentsProvided;
+
+  thread group threadA
+    features
+      inputA: in feature group RodentsRequired;
+      outputA: out feature group RodentsProvided;
+  end threadA;
+
+  thread group implementation threadA.impl
+    subcomponents
+      t0 : thread;
+    annex behavior_specification {**
+    states
+      s0: initial state;
+      s1: final state;
+
+    transitions
+      s0 -[inputA.Hamster=1]-> s1 {outputA.Gerbil:=1};
+    **};
+  end threadA.impl;
+  
+end issue2146;

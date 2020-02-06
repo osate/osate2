@@ -9,14 +9,14 @@
  * 
  * This program is free software: you can redistribute it and/or modify 
  * it under the terms of the Eclipse Public License as published by Eclipse,
- * either version 1.0 of the License, or (at your option) any later version.
+ * either version 2.0 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Eclipse Public License for more details.
  * You should have received a copy of the Eclipse Public License
  * along with this program.  If not, see 
- * http://www.eclipse.org/org/documents/epl-v10.php
+ * https://www.eclipse.org/legal/epl-2.0/
  */
 
 package org.osate.ba.parser ;
@@ -82,6 +82,7 @@ import org.osate.ba.parser.AadlBaParser.In_bindingContext ;
 import org.osate.ba.parser.AadlBaParser.Integer_valueContext ;
 import org.osate.ba.parser.AadlBaParser.Integer_value_constantContext ;
 import org.osate.ba.parser.AadlBaParser.Logical_operatorContext ;
+import org.osate.ba.parser.AadlBaParser.Mode_switch_trigger_conjunctionContext ;
 import org.osate.ba.parser.AadlBaParser.Multiplying_operatorContext ;
 import org.osate.ba.parser.AadlBaParser.Parameter_labelContext ;
 import org.osate.ba.parser.AadlBaParser.Property_nameContext ;
@@ -1295,6 +1296,15 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
         setLocationReference(ctx.dispatch_condition().result, ctx.ON()) ;
         ctx.result = ctx.dispatch_condition().result ;
       }
+      else
+      {
+        if(ctx.mode_switch_trigger_logical_expression()!=null &&
+            ctx.mode_switch_trigger_logical_expression().result!=null)
+        {
+          setLocationReference(ctx.mode_switch_trigger_logical_expression().result, ctx.ON()) ;
+          ctx.result = ctx.mode_switch_trigger_logical_expression().result ;
+        }
+      }
     }
     else
     {
@@ -1957,6 +1967,42 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     
     ctx.result = result ;
     
+    return null ;
+  }
+
+  @Override
+  public T visitMode_switch_trigger_conjunction(@NotNull AadlBaParser.Mode_switch_trigger_conjunctionContext ctx)
+  {
+    visitChildren(ctx) ;
+    
+    ctx.result = _fact.createModeSwitchConjunction();
+    
+    ctx.result.setLocationReference(ctx.reference(0).result
+                                    .getLocationReference()) ;
+
+    for(ReferenceContext rc : ctx.reference())
+    {
+      ctx.result.getModeSwitchTriggers().add(rc.result) ;
+    }
+
+    return null ;
+  }
+
+  @Override
+  public T visitMode_switch_trigger_logical_expression(@NotNull AadlBaParser.Mode_switch_trigger_logical_expressionContext ctx)
+  {
+    visitChildren(ctx) ;
+    
+    ctx.result = _fact.createModeSwitchTriggerLogicalExpression() ;
+
+    ctx.result.setLocationReference(ctx.mode_switch_trigger_conjunction(0).result
+          .getLocationReference()) ;
+
+    for(Mode_switch_trigger_conjunctionContext dcc : ctx.mode_switch_trigger_conjunction())
+    {
+      ctx.result.getModeSwitchConjunctions().add(dcc.result) ;
+    }
+
     return null ;
   }
 }

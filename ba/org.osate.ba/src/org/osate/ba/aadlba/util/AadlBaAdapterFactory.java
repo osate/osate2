@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright © 2011 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -9,13 +9,13 @@
  * 
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
- * version 1.0 of the License, or (at your option) any later version. This
+ * version 2.0 of the License, or (at your option) any later version. This
  * program is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License for
  * more details. You should have received a copy of the Eclipse Public License
  * along with this program. If not, see
- * http://www.eclipse.org/org/documents/epl-v10.php
+ * https://www.eclipse.org/legal/epl-2.0/
  */
 package org.osate.ba.aadlba.util;
 
@@ -678,6 +678,26 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
       public Adapter caseWhileOrDoUntilStatement(WhileOrDoUntilStatement object)
       {
         return createWhileOrDoUntilStatementAdapter();
+      }
+      @Override
+      public Adapter caseModeSwitchTriggerLogicalExpression(ModeSwitchTriggerLogicalExpression object)
+      {
+        return createModeSwitchTriggerLogicalExpressionAdapter();
+      }
+      @Override
+      public Adapter caseModeSwitchTriggerCondition(ModeSwitchTriggerCondition object)
+      {
+        return createModeSwitchTriggerConditionAdapter();
+      }
+      @Override
+      public Adapter caseModeSwitchConjunction(ModeSwitchConjunction object)
+      {
+        return createModeSwitchConjunctionAdapter();
+      }
+      @Override
+      public Adapter caseModeSwitchTrigger(ModeSwitchTrigger object)
+      {
+        return createModeSwitchTriggerAdapter();
       }
       @Override
       public Adapter caseElement(Element object)
@@ -2362,6 +2382,66 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createWhileOrDoUntilStatementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.ModeSwitchTriggerLogicalExpression <em>Mode Switch Trigger Logical Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.ModeSwitchTriggerLogicalExpression
+   * @generated
+   */
+  public Adapter createModeSwitchTriggerLogicalExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.ModeSwitchTriggerCondition <em>Mode Switch Trigger Condition</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.ModeSwitchTriggerCondition
+   * @generated
+   */
+  public Adapter createModeSwitchTriggerConditionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.ModeSwitchConjunction <em>Mode Switch Conjunction</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.ModeSwitchConjunction
+   * @generated
+   */
+  public Adapter createModeSwitchConjunctionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.ModeSwitchTrigger <em>Mode Switch Trigger</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.ModeSwitchTrigger
+   * @generated
+   */
+  public Adapter createModeSwitchTriggerAdapter()
   {
     return null;
   }

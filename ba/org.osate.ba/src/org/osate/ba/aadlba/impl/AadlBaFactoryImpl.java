@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright © 2011 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -9,13 +9,13 @@
  * 
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
- * version 1.0 of the License, or (at your option) any later version. This
+ * version 2.0 of the License, or (at your option) any later version. This
  * program is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License for
  * more details. You should have received a copy of the Eclipse Public License
  * along with this program. If not, see
- * http://www.eclipse.org/org/documents/epl-v10.php
+ * https://www.eclipse.org/legal/epl-2.0/
  */
 package org.osate.ba.aadlba.impl;
 
@@ -100,9 +100,9 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
       case AadlBaPackage.BEHAVIOR_VARIABLE: return (EObject)createBehaviorVariable();
       case AadlBaPackage.BEHAVIOR_VARIABLE_HOLDER: return (EObject)createBehaviorVariableHolder();
       case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER: return (EObject)createCalledSubprogramHolder();
+      case AadlBaPackage.CLASSIFIER_FEATURE_PROPERTY_REFERENCE: return (EObject)createClassifierFeaturePropertyReference();
       case AadlBaPackage.CLASSIFIER_PROPERTY_REFERENCE: return (EObject)createClassifierPropertyReference();
       case AadlBaPackage.COMPLETION_RELATIVE_TIMEOUT: return (EObject)createCompletionRelativeTimeout();
-      case AadlBaPackage.CLASSIFIER_FEATURE_PROPERTY_REFERENCE: return (EObject)createClassifierFeaturePropertyReference();
       case AadlBaPackage.DATA_ACCESS_HOLDER: return (EObject)createDataAccessHolder();
       case AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER: return (EObject)createDataAccessPrototypeHolder();
       case AadlBaPackage.DATA_COMPONENT_REFERENCE: return (EObject)createDataComponentReference();
@@ -139,11 +139,11 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
       case AadlBaPackage.PORT_FRESH_VALUE: return (EObject)createPortFreshValue();
       case AadlBaPackage.PORT_PROTOTYPE_HOLDER: return (EObject)createPortPrototypeHolder();
       case AadlBaPackage.PORT_SEND_ACTION: return (EObject)createPortSendAction();
-      case AadlBaPackage.PROPERTY_NAME_HOLDER: return (EObject)createPropertyNameHolder();
       case AadlBaPackage.PROPERTY_ASSOCIATION_HOLDER: return (EObject)createPropertyAssociationHolder();
       case AadlBaPackage.PROPERTY_EXPRESSION_HOLDER: return (EObject)createPropertyExpressionHolder();
-      case AadlBaPackage.PROPERTY_TYPE_HOLDER: return (EObject)createPropertyTypeHolder();
+      case AadlBaPackage.PROPERTY_NAME_HOLDER: return (EObject)createPropertyNameHolder();
       case AadlBaPackage.PROPERTY_SET_PROPERTY_REFERENCE: return (EObject)createPropertySetPropertyReference();
+      case AadlBaPackage.PROPERTY_TYPE_HOLDER: return (EObject)createPropertyTypeHolder();
       case AadlBaPackage.RELATION: return (EObject)createRelation();
       case AadlBaPackage.SIMPLE_EXPRESSION: return (EObject)createSimpleExpression();
       case AadlBaPackage.STRUCT_UNION_ELEMENT: return (EObject)createStructUnionElement();
@@ -162,6 +162,8 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
       case AadlBaPackage.UPPER_BOUND: return (EObject)createUpperBound();
       case AadlBaPackage.VALUE_EXPRESSION: return (EObject)createValueExpression();
       case AadlBaPackage.WHILE_OR_DO_UNTIL_STATEMENT: return (EObject)createWhileOrDoUntilStatement();
+      case AadlBaPackage.MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION: return (EObject)createModeSwitchTriggerLogicalExpression();
+      case AadlBaPackage.MODE_SWITCH_CONJUNCTION: return (EObject)createModeSwitchConjunction();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -262,6 +264,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public AssignmentAction createAssignmentAction()
   {
     AssignmentActionImpl assignmentAction = new AssignmentActionImpl();
@@ -273,6 +276,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Any createAny()
   {
     AnyImpl any = new AnyImpl();
@@ -284,6 +288,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BasicPropertyHolder createBasicPropertyHolder()
   {
     BasicPropertyHolderImpl basicPropertyHolder = new BasicPropertyHolderImpl();
@@ -295,6 +300,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BehaviorActionBlock createBehaviorActionBlock()
   {
     BehaviorActionBlockImpl behaviorActionBlock = new BehaviorActionBlockImpl();
@@ -306,6 +312,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BehaviorActionSequence createBehaviorActionSequence()
   {
     BehaviorActionSequenceImpl behaviorActionSequence = new BehaviorActionSequenceImpl();
@@ -317,6 +324,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BehaviorActionSet createBehaviorActionSet()
   {
     BehaviorActionSetImpl behaviorActionSet = new BehaviorActionSetImpl();
@@ -328,6 +336,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BehaviorAnnex createBehaviorAnnex()
   {
     BehaviorAnnexImpl behaviorAnnex = new BehaviorAnnexImpl();
@@ -339,6 +348,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BehaviorBooleanLiteral createBehaviorBooleanLiteral()
   {
     BehaviorBooleanLiteralImpl behaviorBooleanLiteral = new BehaviorBooleanLiteralImpl();
@@ -350,6 +360,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BehaviorIntegerLiteral createBehaviorIntegerLiteral()
   {
     BehaviorIntegerLiteralImpl behaviorIntegerLiteral = new BehaviorIntegerLiteralImpl();
@@ -361,6 +372,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BehaviorPropertyConstant createBehaviorPropertyConstant()
   {
     BehaviorPropertyConstantImpl behaviorPropertyConstant = new BehaviorPropertyConstantImpl();
@@ -372,6 +384,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BehaviorRealLiteral createBehaviorRealLiteral()
   {
     BehaviorRealLiteralImpl behaviorRealLiteral = new BehaviorRealLiteralImpl();
@@ -383,6 +396,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BehaviorState createBehaviorState()
   {
     BehaviorStateImpl behaviorState = new BehaviorStateImpl();
@@ -394,6 +408,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BehaviorStringLiteral createBehaviorStringLiteral()
   {
     BehaviorStringLiteralImpl behaviorStringLiteral = new BehaviorStringLiteralImpl();
@@ -405,6 +420,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BehaviorTime createBehaviorTime()
   {
     BehaviorTimeImpl behaviorTime = new BehaviorTimeImpl();
@@ -416,6 +432,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BehaviorTransition createBehaviorTransition()
   {
     BehaviorTransitionImpl behaviorTransition = new BehaviorTransitionImpl();
@@ -427,6 +444,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BehaviorVariable createBehaviorVariable()
   {
     BehaviorVariableImpl behaviorVariable = new BehaviorVariableImpl();
@@ -438,6 +456,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BehaviorVariableHolder createBehaviorVariableHolder()
   {
     BehaviorVariableHolderImpl behaviorVariableHolder = new BehaviorVariableHolderImpl();
@@ -449,6 +468,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public CalledSubprogramHolder createCalledSubprogramHolder()
   {
     CalledSubprogramHolderImpl calledSubprogramHolder = new CalledSubprogramHolderImpl();
@@ -460,6 +480,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public CompletionRelativeTimeout createCompletionRelativeTimeout()
   {
     CompletionRelativeTimeoutImpl completionRelativeTimeout = new CompletionRelativeTimeoutImpl();
@@ -471,6 +492,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ClassifierFeaturePropertyReference createClassifierFeaturePropertyReference()
   {
     ClassifierFeaturePropertyReferenceImpl classifierFeaturePropertyReference = new ClassifierFeaturePropertyReferenceImpl();
@@ -482,6 +504,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public DataAccessHolder createDataAccessHolder()
   {
     DataAccessHolderImpl dataAccessHolder = new DataAccessHolderImpl();
@@ -493,6 +516,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public DataAccessPrototypeHolder createDataAccessPrototypeHolder()
   {
     DataAccessPrototypeHolderImpl dataAccessPrototypeHolder = new DataAccessPrototypeHolderImpl();
@@ -504,6 +528,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public DataComponentReference createDataComponentReference()
   {
     DataComponentReferenceImpl dataComponentReference = new DataComponentReferenceImpl();
@@ -515,6 +540,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public DataPortHolder createDataPortHolder()
   {
     DataPortHolderImpl dataPortHolder = new DataPortHolderImpl();
@@ -526,6 +552,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public DataSubcomponentHolder createDataSubcomponentHolder()
   {
     DataSubcomponentHolderImpl dataSubcomponentHolder = new DataSubcomponentHolderImpl();
@@ -537,6 +564,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public DispatchCondition createDispatchCondition()
   {
     DispatchConditionImpl dispatchCondition = new DispatchConditionImpl();
@@ -548,6 +576,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public DispatchConjunction createDispatchConjunction()
   {
     DispatchConjunctionImpl dispatchConjunction = new DispatchConjunctionImpl();
@@ -559,6 +588,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public DispatchRelativeTimeout createDispatchRelativeTimeout()
   {
     DispatchRelativeTimeoutImpl dispatchRelativeTimeout = new DispatchRelativeTimeoutImpl();
@@ -570,6 +600,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public DispatchTriggerConditionStop createDispatchTriggerConditionStop()
   {
     DispatchTriggerConditionStopImpl dispatchTriggerConditionStop = new DispatchTriggerConditionStopImpl();
@@ -581,6 +612,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public DispatchTriggerLogicalExpression createDispatchTriggerLogicalExpression()
   {
     DispatchTriggerLogicalExpressionImpl dispatchTriggerLogicalExpression = new DispatchTriggerLogicalExpressionImpl();
@@ -592,6 +624,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ElseStatement createElseStatement()
   {
     ElseStatementImpl elseStatement = new ElseStatementImpl();
@@ -603,6 +636,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EnumLiteralHolder createEnumLiteralHolder()
   {
     EnumLiteralHolderImpl enumLiteralHolder = new EnumLiteralHolderImpl();
@@ -614,6 +648,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EventDataPortHolder createEventDataPortHolder()
   {
     EventDataPortHolderImpl eventDataPortHolder = new EventDataPortHolderImpl();
@@ -625,6 +660,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EventPortHolder createEventPortHolder()
   {
     EventPortHolderImpl eventPortHolder = new EventPortHolderImpl();
@@ -636,6 +672,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ExecutionTimeoutCatch createExecutionTimeoutCatch()
   {
     ExecutionTimeoutCatchImpl executionTimeoutCatch = new ExecutionTimeoutCatchImpl();
@@ -647,6 +684,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Factor createFactor()
   {
     FactorImpl factor = new FactorImpl();
@@ -658,6 +696,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public FeaturePrototypeHolder createFeaturePrototypeHolder()
   {
     FeaturePrototypeHolderImpl featurePrototypeHolder = new FeaturePrototypeHolderImpl();
@@ -669,6 +708,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ForOrForAllStatement createForOrForAllStatement()
   {
     ForOrForAllStatementImpl forOrForAllStatement = new ForOrForAllStatementImpl();
@@ -680,6 +720,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public GroupHolder createGroupHolder()
   {
     GroupHolderImpl groupHolder = new GroupHolderImpl();
@@ -691,6 +732,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public GroupPrototypeHolder createGroupPrototypeHolder()
   {
     GroupPrototypeHolderImpl groupPrototypeHolder = new GroupPrototypeHolderImpl();
@@ -702,6 +744,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public IfStatement createIfStatement()
   {
     IfStatementImpl ifStatement = new IfStatementImpl();
@@ -713,6 +756,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public IntegerRange createIntegerRange()
   {
     IntegerRangeImpl integerRange = new IntegerRangeImpl();
@@ -724,6 +768,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public IterativeVariable createIterativeVariable()
   {
     IterativeVariableImpl iterativeVariable = new IterativeVariableImpl();
@@ -735,6 +780,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public IterativeVariableHolder createIterativeVariableHolder()
   {
     IterativeVariableHolderImpl iterativeVariableHolder = new IterativeVariableHolderImpl();
@@ -746,6 +792,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public LockAction createLockAction()
   {
     LockActionImpl lockAction = new LockActionImpl();
@@ -757,6 +804,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Otherwise createOtherwise()
   {
     OtherwiseImpl otherwise = new OtherwiseImpl();
@@ -768,6 +816,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ParameterHolder createParameterHolder()
   {
     ParameterHolderImpl parameterHolder = new ParameterHolderImpl();
@@ -779,6 +828,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PortCountValue createPortCountValue()
   {
     PortCountValueImpl portCountValue = new PortCountValueImpl();
@@ -790,6 +840,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PortDequeueAction createPortDequeueAction()
   {
     PortDequeueActionImpl portDequeueAction = new PortDequeueActionImpl();
@@ -801,6 +852,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PortDequeueValue createPortDequeueValue()
   {
     PortDequeueValueImpl portDequeueValue = new PortDequeueValueImpl();
@@ -812,6 +864,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PortFreezeAction createPortFreezeAction()
   {
     PortFreezeActionImpl portFreezeAction = new PortFreezeActionImpl();
@@ -823,6 +876,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PortFreshValue createPortFreshValue()
   {
     PortFreshValueImpl portFreshValue = new PortFreshValueImpl();
@@ -834,6 +888,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PortPrototypeHolder createPortPrototypeHolder()
   {
     PortPrototypeHolderImpl portPrototypeHolder = new PortPrototypeHolderImpl();
@@ -845,6 +900,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PortSendAction createPortSendAction()
   {
     PortSendActionImpl portSendAction = new PortSendActionImpl();
@@ -856,6 +912,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyNameHolder createPropertyNameHolder()
   {
     PropertyNameHolderImpl propertyNameHolder = new PropertyNameHolderImpl();
@@ -867,6 +924,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyAssociationHolder createPropertyAssociationHolder()
   {
     PropertyAssociationHolderImpl propertyAssociationHolder = new PropertyAssociationHolderImpl();
@@ -878,6 +936,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyExpressionHolder createPropertyExpressionHolder()
   {
     PropertyExpressionHolderImpl propertyExpressionHolder = new PropertyExpressionHolderImpl();
@@ -889,6 +948,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyTypeHolder createPropertyTypeHolder()
   {
     PropertyTypeHolderImpl propertyTypeHolder = new PropertyTypeHolderImpl();
@@ -900,6 +960,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Relation createRelation()
   {
     RelationImpl relation = new RelationImpl();
@@ -911,6 +972,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public SimpleExpression createSimpleExpression()
   {
     SimpleExpressionImpl simpleExpression = new SimpleExpressionImpl();
@@ -922,6 +984,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public StructUnionElement createStructUnionElement()
   {
     StructUnionElementImpl structUnionElement = new StructUnionElementImpl();
@@ -933,6 +996,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public StructUnionElementHolder createStructUnionElementHolder()
   {
     StructUnionElementHolderImpl structUnionElementHolder = new StructUnionElementHolderImpl();
@@ -944,6 +1008,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public SubprogramAccessHolder createSubprogramAccessHolder()
   {
     SubprogramAccessHolderImpl subprogramAccessHolder = new SubprogramAccessHolderImpl();
@@ -955,6 +1020,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public SubprogramCallAction createSubprogramCallAction()
   {
     SubprogramCallActionImpl subprogramCallAction = new SubprogramCallActionImpl();
@@ -966,6 +1032,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public SubprogramHolder createSubprogramHolder()
   {
     SubprogramHolderImpl subprogramHolder = new SubprogramHolderImpl();
@@ -977,6 +1044,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public SubprogramHolderProxy createSubprogramHolderProxy()
   {
     SubprogramHolderProxyImpl subprogramHolderProxy = new SubprogramHolderProxyImpl();
@@ -988,6 +1056,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public SubprogramPrototypeHolder createSubprogramPrototypeHolder()
   {
     SubprogramPrototypeHolderImpl subprogramPrototypeHolder = new SubprogramPrototypeHolderImpl();
@@ -999,6 +1068,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Target createTarget()
   {
     TargetImpl target = new TargetImpl();
@@ -1010,6 +1080,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Term createTerm()
   {
     TermImpl term = new TermImpl();
@@ -1021,6 +1092,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TimedAction createTimedAction()
   {
     TimedActionImpl timedAction = new TimedActionImpl();
@@ -1032,6 +1104,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public UnlockAction createUnlockAction()
   {
     UnlockActionImpl unlockAction = new UnlockActionImpl();
@@ -1043,6 +1116,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ValueExpression createValueExpression()
   {
     ValueExpressionImpl valueExpression = new ValueExpressionImpl();
@@ -1054,6 +1128,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public WhileOrDoUntilStatement createWhileOrDoUntilStatement()
   {
     WhileOrDoUntilStatementImpl whileOrDoUntilStatement = new WhileOrDoUntilStatementImpl();
@@ -1065,6 +1140,31 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
+  public ModeSwitchTriggerLogicalExpression createModeSwitchTriggerLogicalExpression()
+  {
+    ModeSwitchTriggerLogicalExpressionImpl modeSwitchTriggerLogicalExpression = new ModeSwitchTriggerLogicalExpressionImpl();
+    return modeSwitchTriggerLogicalExpression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public ModeSwitchConjunction createModeSwitchConjunction()
+  {
+    ModeSwitchConjunctionImpl modeSwitchConjunction = new ModeSwitchConjunctionImpl();
+    return modeSwitchConjunction;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public PropertySetPropertyReference createPropertySetPropertyReference()
   {
     PropertySetPropertyReferenceImpl propertySetPropertyReference = new PropertySetPropertyReferenceImpl();
@@ -1076,6 +1176,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public SubcomponentHolder createSubcomponentHolder()
   {
     SubcomponentHolderImpl subcomponentHolder = new SubcomponentHolderImpl();
@@ -1087,6 +1188,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public SubprogramSubcomponentHolder createSubprogramSubcomponentHolder()
   {
     SubprogramSubcomponentHolderImpl subprogramSubcomponentHolder = new SubprogramSubcomponentHolderImpl();
@@ -1098,6 +1200,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public FeatureHolder createFeatureHolder()
   {
     FeatureHolderImpl featureHolder = new FeatureHolderImpl();
@@ -1109,6 +1212,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ClassifierPropertyReference createClassifierPropertyReference()
   {
     ClassifierPropertyReferenceImpl classifierPropertyReference = new ClassifierPropertyReferenceImpl();
@@ -1120,6 +1224,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public UpperBound createUpperBound()
   {
     UpperBoundImpl upperBound = new UpperBoundImpl();
@@ -1131,6 +1236,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public LowerBound createLowerBound()
   {
     LowerBoundImpl lowerBound = new LowerBoundImpl();
@@ -1464,6 +1570,7 @@ public class AadlBaFactoryImpl extends EFactoryImpl implements AadlBaFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public AadlBaPackage getAadlBaPackage()
   {
     return (AadlBaPackage)getEPackage();

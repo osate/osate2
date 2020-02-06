@@ -9,14 +9,14 @@
  * 
  * This program is free software: you can redistribute it and/or modify 
  * it under the terms of the Eclipse Public License as published by Eclipse,
- * either version 1.0 of the License, or (at your option) any later version.
+ * either version 2.0 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Eclipse Public License for more details.
  * You should have received a copy of the Eclipse Public License
  * along with this program.  If not, see 
- * http://www.eclipse.org/org/documents/epl-v10.php
+ * https://www.eclipse.org/legal/epl-2.0/
  */
  
 grammar AadlBa; /* COMPLIANCE : ANTLR 4.4 */
@@ -39,14 +39,14 @@ options
  * 
  * This program is free software: you can redistribute it and/or modify 
  * it under the terms of the Eclipse Public License as published by Eclipse,
- * either version 1.0 of the License, or (at your option) any later version.
+ * either version 2.0 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Eclipse Public License for more details.
  * You should have received a copy of the Eclipse Public License
  * along with this program.  If not, see 
- * http://www.eclipse.org/org/documents/epl-v10.php
+ * https://www.eclipse.org/legal/epl-2.0/
  */
  
  package org.osate.ba.parser ;
@@ -146,14 +146,14 @@ options
  * 
  * This program is free software: you can redistribute it and/or modify 
  * it under the terms of the Eclipse Public License as published by Eclipse,
- * either version 1.0 of the License, or (at your option) any later version.
+ * either version 2.0 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Eclipse Public License for more details.
  * You should have received a copy of the Eclipse Public License
  * along with this program.  If not, see 
- * http://www.eclipse.org/org/documents/epl-v10.php
+ * https://www.eclipse.org/legal/epl-2.0/
  */
   
   package org.osate.ba.parser;
@@ -504,6 +504,8 @@ behavior_condition returns [BehaviorCondition result]
   :
       ( ON dispatch_condition )
     |
+      ( ON mode_switch_trigger_logical_expression)
+    |
       ( execute_condition )?
 ;
 
@@ -614,6 +616,12 @@ dispatch_trigger_condition returns [DispatchTriggerCondition result]
        STOP
 ;
 
+mode_switch_trigger_logical_expression returns [ModeSwitchTriggerLogicalExpression
+                                             result]
+   : 
+     mode_switch_trigger_conjunction ( OR mode_switch_trigger_conjunction )*
+;
+
 // dispatch_trigger_logical_expression ::=
 // dispatch_conjunction { or dispatch_conjunction }*
 dispatch_trigger_logical_expression returns [DispatchTriggerLogicalExpression
@@ -629,6 +637,11 @@ dispatch_trigger_logical_expression returns [DispatchTriggerLogicalExpression
 // in_event_port_name
 // | in_event_data_port_name
 dispatch_conjunction returns [DispatchConjunction result]
+   :
+     reference ( AND reference )*
+;
+
+mode_switch_trigger_conjunction returns [ModeSwitchConjunction result]
    :
      reference ( AND reference )*
 ;
