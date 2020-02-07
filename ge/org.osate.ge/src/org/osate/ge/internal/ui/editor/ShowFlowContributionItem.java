@@ -52,7 +52,6 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.Feature;
-import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FlowElement;
 import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowSegment;
@@ -354,30 +353,16 @@ public class ShowFlowContributionItem extends ControlContribution {
 					}
 				}
 
-				if (flowEnd.getFeature() instanceof FeatureGroup) {
-					final FeatureGroup fg = (FeatureGroup) flowEnd.getFeature();
-					final RelativeBusinessObjectReference fgRef = getRelativeBusinessObjectReference(fg);
-					if (flowEnd.getContext() != null) {
-						final BusinessObjectNode contextNode = containerNode
-								.getChild(getRelativeBusinessObjectReference(flowEnd.getContext()));
-						if (contextNode.getChild(fgRef) == null) {
-							createNode(contextNode, fgRef, fg);
-						}
-					} else if (containerNode.getChild(fgRef) == null) {
-						createNode(containerNode, fgRef, fg);
+				final Feature feature = (Feature) flowEnd.getFeature();
+				final RelativeBusinessObjectReference featureRef = getRelativeBusinessObjectReference(feature);
+				if (flowEnd.getContext() != null) {
+					final BusinessObjectNode contextNode = containerNode
+							.getChild(getRelativeBusinessObjectReference(flowEnd.getContext()));
+					if (contextNode.getChild(featureRef) == null) {
+						createNode(contextNode, featureRef, feature);
 					}
-				} else {
-					final Feature feature = (Feature) flowEnd.getFeature();
-					final RelativeBusinessObjectReference featureRef = getRelativeBusinessObjectReference(feature);
-					if (flowEnd.getContext() != null) {
-						final BusinessObjectNode contextNode = containerNode
-								.getChild(getRelativeBusinessObjectReference(flowEnd.getContext()));
-						if (contextNode.getChild(getRelativeBusinessObjectReference(feature)) == null) {
-							createNode(contextNode, featureRef, feature);
-						}
-					} else if (containerNode.getChild(featureRef) == null) {
-						createNode(containerNode, featureRef, feature);
-					}
+				} else if (containerNode.getChild(featureRef) == null) {
+					createNode(containerNode, featureRef, feature);
 				}
 			}
 
