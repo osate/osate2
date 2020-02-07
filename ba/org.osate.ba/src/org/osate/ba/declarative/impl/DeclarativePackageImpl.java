@@ -33,6 +33,7 @@ import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.declarative.ArrayableIdentifier ;
 import org.osate.ba.declarative.CommAction ;
 import org.osate.ba.declarative.DeclarativeArrayDimension ;
+import org.osate.ba.declarative.DeclarativeBasicPropertyAssociation ;
 import org.osate.ba.declarative.DeclarativeBehaviorElement ;
 import org.osate.ba.declarative.DeclarativeBehaviorTransition ;
 import org.osate.ba.declarative.DeclarativeFactory ;
@@ -44,6 +45,7 @@ import org.osate.ba.declarative.DeclarativePropertyExpression ;
 import org.osate.ba.declarative.DeclarativePropertyName ;
 import org.osate.ba.declarative.DeclarativePropertyReference ;
 import org.osate.ba.declarative.DeclarativeRealLiteral ;
+import org.osate.ba.declarative.DeclarativeRecordValue ;
 import org.osate.ba.declarative.DeclarativeStringLiteral ;
 import org.osate.ba.declarative.DeclarativeTime ;
 import org.osate.ba.declarative.Identifier ;
@@ -185,6 +187,20 @@ public class DeclarativePackageImpl extends EPackageImpl implements
    * @generated
    */
   private EClass declarativeRealLiteralEClass = null ;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass declarativeRecordValueEClass = null ;
+
+  /**
+  	 * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+  	 * @generated
+  	 */
+  private EClass declarativeBasicPropertyAssociationEClass = null ;
 
   /**
   	 * Creates an instance of the model <b>Package</b>, registered with
@@ -826,6 +842,40 @@ public class DeclarativePackageImpl extends EPackageImpl implements
   }
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getDeclarativeRecordValue()
+  {
+    return declarativeRecordValueEClass ;
+  }
+
+  /**
+  	 * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+  	 * @generated
+  	 */
+  @Override
+  public EClass getDeclarativeBasicPropertyAssociation()
+  {
+    return declarativeBasicPropertyAssociationEClass ;
+  }
+
+  /**
+  	 * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+  	 * @generated
+  	 */
+  @Override
+  public EAttribute getDeclarativeBasicPropertyAssociation_BasicPropertyName()
+  {
+    return (EAttribute) declarativeBasicPropertyAssociationEClass.getEStructuralFeatures()
+                                                                 .get(0) ;
+  }
+
+  /**
   	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
   	 * @generated
@@ -948,6 +998,13 @@ public class DeclarativePackageImpl extends EPackageImpl implements
                                                    DECLARATIVE_INTEGER_LITERAL) ;
 
     declarativeRealLiteralEClass = createEClass(DECLARATIVE_REAL_LITERAL) ;
+
+    declarativeRecordValueEClass = createEClass(DECLARATIVE_RECORD_VALUE) ;
+
+    declarativeBasicPropertyAssociationEClass = createEClass(
+                                                             DECLARATIVE_BASIC_PROPERTY_ASSOCIATION) ;
+    createEAttribute(declarativeBasicPropertyAssociationEClass,
+                     DECLARATIVE_BASIC_PROPERTY_ASSOCIATION__BASIC_PROPERTY_NAME) ;
   }
 
   /**
@@ -1071,6 +1128,12 @@ public class DeclarativePackageImpl extends EPackageImpl implements
                                                                       .getBehaviorRealLiteral()) ;
     declarativeRealLiteralEClass.getESuperTypes().add(this
                                                           .getDeclarativePropertyExpression()) ;
+    declarativeRecordValueEClass.getESuperTypes().add(theAadl2Package
+                                                                     .getRecordValue()) ;
+    declarativeRecordValueEClass.getESuperTypes().add(this
+                                                          .getDeclarativePropertyExpression()) ;
+    declarativeBasicPropertyAssociationEClass.getESuperTypes().add(
+                                                                   theAadl2Package.getBasicPropertyAssociation()) ;
 
     // Initialize classes and features; add operations and parameters
     initEClass(arrayableIdentifierEClass, ArrayableIdentifier.class,
@@ -1319,6 +1382,20 @@ public class DeclarativePackageImpl extends EPackageImpl implements
     initEClass(declarativeRealLiteralEClass, DeclarativeRealLiteral.class,
                "DeclarativeRealLiteral", !IS_ABSTRACT, !IS_INTERFACE,
                IS_GENERATED_INSTANCE_CLASS) ;
+
+    initEClass(declarativeRecordValueEClass, DeclarativeRecordValue.class,
+               "DeclarativeRecordValue", !IS_ABSTRACT, !IS_INTERFACE,
+               IS_GENERATED_INSTANCE_CLASS) ;
+
+    initEClass(declarativeBasicPropertyAssociationEClass,
+               DeclarativeBasicPropertyAssociation.class,
+               "DeclarativeBasicPropertyAssociation", !IS_ABSTRACT,
+               !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS) ;
+    initEAttribute(getDeclarativeBasicPropertyAssociation_BasicPropertyName(),
+                   theAadl2Package.getString(), "basicPropertyName", null, 1, 1,
+                   DeclarativeBasicPropertyAssociation.class, !IS_TRANSIENT,
+                   !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+                   IS_UNIQUE, !IS_DERIVED, IS_ORDERED) ;
 
     // Create resource
     createResource(eNS_URI) ;

@@ -116,6 +116,10 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
         return createDeclarativeIntegerLiteral() ;
       case DeclarativePackage.DECLARATIVE_REAL_LITERAL :
         return createDeclarativeRealLiteral() ;
+      case DeclarativePackage.DECLARATIVE_RECORD_VALUE :
+        return createDeclarativeRecordValue() ;
+      case DeclarativePackage.DECLARATIVE_BASIC_PROPERTY_ASSOCIATION :
+        return createDeclarativeBasicPropertyAssociation() ;
       default :
         throw new IllegalArgumentException("The class '" + eClass.getName() +
                                            "' is not a valid classifier") ;
@@ -323,6 +327,33 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
     DeclarativeRealLiteralImpl declarativeRealLiteral =
                                                       new DeclarativeRealLiteralImpl() ;
     return declarativeRealLiteral ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public DeclarativeRecordValue createDeclarativeRecordValue()
+  {
+    DeclarativeRecordValueImpl declarativeRecordValue =
+                                                      new DeclarativeRecordValueImpl() ;
+    return declarativeRecordValue ;
+  }
+
+  /**
+  	 * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+  	 * @generated
+  	 */
+  @Override
+  public DeclarativeBasicPropertyAssociation
+         createDeclarativeBasicPropertyAssociation()
+  {
+    DeclarativeBasicPropertyAssociationImpl declarativeBasicPropertyAssociation =
+                                                                                new DeclarativeBasicPropertyAssociationImpl() ;
+    return declarativeBasicPropertyAssociation ;
   }
 
   /**

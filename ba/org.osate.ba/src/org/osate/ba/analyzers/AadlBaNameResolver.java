@@ -22,8 +22,10 @@
 package org.osate.ba.analyzers;
 
 import java.util.ArrayList ;
+import java.util.HashSet ;
 import java.util.List ;
 import java.util.ListIterator ;
+import java.util.Set ;
 
 import org.eclipse.emf.common.util.BasicEList ;
 import org.eclipse.emf.common.util.EList ;
@@ -31,6 +33,7 @@ import org.eclipse.emf.ecore.EObject ;
 import org.osate.aadl2.Aadl2Package ;
 import org.osate.aadl2.ArrayDimension ;
 import org.osate.aadl2.BasicProperty ;
+import org.osate.aadl2.BasicPropertyAssociation ;
 import org.osate.aadl2.Classifier ;
 import org.osate.aadl2.ClassifierFeature ;
 import org.osate.aadl2.ClassifierValue ;
@@ -58,10 +61,12 @@ import org.osate.aadl2.Prototype ;
 import org.osate.aadl2.PrototypeBinding ;
 import org.osate.aadl2.RealLiteral ;
 import org.osate.aadl2.RecordType ;
+import org.osate.aadl2.RecordValue ;
 import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.Subcomponent ;
 import org.osate.aadl2.UnitLiteral ;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager ;
+import org.osate.aadl2.modelsupport.util.AadlUtil ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.Any ;
 import org.osate.ba.aadlba.AssignmentAction ;
@@ -111,6 +116,7 @@ import org.osate.ba.aadlba.WhileOrDoUntilStatement ;
 import org.osate.ba.declarative.ArrayableIdentifier ;
 import org.osate.ba.declarative.CommAction ;
 import org.osate.ba.declarative.DeclarativeArrayDimension ;
+import org.osate.ba.declarative.DeclarativeBasicPropertyAssociation ;
 import org.osate.ba.declarative.DeclarativeBehaviorElement ;
 import org.osate.ba.declarative.DeclarativeBehaviorTransition ;
 import org.osate.ba.declarative.DeclarativeFactory ;
@@ -2435,6 +2441,16 @@ public class AadlBaNameResolver
     */
    private boolean propertyExpressionResolver(BehaviorVariable bv, Property p, PropertyExpression pe)
    {
+     
+     QualifiedNamedElement qne = (QualifiedNamedElement) p;
+     String propertyName = "";
+     boolean hasNamespace = qne.getBaNamespace() != null ; 
+     if(hasNamespace)
+     {
+       propertyName = qne.getBaNamespace().getId() + "::" ;
+     }
+     propertyName += qne.getBaName().getId();
+
      boolean result = true;
      if(pe instanceof DeclarativeListValue)
      {
@@ -2460,10 +2476,63 @@ public class AadlBaNameResolver
          result &= unitResolver(rl, bv, p);
        }
      }
+     else if(pe instanceof RecordValue)
+     {
+       RecordValue rv = (RecordValue) pe;
+       for(BasicPropertyAssociation bpa: rv.getOwnedFieldValues())
+       {
+         if(bpa instanceof DeclarativeBasicPropertyAssociation)
+         {
+           DeclarativeBasicPropertyAssociation dbpa = (DeclarativeBasicPropertyAssociation) bpa;
+           String basicPropertyName = dbpa.getBasicPropertyName();
+           BasicProperty basicProp = getBasicPropertyResolver(bv, p, basicPropertyName);
+           if(basicProp == null)
+           {
+             _errManager.error(bv, "Property field \'" + basicPropertyName + "\' of property "+ propertyName +" is not found");
+             result = false;
+           }
+           dbpa.setProperty(basicProp);
+         }
+       }
+       
+     }
      return result;
    }
    
-   /**
+   private BasicProperty getBasicPropertyResolver(BehaviorVariable bv,
+                                             Property p,
+                                             String basicPropertyName)
+  {
+    QualifiedNamedElement qne = (QualifiedNamedElement) p;
+    Property propNE = resolveProperty(qne);
+    PropertyType pt = propNE.getPropertyType();
+    if(pt instanceof RecordType)
+    {
+      RecordType rt = (RecordType) pt;
+      for(BasicProperty bp: rt.getOwnedFields())
+      {
+        if(bp.getName().equalsIgnoreCase(basicPropertyName))
+          return bp;
+      }
+    }
+    
+    return null ;
+  }
+
+  private Property resolveProperty(QualifiedNamedElement qne)
+  {
+    String packageName = "";
+    boolean hasNamespace = qne.getBaNamespace() != null ; 
+    if(hasNamespace)
+    {
+       packageName = qne.getBaNamespace().getId() ;
+    }
+    NamedElement propNE = Aadl2Visitors.findElementInPropertySet(qne.getBaName().getId(),
+                                                packageName, Aadl2Visitors.getContainingPackageSection(_ba));
+    return (Property) propNE;
+  }
+   
+  /**
     * Resolves units used in behavior annex.
    * @param p 
     * 
@@ -2474,14 +2543,7 @@ public class AadlBaNameResolver
      boolean result = true;
      
      QualifiedNamedElement qne = (QualifiedNamedElement) p;
-     String packageName = "";
-     boolean hasNamespace = qne.getBaNamespace() != null ; 
-     if(hasNamespace)
-     {
-        packageName = qne.getBaNamespace().getId() ;
-     }
-     NamedElement propNE = Aadl2Visitors.findElementInPropertySet(qne.getBaName().getId(),
-                                                 packageName, Aadl2Visitors.getContainingPackageSection(_ba));
+     Property propNE = resolveProperty(qne);
      if(propNE != null)
      {
        Property prop = (Property) propNE;
@@ -2530,7 +2592,8 @@ public class AadlBaNameResolver
         }
         
         List<PropertyAssociation> paList = v.getOwnedPropertyAssociations();
-        List<PropertyAssociation> paToRemoveList = new ArrayList<PropertyAssociation>();
+        List<PropertyAssociation> paPropertyNotFound = new ArrayList<PropertyAssociation>();
+        Set<PropertyAssociation> paPropertyValueError = new HashSet<PropertyAssociation>();
         for(PropertyAssociation pa : paList)
         {
           QualifiedNamedElement p = (QualifiedNamedElement) pa.getProperty();
@@ -2538,20 +2601,21 @@ public class AadlBaNameResolver
           if(valid)
             for(ModalPropertyValue mpv : pa.getOwnedValues())
             {
-              valid &= propertyExpressionResolver(v, p, mpv.getOwnedValue());
+              result &= propertyExpressionResolver(v, p, mpv.getOwnedValue());
+              paPropertyValueError.add(pa);
             }
           if(!valid)
-            paToRemoveList.add(pa);
+            paPropertyNotFound.add(pa);
           result &= valid;
         }
         StringBuilder msg = new StringBuilder();
-        if(paToRemoveList.size()>1)
+        if(paPropertyNotFound.size()>1)
           msg.append("Properties ");
         else
           msg.append("Property ");
         
         boolean first = true;
-        for(PropertyAssociation paToRemove: paToRemoveList)
+        for(PropertyAssociation paToRemove: paPropertyNotFound)
         {
           QualifiedNamedElement p = (QualifiedNamedElement) paToRemove.getProperty();
           StringBuilder qualifiedName = new StringBuilder() ;
@@ -2568,10 +2632,10 @@ public class AadlBaNameResolver
           else
             msg.append(" and \'"+qualifiedName+"\' ");
           first = false;
-          
-          paList.removeAll(paToRemoveList);
         }
-        if(paToRemoveList.size()>0)
+        paList.removeAll(paPropertyNotFound);
+        paList.removeAll(paPropertyValueError);
+        if(paPropertyNotFound.size()>0)
         {
           msg.append("not found");
           _errManager.error(v, msg.toString());

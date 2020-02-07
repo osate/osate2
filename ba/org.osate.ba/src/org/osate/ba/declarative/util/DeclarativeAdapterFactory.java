@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.EObject ;
 import org.osate.aadl2.AbstractNamedValue ;
 import org.osate.aadl2.ArrayDimension ;
 import org.osate.aadl2.BasicProperty ;
+import org.osate.aadl2.BasicPropertyAssociation ;
 import org.osate.aadl2.Classifier ;
 import org.osate.aadl2.ComponentClassifier ;
 import org.osate.aadl2.Data ;
@@ -51,6 +52,7 @@ import org.osate.aadl2.Property ;
 import org.osate.aadl2.PropertyExpression ;
 import org.osate.aadl2.PropertyValue ;
 import org.osate.aadl2.RealLiteral ;
+import org.osate.aadl2.RecordValue ;
 import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.SubcomponentType ;
 import org.osate.aadl2.Type ;
@@ -280,6 +282,20 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
                                                             caseDeclarativeRealLiteral(DeclarativeRealLiteral object)
                                                      {
                                                        return createDeclarativeRealLiteralAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseDeclarativeRecordValue(DeclarativeRecordValue object)
+                                                     {
+                                                       return createDeclarativeRecordValueAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseDeclarativeBasicPropertyAssociation(DeclarativeBasicPropertyAssociation object)
+                                                     {
+                                                       return createDeclarativeBasicPropertyAssociationAdapter() ;
                                                      }
 
                                                      @Override
@@ -724,6 +740,20 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
                                                      }
 
                                                      @Override
+                                                     public Adapter
+                                                            caseRecordValue(RecordValue object)
+                                                     {
+                                                       return createRecordValueAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseBasicPropertyAssociation(BasicPropertyAssociation object)
+                                                     {
+                                                       return createBasicPropertyAssociationAdapter() ;
+                                                     }
+
+                                                     @Override
                                                      public Adapter defaultCase(
                                                                                 EObject object)
                                                      {
@@ -1011,6 +1041,36 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createDeclarativeRealLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.declarative.DeclarativeRecordValue <em>Record Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.declarative.DeclarativeRecordValue
+   * @generated
+   */
+  public Adapter createDeclarativeRecordValueAdapter()
+  {
+    return null ;
+  }
+
+  /**
+  	 * Creates a new adapter for an object of class '{@link org.osate.ba.declarative.DeclarativeBasicPropertyAssociation <em>Basic Property Association</em>}'.
+  	 * <!-- begin-user-doc -->
+  	 * This default implementation returns null so that we can easily ignore cases;
+  	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+  	 * <!-- end-user-doc -->
+  	 * @return the new adapter.
+  	 * @see org.osate.ba.declarative.DeclarativeBasicPropertyAssociation
+  	 * @generated
+  	 */
+  public Adapter createDeclarativeBasicPropertyAssociationAdapter()
   {
     return null ;
   }
@@ -1946,16 +2006,46 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-  	 * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.BehaviorRealLiteral <em>Behavior Real Literal</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.BehaviorRealLiteral <em>Behavior Real Literal</em>}'.
+   * <!-- begin-user-doc -->
+  	 * This default implementation returns null so that we can easily ignore cases;
+  	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+  	 * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.BehaviorRealLiteral
+   * @generated
+   */
+  public Adapter createBehaviorRealLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.RecordValue <em>Record Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.RecordValue
+   * @generated
+   */
+  public Adapter createRecordValueAdapter()
+  {
+    return null ;
+  }
+
+  /**
+  	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.BasicPropertyAssociation <em>Basic Property Association</em>}'.
   	 * <!-- begin-user-doc -->
   	 * This default implementation returns null so that we can easily ignore cases;
   	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
   	 * <!-- end-user-doc -->
   	 * @return the new adapter.
-  	 * @see org.osate.ba.aadlba.BehaviorRealLiteral
+  	 * @see org.osate.aadl2.BasicPropertyAssociation
   	 * @generated
   	 */
-  public Adapter createBehaviorRealLiteralAdapter()
+  public Adapter createBasicPropertyAssociationAdapter()
   {
     return null ;
   }

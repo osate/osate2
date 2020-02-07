@@ -72,6 +72,16 @@ public interface AadlBaListener extends ParseTreeListener {
 	 */
 	void exitBehavior_variable(@NotNull AadlBaParser.Behavior_variableContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#record_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void enterRecord_property_value(@NotNull AadlBaParser.Record_property_valueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#record_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void exitRecord_property_value(@NotNull AadlBaParser.Record_property_valueContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#dispatch_conjunction}.
 	 * @param ctx the parse tree
 	 */
@@ -331,6 +341,16 @@ public interface AadlBaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBinary_numeric_operator(@NotNull AadlBaParser.Binary_numeric_operatorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#field_property_association}.
+	 * @param ctx the parse tree
+	 */
+	void enterField_property_association(@NotNull AadlBaParser.Field_property_associationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#field_property_association}.
+	 * @param ctx the parse tree
+	 */
+	void exitField_property_association(@NotNull AadlBaParser.Field_property_associationContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#value_constant_or_variable}.
 	 * @param ctx the parse tree

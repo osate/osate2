@@ -71,5 +71,9 @@
     <genClasses ecoreClass="declarative.ecore#//DeclarativeStringLiteral"/>
     <genClasses ecoreClass="declarative.ecore#//DeclarativeIntegerLiteral"/>
     <genClasses ecoreClass="declarative.ecore#//DeclarativeRealLiteral"/>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativeRecordValue"/>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativeBasicPropertyAssociation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute declarative.ecore#//DeclarativeBasicPropertyAssociation/basicPropertyName"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>
