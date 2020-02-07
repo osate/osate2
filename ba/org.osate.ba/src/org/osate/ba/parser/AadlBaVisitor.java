@@ -67,6 +67,12 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBehavior_variable(@NotNull AadlBaParser.Behavior_variableContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AadlBaParser#record_property_value}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRecord_property_value(@NotNull AadlBaParser.Record_property_valueContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#dispatch_conjunction}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -222,6 +228,12 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitBinary_numeric_operator(@NotNull AadlBaParser.Binary_numeric_operatorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AadlBaParser#field_property_association}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitField_property_association(@NotNull AadlBaParser.Field_property_associationContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#value_constant_or_variable}.
 	 * @param ctx the parse tree

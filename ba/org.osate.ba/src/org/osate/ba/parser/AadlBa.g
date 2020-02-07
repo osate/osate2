@@ -346,7 +346,7 @@ qualifiable_property [QualifiedNamedElement result] locals[String id1, String id
 
 property_value returns [DeclarativePropertyExpression result]
   :
-//  	record_property_value
+  	record_property_value
 //  	| reference_property_value
 //  	| classifier_property_value
   	| string_literal
@@ -374,25 +374,19 @@ list_property_value returns [DeclarativeListValue result]
 //	numeric_literal '..' numeric_literal
 //;
 
-//record_property_value: 
-//	LBRACK field_property_association RBRACK
-//;
+record_property_value returns [DeclarativeRecordValue result]: 
+	LBRACK field_assign+=field_property_association (field_assign+=field_property_association)* RBRACK
+;
 
-//field_property_association returns [BasicPropertyAssociation result]:
-//	property=basic_property_ref PROPERTYASSIGN property_value SEMICOLON
-//;
+field_property_association returns [DeclarativeBasicPropertyAssociation result]:
+	property=IDENT PROPERTYASSIGN property_value SEMICOLON
+;
 
 
 //classifier_property_value returns [ClassifierValue result]:
 //	CLASSIFIER LPAREN classifier=unique_component_classifier_reference RPAREN
 //;
 
-//// basic_property ::= 
-////   property_identifier
-//basic_property_ref returns [QualifiedNamedElement result]
-//  :
-//   ( qualifiable_property[$result])
-//;
 
 // unit ::= 
 //   { propertyset_identifier :: }* unit_identifier

@@ -38,6 +38,7 @@ import org.osate.aadl2.ProcessorClassifier ;
 import org.osate.aadl2.PropertyAssociation ;
 import org.osate.aadl2.PropertyExpression ;
 import org.osate.aadl2.RealLiteral ;
+import org.osate.aadl2.RecordValue ;
 import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.parsesupport.AObject ;
 import org.osate.ba.aadlba.AadlBaFactory ;
@@ -91,6 +92,7 @@ import org.osate.ba.parser.AadlBaParser.Data_classifier_property_associationCont
 import org.osate.ba.parser.AadlBaParser.Dispatch_conjunctionContext ;
 import org.osate.ba.parser.AadlBaParser.Elsif_statementContext ;
 import org.osate.ba.parser.AadlBaParser.FactorContext ;
+import org.osate.ba.parser.AadlBaParser.Field_property_associationContext ;
 import org.osate.ba.parser.AadlBaParser.In_bindingContext ;
 import org.osate.ba.parser.AadlBaParser.Integer_property_valueContext ;
 import org.osate.ba.parser.AadlBaParser.Integer_valueContext ;
@@ -107,6 +109,7 @@ import org.osate.ba.parser.AadlBaParser.Property_valueContext ;
 import org.osate.ba.parser.AadlBaParser.Qualifiable_propertyContext ;
 import org.osate.ba.parser.AadlBaParser.Real_literalContext ;
 import org.osate.ba.parser.AadlBaParser.Real_property_valueContext ;
+import org.osate.ba.parser.AadlBaParser.Record_property_valueContext ;
 import org.osate.ba.parser.AadlBaParser.ReferenceContext ;
 import org.osate.ba.parser.AadlBaParser.RelationContext ;
 import org.osate.ba.parser.AadlBaParser.Signed_intContext ;
@@ -377,6 +380,13 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
       targetRL.setValue(sourceRL.getValue());
       targetRL.setUnit(sourceRL.getUnit());
       targetPropertyExpression = targetRL;
+    }
+    else if(sourcePropertyExpression instanceof RecordValue)
+    {
+      RecordValue sourceRV = (RecordValue) sourcePropertyExpression;
+      RecordValue targetRV = _coreFact.createRecordValue();
+      targetRV.getOwnedFieldValues().addAll(sourceRV.getOwnedFieldValues());
+      targetPropertyExpression = targetRV;
     }
     return targetPropertyExpression;
   }
@@ -2149,6 +2159,10 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     {
       ctx.result = (DeclarativePropertyExpression) ctx.real_property_value().result;
     }
+    else if(ctx.record_property_value()!=null)
+    {
+      ctx.result = (DeclarativePropertyExpression) ctx.record_property_value().result;
+    }
     return null ;
   }
   
@@ -2208,6 +2222,29 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   {
     visitChildren(ctx) ;
     ctx.result = Double.parseDouble(ctx.getText());
+    return null ;
+  }
+
+  @Override
+  public T visitRecord_property_value(Record_property_valueContext ctx)
+  {
+    visitChildren(ctx) ;
+    ctx.result = _decl.createDeclarativeRecordValue();
+    for(Field_property_associationContext assignCtx: ctx.field_assign)
+    {
+      ctx.result.getOwnedFieldValues().add(assignCtx.result);      
+    }
+    return null ;
+  }
+
+  @Override
+  public T visitField_property_association(
+                                           Field_property_associationContext ctx)
+  {
+    visitChildren(ctx) ;
+    ctx.result = _decl.createDeclarativeBasicPropertyAssociation();
+    ctx.result.setBasicPropertyName(ctx.property.getText());
+    ctx.result.setOwnedValue(ctx.property_value().result);
     return null ;
   }
 }

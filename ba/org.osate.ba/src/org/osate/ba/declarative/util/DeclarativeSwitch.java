@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.util.Switch ;
 import org.osate.aadl2.AbstractNamedValue ;
 import org.osate.aadl2.ArrayDimension ;
 import org.osate.aadl2.BasicProperty ;
+import org.osate.aadl2.BasicPropertyAssociation ;
 import org.osate.aadl2.Classifier ;
 import org.osate.aadl2.ComponentClassifier ;
 import org.osate.aadl2.Data ;
@@ -49,6 +50,7 @@ import org.osate.aadl2.Property ;
 import org.osate.aadl2.PropertyExpression ;
 import org.osate.aadl2.PropertyValue ;
 import org.osate.aadl2.RealLiteral ;
+import org.osate.aadl2.RecordValue ;
 import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.SubcomponentType ;
 import org.osate.aadl2.Type ;
@@ -621,6 +623,40 @@ public class DeclarativeSwitch<T> extends Switch<T>
           result = defaultCase(theEObject) ;
         return result ;
       }
+      case DeclarativePackage.DECLARATIVE_RECORD_VALUE :
+      {
+        DeclarativeRecordValue declarativeRecordValue =
+                                                      (DeclarativeRecordValue) theEObject ;
+        T result = caseDeclarativeRecordValue(declarativeRecordValue) ;
+        if(result == null)
+          result = caseRecordValue(declarativeRecordValue) ;
+        if(result == null)
+          result = caseDeclarativePropertyExpression(declarativeRecordValue) ;
+        if(result == null)
+          result = casePropertyValue(declarativeRecordValue) ;
+        if(result == null)
+          result = casePropertyExpression(declarativeRecordValue) ;
+        if(result == null)
+          result = caseElement(declarativeRecordValue) ;
+        if(result == null)
+          result = defaultCase(theEObject) ;
+        return result ;
+      }
+      case DeclarativePackage.DECLARATIVE_BASIC_PROPERTY_ASSOCIATION :
+      {
+        DeclarativeBasicPropertyAssociation declarativeBasicPropertyAssociation =
+                                                                                (DeclarativeBasicPropertyAssociation) theEObject ;
+        T result = caseDeclarativeBasicPropertyAssociation(
+                                                           declarativeBasicPropertyAssociation) ;
+        if(result == null)
+          result = caseBasicPropertyAssociation(
+                                                declarativeBasicPropertyAssociation) ;
+        if(result == null)
+          result = caseElement(declarativeBasicPropertyAssociation) ;
+        if(result == null)
+          result = defaultCase(theEObject) ;
+        return result ;
+      }
       default :
         return defaultCase(theEObject) ;
     }
@@ -913,6 +949,39 @@ public class DeclarativeSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseDeclarativeRealLiteral(DeclarativeRealLiteral object)
+  {
+    return null ;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Record Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Record Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDeclarativeRecordValue(DeclarativeRecordValue object)
+  {
+    return null ;
+  }
+
+  /**
+  	 * Returns the result of interpreting the object as an instance of '<em>Basic Property Association</em>'.
+  	 * <!-- begin-user-doc -->
+  	 * This implementation returns null;
+  	 * returning a non-null result will terminate the switch.
+  	 * <!-- end-user-doc -->
+  	 * @param object the target of the switch.
+  	 * @return the result of interpreting the object as an instance of '<em>Basic Property Association</em>'.
+  	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+  	 * @generated
+  	 */
+  public T caseDeclarativeBasicPropertyAssociation(
+                                                   DeclarativeBasicPropertyAssociation object)
   {
     return null ;
   }
@@ -1910,17 +1979,49 @@ public class DeclarativeSwitch<T> extends Switch<T>
   }
 
   /**
-  	 * Returns the result of interpreting the object as an instance of '<em>Behavior Real Literal</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Behavior Real Literal</em>'.
+   * <!-- begin-user-doc -->
+  	 * This implementation returns null;
+  	 * returning a non-null result will terminate the switch.
+  	 * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Behavior Real Literal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseBehaviorRealLiteral(BehaviorRealLiteral object)
+  {
+    return null ;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Record Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Record Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseRecordValue(RecordValue object)
+  {
+    return null ;
+  }
+
+  /**
+  	 * Returns the result of interpreting the object as an instance of '<em>Basic Property Association</em>'.
   	 * <!-- begin-user-doc -->
   	 * This implementation returns null;
   	 * returning a non-null result will terminate the switch.
   	 * <!-- end-user-doc -->
   	 * @param object the target of the switch.
-  	 * @return the result of interpreting the object as an instance of '<em>Behavior Real Literal</em>'.
+  	 * @return the result of interpreting the object as an instance of '<em>Basic Property Association</em>'.
   	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
   	 * @generated
   	 */
-  public T caseBehaviorRealLiteral(BehaviorRealLiteral object)
+  public T caseBasicPropertyAssociation(BasicPropertyAssociation object)
   {
     return null ;
   }

@@ -187,6 +187,24 @@ public interface DeclarativeFactory extends EFactory
   DeclarativeRealLiteral createDeclarativeRealLiteral() ;
 
   /**
+   * Returns a new object of class '<em>Record Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Record Value</em>'.
+   * @generated
+   */
+  DeclarativeRecordValue createDeclarativeRecordValue() ;
+
+  /**
+  	 * Returns a new object of class '<em>Basic Property Association</em>'.
+  	 * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+  	 * @return a new object of class '<em>Basic Property Association</em>'.
+  	 * @generated
+  	 */
+  DeclarativeBasicPropertyAssociation createDeclarativeBasicPropertyAssociation() ;
+
+  /**
   	 * Returns the package supported by this factory.
   	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
