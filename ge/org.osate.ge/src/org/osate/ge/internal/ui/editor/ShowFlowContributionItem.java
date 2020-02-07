@@ -344,18 +344,15 @@ public class ShowFlowContributionItem extends ControlContribution {
 			}
 
 			private void enableFlowEnd(final FlowEnd flowEnd, final BusinessObjectNode containerNode) {
-				// Enable parent if necessary
+				final Feature feature = (Feature) flowEnd.getFeature();
+				final RelativeBusinessObjectReference featureRef = getRelativeBusinessObjectReference(feature);
 				if (flowEnd.getContext() != null) {
 					final Context context = flowEnd.getContext();
 					final RelativeBusinessObjectReference contextRef = getRelativeBusinessObjectReference(context);
 					if (containerNode.getChild(contextRef) == null) {
 						createNode(containerNode, contextRef, context);
 					}
-				}
 
-				final Feature feature = (Feature) flowEnd.getFeature();
-				final RelativeBusinessObjectReference featureRef = getRelativeBusinessObjectReference(feature);
-				if (flowEnd.getContext() != null) {
 					final BusinessObjectNode contextNode = containerNode
 							.getChild(getRelativeBusinessObjectReference(flowEnd.getContext()));
 					if (contextNode.getChild(featureRef) == null) {
