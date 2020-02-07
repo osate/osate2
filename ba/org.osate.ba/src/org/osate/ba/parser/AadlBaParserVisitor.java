@@ -88,6 +88,7 @@ import org.osate.ba.parser.AadlBaParser.Behavior_transitionContext ;
 import org.osate.ba.parser.AadlBaParser.Behavior_variableContext ;
 import org.osate.ba.parser.AadlBaParser.Behavior_variable_listContext ;
 import org.osate.ba.parser.AadlBaParser.Binary_adding_operatorContext ;
+import org.osate.ba.parser.AadlBaParser.Boolean_property_valueContext ;
 import org.osate.ba.parser.AadlBaParser.Data_classifier_property_associationContext ;
 import org.osate.ba.parser.AadlBaParser.Dispatch_conjunctionContext ;
 import org.osate.ba.parser.AadlBaParser.Elsif_statementContext ;
@@ -2163,6 +2164,10 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     {
       ctx.result = (DeclarativePropertyExpression) ctx.record_property_value().result;
     }
+    else if(ctx.boolean_property_value()!=null)
+    {
+      ctx.result = (DeclarativePropertyExpression) ctx.boolean_property_value().result;
+    }
     return null ;
   }
   
@@ -2245,6 +2250,18 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     ctx.result = _decl.createDeclarativeBasicPropertyAssociation();
     ctx.result.setBasicPropertyName(ctx.property.getText());
     ctx.result.setOwnedValue(ctx.property_value().result);
+    return null ;
+  }
+
+  @Override
+  public T visitBoolean_property_value(Boolean_property_valueContext ctx)
+  {
+    visitChildren(ctx) ;
+    ctx.result = _decl.createDeclarativeBooleanLiteral();
+    if(ctx.getText().equalsIgnoreCase("true"))
+      ctx.result.setValue(true);
+    else
+      ctx.result.setValue(false);
     return null ;
   }
 }

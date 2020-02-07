@@ -36,6 +36,7 @@ import org.osate.ba.declarative.DeclarativeArrayDimension ;
 import org.osate.ba.declarative.DeclarativeBasicPropertyAssociation ;
 import org.osate.ba.declarative.DeclarativeBehaviorElement ;
 import org.osate.ba.declarative.DeclarativeBehaviorTransition ;
+import org.osate.ba.declarative.DeclarativeBooleanLiteral ;
 import org.osate.ba.declarative.DeclarativeFactory ;
 import org.osate.ba.declarative.DeclarativeIntegerLiteral ;
 import org.osate.ba.declarative.DeclarativeListValue ;
@@ -196,27 +197,34 @@ public class DeclarativePackageImpl extends EPackageImpl implements
   private EClass declarativeRecordValueEClass = null ;
 
   /**
-  	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 */
+   * @generated
+   */
   private EClass declarativeBasicPropertyAssociationEClass = null ;
 
   /**
-  	 * Creates an instance of the model <b>Package</b>, registered with
-  	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
-  	 * package URI value.
-  	 * <p>Note: the correct way to create the package is via the static
-  	 * factory method {@link #init init()}, which also performs
-  	 * initialization of the package, or returns the registered package,
-  	 * if one already exists.
-  	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-  	 * @see org.eclipse.emf.ecore.EPackage.Registry
-  	 * @see org.osate.ba.declarative.DeclarativePackage#eNS_URI
-  	 * @see #init()
-  	 * @generated
-  	 */
+   * @generated
+   */
+  private EClass declarativeBooleanLiteralEClass = null ;
+
+  /**
+   * Creates an instance of the model <b>Package</b>, registered with
+   * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
+   * package URI value.
+   * <p>Note: the correct way to create the package is via the static
+   * factory method {@link #init init()}, which also performs
+   * initialization of the package, or returns the registered package,
+   * if one already exists.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.eclipse.emf.ecore.EPackage.Registry
+   * @see org.osate.ba.declarative.DeclarativePackage#eNS_URI
+   * @see #init()
+   * @generated
+   */
   private DeclarativePackageImpl()
   {
     super(eNS_URI, DeclarativeFactory.eINSTANCE) ;
@@ -853,10 +861,10 @@ public class DeclarativePackageImpl extends EPackageImpl implements
   }
 
   /**
-  	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 */
+   * @generated
+   */
   @Override
   public EClass getDeclarativeBasicPropertyAssociation()
   {
@@ -864,10 +872,10 @@ public class DeclarativePackageImpl extends EPackageImpl implements
   }
 
   /**
-  	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 */
+   * @generated
+   */
   @Override
   public EAttribute getDeclarativeBasicPropertyAssociation_BasicPropertyName()
   {
@@ -876,10 +884,21 @@ public class DeclarativePackageImpl extends EPackageImpl implements
   }
 
   /**
-  	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-  	 * @generated
-  	 */
+   * @generated
+   */
+  @Override
+  public EClass getDeclarativeBooleanLiteral()
+  {
+    return declarativeBooleanLiteralEClass ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public DeclarativeFactory getDeclarativeFactory()
   {
@@ -1005,6 +1024,9 @@ public class DeclarativePackageImpl extends EPackageImpl implements
                                                              DECLARATIVE_BASIC_PROPERTY_ASSOCIATION) ;
     createEAttribute(declarativeBasicPropertyAssociationEClass,
                      DECLARATIVE_BASIC_PROPERTY_ASSOCIATION__BASIC_PROPERTY_NAME) ;
+
+    declarativeBooleanLiteralEClass = createEClass(
+                                                   DECLARATIVE_BOOLEAN_LITERAL) ;
   }
 
   /**
@@ -1134,6 +1156,10 @@ public class DeclarativePackageImpl extends EPackageImpl implements
                                                           .getDeclarativePropertyExpression()) ;
     declarativeBasicPropertyAssociationEClass.getESuperTypes().add(
                                                                    theAadl2Package.getBasicPropertyAssociation()) ;
+    declarativeBooleanLiteralEClass.getESuperTypes().add(theAadlBaPackage
+                                                                         .getBehaviorBooleanLiteral()) ;
+    declarativeBooleanLiteralEClass.getESuperTypes().add(this
+                                                             .getDeclarativePropertyExpression()) ;
 
     // Initialize classes and features; add operations and parameters
     initEClass(arrayableIdentifierEClass, ArrayableIdentifier.class,
@@ -1396,6 +1422,10 @@ public class DeclarativePackageImpl extends EPackageImpl implements
                    DeclarativeBasicPropertyAssociation.class, !IS_TRANSIENT,
                    !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
                    IS_UNIQUE, !IS_DERIVED, IS_ORDERED) ;
+
+    initEClass(declarativeBooleanLiteralEClass, DeclarativeBooleanLiteral.class,
+               "DeclarativeBooleanLiteral", !IS_ABSTRACT, !IS_INTERFACE,
+               IS_GENERATED_INSTANCE_CLASS) ;
 
     // Create resource
     createResource(eNS_URI) ;

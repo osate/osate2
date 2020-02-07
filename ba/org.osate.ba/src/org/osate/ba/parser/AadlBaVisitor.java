@@ -373,6 +373,12 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitNumeral(@NotNull AadlBaParser.NumeralContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AadlBaParser#boolean_property_value}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBoolean_property_value(@NotNull AadlBaParser.Boolean_property_valueContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#factor}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

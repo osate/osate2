@@ -58,7 +58,7 @@ options
 
 @lexer::members
 {
-  public static final short KEYWORD_MAX_ID = 36 ;
+  public static final short KEYWORD_MAX_ID = 40 ;
   public static final short PUNCTUATION_MAX_ID = 70 ;
   public static final short EOF_ID = 0 ;
   public static final short ERR_MAX_ID = 73 ;
@@ -115,7 +115,7 @@ options
                                   AnnexHighlighterPositionAcceptor.NUMBER_ID) ;
             break ;
           }
-                  
+
           case SL_COMMENT :
           {
             _ht.addToHighlighting(_annexOffset, token,
@@ -354,7 +354,7 @@ property_value returns [DeclarativePropertyExpression result]
   	| integer_property_value
   	| real_property_value
   	| list_property_value
-//  	| boolean_property_value  	
+  	| boolean_property_value  	
 ;
 
 list_property_value returns [DeclarativeListValue result]
@@ -366,9 +366,9 @@ list_property_value returns [DeclarativeListValue result]
 //	REFERENCE LPAREN path=qualifiable_named_element[$result] RPAREN
 //;
 
-//boolean_property_value: 
-//	boolean_literal
-//;
+boolean_property_value returns [BehaviorBooleanLiteral result]: 
+	boolean_literal
+;
 
 //numeric_range_property_value returns [RangeValue result] : 
 //	numeric_literal '..' numeric_literal
