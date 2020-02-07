@@ -193,6 +193,12 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitWhile_statement(@NotNull AadlBaParser.While_statementContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AadlBaParser#numeric_range_property_value}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNumeric_range_property_value(@NotNull AadlBaParser.Numeric_range_property_valueContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#numeric_literal}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -528,6 +534,12 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitDispatch_trigger_logical_expression(@NotNull AadlBaParser.Dispatch_trigger_logical_expressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AadlBaParser#numeric_property_value}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNumeric_property_value(@NotNull AadlBaParser.Numeric_property_valueContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#behavior_action_block}.
 	 * @param ctx the parse tree

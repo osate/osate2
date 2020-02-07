@@ -214,12 +214,21 @@ public interface DeclarativeFactory extends EFactory
   DeclarativeBooleanLiteral createDeclarativeBooleanLiteral() ;
 
   /**
-   * Returns the package supported by this factory.
+   * Returns a new object of class '<em>Range Value</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the package supported by this factory.
+   * @return a new object of class '<em>Range Value</em>'.
    * @generated
    */
+  DeclarativeRangeValue createDeclarativeRangeValue() ;
+
+  /**
+  	 * Returns the package supported by this factory.
+  	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  	 * @return the package supported by this factory.
+  	 * @generated
+  	 */
   DeclarativePackage getDeclarativePackage() ;
 
 } //DeclarativeFactory

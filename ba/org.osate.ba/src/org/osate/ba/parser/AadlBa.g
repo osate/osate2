@@ -350,7 +350,7 @@ property_value returns [DeclarativePropertyExpression result]
 //  	| reference_property_value
 //  	| classifier_property_value
   	| string_literal
-//  	| numeric_range_property_value
+  	| numeric_range_property_value
   	| integer_property_value
   	| real_property_value
   	| list_property_value
@@ -370,9 +370,9 @@ boolean_property_value returns [BehaviorBooleanLiteral result]:
 	boolean_literal
 ;
 
-//numeric_range_property_value returns [RangeValue result] : 
-//	numeric_literal '..' numeric_literal
-//;
+numeric_range_property_value returns [DeclarativeRangeValue result] : 
+	lower_bound=numeric_property_value DOTDOT upper_bound=numeric_property_value
+;
 
 record_property_value returns [DeclarativeRecordValue result]: 
 	LBRACK field_assign+=field_property_association (field_assign+=field_property_association)* RBRACK
@@ -409,6 +409,9 @@ real_property_value returns [BehaviorRealLiteral result]:
 signed_real returns [Double result]:
 	('+'|'-')?real_literal ;
 
+numeric_property_value returns [DeclarativePropertyExpression result]:
+	integer_property_value
+	| real_property_value;
 
 
 // qualifiable_named_element ::= 

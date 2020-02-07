@@ -45,6 +45,7 @@ import org.osate.ba.declarative.DeclarativePropertyAssociation ;
 import org.osate.ba.declarative.DeclarativePropertyExpression ;
 import org.osate.ba.declarative.DeclarativePropertyName ;
 import org.osate.ba.declarative.DeclarativePropertyReference ;
+import org.osate.ba.declarative.DeclarativeRangeValue ;
 import org.osate.ba.declarative.DeclarativeRealLiteral ;
 import org.osate.ba.declarative.DeclarativeRecordValue ;
 import org.osate.ba.declarative.DeclarativeStringLiteral ;
@@ -53,6 +54,7 @@ import org.osate.ba.declarative.Identifier ;
 import org.osate.ba.declarative.NamedValue ;
 import org.osate.ba.declarative.QualifiedNamedElement ;
 import org.osate.ba.declarative.Reference ;
+import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -211,20 +213,27 @@ public class DeclarativePackageImpl extends EPackageImpl implements
   private EClass declarativeBooleanLiteralEClass = null ;
 
   /**
-   * Creates an instance of the model <b>Package</b>, registered with
-   * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
-   * package URI value.
-   * <p>Note: the correct way to create the package is via the static
-   * factory method {@link #init init()}, which also performs
-   * initialization of the package, or returns the registered package,
-   * if one already exists.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.eclipse.emf.ecore.EPackage.Registry
-   * @see org.osate.ba.declarative.DeclarativePackage#eNS_URI
-   * @see #init()
    * @generated
    */
+  private EClass declarativeRangeValueEClass = null ;
+
+  /**
+  	 * Creates an instance of the model <b>Package</b>, registered with
+  	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
+  	 * package URI value.
+  	 * <p>Note: the correct way to create the package is via the static
+  	 * factory method {@link #init init()}, which also performs
+  	 * initialization of the package, or returns the registered package,
+  	 * if one already exists.
+  	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  	 * @see org.eclipse.emf.ecore.EPackage.Registry
+  	 * @see org.osate.ba.declarative.DeclarativePackage#eNS_URI
+  	 * @see #init()
+  	 * @generated
+  	 */
   private DeclarativePackageImpl()
   {
     super(eNS_URI, DeclarativeFactory.eINSTANCE) ;
@@ -900,6 +909,17 @@ public class DeclarativePackageImpl extends EPackageImpl implements
    * @generated
    */
   @Override
+  public EClass getDeclarativeRangeValue()
+  {
+    return declarativeRangeValueEClass ;
+  }
+
+  /**
+  	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  	 * @generated
+  	 */
+  @Override
   public DeclarativeFactory getDeclarativeFactory()
   {
     return (DeclarativeFactory) getEFactoryInstance() ;
@@ -1027,6 +1047,8 @@ public class DeclarativePackageImpl extends EPackageImpl implements
 
     declarativeBooleanLiteralEClass = createEClass(
                                                    DECLARATIVE_BOOLEAN_LITERAL) ;
+
+    declarativeRangeValueEClass = createEClass(DECLARATIVE_RANGE_VALUE) ;
   }
 
   /**
@@ -1160,6 +1182,10 @@ public class DeclarativePackageImpl extends EPackageImpl implements
                                                                          .getBehaviorBooleanLiteral()) ;
     declarativeBooleanLiteralEClass.getESuperTypes().add(this
                                                              .getDeclarativePropertyExpression()) ;
+    declarativeRangeValueEClass.getESuperTypes().add(theAadl2Package
+                                                                    .getRangeValue()) ;
+    declarativeRangeValueEClass.getESuperTypes().add(this
+                                                         .getDeclarativePropertyExpression()) ;
 
     // Initialize classes and features; add operations and parameters
     initEClass(arrayableIdentifierEClass, ArrayableIdentifier.class,
@@ -1425,6 +1451,10 @@ public class DeclarativePackageImpl extends EPackageImpl implements
 
     initEClass(declarativeBooleanLiteralEClass, DeclarativeBooleanLiteral.class,
                "DeclarativeBooleanLiteral", !IS_ABSTRACT, !IS_INTERFACE,
+               IS_GENERATED_INSTANCE_CLASS) ;
+
+    initEClass(declarativeRangeValueEClass, DeclarativeRangeValue.class,
+               "DeclarativeRangeValue", !IS_ABSTRACT, !IS_INTERFACE,
                IS_GENERATED_INSTANCE_CLASS) ;
 
     // Create resource

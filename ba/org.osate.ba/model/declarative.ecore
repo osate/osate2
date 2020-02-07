@@ -104,4 +104,5 @@
         eType="ecore:EDataType ../../org.osate.aadl2/model/aadl2.ecore#//String"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DeclarativeBooleanLiteral" eSuperTypes="aadlba.ecore#//BehaviorBooleanLiteral #//DeclarativePropertyExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DeclarativeRangeValue" eSuperTypes="../../org.osate.aadl2/model/aadl2.ecore#//RangeValue #//DeclarativePropertyExpression"/>
 </ecore:EPackage>

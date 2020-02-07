@@ -282,6 +282,16 @@ public interface AadlBaListener extends ParseTreeListener {
 	 */
 	void exitWhile_statement(@NotNull AadlBaParser.While_statementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#numeric_range_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumeric_range_property_value(@NotNull AadlBaParser.Numeric_range_property_valueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#numeric_range_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumeric_range_property_value(@NotNull AadlBaParser.Numeric_range_property_valueContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#numeric_literal}.
 	 * @param ctx the parse tree
 	 */
@@ -841,6 +851,16 @@ public interface AadlBaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitDispatch_trigger_logical_expression(@NotNull AadlBaParser.Dispatch_trigger_logical_expressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#numeric_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumeric_property_value(@NotNull AadlBaParser.Numeric_property_valueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#numeric_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumeric_property_value(@NotNull AadlBaParser.Numeric_property_valueContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#behavior_action_block}.
 	 * @param ctx the parse tree

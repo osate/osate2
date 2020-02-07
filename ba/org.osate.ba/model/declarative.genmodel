@@ -76,5 +76,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute declarative.ecore#//DeclarativeBasicPropertyAssociation/basicPropertyName"/>
     </genClasses>
     <genClasses ecoreClass="declarative.ecore#//DeclarativeBooleanLiteral"/>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativeRangeValue"/>
   </genPackages>
 </genmodel:GenModel>
