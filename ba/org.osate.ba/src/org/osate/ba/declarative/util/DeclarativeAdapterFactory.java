@@ -52,6 +52,7 @@ import org.osate.aadl2.ProcessorSubcomponentType ;
 import org.osate.aadl2.Property ;
 import org.osate.aadl2.PropertyExpression ;
 import org.osate.aadl2.PropertyValue ;
+import org.osate.aadl2.RangeValue ;
 import org.osate.aadl2.RealLiteral ;
 import org.osate.aadl2.RecordValue ;
 import org.osate.aadl2.StringLiteral ;
@@ -305,6 +306,13 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
                                                             caseDeclarativeBooleanLiteral(DeclarativeBooleanLiteral object)
                                                      {
                                                        return createDeclarativeBooleanLiteralAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseDeclarativeRangeValue(DeclarativeRangeValue object)
+                                                     {
+                                                       return createDeclarativeRangeValueAdapter() ;
                                                      }
 
                                                      @Override
@@ -777,6 +785,13 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
                                                      }
 
                                                      @Override
+                                                     public Adapter
+                                                            caseRangeValue(RangeValue object)
+                                                     {
+                                                       return createRangeValueAdapter() ;
+                                                     }
+
+                                                     @Override
                                                      public Adapter defaultCase(
                                                                                 EObject object)
                                                      {
@@ -1114,15 +1129,30 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.aadl2.Element <em>Element</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.ba.declarative.DeclarativeRangeValue <em>Range Value</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.aadl2.Element
+   * @see org.osate.ba.declarative.DeclarativeRangeValue
    * @generated
    */
+  public Adapter createDeclarativeRangeValueAdapter()
+  {
+    return null ;
+  }
+
+  /**
+  	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.Element <em>Element</em>}'.
+  	 * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+  	 * @return the new adapter.
+  	 * @see org.osate.aadl2.Element
+  	 * @generated
+  	 */
   public Adapter createElementAdapter()
   {
     return null ;
@@ -2119,13 +2149,28 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for the default case.
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.RangeValue <em>Range Value</em>}'.
    * <!-- begin-user-doc -->
-   * This default implementation returns null.
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
+   * @see org.osate.aadl2.RangeValue
    * @generated
    */
+  public Adapter createRangeValueAdapter()
+  {
+    return null ;
+  }
+
+  /**
+  	 * Creates a new adapter for the default case.
+  	 * <!-- begin-user-doc -->
+   * This default implementation returns null.
+   * <!-- end-user-doc -->
+  	 * @return the new adapter.
+  	 * @generated
+  	 */
   public Adapter createEObjectAdapter()
   {
     return null ;

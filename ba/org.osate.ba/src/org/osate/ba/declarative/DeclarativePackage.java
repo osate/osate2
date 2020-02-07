@@ -2278,13 +2278,81 @@ public interface DeclarativePackage extends EPackage
                                                   0 ;
 
   /**
-   * Returns the meta object for class '{@link org.osate.ba.declarative.ArrayableIdentifier <em>Arrayable Identifier</em>}'.
+   * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativeRangeValueImpl <em>Range Value</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Arrayable Identifier</em>'.
-   * @see org.osate.ba.declarative.ArrayableIdentifier
+   * @see org.osate.ba.declarative.impl.DeclarativeRangeValueImpl
+   * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeRangeValue()
    * @generated
    */
+  int DECLARATIVE_RANGE_VALUE = 21 ;
+
+  /**
+  	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+  	 * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+  	 * @generated
+  	 * @ordered
+  	 */
+  int DECLARATIVE_RANGE_VALUE__OWNED_ELEMENT =
+                                             Aadl2Package.RANGE_VALUE__OWNED_ELEMENT ;
+
+  /**
+  	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+  	 * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+  	 * @generated
+  	 * @ordered
+  	 */
+  int DECLARATIVE_RANGE_VALUE__OWNED_COMMENT =
+                                             Aadl2Package.RANGE_VALUE__OWNED_COMMENT ;
+
+  /**
+  	 * The feature id for the '<em><b>Minimum</b></em>' containment reference.
+  	 * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+  	 * @generated
+  	 * @ordered
+  	 */
+  int DECLARATIVE_RANGE_VALUE__MINIMUM = Aadl2Package.RANGE_VALUE__MINIMUM ;
+
+  /**
+  	 * The feature id for the '<em><b>Maximum</b></em>' containment reference.
+  	 * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+  	 * @generated
+  	 * @ordered
+  	 */
+  int DECLARATIVE_RANGE_VALUE__MAXIMUM = Aadl2Package.RANGE_VALUE__MAXIMUM ;
+
+  /**
+  	 * The feature id for the '<em><b>Delta</b></em>' containment reference.
+  	 * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+  	 * @generated
+  	 * @ordered
+  	 */
+  int DECLARATIVE_RANGE_VALUE__DELTA = Aadl2Package.RANGE_VALUE__DELTA ;
+
+  /**
+  	 * The number of structural features of the '<em>Range Value</em>' class.
+  	 * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+  	 * @generated
+  	 * @ordered
+  	 */
+  int DECLARATIVE_RANGE_VALUE_FEATURE_COUNT =
+                                            Aadl2Package.RANGE_VALUE_FEATURE_COUNT +
+                                              0 ;
+
+  /**
+  	 * Returns the meta object for class '{@link org.osate.ba.declarative.ArrayableIdentifier <em>Arrayable Identifier</em>}'.
+  	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  	 * @return the meta object for class '<em>Arrayable Identifier</em>'.
+  	 * @see org.osate.ba.declarative.ArrayableIdentifier
+  	 * @generated
+  	 */
   EClass getArrayableIdentifier() ;
 
   /**
@@ -2851,12 +2919,22 @@ public interface DeclarativePackage extends EPackage
   EClass getDeclarativeBooleanLiteral() ;
 
   /**
-   * Returns the factory that creates the instances of the model.
+   * Returns the meta object for class '{@link org.osate.ba.declarative.DeclarativeRangeValue <em>Range Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the factory that creates the instances of the model.
+   * @return the meta object for class '<em>Range Value</em>'.
+   * @see org.osate.ba.declarative.DeclarativeRangeValue
    * @generated
    */
+  EClass getDeclarativeRangeValue() ;
+
+  /**
+  	 * Returns the factory that creates the instances of the model.
+  	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  	 * @return the factory that creates the instances of the model.
+  	 * @generated
+  	 */
   DeclarativeFactory getDeclarativeFactory() ;
 
   /**
@@ -3377,6 +3455,16 @@ public interface DeclarativePackage extends EPackage
      */
     EClass DECLARATIVE_BOOLEAN_LITERAL = eINSTANCE
                                                   .getDeclarativeBooleanLiteral() ;
+
+    /**
+    	 * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeRangeValueImpl <em>Range Value</em>}' class.
+    	 * <!-- begin-user-doc -->
+    	 * <!-- end-user-doc -->
+    	 * @see org.osate.ba.declarative.impl.DeclarativeRangeValueImpl
+    	 * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeRangeValue()
+    	 * @generated
+    	 */
+    EClass DECLARATIVE_RANGE_VALUE = eINSTANCE.getDeclarativeRangeValue() ;
 
   }
 

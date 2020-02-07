@@ -102,6 +102,8 @@ import org.osate.ba.parser.AadlBaParser.List_property_valueContext ;
 import org.osate.ba.parser.AadlBaParser.Logical_operatorContext ;
 import org.osate.ba.parser.AadlBaParser.Mode_switch_trigger_conjunctionContext ;
 import org.osate.ba.parser.AadlBaParser.Multiplying_operatorContext ;
+import org.osate.ba.parser.AadlBaParser.Numeric_property_valueContext ;
+import org.osate.ba.parser.AadlBaParser.Numeric_range_property_valueContext ;
 import org.osate.ba.parser.AadlBaParser.Parameter_labelContext ;
 import org.osate.ba.parser.AadlBaParser.Property_nameContext ;
 import org.osate.ba.parser.AadlBaParser.Property_refContext ;
@@ -2168,6 +2170,10 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     {
       ctx.result = (DeclarativePropertyExpression) ctx.boolean_property_value().result;
     }
+    else if(ctx.numeric_range_property_value()!=null)
+    {
+      ctx.result = (DeclarativePropertyExpression) ctx.numeric_range_property_value().result;
+    }
     return null ;
   }
   
@@ -2262,6 +2268,28 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
       ctx.result.setValue(true);
     else
       ctx.result.setValue(false);
+    return null ;
+  }
+
+  @Override
+  public T visitNumeric_range_property_value(
+                                             Numeric_range_property_valueContext ctx)
+  {
+    visitChildren(ctx) ;
+    ctx.result = _decl.createDeclarativeRangeValue();
+    ctx.result.setMinimum(ctx.lower_bound.result);
+    ctx.result.setMaximum(ctx.upper_bound.result);
+    return null ;
+  }
+
+  @Override
+  public T visitNumeric_property_value(Numeric_property_valueContext ctx)
+  {
+    visitChildren(ctx) ;
+    if(ctx.real_property_value()!=null)
+      ctx.result = (DeclarativePropertyExpression) ctx.real_property_value().result;
+    else if(ctx.integer_property_value()!=null)
+      ctx.result = (DeclarativePropertyExpression) ctx.integer_property_value().result;
     return null ;
   }
 }
