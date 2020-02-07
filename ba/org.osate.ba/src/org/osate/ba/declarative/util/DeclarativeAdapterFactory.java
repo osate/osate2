@@ -32,6 +32,7 @@ import org.osate.aadl2.AbstractNamedValue ;
 import org.osate.aadl2.ArrayDimension ;
 import org.osate.aadl2.BasicProperty ;
 import org.osate.aadl2.BasicPropertyAssociation ;
+import org.osate.aadl2.BooleanLiteral ;
 import org.osate.aadl2.Classifier ;
 import org.osate.aadl2.ComponentClassifier ;
 import org.osate.aadl2.Data ;
@@ -62,6 +63,7 @@ import org.osate.ba.aadlba.ActualPortHolder ;
 import org.osate.ba.aadlba.BasicAction ;
 import org.osate.ba.aadlba.BehaviorAction ;
 import org.osate.ba.aadlba.BehaviorActions ;
+import org.osate.ba.aadlba.BehaviorBooleanLiteral ;
 import org.osate.ba.aadlba.BehaviorElement ;
 import org.osate.ba.aadlba.BehaviorIntegerLiteral ;
 import org.osate.ba.aadlba.BehaviorNamedElement ;
@@ -296,6 +298,13 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
                                                             caseDeclarativeBasicPropertyAssociation(DeclarativeBasicPropertyAssociation object)
                                                      {
                                                        return createDeclarativeBasicPropertyAssociationAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseDeclarativeBooleanLiteral(DeclarativeBooleanLiteral object)
+                                                     {
+                                                       return createDeclarativeBooleanLiteralAdapter() ;
                                                      }
 
                                                      @Override
@@ -754,6 +763,20 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
                                                      }
 
                                                      @Override
+                                                     public Adapter
+                                                            caseBooleanLiteral(BooleanLiteral object)
+                                                     {
+                                                       return createBooleanLiteralAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseBehaviorBooleanLiteral(BehaviorBooleanLiteral object)
+                                                     {
+                                                       return createBehaviorBooleanLiteralAdapter() ;
+                                                     }
+
+                                                     @Override
                                                      public Adapter defaultCase(
                                                                                 EObject object)
                                                      {
@@ -1061,30 +1084,45 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-  	 * Creates a new adapter for an object of class '{@link org.osate.ba.declarative.DeclarativeBasicPropertyAssociation <em>Basic Property Association</em>}'.
-  	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.osate.ba.declarative.DeclarativeBasicPropertyAssociation <em>Basic Property Association</em>}'.
+   * <!-- begin-user-doc -->
   	 * This default implementation returns null so that we can easily ignore cases;
   	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
   	 * <!-- end-user-doc -->
-  	 * @return the new adapter.
-  	 * @see org.osate.ba.declarative.DeclarativeBasicPropertyAssociation
-  	 * @generated
-  	 */
+   * @return the new adapter.
+   * @see org.osate.ba.declarative.DeclarativeBasicPropertyAssociation
+   * @generated
+   */
   public Adapter createDeclarativeBasicPropertyAssociationAdapter()
   {
     return null ;
   }
 
   /**
-  	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.Element <em>Element</em>}'.
-  	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.osate.ba.declarative.DeclarativeBooleanLiteral <em>Boolean Literal</em>}'.
+   * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
-  	 * @return the new adapter.
-  	 * @see org.osate.aadl2.Element
-  	 * @generated
-  	 */
+   * @return the new adapter.
+   * @see org.osate.ba.declarative.DeclarativeBooleanLiteral
+   * @generated
+   */
+  public Adapter createDeclarativeBooleanLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.Element <em>Element</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.Element
+   * @generated
+   */
   public Adapter createElementAdapter()
   {
     return null ;
@@ -2036,28 +2074,58 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-  	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.BasicPropertyAssociation <em>Basic Property Association</em>}'.
-  	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.BasicPropertyAssociation <em>Basic Property Association</em>}'.
+   * <!-- begin-user-doc -->
   	 * This default implementation returns null so that we can easily ignore cases;
   	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
   	 * <!-- end-user-doc -->
-  	 * @return the new adapter.
-  	 * @see org.osate.aadl2.BasicPropertyAssociation
-  	 * @generated
-  	 */
+   * @return the new adapter.
+   * @see org.osate.aadl2.BasicPropertyAssociation
+   * @generated
+   */
   public Adapter createBasicPropertyAssociationAdapter()
   {
     return null ;
   }
 
   /**
-  	 * Creates a new adapter for the default case.
-  	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.BooleanLiteral <em>Boolean Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.BooleanLiteral
+   * @generated
+   */
+  public Adapter createBooleanLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.BehaviorBooleanLiteral <em>Behavior Boolean Literal</em>}'.
+   * <!-- begin-user-doc -->
+  	 * This default implementation returns null so that we can easily ignore cases;
+  	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+  	 * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.BehaviorBooleanLiteral
+   * @generated
+   */
+  public Adapter createBehaviorBooleanLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for the default case.
+   * <!-- begin-user-doc -->
    * This default implementation returns null.
    * <!-- end-user-doc -->
-  	 * @return the new adapter.
-  	 * @generated
-  	 */
+   * @return the new adapter.
+   * @generated
+   */
   public Adapter createEObjectAdapter()
   {
     return null ;

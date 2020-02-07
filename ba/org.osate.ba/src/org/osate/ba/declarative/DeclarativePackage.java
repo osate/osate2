@@ -2114,126 +2114,177 @@ public interface DeclarativePackage extends EPackage
   int DECLARATIVE_RECORD_VALUE = 18 ;
 
   /**
-  	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
-  	 * <!-- begin-user-doc -->
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @generated
+   * @ordered
+   */
   int DECLARATIVE_RECORD_VALUE__OWNED_ELEMENT =
                                               Aadl2Package.RECORD_VALUE__OWNED_ELEMENT ;
 
   /**
-  	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-  	 * <!-- begin-user-doc -->
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @generated
+   * @ordered
+   */
   int DECLARATIVE_RECORD_VALUE__OWNED_COMMENT =
                                               Aadl2Package.RECORD_VALUE__OWNED_COMMENT ;
 
   /**
-  	 * The feature id for the '<em><b>Owned Field Value</b></em>' containment reference list.
-  	 * <!-- begin-user-doc -->
+   * The feature id for the '<em><b>Owned Field Value</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @generated
+   * @ordered
+   */
   int DECLARATIVE_RECORD_VALUE__OWNED_FIELD_VALUE =
                                                   Aadl2Package.RECORD_VALUE__OWNED_FIELD_VALUE ;
 
   /**
-  	 * The number of structural features of the '<em>Record Value</em>' class.
-  	 * <!-- begin-user-doc -->
+   * The number of structural features of the '<em>Record Value</em>' class.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @generated
+   * @ordered
+   */
   int DECLARATIVE_RECORD_VALUE_FEATURE_COUNT =
                                              Aadl2Package.RECORD_VALUE_FEATURE_COUNT +
                                                0 ;
 
   /**
-  	 * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativeBasicPropertyAssociationImpl <em>Basic Property Association</em>}' class.
-  	 * <!-- begin-user-doc -->
+   * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativeBasicPropertyAssociationImpl <em>Basic Property Association</em>}' class.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @see org.osate.ba.declarative.impl.DeclarativeBasicPropertyAssociationImpl
-  	 * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeBasicPropertyAssociation()
-  	 * @generated
-  	 */
+   * @see org.osate.ba.declarative.impl.DeclarativeBasicPropertyAssociationImpl
+   * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeBasicPropertyAssociation()
+   * @generated
+   */
   int DECLARATIVE_BASIC_PROPERTY_ASSOCIATION = 19 ;
 
   /**
-  	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
-  	 * <!-- begin-user-doc -->
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @generated
+   * @ordered
+   */
   int DECLARATIVE_BASIC_PROPERTY_ASSOCIATION__OWNED_ELEMENT =
                                                             Aadl2Package.BASIC_PROPERTY_ASSOCIATION__OWNED_ELEMENT ;
 
   /**
-  	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-  	 * <!-- begin-user-doc -->
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @generated
+   * @ordered
+   */
   int DECLARATIVE_BASIC_PROPERTY_ASSOCIATION__OWNED_COMMENT =
                                                             Aadl2Package.BASIC_PROPERTY_ASSOCIATION__OWNED_COMMENT ;
 
   /**
-  	 * The feature id for the '<em><b>Property</b></em>' reference.
-  	 * <!-- begin-user-doc -->
+   * The feature id for the '<em><b>Property</b></em>' reference.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @generated
+   * @ordered
+   */
   int DECLARATIVE_BASIC_PROPERTY_ASSOCIATION__PROPERTY =
                                                        Aadl2Package.BASIC_PROPERTY_ASSOCIATION__PROPERTY ;
 
   /**
-  	 * The feature id for the '<em><b>Owned Value</b></em>' containment reference.
-  	 * <!-- begin-user-doc -->
+   * The feature id for the '<em><b>Owned Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @generated
+   * @ordered
+   */
   int DECLARATIVE_BASIC_PROPERTY_ASSOCIATION__OWNED_VALUE =
                                                           Aadl2Package.BASIC_PROPERTY_ASSOCIATION__OWNED_VALUE ;
 
   /**
-  	 * The feature id for the '<em><b>Basic Property Name</b></em>' attribute.
-  	 * <!-- begin-user-doc -->
+   * The feature id for the '<em><b>Basic Property Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @generated
+   * @ordered
+   */
   int DECLARATIVE_BASIC_PROPERTY_ASSOCIATION__BASIC_PROPERTY_NAME =
                                                                   Aadl2Package.BASIC_PROPERTY_ASSOCIATION_FEATURE_COUNT +
                                                                     0 ;
 
   /**
-  	 * The number of structural features of the '<em>Basic Property Association</em>' class.
-  	 * <!-- begin-user-doc -->
+   * The number of structural features of the '<em>Basic Property Association</em>' class.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @generated
+   * @ordered
+   */
   int DECLARATIVE_BASIC_PROPERTY_ASSOCIATION_FEATURE_COUNT =
                                                            Aadl2Package.BASIC_PROPERTY_ASSOCIATION_FEATURE_COUNT +
                                                              1 ;
 
   /**
-  	 * Returns the meta object for class '{@link org.osate.ba.declarative.ArrayableIdentifier <em>Arrayable Identifier</em>}'.
-  	 * <!-- begin-user-doc -->
+   * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativeBooleanLiteralImpl <em>Boolean Literal</em>}' class.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-  	 * @return the meta object for class '<em>Arrayable Identifier</em>'.
-  	 * @see org.osate.ba.declarative.ArrayableIdentifier
-  	 * @generated
-  	 */
+   * @see org.osate.ba.declarative.impl.DeclarativeBooleanLiteralImpl
+   * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeBooleanLiteral()
+   * @generated
+   */
+  int DECLARATIVE_BOOLEAN_LITERAL = 20 ;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_BOOLEAN_LITERAL__OWNED_ELEMENT =
+                                                 AadlBaPackage.BEHAVIOR_BOOLEAN_LITERAL__OWNED_ELEMENT ;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_BOOLEAN_LITERAL__OWNED_COMMENT =
+                                                 AadlBaPackage.BEHAVIOR_BOOLEAN_LITERAL__OWNED_COMMENT ;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_BOOLEAN_LITERAL__VALUE =
+                                         AadlBaPackage.BEHAVIOR_BOOLEAN_LITERAL__VALUE ;
+
+  /**
+   * The number of structural features of the '<em>Boolean Literal</em>' class.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_BOOLEAN_LITERAL_FEATURE_COUNT =
+                                                AadlBaPackage.BEHAVIOR_BOOLEAN_LITERAL_FEATURE_COUNT +
+                                                  0 ;
+
+  /**
+   * Returns the meta object for class '{@link org.osate.ba.declarative.ArrayableIdentifier <em>Arrayable Identifier</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Arrayable Identifier</em>'.
+   * @see org.osate.ba.declarative.ArrayableIdentifier
+   * @generated
+   */
   EClass getArrayableIdentifier() ;
 
   /**
@@ -2769,33 +2820,43 @@ public interface DeclarativePackage extends EPackage
   EClass getDeclarativeRecordValue() ;
 
   /**
-  	 * Returns the meta object for class '{@link org.osate.ba.declarative.DeclarativeBasicPropertyAssociation <em>Basic Property Association</em>}'.
-  	 * <!-- begin-user-doc -->
+   * Returns the meta object for class '{@link org.osate.ba.declarative.DeclarativeBasicPropertyAssociation <em>Basic Property Association</em>}'.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @return the meta object for class '<em>Basic Property Association</em>'.
-  	 * @see org.osate.ba.declarative.DeclarativeBasicPropertyAssociation
-  	 * @generated
-  	 */
+   * @return the meta object for class '<em>Basic Property Association</em>'.
+   * @see org.osate.ba.declarative.DeclarativeBasicPropertyAssociation
+   * @generated
+   */
   EClass getDeclarativeBasicPropertyAssociation() ;
 
   /**
-  	 * Returns the meta object for the attribute '{@link org.osate.ba.declarative.DeclarativeBasicPropertyAssociation#getBasicPropertyName <em>Basic Property Name</em>}'.
-  	 * <!-- begin-user-doc -->
+   * Returns the meta object for the attribute '{@link org.osate.ba.declarative.DeclarativeBasicPropertyAssociation#getBasicPropertyName <em>Basic Property Name</em>}'.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @return the meta object for the attribute '<em>Basic Property Name</em>'.
-  	 * @see org.osate.ba.declarative.DeclarativeBasicPropertyAssociation#getBasicPropertyName()
-  	 * @see #getDeclarativeBasicPropertyAssociation()
-  	 * @generated
-  	 */
+   * @return the meta object for the attribute '<em>Basic Property Name</em>'.
+   * @see org.osate.ba.declarative.DeclarativeBasicPropertyAssociation#getBasicPropertyName()
+   * @see #getDeclarativeBasicPropertyAssociation()
+   * @generated
+   */
   EAttribute getDeclarativeBasicPropertyAssociation_BasicPropertyName() ;
 
   /**
-  	 * Returns the factory that creates the instances of the model.
-  	 * <!-- begin-user-doc -->
+   * Returns the meta object for class '{@link org.osate.ba.declarative.DeclarativeBooleanLiteral <em>Boolean Literal</em>}'.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-  	 * @return the factory that creates the instances of the model.
-  	 * @generated
-  	 */
+   * @return the meta object for class '<em>Boolean Literal</em>'.
+   * @see org.osate.ba.declarative.DeclarativeBooleanLiteral
+   * @generated
+   */
+  EClass getDeclarativeBooleanLiteral() ;
+
+  /**
+   * Returns the factory that creates the instances of the model.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the factory that creates the instances of the model.
+   * @generated
+   */
   DeclarativeFactory getDeclarativeFactory() ;
 
   /**
@@ -3277,34 +3338,45 @@ public interface DeclarativePackage extends EPackage
     EClass DECLARATIVE_REAL_LITERAL = eINSTANCE.getDeclarativeRealLiteral() ;
 
     /**
-    	 * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeRecordValueImpl <em>Record Value</em>}' class.
-    	 * <!-- begin-user-doc -->
+     * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeRecordValueImpl <em>Record Value</em>}' class.
+     * <!-- begin-user-doc -->
     	 * <!-- end-user-doc -->
-    	 * @see org.osate.ba.declarative.impl.DeclarativeRecordValueImpl
-    	 * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeRecordValue()
-    	 * @generated
-    	 */
+     * @see org.osate.ba.declarative.impl.DeclarativeRecordValueImpl
+     * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeRecordValue()
+     * @generated
+     */
     EClass DECLARATIVE_RECORD_VALUE = eINSTANCE.getDeclarativeRecordValue() ;
 
     /**
-    	 * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeBasicPropertyAssociationImpl <em>Basic Property Association</em>}' class.
-    	 * <!-- begin-user-doc -->
+     * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeBasicPropertyAssociationImpl <em>Basic Property Association</em>}' class.
+     * <!-- begin-user-doc -->
     	 * <!-- end-user-doc -->
-    	 * @see org.osate.ba.declarative.impl.DeclarativeBasicPropertyAssociationImpl
-    	 * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeBasicPropertyAssociation()
-    	 * @generated
-    	 */
+     * @see org.osate.ba.declarative.impl.DeclarativeBasicPropertyAssociationImpl
+     * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeBasicPropertyAssociation()
+     * @generated
+     */
     EClass DECLARATIVE_BASIC_PROPERTY_ASSOCIATION = eINSTANCE
                                                              .getDeclarativeBasicPropertyAssociation() ;
 
     /**
-    	 * The meta object literal for the '<em><b>Basic Property Name</b></em>' attribute feature.
-    	 * <!-- begin-user-doc -->
+     * The meta object literal for the '<em><b>Basic Property Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
     	 * <!-- end-user-doc -->
-    	 * @generated
-    	 */
+     * @generated
+     */
     EAttribute DECLARATIVE_BASIC_PROPERTY_ASSOCIATION__BASIC_PROPERTY_NAME =
                                                                            eINSTANCE.getDeclarativeBasicPropertyAssociation_BasicPropertyName() ;
+
+    /**
+     * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeBooleanLiteralImpl <em>Boolean Literal</em>}' class.
+     * <!-- begin-user-doc -->
+    	 * <!-- end-user-doc -->
+     * @see org.osate.ba.declarative.impl.DeclarativeBooleanLiteralImpl
+     * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeBooleanLiteral()
+     * @generated
+     */
+    EClass DECLARATIVE_BOOLEAN_LITERAL = eINSTANCE
+                                                  .getDeclarativeBooleanLiteral() ;
 
   }
 

@@ -30,6 +30,7 @@ import org.osate.aadl2.AbstractNamedValue ;
 import org.osate.aadl2.ArrayDimension ;
 import org.osate.aadl2.BasicProperty ;
 import org.osate.aadl2.BasicPropertyAssociation ;
+import org.osate.aadl2.BooleanLiteral ;
 import org.osate.aadl2.Classifier ;
 import org.osate.aadl2.ComponentClassifier ;
 import org.osate.aadl2.Data ;
@@ -60,6 +61,7 @@ import org.osate.ba.aadlba.ActualPortHolder ;
 import org.osate.ba.aadlba.BasicAction ;
 import org.osate.ba.aadlba.BehaviorAction ;
 import org.osate.ba.aadlba.BehaviorActions ;
+import org.osate.ba.aadlba.BehaviorBooleanLiteral ;
 import org.osate.ba.aadlba.BehaviorElement ;
 import org.osate.ba.aadlba.BehaviorIntegerLiteral ;
 import org.osate.ba.aadlba.BehaviorNamedElement ;
@@ -657,6 +659,40 @@ public class DeclarativeSwitch<T> extends Switch<T>
           result = defaultCase(theEObject) ;
         return result ;
       }
+      case DeclarativePackage.DECLARATIVE_BOOLEAN_LITERAL :
+      {
+        DeclarativeBooleanLiteral declarativeBooleanLiteral =
+                                                            (DeclarativeBooleanLiteral) theEObject ;
+        T result = caseDeclarativeBooleanLiteral(declarativeBooleanLiteral) ;
+        if(result == null)
+          result = caseBehaviorBooleanLiteral(declarativeBooleanLiteral) ;
+        if(result == null)
+          result = caseDeclarativePropertyExpression(
+                                                     declarativeBooleanLiteral) ;
+        if(result == null)
+          result = caseBooleanLiteral(declarativeBooleanLiteral) ;
+        if(result == null)
+          result = caseLiteral(declarativeBooleanLiteral) ;
+        if(result == null)
+          result = casePropertyValue(declarativeBooleanLiteral) ;
+        if(result == null)
+          result = caseIntegerValueConstant(declarativeBooleanLiteral) ;
+        if(result == null)
+          result = casePropertyExpression(declarativeBooleanLiteral) ;
+        if(result == null)
+          result = caseValueConstant(declarativeBooleanLiteral) ;
+        if(result == null)
+          result = caseValue(declarativeBooleanLiteral) ;
+        if(result == null)
+          result = caseIntegerValue(declarativeBooleanLiteral) ;
+        if(result == null)
+          result = caseBehaviorElement(declarativeBooleanLiteral) ;
+        if(result == null)
+          result = caseElement(declarativeBooleanLiteral) ;
+        if(result == null)
+          result = defaultCase(theEObject) ;
+        return result ;
+      }
       default :
         return defaultCase(theEObject) ;
     }
@@ -970,16 +1006,16 @@ public class DeclarativeSwitch<T> extends Switch<T>
   }
 
   /**
-  	 * Returns the result of interpreting the object as an instance of '<em>Basic Property Association</em>'.
-  	 * <!-- begin-user-doc -->
+   * Returns the result of interpreting the object as an instance of '<em>Basic Property Association</em>'.
+   * <!-- begin-user-doc -->
   	 * This implementation returns null;
   	 * returning a non-null result will terminate the switch.
   	 * <!-- end-user-doc -->
-  	 * @param object the target of the switch.
-  	 * @return the result of interpreting the object as an instance of '<em>Basic Property Association</em>'.
-  	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-  	 * @generated
-  	 */
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Basic Property Association</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
   public T caseDeclarativeBasicPropertyAssociation(
                                                    DeclarativeBasicPropertyAssociation object)
   {
@@ -987,16 +1023,32 @@ public class DeclarativeSwitch<T> extends Switch<T>
   }
 
   /**
-  	 * Returns the result of interpreting the object as an instance of '<em>Element</em>'.
-  	 * <!-- begin-user-doc -->
+   * Returns the result of interpreting the object as an instance of '<em>Boolean Literal</em>'.
+   * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
-  	 * @param object the target of the switch.
-  	 * @return the result of interpreting the object as an instance of '<em>Element</em>'.
-  	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-  	 * @generated
-  	 */
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Boolean Literal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDeclarativeBooleanLiteral(DeclarativeBooleanLiteral object)
+  {
+    return null ;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Element</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Element</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
   public T caseElement(Element object)
   {
     return null ;
@@ -2011,32 +2063,64 @@ public class DeclarativeSwitch<T> extends Switch<T>
   }
 
   /**
-  	 * Returns the result of interpreting the object as an instance of '<em>Basic Property Association</em>'.
-  	 * <!-- begin-user-doc -->
+   * Returns the result of interpreting the object as an instance of '<em>Basic Property Association</em>'.
+   * <!-- begin-user-doc -->
   	 * This implementation returns null;
   	 * returning a non-null result will terminate the switch.
   	 * <!-- end-user-doc -->
-  	 * @param object the target of the switch.
-  	 * @return the result of interpreting the object as an instance of '<em>Basic Property Association</em>'.
-  	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-  	 * @generated
-  	 */
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Basic Property Association</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
   public T caseBasicPropertyAssociation(BasicPropertyAssociation object)
   {
     return null ;
   }
 
   /**
-  	 * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
-  	 * <!-- begin-user-doc -->
+   * Returns the result of interpreting the object as an instance of '<em>Boolean Literal</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Boolean Literal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseBooleanLiteral(BooleanLiteral object)
+  {
+    return null ;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Behavior Boolean Literal</em>'.
+   * <!-- begin-user-doc -->
+  	 * This implementation returns null;
+  	 * returning a non-null result will terminate the switch.
+  	 * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Behavior Boolean Literal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseBehaviorBooleanLiteral(BehaviorBooleanLiteral object)
+  {
+    return null ;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
+   * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch, but this is the last case anyway.
    * <!-- end-user-doc -->
-  	 * @param object the target of the switch.
-  	 * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
-  	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
-  	 * @generated
-  	 */
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject)
+   * @generated
+   */
   @Override
   public T defaultCase(EObject object)
   {

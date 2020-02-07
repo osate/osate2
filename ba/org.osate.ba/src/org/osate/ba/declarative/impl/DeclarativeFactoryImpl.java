@@ -120,6 +120,8 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
         return createDeclarativeRecordValue() ;
       case DeclarativePackage.DECLARATIVE_BASIC_PROPERTY_ASSOCIATION :
         return createDeclarativeBasicPropertyAssociation() ;
+      case DeclarativePackage.DECLARATIVE_BOOLEAN_LITERAL :
+        return createDeclarativeBooleanLiteral() ;
       default :
         throw new IllegalArgumentException("The class '" + eClass.getName() +
                                            "' is not a valid classifier") ;
@@ -343,10 +345,10 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
   }
 
   /**
-  	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 */
+   * @generated
+   */
   @Override
   public DeclarativeBasicPropertyAssociation
          createDeclarativeBasicPropertyAssociation()
@@ -357,10 +359,23 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
   }
 
   /**
-  	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-  	 * @generated
-  	 */
+   * @generated
+   */
+  @Override
+  public DeclarativeBooleanLiteral createDeclarativeBooleanLiteral()
+  {
+    DeclarativeBooleanLiteralImpl declarativeBooleanLiteral =
+                                                            new DeclarativeBooleanLiteralImpl() ;
+    return declarativeBooleanLiteral ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public DeclarativePackage getDeclarativePackage()
   {

@@ -582,6 +582,16 @@ public interface AadlBaListener extends ParseTreeListener {
 	 */
 	void exitNumeral(@NotNull AadlBaParser.NumeralContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#boolean_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void enterBoolean_property_value(@NotNull AadlBaParser.Boolean_property_valueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#boolean_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void exitBoolean_property_value(@NotNull AadlBaParser.Boolean_property_valueContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#factor}.
 	 * @param ctx the parse tree
 	 */

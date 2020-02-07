@@ -92,7 +92,7 @@ public class AadlBaLexer extends Lexer {
 	};
 
 
-	  public static final short KEYWORD_MAX_ID = 36 ;
+	  public static final short KEYWORD_MAX_ID = 40 ;
 	  public static final short PUNCTUATION_MAX_ID = 70 ;
 	  public static final short EOF_ID = 0 ;
 	  public static final short ERR_MAX_ID = 73 ;
@@ -149,7 +149,7 @@ public class AadlBaLexer extends Lexer {
 	                                  AnnexHighlighterPositionAcceptor.NUMBER_ID) ;
 	            break ;
 	          }
-	                  
+
 	          case SL_COMMENT :
 	          {
 	            _ht.addToHighlighting(_annexOffset, token,

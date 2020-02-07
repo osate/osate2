@@ -196,21 +196,30 @@ public interface DeclarativeFactory extends EFactory
   DeclarativeRecordValue createDeclarativeRecordValue() ;
 
   /**
-  	 * Returns a new object of class '<em>Basic Property Association</em>'.
-  	 * <!-- begin-user-doc -->
+   * Returns a new object of class '<em>Basic Property Association</em>'.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @return a new object of class '<em>Basic Property Association</em>'.
-  	 * @generated
-  	 */
+   * @return a new object of class '<em>Basic Property Association</em>'.
+   * @generated
+   */
   DeclarativeBasicPropertyAssociation createDeclarativeBasicPropertyAssociation() ;
 
   /**
-  	 * Returns the package supported by this factory.
-  	 * <!-- begin-user-doc -->
+   * Returns a new object of class '<em>Boolean Literal</em>'.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-  	 * @return the package supported by this factory.
-  	 * @generated
-  	 */
+   * @return a new object of class '<em>Boolean Literal</em>'.
+   * @generated
+   */
+  DeclarativeBooleanLiteral createDeclarativeBooleanLiteral() ;
+
+  /**
+   * Returns the package supported by this factory.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the package supported by this factory.
+   * @generated
+   */
   DeclarativePackage getDeclarativePackage() ;
 
 } //DeclarativeFactory
