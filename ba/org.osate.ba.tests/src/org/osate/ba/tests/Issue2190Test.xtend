@@ -33,7 +33,7 @@ class Issue2190Test {
 				]
 			]
 		]
-		0.assertEquals(result.issues.size)
+		1.assertEquals(result.issues.size)
 	}
 	
 	@Test
