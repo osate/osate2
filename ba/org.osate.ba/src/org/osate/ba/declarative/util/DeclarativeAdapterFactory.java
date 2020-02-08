@@ -326,6 +326,13 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
                                                      }
 
                                                      @Override
+                                                     public Adapter
+                                                            caseDeclarativeClassifierValue(DeclarativeClassifierValue object)
+                                                     {
+                                                       return createDeclarativeClassifierValueAdapter() ;
+                                                     }
+
+                                                     @Override
                                                      public Adapter caseElement(
                                                                                 Element object)
                                                      {
@@ -1176,15 +1183,30 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-  	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.Element <em>Element</em>}'.
-  	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.osate.ba.declarative.DeclarativeClassifierValue <em>Classifier Value</em>}'.
+   * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
-  	 * @return the new adapter.
-  	 * @see org.osate.aadl2.Element
-  	 * @generated
-  	 */
+   * @return the new adapter.
+   * @see org.osate.ba.declarative.DeclarativeClassifierValue
+   * @generated
+   */
+  public Adapter createDeclarativeClassifierValueAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.Element <em>Element</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.Element
+   * @generated
+   */
   public Adapter createElementAdapter()
   {
     return null ;
@@ -1506,45 +1528,45 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.aadl2.DataSubcomponentType <em>Data Subcomponent Type</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.aadl2.DataSubcomponentType
-   * @generated
-   */
+  	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.DataSubcomponentType <em>Data Subcomponent Type</em>}'.
+  	 * <!-- begin-user-doc -->
+  	 * This default implementation returns null so that we can easily ignore cases;
+  	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+  	 * <!-- end-user-doc -->
+  	 * @return the new adapter.
+  	 * @see org.osate.aadl2.DataSubcomponentType
+  	 * @generated
+  	 */
   public Adapter createDataSubcomponentTypeAdapter()
   {
     return null ;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.aadl2.DataClassifier <em>Data Classifier</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.aadl2.DataClassifier
-   * @generated
-   */
+  	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.DataClassifier <em>Data Classifier</em>}'.
+  	 * <!-- begin-user-doc -->
+  	 * This default implementation returns null so that we can easily ignore cases;
+  	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+  	 * <!-- end-user-doc -->
+  	 * @return the new adapter.
+  	 * @see org.osate.aadl2.DataClassifier
+  	 * @generated
+  	 */
   public Adapter createDataClassifierAdapter()
   {
     return null ;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.Value <em>Value</em>}'.
-   * <!-- begin-user-doc -->
+  	 * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.Value <em>Value</em>}'.
+  	 * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.ba.aadlba.Value
-   * @generated
-   */
+  	 * @return the new adapter.
+  	 * @see org.osate.ba.aadlba.Value
+  	 * @generated
+  	 */
   public Adapter createValueAdapter()
   {
     return null ;

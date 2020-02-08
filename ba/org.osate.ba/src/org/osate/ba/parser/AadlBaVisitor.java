@@ -163,6 +163,12 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMode_switch_trigger_conjunction(@NotNull AadlBaParser.Mode_switch_trigger_conjunctionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AadlBaParser#classifier_property_value}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitClassifier_property_value(@NotNull AadlBaParser.Classifier_property_valueContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#unit_reference}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

@@ -32,6 +32,8 @@ import org.antlr.v4.runtime.tree.TerminalNode ;
 import org.eclipse.emf.common.util.BasicEList ;
 import org.osate.aadl2.Aadl2Factory ;
 import org.osate.aadl2.BooleanLiteral ;
+import org.osate.aadl2.ClassifierValue ;
+import org.osate.aadl2.DataClassifier ;
 import org.osate.aadl2.IntegerLiteral ;
 import org.osate.aadl2.ListValue ;
 import org.osate.aadl2.ModalPropertyValue ;
@@ -74,6 +76,7 @@ import org.osate.ba.aadlba.UpperBound ;
 import org.osate.ba.aadlba.Value ;
 import org.osate.ba.analyzers.DeclarativeUtils ;
 import org.osate.ba.declarative.DeclarativeArrayDimension ;
+import org.osate.ba.declarative.DeclarativeClassifierValue ;
 import org.osate.ba.declarative.DeclarativeFactory ;
 import org.osate.ba.declarative.DeclarativeIntegerLiteral ;
 import org.osate.ba.declarative.DeclarativePropertyExpression ;
@@ -93,6 +96,7 @@ import org.osate.ba.parser.AadlBaParser.Behavior_variableContext ;
 import org.osate.ba.parser.AadlBaParser.Behavior_variable_listContext ;
 import org.osate.ba.parser.AadlBaParser.Binary_adding_operatorContext ;
 import org.osate.ba.parser.AadlBaParser.Boolean_property_valueContext ;
+import org.osate.ba.parser.AadlBaParser.Classifier_property_valueContext ;
 import org.osate.ba.parser.AadlBaParser.Data_classifier_property_associationContext ;
 import org.osate.ba.parser.AadlBaParser.Dispatch_conjunctionContext ;
 import org.osate.ba.parser.AadlBaParser.Elsif_statementContext ;
@@ -336,7 +340,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     for(Behavior_variableContext bvc : ctx.behavior_variable())
     {
       bvc.result
-            .setDataClassifier(ctx.unique_component_classifier_reference().result) ;
+            .setDataClassifier((DataClassifier) ctx.unique_component_classifier_reference().result) ;
 
       for(Data_classifier_property_associationContext dcpa: dcpaList)
       {
@@ -417,6 +421,13 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
       ReferenceValue targetRV = _coreFact.createReferenceValue();
       targetRV.setPath(sourceDRV.getRef());
       targetPropertyExpression = targetRV;
+    }
+    else if(sourcePropertyExpression instanceof DeclarativeClassifierValue)
+    {
+      DeclarativeClassifierValue sourceDCV = (DeclarativeClassifierValue) sourcePropertyExpression;
+      ClassifierValue targetCV = _coreFact.createClassifierValue();
+      targetCV.setClassifier(sourceDCV.getClassifier());
+      targetPropertyExpression = targetCV;
     }
     return targetPropertyExpression;
   }
@@ -1189,7 +1200,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     DeclarativeUtils
           .setEcontainer(_ba,
                          ctx.unique_component_classifier_reference().result) ;
-    itVar.setDataClassifier(ctx.unique_component_classifier_reference().result) ;
+    itVar.setDataClassifier((DataClassifier) ctx.unique_component_classifier_reference().result) ;
 
     ctx.result.setIteratedValues(ctx.element_values().result) ;
     return null ;
@@ -1278,7 +1289,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     DeclarativeUtils
           .setEcontainer(_ba,
                          ctx.unique_component_classifier_reference().result) ;
-    itVar.setDataClassifier(ctx.unique_component_classifier_reference().result) ;
+    itVar.setDataClassifier((DataClassifier) ctx.unique_component_classifier_reference().result) ;
 
     ctx.result.setIteratedValues(ctx.element_values().result) ;
     return null ;
@@ -2205,6 +2216,10 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     {
       ctx.result = (DeclarativePropertyExpression) ctx.reference_property_value().result;
     }
+    else if (ctx.classifier_property_value()!=null)
+    {
+      ctx.result = (DeclarativePropertyExpression) ctx.classifier_property_value().result; 
+    }
     return null ;
   }
   
@@ -2330,6 +2345,15 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     visitChildren(ctx) ;
     ctx.result =  _decl.createDeclarativeReferenceValue();
     ctx.result.setRef(ctx.reference().result);
+    return null ;
+  }
+
+  @Override
+  public T visitClassifier_property_value(Classifier_property_valueContext ctx)
+  {
+    visitChildren(ctx) ;
+    ctx.result = _decl.createDeclarativeClassifierValue();
+    ctx.result.setClassifier(ctx.unique_component_classifier_reference().result);
     return null ;
   }
 }

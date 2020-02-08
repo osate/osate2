@@ -2507,13 +2507,13 @@ public class AadlBaNameResolver
      }
      else if(pe instanceof ReferenceValue)
      {
-       Classifier context = _baParentContainer;
-       Reference r = (Reference)(((ReferenceValue) pe).getPath());
+       ReferenceValue rv = (ReferenceValue) pe;
+       Reference r = (Reference)(rv.getPath());
        
-       ReferenceValue rv = Aadl2Factory.eINSTANCE.createReferenceValue();
        ContainmentPathElement firstCne = Aadl2Factory.eINSTANCE.createContainmentPathElement();
        ContainmentPathElement prevCne = null;
        boolean first= true;
+       Classifier context = _baParentContainer;
        for(Identifier subPath: r.getIds())
        {
          ContainmentPathElement currentCne;
@@ -2530,7 +2530,7 @@ public class AadlBaNameResolver
                                                      subPath.getId());
          if(ne == null)
          {
-           _errManager.error(bv, "Element \'" + subPath.getId() + "\' is not found in "+ context.getName());
+           _errManager.error(bv, "Element \'" + subPath.getId() + "\' is not found in "+ context.getName() + "(property "+propertyName+")");
            result = false;
          }
          else
@@ -2552,9 +2552,41 @@ public class AadlBaNameResolver
          prevCne = currentCne;
        }
        rv.setPath(firstCne);
-       if(result)
-         pe = rv;
      }
+     else if(pe instanceof ClassifierValue)
+     {
+       ClassifierValue cv = (ClassifierValue) pe;
+       QualifiedNamedElement classifierQne = (QualifiedNamedElement) cv.getClassifier();
+       
+       String qneClassPackageName = "";
+       boolean qneClassHasNamespace = classifierQne.getBaNamespace() != null ; 
+       if(qneClassHasNamespace)
+       {
+         qneClassPackageName = classifierQne.getBaNamespace().getId() ;
+       }
+       boolean resolved = false;
+       for(PackageSection context: _contextsTab)
+       {
+         NamedElement ne = Aadl2Visitors.findElementInPackage(classifierQne.getBaName().getId(),
+                                                            qneClassPackageName, context) ;
+         if(ne!=null && ne instanceof Classifier)
+         {
+           cv.setClassifier((Classifier) ne);
+           resolved = true;
+           break;
+         }
+       }
+       if(!resolved)
+       {
+         String cvQualifiedName = "";
+         if(!qneClassPackageName.isEmpty())
+           cvQualifiedName+=qneClassPackageName+"::";
+         cvQualifiedName+=classifierQne.getBaName().getId();
+         _errManager.error(bv, "Classifier \'" + cvQualifiedName + "\' associated to property "+ propertyName +" is not found");
+         result = false;
+       }
+     }
+     
      return result;
    }
    
