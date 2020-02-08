@@ -1,4 +1,4 @@
-package issue2184_InitialValue
+package issue2190_InitialValue
 public
 	with Base_Types;
 	with Data_Model;
@@ -20,4 +20,4 @@ public
 	end top;
 
 	
-end issue2184_InitialValue;
+end issue2190_InitialValue;

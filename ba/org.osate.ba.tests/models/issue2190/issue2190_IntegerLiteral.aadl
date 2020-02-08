@@ -1,4 +1,4 @@
-package issue2184_IntegerLiteral
+package issue2190_IntegerLiteral
 public
 	with Base_Types;
 	
@@ -20,4 +20,4 @@ public
         **};
 	end top;
 	
-end issue2184_IntegerLiteral;
+end issue2190_IntegerLiteral;
