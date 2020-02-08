@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.osate.verify" version="2">
+    <resource path="src-gen/org/osate/verify/serializer/VerifySyntacticSequencer.java" type="org.osate.verify.serializer.VerifySyntacticSequencer">
+        <filter comment="xtext" id="576720909">
+            <message_arguments>
+                <message_argument value="AbstractSyntacticSequencer"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="match_AParenthesizedExpression_LeftParenthesisKeyword_0_a"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="match_AParenthesizedExpression_LeftParenthesisKeyword_0_p"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="match_Claim_ActivitiesKeyword_5_0_0_a"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="match_Claim_ActivitiesKeyword_5_0_0_p"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="match_Claim___ActivitiesKeyword_5_0_0_a_IssuesKeyword_5_5_0__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="match_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="match_JavaMethod___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="match_VerificationActivity_CategoryKeyword_9_1_0_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="match_VerificationActivity___LeftSquareBracketKeyword_9_0_RightSquareBracketKeyword_9_2__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="match_VerificationActivity___PropertyKeyword_8_0_ValuesKeyword_8_1_LeftParenthesisKeyword_8_2_RightParenthesisKeyword_8_4__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="match_VerificationMethod_CategoryKeyword_6_4_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="match_VerificationMethod___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2___PropertiesKeyword_2_3_0_LeftParenthesisKeyword_2_3_1_RightParenthesisKeyword_2_3_3__q___ReturnsKeyword_2_4_0_LeftParenthesisKeyword_2_4_1_RightParenthesisKeyword_2_4_3__q__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="match_VerificationMethod___PropertiesKeyword_2_3_0_LeftParenthesisKeyword_2_3_1_RightParenthesisKeyword_2_3_3__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="match_VerificationMethod___ReturnsKeyword_2_4_0_LeftParenthesisKeyword_2_4_1_RightParenthesisKeyword_2_4_3__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="match_VerificationPlan_IssuesKeyword_7_3_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="emit_AParenthesizedExpression_LeftParenthesisKeyword_0_a(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="emit_AParenthesizedExpression_LeftParenthesisKeyword_0_p(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="emit_Claim_ActivitiesKeyword_5_0_0_a(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="emit_Claim_ActivitiesKeyword_5_0_0_p(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="emit_Claim___ActivitiesKeyword_5_0_0_a_IssuesKeyword_5_5_0__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="emit_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_a(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="emit_CompositeEvidenceExpr_LeftParenthesisKeyword_0_0_p(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="emit_JavaMethod___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="emit_VerificationActivity_CategoryKeyword_9_1_0_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="emit_VerificationActivity___LeftSquareBracketKeyword_9_0_RightSquareBracketKeyword_9_2__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="emit_VerificationActivity___PropertyKeyword_8_0_ValuesKeyword_8_1_LeftParenthesisKeyword_8_2_RightParenthesisKeyword_8_4__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="emit_VerificationMethod_CategoryKeyword_6_4_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="emit_VerificationMethod___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2___PropertiesKeyword_2_3_0_LeftParenthesisKeyword_2_3_1_RightParenthesisKeyword_2_3_3__q___ReturnsKeyword_2_4_0_LeftParenthesisKeyword_2_4_1_RightParenthesisKeyword_2_4_3__q__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="emit_VerificationMethod___PropertiesKeyword_2_3_0_LeftParenthesisKeyword_2_3_1_RightParenthesisKeyword_2_3_3__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="emit_VerificationMethod___ReturnsKeyword_2_4_0_LeftParenthesisKeyword_2_4_1_RightParenthesisKeyword_2_4_3__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="emit_VerificationPlan_IssuesKeyword_7_3_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynTransition"/>
+                <message_argument value="VerifySyntacticSequencer"/>
+                <message_argument value="emitUnassignedTokens(EObject, ISyntacticSequencerPDAProviderISynTransition, INode, INode)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="xtend-gen/org/osate/verify/validation/VerifyValidator.java" type="org.osate.verify.validation.VerifyValidator">
+        <filter comment="xtext" id="576720909">
+            <message_arguments>
+                <message_argument value="VerifyTypeSystemValidator"/>
+                <message_argument value="VerifyValidator"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>

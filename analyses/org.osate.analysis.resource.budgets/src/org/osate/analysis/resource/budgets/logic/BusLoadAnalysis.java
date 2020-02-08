@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -46,9 +46,12 @@ import org.osate.ui.handlers.AbstractAaxlHandler;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
+/**
+ * @since 2.0
+ */
 public class BusLoadAnalysis extends AbstractLoggingAnalysis {
 	private final String actionName;
-	
+
 	public BusLoadAnalysis(final String actionName, final AbstractAaxlHandler errManager) {
 		super(errManager);
 		this.actionName = actionName;
@@ -68,7 +71,7 @@ public class BusLoadAnalysis extends AbstractLoggingAnalysis {
 			Dialog.showError("Bound Bus Bandwidth Analysis Error", "Can only check system instances");
 		}
 	}
-	
+
 	private void checkBusLoads(SystemInstance si, final SystemOperationMode som) {
 		errManager.infoSummaryReportOnly(si, null, "\nBus Summary Report: " + Aadl2Util.getPrintableSOMName(som));
 		ForAllElement mal = new ForAllElement() {
@@ -79,10 +82,10 @@ public class BusLoadAnalysis extends AbstractLoggingAnalysis {
 		};
 		mal.processPreOrderComponentInstance(si, ComponentCategory.BUS);
 	}
-	
+
 	/**
 	 * check the load from connections bound to the given bus
-	 * 
+	 *
 	 * @param curBus Component Instance of bus
 	 * @param doBindings if true do bindings to all buses, if false do them only
 	 *            for EtherSwitch
@@ -174,7 +177,7 @@ public class BusLoadAnalysis extends AbstractLoggingAnalysis {
 					+ Buscapacity + " " + kbspsliteral.getName() + " and bound connections without bandwidth budget");
 		}
 	}
-	
+
 	private EList<ConnectionInstance> filterInModeConnections(EList<ConnectionInstance> connections,
 			SystemOperationMode som) {
 		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
@@ -185,7 +188,7 @@ public class BusLoadAnalysis extends AbstractLoggingAnalysis {
 		}
 		return result;
 	}
-	
+
 	private EList<ConnectionInstance> filterSameSourceConnections(EList<ConnectionInstance> connections) {
 		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
 		for (ConnectionInstance conni : connections) {
@@ -195,10 +198,10 @@ public class BusLoadAnalysis extends AbstractLoggingAnalysis {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * Calculate bandwidth demand from rate & data size
-	 * 
+	 *
 	 * @param pci Port connection instance
 	 * @return
 	 */
@@ -229,7 +232,7 @@ public class BusLoadAnalysis extends AbstractLoggingAnalysis {
 		}
 		return res;
 	}
-	
+
 	private boolean hasConnectionSource(EList<ConnectionInstance> connections, ConnectionInstance conni) {
 		ConnectionInstanceEnd src = conni.getSource();
 		for (ConnectionInstance connectionInstance : connections) {

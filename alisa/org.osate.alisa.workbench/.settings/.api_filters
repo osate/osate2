@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.osate.alisa.workbench" version="2">
+    <resource path="src-gen/org/osate/alisa/workbench/serializer/AlisaSyntacticSequencer.java" type="org.osate.alisa.workbench.serializer.AlisaSyntacticSequencer">
+        <filter comment="xtext" id="576720909">
+            <message_arguments>
+                <message_argument value="AbstractSyntacticSequencer"/>
+                <message_argument value="AlisaSyntacticSequencer"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="AlisaSyntacticSequencer"/>
+                <message_argument value="match_AParenthesizedExpression_LeftParenthesisKeyword_0_a"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="AlisaSyntacticSequencer"/>
+                <message_argument value="match_AParenthesizedExpression_LeftParenthesisKeyword_0_p"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="AlisaSyntacticSequencer"/>
+                <message_argument value="match_AssurancePlan_AssureKeyword_7_1_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="AlisaSyntacticSequencer"/>
+                <message_argument value="match_AssurancePlan_IssuesKeyword_7_5_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="AlisaSyntacticSequencer"/>
+                <message_argument value="match_AssurancePlan___AssumeKeyword_7_4_0_SubsystemKeyword_7_4_1__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="AlisaSyntacticSequencer"/>
+                <message_argument value="match_AssurancePlan___AssureKeyword_7_2_0_GlobalKeyword_7_2_1__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="AlisaSyntacticSequencer"/>
+                <message_argument value="match_AssurancePlan___AssureKeyword_7_3_0_SubsystemKeyword_7_3_1__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="AlisaSyntacticSequencer"/>
+                <message_argument value="match_AssuranceTask_CategoryKeyword_6_1_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="AlisaSyntacticSequencer"/>
+                <message_argument value="match_AssuranceTask_IssuesKeyword_6_2_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="AlisaSyntacticSequencer"/>
+                <message_argument value="emit_AParenthesizedExpression_LeftParenthesisKeyword_0_a(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="AlisaSyntacticSequencer"/>
+                <message_argument value="emit_AParenthesizedExpression_LeftParenthesisKeyword_0_p(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="AlisaSyntacticSequencer"/>
+                <message_argument value="emit_AssurancePlan_AssureKeyword_7_1_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="AlisaSyntacticSequencer"/>
+                <message_argument value="emit_AssurancePlan_IssuesKeyword_7_5_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="AlisaSyntacticSequencer"/>
+                <message_argument value="emit_AssurancePlan___AssumeKeyword_7_4_0_SubsystemKeyword_7_4_1__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="AlisaSyntacticSequencer"/>
+                <message_argument value="emit_AssurancePlan___AssureKeyword_7_2_0_GlobalKeyword_7_2_1__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="AlisaSyntacticSequencer"/>
+                <message_argument value="emit_AssurancePlan___AssureKeyword_7_3_0_SubsystemKeyword_7_3_1__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="AlisaSyntacticSequencer"/>
+                <message_argument value="emit_AssuranceTask_CategoryKeyword_6_1_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="AlisaSyntacticSequencer"/>
+                <message_argument value="emit_AssuranceTask_IssuesKeyword_6_2_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynTransition"/>
+                <message_argument value="AlisaSyntacticSequencer"/>
+                <message_argument value="emitUnassignedTokens(EObject, ISyntacticSequencerPDAProviderISynTransition, INode, INode)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>
