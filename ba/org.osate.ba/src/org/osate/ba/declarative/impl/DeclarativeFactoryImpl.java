@@ -124,6 +124,8 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
         return createDeclarativeBooleanLiteral() ;
       case DeclarativePackage.DECLARATIVE_RANGE_VALUE :
         return createDeclarativeRangeValue() ;
+      case DeclarativePackage.DECLARATIVE_REFERENCE_VALUE :
+        return createDeclarativeReferenceValue() ;
       default :
         throw new IllegalArgumentException("The class '" + eClass.getName() +
                                            "' is not a valid classifier") ;
@@ -384,6 +386,19 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
     DeclarativeRangeValueImpl declarativeRangeValue =
                                                     new DeclarativeRangeValueImpl() ;
     return declarativeRangeValue ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public DeclarativeReferenceValue createDeclarativeReferenceValue()
+  {
+    DeclarativeReferenceValueImpl declarativeReferenceValue =
+                                                            new DeclarativeReferenceValueImpl() ;
+    return declarativeReferenceValue ;
   }
 
   /**

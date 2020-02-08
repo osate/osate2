@@ -81,7 +81,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="baName" lowerBound="1"
         eType="#//Identifier" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Reference" eSuperTypes="aadlba.ecore#//ActualPortHolder #//DeclarativeBehaviorElement aadlba.ecore#//IntegerValueVariable aadlba.ecore#//ValueVariable aadlba.ecore#//ElementValues aadlba.ecore#//Target aadlba.ecore#//DispatchTriggerCondition aadlba.ecore#//DispatchTrigger aadlba.ecore#//ModeSwitchTrigger">
+  <eClassifiers xsi:type="ecore:EClass" name="Reference" eSuperTypes="aadlba.ecore#//ActualPortHolder #//DeclarativeBehaviorElement aadlba.ecore#//IntegerValueVariable aadlba.ecore#//ValueVariable aadlba.ecore#//ElementValues aadlba.ecore#//Target aadlba.ecore#//DispatchTriggerCondition aadlba.ecore#//DispatchTrigger aadlba.ecore#//ModeSwitchTrigger ../../org.osate.aadl2/model/aadl2.ecore#//ContainmentPathElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ids" lowerBound="1" upperBound="-1"
         eType="#//ArrayableIdentifier" containment="true"/>
   </eClassifiers>
@@ -105,4 +105,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DeclarativeBooleanLiteral" eSuperTypes="aadlba.ecore#//BehaviorBooleanLiteral #//DeclarativePropertyExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="DeclarativeRangeValue" eSuperTypes="../../org.osate.aadl2/model/aadl2.ecore#//RangeValue #//DeclarativePropertyExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DeclarativeReferenceValue" eSuperTypes="#//DeclarativePropertyExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ref" lowerBound="1" eType="#//Reference"/>
+  </eClassifiers>
 </ecore:EPackage>

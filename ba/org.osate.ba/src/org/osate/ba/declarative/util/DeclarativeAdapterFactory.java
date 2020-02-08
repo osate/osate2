@@ -35,6 +35,8 @@ import org.osate.aadl2.BasicPropertyAssociation ;
 import org.osate.aadl2.BooleanLiteral ;
 import org.osate.aadl2.Classifier ;
 import org.osate.aadl2.ComponentClassifier ;
+import org.osate.aadl2.ContainedNamedElement ;
+import org.osate.aadl2.ContainmentPathElement ;
 import org.osate.aadl2.Data ;
 import org.osate.aadl2.DataClassifier ;
 import org.osate.aadl2.DataSubcomponentType ;
@@ -55,6 +57,7 @@ import org.osate.aadl2.PropertyValue ;
 import org.osate.aadl2.RangeValue ;
 import org.osate.aadl2.RealLiteral ;
 import org.osate.aadl2.RecordValue ;
+import org.osate.aadl2.ReferenceValue ;
 import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.SubcomponentType ;
 import org.osate.aadl2.Type ;
@@ -313,6 +316,13 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
                                                             caseDeclarativeRangeValue(DeclarativeRangeValue object)
                                                      {
                                                        return createDeclarativeRangeValueAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseDeclarativeReferenceValue(DeclarativeReferenceValue object)
+                                                     {
+                                                       return createDeclarativeReferenceValueAdapter() ;
                                                      }
 
                                                      @Override
@@ -670,6 +680,13 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
                                                             caseModeSwitchTrigger(ModeSwitchTrigger object)
                                                      {
                                                        return createModeSwitchTriggerAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseContainmentPathElement(ContainmentPathElement object)
+                                                     {
+                                                       return createContainmentPathElementAdapter() ;
                                                      }
 
                                                      @Override
@@ -1139,6 +1156,21 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createDeclarativeRangeValueAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.declarative.DeclarativeReferenceValue <em>Reference Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.declarative.DeclarativeReferenceValue
+   * @generated
+   */
+  public Adapter createDeclarativeReferenceValueAdapter()
   {
     return null ;
   }
@@ -1909,6 +1941,21 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.ContainmentPathElement <em>Containment Path Element</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.ContainmentPathElement
+   * @generated
+   */
+  public Adapter createContainmentPathElementAdapter()
+  {
+    return null ;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.osate.aadl2.PropertyExpression <em>Property Expression</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -2164,13 +2211,13 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-  	 * Creates a new adapter for the default case.
-  	 * <!-- begin-user-doc -->
+   * Creates a new adapter for the default case.
+   * <!-- begin-user-doc -->
    * This default implementation returns null.
    * <!-- end-user-doc -->
-  	 * @return the new adapter.
-  	 * @generated
-  	 */
+   * @return the new adapter.
+   * @generated
+   */
   public Adapter createEObjectAdapter()
   {
     return null ;

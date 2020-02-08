@@ -22,6 +22,7 @@
 package org.osate.ba.declarative ;
 
 import org.eclipse.emf.common.util.EList ;
+import org.osate.aadl2.ContainmentPathElement ;
 import org.osate.ba.aadlba.ActualPortHolder ;
 import org.osate.ba.aadlba.DispatchTrigger ;
 import org.osate.ba.aadlba.DispatchTriggerCondition ;
@@ -50,7 +51,7 @@ import org.osate.ba.aadlba.ValueVariable ;
 public interface Reference extends ActualPortHolder, DeclarativeBehaviorElement,
                            IntegerValueVariable, ValueVariable, ElementValues,
                            Target, DispatchTriggerCondition, DispatchTrigger,
-                           ModeSwitchTrigger
+                           ModeSwitchTrigger, ContainmentPathElement
 {
   /**
    * Returns the value of the '<em><b>Ids</b></em>' containment reference list.

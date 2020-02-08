@@ -33,6 +33,8 @@ import org.osate.aadl2.BasicPropertyAssociation ;
 import org.osate.aadl2.BooleanLiteral ;
 import org.osate.aadl2.Classifier ;
 import org.osate.aadl2.ComponentClassifier ;
+import org.osate.aadl2.ContainedNamedElement ;
+import org.osate.aadl2.ContainmentPathElement ;
 import org.osate.aadl2.Data ;
 import org.osate.aadl2.DataClassifier ;
 import org.osate.aadl2.DataSubcomponentType ;
@@ -53,6 +55,7 @@ import org.osate.aadl2.PropertyValue ;
 import org.osate.aadl2.RangeValue ;
 import org.osate.aadl2.RealLiteral ;
 import org.osate.aadl2.RecordValue ;
+import org.osate.aadl2.ReferenceValue ;
 import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.SubcomponentType ;
 import org.osate.aadl2.Type ;
@@ -441,6 +444,8 @@ public class DeclarativeSwitch<T> extends Switch<T>
         if(result == null)
           result = caseModeSwitchTrigger(reference) ;
         if(result == null)
+          result = caseContainmentPathElement(reference) ;
+        if(result == null)
           result = casePortHolder(reference) ;
         if(result == null)
           result = caseParameterLabel(reference) ;
@@ -709,6 +714,22 @@ public class DeclarativeSwitch<T> extends Switch<T>
           result = casePropertyExpression(declarativeRangeValue) ;
         if(result == null)
           result = caseElement(declarativeRangeValue) ;
+        if(result == null)
+          result = defaultCase(theEObject) ;
+        return result ;
+      }
+      case DeclarativePackage.DECLARATIVE_REFERENCE_VALUE :
+      {
+        DeclarativeReferenceValue declarativeReferenceValue =
+                                                            (DeclarativeReferenceValue) theEObject ;
+        T result = caseDeclarativeReferenceValue(declarativeReferenceValue) ;
+        if(result == null)
+          result = caseDeclarativePropertyExpression(
+                                                     declarativeReferenceValue) ;
+        if(result == null)
+          result = casePropertyExpression(declarativeReferenceValue) ;
+        if(result == null)
+          result = caseElement(declarativeReferenceValue) ;
         if(result == null)
           result = defaultCase(theEObject) ;
         return result ;
@@ -1070,6 +1091,22 @@ public class DeclarativeSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseDeclarativeRangeValue(DeclarativeRangeValue object)
+  {
+    return null ;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Reference Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Reference Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDeclarativeReferenceValue(DeclarativeReferenceValue object)
   {
     return null ;
   }
@@ -1891,6 +1928,22 @@ public class DeclarativeSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Containment Path Element</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Containment Path Element</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseContainmentPathElement(ContainmentPathElement object)
+  {
+    return null ;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Property Expression</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -2163,16 +2216,16 @@ public class DeclarativeSwitch<T> extends Switch<T>
   }
 
   /**
-  	 * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
-  	 * <!-- begin-user-doc -->
+   * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
+   * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch, but this is the last case anyway.
    * <!-- end-user-doc -->
-  	 * @param object the target of the switch.
-  	 * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
-  	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
-  	 * @generated
-  	 */
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject)
+   * @generated
+   */
   @Override
   public T defaultCase(EObject object)
   {

@@ -347,7 +347,7 @@ qualifiable_property [QualifiedNamedElement result] locals[String id1, String id
 property_value returns [DeclarativePropertyExpression result]
   :
   	record_property_value
-//  	| reference_property_value
+  	| reference_property_value
 //  	| classifier_property_value
   	| string_literal
   	| numeric_range_property_value
@@ -362,9 +362,9 @@ list_property_value returns [DeclarativeListValue result]
     LPAREN ownedListElement+=property_value (COMMA ownedListElement+=property_value)* RPAREN
 ;
 
-//reference_property_value returns [DeclarativeReference result] :
-//	REFERENCE LPAREN path=qualifiable_named_element[$result] RPAREN
-//;
+reference_property_value returns [DeclarativeReferenceValue result] :
+	REFERENCE LPAREN reference RPAREN
+;
 
 boolean_property_value returns [BehaviorBooleanLiteral result]: 
 	boolean_literal

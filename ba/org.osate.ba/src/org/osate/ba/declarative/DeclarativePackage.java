@@ -1727,13 +1727,53 @@ public interface DeclarativePackage extends EPackage
   int REFERENCE__BA_REF = AadlBaPackage.ACTUAL_PORT_HOLDER_FEATURE_COUNT + 1 ;
 
   /**
+   * The feature id for the '<em><b>Array Range</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REFERENCE__ARRAY_RANGE = AadlBaPackage.ACTUAL_PORT_HOLDER_FEATURE_COUNT +
+                               2 ;
+
+  /**
+   * The feature id for the '<em><b>Named Element</b></em>' reference.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REFERENCE__NAMED_ELEMENT =
+                               AadlBaPackage.ACTUAL_PORT_HOLDER_FEATURE_COUNT +
+                                 3 ;
+
+  /**
+   * The feature id for the '<em><b>Annex Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REFERENCE__ANNEX_NAME = AadlBaPackage.ACTUAL_PORT_HOLDER_FEATURE_COUNT +
+                              4 ;
+
+  /**
+   * The feature id for the '<em><b>Path</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REFERENCE__PATH = AadlBaPackage.ACTUAL_PORT_HOLDER_FEATURE_COUNT + 5 ;
+
+  /**
    * The feature id for the '<em><b>Ids</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REFERENCE__IDS = AadlBaPackage.ACTUAL_PORT_HOLDER_FEATURE_COUNT + 2 ;
+  int REFERENCE__IDS = AadlBaPackage.ACTUAL_PORT_HOLDER_FEATURE_COUNT + 6 ;
 
   /**
    * The number of structural features of the '<em>Reference</em>' class.
@@ -1743,7 +1783,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int REFERENCE_FEATURE_COUNT = AadlBaPackage.ACTUAL_PORT_HOLDER_FEATURE_COUNT +
-                                3 ;
+                                7 ;
 
   /**
    * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativePropertyAssociationImpl <em>Property Association</em>}' class.
@@ -2288,14 +2328,82 @@ public interface DeclarativePackage extends EPackage
   int DECLARATIVE_RANGE_VALUE = 21 ;
 
   /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_RANGE_VALUE__OWNED_ELEMENT =
+                                             Aadl2Package.RANGE_VALUE__OWNED_ELEMENT ;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_RANGE_VALUE__OWNED_COMMENT =
+                                             Aadl2Package.RANGE_VALUE__OWNED_COMMENT ;
+
+  /**
+   * The feature id for the '<em><b>Minimum</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_RANGE_VALUE__MINIMUM = Aadl2Package.RANGE_VALUE__MINIMUM ;
+
+  /**
+   * The feature id for the '<em><b>Maximum</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_RANGE_VALUE__MAXIMUM = Aadl2Package.RANGE_VALUE__MAXIMUM ;
+
+  /**
+   * The feature id for the '<em><b>Delta</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_RANGE_VALUE__DELTA = Aadl2Package.RANGE_VALUE__DELTA ;
+
+  /**
+   * The number of structural features of the '<em>Range Value</em>' class.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_RANGE_VALUE_FEATURE_COUNT =
+                                            Aadl2Package.RANGE_VALUE_FEATURE_COUNT +
+                                              0 ;
+
+  /**
+   * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativeReferenceValueImpl <em>Reference Value</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.ba.declarative.impl.DeclarativeReferenceValueImpl
+   * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeReferenceValue()
+   * @generated
+   */
+  int DECLARATIVE_REFERENCE_VALUE = 22 ;
+
+  /**
   	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
   	 * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
   	 * @generated
   	 * @ordered
   	 */
-  int DECLARATIVE_RANGE_VALUE__OWNED_ELEMENT =
-                                             Aadl2Package.RANGE_VALUE__OWNED_ELEMENT ;
+  int DECLARATIVE_REFERENCE_VALUE__OWNED_ELEMENT =
+                                                 DECLARATIVE_PROPERTY_EXPRESSION__OWNED_ELEMENT ;
 
   /**
   	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -2304,46 +2412,30 @@ public interface DeclarativePackage extends EPackage
   	 * @generated
   	 * @ordered
   	 */
-  int DECLARATIVE_RANGE_VALUE__OWNED_COMMENT =
-                                             Aadl2Package.RANGE_VALUE__OWNED_COMMENT ;
+  int DECLARATIVE_REFERENCE_VALUE__OWNED_COMMENT =
+                                                 DECLARATIVE_PROPERTY_EXPRESSION__OWNED_COMMENT ;
 
   /**
-  	 * The feature id for the '<em><b>Minimum</b></em>' containment reference.
+  	 * The feature id for the '<em><b>Ref</b></em>' reference.
   	 * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
   	 * @generated
   	 * @ordered
   	 */
-  int DECLARATIVE_RANGE_VALUE__MINIMUM = Aadl2Package.RANGE_VALUE__MINIMUM ;
+  int DECLARATIVE_REFERENCE_VALUE__REF =
+                                       DECLARATIVE_PROPERTY_EXPRESSION_FEATURE_COUNT +
+                                         0 ;
 
   /**
-  	 * The feature id for the '<em><b>Maximum</b></em>' containment reference.
+  	 * The number of structural features of the '<em>Reference Value</em>' class.
   	 * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
   	 * @generated
   	 * @ordered
   	 */
-  int DECLARATIVE_RANGE_VALUE__MAXIMUM = Aadl2Package.RANGE_VALUE__MAXIMUM ;
-
-  /**
-  	 * The feature id for the '<em><b>Delta</b></em>' containment reference.
-  	 * <!-- begin-user-doc -->
-  	 * <!-- end-user-doc -->
-  	 * @generated
-  	 * @ordered
-  	 */
-  int DECLARATIVE_RANGE_VALUE__DELTA = Aadl2Package.RANGE_VALUE__DELTA ;
-
-  /**
-  	 * The number of structural features of the '<em>Range Value</em>' class.
-  	 * <!-- begin-user-doc -->
-  	 * <!-- end-user-doc -->
-  	 * @generated
-  	 * @ordered
-  	 */
-  int DECLARATIVE_RANGE_VALUE_FEATURE_COUNT =
-                                            Aadl2Package.RANGE_VALUE_FEATURE_COUNT +
-                                              0 ;
+  int DECLARATIVE_REFERENCE_VALUE_FEATURE_COUNT =
+                                                DECLARATIVE_PROPERTY_EXPRESSION_FEATURE_COUNT +
+                                                  1 ;
 
   /**
   	 * Returns the meta object for class '{@link org.osate.ba.declarative.ArrayableIdentifier <em>Arrayable Identifier</em>}'.
@@ -2929,6 +3021,27 @@ public interface DeclarativePackage extends EPackage
   EClass getDeclarativeRangeValue() ;
 
   /**
+   * Returns the meta object for class '{@link org.osate.ba.declarative.DeclarativeReferenceValue <em>Reference Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Reference Value</em>'.
+   * @see org.osate.ba.declarative.DeclarativeReferenceValue
+   * @generated
+   */
+  EClass getDeclarativeReferenceValue() ;
+
+  /**
+  	 * Returns the meta object for the reference '{@link org.osate.ba.declarative.DeclarativeReferenceValue#getRef <em>Ref</em>}'.
+  	 * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+  	 * @return the meta object for the reference '<em>Ref</em>'.
+  	 * @see org.osate.ba.declarative.DeclarativeReferenceValue#getRef()
+  	 * @see #getDeclarativeReferenceValue()
+  	 * @generated
+  	 */
+  EReference getDeclarativeReferenceValue_Ref() ;
+
+  /**
   	 * Returns the factory that creates the instances of the model.
   	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3457,14 +3570,34 @@ public interface DeclarativePackage extends EPackage
                                                   .getDeclarativeBooleanLiteral() ;
 
     /**
-    	 * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeRangeValueImpl <em>Range Value</em>}' class.
+     * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeRangeValueImpl <em>Range Value</em>}' class.
+     * <!-- begin-user-doc -->
+    	 * <!-- end-user-doc -->
+     * @see org.osate.ba.declarative.impl.DeclarativeRangeValueImpl
+     * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeRangeValue()
+     * @generated
+     */
+    EClass DECLARATIVE_RANGE_VALUE = eINSTANCE.getDeclarativeRangeValue() ;
+
+    /**
+    	 * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeReferenceValueImpl <em>Reference Value</em>}' class.
     	 * <!-- begin-user-doc -->
     	 * <!-- end-user-doc -->
-    	 * @see org.osate.ba.declarative.impl.DeclarativeRangeValueImpl
-    	 * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeRangeValue()
+    	 * @see org.osate.ba.declarative.impl.DeclarativeReferenceValueImpl
+    	 * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeReferenceValue()
     	 * @generated
     	 */
-    EClass DECLARATIVE_RANGE_VALUE = eINSTANCE.getDeclarativeRangeValue() ;
+    EClass DECLARATIVE_REFERENCE_VALUE = eINSTANCE
+                                                  .getDeclarativeReferenceValue() ;
+
+    /**
+    	 * The meta object literal for the '<em><b>Ref</b></em>' reference feature.
+    	 * <!-- begin-user-doc -->
+    	 * <!-- end-user-doc -->
+    	 * @generated
+    	 */
+    EReference DECLARATIVE_REFERENCE_VALUE__REF = eINSTANCE
+                                                           .getDeclarativeReferenceValue_Ref() ;
 
   }
 

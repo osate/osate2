@@ -77,5 +77,8 @@
     </genClasses>
     <genClasses ecoreClass="declarative.ecore#//DeclarativeBooleanLiteral"/>
     <genClasses ecoreClass="declarative.ecore#//DeclarativeRangeValue"/>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativeReferenceValue">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativeReferenceValue/ref"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

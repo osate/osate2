@@ -48,6 +48,7 @@ import org.osate.ba.declarative.DeclarativePropertyReference ;
 import org.osate.ba.declarative.DeclarativeRangeValue ;
 import org.osate.ba.declarative.DeclarativeRealLiteral ;
 import org.osate.ba.declarative.DeclarativeRecordValue ;
+import org.osate.ba.declarative.DeclarativeReferenceValue ;
 import org.osate.ba.declarative.DeclarativeStringLiteral ;
 import org.osate.ba.declarative.DeclarativeTime ;
 import org.osate.ba.declarative.Identifier ;
@@ -218,6 +219,13 @@ public class DeclarativePackageImpl extends EPackageImpl implements
    * @generated
    */
   private EClass declarativeRangeValueEClass = null ;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass declarativeReferenceValueEClass = null ;
 
   /**
   	 * Creates an instance of the model <b>Package</b>, registered with
@@ -915,6 +923,29 @@ public class DeclarativePackageImpl extends EPackageImpl implements
   }
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getDeclarativeReferenceValue()
+  {
+    return declarativeReferenceValueEClass ;
+  }
+
+  /**
+  	 * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+  	 * @generated
+  	 */
+  @Override
+  public EReference getDeclarativeReferenceValue_Ref()
+  {
+    return (EReference) declarativeReferenceValueEClass.getEStructuralFeatures()
+                                                       .get(0) ;
+  }
+
+  /**
   	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
   	 * @generated
@@ -1049,6 +1080,11 @@ public class DeclarativePackageImpl extends EPackageImpl implements
                                                    DECLARATIVE_BOOLEAN_LITERAL) ;
 
     declarativeRangeValueEClass = createEClass(DECLARATIVE_RANGE_VALUE) ;
+
+    declarativeReferenceValueEClass = createEClass(
+                                                   DECLARATIVE_REFERENCE_VALUE) ;
+    createEReference(declarativeReferenceValueEClass,
+                     DECLARATIVE_REFERENCE_VALUE__REF) ;
   }
 
   /**
@@ -1152,6 +1188,8 @@ public class DeclarativePackageImpl extends EPackageImpl implements
                                                          .getDispatchTrigger()) ;
     referenceEClass.getESuperTypes().add(theAadlBaPackage
                                                          .getModeSwitchTrigger()) ;
+    referenceEClass.getESuperTypes().add(theAadl2Package
+                                                        .getContainmentPathElement()) ;
     declarativePropertyAssociationEClass.getESuperTypes().add(this
                                                                   .getDeclarativeBehaviorElement()) ;
     declarativeListValueEClass.getESuperTypes().add(theAadl2Package
@@ -1186,6 +1224,8 @@ public class DeclarativePackageImpl extends EPackageImpl implements
                                                                     .getRangeValue()) ;
     declarativeRangeValueEClass.getESuperTypes().add(this
                                                          .getDeclarativePropertyExpression()) ;
+    declarativeReferenceValueEClass.getESuperTypes().add(this
+                                                             .getDeclarativePropertyExpression()) ;
 
     // Initialize classes and features; add operations and parameters
     initEClass(arrayableIdentifierEClass, ArrayableIdentifier.class,
@@ -1456,6 +1496,15 @@ public class DeclarativePackageImpl extends EPackageImpl implements
     initEClass(declarativeRangeValueEClass, DeclarativeRangeValue.class,
                "DeclarativeRangeValue", !IS_ABSTRACT, !IS_INTERFACE,
                IS_GENERATED_INSTANCE_CLASS) ;
+
+    initEClass(declarativeReferenceValueEClass, DeclarativeReferenceValue.class,
+               "DeclarativeReferenceValue", !IS_ABSTRACT, !IS_INTERFACE,
+               IS_GENERATED_INSTANCE_CLASS) ;
+    initEReference(getDeclarativeReferenceValue_Ref(), this.getReference(),
+                   null, "ref", null, 1, 1, DeclarativeReferenceValue.class,
+                   !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                   IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+                   IS_ORDERED) ;
 
     // Create resource
     createResource(eNS_URI) ;
