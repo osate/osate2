@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.osate.verify.ui" version="2">
+    <resource path="src-gen/org/osate/verify/ui/contentassist/antlr/PartialVerifyContentAssistParser.java" type="org.osate.verify.ui.contentassist.antlr.PartialVerifyContentAssistParser">
+        <filter comment="xtext" id="576725006">
+            <message_arguments>
+                <message_argument value="IPartialContentAssistParser"/>
+                <message_argument value="PartialVerifyContentAssistParser"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>

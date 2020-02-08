@@ -309,6 +309,9 @@ class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		}?.ownedLiterals?.scopeFor ?: IScope::NULLSCOPE
 	}
 	
+	/**
+	 * @since 1.1
+	 */
 	def protected static namespaceForPropertyAssociation(PropertyAssociation propertyAssociation) {
 		switch container : propertyAssociation.owner {
 			Classifier:
@@ -332,6 +335,9 @@ class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		}
 	}
 	
+	/**
+	 * @since 1.1
+	 */
 	def protected static getClassifierForPreviousContainmentPathElement(ContainmentPathElement previousCpe) {
 		switch previousElement : previousCpe.namedElement {
 			case null,

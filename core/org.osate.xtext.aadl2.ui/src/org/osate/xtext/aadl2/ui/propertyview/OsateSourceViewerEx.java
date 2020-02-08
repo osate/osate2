@@ -23,28 +23,50 @@
  */
 package org.osate.xtext.aadl2.ui.propertyview;
 
-import org.eclipse.core.resources.IProject;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.projection.ProjectionDocument;
+import org.eclipse.swt.custom.StyledText;
+import org.yakindu.base.xtext.utils.jface.viewers.XtextSourceViewerEx;
 
-import com.google.inject.Injector;
+/**
+ * @since 2.0
+ */
+public class OsateSourceViewerEx extends XtextSourceViewerEx {
 
-public class XtextFakeResourceContext
-		extends org.yakindu.base.xtext.utils.jface.viewers.context.XtextFakeResourceContext {
-
-	private IProject project;
-
-	public XtextFakeResourceContext(Injector injector) {
-		super(injector);
-	}
-
-	public void setProject(IProject project) {
-		this.project = project;
+	public OsateSourceViewerEx(StyledText styledText, IPreferenceStore preferenceStore) {
+		super(styledText, preferenceStore);
 	}
 
 	@Override
-	protected IProject getActiveProject() {
-		if (project != null) {
-			return project;
+	protected boolean updateSlaveDocument(IDocument slaveDocument, int modelRangeOffset, int modelRangeLength)
+			throws BadLocationException {
+		if (slaveDocument instanceof ProjectionDocument) {
+			ProjectionDocument projection = (ProjectionDocument) slaveDocument;
+
+			int offset = modelRangeOffset;
+			int length = modelRangeLength;
+
+			if (!isProjectionMode()) {
+				// mimic original TextViewer behavior
+				IDocument master = projection.getMasterDocument();
+				int line = master.getLineOfOffset(modelRangeOffset);
+				offset = master.getLineOffset(line);
+				length = (modelRangeOffset - offset) + modelRangeLength;
+			}
+
+			try {
+				// fHandleProjectionChanges= false;
+				setPrivateHandleProjectionChangesField(false);
+				projection.replaceMasterDocumentRanges(offset, length);
+			} finally {
+				// fHandleProjectionChanges= true;
+				setPrivateHandleProjectionChangesField(true);
+			}
+			return true;
 		}
-		return super.getActiveProject();
+		return false;
 	}
+
 }
