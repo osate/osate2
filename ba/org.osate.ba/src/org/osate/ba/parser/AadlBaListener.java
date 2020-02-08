@@ -702,6 +702,16 @@ public interface AadlBaListener extends ParseTreeListener {
 	 */
 	void exitUnary_adding_operator(@NotNull AadlBaParser.Unary_adding_operatorContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#reference_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void enterReference_property_value(@NotNull AadlBaParser.Reference_property_valueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#reference_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void exitReference_property_value(@NotNull AadlBaParser.Reference_property_valueContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#behavior_actions}.
 	 * @param ctx the parse tree
 	 */

@@ -30,6 +30,7 @@ import java.util.Set ;
 import org.eclipse.emf.common.util.BasicEList ;
 import org.eclipse.emf.common.util.EList ;
 import org.eclipse.emf.ecore.EObject ;
+import org.osate.aadl2.Aadl2Factory ;
 import org.osate.aadl2.Aadl2Package ;
 import org.osate.aadl2.ArrayDimension ;
 import org.osate.aadl2.BasicProperty ;
@@ -38,6 +39,7 @@ import org.osate.aadl2.Classifier ;
 import org.osate.aadl2.ClassifierFeature ;
 import org.osate.aadl2.ClassifierValue ;
 import org.osate.aadl2.ComponentClassifier ;
+import org.osate.aadl2.ContainmentPathElement ;
 import org.osate.aadl2.Data ;
 import org.osate.aadl2.DataClassifier ;
 import org.osate.aadl2.Element ;
@@ -59,9 +61,11 @@ import org.osate.aadl2.PropertyExpression ;
 import org.osate.aadl2.PropertyType ;
 import org.osate.aadl2.Prototype ;
 import org.osate.aadl2.PrototypeBinding ;
+import org.osate.aadl2.RangeValue ;
 import org.osate.aadl2.RealLiteral ;
 import org.osate.aadl2.RecordType ;
 import org.osate.aadl2.RecordValue ;
+import org.osate.aadl2.ReferenceValue ;
 import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.Subcomponent ;
 import org.osate.aadl2.UnitLiteral ;
@@ -2494,7 +2498,62 @@ public class AadlBaNameResolver
            dbpa.setProperty(basicProp);
          }
        }
+     }
+     else if(pe instanceof RangeValue)
+     {
+       RangeValue rv = (RangeValue) pe;
+       result&=propertyExpressionResolver(bv, p, rv.getMaximum());
+       result&=propertyExpressionResolver(bv, p, rv.getMinimum());
+     }
+     else if(pe instanceof ReferenceValue)
+     {
+       Classifier context = _baParentContainer;
+       Reference r = (Reference)(((ReferenceValue) pe).getPath());
        
+       ReferenceValue rv = Aadl2Factory.eINSTANCE.createReferenceValue();
+       ContainmentPathElement firstCne = Aadl2Factory.eINSTANCE.createContainmentPathElement();
+       ContainmentPathElement prevCne = null;
+       boolean first= true;
+       for(Identifier subPath: r.getIds())
+       {
+         ContainmentPathElement currentCne;
+         if(!first)
+           currentCne = Aadl2Factory.eINSTANCE.createContainmentPathElement();
+         else
+           currentCne = firstCne;
+         first = false;
+         
+         NamedElement ne = Aadl2Visitors.findSubcomponentInComponent(context,
+                                                                     subPath.getId());
+         if(ne==null)
+           ne = Aadl2Visitors.findFeatureInComponent(context,
+                                                     subPath.getId());
+         if(ne == null)
+         {
+           _errManager.error(bv, "Element \'" + subPath.getId() + "\' is not found in "+ context.getName());
+           result = false;
+         }
+         else
+         {
+           currentCne.setNamedElement(ne);
+           if(prevCne!=null)
+             prevCne.setPath(currentCne);           
+           if(ne instanceof Subcomponent)
+           {
+             Subcomponent sub = (Subcomponent) ne;
+             context = sub.getClassifier();
+           }
+           else if(ne instanceof Feature)
+           {
+             Feature f = (Feature) ne;
+             context = f.getClassifier();
+           }
+         }
+         prevCne = currentCne;
+       }
+       rv.setPath(firstCne);
+       if(result)
+         pe = rv;
      }
      return result;
    }

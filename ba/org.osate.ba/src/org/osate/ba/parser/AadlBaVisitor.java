@@ -445,6 +445,12 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitUnary_adding_operator(@NotNull AadlBaParser.Unary_adding_operatorContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AadlBaParser#reference_property_value}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReference_property_value(@NotNull AadlBaParser.Reference_property_valueContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#behavior_actions}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

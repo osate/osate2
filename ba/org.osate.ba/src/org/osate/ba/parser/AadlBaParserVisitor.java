@@ -31,14 +31,17 @@ import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor ;
 import org.antlr.v4.runtime.tree.TerminalNode ;
 import org.eclipse.emf.common.util.BasicEList ;
 import org.osate.aadl2.Aadl2Factory ;
+import org.osate.aadl2.BooleanLiteral ;
 import org.osate.aadl2.IntegerLiteral ;
 import org.osate.aadl2.ListValue ;
 import org.osate.aadl2.ModalPropertyValue ;
 import org.osate.aadl2.ProcessorClassifier ;
 import org.osate.aadl2.PropertyAssociation ;
 import org.osate.aadl2.PropertyExpression ;
+import org.osate.aadl2.RangeValue ;
 import org.osate.aadl2.RealLiteral ;
 import org.osate.aadl2.RecordValue ;
+import org.osate.aadl2.ReferenceValue ;
 import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.parsesupport.AObject ;
 import org.osate.ba.aadlba.AadlBaFactory ;
@@ -77,6 +80,7 @@ import org.osate.ba.declarative.DeclarativePropertyExpression ;
 import org.osate.ba.declarative.DeclarativePropertyName ;
 import org.osate.ba.declarative.DeclarativePropertyReference ;
 import org.osate.ba.declarative.DeclarativeRealLiteral ;
+import org.osate.ba.declarative.DeclarativeReferenceValue ;
 import org.osate.ba.declarative.Identifier ;
 import org.osate.ba.declarative.NamedValue ;
 import org.osate.ba.declarative.QualifiedNamedElement ;
@@ -114,6 +118,7 @@ import org.osate.ba.parser.AadlBaParser.Real_literalContext ;
 import org.osate.ba.parser.AadlBaParser.Real_property_valueContext ;
 import org.osate.ba.parser.AadlBaParser.Record_property_valueContext ;
 import org.osate.ba.parser.AadlBaParser.ReferenceContext ;
+import org.osate.ba.parser.AadlBaParser.Reference_property_valueContext ;
 import org.osate.ba.parser.AadlBaParser.RelationContext ;
 import org.osate.ba.parser.AadlBaParser.Signed_intContext ;
 import org.osate.ba.parser.AadlBaParser.Signed_realContext ;
@@ -389,6 +394,28 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
       RecordValue sourceRV = (RecordValue) sourcePropertyExpression;
       RecordValue targetRV = _coreFact.createRecordValue();
       targetRV.getOwnedFieldValues().addAll(sourceRV.getOwnedFieldValues());
+      targetPropertyExpression = targetRV;
+    }
+    else if(sourcePropertyExpression instanceof BooleanLiteral)
+    {
+      BooleanLiteral sourceBL = (BooleanLiteral) sourcePropertyExpression;
+      BooleanLiteral targetBL = _coreFact.createBooleanLiteral();
+      targetBL.setValue(sourceBL.getValue());
+      targetPropertyExpression = targetBL;
+    }
+    else if(sourcePropertyExpression instanceof RangeValue)
+    {
+      RangeValue sourceRV = (RangeValue) sourcePropertyExpression;
+      RangeValue targetRV = _coreFact.createRangeValue();
+      targetRV.setMinimum(clonePropertyExpression(sourceRV.getMinimum()));
+      targetRV.setMaximum(clonePropertyExpression(sourceRV.getMaximum()));
+      targetPropertyExpression = targetRV;
+    }
+    else if(sourcePropertyExpression instanceof DeclarativeReferenceValue)
+    {
+      DeclarativeReferenceValue sourceDRV = (DeclarativeReferenceValue) sourcePropertyExpression;
+      ReferenceValue targetRV = _coreFact.createReferenceValue();
+      targetRV.setPath(sourceDRV.getRef());
       targetPropertyExpression = targetRV;
     }
     return targetPropertyExpression;
@@ -2174,6 +2201,10 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     {
       ctx.result = (DeclarativePropertyExpression) ctx.numeric_range_property_value().result;
     }
+    else if(ctx.reference_property_value()!=null)
+    {
+      ctx.result = (DeclarativePropertyExpression) ctx.reference_property_value().result;
+    }
     return null ;
   }
   
@@ -2290,6 +2321,15 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
       ctx.result = (DeclarativePropertyExpression) ctx.real_property_value().result;
     else if(ctx.integer_property_value()!=null)
       ctx.result = (DeclarativePropertyExpression) ctx.integer_property_value().result;
+    return null ;
+  }
+
+  @Override
+  public T visitReference_property_value(Reference_property_valueContext ctx)
+  {
+    visitChildren(ctx) ;
+    ctx.result =  _decl.createDeclarativeReferenceValue();
+    ctx.result.setRef(ctx.reference().result);
     return null ;
   }
 }
