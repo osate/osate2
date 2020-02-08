@@ -126,6 +126,8 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
         return createDeclarativeRangeValue() ;
       case DeclarativePackage.DECLARATIVE_REFERENCE_VALUE :
         return createDeclarativeReferenceValue() ;
+      case DeclarativePackage.DECLARATIVE_CLASSIFIER_VALUE :
+        return createDeclarativeClassifierValue() ;
       default :
         throw new IllegalArgumentException("The class '" + eClass.getName() +
                                            "' is not a valid classifier") ;
@@ -402,10 +404,23 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
   }
 
   /**
-  	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-  	 * @generated
-  	 */
+   * @generated
+   */
+  @Override
+  public DeclarativeClassifierValue createDeclarativeClassifierValue()
+  {
+    DeclarativeClassifierValueImpl declarativeClassifierValue =
+                                                              new DeclarativeClassifierValueImpl() ;
+    return declarativeClassifierValue ;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public DeclarativePackage getDeclarativePackage()
   {

@@ -75,7 +75,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" eType="ecore:EDataType aadlba.ecore#//Boolean"
         defaultValueLiteral="false"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="QualifiedNamedElement" eSuperTypes="../../org.osate.aadl2/model/aadl2.ecore#//DataClassifier #//DeclarativeBehaviorElement aadlba.ecore#//ValueConstant aadlba.ecore#//IntegerValueConstant ../../org.osate.aadl2/model/aadl2.ecore#//ProcessorClassifier ../../org.osate.aadl2/model/aadl2.ecore#//Property ../../org.osate.aadl2/model/aadl2.ecore#//UnitLiteral">
+  <eClassifiers xsi:type="ecore:EClass" name="QualifiedNamedElement" eSuperTypes="../../org.osate.aadl2/model/aadl2.ecore#//DataClassifier ../../org.osate.aadl2/model/aadl2.ecore#//Classifier #//DeclarativeBehaviorElement aadlba.ecore#//ValueConstant aadlba.ecore#//IntegerValueConstant ../../org.osate.aadl2/model/aadl2.ecore#//ProcessorClassifier ../../org.osate.aadl2/model/aadl2.ecore#//Property ../../org.osate.aadl2/model/aadl2.ecore#//UnitLiteral">
     <eStructuralFeatures xsi:type="ecore:EReference" name="baNamespace" eType="#//Identifier"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="baName" lowerBound="1"
@@ -107,5 +107,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="DeclarativeRangeValue" eSuperTypes="../../org.osate.aadl2/model/aadl2.ecore#//RangeValue #//DeclarativePropertyExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="DeclarativeReferenceValue" eSuperTypes="#//DeclarativePropertyExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ref" lowerBound="1" eType="#//Reference"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DeclarativeClassifierValue" eSuperTypes="#//DeclarativePropertyExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" lowerBound="1"
+        eType="#//QualifiedNamedElement"/>
   </eClassifiers>
 </ecore:EPackage>

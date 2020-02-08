@@ -348,7 +348,7 @@ property_value returns [DeclarativePropertyExpression result]
   :
   	record_property_value
   	| reference_property_value
-//  	| classifier_property_value
+  	| classifier_property_value
   	| string_literal
   	| numeric_range_property_value
   	| integer_property_value
@@ -383,9 +383,9 @@ field_property_association returns [DeclarativeBasicPropertyAssociation result]:
 ;
 
 
-//classifier_property_value returns [ClassifierValue result]:
-//	CLASSIFIER LPAREN classifier=unique_component_classifier_reference RPAREN
-//;
+classifier_property_value returns [DeclarativeClassifierValue result]:
+	CLASSIFIER LPAREN classifier=unique_component_classifier_reference RPAREN
+;
 
 
 // unit ::= 

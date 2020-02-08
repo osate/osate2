@@ -1462,23 +1462,23 @@ public interface DeclarativePackage extends EPackage
                                         Aadl2Package.DATA_CLASSIFIER__NO_MODES ;
 
   /**
-   * The feature id for the '<em><b>Osate Ref</b></em>' reference.
-   * <!-- begin-user-doc -->
+  	 * The feature id for the '<em><b>Osate Ref</b></em>' reference.
+  	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
+  	 * @generated
+  	 * @ordered
+  	 */
   int QUALIFIED_NAMED_ELEMENT__OSATE_REF =
                                          Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
                                            0 ;
 
   /**
-   * The feature id for the '<em><b>Ba Ref</b></em>' reference.
-   * <!-- begin-user-doc -->
+  	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
+  	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
+  	 * @generated
+  	 * @ordered
+  	 */
   int QUALIFIED_NAMED_ELEMENT__BA_REF =
                                       Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
                                         1 ;
@@ -2396,55 +2396,107 @@ public interface DeclarativePackage extends EPackage
   int DECLARATIVE_REFERENCE_VALUE = 22 ;
 
   /**
-  	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
-  	 * <!-- begin-user-doc -->
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @generated
+   * @ordered
+   */
   int DECLARATIVE_REFERENCE_VALUE__OWNED_ELEMENT =
                                                  DECLARATIVE_PROPERTY_EXPRESSION__OWNED_ELEMENT ;
 
   /**
-  	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-  	 * <!-- begin-user-doc -->
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @generated
+   * @ordered
+   */
   int DECLARATIVE_REFERENCE_VALUE__OWNED_COMMENT =
                                                  DECLARATIVE_PROPERTY_EXPRESSION__OWNED_COMMENT ;
 
   /**
-  	 * The feature id for the '<em><b>Ref</b></em>' reference.
-  	 * <!-- begin-user-doc -->
+   * The feature id for the '<em><b>Ref</b></em>' reference.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @generated
+   * @ordered
+   */
   int DECLARATIVE_REFERENCE_VALUE__REF =
                                        DECLARATIVE_PROPERTY_EXPRESSION_FEATURE_COUNT +
                                          0 ;
 
   /**
-  	 * The number of structural features of the '<em>Reference Value</em>' class.
-  	 * <!-- begin-user-doc -->
+   * The number of structural features of the '<em>Reference Value</em>' class.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @generated
+   * @ordered
+   */
   int DECLARATIVE_REFERENCE_VALUE_FEATURE_COUNT =
                                                 DECLARATIVE_PROPERTY_EXPRESSION_FEATURE_COUNT +
                                                   1 ;
 
   /**
-  	 * Returns the meta object for class '{@link org.osate.ba.declarative.ArrayableIdentifier <em>Arrayable Identifier</em>}'.
-  	 * <!-- begin-user-doc -->
+   * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativeClassifierValueImpl <em>Classifier Value</em>}' class.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-  	 * @return the meta object for class '<em>Arrayable Identifier</em>'.
-  	 * @see org.osate.ba.declarative.ArrayableIdentifier
-  	 * @generated
-  	 */
+   * @see org.osate.ba.declarative.impl.DeclarativeClassifierValueImpl
+   * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeClassifierValue()
+   * @generated
+   */
+  int DECLARATIVE_CLASSIFIER_VALUE = 23 ;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_CLASSIFIER_VALUE__OWNED_ELEMENT =
+                                                  DECLARATIVE_PROPERTY_EXPRESSION__OWNED_ELEMENT ;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_CLASSIFIER_VALUE__OWNED_COMMENT =
+                                                  DECLARATIVE_PROPERTY_EXPRESSION__OWNED_COMMENT ;
+
+  /**
+   * The feature id for the '<em><b>Classifier</b></em>' reference.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_CLASSIFIER_VALUE__CLASSIFIER =
+                                               DECLARATIVE_PROPERTY_EXPRESSION_FEATURE_COUNT +
+                                                 0 ;
+
+  /**
+   * The number of structural features of the '<em>Classifier Value</em>' class.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_CLASSIFIER_VALUE_FEATURE_COUNT =
+                                                 DECLARATIVE_PROPERTY_EXPRESSION_FEATURE_COUNT +
+                                                   1 ;
+
+  /**
+   * Returns the meta object for class '{@link org.osate.ba.declarative.ArrayableIdentifier <em>Arrayable Identifier</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Arrayable Identifier</em>'.
+   * @see org.osate.ba.declarative.ArrayableIdentifier
+   * @generated
+   */
   EClass getArrayableIdentifier() ;
 
   /**
@@ -3031,23 +3083,44 @@ public interface DeclarativePackage extends EPackage
   EClass getDeclarativeReferenceValue() ;
 
   /**
-  	 * Returns the meta object for the reference '{@link org.osate.ba.declarative.DeclarativeReferenceValue#getRef <em>Ref</em>}'.
-  	 * <!-- begin-user-doc -->
+   * Returns the meta object for the reference '{@link org.osate.ba.declarative.DeclarativeReferenceValue#getRef <em>Ref</em>}'.
+   * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-  	 * @return the meta object for the reference '<em>Ref</em>'.
-  	 * @see org.osate.ba.declarative.DeclarativeReferenceValue#getRef()
-  	 * @see #getDeclarativeReferenceValue()
-  	 * @generated
-  	 */
+   * @return the meta object for the reference '<em>Ref</em>'.
+   * @see org.osate.ba.declarative.DeclarativeReferenceValue#getRef()
+   * @see #getDeclarativeReferenceValue()
+   * @generated
+   */
   EReference getDeclarativeReferenceValue_Ref() ;
 
   /**
-  	 * Returns the factory that creates the instances of the model.
-  	 * <!-- begin-user-doc -->
+   * Returns the meta object for class '{@link org.osate.ba.declarative.DeclarativeClassifierValue <em>Classifier Value</em>}'.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-  	 * @return the factory that creates the instances of the model.
-  	 * @generated
-  	 */
+   * @return the meta object for class '<em>Classifier Value</em>'.
+   * @see org.osate.ba.declarative.DeclarativeClassifierValue
+   * @generated
+   */
+  EClass getDeclarativeClassifierValue() ;
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.ba.declarative.DeclarativeClassifierValue#getClassifier <em>Classifier</em>}'.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Classifier</em>'.
+   * @see org.osate.ba.declarative.DeclarativeClassifierValue#getClassifier()
+   * @see #getDeclarativeClassifierValue()
+   * @generated
+   */
+  EReference getDeclarativeClassifierValue_Classifier() ;
+
+  /**
+   * Returns the factory that creates the instances of the model.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the factory that creates the instances of the model.
+   * @generated
+   */
   DeclarativeFactory getDeclarativeFactory() ;
 
   /**
@@ -3580,24 +3653,44 @@ public interface DeclarativePackage extends EPackage
     EClass DECLARATIVE_RANGE_VALUE = eINSTANCE.getDeclarativeRangeValue() ;
 
     /**
-    	 * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeReferenceValueImpl <em>Reference Value</em>}' class.
-    	 * <!-- begin-user-doc -->
+     * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeReferenceValueImpl <em>Reference Value</em>}' class.
+     * <!-- begin-user-doc -->
     	 * <!-- end-user-doc -->
-    	 * @see org.osate.ba.declarative.impl.DeclarativeReferenceValueImpl
-    	 * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeReferenceValue()
-    	 * @generated
-    	 */
+     * @see org.osate.ba.declarative.impl.DeclarativeReferenceValueImpl
+     * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeReferenceValue()
+     * @generated
+     */
     EClass DECLARATIVE_REFERENCE_VALUE = eINSTANCE
                                                   .getDeclarativeReferenceValue() ;
 
     /**
-    	 * The meta object literal for the '<em><b>Ref</b></em>' reference feature.
-    	 * <!-- begin-user-doc -->
+     * The meta object literal for the '<em><b>Ref</b></em>' reference feature.
+     * <!-- begin-user-doc -->
     	 * <!-- end-user-doc -->
-    	 * @generated
-    	 */
+     * @generated
+     */
     EReference DECLARATIVE_REFERENCE_VALUE__REF = eINSTANCE
                                                            .getDeclarativeReferenceValue_Ref() ;
+
+    /**
+     * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeClassifierValueImpl <em>Classifier Value</em>}' class.
+     * <!-- begin-user-doc -->
+    	 * <!-- end-user-doc -->
+     * @see org.osate.ba.declarative.impl.DeclarativeClassifierValueImpl
+     * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeClassifierValue()
+     * @generated
+     */
+    EClass DECLARATIVE_CLASSIFIER_VALUE = eINSTANCE
+                                                   .getDeclarativeClassifierValue() ;
+
+    /**
+     * The meta object literal for the '<em><b>Classifier</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+    	 * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DECLARATIVE_CLASSIFIER_VALUE__CLASSIFIER = eINSTANCE
+                                                                   .getDeclarativeClassifierValue_Classifier() ;
 
   }
 

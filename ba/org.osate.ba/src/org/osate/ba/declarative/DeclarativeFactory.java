@@ -232,12 +232,21 @@ public interface DeclarativeFactory extends EFactory
   DeclarativeReferenceValue createDeclarativeReferenceValue() ;
 
   /**
-  	 * Returns the package supported by this factory.
-  	 * <!-- begin-user-doc -->
+   * Returns a new object of class '<em>Classifier Value</em>'.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-  	 * @return the package supported by this factory.
-  	 * @generated
-  	 */
+   * @return a new object of class '<em>Classifier Value</em>'.
+   * @generated
+   */
+  DeclarativeClassifierValue createDeclarativeClassifierValue() ;
+
+  /**
+   * Returns the package supported by this factory.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the package supported by this factory.
+   * @generated
+   */
   DeclarativePackage getDeclarativePackage() ;
 
 } //DeclarativeFactory

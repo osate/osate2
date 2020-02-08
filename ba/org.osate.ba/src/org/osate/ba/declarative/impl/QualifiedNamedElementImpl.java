@@ -36,11 +36,13 @@ import org.osate.aadl2.AbstractNamedValue ;
 import org.osate.aadl2.BasicProperty ;
 import org.osate.aadl2.Classifier ;
 import org.osate.aadl2.ComponentCategory ;
+import org.osate.aadl2.ComponentClassifier ;
 import org.osate.aadl2.ContainedNamedElement ;
 import org.osate.aadl2.ContainmentPathElement ;
 import org.osate.aadl2.Element ;
 import org.osate.aadl2.EnumerationLiteral ;
 import org.osate.aadl2.Feature ;
+import org.osate.aadl2.FeatureClassifier ;
 import org.osate.aadl2.MetaclassReference ;
 import org.osate.aadl2.Mode ;
 import org.osate.aadl2.ModeTransition ;
@@ -55,9 +57,11 @@ import org.osate.aadl2.PropertyType ;
 import org.osate.aadl2.PropertyValue ;
 import org.osate.aadl2.Prototype ;
 import org.osate.aadl2.ReferenceValue ;
+import org.osate.aadl2.SubcomponentType ;
 import org.osate.aadl2.Type ;
 import org.osate.aadl2.TypedElement ;
 import org.osate.aadl2.UnitLiteral ;
+import org.osate.aadl2.impl.ClassifierImpl ;
 import org.osate.aadl2.impl.DataClassifierImpl ;
 import org.osate.aadl2.properties.EvaluatedProperty ;
 import org.osate.aadl2.properties.EvaluationContext ;
@@ -1642,5 +1646,19 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
   {
     // TODO Auto-generated method stub
     return 0 ;
+  }
+
+  @Override
+  public Mode createOwnedMode()
+  {
+    // TODO Auto-generated method stub
+    return null ;
+  }
+
+  @Override
+  public ModeTransition createOwnedModeTransition()
+  {
+    // TODO Auto-generated method stub
+    return null ;
   }
 } //QualifiedNamedElementImpl

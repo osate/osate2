@@ -22,6 +22,7 @@
 package org.osate.ba.declarative ;
 
 import org.osate.aadl2.BasicProperty ;
+import org.osate.aadl2.Classifier ;
 import org.osate.aadl2.DataClassifier ;
 import org.osate.aadl2.ProcessorClassifier ;
 import org.osate.aadl2.Property ;
@@ -46,7 +47,7 @@ import org.osate.ba.aadlba.ValueConstant ;
  * @model
  * @generated
  */
-public interface QualifiedNamedElement extends DataClassifier,
+public interface QualifiedNamedElement extends DataClassifier, Classifier,
                                        DeclarativeBehaviorElement,
                                        ValueConstant, IntegerValueConstant,
                                        ProcessorClassifier, Property,
