@@ -47,9 +47,6 @@ censes only apply to the Third Party Software and not any other portion of this 
    <feature id="org.osate.xtext.aadl2.errormodel.feature.source">
       <category name="osate2.source"/>
    </feature>
-   <feature id="org.osate.ocarina.feature.source">
-      <category name="osate2.source"/>
-   </feature>
    <feature id="org.osate.ba.feature">
       <category name="osate2"/>
    </feature>
