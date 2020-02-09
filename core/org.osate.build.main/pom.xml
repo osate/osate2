@@ -22,6 +22,12 @@
 		<test.logging.2>-Dorg.apache.commons.logging.simplelog.defaultlog=error</test.logging.2>
 		<test.logging>${test.logging.1} ${test.logging.2}</test.logging>
 
+		<!--  for comparison with baseline -->
+		<skipBaselineComparison>false</skipBaselineComparison>
+		<lastStableRepository>http://osate-build.sei.cmu.edu/download/osate/stable/latest/updates</lastStableRepository>
+		<!--  "fail" or "warn" -->
+		<baselineCompareOnIllegalVersion>warn</baselineCompareOnIllegalVersion>
+		
 		<!-- <sonar.projectKey>osate_osate2</sonar.projectKey> -->
 		<sonar.organization>osate</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
@@ -440,6 +446,29 @@
 					<ignoreTychoRepositories>true</ignoreTychoRepositories>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho.extras</groupId>
+				<artifactId>tycho-p2-extras-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compare-version-with-baselines</goal>
+						</goals>
+						<phase>verify</phase>
+						<configuration>
+							<skip>${skipBaselineComparison}</skip>
+							<baselines>
+								<repo>${lastStableRepository}</repo>
+							</baselines>
+							<onIllegalVersion>${baselineCompareOnIllegalVersion}</onIllegalVersion>
+							<comparator>zip</comparator>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
