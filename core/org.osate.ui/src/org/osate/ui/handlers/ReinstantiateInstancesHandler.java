@@ -208,7 +208,7 @@ public final class ReinstantiateInstancesHandler extends AbstractMultiJobHandler
 		}
 	}
 
-	private static final class ResultJob extends WorkspaceJob {
+	private static final class ResultJob extends Job {
 		private final JobGroup instantiationJobs;
 		private final Map<IFile, Result> results;
 
@@ -219,7 +219,7 @@ public final class ReinstantiateInstancesHandler extends AbstractMultiJobHandler
 		}
 
 		@Override
-		public IStatus runInWorkspace(final IProgressMonitor monitor) {
+		public IStatus run(final IProgressMonitor monitor) {
 			// Wait for the instantiation jobs to finish
 			boolean cancelled = false;
 			try {
