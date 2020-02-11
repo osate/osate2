@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.8"?>
-<target name="osate-api">
+<target name="osate-api" sequenceNumber="2">
     <locations>
-        <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-            <repository location="http://osate-build.sei.cmu.edu/download/osate/stable/2.6.0/updates"/>
-            <unit id="org.osate.alisa.workbench.sdk.feature.group" version="1.0.0.v20191105-1451"/>
-            <unit id="org.osate.ba.feature.feature.group" version="1.0.0.v20190813-0632"/>
-            <unit id="org.osate.core.feature.feature.group" version="2.6.0.vfinal"/>
-            <unit id="org.osate.ge.feature.feature.group" version="2.6.0.vfinal"/>
-            <unit id="org.osate.ocarina.feature.feature.group" version="0.0.1.v20190417-1800"/>
-            <unit id="org.osate.plugins.feature.feature.group" version="2.6.0.vfinal"/>
-            <unit id="org.osate.utils.feature.feature.group" version="1.0.0.v20181114-1614"/>
-            <unit id="org.osate.xtext.aadl2.errormodel.feature.feature.group" version="2.6.0.vfinal"/>
+        <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+            <repository location="http://osate-build.sei.cmu.edu/download/osate/stable/2.7.0/updates"/>
+            <unit id="org.osate.alisa.workbench.sdk.feature.group" version="2.0.0.v20200204-1726"/>
+            <unit id="org.osate.ba.feature.feature.group" version="2.0.0.v20200202-1551"/>
+            <unit id="org.osate.core.feature.feature.group" version="3.0.0.v20200204-1733"/>
+            <unit id="org.osate.ge.feature.feature.group" version="3.0.0.v20200201-1852"/>
+            <unit id="org.osate.plugins.feature.feature.group" version="3.0.0.v20200202-1550"/>
+            <unit id="org.osate.utils.feature.feature.group" version="1.0.1.v20200201-1852"/>
+            <unit id="org.osate.xtext.aadl2.errormodel.feature.feature.group" version="3.0.0.v20200204-1726"/>
         </location>
         <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
             <unit id="org.eclipse.egit.feature.group" version="0.0.0"/>
@@ -33,7 +32,7 @@
             <unit id="org.eclipse.uml2.feature.group" version="0.0.0"/>
             <unit id="org.eclipse.zest.feature.group" version="0.0.0"/>
             <unit id="org.eclipse.xtend" version="0.0.0"/>
-            <repository location="http://download.eclipse.org/releases/2019-09"/>
+            <repository location="http://download.eclipse.org/releases/2019-12"/>
         </location>
         <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
             <unit id="org.eclipse.birt.chart.engine.extension" version="0.0.0"/>
@@ -76,15 +75,15 @@
             <unit id="org.eclipse.xtext.redist.feature.group" version="0.0.0"/>
             <unit id="org.eclipse.xtext.junit4" version="0.0.0"/>
             <unit id="org.eclipse.xtext.testing" version="0.0.0"/>
-            <repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.19.0"/>
+            <repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.20.0"/>
         </location>
         <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
             <unit id="org.eclipse.emf.mwe2.launcher.feature.group" version="0.0.0"/>
-            <repository location="http://download.eclipse.org/modeling/emft/mwe/updates/releases/2.11.0"/>
+            <repository location="http://download.eclipse.org/modeling/emft/mwe/updates/releases/2.11.1"/>
         </location>
         <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
             <unit id="org.eclipse.xsemantics.runtime.feature.feature.group" version="0.0.0"/>
-            <repository location="http://download.eclipse.org/xsemantics/milestones/1.18"/>
+            <repository location="http://download.eclipse.org/xsemantics/milestones/1.19"/>
         </location>
         <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
             <unit id="org.apache.commons.io" version="2.2.0.v201405211200"/>
@@ -107,6 +106,10 @@
         <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
             <unit id="org.py4j.feature.feature.group" version="0.0.0"/>
             <repository location="http://eclipse.py4j.org"/>
+        </location>
+        <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+            <unit id="org.yakindu.base.xtext.utils.jface" version="0.0.0"/>
+            <repository location="http://updates.yakindu.com/statecharts/releases/3.5.9"/>
         </location>
     </locations>
 </target>
