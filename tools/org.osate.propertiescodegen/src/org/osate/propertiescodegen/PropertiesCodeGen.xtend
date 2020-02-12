@@ -127,7 +127,6 @@ class PropertiesCodeGen {
 	}
 	
 	def private static GeneratedJava generateUnits(String packageName, UnitsType unitsType, String typeName) {
-		val literals = unitsType.ownedLiterals.filter(UnitLiteral).sortBy[it.absoluteFactor].join(",\n")['''«it.name.toUpperCase»(«it.absoluteFactor», "«it.name»")''']
 		val contents = '''
 			package «packageName»;
 			
@@ -138,51 +137,34 @@ class PropertiesCodeGen {
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
 			
-			public enum «typeName» {
-				«literals»;
-				
-				private final double factorToBase;
-				private final String originalName;
-				
-				private «typeName»(double factorToBase, String originalName) {
-					this.factorToBase = factorToBase;
-					this.originalName = originalName;
-				}
-				
-				public double getFactorToBase() {
-					return factorToBase;
-				}
-				
-				public double getFactorTo(«typeName» target) {
-					return factorToBase / target.factorToBase;
-				}
-				
-				public static «typeName» getValue(PropertyExpression propertyExpression) {
-					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
-					if (abstractNamedValue instanceof UnitLiteral) {
-						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
-					} else if (abstractNamedValue instanceof Property) {
-						throw new IllegalArgumentException("Reference to property not supported");
-					} else if (abstractNamedValue instanceof PropertyConstant) {
-						throw new IllegalArgumentException("Reference to property constant not supported");
-					} else {
-						throw new AssertionError("Unexpected type: " + abstractNamedValue.getClass().getName());
-					}
-				}
-				
-				@Override
-				public String toString() {
-					return originalName;
-				}
-			}
+			«generateUnitsEnum(typeName, true, unitsType.ownedLiterals.filter(UnitLiteral))»
 		'''
 		new GeneratedJava(typeName + ".java", contents)
 	}
 	
 	def private static GeneratedJava generateNumber(String packageName, NumberType numberType, String typeName, String valueType, String javaType, String equalityExpression) {
 		val metaModelImports = #["PropertyExpression", valueType].sort
-		val contents = if (numberType.ownedUnitsType !== null) {
-			val literals = numberType.ownedUnitsType.ownedLiterals.filter(UnitLiteral).sortBy[it.absoluteFactor].join(",\n")['''«it.name.toUpperCase»(«it.absoluteFactor», "«it.name»")''']
+		val contents = if (numberType.unitsType === null) {
+			'''
+				package «packageName»;
+				
+				«FOR metaModelImport : metaModelImports»
+				import org.osate.aadl2.«metaModelImport»;
+				«ENDFOR»
+				
+				public class «typeName» {
+					public static «javaType» getValue(PropertyExpression propertyExpression) {
+						return ((«valueType») propertyExpression).getValue();
+					}
+				}
+			'''
+		} else {
+			val unitsType = numberType.unitsType
+			val unitsTypeName = if (unitsType == numberType.ownedUnitsType) {
+				"Units"
+			} else {
+				unitsType.name.split("_").map[it.toLowerCase.toFirstUpper].join
+			}
 			'''
 				package «packageName»;
 				
@@ -191,15 +173,19 @@ class PropertiesCodeGen {
 				«FOR metaModelImport : metaModelImports»
 				import org.osate.aadl2.«metaModelImport»;
 				«ENDFOR»
+				«IF unitsType == numberType.referencedUnitsType && unitsType.eContainer != numberType.eContainer»
+				
+				import «unitsType.getContainerOfType(PropertySet).name.toLowerCase».«unitsTypeName»;
+				«ENDIF»
 				
 				public class «typeName» {
 					private final «javaType» value;
-					private final Units unit;
+					private final «unitsTypeName» unit;
 					
 					private «typeName»(PropertyExpression propertyExpression) {
 						«valueType» numberValue = («valueType») propertyExpression;
 						value = numberValue.getValue();
-						unit = Units.valueOf(numberValue.getUnit().getName().toUpperCase());
+						unit = «unitsTypeName».valueOf(numberValue.getUnit().getName().toUpperCase());
 					}
 					
 					public static «typeName» getValue(PropertyExpression propertyExpression) {
@@ -210,7 +196,7 @@ class PropertiesCodeGen {
 						return value;
 					}
 					
-					public Units getUnit() {
+					public «unitsTypeName» getUnit() {
 						return unit;
 					}
 					
@@ -235,162 +221,10 @@ class PropertiesCodeGen {
 					public String toString() {
 						return value + unit.toString();
 					}
+					«IF unitsType == numberType.ownedUnitsType»
 					
-					public enum Units {
-						«literals»;
-						
-						private final double factorToBase;
-						private final String originalName;
-						
-						private Units(double factorToBase, String originalName) {
-							this.factorToBase = factorToBase;
-							this.originalName = originalName;
-						}
-						
-						public double getFactorToBase() {
-							return factorToBase;
-						}
-						
-						public double getFactorTo(Units target) {
-							return factorToBase / target.factorToBase;
-						}
-						
-						@Override
-						public String toString() {
-							return originalName;
-						}
-					}
-				}
-			'''
-		} else if (numberType.referencedUnitsType !== null) {
-			val unitsType = numberType.referencedUnitsType
-			val unitsTypeName = unitsType.name.split("_").map[it.toLowerCase.toFirstUpper].join
-			if (unitsType.eContainer == numberType.eContainer) {
-				'''
-					package «packageName»;
-					
-					import java.util.Objects;
-					
-					«FOR metaModelImport : metaModelImports»
-					import org.osate.aadl2.«metaModelImport»;
-					«ENDFOR»
-					
-					public class «typeName» {
-						private final «javaType» value;
-						private final «unitsTypeName» unit;
-						
-						private «typeName»(PropertyExpression propertyExpression) {
-							«valueType» numberValue = («valueType») propertyExpression;
-							value = numberValue.getValue();
-							unit = «unitsTypeName».valueOf(numberValue.getUnit().getName().toUpperCase());
-						}
-						
-						public static «typeName» getValue(PropertyExpression propertyExpression) {
-							return new «typeName»(propertyExpression);
-						}
-						
-						public «javaType» getValue() {
-							return value;
-						}
-						
-						public «unitsTypeName» getUnit() {
-							return unit;
-						}
-						
-						@Override
-						public int hashCode() {
-							return Objects.hash(value, unit);
-						}
-						
-						@Override
-						public boolean equals(Object obj) {
-							if (this == obj) {
-								return true;
-							}
-							if (!(obj instanceof «typeName»)) {
-								return false;
-							}
-							«typeName» other = («typeName») obj;
-							return «equalityExpression» && unit == other.unit;
-						}
-						
-						@Override
-						public String toString() {
-							return value + unit.toString();
-						}
-					}
-				'''
-			} else {
-				val unitsPackageName = unitsType.getContainerOfType(PropertySet).name.toLowerCase
-				'''
-					package «packageName»;
-					
-					import java.util.Objects;
-					
-					«FOR metaModelImport : metaModelImports»
-					import org.osate.aadl2.«metaModelImport»;
-					«ENDFOR»
-					
-					import «unitsPackageName».«unitsTypeName»;
-					
-					public class «typeName» {
-						private final «javaType» value;
-						private final «unitsTypeName» unit;
-						
-						private «typeName»(PropertyExpression propertyExpression) {
-							«valueType» numberValue = («valueType») propertyExpression;
-							value = numberValue.getValue();
-							unit = «unitsTypeName».valueOf(numberValue.getUnit().getName().toUpperCase());
-						}
-						
-						public static «typeName» getValue(PropertyExpression propertyExpression) {
-							return new «typeName»(propertyExpression);
-						}
-						
-						public «javaType» getValue() {
-							return value;
-						}
-						
-						public «unitsTypeName» getUnit() {
-							return unit;
-						}
-						
-						@Override
-						public int hashCode() {
-							return Objects.hash(value, unit);
-						}
-						
-						@Override
-						public boolean equals(Object obj) {
-							if (this == obj) {
-								return true;
-							}
-							if (!(obj instanceof «typeName»)) {
-								return false;
-							}
-							«typeName» other = («typeName») obj;
-							return «equalityExpression» && unit == other.unit;
-						}
-						
-						@Override
-						public String toString() {
-							return value + unit.toString();
-						}
-					}
-				'''
-			}
-		} else {
-			'''
-				package «packageName»;
-				
-				«FOR metaModelImport : metaModelImports»
-				import org.osate.aadl2.«metaModelImport»;
-				«ENDFOR»
-				
-				public class «typeName» {
-					public static «javaType» getValue(PropertyExpression propertyExpression) {
-						return ((«valueType») propertyExpression).getValue();
-					}
+					«generateUnitsEnum("Units", false, unitsType.ownedLiterals.filter(UnitLiteral))»
+					«ENDIF»
 				}
 			'''
 		}
@@ -412,5 +246,50 @@ class PropertiesCodeGen {
 			}
 		'''
 		new GeneratedJava(typeName + ".java", contents)
+	}
+	
+	def private static String generateUnitsEnum(String typeName, boolean generateGetValueMethod, Iterable<UnitLiteral> literals) {
+		val literalsString = literals.sortBy[it.absoluteFactor].join(",\n")['''«it.name.toUpperCase»(«it.absoluteFactor», "«it.name»")''']
+		'''
+			public enum «typeName» {
+				«literalsString»;
+				
+				private final double factorToBase;
+				private final String originalName;
+				
+				private «typeName»(double factorToBase, String originalName) {
+					this.factorToBase = factorToBase;
+					this.originalName = originalName;
+				}
+				
+				public double getFactorToBase() {
+					return factorToBase;
+				}
+				
+				public double getFactorTo(«typeName» target) {
+					return factorToBase / target.factorToBase;
+				}
+				«IF generateGetValueMethod»
+				
+				public static «typeName» getValue(PropertyExpression propertyExpression) {
+					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+					if (abstractNamedValue instanceof UnitLiteral) {
+						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
+					} else if (abstractNamedValue instanceof Property) {
+						throw new IllegalArgumentException("Reference to property not supported");
+					} else if (abstractNamedValue instanceof PropertyConstant) {
+						throw new IllegalArgumentException("Reference to property constant not supported");
+					} else {
+						throw new AssertionError("Unexpected type: " + abstractNamedValue.getClass().getName());
+					}
+				}
+				«ENDIF»
+				
+				@Override
+				public String toString() {
+					return originalName;
+				}
+			}
+		'''
 	}
 }
