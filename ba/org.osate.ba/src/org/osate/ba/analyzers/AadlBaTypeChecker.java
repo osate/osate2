@@ -2374,6 +2374,22 @@ public class AadlBaTypeChecker
       tmp.setEventDataPort((EventDataPort)qne.getOsateRef()) ;
       return portSendActionResolver(tmp, comAct) ;
     }
+    else if(qne.getOsateRef() instanceof SubprogramAccess)
+    {
+      SubprogramAccessHolder sah = _fact.createSubprogramAccessHolder();
+      sah.setSubprogramAccess((SubprogramAccess) qne.getOsateRef());
+      List<ElementHolder> refs = new ArrayList<ElementHolder>();
+      refs.add(sah);
+      return subprogramCallActionResolver(refs, comAct);
+    }
+    else if(qne.getOsateRef() instanceof SubprogramSubcomponent)
+    {
+      SubprogramSubcomponentHolder ssh = _fact.createSubprogramSubcomponentHolder();
+      ssh.setSubprogramSubcomponent((SubprogramSubcomponent) qne.getOsateRef());
+      List<ElementHolder> refs = new ArrayList<ElementHolder>();
+      refs.add(ssh);
+      return subprogramCallActionResolver(refs, comAct);
+    }
     else
     {
       TypeCheckRule rule = TypeCheckRule.SUBPROGRAM_UCCR ; 
