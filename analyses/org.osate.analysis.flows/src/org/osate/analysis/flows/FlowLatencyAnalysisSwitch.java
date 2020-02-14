@@ -23,6 +23,7 @@
  */
 package org.osate.analysis.flows;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -129,7 +130,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		for (FlowElementInstance fei : etef.getFlowElements()) {
 			mapFlowElementInstance(etef, fei, entry);
 		}
-		entry.finalizeReportEntry();
+// Issue 1148 moved this somewhere else
+//		entry.finalizeReportEntry();
 		return entry;
 	}
 
@@ -543,9 +545,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * transmissionDataSize: the size of data to be transmitted.
 	 * latencyContributor: the place where we add a subcontributor.
 	 */
-	private void processTransmissionTime(NamedElement onBehalfOfConnectionOrVb, NamedElement targetMedium,
-			double datasizeinbyte,
-			LatencyContributor latencyContributor) {
+	private void processTransmissionTime(NamedElement targetMedium, double datasizeinbyte,
+			LatencyContributor latencyContributor, final ConnectionInstance onBehalfOfConnection) {
 		// XXX: [Code Coverage] targetMedium cannot be null.
 		if (targetMedium != null) {
 
@@ -570,10 +571,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				subContributor.setWorstCaseMethod(LatencyContributorMethod.TRANSMISSION_TIME);
 
 				// Record the latency for use by asynchronous bus waiting times
-				if (targetMedium instanceof ComponentInstance
-						&& onBehalfOfConnectionOrVb instanceof ConnectionInstance) {
+				if (targetMedium instanceof ComponentInstance) {
 					computedMaxTransmissionLatencies.put(
-							new Pair<>((ComponentInstance) targetMedium, (ConnectionInstance) onBehalfOfConnectionOrVb),
+							new Pair<>((ComponentInstance) targetMedium, onBehalfOfConnection),
 							maxBusTransferTime);
 				}
 			} else if (maxBusLatency > 0) {
@@ -582,10 +582,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				subContributor.reportInfo("Using specified bus latency");
 
 				// Record the latency for use by asynchronous bus waiting times
-				if (targetMedium instanceof ComponentInstance
-						&& onBehalfOfConnectionOrVb instanceof ConnectionInstance) {
+				if (targetMedium instanceof ComponentInstance) {
 					computedMaxTransmissionLatencies.put(
-							new Pair<>((ComponentInstance) targetMedium, (ConnectionInstance) onBehalfOfConnectionOrVb),
+							new Pair<>((ComponentInstance) targetMedium, onBehalfOfConnection),
 							maxBusTransferTime);
 				}
 			} else {
@@ -608,12 +607,25 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		}
 	}
 
-	public void processActualConnectionBindingsTransmission(InstanceObject connorvb, double transmissionDataSize,
-			LatencyContributor latencyContributor) {
+	private void processActualConnectionBindingsTransmission(final ConnectionInstance connectionInstance,
+			final double transmissionDataSize, final LatencyContributor latencyContributor) {
+		processActualConnectionBindingsTransmission(connectionInstance, transmissionDataSize, latencyContributor,
+				connectionInstance);
+	}
+
+	/*
+	 * connOrVB - Can be a ConnectionInstance (initial call), ComponentInstance (bus or virtual bus bound to a connection or virtual bus)
+	 *
+	 * onBehalfOfConnection - The connection instance that is bound to this mess. When connOrVB is a connection instance then
+	 * it must be that connOrVB == onBehalfOfConnection
+	 */
+	private void processActualConnectionBindingsTransmission(final InstanceObject connOrVB,
+			double transmissionDataSize, final LatencyContributor latencyContributor,
+			final ConnectionInstance onBehalfOfConnection) {
 		boolean willDoVirtualBuses = false;
 		boolean willDoBuses = false;
 		// look for actual binding if we have a connection instance or virtual bus instance
-		List<ComponentInstance> bindings = GetProperties.getActualConnectionBinding(connorvb);
+		List<ComponentInstance> bindings = GetProperties.getActualConnectionBinding(connOrVB);
 		if (bindings.isEmpty()) {
 			return;
 		}
@@ -630,24 +642,26 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			 * We also can have an actual connection binding to a virtual bus
 			 * If we have that we want to use that virtual bus overhead
 			 */
-			List<ComponentClassifier> protocols = GetProperties.getRequiredVirtualBusClass(connorvb);
+			List<ComponentClassifier> protocols = GetProperties.getRequiredVirtualBusClass(connOrVB);
 			// XXX: [Code Coverage] protocols cannot be null.
 			if ((protocols != null) && (protocols.size() > 0)) {
 				// XXX: [Code Coverage] willDoBuses is always true if willDoVirtualBuses is false.
 				if (willDoBuses) {
 					latencyContributor.reportInfo("Adding required virtual bus contributions to bound bus");
 				}
-				transmissionDataSize = computeTotalDataSize(connorvb, protocols, transmissionDataSize,
-						latencyContributor);
+				// TODO: computeTotalDataSize also needs "onBehalfOf" parameter
+				transmissionDataSize = computeTotalDataSize(protocols, transmissionDataSize, latencyContributor,
+						onBehalfOfConnection);
 			}
 
 		}
 
 		for (ComponentInstance componentInstance : bindings) {
 			double wrappedDataSize = transmissionDataSize + GetProperties.getDataSizeInBytes(componentInstance);
-			processTransmissionTime(connorvb, componentInstance, wrappedDataSize, latencyContributor);
+			processTransmissionTime(componentInstance, wrappedDataSize, latencyContributor, onBehalfOfConnection);
 			if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
-				processActualConnectionBindingsTransmission(componentInstance, wrappedDataSize, latencyContributor);
+				processActualConnectionBindingsTransmission(componentInstance, wrappedDataSize, latencyContributor,
+						onBehalfOfConnection);
 			}
 		}
 	}
@@ -658,31 +672,43 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param protocols
 	 * @return
 	 */
-	private double computeTotalDataSize(NamedElement connOrVb, List<ComponentClassifier> protocols,
+	private double computeTotalDataSize(List<ComponentClassifier> protocols,
 			double transmissionDataSize,
-			LatencyContributor latencyContributor) {
+			LatencyContributor latencyContributor, final ConnectionInstance onBehalfOfConnection) {
 		double total = transmissionDataSize;
 		for (ComponentClassifier cc : protocols) {
 			double contribution = GetProperties.getDataSizeInBytes(cc);
 			double wrapped = transmissionDataSize + contribution;
-			processTransmissionTime(connOrVb, cc, wrapped, latencyContributor);
+			processTransmissionTime(cc, wrapped, latencyContributor, onBehalfOfConnection);
 			total = total + contribution;
 			List<ComponentClassifier> reqprotocols = GetProperties.getRequiredVirtualBusClass(cc);
 			if (!reqprotocols.isEmpty()) {
-				total = total + computeTotalDataSize(cc, reqprotocols, wrapped, latencyContributor);
+				total = total + computeTotalDataSize(reqprotocols, wrapped, latencyContributor, onBehalfOfConnection);
 			}
 		}
 		return total;
 
 	}
 
-	// XXX: [Code Coverage] First parameter should be ConnectionInstance. Recursive call is a no-op.
-	public void processActualConnectionBindingsSampling(NamedElement connorvb, LatencyContributor latencyContributor) {
+	private void processActualConnectionBindingsSampling(final ConnectionInstance connectionInstance,
+			final LatencyContributor latencyContributor) {
+		processActualConnectionBindingsSampling(connectionInstance, latencyContributor, connectionInstance);
+	}
+
+	/*
+	 * connOrVB - Can be a ConnectionInstance (initial call), ComponentInstance (bus or virtual bus bound to a connection or virtual bus), or a
+	 * ComponentClassifier (required by a connection or virtual bus).
+	 *
+	 * onBehalfOfConnection - The connection instance that is bound to this mess. When connOrVB is a connection instance then
+	 * it must be that connOrVB == onBehalfOfConnection
+	 */
+	private void processActualConnectionBindingsSampling(final NamedElement connOrVB,
+			final LatencyContributor latencyContributor, final ConnectionInstance onBehalfOfConnection) {
 		boolean willDoVirtualBuses = false;
 		boolean willDoBuses = false;
-		if (connorvb instanceof InstanceObject) {
+		if (connOrVB instanceof InstanceObject) {
 			// look for actual binding if we have a connection instance or virtual bus instance
-			List<ComponentInstance> bindings = GetProperties.getActualConnectionBinding((InstanceObject) connorvb);
+			List<ComponentInstance> bindings = GetProperties.getActualConnectionBinding((InstanceObject) connOrVB);
 			for (ComponentInstance componentInstance : bindings) {
 				if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
 					willDoVirtualBuses = true;
@@ -696,7 +722,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			 * If we have that we want to use that virtual bus overhead
 			 */
 			if (!willDoVirtualBuses) {
-				List<ComponentClassifier> protocols = GetProperties.getRequiredVirtualBusClass(connorvb);
+				List<ComponentClassifier> protocols = GetProperties.getRequiredVirtualBusClass(connOrVB);
 				// XXX: [Code Coverage] protocols cannot be null.
 				if ((protocols != null) && (protocols.size() > 0)) {
 					if (willDoBuses) {
@@ -705,19 +731,17 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 					for (ComponentClassifier cc : protocols) {
 						// XXX: Issue 1148 - not sure what to do here (ignore for now)
 						processSamplingTime(false, cc, latencyContributor);
-						processActualConnectionBindingsSampling(cc, latencyContributor);
+						processActualConnectionBindingsSampling(cc, latencyContributor, onBehalfOfConnection);
 					}
 				}
 			}
 
 			for (ComponentInstance componentInstance : bindings) {
-				if (connorvb instanceof ConnectionInstance) {
-					connectionsToContributors.put(new Pair<>(componentInstance, (ConnectionInstance) connorvb),
-							latencyContributor);
-				}
+				connectionsToContributors.put(new Pair<>(componentInstance, onBehalfOfConnection), latencyContributor);
 				processSamplingTime(true, componentInstance, latencyContributor);
 				if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
-					processActualConnectionBindingsSampling(componentInstance, latencyContributor);
+					processActualConnectionBindingsSampling(componentInstance, latencyContributor,
+							onBehalfOfConnection);
 				}
 			}
 		}
@@ -773,7 +797,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 */
 	public AnalysisResult invoke(SystemInstance root, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
-		EList<Result> results = new BasicEList<Result>();
+		List<Result> results = new BasicEList<Result>();
 		if (som == null) {
 			if (root.getSystemOperationModes().isEmpty()
 					|| root.getSystemOperationModes().get(0).getCurrentModes().isEmpty()) {
@@ -808,9 +832,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
 	 * @return A populated report in AnalysisResult format.
 	 */
-	public EList<Result> invokeOnSOM(SystemInstance si, SystemOperationMode som, boolean asynchronousSystem,
+	public List<Result> invokeOnSOM(SystemInstance si, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
-		EList<Result> results = new BasicEList<Result>();
+		List<Result> results = new BasicEList<Result>();
 		List<EndToEndFlowInstance> alletef = EcoreUtil2.getAllContentsOfType(si, EndToEndFlowInstance.class);
 		for (EndToEndFlowInstance etef : alletef) {
 			results.addAll(
@@ -819,6 +843,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 
 		// Issue 1148
 		fillInSamplingTimes(si);
+
+		// Issue 1148
+		results = report.finalizeAllEntries();
 
 		return results;
 	}
@@ -841,7 +868,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	public AnalysisResult invoke(ComponentInstance ci, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
 		SystemInstance root = ci.getSystemInstance();
-		EList<Result> results = new BasicEList<Result>();
+		List<Result> results = new BasicEList<Result>();
 		if (som == null) {
 			if (root.getSystemOperationModes().isEmpty()
 					|| root.getSystemOperationModes().get(0).getCurrentModes().isEmpty()) {
@@ -860,6 +887,10 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		} else {
 			results = invokeOnSOM(ci, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
 		}
+
+		// Issue 1148
+		results = report.finalizeAllEntries();
+
 		return FlowLatencyUtil.recordAsAnalysisResult(results, ci, asynchronousSystem, majorFrameDelay,
 				worstCaseDeadline, bestCaseEmptyQueue);
 	}
@@ -943,7 +974,13 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		if (etef.isActive(som)) {
 			root.setCurrentSystemOperationMode(som);
 			LatencyReportEntry latres = analyzeLatency(etef, som, asynchronousSystem);
-			results.add(latres.genResult());
+
+			// Issue 1148
+			report.addEntry(latres);
+
+			// Issue 1158: delay this
+//			results.add(latres.genResult());
+
 			root.clearCurrentSystemOperationMode();
 			return results;
 		}
@@ -1009,9 +1046,19 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			final List<ComponentInstance> bindings = GetProperties.getActualConnectionBinding(ci);
 			for (final ComponentInstance componentInstance : bindings) {
 				addToHashedSet(map, componentInstance, ci);
+				processComponentBindings(map, ci, componentInstance);
 			}
 		}
 		return map;
+	}
+
+	private static final void processComponentBindings(final Map<ComponentInstance, Set<ConnectionInstance>> map,
+			final ConnectionInstance ci, final ComponentInstance componentInstance) {
+		final List<ComponentInstance> componentBindings = GetProperties.getActualConnectionBinding(componentInstance);
+		for (final ComponentInstance componentBinding : componentBindings) {
+			addToHashedSet(map, componentBinding, ci);
+			processComponentBindings(map, ci, componentBinding);
+		}
 	}
 
 	private static final <K, V> void addToHashedSet(final Map<K, Set<V>> map, final K key, final V value) {
@@ -1053,6 +1100,11 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			return hashCode;
 		}
 
+		@Override
+		public String toString() {
+			return "(" + first + ", " + second + ")";
+		}
+
 		@SuppressWarnings("unused")
 		public A getFirst() {
 			return first;
@@ -1078,13 +1130,14 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 					final ComponentInstance bus = (ComponentInstance) ne;
 
 					// Get all the connections bound to that bus
-					final Set<ConnectionInstance> boundConnections = sortedConnections.get(bus);
+					final Set<ConnectionInstance> boundConnections = sortedConnections.getOrDefault(bus,
+							Collections.emptySet());
 					// Get all the transmission times and compute the total
 					double totalTime = 0.0;
 					final Map<ConnectionInstance, Double> transmissionTimes = new HashMap<>();
 					for (final ConnectionInstance ci : boundConnections) {
 						final Double time = computedMaxTransmissionLatencies
-								.get(new Pair<ComponentInstance, ConnectionInstance>(bus, ci));
+								.getOrDefault(new Pair<ComponentInstance, ConnectionInstance>(bus, ci), 0.0);
 						transmissionTimes.put(ci, time);
 						totalTime += time;
 					}
@@ -1110,7 +1163,6 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 						queuingLatencyContributor.setMinimum(0.0);
 						queuingLatencyContributor.setMaximum(maxWaitingTime);
 						latencyContributor.addSubContributor(queuingLatencyContributor);
-
 					}
 				}
 			}
