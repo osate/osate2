@@ -76,8 +76,23 @@ import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress {
 	private LatencyReport report;
 
-	private final Set<NamedElement> asyncBuses = new HashSet<>();
-	private final Map<Pair<NamedElement, ConnectionInstance>, LatencyContributor> connectionsToContributors = new HashMap<>();
+	/*
+	 * Set of all the non-periodic buses we encounter.
+	 */
+	private final Set<ComponentInstance> asyncBuses = new HashSet<>();
+	/*
+	 * Map from (bus component, connection instance) -> latency contributor. We need this because the queuing latency is computed at the end of process
+	 * after all the transmission times are computed. So we add the queuing latency to this latency contributor for the connection instance
+	 * bound to the given bus. This may contain entries that in the end are not interesting because virtual buses can be bound to
+	 * other virtual buses that are eventually bound to real bus. We chases down all those layers.
+	 */
+	private final Map<Pair<ComponentInstance, ConnectionInstance>, LatencyContributor> connectionsToContributors = new HashMap<>();
+	/*
+	 * Map from (bus component, connection instance) -> maximum transmission time. When the max transmission time for
+	 * the given connection bound to the given bus is computed, we store it here. This may contain entries that in the end are not interesting because virtual
+	 * buses can be bound to
+	 * other virtual buses that are eventually bound to real bus. We chases down all those layers.
+	 */
 	private final Map<Pair<ComponentInstance, ConnectionInstance>, Double> computedMaxTransmissionLatencies = new HashMap<>();
 
 	public FlowLatencyAnalysisSwitch() {
@@ -93,6 +108,16 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		report = new LatencyReport();
 		report.setRootinstance(si);
 
+	}
+
+	/*
+	 * Issue 1148: added this so that callers of invoke() and invokeOnSOM() can get the results. This used to to be done
+	 * bit by bit during the analysis, but because I changed things to compute the queueing times last, I had to defer
+	 * this process until the absolute end.
+	 */
+	public final List<Result> finalizeResults() {
+		// Issue 1148
+		return report.finalizeAllEntries();
 	}
 
 	@Override
@@ -649,7 +674,6 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				if (willDoBuses) {
 					latencyContributor.reportInfo("Adding required virtual bus contributions to bound bus");
 				}
-				// TODO: computeTotalDataSize also needs "onBehalfOf" parameter
 				transmissionDataSize = computeTotalDataSize(protocols, transmissionDataSize, latencyContributor,
 						onBehalfOfConnection);
 			}
@@ -729,16 +753,14 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 						latencyContributor.reportInfo("Adding required virtual bus contributions to bound bus");
 					}
 					for (ComponentClassifier cc : protocols) {
-						// XXX: Issue 1148 - not sure what to do here (ignore for now)
-						processSamplingTime(false, cc, latencyContributor);
+						processSamplingAndQueuingTimes(cc, null, latencyContributor);
 						processActualConnectionBindingsSampling(cc, latencyContributor, onBehalfOfConnection);
 					}
 				}
 			}
 
 			for (ComponentInstance componentInstance : bindings) {
-				connectionsToContributors.put(new Pair<>(componentInstance, onBehalfOfConnection), latencyContributor);
-				processSamplingTime(true, componentInstance, latencyContributor);
+				processSamplingAndQueuingTimes(componentInstance, onBehalfOfConnection, latencyContributor);
 				if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
 					processActualConnectionBindingsSampling(componentInstance, latencyContributor,
 							onBehalfOfConnection);
@@ -748,37 +770,55 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 
 	}
 
-	private void processSamplingTime(final boolean handleAsync, NamedElement boundBus,
-			LatencyContributor latencyContributor) {
+	/*
+	 * boundBusOrRequiredClassifier is a ComponentInstance if it is a bus bound to connection instance, or a
+	 * ComponentClassifier if it is a virtual bus required by a connection connnection or vb.
+	 *
+	 * bindingConnection is the ConnectionInstance that boundBusOrRequiredClassifier is bound to if
+	 * boundBusOrRequiredClassifier is a componentInstance. Otherwise it is null.
+	 */
+	private void processSamplingAndQueuingTimes(final NamedElement boundBusOrRequiredClassifier,
+			final ConnectionInstance bindingConnection, final LatencyContributor latencyContributor) {
 		/**
 		 * we add the bus/VB sampling time as a subcontributor.
 		 */
 
 		// XXX: [Code Coverage] boundBus cannot be null.
-		if (boundBus != null) {
-			double period = GetProperties.getPeriodinMS(boundBus);
+		if (boundBusOrRequiredClassifier != null) {
+			double period = GetProperties.getPeriodinMS(boundBusOrRequiredClassifier);
 			if (period > 0) {
 				// add sampling latency due to the protocol or bus being periodic
-				LatencyContributor samplingLatencyContributor = new LatencyContributorComponent(boundBus,
-						report.isMajorFrameDelay());
+				LatencyContributor samplingLatencyContributor = new LatencyContributorComponent(
+						boundBusOrRequiredClassifier, report.isMajorFrameDelay());
 				samplingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.SAMPLED_PROTOCOL);
 				samplingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.SAMPLED_PROTOCOL);
 				samplingLatencyContributor.setSamplingPeriod(period);
-
 				latencyContributor.addSubContributor(samplingLatencyContributor);
+
+				// add queuing latency: always zero in this case
+				LatencyContributor queuingLatencyContributor = new LatencyContributorComponent(
+						boundBusOrRequiredClassifier, report.isMajorFrameDelay());
+				queuingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.QUEUED);
+				queuingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.QUEUED);
+				queuingLatencyContributor.setMinimum(0.0);
+				queuingLatencyContributor.setMaximum(0.0);
+				latencyContributor.addSubContributor(queuingLatencyContributor);
 			} else {
 				/*
-				 * If the bus has a transmission time, then we use that to find the all the actual transmission times
-				 * for the *other* connections on the bus, and we add them up. This is the worst case time we have
-				 * to wait to get access to the bus.
+				 * Issue 1148
 				 *
-				 * (1) Get the list of other connection instances bound to the same bus
-				 * (2) Get the transmission time for those instances (needs the data size, which is computed recursively along the binding)
-				 * (3) min sampling time is 0
-				 * (4) max sampling time is sum of the transmission times
+				 * if "boundBus" is really a bound component instance, and not a required component classifier,
+				 * then we remember the bus as asynchronous. Later in fillInQueuingTimes() we go through this list,
+				 * and then find all the connection instances bound to this bus. For each connection,
+				 * we compute the sum of the max transmission times of the OTHER connections bound to the bus. This
+				 * we set as the worse case queuing time. (Best case is 0.)
+				 *
+				 * We also remember the bus--connection pair that needs the queuing latency by storing its latency contributor.
 				 */
-				if (handleAsync) {
+				if (bindingConnection != null) {
+					final ComponentInstance boundBus = (ComponentInstance) boundBusOrRequiredClassifier;
 					asyncBuses.add(boundBus);
+					connectionsToContributors.put(new Pair<>(boundBus, bindingConnection), latencyContributor);
 				}
 			}
 		}
@@ -795,29 +835,29 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
 	 * @return A populated report in AnalysisResult format.
 	 */
+	// This method is used to invoke the analysis from unit tests
 	public AnalysisResult invoke(SystemInstance root, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
-		List<Result> results = new BasicEList<Result>();
 		if (som == null) {
 			if (root.getSystemOperationModes().isEmpty()
 					|| root.getSystemOperationModes().get(0).getCurrentModes().isEmpty()) {
 				// no SOM
-				results = invokeOnSOM(root, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
+				invokeOnSOM(root, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
 						bestCaseEmptyQueue);
 			} else {
 				// we need to run it for every SOM
 				for (SystemOperationMode eachsom : root.getSystemOperationModes()) {
 					root.setCurrentSystemOperationMode(eachsom);
-					results.addAll(invokeOnSOM(root, eachsom, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
-							bestCaseEmptyQueue));
+					invokeOnSOM(root, eachsom, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
+							bestCaseEmptyQueue);
 					root.clearCurrentSystemOperationMode();
 				}
 			}
 		} else {
-			results = invokeOnSOM(root, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
+			invokeOnSOM(root, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
 					bestCaseEmptyQueue);
 		}
-		return FlowLatencyUtil.recordAsAnalysisResult(results, root, asynchronousSystem, majorFrameDelay,
+		return FlowLatencyUtil.recordAsAnalysisResult(finalizeResults(), root, asynchronousSystem, majorFrameDelay,
 				worstCaseDeadline, bestCaseEmptyQueue);
 	}
 
@@ -832,22 +872,15 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
 	 * @return A populated report in AnalysisResult format.
 	 */
-	public List<Result> invokeOnSOM(SystemInstance si, SystemOperationMode som, boolean asynchronousSystem,
+	public void invokeOnSOM(SystemInstance si, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
-		List<Result> results = new BasicEList<Result>();
 		List<EndToEndFlowInstance> alletef = EcoreUtil2.getAllContentsOfType(si, EndToEndFlowInstance.class);
 		for (EndToEndFlowInstance etef : alletef) {
-			results.addAll(
-					invokeOnSOM(etef, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue));
+			invokeOnSOM(etef, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
 		}
 
 		// Issue 1148
-		fillInSamplingTimes(si);
-
-		// Issue 1148
-		results = report.finalizeAllEntries();
-
-		return results;
+		fillInQueuingTimes(si);
 	}
 
 	public AnalysisResult invoke(ComponentInstance ci) {
@@ -906,7 +939,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
 	 * @return A populated report in AnalysisResult format.
 	 */
-	private EList<Result> invokeOnSOM(ComponentInstance ci, SystemOperationMode som, boolean asynchronousSystem,
+	// XXX: I don't think this method is used -- Aaron
+	public EList<Result> invokeOnSOM(ComponentInstance ci, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
 		EList<Result> results = new BasicEList<Result>();
 		for (EndToEndFlowInstance etef : ci.getEndToEndFlows()) {
@@ -915,41 +949,6 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		}
 		return results;
 	}
-
-//	public AnalysisResult invoke(EndToEndFlowInstance etef) {
-//		return invoke(etef, null, true, true, true, true);
-//	}
-//
-//	/**
-//	 * Invoke the analysis on all ETEF owned by the given component instance and return Result collection
-//	 *
-//	 * @param etef The end to end flow instance
-//	 * @param som The mode to run the analysis in. If null then run all SOMs
-//	 * @param asynchronousSystem Whether the system is treated as asynchronous
-//	 * @param majorFrameDelay Whether partition output is performed at a major frame (as opposed to the partition end)
-//	 * @param worstCaseDeadline Use deadline based processing (as opposed to max compute execution time)
-//	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
-//	 * @return A populated report in AnalysisResult format.
-//	 */
-//	public AnalysisResult invoke(EndToEndFlowInstance etef, SystemOperationMode som, boolean asynchronousSystem,
-//			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
-//		SystemInstance root = etef.getSystemInstance();
-//		EList<Result> results = new BasicEList<Result>();
-//		if (som == null) {
-//			// we need to run it for every SOM
-//			for (SystemOperationMode eachsom : root.getSystemOperationModes()) {
-//				root.setCurrentSystemOperationMode(eachsom);
-//				results.addAll(invokeOnSOM(etef, eachsom, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
-//						bestCaseEmptyQueue));
-//				root.clearCurrentSystemOperationMode();
-//			}
-//		} else {
-//			results = invokeOnSOM(etef, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
-//					bestCaseEmptyQueue);
-//		}
-//		return FlowLatencyUtil.recordAsAnalysisResult(results, etef, asynchronousSystem, majorFrameDelay,
-//				worstCaseDeadline, bestCaseEmptyQueue);
-//	}
 
 	/**
 	 * Invoke the analysis and return Result collection
@@ -962,7 +961,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
 	 * @return Collection of Result. May be empty if ETEF is not active in SOM
 	 */
-	private EList<Result> invokeOnSOM(EndToEndFlowInstance etef, SystemOperationMode som, boolean asynchronousSystem,
+	public EList<Result> invokeOnSOM(EndToEndFlowInstance etef, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
 		if (report == null) {
 			report = new LatencyReport();
@@ -977,9 +976,6 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 
 			// Issue 1148
 			report.addEntry(latres);
-
-			// Issue 1158: delay this
-//			results.add(latres.genResult());
 
 			root.clearCurrentSystemOperationMode();
 			return results;
@@ -1116,7 +1112,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		}
 	}
 
-	private void fillInSamplingTimes(final SystemInstance system) {
+	private void fillInQueuingTimes(final SystemInstance system) {
 		// Nothing to do if there are no asynchronous buses
 		if (!asyncBuses.isEmpty()) {
 			// Get all the connections bound to a bus and group them together by the bus they are bound to
@@ -1163,6 +1159,14 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 						queuingLatencyContributor.setMinimum(0.0);
 						queuingLatencyContributor.setMaximum(maxWaitingTime);
 						latencyContributor.addSubContributor(queuingLatencyContributor);
+
+						// add the sampling latency
+						LatencyContributor samplingLatencyContributor = new LatencyContributorComponent(
+								bus, report.isMajorFrameDelay());
+						samplingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.SAMPLED_PROTOCOL);
+						samplingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.SAMPLED_PROTOCOL);
+						samplingLatencyContributor.setSamplingPeriod(0.0);
+						latencyContributor.addSubContributor(samplingLatencyContributor);
 					}
 				}
 			}

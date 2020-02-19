@@ -152,9 +152,9 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 		monitor.beginTask(getActionName(), 1);
 		// Note: analyzeInstanceModel is called for each mode. We add the results to the same 'latreport'
 		FlowLatencyAnalysisSwitch flas = new FlowLatencyAnalysisSwitch(monitor, root);
-		List<Result> res = flas.invokeOnSOM(root, som, isAsynchronousSystem, isMajorFrameDelay, isWorstCaseDeadline,
+		flas.invokeOnSOM(root, som, isAsynchronousSystem, isMajorFrameDelay, isWorstCaseDeadline,
 				isBestCaseEmptyQueue);
-		latResult.getResults().addAll(res);
+		latResult.getResults().addAll(flas.finalizeResults());
 		monitor.done();
 	}
 
