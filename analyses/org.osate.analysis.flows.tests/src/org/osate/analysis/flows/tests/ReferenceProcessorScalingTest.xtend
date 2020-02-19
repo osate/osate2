@@ -79,8 +79,10 @@ class ReferenceProcessorScalingTest extends XtextTest {
 		som = instanceu.systemOperationModes.head
 		latencyresult = checker.invoke(instanceu, som,true,true,false,true)
 		val rescd = latencyresult.results.get(0)
-		assertTrue((rescd.values.get(1) as RealValue).value == (50.0))
-		assertTrue((rescd.values.get(2) as RealValue).value == (100.0))
+		assertEquals(50.0, (rescd.values.get(1) as RealValue).value, 0.0)
+		assertEquals(100.0, (rescd.values.get(2) as RealValue).value, 0.0)
+//		assertTrue((rescd.values.get(1) as RealValue).value == (50.0))
+//		assertTrue((rescd.values.get(2) as RealValue).value == (100.0))
 
 	}
 
