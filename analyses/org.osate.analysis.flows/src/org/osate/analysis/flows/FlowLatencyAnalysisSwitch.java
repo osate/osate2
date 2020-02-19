@@ -117,7 +117,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 */
 	public final List<Result> finalizeResults() {
 		// Issue 1148
-		return report.finalizeAllEntries();
+		/* report might be null if we are being invoked from a unit test when there are no flows in the system */
+		return report == null ? Collections.emptyList() : report.finalizeAllEntries();
 	}
 
 	@Override
