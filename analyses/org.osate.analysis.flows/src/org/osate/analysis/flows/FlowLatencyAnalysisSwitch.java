@@ -29,6 +29,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.function.Function;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -77,9 +78,20 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	private LatencyReport report;
 
 	/*
+	 * Quick and dirty way to keep track of the order in which a bus component is added to the asyncBuses set. Used for the comparator.
+	 */
+	private final Map<ComponentInstance, Integer> busOrder = new HashMap<>();
+	private int nextBusId = 0;
+
+	/*
 	 * Set of all the non-periodic buses we encounter.
 	 */
-	private final Set<ComponentInstance> asyncBuses = new HashSet<>();
+	private final Set<ComponentInstance> asyncBuses = new TreeSet<>((o1, o2) -> {
+		final int id1 = busOrder.get(o1);
+		final int id2 = busOrder.get(o2);
+		return id1 - id2;
+	});
+
 	/*
 	 * Map from (bus component, connection instance) -> latency contributor. We need this because the queuing latency is computed at the end of process
 	 * after all the transmission times are computed. So we add the queuing latency to this latency contributor for the connection instance
@@ -818,7 +830,12 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				 */
 				if (bindingConnection != null) {
 					final ComponentInstance boundBus = (ComponentInstance) boundBusOrRequiredClassifier;
-					asyncBuses.add(boundBus);
+
+					/* Set the bus order and then add it to the ordered set */
+					if (!busOrder.containsKey(boundBus)) {
+						busOrder.put(boundBus, nextBusId++);
+						asyncBuses.add(boundBus);
+					}
 					connectionsToContributors.put(new Pair<>(boundBus, bindingConnection), latencyContributor);
 				}
 			}
