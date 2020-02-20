@@ -120,6 +120,24 @@
         </diagnostics>
         <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/transmission_time1_s1_i1_Instance.aaxl2#//@componentInstance.2"/>
       </subResults>
+      <subResults>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:StringValue" value="queued"/>
+        <values xsi:type="result:StringValue" value="queued"/>
+        <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/transmission_time1_s1_i1_Instance.aaxl2#//@componentInstance.2"/>
+      </subResults>
+      <subResults>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:StringValue" value="sampling protocol/bus"/>
+        <values xsi:type="result:StringValue" value="sampling protocol/bus"/>
+        <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/transmission_time1_s1_i1_Instance.aaxl2#//@componentInstance.2"/>
+      </subResults>
       <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/transmission_time1_s1_i1_Instance.aaxl2#//@connectionInstance.1"/>
     </subResults>
     <subResults>
@@ -185,6 +203,24 @@
         <diagnostics diagnosticType="INFO" message="Using data transfer time">
           <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/transmission_time1_s1_i1_Instance.aaxl2#//@componentInstance.3"/>
         </diagnostics>
+        <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/transmission_time1_s1_i1_Instance.aaxl2#//@componentInstance.3"/>
+      </subResults>
+      <subResults>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:StringValue" value="queued"/>
+        <values xsi:type="result:StringValue" value="queued"/>
+        <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/transmission_time1_s1_i1_Instance.aaxl2#//@componentInstance.3"/>
+      </subResults>
+      <subResults>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:StringValue" value="sampling protocol/bus"/>
+        <values xsi:type="result:StringValue" value="sampling protocol/bus"/>
         <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/transmission_time1_s1_i1_Instance.aaxl2#//@componentInstance.3"/>
       </subResults>
       <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/transmission_time1_s1_i1_Instance.aaxl2#//@connectionInstance.2"/>
