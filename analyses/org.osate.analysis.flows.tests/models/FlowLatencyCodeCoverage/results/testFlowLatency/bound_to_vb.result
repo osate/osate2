@@ -54,6 +54,15 @@
         <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/bound_to_vb_s1_i1_Instance.aaxl2#//@componentInstance.2"/>
       </subResults>
       <subResults>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:StringValue" value="queued"/>
+        <values xsi:type="result:StringValue" value="queued"/>
+        <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/bound_to_vb_s1_i1_Instance.aaxl2#//@componentInstance.2"/>
+      </subResults>
+      <subResults>
         <values xsi:type="result:RealValue" value="1.0"/>
         <values xsi:type="result:RealValue" value="2.0"/>
         <values xsi:type="result:RealValue" value="1.0"/>
