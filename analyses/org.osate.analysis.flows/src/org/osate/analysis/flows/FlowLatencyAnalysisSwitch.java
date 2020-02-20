@@ -127,6 +127,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * bit by bit during the analysis, but because I changed things to compute the queueing times last, I had to defer
 	 * this process until the absolute end.
 	 */
+	/**
+	 * @since org.osate.analysis.flows 3.0
+	 */
 	public final List<Result> finalizeResults() {
 		// Issue 1148
 		/* report might be null if we are being invoked from a unit test when there are no flows in the system */
@@ -173,7 +176,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		return entry;
 	}
 
-	public void mapFlowElementInstance(final EndToEndFlowInstance etef, final FlowElementInstance flowElementInstance,
+	private void mapFlowElementInstance(final EndToEndFlowInstance etef, final FlowElementInstance flowElementInstance,
 			LatencyReportEntry entry) {
 
 		if (flowElementInstance instanceof FlowSpecificationInstance
@@ -194,7 +197,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		}
 	}
 
-	public void mapComponentInstance(final EndToEndFlowInstance etef, final FlowElementInstance flowElementInstance,
+	private void mapComponentInstance(final EndToEndFlowInstance etef, final FlowElementInstance flowElementInstance,
 			LatencyReportEntry entry) {
 		ComponentInstance componentInstance;
 		double expectedMin = GetProperties.getMinimumLatencyinMilliSec(flowElementInstance);
@@ -430,7 +433,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		entry.addContributor(processingLatencyContributor);
 	}
 
-	public void mapConnectionInstance(final EndToEndFlowInstance etef, final FlowElementInstance flowElementInstance,
+	private void mapConnectionInstance(final EndToEndFlowInstance etef, final FlowElementInstance flowElementInstance,
 			LatencyReportEntry entry) {
 		ConnectionInstance connectionInstance = (ConnectionInstance) flowElementInstance;
 
@@ -889,6 +892,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param worstCaseDeadline Use deadline based processing (as opposed to max compute execution time)
 	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
 	 * @return A populated report in AnalysisResult format.
+	 *
+	 * @since org.osate.analysis.flows 3.0
 	 */
 	public void invokeOnSOM(SystemInstance si, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
@@ -916,7 +921,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
 	 * @return A populated report in AnalysisResult format.
 	 */
-	public AnalysisResult invoke(ComponentInstance ci, SystemOperationMode som, boolean asynchronousSystem,
+	private AnalysisResult invoke(ComponentInstance ci, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
 		SystemInstance root = ci.getSystemInstance();
 		List<Result> results = new BasicEList<Result>();
@@ -956,9 +961,10 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param worstCaseDeadline Use deadline based processing (as opposed to max compute execution time)
 	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
 	 * @return A populated report in AnalysisResult format.
+	 *
+	 * @since org.osate.analysis.flows 3.0
 	 */
-	// XXX: I don't think this method is used -- Aaron
-	public EList<Result> invokeOnSOM(ComponentInstance ci, SystemOperationMode som, boolean asynchronousSystem,
+	private EList<Result> invokeOnSOM(ComponentInstance ci, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
 		EList<Result> results = new BasicEList<Result>();
 		for (EndToEndFlowInstance etef : ci.getEndToEndFlows()) {
@@ -978,8 +984,10 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param worstCaseDeadline Use deadline based processing (as opposed to max compute execution time)
 	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
 	 * @return Collection of Result. May be empty if ETEF is not active in SOM
+	 *
+	 * @since org.osate.analysis.flows 3.0
 	 */
-	public EList<Result> invokeOnSOM(EndToEndFlowInstance etef, SystemOperationMode som, boolean asynchronousSystem,
+	private EList<Result> invokeOnSOM(EndToEndFlowInstance etef, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
 		if (report == null) {
 			report = new LatencyReport();
