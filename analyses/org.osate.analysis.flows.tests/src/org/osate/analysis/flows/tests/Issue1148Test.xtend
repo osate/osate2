@@ -183,9 +183,9 @@ class Issue1148Test extends XtextTest {
 		val latencyresult = checker.invoke(instance, som,true,true,true,true)
 		
 		/* We check straight down the "Min actual" and "max actual" columns */
-		checkMinMaxValues(latencyresult.results.get(0), #[1.0, 41.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.0, 45.0], #[2.0, 62.0, 196.0, 0.0, 0.0, 0.0, 0.0, 5.0, 265.0])
-		checkMinMaxValues(latencyresult.results.get(1), #[1.0, 57.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.0, 61.0], #[2.0, 86.0, 172.0, 0.0, 0.0, 0.0, 0.0, 5.0, 265.0])
-		checkMinMaxValues(latencyresult.results.get(2), #[1.0, 73.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.0, 77.0], #[2.0, 110.0, 148.0, 0.0, 0.0, 0.0, 0.0, 5.0, 265.0])
+		checkMinMaxValues(latencyresult.results.get(0), #[1.0, 41.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.0, 45.0], #[2.0, 62.0, 0.0, 0.0, 196.0, 0.0, 0.0, 5.0, 265.0])
+		checkMinMaxValues(latencyresult.results.get(1), #[1.0, 57.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.0, 61.0], #[2.0, 86.0, 0.0, 0.0, 172.0, 0.0, 0.0, 5.0, 265.0])
+		checkMinMaxValues(latencyresult.results.get(2), #[1.0, 73.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.0, 77.0], #[2.0, 110.0, 0.0, 0.0, 148.0, 0.0, 0.0, 5.0, 265.0])
 	}
 	
 	@Test
