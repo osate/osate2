@@ -779,6 +779,11 @@ The toolbar contains three buttons that influence which properties are displayed
 * ![Toggle Undefined](images/OSATEUserGuide/nonexistent_property.gif): Show **undefined** properties.
 * ![Toggle Default](images/OSATEUserGuide/filter_properties.gif): Show **default** properties.
 
+The view's menu also contains an option for filtering by property set. Selecting **Property Set Filters...** in the
+view's menu opens a dialog which allows you to choose which property sets should be shown in the view.
+
+![Property Set Filters](images/OSATEUserGuide/property_set_filters.png)
+
 
 
 ### Editing Values
