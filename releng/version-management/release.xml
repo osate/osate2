@@ -1,0 +1,882 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<release>
+	<product name="osate2" version="2.7.0">
+		<feature name="org.osate.core.feature" version="3.0.0"/>
+		<feature name="org.osate.plugins.feature" version="3.0.0"/>
+		<feature name="org.osate.xtext.aadl2.errormodel.feature" version="3.0.0"/>
+		<feature name="org.osate.ge.feature" version="3.0.0"/>
+		<feature name="org.osate.ba.feature" version="2.0.0"/>
+		<feature name="org.osate.utils.feature" version="1.0.1"/>
+		<feature name="org.osate.alisa.workbench.sdk" version="2.0.0"/>
+		<feature name="org.osate.dependencies.birt" version="4.9.0"/>
+		<feature name="org.eclipse.xsemantics.runtime.feature" version="1.19.0"/>
+		<feature name="org.eclipse.egit" version="5.6.0"/>
+		<feature name="org.eclipse.equinox.executable" version="3.8.600"/>
+		<feature name="org.eclipse.equinox.p2.discovery.feature" version="1.2.400"/>
+		<feature name="org.eclipse.platform" version="4.14.0"/>
+		<feature name="org.eclipse.graphiti.export.feature" version="0.16.1"/>
+		<feature name="org.eclipse.sirius.runtime.ide.ui" version="6.3.0"/>
+		<feature name="org.eclipse.elk.feature" version="0.5.0"/>
+		<feature name="org.eclipse.elk.algorithms.feature" version="0.5.0"/>
+		<feature name="org.eclipse.ease.feature" version="0.6.0"/>
+		<feature name="org.eclipse.ease.lang.python.py4j.feature" version="0.6.0"/>
+		<feature name="org.eclipse.ease.lang.scriptarchive.feature" version="0.6.0"/>
+		<feature name="org.eclipse.ease.lang.unittest.feature" version="0.6.0"/>
+		<feature name="org.eclipse.ease.modules.feature" version="0.6.0"/>
+		<feature name="org.eclipse.ease.ui.feature" version="0.6.0"/>
+		<feature name="org.py4j.feature" version="0.10.9"/>
+	</product>
+	<feature name="org.eclipse.e4.rcp" version="4.14.0">
+		<plugin name="org.eclipse.e4.core.services" version="2.2.100"/>
+		<plugin name="org.eclipse.e4.ui.workbench.swt" version="0.14.800"/>
+		<plugin name="org.eclipse.e4.core.commands" version="0.12.800"/>
+		<plugin name="org.eclipse.e4.ui.bindings" version="0.12.700"/>
+		<plugin name="org.eclipse.e4.ui.model.workbench" version="2.1.600"/>
+		<plugin name="org.eclipse.e4.ui.services" version="1.3.700"/>
+		<plugin name="org.eclipse.e4.ui.workbench.renderers.swt" version="0.14.900"/>
+		<plugin name="org.eclipse.e4.ui.workbench" version="1.11.0"/>
+		<plugin name="org.eclipse.e4.ui.css.core" version="0.12.900"/>
+		<plugin name="org.eclipse.e4.ui.css.swt" version="0.13.700"/>
+		<plugin name="org.apache.batik.css" version="1.11.0"/>
+		<plugin name="org.w3c.css.sac" version="1.3.1"/>
+		<plugin name="org.apache.batik.util" version="1.11.0"/>
+		<plugin name="org.w3c.dom.svg" version="1.1.0"/>
+		<plugin name="org.w3c.dom.smil" version="1.0.1"/>
+		<plugin name="org.w3c.dom.events" version="3.0.0"/>
+		<plugin name="javax.inject" version="1.0.0"/>
+		<plugin name="javax.annotation" version="1.2.0"/>
+		<plugin name="org.eclipse.e4.core.di" version="1.7.500"/>
+		<plugin name="org.eclipse.e4.core.contexts" version="1.8.300"/>
+		<plugin name="org.apache.batik.i18n" version="1.11.0"/>
+		<plugin name="org.apache.batik.constants" version="1.11.0"/>
+		<plugin name="org.apache.xmlgraphics" version="2.3.0"/>
+		<plugin name="org.apache.commons.io" version="2.6.0"/>
+		<plugin name="org.apache.commons.logging" version="1.2.0"/>
+		<plugin name="org.eclipse.e4.core.di.extensions" version="0.15.400"/>
+		<plugin name="org.eclipse.e4.ui.css.swt.theme" version="0.12.500"/>
+		<plugin name="org.eclipse.e4.ui.di" version="1.2.700"/>
+		<plugin name="org.eclipse.e4.ui.widgets" version="1.2.600"/>
+		<plugin name="org.eclipse.e4.ui.workbench.renderers.swt.cocoa" fragment="true" version="0.12.400"/>
+		<plugin name="org.eclipse.equinox.common" version="3.10.600"/>
+		<plugin name="org.apache.felix.scr" version="2.1.14"/>
+		<plugin name="org.eclipse.equinox.event" version="1.5.300"/>
+		<plugin name="org.eclipse.core.commands" version="3.9.600"/>
+		<plugin name="org.eclipse.core.contenttype" version="3.7.500"/>
+		<plugin name="org.eclipse.core.databinding" version="1.7.700"/>
+		<plugin name="org.eclipse.core.databinding.beans" version="1.6.0"/>
+		<plugin name="org.eclipse.core.databinding.observable" version="1.8.100"/>
+		<plugin name="org.eclipse.core.databinding.property" version="1.7.200"/>
+		<plugin name="org.eclipse.core.expressions" version="3.6.600"/>
+		<plugin name="org.eclipse.core.jobs" version="3.10.600"/>
+		<plugin name="org.eclipse.core.runtime" version="3.17.0"/>
+		<plugin name="org.eclipse.equinox.app" version="1.4.300"/>
+		<plugin name="org.eclipse.equinox.launcher" version="1.5.600"/>
+		<plugin name="com.ibm.icu" version="64.2.0"/>
+		<plugin name="org.eclipse.equinox.preferences" version="3.7.600"/>
+		<plugin name="org.eclipse.equinox.registry" version="3.8.600"/>
+		<plugin name="org.eclipse.equinox.simpleconfigurator" version="1.3.400"/>
+		<plugin name="org.eclipse.osgi" version="3.15.100"/>
+		<plugin name="org.eclipse.osgi.compatibility.state" fragment="true" version="1.1.600"/>
+		<plugin name="org.eclipse.osgi.services" version="3.8.0"/>
+		<plugin name="org.eclipse.osgi.util" version="3.5.300"/>
+		<plugin name="org.eclipse.equinox.launcher.cocoa.macosx.x86_64" fragment="true" version="1.1.1100"/>
+		<plugin name="org.eclipse.equinox.launcher.gtk.linux.ppc64le" fragment="true" version="1.1.1100"/>
+		<plugin name="org.eclipse.equinox.launcher.gtk.linux.x86_64" fragment="true" version="1.1.1100"/>
+		<plugin name="org.eclipse.equinox.launcher.win32.win32.x86_64" fragment="true" version="1.1.1100"/>
+		<plugin name="org.eclipse.swt" version="3.113.0"/>
+		<plugin name="org.eclipse.swt.win32.win32.x86_64" fragment="true" version="3.113.0"/>
+		<plugin name="org.eclipse.swt.gtk.linux.ppc64le" fragment="true" version="3.113.0"/>
+		<plugin name="org.eclipse.swt.gtk.linux.x86_64" fragment="true" version="3.113.0"/>
+		<plugin name="org.eclipse.swt.cocoa.macosx.x86_64" fragment="true" version="3.113.0"/>
+		<plugin name="org.eclipse.jface" version="3.18.0"/>
+		<plugin name="org.eclipse.jface.databinding" version="1.9.200"/>
+		<plugin name="org.eclipse.e4.ui.workbench3" version="0.15.300"/>
+		<plugin name="org.apache.felix.gogo.command" version="1.0.2"/>
+		<plugin name="org.apache.felix.gogo.runtime" version="1.1.0"/>
+		<plugin name="org.apache.felix.gogo.shell" version="1.1.0"/>
+		<plugin name="org.eclipse.equinox.console" version="1.4.0"/>
+		<plugin name="org.eclipse.e4.ui.workbench.addons.swt" version="1.3.700"/>
+		<plugin name="org.eclipse.equinox.bidi" version="1.2.200"/>
+		<plugin name="org.eclipse.e4.ui.dialogs" version="1.1.600"/>
+		<plugin name="org.apache.commons.jxpath" version="1.3.0"/>
+		<plugin name="org.eclipse.e4.emf.xpath" version="0.2.500"/>
+		<plugin name="org.eclipse.e4.core.di.annotations" version="1.6.500"/>
+		<plugin name="org.eclipse.e4.ui.swt.gtk" fragment="true" version="1.0.600"/>
+		<plugin name="org.eclipse.e4.core.di.extensions.supplier" version="0.15.400"/>
+	</feature>
+	<feature name="org.eclipse.ease.feature" version="0.6.0">
+		<plugin name="org.eclipse.ease" version="0.6.0"/>
+		<plugin name="org.eclipse.ease.classloader" version="0.6.0"/>
+	</feature>
+	<feature name="org.eclipse.ease.lang.python.py4j.feature" version="0.6.0">
+		<plugin name="org.eclipse.ease.lang.python.py4j" version="0.6.0"/>
+	</feature>
+	<feature name="org.eclipse.ease.lang.scriptarchive.feature" version="0.6.0">
+		<plugin name="org.eclipse.ease.lang.scriptarchive" version="0.6.0"/>
+		<plugin name="org.eclipse.ease.lang.scriptarchive.ui" version="0.6.0"/>
+	</feature>
+	<feature name="org.eclipse.ease.lang.unittest.feature" version="0.6.0">
+		<plugin name="org.eclipse.ease.lang.unittest" version="0.6.0"/>
+		<plugin name="org.eclipse.ease.lang.unittest.ui" version="0.6.0"/>
+	</feature>
+	<feature name="org.eclipse.ease.modules.feature" version="0.6.0">
+		<plugin name="org.eclipse.ease.modules.platform" version="0.6.0"/>
+		<plugin name="org.eclipse.ease.modules.help" version="0.6.0"/>
+		<plugin name="org.eclipse.ease.modules.jvm" version="0.6.0"/>
+	</feature>
+	<feature name="org.eclipse.ease.ui.feature" version="0.6.0">
+		<plugin name="org.eclipse.ease.ui" version="0.6.0"/>
+		<plugin name="org.eclipse.ease.help" version="0.6.0"/>
+		<plugin name="org.eclipse.ease.ui.scripts" version="0.6.0"/>
+		<plugin name="org.eclipse.ease.ui.completions.java" fragment="true" version="0.6.0"/>
+	</feature>
+	<feature name="org.eclipse.egit" version="5.6.0">
+		<plugin name="org.eclipse.egit.core" version="5.6.0"/>
+		<plugin name="org.eclipse.egit.ui" version="5.6.0"/>
+		<plugin name="org.eclipse.egit" version="5.6.0"/>
+		<plugin name="org.eclipse.egit.doc" version="5.6.0"/>
+	</feature>
+	<feature name="org.eclipse.elk.algorithms.feature" version="0.5.0">
+		<plugin name="org.eclipse.elk.alg.common" version="0.5.0"/>
+		<plugin name="org.eclipse.elk.alg.disco" version="0.5.0"/>
+		<plugin name="org.eclipse.elk.alg.layered" version="0.5.0"/>
+		<plugin name="org.eclipse.elk.alg.mrtree" version="0.5.0"/>
+		<plugin name="org.eclipse.elk.alg.force" version="0.5.0"/>
+		<plugin name="org.eclipse.elk.alg.radial" version="0.5.0"/>
+		<plugin name="org.eclipse.elk.alg.spore" version="0.5.0"/>
+	</feature>
+	<feature name="org.eclipse.elk.feature" version="0.5.0">
+		<plugin name="org.eclipse.elk.core" version="0.5.0"/>
+		<plugin name="org.eclipse.elk.core.service" version="0.5.0"/>
+		<plugin name="org.eclipse.elk.graph" version="0.5.0"/>
+	</feature>
+	<feature name="org.eclipse.equinox.executable" version="3.8.600">
+		<plugin name="org.eclipse.equinox.launcher" version="1.5.600"/>
+		<plugin name="org.eclipse.equinox.launcher.cocoa.macosx.x86_64" fragment="true" version="1.1.1100"/>
+		<plugin name="org.eclipse.equinox.launcher.gtk.linux.ppc64le" fragment="true" version="1.1.1100"/>
+		<plugin name="org.eclipse.equinox.launcher.gtk.linux.x86_64" fragment="true" version="1.1.1100"/>
+		<plugin name="org.eclipse.equinox.launcher.win32.win32.x86_64" fragment="true" version="1.1.1100"/>
+	</feature>
+	<feature name="org.eclipse.equinox.p2.core.feature" version="1.6.400">
+		<plugin name="org.eclipse.equinox.p2.artifact.repository" version="1.3.300"/>
+		<plugin name="org.eclipse.equinox.p2.console" version="1.1.300"/>
+		<plugin name="org.eclipse.equinox.p2.core" version="2.6.200"/>
+		<plugin name="org.eclipse.equinox.p2.director" version="2.4.500"/>
+		<plugin name="org.eclipse.equinox.p2.engine" version="2.6.500"/>
+		<plugin name="org.eclipse.equinox.p2.garbagecollector" version="1.1.300"/>
+		<plugin name="org.eclipse.equinox.p2.metadata" version="2.4.600"/>
+		<plugin name="org.eclipse.equinox.p2.metadata.repository" version="1.3.300"/>
+		<plugin name="org.eclipse.equinox.p2.repository" version="2.4.600"/>
+		<plugin name="org.eclipse.equinox.p2.touchpoint.eclipse" version="2.2.500"/>
+		<plugin name="org.eclipse.equinox.p2.touchpoint.natives" version="1.3.400"/>
+		<plugin name="org.eclipse.equinox.simpleconfigurator.manipulator" version="2.1.400"/>
+		<plugin name="org.sat4j.core" version="2.3.5"/>
+		<plugin name="org.sat4j.pb" version="2.3.5"/>
+		<plugin name="org.eclipse.equinox.frameworkadmin" version="2.1.400"/>
+		<plugin name="org.eclipse.equinox.frameworkadmin.equinox" version="1.1.200"/>
+		<plugin name="org.eclipse.equinox.preferences" version="3.7.600"/>
+		<plugin name="org.eclipse.equinox.security" version="1.3.400"/>
+		<plugin name="org.eclipse.equinox.p2.jarprocessor" version="1.1.500"/>
+		<plugin name="org.eclipse.equinox.p2.transport.ecf" version="1.2.300"/>
+		<plugin name="org.eclipse.equinox.p2.operations" version="2.5.600"/>
+		<plugin name="org.eclipse.equinox.security.macosx" fragment="true" version="1.101.200"/>
+		<plugin name="org.eclipse.equinox.security.linux.x86_64" fragment="true" version="1.1.300"/>
+		<plugin name="org.eclipse.equinox.security.win32.x86_64" fragment="true" version="1.1.200"/>
+		<plugin name="org.tukaani.xz" version="1.8.0"/>
+		<plugin name="org.eclipse.equinox.concurrent" version="1.1.400"/>
+	</feature>
+	<feature name="org.eclipse.equinox.p2.discovery.feature" version="1.2.400">
+		<plugin name="org.eclipse.equinox.p2.discovery" version="1.1.200"/>
+		<plugin name="org.eclipse.equinox.p2.discovery.compatibility" version="1.1.200"/>
+		<plugin name="org.eclipse.equinox.p2.ui.discovery" version="1.1.300"/>
+	</feature>
+	<feature name="org.eclipse.equinox.p2.extras.feature" version="1.4.600">
+		<feature name="org.eclipse.equinox.p2.core.feature" version="1.6.400"/>
+		<plugin name="org.eclipse.equinox.p2.director.app" version="1.1.400"/>
+		<plugin name="org.eclipse.equinox.p2.directorywatcher" version="1.2.400"/>
+		<plugin name="org.eclipse.equinox.p2.reconciler.dropins" version="1.3.200"/>
+		<plugin name="org.eclipse.equinox.p2.publisher" version="1.5.300"/>
+		<plugin name="org.eclipse.equinox.p2.extensionlocation" version="1.3.300"/>
+		<plugin name="org.eclipse.equinox.p2.repository.tools" version="2.2.400"/>
+		<plugin name="org.eclipse.equinox.p2.publisher.eclipse" version="1.3.400"/>
+	</feature>
+	<feature name="org.eclipse.equinox.p2.rcp.feature" version="1.4.600">
+		<feature name="org.eclipse.equinox.p2.core.feature" version="1.6.400"/>
+		<plugin name="org.eclipse.equinox.p2.ui" version="2.5.700"/>
+		<plugin name="org.eclipse.equinox.p2.ui.sdk.scheduler" version="1.4.500"/>
+		<plugin name="org.eclipse.equinox.p2.updatechecker" version="1.2.200"/>
+		<plugin name="org.eclipse.equinox.security.ui" version="1.2.500"/>
+		<plugin name="org.eclipse.equinox.p2.ui.sdk" version="1.1.500"/>
+	</feature>
+	<feature name="org.eclipse.equinox.p2.user.ui" version="2.4.600">
+		<feature name="org.eclipse.equinox.p2.core.feature" version="1.6.400"/>
+		<feature name="org.eclipse.equinox.p2.extras.feature" version="1.4.600"/>
+		<feature name="org.eclipse.equinox.p2.rcp.feature" version="1.4.600"/>
+		<plugin name="org.eclipse.equinox.p2.updatesite" version="1.1.300"/>
+		<plugin name="org.eclipse.equinox.p2.ui.importexport" version="1.2.400"/>
+	</feature>
+	<feature name="org.eclipse.graphiti.export.feature" version="0.16.1">
+		<plugin name="org.eclipse.graphiti.export.batik" version="0.16.1"/>
+		<plugin name="org.apache.batik.svggen" version="1.9.1"/>
+		<plugin name="org.apache.batik.ext.awt" version="1.9.1"/>
+		<plugin name="org.apache.batik.util" version="1.9.1"/>
+		<plugin name="org.apache.batik.constants" version="1.9.1"/>
+		<plugin name="org.apache.batik.i18n" version="1.9.1"/>
+		<plugin name="org.apache.batik.util.gui" version="1.9.1"/>
+		<plugin name="org.apache.batik.dom" version="1.9.1"/>
+		<plugin name="org.apache.batik.css" version="1.9.1"/>
+		<plugin name="org.w3c.css.sac" version="1.3.1"/>
+		<plugin name="org.w3c.dom.svg" version="1.1.0"/>
+		<plugin name="org.w3c.dom.smil" version="1.0.0"/>
+		<plugin name="org.apache.batik.xml" version="1.9.1"/>
+	</feature>
+	<feature name="org.eclipse.help" version="2.3.0">
+		<plugin name="javax.el" version="2.2.0"/>
+		<plugin name="javax.servlet" version="3.1.0"/>
+		<plugin name="javax.servlet.jsp" version="2.2.0"/>
+		<plugin name="com.sun.el" version="2.2.0"/>
+		<plugin name="org.apache.commons.logging" version="1.2.0"/>
+		<plugin name="org.apache.jasper.glassfish" version="2.2.2"/>
+		<plugin name="org.apache.lucene.analyzers-common" version="8.0.0"/>
+		<plugin name="org.apache.lucene.core" version="8.0.0"/>
+		<plugin name="org.apache.lucene.analyzers-smartcn" version="8.0.0"/>
+		<plugin name="org.eclipse.equinox.http.jetty" version="3.7.300"/>
+		<plugin name="org.eclipse.equinox.http.registry" version="1.1.700"/>
+		<plugin name="org.eclipse.equinox.http.servlet" version="1.6.300"/>
+		<plugin name="org.eclipse.equinox.jsp.jasper" version="1.1.300"/>
+		<plugin name="org.eclipse.equinox.jsp.jasper.registry" version="1.1.300"/>
+		<plugin name="org.eclipse.help.base" version="4.2.800"/>
+		<plugin name="org.eclipse.help.ui" version="4.1.700"/>
+		<plugin name="org.eclipse.help.webapp" version="3.9.700"/>
+		<plugin name="org.eclipse.jetty.continuation" version="9.4.24"/>
+		<plugin name="org.eclipse.jetty.http" version="9.4.24"/>
+		<plugin name="org.eclipse.jetty.io" version="9.4.24"/>
+		<plugin name="org.eclipse.jetty.security" version="9.4.24"/>
+		<plugin name="org.eclipse.jetty.server" version="9.4.24"/>
+		<plugin name="org.eclipse.jetty.servlet" version="9.4.24"/>
+		<plugin name="org.eclipse.jetty.util" version="9.4.24"/>
+		<plugin name="org.eclipse.core.net" version="1.3.700"/>
+		<plugin name="org.eclipse.equinox.security" version="1.3.400"/>
+	</feature>
+	<feature name="org.eclipse.platform" version="4.14.0">
+		<feature name="org.eclipse.rcp" version="4.14.0"/>
+		<feature name="org.eclipse.equinox.p2.user.ui" version="2.4.600"/>
+		<feature name="org.eclipse.help" version="2.3.0"/>
+		<plugin name="org.apache.ant" version="1.10.7"/>
+		<plugin name="org.eclipse.ant.core" version="3.5.600"/>
+		<plugin name="com.jcraft.jsch" version="0.1.55"/>
+		<plugin name="org.eclipse.compare.core" version="3.6.700"/>
+		<plugin name="org.eclipse.compare" version="3.7.800"/>
+		<plugin name="org.eclipse.compare.win32" version="1.2.700"/>
+		<plugin name="org.eclipse.core.filebuffers" version="3.6.800"/>
+		<plugin name="org.eclipse.core.filesystem" version="1.7.600"/>
+		<plugin name="org.eclipse.core.net" version="1.3.700"/>
+		<plugin name="org.eclipse.core.net.linux.x86_64" fragment="true" version="1.2.400"/>
+		<plugin name="org.eclipse.core.net.win32.x86_64" fragment="true" version="1.1.500"/>
+		<plugin name="org.eclipse.core.resources" version="3.13.600"/>
+		<plugin name="org.eclipse.osgi.util" version="3.5.300"/>
+		<plugin name="org.eclipse.debug.core" version="3.14.100"/>
+		<plugin name="org.eclipse.debug.ui" version="3.14.300"/>
+		<plugin name="org.eclipse.equinox.event" version="1.5.300"/>
+		<plugin name="org.eclipse.ltk.core.refactoring" version="3.10.300"/>
+		<plugin name="org.eclipse.ltk.ui.refactoring" version="3.10.100"/>
+		<plugin name="org.eclipse.platform" version="4.14.0"/>
+		<plugin name="org.eclipse.platform.doc.user" version="4.14.0"/>
+		<plugin name="org.eclipse.search" version="3.11.800"/>
+		<plugin name="org.eclipse.text.quicksearch" version="1.0.100"/>
+		<plugin name="org.eclipse.team.core" version="3.8.800"/>
+		<plugin name="org.eclipse.team.ui" version="3.8.700"/>
+		<plugin name="org.eclipse.text" version="3.10.0"/>
+		<plugin name="org.eclipse.jface.text" version="3.16.100"/>
+		<plugin name="org.eclipse.jsch.core" version="1.3.700"/>
+		<plugin name="org.eclipse.jsch.ui" version="1.3.700"/>
+		<plugin name="org.eclipse.ui.console" version="3.9.0"/>
+		<plugin name="org.eclipse.ui.intro" version="3.5.800"/>
+		<plugin name="org.eclipse.ui.intro.universal" version="3.3.700"/>
+		<plugin name="org.eclipse.ui.cheatsheets" version="3.5.600"/>
+		<plugin name="org.eclipse.ui.browser" version="3.6.600"/>
+		<plugin name="org.eclipse.ui.genericeditor" version="1.1.600"/>
+		<plugin name="org.eclipse.ui.monitoring" version="1.1.600"/>
+		<plugin name="org.eclipse.ui.navigator" version="3.9.100"/>
+		<plugin name="org.eclipse.ui.navigator.resources" version="3.7.100"/>
+		<plugin name="org.eclipse.ui.net" version="1.3.600"/>
+		<plugin name="org.eclipse.ui.workbench.texteditor" version="3.14.0"/>
+		<plugin name="org.eclipse.ui.views" version="3.10.100"/>
+		<plugin name="org.eclipse.ui.editors" version="3.13.0"/>
+		<plugin name="org.eclipse.ui.externaltools" version="3.4.500"/>
+		<plugin name="org.eclipse.ui.ide" version="3.16.100"/>
+		<plugin name="org.eclipse.ui.ide.application" version="1.3.500"/>
+		<plugin name="org.eclipse.ui.win32" fragment="true" version="3.4.300"/>
+		<plugin name="org.eclipse.core.filesystem.linux.x86_64" fragment="true" version="1.2.300"/>
+		<plugin name="org.eclipse.core.filesystem.macosx" fragment="true" version="1.3.200"/>
+		<plugin name="org.eclipse.core.resources.win32.x86_64" fragment="true" version="3.5.400"/>
+		<plugin name="org.eclipse.core.filesystem.win32.x86_64" fragment="true" version="1.4.200"/>
+		<plugin name="org.eclipse.core.filesystem.linux.ppc64le" fragment="true" version="1.4.100"/>
+		<plugin name="org.eclipse.core.variables" version="3.4.700"/>
+		<plugin name="org.eclipse.ui.forms" version="3.8.200"/>
+		<plugin name="org.eclipse.ui.views.properties.tabbed" version="3.8.700"/>
+		<plugin name="org.eclipse.equinox.security" version="1.3.400"/>
+		<plugin name="org.eclipse.equinox.security.ui" version="1.2.500"/>
+		<plugin name="org.eclipse.equinox.security.win32.x86_64" fragment="true" version="1.1.200"/>
+		<plugin name="org.eclipse.equinox.security.macosx" fragment="true" version="1.101.200"/>
+		<plugin name="org.eclipse.equinox.security.linux.x86_64" fragment="true" version="1.1.300"/>
+		<plugin name="org.eclipse.core.externaltools" version="1.1.500"/>
+		<plugin name="org.eclipse.ui.themes" version="1.2.800"/>
+		<plugin name="org.eclipse.core.runtime" version="3.17.0"/>
+		<plugin name="org.eclipse.ui.intro.quicklinks" version="1.0.400"/>
+		<plugin name="org.eclipse.team.genericeditor.diff.extension" version="1.0.500"/>
+		<plugin name="org.eclipse.urischeme" version="1.0.500"/>
+		<plugin name="org.eclipse.ui.views.log" version="1.2.900"/>
+	</feature>
+	<feature name="org.eclipse.rcp" version="4.14.0">
+		<feature name="org.eclipse.e4.rcp" version="4.14.0"/>
+		<plugin name="org.eclipse.help" version="3.8.600"/>
+		<plugin name="org.eclipse.ui" version="3.115.0"/>
+		<plugin name="org.eclipse.ui.workbench" version="3.117.0"/>
+		<plugin name="org.eclipse.update.configurator" version="3.4.400"/>
+		<plugin name="org.eclipse.rcp" version="4.14.0"/>
+		<plugin name="org.eclipse.ui.cocoa" fragment="true" version="1.2.300"/>
+	</feature>
+	<feature name="org.eclipse.sirius.runtime" version="6.3.0">
+		<plugin name="org.eclipse.sirius.common" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.ecore.extender" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.synchronizer" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.diagram" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.diagram.formatdata" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.table" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.tree" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.ext.base" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.ext.e3" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.ext.emf" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.ext.emf.edit" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.ext.emf.tx" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.ext.gmf.notation" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.ext.ide" version="6.3.0"/>
+	</feature>
+	<feature name="org.eclipse.sirius.runtime.ide.ui" version="6.3.0">
+		<feature name="org.eclipse.sirius.runtime" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.common.ui" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.common.ui.ext" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.diagram.sequence" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.diagram.sequence.edit" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.diagram.sequence.ui" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.diagram.ui" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.diagram.ui.ext" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.table.ui" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.table.ui.ext" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.tree.ui" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.tree.ui.ext" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.ui" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.ui.editor" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.ui.ext" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.ext.swt" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.ext.jface" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.ext.e3.ui" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.ext.draw2d" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.ext.gef" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.ext.gmf.runtime" version="6.3.0"/>
+		<plugin name="org.eclipse.sirius.ext.emf.ui" version="6.3.0"/>
+	</feature>
+	<feature name="org.eclipse.xsemantics.runtime.feature" version="1.19.0">
+		<plugin name="org.eclipse.xsemantics.runtime" version="1.19.0"/>
+	</feature>
+	<feature name="org.osate.alisa.workbench.sdk" version="2.0.0">
+		<feature name="org.osate.license" version="1.0.0" license="true"/>
+		<plugin name="org.osate.alisa.workbench" version="2.0.0"/>
+		<plugin name="org.osate.alisa.workbench.ui" version="2.0.0"/>
+		<plugin name="org.osate.verify" version="2.0.0"/>
+		<plugin name="org.osate.verify.ui" version="2.0.0"/>
+		<plugin name="org.osate.assure" version="2.0.0"/>
+		<plugin name="org.osate.results" version="2.0.0"/>
+		<plugin name="org.osate.reqspec" version="2.0.0"/>
+		<plugin name="org.osate.reqspec.ui" version="1.0.1"/>
+		<plugin name="org.osate.alisa.common" version="2.0.0"/>
+		<plugin name="org.osate.alisa.common.ui" version="2.0.0"/>
+		<plugin name="org.osate.categories" version="2.0.0"/>
+		<plugin name="org.osate.categories.ui" version="2.0.0"/>
+		<plugin name="org.osate.organization" version="2.0.0"/>
+		<plugin name="org.osate.organization.ui" version="2.0.0"/>
+		<plugin name="org.osate.reqtrace" version="1.0.1"/>
+		<plugin name="org.osate.alisa.help" version="1.0.1"/>
+		<plugin name="org.osate.alisa.contribution" version="1.0.1"/>
+	</feature>
+	<feature name="org.osate.ba.feature" version="2.0.0">
+		<plugin name="org.osate.ba" version="2.0.0"/>
+		<plugin name="org.osate.ba.edit" version="2.0.0"/>
+		<plugin name="org.osate.ba.contrib" version="1.0.1"/>
+	</feature>
+	<feature name="org.osate.core.feature" version="3.0.0">
+		<feature name="org.osate.license" version="1.0.0" license="true"/>
+		<plugin name="org.osate.aadl2" version="2.0.0"/>
+		<plugin name="org.osate.aadl2.edit" version="2.0.0"/>
+		<plugin name="org.osate.aadl2.instantiation" version="1.0.1"/>
+		<plugin name="org.osate.aadl2.model.editor" version="2.0.0"/>
+		<plugin name="org.osate.aadl2.modelsupport" version="2.0.0"/>
+		<plugin name="org.osate.annexsupport" version="1.0.1"/>
+		<plugin name="org.osate.branding" version="1.0.1"/>
+		<plugin name="org.osate.core" version="2.0.0"/>
+		<plugin name="org.osate.pluginsupport" version="2.0.0"/>
+		<plugin name="org.osate.help" version="1.0.1"/>
+		<plugin name="org.osate.ui" version="2.0.0"/>
+		<plugin name="org.osate.workspace" version="2.0.0"/>
+		<plugin name="org.osate.xtext.aadl2" version="2.0.0"/>
+		<plugin name="org.osate.xtext.aadl2.properties" version="1.1.0"/>
+		<plugin name="org.osate.xtext.aadl2.properties.ui" version="2.0.0"/>
+		<plugin name="org.osate.xtext.aadl2.ui" version="2.0.0"/>
+		<plugin name="org.osate.contribution.sei" version="1.0.1"/>
+		<plugin name="org.osate.aadl2.instance.textual" version="2.0.0"/>
+		<plugin name="org.osate.aadl2.instance.textual.ui" version="2.0.0"/>
+		<plugin name="org.osate.aadl2.instance.ui" version="1.0.1"/>
+		<plugin name="org.osate.mylyn.aadl.ui" version="1.0.1"/>
+	</feature>
+	<feature name="org.osate.dependencies.birt" version="4.9.0">
+		<plugin name="org.eclipse.birt.chart.engine.extension" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.chart.engine" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.chart.reportitem" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.core" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.data.aggregation" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.data" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.report.data.adapter" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.report.engine.emitter.config.docx" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.report.engine.emitter.config.excel" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.report.engine.emitter.config.html" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.report.engine.emitter.config.odp" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.report.engine.emitter.config.ods" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.report.engine.emitter.config.odt" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.report.engine.emitter.config.pdf" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.report.engine.emitter.config.pptx" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.report.engine.emitter.config" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.report.engine.emitter.docx" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.report.engine.emitter.html" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.report.engine.emitter.odp" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.report.engine.emitter.ods" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.report.engine.emitter.odt" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.report.engine.emitter.pdf" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.report.engine.emitter.ppt" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.report.engine.emitter.pptx" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.report.engine.emitter.wpml" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.report.engine.fonts" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.report.engine.odf" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.report.engine.ooxml" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.report.engine.script.javascript" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.report.engine" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.report.item.crosstab.core" version="4.9.0"/>
+		<plugin name="org.eclipse.birt.report.model" version="4.9.0"/>
+		<plugin name="uk.co.spudsoft.birt.emitters.excel" version="4.9.0"/>
+	</feature>
+	<feature name="org.osate.ge.feature" version="3.0.0">
+		<feature name="org.osate.license" version="1.0.0" license="true"/>
+		<plugin name="org.osate.ge" version="1.0.1"/>
+		<plugin name="org.osate.ge.doc" version="1.0.1"/>
+		<plugin name="org.osate.ge.diagram" version="2.0.0"/>
+	</feature>
+	<feature name="org.osate.license" version="1.0.0"/>
+	<feature name="org.osate.plugins.feature" version="3.0.0">
+		<feature name="org.osate.license" version="1.0.0" license="true"/>
+		<plugin name="org.osate.analysis.architecture" version="1.0.1"/>
+		<plugin name="org.osate.analysis.binpacking" version="1.0.1"/>
+		<plugin name="org.osate.analysis.flows" version="2.0.0"/>
+		<plugin name="org.osate.analysis.resource.budgets" version="2.0.0"/>
+		<plugin name="org.osate.analysis.resource.management" version="1.0.1"/>
+		<plugin name="org.osate.importer" version="1.0.1"/>
+		<plugin name="org.osate.importer.simulink" version="1.0.1"/>
+		<plugin name="org.osate.codegen.checker" version="1.0.1"/>
+	</feature>
+	<feature name="org.osate.utils.feature" version="1.0.1">
+		<plugin name="org.osate.utils" version="1.0.1"/>
+	</feature>
+	<feature name="org.osate.xtext.aadl2.errormodel.feature" version="3.0.0">
+		<feature name="org.osate.license" version="1.0.0" license="true"/>
+		<plugin name="org.osate.aadl2.errormodel.analysis" version="1.1.0"/>
+		<plugin name="org.osate.xtext.aadl2.errormodel" version="2.0.0"/>
+		<plugin name="org.osate.xtext.aadl2.errormodel.ui" version="2.0.0"/>
+		<plugin name="org.osate.aadl2.errormodel.contrib" version="1.0.1"/>
+		<plugin name="org.osate.aadl2.errormodel.faulttree" version="2.0.0"/>
+		<plugin name="org.osate.aadl2.errormodel.faulttree.design" version="1.1.0"/>
+		<plugin name="org.osate.aadl2.errormodel.faulttree.edit" version="2.0.0"/>
+		<plugin name="org.osate.aadl2.errormodel.faulttree.generation" version="1.0.1"/>
+		<plugin name="org.osate.aadl2.errormodel.propagationgraph" version="2.0.0"/>
+		<plugin name="org.osate.aadl2.errormodel.help" version="1.0.0"/>
+	</feature>
+	<feature name="org.py4j.feature" version="0.10.9">
+		<plugin name="py4j-java" version="0.10.9"/>
+		<plugin name="py4j-java.source" version="0.10.9"/>
+		<plugin name="py4j-python" version="0.10.9"/>
+	</feature>
+	<plugin name="com.ibm.icu" version="64.2.0"/>
+	<plugin name="com.jcraft.jsch" version="0.1.55"/>
+	<plugin name="com.sun.el" version="2.2.0"/>
+	<plugin name="javax.annotation" version="1.2.0"/>
+	<plugin name="javax.el" version="2.2.0"/>
+	<plugin name="javax.inject" version="1.0.0"/>
+	<plugin name="javax.servlet" version="3.1.0"/>
+	<plugin name="javax.servlet.jsp" version="2.2.0"/>
+	<plugin name="org.apache.ant" version="1.10.7"/>
+	<plugin name="org.apache.batik.constants" version="1.11.0"/>
+	<plugin name="org.apache.batik.css" version="1.11.0"/>
+	<plugin name="org.apache.batik.dom" version="1.9.1"/>
+	<plugin name="org.apache.batik.ext.awt" version="1.9.1"/>
+	<plugin name="org.apache.batik.i18n" version="1.11.0"/>
+	<plugin name="org.apache.batik.svggen" version="1.9.1"/>
+	<plugin name="org.apache.batik.util" version="1.11.0"/>
+	<plugin name="org.apache.batik.util.gui" version="1.9.1"/>
+	<plugin name="org.apache.batik.xml" version="1.9.1"/>
+	<plugin name="org.apache.commons.io" version="2.6.0"/>
+	<plugin name="org.apache.commons.jxpath" version="1.3.0"/>
+	<plugin name="org.apache.commons.logging" version="1.2.0"/>
+	<plugin name="org.apache.felix.gogo.command" version="1.0.2"/>
+	<plugin name="org.apache.felix.gogo.runtime" version="1.1.0"/>
+	<plugin name="org.apache.felix.gogo.shell" version="1.1.0"/>
+	<plugin name="org.apache.felix.scr" version="2.1.14"/>
+	<plugin name="org.apache.jasper.glassfish" version="2.2.2"/>
+	<plugin name="org.apache.lucene.analyzers-common" version="8.0.0"/>
+	<plugin name="org.apache.lucene.analyzers-smartcn" version="8.0.0"/>
+	<plugin name="org.apache.lucene.core" version="8.0.0"/>
+	<plugin name="org.apache.xmlgraphics" version="2.3.0"/>
+	<plugin name="org.eclipse.ant.core" version="3.5.600"/>
+	<plugin name="org.eclipse.birt.chart.engine" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.chart.engine.extension" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.chart.reportitem" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.core" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.data" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.data.aggregation" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.report.data.adapter" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.report.engine" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.report.engine.emitter.config" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.report.engine.emitter.config.docx" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.report.engine.emitter.config.excel" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.report.engine.emitter.config.html" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.report.engine.emitter.config.odp" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.report.engine.emitter.config.ods" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.report.engine.emitter.config.odt" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.report.engine.emitter.config.pdf" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.report.engine.emitter.config.pptx" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.report.engine.emitter.docx" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.report.engine.emitter.html" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.report.engine.emitter.odp" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.report.engine.emitter.ods" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.report.engine.emitter.odt" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.report.engine.emitter.pdf" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.report.engine.emitter.ppt" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.report.engine.emitter.pptx" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.report.engine.emitter.wpml" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.report.engine.fonts" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.report.engine.odf" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.report.engine.ooxml" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.report.engine.script.javascript" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.report.item.crosstab.core" version="4.9.0"/>
+	<plugin name="org.eclipse.birt.report.model" version="4.9.0"/>
+	<plugin name="org.eclipse.compare" version="3.7.800"/>
+	<plugin name="org.eclipse.compare.core" version="3.6.700"/>
+	<plugin name="org.eclipse.compare.win32" version="1.2.700"/>
+	<plugin name="org.eclipse.core.commands" version="3.9.600"/>
+	<plugin name="org.eclipse.core.contenttype" version="3.7.500"/>
+	<plugin name="org.eclipse.core.databinding" version="1.7.700"/>
+	<plugin name="org.eclipse.core.databinding.beans" version="1.6.0"/>
+	<plugin name="org.eclipse.core.databinding.observable" version="1.8.100"/>
+	<plugin name="org.eclipse.core.databinding.property" version="1.7.200"/>
+	<plugin name="org.eclipse.core.expressions" version="3.6.600"/>
+	<plugin name="org.eclipse.core.externaltools" version="1.1.500"/>
+	<plugin name="org.eclipse.core.filebuffers" version="3.6.800"/>
+	<plugin name="org.eclipse.core.filesystem" version="1.7.600"/>
+	<plugin name="org.eclipse.core.filesystem.linux.ppc64le" fragment="true" version="1.4.100"/>
+	<plugin name="org.eclipse.core.filesystem.linux.x86_64" fragment="true" version="1.2.300"/>
+	<plugin name="org.eclipse.core.filesystem.macosx" fragment="true" version="1.3.200"/>
+	<plugin name="org.eclipse.core.filesystem.win32.x86_64" fragment="true" version="1.4.200"/>
+	<plugin name="org.eclipse.core.jobs" version="3.10.600"/>
+	<plugin name="org.eclipse.core.net" version="1.3.700"/>
+	<plugin name="org.eclipse.core.net.linux.x86_64" fragment="true" version="1.2.400"/>
+	<plugin name="org.eclipse.core.net.win32.x86_64" fragment="true" version="1.1.500"/>
+	<plugin name="org.eclipse.core.resources" version="3.13.600"/>
+	<plugin name="org.eclipse.core.resources.win32.x86_64" fragment="true" version="3.5.400"/>
+	<plugin name="org.eclipse.core.runtime" version="3.17.0"/>
+	<plugin name="org.eclipse.core.variables" version="3.4.700"/>
+	<plugin name="org.eclipse.debug.core" version="3.14.100"/>
+	<plugin name="org.eclipse.debug.ui" version="3.14.300"/>
+	<plugin name="org.eclipse.e4.core.commands" version="0.12.800"/>
+	<plugin name="org.eclipse.e4.core.contexts" version="1.8.300"/>
+	<plugin name="org.eclipse.e4.core.di" version="1.7.500"/>
+	<plugin name="org.eclipse.e4.core.di.annotations" version="1.6.500"/>
+	<plugin name="org.eclipse.e4.core.di.extensions" version="0.15.400"/>
+	<plugin name="org.eclipse.e4.core.di.extensions.supplier" version="0.15.400"/>
+	<plugin name="org.eclipse.e4.core.services" version="2.2.100"/>
+	<plugin name="org.eclipse.e4.emf.xpath" version="0.2.500"/>
+	<plugin name="org.eclipse.e4.ui.bindings" version="0.12.700"/>
+	<plugin name="org.eclipse.e4.ui.css.core" version="0.12.900"/>
+	<plugin name="org.eclipse.e4.ui.css.swt" version="0.13.700"/>
+	<plugin name="org.eclipse.e4.ui.css.swt.theme" version="0.12.500"/>
+	<plugin name="org.eclipse.e4.ui.di" version="1.2.700"/>
+	<plugin name="org.eclipse.e4.ui.dialogs" version="1.1.600"/>
+	<plugin name="org.eclipse.e4.ui.model.workbench" version="2.1.600"/>
+	<plugin name="org.eclipse.e4.ui.services" version="1.3.700"/>
+	<plugin name="org.eclipse.e4.ui.swt.gtk" fragment="true" version="1.0.600"/>
+	<plugin name="org.eclipse.e4.ui.widgets" version="1.2.600"/>
+	<plugin name="org.eclipse.e4.ui.workbench" version="1.11.0"/>
+	<plugin name="org.eclipse.e4.ui.workbench.addons.swt" version="1.3.700"/>
+	<plugin name="org.eclipse.e4.ui.workbench.renderers.swt" version="0.14.900"/>
+	<plugin name="org.eclipse.e4.ui.workbench.renderers.swt.cocoa" fragment="true" version="0.12.400"/>
+	<plugin name="org.eclipse.e4.ui.workbench.swt" version="0.14.800"/>
+	<plugin name="org.eclipse.e4.ui.workbench3" version="0.15.300"/>
+	<plugin name="org.eclipse.ease" version="0.6.0"/>
+	<plugin name="org.eclipse.ease.classloader" version="0.6.0"/>
+	<plugin name="org.eclipse.ease.help" version="0.6.0"/>
+	<plugin name="org.eclipse.ease.lang.python.py4j" version="0.6.0"/>
+	<plugin name="org.eclipse.ease.lang.scriptarchive" version="0.6.0"/>
+	<plugin name="org.eclipse.ease.lang.scriptarchive.ui" version="0.6.0"/>
+	<plugin name="org.eclipse.ease.lang.unittest" version="0.6.0"/>
+	<plugin name="org.eclipse.ease.lang.unittest.ui" version="0.6.0"/>
+	<plugin name="org.eclipse.ease.modules.help" version="0.6.0"/>
+	<plugin name="org.eclipse.ease.modules.jvm" version="0.6.0"/>
+	<plugin name="org.eclipse.ease.modules.platform" version="0.6.0"/>
+	<plugin name="org.eclipse.ease.ui" version="0.6.0"/>
+	<plugin name="org.eclipse.ease.ui.completions.java" fragment="true" version="0.6.0"/>
+	<plugin name="org.eclipse.ease.ui.scripts" version="0.6.0"/>
+	<plugin name="org.eclipse.egit" version="5.6.0"/>
+	<plugin name="org.eclipse.egit.core" version="5.6.0"/>
+	<plugin name="org.eclipse.egit.doc" version="5.6.0"/>
+	<plugin name="org.eclipse.egit.ui" version="5.6.0"/>
+	<plugin name="org.eclipse.elk.alg.common" version="0.5.0"/>
+	<plugin name="org.eclipse.elk.alg.disco" version="0.5.0"/>
+	<plugin name="org.eclipse.elk.alg.force" version="0.5.0"/>
+	<plugin name="org.eclipse.elk.alg.layered" version="0.5.0"/>
+	<plugin name="org.eclipse.elk.alg.mrtree" version="0.5.0"/>
+	<plugin name="org.eclipse.elk.alg.radial" version="0.5.0"/>
+	<plugin name="org.eclipse.elk.alg.spore" version="0.5.0"/>
+	<plugin name="org.eclipse.elk.core" version="0.5.0"/>
+	<plugin name="org.eclipse.elk.core.service" version="0.5.0"/>
+	<plugin name="org.eclipse.elk.graph" version="0.5.0"/>
+	<plugin name="org.eclipse.equinox.app" version="1.4.300"/>
+	<plugin name="org.eclipse.equinox.bidi" version="1.2.200"/>
+	<plugin name="org.eclipse.equinox.common" version="3.10.600"/>
+	<plugin name="org.eclipse.equinox.concurrent" version="1.1.400"/>
+	<plugin name="org.eclipse.equinox.console" version="1.4.0"/>
+	<plugin name="org.eclipse.equinox.event" version="1.5.300"/>
+	<plugin name="org.eclipse.equinox.frameworkadmin" version="2.1.400"/>
+	<plugin name="org.eclipse.equinox.frameworkadmin.equinox" version="1.1.200"/>
+	<plugin name="org.eclipse.equinox.http.jetty" version="3.7.300"/>
+	<plugin name="org.eclipse.equinox.http.registry" version="1.1.700"/>
+	<plugin name="org.eclipse.equinox.http.servlet" version="1.6.300"/>
+	<plugin name="org.eclipse.equinox.jsp.jasper" version="1.1.300"/>
+	<plugin name="org.eclipse.equinox.jsp.jasper.registry" version="1.1.300"/>
+	<plugin name="org.eclipse.equinox.launcher" version="1.5.600"/>
+	<plugin name="org.eclipse.equinox.launcher.cocoa.macosx.x86_64" fragment="true" version="1.1.1100"/>
+	<plugin name="org.eclipse.equinox.launcher.gtk.linux.ppc64le" fragment="true" version="1.1.1100"/>
+	<plugin name="org.eclipse.equinox.launcher.gtk.linux.x86_64" fragment="true" version="1.1.1100"/>
+	<plugin name="org.eclipse.equinox.launcher.win32.win32.x86_64" fragment="true" version="1.1.1100"/>
+	<plugin name="org.eclipse.equinox.p2.artifact.repository" version="1.3.300"/>
+	<plugin name="org.eclipse.equinox.p2.console" version="1.1.300"/>
+	<plugin name="org.eclipse.equinox.p2.core" version="2.6.200"/>
+	<plugin name="org.eclipse.equinox.p2.director" version="2.4.500"/>
+	<plugin name="org.eclipse.equinox.p2.director.app" version="1.1.400"/>
+	<plugin name="org.eclipse.equinox.p2.directorywatcher" version="1.2.400"/>
+	<plugin name="org.eclipse.equinox.p2.discovery" version="1.1.200"/>
+	<plugin name="org.eclipse.equinox.p2.discovery.compatibility" version="1.1.200"/>
+	<plugin name="org.eclipse.equinox.p2.engine" version="2.6.500"/>
+	<plugin name="org.eclipse.equinox.p2.extensionlocation" version="1.3.300"/>
+	<plugin name="org.eclipse.equinox.p2.garbagecollector" version="1.1.300"/>
+	<plugin name="org.eclipse.equinox.p2.jarprocessor" version="1.1.500"/>
+	<plugin name="org.eclipse.equinox.p2.metadata" version="2.4.600"/>
+	<plugin name="org.eclipse.equinox.p2.metadata.repository" version="1.3.300"/>
+	<plugin name="org.eclipse.equinox.p2.operations" version="2.5.600"/>
+	<plugin name="org.eclipse.equinox.p2.publisher" version="1.5.300"/>
+	<plugin name="org.eclipse.equinox.p2.publisher.eclipse" version="1.3.400"/>
+	<plugin name="org.eclipse.equinox.p2.reconciler.dropins" version="1.3.200"/>
+	<plugin name="org.eclipse.equinox.p2.repository" version="2.4.600"/>
+	<plugin name="org.eclipse.equinox.p2.repository.tools" version="2.2.400"/>
+	<plugin name="org.eclipse.equinox.p2.touchpoint.eclipse" version="2.2.500"/>
+	<plugin name="org.eclipse.equinox.p2.touchpoint.natives" version="1.3.400"/>
+	<plugin name="org.eclipse.equinox.p2.transport.ecf" version="1.2.300"/>
+	<plugin name="org.eclipse.equinox.p2.ui" version="2.5.700"/>
+	<plugin name="org.eclipse.equinox.p2.ui.discovery" version="1.1.300"/>
+	<plugin name="org.eclipse.equinox.p2.ui.importexport" version="1.2.400"/>
+	<plugin name="org.eclipse.equinox.p2.ui.sdk" version="1.1.500"/>
+	<plugin name="org.eclipse.equinox.p2.ui.sdk.scheduler" version="1.4.500"/>
+	<plugin name="org.eclipse.equinox.p2.updatechecker" version="1.2.200"/>
+	<plugin name="org.eclipse.equinox.p2.updatesite" version="1.1.300"/>
+	<plugin name="org.eclipse.equinox.preferences" version="3.7.600"/>
+	<plugin name="org.eclipse.equinox.registry" version="3.8.600"/>
+	<plugin name="org.eclipse.equinox.security" version="1.3.400"/>
+	<plugin name="org.eclipse.equinox.security.linux.x86_64" fragment="true" version="1.1.300"/>
+	<plugin name="org.eclipse.equinox.security.macosx" fragment="true" version="1.101.200"/>
+	<plugin name="org.eclipse.equinox.security.ui" version="1.2.500"/>
+	<plugin name="org.eclipse.equinox.security.win32.x86_64" fragment="true" version="1.1.200"/>
+	<plugin name="org.eclipse.equinox.simpleconfigurator" version="1.3.400"/>
+	<plugin name="org.eclipse.equinox.simpleconfigurator.manipulator" version="2.1.400"/>
+	<plugin name="org.eclipse.graphiti.export.batik" version="0.16.1"/>
+	<plugin name="org.eclipse.help" version="3.8.600"/>
+	<plugin name="org.eclipse.help.base" version="4.2.800"/>
+	<plugin name="org.eclipse.help.ui" version="4.1.700"/>
+	<plugin name="org.eclipse.help.webapp" version="3.9.700"/>
+	<plugin name="org.eclipse.jetty.continuation" version="9.4.24"/>
+	<plugin name="org.eclipse.jetty.http" version="9.4.24"/>
+	<plugin name="org.eclipse.jetty.io" version="9.4.24"/>
+	<plugin name="org.eclipse.jetty.security" version="9.4.24"/>
+	<plugin name="org.eclipse.jetty.server" version="9.4.24"/>
+	<plugin name="org.eclipse.jetty.servlet" version="9.4.24"/>
+	<plugin name="org.eclipse.jetty.util" version="9.4.24"/>
+	<plugin name="org.eclipse.jface" version="3.18.0"/>
+	<plugin name="org.eclipse.jface.databinding" version="1.9.200"/>
+	<plugin name="org.eclipse.jface.text" version="3.16.100"/>
+	<plugin name="org.eclipse.jsch.core" version="1.3.700"/>
+	<plugin name="org.eclipse.jsch.ui" version="1.3.700"/>
+	<plugin name="org.eclipse.ltk.core.refactoring" version="3.10.300"/>
+	<plugin name="org.eclipse.ltk.ui.refactoring" version="3.10.100"/>
+	<plugin name="org.eclipse.osgi" version="3.15.100"/>
+	<plugin name="org.eclipse.osgi.compatibility.state" fragment="true" version="1.1.600"/>
+	<plugin name="org.eclipse.osgi.services" version="3.8.0"/>
+	<plugin name="org.eclipse.osgi.util" version="3.5.300"/>
+	<plugin name="org.eclipse.platform" version="4.14.0"/>
+	<plugin name="org.eclipse.platform.doc.user" version="4.14.0"/>
+	<plugin name="org.eclipse.rcp" version="4.14.0"/>
+	<plugin name="org.eclipse.search" version="3.11.800"/>
+	<plugin name="org.eclipse.sirius" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.common" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.common.ui" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.common.ui.ext" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.diagram" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.diagram.formatdata" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.diagram.sequence" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.diagram.sequence.edit" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.diagram.sequence.ui" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.diagram.ui" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.diagram.ui.ext" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.ecore.extender" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.ext.base" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.ext.draw2d" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.ext.e3" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.ext.e3.ui" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.ext.emf" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.ext.emf.edit" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.ext.emf.tx" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.ext.emf.ui" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.ext.gef" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.ext.gmf.notation" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.ext.gmf.runtime" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.ext.ide" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.ext.jface" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.ext.swt" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.synchronizer" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.table" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.table.ui" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.table.ui.ext" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.tree" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.tree.ui" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.tree.ui.ext" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.ui" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.ui.editor" version="6.3.0"/>
+	<plugin name="org.eclipse.sirius.ui.ext" version="6.3.0"/>
+	<plugin name="org.eclipse.swt" version="3.113.0"/>
+	<plugin name="org.eclipse.swt.cocoa.macosx.x86_64" fragment="true" version="3.113.0"/>
+	<plugin name="org.eclipse.swt.gtk.linux.ppc64le" fragment="true" version="3.113.0"/>
+	<plugin name="org.eclipse.swt.gtk.linux.x86_64" fragment="true" version="3.113.0"/>
+	<plugin name="org.eclipse.swt.win32.win32.x86_64" fragment="true" version="3.113.0"/>
+	<plugin name="org.eclipse.team.core" version="3.8.800"/>
+	<plugin name="org.eclipse.team.genericeditor.diff.extension" version="1.0.500"/>
+	<plugin name="org.eclipse.team.ui" version="3.8.700"/>
+	<plugin name="org.eclipse.text" version="3.10.0"/>
+	<plugin name="org.eclipse.text.quicksearch" version="1.0.100"/>
+	<plugin name="org.eclipse.ui" version="3.115.0"/>
+	<plugin name="org.eclipse.ui.browser" version="3.6.600"/>
+	<plugin name="org.eclipse.ui.cheatsheets" version="3.5.600"/>
+	<plugin name="org.eclipse.ui.cocoa" fragment="true" version="1.2.300"/>
+	<plugin name="org.eclipse.ui.console" version="3.9.0"/>
+	<plugin name="org.eclipse.ui.editors" version="3.13.0"/>
+	<plugin name="org.eclipse.ui.externaltools" version="3.4.500"/>
+	<plugin name="org.eclipse.ui.forms" version="3.8.200"/>
+	<plugin name="org.eclipse.ui.genericeditor" version="1.1.600"/>
+	<plugin name="org.eclipse.ui.ide" version="3.16.100"/>
+	<plugin name="org.eclipse.ui.ide.application" version="1.3.500"/>
+	<plugin name="org.eclipse.ui.intro" version="3.5.800"/>
+	<plugin name="org.eclipse.ui.intro.quicklinks" version="1.0.400"/>
+	<plugin name="org.eclipse.ui.intro.universal" version="3.3.700"/>
+	<plugin name="org.eclipse.ui.monitoring" version="1.1.600"/>
+	<plugin name="org.eclipse.ui.navigator" version="3.9.100"/>
+	<plugin name="org.eclipse.ui.navigator.resources" version="3.7.100"/>
+	<plugin name="org.eclipse.ui.net" version="1.3.600"/>
+	<plugin name="org.eclipse.ui.themes" version="1.2.800"/>
+	<plugin name="org.eclipse.ui.views" version="3.10.100"/>
+	<plugin name="org.eclipse.ui.views.log" version="1.2.900"/>
+	<plugin name="org.eclipse.ui.views.properties.tabbed" version="3.8.700"/>
+	<plugin name="org.eclipse.ui.win32" fragment="true" version="3.4.300"/>
+	<plugin name="org.eclipse.ui.workbench" version="3.117.0"/>
+	<plugin name="org.eclipse.ui.workbench.texteditor" version="3.14.0"/>
+	<plugin name="org.eclipse.update.configurator" version="3.4.400"/>
+	<plugin name="org.eclipse.urischeme" version="1.0.500"/>
+	<plugin name="org.eclipse.xsemantics.runtime" version="1.19.0"/>
+	<plugin name="org.osate.aadl2" version="2.0.0"/>
+	<plugin name="org.osate.aadl2.edit" version="2.0.0"/>
+	<plugin name="org.osate.aadl2.errormodel.analysis" version="1.1.0"/>
+	<plugin name="org.osate.aadl2.errormodel.contrib" version="1.0.1"/>
+	<plugin name="org.osate.aadl2.errormodel.faulttree" version="2.0.0"/>
+	<plugin name="org.osate.aadl2.errormodel.faulttree.design" version="1.1.0"/>
+	<plugin name="org.osate.aadl2.errormodel.faulttree.edit" version="2.0.0"/>
+	<plugin name="org.osate.aadl2.errormodel.faulttree.generation" version="1.0.1"/>
+	<plugin name="org.osate.aadl2.errormodel.help" version="1.0.0"/>
+	<plugin name="org.osate.aadl2.errormodel.propagationgraph" version="2.0.0"/>
+	<plugin name="org.osate.aadl2.instance.textual" version="2.0.0"/>
+	<plugin name="org.osate.aadl2.instance.textual.ui" version="2.0.0"/>
+	<plugin name="org.osate.aadl2.instance.ui" version="1.0.1"/>
+	<plugin name="org.osate.aadl2.instantiation" version="1.0.1"/>
+	<plugin name="org.osate.aadl2.model.editor" version="2.0.0"/>
+	<plugin name="org.osate.aadl2.modelsupport" version="2.0.0"/>
+	<plugin name="org.osate.alisa.common" version="2.0.0"/>
+	<plugin name="org.osate.alisa.common.ui" version="2.0.0"/>
+	<plugin name="org.osate.alisa.contribution" version="1.0.1"/>
+	<plugin name="org.osate.alisa.help" version="1.0.1"/>
+	<plugin name="org.osate.alisa.workbench" version="2.0.0"/>
+	<plugin name="org.osate.alisa.workbench.ui" version="2.0.0"/>
+	<plugin name="org.osate.analysis.architecture" version="1.0.1"/>
+	<plugin name="org.osate.analysis.binpacking" version="1.0.1"/>
+	<plugin name="org.osate.analysis.flows" version="2.0.0"/>
+	<plugin name="org.osate.analysis.resource.budgets" version="2.0.0"/>
+	<plugin name="org.osate.analysis.resource.management" version="1.0.1"/>
+	<plugin name="org.osate.annexsupport" version="1.0.1"/>
+	<plugin name="org.osate.assure" version="2.0.0"/>
+	<plugin name="org.osate.ba" version="2.0.0"/>
+	<plugin name="org.osate.ba.contrib" version="1.0.1"/>
+	<plugin name="org.osate.ba.edit" version="2.0.0"/>
+	<plugin name="org.osate.branding" version="1.0.1"/>
+	<plugin name="org.osate.categories" version="2.0.0"/>
+	<plugin name="org.osate.categories.ui" version="2.0.0"/>
+	<plugin name="org.osate.codegen.checker" version="1.0.1"/>
+	<plugin name="org.osate.contribution.sei" version="1.0.1"/>
+	<plugin name="org.osate.core" version="2.0.0"/>
+	<plugin name="org.osate.ge" version="1.0.1"/>
+	<plugin name="org.osate.ge.diagram" version="2.0.0"/>
+	<plugin name="org.osate.ge.doc" version="1.0.1"/>
+	<plugin name="org.osate.help" version="1.0.1"/>
+	<plugin name="org.osate.importer" version="1.0.1"/>
+	<plugin name="org.osate.importer.simulink" version="1.0.1"/>
+	<plugin name="org.osate.mylyn.aadl.ui" version="1.0.1"/>
+	<plugin name="org.osate.organization" version="2.0.0"/>
+	<plugin name="org.osate.organization.ui" version="2.0.0"/>
+	<plugin name="org.osate.pluginsupport" version="2.0.0"/>
+	<plugin name="org.osate.reqspec" version="2.0.0"/>
+	<plugin name="org.osate.reqspec.ui" version="1.0.1"/>
+	<plugin name="org.osate.reqtrace" version="1.0.1"/>
+	<plugin name="org.osate.results" version="2.0.0"/>
+	<plugin name="org.osate.smaccm.stubs" version="1.0.1"/>
+	<plugin name="org.osate.ui" version="2.0.0"/>
+	<plugin name="org.osate.utils" version="1.0.1"/>
+	<plugin name="org.osate.verify" version="2.0.0"/>
+	<plugin name="org.osate.verify.ui" version="2.0.0"/>
+	<plugin name="org.osate.workspace" version="2.0.0"/>
+	<plugin name="org.osate.xtext.aadl2" version="2.0.0"/>
+	<plugin name="org.osate.xtext.aadl2.errormodel" version="2.0.0"/>
+	<plugin name="org.osate.xtext.aadl2.errormodel.ui" version="2.0.0"/>
+	<plugin name="org.osate.xtext.aadl2.properties" version="1.1.0"/>
+	<plugin name="org.osate.xtext.aadl2.properties.ui" version="2.0.0"/>
+	<plugin name="org.osate.xtext.aadl2.ui" version="2.0.0"/>
+	<plugin name="org.sat4j.core" version="2.3.5"/>
+	<plugin name="org.sat4j.pb" version="2.3.5"/>
+	<plugin name="org.tukaani.xz" version="1.8.0"/>
+	<plugin name="org.w3c.css.sac" version="1.3.1"/>
+	<plugin name="org.w3c.dom.events" version="3.0.0"/>
+	<plugin name="org.w3c.dom.smil" version="1.0.1"/>
+	<plugin name="org.w3c.dom.svg" version="1.1.0"/>
+	<plugin name="py4j-java" version="0.10.9"/>
+	<plugin name="py4j-java.source" version="0.10.9"/>
+	<plugin name="py4j-python" version="0.10.9"/>
+	<plugin name="uk.co.spudsoft.birt.emitters.excel" version="4.9.0"/>
+</release>

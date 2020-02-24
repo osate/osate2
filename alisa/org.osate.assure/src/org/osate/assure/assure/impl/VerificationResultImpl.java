@@ -123,6 +123,7 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getAnalysisresult()
+	 * @since 2.0
 	 * @generated
 	 * @ordered
 	 */
@@ -222,6 +223,7 @@ public class VerificationResultImpl extends AssureResultImpl implements Verifica
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @since 2.0
 	 * @generated
 	 */
 	@Override

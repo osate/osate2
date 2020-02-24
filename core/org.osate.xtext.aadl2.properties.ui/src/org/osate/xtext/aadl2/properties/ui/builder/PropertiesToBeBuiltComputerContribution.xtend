@@ -36,6 +36,7 @@ class PropertiesToBeBuiltComputerContribution implements IToBeBuiltComputerContr
 	val CONTRIBUTED = PluginSupportUtil.contributedAadl
 	
 	override removeProject(ToBeBuilt toBeBuilt, IProject project, IProgressMonitor monitor) {
+		toBeBuilt.toBeDeleted -= CONTRIBUTED
 	}
 	
 	override updateProject(ToBeBuilt toBeBuilt, IProject project, IProgressMonitor monitor) throws CoreException {

@@ -2,7 +2,7 @@
 <feature
       id="org.osate.utils.feature"
       label="AADL-Utils"
-      version="1.0.0.qualifier"
+      version="1.0.1.qualifier"
       provider-name="TELECOM ParisTech"
       plugin="org.osate.utils">
 
@@ -37,7 +37,7 @@ You should have received a copy of the Eclipse Public License along with this pr
          id="org.osate.utils"
          download-size="0"
          install-size="0"
-         version="1.0.0.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
 </feature>
