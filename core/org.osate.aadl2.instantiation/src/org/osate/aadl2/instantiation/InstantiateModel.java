@@ -293,7 +293,7 @@ public class InstantiateModel {
 		return rebuildInstanceModelFile(ires, new NullProgressMonitor());
 	}
 
-	/*
+	/**
 	 * This method will construct an instance model, save it on disk and return
 	 * its root object The method will make sure the declarative models are up
 	 * to date.
@@ -301,6 +301,7 @@ public class InstantiateModel {
 	 * @param si system implementation
 	 *
 	 * @return SystemInstance or <code>null</code> if cancelled.
+	 * @since 1.1
 	 */
 	public static SystemInstance rebuildInstanceModelFile(final IResource ires, final IProgressMonitor monitor)
 			throws Exception {

@@ -315,6 +315,7 @@ Much like a web browser, when you navigate to different locations within a file,
 Most analyses are executed over the _instance model_ of a system.  The instance model represents the complete nested architecture of a system.  Generally an instance model would be created from a system implementation classifier.  But OSATE allows an instance model to be created from all implementation classifiers except for `subprogram`.
 
 An instance model can be created in 3 ways:
+
 1. **From the context menu of the AADL editor `Outline` view.**  Select one or more component classifiers in the view.  The command is active in the context menu as long as none of the classifiers is `subprogram`.  
 2. **From the context menu of the `AADL Navigator` view.**    Select one or more component classifiers in the view.  The classifiers can be from different projects.  The command is active in the context menu as long as none of the classifiers is `subprogram`.  
 3. **From the `OSATE > Instantiate` menu.**  Select one or more component classifiers in either the `Outline` view or the `AADL Navigator` view.  The classifiers can be from different projects.  The command is active in the context menu as long as none of the classifiers is `subprogram`.
@@ -324,9 +325,13 @@ To create an instance model of our example system
 1. Open the AADL package that contains the system implementation you want to instantiate.  For this example, we open `aadlmodel` from [above](#save).
 2. Select the system implementation in the `Outline` view.  Here we select `MySystem.i`.
 3. Select `Instantiate` from the context menu.
-![Context Menu](images/OSATEUserGuide/Instantiate.png)
+
+  ![Context Menu](images/OSATEUserGuide/Instantiate.png)
+
 4. OSATE displays a dialog box to show the results of the operation:
-![Context Menu](images/OSATEUserGuide/InstantiationResults.png)
+
+  ![Context Menu](images/OSATEUserGuide/InstantiationResults.png)
+
 Here we see the status "OK" for the model built from component classifier `aadlmodel::MySystem.i`.
 
 The result dialog is more interesting when many classifiers are selected for instantiation.  Each instantiation is invoked as separate Eclipse task, and (assuming the instantiation runs long enough) is visible in the `Progress` view.  The result dialog is displayed when all the instantiation tasks have completed.  It gives the result of each instantiation:
@@ -707,17 +712,17 @@ The following sections describe property status in more detail.
 
 A **local** property value is defined directly on the AADL model element in either its `properties` subclause or in curly braces.
 
-> ** Example **
+> **Example**
 >
 > In the [previous screenshot](#values1), the properties `Source_Text` and `Period` are both **local** because they are defined in curly braces.
 
-> ** Example **
+> **Example**
 >
 > In the screenshot below, the properties `Car_Length`, `Car_Name`, and `Position` are all **local** because they are defined in the properties subclause of the device `car`.
 >
 > ![Local Properties](images/OSATEUserGuide/Local.png)
 
-> ** Example **
+> **Example**
 >
 > The above screenshot also shows the expanded structure of the record values for properties `Car_Name` and `Position`.
 
@@ -798,6 +803,11 @@ The toolbar contains three buttons that influence which properties are displayed
 * ![Toggle Imported](images/OSATEUserGuide/filter_ps.png): Show only properties in property sets which are included in the package's with statements.
 * ![Toggle Undefined](images/OSATEUserGuide/nonexistent_property.gif): Show **undefined** properties.
 * ![Toggle Default](images/OSATEUserGuide/filter_properties.gif): Show **default** properties.
+
+The view's menu also contains an option for filtering by property set. Selecting **Property Set Filters...** in the
+view's menu opens a dialog which allows you to choose which property sets should be shown in the view.
+
+![Property Set Filters](images/OSATEUserGuide/property_set_filters.png)
 
 
 
