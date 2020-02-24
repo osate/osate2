@@ -34,8 +34,6 @@ import java.util.function.Function;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
@@ -856,7 +854,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
 	 * @return A populated report in AnalysisResult format.
 	 */
-	// This method is used to invoke the analysis from unit tests
+	// NB. This method is used to invoke the analysis from unit tests
 	public AnalysisResult invoke(SystemInstance root, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
 		if (som == null) {
@@ -878,7 +876,11 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			invokeOnSOM(root, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
 					bestCaseEmptyQueue);
 		}
-		return FlowLatencyUtil.recordAsAnalysisResult(finalizeResults(), root, asynchronousSystem, majorFrameDelay,
+
+		// Issue 1148
+		final List<Result> finalizedResults = finalizeResults();
+
+		return FlowLatencyUtil.recordAsAnalysisResult(finalizedResults, root, asynchronousSystem, majorFrameDelay,
 				worstCaseDeadline, bestCaseEmptyQueue);
 	}
 
@@ -895,6 +897,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 *
 	 * @since org.osate.analysis.flows 3.0
 	 */
+	// NB. Called by CheckFlowLatency
 	public void invokeOnSOM(SystemInstance si, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
 		List<EndToEndFlowInstance> alletef = EcoreUtil2.getAllContentsOfType(si, EndToEndFlowInstance.class);
@@ -921,33 +924,34 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
 	 * @return A populated report in AnalysisResult format.
 	 */
+	// Called by ???
 	public AnalysisResult invoke(ComponentInstance ci, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
 		SystemInstance root = ci.getSystemInstance();
-		List<Result> results = new BasicEList<Result>();
 		if (som == null) {
 			if (root.getSystemOperationModes().isEmpty()
 					|| root.getSystemOperationModes().get(0).getCurrentModes().isEmpty()) {
 				// no SOM
-				results = invokeOnSOM(ci, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
+				invokeOnSOM(ci, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
 						bestCaseEmptyQueue);
 			} else {
 				// we need to run it for every SOM
 				for (SystemOperationMode eachsom : root.getSystemOperationModes()) {
 					root.setCurrentSystemOperationMode(eachsom);
-					results.addAll(invokeOnSOM(ci, eachsom, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
-							bestCaseEmptyQueue));
+					invokeOnSOM(ci, eachsom, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
+							bestCaseEmptyQueue);
 					root.clearCurrentSystemOperationMode();
 				}
 			}
 		} else {
-			results = invokeOnSOM(ci, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
+			invokeOnSOM(ci, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
 		}
 
 		// Issue 1148
-		results = report.finalizeAllEntries();
+		fillInQueuingTimes(ci.getSystemInstance());
+		final List<Result> finalizedResults = report.finalizeAllEntries();
 
-		return FlowLatencyUtil.recordAsAnalysisResult(results, ci, asynchronousSystem, majorFrameDelay,
+		return FlowLatencyUtil.recordAsAnalysisResult(finalizedResults, ci, asynchronousSystem, majorFrameDelay,
 				worstCaseDeadline, bestCaseEmptyQueue);
 	}
 
@@ -964,16 +968,14 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 *
 	 * @since org.osate.analysis.flows 3.0
 	 */
-	private EList<Result> invokeOnSOM(ComponentInstance ci, SystemOperationMode som, boolean asynchronousSystem,
+	private void invokeOnSOM(ComponentInstance ci, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
-		EList<Result> results = new BasicEList<Result>();
 		for (EndToEndFlowInstance etef : ci.getEndToEndFlows()) {
-			results.addAll(
-					invokeOnSOM(etef, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue));
+			invokeOnSOM(etef, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
 		}
-		return results;
 	}
 
+	// N.B. Called by Alisa
 	public AnalysisResult invoke(EndToEndFlowInstance etef) {
 		return invoke(etef, null, true, true, true, true);
 	}
@@ -992,20 +994,22 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	public AnalysisResult invoke(EndToEndFlowInstance etef, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
 		SystemInstance root = etef.getSystemInstance();
-		EList<Result> results = new BasicEList<Result>();
 		if (som == null) {
 			// we need to run it for every SOM
 			for (SystemOperationMode eachsom : root.getSystemOperationModes()) {
 				root.setCurrentSystemOperationMode(eachsom);
-				results.addAll(invokeOnSOM(etef, eachsom, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
-						bestCaseEmptyQueue));
+				invokeOnSOM(etef, eachsom, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
 				root.clearCurrentSystemOperationMode();
 			}
 		} else {
-			results = invokeOnSOM(etef, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
-					bestCaseEmptyQueue);
+			invokeOnSOM(etef, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
 		}
-		return FlowLatencyUtil.recordAsAnalysisResult(results, etef, asynchronousSystem, majorFrameDelay,
+
+		// Issue 1148
+		fillInQueuingTimes(etef.getSystemInstance());
+		final List<Result> finalizedResults = finalizeResults();
+
+		return FlowLatencyUtil.recordAsAnalysisResult(finalizedResults, etef, asynchronousSystem, majorFrameDelay,
 				worstCaseDeadline, bestCaseEmptyQueue);
 	}
 
@@ -1022,7 +1026,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 *
 	 * @since org.osate.analysis.flows 3.0
 	 */
-	private EList<Result> invokeOnSOM(EndToEndFlowInstance etef, SystemOperationMode som, boolean asynchronousSystem,
+	private void invokeOnSOM(EndToEndFlowInstance etef, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
 		if (report == null) {
 			report = new LatencyReport();
@@ -1030,7 +1034,6 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		report.setRootinstance(etef.getSystemInstance());
 		report.setLatencyAnalysisParameters(asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
 		SystemInstance root = etef.getSystemInstance();
-		EList<Result> results = new BasicEList<Result>();
 		if (etef.isActive(som)) {
 			root.setCurrentSystemOperationMode(som);
 			LatencyReportEntry latres = analyzeLatency(etef, som, asynchronousSystem);
@@ -1039,9 +1042,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			report.addEntry(latres);
 
 			root.clearCurrentSystemOperationMode();
-			return results;
 		}
-		return results;
 	}
 
 	/**
@@ -1096,16 +1097,32 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				GetProperties::getScaledMaxComputeExecutionTimeinMilliSec);
 	}
 
-	private static final Map<ComponentInstance, Set<ConnectionInstance>> sortBoundConnections(
-			final SystemInstance system) {
-		final Map<ComponentInstance, Set<ConnectionInstance>> map = new HashMap<>();
-		for (final ConnectionInstance ci : system.getConnectionInstances()) {
+	private static final void sortBoundConnectionsHelper(final ComponentInstance compInstance,
+			final Map<ComponentInstance, Set<ConnectionInstance>> map) {
+		for (final ConnectionInstance ci : compInstance.getConnectionInstances()) {
 			final List<ComponentInstance> bindings = GetProperties.getActualConnectionBinding(ci);
 			for (final ComponentInstance componentInstance : bindings) {
 				addToHashedSet(map, componentInstance, ci);
 				processComponentBindings(map, ci, componentInstance);
 			}
 		}
+
+		for (final ComponentInstance child : compInstance.getComponentInstances()) {
+			sortBoundConnectionsHelper(child, map);
+		}
+	}
+
+	private static final Map<ComponentInstance, Set<ConnectionInstance>> sortBoundConnections(
+			final SystemInstance system) {
+		final Map<ComponentInstance, Set<ConnectionInstance>> map = new HashMap<>();
+		sortBoundConnectionsHelper(system, map);
+//		for (final ConnectionInstance ci : system.getConnectionInstances()) {
+//			final List<ComponentInstance> bindings = GetProperties.getActualConnectionBinding(ci);
+//			for (final ComponentInstance componentInstance : bindings) {
+//				addToHashedSet(map, componentInstance, ci);
+//				processComponentBindings(map, ci, componentInstance);
+//			}
+//		}
 		return map;
 	}
 
