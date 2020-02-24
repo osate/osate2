@@ -27,6 +27,7 @@ import java.util.AbstractMap;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -34,8 +35,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Queue;
 import java.util.UUID;
-import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -67,7 +68,6 @@ import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.AgeFeatureProvider;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
-import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.ui.dialogs.DiagramConfigurationDialog;
@@ -88,13 +88,10 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		// Feature selected, go up until componentImpl.hasconnections go down
 		final AgeDiagramEditor editor = getAgeDiagramEditor(event);
-		// Worth casting to bos? and just use object nodes
 		final List<BusinessObjectContext> selectedElements = AgeHandlerUtil.getSelectedBusinessObjectContexts().stream()
 				.filter(boc -> isSubcomponentOrConnectionEnd(boc))
 				.collect(Collectors.toList());
-
 		referenceService = Objects.requireNonNull(Adapters.adapt(editor, ProjectReferenceService.class),
 				"Unable to retrieve reference service");
 		final ExtensionService extService = Objects.requireNonNull(Adapters.adapt(editor, ExtensionService.class),
@@ -112,178 +109,51 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 				if (selectedBo instanceof ConnectionEnd) {
 					final SimpleEntry<Optional<ComponentImplementation>, BusinessObjectNode> compImplToConnectionEnd = getComponentImplToConnectionEnd(
 							selectedNode);
-					final Optional<ComponentImplementation> ciOpt = compImplToConnectionEnd.getKey();
-					final BusinessObjectNode connectionEndNode = compImplToConnectionEnd.getValue();
-					final BusinessObjectNode ciNode = selectedBo instanceof Subcomponent && connectionEndNode == selectedNode
+					final Optional<ComponentImplementation> compImplOpt = compImplToConnectionEnd.getKey();
+					final BusinessObjectNode conEndContextNode = compImplToConnectionEnd.getValue();
+					// Determine component implementation of selected node
+					final BusinessObjectNode componentImplNode = selectedBo instanceof Subcomponent
+							&& conEndContextNode == selectedNode
 							? selectedNode
-									: connectionEndNode.getParent();
+									: conEndContextNode.getParent();
 
-					ciOpt.ifPresent(ci -> {
+					// Internal Connections to Connection End
+					compImplOpt.ifPresent(ci -> {
 						ci.getAllConnections().stream().map(Connection::getRootConnection).forEach(con -> {
-							final ConnectedElement dest = con.getDestination();
-							final ConnectedElement src = con.getSource();
-							// Destination Connection Ends
-							final List<ConnectionEnd> destConnectionEnds = getConnectionEnds(con.getDestination());
-							if (destConnectionEnds.contains(selectedBo)
-									&& dest.getConnectionEnd() == connectionEndNode.getBusinessObject()) {
-								// Enable Selected Element
-								enableConnectedElements(ciNode, con.getDestination());
-
-								// Enable Source Context
-								BusinessObjectNode context = ciNode;
-								if (con.getAllSourceContext() != null) {
-									final RelativeBusinessObjectReference contextRef = getRelativeBusinessObjectReference(
-											con.getAllSourceContext());
-									context = ciNode.getChild(contextRef);
-									if (context == null) {
-										context = createNode(ciNode, contextRef, con.getAllSourceContext());
-									}
-								}
-
-								// Enable Source
-								enableConnectedElements(context, con.getSource());
-
-								// Enable connection
-								final RelativeBusinessObjectReference conRef = getRelativeBusinessObjectReference(con);
-								final BusinessObjectNode conNode = ciNode.getChild(conRef);
-								if (conNode == null) {
-									createNode(ciNode, conRef, con);
-								}
-							}
-
-							// Source Connection Ends
-							final List<ConnectionEnd> srcConnectionEnds = getConnectionEnds(con.getSource());
-							if (srcConnectionEnds.contains(selectedNode.getBusinessObject())
-									&& src.getConnectionEnd() == connectionEndNode.getBusinessObject()) {
-								// Enable Selected
-								enableConnectedElements(ciNode, con.getSource());
-								// Enable Destination Context
-								BusinessObjectNode context = ciNode;
-								if (con.getAllDestinationContext() != null) {
-									final RelativeBusinessObjectReference contextRef = getRelativeBusinessObjectReference(
-											con.getAllDestinationContext());
-									context = ciNode.getChild(contextRef);
-									if (context == null) {
-										context = createNode(ciNode, contextRef, con.getAllDestinationContext());
-									}
-								}
-
-								enableConnectedElements(context, con.getDestination());
-								final RelativeBusinessObjectReference conRef = getRelativeBusinessObjectReference(con);
-								final BusinessObjectNode conNode = ciNode.getChild(conRef);
-								if (conNode == null) {
-									createNode(ciNode, conRef, con);
-								}
-							}
+							enableInternalConnections(con, conEndContextNode.getBusinessObject(), selectedBo,
+									componentImplNode);
 						});
 					});
 
-					// Check opCi parent for connections?
-					// final BusinessObjectNode parentCiNode = ciNode.getParent();
-					AadlClassifierUtil.getComponentImplementation(ciNode.getParent()).ifPresent(ci -> {
+					// Parent Connections to Connection End
+					AadlClassifierUtil.getComponentImplementation(componentImplNode.getParent()).ifPresent(ci -> {
 						ci.getAllConnections().stream().map(Connection::getRootConnection).forEach(con -> {
-							// TODO
-							final ConnectedElement dest = con.getDestination();
-							final ConnectedElement src = con.getSource();
-							if (test(dest, src, con.getAllSourceContext(), selectedNode,
-									connectionEndNode.getBusinessObject(), ciNode)
-									|| test(src, dest, con.getAllDestinationContext(), selectedNode,
-											connectionEndNode.getBusinessObject(),
-											ciNode)) {
-								enableConnection(con, ciNode.getParent());
-							}
-
-							// final List<ConnectionEnd> destConnectionEnds = getConnectionEnds(dest);
-//							if (destConnectionEnds.contains(selectedNode.getBusinessObject())
-//									&& dest.getConnectionEnd() == connectionEndNode.getBusinessObject()) {
-//								enableConnectedElements(ciNode, dest);
-//								BusinessObjectNode context = parentCiNode;
-//								if (con.getAllSourceContext() != null) {
-//									final RelativeBusinessObjectReference contextRef = getRelativeBusinessObjectReference(
-//											con.getAllSourceContext());
-//
-//									context = parentCiNode.getChild(contextRef);
-//									if (context == null) {
-//										context = createNode(parentCiNode, contextRef, con.getAllSourceContext());
-//									}
-//								}
-//								enableConnectedElements(context, src);
-//
-//								final RelativeBusinessObjectReference conRef = getRelativeBusinessObjectReference(con);
-//								final BusinessObjectNode conNode = parentCiNode.getChild(conRef);
-//								if (conNode == null) {
-//									createNode(parentCiNode, conRef, con);
-//								}
-//							}
-
-//							final List<ConnectionEnd> srcConnectionEnds = getConnectionEnds(src);
-//							if (srcConnectionEnds.contains(selectedNode.getBusinessObject())
-//									&& src.getConnectionEnd() == connectionEndNode.getBusinessObject()) {
-//								enableConnectedElements(ciNode, src);
-//								BusinessObjectNode context = parentCiNode;
-//								if (con.getAllDestinationContext() != null) {
-//									final RelativeBusinessObjectReference contextRef = getRelativeBusinessObjectReference(
-//											con.getAllDestinationContext());
-//									context = parentCiNode.getChild(contextRef);
-//									if (context == null) {
-//										context = createNode(parentCiNode, contextRef, con.getAllDestinationContext());
-//									}
-//								}
-//
-//								enableConnectedElements(context, dest);
-//								final RelativeBusinessObjectReference conRef = getRelativeBusinessObjectReference(con);
-//								final BusinessObjectNode conNode = parentCiNode.getChild(conRef);
-//								if (conNode == null) {
-//									createNode(parentCiNode, conRef, con);
-//								}
-//							}
+							enableParentConnections(con, conEndContextNode.getBusinessObject(), selectedBo,
+									componentImplNode);
 						});
 					});
 				}
 
 				if (selectedElement.getBusinessObject() instanceof Subcomponent) {
-					// final BusinessObjectNode selectedNode = getSelectedNode(boTree, selectedElement);
 					final BusinessObjectNode parent = selectedNode.getParent();
 					// Parent Connections to Subcomponent
 					AadlClassifierUtil.getComponentImplementation(parent)
-					.ifPresent(ci -> enableComponentImplemenationConnections(ci, parent, selectedNode));
+					.ifPresent(compImpl -> enableComponentImplemenationConnections(compImpl, parent, selectedNode));
 					// Internal Connections to Subcomponent
 					AadlClassifierUtil.getComponentImplementation(selectedNode)
-					.ifPresent(ci -> enableSelectedElementConnections(ci, selectedNode));
+					.ifPresent(compImpl -> enableSelectedElementConnections(compImpl, selectedNode));
 				} else if (selectedElement.getBusinessObject() instanceof InstanceObject) {
-					AadlInstanceObjectUtil.getComponentInstance(selectedElement).ifPresent(ci -> {
-						if (ci.getOwner() instanceof ComponentInstance) {
-							final ComponentInstance ciOwner = (ComponentInstance) ci.getOwner();
-							ciOwner.getAllEnclosingConnectionInstances().stream()
-							.flatMap(connectionInstance -> connectionInstance.getConnectionReferences().stream()).forEach(cr -> {
-								if (cr.getSource().getComponentInstance() == ci
-										|| cr.getDestination().getComponentInstance() == ci) {
-									enableConnectionReferenceNodes(boTree, cr);
-								}
-							});
+					AadlInstanceObjectUtil.getComponentInstance(selectedNode).ifPresent(compInstance -> {
+						if (compInstance.getOwner() instanceof ComponentInstance) {
+							final ComponentInstance compInstanceOwner = (ComponentInstance) compInstance.getOwner();
+							enableComponentInstanceConnections(compInstanceOwner, compInstance, boTree);
 						}
-						ci.getAllEnclosingConnectionInstances().stream()
-						.flatMap(connectionInstance -> connectionInstance.getConnectionReferences().stream()).forEach(cr -> {
-							if (cr.getSource().getComponentInstance() == ci
-									|| cr.getDestination().getComponentInstance() == ci) {
-								enableConnectionReferenceNodes(boTree, cr);
-							}
-						});
 					});
 
 					if (selectedElement.getBusinessObject() instanceof ConnectionInstanceEnd) {
-						final ConnectionInstanceEnd connectionInstanceEnd = (ConnectionInstanceEnd) selectedElement
+						final InstanceObject selectedConnectionEnd = (InstanceObject) selectedElement
 								.getBusinessObject();
-						connectionInstanceEnd.getAllEnclosingConnectionInstances()
-						.forEach(ci -> {
-							ci.getConnectionReferences().forEach(cr -> {
-								// Showing connected elements when source or destination is contained within a FeatureGroup
-								if (connectionEndFound(cr.getSource(), connectionInstanceEnd)
-										|| connectionEndFound(cr.getDestination(), connectionInstanceEnd)) {
-									enableConnectionReferenceNodes(boTree, cr);
-								}
-							});
-						});
+						enableInstanceEndConnections(selectedConnectionEnd, boTree);
 					}
 				}
 			}
@@ -301,6 +171,7 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 					m.setDiagramConfiguration(result.getDiagramConfiguration());
 					diagramUpdater.updateDiagram(diagram, result.getBusinessObjectTree());
 				});
+
 				// Clear ghosts triggered by this update to prevent them from being unghosted during the next update.
 				diagramUpdater.clearGhosts();
 
@@ -312,31 +183,76 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 		return null;
 	}
 
-	private boolean test(final ConnectedElement dest, final ConnectedElement src, final Context srcCtx,
-			final BusinessObjectNode selectedNode, final Object /* rename */ connectionEndNode,
-			final BusinessObjectNode ciNode) {
-		final List<ConnectionEnd> destConnectionEnds = getConnectionEnds(dest);
-		if (destConnectionEnds.contains(selectedNode.getBusinessObject())
-				&& dest.getConnectionEnd() == connectionEndNode) {
-			final BusinessObjectNode parentCiNode = ciNode.getParent();
-			enableConnectedElements(ciNode, dest);
-			BusinessObjectNode context = parentCiNode;
-			if (/* con.getAllSourceContext() */srcCtx != null) {
-				final RelativeBusinessObjectReference contextRef = getRelativeBusinessObjectReference(
-						/* con.getAllSourceContext() */srcCtx);
+	private void enableInternalConnections(final Connection con, final Object conEndContextBo,
+			final Object selectedBo,
+			final BusinessObjectNode componentImplNode) {
+		final ConnectedElement dest = con.getDestination();
+		final ConnectedElement src = con.getSource();
+		if (isConnectedConnection(dest, selectedBo, conEndContextBo, componentImplNode, con.getAllSourceContext(), src)
+				|| isConnectedConnection(src, selectedBo, conEndContextBo, componentImplNode,
+						con.getAllDestinationContext(), dest)) {
+			enableConnection(con, componentImplNode);
+		}
+	}
 
-				context = parentCiNode.getChild(contextRef);
+	private void enableParentConnections(final Connection con, final Object connectionEndBo,
+			final Object selectedBo,
+			final BusinessObjectNode compImplNode) {
+		final ConnectedElement dest = con.getDestination();
+		final ConnectedElement src = con.getSource();
+		if (isConnectedToConnectionEnd(dest, src, con.getAllSourceContext(), selectedBo, connectionEndBo, compImplNode)
+				|| isConnectedToConnectionEnd(src, dest, con.getAllDestinationContext(), selectedBo, connectionEndBo,
+						compImplNode)) {
+			enableConnection(con, compImplNode.getParent());
+		}
+	}
+
+	private void enableInstanceEndConnections(final InstanceObject selectedConnectionEnd,
+			final BusinessObjectNode boTree) {
+		getConnectionReferences(selectedConnectionEnd).forEach(connectionReference -> {
+			// Showing connected elements when source or destination is contained within a FeatureGroup
+			if (connectionEndFound(connectionReference.getSource(), selectedConnectionEnd)
+					|| connectionEndFound(connectionReference.getDestination(), selectedConnectionEnd)) {
+				enableConnectionReferenceNodes(boTree, connectionReference);
+			}
+		});
+	}
+
+	private void enableComponentInstanceConnections(final ComponentInstance compInstanceOwner,
+			final ComponentInstance compInstance, final BusinessObjectNode boTree) {
+		getConnectionReferences(compInstanceOwner).forEach(connectionReference -> {
+			if (connectionReference.getSource().getComponentInstance() == compInstance
+					|| connectionReference.getDestination().getComponentInstance() == compInstance) {
+				enableConnectionReferenceNodes(boTree, connectionReference);
+			}
+		});
+	}
+
+	private static Stream<ConnectionReference> getConnectionReferences(final InstanceObject io) {
+		return io.getAllEnclosingConnectionInstances().stream()
+				.flatMap(connectionInstance -> connectionInstance.getConnectionReferences().stream());
+	}
+
+	private boolean isConnectedConnection(ConnectedElement destination, Object selectedBo, Object connectionEndBo,
+			BusinessObjectNode ciNode, Context allSourceContext, ConnectedElement source) {
+		// Destination Connection Ends
+		final List<ConnectionEnd> destConnectionEnds = getConnectionEnds(destination);
+		if (destConnectionEnds.contains(selectedBo) && destination.getConnectionEnd() == connectionEndBo) {
+			// Enable Selected Element
+			enableConnectedElements(ciNode, destination);
+
+			// Enable Source Context
+			BusinessObjectNode context = ciNode;
+			if (allSourceContext != null) {
+				final RelativeBusinessObjectReference contextRef = getRelativeBusinessObjectReference(allSourceContext);
+				context = ciNode.getChild(contextRef);
 				if (context == null) {
-					context = createNode(parentCiNode, contextRef, /* con.getAllSourceContext() */srcCtx);
+					context = createNode(ciNode, contextRef, allSourceContext);
 				}
 			}
-			enableConnectedElements(context, src);
 
-//			final RelativeBusinessObjectReference conRef = getRelativeBusinessObjectReference(con);
-//			final BusinessObjectNode conNode = parentCiNode.getChild(conRef);
-//			if (conNode == null) {
-//				createNode(parentCiNode, conRef, con);
-//			}
+			// Enable Source
+			enableConnectedElements(context, source);
 
 			return true;
 		}
@@ -344,14 +260,36 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 		return false;
 	}
 
+	private boolean isConnectedToConnectionEnd(final ConnectedElement dest, final ConnectedElement src,
+			final Context srcCtx,
+			final Object selectedBo, final Object connectionEndBo,
+			final BusinessObjectNode ciNode) {
+		final List<ConnectionEnd> destConnectionEnds = getConnectionEnds(dest);
+		if (destConnectionEnds.contains(selectedBo)
+				&& dest.getConnectionEnd() == connectionEndBo) {
+			enableConnectedElements(ciNode, dest);
+			final BusinessObjectNode parentCiNode = ciNode.getParent();
+			BusinessObjectNode context = parentCiNode;
+			if (srcCtx != null) {
+				final RelativeBusinessObjectReference contextRef = getRelativeBusinessObjectReference(
+						srcCtx);
+				context = parentCiNode.getChild(contextRef);
+				if (context == null) {
+					context = createNode(parentCiNode, contextRef, srcCtx);
+				}
+			}
+			enableConnectedElements(context, src);
+			return true;
+		}
+
+		return false;
+	}
+
 	private void enableConnectionReferenceNodes(final BusinessObjectNode boTree, final ConnectionReference cr) {
-		final Map<Object, Queryable> descendantBoToQueryable = boTree
-				.getAllDescendants().collect(Collectors.toMap(
-						Queryable::getBusinessObject, Function.identity()));
 		Element tmpElement = cr;
 		// Ancestors to ensure are enabled on the diagram
 		final Queue<Element> ancestors = Collections.asLifoQueue(new LinkedList<Element>());
-		if (!descendantBoToQueryable.containsKey(tmpElement)) {
+		while (tmpElement.getOwner() != null) {
 			ancestors.add(tmpElement);
 			tmpElement = tmpElement.getOwner();
 			// First owner of connection reference is connection instance
@@ -361,25 +299,24 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 		}
 
 		// Connection reference
-		populateAncestorsQueue(descendantBoToQueryable, ancestors, tmpElement);
-		enableAncestorNodes(descendantBoToQueryable, ancestors, ancestors.poll());
+		final Map<Object, BusinessObjectNode> nodes = getEnableAncestorNodes(boTree, ancestors, tmpElement);
 
 		// Enable source and destination nodes
-		enableAncestorNodes(descendantBoToQueryable, cr.getSource());
-		enableAncestorNodes(descendantBoToQueryable, cr.getDestination());
+		enableAncestorNodes(nodes, cr.getSource());
+		enableAncestorNodes(nodes, cr.getDestination());
 	}
 
 	// Find ancestors and create if necessary
-	private void enableAncestorNodes(final Map<Object, Queryable> descendantBoToQueryable, final Element ancestor) {
+	private void enableAncestorNodes(final Map<Object, BusinessObjectNode> nodes, final Element ancestor) {
 		final Queue<Element> ancestors = Collections.asLifoQueue(new LinkedList<Element>());
-		populateAncestorsQueue(descendantBoToQueryable, ancestors, ancestor);
-		enableAncestorNodes(descendantBoToQueryable, ancestors, ancestors.poll());
+		populateAncestorsQueue(nodes, ancestors, ancestor);
+		enableAncestorNodes(nodes, ancestors, ancestors.poll());
 	}
 
 	// Gets the first element ancestor that is enabled
-	private void populateAncestorsQueue(final Map<Object, Queryable> descendants, final Queue<Element> ancestors,
+	private void populateAncestorsQueue(final Map<Object, BusinessObjectNode> nodes, final Queue<Element> ancestors,
 			Element ancestor) {
-		while (!descendants.containsKey(ancestor)) {
+		while (!nodes.containsKey(ancestor)) {
 			ancestors.add(ancestor);
 			ancestor = ancestor.getOwner();
 		}
@@ -388,15 +325,31 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 	}
 
 	// Create ancestor nodes
-	private void enableAncestorNodes(final Map<Object, Queryable> descendantBoToQueryable,
+	private void enableAncestorNodes(final Map<Object, BusinessObjectNode> ancestorToNode,
 			final Queue<Element> ancestors, final Element ancestor) {
-		BusinessObjectNode ancestorNode = (BusinessObjectNode) descendantBoToQueryable.get(ancestor);
+		BusinessObjectNode ancestorNode = (BusinessObjectNode) ancestorToNode.get(ancestor);
 		for (final Element ancestorToEnable : ancestors) {
 			final RelativeBusinessObjectReference ancestorRef = getRelativeBusinessObjectReference(ancestorToEnable);
-			if (ancestorNode.getChild(ancestorRef) == null) {
-				ancestorNode = createNode(ancestorNode, ancestorRef, ancestorToEnable);
-			}
+			final BusinessObjectNode tmpNode = ancestorNode.getChild(ancestorRef);
+			ancestorNode = tmpNode == null ? createNode(ancestorNode, ancestorRef, ancestorToEnable) : tmpNode;
 		}
+	}
+
+	// Create ancestor nodes
+	private Map<Object, BusinessObjectNode> getEnableAncestorNodes(final BusinessObjectNode boTree,
+			final Queue<Element> ancestors,
+			final Element ancestor) {
+		final Map<Object, BusinessObjectNode> boToAncestorNodes = new HashMap<Object, BusinessObjectNode>();
+		BusinessObjectNode ancestorNode = boTree.getChild(getRelativeBusinessObjectReference(ancestor));
+		boToAncestorNodes.put(ancestorNode.getBusinessObject(), ancestorNode);
+		for (final Element ancestorToEnable : ancestors) {
+			final RelativeBusinessObjectReference ancestorRef = getRelativeBusinessObjectReference(ancestorToEnable);
+			final BusinessObjectNode tmpNode = ancestorNode.getChild(ancestorRef);
+			ancestorNode = tmpNode == null ? createNode(ancestorNode, ancestorRef, ancestorToEnable) : tmpNode;
+			boToAncestorNodes.put(ancestorNode.getBusinessObject(), ancestorNode);
+		}
+
+		return boToAncestorNodes;
 	}
 
 	private List<ConnectionEnd> getConnectionEnds(ConnectedElement ce) {
@@ -422,7 +375,6 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 			connectionEnd = node;
 		}
 
-
 		return new AbstractMap.SimpleEntry<Optional<ComponentImplementation>, BusinessObjectNode>(Optional.empty(),
 				connectionEnd);
 	}
@@ -430,16 +382,6 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 	private void enableSelectedElementConnections(final ComponentImplementation ci,
 			final BusinessObjectNode selectedNode) {
 		ci.getAllConnections().stream().map(Connection::getRootConnection).forEach(con -> {
-//			if (con.getAllDestinationContext() == null || !(con.getAllDestinationContext() instanceof Subcomponent)) {
-//				test(selectedNode, con.getAllDestinationContext(), con.getAllSourceContext(), con.getSource(),
-//						con.getDestination());
-//				enableConnection(con, selectedNode);
-//			} else if (con.getAllSourceContext() == null || !(con.getAllSourceContext() instanceof Subcomponent)) {
-//				test(selectedNode, con.getAllSourceContext(), con.getAllDestinationContext(), con.getDestination(),
-//						con.getSource());
-//				enableConnection(con, selectedNode);
-//			}
-
 			if (enabledConnectionEnds(selectedNode, con.getAllDestinationContext(), con.getAllSourceContext(), con.getSource(),
 					con.getDestination())
 					|| enabledConnectionEnds(selectedNode, con.getAllSourceContext(), con.getAllDestinationContext(),
@@ -449,18 +391,17 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 		});
 	}
 
-	private void enableConnection(final Connection con, final BusinessObjectNode selectedNode) {
-		// TODO Auto-generated method stub
+	private void enableConnection(final Connection con, final BusinessObjectNode parent) {
 		final RelativeBusinessObjectReference conRef = getRelativeBusinessObjectReference(con);
-		final BusinessObjectNode conNode = selectedNode.getChild(conRef);
+		final BusinessObjectNode conNode = parent.getChild(conRef);
 		if (conNode == null) {
-			createNode(selectedNode, conRef, con);
+			createNode(parent, conRef, con);
 		}
 	}
 
 	// TODO rename
 	private boolean enabledConnectionEnds(final BusinessObjectNode selectedNode, final Context context1,
-			final Context context2, final ConnectedElement ce1, final ConnectedElement ce2) {
+			final Context context2, final ConnectedElement connectedElement1, final ConnectedElement connectedElement2) {
 		if (context1 == null || !(context1 instanceof Subcomponent)) {
 			if (context2 != null) {
 				final RelativeBusinessObjectReference contextRef = getRelativeBusinessObjectReference(context2);
@@ -469,9 +410,9 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 					contextNode = createNode(selectedNode, contextRef, context2);
 				}
 
-				enableConnectedElements(contextNode, ce1);
+				enableConnectedElements(contextNode, connectedElement1);
 			}
-			enableConnectedElements(selectedNode, ce2);
+			enableConnectedElements(selectedNode, connectedElement2);
 
 			return true;
 		}
@@ -479,55 +420,39 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 		return false;
 	}
 
-	private void enableComponentImplemenationConnections(final ComponentImplementation ci,
-			BusinessObjectNode parent,
-			BusinessObjectNode selectedNode) {
-		ci.getAllConnections().forEach(con -> {
-			con = con.getRootConnection();
-			if (con.getAllDestinationContext() == selectedNode.getBusinessObject()) {
-
-				enableConnectedElements(selectedNode, con.getDestination());
-
-				BusinessObjectNode context = parent;
-				if (con.getAllSourceContext() != null) {
-					// Enable context node
-					final RelativeBusinessObjectReference srcContextRef = getRelativeBusinessObjectReference(
-							con.getAllSourceContext());
-					// Get or create method?
-					context = parent.getChild(srcContextRef);
-					if (context == null) {
-						context = createNode(parent, srcContextRef, con.getAllSourceContext());
-					}
-				}
-
-				enableConnectedElements(context, con.getSource());
-
-				final RelativeBusinessObjectReference conRef = getRelativeBusinessObjectReference(con);
-				if (parent.getChild(conRef) == null) {
-					createNode(parent, conRef, con);
-				}
-			} else if (con.getAllSourceContext() == selectedNode.getBusinessObject()) {
-				enableConnectedElements(selectedNode, con.getSource());
-
-				BusinessObjectNode context = parent;
-				if (con.getAllDestinationContext() != null) {
-					// Enable context node
-					final RelativeBusinessObjectReference dstContextRef = getRelativeBusinessObjectReference(
-							con.getAllDestinationContext());
-					context = parent.getChild(dstContextRef);
-					if (context == null) {
-						context = createNode(parent, dstContextRef, con.getAllDestinationContext());
-					}
-				}
-
-				enableConnectedElements(context, con.getDestination());
-
-				final RelativeBusinessObjectReference conRef = getRelativeBusinessObjectReference(con);
-				if (parent.getChild(conRef) == null) {
-					createNode(parent, conRef, con);
-				}
+	private void enableComponentImplemenationConnections(final ComponentImplementation compImpl,
+			final BusinessObjectNode parent, final BusinessObjectNode selectedNode) {
+		compImpl.getAllConnections().stream().map(Connection::getRootConnection).forEach(con -> {
+			if (isConnectedToSubcomponent(con.getAllDestinationContext(), selectedNode, con.getDestination(), parent,
+					con.getAllSourceContext(), con.getSource())
+					|| isConnectedToSubcomponent(con.getAllSourceContext(), selectedNode, con.getSource(), parent,
+							con.getAllDestinationContext(), con.getDestination())) {
+				enableConnection(con, parent);
 			}
 		});
+	}
+
+	private boolean isConnectedToSubcomponent(final Context context1, final BusinessObjectNode selectedNode,
+			final ConnectedElement connectedElement1, final BusinessObjectNode parent, final Context context2,
+			final ConnectedElement connectedElement2) {
+		if (context1 == selectedNode.getBusinessObject()) {
+			enableConnectedElements(selectedNode, connectedElement1);
+
+			BusinessObjectNode context = parent;
+			if (context2 != null) {
+				// Enable context node
+				final RelativeBusinessObjectReference srcContextRef = getRelativeBusinessObjectReference(context2);
+				context = parent.getChild(srcContextRef);
+				if (context == null) {
+					context = createNode(parent, srcContextRef, context2);
+				}
+			}
+
+			enableConnectedElements(context, connectedElement2);
+			return true;
+		}
+
+		return false;
 	}
 
 	private void enableConnectedElements(BusinessObjectNode parent, ConnectedElement ce) {
@@ -541,22 +466,21 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 	}
 
 	/**
-	 * Get the selected mode parent node and create ancestor nodes if necessary
+	 * Get and create selected node and ancestors
 	 */
-	// TODO rename these params
-	private BusinessObjectNode getSelectedNode(BusinessObjectNode parent, BusinessObjectContext nodeParent) {
+	private BusinessObjectNode getSelectedNode(BusinessObjectNode boTree, BusinessObjectContext selectedBoc) {
 		final Queue<Object> ancestors = Collections.asLifoQueue(new LinkedList<Object>());
-		while (nodeParent.getBusinessObject() != null) {
-			ancestors.add(nodeParent.getBusinessObject());
-			nodeParent = nodeParent.getParent();
+		while (selectedBoc.getBusinessObject() != null) {
+			ancestors.add(selectedBoc.getBusinessObject());
+			selectedBoc = selectedBoc.getParent();
 		}
 
 		// Find ancestors to parent
 		for (final Object ancestor : ancestors) {
-			parent = getAncestor(ancestor, parent);
+			boTree = getAncestor(ancestor, boTree);
 		}
 
-		return parent;
+		return boTree;
 	}
 
 	private BusinessObjectNode getAncestor(final Object ancestor, final BusinessObjectNode parent) {
@@ -566,12 +490,13 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 		return node == null ? createNode(parent, ref, ancestor) : node;
 	}
 
-	private static boolean connectionEndFound(Element owner, final ConnectionInstanceEnd connectionInstanceEnd) {
-		while (!(owner instanceof ComponentInstance)) {
-			if (owner == connectionInstanceEnd) {
+	// Check if connection end matches selected element
+	private static boolean connectionEndFound(Element connectionEnd, final InstanceObject selectedConnectionEnd) {
+		while (!(connectionEnd instanceof ComponentInstance)) {
+			if (connectionEnd == selectedConnectionEnd) {
 				return true;
 			}
-			owner = owner.getOwner();
+			connectionEnd = connectionEnd.getOwner();
 		}
 
 		return false;
@@ -582,8 +507,7 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 		return new BusinessObjectNode(container, UUID.randomUUID(), ref, bo, Completeness.UNKNOWN, false);
 	}
 
-	// TODO check if this works on instance model, should be disabled for non subcomponents
-	// TODO componentInstance.getSubcomponent returns null or not a subcomponent?
+	// Eligible Subcomponents and ConnectionEnds
 	private static boolean isSubcomponentOrConnectionEnd(final BusinessObjectContext boc) {
 		final Object bo = boc.getBusinessObject();
 		return (Subcomponent.class.isInstance(bo) && ((Subcomponent) bo).getComponentImplementation() != null)
