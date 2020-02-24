@@ -23,6 +23,9 @@ import org.osate.ui.handlers.AbstractMultiJobHandler.Result;
  * class needs to be made sufficiently abstract that the implementation doesn't care about that class
  * specifically.
  */
+/**
+ * @since 3.0
+ */
 public final class InstantiationResultsDialog<T> extends Dialog {
 	private final String actionName;
 	private final String labelName;
