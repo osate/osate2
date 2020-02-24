@@ -399,9 +399,10 @@ public class ShowFlowContributionItem extends ControlContribution {
 			}
 
 			// Gets the first element ancestor that is enabled
-			private void populateAncestorsQueue(final Map<Object, Queryable> descendants, final Queue<Element> ancestors,
+			private void populateAncestorsQueue(final Map<Object, Queryable> descendantBoToQueryable,
+					final Queue<Element> ancestors,
 					Element ancestor) {
-				while (!descendants.containsKey(ancestor)) {
+				while (!descendantBoToQueryable.containsKey(ancestor)) {
 					ancestors.add(ancestor);
 					ancestor = ancestor.getOwner();
 				}
