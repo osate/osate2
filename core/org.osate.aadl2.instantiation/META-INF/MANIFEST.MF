@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Instance Plug-in
 Bundle-SymbolicName: org.osate.aadl2.instantiation;singleton:=true
-Bundle-Version: 1.0.1.qualifier
+Bundle-Version: 1.1.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.osate.aadl2.instantiation.InstancePlugin
 Bundle-Vendor: CMU-SEI
