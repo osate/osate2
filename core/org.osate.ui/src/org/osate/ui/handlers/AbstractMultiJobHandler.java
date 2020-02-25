@@ -7,8 +7,9 @@ import org.eclipse.core.commands.AbstractHandler;
  * result dialog at the end showing there status.
  *
  * NB. This is not fully formed right now but I am leaving it as a placeholder for future work to
- * abstract the commonalities between {@link InstantiateComponentHandler} and {@link ReinstantiateInstancesHandler}.
+ * abstract the commonalities between {@link InstantiationHandler} and {@link ReinstantiationHandler}.
  * Really the only thing in here right now is the class used for storing job results.
+ * @since 3.0
  */
 public abstract class AbstractMultiJobHandler extends AbstractHandler {
 

@@ -616,22 +616,28 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <p>Most analyses are executed over the <em>instance model</em> of a system.  The instance model represents the complete nested architecture of a system.  Generally an instance model would be created from a system implementation classifier.  But OSATE allows an instance model to be created from all implementation classifiers except for <code>subprogram</code>.</p>
 
-<p>An instance model can be created in 3 ways:
-1. <strong>From the context menu of the AADL editor <code>Outline</code> view.</strong>  Select one or more component classifiers in the view.  The command is active in the context menu as long as none of the classifiers is <code>subprogram</code>.<br>
-2. <strong>From the context menu of the <code>AADL Navigator</code> view.</strong>    Select one or more component classifiers in the view.  The classifiers can be from different projects.  The command is active in the context menu as long as none of the classifiers is <code>subprogram</code>.<br>
-3. <strong>From the <code>OSATE &gt; Instantiate</code> menu.</strong>  Select one or more component classifiers in either the <code>Outline</code> view or the <code>AADL Navigator</code> view.  The classifiers can be from different projects.  The command is active in the context menu as long as none of the classifiers is <code>subprogram</code>.</p>
+<p>An instance model can be created in 3 ways:</p>
+
+<ol>
+<li><strong>From the context menu of the AADL editor <code>Outline</code> view.</strong>  Select one or more component classifiers in the view.  The command is active in the context menu as long as none of the classifiers is <code>subprogram</code>.<br></li>
+<li><strong>From the context menu of the <code>AADL Navigator</code> view.</strong>    Select one or more component classifiers in the view.  The classifiers can be from different projects.  The command is active in the context menu as long as none of the classifiers is <code>subprogram</code>.<br></li>
+<li><strong>From the <code>OSATE &gt; Instantiate</code> menu.</strong>  Select one or more component classifiers in either the <code>Outline</code> view or the <code>AADL Navigator</code> view.  The classifiers can be from different projects.  The command is active in the context menu as long as none of the classifiers is <code>subprogram</code>.</li>
+</ol>
 
 <p>To create an instance model of our example system</p>
 
 <ol>
 <li>Open the AADL package that contains the system implementation you want to instantiate.  For this example, we open <code>aadlmodel</code> from <a href="#save">above</a>.</li>
 <li>Select the system implementation in the <code>Outline</code> view.  Here we select <code>MySystem.i</code>.</li>
-<li>Select <code>Instantiate</code> from the context menu.
-<img src="images/OSATEUserGuide/Instantiate.png" alt="Context Menu"></li>
-<li>OSATE displays a dialog box to show the results of the operation:
-<img src="images/OSATEUserGuide/InstantiationResults.png" alt="Context Menu">
-Here we see the status &quot;OK&quot; for the model built from component classifier <code>aadlmodel::MySystem.i</code>.</li>
+<li><p>Select <code>Instantiate</code> from the context menu.</p>
+
+<p><img src="images/OSATEUserGuide/Instantiate.png" alt="Context Menu"></p></li>
+<li><p>OSATE displays a dialog box to show the results of the operation:</p>
+
+<p><img src="images/OSATEUserGuide/InstantiationResults.png" alt="Context Menu"></p></li>
 </ol>
+
+<p>Here we see the status &quot;OK&quot; for the model built from component classifier <code>aadlmodel::MySystem.i</code>.</p>
 
 <p>The result dialog is more interesting when many classifiers are selected for instantiation.  Each instantiation is invoked as separate Eclipse task, and (assuming the instantiation runs long enough) is visible in the <code>Progress</code> view.  The result dialog is displayed when all the instantiation tasks have completed.  It gives the result of each instantiation:</p>
 
@@ -1000,17 +1006,17 @@ Here we see the status &quot;OK&quot; for the model built from component classif
 <p>A <strong>local</strong> property value is defined directly on the AADL model element in either its <code>properties</code> subclause or in curly braces.</p>
 
 <blockquote>
-<p>** Example **</p>
+<p><strong>Example</strong></p>
 
 <p>In the <a href="#values1">previous screenshot</a>, the properties <code>Source_Text</code> and <code>Period</code> are both <strong>local</strong> because they are defined in curly braces.</p>
 
-<p>** Example **</p>
+<p><strong>Example</strong></p>
 
 <p>In the screenshot below, the properties <code>Car_Length</code>, <code>Car_Name</code>, and <code>Position</code> are all <strong>local</strong> because they are defined in the properties subclause of the device <code>car</code>.</p>
 
 <p><img src="images/OSATEUserGuide/Local.png" alt="Local Properties"></p>
 
-<p>** Example **</p>
+<p><strong>Example</strong></p>
 
 <p>The above screenshot also shows the expanded structure of the record values for properties <code>Car_Name</code> and <code>Position</code>.</p>
 </blockquote>

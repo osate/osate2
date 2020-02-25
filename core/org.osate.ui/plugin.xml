@@ -528,7 +528,7 @@ censes only apply to the Third Party Software and not any other portion of this 
              </visibleWhen>
           </command>
           <command
-                commandId="org.osate.ui.instantiateComponent">
+                commandId="org.osate.ui.instantiate">
 	          <visibleWhen>
 	             <with
 	                   variable="selection">
@@ -611,7 +611,7 @@ censes only apply to the Third Party Software and not any other portion of this 
              </visibleWhen>
           </command>
           <command
-                commandId="org.osate.ui.instantiateComponent">
+                commandId="org.osate.ui.instantiate">
 	          <visibleWhen>
 	             <with
 	                   variable="selection">
@@ -651,7 +651,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 	          </visibleWhen>
           </command>
           <command
-                commandId="org.osate.ui.reinstantiateInstances">
+                commandId="org.osate.ui.reinstantiate">
              <visibleWhen>
 	             <with
 	                   variable="selection">
@@ -899,10 +899,10 @@ censes only apply to the Third Party Software and not any other portion of this 
                 </separator>
              </menu>
              <command
-                   commandId="org.osate.ui.instantiateComponent">
+                   commandId="org.osate.ui.instantiate">
              </command>
              <command
-                   commandId="org.osate.ui.reinstantiateInstances">
+                   commandId="org.osate.ui.reinstantiate">
              </command>
              <separator
                    name="generateTextual">
@@ -1168,11 +1168,11 @@ censes only apply to the Third Party Software and not any other portion of this 
              name="Set As AADL_Project Property Set">
        </command>
        <command
-       		id="org.osate.ui.instantiateComponent"
+       		id="org.osate.ui.instantiate"
        		name="%InstantiateComponent.label">
        </command>
        <command
-             id="org.osate.ui.reinstantiateInstances"
+             id="org.osate.ui.reinstantiate"
              name="%ReinstantiateInstances.label">
        </command>
        <command
@@ -1270,8 +1270,8 @@ censes only apply to the Third Party Software and not any other portion of this 
           </enabledWhen>
        </handler>
        <handler
-             class="org.osate.ui.handlers.InstantiateComponentHandler"
-             commandId="org.osate.ui.instantiateComponent">
+             class="org.osate.ui.handlers.InstantiationHandler"
+             commandId="org.osate.ui.instantiate">
           <enabledWhen>
              <with
                    variable="selection">
@@ -1339,8 +1339,8 @@ censes only apply to the Third Party Software and not any other portion of this 
           </enabledWhen>
        </handler>
        <handler
-             commandId="org.osate.ui.reinstantiateInstances"
-             class="org.osate.ui.handlers.ReinstantiateInstancesHandler">
+             commandId="org.osate.ui.reinstantiate"
+             class="org.osate.ui.handlers.ReinstantiationHandler">
           <enabledWhen>
              <with
                    variable="selection">
@@ -1464,7 +1464,7 @@ censes only apply to the Third Party Software and not any other portion of this 
     <extension
           point="org.eclipse.ui.commandImages">
        <image
-             commandId="org.osate.ui.reinstantiateInstances"
+             commandId="org.osate.ui.reinstantiate"
              icon="icons/reinstantiate.gif">
        </image>
        <image
