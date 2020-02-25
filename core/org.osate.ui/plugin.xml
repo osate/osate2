@@ -663,7 +663,10 @@ censes only apply to the Third Party Software and not any other portion of this 
 	                         ifEmpty="false"
 	                         operator="or">
 	                      <or>
-	                         <!-- open AADL project -->
+	                         <!-- Working set -->
+                             <instanceof value="org.eclipse.ui.IWorkingSet" />
+							 
+	                         <!-- open AADL project or any closed project -->
 	                         <and>
 	                            <instanceof value="org.eclipse.core.resources.IProject" />
 	                            <or>
@@ -1349,6 +1352,9 @@ censes only apply to the Third Party Software and not any other portion of this 
                          ifEmpty="false"
                          operator="and">
                       <or>
+                         <!-- Working Set -->
+                         <instanceof value="org.eclipse.ui.IWorkingSet" />
+                         
                          <!-- open AADL project -->
                          <and>
                             <instanceof value="org.eclipse.core.resources.IProject" />
