@@ -34,6 +34,7 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceRuleFactory;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -132,11 +133,13 @@ public final class ReinstantiateInstancesHandler extends AbstractMultiJobHandler
 					instanceFiles.add((IFile) rsrc);
 				}
 			} else if (rsrc instanceof IContainer) {
-				if (!rsrc.getName().startsWith(".")) {
-					try {
-						findAllInstanceFiles(((IContainer) rsrc).members(), instanceFiles);
-					} catch (CoreException e) {
-						WorkspacePlugin.log(e);
+				if (!(rsrc instanceof IProject) || ((IProject) rsrc).isOpen()) {
+					if (!rsrc.getName().startsWith(".")) {
+						try {
+							findAllInstanceFiles(((IContainer) rsrc).members(), instanceFiles);
+						} catch (CoreException e) {
+							WorkspacePlugin.log(e);
+						}
 					}
 				}
 			}
