@@ -35,7 +35,6 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceRuleFactory;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
@@ -48,11 +47,13 @@ import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobGroup;
 import org.eclipse.core.runtime.jobs.MultiRule;
+import org.eclipse.ui.IWorkingSet;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.instantiation.RootMissingException;
+import org.osate.core.AadlNature;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.dialogs.InstantiationResultsDialog;
 import org.osate.workspace.WorkspacePlugin;
@@ -66,7 +67,7 @@ public final class ReinstantiateInstancesHandler extends AbstractMultiJobHandler
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		/* Get all the selected resources and search them for instance model files */
 		@SuppressWarnings("unchecked")
-		final List<IResource> selectionAsList = HandlerUtil.getCurrentStructuredSelection(event).toList();
+		final List<Object> selectionAsList = HandlerUtil.getCurrentStructuredSelection(event).toList();
 		final List<IFile> aaxlFiles = findAllInstanceFiles(selectionAsList);
 		final int size = aaxlFiles.size();
 
@@ -119,27 +120,38 @@ public final class ReinstantiateInstancesHandler extends AbstractMultiJobHandler
 		return null;
 	}
 
-	private static List<IFile> findAllInstanceFiles(final Collection<IResource> rsrcs) {
+	private static List<IFile> findAllInstanceFiles(final Collection<Object> rsrcs) {
 		final List<IFile> instanceFiles = new ArrayList<>();
-		findAllInstanceFiles(rsrcs.toArray(new IResource[rsrcs.size()]), instanceFiles);
-		return instanceFiles.stream().distinct().collect(Collectors.toList()); // remove duplicates
+		findAllInstanceFiles(rsrcs.toArray(new Object[rsrcs.size()]), instanceFiles);
+		// remove duplicates
+		return instanceFiles.stream().distinct().collect(Collectors.toList());
 	}
 
-	private static void findAllInstanceFiles(final IResource[] rsrcs, final List<IFile> instanceFiles) {
-		for (final IResource rsrc : rsrcs) {
-			if (rsrc instanceof IFile) {
-				final String ext = rsrc.getFileExtension();
+	private static void findAllInstanceFiles(final Object[] rsrcs, final List<IFile> instanceFiles) {
+		for (final Object rsrc : rsrcs) {
+			if (rsrc instanceof IWorkingSet) {
+				findAllInstanceFiles(((IWorkingSet) rsrc).getElements(), instanceFiles);
+			} else if (rsrc instanceof IFile) {
+				final IFile file = (IFile) rsrc;
+				final String ext = file.getFileExtension();
 				if (ext.equals(WorkspacePlugin.INSTANCE_FILE_EXT)) {
-					instanceFiles.add((IFile) rsrc);
+					instanceFiles.add(file);
 				}
 			} else if (rsrc instanceof IContainer) {
-				if (!(rsrc instanceof IProject) || ((IProject) rsrc).isOpen()) {
-					if (!rsrc.getName().startsWith(".")) {
-						try {
-							findAllInstanceFiles(((IContainer) rsrc).members(), instanceFiles);
-						} catch (CoreException e) {
-							WorkspacePlugin.log(e);
-						}
+				final IContainer container = (IContainer) rsrc;
+				if (container instanceof IProject) {
+					final IProject project = (IProject) container;
+					if (!project.isOpen() || !AadlNature.hasNature(project)) {
+						// Project is closed or is not an AADL project, so ignore it
+						continue;
+					}
+				}
+
+				if (!container.getName().startsWith(".")) {
+					try {
+						findAllInstanceFiles(container.members(), instanceFiles);
+					} catch (CoreException e) {
+						WorkspacePlugin.log(e);
 					}
 				}
 			}
