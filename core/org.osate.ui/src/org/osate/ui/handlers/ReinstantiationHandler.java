@@ -58,6 +58,9 @@ import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.dialogs.InstantiationResultsDialog;
 import org.osate.workspace.WorkspacePlugin;
 
+/**
+ * @since 3.0
+ */
 public final class ReinstantiationHandler extends AbstractMultiJobHandler {
 	public ReinstantiationHandler() {
 		super();
