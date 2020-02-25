@@ -26,8 +26,8 @@ class PropertiesCodeGen {
 				ClassifierType: generateClassifier(packageName, typeName)
 				UnitsType: generateUnits(packageName, type, typeName)
 				EnumerationType: generateEnum(packageName, type, typeName)
-				AadlInteger: generateNumber(packageName, type, typeName, "IntegerLiteral", "long", "value == other.value")
-				AadlReal: generateNumber(packageName, type, typeName, "RealLiteral", "double", "Double.doubleToLongBits(value) == Double.doubleToLongBits(other.value)")
+				AadlInteger: generateNumber(packageName, type, typeName)
+				AadlReal: generateNumber(packageName, type, typeName)
 				ReferenceType: generateReference(packageName, typeName)
 				default: null
 			}
@@ -142,7 +142,16 @@ class PropertiesCodeGen {
 		new GeneratedJava(typeName + ".java", contents)
 	}
 	
-	def private static GeneratedJava generateNumber(String packageName, NumberType numberType, String typeName, String valueType, String javaType, String equalityExpression) {
+	def private static GeneratedJava generateNumber(String packageName, NumberType numberType, String typeName) {
+		var String valueType
+		var String javaType
+		if (numberType instanceof AadlInteger) {
+			valueType = "IntegerLiteral"
+			javaType = "long"
+		} else {
+			valueType = "RealLiteral"
+			javaType = "double"
+		}
 		val metaModelImports = #["PropertyExpression", valueType].sort
 		val contents = if (numberType.unitsType === null) {
 			'''
@@ -214,7 +223,11 @@ class PropertiesCodeGen {
 							return false;
 						}
 						«typeName» other = («typeName») obj;
-						return «equalityExpression» && unit == other.unit;
+						«IF numberType instanceof AadlInteger»
+						return value == other.value && unit == other.unit;
+						«ELSE»
+						return Double.doubleToLongBits(value) == Double.doubleToLongBits(other.value) && unit == other.unit;
+						«ENDIF»
 					}
 					
 					@Override
