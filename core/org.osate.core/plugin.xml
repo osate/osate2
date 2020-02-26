@@ -126,5 +126,49 @@ censes only apply to the Third Party Software and not any other portion of this 
             </and>
          </with>
       </definition>
+      <definition
+            id="org.osate.core.areOnlyInstanceFilesSelected">
+         <with
+               variable="selection">
+            <and>
+               <count
+                     value="+">
+               </count>
+               <iterate
+                     ifEmpty="false"
+                     operator="and">
+                  <adapt
+                        type="org.eclipse.core.resources.IFile">
+                     <test
+                           property="org.eclipse.core.resources.contentTypeId"
+                           value="org.osate.core.instanceModelFile">
+                     </test>
+                  </adapt>
+               </iterate>
+            </and>
+         </with>
+      </definition>
+      <definition
+            id="org.osate.core.areSomeInstanceFilesSelected">
+         <with
+               variable="selection">
+            <and>
+               <count
+                     value="+">
+               </count>
+               <iterate
+                     ifEmpty="false"
+                     operator="or">
+                  <adapt
+                        type="org.eclipse.core.resources.IFile">
+                     <test
+                           property="org.eclipse.core.resources.contentTypeId"
+                           value="org.osate.core.instanceModelFile">
+                     </test>
+                  </adapt>
+               </iterate>
+            </and>
+         </with>
+      </definition>
    </extension>
  </plugin>
