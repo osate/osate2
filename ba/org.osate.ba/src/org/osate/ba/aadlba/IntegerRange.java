@@ -29,17 +29,17 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.IntegerRange#getLowerIntegerValue <em>Lower Integer Value</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.IntegerRange#getUpperIntegerValue <em>Upper Integer Value</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getIntegerRange()
  * @model
  * @generated
  */
-public interface IntegerRange extends ElementValues, IBAVisitable
+public interface IntegerRange extends ElementValues
 {
   /**
    * Returns the value of the '<em><b>Lower Integer Value</b></em>' containment reference.

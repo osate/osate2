@@ -33,14 +33,13 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface EnumLiteralHolder extends PropertyElementHolder, IBAVisitable
+public interface EnumLiteralHolder extends PropertyElementHolder
 {
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model enumLiteralRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = enumLiteral ;'"
    * @generated
    */
   void setEnumLiteral(EnumerationLiteral enumLiteral);
@@ -49,7 +48,6 @@ public interface EnumLiteralHolder extends PropertyElementHolder, IBAVisitable
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (EnumerationLiteral) element;'"
    * @generated
    */
   EnumerationLiteral getEnumLiteral();

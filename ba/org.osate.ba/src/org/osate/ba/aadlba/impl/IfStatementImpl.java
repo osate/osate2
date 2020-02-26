@@ -38,13 +38,13 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.IfStatementImpl#getBehaviorActions <em>Behavior Actions</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.IfStatementImpl#getLogicalValueExpression <em>Logical Value Expression</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.IfStatementImpl#isElif <em>Elif</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.IfStatementImpl#getElseStatement <em>Else Statement</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -126,6 +126,7 @@ public class IfStatementImpl extends BehaviorElementImpl implements IfStatement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BehaviorActions getBehaviorActions()
   {
     return behaviorActions;
@@ -153,6 +154,7 @@ public class IfStatementImpl extends BehaviorElementImpl implements IfStatement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setBehaviorActions(BehaviorActions newBehaviorActions)
   {
     if (newBehaviorActions != behaviorActions)
@@ -174,6 +176,7 @@ public class IfStatementImpl extends BehaviorElementImpl implements IfStatement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ValueExpression getLogicalValueExpression()
   {
     return logicalValueExpression;
@@ -201,6 +204,7 @@ public class IfStatementImpl extends BehaviorElementImpl implements IfStatement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setLogicalValueExpression(ValueExpression newLogicalValueExpression)
   {
     if (newLogicalValueExpression != logicalValueExpression)
@@ -222,6 +226,7 @@ public class IfStatementImpl extends BehaviorElementImpl implements IfStatement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isElif()
   {
     return elif;
@@ -232,6 +237,7 @@ public class IfStatementImpl extends BehaviorElementImpl implements IfStatement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setElif(boolean newElif)
   {
     boolean oldElif = elif;
@@ -245,6 +251,7 @@ public class IfStatementImpl extends BehaviorElementImpl implements IfStatement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ElseStatement getElseStatement()
   {
     return elseStatement;
@@ -272,6 +279,7 @@ public class IfStatementImpl extends BehaviorElementImpl implements IfStatement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setElseStatement(ElseStatement newElseStatement)
   {
     if (newElseStatement != elseStatement)
@@ -414,7 +422,7 @@ public class IfStatementImpl extends BehaviorElementImpl implements IfStatement
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (elif: ");
     result.append(elif);
     result.append(')');

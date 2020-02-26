@@ -29,17 +29,17 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.ValueExpression#getRelations <em>Relations</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.ValueExpression#getLogicalOperators <em>Logical Operators</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getValueExpression()
  * @model
  * @generated
  */
-public interface ValueExpression extends Value, ParameterLabel, ExecuteCondition, IBAVisitable
+public interface ValueExpression extends Value, ParameterLabel, ExecuteCondition
 {
   /**
    * Returns the value of the '<em><b>Relations</b></em>' containment reference list.

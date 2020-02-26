@@ -29,17 +29,17 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.AssignmentAction#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.AssignmentAction#getValueExpression <em>Value Expression</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getAssignmentAction()
  * @model
  * @generated
  */
-public interface AssignmentAction extends BasicAction, IBAVisitable
+public interface AssignmentAction extends BasicAction
 {
   /**
    * Returns the value of the '<em><b>Target</b></em>' containment reference.
