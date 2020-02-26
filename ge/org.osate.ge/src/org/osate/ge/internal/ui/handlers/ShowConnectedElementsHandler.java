@@ -44,6 +44,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
@@ -58,7 +59,6 @@ import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
-import org.osate.ge.internal.diagram.runtime.DiagramConfigurationBuilder;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.boTree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
@@ -68,9 +68,10 @@ import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.AgeFeatureProvider;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
+import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
+import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectReferenceService;
-import org.osate.ge.internal.ui.dialogs.DiagramConfigurationDialog;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.util.AadlClassifierUtil;
 import org.osate.ge.internal.util.AadlInstanceObjectUtil;
@@ -107,110 +108,103 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 				final BusinessObjectNode selectedNode = getSelectedNode(boTree, selectedElement);
 				final Object selectedBo = selectedNode.getBusinessObject();
 				if (selectedBo instanceof ConnectionEnd) {
-					final SimpleEntry<Optional<ComponentImplementation>, BusinessObjectNode> compImplToConnectionEnd = getComponentImplToConnectionEnd(
+					final SimpleEntry<Optional<ComponentClassifier>, BusinessObjectNode> classifierToConnectionEnd = getClassifierToConnectionEnd(
 							selectedNode);
-					final Optional<ComponentImplementation> compImplOpt = compImplToConnectionEnd.getKey();
-					final BusinessObjectNode conEndContextNode = compImplToConnectionEnd.getValue();
+					final Optional<ComponentClassifier> compImplOpt = classifierToConnectionEnd.getKey();
+					final BusinessObjectNode conEndNode = classifierToConnectionEnd.getValue();
 					// Determine component implementation of selected node
-					final BusinessObjectNode componentImplNode = selectedBo instanceof Subcomponent
-							&& conEndContextNode == selectedNode
+					final BusinessObjectNode compNode = selectedBo instanceof Subcomponent
+							&& conEndNode == selectedNode
 							? selectedNode
-									: conEndContextNode.getParent();
-
+									: conEndNode.getParent();
 					// Internal Connections to Connection End
 					compImplOpt.ifPresent(ci -> {
-						ci.getAllConnections().stream().map(Connection::getRootConnection).forEach(con -> {
-							enableInternalConnections(con, conEndContextNode.getBusinessObject(), selectedBo,
-									componentImplNode);
-						});
-					});
-
-					// Parent Connections to Connection End
-					AadlClassifierUtil.getComponentImplementation(componentImplNode.getParent()).ifPresent(ci -> {
-						ci.getAllConnections().stream().map(Connection::getRootConnection).forEach(con -> {
-							enableParentConnections(con, conEndContextNode.getBusinessObject(), selectedBo,
-									componentImplNode);
-						});
-					});
-				}
-
-				if (selectedElement.getBusinessObject() instanceof Subcomponent) {
-					final BusinessObjectNode parent = selectedNode.getParent();
-					// Parent Connections to Subcomponent
-					AadlClassifierUtil.getComponentImplementation(parent)
-					.ifPresent(compImpl -> enableComponentImplemenationConnections(compImpl, parent, selectedNode));
-					// Internal Connections to Subcomponent
-					AadlClassifierUtil.getComponentImplementation(selectedNode)
-					.ifPresent(compImpl -> enableSelectedElementConnections(compImpl, selectedNode));
-				} else if (selectedElement.getBusinessObject() instanceof InstanceObject) {
-					AadlInstanceObjectUtil.getComponentInstance(selectedNode).ifPresent(compInstance -> {
-						if (compInstance.getOwner() instanceof ComponentInstance) {
-							final ComponentInstance compInstanceOwner = (ComponentInstance) compInstance.getOwner();
-							enableComponentInstanceConnections(compInstanceOwner, compInstance, boTree);
+						if (ci instanceof ComponentImplementation) {
+							enableInternalConnections((ComponentImplementation) ci, conEndNode.getBusinessObject(),
+									selectedBo, compNode);
 						}
 					});
 
-					if (selectedElement.getBusinessObject() instanceof ConnectionInstanceEnd) {
-						final InstanceObject selectedConnectionEnd = (InstanceObject) selectedElement
-								.getBusinessObject();
+					// Parent Connections to Connection End
+					AadlClassifierUtil.getComponentImplementation(compNode.getParent()).ifPresent(ci -> {
+						enableParentConnections(ci, conEndNode.getBusinessObject(), selectedBo,
+								compNode);
+					});
+				}
+
+				if (selectedBo instanceof Subcomponent) {
+					final BusinessObjectNode parent = selectedNode.getParent();
+					// Parent Connections to Subcomponent
+					AadlClassifierUtil.getComponentImplementation(parent)
+					.ifPresent(compImpl -> enableComponentImplementationConnections(compImpl, parent, selectedNode));
+
+					// Internal Connections to Subcomponent
+					AadlClassifierUtil.getComponentImplementation(selectedBo)
+					.ifPresent(compImpl -> enableSelectedElementConnections(compImpl, selectedNode));
+				} else if (selectedElement.getBusinessObject() instanceof InstanceObject) {
+					AadlInstanceObjectUtil.getComponentInstance(selectedBo).ifPresent(compInstance -> {
+						enableComponentInstanceConnections(compInstance, boTree);
+					});
+
+					if (selectedBo instanceof ConnectionInstanceEnd) {
+						final InstanceObject selectedConnectionEnd = (InstanceObject) selectedBo;
 						enableInstanceEndConnections(selectedConnectionEnd, boTree);
 					}
 				}
 			}
 
 			final AgeDiagram diagram = editor.getAgeDiagram();
-			final DiagramConfigurationBuilder diagramConfigBuilder = new DiagramConfigurationBuilder(Objects
-					.requireNonNull(editor.getAgeDiagram().getConfiguration(), "diagramConfig must not be null"));
-			final DiagramConfigurationDialog.Result result = new DiagramConfigurationDialog.Result(
-					diagramConfigBuilder.build(), boTree);
-			if (result != null) {
-				final DiagramUpdater diagramUpdater = featureProvider.getDiagramUpdater();
-				final GraphitiService graphitiService = Objects.requireNonNull(
-						Adapters.adapt(editor, GraphitiService.class), "Unable to retrieve graphiti service");
-				diagram.modify("Set Diagram Configuration", m -> {
-					m.setDiagramConfiguration(result.getDiagramConfiguration());
-					diagramUpdater.updateDiagram(diagram, result.getBusinessObjectTree());
-				});
+			final DiagramUpdater diagramUpdater = featureProvider.getDiagramUpdater();
+			final GraphitiService graphitiService = Objects.requireNonNull(
+					Adapters.adapt(editor, GraphitiService.class), "Unable to retrieve graphiti service");
+			final ActionService actionService = Objects.requireNonNull(Adapters.adapt(editor, ActionService.class),
+					"Unable to retrieve action service");
+			// Update the diagram
+			actionService.execute("Show Connected Elements", ExecutionMode.NORMAL, () -> {
+				// Update the diagram
+				diagramUpdater.updateDiagram(diagram, boTree);
 
-				// Clear ghosts triggered by this update to prevent them from being unghosted during the next update.
-				diagramUpdater.clearGhosts();
-
-				diagram.modify("Layout",
+				// Update layout
+				diagram.modify("Layout Incrementally",
 						m -> DiagramElementLayoutUtil.layoutIncrementally(diagram, m, graphitiService));
-			}
+
+				return null;
+			});
 		}
 
 		return null;
 	}
 
-	private void enableInternalConnections(final Connection con, final Object conEndContextBo,
-			final Object selectedBo,
-			final BusinessObjectNode componentImplNode) {
-		final ConnectedElement dest = con.getDestination();
-		final ConnectedElement src = con.getSource();
-		if (isConnectedConnection(dest, selectedBo, conEndContextBo, componentImplNode, con.getAllSourceContext(), src)
-				|| isConnectedConnection(src, selectedBo, conEndContextBo, componentImplNode,
-						con.getAllDestinationContext(), dest)) {
-			enableConnection(con, componentImplNode);
-		}
+	private void enableInternalConnections(final ComponentImplementation ci, final Object conEndContextBo,
+			final Object selectedBo, final BusinessObjectNode compImplNode) {
+		ci.getAllConnections().stream().map(Connection::getRootConnection).forEach(con -> {
+			final ConnectedElement dest = con.getDestination();
+			final ConnectedElement src = con.getSource();
+			if (isConnectedConnection(dest, selectedBo, conEndContextBo, compImplNode, con.getAllSourceContext(), src)
+					|| isConnectedConnection(src, selectedBo, conEndContextBo, compImplNode,
+							con.getAllDestinationContext(), dest)) {
+				enableConnection(con, compImplNode);
+			}
+		});
 	}
 
-	private void enableParentConnections(final Connection con, final Object connectionEndBo,
-			final Object selectedBo,
-			final BusinessObjectNode compImplNode) {
-		final ConnectedElement dest = con.getDestination();
-		final ConnectedElement src = con.getSource();
-		if (isConnectedToConnectionEnd(dest, src, con.getAllSourceContext(), selectedBo, connectionEndBo, compImplNode)
-				|| isConnectedToConnectionEnd(src, dest, con.getAllDestinationContext(), selectedBo, connectionEndBo,
-						compImplNode)) {
-			enableConnection(con, compImplNode.getParent());
-		}
+	private void enableParentConnections(final ComponentImplementation ci, final Object conEndBo,
+			final Object selectedBo, final BusinessObjectNode compNode) {
+		ci.getAllConnections().stream().map(Connection::getRootConnection).forEach(con -> {
+			final ConnectedElement dest = con.getDestination();
+			final ConnectedElement src = con.getSource();
+			if (isConnectedToConnectionEnd(dest, src, con.getAllSourceContext(), selectedBo, conEndBo,
+					compNode)
+					|| isConnectedToConnectionEnd(src, dest, con.getAllDestinationContext(), selectedBo,
+							conEndBo, compNode)) {
+				enableConnection(con, compNode.getParent());
+			}
+		});
 	}
 
 	private void enableInstanceEndConnections(final InstanceObject selectedConnectionEnd,
 			final BusinessObjectNode boTree) {
 		getConnectionReferences(selectedConnectionEnd).forEach(connectionReference -> {
-			// Showing connected elements when source or destination is contained within a FeatureGroup
 			if (connectionEndFound(connectionReference.getSource(), selectedConnectionEnd)
 					|| connectionEndFound(connectionReference.getDestination(), selectedConnectionEnd)) {
 				enableConnectionReferenceNodes(boTree, connectionReference);
@@ -218,14 +212,16 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 		});
 	}
 
-	private void enableComponentInstanceConnections(final ComponentInstance compInstanceOwner,
-			final ComponentInstance compInstance, final BusinessObjectNode boTree) {
-		getConnectionReferences(compInstanceOwner).forEach(connectionReference -> {
-			if (connectionReference.getSource().getComponentInstance() == compInstance
-					|| connectionReference.getDestination().getComponentInstance() == compInstance) {
-				enableConnectionReferenceNodes(boTree, connectionReference);
-			}
-		});
+	private void enableComponentInstanceConnections(final ComponentInstance compInstance,
+			final BusinessObjectNode boTree) {
+		if (compInstance.getOwner() instanceof ComponentInstance) {
+			getConnectionReferences((InstanceObject) compInstance.getOwner()).forEach(connectionReference -> {
+				if (connectionReference.getSource().getComponentInstance() == compInstance
+						|| connectionReference.getDestination().getComponentInstance() == compInstance) {
+					enableConnectionReferenceNodes(boTree, connectionReference);
+				}
+			});
+		}
 	}
 
 	private static Stream<ConnectionReference> getConnectionReferences(final InstanceObject io) {
@@ -260,25 +256,27 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 		return false;
 	}
 
-	private boolean isConnectedToConnectionEnd(final ConnectedElement dest, final ConnectedElement src,
-			final Context srcCtx,
+	private boolean isConnectedToConnectionEnd(final ConnectedElement ce1, final ConnectedElement ce2,
+			final Context ctx,
 			final Object selectedBo, final Object connectionEndBo,
 			final BusinessObjectNode ciNode) {
-		final List<ConnectionEnd> destConnectionEnds = getConnectionEnds(dest);
-		if (destConnectionEnds.contains(selectedBo)
-				&& dest.getConnectionEnd() == connectionEndBo) {
-			enableConnectedElements(ciNode, dest);
+		final List<ConnectionEnd> connectionEnds = getConnectionEnds(ce1);
+		if (connectionEnds.contains(selectedBo)
+				&& ce1.getConnectionEnd() == connectionEndBo
+				&& (ciNode.getBusinessObject() == ce1.getContext()
+				|| ce1.getConnectionEnd() == ciNode.getBusinessObject())) {
+			enableConnectedElements(ciNode, ce1);
 			final BusinessObjectNode parentCiNode = ciNode.getParent();
 			BusinessObjectNode context = parentCiNode;
-			if (srcCtx != null) {
+			if (ctx != null) {
 				final RelativeBusinessObjectReference contextRef = getRelativeBusinessObjectReference(
-						srcCtx);
+						ctx);
 				context = parentCiNode.getChild(contextRef);
 				if (context == null) {
-					context = createNode(parentCiNode, contextRef, srcCtx);
+					context = createNode(parentCiNode, contextRef, ctx);
 				}
 			}
-			enableConnectedElements(context, src);
+			enableConnectedElements(context, ce2);
 			return true;
 		}
 
@@ -362,20 +360,20 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 		return connectionEnds;
 	}
 
-	private SimpleEntry<Optional<ComponentImplementation>, BusinessObjectNode> getComponentImplToConnectionEnd(
+	private SimpleEntry<Optional<ComponentClassifier>, BusinessObjectNode> getClassifierToConnectionEnd(
 			BusinessObjectNode node) {
 		BusinessObjectNode connectionEnd = node;
 		for (; node != null; node = node.getParent()) {
-			final Optional<ComponentImplementation> compImplOpt = AadlClassifierUtil.getComponentImplementation(node);
-			if (compImplOpt.isPresent()) {
-				return new AbstractMap.SimpleEntry<Optional<ComponentImplementation>, BusinessObjectNode>(compImplOpt,
+			final Optional<ComponentClassifier> classifierOpt = AadlClassifierUtil.getComponentClassifier(node);
+			if (classifierOpt.isPresent()) {
+				return new AbstractMap.SimpleEntry<Optional<ComponentClassifier>, BusinessObjectNode>(classifierOpt,
 						connectionEnd);
 			}
 
 			connectionEnd = node;
 		}
 
-		return new AbstractMap.SimpleEntry<Optional<ComponentImplementation>, BusinessObjectNode>(Optional.empty(),
+		return new AbstractMap.SimpleEntry<Optional<ComponentClassifier>, BusinessObjectNode>(Optional.empty(),
 				connectionEnd);
 	}
 
@@ -399,7 +397,6 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 		}
 	}
 
-	// TODO rename
 	private boolean enabledConnectionEnds(final BusinessObjectNode selectedNode, final Context context1,
 			final Context context2, final ConnectedElement connectedElement1, final ConnectedElement connectedElement2) {
 		if (context1 == null || !(context1 instanceof Subcomponent)) {
@@ -420,7 +417,7 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 		return false;
 	}
 
-	private void enableComponentImplemenationConnections(final ComponentImplementation compImpl,
+	private void enableComponentImplementationConnections(final ComponentImplementation compImpl,
 			final BusinessObjectNode parent, final BusinessObjectNode selectedNode) {
 		compImpl.getAllConnections().stream().map(Connection::getRootConnection).forEach(con -> {
 			if (isConnectedToSubcomponent(con.getAllDestinationContext(), selectedNode, con.getDestination(), parent,
@@ -468,7 +465,7 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 	/**
 	 * Get and create selected node and ancestors
 	 */
-	private BusinessObjectNode getSelectedNode(BusinessObjectNode boTree, BusinessObjectContext selectedBoc) {
+	private BusinessObjectNode getSelectedNode(BusinessObjectNode ancestorNode, BusinessObjectContext selectedBoc) {
 		final Queue<Object> ancestors = Collections.asLifoQueue(new LinkedList<Object>());
 		while (selectedBoc.getBusinessObject() != null) {
 			ancestors.add(selectedBoc.getBusinessObject());
@@ -477,10 +474,10 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 
 		// Find ancestors to parent
 		for (final Object ancestor : ancestors) {
-			boTree = getAncestor(ancestor, boTree);
+			ancestorNode = getAncestor(ancestor, ancestorNode);
 		}
 
-		return boTree;
+		return ancestorNode;
 	}
 
 	private BusinessObjectNode getAncestor(final Object ancestor, final BusinessObjectNode parent) {
@@ -510,7 +507,7 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 	// Eligible Subcomponents and ConnectionEnds
 	private static boolean isSubcomponentOrConnectionEnd(final BusinessObjectContext boc) {
 		final Object bo = boc.getBusinessObject();
-		return (Subcomponent.class.isInstance(bo) && ((Subcomponent) bo).getComponentImplementation() != null)
+		return (Subcomponent.class.isInstance(bo)/* && ((Subcomponent) bo).getComponentImplementation() != null */)
 				|| (ComponentInstance.class.isInstance(bo) && ((ComponentInstance) bo).getSubcomponent() != null)
 				|| ConnectionEnd.class.isInstance(bo) || ConnectionInstanceEnd.class.isInstance(bo);
 	}

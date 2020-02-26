@@ -533,7 +533,7 @@ Table: Menu Items for Showing and Hiding Elements {#tbl:show_hide_menu_items}
 By default, the *Outline* view shows hidden elements. Hidden elements are those which are not currently included in the diagram. Hidden elements are greyed out in the outline. Whether hidden elements are shown in the *Outline* view can be toggled using the *Show Hidden Elements* menu item in the view menu (![View Menu](../images/ui_view_menu_icon.png)). When displayed, hidden elements can be added to the diagram using the *Show* menu item which is available in the context menu.
 
 ## Showing Connected Elements
-Elements that are hidden and directly connected to other elements can be shown in the diagram by right-clicking Subcomponents or ConnectionEnds and selecting the "Show Connected Elements" from the context menu.
+Elements that are directly connected to a subcomponent or feature can be shown by right-clicking on the subcomponent or feature and selecting *Show Connected Elements* from the context menu.
 
 # Visualization
 The following sections describe the diagram visualization capabilities of the graphical editor.
