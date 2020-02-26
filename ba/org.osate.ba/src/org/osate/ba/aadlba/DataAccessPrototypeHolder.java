@@ -32,6 +32,6 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface DataAccessPrototypeHolder extends DataHolder, PrototypeHolder, Target, ElementValues, IBAVisitable
+public interface DataAccessPrototypeHolder extends DataHolder, PrototypeHolder, Target, ElementValues
 {
 } // DataAccessPrototypeHolder

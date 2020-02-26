@@ -31,18 +31,18 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.TimedAction#getLowerTime <em>Lower Time</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.TimedAction#getUpperTime <em>Upper Time</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.TimedAction#getProcessorClassifier <em>Processor Classifier</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getTimedAction()
  * @model
  * @generated
  */
-public interface TimedAction extends BasicAction, IBAVisitable
+public interface TimedAction extends BasicAction
 {
   /**
    * Returns the value of the '<em><b>Lower Time</b></em>' containment reference.

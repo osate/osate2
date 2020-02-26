@@ -32,13 +32,12 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface SubcomponentHolder extends ClassifierFeatureHolder, IndexableElement, GroupableElement, IBAVisitable
+public interface SubcomponentHolder extends ClassifierFeatureHolder, IndexableElement, GroupableElement
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model subcomponentRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = subcomponent ;'"
    * @generated
    */
   void setSubcomponent(Subcomponent subcomponent);
@@ -47,7 +46,6 @@ public interface SubcomponentHolder extends ClassifierFeatureHolder, IndexableEl
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (Subcomponent) element;'"
    * @generated
    */
   Subcomponent getSubcomponent();

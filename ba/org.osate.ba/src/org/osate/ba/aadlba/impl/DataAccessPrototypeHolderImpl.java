@@ -53,12 +53,12 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.DataAccessPrototypeHolderImpl#getArrayIndexes <em>Array Indexes</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.DataAccessPrototypeHolderImpl#getGroupHolders <em>Group Holders</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.DataAccessPrototypeHolderImpl#getPrototypeBinding <em>Prototype Binding</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -120,6 +120,7 @@ public class DataAccessPrototypeHolderImpl extends DataHolderImpl implements Dat
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PrototypeBinding getPrototypeBinding()
   {
     if (prototypeBinding != null && ((EObject)prototypeBinding).eIsProxy())
@@ -150,6 +151,7 @@ public class DataAccessPrototypeHolderImpl extends DataHolderImpl implements Dat
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setPrototypeBinding(PrototypeBinding newPrototypeBinding)
   {
     PrototypeBinding oldPrototypeBinding = prototypeBinding;
@@ -163,6 +165,7 @@ public class DataAccessPrototypeHolderImpl extends DataHolderImpl implements Dat
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<IntegerValue> getArrayIndexes()
   {
     if (arrayIndexes == null)
@@ -177,6 +180,7 @@ public class DataAccessPrototypeHolderImpl extends DataHolderImpl implements Dat
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetArrayIndexes()
   {
     if (arrayIndexes != null) ((InternalEList.Unsettable<?>)arrayIndexes).unset();
@@ -187,6 +191,7 @@ public class DataAccessPrototypeHolderImpl extends DataHolderImpl implements Dat
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetArrayIndexes()
   {
     return arrayIndexes != null && ((InternalEList.Unsettable<?>)arrayIndexes).isSet();
@@ -197,6 +202,7 @@ public class DataAccessPrototypeHolderImpl extends DataHolderImpl implements Dat
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<GroupHolder> getGroupHolders()
   {
     if (groupHolders == null)
@@ -211,6 +217,7 @@ public class DataAccessPrototypeHolderImpl extends DataHolderImpl implements Dat
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetGroupHolders()
   {
     if (groupHolders != null) ((InternalEList.Unsettable<?>)groupHolders).unset();
@@ -221,6 +228,7 @@ public class DataAccessPrototypeHolderImpl extends DataHolderImpl implements Dat
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetGroupHolders()
   {
     return groupHolders != null && ((InternalEList.Unsettable<?>)groupHolders).isSet();
@@ -231,6 +239,7 @@ public class DataAccessPrototypeHolderImpl extends DataHolderImpl implements Dat
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setPrototype(final Prototype prototype )
   {
     element = prototype ;
@@ -241,6 +250,7 @@ public class DataAccessPrototypeHolderImpl extends DataHolderImpl implements Dat
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Prototype getPrototype()
   {
     return (Prototype) element;
@@ -251,6 +261,7 @@ public class DataAccessPrototypeHolderImpl extends DataHolderImpl implements Dat
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setClassifierFeature(final ClassifierFeature classifierFeature)
   {
     element = classifierFeature ;
@@ -261,6 +272,7 @@ public class DataAccessPrototypeHolderImpl extends DataHolderImpl implements Dat
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ClassifierFeature getClassifierFeature()
   {
     return (ClassifierFeature) element;
