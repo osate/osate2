@@ -48,8 +48,6 @@ import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
-import org.osate.ge.internal.diagram.runtime.DiagramConfiguration;
-import org.osate.ge.internal.diagram.runtime.DiagramConfigurationBuilder;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.boTree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
@@ -59,6 +57,8 @@ import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.AgeFeatureProvider;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
+import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
+import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
@@ -66,7 +66,7 @@ import org.osate.ge.internal.util.AadlInstanceObjectUtil;
 import org.osate.ge.internal.util.AadlModalElementUtil;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 
-public class ShowInModeElementsHandler extends AbstractHandler {
+public class ShowElementsInModeHandler extends AbstractHandler {
 	private ProjectReferenceService referenceService;
 
 	@Override
@@ -95,24 +95,22 @@ public class ShowInModeElementsHandler extends AbstractHandler {
 			}
 
 			final AgeDiagram diagram = editor.getAgeDiagram();
-			final DiagramConfigurationBuilder diagramConfigBuilder = new DiagramConfigurationBuilder(Objects
-					.requireNonNull(editor.getAgeDiagram().getConfiguration(), "diagramConfig must not be null"));
-			final DiagramConfiguration.Result result = new DiagramConfiguration.Result(
-					diagramConfigBuilder.build(), boTree);
-			if (result != null) {
-				final DiagramUpdater diagramUpdater = featureProvider.getDiagramUpdater();
-				final GraphitiService graphitiService = Objects.requireNonNull(
-						Adapters.adapt(editor, GraphitiService.class), "Unable to retrieve graphiti service");
-				diagram.modify("Set Diagram Configuration", m -> {
-					m.setDiagramConfiguration(result.getDiagramConfiguration());
-					diagramUpdater.updateDiagram(diagram, result.getBusinessObjectTree());
-				});
-				// Clear ghosts triggered by this update to prevent them from being unghosted during the next update.
-				diagramUpdater.clearGhosts();
+			final DiagramUpdater diagramUpdater = featureProvider.getDiagramUpdater();
+			final GraphitiService graphitiService = Objects.requireNonNull(
+					Adapters.adapt(editor, GraphitiService.class), "Unable to retrieve graphiti service");
 
-				diagram.modify("Layout",
+			final ActionService actionService = Objects.requireNonNull(Adapters.adapt(editor, ActionService.class),
+					"Unable to retrieve action service");
+			actionService.execute("Show Elements In Mode", ExecutionMode.NORMAL, () -> {
+				// Update the diagram
+				diagramUpdater.updateDiagram(diagram, boTree);
+
+				// Update layout
+				diagram.modify("Layout Incrementally",
 						m -> DiagramElementLayoutUtil.layoutIncrementally(diagram, m, graphitiService));
-			}
+
+				return null;
+			});
 		}
 
 		return null;

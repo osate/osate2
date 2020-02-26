@@ -571,7 +571,7 @@ Selecting the "Show" button on the toolbar shows the missing flow segments of th
 Selecting a Mode or Mode Transition from the mode drop-down in the toolbar will highlight the in mode elements in the diagram.
 
 ## Showing In Mode Elements
-Right clicking a Mode or Mode Transition and selecting the "Show In Mode Elements" will show the in mode elements of the selected mode's container.
+Right clicking a Mode or Mode Transition and selecting the "Show In Mode Elements" will show the elements within the mode's container which are active in the selected mode.
 
 ## Moving Shapes Using Arrow Keys
 1. Select the element to be moved.

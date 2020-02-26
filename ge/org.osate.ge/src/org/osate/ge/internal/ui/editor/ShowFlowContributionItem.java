@@ -65,8 +65,6 @@ import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
-import org.osate.ge.internal.diagram.runtime.DiagramConfiguration;
-import org.osate.ge.internal.diagram.runtime.DiagramConfigurationBuilder;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.boTree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
@@ -77,6 +75,8 @@ import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.AgeFeatureProvider;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.query.Queryable;
+import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
+import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.ui.editor.FlowContributionItem.FlowSegmentState;
 import org.osate.ge.internal.ui.editor.FlowContributionItem.HighlightableFlowInfo;
@@ -115,8 +115,6 @@ public class ShowFlowContributionItem extends ControlContribution {
 				if (editor != null && selectedFlow != null) {
 					referenceService = Objects.requireNonNull(Adapters.adapt(editor, ProjectReferenceService.class),
 							"Unable to retrieve reference service");
-					final GraphitiService graphitiService = Objects.requireNonNull(
-							Adapters.adapt(editor, GraphitiService.class), "Unable to retrieve graphiti service");
 					final AgeFeatureProvider featureProvider = (AgeFeatureProvider) editor.getDiagramTypeProvider()
 							.getFeatureProvider();
 					final DiagramUpdater diagramUpdater = featureProvider.getDiagramUpdater();
@@ -132,22 +130,20 @@ public class ShowFlowContributionItem extends ControlContribution {
 					ensureFlowSegmentsExist(component, selectedFlow.getFlowSegment(), containerNode);
 
 					final AgeDiagram diagram = editor.getAgeDiagram();
-					final DiagramConfigurationBuilder diagramConfigBuilder = new DiagramConfigurationBuilder(
-							Objects.requireNonNull(editor.getAgeDiagram().getConfiguration(),
-									"diagramConfig must not be null"));
-					final DiagramConfiguration.Result result = new DiagramConfiguration.Result(
-							diagramConfigBuilder.build(), boTree);
-					if (result != null) {
-						diagram.modify("Set Diagram Configuration", m -> {
-							m.setDiagramConfiguration(result.getDiagramConfiguration());
-							diagramUpdater.updateDiagram(diagram, result.getBusinessObjectTree());
-						});
-						// Clear ghosts triggered by this update to prevent them from being unghosted during the next update.
-						diagramUpdater.clearGhosts();
+					final ActionService actionService = Objects.requireNonNull(
+							Adapters.adapt(editor, ActionService.class), "Unable to retrieve action service");
+					final GraphitiService graphitiService = Objects.requireNonNull(
+							Adapters.adapt(editor, GraphitiService.class), "Unable to retrieve graphiti service");
+					actionService.execute("Show Flow Elements", ExecutionMode.NORMAL, () -> {
+						// Update the diagram
+						diagramUpdater.updateDiagram(diagram, boTree);
 
-						diagram.modify("Layout",
+						// Update layout
+						diagram.modify("Layout Incrementally",
 								m -> DiagramElementLayoutUtil.layoutIncrementally(diagram, m, graphitiService));
-					}
+
+						return null;
+					});
 				}
 			}
 
