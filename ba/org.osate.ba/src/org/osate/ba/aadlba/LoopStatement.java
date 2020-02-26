@@ -32,6 +32,6 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model abstract="true"
  * @generated
  */
-public interface LoopStatement extends CondStatement, IBAVisitable
+public interface LoopStatement extends CondStatement
 {
 } // LoopStatement

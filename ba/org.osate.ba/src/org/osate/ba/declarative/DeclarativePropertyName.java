@@ -30,12 +30,12 @@ import org.osate.ba.aadlba.PropertyNameField ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.declarative.DeclarativePropertyName#getPropertyName <em>Property Name</em>}</li>
  *   <li>{@link org.osate.ba.declarative.DeclarativePropertyName#getField <em>Field</em>}</li>
  *   <li>{@link org.osate.ba.declarative.DeclarativePropertyName#getIndexes <em>Indexes</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativePropertyName()
  * @model

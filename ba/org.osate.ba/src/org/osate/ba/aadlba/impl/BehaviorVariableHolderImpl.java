@@ -47,10 +47,10 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorVariableHolderImpl#getArrayIndexes <em>Array Indexes</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -92,6 +92,7 @@ public class BehaviorVariableHolderImpl extends DataHolderImpl implements Behavi
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<IntegerValue> getArrayIndexes()
   {
     if (arrayIndexes == null)
@@ -106,6 +107,7 @@ public class BehaviorVariableHolderImpl extends DataHolderImpl implements Behavi
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetArrayIndexes()
   {
     if (arrayIndexes != null) ((InternalEList.Unsettable<?>)arrayIndexes).unset();
@@ -116,6 +118,7 @@ public class BehaviorVariableHolderImpl extends DataHolderImpl implements Behavi
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetArrayIndexes()
   {
     return arrayIndexes != null && ((InternalEList.Unsettable<?>)arrayIndexes).isSet();
@@ -126,6 +129,7 @@ public class BehaviorVariableHolderImpl extends DataHolderImpl implements Behavi
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setVariable(final BehaviorVariable variable )
   {
     element = variable ;
@@ -136,6 +140,7 @@ public class BehaviorVariableHolderImpl extends DataHolderImpl implements Behavi
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BehaviorVariable getBehaviorVariable()
   {
     return (BehaviorVariable) element;
@@ -146,6 +151,7 @@ public class BehaviorVariableHolderImpl extends DataHolderImpl implements Behavi
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setClassifierFeature(final ClassifierFeature classifierFeature)
   {
     element = classifierFeature ;
@@ -156,6 +162,7 @@ public class BehaviorVariableHolderImpl extends DataHolderImpl implements Behavi
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ClassifierFeature getClassifierFeature()
   {
     return (ClassifierFeature) element;

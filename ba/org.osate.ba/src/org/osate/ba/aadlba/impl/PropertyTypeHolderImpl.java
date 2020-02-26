@@ -29,8 +29,6 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Property Type Holder</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
@@ -62,6 +60,7 @@ public class PropertyTypeHolderImpl extends PropertyElementHolderImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setPropertyType(final PropertyType propertyType)
   {
     element = propertyType ;
@@ -72,6 +71,7 @@ public class PropertyTypeHolderImpl extends PropertyElementHolderImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyType getPropertyType()
   {
     return (PropertyType) element;

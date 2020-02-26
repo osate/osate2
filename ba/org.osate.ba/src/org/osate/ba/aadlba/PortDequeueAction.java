@@ -29,17 +29,17 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.PortDequeueAction#getPort <em>Port</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.PortDequeueAction#getTarget <em>Target</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getPortDequeueAction()
  * @model
  * @generated
  */
-public interface PortDequeueAction extends CommunicationAction, IBAVisitable
+public interface PortDequeueAction extends CommunicationAction
 {
   /**
    * Returns the value of the '<em><b>Port</b></em>' containment reference.

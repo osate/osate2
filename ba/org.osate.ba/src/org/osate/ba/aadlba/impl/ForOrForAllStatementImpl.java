@@ -37,12 +37,12 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.ForOrForAllStatementImpl#getIteratedValues <em>Iterated Values</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.ForOrForAllStatementImpl#isForAll <em>For All</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.ForOrForAllStatementImpl#getIterativeVariable <em>Iterative Variable</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -114,6 +114,7 @@ public class ForOrForAllStatementImpl extends LoopStatementImpl implements ForOr
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ElementValues getIteratedValues()
   {
     return iteratedValues;
@@ -141,6 +142,7 @@ public class ForOrForAllStatementImpl extends LoopStatementImpl implements ForOr
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setIteratedValues(ElementValues newIteratedValues)
   {
     if (newIteratedValues != iteratedValues)
@@ -162,6 +164,7 @@ public class ForOrForAllStatementImpl extends LoopStatementImpl implements ForOr
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isForAll()
   {
     return forAll;
@@ -172,6 +175,7 @@ public class ForOrForAllStatementImpl extends LoopStatementImpl implements ForOr
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setForAll(boolean newForAll)
   {
     boolean oldForAll = forAll;
@@ -185,6 +189,7 @@ public class ForOrForAllStatementImpl extends LoopStatementImpl implements ForOr
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public IterativeVariable getIterativeVariable()
   {
     return iterativeVariable;
@@ -212,6 +217,7 @@ public class ForOrForAllStatementImpl extends LoopStatementImpl implements ForOr
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setIterativeVariable(IterativeVariable newIterativeVariable)
   {
     if (newIterativeVariable != iterativeVariable)
@@ -342,7 +348,7 @@ public class ForOrForAllStatementImpl extends LoopStatementImpl implements ForOr
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (forAll: ");
     result.append(forAll);
     result.append(')');

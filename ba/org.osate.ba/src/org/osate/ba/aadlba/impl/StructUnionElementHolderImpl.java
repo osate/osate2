@@ -44,10 +44,10 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.StructUnionElementHolderImpl#getArrayIndexes <em>Array Indexes</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -89,6 +89,7 @@ public class StructUnionElementHolderImpl extends DataHolderImpl implements Stru
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<IntegerValue> getArrayIndexes()
   {
     if (arrayIndexes == null)
@@ -103,6 +104,7 @@ public class StructUnionElementHolderImpl extends DataHolderImpl implements Stru
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetArrayIndexes()
   {
     if (arrayIndexes != null) ((InternalEList.Unsettable<?>)arrayIndexes).unset();
@@ -113,6 +115,7 @@ public class StructUnionElementHolderImpl extends DataHolderImpl implements Stru
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetArrayIndexes()
   {
     return arrayIndexes != null && ((InternalEList.Unsettable<?>)arrayIndexes).isSet();
@@ -123,6 +126,7 @@ public class StructUnionElementHolderImpl extends DataHolderImpl implements Stru
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setStructUnionElement(final StructUnionElement structUnionElement )
   {
     element = structUnionElement ;
@@ -133,6 +137,7 @@ public class StructUnionElementHolderImpl extends DataHolderImpl implements Stru
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public StructUnionElement getStructUnionElement()
   {
     return (StructUnionElement) element;
