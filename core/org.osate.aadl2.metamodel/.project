@@ -7,6 +7,5 @@
 	<buildSpec>
 	</buildSpec>
 	<natures>
-		<nature>org.topcased.core.topcasednature</nature>
 	</natures>
 </projectDescription>

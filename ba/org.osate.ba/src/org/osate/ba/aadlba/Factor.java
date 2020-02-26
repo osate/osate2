@@ -29,6 +29,7 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.Factor#getFirstValue <em>First Value</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.Factor#getSecondValue <em>Second Value</em>}</li>
@@ -36,13 +37,12 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *   <li>{@link org.osate.ba.aadlba.Factor#getUnaryNumericOperator <em>Unary Numeric Operator</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.Factor#getUnaryBooleanOperator <em>Unary Boolean Operator</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getFactor()
  * @model
  * @generated
  */
-public interface Factor extends BehaviorElement, IBAVisitable
+public interface Factor extends BehaviorElement
 {
   /**
    * Returns the value of the '<em><b>First Value</b></em>' containment reference.

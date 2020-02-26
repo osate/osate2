@@ -39,10 +39,10 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.DispatchConjunctionImpl#getDispatchTriggers <em>Dispatch Triggers</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -84,6 +84,7 @@ public class DispatchConjunctionImpl extends BehaviorElementImpl implements Disp
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<DispatchTrigger> getDispatchTriggers()
   {
     if (dispatchTriggers == null)
@@ -98,6 +99,7 @@ public class DispatchConjunctionImpl extends BehaviorElementImpl implements Disp
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetDispatchTriggers()
   {
     if (dispatchTriggers != null) ((InternalEList.Unsettable<?>)dispatchTriggers).unset();
@@ -108,6 +110,7 @@ public class DispatchConjunctionImpl extends BehaviorElementImpl implements Disp
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetDispatchTriggers()
   {
     return dispatchTriggers != null && ((InternalEList.Unsettable<?>)dispatchTriggers).isSet();

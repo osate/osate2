@@ -32,6 +32,6 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface CompletionRelativeTimeout extends BehaviorTime, DispatchRelativeTimeout, IBAVisitable
+public interface CompletionRelativeTimeout extends BehaviorTime, DispatchRelativeTimeout
 {
 } // CompletionRelativeTimeout

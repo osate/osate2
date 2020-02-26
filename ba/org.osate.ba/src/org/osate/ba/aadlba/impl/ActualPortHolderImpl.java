@@ -30,8 +30,6 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Actual Port Holder</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
@@ -63,6 +61,7 @@ public abstract class ActualPortHolderImpl extends PortHolderImpl implements Act
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setPort(final Port port )
   {
     element = port ;
@@ -73,6 +72,7 @@ public abstract class ActualPortHolderImpl extends PortHolderImpl implements Act
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Port getPort()
   {
     return (Port) element;

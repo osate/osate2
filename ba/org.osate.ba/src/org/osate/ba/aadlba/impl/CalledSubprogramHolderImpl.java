@@ -46,12 +46,12 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.CalledSubprogramHolderImpl#getElement <em>Element</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.CalledSubprogramHolderImpl#getArrayIndexes <em>Array Indexes</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.CalledSubprogramHolderImpl#getGroupHolders <em>Group Holders</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -113,6 +113,7 @@ public class CalledSubprogramHolderImpl extends BehaviorElementImpl implements C
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public NamedElement getElement()
   {
     if (element != null && ((EObject)element).eIsProxy())
@@ -143,6 +144,7 @@ public class CalledSubprogramHolderImpl extends BehaviorElementImpl implements C
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setElement(NamedElement newElement)
   {
     NamedElement oldElement = element;
@@ -156,6 +158,7 @@ public class CalledSubprogramHolderImpl extends BehaviorElementImpl implements C
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<IntegerValue> getArrayIndexes()
   {
     if (arrayIndexes == null)
@@ -170,6 +173,7 @@ public class CalledSubprogramHolderImpl extends BehaviorElementImpl implements C
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetArrayIndexes()
   {
     if (arrayIndexes != null) ((InternalEList.Unsettable<?>)arrayIndexes).unset();
@@ -180,6 +184,7 @@ public class CalledSubprogramHolderImpl extends BehaviorElementImpl implements C
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetArrayIndexes()
   {
     return arrayIndexes != null && ((InternalEList.Unsettable<?>)arrayIndexes).isSet();
@@ -190,6 +195,7 @@ public class CalledSubprogramHolderImpl extends BehaviorElementImpl implements C
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<GroupHolder> getGroupHolders()
   {
     if (groupHolders == null)
@@ -204,6 +210,7 @@ public class CalledSubprogramHolderImpl extends BehaviorElementImpl implements C
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetGroupHolders()
   {
     if (groupHolders != null) ((InternalEList.Unsettable<?>)groupHolders).unset();
@@ -214,6 +221,7 @@ public class CalledSubprogramHolderImpl extends BehaviorElementImpl implements C
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetGroupHolders()
   {
     return groupHolders != null && ((InternalEList.Unsettable<?>)groupHolders).isSet();

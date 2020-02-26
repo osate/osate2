@@ -30,17 +30,17 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.BehaviorPropertyConstant#getProperty <em>Property</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.BehaviorPropertyConstant#getPropertySet <em>Property Set</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorPropertyConstant()
  * @model
  * @generated
  */
-public interface BehaviorPropertyConstant extends ValueConstant, IntegerValueConstant, IBAVisitable
+public interface BehaviorPropertyConstant extends ValueConstant, IntegerValueConstant
 {
   /**
    * Returns the value of the '<em><b>Property</b></em>' reference.
