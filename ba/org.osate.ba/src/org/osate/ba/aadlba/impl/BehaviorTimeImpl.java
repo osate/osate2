@@ -38,11 +38,11 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorTimeImpl#getIntegerValue <em>Integer Value</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorTimeImpl#getUnit <em>Unit</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -94,6 +94,7 @@ public class BehaviorTimeImpl extends BehaviorElementImpl implements BehaviorTim
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public IntegerValue getIntegerValue()
   {
     return integerValue;
@@ -121,6 +122,7 @@ public class BehaviorTimeImpl extends BehaviorElementImpl implements BehaviorTim
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setIntegerValue(IntegerValue newIntegerValue)
   {
     if (newIntegerValue != integerValue)
@@ -142,6 +144,7 @@ public class BehaviorTimeImpl extends BehaviorElementImpl implements BehaviorTim
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public UnitLiteral getUnit()
   {
     if (unit != null && ((EObject)unit).eIsProxy())
@@ -172,6 +175,7 @@ public class BehaviorTimeImpl extends BehaviorElementImpl implements BehaviorTim
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setUnit(UnitLiteral newUnit)
   {
     UnitLiteral oldUnit = unit;

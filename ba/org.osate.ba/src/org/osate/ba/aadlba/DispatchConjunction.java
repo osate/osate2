@@ -29,16 +29,16 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.DispatchConjunction#getDispatchTriggers <em>Dispatch Triggers</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getDispatchConjunction()
  * @model
  * @generated
  */
-public interface DispatchConjunction extends BehaviorElement, IBAVisitable
+public interface DispatchConjunction extends BehaviorElement
 {
   /**
    * Returns the value of the '<em><b>Dispatch Triggers</b></em>' containment reference list.

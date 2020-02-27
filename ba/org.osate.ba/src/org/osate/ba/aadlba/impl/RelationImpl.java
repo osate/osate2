@@ -37,12 +37,12 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.RelationImpl#getFirstExpression <em>First Expression</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.RelationImpl#getSecondExpression <em>Second Expression</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.RelationImpl#getRelationalOperator <em>Relational Operator</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -123,6 +123,7 @@ public class RelationImpl extends BehaviorElementImpl implements Relation
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public SimpleExpression getFirstExpression()
   {
     return firstExpression;
@@ -150,6 +151,7 @@ public class RelationImpl extends BehaviorElementImpl implements Relation
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setFirstExpression(SimpleExpression newFirstExpression)
   {
     if (newFirstExpression != firstExpression)
@@ -171,6 +173,7 @@ public class RelationImpl extends BehaviorElementImpl implements Relation
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public SimpleExpression getSecondExpression()
   {
     return secondExpression;
@@ -198,6 +201,7 @@ public class RelationImpl extends BehaviorElementImpl implements Relation
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setSecondExpression(SimpleExpression newSecondExpression)
   {
     if (newSecondExpression != secondExpression)
@@ -219,6 +223,7 @@ public class RelationImpl extends BehaviorElementImpl implements Relation
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public RelationalOperator getRelationalOperator()
   {
     return relationalOperator;
@@ -229,6 +234,7 @@ public class RelationImpl extends BehaviorElementImpl implements Relation
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setRelationalOperator(RelationalOperator newRelationalOperator)
   {
     RelationalOperator oldRelationalOperator = relationalOperator;
@@ -244,6 +250,7 @@ public class RelationImpl extends BehaviorElementImpl implements Relation
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetRelationalOperator()
   {
     RelationalOperator oldRelationalOperator = relationalOperator;
@@ -259,6 +266,7 @@ public class RelationImpl extends BehaviorElementImpl implements Relation
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetRelationalOperator()
   {
     return relationalOperatorESet;
@@ -378,7 +386,7 @@ public class RelationImpl extends BehaviorElementImpl implements Relation
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (relationalOperator: ");
     if (relationalOperatorESet) result.append(relationalOperator); else result.append("<unset>");
     result.append(')');

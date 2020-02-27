@@ -33,14 +33,13 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface PropertyAssociationHolder extends PropertyElementHolder, IBAVisitable
+public interface PropertyAssociationHolder extends PropertyElementHolder
 {
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model propertyAssociationRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = propertyAssociation ;'"
    * @generated
    */
   void setPropertyAssociation(PropertyAssociation propertyAssociation);
@@ -49,7 +48,6 @@ public interface PropertyAssociationHolder extends PropertyElementHolder, IBAVis
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (PropertyAssociation) element;'"
    * @generated
    */
   PropertyAssociation getPropertyAssociation();

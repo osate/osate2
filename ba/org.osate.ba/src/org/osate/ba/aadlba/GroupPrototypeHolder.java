@@ -31,16 +31,16 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.GroupPrototypeHolder#getPrototypeBinding <em>Prototype Binding</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getGroupPrototypeHolder()
  * @model
  * @generated
  */
-public interface GroupPrototypeHolder extends GroupHolder, IBAVisitable
+public interface GroupPrototypeHolder extends GroupHolder
 {
 
   /**
@@ -73,7 +73,6 @@ public interface GroupPrototypeHolder extends GroupHolder, IBAVisitable
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model prototypeRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = prototype ;'"
    * @generated
    */
   void setPrototype(Prototype prototype);
@@ -82,7 +81,6 @@ public interface GroupPrototypeHolder extends GroupHolder, IBAVisitable
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (Prototype) element;'"
    * @generated
    */
   Prototype getPrototype();

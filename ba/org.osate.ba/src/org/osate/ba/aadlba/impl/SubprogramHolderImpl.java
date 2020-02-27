@@ -30,8 +30,6 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Subprogram Holder</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
@@ -63,6 +61,7 @@ public class SubprogramHolderImpl extends CalledSubprogramHolderImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setSubprogram(final Subprogram subprogram )
   {
     element = subprogram ;
@@ -73,6 +72,7 @@ public class SubprogramHolderImpl extends CalledSubprogramHolderImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Subprogram getSubprogram()
   {
     return (Subprogram) element;

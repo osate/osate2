@@ -56,6 +56,7 @@ import org.osate.aadl2.NumberValue ;
 import org.osate.aadl2.Parameter ;
 import org.osate.aadl2.Port ;
 import org.osate.aadl2.ProcessorClassifier ;
+import org.osate.aadl2.Property ;
 import org.osate.aadl2.PropertyAssociation ;
 import org.osate.aadl2.PropertyConstant ;
 import org.osate.aadl2.PropertyExpression ;
@@ -173,7 +174,7 @@ public class AadlBaTypeChecker
       uccr = (QualifiedNamedElement) bv.getDataClassifier() ;
       
       DataClassifier dc = (DataClassifier) 
-           uniqueComponentClassifierReferenceResolver(uccr,
+           uniqueNamedElementReferenceResolver(uccr,
                                                       TypeCheckRule.DATA_UCCR) ;
       
       _hl.addToHyperlinking(uccr.getAadlBaLocationReference(),
@@ -181,6 +182,13 @@ public class AadlBaTypeChecker
       
       result &= dc != null ;
       bv.setDataClassifier(dc) ;
+      
+      for(PropertyAssociation pa : bv.getOwnedPropertyAssociations())
+      {
+        Property p = (Property) uniqueNamedElementReferenceResolver((QualifiedNamedElement)pa.getProperty(),
+                                                                           TypeCheckRule.PROPERTY);
+        pa.setProperty(p);
+      }
       
       ListIterator<ArrayDimension> it = bv.getArrayDimensions().listIterator() ;
       
@@ -220,8 +228,7 @@ public class AadlBaTypeChecker
     return sb.toString() ;
   }
   
-  private Classifier uniqueComponentClassifierReferenceResolver
-                                                     (QualifiedNamedElement qne,
+  private Element uniqueNamedElementReferenceResolver(QualifiedNamedElement qne,
                                                       TypeCheckRule rule)
   {
     String unparsed = unparseQualifiedNamedElement(qne) ;
@@ -230,7 +237,7 @@ public class AadlBaTypeChecker
     
     if(succeed)
     {
-      return ((Classifier) qne.getOsateRef()) ;
+      return qne.getOsateRef() ;
     }
     else
     {
@@ -2042,7 +2049,7 @@ public class AadlBaTypeChecker
     
     // The statement's unique component reference reference has to be   
     // data classifier.
-    Classifier dataClassifier = uniqueComponentClassifierReferenceResolver(qne,
+    Classifier dataClassifier = (Classifier) uniqueNamedElementReferenceResolver(qne,
                                                       TypeCheckRule.DATA_UCCR) ;
     
     itVar.setDataClassifier((DataClassifier) dataClassifier) ;
@@ -2260,7 +2267,7 @@ public class AadlBaTypeChecker
       for(int i = 0 ; i < qnes.size() ; i++)
       {
         qne = (QualifiedNamedElement) qnes.get(i) ;
-        tmp = uniqueComponentClassifierReferenceResolver(qne,
+        tmp = (Classifier) uniqueNamedElementReferenceResolver(qne,
                                                  TypeCheckRule.PROCESSOR_RULE) ;
         if(tmp != null)
         {
@@ -2374,11 +2381,27 @@ public class AadlBaTypeChecker
       tmp.setEventDataPort((EventDataPort)qne.getOsateRef()) ;
       return portSendActionResolver(tmp, comAct) ;
     }
+    else if(qne.getOsateRef() instanceof SubprogramAccess)
+    {
+      SubprogramAccessHolder sah = _fact.createSubprogramAccessHolder();
+      sah.setSubprogramAccess((SubprogramAccess) qne.getOsateRef());
+      List<ElementHolder> refs = new ArrayList<ElementHolder>();
+      refs.add(sah);
+      return subprogramCallActionResolver(refs, comAct);
+    }
+    else if(qne.getOsateRef() instanceof SubprogramSubcomponent)
+    {
+      SubprogramSubcomponentHolder ssh = _fact.createSubprogramSubcomponentHolder();
+      ssh.setSubprogramSubcomponent((SubprogramSubcomponent) qne.getOsateRef());
+      List<ElementHolder> refs = new ArrayList<ElementHolder>();
+      refs.add(ssh);
+      return subprogramCallActionResolver(refs, comAct);
+    }
     else
     {
       TypeCheckRule rule = TypeCheckRule.SUBPROGRAM_UCCR ; 
       Subprogram sub = (Subprogram) 
-          uniqueComponentClassifierReferenceResolver(qne, rule) ;
+          uniqueNamedElementReferenceResolver(qne, rule) ;
       if(sub != null)
       {
         // Gets subprogram type.
