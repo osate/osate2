@@ -112,6 +112,12 @@ censes only apply to the Third Party Software and not any other portion of this 
 		</topic>
 		<topic label="Highlighting Flow Implementations and End-to-End Flow Specifications" href="docs-gen/user_guide.html#highlighting-flow-implementations-and-end-to-end-flow-specifications">
 		</topic>
+		<topic label="Showing Flow Implementation and End-to-End Flow Specification Segments" href="docs-gen/user_guide.html#showing-flow-implementation-and-end-to-end-flow-specification-segments">
+		</topic>
+		<topic label="Highlighting In Mode Elements" href="docs-gen/user_guide.html#highlighting-in-mode-elements">
+		</topic>
+		<topic label="Showing In Mode Elements" href="docs-gen/user_guide.html#showing-in-mode-elements">
+		</topic>
 		<topic label="Moving Shapes Using Arrow Keys" href="docs-gen/user_guide.html#moving-shapes-using-arrow-keys">
 		</topic>
 		<topic label="Restore Missing Diagram Elements" href="docs-gen/user_guide.html#sec:restore_missing_diagram_elements">
