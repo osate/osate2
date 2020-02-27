@@ -1743,6 +1743,17 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * @generated
    */
   @Override
+  public EReference getBehaviorVariable_OwnedPropertyAssociations()
+  {
+    return (EReference)behaviorVariableEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EClass getBehaviorVariableHolder()
   {
     return behaviorVariableHolderEClass;
@@ -2953,6 +2964,17 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * @generated
    */
   @Override
+  public EReference getStructUnionElementHolder_StructUnionElement()
+  {
+    return (EReference)structUnionElementHolderEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EClass getSubprogramAccessHolder()
   {
     return subprogramAccessHolderEClass;
@@ -3690,6 +3712,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 
     behaviorVariableEClass = createEClass(BEHAVIOR_VARIABLE);
     createEReference(behaviorVariableEClass, BEHAVIOR_VARIABLE__DATA_CLASSIFIER);
+    createEReference(behaviorVariableEClass, BEHAVIOR_VARIABLE__OWNED_PROPERTY_ASSOCIATIONS);
 
     behaviorVariableHolderEClass = createEClass(BEHAVIOR_VARIABLE_HOLDER);
 
@@ -3882,6 +3905,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     createEReference(structUnionElementEClass, STRUCT_UNION_ELEMENT__DATA_CLASSIFIER);
 
     structUnionElementHolderEClass = createEClass(STRUCT_UNION_ELEMENT_HOLDER);
+    createEReference(structUnionElementHolderEClass, STRUCT_UNION_ELEMENT_HOLDER__STRUCT_UNION_ELEMENT);
 
     subcomponentHolderEClass = createEClass(SUBCOMPONENT_HOLDER);
 
@@ -4024,6 +4048,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     behaviorTransitionEClass.getESuperTypes().add(this.getBehaviorNamedElement());
     behaviorVariableEClass.getESuperTypes().add(this.getBehaviorNamedElement());
     behaviorVariableEClass.getESuperTypes().add(theAadl2Package.getArrayableElement());
+    behaviorVariableEClass.getESuperTypes().add(theAadl2Package.getData());
     behaviorVariableHolderEClass.getESuperTypes().add(this.getDataHolder());
     behaviorVariableHolderEClass.getESuperTypes().add(this.getIndexableElement());
     behaviorVariableHolderEClass.getESuperTypes().add(this.getTarget());
@@ -4077,9 +4102,11 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     eventDataPortHolderEClass.getESuperTypes().add(this.getActualPortHolder());
     eventDataPortHolderEClass.getESuperTypes().add(this.getElementValues());
     eventDataPortHolderEClass.getESuperTypes().add(this.getDispatchTrigger());
+    eventDataPortHolderEClass.getESuperTypes().add(this.getModeSwitchTrigger());
     eventDataPortHolderEClass.getESuperTypes().add(this.getTarget());
     eventPortHolderEClass.getESuperTypes().add(this.getActualPortHolder());
     eventPortHolderEClass.getESuperTypes().add(this.getDispatchTrigger());
+    eventPortHolderEClass.getESuperTypes().add(this.getModeSwitchTrigger());
     eventPortHolderEClass.getESuperTypes().add(this.getTarget());
     executeConditionEClass.getESuperTypes().add(this.getBehaviorCondition());
     executionTimeoutCatchEClass.getESuperTypes().add(this.getExecuteCondition());
@@ -4181,7 +4208,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     valueVariableEClass.getESuperTypes().add(this.getValue());
     whileOrDoUntilStatementEClass.getESuperTypes().add(this.getLoopStatement());
     modeSwitchTriggerLogicalExpressionEClass.getESuperTypes().add(this.getModeSwitchTriggerCondition());
-    modeSwitchTriggerConditionEClass.getESuperTypes().add(this.getBehaviorElement());
+    modeSwitchTriggerConditionEClass.getESuperTypes().add(this.getBehaviorCondition());
     modeSwitchConjunctionEClass.getESuperTypes().add(this.getBehaviorElement());
     modeSwitchTriggerEClass.getESuperTypes().add(this.getBehaviorElement());
 
@@ -4270,6 +4297,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 
     initEClass(behaviorVariableEClass, BehaviorVariable.class, "BehaviorVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getBehaviorVariable_DataClassifier(), theAadl2Package.getDataClassifier(), null, "dataClassifier", null, 1, 1, BehaviorVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getBehaviorVariable_OwnedPropertyAssociations(), theAadl2Package.getPropertyAssociation(), null, "ownedPropertyAssociations", null, 0, -1, BehaviorVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(behaviorVariableHolderEClass, BehaviorVariableHolder.class, "BehaviorVariableHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -4547,11 +4575,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     initEReference(getStructUnionElement_DataClassifier(), theAadl2Package.getDataClassifier(), null, "dataClassifier", null, 1, 1, StructUnionElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(structUnionElementHolderEClass, StructUnionElementHolder.class, "StructUnionElementHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    op = addEOperation(structUnionElementHolderEClass, null, "setStructUnionElement", 1, 1, IS_UNIQUE, IS_ORDERED);
-    addEParameter(op, this.getStructUnionElement(), "structUnionElement", 1, 1, IS_UNIQUE, IS_ORDERED);
-
-    addEOperation(structUnionElementHolderEClass, this.getStructUnionElement(), "getStructUnionElement", 1, 1, IS_UNIQUE, IS_ORDERED);
+    initEReference(getStructUnionElementHolder_StructUnionElement(), this.getStructUnionElement(), null, "structUnionElement", null, 1, 1, StructUnionElementHolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(subcomponentHolderEClass, SubcomponentHolder.class, "SubcomponentHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

@@ -43,12 +43,12 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.SubprogramCallActionImpl#getSubprogram <em>Subprogram</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.SubprogramCallActionImpl#getParameterLabels <em>Parameter Labels</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.SubprogramCallActionImpl#getProxy <em>Proxy</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -110,6 +110,7 @@ public class SubprogramCallActionImpl extends BehaviorElementImpl implements Sub
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public CalledSubprogramHolder getSubprogram()
   {
     return subprogram;
@@ -137,6 +138,7 @@ public class SubprogramCallActionImpl extends BehaviorElementImpl implements Sub
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setSubprogram(CalledSubprogramHolder newSubprogram)
   {
     if (newSubprogram != subprogram)
@@ -158,6 +160,7 @@ public class SubprogramCallActionImpl extends BehaviorElementImpl implements Sub
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ParameterLabel> getParameterLabels()
   {
     if (parameterLabels == null)
@@ -172,6 +175,7 @@ public class SubprogramCallActionImpl extends BehaviorElementImpl implements Sub
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetParameterLabels()
   {
     if (parameterLabels != null) ((InternalEList.Unsettable<?>)parameterLabels).unset();
@@ -182,6 +186,7 @@ public class SubprogramCallActionImpl extends BehaviorElementImpl implements Sub
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetParameterLabels()
   {
     return parameterLabels != null && ((InternalEList.Unsettable<?>)parameterLabels).isSet();
@@ -192,6 +197,7 @@ public class SubprogramCallActionImpl extends BehaviorElementImpl implements Sub
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public SubprogramHolderProxy getProxy()
   {
     return proxy;
@@ -219,6 +225,7 @@ public class SubprogramCallActionImpl extends BehaviorElementImpl implements Sub
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setProxy(SubprogramHolderProxy newProxy)
   {
     if (newProxy != proxy)

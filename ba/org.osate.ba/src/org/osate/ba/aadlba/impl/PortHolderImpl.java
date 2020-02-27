@@ -52,12 +52,12 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.PortHolderImpl#getElement <em>Element</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.PortHolderImpl#getArrayIndexes <em>Array Indexes</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.PortHolderImpl#getGroupHolders <em>Group Holders</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -119,6 +119,7 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<IntegerValue> getArrayIndexes()
   {
     if (arrayIndexes == null)
@@ -133,6 +134,7 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetArrayIndexes()
   {
     if (arrayIndexes != null) ((InternalEList.Unsettable<?>)arrayIndexes).unset();
@@ -143,6 +145,7 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetArrayIndexes()
   {
     return arrayIndexes != null && ((InternalEList.Unsettable<?>)arrayIndexes).isSet();
@@ -153,6 +156,7 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public NamedElement getElement()
   {
     if (element != null && ((EObject)element).eIsProxy())
@@ -183,6 +187,7 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setElement(NamedElement newElement)
   {
     NamedElement oldElement = element;
@@ -196,6 +201,7 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<GroupHolder> getGroupHolders()
   {
     if (groupHolders == null)
@@ -210,6 +216,7 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetGroupHolders()
   {
     if (groupHolders != null) ((InternalEList.Unsettable<?>)groupHolders).unset();
@@ -220,6 +227,7 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetGroupHolders()
   {
     return groupHolders != null && ((InternalEList.Unsettable<?>)groupHolders).isSet();
@@ -230,6 +238,7 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setFeature(final Feature feature)
   {
     element = feature ;
@@ -240,6 +249,7 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Feature getFeature()
   {
     return (Feature) element;
@@ -250,6 +260,7 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setClassifierFeature(final ClassifierFeature classifierFeature)
   {
     element = classifierFeature ;
@@ -260,6 +271,7 @@ public abstract class PortHolderImpl extends BehaviorElementImpl implements Port
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ClassifierFeature getClassifierFeature()
   {
     return (ClassifierFeature) element;

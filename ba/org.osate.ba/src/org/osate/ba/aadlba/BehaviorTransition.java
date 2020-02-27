@@ -29,6 +29,7 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.BehaviorTransition#getSourceState <em>Source State</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.BehaviorTransition#getCondition <em>Condition</em>}</li>
@@ -36,13 +37,12 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *   <li>{@link org.osate.ba.aadlba.BehaviorTransition#getActionBlock <em>Action Block</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.BehaviorTransition#getPriority <em>Priority</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorTransition()
  * @model
  * @generated
  */
-public interface BehaviorTransition extends BehaviorNamedElement, IBAVisitable
+public interface BehaviorTransition extends BehaviorNamedElement
 {
   /**
    * Returns the value of the '<em><b>Source State</b></em>' reference.

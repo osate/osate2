@@ -2462,13 +2462,22 @@ public interface AadlBaPackage extends EPackage
   int BEHAVIOR_VARIABLE__DATA_CLASSIFIER = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 1;
 
   /**
+   * The feature id for the '<em><b>Owned Property Associations</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BEHAVIOR_VARIABLE__OWNED_PROPERTY_ASSOCIATIONS = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 2;
+
+  /**
    * The number of structural features of the '<em>Behavior Variable</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int BEHAVIOR_VARIABLE_FEATURE_COUNT = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 2;
+  int BEHAVIOR_VARIABLE_FEATURE_COUNT = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -5746,13 +5755,22 @@ public interface AadlBaPackage extends EPackage
   int STRUCT_UNION_ELEMENT_HOLDER__ARRAY_INDEXES = DATA_HOLDER_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Struct Union Element</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STRUCT_UNION_ELEMENT_HOLDER__STRUCT_UNION_ELEMENT = DATA_HOLDER_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>Struct Union Element Holder</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int STRUCT_UNION_ELEMENT_HOLDER_FEATURE_COUNT = DATA_HOLDER_FEATURE_COUNT + 1;
+  int STRUCT_UNION_ELEMENT_HOLDER_FEATURE_COUNT = DATA_HOLDER_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -6374,7 +6392,7 @@ public interface AadlBaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MODE_SWITCH_TRIGGER_CONDITION__OWNED_ELEMENT = BEHAVIOR_ELEMENT__OWNED_ELEMENT;
+  int MODE_SWITCH_TRIGGER_CONDITION__OWNED_ELEMENT = BEHAVIOR_CONDITION__OWNED_ELEMENT;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -6383,7 +6401,7 @@ public interface AadlBaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MODE_SWITCH_TRIGGER_CONDITION__OWNED_COMMENT = BEHAVIOR_ELEMENT__OWNED_COMMENT;
+  int MODE_SWITCH_TRIGGER_CONDITION__OWNED_COMMENT = BEHAVIOR_CONDITION__OWNED_COMMENT;
 
   /**
    * The number of structural features of the '<em>Mode Switch Trigger Condition</em>' class.
@@ -6392,7 +6410,7 @@ public interface AadlBaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MODE_SWITCH_TRIGGER_CONDITION_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 0;
+  int MODE_SWITCH_TRIGGER_CONDITION_FEATURE_COUNT = BEHAVIOR_CONDITION_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link org.osate.ba.aadlba.impl.ModeSwitchTriggerLogicalExpressionImpl <em>Mode Switch Trigger Logical Expression</em>}' class.
@@ -7207,6 +7225,17 @@ public interface AadlBaPackage extends EPackage
    * @generated
    */
   EReference getBehaviorVariable_DataClassifier();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.ba.aadlba.BehaviorVariable#getOwnedPropertyAssociations <em>Owned Property Associations</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Owned Property Associations</em>'.
+   * @see org.osate.ba.aadlba.BehaviorVariable#getOwnedPropertyAssociations()
+   * @see #getBehaviorVariable()
+   * @generated
+   */
+  EReference getBehaviorVariable_OwnedPropertyAssociations();
 
   /**
    * Returns the meta object for class '{@link org.osate.ba.aadlba.BehaviorVariableHolder <em>Behavior Variable Holder</em>}'.
@@ -8350,6 +8379,17 @@ public interface AadlBaPackage extends EPackage
   EClass getStructUnionElementHolder();
 
   /**
+   * Returns the meta object for the containment reference '{@link org.osate.ba.aadlba.StructUnionElementHolder#getStructUnionElement <em>Struct Union Element</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Struct Union Element</em>'.
+   * @see org.osate.ba.aadlba.StructUnionElementHolder#getStructUnionElement()
+   * @see #getStructUnionElementHolder()
+   * @generated
+   */
+  EReference getStructUnionElementHolder_StructUnionElement();
+
+  /**
    * Returns the meta object for class '{@link org.osate.ba.aadlba.SubprogramAccessHolder <em>Subprogram Access Holder</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -9431,6 +9471,14 @@ public interface AadlBaPackage extends EPackage
     EReference BEHAVIOR_VARIABLE__DATA_CLASSIFIER = eINSTANCE.getBehaviorVariable_DataClassifier();
 
     /**
+     * The meta object literal for the '<em><b>Owned Property Associations</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference BEHAVIOR_VARIABLE__OWNED_PROPERTY_ASSOCIATIONS = eINSTANCE.getBehaviorVariable_OwnedPropertyAssociations();
+
+    /**
      * The meta object literal for the '{@link org.osate.ba.aadlba.impl.BehaviorVariableHolderImpl <em>Behavior Variable Holder</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -10447,6 +10495,14 @@ public interface AadlBaPackage extends EPackage
      * @generated
      */
     EClass STRUCT_UNION_ELEMENT_HOLDER = eINSTANCE.getStructUnionElementHolder();
+
+    /**
+     * The meta object literal for the '<em><b>Struct Union Element</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference STRUCT_UNION_ELEMENT_HOLDER__STRUCT_UNION_ELEMENT = eINSTANCE.getStructUnionElementHolder_StructUnionElement();
 
     /**
      * The meta object literal for the '{@link org.osate.ba.aadlba.impl.SubprogramAccessHolderImpl <em>Subprogram Access Holder</em>}' class.

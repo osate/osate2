@@ -32,13 +32,12 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface FeatureHolder extends ClassifierFeatureHolder, IndexableElement, GroupableElement, IBAVisitable
+public interface FeatureHolder extends ClassifierFeatureHolder, IndexableElement, GroupableElement
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model featureRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = feature ;'"
    * @generated
    */
   void setFeature(Feature feature);
@@ -47,7 +46,6 @@ public interface FeatureHolder extends ClassifierFeatureHolder, IndexableElement
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (Feature) element;'"
    * @generated
    */
   Feature getFeature();

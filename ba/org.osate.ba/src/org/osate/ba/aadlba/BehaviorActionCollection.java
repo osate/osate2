@@ -29,16 +29,16 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.BehaviorActionCollection#getActions <em>Actions</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorActionCollection()
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface BehaviorActionCollection extends BehaviorActions, IBAVisitable
+public interface BehaviorActionCollection extends BehaviorActions
 {
   /**
    * Returns the value of the '<em><b>Actions</b></em>' containment reference list.

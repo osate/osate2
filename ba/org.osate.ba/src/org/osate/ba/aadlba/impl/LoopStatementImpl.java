@@ -36,10 +36,10 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.LoopStatementImpl#getBehaviorActions <em>Behavior Actions</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -81,6 +81,7 @@ public abstract class LoopStatementImpl extends BehaviorElementImpl implements L
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BehaviorActions getBehaviorActions()
   {
     return behaviorActions;
@@ -108,6 +109,7 @@ public abstract class LoopStatementImpl extends BehaviorElementImpl implements L
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setBehaviorActions(BehaviorActions newBehaviorActions)
   {
     if (newBehaviorActions != behaviorActions)
