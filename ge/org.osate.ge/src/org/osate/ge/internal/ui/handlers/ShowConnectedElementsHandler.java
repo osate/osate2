@@ -74,7 +74,6 @@ import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.util.AadlClassifierUtil;
-import org.osate.ge.internal.util.AadlInstanceObjectUtil;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 
 public class ShowConnectedElementsHandler extends AbstractHandler {
@@ -141,10 +140,11 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 					// Internal Connections to Subcomponent
 					AadlClassifierUtil.getComponentImplementation(selectedBo)
 					.ifPresent(compImpl -> enableSelectedElementConnections(compImpl, selectedNode));
-				} else if (selectedElement.getBusinessObject() instanceof InstanceObject) {
-					AadlInstanceObjectUtil.getComponentInstance(selectedBo).ifPresent(compInstance -> {
+				} else if (selectedBo instanceof InstanceObject) {
+					if (selectedBo instanceof ComponentInstance) {
+						final ComponentInstance compInstance = (ComponentInstance) selectedBo;
 						enableComponentInstanceConnections(compInstance, boTree);
-					});
+					}
 
 					if (selectedBo instanceof ConnectionInstanceEnd) {
 						final InstanceObject selectedConnectionEnd = (InstanceObject) selectedBo;
