@@ -32,6 +32,6 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface DispatchRelativeTimeout extends DispatchTriggerCondition, IBAVisitable
+public interface DispatchRelativeTimeout extends DispatchTriggerCondition
 {
 } // DispatchRelativeTimeout

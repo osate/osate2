@@ -30,10 +30,10 @@ import org.osate.ba.aadlba.BehaviorState ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.declarative.Identifier#getId <em>Id</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.declarative.DeclarativePackage#getIdentifier()
  * @model

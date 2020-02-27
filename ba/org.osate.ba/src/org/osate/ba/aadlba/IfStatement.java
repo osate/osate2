@@ -29,18 +29,18 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.IfStatement#getLogicalValueExpression <em>Logical Value Expression</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.IfStatement#isElif <em>Elif</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.IfStatement#getElseStatement <em>Else Statement</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getIfStatement()
  * @model
  * @generated
  */
-public interface IfStatement extends CondStatement, ElseStatement, IBAVisitable
+public interface IfStatement extends CondStatement, ElseStatement
 {
   /**
    * Returns the value of the '<em><b>Logical Value Expression</b></em>' containment reference.

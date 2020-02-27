@@ -160,7 +160,7 @@ public enum RelationalOperator implements Enumerator
    * </p>
    * <!-- end-user-doc -->
    * @see #LESS_THAN
-   * @model name="LessThan" literal="<"
+   * @model name="LessThan" literal="&lt;"
    * @generated
    * @ordered
    */
@@ -175,7 +175,7 @@ public enum RelationalOperator implements Enumerator
    * </p>
    * <!-- end-user-doc -->
    * @see #LESS_OR_EQUAL_THAN
-   * @model name="LessOrEqualThan" literal="<="
+   * @model name="LessOrEqualThan" literal="&lt;="
    * @generated
    * @ordered
    */
@@ -190,7 +190,7 @@ public enum RelationalOperator implements Enumerator
    * </p>
    * <!-- end-user-doc -->
    * @see #GREATER_THAN
-   * @model name="GreaterThan" literal=">"
+   * @model name="GreaterThan" literal="&gt;"
    * @generated
    * @ordered
    */
@@ -205,7 +205,7 @@ public enum RelationalOperator implements Enumerator
    * </p>
    * <!-- end-user-doc -->
    * @see #GREATER_OR_EQUAL_THAN
-   * @model name="GreaterOrEqualThan" literal=">="
+   * @model name="GreaterOrEqualThan" literal="&gt;="
    * @generated
    * @ordered
    */
@@ -241,6 +241,8 @@ public enum RelationalOperator implements Enumerator
    * Returns the '<em><b>Relational Operator</b></em>' literal with the specified literal value.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
+   * @param literal the literal.
+   * @return the matching enumerator or <code>null</code>.
    * @generated
    */
   public static RelationalOperator get(String literal)
@@ -260,6 +262,8 @@ public enum RelationalOperator implements Enumerator
    * Returns the '<em><b>Relational Operator</b></em>' literal with the specified name.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
+   * @param name the name.
+   * @return the matching enumerator or <code>null</code>.
    * @generated
    */
   public static RelationalOperator getByName(String name)
@@ -279,6 +283,8 @@ public enum RelationalOperator implements Enumerator
    * Returns the '<em><b>Relational Operator</b></em>' literal with the specified integer value.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
+   * @param value the integer value.
+   * @return the matching enumerator or <code>null</code>.
    * @generated
    */
   public static RelationalOperator get(int value)
@@ -335,6 +341,7 @@ public enum RelationalOperator implements Enumerator
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public int getValue()
   {
     return value;
@@ -345,6 +352,7 @@ public enum RelationalOperator implements Enumerator
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getName()
   {
     return name;
@@ -355,6 +363,7 @@ public enum RelationalOperator implements Enumerator
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getLiteral()
   {
     return literal;

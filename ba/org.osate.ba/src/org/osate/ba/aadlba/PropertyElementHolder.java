@@ -29,16 +29,16 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.PropertyElementHolder#getElement <em>Element</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getPropertyElementHolder()
  * @model abstract="true"
  * @generated
  */
-public interface PropertyElementHolder extends BehaviorElement, IndexableElement, IBAVisitable
+public interface PropertyElementHolder extends BehaviorElement, IndexableElement
 {
   /**
    * Returns the value of the '<em><b>Element</b></em>' reference.

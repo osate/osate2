@@ -47,12 +47,12 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.SubcomponentHolderImpl#getElement <em>Element</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.SubcomponentHolderImpl#getArrayIndexes <em>Array Indexes</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.SubcomponentHolderImpl#getGroupHolders <em>Group Holders</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -114,6 +114,7 @@ public class SubcomponentHolderImpl extends BehaviorElementImpl implements Subco
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public NamedElement getElement()
   {
     if (element != null && ((EObject)element).eIsProxy())
@@ -144,6 +145,7 @@ public class SubcomponentHolderImpl extends BehaviorElementImpl implements Subco
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setElement(NamedElement newElement)
   {
     NamedElement oldElement = element;
@@ -157,6 +159,7 @@ public class SubcomponentHolderImpl extends BehaviorElementImpl implements Subco
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<IntegerValue> getArrayIndexes()
   {
     if (arrayIndexes == null)
@@ -171,6 +174,7 @@ public class SubcomponentHolderImpl extends BehaviorElementImpl implements Subco
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetArrayIndexes()
   {
     if (arrayIndexes != null) ((InternalEList.Unsettable<?>)arrayIndexes).unset();
@@ -181,6 +185,7 @@ public class SubcomponentHolderImpl extends BehaviorElementImpl implements Subco
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetArrayIndexes()
   {
     return arrayIndexes != null && ((InternalEList.Unsettable<?>)arrayIndexes).isSet();
@@ -191,6 +196,7 @@ public class SubcomponentHolderImpl extends BehaviorElementImpl implements Subco
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<GroupHolder> getGroupHolders()
   {
     if (groupHolders == null)
@@ -205,6 +211,7 @@ public class SubcomponentHolderImpl extends BehaviorElementImpl implements Subco
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetGroupHolders()
   {
     if (groupHolders != null) ((InternalEList.Unsettable<?>)groupHolders).unset();
@@ -215,6 +222,7 @@ public class SubcomponentHolderImpl extends BehaviorElementImpl implements Subco
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetGroupHolders()
   {
     return groupHolders != null && ((InternalEList.Unsettable<?>)groupHolders).isSet();
@@ -225,6 +233,7 @@ public class SubcomponentHolderImpl extends BehaviorElementImpl implements Subco
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setSubcomponent(final Subcomponent subcomponent)
   {
     element = subcomponent ;
@@ -235,6 +244,7 @@ public class SubcomponentHolderImpl extends BehaviorElementImpl implements Subco
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Subcomponent getSubcomponent()
   {
     return (Subcomponent) element;
@@ -245,6 +255,7 @@ public class SubcomponentHolderImpl extends BehaviorElementImpl implements Subco
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setClassifierFeature(final ClassifierFeature classifierFeature)
   {
     element = classifierFeature ;
@@ -255,6 +266,7 @@ public class SubcomponentHolderImpl extends BehaviorElementImpl implements Subco
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ClassifierFeature getClassifierFeature()
   {
     return (ClassifierFeature) element;

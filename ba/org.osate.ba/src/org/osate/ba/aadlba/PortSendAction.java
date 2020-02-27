@@ -29,17 +29,17 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.PortSendAction#getPort <em>Port</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.PortSendAction#getValueExpression <em>Value Expression</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getPortSendAction()
  * @model
  * @generated
  */
-public interface PortSendAction extends CommunicationAction, IBAVisitable
+public interface PortSendAction extends CommunicationAction
 {
   /**
    * Returns the value of the '<em><b>Port</b></em>' containment reference.

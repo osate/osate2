@@ -29,16 +29,16 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.PropertyReference#getProperties <em>Properties</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getPropertyReference()
  * @model abstract="true"
  * @generated
  */
-public interface PropertyReference extends ValueConstant, IntegerValueConstant, IBAVisitable
+public interface PropertyReference extends ValueConstant, IntegerValueConstant
 {
   /**
    * Returns the value of the '<em><b>Properties</b></em>' containment reference list.

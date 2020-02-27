@@ -41,8 +41,7 @@ public class DeclarativeResourceImpl extends XMLResourceImpl
    * @param uri the URI of the new resource.
    * @generated
    */
-  public DeclarativeResourceImpl(
-                                 URI uri)
+  public DeclarativeResourceImpl(URI uri)
   {
     super(uri) ;
   }
