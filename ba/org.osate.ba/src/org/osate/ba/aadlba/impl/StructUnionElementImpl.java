@@ -37,10 +37,10 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.StructUnionElementImpl#getDataClassifier <em>Data Classifier</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -82,6 +82,7 @@ public class StructUnionElementImpl extends BehaviorNamedElementImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public DataClassifier getDataClassifier()
   {
     if (dataClassifier != null && ((EObject)dataClassifier).eIsProxy())
@@ -112,6 +113,7 @@ public class StructUnionElementImpl extends BehaviorNamedElementImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDataClassifier(DataClassifier newDataClassifier)
   {
     DataClassifier oldDataClassifier = dataClassifier;

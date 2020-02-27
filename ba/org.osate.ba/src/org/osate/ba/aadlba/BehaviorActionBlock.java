@@ -29,17 +29,17 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.BehaviorActionBlock#getContent <em>Content</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.BehaviorActionBlock#getTimeout <em>Timeout</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorActionBlock()
  * @model
  * @generated
  */
-public interface BehaviorActionBlock extends BehaviorAction, BehaviorElement, IBAVisitable
+public interface BehaviorActionBlock extends BehaviorAction, BehaviorElement
 {
   /**
    * Returns the value of the '<em><b>Content</b></em>' containment reference.

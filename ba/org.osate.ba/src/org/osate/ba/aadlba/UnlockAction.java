@@ -32,6 +32,6 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model annotation="documentation documentation='A null data name means that all shared data are unlocked at the end of the critical section'"
  * @generated
  */
-public interface UnlockAction extends SharedDataAction, IBAVisitable
+public interface UnlockAction extends SharedDataAction
 {
 } // UnlockAction

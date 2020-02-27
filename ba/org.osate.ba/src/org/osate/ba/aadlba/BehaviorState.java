@@ -30,6 +30,7 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.BehaviorState#isInitial <em>Initial</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.BehaviorState#isComplete <em>Complete</em>}</li>
@@ -38,13 +39,12 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *   <li>{@link org.osate.ba.aadlba.BehaviorState#getIncomingTransitions <em>Incoming Transitions</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.BehaviorState#getOutgoingTransitions <em>Outgoing Transitions</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorState()
  * @model
  * @generated
  */
-public interface BehaviorState extends BehaviorNamedElement, IBAVisitable
+public interface BehaviorState extends BehaviorNamedElement
 {
   /**
    * Returns the value of the '<em><b>Initial</b></em>' attribute.

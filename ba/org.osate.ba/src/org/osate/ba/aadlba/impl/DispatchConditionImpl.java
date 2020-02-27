@@ -42,11 +42,11 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.DispatchConditionImpl#getDispatchTriggerCondition <em>Dispatch Trigger Condition</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.DispatchConditionImpl#getFrozenPorts <em>Frozen Ports</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -98,6 +98,7 @@ public class DispatchConditionImpl extends BehaviorElementImpl implements Dispat
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public DispatchTriggerCondition getDispatchTriggerCondition()
   {
     return dispatchTriggerCondition;
@@ -125,6 +126,7 @@ public class DispatchConditionImpl extends BehaviorElementImpl implements Dispat
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDispatchTriggerCondition(DispatchTriggerCondition newDispatchTriggerCondition)
   {
     if (newDispatchTriggerCondition != dispatchTriggerCondition)
@@ -146,6 +148,7 @@ public class DispatchConditionImpl extends BehaviorElementImpl implements Dispat
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ActualPortHolder> getFrozenPorts()
   {
     if (frozenPorts == null)
@@ -160,6 +163,7 @@ public class DispatchConditionImpl extends BehaviorElementImpl implements Dispat
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetFrozenPorts()
   {
     if (frozenPorts != null) ((InternalEList.Unsettable<?>)frozenPorts).unset();
@@ -170,6 +174,7 @@ public class DispatchConditionImpl extends BehaviorElementImpl implements Dispat
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetFrozenPorts()
   {
     return frozenPorts != null && ((InternalEList.Unsettable<?>)frozenPorts).isSet();

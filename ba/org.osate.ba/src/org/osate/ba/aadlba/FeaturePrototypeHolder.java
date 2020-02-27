@@ -32,6 +32,6 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface FeaturePrototypeHolder extends DataHolder, PrototypeHolder, Target, ElementValues, IBAVisitable
+public interface FeaturePrototypeHolder extends DataHolder, PrototypeHolder, Target, ElementValues
 {
 } // FeaturePrototypeHolder

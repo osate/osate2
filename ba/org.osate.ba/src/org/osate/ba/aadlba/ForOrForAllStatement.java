@@ -29,18 +29,18 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.ForOrForAllStatement#getIteratedValues <em>Iterated Values</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.ForOrForAllStatement#isForAll <em>For All</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.ForOrForAllStatement#getIterativeVariable <em>Iterative Variable</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getForOrForAllStatement()
  * @model
  * @generated
  */
-public interface ForOrForAllStatement extends LoopStatement, IBAVisitable
+public interface ForOrForAllStatement extends LoopStatement
 {
   /**
    * Returns the value of the '<em><b>Iterated Values</b></em>' containment reference.

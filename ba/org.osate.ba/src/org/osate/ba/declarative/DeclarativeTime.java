@@ -31,18 +31,18 @@ import org.osate.ba.aadlba.CompletionRelativeTimeout ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.declarative.DeclarativeTime#getUnitId <em>Unit Id</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativeTime()
  * @model
  * @generated
  */
 public interface DeclarativeTime extends BehaviorTime,
-                                CompletionRelativeTimeout,
-                                DeclarativeBehaviorElement
+                                 CompletionRelativeTimeout,
+                                 DeclarativeBehaviorElement
 {
   /**
    * Returns the value of the '<em><b>Unit Id</b></em>' containment reference.

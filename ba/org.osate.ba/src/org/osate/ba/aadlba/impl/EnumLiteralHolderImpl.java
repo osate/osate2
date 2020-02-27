@@ -29,8 +29,6 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Enum Literal Holder</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
@@ -62,6 +60,7 @@ public class EnumLiteralHolderImpl extends PropertyElementHolderImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setEnumLiteral(final EnumerationLiteral enumLiteral)
   {
     element = enumLiteral ;
@@ -72,6 +71,7 @@ public class EnumLiteralHolderImpl extends PropertyElementHolderImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EnumerationLiteral getEnumLiteral()
   {
     return (EnumerationLiteral) element;

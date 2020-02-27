@@ -29,16 +29,16 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.SharedDataAction#getDataAccess <em>Data Access</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getSharedDataAction()
  * @model abstract="true"
  * @generated
  */
-public interface SharedDataAction extends CommunicationAction, IBAVisitable
+public interface SharedDataAction extends CommunicationAction
 {
   /**
    * Returns the value of the '<em><b>Data Access</b></em>' containment reference.

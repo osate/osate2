@@ -31,17 +31,17 @@ import org.osate.ba.aadlba.IntegerValueConstant ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.declarative.DeclarativeArrayDimension#getDimension <em>Dimension</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativeArrayDimension()
  * @model
  * @generated
  */
 public interface DeclarativeArrayDimension extends ArrayDimension,
-                                          DeclarativeBehaviorElement
+                                           DeclarativeBehaviorElement
 {
   /**
    * Returns the value of the '<em><b>Dimension</b></em>' containment reference.

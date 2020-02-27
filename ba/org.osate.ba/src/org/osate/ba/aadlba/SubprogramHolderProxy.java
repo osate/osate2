@@ -32,6 +32,6 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface SubprogramHolderProxy extends BehaviorElement, IBAVisitable
+public interface SubprogramHolderProxy extends BehaviorElement
 {
 } // SubprogramHolderProxy

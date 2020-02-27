@@ -32,6 +32,6 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface DispatchTriggerConditionStop extends DispatchTriggerCondition, IBAVisitable
+public interface DispatchTriggerConditionStop extends DispatchTriggerCondition
 {
 } // DispatchTriggerConditionStop
