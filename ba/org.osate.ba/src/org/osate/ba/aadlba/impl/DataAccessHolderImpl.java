@@ -51,11 +51,11 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.DataAccessHolderImpl#getArrayIndexes <em>Array Indexes</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.DataAccessHolderImpl#getGroupHolders <em>Group Holders</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -107,6 +107,7 @@ public class DataAccessHolderImpl extends DataHolderImpl implements DataAccessHo
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<GroupHolder> getGroupHolders()
   {
     if (groupHolders == null)
@@ -121,6 +122,7 @@ public class DataAccessHolderImpl extends DataHolderImpl implements DataAccessHo
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetGroupHolders()
   {
     if (groupHolders != null) ((InternalEList.Unsettable<?>)groupHolders).unset();
@@ -131,6 +133,7 @@ public class DataAccessHolderImpl extends DataHolderImpl implements DataAccessHo
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetGroupHolders()
   {
     return groupHolders != null && ((InternalEList.Unsettable<?>)groupHolders).isSet();
@@ -141,6 +144,7 @@ public class DataAccessHolderImpl extends DataHolderImpl implements DataAccessHo
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<IntegerValue> getArrayIndexes()
   {
     if (arrayIndexes == null)
@@ -155,6 +159,7 @@ public class DataAccessHolderImpl extends DataHolderImpl implements DataAccessHo
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetArrayIndexes()
   {
     if (arrayIndexes != null) ((InternalEList.Unsettable<?>)arrayIndexes).unset();
@@ -165,6 +170,7 @@ public class DataAccessHolderImpl extends DataHolderImpl implements DataAccessHo
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetArrayIndexes()
   {
     return arrayIndexes != null && ((InternalEList.Unsettable<?>)arrayIndexes).isSet();
@@ -175,6 +181,7 @@ public class DataAccessHolderImpl extends DataHolderImpl implements DataAccessHo
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDataAccess(final DataAccess dataAccess )
   {
     element = dataAccess ;
@@ -185,6 +192,7 @@ public class DataAccessHolderImpl extends DataHolderImpl implements DataAccessHo
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public DataAccess getDataAccess()
   {
     return (DataAccess) element;
@@ -195,6 +203,7 @@ public class DataAccessHolderImpl extends DataHolderImpl implements DataAccessHo
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setFeature(final Feature feature)
   {
     element = feature ;
@@ -205,6 +214,7 @@ public class DataAccessHolderImpl extends DataHolderImpl implements DataAccessHo
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Feature getFeature()
   {
     return (Feature) element;
@@ -215,6 +225,7 @@ public class DataAccessHolderImpl extends DataHolderImpl implements DataAccessHo
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setClassifierFeature(final ClassifierFeature classifierFeature)
   {
     element = classifierFeature ;
@@ -225,6 +236,7 @@ public class DataAccessHolderImpl extends DataHolderImpl implements DataAccessHo
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ClassifierFeature getClassifierFeature()
   {
     return (ClassifierFeature) element;

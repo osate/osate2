@@ -193,6 +193,10 @@ censes only apply to the Third Party Software and not any other portion of this 
       		name="Show Elements In Mode">
       </command>
       <command
+            id="org.osate.ge.showConnectedElements"
+            name="Show Connected Elements">
+      </command>
+      <command
             id="org.osate.ge.goToAadlSource"
             name="Go to AADL Source">
       </command>
@@ -479,6 +483,10 @@ censes only apply to the Third Party Software and not any other portion of this 
     <handler
           class="org.osate.ge.internal.ui.handlers.ShowElementsInModeHandler"
           commandId="org.osate.ge.showElementsInMode">
+    </handler>
+    <handler
+          class="org.osate.ge.internal.ui.handlers.ShowConnectedElementsHandler"
+           commandId="org.osate.ge.showConnectedElements">
     </handler>
     <handler
           class="org.osate.ge.internal.ui.handlers.GoToAadlSourceHandler"
@@ -900,7 +908,13 @@ censes only apply to the Third Party Software and not any other portion of this 
        		checkEnabled="true">
        </visibleWhen>
 	</command>
-	
+	<command
+	     commandId="org.osate.ge.showConnectedElements"
+	     style="push">
+    <visibleWhen
+          checkEnabled="true">
+    </visibleWhen>
+	</command>
    <separator
          name="org.osate.ge.sepLayout"
          visible="true">

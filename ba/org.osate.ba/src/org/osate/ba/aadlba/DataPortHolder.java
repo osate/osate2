@@ -32,13 +32,12 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface DataPortHolder extends ActualPortHolder, Target, IBAVisitable
+public interface DataPortHolder extends ActualPortHolder, Target
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model dataPortRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = dataPort ;'"
    * @generated
    */
   void setDataPort(DataPort dataPort);
@@ -47,7 +46,6 @@ public interface DataPortHolder extends ActualPortHolder, Target, IBAVisitable
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (DataPort) element;'"
    * @generated
    */
   DataPort getDataPort();

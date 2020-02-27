@@ -37,11 +37,11 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorPropertyConstantImpl#getProperty <em>Property</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorPropertyConstantImpl#getPropertySet <em>Property Set</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -93,6 +93,7 @@ public class BehaviorPropertyConstantImpl extends BehaviorElementImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyConstant getProperty()
   {
     if (property != null && ((EObject)property).eIsProxy())
@@ -123,6 +124,7 @@ public class BehaviorPropertyConstantImpl extends BehaviorElementImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setProperty(PropertyConstant newProperty)
   {
     PropertyConstant oldProperty = property;
@@ -136,6 +138,7 @@ public class BehaviorPropertyConstantImpl extends BehaviorElementImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertySet getPropertySet()
   {
     if (propertySet != null && ((EObject)propertySet).eIsProxy())
@@ -166,6 +169,7 @@ public class BehaviorPropertyConstantImpl extends BehaviorElementImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setPropertySet(PropertySet newPropertySet)
   {
     PropertySet oldPropertySet = propertySet;

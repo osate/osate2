@@ -1,0 +1,23 @@
+package issue2190_IntegerLiteral
+public
+	with Base_Types;
+	
+	process top
+		features
+			o1: out data port Base_Types::Integer_32;
+
+		annex behavior_specification {**
+          variables
+            tmp : Base_Types::Integer_32 {
+            	Data_Size => 10 Bytes;
+            };
+          states
+            a : initial final state;
+          transitions
+            t : a -[]-> a {
+              o1 := tmp
+            };
+        **};
+	end top;
+	
+end issue2190_IntegerLiteral;

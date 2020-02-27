@@ -32,6 +32,6 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface IntegerValueConstant extends IntegerValue, ValueConstant, IBAVisitable
+public interface IntegerValueConstant extends IntegerValue, ValueConstant
 {
 } // IntegerValueConstant

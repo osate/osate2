@@ -44,12 +44,12 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.SimpleExpressionImpl#getUnaryAddingOperator <em>Unary Adding Operator</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.SimpleExpressionImpl#getTerms <em>Terms</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.SimpleExpressionImpl#getBinaryAddingOperators <em>Binary Adding Operators</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -130,6 +130,7 @@ public class SimpleExpressionImpl extends BehaviorElementImpl implements SimpleE
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public UnaryAddingOperator getUnaryAddingOperator()
   {
     return unaryAddingOperator;
@@ -140,6 +141,7 @@ public class SimpleExpressionImpl extends BehaviorElementImpl implements SimpleE
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setUnaryAddingOperator(UnaryAddingOperator newUnaryAddingOperator)
   {
     UnaryAddingOperator oldUnaryAddingOperator = unaryAddingOperator;
@@ -155,6 +157,7 @@ public class SimpleExpressionImpl extends BehaviorElementImpl implements SimpleE
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetUnaryAddingOperator()
   {
     UnaryAddingOperator oldUnaryAddingOperator = unaryAddingOperator;
@@ -170,6 +173,7 @@ public class SimpleExpressionImpl extends BehaviorElementImpl implements SimpleE
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetUnaryAddingOperator()
   {
     return unaryAddingOperatorESet;
@@ -180,6 +184,7 @@ public class SimpleExpressionImpl extends BehaviorElementImpl implements SimpleE
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Term> getTerms()
   {
     if (terms == null)
@@ -194,6 +199,7 @@ public class SimpleExpressionImpl extends BehaviorElementImpl implements SimpleE
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<BinaryAddingOperator> getBinaryAddingOperators()
   {
     if (binaryAddingOperators == null)
@@ -208,6 +214,7 @@ public class SimpleExpressionImpl extends BehaviorElementImpl implements SimpleE
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetBinaryAddingOperators()
   {
     if (binaryAddingOperators != null) ((InternalEList.Unsettable<?>)binaryAddingOperators).unset();
@@ -218,6 +225,7 @@ public class SimpleExpressionImpl extends BehaviorElementImpl implements SimpleE
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetBinaryAddingOperators()
   {
     return binaryAddingOperators != null && ((InternalEList.Unsettable<?>)binaryAddingOperators).isSet();
@@ -338,7 +346,7 @@ public class SimpleExpressionImpl extends BehaviorElementImpl implements SimpleE
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (unaryAddingOperator: ");
     if (unaryAddingOperatorESet) result.append(unaryAddingOperator); else result.append("<unset>");
     result.append(", binaryAddingOperators: ");

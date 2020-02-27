@@ -32,13 +32,12 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface DataAccessHolder extends DataHolder, Target, ElementValues, SubprogramHolderProxy, FeatureHolder, IBAVisitable
+public interface DataAccessHolder extends DataHolder, Target, ElementValues, SubprogramHolderProxy, FeatureHolder
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model dataAccessRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = dataAccess ;'"
    * @generated
    */
   void setDataAccess(DataAccess dataAccess);
@@ -47,7 +46,6 @@ public interface DataAccessHolder extends DataHolder, Target, ElementValues, Sub
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (DataAccess) element;'"
    * @generated
    */
   DataAccess getDataAccess();

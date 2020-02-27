@@ -32,13 +32,12 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface IterativeVariableHolder extends DataHolder, IBAVisitable
+public interface IterativeVariableHolder extends DataHolder
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model itVRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = itV ;'"
    * @generated
    */
   void setIterativeVariable(IterativeVariable itV);
@@ -47,7 +46,6 @@ public interface IterativeVariableHolder extends DataHolder, IBAVisitable
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (IterativeVariable) element;'"
    * @generated
    */
   IterativeVariable getIterativeVariable();

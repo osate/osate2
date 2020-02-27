@@ -30,8 +30,6 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Iterative Variable Holder</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
@@ -63,6 +61,7 @@ public class IterativeVariableHolderImpl extends DataHolderImpl implements Itera
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setIterativeVariable(final IterativeVariable itV )
   {
     element = itV ;
@@ -73,6 +72,7 @@ public class IterativeVariableHolderImpl extends DataHolderImpl implements Itera
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public IterativeVariable getIterativeVariable()
   {
     return (IterativeVariable) element;

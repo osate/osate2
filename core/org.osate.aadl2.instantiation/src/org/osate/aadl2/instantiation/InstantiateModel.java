@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -290,6 +290,21 @@ public class InstantiateModel {
 	 * @return SystemInstance or <code>null</code> if cancelled.
 	 */
 	public static SystemInstance rebuildInstanceModelFile(final IResource ires) throws Exception {
+		return rebuildInstanceModelFile(ires, new NullProgressMonitor());
+	}
+
+	/**
+	 * This method will construct an instance model, save it on disk and return
+	 * its root object The method will make sure the declarative models are up
+	 * to date.
+	 *
+	 * @param si system implementation
+	 *
+	 * @return SystemInstance or <code>null</code> if cancelled.
+	 * @since 1.1
+	 */
+	public static SystemInstance rebuildInstanceModelFile(final IResource ires, final IProgressMonitor monitor)
+			throws Exception {
 		ires.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
 		ResourceSet rset = new ResourceSetImpl();
 		Resource res = rset.getResource(OsateResourceUtil.toResourceURI(ires), true);
@@ -300,9 +315,12 @@ public class InstantiateModel {
 		res.save(null);
 		res.unload();
 		ci = (ComponentImplementation) rset.getEObject(uri, true);
-		final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
-				new AnalysisErrorReporterManager(
-						new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
+		if (ci == null) {
+			// The root component instance doesn't exist anymore
+			throw new RootMissingException();
+		}
+		final InstantiateModel instantiateModel = new InstantiateModel(monitor, new AnalysisErrorReporterManager(
+				new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 		SystemInstance root = instantiateModel.createSystemInstance(ci, res);
 
 		return root;

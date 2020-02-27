@@ -32,13 +32,12 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface ParameterHolder extends DataHolder, Target, ElementValues, FeatureHolder, IBAVisitable
+public interface ParameterHolder extends DataHolder, Target, ElementValues, FeatureHolder
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model parameterRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = parameter ;'"
    * @generated
    */
   void setParameter(Parameter parameter);
@@ -47,7 +46,6 @@ public interface ParameterHolder extends DataHolder, Target, ElementValues, Feat
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (Parameter) element;'"
    * @generated
    */
   Parameter getParameter();

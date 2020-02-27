@@ -33,14 +33,13 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface PropertyTypeHolder extends PropertyElementHolder, IBAVisitable
+public interface PropertyTypeHolder extends PropertyElementHolder
 {
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model propertyTypeRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = propertyType ;'"
    * @generated
    */
   void setPropertyType(PropertyType propertyType);
@@ -49,7 +48,6 @@ public interface PropertyTypeHolder extends PropertyElementHolder, IBAVisitable
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (PropertyType) element;'"
    * @generated
    */
   PropertyType getPropertyType();

@@ -32,6 +32,6 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface PortDequeueValue extends ActualPortHolder, IBAVisitable
+public interface PortDequeueValue extends ActualPortHolder
 {
 } // PortDequeueValue

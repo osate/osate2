@@ -29,16 +29,16 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.ClassifierPropertyReference#getClassifier <em>Classifier</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getClassifierPropertyReference()
  * @model
  * @generated
  */
-public interface ClassifierPropertyReference extends PropertyReference, IBAVisitable
+public interface ClassifierPropertyReference extends PropertyReference
 {
   /**
    * Returns the value of the '<em><b>Classifier</b></em>' reference.

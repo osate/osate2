@@ -29,16 +29,16 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.CondStatement#getBehaviorActions <em>Behavior Actions</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getCondStatement()
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface CondStatement extends BehaviorAction, IBAVisitable
+public interface CondStatement extends BehaviorAction
 {
   /**
    * Returns the value of the '<em><b>Behavior Actions</b></em>' containment reference.

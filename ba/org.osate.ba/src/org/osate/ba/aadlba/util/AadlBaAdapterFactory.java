@@ -30,11 +30,13 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.ArrayableElement;
 import org.osate.aadl2.BooleanLiteral;
+import org.osate.aadl2.Data;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NumberValue;
+import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertyValue;
 import org.osate.aadl2.RealLiteral;
@@ -758,6 +760,11 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
       public Adapter caseArrayableElement(ArrayableElement object)
       {
         return createArrayableElementAdapter();
+      }
+      @Override
+      public Adapter caseData(Data object)
+      {
+        return createDataAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -2742,6 +2749,21 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createArrayableElementAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.Data <em>Data</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.Data
+   * @generated
+   */
+  public Adapter createDataAdapter()
   {
     return null;
   }
