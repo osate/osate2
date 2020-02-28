@@ -9,6 +9,7 @@ import org.osate.aadl2.ClassifierType
 import org.osate.aadl2.EnumerationType
 import org.osate.aadl2.NumberType
 import org.osate.aadl2.PropertySet
+import org.osate.aadl2.RangeType
 import org.osate.aadl2.ReferenceType
 import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.UnitsType
@@ -28,6 +29,7 @@ class PropertiesCodeGen {
 				EnumerationType: generateEnum(packageName, type, typeName)
 				AadlInteger: generateNumber(packageName, type, typeName)
 				AadlReal: generateNumber(packageName, type, typeName)
+				RangeType: generateRange(packageName, type, typeName)
 				ReferenceType: generateReference(packageName, typeName)
 				default: null
 			}
@@ -187,60 +189,144 @@ class PropertiesCodeGen {
 				import «unitsType.getContainerOfType(PropertySet).name.toLowerCase».«unitsTypeName»;
 				«ENDIF»
 				
-				public class «typeName» {
-					private final «javaType» value;
-					private final «unitsTypeName» unit;
-					
-					private «typeName»(PropertyExpression propertyExpression) {
-						«valueType» numberValue = («valueType») propertyExpression;
-						value = numberValue.getValue();
-						unit = «unitsTypeName».valueOf(numberValue.getUnit().getName().toUpperCase());
-					}
-					
-					public static «typeName» getValue(PropertyExpression propertyExpression) {
-						return new «typeName»(propertyExpression);
-					}
-					
-					public «javaType» getValue() {
-						return value;
-					}
-					
-					public «unitsTypeName» getUnit() {
-						return unit;
-					}
-					
-					@Override
-					public int hashCode() {
-						return Objects.hash(value, unit);
-					}
-					
-					@Override
-					public boolean equals(Object obj) {
-						if (this == obj) {
-							return true;
-						}
-						if (!(obj instanceof «typeName»)) {
-							return false;
-						}
-						«typeName» other = («typeName») obj;
-						«IF numberType instanceof AadlInteger»
-						return value == other.value && unit == other.unit;
-						«ELSE»
-						return Double.doubleToLongBits(value) == Double.doubleToLongBits(other.value) && unit == other.unit;
-						«ENDIF»
-					}
-					
-					@Override
-					public String toString() {
-						return value + unit.toString();
-					}
-					«IF unitsType == numberType.ownedUnitsType»
-					
-					«generateUnitsEnum("Units", false, unitsType.ownedLiterals.filter(UnitLiteral))»
-					«ENDIF»
-				}
+				«generateNumberClass(numberType, typeName, true)»
 			'''
 		}
+		new GeneratedJava(typeName + ".java", contents)
+	}
+	
+	def private static GeneratedJava generateRange(String packageName, RangeType rangeType, String typeName) {
+		val numberType = rangeType.numberType
+		val unitsType = numberType.unitsType
+		
+		val valueType = switch numberType {
+			AadlInteger: "IntegerLiteral"
+			AadlReal: "RealLiteral"
+		}
+		
+		val numberTypeName = switch numberType {
+			AadlInteger case unitsType === null: "long"
+			AadlReal case unitsType === null: "double"
+			case rangeType.ownedNumberType: "Number"
+			case rangeType.referencedNumberType: numberType.name.split("_").map[it.toLowerCase.toFirstUpper].join
+		}
+		
+		val optionalType = switch numberType {
+			AadlInteger case unitsType === null: "OptionalLong"
+			AadlReal case unitsType === null: "OptionalDouble"
+			default: '''Optional<«numberTypeName»>'''
+		}
+		
+		val optionalImport = if (unitsType === null) {
+			optionalType
+		} else {
+			"Optional"
+		}
+		
+		val metaModelImports = if (numberType == rangeType.referencedNumberType && unitsType !== null) {
+			#["PropertyExpression", "RangeValue"]
+		} else {
+			#["PropertyExpression", "RangeValue", valueType].sort
+		}
+		
+		val contents = '''
+			package «packageName»;
+			
+			import java.util.Objects;
+			import java.util.«optionalImport»;
+			
+			«FOR metaModelImport : metaModelImports»
+			import org.osate.aadl2.«metaModelImport»;
+			«ENDFOR»
+			«IF unitsType !== null && numberType == rangeType.referencedNumberType && numberType.eContainer != rangeType.eContainer»
+			
+			import «numberType.getContainerOfType(PropertySet).name.toLowerCase».«numberTypeName»;
+			«ELSEIF unitsType !== null && numberType == rangeType.ownedNumberType && unitsType == numberType.referencedUnitsType && unitsType.eContainer != rangeType.eContainer»
+			
+			«val unitsTypeName = unitsType.name.split("_").map[it.toLowerCase.toFirstUpper].join»
+			import «unitsType.getContainerOfType(PropertySet).name.toLowerCase».«unitsTypeName»;
+			«ENDIF»
+			
+			public class «typeName» {
+				private final «numberTypeName» minimum;
+				private final «numberTypeName» maximum;
+				private final «optionalType» delta;
+				
+				private «typeName»(PropertyExpression propertyExpression) {
+					RangeValue rangeValue = (RangeValue) propertyExpression;
+					«IF unitsType === null»
+					minimum = ((«valueType») rangeValue.getMinimum()).getValue();
+					maximum = ((«valueType») rangeValue.getMaximum()).getValue();
+					if (rangeValue.getDelta() == null) {
+						delta = «optionalType».empty();
+					} else {
+						delta = «optionalType».of(((«valueType») rangeValue.getDelta()).getValue());
+					}
+					«ELSEIF numberType == rangeType.ownedNumberType»
+					minimum = new Number(rangeValue.getMinimum());
+					maximum = new Number(rangeValue.getMaximum());
+					delta = Optional.ofNullable(rangeValue.getDelta()).map(it -> new Number(it));
+					«ELSE»
+					minimum = «numberTypeName».getValue(rangeValue.getMinimum());
+					maximum = «numberTypeName».getValue(rangeValue.getMaximum());
+					delta = Optional.ofNullable(rangeValue.getDelta()).map(it -> «numberTypeName».getValue(it));
+					«ENDIF»
+				}
+				
+				public static «typeName» getValue(PropertyExpression propertyExpression) {
+					return new «typeName»(propertyExpression);
+				}
+				
+				public «numberTypeName» getMinimum() {
+					return minimum;
+				}
+				
+				public «numberTypeName» getMaximum() {
+					return maximum;
+				}
+				
+				public «optionalType» getDelta() {
+					return delta;
+				}
+				
+				@Override
+				public int hashCode() {
+					return Objects.hash(minimum, maximum, delta);
+				}
+				
+				@Override
+				public boolean equals(Object obj) {
+					if (this == obj) {
+						return true;
+					}
+					if (!(obj instanceof «typeName»)) {
+						return false;
+					}
+					«typeName» other = («typeName») obj;
+					«IF unitsType !== null»
+					return Objects.equals(minimum, other.minimum) && Objects.equals(maximum, other.maximum)
+							&& Objects.equals(delta, other.delta);
+					«ELSEIF numberType instanceof AadlInteger»
+					return minimum == other.minimum && maximum == other.maximum && Objects.equals(delta, other.delta);
+					«ELSE»
+					return Double.doubleToLongBits(minimum) == Double.doubleToLongBits(other.minimum)
+							&& Double.doubleToLongBits(maximum) == Double.doubleToLongBits(other.maximum)
+							&& Objects.equals(delta, other.delta);
+					«ENDIF»
+				}
+				
+				@Override
+				public String toString() {
+					StringBuilder builder = new StringBuilder(minimum + " .. " + maximum);
+					delta.ifPresent(it -> builder.append(" delta " + it));
+					return builder.toString();
+				}
+				«IF numberType == rangeType.ownedNumberType && unitsType !== null»
+				
+				«generateNumberClass(numberType, "Number", false)»
+				«ENDIF»
+			}
+		'''
 		new GeneratedJava(typeName + ".java", contents)
 	}
 	
@@ -302,6 +388,80 @@ class PropertiesCodeGen {
 				public String toString() {
 					return originalName;
 				}
+			}
+		'''
+	}
+	
+	def private static String generateNumberClass(NumberType numberType, String typeName, boolean generateGetValueMethod) {
+		var String valueType
+		var String javaType
+		if (numberType instanceof AadlInteger) {
+			valueType = "IntegerLiteral"
+			javaType = "long"
+		} else {
+			valueType = "RealLiteral"
+			javaType = "double"
+		}
+		val unitsType = numberType.unitsType
+		val unitsTypeName = if (unitsType == numberType.ownedUnitsType) {
+			"Units"
+		} else {
+			unitsType.name.split("_").map[it.toLowerCase.toFirstUpper].join
+		}
+		'''
+			public«IF !generateGetValueMethod» static«ENDIF» class «typeName» {
+				private final «javaType» value;
+				private final «unitsTypeName» unit;
+				
+				private «typeName»(PropertyExpression propertyExpression) {
+					«valueType» numberValue = («valueType») propertyExpression;
+					value = numberValue.getValue();
+					unit = «unitsTypeName».valueOf(numberValue.getUnit().getName().toUpperCase());
+				}
+				«IF generateGetValueMethod»
+				
+				public static «typeName» getValue(PropertyExpression propertyExpression) {
+					return new «typeName»(propertyExpression);
+				}
+				«ENDIF»
+				
+				public «javaType» getValue() {
+					return value;
+				}
+				
+				public «unitsTypeName» getUnit() {
+					return unit;
+				}
+				
+				@Override
+				public int hashCode() {
+					return Objects.hash(value, unit);
+				}
+				
+				@Override
+				public boolean equals(Object obj) {
+					if (this == obj) {
+						return true;
+					}
+					if (!(obj instanceof «typeName»)) {
+						return false;
+					}
+					«typeName» other = («typeName») obj;
+					«IF numberType instanceof AadlInteger»
+					return value == other.value && unit == other.unit;
+					«ELSE»
+					return Double.doubleToLongBits(value) == Double.doubleToLongBits(other.value) && unit == other.unit;
+					«ENDIF»
+				}
+				
+				@Override
+				public String toString() {
+					return value + unit.toString();
+				}
+				«IF unitsType == numberType.ownedUnitsType»
+				
+				«generateUnitsEnum("Units", false, unitsType.ownedLiterals.filter(UnitLiteral))»
+				«ENDIF»
 			}
 		'''
 	}
