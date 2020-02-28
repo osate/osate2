@@ -32,6 +32,6 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model abstract="true"
  * @generated
  */
-public interface PortHolder extends ValueVariable, IntegerValueVariable, FeatureHolder, IBAVisitable
+public interface PortHolder extends ValueVariable, IntegerValueVariable, FeatureHolder
 {
 } // PortHolder

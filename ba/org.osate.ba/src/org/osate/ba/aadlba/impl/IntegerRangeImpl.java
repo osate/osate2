@@ -36,11 +36,11 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.IntegerRangeImpl#getLowerIntegerValue <em>Lower Integer Value</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.IntegerRangeImpl#getUpperIntegerValue <em>Upper Integer Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -92,6 +92,7 @@ public class IntegerRangeImpl extends BehaviorElementImpl implements IntegerRang
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public IntegerValue getLowerIntegerValue()
   {
     return lowerIntegerValue;
@@ -119,6 +120,7 @@ public class IntegerRangeImpl extends BehaviorElementImpl implements IntegerRang
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setLowerIntegerValue(IntegerValue newLowerIntegerValue)
   {
     if (newLowerIntegerValue != lowerIntegerValue)
@@ -140,6 +142,7 @@ public class IntegerRangeImpl extends BehaviorElementImpl implements IntegerRang
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public IntegerValue getUpperIntegerValue()
   {
     return upperIntegerValue;
@@ -167,6 +170,7 @@ public class IntegerRangeImpl extends BehaviorElementImpl implements IntegerRang
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setUpperIntegerValue(IntegerValue newUpperIntegerValue)
   {
     if (newUpperIntegerValue != upperIntegerValue)

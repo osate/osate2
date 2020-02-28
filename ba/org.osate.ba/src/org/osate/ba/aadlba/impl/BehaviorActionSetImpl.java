@@ -39,10 +39,10 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorActionSetImpl#getActions <em>Actions</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -84,6 +84,7 @@ public class BehaviorActionSetImpl extends BehaviorElementImpl implements Behavi
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<BehaviorAction> getActions()
   {
     if (actions == null)

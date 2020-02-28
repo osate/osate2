@@ -44,6 +44,7 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorStateImpl#isInitial <em>Initial</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorStateImpl#isComplete <em>Complete</em>}</li>
@@ -52,7 +53,6 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorStateImpl#getIncomingTransitions <em>Incoming Transitions</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorStateImpl#getOutgoingTransitions <em>Outgoing Transitions</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -174,6 +174,7 @@ public class BehaviorStateImpl extends BehaviorNamedElementImpl implements Behav
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isInitial()
   {
     return initial;
@@ -184,6 +185,7 @@ public class BehaviorStateImpl extends BehaviorNamedElementImpl implements Behav
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setInitial(boolean newInitial)
   {
     boolean oldInitial = initial;
@@ -197,6 +199,7 @@ public class BehaviorStateImpl extends BehaviorNamedElementImpl implements Behav
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isComplete()
   {
     return complete;
@@ -207,6 +210,7 @@ public class BehaviorStateImpl extends BehaviorNamedElementImpl implements Behav
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setComplete(boolean newComplete)
   {
     boolean oldComplete = complete;
@@ -220,6 +224,7 @@ public class BehaviorStateImpl extends BehaviorNamedElementImpl implements Behav
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isFinal()
   {
     return final_;
@@ -230,6 +235,7 @@ public class BehaviorStateImpl extends BehaviorNamedElementImpl implements Behav
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setFinal(boolean newFinal)
   {
     boolean oldFinal = final_;
@@ -243,6 +249,7 @@ public class BehaviorStateImpl extends BehaviorNamedElementImpl implements Behav
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Mode getBindedMode()
   {
     if (bindedMode != null && ((EObject)bindedMode).eIsProxy())
@@ -273,6 +280,7 @@ public class BehaviorStateImpl extends BehaviorNamedElementImpl implements Behav
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setBindedMode(Mode newBindedMode)
   {
     Mode oldBindedMode = bindedMode;
@@ -286,6 +294,7 @@ public class BehaviorStateImpl extends BehaviorNamedElementImpl implements Behav
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<BehaviorTransition> getIncomingTransitions()
   {
     if (incomingTransitions == null)
@@ -300,6 +309,7 @@ public class BehaviorStateImpl extends BehaviorNamedElementImpl implements Behav
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<BehaviorTransition> getOutgoingTransitions()
   {
     if (outgoingTransitions == null)
@@ -476,7 +486,7 @@ public class BehaviorStateImpl extends BehaviorNamedElementImpl implements Behav
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (initial: ");
     result.append(initial);
     result.append(", complete: ");

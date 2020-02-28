@@ -29,16 +29,16 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.PropertySetPropertyReference#getPropertySet <em>Property Set</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getPropertySetPropertyReference()
  * @model
  * @generated
  */
-public interface PropertySetPropertyReference extends PropertyReference, IBAVisitable
+public interface PropertySetPropertyReference extends PropertyReference
 {
   /**
    * Returns the value of the '<em><b>Property Set</b></em>' reference.

@@ -32,6 +32,6 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface PortFreezeAction extends ActualPortHolder, CommunicationAction, IBAVisitable
+public interface PortFreezeAction extends ActualPortHolder, CommunicationAction
 {
 } // PortFreezeAction

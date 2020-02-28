@@ -29,16 +29,16 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.ClassifierFeaturePropertyReference#getComponent <em>Component</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getClassifierFeaturePropertyReference()
  * @model
  * @generated
  */
-public interface ClassifierFeaturePropertyReference extends PropertyReference, IBAVisitable
+public interface ClassifierFeaturePropertyReference extends PropertyReference
 {
   /**
    * Returns the value of the '<em><b>Component</b></em>' containment reference.

@@ -31,22 +31,22 @@ import org.osate.ba.aadlba.ValueConstant ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.declarative.DeclarativePropertyReference#getQualifiedName <em>Qualified Name</em>}</li>
  *   <li>{@link org.osate.ba.declarative.DeclarativePropertyReference#getReference <em>Reference</em>}</li>
  *   <li>{@link org.osate.ba.declarative.DeclarativePropertyReference#getPropertyNames <em>Property Names</em>}</li>
  *   <li>{@link org.osate.ba.declarative.DeclarativePropertyReference#isPropertySet <em>Property Set</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativePropertyReference()
  * @model
  * @generated
  */
 public interface DeclarativePropertyReference extends
-                                             DeclarativeBehaviorElement,
-                                             IntegerValueConstant,
-                                             ValueConstant
+                                              DeclarativeBehaviorElement,
+                                              IntegerValueConstant,
+                                              ValueConstant
 {
   /**
    * Returns the value of the '<em><b>Qualified Name</b></em>' containment reference.

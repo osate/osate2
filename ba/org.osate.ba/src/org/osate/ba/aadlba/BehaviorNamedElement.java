@@ -36,6 +36,6 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model abstract="true"
  * @generated
  */
-public interface BehaviorNamedElement extends NamedElement, BehaviorElement, IBAVisitable
+public interface BehaviorNamedElement extends NamedElement, BehaviorElement
 {
 } // BehaviorNamedElement
