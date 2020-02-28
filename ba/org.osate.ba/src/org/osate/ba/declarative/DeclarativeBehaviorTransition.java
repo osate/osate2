@@ -31,18 +31,18 @@ import org.osate.ba.aadlba.BehaviorTransition ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.declarative.DeclarativeBehaviorTransition#getSrcStates <em>Src States</em>}</li>
  *   <li>{@link org.osate.ba.declarative.DeclarativeBehaviorTransition#getDestState <em>Dest State</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativeBehaviorTransition()
  * @model
  * @generated
  */
 public interface DeclarativeBehaviorTransition extends BehaviorTransition,
-                                              DeclarativeBehaviorElement
+                                               DeclarativeBehaviorElement
 {
   /**
    * Returns the value of the '<em><b>Src States</b></em>' containment reference list.

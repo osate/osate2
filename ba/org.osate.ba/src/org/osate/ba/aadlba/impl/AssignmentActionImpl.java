@@ -37,11 +37,11 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.AssignmentActionImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.AssignmentActionImpl#getValueExpression <em>Value Expression</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -93,6 +93,7 @@ public class AssignmentActionImpl extends BehaviorElementImpl implements Assignm
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Target getTarget()
   {
     return target;
@@ -120,6 +121,7 @@ public class AssignmentActionImpl extends BehaviorElementImpl implements Assignm
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTarget(Target newTarget)
   {
     if (newTarget != target)
@@ -141,6 +143,7 @@ public class AssignmentActionImpl extends BehaviorElementImpl implements Assignm
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ValueExpression getValueExpression()
   {
     return valueExpression;
@@ -168,6 +171,7 @@ public class AssignmentActionImpl extends BehaviorElementImpl implements Assignm
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setValueExpression(ValueExpression newValueExpression)
   {
     if (newValueExpression != valueExpression)

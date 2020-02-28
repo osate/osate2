@@ -32,6 +32,6 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model annotation="Documentation documentation='A null data name means that all shared data are locked while in the critical section'"
  * @generated
  */
-public interface LockAction extends SharedDataAction, IBAVisitable
+public interface LockAction extends SharedDataAction
 {
 } // LockAction

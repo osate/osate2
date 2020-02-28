@@ -39,10 +39,10 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.DispatchTriggerLogicalExpressionImpl#getDispatchConjunctions <em>Dispatch Conjunctions</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -84,6 +84,7 @@ public class DispatchTriggerLogicalExpressionImpl extends BehaviorElementImpl im
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<DispatchConjunction> getDispatchConjunctions()
   {
     if (dispatchConjunctions == null)

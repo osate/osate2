@@ -29,16 +29,16 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.IterativeVariable#getDataClassifier <em>Data Classifier</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getIterativeVariable()
  * @model
  * @generated
  */
-public interface IterativeVariable extends BehaviorNamedElement, IBAVisitable
+public interface IterativeVariable extends BehaviorNamedElement
 {
   /**
    * Returns the value of the '<em><b>Data Classifier</b></em>' reference.

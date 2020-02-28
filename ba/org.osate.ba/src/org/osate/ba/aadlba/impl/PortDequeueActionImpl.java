@@ -37,11 +37,11 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.PortDequeueActionImpl#getPort <em>Port</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.PortDequeueActionImpl#getTarget <em>Target</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -93,6 +93,7 @@ public class PortDequeueActionImpl extends BehaviorElementImpl implements PortDe
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ActualPortHolder getPort()
   {
     return port;
@@ -120,6 +121,7 @@ public class PortDequeueActionImpl extends BehaviorElementImpl implements PortDe
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setPort(ActualPortHolder newPort)
   {
     if (newPort != port)
@@ -141,6 +143,7 @@ public class PortDequeueActionImpl extends BehaviorElementImpl implements PortDe
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Target getTarget()
   {
     return target;
@@ -168,6 +171,7 @@ public class PortDequeueActionImpl extends BehaviorElementImpl implements PortDe
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTarget(Target newTarget)
   {
     if (newTarget != target)

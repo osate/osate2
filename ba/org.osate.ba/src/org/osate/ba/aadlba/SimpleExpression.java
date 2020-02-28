@@ -29,18 +29,18 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.SimpleExpression#getUnaryAddingOperator <em>Unary Adding Operator</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.SimpleExpression#getTerms <em>Terms</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.SimpleExpression#getBinaryAddingOperators <em>Binary Adding Operators</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getSimpleExpression()
  * @model
  * @generated
  */
-public interface SimpleExpression extends BehaviorElement, IBAVisitable
+public interface SimpleExpression extends BehaviorElement
 {
   /**
    * Returns the value of the '<em><b>Unary Adding Operator</b></em>' attribute.
