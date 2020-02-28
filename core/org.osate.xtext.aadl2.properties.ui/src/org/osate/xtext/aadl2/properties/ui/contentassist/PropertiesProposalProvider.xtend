@@ -45,6 +45,7 @@ import org.osate.aadl2.PropertyConstant
 import org.osate.aadl2.RecordValue
 import org.osate.aadl2.modelsupport.util.AadlUtil
 import org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess
+import org.osate.aadl2.util.Aadl2Util
 
 /**
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
@@ -126,7 +127,7 @@ class PropertiesProposalProvider extends AbstractPropertiesProposalProvider {
 		switch proposedObj:  EcoreUtil.resolve(objDesc.EObjectOrProxy, model){
 		 	EnumerationLiteral: true
 		 	PropertyConstant: {
-		 		expectedPropertyType == proposedObj.propertyType &&
+		 		Aadl2Util.arePropertyTypesEqual(expectedPropertyType, proposedObj.propertyType) &&
 		 		(	
 		 			switch model {
 						PropertyConstant: model != proposedObj
@@ -135,7 +136,7 @@ class PropertiesProposalProvider extends AbstractPropertiesProposalProvider {
 				)		 		
 		 	}
 		 	Property: {
-		 		expectedPropertyType == proposedObj.propertyType &&
+		 		Aadl2Util.arePropertyTypesEqual(expectedPropertyType, proposedObj.propertyType) &&
 		 		(	
 		 			switch model {
 						PropertyAssociation: model.property != proposedObj
