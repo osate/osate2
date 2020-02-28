@@ -271,6 +271,8 @@ public class Aadl2Util {
 	 *   {@link NumberType#getUnitsType() units types} as determined by <code>==</code>, or
 	 *   <li>Both types are equal as determined by the <code>==</code> operator.
 	 * </ul>
+	 *
+	 * @since 2.1
 	 */
 	public static boolean arePropertyTypesEqual(final PropertyType type1, final PropertyType type2) {
 		boolean equal = false;
