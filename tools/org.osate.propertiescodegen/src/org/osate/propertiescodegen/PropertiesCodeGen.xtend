@@ -20,7 +20,7 @@ class PropertiesCodeGen {
 	def static List<GeneratedJava> generateJava(PropertySet propertySet) {
 		val packageName = propertySet.name.toLowerCase
 		propertySet.ownedPropertyTypes.map[type |
-			val typeName = type.name.split("_").map[it.toLowerCase.toFirstUpper].join
+			val typeName = type.name.toCamelCase
 			switch type {
 				AadlBoolean: generateBoolean(packageName, typeName)
 				AadlString: generateString(packageName, typeName)
@@ -145,53 +145,41 @@ class PropertiesCodeGen {
 	}
 	
 	def private static GeneratedJava generateNumber(String packageName, NumberType numberType, String typeName) {
-		var String valueType
-		var String javaType
-		if (numberType instanceof AadlInteger) {
-			valueType = "IntegerLiteral"
-			javaType = "long"
-		} else {
-			valueType = "RealLiteral"
-			javaType = "double"
+		val literalType = switch numberType {
+			AadlInteger: "IntegerLiteral"
+			AadlReal: "RealLiteral"
 		}
-		val metaModelImports = #["PropertyExpression", valueType].sort
-		val contents = if (numberType.unitsType === null) {
-			'''
-				package «packageName»;
-				
-				«FOR metaModelImport : metaModelImports»
-				import org.osate.aadl2.«metaModelImport»;
-				«ENDFOR»
-				
-				public class «typeName» {
-					public static «javaType» getValue(PropertyExpression propertyExpression) {
-						return ((«valueType») propertyExpression).getValue();
-					}
+		val javaType = switch numberType {
+			AadlInteger: "long"
+			AadlReal: "double"
+		}
+		val metaModelImports = #["PropertyExpression", literalType].sort
+		val unitsType = numberType.unitsType
+		val contents = '''
+			package «packageName»;
+			«IF unitsType !== null»
+			
+			import java.util.Objects;
+			«ENDIF»
+			
+			«FOR metaModelImport : metaModelImports»
+			import org.osate.aadl2.«metaModelImport»;
+			«ENDFOR»
+			«IF unitsType !== null && unitsType == numberType.referencedUnitsType && unitsType.eContainer != numberType.eContainer»
+			
+			import «unitsType.getContainerOfType(PropertySet).name.toLowerCase».«unitsType.name.toCamelCase»;
+			«ENDIF»
+			
+			«IF unitsType === null»
+			public class «typeName» {
+				public static «javaType» getValue(PropertyExpression propertyExpression) {
+					return ((«literalType») propertyExpression).getValue();
 				}
-			'''
-		} else {
-			val unitsType = numberType.unitsType
-			val unitsTypeName = if (unitsType == numberType.ownedUnitsType) {
-				"Units"
-			} else {
-				unitsType.name.split("_").map[it.toLowerCase.toFirstUpper].join
 			}
-			'''
-				package «packageName»;
-				
-				import java.util.Objects;
-				
-				«FOR metaModelImport : metaModelImports»
-				import org.osate.aadl2.«metaModelImport»;
-				«ENDFOR»
-				«IF unitsType == numberType.referencedUnitsType && unitsType.eContainer != numberType.eContainer»
-				
-				import «unitsType.getContainerOfType(PropertySet).name.toLowerCase».«unitsTypeName»;
-				«ENDIF»
-				
-				«generateNumberClass(numberType, typeName, true)»
-			'''
-		}
+			«ELSE»
+			«generateNumberClass(numberType, typeName, true)»
+			«ENDIF»
+		'''
 		new GeneratedJava(typeName + ".java", contents)
 	}
 	
@@ -199,7 +187,7 @@ class PropertiesCodeGen {
 		val numberType = rangeType.numberType
 		val unitsType = numberType.unitsType
 		
-		val valueType = switch numberType {
+		val literalType = switch numberType {
 			AadlInteger: "IntegerLiteral"
 			AadlReal: "RealLiteral"
 		}
@@ -208,7 +196,7 @@ class PropertiesCodeGen {
 			AadlInteger case unitsType === null: "long"
 			AadlReal case unitsType === null: "double"
 			case rangeType.ownedNumberType: "Number"
-			case rangeType.referencedNumberType: numberType.name.split("_").map[it.toLowerCase.toFirstUpper].join
+			case rangeType.referencedNumberType: numberType.name.toCamelCase
 		}
 		
 		val optionalType = switch numberType {
@@ -226,7 +214,7 @@ class PropertiesCodeGen {
 		val metaModelImports = if (numberType == rangeType.referencedNumberType && unitsType !== null) {
 			#["PropertyExpression", "RangeValue"]
 		} else {
-			#["PropertyExpression", "RangeValue", valueType].sort
+			#["PropertyExpression", "RangeValue", literalType].sort
 		}
 		
 		val contents = '''
@@ -243,8 +231,7 @@ class PropertiesCodeGen {
 			import «numberType.getContainerOfType(PropertySet).name.toLowerCase».«numberTypeName»;
 			«ELSEIF unitsType !== null && numberType == rangeType.ownedNumberType && unitsType == numberType.referencedUnitsType && unitsType.eContainer != rangeType.eContainer»
 			
-			«val unitsTypeName = unitsType.name.split("_").map[it.toLowerCase.toFirstUpper].join»
-			import «unitsType.getContainerOfType(PropertySet).name.toLowerCase».«unitsTypeName»;
+			import «unitsType.getContainerOfType(PropertySet).name.toLowerCase».«unitsType.name.toCamelCase»;
 			«ENDIF»
 			
 			public class «typeName» {
@@ -255,12 +242,12 @@ class PropertiesCodeGen {
 				private «typeName»(PropertyExpression propertyExpression) {
 					RangeValue rangeValue = (RangeValue) propertyExpression;
 					«IF unitsType === null»
-					minimum = ((«valueType») rangeValue.getMinimum()).getValue();
-					maximum = ((«valueType») rangeValue.getMaximum()).getValue();
+					minimum = ((«literalType») rangeValue.getMinimum()).getValue();
+					maximum = ((«literalType») rangeValue.getMaximum()).getValue();
 					if (rangeValue.getDelta() == null) {
 						delta = «optionalType».empty();
 					} else {
-						delta = «optionalType».of(((«valueType») rangeValue.getDelta()).getValue());
+						delta = «optionalType».of(((«literalType») rangeValue.getDelta()).getValue());
 					}
 					«ELSEIF numberType == rangeType.ownedNumberType»
 					minimum = new Number(rangeValue.getMinimum());
@@ -406,7 +393,7 @@ class PropertiesCodeGen {
 		val unitsTypeName = if (unitsType == numberType.ownedUnitsType) {
 			"Units"
 		} else {
-			unitsType.name.split("_").map[it.toLowerCase.toFirstUpper].join
+			unitsType.name.toCamelCase
 		}
 		'''
 			public«IF !generateGetValueMethod» static«ENDIF» class «typeName» {
@@ -464,5 +451,9 @@ class PropertiesCodeGen {
 				«ENDIF»
 			}
 		'''
+	}
+	
+	def private static String toCamelCase(String s) {
+		s.split("_").map[it.toLowerCase.toFirstUpper].join
 	}
 }
