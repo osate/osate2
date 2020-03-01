@@ -42,6 +42,9 @@ public class AnnexInstantiatorProxy extends AnnexProxy implements AnnexInstantia
 		super(configElem);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	@Override
 	public void instantiateAnnex(ComponentInstance instance, String annexName) {
 		AnnexInstantiator instantiator = getInstantiator();
