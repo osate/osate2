@@ -46,6 +46,9 @@ import org.osate.aadl2.RecordValue
 import org.osate.aadl2.modelsupport.util.AadlUtil
 import org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess
 import org.osate.aadl2.util.Aadl2Util
+import org.osate.aadl2.ListValue
+import org.osate.aadl2.PropertyType
+import org.osate.aadl2.ListType
 
 /**
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
@@ -122,6 +125,7 @@ class PropertiesProposalProvider extends AbstractPropertiesProposalProvider {
 				BasicPropertyAssociation: model.property.propertyType
 				Property: model.propertyType
 				PropertyConstant: model.propertyType
+				ListValue: getListElementType(model)
 			}
 		
 		switch proposedObj:  EcoreUtil.resolve(objDesc.EObjectOrProxy, model){
@@ -147,6 +151,29 @@ class PropertiesProposalProvider extends AbstractPropertiesProposalProvider {
 			}
 			default: {false}
 		 }
+	}
+	
+	def private PropertyType getListElementType(ListValue listValue) {
+		return getListElementType(listValue, 0)
+	}
+	
+	def private PropertyType getListElementType(EObject model, int listCount) {
+		switch model {
+			ListValue: getListElementType(model.eContainer, listCount + 1)
+			PropertyAssociation: getNestedElementType(model.property.propertyType as ListType, listCount)
+			BasicPropertyAssociation: getNestedElementType(model.property.propertyType as ListType, listCount)
+			Property: getNestedElementType(model.propertyType as ListType, listCount)
+			PropertyConstant: getNestedElementType(model.propertyType as ListType, listCount)
+			default: getListElementType(model.eContainer, listCount)
+		}
+	}
+	
+	def private PropertyType getNestedElementType(ListType listType, int n) {
+		if (n == 1) {
+			listType.elementType
+		} else {
+			getNestedElementType(listType.elementType as ListType, n - 1)
+		}
 	}
 	
 	def private getPropertyType(ClassifierValue model){
