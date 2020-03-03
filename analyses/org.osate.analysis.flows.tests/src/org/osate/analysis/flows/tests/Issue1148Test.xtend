@@ -75,7 +75,7 @@ class Issue1148Test extends XtextTest {
 		// check flow latency
 		val som = instance.systemOperationModes.head
 		val checker = new FlowLatencyAnalysisSwitch()
-		val latencyresult = checker.invoke(instance, som,true,true,true,true)
+		val latencyresult = checker.invoke(instance, som,true,true,true,true, false)
 		
 		/* We check straight down the "Min actual" and "max actual" columns */
 		checkMinMaxValues(latencyresult.results.get(0), #[1.0, 0.0, 0.0, 17.0, 0.0, 3.0, 21.0], #[2.0, 5.0, 0.0, 26.0, 0.0, 5.0, 38.0])
@@ -96,7 +96,7 @@ class Issue1148Test extends XtextTest {
 		// check flow latency
 		val som = instance.systemOperationModes.head
 		val checker = new FlowLatencyAnalysisSwitch()
-		val latencyresult = checker.invoke(instance, som,true,true,true,true)
+		val latencyresult = checker.invoke(instance, som,true,true,true,true, false)
 		
 		/* We check straight down the "Min actual" and "max actual" columns */
 		checkMinMaxValues(latencyresult.results.get(0), #[1.0, 17.0, 0.0, 0.0, 0.0, 3.0, 21.0], #[2.0, 26.0, 124.0, 0.0, 0.0, 5.0, 157.0])
@@ -117,7 +117,7 @@ class Issue1148Test extends XtextTest {
 		// check flow latency
 		val som = instance.systemOperationModes.head
 		val checker = new FlowLatencyAnalysisSwitch()
-		val latencyresult = checker.invoke(instance, som,true,true,true,true)
+		val latencyresult = checker.invoke(instance, som,true,true,true,true, false)
 		
 		/* We check straight down the "Min actual" and "max actual" columns */
 		checkMinMaxValues(latencyresult.results.get(0), #[1.0, 0.0, 0.0, 21.0, 0.0, 3.0, 25.0], #[2.0, 5.0, 0.0, 32.0, 0.0, 5.0, 44.0])
@@ -138,7 +138,7 @@ class Issue1148Test extends XtextTest {
 		// check flow latency
 		val som = instance.systemOperationModes.head
 		val checker = new FlowLatencyAnalysisSwitch()
-		val latencyresult = checker.invoke(instance, som,true,true,true,true)
+		val latencyresult = checker.invoke(instance, som,true,true,true,true, false)
 		
 		/* We check straight down the "Min actual" and "max actual" columns */
 		checkMinMaxValues(latencyresult.results.get(0), #[1.0, 21.0, 0.0, 0.0, 0.0, 3.0, 25.0], #[2.0, 32.0, 136.0, 0.0, 0.0, 5.0, 175.0])
@@ -159,7 +159,7 @@ class Issue1148Test extends XtextTest {
 		// check flow latency
 		val som = instance.systemOperationModes.head
 		val checker = new FlowLatencyAnalysisSwitch()
-		val latencyresult = checker.invoke(instance, som,true,true,true,true)
+		val latencyresult = checker.invoke(instance, som,true,true,true,true, false)
 		
 		/* We check straight down the "Min actual" and "max actual" columns */
 		checkMinMaxValues(latencyresult.results.get(0), #[1.0, 0.0, 0.0, 41.0, 0.0, 0.0, 0.0, 3.0, 45.0], #[2.0, 5.0, 0.0, 62.0, 0.0, 0.0, 0.0, 5.0, 74.0])
@@ -180,7 +180,7 @@ class Issue1148Test extends XtextTest {
 		// check flow latency
 		val som = instance.systemOperationModes.head
 		val checker = new FlowLatencyAnalysisSwitch()
-		val latencyresult = checker.invoke(instance, som,true,true,true,true)
+		val latencyresult = checker.invoke(instance, som,true,true,true,true, false)
 		
 		/* We check straight down the "Min actual" and "max actual" columns */
 		checkMinMaxValues(latencyresult.results.get(0), #[1.0, 41.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.0, 45.0], #[2.0, 62.0, 0.0, 0.0, 196.0, 0.0, 0.0, 5.0, 265.0])
@@ -201,7 +201,7 @@ class Issue1148Test extends XtextTest {
 		// check flow latency
 		val som = instance.systemOperationModes.head
 		val checker = new FlowLatencyAnalysisSwitch()
-		val latencyresult = checker.invoke(instance, som,true,true,true,true)
+		val latencyresult = checker.invoke(instance, som,true,true,true,true, false)
 		
 		/* We check straight down the "Min actual" and "max actual" columns */
 		checkMinMaxValues(latencyresult.results.get(0), #[1.0, 0.0, 0.0, 41.0, 0.0, 3.0, 45.0], #[2.0, 5.0, 0.0, 62.0, 0.0, 5.0, 74.0])
@@ -222,7 +222,7 @@ class Issue1148Test extends XtextTest {
 		// check flow latency
 		val som = instance.systemOperationModes.head
 		val checker = new FlowLatencyAnalysisSwitch()
-		val latencyresult = checker.invoke(instance, som,true,true,true,true)
+		val latencyresult = checker.invoke(instance, som,true,true,true,true, false)
 		
 		/* We check straight down the "Min actual" and "max actual" columns */
 		checkMinMaxValues(latencyresult.results.get(0), #[1.0, 41.0, 0.0, 0.0, 0.0, 3.0, 45.0], #[2.0, 62.0, 196.0, 0.0, 0.0, 5.0, 265.0])

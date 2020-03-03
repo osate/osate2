@@ -69,7 +69,7 @@ class VirtualProcessorLatencyTest extends XtextTest {
 		// check flow latency
 		val som = instance.systemOperationModes.head
 		val checker = new FlowLatencyAnalysisSwitch()
-		val latencyresult = checker.invoke(instance, som,true,true,true,true)
+		val latencyresult = checker.invoke(instance, som,true,true,true,true, false)
 		val resab = latencyresult.results.get(0)
 		assertTrue((resab.values.get(1) as RealValue).value == (1.0))
 		assertTrue((resab.values.get(2) as RealValue).value == (1.0))
