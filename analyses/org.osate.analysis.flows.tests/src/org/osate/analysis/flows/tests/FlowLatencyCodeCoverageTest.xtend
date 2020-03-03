@@ -98,7 +98,7 @@ class FlowLatencyCodeCoverageTest {
 						"s1_i1_Instance".assertEquals(name)
 						
 						val analysis = new FlowLatencyAnalysisSwitch()
-						val actual = analysis.invoke(it, it.systemOperationModes.head,true,true,true,true)
+						val actual = analysis.invoke(it, it.systemOperationModes.head,true,true,true,true, false)
 						val resultPath = '''«DIR_NAME»results/testFlowLatency/«pkgName».result'''
 						generateOrAssert(generateResults, resultPath,actual)
 					]
@@ -118,7 +118,7 @@ class FlowLatencyCodeCoverageTest {
 					"s1_i1_Instance".assertEquals(name)
 					
 					val analysis = new FlowLatencyAnalysisSwitch()
-					val actual = analysis.invoke(it, it.systemOperationModes.head,true,true,true,true)
+					val actual = analysis.invoke(it, it.systemOperationModes.head,true,true,true,true, false)
 
 					val resultPath = '''«DIR_NAME»results/testWithLatencyReport/«emptyPkgName».result'''
 					generateOrAssert(generateResults, resultPath,actual)
@@ -138,7 +138,7 @@ class FlowLatencyCodeCoverageTest {
 					"s1_i1_Instance".assertEquals(name)
 					
 					val analysis = new FlowLatencyAnalysisSwitch()
-					val actual = analysis.invoke(it, it.systemOperationModes.head, true, true, false, true)
+					val actual = analysis.invoke(it, it.systemOperationModes.head, true, true, false, true, false)
 
 					val resultPath = '''«DIR_NAME»results/testWorstCaseExecutionTime/«executionTimePkgName».result'''
 					generateOrAssert(generateResults, resultPath,actual)
@@ -158,7 +158,7 @@ class FlowLatencyCodeCoverageTest {
 					"s1_i1_Instance".assertEquals(name)
 					
 					val analysis = new FlowLatencyAnalysisSwitch()
-					val actual = analysis.invoke(it, it.systemOperationModes.head, true, true, true, false)
+					val actual = analysis.invoke(it, it.systemOperationModes.head, true, true, true, false, false)
 					val resultPath = '''«DIR_NAME»results/testBestCaseFullQueue/«queuingPkgName».result'''
 					generateOrAssert(generateResults, resultPath,actual)
 				]

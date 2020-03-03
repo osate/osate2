@@ -856,7 +856,6 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 *
 	 * @deprecated Use {@link #invoke(SystemInstance, SystemOperationMode, boolean, boolean, boolean, boolean, boolean)}
 	 */
-	// NB. This method is used to invoke the analysis from unit tests
 	@Deprecated
 	public AnalysisResult invoke(SystemInstance root, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {

@@ -67,7 +67,7 @@ class FlowLatencyTest extends XtextTest {
 		// check flow latency
 		val som = instance.systemOperationModes.head
 		val checker = new FlowLatencyAnalysisSwitch()
-		val latencyresult = checker.invoke(instance, som,true,true,true,true)
+		val latencyresult = checker.invoke(instance, som,true,true,true,true, false)
 		val res = latencyresult.results.get(0)
 		assertTrue((res.values.get(1) as RealValue).value == (304.0))
 		assertTrue((res.values.get(2) as RealValue).value == (504.0))
