@@ -21,8 +21,12 @@
 
 package org.osate.ba.declarative ;
 
+import org.osate.aadl2.BasicProperty ;
+import org.osate.aadl2.Classifier ;
 import org.osate.aadl2.DataClassifier ;
 import org.osate.aadl2.ProcessorClassifier ;
+import org.osate.aadl2.Property ;
+import org.osate.aadl2.UnitLiteral ;
 import org.osate.ba.aadlba.IntegerValueConstant ;
 import org.osate.ba.aadlba.ValueConstant ;
 
@@ -33,20 +37,21 @@ import org.osate.ba.aadlba.ValueConstant ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.declarative.QualifiedNamedElement#getBaNamespace <em>Ba Namespace</em>}</li>
  *   <li>{@link org.osate.ba.declarative.QualifiedNamedElement#getBaName <em>Ba Name</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.declarative.DeclarativePackage#getQualifiedNamedElement()
  * @model
  * @generated
  */
-public interface QualifiedNamedElement extends DataClassifier,
-                                      DeclarativeBehaviorElement,
-                                      ValueConstant, IntegerValueConstant,
-                                      ProcessorClassifier
+public interface QualifiedNamedElement extends DataClassifier, Classifier,
+                                       DeclarativeBehaviorElement,
+                                       ValueConstant, IntegerValueConstant,
+                                       ProcessorClassifier, Property,
+                                       UnitLiteral
 {
   /**
    * Returns the value of the '<em><b>Ba Namespace</b></em>' containment reference.

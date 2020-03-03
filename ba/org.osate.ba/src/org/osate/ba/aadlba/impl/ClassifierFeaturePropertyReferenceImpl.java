@@ -35,10 +35,10 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.ClassifierFeaturePropertyReferenceImpl#getComponent <em>Component</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -80,6 +80,7 @@ public class ClassifierFeaturePropertyReferenceImpl extends PropertyReferenceImp
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ClassifierFeatureHolder getComponent()
   {
     return component;
@@ -107,6 +108,7 @@ public class ClassifierFeaturePropertyReferenceImpl extends PropertyReferenceImp
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setComponent(ClassifierFeatureHolder newComponent)
   {
     if (newComponent != component)

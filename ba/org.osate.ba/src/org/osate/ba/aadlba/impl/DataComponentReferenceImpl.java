@@ -39,10 +39,10 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.DataComponentReferenceImpl#getData <em>Data</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -84,6 +84,7 @@ public class DataComponentReferenceImpl extends BehaviorElementImpl implements D
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<DataHolder> getData()
   {
     if (data == null)

@@ -32,6 +32,6 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface BehaviorRealLiteral extends RealLiteral, NumericLiteral, IBAVisitable
+public interface BehaviorRealLiteral extends RealLiteral, NumericLiteral
 {
 } // BehaviorRealLiteral

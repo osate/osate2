@@ -32,6 +32,6 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface ExecutionTimeoutCatch extends ExecuteCondition, IBAVisitable
+public interface ExecutionTimeoutCatch extends ExecuteCondition
 {
 } // ExecutionTimeoutCatch
