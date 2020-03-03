@@ -75,7 +75,7 @@ class Issue2003Test extends XtextTest {
 		assertTrue((res.values.get(4) as RealValue).value == (0.0))
 		assertTrue((res.values.get(5) as RealValue).value == (0.0))
 		assertTrue((res.values.get(6) as RealValue).value == (100.0))
-		assertTrue(latencyresult.message == "AS-MF-DL-EQ")
+		assertTrue(latencyresult.message == "AS-MF-DL-EQ-EQL")
 	}
 
 
