@@ -57,6 +57,7 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 	protected static boolean isMajorFrameDelay = true;
 	protected static boolean isWorstCaseDeadline = true;
 	protected static boolean isBestCaseEmptyQueue = true;
+	protected static boolean isDisableQueuingLatency = false;
 
 	@Override
 	protected String getActionName() {
@@ -79,7 +80,7 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 	}
 
 	@Override
-	protected boolean initializeAnalysis(NamedElement object) {
+	protected boolean initializeAnalysis(final NamedElement object) {
 		final IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
 		final FlowLatencyDialog d = new FlowLatencyDialog(getShell(), store);
 
@@ -101,8 +102,10 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 					.equalsIgnoreCase(Constants.WORST_CASE_DEADLINE_YES);
 			isBestCaseEmptyQueue = d.localValues.get(Constants.BESTCASE_EMPTY_QUEUE_LAST_USED)
 					.equalsIgnoreCase(Constants.BESTCASE_EMPTY_QUEUE_YES);
+			isDisableQueuingLatency = d.localValues.get(Constants.DISABLE_QUEUING_LATENCY_LAST_USED)
+					.equals(Constants.DISABLE_QUEUING_LATENCY_YES);
 			latResult = FlowLatencyUtil.createLatencyAnalysisResult(object, isAsynchronousSystem, isMajorFrameDelay,
-					isWorstCaseDeadline, isBestCaseEmptyQueue);
+					isWorstCaseDeadline, isBestCaseEmptyQueue, isDisableQueuingLatency);
 		}
 
 		return doIt;
@@ -153,7 +156,7 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 		// Note: analyzeInstanceModel is called for each mode. We add the results to the same 'latreport'
 		FlowLatencyAnalysisSwitch flas = new FlowLatencyAnalysisSwitch(monitor, root);
 		flas.invokeOnSOM(root, som, isAsynchronousSystem, isMajorFrameDelay, isWorstCaseDeadline,
-				isBestCaseEmptyQueue);
+				isBestCaseEmptyQueue, isDisableQueuingLatency);
 		latResult.getResults().addAll(flas.finalizeResults());
 		monitor.done();
 	}
