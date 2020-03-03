@@ -39,7 +39,7 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model abstract="true"
  * @generated
  */
-public interface BehaviorElement extends Element, IBAVisitable
+public interface BehaviorElement extends Element
 {
   public AadlBaLocationReference getAadlBaLocationReference();
 } // BehaviorElement

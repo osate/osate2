@@ -32,13 +32,12 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model abstract="true"
  * @generated
  */
-public interface ActualPortHolder extends PortHolder, IBAVisitable
+public interface ActualPortHolder extends PortHolder
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model portRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = port ;'"
    * @generated
    */
   void setPort(Port port);
@@ -47,7 +46,6 @@ public interface ActualPortHolder extends PortHolder, IBAVisitable
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (Port) element;'"
    * @generated
    */
   Port getPort();

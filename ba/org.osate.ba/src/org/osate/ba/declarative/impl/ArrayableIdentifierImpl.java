@@ -42,15 +42,15 @@ import org.osate.ba.declarative.DeclarativePackage ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.declarative.impl.ArrayableIdentifierImpl#getArrayIndexes <em>Array Indexes</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
 public class ArrayableIdentifierImpl extends IdentifierImpl implements
-                                                           ArrayableIdentifier
+                                     ArrayableIdentifier
 {
   /**
    * The cached value of the '{@link #getArrayIndexes() <em>Array Indexes</em>}' containment reference list.
@@ -88,14 +88,15 @@ public class ArrayableIdentifierImpl extends IdentifierImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<IntegerValue> getArrayIndexes()
   {
     if(arrayIndexes == null)
     {
-      arrayIndexes =
-            new EObjectContainmentEList.Unsettable<IntegerValue>(
-                  IntegerValue.class, this,
-                  DeclarativePackage.ARRAYABLE_IDENTIFIER__ARRAY_INDEXES) ;
+      arrayIndexes = new EObjectContainmentEList.Unsettable<IntegerValue>(
+                                                                          IntegerValue.class,
+                                                                          this,
+                                                                          DeclarativePackage.ARRAYABLE_IDENTIFIER__ARRAY_INDEXES) ;
     }
     return arrayIndexes ;
   }
@@ -105,6 +106,7 @@ public class ArrayableIdentifierImpl extends IdentifierImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetArrayIndexes()
   {
     if(arrayIndexes != null)
@@ -116,10 +118,11 @@ public class ArrayableIdentifierImpl extends IdentifierImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetArrayIndexes()
   {
-    return arrayIndexes != null &&
-          ((InternalEList.Unsettable<?>) arrayIndexes).isSet() ;
+    return arrayIndexes != null && ((InternalEList.Unsettable<?>) arrayIndexes)
+                                                                               .isSet() ;
   }
 
   /**
@@ -129,8 +132,7 @@ public class ArrayableIdentifierImpl extends IdentifierImpl implements
    */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd,
-                                          int featureID,
-                                          NotificationChain msgs)
+                                          int featureID, NotificationChain msgs)
   {
     switch ( featureID )
     {
@@ -147,9 +149,7 @@ public class ArrayableIdentifierImpl extends IdentifierImpl implements
    * @generated
    */
   @Override
-  public Object eGet(int featureID,
-                     boolean resolve,
-                     boolean coreType)
+  public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
     switch ( featureID )
     {
@@ -166,8 +166,7 @@ public class ArrayableIdentifierImpl extends IdentifierImpl implements
    */
   @SuppressWarnings("unchecked")
   @Override
-  public void eSet(int featureID,
-                   Object newValue)
+  public void eSet(int featureID, Object newValue)
   {
     switch ( featureID )
     {

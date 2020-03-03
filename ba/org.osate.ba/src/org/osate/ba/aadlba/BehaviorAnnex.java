@@ -36,6 +36,7 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.BehaviorAnnex#getVariables <em>Variables</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.BehaviorAnnex#getStates <em>States</em>}</li>
@@ -44,13 +45,12 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *   <li>{@link org.osate.ba.aadlba.BehaviorAnnex#getConditions <em>Conditions</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.BehaviorAnnex#getInitialState <em>Initial State</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorAnnex()
  * @model
  * @generated
  */
-public interface BehaviorAnnex extends AnnexSubclause, BehaviorElement, IBAVisitable
+public interface BehaviorAnnex extends AnnexSubclause, BehaviorElement
 {
   /**
    * Returns the value of the '<em><b>Variables</b></em>' containment reference list.
