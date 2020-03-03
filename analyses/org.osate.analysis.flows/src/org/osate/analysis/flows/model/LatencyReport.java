@@ -49,6 +49,7 @@ public class LatencyReport {
 	private boolean majorFrameDelay = true; // MF default
 	private boolean worstCaseDeadline = true; // DL default
 	private boolean bestCaseEmptyQueue = true; // EQ default
+	private boolean disableQueuingLatency = false;
 
 	public LatencyReport() {
 		this.entries = new ArrayList<LatencyReportEntry>();
@@ -79,6 +80,9 @@ public class LatencyReport {
 		this.entries.add(entry);
 	}
 
+	/**
+	 * @since org.osate.analhysis.flows 3.0
+	 */
 	public List<Result> finalizeAllEntries() {
 		final List<Result> results = new ArrayList<>();
 		entries.forEach(entry -> {
@@ -88,12 +92,22 @@ public class LatencyReport {
 		return results;
 	}
 
+	@Deprecated
 	public void setLatencyAnalysisParameters(boolean asynchronousSystem, boolean majorFrameDelay,
 			boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+		setLatencyAnalysisParameters(asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue, false);
+	}
+
+	/**
+	 * @since org.osate.analhysis.flows 3.0
+	 */
+	public void setLatencyAnalysisParameters(boolean asynchronousSystem, boolean majorFrameDelay,
+			boolean worstCaseDeadline, boolean bestCaseEmptyQueue, boolean disableQueuingLatency) {
 		this.asynchronousSystem = asynchronousSystem;
 		this.majorFrameDelay = majorFrameDelay;
 		this.worstCaseDeadline = worstCaseDeadline;
 		this.bestCaseEmptyQueue = bestCaseEmptyQueue;
+		this.disableQueuingLatency = disableQueuingLatency;
 	}
 
 	public boolean isAsynchronousSystem() {
@@ -112,10 +126,17 @@ public class LatencyReport {
 		return this.bestCaseEmptyQueue;
 	}
 
+	/**
+	 * @since org.osate.analhysis.flows 3.0
+	 */
+	public final boolean isDisableQueuingLatency() {
+		return this.disableQueuingLatency;
+	}
+
 	public String getParametersAsDescriptions() {
 		return "with preference settings: "
 				+ FlowLatencyUtil.getParametersAsDescriptions(asynchronousSystem, majorFrameDelay, worstCaseDeadline,
-						bestCaseEmptyQueue);
+						bestCaseEmptyQueue, disableQueuingLatency);
 	}
 
 	public EList<Result> genResult() {
@@ -132,7 +153,7 @@ public class LatencyReport {
 
 		genericReport = new Report(this.relatedInstance, "latency",
 				"latency_" + FlowLatencyUtil.getParametersAsLabels(asynchronousSystem, majorFrameDelay,
-						worstCaseDeadline, bestCaseEmptyQueue),
+						worstCaseDeadline, bestCaseEmptyQueue, disableQueuingLatency),
 				ReportType.TABLE);
 		genericReport.setTextContent("Latency analysis " + getParametersAsDescriptions());
 		for (LatencyReportEntry re : entries) {

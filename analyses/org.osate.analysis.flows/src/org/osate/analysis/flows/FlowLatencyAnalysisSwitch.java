@@ -853,35 +853,79 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param worstCaseDeadline Use deadline based processing (as opposed to max compute execution time)
 	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
 	 * @return A populated report in AnalysisResult format.
+	 *
+	 * @deprecated Use {@link #invoke(SystemInstance, SystemOperationMode, boolean, boolean, boolean, boolean, boolean)}
+	 */
+	// NB. This method is used to invoke the analysis from unit tests
+	@Deprecated
+	public AnalysisResult invoke(SystemInstance root, SystemOperationMode som, boolean asynchronousSystem,
+			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+		return invoke(root, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue, false);
+	}
+
+	/**
+	 * Invoke the analysis on all ETEF in system instance and return Result collection
+	 *
+	 * @param root The root system instance
+	 * @param som The mode to run the analysis in. If null then run all SOMs
+	 * @param asynchronousSystem Whether the system is treated as synchronous by default
+	 * @param majorFrameDelay Whether partition output is performed at a major frame (as opposed to the partition end)
+	 * @param worstCaseDeadline Use deadline based processing (as opposed to max compute execution time)
+	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
+	 * @param disableQueuingLatency <code>true</code> if queuing latency should always be reported as zero
+	 * @return A populated report in AnalysisResult format.
+	 * @since org.osate.analysis.flows 3.0
 	 */
 	// NB. This method is used to invoke the analysis from unit tests
 	public AnalysisResult invoke(SystemInstance root, SystemOperationMode som, boolean asynchronousSystem,
-			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue,
+			boolean disableQueuingLatency) {
 		if (som == null) {
 			if (root.getSystemOperationModes().isEmpty()
 					|| root.getSystemOperationModes().get(0).getCurrentModes().isEmpty()) {
 				// no SOM
 				invokeOnSOM(root, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
-						bestCaseEmptyQueue);
+						bestCaseEmptyQueue, disableQueuingLatency);
 			} else {
 				// we need to run it for every SOM
 				for (SystemOperationMode eachsom : root.getSystemOperationModes()) {
 					root.setCurrentSystemOperationMode(eachsom);
 					invokeOnSOM(root, eachsom, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
-							bestCaseEmptyQueue);
+							bestCaseEmptyQueue, disableQueuingLatency);
 					root.clearCurrentSystemOperationMode();
 				}
 			}
 		} else {
 			invokeOnSOM(root, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
-					bestCaseEmptyQueue);
+					bestCaseEmptyQueue, disableQueuingLatency);
 		}
 
 		// Issue 1148
 		final List<Result> finalizedResults = finalizeResults();
 
 		return FlowLatencyUtil.recordAsAnalysisResult(finalizedResults, root, asynchronousSystem, majorFrameDelay,
-				worstCaseDeadline, bestCaseEmptyQueue);
+				worstCaseDeadline, bestCaseEmptyQueue, disableQueuingLatency);
+	}
+
+	/**
+	 * Invoke the analysis on all ETEF in system instance and return Result collection
+	 *
+	 * @param ci The component instance that owns the end to end flow instances
+	 * @param som The mode to run the analysis in.
+	 * @param asynchronousSystem Whether the system is treated as asynchronous
+	 * @param majorFrameDelay Whether partition output is performed at a major frame (as opposed to the partition end)
+	 * @param worstCaseDeadline Use deadline based processing (as opposed to max compute execution time)
+	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
+	 * @return A populated report in AnalysisResult format.
+	 *
+	 * @since org.osate.analysis.flows 3.0
+	 *
+	 * @deprecated Use {@link #invokeOnSOM(SystemInstance, SystemOperationMode, boolean, boolean, boolean, boolean, boolean)}.
+	 */
+	@Deprecated
+	public void invokeOnSOM(SystemInstance si, SystemOperationMode som, boolean asynchronousSystem,
+			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+		invokeOnSOM(si, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue, false);
 	}
 
 	/**
@@ -899,10 +943,12 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 */
 	// NB. Called by CheckFlowLatency
 	public void invokeOnSOM(SystemInstance si, SystemOperationMode som, boolean asynchronousSystem,
-			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue,
+			boolean disableQueuingLatency) {
 		List<EndToEndFlowInstance> alletef = EcoreUtil2.getAllContentsOfType(si, EndToEndFlowInstance.class);
 		for (EndToEndFlowInstance etef : alletef) {
-			invokeOnSOM(etef, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
+			invokeOnSOM(etef, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue,
+					disableQueuingLatency);
 		}
 
 		// Issue 1148
@@ -910,7 +956,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	}
 
 	public AnalysisResult invoke(ComponentInstance ci) {
-		return invoke(ci, null, true, true, true, true);
+		return invoke(ci, null, true, true, true, true, false);
 	}
 
 	/**
@@ -923,28 +969,52 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param worstCaseDeadline Use deadline based processing (as opposed to max compute execution time)
 	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
 	 * @return A populated report in AnalysisResult format.
+	 *
+	 * @deprecated use {@link #invoke(ComponentInstance, SystemOperationMode, boolean, boolean, boolean, boolean, boolean)}
 	 */
 	// Called by ???
+	@Deprecated
 	public AnalysisResult invoke(ComponentInstance ci, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+		return invoke(ci, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue, false);
+	}
+
+	/**
+	 * Invoke the analysis on all ETEF owned by the given component instance and return Result collection
+	 *
+	 * @param ci The component instance that owns the end to end flow instances
+	 * @param som The mode to run the analysis in. If null then run all SOMs
+	 * @param asynchronousSystem Whether the system is treated as asynchronous
+	 * @param majorFrameDelay Whether partition output is performed at a major frame (as opposed to the partition end)
+	 * @param worstCaseDeadline Use deadline based processing (as opposed to max compute execution time)
+	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
+	 * @param disableQueuingLatency <code>true</code> if queuing latency should always be reported as zero
+	 * @return A populated report in AnalysisResult format.
+	 *
+	 * @since org.osate.analysis.flows 3.0
+	 */
+	public AnalysisResult invoke(ComponentInstance ci, SystemOperationMode som, boolean asynchronousSystem,
+			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue,
+			boolean disableQueuingLatency) {
 		SystemInstance root = ci.getSystemInstance();
 		if (som == null) {
 			if (root.getSystemOperationModes().isEmpty()
 					|| root.getSystemOperationModes().get(0).getCurrentModes().isEmpty()) {
 				// no SOM
-				invokeOnSOM(ci, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
-						bestCaseEmptyQueue);
+				invokeOnSOM(ci, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue,
+						disableQueuingLatency);
 			} else {
 				// we need to run it for every SOM
 				for (SystemOperationMode eachsom : root.getSystemOperationModes()) {
 					root.setCurrentSystemOperationMode(eachsom);
 					invokeOnSOM(ci, eachsom, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
-							bestCaseEmptyQueue);
+							bestCaseEmptyQueue, disableQueuingLatency);
 					root.clearCurrentSystemOperationMode();
 				}
 			}
 		} else {
-			invokeOnSOM(ci, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
+			invokeOnSOM(ci, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue,
+					disableQueuingLatency);
 		}
 
 		// Issue 1148
@@ -952,7 +1022,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		final List<Result> finalizedResults = report.finalizeAllEntries();
 
 		return FlowLatencyUtil.recordAsAnalysisResult(finalizedResults, ci, asynchronousSystem, majorFrameDelay,
-				worstCaseDeadline, bestCaseEmptyQueue);
+				worstCaseDeadline, bestCaseEmptyQueue, disableQueuingLatency);
 	}
 
 	/**
@@ -964,20 +1034,22 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param majorFrameDelay Whether partition output is performed at a major frame (as opposed to the partition end)
 	 * @param worstCaseDeadline Use deadline based processing (as opposed to max compute execution time)
 	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
-	 * @return A populated report in AnalysisResult format.
+	 * @param disableQueuingLatency <code>true</code> if queuing latency should always be reported as zero
 	 *
 	 * @since org.osate.analysis.flows 3.0
 	 */
 	private void invokeOnSOM(ComponentInstance ci, SystemOperationMode som, boolean asynchronousSystem,
-			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue,
+			boolean disableQueuingLatency) {
 		for (EndToEndFlowInstance etef : ci.getEndToEndFlows()) {
-			invokeOnSOM(etef, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
+			invokeOnSOM(etef, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue,
+					disableQueuingLatency);
 		}
 	}
 
 	// N.B. Called by Alisa
 	public AnalysisResult invoke(EndToEndFlowInstance etef) {
-		return invoke(etef, null, true, true, true, true);
+		return invoke(etef, null, true, true, true, true, false);
 	}
 
 	/**
@@ -990,19 +1062,43 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param worstCaseDeadline Use deadline based processing (as opposed to max compute execution time)
 	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
 	 * @return A populated report in AnalysisResult format.
+	 *
+	 * @deprecated Use {@link #invoke(EndToEndFlowInstance, SystemOperationMode, boolean, boolean, boolean, boolean, boolean)}
 	 */
+	@Deprecated
 	public AnalysisResult invoke(EndToEndFlowInstance etef, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+		return invoke(etef, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue, false);
+	}
+
+	/**
+	 * Invoke the analysis on all ETEF owned by the given component instance and return Result collection
+	 *
+	 * @param etef The end to end flow instance
+	 * @param som The mode to run the analysis in. If null then run all SOMs
+	 * @param asynchronousSystem Whether the system is treated as asynchronous
+	 * @param majorFrameDelay Whether partition output is performed at a major frame (as opposed to the partition end)
+	 * @param worstCaseDeadline Use deadline based processing (as opposed to max compute execution time)
+	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
+	 * @param disableQueuingLatency <code>true</code> if queuing latency should always be reported as zero
+	 * @return A populated report in AnalysisResult format.
+	 * @since org.osate.analysis.flows 3.0
+	 */
+	public AnalysisResult invoke(EndToEndFlowInstance etef, SystemOperationMode som, boolean asynchronousSystem,
+			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue,
+			boolean disableQueuingLatency) {
 		SystemInstance root = etef.getSystemInstance();
 		if (som == null) {
 			// we need to run it for every SOM
 			for (SystemOperationMode eachsom : root.getSystemOperationModes()) {
 				root.setCurrentSystemOperationMode(eachsom);
-				invokeOnSOM(etef, eachsom, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
+				invokeOnSOM(etef, eachsom, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue,
+						disableQueuingLatency);
 				root.clearCurrentSystemOperationMode();
 			}
 		} else {
-			invokeOnSOM(etef, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
+			invokeOnSOM(etef, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue,
+					disableQueuingLatency);
 		}
 
 		// Issue 1148
@@ -1010,7 +1106,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		final List<Result> finalizedResults = finalizeResults();
 
 		return FlowLatencyUtil.recordAsAnalysisResult(finalizedResults, etef, asynchronousSystem, majorFrameDelay,
-				worstCaseDeadline, bestCaseEmptyQueue);
+				worstCaseDeadline, bestCaseEmptyQueue, disableQueuingLatency);
 	}
 
 	/**
@@ -1022,17 +1118,19 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param majorFrameDelay Whether partition output is performed at a major frame (as opposed to the partition end)
 	 * @param worstCaseDeadline Use deadline based processing (as opposed to max compute execution time)
 	 * @param bestCaseEmptyQueue Assume empty queue (instead of full)
-	 * @return Collection of Result. May be empty if ETEF is not active in SOM
+	 * @param disableQueuingLatency <code>true</code> if queuing latency should always be reported as zero
 	 *
 	 * @since org.osate.analysis.flows 3.0
 	 */
 	private void invokeOnSOM(EndToEndFlowInstance etef, SystemOperationMode som, boolean asynchronousSystem,
-			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue,
+			boolean disableQueuingLatency) {
 		if (report == null) {
 			report = new LatencyReport();
 		}
 		report.setRootinstance(etef.getSystemInstance());
-		report.setLatencyAnalysisParameters(asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue);
+		report.setLatencyAnalysisParameters(asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue,
+				disableQueuingLatency);
 		SystemInstance root = etef.getSystemInstance();
 		if (etef.isActive(som)) {
 			root.setCurrentSystemOperationMode(som);
@@ -1053,12 +1151,26 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param majorFrameDelay
 	 * @param worstCaseDeadline
 	 * @param bestCaseEmptyQueue
+	 *
 	 * @return
+	 *
+	 * @deprecated {@link #invokeAndSaveResult(SystemInstance, SystemOperationMode, boolean, boolean, boolean, boolean, boolean)}.
 	 */
+	@Deprecated
 	public AnalysisResult invokeAndSaveResult(SystemInstance root, SystemOperationMode som, boolean asynchronousSystem,
 			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+		return invokeAndSaveResult(root, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
+				bestCaseEmptyQueue, false);
+	}
+
+	/**
+	 * @since org.osate.analysis.flows 3.0
+	 */
+	public AnalysisResult invokeAndSaveResult(SystemInstance root, SystemOperationMode som, boolean asynchronousSystem,
+			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue,
+			boolean disableQueuingLatency) {
 		AnalysisResult ar = invoke(root, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
-				bestCaseEmptyQueue);
+				bestCaseEmptyQueue, disableQueuingLatency);
 		FlowLatencyUtil.saveAnalysisResult(ar);
 		LatencyCSVReport.generateCSVReport(ar);
 		return ar;
