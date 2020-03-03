@@ -1346,7 +1346,14 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 						queuingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.QUEUED);
 						queuingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.QUEUED);
 						queuingLatencyContributor.setMinimum(0.0);
-						queuingLatencyContributor.setMaximum(maxWaitingTime);
+						if (report.isDisableQueuingLatency()) {
+							// Hide the queuing time
+							queuingLatencyContributor.setMaximum(0.0);
+							queuingLatencyContributor.reportInfo("Ignoring queuing time of " + maxWaitingTime + "ms");
+						} else {
+							// Report the queuing time
+							queuingLatencyContributor.setMaximum(maxWaitingTime);
+						}
 						latencyContributor.addSubContributor(queuingLatencyContributor);
 
 						// add the sampling latency
