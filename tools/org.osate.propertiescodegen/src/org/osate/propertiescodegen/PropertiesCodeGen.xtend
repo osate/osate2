@@ -252,11 +252,11 @@ class PropertiesCodeGen {
 					«ELSEIF numberType == rangeType.ownedNumberType»
 					minimum = new Number(rangeValue.getMinimum());
 					maximum = new Number(rangeValue.getMaximum());
-					delta = Optional.ofNullable(rangeValue.getDelta()).map(it -> new Number(it));
+					delta = Optional.ofNullable(rangeValue.getDelta()).map(Number::new);
 					«ELSE»
 					minimum = «numberTypeName».getValue(rangeValue.getMinimum());
 					maximum = «numberTypeName».getValue(rangeValue.getMaximum());
-					delta = Optional.ofNullable(rangeValue.getDelta()).map(it -> «numberTypeName».getValue(it));
+					delta = Optional.ofNullable(rangeValue.getDelta()).map(«numberTypeName»::getValue);
 					«ENDIF»
 				}
 				
