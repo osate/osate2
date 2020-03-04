@@ -79,7 +79,7 @@ is calculated. This allows users to perform studies along different dimensions w
 
 ![Configuration Dialog](images/FlowLatencyDialog.png "Flow Latency Configuration Dialog")
 
-The body of the dialog contains four sets of radio buttons that are described below.  Clicking on
+The body of the dialog contains five sets of radio buttons that are described below.  Clicking on
 **OK** executes the analysis with the chosen settings.  The settings are remembered the next time the
 analysis is run.  Clicking on **Cancel** discards the settings and does not run the analysis.  If
 **Don't show this dialog again** is selected when **OK** is pressed, the dialog will not be shown 
@@ -127,7 +127,10 @@ The flow latency analysis supports the following settings:
       is assumed to be empty.
     - **Assume full queue (FQ)**: Use minimum compute execution time
       times the queue size to determine the best case queuing time.
-
+- **Disable queuing latency in the results**: Determines whether worst-case queuing delay is reported for asyncronous busses.
+    - **Disable**: The worst-case queuing delay is always reported as 0.
+    - **Enable**: The worst-case queuing delay is reported as calculated below.
+ 
 The OSATE preference settings controlling the default values for flow latency analysis
 are found in the **OSATE > Analysis > Flow Latency** preference pane.
 
@@ -414,7 +417,7 @@ As described above, when a bus is periodic (has a **Period** property associatio
 
 > Buses with a period will always have a non-zero sampling delay and no queuing delay.
 >
-> Buses without a preiod will always have a queuing delay and no sampling delay.
+> Buses without a period will always have a queuing delay and no sampling delay.
 
 ### Processing Times as Latency Contributors
 
