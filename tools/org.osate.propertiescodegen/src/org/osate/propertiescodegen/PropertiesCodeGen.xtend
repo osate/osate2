@@ -325,7 +325,7 @@ class PropertiesCodeGen {
 			import org.osate.aadl2.instance.InstanceObject;
 			import org.osate.aadl2.instance.InstanceReferenceValue;
 			
-			public class ReferenceType1 {
+			public class «typeName» {
 				public static InstanceObject getValue(PropertyExpression propertyExpression) {
 					return ((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject();
 				}
