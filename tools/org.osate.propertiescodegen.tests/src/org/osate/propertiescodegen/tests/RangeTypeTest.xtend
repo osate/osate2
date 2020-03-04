@@ -292,7 +292,7 @@ class RangeTypeTest {
 					RangeValue rangeValue = (RangeValue) propertyExpression;
 					minimum = new Number(rangeValue.getMinimum());
 					maximum = new Number(rangeValue.getMaximum());
-					delta = Optional.ofNullable(rangeValue.getDelta()).map(it -> new Number(it));
+					delta = Optional.ofNullable(rangeValue.getDelta()).map(Number::new);
 				}
 				
 				public static RangeOfIntegerOwnedUnits getValue(PropertyExpression propertyExpression) {
@@ -423,7 +423,7 @@ class RangeTypeTest {
 					RangeValue rangeValue = (RangeValue) propertyExpression;
 					minimum = new Number(rangeValue.getMinimum());
 					maximum = new Number(rangeValue.getMaximum());
-					delta = Optional.ofNullable(rangeValue.getDelta()).map(it -> new Number(it));
+					delta = Optional.ofNullable(rangeValue.getDelta()).map(Number::new);
 				}
 				
 				public static RangeOfIntegerReferencedUnitsLocal getValue(PropertyExpression propertyExpression) {
@@ -530,7 +530,7 @@ class RangeTypeTest {
 					RangeValue rangeValue = (RangeValue) propertyExpression;
 					minimum = new Number(rangeValue.getMinimum());
 					maximum = new Number(rangeValue.getMaximum());
-					delta = Optional.ofNullable(rangeValue.getDelta()).map(it -> new Number(it));
+					delta = Optional.ofNullable(rangeValue.getDelta()).map(Number::new);
 				}
 				
 				public static RangeOfIntegerReferencedUnitsOtherFile getValue(PropertyExpression propertyExpression) {
@@ -704,7 +704,7 @@ class RangeTypeTest {
 					RangeValue rangeValue = (RangeValue) propertyExpression;
 					minimum = new Number(rangeValue.getMinimum());
 					maximum = new Number(rangeValue.getMaximum());
-					delta = Optional.ofNullable(rangeValue.getDelta()).map(it -> new Number(it));
+					delta = Optional.ofNullable(rangeValue.getDelta()).map(Number::new);
 				}
 				
 				public static RangeOfRealOwnedUnits getValue(PropertyExpression propertyExpression) {
@@ -836,7 +836,7 @@ class RangeTypeTest {
 					RangeValue rangeValue = (RangeValue) propertyExpression;
 					minimum = new Number(rangeValue.getMinimum());
 					maximum = new Number(rangeValue.getMaximum());
-					delta = Optional.ofNullable(rangeValue.getDelta()).map(it -> new Number(it));
+					delta = Optional.ofNullable(rangeValue.getDelta()).map(Number::new);
 				}
 				
 				public static RangeOfRealReferencedUnitsLocal getValue(PropertyExpression propertyExpression) {
@@ -943,7 +943,7 @@ class RangeTypeTest {
 					RangeValue rangeValue = (RangeValue) propertyExpression;
 					minimum = new Number(rangeValue.getMinimum());
 					maximum = new Number(rangeValue.getMaximum());
-					delta = Optional.ofNullable(rangeValue.getDelta()).map(it -> new Number(it));
+					delta = Optional.ofNullable(rangeValue.getDelta()).map(Number::new);
 				}
 				
 				public static RangeOfRealReferencedUnitsOtherFile getValue(PropertyExpression propertyExpression) {
@@ -1183,7 +1183,7 @@ class RangeTypeTest {
 					RangeValue rangeValue = (RangeValue) propertyExpression;
 					minimum = IntegerOwnedUnits.getValue(rangeValue.getMinimum());
 					maximum = IntegerOwnedUnits.getValue(rangeValue.getMaximum());
-					delta = Optional.ofNullable(rangeValue.getDelta()).map(it -> IntegerOwnedUnits.getValue(it));
+					delta = Optional.ofNullable(rangeValue.getDelta()).map(IntegerOwnedUnits::getValue);
 				}
 				
 				public static RangeOfReferencedNumberLocal getValue(PropertyExpression propertyExpression) {
@@ -1248,7 +1248,7 @@ class RangeTypeTest {
 					RangeValue rangeValue = (RangeValue) propertyExpression;
 					minimum = MassType.getValue(rangeValue.getMinimum());
 					maximum = MassType.getValue(rangeValue.getMaximum());
-					delta = Optional.ofNullable(rangeValue.getDelta()).map(it -> MassType.getValue(it));
+					delta = Optional.ofNullable(rangeValue.getDelta()).map(MassType::getValue);
 				}
 				
 				public static RangeOfReferencedNumberOtherFile getValue(PropertyExpression propertyExpression) {
