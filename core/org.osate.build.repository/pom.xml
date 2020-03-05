@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>org.osate</groupId>
 		<artifactId>core.parent</artifactId>
-		<version>2.7.0-SNAPSHOT</version>
+		<version>2.7.1-SNAPSHOT</version>
 	</parent>
 
 	<groupId>org.osate</groupId>
@@ -66,13 +66,14 @@
 
 							<!-- this adds repository references to the update site's content.xml -->
 							<associateSites>
-								<site>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.19.0</site>
-								<site>http://download.eclipse.org/modeling/emft/mwe/updates/releases/2.11.0</site>
-								<site>http://download.eclipse.org/xsemantics/milestones/1.18</site>
+								<site>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.20.0</site>
+								<site>http://download.eclipse.org/modeling/emft/mwe/updates/releases/2.11.1</site>
+								<site>http://download.eclipse.org/xsemantics/milestones/1.19</site>
 								<site>http://download.eclipse.org/tools/orbit/downloads/drops/R20190827152740/repository</site>
 								<site>http://download.eclipse.org/elk/updates/releases/0.5.0</site>
 								<site>http://download.eclipse.org/ease/update/release</site>
-								<site>https://eclipse.py4j.org</site>
+								<site>http://eclipse.py4j.org</site>
+								<site>http://updates.yakindu.com/statecharts/releases/3.5.9</site>
 							</associateSites>
 
 							<!-- to include other files in the update site zip, list them here -->

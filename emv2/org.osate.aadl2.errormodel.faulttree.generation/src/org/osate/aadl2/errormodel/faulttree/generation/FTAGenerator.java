@@ -1,3 +1,26 @@
+/**
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * All Rights Reserved.
+ *
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ *
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ *
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ */
 package org.osate.aadl2.errormodel.faulttree.generation;
 
 import java.math.BigDecimal;
@@ -153,6 +176,20 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 			return combined;
 		}
 		combined = FaultTreeUtils.createIntermediateEvent(ftaModel, component, ne, type);
+		combined.setSubEventLogic(LogicOperation.OR);
+
+		for (Object seobj : subEvents) {
+			combined.getSubEvents().add((Event) seobj);
+		}
+		return combined;
+	}
+
+	private Event finalizeAsUniqueOrEvents(ComponentInstance component, Element ne, TypeToken type,
+			List<EObject> subEvents) {
+		if (subEvents.size() == 0) {
+			return null;
+		}
+		Event combined = FaultTreeUtils.createUniqueIntermediateEvent(ftaModel, component, ne, type);
 		combined.setSubEventLogic(LogicOperation.OR);
 
 		for (Object seobj : subEvents) {
@@ -649,7 +686,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 				if (subEvents.size() == todo.size()) {
 					// all subgates are involved
 					// remove from lower OR and create an OR above top gate
-					Event newtopevent = FaultTreeUtils.createIntermediateEvent(ftaModel,
+					Event newtopevent = FaultTreeUtils.createUniqueIntermediateEvent(ftaModel,
 							(ComponentInstance) topevent.getRelatedInstanceObject(),
 							topevent.getRelatedEMV2Object(),
 							(TypeToken) topevent.getRelatedErrorType());
@@ -963,13 +1000,6 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	@Override
 	protected EObject postProcessCompositeErrorStates(ComponentInstance component, ErrorBehaviorState state,
 			TypeToken targetType, List<EObject> subResults, BigDecimal scale) {
-		if (subResults.size() == 1) {
-			Event result = (Event) subResults.get(0);
-			result.setRelatedInstanceObject(component);
-			result.setRelatedEMV2Object(state);
-			result.setRelatedErrorType(targetType);
-			return result;
-		}
 		Event result = finalizeAsOrEvents(component, state, targetType, subResults);
 		if (result == null) {
 			Event newEvent = FaultTreeUtils.createBasicEvent(ftaModel, component, state, targetType);
@@ -977,6 +1007,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		}
 		return result;
 	}
+
 
 	@Override
 	protected EObject processErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state,
@@ -989,10 +1020,12 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	@Override
 	protected EObject postProcessErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state,
 			TypeToken type, List<EObject> subResults, BigDecimal scale) {
-		Event result = finalizeAsOrEvents(component, state, type, subResults);
-		if (result != null && result.getType() == EventType.INTERMEDIATE) {
-			result.setName(FaultTreeUtils.buildName(component, state, type));
+		String name = FaultTreeUtils.buildName(component, state, type);
+		Event found = FaultTreeUtils.findEvent(ftaModel, name);
+		if (found != null) {
+			return null;
 		}
+		Event result = finalizeAsUniqueOrEvents(component, state, type, subResults);
 		return result;
 	}
 

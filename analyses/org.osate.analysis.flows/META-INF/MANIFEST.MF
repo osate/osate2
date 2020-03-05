@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.osate.analysis.flows;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 2.0.1.qualifier
 Bundle-Activator: org.osate.analysis.flows.FlowanalysisPlugin
 Bundle-Vendor: CMU-SEI
 Bundle-Localization: plugin
@@ -13,12 +13,12 @@ Export-Package: org.osate.analysis.flows,
  org.osate.analysis.flows.preferences,
  org.osate.analysis.flows.reporting.exporters,
  org.osate.analysis.flows.reporting.model
-Require-Bundle: org.osate.aadl2,
- org.osate.aadl2.modelsupport,
- org.osate.ui;visibility:=reexport,
- org.osate.xtext.aadl2.properties;bundle-version="1.0.0",
- org.osate.contribution.sei,
- org.osate.results;bundle-version="1.0.0"
-Eclipse-LazyStart: true
+Require-Bundle: org.osate.aadl2;bundle-version="[2.1.0,3.0.0)",
+ org.osate.aadl2.modelsupport;bundle-version="[2.0.0,3.0.0)",
+ org.osate.ui;bundle-version="[3.0.0,4.0.0)",
+ org.osate.xtext.aadl2.properties;bundle-version="[1.1.0,2.0.0)",
+ org.osate.contribution.sei;bundle-version="[1.0.0,3.0.0)",
+ org.osate.results;bundle-version="[2.0.0,3.0.0)"
+Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.osate.analysis.flows
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

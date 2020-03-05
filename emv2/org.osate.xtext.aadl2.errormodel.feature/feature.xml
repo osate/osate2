@@ -2,24 +2,19 @@
 <feature
       id="org.osate.xtext.aadl2.errormodel.feature"
       label="Error Model Annex V2 for OSATE2"
-      version="2.7.0.qualifier"
+      version="3.0.1.qualifier"
       provider-name="CMU-SEI"
-      plugin="org.osate.branding">
+      plugin="org.osate.branding"
+      license-feature="org.osate.license"
+      license-feature-version="1.0.0.qualifier">
 
-   <description url="http://www.aadl.info">
+   <description>
       Provide support for Error-Model Annex version 2
    </description>
 
-   <copyright url="http://www.aadl.info">
-      See aadl.info website.
+   <copyright>
+      Copyright (c) 2004-2020 Carnegie Mellon University. All rights reserved.
    </copyright>
-
-   <license url="OSATELicense.html">
-      OSATE License
-
-Use of the Open Source AADL Tool Environment (OSATE) is subject
-to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
-   </license>
 
    <url>
       <update label="OSATE2" url="http://www.aadl.info/osate2/updates"/>

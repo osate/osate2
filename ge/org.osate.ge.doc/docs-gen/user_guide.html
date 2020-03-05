@@ -1,3 +1,26 @@
+<!--
+Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+All Rights Reserved.
+
+NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+
+This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+SPDX-License-Identifier: EPL-2.0
+
+Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+
+This program includes and/or can make use of certain third party source code, object code, documentation and other
+files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+-->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
@@ -65,6 +88,7 @@
 <li><a href="#sec:diagram_types"><span class="toc-section-number">7.1</span> Diagram Types</a></li>
 <li><a href="#showing-and-hiding-diagram-elements"><span class="toc-section-number">7.2</span> Showing and Hiding Diagram Elements</a></li>
 <li><a href="#displaying-hidden-elements-in-outline"><span class="toc-section-number">7.3</span> Displaying Hidden Elements in Outline</a></li>
+<li><a href="#showing-connected-elements"><span class="toc-section-number">7.4</span> Showing Connected Elements</a></li>
 </ul></li>
 <li><a href="#visualization"><span class="toc-section-number">8</span> Visualization</a><ul>
 <li><a href="#sec:inherited_elements"><span class="toc-section-number">8.1</span> Inherited Elements</a></li>
@@ -72,8 +96,11 @@
 <li><a href="#sec:hidden_children"><span class="toc-section-number">8.3</span> Hidden Children</a></li>
 <li><a href="#sec:abstracted_connections"><span class="toc-section-number">8.4</span> Abstracted Connections</a></li>
 <li><a href="#highlighting-flow-implementations-and-end-to-end-flow-specifications"><span class="toc-section-number">8.5</span> Highlighting Flow Implementations and End-to-End Flow Specifications</a></li>
-<li><a href="#moving-shapes-using-arrow-keys"><span class="toc-section-number">8.6</span> Moving Shapes Using Arrow Keys</a></li>
-<li><a href="#sec:restore_missing_diagram_elements"><span class="toc-section-number">8.7</span> Restore Missing Diagram Elements</a></li>
+<li><a href="#showing-flow-implementation-and-end-to-end-flow-specification-segments"><span class="toc-section-number">8.6</span> Showing Flow Implementation and End-to-End Flow Specification Segments</a></li>
+<li><a href="#highlighting-in-mode-elements"><span class="toc-section-number">8.7</span> Highlighting In Mode Elements</a></li>
+<li><a href="#showing-in-mode-elements"><span class="toc-section-number">8.8</span> Showing In Mode Elements</a></li>
+<li><a href="#moving-shapes-using-arrow-keys"><span class="toc-section-number">8.9</span> Moving Shapes Using Arrow Keys</a></li>
+<li><a href="#sec:restore_missing_diagram_elements"><span class="toc-section-number">8.10</span> Restore Missing Diagram Elements</a></li>
 </ul></li>
 <li><a href="#navigating-between-diagrams"><span class="toc-section-number">9</span> Navigating Between Diagrams</a><ul>
 <li><a href="#creating-a-new-diagram"><span class="toc-section-number">9.1</span> Creating a New Diagram</a></li>
@@ -752,6 +779,8 @@ Create a system type and implementation named “ControlSystem” and “Control
 </div>
 <h2 id="displaying-hidden-elements-in-outline"><span class="header-section-number">7.3</span> Displaying Hidden Elements in Outline</h2>
 <p>By default, the <em>Outline</em> view shows hidden elements. Hidden elements are those which are not currently included in the diagram. Hidden elements are greyed out in the outline. Whether hidden elements are shown in the <em>Outline</em> view can be toggled using the <em>Show Hidden Elements</em> menu item in the view menu (<img src="../images/ui_view_menu_icon.png" alt="View Menu" />). When displayed, hidden elements can be added to the diagram using the <em>Show</em> menu item which is available in the context menu.</p>
+<h2 id="showing-connected-elements"><span class="header-section-number">7.4</span> Showing Connected Elements</h2>
+<p>Elements that are directly connected to a subcomponent or feature can be shown by right-clicking on the subcomponent or feature and selecting <em>Show Connected Elements</em> from the context menu.</p>
 <h1 id="visualization"><span class="header-section-number">8</span> Visualization</h1>
 <p>The following sections describe the diagram visualization capabilities of the graphical editor.</p>
 <h2 id="sec:inherited_elements"><span class="header-section-number">8.1</span> Inherited Elements</h2>
@@ -769,15 +798,21 @@ Create a system type and implementation named “ControlSystem” and “Control
 <li>An AADL property reference value for which the referenced model element is hidden.</li>
 </ul>
 <h2 id="highlighting-flow-implementations-and-end-to-end-flow-specifications"><span class="header-section-number">8.5</span> Highlighting Flow Implementations and End-to-End Flow Specifications</h2>
-<p>Selecting a flow implementation or end-to-end flow specification from the flow drop-down in the toolbar will highlight the flow. Flow Implementations and End To End Flows that have segments that are not shown in the diagram will be marked with an asterisk(*) in the drop-down.</p>
-<h2 id="moving-shapes-using-arrow-keys"><span class="header-section-number">8.6</span> Moving Shapes Using Arrow Keys</h2>
+<p>Selecting a Flow Implementation or End-to-End Flow specification from the flow drop-down in the toolbar will highlight the flow. Flow Implementations and End-to-End Flows that have no segments and missing segments are marked with an empty tag (E) or a partial tag (P), respectively.</p>
+<h2 id="showing-flow-implementation-and-end-to-end-flow-specification-segments"><span class="header-section-number">8.6</span> Showing Flow Implementation and End-to-End Flow Specification Segments</h2>
+<p>Selecting the “Show” button on the toolbar shows the missing flow segments of the currently selected flow drop-down Flow Implementation or End-to-End Flow when it is marked empty (E) or partial (P).</p>
+<h2 id="highlighting-in-mode-elements"><span class="header-section-number">8.7</span> Highlighting In Mode Elements</h2>
+<p>Selecting a Mode or Mode Transition from the mode drop-down in the toolbar will highlight the in mode elements in the diagram.</p>
+<h2 id="showing-in-mode-elements"><span class="header-section-number">8.8</span> Showing In Mode Elements</h2>
+<p>Right clicking a Mode or Mode Transition and selecting the “Show In Mode Elements” will show the elements within the mode’s container which are active in the selected mode.</p>
+<h2 id="moving-shapes-using-arrow-keys"><span class="header-section-number">8.9</span> Moving Shapes Using Arrow Keys</h2>
 <ol type="1">
 <li><p>Select the element to be moved.</p></li>
 <li><p>Press the <strong>.</strong> key.</p></li>
 <li><p>Using the <em>Arrow</em> keys, move the element to desired location.</p></li>
 <li><p>Press the <em>Enter</em> key.</p></li>
 </ol>
-<h2 id="sec:restore_missing_diagram_elements"><span class="header-section-number">8.7</span> Restore Missing Diagram Elements</h2>
+<h2 id="sec:restore_missing_diagram_elements"><span class="header-section-number">8.10</span> Restore Missing Diagram Elements</h2>
 <p>If a a model element is renamed from the AADL text editor without using the <em>Rename Element</em> menu option, the diagram element may disappear from diagrams in which it appears. In such cases it is possible to restore the diagram elements using the following steps. Note: if the diagram is saved after the diagram elements disappears, it will not be possible to restore the missing diagram elements.</p>
 <ol type="1">
 <li>Select <em>Edit-&gt;Restore Missing Diagram Elements</em>. A window containing diagram elements which have been removed from the diagram because the associated model element is missing will appear.</li>
@@ -957,7 +992,7 @@ Create a system type and implementation named “ControlSystem” and “Control
 <h2 id="inconsistent-font-sizes-across-machines"><span class="header-section-number">12.3</span> Inconsistent Font Sizes Across Machines</h2>
 <p>To ensure diagrams have a consistent appearance across machines, the graphical editor attempts to produce consistent text sizes regardless of system settings. However, due to limitations in the underlying libraries on which the graphical editor relies, this is not always possible. On windows systems, the graphical editor produces consistent font sizes at 100%, 125%, and 200% system text scaling levels.</p>
 <h2 id="missing-diagram-elements-after-modification-of-aadl-source"><span class="header-section-number">12.4</span> Missing Diagram Elements After Modification of AADL Source</h2>
-<p>See section <a href="#sec:restore_missing_diagram_elements">8.7</a>.</p>
+<p>See section <a href="#sec:restore_missing_diagram_elements">8.10</a>.</p>
 <h2 id="reporting-issues"><span class="header-section-number">12.5</span> Reporting Issues</h2>
 <p>Issues should be reported using the <a href="https://github.com/osate/osate2/issues" target="_blank">OSATE Issue Tracker</a>.</p>
 <h1 id="notices"><span class="header-section-number">13</span> Notices</h1>

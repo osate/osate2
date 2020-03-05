@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.osate.aadl2.edit;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 2.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.osate.aadl2.provider.Aadl2EditPlugin$Implementation
 Bundle-Vendor: %providerName
@@ -10,15 +10,15 @@ Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.osate.aadl2.instance.provider,
  org.osate.aadl2.provider
-Require-Bundle: org.osate.aadl2;visibility:=reexport,
- org.eclipse.emf.edit;visibility:=reexport,
- org.eclipse.emf.ecore;visibility:=reexport,
- org.eclipse.emf.ecore.edit;visibility:=reexport,
- org.eclipse.uml2.uml;visibility:=reexport,
- org.eclipse.uml2.uml.edit;visibility:=reexport,
- org.eclipse.uml2.types;visibility:=reexport,
- org.eclipse.uml2.common.edit;visibility:=reexport,
- org.eclipse.core.runtime;bundle-version="3.7.0",
- org.eclipse.xtext.xbase.lib
+Require-Bundle: org.osate.aadl2;bundle-version="[2.0.0,3.0.0)";visibility:=reexport,
+ org.eclipse.emf.edit;bundle-version="[2.16.0,3.0.0)";visibility:=reexport,
+ org.eclipse.emf.ecore;bundle-version="[2.20.0,3.0.0)";visibility:=reexport,
+ org.eclipse.emf.ecore.edit;bundle-version="[2.13.0,3.0.0)";visibility:=reexport,
+ org.eclipse.uml2.uml;bundle-version="[5.5.0,6.0.0)";visibility:=reexport,
+ org.eclipse.uml2.uml.edit;bundle-version="[5.5.0,6.0.0)";visibility:=reexport,
+ org.eclipse.uml2.types;bundle-version="[2.5.0,3.0.0)";visibility:=reexport,
+ org.eclipse.uml2.common.edit;bundle-version="[2.5.0,3.0.0)";visibility:=reexport,
+ org.eclipse.core.runtime;bundle-version="[3.7.0,4.0.0)",
+ org.eclipse.xtext.xbase.lib;bundle-version="[2.20.0,3.0.0)"
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.osate.aadl2.edit

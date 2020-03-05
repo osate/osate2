@@ -128,9 +128,12 @@
         eType="ecore:EDataType ../../org.osate.aadl2/model/aadl2.ecore#//Integer"
         defaultValueLiteral="-1"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BehaviorVariable" eSuperTypes="#//BehaviorNamedElement ../../org.osate.aadl2/model/aadl2.ecore#//ArrayableElement">
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorVariable" eSuperTypes="#//BehaviorNamedElement ../../org.osate.aadl2/model/aadl2.ecore#//ArrayableElement ../../org.osate.aadl2/model/aadl2.ecore#//Data">
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataClassifier" unique="false"
         lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//DataClassifier"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyAssociations"
+        upperBound="-1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//PropertyAssociation"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorVariableHolder" eSuperTypes="#//DataHolder #//IndexableElement #//Target #//ElementValues #//SubprogramHolderProxy #//ClassifierFeatureHolder">
     <eOperations name="setVariable" lowerBound="1">
@@ -291,7 +294,7 @@
       </eAnnotations>
     </eOperations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EventDataPortHolder" eSuperTypes="#//ActualPortHolder #//ElementValues #//DispatchTrigger #//Target">
+  <eClassifiers xsi:type="ecore:EClass" name="EventDataPortHolder" eSuperTypes="#//ActualPortHolder #//ElementValues #//DispatchTrigger #//ModeSwitchTrigger #//Target">
     <eOperations name="setEventDataPort" lowerBound="1">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="element = eventDataPort ;"/>
@@ -304,7 +307,7 @@
       </eAnnotations>
     </eOperations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EventPortHolder" eSuperTypes="#//ActualPortHolder #//DispatchTrigger #//Target">
+  <eClassifiers xsi:type="ecore:EClass" name="EventPortHolder" eSuperTypes="#//ActualPortHolder #//DispatchTrigger #//ModeSwitchTrigger #//Target">
     <eOperations name="setEventPort" lowerBound="1">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="element = eventPort ;"/>
@@ -806,4 +809,17 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="doUntil" eType="#//Boolean"
         defaultValueLiteral="false"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModeSwitchTriggerLogicalExpression"
+      eSuperTypes="#//ModeSwitchTriggerCondition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modeSwitchConjunctions"
+        lowerBound="1" upperBound="-1" eType="#//ModeSwitchConjunction" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModeSwitchTriggerCondition" abstract="true"
+      interface="true" eSuperTypes="#//BehaviorCondition"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ModeSwitchConjunction" eSuperTypes="#//BehaviorElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modeSwitchTriggers" lowerBound="1"
+        upperBound="-1" eType="#//ModeSwitchTrigger" unsettable="true" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModeSwitchTrigger" abstract="true" interface="true"
+      eSuperTypes="#//BehaviorElement"/>
 </ecore:EPackage>

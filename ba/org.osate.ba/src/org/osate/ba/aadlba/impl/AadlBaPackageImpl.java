@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright © 2011 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -9,13 +9,13 @@
  * 
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
- * version 1.0 of the License, or (at your option) any later version. This
+ * version 2.0 of the License, or (at your option) any later version. This
  * program is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License for
  * more details. You should have received a copy of the Eclipse Public License
  * along with this program. If not, see
- * http://www.eclipse.org/org/documents/epl-v10.php
+ * https://www.eclipse.org/legal/epl-2.0/
  */
 package org.osate.ba.aadlba.impl;
 
@@ -111,6 +111,10 @@ import org.osate.ba.aadlba.LockAction;
 import org.osate.ba.aadlba.LogicalOperator;
 import org.osate.ba.aadlba.LoopStatement;
 import org.osate.ba.aadlba.LowerBound;
+import org.osate.ba.aadlba.ModeSwitchConjunction;
+import org.osate.ba.aadlba.ModeSwitchTrigger;
+import org.osate.ba.aadlba.ModeSwitchTriggerCondition;
+import org.osate.ba.aadlba.ModeSwitchTriggerLogicalExpression;
 import org.osate.ba.aadlba.MultiplyingOperator;
 import org.osate.ba.aadlba.NumericLiteral;
 import org.osate.ba.aadlba.Otherwise;
@@ -922,6 +926,34 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass modeSwitchTriggerLogicalExpressionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass modeSwitchTriggerConditionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass modeSwitchConjunctionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass modeSwitchTriggerEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass propertySetPropertyReferenceEClass = null;
 
   /**
@@ -1107,7 +1139,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 
   /**
    * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-   * 
+   *
    * <p>This method is used to initialize {@link AadlBaPackage#eINSTANCE} when that field is accessed.
    * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
    * <!-- begin-user-doc -->
@@ -1122,7 +1154,8 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     if (isInited) return (AadlBaPackage)EPackage.Registry.INSTANCE.getEPackage(AadlBaPackage.eNS_URI);
 
     // Obtain or create and register package
-    AadlBaPackageImpl theAadlBaPackage = (AadlBaPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof AadlBaPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new AadlBaPackageImpl());
+    Object registeredAadlBaPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+    AadlBaPackageImpl theAadlBaPackage = registeredAadlBaPackage instanceof AadlBaPackageImpl ? (AadlBaPackageImpl)registeredAadlBaPackage : new AadlBaPackageImpl();
 
     isInited = true;
 
@@ -1138,7 +1171,6 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     // Mark meta-data to indicate it can't be changed
     theAadlBaPackage.freeze();
 
-  
     // Update the registry and return the package
     EPackage.Registry.INSTANCE.put(AadlBaPackage.eNS_URI, theAadlBaPackage);
     return theAadlBaPackage;
@@ -1149,6 +1181,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getActualPortHolder()
   {
     return actualPortHolderEClass;
@@ -1159,6 +1192,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getAssignmentAction()
   {
     return assignmentActionEClass;
@@ -1169,6 +1203,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAssignmentAction_Target()
   {
     return (EReference)assignmentActionEClass.getEStructuralFeatures().get(0);
@@ -1179,6 +1214,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAssignmentAction_ValueExpression()
   {
     return (EReference)assignmentActionEClass.getEStructuralFeatures().get(1);
@@ -1189,6 +1225,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getAny()
   {
     return anyEClass;
@@ -1199,6 +1236,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getBasicAction()
   {
     return basicActionEClass;
@@ -1209,6 +1247,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getBasicPropertyHolder()
   {
     return basicPropertyHolderEClass;
@@ -1219,6 +1258,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getBehaviorAction()
   {
     return behaviorActionEClass;
@@ -1229,6 +1269,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getBehaviorActionBlock()
   {
     return behaviorActionBlockEClass;
@@ -1239,6 +1280,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getBehaviorActionBlock_Content()
   {
     return (EReference)behaviorActionBlockEClass.getEStructuralFeatures().get(0);
@@ -1249,6 +1291,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getBehaviorActionBlock_Timeout()
   {
     return (EReference)behaviorActionBlockEClass.getEStructuralFeatures().get(1);
@@ -1259,6 +1302,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getBehaviorActionCollection()
   {
     return behaviorActionCollectionEClass;
@@ -1269,6 +1313,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getBehaviorActionCollection_Actions()
   {
     return (EReference)behaviorActionCollectionEClass.getEStructuralFeatures().get(0);
@@ -1279,6 +1324,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getBehaviorActions()
   {
     return behaviorActionsEClass;
@@ -1289,6 +1335,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getBehaviorActionSequence()
   {
     return behaviorActionSequenceEClass;
@@ -1299,6 +1346,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getBehaviorActionSet()
   {
     return behaviorActionSetEClass;
@@ -1309,6 +1357,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getBehaviorAnnex()
   {
     return behaviorAnnexEClass;
@@ -1319,6 +1368,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getBehaviorAnnex_Variables()
   {
     return (EReference)behaviorAnnexEClass.getEStructuralFeatures().get(0);
@@ -1329,6 +1379,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getBehaviorAnnex_States()
   {
     return (EReference)behaviorAnnexEClass.getEStructuralFeatures().get(1);
@@ -1339,6 +1390,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getBehaviorAnnex_Transitions()
   {
     return (EReference)behaviorAnnexEClass.getEStructuralFeatures().get(2);
@@ -1349,6 +1401,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getBehaviorAnnex_Actions()
   {
     return (EReference)behaviorAnnexEClass.getEStructuralFeatures().get(3);
@@ -1359,6 +1412,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getBehaviorAnnex_Conditions()
   {
     return (EReference)behaviorAnnexEClass.getEStructuralFeatures().get(4);
@@ -1369,6 +1423,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getBehaviorAnnex_InitialState()
   {
     return (EReference)behaviorAnnexEClass.getEStructuralFeatures().get(5);
@@ -1379,6 +1434,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getBehaviorBooleanLiteral()
   {
     return behaviorBooleanLiteralEClass;
@@ -1389,6 +1445,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getBehaviorCondition()
   {
     return behaviorConditionEClass;
@@ -1399,6 +1456,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getBehaviorElement()
   {
     return behaviorElementEClass;
@@ -1409,6 +1467,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getBehaviorIntegerLiteral()
   {
     return behaviorIntegerLiteralEClass;
@@ -1419,6 +1478,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getBehaviorNamedElement()
   {
     return behaviorNamedElementEClass;
@@ -1429,6 +1489,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getBehaviorPropertyConstant()
   {
     return behaviorPropertyConstantEClass;
@@ -1439,6 +1500,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getBehaviorPropertyConstant_Property()
   {
     return (EReference)behaviorPropertyConstantEClass.getEStructuralFeatures().get(0);
@@ -1449,6 +1511,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getBehaviorPropertyConstant_PropertySet()
   {
     return (EReference)behaviorPropertyConstantEClass.getEStructuralFeatures().get(1);
@@ -1459,6 +1522,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getBehaviorRealLiteral()
   {
     return behaviorRealLiteralEClass;
@@ -1469,6 +1533,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getBehaviorState()
   {
     return behaviorStateEClass;
@@ -1479,6 +1544,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getBehaviorState_Initial()
   {
     return (EAttribute)behaviorStateEClass.getEStructuralFeatures().get(0);
@@ -1489,6 +1555,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getBehaviorState_Complete()
   {
     return (EAttribute)behaviorStateEClass.getEStructuralFeatures().get(1);
@@ -1499,6 +1566,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getBehaviorState_Final()
   {
     return (EAttribute)behaviorStateEClass.getEStructuralFeatures().get(2);
@@ -1509,6 +1577,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getBehaviorState_BindedMode()
   {
     return (EReference)behaviorStateEClass.getEStructuralFeatures().get(3);
@@ -1519,6 +1588,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getBehaviorState_IncomingTransitions()
   {
     return (EReference)behaviorStateEClass.getEStructuralFeatures().get(4);
@@ -1529,6 +1599,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getBehaviorState_OutgoingTransitions()
   {
     return (EReference)behaviorStateEClass.getEStructuralFeatures().get(5);
@@ -1539,6 +1610,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getBehaviorStringLiteral()
   {
     return behaviorStringLiteralEClass;
@@ -1549,6 +1621,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getBehaviorTime()
   {
     return behaviorTimeEClass;
@@ -1559,6 +1632,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getBehaviorTime_IntegerValue()
   {
     return (EReference)behaviorTimeEClass.getEStructuralFeatures().get(0);
@@ -1569,6 +1643,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getBehaviorTime_Unit()
   {
     return (EReference)behaviorTimeEClass.getEStructuralFeatures().get(1);
@@ -1579,6 +1654,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getBehaviorTransition()
   {
     return behaviorTransitionEClass;
@@ -1589,6 +1665,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getBehaviorTransition_SourceState()
   {
     return (EReference)behaviorTransitionEClass.getEStructuralFeatures().get(0);
@@ -1599,6 +1676,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getBehaviorTransition_Condition()
   {
     return (EReference)behaviorTransitionEClass.getEStructuralFeatures().get(1);
@@ -1609,6 +1687,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getBehaviorTransition_DestinationState()
   {
     return (EReference)behaviorTransitionEClass.getEStructuralFeatures().get(2);
@@ -1619,6 +1698,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getBehaviorTransition_ActionBlock()
   {
     return (EReference)behaviorTransitionEClass.getEStructuralFeatures().get(3);
@@ -1629,6 +1709,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getBehaviorTransition_Priority()
   {
     return (EAttribute)behaviorTransitionEClass.getEStructuralFeatures().get(4);
@@ -1639,6 +1720,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getBehaviorVariable()
   {
     return behaviorVariableEClass;
@@ -1649,6 +1731,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getBehaviorVariable_DataClassifier()
   {
     return (EReference)behaviorVariableEClass.getEStructuralFeatures().get(0);
@@ -1659,6 +1742,18 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
+  public EReference getBehaviorVariable_OwnedPropertyAssociations()
+  {
+    return (EReference)behaviorVariableEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EClass getBehaviorVariableHolder()
   {
     return behaviorVariableHolderEClass;
@@ -1669,6 +1764,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCalledSubprogramHolder()
   {
     return calledSubprogramHolderEClass;
@@ -1679,6 +1775,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getClassifierFeatureHolder()
   {
     return classifierFeatureHolderEClass;
@@ -1689,6 +1786,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCommunicationAction()
   {
     return communicationActionEClass;
@@ -1699,6 +1797,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCompletionRelativeTimeout()
   {
     return completionRelativeTimeoutEClass;
@@ -1709,6 +1808,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getClassifierFeaturePropertyReference()
   {
     return classifierFeaturePropertyReferenceEClass;
@@ -1719,6 +1819,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getClassifierFeaturePropertyReference_Component()
   {
     return (EReference)classifierFeaturePropertyReferenceEClass.getEStructuralFeatures().get(0);
@@ -1729,6 +1830,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCondStatement()
   {
     return condStatementEClass;
@@ -1739,6 +1841,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getCondStatement_BehaviorActions()
   {
     return (EReference)condStatementEClass.getEStructuralFeatures().get(0);
@@ -1749,6 +1852,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getDataAccessHolder()
   {
     return dataAccessHolderEClass;
@@ -1759,6 +1863,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getDataAccessPrototypeHolder()
   {
     return dataAccessPrototypeHolderEClass;
@@ -1769,6 +1874,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getDataComponentReference()
   {
     return dataComponentReferenceEClass;
@@ -1779,6 +1885,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getDataComponentReference_Data()
   {
     return (EReference)dataComponentReferenceEClass.getEStructuralFeatures().get(0);
@@ -1789,6 +1896,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getDataHolder()
   {
     return dataHolderEClass;
@@ -1799,6 +1907,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getDataPortHolder()
   {
     return dataPortHolderEClass;
@@ -1809,6 +1918,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getDataSubcomponentHolder()
   {
     return dataSubcomponentHolderEClass;
@@ -1819,6 +1929,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getDispatchCondition()
   {
     return dispatchConditionEClass;
@@ -1829,6 +1940,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getDispatchCondition_DispatchTriggerCondition()
   {
     return (EReference)dispatchConditionEClass.getEStructuralFeatures().get(0);
@@ -1839,6 +1951,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getDispatchCondition_FrozenPorts()
   {
     return (EReference)dispatchConditionEClass.getEStructuralFeatures().get(1);
@@ -1849,6 +1962,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getDispatchConjunction()
   {
     return dispatchConjunctionEClass;
@@ -1859,6 +1973,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getDispatchConjunction_DispatchTriggers()
   {
     return (EReference)dispatchConjunctionEClass.getEStructuralFeatures().get(0);
@@ -1869,6 +1984,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getDispatchRelativeTimeout()
   {
     return dispatchRelativeTimeoutEClass;
@@ -1879,6 +1995,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getDispatchTrigger()
   {
     return dispatchTriggerEClass;
@@ -1889,6 +2006,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getDispatchTriggerCondition()
   {
     return dispatchTriggerConditionEClass;
@@ -1899,6 +2017,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getDispatchTriggerConditionStop()
   {
     return dispatchTriggerConditionStopEClass;
@@ -1909,6 +2028,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getDispatchTriggerLogicalExpression()
   {
     return dispatchTriggerLogicalExpressionEClass;
@@ -1919,6 +2039,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getDispatchTriggerLogicalExpression_DispatchConjunctions()
   {
     return (EReference)dispatchTriggerLogicalExpressionEClass.getEStructuralFeatures().get(0);
@@ -1929,6 +2050,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getElementHolder()
   {
     return elementHolderEClass;
@@ -1939,6 +2061,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getElementHolder_Element()
   {
     return (EReference)elementHolderEClass.getEStructuralFeatures().get(0);
@@ -1949,6 +2072,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getElementValues()
   {
     return elementValuesEClass;
@@ -1959,6 +2083,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getElseStatement()
   {
     return elseStatementEClass;
@@ -1969,6 +2094,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getEnumLiteralHolder()
   {
     return enumLiteralHolderEClass;
@@ -1979,6 +2105,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getEventDataPortHolder()
   {
     return eventDataPortHolderEClass;
@@ -1989,6 +2116,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getEventPortHolder()
   {
     return eventPortHolderEClass;
@@ -1999,6 +2127,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getExecuteCondition()
   {
     return executeConditionEClass;
@@ -2009,6 +2138,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getExecutionTimeoutCatch()
   {
     return executionTimeoutCatchEClass;
@@ -2019,6 +2149,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getFactor()
   {
     return factorEClass;
@@ -2029,6 +2160,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getFactor_FirstValue()
   {
     return (EReference)factorEClass.getEStructuralFeatures().get(0);
@@ -2039,6 +2171,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getFactor_SecondValue()
   {
     return (EReference)factorEClass.getEStructuralFeatures().get(1);
@@ -2049,6 +2182,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getFactor_BinaryNumericOperator()
   {
     return (EAttribute)factorEClass.getEStructuralFeatures().get(2);
@@ -2059,6 +2193,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getFactor_UnaryNumericOperator()
   {
     return (EAttribute)factorEClass.getEStructuralFeatures().get(3);
@@ -2069,6 +2204,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getFactor_UnaryBooleanOperator()
   {
     return (EAttribute)factorEClass.getEStructuralFeatures().get(4);
@@ -2079,6 +2215,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getFeaturePrototypeHolder()
   {
     return featurePrototypeHolderEClass;
@@ -2089,6 +2226,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getForOrForAllStatement()
   {
     return forOrForAllStatementEClass;
@@ -2099,6 +2237,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getForOrForAllStatement_IteratedValues()
   {
     return (EReference)forOrForAllStatementEClass.getEStructuralFeatures().get(0);
@@ -2109,6 +2248,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getForOrForAllStatement_ForAll()
   {
     return (EAttribute)forOrForAllStatementEClass.getEStructuralFeatures().get(1);
@@ -2119,6 +2259,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getForOrForAllStatement_IterativeVariable()
   {
     return (EReference)forOrForAllStatementEClass.getEStructuralFeatures().get(2);
@@ -2129,6 +2270,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getGroupableElement()
   {
     return groupableElementEClass;
@@ -2139,6 +2281,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getGroupableElement_GroupHolders()
   {
     return (EReference)groupableElementEClass.getEStructuralFeatures().get(0);
@@ -2149,6 +2292,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getGroupHolder()
   {
     return groupHolderEClass;
@@ -2159,6 +2303,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getGroupPrototypeHolder()
   {
     return groupPrototypeHolderEClass;
@@ -2169,6 +2314,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getGroupPrototypeHolder_PrototypeBinding()
   {
     return (EReference)groupPrototypeHolderEClass.getEStructuralFeatures().get(0);
@@ -2179,6 +2325,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getIfStatement()
   {
     return ifStatementEClass;
@@ -2189,6 +2336,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getIfStatement_LogicalValueExpression()
   {
     return (EReference)ifStatementEClass.getEStructuralFeatures().get(0);
@@ -2199,6 +2347,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getIfStatement_Elif()
   {
     return (EAttribute)ifStatementEClass.getEStructuralFeatures().get(1);
@@ -2209,6 +2358,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getIfStatement_ElseStatement()
   {
     return (EReference)ifStatementEClass.getEStructuralFeatures().get(2);
@@ -2219,6 +2369,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getIndexableElement()
   {
     return indexableElementEClass;
@@ -2229,6 +2380,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getIndexableElement_ArrayIndexes()
   {
     return (EReference)indexableElementEClass.getEStructuralFeatures().get(0);
@@ -2239,6 +2391,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getIntegerRange()
   {
     return integerRangeEClass;
@@ -2249,6 +2402,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getIntegerRange_LowerIntegerValue()
   {
     return (EReference)integerRangeEClass.getEStructuralFeatures().get(0);
@@ -2259,6 +2413,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getIntegerRange_UpperIntegerValue()
   {
     return (EReference)integerRangeEClass.getEStructuralFeatures().get(1);
@@ -2269,6 +2424,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getIntegerValue()
   {
     return integerValueEClass;
@@ -2279,6 +2435,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getIntegerValueConstant()
   {
     return integerValueConstantEClass;
@@ -2289,6 +2446,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getIntegerValueVariable()
   {
     return integerValueVariableEClass;
@@ -2299,6 +2457,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getIterativeVariable()
   {
     return iterativeVariableEClass;
@@ -2309,6 +2468,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getIterativeVariable_DataClassifier()
   {
     return (EReference)iterativeVariableEClass.getEStructuralFeatures().get(0);
@@ -2319,6 +2479,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getIterativeVariableHolder()
   {
     return iterativeVariableHolderEClass;
@@ -2329,6 +2490,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getLiteral()
   {
     return literalEClass;
@@ -2339,6 +2501,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getLockAction()
   {
     return lockActionEClass;
@@ -2349,6 +2512,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getLoopStatement()
   {
     return loopStatementEClass;
@@ -2359,6 +2523,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getNumericLiteral()
   {
     return numericLiteralEClass;
@@ -2369,6 +2534,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getOtherwise()
   {
     return otherwiseEClass;
@@ -2379,6 +2545,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getParameterHolder()
   {
     return parameterHolderEClass;
@@ -2389,6 +2556,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getParameterLabel()
   {
     return parameterLabelEClass;
@@ -2399,6 +2567,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getPortCountValue()
   {
     return portCountValueEClass;
@@ -2409,6 +2578,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getPortDequeueAction()
   {
     return portDequeueActionEClass;
@@ -2419,6 +2589,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getPortDequeueAction_Port()
   {
     return (EReference)portDequeueActionEClass.getEStructuralFeatures().get(0);
@@ -2429,6 +2600,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getPortDequeueAction_Target()
   {
     return (EReference)portDequeueActionEClass.getEStructuralFeatures().get(1);
@@ -2439,6 +2611,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getPortDequeueValue()
   {
     return portDequeueValueEClass;
@@ -2449,6 +2622,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getPortFreezeAction()
   {
     return portFreezeActionEClass;
@@ -2459,6 +2633,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getPortFreshValue()
   {
     return portFreshValueEClass;
@@ -2469,6 +2644,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getPortHolder()
   {
     return portHolderEClass;
@@ -2479,6 +2655,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getPortPrototypeHolder()
   {
     return portPrototypeHolderEClass;
@@ -2489,6 +2666,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getPortSendAction()
   {
     return portSendActionEClass;
@@ -2499,6 +2677,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getPortSendAction_Port()
   {
     return (EReference)portSendActionEClass.getEStructuralFeatures().get(0);
@@ -2509,6 +2688,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getPortSendAction_ValueExpression()
   {
     return (EReference)portSendActionEClass.getEStructuralFeatures().get(1);
@@ -2519,6 +2699,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getPropertyNameField()
   {
     return propertyNameFieldEClass;
@@ -2529,6 +2710,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getPropertyNameHolder()
   {
     return propertyNameHolderEClass;
@@ -2539,6 +2721,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getPropertyNameHolder_Property()
   {
     return (EReference)propertyNameHolderEClass.getEStructuralFeatures().get(0);
@@ -2549,6 +2732,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getPropertyNameHolder_Field()
   {
     return (EReference)propertyNameHolderEClass.getEStructuralFeatures().get(1);
@@ -2559,6 +2743,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getPropertyElementHolder()
   {
     return propertyElementHolderEClass;
@@ -2569,6 +2754,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getPropertyElementHolder_Element()
   {
     return (EReference)propertyElementHolderEClass.getEStructuralFeatures().get(0);
@@ -2579,6 +2765,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getPropertyAssociationHolder()
   {
     return propertyAssociationHolderEClass;
@@ -2589,6 +2776,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getPropertyExpressionHolder()
   {
     return propertyExpressionHolderEClass;
@@ -2599,6 +2787,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getPropertyTypeHolder()
   {
     return propertyTypeHolderEClass;
@@ -2609,6 +2798,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getPrototypeHolder()
   {
     return prototypeHolderEClass;
@@ -2619,6 +2809,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getPrototypeHolder_PrototypeBinding()
   {
     return (EReference)prototypeHolderEClass.getEStructuralFeatures().get(0);
@@ -2629,6 +2820,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getRelation()
   {
     return relationEClass;
@@ -2639,6 +2831,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getRelation_FirstExpression()
   {
     return (EReference)relationEClass.getEStructuralFeatures().get(0);
@@ -2649,6 +2842,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getRelation_SecondExpression()
   {
     return (EReference)relationEClass.getEStructuralFeatures().get(1);
@@ -2659,6 +2853,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getRelation_RelationalOperator()
   {
     return (EAttribute)relationEClass.getEStructuralFeatures().get(2);
@@ -2669,6 +2864,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getSharedDataAction()
   {
     return sharedDataActionEClass;
@@ -2679,6 +2875,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSharedDataAction_DataAccess()
   {
     return (EReference)sharedDataActionEClass.getEStructuralFeatures().get(0);
@@ -2689,6 +2886,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getSimpleExpression()
   {
     return simpleExpressionEClass;
@@ -2699,6 +2897,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getSimpleExpression_UnaryAddingOperator()
   {
     return (EAttribute)simpleExpressionEClass.getEStructuralFeatures().get(0);
@@ -2709,6 +2908,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSimpleExpression_Terms()
   {
     return (EReference)simpleExpressionEClass.getEStructuralFeatures().get(1);
@@ -2719,6 +2919,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getSimpleExpression_BinaryAddingOperators()
   {
     return (EAttribute)simpleExpressionEClass.getEStructuralFeatures().get(2);
@@ -2729,6 +2930,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getStructUnionElement()
   {
     return structUnionElementEClass;
@@ -2739,6 +2941,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getStructUnionElement_DataClassifier()
   {
     return (EReference)structUnionElementEClass.getEStructuralFeatures().get(0);
@@ -2749,6 +2952,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getStructUnionElementHolder()
   {
     return structUnionElementHolderEClass;
@@ -2759,6 +2963,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getSubprogramAccessHolder()
   {
     return subprogramAccessHolderEClass;
@@ -2769,6 +2974,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getSubprogramCallAction()
   {
     return subprogramCallActionEClass;
@@ -2779,6 +2985,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSubprogramCallAction_Subprogram()
   {
     return (EReference)subprogramCallActionEClass.getEStructuralFeatures().get(0);
@@ -2789,6 +2996,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSubprogramCallAction_ParameterLabels()
   {
     return (EReference)subprogramCallActionEClass.getEStructuralFeatures().get(1);
@@ -2799,6 +3007,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSubprogramCallAction_Proxy()
   {
     return (EReference)subprogramCallActionEClass.getEStructuralFeatures().get(2);
@@ -2809,6 +3018,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getSubprogramHolder()
   {
     return subprogramHolderEClass;
@@ -2819,6 +3029,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getSubprogramHolderProxy()
   {
     return subprogramHolderProxyEClass;
@@ -2829,6 +3040,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getSubprogramPrototypeHolder()
   {
     return subprogramPrototypeHolderEClass;
@@ -2839,6 +3051,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getTarget()
   {
     return targetEClass;
@@ -2849,6 +3062,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getTerm()
   {
     return termEClass;
@@ -2859,6 +3073,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTerm_Factors()
   {
     return (EReference)termEClass.getEStructuralFeatures().get(0);
@@ -2869,6 +3084,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getTerm_MultiplyingOperators()
   {
     return (EAttribute)termEClass.getEStructuralFeatures().get(1);
@@ -2879,6 +3095,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getTimedAction()
   {
     return timedActionEClass;
@@ -2889,6 +3106,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTimedAction_LowerTime()
   {
     return (EReference)timedActionEClass.getEStructuralFeatures().get(0);
@@ -2899,6 +3117,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTimedAction_UpperTime()
   {
     return (EReference)timedActionEClass.getEStructuralFeatures().get(1);
@@ -2909,6 +3128,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTimedAction_ProcessorClassifier()
   {
     return (EReference)timedActionEClass.getEStructuralFeatures().get(2);
@@ -2919,6 +3139,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getUnlockAction()
   {
     return unlockActionEClass;
@@ -2929,6 +3150,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getValue()
   {
     return valueEClass;
@@ -2939,6 +3161,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getValueConstant()
   {
     return valueConstantEClass;
@@ -2949,6 +3172,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getValueExpression()
   {
     return valueExpressionEClass;
@@ -2959,6 +3183,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getValueExpression_Relations()
   {
     return (EReference)valueExpressionEClass.getEStructuralFeatures().get(0);
@@ -2969,6 +3194,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getValueExpression_LogicalOperators()
   {
     return (EAttribute)valueExpressionEClass.getEStructuralFeatures().get(1);
@@ -2979,6 +3205,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getValueVariable()
   {
     return valueVariableEClass;
@@ -2989,6 +3216,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getWhileOrDoUntilStatement()
   {
     return whileOrDoUntilStatementEClass;
@@ -2999,6 +3227,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getWhileOrDoUntilStatement_LogicalValueExpression()
   {
     return (EReference)whileOrDoUntilStatementEClass.getEStructuralFeatures().get(0);
@@ -3009,6 +3238,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getWhileOrDoUntilStatement_DoUntil()
   {
     return (EAttribute)whileOrDoUntilStatementEClass.getEStructuralFeatures().get(1);
@@ -3019,6 +3249,73 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
+  public EClass getModeSwitchTriggerLogicalExpression()
+  {
+    return modeSwitchTriggerLogicalExpressionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getModeSwitchTriggerLogicalExpression_ModeSwitchConjunctions()
+  {
+    return (EReference)modeSwitchTriggerLogicalExpressionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getModeSwitchTriggerCondition()
+  {
+    return modeSwitchTriggerConditionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getModeSwitchConjunction()
+  {
+    return modeSwitchConjunctionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getModeSwitchConjunction_ModeSwitchTriggers()
+  {
+    return (EReference)modeSwitchConjunctionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getModeSwitchTrigger()
+  {
+    return modeSwitchTriggerEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EClass getPropertySetPropertyReference()
   {
     return propertySetPropertyReferenceEClass;
@@ -3029,6 +3326,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getPropertySetPropertyReference_PropertySet()
   {
     return (EReference)propertySetPropertyReferenceEClass.getEStructuralFeatures().get(0);
@@ -3039,6 +3337,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getSubcomponentHolder()
   {
     return subcomponentHolderEClass;
@@ -3049,6 +3348,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getSubprogramSubcomponentHolder()
   {
     return subprogramSubcomponentHolderEClass;
@@ -3059,6 +3359,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getFeatureHolder()
   {
     return featureHolderEClass;
@@ -3069,6 +3370,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getClassifierPropertyReference()
   {
     return classifierPropertyReferenceEClass;
@@ -3079,6 +3381,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getClassifierPropertyReference_Classifier()
   {
     return (EReference)classifierPropertyReferenceEClass.getEStructuralFeatures().get(0);
@@ -3089,6 +3392,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getPropertyReference()
   {
     return propertyReferenceEClass;
@@ -3099,6 +3403,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getPropertyReference_Properties()
   {
     return (EReference)propertyReferenceEClass.getEStructuralFeatures().get(0);
@@ -3109,6 +3414,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getUpperBound()
   {
     return upperBoundEClass;
@@ -3119,6 +3425,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getLowerBound()
   {
     return lowerBoundEClass;
@@ -3129,6 +3436,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EEnum getBehaviorFeatureType()
   {
     return behaviorFeatureTypeEEnum;
@@ -3139,6 +3447,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EEnum getBinaryAddingOperator()
   {
     return binaryAddingOperatorEEnum;
@@ -3149,6 +3458,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EEnum getBinaryNumericOperator()
   {
     return binaryNumericOperatorEEnum;
@@ -3159,6 +3469,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EEnum getDataRepresentation()
   {
     return dataRepresentationEEnum;
@@ -3169,6 +3480,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EEnum getFeatureType()
   {
     return featureTypeEEnum;
@@ -3179,6 +3491,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EEnum getLogicalOperator()
   {
     return logicalOperatorEEnum;
@@ -3189,6 +3502,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EEnum getMultiplyingOperator()
   {
     return multiplyingOperatorEEnum;
@@ -3199,6 +3513,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EEnum getRelationalOperator()
   {
     return relationalOperatorEEnum;
@@ -3209,6 +3524,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EEnum getUnaryAddingOperator()
   {
     return unaryAddingOperatorEEnum;
@@ -3219,6 +3535,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EEnum getUnaryBooleanOperator()
   {
     return unaryBooleanOperatorEEnum;
@@ -3229,6 +3546,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EEnum getUnaryNumericOperator()
   {
     return unaryNumericOperatorEEnum;
@@ -3239,6 +3557,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EDataType getBoolean()
   {
     return booleanEDataType;
@@ -3249,6 +3568,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EDataType getInteger()
   {
     return integerEDataType;
@@ -3259,6 +3579,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EDataType getReal()
   {
     return realEDataType;
@@ -3269,6 +3590,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EDataType getString()
   {
     return stringEDataType;
@@ -3279,6 +3601,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public AadlBaFactory getAadlBaFactory()
   {
     return (AadlBaFactory)getEFactoryInstance();
@@ -3378,6 +3701,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 
     behaviorVariableEClass = createEClass(BEHAVIOR_VARIABLE);
     createEReference(behaviorVariableEClass, BEHAVIOR_VARIABLE__DATA_CLASSIFIER);
+    createEReference(behaviorVariableEClass, BEHAVIOR_VARIABLE__OWNED_PROPERTY_ASSOCIATIONS);
 
     behaviorVariableHolderEClass = createEClass(BEHAVIOR_VARIABLE_HOLDER);
 
@@ -3617,6 +3941,16 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     createEReference(whileOrDoUntilStatementEClass, WHILE_OR_DO_UNTIL_STATEMENT__LOGICAL_VALUE_EXPRESSION);
     createEAttribute(whileOrDoUntilStatementEClass, WHILE_OR_DO_UNTIL_STATEMENT__DO_UNTIL);
 
+    modeSwitchTriggerLogicalExpressionEClass = createEClass(MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION);
+    createEReference(modeSwitchTriggerLogicalExpressionEClass, MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION__MODE_SWITCH_CONJUNCTIONS);
+
+    modeSwitchTriggerConditionEClass = createEClass(MODE_SWITCH_TRIGGER_CONDITION);
+
+    modeSwitchConjunctionEClass = createEClass(MODE_SWITCH_CONJUNCTION);
+    createEReference(modeSwitchConjunctionEClass, MODE_SWITCH_CONJUNCTION__MODE_SWITCH_TRIGGERS);
+
+    modeSwitchTriggerEClass = createEClass(MODE_SWITCH_TRIGGER);
+
     // Create enums
     behaviorFeatureTypeEEnum = createEEnum(BEHAVIOR_FEATURE_TYPE);
     binaryAddingOperatorEEnum = createEEnum(BINARY_ADDING_OPERATOR);
@@ -3702,6 +4036,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     behaviorTransitionEClass.getESuperTypes().add(this.getBehaviorNamedElement());
     behaviorVariableEClass.getESuperTypes().add(this.getBehaviorNamedElement());
     behaviorVariableEClass.getESuperTypes().add(theAadl2Package.getArrayableElement());
+    behaviorVariableEClass.getESuperTypes().add(theAadl2Package.getData());
     behaviorVariableHolderEClass.getESuperTypes().add(this.getDataHolder());
     behaviorVariableHolderEClass.getESuperTypes().add(this.getIndexableElement());
     behaviorVariableHolderEClass.getESuperTypes().add(this.getTarget());
@@ -3755,9 +4090,11 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     eventDataPortHolderEClass.getESuperTypes().add(this.getActualPortHolder());
     eventDataPortHolderEClass.getESuperTypes().add(this.getElementValues());
     eventDataPortHolderEClass.getESuperTypes().add(this.getDispatchTrigger());
+    eventDataPortHolderEClass.getESuperTypes().add(this.getModeSwitchTrigger());
     eventDataPortHolderEClass.getESuperTypes().add(this.getTarget());
     eventPortHolderEClass.getESuperTypes().add(this.getActualPortHolder());
     eventPortHolderEClass.getESuperTypes().add(this.getDispatchTrigger());
+    eventPortHolderEClass.getESuperTypes().add(this.getModeSwitchTrigger());
     eventPortHolderEClass.getESuperTypes().add(this.getTarget());
     executeConditionEClass.getESuperTypes().add(this.getBehaviorCondition());
     executionTimeoutCatchEClass.getESuperTypes().add(this.getExecuteCondition());
@@ -3858,6 +4195,10 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     valueExpressionEClass.getESuperTypes().add(this.getExecuteCondition());
     valueVariableEClass.getESuperTypes().add(this.getValue());
     whileOrDoUntilStatementEClass.getESuperTypes().add(this.getLoopStatement());
+    modeSwitchTriggerLogicalExpressionEClass.getESuperTypes().add(this.getModeSwitchTriggerCondition());
+    modeSwitchTriggerConditionEClass.getESuperTypes().add(this.getBehaviorCondition());
+    modeSwitchConjunctionEClass.getESuperTypes().add(this.getBehaviorElement());
+    modeSwitchTriggerEClass.getESuperTypes().add(this.getBehaviorElement());
 
     // Initialize classes and features; add operations and parameters
     initEClass(actualPortHolderEClass, ActualPortHolder.class, "ActualPortHolder", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3944,6 +4285,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 
     initEClass(behaviorVariableEClass, BehaviorVariable.class, "BehaviorVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getBehaviorVariable_DataClassifier(), theAadl2Package.getDataClassifier(), null, "dataClassifier", null, 1, 1, BehaviorVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getBehaviorVariable_OwnedPropertyAssociations(), theAadl2Package.getPropertyAssociation(), null, "ownedPropertyAssociations", null, 0, -1, BehaviorVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(behaviorVariableHolderEClass, BehaviorVariableHolder.class, "BehaviorVariableHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -4293,6 +4635,16 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     initEReference(getWhileOrDoUntilStatement_LogicalValueExpression(), this.getValueExpression(), null, "logicalValueExpression", null, 1, 1, WhileOrDoUntilStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getWhileOrDoUntilStatement_DoUntil(), this.getBoolean(), "doUntil", "false", 0, 1, WhileOrDoUntilStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(modeSwitchTriggerLogicalExpressionEClass, ModeSwitchTriggerLogicalExpression.class, "ModeSwitchTriggerLogicalExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getModeSwitchTriggerLogicalExpression_ModeSwitchConjunctions(), this.getModeSwitchConjunction(), null, "modeSwitchConjunctions", null, 1, -1, ModeSwitchTriggerLogicalExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(modeSwitchTriggerConditionEClass, ModeSwitchTriggerCondition.class, "ModeSwitchTriggerCondition", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(modeSwitchConjunctionEClass, ModeSwitchConjunction.class, "ModeSwitchConjunction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getModeSwitchConjunction_ModeSwitchTriggers(), this.getModeSwitchTrigger(), null, "modeSwitchTriggers", null, 1, -1, ModeSwitchConjunction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(modeSwitchTriggerEClass, ModeSwitchTrigger.class, "ModeSwitchTrigger", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
     // Initialize enums and add enum literals
     initEEnum(behaviorFeatureTypeEEnum, BehaviorFeatureType.class, "BehaviorFeatureType");
     addEEnumLiteral(behaviorFeatureTypeEEnum, BehaviorFeatureType.NONE);
@@ -4450,34 +4802,34 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    */
   protected void createDocumentationAnnotations()
   {
-    String source = "http://www.topcased.org/documentation";	
+    String source = "http://www.topcased.org/documentation";
     addAnnotation
-      (booleanEDataType, 
-       source, 
-       new String[] 
+      (booleanEDataType,
+       source,
+       new String[]
        {
-       "documentation", "A Boolean type is used for logical expression, consisting of the predefined values true and false."
-       });	
+         "documentation", "A Boolean type is used for logical expression, consisting of the predefined values true and false."
+       });
     addAnnotation
-      (integerEDataType, 
-       source, 
-       new String[] 
+      (integerEDataType,
+       source,
+       new String[]
        {
-       "documentation", "An integer is a primitive type representing integer values."
-       });	
+         "documentation", "An integer is a primitive type representing integer values."
+       });
     addAnnotation
-      (realEDataType, 
-       source, 
-       new String[] 
+      (realEDataType,
+       source,
+       new String[]
        {
-       "documentation", "A real is a primitive type representing real numeric values."
-       });	
+         "documentation", "A real is a primitive type representing real numeric values."
+       });
     addAnnotation
-      (stringEDataType, 
-       source, 
-       new String[] 
+      (stringEDataType,
+       source,
+       new String[]
        {
-       "documentation", "A string is a sequence of characters in some suitable character set used to display information about the model. Character sets may include non-Roman alphabets and characters."
+         "documentation", "A string is a sequence of characters in some suitable character set used to display information about the model. Character sets may include non-Roman alphabets and characters."
        });
   }
 
@@ -4489,13 +4841,13 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    */
   protected void createDocumentation_1Annotations()
   {
-    String source = "Documentation";	
+    String source = "Documentation";
     addAnnotation
-      (lockActionEClass, 
-       source, 
-       new String[] 
+      (lockActionEClass,
+       source,
+       new String[]
        {
-       "documentation", "A null data name means that all shared data are locked while in the critical section"
+         "documentation", "A null data name means that all shared data are locked while in the critical section"
        });
   }
 
@@ -4507,13 +4859,13 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
    */
   protected void createDocumentation_2Annotations()
   {
-    String source = "documentation";	
+    String source = "documentation";
     addAnnotation
-      (unlockActionEClass, 
-       source, 
-       new String[] 
+      (unlockActionEClass,
+       source,
+       new String[]
        {
-       "documentation", "A null data name means that all shared data are unlocked at the end of the critical section"
+         "documentation", "A null data name means that all shared data are unlocked at the end of the critical section"
        });
   }
 

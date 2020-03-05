@@ -1,44 +1,43 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: AADL Graphical Editor
+Bundle-Name: OSATE Graphical Editor
 Bundle-SymbolicName: org.osate.ge;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.0.qualifier
 Bundle-Activator: org.osate.ge.internal.Activator
-Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
- org.eclipse.graphiti,
- org.eclipse.graphiti.ui,
- org.eclipse.emf.transaction,
- org.eclipse.xtext.ui,
- org.osate.aadl2,
- org.osate.xtext.aadl2.properties,
- org.osate.aadl2.modelsupport,
- org.osate.xtext.aadl2.properties.ui,
- org.eclipse.graphiti.pattern,
- org.eclipse.gef,
- org.osate.xtext.aadl2.ui,
- org.eclipse.ui.views.properties.tabbed,
- org.eclipse.e4.core.di,
- org.eclipse.e4.core.services,
- org.eclipse.e4.core.contexts,
- org.eclipse.ui.navigator,
- org.eclipse.ui.ide,
- org.eclipse.jface,
- org.eclipse.core.resources,
- org.eclipse.core.expressions,
- org.osate.aadl2.instantiation,
- org.osate.annexsupport,
- org.osate.ge.diagram,
- org.eclipse.ltk.ui.refactoring,
- org.eclipse.elk.core;bundle-version="0.3.0",
- org.eclipse.elk.graph;bundle-version="0.3.0",
- org.eclipse.elk.alg.layered;bundle-version="0.3.0",
- org.eclipse.elk.core.service;bundle-version="0.3.0",
- com.google.guava;bundle-version="21.0.0"
+Require-Bundle: org.eclipse.ui;bundle-version="[3.115.0,4.0.0)",
+ org.eclipse.core.runtime;bundle-version="[3.17.0,4.0.0)",
+ org.eclipse.graphiti;bundle-version="[0.16.0,1.0.0)",
+ org.eclipse.graphiti.ui;bundle-version="[0.16.0,1.0.0)",
+ org.eclipse.emf.transaction;bundle-version="[1.9.0,2.0.0)",
+ org.eclipse.xtext.ui;bundle-version="[2.20.0,3.0.0)",
+ org.osate.aadl2;bundle-version="[2.1.0,3.0.0)",
+ org.osate.aadl2.modelsupport;bundle-version="[2.0.0,3.0.0)",
+ org.osate.xtext.aadl2.properties.ui;bundle-version="[2.0.0,3.0.0)",
+ org.eclipse.graphiti.pattern;bundle-version="[0.16.0,1.0.0)",
+ org.eclipse.gef;bundle-version="[3.11.0,4.0.0)",
+ org.osate.xtext.aadl2.ui;bundle-version="[2.0.0,3.0.0)",
+ org.eclipse.ui.views.properties.tabbed;bundle-version="[3.8.0,4.0.0)",
+ org.eclipse.e4.core.di;bundle-version="[1.7.0,2.0.0)",
+ org.eclipse.e4.core.services;bundle-version="[2.2.0,3.0.0)",
+ org.eclipse.e4.core.contexts;bundle-version="[1.8.0,2.0.0)",
+ org.eclipse.ui.navigator;bundle-version="[3.9.0,4.0.0)",
+ org.eclipse.ui.ide;bundle-version="[3.16.0,4.0.0)",
+ org.eclipse.jface;bundle-version="[3.18.0,4.0.0)",
+ org.eclipse.core.resources;bundle-version="[3.13.0,4.0.0)",
+ org.eclipse.core.expressions;bundle-version="[3.6.0,4.0.0)",
+ org.osate.aadl2.instantiation;bundle-version="[1.1.0,2.0.0)",
+ org.osate.annexsupport;bundle-version="[1.0.0,2.0.0)",
+ org.osate.ge.diagram;bundle-version="[2.0.0,3.0.0)",
+ org.eclipse.ltk.ui.refactoring;bundle-version="[3.10.0,4.0.0)",
+ org.eclipse.elk.core;bundle-version="[0.3.0,1.0.0)",
+ org.eclipse.elk.graph;bundle-version="[0.3.0,1.0.0)",
+ org.eclipse.elk.alg.layered;bundle-version="[0.3.0,1.0.0)",
+ org.eclipse.elk.core.service;bundle-version="[0.3.0,1.0.0)",
+ com.google.guava;bundle-version="[21.0.0,22.0.0)"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: 
- javax.annotation,
+ javax.annotation;version="[1.2.0,2.0.0)",
  org.eclipse.draw2d.graph,
  org.eclipse.ui,
  org.eclipse.ui.part,
@@ -82,4 +81,5 @@ Export-Package: org.osate.ge,
  org.osate.ge.ui.properties
 Bundle-ClassPath: .
 Automatic-Module-Name: org.osate.ge
+Bundle-Vendor: The University of Alabama in Huntsville
 

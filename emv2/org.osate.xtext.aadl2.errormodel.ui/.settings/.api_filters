@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.osate.xtext.aadl2.errormodel.ui" version="2">
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/ErrorModelParser.java" type="org.osate.xtext.aadl2.errormodel.ui.contentassist.antlr.ErrorModelParser">
+        <filter comment="xtext" id="643842064">
+            <message_arguments>
+                <message_argument value="InternalErrorModelParser"/>
+                <message_argument value="ErrorModelParser"/>
+                <message_argument value="createParser()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>

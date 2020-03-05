@@ -2,28 +2,22 @@
 <feature
       id="org.osate.plugins.feature"
       label="Open Source AADL Tool Environment Analysis Plug-ins"
-      version="2.7.0.qualifier"
+      version="3.0.1.qualifier"
       provider-name="CMU-SEI"
       plugin="org.osate.branding"
       image="icons/osateupdate_120.jpg"
+      license-feature="org.osate.license"
+      license-feature-version="1.0.0.qualifier"
       application="org.eclipse.ui.ide.workbench">
    <install-handler/>
 
-   <description url="OSATEXfer.html">
+   <description>
       The Open Source AADL Tool Environment Analysis Plug-ins.
    </description>
 
    <copyright>
-      Copyright 2005-2014 by Carnegie Mellon University, all rights
-reserved.
+      Copyright (c) 2004-2020 by Carnegie Mellon University. All rights reserved.
    </copyright>
-
-   <license url="OSATELicense.html">
-      OSATE License
-
-Use of the Open Source AADL Tool Environment (OSATE) is subject
-to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
-   </license>
 
    <requires>
       <import plugin="org.osate.aadl2"/>

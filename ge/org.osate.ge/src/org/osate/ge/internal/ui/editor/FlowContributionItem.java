@@ -1,11 +1,26 @@
-/*******************************************************************************
- * Copyright (C) 2013 University of Alabama in Huntsville (UAH)
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0073.
- *******************************************************************************/
+/**
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * All Rights Reserved.
+ *
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ *
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ *
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ */
 package org.osate.ge.internal.ui.editor;
 
 import java.util.AbstractMap;
@@ -19,6 +34,8 @@ import java.util.stream.Stream;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IEditorPart;
@@ -49,9 +66,11 @@ public class FlowContributionItem extends ComboContributionItem {
 							|| fa.getBusinessObject() instanceof Subcomponent
 							|| fa.getBusinessObject() instanceof ComponentInstance));
 	private AgeDiagramEditor editor = null;
+	private final ShowFlowContributionItem showFlowContributionItem;
 
-	public FlowContributionItem(final String id) {
+	public FlowContributionItem(final String id, final ShowFlowContributionItem showFlowImplElements) {
 		super(id);
+		this.showFlowContributionItem = showFlowImplElements;
 	}
 
 	@Override
@@ -96,6 +115,16 @@ public class FlowContributionItem extends ComboContributionItem {
 	protected Control createControl(final Composite parent) {
 		final Control control = super.createControl(parent);
 		final ComboViewer comboViewer = getComboViewer();
+		comboViewer.getCombo().addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(final SelectionEvent e) {
+				final Object firstSelection = getComboViewer().getStructuredSelection().getFirstElement();
+				@SuppressWarnings("unchecked")
+				final Map.Entry<String, HighlightableFlowInfo> entry = (Map.Entry<String, HighlightableFlowInfo>) firstSelection;
+				showFlowContributionItem.updateShowFlowItem(entry.getValue());
+			}
+		});
+
 		comboViewer.setLabelProvider(new LabelProvider() {
 			@Override
 			public String getText(final Object element) {
@@ -103,17 +132,12 @@ public class FlowContributionItem extends ComboContributionItem {
 				final Map.Entry<String, HighlightableFlowInfo> entry = (Entry<String, HighlightableFlowInfo>) element;
 				final HighlightableFlowInfo highlightableFlow = entry.getValue();
 
-				// Mark as partial if segments are missing from diagram
-				if (highlightableFlow.isPartial()) {
-					return entry.getKey() + "*";
-				}
-
-				return entry.getKey();
+				// Add suffix to represent segments missing from diagram
+				return entry.getKey() + highlightableFlow.getState().suffix;
 			}
 		});
 
 		comboViewer.getCombo().setData(UiUtil.AUTOMATED_SWTBOT_TESTING_KEY, highlightFlow);
-
 		refresh(); // Populate the combo box
 		return control;
 	}
@@ -124,9 +148,9 @@ public class FlowContributionItem extends ComboContributionItem {
 				(o1, o2) -> o1.toLowerCase().compareTo(o2.toLowerCase()));
 		if (comboViewer != null) {
 			final Map.Entry<String, HighlightableFlowInfo> nullMapEntry = new AbstractMap.SimpleEntry<>(
-					getNullValueString(), new HighlightableFlowInfo(null, false));
+					getNullValueString(), new HighlightableFlowInfo(null, FlowSegmentState.COMPLETE));
 			highlightableFlowElements.put(nullMapEntry.getKey(), nullMapEntry.getValue());
-			Object selectedValue = nullMapEntry;
+			Map.Entry<String, HighlightableFlowInfo> selectedValue = nullMapEntry;
 			final String selectedFlowName = editor == null ? null : editor.getPartProperty(selectedFlowPropertyKey);
 			// Clear the combo box
 			comboViewer.setInput(null);
@@ -143,7 +167,7 @@ public class FlowContributionItem extends ComboContributionItem {
 					queryService.getResults(flowContainerQuery, diagram).stream()
 					.flatMap(flowContainerQueryable -> {
 						if (flowContainerQueryable.getBusinessObject() instanceof ComponentInstance) {
-									return AadlInstanceObjectUtil.getComponentInstance(flowContainerQueryable)
+							return AadlInstanceObjectUtil.getComponentInstance(flowContainerQueryable)
 									.map(ci -> createFlowSegmentReferences(flowContainerQueryable, ci))
 									.orElse(Stream.empty());
 						} else {
@@ -170,6 +194,7 @@ public class FlowContributionItem extends ComboContributionItem {
 				}
 			}
 
+			showFlowContributionItem.updateShowFlowItem(selectedValue.getValue());
 			comboViewer.setSelection(new StructuredSelection(selectedValue));
 		}
 	}
@@ -263,29 +288,40 @@ public class FlowContributionItem extends ComboContributionItem {
 		return emptySelectionTxt;
 	}
 
-	private static class HighlightableFlowInfo {
+	public static class HighlightableFlowInfo {
 		private final FlowSegmentReference highlightableFlowElement;
-		private final boolean isPartial;
+		private final FlowSegmentState state;
 
-		public HighlightableFlowInfo(final FlowSegmentReference highlightableFlowElement, final boolean isPartial) {
+		public HighlightableFlowInfo(final FlowSegmentReference highlightableFlowElement,
+				final FlowSegmentState state) {
 			this.highlightableFlowElement = highlightableFlowElement;
-			this.isPartial = isPartial;
+			this.state = state;
 		}
 
-		private boolean isPartial() {
-			return isPartial;
+		public FlowSegmentState getState() {
+			return state;
+		}
+
+		public Queryable getContainer() {
+			return highlightableFlowElement.container;
 		}
 
 		public static HighlightableFlowInfo create(final FlowSegmentReference fsr) {
 			final FlowSegmentState state = getSegmentState(fsr);
-			if (state == FlowSegmentState.EMPTY) {
-				return null;
-			}
-			return new HighlightableFlowInfo(fsr, state == FlowSegmentState.PARTIAL);
+			return new HighlightableFlowInfo(fsr, state);
+		}
+
+		public NamedElement getFlowSegment() {
+			return highlightableFlowElement.flowSegmentElement;
 		}
 	}
 
-	private static enum FlowSegmentState {
-		EMPTY, PARTIAL, COMPLETE
+	public static enum FlowSegmentState {
+		EMPTY(" (E)"), PARTIAL(" (P)"), COMPLETE("");
+
+		public final String suffix;
+		private FlowSegmentState(final String suffix) {
+			this.suffix = suffix;
+		}
 	}
 }

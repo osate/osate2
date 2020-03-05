@@ -2,22 +2,22 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.osate.xtext.aadl2.properties
 Bundle-Vendor: CMU-SEI
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.1.qualifier
 Bundle-SymbolicName: org.osate.xtext.aadl2.properties;singleton:=true
-Require-Bundle: org.osate.aadl2;bundle-version="1.0.0",
- org.eclipse.core.runtime;bundle-version="3.7.0",
- org.apache.log4j;bundle-version="1.2.15",
- org.apache.commons.logging;bundle-version="1.0.4",
- org.eclipse.xtext,
- org.eclipse.xtext.util,
- org.antlr.runtime,
- org.eclipse.xtext.generator;resolution:=optional,
- org.eclipse.emf.mwe2.launch;bundle-version="2.1.0";resolution:=optional,
- org.osate.aadl2.modelsupport;bundle-version="1.0.0",
- org.osate.contribution.sei;bundle-version="1.0.0",
- org.objectweb.asm;resolution:=optional,
- org.eclipse.uml2.codegen.ecore;bundle-version="1.9.100",
- org.eclipse.xtext.xbase.lib
+Require-Bundle:  org.osate.aadl2;bundle-version="[2.1.0,3.0.0)",
+ org.eclipse.core.runtime;bundle-version="[3.7.0,4.0.0)",
+ org.apache.log4j;bundle-version="[1.2.15,2.0.0)",
+ org.apache.commons.logging;bundle-version="[1.0.4,2.0.0)",
+ org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)",
+ org.eclipse.xtext.util;bundle-version="[2.20.0,3.0.0)",
+ org.antlr.runtime;bundle-version="[3.2.0,4.0.0)",
+ org.eclipse.xtext.generator;bundle-version="[2.20.0,3.0.0)";resolution:=optional,
+ org.eclipse.emf.mwe2.launch;bundle-version="[2.1.0,3.0.0)";resolution:=optional,
+ org.osate.aadl2.modelsupport;bundle-version="[2.0.0,3.0.0)",
+ org.osate.contribution.sei;bundle-version="[1.0.0,2.0.0)",
+ org.objectweb.asm;bundle-version="[7.2.0,8.0.0)";resolution:=optional,
+ org.eclipse.uml2.codegen.ecore;bundle-version="[1.9.100,3.0.0)",
+ org.eclipse.xtext.xbase.lib;bundle-version="[2.20.0,3.0.0)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.osate.xtext.aadl2.properties,
  org.osate.xtext.aadl2.properties.formatting2,
@@ -32,7 +32,7 @@ Export-Package: org.osate.xtext.aadl2.properties,
  org.osate.xtext.aadl2.properties.util,
  org.osate.xtext.aadl2.properties.validation,
  org.osate.xtext.aadl2.properties.valueconversion
-Import-Package: org.apache.log4j,
- org.eclipse.xtext.xbase.lib
+Import-Package: org.apache.log4j;version="[1.2.0,2.0.0)",
+ org.eclipse.xtext.xbase.lib;version="[2.20.0,3.0.0)"
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.osate.xtext.aadl2.properties

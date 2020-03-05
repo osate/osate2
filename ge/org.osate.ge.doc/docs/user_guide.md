@@ -1,3 +1,26 @@
+<!--
+Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+All Rights Reserved.
+
+NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+
+This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+SPDX-License-Identifier: EPL-2.0
+
+Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+
+This program includes and/or can make use of certain third party source code, object code, documentation and other
+files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+-->
 ---
 title: OSATE Graphical Editor User Guide
 linkReferences: true
@@ -509,6 +532,8 @@ Table: Menu Items for Showing and Hiding Elements {#tbl:show_hide_menu_items}
 ## Displaying Hidden Elements in Outline
 By default, the *Outline* view shows hidden elements. Hidden elements are those which are not currently included in the diagram. Hidden elements are greyed out in the outline. Whether hidden elements are shown in the *Outline* view can be toggled using the *Show Hidden Elements* menu item in the view menu (![View Menu](../images/ui_view_menu_icon.png)). When displayed, hidden elements can be added to the diagram using the *Show* menu item which is available in the context menu.
 
+## Showing Connected Elements
+Elements that are directly connected to a subcomponent or feature can be shown by right-clicking on the subcomponent or feature and selecting *Show Connected Elements* from the context menu.
 
 # Visualization
 The following sections describe the diagram visualization capabilities of the graphical editor.
@@ -539,7 +564,16 @@ In some cases a connection between diagram elements will be represented by a dot
 - An AADL property reference value for which the referenced model element is hidden.
 
 ## Highlighting Flow Implementations and End-to-End Flow Specifications
-Selecting a flow implementation or end-to-end flow specification from the flow drop-down in the toolbar will highlight the flow.  Flow Implementations and End To End Flows that have segments that are not shown in the diagram will be marked with an asterisk(*) in the drop-down.
+Selecting a Flow Implementation or End-to-End Flow specification from the flow drop-down in the toolbar will highlight the flow.  Flow Implementations and End-to-End Flows that have no segments and missing segments are marked with an empty tag (E) or a partial tag (P), respectively.
+
+## Showing Flow Implementation and End-to-End Flow Specification Segments
+Selecting the "Show" button on the toolbar shows the missing flow segments of the currently selected flow drop-down Flow Implementation or End-to-End Flow when it is marked empty (E) or partial (P).
+
+## Highlighting In Mode Elements
+Selecting a Mode or Mode Transition from the mode drop-down in the toolbar will highlight the in mode elements in the diagram.
+
+## Showing In Mode Elements
+Right clicking a Mode or Mode Transition and selecting the "Show In Mode Elements" will show the elements within the mode's container which are active in the selected mode.
 
 ## Moving Shapes Using Arrow Keys
 1. Select the element to be moved.

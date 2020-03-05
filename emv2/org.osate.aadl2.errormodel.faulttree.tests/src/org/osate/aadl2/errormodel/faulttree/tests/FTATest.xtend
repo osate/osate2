@@ -1,3 +1,26 @@
+/**
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ */
 package org.osate.aadl2.errormodel.faulttree.tests
 
 import com.google.inject.Inject
@@ -68,6 +91,9 @@ class FTATest {
 	var static SystemInstance instanceIssue1962
 	var static SystemInstance instanceIssue1961
 	var static SystemInstance instanceIssue1384
+	var static SystemInstance instanceIssues21232425
+	var static SystemInstance instanceIssue2112
+	var static SystemInstance instanceIssue2177
 
 	val static stateFail = "state Failed"
 	val static stateFailStop = "state FailStop"
@@ -110,6 +136,8 @@ class FTATest {
 	val Issue1961file = "Issue1961.aadl"
 	val Issue1384file = "modeling_file.aadl"
 	val Issue1384Errortypesfile = "emv2_errortype_definition.aadl"
+	val ErrorStateWithTypesfile = "ErrorStateWithTypes.aadl"
+	val Issue2177file = "Issue2177.aadl"
 
 	@Before
 	def void initWorkspace() {
@@ -149,7 +177,10 @@ class FTATest {
 			modelroot + Issue1962file,
 			modelroot + Issue1961file,
 			modelroot + Issue1384Errortypesfile,
-			modelroot + Issue1384file
+			modelroot + Issue1384file,
+			modelroot + ErrorStateWithTypesfile,
+			modelroot + Issue2177file
+			
 		)
 		instance1 = instanceGenerator(modelroot + fta1File, "main.i")
 		instance2 = instanceGenerator(modelroot + fta2File, "main.i")
@@ -180,9 +211,12 @@ class FTATest {
 		instanceIssue1899 = instanceGenerator(modelroot + accessfeaturesFile, "top.ii")
 		instanceIssue1837 = instanceGenerator(modelroot + Issue1837file, "TMR_Archetype.impl")
 		instanceIssue1837bis = instanceGenerator(modelroot + Issue1837file, "TMR_Archetype.impl2")
+		instanceIssue2112 = instanceGenerator(modelroot + Issue1837file, "top.impl")
 		instanceIssue1962 = instanceGenerator(modelroot + Issue1962file, "ac.impl")
 		instanceIssue1961 = instanceGenerator(modelroot + Issue1961file, "ac.impl")
 		instanceIssue1384 = instanceGenerator(modelroot + Issue1384file, "sys.i")
+		instanceIssues21232425 = instanceGenerator(modelroot + ErrorStateWithTypesfile, "iPCA_Safety.i")
+		instanceIssue2177 = instanceGenerator(modelroot + Issue2177file, "SubSys1.EMV2")
 	}
 
 	def SystemInstance instanceGenerator(String filename, String rootclassifier) {
@@ -230,16 +264,17 @@ class FTATest {
 	@Test
 	def void fta2Test2() {
 		val ftr = CreateFTAModel.createFaultTrace(instance2, stateFail)
-		assertEquals(ftr.events.size, 17)
+		assertEquals(ftr.events.size, 18)
 	}
 
 	@Test
 	def void fta2Test3() {
 		val ftparts = CreateFTAModel.createPartsFaultTree(instance2, stateFail)
-		assertEquals(ftparts.events.size, 7)
-		assertEquals(ftparts.root.subEventLogic, LogicOperation.AND)
-		val sube11 = ftparts.root.subEvents.head
-		val sube22 = ftparts.root.subEvents.get(1)
+		assertEquals(ftparts.events.size, 8)
+		val ev1 =  ftparts.root.subEvents.head
+		assertEquals(ev1.subEventLogic, LogicOperation.AND)
+		val sube11 = ev1.subEvents.head
+		val sube22 = ev1.subEvents.get(1)
 		assertEquals(sube11.subEventLogic, LogicOperation.XOR)
 		assertEquals(sube22.subEventLogic, LogicOperation.XOR)
 	}
@@ -262,10 +297,10 @@ class FTATest {
 		val ft = CreateFTAModel.createFaultTree(instancecommon1, stateFailStop)
 		assertEquals(ft.events.size, 5)
 		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
+		assertEquals((ft.root.relatedEMV2Object as NamedElement).name, "FailStop")
+		assertTrue(ft.root.relatedEMV2Object instanceof ErrorBehaviorState)
 		val sube1 = ft.root.subEvents.head
-		assertEquals((sube1.relatedEMV2Object as NamedElement).name, "FailStop")
 		assertEquals(sube1.subEventLogic, LogicOperation.AND)
-		assertTrue(sube1.relatedEMV2Object instanceof ErrorBehaviorState)
 		assertEquals(sube1.subEvents.size, 2)
 		assertTrue(sube1.subEvents.head.relatedEMV2Object instanceof ErrorEvent)
 		assertEquals((sube1.subEvents.head.relatedEMV2Object as ErrorEvent).name, "Failure")
@@ -284,10 +319,10 @@ class FTATest {
 		val ft = CreateFTAModel.createFaultTree(instancecommon2, stateFailStop)
 		assertEquals(ft.events.size, 7)
 		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
+		assertEquals((ft.root.relatedEMV2Object as NamedElement).name, "FailStop")
+		assertTrue(ft.root.relatedEMV2Object instanceof ErrorBehaviorState)
 		val sube1 = ft.root.subEvents.head
-		assertEquals((sube1.relatedEMV2Object as NamedElement).name, "FailStop")
 		assertEquals(sube1.subEventLogic, LogicOperation.AND)
-		assertTrue(sube1.relatedEMV2Object instanceof ErrorBehaviorState)
 		assertEquals(sube1.subEvents.size, 2)
 		assertTrue(sube1.subEvents.head.relatedEMV2Object instanceof ErrorEvent)
 		assertEquals((sube1.subEvents.head.relatedEMV2Object as ErrorEvent).name, "Failure")
@@ -299,11 +334,11 @@ class FTATest {
 	def void common3Test() {
 		val ft = CreateFTAModel.createFaultTree(instancecommon3, stateFailStop)
 		assertEquals(ft.events.size, 7)
+		assertEquals((ft.root.relatedEMV2Object as NamedElement).name, "FailStop")
+		assertTrue(ft.root.relatedEMV2Object instanceof ErrorBehaviorState)
 		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
 		val sube1 = ft.root.subEvents.head
-		assertEquals((sube1.relatedEMV2Object as NamedElement).name, "FailStop")
 		assertEquals(sube1.subEventLogic, LogicOperation.AND)
-		assertTrue(sube1.relatedEMV2Object instanceof ErrorBehaviorState)
 		assertEquals(sube1.subEvents.size, 2)
 		assertTrue(sube1.subEvents.head.relatedEMV2Object instanceof ErrorEvent)
 		assertEquals((sube1.subEvents.head.relatedEMV2Object as ErrorEvent).name, "Failure")
@@ -315,7 +350,7 @@ class FTATest {
 	def void compositeerrorfta() {
 
 		val ft = CreateFTAModel.createModel(instancecommon1, stateFailStop, FaultTreeType.COMPOSITE_PARTS);
-		assertEquals(ft.events.size, 3)
+		assertEquals(ft.events.size, 4)
 		for (event : ft.events) {
 			if (event.type != EventType.INTERMEDIATE) {
 				assertTrue(event.relatedEMV2Object instanceof ErrorBehaviorState)
@@ -327,7 +362,7 @@ class FTATest {
 	@Test
 	def void nestedcompositepartsfta() {
 		val ft = CreateFTAModel.createPartsFaultTree(instancecomposite, stateFailStop);
-		assertEquals(ft.events.size, 9)
+		assertEquals(ft.events.size, 11)
 		for (event : ft.events) {
 			if (event.type != EventType.INTERMEDIATE) {
 				assertTrue(event.relatedEMV2Object instanceof ErrorBehaviorState)
@@ -346,11 +381,11 @@ class FTATest {
 		}
 		assertEquals(ft.root.subEventLogic, LogicOperation.XOR)
 		assertEquals(ft.root.subEvents.size, 3)
-		val sube1 = ft.root.subEvents.head
-		val sube2 = ft.root.subEvents.get(1)
-		assertEquals((sube1.relatedEMV2Object as NamedElement).name, "FailStop")
+		assertEquals((ft.root.relatedEMV2Object as NamedElement).name, "FailStop")
+		assertTrue(ft.root.relatedEMV2Object instanceof ErrorBehaviorState)
+		val sube2 = ft.root.subEvents.head
+		val sube1 = ft.root.subEvents.get(2)
 		assertEquals(sube1.subEventLogic, LogicOperation.AND)
-		assertTrue(sube1.relatedEMV2Object instanceof ErrorBehaviorState)
 		assertEquals(sube1.subEvents.size, 2)
 		assertEquals(sube2.subEvents.size, 2)
 		assertTrue(sube1.subEvents.head.relatedEMV2Object instanceof ErrorEvent)
@@ -531,10 +566,11 @@ class FTATest {
 	def void DualFGSFaultTraceCriticalTest() {
 		val start = "state CriticalModeFailure"
 		val ft = CreateFTAModel.createFaultTrace(instanceDualFGS, start)
-		assertEquals(ft.events.size, 16)
-		assertEquals(ft.root.subEvents.size, 3)
-		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
-		val sube1 = ft.root.subEvents.get(2)
+		assertEquals(ft.events.size, 17)
+		val ev = ft.root.subEvents.get(0)
+		assertEquals(ev.subEvents.size, 3)
+		assertEquals(ev.subEventLogic, LogicOperation.OR)
+		val sube1 = ev.subEvents.get(2)
 		assertEquals(sube1.subEventLogic, LogicOperation.AND)
 		assertEquals(sube1.subEvents.size, 2)
 		val subsube2 = sube1.subEvents.get(1)
@@ -548,7 +584,7 @@ class FTATest {
 		assertTrue(sube32.relatedEMV2Object instanceof ErrorBehaviorState)
 		assertEquals((sube32.relatedEMV2Object as NamedElement).name, "Failed")
 		assertEquals((sube32.relatedInstanceObject as NamedElement).name, "FG2")
-		val sube2 = ft.root.subEvents.get(0)
+		val sube2 = ev.subEvents.get(0)
 		assertTrue(sube2.relatedEMV2Object instanceof ErrorBehaviorState)
 		assertEquals((sube2.relatedEMV2Object as NamedElement).name, "Failed")
 		assertEquals((sube2.relatedInstanceObject as NamedElement).name, "AC")
@@ -556,7 +592,7 @@ class FTATest {
 		assertTrue(subev2.relatedEMV2Object instanceof ErrorEvent)
 		assertEquals((subev2.relatedEMV2Object as NamedElement).name, "Failure")
 		assertEquals((subev2.relatedInstanceObject as NamedElement).name, "AC")
-		val sube3 = ft.root.subEvents.get(1)
+		val sube3 = ev.subEvents.get(1)
 		assertTrue(sube3.relatedEMV2Object instanceof ErrorBehaviorState)
 		assertEquals((sube3.relatedEMV2Object as NamedElement).name, "Failed")
 		assertEquals((sube3.relatedInstanceObject as NamedElement).name, "network")
@@ -566,10 +602,11 @@ class FTATest {
 	def void DualFGSPartsFaultTreeCriticalTest() {
 		val start = "state CriticalModeFailure"
 		val ft = CreateFTAModel.createPartsFaultTree(instanceDualFGS, start)
-		assertEquals(ft.events.size, 10)
-		assertEquals(ft.root.subEvents.size, 3)
-		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
-		val sube1 = ft.root.subEvents.get(2)
+		assertEquals(ft.events.size, 11)
+		val ev1 = ft.root.subEvents.get(0)
+		assertEquals(ev1.subEvents.size, 3)
+		assertEquals(ev1.subEventLogic, LogicOperation.OR)
+		val sube1 = ev1.subEvents.get(2)
 		assertEquals(sube1.subEventLogic, LogicOperation.AND)
 		assertEquals(sube1.subEvents.size, 2)
 		val subsube2 = sube1.subEvents.get(1)
@@ -583,11 +620,11 @@ class FTATest {
 		assertTrue(sube32.relatedEMV2Object instanceof ErrorBehaviorState)
 		assertEquals((sube32.relatedEMV2Object as NamedElement).name, "Failed")
 		assertEquals((sube32.relatedInstanceObject as NamedElement).name, "FG2")
-		val sube2 = ft.root.subEvents.get(0)
+		val sube2 = ev1.subEvents.get(0)
 		assertTrue(sube2.relatedEMV2Object instanceof ErrorBehaviorState)
 		assertEquals((sube2.relatedEMV2Object as NamedElement).name, "Failed")
 		assertEquals((sube2.relatedInstanceObject as NamedElement).name, "AC")
-		val sube3 = ft.root.subEvents.get(1)
+		val sube3 = ev1.subEvents.get(1)
 		assertTrue(sube3.relatedEMV2Object instanceof ErrorBehaviorState)
 		assertEquals((sube3.relatedEMV2Object as NamedElement).name, "Failed")
 		assertEquals((sube3.relatedInstanceObject as NamedElement).name, "network")
@@ -675,7 +712,7 @@ class FTATest {
 	def void allFlowFaultTraceTest() {
 		val start = "outgoing propagation on outport{ValueProblem}"
 		val ft = CreateFTAModel.createFaultTrace(instanceAllFlows, start)
-		assertEquals(11,ft.events.size)
+		assertEquals(12,ft.events.size)
 		assertEquals(ft.root.subEvents.size, 1)
 		val sube1 = ft.root.subEvents.get(0)
 		assertEquals(sube1.subEventLogic, LogicOperation.OR)
@@ -976,6 +1013,15 @@ class FTATest {
 	}
 
 	@Test
+	def void issue2112Test() {
+		val ft = CreateFTAModel.createFaultTree(instanceIssue2112, "state FailStop")
+		assertEquals(ft.events.size, 6)
+		assertEquals(ft.root.subEventLogic, LogicOperation.OR)
+		assertEquals(ft.root.computedProbability.doubleValue, 0.0414, 0.01)
+		assertEquals(ft.root.subEvents.get(0).subEventLogic, LogicOperation.KORMORE)
+	}
+
+	@Test
 	def void issue1962Test() {
 		val ft = CreateFTAModel.createFaultTree(instanceIssue1962, "outgoing propagation on aceffect{ServiceOmission}")
 		assertEquals(ft.events.size, 7)
@@ -1015,4 +1061,42 @@ class FTATest {
 		assertEquals((ccus.relatedEMV2Object as NamedElement).name, "Failure")
 	}
 
+
+	@Test
+	def void issue2124Test() {
+		val ft = CreateFTAModel.createFaultTrace(instanceIssues21232425, "state undetected_failure")
+		assertEquals(ft.root.subEvents.size,1)
+		val ev1 = ft.root
+		assertEquals((ev1.relatedInstanceObject as NamedElement).name, "iPCA_Safety_i_Instance")
+		assertEquals(ev1.subEvents.size,1)
+		val ev2 = ev1.subEvents.get(0)
+		assertEquals((ev2.relatedInstanceObject as NamedElement).name, "error_detect")
+	}
+
+	@Test
+	def void issue2123Test() {
+		val ft = CreateFTAModel.createFaultTrace(instanceIssues21232425, "state undetected_failure")
+		assertEquals(ft.events.size, 3)
+		assertEquals(ft.root.subEvents.size,1)
+		val ev1 = ft.root
+		assertEquals((ev1.relatedInstanceObject as NamedElement).name, "iPCA_Safety_i_Instance")
+		val ev2 = ev1.subEvents.get(0)
+		assertEquals((ev2.relatedInstanceObject as NamedElement).name, "error_detect")
+		val ev3 = ev2.subEvents.get(0)
+		assertEquals((ev3.relatedInstanceObject as NamedElement).name, "error_detect")
+		assertEquals((ev3.relatedEMV2Object as NamedElement).name, "post_not_detect_failure")
+	}
+
+	
+	@Test
+	def void issue2177Test() {
+		val ft = CreateFTAModel.createFaultTree(instanceIssue2177, "state LossOfData")
+		assertEquals(ft.events.size, 2)
+		assertEquals(ft.root.subEvents.size,1)
+		val ev1 = ft.root
+		assertEquals((ev1.relatedInstanceObject as NamedElement).name, "SubSys1_EMV2_Instance")
+		val ev2 = ev1.subEvents.get(0)
+		assertEquals((ev2.relatedEMV2Object as NamedElement).name, "Internal_Service_Error")
+	}
+	
 }

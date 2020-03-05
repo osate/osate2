@@ -1,3 +1,26 @@
+/**
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * All Rights Reserved.
+ *
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ *
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ *
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ */
 package org.osate.xtext.aadl2.errormodel.validation;
 
 import java.math.BigDecimal;
@@ -253,6 +276,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseConditionElement(ConditionElement conditionElement) {
+		checkConditionElementDirection(conditionElement);
 		checkConditionElementType(conditionElement);
 	}
 
@@ -311,6 +335,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		checkTransitionSourceTypes(ebt);
 		checkTransitionTargetTypes(ebt);
 		checkBranches(ebt);
+		checkTransitionTargetTriggerTypes(ebt);
 	}
 
 	@Check(CheckType.FAST)
@@ -417,6 +442,22 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			error(conditionElement,
 					"Condition type constraint " + EMV2Util.getPrintName(condTS) + "is not contained in type set "
 							+ EMV2Util.getPrintName(triggerTS) + "of referenced " + triggerName);
+		}
+	}
+
+	private void checkConditionElementDirection(ConditionElement conditionElement) {
+		ErrorPropagation ep = EMV2Util.getErrorPropagation(conditionElement.getQualifiedErrorPropagationReference());
+		Subcomponent sub = EMV2Util.getLastSubcomponent(conditionElement.getQualifiedErrorPropagationReference());
+		if (ep == null) {
+			return;
+		}
+		if (sub != null && ep.getDirection() != DirectionType.OUT) {
+			error(conditionElement,
+					"Referenced subcomponent error propagation " + EMV2Util.getPrintName(ep)
+							+ " must be an out propagation");
+		} else if (ep.getDirection() != DirectionType.IN) {
+			error(conditionElement,
+					"Referenced error propagation " + EMV2Util.getPrintName(ep) + " must be an in propagation");
 		}
 	}
 
@@ -912,6 +953,73 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			} else if (!EMV2TypeSetUtil.contains(ebsTS, ebtargetTS)) {
 				error(ebt, "Target type " + EMV2Util.getPrintName(ebt.getTargetToken())
 				+ " is not contained in type set of error behavior state \'" + ebs.getName() + "\'");
+			}
+		}
+	}
+
+	private void checkTransitionTargetTriggerTypes(ErrorBehaviorTransition ebt) {
+		if (ebt.isSteadyState()) {
+			return;
+		}
+		ErrorBehaviorState targetstate = ebt.getTarget();
+		if (targetstate != null) {
+			TypeSet targetTS = targetstate.getTypeSet();
+			if (targetTS == null) {
+				return;
+			}
+			TypeSet tt = ebt.getTargetToken();
+			if (tt != null) {
+				return;
+			}
+			// state requires a type
+			if (ebt.getCondition() instanceof ConditionElement) {
+				// either the event must be typed or the source state must be typed
+				EventOrPropagation ep = EMV2Util.getErrorEventOrPropagation((ConditionElement) ebt.getCondition());
+				if (ep instanceof ErrorEvent) {
+					ErrorEvent ev = (ErrorEvent) ep;
+					TypeSet evTS = ev.getTypeSet();
+					if (evTS == null) {
+						TypeSet srcTS = ebt.getSource().getTypeSet();
+						if (srcTS == null) {
+							error(ebt,
+									"Target state " + targetstate.getName()
+											+ " requires type but the triggering error event "
+											+ EMV2Util.getPrintName(ev) + " or source state "
+											+ EMV2Util.getPrintName(ebt.getSource()) + " does not have a type");
+						} else {
+							// source typeset must be contained in target type set
+							if (!EMV2TypeSetUtil.contains(targetTS, srcTS)) {
+								error(ebt,
+										"Target state " + targetstate.getName()
+												+ " does not contain types of source state "
+												+ EMV2Util.getPrintName(ebt.getSource()));
+							}
+						}
+					} else {
+						// error event has type. It must be consistent with the expected state type
+						if (!EMV2TypeSetUtil.contains(targetTS, evTS)) {
+							error(ebt, "Target state " + targetstate.getName()
+									+ " does not contain types of error event " + EMV2Util.getPrintName(ev));
+						}
+					}
+				} else if (ep instanceof ErrorPropagation) {
+					ErrorPropagation eprop = (ErrorPropagation) ep;
+					// we have an error propagation
+					// we can check type compatibility
+					if (!EMV2TypeSetUtil.contains(targetTS, eprop.getTypeSet())) {
+						error(ebt, "Target state " + targetstate.getName()
+								+ " does not contain types of error propagation " + EMV2Util.getPrintName(eprop));
+					}
+				}
+			} else {
+				// full condition expression
+				// type transformation & events must be typed
+				ErrorBehaviorStateMachine ebsm = (ErrorBehaviorStateMachine) targetstate.eContainer();
+				if (ebsm.getUseTransformation().isEmpty()) {
+					error(ebt, "Target state " + targetstate.getName()
+							+ " does not include a target type but requires types. For conditions on multiple elements a target type must be assigned explicitly or a type transformation must be specified in the error behavior state machine"
+							+ EMV2Util.getPrintName(ebsm));
+				}
 			}
 		}
 	}

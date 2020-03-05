@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright © 2011 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -9,13 +9,13 @@
  * 
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
- * version 1.0 of the License, or (at your option) any later version. This
+ * version 2.0 of the License, or (at your option) any later version. This
  * program is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License for
  * more details. You should have received a copy of the Eclipse Public License
  * along with this program. If not, see
- * http://www.eclipse.org/org/documents/epl-v10.php
+ * https://www.eclipse.org/legal/epl-2.0/
  */
 package org.osate.ba.aadlba;
 
@@ -2462,13 +2462,22 @@ public interface AadlBaPackage extends EPackage
   int BEHAVIOR_VARIABLE__DATA_CLASSIFIER = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 1;
 
   /**
+   * The feature id for the '<em><b>Owned Property Associations</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BEHAVIOR_VARIABLE__OWNED_PROPERTY_ASSOCIATIONS = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 2;
+
+  /**
    * The number of structural features of the '<em>Behavior Variable</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int BEHAVIOR_VARIABLE_FEATURE_COUNT = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 2;
+  int BEHAVIOR_VARIABLE_FEATURE_COUNT = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -6358,6 +6367,172 @@ public interface AadlBaPackage extends EPackage
   int WHILE_OR_DO_UNTIL_STATEMENT_FEATURE_COUNT = LOOP_STATEMENT_FEATURE_COUNT + 2;
 
   /**
+   * The meta object id for the '{@link org.osate.ba.aadlba.ModeSwitchTriggerCondition <em>Mode Switch Trigger Condition</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.ba.aadlba.ModeSwitchTriggerCondition
+   * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getModeSwitchTriggerCondition()
+   * @generated
+   */
+  int MODE_SWITCH_TRIGGER_CONDITION = 116;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODE_SWITCH_TRIGGER_CONDITION__OWNED_ELEMENT = BEHAVIOR_CONDITION__OWNED_ELEMENT;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODE_SWITCH_TRIGGER_CONDITION__OWNED_COMMENT = BEHAVIOR_CONDITION__OWNED_COMMENT;
+
+  /**
+   * The number of structural features of the '<em>Mode Switch Trigger Condition</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODE_SWITCH_TRIGGER_CONDITION_FEATURE_COUNT = BEHAVIOR_CONDITION_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.ba.aadlba.impl.ModeSwitchTriggerLogicalExpressionImpl <em>Mode Switch Trigger Logical Expression</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.ba.aadlba.impl.ModeSwitchTriggerLogicalExpressionImpl
+   * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getModeSwitchTriggerLogicalExpression()
+   * @generated
+   */
+  int MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION = 115;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION__OWNED_ELEMENT = MODE_SWITCH_TRIGGER_CONDITION__OWNED_ELEMENT;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION__OWNED_COMMENT = MODE_SWITCH_TRIGGER_CONDITION__OWNED_COMMENT;
+
+  /**
+   * The feature id for the '<em><b>Mode Switch Conjunctions</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION__MODE_SWITCH_CONJUNCTIONS = MODE_SWITCH_TRIGGER_CONDITION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Mode Switch Trigger Logical Expression</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION_FEATURE_COUNT = MODE_SWITCH_TRIGGER_CONDITION_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.osate.ba.aadlba.impl.ModeSwitchConjunctionImpl <em>Mode Switch Conjunction</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.ba.aadlba.impl.ModeSwitchConjunctionImpl
+   * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getModeSwitchConjunction()
+   * @generated
+   */
+  int MODE_SWITCH_CONJUNCTION = 117;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODE_SWITCH_CONJUNCTION__OWNED_ELEMENT = BEHAVIOR_ELEMENT__OWNED_ELEMENT;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODE_SWITCH_CONJUNCTION__OWNED_COMMENT = BEHAVIOR_ELEMENT__OWNED_COMMENT;
+
+  /**
+   * The feature id for the '<em><b>Mode Switch Triggers</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODE_SWITCH_CONJUNCTION__MODE_SWITCH_TRIGGERS = BEHAVIOR_ELEMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Mode Switch Conjunction</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODE_SWITCH_CONJUNCTION_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link org.osate.ba.aadlba.ModeSwitchTrigger <em>Mode Switch Trigger</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.ba.aadlba.ModeSwitchTrigger
+   * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getModeSwitchTrigger()
+   * @generated
+   */
+  int MODE_SWITCH_TRIGGER = 118;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODE_SWITCH_TRIGGER__OWNED_ELEMENT = BEHAVIOR_ELEMENT__OWNED_ELEMENT;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODE_SWITCH_TRIGGER__OWNED_COMMENT = BEHAVIOR_ELEMENT__OWNED_COMMENT;
+
+  /**
+   * The number of structural features of the '<em>Mode Switch Trigger</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODE_SWITCH_TRIGGER_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 0;
+
+  /**
    * The meta object id for the '{@link org.osate.ba.aadlba.BehaviorFeatureType <em>Behavior Feature Type</em>}' enum.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -6365,7 +6540,7 @@ public interface AadlBaPackage extends EPackage
    * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBehaviorFeatureType()
    * @generated
    */
-  int BEHAVIOR_FEATURE_TYPE = 115;
+  int BEHAVIOR_FEATURE_TYPE = 119;
 
   /**
    * The meta object id for the '{@link org.osate.ba.aadlba.BinaryAddingOperator <em>Binary Adding Operator</em>}' enum.
@@ -6375,7 +6550,7 @@ public interface AadlBaPackage extends EPackage
    * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBinaryAddingOperator()
    * @generated
    */
-  int BINARY_ADDING_OPERATOR = 116;
+  int BINARY_ADDING_OPERATOR = 120;
 
   /**
    * The meta object id for the '{@link org.osate.ba.aadlba.BinaryNumericOperator <em>Binary Numeric Operator</em>}' enum.
@@ -6385,7 +6560,7 @@ public interface AadlBaPackage extends EPackage
    * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBinaryNumericOperator()
    * @generated
    */
-  int BINARY_NUMERIC_OPERATOR = 117;
+  int BINARY_NUMERIC_OPERATOR = 121;
 
   /**
    * The meta object id for the '{@link org.osate.ba.aadlba.DataRepresentation <em>Data Representation</em>}' enum.
@@ -6395,7 +6570,7 @@ public interface AadlBaPackage extends EPackage
    * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getDataRepresentation()
    * @generated
    */
-  int DATA_REPRESENTATION = 118;
+  int DATA_REPRESENTATION = 122;
 
   /**
    * The meta object id for the '{@link org.osate.ba.aadlba.FeatureType <em>Feature Type</em>}' enum.
@@ -6405,7 +6580,7 @@ public interface AadlBaPackage extends EPackage
    * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getFeatureType()
    * @generated
    */
-  int FEATURE_TYPE = 119;
+  int FEATURE_TYPE = 123;
 
   /**
    * The meta object id for the '{@link org.osate.ba.aadlba.LogicalOperator <em>Logical Operator</em>}' enum.
@@ -6415,7 +6590,7 @@ public interface AadlBaPackage extends EPackage
    * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getLogicalOperator()
    * @generated
    */
-  int LOGICAL_OPERATOR = 120;
+  int LOGICAL_OPERATOR = 124;
 
   /**
    * The meta object id for the '{@link org.osate.ba.aadlba.MultiplyingOperator <em>Multiplying Operator</em>}' enum.
@@ -6425,7 +6600,7 @@ public interface AadlBaPackage extends EPackage
    * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getMultiplyingOperator()
    * @generated
    */
-  int MULTIPLYING_OPERATOR = 121;
+  int MULTIPLYING_OPERATOR = 125;
 
   /**
    * The meta object id for the '{@link org.osate.ba.aadlba.RelationalOperator <em>Relational Operator</em>}' enum.
@@ -6435,7 +6610,7 @@ public interface AadlBaPackage extends EPackage
    * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getRelationalOperator()
    * @generated
    */
-  int RELATIONAL_OPERATOR = 122;
+  int RELATIONAL_OPERATOR = 126;
 
   /**
    * The meta object id for the '{@link org.osate.ba.aadlba.UnaryAddingOperator <em>Unary Adding Operator</em>}' enum.
@@ -6445,7 +6620,7 @@ public interface AadlBaPackage extends EPackage
    * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getUnaryAddingOperator()
    * @generated
    */
-  int UNARY_ADDING_OPERATOR = 123;
+  int UNARY_ADDING_OPERATOR = 127;
 
   /**
    * The meta object id for the '{@link org.osate.ba.aadlba.UnaryBooleanOperator <em>Unary Boolean Operator</em>}' enum.
@@ -6455,7 +6630,7 @@ public interface AadlBaPackage extends EPackage
    * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getUnaryBooleanOperator()
    * @generated
    */
-  int UNARY_BOOLEAN_OPERATOR = 124;
+  int UNARY_BOOLEAN_OPERATOR = 128;
 
   /**
    * The meta object id for the '{@link org.osate.ba.aadlba.UnaryNumericOperator <em>Unary Numeric Operator</em>}' enum.
@@ -6465,7 +6640,7 @@ public interface AadlBaPackage extends EPackage
    * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getUnaryNumericOperator()
    * @generated
    */
-  int UNARY_NUMERIC_OPERATOR = 125;
+  int UNARY_NUMERIC_OPERATOR = 129;
 
   /**
    * The meta object id for the '<em>Boolean</em>' data type.
@@ -6474,7 +6649,7 @@ public interface AadlBaPackage extends EPackage
    * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getBoolean()
    * @generated
    */
-  int BOOLEAN = 126;
+  int BOOLEAN = 130;
 
   /**
    * The meta object id for the '<em>Integer</em>' data type.
@@ -6483,7 +6658,7 @@ public interface AadlBaPackage extends EPackage
    * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getInteger()
    * @generated
    */
-  int INTEGER = 127;
+  int INTEGER = 131;
 
   /**
    * The meta object id for the '<em>Real</em>' data type.
@@ -6492,7 +6667,7 @@ public interface AadlBaPackage extends EPackage
    * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getReal()
    * @generated
    */
-  int REAL = 128;
+  int REAL = 132;
 
   /**
    * The meta object id for the '<em>String</em>' data type.
@@ -6502,7 +6677,7 @@ public interface AadlBaPackage extends EPackage
    * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getString()
    * @generated
    */
-  int STRING = 129;
+  int STRING = 133;
 
 
   /**
@@ -7041,6 +7216,17 @@ public interface AadlBaPackage extends EPackage
    * @generated
    */
   EReference getBehaviorVariable_DataClassifier();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.ba.aadlba.BehaviorVariable#getOwnedPropertyAssociations <em>Owned Property Associations</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Owned Property Associations</em>'.
+   * @see org.osate.ba.aadlba.BehaviorVariable#getOwnedPropertyAssociations()
+   * @see #getBehaviorVariable()
+   * @generated
+   */
+  EReference getBehaviorVariable_OwnedPropertyAssociations();
 
   /**
    * Returns the meta object for class '{@link org.osate.ba.aadlba.BehaviorVariableHolder <em>Behavior Variable Holder</em>}'.
@@ -8456,6 +8642,68 @@ public interface AadlBaPackage extends EPackage
   EAttribute getWhileOrDoUntilStatement_DoUntil();
 
   /**
+   * Returns the meta object for class '{@link org.osate.ba.aadlba.ModeSwitchTriggerLogicalExpression <em>Mode Switch Trigger Logical Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Mode Switch Trigger Logical Expression</em>'.
+   * @see org.osate.ba.aadlba.ModeSwitchTriggerLogicalExpression
+   * @generated
+   */
+  EClass getModeSwitchTriggerLogicalExpression();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.ba.aadlba.ModeSwitchTriggerLogicalExpression#getModeSwitchConjunctions <em>Mode Switch Conjunctions</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Mode Switch Conjunctions</em>'.
+   * @see org.osate.ba.aadlba.ModeSwitchTriggerLogicalExpression#getModeSwitchConjunctions()
+   * @see #getModeSwitchTriggerLogicalExpression()
+   * @generated
+   */
+  EReference getModeSwitchTriggerLogicalExpression_ModeSwitchConjunctions();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.ba.aadlba.ModeSwitchTriggerCondition <em>Mode Switch Trigger Condition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Mode Switch Trigger Condition</em>'.
+   * @see org.osate.ba.aadlba.ModeSwitchTriggerCondition
+   * @generated
+   */
+  EClass getModeSwitchTriggerCondition();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.ba.aadlba.ModeSwitchConjunction <em>Mode Switch Conjunction</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Mode Switch Conjunction</em>'.
+   * @see org.osate.ba.aadlba.ModeSwitchConjunction
+   * @generated
+   */
+  EClass getModeSwitchConjunction();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.ba.aadlba.ModeSwitchConjunction#getModeSwitchTriggers <em>Mode Switch Triggers</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Mode Switch Triggers</em>'.
+   * @see org.osate.ba.aadlba.ModeSwitchConjunction#getModeSwitchTriggers()
+   * @see #getModeSwitchConjunction()
+   * @generated
+   */
+  EReference getModeSwitchConjunction_ModeSwitchTriggers();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.ba.aadlba.ModeSwitchTrigger <em>Mode Switch Trigger</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Mode Switch Trigger</em>'.
+   * @see org.osate.ba.aadlba.ModeSwitchTrigger
+   * @generated
+   */
+  EClass getModeSwitchTrigger();
+
+  /**
    * Returns the meta object for class '{@link org.osate.ba.aadlba.PropertySetPropertyReference <em>Property Set Property Reference</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -9201,6 +9449,14 @@ public interface AadlBaPackage extends EPackage
      * @generated
      */
     EReference BEHAVIOR_VARIABLE__DATA_CLASSIFIER = eINSTANCE.getBehaviorVariable_DataClassifier();
+
+    /**
+     * The meta object literal for the '<em><b>Owned Property Associations</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference BEHAVIOR_VARIABLE__OWNED_PROPERTY_ASSOCIATIONS = eINSTANCE.getBehaviorVariable_OwnedPropertyAssociations();
 
     /**
      * The meta object literal for the '{@link org.osate.ba.aadlba.impl.BehaviorVariableHolderImpl <em>Behavior Variable Holder</em>}' class.
@@ -10455,6 +10711,62 @@ public interface AadlBaPackage extends EPackage
      * @generated
      */
     EAttribute WHILE_OR_DO_UNTIL_STATEMENT__DO_UNTIL = eINSTANCE.getWhileOrDoUntilStatement_DoUntil();
+
+    /**
+     * The meta object literal for the '{@link org.osate.ba.aadlba.impl.ModeSwitchTriggerLogicalExpressionImpl <em>Mode Switch Trigger Logical Expression</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.ba.aadlba.impl.ModeSwitchTriggerLogicalExpressionImpl
+     * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getModeSwitchTriggerLogicalExpression()
+     * @generated
+     */
+    EClass MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION = eINSTANCE.getModeSwitchTriggerLogicalExpression();
+
+    /**
+     * The meta object literal for the '<em><b>Mode Switch Conjunctions</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MODE_SWITCH_TRIGGER_LOGICAL_EXPRESSION__MODE_SWITCH_CONJUNCTIONS = eINSTANCE.getModeSwitchTriggerLogicalExpression_ModeSwitchConjunctions();
+
+    /**
+     * The meta object literal for the '{@link org.osate.ba.aadlba.ModeSwitchTriggerCondition <em>Mode Switch Trigger Condition</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.ba.aadlba.ModeSwitchTriggerCondition
+     * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getModeSwitchTriggerCondition()
+     * @generated
+     */
+    EClass MODE_SWITCH_TRIGGER_CONDITION = eINSTANCE.getModeSwitchTriggerCondition();
+
+    /**
+     * The meta object literal for the '{@link org.osate.ba.aadlba.impl.ModeSwitchConjunctionImpl <em>Mode Switch Conjunction</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.ba.aadlba.impl.ModeSwitchConjunctionImpl
+     * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getModeSwitchConjunction()
+     * @generated
+     */
+    EClass MODE_SWITCH_CONJUNCTION = eINSTANCE.getModeSwitchConjunction();
+
+    /**
+     * The meta object literal for the '<em><b>Mode Switch Triggers</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MODE_SWITCH_CONJUNCTION__MODE_SWITCH_TRIGGERS = eINSTANCE.getModeSwitchConjunction_ModeSwitchTriggers();
+
+    /**
+     * The meta object literal for the '{@link org.osate.ba.aadlba.ModeSwitchTrigger <em>Mode Switch Trigger</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.ba.aadlba.ModeSwitchTrigger
+     * @see org.osate.ba.aadlba.impl.AadlBaPackageImpl#getModeSwitchTrigger()
+     * @generated
+     */
+    EClass MODE_SWITCH_TRIGGER = eINSTANCE.getModeSwitchTrigger();
 
     /**
      * The meta object literal for the '{@link org.osate.ba.aadlba.impl.PropertySetPropertyReferenceImpl <em>Property Set Property Reference</em>}' class.

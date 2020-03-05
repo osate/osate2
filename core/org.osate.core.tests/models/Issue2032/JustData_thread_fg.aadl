@@ -1,0 +1,55 @@
+package JustData_thread_fg
+public
+	data D
+	end D;
+
+	feature group FG
+		features
+			shared_data: provides data access D;
+	end FG;
+
+	feature group FG2
+		features
+			ext_data: requires data access D;
+		inverse of FG
+	end FG2;
+
+	thread T1
+		features
+			fg: feature group FG;
+	end T1;
+
+	thread implementation T1.impl
+		subcomponents
+			myData: data D;
+		connections
+			dc1: data access myData <-> fg.shared_data;
+	end T1.impl;
+
+	thread T2
+		features
+			fg2: feature group FG2;
+	end T2;
+
+	thread implementation T2.impl
+	end T2.impl;
+
+	process p1
+	end p1;
+
+	process implementation p1.impl
+		subcomponents
+			MyT1: thread T1.impl;
+			MyT2: thread T2.impl;
+		connections
+			dc2: feature group MyT1.fg <-> MyT2.fg2;
+	end p1.impl;
+
+	system Root
+	end Root;
+
+	system implementation Root.impl
+		subcomponents
+			MyP: process p1.impl;
+	end Root.impl;
+end JustData_thread_fg;

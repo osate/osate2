@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.osate.aadl2.instance.textual.ui" version="2">
+    <resource path="src-gen/org/osate/aadl2/instance/textual/ui/contentassist/antlr/PartialInstanceContentAssistParser.java" type="org.osate.aadl2.instance.textual.ui.contentassist.antlr.PartialInstanceContentAssistParser">
+        <filter comment="xtext" id="576725006">
+            <message_arguments>
+                <message_argument value="IPartialContentAssistParser"/>
+                <message_argument value="PartialInstanceContentAssistParser"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>

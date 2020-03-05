@@ -1,46 +1,34 @@
-/*
- * <copyright>
- * Copyright  2009 by Carnegie Mellon University, all rights reserved.
- *
- * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
- * at http://www.eclipse.org/legal/cpl-v10.html.
- *
- * NO WARRANTY
- *
- * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
- * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE "DELIVERABLES") ARE ON AN "AS-IS" BASIS.
- * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
- * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
- * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
- * CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
- * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
- * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
- * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- *
- * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
- * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
- * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
- * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
- * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
- * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- *
- * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
- * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
- * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
- * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
- * under the contract clause at 252.227.7013.
- *
- * </copyright>
- *
- * $Id: CreateEndToEndFlowsSwitch.java,v 1.39 2010-06-14 01:21:51 lwrage Exp $
- *
+/**
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.aadl2.instantiation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.Stack;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -50,7 +38,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
+import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.Element;
@@ -171,6 +161,8 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	}
 
 	private ETEInfo myInfo;
+
+	private final Set<EndToEndFlowInstance> completedETEI = new HashSet<>();
 
 	private Stack<FlowIterator> state = new Stack<FlowIterator>();
 
@@ -516,7 +508,11 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				final List<ConnectionInstance> connectionsToUse = new ArrayList<>();
 				for (final ConnectionInstance ciToCheck : connis) {
 					if ((flowFilter == null || isValidContinuation(etei, flowFilter, ciToCheck))
-							&& (nextFlowImpl == null || isValidContinuation(etei, ciToCheck, nextFlowImpl))) {
+							&& (nextFlowImpl == null
+									? (leaf instanceof FlowSpecification
+											? isValidContinuation(etei, ciToCheck, (FlowSpecification) leaf)
+											: true)
+									: isValidContinuation(etei, ciToCheck, nextFlowImpl))) {
 						connectionsToUse.add(ciToCheck);
 					}
 				}
@@ -529,12 +525,19 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					 *
 					 * This error is the opposite of the case above [**].
 					 */
-					final FlowImplementation ff = flowFilter == null ? nextFlowImpl : flowFilter;
-					error(etei.getContainingComponentInstance(),
-							"Cannot create end to end flow '" + etei.getName()
-									+ "' because there are no semantic connections that connect to the start of the flow '"
-									+ ff.getSpecification().getName() + "' at feature '"
-									+ ff.getInEnd().getFeature().getName() + "'");
+					if (flowFilter == null && nextFlowImpl == null) {
+						final FlowSpecification flowSpec = (FlowSpecification) leaf;
+						error(etei.getContainingComponentInstance(), "Cannot create end to end flow '" + etei.getName()
+								+ "' because there are no semantic connections that connect to the start of the flow '"
+								+ flowSpec.getName() + "' at feature '" + flowSpec.getInEnd().getFeature().getName()
+								+ "'");
+					} else {
+						final FlowImplementation ff = flowFilter == null ? nextFlowImpl : flowFilter;
+						error(etei.getContainingComponentInstance(), "Cannot create end to end flow '" + etei.getName()
+								+ "' because there are no semantic connections that connect to the start of the flow '"
+								+ ff.getSpecification().getName() + "' at feature '"
+								+ ff.getInEnd().getFeature().getName() + "'");
+					}
 					connections.clear();
 					removeETEI.add(etei);
 				} else {
@@ -616,6 +619,68 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			Feature flowIn = fimpl.getInEnd().getFeature();
 			Feature connDst = ((FeatureInstance) dst).getFeature();
 			result = flowIn == connDst;
+		}
+		return result;
+	}
+
+	boolean isValidContinuation(EndToEndFlowInstance etei, ConnectionInstance conni, FlowSpecification fspec) {
+		/*
+		 * Issue 2009: Check if the connection instance connects to the flow spec. Here we have a weird
+		 * situation. If the subcomponent the flow spec is qualified by is only described by a component type, then
+		 * connection end is going to match up with the beginning of the flow. That's fine. If the component
+		 * has a classifier implementation AND the flow spec has a flow implementation, then everything will also
+		 * fine: either the connection instance is correct and reaches the start of the flow implementation, or it
+		 * is incorrect and doesn't. But we can also have the case that the subcomponent is described by a
+		 * component implementation but the flow spec does not have a flow implementation. In this case we
+		 * still may have the case the connection instance continues into the subcomponent and terminates at a
+		 * subsubcomponent. But the flow spec that we have here will be at the edge of the original subcomponent.
+		 * so the end connection instance will not match up with the start of the flow spec.
+		 *
+		 * So what we really need to do is walk backwards along the connections that make up the connection instance
+		 * until we find one that connects to the flow because as wee the connection instance may "punch through" the
+		 * subcomponent.
+		 */
+		final Context flowCxt = fspec.getInEnd().getContext();
+		final Feature flowIn = fspec.getInEnd().getFeature();
+		final List<Feature> flowInRefined = flowIn.getAllFeatureRefinements();
+		final EList<ConnectionReference> connRefs = conni.getConnectionReferences();
+		int idx = connRefs.size() - 1;
+		boolean result = false;
+		while (!result && idx >= 0) {
+			final Connection conn = connRefs.get(idx).getConnection();
+			result = isValidContinuationConnectionEnd(flowCxt, flowIn, flowInRefined, conn.getDestination());
+			if (!result && conn.isBidirectional()) {
+				result = isValidContinuationConnectionEnd(flowCxt, flowIn, flowInRefined, conn.getSource());
+			}
+			idx -= 1;
+		}
+		return result;
+	}
+
+	private boolean isValidContinuationConnectionEnd(final Context flowCxt, final Feature flowIn,
+			final List<Feature> flowInRefined, final ConnectedElement connElement) {
+		boolean result = false;
+		final ConnectionEnd connEnd = connElement.getConnectionEnd();
+		if (connEnd instanceof Feature) {
+			final List<Feature> connEndRefined = ((Feature) connEnd).getAllFeatureRefinements();
+			if (flowCxt instanceof FeatureGroup) { // src end of the flow is "fg.f"
+				result = connEndRefined.contains(flowCxt);
+				// if connDestination.getNext() is null then dest end of connection is "fg"
+				if (result && connElement.getNext() != null) {
+					final ConnectionEnd connEnd2 = connElement.getNext().getConnectionEnd();
+					if (connEnd2 instanceof Feature) {
+						// check "fg.f" to "fg.f"
+						final List<Feature> connEndRefined2 = ((Feature) connEnd2).getAllFeatureRefinements();
+						result = flowInRefined.contains(connEnd2) || connEndRefined2.contains(flowIn);
+					} else {
+						// Connection doesn't end in feature, so no match
+						result = false;
+					}
+				}
+			} else {
+				// checks "f" to "f" or "fg" to "fg"
+				result = flowInRefined.contains(connEnd) || connEndRefined.contains(flowIn);
+			}
 		}
 		return result;
 	}
@@ -1026,10 +1091,13 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				processETESegment(ci, etei, e, iter, errorElement);
 			}
 			if (state.size() == 0) {
-				// a flow is done
-				fillinModes(etei);
-				myInfo.postConns.addAll(connections);
-				connections.clear();
+				if (!completedETEI.contains(etei)) {
+					// a flow is done
+					fillinModes(etei);
+					myInfo.postConns.addAll(connections);
+					connections.clear();
+					completedETEI.add(etei);
+				}
 				break;
 			}
 			iter = state.pop();
@@ -1271,14 +1339,16 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 	private boolean containsModeInstances(SystemOperationMode som, List<EList<ModeInstance>> modeLists) {
 		outer: for (List<ModeInstance> mis : modeLists) {
-			for (ModeInstance mi : mis) {
-				if (som.getCurrentModes().contains(mi)) {
-					continue outer;
+			if (!mis.isEmpty()) {
+				for (ModeInstance mi : mis) {
+					if (som.getCurrentModes().contains(mi)) {
+						continue outer;
+					}
 				}
+				return false;
 			}
-			return false;
 		}
-	return true;
+		return true;
 	}
 
 	// -------------------------------------------------------------------------

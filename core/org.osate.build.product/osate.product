@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="OSATE2" uid="osate2" id="org.osate.branding.osate2" application="org.eclipse.ui.ide.workbench" version="2.7.0.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="OSATE2" uid="osate2" id="org.osate.branding.osate2" application="org.eclipse.ui.ide.workbench" version="2.7.1.qualifier" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
       <image path="icons/osateAbout_hc90.jpg"/>
@@ -44,15 +44,13 @@
       <feature id="org.osate.ge.feature" installMode="root"/>
       <feature id="org.osate.ba.feature" installMode="root"/>
       <feature id="org.osate.utils.feature" installMode="root"/>
-      <feature id="org.osate.ocarina.feature" installMode="root"/>
       <feature id="org.osate.alisa.workbench.sdk" installMode="root"/>
+      <feature id="org.osate.dependencies.birt"/>
       <feature id="org.eclipse.xsemantics.runtime.feature"/>
-      <feature id="org.eclipse.birt"/>
       <feature id="org.eclipse.egit"/>
       <feature id="org.eclipse.equinox.executable"/>
       <feature id="org.eclipse.equinox.p2.discovery.feature"/>
       <feature id="org.eclipse.platform"/>
-      <feature id="org.eclipse.rcp"/>
       <feature id="org.eclipse.graphiti.export.feature"/>
       <feature id="org.eclipse.sirius.runtime.ide.ui"/>
       <feature id="org.eclipse.elk.feature"/>
@@ -62,7 +60,6 @@
       <feature id="org.eclipse.ease.lang.scriptarchive.feature"/>
       <feature id="org.eclipse.ease.lang.unittest.feature"/>
       <feature id="org.eclipse.ease.modules.feature"/>
-      <feature id="org.eclipse.ease.modules.modeling.feature"/>
       <feature id="org.eclipse.ease.ui.feature"/>
       <feature id="org.py4j.feature"/>
    </features>
@@ -79,8 +76,8 @@
 
    <repositories>
       <repository location="http://osate-build.sei.cmu.edu/download/osate/testing/updates/" enabled="true" />
-      <repository location="http://download.eclipse.org/eclipse/updates/4.13" enabled="true" />
-      <repository location="http://download.eclipse.org/releases/2019-09" enabled="true" />
+      <repository location="http://download.eclipse.org/eclipse/updates/4.14" enabled="true" />
+      <repository location="http://download.eclipse.org/releases/2019-12" enabled="true" />
    </repositories>
 
 </product>

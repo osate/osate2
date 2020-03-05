@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright © 2011 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -9,18 +9,21 @@
  * 
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
- * version 1.0 of the License, or (at your option) any later version. This
+ * version 2.0 of the License, or (at your option) any later version. This
  * program is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License for
  * more details. You should have received a copy of the Eclipse Public License
  * along with this program. If not, see
- * http://www.eclipse.org/org/documents/epl-v10.php
+ * https://www.eclipse.org/legal/epl-2.0/
  */
 package org.osate.ba.aadlba;
 
+import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ArrayableElement;
+import org.osate.aadl2.Data;
 import org.osate.aadl2.DataClassifier;
+import org.osate.aadl2.PropertyAssociation;
 import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
@@ -30,16 +33,17 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.BehaviorVariable#getDataClassifier <em>Data Classifier</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.BehaviorVariable#getOwnedPropertyAssociations <em>Owned Property Associations</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorVariable()
  * @model
  * @generated
  */
-public interface BehaviorVariable extends BehaviorNamedElement, ArrayableElement, IBAVisitable
+public interface BehaviorVariable extends BehaviorNamedElement, ArrayableElement, Data
 {
   /**
    * Returns the value of the '<em><b>Data Classifier</b></em>' reference.
@@ -66,5 +70,17 @@ public interface BehaviorVariable extends BehaviorNamedElement, ArrayableElement
    * @generated
    */
   void setDataClassifier(DataClassifier value);
+
+  /**
+   * Returns the value of the '<em><b>Owned Property Associations</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.aadl2.PropertyAssociation}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Owned Property Associations</em>' containment reference list.
+   * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorVariable_OwnedPropertyAssociations()
+   * @model containment="true"
+   * @generated
+   */
+  EList<PropertyAssociation> getOwnedPropertyAssociations();
 
 } // BehaviorVariable
