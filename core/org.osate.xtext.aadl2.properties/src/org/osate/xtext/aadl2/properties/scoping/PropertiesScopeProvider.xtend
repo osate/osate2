@@ -25,8 +25,6 @@ package org.osate.xtext.aadl2.properties.scoping;
 
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
-import org.eclipse.emf.ecore.util.EcoreUtil
-import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.resource.EObjectDescription
 import org.eclipse.xtext.scoping.IScope
@@ -123,7 +121,7 @@ class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 	//Reference is from LiteralorReferenceTerm in Properties.xtext
 	def scope_NamedValue_namedValue(Element context, EReference reference) {
 		var scope = delegateGetScope(context, reference)
-		val ps = EcoreUtil2.getContainerOfType(context, PropertySet)
+		val ps = context.getContainerOfType(PropertySet)
 		if (ps !== null) {
 			scope = new FilteringScope(scope, [desc | 
 				desc.name.segmentCount > 1 || desc.EObjectOrProxy.eContainer != ps
