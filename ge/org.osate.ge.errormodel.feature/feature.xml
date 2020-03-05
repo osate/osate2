@@ -24,8 +24,9 @@ censes only apply to the Third Party Software and not any other portion of this 
 -->
 <feature
       id="org.osate.ge.errormodel.feature"
-      label="Error Model Annex V2 for OSATE GE"
+      label="OSATE Graphical Editor EMV2"
       version="2.1.3.qualifier"
+      provider-name="The University of Alabama in Huntsville"
       license-feature="org.osate.license"
       license-feature-version="1.0.0.qualifier">
 
