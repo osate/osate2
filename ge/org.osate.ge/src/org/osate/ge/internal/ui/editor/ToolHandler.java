@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -30,11 +30,11 @@ import java.util.Objects;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
+import org.osate.ge.di.Names;
 import org.osate.ge.internal.di.Deactivate;
-import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.SelectionChanged;
-import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.services.ExtensionService;
 
 /**
@@ -45,7 +45,8 @@ public class ToolHandler {
 	private final DefaultPaletteBehavior paletteBehavior;
 	private final IEclipseContext context;
 	private Object activeTool = null;
-	private DiagramElement[] diagramElements = null;
+	// private DiagramElement[] diagramElements = null;
+	private Object[] diagramElements = null;
 
 	public ToolHandler(final ExtensionService extensionService,
 			final DefaultPaletteBehavior paletteBehavior) {
@@ -102,15 +103,18 @@ public class ToolHandler {
 	}
 
 
-	public void setSelectedDiagramElements(final List<DiagramElement> diagramElements) {
-		if (diagramElements.size() == 0) {
-			return;
-		}
+	public void setSelectedDiagramElements(final List<BusinessObjectContext> diagramElements) {
+		System.err.println("set selected diagram elements");
+		// if (diagramElements.size() == 0) {
+		// return;
+		// }
 
-		final DiagramElement[] newDiagramElements = diagramElements.toArray(new DiagramElement[diagramElements.size()]);
+		final BusinessObjectContext[] newDiagramElements = diagramElements
+				.toArray(new BusinessObjectContext[diagramElements.size()]);
 
 		// Ignore the selection if nothing has changed
 		if (Arrays.equals(this.diagramElements, newDiagramElements)) {
+			System.err.println("returning");
 			return;
 		}
 
@@ -132,14 +136,18 @@ public class ToolHandler {
 		if(diagramElements != null) {
 			// Update the context
 			if(diagramElements.length == 1) {
-				context.set(InternalNames.SELECTED_DIAGRAM_ELEMENT, diagramElements[0]);
+				// context.set(InternalNames.SELECTED_DIAGRAM_ELEMENT, diagramElements[0]);
+				context.set(Names.BUSINESS_OBJECT_CONTEXT, diagramElements[0]);
 			}
-			context.set(InternalNames.SELECTED_DIAGRAM_ELEMENTS, diagramElements);
+			// context.set(InternalNames.SELECTED_DIAGRAM_ELEMENTS, diagramElements);
+			context.set(Names.BUSINESS_OBJECT_CONTEXTS, diagramElements);
 		}
 	}
 
 	private void resetContext() {
-		context.remove(InternalNames.SELECTED_DIAGRAM_ELEMENT);
-		context.remove(InternalNames.SELECTED_DIAGRAM_ELEMENTS);
+//		context.remove(InternalNames.SELECTED_DIAGRAM_ELEMENT);
+//		context.remove(InternalNames.SELECTED_DIAGRAM_ELEMENTS);
+		context.remove(Names.BUSINESS_OBJECT_CONTEXT);
+		context.remove(Names.BUSINESS_OBJECT_CONTEXTS);
 	}
 }
