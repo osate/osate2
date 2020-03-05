@@ -15,6 +15,7 @@ import org.osate.aadl2.ReferenceType
 import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.UnitsType
 
+import static extension org.eclipse.emf.ecore.util.EcoreUtil.getRootContainer
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 
 class PropertiesCodeGen {
@@ -140,7 +141,7 @@ class PropertiesCodeGen {
 			«FOR metaModelImport : metaModelImports»
 			import org.osate.aadl2.«metaModelImport»;
 			«ENDFOR»
-			«IF unitsType !== null && unitsType == numberType.referencedUnitsType && unitsType.eContainer != numberType.eContainer»
+			«IF unitsType !== null && unitsType == numberType.referencedUnitsType && unitsType.rootContainer != numberType.rootContainer»
 			
 			import «unitsType.getContainerOfType(PropertySet).name.toLowerCase».«unitsType.name.toCamelCase»;
 			«ENDIF»
@@ -201,10 +202,10 @@ class PropertiesCodeGen {
 			«FOR metaModelImport : metaModelImports»
 			import org.osate.aadl2.«metaModelImport»;
 			«ENDFOR»
-			«IF unitsType !== null && numberType == rangeType.referencedNumberType && numberType.eContainer != rangeType.eContainer»
+			«IF unitsType !== null && numberType == rangeType.referencedNumberType && numberType.rootContainer != rangeType.rootContainer»
 			
 			import «numberType.getContainerOfType(PropertySet).name.toLowerCase».«numberTypeName»;
-			«ELSEIF unitsType !== null && numberType == rangeType.ownedNumberType && unitsType == numberType.referencedUnitsType && unitsType.eContainer != rangeType.eContainer»
+			«ELSEIF unitsType !== null && numberType == rangeType.ownedNumberType && unitsType == numberType.referencedUnitsType && unitsType.rootContainer != rangeType.rootContainer»
 			
 			import «unitsType.getContainerOfType(PropertySet).name.toLowerCase».«unitsType.name.toCamelCase»;
 			«ENDIF»
@@ -218,7 +219,7 @@ class PropertiesCodeGen {
 		val otherImports = recordType.ownedFields
 			.map[it.referencedPropertyType]
 			.filterNull
-			.filter[it.eContainer != recordType.eContainer && (it instanceof EnumerationType || it instanceof NumberType && (it as NumberType).unitsType !== null || it instanceof RangeType)]
+			.filter[it.rootContainer != recordType.rootContainer && (it instanceof EnumerationType || it instanceof NumberType && (it as NumberType).unitsType !== null || it instanceof RangeType)]
 			.map[it.getContainerOfType(PropertySet).name.toLowerCase + "." + it.name.toCamelCase]
 			.toSet
 			.sort
