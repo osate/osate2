@@ -138,41 +138,39 @@ public class CreateEndToEndFlowSpecificationTool {
 
 	@SelectionChanged
 	public void onSelectionChanged(final @Named(Names.BUSINESS_OBJECT_CONTEXTS) BusinessObjectContext[] bocs) {
-		if (dlg != null && dlg.getShell() != null && !dlg.getShell().isDisposed()) {
+		if (dlg != null && dlg.getShell() != null && !dlg.getShell().isDisposed() && dlg.flowSegmentComposite != null
+				&& !dlg.flowSegmentComposite.isDisposed()) {
 			// If the selection is a valid addition to the end to end flow specification, add it.
-			if (dlg.flowSegmentComposite != null && !dlg.flowSegmentComposite.isDisposed()) {
-				if (bocs.length > 1) {
-					dlg.setErrorMessage(
-							"Multiple elements selected. Select a single element. " + " "
-									+ getDialogMessage());
-				} else if (bocs.length == 1) {
-					// Get the selected boc
-					final BusinessObjectContext selectedBoc = (BusinessObjectContext) bocs[0];
-					final Object selectedBo = selectedBoc.getBusinessObject();
+			if (bocs.length > 1) {
+				dlg.setErrorMessage(
+						"Multiple elements selected. Select a single element. " + " "
+								+ getDialogMessage());
+			} else if (bocs.length == 1) {
+				// Get the selected boc
+				final BusinessObjectContext selectedBoc = (BusinessObjectContext) bocs[0];
 
-					String error = null;
-					if (dlg.addSelectedElement(selectedBoc)) {
-						if (selectedBoc instanceof DiagramElement) {
-							final DiagramElement selectedDe = (DiagramElement) selectedBoc;
-							if (selectedBo instanceof ModeFeature) {
-								coloring.setForeground(selectedDe, Color.MAGENTA.brighter());
-							} else if (dlg.eTEFlow != null && dlg.eTEFlow.getAllFlowSegments().size() == 1) {
-								coloring.setForeground(selectedDe, Color.ORANGE.darker());
-							} else {
-								coloring.setForeground(selectedDe, Color.MAGENTA.darker());
-							}
+				String error = null;
+				if (!previouslySelectedBocs.contains(selectedBoc) && dlg.addSelectedElement(selectedBoc)) {
+					if (selectedBoc instanceof DiagramElement) {
+						final DiagramElement selectedDe = (DiagramElement) selectedBoc;
+						if (selectedBoc.getBusinessObject() instanceof ModeFeature) {
+							coloring.setForeground(selectedDe, Color.MAGENTA.brighter());
+						} else if (dlg.eTEFlow != null && dlg.eTEFlow.getAllFlowSegments().size() == 1) {
+							coloring.setForeground(selectedDe, Color.ORANGE.darker());
+						} else {
+							coloring.setForeground(selectedDe, Color.MAGENTA.darker());
 						}
-						previouslySelectedBocs.add(selectedBoc);
-					} else {
-						error = "Invalid element selected. ";
 					}
+					previouslySelectedBocs.add(selectedBoc);
+				} else {
+					error = "Invalid element selected.  ";
+				}
 
-					if (error == null) {
-						dlg.setErrorMessage(null);
-						dlg.setMessage(getDialogMessage());
-					} else {
-						dlg.setErrorMessage(error + " " + getDialogMessage());
-					}
+				if (error == null) {
+					dlg.setErrorMessage(null);
+					dlg.setMessage(getDialogMessage());
+				} else {
+					dlg.setErrorMessage(error + getDialogMessage());
 				}
 			}
 		}

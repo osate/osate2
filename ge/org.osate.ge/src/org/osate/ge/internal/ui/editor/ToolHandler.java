@@ -101,12 +101,7 @@ public class ToolHandler {
 		paletteBehavior.refreshPalette();
 	}
 
-
 	public void setSelectedElements(final List<BusinessObjectContext> bocs) {
-		if (bocs.size() == 0) {
-			return;
-		}
-
 		final BusinessObjectContext[] newBocs = bocs
 				.toArray(new BusinessObjectContext[bocs.size()]);
 
