@@ -28,7 +28,7 @@ import org.eclipse.core.runtime.IPath;
 public class Style {
 	public static final Style EMPTY = StyleBuilder.create().build();
 	public final static Style DEFAULT = StyleBuilder.create().backgroundColor(Color.WHITE).foregroundColor(Color.BLACK)
-			.fontSize(10.0).lineWidth(2.0)
+			.fontSize(10.0).lineWidth(2.0).showAsImage(false)
 			.lineStyle(LineStyle.SOLID).labelsHorizontalPosition(LabelPosition.GRAPHIC_BEGINNING)
 			.primaryLabelVisible(true)
 			.labelsVerticalPosition(LabelPosition.GRAPHIC_BEGINNING).build();
@@ -64,6 +64,17 @@ public class Style {
 		if (showAsImage == Boolean.TRUE && image == null) {
 			throw new RuntimeException("showAsImage must be false if image is not set.");
 		}
+	}
+
+	/**
+	 * Returns whether all of the style's required fields are non-null.
+	 * @return
+	 */
+	public boolean isComplete() {
+		return background != null && outline != null && fontColor != null && fontSize != null && lineWidth != null
+				&& showAsImage != null && lineStyle != null
+				&& horizontalLabelPosition != null
+				&& verticalLabelPosition != null && primaryLabelVisible != null;
 	}
 
 	public final Color getBackgroundColor() {

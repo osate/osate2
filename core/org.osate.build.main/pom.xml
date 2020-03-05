@@ -427,6 +427,16 @@
 				<version>${tycho.version}</version>
 				<configuration>
 					<compilerArgument>-err:-forbidden</compilerArgument>
+					<extraClasspathElements>
+						<!-- Add JavaFX SWT library to tycho classpath so that it can resolve it at compile time -->
+						<extraClasspathElement>
+							<groupId>com.oracle</groupId>
+							<artifactId>javafx</artifactId>
+							<version>8.0.0-SNAPSHOT</version>
+							<systemPath>${java.home}/lib/jfxswt.jar</systemPath>
+							<scope>system</scope>
+						</extraClasspathElement>
+					</extraClasspathElements>
 				</configuration>
 			</plugin>
 			<plugin>

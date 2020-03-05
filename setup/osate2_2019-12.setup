@@ -594,8 +594,6 @@
       <requirement
           name="org.eclipse.zest.sdk.feature.group"/>
       <requirement
-          name="org.eclipse.fx.ide.pde.feature.feature.group"/>
-      <requirement
           name="org.eclipse.gef.common.sdk.feature.group"/>
       <requirement
           name="org.eclipse.gef.geometry.sdk.feature.group"/>
@@ -605,12 +603,16 @@
           name="org.eclipse.gef.mvc.sdk.feature.group"/>
       <requirement
           name="org.eclipse.elk.sdk.feature.feature.group"/>
+      <requirement
+          name="openjfx.standard.feature.feature.group"/>
+      <requirement
+          name="openjfx.swt.feature.feature.group"/>
       <repository
           url="http://download.eclipse.org/releases/2019-12"/>
       <repository
-          url="http://download.eclipse.org/efxclipse/updates-released/3.6.0/site"/>
-      <repository
           url="http://download.eclipse.org/elk/updates/releases/0.5.0"/>
+      <repository
+          url="http://downloads.efxclipse.bestsolution.at/p2-repos/openjfx-11/repository/"/>
       <description>Additional features for the graphical editor</description>
     </setupTask>
   </setupTask>
@@ -720,6 +722,10 @@
       <requirement
           name="org.yakindu.base.xtext.utils.jface"/>
       <requirement
+          name="openjfx.standard.feature.feature.group"/>
+      <requirement
+          name="openjfx.swt.feature.feature.group"/>
+      <requirement
           name="*"/>
       <sourceLocator
           rootFolder="${git.clone.osate2.location}">
@@ -749,6 +755,8 @@
             url="http://download.eclipse.org/birt/update-site/2018-09-interim"/>
         <repository
             url="http://updates.yakindu.com/statecharts/releases/3.5.9"/>
+        <repository
+            url="http://downloads.efxclipse.bestsolution.at/p2-repos/openjfx-11/repository/"/>
       </repositoryList>
     </targlet>
     <description></description>

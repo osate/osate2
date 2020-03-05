@@ -89,4 +89,32 @@ censes only apply to the Third Party Software and not any other portion of this 
          version="0.0.0"
          unpack="false"/>
 
+   <plugin
+         id="org.osate.ge.fx"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.ge.gef"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.ge.gef.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.ge.graphics.fx"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>
