@@ -44,9 +44,4 @@ public class DefaultUiService implements UiService {
 	public void deactivateActiveTool() {
 		editorProvider.getEditor().deactivateActiveTool();
 	}
-
-	@Override
-	public void clearSelection() {
-		editorProvider.getEditor().clearSelection();
-	}
 }

@@ -45,8 +45,7 @@ public class ToolHandler {
 	private final DefaultPaletteBehavior paletteBehavior;
 	private final IEclipseContext context;
 	private Object activeTool = null;
-	// private DiagramElement[] diagramElements = null;
-	private Object[] diagramElements = null;
+	private BusinessObjectContext[] bocs = null;
 
 	public ToolHandler(final ExtensionService extensionService,
 			final DefaultPaletteBehavior paletteBehavior) {
@@ -58,7 +57,7 @@ public class ToolHandler {
 
 	public void dispose() {
 		this.context.dispose();
-		diagramElements = null;
+		bocs = null;
 	}
 
 	public boolean isToolActive() {
@@ -103,20 +102,20 @@ public class ToolHandler {
 	}
 
 
-	public void setSelectedDiagramElements(final List<BusinessObjectContext> diagramElements) {
-		if (diagramElements.size() == 0) {
+	public void setSelectedElements(final List<BusinessObjectContext> bocs) {
+		if (bocs.size() == 0) {
 			return;
 		}
 
-		final BusinessObjectContext[] newDiagramElements = diagramElements
-				.toArray(new BusinessObjectContext[diagramElements.size()]);
+		final BusinessObjectContext[] newBocs = bocs
+				.toArray(new BusinessObjectContext[bocs.size()]);
 
 		// Ignore the selection if nothing has changed
-		if (Arrays.equals(this.diagramElements, newDiagramElements)) {
+		if (Arrays.equals(this.bocs, newBocs)) {
 			return;
 		}
 
-		this.diagramElements = newDiagramElements;
+		this.bocs = newBocs;
 
 		// Notify the active tool
 		if(activeTool != null) {
@@ -131,12 +130,12 @@ public class ToolHandler {
 	}
 
 	private void populateContext() {
-		if(diagramElements != null) {
+		if(bocs != null) {
 			// Update the context
-			if(diagramElements.length == 1) {
-				context.set(Names.BUSINESS_OBJECT_CONTEXT, diagramElements[0]);
+			if(bocs.length == 1) {
+				context.set(Names.BUSINESS_OBJECT_CONTEXT, bocs[0]);
 			}
-			context.set(Names.BUSINESS_OBJECT_CONTEXTS, diagramElements);
+			context.set(Names.BUSINESS_OBJECT_CONTEXTS, bocs);
 		}
 	}
 

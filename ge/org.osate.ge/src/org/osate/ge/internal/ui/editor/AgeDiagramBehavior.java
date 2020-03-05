@@ -193,14 +193,8 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	};
 
 	private final ISelectionListener toolPostSelectionListener = (part, selection) -> {
-		// toolHandler.setSelectedDiagramElements(SelectionUtil.getSelectedDiagramElements(selection, false));
-		toolHandler.setSelectedDiagramElements(AgeHandlerUtil.getSelectedBusinessObjectContexts());
+		toolHandler.setSelectedElements(AgeHandlerUtil.getSelectedBusinessObjectContexts());
 	};
-
-	public void setToolSelectedDiagramElements() {
-		System.err.println(AgeHandlerUtil.getSelectedBusinessObjectContexts().size() + " size");
-		toolHandler.setSelectedDiagramElements(new ArrayList<>());
-	}
 
 	@Override
 	protected void initConfigurationProvider(IDiagramTypeProvider diagramTypeProvider) {
@@ -536,9 +530,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 			editor.getSite().getWorkbenchWindow().getSelectionService()
 			.addPostSelectionListener(toolPostSelectionListener);
-			toolHandler.setSelectedDiagramElements(AgeHandlerUtil.getSelectedBusinessObjectContexts());
-			// toolHandler.setSelectedDiagramElements(SelectionUtil.getSelectedDiagramElements(
-			// editor.getSite().getWorkbenchWindow().getSelectionService().getSelection(), false));
+			toolHandler.setSelectedElements(AgeHandlerUtil.getSelectedBusinessObjectContexts());
 
 			// Deactivate the tool when the part is deactivated or closed
 			editor.getSite().getWorkbenchWindow().getPartService().addPartListener(toolPartListener);

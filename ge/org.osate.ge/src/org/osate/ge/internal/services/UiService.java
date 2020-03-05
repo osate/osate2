@@ -36,11 +36,8 @@ public interface UiService {
 	 * The following annotations are used with tools:
 	 * Activate - Required
 	 * Deactivate - Required
-	 * SelectionChanged - Optional
 	 */
 	void activateTool(final Object tool);
 
 	void deactivateActiveTool();
-
-	void clearSelection();
 }
