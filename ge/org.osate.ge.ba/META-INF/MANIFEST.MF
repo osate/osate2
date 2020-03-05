@@ -8,3 +8,4 @@ Require-Bundle: org.osate.ge,
  org.eclipse.core.runtime;bundle-version="3.11.1",
  org.osate.ba
 Automatic-Module-Name: org.osate.ge.ba
+Import-Package: javax.inject;version="1.0.0"
