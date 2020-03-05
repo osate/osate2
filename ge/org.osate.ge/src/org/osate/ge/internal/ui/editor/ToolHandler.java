@@ -104,17 +104,15 @@ public class ToolHandler {
 
 
 	public void setSelectedDiagramElements(final List<BusinessObjectContext> diagramElements) {
-		System.err.println("set selected diagram elements");
-		// if (diagramElements.size() == 0) {
-		// return;
-		// }
+		if (diagramElements.size() == 0) {
+			return;
+		}
 
 		final BusinessObjectContext[] newDiagramElements = diagramElements
 				.toArray(new BusinessObjectContext[diagramElements.size()]);
 
 		// Ignore the selection if nothing has changed
 		if (Arrays.equals(this.diagramElements, newDiagramElements)) {
-			System.err.println("returning");
 			return;
 		}
 
@@ -136,17 +134,13 @@ public class ToolHandler {
 		if(diagramElements != null) {
 			// Update the context
 			if(diagramElements.length == 1) {
-				// context.set(InternalNames.SELECTED_DIAGRAM_ELEMENT, diagramElements[0]);
 				context.set(Names.BUSINESS_OBJECT_CONTEXT, diagramElements[0]);
 			}
-			// context.set(InternalNames.SELECTED_DIAGRAM_ELEMENTS, diagramElements);
 			context.set(Names.BUSINESS_OBJECT_CONTEXTS, diagramElements);
 		}
 	}
 
 	private void resetContext() {
-//		context.remove(InternalNames.SELECTED_DIAGRAM_ELEMENT);
-//		context.remove(InternalNames.SELECTED_DIAGRAM_ELEMENTS);
 		context.remove(Names.BUSINESS_OBJECT_CONTEXT);
 		context.remove(Names.BUSINESS_OBJECT_CONTEXTS);
 	}
