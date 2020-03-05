@@ -10,6 +10,7 @@ import org.osate.aadl2.EnumerationType
 import org.osate.aadl2.NumberType
 import org.osate.aadl2.PropertySet
 import org.osate.aadl2.RangeType
+import org.osate.aadl2.RecordType
 import org.osate.aadl2.ReferenceType
 import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.UnitsType
@@ -30,6 +31,7 @@ class PropertiesCodeGen {
 				AadlInteger: generateNumber(packageName, type, typeName)
 				AadlReal: generateNumber(packageName, type, typeName)
 				RangeType: generateRange(packageName, type, typeName)
+				RecordType: generateRecord(packageName, type, typeName)
 				ReferenceType: generateReference(packageName, typeName)
 				default: null
 			}
@@ -86,7 +88,6 @@ class PropertiesCodeGen {
 	}
 	
 	def private static GeneratedJava generateEnum(String packageName, EnumerationType enumType, String typeName) {
-		val literals = enumType.ownedLiterals.join(",\n")['''«it.name.toUpperCase»("«it.name»")''']
 		val contents = '''
 			package «packageName»;
 			
@@ -97,33 +98,7 @@ class PropertiesCodeGen {
 			import org.osate.aadl2.PropertyConstant;
 			import org.osate.aadl2.PropertyExpression;
 			
-			public enum «typeName» {
-				«literals»;
-				
-				private final String originalName;
-				
-				private «typeName»(String originalName) {
-					this.originalName = originalName;
-				}
-				
-				public static «typeName» getValue(PropertyExpression propertyExpression) {
-					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
-					if (abstractNamedValue instanceof EnumerationLiteral) {
-						return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
-					} else if (abstractNamedValue instanceof Property) {
-						throw new IllegalArgumentException("Reference to property not supported");
-					} else if (abstractNamedValue instanceof PropertyConstant) {
-						throw new IllegalArgumentException("Reference to property constant not supported");
-					} else {
-						throw new AssertionError("Unexpected type: " + abstractNamedValue.getClass().getName());
-					}
-				}
-				
-				@Override
-				public String toString() {
-					return originalName;
-				}
-			}
+			«generateEnumerationEnum(enumType, typeName, true)»
 		'''
 		new GeneratedJava(typeName + ".java", contents)
 	}
@@ -139,7 +114,7 @@ class PropertiesCodeGen {
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
 			
-			«generateUnitsEnum(typeName, true, unitsType.ownedLiterals.filter(UnitLiteral))»
+			«generateUnitsEnum(unitsType, typeName, true)»
 		'''
 		new GeneratedJava(typeName + ".java", contents)
 	}
@@ -234,51 +209,176 @@ class PropertiesCodeGen {
 			import «unitsType.getContainerOfType(PropertySet).name.toLowerCase».«unitsType.name.toCamelCase»;
 			«ENDIF»
 			
+			«generateRangeClass(rangeType, typeName, true)»
+		'''
+		new GeneratedJava(typeName + ".java", contents)
+	}
+	
+	def private static GeneratedJava generateRecord(String packageName, RecordType recordType, String typeName) {
+		val otherImports = recordType.ownedFields
+			.map[it.referencedPropertyType]
+			.filterNull
+			.filter[it.eContainer != recordType.eContainer && (it instanceof EnumerationType || it instanceof NumberType && (it as NumberType).unitsType !== null || it instanceof RangeType)]
+			.map[it.getContainerOfType(PropertySet).name.toLowerCase + "." + it.name.toCamelCase]
+			.toSet
+			.sort
+		val contents = '''
+			package «packageName»;
+			
+			import java.util.Objects;
+			«IF recordType.ownedFields.map[it.propertyType].exists[!(it instanceof NumberType) || (it as NumberType).unitsType !== null]»
+			import java.util.Optional;
+			«ENDIF»
+			«IF recordType.ownedFields.map[it.propertyType].filter(AadlReal).exists[it.unitsType === null]»
+			import java.util.OptionalDouble;
+			«ENDIF»
+			«IF recordType.ownedFields.map[it.propertyType].filter(AadlInteger).exists[it.unitsType === null]»
+			import java.util.OptionalLong;
+			«ENDIF»
+			
+			«IF recordType.ownedFields.exists[it.ownedPropertyType instanceof EnumerationType]»
+			import org.osate.aadl2.AbstractNamedValue;
+			«ENDIF»
+			«IF recordType.ownedFields.exists[it.propertyType instanceof AadlBoolean]»
+			import org.osate.aadl2.BooleanLiteral;
+			«ENDIF»
+			«IF recordType.ownedFields.exists[it.propertyType instanceof ClassifierType]»
+			import org.osate.aadl2.Classifier;
+			import org.osate.aadl2.ClassifierValue;
+			«ENDIF»
+			«IF recordType.ownedFields.map[it.ownedPropertyType].exists[it instanceof EnumerationType && !(it instanceof UnitsType)]»
+			import org.osate.aadl2.EnumerationLiteral;
+			«ENDIF»
+			«IF recordType.ownedFields.map[it.propertyType].filter(AadlInteger).exists[it.unitsType === null]»
+			import org.osate.aadl2.IntegerLiteral;
+			«ENDIF»
+			«IF recordType.ownedFields.exists[it.ownedPropertyType instanceof EnumerationType]»
+			import org.osate.aadl2.NamedValue;
+			import org.osate.aadl2.Property;
+			import org.osate.aadl2.PropertyConstant;
+			«ENDIF»
+			import org.osate.aadl2.PropertyExpression;
+			«IF recordType.ownedFields.exists[it.propertyType instanceof RangeType]»
+			import org.osate.aadl2.RangeValue;
+			«ENDIF»
+			«IF recordType.ownedFields.exists[it.propertyType instanceof AadlReal]»
+			import org.osate.aadl2.RealLiteral;
+			«ENDIF»
+			import org.osate.aadl2.RecordValue;
+			«IF recordType.ownedFields.exists[it.propertyType instanceof AadlString]»
+			import org.osate.aadl2.StringLiteral;
+			«ENDIF»
+			«IF recordType.ownedFields.exists[it.ownedPropertyType instanceof UnitsType]»
+			import org.osate.aadl2.UnitLiteral;
+			«ENDIF»
+			«IF recordType.ownedFields.exists[it.propertyType instanceof ReferenceType]»
+			import org.osate.aadl2.instance.InstanceObject;
+			import org.osate.aadl2.instance.InstanceReferenceValue;
+			«ENDIF»
+			«IF !otherImports.empty»
+			
+			«FOR imported : otherImports»
+			import «imported»;
+			«ENDFOR»
+			«ENDIF»
+			
 			public class «typeName» {
-				private final «numberTypeName» minimum;
-				private final «numberTypeName» maximum;
-				private final «optionalType» delta;
+				«FOR field : recordType.ownedFields»
+				«IF field.propertyType instanceof AadlBoolean»
+				private final Optional<Boolean> «field.name.toCamelCase.toFirstLower»;
+				«ELSEIF field.propertyType instanceof AadlString»
+				private final Optional<String> «field.name.toCamelCase.toFirstLower»;
+				«ELSEIF field.propertyType instanceof ClassifierType»
+				private final Optional<Classifier> «field.name.toCamelCase.toFirstLower»;
+				«ELSEIF field.propertyType instanceof AadlInteger && (field.propertyType as AadlInteger).unitsType === null»
+				private final OptionalLong «field.name.toCamelCase.toFirstLower»;
+				«ELSEIF field.propertyType instanceof AadlReal && (field.propertyType as AadlReal).unitsType === null»
+				private final OptionalDouble «field.name.toCamelCase.toFirstLower»;
+				«ELSEIF field.propertyType instanceof ReferenceType»
+				private final Optional<InstanceObject> «field.name.toCamelCase.toFirstLower»;
+				«ELSEIF field.ownedPropertyType !== null»
+				private final Optional<«field.name.toCamelCase»Type> «field.name.toCamelCase.toFirstLower»;
+				«ELSEIF field.referencedPropertyType !== null»
+				private final Optional<«field.referencedPropertyType.name.toCamelCase»> «field.name.toCamelCase.toFirstLower»;
+				«ENDIF»
+				«ENDFOR»
 				
 				private «typeName»(PropertyExpression propertyExpression) {
-					RangeValue rangeValue = (RangeValue) propertyExpression;
-					«IF unitsType === null»
-					minimum = ((«literalType») rangeValue.getMinimum()).getValue();
-					maximum = ((«literalType») rangeValue.getMaximum()).getValue();
-					if (rangeValue.getDelta() == null) {
-						delta = «optionalType».empty();
-					} else {
-						delta = «optionalType».of(((«literalType») rangeValue.getDelta()).getValue());
-					}
-					«ELSEIF numberType == rangeType.ownedNumberType»
-					minimum = new Number(rangeValue.getMinimum());
-					maximum = new Number(rangeValue.getMaximum());
-					delta = Optional.ofNullable(rangeValue.getDelta()).map(Number::new);
-					«ELSE»
-					minimum = «numberTypeName».getValue(rangeValue.getMinimum());
-					maximum = «numberTypeName».getValue(rangeValue.getMaximum());
-					delta = Optional.ofNullable(rangeValue.getDelta()).map(«numberTypeName»::getValue);
-					«ENDIF»
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					«FOR field : recordType.ownedFields»
+					«field.name.toCamelCase.toFirstLower» = recordValue.getOwnedFieldValues()
+							.stream()
+							.filter(field -> field.getProperty().getName().equals("«field.name»"))
+							«IF field.propertyType instanceof AadlBoolean»
+							.map(field -> ((BooleanLiteral) field.getOwnedValue()).getValue())
+							«ELSEIF field.propertyType instanceof AadlString»
+							.map(field -> ((StringLiteral) field.getOwnedValue()).getValue())
+							«ELSEIF field.propertyType instanceof ClassifierType»
+							.map(field -> ((ClassifierValue) field.getOwnedValue()).getClassifier())
+							«ELSEIF field.propertyType instanceof AadlInteger && (field.propertyType as AadlInteger).unitsType === null»
+							.mapToLong(field -> ((IntegerLiteral) field.getOwnedValue()).getValue())
+							«ELSEIF field.propertyType instanceof AadlReal && (field.propertyType as AadlReal).unitsType === null»
+							.mapToDouble(field -> ((RealLiteral) field.getOwnedValue()).getValue())
+							«ELSEIF field.propertyType instanceof ReferenceType»
+							.map(field -> ((InstanceReferenceValue) field.getOwnedValue()).getReferencedInstanceObject())
+							«ELSEIF field.ownedPropertyType instanceof EnumerationType»
+							.map(field -> {
+								AbstractNamedValue abstractNamedValue = ((NamedValue) field.getOwnedValue()).getNamedValue();
+								«IF field.ownedPropertyType instanceof UnitsType»
+								if (abstractNamedValue instanceof UnitLiteral) {
+									return «field.name.toCamelCase»Type.valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
+								«ELSE»
+								if (abstractNamedValue instanceof EnumerationLiteral) {
+									return «field.name.toCamelCase»Type.valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
+								«ENDIF»
+								} else if (abstractNamedValue instanceof Property) {
+									throw new IllegalArgumentException("Reference to property not supported");
+								} else if (abstractNamedValue instanceof PropertyConstant) {
+									throw new IllegalArgumentException("Reference to property constant not supported");
+								} else {
+									throw new AssertionError("Unexpected type: " + abstractNamedValue.getClass().getName());
+								}
+							})
+							«ELSEIF field.ownedPropertyType !== null»
+							.map(field -> new «field.name.toCamelCase»Type(field.getOwnedValue()))
+							«ELSEIF field.referencedPropertyType !== null»
+							.map(field -> «field.referencedPropertyType.name.toCamelCase».getValue(field.getOwnedValue()))
+							«ENDIF»
+							.findAny();
+					«ENDFOR»
 				}
 				
 				public static «typeName» getValue(PropertyExpression propertyExpression) {
 					return new «typeName»(propertyExpression);
 				}
+				«FOR field : recordType.ownedFields»
 				
-				public «numberTypeName» getMinimum() {
-					return minimum;
+				«IF field.propertyType instanceof AadlBoolean»
+				public Optional<Boolean> get«field.name.toCamelCase»() {
+				«ELSEIF field.propertyType instanceof AadlString»
+				public Optional<String> get«field.name.toCamelCase»() {
+				«ELSEIF field.propertyType instanceof ClassifierType»
+				public Optional<Classifier> get«field.name.toCamelCase»() {
+				«ELSEIF field.propertyType instanceof AadlInteger && (field.propertyType as AadlInteger).unitsType === null»
+				public OptionalLong get«field.name.toCamelCase»() {
+				«ELSEIF field.propertyType instanceof AadlReal && (field.propertyType as AadlReal).unitsType === null»
+				public OptionalDouble get«field.name.toCamelCase»() {
+				«ELSEIF field.propertyType instanceof ReferenceType»
+				public Optional<InstanceObject> get«field.name.toCamelCase»() {
+				«ELSEIF field.ownedPropertyType !== null»
+				public Optional<«field.name.toCamelCase»Type> get«field.name.toCamelCase»() {
+				«ELSEIF field.referencedPropertyType !== null»
+				public Optional<«field.referencedPropertyType.name.toCamelCase»> get«field.name.toCamelCase»() {
+				«ENDIF»
+					return «field.name.toCamelCase.toFirstLower»;
 				}
-				
-				public «numberTypeName» getMaximum() {
-					return maximum;
-				}
-				
-				public «optionalType» getDelta() {
-					return delta;
-				}
+				«ENDFOR»
 				
 				@Override
 				public int hashCode() {
-					return Objects.hash(minimum, maximum, delta);
+					return Objects.hash(
+							«recordType.ownedFields.join(",\n")[it.name.toCamelCase.toFirstLower]»
+					);
 				}
 				
 				@Override
@@ -290,28 +390,62 @@ class PropertiesCodeGen {
 						return false;
 					}
 					«typeName» other = («typeName») obj;
-					«IF unitsType !== null»
-					return Objects.equals(minimum, other.minimum) && Objects.equals(maximum, other.maximum)
-							&& Objects.equals(delta, other.delta);
-					«ELSEIF numberType instanceof AadlInteger»
-					return minimum == other.minimum && maximum == other.maximum && Objects.equals(delta, other.delta);
-					«ELSE»
-					return Double.doubleToLongBits(minimum) == Double.doubleToLongBits(other.minimum)
-							&& Double.doubleToLongBits(maximum) == Double.doubleToLongBits(other.maximum)
-							&& Objects.equals(delta, other.delta);
-					«ENDIF»
+					return Objects.equals(«recordType.ownedFields.head.name.toCamelCase.toFirstLower», other.«recordType.ownedFields.head.name.toCamelCase.toFirstLower»)
+							«FOR field : recordType.ownedFields.take(recordType.ownedFields.size - 1).tail»
+							&& Objects.equals(«field.name.toCamelCase.toFirstLower», other.«field.name.toCamelCase.toFirstLower»)
+							«ENDFOR»
+							&& Objects.equals(«recordType.ownedFields.last.name.toCamelCase.toFirstLower», other.«recordType.ownedFields.last.name.toCamelCase.toFirstLower»);
 				}
 				
 				@Override
 				public String toString() {
-					StringBuilder builder = new StringBuilder(minimum + " .. " + maximum);
-					delta.ifPresent(it -> builder.append(" delta " + it));
+					StringBuilder builder = new StringBuilder();
+					builder.append('[');
+					«FOR field : recordType.ownedFields»
+					«field.name.toCamelCase.toFirstLower».ifPresent(field -> {
+						«IF field.propertyType instanceof AadlString»
+						builder.append("«field.name» => \"");
+						«ELSEIF field.propertyType instanceof ClassifierType»
+						builder.append("«field.name» => classifier (");
+						«ELSEIF field.propertyType instanceof ReferenceType»
+						builder.append("«field.name» => reference (");
+						«ELSE»
+						builder.append("«field.name» => ");
+						«ENDIF»
+						«IF field.propertyType instanceof ClassifierType»
+						builder.append(field.getQualifiedName());
+						«ELSEIF field.propertyType instanceof ReferenceType»
+						builder.append(field.getName());
+						«ELSE»
+						builder.append(field);
+						«ENDIF»
+						«IF field.propertyType instanceof AadlString»
+						builder.append("\";");
+						«ELSEIF field.propertyType instanceof ClassifierType || field.propertyType instanceof ReferenceType»
+						builder.append(");");
+						«ELSE»
+						builder.append(';');
+						«ENDIF»
+					});
+					«ENDFOR»
+					builder.append(']');
 					return builder.toString();
 				}
-				«IF numberType == rangeType.ownedNumberType && unitsType !== null»
+				«FOR field : recordType.ownedFields.filter[it.ownedPropertyType !== null]»
+				«IF field.ownedPropertyType instanceof UnitsType»
 				
-				«generateNumberClass(numberType, "Number", false)»
+				«generateUnitsEnum(field.ownedPropertyType as UnitsType, field.name.toCamelCase + "Type", false)»
+				«ELSEIF field.ownedPropertyType instanceof EnumerationType»
+				
+				«generateEnumerationEnum(field.ownedPropertyType as EnumerationType, field.name.toCamelCase + "Type", false)»
+				«ELSEIF field.ownedPropertyType instanceof NumberType && (field.ownedPropertyType as NumberType).unitsType !== null»
+				
+				«generateNumberClass(field.ownedPropertyType as NumberType, field.name.toCamelCase + "Type", false)»
+				«ELSEIF field.ownedPropertyType instanceof RangeType»
+				
+				«generateRangeClass(field.ownedPropertyType as RangeType, field.name.toCamelCase + "Type", false)»
 				«ENDIF»
+				«ENDFOR»
 			}
 		'''
 		new GeneratedJava(typeName + ".java", contents)
@@ -334,8 +468,44 @@ class PropertiesCodeGen {
 		new GeneratedJava(typeName + ".java", contents)
 	}
 	
-	def private static String generateUnitsEnum(String typeName, boolean generateGetValueMethod, Iterable<UnitLiteral> literals) {
-		val literalsString = literals.sortBy[it.absoluteFactor].join(",\n")['''«it.name.toUpperCase»(«it.absoluteFactor», "«it.name»")''']
+	def private static String generateEnumerationEnum(EnumerationType enumType, String typeName, boolean generateGetValueMethod) {
+		val literals = enumType.ownedLiterals.join(",\n")['''«it.name.toUpperCase»("«it.name»")''']
+		'''
+			public enum «typeName» {
+				«literals»;
+				
+				private final String originalName;
+				
+				private «typeName»(String originalName) {
+					this.originalName = originalName;
+				}
+				«IF generateGetValueMethod»
+				
+				public static «typeName» getValue(PropertyExpression propertyExpression) {
+					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+					if (abstractNamedValue instanceof EnumerationLiteral) {
+						return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
+					} else if (abstractNamedValue instanceof Property) {
+						throw new IllegalArgumentException("Reference to property not supported");
+					} else if (abstractNamedValue instanceof PropertyConstant) {
+						throw new IllegalArgumentException("Reference to property constant not supported");
+					} else {
+						throw new AssertionError("Unexpected type: " + abstractNamedValue.getClass().getName());
+					}
+				}
+				«ENDIF»
+				
+				@Override
+				public String toString() {
+					return originalName;
+				}
+			}
+		'''
+	}
+	
+	def private static String generateUnitsEnum(UnitsType unitsType, String typeName, boolean generateGetValueMethod) {
+		val literals = unitsType.ownedLiterals.filter(UnitLiteral).sortBy[it.absoluteFactor]
+		val literalsString = literals.join(",\n")['''«it.name.toUpperCase»(«it.absoluteFactor», "«it.name»")''']
 		'''
 			public enum «typeName» {
 				«literalsString»;
@@ -447,7 +617,114 @@ class PropertiesCodeGen {
 				}
 				«IF unitsType == numberType.ownedUnitsType»
 				
-				«generateUnitsEnum("Units", false, unitsType.ownedLiterals.filter(UnitLiteral))»
+				«generateUnitsEnum(unitsType, "Units", false)»
+				«ENDIF»
+			}
+		'''
+	}
+	
+	def private static String generateRangeClass(RangeType rangeType, String typeName, boolean generateGetValueMethod) {
+		val numberType = rangeType.numberType
+		val unitsType = numberType.unitsType
+		
+		val literalType = switch numberType {
+			AadlInteger: "IntegerLiteral"
+			AadlReal: "RealLiteral"
+		}
+		
+		val numberTypeName = switch numberType {
+			AadlInteger case unitsType === null: "long"
+			AadlReal case unitsType === null: "double"
+			case rangeType.ownedNumberType: "Number"
+			case rangeType.referencedNumberType: numberType.name.toCamelCase
+		}
+		
+		val optionalType = switch numberType {
+			AadlInteger case unitsType === null: "OptionalLong"
+			AadlReal case unitsType === null: "OptionalDouble"
+			default: '''Optional<«numberTypeName»>'''
+		}
+		
+		'''
+			public«IF !generateGetValueMethod» static«ENDIF» class «typeName» {
+				private final «numberTypeName» minimum;
+				private final «numberTypeName» maximum;
+				private final «optionalType» delta;
+				
+				private «typeName»(PropertyExpression propertyExpression) {
+					RangeValue rangeValue = (RangeValue) propertyExpression;
+					«IF unitsType === null»
+					minimum = ((«literalType») rangeValue.getMinimum()).getValue();
+					maximum = ((«literalType») rangeValue.getMaximum()).getValue();
+					if (rangeValue.getDelta() == null) {
+						delta = «optionalType».empty();
+					} else {
+						delta = «optionalType».of(((«literalType») rangeValue.getDelta()).getValue());
+					}
+					«ELSEIF numberType == rangeType.ownedNumberType»
+					minimum = new Number(rangeValue.getMinimum());
+					maximum = new Number(rangeValue.getMaximum());
+					delta = Optional.ofNullable(rangeValue.getDelta()).map(Number::new);
+					«ELSE»
+					minimum = «numberTypeName».getValue(rangeValue.getMinimum());
+					maximum = «numberTypeName».getValue(rangeValue.getMaximum());
+					delta = Optional.ofNullable(rangeValue.getDelta()).map(«numberTypeName»::getValue);
+					«ENDIF»
+				}
+				«IF generateGetValueMethod»
+				
+				public static «typeName» getValue(PropertyExpression propertyExpression) {
+					return new «typeName»(propertyExpression);
+				}
+				«ENDIF»
+				
+				public «numberTypeName» getMinimum() {
+					return minimum;
+				}
+				
+				public «numberTypeName» getMaximum() {
+					return maximum;
+				}
+				
+				public «optionalType» getDelta() {
+					return delta;
+				}
+				
+				@Override
+				public int hashCode() {
+					return Objects.hash(minimum, maximum, delta);
+				}
+				
+				@Override
+				public boolean equals(Object obj) {
+					if (this == obj) {
+						return true;
+					}
+					if (!(obj instanceof «typeName»)) {
+						return false;
+					}
+					«typeName» other = («typeName») obj;
+					«IF unitsType !== null»
+					return Objects.equals(minimum, other.minimum) && Objects.equals(maximum, other.maximum)
+							&& Objects.equals(delta, other.delta);
+					«ELSEIF numberType instanceof AadlInteger»
+					return minimum == other.minimum && maximum == other.maximum && Objects.equals(delta, other.delta);
+					«ELSE»
+					return Double.doubleToLongBits(minimum) == Double.doubleToLongBits(other.minimum)
+							&& Double.doubleToLongBits(maximum) == Double.doubleToLongBits(other.maximum)
+							&& Objects.equals(delta, other.delta);
+					«ENDIF»
+				}
+				
+				@Override
+				public String toString() {
+					StringBuilder builder = new StringBuilder(minimum + " .. " + maximum);
+					delta.ifPresent(it -> builder.append(" delta " + it));
+					return builder.toString();
+				}
+				«IF numberType == rangeType.ownedNumberType && unitsType !== null»
+				
+				«generateNumberClass(numberType, "Number", false)»
 				«ENDIF»
 			}
 		'''
