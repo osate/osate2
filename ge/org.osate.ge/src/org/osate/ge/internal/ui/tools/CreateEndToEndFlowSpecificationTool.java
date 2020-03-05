@@ -144,7 +144,7 @@ public class CreateEndToEndFlowSpecificationTool {
 				if (bocs.length > 1) {
 					dlg.setErrorMessage(
 							"Multiple elements selected. Select a single element. " + " "
-							+ getDialogMessage());
+									+ getDialogMessage());
 				} else if (bocs.length == 1) {
 					// Get the selected boc
 					final BusinessObjectContext selectedBoc = (BusinessObjectContext) bocs[0];
@@ -266,7 +266,7 @@ public class CreateEndToEndFlowSpecificationTool {
 
 		/**
 		 * Determines if the object selected is valid
-		 * @param selectedEle - current selected element
+		 * @param selectedBoc - current selected element
 		 * @param context - current context
 		 * @return - true or false depending if the object selected is valid
 		 */
@@ -539,7 +539,6 @@ public class CreateEndToEndFlowSpecificationTool {
 						}
 
 						final Object removedBo = removedBoc.getBusinessObject();
-						// TODO if element is repeated, it removes all?
 						if (removedBo instanceof ModeFeature) {
 							eTEFlow.getInModeOrTransitions().remove(eTEFlow.getInModeOrTransitions().size() - 1);
 						} else {
