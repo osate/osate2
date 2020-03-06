@@ -86,7 +86,7 @@ public class CreateFlowImplementationTool {
 		try {
 			this.coloring = coloringService.adjustColors();
 
-			dlg = new CreateFlowImplementationDialog(Display.getCurrent().getActiveShell(), coloring);
+			dlg = new CreateFlowImplementationDialog(Display.getCurrent().getActiveShell(), uiService, coloring);
 			dlg.create();
 			this.onSelectionChanged(new BusinessObjectContext[] { selectedBoc });
 			if (dlg.open() == Window.CANCEL) {
@@ -138,6 +138,7 @@ public class CreateFlowImplementationTool {
 	 * @return
 	 */
 	private static class CreateFlowImplementationDialog extends TitleAreaDialog {
+		private final UiService uiService;
 		private final ColoringService.Coloring coloring;
 		private final Aadl2Package pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
 		private Composite flowComposite;
@@ -148,8 +149,9 @@ public class CreateFlowImplementationTool {
 		private boolean multipleElementsSelected = false;
 
 		CreateFlowImplementationDialog(final Shell parentShell,
-				final ColoringService.Coloring coloring) {
+				final UiService uiService, final ColoringService.Coloring coloring) {
 			super(parentShell);
+			this.uiService = Objects.requireNonNull(uiService, "ui service must not be null");
 			this.coloring = Objects.requireNonNull(coloring, "coloring must not be null");
 			this.setHelpAvailable(true);
 			setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
@@ -607,6 +609,7 @@ public class CreateFlowImplementationTool {
 				public void widgetSelected(final SelectionEvent e) {
 					if(userSelections.size() > 0) {
 						userSelections.remove(userSelections.size()-1);
+						uiService.clearSelection();
 						update();
 					}
 				}

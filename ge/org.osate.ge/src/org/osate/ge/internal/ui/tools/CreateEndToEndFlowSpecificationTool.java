@@ -95,7 +95,7 @@ public class CreateEndToEndFlowSpecificationTool {
 				this.ci = (ComponentImplementation) ciBoc.getBusinessObject();
 				coloring = coloringService.adjustColors(); // Create a coloring object that will allow adjustment of pictogram
 				final Display display = Display.getCurrent();
-				dlg = new CreateFlowsToolsDialog(display.getActiveShell(), namingService);
+				dlg = new CreateFlowsToolsDialog(display.getActiveShell(), namingService, uiService);
 				// Create to add first selection
 				dlg.create();
 				// Add first selection if valid
@@ -241,6 +241,7 @@ public class CreateEndToEndFlowSpecificationTool {
 
 	private class CreateFlowsToolsDialog extends TitleAreaDialog {
 		private final NamingService namingService;
+		private final UiService uiService;
 		private final Aadl2Package pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
 		private final EndToEndFlow eTEFlow = (EndToEndFlow) pkg.getEFactoryInstance().create(pkg.getEndToEndFlow());
 		private final List<EndToEndFlow> flows = new ArrayList<EndToEndFlow>();
@@ -251,10 +252,12 @@ public class CreateEndToEndFlowSpecificationTool {
 		private StyledText flowSegmentLabel;
 		private Text newETEFlowName;
 
-		public CreateFlowsToolsDialog(final Shell parentShell, final NamingService namingService) {
+		public CreateFlowsToolsDialog(final Shell parentShell, final NamingService namingService,
+				final UiService uiService) {
 			super(parentShell);
 			setHelpAvailable(true);
-			this.namingService = Objects.requireNonNull(namingService, "namingService must not be null");
+			this.namingService = Objects.requireNonNull(namingService, "naming service must not be null");
+			this.uiService = Objects.requireNonNull(uiService, "ui service must not be null");
 			setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
 		}
 
@@ -557,6 +560,7 @@ public class CreateEndToEndFlowSpecificationTool {
 							addFlowSegmentOrModeFeature(m);
 						}
 
+						uiService.clearSelection();
 						updateWidgets();
 					}
 				}

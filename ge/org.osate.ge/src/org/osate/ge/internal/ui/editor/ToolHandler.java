@@ -102,8 +102,7 @@ public class ToolHandler {
 	}
 
 	public void setSelectedElements(final List<BusinessObjectContext> bocs) {
-		final BusinessObjectContext[] newBocs = bocs
-				.toArray(new BusinessObjectContext[bocs.size()]);
+		final BusinessObjectContext[] newBocs = bocs.toArray(new BusinessObjectContext[bocs.size()]);
 
 		// Ignore the selection if nothing has changed
 		if (Arrays.equals(this.bocs, newBocs)) {
@@ -111,6 +110,10 @@ public class ToolHandler {
 		}
 
 		this.bocs = newBocs;
+
+		if (bocs.isEmpty()) {
+			return;
+		}
 
 		// Notify the active tool
 		if(activeTool != null) {
