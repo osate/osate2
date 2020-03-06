@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -921,11 +921,18 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		} else if (pv instanceof NamedValue) {
 			AbstractNamedValue nv = ((NamedValue) pv).getNamedValue();
 			if (nv instanceof PropertyConstant) {
-				typeCheckPropertyValues(pt, ((PropertyConstant) nv).getConstantValue(), holder, defName);
+				final PropertyConstant propertyConstant = (PropertyConstant) nv;
+				final PropertyType pct = propertyConstant.getPropertyType();
+				if (!Aadl2Util.isNull(pct) && !Aadl2Util.arePropertyTypesEqual(pt, pct)) {
+					error(holder, prefix + "Assigning property constant of incorrect type");
+				}
+				typeCheckPropertyValues(pt, propertyConstant.getConstantValue(), holder, defName);
 			} else if (nv instanceof Property) {
 				PropertyType pvt = ((Property) nv).getPropertyType();
-				if (!Aadl2Util.isNull(pvt) && pvt.eClass() != pt.eClass()) {
-					error(holder, "Assigning property of incorrect type" + msg);
+				if (!Aadl2Util.isNull(pvt)) {
+					if (pvt.eClass() != pt.eClass() || !Aadl2Util.arePropertyTypesEqual(pt, pvt)) {
+						error(holder, "Assigning property of incorrect type" + msg);
+					}
 				}
 			} else {
 				error(holder, "Enum/Unit literal validation should have happened before");
@@ -991,7 +998,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			return true;
 		}
 	}
-	
+
 	private void checkInRange(NumberType type, NumberValue value) {
 		NumericRange range = type.getRange();
 		if (range != null) {
