@@ -924,9 +924,11 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 				final PropertyConstant propertyConstant = (PropertyConstant) nv;
 				final PropertyType pct = propertyConstant.getPropertyType();
 				if (!Aadl2Util.isNull(pct) && !Aadl2Util.arePropertyTypesEqual(pt, pct)) {
-					error(holder, prefix + "Assigning property constant of incorrect type");
+					error(holder, prefix + "Assigning property constant of incorrect type" + msg);
+				} else {
+					// Issue 2222: is this still really necessary?
+					typeCheckPropertyValues(pt, propertyConstant.getConstantValue(), holder, defName);
 				}
-				typeCheckPropertyValues(pt, propertyConstant.getConstantValue(), holder, defName);
 			} else if (nv instanceof Property) {
 				PropertyType pvt = ((Property) nv).getPropertyType();
 				if (!Aadl2Util.isNull(pvt)) {
