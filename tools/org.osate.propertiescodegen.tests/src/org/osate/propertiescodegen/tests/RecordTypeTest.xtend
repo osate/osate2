@@ -73,6 +73,14 @@ class RecordTypeTest {
 					referenced_range_with_import: ps2::basic_range;
 					referenced_reference: ps1::reference_type_1;
 				);
+				record_of_boolean: type record (field: aadlboolean;);
+				record_of_string: type record (field: aadlstring;);
+				record_of_classifier: type record (field: classifier;);
+				record_of_enum: type record (field: enumeration (a, b, c););
+				record_of_units: type record (field: units (mm, cm => mm * 10););
+				record_of_integer: type record (field: aadlinteger;);
+				record_of_real: type record (field: aadlreal;);
+				record_of_reference: type record (field: reference;);
 			end ps1;
 		'''
 		val time = '''
@@ -1283,8 +1291,571 @@ class RecordTypeTest {
 				}
 			}
 		'''
+		val recordOfBoolean = '''
+			package ps1;
+			
+			import java.util.Objects;
+			import java.util.Optional;
+			
+			import org.osate.aadl2.BooleanLiteral;
+			import org.osate.aadl2.PropertyExpression;
+			import org.osate.aadl2.RecordValue;
+			
+			public class RecordOfBoolean {
+				private final Optional<Boolean> field;
+				
+				private RecordOfBoolean(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					field = recordValue.getOwnedFieldValues()
+							.stream()
+							.filter(field -> field.getProperty().getName().equals("field"))
+							.map(field -> ((BooleanLiteral) field.getOwnedValue()).getValue())
+							.findAny();
+				}
+				
+				public static RecordOfBoolean getValue(PropertyExpression propertyExpression) {
+					return new RecordOfBoolean(propertyExpression);
+				}
+				
+				public Optional<Boolean> getField() {
+					return field;
+				}
+				
+				@Override
+				public int hashCode() {
+					return Objects.hash(field);
+				}
+				
+				@Override
+				public boolean equals(Object obj) {
+					if (this == obj) {
+						return true;
+					}
+					if (!(obj instanceof RecordOfBoolean)) {
+						return false;
+					}
+					RecordOfBoolean other = (RecordOfBoolean) obj;
+					return Objects.equals(field, other.field);
+				}
+				
+				@Override
+				public String toString() {
+					StringBuilder builder = new StringBuilder();
+					builder.append('[');
+					field.ifPresent(field -> {
+						builder.append("field => ");
+						builder.append(field);
+						builder.append(';');
+					});
+					builder.append(']');
+					return builder.toString();
+				}
+			}
+		'''
+		val recordOfString = '''
+			package ps1;
+			
+			import java.util.Objects;
+			import java.util.Optional;
+			
+			import org.osate.aadl2.PropertyExpression;
+			import org.osate.aadl2.RecordValue;
+			import org.osate.aadl2.StringLiteral;
+			
+			public class RecordOfString {
+				private final Optional<String> field;
+				
+				private RecordOfString(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					field = recordValue.getOwnedFieldValues()
+							.stream()
+							.filter(field -> field.getProperty().getName().equals("field"))
+							.map(field -> ((StringLiteral) field.getOwnedValue()).getValue())
+							.findAny();
+				}
+				
+				public static RecordOfString getValue(PropertyExpression propertyExpression) {
+					return new RecordOfString(propertyExpression);
+				}
+				
+				public Optional<String> getField() {
+					return field;
+				}
+				
+				@Override
+				public int hashCode() {
+					return Objects.hash(field);
+				}
+				
+				@Override
+				public boolean equals(Object obj) {
+					if (this == obj) {
+						return true;
+					}
+					if (!(obj instanceof RecordOfString)) {
+						return false;
+					}
+					RecordOfString other = (RecordOfString) obj;
+					return Objects.equals(field, other.field);
+				}
+				
+				@Override
+				public String toString() {
+					StringBuilder builder = new StringBuilder();
+					builder.append('[');
+					field.ifPresent(field -> {
+						builder.append("field => \"");
+						builder.append(field);
+						builder.append("\";");
+					});
+					builder.append(']');
+					return builder.toString();
+				}
+			}
+		'''
+		val recordOfClassifier = '''
+			package ps1;
+			
+			import java.util.Objects;
+			import java.util.Optional;
+			
+			import org.osate.aadl2.Classifier;
+			import org.osate.aadl2.ClassifierValue;
+			import org.osate.aadl2.PropertyExpression;
+			import org.osate.aadl2.RecordValue;
+			
+			public class RecordOfClassifier {
+				private final Optional<Classifier> field;
+				
+				private RecordOfClassifier(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					field = recordValue.getOwnedFieldValues()
+							.stream()
+							.filter(field -> field.getProperty().getName().equals("field"))
+							.map(field -> ((ClassifierValue) field.getOwnedValue()).getClassifier())
+							.findAny();
+				}
+				
+				public static RecordOfClassifier getValue(PropertyExpression propertyExpression) {
+					return new RecordOfClassifier(propertyExpression);
+				}
+				
+				public Optional<Classifier> getField() {
+					return field;
+				}
+				
+				@Override
+				public int hashCode() {
+					return Objects.hash(field);
+				}
+				
+				@Override
+				public boolean equals(Object obj) {
+					if (this == obj) {
+						return true;
+					}
+					if (!(obj instanceof RecordOfClassifier)) {
+						return false;
+					}
+					RecordOfClassifier other = (RecordOfClassifier) obj;
+					return Objects.equals(field, other.field);
+				}
+				
+				@Override
+				public String toString() {
+					StringBuilder builder = new StringBuilder();
+					builder.append('[');
+					field.ifPresent(field -> {
+						builder.append("field => classifier (");
+						builder.append(field.getQualifiedName());
+						builder.append(");");
+					});
+					builder.append(']');
+					return builder.toString();
+				}
+			}
+		'''
+		val recordOfEnum = '''
+			package ps1;
+			
+			import java.util.Objects;
+			import java.util.Optional;
+			
+			import org.osate.aadl2.AbstractNamedValue;
+			import org.osate.aadl2.EnumerationLiteral;
+			import org.osate.aadl2.NamedValue;
+			import org.osate.aadl2.Property;
+			import org.osate.aadl2.PropertyConstant;
+			import org.osate.aadl2.PropertyExpression;
+			import org.osate.aadl2.RecordValue;
+			
+			public class RecordOfEnum {
+				private final Optional<FieldType> field;
+				
+				private RecordOfEnum(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					field = recordValue.getOwnedFieldValues()
+							.stream()
+							.filter(field -> field.getProperty().getName().equals("field"))
+							.map(field -> {
+								AbstractNamedValue abstractNamedValue = ((NamedValue) field.getOwnedValue()).getNamedValue();
+								if (abstractNamedValue instanceof EnumerationLiteral) {
+									return FieldType.valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
+								} else if (abstractNamedValue instanceof Property) {
+									throw new IllegalArgumentException("Reference to property not supported");
+								} else if (abstractNamedValue instanceof PropertyConstant) {
+									throw new IllegalArgumentException("Reference to property constant not supported");
+								} else {
+									throw new AssertionError("Unexpected type: " + abstractNamedValue.getClass().getName());
+								}
+							})
+							.findAny();
+				}
+				
+				public static RecordOfEnum getValue(PropertyExpression propertyExpression) {
+					return new RecordOfEnum(propertyExpression);
+				}
+				
+				public Optional<FieldType> getField() {
+					return field;
+				}
+				
+				@Override
+				public int hashCode() {
+					return Objects.hash(field);
+				}
+				
+				@Override
+				public boolean equals(Object obj) {
+					if (this == obj) {
+						return true;
+					}
+					if (!(obj instanceof RecordOfEnum)) {
+						return false;
+					}
+					RecordOfEnum other = (RecordOfEnum) obj;
+					return Objects.equals(field, other.field);
+				}
+				
+				@Override
+				public String toString() {
+					StringBuilder builder = new StringBuilder();
+					builder.append('[');
+					field.ifPresent(field -> {
+						builder.append("field => ");
+						builder.append(field);
+						builder.append(';');
+					});
+					builder.append(']');
+					return builder.toString();
+				}
+				
+				public enum FieldType {
+					A("a"),
+					B("b"),
+					C("c");
+					
+					private final String originalName;
+					
+					private FieldType(String originalName) {
+						this.originalName = originalName;
+					}
+					
+					@Override
+					public String toString() {
+						return originalName;
+					}
+				}
+			}
+		'''
+		val recordOfUnits = '''
+			package ps1;
+			
+			import java.util.Objects;
+			import java.util.Optional;
+			
+			import org.osate.aadl2.AbstractNamedValue;
+			import org.osate.aadl2.NamedValue;
+			import org.osate.aadl2.Property;
+			import org.osate.aadl2.PropertyConstant;
+			import org.osate.aadl2.PropertyExpression;
+			import org.osate.aadl2.RecordValue;
+			import org.osate.aadl2.UnitLiteral;
+			
+			public class RecordOfUnits {
+				private final Optional<FieldType> field;
+				
+				private RecordOfUnits(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					field = recordValue.getOwnedFieldValues()
+							.stream()
+							.filter(field -> field.getProperty().getName().equals("field"))
+							.map(field -> {
+								AbstractNamedValue abstractNamedValue = ((NamedValue) field.getOwnedValue()).getNamedValue();
+								if (abstractNamedValue instanceof UnitLiteral) {
+									return FieldType.valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
+								} else if (abstractNamedValue instanceof Property) {
+									throw new IllegalArgumentException("Reference to property not supported");
+								} else if (abstractNamedValue instanceof PropertyConstant) {
+									throw new IllegalArgumentException("Reference to property constant not supported");
+								} else {
+									throw new AssertionError("Unexpected type: " + abstractNamedValue.getClass().getName());
+								}
+							})
+							.findAny();
+				}
+				
+				public static RecordOfUnits getValue(PropertyExpression propertyExpression) {
+					return new RecordOfUnits(propertyExpression);
+				}
+				
+				public Optional<FieldType> getField() {
+					return field;
+				}
+				
+				@Override
+				public int hashCode() {
+					return Objects.hash(field);
+				}
+				
+				@Override
+				public boolean equals(Object obj) {
+					if (this == obj) {
+						return true;
+					}
+					if (!(obj instanceof RecordOfUnits)) {
+						return false;
+					}
+					RecordOfUnits other = (RecordOfUnits) obj;
+					return Objects.equals(field, other.field);
+				}
+				
+				@Override
+				public String toString() {
+					StringBuilder builder = new StringBuilder();
+					builder.append('[');
+					field.ifPresent(field -> {
+						builder.append("field => ");
+						builder.append(field);
+						builder.append(';');
+					});
+					builder.append(']');
+					return builder.toString();
+				}
+				
+				public enum FieldType {
+					MM(1.0, "mm"),
+					CM(10.0, "cm");
+					
+					private final double factorToBase;
+					private final String originalName;
+					
+					private FieldType(double factorToBase, String originalName) {
+						this.factorToBase = factorToBase;
+						this.originalName = originalName;
+					}
+					
+					public double getFactorToBase() {
+						return factorToBase;
+					}
+					
+					public double getFactorTo(FieldType target) {
+						return factorToBase / target.factorToBase;
+					}
+					
+					@Override
+					public String toString() {
+						return originalName;
+					}
+				}
+			}
+		'''
+		val recordOfInteger = '''
+			package ps1;
+			
+			import java.util.Objects;
+			import java.util.OptionalLong;
+			
+			import org.osate.aadl2.IntegerLiteral;
+			import org.osate.aadl2.PropertyExpression;
+			import org.osate.aadl2.RecordValue;
+			
+			public class RecordOfInteger {
+				private final OptionalLong field;
+				
+				private RecordOfInteger(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					field = recordValue.getOwnedFieldValues()
+							.stream()
+							.filter(field -> field.getProperty().getName().equals("field"))
+							.mapToLong(field -> ((IntegerLiteral) field.getOwnedValue()).getValue())
+							.findAny();
+				}
+				
+				public static RecordOfInteger getValue(PropertyExpression propertyExpression) {
+					return new RecordOfInteger(propertyExpression);
+				}
+				
+				public OptionalLong getField() {
+					return field;
+				}
+				
+				@Override
+				public int hashCode() {
+					return Objects.hash(field);
+				}
+				
+				@Override
+				public boolean equals(Object obj) {
+					if (this == obj) {
+						return true;
+					}
+					if (!(obj instanceof RecordOfInteger)) {
+						return false;
+					}
+					RecordOfInteger other = (RecordOfInteger) obj;
+					return Objects.equals(field, other.field);
+				}
+				
+				@Override
+				public String toString() {
+					StringBuilder builder = new StringBuilder();
+					builder.append('[');
+					field.ifPresent(field -> {
+						builder.append("field => ");
+						builder.append(field);
+						builder.append(';');
+					});
+					builder.append(']');
+					return builder.toString();
+				}
+			}
+		'''
+		val recordOfReal = '''
+			package ps1;
+			
+			import java.util.Objects;
+			import java.util.OptionalDouble;
+			
+			import org.osate.aadl2.PropertyExpression;
+			import org.osate.aadl2.RealLiteral;
+			import org.osate.aadl2.RecordValue;
+			
+			public class RecordOfReal {
+				private final OptionalDouble field;
+				
+				private RecordOfReal(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					field = recordValue.getOwnedFieldValues()
+							.stream()
+							.filter(field -> field.getProperty().getName().equals("field"))
+							.mapToDouble(field -> ((RealLiteral) field.getOwnedValue()).getValue())
+							.findAny();
+				}
+				
+				public static RecordOfReal getValue(PropertyExpression propertyExpression) {
+					return new RecordOfReal(propertyExpression);
+				}
+				
+				public OptionalDouble getField() {
+					return field;
+				}
+				
+				@Override
+				public int hashCode() {
+					return Objects.hash(field);
+				}
+				
+				@Override
+				public boolean equals(Object obj) {
+					if (this == obj) {
+						return true;
+					}
+					if (!(obj instanceof RecordOfReal)) {
+						return false;
+					}
+					RecordOfReal other = (RecordOfReal) obj;
+					return Objects.equals(field, other.field);
+				}
+				
+				@Override
+				public String toString() {
+					StringBuilder builder = new StringBuilder();
+					builder.append('[');
+					field.ifPresent(field -> {
+						builder.append("field => ");
+						builder.append(field);
+						builder.append(';');
+					});
+					builder.append(']');
+					return builder.toString();
+				}
+			}
+		'''
+		val recordOfReference = '''
+			package ps1;
+			
+			import java.util.Objects;
+			import java.util.Optional;
+			
+			import org.osate.aadl2.PropertyExpression;
+			import org.osate.aadl2.RecordValue;
+			import org.osate.aadl2.instance.InstanceObject;
+			import org.osate.aadl2.instance.InstanceReferenceValue;
+			
+			public class RecordOfReference {
+				private final Optional<InstanceObject> field;
+				
+				private RecordOfReference(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					field = recordValue.getOwnedFieldValues()
+							.stream()
+							.filter(field -> field.getProperty().getName().equals("field"))
+							.map(field -> ((InstanceReferenceValue) field.getOwnedValue()).getReferencedInstanceObject())
+							.findAny();
+				}
+				
+				public static RecordOfReference getValue(PropertyExpression propertyExpression) {
+					return new RecordOfReference(propertyExpression);
+				}
+				
+				public Optional<InstanceObject> getField() {
+					return field;
+				}
+				
+				@Override
+				public int hashCode() {
+					return Objects.hash(field);
+				}
+				
+				@Override
+				public boolean equals(Object obj) {
+					if (this == obj) {
+						return true;
+					}
+					if (!(obj instanceof RecordOfReference)) {
+						return false;
+					}
+					RecordOfReference other = (RecordOfReference) obj;
+					return Objects.equals(field, other.field);
+				}
+				
+				@Override
+				public String toString() {
+					StringBuilder builder = new StringBuilder();
+					builder.append('[');
+					field.ifPresent(field -> {
+						builder.append("field => reference (");
+						builder.append(field.getName());
+						builder.append(");");
+					});
+					builder.append(']');
+					return builder.toString();
+				}
+			}
+		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(ps1, ps2))
-		assertEquals(10, results.size)
+		assertEquals(18, results.size)
 		
 		assertEquals("Time.java", results.get(0).fileName)
 		assertEquals(time.toString, results.get(0).contents)
@@ -1315,5 +1886,29 @@ class RecordTypeTest {
 		
 		assertEquals("RecordType1.java", results.get(9).fileName)
 		assertEquals(recordType1.toString, results.get(9).contents)
+		
+		assertEquals("RecordOfBoolean.java", results.get(10).fileName)
+		assertEquals(recordOfBoolean.toString, results.get(10).contents)
+		
+		assertEquals("RecordOfString.java", results.get(11).fileName)
+		assertEquals(recordOfString.toString, results.get(11).contents)
+		
+		assertEquals("RecordOfClassifier.java", results.get(12).fileName)
+		assertEquals(recordOfClassifier.toString, results.get(12).contents)
+		
+		assertEquals("RecordOfEnum.java", results.get(13).fileName)
+		assertEquals(recordOfEnum.toString, results.get(13).contents)
+		
+		assertEquals("RecordOfUnits.java", results.get(14).fileName)
+		assertEquals(recordOfUnits.toString, results.get(14).contents)
+		
+		assertEquals("RecordOfInteger.java", results.get(15).fileName)
+		assertEquals(recordOfInteger.toString, results.get(15).contents)
+		
+		assertEquals("RecordOfReal.java", results.get(16).fileName)
+		assertEquals(recordOfReal.toString, results.get(16).contents)
+		
+		assertEquals("RecordOfReference.java", results.get(17).fileName)
+		assertEquals(recordOfReference.toString, results.get(17).contents)
 	}
 }

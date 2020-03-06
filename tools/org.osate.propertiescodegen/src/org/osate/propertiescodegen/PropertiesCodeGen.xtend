@@ -574,9 +574,13 @@ class PropertiesCodeGen {
 				
 				@Override
 				public int hashCode() {
+					«IF recordType.ownedFields.size == 1»
+					return Objects.hash(«recordType.ownedFields.head.name.toCamelCase.toFirstLower»);
+					«ELSE»
 					return Objects.hash(
 							«recordType.ownedFields.join(",\n")[it.name.toCamelCase.toFirstLower]»
 					);
+					«ENDIF»
 				}
 				
 				@Override
@@ -588,11 +592,15 @@ class PropertiesCodeGen {
 						return false;
 					}
 					«typeName» other = («typeName») obj;
+					«IF recordType.ownedFields.size == 1»
+					return Objects.equals(«recordType.ownedFields.head.name.toCamelCase.toFirstLower», other.«recordType.ownedFields.head.name.toCamelCase.toFirstLower»);
+					«ELSE»
 					return Objects.equals(«recordType.ownedFields.head.name.toCamelCase.toFirstLower», other.«recordType.ownedFields.head.name.toCamelCase.toFirstLower»)
 							«FOR field : recordType.ownedFields.take(recordType.ownedFields.size - 1).tail»
 							&& Objects.equals(«field.name.toCamelCase.toFirstLower», other.«field.name.toCamelCase.toFirstLower»)
 							«ENDFOR»
 							&& Objects.equals(«recordType.ownedFields.last.name.toCamelCase.toFirstLower», other.«recordType.ownedFields.last.name.toCamelCase.toFirstLower»);
+					«ENDIF»
 				}
 				
 				@Override
