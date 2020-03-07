@@ -28,6 +28,7 @@ class RecordTypeTest {
 				basic_integer: type aadlinteger;
 				basic_real: type aadlreal;
 				basic_range: type range of aadlreal;
+				basic_record: type record (field: aadlreal;);
 			end ps2;
 		'''
 		val ps1 = '''
@@ -57,6 +58,10 @@ class RecordTypeTest {
 					owned_range_no_import: range of ps1::integer_referenced_units_other_file;
 					owned_range_import_number: range of ps2::mass_type;
 					owned_range_import_units: range of aadlinteger units ps2::mass;
+					owned_record: record (
+						string_field: aadlstring;
+						integer_field: aadlinteger;
+					);
 					owned_reference: reference;
 					referenced_boolean: ps1::boolean_type_1;
 					referenced_string: ps1::string_type_1;
@@ -71,6 +76,8 @@ class RecordTypeTest {
 					referenced_number_with_units_with_import: ps2::mass_type;
 					referenced_range_no_import: ps1::range_of_integer_no_units;
 					referenced_range_with_import: ps2::basic_range;
+					referenced_record_no_import: ps1::record_of_boolean;
+					referenced_record_with_import: ps2::basic_record;
 					referenced_reference: ps1::reference_type_1;
 				);
 				record_of_boolean: type record (field: aadlboolean;);
@@ -81,6 +88,7 @@ class RecordTypeTest {
 				record_of_integer: type record (field: aadlinteger;);
 				record_of_real: type record (field: aadlreal;);
 				record_of_reference: type record (field: reference;);
+				nested_record: type record(field1: record (field2: record (field3: record (inner_field: aadlinteger;););););
 			end ps1;
 		'''
 		val time = '''
@@ -453,6 +461,7 @@ class RecordTypeTest {
 			import org.osate.aadl2.instance.InstanceReferenceValue;
 			
 			import ps2.BasicRange;
+			import ps2.BasicRecord;
 			import ps2.Color;
 			import ps2.Mass;
 			import ps2.MassType;
@@ -470,6 +479,7 @@ class RecordTypeTest {
 				private final Optional<OwnedRangeNoImportType> ownedRangeNoImport;
 				private final Optional<OwnedRangeImportNumberType> ownedRangeImportNumber;
 				private final Optional<OwnedRangeImportUnitsType> ownedRangeImportUnits;
+				private final Optional<OwnedRecordType> ownedRecord;
 				private final Optional<InstanceObject> ownedReference;
 				private final Optional<Boolean> referencedBoolean;
 				private final Optional<String> referencedString;
@@ -484,6 +494,8 @@ class RecordTypeTest {
 				private final Optional<MassType> referencedNumberWithUnitsWithImport;
 				private final Optional<RangeOfIntegerNoUnits> referencedRangeNoImport;
 				private final Optional<BasicRange> referencedRangeWithImport;
+				private final Optional<RecordOfBoolean> referencedRecordNoImport;
+				private final Optional<BasicRecord> referencedRecordWithImport;
 				private final Optional<InstanceObject> referencedReference;
 				
 				private RecordType1(PropertyExpression propertyExpression) {
@@ -570,6 +582,11 @@ class RecordTypeTest {
 							.filter(field -> field.getProperty().getName().equals("owned_range_import_units"))
 							.map(field -> new OwnedRangeImportUnitsType(field.getOwnedValue()))
 							.findAny();
+					ownedRecord = recordValue.getOwnedFieldValues()
+							.stream()
+							.filter(field -> field.getProperty().getName().equals("owned_record"))
+							.map(field -> new OwnedRecordType(field.getOwnedValue()))
+							.findAny();
 					ownedReference = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_reference"))
@@ -640,6 +657,16 @@ class RecordTypeTest {
 							.filter(field -> field.getProperty().getName().equals("referenced_range_with_import"))
 							.map(field -> BasicRange.getValue(field.getOwnedValue()))
 							.findAny();
+					referencedRecordNoImport = recordValue.getOwnedFieldValues()
+							.stream()
+							.filter(field -> field.getProperty().getName().equals("referenced_record_no_import"))
+							.map(field -> RecordOfBoolean.getValue(field.getOwnedValue()))
+							.findAny();
+					referencedRecordWithImport = recordValue.getOwnedFieldValues()
+							.stream()
+							.filter(field -> field.getProperty().getName().equals("referenced_record_with_import"))
+							.map(field -> BasicRecord.getValue(field.getOwnedValue()))
+							.findAny();
 					referencedReference = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_reference"))
@@ -699,6 +726,10 @@ class RecordTypeTest {
 					return ownedRangeImportUnits;
 				}
 				
+				public Optional<OwnedRecordType> getOwnedRecord() {
+					return ownedRecord;
+				}
+				
 				public Optional<InstanceObject> getOwnedReference() {
 					return ownedReference;
 				}
@@ -755,6 +786,14 @@ class RecordTypeTest {
 					return referencedRangeWithImport;
 				}
 				
+				public Optional<RecordOfBoolean> getReferencedRecordNoImport() {
+					return referencedRecordNoImport;
+				}
+				
+				public Optional<BasicRecord> getReferencedRecordWithImport() {
+					return referencedRecordWithImport;
+				}
+				
 				public Optional<InstanceObject> getReferencedReference() {
 					return referencedReference;
 				}
@@ -774,6 +813,7 @@ class RecordTypeTest {
 							ownedRangeNoImport,
 							ownedRangeImportNumber,
 							ownedRangeImportUnits,
+							ownedRecord,
 							ownedReference,
 							referencedBoolean,
 							referencedString,
@@ -788,6 +828,8 @@ class RecordTypeTest {
 							referencedNumberWithUnitsWithImport,
 							referencedRangeNoImport,
 							referencedRangeWithImport,
+							referencedRecordNoImport,
+							referencedRecordWithImport,
 							referencedReference
 					);
 				}
@@ -813,6 +855,7 @@ class RecordTypeTest {
 							&& Objects.equals(ownedRangeNoImport, other.ownedRangeNoImport)
 							&& Objects.equals(ownedRangeImportNumber, other.ownedRangeImportNumber)
 							&& Objects.equals(ownedRangeImportUnits, other.ownedRangeImportUnits)
+							&& Objects.equals(ownedRecord, other.ownedRecord)
 							&& Objects.equals(ownedReference, other.ownedReference)
 							&& Objects.equals(referencedBoolean, other.referencedBoolean)
 							&& Objects.equals(referencedString, other.referencedString)
@@ -827,6 +870,8 @@ class RecordTypeTest {
 							&& Objects.equals(referencedNumberWithUnitsWithImport, other.referencedNumberWithUnitsWithImport)
 							&& Objects.equals(referencedRangeNoImport, other.referencedRangeNoImport)
 							&& Objects.equals(referencedRangeWithImport, other.referencedRangeWithImport)
+							&& Objects.equals(referencedRecordNoImport, other.referencedRecordNoImport)
+							&& Objects.equals(referencedRecordWithImport, other.referencedRecordWithImport)
 							&& Objects.equals(referencedReference, other.referencedReference);
 				}
 				
@@ -891,6 +936,11 @@ class RecordTypeTest {
 					});
 					ownedRangeImportUnits.ifPresent(field -> {
 						builder.append("owned_range_import_units => ");
+						builder.append(field);
+						builder.append(';');
+					});
+					ownedRecord.ifPresent(field -> {
+						builder.append("owned_record => ");
 						builder.append(field);
 						builder.append(';');
 					});
@@ -961,6 +1011,16 @@ class RecordTypeTest {
 					});
 					referencedRangeWithImport.ifPresent(field -> {
 						builder.append("referenced_range_with_import => ");
+						builder.append(field);
+						builder.append(';');
+					});
+					referencedRecordNoImport.ifPresent(field -> {
+						builder.append("referenced_record_no_import => ");
+						builder.append(field);
+						builder.append(';');
+					});
+					referencedRecordWithImport.ifPresent(field -> {
+						builder.append("referenced_record_with_import => ");
 						builder.append(field);
 						builder.append(';');
 					});
@@ -1287,6 +1347,72 @@ class RecordTypeTest {
 						public String toString() {
 							return value + unit.toString();
 						}
+					}
+				}
+				
+				public static class OwnedRecordType {
+					private final Optional<String> stringField;
+					private final OptionalLong integerField;
+					
+					private OwnedRecordType(PropertyExpression propertyExpression) {
+						RecordValue recordValue = (RecordValue) propertyExpression;
+						stringField = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("string_field"))
+								.map(field -> ((StringLiteral) field.getOwnedValue()).getValue())
+								.findAny();
+						integerField = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("integer_field"))
+								.mapToLong(field -> ((IntegerLiteral) field.getOwnedValue()).getValue())
+								.findAny();
+					}
+					
+					public Optional<String> getStringField() {
+						return stringField;
+					}
+					
+					public OptionalLong getIntegerField() {
+						return integerField;
+					}
+					
+					@Override
+					public int hashCode() {
+						return Objects.hash(
+								stringField,
+								integerField
+						);
+					}
+					
+					@Override
+					public boolean equals(Object obj) {
+						if (this == obj) {
+							return true;
+						}
+						if (!(obj instanceof OwnedRecordType)) {
+							return false;
+						}
+						OwnedRecordType other = (OwnedRecordType) obj;
+						return Objects.equals(stringField, other.stringField)
+								&& Objects.equals(integerField, other.integerField);
+					}
+					
+					@Override
+					public String toString() {
+						StringBuilder builder = new StringBuilder();
+						builder.append('[');
+						stringField.ifPresent(field -> {
+							builder.append("string_field => \"");
+							builder.append(field);
+							builder.append("\";");
+						});
+						integerField.ifPresent(field -> {
+							builder.append("integer_field => ");
+							builder.append(field);
+							builder.append(';');
+						});
+						builder.append(']');
+						return builder.toString();
 					}
 				}
 			}
@@ -1854,8 +1980,211 @@ class RecordTypeTest {
 				}
 			}
 		'''
+		val nestedRecord = '''
+			package ps1;
+			
+			import java.util.Objects;
+			import java.util.Optional;
+			import java.util.OptionalLong;
+			
+			import org.osate.aadl2.IntegerLiteral;
+			import org.osate.aadl2.PropertyExpression;
+			import org.osate.aadl2.RecordValue;
+			
+			public class NestedRecord {
+				private final Optional<Field1Type> field1;
+				
+				private NestedRecord(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					field1 = recordValue.getOwnedFieldValues()
+							.stream()
+							.filter(field -> field.getProperty().getName().equals("field1"))
+							.map(field -> new Field1Type(field.getOwnedValue()))
+							.findAny();
+				}
+				
+				public static NestedRecord getValue(PropertyExpression propertyExpression) {
+					return new NestedRecord(propertyExpression);
+				}
+				
+				public Optional<Field1Type> getField1() {
+					return field1;
+				}
+				
+				@Override
+				public int hashCode() {
+					return Objects.hash(field1);
+				}
+				
+				@Override
+				public boolean equals(Object obj) {
+					if (this == obj) {
+						return true;
+					}
+					if (!(obj instanceof NestedRecord)) {
+						return false;
+					}
+					NestedRecord other = (NestedRecord) obj;
+					return Objects.equals(field1, other.field1);
+				}
+				
+				@Override
+				public String toString() {
+					StringBuilder builder = new StringBuilder();
+					builder.append('[');
+					field1.ifPresent(field -> {
+						builder.append("field1 => ");
+						builder.append(field);
+						builder.append(';');
+					});
+					builder.append(']');
+					return builder.toString();
+				}
+				
+				public static class Field1Type {
+					private final Optional<Field2Type> field2;
+					
+					private Field1Type(PropertyExpression propertyExpression) {
+						RecordValue recordValue = (RecordValue) propertyExpression;
+						field2 = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("field2"))
+								.map(field -> new Field2Type(field.getOwnedValue()))
+								.findAny();
+					}
+					
+					public Optional<Field2Type> getField2() {
+						return field2;
+					}
+					
+					@Override
+					public int hashCode() {
+						return Objects.hash(field2);
+					}
+					
+					@Override
+					public boolean equals(Object obj) {
+						if (this == obj) {
+							return true;
+						}
+						if (!(obj instanceof Field1Type)) {
+							return false;
+						}
+						Field1Type other = (Field1Type) obj;
+						return Objects.equals(field2, other.field2);
+					}
+					
+					@Override
+					public String toString() {
+						StringBuilder builder = new StringBuilder();
+						builder.append('[');
+						field2.ifPresent(field -> {
+							builder.append("field2 => ");
+							builder.append(field);
+							builder.append(';');
+						});
+						builder.append(']');
+						return builder.toString();
+					}
+					
+					public static class Field2Type {
+						private final Optional<Field3Type> field3;
+						
+						private Field2Type(PropertyExpression propertyExpression) {
+							RecordValue recordValue = (RecordValue) propertyExpression;
+							field3 = recordValue.getOwnedFieldValues()
+									.stream()
+									.filter(field -> field.getProperty().getName().equals("field3"))
+									.map(field -> new Field3Type(field.getOwnedValue()))
+									.findAny();
+						}
+						
+						public Optional<Field3Type> getField3() {
+							return field3;
+						}
+						
+						@Override
+						public int hashCode() {
+							return Objects.hash(field3);
+						}
+						
+						@Override
+						public boolean equals(Object obj) {
+							if (this == obj) {
+								return true;
+							}
+							if (!(obj instanceof Field2Type)) {
+								return false;
+							}
+							Field2Type other = (Field2Type) obj;
+							return Objects.equals(field3, other.field3);
+						}
+						
+						@Override
+						public String toString() {
+							StringBuilder builder = new StringBuilder();
+							builder.append('[');
+							field3.ifPresent(field -> {
+								builder.append("field3 => ");
+								builder.append(field);
+								builder.append(';');
+							});
+							builder.append(']');
+							return builder.toString();
+						}
+						
+						public static class Field3Type {
+							private final OptionalLong innerField;
+							
+							private Field3Type(PropertyExpression propertyExpression) {
+								RecordValue recordValue = (RecordValue) propertyExpression;
+								innerField = recordValue.getOwnedFieldValues()
+										.stream()
+										.filter(field -> field.getProperty().getName().equals("inner_field"))
+										.mapToLong(field -> ((IntegerLiteral) field.getOwnedValue()).getValue())
+										.findAny();
+							}
+							
+							public OptionalLong getInnerField() {
+								return innerField;
+							}
+							
+							@Override
+							public int hashCode() {
+								return Objects.hash(innerField);
+							}
+							
+							@Override
+							public boolean equals(Object obj) {
+								if (this == obj) {
+									return true;
+								}
+								if (!(obj instanceof Field3Type)) {
+									return false;
+								}
+								Field3Type other = (Field3Type) obj;
+								return Objects.equals(innerField, other.innerField);
+							}
+							
+							@Override
+							public String toString() {
+								StringBuilder builder = new StringBuilder();
+								builder.append('[');
+								innerField.ifPresent(field -> {
+									builder.append("inner_field => ");
+									builder.append(field);
+									builder.append(';');
+								});
+								builder.append(']');
+								return builder.toString();
+							}
+						}
+					}
+				}
+			}
+		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(ps1, ps2))
-		assertEquals(18, results.size)
+		assertEquals(19, results.size)
 		
 		assertEquals("Time.java", results.get(0).fileName)
 		assertEquals(time.toString, results.get(0).contents)
@@ -1910,5 +2239,8 @@ class RecordTypeTest {
 		
 		assertEquals("RecordOfReference.java", results.get(17).fileName)
 		assertEquals(recordOfReference.toString, results.get(17).contents)
+		
+		assertEquals("NestedRecord.java", results.get(18).fileName)
+		assertEquals(nestedRecord.toString, results.get(18).contents)
 	}
 }
