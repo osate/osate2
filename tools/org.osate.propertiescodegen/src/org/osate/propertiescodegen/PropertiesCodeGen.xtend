@@ -41,7 +41,7 @@ class PropertiesCodeGen {
 			NumberType case propertyType.unitsType === null: generator.generateNumber(typeName, propertyType)
 			NumberType: generator.generateNumberWithUnits(typeName, propertyType, true)
 			RangeType: generator.generateRange(typeName, propertyType, true)
-			RecordType: generator.generateRecord(typeName, propertyType)
+			RecordType: generator.generateRecord(typeName, propertyType, true)
 			ReferenceType: generator.generateReference(typeName)
 			default: null
 		}
@@ -433,7 +433,7 @@ class PropertiesCodeGen {
 		'''
 	}
 	
-	def private String generateRecord(String typeName, RecordType recordType) {
+	def private String generateRecord(String typeName, RecordType recordType, boolean topLevel) {
 		imports += #{"java.util.Objects", "org.osate.aadl2.PropertyExpression", "org.osate.aadl2.RecordValue"}
 		for (field : recordType.ownedFields) {
 			if (field.propertyType instanceof AadlInteger && (field.propertyType as AadlInteger).unitsType === null) {
@@ -472,7 +472,8 @@ class PropertiesCodeGen {
 			if ((field.referencedPropertyType instanceof EnumerationType ||
 				field.referencedPropertyType instanceof NumberType &&
 					(field.referencedPropertyType as NumberType).unitsType !== null ||
-				field.referencedPropertyType instanceof RangeType) &&
+				field.referencedPropertyType instanceof RangeType ||
+				field.referencedPropertyType instanceof RecordType) &&
 				field.referencedPropertyType.getContainerOfType(PropertySet) != propertySet) {
 				imports +=
 					field.referencedPropertyType.getContainerOfType(PropertySet).name.toLowerCase + "." +
@@ -480,7 +481,7 @@ class PropertiesCodeGen {
 			}
 		}
 		'''
-			public class «typeName» {
+			public«IF !topLevel» static«ENDIF» class «typeName» {
 				«FOR field : recordType.ownedFields»
 				«IF field.propertyType instanceof AadlBoolean»
 				private final Optional<Boolean> «field.name.toCamelCase.toFirstLower»;
@@ -545,10 +546,12 @@ class PropertiesCodeGen {
 							.findAny();
 					«ENDFOR»
 				}
+				«IF topLevel»
 				
 				public static «typeName» getValue(PropertyExpression propertyExpression) {
 					return new «typeName»(propertyExpression);
 				}
+				«ENDIF»
 				«FOR field : recordType.ownedFields»
 				
 				«IF field.propertyType instanceof AadlBoolean»
@@ -650,6 +653,9 @@ class PropertiesCodeGen {
 				«ELSEIF field.ownedPropertyType instanceof RangeType»
 				
 				«generateRange(field.name.toCamelCase + "Type", field.ownedPropertyType as RangeType, false)»
+				«ELSEIF field.ownedPropertyType instanceof RecordType»
+				
+				«generateRecord(field.name.toCamelCase + "Type", field.ownedPropertyType as RecordType, false)»
 				«ENDIF»
 				«ENDFOR»
 			}
