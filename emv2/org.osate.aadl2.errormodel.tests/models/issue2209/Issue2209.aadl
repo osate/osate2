@@ -23,7 +23,7 @@ public
 				transitions
 					-- correct: no error marker
 					all -[i]-> FailStop;
-					-- correct error marker: "Referenced error propagation o must be an in propagation"
+					-- correct error marker: "Referenced local error propagation o must be an in propagation"
 					all -[o]-> FailStop;
 					-- wrong error marker: Couldn't resolve reference to 'i'.
 					-- should be: "Referenced error propagation a.i must be an out propagation"
@@ -34,7 +34,7 @@ public
 				propagations
 					-- correct: no error marker
 					FailStop -[i]-> o;
-					-- correct error marker: "Referenced error propagation o must be an in propagation"
+					-- correct error marker: "Referenced local error propagation o must be an in propagation"
 					FailStop -[o]-> o;
 					-- wrong error marker: Couldn't resolve reference to 'i'.
 					-- should be: "Referenced error propagation a.i must be an out propagation"
