@@ -33,5 +33,7 @@ public
 
 			Props::BadListOfPropRefPA1 => (Props::R1_prop, Props::R2_prop, [f1 => 0;]);
 			Props::BadListOfPropRefPA2 => (Props::R1_prop, Props::R2_prop, [f1 => "hello";]);
+			
+			Props::ggg => Props::C1;
     end A;    
 end P;

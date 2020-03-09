@@ -52,7 +52,6 @@ property set Props is
 	BadFieldsListPA1: list of Props::RecordOfRecordTypes applies to (all);
 	
 
-	
 	R1_prop: Props::RecordType1 applies to (all);
 	R2_prop: Props::RecordType2 applies to (all);
 	
@@ -83,5 +82,8 @@ property set Props is
 	BadListOfPropRefDefault2: list of Props::RecordType2 => (Props::R1_prop, Props::R2_prop, [f1 => "hello";]) applies to (all);
 	BadListOfPropRefPA1: list of Props::RecordType1 applies to (all);
 	BadListOfPropRefPA2: list of Props::RecordType2 applies to (all);
+	
+	
+	ggg: list of Props::RecordType1 applies to (all);
 end Props;
 
