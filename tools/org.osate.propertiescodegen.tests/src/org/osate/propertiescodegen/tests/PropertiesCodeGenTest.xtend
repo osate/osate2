@@ -107,8 +107,6 @@ class PropertiesCodeGenTest {
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.EnumerationLiteral;
 			import org.osate.aadl2.NamedValue;
-			import org.osate.aadl2.Property;
-			import org.osate.aadl2.PropertyConstant;
 			import org.osate.aadl2.PropertyExpression;
 			
 			public enum EnumType1 {
@@ -124,15 +122,7 @@ class PropertiesCodeGenTest {
 				
 				public static EnumType1 getValue(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
-					if (abstractNamedValue instanceof EnumerationLiteral) {
-						return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
-					} else if (abstractNamedValue instanceof Property) {
-						throw new IllegalArgumentException("Reference to property not supported");
-					} else if (abstractNamedValue instanceof PropertyConstant) {
-						throw new IllegalArgumentException("Reference to property constant not supported");
-					} else {
-						throw new AssertionError("Unexpected type: " + abstractNamedValue.getClass().getName());
-					}
+					return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
 				@Override
@@ -159,8 +149,6 @@ class PropertiesCodeGenTest {
 			
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
-			import org.osate.aadl2.Property;
-			import org.osate.aadl2.PropertyConstant;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
 			
@@ -189,15 +177,7 @@ class PropertiesCodeGenTest {
 				
 				public static UnitsType1 getValue(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
-					if (abstractNamedValue instanceof UnitLiteral) {
-						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
-					} else if (abstractNamedValue instanceof Property) {
-						throw new IllegalArgumentException("Reference to property not supported");
-					} else if (abstractNamedValue instanceof PropertyConstant) {
-						throw new IllegalArgumentException("Reference to property constant not supported");
-					} else {
-						throw new AssertionError("Unexpected type: " + abstractNamedValue.getClass().getName());
-					}
+					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
 				@Override
@@ -236,8 +216,6 @@ class PropertiesCodeGenTest {
 			
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
-			import org.osate.aadl2.Property;
-			import org.osate.aadl2.PropertyConstant;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
 			
@@ -265,15 +243,7 @@ class PropertiesCodeGenTest {
 				
 				public static Time getValue(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
-					if (abstractNamedValue instanceof UnitLiteral) {
-						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
-					} else if (abstractNamedValue instanceof Property) {
-						throw new IllegalArgumentException("Reference to property not supported");
-					} else if (abstractNamedValue instanceof PropertyConstant) {
-						throw new IllegalArgumentException("Reference to property constant not supported");
-					} else {
-						throw new AssertionError("Unexpected type: " + abstractNamedValue.getClass().getName());
-					}
+					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
 				@Override
@@ -525,8 +495,6 @@ class PropertiesCodeGenTest {
 			
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
-			import org.osate.aadl2.Property;
-			import org.osate.aadl2.PropertyConstant;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
 			
@@ -554,15 +522,7 @@ class PropertiesCodeGenTest {
 				
 				public static Time getValue(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
-					if (abstractNamedValue instanceof UnitLiteral) {
-						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
-					} else if (abstractNamedValue instanceof Property) {
-						throw new IllegalArgumentException("Reference to property not supported");
-					} else if (abstractNamedValue instanceof PropertyConstant) {
-						throw new IllegalArgumentException("Reference to property constant not supported");
-					} else {
-						throw new AssertionError("Unexpected type: " + abstractNamedValue.getClass().getName());
-					}
+					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
 				@Override
