@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -23,6 +23,7 @@
  */
 package org.osate.ge.internal.ui.tools;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -80,6 +81,7 @@ import org.osate.ge.internal.ui.util.DialogPlacementHelper;
 
 public class CreateEndToEndFlowSpecificationTool {
 	private ColoringService.Coloring coloring = null;
+	private AadlModificationService aadlModService;
 	private CreateFlowsToolsDialog dlg;
 	private BusinessObjectContext ciBoc;
 	private ComponentImplementation ci;
@@ -94,7 +96,8 @@ public class CreateEndToEndFlowSpecificationTool {
 			ciBoc = ToolUtil.findComponentImplementationBoc(selectedBoc);
 			if (ciBoc != null) {
 				this.ci = (ComponentImplementation) ciBoc.getBusinessObject();
-				coloring = coloringService.adjustColors(); // Create a coloring object that will allow adjustment of pictogram
+				this.coloring = coloringService.adjustColors(); // Create a coloring object that will allow adjustment of pictogram
+				this.aadlModService = aadlModService;
 
 				uiService.clearSelection();
 				final Display display = Display.getCurrent();
@@ -103,6 +106,7 @@ public class CreateEndToEndFlowSpecificationTool {
 					return;
 				}
 
+				// TODO change getFlows to optional?
 				if (dlg != null && !dlg.getFlows().isEmpty()) {
 					aadlModService.modify(ci, ci -> {
 						for (EndToEndFlow eteFlow : dlg.getFlows()) {
@@ -137,7 +141,8 @@ public class CreateEndToEndFlowSpecificationTool {
 
 	@SelectionChanged
 	public void onSelectionChanged(
-			@Named(InternalNames.SELECTED_DIAGRAM_ELEMENTS) final DiagramElement[] selectedDiagramElements) {
+			@Named(InternalNames.SELECTED_DIAGRAM_ELEMENTS) final DiagramElement[] selectedDiagramElements)
+					throws IOException {
 		if (dlg != null && dlg.getShell() != null && dlg.getShell().isVisible()) {
 			// If the selection is a valid addition to the end to end flow specification, add it.
 			if (dlg.flowSegmentComposite != null && !dlg.flowSegmentComposite.isDisposed()) {
@@ -234,23 +239,40 @@ public class CreateEndToEndFlowSpecificationTool {
 			return Collections.unmodifiableList(flows);
 		}
 
+		// TODO improve error messages, look at flowimpltool setMessage()
+
 		/**
 		 * Determines if the object selected is valid
 		 * @param selectedEle - current selected element
 		 * @param context - current context
 		 * @return - true or false depending if the object selected is valid
+		 * @throws IOException
 		 */
-		private boolean addSelectedElement(final Element selectedEle, final Context context) {
-			if (isValid(getRefinedElement(selectedEle), context)) {
-				if (selectedEle instanceof org.osate.aadl2.Connection) {
-					// Create flow segment with context = null because all valid connections belong to diagram
-					return addFlowSegmentOrModeFeature(createEndToEndFlowSegments(selectedEle, null));
-				} else if (selectedEle instanceof FlowSpecification) {
-					return addFlowSegmentOrModeFeature(createEndToEndFlowSegments(selectedEle, context));
-				} else {
-					return addFlowSegmentOrModeFeature(selectedEle);
-				}
-			}
+		private boolean addSelectedElement(final Element selectedEle, final Context context) throws IOException {
+			// Use prject or throw or optional? projectutil.getproject
+
+
+//			aadlModService.modify(objectToModify, ob -> {
+//				if (selectedEle instanceof org.osate.aadl2.Connection) {
+//					// Create flow segment with context = null because all valid connections belong to diagram
+//					addFlowSegmentOrModeFeature((EndToEndFlow) ob,
+//							createEndToEndFlowSegments((EndToEndFlow) ob, selectedEle, null));
+//				} else if (selectedEle instanceof FlowSpecification) {
+//					addFlowSegmentOrModeFeature((EndToEndFlow) ob,
+//							createEndToEndFlowSegments((EndToEndFlow) ob, selectedEle, context));
+//				} else {
+//					addFlowSegmentOrModeFeature((EndToEndFlow) ob, selectedEle);
+//				}
+//			});
+//
+//			final Diagnostic diagnostic = Diagnostician.INSTANCE.validate(objectToModify);
+//			System.err.println(diagnostic.getClass() + " : " + diagnostic);
+//
+//			System.err.println("DONE: " + objectToModify);
+
+			// final String serializedSrc2 = selectedEle.eResource().get
+			// if (isValid(getRefinedElement(selectedEle), context)) {
+			// }
 			return false;
 		}
 
@@ -293,7 +315,8 @@ public class CreateEndToEndFlowSpecificationTool {
 			return name;
 		}
 
-		private EndToEndFlowSegment createEndToEndFlowSegments(final Element selectedEle, final Context context) {
+		private EndToEndFlowSegment createEndToEndFlowSegments(final EndToEndFlow eTEFlow, final Element selectedEle,
+				final Context context) {
 			final EndToEndFlowSegment eteFlowSegment = eTEFlow.createOwnedEndToEndFlowSegment();
 			eteFlowSegment.setFlowElement((EndToEndFlowElement) selectedEle);
 			eteFlowSegment.setContext(context);
@@ -305,7 +328,7 @@ public class CreateEndToEndFlowSpecificationTool {
 		 * @param object - Flow segment or mode feature added to End to End Flow
 		 * @return - true or false depending on if the object was added to End to End Flow
 		 */
-		private boolean addFlowSegmentOrModeFeature(final Object object) {
+		private boolean addFlowSegmentOrModeFeature(final EndToEndFlow eTEFlow, final Object object) {
 			if (!flowSegmentComposite.isDisposed()) {
 				flowSegmentLabel.setEnabled(true);
 				if (object instanceof EndToEndFlowSegment) {
@@ -548,10 +571,10 @@ public class CreateEndToEndFlowSpecificationTool {
 						modeList.clear();
 						flowSegmentLabel.setText("");
 						for (EndToEndFlowSegment c : eTEFlow.getAllFlowSegments()) {
-							addFlowSegmentOrModeFeature(c);
+							addFlowSegmentOrModeFeature(eTEFlow, c);
 						}
 						for (ModeFeature m : eTEFlow.getInModeOrTransitions()) {
-							addFlowSegmentOrModeFeature(m);
+							addFlowSegmentOrModeFeature(eTEFlow, m);
 						}
 
 						uiService.clearSelection();
