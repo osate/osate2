@@ -79,7 +79,7 @@ class PropertiesJavaValidatorTest extends XtextTest {
 					"Period".assertEquals(property.name)
 					ownedValues.get(0).ownedValue => [
 						// Tests checkUnits
-						assertError(testFileResult.issues, issueCollection, "Number value is missing a unit")
+						assertError(testFileResult.issues, issueCollection, "Property value is not of expected type AADL_Project::Time")
 					]
 				]
 			]
