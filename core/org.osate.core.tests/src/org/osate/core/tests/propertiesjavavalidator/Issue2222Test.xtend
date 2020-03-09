@@ -75,22 +75,26 @@ class Issue2222Test extends XtextTest {
 						"Property value of type Props::RecordType1; expected type Props::RecordType2")
 				]
 
-				(ownedPropertyAssociations.get(10).ownedValues.get(0).ownedValue as RecordValue).ownedFieldValues.get(0).value => [
-					assertError(testFileResult.issues, issueCollection,
-						"Property value of type Props::RecordType2; expected type Props::RecordType1")
-				]
-				(ownedPropertyAssociations.get(10).ownedValues.get(0).ownedValue as RecordValue).ownedFieldValues.get(1).value => [
-					assertError(testFileResult.issues, issueCollection,
-						"Property value of type Props::RecordType1; expected type Props::RecordType2")
+				ownedPropertyAssociations.get(10).ownedValues.get(0).ownedValue as RecordValue => [
+					ownedFieldValues.get(0).value => [
+						assertError(testFileResult.issues, issueCollection,
+							"Property value of type Props::RecordType2; expected type Props::RecordType1")
+					]
+					ownedFieldValues.get(1).value => [
+						assertError(testFileResult.issues, issueCollection,
+							"Property value of type Props::RecordType1; expected type Props::RecordType2")
+					]
 				]
 
-				((ownedPropertyAssociations.get(11).ownedValues.get(0).ownedValue as ListValue).ownedListElements.get(0) as RecordValue).ownedFieldValues.get(0).value => [
-					assertError(testFileResult.issues, issueCollection,
-						"Property value of type Props::RecordType2; expected type Props::RecordType1")
-				]
-				((ownedPropertyAssociations.get(11).ownedValues.get(0).ownedValue as ListValue).ownedListElements.get(0) as RecordValue).ownedFieldValues.get(1).value => [
-					assertError(testFileResult.issues, issueCollection,
-						"Property value of type Props::RecordType1; expected type Props::RecordType2")
+				(ownedPropertyAssociations.get(11).ownedValues.get(0).ownedValue as ListValue).ownedListElements.get(0) as RecordValue => [
+					ownedFieldValues.get(0).value => [
+						assertError(testFileResult.issues, issueCollection,
+							"Property value of type Props::RecordType2; expected type Props::RecordType1")
+					]
+					ownedFieldValues.get(1).value => [
+						assertError(testFileResult.issues, issueCollection,
+							"Property value of type Props::RecordType1; expected type Props::RecordType2")
+					]
 				]
 
 				ownedPropertyAssociations.get(14).ownedValues.get(0).ownedValue => [
@@ -127,8 +131,96 @@ class Issue2222Test extends XtextTest {
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 
 		testFileResult.resource.contents.head as PropertySet => [
-			ownedPropertyConstants.get(2).constantValue => [
-				assertError(testFileResult.issues, issueCollection, "Number value is missing a unit")
+			ownedPropertyConstants.findFirst[name == "BadConstant1"].constantValue => [
+				assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType2; expected type Props::RecordType1");
+			]
+			ownedPropertyConstants.findFirst[name == "BadConstant2"].constantValue => [
+				assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType1; expected type Props::RecordType2");
+			]
+			
+			ownedProperties.findFirst[name == "BadDefault1"].defaultValue => [
+				assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType2; expected type Props::RecordType1");
+			]
+			ownedProperties.findFirst[name == "BadDefault2"].defaultValue => [
+				assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType1; expected type Props::RecordType2");
+			]
+			
+			(ownedPropertyConstants.findFirst[name == "BadListConstant1"].constantValue as ListValue).ownedListElements.get(1) => [
+				assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType2; expected type Props::RecordType1");
+			]
+			(ownedPropertyConstants.findFirst[name == "BadListConstant2"].constantValue as ListValue).ownedListElements.get(0) => [
+				assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType1; expected type Props::RecordType2");
+			]
+			
+			(ownedProperties.findFirst[name == "BadListDefault1"].defaultValue as ListValue).ownedListElements.get(1) => [
+				assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType2; expected type Props::RecordType1");
+			]
+			(ownedProperties.findFirst[name == "BadListDefault2"].defaultValue as ListValue).ownedListElements.get(0) => [
+				assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType1; expected type Props::RecordType2");
+			]
+			
+			ownedPropertyConstants.findFirst[name == "BadFieldsConstant1"].constantValue as RecordValue => [
+				ownedFieldValues.get(0).value => [
+					assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType2; expected type Props::RecordType1");
+				]
+				ownedFieldValues.get(1).value => [
+					assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType1; expected type Props::RecordType2");
+				]
+			]
+			
+			(ownedPropertyConstants.findFirst[name == "BadFieldsListConstant1"].constantValue as ListValue).ownedListElements.get(0) as RecordValue => [
+				ownedFieldValues.get(0).value => [
+					assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType2; expected type Props::RecordType1");
+				]
+				ownedFieldValues.get(1).value => [
+					assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType1; expected type Props::RecordType2");
+				]
+			]
+			
+			ownedProperties.findFirst[name == "BadFieldsDefault1"].defaultValue as RecordValue => [
+				ownedFieldValues.get(0).value => [
+					assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType2; expected type Props::RecordType1");
+				]
+				ownedFieldValues.get(1).value => [
+					assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType1; expected type Props::RecordType2");
+				]
+			]
+
+			(ownedProperties.findFirst[name == "BadFieldsListDefault1"].defaultValue as ListValue).ownedListElements.get(0) as RecordValue => [
+				ownedFieldValues.get(0).value => [
+					assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType2; expected type Props::RecordType1");
+				]
+				ownedFieldValues.get(1).value => [
+					assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType1; expected type Props::RecordType2");
+				]
+			]
+
+			ownedPropertyConstants.findFirst[name == "BadPropRefConstant1"].constantValue => [
+				assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType2; expected type Props::RecordType1");
+			]
+			ownedPropertyConstants.findFirst[name == "BadPropRefConstant2"].constantValue => [
+				assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType1; expected type Props::RecordType2");
+			]
+
+			ownedProperties.findFirst[name == "BadPropRefDefault1"].defaultValue => [
+				assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType2; expected type Props::RecordType1");
+			]
+			ownedProperties.findFirst[name == "BadPropRefDefault2"].defaultValue => [
+				assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType1; expected type Props::RecordType2");
+			]
+
+			(ownedPropertyConstants.findFirst[name == "BadListOfPropRefConstant1"].constantValue as ListValue).ownedListElements.get(1) => [
+				assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType2; expected type Props::RecordType1");
+			]
+			(ownedPropertyConstants.findFirst[name == "BadListOfPropRefConstant2"].constantValue as ListValue).ownedListElements.get(0) => [
+				assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType1; expected type Props::RecordType2");
+			]
+			
+			(ownedProperties.findFirst[name == "BadListOfPropRefDefault1"].defaultValue as ListValue).ownedListElements.get(1) => [
+				assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType2; expected type Props::RecordType1");
+			]
+			(ownedProperties.findFirst[name == "BadListOfPropRefDefault2"].defaultValue as ListValue).ownedListElements.get(0) => [
+				assertError(testFileResult.issues, issueCollection, "Property value of type Props::RecordType1; expected type Props::RecordType2");
 			]
 		]
 		issueCollection.sizeIs(testFileResult.issues.size)
