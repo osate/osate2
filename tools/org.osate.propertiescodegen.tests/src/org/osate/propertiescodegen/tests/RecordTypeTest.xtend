@@ -96,8 +96,6 @@ class RecordTypeTest {
 			
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
-			import org.osate.aadl2.Property;
-			import org.osate.aadl2.PropertyConstant;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
 			
@@ -125,15 +123,7 @@ class RecordTypeTest {
 				
 				public static Time getValue(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
-					if (abstractNamedValue instanceof UnitLiteral) {
-						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
-					} else if (abstractNamedValue instanceof Property) {
-						throw new IllegalArgumentException("Reference to property not supported");
-					} else if (abstractNamedValue instanceof PropertyConstant) {
-						throw new IllegalArgumentException("Reference to property constant not supported");
-					} else {
-						throw new AssertionError("Unexpected type: " + abstractNamedValue.getClass().getName());
-					}
+					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
 				@Override
@@ -320,8 +310,6 @@ class RecordTypeTest {
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.EnumerationLiteral;
 			import org.osate.aadl2.NamedValue;
-			import org.osate.aadl2.Property;
-			import org.osate.aadl2.PropertyConstant;
 			import org.osate.aadl2.PropertyExpression;
 			
 			public enum EnumType1 {
@@ -337,15 +325,7 @@ class RecordTypeTest {
 				
 				public static EnumType1 getValue(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
-					if (abstractNamedValue instanceof EnumerationLiteral) {
-						return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
-					} else if (abstractNamedValue instanceof Property) {
-						throw new IllegalArgumentException("Reference to property not supported");
-					} else if (abstractNamedValue instanceof PropertyConstant) {
-						throw new IllegalArgumentException("Reference to property constant not supported");
-					} else {
-						throw new AssertionError("Unexpected type: " + abstractNamedValue.getClass().getName());
-					}
+					return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
 				@Override
@@ -449,8 +429,6 @@ class RecordTypeTest {
 			import org.osate.aadl2.EnumerationLiteral;
 			import org.osate.aadl2.IntegerLiteral;
 			import org.osate.aadl2.NamedValue;
-			import org.osate.aadl2.Property;
-			import org.osate.aadl2.PropertyConstant;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RangeValue;
 			import org.osate.aadl2.RealLiteral;
@@ -520,15 +498,7 @@ class RecordTypeTest {
 							.filter(field -> field.getProperty().getName().equals("owned_enumeration"))
 							.map(field -> {
 								AbstractNamedValue abstractNamedValue = ((NamedValue) field.getOwnedValue()).getNamedValue();
-								if (abstractNamedValue instanceof EnumerationLiteral) {
-									return OwnedEnumerationType.valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
-								} else if (abstractNamedValue instanceof Property) {
-									throw new IllegalArgumentException("Reference to property not supported");
-								} else if (abstractNamedValue instanceof PropertyConstant) {
-									throw new IllegalArgumentException("Reference to property constant not supported");
-								} else {
-									throw new AssertionError("Unexpected type: " + abstractNamedValue.getClass().getName());
-								}
+								return OwnedEnumerationType.valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
 							})
 							.findAny();
 					ownedUnits = recordValue.getOwnedFieldValues()
@@ -536,15 +506,7 @@ class RecordTypeTest {
 							.filter(field -> field.getProperty().getName().equals("owned_units"))
 							.map(field -> {
 								AbstractNamedValue abstractNamedValue = ((NamedValue) field.getOwnedValue()).getNamedValue();
-								if (abstractNamedValue instanceof UnitLiteral) {
-									return OwnedUnitsType.valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
-								} else if (abstractNamedValue instanceof Property) {
-									throw new IllegalArgumentException("Reference to property not supported");
-								} else if (abstractNamedValue instanceof PropertyConstant) {
-									throw new IllegalArgumentException("Reference to property constant not supported");
-								} else {
-									throw new AssertionError("Unexpected type: " + abstractNamedValue.getClass().getName());
-								}
+								return OwnedUnitsType.valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 							})
 							.findAny();
 					ownedIntegerNoUnits = recordValue.getOwnedFieldValues()
@@ -1610,8 +1572,6 @@ class RecordTypeTest {
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.EnumerationLiteral;
 			import org.osate.aadl2.NamedValue;
-			import org.osate.aadl2.Property;
-			import org.osate.aadl2.PropertyConstant;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
 			
@@ -1625,15 +1585,7 @@ class RecordTypeTest {
 							.filter(field -> field.getProperty().getName().equals("field"))
 							.map(field -> {
 								AbstractNamedValue abstractNamedValue = ((NamedValue) field.getOwnedValue()).getNamedValue();
-								if (abstractNamedValue instanceof EnumerationLiteral) {
-									return FieldType.valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
-								} else if (abstractNamedValue instanceof Property) {
-									throw new IllegalArgumentException("Reference to property not supported");
-								} else if (abstractNamedValue instanceof PropertyConstant) {
-									throw new IllegalArgumentException("Reference to property constant not supported");
-								} else {
-									throw new AssertionError("Unexpected type: " + abstractNamedValue.getClass().getName());
-								}
+								return FieldType.valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
 							})
 							.findAny();
 				}
@@ -1702,8 +1654,6 @@ class RecordTypeTest {
 			
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
-			import org.osate.aadl2.Property;
-			import org.osate.aadl2.PropertyConstant;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
 			import org.osate.aadl2.UnitLiteral;
@@ -1718,15 +1668,7 @@ class RecordTypeTest {
 							.filter(field -> field.getProperty().getName().equals("field"))
 							.map(field -> {
 								AbstractNamedValue abstractNamedValue = ((NamedValue) field.getOwnedValue()).getNamedValue();
-								if (abstractNamedValue instanceof UnitLiteral) {
-									return FieldType.valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
-								} else if (abstractNamedValue instanceof Property) {
-									throw new IllegalArgumentException("Reference to property not supported");
-								} else if (abstractNamedValue instanceof PropertyConstant) {
-									throw new IllegalArgumentException("Reference to property constant not supported");
-								} else {
-									throw new AssertionError("Unexpected type: " + abstractNamedValue.getClass().getName());
-								}
+								return FieldType.valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 							})
 							.findAny();
 				}

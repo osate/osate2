@@ -117,8 +117,6 @@ class PropertiesCodeGen {
 				"org.osate.aadl2.AbstractNamedValue",
 				"org.osate.aadl2.EnumerationLiteral",
 				"org.osate.aadl2.NamedValue",
-				"org.osate.aadl2.Property",
-				"org.osate.aadl2.PropertyConstant",
 				"org.osate.aadl2.PropertyExpression"
 			}
 		}
@@ -136,15 +134,7 @@ class PropertiesCodeGen {
 				
 				public static «typeName» getValue(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
-					if (abstractNamedValue instanceof EnumerationLiteral) {
-						return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
-					} else if (abstractNamedValue instanceof Property) {
-						throw new IllegalArgumentException("Reference to property not supported");
-					} else if (abstractNamedValue instanceof PropertyConstant) {
-						throw new IllegalArgumentException("Reference to property constant not supported");
-					} else {
-						throw new AssertionError("Unexpected type: " + abstractNamedValue.getClass().getName());
-					}
+					return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				«ENDIF»
 				
@@ -161,8 +151,6 @@ class PropertiesCodeGen {
 			imports += #{
 				"org.osate.aadl2.AbstractNamedValue",
 				"org.osate.aadl2.NamedValue",
-				"org.osate.aadl2.Property",
-				"org.osate.aadl2.PropertyConstant",
 				"org.osate.aadl2.PropertyExpression",
 				"org.osate.aadl2.UnitLiteral"
 			}
@@ -192,15 +180,7 @@ class PropertiesCodeGen {
 				
 				public static «typeName» getValue(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
-					if (abstractNamedValue instanceof UnitLiteral) {
-						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
-					} else if (abstractNamedValue instanceof Property) {
-						throw new IllegalArgumentException("Reference to property not supported");
-					} else if (abstractNamedValue instanceof PropertyConstant) {
-						throw new IllegalArgumentException("Reference to property constant not supported");
-					} else {
-						throw new AssertionError("Unexpected type: " + abstractNamedValue.getClass().getName());
-					}
+					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				«ENDIF»
 				
@@ -456,12 +436,7 @@ class PropertiesCodeGen {
 					"org.osate.aadl2.instance.InstanceReferenceValue"
 				}
 			} else if (field.ownedPropertyType instanceof EnumerationType) {
-				imports += #{
-					"org.osate.aadl2.AbstractNamedValue",
-					"org.osate.aadl2.NamedValue",
-					"org.osate.aadl2.Property",
-					"org.osate.aadl2.PropertyConstant"
-				}
+				imports += #{"org.osate.aadl2.AbstractNamedValue", "org.osate.aadl2.NamedValue"}
 				if (field.ownedPropertyType instanceof UnitsType) {
 					imports += "org.osate.aadl2.UnitLiteral"
 				} else {
@@ -520,23 +495,15 @@ class PropertiesCodeGen {
 							.mapToDouble(field -> ((RealLiteral) field.getOwnedValue()).getValue())
 							«ELSEIF field.propertyType instanceof ReferenceType»
 							.map(field -> ((InstanceReferenceValue) field.getOwnedValue()).getReferencedInstanceObject())
+							«ELSEIF field.ownedPropertyType instanceof UnitsType»
+							.map(field -> {
+								AbstractNamedValue abstractNamedValue = ((NamedValue) field.getOwnedValue()).getNamedValue();
+								return «field.name.toCamelCase»Type.valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
+							})
 							«ELSEIF field.ownedPropertyType instanceof EnumerationType»
 							.map(field -> {
 								AbstractNamedValue abstractNamedValue = ((NamedValue) field.getOwnedValue()).getNamedValue();
-								«IF field.ownedPropertyType instanceof UnitsType»
-								if (abstractNamedValue instanceof UnitLiteral) {
-									return «field.name.toCamelCase»Type.valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
-								«ELSE»
-								if (abstractNamedValue instanceof EnumerationLiteral) {
-									return «field.name.toCamelCase»Type.valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
-								«ENDIF»
-								} else if (abstractNamedValue instanceof Property) {
-									throw new IllegalArgumentException("Reference to property not supported");
-								} else if (abstractNamedValue instanceof PropertyConstant) {
-									throw new IllegalArgumentException("Reference to property constant not supported");
-								} else {
-									throw new AssertionError("Unexpected type: " + abstractNamedValue.getClass().getName());
-								}
+								return «field.name.toCamelCase»Type.valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
 							})
 							«ELSEIF field.ownedPropertyType !== null»
 							.map(field -> new «field.name.toCamelCase»Type(field.getOwnedValue()))
