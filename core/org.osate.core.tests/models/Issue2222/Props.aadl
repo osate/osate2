@@ -44,10 +44,22 @@ property set Props is
 	GoodFieldsPA1: Props::RecordOfRecordTypes applies to (all);
 	GoodFieldsListPA: list of Props::RecordOfRecordTypes applies to (all);
 
-	BadFieldsConstant1: constant Props::RecordOfRecordTypes => [q1 => Props::C2; q2 => Props::C1;];
-	BadFieldsListConstant1: constant list of Props::RecordOfRecordTypes => ([q1 => Props::C2; q2 => Props::C1;]);
-	BadFieldsDefault1: Props::RecordOfRecordTypes => [q1 => Props::C2; q2 => Props::C1;] applies to (all);
-	BadFieldsListDefault1: list of Props::RecordOfRecordTypes => ([q1 => Props::C2; q2 => Props::C1;]) applies to (all);
+	BadFieldsConstant1: constant Props::RecordOfRecordTypes => [
+		q1 => Props::C2;
+		q2 => Props::C1;
+	];
+	BadFieldsListConstant1: constant list of Props::RecordOfRecordTypes => ([
+		q1 => Props::C2;
+		q2 => Props::C1;
+	]);
+	BadFieldsDefault1: Props::RecordOfRecordTypes => [
+		q1 => Props::C2;
+		q2 => Props::C1;
+	] applies to (all);
+	BadFieldsListDefault1: list of Props::RecordOfRecordTypes => ([
+		q1 => Props::C2;
+		q2 => Props::C1;
+	]) applies to (all);
 	BadFieldsPA1: Props::RecordOfRecordTypes applies to (all);
 	BadFieldsListPA1: list of Props::RecordOfRecordTypes applies to (all);
 	

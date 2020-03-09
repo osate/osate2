@@ -19,8 +19,14 @@ public
 			Props::GoodFieldsPA1 => [q1 => Props::C1; q2 => Props::C2;];
 			Props::GoodFieldsListPA => ([q1 => Props::C1; q2 => Props::C2;]);
 			
-			Props::BadFieldsPA1 => [q1 => Props::C2; q2 => Props::C1;];
-			Props::BadFieldsListPA1 => ([q1 => Props::C2; q2 => Props::C1;]);
+			Props::BadFieldsPA1 => [
+				q1 => Props::C2;
+				q2 => Props::C1;
+			];
+			Props::BadFieldsListPA1 => ([
+				q1 => Props::C2;
+				q2 => Props::C1;
+			]);
 			
 			Props::GoodPropRefPA1 => Props::R1_prop;
 			Props::GoodPropRefPA2 => Props::R2_prop;
