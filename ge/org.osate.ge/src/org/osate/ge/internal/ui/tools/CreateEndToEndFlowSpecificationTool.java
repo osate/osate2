@@ -96,10 +96,9 @@ public class CreateEndToEndFlowSpecificationTool {
 				coloring = coloringService.adjustColors(); // Create a coloring object that will allow adjustment of pictogram
 				final Display display = Display.getCurrent();
 				dlg = new CreateFlowsToolsDialog(display.getActiveShell(), namingService, uiService);
-				// Create to add first selection
+				// Create and update based on current selection
 				dlg.create();
-				// Add first selection if valid
-				this.onSelectionChanged(new BusinessObjectContext[] { selectedBoc });
+				update(new BusinessObjectContext[] { selectedBoc }, true);
 				if (dlg.open() == Window.CANCEL) {
 					return;
 				}
@@ -138,13 +137,20 @@ public class CreateEndToEndFlowSpecificationTool {
 
 	@SelectionChanged
 	public void onSelectionChanged(final @Named(Names.BUSINESS_OBJECT_CONTEXTS) BusinessObjectContext[] bocs) {
+		update(bocs, false);
+	}
+
+	/**
+	 * Update the diagram and tool dialog
+	 * @param selectedBocs - the selected bocs
+	 * @param isInit - whether the selected bocs are the inital selection when the tool was activated
+	 */
+	private void update(final BusinessObjectContext[] bocs, final boolean isInit) {
 		if (dlg != null && dlg.getShell() != null && !dlg.getShell().isDisposed() && dlg.flowSegmentComposite != null
 				&& !dlg.flowSegmentComposite.isDisposed()) {
 			// If the selection is a valid addition to the end to end flow specification, add it.
 			if (bocs.length > 1) {
-				dlg.setErrorMessage(
-						"Multiple elements selected. Select a single element. " + " "
-								+ getDialogMessage());
+				dlg.setErrorMessage("Multiple elements selected. Select a single element. " + " " + getDialogMessage());
 			} else if (bocs.length == 1) {
 				// Get the selected boc
 				final BusinessObjectContext selectedBoc = (BusinessObjectContext) bocs[0];
@@ -162,7 +168,7 @@ public class CreateEndToEndFlowSpecificationTool {
 						}
 					}
 					previouslySelectedBocs.add(selectedBoc);
-				} else {
+				} else if (!isInit) {
 					error = "Invalid element selected.  ";
 				}
 
@@ -371,7 +377,7 @@ public class CreateEndToEndFlowSpecificationTool {
 		}
 
 		private void updateWidgets() {
-			dlg.setMessage(CreateEndToEndFlowSpecificationTool.this.getDialogMessage());
+			dlg.setMessage(getDialogMessage());
 			setNavigationButtonsEnabled(isCompleteAndValid() && eTEFlow.getName().length() != 0);
 		}
 
@@ -561,6 +567,8 @@ public class CreateEndToEndFlowSpecificationTool {
 						}
 
 						uiService.clearSelection();
+						// Clear error message
+						dlg.setErrorMessage(null);
 						updateWidgets();
 					}
 				}

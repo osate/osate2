@@ -87,8 +87,9 @@ public class CreateFlowImplementationTool {
 			this.coloring = coloringService.adjustColors();
 
 			dlg = new CreateFlowImplementationDialog(Display.getCurrent().getActiveShell(), uiService, coloring);
+			// Create and update based on current selection
 			dlg.create();
-			this.onSelectionChanged(new BusinessObjectContext[] { selectedBoc });
+			update(new BusinessObjectContext[] { selectedBoc }, true);
 			if (dlg.open() == Window.CANCEL) {
 				return;
 			}
@@ -102,6 +103,23 @@ public class CreateFlowImplementationTool {
 			}
 		} finally {
 			uiService.deactivateActiveTool();
+		}
+	}
+
+	/**
+	 * Update the diagram and tool dialog
+	 * @param selectedBocs - the selected bocs
+	 * @param isInit - whether the selected bocs are the inital selection when the tool was activated
+	 */
+	private void update(final BusinessObjectContext[] selectedBocs, final boolean isInit) {
+		if (dlg != null && dlg.getShell() != null && !dlg.getShell().isDisposed()) {
+			// If the selection is a valid addition to the flow implementation, add it
+			if (selectedBocs.length > 1) {
+				dlg.setMultipleElementsSelected(true);
+			} else if (selectedBocs.length == 1) {
+				dlg.setMultipleElementsSelected(false);
+				dlg.addSelectedElement(selectedBocs[0], isInit);
+			}
 		}
 	}
 
@@ -122,15 +140,7 @@ public class CreateFlowImplementationTool {
 
 	@SelectionChanged
 	public void onSelectionChanged(@Named(Names.BUSINESS_OBJECT_CONTEXTS) final BusinessObjectContext[] selectedBocs) {
-		if (dlg != null && dlg.getShell() != null && !dlg.getShell().isDisposed()) {
-			// If the selection is a valid addition to the flow implementation, add it
-			if (selectedBocs.length > 1) {
-				dlg.setMultipleElementsSelected(true);
-			} else if (selectedBocs.length == 1) {
-				dlg.setMultipleElementsSelected(false);
-				dlg.addSelectedElement(selectedBocs[0]);
-			}
-		}
+		update(selectedBocs, false);
 	}
 
 	/**
@@ -357,9 +367,9 @@ public class CreateFlowImplementationTool {
 
 		/**
 		 * @param boc - the business object context for the selected element
-		 * @return - true or false depending if the selected element was added to the flow implementation
+		 * @param isInit - whether the boc is the initial selection when tool is activated
 		 */
-		public void addSelectedElement(final BusinessObjectContext boc) {
+		public void addSelectedElement(final BusinessObjectContext boc, final boolean isInit) {
 			// Decide whether to add the element to the selection list
 			boolean add = false;
 			final Object bo = boc.getBusinessObject();
@@ -395,8 +405,8 @@ public class CreateFlowImplementationTool {
 				userSelections.add(boc);
 
 				// Update the UI
-				update();
-			} else {
+				updateWidgets();
+			} else if (!isInit) {
 				setErrorMessage("Invalid element selected. " + getDirectionMessage());
 			}
 		}
@@ -450,7 +460,7 @@ public class CreateFlowImplementationTool {
 		/**
 		 * Updates the UI
 		 */
-		private void update() {
+		private void updateWidgets() {
 			getButton(IDialogConstants.OK_ID).setEnabled(isFlowComplete());
 			undoButton.setEnabled(userSelections.size() > 0);
 
@@ -571,7 +581,7 @@ public class CreateFlowImplementationTool {
 			super.create();
 			setTitle("Select Elements");
 			ContextHelpUtil.setHelp(getShell(), ContextHelpUtil.FLOW_IMPL_TOOL);
-			update();
+			updateWidgets();
 		}
 
 		@Override
@@ -610,7 +620,7 @@ public class CreateFlowImplementationTool {
 					if(userSelections.size() > 0) {
 						userSelections.remove(userSelections.size()-1);
 						uiService.clearSelection();
-						update();
+						updateWidgets();
 					}
 				}
 			});
