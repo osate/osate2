@@ -63,5 +63,23 @@ censes only apply to the Third Party Software and not any other portion of this 
             name="EMV2 Annex Unparser"
             id="org.osate.aadl2.emv2.unparser"/>
    </extension>
+   <extension
+         id="EMV2Instantiator"
+         name="EMV2I"
+         point="org.osate.annexsupport.instantiator">
+      <instantiator
+            annexName="EMV2"
+            class="org.osate.xtext.aadl2.errormodel.instantiation.EMV2AnnexInstantiator"
+            name="EMV2 Annex Instantiator"
+            id="org.osate.aadl2.emv2.instantiator"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated EMV2Instance -->
+      <package
+            uri="http://www.osate.org/EMV2Instance"
+            class="org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage"
+            genModel="model/EMV2Instance.genmodel"/>
+   </extension>
 
 </plugin>

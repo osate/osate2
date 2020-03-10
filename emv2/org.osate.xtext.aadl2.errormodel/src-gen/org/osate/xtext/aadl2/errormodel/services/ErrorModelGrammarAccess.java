@@ -52,8 +52,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		// * Note about symbolic labels as values for occurrence probability:
 		// * Use property constant. The core allows it instead of an actual number.
 		// * The tools generating stochastic models from such specification can interpret the constant name as the desired label.
-		// */ // allow either of the two to be the root. Needed dummy 'library' keyword
-		//EMV2Root aadl2::NamedElement:
+		// */
+		//// allow either of the two to be the root. Needed dummy 'library' keyword
+		// EMV2Root aadl2::NamedElement:
 		//	{EMV2Root} (library=EMV2Library | subclauses+=EMV2Subclause*);
 		@Override public ParserRule getRule() { return rule; }
 
@@ -124,11 +125,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cEventOrPropagationParserRuleCall_15 = (RuleCall)cAlternatives.eContents().get(15);
 		
 		//NamedElement aadl2::NamedElement:
-		//	ErrorModelLibrary | ErrorTypes | ErrorBehaviorEvent | ErrorBehaviorState | ErrorBehaviorTransition
-		//	| ErrorFlow | ErrorPropagation | OutgoingPropagationCondition
-		//	| PropagationPath | PropagationPoint | CompositeState
-		//	| TypeTransformationSet | TypeMappingSet | ErrorBehaviorStateMachine
-		//	| ErrorDetection | EventOrPropagation;
+		//	ErrorModelLibrary | ErrorTypes | ErrorBehaviorEvent | ErrorBehaviorState | ErrorBehaviorTransition | ErrorFlow |
+		//	ErrorPropagation | OutgoingPropagationCondition | PropagationPath | PropagationPoint | CompositeState |
+		//	TypeTransformationSet | TypeMappingSet | ErrorBehaviorStateMachine | ErrorDetection | EventOrPropagation;
 		@Override public ParserRule getRule() { return rule; }
 
 		//ErrorModelLibrary | ErrorTypes | ErrorBehaviorEvent | ErrorBehaviorState | ErrorBehaviorTransition | ErrorFlow |
@@ -222,19 +221,16 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cEMV2PathElementParserRuleCall_19 = (RuleCall)cAlternatives.eContents().get(19);
 		
 		//Element aadl2::Element:
-		//	TypeSetElement
-		//	| TypeTransformation | TypeMapping
-		//	| QualifiedPropagationPoint | TransitionBranch | BranchValue | ErrorCodeValue
-		//	| ConditionElement | AndExpression | ConditionTerm
-		//	| ConditionExpression | OrmoreExpression | OrlessExpression
-		//	| ErrorStateToModeMapping | QualifiedErrorBehaviorState
-		//	| SubcomponentElement | FeatureorPPReference | EMV2PropertyAssociation | EMV2Path | EMV2PathElement;
+		//	TypeSetElement | TypeTransformation | TypeMapping | QualifiedPropagationPoint | TransitionBranch | BranchValue |
+		//	ErrorCodeValue | ConditionElement | AndExpression | ConditionTerm | ConditionExpression | OrmoreExpression |
+		//	OrlessExpression | ErrorStateToModeMapping | QualifiedErrorBehaviorState | SubcomponentElement | FeatureorPPReference
+		//	| EMV2PropertyAssociation | EMV2Path | EMV2PathElement;
 		@Override public ParserRule getRule() { return rule; }
 
 		//TypeSetElement | TypeTransformation | TypeMapping | QualifiedPropagationPoint | TransitionBranch | BranchValue |
 		//ErrorCodeValue | ConditionElement | AndExpression | ConditionTerm | ConditionExpression | OrmoreExpression |
-		//OrlessExpression | ErrorStateToModeMapping | QualifiedErrorBehaviorState | SubcomponentElement | FeatureorPPReference |
-		//EMV2PropertyAssociation | EMV2Path | EMV2PathElement
+		//OrlessExpression | ErrorStateToModeMapping | QualifiedErrorBehaviorState | SubcomponentElement | FeatureorPPReference
+		//| EMV2PropertyAssociation | EMV2Path | EMV2PathElement
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//TypeSetElement
@@ -406,43 +402,35 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ErrorModelSubclause:
 		//	{ErrorModelSubclause} (UseTypesKeywords useTypes+=[ErrorModelLibrary|QEMREF] (','
-		//	useTypes+=[ErrorModelLibrary|QEMREF])* ';')? (UseTypeEquivalenceKeywords typeEquivalence=[TypeMappingSet|QEMREF] ';')?
-		//	(UseMappingsKeywords typeMappingSet=[TypeMappingSet|QEMREF] ';')? (UseBehaviorKeywords
+		//	useTypes+=[ErrorModelLibrary|QEMREF])* ';')? (UseTypeEquivalenceKeywords typeEquivalence=[TypeMappingSet|QEMREF]
+		//	';')? (UseMappingsKeywords typeMappingSet=[TypeMappingSet|QEMREF] ';')? (UseBehaviorKeywords
 		//	useBehavior=[ErrorBehaviorStateMachine|QEMREF]
 		//	//   	('(' stateTypeBindings+=StateTypeBinding (',' stateTypeBindings+=StateTypeBinding)*')')?
-		//	';')? (ErrorPropagationsKeywords
-		//	propagations+=ErrorPropagation* ('flows'
-		//	flows+=ErrorFlow+)?
-		//	EndPropagationsKeywords ';')? (ComponentErrorBehaviorKeywords (UseTransformationsKeywords
-		//	useTransformation=[TypeTransformationSet|QEMREF] ';')? ('events' events+=ErrorBehaviorEvent+)? ('transitions'
-		//	transitions+=ErrorBehaviorTransition+)? ('propagations'
-		//	outgoingPropagationConditions+=OutgoingPropagationCondition+)? ('detections'
-		//	errorDetections+=ErrorDetection+)? (ModeMappingsKeywords
-		//	errorStateToModeMappings+=ErrorStateToModeMapping+)?
-		//	EndComponentKeywords ';')? (CompositeErrorBehaviorKeywords ('states'
-		//	states+=CompositeState+)?
-		//	EndCompositeKeywords ';')? (ConnectionErrorKeywords (UseTransformationsKeywords
-		//	typeTransformationSet=[TypeTransformationSet|QEMREF] ';')?
-		//	connectionErrorSources+=ErrorSource*
-		//	EndConnectionKeywords ';')? (PropagationPathsKeywords
-		//	points+=PropagationPoint*
-		//	paths+=PropagationPath*
-		//	EndPathsKeywords ';')? ('properties'
-		//	properties+=EMV2PropertyAssociation+)?
-		//	//	'**}'
+		// ';')?
+		//	(ErrorPropagationsKeywords propagations+=ErrorPropagation* ('flows' flows+=ErrorFlow+)? EndPropagationsKeywords ';')?
+		//	(ComponentErrorBehaviorKeywords (UseTransformationsKeywords useTransformation=[TypeTransformationSet|QEMREF] ';')?
+		//	('events' events+=ErrorBehaviorEvent+)? ('transitions' transitions+=ErrorBehaviorTransition+)? ('propagations'
+		//	outgoingPropagationConditions+=OutgoingPropagationCondition+)? ('detections' errorDetections+=ErrorDetection+)?
+		//	(ModeMappingsKeywords errorStateToModeMappings+=ErrorStateToModeMapping+)? EndComponentKeywords ';')?
+		//	(CompositeErrorBehaviorKeywords ('states' states+=CompositeState+)? EndCompositeKeywords ';')?
+		//	(ConnectionErrorKeywords (UseTransformationsKeywords typeTransformationSet=[TypeTransformationSet|QEMREF] ';')?
+		//	connectionErrorSources+=ErrorSource* EndConnectionKeywords ';')? (PropagationPathsKeywords points+=PropagationPoint*
+		//	paths+=PropagationPath* EndPathsKeywords ';')? ('properties' properties+=EMV2PropertyAssociation+)? //	'**}'
 		//;
 		@Override public ParserRule getRule() { return rule; }
 
 		//{ErrorModelSubclause} (UseTypesKeywords useTypes+=[ErrorModelLibrary|QEMREF] (',' useTypes+=[ErrorModelLibrary|QEMREF])*
 		//';')? (UseTypeEquivalenceKeywords typeEquivalence=[TypeMappingSet|QEMREF] ';')? (UseMappingsKeywords
-		//typeMappingSet=[TypeMappingSet|QEMREF] ';')? (UseBehaviorKeywords useBehavior=[ErrorBehaviorStateMachine|QEMREF] //   	('(' stateTypeBindings+=StateTypeBinding (',' stateTypeBindings+=StateTypeBinding)*')')?
-		//';')? (ErrorPropagationsKeywords propagations+=ErrorPropagation* ('flows' flows+=ErrorFlow+)? EndPropagationsKeywords
-		//';')? (ComponentErrorBehaviorKeywords (UseTransformationsKeywords useTransformation=[TypeTransformationSet|QEMREF]
-		//';')? ('events' events+=ErrorBehaviorEvent+)? ('transitions' transitions+=ErrorBehaviorTransition+)? ('propagations'
+		//typeMappingSet=[TypeMappingSet|QEMREF] ';')? (UseBehaviorKeywords useBehavior=[ErrorBehaviorStateMachine|QEMREF]
+		////   	('(' stateTypeBindings+=StateTypeBinding (',' stateTypeBindings+=StateTypeBinding)*')')?
+		// ';')?
+		//(ErrorPropagationsKeywords propagations+=ErrorPropagation* ('flows' flows+=ErrorFlow+)? EndPropagationsKeywords ';')?
+		//(ComponentErrorBehaviorKeywords (UseTransformationsKeywords useTransformation=[TypeTransformationSet|QEMREF] ';')?
+		//('events' events+=ErrorBehaviorEvent+)? ('transitions' transitions+=ErrorBehaviorTransition+)? ('propagations'
 		//outgoingPropagationConditions+=OutgoingPropagationCondition+)? ('detections' errorDetections+=ErrorDetection+)?
 		//(ModeMappingsKeywords errorStateToModeMappings+=ErrorStateToModeMapping+)? EndComponentKeywords ';')?
-		//(CompositeErrorBehaviorKeywords ('states' states+=CompositeState+)? EndCompositeKeywords ';')? (ConnectionErrorKeywords
-		//(UseTransformationsKeywords typeTransformationSet=[TypeTransformationSet|QEMREF] ';')?
+		//(CompositeErrorBehaviorKeywords ('states' states+=CompositeState+)? EndCompositeKeywords ';')?
+		//(ConnectionErrorKeywords (UseTransformationsKeywords typeTransformationSet=[TypeTransformationSet|QEMREF] ';')?
 		//connectionErrorSources+=ErrorSource* EndConnectionKeywords ';')? (PropagationPathsKeywords points+=PropagationPoint*
 		//paths+=PropagationPath* EndPathsKeywords ';')? ('properties' properties+=EMV2PropertyAssociation+)?
 		public Group getGroup() { return cGroup; }
@@ -519,8 +507,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//';'
 		public Keyword getSemicolonKeyword_3_2() { return cSemicolonKeyword_3_2; }
 
-		//(UseBehaviorKeywords useBehavior=[ErrorBehaviorStateMachine|QEMREF] //   	('(' stateTypeBindings+=StateTypeBinding (',' stateTypeBindings+=StateTypeBinding)*')')?
-		//';')?
+		//(UseBehaviorKeywords useBehavior=[ErrorBehaviorStateMachine|QEMREF]
+		////   	('(' stateTypeBindings+=StateTypeBinding (',' stateTypeBindings+=StateTypeBinding)*')')?
+		// ';')?
 		public Group getGroup_4() { return cGroup_4; }
 
 		//UseBehaviorKeywords
@@ -536,7 +525,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getUseBehaviorErrorBehaviorStateMachineQEMREFParserRuleCall_4_1_0_1() { return cUseBehaviorErrorBehaviorStateMachineQEMREFParserRuleCall_4_1_0_1; }
 
 		////   	('(' stateTypeBindings+=StateTypeBinding (',' stateTypeBindings+=StateTypeBinding)*')')?
-		//';'
+		// ';'
 		public Keyword getSemicolonKeyword_4_2() { return cSemicolonKeyword_4_2; }
 
 		//(ErrorPropagationsKeywords propagations+=ErrorPropagation* ('flows' flows+=ErrorFlow+)? EndPropagationsKeywords ';')?
@@ -873,46 +862,40 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//EMV2Subclause ErrorModelSubclause:
 		//	{ErrorModelSubclause} 'subclause' name=QCREF (UseTypesKeywords useTypes+=[ErrorModelLibrary|QEMREF] (','
-		//	useTypes+=[ErrorModelLibrary|QEMREF])* ';')? (UseTypeEquivalenceKeywords typeEquivalence=[TypeMappingSet|QEMREF] ';')?
-		//	(UseMappingsKeywords typeMappingSet=[TypeMappingSet|QEMREF] ';')? (UseBehaviorKeywords
+		//	useTypes+=[ErrorModelLibrary|QEMREF])* ';')? (UseTypeEquivalenceKeywords typeEquivalence=[TypeMappingSet|QEMREF]
+		//	';')? (UseMappingsKeywords typeMappingSet=[TypeMappingSet|QEMREF] ';')? (UseBehaviorKeywords
 		//	useBehavior=[ErrorBehaviorStateMachine|QEMREF]
 		//	//   	('(' stateTypeBindings+=StateTypeBinding (',' stateTypeBindings+=StateTypeBinding)*')')?
-		//	';')? (ErrorPropagationsKeywords
-		//	propagations+=ErrorPropagation* ('flows'
-		//	flows+=ErrorFlow+)?
-		//	EndPropagationsKeywords ';')? (ComponentErrorBehaviorKeywords (UseTransformationsKeywords
-		//	useTransformation=[TypeTransformationSet|QEMREF] ';')? ('events' events+=ErrorBehaviorEvent+)? ('transitions'
-		//	transitions+=ErrorBehaviorTransition+)? ('propagations'
-		//	outgoingPropagationConditions+=OutgoingPropagationCondition+)? ('detections'
-		//	errorDetections+=ErrorDetection+)? (ModeMappingsKeywords
-		//	errorStateToModeMappings+=ErrorStateToModeMapping+)?
-		//	EndComponentKeywords ';')? (CompositeErrorBehaviorKeywords ('states'
-		//	states+=CompositeState+)?
-		//	EndCompositeKeywords ';')? (ConnectionErrorKeywords (UseTransformationsKeywords
-		//	typeTransformationSet=[TypeTransformationSet|QEMREF] ';')?
-		//	connectionErrorSources+=ErrorSource*
-		//	EndConnectionKeywords ';')? (PropagationPathsKeywords
-		//	points+=PropagationPoint*
-		//	paths+=PropagationPath*
-		//	EndPathsKeywords ';')? ('properties'
-		//	properties+=EMV2PropertyAssociation+)?
-		//	//	'**}'
+		// ';')?
+		//	(ErrorPropagationsKeywords propagations+=ErrorPropagation* ('flows' flows+=ErrorFlow+)? EndPropagationsKeywords ';')?
+		//	(ComponentErrorBehaviorKeywords (UseTransformationsKeywords useTransformation=[TypeTransformationSet|QEMREF] ';')?
+		//	('events' events+=ErrorBehaviorEvent+)? ('transitions' transitions+=ErrorBehaviorTransition+)? ('propagations'
+		//	outgoingPropagationConditions+=OutgoingPropagationCondition+)? ('detections' errorDetections+=ErrorDetection+)?
+		//	(ModeMappingsKeywords errorStateToModeMappings+=ErrorStateToModeMapping+)? EndComponentKeywords ';')?
+		//	(CompositeErrorBehaviorKeywords ('states' states+=CompositeState+)? EndCompositeKeywords ';')?
+		//	(ConnectionErrorKeywords (UseTransformationsKeywords typeTransformationSet=[TypeTransformationSet|QEMREF] ';')?
+		//	connectionErrorSources+=ErrorSource* EndConnectionKeywords ';')? (PropagationPathsKeywords points+=PropagationPoint*
+		//	paths+=PropagationPath* EndPathsKeywords ';')? ('properties' properties+=EMV2PropertyAssociation+)? //	'**}'
+		//
 		//	EndSubclauseKeywords ';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//{ErrorModelSubclause} 'subclause' name=QCREF (UseTypesKeywords useTypes+=[ErrorModelLibrary|QEMREF] (','
 		//useTypes+=[ErrorModelLibrary|QEMREF])* ';')? (UseTypeEquivalenceKeywords typeEquivalence=[TypeMappingSet|QEMREF] ';')?
 		//(UseMappingsKeywords typeMappingSet=[TypeMappingSet|QEMREF] ';')? (UseBehaviorKeywords
-		//useBehavior=[ErrorBehaviorStateMachine|QEMREF] //   	('(' stateTypeBindings+=StateTypeBinding (',' stateTypeBindings+=StateTypeBinding)*')')?
-		//';')? (ErrorPropagationsKeywords propagations+=ErrorPropagation* ('flows' flows+=ErrorFlow+)? EndPropagationsKeywords
-		//';')? (ComponentErrorBehaviorKeywords (UseTransformationsKeywords useTransformation=[TypeTransformationSet|QEMREF]
-		//';')? ('events' events+=ErrorBehaviorEvent+)? ('transitions' transitions+=ErrorBehaviorTransition+)? ('propagations'
+		//useBehavior=[ErrorBehaviorStateMachine|QEMREF]
+		////   	('(' stateTypeBindings+=StateTypeBinding (',' stateTypeBindings+=StateTypeBinding)*')')?
+		// ';')?
+		//(ErrorPropagationsKeywords propagations+=ErrorPropagation* ('flows' flows+=ErrorFlow+)? EndPropagationsKeywords ';')?
+		//(ComponentErrorBehaviorKeywords (UseTransformationsKeywords useTransformation=[TypeTransformationSet|QEMREF] ';')?
+		//('events' events+=ErrorBehaviorEvent+)? ('transitions' transitions+=ErrorBehaviorTransition+)? ('propagations'
 		//outgoingPropagationConditions+=OutgoingPropagationCondition+)? ('detections' errorDetections+=ErrorDetection+)?
 		//(ModeMappingsKeywords errorStateToModeMappings+=ErrorStateToModeMapping+)? EndComponentKeywords ';')?
-		//(CompositeErrorBehaviorKeywords ('states' states+=CompositeState+)? EndCompositeKeywords ';')? (ConnectionErrorKeywords
-		//(UseTransformationsKeywords typeTransformationSet=[TypeTransformationSet|QEMREF] ';')?
+		//(CompositeErrorBehaviorKeywords ('states' states+=CompositeState+)? EndCompositeKeywords ';')?
+		//(ConnectionErrorKeywords (UseTransformationsKeywords typeTransformationSet=[TypeTransformationSet|QEMREF] ';')?
 		//connectionErrorSources+=ErrorSource* EndConnectionKeywords ';')? (PropagationPathsKeywords points+=PropagationPoint*
 		//paths+=PropagationPath* EndPathsKeywords ';')? ('properties' properties+=EMV2PropertyAssociation+)? //	'**}'
+		//
 		//EndSubclauseKeywords ';'
 		public Group getGroup() { return cGroup; }
 
@@ -997,8 +980,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//';'
 		public Keyword getSemicolonKeyword_5_2() { return cSemicolonKeyword_5_2; }
 
-		//(UseBehaviorKeywords useBehavior=[ErrorBehaviorStateMachine|QEMREF] //   	('(' stateTypeBindings+=StateTypeBinding (',' stateTypeBindings+=StateTypeBinding)*')')?
-		//';')?
+		//(UseBehaviorKeywords useBehavior=[ErrorBehaviorStateMachine|QEMREF]
+		////   	('(' stateTypeBindings+=StateTypeBinding (',' stateTypeBindings+=StateTypeBinding)*')')?
+		// ';')?
 		public Group getGroup_6() { return cGroup_6; }
 
 		//UseBehaviorKeywords
@@ -1014,7 +998,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getUseBehaviorErrorBehaviorStateMachineQEMREFParserRuleCall_6_1_0_1() { return cUseBehaviorErrorBehaviorStateMachineQEMREFParserRuleCall_6_1_0_1; }
 
 		////   	('(' stateTypeBindings+=StateTypeBinding (',' stateTypeBindings+=StateTypeBinding)*')')?
-		//';'
+		// ';'
 		public Keyword getSemicolonKeyword_6_2() { return cSemicolonKeyword_6_2; }
 
 		//(ErrorPropagationsKeywords propagations+=ErrorPropagation* ('flows' flows+=ErrorFlow+)? EndPropagationsKeywords ';')?
@@ -1238,7 +1222,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getPropertiesEMV2PropertyAssociationParserRuleCall_12_1_0() { return cPropertiesEMV2PropertyAssociationParserRuleCall_12_1_0; }
 
 		////	'**}'
-		//EndSubclauseKeywords
+		// EndSubclauseKeywords
 		public RuleCall getEndSubclauseKeywordsParserRuleCall_13() { return cEndSubclauseKeywordsParserRuleCall_13; }
 
 		//';'
@@ -1294,14 +1278,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//ErrorModelLibrary:
 		//	{ErrorModelLibrary} (ErrorTypesKeywords (UseTypesKeywords useTypes+=[ErrorModelLibrary|QEMREF] (','
 		//	useTypes+=[ErrorModelLibrary|QEMREF])* ';')? ('extends' extends+=[ErrorModelLibrary|QEMREF] (','
-		//	extends+=[ErrorModelLibrary|QEMREF])*
-		//	'with')? (types+=TypeDefinition | typesets+=TypeSetDefinition)* ('properties'
-		//	properties+=BasicEMV2PropertyAssociation+)?
-		//	EndTypesKeywords ';')?
-		//	behaviors+=ErrorBehaviorStateMachine*
-		//	mappings+=TypeMappingSet*
-		//	transformations+=TypeTransformationSet*
-		//	//	'**}'
+		//	extends+=[ErrorModelLibrary|QEMREF])* 'with')? (types+=TypeDefinition | typesets+=TypeSetDefinition)* ('properties'
+		//	properties+=BasicEMV2PropertyAssociation+)? EndTypesKeywords ';')? behaviors+=ErrorBehaviorStateMachine*
+		//	mappings+=TypeMappingSet* transformations+=TypeTransformationSet* //	'**}'
 		//;
 		@Override public ParserRule getRule() { return rule; }
 
@@ -1550,23 +1529,14 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//EMV2Library ErrorModelLibrary:
 		//	{ErrorModelLibrary} ('library' name=QEMREF (ErrorTypesKeywords (UseTypesKeywords useTypes+=[ErrorModelLibrary|QEMREF]
 		//	(',' useTypes+=[ErrorModelLibrary|QEMREF])* ';')? ('extends' extends+=[ErrorModelLibrary|QEMREF] (','
-		//	extends+=[ErrorModelLibrary|QEMREF])*
-		//	'with')? (types+=TypeDefinition | typesets+=TypeSetDefinition)* ('properties'
-		//	properties+=BasicEMV2PropertyAssociation+)?
-		//	EndTypesKeywords ';')?
-		//	behaviors+=ErrorBehaviorStateMachine*
-		//	mappings+=TypeMappingSet*
-		//	transformations+=TypeTransformationSet*) | 'package' name=QEMREF 'public'
-		//	'annex' ID '{**' (ErrorTypesKeywords (UseTypesKeywords useTypes+=[ErrorModelLibrary|QEMREF] (','
+		//	extends+=[ErrorModelLibrary|QEMREF])* 'with')? (types+=TypeDefinition | typesets+=TypeSetDefinition)* ('properties'
+		//	properties+=BasicEMV2PropertyAssociation+)? EndTypesKeywords ';')? behaviors+=ErrorBehaviorStateMachine*
+		//	mappings+=TypeMappingSet* transformations+=TypeTransformationSet*) | 'package' name=QEMREF 'public' 'annex' ID '{**'
+		//	(ErrorTypesKeywords (UseTypesKeywords useTypes+=[ErrorModelLibrary|QEMREF] (','
 		//	useTypes+=[ErrorModelLibrary|QEMREF])* ';')? ('extends' extends+=[ErrorModelLibrary|QEMREF] (','
-		//	extends+=[ErrorModelLibrary|QEMREF])*
-		//	'with')? (types+=TypeDefinition | typesets+=TypeSetDefinition)* ('properties'
-		//	properties+=BasicEMV2PropertyAssociation+)?
-		//	EndTypesKeywords ';')?
-		//	behaviors+=ErrorBehaviorStateMachine*
-		//	mappings+=TypeMappingSet*
-		//	transformations+=TypeTransformationSet*
-		//	'**}' ';' 'end' QEMREF ';';
+		//	extends+=[ErrorModelLibrary|QEMREF])* 'with')? (types+=TypeDefinition | typesets+=TypeSetDefinition)* ('properties'
+		//	properties+=BasicEMV2PropertyAssociation+)? EndTypesKeywords ';')? behaviors+=ErrorBehaviorStateMachine*
+		//	mappings+=TypeMappingSet* transformations+=TypeTransformationSet* '**}' ';' 'end' QEMREF ';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//{ErrorModelLibrary} ('library' name=QEMREF (ErrorTypesKeywords (UseTypesKeywords useTypes+=[ErrorModelLibrary|QEMREF]
@@ -1737,8 +1707,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//useTypes+=[ErrorModelLibrary|QEMREF] (',' useTypes+=[ErrorModelLibrary|QEMREF])* ';')? ('extends'
 		//extends+=[ErrorModelLibrary|QEMREF] (',' extends+=[ErrorModelLibrary|QEMREF])* 'with')? (types+=TypeDefinition |
 		//typesets+=TypeSetDefinition)* ('properties' properties+=BasicEMV2PropertyAssociation+)? EndTypesKeywords ';')?
-		//behaviors+=ErrorBehaviorStateMachine* mappings+=TypeMappingSet* transformations+=TypeTransformationSet* '**}' ';' 'end'
-		//QEMREF ';'
+		//behaviors+=ErrorBehaviorStateMachine* mappings+=TypeMappingSet* transformations+=TypeTransformationSet* '**}' ';'
+		//'end' QEMREF ';'
 		public Group getGroup_1() { return cGroup_1; }
 
 		//'package'
@@ -1930,10 +1900,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//EMV2PropertyAssociation:
-		//	property=[aadl2::Property|QPREF]
-		//	'=>' (ownedValues+=OptionalModalPropertyValue (',' ownedValues+=OptionalModalPropertyValue)*) (AppliesToKeywords
-		//	(emv2Path+=EMV2Path (',' emv2Path+=EMV2Path)*))?
-		//	';';
+		//	property=[aadl2::Property|QPREF] '=>' (ownedValues+=OptionalModalPropertyValue (','
+		//	ownedValues+=OptionalModalPropertyValue)*) (AppliesToKeywords (emv2Path+=EMV2Path (',' emv2Path+=EMV2Path)*))? ';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//property=[aadl2::Property|QPREF] '=>' (ownedValues+=OptionalModalPropertyValue (','
@@ -2030,10 +1998,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//BasicEMV2PropertyAssociation EMV2PropertyAssociation:
-		//	property=[aadl2::Property|QPREF]
-		//	'=>' (ownedValues+=OptionalModalPropertyValue (',' ownedValues+=OptionalModalPropertyValue)*) (AppliesToKeywords
-		//	(emv2Path+=BasicEMV2Path (',' emv2Path+=BasicEMV2Path)*))?
-		//	';';
+		//	property=[aadl2::Property|QPREF] '=>' (ownedValues+=OptionalModalPropertyValue (','
+		//	ownedValues+=OptionalModalPropertyValue)*) (AppliesToKeywords (emv2Path+=BasicEMV2Path (','
+		//	emv2Path+=BasicEMV2Path)*))? ';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//property=[aadl2::Property|QPREF] '=>' (ownedValues+=OptionalModalPropertyValue (','
@@ -2117,8 +2084,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cEmv2TargetEMV2PathElementOrKindParserRuleCall_1_0 = (RuleCall)cEmv2TargetAssignment_1.eContents().get(0);
 		
 		//EMV2Path:
-		//	('^' containmentPath=ContainmentPathElement '@')?
-		//	emv2Target=EMV2PathElementOrKind;
+		//	('^' containmentPath=ContainmentPathElement '@')? emv2Target=EMV2PathElementOrKind;
 		@Override public ParserRule getRule() { return rule; }
 
 		//('^' containmentPath=ContainmentPathElement '@')? emv2Target=EMV2PathElementOrKind
@@ -2183,8 +2149,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cPathEMV2PathElementParserRuleCall_1_1_1_0 = (RuleCall)cPathAssignment_1_1_1.eContents().get(0);
 		
 		//EMV2PathElementOrKind EMV2PathElement:
-		//	emv2PropagationKind=PropagationKind ('.' errorType=[ErrorTypes])?
-		//	| namedElement=[aadl2::NamedElement] ('.' path=EMV2PathElement)?;
+		//	emv2PropagationKind=PropagationKind ('.' errorType=[ErrorTypes])? | namedElement=[aadl2::NamedElement] ('.'
+		//	path=EMV2PathElement)?;
 		@Override public ParserRule getRule() { return rule; }
 
 		//emv2PropagationKind=PropagationKind ('.' errorType=[ErrorTypes])? | namedElement=[aadl2::NamedElement] ('.'
@@ -2326,8 +2292,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//TypeDefinition ErrorType:
 		//	name=ID (':' 'type' | ':' 'type' 'extends' superType=[ErrorType|QEMREF] | 'renames' 'type'
-		//	aliasedType=[ErrorType|QEMREF])
-		//	';';
+		//	aliasedType=[ErrorType|QEMREF]) ';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//name=ID (':' 'type' | ':' 'type' 'extends' superType=[ErrorType|QEMREF] | 'renames' 'type'
@@ -2355,7 +2320,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//		 * 
 		//		 * It seems like the combined version should work and I don't know why it doesn't
 		//		 * work.  For some reason, it works if the options are separated out.
-		//		 */ ':' 'type'
+		//		 */
+		//':' 'type'
 		public Group getGroup_1_0() { return cGroup_1_0; }
 
 		//':'
@@ -2434,8 +2400,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//TypeSetDefinition TypeSet:
 		//	name=ID (':' TypeSetKeywords '{' typeTokens+=TypeSetElement (',' typeTokens+=TypeSetElement)* '}' | 'renames'
-		//	TypeSetKeywords aliasedType=[TypeSet|QEMREF])
-		//	';';
+		//	TypeSetKeywords aliasedType=[TypeSet|QEMREF]) ';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//name=ID (':' TypeSetKeywords '{' typeTokens+=TypeSetElement (',' typeTokens+=TypeSetElement)* '}' | 'renames'
@@ -2617,8 +2582,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//NoErrorTypeSet TypeSet:
-		//	{TypeSet}
-		//	'{' typeTokens+=NoErrorTypeToken '}';
+		//	{TypeSet} '{' typeTokens+=NoErrorTypeToken '}';
 		@Override public ParserRule getRule() { return rule; }
 
 		//{TypeSet} '{' typeTokens+=NoErrorTypeToken '}'
@@ -2683,10 +2647,11 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNoErrorTypeSetParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		////returns TypeToken:
-		////	{TypeToken}
-		////     ('{' type+=[ErrorTypes|QEMREF] (('*') type+=[ErrorTypes|QEMREF])* '}')
+		// //	{TypeToken}
+		// //     ('{' type+=[ErrorTypes|QEMREF] (('*') type+=[ErrorTypes|QEMREF])* '}')
+		//
 		////;
-		//TypeTokenOrNoError TypeSet:
+		// TypeTokenOrNoError TypeSet:
 		//	TypeSetReference | NoErrorTypeSet;
 		@Override public ParserRule getRule() { return rule; }
 
@@ -2705,10 +2670,10 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTypeSetReferenceParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
 		////returns TypeToken:
-		////	TypeToken  
-		////	| '{' NoErrorTypeToken '}'
-		////;
-		//TypeTokenConstraint TypeSet:
+		// //	TypeToken  
+		// //	| '{' NoErrorTypeToken '}'
+		// //;
+		// TypeTokenConstraint TypeSet:
 		//	TypeSetReference;
 		@Override public ParserRule getRule() { return rule; }
 
@@ -2760,9 +2725,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//TypeTransformationSet:
 		//	TypeTransformationsKeywords name=ID (UseTypesKeywords useTypes+=[ErrorModelLibrary|QEMREF] (','
-		//	useTypes+=[ErrorModelLibrary|QEMREF])* ';')?
-		//	transformation+=TypeTransformation+
-		//	EndTransformationsKeywords ';';
+		//	useTypes+=[ErrorModelLibrary|QEMREF])* ';')? transformation+=TypeTransformation+ EndTransformationsKeywords ';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//TypeTransformationsKeywords name=ID (UseTypesKeywords useTypes+=[ErrorModelLibrary|QEMREF] (','
@@ -2841,8 +2804,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//TypeTransformation:
-		//	(source=TypeTokenConstraintNoError | allSources?='all')
-		//	'-[' contributor=TypeTokenConstraintNoError? ']->' target=TypeToken ';';
+		//	(source=TypeTokenConstraintNoError | allSources?='all') '-[' contributor=TypeTokenConstraintNoError? ']->'
+		//	target=TypeToken ';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//(source=TypeTokenConstraintNoError | allSources?='all') '-[' contributor=TypeTokenConstraintNoError? ']->'
@@ -2910,9 +2873,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//TypeMappingSet:
 		//	TypeMappingsKeywords name=ID (UseTypesKeywords useTypes+=[ErrorModelLibrary|QEMREF] (','
-		//	useTypes+=[ErrorModelLibrary|QEMREF])* ';')?
-		//	mapping+=TypeMapping+
-		//	EndMappingsKeywords ';';
+		//	useTypes+=[ErrorModelLibrary|QEMREF])* ';')? mapping+=TypeMapping+ EndMappingsKeywords ';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//TypeMappingsKeywords name=ID (UseTypesKeywords useTypes+=[ErrorModelLibrary|QEMREF] (','
@@ -3030,13 +2991,12 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		////StateTypeBinding returns ErrorBehaviorState:
-		////	(intial?='initial')? 'state' name=ID typeSet = TypeSetReference
-		////;
+		// //	(intial?='initial')? 'state' name=ID typeSet = TypeSetReference
+		// //;
+		//
 		//ErrorPropagation:
-		//	{ErrorPropagation} (kind=PropagationKind | featureorPPRef=FeatureorPPReference)
-		//	':' not?='not'? direction=PropagationDirection 'propagation'
-		//	typeSet=TypeSetReference
-		//	';';
+		//	{ErrorPropagation} (kind=PropagationKind | featureorPPRef=FeatureorPPReference) ':' not?='not'?
+		//	direction=PropagationDirection 'propagation' typeSet=TypeSetReference ';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//{ErrorPropagation} (kind=PropagationKind | featureorPPRef=FeatureorPPReference) ':' not?='not'?
@@ -3193,10 +3153,13 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cErrorPathParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
 		//// enum does not work as  
+		//
 		////enum PropKind : PROCESSOR='processor'|MEMORY='memory'|BUS='bus'|DEVICE='device'|SYSTEM='system'
+		//
 		////	            |VIRTUALBUS='virtual bus'|VIRTUALPROCESSOR='virtual processor'|BINDING='binding' | BINDINGS='bindings'|ACCESS='access'
+		//
 		////;
-		//ErrorFlow:
+		// ErrorFlow:
 		//	ErrorSource | ErrorSink | ErrorPath;
 		@Override public ParserRule getRule() { return rule; }
 
@@ -3251,8 +3214,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//	name=ID ':' ErrorSourceKeywords (sourceModelElement=[aadl2::NamedElement|ErrorPropagationPoint] | all?='all')
 		//	typeTokenConstraint=TypeTokenConstraint? ('when' (failureModeReference=[ErrorBehaviorState]
 		//	failureModeType=TypeSetReference? | failureModeType=TypeSetConstructor | failureModeDescription=STRING))? ('if'
-		//	flowcondition=IfCondition)?
-		//	';';
+		//	flowcondition=IfCondition)? ';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//name=ID ':' ErrorSourceKeywords (sourceModelElement=[aadl2::NamedElement|ErrorPropagationPoint] | all?='all')
@@ -3377,8 +3339,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ErrorSink:
 		//	name=ID ':' ErrorSinkKeywords (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?='all')
-		//	typeTokenConstraint=TypeTokenConstraint? ('if' flowcondition=IfCondition)?
-		//	';';
+		//	typeTokenConstraint=TypeTokenConstraint? ('if' flowcondition=IfCondition)? ';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//name=ID ':' ErrorSinkKeywords (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?='all')
@@ -3475,16 +3436,15 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ErrorPath:
 		//	name=ID ':' ErrorPathKeywords (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?='all')
-		//	typeTokenConstraint=TypeTokenConstraint? '->' (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?='all')
-		//	(targetToken=TypeToken | UseMappingsKeywords typeMappingSet=[TypeMappingSet|QEMREF])? ('if'
-		//	flowcondition=IfCondition)?
-		//	';';
+		//	typeTokenConstraint=TypeTokenConstraint? '->' (outgoing=[ErrorPropagation|ErrorPropagationPoint] |
+		//	allOutgoing?='all') (targetToken=TypeToken | UseMappingsKeywords typeMappingSet=[TypeMappingSet|QEMREF])? ('if'
+		//	flowcondition=IfCondition)? ';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//name=ID ':' ErrorPathKeywords (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?='all')
 		//typeTokenConstraint=TypeTokenConstraint? '->' (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?='all')
-		//(targetToken=TypeToken | UseMappingsKeywords typeMappingSet=[TypeMappingSet|QEMREF])? ('if' flowcondition=IfCondition)?
-		//';'
+		//(targetToken=TypeToken | UseMappingsKeywords typeMappingSet=[TypeMappingSet|QEMREF])? ('if'
+		//flowcondition=IfCondition)? ';'
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -3635,7 +3595,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIDTerminalRuleCall_1_1 = (RuleCall)cAlternatives_1.eContents().get(1);
 		
 		//// reference to error propagation  
-		//ErrorPropagationPoint:
+		// ErrorPropagationPoint:
 		//	(ID ".")* (PropagationKind | ID);
 		@Override public ParserRule getRule() { return rule; }
 
@@ -3671,8 +3631,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//PropagationPoint:
-		//	name=ID ':' PropagationPointKeywords
-		//	';';
+		//	name=ID ':' PropagationPointKeywords ';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//name=ID ':' PropagationPointKeywords ';'
@@ -3764,11 +3723,12 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		@Override public ParserRule getRule() { return rule; }
 
 		//// zero or more subcomponent references
-		//subcomponent=SubcomponentElement '.' next=QualifiedPropagationPoint | propagationPoint=[aadl2::NamedElement]
+		// subcomponent=SubcomponentElement '.' next=QualifiedPropagationPoint |
+		//propagationPoint=[aadl2::NamedElement]
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//// zero or more subcomponent references
-		//subcomponent=SubcomponentElement '.' next=QualifiedPropagationPoint
+		// subcomponent=SubcomponentElement '.' next=QualifiedPropagationPoint
 		public Group getGroup_0() { return cGroup_0; }
 
 		//subcomponent=SubcomponentElement
@@ -3843,8 +3803,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//	useTypes+=[ErrorModelLibrary|QEMREF])* ';')? (UseTransformationsKeywords
 		//	useTransformation+=[TypeTransformationSet|QEMREF] ';')? ('events' events+=ErrorBehaviorEvent+)? ('states'
 		//	states+=ErrorBehaviorState+)? ('transitions' transitions+=ErrorBehaviorTransition+)? ('properties'
-		//	properties+=BasicEMV2PropertyAssociation+)?
-		//	EndBehaviorKeywords ';';
+		//	properties+=BasicEMV2PropertyAssociation+)? EndBehaviorKeywords ';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//ErrorBehaviorKeywords name=ID (UseTypesKeywords useTypes+=[ErrorModelLibrary|QEMREF] (','
@@ -4009,9 +3968,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//ErrorEvent:
-		//	name=ID ':' ErrorEventKeywords
-		//	typeSet=TypeSetReference? ('if' eventcondition=IfCondition)?
-		//	';';
+		//	name=ID ':' ErrorEventKeywords typeSet=TypeSetReference? ('if' eventcondition=IfCondition)? ';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//name=ID ':' ErrorEventKeywords typeSet=TypeSetReference? ('if' eventcondition=IfCondition)? ';'
@@ -4071,10 +4028,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//// add event condition 
-		//RepairEvent:
+		// RepairEvent:
 		//	name=ID ':' RepairEventKeywords ('when' eventInitiator+=[aadl2::NamedElement] (","
-		//	eventInitiator+=[aadl2::NamedElement])*)?
-		//	';';
+		//	eventInitiator+=[aadl2::NamedElement])*)? ';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//name=ID ':' RepairEventKeywords ('when' eventInitiator+=[aadl2::NamedElement] (","
@@ -4152,8 +4108,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//RecoverEvent:
 		//	name=ID ':' RecoverEventKeywords ('when' eventInitiator+=[aadl2::NamedElement] (","
-		//	eventInitiator+=[aadl2::NamedElement])*)? ('if' condition=IfCondition)?
-		//	';';
+		//	eventInitiator+=[aadl2::NamedElement])*)? ('if' condition=IfCondition)? ';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//name=ID ':' RecoverEventKeywords ('when' eventInitiator+=[aadl2::NamedElement] (","
@@ -4232,10 +4187,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		////add recover initiator 
-		//ErrorBehaviorState:
-		//	name=ID ':' intial?='initial'? 'state'
-		//	typeSet=TypeSetReference?
-		//	';';
+		// ErrorBehaviorState:
+		//	name=ID ':' intial?='initial'? 'state' typeSet=TypeSetReference? ';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//name=ID ':' intial?='initial'? 'state' typeSet=TypeSetReference? ';'
@@ -4310,17 +4263,16 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//ErrorBehaviorTransition:
-		//	(name=ID ':')? (source=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?='all')
-		//	'-[' condition=ConditionExpression ']->' (target=[ErrorBehaviorState] targetToken=TypeToken? |
+		//	(name=ID ':')? (source=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?='all') '-['
+		//	condition=ConditionExpression ']->' (target=[ErrorBehaviorState] targetToken=TypeToken? |
 		//	steadyState?=SameStateKeywords | '(' destinationBranches+=TransitionBranch (','
-		//	destinationBranches+=TransitionBranch)+ ')')
-		//	';';
+		//	destinationBranches+=TransitionBranch)+ ')') ';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//(name=ID ':')? (source=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?='all') '-['
 		//condition=ConditionExpression ']->' (target=[ErrorBehaviorState] targetToken=TypeToken? |
-		//steadyState?=SameStateKeywords | '(' destinationBranches+=TransitionBranch (',' destinationBranches+=TransitionBranch)+
-		//')') ';'
+		//steadyState?=SameStateKeywords | '(' destinationBranches+=TransitionBranch (','
+		//destinationBranches+=TransitionBranch)+ ')') ';'
 		public Group getGroup() { return cGroup; }
 
 		//(name=ID ':')?
@@ -4450,8 +4402,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cValueBranchValueParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
 		
 		//TransitionBranch:
-		//	(target=[ErrorBehaviorState] targetToken=TypeToken? | steadyState?=SameStateKeywords)
-		//	'with' value=BranchValue;
+		//	(target=[ErrorBehaviorState] targetToken=TypeToken? | steadyState?=SameStateKeywords) 'with' value=BranchValue;
 		@Override public ParserRule getRule() { return rule; }
 
 		//(target=[ErrorBehaviorState] targetToken=TypeToken? | steadyState?=SameStateKeywords) 'with' value=BranchValue
@@ -4508,7 +4459,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cOthersOthersKeyword_1_2_0 = (Keyword)cOthersAssignment_1_2.eContents().get(0);
 		
 		//// store real literal as integer, ID as reference to property constant
-		//BranchValue:
+		// BranchValue:
 		//	{BranchValue} (realvalue=REAL_LIT | symboliclabel=[aadl2::Property|QEMREF] | others?='others');
 		@Override public ParserRule getRule() { return rule; }
 
@@ -4554,7 +4505,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOperandsAndExpressionParserRuleCall_1_2_0 = (RuleCall)cOperandsAssignment_1_2.eContents().get(0);
 		
 		//// condition expression for component specific transitions 
-		//// based on error events and incoming propagations
+		// // based on error events and incoming propagations
+		//
 		//ConditionExpression:
 		//	AndExpression ({OrExpression.operands+=current} 'or' operands+=AndExpression)*;
 		@Override public ParserRule getRule() { return rule; }
@@ -4810,11 +4762,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
 		
 		//ConditionTerm ConditionExpression:
-		//	ConditionElement
-		//	| OrmoreExpression
-		//	| OrlessExpression
-		//	| AllExpression
-		//	| '(' ConditionExpression ')';
+		//	ConditionElement | OrmoreExpression | OrlessExpression | AllExpression | '(' ConditionExpression ')';
 		@Override public ParserRule getRule() { return rule; }
 
 		//ConditionElement | OrmoreExpression | OrlessExpression | AllExpression | '(' ConditionExpression ')'
@@ -4881,13 +4829,16 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cEmv2TargetEMV2ErrorPropagationPathParserRuleCall_1_0 = (RuleCall)cEmv2TargetAssignment_1.eContents().get(0);
 		
 		////QualifiedErrorPropagation returns QualifiedErrorPropagation:
+		//
 		////	(modelElementReference=NestedModelElement '.')?    (  kind=PropagationKind | errorPropagation=[ErrorPropagation|ID])
+		//
 		////;
-		////
-		////NestedModelElement returns NestedModelElement:
+		// //
+		// //NestedModelElement returns NestedModelElement:
+		//
 		////	modelElement=[aadl2::NamedElement|ID] ( next=NestedModelElement)?
-		////;
-		//QualifiedErrorEventOrPropagation EMV2Path:
+		// //;
+		// QualifiedErrorEventOrPropagation EMV2Path:
 		//	{QualifiedErrorEventOrPropagation} emv2Target=EMV2ErrorPropagationPath;
 		@Override public ParserRule getRule() { return rule; }
 
@@ -4919,8 +4870,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cPathEMV2ErrorPropagationPathParserRuleCall_1_1_1_0 = (RuleCall)cPathAssignment_1_1_1.eContents().get(0);
 		
 		//EMV2ErrorPropagationPath EMV2PathElement:
-		//	emv2PropagationKind=PropagationKind
-		//	| namedElement=[aadl2::NamedElement] ('.' path=EMV2ErrorPropagationPath)?;
+		//	emv2PropagationKind=PropagationKind | namedElement=[aadl2::NamedElement] ('.' path=EMV2ErrorPropagationPath)?;
 		@Override public ParserRule getRule() { return rule; }
 
 		//emv2PropagationKind=PropagationKind | namedElement=[aadl2::NamedElement] ('.' path=EMV2ErrorPropagationPath)?
@@ -5009,10 +4959,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//OutgoingPropagationCondition:
-		//	(name=ID ':')? (state=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?='all')
-		//	'-[' condition=ConditionExpression? ']->' ((outgoing=[ErrorPropagation|ErrorPropagationPoint] |
-		//	allPropagations?='all') typeToken=TypeTokenOrNoError?)
-		//	';';
+		//	(name=ID ':')? (state=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?='all') '-['
+		//	condition=ConditionExpression? ']->' ((outgoing=[ErrorPropagation|ErrorPropagationPoint] | allPropagations?='all')
+		//	typeToken=TypeTokenOrNoError?) ';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//(name=ID ':')? (state=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?='all') '-['
@@ -5134,10 +5083,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
 		//ErrorDetection:
-		//	(name=ID ':')? (state=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?='all')
-		//	'-[' condition=ConditionExpression? ']->'
-		//	detectionReportingPort=[aadl2::TriggerPort] '!' ('(' errorCode=ErrorCodeValue ')')?
-		//	';';
+		//	(name=ID ':')? (state=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?='all') '-['
+		//	condition=ConditionExpression? ']->' detectionReportingPort=[aadl2::TriggerPort] '!' ('(' errorCode=ErrorCodeValue
+		//	')')? ';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//(name=ID ':')? (state=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?='all') '-['
@@ -5289,9 +5237,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		//ErrorStateToModeMapping:
-		//	errorState=[ErrorBehaviorState] typeToken=TypeToken?
-		//	InModesKeywords '('
-		//	mappedModes+=[aadl2::Mode] (',' mappedModes+=[aadl2::Mode])* ')' ';';
+		//	errorState=[ErrorBehaviorState] typeToken=TypeToken? InModesKeywords '(' mappedModes+=[aadl2::Mode] (','
+		//	mappedModes+=[aadl2::Mode])* ')' ';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//errorState=[ErrorBehaviorState] typeToken=TypeToken? InModesKeywords '(' mappedModes+=[aadl2::Mode] (','
@@ -5372,8 +5319,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//CompositeState:
-		//	(name=ID ':')?
-		//	'[' (condition=SConditionExpression | others?='others') ']->' state=[ErrorBehaviorState] typedToken=TypeToken? ';';
+		//	(name=ID ':')? '[' (condition=SConditionExpression | others?='others') ']->' state=[ErrorBehaviorState]
+		//	typedToken=TypeToken? ';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//(name=ID ':')? '[' (condition=SConditionExpression | others?='others') ']->' state=[ErrorBehaviorState]
@@ -5443,8 +5390,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOperandsSAndExpressionParserRuleCall_1_2_0 = (RuleCall)cOperandsAssignment_1_2.eContents().get(0);
 		
 		//// condition expressions for composite states
-		//// based on states only  
-		//SConditionExpression ConditionExpression:
+		// // based on states only  
+		// SConditionExpression ConditionExpression:
 		//	SAndExpression ({OrExpression.operands+=current} 'or' operands+=SAndExpression)*;
 		@Override public ParserRule getRule() { return rule; }
 
@@ -5637,8 +5584,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//SAllExpression ConditionExpression:
-		//	{AllExpression} 'all' ('-' count=INTVALUE)?
-		//	'(' operands+=SConditionElement (',' operands+=SConditionElement)* ')';
+		//	{AllExpression} 'all' ('-' count=INTVALUE)? '(' operands+=SConditionElement (',' operands+=SConditionElement)* ')';
 		@Override public ParserRule getRule() { return rule; }
 
 		//{AllExpression} 'all' ('-' count=INTVALUE)? '(' operands+=SConditionElement (',' operands+=SConditionElement)* ')'
@@ -5700,11 +5646,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
 		
 		//SConditionTerm ConditionExpression:
-		//	SConditionElement
-		//	| SOrmoreExpression
-		//	| SOrlessExpression
-		//	| SAllExpression
-		//	| '(' SConditionExpression ')';
+		//	SConditionElement | SOrmoreExpression | SOrlessExpression | SAllExpression | '(' SConditionExpression ')';
 		@Override public ParserRule getRule() { return rule; }
 
 		//SConditionElement | SOrmoreExpression | SOrlessExpression | SAllExpression | '(' SConditionExpression ')'
@@ -5778,8 +5720,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cConstraintTypeTokenConstraintNoErrorParserRuleCall_1_1_1_1_0 = (RuleCall)cConstraintAssignment_1_1_1_1.eContents().get(0);
 		
 		//SConditionElement ConditionElement:
-		//	{SConditionElement} (qualifiedState=QualifiedErrorBehaviorState constraint=TypeTokenConstraint? |
-		//	'in' (qualifiedErrorPropagationReference=QualifiedErrorPropagation constraint=TypeTokenConstraintNoError?));
+		//	{SConditionElement} (qualifiedState=QualifiedErrorBehaviorState constraint=TypeTokenConstraint? | 'in'
+		//	(qualifiedErrorPropagationReference=QualifiedErrorPropagation constraint=TypeTokenConstraintNoError?));
 		@Override public ParserRule getRule() { return rule; }
 
 		//{SConditionElement} (qualifiedState=QualifiedErrorBehaviorState constraint=TypeTokenConstraint? | 'in'
@@ -6924,8 +6866,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	// * Note about symbolic labels as values for occurrence probability:
 	// * Use property constant. The core allows it instead of an actual number.
 	// * The tools generating stochastic models from such specification can interpret the constant name as the desired label.
-	// */ // allow either of the two to be the root. Needed dummy 'library' keyword
-	//EMV2Root aadl2::NamedElement:
+	// */
+	//// allow either of the two to be the root. Needed dummy 'library' keyword
+	// EMV2Root aadl2::NamedElement:
 	//	{EMV2Root} (library=EMV2Library | subclauses+=EMV2Subclause*);
 	public EMV2RootElements getEMV2RootAccess() {
 		return pEMV2Root;
@@ -6956,11 +6899,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//NamedElement aadl2::NamedElement:
-	//	ErrorModelLibrary | ErrorTypes | ErrorBehaviorEvent | ErrorBehaviorState | ErrorBehaviorTransition
-	//	| ErrorFlow | ErrorPropagation | OutgoingPropagationCondition
-	//	| PropagationPath | PropagationPoint | CompositeState
-	//	| TypeTransformationSet | TypeMappingSet | ErrorBehaviorStateMachine
-	//	| ErrorDetection | EventOrPropagation;
+	//	ErrorModelLibrary | ErrorTypes | ErrorBehaviorEvent | ErrorBehaviorState | ErrorBehaviorTransition | ErrorFlow |
+	//	ErrorPropagation | OutgoingPropagationCondition | PropagationPath | PropagationPoint | CompositeState |
+	//	TypeTransformationSet | TypeMappingSet | ErrorBehaviorStateMachine | ErrorDetection | EventOrPropagation;
 	public NamedElementElements getNamedElementAccess() {
 		return pNamedElement;
 	}
@@ -6980,13 +6921,10 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Element aadl2::Element:
-	//	TypeSetElement
-	//	| TypeTransformation | TypeMapping
-	//	| QualifiedPropagationPoint | TransitionBranch | BranchValue | ErrorCodeValue
-	//	| ConditionElement | AndExpression | ConditionTerm
-	//	| ConditionExpression | OrmoreExpression | OrlessExpression
-	//	| ErrorStateToModeMapping | QualifiedErrorBehaviorState
-	//	| SubcomponentElement | FeatureorPPReference | EMV2PropertyAssociation | EMV2Path | EMV2PathElement;
+	//	TypeSetElement | TypeTransformation | TypeMapping | QualifiedPropagationPoint | TransitionBranch | BranchValue |
+	//	ErrorCodeValue | ConditionElement | AndExpression | ConditionTerm | ConditionExpression | OrmoreExpression |
+	//	OrlessExpression | ErrorStateToModeMapping | QualifiedErrorBehaviorState | SubcomponentElement | FeatureorPPReference
+	//	| EMV2PropertyAssociation | EMV2Path | EMV2PathElement;
 	public ElementElements getElementAccess() {
 		return pElement;
 	}
@@ -6997,30 +6935,20 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ErrorModelSubclause:
 	//	{ErrorModelSubclause} (UseTypesKeywords useTypes+=[ErrorModelLibrary|QEMREF] (','
-	//	useTypes+=[ErrorModelLibrary|QEMREF])* ';')? (UseTypeEquivalenceKeywords typeEquivalence=[TypeMappingSet|QEMREF] ';')?
-	//	(UseMappingsKeywords typeMappingSet=[TypeMappingSet|QEMREF] ';')? (UseBehaviorKeywords
+	//	useTypes+=[ErrorModelLibrary|QEMREF])* ';')? (UseTypeEquivalenceKeywords typeEquivalence=[TypeMappingSet|QEMREF]
+	//	';')? (UseMappingsKeywords typeMappingSet=[TypeMappingSet|QEMREF] ';')? (UseBehaviorKeywords
 	//	useBehavior=[ErrorBehaviorStateMachine|QEMREF]
 	//	//   	('(' stateTypeBindings+=StateTypeBinding (',' stateTypeBindings+=StateTypeBinding)*')')?
-	//	';')? (ErrorPropagationsKeywords
-	//	propagations+=ErrorPropagation* ('flows'
-	//	flows+=ErrorFlow+)?
-	//	EndPropagationsKeywords ';')? (ComponentErrorBehaviorKeywords (UseTransformationsKeywords
-	//	useTransformation=[TypeTransformationSet|QEMREF] ';')? ('events' events+=ErrorBehaviorEvent+)? ('transitions'
-	//	transitions+=ErrorBehaviorTransition+)? ('propagations'
-	//	outgoingPropagationConditions+=OutgoingPropagationCondition+)? ('detections'
-	//	errorDetections+=ErrorDetection+)? (ModeMappingsKeywords
-	//	errorStateToModeMappings+=ErrorStateToModeMapping+)?
-	//	EndComponentKeywords ';')? (CompositeErrorBehaviorKeywords ('states'
-	//	states+=CompositeState+)?
-	//	EndCompositeKeywords ';')? (ConnectionErrorKeywords (UseTransformationsKeywords
-	//	typeTransformationSet=[TypeTransformationSet|QEMREF] ';')?
-	//	connectionErrorSources+=ErrorSource*
-	//	EndConnectionKeywords ';')? (PropagationPathsKeywords
-	//	points+=PropagationPoint*
-	//	paths+=PropagationPath*
-	//	EndPathsKeywords ';')? ('properties'
-	//	properties+=EMV2PropertyAssociation+)?
-	//	//	'**}'
+	// ';')?
+	//	(ErrorPropagationsKeywords propagations+=ErrorPropagation* ('flows' flows+=ErrorFlow+)? EndPropagationsKeywords ';')?
+	//	(ComponentErrorBehaviorKeywords (UseTransformationsKeywords useTransformation=[TypeTransformationSet|QEMREF] ';')?
+	//	('events' events+=ErrorBehaviorEvent+)? ('transitions' transitions+=ErrorBehaviorTransition+)? ('propagations'
+	//	outgoingPropagationConditions+=OutgoingPropagationCondition+)? ('detections' errorDetections+=ErrorDetection+)?
+	//	(ModeMappingsKeywords errorStateToModeMappings+=ErrorStateToModeMapping+)? EndComponentKeywords ';')?
+	//	(CompositeErrorBehaviorKeywords ('states' states+=CompositeState+)? EndCompositeKeywords ';')?
+	//	(ConnectionErrorKeywords (UseTransformationsKeywords typeTransformationSet=[TypeTransformationSet|QEMREF] ';')?
+	//	connectionErrorSources+=ErrorSource* EndConnectionKeywords ';')? (PropagationPathsKeywords points+=PropagationPoint*
+	//	paths+=PropagationPath* EndPathsKeywords ';')? ('properties' properties+=EMV2PropertyAssociation+)? //	'**}'
 	//;
 	public ErrorModelSubclauseElements getErrorModelSubclauseAccess() {
 		return pErrorModelSubclause;
@@ -7032,30 +6960,21 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//EMV2Subclause ErrorModelSubclause:
 	//	{ErrorModelSubclause} 'subclause' name=QCREF (UseTypesKeywords useTypes+=[ErrorModelLibrary|QEMREF] (','
-	//	useTypes+=[ErrorModelLibrary|QEMREF])* ';')? (UseTypeEquivalenceKeywords typeEquivalence=[TypeMappingSet|QEMREF] ';')?
-	//	(UseMappingsKeywords typeMappingSet=[TypeMappingSet|QEMREF] ';')? (UseBehaviorKeywords
+	//	useTypes+=[ErrorModelLibrary|QEMREF])* ';')? (UseTypeEquivalenceKeywords typeEquivalence=[TypeMappingSet|QEMREF]
+	//	';')? (UseMappingsKeywords typeMappingSet=[TypeMappingSet|QEMREF] ';')? (UseBehaviorKeywords
 	//	useBehavior=[ErrorBehaviorStateMachine|QEMREF]
 	//	//   	('(' stateTypeBindings+=StateTypeBinding (',' stateTypeBindings+=StateTypeBinding)*')')?
-	//	';')? (ErrorPropagationsKeywords
-	//	propagations+=ErrorPropagation* ('flows'
-	//	flows+=ErrorFlow+)?
-	//	EndPropagationsKeywords ';')? (ComponentErrorBehaviorKeywords (UseTransformationsKeywords
-	//	useTransformation=[TypeTransformationSet|QEMREF] ';')? ('events' events+=ErrorBehaviorEvent+)? ('transitions'
-	//	transitions+=ErrorBehaviorTransition+)? ('propagations'
-	//	outgoingPropagationConditions+=OutgoingPropagationCondition+)? ('detections'
-	//	errorDetections+=ErrorDetection+)? (ModeMappingsKeywords
-	//	errorStateToModeMappings+=ErrorStateToModeMapping+)?
-	//	EndComponentKeywords ';')? (CompositeErrorBehaviorKeywords ('states'
-	//	states+=CompositeState+)?
-	//	EndCompositeKeywords ';')? (ConnectionErrorKeywords (UseTransformationsKeywords
-	//	typeTransformationSet=[TypeTransformationSet|QEMREF] ';')?
-	//	connectionErrorSources+=ErrorSource*
-	//	EndConnectionKeywords ';')? (PropagationPathsKeywords
-	//	points+=PropagationPoint*
-	//	paths+=PropagationPath*
-	//	EndPathsKeywords ';')? ('properties'
-	//	properties+=EMV2PropertyAssociation+)?
-	//	//	'**}'
+	// ';')?
+	//	(ErrorPropagationsKeywords propagations+=ErrorPropagation* ('flows' flows+=ErrorFlow+)? EndPropagationsKeywords ';')?
+	//	(ComponentErrorBehaviorKeywords (UseTransformationsKeywords useTransformation=[TypeTransformationSet|QEMREF] ';')?
+	//	('events' events+=ErrorBehaviorEvent+)? ('transitions' transitions+=ErrorBehaviorTransition+)? ('propagations'
+	//	outgoingPropagationConditions+=OutgoingPropagationCondition+)? ('detections' errorDetections+=ErrorDetection+)?
+	//	(ModeMappingsKeywords errorStateToModeMappings+=ErrorStateToModeMapping+)? EndComponentKeywords ';')?
+	//	(CompositeErrorBehaviorKeywords ('states' states+=CompositeState+)? EndCompositeKeywords ';')?
+	//	(ConnectionErrorKeywords (UseTransformationsKeywords typeTransformationSet=[TypeTransformationSet|QEMREF] ';')?
+	//	connectionErrorSources+=ErrorSource* EndConnectionKeywords ';')? (PropagationPathsKeywords points+=PropagationPoint*
+	//	paths+=PropagationPath* EndPathsKeywords ';')? ('properties' properties+=EMV2PropertyAssociation+)? //	'**}'
+	//
 	//	EndSubclauseKeywords ';';
 	public EMV2SubclauseElements getEMV2SubclauseAccess() {
 		return pEMV2Subclause;
@@ -7068,14 +6987,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//ErrorModelLibrary:
 	//	{ErrorModelLibrary} (ErrorTypesKeywords (UseTypesKeywords useTypes+=[ErrorModelLibrary|QEMREF] (','
 	//	useTypes+=[ErrorModelLibrary|QEMREF])* ';')? ('extends' extends+=[ErrorModelLibrary|QEMREF] (','
-	//	extends+=[ErrorModelLibrary|QEMREF])*
-	//	'with')? (types+=TypeDefinition | typesets+=TypeSetDefinition)* ('properties'
-	//	properties+=BasicEMV2PropertyAssociation+)?
-	//	EndTypesKeywords ';')?
-	//	behaviors+=ErrorBehaviorStateMachine*
-	//	mappings+=TypeMappingSet*
-	//	transformations+=TypeTransformationSet*
-	//	//	'**}'
+	//	extends+=[ErrorModelLibrary|QEMREF])* 'with')? (types+=TypeDefinition | typesets+=TypeSetDefinition)* ('properties'
+	//	properties+=BasicEMV2PropertyAssociation+)? EndTypesKeywords ';')? behaviors+=ErrorBehaviorStateMachine*
+	//	mappings+=TypeMappingSet* transformations+=TypeTransformationSet* //	'**}'
 	//;
 	public ErrorModelLibraryElements getErrorModelLibraryAccess() {
 		return pErrorModelLibrary;
@@ -7088,23 +7002,14 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//EMV2Library ErrorModelLibrary:
 	//	{ErrorModelLibrary} ('library' name=QEMREF (ErrorTypesKeywords (UseTypesKeywords useTypes+=[ErrorModelLibrary|QEMREF]
 	//	(',' useTypes+=[ErrorModelLibrary|QEMREF])* ';')? ('extends' extends+=[ErrorModelLibrary|QEMREF] (','
-	//	extends+=[ErrorModelLibrary|QEMREF])*
-	//	'with')? (types+=TypeDefinition | typesets+=TypeSetDefinition)* ('properties'
-	//	properties+=BasicEMV2PropertyAssociation+)?
-	//	EndTypesKeywords ';')?
-	//	behaviors+=ErrorBehaviorStateMachine*
-	//	mappings+=TypeMappingSet*
-	//	transformations+=TypeTransformationSet*) | 'package' name=QEMREF 'public'
-	//	'annex' ID '{**' (ErrorTypesKeywords (UseTypesKeywords useTypes+=[ErrorModelLibrary|QEMREF] (','
+	//	extends+=[ErrorModelLibrary|QEMREF])* 'with')? (types+=TypeDefinition | typesets+=TypeSetDefinition)* ('properties'
+	//	properties+=BasicEMV2PropertyAssociation+)? EndTypesKeywords ';')? behaviors+=ErrorBehaviorStateMachine*
+	//	mappings+=TypeMappingSet* transformations+=TypeTransformationSet*) | 'package' name=QEMREF 'public' 'annex' ID '{**'
+	//	(ErrorTypesKeywords (UseTypesKeywords useTypes+=[ErrorModelLibrary|QEMREF] (','
 	//	useTypes+=[ErrorModelLibrary|QEMREF])* ';')? ('extends' extends+=[ErrorModelLibrary|QEMREF] (','
-	//	extends+=[ErrorModelLibrary|QEMREF])*
-	//	'with')? (types+=TypeDefinition | typesets+=TypeSetDefinition)* ('properties'
-	//	properties+=BasicEMV2PropertyAssociation+)?
-	//	EndTypesKeywords ';')?
-	//	behaviors+=ErrorBehaviorStateMachine*
-	//	mappings+=TypeMappingSet*
-	//	transformations+=TypeTransformationSet*
-	//	'**}' ';' 'end' QEMREF ';';
+	//	extends+=[ErrorModelLibrary|QEMREF])* 'with')? (types+=TypeDefinition | typesets+=TypeSetDefinition)* ('properties'
+	//	properties+=BasicEMV2PropertyAssociation+)? EndTypesKeywords ';')? behaviors+=ErrorBehaviorStateMachine*
+	//	mappings+=TypeMappingSet* transformations+=TypeTransformationSet* '**}' ';' 'end' QEMREF ';';
 	public EMV2LibraryElements getEMV2LibraryAccess() {
 		return pEMV2Library;
 	}
@@ -7114,10 +7019,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//EMV2PropertyAssociation:
-	//	property=[aadl2::Property|QPREF]
-	//	'=>' (ownedValues+=OptionalModalPropertyValue (',' ownedValues+=OptionalModalPropertyValue)*) (AppliesToKeywords
-	//	(emv2Path+=EMV2Path (',' emv2Path+=EMV2Path)*))?
-	//	';';
+	//	property=[aadl2::Property|QPREF] '=>' (ownedValues+=OptionalModalPropertyValue (','
+	//	ownedValues+=OptionalModalPropertyValue)*) (AppliesToKeywords (emv2Path+=EMV2Path (',' emv2Path+=EMV2Path)*))? ';';
 	public EMV2PropertyAssociationElements getEMV2PropertyAssociationAccess() {
 		return pEMV2PropertyAssociation;
 	}
@@ -7127,10 +7030,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//BasicEMV2PropertyAssociation EMV2PropertyAssociation:
-	//	property=[aadl2::Property|QPREF]
-	//	'=>' (ownedValues+=OptionalModalPropertyValue (',' ownedValues+=OptionalModalPropertyValue)*) (AppliesToKeywords
-	//	(emv2Path+=BasicEMV2Path (',' emv2Path+=BasicEMV2Path)*))?
-	//	';';
+	//	property=[aadl2::Property|QPREF] '=>' (ownedValues+=OptionalModalPropertyValue (','
+	//	ownedValues+=OptionalModalPropertyValue)*) (AppliesToKeywords (emv2Path+=BasicEMV2Path (','
+	//	emv2Path+=BasicEMV2Path)*))? ';';
 	public BasicEMV2PropertyAssociationElements getBasicEMV2PropertyAssociationAccess() {
 		return pBasicEMV2PropertyAssociation;
 	}
@@ -7140,8 +7042,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//EMV2Path:
-	//	('^' containmentPath=ContainmentPathElement '@')?
-	//	emv2Target=EMV2PathElementOrKind;
+	//	('^' containmentPath=ContainmentPathElement '@')? emv2Target=EMV2PathElementOrKind;
 	public EMV2PathElements getEMV2PathAccess() {
 		return pEMV2Path;
 	}
@@ -7161,8 +7062,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//EMV2PathElementOrKind EMV2PathElement:
-	//	emv2PropagationKind=PropagationKind ('.' errorType=[ErrorTypes])?
-	//	| namedElement=[aadl2::NamedElement] ('.' path=EMV2PathElement)?;
+	//	emv2PropagationKind=PropagationKind ('.' errorType=[ErrorTypes])? | namedElement=[aadl2::NamedElement] ('.'
+	//	path=EMV2PathElement)?;
 	public EMV2PathElementOrKindElements getEMV2PathElementOrKindAccess() {
 		return pEMV2PathElementOrKind;
 	}
@@ -7193,8 +7094,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//TypeDefinition ErrorType:
 	//	name=ID (':' 'type' | ':' 'type' 'extends' superType=[ErrorType|QEMREF] | 'renames' 'type'
-	//	aliasedType=[ErrorType|QEMREF])
-	//	';';
+	//	aliasedType=[ErrorType|QEMREF]) ';';
 	public TypeDefinitionElements getTypeDefinitionAccess() {
 		return pTypeDefinition;
 	}
@@ -7205,8 +7105,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//TypeSetDefinition TypeSet:
 	//	name=ID (':' TypeSetKeywords '{' typeTokens+=TypeSetElement (',' typeTokens+=TypeSetElement)* '}' | 'renames'
-	//	TypeSetKeywords aliasedType=[TypeSet|QEMREF])
-	//	';';
+	//	TypeSetKeywords aliasedType=[TypeSet|QEMREF]) ';';
 	public TypeSetDefinitionElements getTypeSetDefinitionAccess() {
 		return pTypeSetDefinition;
 	}
@@ -7246,8 +7145,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//NoErrorTypeSet TypeSet:
-	//	{TypeSet}
-	//	'{' typeTokens+=NoErrorTypeToken '}';
+	//	{TypeSet} '{' typeTokens+=NoErrorTypeToken '}';
 	public NoErrorTypeSetElements getNoErrorTypeSetAccess() {
 		return pNoErrorTypeSet;
 	}
@@ -7277,10 +7175,11 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////returns TypeToken:
-	////	{TypeToken}
-	////     ('{' type+=[ErrorTypes|QEMREF] (('*') type+=[ErrorTypes|QEMREF])* '}')
+	// //	{TypeToken}
+	// //     ('{' type+=[ErrorTypes|QEMREF] (('*') type+=[ErrorTypes|QEMREF])* '}')
+	//
 	////;
-	//TypeTokenOrNoError TypeSet:
+	// TypeTokenOrNoError TypeSet:
 	//	TypeSetReference | NoErrorTypeSet;
 	public TypeTokenOrNoErrorElements getTypeTokenOrNoErrorAccess() {
 		return pTypeTokenOrNoError;
@@ -7291,10 +7190,10 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////returns TypeToken:
-	////	TypeToken  
-	////	| '{' NoErrorTypeToken '}'
-	////;
-	//TypeTokenConstraint TypeSet:
+	// //	TypeToken  
+	// //	| '{' NoErrorTypeToken '}'
+	// //;
+	// TypeTokenConstraint TypeSet:
 	//	TypeSetReference;
 	public TypeTokenConstraintElements getTypeTokenConstraintAccess() {
 		return pTypeTokenConstraint;
@@ -7316,9 +7215,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//TypeTransformationSet:
 	//	TypeTransformationsKeywords name=ID (UseTypesKeywords useTypes+=[ErrorModelLibrary|QEMREF] (','
-	//	useTypes+=[ErrorModelLibrary|QEMREF])* ';')?
-	//	transformation+=TypeTransformation+
-	//	EndTransformationsKeywords ';';
+	//	useTypes+=[ErrorModelLibrary|QEMREF])* ';')? transformation+=TypeTransformation+ EndTransformationsKeywords ';';
 	public TypeTransformationSetElements getTypeTransformationSetAccess() {
 		return pTypeTransformationSet;
 	}
@@ -7328,8 +7225,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//TypeTransformation:
-	//	(source=TypeTokenConstraintNoError | allSources?='all')
-	//	'-[' contributor=TypeTokenConstraintNoError? ']->' target=TypeToken ';';
+	//	(source=TypeTokenConstraintNoError | allSources?='all') '-[' contributor=TypeTokenConstraintNoError? ']->'
+	//	target=TypeToken ';';
 	public TypeTransformationElements getTypeTransformationAccess() {
 		return pTypeTransformation;
 	}
@@ -7340,9 +7237,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//TypeMappingSet:
 	//	TypeMappingsKeywords name=ID (UseTypesKeywords useTypes+=[ErrorModelLibrary|QEMREF] (','
-	//	useTypes+=[ErrorModelLibrary|QEMREF])* ';')?
-	//	mapping+=TypeMapping+
-	//	EndMappingsKeywords ';';
+	//	useTypes+=[ErrorModelLibrary|QEMREF])* ';')? mapping+=TypeMapping+ EndMappingsKeywords ';';
 	public TypeMappingSetElements getTypeMappingSetAccess() {
 		return pTypeMappingSet;
 	}
@@ -7362,13 +7257,12 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////StateTypeBinding returns ErrorBehaviorState:
-	////	(intial?='initial')? 'state' name=ID typeSet = TypeSetReference
-	////;
+	// //	(intial?='initial')? 'state' name=ID typeSet = TypeSetReference
+	// //;
+	//
 	//ErrorPropagation:
-	//	{ErrorPropagation} (kind=PropagationKind | featureorPPRef=FeatureorPPReference)
-	//	':' not?='not'? direction=PropagationDirection 'propagation'
-	//	typeSet=TypeSetReference
-	//	';';
+	//	{ErrorPropagation} (kind=PropagationKind | featureorPPRef=FeatureorPPReference) ':' not?='not'?
+	//	direction=PropagationDirection 'propagation' typeSet=TypeSetReference ';';
 	public ErrorPropagationElements getErrorPropagationAccess() {
 		return pErrorPropagation;
 	}
@@ -7408,10 +7302,13 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// enum does not work as  
+	//
 	////enum PropKind : PROCESSOR='processor'|MEMORY='memory'|BUS='bus'|DEVICE='device'|SYSTEM='system'
+	//
 	////	            |VIRTUALBUS='virtual bus'|VIRTUALPROCESSOR='virtual processor'|BINDING='binding' | BINDINGS='bindings'|ACCESS='access'
+	//
 	////;
-	//ErrorFlow:
+	// ErrorFlow:
 	//	ErrorSource | ErrorSink | ErrorPath;
 	public ErrorFlowElements getErrorFlowAccess() {
 		return pErrorFlow;
@@ -7425,8 +7322,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	name=ID ':' ErrorSourceKeywords (sourceModelElement=[aadl2::NamedElement|ErrorPropagationPoint] | all?='all')
 	//	typeTokenConstraint=TypeTokenConstraint? ('when' (failureModeReference=[ErrorBehaviorState]
 	//	failureModeType=TypeSetReference? | failureModeType=TypeSetConstructor | failureModeDescription=STRING))? ('if'
-	//	flowcondition=IfCondition)?
-	//	';';
+	//	flowcondition=IfCondition)? ';';
 	public ErrorSourceElements getErrorSourceAccess() {
 		return pErrorSource;
 	}
@@ -7437,8 +7333,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ErrorSink:
 	//	name=ID ':' ErrorSinkKeywords (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?='all')
-	//	typeTokenConstraint=TypeTokenConstraint? ('if' flowcondition=IfCondition)?
-	//	';';
+	//	typeTokenConstraint=TypeTokenConstraint? ('if' flowcondition=IfCondition)? ';';
 	public ErrorSinkElements getErrorSinkAccess() {
 		return pErrorSink;
 	}
@@ -7449,10 +7344,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ErrorPath:
 	//	name=ID ':' ErrorPathKeywords (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?='all')
-	//	typeTokenConstraint=TypeTokenConstraint? '->' (outgoing=[ErrorPropagation|ErrorPropagationPoint] | allOutgoing?='all')
-	//	(targetToken=TypeToken | UseMappingsKeywords typeMappingSet=[TypeMappingSet|QEMREF])? ('if'
-	//	flowcondition=IfCondition)?
-	//	';';
+	//	typeTokenConstraint=TypeTokenConstraint? '->' (outgoing=[ErrorPropagation|ErrorPropagationPoint] |
+	//	allOutgoing?='all') (targetToken=TypeToken | UseMappingsKeywords typeMappingSet=[TypeMappingSet|QEMREF])? ('if'
+	//	flowcondition=IfCondition)? ';';
 	public ErrorPathElements getErrorPathAccess() {
 		return pErrorPath;
 	}
@@ -7472,7 +7366,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// reference to error propagation  
-	//ErrorPropagationPoint:
+	// ErrorPropagationPoint:
 	//	(ID ".")* (PropagationKind | ID);
 	public ErrorPropagationPointElements getErrorPropagationPointAccess() {
 		return pErrorPropagationPoint;
@@ -7483,8 +7377,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PropagationPoint:
-	//	name=ID ':' PropagationPointKeywords
-	//	';';
+	//	name=ID ':' PropagationPointKeywords ';';
 	public PropagationPointElements getPropagationPointAccess() {
 		return pPropagationPoint;
 	}
@@ -7518,8 +7411,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//	useTypes+=[ErrorModelLibrary|QEMREF])* ';')? (UseTransformationsKeywords
 	//	useTransformation+=[TypeTransformationSet|QEMREF] ';')? ('events' events+=ErrorBehaviorEvent+)? ('states'
 	//	states+=ErrorBehaviorState+)? ('transitions' transitions+=ErrorBehaviorTransition+)? ('properties'
-	//	properties+=BasicEMV2PropertyAssociation+)?
-	//	EndBehaviorKeywords ';';
+	//	properties+=BasicEMV2PropertyAssociation+)? EndBehaviorKeywords ';';
 	public ErrorBehaviorStateMachineElements getErrorBehaviorStateMachineAccess() {
 		return pErrorBehaviorStateMachine;
 	}
@@ -7539,9 +7431,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ErrorEvent:
-	//	name=ID ':' ErrorEventKeywords
-	//	typeSet=TypeSetReference? ('if' eventcondition=IfCondition)?
-	//	';';
+	//	name=ID ':' ErrorEventKeywords typeSet=TypeSetReference? ('if' eventcondition=IfCondition)? ';';
 	public ErrorEventElements getErrorEventAccess() {
 		return pErrorEvent;
 	}
@@ -7551,10 +7441,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// add event condition 
-	//RepairEvent:
+	// RepairEvent:
 	//	name=ID ':' RepairEventKeywords ('when' eventInitiator+=[aadl2::NamedElement] (","
-	//	eventInitiator+=[aadl2::NamedElement])*)?
-	//	';';
+	//	eventInitiator+=[aadl2::NamedElement])*)? ';';
 	public RepairEventElements getRepairEventAccess() {
 		return pRepairEvent;
 	}
@@ -7565,8 +7454,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//RecoverEvent:
 	//	name=ID ':' RecoverEventKeywords ('when' eventInitiator+=[aadl2::NamedElement] (","
-	//	eventInitiator+=[aadl2::NamedElement])*)? ('if' condition=IfCondition)?
-	//	';';
+	//	eventInitiator+=[aadl2::NamedElement])*)? ('if' condition=IfCondition)? ';';
 	public RecoverEventElements getRecoverEventAccess() {
 		return pRecoverEvent;
 	}
@@ -7576,10 +7464,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////add recover initiator 
-	//ErrorBehaviorState:
-	//	name=ID ':' intial?='initial'? 'state'
-	//	typeSet=TypeSetReference?
-	//	';';
+	// ErrorBehaviorState:
+	//	name=ID ':' intial?='initial'? 'state' typeSet=TypeSetReference? ';';
 	public ErrorBehaviorStateElements getErrorBehaviorStateAccess() {
 		return pErrorBehaviorState;
 	}
@@ -7589,11 +7475,10 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ErrorBehaviorTransition:
-	//	(name=ID ':')? (source=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?='all')
-	//	'-[' condition=ConditionExpression ']->' (target=[ErrorBehaviorState] targetToken=TypeToken? |
+	//	(name=ID ':')? (source=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?='all') '-['
+	//	condition=ConditionExpression ']->' (target=[ErrorBehaviorState] targetToken=TypeToken? |
 	//	steadyState?=SameStateKeywords | '(' destinationBranches+=TransitionBranch (','
-	//	destinationBranches+=TransitionBranch)+ ')')
-	//	';';
+	//	destinationBranches+=TransitionBranch)+ ')') ';';
 	public ErrorBehaviorTransitionElements getErrorBehaviorTransitionAccess() {
 		return pErrorBehaviorTransition;
 	}
@@ -7603,8 +7488,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//TransitionBranch:
-	//	(target=[ErrorBehaviorState] targetToken=TypeToken? | steadyState?=SameStateKeywords)
-	//	'with' value=BranchValue;
+	//	(target=[ErrorBehaviorState] targetToken=TypeToken? | steadyState?=SameStateKeywords) 'with' value=BranchValue;
 	public TransitionBranchElements getTransitionBranchAccess() {
 		return pTransitionBranch;
 	}
@@ -7614,7 +7498,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// store real literal as integer, ID as reference to property constant
-	//BranchValue:
+	// BranchValue:
 	//	{BranchValue} (realvalue=REAL_LIT | symboliclabel=[aadl2::Property|QEMREF] | others?='others');
 	public BranchValueElements getBranchValueAccess() {
 		return pBranchValue;
@@ -7625,7 +7509,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// condition expression for component specific transitions 
-	//// based on error events and incoming propagations
+	// // based on error events and incoming propagations
+	//
 	//ConditionExpression:
 	//	AndExpression ({OrExpression.operands+=current} 'or' operands+=AndExpression)*;
 	public ConditionExpressionElements getConditionExpressionAccess() {
@@ -7677,11 +7562,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ConditionTerm ConditionExpression:
-	//	ConditionElement
-	//	| OrmoreExpression
-	//	| OrlessExpression
-	//	| AllExpression
-	//	| '(' ConditionExpression ')';
+	//	ConditionElement | OrmoreExpression | OrlessExpression | AllExpression | '(' ConditionExpression ')';
 	public ConditionTermElements getConditionTermAccess() {
 		return pConditionTerm;
 	}
@@ -7701,13 +7582,16 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////QualifiedErrorPropagation returns QualifiedErrorPropagation:
+	//
 	////	(modelElementReference=NestedModelElement '.')?    (  kind=PropagationKind | errorPropagation=[ErrorPropagation|ID])
+	//
 	////;
-	////
-	////NestedModelElement returns NestedModelElement:
+	// //
+	// //NestedModelElement returns NestedModelElement:
+	//
 	////	modelElement=[aadl2::NamedElement|ID] ( next=NestedModelElement)?
-	////;
-	//QualifiedErrorEventOrPropagation EMV2Path:
+	// //;
+	// QualifiedErrorEventOrPropagation EMV2Path:
 	//	{QualifiedErrorEventOrPropagation} emv2Target=EMV2ErrorPropagationPath;
 	public QualifiedErrorEventOrPropagationElements getQualifiedErrorEventOrPropagationAccess() {
 		return pQualifiedErrorEventOrPropagation;
@@ -7718,8 +7602,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//EMV2ErrorPropagationPath EMV2PathElement:
-	//	emv2PropagationKind=PropagationKind
-	//	| namedElement=[aadl2::NamedElement] ('.' path=EMV2ErrorPropagationPath)?;
+	//	emv2PropagationKind=PropagationKind | namedElement=[aadl2::NamedElement] ('.' path=EMV2ErrorPropagationPath)?;
 	public EMV2ErrorPropagationPathElements getEMV2ErrorPropagationPathAccess() {
 		return pEMV2ErrorPropagationPath;
 	}
@@ -7739,10 +7622,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//OutgoingPropagationCondition:
-	//	(name=ID ':')? (state=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?='all')
-	//	'-[' condition=ConditionExpression? ']->' ((outgoing=[ErrorPropagation|ErrorPropagationPoint] |
-	//	allPropagations?='all') typeToken=TypeTokenOrNoError?)
-	//	';';
+	//	(name=ID ':')? (state=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?='all') '-['
+	//	condition=ConditionExpression? ']->' ((outgoing=[ErrorPropagation|ErrorPropagationPoint] | allPropagations?='all')
+	//	typeToken=TypeTokenOrNoError?) ';';
 	public OutgoingPropagationConditionElements getOutgoingPropagationConditionAccess() {
 		return pOutgoingPropagationCondition;
 	}
@@ -7752,10 +7634,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ErrorDetection:
-	//	(name=ID ':')? (state=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?='all')
-	//	'-[' condition=ConditionExpression? ']->'
-	//	detectionReportingPort=[aadl2::TriggerPort] '!' ('(' errorCode=ErrorCodeValue ')')?
-	//	';';
+	//	(name=ID ':')? (state=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?='all') '-['
+	//	condition=ConditionExpression? ']->' detectionReportingPort=[aadl2::TriggerPort] '!' ('(' errorCode=ErrorCodeValue
+	//	')')? ';';
 	public ErrorDetectionElements getErrorDetectionAccess() {
 		return pErrorDetection;
 	}
@@ -7775,9 +7656,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ErrorStateToModeMapping:
-	//	errorState=[ErrorBehaviorState] typeToken=TypeToken?
-	//	InModesKeywords '('
-	//	mappedModes+=[aadl2::Mode] (',' mappedModes+=[aadl2::Mode])* ')' ';';
+	//	errorState=[ErrorBehaviorState] typeToken=TypeToken? InModesKeywords '(' mappedModes+=[aadl2::Mode] (','
+	//	mappedModes+=[aadl2::Mode])* ')' ';';
 	public ErrorStateToModeMappingElements getErrorStateToModeMappingAccess() {
 		return pErrorStateToModeMapping;
 	}
@@ -7787,8 +7667,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//CompositeState:
-	//	(name=ID ':')?
-	//	'[' (condition=SConditionExpression | others?='others') ']->' state=[ErrorBehaviorState] typedToken=TypeToken? ';';
+	//	(name=ID ':')? '[' (condition=SConditionExpression | others?='others') ']->' state=[ErrorBehaviorState]
+	//	typedToken=TypeToken? ';';
 	public CompositeStateElements getCompositeStateAccess() {
 		return pCompositeState;
 	}
@@ -7798,8 +7678,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// condition expressions for composite states
-	//// based on states only  
-	//SConditionExpression ConditionExpression:
+	// // based on states only  
+	// SConditionExpression ConditionExpression:
 	//	SAndExpression ({OrExpression.operands+=current} 'or' operands+=SAndExpression)*;
 	public SConditionExpressionElements getSConditionExpressionAccess() {
 		return pSConditionExpression;
@@ -7840,8 +7720,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SAllExpression ConditionExpression:
-	//	{AllExpression} 'all' ('-' count=INTVALUE)?
-	//	'(' operands+=SConditionElement (',' operands+=SConditionElement)* ')';
+	//	{AllExpression} 'all' ('-' count=INTVALUE)? '(' operands+=SConditionElement (',' operands+=SConditionElement)* ')';
 	public SAllExpressionElements getSAllExpressionAccess() {
 		return pSAllExpression;
 	}
@@ -7851,11 +7730,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SConditionTerm ConditionExpression:
-	//	SConditionElement
-	//	| SOrmoreExpression
-	//	| SOrlessExpression
-	//	| SAllExpression
-	//	| '(' SConditionExpression ')';
+	//	SConditionElement | SOrmoreExpression | SOrlessExpression | SAllExpression | '(' SConditionExpression ')';
 	public SConditionTermElements getSConditionTermAccess() {
 		return pSConditionTerm;
 	}
@@ -7875,8 +7750,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SConditionElement ConditionElement:
-	//	{SConditionElement} (qualifiedState=QualifiedErrorBehaviorState constraint=TypeTokenConstraint? |
-	//	'in' (qualifiedErrorPropagationReference=QualifiedErrorPropagation constraint=TypeTokenConstraintNoError?));
+	//	{SConditionElement} (qualifiedState=QualifiedErrorBehaviorState constraint=TypeTokenConstraint? | 'in'
+	//	(qualifiedErrorPropagationReference=QualifiedErrorPropagation constraint=TypeTokenConstraintNoError?));
 	public SConditionElementElements getSConditionElementAccess() {
 		return pSConditionElement;
 	}
@@ -8291,11 +8166,10 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// Properties
-	//ContainedPropertyAssociation aadl2::PropertyAssociation:
+	// ContainedPropertyAssociation aadl2::PropertyAssociation:
 	//	property=[aadl2::Property|QPREF] ('=>' | append?='+=>') constant?='constant'? (ownedValue+=OptionalModalPropertyValue
 	//	(',' ownedValue+=OptionalModalPropertyValue)*) (AppliesToKeywords appliesTo+=ContainmentPath (','
-	//	appliesTo+=ContainmentPath)*)? (InBindingKeywords '(' inBinding+=[aadl2::Classifier|QCREF] ')')?
-	//	';';
+	//	appliesTo+=ContainmentPath)*)? (InBindingKeywords '(' inBinding+=[aadl2::Classifier|QCREF] ')')? ';';
 	public PropertiesGrammarAccess.ContainedPropertyAssociationElements getContainedPropertyAssociationAccess() {
 		return gaProperties.getContainedPropertyAssociationAccess();
 	}
@@ -8306,8 +8180,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//PropertyAssociation aadl2::PropertyAssociation:
 	//	property=[aadl2::Property|QPREF] ('=>' | append?='+=>') constant?='constant'? (ownedValue+=OptionalModalPropertyValue
-	//	(',' ownedValue+=OptionalModalPropertyValue)*) (InBindingKeywords '(' inBinding+=[aadl2::Classifier|QCREF] ')')?
-	//	';';
+	//	(',' ownedValue+=OptionalModalPropertyValue)*) (InBindingKeywords '(' inBinding+=[aadl2::Classifier|QCREF] ')')? ';';
 	public PropertiesGrammarAccess.PropertyAssociationElements getPropertyAssociationAccess() {
 		return gaProperties.getPropertyAssociationAccess();
 	}
@@ -8317,8 +8190,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//BasicPropertyAssociation aadl2::PropertyAssociation:
-	//	property=[aadl2::Property|QPREF]
-	//	'=>' ownedValue+=PropertyValue ';';
+	//	property=[aadl2::Property|QPREF] '=>' ownedValue+=PropertyValue ';';
 	public PropertiesGrammarAccess.BasicPropertyAssociationElements getBasicPropertyAssociationAccess() {
 		return gaProperties.getBasicPropertyAssociationAccess();
 	}
@@ -8328,8 +8200,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ContainmentPath aadl2::ContainedNamedElement:
-	//	path=ContainmentPathElement
-	//	//	( 'annex' containmentPathElement+=AnnexPath )?
+	//	path=ContainmentPathElement //	( 'annex' containmentPathElement+=AnnexPath )?
 	//;
 	public PropertiesGrammarAccess.ContainmentPathElements getContainmentPathAccess() {
 		return gaProperties.getContainmentPathAccess();
@@ -8340,12 +8211,10 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////AnnexPath returns aadl2::ContainmentPathElement:
-	////	 namedElement=[aadl2::NamedElement|IDANNEXTEXT];
+	// //	 namedElement=[aadl2::NamedElement|IDANNEXTEXT];
+	//
 	//ModalPropertyValue aadl2::ModalPropertyValue:
-	//	ownedValue=PropertyExpression
-	//	InModesKeywords '('
-	//	inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])*
-	//	')';
+	//	ownedValue=PropertyExpression InModesKeywords '(' inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])* ')';
 	public PropertiesGrammarAccess.ModalPropertyValueElements getModalPropertyValueAccess() {
 		return gaProperties.getModalPropertyValueAccess();
 	}
@@ -8355,9 +8224,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//OptionalModalPropertyValue aadl2::ModalPropertyValue:
-	//	ownedValue=PropertyExpression (InModesKeywords '('
-	//	inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])*
-	//	')')?;
+	//	ownedValue=PropertyExpression (InModesKeywords '(' inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])* ')')?;
 	public PropertiesGrammarAccess.OptionalModalPropertyValueElements getOptionalModalPropertyValueAccess() {
 		return gaProperties.getOptionalModalPropertyValueAccess();
 	}
@@ -8367,7 +8234,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// &&&&&&&&&& handling of in binding
-	//PropertyValue aadl2::ModalPropertyValue:
+	// PropertyValue aadl2::ModalPropertyValue:
 	//	ownedValue=PropertyExpression;
 	public PropertiesGrammarAccess.PropertyValueElements getPropertyValueAccess() {
 		return gaProperties.getPropertyValueAccess();
@@ -8378,11 +8245,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PropertyExpression aadl2::PropertyExpression:
-	//	RecordTerm | ReferenceTerm | ComponentClassifierTerm
-	//	| ComputedTerm | StringTerm | NumericRangeTerm
-	//	| RealTerm | IntegerTerm
-	//	| ListTerm
-	//	| BooleanLiteral | LiteralorReferenceTerm;
+	//	RecordTerm | ReferenceTerm | ComponentClassifierTerm | ComputedTerm | StringTerm | NumericRangeTerm | RealTerm |
+	//	IntegerTerm | ListTerm | BooleanLiteral | LiteralorReferenceTerm;
 	public PropertiesGrammarAccess.PropertyExpressionElements getPropertyExpressionAccess() {
 		return gaProperties.getPropertyExpressionAccess();
 	}
@@ -8422,13 +8286,13 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ReferenceTerm aadl2::ReferenceValue:
-	//	'reference' '('
-	//	path=ContainmentPathElement
-	//	//	( 'annex' ID '{**' 
+	//	'reference' '(' path=ContainmentPathElement //	( 'annex' ID '{**' 
+	//
 	//	//	containmentPathElement+=ContainmentPathElement
-	//	//	( '.' containmentPathElement+=ContainmentPathElement)*
+	// //	( '.' containmentPathElement+=ContainmentPathElement)*
+	//
 	//	//	'**}')?
-	//	')';
+	// ')';
 	public PropertiesGrammarAccess.ReferenceTermElements getReferenceTermAccess() {
 		return gaProperties.getReferenceTermAccess();
 	}
@@ -8438,9 +8302,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//RecordTerm aadl2::RecordValue:
-	//	'['
-	//	ownedFieldValue+=FieldPropertyAssociation+
-	//	']';
+	//	'[' ownedFieldValue+=FieldPropertyAssociation+ ']';
 	public PropertiesGrammarAccess.RecordTermElements getRecordTermAccess() {
 		return gaProperties.getRecordTermAccess();
 	}
@@ -8450,9 +8312,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//OldRecordTerm aadl2::RecordValue:
-	//	'('
-	//	ownedFieldValue+=FieldPropertyAssociation+
-	//	')';
+	//	'(' ownedFieldValue+=FieldPropertyAssociation+ ')';
 	public PropertiesGrammarAccess.OldRecordTermElements getOldRecordTermAccess() {
 		return gaProperties.getOldRecordTermAccess();
 	}
@@ -8462,9 +8322,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ComputedTerm aadl2::ComputedValue:
-	//	'compute' '('
-	//	function=ID
-	//	')';
+	//	'compute' '(' function=ID ')';
 	public PropertiesGrammarAccess.ComputedTermElements getComputedTermAccess() {
 		return gaProperties.getComputedTermAccess();
 	}
@@ -8474,9 +8332,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ComponentClassifierTerm aadl2::ClassifierValue:
-	//	'classifier' '('
-	//	classifier=[aadl2::ComponentClassifier|QCREF]
-	//	')';
+	//	'classifier' '(' classifier=[aadl2::ComponentClassifier|QCREF] ')';
 	public PropertiesGrammarAccess.ComponentClassifierTermElements getComponentClassifierTermAccess() {
 		return gaProperties.getComponentClassifierTermAccess();
 	}
@@ -8486,9 +8342,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ListTerm aadl2::ListValue:
-	//	{aadl2::ListValue}
-	//	'(' (ownedListElement+=PropertyExpression (',' ownedListElement+=PropertyExpression)*)?
-	//	')';
+	//	{aadl2::ListValue} '(' (ownedListElement+=PropertyExpression (',' ownedListElement+=PropertyExpression)*)? ')';
 	public PropertiesGrammarAccess.ListTermElements getListTermAccess() {
 		return gaProperties.getListTermAccess();
 	}
@@ -8498,10 +8352,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//FieldPropertyAssociation aadl2::BasicPropertyAssociation:
-	//	property=[aadl2::BasicProperty]
-	//	'=>'
-	//	ownedValue=PropertyExpression
-	//	';';
+	//	property=[aadl2::BasicProperty] '=>' ownedValue=PropertyExpression ';';
 	public PropertiesGrammarAccess.FieldPropertyAssociationElements getFieldPropertyAssociationAccess() {
 		return gaProperties.getFieldPropertyAssociationAccess();
 	}
@@ -8511,8 +8362,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// from AADL2
-	//// need to add annex path element
-	//ContainmentPathElement aadl2::ContainmentPathElement:
+	// // need to add annex path element
+	// ContainmentPathElement aadl2::ContainmentPathElement:
 	//	(namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange*) ('.' path=ContainmentPathElement)?
 	//	//	 | 	 'annex' namedElement=[aadl2::NamedElement|ID]
 	//;
@@ -8525,7 +8376,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ANNEXREF: // check what values are ok inside ** **
-	//	'{' STAR STAR ID STAR STAR '}';
+	// '{' STAR STAR ID STAR STAR '}';
 	public PropertiesGrammarAccess.ANNEXREFElements getANNEXREFAccess() {
 		return gaProperties.getANNEXREFAccess();
 	}
@@ -8565,9 +8416,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ArrayRange aadl2::ArrayRange:
-	//	{aadl2::ArrayRange}
-	//	'[' lowerBound=INTVALUE ('..' upperBound=INTVALUE)?
-	//	']';
+	//	{aadl2::ArrayRange} '[' lowerBound=INTVALUE ('..' upperBound=INTVALUE)? ']';
 	public PropertiesGrammarAccess.ArrayRangeElements getArrayRangeAccess() {
 		return gaProperties.getArrayRangeAccess();
 	}
@@ -8628,7 +8477,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//NumericRangeTerm aadl2::RangeValue:
 	//	minimum=NumAlt //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
-	//	'..' maximum=NumAlt ('delta' delta=NumAlt //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+	// '..' maximum=NumAlt ('delta' delta=NumAlt
+	//	//(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
 	//)?;
 	public PropertiesGrammarAccess.NumericRangeTermElements getNumericRangeTermAccess() {
 		return gaProperties.getNumericRangeTermAccess();
@@ -8766,17 +8616,14 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//terminal STRING:
-	//	'"' ('\\' ('b' | 't' | 'n' | 'f' | 'r' | 'u' | '"' | "'" | '\\') | !('\\' | '"'))* '"' |
-	//	"'" ('\\' ('b' | 't' | 'n' | 'f' | 'r' | 'u' | '"' | "'" | '\\') | !('\\' | "'"))* "'";
+	//	'"' ('\\' ('b' | 't' | 'n' | 'f' | 'r' | 'u' | '"' | "'" | '\\') | !('\\' | '"'))* '"' | "'" ('\\' ('b' | 't' | 'n' |
+	//	'f' | 'r' | 'u' | '"' | "'" | '\\') | !('\\' | "'"))* "'";
 	public TerminalRule getSTRINGRule() {
 		return gaProperties.getSTRINGRule();
 	} 
 
 	//terminal ID:
-	//	('a'..'z'
-	//	| 'A'..'Z') ('_'? ('a'..'z'
-	//	| 'A'..'Z'
-	//	| '0'..'9'))*;
+	//	('a'..'z' | 'A'..'Z') ('_'? ('a'..'z' | 'A'..'Z' | '0'..'9'))*;
 	public TerminalRule getIDRule() {
 		return gaProperties.getIDRule();
 	} 

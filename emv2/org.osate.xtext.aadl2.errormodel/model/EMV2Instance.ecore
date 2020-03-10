@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="EMV2Instance" nsURI="http://www.osate.org/EMV2Instance" nsPrefix="EMV2Instance">
+  <eClassifiers xsi:type="ecore:EClass" name="EMV2InstanceObject" abstract="true"
+      eSuperTypes="../../org.osate.aadl2/model/instance.ecore#//InstanceObject"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EMV2AnnexInstance" eSuperTypes="../../org.osate.aadl2/model/instance.ecore#//InstanceObject ../../org.osate.aadl2/model/instance.ecore#//AnnexInstance #//EMV2InstanceObject"/>
+  <eClassifiers xsi:type="ecore:EClass" name="StateVariableInstance" eSuperTypes="#//EMV2InstanceObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="states" upperBound="-1"
+        eType="#//StateInstance" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="currentState" eType="#//StateInstance"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StateInstance" eSuperTypes="#//EMV2InstanceObject"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ConstrainedInstanceObject" eSuperTypes="#//EMV2InstanceObject #//Literal">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="instanceObject" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//InstanceObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" eType="#//Literal"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="outgoing" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StateTransitionInstance" eSuperTypes="#//EMV2InstanceObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetState" eType="#//StateInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//Literal"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stateTransition" eType="ecore:EClass generated/ErrorModel.ecore#//ErrorBehaviorTransition"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StateSynchronizationInstance" eSuperTypes="#//EMV2InstanceObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetState" eType="#//StateInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//Literal"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stateSynchronization" eType="ecore:EClass generated/ErrorModel.ecore#//CompositeState"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorInstance" eSuperTypes="#//EMV2InstanceObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//Literal"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actions" upperBound="-1"
+        eType="#//ConstrainedInstanceObject" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="source" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sink" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Literal" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TypeReference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass generated/ErrorModel.ecore#//ErrorTypes"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ECollection" eSuperTypes="#//Literal">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
+        eType="#//Literal" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MultiLiteralConstraint">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="#//EOperation"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="k" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EOperation">
+    <eLiterals name="ANY" literal="any"/>
+    <eLiterals name="ALL" value="1" literal="all"/>
+    <eLiterals name="ONEOF" value="2" literal="oneof"/>
+    <eLiterals name="KOFN" value="3" literal="kofn"/>
+    <eLiterals name="KORMORE" value="4" literal="kormore"/>
+    <eLiterals name="KORLESS" value="5" literal="korless"/>
+  </eClassifiers>
+</ecore:EPackage>

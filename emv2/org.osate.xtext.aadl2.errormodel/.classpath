@@ -5,6 +5,5 @@
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="src-gen"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/org.osate.xtext.aadl2.properties"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
