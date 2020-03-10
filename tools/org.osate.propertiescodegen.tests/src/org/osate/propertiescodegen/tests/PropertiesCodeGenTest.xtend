@@ -167,17 +167,17 @@ class PropertiesCodeGenTest {
 					this.originalName = originalName;
 				}
 				
+				public static UnitsType1 getValue(PropertyExpression propertyExpression) {
+					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
+				}
+				
 				public double getFactorToBase() {
 					return factorToBase;
 				}
 				
 				public double getFactorTo(UnitsType1 target) {
 					return factorToBase / target.factorToBase;
-				}
-				
-				public static UnitsType1 getValue(PropertyExpression propertyExpression) {
-					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
-					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
 				@Override
@@ -233,17 +233,17 @@ class PropertiesCodeGenTest {
 					this.originalName = originalName;
 				}
 				
+				public static Time getValue(PropertyExpression propertyExpression) {
+					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
+				}
+				
 				public double getFactorToBase() {
 					return factorToBase;
 				}
 				
 				public double getFactorTo(Time target) {
 					return factorToBase / target.factorToBase;
-				}
-				
-				public static Time getValue(PropertyExpression propertyExpression) {
-					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
-					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
 				@Override
@@ -512,17 +512,17 @@ class PropertiesCodeGenTest {
 					this.originalName = originalName;
 				}
 				
+				public static Time getValue(PropertyExpression propertyExpression) {
+					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
+				}
+				
 				public double getFactorToBase() {
 					return factorToBase;
 				}
 				
 				public double getFactorTo(Time target) {
 					return factorToBase / target.factorToBase;
-				}
-				
-				public static Time getValue(PropertyExpression propertyExpression) {
-					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
-					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
 				@Override

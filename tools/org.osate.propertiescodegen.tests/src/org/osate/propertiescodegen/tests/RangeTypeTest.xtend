@@ -73,17 +73,17 @@ class RangeTypeTest {
 					this.originalName = originalName;
 				}
 				
+				public static Time getValue(PropertyExpression propertyExpression) {
+					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
+				}
+				
 				public double getFactorToBase() {
 					return factorToBase;
 				}
 				
 				public double getFactorTo(Time target) {
 					return factorToBase / target.factorToBase;
-				}
-				
-				public static Time getValue(PropertyExpression propertyExpression) {
-					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
-					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
 				@Override
