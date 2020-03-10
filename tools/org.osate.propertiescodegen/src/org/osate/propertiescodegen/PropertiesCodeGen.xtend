@@ -7,6 +7,7 @@ import org.osate.aadl2.AadlBoolean
 import org.osate.aadl2.AadlInteger
 import org.osate.aadl2.AadlReal
 import org.osate.aadl2.AadlString
+import org.osate.aadl2.BasicProperty
 import org.osate.aadl2.ClassifierType
 import org.osate.aadl2.EnumerationType
 import org.osate.aadl2.NumberType
@@ -416,65 +417,55 @@ class PropertiesCodeGen {
 	def private String generateRecord(String typeName, RecordType recordType, boolean topLevel) {
 		imports += #{"java.util.Objects", "org.osate.aadl2.PropertyExpression", "org.osate.aadl2.RecordValue"}
 		for (field : recordType.ownedFields) {
-			if (field.propertyType instanceof AadlInteger && (field.propertyType as AadlInteger).unitsType === null) {
-				imports += #{"java.util.OptionalLong", "org.osate.aadl2.IntegerLiteral"}
-			} else if (field.propertyType instanceof AadlReal && (field.propertyType as AadlReal).unitsType === null) {
-				imports += #{"java.util.OptionalDouble", "org.osate.aadl2.RealLiteral"}
-			} else {
-				imports += "java.util.Optional"
-			}
-			
-			if (field.propertyType instanceof AadlBoolean) {
-				imports += "org.osate.aadl2.BooleanLiteral"
-			} else if (field.propertyType instanceof AadlString) {
-				imports += "org.osate.aadl2.StringLiteral"
-			} else if (field.propertyType instanceof ClassifierType) {
-				imports += #{"org.osate.aadl2.Classifier", "org.osate.aadl2.ClassifierValue"}
-			} else if (field.propertyType instanceof ReferenceType) {
-				imports += #{
+			imports += switch propertyType : field.propertyType {
+				AadlBoolean: #{"java.util.Optional", "org.osate.aadl2.BooleanLiteral"}
+				AadlString: #{"java.util.Optional", "org.osate.aadl2.StringLiteral"}
+				ClassifierType: #{"java.util.Optional", "org.osate.aadl2.Classifier", "org.osate.aadl2.ClassifierValue"}
+				UnitsType case field.ownedPropertyType !== null: #{
+					"java.util.Optional",
+					"org.osate.aadl2.AbstractNamedValue",
+					"org.osate.aadl2.NamedValue",
+					"org.osate.aadl2.UnitLiteral"
+				}
+				EnumerationType case field.ownedPropertyType !== null: #{
+					"java.util.Optional",
+					"org.osate.aadl2.AbstractNamedValue",
+					"org.osate.aadl2.NamedValue",
+					"org.osate.aadl2.EnumerationLiteral"
+				}
+				AadlInteger case propertyType.unitsType === null: #{
+					"java.util.OptionalLong",
+					"org.osate.aadl2.IntegerLiteral"
+				}
+				AadlReal case propertyType.unitsType === null: #{
+					"java.util.OptionalDouble",
+					"org.osate.aadl2.RealLiteral"
+				}
+				ReferenceType: #{
+					"java.util.Optional",
 					"org.osate.aadl2.instance.InstanceObject",
 					"org.osate.aadl2.instance.InstanceReferenceValue"
 				}
-			} else if (field.ownedPropertyType instanceof EnumerationType) {
-				imports += #{"org.osate.aadl2.AbstractNamedValue", "org.osate.aadl2.NamedValue"}
-				if (field.ownedPropertyType instanceof UnitsType) {
-					imports += "org.osate.aadl2.UnitLiteral"
-				} else {
-					imports += "org.osate.aadl2.EnumerationLiteral"
-				}
+				default: #{"java.util.Optional"}
 			}
 			
-			if ((field.referencedPropertyType instanceof EnumerationType ||
-				field.referencedPropertyType instanceof NumberType &&
-					(field.referencedPropertyType as NumberType).unitsType !== null ||
-				field.referencedPropertyType instanceof RangeType ||
-				field.referencedPropertyType instanceof RecordType) &&
-				field.referencedPropertyType.getContainerOfType(PropertySet) != propertySet) {
-				imports +=
-					field.referencedPropertyType.getContainerOfType(PropertySet).name.toLowerCase + "." +
-						field.referencedPropertyType.name.toCamelCase
+			val referencedType = field.referencedPropertyType
+			val referencedPropertySet = referencedType.getContainerOfType(PropertySet)
+			if (referencedPropertySet != propertySet) {
+				switch referencedType {
+					EnumerationType,
+					NumberType case referencedType.unitsType !== null,
+					RangeType,
+					RecordType: {
+						imports += referencedPropertySet.name.toLowerCase + "." + referencedType.name.toCamelCase
+					}
+				}
 			}
 		}
 		'''
 			public«IF !topLevel» static«ENDIF» class «typeName» {
 				«FOR field : recordType.ownedFields»
-				«IF field.propertyType instanceof AadlBoolean»
-				private final Optional<Boolean> «field.name.toCamelCase.toFirstLower»;
-				«ELSEIF field.propertyType instanceof AadlString»
-				private final Optional<String> «field.name.toCamelCase.toFirstLower»;
-				«ELSEIF field.propertyType instanceof ClassifierType»
-				private final Optional<Classifier> «field.name.toCamelCase.toFirstLower»;
-				«ELSEIF field.propertyType instanceof AadlInteger && (field.propertyType as AadlInteger).unitsType === null»
-				private final OptionalLong «field.name.toCamelCase.toFirstLower»;
-				«ELSEIF field.propertyType instanceof AadlReal && (field.propertyType as AadlReal).unitsType === null»
-				private final OptionalDouble «field.name.toCamelCase.toFirstLower»;
-				«ELSEIF field.propertyType instanceof ReferenceType»
-				private final Optional<InstanceObject> «field.name.toCamelCase.toFirstLower»;
-				«ELSEIF field.ownedPropertyType !== null»
-				private final Optional<«field.name.toCamelCase»Type> «field.name.toCamelCase.toFirstLower»;
-				«ELSEIF field.referencedPropertyType !== null»
-				private final Optional<«field.referencedPropertyType.name.toCamelCase»> «field.name.toCamelCase.toFirstLower»;
-				«ENDIF»
+				private final «getFieldType(field)» «field.name.toCamelCase.toFirstLower»;
 				«ENDFOR»
 				
 				private «typeName»(PropertyExpression propertyExpression) {
@@ -483,33 +474,7 @@ class PropertiesCodeGen {
 					«field.name.toCamelCase.toFirstLower» = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("«field.name»"))
-							«IF field.propertyType instanceof AadlBoolean»
-							.map(field -> ((BooleanLiteral) field.getOwnedValue()).getValue())
-							«ELSEIF field.propertyType instanceof AadlString»
-							.map(field -> ((StringLiteral) field.getOwnedValue()).getValue())
-							«ELSEIF field.propertyType instanceof ClassifierType»
-							.map(field -> ((ClassifierValue) field.getOwnedValue()).getClassifier())
-							«ELSEIF field.propertyType instanceof AadlInteger && (field.propertyType as AadlInteger).unitsType === null»
-							.mapToLong(field -> ((IntegerLiteral) field.getOwnedValue()).getValue())
-							«ELSEIF field.propertyType instanceof AadlReal && (field.propertyType as AadlReal).unitsType === null»
-							.mapToDouble(field -> ((RealLiteral) field.getOwnedValue()).getValue())
-							«ELSEIF field.propertyType instanceof ReferenceType»
-							.map(field -> ((InstanceReferenceValue) field.getOwnedValue()).getReferencedInstanceObject())
-							«ELSEIF field.ownedPropertyType instanceof UnitsType»
-							.map(field -> {
-								AbstractNamedValue abstractNamedValue = ((NamedValue) field.getOwnedValue()).getNamedValue();
-								return «field.name.toCamelCase»Type.valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
-							})
-							«ELSEIF field.ownedPropertyType instanceof EnumerationType»
-							.map(field -> {
-								AbstractNamedValue abstractNamedValue = ((NamedValue) field.getOwnedValue()).getNamedValue();
-								return «field.name.toCamelCase»Type.valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
-							})
-							«ELSEIF field.ownedPropertyType !== null»
-							.map(field -> new «field.name.toCamelCase»Type(field.getOwnedValue()))
-							«ELSEIF field.referencedPropertyType !== null»
-							.map(field -> «field.referencedPropertyType.name.toCamelCase».getValue(field.getOwnedValue()))
-							«ENDIF»
+							«getFieldValueExtractor(field)»
 							.findAny();
 					«ENDFOR»
 				}
@@ -521,23 +486,7 @@ class PropertiesCodeGen {
 				«ENDIF»
 				«FOR field : recordType.ownedFields»
 				
-				«IF field.propertyType instanceof AadlBoolean»
-				public Optional<Boolean> get«field.name.toCamelCase»() {
-				«ELSEIF field.propertyType instanceof AadlString»
-				public Optional<String> get«field.name.toCamelCase»() {
-				«ELSEIF field.propertyType instanceof ClassifierType»
-				public Optional<Classifier> get«field.name.toCamelCase»() {
-				«ELSEIF field.propertyType instanceof AadlInteger && (field.propertyType as AadlInteger).unitsType === null»
-				public OptionalLong get«field.name.toCamelCase»() {
-				«ELSEIF field.propertyType instanceof AadlReal && (field.propertyType as AadlReal).unitsType === null»
-				public OptionalDouble get«field.name.toCamelCase»() {
-				«ELSEIF field.propertyType instanceof ReferenceType»
-				public Optional<InstanceObject> get«field.name.toCamelCase()»() {
-				«ELSEIF field.ownedPropertyType !== null»
-				public Optional<«field.name.toCamelCase»Type> get«field.name.toCamelCase»() {
-				«ELSEIF field.referencedPropertyType !== null»
-				public Optional<«field.referencedPropertyType.name.toCamelCase»> get«field.name.toCamelCase»() {
-				«ENDIF»
+				public «getFieldType(field)» get«field.name.toCamelCase»() {
 					return «field.name.toCamelCase.toFirstLower»;
 				}
 				«ENDFOR»
@@ -563,13 +512,17 @@ class PropertiesCodeGen {
 					}
 					«typeName» other = («typeName») obj;
 					«IF recordType.ownedFields.size == 1»
-					return Objects.equals(«recordType.ownedFields.head.name.toCamelCase.toFirstLower», other.«recordType.ownedFields.head.name.toCamelCase.toFirstLower»);
+					«val fieldName = recordType.ownedFields.head.name.toCamelCase.toFirstLower»
+					return Objects.equals(«fieldName», other.«fieldName»);
 					«ELSE»
-					return Objects.equals(«recordType.ownedFields.head.name.toCamelCase.toFirstLower», other.«recordType.ownedFields.head.name.toCamelCase.toFirstLower»)
+					«val firstFieldName = recordType.ownedFields.head.name.toCamelCase.toFirstLower»
+					return Objects.equals(«firstFieldName», other.«firstFieldName»)
 							«FOR field : recordType.ownedFields.take(recordType.ownedFields.size - 1).tail»
-							&& Objects.equals(«field.name.toCamelCase.toFirstLower», other.«field.name.toCamelCase.toFirstLower»)
+							«val fieldName = field.name.toCamelCase.toFirstLower»
+							&& Objects.equals(«fieldName», other.«fieldName»)
 							«ENDFOR»
-							&& Objects.equals(«recordType.ownedFields.last.name.toCamelCase.toFirstLower», other.«recordType.ownedFields.last.name.toCamelCase.toFirstLower»);
+							«val lastFieldName = recordType.ownedFields.last.name.toCamelCase.toFirstLower»
+							&& Objects.equals(«lastFieldName», other.«lastFieldName»);
 					«ENDIF»
 				}
 				
@@ -627,6 +580,44 @@ class PropertiesCodeGen {
 				«ENDFOR»
 			}
 		'''
+	}
+	
+	def private String getFieldType(BasicProperty field) {
+		switch propertyType : field.propertyType {
+			AadlBoolean: "Optional<Boolean>"
+			AadlString: "Optional<String>"
+			ClassifierType: "Optional<Classifier>"
+			AadlInteger case propertyType.unitsType === null: "OptionalLong"
+			AadlReal case propertyType.unitsType === null: "OptionalDouble"
+			ReferenceType: "Optional<InstanceObject>"
+			case field.ownedPropertyType !== null: '''Optional<«field.name.toCamelCase»Type>'''
+			case field.referencedPropertyType !== null: '''Optional<«propertyType.name.toCamelCase»>'''
+		}
+	}
+	
+	def private String getFieldValueExtractor(BasicProperty field) {
+		switch propertyType : field.propertyType {
+			AadlBoolean: ".map(field -> ((BooleanLiteral) field.getOwnedValue()).getValue())"
+			AadlString: ".map(field -> ((StringLiteral) field.getOwnedValue()).getValue())"
+			ClassifierType: ".map(field -> ((ClassifierValue) field.getOwnedValue()).getClassifier())"
+			AadlInteger case propertyType.unitsType === null: ".mapToLong(field -> ((IntegerLiteral) field.getOwnedValue()).getValue())"
+			AadlReal case propertyType.unitsType === null: ".mapToDouble(field -> ((RealLiteral) field.getOwnedValue()).getValue())"
+			ReferenceType: ".map(field -> ((InstanceReferenceValue) field.getOwnedValue()).getReferencedInstanceObject())"
+			UnitsType case field.ownedPropertyType !== null: '''
+				.map(field -> {
+					AbstractNamedValue abstractNamedValue = ((NamedValue) field.getOwnedValue()).getNamedValue();
+					return «field.name.toCamelCase»Type.valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
+				})
+			'''
+			EnumerationType case field.ownedPropertyType !== null: '''
+				.map(field -> {
+					AbstractNamedValue abstractNamedValue = ((NamedValue) field.getOwnedValue()).getNamedValue();
+					return «field.name.toCamelCase»Type.valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
+				})
+			'''
+			case field.ownedPropertyType !== null: '''.map(field -> new «field.name.toCamelCase»Type(field.getOwnedValue()))'''
+			case field.referencedPropertyType !== null: '''.map(field -> «propertyType.name.toCamelCase».getValue(field.getOwnedValue()))'''
+		}
 	}
 	
 	def private String generateReference(String typeName) {
