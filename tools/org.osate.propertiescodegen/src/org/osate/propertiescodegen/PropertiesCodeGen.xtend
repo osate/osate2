@@ -11,6 +11,7 @@ import org.osate.aadl2.BasicProperty
 import org.osate.aadl2.ClassifierType
 import org.osate.aadl2.EnumerationType
 import org.osate.aadl2.NumberType
+import org.osate.aadl2.Property
 import org.osate.aadl2.PropertySet
 import org.osate.aadl2.PropertyType
 import org.osate.aadl2.RangeType
@@ -27,11 +28,18 @@ class PropertiesCodeGen {
 	val Set<String> imports = newHashSet
 	
 	def static List<GeneratedJava> generateJava(PropertySet propertySet) {
-		propertySet.ownedPropertyTypes.map[type | generateFile(propertySet, type)].filterNull.toList
+		propertySet.eContents.map[eObject |
+			switch eObject {
+				PropertyType: generateFile(propertySet, eObject, eObject.name.toCamelCase)
+				Property case eObject.ownedPropertyType !== null: {
+					generateFile(propertySet, eObject.propertyType, eObject.name.toCamelCase)
+				}
+				default: null
+			}
+		].filterNull.toList
 	}
 	
-	def private static GeneratedJava generateFile(PropertySet propertySet, PropertyType propertyType) {
-		val typeName = propertyType.name.toCamelCase
+	def private static GeneratedJava generateFile(PropertySet propertySet, PropertyType propertyType, String typeName) {
 		val generator = new PropertiesCodeGen(propertySet)
 		val generatedJavaType = switch propertyType {
 			AadlBoolean: generator.generateBoolean(typeName)
@@ -169,6 +177,13 @@ class PropertiesCodeGen {
 					this.factorToBase = factorToBase;
 					this.originalName = originalName;
 				}
+				«IF topLevel»
+				
+				public static «typeName» getValue(PropertyExpression propertyExpression) {
+					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
+				}
+				«ENDIF»
 				
 				public double getFactorToBase() {
 					return factorToBase;
@@ -177,13 +192,6 @@ class PropertiesCodeGen {
 				public double getFactorTo(«typeName» target) {
 					return factorToBase / target.factorToBase;
 				}
-				«IF topLevel»
-				
-				public static «typeName» getValue(PropertyExpression propertyExpression) {
-					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
-					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
-				}
-				«ENDIF»
 				
 				@Override
 				public String toString() {
