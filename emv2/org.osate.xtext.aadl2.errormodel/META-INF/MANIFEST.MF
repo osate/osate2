@@ -1,13 +1,15 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.osate.xtext.aadl2.errormodel
-Bundle-Vendor: CMU/SEI
+Bundle-Name: %pluginName
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
 Bundle-Version: 2.0.1.qualifier
-Bundle-SymbolicName: org.osate.xtext.aadl2.errormodel; singleton:=true
+Bundle-ClassPath: .
+Bundle-SymbolicName: org.osate.xtext.aadl2.errormodel;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)";visibility:=reexport,
  org.apache.log4j;bundle-version="[1.2.15,2.0.0)";visibility:=reexport,
- org.apache.commons.logging;bundle-version="[1.0.4,2.0.0)";resolution:=optional;visibility:=reexport,
+ org.apache.commons.logging;bundle-version="[1.0.4,2.0.0)";visibility:=reexport;resolution:=optional,
  org.eclipse.xtext.generator;bundle-version="[2.20.0,3.0.0)";resolution:=optional,
  org.eclipse.emf.codegen.ecore;bundle-version="[2.20.0,3.0.0)";resolution:=optional,
  org.eclipse.emf.mwe.utils;bundle-version="[1.5.0,2.0.0)";resolution:=optional,
@@ -17,7 +19,8 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)";visibility:=re
  org.eclipse.emf.common;bundle-version="[2.7.0,3.0.0)",
  org.antlr.runtime;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.xtext.common.types;bundle-version="[2.20.0,3.0.0)",
- org.osate.aadl2;bundle-version="[2.1.0,3.0.0)",
+ org.osate.aadl2;bundle-version="[2.1.0,3.0.0)";visibility:=reexport,
+ org.osate.xtext.aadl2.errormodel;bundle-version="[2.0.0,4.0.0)";visibility:=reexport,
  org.osate.xtext.aadl2.properties;bundle-version="[1.1.0,2.0.0)";visibility:=reexport,
  org.eclipse.core.runtime;bundle-version="[3.7.0,4.0.0)",
  org.osate.aadl2.modelsupport;bundle-version="[2.0.0,3.0.0)",
@@ -43,7 +46,10 @@ Export-Package: org.osate.xtext.aadl2.errormodel,
  org.osate.xtext.aadl2.errormodel.services,
  org.osate.xtext.aadl2.errormodel.util,
  org.osate.xtext.aadl2.errormodel.validation,
- org.osate.xtext.aadl2.errormodel.valueconversion
+ org.osate.xtext.aadl2.errormodel.valueconversion,
+ org.osate.xtext.aadl2.errormodel.EMV2Instance,
+ org.osate.xtext.aadl2.errormodel.EMV2Instance.impl,
+ org.osate.xtext.aadl2.errormodel.EMV2Instance.util
 Import-Package: org.apache.log4j;version="[1.2.0,2.0.0)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: org.osate.xtext.aadl2.errormodel
