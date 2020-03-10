@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Errormodel
+Bundle-Name: OSATE Graphical Editor EMV2
 Bundle-SymbolicName: org.osate.ge.errormodel;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
@@ -12,3 +12,4 @@ Require-Bundle: org.eclipse.core.runtime,
  org.apache.commons.lang,
  org.eclipse.ui.views.properties.tabbed
 Automatic-Module-Name: org.osate.ge.errormodel
+Bundle-Vendor: The University of Alabama in Huntsville

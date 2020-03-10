@@ -4,7 +4,7 @@ Bundle-Name: org.osate.xtext.aadl2.properties.ui
 Bundle-Vendor: CMU-SEI
 Bundle-Version: 2.0.1.qualifier
 Bundle-SymbolicName: org.osate.xtext.aadl2.properties.ui;singleton:=true
-Require-Bundle:  org.osate.aadl2;bundle-version="[2.0.0,3.0.0)",
+Require-Bundle:  org.osate.aadl2;bundle-version="[2.1.0,3.0.0)",
  org.osate.aadl2.modelsupport;bundle-version="[2.0.0,3.0.0)",
  org.osate.xtext.aadl2.properties;bundle-version="[1.1.0,2.0.0)";visibility:=reexport,
  org.eclipse.xtext.ui;bundle-version="[2.20.0,3.0.0)",
