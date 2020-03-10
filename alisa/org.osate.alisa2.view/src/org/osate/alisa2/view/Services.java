@@ -18,11 +18,9 @@ import org.eclipse.sirius.diagram.DEdge;
 import org.eclipse.sirius.diagram.EdgeTarget;
 import org.eclipse.sirius.table.business.internal.metamodel.spec.DCellSpec;
 import org.eclipse.sirius.table.metamodel.table.DLine;
-import org.eclipse.sirius.table.metamodel.table.DTable;
 import org.eclipse.sirius.viewpoint.DSemanticDecorator;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
@@ -365,8 +363,9 @@ public class Services {
 		if (!line.getLines().isEmpty()) {
 			// These lines are what set the title of the table. Note we only set it in the cause, because
 			// line.getContainer() returns the parent line for the compensation rows
-			((DTable) line.getContainer()).setName("UCA-" + ((NamedElement) self.eContainer()).getName() + "-"
-					+ ((ErrorType) getRootErrorType(columnSemantic)).getName());
+//			Disabled Mar 5 2020 -- setName seems to have been removed
+//			((DTable) line.getContainer()).setName("UCA-" + ((NamedElement) self.eContainer()).getName() + "-"
+//					+ ((ErrorType) getRootErrorType(columnSemantic)).getName());
 			return cause.isEmpty() ? NO_DOCUMENTATION : cause;
 		} else {
 			return compensation.isEmpty() ? NO_DOCUMENTATION : compensation;

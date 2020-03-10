@@ -3,10 +3,10 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src/test/java"/>
-	<classpathentry kind="lib" path="lib/org.eclipse.sirius.tests.swtbot_6.1.2.201902150923.jar" sourcepath="lib/org.eclipse.sirius.tests.swtbot.source_6.1.2.201902150923.jar"/>
-	<classpathentry kind="lib" path="lib/org.eclipse.sirius.tests.swtbot.support_6.1.2.201902150923.jar" sourcepath="lib/org.eclipse.sirius.tests.swtbot.support.source_6.1.2.201902150923.jar"/>
-	<classpathentry kind="lib" path="lib/org.eclipse.sirius.tests.tree_6.1.2.201902150923.jar" sourcepath="lib/org.eclipse.sirius.tests.tree.source_6.1.2.201902150923.jar"/>
-	<classpathentry kind="lib" path="lib/org.eclipse.sirius.tests.junit_6.1.2.201902150923.jar" sourcepath="lib/org.eclipse.sirius.tests.junit.source_6.1.2.201902150923.jar"/>
-	<classpathentry kind="lib" path="lib/org.eclipse.sirius.tests.junit.support_6.1.2.201902150923.jar" sourcepath="lib/org.eclipse.sirius.tests.junit.support.source_6.1.2.201902150923.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.sirius.tests.junit_6.3.0.201910180815.jar" sourcepath="lib/src/org.eclipse.sirius.tests.junit.source_6.3.0.201910180815.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.sirius.tests.swtbot_6.3.0.201910180815.jar" sourcepath="lib/src/org.eclipse.sirius.tests.swtbot.source_6.3.0.201910180815.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.sirius.tests.tree_6.3.0.201910180815.jar" sourcepath="lib/src/org.eclipse.sirius.tests.tree.source_6.3.0.201910180815.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.sirius.tests.junit.support_6.3.0.201910180815.jar" sourcepath="lib/src/org.eclipse.sirius.tests.junit.support.source_6.3.0.201910180815.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.sirius.tests.swtbot.support_6.3.0.201910180815.jar" sourcepath="lib/src/org.eclipse.sirius.tests.swtbot.support.source_6.3.0.201910180815.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
