@@ -25,9 +25,12 @@ package org.osate.ui.handlers;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.commands.ExecutionEvent;
@@ -35,6 +38,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceRuleFactory;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
@@ -47,12 +51,20 @@ import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobGroup;
 import org.eclipse.core.runtime.jobs.MultiRule;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.ui.IWorkingSet;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.ui.ide.IDE;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.instantiation.RootMissingException;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.core.AadlNature;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.dialogs.InstantiationResultsDialog;
@@ -80,12 +92,28 @@ public final class ReinstantiationHandler extends AbstractMultiJobHandler {
 		 */
 		final Map<IFile, Result> results = new ConcurrentHashMap<>(size);
 
+		final Set<IResource> aadlFiles = new HashSet<>();
 		for (final IFile modelFile : aaxlFiles) {
 			/*
 			 * Init each result as cancelled because if the job is cancelled before it starts, it will never
 			 * add a new result record to the map. This way those jobs that never run are accounted for.
 			 */
 			results.put(modelFile, new Result(false, true, null, null));
+
+			/* Get the aadl file that it comes from so we can save the editors if needed. */
+			final IResource aadlFile = getAadlFile(modelFile);
+			if (aadlFile != null) {
+				aadlFiles.add(aadlFile);
+			}
+		}
+
+		/* Make sure the aadl files are saved if they are open in an editor */
+		final AtomicBoolean cancelled = new AtomicBoolean();
+		PlatformUI.getWorkbench().getDisplay().syncExec(() -> {
+			cancelled.set(!IDE.saveAllEditors(aadlFiles.toArray(new IResource[aadlFiles.size()]), true));
+		});
+		if (cancelled.get()) {
+			return Status.CANCEL_STATUS;
 		}
 
 		final IResourceRuleFactory factory = ResourcesPlugin.getWorkspace().getRuleFactory();
@@ -264,6 +292,24 @@ public final class ReinstantiationHandler extends AbstractMultiJobHandler {
 			}
 
 			return cancelled ? Status.CANCEL_STATUS : Status.OK_STATUS;
+		}
+	}
+
+	private static IResource getAadlFile(final IFile modelFile) {
+		/*
+		 * THis duplicates stuff that happens in InstantiateModel.rebuildInstanceModelFile(), but
+		 * I don't know how to avoid that.
+		 */
+		ResourceSet rset = new ResourceSetImpl();
+		Resource res = rset.getResource(OsateResourceUtil.toResourceURI(modelFile), true);
+		SystemInstance target = (SystemInstance) res.getContents().get(0);
+		ComponentImplementation ci = target.getComponentImplementation();
+		URI uri = EcoreUtil.getURI(ci);
+		ci = (ComponentImplementation) rset.getEObject(uri, true);
+		if (ci == null) {
+			return null;
+		} else {
+			return OsateResourceUtil.toIFile(ci.eResource().getURI());
 		}
 	}
 }
