@@ -1,5 +1,6 @@
 package org.osate.ge.fx.palette;
 
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.scene.image.Image;
 
 /**
@@ -37,4 +38,18 @@ public interface PaletteModelController {
 	public Integer getItemGroup(int itemIndex);
 
 	public void activateItem(int itemIndex);
+
+	/**
+	 * Retrieves the index of the active item.
+	 * @return the index of the active item or null if no item is active
+	 */
+	public default Integer getActiveItem() {
+		return activeItemProperty().getValue();
+	}
+
+	/**
+	 * Property for the index of the active item.
+	 */
+	public ReadOnlyProperty<Integer> activeItemProperty();
+
 }

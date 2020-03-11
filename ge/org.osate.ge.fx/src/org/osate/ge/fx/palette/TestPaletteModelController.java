@@ -7,13 +7,15 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
+import javafx.application.Platform;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.scene.image.Image;
 
 public class TestPaletteModelController implements PaletteModelController {
-	public Image[] icons = {
+	private final ReadOnlyObjectWrapper<Integer> activeItem = new ReadOnlyObjectWrapper<>();
+
+	private final Image[] icons = {
 			createTestIcon(0xFFFF0000), createTestIcon(0xFF00FF00), createTestIcon(0xFF0000FF),
 	};
 
@@ -57,11 +59,27 @@ public class TestPaletteModelController implements PaletteModelController {
 
 	@Override
 	public void activateItem(int itemIndex) {
-		final Alert alert = new Alert(Alert.AlertType.INFORMATION);
-		final String msg = "Item with index " + itemIndex + " activated";
-		alert.setHeaderText(msg);
-		alert.getDialogPane().setExpandableContent(new ScrollPane(new TextArea(msg)));
-		alert.showAndWait();
+		if (itemIndex < 0 || itemIndex >= getNumberOfItems()) {
+			throw new RuntimeException("Invalid index " + itemIndex);
+		}
+
+		activeItem.set(itemIndex);
+
+		// Sleep for 3 seconds and then change the active item to the first palette item.
+		final Thread t = new Thread(() -> {
+			try {
+				Thread.sleep(3000);
+				Platform.runLater(() -> activeItem.set(0));
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		});
+		t.run();
+	}
+
+	@Override
+	public ReadOnlyProperty<Integer> activeItemProperty() {
+		return activeItem.getReadOnlyProperty();
 	}
 
 	// Creates an icon with a solid color for testing
