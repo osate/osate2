@@ -27,7 +27,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 
-public class EventDataPortNode extends Region implements HasBackgroundColor, HasOutlineColor, HasLineWidth {
+public class EventDataPortNode extends Region implements Styleable {
 	private static final Point2D dataSymbolInOutPadding = new Point2D(10, 4);
 	private static final Point2D dataSymbolDirectionalPadding = new Point2D(8, 4);
 

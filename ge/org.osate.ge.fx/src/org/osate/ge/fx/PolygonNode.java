@@ -30,7 +30,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
 // TODO: Rename?
-public class PolygonNode extends Region implements HasBackgroundColor, HasOutlineColor, HasLineWidth {
+public class PolygonNode extends Region implements Styleable {
 	private final javafx.scene.shape.Polygon poly = new Polygon();
 	private double[] points; // TODO: Document meaning/range
 

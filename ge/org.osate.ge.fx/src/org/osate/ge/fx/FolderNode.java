@@ -27,7 +27,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 
 // TODO: Rename
-public class FolderNode extends Region implements HasBackgroundColor, HasOutlineColor, HasLineWidth {
+public class FolderNode extends Region implements Styleable {
 	private final static double folderTabHeight = 9;
 	private final static double folderMaxTabWidth = 100;
 	private final static double folderTabOffsetAngle = 30.0;

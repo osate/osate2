@@ -33,7 +33,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-public class LabelNode extends Region implements HasBackgroundColor, HasFontColor, HasFontFont {
+public class LabelNode extends Region implements Styleable {
 	private final Label text = new Label();
 
 	public LabelNode(final String txt) {

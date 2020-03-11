@@ -30,7 +30,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polyline;
 
 // // TODO: Rename?
-public class PolylineNode extends Region implements HasOutlineColor, HasLineWidth {
+public class PolylineNode extends Region implements Styleable {
 	private final javafx.scene.shape.Polyline poly = new Polyline();
 	private double[] points; // TODO: Document meaning/range
 

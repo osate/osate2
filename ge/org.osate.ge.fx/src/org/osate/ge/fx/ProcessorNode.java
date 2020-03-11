@@ -34,7 +34,7 @@ import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.VLineTo;
 
 // TODO: Rename
-public class ProcessorNode extends Region implements HasBackgroundColor, HasOutlineColor, HasLineWidth {
+public class ProcessorNode extends Region implements Styleable {
 	private final Path outlineFill = new Path();
 	private final Path shadedArea = new Path();
 	private final Path outline = new Path();

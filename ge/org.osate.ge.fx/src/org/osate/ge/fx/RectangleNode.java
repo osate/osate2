@@ -28,7 +28,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 // TODO: Rename
-public class RectangleNode extends Region implements HasBackgroundColor, HasOutlineColor, HasLineWidth {
+public class RectangleNode extends Region implements Styleable {
 	private final javafx.scene.shape.Rectangle rect = new Rectangle();
 
 	public RectangleNode() {

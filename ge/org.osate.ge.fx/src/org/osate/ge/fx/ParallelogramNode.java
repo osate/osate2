@@ -28,7 +28,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
 // TODO: Rename
-public class ParallelogramNode extends Region implements HasBackgroundColor, HasOutlineColor, HasLineWidth {
+public class ParallelogramNode extends Region implements Styleable {
 	private final javafx.scene.shape.Polygon poly = new Polygon();
 	private final double horizontalOffset;
 

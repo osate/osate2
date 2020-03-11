@@ -32,7 +32,7 @@ import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.VLineTo;
 
 // TODO: Rename
-public class MemoryNode extends Region implements HasBackgroundColor, HasOutlineColor, HasLineWidth {
+public class MemoryNode extends Region implements Styleable {
 	private final Path outline = new Path();
 	private final Path innerCurve = new Path();
 

@@ -31,7 +31,7 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.VLineTo;
 
-public class FeatureGroupTypeNode extends Region implements HasBackgroundColor, HasOutlineColor, HasLineWidth {
+public class FeatureGroupTypeNode extends Region implements Styleable {
 	private final Path path = new Path();
 
 	public FeatureGroupTypeNode() {
