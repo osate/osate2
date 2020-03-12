@@ -13,7 +13,8 @@ public
  transitions
    s -[on dispatch]-> s {
      d := 0;
-     d := 1.0
+     d := 1.0;
+     d := "any_string"
    };
   **};
   end function1;

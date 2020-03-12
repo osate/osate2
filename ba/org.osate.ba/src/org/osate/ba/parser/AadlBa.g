@@ -1603,7 +1603,7 @@ integer_literal returns [BehaviorIntegerLiteral result]
 ;
 
 // string_literal ::= <refer to [AS5506A 15.5]>
-string_literal returns [DeclarativeStringLiteral result]
+string_literal returns [BehaviorStringLiteral result]
   :
    STRING_LITERAL
 ;
