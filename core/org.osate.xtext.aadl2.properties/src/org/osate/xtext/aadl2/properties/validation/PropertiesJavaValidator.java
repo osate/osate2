@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -921,11 +921,48 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		} else if (pv instanceof NamedValue) {
 			AbstractNamedValue nv = ((NamedValue) pv).getNamedValue();
 			if (nv instanceof PropertyConstant) {
-				typeCheckPropertyValues(pt, ((PropertyConstant) nv).getConstantValue(), holder, defName);
+				final PropertyConstant propertyConstant = (PropertyConstant) nv;
+				final PropertyType pct = propertyConstant.getPropertyType();
+				if (!Aadl2Util.isNull(pct) && !Aadl2Util.arePropertyTypesEqual(pt, pct)) {
+					final String expected = getTypeName(pt);
+					final String actual = getTypeName(pct);
+					if (actual != null) {
+						if (expected != null) {
+							error(holder, "Property value of type " + actual + "; expected type " + expected);
+						} else {
+							error(holder, "Propery value of type " + actual + " does not match expected type");
+						}
+					} else {
+						if (expected != null) {
+							error(holder, "Property value is not of expected type " + expected);
+						} else {
+							error(holder, "Propery value is not of expected type");
+						}
+					}
+				} else {
+					// Issue 2222: is this still really necessary?
+					typeCheckPropertyValues(pt, propertyConstant.getConstantValue(), holder, defName);
+				}
 			} else if (nv instanceof Property) {
 				PropertyType pvt = ((Property) nv).getPropertyType();
-				if (!Aadl2Util.isNull(pvt) && pvt.eClass() != pt.eClass()) {
-					error(holder, "Assigning property of incorrect type" + msg);
+				if (!Aadl2Util.isNull(pvt)) {
+					if (pvt.eClass() != pt.eClass() || !Aadl2Util.arePropertyTypesEqual(pt, pvt)) {
+						final String expected = getTypeName(pt);
+						final String actual = getTypeName(pvt);
+						if (actual != null) {
+							if (expected != null) {
+								error(holder, "Property value of type " + actual + "; expected type " + expected);
+							} else {
+								error(holder, "Propery value of type " + actual + " does not match expected type");
+							}
+						} else {
+							if (expected != null) {
+								error(holder, "Property value is not of expected type " + expected);
+							} else {
+								error(holder, "Propery value is not of expected type");
+							}
+						}
+					}
 				}
 			} else {
 				error(holder, "Enum/Unit literal validation should have happened before");
@@ -936,14 +973,15 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	protected void typeMatchListElements(PropertyType pt, EList<PropertyExpression> pel, Element holder,
 			String defName) {
 		for (PropertyExpression propertyExpression : pel) {
-			typeCheckPropertyValues(pt, propertyExpression, "list element", holder, defName);
+			typeCheckPropertyValues(pt, propertyExpression, "list element", propertyExpression, defName);
 		}
 	}
 
 	protected void typeMatchRecordFields(EList<BasicPropertyAssociation> rfl, Element holder, String defName) {
 		for (BasicPropertyAssociation field : rfl) {
 			if (field.getProperty() != null) {
-				typeCheckPropertyValues(field.getProperty().getPropertyType(), field.getValue(), holder, defName);
+				typeCheckPropertyValues(field.getProperty().getPropertyType(), field.getValue(), field.getValue(),
+						defName);
 			}
 		}
 	}
@@ -991,7 +1029,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			return true;
 		}
 	}
-	
+
 	private void checkInRange(NumberType type, NumberValue value) {
 		NumericRange range = type.getRange();
 		if (range != null) {
@@ -1117,4 +1155,26 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		info(message, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, null);
 	}
 
+	/**
+	 * Get the name of the type, if it has a user-declared name, otherwise returns {@code null}.  The
+	 * only special handing is of list types, where if the ultimate element type of the list has a name,
+	 * then all the "list of" prefixes are attached.  Otherwise if the ultimate element type has no name
+	 * the result is still {@code null}.
+	 */
+	private String getTypeName(final PropertyType pt) {
+		if (pt instanceof ListType) {
+			final String elementTypeName = getTypeName(((ListType) pt).getElementType());
+			if (elementTypeName != null) {
+				return "list of " + elementTypeName;
+			} else {
+				return null;
+			}
+		} else {
+			if (pt.hasName()) {
+				return ((PropertySet) pt.eContainer()).getName() + "::" + pt.getName();
+			} else {
+				return null;
+			}
+		}
+	}
 }
