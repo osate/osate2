@@ -62,6 +62,15 @@ public class AnnexInstantiationController extends ForAllElement {
 				}
 			}
 		}
+		if (InstanceUtil.getComponentType(instance, 0, null) != null) {
+			final EList<Classifier> classifiers = InstanceUtil.getComponentType(instance, 0, null)
+					.getSelfPlusAllExtended();
+			for (Classifier classifier : classifiers) {
+				for (AnnexSubclause annexSubclause : classifier.getOwnedAnnexSubclauses()) {
+					annexes.add(annexSubclause.getName());
+				}
+			}
+		}
 		// instantiate each annex
 		for (String annexName : annexes) {
 			AnnexInstantiator instantiator = registry.getAnnexInstantiator(annexName);
