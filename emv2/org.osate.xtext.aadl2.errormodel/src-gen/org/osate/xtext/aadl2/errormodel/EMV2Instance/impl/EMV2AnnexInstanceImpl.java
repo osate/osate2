@@ -1,17 +1,42 @@
 /**
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.xtext.aadl2.errormodel.EMV2Instance.impl;
 
-import org.eclipse.emf.common.notify.Notification;
+import java.util.Collection;
+
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.osate.aadl2.AnnexSubclause;
-import org.osate.aadl2.instance.AnnexInstance;
-import org.osate.aadl2.instance.InstancePackage;
-import org.osate.aadl2.instance.SystemOperationMode;
-import org.osate.aadl2.instance.impl.InstanceObjectImpl;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.osate.aadl2.instance.impl.AnnexInstanceImpl;
+
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2AnnexInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstanceObject;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage;
@@ -24,21 +49,22 @@ import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2AnnexInstanceImpl#getAnnexSubclause <em>Annex Subclause</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2AnnexInstanceImpl#getElements <em>Elements</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class EMV2AnnexInstanceImpl extends InstanceObjectImpl implements EMV2AnnexInstance {
+public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2AnnexInstance {
 	/**
-	 * The cached value of the '{@link #getAnnexSubclause() <em>Annex Subclause</em>}' reference.
+	 * The cached value of the '{@link #getElements() <em>Elements</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAnnexSubclause()
+	 * @see #getElements()
 	 * @generated
 	 * @ordered
 	 */
-	protected AnnexSubclause annexSubclause;
+	protected EList<EMV2InstanceObject> elements;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -64,26 +90,11 @@ public class EMV2AnnexInstanceImpl extends InstanceObjectImpl implements EMV2Ann
 	 * @generated
 	 */
 	@Override
-	public AnnexSubclause getAnnexSubclause() {
-		if (annexSubclause != null && ((EObject)annexSubclause).eIsProxy()) {
-			InternalEObject oldAnnexSubclause = (InternalEObject)annexSubclause;
-			annexSubclause = (AnnexSubclause)eResolveProxy(oldAnnexSubclause);
-			if (annexSubclause != oldAnnexSubclause) {
-				if (eNotificationRequired()) {
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ANNEX_SUBCLAUSE, oldAnnexSubclause, annexSubclause));
-				}
-			}
+	public EList<EMV2InstanceObject> getElements() {
+		if (elements == null) {
+			elements = new EObjectContainmentEList<EMV2InstanceObject>(EMV2InstanceObject.class, this, EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ELEMENTS);
 		}
-		return annexSubclause;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AnnexSubclause basicGetAnnexSubclause() {
-		return annexSubclause;
+		return elements;
 	}
 
 	/**
@@ -92,12 +103,12 @@ public class EMV2AnnexInstanceImpl extends InstanceObjectImpl implements EMV2Ann
 	 * @generated
 	 */
 	@Override
-	public void setAnnexSubclause(AnnexSubclause newAnnexSubclause) {
-		AnnexSubclause oldAnnexSubclause = annexSubclause;
-		annexSubclause = newAnnexSubclause;
-		if (eNotificationRequired()) {
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ANNEX_SUBCLAUSE, oldAnnexSubclause, annexSubclause));
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ELEMENTS:
+				return ((InternalEList<?>)getElements()).basicRemove(otherEnd, msgs);
 		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -108,11 +119,8 @@ public class EMV2AnnexInstanceImpl extends InstanceObjectImpl implements EMV2Ann
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ANNEX_SUBCLAUSE:
-				if (resolve) {
-					return getAnnexSubclause();
-				}
-				return basicGetAnnexSubclause();
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ELEMENTS:
+				return getElements();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -126,8 +134,9 @@ public class EMV2AnnexInstanceImpl extends InstanceObjectImpl implements EMV2Ann
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ANNEX_SUBCLAUSE:
-				setAnnexSubclause((AnnexSubclause)newValue);
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ELEMENTS:
+				getElements().clear();
+				getElements().addAll((Collection<? extends EMV2InstanceObject>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -141,8 +150,8 @@ public class EMV2AnnexInstanceImpl extends InstanceObjectImpl implements EMV2Ann
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ANNEX_SUBCLAUSE:
-				setAnnexSubclause((AnnexSubclause)null);
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ELEMENTS:
+				getElements().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -156,57 +165,10 @@ public class EMV2AnnexInstanceImpl extends InstanceObjectImpl implements EMV2Ann
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ANNEX_SUBCLAUSE:
-				return annexSubclause != null;
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ELEMENTS:
+				return elements != null && !elements.isEmpty();
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-		if (baseClass == AnnexInstance.class) {
-			switch (derivedFeatureID) {
-				case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ANNEX_SUBCLAUSE: return InstancePackage.ANNEX_INSTANCE__ANNEX_SUBCLAUSE;
-				default: return -1;
-			}
-		}
-		if (baseClass == EMV2InstanceObject.class) {
-			switch (derivedFeatureID) {
-				default: return -1;
-			}
-		}
-		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
-		if (baseClass == AnnexInstance.class) {
-			switch (baseFeatureID) {
-				case InstancePackage.ANNEX_INSTANCE__ANNEX_SUBCLAUSE: return EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ANNEX_SUBCLAUSE;
-				default: return -1;
-			}
-		}
-		if (baseClass == EMV2InstanceObject.class) {
-			switch (baseFeatureID) {
-				default: return -1;
-			}
-		}
-		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
-	}
-
-	@Override
-	public boolean isActive(SystemOperationMode som) {
-		return true;
 	}
 
 } //EMV2AnnexInstanceImpl

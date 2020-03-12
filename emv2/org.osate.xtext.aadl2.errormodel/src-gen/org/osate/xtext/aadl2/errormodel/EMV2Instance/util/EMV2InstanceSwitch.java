@@ -1,4 +1,25 @@
 /**
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.xtext.aadl2.errormodel.EMV2Instance.util;
 
@@ -85,8 +106,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 				EMV2AnnexInstance emv2AnnexInstance = (EMV2AnnexInstance)theEObject;
 				T result = caseEMV2AnnexInstance(emv2AnnexInstance);
 				if (result == null) result = caseAnnexInstance(emv2AnnexInstance);
-				if (result == null) result = caseEMV2InstanceObject(emv2AnnexInstance);
-				if (result == null) result = caseInstanceObject(emv2AnnexInstance);
 				if (result == null) result = caseNamedElement(emv2AnnexInstance);
 				if (result == null) result = caseElement(emv2AnnexInstance);
 				if (result == null) result = defaultCase(theEObject);
@@ -116,7 +135,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 				ConstrainedInstanceObject constrainedInstanceObject = (ConstrainedInstanceObject)theEObject;
 				T result = caseConstrainedInstanceObject(constrainedInstanceObject);
 				if (result == null) result = caseEMV2InstanceObject(constrainedInstanceObject);
-				if (result == null) result = caseLiteral(constrainedInstanceObject);
 				if (result == null) result = caseInstanceObject(constrainedInstanceObject);
 				if (result == null) result = caseNamedElement(constrainedInstanceObject);
 				if (result == null) result = caseElement(constrainedInstanceObject);
@@ -153,28 +171,23 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EMV2InstancePackage.LITERAL: {
-				Literal literal = (Literal)theEObject;
-				T result = caseLiteral(literal);
+			case EMV2InstancePackage.EVENT_INSTANCE: {
+				EventInstance eventInstance = (EventInstance)theEObject;
+				T result = caseEventInstance(eventInstance);
+				if (result == null) result = caseEMV2InstanceObject(eventInstance);
+				if (result == null) result = caseInstanceObject(eventInstance);
+				if (result == null) result = caseNamedElement(eventInstance);
+				if (result == null) result = caseElement(eventInstance);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EMV2InstancePackage.TYPE_REFERENCE: {
-				TypeReference typeReference = (TypeReference)theEObject;
-				T result = caseTypeReference(typeReference);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case EMV2InstancePackage.ECOLLECTION: {
-				ECollection eCollection = (ECollection)theEObject;
-				T result = caseECollection(eCollection);
-				if (result == null) result = caseLiteral(eCollection);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case EMV2InstancePackage.MULTI_LITERAL_CONSTRAINT: {
-				MultiLiteralConstraint multiLiteralConstraint = (MultiLiteralConstraint)theEObject;
-				T result = caseMultiLiteralConstraint(multiLiteralConstraint);
+			case EMV2InstancePackage.CONSTRAINT: {
+				Constraint constraint = (Constraint)theEObject;
+				T result = caseConstraint(constraint);
+				if (result == null) result = caseEMV2InstanceObject(constraint);
+				if (result == null) result = caseInstanceObject(constraint);
+				if (result == null) result = caseNamedElement(constraint);
+				if (result == null) result = caseElement(constraint);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -303,62 +316,32 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Literal</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Event Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Literal</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Event Instance</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseLiteral(Literal object) {
+	public T caseEventInstance(EventInstance object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Type Reference</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Constraint</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Type Reference</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Constraint</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseTypeReference(TypeReference object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>ECollection</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>ECollection</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseECollection(ECollection object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Multi Literal Constraint</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Multi Literal Constraint</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseMultiLiteralConstraint(MultiLiteralConstraint object) {
+	public T caseConstraint(Constraint object) {
 		return null;
 	}
 

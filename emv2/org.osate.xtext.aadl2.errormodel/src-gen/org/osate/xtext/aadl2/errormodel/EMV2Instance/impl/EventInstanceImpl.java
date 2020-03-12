@@ -38,51 +38,53 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage;
-import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateInstance;
-import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateVariableInstance;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.EventInstance;
+
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>State Variable Instance</b></em>'.
+ * An implementation of the model object '<em><b>Event Instance</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateVariableInstanceImpl#getStates <em>States</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateVariableInstanceImpl#getCurrentState <em>Current State</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EventInstanceImpl#getEvent <em>Event</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EventInstanceImpl#getGeneratedLiterals <em>Generated Literals</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class StateVariableInstanceImpl extends EMV2InstanceObjectImpl implements StateVariableInstance {
+public class EventInstanceImpl extends EMV2InstanceObjectImpl implements EventInstance {
 	/**
-	 * The cached value of the '{@link #getStates() <em>States</em>}' containment reference list.
+	 * The cached value of the '{@link #getEvent() <em>Event</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getStates()
+	 * @see #getEvent()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<StateInstance> states;
+	protected ErrorBehaviorEvent event;
 
 	/**
-	 * The cached value of the '{@link #getCurrentState() <em>Current State</em>}' reference.
+	 * The cached value of the '{@link #getGeneratedLiterals() <em>Generated Literals</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getCurrentState()
+	 * @see #getGeneratedLiterals()
 	 * @generated
 	 * @ordered
 	 */
-	protected StateInstance currentState;
+	protected EList<ConstrainedInstanceObject> generatedLiterals;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected StateVariableInstanceImpl() {
+	protected EventInstanceImpl() {
 		super();
 	}
 
@@ -93,7 +95,7 @@ public class StateVariableInstanceImpl extends EMV2InstanceObjectImpl implements
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EMV2InstancePackage.Literals.STATE_VARIABLE_INSTANCE;
+		return EMV2InstancePackage.Literals.EVENT_INSTANCE;
 	}
 
 	/**
@@ -102,29 +104,16 @@ public class StateVariableInstanceImpl extends EMV2InstanceObjectImpl implements
 	 * @generated
 	 */
 	@Override
-	public EList<StateInstance> getStates() {
-		if (states == null) {
-			states = new EObjectContainmentEList<StateInstance>(StateInstance.class, this, EMV2InstancePackage.STATE_VARIABLE_INSTANCE__STATES);
-		}
-		return states;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public StateInstance getCurrentState() {
-		if (currentState != null && currentState.eIsProxy()) {
-			InternalEObject oldCurrentState = (InternalEObject)currentState;
-			currentState = (StateInstance)eResolveProxy(oldCurrentState);
-			if (currentState != oldCurrentState) {
+	public ErrorBehaviorEvent getEvent() {
+		if (event != null && event.eIsProxy()) {
+			InternalEObject oldEvent = (InternalEObject)event;
+			event = (ErrorBehaviorEvent)eResolveProxy(oldEvent);
+			if (event != oldEvent) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.STATE_VARIABLE_INSTANCE__CURRENT_STATE, oldCurrentState, currentState));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.EVENT_INSTANCE__EVENT, oldEvent, event));
 			}
 		}
-		return currentState;
+		return event;
 	}
 
 	/**
@@ -132,8 +121,8 @@ public class StateVariableInstanceImpl extends EMV2InstanceObjectImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public StateInstance basicGetCurrentState() {
-		return currentState;
+	public ErrorBehaviorEvent basicGetEvent() {
+		return event;
 	}
 
 	/**
@@ -142,11 +131,24 @@ public class StateVariableInstanceImpl extends EMV2InstanceObjectImpl implements
 	 * @generated
 	 */
 	@Override
-	public void setCurrentState(StateInstance newCurrentState) {
-		StateInstance oldCurrentState = currentState;
-		currentState = newCurrentState;
+	public void setEvent(ErrorBehaviorEvent newEvent) {
+		ErrorBehaviorEvent oldEvent = event;
+		event = newEvent;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.STATE_VARIABLE_INSTANCE__CURRENT_STATE, oldCurrentState, currentState));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.EVENT_INSTANCE__EVENT, oldEvent, event));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<ConstrainedInstanceObject> getGeneratedLiterals() {
+		if (generatedLiterals == null) {
+			generatedLiterals = new EObjectContainmentEList<ConstrainedInstanceObject>(ConstrainedInstanceObject.class, this, EMV2InstancePackage.EVENT_INSTANCE__GENERATED_LITERALS);
+		}
+		return generatedLiterals;
 	}
 
 	/**
@@ -157,8 +159,8 @@ public class StateVariableInstanceImpl extends EMV2InstanceObjectImpl implements
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case EMV2InstancePackage.STATE_VARIABLE_INSTANCE__STATES:
-				return ((InternalEList<?>)getStates()).basicRemove(otherEnd, msgs);
+			case EMV2InstancePackage.EVENT_INSTANCE__GENERATED_LITERALS:
+				return ((InternalEList<?>)getGeneratedLiterals()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -171,11 +173,11 @@ public class StateVariableInstanceImpl extends EMV2InstanceObjectImpl implements
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EMV2InstancePackage.STATE_VARIABLE_INSTANCE__STATES:
-				return getStates();
-			case EMV2InstancePackage.STATE_VARIABLE_INSTANCE__CURRENT_STATE:
-				if (resolve) return getCurrentState();
-				return basicGetCurrentState();
+			case EMV2InstancePackage.EVENT_INSTANCE__EVENT:
+				if (resolve) return getEvent();
+				return basicGetEvent();
+			case EMV2InstancePackage.EVENT_INSTANCE__GENERATED_LITERALS:
+				return getGeneratedLiterals();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -189,12 +191,12 @@ public class StateVariableInstanceImpl extends EMV2InstanceObjectImpl implements
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EMV2InstancePackage.STATE_VARIABLE_INSTANCE__STATES:
-				getStates().clear();
-				getStates().addAll((Collection<? extends StateInstance>)newValue);
+			case EMV2InstancePackage.EVENT_INSTANCE__EVENT:
+				setEvent((ErrorBehaviorEvent)newValue);
 				return;
-			case EMV2InstancePackage.STATE_VARIABLE_INSTANCE__CURRENT_STATE:
-				setCurrentState((StateInstance)newValue);
+			case EMV2InstancePackage.EVENT_INSTANCE__GENERATED_LITERALS:
+				getGeneratedLiterals().clear();
+				getGeneratedLiterals().addAll((Collection<? extends ConstrainedInstanceObject>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -208,11 +210,11 @@ public class StateVariableInstanceImpl extends EMV2InstanceObjectImpl implements
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.STATE_VARIABLE_INSTANCE__STATES:
-				getStates().clear();
+			case EMV2InstancePackage.EVENT_INSTANCE__EVENT:
+				setEvent((ErrorBehaviorEvent)null);
 				return;
-			case EMV2InstancePackage.STATE_VARIABLE_INSTANCE__CURRENT_STATE:
-				setCurrentState((StateInstance)null);
+			case EMV2InstancePackage.EVENT_INSTANCE__GENERATED_LITERALS:
+				getGeneratedLiterals().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -226,12 +228,12 @@ public class StateVariableInstanceImpl extends EMV2InstanceObjectImpl implements
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.STATE_VARIABLE_INSTANCE__STATES:
-				return states != null && !states.isEmpty();
-			case EMV2InstancePackage.STATE_VARIABLE_INSTANCE__CURRENT_STATE:
-				return currentState != null;
+			case EMV2InstancePackage.EVENT_INSTANCE__EVENT:
+				return event != null;
+			case EMV2InstancePackage.EVENT_INSTANCE__GENERATED_LITERALS:
+				return generatedLiterals != null && !generatedLiterals.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //StateVariableInstanceImpl
+} //EventInstanceImpl
