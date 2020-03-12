@@ -1,0 +1,22 @@
+package issue2234
+public
+	
+data d
+end d;
+
+subprogram spg
+  features
+	lock: requires data access d {Concurrency_Control_Protocol => Protected_Access;};
+  annex behavior_specification {**
+	STATES
+		singleton: initial final state;
+	TRANSITIONS
+  		t: singleton -[]-> singleton
+   		{
+   			lock!<;
+   			lock!>
+  		};
+**};
+end spg;
+	
+end issue2234;

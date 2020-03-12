@@ -289,7 +289,7 @@ Now that we will define an integrated system which contains both the execution p
 	3. Select *Application* diagram element.
 	4. Select *Bind...* from the toolbar.
 	5. Select *Actual_Processor_Binding*.
-	6. Select *CPU*.
+	6. Select *CPU* in the diagram or outline view.
 	7. Select *OK*.
 	
 4. **Create a Processor Binding Diagram**
@@ -314,7 +314,7 @@ Select the desired implementation from the palette and place it on the diagram o
 Select *Mode Transition* from the palette and select the starting mode then the ending mode.
 
 ## Creating Flow Implementations and End-To-End Flow Specifications
-When editing a component implementation, flow implementations and end-to-end flow specifications can be created graphically by selecting the *Create Flow Implementation* and *Create End-To-End Flow Specification* tools from the toolbar and following the prompts to select a series of elements from the diagram. The dialog and colors of elements in the diagram will update as valid selections are made. The starting flow specification will be highlighted dark orange and flow elements will be highlighted purple. The *Undo* button will remove the elements in the order they were selected.
+When editing a component implementation, flow implementations and end-to-end flow specifications can be created graphically by selecting the *Create Flow Implementation* and *Create End-To-End Flow Specification* tools from the toolbar and following the prompts to select a series of elements from the diagram or outline view. The dialog and colors of elements in the diagram will update as valid selections are made. The starting flow specification will be highlighted dark orange and flow elements will be highlighted purple. The *Undo* button will remove the elements in the order they were selected.
 
 ### Creating Flow Implementations
 Select *Create Flow Implementation* from the toolbar, the dialog will appear. 
