@@ -7216,7 +7216,7 @@ public class AadlBaParser extends Parser {
 	}
 
 	public static class Real_literalContext extends ParserRuleContext {
-		public DeclarativeRealLiteral result;
+		public BehaviorRealLiteral result;
 		public TerminalNode REAL_LIT() { return getToken(AadlBaParser.REAL_LIT, 0); }
 		public Real_literalContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -7261,7 +7261,7 @@ public class AadlBaParser extends Parser {
 	}
 
 	public static class Integer_literalContext extends ParserRuleContext {
-		public DeclarativeIntegerLiteral result;
+		public BehaviorIntegerLiteral result;
 		public TerminalNode INTEGER_LIT() { return getToken(AadlBaParser.INTEGER_LIT, 0); }
 		public Integer_literalContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
