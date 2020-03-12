@@ -891,7 +891,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   @Override
   public T visitString_literal(@NotNull AadlBaParser.String_literalContext ctx)
   {
-    ctx.result = _decl.createDeclarativeStringLiteral();
+    ctx.result = _baFact.createBehaviorStringLiteral();
     String str = ctx.STRING_LITERAL().getText() ;
     // stripout the quotes
     ctx.result.setValue(str.substring(1,str.length()-1)) ;

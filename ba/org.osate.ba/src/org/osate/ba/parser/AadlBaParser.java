@@ -7306,7 +7306,7 @@ public class AadlBaParser extends Parser {
 	}
 
 	public static class String_literalContext extends ParserRuleContext {
-		public DeclarativeStringLiteral result;
+		public BehaviorStringLiteral result;
 		public TerminalNode STRING_LITERAL() { return getToken(AadlBaParser.STRING_LITERAL, 0); }
 		public String_literalContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
