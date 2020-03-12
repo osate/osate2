@@ -1936,7 +1936,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   public T visitReal_literal(Real_literalContext ctx)
   {
     String str = ctx.REAL_LIT().getText() ;
-    DeclarativeRealLiteral tmp = _decl.createDeclarativeRealLiteral();
+    BehaviorRealLiteral tmp = _baFact.createBehaviorRealLiteral();
     str = str.replaceAll("_", "") ;
     tmp.setValue(str);
     setLocationReference(tmp, ctx.REAL_LIT());

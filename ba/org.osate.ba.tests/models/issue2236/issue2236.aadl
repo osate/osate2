@@ -12,7 +12,8 @@ public
    s : initial complete final state;
  transitions
    s -[on dispatch]-> s {
-     d := 0
+     d := 0;
+     d := 1.0
    };
   **};
   end function1;
