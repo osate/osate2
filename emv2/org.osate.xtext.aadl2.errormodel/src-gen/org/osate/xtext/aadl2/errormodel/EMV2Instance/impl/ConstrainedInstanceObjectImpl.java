@@ -1,4 +1,25 @@
 /**
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.xtext.aadl2.errormodel.EMV2Instance.impl;
 
@@ -13,8 +34,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.instance.InstanceObject;
 
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage;
-import org.osate.xtext.aadl2.errormodel.EMV2Instance.Literal;
 
 /**
  * <!-- begin-user-doc -->
@@ -50,7 +71,7 @@ public class ConstrainedInstanceObjectImpl extends EMV2InstanceObjectImpl implem
 	 * @generated
 	 * @ordered
 	 */
-	protected Literal constraint;
+	protected Constraint constraint;
 
 	/**
 	 * The default value of the '{@link #isOutgoing() <em>Outgoing</em>}' attribute.
@@ -137,7 +158,7 @@ public class ConstrainedInstanceObjectImpl extends EMV2InstanceObjectImpl implem
 	 * @generated
 	 */
 	@Override
-	public Literal getConstraint() {
+	public Constraint getConstraint() {
 		return constraint;
 	}
 
@@ -146,8 +167,8 @@ public class ConstrainedInstanceObjectImpl extends EMV2InstanceObjectImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetConstraint(Literal newConstraint, NotificationChain msgs) {
-		Literal oldConstraint = constraint;
+	public NotificationChain basicSetConstraint(Constraint newConstraint, NotificationChain msgs) {
+		Constraint oldConstraint = constraint;
 		constraint = newConstraint;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT, oldConstraint, newConstraint);
@@ -162,7 +183,7 @@ public class ConstrainedInstanceObjectImpl extends EMV2InstanceObjectImpl implem
 	 * @generated
 	 */
 	@Override
-	public void setConstraint(Literal newConstraint) {
+	public void setConstraint(Constraint newConstraint) {
 		if (newConstraint != constraint) {
 			NotificationChain msgs = null;
 			if (constraint != null)
@@ -244,7 +265,7 @@ public class ConstrainedInstanceObjectImpl extends EMV2InstanceObjectImpl implem
 				setInstanceObject((InstanceObject)newValue);
 				return;
 			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT:
-				setConstraint((Literal)newValue);
+				setConstraint((Constraint)newValue);
 				return;
 			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__OUTGOING:
 				setOutgoing((Boolean)newValue);
@@ -265,7 +286,7 @@ public class ConstrainedInstanceObjectImpl extends EMV2InstanceObjectImpl implem
 				setInstanceObject((InstanceObject)null);
 				return;
 			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT:
-				setConstraint((Literal)null);
+				setConstraint((Constraint)null);
 				return;
 			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__OUTGOING:
 				setOutgoing(OUTGOING_EDEFAULT);

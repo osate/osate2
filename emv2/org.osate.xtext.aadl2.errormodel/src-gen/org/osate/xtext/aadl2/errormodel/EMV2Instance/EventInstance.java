@@ -21,38 +21,62 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.errormodel.EMV2Instance.impl;
+package org.osate.xtext.aadl2.errormodel.EMV2Instance;
 
-import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.common.util.EList;
 
-import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage;
-import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateInstance;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>State Instance</b></em>'.
+ * A representation of the model object '<em><b>Event Instance</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EventInstance#getEvent <em>Event</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EventInstance#getGeneratedLiterals <em>Generated Literals</em>}</li>
+ * </ul>
+ *
+ * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getEventInstance()
+ * @model
  * @generated
  */
-public class StateInstanceImpl extends EMV2InstanceObjectImpl implements StateInstance {
+public interface EventInstance extends EMV2InstanceObject {
 	/**
+	 * Returns the value of the '<em><b>Event</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Event</em>' reference.
+	 * @see #setEvent(ErrorBehaviorEvent)
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getEventInstance_Event()
+	 * @model
 	 * @generated
 	 */
-	protected StateInstanceImpl() {
-		super();
-	}
+	ErrorBehaviorEvent getEvent();
 
 	/**
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EventInstance#getEvent <em>Event</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Event</em>' reference.
+	 * @see #getEvent()
 	 * @generated
 	 */
-	@Override
-	protected EClass eStaticClass() {
-		return EMV2InstancePackage.Literals.STATE_INSTANCE;
-	}
+	void setEvent(ErrorBehaviorEvent value);
 
-} //StateInstanceImpl
+	/**
+	 * Returns the value of the '<em><b>Generated Literals</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Generated Literals</em>' containment reference list.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getEventInstance_GeneratedLiterals()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<ConstrainedInstanceObject> getGeneratedLiterals();
+
+} // EventInstance

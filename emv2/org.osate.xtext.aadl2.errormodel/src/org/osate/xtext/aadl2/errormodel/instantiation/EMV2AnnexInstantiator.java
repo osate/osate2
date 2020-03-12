@@ -23,25 +23,26 @@
  */
 package org.osate.xtext.aadl2.errormodel.instantiation;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.annexsupport.AnnexInstantiator;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2AnnexInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstanceFactory;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
-/**
- * @author phf
- * @version $Id: EMV2AnnexInstantiator.java,v 1.0 2020-03-09 12:05:14 phf Exp $
- */
 public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	@Override
-	public void instantiateAnnex(ComponentInstance instance, String annexName, List annexElements) {
+	public void instantiateAnnex(ComponentInstance instance, String annexName) {
 		System.out.println("Annex " + annexName);
 		EMV2AnnexInstance emv2AI = EMV2InstanceFactory.eINSTANCE.createEMV2AnnexInstance();
 		instance.getAnnexInstances().add(emv2AI);
-		for (Object ae : annexElements) {
-
+		Collection<ErrorBehaviorEvent> events = EMV2Util.getAllErrorBehaviorEvents(instance);
+		for (ErrorBehaviorEvent ev : events) {
+			EMV2InstantiatorUtil.instantiateEvent(ev, emv2AI);
 		}
 	}
+
+
 }

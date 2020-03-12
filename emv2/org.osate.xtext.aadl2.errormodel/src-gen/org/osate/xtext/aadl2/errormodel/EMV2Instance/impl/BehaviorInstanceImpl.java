@@ -1,4 +1,25 @@
 /**
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.xtext.aadl2.errormodel.EMV2Instance.impl;
 
@@ -19,8 +40,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage;
-import org.osate.xtext.aadl2.errormodel.EMV2Instance.Literal;
 
 /**
  * <!-- begin-user-doc -->
@@ -47,7 +68,7 @@ public class BehaviorInstanceImpl extends EMV2InstanceObjectImpl implements Beha
 	 * @generated
 	 * @ordered
 	 */
-	protected Literal condition;
+	protected Constraint condition;
 
 	/**
 	 * The cached value of the '{@link #getActions() <em>Actions</em>}' containment reference list.
@@ -124,7 +145,7 @@ public class BehaviorInstanceImpl extends EMV2InstanceObjectImpl implements Beha
 	 * @generated
 	 */
 	@Override
-	public Literal getCondition() {
+	public Constraint getCondition() {
 		return condition;
 	}
 
@@ -133,8 +154,8 @@ public class BehaviorInstanceImpl extends EMV2InstanceObjectImpl implements Beha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetCondition(Literal newCondition, NotificationChain msgs) {
-		Literal oldCondition = condition;
+	public NotificationChain basicSetCondition(Constraint newCondition, NotificationChain msgs) {
+		Constraint oldCondition = condition;
 		condition = newCondition;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.BEHAVIOR_INSTANCE__CONDITION, oldCondition, newCondition);
@@ -149,7 +170,7 @@ public class BehaviorInstanceImpl extends EMV2InstanceObjectImpl implements Beha
 	 * @generated
 	 */
 	@Override
-	public void setCondition(Literal newCondition) {
+	public void setCondition(Constraint newCondition) {
 		if (newCondition != condition) {
 			NotificationChain msgs = null;
 			if (condition != null)
@@ -268,7 +289,7 @@ public class BehaviorInstanceImpl extends EMV2InstanceObjectImpl implements Beha
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EMV2InstancePackage.BEHAVIOR_INSTANCE__CONDITION:
-				setCondition((Literal)newValue);
+				setCondition((Constraint)newValue);
 				return;
 			case EMV2InstancePackage.BEHAVIOR_INSTANCE__ACTIONS:
 				getActions().clear();
@@ -293,7 +314,7 @@ public class BehaviorInstanceImpl extends EMV2InstanceObjectImpl implements Beha
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EMV2InstancePackage.BEHAVIOR_INSTANCE__CONDITION:
-				setCondition((Literal)null);
+				setCondition((Constraint)null);
 				return;
 			case EMV2InstancePackage.BEHAVIOR_INSTANCE__ACTIONS:
 				getActions().clear();
