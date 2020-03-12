@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -63,12 +63,11 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
+import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.internal.di.Deactivate;
-import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.SelectionChanged;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.UiService;
@@ -80,15 +79,17 @@ public class CreateFlowImplementationTool {
 	private CreateFlowImplementationDialog dlg;
 
 	@Activate
-	public void activate(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENT) final BusinessObjectContext selectedBoc,
+	public void activate(@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext selectedBoc,
 			final AadlModificationService aadlModService,
 			final UiService uiService,
 			final ColoringService coloringService) {
 		try {
 			this.coloring = coloringService.adjustColors();
 
-			uiService.clearSelection();
-			dlg = new CreateFlowImplementationDialog(Display.getCurrent().getActiveShell(), coloring, uiService);
+			dlg = new CreateFlowImplementationDialog(Display.getCurrent().getActiveShell(), uiService, coloring);
+			// Create and update based on current selection
+			dlg.create();
+			update(new BusinessObjectContext[] { selectedBoc }, true);
 			if (dlg.open() == Window.CANCEL) {
 				return;
 			}
@@ -102,6 +103,23 @@ public class CreateFlowImplementationTool {
 			}
 		} finally {
 			uiService.deactivateActiveTool();
+		}
+	}
+
+	/**
+	 * Update the diagram and tool dialog
+	 * @param selectedBocs - the selected bocs
+	 * @param isInit - whether the selected bocs are the inital selection when the tool was activated
+	 */
+	private void update(final BusinessObjectContext[] selectedBocs, final boolean isInit) {
+		if (dlg != null && dlg.getShell() != null && !dlg.getShell().isDisposed()) {
+			// If the selection is a valid addition to the flow implementation, add it
+			if (selectedBocs.length > 1) {
+				dlg.setMultipleElementsSelected(true);
+			} else if (selectedBocs.length == 1) {
+				dlg.setMultipleElementsSelected(false);
+				dlg.addSelectedElement(selectedBocs[0], isInit);
+			}
 		}
 	}
 
@@ -121,19 +139,8 @@ public class CreateFlowImplementationTool {
 	}
 
 	@SelectionChanged
-	public void onSelectionChanged(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENTS) final DiagramElement[] selectedDiagramElements) {
-		if (dlg != null && dlg.getShell() != null && dlg.getShell().isVisible()) {
-			// If the selection is a valid addition to the flow implementation, add it
-			if(selectedDiagramElements.length > 1) {
-				dlg.setMultipleElementsSelected(true);
-			} else if(selectedDiagramElements.length == 1) {
-				dlg.setMultipleElementsSelected(false);
-
-				// Get the selected diagram element
-				final DiagramElement selectedDiagramElement = selectedDiagramElements[0];
-				dlg.addSelectedElement(selectedDiagramElement);
-			}
-		}
+	public void onSelectionChanged(@Named(Names.BUSINESS_OBJECT_CONTEXTS) final BusinessObjectContext[] selectedBocs) {
+		update(selectedBocs, false);
 	}
 
 	/**
@@ -141,21 +148,21 @@ public class CreateFlowImplementationTool {
 	 * @return
 	 */
 	private static class CreateFlowImplementationDialog extends TitleAreaDialog {
-		private final ColoringService.Coloring coloring;
 		private final UiService uiService;
+		private final ColoringService.Coloring coloring;
 		private final Aadl2Package pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
 		private Composite flowComposite;
 		private StyledText flowLabel;
 		private Button undoButton;
-		private List<DiagramElement> userSelections = new ArrayList<>(); // Include the flow specification, flow segments, features and modes. First item should be the flow specification being implemented.
+		private List<BusinessObjectContext> userSelections = new ArrayList<>(); // Include the flow specification, flow segments, features and modes. First item
+		// should be the flow specification being implemented.
 		private boolean multipleElementsSelected = false;
 
 		CreateFlowImplementationDialog(final Shell parentShell,
-				final ColoringService.Coloring coloring,
-				final UiService uiService) {
+				final UiService uiService, final ColoringService.Coloring coloring) {
 			super(parentShell);
+			this.uiService = Objects.requireNonNull(uiService, "ui service must not be null");
 			this.coloring = Objects.requireNonNull(coloring, "coloring must not be null");
-			this.uiService = Objects.requireNonNull(uiService, "uiService must not be null");
 			this.setHelpAvailable(true);
 			setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
 		}
@@ -232,7 +239,7 @@ public class CreateFlowImplementationTool {
 			String error = null;
 
 			if(multipleElementsSelected) {
-				error = "Multiple diagram elements selected. Select a single diagram element.";
+				error = "Multiple elements selected. Select a single element.";
 			}
 
 			if(error == null) {
@@ -243,7 +250,7 @@ public class CreateFlowImplementationTool {
 			}
 		}
 
-		private List<DiagramElement> getSelectedBocsOtherThanFirst() {
+		private List<BusinessObjectContext> getSelectedBocsOtherThanFirst() {
 			return userSelections.subList(1,  userSelections.size());
 		}
 
@@ -258,7 +265,7 @@ public class CreateFlowImplementationTool {
 
 			final BusinessObjectContext flowImplOwnerBoc = getOwnerBoc();
 			if (userSelections.size() > 1 && flowImplOwnerBoc != null) {
-				final List<DiagramElement> modesAndSegmentBocs = getSelectedBocsOtherThanFirst();
+				final List<BusinessObjectContext> modesAndSegmentBocs = getSelectedBocsOtherThanFirst();
 				final List<BusinessObjectContext> featureBocs = modesAndSegmentBocs.stream().filter(boc -> boc.getBusinessObject() instanceof Feature).collect(Collectors.toCollection(ArrayList::new));
 				final List<BusinessObjectContext> flowElementBocs = modesAndSegmentBocs.stream().filter(boc -> boc.getBusinessObject() instanceof FlowElement).collect(Collectors.toCollection(ArrayList::new));
 				final List<BusinessObjectContext> modeFeatureBocs = modesAndSegmentBocs.stream().filter(boc -> boc.getBusinessObject() instanceof ModeFeature).collect(Collectors.toCollection(ArrayList::new));
@@ -359,19 +366,19 @@ public class CreateFlowImplementationTool {
 		}
 
 		/**
-		 * @param de - the business object context for the selected diagram element
-		 * @return - true or false depending if the selected element was added to the flow implementation
+		 * @param boc - the business object context for the selected element
+		 * @param isInit - whether the boc is the initial selection when tool is activated
 		 */
-		public void addSelectedElement(final DiagramElement de) {
+		public void addSelectedElement(final BusinessObjectContext boc, final boolean isInit) {
 			// Decide whether to add the element to the selection list
 			boolean add = false;
-			final Object bo = de.getBusinessObject();
+			final Object bo = boc.getBusinessObject();
 			if(selectingFlowSpecificationToImplement()) {
 				if(bo instanceof FlowSpecification) {
 					add = true;
 				}
 			} else if(selectingFlowIn()) {
-				if (bo instanceof Feature && calculateDistanceToOwner(de).orElse(Integer.MAX_VALUE) <= 2) {
+				if (bo instanceof Feature && calculateDistanceToOwner(boc).orElse(Integer.MAX_VALUE) <= 2) {
 					add = true;
 				}
 			} else { // Selecting flow segments and modes
@@ -379,33 +386,33 @@ public class CreateFlowImplementationTool {
 					add = true;
 				} else {
 					if (selectingFlowEnd() && bo instanceof Feature
-							&& calculateDistanceToOwner(de).orElse(Integer.MAX_VALUE) <= 2) {
+							&& calculateDistanceToOwner(boc).orElse(Integer.MAX_VALUE) <= 2) {
 						add = true;
 					} else if (selectingConnectionFlow() && bo instanceof Connection
-							&& calculateDistanceToOwner(de).orElse(Integer.MAX_VALUE) == 1) {
+							&& calculateDistanceToOwner(boc).orElse(Integer.MAX_VALUE) == 1) {
 						add = true;
 					} else if (selectingSubcomponentFlow() && bo instanceof FlowElement
-							&& calculateDistanceToOwner(de).orElse(Integer.MAX_VALUE) <= 2) {
+							&& calculateDistanceToOwner(boc).orElse(Integer.MAX_VALUE) <= 2) {
 						add = true;
 					}
 				}
 			}
 
-			if (add && !userSelections.contains(de)) {
+			if (add && !userSelections.contains(boc)) {
 				setErrorMessage(null);
 
 				// Don't allow duplicate selections
-				userSelections.add(de);
+				userSelections.add(boc);
 
 				// Update the UI
-				update();
-			} else {
+				updateWidgets();
+			} else if (!isInit) {
 				setErrorMessage("Invalid element selected. " + getDirectionMessage());
 			}
 		}
 
-		private OptionalInt calculateDistanceToOwner(final DiagramElement de) {
-			DiagramNode tmp = de;
+		private OptionalInt calculateDistanceToOwner(final BusinessObjectContext boc) {
+			BusinessObjectContext tmp = boc;
 			int distance = 0;
 			while(true) {
 				distance++;
@@ -453,7 +460,7 @@ public class CreateFlowImplementationTool {
 		/**
 		 * Updates the UI
 		 */
-		private void update() {
+		private void updateWidgets() {
 			getButton(IDialogConstants.OK_ID).setEnabled(isFlowComplete());
 			undoButton.setEnabled(userSelections.size() > 0);
 
@@ -503,16 +510,19 @@ public class CreateFlowImplementationTool {
 				}
 			}
 
-			// Update diagram element highlighting
 			coloring.clear();
 			for(int i = 0; i < userSelections.size(); i++) {
-				final DiagramElement de = userSelections.get(i);
-				if(i == 0) {
-					coloring.setForeground(de, Color.ORANGE.darker());
-				} else if(de instanceof ModeFeature) {
-					coloring.setForeground(de, Color.MAGENTA.brighter());
-				} else {
-					coloring.setForeground(de, Color.MAGENTA.darker());
+				final BusinessObjectContext boc = userSelections.get(i);
+				if (boc instanceof DiagramElement) {
+					// Update diagram element highlighting
+					final DiagramElement de = (DiagramElement) boc;
+					if(i == 0) {
+						coloring.setForeground(de, Color.ORANGE.darker());
+					} else if(de instanceof ModeFeature) {
+						coloring.setForeground(de, Color.MAGENTA.brighter());
+					} else {
+						coloring.setForeground(de, Color.MAGENTA.darker());
+					}
 				}
 			}
 		}
@@ -571,7 +581,7 @@ public class CreateFlowImplementationTool {
 			super.create();
 			setTitle("Select Elements");
 			ContextHelpUtil.setHelp(getShell(), ContextHelpUtil.FLOW_IMPL_TOOL);
-			update();
+			updateWidgets();
 		}
 
 		@Override
@@ -609,8 +619,8 @@ public class CreateFlowImplementationTool {
 				public void widgetSelected(final SelectionEvent e) {
 					if(userSelections.size() > 0) {
 						userSelections.remove(userSelections.size()-1);
-						update();
 						uiService.clearSelection();
+						updateWidgets();
 					}
 				}
 			});
