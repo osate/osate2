@@ -29,14 +29,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceRuleFactory;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -56,7 +54,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.eclipse.ui.ide.IDE;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.resource.XtextResourceSetProvider;
 import org.osate.aadl2.ComponentImplementation;
@@ -115,7 +112,6 @@ public final class InstantiationHandler extends AbstractMultiJobHandler {
 			 */
 			final Map<ComponentImplementation, Result> results = new ConcurrentHashMap<>(size);
 
-			final Set<IResource> aadlFiles = new HashSet<>();
 			final List<ComponentImplementation> selectedCompImpls = new ArrayList<>(size);
 			final List<IFile> outputFiles = new ArrayList<>(size);
 			final Set<IFolder> outputFolders = new HashSet<>();
@@ -137,7 +133,6 @@ public final class InstantiationHandler extends AbstractMultiJobHandler {
 				final ResourceSet resourceSet = resourceSetProvider.get(project);
 				final ComponentImplementation impl = (ComponentImplementation) resourceSet.getEObject(uri, true);
 				selectedCompImpls.add(impl);
-				aadlFiles.add(OsateResourceUtil.toIFile(uri));
 				final IFile outputFile = OsateResourceUtil.toIFile(InstantiateModel.getInstanceModelURI(impl));
 				outputFiles.add(outputFile);
 				final IFolder outputFolder = (IFolder) outputFile.getParent(); // N.B. We KNOW there is an "Instances" folder above the .aaxl file
@@ -151,11 +146,7 @@ public final class InstantiationHandler extends AbstractMultiJobHandler {
 			}
 
 			/* Make sure the resources are saved if they are open in an editor */
-			final AtomicBoolean cancelled = new AtomicBoolean();
-			PlatformUI.getWorkbench().getDisplay().syncExec(() -> {
-				cancelled.set(!IDE.saveAllEditors(aadlFiles.toArray(new IResource[aadlFiles.size()]), true));
-			});
-			if (cancelled.get()) {
+			if (!saveDirtyEditors()) {
 				return Status.CANCEL_STATUS;
 			}
 
