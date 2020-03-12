@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.osate.ge" version="2">
+    <resource path="src/org/osate/ge/graphics/Style.java" type="org.osate.ge.graphics.Style">
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.ge.graphics.Style"/>
+                <message_argument value="getLineStyle()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/ge/graphics/StyleBuilder.java" type="org.osate.ge.graphics.StyleBuilder">
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.ge.graphics.StyleBuilder"/>
+                <message_argument value="lineStyle(LineStyle)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>
