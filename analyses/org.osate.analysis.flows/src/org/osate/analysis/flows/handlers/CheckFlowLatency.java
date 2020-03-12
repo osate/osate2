@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -26,7 +26,6 @@ package org.osate.analysis.flows.handlers;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.window.Window;
@@ -58,6 +57,7 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 	protected static boolean isMajorFrameDelay = true;
 	protected static boolean isWorstCaseDeadline = true;
 	protected static boolean isBestCaseEmptyQueue = true;
+	protected static boolean isDisableQueuingLatency = false;
 
 	@Override
 	protected String getActionName() {
@@ -80,7 +80,7 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 	}
 
 	@Override
-	protected boolean initializeAnalysis(NamedElement object) {
+	protected boolean initializeAnalysis(final NamedElement object) {
 		final IPreferenceStore store = FlowanalysisPlugin.getDefault().getPreferenceStore();
 		final FlowLatencyDialog d = new FlowLatencyDialog(getShell(), store);
 
@@ -102,8 +102,10 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 					.equalsIgnoreCase(Constants.WORST_CASE_DEADLINE_YES);
 			isBestCaseEmptyQueue = d.localValues.get(Constants.BESTCASE_EMPTY_QUEUE_LAST_USED)
 					.equalsIgnoreCase(Constants.BESTCASE_EMPTY_QUEUE_YES);
+			isDisableQueuingLatency = d.localValues.get(Constants.DISABLE_QUEUING_LATENCY_LAST_USED)
+					.equals(Constants.DISABLE_QUEUING_LATENCY_YES);
 			latResult = FlowLatencyUtil.createLatencyAnalysisResult(object, isAsynchronousSystem, isMajorFrameDelay,
-					isWorstCaseDeadline, isBestCaseEmptyQueue);
+					isWorstCaseDeadline, isBestCaseEmptyQueue, isDisableQueuingLatency);
 		}
 
 		return doIt;
@@ -153,9 +155,9 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 		monitor.beginTask(getActionName(), 1);
 		// Note: analyzeInstanceModel is called for each mode. We add the results to the same 'latreport'
 		FlowLatencyAnalysisSwitch flas = new FlowLatencyAnalysisSwitch(monitor, root);
-		EList<Result> res = flas.invokeOnSOM(root, som, isAsynchronousSystem, isMajorFrameDelay, isWorstCaseDeadline,
-				isBestCaseEmptyQueue);
-		latResult.getResults().addAll(res);
+		flas.invokeOnSOM(root, som, isAsynchronousSystem, isMajorFrameDelay, isWorstCaseDeadline,
+				isBestCaseEmptyQueue, isDisableQueuingLatency);
+		latResult.getResults().addAll(flas.finalizeResults());
 		monitor.done();
 	}
 
