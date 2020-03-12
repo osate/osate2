@@ -1,0 +1,154 @@
+package QueuingLatency
+public
+	data D1
+		properties
+			Data_Size => 8 Bytes;
+	end D1;
+	
+	data D2
+		properties
+			Data_Size => 16 Bytes;
+	end D2;
+	
+	data D3
+		properties
+			Data_Size => 24 Bytes;
+	end D3;
+
+
+	system S1
+		features
+			out1: out data port D1;
+			out2: out data port D2;
+			out3: out data port D3;
+		flows
+			fsrc1: flow source out1 {Latency => 1 ms .. 2 ms;};
+			fsrc2: flow source out2 {Latency => 1 ms .. 2 ms;};
+			fsrc3: flow source out3 {Latency => 1 ms .. 2 ms;};
+	end S1;
+	
+	system S2
+		features
+			in1: in data port D1;
+			in2: in data port D2;
+			in3: in data port D3;
+		flows
+			fsink1: flow sink in1 {Latency => 3 ms .. 5 ms;};
+			fsink2: flow sink in2 {Latency => 3 ms .. 5 ms;};
+			fsink3: flow sink in3 {Latency => 3 ms .. 5 ms;};
+	end S2;
+
+	
+	system Top
+	end Top;
+	
+	
+	
+	system implementation Top.unbound
+		subcomponents
+			sub1: system S1;
+			sub2: system S2;
+			theBus: bus {
+				Transmission_Time => [
+					Fixed => 1 ms .. 2ms;
+					PerByte => 2 ms .. 3ms;	
+				];
+			};
+		connections
+			conn1: feature sub1.out1 -> sub2.in1;
+			conn2: feature sub1.out2 -> sub2.in2;
+			conn3: feature sub1.out3 -> sub2.in3;
+		flows
+			etef1: end to end flow sub1.fsrc1 -> conn1 -> sub2.fsink1 {Latency => 0 ms .. 500 ms;};
+			etef2: end to end flow sub1.fsrc2 -> conn2 -> sub2.fsink2 {Latency => 0 ms .. 500 ms;};
+			etef3: end to end flow sub1.fsrc3 -> conn3 -> sub2.fsink3 {Latency => 0 ms .. 500 ms;};
+	end Top.unbound;
+	
+	
+	
+	system implementation Top.simple_periodic extends Top.unbound
+		properties
+			-- Bind the connections to the bus
+			Actual_Connection_Binding => (reference (theBus)) applies to conn1, conn2, conn3;
+			
+			-- Configure the bus
+			Period => 5 ms applies to theBus;
+	end Top.simple_periodic;
+	
+	system implementation Top.periodic_overhead extends Top.simple_periodic
+		properties
+			-- Configure the bus
+			Data_Size => 2 bytes applies to theBus;
+	end Top.periodic_overhead;
+	
+	
+	
+	system implementation Top.simple_async extends Top.unbound
+		properties
+			-- Bind the connections to the bus
+			Actual_Connection_Binding => (reference (theBus)) applies to conn1, conn2, conn3;
+	end Top.simple_async;
+	
+	system implementation Top.async_overhead extends Top.simple_async
+		properties
+			-- Configure the bus
+			Data_Size => 2 bytes applies to theBus;
+	end Top.async_overhead;
+	
+
+
+	virtual bus VB
+		properties
+			data_size => 10 bytes;	
+	end VB;
+
+	system implementation Top.vb_bound_to_bus extends Top.unbound
+		subcomponents
+			theVB: virtual bus VB;
+		properties
+			-- Bind the connections to the virtual bus
+			Actual_Connection_Binding => (reference (theVB)) applies to conn1, conn2, conn3;
+
+			-- Configure the virtual bus
+			Actual_Connection_Binding => (reference (theBus)) applies to theVB;
+
+			-- Configure the bus
+			Data_Size => 2 bytes applies to theBus;			
+	end Top.vb_bound_to_bus;
+
+	system implementation Top.vb_bound_periodic extends Top.vb_bound_to_bus
+		properties
+			-- Configure the bus
+			Period => 5 ms applies to theBus;
+	end Top.vb_bound_periodic;
+
+	system implementation Top.vb_bound_async extends Top.vb_bound_to_bus
+		-- Bus is asynchronous by default
+	end Top.vb_bound_async;
+	
+	
+
+	system implementation Top.vb_required extends Top.unbound
+		subcomponents
+			theVB: virtual bus VB;
+		properties
+			-- The connections require the virtual bus
+			Required_Virtual_Bus_Class => (classifier (VB)) applies to conn1, conn2, conn3;
+			
+			-- Bind the connections to the actual bus
+			Actual_Connection_Binding => (reference (theBus)) applies to conn1, conn2, conn3;
+
+			-- Configure the bus
+			Data_Size => 2 bytes applies to theBus;			
+	end Top.vb_required;
+
+	system implementation Top.vb_required_periodic extends Top.vb_required
+		properties
+			-- Configure the bus
+			Period => 5 ms applies to theBus;
+	end Top.vb_required_periodic;
+
+	system implementation Top.vb_required_async extends Top.vb_required
+		-- Bus is asynchronous by default
+	end Top.vb_required_async;
+end QueuingLatency;

@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -545,11 +545,23 @@ public class FlowLatencyUtil {
 	// Results
 	// -------------
 
+	@Deprecated
+	public static AnalysisResult recordAsAnalysisResult(Collection<Result> results, EObject root,
+			boolean asynchronousSystem, boolean majorFrameDelay, boolean worstCaseDeadline,
+			boolean bestCaseEmptyQueue) {
+		return recordAsAnalysisResult(results, root, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
+				bestCaseEmptyQueue, false);
+	}
+
+	/**
+	 * @since org.osate.analysis.flows 3.0
+	 */
 	public static AnalysisResult recordAsAnalysisResult(Collection<Result> results, EObject root,
 			boolean asynchronousSystem,
-			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue,
+			boolean disableQueuingLatency) {
 		AnalysisResult latencyResults = createLatencyAnalysisResult(root, asynchronousSystem, majorFrameDelay,
-				worstCaseDeadline, bestCaseEmptyQueue);
+				worstCaseDeadline, bestCaseEmptyQueue, disableQueuingLatency);
 		if (!results.isEmpty()) {
 			latencyResults.getResults().addAll(results);
 		} else {
@@ -559,16 +571,28 @@ public class FlowLatencyUtil {
 		return latencyResults;
 	}
 
+	@Deprecated
 	public static AnalysisResult createLatencyAnalysisResult(EObject root, boolean asynchronousSystem,
 			boolean majorFrameDelay,
 			boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+		return createLatencyAnalysisResult(root, asynchronousSystem, majorFrameDelay, worstCaseDeadline,
+				bestCaseEmptyQueue, false);
+	}
+
+	/**
+	 * @since org.osate.analysis.flows 3.0
+	 */
+	public static AnalysisResult createLatencyAnalysisResult(EObject root, boolean asynchronousSystem,
+			boolean majorFrameDelay, boolean worstCaseDeadline, boolean bestCaseEmptyQueue,
+			boolean disableQueuingLatency) {
 		AnalysisResult latencyResults = ResultUtil.createAnalysisResult(FlowLatencyUtil.LatencyAnalysisName, root);
 		ResultUtil.addParameter(latencyResults, asynchronousSystem);
 		ResultUtil.addParameter(latencyResults, majorFrameDelay);
 		ResultUtil.addParameter(latencyResults, worstCaseDeadline);
 		ResultUtil.addParameter(latencyResults, bestCaseEmptyQueue);
+		ResultUtil.addParameter(latencyResults, disableQueuingLatency);
 		latencyResults.setMessage(FlowLatencyUtil.getParametersAsLabels(asynchronousSystem, majorFrameDelay,
-				worstCaseDeadline, bestCaseEmptyQueue));
+				worstCaseDeadline, bestCaseEmptyQueue, disableQueuingLatency));
 		latencyResults.setModelElement(root);
 		return latencyResults;
 	}
@@ -602,15 +626,26 @@ public class FlowLatencyUtil {
 			labels = FlowLatencyUtil.getParametersAsLabels((boolean) results.getParameters().get(0).getValue(),
 					(boolean) results.getParameters().get(1).getValue(),
 					(boolean) results.getParameters().get(2).getValue(),
-					(boolean) results.getParameters().get(3).getValue());
+					(boolean) results.getParameters().get(3).getValue(),
+					(boolean) results.getParameters().get(4).getValue());
 		}
 		return labels;
 	}
 
+	@Deprecated
 	public static String getParametersAsLabels(boolean asynchronousSystem, boolean majorFrameDelay,
 			boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+		return getParametersAsLabels(asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue, false);
+	}
+
+	/**
+	 * @since org.osate.analysis.flows 3.0
+	 */
+	public static String getParametersAsLabels(boolean asynchronousSystem, boolean majorFrameDelay,
+			boolean worstCaseDeadline, boolean bestCaseEmptyQueue, boolean disableQueuingLatency) {
 		return getAsynchronousSystemLabel(asynchronousSystem) + "-" + getMajorFrameDelayLabel(majorFrameDelay) + "-"
-				+ getWorstCaseDeadlineLabel(worstCaseDeadline) + "-" + getBestcaseEmptyQueueLabel(bestCaseEmptyQueue);
+				+ getWorstCaseDeadlineLabel(worstCaseDeadline) + "-" + getBestcaseEmptyQueueLabel(bestCaseEmptyQueue)
+				+ "-" + getDisableQueuingLatencyLabel(disableQueuingLatency);
 	}
 
 	public static String getAsynchronousSystemLabel(boolean isAsynchronous) {
@@ -627,6 +662,13 @@ public class FlowLatencyUtil {
 
 	public static String getBestcaseEmptyQueueLabel(boolean isBestcaseEmptyQueue) {
 		return isBestcaseEmptyQueue ? "EQ" : "FQ";
+	}
+
+	/**
+	 * @since org.osate.analysis.flows 3.0
+	 */
+	public static String getDisableQueuingLatencyLabel(boolean disableQueuingLatency) {
+		return disableQueuingLatency ? "DQL" : "EQL";
 	}
 
 
@@ -647,6 +689,12 @@ public class FlowLatencyUtil {
 				: "best case as full queue min compute execution time";
 	}
 
+	/**
+	 * @since org.osate.analysis.flows 3.0
+	 */
+	public static String getDisableQueuingLatencyDescription(boolean disableQueuingLatency) {
+		return disableQueuingLatency ? "queuing latency disabled" : "queuing latency enabled";
+	}
 
 	public static String getParametersAsDescriptions(AnalysisResult results) {
 		String labels = results.getMessage();
@@ -654,17 +702,29 @@ public class FlowLatencyUtil {
 			labels = FlowLatencyUtil.getParametersAsDescriptions((boolean) results.getParameters().get(0).getValue(),
 					(boolean) results.getParameters().get(1).getValue(),
 					(boolean) results.getParameters().get(2).getValue(),
-					(boolean) results.getParameters().get(3).getValue());
+					(boolean) results.getParameters().get(3).getValue(),
+					(boolean) results.getParameters().get(4).getValue());
 		}
 		return labels;
 	}
 
+	@Deprecated
 	public static String getParametersAsDescriptions(boolean asynchronousSystem, boolean majorFrameDelay,
 			boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+		return getParametersAsDescriptions(asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue,
+				false);
+	}
+
+	/**
+	 * @since org.osate.analysis.flows 3.0
+	 */
+	public static String getParametersAsDescriptions(boolean asynchronousSystem, boolean majorFrameDelay,
+			boolean worstCaseDeadline, boolean bestCaseEmptyQueue, boolean disableQueuingLatency) {
 		return getAsynchronousSystemDescription(asynchronousSystem) + "/"
-				+ getMajorFrameDelayDescription(majorFrameDelay)
-				+ "/" + getWorstCaseDeadlineDescription(worstCaseDeadline) + "/"
-				+ getBestcaseEmptyQueueDescription(bestCaseEmptyQueue);
+				+ getMajorFrameDelayDescription(majorFrameDelay) + "/"
+				+ getWorstCaseDeadlineDescription(worstCaseDeadline) + "/"
+				+ getBestcaseEmptyQueueDescription(bestCaseEmptyQueue) + "/"
+				+ getDisableQueuingLatencyDescription(disableQueuingLatency);
 	}
 
 	public static String getContributorType(EObject relatedElement) {
