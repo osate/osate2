@@ -43,7 +43,7 @@ import org.osate.annexsupport.AnnexRegistry;
 public class AnnexInstantiationController extends ForAllElement {
 
 	public void instantiateAllAnnexes(ComponentInstance root) {
-		processPreOrderComponentInstance(root);
+		processPostOrderComponentInstance(root);
 	}
 
 	@Override
