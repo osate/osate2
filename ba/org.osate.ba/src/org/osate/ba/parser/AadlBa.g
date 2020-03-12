@@ -1586,7 +1586,7 @@ numeric_literal returns [NumericLiteral result]
     integer_literal | real_literal
 ;
 
-real_literal returns [DeclarativeRealLiteral result]
+real_literal returns [BehaviorRealLiteral result]
   :
     REAL_LIT
     {
@@ -1594,7 +1594,7 @@ real_literal returns [DeclarativeRealLiteral result]
     }
 ;
 
-integer_literal returns [DeclarativeIntegerLiteral result]
+integer_literal returns [BehaviorIntegerLiteral result]
  :
     INTEGER_LIT
     {

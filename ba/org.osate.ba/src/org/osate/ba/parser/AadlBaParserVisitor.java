@@ -875,11 +875,10 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
   public T visitInteger_literal(@NotNull AadlBaParser.Integer_literalContext ctx)
   {
     String str = ctx.INTEGER_LIT().getText() ;
-    BehaviorIntegerLiteral tmp = _decl.createDeclarativeIntegerLiteral() ;
+    BehaviorIntegerLiteral tmp = _baFact.createBehaviorIntegerLiteral() ;
     tmp.setValue(str) ;
     setLocationReference(tmp, ctx.INTEGER_LIT()) ;
-    ctx.result = (DeclarativeIntegerLiteral) tmp ;
-    
+    ctx.result = tmp ;
     return null ;
   }
 

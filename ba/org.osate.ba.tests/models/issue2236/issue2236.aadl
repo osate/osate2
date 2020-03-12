@@ -1,0 +1,20 @@
+package issue2236
+public
+
+  data d
+  end d;
+  
+  thread function1
+  annex behavior_specification {**
+ variables
+   d : issue2236::d;
+ states
+   s : initial complete final state;
+ transitions
+   s -[on dispatch]-> s {
+     d := 0
+   };
+  **};
+  end function1;
+
+end issue2236;
