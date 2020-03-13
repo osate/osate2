@@ -44,6 +44,7 @@ import org.osate.aadl2.PropertyAssociation;
 
 import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.BehaviorVariable;
+import org.osate.ba.aadlba.ValueConstant;
 import org.osate.ba.utils.AadlBaLocationReference ;
 
 /**
@@ -57,6 +58,7 @@ import org.osate.ba.utils.AadlBaLocationReference ;
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorVariableImpl#getArrayDimensions <em>Array Dimension</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorVariableImpl#getDataClassifier <em>Data Classifier</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorVariableImpl#getOwnedPropertyAssociations <em>Owned Property Associations</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.impl.BehaviorVariableImpl#getOwnedValueConstant <em>Owned Value Constant</em>}</li>
  * </ul>
  *
  * @generated
@@ -92,6 +94,16 @@ public class BehaviorVariableImpl extends BehaviorNamedElementImpl implements Be
    * @ordered
    */
   protected EList<PropertyAssociation> ownedPropertyAssociations;
+
+  /**
+   * The cached value of the '{@link #getOwnedValueConstant() <em>Owned Value Constant</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getOwnedValueConstant()
+   * @generated
+   * @ordered
+   */
+  protected ValueConstant ownedValueConstant;
 
   /**
    * <!-- begin-user-doc -->
@@ -195,6 +207,56 @@ public class BehaviorVariableImpl extends BehaviorNamedElementImpl implements Be
    * @generated
    */
   @Override
+  public ValueConstant getOwnedValueConstant()
+  {
+    return ownedValueConstant;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetOwnedValueConstant(ValueConstant newOwnedValueConstant, NotificationChain msgs)
+  {
+    ValueConstant oldOwnedValueConstant = ownedValueConstant;
+    ownedValueConstant = newOwnedValueConstant;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_VARIABLE__OWNED_VALUE_CONSTANT, oldOwnedValueConstant, newOwnedValueConstant);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setOwnedValueConstant(ValueConstant newOwnedValueConstant)
+  {
+    if (newOwnedValueConstant != ownedValueConstant)
+    {
+      NotificationChain msgs = null;
+      if (ownedValueConstant != null)
+        msgs = ((InternalEObject)ownedValueConstant).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.BEHAVIOR_VARIABLE__OWNED_VALUE_CONSTANT, null, msgs);
+      if (newOwnedValueConstant != null)
+        msgs = ((InternalEObject)newOwnedValueConstant).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.BEHAVIOR_VARIABLE__OWNED_VALUE_CONSTANT, null, msgs);
+      msgs = basicSetOwnedValueConstant(newOwnedValueConstant, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_VARIABLE__OWNED_VALUE_CONSTANT, newOwnedValueConstant, newOwnedValueConstant));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
     switch (featureID)
@@ -203,6 +265,8 @@ public class BehaviorVariableImpl extends BehaviorNamedElementImpl implements Be
         return ((InternalEList<?>)getArrayDimensions()).basicRemove(otherEnd, msgs);
       case AadlBaPackage.BEHAVIOR_VARIABLE__OWNED_PROPERTY_ASSOCIATIONS:
         return ((InternalEList<?>)getOwnedPropertyAssociations()).basicRemove(otherEnd, msgs);
+      case AadlBaPackage.BEHAVIOR_VARIABLE__OWNED_VALUE_CONSTANT:
+        return basicSetOwnedValueConstant(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -224,6 +288,8 @@ public class BehaviorVariableImpl extends BehaviorNamedElementImpl implements Be
         return basicGetDataClassifier();
       case AadlBaPackage.BEHAVIOR_VARIABLE__OWNED_PROPERTY_ASSOCIATIONS:
         return getOwnedPropertyAssociations();
+      case AadlBaPackage.BEHAVIOR_VARIABLE__OWNED_VALUE_CONSTANT:
+        return getOwnedValueConstant();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -250,6 +316,9 @@ public class BehaviorVariableImpl extends BehaviorNamedElementImpl implements Be
         getOwnedPropertyAssociations().clear();
         getOwnedPropertyAssociations().addAll((Collection<? extends PropertyAssociation>)newValue);
         return;
+      case AadlBaPackage.BEHAVIOR_VARIABLE__OWNED_VALUE_CONSTANT:
+        setOwnedValueConstant((ValueConstant)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -273,6 +342,9 @@ public class BehaviorVariableImpl extends BehaviorNamedElementImpl implements Be
       case AadlBaPackage.BEHAVIOR_VARIABLE__OWNED_PROPERTY_ASSOCIATIONS:
         getOwnedPropertyAssociations().clear();
         return;
+      case AadlBaPackage.BEHAVIOR_VARIABLE__OWNED_VALUE_CONSTANT:
+        setOwnedValueConstant((ValueConstant)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -293,6 +365,8 @@ public class BehaviorVariableImpl extends BehaviorNamedElementImpl implements Be
         return dataClassifier != null;
       case AadlBaPackage.BEHAVIOR_VARIABLE__OWNED_PROPERTY_ASSOCIATIONS:
         return ownedPropertyAssociations != null && !ownedPropertyAssociations.isEmpty();
+      case AadlBaPackage.BEHAVIOR_VARIABLE__OWNED_VALUE_CONSTANT:
+        return ownedValueConstant != null;
     }
     return super.eIsSet(featureID);
   }

@@ -66,7 +66,7 @@ class ReferenceProcessorScalingTest extends XtextTest {
 		// check flow latency
 		var som = instance.systemOperationModes.head
 		var checker = new FlowLatencyAnalysisSwitch()
-		var latencyresult = checker.invoke(instance, som,true,true,false,true)
+		var latencyresult = checker.invoke(instance, som,true,true,false,true, false)
 		val resab = latencyresult.results.get(0)
 		assertTrue((resab.values.get(1) as RealValue).value == (200.0))
 		assertTrue((resab.values.get(2) as RealValue).value == (400.0))
@@ -77,11 +77,11 @@ class ReferenceProcessorScalingTest extends XtextTest {
 
 
 		som = instanceu.systemOperationModes.head
-		latencyresult = checker.invoke(instanceu, som,true,true,false,true)
+		checker = new FlowLatencyAnalysisSwitch()
+		latencyresult = checker.invoke(instanceu, som,true,true,false,true, false)
 		val rescd = latencyresult.results.get(0)
 		assertTrue((rescd.values.get(1) as RealValue).value == (50.0))
 		assertTrue((rescd.values.get(2) as RealValue).value == (100.0))
-
 	}
 
 }

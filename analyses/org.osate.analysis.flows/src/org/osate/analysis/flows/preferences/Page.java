@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -77,15 +77,15 @@ public class Page extends FieldEditorPreferencePage implements IWorkbenchPrefere
 						{ "Assume a full queue (FQ)", Constants.BESTCASE_EMPTY_QUEUE_NO } },
 				getFieldEditorParent(), true);
 		addField(bcEmptyQueue);
+		RadioGroupFieldEditor queuingLatency = new RadioGroupFieldEditor(Constants.DISABLE_QUEUING_LATENCY,
+				"Disable queuing latency in the results", 1,
+				new String[][] { { "Disable", Constants.DISABLE_QUEUING_LATENCY_YES },
+						{ "Enable", Constants.DISABLE_QUEUING_LATENCY_NO } },
+				getFieldEditorParent(), true);
+		addField(queuingLatency);
 		BooleanFieldEditor dontShow = new BooleanFieldEditor(Constants.DONT_SHOW_DIALOG,
 				"Don't show the settings dialog when analysis is executed", getFieldEditorParent());
 		addField(dontShow);
-
-//		RadioGroupFieldEditor reportSubtotals = new RadioGroupFieldEditor(Constants.REPORT_SUBTOTALS,
-//				"Report Subtotals", 1,
-//				new String[][] { { "Yes", Constants.REPORT_SUBTOTALS_YES }, { "No", Constants.REPORT_SUBTOTALS_NO } },
-//				getFieldEditorParent(), true);
-//		addField(reportSubtotals);
 	}
 
 	/*

@@ -1,0 +1,22 @@
+package issue2184
+public
+	with Base_Types;
+
+	process top
+		features
+			o1: out data port Base_Types::Integer_32;
+
+		annex behavior_specification {**
+          variables
+            tmp :  Base_Types::Integer_32 := 1;
+          states
+            a : initial final state;
+          transitions
+            t : a -[]-> a {
+              o1 := tmp
+            };
+        **};
+	end top;
+
+	
+end issue2184;

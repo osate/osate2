@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -45,7 +45,6 @@ public class TraverseWorkspace {
 	public static HashSet<IFile> getAadlandInstanceFilesInWorkspace() {
 		HashSet<IFile> result = new HashSet<IFile>();
 		getFiles(getProjects(), result, WorkspacePlugin.SOURCE_FILE_EXT);
-		getFiles(getProjects(), result, WorkspacePlugin.SOURCE_FILE_EXT2);
 		getFiles(getProjects(), result, WorkspacePlugin.INSTANCE_FILE_EXT);
 		return result;
 	}
@@ -53,7 +52,6 @@ public class TraverseWorkspace {
 	public static HashSet<IFile> getAadlFilesInWorkspace() {
 		HashSet<IFile> result = new HashSet<IFile>();
 		getFiles(getProjects(), result, WorkspacePlugin.SOURCE_FILE_EXT);
-		getFiles(getProjects(), result, WorkspacePlugin.SOURCE_FILE_EXT2);
 		return result;
 	}
 
@@ -119,10 +117,8 @@ public class TraverseWorkspace {
 					IFile file = (IFile) resources[i];
 					String ext = file.getFileExtension();
 					if (ext != null) {
-						if ((extension.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT)
-								&& (ext.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT))
-								|| (extension.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT2)
-										&& ext.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT2)))) {
+						if (extension.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT)
+								&& ext.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT)) {
 							result.add((IFile) resources[i]);
 						}
 						// looking for old style instance file names (i.e., extension aaxl2
