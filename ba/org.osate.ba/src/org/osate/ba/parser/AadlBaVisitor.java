@@ -157,6 +157,12 @@ public interface AadlBaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExecute_condition(@NotNull AadlBaParser.Execute_conditionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AadlBaParser#string_property_value}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitString_property_value(@NotNull AadlBaParser.String_property_valueContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AadlBaParser#mode_switch_trigger_conjunction}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

@@ -126,6 +126,7 @@ import org.osate.ba.parser.AadlBaParser.Reference_property_valueContext ;
 import org.osate.ba.parser.AadlBaParser.RelationContext ;
 import org.osate.ba.parser.AadlBaParser.Signed_intContext ;
 import org.osate.ba.parser.AadlBaParser.Signed_realContext ;
+import org.osate.ba.parser.AadlBaParser.String_property_valueContext ;
 import org.osate.ba.parser.AadlBaParser.TermContext ;
 import org.osate.ba.parser.AadlBaParser.Unique_component_classifier_referenceContext ;
 import org.osate.ba.parser.AadlBaParser.Unit_referenceContext ;
@@ -2187,9 +2188,9 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     {
       ctx.result = (DeclarativePropertyExpression) ctx.list_property_value().result;
     }
-    else if(ctx.string_literal()!=null)
+    else if(ctx.string_property_value()!=null)
     {
-      ctx.result = (DeclarativePropertyExpression) ctx.string_literal().result;
+      ctx.result = (DeclarativePropertyExpression) ctx.string_property_value().result;
     }
     else if(ctx.integer_property_value()!=null)
     {
@@ -2353,6 +2354,18 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     visitChildren(ctx) ;
     ctx.result = _decl.createDeclarativeClassifierValue();
     ctx.result.setClassifier(ctx.unique_component_classifier_reference().result);
+    return null ;
+  }
+
+  @Override
+  public T visitString_property_value(String_property_valueContext ctx)
+  {
+    visitChildren(ctx) ;
+    ctx.result = _decl.createDeclarativeStringLiteral();
+    String str = ctx.STRING_LITERAL().getText() ;
+    // stripout the quotes
+    ctx.result.setValue(str.substring(1,str.length()-1)) ;
+    setLocationReference(ctx.result, ctx.STRING_LITERAL());
     return null ;
   }
 }

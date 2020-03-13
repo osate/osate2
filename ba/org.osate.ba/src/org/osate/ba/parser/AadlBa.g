@@ -349,7 +349,7 @@ property_value returns [DeclarativePropertyExpression result]
   	record_property_value
   	| reference_property_value
   	| classifier_property_value
-  	| string_literal
+  	| string_property_value
   	| numeric_range_property_value
   	| integer_property_value
   	| real_property_value
@@ -405,6 +405,11 @@ signed_int returns [Integer result]:
 real_property_value returns [BehaviorRealLiteral result]:
 	value=signed_real (unit=unit_reference)?
 	;
+
+string_property_value returns [BehaviorStringLiteral result]
+  :
+   STRING_LITERAL
+;
 
 signed_real returns [Double result]:
 	('+'|'-')?real_literal ;
