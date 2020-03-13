@@ -58,21 +58,21 @@ class ResultHelper {
 			resource.save(null)
 		} else {
 			val expected = ResultHelper.loadResult(actual.modelElement.eResource.resourceSet, resultPath)
-			expected.assertAnalysisResult(actual)
+			assertAnalysisResult(resultPath, expected, actual)
 		}
 
 	}
 	
-	def static assertAnalysisResult(AnalysisResult expected, AnalysisResult actual) {
+	def static assertAnalysisResult(String name, AnalysisResult expected, AnalysisResult actual) {
 		expected.resultType.assertEquals(actual.resultType)
 		expected.analysis.assertEquals(actual.analysis)
 		expected.message.assertEquals(actual.message)
 		expected.modelElement.assertEObject(actual.modelElement)
 		expected.results.size.assertEquals(actual.results.size)
-		(0 ..< expected.results.size).forEach[expected.results.get(it).assertResult(actual.results.get(it))]
+		(0 ..< expected.results.size).forEach[name.assertResult(expected.results.get(it), actual.results.get(it))]
 	}
 	
-	def static void assertResult(Result expected, Result actual) {
+	def static void assertResult(String name, Result expected, Result actual) {
 		expected.resultType.assertEquals(actual.resultType)
 		expected.message.assertEquals(actual.message)
 		expected.modelElement.assertEObject(actual.modelElement)
@@ -80,8 +80,9 @@ class ResultHelper {
 		(0 ..< expected.values.size).forEach[expected.values.get(it).assertValue(actual.values.get(it))]
 		expected.diagnostics.size.assertEquals(actual.diagnostics.size)
 		(0 ..< expected.diagnostics.size).forEach[expected.diagnostics.get(it).assertDiagnostic(actual.diagnostics.get(it))]
-		expected.subResults.size.assertEquals(actual.subResults.size)
-		(0 ..< expected.subResults.size).forEach[expected.subResults.get(it).assertResult(actual.subResults.get(it))]
+		assertEquals(name, expected.subResults.size, actual.subResults.size)
+//		expected.subResults.size.assertEquals(actual.subResults.size)
+		(0 ..< expected.subResults.size).forEach[name.assertResult(expected.subResults.get(it), actual.subResults.get(it))]
 	}
 	
 	def static void assertValue(Value expected, Value actual) {
