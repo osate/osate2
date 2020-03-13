@@ -29,16 +29,16 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.DataComponentReference#getData <em>Data</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getDataComponentReference()
  * @model
  * @generated
  */
-public interface DataComponentReference extends ElementValues, Target, ValueVariable, IntegerValueVariable, IBAVisitable
+public interface DataComponentReference extends ElementValues, Target, ValueVariable, IntegerValueVariable
 {
   /**
    * Returns the value of the '<em><b>Data</b></em>' containment reference list.

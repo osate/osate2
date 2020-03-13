@@ -29,8 +29,6 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Basic Property Holder</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
@@ -62,6 +60,7 @@ public class BasicPropertyHolderImpl extends PropertyElementHolderImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setBasicProperty(final BasicProperty basicProperty)
   {
     element = basicProperty ;
@@ -72,6 +71,7 @@ public class BasicPropertyHolderImpl extends PropertyElementHolderImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BasicProperty getBasicProperty()
   {
     return (BasicProperty) element;

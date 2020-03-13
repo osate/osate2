@@ -41,11 +41,11 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.TermImpl#getFactors <em>Factors</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.TermImpl#getMultiplyingOperators <em>Multiplying Operators</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -97,6 +97,7 @@ public class TermImpl extends BehaviorElementImpl implements Term
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Factor> getFactors()
   {
     if (factors == null)
@@ -111,6 +112,7 @@ public class TermImpl extends BehaviorElementImpl implements Term
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<MultiplyingOperator> getMultiplyingOperators()
   {
     if (multiplyingOperators == null)
@@ -125,6 +127,7 @@ public class TermImpl extends BehaviorElementImpl implements Term
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetMultiplyingOperators()
   {
     if (multiplyingOperators != null) ((InternalEList.Unsettable<?>)multiplyingOperators).unset();
@@ -135,6 +138,7 @@ public class TermImpl extends BehaviorElementImpl implements Term
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetMultiplyingOperators()
   {
     return multiplyingOperators != null && ((InternalEList.Unsettable<?>)multiplyingOperators).isSet();
@@ -245,7 +249,7 @@ public class TermImpl extends BehaviorElementImpl implements Term
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (multiplyingOperators: ");
     result.append(multiplyingOperators);
     result.append(')');

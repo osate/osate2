@@ -29,8 +29,6 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Property Association Holder</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
@@ -62,6 +60,7 @@ public class PropertyAssociationHolderImpl extends PropertyElementHolderImpl imp
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setPropertyAssociation(final PropertyAssociation propertyAssociation)
   {
     element = propertyAssociation ;
@@ -72,6 +71,7 @@ public class PropertyAssociationHolderImpl extends PropertyElementHolderImpl imp
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyAssociation getPropertyAssociation()
   {
     return (PropertyAssociation) element;

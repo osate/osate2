@@ -29,17 +29,17 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.DispatchCondition#getDispatchTriggerCondition <em>Dispatch Trigger Condition</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.DispatchCondition#getFrozenPorts <em>Frozen Ports</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getDispatchCondition()
  * @model
  * @generated
  */
-public interface DispatchCondition extends BehaviorCondition, IBAVisitable
+public interface DispatchCondition extends BehaviorCondition
 {
   /**
    * Returns the value of the '<em><b>Dispatch Trigger Condition</b></em>' containment reference.

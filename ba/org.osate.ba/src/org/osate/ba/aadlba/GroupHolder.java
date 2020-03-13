@@ -32,13 +32,12 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface GroupHolder extends ElementHolder, IndexableElement, IBAVisitable
+public interface GroupHolder extends ElementHolder, IndexableElement
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model groupRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = group ;'"
    * @generated
    */
   void setGroup(NamedElement group);
@@ -47,7 +46,6 @@ public interface GroupHolder extends ElementHolder, IndexableElement, IBAVisitab
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return element;'"
    * @generated
    */
   NamedElement getGroup();

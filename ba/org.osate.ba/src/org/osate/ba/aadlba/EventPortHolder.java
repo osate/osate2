@@ -32,13 +32,12 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface EventPortHolder extends ActualPortHolder, DispatchTrigger, ModeSwitchTrigger, Target, IBAVisitable
+public interface EventPortHolder extends ActualPortHolder, DispatchTrigger, ModeSwitchTrigger, Target
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model eventPortRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = eventPort ;'"
    * @generated
    */
   void setEventPort(EventPort eventPort);
@@ -47,7 +46,6 @@ public interface EventPortHolder extends ActualPortHolder, DispatchTrigger, Mode
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (EventPort) element;'"
    * @generated
    */
   EventPort getEventPort();

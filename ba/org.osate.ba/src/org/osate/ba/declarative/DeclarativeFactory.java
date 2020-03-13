@@ -40,7 +40,7 @@ public interface DeclarativeFactory extends EFactory
    * @generated
    */
   DeclarativeFactory eINSTANCE =
-        org.osate.ba.declarative.impl.DeclarativeFactoryImpl.init() ;
+                               org.osate.ba.declarative.impl.DeclarativeFactoryImpl.init() ;
 
   /**
    * Returns a new object of class '<em>Arrayable Identifier</em>'.
@@ -140,6 +140,105 @@ public interface DeclarativeFactory extends EFactory
    * @generated
    */
   Reference createReference() ;
+
+  /**
+   * Returns a new object of class '<em>Property Association</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Association</em>'.
+   * @generated
+   */
+  DeclarativePropertyAssociation createDeclarativePropertyAssociation() ;
+
+  /**
+   * Returns a new object of class '<em>List Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>List Value</em>'.
+   * @generated
+   */
+  DeclarativeListValue createDeclarativeListValue() ;
+
+  /**
+   * Returns a new object of class '<em>String Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>String Literal</em>'.
+   * @generated
+   */
+  DeclarativeStringLiteral createDeclarativeStringLiteral() ;
+
+  /**
+   * Returns a new object of class '<em>Integer Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Integer Literal</em>'.
+   * @generated
+   */
+  DeclarativeIntegerLiteral createDeclarativeIntegerLiteral() ;
+
+  /**
+   * Returns a new object of class '<em>Real Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Real Literal</em>'.
+   * @generated
+   */
+  DeclarativeRealLiteral createDeclarativeRealLiteral() ;
+
+  /**
+   * Returns a new object of class '<em>Record Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Record Value</em>'.
+   * @generated
+   */
+  DeclarativeRecordValue createDeclarativeRecordValue() ;
+
+  /**
+   * Returns a new object of class '<em>Basic Property Association</em>'.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @return a new object of class '<em>Basic Property Association</em>'.
+   * @generated
+   */
+  DeclarativeBasicPropertyAssociation createDeclarativeBasicPropertyAssociation() ;
+
+  /**
+   * Returns a new object of class '<em>Boolean Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Boolean Literal</em>'.
+   * @generated
+   */
+  DeclarativeBooleanLiteral createDeclarativeBooleanLiteral() ;
+
+  /**
+   * Returns a new object of class '<em>Range Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Range Value</em>'.
+   * @generated
+   */
+  DeclarativeRangeValue createDeclarativeRangeValue() ;
+
+  /**
+   * Returns a new object of class '<em>Reference Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Reference Value</em>'.
+   * @generated
+   */
+  DeclarativeReferenceValue createDeclarativeReferenceValue() ;
+
+  /**
+   * Returns a new object of class '<em>Classifier Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Classifier Value</em>'.
+   * @generated
+   */
+  DeclarativeClassifierValue createDeclarativeClassifierValue() ;
 
   /**
    * Returns the package supported by this factory.

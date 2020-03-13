@@ -32,13 +32,12 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface StructUnionElementHolder extends DataHolder, IndexableElement, Target, ElementValues, IBAVisitable
+public interface StructUnionElementHolder extends DataHolder, IndexableElement, Target, ElementValues
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model structUnionElementRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = structUnionElement ;'"
    * @generated
    */
   void setStructUnionElement(StructUnionElement structUnionElement);
@@ -47,7 +46,6 @@ public interface StructUnionElementHolder extends DataHolder, IndexableElement, 
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (StructUnionElement) element;'"
    * @generated
    */
   StructUnionElement getStructUnionElement();

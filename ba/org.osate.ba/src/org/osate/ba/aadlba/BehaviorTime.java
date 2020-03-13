@@ -29,17 +29,17 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.BehaviorTime#getIntegerValue <em>Integer Value</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.BehaviorTime#getUnit <em>Unit</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorTime()
  * @model
  * @generated
  */
-public interface BehaviorTime extends BehaviorElement, IBAVisitable
+public interface BehaviorTime extends BehaviorElement
 {
   /**
    * Returns the value of the '<em><b>Integer Value</b></em>' containment reference.

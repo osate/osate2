@@ -32,6 +32,6 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface UpperBound extends PropertyNameField, IBAVisitable
+public interface UpperBound extends PropertyNameField
 {
 } // UpperBound

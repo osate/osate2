@@ -31,10 +31,10 @@ import org.osate.ba.aadlba.IntegerValue ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.declarative.ArrayableIdentifier#getArrayIndexes <em>Array Indexes</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.declarative.DeclarativePackage#getArrayableIdentifier()
  * @model

@@ -10,8 +10,8 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho.version>1.5.1</tycho.version>
-		<tycho-extras.version>1.5.1</tycho-extras.version>
+		<tycho.version>1.6.0</tycho.version>
+		<tycho-extras.version>1.6.0</tycho-extras.version>
 		<xtext.version>2.20.0</xtext.version>
 		<xsemantics.version>1.19.0-SNAPSHOT</xsemantics.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

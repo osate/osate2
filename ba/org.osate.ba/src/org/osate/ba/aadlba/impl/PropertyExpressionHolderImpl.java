@@ -29,8 +29,6 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Property Expression Holder</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
@@ -62,6 +60,7 @@ public class PropertyExpressionHolderImpl extends PropertyElementHolderImpl impl
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setPropertyExpression(final PropertyExpression propertyExpression)
   {
     element = propertyExpression ;
@@ -72,6 +71,7 @@ public class PropertyExpressionHolderImpl extends PropertyElementHolderImpl impl
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyExpression getPropertyExpression()
   {
     return (PropertyExpression) element;

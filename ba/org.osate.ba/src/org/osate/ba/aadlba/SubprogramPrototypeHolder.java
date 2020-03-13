@@ -32,6 +32,6 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface SubprogramPrototypeHolder extends CalledSubprogramHolder, PrototypeHolder, IBAVisitable
+public interface SubprogramPrototypeHolder extends CalledSubprogramHolder, PrototypeHolder
 {
 } // SubprogramPrototypeHolder

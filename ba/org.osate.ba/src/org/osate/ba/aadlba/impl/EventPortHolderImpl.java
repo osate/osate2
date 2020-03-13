@@ -30,8 +30,6 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Event Port Holder</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
@@ -63,6 +61,7 @@ public class EventPortHolderImpl extends ActualPortHolderImpl implements EventPo
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setEventPort(final EventPort eventPort )
   {
     element = eventPort ;
@@ -73,6 +72,7 @@ public class EventPortHolderImpl extends ActualPortHolderImpl implements EventPo
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EventPort getEventPort()
   {
     return (EventPort) element;

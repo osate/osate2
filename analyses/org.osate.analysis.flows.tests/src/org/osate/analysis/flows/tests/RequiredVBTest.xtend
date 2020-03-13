@@ -70,7 +70,7 @@ class RequiredVBTest extends XtextTest {
 		// check flow latency
 		val som = instance.systemOperationModes.head
 		val checker = new FlowLatencyAnalysisSwitch()
-		val latencyresult = checker.invoke(instance, som,true,true,true,true)
+		val latencyresult = checker.invoke(instance, som,true,true,true,true, false)
 		val resab = latencyresult.results.get(1)
 		val target = resab.modelElement as NamedElement
 		assertEquals(target.name,"etef2")

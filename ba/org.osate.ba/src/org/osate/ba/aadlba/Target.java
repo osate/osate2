@@ -32,6 +32,6 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface Target extends ParameterLabel, BehaviorElement, IBAVisitable
+public interface Target extends ParameterLabel, BehaviorElement
 {
 } // Target
