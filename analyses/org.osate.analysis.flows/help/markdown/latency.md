@@ -79,7 +79,7 @@ is calculated. This allows users to perform studies along different dimensions w
 
 ![Configuration Dialog](images/FlowLatencyDialog.png "Flow Latency Configuration Dialog")
 
-The body of the dialog contains four sets of radio buttons that are described below.  Clicking on
+The body of the dialog contains five sets of radio buttons that are described below.  Clicking on
 **OK** executes the analysis with the chosen settings.  The settings are remembered the next time the
 analysis is run.  Clicking on **Cancel** discards the settings and does not run the analysis.  If
 **Don't show this dialog again** is selected when **OK** is pressed, the dialog will not be shown 
@@ -127,7 +127,10 @@ The flow latency analysis supports the following settings:
       is assumed to be empty.
     - **Assume full queue (FQ)**: Use minimum compute execution time
       times the queue size to determine the best case queuing time.
-
+- **Disable queuing latency in the results**: Determines whether worst-case queuing delay is reported for asyncronous busses.
+    - **Disable**: The worst-case queuing delay is always reported as 0.
+    - **Enable**: The worst-case queuing delay is reported as calculated below.
+ 
 The OSATE preference settings controlling the default values for flow latency analysis
 are found in the **OSATE > Analysis > Flow Latency** preference pane.
 
@@ -407,6 +410,14 @@ period property values with threads and devices.
   full period (see discussion below).  
   
 > The first end to end flow element may be a periodic component. In this case, no sampling latency is added. However, succeeding periodic sampling components may be aligned in the synchronous use scenario. 
+
+### Queuing Delay in Asynchronous Communication ###
+
+As described above, when a bus is periodic (has a **Period** property association), the period is used to determine the worst-case sampling delay.  When a bus does not have a period, a sender may need to be wait for other uses to finish sending data on the bus before it can access it.  Analysis computes the worst-case queuing delay based on the **Transmission_Time** property of the bus and the **Data_Size** of the information that flows over the bus.  Specifically, the maximum queuing delay for a connection is the sum off all the maximum transmission times for any other connections bound to the bus.  The data sizes for the communications includes the data overhead imposed by the bus, connections, and any higher-level protocols (virtual buses) encountered.
+
+> Buses with a period will always have a non-zero sampling delay and no queuing delay.
+>
+> Buses without a period will always have a queuing delay and no sampling delay.
 
 ### Processing Times as Latency Contributors
 
