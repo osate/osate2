@@ -477,23 +477,13 @@ public class InstantiateModel {
 			throw new InterruptedException();
 		}
 
-		/*
-		 * XXX: Currently, there are no annexes that use instantiation. If a
-		 * case is found, then this code needs to be moved elsewhere, such as
-		 * the UI action code that calls the regular instantiator. If this code
-		 * were to be left here, it would case a circular plugin dependency. The
-		 * annex plugin currently depends on the instance plugin because
-		 * AnnexInstantiationController needs to use InstanceUtil. Uncommenting
-		 * this code and leaving it in place would cause the instance plugin to
-		 * depend on the annex plugin.
-		 */
-//		// instantiation of annexes
-//		monitor.subTask("Instantiating annexes");
-//		AnnexInstantiationController aic = new AnnexInstantiationController();
-//		aic.instantiateAllAnnexes(root);
-//		if (monitor.isCanceled()) {
-//			return null;
-//		}
+		// instantiation of annexes
+		monitor.subTask("Instantiating annexes");
+		AnnexInstantiationController aic = new AnnexInstantiationController();
+		aic.instantiateAllAnnexes(root);
+		if (monitor.isCanceled()) {
+			throw new InterruptedException();
+		}
 
 		getUsedPropertyDefinitions(root);
 		// handle connection patterns
@@ -510,7 +500,6 @@ public class InstantiateModel {
 //					.getSOMasModeBindings(), cpas.getSemanticConnectionProperties(), errManager);
 //			semanticsSwitch.processPostOrderAll(root);
 //		}
-		return;
 	}
 
 	/*

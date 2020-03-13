@@ -65,7 +65,7 @@ class Issue1940Test extends XtextTest {
 		// check flow latency
 		val som = instance.systemOperationModes.head
 		val checker = new FlowLatencyAnalysisSwitch()
-		val latencyresult = checker.invoke(instance, som,true,true,true,true)
+		val latencyresult = checker.invoke(instance, som,true,true,true,true,false)
 		checkMinMaxComputeExecutionTime(latencyresult.results.get(0), 5.0, 10.0)
 		checkMinMaxComputeExecutionTime(latencyresult.results.get(1), 5.0, 10.0)
 		checkMinMaxComputeExecutionTime(latencyresult.results.get(2), 5.0, 10.0)
@@ -86,7 +86,7 @@ class Issue1940Test extends XtextTest {
 		// check flow latency
 		val som = instance.systemOperationModes.head
 		val checker = new FlowLatencyAnalysisSwitch()
-		val latencyresult = checker.invoke(instance, som,true,true,true,true)
+		val latencyresult = checker.invoke(instance, som,true,true,true,true,false)
 		checkMinMaxComputeExecutionTime(latencyresult.results.get(0), 1.25, 2.5)
 		checkMinMaxComputeExecutionTime(latencyresult.results.get(1), 1.25, 2.5)
 		checkMinMaxComputeExecutionTime(latencyresult.results.get(2), 1.25, 2.5)
@@ -107,7 +107,7 @@ class Issue1940Test extends XtextTest {
 		// check flow latency
 		val som = instance.systemOperationModes.head
 		val checker = new FlowLatencyAnalysisSwitch()
-		val latencyresult = checker.invoke(instance, som,true,true,true,true)
+		val latencyresult = checker.invoke(instance, som,true,true,true,true,false)
 		checkMinMaxComputeExecutionTime(latencyresult.results.get(0), 5.0, 10.0)
 		checkMinMaxComputeExecutionTime(latencyresult.results.get(1), 15.0, 20.0)
 		checkMinMaxComputeExecutionTime(latencyresult.results.get(2), 3.0, 6.0)
@@ -128,7 +128,7 @@ class Issue1940Test extends XtextTest {
 		// check flow latency
 		val som = instance.systemOperationModes.head
 		val checker = new FlowLatencyAnalysisSwitch()
-		val latencyresult = checker.invoke(instance, som,true,true,true,true)
+		val latencyresult = checker.invoke(instance, som,true,true,true,true,false)
 		checkMinMaxComputeExecutionTime(latencyresult.results.get(0), 1.25, 2.5)
 		checkMinMaxComputeExecutionTime(latencyresult.results.get(1), 3.75, 5.0)
 		checkMinMaxComputeExecutionTime(latencyresult.results.get(2), 0.75, 1.5)

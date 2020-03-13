@@ -6649,7 +6649,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkPropertyDefinition(final Property pn) {
 		// Check the type correctness of the default value, if any
-		typeCheckPropertyValues(pn.getPropertyType(), pn.getDefaultValue(), pn, pn.getQualifiedName());
+		typeCheckPropertyValues(pn.getPropertyType(), pn.getDefaultValue(), pn.getDefaultValue(), pn.getQualifiedName());
 		checkAppliesTo(pn);
 	}
 

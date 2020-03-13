@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -49,6 +49,7 @@ public class LatencyReport {
 	private boolean majorFrameDelay = true; // MF default
 	private boolean worstCaseDeadline = true; // DL default
 	private boolean bestCaseEmptyQueue = true; // EQ default
+	private boolean disableQueuingLatency = false;
 
 	public LatencyReport() {
 		this.entries = new ArrayList<LatencyReportEntry>();
@@ -79,12 +80,34 @@ public class LatencyReport {
 		this.entries.add(entry);
 	}
 
+	/**
+	 * @since org.osate.analhysis.flows 3.0
+	 */
+	public List<Result> finalizeAllEntries() {
+		final List<Result> results = new ArrayList<>();
+		entries.forEach(entry -> {
+			entry.finalizeReportEntry();
+			results.add(entry.genResult());
+		});
+		return results;
+	}
+
+	@Deprecated
 	public void setLatencyAnalysisParameters(boolean asynchronousSystem, boolean majorFrameDelay,
 			boolean worstCaseDeadline, boolean bestCaseEmptyQueue) {
+		setLatencyAnalysisParameters(asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue, false);
+	}
+
+	/**
+	 * @since org.osate.analhysis.flows 3.0
+	 */
+	public void setLatencyAnalysisParameters(boolean asynchronousSystem, boolean majorFrameDelay,
+			boolean worstCaseDeadline, boolean bestCaseEmptyQueue, boolean disableQueuingLatency) {
 		this.asynchronousSystem = asynchronousSystem;
 		this.majorFrameDelay = majorFrameDelay;
 		this.worstCaseDeadline = worstCaseDeadline;
 		this.bestCaseEmptyQueue = bestCaseEmptyQueue;
+		this.disableQueuingLatency = disableQueuingLatency;
 	}
 
 	public boolean isAsynchronousSystem() {
@@ -103,10 +126,17 @@ public class LatencyReport {
 		return this.bestCaseEmptyQueue;
 	}
 
+	/**
+	 * @since org.osate.analhysis.flows 3.0
+	 */
+	public final boolean isDisableQueuingLatency() {
+		return this.disableQueuingLatency;
+	}
+
 	public String getParametersAsDescriptions() {
 		return "with preference settings: "
 				+ FlowLatencyUtil.getParametersAsDescriptions(asynchronousSystem, majorFrameDelay, worstCaseDeadline,
-						bestCaseEmptyQueue);
+						bestCaseEmptyQueue, disableQueuingLatency);
 	}
 
 	public EList<Result> genResult() {
@@ -123,7 +153,7 @@ public class LatencyReport {
 
 		genericReport = new Report(this.relatedInstance, "latency",
 				"latency_" + FlowLatencyUtil.getParametersAsLabels(asynchronousSystem, majorFrameDelay,
-						worstCaseDeadline, bestCaseEmptyQueue),
+						worstCaseDeadline, bestCaseEmptyQueue, disableQueuingLatency),
 				ReportType.TABLE);
 		genericReport.setTextContent("Latency analysis " + getParametersAsDescriptions());
 		for (LatencyReportEntry re : entries) {
