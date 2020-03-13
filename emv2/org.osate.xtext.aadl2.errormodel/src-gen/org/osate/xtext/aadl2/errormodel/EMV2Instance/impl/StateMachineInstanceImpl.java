@@ -40,23 +40,25 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateInstance;
-import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateVariableInstance;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateMachineInstance;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>State Variable Instance</b></em>'.
+ * An implementation of the model object '<em><b>State Machine Instance</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateVariableInstanceImpl#getStates <em>States</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateVariableInstanceImpl#getCurrentState <em>Current State</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateMachineInstanceImpl#getStates <em>States</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateMachineInstanceImpl#getCurrentState <em>Current State</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateMachineInstanceImpl#getStateMachine <em>State Machine</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class StateVariableInstanceImpl extends EMV2InstanceObjectImpl implements StateVariableInstance {
+public class StateMachineInstanceImpl extends EMV2InstanceObjectImpl implements StateMachineInstance {
 	/**
 	 * The cached value of the '{@link #getStates() <em>States</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -78,11 +80,21 @@ public class StateVariableInstanceImpl extends EMV2InstanceObjectImpl implements
 	protected StateInstance currentState;
 
 	/**
+	 * The cached value of the '{@link #getStateMachine() <em>State Machine</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStateMachine()
+	 * @generated
+	 * @ordered
+	 */
+	protected ErrorBehaviorStateMachine stateMachine;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected StateVariableInstanceImpl() {
+	protected StateMachineInstanceImpl() {
 		super();
 	}
 
@@ -93,7 +105,7 @@ public class StateVariableInstanceImpl extends EMV2InstanceObjectImpl implements
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EMV2InstancePackage.Literals.STATE_VARIABLE_INSTANCE;
+		return EMV2InstancePackage.Literals.STATE_MACHINE_INSTANCE;
 	}
 
 	/**
@@ -104,7 +116,7 @@ public class StateVariableInstanceImpl extends EMV2InstanceObjectImpl implements
 	@Override
 	public EList<StateInstance> getStates() {
 		if (states == null) {
-			states = new EObjectContainmentEList<StateInstance>(StateInstance.class, this, EMV2InstancePackage.STATE_VARIABLE_INSTANCE__STATES);
+			states = new EObjectContainmentEList<StateInstance>(StateInstance.class, this, EMV2InstancePackage.STATE_MACHINE_INSTANCE__STATES);
 		}
 		return states;
 	}
@@ -121,7 +133,7 @@ public class StateVariableInstanceImpl extends EMV2InstanceObjectImpl implements
 			currentState = (StateInstance)eResolveProxy(oldCurrentState);
 			if (currentState != oldCurrentState) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.STATE_VARIABLE_INSTANCE__CURRENT_STATE, oldCurrentState, currentState));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.STATE_MACHINE_INSTANCE__CURRENT_STATE, oldCurrentState, currentState));
 			}
 		}
 		return currentState;
@@ -146,7 +158,47 @@ public class StateVariableInstanceImpl extends EMV2InstanceObjectImpl implements
 		StateInstance oldCurrentState = currentState;
 		currentState = newCurrentState;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.STATE_VARIABLE_INSTANCE__CURRENT_STATE, oldCurrentState, currentState));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.STATE_MACHINE_INSTANCE__CURRENT_STATE, oldCurrentState, currentState));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ErrorBehaviorStateMachine getStateMachine() {
+		if (stateMachine != null && stateMachine.eIsProxy()) {
+			InternalEObject oldStateMachine = (InternalEObject)stateMachine;
+			stateMachine = (ErrorBehaviorStateMachine)eResolveProxy(oldStateMachine);
+			if (stateMachine != oldStateMachine) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.STATE_MACHINE_INSTANCE__STATE_MACHINE, oldStateMachine, stateMachine));
+			}
+		}
+		return stateMachine;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ErrorBehaviorStateMachine basicGetStateMachine() {
+		return stateMachine;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setStateMachine(ErrorBehaviorStateMachine newStateMachine) {
+		ErrorBehaviorStateMachine oldStateMachine = stateMachine;
+		stateMachine = newStateMachine;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.STATE_MACHINE_INSTANCE__STATE_MACHINE, oldStateMachine, stateMachine));
 	}
 
 	/**
@@ -157,7 +209,7 @@ public class StateVariableInstanceImpl extends EMV2InstanceObjectImpl implements
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case EMV2InstancePackage.STATE_VARIABLE_INSTANCE__STATES:
+			case EMV2InstancePackage.STATE_MACHINE_INSTANCE__STATES:
 				return ((InternalEList<?>)getStates()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -171,11 +223,14 @@ public class StateVariableInstanceImpl extends EMV2InstanceObjectImpl implements
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EMV2InstancePackage.STATE_VARIABLE_INSTANCE__STATES:
+			case EMV2InstancePackage.STATE_MACHINE_INSTANCE__STATES:
 				return getStates();
-			case EMV2InstancePackage.STATE_VARIABLE_INSTANCE__CURRENT_STATE:
+			case EMV2InstancePackage.STATE_MACHINE_INSTANCE__CURRENT_STATE:
 				if (resolve) return getCurrentState();
 				return basicGetCurrentState();
+			case EMV2InstancePackage.STATE_MACHINE_INSTANCE__STATE_MACHINE:
+				if (resolve) return getStateMachine();
+				return basicGetStateMachine();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -189,12 +244,15 @@ public class StateVariableInstanceImpl extends EMV2InstanceObjectImpl implements
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EMV2InstancePackage.STATE_VARIABLE_INSTANCE__STATES:
+			case EMV2InstancePackage.STATE_MACHINE_INSTANCE__STATES:
 				getStates().clear();
 				getStates().addAll((Collection<? extends StateInstance>)newValue);
 				return;
-			case EMV2InstancePackage.STATE_VARIABLE_INSTANCE__CURRENT_STATE:
+			case EMV2InstancePackage.STATE_MACHINE_INSTANCE__CURRENT_STATE:
 				setCurrentState((StateInstance)newValue);
+				return;
+			case EMV2InstancePackage.STATE_MACHINE_INSTANCE__STATE_MACHINE:
+				setStateMachine((ErrorBehaviorStateMachine)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -208,11 +266,14 @@ public class StateVariableInstanceImpl extends EMV2InstanceObjectImpl implements
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.STATE_VARIABLE_INSTANCE__STATES:
+			case EMV2InstancePackage.STATE_MACHINE_INSTANCE__STATES:
 				getStates().clear();
 				return;
-			case EMV2InstancePackage.STATE_VARIABLE_INSTANCE__CURRENT_STATE:
+			case EMV2InstancePackage.STATE_MACHINE_INSTANCE__CURRENT_STATE:
 				setCurrentState((StateInstance)null);
+				return;
+			case EMV2InstancePackage.STATE_MACHINE_INSTANCE__STATE_MACHINE:
+				setStateMachine((ErrorBehaviorStateMachine)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -226,12 +287,14 @@ public class StateVariableInstanceImpl extends EMV2InstanceObjectImpl implements
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.STATE_VARIABLE_INSTANCE__STATES:
+			case EMV2InstancePackage.STATE_MACHINE_INSTANCE__STATES:
 				return states != null && !states.isEmpty();
-			case EMV2InstancePackage.STATE_VARIABLE_INSTANCE__CURRENT_STATE:
+			case EMV2InstancePackage.STATE_MACHINE_INSTANCE__CURRENT_STATE:
 				return currentState != null;
+			case EMV2InstancePackage.STATE_MACHINE_INSTANCE__STATE_MACHINE:
+				return stateMachine != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //StateVariableInstanceImpl
+} //StateMachineInstanceImpl

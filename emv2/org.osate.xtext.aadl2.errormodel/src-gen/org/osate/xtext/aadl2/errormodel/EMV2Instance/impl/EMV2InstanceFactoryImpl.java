@@ -79,7 +79,7 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE: return createEMV2AnnexInstance();
-			case EMV2InstancePackage.STATE_VARIABLE_INSTANCE: return createStateVariableInstance();
+			case EMV2InstancePackage.STATE_MACHINE_INSTANCE: return createStateMachineInstance();
 			case EMV2InstancePackage.STATE_INSTANCE: return createStateInstance();
 			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT: return createConstrainedInstanceObject();
 			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE: return createStateTransitionInstance();
@@ -139,9 +139,9 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public StateVariableInstance createStateVariableInstance() {
-		StateVariableInstanceImpl stateVariableInstance = new StateVariableInstanceImpl();
-		return stateVariableInstance;
+	public StateMachineInstance createStateMachineInstance() {
+		StateMachineInstanceImpl stateMachineInstance = new StateMachineInstanceImpl();
+		return stateMachineInstance;
 	}
 
 	/**

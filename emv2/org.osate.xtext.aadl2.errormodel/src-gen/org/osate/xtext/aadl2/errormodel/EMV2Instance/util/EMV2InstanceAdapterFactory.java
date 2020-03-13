@@ -103,8 +103,8 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 				return createEMV2AnnexInstanceAdapter();
 			}
 			@Override
-			public Adapter caseStateVariableInstance(StateVariableInstance object) {
-				return createStateVariableInstanceAdapter();
+			public Adapter caseStateMachineInstance(StateMachineInstance object) {
+				return createStateMachineInstanceAdapter();
 			}
 			@Override
 			public Adapter caseStateInstance(StateInstance object) {
@@ -199,16 +199,16 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateVariableInstance <em>State Variable Instance</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateMachineInstance <em>State Machine Instance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.StateVariableInstance
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.StateMachineInstance
 	 * @generated
 	 */
-	public Adapter createStateVariableInstanceAdapter() {
+	public Adapter createStateMachineInstanceAdapter() {
 		return null;
 	}
 

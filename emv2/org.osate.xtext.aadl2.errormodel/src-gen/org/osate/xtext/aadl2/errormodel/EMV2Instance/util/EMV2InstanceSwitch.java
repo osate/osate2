@@ -111,13 +111,13 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EMV2InstancePackage.STATE_VARIABLE_INSTANCE: {
-				StateVariableInstance stateVariableInstance = (StateVariableInstance)theEObject;
-				T result = caseStateVariableInstance(stateVariableInstance);
-				if (result == null) result = caseEMV2InstanceObject(stateVariableInstance);
-				if (result == null) result = caseInstanceObject(stateVariableInstance);
-				if (result == null) result = caseNamedElement(stateVariableInstance);
-				if (result == null) result = caseElement(stateVariableInstance);
+			case EMV2InstancePackage.STATE_MACHINE_INSTANCE: {
+				StateMachineInstance stateMachineInstance = (StateMachineInstance)theEObject;
+				T result = caseStateMachineInstance(stateMachineInstance);
+				if (result == null) result = caseEMV2InstanceObject(stateMachineInstance);
+				if (result == null) result = caseInstanceObject(stateMachineInstance);
+				if (result == null) result = caseNamedElement(stateMachineInstance);
+				if (result == null) result = caseElement(stateMachineInstance);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -226,17 +226,17 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>State Variable Instance</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>State Machine Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>State Variable Instance</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>State Machine Instance</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseStateVariableInstance(StateVariableInstance object) {
+	public T caseStateMachineInstance(StateMachineInstance object) {
 		return null;
 	}
 

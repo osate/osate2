@@ -53,7 +53,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
  * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EventInstanceImpl#getEvent <em>Event</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EventInstanceImpl#getGeneratedLiterals <em>Generated Literals</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EventInstanceImpl#getGeneratedTypedEvents <em>Generated Typed Events</em>}</li>
  * </ul>
  *
  * @generated
@@ -70,14 +70,14 @@ public class EventInstanceImpl extends EMV2InstanceObjectImpl implements EventIn
 	protected ErrorBehaviorEvent event;
 
 	/**
-	 * The cached value of the '{@link #getGeneratedLiterals() <em>Generated Literals</em>}' containment reference list.
+	 * The cached value of the '{@link #getGeneratedTypedEvents() <em>Generated Typed Events</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getGeneratedLiterals()
+	 * @see #getGeneratedTypedEvents()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ConstrainedInstanceObject> generatedLiterals;
+	protected EList<ConstrainedInstanceObject> generatedTypedEvents;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -144,11 +144,11 @@ public class EventInstanceImpl extends EMV2InstanceObjectImpl implements EventIn
 	 * @generated
 	 */
 	@Override
-	public EList<ConstrainedInstanceObject> getGeneratedLiterals() {
-		if (generatedLiterals == null) {
-			generatedLiterals = new EObjectContainmentEList<ConstrainedInstanceObject>(ConstrainedInstanceObject.class, this, EMV2InstancePackage.EVENT_INSTANCE__GENERATED_LITERALS);
+	public EList<ConstrainedInstanceObject> getGeneratedTypedEvents() {
+		if (generatedTypedEvents == null) {
+			generatedTypedEvents = new EObjectContainmentEList<ConstrainedInstanceObject>(ConstrainedInstanceObject.class, this, EMV2InstancePackage.EVENT_INSTANCE__GENERATED_TYPED_EVENTS);
 		}
-		return generatedLiterals;
+		return generatedTypedEvents;
 	}
 
 	/**
@@ -159,8 +159,8 @@ public class EventInstanceImpl extends EMV2InstanceObjectImpl implements EventIn
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case EMV2InstancePackage.EVENT_INSTANCE__GENERATED_LITERALS:
-				return ((InternalEList<?>)getGeneratedLiterals()).basicRemove(otherEnd, msgs);
+			case EMV2InstancePackage.EVENT_INSTANCE__GENERATED_TYPED_EVENTS:
+				return ((InternalEList<?>)getGeneratedTypedEvents()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -176,8 +176,8 @@ public class EventInstanceImpl extends EMV2InstanceObjectImpl implements EventIn
 			case EMV2InstancePackage.EVENT_INSTANCE__EVENT:
 				if (resolve) return getEvent();
 				return basicGetEvent();
-			case EMV2InstancePackage.EVENT_INSTANCE__GENERATED_LITERALS:
-				return getGeneratedLiterals();
+			case EMV2InstancePackage.EVENT_INSTANCE__GENERATED_TYPED_EVENTS:
+				return getGeneratedTypedEvents();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -194,9 +194,9 @@ public class EventInstanceImpl extends EMV2InstanceObjectImpl implements EventIn
 			case EMV2InstancePackage.EVENT_INSTANCE__EVENT:
 				setEvent((ErrorBehaviorEvent)newValue);
 				return;
-			case EMV2InstancePackage.EVENT_INSTANCE__GENERATED_LITERALS:
-				getGeneratedLiterals().clear();
-				getGeneratedLiterals().addAll((Collection<? extends ConstrainedInstanceObject>)newValue);
+			case EMV2InstancePackage.EVENT_INSTANCE__GENERATED_TYPED_EVENTS:
+				getGeneratedTypedEvents().clear();
+				getGeneratedTypedEvents().addAll((Collection<? extends ConstrainedInstanceObject>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -213,8 +213,8 @@ public class EventInstanceImpl extends EMV2InstanceObjectImpl implements EventIn
 			case EMV2InstancePackage.EVENT_INSTANCE__EVENT:
 				setEvent((ErrorBehaviorEvent)null);
 				return;
-			case EMV2InstancePackage.EVENT_INSTANCE__GENERATED_LITERALS:
-				getGeneratedLiterals().clear();
+			case EMV2InstancePackage.EVENT_INSTANCE__GENERATED_TYPED_EVENTS:
+				getGeneratedTypedEvents().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -230,8 +230,8 @@ public class EventInstanceImpl extends EMV2InstanceObjectImpl implements EventIn
 		switch (featureID) {
 			case EMV2InstancePackage.EVENT_INSTANCE__EVENT:
 				return event != null;
-			case EMV2InstancePackage.EVENT_INSTANCE__GENERATED_LITERALS:
-				return generatedLiterals != null && !generatedLiterals.isEmpty();
+			case EMV2InstancePackage.EVENT_INSTANCE__GENERATED_TYPED_EVENTS:
+				return generatedTypedEvents != null && !generatedTypedEvents.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -21,9 +21,10 @@
     <genClasses ecoreClass="EMV2Instance.ecore#//EMV2AnnexInstance">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//EMV2AnnexInstance/elements"/>
     </genClasses>
-    <genClasses ecoreClass="EMV2Instance.ecore#//StateVariableInstance">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//StateVariableInstance/states"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//StateVariableInstance/currentState"/>
+    <genClasses ecoreClass="EMV2Instance.ecore#//StateMachineInstance">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//StateMachineInstance/states"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//StateMachineInstance/currentState"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//StateMachineInstance/stateMachine"/>
     </genClasses>
     <genClasses ecoreClass="EMV2Instance.ecore#//StateInstance"/>
     <genClasses ecoreClass="EMV2Instance.ecore#//ConstrainedInstanceObject">
@@ -49,12 +50,12 @@
     </genClasses>
     <genClasses ecoreClass="EMV2Instance.ecore#//EventInstance">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//EventInstance/event"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//EventInstance/generatedLiterals"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//EventInstance/generatedTypedEvents"/>
     </genClasses>
     <genClasses ecoreClass="EMV2Instance.ecore#//Constraint">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMV2Instance.ecore#//Constraint/operator"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMV2Instance.ecore#//Constraint/k"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//Constraint/tokens"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//Constraint/constrainedInstanceObject"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

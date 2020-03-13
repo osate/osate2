@@ -23,7 +23,9 @@
  */
 package org.osate.xtext.aadl2.errormodel.EMV2Instance;
 
+import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 
 /**
  * <!-- begin-user-doc -->
@@ -67,26 +69,16 @@ public interface ConstrainedInstanceObject extends EMV2InstanceObject {
 	void setInstanceObject(InstanceObject value);
 
 	/**
-	 * Returns the value of the '<em><b>Constraint</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Constraint</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.TypeToken}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Constraint</em>' containment reference.
-	 * @see #setConstraint(Constraint)
+	 * @return the value of the '<em>Constraint</em>' containment reference list.
 	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getConstrainedInstanceObject_Constraint()
 	 * @model containment="true"
 	 * @generated
 	 */
-	Constraint getConstraint();
-
-	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject#getConstraint <em>Constraint</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Constraint</em>' containment reference.
-	 * @see #getConstraint()
-	 * @generated
-	 */
-	void setConstraint(Constraint value);
+	EList<TypeToken> getConstraint();
 
 	/**
 	 * Returns the value of the '<em><b>Outgoing</b></em>' attribute.

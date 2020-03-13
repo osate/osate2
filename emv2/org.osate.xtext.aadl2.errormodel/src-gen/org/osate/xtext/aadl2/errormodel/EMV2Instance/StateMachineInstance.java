@@ -24,32 +24,34 @@
 package org.osate.xtext.aadl2.errormodel.EMV2Instance;
 
 import org.eclipse.emf.common.util.EList;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>State Variable Instance</b></em>'.
+ * A representation of the model object '<em><b>State Machine Instance</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateVariableInstance#getStates <em>States</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateVariableInstance#getCurrentState <em>Current State</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateMachineInstance#getStates <em>States</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateMachineInstance#getCurrentState <em>Current State</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateMachineInstance#getStateMachine <em>State Machine</em>}</li>
  * </ul>
  *
- * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getStateVariableInstance()
+ * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getStateMachineInstance()
  * @model
  * @generated
  */
-public interface StateVariableInstance extends EMV2InstanceObject {
+public interface StateMachineInstance extends EMV2InstanceObject {
 	/**
 	 * Returns the value of the '<em><b>States</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateInstance}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>States</em>' containment reference list.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getStateVariableInstance_States()
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getStateMachineInstance_States()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -61,14 +63,14 @@ public interface StateVariableInstance extends EMV2InstanceObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Current State</em>' reference.
 	 * @see #setCurrentState(StateInstance)
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getStateVariableInstance_CurrentState()
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getStateMachineInstance_CurrentState()
 	 * @model
 	 * @generated
 	 */
 	StateInstance getCurrentState();
 
 	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateVariableInstance#getCurrentState <em>Current State</em>}' reference.
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateMachineInstance#getCurrentState <em>Current State</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Current State</em>' reference.
@@ -77,4 +79,26 @@ public interface StateVariableInstance extends EMV2InstanceObject {
 	 */
 	void setCurrentState(StateInstance value);
 
-} // StateVariableInstance
+	/**
+	 * Returns the value of the '<em><b>State Machine</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>State Machine</em>' reference.
+	 * @see #setStateMachine(ErrorBehaviorStateMachine)
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getStateMachineInstance_StateMachine()
+	 * @model
+	 * @generated
+	 */
+	ErrorBehaviorStateMachine getStateMachine();
+
+	/**
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateMachineInstance#getStateMachine <em>State Machine</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>State Machine</em>' reference.
+	 * @see #getStateMachine()
+	 * @generated
+	 */
+	void setStateMachine(ErrorBehaviorStateMachine value);
+
+} // StateMachineInstance
