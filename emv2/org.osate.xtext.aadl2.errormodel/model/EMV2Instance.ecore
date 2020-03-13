@@ -7,16 +7,17 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
         eType="#//EMV2InstanceObject" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="StateVariableInstance" eSuperTypes="#//EMV2InstanceObject">
+  <eClassifiers xsi:type="ecore:EClass" name="StateMachineInstance" eSuperTypes="#//EMV2InstanceObject">
     <eStructuralFeatures xsi:type="ecore:EReference" name="states" upperBound="-1"
         eType="#//StateInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="currentState" eType="#//StateInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stateMachine" eType="ecore:EClass generated/ErrorModel.ecore#//ErrorBehaviorStateMachine"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StateInstance" eSuperTypes="#//EMV2InstanceObject"/>
   <eClassifiers xsi:type="ecore:EClass" name="ConstrainedInstanceObject" eSuperTypes="#//EMV2InstanceObject">
     <eStructuralFeatures xsi:type="ecore:EReference" name="instanceObject" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//InstanceObject"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" eType="#//Constraint"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" upperBound="-1"
+        eType="ecore:EClass generated/ErrorModel.ecore#//TypeToken" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="outgoing" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StateTransitionInstance" eSuperTypes="#//EMV2InstanceObject">
@@ -41,14 +42,14 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EventInstance" eSuperTypes="#//EMV2InstanceObject">
     <eStructuralFeatures xsi:type="ecore:EReference" name="event" eType="ecore:EClass generated/ErrorModel.ecore#//ErrorBehaviorEvent"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="generatedLiterals" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="generatedTypedEvents" upperBound="-1"
         eType="#//ConstrainedInstanceObject" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Constraint" eSuperTypes="#//EMV2InstanceObject">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="#//EOperation"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="k" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="tokens" upperBound="-1"
-        eType="ecore:EClass generated/ErrorModel.ecore#//TypeToken"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constrainedInstanceObject"
+        upperBound="-1" eType="#//ConstrainedInstanceObject" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="EOperation">
     <eLiterals name="ANY" literal="any"/>

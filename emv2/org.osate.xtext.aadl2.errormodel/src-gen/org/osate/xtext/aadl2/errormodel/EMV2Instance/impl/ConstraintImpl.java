@@ -27,19 +27,20 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EOperation;
-
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 
 /**
  * <!-- begin-user-doc -->
@@ -51,7 +52,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstraintImpl#getOperator <em>Operator</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstraintImpl#getK <em>K</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstraintImpl#getTokens <em>Tokens</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstraintImpl#getConstrainedInstanceObject <em>Constrained Instance Object</em>}</li>
  * </ul>
  *
  * @generated
@@ -98,14 +99,14 @@ public class ConstraintImpl extends EMV2InstanceObjectImpl implements Constraint
 	protected int k = K_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getTokens() <em>Tokens</em>}' reference list.
+	 * The cached value of the '{@link #getConstrainedInstanceObject() <em>Constrained Instance Object</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTokens()
+	 * @see #getConstrainedInstanceObject()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<TypeToken> tokens;
+	protected EList<ConstrainedInstanceObject> constrainedInstanceObject;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -178,11 +179,25 @@ public class ConstraintImpl extends EMV2InstanceObjectImpl implements Constraint
 	 * @generated
 	 */
 	@Override
-	public EList<TypeToken> getTokens() {
-		if (tokens == null) {
-			tokens = new EObjectResolvingEList<TypeToken>(TypeToken.class, this, EMV2InstancePackage.CONSTRAINT__TOKENS);
+	public EList<ConstrainedInstanceObject> getConstrainedInstanceObject() {
+		if (constrainedInstanceObject == null) {
+			constrainedInstanceObject = new EObjectContainmentEList<ConstrainedInstanceObject>(ConstrainedInstanceObject.class, this, EMV2InstancePackage.CONSTRAINT__CONSTRAINED_INSTANCE_OBJECT);
 		}
-		return tokens;
+		return constrainedInstanceObject;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EMV2InstancePackage.CONSTRAINT__CONSTRAINED_INSTANCE_OBJECT:
+				return ((InternalEList<?>)getConstrainedInstanceObject()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -197,8 +212,8 @@ public class ConstraintImpl extends EMV2InstanceObjectImpl implements Constraint
 				return getOperator();
 			case EMV2InstancePackage.CONSTRAINT__K:
 				return getK();
-			case EMV2InstancePackage.CONSTRAINT__TOKENS:
-				return getTokens();
+			case EMV2InstancePackage.CONSTRAINT__CONSTRAINED_INSTANCE_OBJECT:
+				return getConstrainedInstanceObject();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -218,9 +233,9 @@ public class ConstraintImpl extends EMV2InstanceObjectImpl implements Constraint
 			case EMV2InstancePackage.CONSTRAINT__K:
 				setK((Integer)newValue);
 				return;
-			case EMV2InstancePackage.CONSTRAINT__TOKENS:
-				getTokens().clear();
-				getTokens().addAll((Collection<? extends TypeToken>)newValue);
+			case EMV2InstancePackage.CONSTRAINT__CONSTRAINED_INSTANCE_OBJECT:
+				getConstrainedInstanceObject().clear();
+				getConstrainedInstanceObject().addAll((Collection<? extends ConstrainedInstanceObject>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -240,8 +255,8 @@ public class ConstraintImpl extends EMV2InstanceObjectImpl implements Constraint
 			case EMV2InstancePackage.CONSTRAINT__K:
 				setK(K_EDEFAULT);
 				return;
-			case EMV2InstancePackage.CONSTRAINT__TOKENS:
-				getTokens().clear();
+			case EMV2InstancePackage.CONSTRAINT__CONSTRAINED_INSTANCE_OBJECT:
+				getConstrainedInstanceObject().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -259,8 +274,8 @@ public class ConstraintImpl extends EMV2InstanceObjectImpl implements Constraint
 				return operator != OPERATOR_EDEFAULT;
 			case EMV2InstancePackage.CONSTRAINT__K:
 				return k != K_EDEFAULT;
-			case EMV2InstancePackage.CONSTRAINT__TOKENS:
-				return tokens != null && !tokens.isEmpty();
+			case EMV2InstancePackage.CONSTRAINT__CONSTRAINED_INSTANCE_OBJECT:
+				return constrainedInstanceObject != null && !constrainedInstanceObject.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

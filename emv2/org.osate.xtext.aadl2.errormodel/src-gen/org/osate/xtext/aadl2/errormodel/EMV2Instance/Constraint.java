@@ -25,8 +25,6 @@ package org.osate.xtext.aadl2.errormodel.EMV2Instance;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Constraint</b></em>'.
@@ -38,7 +36,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint#getOperator <em>Operator</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint#getK <em>K</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint#getTokens <em>Tokens</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint#getConstrainedInstanceObject <em>Constrained Instance Object</em>}</li>
  * </ul>
  *
  * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getConstraint()
@@ -94,15 +92,15 @@ public interface Constraint extends EMV2InstanceObject {
 	void setK(int value);
 
 	/**
-	 * Returns the value of the '<em><b>Tokens</b></em>' reference list.
-	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.TypeToken}.
+	 * Returns the value of the '<em><b>Constrained Instance Object</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Tokens</em>' reference list.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getConstraint_Tokens()
-	 * @model
+	 * @return the value of the '<em>Constrained Instance Object</em>' containment reference list.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getConstraint_ConstrainedInstanceObject()
+	 * @model containment="true"
 	 * @generated
 	 */
-	EList<TypeToken> getTokens();
+	EList<ConstrainedInstanceObject> getConstrainedInstanceObject();
 
 } // Constraint

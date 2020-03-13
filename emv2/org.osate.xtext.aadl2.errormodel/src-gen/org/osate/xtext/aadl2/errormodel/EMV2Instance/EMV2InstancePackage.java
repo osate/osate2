@@ -235,14 +235,14 @@ public interface EMV2InstancePackage extends EPackage {
 	int EMV2_ANNEX_INSTANCE_FEATURE_COUNT = InstancePackage.ANNEX_INSTANCE_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateVariableInstanceImpl <em>State Variable Instance</em>}' class.
+	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateMachineInstanceImpl <em>State Machine Instance</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateVariableInstanceImpl
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl#getStateVariableInstance()
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateMachineInstanceImpl
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl#getStateMachineInstance()
 	 * @generated
 	 */
-	int STATE_VARIABLE_INSTANCE = 2;
+	int STATE_MACHINE_INSTANCE = 2;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -251,7 +251,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STATE_VARIABLE_INSTANCE__OWNED_ELEMENT = EMV2_INSTANCE_OBJECT__OWNED_ELEMENT;
+	int STATE_MACHINE_INSTANCE__OWNED_ELEMENT = EMV2_INSTANCE_OBJECT__OWNED_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -260,7 +260,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STATE_VARIABLE_INSTANCE__OWNED_COMMENT = EMV2_INSTANCE_OBJECT__OWNED_COMMENT;
+	int STATE_MACHINE_INSTANCE__OWNED_COMMENT = EMV2_INSTANCE_OBJECT__OWNED_COMMENT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -269,7 +269,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STATE_VARIABLE_INSTANCE__NAME = EMV2_INSTANCE_OBJECT__NAME;
+	int STATE_MACHINE_INSTANCE__NAME = EMV2_INSTANCE_OBJECT__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
@@ -278,7 +278,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STATE_VARIABLE_INSTANCE__QUALIFIED_NAME = EMV2_INSTANCE_OBJECT__QUALIFIED_NAME;
+	int STATE_MACHINE_INSTANCE__QUALIFIED_NAME = EMV2_INSTANCE_OBJECT__QUALIFIED_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -287,7 +287,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STATE_VARIABLE_INSTANCE__OWNED_PROPERTY_ASSOCIATION = EMV2_INSTANCE_OBJECT__OWNED_PROPERTY_ASSOCIATION;
+	int STATE_MACHINE_INSTANCE__OWNED_PROPERTY_ASSOCIATION = EMV2_INSTANCE_OBJECT__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
 	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
@@ -296,7 +296,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STATE_VARIABLE_INSTANCE__ANNEX_INSTANCE = EMV2_INSTANCE_OBJECT__ANNEX_INSTANCE;
+	int STATE_MACHINE_INSTANCE__ANNEX_INSTANCE = EMV2_INSTANCE_OBJECT__ANNEX_INSTANCE;
 
 	/**
 	 * The feature id for the '<em><b>States</b></em>' containment reference list.
@@ -305,7 +305,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STATE_VARIABLE_INSTANCE__STATES = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
+	int STATE_MACHINE_INSTANCE__STATES = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Current State</b></em>' reference.
@@ -314,16 +314,25 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STATE_VARIABLE_INSTANCE__CURRENT_STATE = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 1;
+	int STATE_MACHINE_INSTANCE__CURRENT_STATE = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the '<em>State Variable Instance</em>' class.
+	 * The feature id for the '<em><b>State Machine</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STATE_VARIABLE_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 2;
+	int STATE_MACHINE_INSTANCE__STATE_MACHINE = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>State Machine Instance</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATE_MACHINE_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateInstanceImpl <em>State Instance</em>}' class.
@@ -472,7 +481,7 @@ public interface EMV2InstancePackage extends EPackage {
 	int CONSTRAINED_INSTANCE_OBJECT__INSTANCE_OBJECT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -881,13 +890,13 @@ public interface EMV2InstancePackage extends EPackage {
 	int EVENT_INSTANCE__EVENT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Generated Literals</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Generated Typed Events</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_INSTANCE__GENERATED_LITERALS = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 1;
+	int EVENT_INSTANCE__GENERATED_TYPED_EVENTS = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Event Instance</em>' class.
@@ -981,13 +990,13 @@ public interface EMV2InstancePackage extends EPackage {
 	int CONSTRAINT__K = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Tokens</b></em>' reference list.
+	 * The feature id for the '<em><b>Constrained Instance Object</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONSTRAINT__TOKENS = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 2;
+	int CONSTRAINT__CONSTRAINED_INSTANCE_OBJECT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Constraint</em>' class.
@@ -1041,36 +1050,47 @@ public interface EMV2InstancePackage extends EPackage {
 	EReference getEMV2AnnexInstance_Elements();
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateVariableInstance <em>State Variable Instance</em>}'.
+	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateMachineInstance <em>State Machine Instance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>State Variable Instance</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.StateVariableInstance
+	 * @return the meta object for class '<em>State Machine Instance</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.StateMachineInstance
 	 * @generated
 	 */
-	EClass getStateVariableInstance();
+	EClass getStateMachineInstance();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateVariableInstance#getStates <em>States</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateMachineInstance#getStates <em>States</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>States</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.StateVariableInstance#getStates()
-	 * @see #getStateVariableInstance()
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.StateMachineInstance#getStates()
+	 * @see #getStateMachineInstance()
 	 * @generated
 	 */
-	EReference getStateVariableInstance_States();
+	EReference getStateMachineInstance_States();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateVariableInstance#getCurrentState <em>Current State</em>}'.
+	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateMachineInstance#getCurrentState <em>Current State</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Current State</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.StateVariableInstance#getCurrentState()
-	 * @see #getStateVariableInstance()
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.StateMachineInstance#getCurrentState()
+	 * @see #getStateMachineInstance()
 	 * @generated
 	 */
-	EReference getStateVariableInstance_CurrentState();
+	EReference getStateMachineInstance_CurrentState();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateMachineInstance#getStateMachine <em>State Machine</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>State Machine</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.StateMachineInstance#getStateMachine()
+	 * @see #getStateMachineInstance()
+	 * @generated
+	 */
+	EReference getStateMachineInstance_StateMachine();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateInstance <em>State Instance</em>}'.
@@ -1104,10 +1124,10 @@ public interface EMV2InstancePackage extends EPackage {
 	EReference getConstrainedInstanceObject_InstanceObject();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject#getConstraint <em>Constraint</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject#getConstraint <em>Constraint</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Constraint</em>'.
+	 * @return the meta object for the containment reference list '<em>Constraint</em>'.
 	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject#getConstraint()
 	 * @see #getConstrainedInstanceObject()
 	 * @generated
@@ -1287,15 +1307,15 @@ public interface EMV2InstancePackage extends EPackage {
 	EReference getEventInstance_Event();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EventInstance#getGeneratedLiterals <em>Generated Literals</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EventInstance#getGeneratedTypedEvents <em>Generated Typed Events</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Generated Literals</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EventInstance#getGeneratedLiterals()
+	 * @return the meta object for the containment reference list '<em>Generated Typed Events</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EventInstance#getGeneratedTypedEvents()
 	 * @see #getEventInstance()
 	 * @generated
 	 */
-	EReference getEventInstance_GeneratedLiterals();
+	EReference getEventInstance_GeneratedTypedEvents();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint <em>Constraint</em>}'.
@@ -1330,15 +1350,15 @@ public interface EMV2InstancePackage extends EPackage {
 	EAttribute getConstraint_K();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint#getTokens <em>Tokens</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint#getConstrainedInstanceObject <em>Constrained Instance Object</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Tokens</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint#getTokens()
+	 * @return the meta object for the containment reference list '<em>Constrained Instance Object</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint#getConstrainedInstanceObject()
 	 * @see #getConstraint()
 	 * @generated
 	 */
-	EReference getConstraint_Tokens();
+	EReference getConstraint_ConstrainedInstanceObject();
 
 	/**
 	 * Returns the meta object for enum '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EOperation <em>EOperation</em>}'.
@@ -1401,14 +1421,14 @@ public interface EMV2InstancePackage extends EPackage {
 		EReference EMV2_ANNEX_INSTANCE__ELEMENTS = eINSTANCE.getEMV2AnnexInstance_Elements();
 
 		/**
-		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateVariableInstanceImpl <em>State Variable Instance</em>}' class.
+		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateMachineInstanceImpl <em>State Machine Instance</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateVariableInstanceImpl
-		 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl#getStateVariableInstance()
+		 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateMachineInstanceImpl
+		 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl#getStateMachineInstance()
 		 * @generated
 		 */
-		EClass STATE_VARIABLE_INSTANCE = eINSTANCE.getStateVariableInstance();
+		EClass STATE_MACHINE_INSTANCE = eINSTANCE.getStateMachineInstance();
 
 		/**
 		 * The meta object literal for the '<em><b>States</b></em>' containment reference list feature.
@@ -1416,7 +1436,7 @@ public interface EMV2InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference STATE_VARIABLE_INSTANCE__STATES = eINSTANCE.getStateVariableInstance_States();
+		EReference STATE_MACHINE_INSTANCE__STATES = eINSTANCE.getStateMachineInstance_States();
 
 		/**
 		 * The meta object literal for the '<em><b>Current State</b></em>' reference feature.
@@ -1424,7 +1444,15 @@ public interface EMV2InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference STATE_VARIABLE_INSTANCE__CURRENT_STATE = eINSTANCE.getStateVariableInstance_CurrentState();
+		EReference STATE_MACHINE_INSTANCE__CURRENT_STATE = eINSTANCE.getStateMachineInstance_CurrentState();
+
+		/**
+		 * The meta object literal for the '<em><b>State Machine</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference STATE_MACHINE_INSTANCE__STATE_MACHINE = eINSTANCE.getStateMachineInstance_StateMachine();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateInstanceImpl <em>State Instance</em>}' class.
@@ -1455,7 +1483,7 @@ public interface EMV2InstancePackage extends EPackage {
 		EReference CONSTRAINED_INSTANCE_OBJECT__INSTANCE_OBJECT = eINSTANCE.getConstrainedInstanceObject_InstanceObject();
 
 		/**
-		 * The meta object literal for the '<em><b>Constraint</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Constraint</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -1599,12 +1627,12 @@ public interface EMV2InstancePackage extends EPackage {
 		EReference EVENT_INSTANCE__EVENT = eINSTANCE.getEventInstance_Event();
 
 		/**
-		 * The meta object literal for the '<em><b>Generated Literals</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Generated Typed Events</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference EVENT_INSTANCE__GENERATED_LITERALS = eINSTANCE.getEventInstance_GeneratedLiterals();
+		EReference EVENT_INSTANCE__GENERATED_TYPED_EVENTS = eINSTANCE.getEventInstance_GeneratedTypedEvents();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstraintImpl <em>Constraint</em>}' class.
@@ -1633,12 +1661,12 @@ public interface EMV2InstancePackage extends EPackage {
 		EAttribute CONSTRAINT__K = eINSTANCE.getConstraint_K();
 
 		/**
-		 * The meta object literal for the '<em><b>Tokens</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Constrained Instance Object</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CONSTRAINT__TOKENS = eINSTANCE.getConstraint_Tokens();
+		EReference CONSTRAINT__CONSTRAINED_INSTANCE_OBJECT = eINSTANCE.getConstraint_ConstrainedInstanceObject();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EOperation <em>EOperation</em>}' enum.

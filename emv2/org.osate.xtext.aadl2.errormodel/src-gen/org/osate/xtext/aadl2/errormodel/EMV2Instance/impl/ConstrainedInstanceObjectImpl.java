@@ -23,19 +23,23 @@
  */
 package org.osate.xtext.aadl2.errormodel.EMV2Instance.impl;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.instance.InstanceObject;
 
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject;
-import org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 
 /**
  * <!-- begin-user-doc -->
@@ -64,14 +68,14 @@ public class ConstrainedInstanceObjectImpl extends EMV2InstanceObjectImpl implem
 	protected InstanceObject instanceObject;
 
 	/**
-	 * The cached value of the '{@link #getConstraint() <em>Constraint</em>}' containment reference.
+	 * The cached value of the '{@link #getConstraint() <em>Constraint</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getConstraint()
 	 * @generated
 	 * @ordered
 	 */
-	protected Constraint constraint;
+	protected EList<TypeToken> constraint;
 
 	/**
 	 * The default value of the '{@link #isOutgoing() <em>Outgoing</em>}' attribute.
@@ -158,43 +162,11 @@ public class ConstrainedInstanceObjectImpl extends EMV2InstanceObjectImpl implem
 	 * @generated
 	 */
 	@Override
-	public Constraint getConstraint() {
+	public EList<TypeToken> getConstraint() {
+		if (constraint == null) {
+			constraint = new EObjectContainmentEList<TypeToken>(TypeToken.class, this, EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT);
+		}
 		return constraint;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetConstraint(Constraint newConstraint, NotificationChain msgs) {
-		Constraint oldConstraint = constraint;
-		constraint = newConstraint;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT, oldConstraint, newConstraint);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setConstraint(Constraint newConstraint) {
-		if (newConstraint != constraint) {
-			NotificationChain msgs = null;
-			if (constraint != null)
-				msgs = ((InternalEObject)constraint).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT, null, msgs);
-			if (newConstraint != null)
-				msgs = ((InternalEObject)newConstraint).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT, null, msgs);
-			msgs = basicSetConstraint(newConstraint, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT, newConstraint, newConstraint));
 	}
 
 	/**
@@ -229,7 +201,7 @@ public class ConstrainedInstanceObjectImpl extends EMV2InstanceObjectImpl implem
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT:
-				return basicSetConstraint(null, msgs);
+				return ((InternalEList<?>)getConstraint()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -258,6 +230,7 @@ public class ConstrainedInstanceObjectImpl extends EMV2InstanceObjectImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -265,7 +238,8 @@ public class ConstrainedInstanceObjectImpl extends EMV2InstanceObjectImpl implem
 				setInstanceObject((InstanceObject)newValue);
 				return;
 			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT:
-				setConstraint((Constraint)newValue);
+				getConstraint().clear();
+				getConstraint().addAll((Collection<? extends TypeToken>)newValue);
 				return;
 			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__OUTGOING:
 				setOutgoing((Boolean)newValue);
@@ -286,7 +260,7 @@ public class ConstrainedInstanceObjectImpl extends EMV2InstanceObjectImpl implem
 				setInstanceObject((InstanceObject)null);
 				return;
 			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT:
-				setConstraint((Constraint)null);
+				getConstraint().clear();
 				return;
 			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__OUTGOING:
 				setOutgoing(OUTGOING_EDEFAULT);
@@ -306,7 +280,7 @@ public class ConstrainedInstanceObjectImpl extends EMV2InstanceObjectImpl implem
 			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__INSTANCE_OBJECT:
 				return instanceObject != null;
 			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT:
-				return constraint != null;
+				return constraint != null && !constraint.isEmpty();
 			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__OUTGOING:
 				return outgoing != OUTGOING_EDEFAULT;
 		}

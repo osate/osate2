@@ -37,7 +37,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
  * </p>
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EventInstance#getEvent <em>Event</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EventInstance#getGeneratedLiterals <em>Generated Literals</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EventInstance#getGeneratedTypedEvents <em>Generated Typed Events</em>}</li>
  * </ul>
  *
  * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getEventInstance()
@@ -68,15 +68,15 @@ public interface EventInstance extends EMV2InstanceObject {
 	void setEvent(ErrorBehaviorEvent value);
 
 	/**
-	 * Returns the value of the '<em><b>Generated Literals</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Generated Typed Events</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Generated Literals</em>' containment reference list.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getEventInstance_GeneratedLiterals()
+	 * @return the value of the '<em>Generated Typed Events</em>' containment reference list.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getEventInstance_GeneratedTypedEvents()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<ConstrainedInstanceObject> getGeneratedLiterals();
+	EList<ConstrainedInstanceObject> getGeneratedTypedEvents();
 
 } // EventInstance
