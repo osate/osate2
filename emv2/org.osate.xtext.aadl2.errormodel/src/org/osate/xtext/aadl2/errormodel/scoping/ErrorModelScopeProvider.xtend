@@ -540,12 +540,17 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 									emptyList
 								}
 							val featureGroups = classifier.allFeatures.filter(FeatureGroup)
-							val propagations = classifier.allContainingClassifierEMV2Subclauses.map[propagations].
+							val outPropagations = classifier.allContainingClassifierEMV2Subclauses.map[propagations].
 								flatten.filter [
 									!not && direction == DirectionType.OUT && featureorPPRef.next === null &&
 										featureorPPRef.featureorPP.name !== null
 								]
-							val propagationsScope = new SimpleScope(propagations.map [
+							val inPropagations = classifier.allContainingClassifierEMV2Subclauses.map[propagations].
+								flatten.filter [
+									!not && direction == DirectionType.IN && featureorPPRef.next === null &&
+										featureorPPRef.featureorPP.name !== null
+								]
+							val propagationsScope = new SimpleScope((outPropagations + inPropagations).map [
 								EObjectDescription.create(featureorPPRef.featureorPP.name, it)
 							], true)
 							(subcomponents + featureGroups).scopeFor(propagationsScope)
