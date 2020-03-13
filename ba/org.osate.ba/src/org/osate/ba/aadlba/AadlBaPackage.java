@@ -2462,13 +2462,31 @@ public interface AadlBaPackage extends EPackage
   int BEHAVIOR_VARIABLE__DATA_CLASSIFIER = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 1;
 
   /**
+   * The feature id for the '<em><b>Owned Property Associations</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BEHAVIOR_VARIABLE__OWNED_PROPERTY_ASSOCIATIONS = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 2;
+
+  /**
+   * The feature id for the '<em><b>Owned Value Constant</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BEHAVIOR_VARIABLE__OWNED_VALUE_CONSTANT = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 3;
+
+  /**
    * The number of structural features of the '<em>Behavior Variable</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int BEHAVIOR_VARIABLE_FEATURE_COUNT = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 2;
+  int BEHAVIOR_VARIABLE_FEATURE_COUNT = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -6374,7 +6392,7 @@ public interface AadlBaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MODE_SWITCH_TRIGGER_CONDITION__OWNED_ELEMENT = BEHAVIOR_ELEMENT__OWNED_ELEMENT;
+  int MODE_SWITCH_TRIGGER_CONDITION__OWNED_ELEMENT = BEHAVIOR_CONDITION__OWNED_ELEMENT;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -6383,7 +6401,7 @@ public interface AadlBaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MODE_SWITCH_TRIGGER_CONDITION__OWNED_COMMENT = BEHAVIOR_ELEMENT__OWNED_COMMENT;
+  int MODE_SWITCH_TRIGGER_CONDITION__OWNED_COMMENT = BEHAVIOR_CONDITION__OWNED_COMMENT;
 
   /**
    * The number of structural features of the '<em>Mode Switch Trigger Condition</em>' class.
@@ -6392,7 +6410,7 @@ public interface AadlBaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MODE_SWITCH_TRIGGER_CONDITION_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 0;
+  int MODE_SWITCH_TRIGGER_CONDITION_FEATURE_COUNT = BEHAVIOR_CONDITION_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link org.osate.ba.aadlba.impl.ModeSwitchTriggerLogicalExpressionImpl <em>Mode Switch Trigger Logical Expression</em>}' class.
@@ -7207,6 +7225,28 @@ public interface AadlBaPackage extends EPackage
    * @generated
    */
   EReference getBehaviorVariable_DataClassifier();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.ba.aadlba.BehaviorVariable#getOwnedPropertyAssociations <em>Owned Property Associations</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Owned Property Associations</em>'.
+   * @see org.osate.ba.aadlba.BehaviorVariable#getOwnedPropertyAssociations()
+   * @see #getBehaviorVariable()
+   * @generated
+   */
+  EReference getBehaviorVariable_OwnedPropertyAssociations();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.ba.aadlba.BehaviorVariable#getOwnedValueConstant <em>Owned Value Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Owned Value Constant</em>'.
+   * @see org.osate.ba.aadlba.BehaviorVariable#getOwnedValueConstant()
+   * @see #getBehaviorVariable()
+   * @generated
+   */
+  EReference getBehaviorVariable_OwnedValueConstant();
 
   /**
    * Returns the meta object for class '{@link org.osate.ba.aadlba.BehaviorVariableHolder <em>Behavior Variable Holder</em>}'.
@@ -9429,6 +9469,22 @@ public interface AadlBaPackage extends EPackage
      * @generated
      */
     EReference BEHAVIOR_VARIABLE__DATA_CLASSIFIER = eINSTANCE.getBehaviorVariable_DataClassifier();
+
+    /**
+     * The meta object literal for the '<em><b>Owned Property Associations</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference BEHAVIOR_VARIABLE__OWNED_PROPERTY_ASSOCIATIONS = eINSTANCE.getBehaviorVariable_OwnedPropertyAssociations();
+
+    /**
+     * The meta object literal for the '<em><b>Owned Value Constant</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference BEHAVIOR_VARIABLE__OWNED_VALUE_CONSTANT = eINSTANCE.getBehaviorVariable_OwnedValueConstant();
 
     /**
      * The meta object literal for the '{@link org.osate.ba.aadlba.impl.BehaviorVariableHolderImpl <em>Behavior Variable Holder</em>}' class.

@@ -40,9 +40,7 @@
   
   import org.osate.ba.utils.AadlBaLocationReference ;
   
-  import org.osate.aadl2.Element ;
-  import org.osate.aadl2.ProcessorClassifier ;
-  import org.osate.aadl2.Aadl2Package ;
+  import org.osate.aadl2.* ;
   import org.osate.aadl2.parsesupport.ParseUtil ;
 
 import org.antlr.v4.runtime.misc.NotNull;
@@ -74,6 +72,16 @@ public interface AadlBaListener extends ParseTreeListener {
 	 */
 	void exitBehavior_variable(@NotNull AadlBaParser.Behavior_variableContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#record_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void enterRecord_property_value(@NotNull AadlBaParser.Record_property_valueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#record_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void exitRecord_property_value(@NotNull AadlBaParser.Record_property_valueContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#dispatch_conjunction}.
 	 * @param ctx the parse tree
 	 */
@@ -83,6 +91,16 @@ public interface AadlBaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitDispatch_conjunction(@NotNull AadlBaParser.Dispatch_conjunctionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#real_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void enterReal_property_value(@NotNull AadlBaParser.Real_property_valueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#real_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void exitReal_property_value(@NotNull AadlBaParser.Real_property_valueContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#integer_literal}.
 	 * @param ctx the parse tree
@@ -103,6 +121,16 @@ public interface AadlBaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAssignment_action(@NotNull AadlBaParser.Assignment_actionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#property_value}.
+	 * @param ctx the parse tree
+	 */
+	void enterProperty_value(@NotNull AadlBaParser.Property_valueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#property_value}.
+	 * @param ctx the parse tree
+	 */
+	void exitProperty_value(@NotNull AadlBaParser.Property_valueContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#elsif_statement}.
 	 * @param ctx the parse tree
@@ -204,6 +232,26 @@ public interface AadlBaListener extends ParseTreeListener {
 	 */
 	void exitMode_switch_trigger_conjunction(@NotNull AadlBaParser.Mode_switch_trigger_conjunctionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#classifier_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void enterClassifier_property_value(@NotNull AadlBaParser.Classifier_property_valueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#classifier_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void exitClassifier_property_value(@NotNull AadlBaParser.Classifier_property_valueContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#unit_reference}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnit_reference(@NotNull AadlBaParser.Unit_referenceContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#unit_reference}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnit_reference(@NotNull AadlBaParser.Unit_referenceContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#logical_operator}.
 	 * @param ctx the parse tree
 	 */
@@ -243,6 +291,16 @@ public interface AadlBaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitWhile_statement(@NotNull AadlBaParser.While_statementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#numeric_range_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumeric_range_property_value(@NotNull AadlBaParser.Numeric_range_property_valueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#numeric_range_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumeric_range_property_value(@NotNull AadlBaParser.Numeric_range_property_valueContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#numeric_literal}.
 	 * @param ctx the parse tree
@@ -304,6 +362,26 @@ public interface AadlBaListener extends ParseTreeListener {
 	 */
 	void exitBinary_numeric_operator(@NotNull AadlBaParser.Binary_numeric_operatorContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#field_property_association}.
+	 * @param ctx the parse tree
+	 */
+	void enterField_property_association(@NotNull AadlBaParser.Field_property_associationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#field_property_association}.
+	 * @param ctx the parse tree
+	 */
+	void exitField_property_association(@NotNull AadlBaParser.Field_property_associationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#value_constant_or_variable}.
+	 * @param ctx the parse tree
+	 */
+	void enterValue_constant_or_variable(@NotNull AadlBaParser.Value_constant_or_variableContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#value_constant_or_variable}.
+	 * @param ctx the parse tree
+	 */
+	void exitValue_constant_or_variable(@NotNull AadlBaParser.Value_constant_or_variableContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#relational_operator}.
 	 * @param ctx the parse tree
 	 */
@@ -344,6 +422,16 @@ public interface AadlBaListener extends ParseTreeListener {
 	 */
 	void exitBehavior_time(@NotNull AadlBaParser.Behavior_timeContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#qualifiable_property}.
+	 * @param ctx the parse tree
+	 */
+	void enterQualifiable_property(@NotNull AadlBaParser.Qualifiable_propertyContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#qualifiable_property}.
+	 * @param ctx the parse tree
+	 */
+	void exitQualifiable_property(@NotNull AadlBaParser.Qualifiable_propertyContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#forall_statement}.
 	 * @param ctx the parse tree
 	 */
@@ -373,6 +461,16 @@ public interface AadlBaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitElement_values(@NotNull AadlBaParser.Element_valuesContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#data_classifier_property_association}.
+	 * @param ctx the parse tree
+	 */
+	void enterData_classifier_property_association(@NotNull AadlBaParser.Data_classifier_property_associationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#data_classifier_property_association}.
+	 * @param ctx the parse tree
+	 */
+	void exitData_classifier_property_association(@NotNull AadlBaParser.Data_classifier_property_associationContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#dountil_statement}.
 	 * @param ctx the parse tree
@@ -444,6 +542,26 @@ public interface AadlBaListener extends ParseTreeListener {
 	 */
 	void exitBehavior_transition(@NotNull AadlBaParser.Behavior_transitionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#signed_int}.
+	 * @param ctx the parse tree
+	 */
+	void enterSigned_int(@NotNull AadlBaParser.Signed_intContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#signed_int}.
+	 * @param ctx the parse tree
+	 */
+	void exitSigned_int(@NotNull AadlBaParser.Signed_intContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#property_ref}.
+	 * @param ctx the parse tree
+	 */
+	void enterProperty_ref(@NotNull AadlBaParser.Property_refContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#property_ref}.
+	 * @param ctx the parse tree
+	 */
+	void exitProperty_ref(@NotNull AadlBaParser.Property_refContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#forall_condition}.
 	 * @param ctx the parse tree
 	 */
@@ -484,6 +602,16 @@ public interface AadlBaListener extends ParseTreeListener {
 	 */
 	void exitNumeral(@NotNull AadlBaParser.NumeralContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#boolean_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void enterBoolean_property_value(@NotNull AadlBaParser.Boolean_property_valueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#boolean_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void exitBoolean_property_value(@NotNull AadlBaParser.Boolean_property_valueContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#factor}.
 	 * @param ctx the parse tree
 	 */
@@ -494,16 +622,6 @@ public interface AadlBaListener extends ParseTreeListener {
 	 */
 	void exitFactor(@NotNull AadlBaParser.FactorContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AadlBaParser#value}.
-	 * @param ctx the parse tree
-	 */
-	void enterValue(@NotNull AadlBaParser.ValueContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link AadlBaParser#value}.
-	 * @param ctx the parse tree
-	 */
-	void exitValue(@NotNull AadlBaParser.ValueContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#unary_numeric_operator}.
 	 * @param ctx the parse tree
 	 */
@@ -513,6 +631,16 @@ public interface AadlBaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitUnary_numeric_operator(@NotNull AadlBaParser.Unary_numeric_operatorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#list_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void enterList_property_value(@NotNull AadlBaParser.List_property_valueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#list_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void exitList_property_value(@NotNull AadlBaParser.List_property_valueContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#binary_adding_operator}.
 	 * @param ctx the parse tree
@@ -584,6 +712,16 @@ public interface AadlBaListener extends ParseTreeListener {
 	 */
 	void exitUnary_adding_operator(@NotNull AadlBaParser.Unary_adding_operatorContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#reference_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void enterReference_property_value(@NotNull AadlBaParser.Reference_property_valueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#reference_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void exitReference_property_value(@NotNull AadlBaParser.Reference_property_valueContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#behavior_actions}.
 	 * @param ctx the parse tree
 	 */
@@ -593,6 +731,16 @@ public interface AadlBaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBehavior_actions(@NotNull AadlBaParser.Behavior_actionsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#integer_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void enterInteger_property_value(@NotNull AadlBaParser.Integer_property_valueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#integer_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void exitInteger_property_value(@NotNull AadlBaParser.Integer_property_valueContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#subprogram_parameter_list}.
 	 * @param ctx the parse tree
@@ -643,6 +791,16 @@ public interface AadlBaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBehavior_condition(@NotNull AadlBaParser.Behavior_conditionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#signed_real}.
+	 * @param ctx the parse tree
+	 */
+	void enterSigned_real(@NotNull AadlBaParser.Signed_realContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#signed_real}.
+	 * @param ctx the parse tree
+	 */
+	void exitSigned_real(@NotNull AadlBaParser.Signed_realContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#target}.
 	 * @param ctx the parse tree
@@ -713,6 +871,16 @@ public interface AadlBaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitDispatch_trigger_logical_expression(@NotNull AadlBaParser.Dispatch_trigger_logical_expressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#numeric_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumeric_property_value(@NotNull AadlBaParser.Numeric_property_valueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#numeric_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumeric_property_value(@NotNull AadlBaParser.Numeric_property_valueContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#behavior_action_block}.
 	 * @param ctx the parse tree

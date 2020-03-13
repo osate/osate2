@@ -30,8 +30,6 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Data Port Holder</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */
@@ -63,6 +61,7 @@ public class DataPortHolderImpl extends ActualPortHolderImpl implements DataPort
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDataPort(final DataPort dataPort )
   {
     element = dataPort ;
@@ -73,6 +72,7 @@ public class DataPortHolderImpl extends ActualPortHolderImpl implements DataPort
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public DataPort getDataPort()
   {
     return (DataPort) element;

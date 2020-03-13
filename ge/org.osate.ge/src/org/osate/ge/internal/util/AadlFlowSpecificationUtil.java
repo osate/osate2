@@ -51,7 +51,7 @@ public class AadlFlowSpecificationUtil {
 		public final NamedElement flowSegmentElement; // The element portion of the flow segment being referenced.
 		public final Queryable container;
 
-		private FlowSegmentReference(final NamedElement flowSegmentElement, final Queryable container) {
+		public FlowSegmentReference(final NamedElement flowSegmentElement, final Queryable container) {
 			this.flowSegmentElement = Objects.requireNonNull(flowSegmentElement, "flowSegmentElement must not be null");
 			this.container = Objects.requireNonNull(container, "container must not be null");
 		}

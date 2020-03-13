@@ -128,9 +128,14 @@
         eType="ecore:EDataType ../../org.osate.aadl2/model/aadl2.ecore#//Integer"
         defaultValueLiteral="-1"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BehaviorVariable" eSuperTypes="#//BehaviorNamedElement ../../org.osate.aadl2/model/aadl2.ecore#//ArrayableElement">
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorVariable" eSuperTypes="#//BehaviorNamedElement ../../org.osate.aadl2/model/aadl2.ecore#//ArrayableElement ../../org.osate.aadl2/model/aadl2.ecore#//Data">
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataClassifier" unique="false"
         lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//DataClassifier"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyAssociations"
+        upperBound="-1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//PropertyAssociation"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedValueConstant" eType="#//ValueConstant"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorVariableHolder" eSuperTypes="#//DataHolder #//IndexableElement #//Target #//ElementValues #//SubprogramHolderProxy #//ClassifierFeatureHolder">
     <eOperations name="setVariable" lowerBound="1">

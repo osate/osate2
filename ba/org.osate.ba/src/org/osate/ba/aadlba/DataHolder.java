@@ -32,6 +32,6 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model abstract="true"
  * @generated
  */
-public interface DataHolder extends ElementHolder, IntegerValueVariable, ValueVariable, IBAVisitable
+public interface DataHolder extends ElementHolder, IntegerValueVariable, ValueVariable
 {
 } // DataHolder

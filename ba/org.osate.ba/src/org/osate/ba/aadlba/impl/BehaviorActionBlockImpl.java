@@ -37,11 +37,11 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorActionBlockImpl#getContent <em>Content</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorActionBlockImpl#getTimeout <em>Timeout</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -93,6 +93,7 @@ public class BehaviorActionBlockImpl extends BehaviorElementImpl implements Beha
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BehaviorActions getContent()
   {
     return content;
@@ -120,6 +121,7 @@ public class BehaviorActionBlockImpl extends BehaviorElementImpl implements Beha
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setContent(BehaviorActions newContent)
   {
     if (newContent != content)
@@ -141,6 +143,7 @@ public class BehaviorActionBlockImpl extends BehaviorElementImpl implements Beha
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BehaviorTime getTimeout()
   {
     return timeout;
@@ -168,6 +171,7 @@ public class BehaviorActionBlockImpl extends BehaviorElementImpl implements Beha
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTimeout(BehaviorTime newTimeout)
   {
     if (newTimeout != timeout)

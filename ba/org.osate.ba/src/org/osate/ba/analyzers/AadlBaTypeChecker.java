@@ -56,6 +56,7 @@ import org.osate.aadl2.NumberValue ;
 import org.osate.aadl2.Parameter ;
 import org.osate.aadl2.Port ;
 import org.osate.aadl2.ProcessorClassifier ;
+import org.osate.aadl2.Property ;
 import org.osate.aadl2.PropertyAssociation ;
 import org.osate.aadl2.PropertyConstant ;
 import org.osate.aadl2.PropertyExpression ;
@@ -173,7 +174,7 @@ public class AadlBaTypeChecker
       uccr = (QualifiedNamedElement) bv.getDataClassifier() ;
       
       DataClassifier dc = (DataClassifier) 
-           uniqueComponentClassifierReferenceResolver(uccr,
+           uniqueNamedElementReferenceResolver(uccr,
                                                       TypeCheckRule.DATA_UCCR) ;
       
       _hl.addToHyperlinking(uccr.getAadlBaLocationReference(),
@@ -181,6 +182,13 @@ public class AadlBaTypeChecker
       
       result &= dc != null ;
       bv.setDataClassifier(dc) ;
+      
+      for(PropertyAssociation pa : bv.getOwnedPropertyAssociations())
+      {
+        Property p = (Property) uniqueNamedElementReferenceResolver((QualifiedNamedElement)pa.getProperty(),
+                                                                           TypeCheckRule.PROPERTY);
+        pa.setProperty(p);
+      }
       
       ListIterator<ArrayDimension> it = bv.getArrayDimensions().listIterator() ;
       
@@ -220,8 +228,7 @@ public class AadlBaTypeChecker
     return sb.toString() ;
   }
   
-  private Classifier uniqueComponentClassifierReferenceResolver
-                                                     (QualifiedNamedElement qne,
+  private Element uniqueNamedElementReferenceResolver(QualifiedNamedElement qne,
                                                       TypeCheckRule rule)
   {
     String unparsed = unparseQualifiedNamedElement(qne) ;
@@ -230,7 +237,7 @@ public class AadlBaTypeChecker
     
     if(succeed)
     {
-      return ((Classifier) qne.getOsateRef()) ;
+      return qne.getOsateRef() ;
     }
     else
     {
@@ -2042,7 +2049,7 @@ public class AadlBaTypeChecker
     
     // The statement's unique component reference reference has to be   
     // data classifier.
-    Classifier dataClassifier = uniqueComponentClassifierReferenceResolver(qne,
+    Classifier dataClassifier = (Classifier) uniqueNamedElementReferenceResolver(qne,
                                                       TypeCheckRule.DATA_UCCR) ;
     
     itVar.setDataClassifier((DataClassifier) dataClassifier) ;
@@ -2260,7 +2267,7 @@ public class AadlBaTypeChecker
       for(int i = 0 ; i < qnes.size() ; i++)
       {
         qne = (QualifiedNamedElement) qnes.get(i) ;
-        tmp = uniqueComponentClassifierReferenceResolver(qne,
+        tmp = (Classifier) uniqueNamedElementReferenceResolver(qne,
                                                  TypeCheckRule.PROCESSOR_RULE) ;
         if(tmp != null)
         {
@@ -2374,50 +2381,23 @@ public class AadlBaTypeChecker
       tmp.setEventDataPort((EventDataPort)qne.getOsateRef()) ;
       return portSendActionResolver(tmp, comAct) ;
     }
-    else
+    else if(qne.getOsateRef() instanceof SubprogramAccess)
     {
-      TypeCheckRule rule = TypeCheckRule.SUBPROGRAM_UCCR ; 
-      Subprogram sub = (Subprogram) 
-          uniqueComponentClassifierReferenceResolver(qne, rule) ;
-      if(sub != null)
-      {
-        // Gets subprogram type.
-        Classifier subprogType = subprogramTypeCheck(comAct) ;
-
-        // Checks and resolves parameter labels.
-        // Event if the subprogram call action doesn't have any parameter labels,
-        // the subprogram type may have and vice versa: 
-        // subprogramParameterListCheck is also design for these cases. 
-        // It also binds the subprogram type found to the subprogram call action. 
-        if(subprogType != null)
-        {
-          if (subprogramParameterListCheck(comAct, comAct.getParameters(),
-                                           subprogType))
-          {
-            SubprogramCallAction result = _fact.createSubprogramCallAction() ;
-            SubprogramHolder sh = _fact.createSubprogramHolder() ;
-            sh.setLocationReference(comAct.getLocationReference()) ;
-            sh.setSubprogram(sub) ;
-            result.setSubprogram(sh) ;
-            result.setLocationReference(comAct.getLocationReference()) ;
-            result.getParameterLabels().addAll(comAct.getParameters()) ;
-            return result ;
-          }
-          else
-          {
-            return null ;
-          }
-        }
-        else
-        {
-          return null ;
-        }
-      }
-      else
-      {
-        return  null ;
-      }
+      SubprogramAccessHolder sah = _fact.createSubprogramAccessHolder();
+      sah.setSubprogramAccess((SubprogramAccess) qne.getOsateRef());
+      List<ElementHolder> refs = new ArrayList<ElementHolder>();
+      refs.add(sah);
+      return subprogramCallActionResolver(refs, comAct);
     }
+    else if(qne.getOsateRef() instanceof SubprogramSubcomponent)
+    {
+      SubprogramSubcomponentHolder ssh = _fact.createSubprogramSubcomponentHolder();
+      ssh.setSubprogramSubcomponent((SubprogramSubcomponent) qne.getOsateRef());
+      List<ElementHolder> refs = new ArrayList<ElementHolder>();
+      refs.add(ssh);
+      return subprogramCallActionResolver(refs, comAct);
+    }
+    return null;
   }
   
   // This method checks the given object and returns a communication action
@@ -2436,7 +2416,7 @@ public class AadlBaTypeChecker
     CommAction comAct = (CommAction) ca ;
     
     // Subprogram qualified classifier call.
-    if(comAct.getQualifiedName() != null)
+    if(isSubprogramClassifierCallOrPortSendAction(comAct))
     {
       return qualifiedSubprogramClassifierCallOrPortSendActionActionResolver(comAct) ;
     }
@@ -2461,38 +2441,85 @@ public class AadlBaTypeChecker
     }
   }
   
+  private boolean isSubprogramClassifierCallOrPortSendAction(CommAction comAct)
+  {
+    QualifiedNamedElement qne = comAct.getQualifiedName() ;
+    
+    if(qne == null)
+      return false;
+
+    if(qne.getOsateRef() instanceof EventPort
+        || qne.getOsateRef() instanceof EventDataPort
+        || qne.getOsateRef() instanceof SubprogramAccess
+        || qne.getOsateRef() instanceof SubprogramSubcomponent)
+      return true;
+    return false;
+  }
+
   // Resolves semantic ambiguities (subprogram call and port send action).
   // On error, reports error and returns null.
   private CommunicationAction subprogramCallActionAndPortSendActionResolver
                                                              (CommAction comAct)
   {
-    TypeCheckRule stopOnThisRule = TypeCheckRule.OUT_PORT ;
-    TypeCheckRule[] checkRules = new TypeCheckRule[]
+    if(comAct.getQualifiedName()!=null)
+    {
+      TypeCheckRule rule = TypeCheckRule.SUBPROGRAM_UCCR ; 
+      Subprogram sub = (Subprogram) 
+          uniqueNamedElementReferenceResolver(comAct.getQualifiedName(), rule) ;
+      if(sub != null)
+      {
+        // Gets subprogram type.
+        Classifier subprogType = subprogramTypeCheck(comAct) ;
+
+        // Checks and resolves parameter labels.
+        // Event if the subprogram call action doesn't have any parameter labels,
+        // the subprogram type may have and vice versa: 
+        // subprogramParameterListCheck is also design for these cases. 
+        // It also binds the subprogram type found to the subprogram call action. 
+        if(subprogType != null)
+        {
+          if (subprogramParameterListCheck(comAct, comAct.getParameters(),
+                                           subprogType))
+          {
+            SubprogramCallAction result = _fact.createSubprogramCallAction() ;
+            SubprogramHolder sh = _fact.createSubprogramHolder() ;
+            sh.setLocationReference(comAct.getLocationReference()) ;
+            sh.setSubprogram(sub) ;
+            result.setSubprogram(sh) ;
+            result.setLocationReference(comAct.getLocationReference()) ;
+            result.getParameterLabels().addAll(comAct.getParameters()) ;
+            return result ;
+          }
+        }
+      }
+    }
+    else if (comAct.getReference()!=null)
+    {
+      TypeCheckRule stopOnThisRule = TypeCheckRule.OUT_PORT ;
+      TypeCheckRule[] checkRules = new TypeCheckRule[]
           { TypeCheckRule.SUBPROGRAM_CALL_ACTION_FIRST_NAME,
             TypeCheckRule.SUBPROGRAM_CALL_ACTION_SD_NAME
           } ;
-    
-    List<ElementHolder> resolvedRef = refResolver(comAct.getReference(),
-                                                  null, stopOnThisRule,
-                                                  checkRules) ;
-    
-    if(resolvedRef != null)
-    {
-      // Port send action case.
-      if(resolvedRef.get(0) instanceof PortHolder)
+
+      List<ElementHolder> resolvedRef = refResolver(comAct.getReference(),
+                                                    null, stopOnThisRule,
+                                                    checkRules) ;
+
+      if(resolvedRef != null)
       {
-        ActualPortHolder portHolder = (ActualPortHolder) resolvedRef.get(0) ;
-        return portSendActionResolver(portHolder, comAct) ;
-      }
-      else // Subprogram call action case. 
-      {
-        return subprogramCallActionResolver(resolvedRef, comAct) ;
+        // Port send action case.
+        if(resolvedRef.get(0) instanceof PortHolder)
+        {
+          ActualPortHolder portHolder = (ActualPortHolder) resolvedRef.get(0) ;
+          return portSendActionResolver(portHolder, comAct) ;
+        }
+        else // Subprogram call action case. 
+        {
+          return subprogramCallActionResolver(resolvedRef, comAct) ;
+        }
       }
     }
-    else
-    {
-      return null ;
-    }
+    return null;
   }
 
   private SubprogramCallAction subprogramCallActionResolver

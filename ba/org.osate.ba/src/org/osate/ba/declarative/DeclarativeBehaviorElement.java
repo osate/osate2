@@ -33,11 +33,11 @@ import org.osate.ba.aadlba.BehaviorElement ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.declarative.DeclarativeBehaviorElement#getOsateRef <em>Osate Ref</em>}</li>
  *   <li>{@link org.osate.ba.declarative.DeclarativeBehaviorElement#getBaRef <em>Ba Ref</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativeBehaviorElement()
  * @model abstract="true"

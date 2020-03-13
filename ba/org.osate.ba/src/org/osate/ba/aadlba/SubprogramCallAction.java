@@ -29,18 +29,18 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.SubprogramCallAction#getSubprogram <em>Subprogram</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.SubprogramCallAction#getParameterLabels <em>Parameter Labels</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.SubprogramCallAction#getProxy <em>Proxy</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getSubprogramCallAction()
  * @model
  * @generated
  */
-public interface SubprogramCallAction extends CommunicationAction, IBAVisitable
+public interface SubprogramCallAction extends CommunicationAction
 {
   /**
    * Returns the value of the '<em><b>Subprogram</b></em>' containment reference.

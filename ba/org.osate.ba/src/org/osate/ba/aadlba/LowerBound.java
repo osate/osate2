@@ -32,6 +32,6 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface LowerBound extends PropertyNameField, IBAVisitable
+public interface LowerBound extends PropertyNameField
 {
 } // LowerBound

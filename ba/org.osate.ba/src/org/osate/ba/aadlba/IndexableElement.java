@@ -29,16 +29,16 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.IndexableElement#getArrayIndexes <em>Array Indexes</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getIndexableElement()
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface IndexableElement extends BehaviorElement, IBAVisitable
+public interface IndexableElement extends BehaviorElement
 {
   /**
    * Returns the value of the '<em><b>Array Indexes</b></em>' containment reference list.

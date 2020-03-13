@@ -216,6 +216,8 @@
     </genClasses>
     <genClasses ecoreClass="aadlba.ecore#//BehaviorVariable">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorVariable/dataClassifier"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorVariable/ownedPropertyAssociations"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorVariable/ownedValueConstant"/>
     </genClasses>
     <genClasses ecoreClass="aadlba.ecore#//BehaviorVariableHolder">
       <genOperations ecoreOperation="aadlba.ecore#//BehaviorVariableHolder/setVariable"

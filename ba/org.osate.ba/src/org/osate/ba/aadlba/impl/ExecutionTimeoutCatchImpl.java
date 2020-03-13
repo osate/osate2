@@ -29,8 +29,6 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Execution Timeout Catch</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

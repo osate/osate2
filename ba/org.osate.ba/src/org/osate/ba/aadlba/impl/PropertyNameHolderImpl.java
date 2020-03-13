@@ -36,11 +36,11 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.PropertyNameHolderImpl#getProperty <em>Property</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.PropertyNameHolderImpl#getField <em>Field</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -101,6 +101,7 @@ public class PropertyNameHolderImpl extends BehaviorElementImpl implements Prope
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyElementHolder getProperty()
   {
     return property;
@@ -128,6 +129,7 @@ public class PropertyNameHolderImpl extends BehaviorElementImpl implements Prope
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setProperty(PropertyElementHolder newProperty)
   {
     if (newProperty != property)
@@ -149,6 +151,7 @@ public class PropertyNameHolderImpl extends BehaviorElementImpl implements Prope
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyNameField getField()
   {
     return field;
@@ -178,6 +181,7 @@ public class PropertyNameHolderImpl extends BehaviorElementImpl implements Prope
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setField(PropertyNameField newField)
   {
     if (newField != field)
@@ -223,6 +227,7 @@ public class PropertyNameHolderImpl extends BehaviorElementImpl implements Prope
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetField()
   {
     if (field != null)
@@ -246,6 +251,7 @@ public class PropertyNameHolderImpl extends BehaviorElementImpl implements Prope
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetField()
   {
     return fieldESet;
