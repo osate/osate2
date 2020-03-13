@@ -1,0 +1,45 @@
+package P
+public
+    with Props;
+    
+    abstract A
+    	properties
+    		Props::GoodPA1 => Props::C1;
+    		Props::GoodPA2 => Props::C2;
+
+    		Props::BadPA1 => Props::C2;
+    		Props::BadPA2 => Props::C1;
+			
+			Props::GoodListPA1 => (Props::C1, [f1 => 0;]);
+			Props::GoodListPA2 => (Props::C2, [f1 => "hello";]);
+			
+			Props::BadListPA1 => (Props::C1, Props::C2, [f1 => 0;]);
+			Props::BadListPA2 => (Props::C1, Props::C2, [f1 => "hello";]);
+			
+			Props::GoodFieldsPA1 => [q1 => Props::C1; q2 => Props::C2;];
+			Props::GoodFieldsListPA => ([q1 => Props::C1; q2 => Props::C2;]);
+			
+			Props::BadFieldsPA1 => [
+				q1 => Props::C2;
+				q2 => Props::C1;
+			];
+			Props::BadFieldsListPA1 => ([
+				q1 => Props::C2;
+				q2 => Props::C1;
+			]);
+			
+			Props::GoodPropRefPA1 => Props::R1_prop;
+			Props::GoodPropRefPA2 => Props::R2_prop;
+
+			Props::BadPropRefPA1 => Props::R2_prop;
+			Props::BadPropRefPA2 => Props::R1_prop;
+
+			Props::GoodListOfPropRefPA1 => (Props::R1_prop, [f1 => 0;]);
+			Props::GoodListOfPropRefPA2 => (Props::R2_prop, [f1 => "hello";]);
+
+			Props::BadListOfPropRefPA1 => (Props::R1_prop, Props::R2_prop, [f1 => 0;]);
+			Props::BadListOfPropRefPA2 => (Props::R1_prop, Props::R2_prop, [f1 => "hello";]);
+			
+			Props::ggg => Props::C1;
+    end A;    
+end P;

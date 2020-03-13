@@ -287,7 +287,9 @@ behavior_variable_list[BehaviorAnnex ba] locals[int variableCount]
       }
     )*
         
-    COLON unique_component_classifier_reference (LCURLY (property_associations+=data_classifier_property_association)+ RCURLY)? (SEMICOLON)?
+    COLON unique_component_classifier_reference 
+    (ASSIGN value_constant)?
+    (LCURLY (property_associations+=data_classifier_property_association)+ RCURLY)? (SEMICOLON)?
     {
       if($SEMICOLON() == null)
       {
