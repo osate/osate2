@@ -21,6 +21,8 @@
 
 package org.osate.ba.parser ;
 
+import java.util.ArrayList ;
+import java.util.Collection ;
 import java.util.Iterator ;
 import java.util.List ;
 
@@ -48,32 +50,66 @@ import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.parsesupport.AObject ;
 import org.osate.ba.aadlba.AadlBaFactory ;
 import org.osate.ba.aadlba.Any ;
+import org.osate.ba.aadlba.BasicPropertyHolder ;
 import org.osate.ba.aadlba.BehaviorActionCollection ;
 import org.osate.ba.aadlba.BehaviorActions ;
 import org.osate.ba.aadlba.BehaviorAnnex ;
+import org.osate.ba.aadlba.BehaviorBooleanLiteral ;
 import org.osate.ba.aadlba.BehaviorIntegerLiteral ;
+import org.osate.ba.aadlba.BehaviorPropertyConstant ;
 import org.osate.ba.aadlba.BehaviorRealLiteral ;
 import org.osate.ba.aadlba.BehaviorState ;
+import org.osate.ba.aadlba.BehaviorStringLiteral ;
+import org.osate.ba.aadlba.BehaviorVariableHolder ;
 import org.osate.ba.aadlba.BinaryAddingOperator ;
 import org.osate.ba.aadlba.BinaryNumericOperator ;
+import org.osate.ba.aadlba.ClassifierFeatureHolder ;
+import org.osate.ba.aadlba.ClassifierFeaturePropertyReference ;
+import org.osate.ba.aadlba.ClassifierPropertyReference ;
+import org.osate.ba.aadlba.DataAccessHolder ;
+import org.osate.ba.aadlba.DataAccessPrototypeHolder ;
+import org.osate.ba.aadlba.DataPortHolder ;
+import org.osate.ba.aadlba.DataSubcomponentHolder ;
+import org.osate.ba.aadlba.ElementHolder ;
 import org.osate.ba.aadlba.ElementValues ;
 import org.osate.ba.aadlba.ElseStatement ;
+import org.osate.ba.aadlba.EnumLiteralHolder ;
+import org.osate.ba.aadlba.EventDataPortHolder ;
+import org.osate.ba.aadlba.EventPortHolder ;
 import org.osate.ba.aadlba.Factor ;
+import org.osate.ba.aadlba.FeatureHolder ;
+import org.osate.ba.aadlba.FeaturePrototypeHolder ;
 import org.osate.ba.aadlba.IfStatement ;
 import org.osate.ba.aadlba.IntegerValue ;
 import org.osate.ba.aadlba.IterativeVariable ;
 import org.osate.ba.aadlba.LogicalOperator ;
 import org.osate.ba.aadlba.LowerBound ;
 import org.osate.ba.aadlba.MultiplyingOperator ;
+import org.osate.ba.aadlba.ParameterHolder ;
 import org.osate.ba.aadlba.ParameterLabel ;
+import org.osate.ba.aadlba.PortPrototypeHolder ;
+import org.osate.ba.aadlba.PropertyAssociationHolder ;
+import org.osate.ba.aadlba.PropertyElementHolder ;
+import org.osate.ba.aadlba.PropertyExpressionHolder ;
+import org.osate.ba.aadlba.PropertyNameField ;
+import org.osate.ba.aadlba.PropertyNameHolder ;
+import org.osate.ba.aadlba.PropertyReference ;
+import org.osate.ba.aadlba.PropertySetPropertyReference ;
+import org.osate.ba.aadlba.PropertyTypeHolder ;
+import org.osate.ba.aadlba.PrototypeHolder ;
 import org.osate.ba.aadlba.Relation ;
 import org.osate.ba.aadlba.RelationalOperator ;
+import org.osate.ba.aadlba.SubcomponentHolder ;
+import org.osate.ba.aadlba.SubprogramAccessHolder ;
+import org.osate.ba.aadlba.SubprogramPrototypeHolder ;
+import org.osate.ba.aadlba.SubprogramSubcomponentHolder ;
 import org.osate.ba.aadlba.Term ;
 import org.osate.ba.aadlba.UnaryAddingOperator ;
 import org.osate.ba.aadlba.UnaryBooleanOperator ;
 import org.osate.ba.aadlba.UnaryNumericOperator ;
 import org.osate.ba.aadlba.UpperBound ;
 import org.osate.ba.aadlba.Value ;
+import org.osate.ba.aadlba.ValueConstant ;
 import org.osate.ba.analyzers.DeclarativeUtils ;
 import org.osate.ba.declarative.DeclarativeArrayDimension ;
 import org.osate.ba.declarative.DeclarativeClassifierValue ;
@@ -335,7 +371,7 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     DeclarativeUtils
           .setEcontainer(ctx.ba,
                          ctx.unique_component_classifier_reference().result) ;
-
+    
     List<Data_classifier_property_associationContext> dcpaList = ctx.data_classifier_property_association();
     
     for(Behavior_variableContext bvc : ctx.behavior_variable())
@@ -343,6 +379,8 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
       bvc.result
             .setDataClassifier((DataClassifier) ctx.unique_component_classifier_reference().result) ;
 
+      if(ctx.value_constant()!=null)
+        bvc.result.setOwnedValueConstant(cloneValueConstant(ctx.value_constant().result));
       for(Data_classifier_property_associationContext dcpa: dcpaList)
       {
         PropertyAssociation pa = _coreFact.createPropertyAssociation();
@@ -356,6 +394,206 @@ public class AadlBaParserVisitor<T> extends AbstractParseTreeVisitor<T>
     }
 
     return null ;
+  }
+
+  private ValueConstant cloneValueConstant(ValueConstant sourceValueConstant)
+  {
+    ValueConstant targetValueConstant = null;
+    /* value_constant ::=
+        boolean_literal
+      | numeric_literal
+      | string_literal
+      | property_constant
+      | property_reference */
+    if(sourceValueConstant instanceof BehaviorBooleanLiteral)
+    {
+      BehaviorBooleanLiteral sourceBbl = (BehaviorBooleanLiteral) sourceValueConstant;
+      BehaviorBooleanLiteral targetBbl = _baFact.createBehaviorBooleanLiteral();
+      targetBbl.setValue(sourceBbl.getValue());
+      targetValueConstant = targetBbl;
+    }
+    else if(sourceValueConstant instanceof BehaviorRealLiteral)
+    {
+      BehaviorRealLiteral sourceBrl = (BehaviorRealLiteral) sourceValueConstant;
+      BehaviorRealLiteral targetBrl = _baFact.createBehaviorRealLiteral();
+      targetBrl.setValue(sourceBrl.getValue());
+      targetBrl.setUnit(sourceBrl.getUnit());
+      targetValueConstant = targetBrl;
+    }
+    else if(sourceValueConstant instanceof BehaviorIntegerLiteral)
+    {
+      BehaviorIntegerLiteral sourceIl = (BehaviorIntegerLiteral) sourceValueConstant;
+      BehaviorIntegerLiteral targetIl = _baFact.createBehaviorIntegerLiteral();
+      targetIl.setValue(sourceIl.getValue());
+      targetIl.setUnit(sourceIl.getUnit());
+      targetValueConstant = targetIl;
+    }
+    else if(sourceValueConstant instanceof BehaviorStringLiteral)
+    {
+      BehaviorStringLiteral sourceBsl = (BehaviorStringLiteral) sourceValueConstant;
+      BehaviorStringLiteral targetBsl = _baFact.createBehaviorStringLiteral();
+      targetBsl.setValue(sourceBsl.getValue());
+      targetValueConstant = targetBsl;
+    }
+    else if(sourceValueConstant instanceof BehaviorPropertyConstant)
+    {
+      BehaviorPropertyConstant sourceBpc = (BehaviorPropertyConstant) sourceValueConstant;
+      BehaviorPropertyConstant targetBpc = _baFact.createBehaviorPropertyConstant();
+      targetBpc.setProperty(sourceBpc.getProperty());
+      targetBpc.setPropertySet(sourceBpc.getPropertySet());
+      targetValueConstant = targetBpc;
+    }
+    else if (sourceValueConstant instanceof PropertyReference)
+    {
+      PropertyReference sourcePr = (PropertyReference) sourceValueConstant;
+      List<PropertyNameHolder> sourceProperties = sourcePr.getProperties();
+      if(sourceValueConstant instanceof ClassifierFeaturePropertyReference)
+      {
+        ClassifierFeaturePropertyReference sourceCfpr = (ClassifierFeaturePropertyReference) sourceValueConstant;
+        ClassifierFeaturePropertyReference targetCfpr = _baFact.createClassifierFeaturePropertyReference();
+        targetCfpr.setComponent((ClassifierFeatureHolder) cloneHolder(sourceCfpr.getComponent()));
+        targetCfpr.getProperties().addAll(clonePropertyNameHolderList(sourceProperties));
+        targetValueConstant = targetCfpr;
+      }
+      else if(sourceValueConstant instanceof ClassifierPropertyReference)
+      {
+        ClassifierPropertyReference sourceCpr = (ClassifierPropertyReference) sourceValueConstant;
+        ClassifierPropertyReference targetCpr = _baFact.createClassifierPropertyReference();
+        targetCpr.setClassifier(sourceCpr.getClassifier());
+        targetCpr.getProperties().addAll(clonePropertyNameHolderList(sourceProperties));
+        targetValueConstant = targetCpr;
+      }
+      else if(sourceValueConstant instanceof PropertySetPropertyReference)
+      {
+        PropertySetPropertyReference sourcePspr = (PropertySetPropertyReference) sourceValueConstant;
+        PropertySetPropertyReference targetPspr = _baFact.createPropertySetPropertyReference();
+        targetPspr.setPropertySet(sourcePspr.getPropertySet());
+        targetPspr.getProperties().addAll(clonePropertyNameHolderList(sourceProperties));
+        targetValueConstant = targetPspr;
+      }
+    }
+
+    targetValueConstant.setLocationReference(sourceValueConstant.getLocationReference());
+    return targetValueConstant ;
+  }
+
+  private List<PropertyNameHolder> clonePropertyNameHolderList(List<PropertyNameHolder> sourceProperties)
+  {
+    List<PropertyNameHolder> result = new ArrayList<PropertyNameHolder>();
+    for(PropertyNameHolder pnh: sourceProperties)
+    {
+      result.add(clonePropertyNameHolder(pnh));
+    }
+    return result ;
+  }
+
+  private PropertyNameHolder clonePropertyNameHolder(PropertyNameHolder pnh)
+  {
+    PropertyNameHolder result = _baFact.createPropertyNameHolder();
+    if(pnh.isSetField())
+      result.setField(clonePropertyNameField(pnh.getField()));
+    result.setProperty(clonePropertyNameHolder(pnh.getProperty()));
+    return result;
+  }
+
+  private PropertyNameField clonePropertyNameField(PropertyNameField field)
+  {
+    PropertyNameField result = null;
+    if(field instanceof LowerBound)
+      result = _baFact.createLowerBound();
+    else if(field instanceof UpperBound)
+      result = _baFact.createUpperBound();
+    result.setLocationReference(field.getLocationReference());
+    return result;
+  }
+
+  private PropertyElementHolder clonePropertyNameHolder(
+                                                        PropertyElementHolder sourcePeh)
+  {
+    PropertyElementHolder result = null;
+    // BasicPropertyHolder
+    if(sourcePeh instanceof BasicPropertyHolder)
+      result = _baFact.createBasicPropertyHolder();
+    // EnumLiteralHolder
+    else if(sourcePeh instanceof EnumLiteralHolder)
+      result = _baFact.createEnumLiteralHolder();    
+    // PropertyAssociationHolder
+    else if(sourcePeh instanceof PropertyAssociationHolder)
+      result = _baFact.createPropertyAssociationHolder();
+    // PropertyExpressionHolder
+    else if(sourcePeh instanceof PropertyExpressionHolder)
+      result = _baFact.createPropertyExpressionHolder();
+    // PropertyTypeHolder
+    else if(sourcePeh instanceof PropertyTypeHolder)
+      result = _baFact.createPropertyTypeHolder();
+    
+    result.setElement(sourcePeh.getElement());
+    result.setLocationReference(sourcePeh.getLocationReference());
+    return result;
+  }
+
+  private ElementHolder cloneHolder(ElementHolder sourceElementHolder)
+  {
+    ElementHolder targetElementHolder = null;
+    if(sourceElementHolder instanceof ClassifierFeatureHolder)
+    {
+      ClassifierFeatureHolder sourceCfh = (ClassifierFeatureHolder) sourceElementHolder;
+      if(sourceElementHolder instanceof BehaviorVariableHolder)
+        // BehaviorVariableHolder
+        targetElementHolder = _baFact.createBehaviorVariableHolder();
+      else if(sourceElementHolder instanceof FeatureHolder)
+      {
+        FeatureHolder sourceFeatureHolder = (FeatureHolder) sourceElementHolder;
+        // FeatureHolder
+        if(sourceFeatureHolder instanceof DataAccessHolder)
+          // DataAccessHolder
+          targetElementHolder = _baFact.createDataAccessHolder();
+        else if(sourceFeatureHolder instanceof ParameterHolder)
+          // ParameterHolder
+          targetElementHolder = _baFact.createParameterHolder();
+        // PortHolder
+        else if(sourceFeatureHolder instanceof DataPortHolder)
+          targetElementHolder = _baFact.createDataPortHolder();
+        else if(sourceFeatureHolder instanceof EventDataPortHolder)
+          targetElementHolder = _baFact.createEventDataPortHolder();
+        else if(sourceFeatureHolder instanceof EventPortHolder)
+          targetElementHolder = _baFact.createEventPortHolder();
+        //   SubprogramAccessHolder
+        else if(sourceFeatureHolder instanceof SubprogramAccessHolder)
+          targetElementHolder = _baFact.createSubprogramAccessHolder();
+      }
+      // PrototypeHolder
+      else if(sourceElementHolder instanceof PrototypeHolder)
+      {
+        //   DataAccessPrototypeHolder
+        if(sourceElementHolder instanceof DataAccessPrototypeHolder)
+          targetElementHolder = _baFact.createDataAccessPrototypeHolder();
+        //   FeaturePrototypeHolder
+        else if(sourceElementHolder instanceof FeaturePrototypeHolder)
+          targetElementHolder = _baFact.createFeaturePrototypeHolder();
+        //   PortPrototypeHolder
+        else if(sourceElementHolder instanceof PortPrototypeHolder)
+          targetElementHolder = _baFact.createPortPrototypeHolder();
+        //   SubprogramPrototypeHolder
+        else if(sourceElementHolder instanceof SubprogramPrototypeHolder)
+          targetElementHolder = _baFact.createSubprogramPrototypeHolder();
+      }
+      // SubcomponentHolder
+      else if(sourceElementHolder instanceof SubcomponentHolder)
+      {
+        // DataSubcomponentHolder
+        if(sourceElementHolder instanceof DataSubcomponentHolder)
+          targetElementHolder = _baFact.createDataSubcomponentHolder();
+        // SubprogramSubcomponentHolder
+        else if(sourceElementHolder instanceof SubprogramSubcomponentHolder)
+          targetElementHolder = _baFact.createSubprogramSubcomponentHolder();
+      }
+      ClassifierFeatureHolder targetCfh = (ClassifierFeatureHolder) targetElementHolder;
+      targetCfh.setClassifierFeature(sourceCfh.getClassifierFeature());
+    }
+    if(targetElementHolder!=null)
+      targetElementHolder.setElement(sourceElementHolder.getElement());
+    return targetElementHolder;
   }
 
   private PropertyExpression clonePropertyExpression(PropertyExpression sourcePropertyExpression)

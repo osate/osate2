@@ -37,6 +37,7 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.BehaviorVariable#getDataClassifier <em>Data Classifier</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.BehaviorVariable#getOwnedPropertyAssociations <em>Owned Property Associations</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.BehaviorVariable#getOwnedValueConstant <em>Owned Value Constant</em>}</li>
  * </ul>
  *
  * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorVariable()
@@ -82,5 +83,27 @@ public interface BehaviorVariable extends BehaviorNamedElement, ArrayableElement
    * @generated
    */
   EList<PropertyAssociation> getOwnedPropertyAssociations();
+
+  /**
+   * Returns the value of the '<em><b>Owned Value Constant</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Owned Value Constant</em>' containment reference.
+   * @see #setOwnedValueConstant(ValueConstant)
+   * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorVariable_OwnedValueConstant()
+   * @model containment="true"
+   * @generated
+   */
+  ValueConstant getOwnedValueConstant();
+
+  /**
+   * Sets the value of the '{@link org.osate.ba.aadlba.BehaviorVariable#getOwnedValueConstant <em>Owned Value Constant</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Owned Value Constant</em>' containment reference.
+   * @see #getOwnedValueConstant()
+   * @generated
+   */
+  void setOwnedValueConstant(ValueConstant value);
 
 } // BehaviorVariable
