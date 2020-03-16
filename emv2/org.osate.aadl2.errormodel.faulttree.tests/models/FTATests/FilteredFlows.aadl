@@ -1,86 +1,88 @@
 package FilteredFlows
 public
 
-system AP
-features
-InPort: in data port;
-OutPort: out data port;
-annex emv2 {**
-	use types FGSErrorModelLibrary;
-  use behavior FGSErrorModelLibrary::TwoState;        
-	error propagations
-	InPort: in propagation {NoValue};
-	OutPort: out propagation {NoValue};
-	flows
-		NoVal: error path InPort{NoValue} -> OutPort{NoValue};
-	end propagations;
-	
-component error behavior
-   transitions
-         Operational -[Inport{NoValue}]-> FailStop;
-    propagations  
-      FailStop-[]->Outport{NoValue};
-   end component; 
-	**};
-end AP;
+	system AP
+		features
+			InPort: in data port;
+			OutPort: out data port;
+		annex emv2 {**
+			use types FGSErrorModelLibrary;
+			use behavior FGSErrorModelLibrary::TwoState;
+			
+			error propagations
+				InPort: in propagation {NoValue};
+				OutPort: out propagation {NoValue};
+				flows
+					NoVal: error path InPort {NoValue} -> OutPort {NoValue};
+			end propagations;
+			
+			component error behavior
+				transitions
+					Operational -[Inport {NoValue}]-> FailStop;
+				propagations
+					FailStop -[]-> Outport {NoValue};
+			end component;
+		**};
+	end AP;
 
-system AC
-features
-FromAP1Port: in data port;
-FromAP2Port: in data port;
-OutPort: out data port;
-annex emv2 {**
-	use types FGSErrorModelLibrary;
-  use behavior FGSErrorModelLibrary::TwoState; 
-	error propagations
-	FromAP1Port: in propagation {NoValue};
-	FromAP2Port: in propagation {NoValue};
-	OutPort: out propagation {NoValue};
-	flows
-		port1: error path FromAP1Port -> OutPort;
-		port2: error path FromAP2Port -> OutPort;
-	end propagations;
-	
-component error behavior
-transitions
-      Operational -[FromAP1Port{NoValue} ]-> FailStop;
-    propagations  
-      FailStop-[]->Outport{NoValue};
-  end component;
-	**};
-end AC;
+	system AC
+		features
+			FromAP1Port: in data port;
+			FromAP2Port: in data port;
+			OutPort: out data port;
+		annex emv2 {**
+			use types FGSErrorModelLibrary;
+			use behavior FGSErrorModelLibrary::TwoState;
+			
+			error propagations
+				FromAP1Port: in propagation {NoValue};
+				FromAP2Port: in propagation {NoValue};
+				OutPort: out propagation {NoValue};
+				flows
+					port1: error path FromAP1Port -> OutPort;
+					port2: error path FromAP2Port -> OutPort;
+			end propagations;
+			
+			component error behavior
+				transitions
+					Operational -[FromAP1Port {NoValue}]-> FailStop;
+				propagations
+					FailStop -[]-> Outport {NoValue};
+			end component;
+		**};
+	end AC;
 
+	system FGS
+		features
+			inport: in data port;
+			outport: out data port;
+		annex emv2 {**
+			use types FGSErrorModelLibrary;
+			use behavior FGSErrorModelLibrary::TwoState;
+			
+			error propagations
+				inport: in propagation {NoValue};
+				outport: out propagation {NoValue};
+			end propagations;
+		**};
+	end FGS;
 
-system FGS
-features
-inport : in data port;
-outport: out data port;
-annex emv2 {**
-	use types FGSErrorModelLibrary;
-  use behavior FGSErrorModelLibrary::TwoState;
-	error propagations
-	inport: in propagation {NoValue};
-	outport : out propagation {NoValue};
-	end propagations;
-	**};
-end FGS;
-
-system implementation FGS.impl
-subcomponents
-AP1: system AP;
-AC: system AC;
-connections
-FGStoAP1: port inport -> AP1.inport;
-AP1toAC: port AP1.outport -> AC.FromAP1Port;
-ACtoFGS: port AC.outport -> outport;
-annex emv2 {**
-  use types FGSErrorModelLibrary;        
-component error behavior 
-propagations
-    all -[AC.outport{NoValue}]-> outport{NoValue};
-end component;
-**};
-end FGS.impl;
-
+	system implementation FGS.impl
+		subcomponents
+			AP1: system AP;
+			AC: system AC;
+		connections
+			FGStoAP1: port inport -> AP1.inport;
+			AP1toAC: port AP1.outport -> AC.FromAP1Port;
+			ACtoFGS: port AC.outport -> outport;
+		annex emv2 {**
+			use types FGSErrorModelLibrary;
+			
+			component error behavior
+				propagations
+					all -[AC.outport {NoValue}]-> outport {NoValue};
+			end component;
+		**};
+	end FGS.impl;
 
 end FilteredFlows;
