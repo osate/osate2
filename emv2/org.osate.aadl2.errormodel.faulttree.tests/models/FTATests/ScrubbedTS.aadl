@@ -3,87 +3,95 @@ public
 	device sensor
 		features
 			src: out data port;
-			annex EMV2 {**
-				use types EMTypes;
-				error propagations
-					src: out propagation { ClSet, VCSet};
-					flows
-					v: error source src{VCSet};
-					d: error source src{ClSet};
-				end propagations;
-			**};
+		annex EMV2 {**
+			use types EMTypes;
+			
+			error propagations
+				src: out propagation {ClSet, VCSet};
+				flows
+					v: error source src {VCSet};
+					d: error source src {ClSet};
+			end propagations;
+		**};
 	end sensor;
+
 	device actuator
 		features
 			cmd: in data port;
 			effect: out feature;
-			annex EMV2 {**
-				use types EMTypes;
-				error propagations
-				cmd: in propagation { VCSet, ClSet};
-					effect: out propagation {Bad,Good};
-					flows
---						goodVC: error sink cmd{VCPass};
---						goodSc: error sink cmd{ClPass};
---						goodone: error path cmd{VCPass, ClPass} -> effect{Good};
-						badone: error path cmd{VCFail, ClFail} -> effect{Bad};
-				end propagations;
-				component error behavior
+		annex EMV2 {**
+			use types EMTypes;
+			
+			error propagations
+				cmd: in propagation {VCSet, ClSet};
+				effect: out propagation {Bad, Good};
+				flows
+			--						goodVC: error sink cmd{VCPass};
+			--						goodSc: error sink cmd{ClPass};
+			--						goodone: error path cmd{VCPass, ClPass} -> effect{Good};
+					badone: error path cmd {VCFail, ClFail} -> effect {Bad};
+			end propagations;
+			
+			component error behavior
 				propagations
-				all-[cmd{VCPass} and cmd{ClPass}]-> effect{Good};
-				end component;
-			**};
+					all -[cmd {VCPass} and cmd {ClPass}]-> effect {Good};
+			end component;
+		**};
 	end actuator;
+
 	abstract DirtyWords
 		features
 			txt: in data port;
 			cleantxt: out data port;
-			annex EMV2 {**
-				use types EMTypes;
-				error propagations
-				txt: in propagation {ClSet,VCSet};
-					cleantxt: out propagation {ClPass,VCSet};
-					flows
-						dw: error path txt{ClPass} -> cleantxt{ClPass};
---						vc: error path txt{VCSet} -> cleantxt{VCSet}; --maps fail to fail,pass
-						vcnpp: error path txt{ClPass,VCSet}-> cleantxt;
---						vcnff: error path txt -> cleantxt {VCFail};
---						vcp: error path txt{VCPass} -> cleantxt{VCPass};
---						vcf: error path txt{VCFail} -> cleantxt{VCFail};
-						dwsink: error sink txt{ClFail};
-				end propagations;
-			**};
+		annex EMV2 {**
+			use types EMTypes;
+			
+			error propagations
+				txt: in propagation {ClSet, VCSet};
+				cleantxt: out propagation {ClPass, VCSet};
+				flows
+					dw: error path txt {ClPass} -> cleantxt {ClPass};
+			--						vc: error path txt{VCSet} -> cleantxt{VCSet}; --maps fail to fail,pass
+					vcnpp: error path txt {ClPass, VCSet} -> cleantxt;
+			--						vcnff: error path txt -> cleantxt {VCFail};
+			--						vcp: error path txt{VCPass} -> cleantxt{VCPass};
+			--						vcf: error path txt{VCFail} -> cleantxt{VCFail};
+					dwsink: error sink txt {ClFail};
+			end propagations;
+		**};
 	end DirtyWords;
-	
+
 	abstract VirusCheck
 		features
 			txt: in data port;
 			vcedtxt: out data port;
-			annex EMV2 {**
-				use types EMTypes;
-				error propagations
-				txt: in propagation {VCSet,ClSet};
-					vcedtxt: out propagation {VCPass,ClSet};
-					flows
-						vc: error path txt{VCPass} -> vcedtxt{VCPass};
-						clp: error path txt{ClPass} -> vcedtxt{ClPass};
-						clf: error path txt{ClFail} -> vcedtxt{ClFail};
-						vcsink: error sink txt{VCFail};
-				end propagations;
-			**};
+		annex EMV2 {**
+			use types EMTypes;
+			
+			error propagations
+				txt: in propagation {VCSet, ClSet};
+				vcedtxt: out propagation {VCPass, ClSet};
+				flows
+					vc: error path txt {VCPass} -> vcedtxt {VCPass};
+					clp: error path txt {ClPass} -> vcedtxt {ClPass};
+					clf: error path txt {ClFail} -> vcedtxt {ClFail};
+					vcsink: error sink txt {VCFail};
+			end propagations;
+		**};
 	end VirusCheck;
-	
+
 	system top
 		features
 			effect: out feature;
-			annex EMV2 {**
-				use types EMTypes;
-				error propagations
-					effect: out propagation {Bad,Good};
-				end propagations;
-			**};
+		annex EMV2 {**
+			use types EMTypes;
+			
+			error propagations
+				effect: out propagation {Bad, Good};
+			end propagations;
+		**};
 	end top;
-	
+
 	system implementation top.no
 		subcomponents
 			s: device sensor;
@@ -91,15 +99,16 @@ public
 		connections
 			sense: port s.src -> a.cmd;
 			impact: feature a.effect -> effect;
-			annex EMV2 {**
-				use types EMTypes;
-				component error behavior
+		annex EMV2 {**
+			use types EMTypes;
+			
+			component error behavior
 				propagations
-				eff: all-[a.effect{Bad}]-> effect{Bad};
-				end component;
-			**};
+					eff: all -[a.effect {Bad}]-> effect {Bad};
+			end component;
+		**};
 	end top.no;
-	
+
 	system implementation top.cl
 		subcomponents
 			s: device sensor;
@@ -109,14 +118,16 @@ public
 			sense: port s.src -> clean.txt;
 			cleaned: port clean.cleantxt -> a.cmd;
 			impact: feature a.effect -> effect;
-			annex EMV2 {**
-				use types EMTypes;
-				component error behavior
+		annex EMV2 {**
+			use types EMTypes;
+			
+			component error behavior
 				propagations
-				eff: all-[a.effect{Bad}]-> effect{Bad};
-				end component;
-			**};
+					eff: all -[a.effect {Bad}]-> effect {Bad};
+			end component;
+		**};
 	end top.cl;
+
 	system implementation top.vc
 		subcomponents
 			s: device sensor;
@@ -126,15 +137,16 @@ public
 			sense: port s.src -> vc.txt;
 			vced: port vc.vcedtxt -> a.cmd;
 			impact: feature a.effect -> effect;
-			annex EMV2 {**
-				use types EMTypes;
-				component error behavior
+		annex EMV2 {**
+			use types EMTypes;
+			
+			component error behavior
 				propagations
-				eff: all-[a.effect{Bad}]-> effect{Bad};
-				end component;
-			**};
+					eff: all -[a.effect {Bad}]-> effect {Bad};
+			end component;
+		**};
 	end top.vc;
-	
+
 	system implementation top.vccl
 		subcomponents
 			s: device sensor;
@@ -146,12 +158,13 @@ public
 			vced: port vc.vcedtxt -> clean.txt;
 			cleaned: port clean.cleantxt -> a.cmd;
 			impact: feature a.effect -> effect;
-			annex EMV2 {**
-				use types EMTypes;
-				component error behavior
+		annex EMV2 {**
+			use types EMTypes;
+			
+			component error behavior
 				propagations
-				eff: all-[a.effect{Bad}]-> effect{Bad};
-				end component;
-			**};
+					eff: all -[a.effect {Bad}]-> effect {Bad};
+			end component;
+		**};
 	end top.vccl;
 end ScrubbedTS;

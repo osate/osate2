@@ -11,7 +11,7 @@ public
 		LowPrecisionData: type;
 		-- incorrect data if there is a computing error in the algorithm
 		IncorrectData: type;
-		NoSignal: type;
+		NoSignal: type; 
 		LowSignal: type;
 		ObservableErrorTypes: type set {ServiceOmission, LowPrecisionData,IncorrectData};
 		end types;
