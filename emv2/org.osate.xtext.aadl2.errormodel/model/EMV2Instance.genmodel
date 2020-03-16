@@ -36,11 +36,12 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//StateTransitionInstance/targetState"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//StateTransitionInstance/condition"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//StateTransitionInstance/stateTransition"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//StateTransitionInstance/inStates"/>
     </genClasses>
-    <genClasses ecoreClass="EMV2Instance.ecore#//StateSynchronizationInstance">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//StateSynchronizationInstance/targetState"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//StateSynchronizationInstance/condition"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//StateSynchronizationInstance/stateSynchronization"/>
+    <genClasses ecoreClass="EMV2Instance.ecore#//CompositeStateInstance">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//CompositeStateInstance/targetState"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//CompositeStateInstance/condition"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//CompositeStateInstance/stateSynchronization"/>
     </genClasses>
     <genClasses ecoreClass="EMV2Instance.ecore#//BehaviorInstance">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//BehaviorInstance/condition"/>
@@ -55,7 +56,8 @@
     <genClasses ecoreClass="EMV2Instance.ecore#//Constraint">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMV2Instance.ecore#//Constraint/operator"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMV2Instance.ecore#//Constraint/k"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//Constraint/constrainedInstanceObject"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//Constraint/constraintElements"/>
     </genClasses>
+    <genClasses image="false" ecoreClass="EMV2Instance.ecore#//ConstraintElement"/>
   </genPackages>
 </genmodel:GenModel>

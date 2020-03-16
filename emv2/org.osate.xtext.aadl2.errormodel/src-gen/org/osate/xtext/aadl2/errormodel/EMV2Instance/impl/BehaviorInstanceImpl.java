@@ -40,7 +40,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject;
-import org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstraintElement;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage;
 
 /**
@@ -68,7 +68,7 @@ public class BehaviorInstanceImpl extends EMV2InstanceObjectImpl implements Beha
 	 * @generated
 	 * @ordered
 	 */
-	protected Constraint condition;
+	protected ConstraintElement condition;
 
 	/**
 	 * The cached value of the '{@link #getActions() <em>Actions</em>}' containment reference list.
@@ -145,7 +145,7 @@ public class BehaviorInstanceImpl extends EMV2InstanceObjectImpl implements Beha
 	 * @generated
 	 */
 	@Override
-	public Constraint getCondition() {
+	public ConstraintElement getCondition() {
 		return condition;
 	}
 
@@ -154,8 +154,8 @@ public class BehaviorInstanceImpl extends EMV2InstanceObjectImpl implements Beha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetCondition(Constraint newCondition, NotificationChain msgs) {
-		Constraint oldCondition = condition;
+	public NotificationChain basicSetCondition(ConstraintElement newCondition, NotificationChain msgs) {
+		ConstraintElement oldCondition = condition;
 		condition = newCondition;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.BEHAVIOR_INSTANCE__CONDITION, oldCondition, newCondition);
@@ -170,7 +170,7 @@ public class BehaviorInstanceImpl extends EMV2InstanceObjectImpl implements Beha
 	 * @generated
 	 */
 	@Override
-	public void setCondition(Constraint newCondition) {
+	public void setCondition(ConstraintElement newCondition) {
 		if (newCondition != condition) {
 			NotificationChain msgs = null;
 			if (condition != null)
@@ -289,7 +289,7 @@ public class BehaviorInstanceImpl extends EMV2InstanceObjectImpl implements Beha
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EMV2InstancePackage.BEHAVIOR_INSTANCE__CONDITION:
-				setCondition((Constraint)newValue);
+				setCondition((ConstraintElement)newValue);
 				return;
 			case EMV2InstancePackage.BEHAVIOR_INSTANCE__ACTIONS:
 				getActions().clear();
@@ -314,7 +314,7 @@ public class BehaviorInstanceImpl extends EMV2InstanceObjectImpl implements Beha
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EMV2InstancePackage.BEHAVIOR_INSTANCE__CONDITION:
-				setCondition((Constraint)null);
+				setCondition((ConstraintElement)null);
 				return;
 			case EMV2InstancePackage.BEHAVIOR_INSTANCE__ACTIONS:
 				getActions().clear();

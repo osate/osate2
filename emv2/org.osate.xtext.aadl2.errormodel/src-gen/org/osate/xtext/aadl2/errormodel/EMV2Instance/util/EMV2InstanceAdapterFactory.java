@@ -119,8 +119,8 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 				return createStateTransitionInstanceAdapter();
 			}
 			@Override
-			public Adapter caseStateSynchronizationInstance(StateSynchronizationInstance object) {
-				return createStateSynchronizationInstanceAdapter();
+			public Adapter caseCompositeStateInstance(CompositeStateInstance object) {
+				return createCompositeStateInstanceAdapter();
 			}
 			@Override
 			public Adapter caseBehaviorInstance(BehaviorInstance object) {
@@ -133,6 +133,10 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseConstraint(Constraint object) {
 				return createConstraintAdapter();
+			}
+			@Override
+			public Adapter caseConstraintElement(ConstraintElement object) {
+				return createConstraintElementAdapter();
 			}
 			@Override
 			public Adapter caseElement(Element object) {
@@ -255,16 +259,16 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateSynchronizationInstance <em>State Synchronization Instance</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.CompositeStateInstance <em>Composite State Instance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.StateSynchronizationInstance
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.CompositeStateInstance
 	 * @generated
 	 */
-	public Adapter createStateSynchronizationInstanceAdapter() {
+	public Adapter createCompositeStateInstanceAdapter() {
 		return null;
 	}
 
@@ -307,6 +311,20 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstraintElement <em>Constraint Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstraintElement
+	 * @generated
+	 */
+	public Adapter createConstraintElementAdapter() {
 		return null;
 	}
 

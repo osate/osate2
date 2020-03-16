@@ -23,6 +23,7 @@
  */
 package org.osate.xtext.aadl2.errormodel.EMV2Instance;
 
+import org.eclipse.emf.common.util.EList;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 
 /**
@@ -37,6 +38,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateTransitionInstance#getTargetState <em>Target State</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateTransitionInstance#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateTransitionInstance#getStateTransition <em>State Transition</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateTransitionInstance#getInStates <em>In States</em>}</li>
  * </ul>
  *
  * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getStateTransitionInstance()
@@ -71,12 +73,12 @@ public interface StateTransitionInstance extends EMV2InstanceObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Condition</em>' containment reference.
-	 * @see #setCondition(Constraint)
+	 * @see #setCondition(ConstraintElement)
 	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getStateTransitionInstance_Condition()
 	 * @model containment="true"
 	 * @generated
 	 */
-	Constraint getCondition();
+	ConstraintElement getCondition();
 
 	/**
 	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateTransitionInstance#getCondition <em>Condition</em>}' containment reference.
@@ -86,7 +88,7 @@ public interface StateTransitionInstance extends EMV2InstanceObject {
 	 * @see #getCondition()
 	 * @generated
 	 */
-	void setCondition(Constraint value);
+	void setCondition(ConstraintElement value);
 
 	/**
 	 * Returns the value of the '<em><b>State Transition</b></em>' reference.
@@ -109,5 +111,17 @@ public interface StateTransitionInstance extends EMV2InstanceObject {
 	 * @generated
 	 */
 	void setStateTransition(ErrorBehaviorTransition value);
+
+	/**
+	 * Returns the value of the '<em><b>In States</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateInstance}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>In States</em>' reference list.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getStateTransitionInstance_InStates()
+	 * @model
+	 * @generated
+	 */
+	EList<StateInstance> getInStates();
 
 } // StateTransitionInstance

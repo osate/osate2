@@ -88,13 +88,13 @@ public interface EMV2InstanceFactory extends EFactory {
 	StateTransitionInstance createStateTransitionInstance();
 
 	/**
-	 * Returns a new object of class '<em>State Synchronization Instance</em>'.
+	 * Returns a new object of class '<em>Composite State Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>State Synchronization Instance</em>'.
+	 * @return a new object of class '<em>Composite State Instance</em>'.
 	 * @generated
 	 */
-	StateSynchronizationInstance createStateSynchronizationInstance();
+	CompositeStateInstance createCompositeStateInstance();
 
 	/**
 	 * Returns a new object of class '<em>Behavior Instance</em>'.

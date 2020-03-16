@@ -134,6 +134,7 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT: {
 				ConstrainedInstanceObject constrainedInstanceObject = (ConstrainedInstanceObject)theEObject;
 				T result = caseConstrainedInstanceObject(constrainedInstanceObject);
+				if (result == null) result = caseConstraintElement(constrainedInstanceObject);
 				if (result == null) result = caseEMV2InstanceObject(constrainedInstanceObject);
 				if (result == null) result = caseInstanceObject(constrainedInstanceObject);
 				if (result == null) result = caseNamedElement(constrainedInstanceObject);
@@ -151,13 +152,13 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EMV2InstancePackage.STATE_SYNCHRONIZATION_INSTANCE: {
-				StateSynchronizationInstance stateSynchronizationInstance = (StateSynchronizationInstance)theEObject;
-				T result = caseStateSynchronizationInstance(stateSynchronizationInstance);
-				if (result == null) result = caseEMV2InstanceObject(stateSynchronizationInstance);
-				if (result == null) result = caseInstanceObject(stateSynchronizationInstance);
-				if (result == null) result = caseNamedElement(stateSynchronizationInstance);
-				if (result == null) result = caseElement(stateSynchronizationInstance);
+			case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE: {
+				CompositeStateInstance compositeStateInstance = (CompositeStateInstance)theEObject;
+				T result = caseCompositeStateInstance(compositeStateInstance);
+				if (result == null) result = caseEMV2InstanceObject(compositeStateInstance);
+				if (result == null) result = caseInstanceObject(compositeStateInstance);
+				if (result == null) result = caseNamedElement(compositeStateInstance);
+				if (result == null) result = caseElement(compositeStateInstance);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -184,10 +185,21 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 			case EMV2InstancePackage.CONSTRAINT: {
 				Constraint constraint = (Constraint)theEObject;
 				T result = caseConstraint(constraint);
+				if (result == null) result = caseConstraintElement(constraint);
 				if (result == null) result = caseEMV2InstanceObject(constraint);
 				if (result == null) result = caseInstanceObject(constraint);
 				if (result == null) result = caseNamedElement(constraint);
 				if (result == null) result = caseElement(constraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EMV2InstancePackage.CONSTRAINT_ELEMENT: {
+				ConstraintElement constraintElement = (ConstraintElement)theEObject;
+				T result = caseConstraintElement(constraintElement);
+				if (result == null) result = caseEMV2InstanceObject(constraintElement);
+				if (result == null) result = caseInstanceObject(constraintElement);
+				if (result == null) result = caseNamedElement(constraintElement);
+				if (result == null) result = caseElement(constraintElement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -286,17 +298,17 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>State Synchronization Instance</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Composite State Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>State Synchronization Instance</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Composite State Instance</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseStateSynchronizationInstance(StateSynchronizationInstance object) {
+	public T caseCompositeStateInstance(CompositeStateInstance object) {
 		return null;
 	}
 
@@ -342,6 +354,21 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseConstraint(Constraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Constraint Element</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Constraint Element</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseConstraintElement(ConstraintElement object) {
 		return null;
 	}
 

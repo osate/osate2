@@ -37,8 +37,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstraintElement;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EOperation;
 
@@ -52,12 +52,12 @@ import org.osate.xtext.aadl2.errormodel.EMV2Instance.EOperation;
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstraintImpl#getOperator <em>Operator</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstraintImpl#getK <em>K</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstraintImpl#getConstrainedInstanceObject <em>Constrained Instance Object</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstraintImpl#getConstraintElements <em>Constraint Elements</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ConstraintImpl extends EMV2InstanceObjectImpl implements Constraint {
+public class ConstraintImpl extends ConstraintElementImpl implements Constraint {
 	/**
 	 * The default value of the '{@link #getOperator() <em>Operator</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -86,7 +86,7 @@ public class ConstraintImpl extends EMV2InstanceObjectImpl implements Constraint
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int K_EDEFAULT = 0;
+	protected static final long K_EDEFAULT = 0L;
 
 	/**
 	 * The cached value of the '{@link #getK() <em>K</em>}' attribute.
@@ -96,17 +96,17 @@ public class ConstraintImpl extends EMV2InstanceObjectImpl implements Constraint
 	 * @generated
 	 * @ordered
 	 */
-	protected int k = K_EDEFAULT;
+	protected long k = K_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getConstrainedInstanceObject() <em>Constrained Instance Object</em>}' containment reference list.
+	 * The cached value of the '{@link #getConstraintElements() <em>Constraint Elements</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getConstrainedInstanceObject()
+	 * @see #getConstraintElements()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ConstrainedInstanceObject> constrainedInstanceObject;
+	protected EList<ConstraintElement> constraintElements;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -156,7 +156,7 @@ public class ConstraintImpl extends EMV2InstanceObjectImpl implements Constraint
 	 * @generated
 	 */
 	@Override
-	public int getK() {
+	public long getK() {
 		return k;
 	}
 
@@ -166,8 +166,8 @@ public class ConstraintImpl extends EMV2InstanceObjectImpl implements Constraint
 	 * @generated
 	 */
 	@Override
-	public void setK(int newK) {
-		int oldK = k;
+	public void setK(long newK) {
+		long oldK = k;
 		k = newK;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.CONSTRAINT__K, oldK, k));
@@ -179,11 +179,11 @@ public class ConstraintImpl extends EMV2InstanceObjectImpl implements Constraint
 	 * @generated
 	 */
 	@Override
-	public EList<ConstrainedInstanceObject> getConstrainedInstanceObject() {
-		if (constrainedInstanceObject == null) {
-			constrainedInstanceObject = new EObjectContainmentEList<ConstrainedInstanceObject>(ConstrainedInstanceObject.class, this, EMV2InstancePackage.CONSTRAINT__CONSTRAINED_INSTANCE_OBJECT);
+	public EList<ConstraintElement> getConstraintElements() {
+		if (constraintElements == null) {
+			constraintElements = new EObjectContainmentEList<ConstraintElement>(ConstraintElement.class, this, EMV2InstancePackage.CONSTRAINT__CONSTRAINT_ELEMENTS);
 		}
-		return constrainedInstanceObject;
+		return constraintElements;
 	}
 
 	/**
@@ -194,8 +194,8 @@ public class ConstraintImpl extends EMV2InstanceObjectImpl implements Constraint
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case EMV2InstancePackage.CONSTRAINT__CONSTRAINED_INSTANCE_OBJECT:
-				return ((InternalEList<?>)getConstrainedInstanceObject()).basicRemove(otherEnd, msgs);
+			case EMV2InstancePackage.CONSTRAINT__CONSTRAINT_ELEMENTS:
+				return ((InternalEList<?>)getConstraintElements()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -212,8 +212,8 @@ public class ConstraintImpl extends EMV2InstanceObjectImpl implements Constraint
 				return getOperator();
 			case EMV2InstancePackage.CONSTRAINT__K:
 				return getK();
-			case EMV2InstancePackage.CONSTRAINT__CONSTRAINED_INSTANCE_OBJECT:
-				return getConstrainedInstanceObject();
+			case EMV2InstancePackage.CONSTRAINT__CONSTRAINT_ELEMENTS:
+				return getConstraintElements();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -231,11 +231,11 @@ public class ConstraintImpl extends EMV2InstanceObjectImpl implements Constraint
 				setOperator((EOperation)newValue);
 				return;
 			case EMV2InstancePackage.CONSTRAINT__K:
-				setK((Integer)newValue);
+				setK((Long)newValue);
 				return;
-			case EMV2InstancePackage.CONSTRAINT__CONSTRAINED_INSTANCE_OBJECT:
-				getConstrainedInstanceObject().clear();
-				getConstrainedInstanceObject().addAll((Collection<? extends ConstrainedInstanceObject>)newValue);
+			case EMV2InstancePackage.CONSTRAINT__CONSTRAINT_ELEMENTS:
+				getConstraintElements().clear();
+				getConstraintElements().addAll((Collection<? extends ConstraintElement>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -255,8 +255,8 @@ public class ConstraintImpl extends EMV2InstanceObjectImpl implements Constraint
 			case EMV2InstancePackage.CONSTRAINT__K:
 				setK(K_EDEFAULT);
 				return;
-			case EMV2InstancePackage.CONSTRAINT__CONSTRAINED_INSTANCE_OBJECT:
-				getConstrainedInstanceObject().clear();
+			case EMV2InstancePackage.CONSTRAINT__CONSTRAINT_ELEMENTS:
+				getConstraintElements().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -274,8 +274,8 @@ public class ConstraintImpl extends EMV2InstanceObjectImpl implements Constraint
 				return operator != OPERATOR_EDEFAULT;
 			case EMV2InstancePackage.CONSTRAINT__K:
 				return k != K_EDEFAULT;
-			case EMV2InstancePackage.CONSTRAINT__CONSTRAINED_INSTANCE_OBJECT:
-				return constrainedInstanceObject != null && !constrainedInstanceObject.isEmpty();
+			case EMV2InstancePackage.CONSTRAINT__CONSTRAINT_ELEMENTS:
+				return constraintElements != null && !constraintElements.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

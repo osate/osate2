@@ -27,37 +27,37 @@ import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>State Synchronization Instance</b></em>'.
+ * A representation of the model object '<em><b>Composite State Instance</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateSynchronizationInstance#getTargetState <em>Target State</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateSynchronizationInstance#getCondition <em>Condition</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateSynchronizationInstance#getStateSynchronization <em>State Synchronization</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.CompositeStateInstance#getTargetState <em>Target State</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.CompositeStateInstance#getCondition <em>Condition</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.CompositeStateInstance#getStateSynchronization <em>State Synchronization</em>}</li>
  * </ul>
  *
- * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getStateSynchronizationInstance()
+ * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getCompositeStateInstance()
  * @model
  * @generated
  */
-public interface StateSynchronizationInstance extends EMV2InstanceObject {
+public interface CompositeStateInstance extends EMV2InstanceObject {
 	/**
 	 * Returns the value of the '<em><b>Target State</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Target State</em>' reference.
 	 * @see #setTargetState(StateInstance)
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getStateSynchronizationInstance_TargetState()
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getCompositeStateInstance_TargetState()
 	 * @model
 	 * @generated
 	 */
 	StateInstance getTargetState();
 
 	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateSynchronizationInstance#getTargetState <em>Target State</em>}' reference.
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.CompositeStateInstance#getTargetState <em>Target State</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Target State</em>' reference.
@@ -71,22 +71,22 @@ public interface StateSynchronizationInstance extends EMV2InstanceObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Condition</em>' containment reference.
-	 * @see #setCondition(Constraint)
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getStateSynchronizationInstance_Condition()
+	 * @see #setCondition(ConstraintElement)
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getCompositeStateInstance_Condition()
 	 * @model containment="true"
 	 * @generated
 	 */
-	Constraint getCondition();
+	ConstraintElement getCondition();
 
 	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateSynchronizationInstance#getCondition <em>Condition</em>}' containment reference.
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.CompositeStateInstance#getCondition <em>Condition</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Condition</em>' containment reference.
 	 * @see #getCondition()
 	 * @generated
 	 */
-	void setCondition(Constraint value);
+	void setCondition(ConstraintElement value);
 
 	/**
 	 * Returns the value of the '<em><b>State Synchronization</b></em>' reference.
@@ -94,14 +94,14 @@ public interface StateSynchronizationInstance extends EMV2InstanceObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>State Synchronization</em>' reference.
 	 * @see #setStateSynchronization(CompositeState)
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getStateSynchronizationInstance_StateSynchronization()
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getCompositeStateInstance_StateSynchronization()
 	 * @model
 	 * @generated
 	 */
 	CompositeState getStateSynchronization();
 
 	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateSynchronizationInstance#getStateSynchronization <em>State Synchronization</em>}' reference.
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.CompositeStateInstance#getStateSynchronization <em>State Synchronization</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>State Synchronization</em>' reference.
@@ -110,4 +110,4 @@ public interface StateSynchronizationInstance extends EMV2InstanceObject {
 	 */
 	void setStateSynchronization(CompositeState value);
 
-} // StateSynchronizationInstance
+} // CompositeStateInstance
