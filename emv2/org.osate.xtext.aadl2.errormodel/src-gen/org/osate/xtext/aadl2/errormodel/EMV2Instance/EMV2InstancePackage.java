@@ -802,13 +802,13 @@ public interface EMV2InstancePackage extends EPackage {
 	int COMPOSITE_STATE_INSTANCE__CONDITION = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>State Synchronization</b></em>' reference.
+	 * The feature id for the '<em><b>Composite State</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPOSITE_STATE_INSTANCE__STATE_SYNCHRONIZATION = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 2;
+	int COMPOSITE_STATE_INSTANCE__COMPOSITE_STATE = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Composite State Instance</em>' class.
@@ -1314,15 +1314,15 @@ public interface EMV2InstancePackage extends EPackage {
 	EReference getCompositeStateInstance_Condition();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.CompositeStateInstance#getStateSynchronization <em>State Synchronization</em>}'.
+	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.CompositeStateInstance#getCompositeState <em>Composite State</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>State Synchronization</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.CompositeStateInstance#getStateSynchronization()
+	 * @return the meta object for the reference '<em>Composite State</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.CompositeStateInstance#getCompositeState()
 	 * @see #getCompositeStateInstance()
 	 * @generated
 	 */
-	EReference getCompositeStateInstance_StateSynchronization();
+	EReference getCompositeStateInstance_CompositeState();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance <em>Behavior Instance</em>}'.
@@ -1670,12 +1670,12 @@ public interface EMV2InstancePackage extends EPackage {
 		EReference COMPOSITE_STATE_INSTANCE__CONDITION = eINSTANCE.getCompositeStateInstance_Condition();
 
 		/**
-		 * The meta object literal for the '<em><b>State Synchronization</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Composite State</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference COMPOSITE_STATE_INSTANCE__STATE_SYNCHRONIZATION = eINSTANCE.getCompositeStateInstance_StateSynchronization();
+		EReference COMPOSITE_STATE_INSTANCE__COMPOSITE_STATE = eINSTANCE.getCompositeStateInstance_CompositeState();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.BehaviorInstanceImpl <em>Behavior Instance</em>}' class.

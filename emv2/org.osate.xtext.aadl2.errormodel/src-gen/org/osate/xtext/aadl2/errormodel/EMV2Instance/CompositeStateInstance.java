@@ -36,7 +36,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.CompositeStateInstance#getTargetState <em>Target State</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.CompositeStateInstance#getCondition <em>Condition</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.CompositeStateInstance#getStateSynchronization <em>State Synchronization</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.CompositeStateInstance#getCompositeState <em>Composite State</em>}</li>
  * </ul>
  *
  * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getCompositeStateInstance()
@@ -89,25 +89,25 @@ public interface CompositeStateInstance extends EMV2InstanceObject {
 	void setCondition(ConstraintElement value);
 
 	/**
-	 * Returns the value of the '<em><b>State Synchronization</b></em>' reference.
+	 * Returns the value of the '<em><b>Composite State</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>State Synchronization</em>' reference.
-	 * @see #setStateSynchronization(CompositeState)
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getCompositeStateInstance_StateSynchronization()
+	 * @return the value of the '<em>Composite State</em>' reference.
+	 * @see #setCompositeState(CompositeState)
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getCompositeStateInstance_CompositeState()
 	 * @model
 	 * @generated
 	 */
-	CompositeState getStateSynchronization();
+	CompositeState getCompositeState();
 
 	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.CompositeStateInstance#getStateSynchronization <em>State Synchronization</em>}' reference.
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.CompositeStateInstance#getCompositeState <em>Composite State</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>State Synchronization</em>' reference.
-	 * @see #getStateSynchronization()
+	 * @param value the new value of the '<em>Composite State</em>' reference.
+	 * @see #getCompositeState()
 	 * @generated
 	 */
-	void setStateSynchronization(CompositeState value);
+	void setCompositeState(CompositeState value);
 
 } // CompositeStateInstance

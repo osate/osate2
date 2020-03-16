@@ -80,6 +80,16 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		for (ErrorBehaviorEvent ev : events) {
 			instantiateEvent(ev, emv2AI);
 		}
+		ErrorBehaviorStateMachine ebsm = EMV2Util.getAllErrorBehaviorStateMachine(instance);
+		instantiateStateMachine(ebsm, emv2AI);
+		Collection<ErrorBehaviorTransition> transitions = EMV2Util.getAllErrorBehaviorTransitions(instance);
+		for (ErrorBehaviorTransition tr : transitions) {
+			instantiateStateTransition(tr, emv2AI);
+		}
+		Collection<CompositeState> compstates = EMV2Util.getAllCompositeStates(instance);
+		for (CompositeState cs : compstates) {
+			instantiateCompositeState(cs, emv2AI);
+		}
 	}
 
 
@@ -124,10 +134,10 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return cio;
 	}
 
-	public CompositeStateInstance createStateSynchronizationInstance(CompositeState st) {
+	public CompositeStateInstance createCompositeStateInstance(CompositeState st) {
 		CompositeStateInstance sti = EMV2InstanceFactory.eINSTANCE.createCompositeStateInstance();
 		sti.setName(st.getName());
-		sti.setStateSynchronization(st);
+		sti.setCompositeState(st);
 		return sti;
 	}
 
@@ -187,6 +197,18 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				sti.getInStates().add(findStateInstance(context, st.getSource()));
 			}
 		}
+	}
+
+	public void instantiateCompositeState(CompositeState st, EMV2AnnexInstance context) {
+		CompositeStateInstance sti = EMV2InstanceFactory.eINSTANCE.createCompositeStateInstance();
+		sti.setName(st.getName());
+		sti.setCompositeState(st);
+		context.getElements().add(sti);
+		ConditionExpression behaviorCondition = st.getCondition();
+		ConstraintElement cio = instantiateCondition(context, behaviorCondition, false);
+		sti.setCondition(cio);
+		// explicit target state
+		sti.setTargetState(findStateInstance(context, st.getState()));
 	}
 
 	private StateInstance findStateInstance(EMV2AnnexInstance context, ErrorBehaviorState state) {

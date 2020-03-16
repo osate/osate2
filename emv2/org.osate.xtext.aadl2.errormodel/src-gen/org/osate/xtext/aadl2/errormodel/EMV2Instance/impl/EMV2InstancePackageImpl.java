@@ -416,7 +416,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getCompositeStateInstance_StateSynchronization() {
+	public EReference getCompositeStateInstance_CompositeState() {
 		return (EReference)compositeStateInstanceEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -615,7 +615,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		compositeStateInstanceEClass = createEClass(COMPOSITE_STATE_INSTANCE);
 		createEReference(compositeStateInstanceEClass, COMPOSITE_STATE_INSTANCE__TARGET_STATE);
 		createEReference(compositeStateInstanceEClass, COMPOSITE_STATE_INSTANCE__CONDITION);
-		createEReference(compositeStateInstanceEClass, COMPOSITE_STATE_INSTANCE__STATE_SYNCHRONIZATION);
+		createEReference(compositeStateInstanceEClass, COMPOSITE_STATE_INSTANCE__COMPOSITE_STATE);
 
 		behaviorInstanceEClass = createEClass(BEHAVIOR_INSTANCE);
 		createEReference(behaviorInstanceEClass, BEHAVIOR_INSTANCE__CONDITION);
@@ -709,7 +709,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEClass(compositeStateInstanceEClass, CompositeStateInstance.class, "CompositeStateInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCompositeStateInstance_TargetState(), this.getStateInstance(), null, "targetState", null, 0, 1, CompositeStateInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCompositeStateInstance_Condition(), this.getConstraintElement(), null, "condition", null, 0, 1, CompositeStateInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getCompositeStateInstance_StateSynchronization(), theErrorModelPackage.getCompositeState(), null, "stateSynchronization", null, 0, 1, CompositeStateInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCompositeStateInstance_CompositeState(), theErrorModelPackage.getCompositeState(), null, "compositeState", null, 0, 1, CompositeStateInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(behaviorInstanceEClass, BehaviorInstance.class, "BehaviorInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBehaviorInstance_Condition(), this.getConstraintElement(), null, "condition", null, 0, 1, BehaviorInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
