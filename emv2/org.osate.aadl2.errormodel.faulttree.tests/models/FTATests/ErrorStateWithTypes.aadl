@@ -1,18 +1,17 @@
 package ErrorStateWithTypes
 public
 	with Base_Types;
+	flag renames data Base_Types::Boolean;
 
-flag renames data Base_Types::Boolean;
-
-annex EMV2 {**
-	error types
-	  ThreadFault renames type ErrorLibrary::EarlyServiceTermination;  --thread fault halts thread
-	  InternalError : type;  --an internal error was detected
-	  DetectedFault : type extends InternalError;  --fault was detected (and announced)
-	  POSTdetectedFault : type extends DetectedFault;  --power-on self-test detected a fault
-	  HWdetectedFault : type extends DetectedFault;  --HW self-test detected a fault
-	  UndetectedFault : type extends InternalError;  --fault occurred, but not detected
-	end types;
+	annex EMV2 {**
+		error types
+			ThreadFault renames type ErrorLibrary::EarlyServiceTermination; --thread fault halts thread
+			InternalError: type; --an internal error was detected
+			DetectedFault: type extends InternalError; --fault was detected (and announced)
+			POSTdetectedFault: type extends DetectedFault; --power-on self-test detected a fault
+			HWdetectedFault: type extends DetectedFault; --HW self-test detected a fault
+			UndetectedFault: type extends InternalError; --fault occurred, but not detected
+		end types;
 		
 		error behavior ErrorDetector_ok
 			states
@@ -20,13 +19,14 @@ annex EMV2 {**
 				failed_detected: state;
 				failed_undetected: state;
 		end behavior;
-
-	error behavior ErrorDetector
-	  states 
-	    working: initial state; 
-	    failed_detected : state       {POSTdetectedFault, HWdetectedFault};
-	    failed_undetected : state {UndetectedFault};
-	end behavior;
+		
+		error behavior ErrorDetector
+			use types ErrorStateWithTypes;
+			states
+				working: initial state;
+				failed_detected: state {POSTdetectedFault, HWdetectedFault};
+				failed_undetected: state {UndetectedFault};
+		end behavior;
 		
 		--composite 3-state working-operational-fail
 		error behavior CompositeFailUndetected
@@ -36,63 +36,61 @@ annex EMV2 {**
 				undetected_failure: state; --system is impaired in some unimportant way, but fully functional
 				failed: state; --non-functional
 		end behavior;
-**};
+	**};
 
-system iPCA_Safety   
-end iPCA_Safety;
+	system iPCA_Safety
+	end iPCA_Safety;
 
-system implementation iPCA_Safety.i 
-	subcomponents
-     error_detect : device  iPCA_Error_Detector.i;   
-  annex EMV2 {**
-    use behavior ErrorStateWithTypes::CompositeFailUndetected; 	
-  	composite error behavior
-  	states
-  	  fd : [error_detect.failed_detected]->failed;
-  	  fu : [error_detect.failed_undetected]->undetected_failure;
-  	end composite;
-  **};
-end iPCA_Safety.i;
+	system implementation iPCA_Safety.i
+		subcomponents
+			error_detect: device iPCA_Error_Detector.i;
+		annex EMV2 {**
+			use behavior ErrorStateWithTypes::CompositeFailUndetected;
+			
+			composite error behavior
+				states
+					fd: [error_detect.failed_detected]-> failed;
+					fu: [error_detect.failed_undetected]-> undetected_failure;
+			end composite;
+		**};
+	end iPCA_Safety.i;
 
-device iPCA_Error_Detector 
-	features
-	  illuminate: out data port flag; --turn-on led
-    hardware_fault : out event data port;   --tell logger hardware fault detected
-    halt : out event port;  --halt medical device operation on hardware command
-	  hw_error_detections:  out event data port;     --monitor thread heartbeat
-end iPCA_Error_Detector;
+	device iPCA_Error_Detector
+		features
+			illuminate: out data port flag; --turn-on led
+			hardware_fault: out event data port; --tell logger hardware fault detected
+			halt: out event port; --halt medical device operation on hardware command
+			hw_error_detections: out event data port; --monitor thread heartbeat
+	end iPCA_Error_Detector;
 
-device implementation iPCA_Error_Detector.i
-  annex EMV2
-  {** 
-  use types ErrorStateWithTypes;
-  use behavior ErrorStateWithTypes::ErrorDetector; 	
-  error propagations
-    hw_error_detections: out propagation {UndetectedFault}; 
-  end propagations;
-  component error behavior
-    events
-      post_detected_failure : error event {POSTdetectedFault, HWdetectedFault};
-      post_not_detect_failure : error event{UndetectedFault};
-	  transitions
-	    working -[post_detected_failure]-> failed_detected;   
-	    working -[post_not_detect_failure]-> failed_undetected;   
-  end component;
-  properties
-	--power-on self-test detected failure
-		EMV2::OccurrenceDistribution =>  
-		  [ProbabilityValue => 1.2E-7; Distribution => Fixed;]
-		  applies to post_detected_failure.POSTdetectedFault;
-		EMV2::OccurrenceDistribution =>  
-		  [ProbabilityValue => 1.4E-7; Distribution => Fixed;]
-		  applies to post_detected_failure.HWdetectedFault;
-	--power-on self-test did not detect failure when it should have
-		EMV2::OccurrenceDistribution =>  
-		  [ProbabilityValue => 1.3E-10;	Distribution => Fixed;]
-		  applies to post_not_detect_failure;
-  	
-  **};  --end of EMV2
-end iPCA_Error_Detector.i; 
-
+	device implementation iPCA_Error_Detector.i
+		annex EMV2 {**
+			use types ErrorStateWithTypes;
+			use behavior ErrorStateWithTypes::ErrorDetector;
+			
+			error propagations
+				hw_error_detections: out propagation {UndetectedFault};
+			end propagations;
+			
+			component error behavior
+				events
+					post_detected_failure: error event {POSTdetectedFault, HWdetectedFault};
+					post_not_detect_failure: error event {UndetectedFault};
+				transitions
+					working -[post_detected_failure]-> failed_detected;
+					working -[post_not_detect_failure]-> failed_undetected;
+			end component;
+			
+			properties
+				--power-on self-test detected failure
+				EMV2::OccurrenceDistribution => [ProbabilityValue => 1.2E-7;
+					Distribution => Fixed;] applies to post_detected_failure.POSTdetectedFault;
+				EMV2::OccurrenceDistribution => [ProbabilityValue => 1.4E-7;
+					Distribution => Fixed;] applies to post_detected_failure.HWdetectedFault;
+				--power-on self-test did not detect failure when it should have
+				EMV2::OccurrenceDistribution => [ProbabilityValue => 1.3E-10;
+					Distribution => Fixed;] applies to post_not_detect_failure;
+		**}; --end of EMV2
+	end iPCA_Error_Detector.i;
 
 end ErrorStateWithTypes;

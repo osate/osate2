@@ -1,62 +1,65 @@
 package OR1OFProbability
 public
-       with EMV2;
-       system S01
-              features
-              I01 : in data port;
-              I02 : in data port;
-              o : out data port;        
-       end S01;
+	with EMV2;
 
-       system implementation S01.i
-      annex EMV2 {**
-       use types Sys_Error_lib;
-       use behavior Sys_Error_lib::Simple;
-              error propagations
-              -- defining input/output error types
-              I01 : in propagation {BadData};
-              I02 : in propagation {BadData};
-              o : out propagation {BadData};
-       flows
-              -- defining "error types that source in the output", and "error types that pass from input->output"
-              f1 : error source o{BadData};
-              ep01 : error path I01{BadData} -> o{BadData};
-              ep02 : error path I02{BadData} -> o{BadData};
-       end propagations;
-       component error behavior
-              events
-                     -- defining error events
-                     SError : error event;-- source error events
-                     pp1 : error event;-- propagation error events from I1->o
-                     pp2 : error event;-- propagation error events from I2->o
-              transitions
-                     -- defining error events for the state transition in the system state machine
-                    -- Here I am defining how the system transit from NormalState to FaultyState. Here I declare:
-                            --  that when SError event happens system will have an internal failure causing the change in system state
-                            --  that when input I01 and propagation event pp01 happens, the system state changes
-                            --  that when input I02 and propagation event pp02 happens, the system state changes
-                     -- t1, t2 have the OR logic
-                     t1 : NormalState -[ SError ]-> FaultyState ;
-                     -- the OR in t2 has the 1OF logic (XOR)
-                     t2 : NormalState -[ (I01{BadData} and pp1) or (I02{BadData} and pp2) ]-> FaultyState;
-              propagations
-                     -- defining error type propagation in the system output due to the change in the system state.
-                     -- Here, anytime the system is at the Faulty state, the output contains BadData error type.
-                     p1 : FaultyState -[]-> o{BadData};
-       end component;
+	system S01
+		features
+			I01: in data port;
+			I02: in data port;
+			o: out data port;
+	end S01;
 
-       properties
-              -- defining OccuranceDistribution to the system states and error events:
-                     -- P(SError) = 0.01 ; The Probability of error source in s01
-                     -- P(I01.BadData) = 0.1 ; The Probability of BadData at input I01
-                     -- P(I02.BadData) = 0.3 ; The Probability of BadData at input I02
-                     -- P(pp1) = 0.7 ; The Probability error propagation from I01->o
-                     -- P(pp2) = 0.2 ; The Probability error propagation from I02->o
-              EMV2::OccurrenceDistribution => [ ProbabilityValue => 0.01 ; Distribution => fixed;] applies to SError; -- Probability of Source in ss02
-              EMV2::OccurrenceDistribution => [ ProbabilityValue => 0.1 ; Distribution => fixed;] applies to I01.BadData; -- Probability of Source in I01
-              EMV2::OccurrenceDistribution => [ ProbabilityValue => 0.3 ; Distribution => fixed;] applies to I02.BadData; -- Probability of Source in I02
-              EMV2::OccurrenceDistribution => [ ProbabilityValue => 0.7 ; Distribution => fixed;] applies to pp1;
-              EMV2::OccurrenceDistribution => [ ProbabilityValue => 0.2 ; Distribution => fixed;] applies to pp2;
-       **};
-        end S01.i;
+	system implementation S01.i
+		annex EMV2 {**
+			use types Sys_Error_lib;
+			use behavior Sys_Error_lib::Simple;
+			
+			error propagations
+				-- defining input/output error types
+				I01: in propagation {BadData};
+				I02: in propagation {BadData};
+				o: out propagation {BadData};
+				flows
+					-- defining "error types that source in the output", and "error types that pass from input->output"
+					f1: error source o {BadData};
+					ep01: error path I01 {BadData} -> o {BadData};
+					ep02: error path I02 {BadData} -> o {BadData};
+			end propagations;
+			
+			component error behavior
+				events
+					-- defining error events
+					SError: error event; -- source error events
+					pp1: error event; -- propagation error events from I1->o
+					pp2: error event; -- propagation error events from I2->o
+				transitions
+					-- defining error events for the state transition in the system state machine
+					-- Here I am defining how the system transit from NormalState to FaultyState. Here I declare:
+					--  that when SError event happens system will have an internal failure causing the change in system state
+					--  that when input I01 and propagation event pp01 happens, the system state changes
+					--  that when input I02 and propagation event pp02 happens, the system state changes
+					-- t1, t2 have the OR logic
+					t1: NormalState -[SError]-> FaultyState;
+					-- the OR in t2 has the 1OF logic (XOR)
+					t2: NormalState -[(I01 {BadData} and pp1) or (I02 {BadData} and pp2)]-> FaultyState;
+				propagations
+					-- defining error type propagation in the system output due to the change in the system state.
+					-- Here, anytime the system is at the Faulty state, the output contains BadData error type.
+					p1: FaultyState -[]-> o {BadData};
+			end component;
+			
+			properties
+				-- defining OccuranceDistribution to the system states and error events:
+				-- P(SError) = 0.01 ; The Probability of error source in s01
+				-- P(I01.BadData) = 0.1 ; The Probability of BadData at input I01
+				-- P(I02.BadData) = 0.3 ; The Probability of BadData at input I02
+				-- P(pp1) = 0.7 ; The Probability error propagation from I01->o
+				-- P(pp2) = 0.2 ; The Probability error propagation from I02->o
+				EMV2::OccurrenceDistribution => [ProbabilityValue => 0.01; Distribution => fixed;] applies to SError; -- Probability of Source in ss02
+				EMV2::OccurrenceDistribution => [ProbabilityValue => 0.1; Distribution => fixed;] applies to I01.BadData; -- Probability of Source in I01
+				EMV2::OccurrenceDistribution => [ProbabilityValue => 0.3; Distribution => fixed;] applies to I02.BadData; -- Probability of Source in I02
+				EMV2::OccurrenceDistribution => [ProbabilityValue => 0.7; Distribution => fixed;] applies to pp1;
+				EMV2::OccurrenceDistribution => [ProbabilityValue => 0.2; Distribution => fixed;] applies to pp2;
+		**};
+	end S01.i;
 end OR1OFProbability;

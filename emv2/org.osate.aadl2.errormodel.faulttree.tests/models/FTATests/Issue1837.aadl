@@ -1,107 +1,112 @@
 package Issue1837
-        public
-                system Voter
-                        features
-                                Input_1: in feature;
-                                Input_2: in feature;
-                                Input_3: in feature;
-                                Output: out feature;
-                        annex EMV2 {**
-                                use types ErrorLibrary;
-                                use behavior ErrorLibrary::FailAndRecover;
+public
+	system Voter
+		features
+			Input_1: in feature;
+			Input_2: in feature;
+			Input_3: in feature;
+			Output: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior ErrorLibrary::FailAndRecover;
+			
+			error propagations
+				Input_1: in propagation {ServiceError};
+				Input_2: in propagation {ServiceError};
+				Input_3: in propagation {ServiceError};
+			end propagations;
+			
+			component error behavior
+				transitions
+					t1: all -[2 ormore (Input_1 {ServiceError}, Input_2 {ServiceError}, Input_3 {ServiceError})]-> Failed;
+			end component;
+		**};
+	end Voter;
 
-                                error propagations
-                                        Input_1: in propagation {ServiceError};
-                                        Input_2: in propagation {ServiceError};
-                                        Input_3: in propagation {ServiceError};
-                                end propagations;
+	system Module
+		features
+			Output: out feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior ErrorLibrary::FailAndRecover;
+			
+			error propagations
+				Output: out propagation {ServiceError};
+				flows
+					es: error source Output {ServiceError};
+			
+			end propagations;
+			
+			component error behavior
+				transitions
+					t1: operational -[Failure]-> Failed;
+				propagations
+					ep1: all -[Failure]-> Output {ServiceError};
+			end component;
+			
+			properties
+				emv2::OccurrenceDistribution => [ProbabilityValue => 0.2; Distribution => Poisson;] applies to Failure;
+		**};
+	end Module;
 
-                                component error behavior
-                                transitions
-                                        t1: all -[2 ormore (Input_1 {ServiceError}, Input_2 {ServiceError}, Input_3 {ServiceError})
-                                        ]-> Failed;
-                                end component;
-                        **};
-                end Voter;
+	system TMR_Archetype
+		features
+			Error_Detected: out event port;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior ErrorLibrary::FailStop;
+		**};
+	end TMR_Archetype;
 
-                system Module
-                        features
-                                Output: out feature;
-                        annex EMV2 {**
-                                use types ErrorLibrary;
-                                use behavior ErrorLibrary::FailAndRecover;
+	system implementation TMR_Archetype.impl
+		subcomponents
+			Module_1: system Module;
+			Module_2: system Module;
+			Module_3: system Module;
+			Voter: system Voter;
+		connections
+			C1: feature Module_1.Output -> Voter.Input_1;
+			C2: feature Module_2.Output -> Voter.Input_2;
+			C3: feature Module_3.Output -> Voter.Input_3;
+		annex EMV2 {**
+			composite error behavior
+				states
+					F: [Voter.Failed]-> FailStop;
+			end composite;
+		**};
+	end TMR_Archetype.impl;
 
-                                error propagations
-                                        Output: out propagation {ServiceError};
-                                flows
-                                        es: error source Output {ServiceError};
-
-                                end propagations;
-
-                                component error behavior
-                                transitions
-                                        t1: operational -[Failure]-> Failed;
-                                propagations
-                                        ep1: all -[Failure]->  Output {ServiceError};
-                                end component;
-
-                                properties
-                                        emv2::OccurrenceDistribution => [ProbabilityValue => 0.2; Distribution => Poisson;] applies to Failure;
-                        **};
-                end Module;
-
-                system TMR_Archetype
-                        features
-                                Error_Detected: out event port;
-                        annex EMV2 {**
-                                use types ErrorLibrary;
-                                use behavior ErrorLibrary::FailStop;
-                        **};
-                end TMR_Archetype;
-
-                system implementation TMR_Archetype.impl
-                        subcomponents
-                                Module_1: system Module;
-                                Module_2: system Module;
-                                Module_3: system Module;
-                                Voter: system Voter;
-                        connections
-                                C1: feature Module_1.Output -> Voter.Input_1;
-                                C2: feature Module_2.Output -> Voter.Input_2;
-                                C3: feature Module_3.Output -> Voter.Input_3;
-                        annex EMV2 {**
-                                composite error behavior
-                                states
-                                        F: [Voter.Failed]-> FailStop;
-                                end composite;
-                        **};
-                end TMR_Archetype.impl;
-        
-        		system implementation TMR_Archetype.impl2 extends TMR_Archetype.impl
-				annex EMV2 {**
-				properties
-					emv2::OccurrenceDistribution => [ProbabilityValue => 0.1; Distribution => Poisson;] applies to ^Module_1@Failure;
-					emv2::OccurrenceDistribution => [ProbabilityValue => 0.12; Distribution => Poisson;] applies to ^Module_2@Failure;
-					emv2::OccurrenceDistribution => [ProbabilityValue => 0.15; Distribution => Poisson;] applies to ^Module_3@Failure;
-				**};
+	system implementation TMR_Archetype.impl2 extends TMR_Archetype.impl
+		annex EMV2 {**
+			properties
+				emv2::OccurrenceDistribution => [ProbabilityValue => 0.1; Distribution => Poisson;] applies to ^Module_1@Failure;
+				emv2::OccurrenceDistribution => [ProbabilityValue => 0.12; Distribution => Poisson;] applies to ^Module_2@Failure;
+				emv2::OccurrenceDistribution => [ProbabilityValue => 0.15; Distribution => Poisson;] applies to ^Module_3@Failure;
+		**};
 	end TMR_Archetype.impl2;
-	
+
 	system top
-		
+
 	end top;
+
 	system implementation top.impl
 		subcomponents
 			sys: system TMR_Archetype.impl;
-				annex EMV2 {**
-                                use behavior ErrorLibrary::FailStop;
-                               composite error behavior
-                                states
-                                        F: [sys.FailStop]-> FailStop;
-                                end composite;
-				properties
-					emv2::OccurrenceDistribution => [ProbabilityValue => 0.1; Distribution => Poisson;] applies to ^sys.Module_1@Failure;
-					emv2::OccurrenceDistribution => [ProbabilityValue => 0.12; Distribution => Poisson;] applies to ^sys.Module_2@Failure;
-					emv2::OccurrenceDistribution => [ProbabilityValue => 0.15; Distribution => Poisson;] applies to ^sys.Module_3@Failure;
-				**};
+		annex EMV2 {**
+			use behavior ErrorLibrary::FailStop;
+			
+			composite error behavior
+				states
+					F: [sys.FailStop]-> FailStop;
+			end composite;
+			
+			properties
+				emv2::OccurrenceDistribution => [ProbabilityValue => 0.1;
+					Distribution => Poisson;] applies to ^sys.Module_1@Failure;
+				emv2::OccurrenceDistribution => [ProbabilityValue => 0.12;
+					Distribution => Poisson;] applies to ^sys.Module_2@Failure;
+				emv2::OccurrenceDistribution => [ProbabilityValue => 0.15;
+					Distribution => Poisson;] applies to ^sys.Module_3@Failure;
+		**};
 	end top.impl;
-        end Issue1837;
+end Issue1837;
