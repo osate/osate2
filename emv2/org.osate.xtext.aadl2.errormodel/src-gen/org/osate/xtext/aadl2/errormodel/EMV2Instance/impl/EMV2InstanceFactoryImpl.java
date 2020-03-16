@@ -83,7 +83,7 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			case EMV2InstancePackage.STATE_INSTANCE: return createStateInstance();
 			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT: return createConstrainedInstanceObject();
 			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE: return createStateTransitionInstance();
-			case EMV2InstancePackage.STATE_SYNCHRONIZATION_INSTANCE: return createStateSynchronizationInstance();
+			case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE: return createCompositeStateInstance();
 			case EMV2InstancePackage.BEHAVIOR_INSTANCE: return createBehaviorInstance();
 			case EMV2InstancePackage.EVENT_INSTANCE: return createEventInstance();
 			case EMV2InstancePackage.CONSTRAINT: return createConstraint();
@@ -183,9 +183,9 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public StateSynchronizationInstance createStateSynchronizationInstance() {
-		StateSynchronizationInstanceImpl stateSynchronizationInstance = new StateSynchronizationInstanceImpl();
-		return stateSynchronizationInstance;
+	public CompositeStateInstance createCompositeStateInstance() {
+		CompositeStateInstanceImpl compositeStateInstance = new CompositeStateInstanceImpl();
+		return compositeStateInstance;
 	}
 
 	/**

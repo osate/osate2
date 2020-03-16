@@ -14,7 +14,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="stateMachine" eType="ecore:EClass generated/ErrorModel.ecore#//ErrorBehaviorStateMachine"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StateInstance" eSuperTypes="#//EMV2InstanceObject"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ConstrainedInstanceObject" eSuperTypes="#//EMV2InstanceObject">
+  <eClassifiers xsi:type="ecore:EClass" name="ConstrainedInstanceObject" eSuperTypes="#//ConstraintElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="instanceObject" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//InstanceObject"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" upperBound="-1"
         eType="ecore:EClass generated/ErrorModel.ecore#//TypeToken" containment="true"/>
@@ -22,18 +22,20 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StateTransitionInstance" eSuperTypes="#//EMV2InstanceObject">
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetState" eType="#//StateInstance"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//Constraint"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ConstraintElement"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="stateTransition" eType="ecore:EClass generated/ErrorModel.ecore#//ErrorBehaviorTransition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inStates" upperBound="-1"
+        eType="#//StateInstance"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="StateSynchronizationInstance" eSuperTypes="#//EMV2InstanceObject">
+  <eClassifiers xsi:type="ecore:EClass" name="CompositeStateInstance" eSuperTypes="#//EMV2InstanceObject">
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetState" eType="#//StateInstance"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//Constraint"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ConstraintElement"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="stateSynchronization" eType="ecore:EClass generated/ErrorModel.ecore#//CompositeState"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorInstance" eSuperTypes="#//EMV2InstanceObject">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//Constraint"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ConstraintElement"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="actions" upperBound="-1"
         eType="#//ConstrainedInstanceObject" containment="true"/>
@@ -45,12 +47,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="generatedTypedEvents" upperBound="-1"
         eType="#//ConstrainedInstanceObject" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Constraint" eSuperTypes="#//EMV2InstanceObject">
+  <eClassifiers xsi:type="ecore:EClass" name="Constraint" eSuperTypes="#//ConstraintElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="#//EOperation"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="k" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="constrainedInstanceObject"
-        upperBound="-1" eType="#//ConstrainedInstanceObject" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="k" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraintElements" upperBound="-1"
+        eType="#//ConstraintElement" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ConstraintElement" abstract="true" eSuperTypes="#//EMV2InstanceObject"/>
   <eClassifiers xsi:type="ecore:EEnum" name="EOperation">
     <eLiterals name="ANY" literal="any"/>
     <eLiterals name="ALL" value="1" literal="all"/>

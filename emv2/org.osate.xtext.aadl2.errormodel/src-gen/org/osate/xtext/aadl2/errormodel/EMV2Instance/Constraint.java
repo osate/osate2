@@ -36,14 +36,14 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint#getOperator <em>Operator</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint#getK <em>K</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint#getConstrainedInstanceObject <em>Constrained Instance Object</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint#getConstraintElements <em>Constraint Elements</em>}</li>
  * </ul>
  *
  * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getConstraint()
  * @model
  * @generated
  */
-public interface Constraint extends EMV2InstanceObject {
+public interface Constraint extends ConstraintElement {
 	/**
 	 * Returns the value of the '<em><b>Operator</b></em>' attribute.
 	 * The literals are from the enumeration {@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EOperation}.
@@ -74,12 +74,12 @@ public interface Constraint extends EMV2InstanceObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>K</em>' attribute.
-	 * @see #setK(int)
+	 * @see #setK(long)
 	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getConstraint_K()
 	 * @model
 	 * @generated
 	 */
-	int getK();
+	long getK();
 
 	/**
 	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint#getK <em>K</em>}' attribute.
@@ -89,18 +89,18 @@ public interface Constraint extends EMV2InstanceObject {
 	 * @see #getK()
 	 * @generated
 	 */
-	void setK(int value);
+	void setK(long value);
 
 	/**
-	 * Returns the value of the '<em><b>Constrained Instance Object</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject}.
+	 * Returns the value of the '<em><b>Constraint Elements</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstraintElement}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Constrained Instance Object</em>' containment reference list.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getConstraint_ConstrainedInstanceObject()
+	 * @return the value of the '<em>Constraint Elements</em>' containment reference list.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getConstraint_ConstraintElements()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<ConstrainedInstanceObject> getConstrainedInstanceObject();
+	EList<ConstraintElement> getConstraintElements();
 
 } // Constraint

@@ -45,7 +45,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  * @model
  * @generated
  */
-public interface ConstrainedInstanceObject extends EMV2InstanceObject {
+public interface ConstrainedInstanceObject extends ConstraintElement {
 	/**
 	 * Returns the value of the '<em><b>Instance Object</b></em>' reference.
 	 * <!-- begin-user-doc -->

@@ -50,12 +50,12 @@ public interface BehaviorInstance extends EMV2InstanceObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Condition</em>' containment reference.
-	 * @see #setCondition(Constraint)
+	 * @see #setCondition(ConstraintElement)
 	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getBehaviorInstance_Condition()
 	 * @model containment="true"
 	 * @generated
 	 */
-	Constraint getCondition();
+	ConstraintElement getCondition();
 
 	/**
 	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance#getCondition <em>Condition</em>}' containment reference.
@@ -65,7 +65,7 @@ public interface BehaviorInstance extends EMV2InstanceObject {
 	 * @see #getCondition()
 	 * @generated
 	 */
-	void setCondition(Constraint value);
+	void setCondition(ConstraintElement value);
 
 	/**
 	 * Returns the value of the '<em><b>Actions</b></em>' containment reference list.

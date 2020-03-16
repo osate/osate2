@@ -37,8 +37,10 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.instance.InstancePackage;
 
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.CompositeStateInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstraintElement;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2AnnexInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstanceFactory;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstanceObject;
@@ -47,7 +49,6 @@ import org.osate.xtext.aadl2.errormodel.EMV2Instance.EOperation;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EventInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateMachineInstance;
-import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateSynchronizationInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateTransitionInstance;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 
@@ -105,7 +106,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass stateSynchronizationInstanceEClass = null;
+	private EClass compositeStateInstanceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -127,6 +128,13 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass constraintEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass constraintElementEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -368,8 +376,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EClass getStateSynchronizationInstance() {
-		return stateSynchronizationInstanceEClass;
+	public EReference getStateTransitionInstance_InStates() {
+		return (EReference)stateTransitionInstanceEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -378,8 +386,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getStateSynchronizationInstance_TargetState() {
-		return (EReference)stateSynchronizationInstanceEClass.getEStructuralFeatures().get(0);
+	public EClass getCompositeStateInstance() {
+		return compositeStateInstanceEClass;
 	}
 
 	/**
@@ -388,8 +396,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getStateSynchronizationInstance_Condition() {
-		return (EReference)stateSynchronizationInstanceEClass.getEStructuralFeatures().get(1);
+	public EReference getCompositeStateInstance_TargetState() {
+		return (EReference)compositeStateInstanceEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -398,8 +406,18 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getStateSynchronizationInstance_StateSynchronization() {
-		return (EReference)stateSynchronizationInstanceEClass.getEStructuralFeatures().get(2);
+	public EReference getCompositeStateInstance_Condition() {
+		return (EReference)compositeStateInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getCompositeStateInstance_StateSynchronization() {
+		return (EReference)compositeStateInstanceEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -518,8 +536,18 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getConstraint_ConstrainedInstanceObject() {
+	public EReference getConstraint_ConstraintElements() {
 		return (EReference)constraintEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getConstraintElement() {
+		return constraintElementEClass;
 	}
 
 	/**
@@ -582,11 +610,12 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(stateTransitionInstanceEClass, STATE_TRANSITION_INSTANCE__TARGET_STATE);
 		createEReference(stateTransitionInstanceEClass, STATE_TRANSITION_INSTANCE__CONDITION);
 		createEReference(stateTransitionInstanceEClass, STATE_TRANSITION_INSTANCE__STATE_TRANSITION);
+		createEReference(stateTransitionInstanceEClass, STATE_TRANSITION_INSTANCE__IN_STATES);
 
-		stateSynchronizationInstanceEClass = createEClass(STATE_SYNCHRONIZATION_INSTANCE);
-		createEReference(stateSynchronizationInstanceEClass, STATE_SYNCHRONIZATION_INSTANCE__TARGET_STATE);
-		createEReference(stateSynchronizationInstanceEClass, STATE_SYNCHRONIZATION_INSTANCE__CONDITION);
-		createEReference(stateSynchronizationInstanceEClass, STATE_SYNCHRONIZATION_INSTANCE__STATE_SYNCHRONIZATION);
+		compositeStateInstanceEClass = createEClass(COMPOSITE_STATE_INSTANCE);
+		createEReference(compositeStateInstanceEClass, COMPOSITE_STATE_INSTANCE__TARGET_STATE);
+		createEReference(compositeStateInstanceEClass, COMPOSITE_STATE_INSTANCE__CONDITION);
+		createEReference(compositeStateInstanceEClass, COMPOSITE_STATE_INSTANCE__STATE_SYNCHRONIZATION);
 
 		behaviorInstanceEClass = createEClass(BEHAVIOR_INSTANCE);
 		createEReference(behaviorInstanceEClass, BEHAVIOR_INSTANCE__CONDITION);
@@ -601,7 +630,9 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		constraintEClass = createEClass(CONSTRAINT);
 		createEAttribute(constraintEClass, CONSTRAINT__OPERATOR);
 		createEAttribute(constraintEClass, CONSTRAINT__K);
-		createEReference(constraintEClass, CONSTRAINT__CONSTRAINED_INSTANCE_OBJECT);
+		createEReference(constraintEClass, CONSTRAINT__CONSTRAINT_ELEMENTS);
+
+		constraintElementEClass = createEClass(CONSTRAINT_ELEMENT);
 
 		// Create enums
 		eOperationEEnum = createEEnum(EOPERATION);
@@ -633,7 +664,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		// Obtain other dependent packages
 		InstancePackage theInstancePackage = (InstancePackage)EPackage.Registry.INSTANCE.getEPackage(InstancePackage.eNS_URI);
 		ErrorModelPackage theErrorModelPackage = (ErrorModelPackage)EPackage.Registry.INSTANCE.getEPackage(ErrorModelPackage.eNS_URI);
-		EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
 
 		// Create type parameters
 
@@ -644,12 +674,13 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		emv2AnnexInstanceEClass.getESuperTypes().add(theInstancePackage.getAnnexInstance());
 		stateMachineInstanceEClass.getESuperTypes().add(this.getEMV2InstanceObject());
 		stateInstanceEClass.getESuperTypes().add(this.getEMV2InstanceObject());
-		constrainedInstanceObjectEClass.getESuperTypes().add(this.getEMV2InstanceObject());
+		constrainedInstanceObjectEClass.getESuperTypes().add(this.getConstraintElement());
 		stateTransitionInstanceEClass.getESuperTypes().add(this.getEMV2InstanceObject());
-		stateSynchronizationInstanceEClass.getESuperTypes().add(this.getEMV2InstanceObject());
+		compositeStateInstanceEClass.getESuperTypes().add(this.getEMV2InstanceObject());
 		behaviorInstanceEClass.getESuperTypes().add(this.getEMV2InstanceObject());
 		eventInstanceEClass.getESuperTypes().add(this.getEMV2InstanceObject());
-		constraintEClass.getESuperTypes().add(this.getEMV2InstanceObject());
+		constraintEClass.getESuperTypes().add(this.getConstraintElement());
+		constraintElementEClass.getESuperTypes().add(this.getEMV2InstanceObject());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(emv2InstanceObjectEClass, EMV2InstanceObject.class, "EMV2InstanceObject", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -671,16 +702,17 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		initEClass(stateTransitionInstanceEClass, StateTransitionInstance.class, "StateTransitionInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getStateTransitionInstance_TargetState(), this.getStateInstance(), null, "targetState", null, 0, 1, StateTransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getStateTransitionInstance_Condition(), this.getConstraint(), null, "condition", null, 0, 1, StateTransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getStateTransitionInstance_Condition(), this.getConstraintElement(), null, "condition", null, 0, 1, StateTransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getStateTransitionInstance_StateTransition(), theErrorModelPackage.getErrorBehaviorTransition(), null, "stateTransition", null, 0, 1, StateTransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getStateTransitionInstance_InStates(), this.getStateInstance(), null, "inStates", null, 0, -1, StateTransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(stateSynchronizationInstanceEClass, StateSynchronizationInstance.class, "StateSynchronizationInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getStateSynchronizationInstance_TargetState(), this.getStateInstance(), null, "targetState", null, 0, 1, StateSynchronizationInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getStateSynchronizationInstance_Condition(), this.getConstraint(), null, "condition", null, 0, 1, StateSynchronizationInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getStateSynchronizationInstance_StateSynchronization(), theErrorModelPackage.getCompositeState(), null, "stateSynchronization", null, 0, 1, StateSynchronizationInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(compositeStateInstanceEClass, CompositeStateInstance.class, "CompositeStateInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getCompositeStateInstance_TargetState(), this.getStateInstance(), null, "targetState", null, 0, 1, CompositeStateInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCompositeStateInstance_Condition(), this.getConstraintElement(), null, "condition", null, 0, 1, CompositeStateInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCompositeStateInstance_StateSynchronization(), theErrorModelPackage.getCompositeState(), null, "stateSynchronization", null, 0, 1, CompositeStateInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(behaviorInstanceEClass, BehaviorInstance.class, "BehaviorInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getBehaviorInstance_Condition(), this.getConstraint(), null, "condition", null, 0, 1, BehaviorInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBehaviorInstance_Condition(), this.getConstraintElement(), null, "condition", null, 0, 1, BehaviorInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBehaviorInstance_Actions(), this.getConstrainedInstanceObject(), null, "actions", null, 0, -1, BehaviorInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBehaviorInstance_Source(), ecorePackage.getEBoolean(), "source", null, 0, 1, BehaviorInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBehaviorInstance_Sink(), ecorePackage.getEBoolean(), "sink", null, 0, 1, BehaviorInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -691,8 +723,10 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		initEClass(constraintEClass, Constraint.class, "Constraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getConstraint_Operator(), this.getEOperation(), "operator", null, 0, 1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getConstraint_K(), theEcorePackage.getEInt(), "k", null, 0, 1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getConstraint_ConstrainedInstanceObject(), this.getConstrainedInstanceObject(), null, "constrainedInstanceObject", null, 0, -1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getConstraint_K(), ecorePackage.getELong(), "k", null, 0, 1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getConstraint_ConstraintElements(), this.getConstraintElement(), null, "constraintElements", null, 0, -1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(constraintElementEClass, ConstraintElement.class, "ConstraintElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(eOperationEEnum, EOperation.class, "EOperation");

@@ -56,7 +56,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  *
  * @generated
  */
-public class ConstrainedInstanceObjectImpl extends EMV2InstanceObjectImpl implements ConstrainedInstanceObject {
+public class ConstrainedInstanceObjectImpl extends ConstraintElementImpl implements ConstrainedInstanceObject {
 	/**
 	 * The cached value of the '{@link #getInstanceObject() <em>Instance Object</em>}' reference.
 	 * <!-- begin-user-doc -->

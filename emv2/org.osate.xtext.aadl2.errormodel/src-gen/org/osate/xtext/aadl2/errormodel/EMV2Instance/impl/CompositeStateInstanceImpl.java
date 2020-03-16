@@ -31,29 +31,29 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.CompositeStateInstance;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstraintElement;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateInstance;
-import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateSynchronizationInstance;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>State Synchronization Instance</b></em>'.
+ * An implementation of the model object '<em><b>Composite State Instance</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateSynchronizationInstanceImpl#getTargetState <em>Target State</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateSynchronizationInstanceImpl#getCondition <em>Condition</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateSynchronizationInstanceImpl#getStateSynchronization <em>State Synchronization</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.CompositeStateInstanceImpl#getTargetState <em>Target State</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.CompositeStateInstanceImpl#getCondition <em>Condition</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.CompositeStateInstanceImpl#getStateSynchronization <em>State Synchronization</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class StateSynchronizationInstanceImpl extends EMV2InstanceObjectImpl implements StateSynchronizationInstance {
+public class CompositeStateInstanceImpl extends EMV2InstanceObjectImpl implements CompositeStateInstance {
 	/**
 	 * The cached value of the '{@link #getTargetState() <em>Target State</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -72,7 +72,7 @@ public class StateSynchronizationInstanceImpl extends EMV2InstanceObjectImpl imp
 	 * @generated
 	 * @ordered
 	 */
-	protected Constraint condition;
+	protected ConstraintElement condition;
 
 	/**
 	 * The cached value of the '{@link #getStateSynchronization() <em>State Synchronization</em>}' reference.
@@ -89,7 +89,7 @@ public class StateSynchronizationInstanceImpl extends EMV2InstanceObjectImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected StateSynchronizationInstanceImpl() {
+	protected CompositeStateInstanceImpl() {
 		super();
 	}
 
@@ -100,7 +100,7 @@ public class StateSynchronizationInstanceImpl extends EMV2InstanceObjectImpl imp
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EMV2InstancePackage.Literals.STATE_SYNCHRONIZATION_INSTANCE;
+		return EMV2InstancePackage.Literals.COMPOSITE_STATE_INSTANCE;
 	}
 
 	/**
@@ -115,7 +115,7 @@ public class StateSynchronizationInstanceImpl extends EMV2InstanceObjectImpl imp
 			targetState = (StateInstance)eResolveProxy(oldTargetState);
 			if (targetState != oldTargetState) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.STATE_SYNCHRONIZATION_INSTANCE__TARGET_STATE, oldTargetState, targetState));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__TARGET_STATE, oldTargetState, targetState));
 			}
 		}
 		return targetState;
@@ -140,7 +140,7 @@ public class StateSynchronizationInstanceImpl extends EMV2InstanceObjectImpl imp
 		StateInstance oldTargetState = targetState;
 		targetState = newTargetState;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.STATE_SYNCHRONIZATION_INSTANCE__TARGET_STATE, oldTargetState, targetState));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__TARGET_STATE, oldTargetState, targetState));
 	}
 
 	/**
@@ -149,7 +149,7 @@ public class StateSynchronizationInstanceImpl extends EMV2InstanceObjectImpl imp
 	 * @generated
 	 */
 	@Override
-	public Constraint getCondition() {
+	public ConstraintElement getCondition() {
 		return condition;
 	}
 
@@ -158,11 +158,11 @@ public class StateSynchronizationInstanceImpl extends EMV2InstanceObjectImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetCondition(Constraint newCondition, NotificationChain msgs) {
-		Constraint oldCondition = condition;
+	public NotificationChain basicSetCondition(ConstraintElement newCondition, NotificationChain msgs) {
+		ConstraintElement oldCondition = condition;
 		condition = newCondition;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.STATE_SYNCHRONIZATION_INSTANCE__CONDITION, oldCondition, newCondition);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION, oldCondition, newCondition);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -174,18 +174,18 @@ public class StateSynchronizationInstanceImpl extends EMV2InstanceObjectImpl imp
 	 * @generated
 	 */
 	@Override
-	public void setCondition(Constraint newCondition) {
+	public void setCondition(ConstraintElement newCondition) {
 		if (newCondition != condition) {
 			NotificationChain msgs = null;
 			if (condition != null)
-				msgs = ((InternalEObject)condition).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.STATE_SYNCHRONIZATION_INSTANCE__CONDITION, null, msgs);
+				msgs = ((InternalEObject)condition).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION, null, msgs);
 			if (newCondition != null)
-				msgs = ((InternalEObject)newCondition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.STATE_SYNCHRONIZATION_INSTANCE__CONDITION, null, msgs);
+				msgs = ((InternalEObject)newCondition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION, null, msgs);
 			msgs = basicSetCondition(newCondition, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.STATE_SYNCHRONIZATION_INSTANCE__CONDITION, newCondition, newCondition));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION, newCondition, newCondition));
 	}
 
 	/**
@@ -200,7 +200,7 @@ public class StateSynchronizationInstanceImpl extends EMV2InstanceObjectImpl imp
 			stateSynchronization = (CompositeState)eResolveProxy(oldStateSynchronization);
 			if (stateSynchronization != oldStateSynchronization) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.STATE_SYNCHRONIZATION_INSTANCE__STATE_SYNCHRONIZATION, oldStateSynchronization, stateSynchronization));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__STATE_SYNCHRONIZATION, oldStateSynchronization, stateSynchronization));
 			}
 		}
 		return stateSynchronization;
@@ -225,7 +225,7 @@ public class StateSynchronizationInstanceImpl extends EMV2InstanceObjectImpl imp
 		CompositeState oldStateSynchronization = stateSynchronization;
 		stateSynchronization = newStateSynchronization;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.STATE_SYNCHRONIZATION_INSTANCE__STATE_SYNCHRONIZATION, oldStateSynchronization, stateSynchronization));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__STATE_SYNCHRONIZATION, oldStateSynchronization, stateSynchronization));
 	}
 
 	/**
@@ -236,7 +236,7 @@ public class StateSynchronizationInstanceImpl extends EMV2InstanceObjectImpl imp
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case EMV2InstancePackage.STATE_SYNCHRONIZATION_INSTANCE__CONDITION:
+			case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION:
 				return basicSetCondition(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -250,12 +250,12 @@ public class StateSynchronizationInstanceImpl extends EMV2InstanceObjectImpl imp
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EMV2InstancePackage.STATE_SYNCHRONIZATION_INSTANCE__TARGET_STATE:
+			case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__TARGET_STATE:
 				if (resolve) return getTargetState();
 				return basicGetTargetState();
-			case EMV2InstancePackage.STATE_SYNCHRONIZATION_INSTANCE__CONDITION:
+			case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION:
 				return getCondition();
-			case EMV2InstancePackage.STATE_SYNCHRONIZATION_INSTANCE__STATE_SYNCHRONIZATION:
+			case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__STATE_SYNCHRONIZATION:
 				if (resolve) return getStateSynchronization();
 				return basicGetStateSynchronization();
 		}
@@ -270,13 +270,13 @@ public class StateSynchronizationInstanceImpl extends EMV2InstanceObjectImpl imp
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EMV2InstancePackage.STATE_SYNCHRONIZATION_INSTANCE__TARGET_STATE:
+			case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__TARGET_STATE:
 				setTargetState((StateInstance)newValue);
 				return;
-			case EMV2InstancePackage.STATE_SYNCHRONIZATION_INSTANCE__CONDITION:
-				setCondition((Constraint)newValue);
+			case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION:
+				setCondition((ConstraintElement)newValue);
 				return;
-			case EMV2InstancePackage.STATE_SYNCHRONIZATION_INSTANCE__STATE_SYNCHRONIZATION:
+			case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__STATE_SYNCHRONIZATION:
 				setStateSynchronization((CompositeState)newValue);
 				return;
 		}
@@ -291,13 +291,13 @@ public class StateSynchronizationInstanceImpl extends EMV2InstanceObjectImpl imp
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.STATE_SYNCHRONIZATION_INSTANCE__TARGET_STATE:
+			case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__TARGET_STATE:
 				setTargetState((StateInstance)null);
 				return;
-			case EMV2InstancePackage.STATE_SYNCHRONIZATION_INSTANCE__CONDITION:
-				setCondition((Constraint)null);
+			case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION:
+				setCondition((ConstraintElement)null);
 				return;
-			case EMV2InstancePackage.STATE_SYNCHRONIZATION_INSTANCE__STATE_SYNCHRONIZATION:
+			case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__STATE_SYNCHRONIZATION:
 				setStateSynchronization((CompositeState)null);
 				return;
 		}
@@ -312,14 +312,14 @@ public class StateSynchronizationInstanceImpl extends EMV2InstanceObjectImpl imp
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.STATE_SYNCHRONIZATION_INSTANCE__TARGET_STATE:
+			case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__TARGET_STATE:
 				return targetState != null;
-			case EMV2InstancePackage.STATE_SYNCHRONIZATION_INSTANCE__CONDITION:
+			case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__CONDITION:
 				return condition != null;
-			case EMV2InstancePackage.STATE_SYNCHRONIZATION_INSTANCE__STATE_SYNCHRONIZATION:
+			case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE__STATE_SYNCHRONIZATION:
 				return stateSynchronization != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //StateSynchronizationInstanceImpl
+} //CompositeStateInstanceImpl
