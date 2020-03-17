@@ -226,8 +226,15 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 
 //		double executionTimeLower = GetProperties.getScaledMinComputeExecutionTimeinMilliSec(componentInstance);
 //		double executionTimeHigher = GetProperties.getScaledMaxComputeExecutionTimeinMilliSec(componentInstance);
-		double executionTimeLower = getMinExecutionTimeInMilliSec(flowElementInstance, componentInstance, isPeriodic);
-		double executionTimeHigher = getMaxExecutionTimeInMilliSec(flowElementInstance, componentInstance, isPeriodic);
+		final double responseTimeLower = getMinResponseTimeInMilliSec(flowElementInstance, componentInstance,
+				isPeriodic);
+		final double responseTimeHigher = getMaxResponseTimeInMilliSec(flowElementInstance, componentInstance,
+				isPeriodic);
+
+		final double executionTimeLower = getMinExecutionTimeInMilliSec(flowElementInstance, componentInstance,
+				isPeriodic);
+		final double executionTimeHigher = getMaxExecutionTimeInMilliSec(flowElementInstance, componentInstance,
+				isPeriodic);
 
 		/**
 		 * The component is periodic. Therefore it will sample its input unless we have an immediate connection or delayed connection
@@ -330,7 +337,10 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		LatencyContributorComponent processingLatencyContributor = new LatencyContributorComponent(componentInstance,
 				report.isMajorFrameDelay());
 
-		if (executionTimeHigher != 0.0) {
+		if (responseTimeHigher != 0.0) {
+			worstCaseValue = responseTimeHigher;
+			worstmethod = LatencyContributorMethod.RESPONSE_TIME;
+		} else if (executionTimeHigher != 0.0) {
 			if (!report.isWorstCaseDeadline()) {
 				// Use execution time for worst-case if preferences specify not deadline or no deadline is specified
 				worstCaseValue = executionTimeHigher;
@@ -363,11 +373,15 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		 * Selection of the best case value, generic cases.
 		 */
 		bestmethod = LatencyContributorMethod.UNKNOWN;
-		if (executionTimeLower != 0.0) {
+		if (responseTimeLower != 0.0) {
+			bestCaseValue = responseTimeLower;
+			bestmethod = LatencyContributorMethod.RESPONSE_TIME;
+		} else if (executionTimeLower != 0.0) {
 			bestCaseValue = executionTimeLower;
 			bestmethod = LatencyContributorMethod.PROCESSING_TIME;
 		}
-// For best case it does not make sense to use deadline
+
+		// For best case it does not make sense to use deadline
 
 		if ((bestCaseValue == 0.0) && (expectedMin != 0.0)) {
 			bestCaseValue = expectedMin;
@@ -1175,8 +1189,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		return ar;
 	}
 
-	private double getExecutionTimeInMilliSec(final FlowElementInstance fei, final ComponentInstance ci,
-			final boolean isPeriodic, final Function<NamedElement, Double> getExecTime) {
+	private double getTimeInMilliSec(final FlowElementInstance fei, final ComponentInstance ci,
+			final boolean isPeriodic, final Function<NamedElement, Boolean> propertyTester,
+			final Function<NamedElement, Double> getExecTime) {
 		/*
 		 * If the flow element is a component instance or if the thread is periodic, we use the thread's
 		 * computation time. Otherwise we try to use the compute execution time from the flow's input feature.
@@ -1188,7 +1203,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			final FlowEnd allInEnd = fsi.getFlowSpecification().getAllInEnd();
 			if (allInEnd != null) { // we have an input feature
 				final FeatureInstance fi = ci.findFeatureInstance(allInEnd.getFeature());
-				if (GetProperties.hasComputeExecutionTime(fi)) {
+				if (propertyTester.apply(fi)) { // (GetProperties.hasComputeExecutionTime(fi)) {
 					return getExecTime.apply(fi);
 				}
 			}
@@ -1196,15 +1211,27 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		}
 	}
 
+	private double getMinResponseTimeInMilliSec(final FlowElementInstance fei, final ComponentInstance ci,
+			final boolean isPeriodic) {
+		return getTimeInMilliSec(fei, ci, isPeriodic, GetProperties::hasResponseTime,
+				GetProperties::getScaledMinResponseTimeinMilliSec);
+	}
+
+	private double getMaxResponseTimeInMilliSec(final FlowElementInstance fei, final ComponentInstance ci,
+			final boolean isPeriodic) {
+		return getTimeInMilliSec(fei, ci, isPeriodic, GetProperties::hasResponseTime,
+				GetProperties::getScaledMaxResponseTimeinMilliSec);
+	}
+
 	private double getMinExecutionTimeInMilliSec(final FlowElementInstance fei, final ComponentInstance ci,
 			final boolean isPeriodic) {
-		return getExecutionTimeInMilliSec(fei, ci, isPeriodic,
+		return getTimeInMilliSec(fei, ci, isPeriodic, GetProperties::hasComputeExecutionTime,
 				GetProperties::getScaledMinComputeExecutionTimeinMilliSec);
 	}
 
 	private double getMaxExecutionTimeInMilliSec(final FlowElementInstance fei, final ComponentInstance ci,
 			final boolean isPeriodic) {
-		return getExecutionTimeInMilliSec(fei, ci, isPeriodic,
+		return getTimeInMilliSec(fei, ci, isPeriodic, GetProperties::hasComputeExecutionTime,
 				GetProperties::getScaledMaxComputeExecutionTimeinMilliSec);
 	}
 
