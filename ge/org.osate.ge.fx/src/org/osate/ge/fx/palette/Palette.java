@@ -120,32 +120,26 @@ public class Palette extends Region {
 
 	private void handle(TreeItem<String> newValue, TreeItem<String> oldValue) {
 
-		System.err.println("A");
-
 		if (newValue.isLeaf()) {
 
-			// This is what causes latency
-			// mc.activateItem(ItemArray.indexOf(newValue));
+			// This is what causes latency because of the line Thread.sleep(3000)
+			mc.activateItem(ItemArray.indexOf(newValue));
 			System.out.println(ItemArray.indexOf(newValue));
 
 		}
-		System.err.println("B");
 
-		if (!newValue.isLeaf() && !newValue.isExpanded()) {
+		if (!newValue.isLeaf()) {
 
-			// This is what throws the IndexOutOfBounds Exception
-			newValue.setExpanded(true);
-
-			if (oldValue != null) {
-				oldValue.setExpanded(false);
+			if (!newValue.isExpanded()) {
+				newValue.setExpanded(true);
 			}
 
 			if (oldValue != null && oldValue.isExpanded()) {
 				oldValue.setExpanded(false);
 			}
-		}
 
-		System.err.println("C");
+
+		}
 	}
 }
 

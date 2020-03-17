@@ -59,6 +59,7 @@ public class TestPaletteModelController implements PaletteModelController {
 
 	@Override
 	public void activateItem(int itemIndex) {
+
 		if (itemIndex < 0 || itemIndex >= getNumberOfItems()) {
 			throw new RuntimeException("Invalid index " + itemIndex);
 		}
