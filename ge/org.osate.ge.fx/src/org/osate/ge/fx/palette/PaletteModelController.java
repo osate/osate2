@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
  *
  */
 public interface PaletteModelController {
+
 	public int getNumberOfGroups();
 
 	public String getGroupLabel(int groupIndex);
@@ -44,7 +45,9 @@ public interface PaletteModelController {
 	 * @return the index of the active item or null if no item is active
 	 */
 	public default Integer getActiveItem() {
+
 		return activeItemProperty().getValue();
+
 	}
 
 	/**

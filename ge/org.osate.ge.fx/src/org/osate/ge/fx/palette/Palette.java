@@ -23,11 +23,16 @@
  */
 package org.osate.ge.fx.palette;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import org.osate.ge.fx.NodeApplication;
 
+import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 
 /**
@@ -37,10 +42,44 @@ import javafx.scene.layout.Region;
 public class Palette extends Region {
 	private PaletteModelController mc;
 
+
+
+	ArrayList<TreeItem> ItemArray = new ArrayList<TreeItem>();
+
+	TreeView<String> treeView;
+	Group TreeGroup = new Group();
+
 	public Palette(final PaletteModelController mc) {
 		this.mc = Objects.requireNonNull(mc, "mc must not be null");
 
 		// TODO: Create contents based on the model controller
+
+		TreeItem<String> root;
+		root = new TreeItem<>();
+		root.setExpanded(true);
+
+		for (int i = 0; i < mc.getNumberOfGroups(); i++) {
+
+			TreeItem<String> GroupName = makeBranch(mc.getGroupLabel(i), root, i);
+
+			for (int j = 0; j < mc.getNumberOfItems(); j++) {
+
+				if (mc.getItemGroup(j) != null && mc.getItemGroup(j) == i) {
+
+					makeBranch(mc.getItemLabel(j), GroupName, j);
+
+				}
+			}
+		}
+
+		treeView = new TreeView<>(root);
+		treeView.setShowRoot(false);
+
+		treeView.getSelectionModel().selectedItemProperty()
+				.addListener((observable, oldValue, newValue) -> handle(newValue, oldValue));
+
+		this.getChildren().add(treeView);
+		this.getStylesheets().add(getClass().getResource("Palette.css").toExternalForm());
 
 	}
 
@@ -53,4 +92,60 @@ public class Palette extends Region {
 	public static void main(final String[] args) {
 		NodeApplication.run(() -> new Node[] { new Palette(new TestPaletteModelController()) });
 	}
+
+	public TreeItem<String> makeBranch(String title, TreeItem<String> parent, int iconIndex) {
+
+		TreeItem<String> item;
+
+		if (parent.getValue() == "root") {
+
+			item = new TreeItem<String>(title, new ImageView(mc.getGroupIcon(iconIndex)));
+			System.out.println(mc.getGroupIcon(iconIndex));
+			item.setExpanded(false);
+			parent.getChildren().add(item);
+
+		} else {
+
+			item = new TreeItem<String>(title, new ImageView(mc.getItemIcon(iconIndex)));
+			System.out.println(mc.getItemIcon(iconIndex));
+			item.setExpanded(false);
+			parent.getChildren().add(item);
+			ItemArray.add(item);
+
+		}
+
+
+		return item;
+	}
+
+	private void handle(TreeItem<String> newValue, TreeItem<String> oldValue) {
+
+		System.err.println("A");
+
+		if (newValue.isLeaf()) {
+
+			// This is what causes latency
+			// mc.activateItem(ItemArray.indexOf(newValue));
+			System.out.println(ItemArray.indexOf(newValue));
+
+		}
+		System.err.println("B");
+
+		if (!newValue.isLeaf() && !newValue.isExpanded()) {
+
+			// This is what throws the IndexOutOfBounds Exception
+			newValue.setExpanded(true);
+
+			if (oldValue != null) {
+				oldValue.setExpanded(false);
+			}
+
+			if (oldValue != null && oldValue.isExpanded()) {
+				oldValue.setExpanded(false);
+			}
+		}
+
+		System.err.println("C");
+	}
 }
+
