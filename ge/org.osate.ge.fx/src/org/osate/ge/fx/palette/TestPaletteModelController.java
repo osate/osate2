@@ -74,7 +74,7 @@ public class TestPaletteModelController implements PaletteModelController {
 				e.printStackTrace();
 			}
 		});
-		t.run();
+		t.start();
 	}
 
 	@Override
