@@ -581,7 +581,7 @@ public class GetProperties {
 		try {
 			propertyValues = ne.getPropertyValueList(actualConnectionBinding);
 		} catch (Exception e) {
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
 		return propertyValues;
 	}
@@ -1053,6 +1053,9 @@ public class GetProperties {
 		return PropertyUtils.hasPropertyValue(ne, computeExecutionTime);
 	}
 
+	/**
+	 * @since 1.2
+	 */
 	public static boolean hasResponseTime(final NamedElement ne) {
 		final Property responseTime = lookupPropertyDefinition(ne, SEI._NAME, SEI.RESPONSE_TIME);
 		return PropertyUtils.hasPropertyValue(ne, responseTime);
@@ -1081,6 +1084,7 @@ public class GetProperties {
 	 * @param ne
 	 *            thread component instance
 	 * @return scaled time or 0.0
+	 * @since 1.2
 	 */
 	public static double getScaledMaxResponseTimeinMilliSec(final NamedElement ne) {
 		Property computeExecutionTime = lookupPropertyDefinition(ne, SEI._NAME, SEI.RESPONSE_TIME);
@@ -1096,6 +1100,7 @@ public class GetProperties {
 	 * @param ne
 	 *            thread component instance
 	 * @return scaled time or 0.0
+	 * @since 1.2
 	 */
 	public static double getScaledMinResponseTimeinMilliSec(final NamedElement ne) {
 		Property computeExecutionTime = lookupPropertyDefinition(ne, SEI._NAME, SEI.RESPONSE_TIME);
