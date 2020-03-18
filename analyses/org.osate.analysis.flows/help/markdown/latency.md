@@ -448,7 +448,7 @@ setting).
   Deadline property. In the future we will interface with scheduling analysis 
   results to retrieve completion times.   
   
-> The response time and compute execution time are specified with respect to a particular processor type. 
+> The compute execution time is specified with respect to a particular processor type. 
   If the model uses more than one processor type the latency analysis scales the execution time accordingly.
   This is done by looking for a specification of a Reference_Processor property value on the thread (or enclosing component) 
   and taking the ratio between the Processor_Capacity of the physical processor the thread is bound to and the reference processor 

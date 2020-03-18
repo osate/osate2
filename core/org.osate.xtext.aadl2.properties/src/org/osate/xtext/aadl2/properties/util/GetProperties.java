@@ -1053,11 +1053,6 @@ public class GetProperties {
 		return PropertyUtils.hasPropertyValue(ne, computeExecutionTime);
 	}
 
-	public static boolean hasResponseTime(final NamedElement ne) {
-		final Property responseTime = lookupPropertyDefinition(ne, SEI._NAME, SEI.RESPONSE_TIME);
-		return PropertyUtils.hasPropertyValue(ne, responseTime);
-	}
-
 	private static double scaleTime(final double time, final NamedElement ne) {
 		ComponentInstance ci = null;
 		if (ne instanceof FeatureInstance) {
@@ -1072,36 +1067,6 @@ public class GetProperties {
 		} else {
 			return time;
 		}
-	}
-
-	/**
-	 * get max response time scaled in terms of the processor the thread is
-	 * bound to If it is not bound then return the specified execution time
-	 *
-	 * @param ne
-	 *            thread component instance
-	 * @return scaled time or 0.0
-	 */
-	public static double getScaledMaxResponseTimeinMilliSec(final NamedElement ne) {
-		Property computeExecutionTime = lookupPropertyDefinition(ne, SEI._NAME, SEI.RESPONSE_TIME);
-		UnitLiteral milliSecond = findUnitLiteral(computeExecutionTime, AadlProject.MS_LITERAL);
-		double time = PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, milliSecond, 0.0);
-		return scaleTime(time, ne);
-	}
-
-	/**
-	 * get min response time scaled in terms of the processor the thread is
-	 * bound to If it is not bound then return the specified execution time
-	 *
-	 * @param ne
-	 *            thread component instance
-	 * @return scaled time or 0.0
-	 */
-	public static double getScaledMinResponseTimeinMilliSec(final NamedElement ne) {
-		Property computeExecutionTime = lookupPropertyDefinition(ne, SEI._NAME, SEI.RESPONSE_TIME);
-		UnitLiteral milliSecond = findUnitLiteral(computeExecutionTime, AadlProject.MS_LITERAL);
-		double time = PropertyUtils.getScaledRangeMinimum(ne, computeExecutionTime, milliSecond, 0.0);
-		return scaleTime(time, ne);
 	}
 
 	/**
