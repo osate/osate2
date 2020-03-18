@@ -25,6 +25,7 @@ package org.osate.xtext.aadl2.errormodel.EMV2Instance.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -32,14 +33,20 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.aadl2.instance.impl.AnnexInstanceImpl;
 
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.CompositeStateInstance;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2AnnexInstance;
-import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstanceObject;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.EventInstance;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateMachineInstance;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateTransitionInstance;
 
 /**
  * <!-- begin-user-doc -->
@@ -49,22 +56,71 @@ import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2AnnexInstanceImpl#getElements <em>Elements</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2AnnexInstanceImpl#getTransitions <em>Transitions</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2AnnexInstanceImpl#getEvents <em>Events</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2AnnexInstanceImpl#getStateMachine <em>State Machine</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2AnnexInstanceImpl#getBehaviors <em>Behaviors</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2AnnexInstanceImpl#getComposites <em>Composites</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2AnnexInstanceImpl#getActions <em>Actions</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2AnnexInstance {
 	/**
-	 * The cached value of the '{@link #getElements() <em>Elements</em>}' containment reference list.
+	 * The cached value of the '{@link #getTransitions() <em>Transitions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getElements()
+	 * @see #getTransitions()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<EMV2InstanceObject> elements;
-
+	protected EList<StateTransitionInstance> transitions;
+	/**
+	 * The cached value of the '{@link #getEvents() <em>Events</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEvents()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<EventInstance> events;
+	/**
+	 * The cached value of the '{@link #getStateMachine() <em>State Machine</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStateMachine()
+	 * @generated
+	 * @ordered
+	 */
+	protected StateMachineInstance stateMachine;
+	/**
+	 * The cached value of the '{@link #getBehaviors() <em>Behaviors</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBehaviors()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<BehaviorInstance> behaviors;
+	/**
+	 * The cached value of the '{@link #getComposites() <em>Composites</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getComposites()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<CompositeStateInstance> composites;
+	/**
+	 * The cached value of the '{@link #getActions() <em>Actions</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getActions()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ConstrainedInstanceObject> actions;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -90,11 +146,108 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	 * @generated
 	 */
 	@Override
-	public EList<EMV2InstanceObject> getElements() {
-		if (elements == null) {
-			elements = new EObjectContainmentEList<EMV2InstanceObject>(EMV2InstanceObject.class, this, EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ELEMENTS);
+	public EList<StateTransitionInstance> getTransitions() {
+		if (transitions == null) {
+			transitions = new EObjectContainmentEList<StateTransitionInstance>(StateTransitionInstance.class, this, EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS);
 		}
-		return elements;
+		return transitions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<EventInstance> getEvents() {
+		if (events == null) {
+			events = new EObjectContainmentEList<EventInstance>(EventInstance.class, this, EMV2InstancePackage.EMV2_ANNEX_INSTANCE__EVENTS);
+		}
+		return events;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public StateMachineInstance getStateMachine() {
+		return stateMachine;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetStateMachine(StateMachineInstance newStateMachine, NotificationChain msgs) {
+		StateMachineInstance oldStateMachine = stateMachine;
+		stateMachine = newStateMachine;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE, oldStateMachine, newStateMachine);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setStateMachine(StateMachineInstance newStateMachine) {
+		if (newStateMachine != stateMachine) {
+			NotificationChain msgs = null;
+			if (stateMachine != null)
+				msgs = ((InternalEObject)stateMachine).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE, null, msgs);
+			if (newStateMachine != null)
+				msgs = ((InternalEObject)newStateMachine).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE, null, msgs);
+			msgs = basicSetStateMachine(newStateMachine, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE, newStateMachine, newStateMachine));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<BehaviorInstance> getBehaviors() {
+		if (behaviors == null) {
+			behaviors = new EObjectContainmentEList<BehaviorInstance>(BehaviorInstance.class, this, EMV2InstancePackage.EMV2_ANNEX_INSTANCE__BEHAVIORS);
+		}
+		return behaviors;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<CompositeStateInstance> getComposites() {
+		if (composites == null) {
+			composites = new EObjectContainmentEList<CompositeStateInstance>(CompositeStateInstance.class, this, EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES);
+		}
+		return composites;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<ConstrainedInstanceObject> getActions() {
+		if (actions == null) {
+			actions = new EObjectContainmentEList<ConstrainedInstanceObject>(ConstrainedInstanceObject.class, this, EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ACTIONS);
+		}
+		return actions;
 	}
 
 	/**
@@ -105,8 +258,18 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ELEMENTS:
-				return ((InternalEList<?>)getElements()).basicRemove(otherEnd, msgs);
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS:
+				return ((InternalEList<?>)getTransitions()).basicRemove(otherEnd, msgs);
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__EVENTS:
+				return ((InternalEList<?>)getEvents()).basicRemove(otherEnd, msgs);
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
+				return basicSetStateMachine(null, msgs);
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__BEHAVIORS:
+				return ((InternalEList<?>)getBehaviors()).basicRemove(otherEnd, msgs);
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
+				return ((InternalEList<?>)getComposites()).basicRemove(otherEnd, msgs);
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ACTIONS:
+				return ((InternalEList<?>)getActions()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -119,8 +282,18 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ELEMENTS:
-				return getElements();
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS:
+				return getTransitions();
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__EVENTS:
+				return getEvents();
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
+				return getStateMachine();
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__BEHAVIORS:
+				return getBehaviors();
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
+				return getComposites();
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ACTIONS:
+				return getActions();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -134,9 +307,28 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ELEMENTS:
-				getElements().clear();
-				getElements().addAll((Collection<? extends EMV2InstanceObject>)newValue);
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS:
+				getTransitions().clear();
+				getTransitions().addAll((Collection<? extends StateTransitionInstance>)newValue);
+				return;
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__EVENTS:
+				getEvents().clear();
+				getEvents().addAll((Collection<? extends EventInstance>)newValue);
+				return;
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
+				setStateMachine((StateMachineInstance)newValue);
+				return;
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__BEHAVIORS:
+				getBehaviors().clear();
+				getBehaviors().addAll((Collection<? extends BehaviorInstance>)newValue);
+				return;
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
+				getComposites().clear();
+				getComposites().addAll((Collection<? extends CompositeStateInstance>)newValue);
+				return;
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ACTIONS:
+				getActions().clear();
+				getActions().addAll((Collection<? extends ConstrainedInstanceObject>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -150,8 +342,23 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ELEMENTS:
-				getElements().clear();
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS:
+				getTransitions().clear();
+				return;
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__EVENTS:
+				getEvents().clear();
+				return;
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
+				setStateMachine((StateMachineInstance)null);
+				return;
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__BEHAVIORS:
+				getBehaviors().clear();
+				return;
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
+				getComposites().clear();
+				return;
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ACTIONS:
+				getActions().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -165,8 +372,18 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ELEMENTS:
-				return elements != null && !elements.isEmpty();
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__TRANSITIONS:
+				return transitions != null && !transitions.isEmpty();
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__EVENTS:
+				return events != null && !events.isEmpty();
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
+				return stateMachine != null;
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__BEHAVIORS:
+				return behaviors != null && !behaviors.isEmpty();
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
+				return composites != null && !composites.isEmpty();
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ACTIONS:
+				return actions != null && !actions.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -37,6 +37,7 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.annexsupport.AnnexInstantiator;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.CompositeStateInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint;
@@ -64,6 +65,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -76,26 +78,35 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	public void instantiateAnnex(ComponentInstance instance, String annexName) {
 		EMV2AnnexInstance emv2AI = EMV2InstanceFactory.eINSTANCE.createEMV2AnnexInstance();
 		instance.getAnnexInstances().add(emv2AI);
+
 		Collection<ErrorBehaviorEvent> events = EMV2Util.getAllErrorBehaviorEvents(instance);
 		for (ErrorBehaviorEvent ev : events) {
 			instantiateEvent(ev, emv2AI);
 		}
+
 		ErrorBehaviorStateMachine ebsm = EMV2Util.getAllErrorBehaviorStateMachine(instance);
 		instantiateStateMachine(ebsm, emv2AI);
+
 		Collection<ErrorBehaviorTransition> transitions = EMV2Util.getAllErrorBehaviorTransitions(instance);
 		for (ErrorBehaviorTransition tr : transitions) {
 			instantiateStateTransition(tr, emv2AI);
 		}
+
 		Collection<CompositeState> compstates = EMV2Util.getAllCompositeStates(instance);
 		for (CompositeState cs : compstates) {
 			instantiateCompositeState(cs, emv2AI);
+		}
+
+		Collection<OutgoingPropagationCondition> OPCs = EMV2Util.getAllOutgoingPropagationConditions(instance);
+		for (OutgoingPropagationCondition opc : OPCs) {
+			instantiateOutgoingPropagationCondition(opc, emv2AI);
 		}
 	}
 
 
 	public void instantiateEvent(ErrorBehaviorEvent g, EMV2AnnexInstance context) {
 		EventInstance gi = createEventInstance(g);
-		context.getElements().add(gi);
+		context.getEvents().add(gi);
 		if (g instanceof ErrorEvent) {
 			 TypeSet ts = ((ErrorEvent)g).getTypeSet();
 			if (ts != null) {
@@ -125,8 +136,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return cio;
 	}
 
-	public ConstrainedInstanceObject createConstrainedInstanceObject(InstanceObject io, ComponentInstance context,
-			boolean outgoing) {
+	public ConstrainedInstanceObject createConstrainedInstanceObject(InstanceObject io, boolean outgoing) {
 		ConstrainedInstanceObject cio = EMV2InstanceFactory.eINSTANCE.createConstrainedInstanceObject();
 		cio.setInstanceObject(io);
 		cio.setName(cio.getInstanceObject().toString());
@@ -143,7 +153,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 	public void instantiateStateMachine(ErrorBehaviorStateMachine ebsm, EMV2AnnexInstance context){
 		StateMachineInstance svi = EMV2InstanceFactory.eINSTANCE.createStateMachineInstance();
-		context.getElements().add(svi);
+		context.setStateMachine(svi);
 		StateInstance initState = null;
 		for (ErrorBehaviorState st : ebsm.getStates()) {
 			StateInstance istate = createStateInstance(st);
@@ -162,22 +172,24 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	public void instantiateStateTransition(ErrorBehaviorTransition st, EMV2AnnexInstance context) {
+		StateMachineInstance smi = context.getStateMachine();
+		if (smi == null) {
+			return ;
+		}
 		StateTransitionInstance sti = EMV2InstanceFactory.eINSTANCE.createStateTransitionInstance();
 		sti.setName(st.getName());
 		sti.setStateTransition(st);
-		context.getElements().add(sti);
+		context.getTransitions().add(sti);
 		ConditionExpression behaviorCondition = st.getCondition();
 		ConstraintElement cio = instantiateCondition(context, behaviorCondition, false);
 		sti.setCondition(cio);
 		if (st.isSteadyState()) {
 			if (st.isAllStates()) {
-				context.getElements().remove(sti);
-				for (EMV2InstanceObject eli : context.getElements()) {
-					if (eli instanceof StateInstance) {
-						StateTransitionInstance nsti = EcoreUtil.copy(sti);
-						nsti.getInStates().add((StateInstance) eli);
-						nsti.setTargetState((StateInstance) eli);
-					}
+				context.getTransitions().remove(sti);
+				for (StateInstance si : smi.getStates()) {
+					StateTransitionInstance nsti = EcoreUtil.copy(sti);
+					nsti.getInStates().add(si);
+					nsti.setTargetState(si);
 				}
 			} else {
 				StateInstance ssti = findStateInstance(context, st.getSource());
@@ -188,10 +200,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			// explicit target state
 			sti.setTargetState(findStateInstance(context, st.getTarget()));
 			if (st.isAllStates()) {
-				for (EMV2InstanceObject eli : context.getElements()) {
-					if (eli instanceof StateInstance) {
-						sti.getInStates().add((StateInstance) eli);
-					}
+				for (StateInstance si : smi.getStates()) {
+					sti.getInStates().add(si);
 				}
 			} else {
 				sti.getInStates().add(findStateInstance(context, st.getSource()));
@@ -203,7 +213,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		CompositeStateInstance sti = EMV2InstanceFactory.eINSTANCE.createCompositeStateInstance();
 		sti.setName(st.getName());
 		sti.setCompositeState(st);
-		context.getElements().add(sti);
+		context.getComposites().add(sti);
 		ConditionExpression behaviorCondition = st.getCondition();
 		ConstraintElement cio = instantiateCondition(context, behaviorCondition, false);
 		sti.setCondition(cio);
@@ -211,19 +221,70 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		sti.setTargetState(findStateInstance(context, st.getState()));
 	}
 
-	private StateInstance findStateInstance(EMV2AnnexInstance context, ErrorBehaviorState state) {
-		StateMachineInstance svi = findStateMachineInstance(context);
-		if (svi != null) {
-			return findStateInstance(svi,state);
+	public void instantiateOutgoingPropagationCondition(OutgoingPropagationCondition opc, EMV2AnnexInstance context) {
+		BehaviorInstance bi = EMV2InstanceFactory.eINSTANCE.createBehaviorInstance();
+		bi.setName(opc.getName());
+		bi.setEmv2Element(opc);
+		context.getBehaviors().add(bi);
+		ConditionExpression behaviorCondition = opc.getCondition();
+		ConstraintElement cio = instantiateCondition(context, behaviorCondition, false);
+		bi.setCondition(cio);
+		// explicit target state
+		if (opc.isAllStates()) {
+			StateMachineInstance smi = context.getStateMachine();
+			if (smi != null) {
+				for (StateInstance si : smi.getStates()) {
+					bi.getInStates().add(si);
+				}
+			}
+		} else {
+			bi.getInStates().add(findStateInstance(context, opc.getState()));
+		}
+		// action. We keep shared action instances such that there is only one per type
+		if (opc.isAllPropagations()) {
+		} else {
+			ErrorPropagation outep = opc.getOutgoing();
+			FeatureorPPReference fppref = outep.getFeatureorPPRef();
+			if (fppref != null) {
+				NamedElement fpp = fppref.getFeatureorPP();
+				ComponentInstance component = (ComponentInstance) context.eContainer();
+				if (fpp instanceof Feature) {
+					FeatureInstance fi = component.findFeatureInstance((Feature) fpp);
+					TypeToken outtoken = opc.getTypeToken() != null
+							? opc.getTypeToken().getTypeTokens().get(0)
+							: null;
+					ConstrainedInstanceObject foundcio = findMatchingActionCIO(context,fi,outtoken);
+					if (foundcio != null){
+						context.getActions().add(foundcio);
+					} else {
+						ConstrainedInstanceObject tcio = createConstrainedInstanceObject(fi,true);
+						if (outtoken != null) {
+							tcio.getConstraint().add(EcoreUtil.copy(outtoken));
+						}
+						context.getActions().add(tcio);
+						bi.getActions().add(tcio);
+					}
+				}
+			}
+		}
+	}
+
+	private ConstrainedInstanceObject findMatchingActionCIO(EMV2AnnexInstance context, InstanceObject io,
+			TypeToken tt) {
+		for (ConstrainedInstanceObject action : context.getActions()) {
+			if (action.getInstanceObject() == io) {
+				if (action.getConstraint().contains(tt)) {
+					return action;
+				}
+			}
 		}
 		return null;
 	}
 
-	private StateMachineInstance findStateMachineInstance(EMV2AnnexInstance context) {
-		for (EMV2InstanceObject el : context.getElements()) {
-			if (el instanceof StateMachineInstance) {
-				return (StateMachineInstance) el;
-			}
+	private StateInstance findStateInstance(EMV2AnnexInstance context, ErrorBehaviorState state) {
+		StateMachineInstance svi = context.getStateMachine();
+		if (svi != null) {
+			return findStateInstance(svi,state);
 		}
 		return null;
 	}
@@ -437,7 +498,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 
 	private EventInstance findEventInstance(EMV2AnnexInstance eai, ErrorBehaviorEvent ev) {
-		for (EMV2InstanceObject ei : eai.getElements()) {
+		for (EMV2InstanceObject ei : eai.getEvents()) {
 			if (ei instanceof EventInstance && ei.getName().equals(ev.getName())) {
 				return (EventInstance) ei;
 			}
