@@ -413,7 +413,7 @@ period property values with threads and devices.
 
 ### Queuing Delay in Asynchronous Communication ###
 
-As described above, when a bus is periodic (has a **Period** property association), the period is used to determine the worst-case sampling delay.  When a bus does not have a period, a sender may need to be wait for other uses to finish sending data on the bus before it can access it.  Analysis computes the worst-case queuing delay based on the **Transmission_Time** property of the bus and the **Data_Size** of the information that flows over the bus.  Specifically, the maximum queuing delay for a connection is the sum off all the maximum transmission times for any other connections bound to the bus.  The data sizes for the communications includes the data overhead imposed by the bus, connections, and any higher-level protocols (virtual buses) encountered.
+As described above, when a bus is periodic (has a **Period** property association), the period is used to determine the worst-case sampling delay.  When a bus does not have a period, a sender may need to wait for other users of the bus to finish sending data on the bus before it can access it.  Analysis computes the worst-case queuing delay based on the **Transmission_Time** property of the bus and the **Data_Size** of the information that flows over the bus.  Specifically, the maximum queuing delay for a connection is the sum off all the maximum transmission times for any other connections bound to the bus.  The data sizes for the communication includes the data overhead imposed by the bus, connections, and any higher-level protocols (virtual buses) encountered.
 
 > Buses with a period will always have a non-zero sampling delay and no queuing delay.
 >
@@ -425,18 +425,19 @@ Users may have specified a **Deadline** property value for components. This
 property value represents the upper bound of worst-case completion time as long 
 as the component is deemed as schedulable. 
 
-Users can specify **Compute\_Execution\_Time** property values for threads and 
-devices. 
+Users can specify **SEI::Response\_Time** and **Compute\_Execution\_Time** property values for threads and devices.  Using response time is preferable to using the computation time because the compuation time does not account for preemption by other threads.  
 
-The minimum value of **Compute\_Execution\_Time** is used as best-case latency 
-contribution.
+The _best-case latency_ contribution is the lower bound of the response time, if specified (that is, has an explicit property association).  Otherwise it is the lower bound of the compute execution time, if specified.  If there is no compute execution time, then the lower bound of the expected latency is used.
 
-The latency analysis uses explicitly assigned **Deadline** value as worst-case 
-latency contribution. 
+The _worst-case latency_ contribution is the upper bound of the response time, if speficied by the user.  Otherwise it depends on the analysis preference settings:
 
-> The latency analysis tool only considers explicitly set Deadline values. The 
-  default value of the Deadline is that of the Period value and is ignored by the 
-  latency analysis.
+* If the preference is to use deadline, then the deadline is used.  _The latency analysis tool only considers explicitly set Deadline values. The 
+default value of the Deadline is that of the Period value and is ignored by the 
+latency analysis._.  If the deadline is not available then the upper bound of the compute execution time is used.
+
+* If the preference is to use the computation time, then the upper bound of the compute execution time is used.
+
+In all cases, if none of the above property values are available then the upper bound of the expected latency is used.
 
 Users can change the preference setting to use the worst-case 
 Compute\_Execution\_Time (**ET** setting) instead of the Deadline (**DL** 
@@ -447,7 +448,7 @@ setting).
   Deadline property. In the future we will interface with scheduling analysis 
   results to retrieve completion times.   
   
-> The compute execution time is specified with respect to a particular processor type. 
+> The response time and compute execution time are specified with respect to a particular processor type. 
   If the model uses more than one processor type the latency analysis scales the execution time accordingly.
   This is done by looking for a specification of a Reference_Processor property value on the thread (or enclosing component) 
   and taking the ratio between the Processor_Capacity of the physical processor the thread is bound to and the reference processor 
