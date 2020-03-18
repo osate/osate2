@@ -48,35 +48,15 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateTransitionInstanceImpl#getTargetState <em>Target State</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateTransitionInstanceImpl#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateTransitionInstanceImpl#getStateTransition <em>State Transition</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateTransitionInstanceImpl#getInStates <em>In States</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateTransitionInstanceImpl#getCondition <em>Condition</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateTransitionInstanceImpl#getTargetState <em>Target State</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implements StateTransitionInstance {
-	/**
-	 * The cached value of the '{@link #getTargetState() <em>Target State</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTargetState()
-	 * @generated
-	 * @ordered
-	 */
-	protected StateInstance targetState;
-
-	/**
-	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getCondition()
-	 * @generated
-	 * @ordered
-	 */
-	protected ConstraintElement condition;
-
 	/**
 	 * The cached value of the '{@link #getStateTransition() <em>State Transition</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -96,6 +76,26 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 	 * @ordered
 	 */
 	protected EList<StateInstance> inStates;
+
+	/**
+	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCondition()
+	 * @generated
+	 * @ordered
+	 */
+	protected ConstraintElement condition;
+
+	/**
+	 * The cached value of the '{@link #getTargetState() <em>Target State</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTargetState()
+	 * @generated
+	 * @ordered
+	 */
+	protected StateInstance targetState;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -276,16 +276,16 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__TARGET_STATE:
-				if (resolve) return getTargetState();
-				return basicGetTargetState();
-			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__CONDITION:
-				return getCondition();
 			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__STATE_TRANSITION:
 				if (resolve) return getStateTransition();
 				return basicGetStateTransition();
 			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__IN_STATES:
 				return getInStates();
+			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__CONDITION:
+				return getCondition();
+			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__TARGET_STATE:
+				if (resolve) return getTargetState();
+				return basicGetTargetState();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -299,18 +299,18 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__TARGET_STATE:
-				setTargetState((StateInstance)newValue);
-				return;
-			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__CONDITION:
-				setCondition((ConstraintElement)newValue);
-				return;
 			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__STATE_TRANSITION:
 				setStateTransition((ErrorBehaviorTransition)newValue);
 				return;
 			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__IN_STATES:
 				getInStates().clear();
 				getInStates().addAll((Collection<? extends StateInstance>)newValue);
+				return;
+			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__CONDITION:
+				setCondition((ConstraintElement)newValue);
+				return;
+			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__TARGET_STATE:
+				setTargetState((StateInstance)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -324,17 +324,17 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__TARGET_STATE:
-				setTargetState((StateInstance)null);
-				return;
-			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__CONDITION:
-				setCondition((ConstraintElement)null);
-				return;
 			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__STATE_TRANSITION:
 				setStateTransition((ErrorBehaviorTransition)null);
 				return;
 			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__IN_STATES:
 				getInStates().clear();
+				return;
+			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__CONDITION:
+				setCondition((ConstraintElement)null);
+				return;
+			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__TARGET_STATE:
+				setTargetState((StateInstance)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -348,14 +348,14 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__TARGET_STATE:
-				return targetState != null;
-			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__CONDITION:
-				return condition != null;
 			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__STATE_TRANSITION:
 				return stateTransition != null;
 			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__IN_STATES:
 				return inStates != null && !inStates.isEmpty();
+			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__CONDITION:
+				return condition != null;
+			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__TARGET_STATE:
+				return targetState != null;
 		}
 		return super.eIsSet(featureID);
 	}

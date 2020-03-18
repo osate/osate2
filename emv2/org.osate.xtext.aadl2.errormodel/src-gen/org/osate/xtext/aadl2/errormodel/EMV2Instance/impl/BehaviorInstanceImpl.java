@@ -31,17 +31,21 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.osate.aadl2.NamedElement;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstraintElement;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateInstance;
 
 /**
  * <!-- begin-user-doc -->
@@ -51,6 +55,8 @@ import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.BehaviorInstanceImpl#getEmv2Element <em>Emv2 Element</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.BehaviorInstanceImpl#getInStates <em>In States</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.BehaviorInstanceImpl#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.BehaviorInstanceImpl#getActions <em>Actions</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.BehaviorInstanceImpl#isSource <em>Source</em>}</li>
@@ -60,6 +66,26 @@ import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage;
  * @generated
  */
 public class BehaviorInstanceImpl extends EMV2InstanceObjectImpl implements BehaviorInstance {
+	/**
+	 * The cached value of the '{@link #getEmv2Element() <em>Emv2 Element</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEmv2Element()
+	 * @generated
+	 * @ordered
+	 */
+	protected NamedElement emv2Element;
+
+	/**
+	 * The cached value of the '{@link #getInStates() <em>In States</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInStates()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<StateInstance> inStates;
+
 	/**
 	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -249,6 +275,59 @@ public class BehaviorInstanceImpl extends EMV2InstanceObjectImpl implements Beha
 	 * @generated
 	 */
 	@Override
+	public NamedElement getEmv2Element() {
+		if (emv2Element != null && ((EObject)emv2Element).eIsProxy()) {
+			InternalEObject oldEmv2Element = (InternalEObject)emv2Element;
+			emv2Element = (NamedElement)eResolveProxy(oldEmv2Element);
+			if (emv2Element != oldEmv2Element) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.BEHAVIOR_INSTANCE__EMV2_ELEMENT, oldEmv2Element, emv2Element));
+			}
+		}
+		return emv2Element;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NamedElement basicGetEmv2Element() {
+		return emv2Element;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setEmv2Element(NamedElement newEmv2Element) {
+		NamedElement oldEmv2Element = emv2Element;
+		emv2Element = newEmv2Element;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.BEHAVIOR_INSTANCE__EMV2_ELEMENT, oldEmv2Element, emv2Element));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<StateInstance> getInStates() {
+		if (inStates == null) {
+			inStates = new EObjectResolvingEList<StateInstance>(StateInstance.class, this, EMV2InstancePackage.BEHAVIOR_INSTANCE__IN_STATES);
+		}
+		return inStates;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EMV2InstancePackage.BEHAVIOR_INSTANCE__CONDITION:
@@ -267,6 +346,11 @@ public class BehaviorInstanceImpl extends EMV2InstanceObjectImpl implements Beha
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case EMV2InstancePackage.BEHAVIOR_INSTANCE__EMV2_ELEMENT:
+				if (resolve) return getEmv2Element();
+				return basicGetEmv2Element();
+			case EMV2InstancePackage.BEHAVIOR_INSTANCE__IN_STATES:
+				return getInStates();
 			case EMV2InstancePackage.BEHAVIOR_INSTANCE__CONDITION:
 				return getCondition();
 			case EMV2InstancePackage.BEHAVIOR_INSTANCE__ACTIONS:
@@ -288,6 +372,13 @@ public class BehaviorInstanceImpl extends EMV2InstanceObjectImpl implements Beha
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case EMV2InstancePackage.BEHAVIOR_INSTANCE__EMV2_ELEMENT:
+				setEmv2Element((NamedElement)newValue);
+				return;
+			case EMV2InstancePackage.BEHAVIOR_INSTANCE__IN_STATES:
+				getInStates().clear();
+				getInStates().addAll((Collection<? extends StateInstance>)newValue);
+				return;
 			case EMV2InstancePackage.BEHAVIOR_INSTANCE__CONDITION:
 				setCondition((ConstraintElement)newValue);
 				return;
@@ -313,6 +404,12 @@ public class BehaviorInstanceImpl extends EMV2InstanceObjectImpl implements Beha
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case EMV2InstancePackage.BEHAVIOR_INSTANCE__EMV2_ELEMENT:
+				setEmv2Element((NamedElement)null);
+				return;
+			case EMV2InstancePackage.BEHAVIOR_INSTANCE__IN_STATES:
+				getInStates().clear();
+				return;
 			case EMV2InstancePackage.BEHAVIOR_INSTANCE__CONDITION:
 				setCondition((ConstraintElement)null);
 				return;
@@ -337,6 +434,10 @@ public class BehaviorInstanceImpl extends EMV2InstanceObjectImpl implements Beha
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case EMV2InstancePackage.BEHAVIOR_INSTANCE__EMV2_ELEMENT:
+				return emv2Element != null;
+			case EMV2InstancePackage.BEHAVIOR_INSTANCE__IN_STATES:
+				return inStates != null && !inStates.isEmpty();
 			case EMV2InstancePackage.BEHAVIOR_INSTANCE__CONDITION:
 				return condition != null;
 			case EMV2InstancePackage.BEHAVIOR_INSTANCE__ACTIONS:
