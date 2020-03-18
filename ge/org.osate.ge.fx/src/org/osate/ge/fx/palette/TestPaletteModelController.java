@@ -85,7 +85,7 @@ public class TestPaletteModelController implements PaletteModelController {
 
 	// Creates an icon with a solid color for testing
 	private Image createTestIcon(final int rgb) {
-		final BufferedImage bi = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
+		final BufferedImage bi = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
 		for (int y = 0; y < bi.getHeight(); y++) {
 			for (int x = 0; x < bi.getWidth(); x++) {
 				bi.setRGB(x, y, rgb);

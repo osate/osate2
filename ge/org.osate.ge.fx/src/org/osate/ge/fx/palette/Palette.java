@@ -23,16 +23,14 @@
  */
 package org.osate.ge.fx.palette;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 import org.osate.ge.fx.NodeApplication;
 
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
 
 /**
@@ -42,44 +40,39 @@ import javafx.scene.layout.Region;
 public class Palette extends Region {
 	private PaletteModelController mc;
 
-
-
-	ArrayList<TreeItem> ItemArray = new ArrayList<TreeItem>();
-
-	TreeView<String> treeView;
-	Group TreeGroup = new Group();
-
 	public Palette(final PaletteModelController mc) {
 		this.mc = Objects.requireNonNull(mc, "mc must not be null");
 
 		// TODO: Create contents based on the model controller
 
-		TreeItem<String> root;
-		root = new TreeItem<>();
-		root.setExpanded(true);
+		ScrollPane scrollPane = new ScrollPane();
+
+		Group itemButtonGroup = new Group();
 
 		for (int i = 0; i < mc.getNumberOfGroups(); i++) {
 
-			TreeItem<String> GroupName = makeBranch(mc.getGroupLabel(i), root, i);
+			Button groupButton = new Button(mc.getGroupLabel(i));
 
 			for (int j = 0; j < mc.getNumberOfItems(); j++) {
 
 				if (mc.getItemGroup(j) != null && mc.getItemGroup(j) == i) {
 
-					makeBranch(mc.getItemLabel(j), GroupName, j);
+					Button itemButton = new Button(mc.getItemLabel(j));
+					itemButtonGroup.getChildren().add(itemButton);
 
 				}
 			}
+			scrollPane.setContent(itemButtonGroup);
+			/*
+			 * I am still working on how to position each individual Item that should be within the ScollPane.
+			 * I am also still trying to figure out how to best create each scrollPane in a way that can be indexed later since they
+			 * cannot be given different names while in the for loop.
+			 * Buttons may not be the best way to represent the items within the scollpanes, but for now they will work as a stand
+			 * in until I discover a new way of doing things.
+			 */
 		}
 
-		treeView = new TreeView<>(root);
-		treeView.setShowRoot(false);
-
-		treeView.getSelectionModel().selectedItemProperty()
-				.addListener((observable, oldValue, newValue) -> handle(newValue, oldValue));
-
-		this.getChildren().add(treeView);
-		this.getStylesheets().add(getClass().getResource("Palette.css").toExternalForm());
+		this.getChildren().add(scrollPane);
 
 	}
 
@@ -93,53 +86,4 @@ public class Palette extends Region {
 		NodeApplication.run(() -> new Node[] { new Palette(new TestPaletteModelController()) });
 	}
 
-	public TreeItem<String> makeBranch(String title, TreeItem<String> parent, int iconIndex) {
-
-		TreeItem<String> item;
-
-		if (parent.getValue() == "root") {
-
-			item = new TreeItem<String>(title, new ImageView(mc.getGroupIcon(iconIndex)));
-			System.out.println(mc.getGroupIcon(iconIndex));
-			item.setExpanded(false);
-			parent.getChildren().add(item);
-
-		} else {
-
-			item = new TreeItem<String>(title, new ImageView(mc.getItemIcon(iconIndex)));
-			System.out.println(mc.getItemIcon(iconIndex));
-			item.setExpanded(false);
-			parent.getChildren().add(item);
-			ItemArray.add(item);
-
-		}
-
-
-		return item;
-	}
-
-	private void handle(TreeItem<String> newValue, TreeItem<String> oldValue) {
-
-		if (newValue.isLeaf()) {
-
-			// This is what causes latency because of the line Thread.sleep(3000)
-			mc.activateItem(ItemArray.indexOf(newValue));
-			System.out.println(ItemArray.indexOf(newValue));
-
-		}
-
-		if (!newValue.isLeaf()) {
-
-			if (!newValue.isExpanded()) {
-				newValue.setExpanded(true);
-			}
-
-			if (oldValue != null && oldValue.isExpanded()) {
-				oldValue.setExpanded(false);
-			}
-
-
-		}
-	}
 }
-
