@@ -40,6 +40,8 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
@@ -59,12 +61,15 @@ import org.osate.analysis.flows.model.LatencyContributorComponent;
 import org.osate.analysis.flows.model.LatencyContributorConnection;
 import org.osate.analysis.flows.model.LatencyReport;
 import org.osate.analysis.flows.model.LatencyReportEntry;
+import org.osate.contribution.sei.names.SEI;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Result;
 import org.osate.xtext.aadl2.properties.util.ARINC653ScheduleWindow;
+import org.osate.xtext.aadl2.properties.util.AadlProject;
 import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
+import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
 /**
  * @author phf
@@ -1213,14 +1218,14 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 
 	private double getMinResponseTimeInMilliSec(final FlowElementInstance fei, final ComponentInstance ci,
 			final boolean isPeriodic) {
-		return getTimeInMilliSec(fei, ci, isPeriodic, GetProperties::hasResponseTime,
-				GetProperties::getScaledMinResponseTimeinMilliSec);
+		return getTimeInMilliSec(fei, ci, isPeriodic, FlowLatencyAnalysisSwitch::hasResponseTime,
+				FlowLatencyAnalysisSwitch::getScaledMinResponseTimeinMilliSec);
 	}
 
 	private double getMaxResponseTimeInMilliSec(final FlowElementInstance fei, final ComponentInstance ci,
 			final boolean isPeriodic) {
-		return getTimeInMilliSec(fei, ci, isPeriodic, GetProperties::hasResponseTime,
-				GetProperties::getScaledMaxResponseTimeinMilliSec);
+		return getTimeInMilliSec(fei, ci, isPeriodic, FlowLatencyAnalysisSwitch::hasResponseTime,
+				FlowLatencyAnalysisSwitch::getScaledMaxResponseTimeinMilliSec);
 	}
 
 	private double getMinExecutionTimeInMilliSec(final FlowElementInstance fei, final ComponentInstance ci,
@@ -1395,4 +1400,43 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			}
 		}
 	}
+
+	/*
+	 * Ideally these methods would be GetProperties, but changing that class really causes havoc with the
+	 * version numbers of the plug-ins.
+	 */
+
+	private static boolean hasResponseTime(final NamedElement ne) {
+		final Property responseTime = GetProperties.lookupPropertyDefinition(ne, SEI._NAME, SEI.RESPONSE_TIME);
+		return PropertyUtils.hasPropertyValue(ne, responseTime);
+	}
+
+	/**
+	 * get max response time scaled in terms of the processor the thread is
+	 * bound to.
+	 *
+	 * @param ne
+	 *            thread component instance
+	 * @return scaled time or 0.0
+	 */
+	private static double getScaledMaxResponseTimeinMilliSec(final NamedElement ne) {
+		Property computeExecutionTime = GetProperties.lookupPropertyDefinition(ne, SEI._NAME, SEI.RESPONSE_TIME);
+		UnitLiteral milliSecond = GetProperties.findUnitLiteral(computeExecutionTime, AadlProject.MS_LITERAL);
+		return PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, milliSecond, 0.0);
+	}
+
+	/**
+	 * get min response time scaled in terms of the processor the thread is
+	 * bound to.
+	 *
+	 * @param ne
+	 *            thread component instance
+	 * @return scaled time or 0.0
+	 */
+	private static double getScaledMinResponseTimeinMilliSec(final NamedElement ne) {
+		Property computeExecutionTime = GetProperties.lookupPropertyDefinition(ne, SEI._NAME, SEI.RESPONSE_TIME);
+		UnitLiteral milliSecond = GetProperties.findUnitLiteral(computeExecutionTime, AadlProject.MS_LITERAL);
+		return PropertyUtils.getScaledRangeMinimum(ne, computeExecutionTime, milliSecond, 0.0);
+	}
+
 }
