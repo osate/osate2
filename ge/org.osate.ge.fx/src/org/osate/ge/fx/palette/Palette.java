@@ -50,6 +50,10 @@ public class Palette extends Region {
 		VBox paletteVbox = new VBox();
 
 		for (int i = 0; i < mc.getNumberOfGroups(); i++) {
+			// TODO: Move into PaletteGroup
+			// TODO: Create a palette group for each group
+			// TODO: Add each palette to a list
+			// TODO: Listen for change to expanded property. When it is set, adjust expanded state of others
 
 			VBox itemButtonVbox = new VBox();
 			ScrollPane scrollPane = new ScrollPane();
