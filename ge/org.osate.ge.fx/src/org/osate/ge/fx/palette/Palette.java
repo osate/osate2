@@ -27,11 +27,12 @@ import java.util.Objects;
 
 import org.osate.ge.fx.NodeApplication;
 
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 
 /**
  * Generic palette component.
@@ -45,34 +46,48 @@ public class Palette extends Region {
 
 		// TODO: Create contents based on the model controller
 
-		ScrollPane scrollPane = new ScrollPane();
 
-		Group itemButtonGroup = new Group();
+		VBox paletteVbox = new VBox();
 
 		for (int i = 0; i < mc.getNumberOfGroups(); i++) {
 
+			VBox itemButtonVbox = new VBox();
+			ScrollPane scrollPane = new ScrollPane();
 			Button groupButton = new Button(mc.getGroupLabel(i));
+			groupButton.setOnAction(e -> {
+
+				if (scrollPane.isManaged() && scrollPane.isVisible()) {
+
+					scrollPane.setManaged(false);
+					scrollPane.setVisible(false);
+
+				} else {
+
+					scrollPane.setManaged(true);
+					scrollPane.setVisible(true);
+
+				}
+
+			});
+			groupButton.setGraphic(new ImageView(mc.getGroupIcon(i)));
+			paletteVbox.getChildren().add(groupButton);
 
 			for (int j = 0; j < mc.getNumberOfItems(); j++) {
 
 				if (mc.getItemGroup(j) != null && mc.getItemGroup(j) == i) {
 
 					Button itemButton = new Button(mc.getItemLabel(j));
-					itemButtonGroup.getChildren().add(itemButton);
-
+					itemButton.setGraphic(new ImageView(mc.getItemIcon(j)));
+					itemButtonVbox.getChildren().add(itemButton);
 				}
 			}
-			scrollPane.setContent(itemButtonGroup);
-			/*
-			 * I am still working on how to position each individual Item that should be within the ScollPane.
-			 * I am also still trying to figure out how to best create each scrollPane in a way that can be indexed later since they
-			 * cannot be given different names while in the for loop.
-			 * Buttons may not be the best way to represent the items within the scollpanes, but for now they will work as a stand
-			 * in until I discover a new way of doing things.
-			 */
+			scrollPane.setContent(itemButtonVbox);
+			scrollPane.setManaged(false);
+			scrollPane.setVisible(false);
+			paletteVbox.getChildren().add(scrollPane);
 		}
 
-		this.getChildren().add(scrollPane);
+		this.getChildren().add(paletteVbox);
 
 	}
 
