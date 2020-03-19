@@ -2293,6 +2293,13 @@ censes only apply to the Third Party Software and not any other portion of this 
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
          <propertySection
+               afterSection="org.osate.ge.ui.properties.configureInModesSection"
+               class="org.osate.ge.internal.ui.properties.PrototypesPropertySection"
+               filter="org.osate.ge.internal.ui.properties.PrototypesPropertySection$Filter"
+               id="org.osate.ge.ui.properties.prototypesPropertySection"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>
+         <propertySection
                afterSection="org.osate.ge.ui.properties.refineElementPropertySection"
                class="org.osate.ge.internal.ui.properties.ChangeFeatureTypePropertySection"
                filter="org.osate.ge.internal.ui.properties.ChangeFeatureTypePropertySection$Filter"
