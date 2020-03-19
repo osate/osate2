@@ -41,6 +41,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject#getInstanceObject <em>Instance Object</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject#getConstraint <em>Constraint</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject#isOutgoing <em>Outgoing</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject#getBindingKind <em>Binding Kind</em>}</li>
  * </ul>
  *
  * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getConstrainedInstanceObject()
@@ -103,5 +104,27 @@ public interface ConstrainedInstanceObject extends ConstraintElement {
 	 * @generated
 	 */
 	void setOutgoing(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Binding Kind</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Binding Kind</em>' attribute.
+	 * @see #setBindingKind(String)
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getConstrainedInstanceObject_BindingKind()
+	 * @model
+	 * @generated
+	 */
+	String getBindingKind();
+
+	/**
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject#getBindingKind <em>Binding Kind</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Binding Kind</em>' attribute.
+	 * @see #getBindingKind()
+	 * @generated
+	 */
+	void setBindingKind(String value);
 
 } // ConstrainedInstanceObject

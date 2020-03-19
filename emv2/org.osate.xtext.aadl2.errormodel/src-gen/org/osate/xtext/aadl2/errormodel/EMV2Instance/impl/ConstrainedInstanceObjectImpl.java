@@ -56,6 +56,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstrainedInstanceObjectImpl#getInstanceObject <em>Instance Object</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstrainedInstanceObjectImpl#getConstraint <em>Constraint</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstrainedInstanceObjectImpl#isOutgoing <em>Outgoing</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstrainedInstanceObjectImpl#getBindingKind <em>Binding Kind</em>}</li>
  * </ul>
  *
  * @generated
@@ -100,6 +101,26 @@ public class ConstrainedInstanceObjectImpl extends ConstraintElementImpl impleme
 	 * @ordered
 	 */
 	protected boolean outgoing = OUTGOING_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getBindingKind() <em>Binding Kind</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBindingKind()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String BINDING_KIND_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getBindingKind() <em>Binding Kind</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBindingKind()
+	 * @generated
+	 * @ordered
+	 */
+	protected String bindingKind = BINDING_KIND_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -202,6 +223,29 @@ public class ConstrainedInstanceObjectImpl extends ConstraintElementImpl impleme
 	 * @generated
 	 */
 	@Override
+	public String getBindingKind() {
+		return bindingKind;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setBindingKind(String newBindingKind) {
+		String oldBindingKind = bindingKind;
+		bindingKind = newBindingKind;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__BINDING_KIND, oldBindingKind, bindingKind));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT:
@@ -225,6 +269,8 @@ public class ConstrainedInstanceObjectImpl extends ConstraintElementImpl impleme
 				return getConstraint();
 			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__OUTGOING:
 				return isOutgoing();
+			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__BINDING_KIND:
+				return getBindingKind();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -248,6 +294,9 @@ public class ConstrainedInstanceObjectImpl extends ConstraintElementImpl impleme
 			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__OUTGOING:
 				setOutgoing((Boolean)newValue);
 				return;
+			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__BINDING_KIND:
+				setBindingKind((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -269,6 +318,9 @@ public class ConstrainedInstanceObjectImpl extends ConstraintElementImpl impleme
 			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__OUTGOING:
 				setOutgoing(OUTGOING_EDEFAULT);
 				return;
+			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__BINDING_KIND:
+				setBindingKind(BINDING_KIND_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -287,6 +339,8 @@ public class ConstrainedInstanceObjectImpl extends ConstraintElementImpl impleme
 				return constraint != null && !constraint.isEmpty();
 			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__OUTGOING:
 				return outgoing != OUTGOING_EDEFAULT;
+			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__BINDING_KIND:
+				return BINDING_KIND_EDEFAULT == null ? bindingKind != null : !BINDING_KIND_EDEFAULT.equals(bindingKind);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -303,6 +357,8 @@ public class ConstrainedInstanceObjectImpl extends ConstraintElementImpl impleme
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (outgoing: ");
 		result.append(outgoing);
+		result.append(", bindingKind: ");
+		result.append(bindingKind);
 		result.append(')');
 		return result.toString();
 	}
