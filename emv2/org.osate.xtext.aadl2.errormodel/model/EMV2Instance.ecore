@@ -31,7 +31,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="outgoing" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StateTransitionInstance" eSuperTypes="#//EMV2InstanceObject">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="stateTransition" eType="ecore:EClass generated/ErrorModel.ecore#//ErrorBehaviorTransition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stateTransition" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EObject"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inStates" upperBound="-1"
         eType="#//StateInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ConstraintElement"

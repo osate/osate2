@@ -68,6 +68,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
+import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil;
@@ -178,14 +179,32 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		if (smi == null) {
 			return ;
 		}
+		if (st.getDestinationBranches().isEmpty()) {
+			instantiateStateTransition(st, null, context);
+		} else {
+			for (TransitionBranch br : st.getDestinationBranches()) {
+				instantiateStateTransition(st, br, context);
+			}
+		}
+	}
+
+	private void instantiateStateTransition(ErrorBehaviorTransition st, TransitionBranch tb,
+			EMV2AnnexInstance context) {
+		StateMachineInstance smi = context.getStateMachine();
 		StateTransitionInstance sti = EMV2InstanceFactory.eINSTANCE.createStateTransitionInstance();
 		sti.setName(st.getName());
-		sti.setStateTransition(st);
+		if (tb != null) {
+			sti.setStateTransition(tb);
+		} else {
+			sti.setStateTransition(st);
+		}
 		context.getTransitions().add(sti);
 		ConditionExpression behaviorCondition = st.getCondition();
 		ConstraintElement cio = instantiateCondition(context, behaviorCondition, false);
 		sti.setCondition(cio);
-		if (st.isSteadyState()) {
+		boolean isSteadyState = tb != null ? tb.isSteadyState() : st.isSteadyState();
+		ErrorBehaviorState target = tb != null ? tb.getTarget() : st.getTarget();
+		if (isSteadyState) {
 			if (st.isAllStates()) {
 				context.getTransitions().remove(sti);
 				for (StateInstance si : smi.getStates()) {
@@ -200,7 +219,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			}
 		} else {
 			// explicit target state
-			sti.setTargetState(findStateInstance(context, st.getTarget()));
+			sti.setTargetState(findStateInstance(context, target));
 			if (st.isAllStates()) {
 				for (StateInstance si : smi.getStates()) {
 					sti.getInStates().add(si);
