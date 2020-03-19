@@ -50,6 +50,7 @@ import org.osate.xtext.aadl2.errormodel.EMV2Instance.EventInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateMachineInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateTransitionInstance;
+
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 
 /**
@@ -396,8 +397,18 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getStateTransitionInstance_TargetState() {
-		return (EReference)stateTransitionInstanceEClass.getEStructuralFeatures().get(3);
+	public EReference getStateTransitionInstance_StateTransition() {
+		return (EReference)stateTransitionInstanceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getStateTransitionInstance_InStates() {
+		return (EReference)stateTransitionInstanceEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -416,18 +427,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getStateTransitionInstance_StateTransition() {
-		return (EReference)stateTransitionInstanceEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getStateTransitionInstance_InStates() {
-		return (EReference)stateTransitionInstanceEClass.getEStructuralFeatures().get(1);
+	public EReference getStateTransitionInstance_TargetState() {
+		return (EReference)stateTransitionInstanceEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -486,6 +487,26 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EReference getBehaviorInstance_Emv2Element() {
+		return (EReference)behaviorInstanceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getBehaviorInstance_InStates() {
+		return (EReference)behaviorInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EReference getBehaviorInstance_Condition() {
 		return (EReference)behaviorInstanceEClass.getEStructuralFeatures().get(2);
 	}
@@ -518,26 +539,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	@Override
 	public EAttribute getBehaviorInstance_Sink() {
 		return (EAttribute)behaviorInstanceEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getBehaviorInstance_Emv2Element() {
-		return (EReference)behaviorInstanceEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getBehaviorInstance_InStates() {
-		return (EReference)behaviorInstanceEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**

@@ -24,6 +24,7 @@
 package org.osate.xtext.aadl2.errormodel.EMV2Instance;
 
 import org.eclipse.emf.common.util.EList;
+
 import org.osate.aadl2.NamedElement;
 
 /**
@@ -48,6 +49,40 @@ import org.osate.aadl2.NamedElement;
  * @generated
  */
 public interface BehaviorInstance extends EMV2InstanceObject {
+	/**
+	 * Returns the value of the '<em><b>Emv2 Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Emv2 Element</em>' reference.
+	 * @see #setEmv2Element(NamedElement)
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getBehaviorInstance_Emv2Element()
+	 * @model
+	 * @generated
+	 */
+	NamedElement getEmv2Element();
+
+	/**
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance#getEmv2Element <em>Emv2 Element</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Emv2 Element</em>' reference.
+	 * @see #getEmv2Element()
+	 * @generated
+	 */
+	void setEmv2Element(NamedElement value);
+
+	/**
+	 * Returns the value of the '<em><b>In States</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateInstance}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>In States</em>' reference list.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getBehaviorInstance_InStates()
+	 * @model
+	 * @generated
+	 */
+	EList<StateInstance> getInStates();
+
 	/**
 	 * Returns the value of the '<em><b>Condition</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
@@ -125,39 +160,5 @@ public interface BehaviorInstance extends EMV2InstanceObject {
 	 * @generated
 	 */
 	void setSink(boolean value);
-
-	/**
-	 * Returns the value of the '<em><b>Emv2 Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Emv2 Element</em>' reference.
-	 * @see #setEmv2Element(NamedElement)
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getBehaviorInstance_Emv2Element()
-	 * @model
-	 * @generated
-	 */
-	NamedElement getEmv2Element();
-
-	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance#getEmv2Element <em>Emv2 Element</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Emv2 Element</em>' reference.
-	 * @see #getEmv2Element()
-	 * @generated
-	 */
-	void setEmv2Element(NamedElement value);
-
-	/**
-	 * Returns the value of the '<em><b>In States</b></em>' reference list.
-	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateInstance}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>In States</em>' reference list.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getBehaviorInstance_InStates()
-	 * @model
-	 * @generated
-	 */
-	EList<StateInstance> getInStates();
 
 } // BehaviorInstance

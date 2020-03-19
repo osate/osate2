@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.aadl2.NamedElement;
+
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstraintElement;
@@ -171,6 +172,59 @@ public class BehaviorInstanceImpl extends EMV2InstanceObjectImpl implements Beha
 	 * @generated
 	 */
 	@Override
+	public NamedElement getEmv2Element() {
+		if (emv2Element != null && ((EObject)emv2Element).eIsProxy()) {
+			InternalEObject oldEmv2Element = (InternalEObject)emv2Element;
+			emv2Element = (NamedElement)eResolveProxy(oldEmv2Element);
+			if (emv2Element != oldEmv2Element) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.BEHAVIOR_INSTANCE__EMV2_ELEMENT, oldEmv2Element, emv2Element));
+			}
+		}
+		return emv2Element;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NamedElement basicGetEmv2Element() {
+		return emv2Element;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setEmv2Element(NamedElement newEmv2Element) {
+		NamedElement oldEmv2Element = emv2Element;
+		emv2Element = newEmv2Element;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.BEHAVIOR_INSTANCE__EMV2_ELEMENT, oldEmv2Element, emv2Element));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<StateInstance> getInStates() {
+		if (inStates == null) {
+			inStates = new EObjectResolvingEList<StateInstance>(StateInstance.class, this, EMV2InstancePackage.BEHAVIOR_INSTANCE__IN_STATES);
+		}
+		return inStates;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public ConstraintElement getCondition() {
 		return condition;
 	}
@@ -267,59 +321,6 @@ public class BehaviorInstanceImpl extends EMV2InstanceObjectImpl implements Beha
 		sink = newSink;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.BEHAVIOR_INSTANCE__SINK, oldSink, sink));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NamedElement getEmv2Element() {
-		if (emv2Element != null && ((EObject)emv2Element).eIsProxy()) {
-			InternalEObject oldEmv2Element = (InternalEObject)emv2Element;
-			emv2Element = (NamedElement)eResolveProxy(oldEmv2Element);
-			if (emv2Element != oldEmv2Element) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.BEHAVIOR_INSTANCE__EMV2_ELEMENT, oldEmv2Element, emv2Element));
-			}
-		}
-		return emv2Element;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NamedElement basicGetEmv2Element() {
-		return emv2Element;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setEmv2Element(NamedElement newEmv2Element) {
-		NamedElement oldEmv2Element = emv2Element;
-		emv2Element = newEmv2Element;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.BEHAVIOR_INSTANCE__EMV2_ELEMENT, oldEmv2Element, emv2Element));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EList<StateInstance> getInStates() {
-		if (inStates == null) {
-			inStates = new EObjectResolvingEList<StateInstance>(StateInstance.class, this, EMV2InstancePackage.BEHAVIOR_INSTANCE__IN_STATES);
-		}
-		return inStates;
 	}
 
 	/**

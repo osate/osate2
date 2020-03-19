@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -76,6 +77,7 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	 * @ordered
 	 */
 	protected EList<StateTransitionInstance> transitions;
+
 	/**
 	 * The cached value of the '{@link #getEvents() <em>Events</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -85,6 +87,7 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	 * @ordered
 	 */
 	protected EList<EventInstance> events;
+
 	/**
 	 * The cached value of the '{@link #getStateMachine() <em>State Machine</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -94,6 +97,7 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	 * @ordered
 	 */
 	protected StateMachineInstance stateMachine;
+
 	/**
 	 * The cached value of the '{@link #getBehaviors() <em>Behaviors</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -103,6 +107,7 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	 * @ordered
 	 */
 	protected EList<BehaviorInstance> behaviors;
+
 	/**
 	 * The cached value of the '{@link #getComposites() <em>Composites</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -112,6 +117,7 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	 * @ordered
 	 */
 	protected EList<CompositeStateInstance> composites;
+
 	/**
 	 * The cached value of the '{@link #getActions() <em>Actions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -121,6 +127,7 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	 * @ordered
 	 */
 	protected EList<ConstrainedInstanceObject> actions;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

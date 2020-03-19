@@ -453,56 +453,6 @@ public interface EMV2InstancePackage extends EPackage {
 	int STATE_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstrainedInstanceObjectImpl <em>Constrained Instance Object</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstrainedInstanceObjectImpl
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl#getConstrainedInstanceObject()
-	 * @generated
-	 */
-	int CONSTRAINED_INSTANCE_OBJECT = 4;
-
-	/**
-	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateTransitionInstanceImpl <em>State Transition Instance</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateTransitionInstanceImpl
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl#getStateTransitionInstance()
-	 * @generated
-	 */
-	int STATE_TRANSITION_INSTANCE = 5;
-
-	/**
-	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.BehaviorInstanceImpl <em>Behavior Instance</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.BehaviorInstanceImpl
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl#getBehaviorInstance()
-	 * @generated
-	 */
-	int BEHAVIOR_INSTANCE = 7;
-
-	/**
-	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EventInstanceImpl <em>Event Instance</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EventInstanceImpl
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl#getEventInstance()
-	 * @generated
-	 */
-	int EVENT_INSTANCE = 8;
-
-	/**
-	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstraintImpl <em>Constraint</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstraintImpl
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl#getConstraint()
-	 * @generated
-	 */
-	int CONSTRAINT = 9;
-
-	/**
 	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstraintElementImpl <em>Constraint Element</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -574,6 +524,16 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int CONSTRAINT_ELEMENT_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstrainedInstanceObjectImpl <em>Constrained Instance Object</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstrainedInstanceObjectImpl
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl#getConstrainedInstanceObject()
+	 * @generated
+	 */
+	int CONSTRAINED_INSTANCE_OBJECT = 4;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -664,6 +624,16 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT = CONSTRAINT_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
+	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateTransitionInstanceImpl <em>State Transition Instance</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateTransitionInstanceImpl
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl#getStateTransitionInstance()
+	 * @generated
+	 */
+	int STATE_TRANSITION_INSTANCE = 5;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -865,6 +835,16 @@ public interface EMV2InstancePackage extends EPackage {
 	int COMPOSITE_STATE_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
+	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.BehaviorInstanceImpl <em>Behavior Instance</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.BehaviorInstanceImpl
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl#getBehaviorInstance()
+	 * @generated
+	 */
+	int BEHAVIOR_INSTANCE = 7;
+
+	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -982,6 +962,16 @@ public interface EMV2InstancePackage extends EPackage {
 	int BEHAVIOR_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 6;
 
 	/**
+	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EventInstanceImpl <em>Event Instance</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EventInstanceImpl
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl#getEventInstance()
+	 * @generated
+	 */
+	int EVENT_INSTANCE = 8;
+
+	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1061,6 +1051,16 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int EVENT_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstraintImpl <em>Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstraintImpl
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl#getConstraint()
+	 * @generated
+	 */
+	int CONSTRAINT = 9;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1356,28 +1356,6 @@ public interface EMV2InstancePackage extends EPackage {
 	EClass getStateTransitionInstance();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateTransitionInstance#getTargetState <em>Target State</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Target State</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.StateTransitionInstance#getTargetState()
-	 * @see #getStateTransitionInstance()
-	 * @generated
-	 */
-	EReference getStateTransitionInstance_TargetState();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateTransitionInstance#getCondition <em>Condition</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Condition</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.StateTransitionInstance#getCondition()
-	 * @see #getStateTransitionInstance()
-	 * @generated
-	 */
-	EReference getStateTransitionInstance_Condition();
-
-	/**
 	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateTransitionInstance#getStateTransition <em>State Transition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1398,6 +1376,28 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getStateTransitionInstance_InStates();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateTransitionInstance#getCondition <em>Condition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Condition</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.StateTransitionInstance#getCondition()
+	 * @see #getStateTransitionInstance()
+	 * @generated
+	 */
+	EReference getStateTransitionInstance_Condition();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateTransitionInstance#getTargetState <em>Target State</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Target State</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.StateTransitionInstance#getTargetState()
+	 * @see #getStateTransitionInstance()
+	 * @generated
+	 */
+	EReference getStateTransitionInstance_TargetState();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.CompositeStateInstance <em>Composite State Instance</em>}'.
@@ -1453,6 +1453,28 @@ public interface EMV2InstancePackage extends EPackage {
 	EClass getBehaviorInstance();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance#getEmv2Element <em>Emv2 Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Emv2 Element</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance#getEmv2Element()
+	 * @see #getBehaviorInstance()
+	 * @generated
+	 */
+	EReference getBehaviorInstance_Emv2Element();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance#getInStates <em>In States</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>In States</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance#getInStates()
+	 * @see #getBehaviorInstance()
+	 * @generated
+	 */
+	EReference getBehaviorInstance_InStates();
+
+	/**
 	 * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance#getCondition <em>Condition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1495,28 +1517,6 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getBehaviorInstance_Sink();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance#getEmv2Element <em>Emv2 Element</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Emv2 Element</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance#getEmv2Element()
-	 * @see #getBehaviorInstance()
-	 * @generated
-	 */
-	EReference getBehaviorInstance_Emv2Element();
-
-	/**
-	 * Returns the meta object for the reference list '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance#getInStates <em>In States</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>In States</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance#getInStates()
-	 * @see #getBehaviorInstance()
-	 * @generated
-	 */
-	EReference getBehaviorInstance_InStates();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EventInstance <em>Event Instance</em>}'.
@@ -1792,22 +1792,6 @@ public interface EMV2InstancePackage extends EPackage {
 		EClass STATE_TRANSITION_INSTANCE = eINSTANCE.getStateTransitionInstance();
 
 		/**
-		 * The meta object literal for the '<em><b>Target State</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference STATE_TRANSITION_INSTANCE__TARGET_STATE = eINSTANCE.getStateTransitionInstance_TargetState();
-
-		/**
-		 * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference STATE_TRANSITION_INSTANCE__CONDITION = eINSTANCE.getStateTransitionInstance_Condition();
-
-		/**
 		 * The meta object literal for the '<em><b>State Transition</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1822,6 +1806,22 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EReference STATE_TRANSITION_INSTANCE__IN_STATES = eINSTANCE.getStateTransitionInstance_InStates();
+
+		/**
+		 * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference STATE_TRANSITION_INSTANCE__CONDITION = eINSTANCE.getStateTransitionInstance_Condition();
+
+		/**
+		 * The meta object literal for the '<em><b>Target State</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference STATE_TRANSITION_INSTANCE__TARGET_STATE = eINSTANCE.getStateTransitionInstance_TargetState();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.CompositeStateInstanceImpl <em>Composite State Instance</em>}' class.
@@ -1868,6 +1868,22 @@ public interface EMV2InstancePackage extends EPackage {
 		EClass BEHAVIOR_INSTANCE = eINSTANCE.getBehaviorInstance();
 
 		/**
+		 * The meta object literal for the '<em><b>Emv2 Element</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BEHAVIOR_INSTANCE__EMV2_ELEMENT = eINSTANCE.getBehaviorInstance_Emv2Element();
+
+		/**
+		 * The meta object literal for the '<em><b>In States</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BEHAVIOR_INSTANCE__IN_STATES = eINSTANCE.getBehaviorInstance_InStates();
+
+		/**
 		 * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1898,22 +1914,6 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute BEHAVIOR_INSTANCE__SINK = eINSTANCE.getBehaviorInstance_Sink();
-
-		/**
-		 * The meta object literal for the '<em><b>Emv2 Element</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference BEHAVIOR_INSTANCE__EMV2_ELEMENT = eINSTANCE.getBehaviorInstance_Emv2Element();
-
-		/**
-		 * The meta object literal for the '<em><b>In States</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference BEHAVIOR_INSTANCE__IN_STATES = eINSTANCE.getBehaviorInstance_InStates();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EventInstanceImpl <em>Event Instance</em>}' class.
