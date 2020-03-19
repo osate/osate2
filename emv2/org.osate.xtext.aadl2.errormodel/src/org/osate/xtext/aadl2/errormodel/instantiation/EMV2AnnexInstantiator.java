@@ -85,7 +85,9 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 
 		ErrorBehaviorStateMachine ebsm = EMV2Util.getAllErrorBehaviorStateMachine(instance);
-		instantiateStateMachine(ebsm, emv2AI);
+		if (ebsm != null) {
+			instantiateStateMachine(ebsm, emv2AI);
+		}
 
 		Collection<ErrorBehaviorTransition> transitions = EMV2Util.getAllErrorBehaviorTransitions(instance);
 		for (ErrorBehaviorTransition tr : transitions) {
@@ -479,7 +481,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					if (fppref != null) {
 						NamedElement fpp = fppref.getFeatureorPP();
 						if (fpp instanceof Feature) {
-							FeatureInstance fi = relatedComponent.findFeatureInstance((Feature) errorModelElement);
+							FeatureInstance fi = relatedComponent.findFeatureInstance((Feature) fpp);
 							cio.setInstanceObject(fi);
 							cio.setName(fi.getName());
 						}
