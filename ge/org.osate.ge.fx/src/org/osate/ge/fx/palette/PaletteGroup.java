@@ -14,7 +14,7 @@ class PaletteGroup extends Region {
 	public PaletteGroup(final PaletteModelController mc, final int groupIndex) {
 		// TODO: Populate contents based in a manner similar to what is currently in Palette
 
-		// TODO: Update visibility of scrollpane based on state of expanded proeprty
+		// TODO: Update visibility of scrollpane based on state of expanded property
 	}
 
 	// The palette group has a property which indicates whether it is be expanded.

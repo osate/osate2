@@ -23,6 +23,7 @@
  */
 package org.osate.ge.fx.palette;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import org.osate.ge.fx.NodeApplication;
@@ -41,57 +42,68 @@ import javafx.scene.layout.VBox;
 public class Palette extends Region {
 	private PaletteModelController mc;
 
+	VBox paletteVbox = new VBox();
+	ArrayList<PaletteGroup> paletteList = new ArrayList<PaletteGroup>();
+
 	public Palette(final PaletteModelController mc) {
 		this.mc = Objects.requireNonNull(mc, "mc must not be null");
 
 		// TODO: Create contents based on the model controller
 
-
-		VBox paletteVbox = new VBox();
-
 		for (int i = 0; i < mc.getNumberOfGroups(); i++) {
 			// TODO: Move into PaletteGroup
 			// TODO: Create a palette group for each group
 			// TODO: Add each palette to a list
-			// TODO: Listen for change to expanded property. When it is set, adjust expanded state of others
+			// TODO: Listen for change to expanded property. When it is set, adjust expanded state of other
 
-			VBox itemButtonVbox = new VBox();
-			ScrollPane scrollPane = new ScrollPane();
+			PaletteGroup paletteGroup = new PaletteGroup(mc, i);
+
 			Button groupButton = new Button(mc.getGroupLabel(i));
-			groupButton.setOnAction(e -> {
-
-				if (scrollPane.isManaged() && scrollPane.isVisible()) {
-
-					scrollPane.setManaged(false);
-					scrollPane.setVisible(false);
-
-				} else {
-
-					scrollPane.setManaged(true);
-					scrollPane.setVisible(true);
-
-				}
-
-			});
 			groupButton.setGraphic(new ImageView(mc.getGroupIcon(i)));
-			paletteVbox.getChildren().add(groupButton);
 
-			for (int j = 0; j < mc.getNumberOfItems(); j++) {
+			/*
+			 * This is the only way to add the group button to the palette group,
+			 * but since palette group cannot be a parent this is impossible and causes
+			 * a runtime exception.
+			 */
+			// paletteGroup.getChildrenUnmodifiable().add(groupButton);
 
-				if (mc.getItemGroup(j) != null && mc.getItemGroup(j) == i) {
+			paletteList.add(paletteGroup);
+			paletteVbox.getChildren().addAll(paletteList);
 
-					Button itemButton = new Button(mc.getItemLabel(j));
-					itemButton.setGraphic(new ImageView(mc.getItemIcon(j)));
-					itemButtonVbox.getChildren().add(itemButton);
+			ScrollPane scrollPane = new ScrollPane();
+
+			groupButton.getChildrenUnmodifiable().add(scrollPane);
+
+			VBox itemVbox = new VBox();
+			for (int k = 0; k < mc.getNumberOfItems(); k++) {
+
+				if (mc.getItemGroup(k) != null && mc.getItemGroup(k) == i) {
+
+					Button itemButton = new Button(mc.getItemLabel(k));
+					itemVbox.getChildren().add(itemButton);
+
 				}
+
 			}
-			scrollPane.setContent(itemButtonVbox);
-			scrollPane.setManaged(false);
-			scrollPane.setVisible(false);
-			paletteVbox.getChildren().add(scrollPane);
+
 		}
 
-		this.getChildren().add(paletteVbox);
+		for (int i = 0; i < mc.getNumberOfGroups(); i++) {
+
+			// paletteList.get(i).getChildrenUnmodifiable().addListener();
+
+			/*
+			 *
+			 * Somehow add a listener for mouse events on the group button contained
+			 * within each palette group stored in the palette list.
+			 *
+			 * This listener should set the scroll pane of that element to be visible and managed,
+			 * and should set all other scroll panes to be not visible and not managed.
+			 *
+			 */
+
+		}
 
 	}
 
