@@ -31,18 +31,16 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstraintElement;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateTransitionInstance;
-
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 
 /**
  * <!-- begin-user-doc -->
@@ -69,7 +67,7 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 	 * @generated
 	 * @ordered
 	 */
-	protected ErrorBehaviorTransition stateTransition;
+	protected EObject stateTransition;
 
 	/**
 	 * The cached value of the '{@link #getInStates() <em>In States</em>}' reference list.
@@ -126,10 +124,10 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 	 * @generated
 	 */
 	@Override
-	public ErrorBehaviorTransition getStateTransition() {
+	public EObject getStateTransition() {
 		if (stateTransition != null && stateTransition.eIsProxy()) {
 			InternalEObject oldStateTransition = (InternalEObject)stateTransition;
-			stateTransition = (ErrorBehaviorTransition)eResolveProxy(oldStateTransition);
+			stateTransition = eResolveProxy(oldStateTransition);
 			if (stateTransition != oldStateTransition) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.STATE_TRANSITION_INSTANCE__STATE_TRANSITION, oldStateTransition, stateTransition));
@@ -143,7 +141,7 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ErrorBehaviorTransition basicGetStateTransition() {
+	public EObject basicGetStateTransition() {
 		return stateTransition;
 	}
 
@@ -153,8 +151,8 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 	 * @generated
 	 */
 	@Override
-	public void setStateTransition(ErrorBehaviorTransition newStateTransition) {
-		ErrorBehaviorTransition oldStateTransition = stateTransition;
+	public void setStateTransition(EObject newStateTransition) {
+		EObject oldStateTransition = stateTransition;
 		stateTransition = newStateTransition;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.STATE_TRANSITION_INSTANCE__STATE_TRANSITION, oldStateTransition, stateTransition));
@@ -304,7 +302,7 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__STATE_TRANSITION:
-				setStateTransition((ErrorBehaviorTransition)newValue);
+				setStateTransition((EObject)newValue);
 				return;
 			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__IN_STATES:
 				getInStates().clear();
@@ -329,7 +327,7 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__STATE_TRANSITION:
-				setStateTransition((ErrorBehaviorTransition)null);
+				setStateTransition((EObject)null);
 				return;
 			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE__IN_STATES:
 				getInStates().clear();

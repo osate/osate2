@@ -24,8 +24,7 @@
 package org.osate.xtext.aadl2.errormodel.EMV2Instance;
 
 import org.eclipse.emf.common.util.EList;
-
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -52,12 +51,12 @@ public interface StateTransitionInstance extends EMV2InstanceObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>State Transition</em>' reference.
-	 * @see #setStateTransition(ErrorBehaviorTransition)
+	 * @see #setStateTransition(EObject)
 	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getStateTransitionInstance_StateTransition()
 	 * @model
 	 * @generated
 	 */
-	ErrorBehaviorTransition getStateTransition();
+	EObject getStateTransition();
 
 	/**
 	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateTransitionInstance#getStateTransition <em>State Transition</em>}' reference.
@@ -67,7 +66,7 @@ public interface StateTransitionInstance extends EMV2InstanceObject {
 	 * @see #getStateTransition()
 	 * @generated
 	 */
-	void setStateTransition(ErrorBehaviorTransition value);
+	void setStateTransition(EObject value);
 
 	/**
 	 * Returns the value of the '<em><b>In States</b></em>' reference list.
