@@ -24,6 +24,7 @@
 package org.osate.xtext.aadl2.errormodel.EMV2Instance.impl;
 
 import org.eclipse.emf.ecore.EClass;
+
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstraintElement;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage;
 

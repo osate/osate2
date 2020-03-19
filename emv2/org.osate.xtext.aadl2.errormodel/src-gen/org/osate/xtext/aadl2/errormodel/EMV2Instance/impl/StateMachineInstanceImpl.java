@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateMachineInstance;
+
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 
 /**

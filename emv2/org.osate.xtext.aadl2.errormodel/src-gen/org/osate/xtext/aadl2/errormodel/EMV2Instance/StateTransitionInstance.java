@@ -24,6 +24,7 @@
 package org.osate.xtext.aadl2.errormodel.EMV2Instance;
 
 import org.eclipse.emf.common.util.EList;
+
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 
 /**
@@ -46,50 +47,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
  * @generated
  */
 public interface StateTransitionInstance extends EMV2InstanceObject {
-	/**
-	 * Returns the value of the '<em><b>Target State</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Target State</em>' reference.
-	 * @see #setTargetState(StateInstance)
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getStateTransitionInstance_TargetState()
-	 * @model
-	 * @generated
-	 */
-	StateInstance getTargetState();
-
-	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateTransitionInstance#getTargetState <em>Target State</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Target State</em>' reference.
-	 * @see #getTargetState()
-	 * @generated
-	 */
-	void setTargetState(StateInstance value);
-
-	/**
-	 * Returns the value of the '<em><b>Condition</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Condition</em>' containment reference.
-	 * @see #setCondition(ConstraintElement)
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getStateTransitionInstance_Condition()
-	 * @model containment="true"
-	 * @generated
-	 */
-	ConstraintElement getCondition();
-
-	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateTransitionInstance#getCondition <em>Condition</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Condition</em>' containment reference.
-	 * @see #getCondition()
-	 * @generated
-	 */
-	void setCondition(ConstraintElement value);
-
 	/**
 	 * Returns the value of the '<em><b>State Transition</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -123,5 +80,49 @@ public interface StateTransitionInstance extends EMV2InstanceObject {
 	 * @generated
 	 */
 	EList<StateInstance> getInStates();
+
+	/**
+	 * Returns the value of the '<em><b>Condition</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Condition</em>' containment reference.
+	 * @see #setCondition(ConstraintElement)
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getStateTransitionInstance_Condition()
+	 * @model containment="true"
+	 * @generated
+	 */
+	ConstraintElement getCondition();
+
+	/**
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateTransitionInstance#getCondition <em>Condition</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Condition</em>' containment reference.
+	 * @see #getCondition()
+	 * @generated
+	 */
+	void setCondition(ConstraintElement value);
+
+	/**
+	 * Returns the value of the '<em><b>Target State</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Target State</em>' reference.
+	 * @see #setTargetState(StateInstance)
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getStateTransitionInstance_TargetState()
+	 * @model
+	 * @generated
+	 */
+	StateInstance getTargetState();
+
+	/**
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateTransitionInstance#getTargetState <em>Target State</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Target State</em>' reference.
+	 * @see #getTargetState()
+	 * @generated
+	 */
+	void setTargetState(StateInstance value);
 
 } // StateTransitionInstance

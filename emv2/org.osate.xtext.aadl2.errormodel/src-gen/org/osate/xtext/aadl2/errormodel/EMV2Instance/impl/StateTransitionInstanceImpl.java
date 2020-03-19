@@ -24,15 +24,19 @@
 package org.osate.xtext.aadl2.errormodel.EMV2Instance.impl;
 
 import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstraintElement;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateInstance;
@@ -122,16 +126,16 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 	 * @generated
 	 */
 	@Override
-	public StateInstance getTargetState() {
-		if (targetState != null && targetState.eIsProxy()) {
-			InternalEObject oldTargetState = (InternalEObject)targetState;
-			targetState = (StateInstance)eResolveProxy(oldTargetState);
-			if (targetState != oldTargetState) {
+	public ErrorBehaviorTransition getStateTransition() {
+		if (stateTransition != null && stateTransition.eIsProxy()) {
+			InternalEObject oldStateTransition = (InternalEObject)stateTransition;
+			stateTransition = (ErrorBehaviorTransition)eResolveProxy(oldStateTransition);
+			if (stateTransition != oldStateTransition) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.STATE_TRANSITION_INSTANCE__TARGET_STATE, oldTargetState, targetState));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.STATE_TRANSITION_INSTANCE__STATE_TRANSITION, oldStateTransition, stateTransition));
 			}
 		}
-		return targetState;
+		return stateTransition;
 	}
 
 	/**
@@ -139,8 +143,8 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public StateInstance basicGetTargetState() {
-		return targetState;
+	public ErrorBehaviorTransition basicGetStateTransition() {
+		return stateTransition;
 	}
 
 	/**
@@ -149,11 +153,24 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 	 * @generated
 	 */
 	@Override
-	public void setTargetState(StateInstance newTargetState) {
-		StateInstance oldTargetState = targetState;
-		targetState = newTargetState;
+	public void setStateTransition(ErrorBehaviorTransition newStateTransition) {
+		ErrorBehaviorTransition oldStateTransition = stateTransition;
+		stateTransition = newStateTransition;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.STATE_TRANSITION_INSTANCE__TARGET_STATE, oldTargetState, targetState));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.STATE_TRANSITION_INSTANCE__STATE_TRANSITION, oldStateTransition, stateTransition));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<StateInstance> getInStates() {
+		if (inStates == null) {
+			inStates = new EObjectResolvingEList<StateInstance>(StateInstance.class, this, EMV2InstancePackage.STATE_TRANSITION_INSTANCE__IN_STATES);
+		}
+		return inStates;
 	}
 
 	/**
@@ -207,16 +224,16 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 	 * @generated
 	 */
 	@Override
-	public ErrorBehaviorTransition getStateTransition() {
-		if (stateTransition != null && stateTransition.eIsProxy()) {
-			InternalEObject oldStateTransition = (InternalEObject)stateTransition;
-			stateTransition = (ErrorBehaviorTransition)eResolveProxy(oldStateTransition);
-			if (stateTransition != oldStateTransition) {
+	public StateInstance getTargetState() {
+		if (targetState != null && targetState.eIsProxy()) {
+			InternalEObject oldTargetState = (InternalEObject)targetState;
+			targetState = (StateInstance)eResolveProxy(oldTargetState);
+			if (targetState != oldTargetState) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.STATE_TRANSITION_INSTANCE__STATE_TRANSITION, oldStateTransition, stateTransition));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.STATE_TRANSITION_INSTANCE__TARGET_STATE, oldTargetState, targetState));
 			}
 		}
-		return stateTransition;
+		return targetState;
 	}
 
 	/**
@@ -224,8 +241,8 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ErrorBehaviorTransition basicGetStateTransition() {
-		return stateTransition;
+	public StateInstance basicGetTargetState() {
+		return targetState;
 	}
 
 	/**
@@ -234,24 +251,11 @@ public class StateTransitionInstanceImpl extends EMV2InstanceObjectImpl implemen
 	 * @generated
 	 */
 	@Override
-	public void setStateTransition(ErrorBehaviorTransition newStateTransition) {
-		ErrorBehaviorTransition oldStateTransition = stateTransition;
-		stateTransition = newStateTransition;
+	public void setTargetState(StateInstance newTargetState) {
+		StateInstance oldTargetState = targetState;
+		targetState = newTargetState;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.STATE_TRANSITION_INSTANCE__STATE_TRANSITION, oldStateTransition, stateTransition));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EList<StateInstance> getInStates() {
-		if (inStates == null) {
-			inStates = new EObjectResolvingEList<StateInstance>(StateInstance.class, this, EMV2InstancePackage.STATE_TRANSITION_INSTANCE__IN_STATES);
-		}
-		return inStates;
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.STATE_TRANSITION_INSTANCE__TARGET_STATE, oldTargetState, targetState));
 	}
 
 	/**
