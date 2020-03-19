@@ -456,6 +456,14 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 							EList<TypeToken> leaftypes = EMV2TypeSetUtil.flattenTypesetElements(referencedErrorType);
 							cio.getConstraint().addAll(leaftypes);
 						}
+					} else if (ep.getKind() != null) {
+						ConstrainedInstanceObject cio = EMV2InstanceFactory.eINSTANCE.createConstrainedInstanceObject();
+						cio.setInstanceObject(referencedComponent);
+						cio.setName(referencedComponent.getName());
+						cio.setBindingKind(ep.getKind());
+						// get incoming type from propagation
+						EList<TypeToken> leaftypes = EMV2TypeSetUtil.flattenTypesetElements(referencedErrorType);
+						cio.getConstraint().addAll(leaftypes);
 					} else {
 						return null;
 					}
@@ -535,5 +543,103 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 		return null;
 	}
+
+// USE if we explicitly record propagation paths in instance model
+	// private void populateBindingPaths(EMV2AnnexInstance eai, InstanceObject obj) {
+//		if (obj instanceof ComponentInstance) {
+//			ComponentInstance ci = (ComponentInstance) obj;
+//			List<ComponentInstance> cpus = InstanceModelUtil.getProcessorBinding(ci);
+//			for (ComponentInstance cpu : cpus) {
+//				populateBindingPropagationPaths(eai, ci, cpu, "processor");
+//			}
+//			if (!(ci instanceof VirtualProcessor)) {
+//				// do memory bindings
+//				List<ComponentInstance> mems = InstanceModelUtil.getMemoryBinding(ci);
+//				for (ComponentInstance mem : mems) {
+//					populateBindingPropagationPaths(eai, ci, mem, "memory");
+//				}
+//			}
+//			if (ci instanceof VirtualBus) {
+//				// do connection bindings
+//				List<ComponentInstance> boundresources = InstanceModelUtil.getConnectionBinding(ci);
+//				for (ComponentInstance bres : boundresources) {
+//					populateBindingPropagationPaths(pg, ci, bres, "connection");
+//				}
+//			}
+//			List<ComponentInstance> systems = InstanceModelUtil.getFunctionBinding(ci);
+//			for (ComponentInstance system : systems) {
+//				populateBindingPropagationPaths(pg, ci, system, "binding");
+//			}
+//		} else if (obj instanceof ConnectionInstance) {
+//			// do connection bindings
+//			List<ComponentInstance> boundresources = InstanceModelUtil.getConnectionBinding(obj);
+//			if (boundresources.isEmpty()) {
+//				boundresources = InstanceModelUtil.deriveBoundBuses((ConnectionInstance) obj);
+//			}
+//			for (ComponentInstance bres : boundresources) {
+//				populateBindingPropagationPaths(pg, (ConnectionInstance) obj, bres, "connection");
+//			}
+//		}
+//	}
+//	/**
+//	 * Add a binding as propagation path.
+//	 * The first argument is the component bound to a resource (e.g. a process) and the
+//	 * boundResource argument the associated resources (e.g. a processor).
+//	 * We will add the propagation path in each direction if declared in the EMV2 annex.
+//	 * @param comp
+//	 * @param boundResource
+//	 */
+//	private void populateBindingPropagationPaths(EMV2AnnexInstance eai, ComponentInstance comp,
+//			ComponentInstance boundResource, String resourcebindingKind) {
+//		ErrorPropagation BRsrcprop = EMV2Util.findOutgoingErrorPropagation(boundResource.getComponentClassifier(),
+//				"bindings");
+//		ErrorPropagation BCdstprop = EMV2Util.findIncomingErrorPropagation(comp.getComponentClassifier(),
+//				resourcebindingKind);
+//		if (BRsrcprop != null && BCdstprop != null) {
+//			addPropagationpathRecord(pg, boundResource, BRsrcprop, comp, BCdstprop);
+//		}
+//		ErrorPropagation BCsrcprop = EMV2Util.findOutgoingErrorPropagation(comp.getComponentClassifier(),
+//				resourcebindingKind);
+//		ErrorPropagation BRdstprop = EMV2Util.findIncomingErrorPropagation(boundResource.getComponentClassifier(),
+//				"bindings");
+//		if (BCsrcprop != null && BRdstprop != null) {
+//			addPropagationpathRecord(pg, comp, BCsrcprop, boundResource, BRdstprop);
+//		}
+//		for (ComponentInstance subci : comp.getComponentInstances()) {
+//			populateBindingPropagationPaths(pg, subci, boundResource, resourcebindingKind);
+//		}
+//	}
+//
+//	/**
+//	 * This is made to support the binding between connection and components.
+//	 * Here, the first argument is the connection bound to a resource and the
+//	 * boundResource argument the associated resources (e.g. a bus).
+//	 *
+//	 * @param conn
+//	 * @param boundResource
+//	 */
+//	private void populateBindingPropagationPaths(EMV2AnnexInstance eai, ConnectionInstance conn,
+//			ComponentInstance boundResource, String bindingKind) {
+//		boolean added = false;
+//		// source prop kind determined by destination and vice versa (BR = bound
+//		// resource, BC bound component
+//		ErrorPropagation BRsrcprop = EMV2Util.findOutgoingErrorPropagation(boundResource.getComponentClassifier(),
+//				"bindings");
+//
+//		if (BRsrcprop != null) {
+//			addPropagationpathRecord(pg, boundResource, BRsrcprop, conn);
+//			added = true;
+//		}
+//		ErrorPropagation BRdstprop = EMV2Util.findIncomingErrorPropagation(boundResource.getComponentClassifier(),
+//				"bindings");
+//		if (BRdstprop != null) {
+//			addPropagationpathRecord(pg, conn, boundResource, BRdstprop);
+//			added = true;
+//		}
+//		if (added) {
+//			pg.getConnections().add(conn);
+//			pg.getComponents().add(boundResource);
+//		}
+//	}
 
 }

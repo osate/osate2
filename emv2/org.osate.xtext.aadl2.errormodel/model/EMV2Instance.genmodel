@@ -36,6 +36,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ConstrainedInstanceObject/instanceObject"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ConstrainedInstanceObject/constraint"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMV2Instance.ecore#//ConstrainedInstanceObject/outgoing"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMV2Instance.ecore#//ConstrainedInstanceObject/bindingKind"/>
     </genClasses>
     <genClasses ecoreClass="EMV2Instance.ecore#//StateTransitionInstance">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//StateTransitionInstance/stateTransition"/>
