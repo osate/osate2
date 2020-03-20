@@ -1,5 +1,6 @@
 package org.osate.propertiescodegen
 
+import java.util.ArrayList
 import java.util.List
 import java.util.Set
 import org.eclipse.emf.ecore.EObject
@@ -32,7 +33,13 @@ class PropertiesCodeGen {
 	val Set<String> imports = newHashSet
 	
 	def static List<GeneratedJava> generateJava(PropertySet propertySet) {
-		propertySet.eContents.map[eObject |
+		val propertySetFile = if (propertySet.ownedProperties.empty) {
+			emptyList
+		} else {
+			#[generateFile(propertySet)]
+		}
+		
+		val typeFiles = propertySet.eContents.map[eObject |
 			switch eObject {
 				PropertyType: generateFile(propertySet, eObject, eObject.name.toCamelCase)
 				Property case eObject.ownedPropertyType !== null: {
@@ -40,7 +47,112 @@ class PropertiesCodeGen {
 				}
 				default: null
 			}
-		].filterNull.toList
+		].filterNull.toList;
+		
+		(propertySetFile + typeFiles).toList
+	}
+	
+	def private static GeneratedJava generateFile(PropertySet propertySet) {
+		val generator = new PropertiesCodeGen(propertySet)
+		/*
+		 * Place the property getters into a new ArrayList for eager evaluation. This is important so that
+		 * generator.imports will be filled when populating javaImports, orgImports, and otherImports.
+		 */
+		val propertyGetters = new ArrayList(propertySet.ownedProperties.map[generator.generatePropertyGetter(it)])
+		val javaImports = generator.imports.filter[it.startsWith("java.")].sort
+		val orgImports = generator.imports.filter[it.startsWith("org.")].sort
+		val otherImports = generator.imports.filter[!it.startsWith("java.") && !it.startsWith("org.")].sort
+		val className = propertySet.name.toCamelCase
+		val contents = '''
+			package «propertySet.name.toLowerCase»;
+			«IF !javaImports.empty»
+			
+			«FOR javaImport : javaImports»
+			import «javaImport»;
+			«ENDFOR»
+			«ENDIF»
+			«IF !orgImports.empty»
+			
+			«FOR orgImport : orgImports»
+			import «orgImport»;
+			«ENDFOR»
+			«ENDIF»
+			«IF !otherImports.empty»
+			
+			«FOR otherImport : otherImports»
+			import «otherImport»;
+			«ENDFOR»
+			«ENDIF»
+			
+			public class «className» {
+				«propertyGetters.head»
+				«FOR getter : propertyGetters.tail»
+				
+				«getter»
+				«ENDFOR»
+			}
+		'''
+		new GeneratedJava(className + ".java", contents)
+	}
+	
+	def private String generatePropertyGetter(Property property) {
+		val type = property.propertyType
+		val camelName = property.name.toCamelCase
+		val ownedTypeName = '''«camelName»«IF type instanceof ListType».ElementType«ENDIF»'''
+		val optionalType = switch type {
+			AadlInteger case type.unitsType === null: "OptionalLong"
+			AadlReal case type.unitsType === null: "OptionalDouble"
+			default: "Optional"
+		}
+		val otherJavaClass = if (property.referencedPropertyType !== null) {
+			property.referencedPropertyType.name.toCamelCase
+		} else {
+			camelName
+		}
+		
+		imports += #{
+			"org.osate.aadl2.Aadl2Package",
+			"org.osate.aadl2.Property",
+			"org.osate.aadl2.instance.InstanceObject",
+			"org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil",
+			"org.osate.aadl2.properties.PropertyNotPresentException"
+		}
+		if (type instanceof ListType) {
+			imports += "java.util.List"
+		}
+		imports += "java.util." + optionalType
+		switch baseType : type.basePropertyType {
+			ClassifierType: imports += "org.osate.aadl2.Classifier"
+			EnumerationType,
+			NumberType case baseType.unitsType !== null,
+			RangeType,
+			RecordType: {
+				val basePropertySet = baseType.getContainerOfType(PropertySet)
+				if (propertySet != basePropertySet) {
+					imports += basePropertySet.name.toLowerCase + "." + baseType.name.toCamelCase
+				}
+			}
+		}
+		
+		'''
+			public static «getOptionalType(property, type, ownedTypeName)» get«camelName»(InstanceObject instanceObject) {
+				String name = "«propertySet.name»::«property.name»";
+				Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
+				try {
+					return «optionalType».of(«otherJavaClass».getValue(instanceObject.getNonModalPropertyValue(property)));
+				} catch (PropertyNotPresentException e) {
+					return «optionalType».empty();
+				}
+			}
+		'''
+	}
+	
+	def private static getOptionalType(EObject topObject, PropertyType type, String ownedTypeName) {
+		switch type {
+			AadlInteger case type.unitsType === null: "OptionalLong"
+			AadlReal case type.unitsType === null: "OptionalDouble"
+			default: '''Optional<«getGenericType(topObject, type, ownedTypeName)»>'''
+		}
 	}
 	
 	def private static GeneratedJava generateFile(PropertySet propertySet, PropertyType propertyType, String typeName) {
@@ -601,7 +713,8 @@ class PropertiesCodeGen {
 		'''
 			public«IF !topLevel» static«ENDIF» class «typeName» {
 				«FOR field : recordType.ownedFields»
-				private final «getFieldType(field)» «field.name.toCamelCase.toFirstLower»;
+				«val fieldType = getOptionalType(field, field.propertyType, field.name.toCamelCase + "Type")»
+				private final «fieldType» «field.name.toCamelCase.toFirstLower»;
 				«ENDFOR»
 				
 				private «typeName»(PropertyExpression propertyExpression) {
@@ -622,7 +735,8 @@ class PropertiesCodeGen {
 				«ENDIF»
 				«FOR field : recordType.ownedFields»
 				
-				public «getFieldType(field)» get«field.name.toCamelCase»() {
+				«val fieldType = getOptionalType(field, field.propertyType, field.name.toCamelCase + "Type")»
+				public «fieldType» get«field.name.toCamelCase»() {
 					return «field.name.toCamelCase.toFirstLower»;
 				}
 				«ENDFOR»
@@ -697,14 +811,6 @@ class PropertiesCodeGen {
 				«ENDFOR»
 			}
 		'''
-	}
-	
-	def private static String getFieldType(BasicProperty field) {
-		switch propertyType : field.propertyType {
-			AadlInteger case propertyType.unitsType === null: "OptionalLong"
-			AadlReal case propertyType.unitsType === null: "OptionalDouble"
-			default: '''Optional<«getGenericType(field, propertyType, field.name.toCamelCase + "Type")»>'''
-		}
 	}
 	
 	def private static String getFieldValueExtractor(BasicProperty field) {
