@@ -35,6 +35,7 @@ class PaletteGroup extends Region {
 				scrollPane.setContent(itemButton);
 
 			}
+			// This throws an exception for duplicate children
 			buttonBox.getChildren().add(scrollPane);
 			scrollPane.setManaged(false);
 			scrollPane.setVisible(false);
