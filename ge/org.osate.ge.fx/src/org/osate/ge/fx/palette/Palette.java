@@ -23,15 +23,11 @@
  */
 package org.osate.ge.fx.palette;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 import org.osate.ge.fx.NodeApplication;
 
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
@@ -43,7 +39,6 @@ public class Palette extends Region {
 	private PaletteModelController mc;
 
 	VBox paletteVbox = new VBox();
-	ArrayList<PaletteGroup> paletteList = new ArrayList<PaletteGroup>();
 
 	public Palette(final PaletteModelController mc) {
 		this.mc = Objects.requireNonNull(mc, "mc must not be null");
@@ -57,53 +52,8 @@ public class Palette extends Region {
 			// TODO: Listen for change to expanded property. When it is set, adjust expanded state of other
 
 			PaletteGroup paletteGroup = new PaletteGroup(mc, i);
-
-			Button groupButton = new Button(mc.getGroupLabel(i));
-			groupButton.setGraphic(new ImageView(mc.getGroupIcon(i)));
-
-			/*
-			 * This is the only way to add the group button to the palette group,
-			 * but since palette group cannot be a parent this is impossible and causes
-			 * a runtime exception.
-			 */
-			// paletteGroup.getChildrenUnmodifiable().add(groupButton);
-
-			paletteList.add(paletteGroup);
-			paletteVbox.getChildren().addAll(paletteList);
-
-			ScrollPane scrollPane = new ScrollPane();
-
-			groupButton.getChildrenUnmodifiable().add(scrollPane);
-
-			VBox itemVbox = new VBox();
-			for (int k = 0; k < mc.getNumberOfItems(); k++) {
-
-				if (mc.getItemGroup(k) != null && mc.getItemGroup(k) == i) {
-
-					Button itemButton = new Button(mc.getItemLabel(k));
-					itemVbox.getChildren().add(itemButton);
-
-				}
-
-			}
-
 		}
 
-		for (int i = 0; i < mc.getNumberOfGroups(); i++) {
-
-			// paletteList.get(i).getChildrenUnmodifiable().addListener();
-
-			/*
-			 *
-			 * Somehow add a listener for mouse events on the group button contained
-			 * within each palette group stored in the palette list.
-			 *
-			 * This listener should set the scroll pane of that element to be visible and managed,
-			 * and should set all other scroll panes to be not visible and not managed.
-			 *
-			 */
-
-		}
 
 	}
 
