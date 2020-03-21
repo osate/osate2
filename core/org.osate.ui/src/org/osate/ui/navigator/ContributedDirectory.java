@@ -2,13 +2,16 @@ package org.osate.ui.navigator;
 
 import java.util.List;
 
-public class ContributedDirectory {
+import org.eclipse.core.resources.IProject;
+import org.osate.xtext.aadl2.ui.resource.ProjectMember;
 
-	private Object parent;
+public class ContributedDirectory implements ProjectMember {
+
+	private ProjectMember parent;
 
 	private final List<String> path;
 
-	public ContributedDirectory(Object parent, List<String> path) {
+	public ContributedDirectory(ProjectMember parent, List<String> path) {
 		this.path = path;
 		this.parent = parent;
 	}
@@ -19,6 +22,11 @@ public class ContributedDirectory {
 
 	public List<String> getPath() {
 		return path;
+	}
+	
+	@Override
+	public IProject getProject() {
+		return parent.getProject();
 	}
 
 	@Override

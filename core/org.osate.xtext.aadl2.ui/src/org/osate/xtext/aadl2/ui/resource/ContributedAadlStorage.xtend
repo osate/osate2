@@ -9,9 +9,9 @@ import org.eclipse.emf.ecore.resource.URIConverter
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
-class ContributedAadlStorage extends PlatformObject implements IStorage {
+class ContributedAadlStorage extends PlatformObject implements IStorage, ProjectMember {
 
-	val Object parent
+	val ProjectMember parent
 	
 	val URI uri
 	
@@ -30,6 +30,10 @@ class ContributedAadlStorage extends PlatformObject implements IStorage {
 	
 	override isReadOnly() {
 		true
+	}
+	
+	override getProject() {
+		parent.project
 	}
 	
 	override equals(Object obj) {
