@@ -5,7 +5,7 @@
          point="org.eclipse.ui.commands">
       <command
             id="org.osate.propertiescodegen.ui.codegen"
-            name="Generate Java Types for Properties">
+            name="Generate Java Property Getters">
       </command>
    </extension>
    <extension
@@ -21,13 +21,22 @@
                         value="1">
                   </count>
                   <iterate>
-                     <adapt
-                           type="org.eclipse.core.resources.IFile">
-                        <test
-                              forcePluginActivation="true"
-                              property="org.osate.ui.aadlPropertySet">
-                        </test>
-                     </adapt>
+                     <or>
+                        <adapt
+                              type="org.eclipse.core.resources.IFile">
+                           <test
+                                 forcePluginActivation="true"
+                                 property="org.osate.ui.aadlPropertySet">
+                           </test>
+                        </adapt>
+                        <adapt
+                              type="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage">
+                           <test
+                                 forcePluginActivation="true"
+                                 property="org.osate.ui.aadlPropertySet">
+                           </test>
+                        </adapt>
+                     </or>
                   </iterate>
                </and>
             </with>
