@@ -146,17 +146,17 @@ public class BusLoadAnalysis extends AbstractLoggingAnalysis {
 		if (Aadl2Util.isNoModes(som)) {
 			errManager.logInfo("\n\nBudget Details for " + busLabel + " " + curBus.getFullName() + " with "
 					+ capacityOrBudgetLabel + " "
-					+ busCapacityOrBudget + " " + kbspsliteral.getName() + "\n");
+					+ busCapacityOrBudget + " " + kbspsliteral.getName());
 		} else {
 			errManager.logInfo(
 					"\n\nBudget Details for " + busLabel + " " + curBus.getFullName()
 							+ Aadl2Util.getPrintableSOMName(som)
 							+ " with " + capacityOrBudgetLabel + " " + busCapacityOrBudget + " "
-							+ kbspsliteral.getName() + "\n");
+							+ kbspsliteral.getName());
 		}
 
 		if (budgetedConnections.size() > 0) {
-			errManager.logInfo("Connection,Budget,Actual (Data Size * Sender Rate),Note");
+			errManager.logInfo("\nConnection,Budget,Actual (Data Size * Sender Rate),Note");
 			for (ConnectionInstance connectionInstance : budgetedConnections) {
 				double budget = 0.0;
 				double actual = 0.0;
@@ -191,7 +191,7 @@ public class BusLoadAnalysis extends AbstractLoggingAnalysis {
 		}
 
 		if (budgetedVBs.size() > 0) {
-			errManager.logInfo("Virtual Bus,Budget,Note");
+			errManager.logInfo("\nVirtual Bus,Budget,Note");
 			for (ComponentInstance componentInstance : budgetedVBs) {
 				double budget = 0.0;
 
