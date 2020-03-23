@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.util.IResourceScopeCache;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.CallContext;
@@ -82,7 +83,14 @@ import org.osate.annexsupport.AnnexLinkingServiceRegistry;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
+import com.google.inject.Inject;
+
 public class Aadl2LinkingService extends PropertiesLinkingService {
+
+	private static final boolean useCache = Boolean.valueOf(System.getProperty("org.osate.linking.cache", "false"));
+
+	@Inject
+	IResourceScopeCache linkingCache;
 
 	AnnexLinkingServiceRegistry annexlinkingserviceregistry;
 
@@ -99,6 +107,21 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 
 	@Override
 	public List<EObject> getLinkedObjects(EObject context, EReference reference, INode node)
+			throws IllegalNodeException {
+		List<EObject> result;
+		String crossRefString = getCrossRefNodeAsString(node);
+		boolean global = crossRefString.contains("::");
+
+		if (useCache) {
+			result = linkingCache.get(global ? crossRefString : node, context.eResource(),
+					() -> doGetLinkedObjects(context, reference, node));
+		} else {
+			result = doGetLinkedObjects(context, reference, node);
+		}
+		return result;
+	}
+
+	private List<EObject> doGetLinkedObjects(EObject context, EReference reference, INode node)
 			throws IllegalNodeException {
 		NamedElement annex = AadlUtil.getContainingAnnex(context);
 		if (annex != null) {
@@ -117,7 +140,6 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			return Collections.<EObject> emptyList();
 		}
 
-//		EMFIndexRetrieval.printEMFIndexEMV2(context);
 		final EClass requiredType = reference.getEReferenceType();
 		if (requiredType == null) {
 			return Collections.<EObject> emptyList();
