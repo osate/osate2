@@ -97,13 +97,40 @@ public interface EMV2InstanceFactory extends EFactory {
 	CompositeStateInstance createCompositeStateInstance();
 
 	/**
-	 * Returns a new object of class '<em>Behavior Instance</em>'.
+	 * Returns a new object of class '<em>Error Flow Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Behavior Instance</em>'.
+	 * @return a new object of class '<em>Error Flow Instance</em>'.
 	 * @generated
 	 */
-	BehaviorInstance createBehaviorInstance();
+	ErrorFlowInstance createErrorFlowInstance();
+
+	/**
+	 * Returns a new object of class '<em>Error Behavior Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Error Behavior Instance</em>'.
+	 * @generated
+	 */
+	ErrorBehaviorInstance createErrorBehaviorInstance();
+
+	/**
+	 * Returns a new object of class '<em>Propagation Path Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Propagation Path Instance</em>'.
+	 * @generated
+	 */
+	PropagationPathInstance createPropagationPathInstance();
+
+	/**
+	 * Returns a new object of class '<em>Propagation Point Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Propagation Point Instance</em>'.
+	 * @generated
+	 */
+	PropagationPointInstance createPropagationPointInstance();
 
 	/**
 	 * Returns a new object of class '<em>Event Instance</em>'.

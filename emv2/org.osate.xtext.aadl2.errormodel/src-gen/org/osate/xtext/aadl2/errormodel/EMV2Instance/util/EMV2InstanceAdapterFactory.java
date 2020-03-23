@@ -123,8 +123,20 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 				return createCompositeStateInstanceAdapter();
 			}
 			@Override
-			public Adapter caseBehaviorInstance(BehaviorInstance object) {
-				return createBehaviorInstanceAdapter();
+			public Adapter caseErrorFlowInstance(ErrorFlowInstance object) {
+				return createErrorFlowInstanceAdapter();
+			}
+			@Override
+			public Adapter caseErrorBehaviorInstance(ErrorBehaviorInstance object) {
+				return createErrorBehaviorInstanceAdapter();
+			}
+			@Override
+			public Adapter casePropagationPathInstance(PropagationPathInstance object) {
+				return createPropagationPathInstanceAdapter();
+			}
+			@Override
+			public Adapter casePropagationPointInstance(PropagationPointInstance object) {
+				return createPropagationPointInstanceAdapter();
 			}
 			@Override
 			public Adapter caseEventInstance(EventInstance object) {
@@ -273,16 +285,58 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance <em>Behavior Instance</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorFlowInstance <em>Error Flow Instance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorFlowInstance
 	 * @generated
 	 */
-	public Adapter createBehaviorInstanceAdapter() {
+	public Adapter createErrorFlowInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorBehaviorInstance <em>Error Behavior Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorBehaviorInstance
+	 * @generated
+	 */
+	public Adapter createErrorBehaviorInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPathInstance <em>Propagation Path Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPathInstance
+	 * @generated
+	 */
+	public Adapter createPropagationPathInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPointInstance <em>Propagation Point Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPointInstance
+	 * @generated
+	 */
+	public Adapter createPropagationPointInstanceAdapter() {
 		return null;
 	}
 

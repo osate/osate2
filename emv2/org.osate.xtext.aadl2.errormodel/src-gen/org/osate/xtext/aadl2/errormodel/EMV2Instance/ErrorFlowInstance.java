@@ -23,46 +23,43 @@
  */
 package org.osate.xtext.aadl2.errormodel.EMV2Instance;
 
-import org.eclipse.emf.common.util.EList;
-
 import org.osate.aadl2.NamedElement;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Behavior Instance</b></em>'.
+ * A representation of the model object '<em><b>Error Flow Instance</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance#getEmv2Element <em>Emv2 Element</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance#getInStates <em>In States</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance#getCondition <em>Condition</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance#getActions <em>Actions</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance#isSource <em>Source</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance#isSink <em>Sink</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorFlowInstance#getEmv2Element <em>Emv2 Element</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorFlowInstance#getIncoming <em>Incoming</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorFlowInstance#getOutgoing <em>Outgoing</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorFlowInstance#isSource <em>Source</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorFlowInstance#isSink <em>Sink</em>}</li>
  * </ul>
  *
- * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getBehaviorInstance()
+ * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getErrorFlowInstance()
  * @model
  * @generated
  */
-public interface BehaviorInstance extends EMV2InstanceObject {
+public interface ErrorFlowInstance extends EMV2InstanceObject {
 	/**
 	 * Returns the value of the '<em><b>Emv2 Element</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Emv2 Element</em>' reference.
 	 * @see #setEmv2Element(NamedElement)
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getBehaviorInstance_Emv2Element()
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getErrorFlowInstance_Emv2Element()
 	 * @model
 	 * @generated
 	 */
 	NamedElement getEmv2Element();
 
 	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance#getEmv2Element <em>Emv2 Element</em>}' reference.
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorFlowInstance#getEmv2Element <em>Emv2 Element</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Emv2 Element</em>' reference.
@@ -72,50 +69,48 @@ public interface BehaviorInstance extends EMV2InstanceObject {
 	void setEmv2Element(NamedElement value);
 
 	/**
-	 * Returns the value of the '<em><b>In States</b></em>' reference list.
-	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateInstance}.
+	 * Returns the value of the '<em><b>Incoming</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>In States</em>' reference list.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getBehaviorInstance_InStates()
-	 * @model
-	 * @generated
-	 */
-	EList<StateInstance> getInStates();
-
-	/**
-	 * Returns the value of the '<em><b>Condition</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Condition</em>' containment reference.
-	 * @see #setCondition(ConstraintElement)
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getBehaviorInstance_Condition()
+	 * @return the value of the '<em>Incoming</em>' containment reference.
+	 * @see #setIncoming(ConstrainedInstanceObject)
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getErrorFlowInstance_Incoming()
 	 * @model containment="true"
 	 * @generated
 	 */
-	ConstraintElement getCondition();
+	ConstrainedInstanceObject getIncoming();
 
 	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance#getCondition <em>Condition</em>}' containment reference.
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorFlowInstance#getIncoming <em>Incoming</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Condition</em>' containment reference.
-	 * @see #getCondition()
+	 * @param value the new value of the '<em>Incoming</em>' containment reference.
+	 * @see #getIncoming()
 	 * @generated
 	 */
-	void setCondition(ConstraintElement value);
+	void setIncoming(ConstrainedInstanceObject value);
 
 	/**
-	 * Returns the value of the '<em><b>Actions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject}.
+	 * Returns the value of the '<em><b>Outgoing</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Actions</em>' containment reference list.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getBehaviorInstance_Actions()
+	 * @return the value of the '<em>Outgoing</em>' containment reference.
+	 * @see #setOutgoing(ConstrainedInstanceObject)
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getErrorFlowInstance_Outgoing()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<ConstrainedInstanceObject> getActions();
+	ConstrainedInstanceObject getOutgoing();
+
+	/**
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorFlowInstance#getOutgoing <em>Outgoing</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Outgoing</em>' containment reference.
+	 * @see #getOutgoing()
+	 * @generated
+	 */
+	void setOutgoing(ConstrainedInstanceObject value);
 
 	/**
 	 * Returns the value of the '<em><b>Source</b></em>' attribute.
@@ -123,14 +118,14 @@ public interface BehaviorInstance extends EMV2InstanceObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Source</em>' attribute.
 	 * @see #setSource(boolean)
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getBehaviorInstance_Source()
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getErrorFlowInstance_Source()
 	 * @model
 	 * @generated
 	 */
 	boolean isSource();
 
 	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance#isSource <em>Source</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorFlowInstance#isSource <em>Source</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Source</em>' attribute.
@@ -145,14 +140,14 @@ public interface BehaviorInstance extends EMV2InstanceObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Sink</em>' attribute.
 	 * @see #setSink(boolean)
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getBehaviorInstance_Sink()
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getErrorFlowInstance_Sink()
 	 * @model
 	 * @generated
 	 */
 	boolean isSink();
 
 	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.BehaviorInstance#isSink <em>Sink</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorFlowInstance#isSink <em>Sink</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Sink</em>' attribute.
@@ -161,4 +156,4 @@ public interface BehaviorInstance extends EMV2InstanceObject {
 	 */
 	void setSink(boolean value);
 
-} // BehaviorInstance
+} // ErrorFlowInstance
