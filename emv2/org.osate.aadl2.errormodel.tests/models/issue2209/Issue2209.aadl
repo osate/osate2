@@ -1,0 +1,63 @@
+package Issue2209
+public
+
+	system S
+		features
+			i: in feature;
+			o: out feature;
+	end S;
+
+	system implementation S.i
+		subcomponents
+			a: abstract A;
+		annex emv2 {**
+			use types ErrorLibrary;
+			use behavior ErrorLibrary::FailStop;
+			
+			error propagations
+				i: in propagation {ValueError};
+				o: out propagation {ValueError};
+			end propagations;
+			
+			component error behavior
+				transitions
+					-- correct: no error marker
+					all -[i]-> FailStop;
+					-- correct error marker: "Referenced local error propagation o must be an in propagation"
+					all -[o]-> FailStop;
+					-- wrong error marker: Couldn't resolve reference to 'i'.
+					-- should be: "Referenced error propagation a.i must be an out propagation"
+					all -[a.i]-> FailStop;
+					-- wrong error marker: "Referenced error propagation o must be an in propagation"
+					-- should be: no error marker
+					all -[a.o]-> FailStop;
+				propagations
+					-- correct: no error marker
+					FailStop -[i]-> o;
+					-- correct error marker: "Referenced local error propagation o must be an in propagation"
+					FailStop -[o]-> o;
+					-- wrong error marker: Couldn't resolve reference to 'i'.
+					-- should be: "Referenced error propagation a.i must be an out propagation"
+					FailStop -[a.i]-> o;
+					-- wrong error marker: "Referenced error propagation o must be an in propagation"
+					-- should be: no error marker
+					FailStop -[a.o]-> o;
+			end component;
+		**};
+	end S.i;
+
+	abstract A
+		features
+			i: in feature;
+			o: out feature;
+		annex emv2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				i: in propagation {ValueError};
+				o: out propagation {ValueError};
+			end propagations;
+		**};
+	end A;
+
+end Issue2209;

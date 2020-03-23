@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.osate.alisa.common.ui" version="2">
+    <resource path="src-gen/org/osate/alisa/common/ui/contentassist/antlr/PartialCommonContentAssistParser.java" type="org.osate.alisa.common.ui.contentassist.antlr.PartialCommonContentAssistParser">
+        <filter comment="xtext" id="576725006">
+            <message_arguments>
+                <message_argument value="IPartialContentAssistParser"/>
+                <message_argument value="PartialCommonContentAssistParser"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>

@@ -1,55 +1,54 @@
 package OptimizeTree
 public
-annex EMV2 {**
-error behavior NStates
-states
-  Operational: initial state; 
-  FailStop: state;
-  Fail1: state; 
-  Fail2: state; 
-  Fail3: state; 
-  Fail4: state; 
-  Fail5: state; 
-  Fail6: state; 
-end behavior;
-**};
-system Sub
+	annex EMV2 {**
+		error behavior NStates
+			states
+				Operational: initial state;
+				FailStop: state;
+				Fail1: state;
+				Fail2: state;
+				Fail3: state;
+				Fail4: state;
+				Fail5: state;
+				Fail6: state;
+		end behavior;
+	**};
+
+	system Sub
 		annex emv2 {**
-  use behavior OptimizeTree::NStates;        
+			use behavior OptimizeTree::NStates;
+		**};
+	end Sub;
 
-**};
-end Sub;
+	system Top
+		features
+			inport: in data port;
+			outport: out data port;
+	end Top;
 
-
-
-system Top
-features
-inport : in data port;
-outport: out data port;
-end Top;
-
-system implementation Top.impl
-subcomponents
-Sub1: system Sub;
-Sub2: system Sub;
-Sub3: system sub;
-Sub4: system sub;
-Sub5: system sub;
-Sub6: system sub;
-annex emv2 {**
-  use behavior OptimizeTree::NStates;
-composite error behavior 
-states
-    [1 ormore((Sub1.FailStop and Sub2.FailStop) , (Sub1.FailStop and Sub3.FailStop))]-> FailStop;
-    [(1 ormore(Sub1.FailStop , Sub2.FailStop)) and (1 ormore(Sub1.FailStop , Sub3.FailStop))]-> Fail1;
-    [(Sub1.FailStop and 1 ormore(Sub2.FailStop)) or (Sub1.FailStop and Sub3.FailStop)]-> Fail2;
-    [(Sub1.FailStop and 1 ormore(Sub2.FailStop, Sub4.Failstop, Sub5.Failstop and Sub6.Failstop)) or (Sub1.FailStop and Sub3.FailStop)]-> Fail3;
-    [Sub1.FailStop and 1 ormore(Sub2.FailStop, Sub1.Failstop) and 1 ormore(Sub1.Failstop , Sub6.Failstop)]-> Fail4;
-    [Sub1.FailStop and 1 ormore(Sub2.FailStop, Sub1.Failstop) and (Sub1.Failstop or Sub6.Failstop)]-> Fail5;
-    [(Sub1.FailStop and 1 ormore(Sub2.FailStop, Sub4.Failstop, Sub1.Failstop and Sub6.Failstop))]-> Fail6;
-end composite;
-**};
-end Top.impl;
-
+	system implementation Top.impl
+		subcomponents
+			Sub1: system Sub;
+			Sub2: system Sub;
+			Sub3: system sub;
+			Sub4: system sub;
+			Sub5: system sub;
+			Sub6: system sub;
+		annex emv2 {**
+			use behavior OptimizeTree::NStates;
+			
+			composite error behavior
+				states
+					[1 ormore ((Sub1.FailStop and Sub2.FailStop), (Sub1.FailStop and Sub3.FailStop))]-> FailStop;
+					[(1 ormore (Sub1.FailStop, Sub2.FailStop)) and (1 ormore (Sub1.FailStop, Sub3.FailStop))]-> Fail1;
+					[(Sub1.FailStop and 1 ormore (Sub2.FailStop)) or (Sub1.FailStop and Sub3.FailStop)]-> Fail2;
+					[(Sub1.FailStop and 1 ormore (Sub2.FailStop, Sub4.Failstop, Sub5.Failstop and Sub6.Failstop)) or
+						(Sub1.FailStop and Sub3.FailStop)]-> Fail3;
+					[Sub1.FailStop and 1 ormore (Sub2.FailStop, Sub1.Failstop) and 1 ormore (Sub1.Failstop, Sub6.Failstop)]-> Fail4;
+					[Sub1.FailStop and 1 ormore (Sub2.FailStop, Sub1.Failstop) and (Sub1.Failstop or Sub6.Failstop)]-> Fail5;
+					[(Sub1.FailStop and 1 ormore (Sub2.FailStop, Sub4.Failstop, Sub1.Failstop and Sub6.Failstop))]-> Fail6;
+			end composite;
+		**};
+	end Top.impl;
 
 end OptimizeTree;

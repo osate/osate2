@@ -1,37 +1,25 @@
 /**
- * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
- *
- * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
- * at http://www.eclipse.org/org/documents/epl-v10.html.
- *
- * NO WARRANTY
- *
- * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
- * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE "DELIVERABLES") ARE ON AN "AS-IS" BASIS.
- * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
- * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
- * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
- * CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
- * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
- * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
- * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- *
- * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
- * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
- * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
- * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
- * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
- * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- *
- * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
- * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
- * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
- * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
- * under the contract clause at 252.227.7013.
- * </copyright>
- *
- * $Id: ComponentTypeRenameImpl.java,v 1.11 2009-01-12 16:25:09 jseibel Exp $
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.aadl2.impl;
 
@@ -104,7 +92,6 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getComponentTypeRename();
 	}
@@ -114,7 +101,6 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ComponentCategory getCategory() {
 		return category;
 	}
@@ -124,14 +110,12 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setCategory(ComponentCategory newCategory) {
 		ComponentCategory oldCategory = category;
 		category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPONENT_TYPE_RENAME__CATEGORY,
 					oldCategory, category));
-		}
 	}
 
 	/**
@@ -139,17 +123,15 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ComponentType getRenamedComponentType() {
 		if (renamedComponentType != null && ((EObject) renamedComponentType).eIsProxy()) {
 			InternalEObject oldRenamedComponentType = (InternalEObject) renamedComponentType;
 			renamedComponentType = (ComponentType) eResolveProxy(oldRenamedComponentType);
 			if (renamedComponentType != oldRenamedComponentType) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.COMPONENT_TYPE_RENAME__RENAMED_COMPONENT_TYPE, oldRenamedComponentType,
 							renamedComponentType));
-				}
 			}
 		}
 		return renamedComponentType;
@@ -169,15 +151,13 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setRenamedComponentType(ComponentType newRenamedComponentType) {
 		ComponentType oldRenamedComponentType = renamedComponentType;
 		renamedComponentType = newRenamedComponentType;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.COMPONENT_TYPE_RENAME__RENAMED_COMPONENT_TYPE, oldRenamedComponentType,
 					renamedComponentType));
-		}
 	}
 
 	/**
@@ -185,15 +165,13 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_TYPE_RENAME__CATEGORY:
 			return getCategory();
 		case Aadl2Package.COMPONENT_TYPE_RENAME__RENAMED_COMPONENT_TYPE:
-			if (resolve) {
+			if (resolve)
 				return getRenamedComponentType();
-			}
 			return basicGetRenamedComponentType();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -204,7 +182,6 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_TYPE_RENAME__CATEGORY:
@@ -222,7 +199,6 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_TYPE_RENAME__CATEGORY:
@@ -240,7 +216,6 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_TYPE_RENAME__CATEGORY:
@@ -256,11 +231,9 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
-		if (eIsProxy()) {
+		if (eIsProxy())
 			return super.toString();
-		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (category: ");

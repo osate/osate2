@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright © 2011 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -9,13 +9,13 @@
  * 
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
- * version 1.0 of the License, or (at your option) any later version. This
+ * version 2.0 of the License, or (at your option) any later version. This
  * program is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License for
  * more details. You should have received a copy of the Eclipse Public License
  * along with this program. If not, see
- * http://www.eclipse.org/org/documents/epl-v10.php
+ * https://www.eclipse.org/legal/epl-2.0/
  */
 package org.osate.ba.aadlba.impl;
 
@@ -44,12 +44,12 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.SimpleExpressionImpl#getUnaryAddingOperator <em>Unary Adding Operator</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.SimpleExpressionImpl#getTerms <em>Terms</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.SimpleExpressionImpl#getBinaryAddingOperators <em>Binary Adding Operators</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -130,6 +130,7 @@ public class SimpleExpressionImpl extends BehaviorElementImpl implements SimpleE
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public UnaryAddingOperator getUnaryAddingOperator()
   {
     return unaryAddingOperator;
@@ -140,6 +141,7 @@ public class SimpleExpressionImpl extends BehaviorElementImpl implements SimpleE
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setUnaryAddingOperator(UnaryAddingOperator newUnaryAddingOperator)
   {
     UnaryAddingOperator oldUnaryAddingOperator = unaryAddingOperator;
@@ -155,6 +157,7 @@ public class SimpleExpressionImpl extends BehaviorElementImpl implements SimpleE
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetUnaryAddingOperator()
   {
     UnaryAddingOperator oldUnaryAddingOperator = unaryAddingOperator;
@@ -170,6 +173,7 @@ public class SimpleExpressionImpl extends BehaviorElementImpl implements SimpleE
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetUnaryAddingOperator()
   {
     return unaryAddingOperatorESet;
@@ -180,6 +184,7 @@ public class SimpleExpressionImpl extends BehaviorElementImpl implements SimpleE
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Term> getTerms()
   {
     if (terms == null)
@@ -194,6 +199,7 @@ public class SimpleExpressionImpl extends BehaviorElementImpl implements SimpleE
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<BinaryAddingOperator> getBinaryAddingOperators()
   {
     if (binaryAddingOperators == null)
@@ -208,6 +214,7 @@ public class SimpleExpressionImpl extends BehaviorElementImpl implements SimpleE
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetBinaryAddingOperators()
   {
     if (binaryAddingOperators != null) ((InternalEList.Unsettable<?>)binaryAddingOperators).unset();
@@ -218,6 +225,7 @@ public class SimpleExpressionImpl extends BehaviorElementImpl implements SimpleE
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetBinaryAddingOperators()
   {
     return binaryAddingOperators != null && ((InternalEList.Unsettable<?>)binaryAddingOperators).isSet();
@@ -338,7 +346,7 @@ public class SimpleExpressionImpl extends BehaviorElementImpl implements SimpleE
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (unaryAddingOperator: ");
     if (unaryAddingOperatorESet) result.append(unaryAddingOperator); else result.append("<unset>");
     result.append(", binaryAddingOperators: ");

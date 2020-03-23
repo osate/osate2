@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.osate.categories" version="2">
+    <resource path="src-gen/org/osate/categories/serializer/CategoriesSemanticSequencer.java" type="org.osate.categories.serializer.CategoriesSemanticSequencer">
+        <filter comment="xtext" id="576720909">
+            <message_arguments>
+                <message_argument value="AbstractDelegatingSemanticSequencer"/>
+                <message_argument value="CategoriesSemanticSequencer"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/categories/serializer/CategoriesSyntacticSequencer.java" type="org.osate.categories.serializer.CategoriesSyntacticSequencer">
+        <filter comment="xtext" id="576720909">
+            <message_arguments>
+                <message_argument value="AbstractSyntacticSequencer"/>
+                <message_argument value="CategoriesSyntacticSequencer"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynTransition"/>
+                <message_argument value="CategoriesSyntacticSequencer"/>
+                <message_argument value="emitUnassignedTokens(EObject, ISyntacticSequencerPDAProviderISynTransition, INode, INode)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>

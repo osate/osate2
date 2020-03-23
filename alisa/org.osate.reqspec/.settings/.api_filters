@@ -1,0 +1,775 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.osate.reqspec" version="2">
+    <resource path="src-gen/org/osate/reqspec/serializer/ReqSpecSyntacticSequencer.java" type="org.osate.reqspec.serializer.ReqSpecSyntacticSequencer">
+        <filter comment="xtext" id="576720909">
+            <message_arguments>
+                <message_argument value="AbstractSyntacticSequencer"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_AParenthesizedExpression_LeftParenthesisKeyword_0_a"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_AParenthesizedExpression_LeftParenthesisKeyword_0_p"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_DocGoal_CategoryKeyword_5_0_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_DocGoal_EvolvesKeyword_5_8_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_DocGoal_IssuesKeyword_5_12_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_DocGoal_RefinesKeyword_5_6_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_DocGoal_StakeholderKeyword_5_10_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_DocGoal___ConflictsKeyword_5_7_0_WithKeyword_5_7_1__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_DocGoal___SeeKeyword_5_11_0_DocumentKeyword_5_11_1__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_DocRequirement_CategoryKeyword_5_0_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_DocRequirement_DecomposesKeyword_5_10_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_DocRequirement_EvolvesKeyword_5_12_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_DocRequirement_IssuesKeyword_5_17_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_DocRequirement_RefinesKeyword_5_9_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_DocRequirement___DevelopmentKeyword_5_14_0_StakeholderKeyword_5_14_1__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_DocRequirement___SeeKeyword_5_15_0_GoalKeyword_5_15_1__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_DocRequirement___SeeKeyword_5_16_0_DocumentKeyword_5_16_1__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_GlobalRequirementSet_IssuesKeyword_7_6_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_GlobalRequirementSet___SeeKeyword_7_4_0_DocumentKeyword_7_4_1__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_GlobalRequirementSet___SeeKeyword_7_5_0_GoalsKeyword_7_5_1__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_GlobalRequirement_CategoryKeyword_5_0_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_GlobalRequirement_DecomposesKeyword_5_10_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_GlobalRequirement_EvolvesKeyword_5_11_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_GlobalRequirement_IssuesKeyword_5_17_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_GlobalRequirement_RefinesKeyword_5_9_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_GlobalRequirement___DevelopmentKeyword_5_13_0_StakeholderKeyword_5_13_1__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_GlobalRequirement___SeeKeyword_5_14_0_GoalKeyword_5_14_1__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_GlobalRequirement___SeeKeyword_5_15_0_RequirementKeyword_5_15_1__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_GlobalRequirement___SeeKeyword_5_16_0_DocumentKeyword_5_16_1__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_Goal_CategoryKeyword_5_0_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_Goal_EvolvesKeyword_5_8_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_Goal_IssuesKeyword_5_13_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_Goal_RefinesKeyword_5_6_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_Goal_StakeholderKeyword_5_10_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_Goal___ConflictsKeyword_5_7_0_WithKeyword_5_7_1__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_Goal___SeeKeyword_5_11_0_GoalKeyword_5_11_1__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_Goal___SeeKeyword_5_12_0_DocumentKeyword_5_12_1__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_ReqDocument_IssuesKeyword_4_3_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_ReqDocument___SeeKeyword_4_2_0_DocumentKeyword_4_2_1__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_StakeholderGoals_IssuesKeyword_7_4_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_StakeholderGoals___SeeKeyword_7_3_0_DocumentKeyword_7_3_1__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_SystemRequirementSet_IssuesKeyword_9_7_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_SystemRequirementSet___SeeKeyword_9_5_0_DocumentKeyword_9_5_1__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_SystemRequirementSet___SeeKeyword_9_6_0_GoalsKeyword_9_6_1__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_SystemRequirement_CategoryKeyword_5_0_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_SystemRequirement_DecomposesKeyword_5_12_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_SystemRequirement_EvolvesKeyword_5_13_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_SystemRequirement_IssuesKeyword_5_18_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_SystemRequirement_RefinesKeyword_5_11_0_q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_SystemRequirement___DevelopmentKeyword_5_14_0_StakeholderKeyword_5_14_1__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_SystemRequirement___SeeKeyword_5_15_0_GoalKeyword_5_15_1__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_SystemRequirement___SeeKeyword_5_16_0_RequirementKeyword_5_16_1__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="627060751">
+            <message_arguments>
+                <message_argument value="AbstractElementAlias"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="match_SystemRequirement___SeeKeyword_5_17_0_DocumentKeyword_5_17_1__q"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_AParenthesizedExpression_LeftParenthesisKeyword_0_a(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_AParenthesizedExpression_LeftParenthesisKeyword_0_p(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_DocGoal_CategoryKeyword_5_0_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_DocGoal_EvolvesKeyword_5_8_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_DocGoal_IssuesKeyword_5_12_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_DocGoal_RefinesKeyword_5_6_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_DocGoal_StakeholderKeyword_5_10_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_DocGoal___ConflictsKeyword_5_7_0_WithKeyword_5_7_1__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_DocGoal___SeeKeyword_5_11_0_DocumentKeyword_5_11_1__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_DocRequirement_CategoryKeyword_5_0_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_DocRequirement_DecomposesKeyword_5_10_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_DocRequirement_EvolvesKeyword_5_12_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_DocRequirement_IssuesKeyword_5_17_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_DocRequirement_RefinesKeyword_5_9_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_DocRequirement___DevelopmentKeyword_5_14_0_StakeholderKeyword_5_14_1__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_DocRequirement___SeeKeyword_5_15_0_GoalKeyword_5_15_1__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_DocRequirement___SeeKeyword_5_16_0_DocumentKeyword_5_16_1__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_GlobalRequirementSet_IssuesKeyword_7_6_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_GlobalRequirementSet___SeeKeyword_7_4_0_DocumentKeyword_7_4_1__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_GlobalRequirementSet___SeeKeyword_7_5_0_GoalsKeyword_7_5_1__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_GlobalRequirement_CategoryKeyword_5_0_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_GlobalRequirement_DecomposesKeyword_5_10_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_GlobalRequirement_EvolvesKeyword_5_11_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_GlobalRequirement_IssuesKeyword_5_17_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_GlobalRequirement_RefinesKeyword_5_9_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_GlobalRequirement___DevelopmentKeyword_5_13_0_StakeholderKeyword_5_13_1__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_GlobalRequirement___SeeKeyword_5_14_0_GoalKeyword_5_14_1__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_GlobalRequirement___SeeKeyword_5_15_0_RequirementKeyword_5_15_1__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_GlobalRequirement___SeeKeyword_5_16_0_DocumentKeyword_5_16_1__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_Goal_CategoryKeyword_5_0_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_Goal_EvolvesKeyword_5_8_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_Goal_IssuesKeyword_5_13_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_Goal_RefinesKeyword_5_6_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_Goal_StakeholderKeyword_5_10_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_Goal___ConflictsKeyword_5_7_0_WithKeyword_5_7_1__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_Goal___SeeKeyword_5_11_0_GoalKeyword_5_11_1__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_Goal___SeeKeyword_5_12_0_DocumentKeyword_5_12_1__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_ReqDocument_IssuesKeyword_4_3_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_ReqDocument___SeeKeyword_4_2_0_DocumentKeyword_4_2_1__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_StakeholderGoals_IssuesKeyword_7_4_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_StakeholderGoals___SeeKeyword_7_3_0_DocumentKeyword_7_3_1__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_SystemRequirementSet_IssuesKeyword_9_7_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_SystemRequirementSet___SeeKeyword_9_5_0_DocumentKeyword_9_5_1__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_SystemRequirementSet___SeeKeyword_9_6_0_GoalsKeyword_9_6_1__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_SystemRequirement_CategoryKeyword_5_0_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_SystemRequirement_DecomposesKeyword_5_12_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_SystemRequirement_EvolvesKeyword_5_13_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_SystemRequirement_IssuesKeyword_5_18_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_SystemRequirement_RefinesKeyword_5_11_0_q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_SystemRequirement___DevelopmentKeyword_5_14_0_StakeholderKeyword_5_14_1__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_SystemRequirement___SeeKeyword_5_15_0_GoalKeyword_5_15_1__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_SystemRequirement___SeeKeyword_5_16_0_RequirementKeyword_5_16_1__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynNavigable"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emit_SystemRequirement___SeeKeyword_5_17_0_DocumentKeyword_5_17_1__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="ISynTransition"/>
+                <message_argument value="ReqSpecSyntacticSequencer"/>
+                <message_argument value="emitUnassignedTokens(EObject, ISyntacticSequencerPDAProviderISynTransition, INode, INode)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="xtend-gen/org/osate/reqspec/serializer/ReqSpecCrossReferenceSerializer.java" type="org.osate.reqspec.serializer.ReqSpecCrossReferenceSerializer">
+        <filter comment="xtext" id="576720909">
+            <message_arguments>
+                <message_argument value="CrossReferenceSerializer"/>
+                <message_argument value="ReqSpecCrossReferenceSerializer"/>
+            </message_arguments>
+        </filter>
+        <filter comment="xtext" id="643846161">
+            <message_arguments>
+                <message_argument value="Acceptor"/>
+                <message_argument value="ReqSpecCrossReferenceSerializer"/>
+                <message_argument value="serializeCrossRef(EObject, CrossReference, EObject, INode, ISerializationDiagnosticAcceptor)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>

@@ -1,3 +1,26 @@
+<!--
+Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+All Rights Reserved.
+
+NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+
+This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+SPDX-License-Identifier: EPL-2.0
+
+Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+
+This program includes and/or can make use of certain third party source code, object code, documentation and other
+files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+-->
 # Latency Analysis
 
 [TOC levels=2-4 bullet hierarchy]
@@ -56,7 +79,7 @@ is calculated. This allows users to perform studies along different dimensions w
 
 ![Configuration Dialog](images/FlowLatencyDialog.png "Flow Latency Configuration Dialog")
 
-The body of the dialog contains four sets of radio buttons that are described below.  Clicking on
+The body of the dialog contains five sets of radio buttons that are described below.  Clicking on
 **OK** executes the analysis with the chosen settings.  The settings are remembered the next time the
 analysis is run.  Clicking on **Cancel** discards the settings and does not run the analysis.  If
 **Don't show this dialog again** is selected when **OK** is pressed, the dialog will not be shown 
@@ -104,7 +127,10 @@ The flow latency analysis supports the following settings:
       is assumed to be empty.
     - **Assume full queue (FQ)**: Use minimum compute execution time
       times the queue size to determine the best case queuing time.
-
+- **Disable queuing latency in the results**: Determines whether worst-case queuing delay is reported for asyncronous busses.
+    - **Disable**: The worst-case queuing delay is always reported as 0.
+    - **Enable**: The worst-case queuing delay is reported as calculated below.
+ 
 The OSATE preference settings controlling the default values for flow latency analysis
 are found in the **OSATE > Analysis > Flow Latency** preference pane.
 
@@ -384,6 +410,14 @@ period property values with threads and devices.
   full period (see discussion below).  
   
 > The first end to end flow element may be a periodic component. In this case, no sampling latency is added. However, succeeding periodic sampling components may be aligned in the synchronous use scenario. 
+
+### Queuing Delay in Asynchronous Communication ###
+
+As described above, when a bus is periodic (has a **Period** property association), the period is used to determine the worst-case sampling delay.  When a bus does not have a period, a sender may need to be wait for other uses to finish sending data on the bus before it can access it.  Analysis computes the worst-case queuing delay based on the **Transmission_Time** property of the bus and the **Data_Size** of the information that flows over the bus.  Specifically, the maximum queuing delay for a connection is the sum off all the maximum transmission times for any other connections bound to the bus.  The data sizes for the communications includes the data overhead imposed by the bus, connections, and any higher-level protocols (virtual buses) encountered.
+
+> Buses with a period will always have a non-zero sampling delay and no queuing delay.
+>
+> Buses without a period will always have a queuing delay and no sampling delay.
 
 ### Processing Times as Latency Contributors
 

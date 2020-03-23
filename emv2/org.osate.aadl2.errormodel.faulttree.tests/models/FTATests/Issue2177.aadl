@@ -1,0 +1,53 @@
+package Issue2177
+public
+
+	system SubSys1
+		features
+			A_Out: out data port;
+			B_In: in data port;
+	end SubSys1;
+
+	system implementation SubSys1.EMV2
+		annex EMV2 {**
+			use types Issue2177;
+			use behavior Issue2177::DisplayStates;
+			
+			error propagations
+				A_Out: out propagation {ServiceError};
+				B_In: in propagation {ServiceError};
+				flows
+					flow_SE: error source A_Out {ServiceError};
+					flow_VRE_SE: error sink B_In {ServiceError};
+			end propagations;
+			
+			component error behavior
+				events
+					Internal_Service_Error: error event;
+				transitions
+					trans_SE: Operational -[1 ormore (Internal_Service_Error, A_out {ServiceError})]-> LossOfData;
+				propagations
+					prop_SE: LossOfData -[]-> A_Out {ServiceError};
+			end component;
+		**};
+	end SubSys1.EMV2;
+
+	annex EMV2 {**
+		-- Error Types copied from ErrorLibrary.aadl and reduced to those used for this project.
+		error types
+			CommonErrors: type set {ServiceError, ValueRelatedError};
+			-- Error Types
+			ServiceError: type;
+			ValueRelatedError: type;
+		end types;
+		
+		-- Error Behavior defined for Display	
+		error behavior DisplayStates
+			use types Error_Library;
+			states
+				Operational: initial state;
+				MisleadingData: state;
+				LossOfData: state;
+		end behavior;
+	**};
+
+end Issue2177;

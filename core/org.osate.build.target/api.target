@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?>
+<target name="osate-api" sequenceNumber="2">
+    <locations>
+        <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+            <repository location="http://osate-build.sei.cmu.edu/download/osate/stable/2.7.0/updates"/>
+            <unit id="org.osate.alisa.workbench.sdk.feature.group" version="2.0.0.v20200204-1726"/>
+            <unit id="org.osate.ba.feature.feature.group" version="2.0.0.v20200202-1551"/>
+            <unit id="org.osate.core.feature.feature.group" version="3.0.0.v20200204-1733"/>
+            <unit id="org.osate.ge.feature.feature.group" version="3.0.0.v20200201-1852"/>
+            <unit id="org.osate.plugins.feature.feature.group" version="3.0.0.v20200202-1550"/>
+            <unit id="org.osate.utils.feature.feature.group" version="1.0.1.v20200201-1852"/>
+            <unit id="org.osate.xtext.aadl2.errormodel.feature.feature.group" version="3.0.0.v20200204-1726"/>
+        </location>
+        <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+            <unit id="org.eclipse.egit.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.emf.sdk.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.emf.transaction.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.emf.transaction.sdk.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.equinox.executable.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.equinox.p2.discovery.feature.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.gmf.runtime.sdk.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.graphiti.feature.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.graphiti.export.feature.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.graphiti.feature.tools.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.graphiti.sdk.feature.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.m2e.logback.feature.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.mylyn.context_feature.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.platform.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.sirius.common.acceleo.aql" version="0.0.0"/>
+            <unit id="org.eclipse.sirius.runtime.ide.ui.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.uml2.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.zest.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.xtend" version="0.0.0"/>
+            <repository location="http://download.eclipse.org/releases/2019-12"/>
+        </location>
+        <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+            <unit id="org.eclipse.birt.chart.engine.extension" version="0.0.0"/>
+            <unit id="org.eclipse.birt.chart.engine" version="0.0.0"/>
+            <unit id="org.eclipse.birt.chart.reportitem" version="0.0.0"/>
+            <unit id="org.eclipse.birt.core" version="0.0.0"/>
+            <unit id="org.eclipse.birt.data.aggregation" version="0.0.0"/>
+            <unit id="org.eclipse.birt.data" version="0.0.0"/>
+            <unit id="org.eclipse.birt.report.data.adapter" version="0.0.0"/>
+            <unit id="org.eclipse.birt.report.engine.emitter.config.docx" version="0.0.0"/>
+            <unit id="org.eclipse.birt.report.engine.emitter.config.excel" version="0.0.0"/>
+            <unit id="org.eclipse.birt.report.engine.emitter.config.html" version="0.0.0"/>
+            <unit id="org.eclipse.birt.report.engine.emitter.config.odp" version="0.0.0"/>
+            <unit id="org.eclipse.birt.report.engine.emitter.config.ods" version="0.0.0"/>
+            <unit id="org.eclipse.birt.report.engine.emitter.config.odt" version="0.0.0"/>
+            <unit id="org.eclipse.birt.report.engine.emitter.config.pdf" version="0.0.0"/>
+            <unit id="org.eclipse.birt.report.engine.emitter.config.pptx" version="0.0.0"/>
+            <unit id="org.eclipse.birt.report.engine.emitter.config" version="0.0.0"/>
+            <unit id="org.eclipse.birt.report.engine.emitter.docx" version="0.0.0"/>
+            <unit id="org.eclipse.birt.report.engine.emitter.html" version="0.0.0"/>
+            <unit id="org.eclipse.birt.report.engine.emitter.odp" version="0.0.0"/>
+            <unit id="org.eclipse.birt.report.engine.emitter.ods" version="0.0.0"/>
+            <unit id="org.eclipse.birt.report.engine.emitter.odt" version="0.0.0"/>
+            <unit id="org.eclipse.birt.report.engine.emitter.pdf" version="0.0.0"/>
+            <unit id="org.eclipse.birt.report.engine.emitter.ppt" version="0.0.0"/>
+            <unit id="org.eclipse.birt.report.engine.emitter.pptx" version="0.0.0"/>
+            <unit id="org.eclipse.birt.report.engine.emitter.wpml" version="0.0.0"/>
+            <unit id="org.eclipse.birt.report.engine.fonts" version="0.0.0"/>
+            <unit id="org.eclipse.birt.report.engine.odf" version="0.0.0"/>
+            <unit id="org.eclipse.birt.report.engine.ooxml" version="0.0.0"/>
+            <unit id="org.eclipse.birt.report.engine.script.javascript" version="0.0.0"/>
+            <unit id="org.eclipse.birt.report.engine" version="0.0.0"/>
+            <unit id="org.eclipse.birt.report.item.crosstab.core" version="0.0.0"/>
+            <unit id="org.eclipse.birt.report.model" version="0.0.0"/>
+            <unit id="uk.co.spudsoft.birt.emitters.excel" version="0.0.0"/>
+            <repository location="http://download.eclipse.org/birt/update-site/2018-09-interim"/>
+        </location>
+        <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+            <unit id="org.eclipse.xtext.generator" version="0.0.0"/>
+            <unit id="org.eclipse.xtext.redist.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.xtext.junit4" version="0.0.0"/>
+            <unit id="org.eclipse.xtext.testing" version="0.0.0"/>
+            <repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.20.0"/>
+        </location>
+        <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+            <unit id="org.eclipse.emf.mwe2.launcher.feature.group" version="0.0.0"/>
+            <repository location="http://download.eclipse.org/modeling/emft/mwe/updates/releases/2.11.1"/>
+        </location>
+        <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+            <unit id="org.eclipse.xsemantics.runtime.feature.feature.group" version="0.0.0"/>
+            <repository location="http://download.eclipse.org/xsemantics/milestones/1.19"/>
+        </location>
+        <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+            <unit id="org.apache.commons.io" version="2.2.0.v201405211200"/>
+            <repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20191126223242/repository"/>
+        </location>
+        <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+            <unit id="org.eclipse.elk.feature.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.elk.algorithms.feature.feature.group" version="0.0.0"/>
+            <repository location="http://download.eclipse.org/elk/updates/releases/0.5.0"/>
+        </location>
+        <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+            <unit id="org.eclipse.ease.feature.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.ease.lang.python.py4j.feature.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.ease.lang.scriptarchive.feature.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.ease.lang.unittest.feature.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.ease.modules.feature.feature.group" version="0.0.0"/>
+            <unit id="org.eclipse.ease.ui.feature.feature.group" version="0.0.0"/>
+            <repository location="http://download.eclipse.org/ease/update/release"/>
+        </location>
+        <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+            <unit id="org.py4j.feature.feature.group" version="0.0.0"/>
+            <repository location="http://eclipse.py4j.org"/>
+        </location>
+        <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+            <unit id="org.yakindu.base.xtext.utils.jface" version="0.0.0"/>
+            <repository location="http://updates.yakindu.com/statecharts/releases/3.5.9"/>
+        </location>
+    </locations>
+</target>

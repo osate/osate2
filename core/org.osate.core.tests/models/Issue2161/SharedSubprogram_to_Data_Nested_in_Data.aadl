@@ -1,0 +1,65 @@
+package SharedSubprogram_to_Data_inData
+public
+	subprogram ShareMe
+	end ShareMe;
+	
+	data InnerD
+		features
+			saf1: requires subprogram access ShareMe;
+	end InnerD;
+	
+	data OuterD
+		features
+			saf2: requires subprogram access ShareMe;
+	end OuterD;
+	
+	data implementation OuterD.generic
+		subcomponents
+			inner: data InnerD;
+	end OuterD.generic;
+	
+	data implementation OuterD.bidirectional extends OuterD.generic
+		connections
+			sac1: subprogram access saf2 <-> inner.saf1;
+	end OuterD.bidirectional;
+	
+	data implementation OuterD.fromSharedComponent extends OuterD.generic
+		connections
+			sac1: subprogram access saf2 -> inner.saf1;
+	end OuterD.fromSharedComponent;
+	
+	data implementation OuterD.toSharedComponent extends OuterD.generic
+		connections
+			sac1: subprogram access inner.saf1 -> saf2;
+	end OuterD.toSharedComponent;
+	
+	system Root
+	end Root;
+	
+	system implementation Root.generic
+		subcomponents
+			shareMe: subprogram ShareMe;
+			outer: data OuterD.generic;
+	end Root.generic;
+	
+	system implementation Root.bidirectional extends Root.generic
+		subcomponents
+			outer: refined to data OuterD.bidirectional;
+		connections
+			sac2: subprogram access shareMe <-> outer.saf2;
+	end Root.bidirectional;
+	
+	system implementation Root.fromSharedComponent extends Root.generic
+		subcomponents
+			outer: refined to data OuterD.fromSharedComponent;
+		connections
+			sac2: subprogram access shareMe -> outer.saf2;
+	end Root.fromSharedComponent;
+	
+	system implementation Root.toSharedComponent extends Root.generic
+		subcomponents
+			outer: refined to data OuterD.toSharedComponent;
+		connections
+			sac2: subprogram access outer.saf2 -> shareMe;
+	end Root.toSharedComponent;
+end SharedSubprogram_to_Data_inData;

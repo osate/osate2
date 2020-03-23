@@ -1,17 +1,25 @@
 /**
- * Copyright 2015 Carnegie Mellon University. All Rights Reserved.
- *
- * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE
- * MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO
- * WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,
- * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY,
- * EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON
- * UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM
- * PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- *
- * Released under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)
- *
- * See COPYRIGHT file for full details.
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.alisa.common.services;
 
@@ -164,7 +172,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//'['
 		public Keyword getLeftSquareBracketKeyword_2() { return cLeftSquareBracketKeyword_2; }
 
-		//('volatility' volatility=INT)? & ('precedence' precedence=INT)? & ('impact' impact=INT)?
+		//(('volatility' volatility=INT)? & ('precedence' precedence=INT)? & ('impact' impact=INT)?)
 		public UnorderedGroup getUnorderedGroup_3() { return cUnorderedGroup_3; }
 
 		//('volatility' volatility=INT)?
@@ -437,7 +445,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//':'
 		public Keyword getColonKeyword_3_0() { return cColonKeyword_3_0; }
 
-		//type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef | 'typeof' type=PropertyRef) ']'
+		//(type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef | 'typeof' type=PropertyRef) ']')
 		public Alternatives getAlternatives_3_1() { return cAlternatives_3_1; }
 
 		//type=TypeRef
@@ -467,7 +475,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//'['
 		public Keyword getRangeLeftSquareBracketKeyword_3_1_2_0_0() { return cRangeLeftSquareBracketKeyword_3_1_2_0_0; }
 
-		//type=TypeRef | 'typeof' type=PropertyRef
+		//(type=TypeRef | 'typeof' type=PropertyRef)
 		public Alternatives getAlternatives_3_1_2_1() { return cAlternatives_3_1_2_1; }
 
 		//type=TypeRef
@@ -553,7 +561,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//':'
 		public Keyword getColonKeyword_3() { return cColonKeyword_3; }
 
-		//type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef | 'typeof' type=PropertyRef) ']'
+		//(type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef | 'typeof' type=PropertyRef) ']')
 		public Alternatives getAlternatives_4() { return cAlternatives_4; }
 
 		//type=TypeRef
@@ -583,7 +591,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//'['
 		public Keyword getRangeLeftSquareBracketKeyword_4_2_0_0() { return cRangeLeftSquareBracketKeyword_4_2_0_0; }
 
-		//type=TypeRef | 'typeof' type=PropertyRef
+		//(type=TypeRef | 'typeof' type=PropertyRef)
 		public Alternatives getAlternatives_4_2_1() { return cAlternatives_4_2_1; }
 
 		//type=TypeRef
@@ -648,7 +656,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//=> ({APropertyReference.modelElementReference=current} '#')
 		public Group getGroup_0_1_0() { return cGroup_0_1_0; }
 
-		//{APropertyReference.modelElementReference=current} '#'
+		//({APropertyReference.modelElementReference=current} '#')
 		public Group getGroup_0_1_0_0() { return cGroup_0_1_0_0; }
 
 		//{APropertyReference.modelElementReference=current}
@@ -812,7 +820,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//((convert?='%' | drop?='in') unit=[aadl2::UnitLiteral])?
 		public Group getGroup_1() { return cGroup_1; }
 
-		//convert?='%' | drop?='in'
+		//(convert?='%' | drop?='in')
 		public Alternatives getAlternatives_1_0() { return cAlternatives_1_0; }
 
 		//convert?='%'
@@ -938,7 +946,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//=> ({ABinaryOperation.left=current} operator=OpOr)
 		public Group getGroup_1_0() { return cGroup_1_0; }
 
-		//{ABinaryOperation.left=current} operator=OpOr
+		//({ABinaryOperation.left=current} operator=OpOr)
 		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
 
 		//{ABinaryOperation.left=current}
@@ -1006,7 +1014,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//=> ({ABinaryOperation.left=current} operator=OpAnd)
 		public Group getGroup_1_0() { return cGroup_1_0; }
 
-		//{ABinaryOperation.left=current} operator=OpAnd
+		//({ABinaryOperation.left=current} operator=OpAnd)
 		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
 
 		//{ABinaryOperation.left=current}
@@ -1074,7 +1082,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//=> ({ABinaryOperation.left=current} operator=OpEquality)
 		public Group getGroup_1_0() { return cGroup_1_0; }
 
-		//{ABinaryOperation.left=current} operator=OpEquality
+		//({ABinaryOperation.left=current} operator=OpEquality)
 		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
 
 		//{ABinaryOperation.left=current}
@@ -1146,7 +1154,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//=> ({ABinaryOperation.left=current} operator=OpCompare)
 		public Group getGroup_1_0() { return cGroup_1_0; }
 
-		//{ABinaryOperation.left=current} operator=OpCompare
+		//({ABinaryOperation.left=current} operator=OpCompare)
 		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
 
 		//{ABinaryOperation.left=current}
@@ -1240,7 +1248,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//=> ({ABinaryOperation.left=current} operator=OpAdd)
 		public Group getGroup_1_0() { return cGroup_1_0; }
 
-		//{ABinaryOperation.left=current} operator=OpAdd
+		//({ABinaryOperation.left=current} operator=OpAdd)
 		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
 
 		//{ABinaryOperation.left=current}
@@ -1308,7 +1316,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//=> ({ABinaryOperation.left=current} operator=OpMulti)
 		public Group getGroup_1_0() { return cGroup_1_0; }
 
-		//{ABinaryOperation.left=current} operator=OpMulti
+		//({ABinaryOperation.left=current} operator=OpMulti)
 		public Group getGroup_1_0_0() { return cGroup_1_0_0; }
 
 		//{ABinaryOperation.left=current}
@@ -1809,7 +1817,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//{aadl2::BooleanLiteral}
 		public Action getBooleanLiteralAction_0() { return cBooleanLiteralAction_0; }
 
-		//value?='true' | 'false'
+		//(value?='true' | 'false')
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
 		//value?='true'
@@ -3109,7 +3117,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//terminal STRING:
-	//	'"' ('\\' . | !('\\' | '"'))* '"' | "'" ('\\' . | !('\\' | "'"))* "'";
+	//	'"' ('\\' . | !('\\' | '"'))* '"' |
+	//	"'" ('\\' . | !('\\' | "'"))* "'";
 	public TerminalRule getSTRINGRule() {
 		return gaTerminals.getSTRINGRule();
 	} 

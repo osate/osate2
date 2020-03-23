@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>OSATEUserGuide</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+</head>
+<body>
+<!--
+Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+All Rights Reserved.
+
+NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+
+This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+SPDX-License-Identifier: EPL-2.0
+
+Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+
+This program includes and/or can make use of certain third party source code, object code, documentation and other
+files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+-->
+<h1 id="osate-user-guide">OSATE User Guide</h1>
+<p>OSATE is a complete modeling environment providing support for describing AADL models. It is composed of many features to model and analyse systems. Also, a user can build their own tools based on OSATE and extend its initial capability.</p>
+<p>This manual provides an overview of the basic features of OSATE and describes how to work with AADL models:</p>
+<ul>
+<li><a href="#basics">Eclipse Basics</a></li>
+<li><a href="#project">Creating an AADL Project</a></li>
+<li><a href="#navigation">Navigating an AADL Model</a></li>
+<li><a href="#instance">Instantiating Your Model</a></li>
+<li><a href="#in_out">Importing and Exporting Models</a></li>
+<li><a href="#analysis">Analyzing a Model</a></li>
+<li><a href="#properties">Viewing AADL Property Values</a></li>
+<li><a href="#classifierView">Viewing Classifier Members</a></li>
+</ul>
+<h2 id="eclipse-basics"><span id="basics">Eclipse Basics</span></h2>
+<p>OSATE is built on the Eclipse framework. You may be familiar with Eclipse from using it for Java development. OSATE inherits many concepts from Eclipse including</p>
+<ul>
+<li><strong>The Workbench.</strong> The main UI.</li>
+<li><strong>Projects.</strong> Work is divided into projects that group together related files. Projects may be closed when they are not in use to prevent then from taking up OSATE resources and to prevent accidental modification.</li>
+<li><strong>Views.</strong> A view is a read-only display of information. A view may be connected to a specific object in the OSATE workspace (often times the currently selected element).</li>
+<li><strong>Editors.</strong> Not surprisingly, an editor provides write access to information in a project. For example, OSATE has both a textual and graphical editor for AADL packages.</li>
+<li><strong>Perspectives.</strong> A perspective is a prearranged collection of views, editors, and toolbars focused around a particular task. In OSATE, you mainly use the <code>AADL</code> perspective.</li>
+<li><strong>Markers.</strong> A marker is a piece of information attached to a location in a file. They are commonly used to report errors and warnings about files. For example, OSATE uses markers to report syntax errors in AADL files. Ananlysis plug-ins often use markers to communicate their results. Markers are visible in several ways. They are most commonly interacted with as annotations within editors and as a list in the <code>Problems</code> view.</li>
+</ul>
+<h3 id="eclipse-help">Eclipse Help</h3>
+<p>If you are unfamiliar with Eclipse, the “Workbench User Guide” in the Eclipse help system is an excellent introduction. This can be accessed in OSATE by going to the <code>Help</code> menu in the main OSATE window and selecting <code>Help Contents</code>:</p>
+<figure>
+<img src="images/OSATEUserGuide/help1.png" alt="Menu Bar" /><figcaption>Menu Bar</figcaption>
+</figure>
+<p>A new browser window will open with a table of contents on the left-hand side. The <code>Workbench User Guide</code> is the first document in the list:</p>
+<figure>
+<img src="images/OSATEUserGuide/help2.png" alt="Help Window" /><figcaption>Help Window</figcaption>
+</figure>
+<h3 id="the-workbench">The Workbench</h3>
+<p>All work in the OSATE is done through a <em>Workbench</em>. This is the main window, and it generally fills most or all of your screen. The look and contents of the workbench are highly customizable, but it is uncommon to deviate too much from its default layout. Generally it has</p>
+<ul>
+<li>A row of toolbars along the top.</li>
+<li>A <em>navigator</em> view along the left-hand side. This view displays all the available projects and their contents. OSATE uses a customized <code>AADL Navigator</code> that also displays globally available AADL property sets provided by plug-ins.</li>
+<li>An <em>outline</em> view on the right-hand side. This view interacts with the active editor window and displays a structured semantic or syntactic outline of the contents of the editor. It can be used to quickly navigate the contents of the editor.</li>
+<li>The <code>Problems</code> view along the bottom. This view is used to interact with markers.</li>
+</ul>
+<p>The rest of the center space of the workbench is used to hold editor windows. This layout can be seen in the workbench window below that is set to the OSATE <code>AADL</code> perspective:</p>
+<figure>
+<img src="images/OSATEUserGuide/workbench.png" alt="Workbench" /><figcaption>Workbench</figcaption>
+</figure>
+<p>There are several other features of the workbench visible in the above image:</p>
+<ul>
+<li>Views can have their own toolbars.</li>
+<li>Views can be stacked into tabbed layouts. This is visible along the bottom of the workbench where there are tabs for the <code>Problems</code>, <code>Properties</code>, and <code>AADL Property Values</code> views.</li>
+<li>Views can have their own menus. The menu is accessible by clicking on the downward facing triangle in the top right of the toolbar of the view: <img src="images/OSATEUserGuide/ViewMenu.png" />.</li>
+<li>Views can be minimized or maximized within the workbench window using the toolbar buttons <img src="images/OSATEUserGuide/MinMax.png" />.</li>
+<li>Views can be closed by clicking on the “x” icon on their tab.</li>
+</ul>
+<h4 id="commands">Commands</h4>
+<p>As an Eclipse-based application, OSATE makes its commands available in multiple modalities. A single command is usually available</p>
+<ul>
+<li>In an OSATE menu.</li>
+<li>In a toolbar.</li>
+<li>In a context menu, when appropriate to the currently selected object. (A context menu is uaually opened with a right-click in Windows, or a <code>CTRL</code> + click in MacOS.)</li>
+</ul>
+<h4 id="missing-views">Missing Views</h4>
+<p>If you accidently close a view or simply want to add an additional view to the workbench, you can open a view by using the <code>Window &gt; Show View</code> submenu in the main OSATE menubar:</p>
+<figure>
+<img src="images/OSATEUserGuide/ShowView.png" alt="Show View Menu" /><figcaption>Show View Menu</figcaption>
+</figure>
+<p>This menu is populated with views specific to the current perspective. Here we see the <code>AADL Navigator</code> and <code>AADL Property Values</code> views specific to the <code>AADL</code> perspective. If you do not see the view you need listed, choose the <code>Other...</code> option to bring up the <code>Show View</code> dialog:</p>
+<figure>
+<img src="images/OSATEUserGuide/ShowViewDialog.png" alt="Show View Dialog" /><figcaption>Show View Dialog</figcaption>
+</figure>
+<p>This dialog lists all the views available. Views are grouped by category. Above we see the <code>Error Log</code> view in the <code>General</code> category being selected for use.</p>
+<h4 id="reseting-the-perspective">Reseting the Perspective</h4>
+<p>If you open/close too many views, rearrange your views, or otherwise put the workbench in a state that you find unusable, you can bring it back to good state by resetting the perspective. In the case of OSATE, you should reset the <code>AADL</code> perspective by bringing up the <em>context menu</em> on the <code>AADL</code> perspective icon on the right side of the workbench toolbar, and selecting <code>reset</code>:</p>
+<figure>
+<img src="images/OSATEUserGuide/ResetPerspective.png" alt="Reset Perspective" /><figcaption>Reset Perspective</figcaption>
+</figure>
+<p>This returns the arrangement of views and editors to a the default layout defined by the perspective.</p>
+<h3 id="osate-preferences">OSATE Preferences</h3>
+<p>OSATE (via its Eclipse underpinnings) has an exhaustive set of preferences that can be changed. These are accessed via the <code>Preferences</code> window. Access to preferences follows the host operating system standards:</p>
+<ul>
+<li>For windows, the preferences are under <code>Window &gt; Preferences</code>.</li>
+<li>For MacOS, the prefernece are under <code>OSATE &gt; Preferences...</code>.</li>
+</ul>
+<p>This brings up a window with a hierarchical list of settings on the left-hand side.</p>
+<p>One setting of immediate interest is found under <code>General &gt; Startup and Shutdown</code>. By default the setting <code>Refresh workspace on startup</code> is not enabled. Enabling it ensures that when starting up, OSATE updates its records to reflect any changes to the files in the workspace that may have occurred outside OSATE.</p>
+<figure>
+<img src="images/OSATEUserGuide/Preferences.png" alt="Preferences Window" /><figcaption>Preferences Window</figcaption>
+</figure>
+<h3 id="manual-refresh">Manual Refresh</h3>
+<p>You can manually initiate a refresh by selecting projects, folders, or files in the <code>AADL Navigator</code> and invoking <code>File &gt; Refresh</code> in the main menu or <code>Refresh</code> in the navigator’s context menu.</p>
+<h2 id="creating-an-aadl-project"><span id="project">Creating an AADL Project</span></h2>
+<p>Let us create an AADL Project in OSATE. To create a new AADL project in the workspace, click on the <code>New AADL Project</code> button <img src="images/OSATEUserGuide/NewAadlProjectButton.png" alt="New AADL Project icon" /> in the OSATE toolbar. A new project wizard will open:</p>
+<figure>
+<img src="images/OSATEUserGuide/NewAadlProjectWizard.png" alt="New Project Wizard" /><figcaption>New Project Wizard</figcaption>
+</figure>
+<p>Enter <code>MyFirstAADLProject</code> as the project name and click on the <code>Finish</code> button. The wizard creates a new project. It is visible in the <code>AADL Navigator</code> view. Note the small <code>A</code> on the project that indicates it is an AADL project:</p>
+<figure>
+<img src="images/OSATEUserGuide/NewProjectNavigator.png" alt="New Project Wizard" /><figcaption>New Project Wizard</figcaption>
+</figure>
+<h3 id="built-in-property-sets">Built-in Property Sets</h3>
+<p>Also visible in the view is a library icon labeled <code>Plugin_Contributions</code>. This view element collects all the AADL property sets available by default in OSATE:</p>
+<figure>
+<img src="images/OSATEUserGuide/Plugin_Contributions.png" alt="Plugin Contributions" /><figcaption>Plugin Contributions</figcaption>
+</figure>
+<p>The <code>Predeclared_Property_Sets</code> are those that are specified by the AADL standard document and are provided by the core OSATE environment. The others are specified in other documents and provided by plug-ins to OSATE. For example <code>ARINC653</code> contains property sets specified in the ARINC653 annex to AADL and is provided by a plug-in.</p>
+<p>Property sets in <code>Plugin_Contribution</code> may be used by any project in the workspace by providing the appropriate <code>with</code> clause in the package specification. In particular, <em>they do not need to be copied into a project to be used</em>.</p>
+<h3 id="creating-an-aadl-package">Creating an AADL Package</h3>
+<p>Now that we have an AADL project in the workspace, we can populate it with an AADL Package:</p>
+<ol type="1">
+<li>Select the project <code>MyFirstAADLProject</code>.</li>
+<li>Click on the <code>New AADL Package</code> button <img src="images/OSATEUserGuide/NewAadlPackageButton.png" alt="New AADL Project icon" /> in the OSATE toolbar to bring up the AADL package wizard: <img src="images/OSATEUserGuide/AadlPackageWizard.png" alt="AADL Package Wizard" /></li>
+<li>Enter<code>aadlmodel</code> for the package name and click on <code>Finish</code>.</li>
+</ol>
+<p>OSATE creates the file <code>aadlmodel.aadl</code> in the project, populates it with a skeleton package declaration, and opens it in the AADL text editor:</p>
+<figure>
+<img src="images/OSATEUserGuide/EmptyPackage.png" alt="New Empty Package" /><figcaption>New Empty Package</figcaption>
+</figure>
+<p>Note that the wizard has radio buttons that allow you to specify whether the package should be opened in the text editor or the diagram editor. By default the text editor is selected.</p>
+<p>Replace the contents of the editor with the simple model below:</p>
+<pre><code>package aadlmodel
+public
+    process MyProcess
+    end MyProcess;
+    
+    system MySystem
+    end MySystem;
+    
+    system implementation MySystem.i
+        subcomponents
+            sub1: process MyProcess;
+    end MySystem.i;
+end aadlmodel;</code></pre>
+<p>You can use copy-and-paste to copy the above into the editor, but if you type it directly, you can experience some of the syntax-directed features of the aadl editor:</p>
+<ul>
+<li><p>The editor automatically closes blocks. For example, when you type <code>process MyProcess</code> and enter a new line, the editor automatically inserts <code>end MyProcess;</code>.</p></li>
+<li><p>You can access the automatic completion (a.k.a. <em>autocomplete</em>) feature by typing <code>CTRL + Space</code> in Windows or <code>Command + Space</code> in MacOS. This brings up a small context menu displaying options for how the current string in the editor can be completed. For example, below shows the result of activating autocomplete after typing <code>syst</code>: <img src="images/OSATEUserGuide/AutoComplete1.png" alt="Autocomplete" /> The menu shows that <code>syst</code> can be completed with the keywords <code>system</code> or <code>system implementation</code>. In this case, we want <code>system implementaton</code>. You can select the completion with the mouse or by using the arrow keys and hitting <code>return</code>.</p>
+<p>The list of completions also shows two more options. These are <em>templates</em> that insert a more complete system type or system implementation declaration into the text.</p></li>
+<li><p>Autocompletion also works with declared names. For example, below shows the result of activating autocomplete after typing <code>My</code>: <img src="images/OSATEUserGuide/AutoComplete2.png" alt="Autocomplete" /> In this case, autocomplete suggests the system type name <code>MySystem</code>. In particular, it <em>does not</em> suggest the process type name <code>MyProcess</code> because it would be erroneous in the context of declaraing a system implementation.</p></li>
+</ul>
+<h4 id="error-markers">Error Markers</h4>
+<p>As you type you will notice that the editor underlines syntax errors in red. The right sidebar of the editor will also show a small red<code>x</code> indicating that an <em>error marker</em> exists for that line of text. For example, before the declaration of the system implementation is completed, the package has several errors:</p>
+<figure>
+<img src="images/OSATEUserGuide/Errors.png" alt="Error Markers" /><figcaption>Error Markers</figcaption>
+</figure>
+<p>The details of the error markers are visible in the <code>Problems</code> view. This is a standard Eclipse view. Despite the name <em>Problems</em>, not all markers necessarily mark problems or errors. Some OSATE analsyses generate information markers (visible with a blue <code>i</code>) as output.</p>
+<p>The details of a marker can also be seen by hovering over the icon in the editor sidebar.</p>
+<p>Also note that the AADL project is marked in the navigator view to indicate that its contents have error markers.</p>
+<h4 id="save-the-package"><span id="save">Save the Package</a></h4>
+<p>Once you have the package entered into the editor, save it. It should be error-free, without any markers:</p>
+<figure>
+<img src="images/OSATEUserGuide/FinalPackage.png" alt="Good Package" /><figcaption>Good Package</figcaption>
+</figure>
+<h2 id="navigating-a-model"><span id="navigation">Navigating a Model</span></h2>
+<p>OSATE provides many mechanisms for navigating through a model.</p>
+<h3 id="the-outline-view">The <code>Outline</code> View</h3>
+<p>The <code>Outline</code> view shows the model in the text editor as a tree structure. Selecting an element in the outline view causes the editor to move to that object in the text. You can disable this synchronization between the outline and the text with the double arrow button in the view’s toolbar. You can also have the view sorted alphabetically instead of the order in the text by selecting the “a to z” icon.</p>
+<figure>
+<img src="images/OSATEUserGuide/OutlineToolbar.png" alt="Outline View Toolbar" /><figcaption>Outline View Toolbar</figcaption>
+</figure>
+<h3 id="search-basic-text-search">Search: Basic Text Search</h3>
+<p>You can search the text of a model using the standard Eclipse search facility under <code>Search &gt; Search...</code> in the menu bar. This brings up a search window. It can also be used for search and replace. The scope of the search can also be specified. In most cases you just want to make sure that the <code>File Search</code> tab is selected, and enter your search term in the <code>Containing text</code> field. For example, the below will search for the string <code>end</code> in the project we created above:</p>
+<figure>
+<img src="images/OSATEUserGuide/SearchWindow.png" alt="Search Window" /><figcaption>Search Window</figcaption>
+</figure>
+<p>When you click on the <code>Search</code> button, Eclipse performs the search. The results are displayed in the <code>Search</code> view:</p>
+<figure>
+<img src="images/OSATEUserGuide/SearchView.png" alt="Search View" /><figcaption>Search View</figcaption>
+</figure>
+<p>Double-clicking on a result in the view opens the editor to the location of the match. All the matches are highlighted in the editor as well.</p>
+<h3 id="search-aadl-search">Search: AADL Search</h3>
+<p>You can search for AADL classifiers and properties using the OSATE-provided <code>AADL Search</code> tab in the Eclipse search window.</p>
+<figure>
+<img src="images/OSATEUserGuide/AadlSearch.png" alt="AADL Search Window" /><figcaption>AADL Search Window</figcaption>
+</figure>
+<p>You can search for the declarations of or references to classifiers or properties whose name contains the given substring. The above search looks for all classifier declarations and references where the the classifier name contains the substring <code>find</code>. AADL names are case insensitive so the search is always case insensitive. The scope of search (which resources are looked in) is also specified: * It can be the entire workspace, in which all the AADL packages and property sets in the workspace, including plug-in contributions are searched. * It can be the the selected resources in the <code>AADL Navigator</code> view. This button is only enabled when there is a selection in the view. * It can be the limited to the currently active editor window. This button is only enabled when there is an active selected editor.</p>
+<p>The search results are displayed grouped by the containing resource. Resources are listed alphabetically by their workspace path. Under each resource the results are listed in syntactic order. Here we see the results of the above search:</p>
+<figure>
+<img src="images/OSATEUserGuide/AadlSearchResults1.png" alt="AADL Search Results" /><figcaption>AADL Search Results</figcaption>
+</figure>
+<p>There are two classifiers <code>FIND_ME</code> and <code>FIND_ME.impl</code> that contain the string <code>find</code>, and seven references to those classifiers. Double-clicking on the results opens an editor to the site of the declaration/reference.</p>
+<p>These view below shows the result of searching for property declaratiosn in the workspace that contain the string <code>time</code>. Here we see that declarations are found in property sets contributed by plug-ins.</p>
+<figure>
+<img src="images/OSATEUserGuide/AadlSearchResults2.png" alt="AADL Search Results" /><figcaption>AADL Search Results</figcaption>
+</figure>
+<h3 id="hyperlinks">Hyperlinks</h3>
+<p>All references to names in the AADL editor are linked to their declaration. <code>CTRL</code>-clicking on the name will turn it into an active hyperlink and move the editor selection to the declaration of the name. For example, <code>CTRL</code>-clicking on <code>MyProcess</code> in the subcomponent declaration of <code>MySystem</code> <a href="#save">above</a>, moves the selection to the declaration of <code>MyProcess</code> earlier in the package.</p>
+<h3 id="quick-outline">Quick Outline</h3>
+<p>A <em>quick outline</em> can be brought up in the AADL text editor by typing <code>CTRL + o</code>. The package outline will appear in a small window with a search box. You can filter the displayed outline elements by typing in the search box:</p>
+<figure>
+<img src="images/OSATEUserGuide/QuickOutline.png" alt="Quick Outline" /><figcaption>Quick Outline</figcaption>
+</figure>
+<p>Selecting an item in the outline will move the editor to the selected element.</p>
+<h3 id="navigation-history">Navigation History</h3>
+<p>Much like a web browser, when you navigate to different locations within a file, follow references/links to other files, go to the location of a marker, or go to the result of a search, Eclipse keeps a history. Yellow navigation arrow buttons in the toolbar let you move back and forth through the history:</p>
+<figure>
+<img src="images/OSATEUserGuide/NavigationHistory.png" alt="Navigation Toolbar" /><figcaption>Navigation Toolbar</figcaption>
+</figure>
+<h2 id="instance-models"><span id="instance">Instance Models</span></h2>
+<p>Most analyses are executed over the <em>instance model</em> of a system. The instance model represents the complete nested architecture of a system. Generally an instance model would be created from a system implementation classifier. But OSATE allows an instance model to be created from all implementation classifiers except for <code>subprogram</code>.</p>
+<p>An instance model can be created in 3 ways: 1. <strong>From the context menu of the AADL editor <code>Outline</code> view.</strong> Select one or more component classifiers in the view. The command is active in the context menu as long as none of the classifiers is <code>subprogram</code>.<br />
+2. <strong>From the context menu of the <code>AADL Navigator</code> view.</strong> Select one or more component classifiers in the view. The classifiers can be from different projects. The command is active in the context menu as long as none of the classifiers is <code>subprogram</code>.<br />
+3. <strong>From the <code>OSATE &gt; Instantiate</code> menu.</strong> Select one or more component classifiers in either the <code>Outline</code> view or the <code>AADL Navigator</code> view. The classifiers can be from different projects. The command is active in the context menu as long as none of the classifiers is <code>subprogram</code>.</p>
+<p>To create an instance model of our example system</p>
+<ol type="1">
+<li>Open the AADL package that contains the system implementation you want to instantiate. For this example, we open <code>aadlmodel</code> from <a href="#save">above</a>.</li>
+<li>Select the system implementation in the <code>Outline</code> view. Here we select <code>MySystem.i</code>.</li>
+<li>Select <code>Instantiate</code> from the context menu. <img src="images/OSATEUserGuide/Instantiate.png" alt="Context Menu" /></li>
+<li>OSATE displays a dialog box to show the results of the operation: <img src="images/OSATEUserGuide/InstantiationResults.png" alt="Context Menu" /> Here we see the status “OK” for the model built from component classifier <code>aadlmodel::MySystem.i</code>.</li>
+</ol>
+<p>The result dialog is more interesting when many classifiers are selected for instantiation. Each instantiation is invoked as separate Eclipse task, and (assuming the instantiation runs long enough) is visible in the <code>Progress</code> view. The result dialog is displayed when all the instantiation tasks have completed. It gives the result of each instantiation:</p>
+<ul>
+<li><strong>OK.</strong> The classifier was instantiated successfully.</li>
+<li><strong>Cancelled.</strong> The user cancelled the instantiation from the <code>Progress</code> view or progress dialog.<br />
+</li>
+<li><strong>Error.</strong> There was an error during instantiation. The error message is shown in the <code>Error Message</code> column.</li>
+<li><strong>Exception.</strong> There was a Java exception during instantiation. The exception’s message is shown in the <code>Error Message</code> column.</li>
+</ul>
+<p>In general, the instance model is created and placed in directory called <code>instances</code> in the same directory as the <code>.aadl</code> file that contains the root component classifier. This directory is created if it does not already exist. The file is only created if the status is “OK”. The instance model built from system implementation <code>my::package::system.impl</code> is named <code>my_package_system_impl_Instance.aaxl2</code>. This is an XML-based model description that is not readily readable by people. It can be opened and viewed in a hierarchical manner in OSATE. Here we see the model we just generated:</p>
+<figure>
+<img src="images/OSATEUserGuide/InstanceModel.png" alt="Context Menu" /><figcaption>Context Menu</figcaption>
+</figure>
+<h3 id="errors">Errors</h3>
+<p>The instantiation process may generate error and warning markers on the instantiated model. This occurs, for example, when the declarative model is underspecified or has inconsistencies.</p>
+<h3 id="back-links">Back-links</h3>
+<p>Each element in the instance model links back to declarative model element that it is derived from. You can follow this link by selecting an element of the instance model in the instance model editor or in the <code>Outline</code> view and choosing <code>Goto Instance Object Source</code> in the context menu. For example, the process <code>sub1</code> element of the instance model links to the <code>sub1</code> subcomponent declaration in the declarative package:</p>
+<figure>
+<img src="images/OSATEUserGuide/ObjectSource.png" alt="Context Menu" /><figcaption>Context Menu</figcaption>
+</figure>
+<h3 id="reinstantiation">Reinstantiation</h3>
+<p>Existing instance models can be rebuilt based on the current version of the declarative specifications using the <code>Reinstantiate</code> command. It is available in two places:</p>
+<ol type="1">
+<li><strong>From the context menu of the <code>AADL Navigator</code> view.</strong> Select one or more <code>.aaxl</code> files in the view. The files can be from different projects.<br />
+</li>
+<li><strong>From the <code>OSATE &gt; Reinstantiate</code> menu.</strong> Select one or more <code>.aaxl</code> files in the <code>AADL Navigator</code> view. The classifiers can be from different projects.</li>
+</ol>
+<p>Like the <code>Instantiate</code> command, a results dialog box is displayed once all the models are reinstantiated. A file is deleted if an error or exception occurs during reinstantiation, or if reinstantiation is cancelled while it is running. If reinstantiation is cancelled while the task is still in the “waiting” state, the file is not deleted.</p>
+<h2 id="importing-and-exporting-projects"><span id="in_out">Importing and Exporting Projects</span></h2>
+<p>Eclipse can import/export projects from/to <code>.zip</code> files. This is a simple way to share your work with other users, but not the best approach for collaborative work where you would want to use a <a href="#git">version control system</a>.</p>
+<h3 id="how-to-import-a-project"><span id="import">How To Import a Project</span></h3>
+<p>Here we show how to import an AADL project containing <code>.aadl</code> model files, but these instructions are not specific to OSATE or working with AADL source files.</p>
+<blockquote>
+<p><strong>Example</strong></p>
+<p>In this section we import a project into the workspace from the archive file <a href="examples/PropertyViewerExamples.zip">PropertyViewerExamples.zip</a>. Please use the link to download the file to follow along with the instructions below.</p>
+</blockquote>
+<h4 id="open-the-import-wizard">Open the Import Wizard</h4>
+<p>Open the import wizard by selecting <code>Import...</code> from the context menu of the <code>AADL Navigator</code> view:</p>
+<p><img src="images/OSATEUserGuide/ContextMenu_Import.png" /></p>
+<p>You should see a dialog like this:</p>
+<p><img src="images/OSATEUserGuide/ImportWizard1.png" /></p>
+<p>Select <code>General &gt; Existing Projects into Workspace</code>, and click on the <code>Next &gt;</code> button.</p>
+<p><img src="images/OSATEUserGuide/ImportWizard2.png" /></p>
+<h4 id="select-the-project-archive">Select the Project Archive</h4>
+<p>An <code>Import Projects</code> wizard dialog will open. (An archive may contain more than one project, although in our example it contains just one.)</p>
+<ol type="1">
+<li>Select the <code>Select archive file</code> radio button.</li>
+<li><p>Click on the associated <code>Browse...</code> button to bring up a file selection dialog to choose the archive file to import. In this case, select the <code>PropertyViewerExamples.zip</code> that you downloaded earlier.</p>
+The wizard dialog should look like the image below, except with your local pathname showing. The projects contained in the archive are listed in the <code>Projects</code> section. Here you can select which projects to import. Our example has only one project, and we leave it selected.</li>
+<li><p>Click on the <code>Finish</code> button to begin the import process.</p></li>
+</ol>
+<p><img src="images/OSATEUserGuide/ImportProjects1.png" /></p>
+<h4 id="use-your-new-project">Use Your New Project</h4>
+<p>The wizard dialog will close when the import process finishes. The imported project (or projects) will be visible in your workspace. In the case of our example, you should see a project named <code>PropertyViewerExamples</code> that contains five <code>.aadl</code> files.</p>
+<p><img src="images/OSATEUserGuide/Workspace.png" /></p>
+<h3 id="how-to-export-a-project">How To Export a Project</h3>
+<p>Here we show how to export an AADL project containing <code>.aadl</code> model files, but these instructions are not specific to OSATE or working with AADL source files.</p>
+<blockquote>
+<p><strong>Example</strong></p>
+<p>In this section we export the project that we imported into the workspace in the <a href="#import">previous</a> section. Below it is assumed that you have a project named <code>PropertyViewerExamples</code> in your workspace.</p>
+</blockquote>
+<h4 id="open-the-export-wizard">Open the Export Wizard</h4>
+<p>Open the export wizard by</p>
+<ol type="1">
+<li>Selecting the project <code>PropertyViewerExamples</code> in the <code>AADL Navigator</code>.</li>
+<li>Selecting <code>Export...</code> from the context menu.</li>
+</ol>
+<p><img src="images/OSATEUserGuide/ContextMenu_Export.png" /></p>
+<p>You should see a dialog like this:</p>
+<p><img src="images/OSATEUserGuide/ExportWizard1.png" /></p>
+<p>Select <code>General &gt; Archive File</code>, and click on the <code>Next &gt;</code> button.</p>
+<p><img src="images/OSATEUserGuide/ExportWizard2.png" /></p>
+<h4 id="create-the-archive">Create the Archive</h4>
+<p>An <code>Archive file</code> wizard dialog will open.</p>
+<ul>
+<li>The top section of the wizard allows you to choose the exact contents of the project to export. In this case, as in most cases, you do not need to change the default selections; the whole project will be exported.</li>
+<li>The bottom section of the wizard allows to control how the archive file is created. Again, usually the default values are fine. In this case, just make sure that <code>Save in zip format</code> is selected.</li>
+<li>In the center of the wizard enter the pathname of the archive file to create, or use the <code>Browse...</code> button to use the file selection dialog to specify the pathname.</li>
+<li>Click on the <code>Finish</code> button to begin the export process.</li>
+</ul>
+<p><img src="images/OSATEUserGuide/ArchiveFile.png" /></p>
+<h4 id="use-your-new-archive">Use Your New Archive</h4>
+<p>The wizard dialog will close when the export process finishes. The new archive file will be created where you specified. You can now share this archive with other users.</p>
+<h3 id="importing-a-project-from-a-git-repository"><span id="git">Importing a Project from a Git Repository</span></h3>
+<p>While archive files provide a quick-and-dirty mechanism for sharing projects, this becomes problematic when you want to collaborate. It is better to store projects in a version control system (VCS) so that changes to the models can be coordianted. Eclipse (and thus OSATE) supports all the popular VCS, including <strong>svn</strong> and <strong>git</strong>. In this section, we show how to import a project from a git repository.</p>
+<h4 id="clean-up-your-workspace-removing-a-project">Clean Up Your Workspace (Removing a Project)</h4>
+<p>We are going to reimport the <code>PropertyViewerExamples</code> project, but this time using git. So if you already have the project in your workspace from the <a href="#import">previous section</a>, you will need to delete it:</p>
+<ol type="1">
+<li><p>Select the project in the <code>AADL Navigator</code>.</p></li>
+<li><p>Select <code>Delete</code> in the context menu. <img src="images/OSATEUserGuide/DeleteContextMenu.png" alt="Context Menu" /> (You can also use the <code>Delete</code> key as a shortcut.)</p></li>
+<li><p>OSATE presents a confirmation dialog box. Make sure to check <code>Delete project contents on disk</code>: <img src="images/OSATEUserGuide/DeleteDialog.png" alt="Confirmation dialog" /></p></li>
+<li><p>Click on <code>OK</code>.</p></li>
+</ol>
+<p>OSATE removes the project from the workspace and deletes the contents of the workspace from the file system.</p>
+<h3 id="adding-a-git-repository">Adding a Git Repository</h3>
+<h4 id="open-the-git-perspective">Open the Git Perspective</h4>
+<p>Work with git repositories is performed in the <code>git</code> perspective. Open and switch to the perspective by</p>
+<ol type="1">
+<li><p>Clicking on the <code>Open Perspective</code> button <img src="images/OSATEUserGuide/OpenPerspective.png" /> on the top right of the toolbar.</p></li>
+<li><p>Choose <code>Git</code> in the <code>Open Perspective</code> dialog: <img src="images/OSATEUserGuide/PerspectiveDialog.png" alt="Perspectives Dialog" /></p></li>
+<li><p>Click on <code>Open</code>.</p></li>
+</ol>
+<p>The OSATE workbench reconfigures to show an (empty) list of repositories on the left-hand side:</p>
+<figure>
+<img src="images/OSATEUserGuide/GitPerspective.png" alt="Git Perspective" /><figcaption>Git Perspective</figcaption>
+</figure>
+<h4 id="clone-a-repository">Clone a Repository</h4>
+<p>You need to clone a repository before you can import a project from it. In this case, we are going to clone the AADL examples repository.</p>
+<ol type="1">
+<li><p>Click on the <code>Clone repository</code> <img src="images/OSATEUserGuide/Clone.png" /> button in the toolbar of the <code>Git Repositories</code> view.</p></li>
+<li><p>The clone wizard opens. Enter the URI of the repository in the <code>URI</code> field. In this case we use <code>https://github.com/osate/examples</code>. The wizard automatically fills in the <code>Host</code> and <code>Repository path</code> fields.</p></li>
+</ol>
+<p>Because you only need read access to the examples, you do not need to enter a user name or password. In general, however, your repositories will probably require authentication and you would enter the credentials here.</p>
+<p>Click on <code>Next &gt;</code></p>
+<figure>
+<img src="images/OSATEUserGuide/CloneDialog.png" alt="Wizard" /><figcaption>Wizard</figcaption>
+</figure>
+<ol start="3" type="1">
+<li><p>The wizard now asks which branches to clone. Here there is only one: <code>master</code>.</p>
+<p>Leave it selected and click on <code>Next &gt;</code>.</p></li>
+</ol>
+<figure>
+<img src="images/OSATEUserGuide/BranchSelection.png" alt="Wizard" /><figcaption>Wizard</figcaption>
+</figure>
+<ol start="4" type="1">
+<li>The wizard now asks where to store the cloned repository. The default location is in the <code>git</code> directory in the the root of your user directory. There is generally no reason to change this.</li>
+</ol>
+<p>Click on <code>Finish</code>.</p>
+<figure>
+<img src="images/OSATEUserGuide/LocalDestination.png" alt="Wizard" /><figcaption>Wizard</figcaption>
+</figure>
+<p>OSATE now clones the repository. This may take a few minutes. When it is finished, the repository appears in the <code>Git Repositories</code> view.</p>
+<figure>
+<img src="images/OSATEUserGuide/Cloned.png" alt="Wizard" /><figcaption>Wizard</figcaption>
+</figure>
+<h3 id="import-a-project">Import a Project</h3>
+<p>Now that the repository is cloned, we can import a project from it into the workspace:</p>
+<ol type="1">
+<li><p>Select the project to import in the <code>Git Repositories</code> view. In this case we select <code>PropertyViewerExamples</code> under the <code>Working Tree</code>.</p></li>
+<li><p>Open the context menu and choose <code>Import Projects...</code>.</p></li>
+</ol>
+<figure>
+<img src="images/OSATEUserGuide/ImportProjects.png" alt="Context Menu" /><figcaption>Context Menu</figcaption>
+</figure>
+<ol start="3" type="1">
+<li>The import projects wizard opens. Just click on <code>Finish</code>.</li>
+</ol>
+<figure>
+<img src="images/OSATEUserGuide/ImportProjectsWizard.png" alt="Context Menu" /><figcaption>Context Menu</figcaption>
+</figure>
+<p>OSATE imports the shared project into your workspace.</p>
+<h3 id="return-to-the-aadl-perspective">Return to the AADL Perspective</h3>
+<p>Return to the <code>AADL</code> perspective by clicking on the <code>AADL Perspective</code> button <img src="images/OSATEUserGuide/AadlPerspectiveButton.png" /> on the top-right of the workbench toolbar.</p>
+<figure>
+<img src="images/OSATEUserGuide/ImportedGitProject.png" alt="AADL View" /><figcaption>AADL View</figcaption>
+</figure>
+<p>The imported project is visible in the <code>AADL Navigator</code> view. It is annotated with a small orange cylinder that indicates the contents are under version control. The project label itself is also annotated indicating the the contents come from the <em>example</em> repository and are from the <em>master</em> branch.</p>
+<p>You can now proceed to use the project in your workspace.</p>
+<h2 id="analyzing-models"><span id="analysis">Analyzing Models</span></h2>
+<p>Once you have a system model, you can use OSATE to analyze the model to confirm that the design meets your intended criteria. In this section we run a latency analysis over the end-to-end flows of a system. This section is not meant to be a tutorial on using any specific analysis, but instead is a demonstration of</p>
+<ul>
+<li>How to execute a typical analysis over a model.</li>
+<li>Typical ways an analysis may report results.</li>
+</ul>
+<blockquote>
+<p><strong>Example</strong></p>
+<p>This section uses the project <a href="https://github.com/osate/examples/tree/master/latency-case-study"><code>latency-case-study</code></a> found in the <code>examples</code> git repository. Follow the <a href="#git">instructions above</a> to import the project into your workspace.</p>
+</blockquote>
+<h3 id="instantiate-the-model">Instantiate the Model</h3>
+<p>The latency analysis operates on the system instance model, so we first need to create an instance model:</p>
+<ol type="1">
+<li>Open the package <code>integration</code>.</li>
+<li>Use the <code>Outline</code> view to create an instance model from the system implementation <code>integration.software_integrated</code>.</li>
+</ol>
+<h3 id="analyze-the-model">Analyze the Model</h3>
+<ol start="3" type="1">
+<li>Select the new <code>.aaxl2</code> instance model file in the project.</li>
+<li>Select <code>Analyses &gt; Timing &gt; Check Flow Latency</code> from the main menu to execute the latency analysis: <img src="images/OSATEUserGuide/FlowLatencyMenu.png" /></li>
+</ol>
+<p>The analysis executes and you may see a progress bar at the bottom of the OSATE workbench.</p>
+<h3 id="analysis-results">Analysis Results</h3>
+<p>The analysis generates results in two ways:</p>
+<ul>
+<li>As warning and errors markers.</li>
+<li>As files in the <code>reports/latency</code> directory of the project.</li>
+</ul>
+<p>The analysis reports 4 error markers and 2 warning markers:</p>
+<figure>
+<img src="images/OSATEUserGuide/LatencyMarkers.png" alt="Latency Analysis Markers" /><figcaption>Latency Analysis Markers</figcaption>
+</figure>
+<p>Here we see that the end-to-end flows <code>etef0</code> and <code>etef1</code> fail to meet the expected latency contraints.</p>
+<ul>
+<li>Double-clicking on the markers will open the flow element in the instance model editor.</li>
+<li>From there you can use the <code>Goto Instance Object Source</code> command to jump to the AADL source where the flows are declared.</li>
+</ul>
+<p>The files in the <code>reports</code> directory contain more specific results (in three different formats). Below shows a portion of the <code>.csv</code> file opened in a spreadsheet application:</p>
+<figure>
+<img src="images/OSATEUserGuide/Latency_CSV.png" alt="CSV Results" /><figcaption>CSV Results</figcaption>
+</figure>
+<p>Here we see the full results for the end-to-end flow <code>etef0</code>, includingng individual components’ contributions to the latency.</p>
+<h2 id="aadl-property-values"><span id="properties">AADL Property Values</span></h2>
+<p>The <code>AADL Property Values</code> view is used to display and edit property values in a structured manner, which is often easier than navigating and manipulating the AADL text files directly.</p>
+<blockquote>
+<p><strong>Example</strong></p>
+<p>The packages used as examples in this section can be imported into your workspace from the <a href="https://github.com/osate/examples/tree/master/ProperyViewerExamples"><code>PropertyViewerExamples</code></a> project in the <code>examples</code> git repository. Please see the help section on <a href="#git">importing projects into the Eclipse workspace</a>.</p>
+</blockquote>
+<p>Below is an example of the view in action. It is displaying the properties of the process subcomponent <code>Sampler_B</code> of system implementation <code>Software.Basic</code> in project <code>Page_220</code>.</p>
+<p><span id="values1"><img src="images/OSATEUserGuide/ExampleScreenshot.png" alt="Example Screenshot" /></span></p>
+<h3 id="opening-the-aadl-property-values-view">Opening the AADL Property Values View</h3>
+<p>From the main menu, select <code>Window &gt; Show View</code>. If OSATE is currently in the <code>AADL perspective</code>, then you can select <code>AADL Property Values</code>.</p>
+<figure>
+<img src="images/OSATEUserGuide/Window_View_AADLPropertyValues.png" alt="Example Screenshot" /><figcaption>Example Screenshot</figcaption>
+</figure>
+<p>If you are not in the <code>AADL Perspective</code>, select <code>Other...</code> to bring up the <code>Show View</code> dialog box:</p>
+<figure>
+<img src="images/OSATEUserGuide/Window_View_Other.png" alt="Example Screenshot" /><figcaption>Example Screenshot</figcaption>
+</figure>
+<p>Choose <code>AADL &gt; AADL Property Values</code> and click on the <code>Open</code> button.</p>
+<figure>
+<img src="images/OSATEUserGuide/ShowView2.png" alt="Example Screenshot" /><figcaption>Example Screenshot</figcaption>
+</figure>
+<h3 id="selecting-the-model-element">Selecting the Model Element</h3>
+<p>The view displays all of the properties of the AADL model element that is currently selected in the worksapce. Selections can be made in the editor or in the outline view. For example, to show the properties of the process subcomponent <code>Sampler_B</code> of system implementation <code>Software.Basic</code> in project <code>Page_220</code> as shown above, you can</p>
+<ul>
+<li>Open <code>Page_220</code> in the editor and move the text cursor to be within the syntax for subcomponent <code>Sampler_B</code>.</li>
+</ul>
+<p>or</p>
+<ul>
+<li>Select <code>Sampler_B</code> in the <code>Outline</code> view.</li>
+</ul>
+<h3 id="property-value-structure">Property Value Structure</h3>
+<p>The displayed properties are organized by property set.</p>
+<blockquote>
+<p><strong>Example</strong></p>
+<p>In the <a href="#values1">previous screenshot</a>, the property <code>Period</code> is displayed under its property set <code>Timing_Properties</code>.</p>
+</blockquote>
+<p>The view also provides additional structure for certain types of property values:</p>
+<ul>
+<li><strong>Lists</strong>: A list value can be expanded to show its individual list elements.</li>
+<li><strong>Records</strong>: A record value can be expanded to show its fields.</li>
+<li><strong>Ranges</strong>: A range value can be expanded to show the minimum, maximum, and delta values.</li>
+<li><strong>Modes</strong>: A modal property value can be expanded to show the different values for each mode.</li>
+</ul>
+<blockquote>
+<p><strong>Example</strong></p>
+<p>The <a href="#values1">screenshot above</a> shows the expanded list value for the property <code>Source_Text</code>.</p>
+</blockquote>
+<h3 id="the-property-status-column">The Property Status Column</h3>
+<p>The <code>Status</code> column in the view indicates where the property value comes from based on the semantics of AADL. The status is one of</p>
+<ul>
+<li><strong>local</strong></li>
+<li><strong>local contained</strong></li>
+<li><strong>shared local contained</strong></li>
+<li><strong>inherited</strong></li>
+<li><strong>default</strong></li>
+<li><strong>undefined</strong></li>
+</ul>
+<p>The following sections describe property status in more detail.</p>
+<h4 id="local-property-values"><em>Local</em> Property Values</h4>
+<p>A <strong>local</strong> property value is defined directly on the AADL model element in either its <code>properties</code> subclause or in curly braces.</p>
+<blockquote>
+<p>** Example **</p>
+<p>In the <a href="#values1">previous screenshot</a>, the properties <code>Source_Text</code> and <code>Period</code> are both <strong>local</strong> because they are defined in curly braces.</p>
+</blockquote>
+<blockquote>
+<p>** Example **</p>
+<p>In the screenshot below, the properties <code>Car_Length</code>, <code>Car_Name</code>, and <code>Position</code> are all <strong>local</strong> because they are defined in the properties subclause of the device <code>car</code>.</p>
+<figure>
+<img src="images/OSATEUserGuide/Local.png" alt="Local Properties" /><figcaption>Local Properties</figcaption>
+</figure>
+</blockquote>
+<blockquote>
+<p>** Example **</p>
+<p>The above screenshot also shows the expanded structure of the record values for properties <code>Car_Name</code> and <code>Position</code>.</p>
+</blockquote>
+<h4 id="contained-property-values">Contained Property Values</h4>
+<p>Contained property values are those defined in a <code>properties</code> subclause and are applied to a nested model element using the <code>appies to</code> clause. In general, the property can be applied to an element nested several layers down in the containment hierarchy, e.g., to a sub-sub-subcomponent. <em>The <code>AADL Property Values</code> view only displays contained property values for the immediate children of a classifier.</em> To view the property values resulting from all contained property associations in a model, a system instance model must be created. The instantiation evaluates the applicable contained property associations and copies the resulting values as local associations into the instance model.</p>
+<p>The view distinguishes between a <strong>local contained</strong> and <strong>shared local contained</strong> property association:</p>
+<ul>
+<li>A <strong>local contained</strong> property value is one that is applied to a single element.</li>
+<li>A <strong>shared local contained</strong> property value is one that is applied to multiple elements in the same clause. (See the example below).</li>
+</ul>
+<blockquote>
+<p><strong>Example</strong></p>
+<p>In the following screenshot, the view is showing the properties of the data port (feature) <code>GPS_Data</code>. The property <code>Input_Rate</code> is <strong>local contained</strong> because its value is defined in the <code>properties</code> subclause of the containing process type <code>Blended_Navigation</code>. Note the syntax <code>applies to GPS_Data</code> at the end of the property value.</p>
+<figure>
+<img src="images/OSATEUserGuide/LocalContained.png" alt="Local Contained Properties" /><figcaption>Local Contained Properties</figcaption>
+</figure>
+</blockquote>
+<blockquote>
+<p><strong>Example</strong></p>
+<p>Edit <code>Blended_Navigation</code> from the above example so that first property association <code>applies to GPS_Data, INS_Data</code> (see below). Now the property <code>Input_Rate</code> on feature <code>INS_Data</code> (and <code>GPS_Data</code>) is <strong>shared local contained</strong>.</p>
+<figure>
+<img src="images/OSATEUserGuide/SharedLocalContained.png" alt="Shared Local Contained Properties" /><figcaption>Shared Local Contained Properties</figcaption>
+</figure>
+</blockquote>
+<h4 id="inherited-property-values"><em>Inherited</em> Property Values</h4>
+<p>The <strong>inherited</strong> status indicates that the property association is declared</p>
+<ul>
+<li>In an ancestor of the selected classifier</li>
+</ul>
+<p>or</p>
+<ul>
+<li>On an element that is refined by the selected element</li>
+</ul>
+<blockquote>
+<p><strong>Example</strong></p>
+<p>In the following screenshot, the thread <code>Prime_Reporter_One</code> is selected. The property <code>Dispatch_Protocol</code> is <strong>inherited</strong> because it is defined in <code>Prime_Reporter</code> which is extended by <code>Prime_Reporter_One</code>.</p>
+<figure>
+<img src="images/OSATEUserGuide/Inherited.png" alt="Inherited Properties" /><figcaption>Inherited Properties</figcaption>
+</figure>
+</blockquote>
+<h4 id="default-property-values"><em>Default</em> Property Values</h4>
+<p>The <strong>default</strong> status indicates that the property value for the selected element is not defined on any model element, but instead comes from the property’s default value declaration.</p>
+<p>Properties with the <strong>default</strong> status are normally not shown in the view. The toolbar button <img src="images/OSATEUserGuide/filter_properties.gif" alt="Toggle Default" /> can be used to toggle the display of <strong>default</strong> properties.</p>
+<blockquote>
+<p><strong>Example</strong></p>
+<p>In the following screenshot, the properties <code>Active_Thread_Handling_Protocol</code>, <code>Active_Thread_Queue_Handling_Protocol</code>, <code>Deactivation_Policy</code>, and <code>Synchronized_Component</code> are all <strong>default</strong> because their values come from the property declaration. This can be seen in the upper editor showing the property set <code>Thread_Properties</code>. There the property <code>Active_Thread_Handling_Protocol</code>, for example, has the default value of <code>abort</code>.</p>
+<figure>
+<img src="images/OSATEUserGuide/Default.png" alt="Default Properties" /><figcaption>Default Properties</figcaption>
+</figure>
+</blockquote>
+<h4 id="undefined-property-values"><em>Undefined</em> Property Values</h4>
+<p>The <strong>undefined</strong> status indicates that the property has no value for the selected model element. These properties are applicable to the selected element, so they could potentially have values for the selected property holder.</p>
+<p>Properties without a value are normally not shown in the view. The toolbar button <img src="images/OSATEUserGuide/nonexistent_property.gif" alt="Toggle Undefined" /> can be used to toggle the display of <strong>undefined</strong> properties.</p>
+<blockquote>
+<p><strong>Example</strong></p>
+<p>In the following screenshot, the properties <code>Criticality</code>, <code>Dispatch_Able</code>, <code>Dispatch_Trigger</code>, <code>POSIX_Scheduling_Policy</code>, and <code>Priority</code> are all <strong>undefined</strong> because they have no value.</p>
+<figure>
+<img src="images/OSATEUserGuide/Undefined.png" alt="Undefined Properties" /><figcaption>Undefined Properties</figcaption>
+</figure>
+</blockquote>
+<h3 id="property-filters">Property Filters</h3>
+<p>The toolbar contains three buttons that influence which properties are displayed in the view:</p>
+<ul>
+<li><img src="images/OSATEUserGuide/filter_ps.png" alt="Toggle Imported" />: Show only properties in property sets which are included in the package’s with statements.</li>
+<li><img src="images/OSATEUserGuide/nonexistent_property.gif" alt="Toggle Undefined" />: Show <strong>undefined</strong> properties.</li>
+<li><img src="images/OSATEUserGuide/filter_properties.gif" alt="Toggle Default" />: Show <strong>default</strong> properties.</li>
+</ul>
+<p>The view’s menu also contains an option for filtering by property set. Selecting <strong>Property Set Filters…</strong> in the view’s menu opens a dialog which allows you to choose which property sets should be shown in the view.</p>
+<figure>
+<img src="images/OSATEUserGuide/property_set_filters.png" alt="Property Set Filters" /><figcaption>Property Set Filters</figcaption>
+</figure>
+<h3 id="editing-values">Editing Values</h3>
+<p>Properties with the status of <strong>local</strong>, <strong>local contained</strong>, or <strong>shared local contained</strong> can be edited directly in the view. To begin editing, simply click on the property value in the view’s table. The table cell becomes editable and you can type in the new value. If there are syntax errors in your new value, then the error will be underlined in red and you can hover over the cell to see an error message. Content assist is also available while editing by pressing <code>Ctrl + Space</code>. This can be especially useful when entering enumeration literals, unit literals, classifier values, or reference values.</p>
+<p>When you are finished editing, press enter or click outside of the table cell and the new value will be updated in the AADL model. <em>If you edit a property that is <strong>shared local contained</strong> then you will be editing the value for all model elements that are listed in the <code>applies to</code> clause of the property association.</em></p>
+<h3 id="context-menu">Context Menu</h3>
+<p>There are several actions available in the view’s context menu when you right-click on a row in the view’s table.</p>
+<figure>
+<img src="images/OSATEUserGuide/ContextMenu.png" alt="Context Menu" /><figcaption>Context Menu</figcaption>
+</figure>
+<h4 id="open-property-definition">Open Property Definition</h4>
+<p>This action opens the declaration of the selected property set, property, or record field in the AADL text editor.</p>
+<h4 id="open-property-association">Open Property Association</h4>
+<p>This action opens the property association that provides the displayed property value in the AADL text editor. This action is enabled for properties that are <strong>local</strong>, <strong>local contained</strong>, or <strong>inherited</strong>. If the action is executed on an <strong>inherited</strong> property, then the view will be updated as well such that the selected property is shown as a <strong>local</strong> property.</p>
+<p>This action is especially useful in an instance model to find out which contained property association in the declarative model is used to provide an instance property value.</p>
+<h4 id="create-local-property-association">Create Local Property Association</h4>
+<p>This action is enabled for <strong>inherited</strong>, <strong>default</strong>, and <strong>undefined</strong> properties. Executing this action will creates a new <strong>local</strong> value for the selected property and begins the editing process. The new property association is inserted in curly braces with the current model element in the AADL text editor.</p>
+<h4 id="create-local-contained-property-association">Create Local Contained Property Association</h4>
+<p>This action is enabled for <strong>inherited</strong>, <strong>default</strong>, and <strong>undefined</strong> properties. Executing this action creates a new <strong>local contained</strong> value for the selected property and begins the editing process.</p>
+<h4 id="make-local">Make Local</h4>
+<p>This action is enabled for <strong>inherited</strong>, <strong>local contained</strong>, <strong>shared local contained</strong>, and <strong>default</strong> properties. Executing this action creates a new <strong>local</strong> property association with the same value as was displayed in the view when the action was executed. In other words, the existing value is copied into the new <strong>local</strong> value.</p>
+<h4 id="make-local-contained">Make Local Contained</h4>
+<p>This action is enabled for <strong>inherited</strong>, <strong>local</strong>, <strong>shared local contained</strong>, and <strong>default</strong> properties. Executing this action creates a new <strong>local contained</strong> property with the same value as was displayed in the view when the action was executed. In other words, the existing value is copied into the new <strong>local contained</strong> value.</p>
+<h4 id="remove">Remove</h4>
+<p>This action is enabled for <strong>local</strong>, <strong>local contained</strong>, and <strong>shared local contained</strong> properties. It can be used to do one of the following:</p>
+<ul>
+<li>Remove the selected property value.</li>
+<li>Remove the selected record field from the record property value.</li>
+<li>Remove the selected delta from the range property value.</li>
+<li>Remove the selected item from the list property value.</li>
+</ul>
+<p>Note that executing this action on a <strong>shared local contained</strong> property impacts all model elements that share the selected property value.</p>
+<h2 id="viewing-classifier-members"><span id="classifierView">Viewing Classifier Members</span></h2>
+<p>The <code>Classifier Information</code> view makes it easy to see the complete ancestry of an AADL classifier (component type, component implementation, or feature group type), and to see the full list of members of the classifier. To open a classifier in the view, select a classifier in the <code>AADL Navigator</code> or <code>Outline</code> view and choose <code>Open in Classifier Information View</code> from the context menu:</p>
+<p><img src="images/OSATEUserGuide/AADLNavigator_OpenInClassifierInfoView.png" alt="Classifier view" /> <img src="images/OSATEUserGuide/Outline_OpenInClassifierInfoView.png" alt="Classifier view" /></p>
+<p>(There is also an <code>Open in Classifier Information View</code> command in the context menu of the AADL text editor. It does its best to find the most appropriate classifier to display based on the current text selection.)</p>
+<p>The <code>Classifier Information</code> view becomes populated with information about the classifier:</p>
+<figure>
+<img src="images/OSATEUserGuide/classifierView1.png" alt="Classifier view" /><figcaption>Classifier view</figcaption>
+</figure>
+<p>The view is split in half: 1. The left half shows the extension hierarchy 2. The right half shows the members of the classifier grouped by kind.</p>
+<p>In the above, the view shows information about the classifier <code>T2.i2</code>. From the hierarchy tree we see that * It implements <code>T2</code> which extends <code>T1</code>. * It extends <code>T2.i1</code>.</p>
+<p>Double-clicking on any of the ancestors opens the AADL source text for the ancestor in an editor.</p>
+<p>The members tree shows all the members of <code>T2.i2</code>. If a member is not declared locally it is annotated with the ancestor that declares it, e.g., the feature <code>f2 [from T2]</code>. If a member is a refinement it is annotated with the prefix <code>refined</code> and lists the refined member as a child in the tree. These annotations interact, for example, the feature <code>refined f1 [from T2]</code> indicates that a refinement of feature <code>f1</code> is inherited from type <code>T2</code>. The child <code>f1 [from T1]</code> indicates that the feature was originally declared in type <code>T1</code>.</p>
+<p>Feature group types may have the additional annotation <code>inverse of</code> indicating that the feature is the inverse of given feature. For example, in the screenshot below, the features groups <code>IG1</code> and <code>IG2</code> are declared to be inverses of the feature groups <code>FG1</code> and <code>FG2</code>, respectively. Neither declares any explicit features. The <code>Classifier Info</code> view shows that feature group type <code>IG2</code> has two features: 1. A feature that is the inverse of the feature <code>f1</code> declared in <code>FG1</code>. 2. A feature that is the inverse of the feature <code>f2</code> declared in <code>FG2</code>.</p>
+<figure>
+<img src="images/OSATEUserGuide/inverseFeatureGroup.png" alt="Classifier view showing inverse feature groups" /><figcaption>Classifier view showing inverse feature groups</figcaption>
+</figure>
+<p>Double-clicking on any of the members opens the AADL source text for the member in an editor.</p>
+<h3 id="synchronizing-with-the-editor">Synchronizing with the Editor</h3>
+<p>The view’s toolbar contains a single button that controls whether the view’s selection is synchronized with the editor: * <img src="images/OSATEUserGuide/linked.png" /> When the action is selected, simply selecting an item in the view is enough to open an editor to the associated AADL source text. * <img src="images/OSATEUserGuide/not_linked.png" /> When the action is deselected, an item in the view must be double-clicked on to open the AADL source in an editor.</p>
+</body>
+</html>

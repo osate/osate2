@@ -1,0 +1,34 @@
+package SharedData_to_Subprogram_Peers
+public
+	data ShareMe
+	end ShareMe;
+	
+	subprogram S
+		features
+			daf: requires data access ShareMe;
+	end S;
+	
+	system Root
+	end Root;
+	
+	system implementation Root.generic
+		subcomponents
+			shareMe: data ShareMe;
+			s: subprogram S;
+	end Root.generic;
+	
+	system implementation Root.bidirectional extends Root.generic
+		connections
+			dac: data access shareMe <-> s.daf;
+	end Root.bidirectional;
+	
+	system implementation Root.fromSharedComponent extends Root.generic
+		connections
+			dac: data access shareMe -> s.daf;
+	end Root.fromSharedComponent;
+	
+	system implementation Root.toSharedComponent extends Root.generic
+		connections
+			dac: data access s.daf -> shareMe;
+	end Root.toSharedComponent;
+end SharedData_to_Subprogram_Peers;
