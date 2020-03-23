@@ -1,3 +1,26 @@
+<!--
+Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+All Rights Reserved.
+
+NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+
+This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+SPDX-License-Identifier: EPL-2.0
+
+Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+
+This program includes and/or can make use of certain third party source code, object code, documentation and other
+files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+-->
 # OSATE User Guide
 
 OSATE is a complete modeling environment providing support for describing AADL models. It is composed of many features to model and analyse systems.  Also, a user can build their own tools based on OSATE and extend its initial capability.
@@ -88,7 +111,7 @@ This dialog lists all the views available.  Views are grouped by category.  Abov
 
 #### Reseting the Perspective
 
-If you open/close too many views, rearrange your views, or otherwise put the workbench in a state that you find unusable, you can bring it back to good state by resetting the perspective.  In the case of OSATE, you should reset the `AADL` perspective by bringing up the _context menu_ on the `AAADL` perspecitive icon on the right side of the workbench toolbar, and selecting `reset`:
+If you open/close too many views, rearrange your views, or otherwise put the workbench in a state that you find unusable, you can bring it back to good state by resetting the perspective.  In the case of OSATE, you should reset the `AADL` perspective by bringing up the _context menu_ on the `AADL` perspective icon on the right side of the workbench toolbar, and selecting `reset`:
 
 ![Reset Perspective](images/OSATEUserGuide/ResetPerspective.png)
 
@@ -289,20 +312,42 @@ Much like a web browser, when you navigate to different locations within a file,
 
 ## <span id="instance">Instance Models</span>
 
-Most analyses are executed over the _instance model_ of a system.  The instance model represnts the complete nested architecture of a system, and is built from a root system implementation classifier.
+Most analyses are executed over the _instance model_ of a system.  The instance model represents the complete nested architecture of a system.  Generally an instance model would be created from a system implementation classifier.  But OSATE allows an instance model to be created from all implementation classifiers except for `subprogram`.
 
-To create an instance model of your system
+An instance model can be created in 3 ways:
 
-1. Open the AADL package that conatins the system implementation you want to instantiate.  For this example, we open `aadlmodel` from [above](#save).
+1. **From the context menu of the AADL editor `Outline` view.**  Select one or more component classifiers in the view.  The command is active in the context menu as long as none of the classifiers is `subprogram`.  
+2. **From the context menu of the `AADL Navigator` view.**    Select one or more component classifiers in the view.  The classifiers can be from different projects.  The command is active in the context menu as long as none of the classifiers is `subprogram`.  
+3. **From the `OSATE > Instantiate` menu.**  Select one or more component classifiers in either the `Outline` view or the `AADL Navigator` view.  The classifiers can be from different projects.  The command is active in the context menu as long as none of the classifiers is `subprogram`.
+
+To create an instance model of our example system
+
+1. Open the AADL package that contains the system implementation you want to instantiate.  For this example, we open `aadlmodel` from [above](#save).
 2. Select the system implementation in the `Outline` view.  Here we select `MySystem.i`.
 3. Select `Instantiate` from the context menu.
-![Context Menu](images/OSATEUserGuide/Instantiate.png)
 
-The instance model is created and placed in directory called `instances` in the project.  This directory is created if it does not already exist.  The instance model built from system implementation `my::package::system.impl` is named `my_package_systemm_impl_Instance.aaxl2`.  This is an xml-based model description that is not readily readable by people.  It can be opened and viewed in a hierachical manner in OSATE.  Here we see the model we just generated:
+  ![Context Menu](images/OSATEUserGuide/Instantiate.png)
+
+4. OSATE displays a dialog box to show the results of the operation:
+
+  ![Context Menu](images/OSATEUserGuide/InstantiationResults.png)
+
+Here we see the status "OK" for the model built from component classifier `aadlmodel::MySystem.i`.
+
+The result dialog is more interesting when many classifiers are selected for instantiation.  Each instantiation is invoked as separate Eclipse task, and (assuming the instantiation runs long enough) is visible in the `Progress` view.  The result dialog is displayed when all the instantiation tasks have completed.  It gives the result of each instantiation:
+
+* **OK.** The classifier was instantiated successfully.
+* **Cancelled.** The user cancelled the instantiation from the `Progress` view or progress dialog.  
+* **Error.** There was an error during instantiation.  The error message is shown in the `Error Message` column.
+* **Exception.** There was a Java exception during instantiation.  The exception's message is shown in the `Error Message` column.
+
+In general, the instance model is created and placed in directory called `instances` in the same directory as the `.aadl` file that contains the root component classifier.  This directory is created if it does not already exist.  The file is only created if the status is "OK".  The instance model built from system implementation `my::package::system.impl` is named `my_package_system_impl_Instance.aaxl2`.  This is an XML-based model description that is not readily readable by people.  It can be opened and viewed in a hierarchical manner in OSATE.  Here we see the model we just generated:
 
 ![Context Menu](images/OSATEUserGuide/InstanceModel.png)
 
+### Errors
 
+The instantiation process may generate error and warning markers on the instantiated model.  This occurs, for example, when the declarative model is underspecified or has inconsistencies.
 
 ### Back-links
 
@@ -310,11 +355,14 @@ Each element in the instance model links back to declarative model element that 
 
 ![Context Menu](images/OSATEUserGuide/ObjectSource.png)
 
+### Reinstantiation ###
 
+Existing instance models can be rebuilt based on the current version of the declarative specifications using the `Reinstantiate` command.  It is available in two places:
 
-### Errors
+1. **From the context menu of the `AADL Navigator` view.**    Select one or more `.aaxl` files in the view.  The files can be from different projects.    
+2. **From the `OSATE > Reinstantiate` menu.**  Select one or more `.aaxl` files in the `AADL Navigator` view.  The classifiers can be from different projects.
 
-The instantiation process may generate error and warning markers on the instantiated model.  This occurs, for example, when the declarative model is underspecified or has inconsistencies.
+Like the `Instantiate` command, a results dialog box is displayed once all the models are reinstantiated.  A file is deleted if an error or exception occurs during reinstantiation, or if reinstantiation is cancelled while it is running.  If reinstantiation is cancelled while the task is still in the "waiting" state, the file is not deleted.
 
 
 
@@ -664,17 +712,17 @@ The following sections describe property status in more detail.
 
 A **local** property value is defined directly on the AADL model element in either its `properties` subclause or in curly braces.
 
-> ** Example **
+> **Example**
 >
 > In the [previous screenshot](#values1), the properties `Source_Text` and `Period` are both **local** because they are defined in curly braces.
 
-> ** Example **
+> **Example**
 >
 > In the screenshot below, the properties `Car_Length`, `Car_Name`, and `Position` are all **local** because they are defined in the properties subclause of the device `car`.
 >
 > ![Local Properties](images/OSATEUserGuide/Local.png)
 
-> ** Example **
+> **Example**
 >
 > The above screenshot also shows the expanded structure of the record values for properties `Car_Name` and `Position`.
 
@@ -755,6 +803,11 @@ The toolbar contains three buttons that influence which properties are displayed
 * ![Toggle Imported](images/OSATEUserGuide/filter_ps.png): Show only properties in property sets which are included in the package's with statements.
 * ![Toggle Undefined](images/OSATEUserGuide/nonexistent_property.gif): Show **undefined** properties.
 * ![Toggle Default](images/OSATEUserGuide/filter_properties.gif): Show **default** properties.
+
+The view's menu also contains an option for filtering by property set. Selecting **Property Set Filters...** in the
+view's menu opens a dialog which allows you to choose which property sets should be shown in the view.
+
+![Property Set Filters](images/OSATEUserGuide/property_set_filters.png)
 
 
 

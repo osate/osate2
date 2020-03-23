@@ -1,0 +1,16 @@
+package other
+public
+	with x::  fred, x:: y :: barney;
+	
+	system y extends x:: fred :: s
+	end y;
+	
+	system w extends x::			y	::   barney::t
+	end w;
+	
+	system z extends x  :: -- commment here
+	y -- comment
+	:: barney::                                              t
+	end z;
+	
+end other; 

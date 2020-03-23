@@ -1,4 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+All Rights Reserved.
+
+NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+
+This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+SPDX-License-Identifier: EPL-2.0
+
+Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+
+This program includes and/or can make use of certain third party source code, object code, documentation and other
+files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+-->
 <?eclipse version="3.0"?>
 <plugin>
    <extension
@@ -263,6 +286,7 @@
             activeByDefault="true"
             id="org.osate.ui.navigator.menuActions"
             name="AADL Navigator Menu Actions"
+            priority="lowest"
             sortOnly="true">
          <enablement>
             <instanceof
@@ -325,7 +349,8 @@
             contentProvider="org.osate.ui.navigator.ViewerRefresher"
             id="org.osate.ui.navigator.viewerRefresher"
             labelProvider="org.osate.ui.navigator.NullLabelProvider"
-            name="Viewer Refresher">
+            name="Viewer Refresher"
+            priority="lowest">
          <enablement>
             <instanceof
                   value="org.eclipse.core.resources.IProject">
@@ -506,9 +531,42 @@
           </command>
           <command
                 commandId="org.osate.ui.instantiate">
-             <visibleWhen
-                   checkEnabled="true">
-             </visibleWhen>
+	          <visibleWhen>
+	             <with
+	                   variable="selection">
+	                <and>
+	                   <count
+	                         value="+">
+	                   </count>
+	                   <iterate operator="or">
+                         <adapt
+                               type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
+                            <and>
+                               <test
+                                     property="org.osate.ui.superType"
+                                     value="ComponentImplementation"
+                                     forcePluginActivation="true">
+                               </test>
+                               <not>
+                                  <test
+                                        property="org.osate.ui.superType"
+                                        value="SubprogramImplementation"
+                                        forcePluginActivation="true">
+                                  </test>
+                               </not>
+                               <not>
+                                  <test
+                                        property="org.osate.ui.superType"
+                                        value="SubprogramGroupImplementation"
+                                        forcePluginActivation="true">
+                                  </test>
+                               </not>
+                            </and>
+                         </adapt>
+	                   </iterate>
+	                </and>
+	             </with>
+	          </visibleWhen>
           </command>
           <menu
                 id="org.osate.ui.analysesOutlinePopup"
@@ -556,14 +614,93 @@
           </command>
           <command
                 commandId="org.osate.ui.instantiate">
-             <visibleWhen
-                   checkEnabled="true">
-             </visibleWhen>
+	          <visibleWhen>
+	             <with
+	                   variable="selection">
+	                <and>
+	                   <count
+	                         value="+">
+	                   </count>
+	                   <iterate
+	                   		operator="or">
+                         <adapt
+                               type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                            <and>
+                               <test
+                                     property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                     value="ComponentImplementation"
+                                     forcePluginActivation="true">
+                               </test>
+                               <not>
+                                  <test
+                                        property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                        value="SubprogramImplementation"
+                                        forcePluginActivation="true">
+                                  </test>
+                               </not>
+                               <not>
+                                  <test
+                                        property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                        value="SubprogramGroupImplementation"
+                                        forcePluginActivation="true">
+                                  </test>
+                               </not>
+                            </and>
+                         </adapt>
+	                   </iterate>
+	                </and>
+	             </with>
+	          </visibleWhen>
           </command>
           <command
                 commandId="org.osate.ui.reinstantiate">
-             <visibleWhen
-                   checkEnabled="true">
+             <visibleWhen>
+	             <with
+	                   variable="selection">
+	                <and>
+	                   <count
+	                         value="+">
+	                   </count>
+	                   <iterate
+	                         ifEmpty="false"
+	                         operator="or">
+	                      <or>
+	                         <!-- Working set -->
+                             <instanceof value="org.eclipse.ui.IWorkingSet" />
+							 
+	                         <!-- open AADL project or any closed project -->
+	                         <and>
+	                            <instanceof value="org.eclipse.core.resources.IProject" />
+	                            <or>
+	                                <test
+	                                    property="org.eclipse.core.resources.projectNature"
+    	                                value="org.osate.core.aadlnature" />
+	                                <not>
+	                                    <test property="org.eclipse.core.resources.open" />
+    	                            </not>
+	                            </or>
+	                         </and>
+	                         
+	                         <!-- folder in an AADL project -->
+	                         <and>
+	                            <instanceof value="org.eclipse.core.resources.IFolder" />
+	                            <test
+	                                property="org.eclipse.core.resources.projectNature"
+	                                value="org.osate.core.aadlnature" />
+	                         </and>
+	                         
+	                         <!-- Instance model file -->
+	                         <adapt
+	                                type="org.eclipse.core.resources.IFile">
+	                            <test
+	                                  property="org.eclipse.core.resources.contentTypeId"
+	                                  value="org.osate.core.instanceModelFile">
+	                            </test>
+	                         </adapt>
+	                      </or>
+	                   </iterate>
+	                </and>
+	             </with>
              </visibleWhen>
           </command>
           <command
@@ -764,8 +901,10 @@
                 </separator>
              </menu>
              <command
-                   commandId="org.osate.ui.reinstantiateAllAadl"
-                   style="push">
+                   commandId="org.osate.ui.instantiate">
+             </command>
+             <command
+                   commandId="org.osate.ui.reinstantiate">
              </command>
              <separator
                    name="generateTextual">
@@ -1031,16 +1170,12 @@
              name="Set As AADL_Project Property Set">
        </command>
        <command
-             id="org.osate.ui.instantiate"
-             name="Instantiate">
+       		id="org.osate.ui.instantiate"
+       		name="%InstantiateComponent.label">
        </command>
        <command
              id="org.osate.ui.reinstantiate"
-             name="Reinstantiate">
-       </command>
-       <command
-             id="org.osate.ui.reinstantiateAllAadl"
-             name="%ReinstantiateAllModelsAction.label">
+             name="%ReinstantiateInstances.label">
        </command>
        <command
              id="org.osate.ui.conversion"
@@ -1137,14 +1272,14 @@
           </enabledWhen>
        </handler>
        <handler
-             class="org.osate.ui.handlers.InstantiateHandler"
+             class="org.osate.ui.handlers.InstantiationHandler"
              commandId="org.osate.ui.instantiate">
           <enabledWhen>
              <with
                    variable="selection">
                 <and>
                    <count
-                         value="1">
+                         value="+">
                    </count>
                    <iterate>
                       <or>
@@ -1173,7 +1308,7 @@
                                </not>
                             </and>
                          </adapt>
-                         
+
                          <!-- For the Outline View -->
                          <adapt
                                type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
@@ -1207,16 +1342,55 @@
        </handler>
        <handler
              commandId="org.osate.ui.reinstantiate"
-             class="org.osate.ui.handlers.ReinstantiateHandler">
+             class="org.osate.ui.handlers.ReinstantiationHandler">
           <enabledWhen>
-             <reference
-                   definitionId="org.osate.core.isInstanceFileSelected">
-             </reference>
+             <with
+                   variable="selection">
+                <and>
+                   <count
+                         value="+">
+                   </count>
+                   <iterate
+                         ifEmpty="false"
+                         operator="and">
+                      <or>
+                         <!-- Working Set -->
+                         <instanceof value="org.eclipse.ui.IWorkingSet" />
+                         
+                         <!-- open AADL project -->
+                         <and>
+                            <instanceof value="org.eclipse.core.resources.IProject" />
+                            <or>
+                                <test
+                                    property="org.eclipse.core.resources.projectNature"
+	                                value="org.osate.core.aadlnature" />
+                                 <not>
+                                     <test property="org.eclipse.core.resources.open" />
+	                             </not>
+                            </or>
+                         </and>
+                         
+                         <!-- folder in an AADL project -->
+                         <and>
+                            <instanceof value="org.eclipse.core.resources.IFolder" />
+                            <test
+                                property="org.eclipse.core.resources.projectNature"
+                                value="org.osate.core.aadlnature" />
+                         </and>
+                         
+                         <!-- Instance model file -->
+                         <adapt
+                                type="org.eclipse.core.resources.IFile">
+                            <test
+                                  property="org.eclipse.core.resources.contentTypeId"
+                                  value="org.osate.core.instanceModelFile">
+                            </test>
+                         </adapt>
+                      </or>
+                   </iterate>
+                </and>
+             </with>
           </enabledWhen>
-       </handler>
-       <handler
-             class="org.osate.ui.handlers.ReinstantiateAadl"
-             commandId="org.osate.ui.reinstantiateAllAadl">
        </handler>
        <handler
              class="org.osate.ui.handlers.ConversionHandler"
@@ -1292,7 +1466,7 @@
     <extension
           point="org.eclipse.ui.commandImages">
        <image
-             commandId="org.osate.ui.reinstantiateAllAadl"
+             commandId="org.osate.ui.reinstantiate"
              icon="icons/reinstantiate.gif">
        </image>
        <image

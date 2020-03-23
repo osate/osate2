@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.osate.organization.ui" version="2">
+    <resource path="src-gen/org/osate/organization/ui/contentassist/antlr/OrganizationParser.java" type="org.osate.organization.ui.contentassist.antlr.OrganizationParser">
+        <filter comment="xtext" id="643842064">
+            <message_arguments>
+                <message_argument value="InternalOrganizationParser"/>
+                <message_argument value="OrganizationParser"/>
+                <message_argument value="createParser()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/organization/ui/contentassist/antlr/PartialOrganizationContentAssistParser.java" type="org.osate.organization.ui.contentassist.antlr.PartialOrganizationContentAssistParser">
+        <filter comment="xtext" id="576725006">
+            <message_arguments>
+                <message_argument value="IPartialContentAssistParser"/>
+                <message_argument value="PartialOrganizationContentAssistParser"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>

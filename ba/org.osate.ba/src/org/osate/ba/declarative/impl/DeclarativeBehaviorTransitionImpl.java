@@ -9,14 +9,14 @@
  * 
  * This program is free software: you can redistribute it and/or modify 
  * it under the terms of the Eclipse Public License as published by Eclipse,
- * either version 1.0 of the License, or (at your option) any later version.
+ * either version 2.0 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Eclipse Public License for more details.
  * You should have received a copy of the Eclipse Public License
  * along with this program.  If not, see 
- * http://www.eclipse.org/org/documents/epl-v10.php
+ * https://www.eclipse.org/legal/epl-2.0/
  */
 
 package org.osate.ba.declarative.impl ;
@@ -51,19 +51,19 @@ import org.osate.ba.declarative.Identifier ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.declarative.impl.DeclarativeBehaviorTransitionImpl#getOsateRef <em>Osate Ref</em>}</li>
  *   <li>{@link org.osate.ba.declarative.impl.DeclarativeBehaviorTransitionImpl#getBaRef <em>Ba Ref</em>}</li>
  *   <li>{@link org.osate.ba.declarative.impl.DeclarativeBehaviorTransitionImpl#getSrcStates <em>Src States</em>}</li>
  *   <li>{@link org.osate.ba.declarative.impl.DeclarativeBehaviorTransitionImpl#getDestState <em>Dest State</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
 public class DeclarativeBehaviorTransitionImpl extends BehaviorTransitionImpl
-                                                                             implements
-                                                                             DeclarativeBehaviorTransition
+                                               implements
+                                               DeclarativeBehaviorTransition
 {
   /**
    * The cached value of the '{@link #getOsateRef() <em>Osate Ref</em>}' reference.
@@ -131,6 +131,7 @@ public class DeclarativeBehaviorTransitionImpl extends BehaviorTransitionImpl
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Element getOsateRef()
   {
     if(osateRef != null && ((EObject) osateRef).eIsProxy())
@@ -141,8 +142,8 @@ public class DeclarativeBehaviorTransitionImpl extends BehaviorTransitionImpl
       {
         if(eNotificationRequired())
           eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-                DeclarativePackage.DECLARATIVE_BEHAVIOR_TRANSITION__OSATE_REF,
-                oldOsateRef, osateRef)) ;
+                                        DeclarativePackage.DECLARATIVE_BEHAVIOR_TRANSITION__OSATE_REF,
+                                        oldOsateRef, osateRef)) ;
       }
     }
     return osateRef ;
@@ -163,14 +164,15 @@ public class DeclarativeBehaviorTransitionImpl extends BehaviorTransitionImpl
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setOsateRef(Element newOsateRef)
   {
     Element oldOsateRef = osateRef ;
     osateRef = newOsateRef ;
     if(eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET,
-            DeclarativePackage.DECLARATIVE_BEHAVIOR_TRANSITION__OSATE_REF,
-            oldOsateRef, osateRef)) ;
+                                    DeclarativePackage.DECLARATIVE_BEHAVIOR_TRANSITION__OSATE_REF,
+                                    oldOsateRef, osateRef)) ;
   }
 
   /**
@@ -178,6 +180,7 @@ public class DeclarativeBehaviorTransitionImpl extends BehaviorTransitionImpl
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BehaviorElement getBaRef()
   {
     if(baRef != null && ((EObject) baRef).eIsProxy())
@@ -188,8 +191,8 @@ public class DeclarativeBehaviorTransitionImpl extends BehaviorTransitionImpl
       {
         if(eNotificationRequired())
           eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-                DeclarativePackage.DECLARATIVE_BEHAVIOR_TRANSITION__BA_REF,
-                oldBaRef, baRef)) ;
+                                        DeclarativePackage.DECLARATIVE_BEHAVIOR_TRANSITION__BA_REF,
+                                        oldBaRef, baRef)) ;
       }
     }
     return baRef ;
@@ -210,14 +213,15 @@ public class DeclarativeBehaviorTransitionImpl extends BehaviorTransitionImpl
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setBaRef(BehaviorElement newBaRef)
   {
     BehaviorElement oldBaRef = baRef ;
     baRef = newBaRef ;
     if(eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET,
-            DeclarativePackage.DECLARATIVE_BEHAVIOR_TRANSITION__BA_REF,
-            oldBaRef, baRef)) ;
+                                    DeclarativePackage.DECLARATIVE_BEHAVIOR_TRANSITION__BA_REF,
+                                    oldBaRef, baRef)) ;
   }
 
   /**
@@ -225,15 +229,14 @@ public class DeclarativeBehaviorTransitionImpl extends BehaviorTransitionImpl
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Identifier> getSrcStates()
   {
     if(srcStates == null)
     {
-      srcStates =
-            new EObjectContainmentEList<Identifier>(
-                  Identifier.class,
-                  this,
-                  DeclarativePackage.DECLARATIVE_BEHAVIOR_TRANSITION__SRC_STATES) ;
+      srcStates = new EObjectContainmentEList<Identifier>(Identifier.class,
+                                                          this,
+                                                          DeclarativePackage.DECLARATIVE_BEHAVIOR_TRANSITION__SRC_STATES) ;
     }
     return srcStates ;
   }
@@ -243,6 +246,7 @@ public class DeclarativeBehaviorTransitionImpl extends BehaviorTransitionImpl
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Identifier getDestState()
   {
     return destState ;
@@ -260,12 +264,11 @@ public class DeclarativeBehaviorTransitionImpl extends BehaviorTransitionImpl
     destState = newDestState ;
     if(eNotificationRequired())
     {
-      ENotificationImpl notification =
-            new ENotificationImpl(
-                  this,
-                  Notification.SET,
-                  DeclarativePackage.DECLARATIVE_BEHAVIOR_TRANSITION__DEST_STATE,
-                  oldDestState, newDestState) ;
+      ENotificationImpl notification = new ENotificationImpl(this,
+                                                             Notification.SET,
+                                                             DeclarativePackage.DECLARATIVE_BEHAVIOR_TRANSITION__DEST_STATE,
+                                                             oldDestState,
+                                                             newDestState) ;
       if(msgs == null)
         msgs = notification ;
       else
@@ -279,33 +282,30 @@ public class DeclarativeBehaviorTransitionImpl extends BehaviorTransitionImpl
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDestState(Identifier newDestState)
   {
     if(newDestState != destState)
     {
       NotificationChain msgs = null ;
       if(destState != null)
-        msgs =
-              ((InternalEObject) destState)
-                    .eInverseRemove(this,
-                                    EOPPOSITE_FEATURE_BASE -
-                                          DeclarativePackage.DECLARATIVE_BEHAVIOR_TRANSITION__DEST_STATE,
-                                    null, msgs) ;
+        msgs = ((InternalEObject) destState).eInverseRemove(this,
+                                                            EOPPOSITE_FEATURE_BASE -
+                                                                  DeclarativePackage.DECLARATIVE_BEHAVIOR_TRANSITION__DEST_STATE,
+                                                            null, msgs) ;
       if(newDestState != null)
-        msgs =
-              ((InternalEObject) newDestState)
-                    .eInverseAdd(this,
-                                 EOPPOSITE_FEATURE_BASE -
-                                       DeclarativePackage.DECLARATIVE_BEHAVIOR_TRANSITION__DEST_STATE,
-                                 null, msgs) ;
+        msgs = ((InternalEObject) newDestState).eInverseAdd(this,
+                                                            EOPPOSITE_FEATURE_BASE -
+                                                                  DeclarativePackage.DECLARATIVE_BEHAVIOR_TRANSITION__DEST_STATE,
+                                                            null, msgs) ;
       msgs = basicSetDestState(newDestState, msgs) ;
       if(msgs != null)
         msgs.dispatch() ;
     }
     else if(eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET,
-            DeclarativePackage.DECLARATIVE_BEHAVIOR_TRANSITION__DEST_STATE,
-            newDestState, newDestState)) ;
+                                    DeclarativePackage.DECLARATIVE_BEHAVIOR_TRANSITION__DEST_STATE,
+                                    newDestState, newDestState)) ;
   }
 
   /**
@@ -315,8 +315,7 @@ public class DeclarativeBehaviorTransitionImpl extends BehaviorTransitionImpl
    */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd,
-                                          int featureID,
-                                          NotificationChain msgs)
+                                          int featureID, NotificationChain msgs)
   {
     switch ( featureID )
     {
@@ -334,9 +333,7 @@ public class DeclarativeBehaviorTransitionImpl extends BehaviorTransitionImpl
    * @generated
    */
   @Override
-  public Object eGet(int featureID,
-                     boolean resolve,
-                     boolean coreType)
+  public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
     switch ( featureID )
     {
@@ -363,8 +360,7 @@ public class DeclarativeBehaviorTransitionImpl extends BehaviorTransitionImpl
    */
   @SuppressWarnings("unchecked")
   @Override
-  public void eSet(int featureID,
-                   Object newValue)
+  public void eSet(int featureID, Object newValue)
   {
     switch ( featureID )
     {
@@ -439,8 +435,7 @@ public class DeclarativeBehaviorTransitionImpl extends BehaviorTransitionImpl
    * @generated
    */
   @Override
-  public int eBaseStructuralFeatureID(int derivedFeatureID,
-                                      Class<?> baseClass)
+  public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
   {
     if(baseClass == DeclarativeBehaviorElement.class)
     {
@@ -463,8 +458,7 @@ public class DeclarativeBehaviorTransitionImpl extends BehaviorTransitionImpl
    * @generated
    */
   @Override
-  public int eDerivedStructuralFeatureID(int baseFeatureID,
-                                         Class<?> baseClass)
+  public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
   {
     if(baseClass == DeclarativeBehaviorElement.class)
     {

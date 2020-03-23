@@ -9,14 +9,14 @@
  * 
  * This program is free software: you can redistribute it and/or modify 
  * it under the terms of the Eclipse Public License as published by Eclipse,
- * either version 1.0 of the License, or (at your option) any later version.
+ * either version 2.0 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Eclipse Public License for more details.
  * You should have received a copy of the Eclipse Public License
  * along with this program.  If not, see 
- * http://www.eclipse.org/org/documents/epl-v10.php
+ * https://www.eclipse.org/legal/epl-2.0/
  */
 
 package org.osate.ba.declarative.util ;
@@ -28,28 +28,52 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl ;
 
 import org.eclipse.emf.ecore.EObject ;
 
+import org.osate.aadl2.AbstractNamedValue ;
 import org.osate.aadl2.ArrayDimension ;
+import org.osate.aadl2.BasicProperty ;
+import org.osate.aadl2.BasicPropertyAssociation ;
+import org.osate.aadl2.BooleanLiteral ;
 import org.osate.aadl2.Classifier ;
 import org.osate.aadl2.ComponentClassifier ;
+import org.osate.aadl2.ContainedNamedElement ;
+import org.osate.aadl2.ContainmentPathElement ;
 import org.osate.aadl2.Data ;
 import org.osate.aadl2.DataClassifier ;
 import org.osate.aadl2.DataSubcomponentType ;
 import org.osate.aadl2.Element ;
+import org.osate.aadl2.EnumerationLiteral ;
 import org.osate.aadl2.FeatureClassifier ;
+import org.osate.aadl2.IntegerLiteral ;
+import org.osate.aadl2.ListValue ;
 import org.osate.aadl2.NamedElement ;
 import org.osate.aadl2.Namespace ;
+import org.osate.aadl2.NumberValue ;
 import org.osate.aadl2.Processor ;
 import org.osate.aadl2.ProcessorClassifier ;
 import org.osate.aadl2.ProcessorSubcomponentType ;
+import org.osate.aadl2.Property ;
+import org.osate.aadl2.PropertyExpression ;
+import org.osate.aadl2.PropertyValue ;
+import org.osate.aadl2.RangeValue ;
+import org.osate.aadl2.RealLiteral ;
+import org.osate.aadl2.RecordValue ;
+import org.osate.aadl2.ReferenceValue ;
+import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.SubcomponentType ;
 import org.osate.aadl2.Type ;
+import org.osate.aadl2.TypedElement ;
+import org.osate.aadl2.UnitLiteral ;
 import org.osate.ba.aadlba.ActualPortHolder ;
 import org.osate.ba.aadlba.BasicAction ;
 import org.osate.ba.aadlba.BehaviorAction ;
 import org.osate.ba.aadlba.BehaviorActions ;
+import org.osate.ba.aadlba.BehaviorBooleanLiteral ;
 import org.osate.ba.aadlba.BehaviorElement ;
+import org.osate.ba.aadlba.BehaviorIntegerLiteral ;
 import org.osate.ba.aadlba.BehaviorNamedElement ;
+import org.osate.ba.aadlba.BehaviorRealLiteral ;
 import org.osate.ba.aadlba.BehaviorState ;
+import org.osate.ba.aadlba.BehaviorStringLiteral ;
 import org.osate.ba.aadlba.BehaviorTime ;
 import org.osate.ba.aadlba.BehaviorTransition ;
 import org.osate.ba.aadlba.ClassifierFeatureHolder ;
@@ -66,6 +90,9 @@ import org.osate.ba.aadlba.IndexableElement ;
 import org.osate.ba.aadlba.IntegerValue ;
 import org.osate.ba.aadlba.IntegerValueConstant ;
 import org.osate.ba.aadlba.IntegerValueVariable ;
+import org.osate.ba.aadlba.Literal ;
+import org.osate.ba.aadlba.ModeSwitchTrigger ;
+import org.osate.ba.aadlba.NumericLiteral ;
 import org.osate.ba.aadlba.ParameterLabel ;
 import org.osate.ba.aadlba.PortHolder ;
 import org.osate.ba.aadlba.Target ;
@@ -135,350 +162,666 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   protected DeclarativeSwitch<Adapter> modelSwitch =
-        new DeclarativeSwitch<Adapter>()
-        {
-          @Override
-          public Adapter caseArrayableIdentifier(ArrayableIdentifier object)
-          {
-            return createArrayableIdentifierAdapter() ;
-          }
+                                                   new DeclarativeSwitch<Adapter>()
+                                                   {
+                                                     @Override
+                                                     public Adapter
+                                                            caseArrayableIdentifier(ArrayableIdentifier object)
+                                                     {
+                                                       return createArrayableIdentifierAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseCommAction(CommAction object)
-          {
-            return createCommActionAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseCommAction(CommAction object)
+                                                     {
+                                                       return createCommActionAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseDeclarativeArrayDimension(DeclarativeArrayDimension object)
-          {
-            return createDeclarativeArrayDimensionAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseDeclarativeArrayDimension(DeclarativeArrayDimension object)
+                                                     {
+                                                       return createDeclarativeArrayDimensionAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseDeclarativeBehaviorElement(DeclarativeBehaviorElement object)
-          {
-            return createDeclarativeBehaviorElementAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseDeclarativeBehaviorElement(DeclarativeBehaviorElement object)
+                                                     {
+                                                       return createDeclarativeBehaviorElementAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseDeclarativeBehaviorTransition(DeclarativeBehaviorTransition object)
-          {
-            return createDeclarativeBehaviorTransitionAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseDeclarativeBehaviorTransition(DeclarativeBehaviorTransition object)
+                                                     {
+                                                       return createDeclarativeBehaviorTransitionAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseDeclarativePropertyName(DeclarativePropertyName object)
-          {
-            return createDeclarativePropertyNameAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseDeclarativePropertyName(DeclarativePropertyName object)
+                                                     {
+                                                       return createDeclarativePropertyNameAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseDeclarativePropertyReference(DeclarativePropertyReference object)
-          {
-            return createDeclarativePropertyReferenceAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseDeclarativePropertyReference(DeclarativePropertyReference object)
+                                                     {
+                                                       return createDeclarativePropertyReferenceAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseDeclarativeTime(DeclarativeTime object)
-          {
-            return createDeclarativeTimeAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseDeclarativeTime(DeclarativeTime object)
+                                                     {
+                                                       return createDeclarativeTimeAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseIdentifier(Identifier object)
-          {
-            return createIdentifierAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseIdentifier(Identifier object)
+                                                     {
+                                                       return createIdentifierAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseNamedValue(NamedValue object)
-          {
-            return createNamedValueAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseNamedValue(NamedValue object)
+                                                     {
+                                                       return createNamedValueAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseQualifiedNamedElement(QualifiedNamedElement object)
-          {
-            return createQualifiedNamedElementAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseQualifiedNamedElement(QualifiedNamedElement object)
+                                                     {
+                                                       return createQualifiedNamedElementAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseReference(Reference object)
-          {
-            return createReferenceAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseReference(Reference object)
+                                                     {
+                                                       return createReferenceAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseElement(Element object)
-          {
-            return createElementAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseDeclarativePropertyAssociation(DeclarativePropertyAssociation object)
+                                                     {
+                                                       return createDeclarativePropertyAssociationAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseNamedElement(NamedElement object)
-          {
-            return createNamedElementAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseDeclarativeListValue(DeclarativeListValue object)
+                                                     {
+                                                       return createDeclarativeListValueAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseBehaviorElement(BehaviorElement object)
-          {
-            return createBehaviorElementAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseDeclarativePropertyExpression(DeclarativePropertyExpression object)
+                                                     {
+                                                       return createDeclarativePropertyExpressionAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseBehaviorNamedElement(BehaviorNamedElement object)
-          {
-            return createBehaviorNamedElementAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseDeclarativeStringLiteral(DeclarativeStringLiteral object)
+                                                     {
+                                                       return createDeclarativeStringLiteralAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseBehaviorState(BehaviorState object)
-          {
-            return createBehaviorStateAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseDeclarativeIntegerLiteral(DeclarativeIntegerLiteral object)
+                                                     {
+                                                       return createDeclarativeIntegerLiteralAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseBehaviorActions(BehaviorActions object)
-          {
-            return createBehaviorActionsAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseDeclarativeRealLiteral(DeclarativeRealLiteral object)
+                                                     {
+                                                       return createDeclarativeRealLiteralAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseBehaviorAction(BehaviorAction object)
-          {
-            return createBehaviorActionAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseDeclarativeRecordValue(DeclarativeRecordValue object)
+                                                     {
+                                                       return createDeclarativeRecordValueAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseBasicAction(BasicAction object)
-          {
-            return createBasicActionAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseDeclarativeBasicPropertyAssociation(DeclarativeBasicPropertyAssociation object)
+                                                     {
+                                                       return createDeclarativeBasicPropertyAssociationAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseCommunicationAction(CommunicationAction object)
-          {
-            return createCommunicationActionAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseDeclarativeBooleanLiteral(DeclarativeBooleanLiteral object)
+                                                     {
+                                                       return createDeclarativeBooleanLiteralAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseArrayDimension(ArrayDimension object)
-          {
-            return createArrayDimensionAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseDeclarativeRangeValue(DeclarativeRangeValue object)
+                                                     {
+                                                       return createDeclarativeRangeValueAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseBehaviorTransition(BehaviorTransition object)
-          {
-            return createBehaviorTransitionAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseDeclarativeReferenceValue(DeclarativeReferenceValue object)
+                                                     {
+                                                       return createDeclarativeReferenceValueAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseIntegerValue(IntegerValue object)
-          {
-            return createIntegerValueAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseDeclarativeClassifierValue(DeclarativeClassifierValue object)
+                                                     {
+                                                       return createDeclarativeClassifierValueAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseValue(Value object)
-          {
-            return createValueAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter caseElement(
+                                                                                Element object)
+                                                     {
+                                                       return createElementAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseValueConstant(ValueConstant object)
-          {
-            return createValueConstantAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseNamedElement(NamedElement object)
+                                                     {
+                                                       return createNamedElementAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseIntegerValueConstant(IntegerValueConstant object)
-          {
-            return createIntegerValueConstantAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseBehaviorElement(BehaviorElement object)
+                                                     {
+                                                       return createBehaviorElementAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseBehaviorTime(BehaviorTime object)
-          {
-            return createBehaviorTimeAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseBehaviorNamedElement(BehaviorNamedElement object)
+                                                     {
+                                                       return createBehaviorNamedElementAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseDispatchTriggerCondition(DispatchTriggerCondition object)
-          {
-            return createDispatchTriggerConditionAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseBehaviorState(BehaviorState object)
+                                                     {
+                                                       return createBehaviorStateAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseDispatchRelativeTimeout(DispatchRelativeTimeout object)
-          {
-            return createDispatchRelativeTimeoutAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseBehaviorActions(BehaviorActions object)
+                                                     {
+                                                       return createBehaviorActionsAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseCompletionRelativeTimeout(CompletionRelativeTimeout object)
-          {
-            return createCompletionRelativeTimeoutAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseBehaviorAction(BehaviorAction object)
+                                                     {
+                                                       return createBehaviorActionAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseValueVariable(ValueVariable object)
-          {
-            return createValueVariableAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseBasicAction(BasicAction object)
+                                                     {
+                                                       return createBasicActionAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseIntegerValueVariable(IntegerValueVariable object)
-          {
-            return createIntegerValueVariableAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseCommunicationAction(CommunicationAction object)
+                                                     {
+                                                       return createCommunicationActionAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseNamespace(Namespace object)
-          {
-            return createNamespaceAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseArrayDimension(ArrayDimension object)
+                                                     {
+                                                       return createArrayDimensionAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseType(Type object)
-          {
-            return createTypeAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseBehaviorTransition(BehaviorTransition object)
+                                                     {
+                                                       return createBehaviorTransitionAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseClassifier(Classifier object)
-          {
-            return createClassifierAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseIntegerValue(IntegerValue object)
+                                                     {
+                                                       return createIntegerValueAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseSubcomponentType(SubcomponentType object)
-          {
-            return createSubcomponentTypeAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter caseValue(
+                                                                              Value object)
+                                                     {
+                                                       return createValueAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseFeatureClassifier(FeatureClassifier object)
-          {
-            return createFeatureClassifierAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseValueConstant(ValueConstant object)
+                                                     {
+                                                       return createValueConstantAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseComponentClassifier(ComponentClassifier object)
-          {
-            return createComponentClassifierAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseIntegerValueConstant(IntegerValueConstant object)
+                                                     {
+                                                       return createIntegerValueConstantAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseData(Data object)
-          {
-            return createDataAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseBehaviorTime(BehaviorTime object)
+                                                     {
+                                                       return createBehaviorTimeAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseDataSubcomponentType(DataSubcomponentType object)
-          {
-            return createDataSubcomponentTypeAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseDispatchTriggerCondition(DispatchTriggerCondition object)
+                                                     {
+                                                       return createDispatchTriggerConditionAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseDataClassifier(DataClassifier object)
-          {
-            return createDataClassifierAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseDispatchRelativeTimeout(DispatchRelativeTimeout object)
+                                                     {
+                                                       return createDispatchRelativeTimeoutAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseProcessor(Processor object)
-          {
-            return createProcessorAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseCompletionRelativeTimeout(CompletionRelativeTimeout object)
+                                                     {
+                                                       return createCompletionRelativeTimeoutAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseProcessorSubcomponentType(ProcessorSubcomponentType object)
-          {
-            return createProcessorSubcomponentTypeAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseValueVariable(ValueVariable object)
+                                                     {
+                                                       return createValueVariableAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseProcessorClassifier(ProcessorClassifier object)
-          {
-            return createProcessorClassifierAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseIntegerValueVariable(IntegerValueVariable object)
+                                                     {
+                                                       return createIntegerValueVariableAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseElementHolder(ElementHolder object)
-          {
-            return createElementHolderAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseNamespace(Namespace object)
+                                                     {
+                                                       return createNamespaceAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseClassifierFeatureHolder(ClassifierFeatureHolder object)
-          {
-            return createClassifierFeatureHolderAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter caseType(
+                                                                             Type object)
+                                                     {
+                                                       return createTypeAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseIndexableElement(IndexableElement object)
-          {
-            return createIndexableElementAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseClassifier(Classifier object)
+                                                     {
+                                                       return createClassifierAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseGroupableElement(GroupableElement object)
-          {
-            return createGroupableElementAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseSubcomponentType(SubcomponentType object)
+                                                     {
+                                                       return createSubcomponentTypeAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseFeatureHolder(FeatureHolder object)
-          {
-            return createFeatureHolderAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseFeatureClassifier(FeatureClassifier object)
+                                                     {
+                                                       return createFeatureClassifierAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter casePortHolder(PortHolder object)
-          {
-            return createPortHolderAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseComponentClassifier(ComponentClassifier object)
+                                                     {
+                                                       return createComponentClassifierAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseActualPortHolder(ActualPortHolder object)
-          {
-            return createActualPortHolderAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter caseData(
+                                                                             Data object)
+                                                     {
+                                                       return createDataAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseElementValues(ElementValues object)
-          {
-            return createElementValuesAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseDataSubcomponentType(DataSubcomponentType object)
+                                                     {
+                                                       return createDataSubcomponentTypeAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseParameterLabel(ParameterLabel object)
-          {
-            return createParameterLabelAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseDataClassifier(DataClassifier object)
+                                                     {
+                                                       return createDataClassifierAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseTarget(Target object)
-          {
-            return createTargetAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseProcessor(Processor object)
+                                                     {
+                                                       return createProcessorAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter caseDispatchTrigger(DispatchTrigger object)
-          {
-            return createDispatchTriggerAdapter() ;
-          }
+                                                     @Override
+                                                     public Adapter
+                                                            caseProcessorSubcomponentType(ProcessorSubcomponentType object)
+                                                     {
+                                                       return createProcessorSubcomponentTypeAdapter() ;
+                                                     }
 
-          @Override
-          public Adapter defaultCase(EObject object)
-          {
-            return createEObjectAdapter() ;
-          }
-        } ;
+                                                     @Override
+                                                     public Adapter
+                                                            caseProcessorClassifier(ProcessorClassifier object)
+                                                     {
+                                                       return createProcessorClassifierAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseTypedElement(TypedElement object)
+                                                     {
+                                                       return createTypedElementAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseBasicProperty(BasicProperty object)
+                                                     {
+                                                       return createBasicPropertyAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseAbstractNamedValue(AbstractNamedValue object)
+                                                     {
+                                                       return createAbstractNamedValueAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseProperty(Property object)
+                                                     {
+                                                       return createPropertyAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseEnumerationLiteral(EnumerationLiteral object)
+                                                     {
+                                                       return createEnumerationLiteralAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseUnitLiteral(UnitLiteral object)
+                                                     {
+                                                       return createUnitLiteralAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseElementHolder(ElementHolder object)
+                                                     {
+                                                       return createElementHolderAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseClassifierFeatureHolder(ClassifierFeatureHolder object)
+                                                     {
+                                                       return createClassifierFeatureHolderAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseIndexableElement(IndexableElement object)
+                                                     {
+                                                       return createIndexableElementAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseGroupableElement(GroupableElement object)
+                                                     {
+                                                       return createGroupableElementAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseFeatureHolder(FeatureHolder object)
+                                                     {
+                                                       return createFeatureHolderAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            casePortHolder(PortHolder object)
+                                                     {
+                                                       return createPortHolderAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseActualPortHolder(ActualPortHolder object)
+                                                     {
+                                                       return createActualPortHolderAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseElementValues(ElementValues object)
+                                                     {
+                                                       return createElementValuesAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseParameterLabel(ParameterLabel object)
+                                                     {
+                                                       return createParameterLabelAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter caseTarget(
+                                                                               Target object)
+                                                     {
+                                                       return createTargetAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseDispatchTrigger(DispatchTrigger object)
+                                                     {
+                                                       return createDispatchTriggerAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseModeSwitchTrigger(ModeSwitchTrigger object)
+                                                     {
+                                                       return createModeSwitchTriggerAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseContainmentPathElement(ContainmentPathElement object)
+                                                     {
+                                                       return createContainmentPathElementAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            casePropertyExpression(PropertyExpression object)
+                                                     {
+                                                       return createPropertyExpressionAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseListValue(ListValue object)
+                                                     {
+                                                       return createListValueAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            casePropertyValue(PropertyValue object)
+                                                     {
+                                                       return createPropertyValueAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseStringLiteral(StringLiteral object)
+                                                     {
+                                                       return createStringLiteralAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter caseLiteral(
+                                                                                Literal object)
+                                                     {
+                                                       return createLiteralAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseBehaviorStringLiteral(BehaviorStringLiteral object)
+                                                     {
+                                                       return createBehaviorStringLiteralAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseNumberValue(NumberValue object)
+                                                     {
+                                                       return createNumberValueAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseIntegerLiteral(IntegerLiteral object)
+                                                     {
+                                                       return createIntegerLiteralAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseNumericLiteral(NumericLiteral object)
+                                                     {
+                                                       return createNumericLiteralAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseBehaviorIntegerLiteral(BehaviorIntegerLiteral object)
+                                                     {
+                                                       return createBehaviorIntegerLiteralAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseRealLiteral(RealLiteral object)
+                                                     {
+                                                       return createRealLiteralAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseBehaviorRealLiteral(BehaviorRealLiteral object)
+                                                     {
+                                                       return createBehaviorRealLiteralAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseRecordValue(RecordValue object)
+                                                     {
+                                                       return createRecordValueAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseBasicPropertyAssociation(BasicPropertyAssociation object)
+                                                     {
+                                                       return createBasicPropertyAssociationAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseBooleanLiteral(BooleanLiteral object)
+                                                     {
+                                                       return createBooleanLiteralAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseBehaviorBooleanLiteral(BehaviorBooleanLiteral object)
+                                                     {
+                                                       return createBehaviorBooleanLiteralAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseRangeValue(RangeValue object)
+                                                     {
+                                                       return createRangeValueAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter defaultCase(
+                                                                                EObject object)
+                                                     {
+                                                       return createEObjectAdapter() ;
+                                                     }
+                                                   } ;
 
   /**
    * Creates an adapter for the <code>target</code>.
@@ -670,6 +1013,186 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createReferenceAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.declarative.DeclarativePropertyAssociation <em>Property Association</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.declarative.DeclarativePropertyAssociation
+   * @generated
+   */
+  public Adapter createDeclarativePropertyAssociationAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.declarative.DeclarativeListValue <em>List Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.declarative.DeclarativeListValue
+   * @generated
+   */
+  public Adapter createDeclarativeListValueAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.declarative.DeclarativePropertyExpression <em>Property Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.declarative.DeclarativePropertyExpression
+   * @generated
+   */
+  public Adapter createDeclarativePropertyExpressionAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.declarative.DeclarativeStringLiteral <em>String Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.declarative.DeclarativeStringLiteral
+   * @generated
+   */
+  public Adapter createDeclarativeStringLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.declarative.DeclarativeIntegerLiteral <em>Integer Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.declarative.DeclarativeIntegerLiteral
+   * @generated
+   */
+  public Adapter createDeclarativeIntegerLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.declarative.DeclarativeRealLiteral <em>Real Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.declarative.DeclarativeRealLiteral
+   * @generated
+   */
+  public Adapter createDeclarativeRealLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.declarative.DeclarativeRecordValue <em>Record Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.declarative.DeclarativeRecordValue
+   * @generated
+   */
+  public Adapter createDeclarativeRecordValueAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.declarative.DeclarativeBasicPropertyAssociation <em>Basic Property Association</em>}'.
+   * <!-- begin-user-doc -->
+  	 * This default implementation returns null so that we can easily ignore cases;
+  	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+  	 * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.declarative.DeclarativeBasicPropertyAssociation
+   * @generated
+   */
+  public Adapter createDeclarativeBasicPropertyAssociationAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.declarative.DeclarativeBooleanLiteral <em>Boolean Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.declarative.DeclarativeBooleanLiteral
+   * @generated
+   */
+  public Adapter createDeclarativeBooleanLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.declarative.DeclarativeRangeValue <em>Range Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.declarative.DeclarativeRangeValue
+   * @generated
+   */
+  public Adapter createDeclarativeRangeValueAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.declarative.DeclarativeReferenceValue <em>Reference Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.declarative.DeclarativeReferenceValue
+   * @generated
+   */
+  public Adapter createDeclarativeReferenceValueAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.declarative.DeclarativeClassifierValue <em>Classifier Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.declarative.DeclarativeClassifierValue
+   * @generated
+   */
+  public Adapter createDeclarativeClassifierValueAdapter()
   {
     return null ;
   }
@@ -1005,45 +1528,45 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.aadl2.DataSubcomponentType <em>Data Subcomponent Type</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.aadl2.DataSubcomponentType
-   * @generated
-   */
+  	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.DataSubcomponentType <em>Data Subcomponent Type</em>}'.
+  	 * <!-- begin-user-doc -->
+  	 * This default implementation returns null so that we can easily ignore cases;
+  	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+  	 * <!-- end-user-doc -->
+  	 * @return the new adapter.
+  	 * @see org.osate.aadl2.DataSubcomponentType
+  	 * @generated
+  	 */
   public Adapter createDataSubcomponentTypeAdapter()
   {
     return null ;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.aadl2.DataClassifier <em>Data Classifier</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.aadl2.DataClassifier
-   * @generated
-   */
+  	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.DataClassifier <em>Data Classifier</em>}'.
+  	 * <!-- begin-user-doc -->
+  	 * This default implementation returns null so that we can easily ignore cases;
+  	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+  	 * <!-- end-user-doc -->
+  	 * @return the new adapter.
+  	 * @see org.osate.aadl2.DataClassifier
+  	 * @generated
+  	 */
   public Adapter createDataClassifierAdapter()
   {
     return null ;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.Value <em>Value</em>}'.
-   * <!-- begin-user-doc -->
+  	 * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.Value <em>Value</em>}'.
+  	 * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.ba.aadlba.Value
-   * @generated
-   */
+  	 * @return the new adapter.
+  	 * @see org.osate.ba.aadlba.Value
+  	 * @generated
+  	 */
   public Adapter createValueAdapter()
   {
     return null ;
@@ -1135,6 +1658,96 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createProcessorClassifierAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.TypedElement <em>Typed Element</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.TypedElement
+   * @generated
+   */
+  public Adapter createTypedElementAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.BasicProperty <em>Basic Property</em>}'.
+   * <!-- begin-user-doc -->
+  	 * This default implementation returns null so that we can easily ignore cases;
+  	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+  	 * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.BasicProperty
+   * @generated
+   */
+  public Adapter createBasicPropertyAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.AbstractNamedValue <em>Abstract Named Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.AbstractNamedValue
+   * @generated
+   */
+  public Adapter createAbstractNamedValueAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.Property <em>Property</em>}'.
+   * <!-- begin-user-doc -->
+  	 * This default implementation returns null so that we can easily ignore cases;
+  	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+  	 * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.Property
+   * @generated
+   */
+  public Adapter createPropertyAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.EnumerationLiteral <em>Enumeration Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.EnumerationLiteral
+   * @generated
+   */
+  public Adapter createEnumerationLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.UnitLiteral <em>Unit Literal</em>}'.
+   * <!-- begin-user-doc -->
+  	 * This default implementation returns null so that we can easily ignore cases;
+  	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+  	 * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.UnitLiteral
+   * @generated
+   */
+  public Adapter createUnitLiteralAdapter()
   {
     return null ;
   }
@@ -1330,6 +1943,291 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createDispatchTriggerAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.ModeSwitchTrigger <em>Mode Switch Trigger</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.ModeSwitchTrigger
+   * @generated
+   */
+  public Adapter createModeSwitchTriggerAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.ContainmentPathElement <em>Containment Path Element</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.ContainmentPathElement
+   * @generated
+   */
+  public Adapter createContainmentPathElementAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.PropertyExpression <em>Property Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.PropertyExpression
+   * @generated
+   */
+  public Adapter createPropertyExpressionAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.ListValue <em>List Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.ListValue
+   * @generated
+   */
+  public Adapter createListValueAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.PropertyValue <em>Property Value</em>}'.
+   * <!-- begin-user-doc -->
+  	 * This default implementation returns null so that we can easily ignore cases;
+  	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+  	 * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.PropertyValue
+   * @generated
+   */
+  public Adapter createPropertyValueAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.StringLiteral <em>String Literal</em>}'.
+   * <!-- begin-user-doc -->
+  	 * This default implementation returns null so that we can easily ignore cases;
+  	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+  	 * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.StringLiteral
+   * @generated
+   */
+  public Adapter createStringLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.Literal <em>Literal</em>}'.
+   * <!-- begin-user-doc -->
+  	 * This default implementation returns null so that we can easily ignore cases;
+  	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+  	 * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.Literal
+   * @generated
+   */
+  public Adapter createLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.BehaviorStringLiteral <em>Behavior String Literal</em>}'.
+   * <!-- begin-user-doc -->
+  	 * This default implementation returns null so that we can easily ignore cases;
+  	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+  	 * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.BehaviorStringLiteral
+   * @generated
+   */
+  public Adapter createBehaviorStringLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.NumberValue <em>Number Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.NumberValue
+   * @generated
+   */
+  public Adapter createNumberValueAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.IntegerLiteral <em>Integer Literal</em>}'.
+   * <!-- begin-user-doc -->
+  	 * This default implementation returns null so that we can easily ignore cases;
+  	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+  	 * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.IntegerLiteral
+   * @generated
+   */
+  public Adapter createIntegerLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.NumericLiteral <em>Numeric Literal</em>}'.
+   * <!-- begin-user-doc -->
+  	 * This default implementation returns null so that we can easily ignore cases;
+  	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+  	 * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.NumericLiteral
+   * @generated
+   */
+  public Adapter createNumericLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.BehaviorIntegerLiteral <em>Behavior Integer Literal</em>}'.
+   * <!-- begin-user-doc -->
+  	 * This default implementation returns null so that we can easily ignore cases;
+  	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+  	 * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.BehaviorIntegerLiteral
+   * @generated
+   */
+  public Adapter createBehaviorIntegerLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.RealLiteral <em>Real Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.RealLiteral
+   * @generated
+   */
+  public Adapter createRealLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.BehaviorRealLiteral <em>Behavior Real Literal</em>}'.
+   * <!-- begin-user-doc -->
+  	 * This default implementation returns null so that we can easily ignore cases;
+  	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+  	 * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.BehaviorRealLiteral
+   * @generated
+   */
+  public Adapter createBehaviorRealLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.RecordValue <em>Record Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.RecordValue
+   * @generated
+   */
+  public Adapter createRecordValueAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.BasicPropertyAssociation <em>Basic Property Association</em>}'.
+   * <!-- begin-user-doc -->
+  	 * This default implementation returns null so that we can easily ignore cases;
+  	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+  	 * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.BasicPropertyAssociation
+   * @generated
+   */
+  public Adapter createBasicPropertyAssociationAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.BooleanLiteral <em>Boolean Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.BooleanLiteral
+   * @generated
+   */
+  public Adapter createBooleanLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.BehaviorBooleanLiteral <em>Behavior Boolean Literal</em>}'.
+   * <!-- begin-user-doc -->
+  	 * This default implementation returns null so that we can easily ignore cases;
+  	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+  	 * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.BehaviorBooleanLiteral
+   * @generated
+   */
+  public Adapter createBehaviorBooleanLiteralAdapter()
+  {
+    return null ;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.RangeValue <em>Range Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.RangeValue
+   * @generated
+   */
+  public Adapter createRangeValueAdapter()
   {
     return null ;
   }

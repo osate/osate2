@@ -1,17 +1,25 @@
 /**
- * Copyright 2015 Carnegie Mellon University. All Rights Reserved.
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
  * 
- * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE
- * MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO
- * WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,
- * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY,
- * EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON
- * UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM
- * PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
  * 
- * Released under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
  * 
- * See COPYRIGHT file for full details.
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.categories.categories.impl;
 
@@ -137,6 +145,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCategoriesDefinitions()
   {
     return categoriesDefinitionsEClass;
@@ -147,6 +156,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getCategoriesDefinitions_Categories()
   {
     return (EReference)categoriesDefinitionsEClass.getEStructuralFeatures().get(0);
@@ -157,6 +167,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getCategoriesDefinitions_CategoryFilters()
   {
     return (EReference)categoriesDefinitionsEClass.getEStructuralFeatures().get(1);
@@ -167,6 +178,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCategories()
   {
     return categoriesEClass;
@@ -177,6 +189,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getCategories_Name()
   {
     return (EAttribute)categoriesEClass.getEStructuralFeatures().get(0);
@@ -187,6 +200,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getCategories_Category()
   {
     return (EReference)categoriesEClass.getEStructuralFeatures().get(1);
@@ -197,6 +211,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCategory()
   {
     return categoryEClass;
@@ -207,6 +222,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getCategory_Name()
   {
     return (EAttribute)categoryEClass.getEStructuralFeatures().get(0);
@@ -217,6 +233,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCategoryFilter()
   {
     return categoryFilterEClass;
@@ -227,6 +244,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getCategoryFilter_Name()
   {
     return (EAttribute)categoryFilterEClass.getEStructuralFeatures().get(0);
@@ -237,6 +255,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getCategoryFilter_Category()
   {
     return (EReference)categoryFilterEClass.getEStructuralFeatures().get(1);
@@ -247,6 +266,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getCategoryFilter_AnyCategory()
   {
     return (EAttribute)categoryFilterEClass.getEStructuralFeatures().get(2);
@@ -257,6 +277,7 @@ public class CategoriesPackageImpl extends EPackageImpl implements CategoriesPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public CategoriesFactory getCategoriesFactory()
   {
     return (CategoriesFactory)getEFactoryInstance();

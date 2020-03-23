@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright © 2011 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -9,13 +9,13 @@
  * 
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
- * version 1.0 of the License, or (at your option) any later version. This
+ * version 2.0 of the License, or (at your option) any later version. This
  * program is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License for
  * more details. You should have received a copy of the Eclipse Public License
  * along with this program. If not, see
- * http://www.eclipse.org/org/documents/epl-v10.php
+ * https://www.eclipse.org/legal/epl-2.0/
  */
 package org.osate.ba.aadlba.impl;
 
@@ -44,10 +44,10 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.StructUnionElementHolderImpl#getArrayIndexes <em>Array Indexes</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -89,6 +89,7 @@ public class StructUnionElementHolderImpl extends DataHolderImpl implements Stru
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<IntegerValue> getArrayIndexes()
   {
     if (arrayIndexes == null)
@@ -103,6 +104,7 @@ public class StructUnionElementHolderImpl extends DataHolderImpl implements Stru
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetArrayIndexes()
   {
     if (arrayIndexes != null) ((InternalEList.Unsettable<?>)arrayIndexes).unset();
@@ -113,6 +115,7 @@ public class StructUnionElementHolderImpl extends DataHolderImpl implements Stru
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetArrayIndexes()
   {
     return arrayIndexes != null && ((InternalEList.Unsettable<?>)arrayIndexes).isSet();
@@ -123,6 +126,7 @@ public class StructUnionElementHolderImpl extends DataHolderImpl implements Stru
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setStructUnionElement(final StructUnionElement structUnionElement )
   {
     element = structUnionElement ;
@@ -133,6 +137,7 @@ public class StructUnionElementHolderImpl extends DataHolderImpl implements Stru
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public StructUnionElement getStructUnionElement()
   {
     return (StructUnionElement) element;
