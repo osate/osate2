@@ -44,6 +44,7 @@ import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.handlers.AbstractAaxlHandler;
+import org.osate.xtext.aadl2.properties.util.AadlProject;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
@@ -190,7 +191,7 @@ public class BusLoadAnalysis extends AbstractLoggingAnalysis {
 		}
 
 		if (budgetedVBs.size() > 0) {
-			errManager.logInfo("Virtual Bus,Budget,Foo,Note");
+			errManager.logInfo("Virtual Bus,Budget,Note");
 			for (ComponentInstance componentInstance : budgetedVBs) {
 				double budget = 0.0;
 
@@ -199,7 +200,7 @@ public class BusLoadAnalysis extends AbstractLoggingAnalysis {
 				if (budget > 0) {
 					totalBandWidth += budget;
 				}
-				detailedLog(componentInstance, budget, -1.0, "Please see separate virtual bus entry");
+				detailedLog(componentInstance, budget, "See separate virtual bus entry");
 			}
 		}
 
@@ -284,5 +285,12 @@ public class BusLoadAnalysis extends AbstractLoggingAnalysis {
 		}
 		return false;
 
+	}
+
+	protected void detailedLog(InstanceObject obj, double budget, String msg) {
+		String budgetmsg = budget + " " + AadlProject.KBYTESPS_LITERAL + ",";
+		String objname = (obj instanceof ConnectionInstance) ? obj.getFullName()
+				: ((ComponentInstance) obj).getComponentInstancePath();
+		errManager.logInfo(objname + ", " + budgetmsg + msg);
 	}
 }

@@ -842,23 +842,11 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static EList<ComponentInstance> getBoundVirtualBuses(final ComponentInstance busorVB) {
-		EList<ComponentInstance> result;
-		EList<ComponentInstance> virtualBuses;
-		SystemInstance root;
-
-		// Add virtual buses bound by property association
-		result = new BasicEList<ComponentInstance>();
-		root = busorVB.getSystemInstance();
-		virtualBuses = root.getAllComponentInstances(ComponentCategory.VIRTUAL_BUS);
+		final SystemInstance root = busorVB.getSystemInstance();
+		final EList<ComponentInstance> virtualBuses = root.getAllComponentInstances(ComponentCategory.VIRTUAL_BUS);
+		final EList<ComponentInstance> result = new BasicEList<ComponentInstance>();
 		for (ComponentInstance ci : virtualBuses) {
 			if (InstanceModelUtil.isBoundToBus(ci, busorVB)) {
-				result.add(ci);
-			}
-		}
-
-		// Add virtual buses that are subcomponents
-		for (final ComponentInstance ci : busorVB.getComponentInstances()) {
-			if (ci.getCategory() == ComponentCategory.VIRTUAL_BUS) {
 				result.add(ci);
 			}
 		}
