@@ -840,6 +840,7 @@ public class InstanceModelUtil {
 	 * get all virtual buses bound to the given bus or virtual bus
 	 * @param busorVB
 	 * @return
+	 * @since 1.2
 	 */
 	public static EList<ComponentInstance> getBoundVirtualBuses(final ComponentInstance busorVB) {
 		final SystemInstance root = busorVB.getSystemInstance();
