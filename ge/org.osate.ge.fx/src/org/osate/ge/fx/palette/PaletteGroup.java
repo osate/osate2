@@ -28,22 +28,18 @@ class PaletteGroup extends Region {
 		ScrollPane scrollPane = new ScrollPane();
 		for (int i = 0; i < mc.getNumberOfItems(); i++) {
 
-			if (mc.getItemGroup(i) != null && mc.getItemGroup(i) == groupIndex) {
-
-				Button itemButton = new Button(mc.getItemLabel(i));
-				itemButton.setGraphic(new ImageView(mc.getItemIcon(i)));
-				scrollPane.setContent(itemButton);
+			PaletteItem paletteItem = new PaletteItem(mc, i, groupIndex);
+			scrollPane.setContent(paletteItem);
 
 			}
-			// This throws an exception for duplicate children
 			buttonBox.getChildren().add(scrollPane);
 			scrollPane.setManaged(false);
 			scrollPane.setVisible(false);
+			scrollPane.managedProperty().bind(expandedProperty());
 
 		}
 
 		// TODO: Update visibility of scrollpane based on state of expanded property
-	}
 
 	// The palette group has a property which indicates whether it is be expanded.
 	public boolean getExpanded() {

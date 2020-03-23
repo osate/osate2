@@ -23,6 +23,7 @@
  */
 package org.osate.ge.fx.palette;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import org.osate.ge.fx.NodeApplication;
@@ -39,6 +40,7 @@ public class Palette extends Region {
 	private PaletteModelController mc;
 
 	VBox paletteVbox = new VBox();
+	ArrayList<PaletteGroup> paletteList = new ArrayList<PaletteGroup>();
 
 	public Palette(final PaletteModelController mc) {
 		this.mc = Objects.requireNonNull(mc, "mc must not be null");
@@ -52,9 +54,18 @@ public class Palette extends Region {
 			// TODO: Listen for change to expanded property. When it is set, adjust expanded state of other
 
 			PaletteGroup paletteGroup = new PaletteGroup(mc, i);
+			paletteList.add(paletteGroup);
 		}
 
-
+		/*
+		 * This should add all paletteGroups into a list which is then put into a VBox containing
+		 * all the paletteGroup instances. That VBox is then added to the palette.
+		 * In theory, taking these steps should create a visible output when the code is run,
+		 * however all that happens is a blank screen.
+		 */
+		// TODO Discover why the above statement is true.
+		paletteVbox.getChildren().addAll(paletteList);
+		this.getChildren().add(paletteVbox);
 	}
 
 	@Override
