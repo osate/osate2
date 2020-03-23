@@ -162,13 +162,43 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EMV2InstancePackage.BEHAVIOR_INSTANCE: {
-				BehaviorInstance behaviorInstance = (BehaviorInstance)theEObject;
-				T result = caseBehaviorInstance(behaviorInstance);
-				if (result == null) result = caseEMV2InstanceObject(behaviorInstance);
-				if (result == null) result = caseInstanceObject(behaviorInstance);
-				if (result == null) result = caseNamedElement(behaviorInstance);
-				if (result == null) result = caseElement(behaviorInstance);
+			case EMV2InstancePackage.ERROR_FLOW_INSTANCE: {
+				ErrorFlowInstance errorFlowInstance = (ErrorFlowInstance)theEObject;
+				T result = caseErrorFlowInstance(errorFlowInstance);
+				if (result == null) result = caseEMV2InstanceObject(errorFlowInstance);
+				if (result == null) result = caseInstanceObject(errorFlowInstance);
+				if (result == null) result = caseNamedElement(errorFlowInstance);
+				if (result == null) result = caseElement(errorFlowInstance);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EMV2InstancePackage.ERROR_BEHAVIOR_INSTANCE: {
+				ErrorBehaviorInstance errorBehaviorInstance = (ErrorBehaviorInstance)theEObject;
+				T result = caseErrorBehaviorInstance(errorBehaviorInstance);
+				if (result == null) result = caseEMV2InstanceObject(errorBehaviorInstance);
+				if (result == null) result = caseInstanceObject(errorBehaviorInstance);
+				if (result == null) result = caseNamedElement(errorBehaviorInstance);
+				if (result == null) result = caseElement(errorBehaviorInstance);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE: {
+				PropagationPathInstance propagationPathInstance = (PropagationPathInstance)theEObject;
+				T result = casePropagationPathInstance(propagationPathInstance);
+				if (result == null) result = caseEMV2InstanceObject(propagationPathInstance);
+				if (result == null) result = caseInstanceObject(propagationPathInstance);
+				if (result == null) result = caseNamedElement(propagationPathInstance);
+				if (result == null) result = caseElement(propagationPathInstance);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE: {
+				PropagationPointInstance propagationPointInstance = (PropagationPointInstance)theEObject;
+				T result = casePropagationPointInstance(propagationPointInstance);
+				if (result == null) result = caseEMV2InstanceObject(propagationPointInstance);
+				if (result == null) result = caseInstanceObject(propagationPointInstance);
+				if (result == null) result = caseNamedElement(propagationPointInstance);
+				if (result == null) result = caseElement(propagationPointInstance);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -313,17 +343,62 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Behavior Instance</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Error Flow Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Behavior Instance</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Error Flow Instance</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseBehaviorInstance(BehaviorInstance object) {
+	public T caseErrorFlowInstance(ErrorFlowInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Behavior Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Behavior Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseErrorBehaviorInstance(ErrorBehaviorInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Propagation Path Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Propagation Path Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePropagationPathInstance(PropagationPathInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Propagation Point Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Propagation Point Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePropagationPointInstance(PropagationPointInstance object) {
 		return null;
 	}
 

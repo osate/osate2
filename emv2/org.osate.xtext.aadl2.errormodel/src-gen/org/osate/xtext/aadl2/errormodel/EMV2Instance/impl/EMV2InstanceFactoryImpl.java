@@ -84,7 +84,10 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT: return createConstrainedInstanceObject();
 			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE: return createStateTransitionInstance();
 			case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE: return createCompositeStateInstance();
-			case EMV2InstancePackage.BEHAVIOR_INSTANCE: return createBehaviorInstance();
+			case EMV2InstancePackage.ERROR_FLOW_INSTANCE: return createErrorFlowInstance();
+			case EMV2InstancePackage.ERROR_BEHAVIOR_INSTANCE: return createErrorBehaviorInstance();
+			case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE: return createPropagationPathInstance();
+			case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE: return createPropagationPointInstance();
 			case EMV2InstancePackage.EVENT_INSTANCE: return createEventInstance();
 			case EMV2InstancePackage.CONSTRAINT: return createConstraint();
 			default:
@@ -194,9 +197,42 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public BehaviorInstance createBehaviorInstance() {
-		BehaviorInstanceImpl behaviorInstance = new BehaviorInstanceImpl();
-		return behaviorInstance;
+	public ErrorFlowInstance createErrorFlowInstance() {
+		ErrorFlowInstanceImpl errorFlowInstance = new ErrorFlowInstanceImpl();
+		return errorFlowInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ErrorBehaviorInstance createErrorBehaviorInstance() {
+		ErrorBehaviorInstanceImpl errorBehaviorInstance = new ErrorBehaviorInstanceImpl();
+		return errorBehaviorInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public PropagationPathInstance createPropagationPathInstance() {
+		PropagationPathInstanceImpl propagationPathInstance = new PropagationPathInstanceImpl();
+		return propagationPathInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public PropagationPointInstance createPropagationPointInstance() {
+		PropagationPointInstanceImpl propagationPointInstance = new PropagationPointInstanceImpl();
+		return propagationPointInstance;
 	}
 
 	/**
