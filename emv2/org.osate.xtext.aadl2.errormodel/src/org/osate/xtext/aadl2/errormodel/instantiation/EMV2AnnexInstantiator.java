@@ -61,7 +61,11 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrmoreExpression;
@@ -242,6 +246,94 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		sti.setTargetState(findStateInstance(context, st.getState()));
 	}
 
+	public void instantiateErrorFlow(ErrorFlow ef, EMV2AnnexInstance context) {
+		ComponentInstance relatedComponent = (ComponentInstance) context.eContainer();
+		ErrorPropagation inep = null;
+		ErrorPropagation outep = null;
+		TypeSet constraint = null;
+		TypeSet outToken = null;
+		boolean allIncoming = false;
+		boolean allOutgoing = false;
+		if (ef instanceof ErrorPath) {
+			ErrorPath epath = (ErrorPath) ef;
+			inep = epath.getIncoming();
+			outep = epath.getOutgoing();
+			constraint = epath.getTypeTokenConstraint();
+			outToken = epath.getTargetToken();
+			allIncoming = epath.isAllIncoming();
+			allOutgoing = epath.isAllOutgoing();
+		} else if (ef instanceof ErrorSource) {
+			ErrorSource esrc = (ErrorSource) ef;
+			outep = (ErrorPropagation) esrc.getSourceModelElement();
+			outToken = esrc.getTypeTokenConstraint();
+			allOutgoing = esrc.isAll();
+		} else if (ef instanceof ErrorSink) {
+			ErrorSink esink = (ErrorSink) ef;
+			inep = esink.getIncoming();
+			outToken = esink.getTypeTokenConstraint();
+			allOutgoing = esink.isAllIncoming();
+		}
+		if (allIncoming && allOutgoing) {
+			Collection<ErrorPropagation> ineps = EMV2Util.getAllIncomingErrorPropagations(relatedComponent);
+			for (ErrorPropagation ainep : ineps) {
+				Collection<ErrorPropagation> outeps = EMV2Util.getAllIncomingErrorPropagations(relatedComponent);
+				for (ErrorPropagation aoutep : outeps) {
+					instantiateErrorFlow(ef, context, ainep, constraint, aoutep, outToken);
+				}
+			}
+		} else if (allIncoming) {
+			Collection<ErrorPropagation> ineps = EMV2Util.getAllIncomingErrorPropagations(relatedComponent);
+			for (ErrorPropagation ainep : ineps) {
+				instantiateErrorFlow(ef, context, ainep, constraint, outep, outToken);
+			}
+		} else if (allOutgoing) {
+			Collection<ErrorPropagation> outeps = EMV2Util
+					.getAllOutgoingErrorPropagations(relatedComponent.getClassifier());
+			for (ErrorPropagation aoutep : outeps) {
+				instantiateErrorFlow(ef, context, inep, constraint, aoutep, outToken);
+			}
+		} else {
+			instantiateErrorFlow(ef, context, inep, constraint, outep, outToken);
+		}
+	}
+
+	private void instantiateErrorFlow(NamedElement ef, EMV2AnnexInstance context,
+			ErrorPropagation inep, TypeSet constraint, ErrorPropagation outep, TypeSet outToken) {
+		ComponentInstance relatedComponent = (ComponentInstance) context.eContainer();
+		BehaviorInstance bi = EMV2InstanceFactory.eINSTANCE.createBehaviorInstance();
+		bi.setName(ef.getName());
+		bi.setEmv2Element(ef);
+		context.getBehaviors().add(bi);
+		if (inep != null) {
+			ConstrainedInstanceObject cio = createCIO(inep, constraint, relatedComponent);
+			bi.setCondition(cio);
+		}
+		if (outep != null) {
+			ConstrainedInstanceObject cio = createCIO(outep, outToken, relatedComponent);
+			cio.setOutgoing(true);
+			// TODO set actions
+			bi.getActions().add(cio);
+		}
+	}
+
+	private ConstrainedInstanceObject createCIO(ErrorPropagation ep, TypeSet ts, ComponentInstance ci) {
+		ConstrainedInstanceObject cio = EMV2InstanceFactory.eINSTANCE.createConstrainedInstanceObject();
+		FeatureorPPReference fppref = ep.getFeatureorPPRef();
+		if (fppref != null) {
+			NamedElement fpp = fppref.getFeatureorPP();
+			if (fpp instanceof Feature) {
+				FeatureInstance fi = ci.findFeatureInstance((Feature) fpp);
+				cio.setInstanceObject(fi);
+				cio.setName(fi.getName());
+			}
+		}
+		// TODO fix to map
+		Collection<TypeToken> referencedErrorTypes = ts != null ? EMV2TypeSetUtil.flattenTypesetElements(ts)
+				: EMV2TypeSetUtil.flattenTypesetElements(ep.getTypeSet());
+		cio.getConstraint().addAll(referencedErrorTypes);
+		return cio;
+	}
+
 	public void instantiateOutgoingPropagationCondition(OutgoingPropagationCondition opc, EMV2AnnexInstance context) {
 		BehaviorInstance bi = EMV2InstanceFactory.eINSTANCE.createBehaviorInstance();
 		bi.setName(opc.getName());
@@ -263,6 +355,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 		// action. We keep shared action instances such that there is only one per type
 		if (opc.isAllPropagations()) {
+			// TODO
 		} else {
 			ErrorPropagation outep = opc.getOutgoing();
 			FeatureorPPReference fppref = outep.getFeatureorPPRef();
@@ -288,6 +381,21 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				}
 			}
 		}
+	}
+
+	private void doAction(BehaviorInstance bi, EMV2AnnexInstance context, InstanceObject fi, TypeToken outtoken) {
+		ConstrainedInstanceObject foundcio = findMatchingActionCIO(context, fi, outtoken);
+		if (foundcio != null) {
+			bi.getActions().add(foundcio);
+		} else {
+			ConstrainedInstanceObject tcio = createConstrainedInstanceObject(fi, true);
+			if (outtoken != null) {
+				tcio.getConstraint().add(EcoreUtil.copy(outtoken));
+			}
+			context.getActions().add(tcio);
+			bi.getActions().add(foundcio);
+		}
+
 	}
 
 	private ConstrainedInstanceObject findMatchingActionCIO(EMV2AnnexInstance context, InstanceObject io,
@@ -480,8 +588,9 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				ConstrainedInstanceObject cio = EMV2InstanceFactory.eINSTANCE.createConstrainedInstanceObject();
 				EMV2Path path = conditionElement.getQualifiedErrorPropagationReference();
 
-				ComponentInstance relatedComponent = (ComponentInstance) annex.eContainer();
 				NamedElement errorModelElement = EMV2Util.getErrorModelElement(path);
+				ComponentInstance component = (ComponentInstance) annex.eContainer();
+				ComponentInstance referencedComponent = EMV2Util.getLastComponentInstance(path, component);
 
 				/**
 				 * Here, we have an error event. Likely, this is something we
@@ -508,11 +617,16 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					if (fppref != null) {
 						NamedElement fpp = fppref.getFeatureorPP();
 						if (fpp instanceof Feature) {
-							FeatureInstance fi = relatedComponent.findFeatureInstance((Feature) fpp);
+							FeatureInstance fi = referencedComponent.findFeatureInstance((Feature) fpp);
 							cio.setInstanceObject(fi);
 							cio.setName(fi.getName());
 						}
+					} else if (errorPropagation.getKind() != null) {
+						cio.setInstanceObject(referencedComponent);
+						cio.setName(referencedComponent.getName());
+						cio.setBindingKind(errorPropagation.getKind());
 					}
+					// TODO
 					Collection<TypeToken> referencedErrorTypes = conditionElement.getConstraint() != null
 							? EMV2TypeSetUtil.flattenTypesetElements(conditionElement.getConstraint())
 							: EMV2TypeSetUtil.flattenTypesetElements(errorPropagation.getTypeSet());
