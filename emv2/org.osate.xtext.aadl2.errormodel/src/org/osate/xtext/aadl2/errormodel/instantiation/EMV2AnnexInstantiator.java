@@ -24,11 +24,9 @@
 package org.osate.xtext.aadl2.errormodel.instantiation;
 
 import static org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil.isNoError;
-import static org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil.mapTokenThroughConstraint;
 
 import java.util.Collection;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.NamedElement;
@@ -77,7 +75,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
-import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 public class EMV2AnnexInstantiator implements AnnexInstantiator {
@@ -345,10 +342,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		} else if (ep.getKind() != null) {
 			cio.setBindingKind(ep.getKind());
 		}
-		// TODO fix to map
-		Collection<TypeToken> referencedErrorTypes = ts != null ? EMV2TypeSetUtil.flattenTypesetElements(ts)
-				: EMV2TypeSetUtil.flattenTypesetElements(ep.getTypeSet());
-		cio.getConstraint().addAll(referencedErrorTypes);
+		cio.getConstraint().addAll(ts.getTypeTokens());
 		return cio;
 	}
 
@@ -545,13 +539,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					ConstrainedInstanceObject cio = EMV2InstanceFactory.eINSTANCE.createConstrainedInstanceObject();
 					cio.setInstanceObject(si);
 					cio.setName(si.getName());
-					if (referencedErrorType != null) {
-						// handle type set on states
-						// get incoming type from propagation
-						// TODO
-						EList<TypeToken> leaftypes = EMV2TypeSetUtil.flattenTypesetElements(referencedErrorType);
-						cio.getConstraint().addAll(leaftypes);
-					}
+					cio.getConstraint().addAll(referencedErrorType.getTypeTokens());
 					return cio;
 				} else if (sconditionElement.getQualifiedErrorPropagationReference() != null) {
 					EMV2Path path = sconditionElement.getQualifiedErrorPropagationReference();
@@ -562,7 +550,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					TypeSet referencedErrorType = (sconditionElement.getConstraint() != null)
 							? sconditionElement.getConstraint()
 							: ep.getTypeSet();
-					ConstrainedInstanceObject cio = createCIO(ep, referencedErrorType, annex);
+					ConstrainedInstanceObject cio = createCIO(ep, referencedErrorType,
+							findEMV2AnnexInstance(referencedComponent));
 					return cio;
 				}
 			} // end SConditionElement
@@ -580,19 +569,18 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				NamedElement errorModelElement = EMV2Util.getErrorModelElement(path);
 				ComponentInstance component = (ComponentInstance) annex.eContainer();
 				ComponentInstance referencedComponent = EMV2Util.getLastComponentInstance(path, component);
-
+				EMV2AnnexInstance referencedAnnex = findEMV2AnnexInstance(referencedComponent);
 				/**
 				 * Here, we have an error event. Likely, this is something we
 				 * can get when we are analyzing error component behavior.
 				 */
 				if (errorModelElement instanceof ErrorEvent) {
-					EventInstance evi = findEventInstance(annex, (ErrorEvent) errorModelElement);
+					EventInstance evi = findEventInstance(referencedAnnex, (ErrorEvent) errorModelElement);
 					cio.setInstanceObject(evi);
 					cio.setName(evi.getName());
-					Collection<TypeToken> referencedErrorTypes = conditionElement.getConstraint() != null
-							? mapTokenThroughConstraint(conditionElement.getConstraint(), null)
-							: mapTokenThroughConstraint(((ErrorEvent) errorModelElement).getTypeSet(), null);
-					cio.getConstraint().addAll(referencedErrorTypes);
+					TypeSet ts = conditionElement.getConstraint() != null ? conditionElement.getConstraint()
+							: ((ErrorEvent) errorModelElement).getTypeSet();
+					cio.getConstraint().addAll(ts.getTypeTokens());
 					return cio;
 				}
 
@@ -604,7 +592,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					ErrorPropagation errorPropagation = (ErrorPropagation) errorModelElement;
 					TypeSet ts = conditionElement.getConstraint() != null ? conditionElement.getConstraint()
 							: errorPropagation.getTypeSet();
-					cio = createCIO(errorPropagation, ts, annex);
+					cio = createCIO(errorPropagation, ts, referencedAnnex);
 					return cio;
 				}
 
