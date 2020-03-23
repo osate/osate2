@@ -287,6 +287,9 @@ public class BusLoadAnalysis extends AbstractLoggingAnalysis {
 
 	}
 
+	/**
+	 * @since 2.1
+	 */
 	protected void detailedLog(InstanceObject obj, double budget, String msg) {
 		String budgetmsg = budget + " " + AadlProject.KBYTESPS_LITERAL + ",";
 		String objname = (obj instanceof ConnectionInstance) ? obj.getFullName()
