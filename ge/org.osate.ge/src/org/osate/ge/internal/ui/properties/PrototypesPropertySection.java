@@ -23,21 +23,18 @@
  */
 package org.osate.ge.internal.ui.properties;
 
-import java.util.Objects;
-import java.util.function.Function;
-
 import org.eclipse.jface.viewers.IFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
-import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
 import org.osate.aadl2.Classifier;
+import org.osate.ge.swt.prototypes.PrototypesEditor;
+import org.osate.ge.swt.prototypes.TestPrototypesEditorModel;
 import org.osate.ge.ui.properties.PropertySectionUtil;
 
 /**
@@ -55,47 +52,33 @@ public class PrototypesPropertySection extends AbstractPropertySection {
 	@Override
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
 		super.createControls(parent, aTabbedPropertySheetPage);
-		final FormBuilder fb = new FormBuilder(parent, getWidgetFactory());
-		fb.createSimple("Test 1", (p) -> getWidgetFactory().createLabel(p, "TODO"));
-		fb.createSimple("Test 2", (p) -> getWidgetFactory().createLabel(p, "TODO"));
-	}
 
-	static class FormBuilder {
-		private final Composite composite;
-		private final TabbedPropertySheetWidgetFactory widgetFactory;
-		private Control lastContent;
+		final Composite composite = getWidgetFactory().createFlatFormComposite(parent);
+		final CLabel label = getWidgetFactory().createCLabel(composite, "Prototypes:");
+		final PrototypesEditor editor = new PrototypesEditor(composite, new TestPrototypesEditorModel()); // TODO: Adjust model
 
-		public FormBuilder(final Composite parent, final TabbedPropertySheetWidgetFactory widgetFactory) {
-			this.widgetFactory = Objects.requireNonNull(widgetFactory, "widgetFactory must not be null");
-			this.composite = widgetFactory.createFlatFormComposite(parent);
-		}
-
-		// TODO: REname and share
-		private <T extends Control> T createSimple(final String labelTxt,
-				Function<Composite, T> contentSupplier) {
-			FormData data;
-
-			final T content = contentSupplier.apply(composite);
-
-			data = new FormData();
-			data.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
-			data.right = new FormAttachment(100, 0);
-			data.top = lastContent == null ? new FormAttachment(0, ITabbedPropertyConstants.VSPACE)
-					: new FormAttachment(lastContent);
-			content.setLayoutData(data);
-
-			final CLabel label = widgetFactory.createCLabel(composite, labelTxt);
-			data = new FormData();
+		// Configure layout data
+		{
+			final FormData data = new FormData();
 			data.left = new FormAttachment(0, 0);
-			data.right = new FormAttachment(content, -ITabbedPropertyConstants.HSPACE);
-			data.top = new FormAttachment(content, 0, SWT.CENTER);
+			data.right = new FormAttachment(editor, -ITabbedPropertyConstants.HSPACE);
+			data.top = new FormAttachment(editor, 0, SWT.CENTER);
 			label.setLayoutData(data);
-
-			lastContent = content;
-
-			return content;
-
 		}
 
+		{
+			final FormData data = new FormData();
+			data.left = new FormAttachment(0, AbstractPropertySection.STANDARD_LABEL_WIDTH);
+			data.right = new FormAttachment(100, 0);
+			data.top = new FormAttachment(0, ITabbedPropertyConstants.VSPACE);
+			editor.setLayoutData(data);
+		}
+
+		// TODO; Adjust layout.. helper functions
+		// TODO: Does form builder help?
+		// TODO: Prototype List
+		// TODO: Actual List
+		// TODO: Add/Remove buttons
+		// TODO: Prototype Details Page
 	}
 }

@@ -89,4 +89,11 @@ censes only apply to the Third Party Software and not any other portion of this 
          version="0.0.0"
          unpack="false"/>
 
+   <plugin
+         id="org.osate.ge.swt"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>

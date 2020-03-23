@@ -29,22 +29,13 @@ censes only apply to the Third Party Software and not any other portion of this 
 
 	<parent>
 		<groupId>org.osate</groupId>
-		<artifactId>osate2.parent</artifactId>
+		<artifactId>ge.parent</artifactId>
 		<version>2.7.1-SNAPSHOT</version>
 	</parent>
 
 	<groupId>org.osate</groupId>
-	<artifactId>ge.parent</artifactId>
-	<packaging>pom</packaging>
-	<version>2.7.1-SNAPSHOT</version>
-
-	<modules>
-		<module>org.osate.ge</module>
-		<module>org.osate.ge.swt</module>
-		<module>org.osate.ge.diagram</module>
-		<module>org.osate.ge.doc</module>
-		<module>org.osate.ge.feature</module>
- 		<module>org.osate.ge.tests</module>
-	</modules>
+	<artifactId>org.osate.ge.swt</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>eclipse-plugin</packaging>
 
 </project>
