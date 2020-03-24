@@ -215,7 +215,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 		context.getTransitions().add(sti);
 		ConditionExpression behaviorCondition = st.getCondition();
-		ConstraintElement cio = instantiateCondition(context, behaviorCondition, false);
+		ConstraintElement cio = instantiateCondition(context, behaviorCondition);
 		sti.setCondition(cio);
 		boolean isSteadyState = tb != null ? tb.isSteadyState() : st.isSteadyState();
 		ErrorBehaviorState target = tb != null ? tb.getTarget() : st.getTarget();
@@ -251,7 +251,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		sti.setCompositeState(st);
 		context.getComposites().add(sti);
 		ConditionExpression behaviorCondition = st.getCondition();
-		ConstraintElement cio = instantiateCondition(context, behaviorCondition, false);
+		ConstraintElement cio = instantiateCondition(context, behaviorCondition);
 		sti.setCondition(cio);
 		// explicit target state
 		sti.setTargetState(findStateInstance(context, st.getState()));
@@ -367,7 +367,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		bi.setEmv2Element(opc);
 		context.getErrorBehaviors().add(bi);
 		ConditionExpression behaviorCondition = opc.getCondition();
-		ConstraintElement cio = instantiateCondition(context, behaviorCondition, false);
+		ConstraintElement cio = instantiateCondition(context, behaviorCondition);
 		bi.setCondition(cio);
 		// explicit target state
 		if (opc.isAllStates()) {
@@ -431,8 +431,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return null;
 	}
 
-	public ConstraintElement instantiateCondition(EMV2AnnexInstance annex, ConditionExpression condition,
-			boolean stateOnly) {
+	public ConstraintElement instantiateCondition(EMV2AnnexInstance annex, ConditionExpression condition) {
 
 		// Mapping of AND expression
 		if (condition instanceof AndExpression) {
@@ -440,7 +439,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			Constraint andExpr = EMV2InstanceFactory.eINSTANCE.createConstraint();
 			andExpr.setOperator(EOperation.ALL);
 			for (ConditionExpression ce : expression.getOperands()) {
-				ConstraintElement res = instantiateCondition(annex, ce, stateOnly);
+				ConstraintElement res = instantiateCondition(annex, ce);
 				if (res != null) {
 					andExpr.getConstraintElements().add(res);
 				}
@@ -456,7 +455,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				Constraint allExpr = EMV2InstanceFactory.eINSTANCE.createConstraint();
 				allExpr.setOperator(EOperation.ALL);
 				for (ConditionExpression ce : allCondition.getOperands()) {
-					ConstraintElement res = instantiateCondition(annex, ce, stateOnly);
+					ConstraintElement res = instantiateCondition(annex, ce);
 					if (res != null) {
 						allExpr.getConstraintElements().add(res);
 					}
@@ -472,7 +471,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			Constraint allExpr = EMV2InstanceFactory.eINSTANCE.createConstraint();
 			allExpr.setOperator(EOperation.ONEOF);
 			for (ConditionExpression ce : orExpression.getOperands()) {
-				ConstraintElement res = instantiateCondition(annex, ce, stateOnly);
+				ConstraintElement res = instantiateCondition(annex, ce);
 				if (res != null) {
 					allExpr.getConstraintElements().add(res);
 				}
@@ -489,7 +488,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				Constraint allExpr = EMV2InstanceFactory.eINSTANCE.createConstraint();
 				allExpr.setOperator(EOperation.ANY);
 				for (ConditionExpression ce : omCondition.getOperands()) {
-					ConstraintElement res = instantiateCondition(annex, ce, stateOnly);
+					ConstraintElement res = instantiateCondition(annex, ce);
 					if (res != null) {
 						allExpr.getConstraintElements().add(res);
 					}
@@ -501,7 +500,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				omExpr.setOperator(EOperation.KORMORE);
 				omExpr.setK(omCondition.getCount());
 				for (ConditionExpression ce : omCondition.getOperands()) {
-					ConstraintElement res = instantiateCondition(annex, ce, stateOnly);
+					ConstraintElement res = instantiateCondition(annex, ce);
 					if (res != null) {
 						omExpr.getConstraintElements().add(res);
 					}
