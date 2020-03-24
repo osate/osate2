@@ -116,7 +116,7 @@ The flow latency analysis supports the following settings:
       order of partition A or partition B.
 - **For worst-case processing time use**: Users can choose between deadline
   and worst-case compute execution time as worst case processing time. For best case 
-  we always use compute execution time.
+  we always use compute execution time.  This setting is only relevant when no response time is available.
     - **Deadline (DL)**: Deadline represents the worst-case 
       completion time assuming the tasks are schedulable.
     - **Maximum compute execution time (ET)**: Maximum compute execution time 
@@ -211,6 +211,7 @@ Each contributor entry has a number of columns:
     - **no latency**: Use value zero as no latency contribution was specified or 
       computed from the model.
     - **specified**: Use the specified latency property value.
+    - **response time**: The response time of the component, if specified.
     - **processing time**: The processing related latency contribution of a component 
       based on compute execution time and deadline.
     - **transmission time**: Latency contribution for a connection. Uses on 
@@ -429,11 +430,11 @@ Users can specify **SEI::Response\_Time** and **Compute\_Execution\_Time** prope
 
 The _best-case latency_ contribution is the lower bound of the response time, if specified (that is, has an explicit property association).  Otherwise it is the lower bound of the compute execution time, if specified.  If there is no compute execution time, then the lower bound of the expected latency is used.
 
-The _worst-case latency_ contribution is the upper bound of the response time, if speficied by the user.  Otherwise it depends on the analysis preference settings:
+The _worst-case latency_ contribution is the upper bound of the response time, if specified by the user.  Otherwise it depends on the analysis preference settings:
 
 * If the preference is to use deadline, then the deadline is used.  _The latency analysis tool only considers explicitly set Deadline values. The 
 default value of the Deadline is that of the Period value and is ignored by the 
-latency analysis._.  If the deadline is not available then the upper bound of the compute execution time is used.
+latency analysis._  If the deadline is not available then the upper bound of the compute execution time is used.
 
 * If the preference is to use the computation time, then the upper bound of the compute execution time is used.
 
