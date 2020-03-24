@@ -36,26 +36,32 @@ import javafx.scene.layout.VBox;
  * Generic palette component.
  *
  */
-public class Palette extends Region {
-	private PaletteModelController mc;
-
+public class Palette<G, I> extends Region {
+	// TODO: Note: These should be private and final. Our general rule is that all fields should be private and everything
+	// that can be final should be made final. It can be tedious but we generally try to keep to it. It ensures values
+	// that are not intended to be modified are not modified by mistake.
 	VBox paletteVbox = new VBox();
-	ArrayList<PaletteGroup> paletteList = new ArrayList<PaletteGroup>();
+	ArrayList<PaletteGroup<G, I>> paletteList = new ArrayList<PaletteGroup<G, I>>();
 
-	public Palette(final PaletteModelController mc) {
-		this.mc = Objects.requireNonNull(mc, "mc must not be null");
+	public Palette(final PaletteModel<G, I> model) {
+		Objects.requireNonNull(model, "mc must not be null");
 
 		// TODO: Create contents based on the model controller
 
-		for (int i = 0; i < mc.getNumberOfGroups(); i++) {
+		// TODO: Add items which are not contained in a group at the top.
+		// NOTE: Such items can be retrieved by using getItems(null);
+
+		for (G group : model.getGroups()) {
 			// TODO: Move into PaletteGroup
 			// TODO: Create a palette group for each group
 			// TODO: Add each palette to a list
 			// TODO: Listen for change to expanded property. When it is set, adjust expanded state of other
 
-			PaletteGroup paletteGroup = new PaletteGroup(mc, i);
+			PaletteGroup<G, I> paletteGroup = new PaletteGroup<>(model, group);
 			paletteList.add(paletteGroup);
-			paletteVbox.getChildren().add(paletteList.get(i));
+
+			// paletteVbox.getChildren().add(paletteList.get(i));
+			paletteVbox.getChildren().add(paletteGroup);
 		}
 
 		/*
@@ -69,14 +75,8 @@ public class Palette extends Region {
 		this.getChildren().add(paletteVbox);
 	}
 
-	@Override
-	public void layoutChildren() {
-		// TODO: Replace with something that sizes and positions children appropriately.
-		super.layoutChildren();
-	}
-
 	public static void main(final String[] args) {
-		NodeApplication.run(() -> new Node[] { new Palette(new TestPaletteModelController()) });
+		NodeApplication.run(() -> new Node[] { new Palette<>(new TestPaletteModel()) });
 	}
 
 }

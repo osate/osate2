@@ -12,23 +12,24 @@ import javafx.scene.layout.VBox;
  * Represents a single group in the palette.
  *
  */
-class PaletteGroup extends Region {
+class PaletteGroup<G, I> extends Region {
 	private BooleanProperty expanded = new SimpleBooleanProperty(false);
 
-	public PaletteGroup(final PaletteModelController mc, final int groupIndex) {
+	public PaletteGroup(final PaletteModel<G, I> model, final G groupModel) {
 		// TODO: Populate contents based in a manner similar to what is currently in Palette
 
 		VBox buttonBox = new VBox();
 
-		Button groupButton = new Button(mc.getGroupLabel(groupIndex));
-		groupButton.setGraphic(new ImageView(mc.getGroupIcon(groupIndex)));
+		Button groupButton = new Button(model.getGroupLabel(groupModel));
+		groupButton.setGraphic(new ImageView(model.getGroupIcon(groupModel)));
 
 		buttonBox.getChildren().add(groupButton);
 
 		ScrollPane scrollPane = new ScrollPane();
-		for (int i = 0; i < mc.getNumberOfItems(); i++) {
 
-			PaletteItem paletteItem = new PaletteItem(mc, i, groupIndex);
+		for (I itemModel : model.getItems(groupModel)) {
+
+			PaletteItem<I> paletteItem = new PaletteItem<>(model, itemModel);
 			scrollPane.setContent(paletteItem);
 
 			}

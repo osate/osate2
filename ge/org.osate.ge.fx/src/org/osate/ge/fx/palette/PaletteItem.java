@@ -4,16 +4,17 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 
-class PaletteItem extends Region {
+class PaletteItem<I> extends Region {
 
-	public PaletteItem(final PaletteModelController mc, final int itemIndex, final int groupIndex) {
+	public PaletteItem(final PaletteModel<?, I> model, I item) {
 
-		if (mc.getItemGroup(itemIndex) != null && mc.getItemGroup(itemIndex) == groupIndex) {
+		// TODO; Shouldn't be needed. We don't want to create empty items.
+		// if (mc.getItemGroup(itemIndex) != null && mc.getItemGroup(itemIndex) == groupIndex) {
 
-			Button itemButton = new Button(mc.getItemLabel(itemIndex));
-			itemButton.setGraphic(new ImageView(mc.getItemIcon(itemIndex)));
+		Button itemButton = new Button(model.getItemLabel(item));
+		itemButton.setGraphic(new ImageView(model.getItemIcon(item)));
 
-		}
+		// }
 
 	}
 }
