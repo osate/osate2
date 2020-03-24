@@ -85,5 +85,8 @@ public final class SEI {
 
 	public static final String PRICE = "price";
 
+	/**
+	 * @since 1.1
+	 */
 	public static final String RESPONSE_TIME = "Response_Time";
 }
