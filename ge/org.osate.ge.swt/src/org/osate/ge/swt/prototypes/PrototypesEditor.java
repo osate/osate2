@@ -106,9 +106,22 @@ public class PrototypesEditor extends Composite {
 			}
 
 			@Override
-			public void setDirection(Direction value) {
+			public void setDirection(final Direction value) {
 				if (model.getSelectedPrototype() != null) {
 					model.setPrototypeDirection(model.getSelectedPrototype(), value);
+				}
+			}
+
+			@Override
+			public PrototypeType getType() {
+				return model.getSelectedPrototype() == null ? null
+						: model.getPrototypeType(model.getSelectedPrototype());
+			}
+
+			@Override
+			public void setType(final PrototypeType value) {
+				if (model.getSelectedPrototype() != null) {
+					model.setPrototypeType(model.getSelectedPrototype(), value);
 				}
 			}
 		});

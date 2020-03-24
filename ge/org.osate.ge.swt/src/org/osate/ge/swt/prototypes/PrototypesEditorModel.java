@@ -72,4 +72,18 @@ public interface PrototypesEditorModel extends ObservableModel {
 	 * @param value is the new direction for the specified prototype.
 	 */
 	void setPrototypeDirection(Object prototype, Direction value);
+
+	/**
+	 * Get the type of the specified prototype.
+	 * @param prototype is the prototype for which to return the type.
+	 * @return the type of the specified prototype. Returns null if the prototype does not have a type value available.
+	 */
+	PrototypeType getPrototypeType(Object prototype);
+
+	/**
+	 * Updates the direction of the specified prototype
+	 * @param prototype is the prototype for which to set the type.
+	 * @param value is the new type for the specified prototype.
+	 */
+	void setPrototypeType(Object prototype, PrototypeType value);
 }

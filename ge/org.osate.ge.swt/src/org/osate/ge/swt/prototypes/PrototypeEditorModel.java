@@ -44,4 +44,16 @@ public interface PrototypeEditorModel extends ObservableModel {
 	 * @param value is the new direction for the prototype.
 	 */
 	void setDirection(final Direction value);
+
+	/**
+	 * Returns the current value for type.
+	 * @return the type to display in the editor.
+	 */
+	PrototypeType getType();
+
+	/**
+	 * Updates the value for the type.
+	 * @param value is the new value for type.
+	 */
+	void setType(final PrototypeType value);
 }

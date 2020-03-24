@@ -90,11 +90,23 @@ public class TestPrototypesEditorModel extends BaseObservableModel implements Pr
 			triggerChangeEvent();
 		}
 	}
+
+	@Override
+	public PrototypeType getPrototypeType(final Object prototype) {
+		return ((TestPrototype) prototype).type;
+	}
+
+	@Override
+	public void setPrototypeType(final Object prototype, final PrototypeType value) {
+		selectedPrototype.type = Objects.requireNonNull(value);
+		triggerChangeEvent();
+	}
 }
 
 class TestPrototype {
 	String name;
 	Direction direction;
+	PrototypeType type;
 
 	public TestPrototype(final String name) {
 		this.name = name;
