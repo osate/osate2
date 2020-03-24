@@ -29,7 +29,9 @@ import org.eclipse.gef.common.adapt.AdapterKey;
 import org.eclipse.gef.mvc.fx.domain.IDomain;
 import org.eclipse.gef.mvc.fx.viewer.IViewer;
 import org.osate.ge.fx.palette.Palette;
-import org.osate.ge.fx.palette.TestPaletteModelController;
+import org.osate.ge.fx.palette.TestPaletteGroup;
+import org.osate.ge.fx.palette.TestPaletteItem;
+import org.osate.ge.fx.palette.TestPaletteModel;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
@@ -66,7 +68,7 @@ public class DemoApplication extends Application {
 		palettePaneHeader.getChildren().addAll(paletteHeaderLbl, toggleBtn);
 		paletteHeaderLbl.managedProperty().bind(paletteHeaderLbl.visibleProperty());
 
-		final Palette palette = new Palette(new TestPaletteModelController());
+		final Palette<TestPaletteGroup, TestPaletteItem> palette = new Palette<>(new TestPaletteModel());
 		toggleBtn.setOnAction(new EventHandler<ActionEvent>() {
 			double[] dividerPositions;
 

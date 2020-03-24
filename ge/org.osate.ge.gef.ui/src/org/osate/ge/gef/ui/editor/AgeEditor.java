@@ -40,7 +40,9 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
 import org.osate.ge.fx.palette.Palette;
-import org.osate.ge.fx.palette.TestPaletteModelController;
+import org.osate.ge.fx.palette.TestPaletteGroup;
+import org.osate.ge.fx.palette.TestPaletteItem;
+import org.osate.ge.fx.palette.TestPaletteModel;
 import org.osate.ge.gef.AgeModule;
 import org.osate.ge.gef.ui.AgeUiModule;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
@@ -111,7 +113,7 @@ public class AgeEditor extends AbstractFXEditor {
 	protected void hookViewers() {
 		// TODO: Replace this with widget derived from DemoApplication
 		final SplitPane sp = new SplitPane();
-		final Palette palette = new Palette(new TestPaletteModelController());
+		final Palette<TestPaletteGroup, TestPaletteItem> palette = new Palette<>(new TestPaletteModel());
 
 		sp.getItems().addAll(getContentViewer().getCanvas(), palette);
 

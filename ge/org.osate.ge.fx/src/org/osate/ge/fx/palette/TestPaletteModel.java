@@ -4,8 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -18,6 +16,7 @@ import javafx.scene.image.Image;
  * Test view model for the {@link Palette} view. Provides a few groups and items with some of those having solid colored icons.
  *
  */
+// TODO: Make this internal once org.osate.gef.ui no longer uses
 public class TestPaletteModel implements PaletteModel<TestPaletteGroup, TestPaletteItem> {
 	private final ReadOnlyObjectWrapper<TestPaletteItem> activeItem = new ReadOnlyObjectWrapper<>();
 	private final TestPaletteGroup[] groups;
@@ -112,27 +111,5 @@ public class TestPaletteModel implements PaletteModel<TestPaletteGroup, TestPale
 			throw new RuntimeException(e);
 		}
 		return new Image(new ByteArrayInputStream(os.toByteArray()));
-	}
-}
-
-class TestPaletteGroup {
-	final String label;
-	final Image icon;
-	final List<TestPaletteItem> items = new ArrayList<>();
-
-	public TestPaletteGroup(final String label, Image icon) {
-		this.label = label;
-		this.icon = icon;
-	}
-}
-
-class TestPaletteItem {
-	final String label;
-	final Image icon;
-
-	public TestPaletteItem(TestPaletteGroup group, Image icon) {
-		group.items.add(this);
-		this.label = group.label + " - Item " + group.items.size();
-		this.icon = icon;
 	}
 }
