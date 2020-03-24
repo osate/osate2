@@ -55,6 +55,7 @@ public class Palette extends Region {
 
 			PaletteGroup paletteGroup = new PaletteGroup(mc, i);
 			paletteList.add(paletteGroup);
+			paletteVbox.getChildren().add(paletteList.get(i));
 		}
 
 		/*
@@ -64,7 +65,7 @@ public class Palette extends Region {
 		 * however all that happens is a blank screen.
 		 */
 		// TODO Discover why the above statement is true.
-		paletteVbox.getChildren().addAll(paletteList);
+
 		this.getChildren().add(paletteVbox);
 	}
 
