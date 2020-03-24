@@ -40,7 +40,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.graphiti.features.BoHandlerDirectEditFeature;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
-import org.osate.ge.swt.name.RenameDialogModel;
+import org.osate.ge.swt.name.NameEditorDialogModel;
 
 public class RenameHandler extends AbstractHandler {
 	@Override
@@ -123,8 +123,8 @@ public class RenameHandler extends AbstractHandler {
 			throw new RuntimeException("Direct Editing feature's canDirectEdit() returned false");
 		}
 
-		org.osate.ge.swt.name.RenameDialog.open(Display.getCurrent().getActiveShell(),
-				new RenameDialogModel() {
+		org.osate.ge.swt.name.NameEditorDialog.open(Display.getCurrent().getActiveShell(),
+				new NameEditorDialogModel() {
 			@Override
 			public String getName() {
 				return feature.getInitialValue(directEditingContext);

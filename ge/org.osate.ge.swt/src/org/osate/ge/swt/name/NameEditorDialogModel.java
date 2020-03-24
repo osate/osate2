@@ -1,10 +1,10 @@
 package org.osate.ge.swt.name;
 
 /**
- * View Model interface for {@link RenameDialog}
+ * View Model interface for {@link NameEditorDialog}
  *
  */
-public interface RenameDialogModel {
+public interface NameEditorDialogModel {
 	/**
 	 * Returns the name being edited.
 	 * @return is the initial value for the name being edited.

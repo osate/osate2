@@ -1,4 +1,4 @@
-package org.osate.ge.internal.ui.modelControllers;
+package org.osate.ge.internal.ui.models;
 
 import java.util.List;
 import java.util.Objects;
@@ -11,20 +11,19 @@ import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.swt.BaseObservableModel;
-import org.osate.ge.swt.direction.Direction;
-import org.osate.ge.swt.direction.DirectionEditorModel;
+import org.osate.ge.swt.list.ListSelectorModel;
 
 /**
- * Direction model controller implementation which is driven by a business object selection
+ * Model implementation which is driven by a business object selection
  *
  */
-public class BusinessObjectSelectionDirectionModelController extends BaseObservableModel
-implements DirectionEditorModel {
+public class BusinessObjectSelectionFeatureDirectionModel extends BaseObservableModel
+implements ListSelectorModel<DirectionType> {
 	private BusinessObjectSelection bos;
-	private Direction direction = null;
+	private DirectionType direction = null;
 	private boolean enabled = false;
 
-	public BusinessObjectSelectionDirectionModelController(final BusinessObjectSelection bos) {
+	public BusinessObjectSelectionFeatureDirectionModel(final BusinessObjectSelection bos) {
 		setBusinessObjectSelection(bos);
 	}
 
@@ -34,23 +33,43 @@ implements DirectionEditorModel {
 	}
 
 	@Override
-	public Direction getDirection() {
+	public DirectionType[] getElements() {
+		return DirectionType.values();
+	}
+
+	@Override
+	public DirectionType getSelectedElement() {
 		return direction;
 	}
 
 	@Override
-	public void setDirection(Direction value) {
+	public void setSelectedElement(DirectionType value) {
 		if (direction != value) {
 			// Modify the AADL model
 			bos.modify(DirectedFeature.class, feature -> {
 				if (feature instanceof AbstractFeature || feature instanceof FeatureGroup) {
-					feature.setIn(value == Direction.IN);
-					feature.setOut(value == Direction.OUT);
+					feature.setIn(value == DirectionType.IN);
+					feature.setOut(value == DirectionType.OUT);
 				} else {
-					feature.setIn(value == Direction.IN_OUT || value == Direction.IN);
-					feature.setOut(value == Direction.IN_OUT || value == Direction.OUT);
+					feature.setIn(value == DirectionType.IN_OUT || value == DirectionType.IN);
+					feature.setOut(value == DirectionType.IN_OUT || value == DirectionType.OUT);
 				}
 			});
+		}
+	}
+
+	@Override
+	public String getLabel(DirectionType element) {
+		switch (element) {
+		case IN:
+			return "Input";
+		case OUT:
+			return "Output";
+		case IN_OUT:
+			return "Bidirectional";
+		default:
+			return element.toString();
+
 		}
 	}
 
@@ -61,7 +80,7 @@ implements DirectionEditorModel {
 		this.bos = Objects.requireNonNull(value, "value must not be null");
 
 		// Update state
-		final Direction newDirection = getDirectionFromFeatures(bos.boStream(DirectedFeature.class));
+		final DirectionType newDirection = getDirectionTypeFromFeatures(bos.boStream(DirectedFeature.class));
 		final boolean newEnabled = newDirection != null || bos.boStream(DirectedFeature.class).findAny().isPresent();
 		final boolean changed = direction != newDirection || enabled != newEnabled;
 		if (changed) {
@@ -71,31 +90,9 @@ implements DirectionEditorModel {
 		}
 	}
 
-	private static Direction getDirectionFromFeatures(final Stream<DirectedFeature> features) {
-		final List<Direction> directions = features.map(f -> directionTypeToDirection(f.getDirection())).distinct()
-				.limit(2)
+	private static DirectionType getDirectionTypeFromFeatures(final Stream<DirectedFeature> features) {
+		final List<DirectionType> directions = features.map(f -> f.getDirection()).distinct().limit(2)
 				.collect(Collectors.toList());
 		return directions.size() == 1 ? directions.get(0) : null;
-	}
-
-	private static Direction directionTypeToDirection(final DirectionType dt) {
-		if (dt == null) {
-			return null;
-		}
-
-		switch (dt) {
-		case IN:
-			return Direction.IN;
-
-		case IN_OUT:
-			return Direction.IN_OUT;
-
-		case OUT:
-			return Direction.OUT;
-
-		default:
-			throw new RuntimeException("Unexpected DirectionType: " + dt);
-
-		}
 	}
 }

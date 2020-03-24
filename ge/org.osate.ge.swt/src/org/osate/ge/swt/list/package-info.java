@@ -1,4 +1,4 @@
 /**
- * Component for editing lists.
+ * Component for selecting from and editing lists.
  */
 package org.osate.ge.swt.list;

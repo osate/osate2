@@ -1,10 +1,8 @@
 package org.osate.ge.swt.prototypes;
 
-import java.util.Arrays;
 import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.function.Consumer;
 
-import org.apache.commons.lang.StringUtils;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
@@ -12,10 +10,9 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Composite;
 import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.EventSource;
-import org.osate.ge.swt.direction.Direction;
-import org.osate.ge.swt.direction.DirectionEditor;
-import org.osate.ge.swt.list.ComboViewer;
-import org.osate.ge.swt.list.ListViewerModel;
+import org.osate.ge.swt.list.ComboSelector;
+import org.osate.ge.swt.list.ListSelectorModel;
+import org.osate.ge.swt.list.RadioSelector;
 import org.osate.ge.swt.name.NameEditor;
 import org.osate.ge.swt.name.NameEditorModel;
 
@@ -26,7 +23,8 @@ import org.osate.ge.swt.name.NameEditorModel;
 class PrototypeEditor extends Composite {
 	private final PrototypeEditorModel model;
 	private final CLabel directionLabel;
-	private final DirectionEditor directionEditor;
+	private final RadioSelector<PrototypeDirection> directionEditor;
+	private final Consumer<ChangeEvent> changeListener = e -> refresh();
 
 	public PrototypeEditor(final Composite parent, final PrototypeEditorModel model) {
 		super(parent, SWT.NONE);
@@ -72,43 +70,33 @@ class PrototypeEditor extends Composite {
 		// Type
 		//
 		addLabel("Type:");
-
-		// TODO: Rename
-		// TODO: Create component that can be reused.
-		final ComboViewer typeEditor = new ComboViewer(this, new ListViewerModel() {
-
+		final ComboSelector<PrototypeType> typeSelector = new ComboSelector<>(this, new ListSelectorModel<PrototypeType>() {
 			@Override
 			public EventSource<ChangeEvent> changed() {
 				return model.changed();
 			}
 
 			@Override
-			public Object[] getElements() {
+			public boolean isEnabled() {
+				return model.isEnabled();
+			}
+
+			@Override
+			public PrototypeType[] getElements() {
 				return PrototypeType.values();
 			}
 
 			@Override
-			public Object getSelectedElement() {
+			public PrototypeType getSelectedElement() {
 				return model.getType();
 			}
 
 			@Override
-			public void setSelectedElement(Object element) {
-				// TODO: Wouldn't need to cast if things were type safe
-				model.setType((PrototypeType) element);
-			}
-
-			@Override
-			public String getLabel(Object element) {
-				// TODO; Move to utility?
-				return Arrays.stream(element.toString().split("_")).map(String::toLowerCase)
-						.map(StringUtils::capitalize).collect(Collectors.joining(" "));
+			public void setSelectedElement(PrototypeType element) {
+				model.setType(element);
 			}
 		});
-		typeEditor
-				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER).create());
-
-		// TODO: Binding
+		typeSelector.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER).create());
 
 		//
 		// Classifier
@@ -121,37 +109,41 @@ class PrototypeEditor extends Composite {
 		// Direction
 		//
 		this.directionLabel = addLabel("Direction:");
-		this.directionEditor = new DirectionEditor(this,
-				new org.osate.ge.swt.direction.DirectionEditorModel() {
-					@Override
-					public boolean isEnabled() {
-						return model.isEnabled();
-					};
+		this.directionEditor = new RadioSelector<>(this, new ListSelectorModel<PrototypeDirection>() {
+			@Override
+			public EventSource<ChangeEvent> changed() {
+				return model.changed();
+			}
 
-					@Override
-					public Direction getDirection() {
-						return model.getDirection();
-					}
+			@Override
+			public boolean isEnabled() {
+				return model.isEnabled();
+			}
 
-					@Override
-					public void setDirection(final Direction value) {
-						model.setDirection(value);
-					}
+			@Override
+			public PrototypeDirection[] getElements() {
+				return PrototypeDirection.values();
+			}
 
-					@Override
-					public EventSource<ChangeEvent> changed() {
-						return model.changed();
-					}
-				});
+			@Override
+			public PrototypeDirection getSelectedElement() {
+				return model.getDirection();
+			}
+
+			@Override
+			public void setSelectedElement(PrototypeDirection element) {
+				model.setDirection(element);
+			}
+		});
+
 		directionEditor
 				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER).create());
 
-		model.changed().addListener(e -> refresh());
+		model.changed().addListener(changeListener);
 		refresh();
 	}
 
 	private void refresh() {
-		// TODO; Is this the appropriate place for this... Seems that way. Could be in view model though... Don't want everythign there.
 		// Update visibility of direction editor and label
 		final boolean directionVisible = model.getType() == PrototypeType.FEATURE;
 		directionLabel.setVisible(directionVisible);

@@ -36,11 +36,12 @@ import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.aadl2.DirectedFeature;
+import org.osate.aadl2.DirectionType;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.selection.AgeBusinessObjectSelection;
-import org.osate.ge.internal.ui.modelControllers.BusinessObjectSelectionDirectionModelController;
+import org.osate.ge.internal.ui.models.BusinessObjectSelectionFeatureDirectionModel;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
-import org.osate.ge.swt.direction.DirectionEditor;
+import org.osate.ge.swt.list.RadioSelector;
 import org.osate.ge.ui.properties.PropertySectionUtil;
 
 public class DirectionalFeaturePropertySection extends AbstractPropertySection {
@@ -52,8 +53,8 @@ public class DirectionalFeaturePropertySection extends AbstractPropertySection {
 	}
 
 	private BusinessObjectSelection selectedBos;
-	private DirectionEditor directionView;
-	private BusinessObjectSelectionDirectionModelController directionMc = new BusinessObjectSelectionDirectionModelController(
+	private RadioSelector<DirectionType> directionView;
+	private BusinessObjectSelectionFeatureDirectionModel directionModel = new BusinessObjectSelectionFeatureDirectionModel(
 			new AgeBusinessObjectSelection());
 
 	@Override
@@ -61,7 +62,7 @@ public class DirectionalFeaturePropertySection extends AbstractPropertySection {
 		super.createControls(parent, aTabbedPropertySheetPage);
 
 		final Composite composite = getWidgetFactory().createFlatFormComposite(parent);
-		this.directionView = new DirectionEditor(composite, directionMc);
+		this.directionView = new RadioSelector<>(composite, directionModel);
 		final Label label = getWidgetFactory().createLabel(composite, "Direction:");
 
 		{
@@ -92,6 +93,6 @@ public class DirectionalFeaturePropertySection extends AbstractPropertySection {
 
 	@Override
 	public void refresh() {
-		directionMc.setBusinessObjectSelection(selectedBos);
+		directionModel.setBusinessObjectSelection(selectedBos);
 	}
 }

@@ -12,16 +12,16 @@ import org.osate.ge.swt.util.SwtTestUtil;
  * Simple dialog for renaming something.
  *
  */
-public class RenameDialog {
-	private RenameDialog() {
+public class NameEditorDialog {
+	private NameEditorDialog() {
 	}
 
 	/**
-	 * Opens the dialog. Returns once the dialog has been closed and the rename has been performed using the provided {@link RenameDialogModel}
+	 * Opens the dialog. Returns once the dialog has been closed and the rename has been performed using the provided {@link NameEditorDialogModel}
 	 * @param parent is the parent shell or null if the dialog shoudl be a top-level window.
 	 * @param model is the view model for the dialog.
 	 */
-	public static void open(final Shell parent, final RenameDialogModel model) {
+	public static void open(final Shell parent, final NameEditorDialogModel model) {
 		Objects.requireNonNull(model, "model must not be null");
 		final InnerDialog dlg = new InnerDialog(parent, model);
 		if (dlg.open() == Window.OK) {
@@ -30,7 +30,7 @@ public class RenameDialog {
 	}
 
 	private static class InnerDialog extends InputDialog {
-		public InnerDialog(final Shell parent, final RenameDialogModel model) {
+		public InnerDialog(final Shell parent, final NameEditorDialogModel model) {
 			super(parent, "Rename", "Enter Name", model.getName(), newName -> model.validateName(newName));
 			setShellStyle(getShellStyle() | SWT.RESIZE);
 		}
@@ -43,7 +43,7 @@ public class RenameDialog {
 
 	public static void main(String[] args) {
 		SwtTestUtil.runDialog(() -> {
-			RenameDialog.open(null, new NameEditorRenameDialogModel(new TestNameEditorModel()));
+			NameEditorDialog.open(null, new NameEditorRenameDialogModel(new TestNameEditorModel()));
 		});
 	}
 }

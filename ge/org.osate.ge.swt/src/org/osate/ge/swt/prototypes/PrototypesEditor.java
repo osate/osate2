@@ -9,7 +9,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.EventSource;
-import org.osate.ge.swt.direction.Direction;
 import org.osate.ge.swt.list.ListEditor;
 import org.osate.ge.swt.list.ListEditorModel;
 import org.osate.ge.swt.util.SwtTestUtil;
@@ -19,24 +18,24 @@ import org.osate.ge.swt.util.SwtTestUtil;
  * Combination of {@link org.osate.ge.swt.list.ListEditor} and {@link PrototypeEditor}.
  *
  */
-public class PrototypesEditor extends Composite {
-	private final ListEditor listView;
+public class PrototypesEditor<T> extends Composite {
+	private final ListEditor<T> listView;
 	private final PrototypeEditor detailsView;
 
-	public PrototypesEditor(final Composite parent, final PrototypesEditorModel model) {
+	public PrototypesEditor(final Composite parent, final PrototypesEditorModel<T> model) {
 		super(parent, SWT.NONE);
 		Objects.requireNonNull(model, "model must not be null");
 		this.setBackground(parent.getBackground());
 
 		this.setLayout(GridLayoutFactory.swtDefaults().numColumns(3).create());
-		this.listView = new ListEditor(this, new ListEditorModel() {
+		this.listView = new ListEditor<>(this, new ListEditorModel<T>() {
 			@Override
 			public EventSource<ChangeEvent> changed() {
 				return model.changed();
 			}
 
 			@Override
-			public Object[] getElements() {
+			public T[] getElements() {
 				return model.getPrototypes();
 			}
 
@@ -46,22 +45,22 @@ public class PrototypesEditor extends Composite {
 			}
 
 			@Override
-			public void removeElement(Object element) {
+			public void removeElement(T element) {
 				model.removePrototype(element);
 			}
 
 			@Override
-			public Object getSelectedElement() {
+			public T getSelectedElement() {
 				return model.getSelectedPrototype();
 			}
 
 			@Override
-			public void setSelectedElement(Object value) {
+			public void setSelectedElement(T value) {
 				model.setSelectedPrototype(value);
 			}
 
 			@Override
-			public String getLabel(Object prototype) {
+			public String getLabel(T prototype) {
 				return model.getPrototypeName(prototype);
 			}
 
@@ -101,12 +100,12 @@ public class PrototypesEditor extends Composite {
 			}
 
 			@Override
-			public Direction getDirection() {
+			public PrototypeDirection getDirection() {
 				return model.getSelectedPrototype() == null ? null : model.getPrototypeDirection(model.getSelectedPrototype());
 			}
 
 			@Override
-			public void setDirection(final Direction value) {
+			public void setDirection(final PrototypeDirection value) {
 				if (model.getSelectedPrototype() != null) {
 					model.setPrototypeDirection(model.getSelectedPrototype(), value);
 				}
@@ -131,7 +130,7 @@ public class PrototypesEditor extends Composite {
 
 	public static void main(String[] args) {
 		SwtTestUtil.run(shell -> {
-			new PrototypesEditor(shell, new TestPrototypesEditorModel());
+			new PrototypesEditor<>(shell, new TestPrototypesEditorModel());
 		});
 	}
 }

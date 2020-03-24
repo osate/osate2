@@ -1,6 +1,7 @@
 package org.osate.ge.swt.list;
 
 import java.util.Objects;
+import java.util.function.Consumer;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -10,16 +11,20 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.osate.ge.swt.ChangeEvent;
+import org.osate.ge.swt.util.SwtTestUtil;
 
 /**
- * Wrapper around JFace's {@link org.eclipse.jface.viewers.ComboViewer} which uses a {@link ListViewerModel}
+ * Wrapper around JFace's {@link org.eclipse.jface.viewers.ComboViewer} which uses a {@link ListSelectorModel}
  *
+ * Sorts items provided by model.
  */
-public class ComboViewer extends Composite {
-	private final ListViewerModel model;
+public class ComboSelector<T> extends Composite {
+	private final ListSelectorModel<T> model;
 	private final org.eclipse.jface.viewers.ComboViewer comboViewer;
+	private final Consumer<ChangeEvent> changeListener = e -> refresh();
 
-	public ComboViewer(final Composite parent, final ListViewerModel model) {
+	public ComboSelector(final Composite parent, final ListSelectorModel<T> model) {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
 		this.setBackground(parent.getBackground());
@@ -32,22 +37,25 @@ public class ComboViewer extends Composite {
 		this.comboViewer.setContentProvider((IStructuredContentProvider) inputElement -> model.getElements());
 		this.comboViewer.setInput(model);
 		this.comboViewer.setLabelProvider(new LabelProvider() {
+			@SuppressWarnings("unchecked")
 			@Override
 			public String getText(Object element) {
-				return model.getLabel(element);
+				return model.getLabel((T) element);
 			}
 		});
 
 		// Listen to selection changes
 		this.comboViewer.addSelectionChangedListener(event -> {
-			final Object newSelection = this.comboViewer.getStructuredSelection().getFirstElement();
+			@SuppressWarnings("unchecked")
+			final T newSelection = (T)this.comboViewer.getStructuredSelection().getFirstElement();
 			if (!Objects.equals(newSelection, model.getSelectedElement())) {
 				model.setSelectedElement(newSelection);
 				refresh();
 			}
 		});
 
-		model.changed().addListener(e -> refresh());
+		model.changed().addListener(changeListener);
+
 		refresh();
 	}
 
@@ -55,5 +63,18 @@ public class ComboViewer extends Composite {
 		this.comboViewer.refresh();
 		this.comboViewer.setSelection(
 				model.getSelectedElement() == null ? null : new StructuredSelection(model.getSelectedElement()));
+		setEnabled(model.isEnabled());
+	}
+
+	@Override
+	public void setEnabled(final boolean enabled) {
+		super.setEnabled(enabled);
+		comboViewer.getControl().setEnabled(enabled);
+	}
+
+	public static void main(String[] args) {
+		SwtTestUtil.run(shell -> {
+			new ComboSelector<>(shell, new TestListEditorModel());
+		});
 	}
 }

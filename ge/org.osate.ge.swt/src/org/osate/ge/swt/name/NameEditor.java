@@ -1,6 +1,7 @@
 package org.osate.ge.swt.name;
 
 import java.util.Objects;
+import java.util.function.Consumer;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -10,10 +11,11 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.util.SwtTestUtil;
 
 /**
- * View for displaying a name and allowing it to be edited using the {@link RenameDialog}
+ * View for displaying a name and allowing it to be edited using the {@link NameEditorDialog}
  *
  */
 public class NameEditor extends Composite
@@ -21,6 +23,7 @@ public class NameEditor extends Composite
 	private final NameEditorModel model;
 	private final CLabel nameLbl;
 	private final Button renameBtn;
+	private final Consumer<ChangeEvent> changeListener = e -> refresh();
 
 	public NameEditor(final Composite parent, final NameEditorModel model) {
 		super(parent, SWT.NONE);
@@ -40,11 +43,11 @@ public class NameEditor extends Composite
 		this.renameBtn.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				RenameDialog.open(getShell(), new NameEditorRenameDialogModel(model));
+				NameEditorDialog.open(getShell(), new NameEditorRenameDialogModel(model));
 			}
 		});
 
-		model.changed().addListener(e -> refresh());
+		model.changed().addListener(changeListener);
 
 		refresh();
 	}

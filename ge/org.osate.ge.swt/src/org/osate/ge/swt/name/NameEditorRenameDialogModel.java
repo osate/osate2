@@ -3,10 +3,10 @@ package org.osate.ge.swt.name;
 import java.util.Objects;
 
 /**
- * {@link RenameDialogModel} implementation that delegates to a {@link NameEditorModel}
+ * {@link NameEditorDialogModel} implementation that delegates to a {@link NameEditorModel}
  *
  */
-public class NameEditorRenameDialogModel implements RenameDialogModel {
+public class NameEditorRenameDialogModel implements NameEditorDialogModel {
 	private final NameEditorModel innerModel;
 
 	public NameEditorRenameDialogModel(final NameEditorModel innerModel) {

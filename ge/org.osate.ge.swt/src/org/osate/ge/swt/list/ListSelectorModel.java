@@ -2,32 +2,44 @@ package org.osate.ge.swt.list;
 
 import org.osate.ge.swt.ObservableModel;
 
-// TODO: Consider: if generic.. could be more typesafe.. Would that heart the ability to reuse the compoinent.. Don't think so..
-// TODO: This is a strict subset of listeditormodel
-// TODO: REname
-public interface ListViewerModel extends ObservableModel {
+/**
+ * View model for various list views contained in this package.
+ *
+ * @param <T> is the type of element provided by the model.
+ */
+public interface ListSelectorModel<T> extends ObservableModel {
+	/**
+	 * Returns whether the view should be enabled.
+	 * @return true if the view should be enabled.
+	 */
+	default boolean isEnabled() {
+		return true;
+	}
+
 	/**
 	 * Returns an array of objects. Each object represents a member of the list.
 	 * @return an array of objects representing the elements of the list.
 	 */
-	Object[] getElements();
+	T[] getElements();
 
 	/**
 	 * Returns the currently selected element
 	 * @return is the object for the selected element.
 	 */
-	Object getSelectedElement();
+	T getSelectedElement();
 
 	/**
 	 * Sets the currently selected element
 	 * @param element is the newly selected element.
 	 */
-	void setSelectedElement(Object element);
+	void setSelectedElement(T element);
 
 	/**
 	 * Returns the label for the element.
 	 * @param element is the element for which to return the label.
 	 * @return is the label for the specified element.
 	 */
-	String getLabel(Object element);
+	default String getLabel(T element) {
+		return element.toString();
+	}
 }

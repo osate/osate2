@@ -1,7 +1,6 @@
 package org.osate.ge.swt.prototypes;
 
 import org.osate.ge.swt.ObservableModel;
-import org.osate.ge.swt.direction.Direction;
 
 /**
  * View Model used by {@link PrototypeEditor}
@@ -10,7 +9,7 @@ import org.osate.ge.swt.direction.Direction;
 public interface PrototypeEditorModel extends ObservableModel {
 	/**
 	 * Returns whether the view should be enabled.
-	 * @return true is the view shoudl be enabled.
+	 * @return true is the view should be enabled.
 	 */
 	boolean isEnabled();
 
@@ -34,16 +33,16 @@ public interface PrototypeEditorModel extends ObservableModel {
 	void setName(String value);
 
 	/**
-	 * See {@link org.osate.ge.swt.direction.DirectionEditorModel#getDirection()}
+	 * Gets the prototype's direction
 	 * @return the direction of the prototype. Returns null if the prototype does not have a direction value available.
 	 */
-	Direction getDirection();
+	PrototypeDirection getDirection();
 
 	/**
-	 * See {@link org.osate.ge.swt.direction.DirectionEditorModel#setDirection(Direction)}
+	 * Updates the prototype's direction
 	 * @param value is the new direction for the prototype.
 	 */
-	void setDirection(final Direction value);
+	void setDirection(final PrototypeDirection value);
 
 	/**
 	 * Returns the current value for type.
