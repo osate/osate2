@@ -19,7 +19,7 @@ public abstract class BusOrVirtualBus extends ModelElement {
 		return busInstance;
 	}
 
-	public void addBoundBus(final VirtualBus virtualBus) {
+	void addBoundBus(final VirtualBus virtualBus) {
 		boundBuses.add(virtualBus);
 	}
 
@@ -27,7 +27,7 @@ public abstract class BusOrVirtualBus extends ModelElement {
 		return boundBuses;
 	}
 
-	public Connection addBoundConnection(final ConnectionInstance connection) {
+	Connection addBoundConnection(final ConnectionInstance connection) {
 		final Connection theConnection = new Connection(connection);
 		boundConnections.add(theConnection);
 		return theConnection;
