@@ -75,9 +75,9 @@ property set SEI is
   -- power supply by a component
   PowerSupply: aadlreal  units SEI::Power_Units applies to ( feature);
   -- capacity of a bus component for transfer of data
-  BandWidthCapacity: aadlreal  units Data_Rate_Units applies to (bus, system);
+  BandWidthCapacity: aadlreal  units Data_Rate_Units applies to (bus, virtual bus, system);
   -- demand for data transfer by a connection
-  BandWidthBudget: aadlreal  units Data_Rate_Units applies to (connection, virtual bus);
+  BandWidthBudget: aadlreal  units Data_Rate_Units applies to (connection, bus, virtual bus);
   -- actual RAM requirement by application component
   -- This number may be supplied from a compiler when compiling the source
   -- This number is related to the Source_Code_Size and Source_Data_Size properties
