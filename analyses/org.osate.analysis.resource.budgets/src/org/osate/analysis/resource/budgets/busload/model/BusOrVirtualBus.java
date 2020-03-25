@@ -3,16 +3,15 @@ package org.osate.analysis.resource.budgets.busload.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 
-abstract class AbstractBus extends ModelElement {
+public abstract class BusOrVirtualBus extends ModelElement {
 	private final ComponentInstance busInstance;
 	private final List<VirtualBus> boundBuses = new ArrayList<>();
 	private final List<Connection> boundConnections = new ArrayList<>();
 
-	public AbstractBus(final ComponentInstance busInstance) {
+	public BusOrVirtualBus(final ComponentInstance busInstance) {
 		this.busInstance = busInstance;
 	}
 
@@ -20,13 +19,8 @@ abstract class AbstractBus extends ModelElement {
 		return busInstance;
 	}
 
-	public VirtualBus addBoundBus(final ComponentInstance virtualBus) {
-		if (virtualBus.getCategory() != ComponentCategory.VIRTUAL_BUS) {
-			throw new IllegalArgumentException("Component instance is not a virtual bus");
-		}
-		final VirtualBus theVirtualBus = new VirtualBus(virtualBus);
-		boundBuses.add(theVirtualBus);
-		return theVirtualBus;
+	public void addBoundBus(final VirtualBus virtualBus) {
+		boundBuses.add(virtualBus);
 	}
 
 	public final Iterable<VirtualBus> getBoundBuses() {
