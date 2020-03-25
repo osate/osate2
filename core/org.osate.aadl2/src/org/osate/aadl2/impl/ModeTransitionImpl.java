@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -99,6 +99,7 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getModeTransition();
 	}
@@ -113,9 +114,10 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 			InternalEObject oldSource = (InternalEObject) source;
 			source = (Mode) eResolveProxy(oldSource);
 			if (source != oldSource) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.MODE_TRANSITION__SOURCE,
 							oldSource, source));
+				}
 			}
 		}
 		return source;
@@ -138,9 +140,10 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	public void setSource(Mode newSource) {
 		Mode oldSource = source;
 		source = newSource;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.MODE_TRANSITION__SOURCE, oldSource,
 					source));
+		}
 	}
 
 	/**
@@ -153,9 +156,10 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 			InternalEObject oldDestination = (InternalEObject) destination;
 			destination = (Mode) eResolveProxy(oldDestination);
 			if (destination != oldDestination) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.MODE_TRANSITION__DESTINATION,
 							oldDestination, destination));
+				}
 			}
 		}
 		return destination;
@@ -178,9 +182,10 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	public void setDestination(Mode newDestination) {
 		Mode oldDestination = destination;
 		destination = newDestination;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.MODE_TRANSITION__DESTINATION,
 					oldDestination, destination));
+		}
 	}
 
 	/**
@@ -213,6 +218,7 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.MODE_TRANSITION__OWNED_TRIGGER:
@@ -226,15 +232,18 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.MODE_TRANSITION__SOURCE:
-			if (resolve)
+			if (resolve) {
 				return getSource();
+			}
 			return basicGetSource();
 		case Aadl2Package.MODE_TRANSITION__DESTINATION:
-			if (resolve)
+			if (resolve) {
 				return getDestination();
+			}
 			return basicGetDestination();
 		case Aadl2Package.MODE_TRANSITION__OWNED_TRIGGER:
 			return getOwnedTriggers();
@@ -248,6 +257,7 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.MODE_TRANSITION__SOURCE:
@@ -269,6 +279,7 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.MODE_TRANSITION__SOURCE:
@@ -289,6 +300,7 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.MODE_TRANSITION__SOURCE:

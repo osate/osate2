@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -99,6 +99,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EPackage getEPackage() {
 		return Aadl2Package.eINSTANCE;
 	}
@@ -109,6 +110,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected boolean validate(int classifierID, Object value, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
 		switch (classifierID) {
@@ -261,6 +263,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validatePortConnectionEnd((PortConnectionEnd) value, diagnostics, context);
 		case Aadl2Package.DATA_SUBCOMPONENT_TYPE:
 			return validateDataSubcomponentType((DataSubcomponentType) value, diagnostics, context);
+		case Aadl2Package.ABSTRACT_FEATURE_CLASSIFIER:
+			return validateAbstractFeatureClassifier((AbstractFeatureClassifier) value, diagnostics, context);
 		case Aadl2Package.DATA_PORT:
 			return validateDataPort((DataPort) value, diagnostics, context);
 		case Aadl2Package.PORT:
@@ -668,7 +672,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateElement(Element element, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) element, diagnostics, context);
+		return validate_EveryDefaultConstraint(element, diagnostics, context);
 	}
 
 	/**
@@ -677,7 +681,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateComment(Comment comment, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) comment, diagnostics, context);
+		return validate_EveryDefaultConstraint(comment, diagnostics, context);
 	}
 
 	/**
@@ -686,7 +690,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateType(Type type, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) type, diagnostics, context);
+		return validate_EveryDefaultConstraint(type, diagnostics, context);
 	}
 
 	/**
@@ -696,7 +700,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateNamedElement(NamedElement namedElement, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) namedElement, diagnostics, context);
+		return validate_EveryDefaultConstraint(namedElement, diagnostics, context);
 	}
 
 	/**
@@ -706,7 +710,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePropertyAssociation(PropertyAssociation propertyAssociation, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) propertyAssociation, diagnostics, context);
+		return validate_EveryDefaultConstraint(propertyAssociation, diagnostics, context);
 	}
 
 	/**
@@ -715,7 +719,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateProperty(Property property, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) property, diagnostics, context);
+		return validate_EveryDefaultConstraint(property, diagnostics, context);
 	}
 
 	/**
@@ -725,7 +729,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateBasicProperty(BasicProperty basicProperty, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) basicProperty, diagnostics, context);
+		return validate_EveryDefaultConstraint(basicProperty, diagnostics, context);
 	}
 
 	/**
@@ -735,7 +739,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateTypedElement(TypedElement typedElement, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) typedElement, diagnostics, context);
+		return validate_EveryDefaultConstraint(typedElement, diagnostics, context);
 	}
 
 	/**
@@ -745,7 +749,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePropertyType(PropertyType propertyType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) propertyType, diagnostics, context);
+		return validate_EveryDefaultConstraint(propertyType, diagnostics, context);
 	}
 
 	/**
@@ -755,7 +759,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAbstractNamedValue(AbstractNamedValue abstractNamedValue, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) abstractNamedValue, diagnostics, context);
+		return validate_EveryDefaultConstraint(abstractNamedValue, diagnostics, context);
 	}
 
 	/**
@@ -765,7 +769,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateArraySizeProperty(ArraySizeProperty arraySizeProperty, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) arraySizeProperty, diagnostics, context);
+		return validate_EveryDefaultConstraint(arraySizeProperty, diagnostics, context);
 	}
 
 	/**
@@ -775,7 +779,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePropertyExpression(PropertyExpression propertyExpression, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) propertyExpression, diagnostics, context);
+		return validate_EveryDefaultConstraint(propertyExpression, diagnostics, context);
 	}
 
 	/**
@@ -785,7 +789,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateMetaclassReference(MetaclassReference metaclassReference, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) metaclassReference, diagnostics, context);
+		return validate_EveryDefaultConstraint(metaclassReference, diagnostics, context);
 	}
 
 	/**
@@ -795,7 +799,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePropertyOwner(PropertyOwner propertyOwner, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) propertyOwner, diagnostics, context);
+		return validate_EveryDefaultConstraint(propertyOwner, diagnostics, context);
 	}
 
 	/**
@@ -804,7 +808,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateClassifier(Classifier classifier, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) classifier, diagnostics, context);
+		return validate_EveryDefaultConstraint(classifier, diagnostics, context);
 	}
 
 	/**
@@ -813,7 +817,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateNamespace(Namespace namespace, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) namespace, diagnostics, context);
+		return validate_EveryDefaultConstraint(namespace, diagnostics, context);
 	}
 
 	/**
@@ -823,7 +827,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateClassifierFeature(ClassifierFeature classifierFeature, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) classifierFeature, diagnostics, context);
+		return validate_EveryDefaultConstraint(classifierFeature, diagnostics, context);
 	}
 
 	/**
@@ -833,7 +837,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateGeneralization(Generalization generalization, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) generalization, diagnostics, context);
+		return validate_EveryDefaultConstraint(generalization, diagnostics, context);
 	}
 
 	/**
@@ -843,7 +847,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDirectedRelationship(DirectedRelationship directedRelationship, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) directedRelationship, diagnostics, context);
+		return validate_EveryDefaultConstraint(directedRelationship, diagnostics, context);
 	}
 
 	/**
@@ -853,7 +857,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateRelationship(Relationship relationship, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) relationship, diagnostics, context);
+		return validate_EveryDefaultConstraint(relationship, diagnostics, context);
 	}
 
 	/**
@@ -863,7 +867,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAnnexSubclause(AnnexSubclause annexSubclause, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) annexSubclause, diagnostics, context);
+		return validate_EveryDefaultConstraint(annexSubclause, diagnostics, context);
 	}
 
 	/**
@@ -873,7 +877,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateModalElement(ModalElement modalElement, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) modalElement, diagnostics, context);
+		return validate_EveryDefaultConstraint(modalElement, diagnostics, context);
 	}
 
 	/**
@@ -882,7 +886,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateMode(Mode mode, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) mode, diagnostics, context);
+		return validate_EveryDefaultConstraint(mode, diagnostics, context);
 	}
 
 	/**
@@ -892,7 +896,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateModeFeature(ModeFeature modeFeature, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) modeFeature, diagnostics, context);
+		return validate_EveryDefaultConstraint(modeFeature, diagnostics, context);
 	}
 
 	/**
@@ -901,7 +905,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validatePrototype(Prototype prototype, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) prototype, diagnostics, context);
+		return validate_EveryDefaultConstraint(prototype, diagnostics, context);
 	}
 
 	/**
@@ -911,7 +915,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateStructuralFeature(StructuralFeature structuralFeature, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) structuralFeature, diagnostics, context);
+		return validate_EveryDefaultConstraint(structuralFeature, diagnostics, context);
 	}
 
 	/**
@@ -921,7 +925,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateRefinableElement(RefinableElement refinableElement, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) refinableElement, diagnostics, context);
+		return validate_EveryDefaultConstraint(refinableElement, diagnostics, context);
 	}
 
 	/**
@@ -931,7 +935,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateCalledSubprogram(CalledSubprogram calledSubprogram, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) calledSubprogram, diagnostics, context);
+		return validate_EveryDefaultConstraint(calledSubprogram, diagnostics, context);
 	}
 
 	/**
@@ -941,7 +945,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePrototypeBinding(PrototypeBinding prototypeBinding, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) prototypeBinding, diagnostics, context);
+		return validate_EveryDefaultConstraint(prototypeBinding, diagnostics, context);
 	}
 
 	/**
@@ -951,7 +955,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateContainedNamedElement(ContainedNamedElement containedNamedElement,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) containedNamedElement, diagnostics, context);
+		return validate_EveryDefaultConstraint(containedNamedElement, diagnostics, context);
 	}
 
 	/**
@@ -961,7 +965,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateContainmentPathElement(ContainmentPathElement containmentPathElement,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) containmentPathElement, diagnostics, context);
+		return validate_EveryDefaultConstraint(containmentPathElement, diagnostics, context);
 	}
 
 	/**
@@ -970,7 +974,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateArrayRange(ArrayRange arrayRange, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) arrayRange, diagnostics, context);
+		return validate_EveryDefaultConstraint(arrayRange, diagnostics, context);
 	}
 
 	/**
@@ -980,7 +984,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateModalPropertyValue(ModalPropertyValue modalPropertyValue, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) modalPropertyValue, diagnostics, context);
+		return validate_EveryDefaultConstraint(modalPropertyValue, diagnostics, context);
 	}
 
 	/**
@@ -990,7 +994,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateBehavioralFeature(BehavioralFeature behavioralFeature, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) behavioralFeature, diagnostics, context);
+		return validate_EveryDefaultConstraint(behavioralFeature, diagnostics, context);
 	}
 
 	/**
@@ -1000,7 +1004,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateArrayDimension(ArrayDimension arrayDimension, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) arrayDimension, diagnostics, context);
+		return validate_EveryDefaultConstraint(arrayDimension, diagnostics, context);
 	}
 
 	/**
@@ -1009,7 +1013,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateArraySize(ArraySize arraySize, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) arraySize, diagnostics, context);
+		return validate_EveryDefaultConstraint(arraySize, diagnostics, context);
 	}
 
 	/**
@@ -1019,7 +1023,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateArrayableElement(ArrayableElement arrayableElement, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) arrayableElement, diagnostics, context);
+		return validate_EveryDefaultConstraint(arrayableElement, diagnostics, context);
 	}
 
 	/**
@@ -1030,7 +1034,7 @@ public class Aadl2Validator extends EObjectValidator {
 	public boolean validateComponentImplementationReference(
 			ComponentImplementationReference componentImplementationReference, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) componentImplementationReference, diagnostics, context);
+		return validate_EveryDefaultConstraint(componentImplementationReference, diagnostics, context);
 	}
 
 	/**
@@ -1040,7 +1044,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateComponentImplementation(ComponentImplementation componentImplementation,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) componentImplementation, diagnostics, context);
+		return validate_EveryDefaultConstraint(componentImplementation, diagnostics, context);
 	}
 
 	/**
@@ -1050,7 +1054,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateComponentClassifier(ComponentClassifier componentClassifier, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) componentClassifier, diagnostics, context);
+		return validate_EveryDefaultConstraint(componentClassifier, diagnostics, context);
 	}
 
 	/**
@@ -1060,7 +1064,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubcomponentType(SubcomponentType subcomponentType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) subcomponentType, diagnostics, context);
+		return validate_EveryDefaultConstraint(subcomponentType, diagnostics, context);
 	}
 
 	/**
@@ -1070,7 +1074,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeatureClassifier(FeatureClassifier featureClassifier, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) featureClassifier, diagnostics, context);
+		return validate_EveryDefaultConstraint(featureClassifier, diagnostics, context);
 	}
 
 	/**
@@ -1080,7 +1084,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateModeTransition(ModeTransition modeTransition, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) modeTransition, diagnostics, context);
+		return validate_EveryDefaultConstraint(modeTransition, diagnostics, context);
 	}
 
 	/**
@@ -1090,7 +1094,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateModeTransitionTrigger(ModeTransitionTrigger modeTransitionTrigger,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) modeTransitionTrigger, diagnostics, context);
+		return validate_EveryDefaultConstraint(modeTransitionTrigger, diagnostics, context);
 	}
 
 	/**
@@ -1099,7 +1103,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateContext(Context context, DiagnosticChain diagnostics, Map<Object, Object> theContext) {
-		return validate_EveryDefaultConstraint((EObject) context, diagnostics, theContext);
+		return validate_EveryDefaultConstraint(context, diagnostics, theContext);
 	}
 
 	/**
@@ -1109,7 +1113,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateTriggerPort(TriggerPort triggerPort, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) triggerPort, diagnostics, context);
+		return validate_EveryDefaultConstraint(triggerPort, diagnostics, context);
 	}
 
 	/**
@@ -1119,7 +1123,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateComponentType(ComponentType componentType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) componentType, diagnostics, context);
+		return validate_EveryDefaultConstraint(componentType, diagnostics, context);
 	}
 
 	/**
@@ -1128,7 +1132,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateFeature(Feature feature, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) feature, diagnostics, context);
+		return validate_EveryDefaultConstraint(feature, diagnostics, context);
 	}
 
 	/**
@@ -1138,7 +1142,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeatureConnectionEnd(FeatureConnectionEnd featureConnectionEnd, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) featureConnectionEnd, diagnostics, context);
+		return validate_EveryDefaultConstraint(featureConnectionEnd, diagnostics, context);
 	}
 
 	/**
@@ -1148,7 +1152,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateConnectionEnd(ConnectionEnd connectionEnd, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) connectionEnd, diagnostics, context);
+		return validate_EveryDefaultConstraint(connectionEnd, diagnostics, context);
 	}
 
 	/**
@@ -1158,7 +1162,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateComponentPrototype(ComponentPrototype componentPrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) componentPrototype, diagnostics, context);
+		return validate_EveryDefaultConstraint(componentPrototype, diagnostics, context);
 	}
 
 	/**
@@ -1168,7 +1172,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFlowSpecification(FlowSpecification flowSpecification, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) flowSpecification, diagnostics, context);
+		return validate_EveryDefaultConstraint(flowSpecification, diagnostics, context);
 	}
 
 	/**
@@ -1178,7 +1182,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFlowFeature(FlowFeature flowFeature, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) flowFeature, diagnostics, context);
+		return validate_EveryDefaultConstraint(flowFeature, diagnostics, context);
 	}
 
 	/**
@@ -1187,7 +1191,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateFlow(Flow flow, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) flow, diagnostics, context);
+		return validate_EveryDefaultConstraint(flow, diagnostics, context);
 	}
 
 	/**
@@ -1196,7 +1200,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateModalPath(ModalPath modalPath, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) modalPath, diagnostics, context);
+		return validate_EveryDefaultConstraint(modalPath, diagnostics, context);
 	}
 
 	/**
@@ -1206,7 +1210,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFlowElement(FlowElement flowElement, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) flowElement, diagnostics, context);
+		return validate_EveryDefaultConstraint(flowElement, diagnostics, context);
 	}
 
 	/**
@@ -1216,7 +1220,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateEndToEndFlowElement(EndToEndFlowElement endToEndFlowElement, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) endToEndFlowElement, diagnostics, context);
+		return validate_EveryDefaultConstraint(endToEndFlowElement, diagnostics, context);
 	}
 
 	/**
@@ -1225,7 +1229,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateFlowEnd(FlowEnd flowEnd, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) flowEnd, diagnostics, context);
+		return validate_EveryDefaultConstraint(flowEnd, diagnostics, context);
 	}
 
 	/**
@@ -1235,7 +1239,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateTypeExtension(TypeExtension typeExtension, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) typeExtension, diagnostics, context);
+		return validate_EveryDefaultConstraint(typeExtension, diagnostics, context);
 	}
 
 	/**
@@ -1245,7 +1249,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeatureGroup(FeatureGroup featureGroup, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) featureGroup, diagnostics, context);
+		return validate_EveryDefaultConstraint(featureGroup, diagnostics, context);
 	}
 
 	/**
@@ -1255,7 +1259,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateCallContext(CallContext callContext, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) callContext, diagnostics, context);
+		return validate_EveryDefaultConstraint(callContext, diagnostics, context);
 	}
 
 	/**
@@ -1265,7 +1269,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDirectedFeature(DirectedFeature directedFeature, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) directedFeature, diagnostics, context);
+		return validate_EveryDefaultConstraint(directedFeature, diagnostics, context);
 	}
 
 	/**
@@ -1275,7 +1279,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeatureGroupConnectionEnd(FeatureGroupConnectionEnd featureGroupConnectionEnd,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) featureGroupConnectionEnd, diagnostics, context);
+		return validate_EveryDefaultConstraint(featureGroupConnectionEnd, diagnostics, context);
 	}
 
 	/**
@@ -1285,7 +1289,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeatureType(FeatureType featureType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) featureType, diagnostics, context);
+		return validate_EveryDefaultConstraint(featureType, diagnostics, context);
 	}
 
 	/**
@@ -1295,7 +1299,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeatureGroupType(FeatureGroupType featureGroupType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) featureGroupType, diagnostics, context);
+		return validate_EveryDefaultConstraint(featureGroupType, diagnostics, context);
 	}
 
 	/**
@@ -1305,7 +1309,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateGroupExtension(GroupExtension groupExtension, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) groupExtension, diagnostics, context);
+		return validate_EveryDefaultConstraint(groupExtension, diagnostics, context);
 	}
 
 	/**
@@ -1314,7 +1318,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateBusAccess(BusAccess busAccess, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) busAccess, diagnostics, context);
+		return validate_EveryDefaultConstraint(busAccess, diagnostics, context);
 	}
 
 	/**
@@ -1323,7 +1327,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateAccess(Access access, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) access, diagnostics, context);
+		return validate_EveryDefaultConstraint(access, diagnostics, context);
 	}
 
 	/**
@@ -1333,7 +1337,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAccessConnectionEnd(AccessConnectionEnd accessConnectionEnd, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) accessConnectionEnd, diagnostics, context);
+		return validate_EveryDefaultConstraint(accessConnectionEnd, diagnostics, context);
 	}
 
 	/**
@@ -1343,7 +1347,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateBusFeatureClassifier(BusFeatureClassifier busFeatureClassifier, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) busFeatureClassifier, diagnostics, context);
+		return validate_EveryDefaultConstraint(busFeatureClassifier, diagnostics, context);
 	}
 
 	/**
@@ -1353,7 +1357,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateBusSubcomponentType(BusSubcomponentType busSubcomponentType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) busSubcomponentType, diagnostics, context);
+		return validate_EveryDefaultConstraint(busSubcomponentType, diagnostics, context);
 	}
 
 	/**
@@ -1362,7 +1366,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateDataAccess(DataAccess dataAccess, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) dataAccess, diagnostics, context);
+		return validate_EveryDefaultConstraint(dataAccess, diagnostics, context);
 	}
 
 	/**
@@ -1372,7 +1376,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateParameterConnectionEnd(ParameterConnectionEnd parameterConnectionEnd,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) parameterConnectionEnd, diagnostics, context);
+		return validate_EveryDefaultConstraint(parameterConnectionEnd, diagnostics, context);
 	}
 
 	/**
@@ -1382,7 +1386,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePortConnectionEnd(PortConnectionEnd portConnectionEnd, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) portConnectionEnd, diagnostics, context);
+		return validate_EveryDefaultConstraint(portConnectionEnd, diagnostics, context);
 	}
 
 	/**
@@ -1392,7 +1396,18 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDataSubcomponentType(DataSubcomponentType dataSubcomponentType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) dataSubcomponentType, diagnostics, context);
+		return validate_EveryDefaultConstraint(dataSubcomponentType, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * @since 3.0
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateAbstractFeatureClassifier(AbstractFeatureClassifier abstractFeatureClassifier,
+			DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(abstractFeatureClassifier, diagnostics, context);
 	}
 
 	/**
@@ -1401,7 +1416,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateDataPort(DataPort dataPort, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) dataPort, diagnostics, context);
+		return validate_EveryDefaultConstraint(dataPort, diagnostics, context);
 	}
 
 	/**
@@ -1410,7 +1425,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validatePort(Port port, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) port, diagnostics, context);
+		return validate_EveryDefaultConstraint(port, diagnostics, context);
 	}
 
 	/**
@@ -1420,7 +1435,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateEventDataPort(EventDataPort eventDataPort, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) eventDataPort, diagnostics, context);
+		return validate_EveryDefaultConstraint(eventDataPort, diagnostics, context);
 	}
 
 	/**
@@ -1429,7 +1444,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateEventPort(EventPort eventPort, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) eventPort, diagnostics, context);
+		return validate_EveryDefaultConstraint(eventPort, diagnostics, context);
 	}
 
 	/**
@@ -1438,7 +1453,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateParameter(Parameter parameter, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) parameter, diagnostics, context);
+		return validate_EveryDefaultConstraint(parameter, diagnostics, context);
 	}
 
 	/**
@@ -1448,7 +1463,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramAccess(SubprogramAccess subprogramAccess, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) subprogramAccess, diagnostics, context);
+		return validate_EveryDefaultConstraint(subprogramAccess, diagnostics, context);
 	}
 
 	/**
@@ -1458,7 +1473,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramSubcomponentType(SubprogramSubcomponentType subprogramSubcomponentType,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) subprogramSubcomponentType, diagnostics, context);
+		return validate_EveryDefaultConstraint(subprogramSubcomponentType, diagnostics, context);
 	}
 
 	/**
@@ -1468,7 +1483,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramGroupAccess(SubprogramGroupAccess subprogramGroupAccess,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) subprogramGroupAccess, diagnostics, context);
+		return validate_EveryDefaultConstraint(subprogramGroupAccess, diagnostics, context);
 	}
 
 	/**
@@ -1479,7 +1494,7 @@ public class Aadl2Validator extends EObjectValidator {
 	public boolean validateSubprogramGroupSubcomponentType(
 			SubprogramGroupSubcomponentType subprogramGroupSubcomponentType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) subprogramGroupSubcomponentType, diagnostics, context);
+		return validate_EveryDefaultConstraint(subprogramGroupSubcomponentType, diagnostics, context);
 	}
 
 	/**
@@ -1489,7 +1504,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAbstractFeature(AbstractFeature abstractFeature, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) abstractFeature, diagnostics, context);
+		return validate_EveryDefaultConstraint(abstractFeature, diagnostics, context);
 	}
 
 	/**
@@ -1499,7 +1514,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeaturePrototype(FeaturePrototype featurePrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) featurePrototype, diagnostics, context);
+		return validate_EveryDefaultConstraint(featurePrototype, diagnostics, context);
 	}
 
 	/**
@@ -1509,7 +1524,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeatureGroupPrototype(FeatureGroupPrototype featureGroupPrototype,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) featureGroupPrototype, diagnostics, context);
+		return validate_EveryDefaultConstraint(featureGroupPrototype, diagnostics, context);
 	}
 
 	/**
@@ -1519,7 +1534,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubcomponent(Subcomponent subcomponent, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) subcomponent, diagnostics, context);
+		return validate_EveryDefaultConstraint(subcomponent, diagnostics, context);
 	}
 
 	/**
@@ -1529,7 +1544,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateModeBinding(ModeBinding modeBinding, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) modeBinding, diagnostics, context);
+		return validate_EveryDefaultConstraint(modeBinding, diagnostics, context);
 	}
 
 	/**
@@ -1539,7 +1554,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFlowImplementation(FlowImplementation flowImplementation, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) flowImplementation, diagnostics, context);
+		return validate_EveryDefaultConstraint(flowImplementation, diagnostics, context);
 	}
 
 	/**
@@ -1549,7 +1564,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFlowSegment(FlowSegment flowSegment, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) flowSegment, diagnostics, context);
+		return validate_EveryDefaultConstraint(flowSegment, diagnostics, context);
 	}
 
 	/**
@@ -1558,7 +1573,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateConnection(Connection connection, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) connection, diagnostics, context);
+		return validate_EveryDefaultConstraint(connection, diagnostics, context);
 	}
 
 	/**
@@ -1568,7 +1583,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateConnectedElement(ConnectedElement connectedElement, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) connectedElement, diagnostics, context);
+		return validate_EveryDefaultConstraint(connectedElement, diagnostics, context);
 	}
 
 	/**
@@ -1578,7 +1593,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateImplementationExtension(ImplementationExtension implementationExtension,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) implementationExtension, diagnostics, context);
+		return validate_EveryDefaultConstraint(implementationExtension, diagnostics, context);
 	}
 
 	/**
@@ -1588,7 +1603,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateRealization(Realization realization, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) realization, diagnostics, context);
+		return validate_EveryDefaultConstraint(realization, diagnostics, context);
 	}
 
 	/**
@@ -1598,7 +1613,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateEndToEndFlow(EndToEndFlow endToEndFlow, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) endToEndFlow, diagnostics, context);
+		return validate_EveryDefaultConstraint(endToEndFlow, diagnostics, context);
 	}
 
 	/**
@@ -1608,7 +1623,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateEndToEndFlowSegment(EndToEndFlowSegment endToEndFlowSegment, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) endToEndFlowSegment, diagnostics, context);
+		return validate_EveryDefaultConstraint(endToEndFlowSegment, diagnostics, context);
 	}
 
 	/**
@@ -1618,7 +1633,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAbstractSubcomponent(AbstractSubcomponent abstractSubcomponent, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) abstractSubcomponent, diagnostics, context);
+		return validate_EveryDefaultConstraint(abstractSubcomponent, diagnostics, context);
 	}
 
 	/**
@@ -1627,7 +1642,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateAbstract(Abstract abstract_, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) abstract_, diagnostics, context);
+		return validate_EveryDefaultConstraint(abstract_, diagnostics, context);
 	}
 
 	/**
@@ -1637,7 +1652,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAbstractSubcomponentType(AbstractSubcomponentType abstractSubcomponentType,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) abstractSubcomponentType, diagnostics, context);
+		return validate_EveryDefaultConstraint(abstractSubcomponentType, diagnostics, context);
 	}
 
 	/**
@@ -1647,7 +1662,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAccessConnection(AccessConnection accessConnection, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) accessConnection, diagnostics, context);
+		return validate_EveryDefaultConstraint(accessConnection, diagnostics, context);
 	}
 
 	/**
@@ -1657,7 +1672,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateParameterConnection(ParameterConnection parameterConnection, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) parameterConnection, diagnostics, context);
+		return validate_EveryDefaultConstraint(parameterConnection, diagnostics, context);
 	}
 
 	/**
@@ -1667,7 +1682,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePortConnection(PortConnection portConnection, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) portConnection, diagnostics, context);
+		return validate_EveryDefaultConstraint(portConnection, diagnostics, context);
 	}
 
 	/**
@@ -1677,7 +1692,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeatureConnection(FeatureConnection featureConnection, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) featureConnection, diagnostics, context);
+		return validate_EveryDefaultConstraint(featureConnection, diagnostics, context);
 	}
 
 	/**
@@ -1687,7 +1702,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeatureGroupConnection(FeatureGroupConnection featureGroupConnection,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) featureGroupConnection, diagnostics, context);
+		return validate_EveryDefaultConstraint(featureGroupConnection, diagnostics, context);
 	}
 
 	/**
@@ -1697,7 +1712,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateProcessorFeature(ProcessorFeature processorFeature, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) processorFeature, diagnostics, context);
+		return validate_EveryDefaultConstraint(processorFeature, diagnostics, context);
 	}
 
 	/**
@@ -1707,7 +1722,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateInternalFeature(InternalFeature internalFeature, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) internalFeature, diagnostics, context);
+		return validate_EveryDefaultConstraint(internalFeature, diagnostics, context);
 	}
 
 	/**
@@ -1717,7 +1732,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateEventSource(EventSource eventSource, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) eventSource, diagnostics, context);
+		return validate_EveryDefaultConstraint(eventSource, diagnostics, context);
 	}
 
 	/**
@@ -1727,7 +1742,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateEventDataSource(EventDataSource eventDataSource, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) eventDataSource, diagnostics, context);
+		return validate_EveryDefaultConstraint(eventDataSource, diagnostics, context);
 	}
 
 	/**
@@ -1737,7 +1752,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDataClassifier(DataClassifier dataClassifier, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) dataClassifier, diagnostics, context);
+		return validate_EveryDefaultConstraint(dataClassifier, diagnostics, context);
 	}
 
 	/**
@@ -1746,7 +1761,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateData(Data data, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) data, diagnostics, context);
+		return validate_EveryDefaultConstraint(data, diagnostics, context);
 	}
 
 	/**
@@ -1755,7 +1770,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validatePortProxy(PortProxy portProxy, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) portProxy, diagnostics, context);
+		return validate_EveryDefaultConstraint(portProxy, diagnostics, context);
 	}
 
 	/**
@@ -1765,7 +1780,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramProxy(SubprogramProxy subprogramProxy, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) subprogramProxy, diagnostics, context);
+		return validate_EveryDefaultConstraint(subprogramProxy, diagnostics, context);
 	}
 
 	/**
@@ -1775,7 +1790,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramClassifier(SubprogramClassifier subprogramClassifier, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) subprogramClassifier, diagnostics, context);
+		return validate_EveryDefaultConstraint(subprogramClassifier, diagnostics, context);
 	}
 
 	/**
@@ -1784,7 +1799,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateSubprogram(Subprogram subprogram, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) subprogram, diagnostics, context);
+		return validate_EveryDefaultConstraint(subprogram, diagnostics, context);
 	}
 
 	/**
@@ -1794,7 +1809,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAnnexLibrary(AnnexLibrary annexLibrary, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) annexLibrary, diagnostics, context);
+		return validate_EveryDefaultConstraint(annexLibrary, diagnostics, context);
 	}
 
 	/**
@@ -1804,7 +1819,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDefaultAnnexLibrary(DefaultAnnexLibrary defaultAnnexLibrary, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) defaultAnnexLibrary, diagnostics, context);
+		return validate_EveryDefaultConstraint(defaultAnnexLibrary, diagnostics, context);
 	}
 
 	/**
@@ -1814,7 +1829,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDefaultAnnexSubclause(DefaultAnnexSubclause defaultAnnexSubclause,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) defaultAnnexSubclause, diagnostics, context);
+		return validate_EveryDefaultConstraint(defaultAnnexSubclause, diagnostics, context);
 	}
 
 	/**
@@ -1824,7 +1839,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePublicPackageSection(PublicPackageSection publicPackageSection, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) publicPackageSection, diagnostics, context);
+		return validate_EveryDefaultConstraint(publicPackageSection, diagnostics, context);
 	}
 
 	/**
@@ -1834,7 +1849,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePackageSection(PackageSection packageSection, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) packageSection, diagnostics, context);
+		return validate_EveryDefaultConstraint(packageSection, diagnostics, context);
 	}
 
 	/**
@@ -1844,7 +1859,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePackageRename(PackageRename packageRename, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) packageRename, diagnostics, context);
+		return validate_EveryDefaultConstraint(packageRename, diagnostics, context);
 	}
 
 	/**
@@ -1854,7 +1869,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAadlPackage(AadlPackage aadlPackage, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) aadlPackage, diagnostics, context);
+		return validate_EveryDefaultConstraint(aadlPackage, diagnostics, context);
 	}
 
 	/**
@@ -1863,7 +1878,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateModelUnit(ModelUnit modelUnit, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) modelUnit, diagnostics, context);
+		return validate_EveryDefaultConstraint(modelUnit, diagnostics, context);
 	}
 
 	/**
@@ -1873,7 +1888,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePrivatePackageSection(PrivatePackageSection privatePackageSection,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) privatePackageSection, diagnostics, context);
+		return validate_EveryDefaultConstraint(privatePackageSection, diagnostics, context);
 	}
 
 	/**
@@ -1883,7 +1898,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateComponentTypeRename(ComponentTypeRename componentTypeRename, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) componentTypeRename, diagnostics, context);
+		return validate_EveryDefaultConstraint(componentTypeRename, diagnostics, context);
 	}
 
 	/**
@@ -1893,7 +1908,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeatureGroupTypeRename(FeatureGroupTypeRename featureGroupTypeRename,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) featureGroupTypeRename, diagnostics, context);
+		return validate_EveryDefaultConstraint(featureGroupTypeRename, diagnostics, context);
 	}
 
 	/**
@@ -1903,7 +1918,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateComponentPrototypeBinding(ComponentPrototypeBinding componentPrototypeBinding,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) componentPrototypeBinding, diagnostics, context);
+		return validate_EveryDefaultConstraint(componentPrototypeBinding, diagnostics, context);
 	}
 
 	/**
@@ -1913,7 +1928,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateComponentPrototypeActual(ComponentPrototypeActual componentPrototypeActual,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) componentPrototypeActual, diagnostics, context);
+		return validate_EveryDefaultConstraint(componentPrototypeActual, diagnostics, context);
 	}
 
 	/**
@@ -1923,7 +1938,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeatureGroupPrototypeBinding(FeatureGroupPrototypeBinding featureGroupPrototypeBinding,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) featureGroupPrototypeBinding, diagnostics, context);
+		return validate_EveryDefaultConstraint(featureGroupPrototypeBinding, diagnostics, context);
 	}
 
 	/**
@@ -1933,7 +1948,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeatureGroupPrototypeActual(FeatureGroupPrototypeActual featureGroupPrototypeActual,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) featureGroupPrototypeActual, diagnostics, context);
+		return validate_EveryDefaultConstraint(featureGroupPrototypeActual, diagnostics, context);
 	}
 
 	/**
@@ -1943,7 +1958,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeaturePrototypeActual(FeaturePrototypeActual featurePrototypeActual,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) featurePrototypeActual, diagnostics, context);
+		return validate_EveryDefaultConstraint(featurePrototypeActual, diagnostics, context);
 	}
 
 	/**
@@ -1953,7 +1968,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeaturePrototypeBinding(FeaturePrototypeBinding featurePrototypeBinding,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) featurePrototypeBinding, diagnostics, context);
+		return validate_EveryDefaultConstraint(featurePrototypeBinding, diagnostics, context);
 	}
 
 	/**
@@ -1963,7 +1978,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAccessSpecification(AccessSpecification accessSpecification, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) accessSpecification, diagnostics, context);
+		return validate_EveryDefaultConstraint(accessSpecification, diagnostics, context);
 	}
 
 	/**
@@ -1973,7 +1988,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePortSpecification(PortSpecification portSpecification, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) portSpecification, diagnostics, context);
+		return validate_EveryDefaultConstraint(portSpecification, diagnostics, context);
 	}
 
 	/**
@@ -1983,7 +1998,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateFeaturePrototypeReference(FeaturePrototypeReference featurePrototypeReference,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) featurePrototypeReference, diagnostics, context);
+		return validate_EveryDefaultConstraint(featurePrototypeReference, diagnostics, context);
 	}
 
 	/**
@@ -1993,7 +2008,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramCallSequence(SubprogramCallSequence subprogramCallSequence,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) subprogramCallSequence, diagnostics, context);
+		return validate_EveryDefaultConstraint(subprogramCallSequence, diagnostics, context);
 	}
 
 	/**
@@ -2003,7 +2018,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramCall(SubprogramCall subprogramCall, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) subprogramCall, diagnostics, context);
+		return validate_EveryDefaultConstraint(subprogramCall, diagnostics, context);
 	}
 
 	/**
@@ -2013,7 +2028,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateBehavioredImplementation(BehavioredImplementation behavioredImplementation,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) behavioredImplementation, diagnostics, context);
+		return validate_EveryDefaultConstraint(behavioredImplementation, diagnostics, context);
 	}
 
 	/**
@@ -2023,7 +2038,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAbstractType(AbstractType abstractType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) abstractType, diagnostics, context);
+		return validate_EveryDefaultConstraint(abstractType, diagnostics, context);
 	}
 
 	/**
@@ -2033,7 +2048,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAbstractClassifier(AbstractClassifier abstractClassifier, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) abstractClassifier, diagnostics, context);
+		return validate_EveryDefaultConstraint(abstractClassifier, diagnostics, context);
 	}
 
 	/**
@@ -2044,7 +2059,7 @@ public class Aadl2Validator extends EObjectValidator {
 	public boolean validateVirtualProcessorSubcomponentType(
 			VirtualProcessorSubcomponentType virtualProcessorSubcomponentType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) virtualProcessorSubcomponentType, diagnostics, context);
+		return validate_EveryDefaultConstraint(virtualProcessorSubcomponentType, diagnostics, context);
 	}
 
 	/**
@@ -2054,7 +2069,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateVirtualBusSubcomponentType(VirtualBusSubcomponentType virtualBusSubcomponentType,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) virtualBusSubcomponentType, diagnostics, context);
+		return validate_EveryDefaultConstraint(virtualBusSubcomponentType, diagnostics, context);
 	}
 
 	/**
@@ -2064,7 +2079,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateThreadGroupSubcomponentType(ThreadGroupSubcomponentType threadGroupSubcomponentType,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) threadGroupSubcomponentType, diagnostics, context);
+		return validate_EveryDefaultConstraint(threadGroupSubcomponentType, diagnostics, context);
 	}
 
 	/**
@@ -2074,7 +2089,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateThreadSubcomponentType(ThreadSubcomponentType threadSubcomponentType,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) threadSubcomponentType, diagnostics, context);
+		return validate_EveryDefaultConstraint(threadSubcomponentType, diagnostics, context);
 	}
 
 	/**
@@ -2084,7 +2099,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSystemSubcomponentType(SystemSubcomponentType systemSubcomponentType,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) systemSubcomponentType, diagnostics, context);
+		return validate_EveryDefaultConstraint(systemSubcomponentType, diagnostics, context);
 	}
 
 	/**
@@ -2094,7 +2109,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateProcessSubcomponentType(ProcessSubcomponentType processSubcomponentType,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) processSubcomponentType, diagnostics, context);
+		return validate_EveryDefaultConstraint(processSubcomponentType, diagnostics, context);
 	}
 
 	/**
@@ -2104,7 +2119,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateMemorySubcomponentType(MemorySubcomponentType memorySubcomponentType,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) memorySubcomponentType, diagnostics, context);
+		return validate_EveryDefaultConstraint(memorySubcomponentType, diagnostics, context);
 	}
 
 	/**
@@ -2114,7 +2129,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDeviceSubcomponentType(DeviceSubcomponentType deviceSubcomponentType,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) deviceSubcomponentType, diagnostics, context);
+		return validate_EveryDefaultConstraint(deviceSubcomponentType, diagnostics, context);
 	}
 
 	/**
@@ -2124,7 +2139,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateProcessorSubcomponentType(ProcessorSubcomponentType processorSubcomponentType,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) processorSubcomponentType, diagnostics, context);
+		return validate_EveryDefaultConstraint(processorSubcomponentType, diagnostics, context);
 	}
 
 	/**
@@ -2134,7 +2149,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAbstractImplementation(AbstractImplementation abstractImplementation,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) abstractImplementation, diagnostics, context);
+		return validate_EveryDefaultConstraint(abstractImplementation, diagnostics, context);
 	}
 
 	/**
@@ -2144,7 +2159,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateBusSubcomponent(BusSubcomponent busSubcomponent, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) busSubcomponent, diagnostics, context);
+		return validate_EveryDefaultConstraint(busSubcomponent, diagnostics, context);
 	}
 
 	/**
@@ -2153,7 +2168,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateBus(Bus bus, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) bus, diagnostics, context);
+		return validate_EveryDefaultConstraint(bus, diagnostics, context);
 	}
 
 	/**
@@ -2163,7 +2178,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDataSubcomponent(DataSubcomponent dataSubcomponent, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) dataSubcomponent, diagnostics, context);
+		return validate_EveryDefaultConstraint(dataSubcomponent, diagnostics, context);
 	}
 
 	/**
@@ -2173,7 +2188,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDeviceSubcomponent(DeviceSubcomponent deviceSubcomponent, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) deviceSubcomponent, diagnostics, context);
+		return validate_EveryDefaultConstraint(deviceSubcomponent, diagnostics, context);
 	}
 
 	/**
@@ -2182,7 +2197,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateDevice(Device device, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) device, diagnostics, context);
+		return validate_EveryDefaultConstraint(device, diagnostics, context);
 	}
 
 	/**
@@ -2192,7 +2207,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateMemorySubcomponent(MemorySubcomponent memorySubcomponent, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) memorySubcomponent, diagnostics, context);
+		return validate_EveryDefaultConstraint(memorySubcomponent, diagnostics, context);
 	}
 
 	/**
@@ -2201,7 +2216,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateMemory(Memory memory, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) memory, diagnostics, context);
+		return validate_EveryDefaultConstraint(memory, diagnostics, context);
 	}
 
 	/**
@@ -2211,7 +2226,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateProcessSubcomponent(ProcessSubcomponent processSubcomponent, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) processSubcomponent, diagnostics, context);
+		return validate_EveryDefaultConstraint(processSubcomponent, diagnostics, context);
 	}
 
 	/**
@@ -2221,7 +2236,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateProcess(org.osate.aadl2.Process process, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) process, diagnostics, context);
+		return validate_EveryDefaultConstraint(process, diagnostics, context);
 	}
 
 	/**
@@ -2231,7 +2246,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateProcessorSubcomponent(ProcessorSubcomponent processorSubcomponent,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) processorSubcomponent, diagnostics, context);
+		return validate_EveryDefaultConstraint(processorSubcomponent, diagnostics, context);
 	}
 
 	/**
@@ -2240,7 +2255,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateProcessor(Processor processor, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) processor, diagnostics, context);
+		return validate_EveryDefaultConstraint(processor, diagnostics, context);
 	}
 
 	/**
@@ -2250,7 +2265,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSystemSubcomponent(SystemSubcomponent systemSubcomponent, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) systemSubcomponent, diagnostics, context);
+		return validate_EveryDefaultConstraint(systemSubcomponent, diagnostics, context);
 	}
 
 	/**
@@ -2260,7 +2275,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSystem(org.osate.aadl2.System system, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) system, diagnostics, context);
+		return validate_EveryDefaultConstraint(system, diagnostics, context);
 	}
 
 	/**
@@ -2270,7 +2285,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramSubcomponent(SubprogramSubcomponent subprogramSubcomponent,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) subprogramSubcomponent, diagnostics, context);
+		return validate_EveryDefaultConstraint(subprogramSubcomponent, diagnostics, context);
 	}
 
 	/**
@@ -2280,7 +2295,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramGroupSubcomponent(SubprogramGroupSubcomponent subprogramGroupSubcomponent,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) subprogramGroupSubcomponent, diagnostics, context);
+		return validate_EveryDefaultConstraint(subprogramGroupSubcomponent, diagnostics, context);
 	}
 
 	/**
@@ -2290,7 +2305,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramGroup(SubprogramGroup subprogramGroup, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) subprogramGroup, diagnostics, context);
+		return validate_EveryDefaultConstraint(subprogramGroup, diagnostics, context);
 	}
 
 	/**
@@ -2300,7 +2315,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateThreadSubcomponent(ThreadSubcomponent threadSubcomponent, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) threadSubcomponent, diagnostics, context);
+		return validate_EveryDefaultConstraint(threadSubcomponent, diagnostics, context);
 	}
 
 	/**
@@ -2310,7 +2325,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateThread(org.osate.aadl2.Thread thread, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) thread, diagnostics, context);
+		return validate_EveryDefaultConstraint(thread, diagnostics, context);
 	}
 
 	/**
@@ -2320,7 +2335,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateThreadGroupSubcomponent(ThreadGroupSubcomponent threadGroupSubcomponent,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) threadGroupSubcomponent, diagnostics, context);
+		return validate_EveryDefaultConstraint(threadGroupSubcomponent, diagnostics, context);
 	}
 
 	/**
@@ -2330,7 +2345,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateThreadGroup(org.osate.aadl2.ThreadGroup threadGroup, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) threadGroup, diagnostics, context);
+		return validate_EveryDefaultConstraint(threadGroup, diagnostics, context);
 	}
 
 	/**
@@ -2340,7 +2355,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateVirtualBusSubcomponent(VirtualBusSubcomponent virtualBusSubcomponent,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) virtualBusSubcomponent, diagnostics, context);
+		return validate_EveryDefaultConstraint(virtualBusSubcomponent, diagnostics, context);
 	}
 
 	/**
@@ -2349,7 +2364,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateVirtualBus(VirtualBus virtualBus, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) virtualBus, diagnostics, context);
+		return validate_EveryDefaultConstraint(virtualBus, diagnostics, context);
 	}
 
 	/**
@@ -2359,7 +2374,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateVirtualProcessorSubcomponent(VirtualProcessorSubcomponent virtualProcessorSubcomponent,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) virtualProcessorSubcomponent, diagnostics, context);
+		return validate_EveryDefaultConstraint(virtualProcessorSubcomponent, diagnostics, context);
 	}
 
 	/**
@@ -2369,7 +2384,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateVirtualProcessor(VirtualProcessor virtualProcessor, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) virtualProcessor, diagnostics, context);
+		return validate_EveryDefaultConstraint(virtualProcessor, diagnostics, context);
 	}
 
 	/**
@@ -2379,7 +2394,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAbstractPrototype(AbstractPrototype abstractPrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) abstractPrototype, diagnostics, context);
+		return validate_EveryDefaultConstraint(abstractPrototype, diagnostics, context);
 	}
 
 	/**
@@ -2389,7 +2404,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateBusClassifier(BusClassifier busClassifier, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) busClassifier, diagnostics, context);
+		return validate_EveryDefaultConstraint(busClassifier, diagnostics, context);
 	}
 
 	/**
@@ -2398,7 +2413,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateBusType(BusType busType, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) busType, diagnostics, context);
+		return validate_EveryDefaultConstraint(busType, diagnostics, context);
 	}
 
 	/**
@@ -2408,7 +2423,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateBusImplementation(BusImplementation busImplementation, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) busImplementation, diagnostics, context);
+		return validate_EveryDefaultConstraint(busImplementation, diagnostics, context);
 	}
 
 	/**
@@ -2418,7 +2433,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateBusPrototype(BusPrototype busPrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) busPrototype, diagnostics, context);
+		return validate_EveryDefaultConstraint(busPrototype, diagnostics, context);
 	}
 
 	/**
@@ -2427,7 +2442,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateDataType(DataType dataType, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) dataType, diagnostics, context);
+		return validate_EveryDefaultConstraint(dataType, diagnostics, context);
 	}
 
 	/**
@@ -2437,7 +2452,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDataImplementation(DataImplementation dataImplementation, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) dataImplementation, diagnostics, context);
+		return validate_EveryDefaultConstraint(dataImplementation, diagnostics, context);
 	}
 
 	/**
@@ -2447,7 +2462,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDataPrototype(DataPrototype dataPrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) dataPrototype, diagnostics, context);
+		return validate_EveryDefaultConstraint(dataPrototype, diagnostics, context);
 	}
 
 	/**
@@ -2457,7 +2472,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDeviceClassifier(DeviceClassifier deviceClassifier, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) deviceClassifier, diagnostics, context);
+		return validate_EveryDefaultConstraint(deviceClassifier, diagnostics, context);
 	}
 
 	/**
@@ -2466,7 +2481,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateDeviceType(DeviceType deviceType, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) deviceType, diagnostics, context);
+		return validate_EveryDefaultConstraint(deviceType, diagnostics, context);
 	}
 
 	/**
@@ -2476,7 +2491,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDeviceImplementation(DeviceImplementation deviceImplementation, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) deviceImplementation, diagnostics, context);
+		return validate_EveryDefaultConstraint(deviceImplementation, diagnostics, context);
 	}
 
 	/**
@@ -2486,7 +2501,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateDevicePrototype(DevicePrototype devicePrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) devicePrototype, diagnostics, context);
+		return validate_EveryDefaultConstraint(devicePrototype, diagnostics, context);
 	}
 
 	/**
@@ -2496,7 +2511,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateMemoryClassifier(MemoryClassifier memoryClassifier, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) memoryClassifier, diagnostics, context);
+		return validate_EveryDefaultConstraint(memoryClassifier, diagnostics, context);
 	}
 
 	/**
@@ -2505,7 +2520,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateMemoryType(MemoryType memoryType, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) memoryType, diagnostics, context);
+		return validate_EveryDefaultConstraint(memoryType, diagnostics, context);
 	}
 
 	/**
@@ -2515,7 +2530,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateMemoryImplementation(MemoryImplementation memoryImplementation, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) memoryImplementation, diagnostics, context);
+		return validate_EveryDefaultConstraint(memoryImplementation, diagnostics, context);
 	}
 
 	/**
@@ -2525,7 +2540,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateMemoryPrototype(MemoryPrototype memoryPrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) memoryPrototype, diagnostics, context);
+		return validate_EveryDefaultConstraint(memoryPrototype, diagnostics, context);
 	}
 
 	/**
@@ -2535,7 +2550,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramType(SubprogramType subprogramType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) subprogramType, diagnostics, context);
+		return validate_EveryDefaultConstraint(subprogramType, diagnostics, context);
 	}
 
 	/**
@@ -2545,7 +2560,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramImplementation(SubprogramImplementation subprogramImplementation,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) subprogramImplementation, diagnostics, context);
+		return validate_EveryDefaultConstraint(subprogramImplementation, diagnostics, context);
 	}
 
 	/**
@@ -2555,7 +2570,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramPrototype(SubprogramPrototype subprogramPrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) subprogramPrototype, diagnostics, context);
+		return validate_EveryDefaultConstraint(subprogramPrototype, diagnostics, context);
 	}
 
 	/**
@@ -2565,7 +2580,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramGroupClassifier(SubprogramGroupClassifier subprogramGroupClassifier,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) subprogramGroupClassifier, diagnostics, context);
+		return validate_EveryDefaultConstraint(subprogramGroupClassifier, diagnostics, context);
 	}
 
 	/**
@@ -2575,7 +2590,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramGroupType(SubprogramGroupType subprogramGroupType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) subprogramGroupType, diagnostics, context);
+		return validate_EveryDefaultConstraint(subprogramGroupType, diagnostics, context);
 	}
 
 	/**
@@ -2585,7 +2600,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramGroupImplementation(SubprogramGroupImplementation subprogramGroupImplementation,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) subprogramGroupImplementation, diagnostics, context);
+		return validate_EveryDefaultConstraint(subprogramGroupImplementation, diagnostics, context);
 	}
 
 	/**
@@ -2595,7 +2610,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSubprogramGroupPrototype(SubprogramGroupPrototype subprogramGroupPrototype,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) subprogramGroupPrototype, diagnostics, context);
+		return validate_EveryDefaultConstraint(subprogramGroupPrototype, diagnostics, context);
 	}
 
 	/**
@@ -2605,7 +2620,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSystemClassifier(SystemClassifier systemClassifier, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) systemClassifier, diagnostics, context);
+		return validate_EveryDefaultConstraint(systemClassifier, diagnostics, context);
 	}
 
 	/**
@@ -2614,7 +2629,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateSystemType(SystemType systemType, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) systemType, diagnostics, context);
+		return validate_EveryDefaultConstraint(systemType, diagnostics, context);
 	}
 
 	/**
@@ -2624,7 +2639,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSystemImplementation(SystemImplementation systemImplementation, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) systemImplementation, diagnostics, context);
+		return validate_EveryDefaultConstraint(systemImplementation, diagnostics, context);
 	}
 
 	/**
@@ -2634,7 +2649,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateSystemPrototype(SystemPrototype systemPrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) systemPrototype, diagnostics, context);
+		return validate_EveryDefaultConstraint(systemPrototype, diagnostics, context);
 	}
 
 	/**
@@ -2644,7 +2659,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateProcessorClassifier(ProcessorClassifier processorClassifier, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) processorClassifier, diagnostics, context);
+		return validate_EveryDefaultConstraint(processorClassifier, diagnostics, context);
 	}
 
 	/**
@@ -2654,7 +2669,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateProcessorType(ProcessorType processorType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) processorType, diagnostics, context);
+		return validate_EveryDefaultConstraint(processorType, diagnostics, context);
 	}
 
 	/**
@@ -2664,7 +2679,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateProcessorImplementation(ProcessorImplementation processorImplementation,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) processorImplementation, diagnostics, context);
+		return validate_EveryDefaultConstraint(processorImplementation, diagnostics, context);
 	}
 
 	/**
@@ -2674,7 +2689,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateProcessorPrototype(ProcessorPrototype processorPrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) processorPrototype, diagnostics, context);
+		return validate_EveryDefaultConstraint(processorPrototype, diagnostics, context);
 	}
 
 	/**
@@ -2684,7 +2699,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateProcessClassifier(ProcessClassifier processClassifier, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) processClassifier, diagnostics, context);
+		return validate_EveryDefaultConstraint(processClassifier, diagnostics, context);
 	}
 
 	/**
@@ -2694,7 +2709,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateProcessType(ProcessType processType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) processType, diagnostics, context);
+		return validate_EveryDefaultConstraint(processType, diagnostics, context);
 	}
 
 	/**
@@ -2704,7 +2719,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateProcessImplementation(ProcessImplementation processImplementation,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) processImplementation, diagnostics, context);
+		return validate_EveryDefaultConstraint(processImplementation, diagnostics, context);
 	}
 
 	/**
@@ -2714,7 +2729,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateProcessPrototype(ProcessPrototype processPrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) processPrototype, diagnostics, context);
+		return validate_EveryDefaultConstraint(processPrototype, diagnostics, context);
 	}
 
 	/**
@@ -2724,7 +2739,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateThreadClassifier(ThreadClassifier threadClassifier, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) threadClassifier, diagnostics, context);
+		return validate_EveryDefaultConstraint(threadClassifier, diagnostics, context);
 	}
 
 	/**
@@ -2733,7 +2748,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateThreadType(ThreadType threadType, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) threadType, diagnostics, context);
+		return validate_EveryDefaultConstraint(threadType, diagnostics, context);
 	}
 
 	/**
@@ -2743,7 +2758,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateThreadImplementation(ThreadImplementation threadImplementation, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) threadImplementation, diagnostics, context);
+		return validate_EveryDefaultConstraint(threadImplementation, diagnostics, context);
 	}
 
 	/**
@@ -2753,7 +2768,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateThreadPrototype(ThreadPrototype threadPrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) threadPrototype, diagnostics, context);
+		return validate_EveryDefaultConstraint(threadPrototype, diagnostics, context);
 	}
 
 	/**
@@ -2763,7 +2778,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateThreadGroupClassifier(ThreadGroupClassifier threadGroupClassifier,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) threadGroupClassifier, diagnostics, context);
+		return validate_EveryDefaultConstraint(threadGroupClassifier, diagnostics, context);
 	}
 
 	/**
@@ -2773,7 +2788,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateThreadGroupType(ThreadGroupType threadGroupType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) threadGroupType, diagnostics, context);
+		return validate_EveryDefaultConstraint(threadGroupType, diagnostics, context);
 	}
 
 	/**
@@ -2783,7 +2798,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateThreadGroupImplementation(ThreadGroupImplementation threadGroupImplementation,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) threadGroupImplementation, diagnostics, context);
+		return validate_EveryDefaultConstraint(threadGroupImplementation, diagnostics, context);
 	}
 
 	/**
@@ -2793,7 +2808,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateThreadGroupPrototype(ThreadGroupPrototype threadGroupPrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) threadGroupPrototype, diagnostics, context);
+		return validate_EveryDefaultConstraint(threadGroupPrototype, diagnostics, context);
 	}
 
 	/**
@@ -2803,7 +2818,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateVirtualBusClassifier(VirtualBusClassifier virtualBusClassifier, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) virtualBusClassifier, diagnostics, context);
+		return validate_EveryDefaultConstraint(virtualBusClassifier, diagnostics, context);
 	}
 
 	/**
@@ -2813,7 +2828,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateVirtualBusType(VirtualBusType virtualBusType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) virtualBusType, diagnostics, context);
+		return validate_EveryDefaultConstraint(virtualBusType, diagnostics, context);
 	}
 
 	/**
@@ -2823,7 +2838,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateVirtualBusImplementation(VirtualBusImplementation virtualBusImplementation,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) virtualBusImplementation, diagnostics, context);
+		return validate_EveryDefaultConstraint(virtualBusImplementation, diagnostics, context);
 	}
 
 	/**
@@ -2833,7 +2848,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateVirtualBusPrototype(VirtualBusPrototype virtualBusPrototype, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) virtualBusPrototype, diagnostics, context);
+		return validate_EveryDefaultConstraint(virtualBusPrototype, diagnostics, context);
 	}
 
 	/**
@@ -2843,7 +2858,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateVirtualProcessorClassifier(VirtualProcessorClassifier virtualProcessorClassifier,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) virtualProcessorClassifier, diagnostics, context);
+		return validate_EveryDefaultConstraint(virtualProcessorClassifier, diagnostics, context);
 	}
 
 	/**
@@ -2853,7 +2868,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateVirtualProcessorType(VirtualProcessorType virtualProcessorType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) virtualProcessorType, diagnostics, context);
+		return validate_EveryDefaultConstraint(virtualProcessorType, diagnostics, context);
 	}
 
 	/**
@@ -2863,7 +2878,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateVirtualProcessorImplementation(VirtualProcessorImplementation virtualProcessorImplementation,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) virtualProcessorImplementation, diagnostics, context);
+		return validate_EveryDefaultConstraint(virtualProcessorImplementation, diagnostics, context);
 	}
 
 	/**
@@ -2873,7 +2888,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateVirtualProcessorPrototype(VirtualProcessorPrototype virtualProcessorPrototype,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) virtualProcessorPrototype, diagnostics, context);
+		return validate_EveryDefaultConstraint(virtualProcessorPrototype, diagnostics, context);
 	}
 
 	/**
@@ -2883,7 +2898,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateBasicPropertyAssociation(BasicPropertyAssociation basicPropertyAssociation,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) basicPropertyAssociation, diagnostics, context);
+		return validate_EveryDefaultConstraint(basicPropertyAssociation, diagnostics, context);
 	}
 
 	/**
@@ -2893,7 +2908,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePropertyConstant(PropertyConstant propertyConstant, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) propertyConstant, diagnostics, context);
+		return validate_EveryDefaultConstraint(propertyConstant, diagnostics, context);
 	}
 
 	/**
@@ -2903,7 +2918,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateStringLiteral(StringLiteral stringLiteral, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) stringLiteral, diagnostics, context);
+		return validate_EveryDefaultConstraint(stringLiteral, diagnostics, context);
 	}
 
 	/**
@@ -2913,7 +2928,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePropertyValue(PropertyValue propertyValue, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) propertyValue, diagnostics, context);
+		return validate_EveryDefaultConstraint(propertyValue, diagnostics, context);
 	}
 
 	/**
@@ -2923,7 +2938,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateNumberValue(NumberValue numberValue, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) numberValue, diagnostics, context);
+		return validate_EveryDefaultConstraint(numberValue, diagnostics, context);
 	}
 
 	/**
@@ -2933,7 +2948,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateUnitLiteral(UnitLiteral unitLiteral, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) unitLiteral, diagnostics, context);
+		return validate_EveryDefaultConstraint(unitLiteral, diagnostics, context);
 	}
 
 	/**
@@ -2943,7 +2958,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateEnumerationLiteral(EnumerationLiteral enumerationLiteral, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) enumerationLiteral, diagnostics, context);
+		return validate_EveryDefaultConstraint(enumerationLiteral, diagnostics, context);
 	}
 
 	/**
@@ -2953,7 +2968,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateClassifierValue(ClassifierValue classifierValue, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) classifierValue, diagnostics, context);
+		return validate_EveryDefaultConstraint(classifierValue, diagnostics, context);
 	}
 
 	/**
@@ -2963,7 +2978,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateReferenceValue(ReferenceValue referenceValue, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) referenceValue, diagnostics, context);
+		return validate_EveryDefaultConstraint(referenceValue, diagnostics, context);
 	}
 
 	/**
@@ -2973,7 +2988,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateBooleanLiteral(BooleanLiteral booleanLiteral, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) booleanLiteral, diagnostics, context);
+		return validate_EveryDefaultConstraint(booleanLiteral, diagnostics, context);
 	}
 
 	/**
@@ -2982,7 +2997,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateRangeValue(RangeValue rangeValue, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) rangeValue, diagnostics, context);
+		return validate_EveryDefaultConstraint(rangeValue, diagnostics, context);
 	}
 
 	/**
@@ -2992,7 +3007,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateIntegerLiteral(IntegerLiteral integerLiteral, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) integerLiteral, diagnostics, context);
+		return validate_EveryDefaultConstraint(integerLiteral, diagnostics, context);
 	}
 
 	/**
@@ -3002,7 +3017,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateRealLiteral(RealLiteral realLiteral, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) realLiteral, diagnostics, context);
+		return validate_EveryDefaultConstraint(realLiteral, diagnostics, context);
 	}
 
 	/**
@@ -3011,7 +3026,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateOperation(Operation operation, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) operation, diagnostics, context);
+		return validate_EveryDefaultConstraint(operation, diagnostics, context);
 	}
 
 	/**
@@ -3021,7 +3036,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateRecordValue(RecordValue recordValue, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) recordValue, diagnostics, context);
+		return validate_EveryDefaultConstraint(recordValue, diagnostics, context);
 	}
 
 	/**
@@ -3031,7 +3046,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateComputedValue(ComputedValue computedValue, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) computedValue, diagnostics, context);
+		return validate_EveryDefaultConstraint(computedValue, diagnostics, context);
 	}
 
 	/**
@@ -3040,7 +3055,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateListValue(ListValue listValue, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) listValue, diagnostics, context);
+		return validate_EveryDefaultConstraint(listValue, diagnostics, context);
 	}
 
 	/**
@@ -3049,7 +3064,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateNamedValue(NamedValue namedValue, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) namedValue, diagnostics, context);
+		return validate_EveryDefaultConstraint(namedValue, diagnostics, context);
 	}
 
 	/**
@@ -3059,7 +3074,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validatePropertySet(PropertySet propertySet, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) propertySet, diagnostics, context);
+		return validate_EveryDefaultConstraint(propertySet, diagnostics, context);
 	}
 
 	/**
@@ -3069,7 +3084,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateGlobalNamespace(GlobalNamespace globalNamespace, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) globalNamespace, diagnostics, context);
+		return validate_EveryDefaultConstraint(globalNamespace, diagnostics, context);
 	}
 
 	/**
@@ -3079,7 +3094,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateNonListType(NonListType nonListType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) nonListType, diagnostics, context);
+		return validate_EveryDefaultConstraint(nonListType, diagnostics, context);
 	}
 
 	/**
@@ -3089,7 +3104,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAadlBoolean(AadlBoolean aadlBoolean, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) aadlBoolean, diagnostics, context);
+		return validate_EveryDefaultConstraint(aadlBoolean, diagnostics, context);
 	}
 
 	/**
@@ -3098,7 +3113,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateAadlString(AadlString aadlString, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) aadlString, diagnostics, context);
+		return validate_EveryDefaultConstraint(aadlString, diagnostics, context);
 	}
 
 	/**
@@ -3108,7 +3123,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateAadlInteger(AadlInteger aadlInteger, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) aadlInteger, diagnostics, context);
+		return validate_EveryDefaultConstraint(aadlInteger, diagnostics, context);
 	}
 
 	/**
@@ -3117,7 +3132,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateNumberType(NumberType numberType, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) numberType, diagnostics, context);
+		return validate_EveryDefaultConstraint(numberType, diagnostics, context);
 	}
 
 	/**
@@ -3126,7 +3141,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateUnitsType(UnitsType unitsType, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) unitsType, diagnostics, context);
+		return validate_EveryDefaultConstraint(unitsType, diagnostics, context);
 	}
 
 	/**
@@ -3136,7 +3151,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateEnumerationType(EnumerationType enumerationType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) enumerationType, diagnostics, context);
+		return validate_EveryDefaultConstraint(enumerationType, diagnostics, context);
 	}
 
 	/**
@@ -3146,7 +3161,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateNumericRange(NumericRange numericRange, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) numericRange, diagnostics, context);
+		return validate_EveryDefaultConstraint(numericRange, diagnostics, context);
 	}
 
 	/**
@@ -3155,7 +3170,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateAadlReal(AadlReal aadlReal, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) aadlReal, diagnostics, context);
+		return validate_EveryDefaultConstraint(aadlReal, diagnostics, context);
 	}
 
 	/**
@@ -3165,7 +3180,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateClassifierType(ClassifierType classifierType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) classifierType, diagnostics, context);
+		return validate_EveryDefaultConstraint(classifierType, diagnostics, context);
 	}
 
 	/**
@@ -3174,7 +3189,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateRangeType(RangeType rangeType, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) rangeType, diagnostics, context);
+		return validate_EveryDefaultConstraint(rangeType, diagnostics, context);
 	}
 
 	/**
@@ -3183,7 +3198,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateRecordType(RecordType recordType, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) recordType, diagnostics, context);
+		return validate_EveryDefaultConstraint(recordType, diagnostics, context);
 	}
 
 	/**
@@ -3193,7 +3208,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateRecordField(RecordField recordField, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) recordField, diagnostics, context);
+		return validate_EveryDefaultConstraint(recordField, diagnostics, context);
 	}
 
 	/**
@@ -3203,7 +3218,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 */
 	public boolean validateReferenceType(ReferenceType referenceType, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) referenceType, diagnostics, context);
+		return validate_EveryDefaultConstraint(referenceType, diagnostics, context);
 	}
 
 	/**
@@ -3212,7 +3227,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateListType(ListType listType, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return validate_EveryDefaultConstraint((EObject) listType, diagnostics, context);
+		return validate_EveryDefaultConstraint(listType, diagnostics, context);
 	}
 
 	/**
@@ -3325,6 +3340,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		// TODO
 		// Specialize this to return a resource locator for messages specific to this validator.
@@ -3394,6 +3410,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected boolean isEcoreString(String key) {
 		return super.isEcoreString(key) || "_UI_FeatureHasTooFewValues_diagnostic".equals(key)
 				|| "_UI_FeatureHasTooManyValues_diagnostic".equals(key)
@@ -3405,6 +3422,7 @@ public class Aadl2Validator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected boolean validate_MultiplicityConforms(EObject eObject, EStructuralFeature eStructuralFeature,
 			DiagnosticChain diagnostics, Map<Object, Object> context) {
 		boolean result = true;
@@ -3474,6 +3492,7 @@ public class Aadl2Validator extends EObjectValidator {
 		return result;
 	}
 
+	@Override
 	public boolean validate_EveryDefaultConstraint(EObject object, DiagnosticChain theDiagnostics,
 			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment(object, theDiagnostics, context)) {

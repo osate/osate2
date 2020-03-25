@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -78,6 +78,7 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getRecordValue();
 	}
@@ -112,6 +113,7 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.RECORD_VALUE__OWNED_FIELD_VALUE:
@@ -125,6 +127,7 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.RECORD_VALUE__OWNED_FIELD_VALUE:
@@ -139,6 +142,7 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.RECORD_VALUE__OWNED_FIELD_VALUE:
@@ -154,6 +158,7 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.RECORD_VALUE__OWNED_FIELD_VALUE:
@@ -168,6 +173,7 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.RECORD_VALUE__OWNED_FIELD_VALUE:
@@ -176,6 +182,7 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 		return super.eIsSet(featureID);
 	}
 
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -183,6 +190,7 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 		return result;
 	}
 
+	@Override
 	public boolean sameAs(PropertyExpression pv) {
 		if (this == pv) {
 			return true;
@@ -205,9 +213,12 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 		// return true;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.osate.aadl2.impl.PropertyExpressionImpl#evaluate(org.osate.aadl2.properties.EvaluationContext, int)
 	 */
+	@Override
 	public EvaluatedProperty evaluate(EvaluationContext ctx, int depth) {
 		// evaluate each record field
 		RecordValue newVal = Aadl2Factory.eINSTANCE.createRecordValue();

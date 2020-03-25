@@ -375,6 +375,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY__INHERIT:
