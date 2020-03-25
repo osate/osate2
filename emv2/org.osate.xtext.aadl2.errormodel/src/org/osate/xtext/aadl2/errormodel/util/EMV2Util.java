@@ -2365,6 +2365,9 @@ public class EMV2Util {
 	 * @return Subcomponent
 	 */
 	public static Subcomponent getLastSubcomponent(EMV2Path epath) {
+		if (epath == null) {
+			return null;
+		}
 		if (epath.getContainmentPath() != null) {
 			// handle paths that come from the EMV2PropertyAssociation with the new syntax for the core path
 			ContainmentPathElement last = getLast(epath.getContainmentPath());
