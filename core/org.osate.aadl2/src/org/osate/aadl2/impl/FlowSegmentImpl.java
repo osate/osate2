@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -82,6 +82,7 @@ public class FlowSegmentImpl extends ElementImpl implements FlowSegment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getFlowSegment();
 	}
@@ -96,9 +97,10 @@ public class FlowSegmentImpl extends ElementImpl implements FlowSegment {
 			InternalEObject oldFlowElement = (InternalEObject) flowElement;
 			flowElement = (FlowElement) eResolveProxy(oldFlowElement);
 			if (flowElement != oldFlowElement) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.FLOW_SEGMENT__FLOW_ELEMENT,
 							oldFlowElement, flowElement));
+				}
 			}
 		}
 		return flowElement;
@@ -121,9 +123,10 @@ public class FlowSegmentImpl extends ElementImpl implements FlowSegment {
 	public void setFlowElement(FlowElement newFlowElement) {
 		FlowElement oldFlowElement = flowElement;
 		flowElement = newFlowElement;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_SEGMENT__FLOW_ELEMENT,
 					oldFlowElement, flowElement));
+		}
 	}
 
 	/**
@@ -136,9 +139,10 @@ public class FlowSegmentImpl extends ElementImpl implements FlowSegment {
 			InternalEObject oldContext = (InternalEObject) context;
 			context = (Context) eResolveProxy(oldContext);
 			if (context != oldContext) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.FLOW_SEGMENT__CONTEXT,
 							oldContext, context));
+				}
 			}
 		}
 		return context;
@@ -161,9 +165,10 @@ public class FlowSegmentImpl extends ElementImpl implements FlowSegment {
 	public void setContext(Context newContext) {
 		Context oldContext = context;
 		context = newContext;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_SEGMENT__CONTEXT, oldContext,
 					context));
+		}
 	}
 
 	/**
@@ -171,15 +176,18 @@ public class FlowSegmentImpl extends ElementImpl implements FlowSegment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_SEGMENT__FLOW_ELEMENT:
-			if (resolve)
+			if (resolve) {
 				return getFlowElement();
+			}
 			return basicGetFlowElement();
 		case Aadl2Package.FLOW_SEGMENT__CONTEXT:
-			if (resolve)
+			if (resolve) {
 				return getContext();
+			}
 			return basicGetContext();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -190,6 +198,7 @@ public class FlowSegmentImpl extends ElementImpl implements FlowSegment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_SEGMENT__FLOW_ELEMENT:
@@ -207,6 +216,7 @@ public class FlowSegmentImpl extends ElementImpl implements FlowSegment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_SEGMENT__FLOW_ELEMENT:
@@ -224,6 +234,7 @@ public class FlowSegmentImpl extends ElementImpl implements FlowSegment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_SEGMENT__FLOW_ELEMENT:

@@ -141656,12 +141656,12 @@ rule__AbstractFeature__AbstractFeatureClassifierAssignment_2_1_1
     }
 :
 (
-{ before(grammarAccess.getAbstractFeatureAccess().getAbstractFeatureClassifierFeatureClassifierCrossReference_2_1_1_0()); }
+{ before(grammarAccess.getAbstractFeatureAccess().getAbstractFeatureClassifierAbstractFeatureClassifierCrossReference_2_1_1_0()); }
 (
-{ before(grammarAccess.getAbstractFeatureAccess().getAbstractFeatureClassifierFeatureClassifierQCREFParserRuleCall_2_1_1_0_1()); }
-	ruleQCREF{ after(grammarAccess.getAbstractFeatureAccess().getAbstractFeatureClassifierFeatureClassifierQCREFParserRuleCall_2_1_1_0_1()); }
+{ before(grammarAccess.getAbstractFeatureAccess().getAbstractFeatureClassifierAbstractFeatureClassifierQCREFParserRuleCall_2_1_1_0_1()); }
+	ruleQCREF{ after(grammarAccess.getAbstractFeatureAccess().getAbstractFeatureClassifierAbstractFeatureClassifierQCREFParserRuleCall_2_1_1_0_1()); }
 )
-{ after(grammarAccess.getAbstractFeatureAccess().getAbstractFeatureClassifierFeatureClassifierCrossReference_2_1_1_0()); }
+{ after(grammarAccess.getAbstractFeatureAccess().getAbstractFeatureClassifierAbstractFeatureClassifierCrossReference_2_1_1_0()); }
 )
 
 ;
