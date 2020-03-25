@@ -9,7 +9,8 @@ import org.osate.ge.swt.BaseObservableModel;
  * Test view model for various list views contained in this package.
  *
  */
-class TestListEditorModel extends BaseObservableModel implements ListEditorModel<String> {
+class TestListEditorModel extends BaseObservableModel
+		implements ListEditorModel<String> {
 	private final List<String> elements = new ArrayList<>();
 	private String selectedElement = null;
 	private int numberOfElementsCreated = 0;
@@ -53,4 +54,6 @@ class TestListEditorModel extends BaseObservableModel implements ListEditorModel
 		elements.remove(element);
 		triggerChangeEvent();
 	}
+
+
 }
