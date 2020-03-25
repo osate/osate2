@@ -29,6 +29,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
+import org.osate.analysis.resource.budgets.busload.model.BusLoadModel;
 import org.osate.ui.dialogs.Dialog;
 
 public class NewBusLoadAnalysis {
@@ -45,11 +46,25 @@ public class NewBusLoadAnalysis {
 			final SOMIterator soms = new SOMIterator(root);
 			while (soms.hasNext()) {
 				final SystemOperationMode som = soms.nextSOM();
-//				checkBusLoads(root, som);
+				final BusLoadModel model = buildModel(root, som);
+
+				System.out.println("Model for system operation mode " + som);
+				System.out.println();
+
+
+				System.out.println();
+				System.out.println("===============================================");
+				System.out.println();
+
 			}
 			monitor.done();
 		} else {
 			Dialog.showError("Bound Bus Bandwidth Analysis Error", "Can only check system instances");
 		}
+	}
+
+	private BusLoadModel buildModel(final SystemInstance root, SystemOperationMode som) {
+		final BusLoadModel model = new BusLoadModel();
+		return model;
 	}
 }

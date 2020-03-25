@@ -14,12 +14,17 @@ public final class Connection extends ModelElement {
 	}
 
 	@Override
-	protected void visitChildren(final Visitor visitor, final Traversal traversal) {
+	void visitChildren(final Visitor visitor) {
 		// no children
 	}
 
 	@Override
-	protected void visitSelf(final Visitor visitor) {
+	void visitSelfPrefix(final Visitor visitor) {
 		visitor.visitConnection(this);
+	}
+
+	@Override
+	void visitSelfPostfix(final Visitor visitor) {
+		// leaf node, already visited with prefix
 	}
 }

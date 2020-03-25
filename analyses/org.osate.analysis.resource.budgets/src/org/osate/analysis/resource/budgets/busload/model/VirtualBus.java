@@ -8,7 +8,12 @@ public final class VirtualBus extends AbstractBus {
 	}
 
 	@Override
-	protected void visitSelf(final Visitor visitor) {
-		visitor.visitVirtualBus(this);
+	void visitSelfPrefix(final Visitor visitor) {
+		visitor.visitVirtualBusPrefix(this);
+	}
+
+	@Override
+	void visitSelfPostfix(final Visitor visitor) {
+		visitor.visitVirtualBusPostfix(this);
 	}
 }

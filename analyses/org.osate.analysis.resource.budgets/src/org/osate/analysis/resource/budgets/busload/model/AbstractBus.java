@@ -44,8 +44,8 @@ abstract class AbstractBus extends ModelElement {
 	}
 
 	@Override
-	protected final void visitChildren(final Visitor visitor, final Traversal traversal) {
-		visit(boundBuses, visitor, traversal);
-		visit(boundConnections, visitor, traversal);
+	protected final void visitChildren(final Visitor visitor) {
+		visit(boundBuses, visitor);
+		visit(boundConnections, visitor);
 	}
 }

@@ -28,12 +28,17 @@ public final class BusLoadModel extends ModelElement {
 	}
 
 	@Override
-	protected void visitChildren(final Visitor visitor, final Traversal traversal) {
-		visit(rootBuses, visitor, traversal);
+	void visitSelfPrefix(final Visitor visitor) {
+		visitor.visitModelPrefix(this);
 	}
 
 	@Override
-	protected void visitSelf(final Visitor visitor) {
-		visitor.visitModel(this);
+	void visitChildren(final Visitor visitor) {
+		visit(rootBuses, visitor);
+	}
+
+	@Override
+	void visitSelfPostfix(final Visitor visitor) {
+		visitor.visitModelPostfix(this);
 	}
 }
