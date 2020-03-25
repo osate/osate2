@@ -755,6 +755,12 @@ class OtherErrorModelScopeProviderTest extends XtextTest {
 					dp2: in data port;
 					ep2: in event port;
 					edp2: in event data port;
+				annex EMV2 {**
+					component error behavior
+					detections
+						detection1: all -[ access ]-> dp1!;
+					end component;
+				**};
 				end a2;
 				
 				abstract implementation a2.i extends a1.i
@@ -770,7 +776,7 @@ class OtherErrorModelScopeProviderTest extends XtextTest {
 					
 					component error behavior
 					detections
-						detection1: all -[ access ]-> dp1! (ps1::const1);
+						detection2: all -[ access ]-> dp1! (ps1::const1);
 					end component;
 				**};
 				end a2.i;
@@ -778,11 +784,21 @@ class OtherErrorModelScopeProviderTest extends XtextTest {
 		'''
 		testHelper.parseString(subclause, ps) => [
 			"subclause1".assertEquals(name)
+			publicSection.ownedClassifiers.get(2) => [
+				"a2".assertEquals(name)
+				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).
+					errorDetections.head => [
+					"detection1".assertEquals(name)
+					// Tests scope_ErrorDetection_detectionReportingPort
+					assertScope(ErrorModelPackage.eINSTANCE.errorDetection_DetectionReportingPort,
+						#["af1", "dp1", "ep1", "edp1", "af2", "dp2", "ep2", "edp2"])
+				]
+			]
 			publicSection.ownedClassifiers.get(3) => [
 				"a2.i".assertEquals(name)
 				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).
 					errorDetections.head => [
-					"detection1".assertEquals(name)
+					"detection2".assertEquals(name)
 					// Tests scope_ErrorDetection_detectionReportingPort
 					assertScope(ErrorModelPackage.eINSTANCE.errorDetection_DetectionReportingPort, #[
 						"af1",
