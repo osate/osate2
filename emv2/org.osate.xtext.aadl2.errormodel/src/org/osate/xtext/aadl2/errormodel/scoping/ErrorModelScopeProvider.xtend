@@ -872,21 +872,21 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		new SimpleScope(noConflictsDescriptions + conflictsDescriptions + qualifiedDescriptions, true)
 	}
 
-	def public static eDescriptionsForErrorPropagation(Classifier context, DirectionType requiredDirection) {
+	def static eDescriptionsForErrorPropagation(Classifier context, DirectionType requiredDirection) {
 		val propagations = context.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter [
 			!not && direction == requiredDirection
 		]
 		propagations.map[EObjectDescription.create(propagationName, it)]
 	}
 
-	def public static scopeForErrorPropagation(Classifier context, DirectionType requiredDirection) {
+	def static scopeForErrorPropagation(Classifier context, DirectionType requiredDirection) {
 		val propagations = context.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter [
 			!not && direction == requiredDirection
 		]
 		new SimpleScope(propagations.map[EObjectDescription.create(propagationName, it)], true)
 	}
 
-	def public static getEventandIncomingPropagationDescriptions(Classifier classifier) {
+	def static getEventandIncomingPropagationDescriptions(Classifier classifier) {
 		val stateMachine = classifier?.allContainingClassifierEMV2Subclauses?.map[useBehavior]?.filterNull?.head
 		val ebsmevents = stateMachine?.events
 		val ebsmeventDescriptions = ebsmevents?.map[EObjectDescription.create(QualifiedName.create(name), it)] ?:
