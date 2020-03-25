@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML">
   <uml:Model xmi:id="_0" name="AADLProperties">
-    <ownedComment xmi:type="uml:Comment" xmi:id="_T3E98DJSEeqPArDozzJZgw">
+    <ownedComment xmi:id="_T3E98DJSEeqPArDozzJZgw">
       <body>Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
 All Rights Reserved.
 
@@ -26,174 +26,174 @@ censes only apply to the Third Party Software and not any other portion of this 
 </body>
     </ownedComment>
     <packagedElement xmi:type="uml:Package" xmi:id="PropertySets" name="PropertySets">
-      <ownedComment xmi:type="uml:Comment" xmi:id="PropertySets-_ownedComment.0">
+      <ownedComment xmi:id="PropertySets-_ownedComment.0">
         <body>This package contains metaclasses for modeling property sets.</body>
       </ownedComment>
       <packagedElement xmi:type="uml:Class" xmi:id="PropertySets-PropertySet" name="PropertySet">
-        <ownedComment xmi:type="uml:Comment" xmi:id="PropertySets-PropertySet-_ownedComment.0">
+        <ownedComment xmi:id="PropertySets-PropertySet-_ownedComment.0">
           <body>A property Set.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="_ZP6boICtEeC4L4Ipr-wzPA" general="_SBJu4ICtEeC4L4Ipr-wzPA"/>
-        <generalization xmi:type="uml:Generalization" xmi:id="_F1APMIC6EeC4L4Ipr-wzPA" general="_AsQMsIC6EeC4L4Ipr-wzPA"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="PropertySets-PropertySet-ownedPropertyType" name="ownedPropertyType" visibility="public" type="_v97TQLMDEeCzMYz5ww7glA" aggregation="composite" association="PropertySets-A_propertySet_ownedPropertyType">
-          <ownedComment xmi:type="uml:Comment" xmi:id="PropertySets-PropertySet-ownedPropertyType-_ownedComment.0">
+        <generalization xmi:id="_ZP6boICtEeC4L4Ipr-wzPA" general="_SBJu4ICtEeC4L4Ipr-wzPA"/>
+        <generalization xmi:id="_F1APMIC6EeC4L4Ipr-wzPA" general="_AsQMsIC6EeC4L4Ipr-wzPA"/>
+        <ownedAttribute xmi:id="PropertySets-PropertySet-ownedPropertyType" name="ownedPropertyType" visibility="public" type="_v97TQLMDEeCzMYz5ww7glA" aggregation="composite" association="PropertySets-A_propertySet_ownedPropertyType">
+          <ownedComment xmi:id="PropertySets-PropertySet-ownedPropertyType-_ownedComment.0">
             <body>Specifies the property types owned by this property set.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="PropertySets-PropertySet-ownedPropertyType-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="PropertySets-PropertySet-ownedPropertyType-_upperValue" value="*"/>
-          <subsettedProperty xmi:type="uml:Property" href="../Core%20Language/AADLInfrastructure.uml#Namespace-ownedMember"/>
+          <subsettedProperty href="../Core%20Language/AADLInfrastructure.uml#Namespace-ownedMember"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="PropertySets-PropertySet-ownedPropertyDefinition" name="ownedProperty" visibility="public" type="Definitions-Property" aggregation="composite" association="PropertySets-A_propertySet_ownedPropertyDefinition">
-          <ownedComment xmi:type="uml:Comment" xmi:id="PropertySets-PropertySet-ownedPropertyDefinition-_ownedComment.0">
+        <ownedAttribute xmi:id="PropertySets-PropertySet-ownedPropertyDefinition" name="ownedProperty" visibility="public" type="Definitions-Property" aggregation="composite" association="PropertySets-A_propertySet_ownedPropertyDefinition">
+          <ownedComment xmi:id="PropertySets-PropertySet-ownedPropertyDefinition-_ownedComment.0">
             <body>Specifies the properties owned by this property set.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="PropertySets-PropertySet-ownedPropertyDefinition-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="PropertySets-PropertySet-ownedPropertyDefinition-_upperValue" value="*"/>
-          <subsettedProperty xmi:type="uml:Property" href="../Core%20Language/AADLInfrastructure.uml#Namespace-ownedMember"/>
+          <subsettedProperty href="../Core%20Language/AADLInfrastructure.uml#Namespace-ownedMember"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="PropertySets-PropertySet-ownedPropertyConstant" name="ownedPropertyConstant" visibility="public" type="Constants-PropertyConstant" aggregation="composite" association="PropertySets-A_propertySet_ownedPropertyConstant">
-          <ownedComment xmi:type="uml:Comment" xmi:id="PropertySets-PropertySet-ownedPropertyConstant-_ownedComment.0">
+        <ownedAttribute xmi:id="PropertySets-PropertySet-ownedPropertyConstant" name="ownedPropertyConstant" visibility="public" type="Constants-PropertyConstant" aggregation="composite" association="PropertySets-A_propertySet_ownedPropertyConstant">
+          <ownedComment xmi:id="PropertySets-PropertySet-ownedPropertyConstant-_ownedComment.0">
             <body>Specifies the property constants owned by this property set.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="PropertySets-PropertySet-ownedPropertyConstant-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="PropertySets-PropertySet-ownedPropertyConstant-_upperValue" value="*"/>
-          <subsettedProperty xmi:type="uml:Property" href="../Core%20Language/AADLInfrastructure.uml#Namespace-ownedMember"/>
+          <subsettedProperty href="../Core%20Language/AADLInfrastructure.uml#Namespace-ownedMember"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_avt5JIC7EeC4L4Ipr-wzPA" name="importedUnit" visibility="public" type="_SBJu4ICtEeC4L4Ipr-wzPA" association="_avt5IIC7EeC4L4Ipr-wzPA">
+        <ownedAttribute xmi:id="_avt5JIC7EeC4L4Ipr-wzPA" name="importedUnit" visibility="public" type="_SBJu4ICtEeC4L4Ipr-wzPA" association="_avt5IIC7EeC4L4Ipr-wzPA">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_avt5JoC7EeC4L4Ipr-wzPA"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_avt5JYC7EeC4L4Ipr-wzPA" value="*"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_sBrwoE4HEeOhgd3TaVpFAQ" name="ownedAnnexSubclause" visibility="public" aggregation="composite" association="_sCH1gE4HEeOhgd3TaVpFAQ">
+        <ownedAttribute xmi:id="_sBrwoE4HEeOhgd3TaVpFAQ" name="ownedAnnexSubclause" visibility="public" aggregation="composite" association="_sCH1gE4HEeOhgd3TaVpFAQ">
           <type xmi:type="uml:Class" href="../Core%20Language/AADLConstructs.uml#Extensibility-AnnexSubclause"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_sBrwok4HEeOhgd3TaVpFAQ"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_sBrwoU4HEeOhgd3TaVpFAQ" value="*"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="PropertySets-A_globalNamespace_propertySet" name="A_globalNamespace_propertySet" memberEnd="PropertySets-A_globalNamespace_propertySet-globalNamespace PropertySets-GlobalNamespace-propertySet">
-        <ownedEnd xmi:type="uml:Property" xmi:id="PropertySets-A_globalNamespace_propertySet-globalNamespace" name="globalNamespace" visibility="public" type="PropertySets-GlobalNamespace" association="PropertySets-A_globalNamespace_propertySet">
+        <ownedEnd xmi:id="PropertySets-A_globalNamespace_propertySet-globalNamespace" name="globalNamespace" visibility="public" type="PropertySets-GlobalNamespace" association="PropertySets-A_globalNamespace_propertySet">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="PropertySets-A_globalNamespace_propertySet-globalNamespace-_lowerValue" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="PropertySets-A_globalNamespace_propertySet-globalNamespace-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="PropertySets-A_propertySet_ownedPropertyType" name="A_propertySet_ownedPropertyType" memberEnd="PropertySets-A_propertySet_ownedPropertyType-owner PropertySets-PropertySet-ownedPropertyType">
-        <ownedEnd xmi:type="uml:Property" xmi:id="PropertySets-A_propertySet_ownedPropertyType-owner" name="owner" visibility="public" type="PropertySets-PropertySet" association="PropertySets-A_propertySet_ownedPropertyType">
+        <ownedEnd xmi:id="PropertySets-A_propertySet_ownedPropertyType-owner" name="owner" visibility="public" type="PropertySets-PropertySet" association="PropertySets-A_propertySet_ownedPropertyType">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="PropertySets-A_propertySet_ownedPropertyType-owner-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="PropertySets-A_propertySet_ownedPropertyType-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="PropertySets-A_propertySet_ownedPropertyDefinition" name="A_propertySet_ownedProperty" memberEnd="PropertySets-A_propertySet_ownedPropertyDefinition-owner PropertySets-PropertySet-ownedPropertyDefinition">
-        <ownedEnd xmi:type="uml:Property" xmi:id="PropertySets-A_propertySet_ownedPropertyDefinition-owner" name="owner" visibility="public" type="PropertySets-PropertySet" association="PropertySets-A_propertySet_ownedPropertyDefinition">
+        <ownedEnd xmi:id="PropertySets-A_propertySet_ownedPropertyDefinition-owner" name="owner" visibility="public" type="PropertySets-PropertySet" association="PropertySets-A_propertySet_ownedPropertyDefinition">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="PropertySets-A_propertySet_ownedPropertyDefinition-owner-_lowerValue" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="PropertySets-A_propertySet_ownedPropertyDefinition-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="PropertySets-A_propertySet_ownedPropertyConstant" name="A_propertySet_ownedPropertyConstant" memberEnd="PropertySets-A_propertySet_ownedPropertyConstant-owner PropertySets-PropertySet-ownedPropertyConstant">
-        <ownedEnd xmi:type="uml:Property" xmi:id="PropertySets-A_propertySet_ownedPropertyConstant-owner" name="owner" visibility="public" type="PropertySets-PropertySet" association="PropertySets-A_propertySet_ownedPropertyConstant">
+        <ownedEnd xmi:id="PropertySets-A_propertySet_ownedPropertyConstant-owner" name="owner" visibility="public" type="PropertySets-PropertySet" association="PropertySets-A_propertySet_ownedPropertyConstant">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="PropertySets-A_propertySet_ownedPropertyConstant-owner-_lowerValue" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="PropertySets-A_propertySet_ownedPropertyConstant-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="PropertySets-GlobalNamespace" name="GlobalNamespace" isAbstract="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="PropertySets-GlobalNamespace-_ownedComment.0">
+        <ownedComment xmi:id="PropertySets-GlobalNamespace-_ownedComment.0">
           <body>The global namespace may contain property sets.</body>
         </ownedComment>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="PropertySets-GlobalNamespace-propertySet" name="propertySet" visibility="public" type="PropertySets-PropertySet" association="PropertySets-A_globalNamespace_propertySet">
-          <ownedComment xmi:type="uml:Comment" xmi:id="PropertySets-GlobalNamespace-propertySet-_ownedComment.0">
+        <ownedAttribute xmi:id="PropertySets-GlobalNamespace-propertySet" name="propertySet" visibility="public" type="PropertySets-PropertySet" association="PropertySets-A_globalNamespace_propertySet">
+          <ownedComment xmi:id="PropertySets-GlobalNamespace-propertySet-_ownedComment.0">
             <body>References the property sets contained that belong in this global namespace.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="PropertySets-GlobalNamespace-propertySet-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="PropertySets-GlobalNamespace-propertySet-_upperValue" value="*"/>
-          <subsettedProperty xmi:type="uml:Property" href="../Core%20Language/AADLInfrastructure.uml#Namespace-member"/>
+          <subsettedProperty href="../Core%20Language/AADLInfrastructure.uml#Namespace-member"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_SBJu4ICtEeC4L4Ipr-wzPA" name="ModelUnit" isAbstract="true"/>
       <packagedElement xmi:type="uml:Class" xmi:id="_AsQMsIC6EeC4L4Ipr-wzPA" name="Namespace" isAbstract="true"/>
       <packagedElement xmi:type="uml:Association" xmi:id="_avt5IIC7EeC4L4Ipr-wzPA" name="A_propertySet_importedUnit" memberEnd="_avt5IYC7EeC4L4Ipr-wzPA _avt5JIC7EeC4L4Ipr-wzPA">
-        <ownedEnd xmi:type="uml:Property" xmi:id="_avt5IYC7EeC4L4Ipr-wzPA" name="propertySet" visibility="public" type="PropertySets-PropertySet" association="_avt5IIC7EeC4L4Ipr-wzPA">
+        <ownedEnd xmi:id="_avt5IYC7EeC4L4Ipr-wzPA" name="propertySet" visibility="public" type="PropertySets-PropertySet" association="_avt5IIC7EeC4L4Ipr-wzPA">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_avt5I4C7EeC4L4Ipr-wzPA"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_avt5IoC7EeC4L4Ipr-wzPA" value="*"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_sCH1gE4HEeOhgd3TaVpFAQ" name="A_propertySet_ownedAnnexSubclause" memberEnd="_sCH1gU4HEeOhgd3TaVpFAQ _sBrwoE4HEeOhgd3TaVpFAQ">
-        <ownedEnd xmi:type="uml:Property" xmi:id="_sCH1gU4HEeOhgd3TaVpFAQ" name="owner" visibility="public" type="PropertySets-PropertySet" association="_sCH1gE4HEeOhgd3TaVpFAQ">
+        <ownedEnd xmi:id="_sCH1gU4HEeOhgd3TaVpFAQ" name="owner" visibility="public" type="PropertySets-PropertySet" association="_sCH1gE4HEeOhgd3TaVpFAQ">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_sCH1g04HEeOhgd3TaVpFAQ"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_sCH1gk4HEeOhgd3TaVpFAQ" value="1"/>
         </ownedEnd>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="Types" name="Types">
-      <ownedComment xmi:type="uml:Comment" xmi:id="Types-_ownedComment.0">
+      <ownedComment xmi:id="Types-_ownedComment.0">
         <body>This package contains metaclasses needed to model property types.</body>
       </ownedComment>
       <packagedElement xmi:type="uml:Class" xmi:id="Types-PropertyType" name="NonListType" isAbstract="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Types-PropertyType-_ownedComment.0">
+        <ownedComment xmi:id="Types-PropertyType-_ownedComment.0">
           <body>Superclass of all property types.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="_z3mTgLMDEeCzMYz5ww7glA" general="_v97TQLMDEeCzMYz5ww7glA"/>
+        <generalization xmi:id="_z3mTgLMDEeCzMYz5ww7glA" general="_v97TQLMDEeCzMYz5ww7glA"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Types-AadlBoolean" name="AadlBoolean">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Types-AadlBoolean-_ownedComment.0">
+        <ownedComment xmi:id="Types-AadlBoolean-_ownedComment.0">
           <body>The predefined property type AADLBoolean.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Types-AadlBoolean-_generalization.0" general="Types-PropertyType"/>
+        <generalization xmi:id="Types-AadlBoolean-_generalization.0" general="Types-PropertyType"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Types-AadlString" name="AadlString">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Types-AadlString-_ownedComment.0">
+        <ownedComment xmi:id="Types-AadlString-_ownedComment.0">
           <body>The predefined property type AADLString.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Types-AadlString-_generalization.0" general="Types-PropertyType"/>
+        <generalization xmi:id="Types-AadlString-_generalization.0" general="Types-PropertyType"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Types-AadlInteger" name="AadlInteger">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Types-AadlInteger-_ownedComment.0">
+        <ownedComment xmi:id="Types-AadlInteger-_ownedComment.0">
           <body>The predefined property type AADLInteger.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Types-AadlInteger-_generalization.0" general="Types-NumberType"/>
+        <generalization xmi:id="Types-AadlInteger-_generalization.0" general="Types-NumberType"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Types-AadlReal" name="AadlReal">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Types-AadlReal-_ownedComment.0">
+        <ownedComment xmi:id="Types-AadlReal-_ownedComment.0">
           <body>The predefined property type AADLReal.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Types-AadlReal-_generalization.0" general="Types-NumberType"/>
+        <generalization xmi:id="Types-AadlReal-_generalization.0" general="Types-NumberType"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Types-EnumerationType" name="EnumerationType">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Types-EnumerationType-_ownedComment.0">
+        <ownedComment xmi:id="Types-EnumerationType-_ownedComment.0">
           <body>An enumeration type.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Types-EnumerationType-_generalization.0" general="Types-PropertyType"/>
-        <generalization xmi:type="uml:Generalization" xmi:id="Types-EnumerationType-_generalization.1">
+        <generalization xmi:id="Types-EnumerationType-_generalization.0" general="Types-PropertyType"/>
+        <generalization xmi:id="Types-EnumerationType-_generalization.1">
           <general xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#Namespace"/>
         </generalization>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Types-EnumerationType-ownedLiteral" name="ownedLiteral" visibility="public" type="Types-EnumerationLiteral" aggregation="composite" association="Types-A_enumeration_ownedLiteral">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Types-EnumerationType-ownedLiteral-_ownedComment.0">
+        <ownedAttribute xmi:id="Types-EnumerationType-ownedLiteral" name="ownedLiteral" visibility="public" type="Types-EnumerationLiteral" aggregation="composite" association="Types-A_enumeration_ownedLiteral">
+          <ownedComment xmi:id="Types-EnumerationType-ownedLiteral-_ownedComment.0">
             <body>The list of enumeration literals in this type.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-EnumerationType-ownedLiteral-_lowerValue" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-EnumerationType-ownedLiteral-_upperValue" value="*"/>
-          <subsettedProperty xmi:type="uml:Property" href="../Core%20Language/AADLInfrastructure.uml#Namespace-ownedMember"/>
+          <subsettedProperty href="../Core%20Language/AADLInfrastructure.uml#Namespace-ownedMember"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Types-EnumerationLiteral" name="EnumerationLiteral">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Types-EnumerationLiteral-_ownedComment.0">
+        <ownedComment xmi:id="Types-EnumerationLiteral-_ownedComment.0">
           <body>An enumeration literal.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Types-EnumerationLiteral-_generalization.0">
+        <generalization xmi:id="Types-EnumerationLiteral-_generalization.0">
           <general xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#NamedElement"/>
         </generalization>
-        <generalization xmi:type="uml:Generalization" xmi:id="_42bHgK4tEeCX99A4eTjOUQ" general="_qhwp8K17EeCEBvwFrdo_PA"/>
+        <generalization xmi:id="_42bHgK4tEeCX99A4eTjOUQ" general="_qhwp8K17EeCEBvwFrdo_PA"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Types-A_enumeration_ownedLiteral" name="A_enumeration_ownedLiteral" memberEnd="Types-A_enumeration_ownedLiteral-owner Types-EnumerationType-ownedLiteral">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Types-A_enumeration_ownedLiteral-owner" name="owner" visibility="public" type="Types-EnumerationType" association="Types-A_enumeration_ownedLiteral">
+        <ownedEnd xmi:id="Types-A_enumeration_ownedLiteral-owner" name="owner" visibility="public" type="Types-EnumerationType" association="Types-A_enumeration_ownedLiteral">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-A_enumeration_ownedLiteral-owner-_lowerValue" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-A_enumeration_ownedLiteral-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Types-ClassifierType" name="ClassifierType">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Types-ClassifierType-_ownedComment.0">
+        <ownedComment xmi:id="Types-ClassifierType-_ownedComment.0">
           <body>A classifier type.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Types-ClassifierType-_generalization.0" general="Types-PropertyType"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Types-ClassifierType-classifierReference" name="classifierReference" visibility="public" type="Types-MetaclassReference" aggregation="composite" association="Types-A_classifierType_classifierReference">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Types-ClassifierType-classifierReference-_ownedComment.0">
+        <generalization xmi:id="Types-ClassifierType-_generalization.0" general="Types-PropertyType"/>
+        <ownedAttribute xmi:id="Types-ClassifierType-classifierReference" name="classifierReference" visibility="public" type="Types-MetaclassReference" aggregation="composite" association="Types-A_classifierType_classifierReference">
+          <ownedComment xmi:id="Types-ClassifierType-classifierReference-_ownedComment.0">
             <body>A list of metaclasses that constrains which classifier values are valid for this type.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-ClassifierType-classifierReference-_lowerValue"/>
@@ -201,25 +201,25 @@ censes only apply to the Third Party Software and not any other portion of this 
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Types-A_classifierType_classifierReference" name="A_classifierType_classifierReference" memberEnd="Types-A_classifierType_classifierReference-owner Types-ClassifierType-classifierReference">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Types-A_classifierType_classifierReference-owner" name="owner" visibility="public" type="Types-ClassifierType" association="Types-A_classifierType_classifierReference">
+        <ownedEnd xmi:id="Types-A_classifierType_classifierReference-owner" name="owner" visibility="public" type="Types-ClassifierType" association="Types-A_classifierType_classifierReference">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-A_classifierType_classifierReference-owner-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-A_classifierType_classifierReference-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Types-MetaclassReference" name="MetaclassReference">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Types-MetaclassReference-_ownedComment.0">
+        <ownedComment xmi:id="Types-MetaclassReference-_ownedComment.0">
           <body>The identification of a metaclass.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Types-MetaclassReference-_generalization.0" general="Definitions-PropertyOwner"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Types-MetaclassReference-annexName" name="annexName" visibility="public">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Types-MetaclassReference-annexName-_ownedComment.0">
+        <generalization xmi:id="Types-MetaclassReference-_generalization.0" general="Definitions-PropertyOwner"/>
+        <ownedAttribute xmi:id="Types-MetaclassReference-annexName" name="annexName" visibility="public">
+          <ownedComment xmi:id="Types-MetaclassReference-annexName-_ownedComment.0">
             <body>The name of the annex that defines the metaclass.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#String"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-MetaclassReference-annexName-_lowerValue"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Types-MetaclassReference-metaclassName" name="metaclassName" visibility="public" isUnique="false">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Types-MetaclassReference-metaclassName-_ownedComment.0">
+        <ownedAttribute xmi:id="Types-MetaclassReference-metaclassName" name="metaclassName" visibility="public" isUnique="false">
+          <ownedComment xmi:id="Types-MetaclassReference-metaclassName-_ownedComment.0">
             <body>The name of the metaclass.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#String"/>
@@ -227,70 +227,70 @@ censes only apply to the Third Party Software and not any other portion of this 
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Types-NumberType" name="NumberType" isAbstract="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Types-NumberType-_ownedComment.0">
+        <ownedComment xmi:id="Types-NumberType-_ownedComment.0">
           <body>A number type.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Types-NumberType-_generalization.0" general="Types-PropertyType"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Types-NumberType-ownedUnitsType" name="ownedUnitsType" visibility="public" type="Types-UnitsType" aggregation="composite" association="Types-A_numberType_ownedUnitsType">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Types-NumberType-ownedUnitsType-_ownedComment.0">
+        <generalization xmi:id="Types-NumberType-_generalization.0" general="Types-PropertyType"/>
+        <ownedAttribute xmi:id="Types-NumberType-ownedUnitsType" name="ownedUnitsType" visibility="public" type="Types-UnitsType" aggregation="composite" association="Types-A_numberType_ownedUnitsType">
+          <ownedComment xmi:id="Types-NumberType-ownedUnitsType-_ownedComment.0">
             <body>Specifies an anonymous units type for this number type.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-NumberType-ownedUnitsType-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-NumberType-ownedUnitsType-_upperValue" value="1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Types-NumberType-unitsType" name="referencedUnitsType" visibility="public" type="Types-UnitsType" association="Types-A_numberType_unitsType">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Types-NumberType-unitsType-_ownedComment.0">
+        <ownedAttribute xmi:id="Types-NumberType-unitsType" name="referencedUnitsType" visibility="public" type="Types-UnitsType" association="Types-A_numberType_unitsType">
+          <ownedComment xmi:id="Types-NumberType-unitsType-_ownedComment.0">
             <body>References a units type for this number type.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-NumberType-unitsType-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-NumberType-unitsType-_upperValue" value="1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Types-NumberType-range" name="range" visibility="public" type="Types-NumericRange" aggregation="composite" association="Types-A_numberType_range">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Types-NumberType-range-_ownedComment.0">
+        <ownedAttribute xmi:id="Types-NumberType-range" name="range" visibility="public" type="Types-NumericRange" aggregation="composite" association="Types-A_numberType_range">
+          <ownedComment xmi:id="Types-NumberType-range-_ownedComment.0">
             <body>Specifies a value range for this number type.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-NumberType-range-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-NumberType-range-_upperValue" value="1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_JJZRpD9CEeSMi-ARKmUa4A" name="unitsType" visibility="public" type="Types-UnitsType" isUnique="false" isReadOnly="true" isDerived="true" association="_JJZRoD9CEeSMi-ARKmUa4A">
+        <ownedAttribute xmi:id="_JJZRpD9CEeSMi-ARKmUa4A" name="unitsType" visibility="public" type="Types-UnitsType" isUnique="false" isReadOnly="true" isDerived="true" association="_JJZRoD9CEeSMi-ARKmUa4A">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JJZRpj9CEeSMi-ARKmUa4A"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JJZRpT9CEeSMi-ARKmUa4A" value="1"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Types-A_numberType_ownedUnitsType" name="A_numberType_ownedUnitsType" memberEnd="Types-A_numberType_ownedUnitsType-owner Types-NumberType-ownedUnitsType">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Types-A_numberType_ownedUnitsType-owner" name="owner" visibility="public" type="Types-NumberType" association="Types-A_numberType_ownedUnitsType">
+        <ownedEnd xmi:id="Types-A_numberType_ownedUnitsType-owner" name="owner" visibility="public" type="Types-NumberType" association="Types-A_numberType_ownedUnitsType">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-A_numberType_ownedUnitsType-owner-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-A_numberType_ownedUnitsType-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Types-A_numberType_unitsType" name="A_numberType_referencedUnitsType" memberEnd="Types-A_numberType_unitsType-numberType Types-NumberType-unitsType">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Types-A_numberType_unitsType-numberType" name="numberType" visibility="public" type="Types-NumberType" association="Types-A_numberType_unitsType">
+        <ownedEnd xmi:id="Types-A_numberType_unitsType-numberType" name="numberType" visibility="public" type="Types-NumberType" association="Types-A_numberType_unitsType">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-A_numberType_unitsType-numberType-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-A_numberType_unitsType-numberType-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Types-A_numberType_range" name="A_numberType_range" memberEnd="Types-A_numberType_range-owner Types-NumberType-range">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Types-A_numberType_range-owner" name="owner" visibility="public" type="Types-NumberType" association="Types-A_numberType_range">
+        <ownedEnd xmi:id="Types-A_numberType_range-owner" name="owner" visibility="public" type="Types-NumberType" association="Types-A_numberType_range">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-A_numberType_range-owner-_lowerValue" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-A_numberType_range-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Types-NumericRange" name="NumericRange">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Types-NumericRange-_ownedComment.0">
+        <ownedComment xmi:id="Types-NumericRange-_ownedComment.0">
           <body>A range of allowed values for a number type.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Types-NumericRange-_generalization.0">
+        <generalization xmi:id="Types-NumericRange-_generalization.0">
           <general xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#Element"/>
         </generalization>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Types-NumericRange-upperBound" name="upperBound" visibility="public" type="Expressions-PropertyExpression" aggregation="composite" association="Types-A_range_upperBound">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Types-NumericRange-upperBound-_ownedComment.0">
+        <ownedAttribute xmi:id="Types-NumericRange-upperBound" name="upperBound" visibility="public" type="Expressions-PropertyExpression" aggregation="composite" association="Types-A_range_upperBound">
+          <ownedComment xmi:id="Types-NumericRange-upperBound-_ownedComment.0">
             <body>The upper bound of this numeric range.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-NumericRange-upperBound-_lowerValue" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-NumericRange-upperBound-_upperValue" value="1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Types-NumericRange-lowerBound" name="lowerBound" visibility="public" type="Expressions-PropertyExpression" aggregation="composite" association="Types-A_range_lowerBound">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Types-NumericRange-lowerBound-_ownedComment.0">
+        <ownedAttribute xmi:id="Types-NumericRange-lowerBound" name="lowerBound" visibility="public" type="Expressions-PropertyExpression" aggregation="composite" association="Types-A_range_lowerBound">
+          <ownedComment xmi:id="Types-NumericRange-lowerBound-_ownedComment.0">
             <body>The lower bound of this numeric range.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-NumericRange-lowerBound-_lowerValue" value="1"/>
@@ -298,89 +298,89 @@ censes only apply to the Third Party Software and not any other portion of this 
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Types-A_range_upperBound" name="A_range_upperBound" memberEnd="Types-A_range_upperBound-owner Types-NumericRange-upperBound">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Types-A_range_upperBound-owner" name="owner" visibility="public" type="Types-NumericRange" association="Types-A_range_upperBound">
+        <ownedEnd xmi:id="Types-A_range_upperBound-owner" name="owner" visibility="public" type="Types-NumericRange" association="Types-A_range_upperBound">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-A_range_upperBound-owner-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-A_range_upperBound-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Types-A_range_lowerBound" name="A_range_lowerBound" memberEnd="Types-A_range_lowerBound-owner Types-NumericRange-lowerBound">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Types-A_range_lowerBound-owner" name="owner" visibility="public" type="Types-NumericRange" association="Types-A_range_lowerBound">
+        <ownedEnd xmi:id="Types-A_range_lowerBound-owner" name="owner" visibility="public" type="Types-NumericRange" association="Types-A_range_lowerBound">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-A_range_lowerBound-owner-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-A_range_lowerBound-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Types-RangeType" name="RangeType">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Types-RangeType-_ownedComment.0">
+        <ownedComment xmi:id="Types-RangeType-_ownedComment.0">
           <body>A range type.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Types-RangeType-_generalization.0" general="Types-PropertyType"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Types-RangeType-ownedNumberType" name="ownedNumberType" visibility="public" type="Types-NumberType" aggregation="composite" subsettedProperty="Types-RangeType-numberType" association="Types-A_rangeType_ownedNumberType">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Types-RangeType-ownedNumberType-_ownedComment.0">
+        <generalization xmi:id="Types-RangeType-_generalization.0" general="Types-PropertyType"/>
+        <ownedAttribute xmi:id="Types-RangeType-ownedNumberType" name="ownedNumberType" visibility="public" type="Types-NumberType" aggregation="composite" subsettedProperty="Types-RangeType-numberType" association="Types-A_rangeType_ownedNumberType">
+          <ownedComment xmi:id="Types-RangeType-ownedNumberType-_ownedComment.0">
             <body>Specifies an anonymous number type for this range type.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-RangeType-ownedNumberType-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-RangeType-ownedNumberType-_upperValue" value="1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Types-RangeType-numberType" name="numberType" visibility="public" type="Types-NumberType" isReadOnly="true" isDerived="true" association="Types-A_rangeType_numberType">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Types-RangeType-numberType-_ownedComment.0">
+        <ownedAttribute xmi:id="Types-RangeType-numberType" name="numberType" visibility="public" type="Types-NumberType" isReadOnly="true" isDerived="true" association="Types-A_rangeType_numberType">
+          <ownedComment xmi:id="Types-RangeType-numberType-_ownedComment.0">
             <body>References the number type of this range type.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-RangeType-numberType-_lowerValue" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-RangeType-numberType-_upperValue" value="1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_S5nEVDYgEeW7UdyEyvjiPw" name="referencedNumberType" visibility="public" type="Types-NumberType" subsettedProperty="Types-RangeType-numberType" association="_S5nEUDYgEeW7UdyEyvjiPw">
+        <ownedAttribute xmi:id="_S5nEVDYgEeW7UdyEyvjiPw" name="referencedNumberType" visibility="public" type="Types-NumberType" subsettedProperty="Types-RangeType-numberType" association="_S5nEUDYgEeW7UdyEyvjiPw">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_S5nEVjYgEeW7UdyEyvjiPw"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_S5nEVTYgEeW7UdyEyvjiPw" value="1"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Types-A_rangeType_ownedNumberType" name="A_rangeType_ownedNumberType" memberEnd="Types-A_rangeType_ownedNumberType-owner Types-RangeType-ownedNumberType">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Types-A_rangeType_ownedNumberType-owner" name="owner" visibility="public" type="Types-RangeType" association="Types-A_rangeType_ownedNumberType">
+        <ownedEnd xmi:id="Types-A_rangeType_ownedNumberType-owner" name="owner" visibility="public" type="Types-RangeType" association="Types-A_rangeType_ownedNumberType">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-A_rangeType_ownedNumberType-owner-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-A_rangeType_ownedNumberType-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Types-A_rangeType_numberType" name="A_rangeType_numberType" memberEnd="Types-A_rangeType_numberType-rangeType Types-RangeType-numberType">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Types-A_rangeType_numberType-rangeType" name="rangeType" visibility="private" type="Types-RangeType" association="Types-A_rangeType_numberType">
+        <ownedEnd xmi:id="Types-A_rangeType_numberType-rangeType" name="rangeType" visibility="private" type="Types-RangeType" association="Types-A_rangeType_numberType">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-A_rangeType_numberType-rangeType-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-A_rangeType_numberType-rangeType-_upperValue" value="*"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Types-RecordType" name="RecordType">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Types-RecordType-_ownedComment.0">
+        <ownedComment xmi:id="Types-RecordType-_ownedComment.0">
           <body>A racord type.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Types-RecordType-_generalization.0" general="Types-PropertyType"/>
-        <generalization xmi:type="uml:Generalization" xmi:id="Types-RecordType-_generalization.1">
+        <generalization xmi:id="Types-RecordType-_generalization.0" general="Types-PropertyType"/>
+        <generalization xmi:id="Types-RecordType-_generalization.1">
           <general xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#Namespace"/>
         </generalization>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Types-RecordType-ownedField" name="ownedField" visibility="public" type="Definitions-BasicProperty" aggregation="composite" association="Types-A_recordType_ownedField">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Types-RecordType-ownedField-_ownedComment.0">
+        <ownedAttribute xmi:id="Types-RecordType-ownedField" name="ownedField" visibility="public" type="Definitions-BasicProperty" aggregation="composite" association="Types-A_recordType_ownedField">
+          <ownedComment xmi:id="Types-RecordType-ownedField-_ownedComment.0">
             <body>The list of fields in this record type.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-RecordType-ownedField-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-RecordType-ownedField-_upperValue" value="*"/>
-          <subsettedProperty xmi:type="uml:Property" href="../Core%20Language/AADLInfrastructure.uml#Namespace-ownedMember"/>
+          <subsettedProperty href="../Core%20Language/AADLInfrastructure.uml#Namespace-ownedMember"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Types-RecordField" name="RecordField">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Types-RecordField-_ownedComment.0">
+        <ownedComment xmi:id="Types-RecordField-_ownedComment.0">
           <body>===TBD: Is this still needed???===</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Types-RecordField-_generalization.0" general="Definitions-BasicProperty"/>
+        <generalization xmi:id="Types-RecordField-_generalization.0" general="Definitions-BasicProperty"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Types-A_recordType_ownedField" name="A_recordType_ownedField" memberEnd="Types-A_recordType_ownedField-owner Types-RecordType-ownedField">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Types-A_recordType_ownedField-owner" name="owner" visibility="public" type="Types-RecordType" association="Types-A_recordType_ownedField">
+        <ownedEnd xmi:id="Types-A_recordType_ownedField-owner" name="owner" visibility="public" type="Types-RecordType" association="Types-A_recordType_ownedField">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-A_recordType_ownedField-owner-_lowerValue" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-A_recordType_ownedField-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Types-ReferenceType" name="ReferenceType">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Types-ReferenceType-_ownedComment.0">
+        <ownedComment xmi:id="Types-ReferenceType-_ownedComment.0">
           <body>A reference type.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Types-ReferenceType-_generalization.0" general="Types-PropertyType"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Types-ReferenceType-namedElementReference" name="namedElementReference" visibility="public" type="Types-MetaclassReference" aggregation="composite" association="Types-A_referenceType_namedElementReference">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Types-ReferenceType-namedElementReference-_ownedComment.0">
+        <generalization xmi:id="Types-ReferenceType-_generalization.0" general="Types-PropertyType"/>
+        <ownedAttribute xmi:id="Types-ReferenceType-namedElementReference" name="namedElementReference" visibility="public" type="Types-MetaclassReference" aggregation="composite" association="Types-A_referenceType_namedElementReference">
+          <ownedComment xmi:id="Types-ReferenceType-namedElementReference-_ownedComment.0">
             <body>A list of metaclasses that constrains which named element values are valid for this type.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-ReferenceType-namedElementReference-_lowerValue"/>
@@ -388,245 +388,245 @@ censes only apply to the Third Party Software and not any other portion of this 
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Types-A_referenceType_namedElementReference" name="A_referenceType_namedElementReference" memberEnd="Types-A_referenceType_namedElementReference-owner Types-ReferenceType-namedElementReference">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Types-A_referenceType_namedElementReference-owner" name="owner" visibility="public" type="Types-ReferenceType" association="Types-A_referenceType_namedElementReference">
+        <ownedEnd xmi:id="Types-A_referenceType_namedElementReference-owner" name="owner" visibility="public" type="Types-ReferenceType" association="Types-A_referenceType_namedElementReference">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-A_referenceType_namedElementReference-owner-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-A_referenceType_namedElementReference-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Types-UnitsType" name="UnitsType">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Types-UnitsType-_ownedComment.0">
+        <ownedComment xmi:id="Types-UnitsType-_ownedComment.0">
           <body>A units type.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Types-UnitsType-_generalization.1" general="Types-EnumerationType"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Types-UnitsType-ownedLiteral" name="ownedLiteral" visibility="public" type="Types-UnitLiteral" isOrdered="true" aggregation="composite" redefinedProperty="Types-EnumerationType-ownedLiteral" association="Types-A_unitsType_ownedUnitLiteral">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Types-UnitsType-ownedLiteral-_ownedComment.0">
+        <generalization xmi:id="Types-UnitsType-_generalization.1" general="Types-EnumerationType"/>
+        <ownedAttribute xmi:id="Types-UnitsType-ownedLiteral" name="ownedLiteral" visibility="public" type="Types-UnitLiteral" isOrdered="true" aggregation="composite" redefinedProperty="Types-EnumerationType-ownedLiteral" association="Types-A_unitsType_ownedUnitLiteral">
+          <ownedComment xmi:id="Types-UnitsType-ownedLiteral-_ownedComment.0">
             <body>The unit literals in this type.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-UnitsType-ownedLiteral-_lowerValue" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-UnitsType-ownedLiteral-_upperValue" value="*"/>
-          <subsettedProperty xmi:type="uml:Property" href="../Core%20Language/AADLInfrastructure.uml#Namespace-ownedMember"/>
+          <subsettedProperty href="../Core%20Language/AADLInfrastructure.uml#Namespace-ownedMember"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Types-A_derivedUnit_baseUnit" name="A_derivedUnit_baseUnit" memberEnd="Types-A_derivedUnit_baseUnit-derivedUnit Types-UnitLiteral-baseUnit">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Types-A_derivedUnit_baseUnit-derivedUnit" name="derivedUnit" visibility="public" type="Types-UnitLiteral" association="Types-A_derivedUnit_baseUnit">
+        <ownedEnd xmi:id="Types-A_derivedUnit_baseUnit-derivedUnit" name="derivedUnit" visibility="public" type="Types-UnitLiteral" association="Types-A_derivedUnit_baseUnit">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-A_derivedUnit_baseUnit-derivedUnit-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-A_derivedUnit_baseUnit-derivedUnit-_upperValue" value="*"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Types-UnitLiteral" name="UnitLiteral">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Types-UnitLiteral-_ownedComment.0">
+        <ownedComment xmi:id="Types-UnitLiteral-_ownedComment.0">
           <body>A unit literal.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Types-UnitLiteral-_generalization.0" general="Types-EnumerationLiteral"/>
-        <generalization xmi:type="uml:Generalization" xmi:id="_5UwCQ64tEeCX99A4eTjOUQ" general="_qhwp8K17EeCEBvwFrdo_PA"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Types-UnitLiteral-baseUnit" name="baseUnit" visibility="public" type="Types-UnitLiteral" association="Types-A_derivedUnit_baseUnit">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Types-UnitLiteral-baseUnit-_ownedComment.0">
+        <generalization xmi:id="Types-UnitLiteral-_generalization.0" general="Types-EnumerationLiteral"/>
+        <generalization xmi:id="_5UwCQ64tEeCX99A4eTjOUQ" general="_qhwp8K17EeCEBvwFrdo_PA"/>
+        <ownedAttribute xmi:id="Types-UnitLiteral-baseUnit" name="baseUnit" visibility="public" type="Types-UnitLiteral" association="Types-A_derivedUnit_baseUnit">
+          <ownedComment xmi:id="Types-UnitLiteral-baseUnit-_ownedComment.0">
             <body>References a units literal defined earlier in the same units type.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-UnitLiteral-baseUnit-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-UnitLiteral-baseUnit-_upperValue" value="1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Types-UnitLiteral-factor" name="factor" visibility="public" type="Expressions-NumberValue" aggregation="composite" association="Types-A_unitLiteral_factor">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Types-UnitLiteral-factor-_ownedComment.0">
+        <ownedAttribute xmi:id="Types-UnitLiteral-factor" name="factor" visibility="public" type="Expressions-NumberValue" aggregation="composite" association="Types-A_unitLiteral_factor">
+          <ownedComment xmi:id="Types-UnitLiteral-factor-_ownedComment.0">
             <body>The conversion factor between this unit and its base unit.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-UnitLiteral-factor-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-UnitLiteral-factor-_upperValue" value="1"/>
         </ownedAttribute>
-        <ownedOperation xmi:type="uml:Operation" xmi:id="_wyQnEneIEeKgEKvvpWKI1Q" name="getAbsoluteFactor" visibility="public">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="_wyQnE3eIEeKgEKvvpWKI1Q" name="return" visibility="public" direction="return" effect="create">
+        <ownedOperation xmi:id="_wyQnEneIEeKgEKvvpWKI1Q" name="getAbsoluteFactor" visibility="public">
+          <ownedParameter xmi:id="_wyQnE3eIEeKgEKvvpWKI1Q" name="return" visibility="public" direction="return" effect="create">
             <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#Real"/>
           </ownedParameter>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="_wyQnFHeIEeKgEKvvpWKI1Q" name="target" visibility="public" type="Types-UnitLiteral" effect="read"/>
+          <ownedParameter xmi:id="_wyQnFHeIEeKgEKvvpWKI1Q" name="target" visibility="public" type="Types-UnitLiteral" effect="read"/>
         </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Types-A_unitsType_ownedUnitLiteral" name="A_unitsType_ownedUnitLiteral" memberEnd="Types-A_unitsType_ownedUnitLiteral-owner Types-UnitsType-ownedLiteral">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Types-A_unitsType_ownedUnitLiteral-owner" name="owner" visibility="public" type="Types-UnitsType" association="Types-A_unitsType_ownedUnitLiteral">
+        <ownedEnd xmi:id="Types-A_unitsType_ownedUnitLiteral-owner" name="owner" visibility="public" type="Types-UnitsType" association="Types-A_unitsType_ownedUnitLiteral">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-A_unitsType_ownedUnitLiteral-owner-_lowerValue" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-A_unitsType_ownedUnitLiteral-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Types-A_unitLiteral_factor" name="A_unitLiteral_factor" memberEnd="Types-A_unitLiteral_factor-owner Types-UnitLiteral-factor">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Types-A_unitLiteral_factor-owner" name="owner" visibility="public" type="Types-UnitLiteral" association="Types-A_unitLiteral_factor">
+        <ownedEnd xmi:id="Types-A_unitLiteral_factor-owner" name="owner" visibility="public" type="Types-UnitLiteral" association="Types-A_unitLiteral_factor">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Types-A_unitLiteral_factor-owner-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Types-A_unitLiteral_factor-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_g3h74LMDEeCzMYz5ww7glA" name="ListType">
-        <generalization xmi:type="uml:Generalization" xmi:id="_zgCIELMDEeCzMYz5ww7glA" general="_v97TQLMDEeCzMYz5ww7glA"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_VqOggLMEEeCzMYz5ww7glA" name="ownedElementType" visibility="public" type="_v97TQLMDEeCzMYz5ww7glA" aggregation="composite" subsettedProperty="_sYy-NEvxEeSNAfeIIJ0qNQ" association="_Vqx6ILMEEeCzMYz5ww7glA">
+        <generalization xmi:id="_zgCIELMDEeCzMYz5ww7glA" general="_v97TQLMDEeCzMYz5ww7glA"/>
+        <ownedAttribute xmi:id="_VqOggLMEEeCzMYz5ww7glA" name="ownedElementType" visibility="public" type="_v97TQLMDEeCzMYz5ww7glA" aggregation="composite" subsettedProperty="_sYy-NEvxEeSNAfeIIJ0qNQ" association="_Vqx6ILMEEeCzMYz5ww7glA">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VqOggrMEEeCzMYz5ww7glA"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VqOggbMEEeCzMYz5ww7glA" value="1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_BP5YALPNEeCbu5xxv1E8KA" name="referencedElementType" visibility="public" type="_v97TQLMDEeCzMYz5ww7glA" subsettedProperty="_sYy-NEvxEeSNAfeIIJ0qNQ" association="_BQBT2rPNEeCbu5xxv1E8KA">
+        <ownedAttribute xmi:id="_BP5YALPNEeCbu5xxv1E8KA" name="referencedElementType" visibility="public" type="_v97TQLMDEeCzMYz5ww7glA" subsettedProperty="_sYy-NEvxEeSNAfeIIJ0qNQ" association="_BQBT2rPNEeCbu5xxv1E8KA">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_BP5YArPNEeCbu5xxv1E8KA"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_BP5YAbPNEeCbu5xxv1E8KA" value="1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_sYy-NEvxEeSNAfeIIJ0qNQ" name="elementType" visibility="public" type="_v97TQLMDEeCzMYz5ww7glA" isReadOnly="true" isDerived="true" association="_sYy-MEvxEeSNAfeIIJ0qNQ">
+        <ownedAttribute xmi:id="_sYy-NEvxEeSNAfeIIJ0qNQ" name="elementType" visibility="public" type="_v97TQLMDEeCzMYz5ww7glA" isReadOnly="true" isDerived="true" association="_sYy-MEvxEeSNAfeIIJ0qNQ">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_sYy-NkvxEeSNAfeIIJ0qNQ" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_sYy-NUvxEeSNAfeIIJ0qNQ" value="1"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_v97TQLMDEeCzMYz5ww7glA" name="PropertyType" isAbstract="true">
-        <generalization xmi:type="uml:Generalization" xmi:id="_0SkYQLMDEeCzMYz5ww7glA">
+        <generalization xmi:id="_0SkYQLMDEeCzMYz5ww7glA">
           <general xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#Type"/>
         </generalization>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_Vqx6ILMEEeCzMYz5ww7glA" name="A_listType_ownedElementType" memberEnd="_Vqx6IbMEEeCzMYz5ww7glA _VqOggLMEEeCzMYz5ww7glA">
-        <ownedEnd xmi:type="uml:Property" xmi:id="_Vqx6IbMEEeCzMYz5ww7glA" name="owner" visibility="public" type="_g3h74LMDEeCzMYz5ww7glA" association="_Vqx6ILMEEeCzMYz5ww7glA">
+        <ownedEnd xmi:id="_Vqx6IbMEEeCzMYz5ww7glA" name="owner" visibility="public" type="_g3h74LMDEeCzMYz5ww7glA" association="_Vqx6ILMEEeCzMYz5ww7glA">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Vqx6I7MEEeCzMYz5ww7glA"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Vqx6IrMEEeCzMYz5ww7glA" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_BQBT2rPNEeCbu5xxv1E8KA" name="A_listType_referencedElementType" memberEnd="_BQBT27PNEeCbu5xxv1E8KA _BP5YALPNEeCbu5xxv1E8KA">
-        <ownedEnd xmi:type="uml:Property" xmi:id="_BQBT27PNEeCbu5xxv1E8KA" name="listType" visibility="public" type="_g3h74LMDEeCzMYz5ww7glA" association="_BQBT2rPNEeCbu5xxv1E8KA">
+        <ownedEnd xmi:id="_BQBT27PNEeCbu5xxv1E8KA" name="listType" visibility="public" type="_g3h74LMDEeCzMYz5ww7glA" association="_BQBT2rPNEeCbu5xxv1E8KA">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_BQBT3bPNEeCbu5xxv1E8KA" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_BQBT3LPNEeCbu5xxv1E8KA" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_JJZRoD9CEeSMi-ARKmUa4A" name="A_numberType_unitsType" memberEnd="_JJZRoT9CEeSMi-ARKmUa4A _JJZRpD9CEeSMi-ARKmUa4A">
-        <ownedEnd xmi:type="uml:Property" xmi:id="_JJZRoT9CEeSMi-ARKmUa4A" name="numberType" visibility="public" type="Types-NumberType" association="_JJZRoD9CEeSMi-ARKmUa4A">
+        <ownedEnd xmi:id="_JJZRoT9CEeSMi-ARKmUa4A" name="numberType" visibility="public" type="Types-NumberType" association="_JJZRoD9CEeSMi-ARKmUa4A">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JJZRoz9CEeSMi-ARKmUa4A"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JJZRoj9CEeSMi-ARKmUa4A" value="*"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_sYy-MEvxEeSNAfeIIJ0qNQ" name="A_listType_elementType" memberEnd="_sYy-MUvxEeSNAfeIIJ0qNQ _sYy-NEvxEeSNAfeIIJ0qNQ">
-        <ownedEnd xmi:type="uml:Property" xmi:id="_sYy-MUvxEeSNAfeIIJ0qNQ" name="listType" visibility="public" type="_g3h74LMDEeCzMYz5ww7glA" association="_sYy-MEvxEeSNAfeIIJ0qNQ">
+        <ownedEnd xmi:id="_sYy-MUvxEeSNAfeIIJ0qNQ" name="listType" visibility="public" type="_g3h74LMDEeCzMYz5ww7glA" association="_sYy-MEvxEeSNAfeIIJ0qNQ">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_sYy-M0vxEeSNAfeIIJ0qNQ"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_sYy-MkvxEeSNAfeIIJ0qNQ" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_S5nEUDYgEeW7UdyEyvjiPw" name="A_rangeType_referencedNumberType" memberEnd="_S5nEUTYgEeW7UdyEyvjiPw _S5nEVDYgEeW7UdyEyvjiPw">
-        <ownedEnd xmi:type="uml:Property" xmi:id="_S5nEUTYgEeW7UdyEyvjiPw" name="rangeType" visibility="public" type="Types-RangeType" association="_S5nEUDYgEeW7UdyEyvjiPw">
+        <ownedEnd xmi:id="_S5nEUTYgEeW7UdyEyvjiPw" name="rangeType" visibility="public" type="Types-RangeType" association="_S5nEUDYgEeW7UdyEyvjiPw">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_S5nEUzYgEeW7UdyEyvjiPw"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_S5nEUjYgEeW7UdyEyvjiPw" value="*"/>
         </ownedEnd>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="Definitions" name="Definitions">
-      <ownedComment xmi:type="uml:Comment" xmi:id="Definitions-_ownedComment.0">
+      <ownedComment xmi:id="Definitions-_ownedComment.0">
         <body>This package contains metaclasses needed to model property definitions.</body>
       </ownedComment>
       <packagedElement xmi:type="uml:Class" xmi:id="Definitions-Property" name="Property">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Definitions-Property-_ownedComment.0">
+        <ownedComment xmi:id="Definitions-Property-_ownedComment.0">
           <body>A property is a basic property with a specification to which elements it can be applied.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Definitions-Property-_generalization.0" general="Definitions-BasicProperty"/>
-        <generalization xmi:type="uml:Generalization" xmi:id="_6IBSQ64tEeCX99A4eTjOUQ" general="_qhwp8K17EeCEBvwFrdo_PA"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Definitions-Property-inherit" name="inherit" visibility="public">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Definitions-Property-inherit-_ownedComment.0">
+        <generalization xmi:id="Definitions-Property-_generalization.0" general="Definitions-BasicProperty"/>
+        <generalization xmi:id="_6IBSQ64tEeCX99A4eTjOUQ" general="_qhwp8K17EeCEBvwFrdo_PA"/>
+        <ownedAttribute xmi:id="Definitions-Property-inherit" name="inherit" visibility="public">
+          <ownedComment xmi:id="Definitions-Property-inherit-_ownedComment.0">
             <body>Specifies if the property value propagates down the containment hierarchy.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#Boolean"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Definitions-Property-inherit-_lowerValue" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Definitions-Property-inherit-_upperValue" value="1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Definitions-Property-defaultValue" name="defaultValue" visibility="public" type="Expressions-PropertyExpression" aggregation="composite" association="Definitions-A_property_defaultValue">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Definitions-Property-defaultValue-_ownedComment.0">
+        <ownedAttribute xmi:id="Definitions-Property-defaultValue" name="defaultValue" visibility="public" type="Expressions-PropertyExpression" aggregation="composite" association="Definitions-A_property_defaultValue">
+          <ownedComment xmi:id="Definitions-Property-defaultValue-_ownedComment.0">
             <body>The default value of this property.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Definitions-Property-defaultValue-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Definitions-Property-defaultValue-_upperValue" value="1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Definitions-Property-appliesToMetaclass" name="appliesToMetaclass" visibility="public" type="Types-MetaclassReference" isDerived="true" association="Definitions-A_property_appliesToMetaclass">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Definitions-Property-appliesToMetaclass-_ownedComment.0">
+        <ownedAttribute xmi:id="Definitions-Property-appliesToMetaclass" name="appliesToMetaclass" visibility="public" type="Types-MetaclassReference" isDerived="true" association="Definitions-A_property_appliesToMetaclass">
+          <ownedComment xmi:id="Definitions-Property-appliesToMetaclass-_ownedComment.0">
             <body>A list of metaclasses to which this property may be applied.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Definitions-Property-appliesToMetaclass-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Definitions-Property-appliesToMetaclass-_upperValue" value="*"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Definitions-Property-appliesToClassifier" name="appliesToClassifier" visibility="public" isDerived="true" association="Definitions-A_property_appliesToClassifier">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Definitions-Property-appliesToClassifier-_ownedComment.0">
+        <ownedAttribute xmi:id="Definitions-Property-appliesToClassifier" name="appliesToClassifier" visibility="public" isDerived="true" association="Definitions-A_property_appliesToClassifier">
+          <ownedComment xmi:id="Definitions-Property-appliesToClassifier-_ownedComment.0">
             <body>A list of classifiers to which this property may be applied.</body>
           </ownedComment>
           <type xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#Classifier"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Definitions-Property-appliesToClassifier-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Definitions-Property-appliesToClassifier-_upperValue" value="*"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Definitions-Property-appliesTo" name="appliesTo" visibility="public" type="Definitions-PropertyOwner" aggregation="composite" association="Definitions-A_property_appliesTo">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Definitions-Property-appliesTo-_ownedComment.0">
+        <ownedAttribute xmi:id="Definitions-Property-appliesTo" name="appliesTo" visibility="public" type="Definitions-PropertyOwner" aggregation="composite" association="Definitions-A_property_appliesTo">
+          <ownedComment xmi:id="Definitions-Property-appliesTo-_ownedComment.0">
             <body>Specifies to which named elements this property can be applied.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Definitions-Property-appliesTo-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Definitions-Property-appliesTo-_upperValue" value="*"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_LrMi0FBuEd6eSbSGdYqUxA" name="emptyListDefault" visibility="public">
+        <ownedAttribute xmi:id="_LrMi0FBuEd6eSbSGdYqUxA" name="emptyListDefault" visibility="public">
           <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#Boolean"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Definitions-PropertyOwner" name="PropertyOwner" isAbstract="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Definitions-PropertyOwner-_ownedComment.0">
+        <ownedComment xmi:id="Definitions-PropertyOwner-_ownedComment.0">
           <body>A specification of a named element to which a property can be applied.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Definitions-PropertyOwner-_generalization.0">
+        <generalization xmi:id="Definitions-PropertyOwner-_generalization.0">
           <general xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#Element"/>
         </generalization>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Definitions-A_property_appliesTo" name="A_property_appliesTo" memberEnd="Definitions-A_property_appliesTo-owner Definitions-Property-appliesTo">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Definitions-A_property_appliesTo-owner" name="owner" visibility="public" type="Definitions-Property" association="Definitions-A_property_appliesTo">
+        <ownedEnd xmi:id="Definitions-A_property_appliesTo-owner" name="owner" visibility="public" type="Definitions-Property" association="Definitions-A_property_appliesTo">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Definitions-A_property_appliesTo-owner-_lowerValue" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Definitions-A_property_appliesTo-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Definitions-A_basicProperty_type" name="A_basicProperty_referencedPropertyType" memberEnd="Definitions-A_basicProperty_type-propertyDefinition Definitions-BasicProperty-type">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Definitions-A_basicProperty_type-propertyDefinition" name="propertyDefinition" visibility="public" type="Definitions-BasicProperty" association="Definitions-A_basicProperty_type">
+        <ownedEnd xmi:id="Definitions-A_basicProperty_type-propertyDefinition" name="propertyDefinition" visibility="public" type="Definitions-BasicProperty" association="Definitions-A_basicProperty_type">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Definitions-A_basicProperty_type-propertyDefinition-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Definitions-A_basicProperty_type-propertyDefinition-_upperValue" value="*"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Definitions-A_basicProperty_ownedType" name="A_basicProperty_ownedPropertyType" memberEnd="Definitions-A_basicProperty_ownedType-owner Definitions-BasicProperty-ownedType">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Definitions-A_basicProperty_ownedType-owner" name="owner" visibility="public" type="Definitions-BasicProperty" association="Definitions-A_basicProperty_ownedType">
+        <ownedEnd xmi:id="Definitions-A_basicProperty_ownedType-owner" name="owner" visibility="public" type="Definitions-BasicProperty" association="Definitions-A_basicProperty_ownedType">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Definitions-A_basicProperty_ownedType-owner-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Definitions-A_basicProperty_ownedType-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Definitions-A_property_defaultValue" name="A_property_defaultValue" memberEnd="Definitions-A_property_defaultValue-owner Definitions-Property-defaultValue">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Definitions-A_property_defaultValue-owner" name="owner" visibility="public" type="Definitions-Property" association="Definitions-A_property_defaultValue">
+        <ownedEnd xmi:id="Definitions-A_property_defaultValue-owner" name="owner" visibility="public" type="Definitions-Property" association="Definitions-A_property_defaultValue">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Definitions-A_property_defaultValue-owner-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Definitions-A_property_defaultValue-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Definitions-BasicProperty" name="BasicProperty">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Definitions-BasicProperty-_ownedComment.0">
+        <ownedComment xmi:id="Definitions-BasicProperty-_ownedComment.0">
           <body>A basic property has a name and a type.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Definitions-BasicProperty-_generalization.0">
+        <generalization xmi:id="Definitions-BasicProperty-_generalization.0">
           <general xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#TypedElement"/>
         </generalization>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Definitions-BasicProperty-type" name="referencedPropertyType" visibility="public" type="_v97TQLMDEeCzMYz5ww7glA" subsettedProperty="_Vfm11D9BEeSMi-ARKmUa4A" association="Definitions-A_basicProperty_type">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Definitions-BasicProperty-type-_ownedComment.0">
+        <ownedAttribute xmi:id="Definitions-BasicProperty-type" name="referencedPropertyType" visibility="public" type="_v97TQLMDEeCzMYz5ww7glA" subsettedProperty="_Vfm11D9BEeSMi-ARKmUa4A" association="Definitions-A_basicProperty_type">
+          <ownedComment xmi:id="Definitions-BasicProperty-type-_ownedComment.0">
             <body>References the type of this property.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Definitions-BasicProperty-type-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Definitions-BasicProperty-type-_upperValue" value="1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Definitions-BasicProperty-ownedType" name="ownedPropertyType" visibility="public" type="_v97TQLMDEeCzMYz5ww7glA" aggregation="composite" subsettedProperty="_Vfm11D9BEeSMi-ARKmUa4A" association="Definitions-A_basicProperty_ownedType">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Definitions-BasicProperty-ownedType-_ownedComment.0">
+        <ownedAttribute xmi:id="Definitions-BasicProperty-ownedType" name="ownedPropertyType" visibility="public" type="_v97TQLMDEeCzMYz5ww7glA" aggregation="composite" subsettedProperty="_Vfm11D9BEeSMi-ARKmUa4A" association="Definitions-A_basicProperty_ownedType">
+          <ownedComment xmi:id="Definitions-BasicProperty-ownedType-_ownedComment.0">
             <body>Specifies an anonymous type for this property.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Definitions-BasicProperty-ownedType-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Definitions-BasicProperty-ownedType-_upperValue" value="1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_Vfm11D9BEeSMi-ARKmUa4A" name="propertyType" visibility="public" type="_v97TQLMDEeCzMYz5ww7glA" isUnique="false" isReadOnly="true" isDerived="true" association="_Vfm10D9BEeSMi-ARKmUa4A">
+        <ownedAttribute xmi:id="_Vfm11D9BEeSMi-ARKmUa4A" name="propertyType" visibility="public" type="_v97TQLMDEeCzMYz5ww7glA" isUnique="false" isReadOnly="true" isDerived="true" association="_Vfm10D9BEeSMi-ARKmUa4A">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Vfm11j9BEeSMi-ARKmUa4A" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Vfm11T9BEeSMi-ARKmUa4A" value="1"/>
-          <redefinedProperty xmi:type="uml:Property" href="../Core%20Language/AADLInfrastructure.uml#TypedElement-type"/>
+          <redefinedProperty href="../Core%20Language/AADLInfrastructure.uml#TypedElement-type"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Definitions-A_property_appliesToMetaclass" name="A_property_appliesToMetaclass" memberEnd="Definitions-A_property_appliesToMetaclass-property Definitions-Property-appliesToMetaclass">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Definitions-A_property_appliesToMetaclass-property" name="property" visibility="public" type="Definitions-Property" association="Definitions-A_property_appliesToMetaclass">
+        <ownedEnd xmi:id="Definitions-A_property_appliesToMetaclass-property" name="property" visibility="public" type="Definitions-Property" association="Definitions-A_property_appliesToMetaclass">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Definitions-A_property_appliesToMetaclass-property-_lowerValue" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Definitions-A_property_appliesToMetaclass-property-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Definitions-A_property_appliesToClassifier" name="A_property_appliesToClassifier" memberEnd="Definitions-A_property_appliesToClassifier-property Definitions-Property-appliesToClassifier">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Definitions-A_property_appliesToClassifier-property" name="property" visibility="public" type="Definitions-Property" association="Definitions-A_property_appliesToClassifier">
+        <ownedEnd xmi:id="Definitions-A_property_appliesToClassifier-property" name="property" visibility="public" type="Definitions-Property" association="Definitions-A_property_appliesToClassifier">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Definitions-A_property_appliesToClassifier-property-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Definitions-A_property_appliesToClassifier-property-_upperValue" value="*"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_Vfm10D9BEeSMi-ARKmUa4A" name="A_basicProperty_propertyType" memberEnd="_Vfm10T9BEeSMi-ARKmUa4A _Vfm11D9BEeSMi-ARKmUa4A">
-        <ownedEnd xmi:type="uml:Property" xmi:id="_Vfm10T9BEeSMi-ARKmUa4A" name="property" visibility="public" type="Definitions-BasicProperty" association="_Vfm10D9BEeSMi-ARKmUa4A">
+        <ownedEnd xmi:id="_Vfm10T9BEeSMi-ARKmUa4A" name="property" visibility="public" type="Definitions-BasicProperty" association="_Vfm10D9BEeSMi-ARKmUa4A">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Vfm10z9BEeSMi-ARKmUa4A"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Vfm10j9BEeSMi-ARKmUa4A" value="*"/>
         </ownedEnd>
@@ -634,62 +634,62 @@ censes only apply to the Third Party Software and not any other portion of this 
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="Expressions" name="Expressions">
       <packagedElement xmi:type="uml:Class" xmi:id="Expressions-PropertyExpression" name="PropertyExpression" isAbstract="true">
-        <generalization xmi:type="uml:Generalization" xmi:id="Expressions-PropertyExpression-_generalization.0">
+        <generalization xmi:id="Expressions-PropertyExpression-_generalization.0">
           <general xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#Element"/>
         </generalization>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Expressions-StringLiteral" name="StringLiteral">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-StringLiteral-_ownedComment.0">
+        <ownedComment xmi:id="Expressions-StringLiteral-_ownedComment.0">
           <body>A string value.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Expressions-StringLiteral-_generalization.0" general="Expressions-PropertyValue"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Expressions-StringLiteral-value" name="value" visibility="public">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-StringLiteral-value-_ownedComment.0">
+        <generalization xmi:id="Expressions-StringLiteral-_generalization.0" general="Expressions-PropertyValue"/>
+        <ownedAttribute xmi:id="Expressions-StringLiteral-value" name="value" visibility="public">
+          <ownedComment xmi:id="Expressions-StringLiteral-value-_ownedComment.0">
             <body>The string.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#String"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Expressions-NumberValue" name="NumberValue" isAbstract="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-NumberValue-_ownedComment.0">
+        <ownedComment xmi:id="Expressions-NumberValue-_ownedComment.0">
           <body>A number value.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Expressions-NumberValue-_generalization.0" general="Expressions-PropertyValue"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Expressions-NumberValue-unit" name="unit" visibility="public" type="Types-UnitLiteral" association="Expressions-A_numberValue_unit">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-NumberValue-unit-_ownedComment.0">
+        <generalization xmi:id="Expressions-NumberValue-_generalization.0" general="Expressions-PropertyValue"/>
+        <ownedAttribute xmi:id="Expressions-NumberValue-unit" name="unit" visibility="public" type="Types-UnitLiteral" association="Expressions-A_numberValue_unit">
+          <ownedComment xmi:id="Expressions-NumberValue-unit-_ownedComment.0">
             <body>Specifies a unit for this value.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Expressions-NumberValue-unit-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Expressions-NumberValue-unit-_upperValue" value="1"/>
         </ownedAttribute>
-        <ownedOperation xmi:type="uml:Operation" xmi:id="_lrCjYHdKEeKISfVO9XlNZQ" name="getScaledValue" visibility="public">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="_tgAUgHdKEeKISfVO9XlNZQ" name="return" visibility="public" direction="return" effect="create">
+        <ownedOperation xmi:id="_lrCjYHdKEeKISfVO9XlNZQ" name="getScaledValue" visibility="public">
+          <ownedParameter xmi:id="_tgAUgHdKEeKISfVO9XlNZQ" name="return" visibility="public" direction="return" effect="create">
             <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#Real"/>
           </ownedParameter>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="_IRuDgHdLEeKISfVO9XlNZQ" name="target" visibility="public" type="Types-UnitLiteral" effect="read"/>
+          <ownedParameter xmi:id="_IRuDgHdLEeKISfVO9XlNZQ" name="target" visibility="public" type="Types-UnitLiteral" effect="read"/>
         </ownedOperation>
-        <ownedOperation xmi:type="uml:Operation" xmi:id="_pHrv8Hd3EeKgEKvvpWKI1Q" name="getScaledValue" visibility="public">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="_rmJ9gHd3EeKgEKvvpWKI1Q" name="return" visibility="public" direction="return" effect="create">
+        <ownedOperation xmi:id="_pHrv8Hd3EeKgEKvvpWKI1Q" name="getScaledValue" visibility="public">
+          <ownedParameter xmi:id="_rmJ9gHd3EeKgEKvvpWKI1Q" name="return" visibility="public" direction="return" effect="create">
             <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#Real"/>
           </ownedParameter>
         </ownedOperation>
-        <ownedOperation xmi:type="uml:Operation" xmi:id="_qKczkna-EeKJupUQiGe8EA" name="getScaledValue" visibility="public">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="_rYO1UHa-EeKJupUQiGe8EA" name="return" visibility="public" direction="return" effect="create">
+        <ownedOperation xmi:id="_qKczkna-EeKJupUQiGe8EA" name="getScaledValue" visibility="public">
+          <ownedParameter xmi:id="_rYO1UHa-EeKJupUQiGe8EA" name="return" visibility="public" direction="return" effect="create">
             <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#Real"/>
           </ownedParameter>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="_t9eZQHa-EeKJupUQiGe8EA" name="target" visibility="public" effect="read">
+          <ownedParameter xmi:id="_t9eZQHa-EeKJupUQiGe8EA" name="target" visibility="public" effect="read">
             <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#String"/>
           </ownedParameter>
         </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Expressions-ClassifierValue" name="ClassifierValue">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-ClassifierValue-_ownedComment.0">
+        <ownedComment xmi:id="Expressions-ClassifierValue-_ownedComment.0">
           <body>A classifier value.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Expressions-ClassifierValue-_generalization.0" general="Expressions-PropertyValue"/>
-        <generalization xmi:type="uml:Generalization" xmi:id="Expressions-ClassifierValue-_generalization.1" general="Definitions-PropertyOwner"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Expressions-ClassifierValue-classifier" name="classifier" visibility="public" association="Expressions-A_classifierValue_classifier">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-ClassifierValue-classifier-_ownedComment.0">
+        <generalization xmi:id="Expressions-ClassifierValue-_generalization.0" general="Expressions-PropertyValue"/>
+        <generalization xmi:id="Expressions-ClassifierValue-_generalization.1" general="Definitions-PropertyOwner"/>
+        <ownedAttribute xmi:id="Expressions-ClassifierValue-classifier" name="classifier" visibility="public" association="Expressions-A_classifierValue_classifier">
+          <ownedComment xmi:id="Expressions-ClassifierValue-classifier-_ownedComment.0">
             <body>References the classifier that is the value.</body>
           </ownedComment>
           <type xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#Classifier"/>
@@ -698,51 +698,51 @@ censes only apply to the Third Party Software and not any other portion of this 
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Expressions-ReferenceValue" name="ReferenceValue">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-ReferenceValue-_ownedComment.0">
+        <ownedComment xmi:id="Expressions-ReferenceValue-_ownedComment.0">
           <body>A reference value.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Expressions-ReferenceValue-_generalization.0" general="Expressions-PropertyValue"/>
-        <generalization xmi:type="uml:Generalization" xmi:id="Expressions-ReferenceValue-_generalization.1" general="Associations-ContainedNamedElement"/>
+        <generalization xmi:id="Expressions-ReferenceValue-_generalization.0" general="Expressions-PropertyValue"/>
+        <generalization xmi:id="Expressions-ReferenceValue-_generalization.1" general="Associations-ContainedNamedElement"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Expressions-A_classifierValue_classifier" name="A_classifierValue_classifier" memberEnd="Expressions-A_classifierValue_classifier-classifierValue Expressions-ClassifierValue-classifier">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Expressions-A_classifierValue_classifier-classifierValue" name="classifierValue" visibility="public" type="Expressions-ClassifierValue" association="Expressions-A_classifierValue_classifier">
+        <ownedEnd xmi:id="Expressions-A_classifierValue_classifier-classifierValue" name="classifierValue" visibility="public" type="Expressions-ClassifierValue" association="Expressions-A_classifierValue_classifier">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Expressions-A_classifierValue_classifier-classifierValue-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Expressions-A_classifierValue_classifier-classifierValue-_upperValue" value="*"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Expressions-BooleanLiteral" name="BooleanLiteral">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-BooleanLiteral-_ownedComment.0">
+        <ownedComment xmi:id="Expressions-BooleanLiteral-_ownedComment.0">
           <body>A boolean literal value.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Expressions-BooleanLiteral-_generalization.0" general="Expressions-PropertyValue"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Expressions-BooleanLiteral-value" name="value" visibility="public">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-BooleanLiteral-value-_ownedComment.0">
+        <generalization xmi:id="Expressions-BooleanLiteral-_generalization.0" general="Expressions-PropertyValue"/>
+        <ownedAttribute xmi:id="Expressions-BooleanLiteral-value" name="value" visibility="public">
+          <ownedComment xmi:id="Expressions-BooleanLiteral-value-_ownedComment.0">
             <body>The value true or false.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#Boolean"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Expressions-RangeValue" name="RangeValue">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-RangeValue-_ownedComment.0">
+        <ownedComment xmi:id="Expressions-RangeValue-_ownedComment.0">
           <body>A range value.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Expressions-RangeValue-_generalization.0" general="Expressions-PropertyValue"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Expressions-RangeValue-minimum" name="minimum" visibility="public" type="Expressions-PropertyExpression" aggregation="composite" association="Expressions-A_rangeValue_minimum">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-RangeValue-minimum-_ownedComment.0">
+        <generalization xmi:id="Expressions-RangeValue-_generalization.0" general="Expressions-PropertyValue"/>
+        <ownedAttribute xmi:id="Expressions-RangeValue-minimum" name="minimum" visibility="public" type="Expressions-PropertyExpression" aggregation="composite" association="Expressions-A_rangeValue_minimum">
+          <ownedComment xmi:id="Expressions-RangeValue-minimum-_ownedComment.0">
             <body>Specifies the lower bound of the range.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Expressions-RangeValue-minimum-_lowerValue" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Expressions-RangeValue-minimum-_upperValue" value="1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Expressions-RangeValue-maximum" name="maximum" visibility="public" type="Expressions-PropertyExpression" aggregation="composite" association="Expressions-A_rangeValue_maximum">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-RangeValue-maximum-_ownedComment.0">
+        <ownedAttribute xmi:id="Expressions-RangeValue-maximum" name="maximum" visibility="public" type="Expressions-PropertyExpression" aggregation="composite" association="Expressions-A_rangeValue_maximum">
+          <ownedComment xmi:id="Expressions-RangeValue-maximum-_ownedComment.0">
             <body>Specifies the upper bound of this range.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Expressions-RangeValue-maximum-_lowerValue" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Expressions-RangeValue-maximum-_upperValue" value="1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Expressions-RangeValue-delta" name="delta" visibility="public" type="Expressions-PropertyExpression" aggregation="composite" association="Expressions-A_rangeValue_delta">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-RangeValue-delta-_ownedComment.0">
+        <ownedAttribute xmi:id="Expressions-RangeValue-delta" name="delta" visibility="public" type="Expressions-PropertyExpression" aggregation="composite" association="Expressions-A_rangeValue_delta">
+          <ownedComment xmi:id="Expressions-RangeValue-delta-_ownedComment.0">
             <body>Specifies a delta for this range.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Expressions-RangeValue-delta-_lowerValue"/>
@@ -750,78 +750,78 @@ censes only apply to the Third Party Software and not any other portion of this 
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Expressions-IntegerLiteral" name="IntegerLiteral">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-IntegerLiteral-_ownedComment.0">
+        <ownedComment xmi:id="Expressions-IntegerLiteral-_ownedComment.0">
           <body>An integer literal value.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Expressions-IntegerLiteral-_generalization.0" general="Expressions-NumberValue"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Expressions-IntegerLiteral-base" name="base" visibility="public">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-IntegerLiteral-base-_ownedComment.0">
+        <generalization xmi:id="Expressions-IntegerLiteral-_generalization.0" general="Expressions-NumberValue"/>
+        <ownedAttribute xmi:id="Expressions-IntegerLiteral-base" name="base" visibility="public">
+          <ownedComment xmi:id="Expressions-IntegerLiteral-base-_ownedComment.0">
             <body>Specifies the base of this integer value.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#Integer"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Expressions-IntegerLiteral-base-_lowerValue"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Expressions-IntegerLiteral-value" name="value" visibility="public">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-IntegerLiteral-value-_ownedComment.0">
+        <ownedAttribute xmi:id="Expressions-IntegerLiteral-value" name="value" visibility="public">
+          <ownedComment xmi:id="Expressions-IntegerLiteral-value-_ownedComment.0">
             <body>The integer number.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#Integer"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Expressions-RealLiteral" name="RealLiteral">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-RealLiteral-_ownedComment.0">
+        <ownedComment xmi:id="Expressions-RealLiteral-_ownedComment.0">
           <body>A real literal value.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Expressions-RealLiteral-_generalization.0" general="Expressions-NumberValue"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Expressions-RealLiteral-value" name="value" visibility="public">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-RealLiteral-value-_ownedComment.0">
+        <generalization xmi:id="Expressions-RealLiteral-_generalization.0" general="Expressions-NumberValue"/>
+        <ownedAttribute xmi:id="Expressions-RealLiteral-value" name="value" visibility="public">
+          <ownedComment xmi:id="Expressions-RealLiteral-value-_ownedComment.0">
             <body>The real number.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#Real"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Expressions-A_numberValue_unit" name="A_numberValue_unit" memberEnd="Expressions-A_numberValue_unit-numberValue Expressions-NumberValue-unit">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Expressions-A_numberValue_unit-numberValue" name="numberValue" visibility="public" type="Expressions-NumberValue" association="Expressions-A_numberValue_unit">
+        <ownedEnd xmi:id="Expressions-A_numberValue_unit-numberValue" name="numberValue" visibility="public" type="Expressions-NumberValue" association="Expressions-A_numberValue_unit">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Expressions-A_numberValue_unit-numberValue-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Expressions-A_numberValue_unit-numberValue-_upperValue" value="*"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Expressions-A_rangeValue_minimum" name="A_rangeValue_minimum" memberEnd="Expressions-A_rangeValue_minimum-owner Expressions-RangeValue-minimum">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Expressions-A_rangeValue_minimum-owner" name="owner" visibility="public" type="Expressions-RangeValue" association="Expressions-A_rangeValue_minimum">
+        <ownedEnd xmi:id="Expressions-A_rangeValue_minimum-owner" name="owner" visibility="public" type="Expressions-RangeValue" association="Expressions-A_rangeValue_minimum">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Expressions-A_rangeValue_minimum-owner-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Expressions-A_rangeValue_minimum-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Expressions-A_rangeValue_maximum" name="A_rangeValue_maximum" memberEnd="Expressions-A_rangeValue_maximum-owner Expressions-RangeValue-maximum">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Expressions-A_rangeValue_maximum-owner" name="owner" visibility="public" type="Expressions-RangeValue" association="Expressions-A_rangeValue_maximum">
+        <ownedEnd xmi:id="Expressions-A_rangeValue_maximum-owner" name="owner" visibility="public" type="Expressions-RangeValue" association="Expressions-A_rangeValue_maximum">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Expressions-A_rangeValue_maximum-owner-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Expressions-A_rangeValue_maximum-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Expressions-A_rangeValue_delta" name="A_rangeValue_delta" memberEnd="Expressions-A_rangeValue_delta-owner Expressions-RangeValue-delta">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Expressions-A_rangeValue_delta-owner" name="owner" visibility="public" type="Expressions-RangeValue" association="Expressions-A_rangeValue_delta">
+        <ownedEnd xmi:id="Expressions-A_rangeValue_delta-owner" name="owner" visibility="public" type="Expressions-RangeValue" association="Expressions-A_rangeValue_delta">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Expressions-A_rangeValue_delta-owner-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Expressions-A_rangeValue_delta-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Expressions-PropertyValue" name="PropertyValue" isAbstract="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-PropertyValue-_ownedComment.0">
+        <ownedComment xmi:id="Expressions-PropertyValue-_ownedComment.0">
           <body>The superclass of all property values.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Expressions-PropertyValue-_generalization.0" general="Expressions-PropertyExpression"/>
+        <generalization xmi:id="Expressions-PropertyValue-_generalization.0" general="Expressions-PropertyExpression"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Expressions-Operation" name="Operation">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-Operation-_ownedComment.0">
+        <ownedComment xmi:id="Expressions-Operation-_ownedComment.0">
           <body>An operation in a property expression.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Expressions-Operation-_generalization.0" general="Expressions-PropertyExpression"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Expressions-Operation-op" name="op" visibility="public" type="Expressions-OperationKind">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-Operation-op-_ownedComment.0">
+        <generalization xmi:id="Expressions-Operation-_generalization.0" general="Expressions-PropertyExpression"/>
+        <ownedAttribute xmi:id="Expressions-Operation-op" name="op" visibility="public" type="Expressions-OperationKind">
+          <ownedComment xmi:id="Expressions-Operation-op-_ownedComment.0">
             <body>Specifies the operation to execute.</body>
           </ownedComment>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Expressions-Operation-ownedPropertyExpression" name="ownedPropertyExpression" visibility="public" type="Expressions-PropertyExpression" aggregation="composite" association="Expressions-A_propertyOperation_operand">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-Operation-ownedPropertyExpression-_ownedComment.0">
+        <ownedAttribute xmi:id="Expressions-Operation-ownedPropertyExpression" name="ownedPropertyExpression" visibility="public" type="Expressions-PropertyExpression" aggregation="composite" association="Expressions-A_propertyOperation_operand">
+          <ownedComment xmi:id="Expressions-Operation-ownedPropertyExpression-_ownedComment.0">
             <body>Specifies the operands for the operation.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Expressions-Operation-ownedPropertyExpression-_lowerValue" value="1"/>
@@ -829,48 +829,48 @@ censes only apply to the Third Party Software and not any other portion of this 
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Enumeration" xmi:id="Expressions-OperationKind" name="OperationKind">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-OperationKind-_ownedComment.0">
+        <ownedComment xmi:id="Expressions-OperationKind-_ownedComment.0">
           <body>The operations allowed in property expressions.</body>
         </ownedComment>
-        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="Expressions-OperationKind-and" name="and">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-OperationKind-and-_ownedComment.0">
+        <ownedLiteral xmi:id="Expressions-OperationKind-and" name="and">
+          <ownedComment xmi:id="Expressions-OperationKind-and-_ownedComment.0">
             <body>Logical and in boolean expressions.</body>
           </ownedComment>
         </ownedLiteral>
-        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="Expressions-OperationKind-or" name="or">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-OperationKind-or-_ownedComment.0">
+        <ownedLiteral xmi:id="Expressions-OperationKind-or" name="or">
+          <ownedComment xmi:id="Expressions-OperationKind-or-_ownedComment.0">
             <body>Logical or in boolean expressions.</body>
           </ownedComment>
         </ownedLiteral>
-        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="Expressions-OperationKind-not" name="not">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-OperationKind-not-_ownedComment.0">
+        <ownedLiteral xmi:id="Expressions-OperationKind-not" name="not">
+          <ownedComment xmi:id="Expressions-OperationKind-not-_ownedComment.0">
             <body>Logical not in boolean expressions.</body>
           </ownedComment>
         </ownedLiteral>
-        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="Expressions-OperationKind-plus" name="plus">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-OperationKind-plus-_ownedComment.0">
+        <ownedLiteral xmi:id="Expressions-OperationKind-plus" name="plus">
+          <ownedComment xmi:id="Expressions-OperationKind-plus-_ownedComment.0">
             <body>Unary plus for numeric expressions.</body>
           </ownedComment>
         </ownedLiteral>
-        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="Expressions-OperationKind-minus" name="minus">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-OperationKind-minus-_ownedComment.0">
+        <ownedLiteral xmi:id="Expressions-OperationKind-minus" name="minus">
+          <ownedComment xmi:id="Expressions-OperationKind-minus-_ownedComment.0">
             <body>Unary minus for numeric expressions.</body>
           </ownedComment>
         </ownedLiteral>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Expressions-A_propertyOperation_operand" name="A_propertyOperation_operand" memberEnd="Expressions-A_propertyOperation_operand-owner Expressions-Operation-ownedPropertyExpression">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Expressions-A_propertyOperation_operand-owner" name="owner" visibility="public" type="Expressions-Operation" association="Expressions-A_propertyOperation_operand">
+        <ownedEnd xmi:id="Expressions-A_propertyOperation_operand-owner" name="owner" visibility="public" type="Expressions-Operation" association="Expressions-A_propertyOperation_operand">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Expressions-A_propertyOperation_operand-owner-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Expressions-A_propertyOperation_operand-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Expressions-RecordValue" name="RecordValue">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-RecordValue-_ownedComment.0">
+        <ownedComment xmi:id="Expressions-RecordValue-_ownedComment.0">
           <body>A value for a record property.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Expressions-RecordValue-_generalization.0" general="Expressions-PropertyValue"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Expressions-RecordValue-ownedFieldValue" name="ownedFieldValue" visibility="public" type="Associations-BasicPropertyAssociation" aggregation="composite" association="Expressions-A_recordValue_ownedFieldValue">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-RecordValue-ownedFieldValue-_ownedComment.0">
+        <generalization xmi:id="Expressions-RecordValue-_generalization.0" general="Expressions-PropertyValue"/>
+        <ownedAttribute xmi:id="Expressions-RecordValue-ownedFieldValue" name="ownedFieldValue" visibility="public" type="Associations-BasicPropertyAssociation" aggregation="composite" association="Expressions-A_recordValue_ownedFieldValue">
+          <ownedComment xmi:id="Expressions-RecordValue-ownedFieldValue-_ownedComment.0">
             <body>The list of values the record fields.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Expressions-RecordValue-ownedFieldValue-_lowerValue"/>
@@ -878,163 +878,163 @@ censes only apply to the Third Party Software and not any other portion of this 
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Expressions-A_recordValue_ownedFieldValue" name="A_recordValue_ownedFieldValue" memberEnd="Expressions-A_recordValue_ownedFieldValue-recordValue Expressions-RecordValue-ownedFieldValue">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Expressions-A_recordValue_ownedFieldValue-recordValue" name="recordValue" visibility="public" type="Expressions-RecordValue" association="Expressions-A_recordValue_ownedFieldValue">
+        <ownedEnd xmi:id="Expressions-A_recordValue_ownedFieldValue-recordValue" name="recordValue" visibility="public" type="Expressions-RecordValue" association="Expressions-A_recordValue_ownedFieldValue">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Expressions-A_recordValue_ownedFieldValue-recordValue-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Expressions-A_recordValue_ownedFieldValue-recordValue-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Expressions-ComputedValue" name="ComputedValue">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-ComputedValue-_ownedComment.0">
+        <ownedComment xmi:id="Expressions-ComputedValue-_ownedComment.0">
           <body>A value that is computed by a function outside of AADL.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Expressions-ComputedValue-_generalization.0" general="Expressions-PropertyValue"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Expressions-ComputedValue-function" name="function" visibility="public">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-ComputedValue-function-_ownedComment.0">
+        <generalization xmi:id="Expressions-ComputedValue-_generalization.0" general="Expressions-PropertyValue"/>
+        <ownedAttribute xmi:id="Expressions-ComputedValue-function" name="function" visibility="public">
+          <ownedComment xmi:id="Expressions-ComputedValue-function-_ownedComment.0">
             <body>The name of the function that computes the property value.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#String"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_w53ysEDeEd-ss6Um5u-QLw" name="ListValue">
-        <generalization xmi:type="uml:Generalization" xmi:id="_MMdaI0DfEd-ss6Um5u-QLw" general="Expressions-PropertyExpression"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_5Ld1cEDeEd-ss6Um5u-QLw" name="ownedListElement" visibility="public" type="Expressions-PropertyExpression" isOrdered="true" aggregation="composite" association="_5Ld1fkDeEd-ss6Um5u-QLw">
+        <generalization xmi:id="_MMdaI0DfEd-ss6Um5u-QLw" general="Expressions-PropertyExpression"/>
+        <ownedAttribute xmi:id="_5Ld1cEDeEd-ss6Um5u-QLw" name="ownedListElement" visibility="public" type="Expressions-PropertyExpression" isOrdered="true" aggregation="composite" association="_5Ld1fkDeEd-ss6Um5u-QLw">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_5Ld1ckDeEd-ss6Um5u-QLw"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_5Ld1cUDeEd-ss6Um5u-QLw" value="*"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_5Ld1fkDeEd-ss6Um5u-QLw" name="A_listValue_element" memberEnd="_5Ld1f0DeEd-ss6Um5u-QLw _5Ld1cEDeEd-ss6Um5u-QLw">
-        <ownedEnd xmi:type="uml:Property" xmi:id="_5Ld1f0DeEd-ss6Um5u-QLw" name="owner" visibility="public" type="_w53ysEDeEd-ss6Um5u-QLw" association="_5Ld1fkDeEd-ss6Um5u-QLw">
+        <ownedEnd xmi:id="_5Ld1f0DeEd-ss6Um5u-QLw" name="owner" visibility="public" type="_w53ysEDeEd-ss6Um5u-QLw" association="_5Ld1fkDeEd-ss6Um5u-QLw">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_5Ld1gUDeEd-ss6Um5u-QLw"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_5Ld1gEDeEd-ss6Um5u-QLw" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_qhwp8K17EeCEBvwFrdo_PA" name="AbstractNamedValue" isAbstract="true"/>
       <packagedElement xmi:type="uml:Class" xmi:id="_vi0eIK19EeCEBvwFrdo_PA" name="NamedValue">
-        <generalization xmi:type="uml:Generalization" xmi:id="_MsabwK2EEeCEBvwFrdo_PA" general="Expressions-PropertyValue"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_ds3sFK2EEeCEBvwFrdo_PA" name="namedValue" visibility="public" type="_qhwp8K17EeCEBvwFrdo_PA" association="_ds3sEK2EEeCEBvwFrdo_PA">
+        <generalization xmi:id="_MsabwK2EEeCEBvwFrdo_PA" general="Expressions-PropertyValue"/>
+        <ownedAttribute xmi:id="_ds3sFK2EEeCEBvwFrdo_PA" name="namedValue" visibility="public" type="_qhwp8K17EeCEBvwFrdo_PA" association="_ds3sEK2EEeCEBvwFrdo_PA">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ds3sFq2EEeCEBvwFrdo_PA" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ds3sFa2EEeCEBvwFrdo_PA" value="1"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_ds3sEK2EEeCEBvwFrdo_PA" name="A_namedValue_namedValue" memberEnd="_ds3sEa2EEeCEBvwFrdo_PA _ds3sFK2EEeCEBvwFrdo_PA">
-        <ownedEnd xmi:type="uml:Property" xmi:id="_ds3sEa2EEeCEBvwFrdo_PA" name="value" visibility="public" type="_vi0eIK19EeCEBvwFrdo_PA" association="_ds3sEK2EEeCEBvwFrdo_PA">
+        <ownedEnd xmi:id="_ds3sEa2EEeCEBvwFrdo_PA" name="value" visibility="public" type="_vi0eIK19EeCEBvwFrdo_PA" association="_ds3sEK2EEeCEBvwFrdo_PA">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ds3sE62EEeCEBvwFrdo_PA" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ds3sEq2EEeCEBvwFrdo_PA" value="1"/>
         </ownedEnd>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="Constants" name="Constants">
-      <ownedComment xmi:type="uml:Comment" xmi:id="Constants-_ownedComment.0">
+      <ownedComment xmi:id="Constants-_ownedComment.0">
         <body>This package contains metaclasses needed to model property constants.</body>
       </ownedComment>
       <packagedElement xmi:type="uml:Class" xmi:id="Constants-PropertyConstant" name="PropertyConstant">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Constants-PropertyConstant-_ownedComment.0">
+        <ownedComment xmi:id="Constants-PropertyConstant-_ownedComment.0">
           <body>A property constant.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Constants-PropertyConstant-_generalization.0">
+        <generalization xmi:id="Constants-PropertyConstant-_generalization.0">
           <general xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#TypedElement"/>
         </generalization>
-        <generalization xmi:type="uml:Generalization" xmi:id="_5wmQw64tEeCX99A4eTjOUQ" general="_qhwp8K17EeCEBvwFrdo_PA"/>
-        <generalization xmi:type="uml:Generalization" xmi:id="_lAMNYLOSEeCzMYz5ww7glA" general="_JIGFILOSEeCzMYz5ww7glA"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Constants-PropertyConstant-type" name="referencedPropertyType" visibility="public" type="_v97TQLMDEeCzMYz5ww7glA" subsettedProperty="_tOMkJEjbEeSxuezI2uZpxA" association="Constants-A_propertyConstant_type">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Constants-PropertyConstant-type-_ownedComment.0">
+        <generalization xmi:id="_5wmQw64tEeCX99A4eTjOUQ" general="_qhwp8K17EeCEBvwFrdo_PA"/>
+        <generalization xmi:id="_lAMNYLOSEeCzMYz5ww7glA" general="_JIGFILOSEeCzMYz5ww7glA"/>
+        <ownedAttribute xmi:id="Constants-PropertyConstant-type" name="referencedPropertyType" visibility="public" type="_v97TQLMDEeCzMYz5ww7glA" subsettedProperty="_tOMkJEjbEeSxuezI2uZpxA" association="Constants-A_propertyConstant_type">
+          <ownedComment xmi:id="Constants-PropertyConstant-type-_ownedComment.0">
             <body>References the type of this constant.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Constants-PropertyConstant-type-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Constants-PropertyConstant-type-_upperValue" value="1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Constants-PropertyConstant-ownedType" name="ownedPropertyType" visibility="public" type="_v97TQLMDEeCzMYz5ww7glA" aggregation="composite" subsettedProperty="_tOMkJEjbEeSxuezI2uZpxA" association="Constants-A_propertyConstant_ownedType">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Constants-PropertyConstant-ownedType-_ownedComment.0">
+        <ownedAttribute xmi:id="Constants-PropertyConstant-ownedType" name="ownedPropertyType" visibility="public" type="_v97TQLMDEeCzMYz5ww7glA" aggregation="composite" subsettedProperty="_tOMkJEjbEeSxuezI2uZpxA" association="Constants-A_propertyConstant_ownedType">
+          <ownedComment xmi:id="Constants-PropertyConstant-ownedType-_ownedComment.0">
             <body>Specifies an anonymous type for this constant.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Constants-PropertyConstant-ownedType-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Constants-PropertyConstant-ownedType-_upperValue" value="1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Constants-PropertyConstant-ownedExpression" name="constantValue" visibility="public" type="Expressions-PropertyExpression" aggregation="composite" association="Constants-A_propertyConstant_ownedPropertyExpression">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Constants-PropertyConstant-ownedExpression-_ownedComment.0">
+        <ownedAttribute xmi:id="Constants-PropertyConstant-ownedExpression" name="constantValue" visibility="public" type="Expressions-PropertyExpression" aggregation="composite" association="Constants-A_propertyConstant_ownedPropertyExpression">
+          <ownedComment xmi:id="Constants-PropertyConstant-ownedExpression-_ownedComment.0">
             <body>Specifies this constant's value.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Constants-PropertyConstant-ownedExpression-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Constants-PropertyConstant-ownedExpression-_upperValue" value="1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_tOMkJEjbEeSxuezI2uZpxA" name="propertyType" visibility="public" type="_v97TQLMDEeCzMYz5ww7glA" isReadOnly="true" isDerived="true" association="_tOMkIEjbEeSxuezI2uZpxA">
+        <ownedAttribute xmi:id="_tOMkJEjbEeSxuezI2uZpxA" name="propertyType" visibility="public" type="_v97TQLMDEeCzMYz5ww7glA" isReadOnly="true" isDerived="true" association="_tOMkIEjbEeSxuezI2uZpxA">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_tOMkJkjbEeSxuezI2uZpxA" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_tOMkJUjbEeSxuezI2uZpxA" value="1"/>
-          <redefinedProperty xmi:type="uml:Property" href="../Core%20Language/AADLInfrastructure.uml#TypedElement-type"/>
+          <redefinedProperty href="../Core%20Language/AADLInfrastructure.uml#TypedElement-type"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Constants-A_propertyConstant_type" name="A_propertyConstant_referencedPropertyType" memberEnd="Constants-A_propertyConstant_type-propertyConstant Constants-PropertyConstant-type">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Constants-A_propertyConstant_type-propertyConstant" name="propertyConstant" visibility="public" type="Constants-PropertyConstant" association="Constants-A_propertyConstant_type">
+        <ownedEnd xmi:id="Constants-A_propertyConstant_type-propertyConstant" name="propertyConstant" visibility="public" type="Constants-PropertyConstant" association="Constants-A_propertyConstant_type">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Constants-A_propertyConstant_type-propertyConstant-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Constants-A_propertyConstant_type-propertyConstant-_upperValue" value="*"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Constants-A_propertyConstant_ownedType" name="A_propertyConstant_ownedPropertyType" memberEnd="Constants-A_propertyConstant_ownedType-owner Constants-PropertyConstant-ownedType">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Constants-A_propertyConstant_ownedType-owner" name="owner" visibility="public" type="Constants-PropertyConstant" association="Constants-A_propertyConstant_ownedType">
+        <ownedEnd xmi:id="Constants-A_propertyConstant_ownedType-owner" name="owner" visibility="public" type="Constants-PropertyConstant" association="Constants-A_propertyConstant_ownedType">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Constants-A_propertyConstant_ownedType-owner-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Constants-A_propertyConstant_ownedType-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Constants-A_propertyConstant_ownedPropertyExpression" name="A_propertyConstant_constantValue" memberEnd="Constants-A_propertyConstant_ownedPropertyExpression-owner Constants-PropertyConstant-ownedExpression">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Constants-A_propertyConstant_ownedPropertyExpression-owner" name="owner" visibility="public" type="Constants-PropertyConstant" association="Constants-A_propertyConstant_ownedPropertyExpression">
+        <ownedEnd xmi:id="Constants-A_propertyConstant_ownedPropertyExpression-owner" name="owner" visibility="public" type="Constants-PropertyConstant" association="Constants-A_propertyConstant_ownedPropertyExpression">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Constants-A_propertyConstant_ownedPropertyExpression-owner-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Constants-A_propertyConstant_ownedPropertyExpression-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_tOMkIEjbEeSxuezI2uZpxA" name="A_propertyConstant_propertyType" memberEnd="_tOMkIUjbEeSxuezI2uZpxA _tOMkJEjbEeSxuezI2uZpxA">
-        <ownedEnd xmi:type="uml:Property" xmi:id="_tOMkIUjbEeSxuezI2uZpxA" name="propertyConstant" visibility="public" type="Constants-PropertyConstant" association="_tOMkIEjbEeSxuezI2uZpxA">
+        <ownedEnd xmi:id="_tOMkIUjbEeSxuezI2uZpxA" name="propertyConstant" visibility="public" type="Constants-PropertyConstant" association="_tOMkIEjbEeSxuezI2uZpxA">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_tOMkI0jbEeSxuezI2uZpxA"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_tOMkIkjbEeSxuezI2uZpxA" value="*"/>
         </ownedEnd>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="Associations" name="Associations">
-      <ownedComment xmi:type="uml:Comment" xmi:id="Associations-_ownedComment.0">
+      <ownedComment xmi:id="Associations-_ownedComment.0">
         <body>This package contains metaclasses needed for modeling property associations.</body>
       </ownedComment>
       <packagedElement xmi:type="uml:Class" xmi:id="Associations-PropertyAssociation" name="PropertyAssociation">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Associations-PropertyAssociation-_ownedComment.0">
+        <ownedComment xmi:id="Associations-PropertyAssociation-_ownedComment.0">
           <body>A property association.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Associations-PropertyAssociation-_generalization.0">
+        <generalization xmi:id="Associations-PropertyAssociation-_generalization.0">
           <general xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#Element"/>
         </generalization>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Associations-PropertyAssociation-property" name="property" visibility="public" type="Definitions-Property" association="Associations-A_propertyAssociation_property">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Associations-PropertyAssociation-property-_ownedComment.0">
+        <ownedAttribute xmi:id="Associations-PropertyAssociation-property" name="property" visibility="public" type="Definitions-Property" association="Associations-A_propertyAssociation_property">
+          <ownedComment xmi:id="Associations-PropertyAssociation-property-_ownedComment.0">
             <body>Specifies the property that is given a value in this association.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Associations-PropertyAssociation-property-_lowerValue" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Associations-PropertyAssociation-property-_upperValue" value="1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Associations-PropertyAssociation-appliesTo" name="appliesTo" visibility="public" type="Associations-ContainedNamedElement" aggregation="composite" association="Associations-A_propertyAssociation_appliesTo">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Associations-PropertyAssociation-appliesTo-_ownedComment.0">
+        <ownedAttribute xmi:id="Associations-PropertyAssociation-appliesTo" name="appliesTo" visibility="public" type="Associations-ContainedNamedElement" aggregation="composite" association="Associations-A_propertyAssociation_appliesTo">
+          <ownedComment xmi:id="Associations-PropertyAssociation-appliesTo-_ownedComment.0">
             <body>For a contained property association, the list of named elements to which this property is applied.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Associations-PropertyAssociation-appliesTo-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Associations-PropertyAssociation-appliesTo-_upperValue" value="*"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Associations-PropertyAssociation-inBinding" name="inBinding" visibility="public" association="Associations-A_propertyAssociation_inBinding">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Associations-PropertyAssociation-inBinding-_ownedComment.0">
+        <ownedAttribute xmi:id="Associations-PropertyAssociation-inBinding" name="inBinding" visibility="public" association="Associations-A_propertyAssociation_inBinding">
+          <ownedComment xmi:id="Associations-PropertyAssociation-inBinding-_ownedComment.0">
             <body>Specifies the bindings in which the property association applies.</body>
           </ownedComment>
           <type xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#Classifier"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Associations-PropertyAssociation-inBinding-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Associations-PropertyAssociation-inBinding-_upperValue" value="*"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Associations-PropertyAssociation-append" name="append" visibility="public">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Associations-PropertyAssociation-append-_ownedComment.0">
+        <ownedAttribute xmi:id="Associations-PropertyAssociation-append" name="append" visibility="public">
+          <ownedComment xmi:id="Associations-PropertyAssociation-append-_ownedComment.0">
             <body>Specifies if the value is to be appended to the current property value.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#Boolean"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Associations-PropertyAssociation-constant" name="constant" visibility="public">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Associations-PropertyAssociation-constant-_ownedComment.0">
+        <ownedAttribute xmi:id="Associations-PropertyAssociation-constant" name="constant" visibility="public">
+          <ownedComment xmi:id="Associations-PropertyAssociation-constant-_ownedComment.0">
             <body>Specifies if the value can be overridden.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#Boolean"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Associations-PropertyAssociation-ownedValue" name="ownedValue" visibility="public" type="Associations-ModalPropertyValue" aggregation="composite" association="Associations-A_propertyAssociation_ownedValue">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Associations-PropertyAssociation-ownedValue-_ownedComment.0">
+        <ownedAttribute xmi:id="Associations-PropertyAssociation-ownedValue" name="ownedValue" visibility="public" type="Associations-ModalPropertyValue" aggregation="composite" association="Associations-A_propertyAssociation_ownedValue">
+          <ownedComment xmi:id="Associations-PropertyAssociation-ownedValue-_ownedComment.0">
             <body>Specifies the value that is assigned to the property. If more than one modal property value are given, each of them applies in different modes.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Associations-PropertyAssociation-ownedValue-_lowerValue" value="1"/>
@@ -1042,41 +1042,41 @@ censes only apply to the Third Party Software and not any other portion of this 
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Associations-A_propertyAssociation_property" name="A_propertyAssociation_property" memberEnd="Associations-A_propertyAssociation_property-propertyAssociation Associations-PropertyAssociation-property">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Associations-A_propertyAssociation_property-propertyAssociation" name="propertyAssociation" visibility="public" type="Associations-PropertyAssociation" association="Associations-A_propertyAssociation_property">
+        <ownedEnd xmi:id="Associations-A_propertyAssociation_property-propertyAssociation" name="propertyAssociation" visibility="public" type="Associations-PropertyAssociation" association="Associations-A_propertyAssociation_property">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Associations-A_propertyAssociation_property-propertyAssociation-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Associations-A_propertyAssociation_property-propertyAssociation-_upperValue" value="*"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Associations-A_basicPropertyAssociation_ownedValue" name="A_basicPropertyAssociation_ownedValue" memberEnd="Associations-A_basicPropertyAssociation_ownedValue-owner Associations-BasicPropertyAssociation-ownedValue">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Associations-A_basicPropertyAssociation_ownedValue-owner" name="owner" visibility="public" type="Associations-BasicPropertyAssociation" association="Associations-A_basicPropertyAssociation_ownedValue">
+        <ownedEnd xmi:id="Associations-A_basicPropertyAssociation_ownedValue-owner" name="owner" visibility="public" type="Associations-BasicPropertyAssociation" association="Associations-A_basicPropertyAssociation_ownedValue">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Associations-A_basicPropertyAssociation_ownedValue-owner-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Associations-A_basicPropertyAssociation_ownedValue-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Associations-A_propertyAssociation_appliesTo" name="A_propertyAssociation_appliesTo" memberEnd="Associations-A_propertyAssociation_appliesTo-propertyAssociation Associations-PropertyAssociation-appliesTo">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Associations-A_propertyAssociation_appliesTo-propertyAssociation" name="propertyAssociation" visibility="public" type="Associations-PropertyAssociation" association="Associations-A_propertyAssociation_appliesTo">
+        <ownedEnd xmi:id="Associations-A_propertyAssociation_appliesTo-propertyAssociation" name="propertyAssociation" visibility="public" type="Associations-PropertyAssociation" association="Associations-A_propertyAssociation_appliesTo">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Associations-A_propertyAssociation_appliesTo-propertyAssociation-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Associations-A_propertyAssociation_appliesTo-propertyAssociation-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Associations-A_propertyAssociation_inBinding" name="A_propertyAssociation_inBinding" memberEnd="Associations-A_propertyAssociation_inBinding-propertyAssociation Associations-PropertyAssociation-inBinding">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Associations-A_propertyAssociation_inBinding-propertyAssociation" name="propertyAssociation" visibility="public" type="Associations-PropertyAssociation" association="Associations-A_propertyAssociation_inBinding">
+        <ownedEnd xmi:id="Associations-A_propertyAssociation_inBinding-propertyAssociation" name="propertyAssociation" visibility="public" type="Associations-PropertyAssociation" association="Associations-A_propertyAssociation_inBinding">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Associations-A_propertyAssociation_inBinding-propertyAssociation-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Associations-A_propertyAssociation_inBinding-propertyAssociation-_upperValue" value="*"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Associations-A_namedElement_ownedPropertyAssociation" name="A_namedElement_ownedPropertyAssociation" memberEnd="Associations-A_namedElement_ownedPropertyAssociation-owner Associations-NamedElement-ownedPropertyAssociation">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Associations-A_namedElement_ownedPropertyAssociation-owner" name="owner" visibility="public" type="Associations-NamedElement" association="Associations-A_namedElement_ownedPropertyAssociation">
+        <ownedEnd xmi:id="Associations-A_namedElement_ownedPropertyAssociation-owner" name="owner" visibility="public" type="Associations-NamedElement" association="Associations-A_namedElement_ownedPropertyAssociation">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Associations-A_namedElement_ownedPropertyAssociation-owner-_lowerValue" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Associations-A_namedElement_ownedPropertyAssociation-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Associations-NamedElement" name="NamedElement" isAbstract="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Associations-NamedElement-_ownedComment.0">
+        <ownedComment xmi:id="Associations-NamedElement-_ownedComment.0">
           <body>Named elements can own property associations.</body>
         </ownedComment>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Associations-NamedElement-ownedPropertyAssociation" name="ownedPropertyAssociation" visibility="public" type="Associations-PropertyAssociation" aggregation="composite" association="Associations-A_namedElement_ownedPropertyAssociation">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Associations-NamedElement-ownedPropertyAssociation-_ownedComment.0">
+        <ownedAttribute xmi:id="Associations-NamedElement-ownedPropertyAssociation" name="ownedPropertyAssociation" visibility="public" type="Associations-PropertyAssociation" aggregation="composite" association="Associations-A_namedElement_ownedPropertyAssociation">
+          <ownedComment xmi:id="Associations-NamedElement-ownedPropertyAssociation-_ownedComment.0">
             <body>Specifies the property associations of this named element.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Associations-NamedElement-ownedPropertyAssociation-_lowerValue"/>
@@ -1084,21 +1084,21 @@ censes only apply to the Third Party Software and not any other portion of this 
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Associations-BasicPropertyAssociation" name="BasicPropertyAssociation">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Associations-BasicPropertyAssociation-_ownedComment.0">
+        <ownedComment xmi:id="Associations-BasicPropertyAssociation-_ownedComment.0">
           <body>A property association for basic properties.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Associations-BasicPropertyAssociation-_generalization.0">
+        <generalization xmi:id="Associations-BasicPropertyAssociation-_generalization.0">
           <general xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#Element"/>
         </generalization>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Associations-BasicPropertyAssociation-property" name="property" visibility="public" type="Definitions-BasicProperty" association="Associations-A_basicPropertyAssociation_property">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Associations-BasicPropertyAssociation-property-_ownedComment.0">
+        <ownedAttribute xmi:id="Associations-BasicPropertyAssociation-property" name="property" visibility="public" type="Definitions-BasicProperty" association="Associations-A_basicPropertyAssociation_property">
+          <ownedComment xmi:id="Associations-BasicPropertyAssociation-property-_ownedComment.0">
             <body>Specifies the basic property that is given a value in this association.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Associations-BasicPropertyAssociation-property-_lowerValue" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Associations-BasicPropertyAssociation-property-_upperValue" value="1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Associations-BasicPropertyAssociation-ownedValue" name="ownedValue" visibility="public" type="Expressions-PropertyExpression" aggregation="composite" association="Associations-A_basicPropertyAssociation_ownedValue">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Associations-BasicPropertyAssociation-ownedValue-_ownedComment.0">
+        <ownedAttribute xmi:id="Associations-BasicPropertyAssociation-ownedValue" name="ownedValue" visibility="public" type="Expressions-PropertyExpression" aggregation="composite" association="Associations-A_basicPropertyAssociation_ownedValue">
+          <ownedComment xmi:id="Associations-BasicPropertyAssociation-ownedValue-_ownedComment.0">
             <body>Specifies the value that is assigned to the property.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Associations-BasicPropertyAssociation-ownedValue-_lowerValue" value="1"/>
@@ -1106,150 +1106,150 @@ censes only apply to the Third Party Software and not any other portion of this 
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Associations-A_basicPropertyAssociation_property" name="A_basicPropertyAssociation_property" memberEnd="Associations-A_basicPropertyAssociation_property-propertyAssociation Associations-BasicPropertyAssociation-property">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Associations-A_basicPropertyAssociation_property-propertyAssociation" name="propertyAssociation" visibility="public" type="Associations-BasicPropertyAssociation" association="Associations-A_basicPropertyAssociation_property">
+        <ownedEnd xmi:id="Associations-A_basicPropertyAssociation_property-propertyAssociation" name="propertyAssociation" visibility="public" type="Associations-BasicPropertyAssociation" association="Associations-A_basicPropertyAssociation_property">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Associations-A_basicPropertyAssociation_property-propertyAssociation-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Associations-A_basicPropertyAssociation_property-propertyAssociation-_upperValue" value="*"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Associations-ArrayRange" name="ArrayRange">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Associations-ArrayRange-_ownedComment.0">
+        <ownedComment xmi:id="Associations-ArrayRange-_ownedComment.0">
           <body>A range of array elements, including the elements at the lower and upper bound. To specify a single array element lower and upper bound must be equal.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Associations-ArrayRange-_generalization.0">
+        <generalization xmi:id="Associations-ArrayRange-_generalization.0">
           <general xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#Element"/>
         </generalization>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Associations-ArrayRange-lowerBound" name="lowerBound" visibility="public">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Associations-ArrayRange-lowerBound-_ownedComment.0">
+        <ownedAttribute xmi:id="Associations-ArrayRange-lowerBound" name="lowerBound" visibility="public">
+          <ownedComment xmi:id="Associations-ArrayRange-lowerBound-_ownedComment.0">
             <body>Specifies the lowest index included in the range.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#Integer"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Associations-ArrayRange-upperBound" name="upperBound" visibility="public">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Associations-ArrayRange-upperBound-_ownedComment.0">
+        <ownedAttribute xmi:id="Associations-ArrayRange-upperBound" name="upperBound" visibility="public">
+          <ownedComment xmi:id="Associations-ArrayRange-upperBound-_ownedComment.0">
             <body>Specifies the hightest index included in the range.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#Integer"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Associations-ContainedNamedElement" name="ContainedNamedElement">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Associations-ContainedNamedElement-_ownedComment.0">
+        <ownedComment xmi:id="Associations-ContainedNamedElement-_ownedComment.0">
           <body>===TBD===</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Associations-ContainedNamedElement-_generalization.0">
+        <generalization xmi:id="Associations-ContainedNamedElement-_generalization.0">
           <general xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#Element"/>
         </generalization>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Associations-ContainedNamedElement-containmentPathElement" name="path" visibility="public" type="Associations-ContainmentPathElement" isOrdered="true" aggregation="composite" association="Associations-A_containedNamedElement_containmentPathElement">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Associations-ContainedNamedElement-containmentPathElement-_ownedComment.0">
+        <ownedAttribute xmi:id="Associations-ContainedNamedElement-containmentPathElement" name="path" visibility="public" type="Associations-ContainmentPathElement" isOrdered="true" aggregation="composite" association="Associations-A_containedNamedElement_containmentPathElement">
+          <ownedComment xmi:id="Associations-ContainedNamedElement-containmentPathElement-_ownedComment.0">
             <body>===TBD===</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Associations-ContainedNamedElement-containmentPathElement-_lowerValue" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Associations-ContainedNamedElement-containmentPathElement-_upperValue" value="1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_oV-VsD0OEeSdvMOHIJggqw" name="containmentPathElement" visibility="public" type="Associations-ContainmentPathElement" isReadOnly="true" isDerived="true">
+        <ownedAttribute xmi:id="_oV-VsD0OEeSdvMOHIJggqw" name="containmentPathElement" visibility="public" type="Associations-ContainmentPathElement" isReadOnly="true" isDerived="true">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JjfDcD0PEeSdvMOHIJggqw"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_KQmBED0PEeSdvMOHIJggqw" value="*"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Associations-A_containmentPathElement_arrayRange" name="A_containmentPathElement_arrayRange" memberEnd="Associations-A_containmentPathElement_arrayRange-containmentPathElement Associations-ContainmentPathElement-arrayRange">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Associations-A_containmentPathElement_arrayRange-containmentPathElement" name="containmentPathElement" visibility="public" type="Associations-ContainmentPathElement" association="Associations-A_containmentPathElement_arrayRange">
+        <ownedEnd xmi:id="Associations-A_containmentPathElement_arrayRange-containmentPathElement" name="containmentPathElement" visibility="public" type="Associations-ContainmentPathElement" association="Associations-A_containmentPathElement_arrayRange">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Associations-A_containmentPathElement_arrayRange-containmentPathElement-_lowerValue" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Associations-A_containmentPathElement_arrayRange-containmentPathElement-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Associations-A_containmentPathElement_namedElement" name="A_containmentPathElement_namedElement" memberEnd="Associations-A_containmentPathElement_namedElement-containmentPathElement Associations-ContainmentPathElement-namedElement">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Associations-A_containmentPathElement_namedElement-containmentPathElement" name="path" visibility="public" type="Associations-ContainmentPathElement" association="Associations-A_containmentPathElement_namedElement">
+        <ownedEnd xmi:id="Associations-A_containmentPathElement_namedElement-containmentPathElement" name="path" visibility="public" type="Associations-ContainmentPathElement" association="Associations-A_containmentPathElement_namedElement">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Associations-A_containmentPathElement_namedElement-containmentPathElement-_lowerValue" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Associations-A_containmentPathElement_namedElement-containmentPathElement-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Associations-ContainmentPathElement" name="ContainmentPathElement">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Associations-ContainmentPathElement-_ownedComment.0">
+        <ownedComment xmi:id="Associations-ContainmentPathElement-_ownedComment.0">
           <body>===TBD===</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Associations-ContainmentPathElement-_generalization.0">
+        <generalization xmi:id="Associations-ContainmentPathElement-_generalization.0">
           <general xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#Element"/>
         </generalization>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Associations-ContainmentPathElement-arrayRange" name="arrayRange" visibility="public" type="Associations-ArrayRange" isOrdered="true" aggregation="composite" association="Associations-A_containmentPathElement_arrayRange">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Associations-ContainmentPathElement-arrayRange-_ownedComment.0">
+        <ownedAttribute xmi:id="Associations-ContainmentPathElement-arrayRange" name="arrayRange" visibility="public" type="Associations-ArrayRange" isOrdered="true" aggregation="composite" association="Associations-A_containmentPathElement_arrayRange">
+          <ownedComment xmi:id="Associations-ContainmentPathElement-arrayRange-_ownedComment.0">
             <body>===TBD===</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Associations-ContainmentPathElement-arrayRange-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Associations-ContainmentPathElement-arrayRange-_upperValue" value="*"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Associations-ContainmentPathElement-namedElement" name="namedElement" visibility="public" association="Associations-A_containmentPathElement_namedElement">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Associations-ContainmentPathElement-namedElement-_ownedComment.0">
+        <ownedAttribute xmi:id="Associations-ContainmentPathElement-namedElement" name="namedElement" visibility="public" association="Associations-A_containmentPathElement_namedElement">
+          <ownedComment xmi:id="Associations-ContainmentPathElement-namedElement-_ownedComment.0">
             <body>===TBD===</body>
           </ownedComment>
           <type xmi:type="uml:Class" href="../Core%20Language/AADLInfrastructure.uml#NamedElement"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Associations-ContainmentPathElement-namedElement-_lowerValue" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Associations-ContainmentPathElement-namedElement-_upperValue" value="1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_8ccn8lE-EeOvC4rwpuKd8g" name="annexName" visibility="public">
+        <ownedAttribute xmi:id="_8ccn8lE-EeOvC4rwpuKd8g" name="annexName" visibility="public">
           <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#String"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XyrcsGQsEeOdXdH5C4MU8A"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_ubrlID0NEeSdvMOHIJggqw" name="path" visibility="public" type="Associations-ContainmentPathElement" aggregation="composite" association="_ub9R8D0NEeSdvMOHIJggqw">
+        <ownedAttribute xmi:id="_ubrlID0NEeSdvMOHIJggqw" name="path" visibility="public" type="Associations-ContainmentPathElement" aggregation="composite" association="_ub9R8D0NEeSdvMOHIJggqw">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ubrlIj0NEeSdvMOHIJggqw"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ubrlIT0NEeSdvMOHIJggqw" value="1"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Associations-A_containedNamedElement_containmentPathElement" name="A_containedNamedElement_path" memberEnd="Associations-A_containedNamedElement_containmentPathElement-containedNamedElement Associations-ContainedNamedElement-containmentPathElement">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Associations-A_containedNamedElement_containmentPathElement-containedNamedElement" name="containedNamedElement" visibility="public" type="Associations-ContainedNamedElement" association="Associations-A_containedNamedElement_containmentPathElement">
+        <ownedEnd xmi:id="Associations-A_containedNamedElement_containmentPathElement-containedNamedElement" name="containedNamedElement" visibility="public" type="Associations-ContainedNamedElement" association="Associations-A_containedNamedElement_containmentPathElement">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Associations-A_containedNamedElement_containmentPathElement-containedNamedElement-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Associations-A_containedNamedElement_containmentPathElement-containedNamedElement-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Associations-Classifier" name="Classifier" isAbstract="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Associations-Classifier-_ownedComment.0">
+        <ownedComment xmi:id="Associations-Classifier-_ownedComment.0">
           <body>Classifier is extended with the ability to specify that it cannot contain property associations.</body>
         </ownedComment>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Associations-Classifier-noProperties" name="noProperties" visibility="public">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Associations-Classifier-noProperties-_ownedComment.0">
+        <ownedAttribute xmi:id="Associations-Classifier-noProperties" name="noProperties" visibility="public">
+          <ownedComment xmi:id="Associations-Classifier-noProperties-_ownedComment.0">
             <body>Specifies if this classifier contains no property associations.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#Boolean"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Associations-PackageSection" name="PackageSection" isAbstract="true">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Associations-PackageSection-_ownedComment.0">
+        <ownedComment xmi:id="Associations-PackageSection-_ownedComment.0">
           <body>Package is extended with the ability to specify that it cannot contain property associations.</body>
         </ownedComment>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="Associations-PackageSection-noProperties" name="noProperties" visibility="public">
-          <ownedComment xmi:type="uml:Comment" xmi:id="Associations-PackageSection-noProperties-_ownedComment.0">
+        <ownedAttribute xmi:id="Associations-PackageSection-noProperties" name="noProperties" visibility="public">
+          <ownedComment xmi:id="Associations-PackageSection-noProperties-_ownedComment.0">
             <body>Specifies if this package section contains no property associations.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="../Core%20Language/AADLInfrastructure.uml#Boolean"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Associations-ModalPropertyValue" name="ModalPropertyValue">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Associations-ModalPropertyValue-_ownedComment.0">
+        <ownedComment xmi:id="Associations-ModalPropertyValue-_ownedComment.0">
           <body>A modal property value specifies a property value together with modes in which it applies. If no mode is specified the value is not mode dependent.</body>
         </ownedComment>
-        <generalization xmi:type="uml:Generalization" xmi:id="Associations-ModalPropertyValue-_generalization.0" general="Associations-ModalElement"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_1BNbPkcjEd-T9JmP5D10wg" name="ownedValue" visibility="public" type="Expressions-PropertyExpression" aggregation="composite" association="_1BNbOkcjEd-T9JmP5D10wg">
+        <generalization xmi:id="Associations-ModalPropertyValue-_generalization.0" general="Associations-ModalElement"/>
+        <ownedAttribute xmi:id="_1BNbPkcjEd-T9JmP5D10wg" name="ownedValue" visibility="public" type="Expressions-PropertyExpression" aggregation="composite" association="_1BNbOkcjEd-T9JmP5D10wg">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1BNbQEcjEd-T9JmP5D10wg" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1BNbP0cjEd-T9JmP5D10wg" value="1"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Associations-A_propertyAssociation_ownedValue" name="A_propertyAssociation_ownedValue" memberEnd="Associations-A_propertyAssociation_ownedValue-owner Associations-PropertyAssociation-ownedValue">
-        <ownedEnd xmi:type="uml:Property" xmi:id="Associations-A_propertyAssociation_ownedValue-owner" name="owner" visibility="public" type="Associations-PropertyAssociation" association="Associations-A_propertyAssociation_ownedValue">
+        <ownedEnd xmi:id="Associations-A_propertyAssociation_ownedValue-owner" name="owner" visibility="public" type="Associations-PropertyAssociation" association="Associations-A_propertyAssociation_ownedValue">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Associations-A_propertyAssociation_ownedValue-owner-_lowerValue" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Associations-A_propertyAssociation_ownedValue-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Associations-ModalElement" name="ModalElement">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Associations-ModalElement-_ownedComment.0">
+        <ownedComment xmi:id="Associations-ModalElement-_ownedComment.0">
           <body>An element that can depend on modes.</body>
         </ownedComment>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_1BNbOkcjEd-T9JmP5D10wg" name="A_modalPropertyValue_ownedValue" memberEnd="_1BNbO0cjEd-T9JmP5D10wg _1BNbPkcjEd-T9JmP5D10wg">
-        <ownedEnd xmi:type="uml:Property" xmi:id="_1BNbO0cjEd-T9JmP5D10wg" name="owner" visibility="public" type="Associations-ModalPropertyValue" association="_1BNbOkcjEd-T9JmP5D10wg">
+        <ownedEnd xmi:id="_1BNbO0cjEd-T9JmP5D10wg" name="owner" visibility="public" type="Associations-ModalPropertyValue" association="_1BNbOkcjEd-T9JmP5D10wg">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1BNbPUcjEd-T9JmP5D10wg"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_1BNbPEcjEd-T9JmP5D10wg" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_ub9R8D0NEeSdvMOHIJggqw" name="A_containmentPathElement_path" memberEnd="_ub9R8T0NEeSdvMOHIJggqw _ubrlID0NEeSdvMOHIJggqw">
-        <ownedEnd xmi:type="uml:Property" xmi:id="_ub9R8T0NEeSdvMOHIJggqw" name="owner" visibility="public" type="Associations-ContainmentPathElement" association="_ub9R8D0NEeSdvMOHIJggqw">
+        <ownedEnd xmi:id="_ub9R8T0NEeSdvMOHIJggqw" name="owner" visibility="public" type="Associations-ContainmentPathElement" association="_ub9R8D0NEeSdvMOHIJggqw">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ub9R8z0NEeSdvMOHIJggqw"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ub9R8j0NEeSdvMOHIJggqw" value="1"/>
         </ownedEnd>
@@ -1257,33 +1257,33 @@ censes only apply to the Third Party Software and not any other portion of this 
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_s2TqgLOREeCzMYz5ww7glA" name="Arrays">
       <packagedElement xmi:type="uml:Class" xmi:id="Expressions-ArraySize" name="ArraySize">
-        <ownedComment xmi:type="uml:Comment" xmi:id="Expressions-ArraySize-_ownedComment.0">
+        <ownedComment xmi:id="Expressions-ArraySize-_ownedComment.0">
           <body>A specification of a one-dimensional array's size.</body>
         </ownedComment>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_NBXcwLOSEeCzMYz5ww7glA" name="sizeProperty" visibility="public" type="_JIGFILOSEeCzMYz5ww7glA" association="_NBhNwLOSEeCzMYz5ww7glA">
+        <ownedAttribute xmi:id="_NBXcwLOSEeCzMYz5ww7glA" name="sizeProperty" visibility="public" type="_JIGFILOSEeCzMYz5ww7glA" association="_NBhNwLOSEeCzMYz5ww7glA">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_NBXcwrOSEeCzMYz5ww7glA"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_NBXcwbOSEeCzMYz5ww7glA" value="1"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_JIGFILOSEeCzMYz5ww7glA" name="ArraySizeProperty" isAbstract="true"/>
       <packagedElement xmi:type="uml:Association" xmi:id="_NBhNwLOSEeCzMYz5ww7glA" name="A_arraySize_sizeProperty" memberEnd="_NBhNwbOSEeCzMYz5ww7glA _NBXcwLOSEeCzMYz5ww7glA">
-        <ownedEnd xmi:type="uml:Property" xmi:id="_NBhNwbOSEeCzMYz5ww7glA" name="arraySize" visibility="public" type="Expressions-ArraySize" association="_NBhNwLOSEeCzMYz5ww7glA">
+        <ownedEnd xmi:id="_NBhNwbOSEeCzMYz5ww7glA" name="arraySize" visibility="public" type="Expressions-ArraySize" association="_NBhNwLOSEeCzMYz5ww7glA">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_NBhNw7OSEeCzMYz5ww7glA"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_NBhNwrOSEeCzMYz5ww7glA" value="*"/>
         </ownedEnd>
       </packagedElement>
     </packagedElement>
-    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_profileApplication.0">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_profileApplication.0-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <profileApplication xmi:id="_profileApplication.0">
+      <eAnnotations xmi:id="_profileApplication.0-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA"/>
       </eAnnotations>
-      <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Ecore.profile.uml#_0"/>
+      <appliedProfile href="pathmap://UML_PROFILES/Ecore.profile.uml#_0"/>
     </profileApplication>
-    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_profileApplication.1">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_profileApplication.1-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <profileApplication xmi:id="_profileApplication.1">
+      <eAnnotations xmi:id="_profileApplication.1-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
       </eAnnotations>
-      <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+      <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
     </profileApplication>
   </uml:Model>
   <standard:ModelLibrary xmi:id="_zPg58BIBEd291oyAhFiF1g" base_Package="_0"/>
