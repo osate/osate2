@@ -80,6 +80,11 @@ censes only apply to the Third Party Software and not any other portion of this 
       </command>
       <command
             categoryId="org.osate.analysis.resource.budgets.category"
+            id="org.osate.analysis.resource.budgets.newBusLoadAnalysis"
+            name="Analyze Bus Load (New)">
+      </command>
+      <command
+            categoryId="org.osate.analysis.resource.budgets.category"
             id="org.osate.analysis.resource.budgets.busLoadAnalysis"
             name="Analyze Bus Load">
       </command>
@@ -222,6 +227,40 @@ censes only apply to the Third Party Software and not any other portion of this 
             </or>
          </enabledWhen>
       </handler>
+      <handler
+            class="org.osate.analysis.resource.budgets.handlers.NewBusLoadAnalysisHandler"
+            commandId="org.osate.analysis.resource.budgets.newBusLoadAnalysis">
+         <enabledWhen>
+            <or>
+               <reference
+                     definitionId="org.osate.core.isInstanceFileSelected">
+               </reference>
+               <with
+                     variable="selection">
+                  <and>
+                     <count
+                           value="1">
+                     </count>
+                     <iterate>
+                        <or>
+                           <instanceof
+                                 value="org.osate.aadl2.instance.SystemInstance">
+                           </instanceof>
+                           <adapt
+                                 type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                              <test
+                                    property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                    value="SystemInstance"
+                                    forcePluginActivation="true">
+                              </test>
+                           </adapt>
+                        </or>
+                     </iterate>
+                  </and>
+               </with>
+            </or>
+         </enabledWhen>
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.commandImages">
@@ -241,6 +280,10 @@ censes only apply to the Third Party Software and not any other portion of this 
             commandId="org.osate.analysis.resource.budgets.busLoadAnalysis"
             icon="icons/switchB.gif">
       </image>
+      <image
+            commandId="org.osate.analysis.resource.budgets.newBusLoadAnalysis"
+            icon="icons/switchB.gif">
+      </image>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -248,6 +291,9 @@ censes only apply to the Third Party Software and not any other portion of this 
             locationURI="menu:org.osate.ui.budgetMenu?after=core">
          <command
                commandId="org.osate.analysis.resource.budgets.busLoadAnalysis">
+         </command>
+         <command
+               commandId="org.osate.analysis.resource.budgets.newBusLoadAnalysis">
          </command>
          <command
                commandId="org.osate.analysis.resource.budgets.powerAnalysis">
@@ -263,6 +309,23 @@ censes only apply to the Third Party Software and not any other portion of this 
             locationURI="toolbar:org.osate.ui.budgetToolbar?after=core">
          <command
                commandId="org.osate.analysis.resource.budgets.busLoadAnalysis"
+               tooltip="Analyze bus load for bound connections">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.analysis.resource.budgets.newBusLoadAnalysis"
                tooltip="Analyze bus load for bound connections">
             <!--
                Remove visibleWhen on the command when this bug is fixed:
@@ -334,6 +397,12 @@ censes only apply to the Third Party Software and not any other portion of this 
             locationURI="popup:org.osate.ui.budgetNavigatorPopup?after=core">
          <command
                commandId="org.osate.analysis.resource.budgets.busLoadAnalysis">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.analysis.resource.budgets.newBusLoadAnalysis">
             <visibleWhen
                   checkEnabled="true">
             </visibleWhen>
