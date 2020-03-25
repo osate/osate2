@@ -37,5 +37,5 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface AbstractSubcomponentType extends SubcomponentType {
+public interface AbstractSubcomponentType extends SubcomponentType, AbstractFeatureClassifier {
 } // AbstractSubcomponentType

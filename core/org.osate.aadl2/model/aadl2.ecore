@@ -1448,9 +1448,14 @@
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DataSubcomponentType" abstract="true"
-      eSuperTypes="#//SubcomponentType #//FeatureClassifier">
+      eSuperTypes="#//SubcomponentType #//AbstractFeatureClassifier">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Data.&lt;/p>"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractFeatureClassifier" eSuperTypes="#//FeatureClassifier">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="&lt;p>From package AADLDetails::Features.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DataPort" eSuperTypes="#//Port #//Context #//ParameterConnectionEnd">
@@ -1527,7 +1532,7 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramSubcomponentType" abstract="true"
-      eSuperTypes="#//SubcomponentType #//FeatureClassifier">
+      eSuperTypes="#//SubcomponentType #//AbstractFeatureClassifier">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Subprogram.&lt;/p>"/>
     </eAnnotations>
@@ -1545,14 +1550,14 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroupSubcomponentType" abstract="true"
-      eSuperTypes="#//SubcomponentType #//FeatureClassifier">
+      eSuperTypes="#//SubcomponentType #//AbstractFeatureClassifier">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::SubprogramGroup.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractFeature" eSuperTypes="#//DirectedFeature #//TriggerPort">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="&lt;p>From package AADLConstructs::Features.&lt;/p>"/>
+      <details key="documentation" value="&lt;p>From package AADLConstructs::Features.&lt;/p>&#xA;&lt;p>From package AADLDetails::Features.&lt;/p>"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="featurePrototype" ordered="false"
         eType="#//FeaturePrototype">
@@ -1561,10 +1566,10 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="abstractFeatureClassifier"
-        ordered="false" eType="#//FeatureClassifier">
+        ordered="false" eType="#//AbstractFeatureClassifier">
       <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="&lt;p>From package AADLConstructs::Features.&lt;/p>"/>
+        <details key="documentation" value="&lt;p>From package AADLDetails::Features.&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
@@ -1877,7 +1882,7 @@
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractSubcomponentType" abstract="true"
-      eSuperTypes="#//SubcomponentType">
+      eSuperTypes="#//SubcomponentType #//AbstractFeatureClassifier">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Abstract.&lt;/p>"/>
     </eAnnotations>
@@ -2596,7 +2601,7 @@
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VirtualBusSubcomponentType" abstract="true"
-      eSuperTypes="#//SubcomponentType #//BusFeatureClassifier">
+      eSuperTypes="#//SubcomponentType #//AbstractFeatureClassifier #//BusFeatureClassifier">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::VirtualBus.&lt;/p>"/>
     </eAnnotations>
@@ -2638,7 +2643,7 @@
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BusSubcomponentType" abstract="true"
-      eSuperTypes="#//SubcomponentType #//BusFeatureClassifier">
+      eSuperTypes="#//SubcomponentType #//AbstractFeatureClassifier #//BusFeatureClassifier">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Bus.&lt;/p>"/>
     </eAnnotations>
