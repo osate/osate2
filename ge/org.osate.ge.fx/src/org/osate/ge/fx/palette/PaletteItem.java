@@ -8,13 +8,8 @@ class PaletteItem<I> extends Region {
 
 	public PaletteItem(final PaletteModel<?, I> model, I item) {
 
-		// TODO; Shouldn't be needed. We don't want to create empty items.
-		// if (mc.getItemGroup(itemIndex) != null && mc.getItemGroup(itemIndex) == groupIndex) {
-
 		Button itemButton = new Button(model.getItemLabel(item));
 		itemButton.setGraphic(new ImageView(model.getItemIcon(item)));
-
-		// }
-
+		this.getChildren().add(itemButton);
 	}
 }

@@ -40,11 +40,11 @@ public class Palette<G, I> extends Region {
 	// TODO: Note: These should be private and final. Our general rule is that all fields should be private and everything
 	// that can be final should be made final. It can be tedious but we generally try to keep to it. It ensures values
 	// that are not intended to be modified are not modified by mistake.
-	VBox paletteVbox = new VBox();
-	ArrayList<PaletteGroup<G, I>> paletteList = new ArrayList<PaletteGroup<G, I>>();
+	private final VBox paletteVbox = new VBox();
+	private final ArrayList<PaletteGroup<G, I>> paletteList = new ArrayList<PaletteGroup<G, I>>();
 
 	public Palette(final PaletteModel<G, I> model) {
-		Objects.requireNonNull(model, "mc must not be null");
+		Objects.requireNonNull(model, "model must not be null");
 
 		// TODO: Create contents based on the model controller
 
@@ -59,18 +59,9 @@ public class Palette<G, I> extends Region {
 
 			PaletteGroup<G, I> paletteGroup = new PaletteGroup<>(model, group);
 			paletteList.add(paletteGroup);
-
-			// paletteVbox.getChildren().add(paletteList.get(i));
 			paletteVbox.getChildren().add(paletteGroup);
-		}
 
-		/*
-		 * This should add all paletteGroups into a list which is then put into a VBox containing
-		 * all the paletteGroup instances. That VBox is then added to the palette.
-		 * In theory, taking these steps should create a visible output when the code is run,
-		 * however all that happens is a blank screen.
-		 */
-		// TODO Discover why the above statement is true.
+		}
 
 		this.getChildren().add(paletteVbox);
 	}
