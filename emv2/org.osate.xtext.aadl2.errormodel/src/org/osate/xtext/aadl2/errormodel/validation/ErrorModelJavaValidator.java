@@ -446,6 +446,9 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	}
 
 	private void checkConditionElementDirection(ConditionElement conditionElement) {
+		if (conditionElement.getQualifiedErrorPropagationReference() == null) {
+			return;
+		}
 		ErrorPropagation ep = EMV2Util.getErrorPropagation(conditionElement.getQualifiedErrorPropagationReference());
 		Subcomponent sub = EMV2Util.getLastSubcomponent(conditionElement.getQualifiedErrorPropagationReference());
 		if (ep == null) {
