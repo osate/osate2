@@ -766,12 +766,12 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	}
 
 	def scope_ErrorDetection_detectionReportingPort(Classifier context, EReference reference) {
-		val features = context.getAllFeatures.filter(TriggerPort)
-		val internalFeatures = if (context instanceof ComponentImplementation) {
-				context.allInternalFeatures
-			} else {
-				emptySet
-			}
+		context.allFeatures.filter(TriggerPort).scopeFor
+	}
+	
+	def scope_ErrorDetection_detectionReportingPort(ComponentImplementation context, EReference reference) {
+		val features = context.allFeatures.filter(TriggerPort)
+		val internalFeatures = context.allInternalFeatures;
 		(features + internalFeatures).scopeFor
 	}
 
