@@ -342,7 +342,9 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		} else if (ep.getKind() != null) {
 			cio.setBindingKind(ep.getKind());
 		}
-		cio.getConstraint().addAll(ts.getTypeTokens());
+		if (ts != null){
+			cio.getConstraint().addAll(ts.getTypeTokens());
+		}
 		return cio;
 	}
 
@@ -579,7 +581,9 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					cio.setName(evi.getName());
 					TypeSet ts = conditionElement.getConstraint() != null ? conditionElement.getConstraint()
 							: ((ErrorEvent) errorModelElement).getTypeSet();
-					cio.getConstraint().addAll(ts.getTypeTokens());
+					if (ts != null) {
+						cio.getConstraint().addAll(ts.getTypeTokens());
+					}
 					return cio;
 				}
 
