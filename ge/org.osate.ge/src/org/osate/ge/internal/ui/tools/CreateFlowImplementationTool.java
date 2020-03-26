@@ -419,16 +419,17 @@ public class CreateFlowImplementationTool {
 						add = true;
 					} else {
 						if (selectingFlowEnd() && bo instanceof Feature/*
-																		 * && calculateDistanceToOwner(boc).orElse(Integer.MAX_VALUE) <= 2
-																		 */) {
+						 * && calculateDistanceToOwner(boc).orElse(Integer.MAX_VALUE) <= 2
+						 */) {
 							add = true;
 						} else if (selectingConnectionFlow() && bo instanceof Connection/*
-																						 * && calculateDistanceToOwner(boc).orElse(Integer.MAX_VALUE) == 1
-																						 */) {
+						 * && calculateDistanceToOwner(boc).orElse(Integer.MAX_VALUE) == 1
+						 */) {
 							add = true;
 						} else if (selectingSubcomponentFlow() && bo instanceof FlowElement/*
-																							 * && calculateDistanceToOwner(boc).orElse(Integer.MAX_VALUE) <= 2
-																							 */) {
+						 * && calculateDistanceToOwner(boc).orElse(Integer.MAX_VALUE) <= 2
+						 */) {
+
 							add = true;
 						}
 					}
