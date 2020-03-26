@@ -30,6 +30,10 @@ import java.util.Objects;
 
 import javax.inject.Named;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -50,6 +54,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.xtext.resource.XtextResource;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentImplementation;
@@ -77,6 +82,7 @@ import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.ui.util.ContextHelpUtil;
 import org.osate.ge.internal.ui.util.DialogPlacementHelper;
+import org.osate.ge.internal.util.ProjectUtil;
 
 public class CreateEndToEndFlowSpecificationTool {
 	private ColoringService.Coloring coloring = null;
@@ -103,6 +109,7 @@ public class CreateEndToEndFlowSpecificationTool {
 					return;
 				}
 
+				// TODO change getFlows to optional?
 				if (dlg != null && !dlg.getFlows().isEmpty()) {
 					aadlModService.modify(ci, ci -> {
 						for (EndToEndFlow eteFlow : dlg.getFlows()) {
@@ -168,6 +175,41 @@ public class CreateEndToEndFlowSpecificationTool {
 						}
 					}
 					previouslySelectedBocs.add(selectedBoc);
+
+					final IProject project = ProjectUtil.getProjectForBoOrThrow(ci);
+					final ResourceSet testResourceSet = ProjectUtil.getLiveResourceSet(project);
+					final XtextResource testResource = ToolUtil.getXtextResource(testResourceSet,
+							ci.eResource().getURI());
+
+					final ComponentImplementation objectToModify = (ComponentImplementation) testResourceSet
+							.getEObject(EcoreUtil.getURI(ci), true);
+					objectToModify.setNoFlows(false);
+					objectToModify.getOwnedEndToEndFlows().add(dlg.eTEFlow);
+
+					// TODO Look at better way (not catching exception)
+					try {
+						final String serializedSrc = ((XtextResource) ci.eResource()).getSerializer()
+								.serialize(ci.eResource().getContents().get(0));
+						ToolUtil.loadResource(testResource, serializedSrc);
+					} catch (final RuntimeException e) {
+						error = "Not valid serialize.";
+					}
+
+					// TODO WHy true?
+					// TODO validate object or entire model?
+					// testResource.getConcreteSyntaxValidator().validateObject(objectToModify, acceptor, context)
+					if (ToolUtil.getConcreteErrorSize(testResource) > 0) {
+						// TODO do not allow ok btn
+						error = "Not valid concrete.";
+					}
+
+					Diagnostic diagnostic = Diagnostician.INSTANCE.validate(objectToModify,
+							Collections.singletonMap(Diagnostician.VALIDATE_RECURSIVELY, true));
+
+					if (diagnostic.getSeverity() != Diagnostic.OK) {
+						error = "Not valid diagnostic";
+					}
+
 				} else if (!isInit) {
 					error = "Invalid element selected.  ";
 				}
@@ -296,6 +338,9 @@ public class CreateEndToEndFlowSpecificationTool {
 			}
 			return false;
 		}
+
+
+
 
 		/**
 		 * @param ctx - context of element
