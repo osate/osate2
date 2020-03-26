@@ -146,7 +146,6 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getFlowSpecification();
 	}
@@ -442,7 +441,6 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_SPECIFICATION__OUT_END:
@@ -458,7 +456,6 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_SPECIFICATION__IN_MODE:
@@ -486,7 +483,6 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_SPECIFICATION__IN_MODE:
@@ -518,7 +514,6 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_SPECIFICATION__IN_MODE:
@@ -548,7 +543,6 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_SPECIFICATION__IN_MODE:
@@ -574,7 +568,6 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == ModalElement.class) {
 			switch (derivedFeatureID) {
@@ -612,7 +605,6 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == ModalElement.class) {
 			switch (baseFeatureID) {
@@ -650,7 +642,6 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();
@@ -668,7 +659,6 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
 		return refinedElement != null && ((EObject) refinedElement).eIsProxy()
@@ -681,7 +671,6 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public RefinableElement basicGetRefinedElement() {
 		if (eIsSet(Aadl2Package.FLOW_SPECIFICATION__REFINED)) {
 			return basicGetRefined();
@@ -694,7 +683,6 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetRefinedElement() {
 		return super.isSetRefinedElement() || eIsSet(Aadl2Package.FLOW_SPECIFICATION__REFINED);
 	}
@@ -751,8 +739,6 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	// fs = fs.getRefined();
 	// return fs.getOutContext();
 	// }
-
-	@Override
 	public final void getPropertyValueInternal(final Property prop, final PropertyAcc paa,
 			final boolean fromInstanceSlaveCall, final boolean all) throws InvalidModelException {
 		final Classifier owner = getContainingClassifier();

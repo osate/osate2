@@ -49,7 +49,6 @@ public abstract class ThreadClassifierImpl extends ComponentClassifierImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getThreadClassifier();
 	}

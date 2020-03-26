@@ -52,7 +52,6 @@ public abstract class ArraySizePropertyImpl extends AObjectImpl implements Array
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getArraySizeProperty();
 	}

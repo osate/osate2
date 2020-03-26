@@ -64,7 +64,6 @@ public class GlobalNamespaceImpl extends NamespaceImpl implements GlobalNamespac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getGlobalNamespace();
 	}
@@ -74,7 +73,6 @@ public class GlobalNamespaceImpl extends NamespaceImpl implements GlobalNamespac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<NamedElement> getMembers() {
 		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
 				Aadl2Package.GLOBAL_NAMESPACE__MEMBER, MEMBER_ESUBSETS);
@@ -118,7 +116,6 @@ public class GlobalNamespaceImpl extends NamespaceImpl implements GlobalNamespac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.GLOBAL_NAMESPACE__PACKAGE:
@@ -135,7 +132,6 @@ public class GlobalNamespaceImpl extends NamespaceImpl implements GlobalNamespac
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.GLOBAL_NAMESPACE__PACKAGE:
@@ -155,7 +151,6 @@ public class GlobalNamespaceImpl extends NamespaceImpl implements GlobalNamespac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.GLOBAL_NAMESPACE__PACKAGE:
@@ -173,7 +168,6 @@ public class GlobalNamespaceImpl extends NamespaceImpl implements GlobalNamespac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.GLOBAL_NAMESPACE__MEMBER:
@@ -191,7 +185,6 @@ public class GlobalNamespaceImpl extends NamespaceImpl implements GlobalNamespac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetMembers() {
 		return super.isSetMembers() || eIsSet(Aadl2Package.GLOBAL_NAMESPACE__PACKAGE)
 				|| eIsSet(Aadl2Package.GLOBAL_NAMESPACE__PROPERTY_SET);

@@ -50,7 +50,6 @@ public class ProcessorPrototypeImpl extends ComponentPrototypeImpl implements Pr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getProcessorPrototype();
 	}

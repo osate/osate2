@@ -112,7 +112,6 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return InstancePackage.Literals.MODE_TRANSITION_INSTANCE;
 	}
@@ -288,7 +287,6 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.MODE_TRANSITION_INSTANCE__DESTINATION:
@@ -312,7 +310,6 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.MODE_TRANSITION_INSTANCE__DESTINATION:
@@ -328,7 +325,6 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case InstancePackage.MODE_TRANSITION_INSTANCE__DESTINATION:
@@ -352,7 +348,6 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case InstancePackage.MODE_TRANSITION_INSTANCE__DESTINATION:
@@ -377,7 +372,6 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case InstancePackage.MODE_TRANSITION_INSTANCE__DESTINATION:
@@ -401,7 +395,6 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case InstancePackage.MODE_TRANSITION_INSTANCE__DESTINATION:
@@ -415,8 +408,6 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 		}
 		return super.eIsSet(featureID);
 	}
-
-	@Override
 	public List<? extends NamedElement> getInstantiatedObjects() {
 		return Collections.singletonList(getModeTransition());
 	}

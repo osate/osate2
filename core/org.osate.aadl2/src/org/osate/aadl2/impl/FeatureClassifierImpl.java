@@ -52,7 +52,6 @@ public abstract class FeatureClassifierImpl extends AObjectImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getFeatureClassifier();
 	}

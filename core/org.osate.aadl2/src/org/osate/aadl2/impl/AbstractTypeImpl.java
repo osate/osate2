@@ -143,7 +143,6 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getAbstractType();
 	}
@@ -153,7 +152,6 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Feature> getOwnedFeatures() {
 		return new DerivedUnionEObjectEList<Feature>(Feature.class, this, Aadl2Package.ABSTRACT_TYPE__OWNED_FEATURE,
 				OWNED_FEATURE_ESUBSETS);
@@ -349,7 +347,6 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.ABSTRACT_TYPE__OWNED_BUS_ACCESS:
@@ -375,7 +372,6 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.ABSTRACT_TYPE__OWNED_BUS_ACCESS:
@@ -402,7 +398,6 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.ABSTRACT_TYPE__OWNED_BUS_ACCESS:
@@ -442,7 +437,6 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ABSTRACT_TYPE__OWNED_BUS_ACCESS:
@@ -475,7 +469,6 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ABSTRACT_TYPE__OWNED_FEATURE:
@@ -503,7 +496,6 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetOwnedFeatures() {
 		return super.isSetOwnedFeatures() || eIsSet(Aadl2Package.ABSTRACT_TYPE__OWNED_BUS_ACCESS)
 				|| eIsSet(Aadl2Package.ABSTRACT_TYPE__OWNED_DATA_ACCESS)

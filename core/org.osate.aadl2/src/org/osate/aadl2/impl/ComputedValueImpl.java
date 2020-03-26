@@ -78,7 +78,6 @@ public class ComputedValueImpl extends PropertyValueImpl implements ComputedValu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getComputedValue();
 	}
@@ -111,7 +110,6 @@ public class ComputedValueImpl extends PropertyValueImpl implements ComputedValu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.COMPUTED_VALUE__FUNCTION:
@@ -125,7 +123,6 @@ public class ComputedValueImpl extends PropertyValueImpl implements ComputedValu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.COMPUTED_VALUE__FUNCTION:
@@ -140,7 +137,6 @@ public class ComputedValueImpl extends PropertyValueImpl implements ComputedValu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPUTED_VALUE__FUNCTION:
@@ -155,7 +151,6 @@ public class ComputedValueImpl extends PropertyValueImpl implements ComputedValu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPUTED_VALUE__FUNCTION:
@@ -169,7 +164,6 @@ public class ComputedValueImpl extends PropertyValueImpl implements ComputedValu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();
@@ -187,7 +181,6 @@ public class ComputedValueImpl extends PropertyValueImpl implements ComputedValu
 	 *
 	 * @see org.osate.aadl2.PropertyValue#sameAs(org.osate.aadl2.PropertyValue)
 	 */
-	@Override
 	public boolean sameAs(PropertyExpression pe) {
 		return false;
 	}

@@ -124,7 +124,6 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return InstancePackage.Literals.FLOW_SPECIFICATION_INSTANCE;
 	}
@@ -314,7 +313,6 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__SOURCE:
@@ -338,7 +336,6 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__SOURCE:
@@ -354,7 +351,6 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__SOURCE:
@@ -380,7 +376,6 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__SOURCE:
@@ -409,7 +404,6 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__SOURCE:
@@ -436,7 +430,6 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__SOURCE:
@@ -452,8 +445,6 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 		}
 		return super.eIsSet(featureID);
 	}
-
-	@Override
 	public List<FlowSpecification> getInstantiatedObjects() {
 		return Collections.singletonList(getFlowSpecification());
 	}
@@ -469,8 +460,6 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 		}
 		return false;
 	}
-
-	@Override
 	public boolean matchesIndex(List<ArrayRange> ranges) {
 		/**
 		 * FIX JD

@@ -58,7 +58,6 @@ public class FeaturePrototypeItemProvider extends PrototypeItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -141,7 +140,6 @@ public class FeaturePrototypeItemProvider extends PrototypeItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object getImage(Object object) {
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/FeaturePrototype"));
 	}
@@ -152,7 +150,6 @@ public class FeaturePrototypeItemProvider extends PrototypeItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String getText(Object object) {
 		String label = ((FeaturePrototype) object).getName();
 		return label == null || label.length() == 0 ? getString("_UI_FeaturePrototype_type")
@@ -166,7 +163,6 @@ public class FeaturePrototypeItemProvider extends PrototypeItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
@@ -187,7 +183,6 @@ public class FeaturePrototypeItemProvider extends PrototypeItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}

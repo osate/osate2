@@ -72,7 +72,6 @@ public class ImplementationExtensionImpl extends GeneralizationImpl implements I
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getImplementationExtension();
 	}
@@ -82,7 +81,6 @@ public class ImplementationExtensionImpl extends GeneralizationImpl implements I
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Classifier getGeneral() {
 		Classifier general = basicGetGeneral();
 		return general != null && ((EObject) general).eIsProxy() ? (Classifier) eResolveProxy((InternalEObject) general)
@@ -94,7 +92,6 @@ public class ImplementationExtensionImpl extends GeneralizationImpl implements I
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Classifier basicGetGeneral() {
 		if (eIsSet(Aadl2Package.IMPLEMENTATION_EXTENSION__EXTENDED)) {
 			return basicGetExtended();
@@ -149,7 +146,6 @@ public class ImplementationExtensionImpl extends GeneralizationImpl implements I
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.IMPLEMENTATION_EXTENSION__EXTENDED:
@@ -166,7 +162,6 @@ public class ImplementationExtensionImpl extends GeneralizationImpl implements I
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.IMPLEMENTATION_EXTENSION__EXTENDED:
@@ -181,7 +176,6 @@ public class ImplementationExtensionImpl extends GeneralizationImpl implements I
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.IMPLEMENTATION_EXTENSION__EXTENDED:
@@ -196,7 +190,6 @@ public class ImplementationExtensionImpl extends GeneralizationImpl implements I
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.IMPLEMENTATION_EXTENSION__GENERAL:
@@ -212,7 +205,6 @@ public class ImplementationExtensionImpl extends GeneralizationImpl implements I
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetGeneral() {
 		return super.isSetGeneral() || eIsSet(Aadl2Package.IMPLEMENTATION_EXTENSION__EXTENDED);
 	}
