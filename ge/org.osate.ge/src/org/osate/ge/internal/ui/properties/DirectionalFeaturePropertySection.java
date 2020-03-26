@@ -39,9 +39,9 @@ import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.selection.AgeBusinessObjectSelection;
-import org.osate.ge.internal.ui.models.BusinessObjectSelectionFeatureDirectionModel;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
-import org.osate.ge.swt.list.RadioSelector;
+import org.osate.ge.internal.viewModels.BusinessObjectSelectionFeatureDirectionModel;
+import org.osate.ge.swt.selectors.RadioSelector;
 import org.osate.ge.ui.properties.PropertySectionUtil;
 
 public class DirectionalFeaturePropertySection extends AbstractPropertySection {

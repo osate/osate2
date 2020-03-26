@@ -1,7 +1,8 @@
-package org.osate.ge.swt.list;
+package org.osate.ge.swt.selectors;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.osate.ge.swt.BaseObservableModel;
 
@@ -9,7 +10,7 @@ import org.osate.ge.swt.BaseObservableModel;
  * Test view model for various list views contained in this package.
  *
  */
-class TestListEditorModel extends BaseObservableModel
+final class TestListEditorModel extends BaseObservableModel
 		implements ListEditorModel<String> {
 	private final List<String> elements = new ArrayList<>();
 	private String selectedElement = null;
@@ -17,6 +18,7 @@ class TestListEditorModel extends BaseObservableModel
 
 	public TestListEditorModel() {
 		// Add initial elements
+		elements.add(null);
 		addElement();
 		addElement();
 		addElement();
@@ -26,8 +28,8 @@ class TestListEditorModel extends BaseObservableModel
 	}
 
 	@Override
-	public String[] getElements() {
-		return elements.toArray(new String[elements.size()]);
+	public Stream<String> getElements() {
+		return elements.stream();
 	}
 
 	@Override
@@ -53,6 +55,11 @@ class TestListEditorModel extends BaseObservableModel
 	public void removeElement(String element) {
 		elements.remove(element);
 		triggerChangeEvent();
+	}
+
+	@Override
+	public String getLabel(final String element) {
+		return element == null ? "<None>" : element;
 	}
 
 

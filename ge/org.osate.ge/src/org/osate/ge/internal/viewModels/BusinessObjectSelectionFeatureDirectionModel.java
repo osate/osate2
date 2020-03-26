@@ -1,4 +1,4 @@
-package org.osate.ge.internal.ui.models;
+package org.osate.ge.internal.viewModels;
 
 import java.util.List;
 import java.util.Objects;
@@ -11,14 +11,14 @@ import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.swt.BaseObservableModel;
-import org.osate.ge.swt.list.ListSelectorModel;
+import org.osate.ge.swt.selectors.SelectorModel;
 
 /**
  * Model implementation which is driven by a business object selection
  *
  */
 public class BusinessObjectSelectionFeatureDirectionModel extends BaseObservableModel
-implements ListSelectorModel<DirectionType> {
+implements SelectorModel<DirectionType> {
 	private BusinessObjectSelection bos;
 	private DirectionType direction = null;
 	private boolean enabled = false;
@@ -33,8 +33,8 @@ implements ListSelectorModel<DirectionType> {
 	}
 
 	@Override
-	public DirectionType[] getElements() {
-		return DirectionType.values();
+	public Stream<DirectionType> getElements() {
+		return Stream.of(DirectionType.values());
 	}
 
 	@Override

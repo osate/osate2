@@ -5,6 +5,4 @@ package org.osate.ge.swt;
  *
  */
 public final class ChangeEvent {
-	public ChangeEvent() {
-	}
 }

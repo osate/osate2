@@ -6,7 +6,7 @@ import org.osate.ge.swt.BaseObservableModel;
  * Test view model for {@link NameEditor}. Requires names to be exactly 4 characters.
  *
  */
-class TestNameEditorModel extends BaseObservableModel implements NameEditorModel {
+final class TestNameEditorModel extends BaseObservableModel implements NameEditorModel {
 	private String name = "test";
 
 	@Override

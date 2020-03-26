@@ -7,7 +7,8 @@
  * The following suffixes are used for naming views.
  * - Selector : The view is designed to allow selecting and item(s).
  * - Editor : The view is designed for editing item(s)
- * - Dialog : The view is a dialog. May be combined with other suffix.
+ * - Dialog : The view is a dialog. May be combined with other suffixes.
+ * - Field : The view is a relatively compact field that likely integrates other views and/or dialogs. Should be combined with other suffixes.
  *
  * Unless specifically noted, classes contained in this package or sub-packages are not thread-safe and must be accessed from the
  * UI thread.

@@ -1,4 +1,4 @@
-package org.osate.ge.swt.list;
+package org.osate.ge.swt.selectors;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -18,7 +18,7 @@ import org.osate.ge.swt.util.SwtTestUtil;
  *
  * Sorts items provided by model.
  */
-public class ListEditor<T> extends Composite {
+public final class ListEditor<T> extends Composite {
 	private final ListEditorModel<T> model;
 	private final ListSelector<T> listViewer;
 	private final Button addButton;
@@ -40,8 +40,8 @@ public class ListEditor<T> extends Composite {
 		//
 		this.addButton = new Button(this, SWT.FLAT);
 		this.addButton.setText("Add");
-		this.addButton.setLayoutData(
-				GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.BEGINNING).create());
+		this.addButton
+				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.BEGINNING).create());
 		this.addButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
@@ -51,8 +51,8 @@ public class ListEditor<T> extends Composite {
 
 		this.removeButton = new Button(this, SWT.FLAT);
 		this.removeButton.setText("Remove");
-		this.removeButton.setLayoutData(
-				GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.BEGINNING).create());
+		this.removeButton
+				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.BEGINNING).create());
 		this.removeButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
@@ -68,7 +68,9 @@ public class ListEditor<T> extends Composite {
 	}
 
 	private void refresh() {
-		this.removeButton.setEnabled(model.getSelectedElement() != null);
+		if (!this.isDisposed()) {
+			this.removeButton.setEnabled(model.getSelectedElement() != null);
+		}
 	}
 
 	public static void main(String[] args) {

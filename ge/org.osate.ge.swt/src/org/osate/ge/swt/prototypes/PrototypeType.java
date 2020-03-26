@@ -36,4 +36,8 @@ public enum PrototypeType {
 	public String toString() {
 		return label;
 	}
+
+	public boolean isComponent() {
+		return this != FEATURE && this != FEATURE_GROUP;
+	}
 }

@@ -1,4 +1,6 @@
-package org.osate.ge.internal.ui.models;
+package org.osate.ge.internal.viewModels;
+
+import java.util.stream.Stream;
 
 import org.osate.aadl2.Prototype;
 import org.osate.ge.swt.BaseObservableModel;
@@ -8,12 +10,13 @@ import org.osate.ge.swt.prototypes.PrototypesEditorModel;
 
 // TODO: Implement
 // TODO; WIll need to update with the BOS like the feature direction model
+// TODO: Decide what type of object to use to referece classifier
 public class BusinessObjectSelectionPrototypesModel extends BaseObservableModel
-implements PrototypesEditorModel<Prototype> {
+implements PrototypesEditorModel<Prototype, Object> {
 
 	@Override
-	public Prototype[] getPrototypes() {
-		return new Prototype[0];
+	public Stream<Prototype> getPrototypes() {
+		return Stream.empty();
 	}
 
 	@Override
@@ -67,11 +70,43 @@ implements PrototypesEditorModel<Prototype> {
 	@Override
 	public PrototypeType getPrototypeType(Prototype prototype) {
 		// TODO
-		return null;
+		return PrototypeType.ABSTRACT;
 	}
 
 	@Override
 	public void setPrototypeType(Prototype prototype, PrototypeType value) {
+		// TODO
+	}
+
+	@Override
+	public Stream<Object> getConstrainingClassifierOptions(Prototype prototype) {
+		return Stream.empty();
+	}
+
+	@Override
+	public String getClassifierLabel(Object classifier) {
+		return "TODO";
+	}
+
+	@Override
+	public Object getConstrainingClassifier(Prototype prototype) {
+		// TODO
+		return null;
+	}
+
+	@Override
+	public void setConstrainingClassifier(Prototype prototype, Object value) {
+		// TODO
+	}
+
+	@Override
+	public Boolean isArray(Prototype prototype) {
+		// TODO
+		return null;
+	}
+
+	@Override
+	public void setArray(Prototype prototype, boolean value) {
 		// TODO
 	}
 }

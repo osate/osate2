@@ -1,4 +1,4 @@
-package org.osate.ge.swt.name;
+package org.osate.ge.swt.selectors;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -15,33 +15,35 @@ import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.util.SwtTestUtil;
 
 /**
- * View for displaying a name and allowing it to be edited using the {@link NameEditorDialog}
+ * A selector which combines a text field for displaying the label of the current selection and {@link FilteringSelectorDialog}.
  *
+ * @param <T> is the type of the element being selected.
  */
-public final class NameEditor extends Composite {
-	private final NameEditorModel model;
-	private final CLabel nameLbl;
-	private final Button renameBtn;
+public final class FilteringListSelectorField<T> extends Composite {
+	private final FilteringSelectorModel<T> model;
+	private final CLabel selectedLbl;
+	private final Button chooseBtn;
 	private final Consumer<ChangeEvent> changeListener = e -> refresh();
 
-	public NameEditor(final Composite parent, final NameEditorModel model) {
+	public FilteringListSelectorField(final Composite parent, final FilteringSelectorModel<T> model) {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
 		this.setBackground(parent.getBackground());
 		this.setLayout(GridLayoutFactory.fillDefaults().numColumns(2).create());
 
-		this.nameLbl = new CLabel(this, SWT.BORDER);
-		this.nameLbl
-				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER).create());
+		this.selectedLbl = new CLabel(this, SWT.BORDER);
+		this.selectedLbl
+				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER)
+						.create());
 
-		this.renameBtn = new Button(this, SWT.FLAT);
-		this.renameBtn
+		this.chooseBtn = new Button(this, SWT.FLAT);
+		this.chooseBtn
 				.setLayoutData(GridDataFactory.swtDefaults().grab(false, false).align(SWT.CENTER, SWT.CENTER).create());
-		this.renameBtn.setText("Rename");
-		this.renameBtn.addSelectionListener(new SelectionAdapter() {
+		this.chooseBtn.setText("Choose...");
+		this.chooseBtn.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void widgetSelected(SelectionEvent e) {
-				NameEditorDialog.open(getShell(), new NameEditorRenameDialogModel(model));
+			public void widgetSelected(final SelectionEvent e) {
+				FilteringSelectorDialog.open(getShell(), "Select", model);
 			}
 		});
 
@@ -52,7 +54,7 @@ public final class NameEditor extends Composite {
 
 	private void refresh() {
 		if (!this.isDisposed()) {
-			nameLbl.setText(model.getName());
+			selectedLbl.setText(model.getLabel(model.getSelectedElement()));
 			setEnabled(model.isEnabled());
 		}
 	}
@@ -60,12 +62,12 @@ public final class NameEditor extends Composite {
 	@Override
 	public void setEnabled(final boolean enabled) {
 		super.setEnabled(enabled);
-		renameBtn.setEnabled(enabled);
+		chooseBtn.setEnabled(enabled && model.getElements().anyMatch(e -> true));
 	}
 
 	public static void main(String[] args) {
 		SwtTestUtil.run(shell -> {
-			new NameEditor(shell, new TestNameEditorModel());
+			new FilteringListSelectorField<>(shell, new LabelFilteringListSelectorModel<>(new TestListEditorModel()));
 		});
 	}
 }

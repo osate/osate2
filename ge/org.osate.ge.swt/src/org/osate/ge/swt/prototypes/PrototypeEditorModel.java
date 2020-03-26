@@ -1,12 +1,15 @@
 package org.osate.ge.swt.prototypes;
 
+import java.util.stream.Stream;
+
 import org.osate.ge.swt.ObservableModel;
 
 /**
  * View Model used by {@link PrototypeEditor}
  *
+ * @param <C> the type used for the constraining classifier of the prototype.
  */
-public interface PrototypeEditorModel extends ObservableModel {
+interface PrototypeEditorModel<C> extends ObservableModel {
 	/**
 	 * Returns whether the view should be enabled.
 	 * @return true is the view should be enabled.
@@ -55,4 +58,41 @@ public interface PrototypeEditorModel extends ObservableModel {
 	 * @param value is the new value for type.
 	 */
 	void setType(final PrototypeType value);
+
+	/**
+	 * Returns a stream of classifiers based on the current prototype type.
+	 * @return a stream of potential classifiers based on the current prototype type
+	 */
+	Stream<C> getConstrainingClassifierOptions();
+
+	/**
+	 * Returns the label for the specified classifier.
+	 * @param classifier is the classifier for which to return the label.
+	 * @return is the label for the specified classifier
+	 */
+	String getClassifierLabel(C classifier);
+
+	/**
+	 * Get the current set constraining classifier.
+	 * @return the constraining classifier for the prototype.
+	 */
+	C getConstrainingClassifier();
+
+	/**
+	 * Updates the constraining classifier.
+	 * @param value the new constraining classifier.
+	 */
+	void setConstrainingClassifier(C value);
+
+	/**
+	 * Returns whether the prototype is an array.
+	 * @return whether the prototype is an array. Returns null if it is indeterminate.
+	 */
+	Boolean isArray();
+
+	/**
+	 * Updates whether the prototype is an array.
+	 * @param value whether the prototype is an array.
+	 */
+	void setArray(boolean value);
 }

@@ -1,10 +1,10 @@
-package org.osate.ge.swt.list;
+package org.osate.ge.swt.selectors;
 
 /**
  * View Model used by {@link ListEditor}
  *
  */
-public interface ListEditorModel<T> extends ListSelectorModel<T> {
+public interface ListEditorModel<T> extends SelectorModel<T> {
 	/**
 	 * Creates a new element and adds it to the list.
 	 */

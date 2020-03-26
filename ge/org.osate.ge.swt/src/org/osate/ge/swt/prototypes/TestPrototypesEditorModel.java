@@ -3,21 +3,30 @@ package org.osate.ge.swt.prototypes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 import org.osate.ge.swt.BaseObservableModel;
 
 /**
  * Test view model for {@link PrototypesEditor}. Requires prototype names to start with "P".
- *
+ * Does not provide any potential constraining classifiers for systems.
  */
-class TestPrototypesEditorModel extends BaseObservableModel implements PrototypesEditorModel<TestPrototype> {
+final class TestPrototypesEditorModel extends BaseObservableModel
+		implements PrototypesEditorModel<TestPrototype, TestClassifier> {
 	private final List<TestPrototype> prototypes = new ArrayList<>();
+	private final List<TestClassifier> classifiers = new ArrayList<>();
 	private TestPrototype selectedPrototype;
 
 	public TestPrototypesEditorModel() {
 		// Add initial prototypes to the list
 		for (int i = 0; i < 5; i++) {
 			addPrototype();
+		}
+
+		// Add initial classifiers to the list
+		classifiers.add(null);
+		for (int i = 0; i < 100; i++) {
+			classifiers.add(new TestClassifier("Classifier " + classifiers.size()));
 		}
 	}
 
@@ -30,8 +39,8 @@ class TestPrototypesEditorModel extends BaseObservableModel implements Prototype
 	}
 
 	@Override
-	public TestPrototype[] getPrototypes() {
-		return prototypes.toArray(new TestPrototype[prototypes.size()]);
+	public Stream<TestPrototype> getPrototypes() {
+		return prototypes.stream();
 	}
 
 	@Override
@@ -98,14 +107,56 @@ class TestPrototypesEditorModel extends BaseObservableModel implements Prototype
 		prototype.type = Objects.requireNonNull(value);
 		triggerChangeEvent();
 	}
+
+	@Override
+	public Stream<TestClassifier> getConstrainingClassifierOptions(final TestPrototype prototype) {
+		return getPrototypeType(prototype) == PrototypeType.SYSTEM ? Stream.empty() : classifiers.stream();
+	}
+
+	@Override
+	public String getClassifierLabel(final TestClassifier classifier) {
+		return classifier == null ? "<None>" : classifier.name;
+	}
+
+	@Override
+	public TestClassifier getConstrainingClassifier(final TestPrototype prototype) {
+		return prototype.classifier;
+	}
+
+	@Override
+	public void setConstrainingClassifier(final TestPrototype prototype, final TestClassifier value) {
+		prototype.classifier = value;
+		triggerChangeEvent();
+	}
+
+	@Override
+	public Boolean isArray(TestPrototype prototype) {
+		return prototype.array;
+	}
+
+	@Override
+	public void setArray(TestPrototype prototype, boolean value) {
+		prototype.array = value;
+		triggerChangeEvent();
+	}
 }
 
 class TestPrototype {
 	String name;
 	PrototypeDirection direction;
 	PrototypeType type;
+	TestClassifier classifier;
+	Boolean array;
 
 	public TestPrototype(final String name) {
+		this.name = name;
+	}
+}
+
+class TestClassifier {
+	String name;
+
+	public TestClassifier(final String name) {
 		this.name = name;
 	}
 }

@@ -1,6 +1,7 @@
 package org.osate.ge.swt.prototypes;
 
 import java.util.Objects;
+import java.util.stream.Stream;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -9,20 +10,20 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.EventSource;
-import org.osate.ge.swt.list.ListEditor;
-import org.osate.ge.swt.list.ListEditorModel;
+import org.osate.ge.swt.selectors.ListEditor;
+import org.osate.ge.swt.selectors.ListEditorModel;
 import org.osate.ge.swt.util.SwtTestUtil;
 
 /**
  * View for editing a list of prototypes and their details.
- * Combination of {@link org.osate.ge.swt.list.ListEditor} and {@link PrototypeEditor}.
+ * Combination of {@link org.osate.ge.swt.selectors.ListEditor} and {@link PrototypeEditor}.
  *
  */
-public class PrototypesEditor<T> extends Composite {
+public final class PrototypesEditor<T, C> extends Composite {
 	private final ListEditor<T> listView;
-	private final PrototypeEditor detailsView;
+	private final PrototypeEditor<C> detailsView;
 
-	public PrototypesEditor(final Composite parent, final PrototypesEditorModel<T> model) {
+	public PrototypesEditor(final Composite parent, final PrototypesEditorModel<T, C> model) {
 		super(parent, SWT.NONE);
 		Objects.requireNonNull(model, "model must not be null");
 		this.setBackground(parent.getBackground());
@@ -35,7 +36,7 @@ public class PrototypesEditor<T> extends Composite {
 			}
 
 			@Override
-			public T[] getElements() {
+			public Stream<T> getElements() {
 				return model.getPrototypes();
 			}
 
@@ -71,7 +72,7 @@ public class PrototypesEditor<T> extends Composite {
 		final Label separator = new Label(this, SWT.SEPARATOR | SWT.VERTICAL);
 		separator.setLayoutData(GridDataFactory.swtDefaults().grab(false, true).align(SWT.CENTER, SWT.FILL).create());
 
-		this.detailsView = new PrototypeEditor(this, new PrototypeEditorModel() {
+		this.detailsView = new PrototypeEditor<>(this, new PrototypeEditorModel<C>() {
 			@Override
 			public EventSource<ChangeEvent> changed() {
 				return model.changed();
@@ -89,7 +90,8 @@ public class PrototypesEditor<T> extends Composite {
 
 			@Override
 			public String validateName(final String newName) {
-				return model.getSelectedPrototype() == null ? null : model.validatePrototypeName(model.getSelectedPrototype(), newName);
+				return model.getSelectedPrototype() == null ? null
+						: model.validatePrototypeName(model.getSelectedPrototype(), newName);
 			}
 
 			@Override
@@ -101,7 +103,8 @@ public class PrototypesEditor<T> extends Composite {
 
 			@Override
 			public PrototypeDirection getDirection() {
-				return model.getSelectedPrototype() == null ? null : model.getPrototypeDirection(model.getSelectedPrototype());
+				return model.getSelectedPrototype() == null ? null
+						: model.getPrototypeDirection(model.getSelectedPrototype());
 			}
 
 			@Override
@@ -123,9 +126,44 @@ public class PrototypesEditor<T> extends Composite {
 					model.setPrototypeType(model.getSelectedPrototype(), value);
 				}
 			}
+
+			@Override
+			public Stream<C> getConstrainingClassifierOptions() {
+				return model.getSelectedPrototype() == null ? Stream.empty()
+						: model.getConstrainingClassifierOptions(model.getSelectedPrototype());
+			}
+
+			@Override
+			public String getClassifierLabel(final C classifier) {
+				return model.getClassifierLabel(classifier);
+			}
+
+			@Override
+			public C getConstrainingClassifier() {
+				return model.getSelectedPrototype() == null ? null
+						: model.getConstrainingClassifier(model.getSelectedPrototype());
+			}
+
+			@Override
+			public void setConstrainingClassifier(C value) {
+				if (model.getSelectedPrototype() != null) {
+					model.setConstrainingClassifier(model.getSelectedPrototype(), value);
+				}
+			}
+
+			@Override
+			public Boolean isArray() {
+				return model.getSelectedPrototype() == null ? null
+						: model.isArray(model.getSelectedPrototype());
+			}
+
+			@Override
+			public void setArray(boolean value) {
+				model.setArray(model.getSelectedPrototype(), value);
+			}
 		});
 		this.detailsView
-		.setLayoutData(GridDataFactory.swtDefaults().grab(true, true).align(SWT.FILL, SWT.FILL).create());
+				.setLayoutData(GridDataFactory.swtDefaults().grab(true, true).align(SWT.FILL, SWT.FILL).create());
 	}
 
 	public static void main(String[] args) {

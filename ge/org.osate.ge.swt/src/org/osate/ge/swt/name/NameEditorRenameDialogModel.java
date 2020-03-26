@@ -6,7 +6,7 @@ import java.util.Objects;
  * {@link NameEditorDialogModel} implementation that delegates to a {@link NameEditorModel}
  *
  */
-public class NameEditorRenameDialogModel implements NameEditorDialogModel {
+public final class NameEditorRenameDialogModel implements NameEditorDialogModel {
 	private final NameEditorModel innerModel;
 
 	public NameEditorRenameDialogModel(final NameEditorModel innerModel) {

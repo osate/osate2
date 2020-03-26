@@ -10,7 +10,7 @@ import org.eclipse.swt.widgets.Shell;
  * Contains functions for putting together tests to interactively test single components outside the Eclipse workbench.
  *
  */
-public class SwtTestUtil {
+public final class SwtTestUtil {
 	private SwtTestUtil() {
 	}
 

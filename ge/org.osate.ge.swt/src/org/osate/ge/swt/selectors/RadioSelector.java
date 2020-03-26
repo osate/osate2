@@ -1,4 +1,4 @@
-package org.osate.ge.swt.list;
+package org.osate.ge.swt.selectors;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -15,14 +15,14 @@ import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.util.SwtTestUtil;
 
 /**
- * Set of radio buttons which uses a {@link ListSelectorModel}
+ * Set of radio buttons which uses a {@link SelectorModel}
  *
  */
-public class RadioSelector<T> extends Composite {
-	private final ListSelectorModel<T> model;
+public final class RadioSelector<T> extends Composite {
+	private final SelectorModel<T> model;
 	private final Consumer<ChangeEvent> changeListener = e -> refresh();
 
-	public RadioSelector(final Composite parent, final ListSelectorModel<T> model) {
+	public RadioSelector(final Composite parent, final SelectorModel<T> model) {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
 		this.setBackground(parent.getBackground());
@@ -33,24 +33,26 @@ public class RadioSelector<T> extends Composite {
 	}
 
 	private void refresh() {
-		for (final Control child : getChildren()) {
-			child.dispose();
+		if (!this.isDisposed()) {
+			for (final Control child : getChildren()) {
+				child.dispose();
+			}
+
+			final Object value = model.getSelectedElement();
+
+			// Create new buttons
+			model.getElements().forEachOrdered(element -> {
+				final Button btn = new Button(this, SWT.RADIO);
+				btn.setBackground(getBackground());
+				btn.setText(model.getLabel(element));
+				btn.setData(element);
+				btn.setSelection(element == value);
+				btn.addSelectionListener(selectionListener);
+			});
+
+			setEnabled(model.isEnabled());
+			requestLayout();
 		}
-
-		final Object value = model.getSelectedElement();
-
-		// Create new buttons
-		for (final T element : model.getElements()) {
-			final Button btn = new Button(this, SWT.RADIO);
-			btn.setBackground(getBackground());
-			btn.setText(model.getLabel(element));
-			btn.setData(element);
-			btn.setSelection(element == value);
-			btn.addSelectionListener(selectionListener);
-		}
-
-		setEnabled(model.isEnabled());
-		requestLayout();
 	}
 
 	@Override

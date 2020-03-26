@@ -12,13 +12,13 @@ import org.osate.ge.swt.util.SwtTestUtil;
  * Simple dialog for renaming something.
  *
  */
-public class NameEditorDialog {
+public final class NameEditorDialog {
 	private NameEditorDialog() {
 	}
 
 	/**
 	 * Opens the dialog. Returns once the dialog has been closed and the rename has been performed using the provided {@link NameEditorDialogModel}
-	 * @param parent is the parent shell or null if the dialog shoudl be a top-level window.
+	 * @param parent is the parent shell or null if the dialog should be a top-level window.
 	 * @param model is the view model for the dialog.
 	 */
 	public static void open(final Shell parent, final NameEditorDialogModel model) {
@@ -33,11 +33,6 @@ public class NameEditorDialog {
 		public InnerDialog(final Shell parent, final NameEditorDialogModel model) {
 			super(parent, "Rename", "Enter Name", model.getName(), newName -> model.validateName(newName));
 			setShellStyle(getShellStyle() | SWT.RESIZE);
-		}
-
-		@Override
-		protected void configureShell(final Shell shell) {
-			super.configureShell(shell);
 		}
 	}
 
