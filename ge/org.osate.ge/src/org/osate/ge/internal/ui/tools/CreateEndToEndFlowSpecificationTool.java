@@ -23,8 +23,6 @@
  */
 package org.osate.ge.internal.ui.tools;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -33,9 +31,9 @@ import java.util.Objects;
 import javax.inject.Named;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -177,6 +175,41 @@ public class CreateEndToEndFlowSpecificationTool {
 						}
 					}
 					previouslySelectedBocs.add(selectedBoc);
+
+					final IProject project = ProjectUtil.getProjectForBoOrThrow(ci);
+					final ResourceSet testResourceSet = ProjectUtil.getLiveResourceSet(project);
+					final XtextResource testResource = ToolUtil.getXtextResource(testResourceSet,
+							ci.eResource().getURI());
+
+					final ComponentImplementation objectToModify = (ComponentImplementation) testResourceSet
+							.getEObject(EcoreUtil.getURI(ci), true);
+					objectToModify.setNoFlows(false);
+					objectToModify.getOwnedEndToEndFlows().add(dlg.eTEFlow);
+
+					// TODO Look at better way (not catching exception)
+					try {
+						final String serializedSrc = ((XtextResource) ci.eResource()).getSerializer()
+								.serialize(ci.eResource().getContents().get(0));
+						ToolUtil.loadResource(testResource, serializedSrc);
+					} catch (final RuntimeException e) {
+						error = "Not valid serialize.";
+					}
+
+					// TODO WHy true?
+					// TODO validate object or entire model?
+					// testResource.getConcreteSyntaxValidator().validateObject(objectToModify, acceptor, context)
+					if (ToolUtil.getConcreteErrorSize(testResource) > 0) {
+						// TODO do not allow ok btn
+						error = "Not valid concrete.";
+					}
+
+					Diagnostic diagnostic = Diagnostician.INSTANCE.validate(objectToModify,
+							Collections.singletonMap(Diagnostician.VALIDATE_RECURSIVELY, true));
+
+					if (diagnostic.getSeverity() != Diagnostic.OK) {
+						error = "Not valid diagnostic";
+					}
+
 				} else if (!isInit) {
 					error = "Invalid element selected.  ";
 				}
@@ -289,62 +322,25 @@ public class CreateEndToEndFlowSpecificationTool {
 		private boolean addSelectedElement(final BusinessObjectContext selectedBoc) {
 			final Object selectedBo = selectedBoc.getBusinessObject();
 
-			// final IProject project = ProjectUtil.getProject(EcoreUtil.getURI(ci));
-
-			final IProject project = ProjectUtil.getProjectForBoOrThrow(ci);
-			final ResourceSet testResourceSet = ProjectUtil.getLiveResourceSet(project);
-			final XtextResource testResource = getXtextResource(testResourceSet, ci.eResource().getURI());
-			final String serializedSrc = ((XtextResource) ci.eResource()).getSerializer()
-					.serialize(ci.eResource().getContents().get(0));
-			loadResource(testResource, serializedSrc);
-			// TODO WHy true?
-			final EObject objectToModify = testResourceSet.getEObject(EcoreUtil.getURI(ci), true);
-			// TODO validate object or entire model?
-			// testResource.getConcreteSyntaxValidator().validateObject(objectToModify, acceptor, context)
-			if (getConcreteErrorSize(testResource) > 0) {
-				// TODO do not allow ok btn
+			if (selectedBo instanceof Element) {
+				final Context context = ToolUtil.findContext(selectedBoc);
+				final Element selectedEle = (Element) selectedBo;
+				if (isValid(getRefinedElement(selectedEle), context)) {
+					if (selectedEle instanceof org.osate.aadl2.Connection) {
+						// Create flow segment with context = null because all valid connections belong to diagram
+						return addFlowSegmentOrModeFeature(createEndToEndFlowSegments(selectedEle, null));
+					} else if (selectedEle instanceof FlowSpecification) {
+						return addFlowSegmentOrModeFeature(createEndToEndFlowSegments(selectedEle, context));
+					} else {
+						return addFlowSegmentOrModeFeature(selectedEle);
+					}
+				}
 			}
-
-//			if (selectedBo instanceof Element) {
-//				final Context context = ToolUtil.findContext(selectedBoc);
-//				final Element selectedEle = (Element) selectedBo;
-//				if (isValid(getRefinedElement(selectedEle), context)) {
-//					if (selectedEle instanceof org.osate.aadl2.Connection) {
-//						// Create flow segment with context = null because all valid connections belong to diagram
-//						return addFlowSegmentOrModeFeature(createEndToEndFlowSegments(selectedEle, null));
-//					} else if (selectedEle instanceof FlowSpecification) {
-//						return addFlowSegmentOrModeFeature(createEndToEndFlowSegments(selectedEle, context));
-//					} else {
-//						return addFlowSegmentOrModeFeature(selectedEle);
-//					}
-//				}
-//			}
 			return false;
 		}
 
-		private int getConcreteErrorSize(final XtextResource resource) {
-			return resource.validateConcreteSyntax().size();
-		}
 
-		// TODO add static to qualified methods
 
-		private void loadResource(final XtextResource resource, final String src) {
-			try {
-				resource.load(new ByteArrayInputStream(src.getBytes()), null);
-			} catch (final IOException e) {
-				throw new RuntimeException("Source cannot be loaded");
-			}
-		}
-
-		private XtextResource getXtextResource(final ResourceSet resourceSet, final URI uri) {
-			final XtextResource resource = (XtextResource) resourceSet.getResource(uri, true);
-			if (resource == null) {
-				return (XtextResource) resourceSet.createResource(uri);
-			}
-
-			return resource;
-
-		}
 
 		/**
 		 * @param ctx - context of element
