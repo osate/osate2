@@ -6,17 +6,40 @@ import java.util.List;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 
-public abstract class BusOrVirtualBus extends ModelElement {
+public abstract class BusOrVirtualBus extends AnalysisElement {
 	private final ComponentInstance busInstance;
 	private final List<VirtualBus> boundBuses = new ArrayList<>();
 	private final List<Connection> boundConnections = new ArrayList<>();
 
-	public BusOrVirtualBus(final ComponentInstance busInstance) {
+	/** Capacity in KB/s. */
+	private double capacity;
+
+	/** Total budget of all the virtual buses and connections in KB/s. */
+	private double totalBudget;
+
+	public BusOrVirtualBus(final String label, final ComponentInstance busInstance) {
+		super(label);
 		this.busInstance = busInstance;
 	}
 
 	public final ComponentInstance getBusInstance() {
 		return busInstance;
+	}
+
+	public final double getCapacity() {
+		return capacity;
+	}
+
+	public final void setCapacity(final double capacity) {
+		this.capacity = capacity;
+	}
+
+	public final double getTotalBudget() {
+		return totalBudget;
+	}
+
+	public final void setTotalBudget(final double totalBudget) {
+		this.totalBudget = totalBudget;
 	}
 
 	void addBoundBus(final VirtualBus virtualBus) {

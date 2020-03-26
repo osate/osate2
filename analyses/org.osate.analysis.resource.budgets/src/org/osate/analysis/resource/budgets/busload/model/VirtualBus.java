@@ -4,7 +4,7 @@ import org.osate.aadl2.instance.ComponentInstance;
 
 public final class VirtualBus extends BusOrVirtualBus {
 	public VirtualBus(final ComponentInstance busInstance) {
-		super(busInstance);
+		super("virtual bus", busInstance);
 	}
 
 	@Override

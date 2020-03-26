@@ -2,10 +2,12 @@ package org.osate.analysis.resource.budgets.busload.model;
 
 import org.osate.aadl2.instance.ConnectionInstance;
 
-public final class Connection extends ModelElement {
+public final class Connection extends AnalysisElement {
+	/** The connection instance represented. */
 	private final ConnectionInstance connInstance;
 
 	public Connection(final ConnectionInstance connInstance) {
+		super("connection");
 		this.connInstance = connInstance;
 	}
 
