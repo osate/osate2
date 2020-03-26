@@ -23,16 +23,21 @@
  */
 package org.osate.ge.internal.ui.properties;
 
+import org.eclipse.core.runtime.Adapters;
 import org.eclipse.jface.viewers.IFilter;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.aadl2.Classifier;
+import org.osate.ge.BusinessObjectSelection;
+import org.osate.ge.internal.selection.AgeBusinessObjectSelection;
 import org.osate.ge.internal.viewModels.BusinessObjectSelectionPrototypesModel;
 import org.osate.ge.swt.prototypes.PrototypesEditor;
 import org.osate.ge.ui.properties.PropertySectionUtil;
@@ -49,14 +54,17 @@ public class PrototypesPropertySection extends AbstractPropertySection {
 		}
 	}
 
+	private BusinessObjectSelection selectedBos;
+	private final BusinessObjectSelectionPrototypesModel model = new BusinessObjectSelectionPrototypesModel(
+			new AgeBusinessObjectSelection());
+
 	@Override
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
 		super.createControls(parent, aTabbedPropertySheetPage);
 
 		final Composite composite = getWidgetFactory().createFlatFormComposite(parent);
 		final CLabel label = getWidgetFactory().createCLabel(composite, "Prototypes:");
-		final PrototypesEditor editor = new PrototypesEditor(composite,
-				new BusinessObjectSelectionPrototypesModel());
+		final PrototypesEditor<String, Object> editor = new PrototypesEditor<>(composite, model);
 
 		// Configure layout data
 		{
@@ -81,5 +89,17 @@ public class PrototypesPropertySection extends AbstractPropertySection {
 		// TODO: Actual List
 		// TODO: Add/Remove buttons
 		// TODO: Prototype Details Page
+	}
+
+	@Override
+	public void setInput(final IWorkbenchPart part, final ISelection selection) {
+		super.setInput(part, selection);
+		selectedBos = Adapters.adapt(selection, BusinessObjectSelection.class);
+	}
+
+	@Override
+	public void refresh() {
+		// TODO: Is this sufficient? Also in directional feature property section
+		model.setBusinessObjectSelection(selectedBos);
 	}
 }

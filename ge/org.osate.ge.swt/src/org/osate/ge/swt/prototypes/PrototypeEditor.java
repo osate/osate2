@@ -8,14 +8,13 @@ import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.EventSource;
+import org.osate.ge.swt.check.CheckboxEditor;
+import org.osate.ge.swt.check.CheckboxEditorModel;
 import org.osate.ge.swt.name.NameEditor;
 import org.osate.ge.swt.name.NameEditorModel;
 import org.osate.ge.swt.selectors.ComboSelector;
@@ -30,10 +29,10 @@ import org.osate.ge.swt.selectors.SelectorModel;
  */
 final class PrototypeEditor<C> extends Composite {
 	private final PrototypeEditorModel<C> model;
-	private final Button refineCheckBox;
+	private final CheckboxEditor refinedEditor;
 	private final CLabel directionLabel;
 	private final RadioSelector<PrototypeDirection> directionEditor;
-	private final Button arrayCheckBox;
+	private final CheckboxEditor arrayEditor;
 	private final Consumer<ChangeEvent> changeListener = e -> refresh();
 
 	public PrototypeEditor(final Composite parent, final PrototypeEditorModel<C> model) {
@@ -45,16 +44,36 @@ final class PrototypeEditor<C> extends Composite {
 		//
 		// Refinement
 		//
-		refineCheckBox = new Button(this, SWT.CHECK);
-		refineCheckBox.setLayoutData(
-				GridDataFactory.swtDefaults().span(2, 1).grab(true, false).align(SWT.FILL, SWT.CENTER).create());
-		refineCheckBox.addSelectionListener(new SelectionAdapter() {
+		refinedEditor = new CheckboxEditor(this, new CheckboxEditorModel() {
+			@Override
+			public EventSource<ChangeEvent> changed() {
+				return model.changed();
+			}
 
 			@Override
-			public void widgetSelected(SelectionEvent e) {
-				model.setRefined(refineCheckBox.getSelection());
+			public String getLabel() {
+				final String refineableElementLabel = model.getRefineableElementLabel();
+				return "Refine " + (refineableElementLabel == null ? "" : model.getRefineableElementLabel());
 			}
+
+			@Override
+			public boolean isEnabled() {
+				return model.isEnabled() && model.getRefineableElementLabel() != null;
+			}
+
+			@Override
+			public Boolean getValue() {
+				return model.isRefined();
+			}
+
+			@Override
+			public void setValue(final boolean value) {
+				model.setRefined(value);
+			}
+
 		});
+		refinedEditor.setLayoutData(
+				GridDataFactory.swtDefaults().span(2, 1).grab(true, false).align(SWT.FILL, SWT.CENTER).create());
 
 		//
 		// Name
@@ -206,17 +225,35 @@ final class PrototypeEditor<C> extends Composite {
 		//
 		// Array
 		//
-		arrayCheckBox = new Button(this, SWT.CHECK);
-		arrayCheckBox.setText("Array");
-		arrayCheckBox.setLayoutData(
-				GridDataFactory.swtDefaults().span(2, 1).grab(true, false).align(SWT.FILL, SWT.CENTER).create());
-		arrayCheckBox.addSelectionListener(new SelectionAdapter() {
+		arrayEditor = new CheckboxEditor(this, new CheckboxEditorModel() {
+			@Override
+			public EventSource<ChangeEvent> changed() {
+				return model.changed();
+			}
 
 			@Override
-			public void widgetSelected(SelectionEvent e) {
-				model.setArray(arrayCheckBox.getSelection());
+			public boolean isEnabled() {
+				return model.isEnabled();
+			}
+
+			@Override
+			public String getLabel() {
+				return "Array";
+			}
+
+			@Override
+			public Boolean getValue() {
+				return model.isArray();
+			}
+
+			@Override
+			public void setValue(final boolean value) {
+				model.setArray(value);
 			}
 		});
+		arrayEditor.setLayoutData(
+				GridDataFactory.swtDefaults().span(2, 1).grab(true, false).align(SWT.FILL, SWT.CENTER).create());
+
 		model.changed().addListener(changeListener);
 		refresh();
 	}
@@ -225,42 +262,21 @@ final class PrototypeEditor<C> extends Composite {
 		if (!this.isDisposed()) {
 			final PrototypeType type = model.getType();
 
-			// Update refinement checkbox
-			refineCheckBox.setSelection(model.isRefined() == null || model.isRefined());
-			refineCheckBox.setGrayed(model.isRefined() == null);
-			final String refineableElementLabel = model.getRefineableElementLabel();
-			refineCheckBox
-					.setText("Refine " + (refineableElementLabel == null ? "" : model.getRefineableElementLabel()));
-
 			// Make the refine checkbox visible when the refinement status can be adjusted or the refinement status is not false.
-			setVisibilityAndExclusion(refineCheckBox,
-					refineableElementLabel != null || model.isRefined() != Boolean.FALSE);
+			setVisibilityAndExclusion(refinedEditor,
+					model.getRefineableElementLabel() != null || model.isRefined() != Boolean.FALSE);
 
 			// Update visibility of direction editor and label
 			final boolean directionVisible = type == PrototypeType.FEATURE;
 			setVisibilityAndExclusion(directionLabel, directionVisible);
 			setVisibilityAndExclusion(directionEditor, directionVisible);
 
-			// Update the value of the array checkbox
-			arrayCheckBox.setSelection(model.isArray() == null || model.isArray());
-			arrayCheckBox.setGrayed(model.isArray() == null);
-
 			// Hide the array checkbox unless the component is an array.
-			setVisibilityAndExclusion(arrayCheckBox, type != null && type.isComponent());
+			setVisibilityAndExclusion(arrayEditor, type != null && type.isComponent());
 
 			// Update enabled state
 			setEnabled(model.isEnabled());
 		}
-	}
-
-	@Override
-	public void setEnabled(final boolean enabled) {
-		super.setEnabled(enabled);
-		// Enable the refine checkbox when the view is enabled and the refinement status can be adjusted
-		refineCheckBox.setEnabled(enabled && model.getRefineableElementLabel() != null);
-		arrayCheckBox.setEnabled(enabled);
-
-		// Refinement state of other widgets are controlled by view models
 	}
 
 	/**

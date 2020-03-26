@@ -74,7 +74,7 @@ implements SelectorModel<DirectionType> {
 	}
 
 	/**
-	 * Refreshes the internal state of the model based on the specified busienss object selection
+	 * Refreshes the internal state of the model based on the specified business object selection
 	 */
 	public void setBusinessObjectSelection(final BusinessObjectSelection value) {
 		this.bos = Objects.requireNonNull(value, "value must not be null");

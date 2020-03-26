@@ -54,7 +54,7 @@ public class DirectionalFeaturePropertySection extends AbstractPropertySection {
 
 	private BusinessObjectSelection selectedBos;
 	private RadioSelector<DirectionType> directionView;
-	private BusinessObjectSelectionFeatureDirectionModel directionModel = new BusinessObjectSelectionFeatureDirectionModel(
+	private final BusinessObjectSelectionFeatureDirectionModel directionModel = new BusinessObjectSelectionFeatureDirectionModel(
 			new AgeBusinessObjectSelection());
 
 	@Override

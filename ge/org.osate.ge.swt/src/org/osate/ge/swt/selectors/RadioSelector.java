@@ -71,6 +71,7 @@ public final class RadioSelector<T> extends Composite {
 			final Button btn = (Button) e.widget;
 			if (btn.getSelection()) {
 				model.setSelectedElement((T) e.widget.getData());
+				refresh();
 			}
 		}
 	};
