@@ -24,15 +24,26 @@
 package org.osate.analysis.resource.budgets.busload;
 
 import java.io.PrintWriter;
+import java.util.Deque;
+import java.util.LinkedList;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionInstanceEnd;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
+import org.osate.analysis.resource.budgets.busload.model.Bus;
 import org.osate.analysis.resource.budgets.busload.model.BusLoadModel;
+import org.osate.analysis.resource.budgets.busload.model.BusOrVirtualBus;
+import org.osate.analysis.resource.budgets.busload.model.Connection;
+import org.osate.analysis.resource.budgets.busload.model.Visitor;
 import org.osate.ui.dialogs.Dialog;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class NewBusLoadAnalysis {
 	private final String actionName;
@@ -63,4 +74,119 @@ public class NewBusLoadAnalysis {
 			Dialog.showError("Bound Bus Bandwidth Analysis Error", "Can only check system instances");
 		}
 	}
+
+	// ==== Analysis Visitor ====
+
+	private static class BusLoadAnalysisVisitor implements Visitor {
+		private Deque<Double> previousOverhead = new LinkedList<>();
+		private double dataOverheadKBytesps = 0.0;
+
+		@Override
+		public void visitBusOrVirtualBusPrefix(final BusOrVirtualBus bus) {
+			final ComponentInstance ci = bus.getBusInstance();
+			// Increment the data overhead
+			final double newOverheadKBytesps = GetProperties.getDataSize(ci, GetProperties.getKBUnitLiteral(ci));
+			previousOverhead.push(dataOverheadKBytesps);
+			dataOverheadKBytesps += newOverheadKBytesps;
+		}
+
+		@Override
+		public void visitBusOrVirtualBusPostfix(final BusOrVirtualBus bus) {
+			// Unroll the overhead calculation
+			dataOverheadKBytesps = previousOverhead.pop();
+
+			// Compute the actual usage and budget requirements
+			double actual = 0.0;
+			double totalBudget = 0.0;
+
+			for (final BusOrVirtualBus b : bus.getBoundBuses()) {
+				actual += b.getActual();
+				totalBudget += b.getBudget();
+			}
+			for (final Connection c : bus.getBoundConnections()) {
+				actual += c.getActual();
+				totalBudget += c.getBudget();
+			}
+			bus.setActual(actual);
+			bus.setTotalBudget(totalBudget);
+
+			final ComponentInstance ci = bus.getBusInstance();
+			final double capacity = GetProperties.getBandWidthCapacityInKBytesps(ci, 0.0);
+			final double budget = GetProperties.getBandWidthBudgetInKBytesps(ci, 0.0);
+
+			if (capacity == 0.0) {
+				// TODO: Warning
+				System.out.println("WARNING: " + (bus instanceof Bus ? "Bus " : "Virtual bus ") +
+						ci.getName() + " has no bandwidth budget");
+			} else {
+				if (actual > capacity) {
+					// TODO: Error
+					System.out.println("ERROR: Actual bandwidth of " + (bus instanceof Bus ? "Bus " : "Virtual bus ")
+							+ ci.getName() + " of " + actual + " KB/s is more than the capacity of "
+							+ capacity + " KB/s");
+				}
+			}
+
+			if (budget == 0.0) {
+				// TODO: Warning
+				System.out.println("WARNING: " + (bus instanceof Bus ? "Bus " : "Virtual bus ") +
+						ci.getName() + " has no bandwidth budget");
+			} else {
+				if (budget > capacity) {
+					// TODO: Error
+					System.out
+							.println("ERROR: Budget of " + (bus instanceof Bus ? "Bus " : "Virtual bus ") + ci.getName()
+									+ " of " + budget + " KB/s is more than the capacity of " + capacity + " KB/s");
+				}
+				if (totalBudget > budget) {
+					// TODO: Error
+					System.out.println("ERROR: Required capacity of " + (bus instanceof Bus ? "Bus " : "Virtual bus ")
+							+ ci.getName() + " of " + totalBudget + " KB/s is more than the budget of " + budget
+							+ " KB/s");
+				}
+			}
+		}
+
+		@Override
+		public void visitConnection(final Connection connection) {
+			final ConnectionInstance ci = connection.getConnectionInstance();
+			final double actual = getConnectionActualKBytesps(ci, dataOverheadKBytesps);
+			connection.setActual(actual);
+
+			final double budget = GetProperties.getBandWidthBudgetInKBytesps(ci, 0.0);
+			if (budget == 0.0) {
+				connection.setBudget(budget);
+				if (actual > budget) {
+					// TODO: Warning
+					System.out.println("WARNING: Actual bandwidth " + actual + " KB/s of connection " + ci.getName()
+							+ " is greater than its budget of " + budget + " KB/s");
+				}
+			} else {
+				// TODO: Warning
+				System.out.println("WARNING: Connection " + ci.getName() + " has no bandwidth budget");
+			}
+		}
+	}
+
+	// ==== Helper methods for the visitor ===
+
+	/**
+	 * Calculate bandwidth demand from rate & data size
+	 * @param ci The connection instance to calculate for
+	 * @param dataOverheadKBytesps The current data overhead from bound buses expressed in KB/s.  This is applied to
+	 * the connections message size.
+	 */
+	private static double getConnectionActualKBytesps(final ConnectionInstance ci, final double dataOverheadKBytesps) {
+		double actualDataRate = 0;
+		final ConnectionInstanceEnd cie = ci.getSource();
+		if (cie instanceof FeatureInstance) {
+			final FeatureInstance fi = (FeatureInstance) cie;
+			final double datasize = dataOverheadKBytesps
+					+ GetProperties.getSourceDataSize(fi, GetProperties.getKBUnitLiteral(fi));
+			final double srcRate = GetProperties.getOutgoingMessageRatePerSecond(fi);
+			actualDataRate = datasize * srcRate;
+		}
+		return actualDataRate;
+	}
+
 }

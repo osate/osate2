@@ -95,25 +95,25 @@ public final class BusLoadModel extends ModelElement {
 			@Override
 			public void visitBusPrefix(final Bus b) {
 				pw.println(prefix + "Bus " + b.getBusInstance().getName());
-				stack.addFirst(prefix);
+				stack.push(prefix);
 				prefix = prefix + "  ";
 			}
 
 			@Override
 			public void visitBusPostfix(final Bus b) {
-				prefix = stack.removeFirst();
+				prefix = stack.pop();
 			}
 
 			@Override
 			public void visitVirtualBusPrefix(final VirtualBus b) {
 				pw.println(prefix + "Virtual Bus " + b.getBusInstance().getName());
-				stack.addFirst(prefix);
+				stack.push(prefix);
 				prefix = prefix + "  ";
 			}
 
 			@Override
 			public void visitVirtualBusPostfix(final VirtualBus b) {
-				prefix = stack.removeFirst();
+				prefix = stack.pop();
 			}
 		});
 	}
