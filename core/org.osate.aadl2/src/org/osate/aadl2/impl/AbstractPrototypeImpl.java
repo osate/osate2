@@ -50,7 +50,6 @@ public class AbstractPrototypeImpl extends ComponentPrototypeImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getAbstractPrototype();
 	}

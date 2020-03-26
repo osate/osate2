@@ -137,7 +137,6 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return InstancePackage.Literals.CONNECTION_REFERENCE;
 	}
@@ -338,7 +337,6 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_REFERENCE__CONTEXT:
@@ -372,7 +370,6 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_REFERENCE__CONTEXT:
@@ -399,7 +396,6 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_REFERENCE__CONTEXT:
@@ -426,7 +422,6 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_REFERENCE__CONTEXT:
@@ -448,7 +443,6 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();
@@ -471,7 +465,6 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 *
 	 * @see org.osate.aadl2.impl.NamedElementImpl#getName()
 	 */
-	@Override
 	public String getName() {
 		return getConnection().getName();
 	}
@@ -481,7 +474,6 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 *
 	 * @see org.osate.aadl2.impl.NamedElementImpl#setName(java.lang.String)
 	 */
-	@Override
 	public void setName(String newName) {
 		throw new UnsupportedOperationException();
 	}
@@ -491,7 +483,6 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 *
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#acceptsProperty(org.osate.aadl2.Property)
 	 */
-	@Override
 	public boolean acceptsProperty(Property property) {
 		final boolean result;
 		for (final PropertyOwner propOwner : property.getAppliesTos()) {
@@ -520,12 +511,9 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 *
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#getInstantiatedObjects()
 	 */
-	@Override
 	public List<? extends NamedElement> getInstantiatedObjects() {
 		return Collections.singletonList(getConnection());
 	}
-
-	@Override
 	public final void getPropertyValueInternal(Property property, PropertyAcc pas, boolean fromInstanceSlaveCall,
 			final boolean all) throws InvalidModelException {
 		// Do nothing because there should be no properties looked up on a ConnectionReference.

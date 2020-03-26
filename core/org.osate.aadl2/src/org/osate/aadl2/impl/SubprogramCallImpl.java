@@ -89,7 +89,6 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getSubprogramCall();
 	}
@@ -183,7 +182,6 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_CALL__CALLED_SUBPROGRAM:
@@ -205,7 +203,6 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_CALL__CALLED_SUBPROGRAM:
@@ -223,7 +220,6 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_CALL__CALLED_SUBPROGRAM:
@@ -241,7 +237,6 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_CALL__CALLED_SUBPROGRAM:
@@ -257,7 +252,6 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	 *
 	 * @see org.osate.aadl2.impl.NamedElementImpl#getNamespace()
 	 */
-	@Override
 	public Namespace getNamespace() {
 		return (Namespace) eContainer().eContainer();
 	}
@@ -271,7 +265,6 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	 * (org.osate.aadl2.Property,
 	 * org.osate.aadl2.properties.AadlPropertyValue, boolean)
 	 */
-	@Override
 	public final void getPropertyValueInternal(final Property prop, final PropertyAcc pas,
 			final boolean fromInstanceSlaveCall, final boolean all) throws InvalidModelException {
 		final ComponentImplementation owner = (ComponentImplementation) getContainingClassifier();

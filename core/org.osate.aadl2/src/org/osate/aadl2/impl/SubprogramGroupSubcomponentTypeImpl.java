@@ -50,7 +50,6 @@ public abstract class SubprogramGroupSubcomponentTypeImpl extends SubcomponentTy
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getSubprogramGroupSubcomponentType();
 	}

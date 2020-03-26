@@ -49,7 +49,6 @@ public abstract class AnnexLibraryImpl extends NamedElementImpl implements Annex
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getAnnexLibrary();
 	}

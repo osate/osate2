@@ -194,7 +194,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return InstancePackage.Literals.FEATURE_INSTANCE;
 	}
@@ -270,7 +269,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC:
@@ -384,7 +382,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC:
@@ -402,7 +399,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC:
@@ -432,7 +428,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC:
@@ -468,7 +463,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC:
@@ -501,7 +495,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC:
@@ -527,7 +520,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();
@@ -643,7 +635,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	}
 
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
-	@Override
 	public List<Feature> getInstantiatedObjects() {
 		return Collections.singletonList(getFeature());
 	}
@@ -657,7 +648,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 *
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#getPathName()
 	 */
-	@Override
 	public String getFullName() {
 		String array = "";
 		if (getIndex() > 0) {
@@ -671,7 +661,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 *
 	 * @see org.osate.aadl2.instance.InstanceObject#matchesIndex(java.util.List)
 	 */
-	@Override
 	public boolean matchesIndex(List<ArrayRange> ranges) {
 		if (ranges.size() == 0) {
 			return true;

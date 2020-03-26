@@ -76,7 +76,6 @@ public class RecordTypeImpl extends NamespaceImpl implements RecordType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getRecordType();
 	}
@@ -86,7 +85,6 @@ public class RecordTypeImpl extends NamespaceImpl implements RecordType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<NamedElement> getOwnedMembers() {
 		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
 				Aadl2Package.RECORD_TYPE__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
@@ -140,7 +138,6 @@ public class RecordTypeImpl extends NamespaceImpl implements RecordType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.RECORD_TYPE__OWNED_FIELD:
@@ -154,7 +151,6 @@ public class RecordTypeImpl extends NamespaceImpl implements RecordType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.RECORD_TYPE__OWNED_FIELD:
@@ -169,7 +165,6 @@ public class RecordTypeImpl extends NamespaceImpl implements RecordType {
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.RECORD_TYPE__OWNED_FIELD:
@@ -185,7 +180,6 @@ public class RecordTypeImpl extends NamespaceImpl implements RecordType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.RECORD_TYPE__OWNED_FIELD:
@@ -200,7 +194,6 @@ public class RecordTypeImpl extends NamespaceImpl implements RecordType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.RECORD_TYPE__OWNED_MEMBER:
@@ -216,7 +209,6 @@ public class RecordTypeImpl extends NamespaceImpl implements RecordType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetOwnedMembers() {
 		return super.isSetOwnedMembers() || eIsSet(Aadl2Package.RECORD_TYPE__OWNED_FIELD);
 	}

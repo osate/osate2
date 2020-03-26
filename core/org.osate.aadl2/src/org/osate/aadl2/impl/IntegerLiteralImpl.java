@@ -104,7 +104,6 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getIntegerLiteral();
 	}
@@ -159,7 +158,6 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.INTEGER_LITERAL__BASE:
@@ -175,7 +173,6 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.INTEGER_LITERAL__BASE:
@@ -193,7 +190,6 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.INTEGER_LITERAL__BASE:
@@ -211,7 +207,6 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.INTEGER_LITERAL__BASE:
@@ -227,7 +222,6 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();
@@ -334,8 +328,6 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 		newVal.setValue(getValue());
 		return newVal;
 	}
-
-	@Override
 	public boolean sameAs(PropertyExpression pe) {
 		if (this == pe) {
 			return true;

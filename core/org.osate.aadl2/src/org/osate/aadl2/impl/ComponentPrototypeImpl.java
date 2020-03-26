@@ -91,7 +91,6 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getComponentPrototype();
 	}
@@ -168,7 +167,6 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_PROTOTYPE__ARRAY:
@@ -187,7 +185,6 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_PROTOTYPE__ARRAY:
@@ -205,7 +202,6 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_PROTOTYPE__ARRAY:
@@ -223,7 +219,6 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_PROTOTYPE__ARRAY:
@@ -239,7 +234,6 @@ public abstract class ComponentPrototypeImpl extends PrototypeImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

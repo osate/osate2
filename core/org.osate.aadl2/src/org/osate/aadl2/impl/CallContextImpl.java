@@ -52,7 +52,6 @@ public abstract class CallContextImpl extends AObjectImpl implements CallContext
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getCallContext();
 	}

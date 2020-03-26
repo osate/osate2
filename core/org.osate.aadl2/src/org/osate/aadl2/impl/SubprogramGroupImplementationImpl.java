@@ -104,7 +104,6 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getSubprogramGroupImplementation();
 	}
@@ -114,7 +113,6 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Subcomponent> getOwnedSubcomponents() {
 		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
 				Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS);
@@ -216,7 +214,6 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public SubprogramGroupType getType() {
 		ComponentType ct = super.getType();
 		return ct instanceof SubprogramGroupType ? (SubprogramGroupType) ct : null;
@@ -227,7 +224,6 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public ComponentType basicGetType() {
 		// DONE: implement this method to return the 'Type' reference
 		return super.basicGetType();
@@ -238,7 +234,6 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public void setType(ComponentType newType) {
 		super.setType(newType);
 	}
@@ -257,7 +252,6 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
@@ -275,7 +269,6 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
@@ -294,7 +287,6 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
@@ -318,7 +310,6 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
@@ -339,7 +330,6 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBCOMPONENT:
@@ -361,7 +351,6 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetOwnedSubcomponents() {
 		return super.isSetOwnedSubcomponents()
 				|| eIsSet(Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT)

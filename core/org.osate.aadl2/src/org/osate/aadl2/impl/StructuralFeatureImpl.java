@@ -59,7 +59,6 @@ public abstract class StructuralFeatureImpl extends RefinableElementImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getStructuralFeature();
 	}
@@ -89,7 +88,6 @@ public abstract class StructuralFeatureImpl extends RefinableElementImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.STRUCTURAL_FEATURE__FEATURING_CLASSIFIER:
@@ -103,7 +101,6 @@ public abstract class StructuralFeatureImpl extends RefinableElementImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.STRUCTURAL_FEATURE__FEATURING_CLASSIFIER:
@@ -117,7 +114,6 @@ public abstract class StructuralFeatureImpl extends RefinableElementImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == ClassifierFeature.class) {
 			switch (derivedFeatureID) {
@@ -135,7 +131,6 @@ public abstract class StructuralFeatureImpl extends RefinableElementImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == ClassifierFeature.class) {
 			switch (baseFeatureID) {

@@ -71,7 +71,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 		case Aadl2Package.COMMENT:
@@ -396,7 +395,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
 		case Aadl2Package.FLOW_KIND:
@@ -431,7 +429,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 		case Aadl2Package.FLOW_KIND:
@@ -964,13 +961,9 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public AnnexSubclause createAnnexSubclause() {
 		AnnexSubclauseImpl annex = new AnnexSubclauseImpl() {
 			private String annexContent;
-
-			@Override
 			public String getAnnexContent() {
 				return annexContent;
 			}
-
-			@Override
 			public void setAnnexContent(String s) {
 				annexContent = s;
 			}

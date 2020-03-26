@@ -49,7 +49,6 @@ public abstract class ConnectionEndImpl extends NamedElementImpl implements Conn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getConnectionEnd();
 	}

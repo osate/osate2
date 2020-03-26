@@ -49,7 +49,6 @@ public abstract class PropertyOwnerImpl extends ElementImpl implements PropertyO
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getPropertyOwner();
 	}

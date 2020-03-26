@@ -49,7 +49,6 @@ public abstract class PropertyTypeImpl extends TypeImpl implements PropertyType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getPropertyType();
 	}
