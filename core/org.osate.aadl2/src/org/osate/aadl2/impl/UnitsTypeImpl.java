@@ -65,7 +65,6 @@ public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getUnitsType();
 	}
@@ -75,7 +74,6 @@ public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<NamedElement> getOwnedMembers() {
 		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
 				Aadl2Package.UNITS_TYPE__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
@@ -96,7 +94,6 @@ public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<EnumerationLiteral> getOwnedLiterals() {
 		if (ownedLiterals == null) {
 			ownedLiterals = new EObjectContainmentEList<EnumerationLiteral>(UnitLiteral.class, this,
@@ -110,7 +107,6 @@ public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EnumerationLiteral createOwnedLiteral() {
 		UnitLiteral newOwnedLiteral = (UnitLiteral) create(Aadl2Package.eINSTANCE.getUnitLiteral());
 		getOwnedLiterals().add(newOwnedLiteral);
@@ -131,7 +127,6 @@ public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.UNITS_TYPE__OWNED_LITERAL:
@@ -145,7 +140,6 @@ public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.UNITS_TYPE__OWNED_MEMBER:
@@ -161,7 +155,6 @@ public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetOwnedMembers() {
 		return super.isSetOwnedMembers() || isSetOwnedLiterals();
 	}
@@ -171,7 +164,6 @@ public class UnitsTypeImpl extends EnumerationTypeImpl implements UnitsType {
 	 *
 	 * @see org.osate.aadl2.impl.EnumerationTypeImpl#findLiteral(java.lang.String)
 	 */
-	@Override
 	public UnitLiteral findLiteral(String literalName) {
 		return (UnitLiteral) super.findLiteral(literalName);
 	}

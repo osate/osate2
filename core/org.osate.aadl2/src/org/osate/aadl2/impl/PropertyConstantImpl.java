@@ -103,7 +103,6 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getPropertyConstant();
 	}
@@ -270,7 +269,6 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Type getType() {
 		return getPropertyType();
 	}
@@ -280,7 +278,6 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Type basicGetType() {
 		return basicGetPropertyType();
 	}
@@ -290,7 +287,6 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public void setType(Type newType) {
 		// ignore
 	}
@@ -375,7 +371,6 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY_CONSTANT__OWNED_PROPERTY_TYPE:
@@ -391,7 +386,6 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY_CONSTANT__REFERENCED_PROPERTY_TYPE:
@@ -417,7 +411,6 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY_CONSTANT__REFERENCED_PROPERTY_TYPE:
@@ -438,7 +431,6 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY_CONSTANT__REFERENCED_PROPERTY_TYPE:
@@ -459,7 +451,6 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY_CONSTANT__TYPE:

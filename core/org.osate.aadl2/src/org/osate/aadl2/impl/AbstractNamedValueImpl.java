@@ -52,7 +52,6 @@ public abstract class AbstractNamedValueImpl extends AObjectImpl implements Abst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getAbstractNamedValue();
 	}

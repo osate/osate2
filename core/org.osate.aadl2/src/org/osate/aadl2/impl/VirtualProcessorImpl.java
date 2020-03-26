@@ -49,7 +49,6 @@ public abstract class VirtualProcessorImpl extends NamedElementImpl implements V
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getVirtualProcessor();
 	}

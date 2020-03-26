@@ -49,7 +49,6 @@ public abstract class DataClassifierImpl extends ComponentClassifierImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getDataClassifier();
 	}

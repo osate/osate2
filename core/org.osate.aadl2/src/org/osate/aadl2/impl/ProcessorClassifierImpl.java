@@ -49,7 +49,6 @@ public abstract class ProcessorClassifierImpl extends ComponentClassifierImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getProcessorClassifier();
 	}

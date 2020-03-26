@@ -72,7 +72,6 @@ public class SubprogramAccessImpl extends AccessImpl implements SubprogramAccess
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getSubprogramAccess();
 	}
@@ -82,7 +81,6 @@ public class SubprogramAccessImpl extends AccessImpl implements SubprogramAccess
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public FeatureClassifier getFeatureClassifier() {
 		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
 		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy()
@@ -95,7 +93,6 @@ public class SubprogramAccessImpl extends AccessImpl implements SubprogramAccess
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public FeatureClassifier basicGetFeatureClassifier() {
 		if (eIsSet(Aadl2Package.SUBPROGRAM_ACCESS__SUBPROGRAM_FEATURE_CLASSIFIER)) {
 			return basicGetSubprogramFeatureClassifier();
@@ -152,7 +149,6 @@ public class SubprogramAccessImpl extends AccessImpl implements SubprogramAccess
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_ACCESS__SUBPROGRAM_FEATURE_CLASSIFIER:
@@ -169,7 +165,6 @@ public class SubprogramAccessImpl extends AccessImpl implements SubprogramAccess
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_ACCESS__SUBPROGRAM_FEATURE_CLASSIFIER:
@@ -184,7 +179,6 @@ public class SubprogramAccessImpl extends AccessImpl implements SubprogramAccess
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_ACCESS__SUBPROGRAM_FEATURE_CLASSIFIER:
@@ -199,7 +193,6 @@ public class SubprogramAccessImpl extends AccessImpl implements SubprogramAccess
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_ACCESS__FEATURE_CLASSIFIER:
@@ -215,7 +208,6 @@ public class SubprogramAccessImpl extends AccessImpl implements SubprogramAccess
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetFeatureClassifier() {
 		return super.isSetFeatureClassifier() || eIsSet(Aadl2Package.SUBPROGRAM_ACCESS__SUBPROGRAM_FEATURE_CLASSIFIER);
 	}

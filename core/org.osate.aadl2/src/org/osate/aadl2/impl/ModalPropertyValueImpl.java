@@ -73,7 +73,6 @@ public class ModalPropertyValueImpl extends ModalElementImpl implements ModalPro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getModalPropertyValue();
 	}
@@ -149,7 +148,6 @@ public class ModalPropertyValueImpl extends ModalElementImpl implements ModalPro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE:
@@ -163,7 +161,6 @@ public class ModalPropertyValueImpl extends ModalElementImpl implements ModalPro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE:
@@ -177,7 +174,6 @@ public class ModalPropertyValueImpl extends ModalElementImpl implements ModalPro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE:
@@ -192,7 +188,6 @@ public class ModalPropertyValueImpl extends ModalElementImpl implements ModalPro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE:
@@ -207,7 +202,6 @@ public class ModalPropertyValueImpl extends ModalElementImpl implements ModalPro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE:

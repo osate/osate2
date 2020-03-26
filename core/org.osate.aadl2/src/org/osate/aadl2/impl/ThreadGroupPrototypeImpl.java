@@ -50,7 +50,6 @@ public class ThreadGroupPrototypeImpl extends ComponentPrototypeImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getThreadGroupPrototype();
 	}

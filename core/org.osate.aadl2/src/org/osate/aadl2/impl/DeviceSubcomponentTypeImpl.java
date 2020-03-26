@@ -49,7 +49,6 @@ public abstract class DeviceSubcomponentTypeImpl extends SubcomponentTypeImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getDeviceSubcomponentType();
 	}

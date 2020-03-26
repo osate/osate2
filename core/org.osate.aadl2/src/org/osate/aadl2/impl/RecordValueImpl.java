@@ -78,7 +78,6 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getRecordValue();
 	}
@@ -113,7 +112,6 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.RECORD_VALUE__OWNED_FIELD_VALUE:
@@ -127,7 +125,6 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.RECORD_VALUE__OWNED_FIELD_VALUE:
@@ -142,7 +139,6 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.RECORD_VALUE__OWNED_FIELD_VALUE:
@@ -158,7 +154,6 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.RECORD_VALUE__OWNED_FIELD_VALUE:
@@ -173,7 +168,6 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.RECORD_VALUE__OWNED_FIELD_VALUE:
@@ -181,16 +175,12 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 		}
 		return super.eIsSet(featureID);
 	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((ownedFieldValues == null) ? 0 : ownedFieldValues.hashCode());
 		return result;
 	}
-
-	@Override
 	public boolean sameAs(PropertyExpression pv) {
 		if (this == pv) {
 			return true;
@@ -218,7 +208,6 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 	 * 
 	 * @see org.osate.aadl2.impl.PropertyExpressionImpl#evaluate(org.osate.aadl2.properties.EvaluationContext, int)
 	 */
-	@Override
 	public EvaluatedProperty evaluate(EvaluationContext ctx, int depth) {
 		// evaluate each record field
 		RecordValue newVal = Aadl2Factory.eINSTANCE.createRecordValue();

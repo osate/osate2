@@ -49,7 +49,6 @@ public abstract class AccessConnectionEndImpl extends ConnectionEndImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getAccessConnectionEnd();
 	}

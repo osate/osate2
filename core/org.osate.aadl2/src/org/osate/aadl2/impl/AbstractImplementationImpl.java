@@ -212,7 +212,6 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getAbstractImplementation();
 	}
@@ -222,7 +221,6 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Subcomponent> getOwnedSubcomponents() {
 		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
 				Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS);
@@ -587,7 +585,6 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public AbstractType getType() {
 		ComponentType ct = super.getType();
 		return ct instanceof AbstractType ? (AbstractType) ct : null;
@@ -598,7 +595,6 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public AbstractType basicGetType() {
 		// DB: Avoid stack trace overflow
 		ComponentType ct = super.basicGetType();
@@ -610,7 +606,6 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public void setType(ComponentType newType) {
 		super.setType(newType);
 	}
@@ -629,7 +624,6 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
@@ -667,7 +661,6 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
@@ -706,7 +699,6 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
@@ -771,7 +763,6 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
@@ -822,7 +813,6 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_SUBCOMPONENT:
@@ -864,7 +854,6 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetOwnedSubcomponents() {
 		return super.isSetOwnedSubcomponents() || eIsSet(Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT)
 				|| eIsSet(Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT)

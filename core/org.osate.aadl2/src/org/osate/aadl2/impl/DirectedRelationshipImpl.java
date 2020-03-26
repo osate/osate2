@@ -60,7 +60,6 @@ public abstract class DirectedRelationshipImpl extends RelationshipImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getDirectedRelationship();
 	}
@@ -80,7 +79,6 @@ public abstract class DirectedRelationshipImpl extends RelationshipImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Element> getRelatedElements() {
 		return new DerivedUnionEObjectEList<Element>(Element.class, this,
 				Aadl2Package.DIRECTED_RELATIONSHIP__RELATED_ELEMENT, RELATED_ELEMENT_ESUBSETS);
@@ -112,7 +110,6 @@ public abstract class DirectedRelationshipImpl extends RelationshipImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.DIRECTED_RELATIONSHIP__SOURCE:
@@ -128,7 +125,6 @@ public abstract class DirectedRelationshipImpl extends RelationshipImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.DIRECTED_RELATIONSHIP__SOURCE:
@@ -155,7 +151,6 @@ public abstract class DirectedRelationshipImpl extends RelationshipImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetRelatedElements() {
 		return super.isSetRelatedElements() || isSetSources() || isSetTargets();
 	}

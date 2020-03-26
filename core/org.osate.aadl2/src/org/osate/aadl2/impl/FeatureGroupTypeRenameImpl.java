@@ -70,7 +70,6 @@ public class FeatureGroupTypeRenameImpl extends NamedElementImpl implements Feat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getFeatureGroupTypeRename();
 	}
@@ -124,7 +123,6 @@ public class FeatureGroupTypeRenameImpl extends NamedElementImpl implements Feat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_TYPE_RENAME__RENAMED_FEATURE_GROUP_TYPE:
@@ -141,7 +139,6 @@ public class FeatureGroupTypeRenameImpl extends NamedElementImpl implements Feat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_TYPE_RENAME__RENAMED_FEATURE_GROUP_TYPE:
@@ -156,7 +153,6 @@ public class FeatureGroupTypeRenameImpl extends NamedElementImpl implements Feat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_TYPE_RENAME__RENAMED_FEATURE_GROUP_TYPE:
@@ -171,7 +167,6 @@ public class FeatureGroupTypeRenameImpl extends NamedElementImpl implements Feat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_TYPE_RENAME__RENAMED_FEATURE_GROUP_TYPE:

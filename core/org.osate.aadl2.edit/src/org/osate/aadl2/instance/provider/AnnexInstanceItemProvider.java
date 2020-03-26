@@ -58,7 +58,6 @@ public class AnnexInstanceItemProvider extends NamedElementItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -89,7 +88,6 @@ public class AnnexInstanceItemProvider extends NamedElementItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String getText(Object object) {
 		String label = ((AnnexInstance) object).getName();
 		return label == null || label.length() == 0 ? getString("_UI_AnnexInstance_type") : //$NON-NLS-1$
@@ -103,7 +101,6 @@ public class AnnexInstanceItemProvider extends NamedElementItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 		super.notifyChanged(notification);
@@ -115,7 +112,6 @@ public class AnnexInstanceItemProvider extends NamedElementItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ResourceLocator getResourceLocator() {
 		return Aadl2EditPlugin.INSTANCE;
 	}

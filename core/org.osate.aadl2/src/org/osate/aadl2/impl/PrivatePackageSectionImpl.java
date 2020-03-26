@@ -60,7 +60,6 @@ public class PrivatePackageSectionImpl extends PackageSectionImpl implements Pri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getPrivatePackageSection();
 	}
@@ -92,7 +91,6 @@ public class PrivatePackageSectionImpl extends PackageSectionImpl implements Pri
 	 *
 	 * @see org.osate.aadl2.impl.NamedElementImpl#getNamespace()
 	 */
-	@Override
 	public Namespace getNamespace() {
 		return null;
 	}
@@ -102,7 +100,6 @@ public class PrivatePackageSectionImpl extends PackageSectionImpl implements Pri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PRIVATE_PACKAGE_SECTION__PUBLIC_SECTION:
@@ -119,7 +116,6 @@ public class PrivatePackageSectionImpl extends PackageSectionImpl implements Pri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PRIVATE_PACKAGE_SECTION__PUBLIC_SECTION:
@@ -131,7 +127,6 @@ public class PrivatePackageSectionImpl extends PackageSectionImpl implements Pri
 	/**
 	 * Returns the name of the package.
 	 */
-	@Override
 	public String getName() {
 		return super.getName() + "_private";
 	}
