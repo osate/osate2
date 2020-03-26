@@ -30,6 +30,7 @@ import org.osate.ge.swt.selectors.SelectorModel;
  */
 final class PrototypeEditor<C> extends Composite {
 	private final PrototypeEditorModel<C> model;
+	private final Button refineCheckBox;
 	private final CLabel directionLabel;
 	private final RadioSelector<PrototypeDirection> directionEditor;
 	private final Button arrayCheckBox;
@@ -40,6 +41,20 @@ final class PrototypeEditor<C> extends Composite {
 		this.model = Objects.requireNonNull(model, "model must not be null");
 		this.setBackground(parent.getBackground());
 		this.setLayout(GridLayoutFactory.fillDefaults().numColumns(2).create());
+
+		//
+		// Refinement
+		//
+		refineCheckBox = new Button(this, SWT.CHECK);
+		refineCheckBox.setLayoutData(
+				GridDataFactory.swtDefaults().span(2, 1).grab(true, false).align(SWT.FILL, SWT.CENTER).create());
+		refineCheckBox.addSelectionListener(new SelectionAdapter() {
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				model.setRefined(refineCheckBox.getSelection());
+			}
+		});
 
 		//
 		// Name
@@ -210,6 +225,17 @@ final class PrototypeEditor<C> extends Composite {
 		if (!this.isDisposed()) {
 			final PrototypeType type = model.getType();
 
+			// Update refinement checkbox
+			refineCheckBox.setSelection(model.isRefined() == null || model.isRefined());
+			refineCheckBox.setGrayed(model.isRefined() == null);
+			final String refineableElementLabel = model.getRefineableElementLabel();
+			refineCheckBox
+					.setText("Refine " + (refineableElementLabel == null ? "" : model.getRefineableElementLabel()));
+
+			// Make the refine checkbox visible when the refinement status can be adjusted or the refinement status is not false.
+			setVisibilityAndExclusion(refineCheckBox,
+					refineableElementLabel != null || model.isRefined() != Boolean.FALSE);
+
 			// Update visibility of direction editor and label
 			final boolean directionVisible = type == PrototypeType.FEATURE;
 			setVisibilityAndExclusion(directionLabel, directionVisible);
@@ -220,8 +246,21 @@ final class PrototypeEditor<C> extends Composite {
 			arrayCheckBox.setGrayed(model.isArray() == null);
 
 			// Hide the array checkbox unless the component is an array.
-			arrayCheckBox.setVisible(type != null && type.isComponent());
+			setVisibilityAndExclusion(arrayCheckBox, type != null && type.isComponent());
+
+			// Update enabled state
+			setEnabled(model.isEnabled());
 		}
+	}
+
+	@Override
+	public void setEnabled(final boolean enabled) {
+		super.setEnabled(enabled);
+		// Enable the refine checkbox when the view is enabled and the refinement status can be adjusted
+		refineCheckBox.setEnabled(enabled && model.getRefineableElementLabel() != null);
+		arrayCheckBox.setEnabled(enabled);
+
+		// Refinement state of other widgets are controlled by view models
 	}
 
 	/**

@@ -139,6 +139,22 @@ final class TestPrototypesEditorModel extends BaseObservableModel
 		prototype.array = value;
 		triggerChangeEvent();
 	}
+
+	@Override
+	public String getRefineableElementLabel(TestPrototype prototype) {
+		return prototype.refineableElementLabel;
+	}
+
+	@Override
+	public Boolean isRefined(TestPrototype prototype) {
+		return prototype.refined;
+	}
+
+	@Override
+	public void setRefined(TestPrototype prototype, boolean value) {
+		prototype.refined = value;
+		triggerChangeEvent();
+	}
 }
 
 class TestPrototype {
@@ -147,6 +163,8 @@ class TestPrototype {
 	PrototypeType type;
 	TestClassifier classifier;
 	Boolean array;
+	String refineableElementLabel = "SomeElement";
+	Boolean refined;
 
 	public TestPrototype(final String name) {
 		this.name = name;

@@ -161,6 +161,22 @@ public final class PrototypesEditor<T, C> extends Composite {
 			public void setArray(boolean value) {
 				model.setArray(model.getSelectedPrototype(), value);
 			}
+
+			@Override
+			public String getRefineableElementLabel() {
+				return model.getSelectedPrototype() == null ? null
+						: model.getRefineableElementLabel(model.getSelectedPrototype());
+			}
+
+			@Override
+			public Boolean isRefined() {
+				return model.getSelectedPrototype() == null ? null : model.isRefined(model.getSelectedPrototype());
+			}
+
+			@Override
+			public void setRefined(boolean value) {
+				model.setRefined(model.getSelectedPrototype(), value);
+			}
 		});
 		this.detailsView
 				.setLayoutData(GridDataFactory.swtDefaults().grab(true, true).align(SWT.FILL, SWT.FILL).create());

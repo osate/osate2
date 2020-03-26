@@ -95,4 +95,22 @@ interface PrototypeEditorModel<C> extends ObservableModel {
 	 * @param value whether the prototype is an array.
 	 */
 	void setArray(boolean value);
+
+	/**
+	 * Returns a string identifying the element(s) that can be or is been refined.
+	 * @return a string appropriate for display to the user. null if the prototype cannot be refined
+	 */
+	String getRefineableElementLabel();
+
+	/**
+	 * Returns whether the prototype is refined.
+	 * @return whether the prototype is refined.
+	 */
+	Boolean isRefined();
+
+	/**
+	 * Updates whether the prototype is refined.
+	 * @param value whether the prototype is refined.
+	 */
+	void setRefined(boolean value);
 }

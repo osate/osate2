@@ -109,4 +109,20 @@ implements PrototypesEditorModel<Prototype, Object> {
 	public void setArray(Prototype prototype, boolean value) {
 		// TODO
 	}
+
+	@Override
+	public String getRefineableElementLabel(Prototype prototype) {
+		return "TODO";
+	}
+
+	@Override
+	public Boolean isRefined(Prototype prototype) {
+		// TODO
+		return null;
+	}
+
+	@Override
+	public void setRefined(Prototype prototype, boolean value) {
+		// TODO
+	}
 }
