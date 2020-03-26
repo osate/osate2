@@ -49,7 +49,6 @@ public abstract class BusImpl extends NamedElementImpl implements Bus {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getBus();
 	}

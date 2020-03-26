@@ -49,7 +49,6 @@ public abstract class BusFeatureClassifierImpl extends FeatureClassifierImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getBusFeatureClassifier();
 	}

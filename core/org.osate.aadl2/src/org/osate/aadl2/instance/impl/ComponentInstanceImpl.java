@@ -245,7 +245,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return InstancePackage.Literals.COMPONENT_INSTANCE;
 	}
@@ -568,7 +567,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.COMPONENT_INSTANCE__FEATURE_INSTANCE:
@@ -594,7 +592,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case InstancePackage.COMPONENT_INSTANCE__FEATURE_INSTANCE:
@@ -637,7 +634,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case InstancePackage.COMPONENT_INSTANCE__FEATURE_INSTANCE:
@@ -694,7 +690,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case InstancePackage.COMPONENT_INSTANCE__FEATURE_INSTANCE:
@@ -742,7 +737,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case InstancePackage.COMPONENT_INSTANCE__FEATURE_INSTANCE:
@@ -778,7 +772,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();
@@ -792,8 +785,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		result.append(')');
 		return result.toString();
 	}
-
-	@Override
 	public boolean acceptsProperty(Property property) {
 		ComponentClassifier cc = getComponentClassifier();
 		Subcomponent sub = getSubcomponent();
@@ -1002,8 +993,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		}
 		return false;
 	}
-
-	@Override
 	public List<? extends NamedElement> getInstantiatedObjects() {
 		return Collections.singletonList(getSubcomponent());
 	}
@@ -1120,7 +1109,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 *
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#getPathName()
 	 */
-	@Override
 	public String getFullName() {
 		String array = "";
 		for (Long i : getIndices()) {
@@ -1136,7 +1124,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 *
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#findInstanceObjectsHelper(java.util.ListIterator, java.util.List)
 	 */
-	@Override
 	protected boolean findInstanceObjectsHelper(ListIterator<ContainmentPathElement> pathIter,
 			List<InstanceObject> ios) {
 		boolean result = super.findInstanceObjectsHelper(pathIter, ios);
@@ -1160,7 +1147,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 *
 	 * @see org.osate.aadl2.instance.InstanceObject#matchesIndex(java.util.List)
 	 */
-	@Override
 	public boolean matchesIndex(List<ArrayRange> ranges) {
 		if (ranges.size() == 0) {
 			return true;

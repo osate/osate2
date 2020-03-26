@@ -49,7 +49,6 @@ public abstract class ProcessSubcomponentTypeImpl extends SubcomponentTypeImpl i
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getProcessSubcomponentType();
 	}

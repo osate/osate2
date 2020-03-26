@@ -71,7 +71,6 @@ public class ModalElementImpl extends NamedElementImpl implements ModalElement {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getModalElement();
 	}
@@ -102,7 +101,6 @@ public class ModalElementImpl extends NamedElementImpl implements ModalElement {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.MODAL_ELEMENT__IN_MODE:
@@ -117,7 +115,6 @@ public class ModalElementImpl extends NamedElementImpl implements ModalElement {
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.MODAL_ELEMENT__IN_MODE:
@@ -133,7 +130,6 @@ public class ModalElementImpl extends NamedElementImpl implements ModalElement {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.MODAL_ELEMENT__IN_MODE:
@@ -148,7 +144,6 @@ public class ModalElementImpl extends NamedElementImpl implements ModalElement {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.MODAL_ELEMENT__IN_MODE:

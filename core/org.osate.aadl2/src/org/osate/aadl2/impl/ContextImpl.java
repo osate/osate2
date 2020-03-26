@@ -49,7 +49,6 @@ public abstract class ContextImpl extends NamedElementImpl implements Context {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getContext();
 	}

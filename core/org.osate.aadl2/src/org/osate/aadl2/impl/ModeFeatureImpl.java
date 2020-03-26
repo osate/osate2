@@ -49,7 +49,6 @@ public abstract class ModeFeatureImpl extends ClassifierFeatureImpl implements M
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getModeFeature();
 	}

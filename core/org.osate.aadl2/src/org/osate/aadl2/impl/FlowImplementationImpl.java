@@ -139,7 +139,6 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getFlowImplementation();
 	}
@@ -360,7 +359,6 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT:
@@ -401,7 +399,6 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_IMPLEMENTATION__FEATURING_CLASSIFIER:
@@ -429,7 +426,6 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_IMPLEMENTATION__KIND:
@@ -457,7 +453,6 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_IMPLEMENTATION__KIND:
@@ -484,7 +479,6 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_IMPLEMENTATION__FEATURING_CLASSIFIER:
@@ -508,7 +502,6 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == ClassifierFeature.class) {
 			switch (derivedFeatureID) {
@@ -532,7 +525,6 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == ClassifierFeature.class) {
 			switch (baseFeatureID) {
@@ -556,7 +548,6 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();

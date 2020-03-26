@@ -48,7 +48,6 @@ public abstract class SystemImpl extends NamedElementImpl implements org.osate.a
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getSystem();
 	}

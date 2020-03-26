@@ -52,7 +52,6 @@ public abstract class CalledSubprogramImpl extends AObjectImpl implements Called
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getCalledSubprogram();
 	}

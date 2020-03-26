@@ -80,7 +80,6 @@ public class SystemOperationModeImpl extends ModeImpl implements SystemOperation
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return InstancePackage.Literals.SYSTEM_OPERATION_MODE;
 	}
@@ -103,7 +102,6 @@ public class SystemOperationModeImpl extends ModeImpl implements SystemOperation
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case InstancePackage.SYSTEM_OPERATION_MODE__CURRENT_MODE:
@@ -118,7 +116,6 @@ public class SystemOperationModeImpl extends ModeImpl implements SystemOperation
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case InstancePackage.SYSTEM_OPERATION_MODE__CURRENT_MODE:
@@ -134,7 +131,6 @@ public class SystemOperationModeImpl extends ModeImpl implements SystemOperation
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case InstancePackage.SYSTEM_OPERATION_MODE__CURRENT_MODE:
@@ -149,7 +145,6 @@ public class SystemOperationModeImpl extends ModeImpl implements SystemOperation
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case InstancePackage.SYSTEM_OPERATION_MODE__CURRENT_MODE:
@@ -162,7 +157,6 @@ public class SystemOperationModeImpl extends ModeImpl implements SystemOperation
 	 * returns initial mode as true if it is a SOM without modes ("no Modes" aka NORMAL_SOM_NME)
 	 * or if all of the modes are initial mode
 	 */
-	@Override
 	public final boolean isInitial() {
 		if (isInitial == null) {
 			Boolean value = Boolean.TRUE;
@@ -187,13 +181,9 @@ public class SystemOperationModeImpl extends ModeImpl implements SystemOperation
 		}
 		return isInitial.booleanValue();
 	}
-
-	@Override
 	public boolean isDerived() {
 		return false;
 	}
-
-	@Override
 	public String toString() {
 		/*
 		 * Don't return a string with spaces in it becase this is used to
@@ -216,14 +206,10 @@ public class SystemOperationModeImpl extends ModeImpl implements SystemOperation
 		}
 		return name.toString();
 	}
-
-	@Override
 	public boolean acceptsProperty(Property property) {
 		// SystemOperationModes can't have properties.
 		return false;
 	}
-
-	@Override
 	public void getPropertyValueInternal(Property prop, PropertyAcc pas, boolean fromInstanceSlaveCall, boolean all)
 			throws InvalidModelException {
 		// SystemOperationModes can't have properties.

@@ -49,7 +49,6 @@ public abstract class BusClassifierImpl extends ComponentClassifierImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getBusClassifier();
 	}

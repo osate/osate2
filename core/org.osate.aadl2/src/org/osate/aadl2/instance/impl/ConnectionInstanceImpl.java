@@ -204,7 +204,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return InstancePackage.Literals.CONNECTION_INSTANCE;
 	}
@@ -448,7 +447,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE__DESTINATION:
@@ -474,7 +472,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE__DESTINATION:
@@ -492,7 +489,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE__IN_SYSTEM_OPERATION_MODE:
@@ -521,7 +517,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE__IN_SYSTEM_OPERATION_MODE:
@@ -560,7 +555,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE__IN_SYSTEM_OPERATION_MODE:
@@ -596,7 +590,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE__IN_SYSTEM_OPERATION_MODE:
@@ -624,7 +617,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();
@@ -742,7 +734,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	// }
 
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
-	@Override
 	public List<Connection> getInstantiatedObjects() {
 		List<Connection> conns = new LinkedList<Connection>();
 
@@ -803,7 +794,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 *
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#acceptsProperty (org.osate.aadl2.Property)
 	 */
-	@Override
 	public boolean acceptsProperty(Property property) {
 		// OsateDebug.osateDebug("[ConnectionInstanceImpl] acceptsProperty" + property);
 

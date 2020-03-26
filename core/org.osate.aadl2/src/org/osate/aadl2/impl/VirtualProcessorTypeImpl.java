@@ -133,7 +133,6 @@ public class VirtualProcessorTypeImpl extends ComponentTypeImpl implements Virtu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getVirtualProcessorType();
 	}
@@ -143,7 +142,6 @@ public class VirtualProcessorTypeImpl extends ComponentTypeImpl implements Virtu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Feature> getOwnedFeatures() {
 		return new DerivedUnionEObjectEList<Feature>(Feature.class, this,
 				Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_FEATURE, OWNED_FEATURE_ESUBSETS);
@@ -319,7 +317,6 @@ public class VirtualProcessorTypeImpl extends ComponentTypeImpl implements Virtu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_DATA_PORT:
@@ -343,7 +340,6 @@ public class VirtualProcessorTypeImpl extends ComponentTypeImpl implements Virtu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_DATA_PORT:
@@ -368,7 +364,6 @@ public class VirtualProcessorTypeImpl extends ComponentTypeImpl implements Virtu
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_DATA_PORT:
@@ -404,7 +399,6 @@ public class VirtualProcessorTypeImpl extends ComponentTypeImpl implements Virtu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_DATA_PORT:
@@ -434,7 +428,6 @@ public class VirtualProcessorTypeImpl extends ComponentTypeImpl implements Virtu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_FEATURE:
@@ -460,7 +453,6 @@ public class VirtualProcessorTypeImpl extends ComponentTypeImpl implements Virtu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetOwnedFeatures() {
 		return super.isSetOwnedFeatures() || eIsSet(Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_DATA_PORT)
 				|| eIsSet(Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_EVENT_DATA_PORT)

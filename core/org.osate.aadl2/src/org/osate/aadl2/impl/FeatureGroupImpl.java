@@ -98,7 +98,6 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getFeatureGroup();
 	}
@@ -131,7 +130,6 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 * @return The classifier, or <code>null</code> if no classifier.
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	@Override
 	public Classifier getAllClassifier() {
 		return getAllFeatureGroupType();
 	}
@@ -140,7 +138,6 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 * Get the classifier of given feature, if it has one, otherwise null.
 	 * @return The classifier, or <code>null</code> if no classifier.
 	 */
-	@Override
 	public Classifier getClassifier() {
 		return getFeatureGroupType();
 	}
@@ -252,7 +249,6 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP__FEATURE_TYPE:
@@ -281,7 +277,6 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP__FEATURE_TYPE:
@@ -299,7 +294,6 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP__FEATURE_TYPE:
@@ -317,7 +311,6 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP__FEATURE_TYPE:
@@ -337,7 +330,6 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();
@@ -361,8 +353,6 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 		}
 		return getFeatureGroupType().getIndexOf(feature);
 	}
-
-	@Override
 	public boolean acceptsProperty(Property property) {
 		if (super.acceptsProperty(property)) {
 			return true;
@@ -372,8 +362,6 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 			return false;
 		}
 	}
-
-	@Override
 	public void getPropertyValueInternalHelper(final Property prop, final PropertyAcc pas,
 			final boolean fromInstanceSlaveCall, final boolean all) throws InvalidModelException {
 		// values from feature group type

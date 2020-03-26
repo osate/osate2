@@ -60,7 +60,6 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getRefinableElement();
 	}
@@ -114,7 +113,6 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.REFINABLE_ELEMENT__REFINED_ELEMENT:
@@ -136,7 +134,6 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.REFINABLE_ELEMENT__REFINED_ELEMENT:
@@ -155,8 +152,6 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	public boolean isSetRefinedElement() {
 		return false;
 	}
-
-	@Override
 	public String getName() {
 		if (name == null) { // DB Avoids stack trace overflow when a component refines itself (seems to be supported by OSATE)
 			if (!Aadl2Util.isNull(getRefinedElement()) && getRefinedElement() != this) {
@@ -167,8 +162,6 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 		}
 		return name;
 	}
-
-	@Override
 	public void setName(final String newName) {
 		// DB: Avoid setting a non null name to refined elements (causes a validation error during serialization
 		// when both the name and refined element are set).
