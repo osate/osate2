@@ -51,7 +51,6 @@ import org.osate.aadl2.PropertyType
 import org.osate.aadl2.RecordType
 import org.osate.aadl2.ReferenceValue
 import org.osate.aadl2.Subcomponent
-import org.osate.aadl2.TriggerPort
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement
@@ -75,6 +74,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorEventOrPropagation
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorPropagation
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint
+import org.osate.xtext.aadl2.errormodel.errorModel.ReportingPortReference
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet
 import org.osate.xtext.aadl2.errormodel.serializer.ErrorModelCrossReferenceSerializer
@@ -765,14 +765,23 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		context.scopeForErrorPropagation(DirectionType.OUT)
 	}
 
-	def scope_ErrorDetection_detectionReportingPort(Classifier context, EReference reference) {
-		context.allFeatures.filter(TriggerPort).scopeFor
-	}
-	
-	def scope_ErrorDetection_detectionReportingPort(ComponentImplementation context, EReference reference) {
-		val features = context.allFeatures.filter(TriggerPort)
-		val internalFeatures = context.allInternalFeatures;
-		(features + internalFeatures).scopeFor
+	def scope_ReportingPortReference_element(ReportingPortReference context, EReference reference) {
+		val previous = context.previous
+		if (previous === null) {
+			val features = context.getContainerOfType(Classifier).allFeatures
+			val internalFeatures = switch classifier : context.getContainerOfType(Classifier) {
+				ComponentImplementation: classifier.allInternalFeatures
+				default: emptySet
+			}
+			(features + internalFeatures).scopeFor
+		} else {
+			val previousElement = previous.element
+			if (previousElement instanceof FeatureGroup) {
+				previousElement.allFeatureGroupType?.allFeatures?.scopeFor ?: IScope.NULLSCOPE
+			} else {
+				IScope.NULLSCOPE
+			}
+		}
 	}
 
 	def scope_ErrorStateToModeMapping_mappedModes(ComponentClassifier context, EReference reference) {

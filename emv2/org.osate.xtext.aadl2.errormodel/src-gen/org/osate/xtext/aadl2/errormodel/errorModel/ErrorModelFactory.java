@@ -395,6 +395,15 @@ public interface ErrorModelFactory extends EFactory
   ErrorDetection createErrorDetection();
 
   /**
+   * Returns a new object of class '<em>Reporting Port Reference</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Reporting Port Reference</em>'.
+   * @generated
+   */
+  ReportingPortReference createReportingPortReference();
+
+  /**
    * Returns a new object of class '<em>Error Code Value</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
