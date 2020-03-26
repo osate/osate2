@@ -180,6 +180,7 @@ Workflow {
 			// scoping and exporting API 
 			fragment = scoping.ImportNamespacesScopingFragment {
 				generateXtendStub = true
+				ignoreCase = true
 			}
 			fragment = exporting.QualifiedNamesFragment {}
 			fragment = builder.BuilderIntegrationFragment {}

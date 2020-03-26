@@ -13,7 +13,7 @@ Export-Package:
 Require-Bundle: org.osate.aadl2;bundle-version="[2.1.0,3.0.0)",
  org.osate.ui;bundle-version="[3.0.0,4.0.0)",
  org.osate.xtext.aadl2.properties;bundle-version="[1.1.0,2.0.0)",
- org.osate.xtext.aadl2;bundle-version="[2.0.0,3.0.0)",
+ org.osate.xtext.aadl2;bundle-version="[3.0.0,4.0.0)",
  org.osate.results;bundle-version="[2.0.0,3.0.0)",
  org.eclipse.ui.ide;bundle-version="[3.13.1,4.0.0)",
  org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)",
