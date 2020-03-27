@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 import org.osate.ge.swt.BaseObservableModel;
 
 /**
- * Test view model for various list views contained in this package.
+ * Test view model for various list views contained in this package. Allows up to 5 items in the list.
  *
  */
 final class TestListEditorModel extends BaseObservableModel
@@ -62,5 +62,9 @@ final class TestListEditorModel extends BaseObservableModel
 		return element == null ? "<None>" : element;
 	}
 
+	@Override
+	public boolean canAdd() {
+		return elements.size() < 5;
+	}
 
 }

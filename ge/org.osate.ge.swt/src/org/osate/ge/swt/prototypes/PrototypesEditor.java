@@ -41,6 +41,11 @@ public final class PrototypesEditor<T, C> extends Composite {
 			}
 
 			@Override
+			public boolean canAdd() {
+				return model.canAddPrototype();
+			}
+
+			@Override
 			public void addElement() {
 				model.addPrototype();
 			}
@@ -64,7 +69,6 @@ public final class PrototypesEditor<T, C> extends Composite {
 			public String getLabel(T prototype) {
 				return model.getPrototypeLabel(prototype);
 			}
-
 		});
 		this.listView
 				.setLayoutData(GridDataFactory.swtDefaults().grab(true, true).align(SWT.FILL, SWT.FILL).create());

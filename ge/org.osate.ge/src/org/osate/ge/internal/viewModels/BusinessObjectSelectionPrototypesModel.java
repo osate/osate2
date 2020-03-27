@@ -1,11 +1,20 @@
 package org.osate.ge.internal.viewModels;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractPrototype;
 import org.osate.aadl2.BusPrototype;
 import org.osate.aadl2.Classifier;
@@ -17,6 +26,7 @@ import org.osate.aadl2.FeatureGroupPrototype;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.MemoryPrototype;
+import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.ProcessPrototype;
 import org.osate.aadl2.ProcessorPrototype;
 import org.osate.aadl2.Prototype;
@@ -29,6 +39,10 @@ import org.osate.aadl2.VirtualBusPrototype;
 import org.osate.aadl2.VirtualProcessorPrototype;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.BusinessObjectSelection;
+import org.osate.ge.internal.services.NamingService;
+import org.osate.ge.internal.util.AadlImportsUtil;
+import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
+import org.osate.ge.internal.util.renaming.LtkRenameAction;
 import org.osate.ge.internal.viewModels.BusinessObjectSelectionPrototypesModel.PrototypeData;
 import org.osate.ge.swt.BaseObservableModel;
 import org.osate.ge.swt.prototypes.PrototypeDirection;
@@ -39,17 +53,27 @@ import com.google.common.base.Strings;
 
 // TODO: Implement
 // TODO; WIll need to update with the BOS like the feature direction model
-// TODO: Decide what type of object to use to referece classifier
+// TODO: Document classifier type. IEObjectDescription OR Classifier
+// TODO: Should use action service to perform modifications with labels? Should BOS have a way of doing that?
 public class BusinessObjectSelectionPrototypesModel extends BaseObservableModel
 implements PrototypesEditorModel<PrototypeData, Object> {
+	// TODO: Is there a better way to do this to avoid needing so many services?
+
+	private final Renamer renamer;
+	private final NamingService namingService;
 	private BusinessObjectSelection bos;
 	private List<PrototypeData> prototypes;
 	private PrototypeData selectedPrototype = null;
 
 	// TODO: Rename
+	public static interface Renamer {
+		void rename(LtkRenameAction.BusinessObjectSupplier boSupplier, final String name, final String originalName);
+	}
+
+	// TODO: Rename
 	public static class PrototypeData {
 		// TODO: BOC or reference for context
-		final BusinessObjectContext boc;
+		final BusinessObjectContext boc; // Classifier BOC
 
 		final String label;
 		final String name; // TODO: Needed to maintain selection?
@@ -67,7 +91,11 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 		// TODO; Need equals support? Is there a benefit from comparing that way when dealing with selections, etc?
 	}
 
-	public BusinessObjectSelectionPrototypesModel(final BusinessObjectSelection bos) {
+	public BusinessObjectSelectionPrototypesModel(final Renamer renamer,
+			final NamingService namingService,
+			final BusinessObjectSelection bos) {
+		this.renamer = Objects.requireNonNull(renamer, "renamer must not be null");
+		this.namingService = Objects.requireNonNull(namingService, "namingService must not be null");
 		setBusinessObjectSelection(bos);
 	}
 
@@ -77,15 +105,30 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 	}
 
 	@Override
+	public boolean canAddPrototype() {
+		return bos.boStream(Classifier.class).limit(2).count() == 1;
+	}
+
+	@Override
 	public void addPrototype() {
-		// TODO
-		// TODO; Update selected prototype?
+		bos.modify(boc -> boc.getBusinessObject() instanceof Classifier, boc -> (Classifier) boc.getBusinessObject(),
+				(c, boc) -> {
+					// Create a new prototype
+					final ComponentPrototype cp = (ComponentPrototype) c
+							.createOwnedPrototype(Aadl2Factory.eINSTANCE.getAadl2Package().getDataPrototype());
+
+					// Assign a name
+					final String newName = namingService.buildUniqueIdentifier(c, "new_prototype");
+					cp.setName(newName);
+
+					// Update the selected prototype
+					selectedPrototype = new PrototypeData(boc, newName, newName, cp);
+				});
 	}
 
 	@Override
 	public void removePrototype(final PrototypeData prototype) {
-		// TODO
-		// TODO: Update selected prototype if needed
+		modifyPrototype(prototype, EcoreUtil::remove);
 	}
 
 	@Override
@@ -111,9 +154,43 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 		return prototype.name;
 	}
 
+	// TODO: Move, document, etc
+	// TODO; Weak, etc
+	private static class RenamePrototypeSupplier implements LtkRenameAction.BusinessObjectSupplier {
+		private final WeakReference<BusinessObjectContext> weakClassifierBoc;
+
+		public RenamePrototypeSupplier(final BusinessObjectContext classifierBoc) {
+			this.weakClassifierBoc = new WeakReference<>(classifierBoc);
+		}
+
+		@Override
+		public EObject getBusinessObject(final String currentName) {
+			final BusinessObjectContext classifierBoc = weakClassifierBoc.get();
+			if (classifierBoc == null) {
+				return null;
+			}
+
+			Prototype prototypeToRename = getPrototypeByName(classifierBoc.getBusinessObject(), currentName)
+					.orElse(null);
+
+			// Always rename the refined element to prevent issues with the refactoring producing invalid results
+			while (prototypeToRename != null && prototypeToRename.getRefined() != null) {
+				prototypeToRename = prototypeToRename.getRefined();
+			}
+
+			return prototypeToRename;
+		}
+	}
+
+
 	@Override
 	public void setPrototypeName(PrototypeData prototype, String value) {
-		// TODO. Will need to update selection appropriately
+		// TODO: Renaming refined elements isn't working properly. Works in text editor but not in editor
+
+		renamer.rename(new RenamePrototypeSupplier(prototype.boc), value, prototype.name);
+
+		// TODO: This doesn't handle undo/redo properly. Is that okay?
+		selectedPrototype = new PrototypeData(prototype.boc, value, value, prototype.prototype);
 	}
 
 	@Override
@@ -140,29 +217,27 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 
 	@Override
 	public void setPrototypeDirection(final PrototypeData prototype, final PrototypeDirection value) {
-		bos.modify(boc -> boc == prototype.boc, Classifier.class, c -> {
-			getPrototypeByName(c, prototype.name).ifPresent(p -> {
-				if (p instanceof FeaturePrototype) {
-					final FeaturePrototype fp = (FeaturePrototype) p;
-					switch (value) {
-					case INPUT:
-						fp.setIn(true);
-						fp.setOut(false);
-						break;
-					case OUTPUT:
-						fp.setIn(false);
-						fp.setOut(true);
-						break;
-					case UNSPECIFIED:
-						fp.setIn(false);
-						fp.setOut(false);
-						break;
-					default:
-						break;
+		modifyPrototype(prototype, p -> {
+			if (p instanceof FeaturePrototype) {
+				final FeaturePrototype fp = (FeaturePrototype) p;
+				switch (value) {
+				case INPUT:
+					fp.setIn(true);
+					fp.setOut(false);
+					break;
+				case OUTPUT:
+					fp.setIn(false);
+					fp.setOut(true);
+					break;
+				case UNSPECIFIED:
+					fp.setIn(false);
+					fp.setOut(false);
+					break;
+				default:
+					break;
 
-					}
 				}
-			});
+			}
 		});
 	}
 
@@ -172,51 +247,177 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 	}
 
 	@Override
-	public void setPrototypeType(PrototypeData prototype, PrototypeType value) {
-		// TODO
+	public void setPrototypeType(final PrototypeData prototype, final PrototypeType value) {
+		// Check if the type is different by comparing EClass values
+		final EClass currentEClass = prototype.prototype.eClass();
+		final EClass newEClass = prototypeTypeToEClass(value);
+		if (newEClass == currentEClass) {
+			return;
+		}
+
+		modifyOwningClassifier(prototype, c -> {
+			getPrototypeByName(c, prototype.name).ifPresent(p -> {
+				// Store location in list
+				final int index = c.getOwnedPrototypes().indexOf(p);
+				if (index == -1) {
+					throw new RuntimeException("Unable to get index of prototype being modified");
+				}
+
+				// Store fields
+				final String name = p.getName();
+				final Prototype refined = p.getRefined();
+				ComponentClassifier cc = null;
+				FeatureGroupType fgt = null;
+				boolean in = false;
+				boolean out = false;
+				boolean array = false;
+
+				if (p instanceof ComponentPrototype) {
+					final ComponentPrototype cp = (ComponentPrototype) p;
+					cc = cp.getConstrainingClassifier();
+					array = cp.isArray();
+				} else if (p instanceof FeatureGroupPrototype) {
+					final FeatureGroupPrototype fp = (FeatureGroupPrototype) p;
+					fgt = fp.getConstrainingFeatureGroupType();
+				} else if (p instanceof FeaturePrototype) {
+					final FeaturePrototype fp = (FeaturePrototype) p;
+					cc = fp.getConstrainingClassifier();
+					in = fp.isIn();
+					out = fp.isOut();
+				}
+
+				// Create new prototype
+				final Prototype newPrototype = (Prototype) EcoreUtil.create(newEClass);
+				c.getOwnedPrototypes().add(index, newPrototype);
+
+				if (refined == null) {
+					newPrototype.setName(name);
+				} else {
+					newPrototype.setRefined(refined);
+				}
+
+				// Set fields
+				if (newPrototype instanceof ComponentPrototype) {
+					final ComponentPrototype cp = (ComponentPrototype) newPrototype;
+					cp.setConstrainingClassifier(cc);
+					cp.setArray(array);
+				} else if (newPrototype instanceof FeatureGroupPrototype) {
+					final FeatureGroupPrototype fp = (FeatureGroupPrototype) newPrototype;
+					fp.setConstrainingFeatureGroupType(fgt);
+				} else if (newPrototype instanceof FeaturePrototype) {
+					final FeaturePrototype fp = (FeaturePrototype) newPrototype;
+					fp.setConstrainingClassifier(cc);
+					fp.setIn(in);
+					fp.setOut(out);
+				}
+
+				// Move property associations
+				newPrototype.getOwnedPropertyAssociations().addAll(p.getOwnedPropertyAssociations());
+
+				// Remove old prototype
+				EcoreUtil.remove(p);
+			});
+		});
 	}
 
 	@Override
 	public Stream<Object> getConstrainingClassifierOptions(final PrototypeData prototype) {
-		return Stream.empty();
+		if (prototype.prototype.eResource() == null) {
+			return Stream.empty();
+		}
+
+		// Check the type of the prototype and get the EClass of the constraining classifier / constraining feature group type
+		final Prototype p = prototype.prototype;
+		final EClass filterEClass;
+		if (p instanceof ComponentPrototype || p instanceof FeaturePrototype) {
+			filterEClass = Aadl2Factory.eINSTANCE.getAadl2Package().getComponentClassifier();
+		} else if (p instanceof FeatureGroupPrototype) {
+			filterEClass = Aadl2Factory.eINSTANCE.getAadl2Package().getFeatureGroupType();
+		} else {
+			filterEClass = null;
+		}
+
+		// null is always a valid option
+		Stream<Object> options = Stream.of((Object) null);
+
+		// Concatenate all classifiers that match the supported EClass
+		if (filterEClass != null) {
+			options = Stream.concat(options,
+					ScopedEMFIndexRetrieval.getAllEObjectsByType(prototype.prototype.eResource(), filterEClass).stream()
+					.map(Object.class::cast));
+		}
+
+		return options;
 	}
 
 	@Override
 	public String getClassifierLabel(Object classifier) {
 		if (classifier == null) {
 			return "<None>";
-		}
-
-		if (classifier instanceof Classifier) {
+		} else if (classifier instanceof Classifier) {
 			return ((Classifier) classifier).getQualifiedName();
-		}
-
-
-		// TODO
-		return "TODO";
-	}
-
-	@Override
-	public Object getConstrainingClassifier(PrototypeData prototype) {
-		final Prototype p = prototype.prototype;
-		final Classifier c;
-		if (p instanceof ComponentPrototype) {
-			c = ((ComponentPrototype) p).getConstrainingClassifier();
-		} else if (p instanceof FeatureGroupPrototype) {
-			c = ((FeatureGroupPrototype) p).getConstrainingFeatureGroupType();
-		} else if (p instanceof FeaturePrototype) {
-			c = ((FeaturePrototype) p).getConstrainingClassifier();
+		} else if (classifier instanceof IEObjectDescription) {
+			return ((IEObjectDescription) classifier).getName().toString("::");
 		} else {
-			c = null;
+			return "<Unknown>";
 		}
-
-		// TODO: Is returning a Classifier object preferred?
-		return c;
 	}
 
 	@Override
-	public void setConstrainingClassifier(PrototypeData prototype, Object value) {
-		// TODO
+	public Object getConstrainingClassifier(final PrototypeData prototype) {
+		final Prototype p = prototype.prototype;
+		if (p instanceof ComponentPrototype) {
+			return ((ComponentPrototype) p).getConstrainingClassifier();
+		} else if (p instanceof FeatureGroupPrototype) {
+			return ((FeatureGroupPrototype) p).getConstrainingFeatureGroupType();
+		} else if (p instanceof FeaturePrototype) {
+			return ((FeaturePrototype) p).getConstrainingClassifier();
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public void setConstrainingClassifier(final PrototypeData prototype, final Object value) {
+		modifyPrototype(prototype, p -> {
+			EObject classifier = null;
+			if (value == null) {
+				classifier = null;
+			} else if (value instanceof IEObjectDescription) {
+				classifier = ((IEObjectDescription) value).getEObjectOrProxy();
+			} else if (value instanceof Classifier) {
+				classifier = (EObject) value;
+			} else {
+				throw new RuntimeException("Unexpected value: " + classifier);
+			}
+
+			if (classifier != null) {
+				// Resolve the classifier in case it is a proxy
+				classifier = EcoreUtil.resolve(classifier, prototype.prototype.eResource());
+
+				// Import its package if necessary
+				final AadlPackage pkg = (AadlPackage) p.getElementRoot();
+				if (classifier instanceof Classifier && ((Classifier) classifier).getNamespace() != null
+						&& pkg != null) {
+					final PackageSection section = pkg.getPublicSection();
+					final AadlPackage selectedClassifierPkg = (AadlPackage) ((Classifier) classifier).getNamespace()
+							.getOwner();
+					if (selectedClassifierPkg != null && pkg != selectedClassifierPkg) {
+						AadlImportsUtil.addImportIfNeeded(section, selectedClassifierPkg);
+					}
+				}
+
+			}
+
+			// Update the classifier
+			if (p instanceof ComponentPrototype) {
+				((ComponentPrototype) p).setConstrainingClassifier((ComponentClassifier) classifier);
+			} else if (p instanceof FeatureGroupPrototype) {
+				((FeatureGroupPrototype) p).setConstrainingFeatureGroupType((FeatureGroupType) classifier);
+			} else if (p instanceof FeaturePrototype) {
+				((FeaturePrototype) p).setConstrainingClassifier((ComponentClassifier) classifier);
+			}
+		});
 	}
 
 	@Override
@@ -231,19 +432,19 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 
 	@Override
 	public void setArray(PrototypeData prototype, boolean value) {
-		// TODO
-		bos.modify(boc -> boc == prototype.boc, Classifier.class, c -> {
-			getPrototypeByName(c, prototype.name).ifPresent(p -> {
-				if (p instanceof ComponentPrototype) {
-					((ComponentPrototype) p).setArray(value);
-				}
-			});
+		// Set whether the component prototype is an array
+		modifyPrototype(prototype, p -> {
+			if (p instanceof ComponentPrototype) {
+				((ComponentPrototype) p).setArray(value);
+			}
 		});
 	}
 
 	@Override
 	public String getRefineableElementLabel(PrototypeData prototype) {
-		if (prototype.prototype.getContainingClassifier() == prototype.boc.getBusinessObject()) {
+		if (prototype.prototype.getRefinedElement() != null) {
+			return prototype.prototype.getRefined().getQualifiedName();
+		} else if (prototype.prototype.getContainingClassifier() == prototype.boc.getBusinessObject()) {
 			return null;
 		} else {
 			return prototype.prototype.getQualifiedName();
@@ -251,13 +452,22 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 	}
 
 	@Override
-	public Boolean isRefined(PrototypeData prototype) {
+	public Boolean isRefined(final PrototypeData prototype) {
 		return prototype.prototype.getRefined() != null;
 	}
 
 	@Override
-	public void setRefined(PrototypeData prototype, boolean value) {
-		// TODO
+	public void setRefined(final PrototypeData prototype, final boolean value) {
+		if (value) {
+			// Create refinement
+			modifySelectedClassifier(prototype, c -> {
+				final Prototype refinement = (Prototype) c.createOwnedPrototype(prototype.prototype.eClass());
+				refinement.setRefined(prototype.prototype); // TODO: Need to worry about proxies, etc?
+			});
+		} else {
+			// Remove refinement
+			modifyPrototype(prototype, p -> EcoreUtil.remove(p));
+		}
 	}
 
 	/**
@@ -283,7 +493,7 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 		});
 
 		// TODO: Update selection with potentially new BOC/prototype? Model so prototype object would change... BOC would change?
-		if(this.selectedPrototype != null)  {
+		if (this.selectedPrototype != null) {
 			this.selectedPrototype = prototypes.stream().filter(p -> {
 				return p.boc == selectedPrototype.boc && p.name.equalsIgnoreCase(this.selectedPrototype.name);
 			}).findAny().orElse(null);
@@ -291,6 +501,22 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 
 		// TODO; Depend on whether things have changed?
 		triggerChangeEvent();
+	}
+
+	// TODO: Cleanup names, etc
+	void modifySelectedClassifier(final PrototypeData prototype, final Consumer<Classifier> modifier) {
+		bos.modify(boc -> boc == prototype.boc, Classifier.class, c -> modifier.accept(c));
+	}
+
+	void modifyOwningClassifier(final PrototypeData prototype, final Consumer<Classifier> modifier) {
+		bos.modify(boc -> boc == prototype.boc, boc -> prototype.prototype.getContainingClassifier(),
+				(c, boc) -> modifier.accept(c));
+	}
+
+	void modifyPrototype(final PrototypeData prototype, final Consumer<Prototype> modifier) {
+		modifyOwningClassifier(prototype, c -> getPrototypeByName(c, prototype.name).ifPresent(p -> {
+			modifier.accept(p);
+		}));
 	}
 
 	// TODO: Document intention
@@ -305,8 +531,7 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 	}
 	// TODO: Document intention
 
-	private static Optional<Prototype> getPrototypeByName(final Object bo,
-			final String filterName) {
+	private static Optional<Prototype> getPrototypeByName(final Object bo, final String filterName) {
 		return getAllPrototypes(bo).filter(p -> {
 			final String name = p.getName();
 			if (name == null) {
@@ -351,7 +576,64 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 		} else if (prototype instanceof FeaturePrototype) {
 			return PrototypeType.FEATURE;
 		} else {
-			return null;
+			throw new RuntimeException("Unexpected object: " + prototype);
+		}
+	}
+
+	private static EClass prototypeTypeToEClass(final PrototypeType type) {
+		final Aadl2Package pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
+
+		switch (type) {
+		case ABSTRACT:
+			return pkg.getAbstractPrototype();
+
+		case BUS:
+			return pkg.getBusPrototype();
+
+		case DATA:
+			return pkg.getDataPrototype();
+
+		case DEVICE:
+			return pkg.getDevicePrototype();
+
+		case FEATURE:
+			return pkg.getFeaturePrototype();
+
+		case FEATURE_GROUP:
+			return pkg.getFeatureGroupPrototype();
+
+		case MEMORY:
+			return pkg.getMemoryPrototype();
+
+		case PROCESS:
+			return pkg.getProcessPrototype();
+
+		case PROCESSOR:
+			return pkg.getProcessorPrototype();
+
+		case SUBPROGRAM:
+			return pkg.getSubprogramPrototype();
+
+		case SUBPROGRAM_GROUP:
+			return pkg.getSubprogramGroupPrototype();
+
+		case SYSTEM:
+			return pkg.getSystemPrototype();
+
+		case THREAD:
+			return pkg.getThreadPrototype();
+
+		case THREAD_GROUP:
+			return pkg.getThreadGroupPrototype();
+
+		case VIRTUAL_BUS:
+			return pkg.getVirtualBusPrototype();
+
+		case VIRTUAL_PROCESSOR:
+			return pkg.getVirtualProcessorPrototype();
+
+		default:
+			throw new RuntimeException("Unhandled case: " + type);
 		}
 	}
 }

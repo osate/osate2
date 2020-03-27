@@ -23,7 +23,11 @@
  */
 package org.osate.ge.internal.ui.properties;
 
+import java.util.Objects;
+
 import org.eclipse.core.runtime.Adapters;
+import org.eclipse.e4.core.contexts.EclipseContextFactory;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.viewers.IFilter;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
@@ -39,9 +43,19 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.aadl2.Classifier;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.selection.AgeBusinessObjectSelection;
+import org.osate.ge.internal.services.ActionExecutor;
+import org.osate.ge.internal.services.ActionService;
+import org.osate.ge.internal.services.ModelChangeNotifier;
+import org.osate.ge.internal.services.NamingService;
+import org.osate.ge.internal.services.ProjectProvider;
+import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.util.UiUtil;
+import org.osate.ge.internal.util.renaming.LtkRenameAction;
 import org.osate.ge.internal.viewModels.BusinessObjectSelectionPrototypesModel;
 import org.osate.ge.swt.prototypes.PrototypesEditor;
 import org.osate.ge.ui.properties.PropertySectionUtil;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
 /**
  * Property section for editing prototypes.
@@ -57,6 +71,26 @@ public class PrototypesPropertySection extends AbstractPropertySection {
 
 	private BusinessObjectSelection selectedBos;
 	private final BusinessObjectSelectionPrototypesModel model = new BusinessObjectSelectionPrototypesModel(
+			(boSupplier, name, originalName) -> {
+				// TODO: Can disable property section when editor not active. Do other users do that?
+				final AgeDiagramEditor editor = UiUtil.getActiveDiagramEditor();
+				if (editor == null) {
+					throw new RuntimeException("Editor not active");
+				}
+
+				final ProjectProvider projectProvider = (ProjectProvider) Objects
+						.requireNonNull(editor.getAdapter(ProjectProvider.class),
+								"Unable to get project provider");
+				final ModelChangeNotifier modelChangeNotifier = (ModelChangeNotifier) Objects.requireNonNull(
+						editor.getAdapter(ModelChangeNotifier.class), "Unable to get model change notifier");
+				final ActionService actionService = (ActionService) Objects
+						.requireNonNull(editor.getAdapter(ActionService.class), "Unable to get action service"); // TODO: Should use graphiti service?
+
+				final LtkRenameAction action = new LtkRenameAction(projectProvider, modelChangeNotifier,
+						boSupplier, name, originalName);
+				actionService.execute("Rename Prototype " + originalName + " to " + name,
+						ActionExecutor.ExecutionMode.NORMAL, action);
+			}, getNamingService(),
 			new AgeBusinessObjectSelection());
 
 	@Override
@@ -83,13 +117,6 @@ public class PrototypesPropertySection extends AbstractPropertySection {
 			data.top = new FormAttachment(0, ITabbedPropertyConstants.VSPACE);
 			editor.setLayoutData(data);
 		}
-
-		// TODO; Adjust layout.. helper functions
-		// TODO: Does form builder help?
-		// TODO: Prototype List
-		// TODO: Actual List
-		// TODO: Add/Remove buttons
-		// TODO: Prototype Details Page
 	}
 
 	@Override
@@ -100,7 +127,12 @@ public class PrototypesPropertySection extends AbstractPropertySection {
 
 	@Override
 	public void refresh() {
-		// TODO: Is this sufficient? Also in directional feature property section
 		model.setBusinessObjectSelection(selectedBos);
+	}
+
+	private static NamingService getNamingService() {
+		final Bundle bundle = FrameworkUtil.getBundle(PropertySectionUtil.class);
+		final IEclipseContext context = EclipseContextFactory.getServiceContext(bundle.getBundleContext());
+		return Objects.requireNonNull(context.getActive(NamingService.class), "Unable to retrieve naming service");
 	}
 }

@@ -6,7 +6,13 @@ package org.osate.ge.swt.selectors;
  */
 public interface ListEditorModel<T> extends SelectorModel<T> {
 	/**
-	 * Creates a new element and adds it to the list.
+	 * Returns whether an element is allowed to be added to the list.
+	 * @return whether an element is allowed be added.
+	 */
+	boolean canAdd();
+
+	/**
+	 * Creates a new element and adds it to the list. This method should only be called if {@link #canAdd()} returns true.
 	 */
 	void addElement();
 

@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 import org.osate.ge.swt.BaseObservableModel;
 
 /**
- * Test view model for {@link PrototypesEditor}. Requires prototype names to start with "P".
+ * Test view model for {@link PrototypesEditor}. Requires prototype names to start with "P". Allows up to 6 prototypes.
  * Does not provide any potential constraining classifiers for systems.
  */
 final class TestPrototypesEditorModel extends BaseObservableModel
@@ -28,6 +28,11 @@ final class TestPrototypesEditorModel extends BaseObservableModel
 		for (int i = 0; i < 100; i++) {
 			classifiers.add(new TestClassifier("Classifier " + classifiers.size()));
 		}
+	}
+
+	@Override
+	public boolean canAddPrototype() {
+		return prototypes.size() < 6;
 	}
 
 	@Override

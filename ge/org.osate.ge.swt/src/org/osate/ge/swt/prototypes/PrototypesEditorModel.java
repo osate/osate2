@@ -18,6 +18,12 @@ public interface PrototypesEditorModel<P, C> extends ObservableModel {
 	Stream<P> getPrototypes();
 
 	/**
+	 * Returns whether a new prototype can be created. See {@link org.osate.ge.swt.selectors.ListEditorModel#canAdd()}
+	 * @return whether a new prototype can be created.
+	 */
+	boolean canAddPrototype();
+
+	/**
 	 * Creates a new prototype. See {@link org.osate.ge.swt.selectors.ListEditorModel#addElement()}
 	 */
 	void addPrototype();

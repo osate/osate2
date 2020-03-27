@@ -69,9 +69,17 @@ public final class ListEditor<T> extends Composite {
 
 	private void refresh() {
 		if (!this.isDisposed()) {
-			this.removeButton.setEnabled(model.getSelectedElement() != null);
+			setEnabled(this.isEnabled()); // Refresh enabled status
 		}
 	}
+
+	@Override
+	public void setEnabled(final boolean enabled) {
+		super.setEnabled(enabled);
+		this.addButton.setEnabled(enabled && model.canAdd());
+		this.removeButton.setEnabled(enabled && model.getSelectedElement() != null);
+	}
+
 
 	public static void main(String[] args) {
 		SwtTestUtil.run(shell -> {
