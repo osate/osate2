@@ -1,22 +1,22 @@
 package Issue1882
 public
-	
-	
+
 	device Engine
 		features
 			thrust: out feature;
-			annex emv2 {**
-				use types ErrorLibrary;
-				error propagations
+		annex emv2 {**
+			use types ErrorLibrary;
+			
+			error propagations
 				thrust: out propagation {ServiceOmission};
 				flows
-					engineFailure: error source thrust{ServiceOmission};
-				end propagations;
+					engineFailure: error source thrust {ServiceOmission};
+			end propagations;
+			
 			properties
 				EMV2::OccurrenceDistribution => [
-							ProbabilityValue => 1.75E-7;]
-							applies to engineFailure;
-			**};
+					ProbabilityValue => 1.75E-7;] applies to engineFailure;
+		**};
 	end Engine;
 
 	system ac
@@ -30,7 +30,7 @@ public
 			end propagations;
 		**};
 	end ac;
-	
+
 	system implementation ac.twoengine
 		subcomponents
 			engine1: device engine;
@@ -38,12 +38,13 @@ public
 		connections
 			engine1conn: feature engine1.thrust -> aceffect;
 			engine2conn: feature engine2.thrust -> aceffect;
-			annex emv2 {**
-				use types ErrorLibrary;
-				component error behavior
+		annex emv2 {**
+			use types ErrorLibrary;
+			
+			component error behavior
 				propagations
-				all -[engine1.thrust{ServiceOmission} and engine2.thrust{ServiceOmission}]-> aceffect{ServiceOmission};
-				end component;
-			**};
+					all -[engine1.thrust {ServiceOmission} and engine2.thrust {ServiceOmission}]-> aceffect {ServiceOmission};
+			end component;
+		**};
 	end ac.twoengine;
 end Issue1882;

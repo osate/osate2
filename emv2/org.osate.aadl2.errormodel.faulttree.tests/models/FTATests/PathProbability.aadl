@@ -1,116 +1,117 @@
 package PathProbability
 public
 	with EMV2;
-	
-	-- *****************
-	-- *****************
 
+	-- *****************
+	-- *****************
 	system S01
 		features
-		I01 : in data port;
-		I02 : in data port;
-		o : out data port;		
+			I01: in data port;
+			I02: in data port;
+			o: out data port;
 	end S01;
-	
+
 	system implementation S01.i
-	
-	annex EMV2 {**
-	use types Sys_Error_lib;
-	use behavior Sys_Error_lib::Simple;
-		error propagations
-		I01 : in propagation {BadData};
-		I02 : in propagation {BadData};
-		o : out propagation {BadData};
-	flows
-		f1 : error source o{BadData};
-		ep01 : error path I01{BadData} -> o{BadData};
-		ep02 : error path I02{BadData} -> o{BadData};
-	end propagations;
-	properties
-		EMV2::OccurrenceDistribution => [ ProbabilityValue => 3.85e-7 ;] applies to SError, f1; -- Probability of Source  Here I want to define the probability that error source in this component
-		EMV2::OccurrenceDistribution => [ ProbabilityValue => 0.7 ;] applies to ep01; -- subset of incoming propagations get ampped to outgoing
-		EMV2::OccurrenceDistribution => [ ProbabilityValue => 0.6 ;] applies to ep02; -- subset of incoming propagations get ampped to outgoing
-	**};
-	
+
+		annex EMV2 {**
+			use types Sys_Error_lib;
+			use behavior Sys_Error_lib::Simple;
+			
+			error propagations
+				I01: in propagation {BadData};
+				I02: in propagation {BadData};
+				o: out propagation {BadData};
+				flows
+					f1: error source o {BadData};
+					ep01: error path I01 {BadData} -> o {BadData};
+					ep02: error path I02 {BadData} -> o {BadData};
+			end propagations;
+			
+			properties
+				EMV2::OccurrenceDistribution => [ProbabilityValue => 3.85e-7;] applies to SError, f1; -- Probability of Source  Here I want to define the probability that error source in this component
+				EMV2::OccurrenceDistribution => [ProbabilityValue => 0.7;] applies to ep01; -- subset of incoming propagations get ampped to outgoing
+				EMV2::OccurrenceDistribution => [ProbabilityValue => 0.6;] applies to ep02; -- subset of incoming propagations get ampped to outgoing
+		**};
+
 	end S01.i;
 
 	-- *****************
 	-- *****************
-
 	system S02
 		features
-		I01 : in data port;
-		o : out data port;
+			I01: in data port;
+			o: out data port;
 
 	end S02;
-	
-	system implementation S02.i
-	annex EMV2 {**
-		use types Sys_Error_lib;
-		use behavior Sys_Error_lib::Simple;
-		error propagations
-			I01 : in propagation {BadData};
-			o : out propagation {BadData};
-		flows
-			f1 : error source o{BadData};
-			ep01 : error path I01{BadData} -> o{BadData};
-		end propagations;
-		component error behavior
-			events
-				SError : error event;
-			transitions
-				t1 : NormalState -[ SError ]-> FaultyState ;
-				t2 : NormalState -[ I01{BadData} ]-> FaultyState;  
-			propagations
-				p1 : FaultyState -[]-> o{BadData};
-		end component;
-	properties
-	EMV2::OccurrenceDistribution => [ ProbabilityValue => 3.85e-7 ; Distribution => Poisson;] applies to SError; -- Probability of Source
 
-	**};
+	system implementation S02.i
+		annex EMV2 {**
+			use types Sys_Error_lib;
+			use behavior Sys_Error_lib::Simple;
+			
+			error propagations
+				I01: in propagation {BadData};
+				o: out propagation {BadData};
+				flows
+					f1: error source o {BadData};
+					ep01: error path I01 {BadData} -> o {BadData};
+			end propagations;
+			
+			component error behavior
+				events
+					SError: error event;
+				transitions
+					t1: NormalState -[SError]-> FaultyState;
+					t2: NormalState -[I01 {BadData}]-> FaultyState;
+				propagations
+					p1: FaultyState -[]-> o {BadData};
+			end component;
+			
+			properties
+				EMV2::OccurrenceDistribution => [ProbabilityValue => 3.85e-7; Distribution => Poisson;] applies to SError; -- Probability of Source
+		**};
 	end S02.i;
-	
+
 	-- *****************
 	-- *****************
-	
 	system main
 		features
-			I01 : in data port;
-			I02 : in data port;
-			o : out data port;
-			
+			I01: in data port;
+			I02: in data port;
+			o: out data port;
+
 	end main;
-	
+
 	system implementation main.i
 		subcomponents
-			ss01 : system S01.i;
-			ss02 : system S02.i;
-		connections 
+			ss01: system S01.i;
+			ss02: system S02.i;
+		connections
 			con01: port I01 -> ss01.I01;
 			con02: port I02 -> ss01.I02;
 			con03: port ss01.o -> ss02.I01;
 			con04: port ss02.o -> o;
 		annex EMV2 {**
 			use types Sys_Error_lib;
-			use behavior Sys_Error_lib::Simple;		
-		error propagations
-		I01 : in propagation {BadData};
-		I02 : in propagation {BadData};
-		end propagations;
-
-			composite error behavior
-			states
-				--[(ss01.FaultyState and ss02.FaultyState) or ss02.FaultyState]->FaultyState;
-				--[ss01.FaultyState or ss02.FaultyState]->FaultyState;
-				[ss02.FaultyState]->FaultyState;
-			end composite;
-	properties
-		EMV2::OccurrenceDistribution => [ ProbabilityValue => 1.4e-7 ; Distribution => Poisson;] applies to I01.BadData; -- Probability of Propagation from I01->o Here I want to define the probability that error propagates from input and drives the component to FaultyState
-		EMV2::OccurrenceDistribution => [ ProbabilityValue => 1.85e-7 ; Distribution => Poisson;] applies to I02.BadData; -- Probability of Propagation from I02->o
-				
-		**};
+			use behavior Sys_Error_lib::Simple;
 			
-	end main.i;
-	
-end PathProbability;
+			error propagations
+				I01: in propagation {BadData};
+				I02: in propagation {BadData};
+			end propagations;
+			
+			composite error behavior
+				states
+					--[(ss01.FaultyState and ss02.FaultyState) or ss02.FaultyState]->FaultyState;
+					--[ss01.FaultyState or ss02.FaultyState]->FaultyState;
+					[ss02.FaultyState]-> FaultyState;
+			end composite;
+			
+			properties
+				EMV2::OccurrenceDistribution => [ProbabilityValue => 1.4e-7; Distribution => Poisson;] applies to I01.BadData; -- Probability of Propagation from I01->o Here I want to define the probability that error propagates from input and drives the component to FaultyState
+				EMV2::OccurrenceDistribution => [ProbabilityValue => 1.85e-7; Distribution => Poisson;] applies to I02.BadData; -- Probability of Propagation from I02->o
+		**};
 
+	end main.i;
+
+end PathProbability;

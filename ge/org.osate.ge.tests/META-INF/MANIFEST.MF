@@ -38,3 +38,4 @@ Import-Package: com.google.inject.matcher,
  org.eclipse.graphiti.ui.internal.parts;version="0.14.0",
  org.eclipse.graphiti.ui.platform;version="0.14.0"
 Automatic-Module-Name: org.osate.ge.tests
+Bundle-Vendor: The University of Alabama in Huntsville

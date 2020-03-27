@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -55,6 +55,23 @@ public class Constants {
 	public static final String ASYNCHRONOUS_SYSTEM_YES = "asynchronous system";
 	public static final String ASYNCHRONOUS_SYSTEM_NO = "synchronous system";
 
+	/**
+	 * @since org.ostate.analysis.flows 3.0
+	 */
+	public static final String DISABLE_QUEUING_LATENCY = "org.osate.analysis.flows.disable_queuing_latency";
+	/**
+	 * @since org.ostate.analysis.flows 3.0
+	 */
+	public static final String DISABLE_QUEUING_LATENCY_LAST_USED = "org.osate.analysis.flows.disable_queuing_latency_last_used";
+
+	/**
+	 * @since org.ostate.analysis.flows 3.0
+	 */
+	public static final String DISABLE_QUEUING_LATENCY_YES = "disabled";
+	/**
+	 * @since org.ostate.analysis.flows 3.0
+	 */
+	public static final String DISABLE_QUEUING_LATENCY_NO = "enabled";
 
 	public static final String DONT_SHOW_DIALOG = "org.osate.analysis.flows.dont_show_dialog";
 }

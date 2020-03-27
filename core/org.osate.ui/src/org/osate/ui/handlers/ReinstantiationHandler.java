@@ -88,6 +88,11 @@ public final class ReinstantiationHandler extends AbstractMultiJobHandler {
 			results.put(modelFile, new Result(false, true, null, null));
 		}
 
+		/* Make sure the aadl files are saved if they are open in an editor */
+		if (!saveDirtyEditors()) {
+			return Status.CANCEL_STATUS;
+		}
+
 		final IResourceRuleFactory factory = ResourcesPlugin.getWorkspace().getRuleFactory();
 		final JobGroup jobGroup = new JobGroup("Reinstantiation", 0, 0);
 		final Job myJobs[] = new Job[size];
