@@ -44,6 +44,20 @@ final class TestPrototypesEditorModel extends BaseObservableModel
 	}
 
 	@Override
+	public String getPrototypeLabel(final TestPrototype prototype) {
+		String refineLabel = "";
+		if (prototype.refined == null) {
+			refineLabel = "U";
+		} else if (prototype.refined == Boolean.TRUE) {
+			refineLabel = "R";
+		} else if (prototype.refined == Boolean.FALSE) {
+			refineLabel = "N";
+		}
+
+		return prototype.name + " [" + refineLabel + "]";
+	}
+
+	@Override
 	public String getPrototypeName(TestPrototype prototype) {
 		return prototype.name;
 	}

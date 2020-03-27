@@ -26,6 +26,7 @@ package org.osate.ge;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.EObject;
@@ -57,7 +58,22 @@ public interface BusinessObjectSelection {
 	 * @param bocToBoToModifyMapper
 	 * @param modifier
 	 */
-	<T extends EObject> void modify(Function<BusinessObjectContext, T> bocToBoToModifyMapper,
+	default <T extends EObject> void modify(Function<BusinessObjectContext, T> bocToBoToModifyMapper,
+			BiConsumer<T, BusinessObjectContext> modifier) {
+		modify(boc -> true, bocToBoToModifyMapper, modifier);
+	}
+
+	/**
+	 * After filtering business object contexts using the specified filter,
+	 * calls the specified modifier for each business object provided by the bocToBoToModifyMapper.
+	 * Also provides the business object context.
+	 * The business objects contained in the business object context must not be modified.
+	 * @param bocFilter is the filter for business object contexts. Only business object contexts which pass the filter are modified.
+	 * @param bocToBoToModifyMapper
+	 * @param modifier
+	 */
+	<T extends EObject> void modify(Predicate<BusinessObjectContext> bocFilter,
+			Function<BusinessObjectContext, T> bocToBoToModifyMapper,
 			BiConsumer<T, BusinessObjectContext> modifier);
 
 	/**
@@ -66,7 +82,18 @@ public interface BusinessObjectSelection {
 	 * @param c
 	 * @param modifier
 	 */
-	<T extends EObject> void modify(Class<T> c, Consumer<T> modifier);
+	default <T extends EObject> void modify(Class<T> c, Consumer<T> modifier) {
+		modify(boc -> true, c, modifier);
+	}
+
+	/**
+	 * Calls the specified modifier for each business object for the business object contexts which pass the bocFilter.
+	 * Throws an exception if the business object of any of the business object contexts which pass the filter are not of the specified type;.
+	 * @param bocFilter is the filter for business object contexts. Only business object contexts which pass the filter are modified.
+	 * @param c is the type of object being modified
+	 * @param modifier is the consumer which modified the passed in business object
+	 */
+	<T extends EObject> void modify(Predicate<BusinessObjectContext> bocFilter, Class<T> c, Consumer<T> modifier);
 
 	/**
 	 * Adds a modification for each business object to the operation being constructed using opBuilder

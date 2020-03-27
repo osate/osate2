@@ -62,12 +62,12 @@ public final class PrototypesEditor<T, C> extends Composite {
 
 			@Override
 			public String getLabel(T prototype) {
-				return model.getPrototypeName(prototype);
+				return model.getPrototypeLabel(prototype);
 			}
 
 		});
 		this.listView
-		.setLayoutData(GridDataFactory.swtDefaults().grab(true, true).align(SWT.FILL, SWT.FILL).create());
+				.setLayoutData(GridDataFactory.swtDefaults().grab(true, true).align(SWT.FILL, SWT.FILL).create());
 
 		final Label separator = new Label(this, SWT.SEPARATOR | SWT.VERTICAL);
 		separator.setLayoutData(GridDataFactory.swtDefaults().grab(false, true).align(SWT.CENTER, SWT.FILL).create());

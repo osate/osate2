@@ -32,7 +32,7 @@ final class PrototypeEditor<C> extends Composite {
 	private final CheckboxEditor refinedEditor;
 	private final CLabel directionLabel;
 	private final RadioSelector<PrototypeDirection> directionEditor;
-	private final CheckboxEditor arrayEditor;
+	private final CheckboxEditor arrayFlagEditor;
 	private final Consumer<ChangeEvent> changeListener = e -> refresh();
 
 	public PrototypeEditor(final Composite parent, final PrototypeEditorModel<C> model) {
@@ -53,7 +53,7 @@ final class PrototypeEditor<C> extends Composite {
 			@Override
 			public String getLabel() {
 				final String refineableElementLabel = model.getRefineableElementLabel();
-				return "Refine " + (refineableElementLabel == null ? "" : model.getRefineableElementLabel());
+				return "Refine " + (refineableElementLabel == null ? "" : refineableElementLabel);
 			}
 
 			@Override
@@ -225,7 +225,7 @@ final class PrototypeEditor<C> extends Composite {
 		//
 		// Array
 		//
-		arrayEditor = new CheckboxEditor(this, new CheckboxEditorModel() {
+		arrayFlagEditor = new CheckboxEditor(this, new CheckboxEditorModel() {
 			@Override
 			public EventSource<ChangeEvent> changed() {
 				return model.changed();
@@ -251,7 +251,7 @@ final class PrototypeEditor<C> extends Composite {
 				model.setArray(value);
 			}
 		});
-		arrayEditor.setLayoutData(
+		arrayFlagEditor.setLayoutData(
 				GridDataFactory.swtDefaults().span(2, 1).grab(true, false).align(SWT.FILL, SWT.CENTER).create());
 
 		model.changed().addListener(changeListener);
@@ -263,8 +263,8 @@ final class PrototypeEditor<C> extends Composite {
 			final PrototypeType type = model.getType();
 
 			// Make the refine checkbox visible when the refinement status can be adjusted or the refinement status is not false.
-			setVisibilityAndExclusion(refinedEditor,
-					model.getRefineableElementLabel() != null || model.isRefined() != Boolean.FALSE);
+			setVisibilityAndExclusion(refinedEditor, model.isEnabled()
+					&& (model.getRefineableElementLabel() != null || model.isRefined() != Boolean.FALSE));
 
 			// Update visibility of direction editor and label
 			final boolean directionVisible = type == PrototypeType.FEATURE;
@@ -272,7 +272,7 @@ final class PrototypeEditor<C> extends Composite {
 			setVisibilityAndExclusion(directionEditor, directionVisible);
 
 			// Hide the array checkbox unless the component is an array.
-			setVisibilityAndExclusion(arrayEditor, type != null && type.isComponent());
+			setVisibilityAndExclusion(arrayFlagEditor, model.isEnabled() && type != null && type.isComponent());
 
 			// Update enabled state
 			setEnabled(model.isEnabled());

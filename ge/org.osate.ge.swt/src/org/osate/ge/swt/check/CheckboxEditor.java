@@ -29,7 +29,6 @@ public class CheckboxEditor extends Composite {
 		this.setLayout(GridLayoutFactory.fillDefaults().numColumns(1).create());
 
 		check = new Button(this, SWT.CHECK);
-		check.setText(model.getLabel());
 		check.setBackground(getBackground());
 		check.setLayoutData(
 				GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.FILL).create());
@@ -49,6 +48,8 @@ public class CheckboxEditor extends Composite {
 
 	private void refresh() {
 		if (!this.isDisposed()) {
+			check.setText(model.getLabel());
+
 			final Boolean value = model.getValue();
 			check.setSelection(value == null || value == Boolean.TRUE);
 			check.setGrayed(value == null);

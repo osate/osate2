@@ -31,6 +31,7 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
@@ -64,7 +65,7 @@ public class PrototypesPropertySection extends AbstractPropertySection {
 
 		final Composite composite = getWidgetFactory().createFlatFormComposite(parent);
 		final CLabel label = getWidgetFactory().createCLabel(composite, "Prototypes:");
-		final PrototypesEditor<String, Object> editor = new PrototypesEditor<>(composite, model);
+		final Control editor = new PrototypesEditor<>(composite, model);
 
 		// Configure layout data
 		{

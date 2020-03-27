@@ -29,6 +29,13 @@ public interface PrototypesEditorModel<P, C> extends ObservableModel {
 	void removePrototype(P prototype);
 
 	/**
+	 * Get a string that can be shown to the user to identify the specified prototype.
+	 * @param prototype is the prototype for which to return the label.
+	 * @return the label of the specified prototype.
+	 */
+	String getPrototypeLabel(P prototype);
+
+	/**
 	 * Returns the currently selected prototype. See {@link org.osate.ge.swt.selectors.ListEditorModel#getSelectedElement()}
 	 * @return is the currently selected prototype.
 	 */

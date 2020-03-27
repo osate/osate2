@@ -29,6 +29,7 @@ import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.EObject;
@@ -78,13 +79,14 @@ public class AgeBusinessObjectSelection implements BusinessObjectSelection {
 	}
 
 	@Override
-	public <T extends EObject> void modify(final Function<BusinessObjectContext, T> bocToBoToModifyMapper,
+	public <T extends EObject> void modify(final Predicate<BusinessObjectContext> bocFilter,
+			final Function<BusinessObjectContext, T> bocToBoToModifyMapper,
 			final BiConsumer<T, BusinessObjectContext> modifier) {
-		if (bocs.isEmpty()) {
+		if (!bocs.stream().filter(bocFilter).findAny().isPresent()) {
 			return;
 		}
 
-		final ImmutableList<Modification<BusinessObjectContext, T>> modifications = bocs.stream()
+		final ImmutableList<Modification<BusinessObjectContext, T>> modifications = bocs.stream().filter(bocFilter)
 				.map(boc -> Modification.create(boc, bocToBoToModifyMapper, (boc2, liveBoToModify) -> {
 					modifier.accept(liveBoToModify, boc2);
 				})).collect(ImmutableList.toImmutableList());
@@ -97,8 +99,9 @@ public class AgeBusinessObjectSelection implements BusinessObjectSelection {
 	}
 
 	@Override
-	public <T extends EObject> void modify(final Class<T> c, final Consumer<T> modifier) {
-		modify(boc -> c.cast(boc.getBusinessObject()), (bo, boc) -> modifier.accept(bo));
+	public <T extends EObject> void modify(final Predicate<BusinessObjectContext> bocFilter, final Class<T> c,
+			final Consumer<T> modifier) {
+		modify(bocFilter, boc -> c.cast(boc.getBusinessObject()), (bo, boc) -> modifier.accept(bo));
 	}
 
 	@Override
