@@ -36,6 +36,8 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.analysis.resource.budgets.busload.model.Bus;
 import org.osate.analysis.resource.budgets.busload.model.BusLoadModel;
@@ -46,10 +48,14 @@ import org.osate.analysis.resource.budgets.busload.model.Visitor;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
-public class NewBusLoadAnalysis {
+public final class NewBusLoadAnalysis {
+	private static final String MARKER_TYPE = "org.osate.analysis.resource.budgets.BusLoadAnalysisMarker";
+
+	private final AnalysisErrorReporterManager errManager;
 	private final String actionName;
 
 	public NewBusLoadAnalysis(final String actionName) {
+		this.errManager = new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(MARKER_TYPE));
 		this.actionName = actionName;
 	}
 
@@ -96,7 +102,7 @@ public class NewBusLoadAnalysis {
 
 	// ==== Analysis Visitor ====
 
-	private static class BusLoadAnalysisVisitor implements Visitor {
+	private class BusLoadAnalysisVisitor implements Visitor {
 		private Deque<Double> previousOverhead = new LinkedList<>();
 		private double dataOverheadKBytesps = 0.0;
 
@@ -129,39 +135,33 @@ public class NewBusLoadAnalysis {
 			bus.setActual(actual);
 			bus.setTotalBudget(totalBudget);
 
-			final ComponentInstance ci = bus.getBusInstance();
-			final double capacity = GetProperties.getBandWidthCapacityInKBytesps(ci, 0.0);
-			final double budget = GetProperties.getBandWidthBudgetInKBytesps(ci, 0.0);
+			final ComponentInstance busInstance = bus.getBusInstance();
+			final double capacity = GetProperties.getBandWidthCapacityInKBytesps(busInstance, 0.0);
+			final double budget = GetProperties.getBandWidthBudgetInKBytesps(busInstance, 0.0);
 			bus.setCapacity(capacity);
 			bus.setBudget(budget);
 
 			if (capacity == 0.0) {
-				// TODO: Warning
-				System.out.println("WARNING: " + (bus instanceof Bus ? "Bus " : "Virtual bus ") +
-						ci.getName() + " has no capacity");
+				warning(busInstance, (bus instanceof Bus ? "Bus " : "Virtual bus ") +
+						busInstance.getName() + " has no capacity");
 			} else {
 				if (actual > capacity) {
-					// TODO: Error
-					System.out.println("ERROR: " + (bus instanceof Bus ? "Bus " : "Virtual bus ") + ci.getName()
+					error(busInstance, (bus instanceof Bus ? "Bus " : "Virtual bus ") + busInstance.getName()
 							+ " -- Actual bandwidth > capacity: " + actual + " KB/s > "
 							+ capacity + " KB/s");
 				}
 			}
 
 			if (budget == 0.0) {
-				// TODO: Warning
-				System.out.println("WARNING: " + (bus instanceof Bus ? "Bus " : "Virtual bus ") +
-						ci.getName() + " has no bandwidth budget");
+				warning(busInstance, (bus instanceof Bus ? "Bus " : "Virtual bus ") +
+						busInstance.getName() + " has no bandwidth budget");
 			} else {
 				if (budget > capacity) {
-					// TODO: Error
-					System.out
-							.println("ERROR: " + (bus instanceof Bus ? "Bus " : "Virtual bus ") + ci.getName()
+					error(busInstance, (bus instanceof Bus ? "Bus " : "Virtual bus ") + busInstance.getName()
 									+ " -- budget > capacity: " + budget + " KB/s > " + capacity + " KB/s");
 				}
 				if (totalBudget > budget) {
-					// TODO: Error
-					System.out.println("ERROR: " + (bus instanceof Bus ? "Bus " : "Virtual bus ") + ci.getName()
+					error(busInstance, (bus instanceof Bus ? "Bus " : "Virtual bus ") + busInstance.getName()
 							+ " -- Required budget > budget: " + totalBudget + " KB/s > " + budget
 							+ " KB/s");
 				}
@@ -170,22 +170,19 @@ public class NewBusLoadAnalysis {
 
 		@Override
 		public void visitConnection(final Connection connection) {
-			final ConnectionInstance ci = connection.getConnectionInstance();
-			final double actual = getConnectionActualKBytesps(ci, dataOverheadKBytesps);
+			final ConnectionInstance connectionInstance = connection.getConnectionInstance();
+			final double actual = getConnectionActualKBytesps(connectionInstance, dataOverheadKBytesps);
 			connection.setActual(actual);
 
-			final double budget = GetProperties.getBandWidthBudgetInKBytesps(ci, 0.0);
+			final double budget = GetProperties.getBandWidthBudgetInKBytesps(connectionInstance, 0.0);
 			if (budget > 0.0) {
 				connection.setBudget(budget);
 				if (actual > budget) {
-					// TODO: Error
-					System.out.println("ERROR: Connection " + ci.getName() + " -- Actual bandwidth > budget: "
-							+ actual
-							+ " KB/s > " + budget + " KB/s");
+					error(connectionInstance, "Connection " + connectionInstance.getName() + " -- Actual bandwidth > budget: " + actual + " KB/s > "
+							+ budget + " KB/s");
 				}
 			} else {
-				// TODO: Warning
-				System.out.println("WARNING: Connection " + ci.getName() + " has no bandwidth budget");
+				warning(connectionInstance, "Connection " + connectionInstance.getName() + " has no bandwidth budget");
 			}
 		}
 	}
@@ -211,4 +208,15 @@ public class NewBusLoadAnalysis {
 		return actualDataRate;
 	}
 
+	// ==== Error reporting methods for the visitor ===
+
+	private void error(final InstanceObject io, final String msg) {
+		errManager.error(io, msg);
+		System.out.println("ERROR: " + msg);
+	}
+
+	private void warning(final InstanceObject io, final String msg) {
+		errManager.warning(io, msg);
+		System.out.println("WARNING: " + msg);
+	}
 }
