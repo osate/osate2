@@ -581,7 +581,7 @@ public class GetProperties {
 		try {
 			propertyValues = ne.getPropertyValueList(actualConnectionBinding);
 		} catch (Exception e) {
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
 		return propertyValues;
 	}
