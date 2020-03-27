@@ -93,21 +93,21 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-			case EMV2InstancePackage.EMV2_INSTANCE_OBJECT: {
-				EMV2InstanceObject emv2InstanceObject = (EMV2InstanceObject)theEObject;
-				T result = caseEMV2InstanceObject(emv2InstanceObject);
-				if (result == null) result = caseInstanceObject(emv2InstanceObject);
-				if (result == null) result = caseNamedElement(emv2InstanceObject);
-				if (result == null) result = caseElement(emv2InstanceObject);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE: {
 				EMV2AnnexInstance emv2AnnexInstance = (EMV2AnnexInstance)theEObject;
 				T result = caseEMV2AnnexInstance(emv2AnnexInstance);
 				if (result == null) result = caseAnnexInstance(emv2AnnexInstance);
 				if (result == null) result = caseNamedElement(emv2AnnexInstance);
 				if (result == null) result = caseElement(emv2AnnexInstance);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EMV2InstancePackage.EMV2_INSTANCE_OBJECT: {
+				EMV2InstanceObject emv2InstanceObject = (EMV2InstanceObject)theEObject;
+				T result = caseEMV2InstanceObject(emv2InstanceObject);
+				if (result == null) result = caseInstanceObject(emv2InstanceObject);
+				if (result == null) result = caseNamedElement(emv2InstanceObject);
+				if (result == null) result = caseElement(emv2InstanceObject);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -172,13 +172,23 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EMV2InstancePackage.ERROR_BEHAVIOR_INSTANCE: {
-				ErrorBehaviorInstance errorBehaviorInstance = (ErrorBehaviorInstance)theEObject;
-				T result = caseErrorBehaviorInstance(errorBehaviorInstance);
-				if (result == null) result = caseEMV2InstanceObject(errorBehaviorInstance);
-				if (result == null) result = caseInstanceObject(errorBehaviorInstance);
-				if (result == null) result = caseNamedElement(errorBehaviorInstance);
-				if (result == null) result = caseElement(errorBehaviorInstance);
+			case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE: {
+				ErrorPropagationConditionInstance errorPropagationConditionInstance = (ErrorPropagationConditionInstance)theEObject;
+				T result = caseErrorPropagationConditionInstance(errorPropagationConditionInstance);
+				if (result == null) result = caseEMV2InstanceObject(errorPropagationConditionInstance);
+				if (result == null) result = caseInstanceObject(errorPropagationConditionInstance);
+				if (result == null) result = caseNamedElement(errorPropagationConditionInstance);
+				if (result == null) result = caseElement(errorPropagationConditionInstance);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EMV2InstancePackage.ERROR_DETECTION_INSTANCE: {
+				ErrorDetectionInstance errorDetectionInstance = (ErrorDetectionInstance)theEObject;
+				T result = caseErrorDetectionInstance(errorDetectionInstance);
+				if (result == null) result = caseEMV2InstanceObject(errorDetectionInstance);
+				if (result == null) result = caseInstanceObject(errorDetectionInstance);
+				if (result == null) result = caseNamedElement(errorDetectionInstance);
+				if (result == null) result = caseElement(errorDetectionInstance);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -358,17 +368,32 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Error Behavior Instance</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Error Propagation Condition Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Error Behavior Instance</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Error Propagation Condition Instance</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseErrorBehaviorInstance(ErrorBehaviorInstance object) {
+	public T caseErrorPropagationConditionInstance(ErrorPropagationConditionInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Detection Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Detection Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseErrorDetectionInstance(ErrorDetectionInstance object) {
 		return null;
 	}
 
