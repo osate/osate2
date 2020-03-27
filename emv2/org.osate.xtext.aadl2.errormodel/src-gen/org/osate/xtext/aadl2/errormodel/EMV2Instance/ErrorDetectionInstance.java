@@ -25,51 +25,51 @@ package org.osate.xtext.aadl2.errormodel.EMV2Instance;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Error Behavior Instance</b></em>'.
+ * A representation of the model object '<em><b>Error Detection Instance</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorBehaviorInstance#getEmv2Element <em>Emv2 Element</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorBehaviorInstance#getInStates <em>In States</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorBehaviorInstance#getCondition <em>Condition</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorBehaviorInstance#getActions <em>Actions</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorBehaviorInstance#isSource <em>Source</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorBehaviorInstance#isSink <em>Sink</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorDetectionInstance#getEmv2Element <em>Emv2 Element</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorDetectionInstance#getInStates <em>In States</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorDetectionInstance#getCondition <em>Condition</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorDetectionInstance#getErrorCode <em>Error Code</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorDetectionInstance#getPort <em>Port</em>}</li>
  * </ul>
  *
- * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getErrorBehaviorInstance()
+ * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getErrorDetectionInstance()
  * @model
  * @generated
  */
-public interface ErrorBehaviorInstance extends EMV2InstanceObject {
+public interface ErrorDetectionInstance extends EMV2InstanceObject {
 	/**
 	 * Returns the value of the '<em><b>Emv2 Element</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Emv2 Element</em>' reference.
-	 * @see #setEmv2Element(NamedElement)
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getErrorBehaviorInstance_Emv2Element()
+	 * @see #setEmv2Element(ErrorDetection)
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getErrorDetectionInstance_Emv2Element()
 	 * @model
 	 * @generated
 	 */
-	NamedElement getEmv2Element();
+	ErrorDetection getEmv2Element();
 
 	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorBehaviorInstance#getEmv2Element <em>Emv2 Element</em>}' reference.
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorDetectionInstance#getEmv2Element <em>Emv2 Element</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Emv2 Element</em>' reference.
 	 * @see #getEmv2Element()
 	 * @generated
 	 */
-	void setEmv2Element(NamedElement value);
+	void setEmv2Element(ErrorDetection value);
 
 	/**
 	 * Returns the value of the '<em><b>In States</b></em>' reference list.
@@ -77,7 +77,7 @@ public interface ErrorBehaviorInstance extends EMV2InstanceObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>In States</em>' reference list.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getErrorBehaviorInstance_InStates()
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getErrorDetectionInstance_InStates()
 	 * @model
 	 * @generated
 	 */
@@ -89,14 +89,14 @@ public interface ErrorBehaviorInstance extends EMV2InstanceObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Condition</em>' containment reference.
 	 * @see #setCondition(ConstraintElement)
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getErrorBehaviorInstance_Condition()
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getErrorDetectionInstance_Condition()
 	 * @model containment="true"
 	 * @generated
 	 */
 	ConstraintElement getCondition();
 
 	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorBehaviorInstance#getCondition <em>Condition</em>}' containment reference.
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorDetectionInstance#getCondition <em>Condition</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Condition</em>' containment reference.
@@ -106,59 +106,47 @@ public interface ErrorBehaviorInstance extends EMV2InstanceObject {
 	void setCondition(ConstraintElement value);
 
 	/**
-	 * Returns the value of the '<em><b>Actions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject}.
+	 * Returns the value of the '<em><b>Error Code</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Actions</em>' containment reference list.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getErrorBehaviorInstance_Actions()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<ConstrainedInstanceObject> getActions();
-
-	/**
-	 * Returns the value of the '<em><b>Source</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Source</em>' attribute.
-	 * @see #setSource(boolean)
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getErrorBehaviorInstance_Source()
+	 * @return the value of the '<em>Error Code</em>' attribute.
+	 * @see #setErrorCode(String)
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getErrorDetectionInstance_ErrorCode()
 	 * @model
 	 * @generated
 	 */
-	boolean isSource();
+	String getErrorCode();
 
 	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorBehaviorInstance#isSource <em>Source</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorDetectionInstance#getErrorCode <em>Error Code</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Source</em>' attribute.
-	 * @see #isSource()
+	 * @param value the new value of the '<em>Error Code</em>' attribute.
+	 * @see #getErrorCode()
 	 * @generated
 	 */
-	void setSource(boolean value);
+	void setErrorCode(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Sink</b></em>' attribute.
+	 * Returns the value of the '<em><b>Port</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Sink</em>' attribute.
-	 * @see #setSink(boolean)
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getErrorBehaviorInstance_Sink()
+	 * @return the value of the '<em>Port</em>' reference.
+	 * @see #setPort(FeatureInstance)
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getErrorDetectionInstance_Port()
 	 * @model
 	 * @generated
 	 */
-	boolean isSink();
+	FeatureInstance getPort();
 
 	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorBehaviorInstance#isSink <em>Sink</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorDetectionInstance#getPort <em>Port</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Sink</em>' attribute.
-	 * @see #isSink()
+	 * @param value the new value of the '<em>Port</em>' reference.
+	 * @see #getPort()
 	 * @generated
 	 */
-	void setSink(boolean value);
+	void setPort(FeatureInstance value);
 
-} // ErrorBehaviorInstance
+} // ErrorDetectionInstance

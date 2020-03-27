@@ -40,7 +40,8 @@ import org.osate.aadl2.instance.AnnexInstance;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2AnnexInstance#getPropagationPoints <em>Propagation Points</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2AnnexInstance#getEvents <em>Events</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2AnnexInstance#getStateMachine <em>State Machine</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2AnnexInstance#getErrorBehaviors <em>Error Behaviors</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2AnnexInstance#getErrorPropagationConditions <em>Error Propagation Conditions</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2AnnexInstance#getErrorDetections <em>Error Detections</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2AnnexInstance#getErrorFlows <em>Error Flows</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2AnnexInstance#getComposites <em>Composites</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2AnnexInstance#getActions <em>Actions</em>}</li>
@@ -110,16 +111,28 @@ public interface EMV2AnnexInstance extends AnnexInstance {
 	void setStateMachine(StateMachineInstance value);
 
 	/**
-	 * Returns the value of the '<em><b>Error Behaviors</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorBehaviorInstance}.
+	 * Returns the value of the '<em><b>Error Propagation Conditions</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorPropagationConditionInstance}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Error Behaviors</em>' containment reference list.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getEMV2AnnexInstance_ErrorBehaviors()
+	 * @return the value of the '<em>Error Propagation Conditions</em>' containment reference list.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getEMV2AnnexInstance_ErrorPropagationConditions()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<ErrorBehaviorInstance> getErrorBehaviors();
+	EList<ErrorPropagationConditionInstance> getErrorPropagationConditions();
+
+	/**
+	 * Returns the value of the '<em><b>Error Detections</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorDetectionInstance}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Error Detections</em>' containment reference list.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getEMV2AnnexInstance_ErrorDetections()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<ErrorDetectionInstance> getErrorDetections();
 
 	/**
 	 * Returns the value of the '<em><b>Error Flows</b></em>' containment reference list.

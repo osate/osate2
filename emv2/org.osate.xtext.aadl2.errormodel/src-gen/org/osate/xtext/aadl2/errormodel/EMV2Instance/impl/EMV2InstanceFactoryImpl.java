@@ -85,7 +85,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			case EMV2InstancePackage.STATE_TRANSITION_INSTANCE: return createStateTransitionInstance();
 			case EMV2InstancePackage.COMPOSITE_STATE_INSTANCE: return createCompositeStateInstance();
 			case EMV2InstancePackage.ERROR_FLOW_INSTANCE: return createErrorFlowInstance();
-			case EMV2InstancePackage.ERROR_BEHAVIOR_INSTANCE: return createErrorBehaviorInstance();
+			case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE: return createErrorPropagationConditionInstance();
+			case EMV2InstancePackage.ERROR_DETECTION_INSTANCE: return createErrorDetectionInstance();
 			case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE: return createPropagationPathInstance();
 			case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE: return createPropagationPointInstance();
 			case EMV2InstancePackage.EVENT_INSTANCE: return createEventInstance();
@@ -208,9 +209,20 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public ErrorBehaviorInstance createErrorBehaviorInstance() {
-		ErrorBehaviorInstanceImpl errorBehaviorInstance = new ErrorBehaviorInstanceImpl();
-		return errorBehaviorInstance;
+	public ErrorPropagationConditionInstance createErrorPropagationConditionInstance() {
+		ErrorPropagationConditionInstanceImpl errorPropagationConditionInstance = new ErrorPropagationConditionInstanceImpl();
+		return errorPropagationConditionInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ErrorDetectionInstance createErrorDetectionInstance() {
+		ErrorDetectionInstanceImpl errorDetectionInstance = new ErrorDetectionInstanceImpl();
+		return errorDetectionInstance;
 	}
 
 	/**

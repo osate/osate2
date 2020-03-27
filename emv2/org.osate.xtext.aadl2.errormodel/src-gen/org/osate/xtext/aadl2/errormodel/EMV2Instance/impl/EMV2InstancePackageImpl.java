@@ -44,8 +44,9 @@ import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstanceFactory;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstanceObject;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EOperation;
-import org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorBehaviorInstance;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorDetectionInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorFlowInstance;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorPropagationConditionInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EventInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPathInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPointInstance;
@@ -123,7 +124,14 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass errorBehaviorInstanceEClass = null;
+	private EClass errorPropagationConditionInstanceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass errorDetectionInstanceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -300,7 +308,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getEMV2AnnexInstance_ErrorBehaviors() {
+	public EReference getEMV2AnnexInstance_ErrorPropagationConditions() {
 		return (EReference)emv2AnnexInstanceEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -310,7 +318,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getEMV2AnnexInstance_ErrorFlows() {
+	public EReference getEMV2AnnexInstance_ErrorDetections() {
 		return (EReference)emv2AnnexInstanceEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -320,7 +328,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getEMV2AnnexInstance_Composites() {
+	public EReference getEMV2AnnexInstance_ErrorFlows() {
 		return (EReference)emv2AnnexInstanceEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -330,8 +338,18 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getEMV2AnnexInstance_Actions() {
+	public EReference getEMV2AnnexInstance_Composites() {
 		return (EReference)emv2AnnexInstanceEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getEMV2AnnexInstance_Actions() {
+		return (EReference)emv2AnnexInstanceEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -590,8 +608,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EClass getErrorBehaviorInstance() {
-		return errorBehaviorInstanceEClass;
+	public EClass getErrorPropagationConditionInstance() {
+		return errorPropagationConditionInstanceEClass;
 	}
 
 	/**
@@ -600,8 +618,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getErrorBehaviorInstance_Emv2Element() {
-		return (EReference)errorBehaviorInstanceEClass.getEStructuralFeatures().get(0);
+	public EReference getErrorPropagationConditionInstance_Emv2Element() {
+		return (EReference)errorPropagationConditionInstanceEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -610,8 +628,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getErrorBehaviorInstance_InStates() {
-		return (EReference)errorBehaviorInstanceEClass.getEStructuralFeatures().get(1);
+	public EReference getErrorPropagationConditionInstance_InStates() {
+		return (EReference)errorPropagationConditionInstanceEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -620,8 +638,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getErrorBehaviorInstance_Condition() {
-		return (EReference)errorBehaviorInstanceEClass.getEStructuralFeatures().get(2);
+	public EReference getErrorPropagationConditionInstance_Condition() {
+		return (EReference)errorPropagationConditionInstanceEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -630,8 +648,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getErrorBehaviorInstance_Actions() {
-		return (EReference)errorBehaviorInstanceEClass.getEStructuralFeatures().get(3);
+	public EReference getErrorPropagationConditionInstance_Action() {
+		return (EReference)errorPropagationConditionInstanceEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -640,8 +658,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EAttribute getErrorBehaviorInstance_Source() {
-		return (EAttribute)errorBehaviorInstanceEClass.getEStructuralFeatures().get(4);
+	public EAttribute getErrorPropagationConditionInstance_Source() {
+		return (EAttribute)errorPropagationConditionInstanceEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -650,8 +668,68 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EAttribute getErrorBehaviorInstance_Sink() {
-		return (EAttribute)errorBehaviorInstanceEClass.getEStructuralFeatures().get(5);
+	public EAttribute getErrorPropagationConditionInstance_Sink() {
+		return (EAttribute)errorPropagationConditionInstanceEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getErrorDetectionInstance() {
+		return errorDetectionInstanceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getErrorDetectionInstance_Emv2Element() {
+		return (EReference)errorDetectionInstanceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getErrorDetectionInstance_InStates() {
+		return (EReference)errorDetectionInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getErrorDetectionInstance_Condition() {
+		return (EReference)errorDetectionInstanceEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getErrorDetectionInstance_ErrorCode() {
+		return (EAttribute)errorDetectionInstanceEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getErrorDetectionInstance_Port() {
+		return (EReference)errorDetectionInstanceEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -833,17 +911,18 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		isCreated = true;
 
 		// Create classes and their features
-		emv2InstanceObjectEClass = createEClass(EMV2_INSTANCE_OBJECT);
-
 		emv2AnnexInstanceEClass = createEClass(EMV2_ANNEX_INSTANCE);
 		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__TRANSITIONS);
 		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__PROPAGATION_POINTS);
 		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__EVENTS);
 		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__STATE_MACHINE);
-		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__ERROR_BEHAVIORS);
+		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__ERROR_PROPAGATION_CONDITIONS);
+		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__ERROR_DETECTIONS);
 		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__ERROR_FLOWS);
 		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__COMPOSITES);
 		createEReference(emv2AnnexInstanceEClass, EMV2_ANNEX_INSTANCE__ACTIONS);
+
+		emv2InstanceObjectEClass = createEClass(EMV2_INSTANCE_OBJECT);
 
 		stateMachineInstanceEClass = createEClass(STATE_MACHINE_INSTANCE);
 		createEReference(stateMachineInstanceEClass, STATE_MACHINE_INSTANCE__STATES);
@@ -876,13 +955,20 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEAttribute(errorFlowInstanceEClass, ERROR_FLOW_INSTANCE__SOURCE);
 		createEAttribute(errorFlowInstanceEClass, ERROR_FLOW_INSTANCE__SINK);
 
-		errorBehaviorInstanceEClass = createEClass(ERROR_BEHAVIOR_INSTANCE);
-		createEReference(errorBehaviorInstanceEClass, ERROR_BEHAVIOR_INSTANCE__EMV2_ELEMENT);
-		createEReference(errorBehaviorInstanceEClass, ERROR_BEHAVIOR_INSTANCE__IN_STATES);
-		createEReference(errorBehaviorInstanceEClass, ERROR_BEHAVIOR_INSTANCE__CONDITION);
-		createEReference(errorBehaviorInstanceEClass, ERROR_BEHAVIOR_INSTANCE__ACTIONS);
-		createEAttribute(errorBehaviorInstanceEClass, ERROR_BEHAVIOR_INSTANCE__SOURCE);
-		createEAttribute(errorBehaviorInstanceEClass, ERROR_BEHAVIOR_INSTANCE__SINK);
+		errorPropagationConditionInstanceEClass = createEClass(ERROR_PROPAGATION_CONDITION_INSTANCE);
+		createEReference(errorPropagationConditionInstanceEClass, ERROR_PROPAGATION_CONDITION_INSTANCE__EMV2_ELEMENT);
+		createEReference(errorPropagationConditionInstanceEClass, ERROR_PROPAGATION_CONDITION_INSTANCE__IN_STATES);
+		createEReference(errorPropagationConditionInstanceEClass, ERROR_PROPAGATION_CONDITION_INSTANCE__CONDITION);
+		createEReference(errorPropagationConditionInstanceEClass, ERROR_PROPAGATION_CONDITION_INSTANCE__ACTION);
+		createEAttribute(errorPropagationConditionInstanceEClass, ERROR_PROPAGATION_CONDITION_INSTANCE__SOURCE);
+		createEAttribute(errorPropagationConditionInstanceEClass, ERROR_PROPAGATION_CONDITION_INSTANCE__SINK);
+
+		errorDetectionInstanceEClass = createEClass(ERROR_DETECTION_INSTANCE);
+		createEReference(errorDetectionInstanceEClass, ERROR_DETECTION_INSTANCE__EMV2_ELEMENT);
+		createEReference(errorDetectionInstanceEClass, ERROR_DETECTION_INSTANCE__IN_STATES);
+		createEReference(errorDetectionInstanceEClass, ERROR_DETECTION_INSTANCE__CONDITION);
+		createEAttribute(errorDetectionInstanceEClass, ERROR_DETECTION_INSTANCE__ERROR_CODE);
+		createEReference(errorDetectionInstanceEClass, ERROR_DETECTION_INSTANCE__PORT);
 
 		propagationPathInstanceEClass = createEClass(PROPAGATION_PATH_INSTANCE);
 		createEReference(propagationPathInstanceEClass, PROPAGATION_PATH_INSTANCE__EMV2_ELEMENT);
@@ -941,15 +1027,16 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		emv2InstanceObjectEClass.getESuperTypes().add(theInstancePackage.getInstanceObject());
 		emv2AnnexInstanceEClass.getESuperTypes().add(theInstancePackage.getAnnexInstance());
+		emv2InstanceObjectEClass.getESuperTypes().add(theInstancePackage.getInstanceObject());
 		stateMachineInstanceEClass.getESuperTypes().add(this.getEMV2InstanceObject());
 		stateInstanceEClass.getESuperTypes().add(this.getEMV2InstanceObject());
 		constrainedInstanceObjectEClass.getESuperTypes().add(this.getConstraintElement());
 		stateTransitionInstanceEClass.getESuperTypes().add(this.getEMV2InstanceObject());
 		compositeStateInstanceEClass.getESuperTypes().add(this.getEMV2InstanceObject());
 		errorFlowInstanceEClass.getESuperTypes().add(this.getEMV2InstanceObject());
-		errorBehaviorInstanceEClass.getESuperTypes().add(this.getEMV2InstanceObject());
+		errorPropagationConditionInstanceEClass.getESuperTypes().add(this.getEMV2InstanceObject());
+		errorDetectionInstanceEClass.getESuperTypes().add(this.getEMV2InstanceObject());
 		propagationPathInstanceEClass.getESuperTypes().add(this.getEMV2InstanceObject());
 		propagationPointInstanceEClass.getESuperTypes().add(this.getEMV2InstanceObject());
 		eventInstanceEClass.getESuperTypes().add(this.getEMV2InstanceObject());
@@ -957,17 +1044,18 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		constraintElementEClass.getESuperTypes().add(this.getEMV2InstanceObject());
 
 		// Initialize classes and features; add operations and parameters
-		initEClass(emv2InstanceObjectEClass, EMV2InstanceObject.class, "EMV2InstanceObject", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(emv2AnnexInstanceEClass, EMV2AnnexInstance.class, "EMV2AnnexInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getEMV2AnnexInstance_Transitions(), this.getStateTransitionInstance(), null, "transitions", null, 0, -1, EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEMV2AnnexInstance_PropagationPoints(), this.getPropagationPointInstance(), null, "propagationPoints", null, 0, -1, EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEMV2AnnexInstance_Events(), this.getEventInstance(), null, "events", null, 0, -1, EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEMV2AnnexInstance_StateMachine(), this.getStateMachineInstance(), null, "stateMachine", null, 0, 1, EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getEMV2AnnexInstance_ErrorBehaviors(), this.getErrorBehaviorInstance(), null, "errorBehaviors", null, 0, -1, EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEMV2AnnexInstance_ErrorPropagationConditions(), this.getErrorPropagationConditionInstance(), null, "errorPropagationConditions", null, 0, -1, EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEMV2AnnexInstance_ErrorDetections(), this.getErrorDetectionInstance(), null, "errorDetections", null, 0, -1, EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEMV2AnnexInstance_ErrorFlows(), this.getErrorFlowInstance(), null, "errorFlows", null, 0, -1, EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEMV2AnnexInstance_Composites(), this.getCompositeStateInstance(), null, "composites", null, 0, -1, EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEMV2AnnexInstance_Actions(), this.getConstrainedInstanceObject(), null, "actions", null, 0, -1, EMV2AnnexInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(emv2InstanceObjectEClass, EMV2InstanceObject.class, "EMV2InstanceObject", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(stateMachineInstanceEClass, StateMachineInstance.class, "StateMachineInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getStateMachineInstance_States(), this.getStateInstance(), null, "states", null, 0, -1, StateMachineInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1000,13 +1088,20 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEAttribute(getErrorFlowInstance_Source(), ecorePackage.getEBoolean(), "source", null, 0, 1, ErrorFlowInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getErrorFlowInstance_Sink(), ecorePackage.getEBoolean(), "sink", null, 0, 1, ErrorFlowInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(errorBehaviorInstanceEClass, ErrorBehaviorInstance.class, "ErrorBehaviorInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getErrorBehaviorInstance_Emv2Element(), theAadl2Package.getNamedElement(), null, "emv2Element", null, 0, 1, ErrorBehaviorInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getErrorBehaviorInstance_InStates(), this.getStateInstance(), null, "inStates", null, 0, -1, ErrorBehaviorInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getErrorBehaviorInstance_Condition(), this.getConstraintElement(), null, "condition", null, 0, 1, ErrorBehaviorInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getErrorBehaviorInstance_Actions(), this.getConstrainedInstanceObject(), null, "actions", null, 0, -1, ErrorBehaviorInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getErrorBehaviorInstance_Source(), ecorePackage.getEBoolean(), "source", null, 0, 1, ErrorBehaviorInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getErrorBehaviorInstance_Sink(), ecorePackage.getEBoolean(), "sink", null, 0, 1, ErrorBehaviorInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(errorPropagationConditionInstanceEClass, ErrorPropagationConditionInstance.class, "ErrorPropagationConditionInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getErrorPropagationConditionInstance_Emv2Element(), theErrorModelPackage.getOutgoingPropagationCondition(), null, "emv2Element", null, 0, 1, ErrorPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getErrorPropagationConditionInstance_InStates(), this.getStateInstance(), null, "inStates", null, 0, -1, ErrorPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getErrorPropagationConditionInstance_Condition(), this.getConstraintElement(), null, "condition", null, 0, 1, ErrorPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getErrorPropagationConditionInstance_Action(), this.getConstrainedInstanceObject(), null, "action", null, 0, 1, ErrorPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getErrorPropagationConditionInstance_Source(), ecorePackage.getEBoolean(), "source", null, 0, 1, ErrorPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getErrorPropagationConditionInstance_Sink(), ecorePackage.getEBoolean(), "sink", null, 0, 1, ErrorPropagationConditionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(errorDetectionInstanceEClass, ErrorDetectionInstance.class, "ErrorDetectionInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getErrorDetectionInstance_Emv2Element(), theErrorModelPackage.getErrorDetection(), null, "emv2Element", null, 0, 1, ErrorDetectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getErrorDetectionInstance_InStates(), this.getStateInstance(), null, "inStates", null, 0, -1, ErrorDetectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getErrorDetectionInstance_Condition(), this.getConstraintElement(), null, "condition", null, 0, 1, ErrorDetectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getErrorDetectionInstance_ErrorCode(), ecorePackage.getEString(), "errorCode", null, 0, 1, ErrorDetectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getErrorDetectionInstance_Port(), theInstancePackage.getFeatureInstance(), null, "port", null, 0, 1, ErrorDetectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(propagationPathInstanceEClass, PropagationPathInstance.class, "PropagationPathInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPropagationPathInstance_Emv2Element(), theAadl2Package.getNamedElement(), null, "emv2Element", null, 0, 1, PropagationPathInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

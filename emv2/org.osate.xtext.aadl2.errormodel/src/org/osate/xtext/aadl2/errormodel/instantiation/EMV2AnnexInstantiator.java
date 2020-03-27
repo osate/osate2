@@ -29,7 +29,12 @@ import java.util.Collection;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.StringLiteral;
+import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.instance.AnnexInstance;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureInstance;
@@ -42,8 +47,9 @@ import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstraintElement;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2AnnexInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstanceFactory;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EOperation;
-import org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorBehaviorInstance;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorDetectionInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorFlowInstance;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorPropagationConditionInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EventInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPointInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateInstance;
@@ -59,6 +65,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorCodeValue;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
@@ -112,6 +120,12 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		for (OutgoingPropagationCondition opc : OPCs) {
 			instantiateOutgoingPropagationCondition(opc, emv2AI);
 		}
+
+		Collection<ErrorDetection> eds = EMV2Util.getAllErrorDetections(instance.getClassifier());
+		for (ErrorDetection ed : eds) {
+			instantiateErrorDetection(ed, emv2AI);
+		}
+
 	}
 
 
@@ -362,12 +376,11 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 	}
 
-
 	public void instantiateOutgoingPropagationCondition(OutgoingPropagationCondition opc, EMV2AnnexInstance context) {
-		ErrorBehaviorInstance bi = EMV2InstanceFactory.eINSTANCE.createErrorBehaviorInstance();
+		ErrorPropagationConditionInstance bi = EMV2InstanceFactory.eINSTANCE.createErrorPropagationConditionInstance();
 		bi.setName(opc.getName());
 		bi.setEmv2Element(opc);
-		context.getErrorBehaviors().add(bi);
+		context.getErrorPropagationConditions().add(bi);
 		ConditionExpression behaviorCondition = opc.getCondition();
 		ConstraintElement cio = instantiateCondition(context, behaviorCondition);
 		bi.setCondition(cio);
@@ -388,7 +401,50 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		} else {
 			ErrorPropagation outep = opc.getOutgoing();
 			ConstrainedInstanceObject outcio = processAction(context, outep, opc.getTypeToken());
-			bi.getActions().add(outcio);
+			bi.setAction(outcio);
+		}
+	}
+
+	public void instantiateErrorDetection(ErrorDetection ed, EMV2AnnexInstance context) {
+		ErrorDetectionInstance bi = EMV2InstanceFactory.eINSTANCE.createErrorDetectionInstance();
+		bi.setName(ed.getName());
+		bi.setEmv2Element(ed);
+		context.getErrorDetections().add(bi);
+		ConditionExpression behaviorCondition = ed.getCondition();
+		ConstraintElement cio = instantiateCondition(context, behaviorCondition);
+		bi.setCondition(cio);
+		// explicit target state
+		if (ed.isAllStates()) {
+			StateMachineInstance smi = context.getStateMachine();
+			if (smi != null) {
+				for (StateInstance si : smi.getStates()) {
+					bi.getInStates().add(si);
+				}
+			}
+		} else {
+			bi.getInStates().add(findStateInstance(context, ed.getState()));
+		}
+		// action. We keep shared action instances such that there is only one per type
+		TriggerPort tp = ed.getDetectionReportingPort();
+		ComponentInstance component = (ComponentInstance) context.eContainer();
+		if (tp instanceof Feature) {
+			bi.setPort(component.findFeatureInstance((Feature) tp));
+		} else {
+			// internal feature not instantiated in core model
+		}
+		ErrorCodeValue ec = ed.getErrorCode();
+		if (!ec.getIntValue().isEmpty()) {
+			bi.setErrorCode(ec.getIntValue());
+		} else if (!ec.getEnumLiteral().isEmpty()) {
+			bi.setErrorCode(ec.getEnumLiteral());
+		} else if (ec.getConstant() != null) {
+			PropertyConstant pc = ec.getConstant();
+			PropertyExpression val = pc.getConstantValue();
+			if (val instanceof IntegerLiteral) {
+				bi.setErrorCode(String.valueOf(((IntegerLiteral) val).getValue()));
+			} else if (val instanceof StringLiteral) {
+				bi.setErrorCode(((StringLiteral) val).getValue());
+			}
 		}
 	}
 
@@ -631,6 +687,40 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 		return null;
 	}
+
+//	public void instantiatePropertyAssociations(ComponentInstance ci) {
+//		List<ErrorModelSubclause> emslist = EMV2Util.getAllContainingClassifierEMV2Subclauses(ci);
+//		ErrorBehaviorStateMachine ebsm = null;
+//
+//		for (ErrorModelSubclause ems : emslist) {
+//			List<EMV2PropertyAssociation> props = ems.getProperties();
+//			// process each property
+//			// in top down - only if not already existing
+//			// for use types also consider property associations in library
+//			// for use behavior also consider properties in EBSM
+//		}
+//
+//
+//	}
+
+	// property associations
+//
+//	InstanceObject io = (InstanceObject) event.getRelatedInstanceObject();
+//	NamedElement ne = (NamedElement) event.getRelatedEMV2Object();
+//	TypeToken type = (TypeToken) event.getRelatedErrorType();
+//	event.setAssignedProbability(
+//			new BigDecimal(EMV2Properties.getProbability(io, ne, type), MathContext.UNLIMITED));
+
+	// PropertyAssociationInstance newPA = InstanceFactory.eINSTANCE
+//			.createPropertyAssociationInstance();
+//
+//	io.removePropertyAssociations(property);
+//	newPA.setProperty(property);
+//	newPA.setPropertyAssociation(getDeclarativePA(result.getPa()));
+//	fillPropertyValue(io, newPA, evaluated);
+//	if (!newPA.getOwnedValues().isEmpty()) {
+//		io.getOwnedPropertyAssociations().add(newPA);
+//	}
 
 // USE if we explicitly record propagation paths in instance model
 	// private void populateBindingPaths(EMV2AnnexInstance eai, InstanceObject obj) {

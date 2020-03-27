@@ -43,8 +43,9 @@ import org.osate.xtext.aadl2.errormodel.EMV2Instance.CompositeStateInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2AnnexInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage;
-import org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorBehaviorInstance;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorDetectionInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorFlowInstance;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorPropagationConditionInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EventInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPointInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateMachineInstance;
@@ -62,7 +63,8 @@ import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateTransitionInstance;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2AnnexInstanceImpl#getPropagationPoints <em>Propagation Points</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2AnnexInstanceImpl#getEvents <em>Events</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2AnnexInstanceImpl#getStateMachine <em>State Machine</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2AnnexInstanceImpl#getErrorBehaviors <em>Error Behaviors</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2AnnexInstanceImpl#getErrorPropagationConditions <em>Error Propagation Conditions</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2AnnexInstanceImpl#getErrorDetections <em>Error Detections</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2AnnexInstanceImpl#getErrorFlows <em>Error Flows</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2AnnexInstanceImpl#getComposites <em>Composites</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2AnnexInstanceImpl#getActions <em>Actions</em>}</li>
@@ -112,14 +114,24 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	protected StateMachineInstance stateMachine;
 
 	/**
-	 * The cached value of the '{@link #getErrorBehaviors() <em>Error Behaviors</em>}' containment reference list.
+	 * The cached value of the '{@link #getErrorPropagationConditions() <em>Error Propagation Conditions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getErrorBehaviors()
+	 * @see #getErrorPropagationConditions()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ErrorBehaviorInstance> errorBehaviors;
+	protected EList<ErrorPropagationConditionInstance> errorPropagationConditions;
+
+	/**
+	 * The cached value of the '{@link #getErrorDetections() <em>Error Detections</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getErrorDetections()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ErrorDetectionInstance> errorDetections;
 
 	/**
 	 * The cached value of the '{@link #getErrorFlows() <em>Error Flows</em>}' containment reference list.
@@ -260,11 +272,24 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 	 * @generated
 	 */
 	@Override
-	public EList<ErrorBehaviorInstance> getErrorBehaviors() {
-		if (errorBehaviors == null) {
-			errorBehaviors = new EObjectContainmentEList<ErrorBehaviorInstance>(ErrorBehaviorInstance.class, this, EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_BEHAVIORS);
+	public EList<ErrorPropagationConditionInstance> getErrorPropagationConditions() {
+		if (errorPropagationConditions == null) {
+			errorPropagationConditions = new EObjectContainmentEList<ErrorPropagationConditionInstance>(ErrorPropagationConditionInstance.class, this, EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_PROPAGATION_CONDITIONS);
 		}
-		return errorBehaviors;
+		return errorPropagationConditions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<ErrorDetectionInstance> getErrorDetections() {
+		if (errorDetections == null) {
+			errorDetections = new EObjectContainmentEList<ErrorDetectionInstance>(ErrorDetectionInstance.class, this, EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_DETECTIONS);
+		}
+		return errorDetections;
 	}
 
 	/**
@@ -322,8 +347,10 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 				return ((InternalEList<?>)getEvents()).basicRemove(otherEnd, msgs);
 			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
 				return basicSetStateMachine(null, msgs);
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_BEHAVIORS:
-				return ((InternalEList<?>)getErrorBehaviors()).basicRemove(otherEnd, msgs);
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_PROPAGATION_CONDITIONS:
+				return ((InternalEList<?>)getErrorPropagationConditions()).basicRemove(otherEnd, msgs);
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_DETECTIONS:
+				return ((InternalEList<?>)getErrorDetections()).basicRemove(otherEnd, msgs);
 			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_FLOWS:
 				return ((InternalEList<?>)getErrorFlows()).basicRemove(otherEnd, msgs);
 			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
@@ -350,8 +377,10 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 				return getEvents();
 			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
 				return getStateMachine();
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_BEHAVIORS:
-				return getErrorBehaviors();
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_PROPAGATION_CONDITIONS:
+				return getErrorPropagationConditions();
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_DETECTIONS:
+				return getErrorDetections();
 			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_FLOWS:
 				return getErrorFlows();
 			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:
@@ -386,9 +415,13 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
 				setStateMachine((StateMachineInstance)newValue);
 				return;
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_BEHAVIORS:
-				getErrorBehaviors().clear();
-				getErrorBehaviors().addAll((Collection<? extends ErrorBehaviorInstance>)newValue);
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_PROPAGATION_CONDITIONS:
+				getErrorPropagationConditions().clear();
+				getErrorPropagationConditions().addAll((Collection<? extends ErrorPropagationConditionInstance>)newValue);
+				return;
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_DETECTIONS:
+				getErrorDetections().clear();
+				getErrorDetections().addAll((Collection<? extends ErrorDetectionInstance>)newValue);
 				return;
 			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_FLOWS:
 				getErrorFlows().clear();
@@ -426,8 +459,11 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
 				setStateMachine((StateMachineInstance)null);
 				return;
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_BEHAVIORS:
-				getErrorBehaviors().clear();
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_PROPAGATION_CONDITIONS:
+				getErrorPropagationConditions().clear();
+				return;
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_DETECTIONS:
+				getErrorDetections().clear();
 				return;
 			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_FLOWS:
 				getErrorFlows().clear();
@@ -458,8 +494,10 @@ public class EMV2AnnexInstanceImpl extends AnnexInstanceImpl implements EMV2Anne
 				return events != null && !events.isEmpty();
 			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__STATE_MACHINE:
 				return stateMachine != null;
-			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_BEHAVIORS:
-				return errorBehaviors != null && !errorBehaviors.isEmpty();
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_PROPAGATION_CONDITIONS:
+				return errorPropagationConditions != null && !errorPropagationConditions.isEmpty();
+			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_DETECTIONS:
+				return errorDetections != null && !errorDetections.isEmpty();
 			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__ERROR_FLOWS:
 				return errorFlows != null && !errorFlows.isEmpty();
 			case EMV2InstancePackage.EMV2_ANNEX_INSTANCE__COMPOSITES:

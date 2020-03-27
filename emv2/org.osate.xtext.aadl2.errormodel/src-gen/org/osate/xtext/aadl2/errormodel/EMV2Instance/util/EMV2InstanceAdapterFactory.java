@@ -95,12 +95,12 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	protected EMV2InstanceSwitch<Adapter> modelSwitch =
 		new EMV2InstanceSwitch<Adapter>() {
 			@Override
-			public Adapter caseEMV2InstanceObject(EMV2InstanceObject object) {
-				return createEMV2InstanceObjectAdapter();
-			}
-			@Override
 			public Adapter caseEMV2AnnexInstance(EMV2AnnexInstance object) {
 				return createEMV2AnnexInstanceAdapter();
+			}
+			@Override
+			public Adapter caseEMV2InstanceObject(EMV2InstanceObject object) {
+				return createEMV2InstanceObjectAdapter();
 			}
 			@Override
 			public Adapter caseStateMachineInstance(StateMachineInstance object) {
@@ -127,8 +127,12 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 				return createErrorFlowInstanceAdapter();
 			}
 			@Override
-			public Adapter caseErrorBehaviorInstance(ErrorBehaviorInstance object) {
-				return createErrorBehaviorInstanceAdapter();
+			public Adapter caseErrorPropagationConditionInstance(ErrorPropagationConditionInstance object) {
+				return createErrorPropagationConditionInstanceAdapter();
+			}
+			@Override
+			public Adapter caseErrorDetectionInstance(ErrorDetectionInstance object) {
+				return createErrorDetectionInstanceAdapter();
 			}
 			@Override
 			public Adapter casePropagationPathInstance(PropagationPathInstance object) {
@@ -159,12 +163,12 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 				return createNamedElementAdapter();
 			}
 			@Override
-			public Adapter caseInstanceObject(InstanceObject object) {
-				return createInstanceObjectAdapter();
-			}
-			@Override
 			public Adapter caseAnnexInstance(AnnexInstance object) {
 				return createAnnexInstanceAdapter();
+			}
+			@Override
+			public Adapter caseInstanceObject(InstanceObject object) {
+				return createInstanceObjectAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -299,16 +303,30 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorBehaviorInstance <em>Error Behavior Instance</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorPropagationConditionInstance <em>Error Propagation Condition Instance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorBehaviorInstance
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorPropagationConditionInstance
 	 * @generated
 	 */
-	public Adapter createErrorBehaviorInstanceAdapter() {
+	public Adapter createErrorPropagationConditionInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorDetectionInstance <em>Error Detection Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorDetectionInstance
+	 * @generated
+	 */
+	public Adapter createErrorDetectionInstanceAdapter() {
 		return null;
 	}
 
