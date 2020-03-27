@@ -35,14 +35,6 @@ class PaletteGroup<G, I> extends Region {
 				setExpanded(true);
 			}
 
-			// There should be a way to reference other groups, but using the parent method
-			// on the arraylist does not work. The method setExpanded() cannot be called on
-			// the elements in the list, nor the parent (VBox), nor the parent of the vbox
-			// which is the paletteGroup instance itself which should be capable of that method.
-			for (int i = 0; i < buttonList.size(); i++) {
-
-			}
-
 		});
 
 		buttonBox.getChildren().add(groupButton);
