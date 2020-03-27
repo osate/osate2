@@ -23,7 +23,6 @@
  */
 package org.osate.analysis.scheduling.inversion;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.util.ECollections;
@@ -60,7 +59,7 @@ public class PriorityInversion {
 	}
 
 	/**
-	 * check for priority inversion of trhead bound to the given processor
+	 * check for priority inversion of threads bound to the given processor
 	 * @param curProcessor Component Instance of processor
 	 */
 	public void checkPriorityInversion(ComponentInstance curProcessor) {
@@ -94,43 +93,62 @@ public class PriorityInversion {
 			}
 			return -1;
 		});
-		checkIncreasingMonotonicity(boundThreads);
+		checkDecreasingPriority(boundThreads);
 	}
 
 	/**
+	 * Check if explicitly assigned priorities in a thread list (sorted in increasing period order)
+	 * violate rate monotic priorities
+	 *
+	 * Checking is done by rate group. Inside a group all threads must have priority lower than the
+	 * lowest priority in any previous rate group.
+	 *
+	 * Threads without priority assignment are reported as a warning
+	 *
 	 * @since 2.0
 	 */
-	public void checkIncreasingMonotonicity(List<Element> threadList) {
+	public void checkDecreasingPriority(List<Element> threadList) {
+		// thread list is ordered in increasing period order
+		// => priorities should decrease
 		if (threadList.isEmpty()) {
 			return;
 		}
-		Iterator<Element> it = threadList.iterator();
-		ComponentInstance curThread = (ComponentInstance) it.next();
-		double currentPeriod = GetProperties.getPeriodinMS(curThread);
-		long periodMaxPriority = GetProperties.getPriority(curThread, 0);
-		double prevRateGroupMaxPriority = periodMaxPriority;
-		while (it.hasNext()) {
-			ComponentInstance nextThread = (ComponentInstance) it.next();
-			double nextPeriod = GetProperties.getPeriodinMS(nextThread);
-			long nextPriority = GetProperties.getPriority(nextThread, -1);
-			if (nextPeriod == currentPeriod) {
-				// update max priority within period
-				if (nextPriority != -1 && nextPriority > periodMaxPriority) {
-					periodMaxPriority = nextPriority;
-				}
+		/** The period of the current rate group */
+		double groupPeriod = -1.0;
+		/** The lowest priority (so far) in the current rate group */
+		long groupLowestPriority = Long.MAX_VALUE;
+		/** The lowest priority encountered before the current rate group */
+		long lowestPriority = Long.MAX_VALUE;
+
+		for (Element e : threadList) {
+			ComponentInstance thread = (ComponentInstance) e;
+			double period = GetProperties.getPeriodinMS(thread);
+			long priority = GetProperties.getPriority(thread, Long.MIN_VALUE);
+
+			if (priority == Long.MIN_VALUE) {
+				errManager.warning(thread, "Thread '" + thread.getName() + "' has no priority assigned");
 			} else {
-				// we have reached the next rate group
-				prevRateGroupMaxPriority = periodMaxPriority;
-				periodMaxPriority = nextPriority;
-				if (nextPriority != -1) {
-					if (nextPriority < prevRateGroupMaxPriority) {
-						// priority inversion
-						errManager.error(nextThread, "Thread '" + nextThread.getName() + "' with priority "
-								+ nextPriority + " causes priority inversion");
+				if (period == groupPeriod) {
+					// just record the lowest priority in the current rate group
+					if (priority < groupLowestPriority) {
+						groupLowestPriority = priority;
 					}
+				} else {
+					// switch to next group
+					groupPeriod = period;
+					if (groupLowestPriority < lowestPriority) {
+						lowestPriority = groupLowestPriority;
+					}
+					groupLowestPriority = priority;
+				}
+
+				if (priority >= lowestPriority) {
+					// priority inversion
+					errManager.error(thread, "Thread '" + thread.getName() + "' with priority " + priority
+							+ " causes priority inversion");
 				}
 			}
-			nextPeriod = currentPeriod;
 		}
 	}
+
 }
