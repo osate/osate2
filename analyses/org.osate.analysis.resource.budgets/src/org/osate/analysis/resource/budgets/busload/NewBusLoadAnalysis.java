@@ -39,6 +39,7 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.analysis.resource.budgets.busload.model.Bus;
 import org.osate.analysis.resource.budgets.busload.model.BusLoadModel;
+import org.osate.analysis.resource.budgets.busload.model.BusLoadModel.PrintVisitor;
 import org.osate.analysis.resource.budgets.busload.model.BusOrVirtualBus;
 import org.osate.analysis.resource.budgets.busload.model.Connection;
 import org.osate.analysis.resource.budgets.busload.model.Visitor;
@@ -62,9 +63,27 @@ public class NewBusLoadAnalysis {
 				final SystemOperationMode som = soms.nextSOM();
 				final BusLoadModel model = BusLoadModel.buildModel(root, som);
 
+				// analyse the model
+				model.visit(new BusLoadAnalysisVisitor());
+
 				pw.println("Model for system operation mode " + som);
 				pw.println();
-				model.print(pw);
+				final PrintVisitor pv = new PrintVisitor() {
+					@Override
+					public void visitBusOrVirtualBusPrefix(final BusOrVirtualBus b) {
+						println("Capacity = " + b.getCapacity() + " KB/s");
+						println("Budget = " + b.getBudget() + " KB/s");
+						println("Required budget = " + b.getTotalBudget() + " KB/s");
+						println("Actual usage = " + b.getActual() + " KB/s");
+					}
+
+					@Override
+					public void visitConnection(final Connection c) {
+						println("Budget = " + c.getBudget() + " KB/s");
+						println("Actual usage = " + c.getActual() + " KB/s");
+					}
+				};
+				model.print(pw, pv);
 				pw.println();
 				pw.println("===============================================");
 				pw.println();
@@ -113,16 +132,18 @@ public class NewBusLoadAnalysis {
 			final ComponentInstance ci = bus.getBusInstance();
 			final double capacity = GetProperties.getBandWidthCapacityInKBytesps(ci, 0.0);
 			final double budget = GetProperties.getBandWidthBudgetInKBytesps(ci, 0.0);
+			bus.setCapacity(capacity);
+			bus.setBudget(budget);
 
 			if (capacity == 0.0) {
 				// TODO: Warning
 				System.out.println("WARNING: " + (bus instanceof Bus ? "Bus " : "Virtual bus ") +
-						ci.getName() + " has no bandwidth budget");
+						ci.getName() + " has no capacity");
 			} else {
 				if (actual > capacity) {
 					// TODO: Error
-					System.out.println("ERROR: Actual bandwidth of " + (bus instanceof Bus ? "Bus " : "Virtual bus ")
-							+ ci.getName() + " of " + actual + " KB/s is more than the capacity of "
+					System.out.println("ERROR: " + (bus instanceof Bus ? "Bus " : "Virtual bus ") + ci.getName()
+							+ " -- Actual bandwidth > capacity: " + actual + " KB/s > "
 							+ capacity + " KB/s");
 				}
 			}
@@ -135,13 +156,13 @@ public class NewBusLoadAnalysis {
 				if (budget > capacity) {
 					// TODO: Error
 					System.out
-							.println("ERROR: Budget of " + (bus instanceof Bus ? "Bus " : "Virtual bus ") + ci.getName()
-									+ " of " + budget + " KB/s is more than the capacity of " + capacity + " KB/s");
+							.println("ERROR: " + (bus instanceof Bus ? "Bus " : "Virtual bus ") + ci.getName()
+									+ " -- budget > capacity: " + budget + " KB/s > " + capacity + " KB/s");
 				}
 				if (totalBudget > budget) {
 					// TODO: Error
-					System.out.println("ERROR: Required capacity of " + (bus instanceof Bus ? "Bus " : "Virtual bus ")
-							+ ci.getName() + " of " + totalBudget + " KB/s is more than the budget of " + budget
+					System.out.println("ERROR: " + (bus instanceof Bus ? "Bus " : "Virtual bus ") + ci.getName()
+							+ " -- Required budget > budget: " + totalBudget + " KB/s > " + budget
 							+ " KB/s");
 				}
 			}
@@ -154,12 +175,13 @@ public class NewBusLoadAnalysis {
 			connection.setActual(actual);
 
 			final double budget = GetProperties.getBandWidthBudgetInKBytesps(ci, 0.0);
-			if (budget == 0.0) {
+			if (budget > 0.0) {
 				connection.setBudget(budget);
 				if (actual > budget) {
-					// TODO: Warning
-					System.out.println("WARNING: Actual bandwidth " + actual + " KB/s of connection " + ci.getName()
-							+ " is greater than its budget of " + budget + " KB/s");
+					// TODO: Error
+					System.out.println("ERROR: Connection " + ci.getName() + " -- Actual bandwidth > budget: "
+							+ actual
+							+ " KB/s > " + budget + " KB/s");
 				}
 			} else {
 				// TODO: Warning
