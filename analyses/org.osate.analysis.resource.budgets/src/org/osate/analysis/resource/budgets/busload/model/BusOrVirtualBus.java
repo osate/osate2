@@ -46,7 +46,7 @@ public abstract class BusOrVirtualBus extends AnalysisElement {
 		boundBuses.add(virtualBus);
 	}
 
-	public final Iterable<VirtualBus> getBoundBuses() {
+	public final List<VirtualBus> getBoundBuses() {
 		return boundBuses;
 	}
 
@@ -56,7 +56,7 @@ public abstract class BusOrVirtualBus extends AnalysisElement {
 		return theConnection;
 	}
 
-	public final Iterable<Connection> getBoundConnections() {
+	public final List<Connection> getBoundConnections() {
 		return boundConnections;
 	}
 
