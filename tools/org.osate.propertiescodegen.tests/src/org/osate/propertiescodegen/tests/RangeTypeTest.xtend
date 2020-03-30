@@ -92,18 +92,6 @@ class RangeTypeTest {
 				}
 			}
 		'''
-		val integerNoUnits = '''
-			package ps1;
-			
-			import org.osate.aadl2.IntegerLiteral;
-			import org.osate.aadl2.PropertyExpression;
-			
-			public class IntegerNoUnits {
-				public static long getValue(PropertyExpression propertyExpression) {
-					return ((IntegerLiteral) propertyExpression).getValue();
-				}
-			}
-		'''
 		val integerOwnedUnits = '''
 			package ps1;
 			
@@ -181,18 +169,6 @@ class RangeTypeTest {
 					public String toString() {
 						return originalName;
 					}
-				}
-			}
-		'''
-		val realNoUnits = '''
-			package ps1;
-			
-			import org.osate.aadl2.PropertyExpression;
-			import org.osate.aadl2.RealLiteral;
-			
-			public class RealNoUnits {
-				public static double getValue(PropertyExpression propertyExpression) {
-					return ((RealLiteral) propertyExpression).getValue();
 				}
 			}
 		'''
@@ -1284,54 +1260,48 @@ class RangeTypeTest {
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(ps1, ps2))
-		assertEquals(16, results.size)
+		assertEquals(14, results.size)
 		
 		assertEquals("Time.java", results.get(0).fileName)
 		assertEquals(time.toString, results.get(0).contents)
 		
-		assertEquals("IntegerNoUnits.java", results.get(1).fileName)
-		assertEquals(integerNoUnits.toString, results.get(1).contents)
+		assertEquals("IntegerOwnedUnits.java", results.get(1).fileName)
+		assertEquals(integerOwnedUnits.toString, results.get(1).contents)
 		
-		assertEquals("IntegerOwnedUnits.java", results.get(2).fileName)
-		assertEquals(integerOwnedUnits.toString, results.get(2).contents)
+		assertEquals("RangeOfIntegerNoUnits.java", results.get(2).fileName)
+		assertEquals(rangeOfIntegerNoUnits.toString, results.get(2).contents)
 		
-		assertEquals("RealNoUnits.java", results.get(3).fileName)
-		assertEquals(realNoUnits.toString, results.get(3).contents)
+		assertEquals("RangeOfIntegerOwnedUnits.java", results.get(3).fileName)
+		assertEquals(rangeOfIntegerOwnedUnits.toString, results.get(3).contents)
 		
-		assertEquals("RangeOfIntegerNoUnits.java", results.get(4).fileName)
-		assertEquals(rangeOfIntegerNoUnits.toString, results.get(4).contents)
+		assertEquals("RangeOfIntegerReferencedUnitsLocal.java", results.get(4).fileName)
+		assertEquals(rangeOfIntegerReferencedUnitsLocal.toString, results.get(4).contents)
 		
-		assertEquals("RangeOfIntegerOwnedUnits.java", results.get(5).fileName)
-		assertEquals(rangeOfIntegerOwnedUnits.toString, results.get(5).contents)
+		assertEquals("RangeOfIntegerReferencedUnitsOtherFile.java", results.get(5).fileName)
+		assertEquals(rangeOfIntegerReferencedUnitsOtherFile.toString, results.get(5).contents)
 		
-		assertEquals("RangeOfIntegerReferencedUnitsLocal.java", results.get(6).fileName)
-		assertEquals(rangeOfIntegerReferencedUnitsLocal.toString, results.get(6).contents)
+		assertEquals("RangeOfRealNoUnits.java", results.get(6).fileName)
+		assertEquals(rangeOfRealNoUnits.toString, results.get(6).contents)
 		
-		assertEquals("RangeOfIntegerReferencedUnitsOtherFile.java", results.get(7).fileName)
-		assertEquals(rangeOfIntegerReferencedUnitsOtherFile.toString, results.get(7).contents)
+		assertEquals("RangeOfRealOwnedUnits.java", results.get(7).fileName)
+		assertEquals(rangeOfRealOwnedUnits.toString, results.get(7).contents)
 		
-		assertEquals("RangeOfRealNoUnits.java", results.get(8).fileName)
-		assertEquals(rangeOfRealNoUnits.toString, results.get(8).contents)
+		assertEquals("RangeOfRealReferencedUnitsLocal.java", results.get(8).fileName)
+		assertEquals(rangeOfRealReferencedUnitsLocal.toString, results.get(8).contents)
 		
-		assertEquals("RangeOfRealOwnedUnits.java", results.get(9).fileName)
-		assertEquals(rangeOfRealOwnedUnits.toString, results.get(9).contents)
+		assertEquals("RangeOfRealReferencedUnitsOtherFile.java", results.get(9).fileName)
+		assertEquals(rangeOfRealReferencedUnitsOtherFile.toString, results.get(9).contents)
 		
-		assertEquals("RangeOfRealReferencedUnitsLocal.java", results.get(10).fileName)
-		assertEquals(rangeOfRealReferencedUnitsLocal.toString, results.get(10).contents)
+		assertEquals("RangeOfReferencedIntegerNoUnits.java", results.get(10).fileName)
+		assertEquals(rangeOfReferencedIntegerNoUnits.toString, results.get(10).contents)
 		
-		assertEquals("RangeOfRealReferencedUnitsOtherFile.java", results.get(11).fileName)
-		assertEquals(rangeOfRealReferencedUnitsOtherFile.toString, results.get(11).contents)
+		assertEquals("RangeOfReferencedRealNoUnits.java", results.get(11).fileName)
+		assertEquals(rangeOfReferencedRealNoUnits.toString, results.get(11).contents)
 		
-		assertEquals("RangeOfReferencedIntegerNoUnits.java", results.get(12).fileName)
-		assertEquals(rangeOfReferencedIntegerNoUnits.toString, results.get(12).contents)
+		assertEquals("RangeOfReferencedNumberLocal.java", results.get(12).fileName)
+		assertEquals(rangeOfReferencedNumberLocal.toString, results.get(12).contents)
 		
-		assertEquals("RangeOfReferencedRealNoUnits.java", results.get(13).fileName)
-		assertEquals(rangeOfReferencedRealNoUnits.toString, results.get(13).contents)
-		
-		assertEquals("RangeOfReferencedNumberLocal.java", results.get(14).fileName)
-		assertEquals(rangeOfReferencedNumberLocal.toString, results.get(14).contents)
-		
-		assertEquals("RangeOfReferencedNumberOtherFile.java", results.get(15).fileName)
-		assertEquals(rangeOfReferencedNumberOtherFile.toString, results.get(15).contents)
+		assertEquals("RangeOfReferencedNumberOtherFile.java", results.get(13).fileName)
+		assertEquals(rangeOfReferencedNumberOtherFile.toString, results.get(13).contents)
 	}
 }

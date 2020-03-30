@@ -267,43 +267,6 @@ class RecordTypeTest {
 				}
 			}
 		'''
-		val booleanType1 = '''
-			package ps1;
-			
-			import org.osate.aadl2.BooleanLiteral;
-			import org.osate.aadl2.PropertyExpression;
-			
-			public class BooleanType1 {
-				public static boolean getValue(PropertyExpression propertyExpression) {
-					return ((BooleanLiteral) propertyExpression).getValue();
-				}
-			}
-		'''
-		val stringType1 = '''
-			package ps1;
-			
-			import org.osate.aadl2.PropertyExpression;
-			import org.osate.aadl2.StringLiteral;
-			
-			public class StringType1 {
-				public static String getValue(PropertyExpression propertyExpression) {
-					return ((StringLiteral) propertyExpression).getValue();
-				}
-			}
-		'''
-		val classifierType1 = '''
-			package ps1;
-			
-			import org.osate.aadl2.Classifier;
-			import org.osate.aadl2.ClassifierValue;
-			import org.osate.aadl2.PropertyExpression;
-			
-			public class ClassifierType1 {
-				public static Classifier getValue(PropertyExpression propertyExpression) {
-					return ((ClassifierValue) propertyExpression).getClassifier();
-				}
-			}
-		'''
 		val enumType1 = '''
 			package ps1;
 			
@@ -331,19 +294,6 @@ class RecordTypeTest {
 				@Override
 				public String toString() {
 					return originalName;
-				}
-			}
-		'''
-		val referenceType1 = '''
-			package ps1;
-			
-			import org.osate.aadl2.PropertyExpression;
-			import org.osate.aadl2.instance.InstanceObject;
-			import org.osate.aadl2.instance.InstanceReferenceValue;
-			
-			public class ReferenceType1 {
-				public static InstanceObject getValue(PropertyExpression propertyExpression) {
-					return ((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject();
 				}
 			}
 		'''
@@ -2126,7 +2076,7 @@ class RecordTypeTest {
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(ps1, ps2))
-		assertEquals(19, results.size)
+		assertEquals(15, results.size)
 		
 		assertEquals("Time.java", results.get(0).fileName)
 		assertEquals(time.toString, results.get(0).contents)
@@ -2137,52 +2087,40 @@ class RecordTypeTest {
 		assertEquals("IntegerReferencedUnitsOtherFile.java", results.get(2).fileName)
 		assertEquals(integerReferencedUnitsOtherFile.toString, results.get(2).contents)
 		
-		assertEquals("BooleanType1.java", results.get(3).fileName)
-		assertEquals(booleanType1.toString, results.get(3).contents)
+		assertEquals("EnumType1.java", results.get(3).fileName)
+		assertEquals(enumType1.toString, results.get(3).contents)
 		
-		assertEquals("StringType1.java", results.get(4).fileName)
-		assertEquals(stringType1.toString, results.get(4).contents)
+		assertEquals("RangeOfIntegerNoUnits.java", results.get(4).fileName)
+		assertEquals(rangeOfIntegerNoUnits.toString, results.get(4).contents)
 		
-		assertEquals("ClassifierType1.java", results.get(5).fileName)
-		assertEquals(classifierType1.toString, results.get(5).contents)
+		assertEquals("RecordType1.java", results.get(5).fileName)
+		assertEquals(recordType1.toString, results.get(5).contents)
 		
-		assertEquals("EnumType1.java", results.get(6).fileName)
-		assertEquals(enumType1.toString, results.get(6).contents)
+		assertEquals("RecordOfBoolean.java", results.get(6).fileName)
+		assertEquals(recordOfBoolean.toString, results.get(6).contents)
 		
-		assertEquals("ReferenceType1.java", results.get(7).fileName)
-		assertEquals(referenceType1.toString, results.get(7).contents)
+		assertEquals("RecordOfString.java", results.get(7).fileName)
+		assertEquals(recordOfString.toString, results.get(7).contents)
 		
-		assertEquals("RangeOfIntegerNoUnits.java", results.get(8).fileName)
-		assertEquals(rangeOfIntegerNoUnits.toString, results.get(8).contents)
+		assertEquals("RecordOfClassifier.java", results.get(8).fileName)
+		assertEquals(recordOfClassifier.toString, results.get(8).contents)
 		
-		assertEquals("RecordType1.java", results.get(9).fileName)
-		assertEquals(recordType1.toString, results.get(9).contents)
+		assertEquals("RecordOfEnum.java", results.get(9).fileName)
+		assertEquals(recordOfEnum.toString, results.get(9).contents)
 		
-		assertEquals("RecordOfBoolean.java", results.get(10).fileName)
-		assertEquals(recordOfBoolean.toString, results.get(10).contents)
+		assertEquals("RecordOfUnits.java", results.get(10).fileName)
+		assertEquals(recordOfUnits.toString, results.get(10).contents)
 		
-		assertEquals("RecordOfString.java", results.get(11).fileName)
-		assertEquals(recordOfString.toString, results.get(11).contents)
+		assertEquals("RecordOfInteger.java", results.get(11).fileName)
+		assertEquals(recordOfInteger.toString, results.get(11).contents)
 		
-		assertEquals("RecordOfClassifier.java", results.get(12).fileName)
-		assertEquals(recordOfClassifier.toString, results.get(12).contents)
+		assertEquals("RecordOfReal.java", results.get(12).fileName)
+		assertEquals(recordOfReal.toString, results.get(12).contents)
 		
-		assertEquals("RecordOfEnum.java", results.get(13).fileName)
-		assertEquals(recordOfEnum.toString, results.get(13).contents)
+		assertEquals("RecordOfReference.java", results.get(13).fileName)
+		assertEquals(recordOfReference.toString, results.get(13).contents)
 		
-		assertEquals("RecordOfUnits.java", results.get(14).fileName)
-		assertEquals(recordOfUnits.toString, results.get(14).contents)
-		
-		assertEquals("RecordOfInteger.java", results.get(15).fileName)
-		assertEquals(recordOfInteger.toString, results.get(15).contents)
-		
-		assertEquals("RecordOfReal.java", results.get(16).fileName)
-		assertEquals(recordOfReal.toString, results.get(16).contents)
-		
-		assertEquals("RecordOfReference.java", results.get(17).fileName)
-		assertEquals(recordOfReference.toString, results.get(17).contents)
-		
-		assertEquals("NestedRecord.java", results.get(18).fileName)
-		assertEquals(nestedRecord.toString, results.get(18).contents)
+		assertEquals("NestedRecord.java", results.get(14).fileName)
+		assertEquals(nestedRecord.toString, results.get(14).contents)
 	}
 }

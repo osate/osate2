@@ -19,82 +19,6 @@ class PropertiesCodeGenTest {
 	TestHelper<PropertySet> testHelper
 	
 	@Test
-	def void testBooleanType() {
-		val propertySet = '''
-			property set ps1 is
-				boolean_type_1: type aadlboolean;
-			end ps1;
-		'''
-		val javaClass = '''
-			package ps1;
-			
-			import org.osate.aadl2.BooleanLiteral;
-			import org.osate.aadl2.PropertyExpression;
-			
-			public class BooleanType1 {
-				public static boolean getValue(PropertyExpression propertyExpression) {
-					return ((BooleanLiteral) propertyExpression).getValue();
-				}
-			}
-		'''
-		val results = PropertiesCodeGen.generateJava(testHelper.parseString(propertySet))
-		assertEquals(1, results.size)
-		assertEquals("BooleanType1.java", results.head.fileName)
-		assertEquals(javaClass.toString, results.head.contents)
-	}
-	
-	@Test
-	def void testStringType() {
-		val propertySet = '''
-			property set ps1 is
-				string_type_1: type aadlstring;
-			end ps1;
-		'''
-		val javaClass = '''
-			package ps1;
-			
-			import org.osate.aadl2.PropertyExpression;
-			import org.osate.aadl2.StringLiteral;
-			
-			public class StringType1 {
-				public static String getValue(PropertyExpression propertyExpression) {
-					return ((StringLiteral) propertyExpression).getValue();
-				}
-			}
-		'''
-		val results = PropertiesCodeGen.generateJava(testHelper.parseString(propertySet))
-		assertEquals(1, results.size)
-		assertEquals("StringType1.java", results.head.fileName)
-		assertEquals(javaClass.toString, results.head.contents)
-	}
-	
-	@Test
-	def void testClassifierType() {
-		val propertySet = '''
-			property set ps1 is
-				classifier_type_1: type classifier;
-			end ps1;
-		'''
-		val javaClass = '''
-			package ps1;
-			
-			import org.osate.aadl2.Classifier;
-			import org.osate.aadl2.ClassifierValue;
-			import org.osate.aadl2.PropertyExpression;
-			
-			public class ClassifierType1 {
-				public static Classifier getValue(PropertyExpression propertyExpression) {
-					return ((ClassifierValue) propertyExpression).getClassifier();
-				}
-			}
-		'''
-		val results = PropertiesCodeGen.generateJava(testHelper.parseString(propertySet))
-		assertEquals(1, results.size)
-		assertEquals("ClassifierType1.java", results.head.fileName)
-		assertEquals(javaClass.toString, results.head.contents)
-	}
-	
-	@Test
 	def void testEnumType() {
 		val propertySet = '''
 			property set enum_test is
@@ -249,18 +173,6 @@ class PropertiesCodeGenTest {
 				@Override
 				public String toString() {
 					return originalName;
-				}
-			}
-		'''
-		val integerNoUnits = '''
-			package ps1;
-			
-			import org.osate.aadl2.IntegerLiteral;
-			import org.osate.aadl2.PropertyExpression;
-			
-			public class IntegerNoUnits {
-				public static long getValue(PropertyExpression propertyExpression) {
-					return ((IntegerLiteral) propertyExpression).getValue();
 				}
 			}
 		'''
@@ -453,22 +365,19 @@ class PropertiesCodeGenTest {
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(ps1, ps2))
-		assertEquals(5, results.size)
+		assertEquals(4, results.size)
 		
 		assertEquals("Time.java", results.get(0).fileName)
 		assertEquals(time.toString, results.get(0).contents)
 		
-		assertEquals("IntegerNoUnits.java", results.get(1).fileName)
-		assertEquals(integerNoUnits.toString, results.get(1).contents)
+		assertEquals("IntegerOwnedUnits.java", results.get(1).fileName)
+		assertEquals(integerOwnedUnits.toString, results.get(1).contents)
 		
-		assertEquals("IntegerOwnedUnits.java", results.get(2).fileName)
-		assertEquals(integerOwnedUnits.toString, results.get(2).contents)
+		assertEquals("IntegerReferencedUnitsLocal.java", results.get(2).fileName)
+		assertEquals(integerReferencedUnitsLocal.toString, results.get(2).contents)
 		
-		assertEquals("IntegerReferencedUnitsLocal.java", results.get(3).fileName)
-		assertEquals(integerReferencedUnitsLocal.toString, results.get(3).contents)
-		
-		assertEquals("IntegerReferencedUnitsOtherFile.java", results.get(4).fileName)
-		assertEquals(integerReferencedUnitsOtherFile.toString, results.get(4).contents)
+		assertEquals("IntegerReferencedUnitsOtherFile.java", results.get(3).fileName)
+		assertEquals(integerReferencedUnitsOtherFile.toString, results.get(3).contents)
 	}
 	
 	@Test
@@ -528,18 +437,6 @@ class PropertiesCodeGenTest {
 				@Override
 				public String toString() {
 					return originalName;
-				}
-			}
-		'''
-		val realNoUnits = '''
-			package ps1;
-			
-			import org.osate.aadl2.PropertyExpression;
-			import org.osate.aadl2.RealLiteral;
-			
-			public class RealNoUnits {
-				public static double getValue(PropertyExpression propertyExpression) {
-					return ((RealLiteral) propertyExpression).getValue();
 				}
 			}
 		'''
@@ -732,47 +629,18 @@ class PropertiesCodeGenTest {
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(ps1, ps2))
-		assertEquals(5, results.size)
+		assertEquals(4, results.size)
 		
 		assertEquals("Time.java", results.get(0).fileName)
 		assertEquals(time.toString, results.get(0).contents)
 		
-		assertEquals("RealNoUnits.java", results.get(1).fileName)
-		assertEquals(realNoUnits.toString, results.get(1).contents)
+		assertEquals("RealOwnedUnits.java", results.get(1).fileName)
+		assertEquals(realOwnedUnits.toString, results.get(1).contents)
 		
-		assertEquals("RealOwnedUnits.java", results.get(2).fileName)
-		assertEquals(realOwnedUnits.toString, results.get(2).contents)
+		assertEquals("RealReferencedUnitsLocal.java", results.get(2).fileName)
+		assertEquals(realReferencedUnitsLocal.toString, results.get(2).contents)
 		
-		assertEquals("RealReferencedUnitsLocal.java", results.get(3).fileName)
-		assertEquals(realReferencedUnitsLocal.toString, results.get(3).contents)
-		
-		assertEquals("RealReferencedUnitsOtherFile.java", results.get(4).fileName)
-		assertEquals(realReferencedUnitsOtherFile.toString, results.get(4).contents)
-	}
-	
-	@Test
-	def void testReferenceType() {
-		val propertySet = '''
-			property set ps1 is
-				reference_type_1: type reference;
-			end ps1;
-		'''
-		val javaClass = '''
-			package ps1;
-			
-			import org.osate.aadl2.PropertyExpression;
-			import org.osate.aadl2.instance.InstanceObject;
-			import org.osate.aadl2.instance.InstanceReferenceValue;
-			
-			public class ReferenceType1 {
-				public static InstanceObject getValue(PropertyExpression propertyExpression) {
-					return ((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject();
-				}
-			}
-		'''
-		val results = PropertiesCodeGen.generateJava(testHelper.parseString(propertySet))
-		assertEquals(1, results.size)
-		assertEquals("ReferenceType1.java", results.head.fileName)
-		assertEquals(javaClass.toString, results.head.contents)
+		assertEquals("RealReferencedUnitsOtherFile.java", results.get(3).fileName)
+		assertEquals(realReferencedUnitsOtherFile.toString, results.get(3).contents)
 	}
 }
