@@ -435,6 +435,35 @@ public final class NewBusLoadAnalysis {
 		}
 		pw.println();
 
+		if (!busResult.getDiagnostics().isEmpty()) {
+			generateCSVforDiagnostics(pw, busResult.getDiagnostics());
+			pw.println();
+		}
+
 		subResults.subList(0, numBus).forEach(br -> generateCSVforBus(pw, br, busResult));
+		subResults.subList(numBus, subResults.size()).forEach(br -> generateCSVforConnection(pw, br, busResult));
+	}
+
+	// TODO: Move this somewhere else
+	private static void generateCSVforConnection(final PrintWriter pw, final Result connectionResult,
+			final Result boundTo) {
+		// only do something if there are diagnostics
+		if (!connectionResult.getDiagnostics().isEmpty()) {
+			pw.print("Connection ");
+			pw.print(connectionResult.getMessage());
+			pw.print(" bound to ");
+			pw.println(boundTo.getMessage());
+			generateCSVforDiagnostics(pw, connectionResult.getDiagnostics());
+			pw.println();
+		}
+	}
+
+	// TODO: Move this somewhere else
+	private static void generateCSVforDiagnostics(final PrintWriter pw, final List<Diagnostic> diagnostics) {
+		for (final Diagnostic issue : diagnostics) {
+			pw.print(issue.getDiagnosticType().getName());
+			pw.print(": ");
+			pw.println(issue.getMessage());
+		}
 	}
 }
