@@ -50,6 +50,7 @@ import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.analysis.resource.budgets.busload.model.Bus;
 import org.osate.analysis.resource.budgets.busload.model.BusLoadModel;
 import org.osate.analysis.resource.budgets.busload.model.BusLoadModel.PrintVisitor;
@@ -152,7 +153,7 @@ public final class NewBusLoadAnalysis {
 			final ComponentInstance busInstance = bus.getBusInstance();
 
 			// Create a new result object for the bus
-			final Result busResult = ResultUtil.createResult(busInstance.getQualifiedName(), busInstance,
+			final Result busResult = ResultUtil.createResult(busInstance.getName(), busInstance,
 					ResultType.SUCCESS);
 			currentResult.getSubResults().add(busResult);
 			previousResult.push(currentResult);
@@ -235,7 +236,7 @@ public final class NewBusLoadAnalysis {
 		@Override
 		public void visitConnection(final Connection connection) {
 			final ConnectionInstance connectionInstance = connection.getConnectionInstance();
-			final Result connectionResult = ResultUtil.createResult(connectionInstance.getQualifiedName(),
+			final Result connectionResult = ResultUtil.createResult(connectionInstance.getName(),
 					connectionInstance, ResultType.SUCCESS);
 			currentResult.getSubResults().add(connectionResult);
 
@@ -298,29 +299,34 @@ public final class NewBusLoadAnalysis {
 	// TODO: Move this somewhere else
 	private static void generateMarkers(final AnalysisResult analysisResult,
 			final AnalysisErrorReporterManager errManager) {
-		generateMarkers(analysisResult.getDiagnostics(), errManager);
-		analysisResult.getResults().forEach(r -> generateMarkers(r, errManager));
+		// Handle each SOM
+		analysisResult.getResults().forEach(r -> {
+			String somPostfix = Aadl2Util.isNoModes((SystemOperationMode) r.getModelElement()) ? ""
+					: (" in modes " + r.getMessage());
+			generateMarkersForSOM(r, errManager, somPostfix);
+		});
 	}
 
 	// TODO: Move this somewhere else
-	private static void generateMarkers(final Result result, final AnalysisErrorReporterManager errManager) {
-		generateMarkers(result.getDiagnostics(), errManager);
-		result.getSubResults().forEach(r -> generateMarkers(r, errManager));
+	private static void generateMarkersForSOM(final Result result, final AnalysisErrorReporterManager errManager,
+			final String somPostfix) {
+		generateMarkersFromDiagnostics(result.getDiagnostics(), errManager, somPostfix);
+		result.getSubResults().forEach(r -> generateMarkersForSOM(r, errManager, somPostfix));
 	}
 
 	// TODO: Move this somewhere else
-	private static void generateMarkers(final List<Diagnostic> diagnostics,
-			final AnalysisErrorReporterManager errManager) {
+	private static void generateMarkersFromDiagnostics(final List<Diagnostic> diagnostics,
+			final AnalysisErrorReporterManager errManager, final String somPostfix) {
 		diagnostics.forEach(issue -> {
 			switch (issue.getDiagnosticType()) {
 			case ERROR:
-				errManager.error((Element) issue.getModelElement(), issue.getMessage());
+				errManager.error((Element) issue.getModelElement(), issue.getMessage() + somPostfix);
 				break;
 			case INFO:
-				errManager.info((Element) issue.getModelElement(), issue.getMessage());
+				errManager.info((Element) issue.getModelElement(), issue.getMessage() + somPostfix);
 				break;
 			case WARNING:
-				errManager.warning((Element) issue.getModelElement(), issue.getMessage());
+				errManager.warning((Element) issue.getModelElement(), issue.getMessage() + somPostfix);
 				break;
 			default:
 				// Do nothing.
@@ -373,8 +379,10 @@ public final class NewBusLoadAnalysis {
 
 	// TODO: Move this somewhere else
 	private static void generateCSVforSOM(final PrintWriter pw, final Result somResult) {
-		pw.println(somResult.getMessage());
-		pw.println();
+		if (!Aadl2Util.isNoModes((SystemOperationMode) somResult.getModelElement())) {
+			pw.println(somResult.getMessage());
+			pw.println();
+		}
 		somResult.getSubResults().forEach(busResult -> generateCSVforBus(pw, busResult, null));
 		pw.println(); // add a second newline, the first is from the end of generateCSVforBus()
 	}
@@ -429,18 +437,4 @@ public final class NewBusLoadAnalysis {
 
 		subResults.subList(0, numBus).forEach(br -> generateCSVforBus(pw, br, busResult));
 	}
-
-//	// TODO: Move this somewhere else
-//	private static void generateCSVforConnection(final PrintWriter pw, final Result connectionResult) {
-//		pw.print(connectionResult.getMessage());
-//		pw.print(", ");
-//		// NO CAPACITY
-//		pw.print(", ");
-//		pw.print(ResultUtil.getReal(connectionResult, 0)); // Budget
-//		pw.print(", ");
-//		// NO REQUIRED CAPACITY
-//		pw.print(", ");
-//		pw.print(ResultUtil.getReal(connectionResult, 1)); // Actual
-//		pw.println();
-//	}
 }
