@@ -1,0 +1,40 @@
+package Issue2259
+public
+	-- Some basics
+	data D8
+		properties
+			Data_Size => 8 Bytes;
+	end D8;
+
+	-- buses
+	bus MyBus
+	end MyBus;
+
+	system S1
+		features
+			out1: out data port D8;
+	end S1;
+
+	system S2
+		features
+			in1: in data port D8;
+	end S2;
+
+	-- assembled system
+	system top
+	end top;
+
+	system implementation top.i
+		subcomponents
+			sub1: system s1;
+			sub2: system s2;
+			theBus: bus MyBus;
+		connections
+			conn1: port sub1.out1 -> sub2.in1 {
+				Actual_Connection_Binding => (reference (theBus));
+			};
+		properties
+			-- Bind the connections
+			Actual_Connection_Binding => (reference (theBus)) applies to conn1;
+	end top.i;
+end Issue2259;
