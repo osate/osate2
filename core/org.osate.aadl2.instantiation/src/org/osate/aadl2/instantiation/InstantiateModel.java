@@ -227,14 +227,16 @@ public class InstantiateModel {
 		if (file != null && file.isAccessible()) {
 			file.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
 		}
-		Resource aadlResource = new ResourceSetImpl().createResource(instanceURI);
+		ResourceSet resourceSet = new ResourceSetImpl();
+		Resource aadlResource = resourceSet.createResource(instanceURI);
 		aadlResource.save(null);
 		aadlResource.unload();
 
 		// now instantiate the rest of the model
 		final InstantiateModel instantiateModel = new InstantiateModel(monitor, new AnalysisErrorReporterManager(
 				new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
-		return instantiateModel.createSystemInstance(ci, aadlResource);
+		return instantiateModel.createSystemInstance(
+				(ComponentImplementation) resourceSet.getEObject(EcoreUtil.getURI(ci), true), aadlResource);
 	}
 
 	public static SystemInstance buildInstanceModelFile(ComponentImplementation ci) throws Exception {
