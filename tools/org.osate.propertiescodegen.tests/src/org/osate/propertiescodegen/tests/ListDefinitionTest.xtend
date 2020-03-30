@@ -86,11 +86,20 @@ class ListDefinitionTest {
 			
 			import java.util.List;
 			import java.util.Optional;
+			import java.util.stream.Collectors;
 			
 			import org.osate.aadl2.Aadl2Package;
+			import org.osate.aadl2.BooleanLiteral;
 			import org.osate.aadl2.Classifier;
+			import org.osate.aadl2.ClassifierValue;
+			import org.osate.aadl2.IntegerLiteral;
+			import org.osate.aadl2.ListValue;
 			import org.osate.aadl2.Property;
+			import org.osate.aadl2.PropertyExpression;
+			import org.osate.aadl2.RealLiteral;
+			import org.osate.aadl2.StringLiteral;
 			import org.osate.aadl2.instance.InstanceObject;
+			import org.osate.aadl2.instance.InstanceReferenceValue;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			
@@ -105,7 +114,10 @@ class ListDefinitionTest {
 					String name = "ps1::list_1_boolean";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List1Boolean.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return ((BooleanLiteral) element1).getValue();
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -115,7 +127,12 @@ class ListDefinitionTest {
 					String name = "ps1::list_2_boolean";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List2Boolean.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
+								return ((BooleanLiteral) element2).getValue();
+							}).collect(Collectors.toList());
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -125,7 +142,14 @@ class ListDefinitionTest {
 					String name = "ps1::list_3_boolean";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List3Boolean.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
+								return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
+									return ((BooleanLiteral) element3).getValue();
+								}).collect(Collectors.toList());
+							}).collect(Collectors.toList());
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -135,7 +159,16 @@ class ListDefinitionTest {
 					String name = "ps1::list_4_boolean";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List4Boolean.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
+								return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
+									return ((ListValue) element3).getOwnedListElements().stream().map(element4 -> {
+										return ((BooleanLiteral) element4).getValue();
+									}).collect(Collectors.toList());
+								}).collect(Collectors.toList());
+							}).collect(Collectors.toList());
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -145,7 +178,18 @@ class ListDefinitionTest {
 					String name = "ps1::list_5_boolean";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List5Boolean.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
+								return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
+									return ((ListValue) element3).getOwnedListElements().stream().map(element4 -> {
+										return ((ListValue) element4).getOwnedListElements().stream().map(element5 -> {
+											return ((BooleanLiteral) element5).getValue();
+										}).collect(Collectors.toList());
+									}).collect(Collectors.toList());
+								}).collect(Collectors.toList());
+							}).collect(Collectors.toList());
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -155,7 +199,10 @@ class ListDefinitionTest {
 					String name = "ps1::list_1_string";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List1String.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return ((StringLiteral) element1).getValue();
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -165,7 +212,10 @@ class ListDefinitionTest {
 					String name = "ps1::list_1_classifier";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List1Classifier.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return ((ClassifierValue) element1).getClassifier();
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -175,7 +225,10 @@ class ListDefinitionTest {
 					String name = "ps1::list_1_integer_no_units";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List1IntegerNoUnits.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return ((IntegerLiteral) element1).getValue();
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -185,7 +238,10 @@ class ListDefinitionTest {
 					String name = "ps1::list_1_real_no_units";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List1RealNoUnits.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return ((RealLiteral) element1).getValue();
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -195,7 +251,10 @@ class ListDefinitionTest {
 					String name = "ps1::list_1_reference";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List1Reference.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return ((InstanceReferenceValue) element1).getReferencedInstanceObject();
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -205,7 +264,8 @@ class ListDefinitionTest {
 					String name = "ps1::list_1_owned_enum";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List1OwnedEnum.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(List1OwnedEnum.getValue(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -215,7 +275,8 @@ class ListDefinitionTest {
 					String name = "ps1::list_1_owned_units";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List1OwnedUnits.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(List1OwnedUnits.getValue(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -225,7 +286,8 @@ class ListDefinitionTest {
 					String name = "ps1::list_1_owned_integer_with_units";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List1OwnedIntegerWithUnits.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(List1OwnedIntegerWithUnits.getValue(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -235,7 +297,8 @@ class ListDefinitionTest {
 					String name = "ps1::list_1_owned_range";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List1OwnedRange.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(List1OwnedRange.getValue(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -245,7 +308,8 @@ class ListDefinitionTest {
 					String name = "ps1::list_1_owned_record";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List1OwnedRecord.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(List1OwnedRecord.getValue(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -255,7 +319,8 @@ class ListDefinitionTest {
 					String name = "ps1::list_1_referenced_enum_no_import";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List1ReferencedEnumNoImport.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(List1ReferencedEnumNoImport.getValue(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -265,7 +330,8 @@ class ListDefinitionTest {
 					String name = "ps1::list_1_referenced_enum_with_import";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List1ReferencedEnumWithImport.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(List1ReferencedEnumWithImport.getValue(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -275,7 +341,8 @@ class ListDefinitionTest {
 					String name = "ps1::list_1_referenced_units_no_import";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List1ReferencedUnitsNoImport.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(List1ReferencedUnitsNoImport.getValue(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -285,7 +352,8 @@ class ListDefinitionTest {
 					String name = "ps1::list_1_referenced_units_with_import";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List1ReferencedUnitsWithImport.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(List1ReferencedUnitsWithImport.getValue(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -295,7 +363,8 @@ class ListDefinitionTest {
 					String name = "ps1::list_1_referenced_number_with_units_no_import";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List1ReferencedNumberWithUnitsNoImport.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(List1ReferencedNumberWithUnitsNoImport.getValue(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -305,7 +374,8 @@ class ListDefinitionTest {
 					String name = "ps1::list_1_referenced_number_with_units_with_import";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List1ReferencedNumberWithUnitsWithImport.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(List1ReferencedNumberWithUnitsWithImport.getValue(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -315,7 +385,8 @@ class ListDefinitionTest {
 					String name = "ps1::list_1_referenced_range_no_import";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List1ReferencedRangeNoImport.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(List1ReferencedRangeNoImport.getValue(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -325,7 +396,8 @@ class ListDefinitionTest {
 					String name = "ps1::list_1_referenced_range_with_import";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List1ReferencedRangeWithImport.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(List1ReferencedRangeWithImport.getValue(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -335,7 +407,8 @@ class ListDefinitionTest {
 					String name = "ps1::list_1_referenced_record_no_import";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List1ReferencedRecordNoImport.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(List1ReferencedRecordNoImport.getValue(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -345,7 +418,8 @@ class ListDefinitionTest {
 					String name = "ps1::list_1_referenced_record_with_import";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List1ReferencedRecordWithImport.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(List1ReferencedRecordWithImport.getValue(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -355,7 +429,8 @@ class ListDefinitionTest {
 					String name = "ps1::list_3_owned_enum";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List3OwnedEnum.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(List3OwnedEnum.getValue(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -365,7 +440,8 @@ class ListDefinitionTest {
 					String name = "ps1::list_5_owned_range";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List5OwnedRange.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(List5OwnedRange.getValue(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -375,7 +451,8 @@ class ListDefinitionTest {
 					String name = "ps1::list_3_referenced_enum_no_import";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List3ReferencedEnumNoImport.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(List3ReferencedEnumNoImport.getValue(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -385,7 +462,8 @@ class ListDefinitionTest {
 					String name = "ps1::list_5_referenced_range_with_import";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(List5ReferencedRangeWithImport.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(List5ReferencedRangeWithImport.getValue(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -668,208 +746,6 @@ class ListDefinitionTest {
 					});
 					builder.append(']');
 					return builder.toString();
-				}
-			}
-		'''
-		val list1Boolean = '''
-			package ps1;
-			
-			import java.util.List;
-			import java.util.stream.Collectors;
-			
-			import org.osate.aadl2.BooleanLiteral;
-			import org.osate.aadl2.ListValue;
-			import org.osate.aadl2.PropertyExpression;
-			
-			public class List1Boolean {
-				public static List<Boolean> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						return ((BooleanLiteral) element1).getValue();
-					}).collect(Collectors.toList());
-				}
-			}
-		'''
-		val list2Boolean = '''
-			package ps1;
-			
-			import java.util.List;
-			import java.util.stream.Collectors;
-			
-			import org.osate.aadl2.BooleanLiteral;
-			import org.osate.aadl2.ListValue;
-			import org.osate.aadl2.PropertyExpression;
-			
-			public class List2Boolean {
-				public static List<List<Boolean>> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
-							return ((BooleanLiteral) element2).getValue();
-						}).collect(Collectors.toList());
-					}).collect(Collectors.toList());
-				}
-			}
-		'''
-		val list3Boolean = '''
-			package ps1;
-			
-			import java.util.List;
-			import java.util.stream.Collectors;
-			
-			import org.osate.aadl2.BooleanLiteral;
-			import org.osate.aadl2.ListValue;
-			import org.osate.aadl2.PropertyExpression;
-			
-			public class List3Boolean {
-				public static List<List<List<Boolean>>> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
-							return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
-								return ((BooleanLiteral) element3).getValue();
-							}).collect(Collectors.toList());
-						}).collect(Collectors.toList());
-					}).collect(Collectors.toList());
-				}
-			}
-		'''
-		val list4Boolean = '''
-			package ps1;
-			
-			import java.util.List;
-			import java.util.stream.Collectors;
-			
-			import org.osate.aadl2.BooleanLiteral;
-			import org.osate.aadl2.ListValue;
-			import org.osate.aadl2.PropertyExpression;
-			
-			public class List4Boolean {
-				public static List<List<List<List<Boolean>>>> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
-							return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
-								return ((ListValue) element3).getOwnedListElements().stream().map(element4 -> {
-									return ((BooleanLiteral) element4).getValue();
-								}).collect(Collectors.toList());
-							}).collect(Collectors.toList());
-						}).collect(Collectors.toList());
-					}).collect(Collectors.toList());
-				}
-			}
-		'''
-		val list5Boolean = '''
-			package ps1;
-			
-			import java.util.List;
-			import java.util.stream.Collectors;
-			
-			import org.osate.aadl2.BooleanLiteral;
-			import org.osate.aadl2.ListValue;
-			import org.osate.aadl2.PropertyExpression;
-			
-			public class List5Boolean {
-				public static List<List<List<List<List<Boolean>>>>> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
-							return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
-								return ((ListValue) element3).getOwnedListElements().stream().map(element4 -> {
-									return ((ListValue) element4).getOwnedListElements().stream().map(element5 -> {
-										return ((BooleanLiteral) element5).getValue();
-									}).collect(Collectors.toList());
-								}).collect(Collectors.toList());
-							}).collect(Collectors.toList());
-						}).collect(Collectors.toList());
-					}).collect(Collectors.toList());
-				}
-			}
-		'''
-		val list1String = '''
-			package ps1;
-			
-			import java.util.List;
-			import java.util.stream.Collectors;
-			
-			import org.osate.aadl2.ListValue;
-			import org.osate.aadl2.PropertyExpression;
-			import org.osate.aadl2.StringLiteral;
-			
-			public class List1String {
-				public static List<String> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						return ((StringLiteral) element1).getValue();
-					}).collect(Collectors.toList());
-				}
-			}
-		'''
-		val list1Classifier = '''
-			package ps1;
-			
-			import java.util.List;
-			import java.util.stream.Collectors;
-			
-			import org.osate.aadl2.Classifier;
-			import org.osate.aadl2.ClassifierValue;
-			import org.osate.aadl2.ListValue;
-			import org.osate.aadl2.PropertyExpression;
-			
-			public class List1Classifier {
-				public static List<Classifier> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						return ((ClassifierValue) element1).getClassifier();
-					}).collect(Collectors.toList());
-				}
-			}
-		'''
-		val list1IntegerNoUnits = '''
-			package ps1;
-			
-			import java.util.List;
-			import java.util.stream.Collectors;
-			
-			import org.osate.aadl2.IntegerLiteral;
-			import org.osate.aadl2.ListValue;
-			import org.osate.aadl2.PropertyExpression;
-			
-			public class List1IntegerNoUnits {
-				public static List<Long> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						return ((IntegerLiteral) element1).getValue();
-					}).collect(Collectors.toList());
-				}
-			}
-		'''
-		val list1RealNoUnits = '''
-			package ps1;
-			
-			import java.util.List;
-			import java.util.stream.Collectors;
-			
-			import org.osate.aadl2.ListValue;
-			import org.osate.aadl2.PropertyExpression;
-			import org.osate.aadl2.RealLiteral;
-			
-			public class List1RealNoUnits {
-				public static List<Double> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						return ((RealLiteral) element1).getValue();
-					}).collect(Collectors.toList());
-				}
-			}
-		'''
-		val list1Reference = '''
-			package ps1;
-			
-			import java.util.List;
-			import java.util.stream.Collectors;
-			
-			import org.osate.aadl2.ListValue;
-			import org.osate.aadl2.PropertyExpression;
-			import org.osate.aadl2.instance.InstanceObject;
-			import org.osate.aadl2.instance.InstanceReferenceValue;
-			
-			public class List1Reference {
-				public static List<InstanceObject> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						return ((InstanceReferenceValue) element1).getReferencedInstanceObject();
-					}).collect(Collectors.toList());
 				}
 			}
 		'''
@@ -1622,7 +1498,7 @@ class ListDefinitionTest {
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(ps1, ps2))
-		assertEquals(35, results.size)
+		assertEquals(25, results.size)
 		
 		assertEquals("Ps1.java", results.get(0).fileName)
 		assertEquals(ps1Class.toString, results.get(0).contents)
@@ -1642,91 +1518,61 @@ class ListDefinitionTest {
 		assertEquals("RecordOfBoolean.java", results.get(5).fileName)
 		assertEquals(recordOfBoolean.toString, results.get(5).contents)
 		
-		assertEquals("List1Boolean.java", results.get(6).fileName)
-		assertEquals(list1Boolean.toString, results.get(6).contents)
+		assertEquals("List1OwnedEnum.java", results.get(6).fileName)
+		assertEquals(list1OwnedEnum.toString, results.get(6).contents)
 		
-		assertEquals("List2Boolean.java", results.get(7).fileName)
-		assertEquals(list2Boolean.toString, results.get(7).contents)
+		assertEquals("List1OwnedUnits.java", results.get(7).fileName)
+		assertEquals(list1OwnedUnits.toString, results.get(7).contents)
 		
-		assertEquals("List3Boolean.java", results.get(8).fileName)
-		assertEquals(list3Boolean.toString, results.get(8).contents)
+		assertEquals("List1OwnedIntegerWithUnits.java", results.get(8).fileName)
+		assertEquals(list1OwnedIntegerWithUnits.toString, results.get(8).contents)
 		
-		assertEquals("List4Boolean.java", results.get(9).fileName)
-		assertEquals(list4Boolean.toString, results.get(9).contents)
+		assertEquals("List1OwnedRange.java", results.get(9).fileName)
+		assertEquals(list1OwnedRange.toString, results.get(9).contents)
 		
-		assertEquals("List5Boolean.java", results.get(10).fileName)
-		assertEquals(list5Boolean.toString, results.get(10).contents)
+		assertEquals("List1OwnedRecord.java", results.get(10).fileName)
+		assertEquals(list1OwnedRecord.toString, results.get(10).contents)
 		
-		assertEquals("List1String.java", results.get(11).fileName)
-		assertEquals(list1String.toString, results.get(11).contents)
+		assertEquals("List1ReferencedEnumNoImport.java", results.get(11).fileName)
+		assertEquals(list1ReferencedEnumNoImport.toString, results.get(11).contents)
 		
-		assertEquals("List1Classifier.java", results.get(12).fileName)
-		assertEquals(list1Classifier.toString, results.get(12).contents)
+		assertEquals("List1ReferencedEnumWithImport.java", results.get(12).fileName)
+		assertEquals(list1ReferencedEnumWithImport.toString, results.get(12).contents)
 		
-		assertEquals("List1IntegerNoUnits.java", results.get(13).fileName)
-		assertEquals(list1IntegerNoUnits.toString, results.get(13).contents)
+		assertEquals("List1ReferencedUnitsNoImport.java", results.get(13).fileName)
+		assertEquals(list1ReferencedUnitsNoImport.toString, results.get(13).contents)
 		
-		assertEquals("List1RealNoUnits.java", results.get(14).fileName)
-		assertEquals(list1RealNoUnits.toString, results.get(14).contents)
+		assertEquals("List1ReferencedUnitsWithImport.java", results.get(14).fileName)
+		assertEquals(list1ReferencedUnitsWithImport.toString, results.get(14).contents)
 		
-		assertEquals("List1Reference.java", results.get(15).fileName)
-		assertEquals(list1Reference.toString, results.get(15).contents)
+		assertEquals("List1ReferencedNumberWithUnitsNoImport.java", results.get(15).fileName)
+		assertEquals(list1ReferencedNumberWithUnitsNoImport.toString, results.get(15).contents)
 		
-		assertEquals("List1OwnedEnum.java", results.get(16).fileName)
-		assertEquals(list1OwnedEnum.toString, results.get(16).contents)
+		assertEquals("List1ReferencedNumberWithUnitsWithImport.java", results.get(16).fileName)
+		assertEquals(list1ReferencedNumberWithUnitsWithImport.toString, results.get(16).contents)
 		
-		assertEquals("List1OwnedUnits.java", results.get(17).fileName)
-		assertEquals(list1OwnedUnits.toString, results.get(17).contents)
+		assertEquals("List1ReferencedRangeNoImport.java", results.get(17).fileName)
+		assertEquals(list1ReferencedRangeNoImport.toString, results.get(17).contents)
 		
-		assertEquals("List1OwnedIntegerWithUnits.java", results.get(18).fileName)
-		assertEquals(list1OwnedIntegerWithUnits.toString, results.get(18).contents)
+		assertEquals("List1ReferencedRangeWithImport.java", results.get(18).fileName)
+		assertEquals(list1ReferencedRangeWithImport.toString, results.get(18).contents)
 		
-		assertEquals("List1OwnedRange.java", results.get(19).fileName)
-		assertEquals(list1OwnedRange.toString, results.get(19).contents)
+		assertEquals("List1ReferencedRecordNoImport.java", results.get(19).fileName)
+		assertEquals(list1ReferencedRecordNoImport.toString, results.get(19).contents)
 		
-		assertEquals("List1OwnedRecord.java", results.get(20).fileName)
-		assertEquals(list1OwnedRecord.toString, results.get(20).contents)
+		assertEquals("List1ReferencedRecordWithImport.java", results.get(20).fileName)
+		assertEquals(list1ReferencedRecordWithImport.toString, results.get(20).contents)
 		
-		assertEquals("List1ReferencedEnumNoImport.java", results.get(21).fileName)
-		assertEquals(list1ReferencedEnumNoImport.toString, results.get(21).contents)
+		assertEquals("List3OwnedEnum.java", results.get(21).fileName)
+		assertEquals(list3OwnedEnum.toString, results.get(21).contents)
 		
-		assertEquals("List1ReferencedEnumWithImport.java", results.get(22).fileName)
-		assertEquals(list1ReferencedEnumWithImport.toString, results.get(22).contents)
+		assertEquals("List5OwnedRange.java", results.get(22).fileName)
+		assertEquals(list5OwnedRange.toString, results.get(22).contents)
 		
-		assertEquals("List1ReferencedUnitsNoImport.java", results.get(23).fileName)
-		assertEquals(list1ReferencedUnitsNoImport.toString, results.get(23).contents)
+		assertEquals("List3ReferencedEnumNoImport.java", results.get(23).fileName)
+		assertEquals(list3ReferencedEnumNoImport.toString, results.get(23).contents)
 		
-		assertEquals("List1ReferencedUnitsWithImport.java", results.get(24).fileName)
-		assertEquals(list1ReferencedUnitsWithImport.toString, results.get(24).contents)
-		
-		assertEquals("List1ReferencedNumberWithUnitsNoImport.java", results.get(25).fileName)
-		assertEquals(list1ReferencedNumberWithUnitsNoImport.toString, results.get(25).contents)
-		
-		assertEquals("List1ReferencedNumberWithUnitsWithImport.java", results.get(26).fileName)
-		assertEquals(list1ReferencedNumberWithUnitsWithImport.toString, results.get(26).contents)
-		
-		assertEquals("List1ReferencedRangeNoImport.java", results.get(27).fileName)
-		assertEquals(list1ReferencedRangeNoImport.toString, results.get(27).contents)
-		
-		assertEquals("List1ReferencedRangeWithImport.java", results.get(28).fileName)
-		assertEquals(list1ReferencedRangeWithImport.toString, results.get(28).contents)
-		
-		assertEquals("List1ReferencedRecordNoImport.java", results.get(29).fileName)
-		assertEquals(list1ReferencedRecordNoImport.toString, results.get(29).contents)
-		
-		assertEquals("List1ReferencedRecordWithImport.java", results.get(30).fileName)
-		assertEquals(list1ReferencedRecordWithImport.toString, results.get(30).contents)
-		
-		assertEquals("List3OwnedEnum.java", results.get(31).fileName)
-		assertEquals(list3OwnedEnum.toString, results.get(31).contents)
-		
-		assertEquals("List5OwnedRange.java", results.get(32).fileName)
-		assertEquals(list5OwnedRange.toString, results.get(32).contents)
-		
-		assertEquals("List3ReferencedEnumNoImport.java", results.get(33).fileName)
-		assertEquals(list3ReferencedEnumNoImport.toString, results.get(33).contents)
-		
-		assertEquals("List5ReferencedRangeWithImport.java", results.get(34).fileName)
-		assertEquals(list5ReferencedRangeWithImport.toString, results.get(34).contents)
+		assertEquals("List5ReferencedRangeWithImport.java", results.get(24).fileName)
+		assertEquals(list5ReferencedRangeWithImport.toString, results.get(24).contents)
 	}
 }

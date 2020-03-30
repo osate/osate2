@@ -56,9 +56,16 @@ class PropertyDefinitionTest {
 			import java.util.OptionalLong;
 			
 			import org.osate.aadl2.Aadl2Package;
+			import org.osate.aadl2.BooleanLiteral;
 			import org.osate.aadl2.Classifier;
+			import org.osate.aadl2.ClassifierValue;
+			import org.osate.aadl2.IntegerLiteral;
 			import org.osate.aadl2.Property;
+			import org.osate.aadl2.PropertyExpression;
+			import org.osate.aadl2.RealLiteral;
+			import org.osate.aadl2.StringLiteral;
 			import org.osate.aadl2.instance.InstanceObject;
+			import org.osate.aadl2.instance.InstanceReferenceValue;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			
@@ -69,7 +76,8 @@ class PropertyDefinitionTest {
 					String name = "ps1::boolean_definition";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(BooleanDefinition.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(((BooleanLiteral) propertyExpression).getValue());
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -79,7 +87,8 @@ class PropertyDefinitionTest {
 					String name = "ps1::string_definition";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(StringDefinition.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(((StringLiteral) propertyExpression).getValue());
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -89,7 +98,8 @@ class PropertyDefinitionTest {
 					String name = "ps1::classifier_definition";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(ClassifierDefinition.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(((ClassifierValue) propertyExpression).getClassifier());
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -99,7 +109,8 @@ class PropertyDefinitionTest {
 					String name = "ps1::units_definition";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(UnitsDefinition.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(UnitsDefinition.getValue(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -109,7 +120,8 @@ class PropertyDefinitionTest {
 					String name = "ps1::enum_definition";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(EnumDefinition.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(EnumDefinition.getValue(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -119,7 +131,8 @@ class PropertyDefinitionTest {
 					String name = "ps1::integer_definition_no_units";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return OptionalLong.of(IntegerDefinitionNoUnits.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return OptionalLong.of(((IntegerLiteral) propertyExpression).getValue());
 					} catch (PropertyNotPresentException e) {
 						return OptionalLong.empty();
 					}
@@ -129,7 +142,8 @@ class PropertyDefinitionTest {
 					String name = "ps1::integer_definition_with_units";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(IntegerDefinitionWithUnits.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(IntegerDefinitionWithUnits.getValue(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -139,7 +153,8 @@ class PropertyDefinitionTest {
 					String name = "ps1::real_definition_no_units";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return OptionalDouble.of(RealDefinitionNoUnits.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return OptionalDouble.of(((RealLiteral) propertyExpression).getValue());
 					} catch (PropertyNotPresentException e) {
 						return OptionalDouble.empty();
 					}
@@ -149,7 +164,8 @@ class PropertyDefinitionTest {
 					String name = "ps1::range_definition";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(RangeDefinition.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(RangeDefinition.getValue(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -159,7 +175,8 @@ class PropertyDefinitionTest {
 					String name = "ps1::record_definition";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(RecordDefinition.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(RecordDefinition.getValue(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -169,7 +186,8 @@ class PropertyDefinitionTest {
 					String name = "ps1::reference_definition";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(ReferenceDefinition.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject());
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -179,7 +197,8 @@ class PropertyDefinitionTest {
 					String name = "ps1::definition_with_referenced_type_local";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(BooleanType1.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(((BooleanLiteral) propertyExpression).getValue());
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -189,59 +208,11 @@ class PropertyDefinitionTest {
 					String name = "ps1::definition_with_referenced_type_other_file";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						return Optional.of(Color.getValue(instanceObject.getNonModalPropertyValue(property)));
+						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						return Optional.of(Color.getValue(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
-				}
-			}
-		'''
-		val booleanType1 = '''
-			package ps1;
-			
-			import org.osate.aadl2.BooleanLiteral;
-			import org.osate.aadl2.PropertyExpression;
-			
-			public class BooleanType1 {
-				public static boolean getValue(PropertyExpression propertyExpression) {
-					return ((BooleanLiteral) propertyExpression).getValue();
-				}
-			}
-		'''
-		val booleanDefinition = '''
-			package ps1;
-			
-			import org.osate.aadl2.BooleanLiteral;
-			import org.osate.aadl2.PropertyExpression;
-			
-			public class BooleanDefinition {
-				public static boolean getValue(PropertyExpression propertyExpression) {
-					return ((BooleanLiteral) propertyExpression).getValue();
-				}
-			}
-		'''
-		val stringDefinition = '''
-			package ps1;
-			
-			import org.osate.aadl2.PropertyExpression;
-			import org.osate.aadl2.StringLiteral;
-			
-			public class StringDefinition {
-				public static String getValue(PropertyExpression propertyExpression) {
-					return ((StringLiteral) propertyExpression).getValue();
-				}
-			}
-		'''
-		val classifierDefinition = '''
-			package ps1;
-			
-			import org.osate.aadl2.Classifier;
-			import org.osate.aadl2.ClassifierValue;
-			import org.osate.aadl2.PropertyExpression;
-			
-			public class ClassifierDefinition {
-				public static Classifier getValue(PropertyExpression propertyExpression) {
-					return ((ClassifierValue) propertyExpression).getClassifier();
 				}
 			}
 		'''
@@ -313,18 +284,6 @@ class PropertyDefinitionTest {
 				}
 			}
 		'''
-		val integerDefinitionNoUnits = '''
-			package ps1;
-			
-			import org.osate.aadl2.IntegerLiteral;
-			import org.osate.aadl2.PropertyExpression;
-			
-			public class IntegerDefinitionNoUnits {
-				public static long getValue(PropertyExpression propertyExpression) {
-					return ((IntegerLiteral) propertyExpression).getValue();
-				}
-			}
-		'''
 		val integerDefinitionWithUnits = '''
 			package ps1;
 			
@@ -377,18 +336,6 @@ class PropertyDefinitionTest {
 				@Override
 				public String toString() {
 					return value + unit.toString();
-				}
-			}
-		'''
-		val realDefinitionNoUnits = '''
-			package ps1;
-			
-			import org.osate.aadl2.PropertyExpression;
-			import org.osate.aadl2.RealLiteral;
-			
-			public class RealDefinitionNoUnits {
-				public static double getValue(PropertyExpression propertyExpression) {
-					return ((RealLiteral) propertyExpression).getValue();
 				}
 			}
 		'''
@@ -520,59 +467,25 @@ class PropertyDefinitionTest {
 				}
 			}
 		'''
-		val referenceDefinition = '''
-			package ps1;
-			
-			import org.osate.aadl2.PropertyExpression;
-			import org.osate.aadl2.instance.InstanceObject;
-			import org.osate.aadl2.instance.InstanceReferenceValue;
-			
-			public class ReferenceDefinition {
-				public static InstanceObject getValue(PropertyExpression propertyExpression) {
-					return ((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject();
-				}
-			}
-		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(ps1, ps2))
-		assertEquals(13, results.size)
+		assertEquals(6, results.size)
 		
 		assertEquals("Ps1.java", results.get(0).fileName)
 		assertEquals(ps1Class.toString, results.get(0).contents)
 		
-		assertEquals("BooleanType1.java", results.get(1).fileName)
-		assertEquals(booleanType1.toString, results.get(1).contents)
+		assertEquals("UnitsDefinition.java", results.get(1).fileName)
+		assertEquals(unitsDefinition.toString, results.get(1).contents)
 		
-		assertEquals("BooleanDefinition.java", results.get(2).fileName)
-		assertEquals(booleanDefinition.toString, results.get(2).contents)
+		assertEquals("EnumDefinition.java", results.get(2).fileName)
+		assertEquals(enumDefinition.toString, results.get(2).contents)
 		
-		assertEquals("StringDefinition.java", results.get(3).fileName)
-		assertEquals(stringDefinition.toString, results.get(3).contents)
+		assertEquals("IntegerDefinitionWithUnits.java", results.get(3).fileName)
+		assertEquals(integerDefinitionWithUnits.toString, results.get(3).contents)
 		
-		assertEquals("ClassifierDefinition.java", results.get(4).fileName)
-		assertEquals(classifierDefinition.toString, results.get(4).contents)
+		assertEquals("RangeDefinition.java", results.get(4).fileName)
+		assertEquals(rangeDefinition.toString, results.get(4).contents)
 		
-		assertEquals("UnitsDefinition.java", results.get(5).fileName)
-		assertEquals(unitsDefinition.toString, results.get(5).contents)
-		
-		assertEquals("EnumDefinition.java", results.get(6).fileName)
-		assertEquals(enumDefinition.toString, results.get(6).contents)
-		
-		assertEquals("IntegerDefinitionNoUnits.java", results.get(7).fileName)
-		assertEquals(integerDefinitionNoUnits.toString, results.get(7).contents)
-		
-		assertEquals("IntegerDefinitionWithUnits.java", results.get(8).fileName)
-		assertEquals(integerDefinitionWithUnits.toString, results.get(8).contents)
-		
-		assertEquals("RealDefinitionNoUnits.java", results.get(9).fileName)
-		assertEquals(realDefinitionNoUnits.toString, results.get(9).contents)
-		
-		assertEquals("RangeDefinition.java", results.get(10).fileName)
-		assertEquals(rangeDefinition.toString, results.get(10).contents)
-		
-		assertEquals("RecordDefinition.java", results.get(11).fileName)
-		assertEquals(recordDefinition.toString, results.get(11).contents)
-		
-		assertEquals("ReferenceDefinition.java", results.get(12).fileName)
-		assertEquals(referenceDefinition.toString, results.get(12).contents)
+		assertEquals("RecordDefinition.java", results.get(5).fileName)
+		assertEquals(recordDefinition.toString, results.get(5).contents)
 	}
 }
