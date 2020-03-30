@@ -23,11 +23,18 @@
  */
 package org.osate.analysis.resource.budgets.busload;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -37,9 +44,12 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.aadl2.modelsupport.Activator;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.analysis.resource.budgets.busload.model.Bus;
 import org.osate.analysis.resource.budgets.busload.model.BusLoadModel;
 import org.osate.analysis.resource.budgets.busload.model.BusLoadModel.PrintVisitor;
@@ -80,7 +90,7 @@ public final class NewBusLoadAnalysis {
 			while (soms.hasNext()) {
 				final SystemOperationMode som = soms.nextSOM();
 				final Result somResult = ResultUtil.createResult(
-						"Analysis of system operation mode " + som.getFullName(), som, ResultType.SUCCESS);
+						"Analysis of system operation mode " + som.toString(), som, ResultType.SUCCESS);
 				analysisResult.getResults().add(somResult);
 				final BusLoadModel model = BusLoadModel.buildModel(root, som);
 
@@ -113,6 +123,8 @@ public final class NewBusLoadAnalysis {
 
 			// TODO: Move this later
 			generateMarkers(analysisResult, errManager);
+			// TODO: Deal with progress monitor
+			writeCSVFile(analysisResult, null);
 
 			return analysisResult;
 		} else {
@@ -316,4 +328,119 @@ public final class NewBusLoadAnalysis {
 		});
 	}
 
+	// TODO: Move this somewhere else
+	private static void writeCSVFile(final AnalysisResult analysisResult, final IProgressMonitor monitor) {
+		/* Get the location of the instance model file and build the path to the result file. */
+		IPath path = OsateResourceUtil.toIFile(analysisResult.getModelElement().eResource().getURI()).getFullPath()
+				.removeFileExtension();
+		final String filename = path.lastSegment();
+		path = path.removeLastSegments(1).append("/reports/BusLoad/" + filename + ".csv");
+		final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
+
+		final String csvContent = getCSVasString(analysisResult);
+		final InputStream inputStream = new ByteArrayInputStream(csvContent.getBytes());
+
+		if (file != null) {
+			try {
+				if (file.exists()) {
+					file.setContents(inputStream, true, true, monitor);
+				} else {
+					AadlUtil.makeSureFoldersExist(path);
+					file.create(inputStream, true, monitor);
+				}
+			} catch (final CoreException e) {
+				Activator.logThrowable(e);
+			}
+		}
+	}
+
+	// TODO: Move this somewhere else
+	private static String getCSVasString(final AnalysisResult analysisResult) {
+		final StringWriter writer = new StringWriter();
+		final PrintWriter pw = new PrintWriter(writer);
+		generateCSVforAnalysis(pw, analysisResult);
+		pw.close();
+		return writer.toString();
+	}
+
+	// TODO: Move this somewhere else
+	private static void generateCSVforAnalysis(final PrintWriter pw, final AnalysisResult analysisResult) {
+		pw.println(analysisResult.getMessage());
+		pw.println();
+		pw.println();
+		analysisResult.getResults().forEach(somResult -> generateCSVforSOM(pw, somResult));
+	}
+
+	// TODO: Move this somewhere else
+	private static void generateCSVforSOM(final PrintWriter pw, final Result somResult) {
+		pw.println(somResult.getMessage());
+		pw.println();
+		somResult.getSubResults().forEach(busResult -> generateCSVforBus(pw, busResult, null));
+		pw.println(); // add a second newline, the first is from the end of generateCSVforBus()
+	}
+
+	// TODO: Move this somewhere else
+	private static void generateCSVforBus(final PrintWriter pw, final Result busResult, final Result boundTo) {
+		if (boundTo == null) {
+			pw.print("Bus ");
+			pw.println(busResult.getMessage());
+		} else {
+			pw.print("Virtual bus ");
+			pw.print(busResult.getMessage());
+			pw.print(" bound to ");
+			pw.println(boundTo.getMessage());
+		}
+
+		/*
+		 * Go through the children twice: First to print summary information and then to recursively
+		 * print the sub information.
+		 */
+
+		pw.println(
+				"Bound Virtual Bus/Connection, Capacity (KB/s), Budget (KB/s), Required Budget (KB/s), Actual (KB/s)");
+
+		final int numBus = (int) ResultUtil.getInteger(busResult, 4);
+		final List<Result> subResults = busResult.getSubResults();
+		for (final Result subResult : subResults.subList(0, numBus)) {
+			pw.print(subResult.getMessage());
+			pw.print(", ");
+			pw.print(ResultUtil.getReal(subResult, 0)); // Capacity
+			pw.print(", ");
+			pw.print(ResultUtil.getReal(subResult, 1)); // Budget
+			pw.print(", ");
+			pw.print(ResultUtil.getReal(subResult, 2)); // Required Capacity
+			pw.print(", ");
+			pw.print(ResultUtil.getReal(subResult, 3)); // Actual
+			pw.println();
+		}
+		for (final Result subResult : subResults.subList(numBus, subResults.size())) {
+			pw.print(subResult.getMessage());
+			pw.print(", ");
+			// NO CAPACITY
+			pw.print(", ");
+			pw.print(ResultUtil.getReal(subResult, 0)); // Budget
+			pw.print(", ");
+			// NO REQUIRED CAPACITY
+			pw.print(", ");
+			pw.print(ResultUtil.getReal(subResult, 1)); // Actual
+			pw.println();
+		}
+		pw.println();
+
+		subResults.subList(0, numBus).forEach(br -> generateCSVforBus(pw, br, busResult));
+	}
+
+//	// TODO: Move this somewhere else
+//	private static void generateCSVforConnection(final PrintWriter pw, final Result connectionResult) {
+//		pw.print(connectionResult.getMessage());
+//		pw.print(", ");
+//		// NO CAPACITY
+//		pw.print(", ");
+//		pw.print(ResultUtil.getReal(connectionResult, 0)); // Budget
+//		pw.print(", ");
+//		// NO REQUIRED CAPACITY
+//		pw.print(", ");
+//		pw.print(ResultUtil.getReal(connectionResult, 1)); // Actual
+//		pw.println();
+//	}
 }
