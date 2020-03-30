@@ -689,14 +689,13 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	private FeatureInstance findFeatureInstance(ComponentInstance ci, FeatureorPPReference fppref) {
-		FeatureorPPReference curfppref = fppref;
+		NamedElement fpp = fppref.getFeatureorPP();
+		FeatureInstance fi = ci.findFeatureInstance((Feature) fpp);
+		FeatureorPPReference curfppref = fppref.getNext();
 		while (curfppref != null) {
-			NamedElement fpp = curfppref.getFeatureorPP();
-			FeatureInstance fi = ci.findFeatureInstance((Feature) fpp);
+			fi = fi.findFeatureInstance((Feature) curfppref.getFeatureorPP());
 			if (curfppref.getNext() != null) {
-				if (fi != null) {
-					// find in feature group instance
-				} else {
+				if (fi == null) {
 					return null;
 				}
 				curfppref = curfppref.getNext();
@@ -704,7 +703,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				return fi;
 			}
 		}
-		return null;
+		return fi;
 	}
 
 //	public void instantiatePropertyAssociations(ComponentInstance ci) {
