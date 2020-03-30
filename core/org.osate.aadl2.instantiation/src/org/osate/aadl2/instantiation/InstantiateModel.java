@@ -419,7 +419,7 @@ public class InstantiateModel {
 			} catch (InterruptedException e) {
 				throw e;
 			} catch (Exception e) {
-				InstantiateModel.setErrorMessage(e.getMessage());
+				InstantiateModel.setErrorMessage(e.toString() + ": " + e.getMessage());
 				e.printStackTrace();
 				return null;
 			}
