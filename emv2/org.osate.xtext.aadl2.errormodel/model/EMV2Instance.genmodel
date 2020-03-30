@@ -74,11 +74,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMV2Instance.ecore#//ErrorDetectionInstance/errorCode"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ErrorDetectionInstance/port"/>
     </genClasses>
-    <genClasses ecoreClass="EMV2Instance.ecore#//PropagationPathInstance">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//PropagationPathInstance/emv2Element"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//PropagationPathInstance/source"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//PropagationPathInstance/target"/>
-    </genClasses>
     <genClasses ecoreClass="EMV2Instance.ecore#//PropagationPointInstance">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//PropagationPointInstance/propagationPoint"/>
     </genClasses>
@@ -92,5 +87,10 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//Constraint/constraintElements"/>
     </genClasses>
     <genClasses image="false" ecoreClass="EMV2Instance.ecore#//ConstraintElement"/>
+    <genClasses ecoreClass="EMV2Instance.ecore#//PropagationPathInstance">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//PropagationPathInstance/emv2Element"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//PropagationPathInstance/source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//PropagationPathInstance/target"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>
