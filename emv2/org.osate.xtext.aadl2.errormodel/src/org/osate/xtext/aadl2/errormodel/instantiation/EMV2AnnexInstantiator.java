@@ -345,7 +345,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			NamedElement fpp = fppref.getFeatureorPP();
 			if (fpp instanceof Feature) {
 				ComponentInstance ci = (ComponentInstance) eai.eContainer();
-				FeatureInstance fi = ci.findFeatureInstance((Feature) fpp);
+				FeatureInstance fi = findFeatureInstance(ci, fppref);
 				cio.setInstanceObject(fi);
 				cio.setName(fi.getName());
 			} else if (fpp instanceof PropagationPoint) {
@@ -683,6 +683,25 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		for (AnnexInstance ai : ci.getAnnexInstances()) {
 			if (ai instanceof EMV2AnnexInstance) {
 				return (EMV2AnnexInstance) ai;
+			}
+		}
+		return null;
+	}
+
+	private FeatureInstance findFeatureInstance(ComponentInstance ci, FeatureorPPReference fppref) {
+		FeatureorPPReference curfppref = fppref;
+		while (curfppref != null) {
+			NamedElement fpp = curfppref.getFeatureorPP();
+			FeatureInstance fi = ci.findFeatureInstance((Feature) fpp);
+			if (curfppref.getNext() != null) {
+				if (fi != null) {
+					// find in feature group instance
+				} else {
+					return null;
+				}
+				curfppref = curfppref.getNext();
+			} else {
+				return fi;
 			}
 		}
 		return null;
