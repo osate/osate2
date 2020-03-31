@@ -292,7 +292,7 @@ class ListDefinitionTest {
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return List1OwnedIntegerWithUnits.getValue(element1);
+							return new List1OwnedIntegerWithUnits(element1);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
@@ -305,7 +305,7 @@ class ListDefinitionTest {
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return List1OwnedRange.getValue(element1);
+							return new List1OwnedRange(element1);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
@@ -318,7 +318,7 @@ class ListDefinitionTest {
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return List1OwnedRecord.getValue(element1);
+							return new List1OwnedRecord(element1);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
@@ -383,7 +383,7 @@ class ListDefinitionTest {
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return IntegerOwnedUnits.getValue(element1);
+							return new IntegerOwnedUnits(element1);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
@@ -396,7 +396,7 @@ class ListDefinitionTest {
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return MassType.getValue(element1);
+							return new MassType(element1);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
@@ -409,7 +409,7 @@ class ListDefinitionTest {
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return RangeOfIntegerNoUnits.getValue(element1);
+							return new RangeOfIntegerNoUnits(element1);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
@@ -422,7 +422,7 @@ class ListDefinitionTest {
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return BasicRange.getValue(element1);
+							return new BasicRange(element1);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
@@ -435,7 +435,7 @@ class ListDefinitionTest {
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return RecordOfBoolean.getValue(element1);
+							return new RecordOfBoolean(element1);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
@@ -448,7 +448,7 @@ class ListDefinitionTest {
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return BasicRecord.getValue(element1);
+							return new BasicRecord(element1);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
@@ -482,7 +482,7 @@ class ListDefinitionTest {
 								return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
 									return ((ListValue) element3).getOwnedListElements().stream().map(element4 -> {
 										return ((ListValue) element4).getOwnedListElements().stream().map(element5 -> {
-											return List5OwnedRange.getValue(element5);
+											return new List5OwnedRange(element5);
 										}).collect(Collectors.toList());
 									}).collect(Collectors.toList());
 								}).collect(Collectors.toList());
@@ -520,7 +520,7 @@ class ListDefinitionTest {
 								return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
 									return ((ListValue) element3).getOwnedListElements().stream().map(element4 -> {
 										return ((ListValue) element4).getOwnedListElements().stream().map(element5 -> {
-											return BasicRange.getValue(element5);
+											return new BasicRange(element5);
 										}).collect(Collectors.toList());
 									}).collect(Collectors.toList());
 								}).collect(Collectors.toList());
@@ -588,14 +588,10 @@ class ListDefinitionTest {
 				private final long value;
 				private final Units unit;
 				
-				private IntegerOwnedUnits(PropertyExpression propertyExpression) {
+				public IntegerOwnedUnits(PropertyExpression propertyExpression) {
 					IntegerLiteral numberValue = (IntegerLiteral) propertyExpression;
 					value = numberValue.getValue();
 					unit = Units.valueOf(numberValue.getUnit().getName().toUpperCase());
-				}
-				
-				public static IntegerOwnedUnits getValue(PropertyExpression propertyExpression) {
-					return new IntegerOwnedUnits(propertyExpression);
 				}
 				
 				public long getValue() {
@@ -706,7 +702,7 @@ class ListDefinitionTest {
 				private final long maximum;
 				private final OptionalLong delta;
 				
-				private RangeOfIntegerNoUnits(PropertyExpression propertyExpression) {
+				public RangeOfIntegerNoUnits(PropertyExpression propertyExpression) {
 					RangeValue rangeValue = (RangeValue) propertyExpression;
 					minimum = ((IntegerLiteral) rangeValue.getMinimum()).getValue();
 					maximum = ((IntegerLiteral) rangeValue.getMaximum()).getValue();
@@ -715,10 +711,6 @@ class ListDefinitionTest {
 					} else {
 						delta = OptionalLong.of(((IntegerLiteral) rangeValue.getDelta()).getValue());
 					}
-				}
-				
-				public static RangeOfIntegerNoUnits getValue(PropertyExpression propertyExpression) {
-					return new RangeOfIntegerNoUnits(propertyExpression);
 				}
 				
 				public long getMinimum() {
@@ -771,17 +763,13 @@ class ListDefinitionTest {
 			public class RecordOfBoolean {
 				private final Optional<Boolean> field;
 				
-				private RecordOfBoolean(PropertyExpression propertyExpression) {
+				public RecordOfBoolean(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
 							.map(field -> ((BooleanLiteral) field.getOwnedValue()).getValue())
 							.findAny();
-				}
-				
-				public static RecordOfBoolean getValue(PropertyExpression propertyExpression) {
-					return new RecordOfBoolean(propertyExpression);
 				}
 				
 				public Optional<Boolean> getField() {
@@ -901,14 +889,10 @@ class ListDefinitionTest {
 				private final long value;
 				private final Time unit;
 				
-				private List1OwnedIntegerWithUnits(PropertyExpression propertyExpression) {
+				public List1OwnedIntegerWithUnits(PropertyExpression propertyExpression) {
 					IntegerLiteral numberValue = (IntegerLiteral) propertyExpression;
 					value = numberValue.getValue();
 					unit = Time.valueOf(numberValue.getUnit().getName().toUpperCase());
-				}
-				
-				public static List1OwnedIntegerWithUnits getValue(PropertyExpression propertyExpression) {
-					return new List1OwnedIntegerWithUnits(propertyExpression);
 				}
 				
 				public long getValue() {
@@ -957,7 +941,7 @@ class ListDefinitionTest {
 				private final long maximum;
 				private final OptionalLong delta;
 				
-				private List1OwnedRange(PropertyExpression propertyExpression) {
+				public List1OwnedRange(PropertyExpression propertyExpression) {
 					RangeValue rangeValue = (RangeValue) propertyExpression;
 					minimum = ((IntegerLiteral) rangeValue.getMinimum()).getValue();
 					maximum = ((IntegerLiteral) rangeValue.getMaximum()).getValue();
@@ -966,10 +950,6 @@ class ListDefinitionTest {
 					} else {
 						delta = OptionalLong.of(((IntegerLiteral) rangeValue.getDelta()).getValue());
 					}
-				}
-				
-				public static List1OwnedRange getValue(PropertyExpression propertyExpression) {
-					return new List1OwnedRange(propertyExpression);
 				}
 				
 				public long getMinimum() {
@@ -1029,7 +1009,7 @@ class ListDefinitionTest {
 				private final Optional<String> stringField;
 				private final Optional<RecordFieldType> recordField;
 				
-				private List1OwnedRecord(PropertyExpression propertyExpression) {
+				public List1OwnedRecord(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					booleanField = recordValue.getOwnedFieldValues()
 							.stream()
@@ -1046,10 +1026,6 @@ class ListDefinitionTest {
 							.filter(field -> field.getProperty().getName().equals("record_field"))
 							.map(field -> new RecordFieldType(field.getOwnedValue()))
 							.findAny();
-				}
-				
-				public static List1OwnedRecord getValue(PropertyExpression propertyExpression) {
-					return new List1OwnedRecord(propertyExpression);
 				}
 				
 				public Optional<Boolean> getBooleanField() {
@@ -1114,7 +1090,7 @@ class ListDefinitionTest {
 					private final OptionalLong integerField;
 					private final OptionalDouble realField;
 					
-					private RecordFieldType(PropertyExpression propertyExpression) {
+					public RecordFieldType(PropertyExpression propertyExpression) {
 						RecordValue recordValue = (RecordValue) propertyExpression;
 						integerField = recordValue.getOwnedFieldValues()
 								.stream()
@@ -1221,7 +1197,7 @@ class ListDefinitionTest {
 				private final double maximum;
 				private final OptionalDouble delta;
 				
-				private List5OwnedRange(PropertyExpression propertyExpression) {
+				public List5OwnedRange(PropertyExpression propertyExpression) {
 					RangeValue rangeValue = (RangeValue) propertyExpression;
 					minimum = ((RealLiteral) rangeValue.getMinimum()).getValue();
 					maximum = ((RealLiteral) rangeValue.getMaximum()).getValue();
@@ -1230,10 +1206,6 @@ class ListDefinitionTest {
 					} else {
 						delta = OptionalDouble.of(((RealLiteral) rangeValue.getDelta()).getValue());
 					}
-				}
-				
-				public static List5OwnedRange getValue(PropertyExpression propertyExpression) {
-					return new List5OwnedRange(propertyExpression);
 				}
 				
 				public double getMinimum() {

@@ -143,7 +143,7 @@ class PropertyDefinitionTest {
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
-						return Optional.of(IntegerDefinitionWithUnits.getValue(propertyExpression));
+						return Optional.of(new IntegerDefinitionWithUnits(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -165,7 +165,7 @@ class PropertyDefinitionTest {
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
-						return Optional.of(RangeDefinition.getValue(propertyExpression));
+						return Optional.of(new RangeDefinition(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -176,7 +176,7 @@ class PropertyDefinitionTest {
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
-						return Optional.of(RecordDefinition.getValue(propertyExpression));
+						return Optional.of(new RecordDefinition(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -298,14 +298,10 @@ class PropertyDefinitionTest {
 				private final long value;
 				private final Mass unit;
 				
-				private IntegerDefinitionWithUnits(PropertyExpression propertyExpression) {
+				public IntegerDefinitionWithUnits(PropertyExpression propertyExpression) {
 					IntegerLiteral numberValue = (IntegerLiteral) propertyExpression;
 					value = numberValue.getValue();
 					unit = Mass.valueOf(numberValue.getUnit().getName().toUpperCase());
-				}
-				
-				public static IntegerDefinitionWithUnits getValue(PropertyExpression propertyExpression) {
-					return new IntegerDefinitionWithUnits(propertyExpression);
 				}
 				
 				public long getValue() {
@@ -354,7 +350,7 @@ class PropertyDefinitionTest {
 				private final long maximum;
 				private final OptionalLong delta;
 				
-				private RangeDefinition(PropertyExpression propertyExpression) {
+				public RangeDefinition(PropertyExpression propertyExpression) {
 					RangeValue rangeValue = (RangeValue) propertyExpression;
 					minimum = ((IntegerLiteral) rangeValue.getMinimum()).getValue();
 					maximum = ((IntegerLiteral) rangeValue.getMaximum()).getValue();
@@ -363,10 +359,6 @@ class PropertyDefinitionTest {
 					} else {
 						delta = OptionalLong.of(((IntegerLiteral) rangeValue.getDelta()).getValue());
 					}
-				}
-				
-				public static RangeDefinition getValue(PropertyExpression propertyExpression) {
-					return new RangeDefinition(propertyExpression);
 				}
 				
 				public long getMinimum() {
@@ -419,17 +411,13 @@ class PropertyDefinitionTest {
 			public class RecordDefinition {
 				private final Optional<Boolean> field;
 				
-				private RecordDefinition(PropertyExpression propertyExpression) {
+				public RecordDefinition(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
 							.map(field -> ((BooleanLiteral) field.getOwnedValue()).getValue())
 							.findAny();
-				}
-				
-				public static RecordDefinition getValue(PropertyExpression propertyExpression) {
-					return new RecordDefinition(propertyExpression);
 				}
 				
 				public Optional<Boolean> getField() {

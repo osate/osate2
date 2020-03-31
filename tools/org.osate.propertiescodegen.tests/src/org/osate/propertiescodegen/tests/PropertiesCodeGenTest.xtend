@@ -191,14 +191,10 @@ class PropertiesCodeGenTest {
 				private final long value;
 				private final Units unit;
 				
-				private IntegerOwnedUnits(PropertyExpression propertyExpression) {
+				public IntegerOwnedUnits(PropertyExpression propertyExpression) {
 					IntegerLiteral numberValue = (IntegerLiteral) propertyExpression;
 					value = numberValue.getValue();
 					unit = Units.valueOf(numberValue.getUnit().getName().toUpperCase());
-				}
-				
-				public static IntegerOwnedUnits getValue(PropertyExpression propertyExpression) {
-					return new IntegerOwnedUnits(propertyExpression);
 				}
 				
 				public long getValue() {
@@ -276,14 +272,10 @@ class PropertiesCodeGenTest {
 				private final long value;
 				private final Time unit;
 				
-				private IntegerReferencedUnitsLocal(PropertyExpression propertyExpression) {
+				public IntegerReferencedUnitsLocal(PropertyExpression propertyExpression) {
 					IntegerLiteral numberValue = (IntegerLiteral) propertyExpression;
 					value = numberValue.getValue();
 					unit = Time.valueOf(numberValue.getUnit().getName().toUpperCase());
-				}
-				
-				public static IntegerReferencedUnitsLocal getValue(PropertyExpression propertyExpression) {
-					return new IntegerReferencedUnitsLocal(propertyExpression);
 				}
 				
 				public long getValue() {
@@ -331,14 +323,10 @@ class PropertiesCodeGenTest {
 				private final long value;
 				private final Mass unit;
 				
-				private IntegerReferencedUnitsOtherFile(PropertyExpression propertyExpression) {
+				public IntegerReferencedUnitsOtherFile(PropertyExpression propertyExpression) {
 					IntegerLiteral numberValue = (IntegerLiteral) propertyExpression;
 					value = numberValue.getValue();
 					unit = Mass.valueOf(numberValue.getUnit().getName().toUpperCase());
-				}
-				
-				public static IntegerReferencedUnitsOtherFile getValue(PropertyExpression propertyExpression) {
-					return new IntegerReferencedUnitsOtherFile(propertyExpression);
 				}
 				
 				public long getValue() {
@@ -463,14 +451,10 @@ class PropertiesCodeGenTest {
 				private final double value;
 				private final Units unit;
 				
-				private RealOwnedUnits(PropertyExpression propertyExpression) {
+				public RealOwnedUnits(PropertyExpression propertyExpression) {
 					RealLiteral numberValue = (RealLiteral) propertyExpression;
 					value = numberValue.getValue();
 					unit = Units.valueOf(numberValue.getUnit().getName().toUpperCase());
-				}
-				
-				public static RealOwnedUnits getValue(PropertyExpression propertyExpression) {
-					return new RealOwnedUnits(propertyExpression);
 				}
 				
 				public double getValue() {
@@ -548,14 +532,10 @@ class PropertiesCodeGenTest {
 				private final double value;
 				private final Time unit;
 				
-				private RealReferencedUnitsLocal(PropertyExpression propertyExpression) {
+				public RealReferencedUnitsLocal(PropertyExpression propertyExpression) {
 					RealLiteral numberValue = (RealLiteral) propertyExpression;
 					value = numberValue.getValue();
 					unit = Time.valueOf(numberValue.getUnit().getName().toUpperCase());
-				}
-				
-				public static RealReferencedUnitsLocal getValue(PropertyExpression propertyExpression) {
-					return new RealReferencedUnitsLocal(propertyExpression);
 				}
 				
 				public double getValue() {
@@ -603,14 +583,10 @@ class PropertiesCodeGenTest {
 				private final double value;
 				private final Mass unit;
 				
-				private RealReferencedUnitsOtherFile(PropertyExpression propertyExpression) {
+				public RealReferencedUnitsOtherFile(PropertyExpression propertyExpression) {
 					RealLiteral numberValue = (RealLiteral) propertyExpression;
 					value = numberValue.getValue();
 					unit = Mass.valueOf(numberValue.getUnit().getName().toUpperCase());
-				}
-				
-				public static RealReferencedUnitsOtherFile getValue(PropertyExpression propertyExpression) {
-					return new RealReferencedUnitsOtherFile(propertyExpression);
 				}
 				
 				public double getValue() {
