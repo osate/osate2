@@ -86,6 +86,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState;
+import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -779,25 +780,48 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	public void instantiatePropagationPath(PropagationPath pp, EMV2AnnexInstance annex) {
-//		QualifiedPropagationPoint src = pp.getSource();
-//		ConnectionInstanceEnd dst = pp.getDestination();
-//		EMV2AnnexInstance srcAnnex = findEMV2AnnexInstance(src.getComponentInstance());
-//		EMV2AnnexInstance dstAnnex = findEMV2AnnexInstance(dst.getComponentInstance());
-//		for (ConstrainedInstanceObject action : srcAnnex.getActions()) {
-//			if (action.getInstanceObject() == src) {
-//				EList<TypeToken> outTypeTokens = action.getConstraint();
-//				for (TypeToken tt : outTypeTokens) {
-//					Collection<ConstrainedInstanceObject> dstCIOs = allIncomingCIOs(dst, tt, dstAnnex);
-//					for (ConstrainedInstanceObject dstCIO : dstCIOs) {
-//						PropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE.createPropagationPathInstance();
-//						ppi.setSource(action);
-//						ppi.setTarget(dstCIO);
-//						ppi.setName(conni.getName() + "-" + EMV2Util.getName(tt));
-//						annex.getPropagationPaths().add(ppi);
-//					}
-//				}
-//			}
-//		}
+		ComponentInstance contextCI = (ComponentInstance) annex.eContainer();
+		InstanceObject srcIO = findQualifiedPropagationPoint(pp.getSource(), contextCI);
+		InstanceObject dstIO = findQualifiedPropagationPoint(pp.getTarget(), contextCI);
+		EMV2AnnexInstance srcAnnex = findEMV2AnnexInstance(srcIO.getComponentInstance());
+		EMV2AnnexInstance dstAnnex = findEMV2AnnexInstance(dstIO.getComponentInstance());
+		for (ConstrainedInstanceObject action : srcAnnex.getActions()) {
+			if (action.getInstanceObject() == srcIO) {
+				EList<TypeToken> outTypeTokens = action.getConstraint();
+				for (TypeToken tt : outTypeTokens) {
+					Collection<ConstrainedInstanceObject> dstCIOs = allIncomingCIOs(dstIO, tt, dstAnnex);
+					for (ConstrainedInstanceObject dstCIO : dstCIOs) {
+						PropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE.createPropagationPathInstance();
+						ppi.setSource(action);
+						ppi.setTarget(dstCIO);
+						ppi.setName(pp.getName() + "-" + EMV2Util.getName(tt));
+						annex.getPropagationPaths().add(ppi);
+					}
+				}
+			}
+		}
+	}
+
+	private InstanceObject findQualifiedPropagationPoint(QualifiedPropagationPoint qpp, ComponentInstance context) {
+		QualifiedPropagationPoint lqpp = qpp;
+		ComponentInstance curci = context;
+		while (lqpp.getSubcomponent() != null) {
+			curci = curci.findSubcomponentInstance(lqpp.getSubcomponent().getSubcomponent());
+			if (curci == null) {
+				return null;
+			}
+			lqpp = lqpp.getNext();
+		}
+		if (lqpp.getPropagationPoint() != null) {
+			NamedElement ne = lqpp.getPropagationPoint();
+			if (ne instanceof Feature) {
+				return curci.findFeatureInstance((Feature) ne);
+			} else if (ne instanceof PropagationPoint) {
+				EMV2AnnexInstance aei = findEMV2AnnexInstance(curci);
+				return findPropagationPointInstance(aei, (PropagationPoint) ne);
+			}
+		}
+		return null;
 	}
 
 //	public void instantiatePropertyAssociations(ComponentInstance ci) {
