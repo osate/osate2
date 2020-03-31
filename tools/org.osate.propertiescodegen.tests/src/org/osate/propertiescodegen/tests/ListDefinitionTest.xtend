@@ -260,56 +260,66 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Optional<List<List1OwnedEnum.ElementType>> getList1OwnedEnum(InstanceObject instanceObject) {
+				public static Optional<List<List1OwnedEnum>> getList1OwnedEnum(InstanceObject instanceObject) {
 					String name = "ps1::list_1_owned_enum";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
-						return Optional.of(List1OwnedEnum.getValue(propertyExpression));
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return List1OwnedEnum.getValue(element1);
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static Optional<List<List1OwnedUnits.ElementType>> getList1OwnedUnits(InstanceObject instanceObject) {
+				public static Optional<List<List1OwnedUnits>> getList1OwnedUnits(InstanceObject instanceObject) {
 					String name = "ps1::list_1_owned_units";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
-						return Optional.of(List1OwnedUnits.getValue(propertyExpression));
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return List1OwnedUnits.getValue(element1);
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static Optional<List<List1OwnedIntegerWithUnits.ElementType>> getList1OwnedIntegerWithUnits(InstanceObject instanceObject) {
+				public static Optional<List<List1OwnedIntegerWithUnits>> getList1OwnedIntegerWithUnits(InstanceObject instanceObject) {
 					String name = "ps1::list_1_owned_integer_with_units";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
-						return Optional.of(List1OwnedIntegerWithUnits.getValue(propertyExpression));
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return List1OwnedIntegerWithUnits.getValue(element1);
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static Optional<List<List1OwnedRange.ElementType>> getList1OwnedRange(InstanceObject instanceObject) {
+				public static Optional<List<List1OwnedRange>> getList1OwnedRange(InstanceObject instanceObject) {
 					String name = "ps1::list_1_owned_range";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
-						return Optional.of(List1OwnedRange.getValue(propertyExpression));
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return List1OwnedRange.getValue(element1);
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static Optional<List<List1OwnedRecord.ElementType>> getList1OwnedRecord(InstanceObject instanceObject) {
+				public static Optional<List<List1OwnedRecord>> getList1OwnedRecord(InstanceObject instanceObject) {
 					String name = "ps1::list_1_owned_record";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
-						return Optional.of(List1OwnedRecord.getValue(propertyExpression));
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return List1OwnedRecord.getValue(element1);
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -320,7 +330,9 @@ class ListDefinitionTest {
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
-						return Optional.of(List1ReferencedEnumNoImport.getValue(propertyExpression));
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return EnumType1.getValue(element1);
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -331,7 +343,9 @@ class ListDefinitionTest {
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
-						return Optional.of(List1ReferencedEnumWithImport.getValue(propertyExpression));
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return Color.getValue(element1);
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -342,7 +356,9 @@ class ListDefinitionTest {
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
-						return Optional.of(List1ReferencedUnitsNoImport.getValue(propertyExpression));
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return Time.getValue(element1);
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -353,7 +369,9 @@ class ListDefinitionTest {
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
-						return Optional.of(List1ReferencedUnitsWithImport.getValue(propertyExpression));
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return Mass.getValue(element1);
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -364,7 +382,9 @@ class ListDefinitionTest {
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
-						return Optional.of(List1ReferencedNumberWithUnitsNoImport.getValue(propertyExpression));
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return IntegerOwnedUnits.getValue(element1);
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -375,7 +395,9 @@ class ListDefinitionTest {
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
-						return Optional.of(List1ReferencedNumberWithUnitsWithImport.getValue(propertyExpression));
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return MassType.getValue(element1);
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -386,7 +408,9 @@ class ListDefinitionTest {
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
-						return Optional.of(List1ReferencedRangeNoImport.getValue(propertyExpression));
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return RangeOfIntegerNoUnits.getValue(element1);
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -397,7 +421,9 @@ class ListDefinitionTest {
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
-						return Optional.of(List1ReferencedRangeWithImport.getValue(propertyExpression));
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return BasicRange.getValue(element1);
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -408,7 +434,9 @@ class ListDefinitionTest {
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
-						return Optional.of(List1ReferencedRecordNoImport.getValue(propertyExpression));
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return RecordOfBoolean.getValue(element1);
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -419,29 +447,47 @@ class ListDefinitionTest {
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
-						return Optional.of(List1ReferencedRecordWithImport.getValue(propertyExpression));
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return BasicRecord.getValue(element1);
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static Optional<List<List<List<List3OwnedEnum.ElementType>>>> getList3OwnedEnum(InstanceObject instanceObject) {
+				public static Optional<List<List<List<List3OwnedEnum>>>> getList3OwnedEnum(InstanceObject instanceObject) {
 					String name = "ps1::list_3_owned_enum";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
-						return Optional.of(List3OwnedEnum.getValue(propertyExpression));
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
+								return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
+									return List3OwnedEnum.getValue(element3);
+								}).collect(Collectors.toList());
+							}).collect(Collectors.toList());
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static Optional<List<List<List<List<List<List5OwnedRange.ElementType>>>>>> getList5OwnedRange(InstanceObject instanceObject) {
+				public static Optional<List<List<List<List<List<List5OwnedRange>>>>>> getList5OwnedRange(InstanceObject instanceObject) {
 					String name = "ps1::list_5_owned_range";
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
-						return Optional.of(List5OwnedRange.getValue(propertyExpression));
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
+								return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
+									return ((ListValue) element3).getOwnedListElements().stream().map(element4 -> {
+										return ((ListValue) element4).getOwnedListElements().stream().map(element5 -> {
+											return List5OwnedRange.getValue(element5);
+										}).collect(Collectors.toList());
+									}).collect(Collectors.toList());
+								}).collect(Collectors.toList());
+							}).collect(Collectors.toList());
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -452,7 +498,13 @@ class ListDefinitionTest {
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
-						return Optional.of(List3ReferencedEnumNoImport.getValue(propertyExpression));
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
+								return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
+									return EnumType1.getValue(element3);
+								}).collect(Collectors.toList());
+							}).collect(Collectors.toList());
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -463,7 +515,17 @@ class ListDefinitionTest {
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
-						return Optional.of(List5ReferencedRangeWithImport.getValue(propertyExpression));
+						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
+							return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
+								return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
+									return ((ListValue) element3).getOwnedListElements().stream().map(element4 -> {
+										return ((ListValue) element4).getOwnedListElements().stream().map(element5 -> {
+											return BasicRange.getValue(element5);
+										}).collect(Collectors.toList());
+									}).collect(Collectors.toList());
+								}).collect(Collectors.toList());
+							}).collect(Collectors.toList());
+						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -752,290 +814,325 @@ class ListDefinitionTest {
 		val list1OwnedEnum = '''
 			package ps1;
 			
-			import java.util.List;
-			import java.util.stream.Collectors;
-			
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.EnumerationLiteral;
-			import org.osate.aadl2.ListValue;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			
-			public class List1OwnedEnum {
-				public static List<ElementType> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						AbstractNamedValue abstractNamedValue = ((NamedValue) element1).getNamedValue();
-						return ElementType.valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
-					}).collect(Collectors.toList());
+			public enum List1OwnedEnum {
+				MERCURY("mercury"),
+				VENUS("venus"),
+				EARTH("earth"),
+				MARS("mars");
+				
+				private final String originalName;
+				
+				private List1OwnedEnum(String originalName) {
+					this.originalName = originalName;
 				}
 				
-				public enum ElementType {
-					MERCURY("mercury"),
-					VENUS("venus"),
-					EARTH("earth"),
-					MARS("mars");
-					
-					private final String originalName;
-					
-					private ElementType(String originalName) {
-						this.originalName = originalName;
-					}
-					
-					@Override
-					public String toString() {
-						return originalName;
-					}
+				public static List1OwnedEnum getValue(PropertyExpression propertyExpression) {
+					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+					return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
+				}
+				
+				@Override
+				public String toString() {
+					return originalName;
 				}
 			}
 		'''
 		val list1OwnedUnits = '''
 			package ps1;
 			
-			import java.util.List;
-			import java.util.stream.Collectors;
-			
 			import org.osate.aadl2.AbstractNamedValue;
-			import org.osate.aadl2.ListValue;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
 			
-			public class List1OwnedUnits {
-				public static List<ElementType> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						AbstractNamedValue abstractNamedValue = ((NamedValue) element1).getNamedValue();
-						return ElementType.valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
-					}).collect(Collectors.toList());
+			public enum List1OwnedUnits {
+				CM(1.0, "cm"),
+				M(100.0, "m");
+				
+				private final double factorToBase;
+				private final String originalName;
+				
+				private List1OwnedUnits(double factorToBase, String originalName) {
+					this.factorToBase = factorToBase;
+					this.originalName = originalName;
 				}
 				
-				public enum ElementType {
-					CM(1.0, "cm"),
-					M(100.0, "m");
-					
-					private final double factorToBase;
-					private final String originalName;
-					
-					private ElementType(double factorToBase, String originalName) {
-						this.factorToBase = factorToBase;
-						this.originalName = originalName;
-					}
-					
-					public double getFactorToBase() {
-						return factorToBase;
-					}
-					
-					public double getFactorTo(ElementType target) {
-						return factorToBase / target.factorToBase;
-					}
-					
-					@Override
-					public String toString() {
-						return originalName;
-					}
+				public static List1OwnedUnits getValue(PropertyExpression propertyExpression) {
+					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
+				}
+				
+				public double getFactorToBase() {
+					return factorToBase;
+				}
+				
+				public double getFactorTo(List1OwnedUnits target) {
+					return factorToBase / target.factorToBase;
+				}
+				
+				@Override
+				public String toString() {
+					return originalName;
 				}
 			}
 		'''
 		val list1OwnedIntegerWithUnits = '''
 			package ps1;
 			
-			import java.util.List;
 			import java.util.Objects;
-			import java.util.stream.Collectors;
 			
 			import org.osate.aadl2.IntegerLiteral;
-			import org.osate.aadl2.ListValue;
 			import org.osate.aadl2.PropertyExpression;
 			
 			public class List1OwnedIntegerWithUnits {
-				public static List<ElementType> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						return new ElementType(element1);
-					}).collect(Collectors.toList());
+				private final long value;
+				private final Time unit;
+				
+				private List1OwnedIntegerWithUnits(PropertyExpression propertyExpression) {
+					IntegerLiteral numberValue = (IntegerLiteral) propertyExpression;
+					value = numberValue.getValue();
+					unit = Time.valueOf(numberValue.getUnit().getName().toUpperCase());
 				}
 				
-				public static class ElementType {
-					private final long value;
-					private final Time unit;
-					
-					private ElementType(PropertyExpression propertyExpression) {
-						IntegerLiteral numberValue = (IntegerLiteral) propertyExpression;
-						value = numberValue.getValue();
-						unit = Time.valueOf(numberValue.getUnit().getName().toUpperCase());
+				public static List1OwnedIntegerWithUnits getValue(PropertyExpression propertyExpression) {
+					return new List1OwnedIntegerWithUnits(propertyExpression);
+				}
+				
+				public long getValue() {
+					return value;
+				}
+				
+				public Time getUnit() {
+					return unit;
+				}
+				
+				@Override
+				public int hashCode() {
+					return Objects.hash(value, unit);
+				}
+				
+				@Override
+				public boolean equals(Object obj) {
+					if (this == obj) {
+						return true;
 					}
-					
-					public long getValue() {
-						return value;
+					if (!(obj instanceof List1OwnedIntegerWithUnits)) {
+						return false;
 					}
-					
-					public Time getUnit() {
-						return unit;
-					}
-					
-					@Override
-					public int hashCode() {
-						return Objects.hash(value, unit);
-					}
-					
-					@Override
-					public boolean equals(Object obj) {
-						if (this == obj) {
-							return true;
-						}
-						if (!(obj instanceof ElementType)) {
-							return false;
-						}
-						ElementType other = (ElementType) obj;
-						return value == other.value && unit == other.unit;
-					}
-					
-					@Override
-					public String toString() {
-						return value + unit.toString();
-					}
+					List1OwnedIntegerWithUnits other = (List1OwnedIntegerWithUnits) obj;
+					return value == other.value && unit == other.unit;
+				}
+				
+				@Override
+				public String toString() {
+					return value + unit.toString();
 				}
 			}
 		'''
 		val list1OwnedRange = '''
 			package ps1;
 			
-			import java.util.List;
 			import java.util.Objects;
 			import java.util.OptionalLong;
-			import java.util.stream.Collectors;
 			
 			import org.osate.aadl2.IntegerLiteral;
-			import org.osate.aadl2.ListValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RangeValue;
 			
 			public class List1OwnedRange {
-				public static List<ElementType> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						return new ElementType(element1);
-					}).collect(Collectors.toList());
+				private final long minimum;
+				private final long maximum;
+				private final OptionalLong delta;
+				
+				private List1OwnedRange(PropertyExpression propertyExpression) {
+					RangeValue rangeValue = (RangeValue) propertyExpression;
+					minimum = ((IntegerLiteral) rangeValue.getMinimum()).getValue();
+					maximum = ((IntegerLiteral) rangeValue.getMaximum()).getValue();
+					if (rangeValue.getDelta() == null) {
+						delta = OptionalLong.empty();
+					} else {
+						delta = OptionalLong.of(((IntegerLiteral) rangeValue.getDelta()).getValue());
+					}
 				}
 				
-				public static class ElementType {
-					private final long minimum;
-					private final long maximum;
-					private final OptionalLong delta;
-					
-					private ElementType(PropertyExpression propertyExpression) {
-						RangeValue rangeValue = (RangeValue) propertyExpression;
-						minimum = ((IntegerLiteral) rangeValue.getMinimum()).getValue();
-						maximum = ((IntegerLiteral) rangeValue.getMaximum()).getValue();
-						if (rangeValue.getDelta() == null) {
-							delta = OptionalLong.empty();
-						} else {
-							delta = OptionalLong.of(((IntegerLiteral) rangeValue.getDelta()).getValue());
-						}
+				public static List1OwnedRange getValue(PropertyExpression propertyExpression) {
+					return new List1OwnedRange(propertyExpression);
+				}
+				
+				public long getMinimum() {
+					return minimum;
+				}
+				
+				public long getMaximum() {
+					return maximum;
+				}
+				
+				public OptionalLong getDelta() {
+					return delta;
+				}
+				
+				@Override
+				public int hashCode() {
+					return Objects.hash(minimum, maximum, delta);
+				}
+				
+				@Override
+				public boolean equals(Object obj) {
+					if (this == obj) {
+						return true;
 					}
-					
-					public long getMinimum() {
-						return minimum;
+					if (!(obj instanceof List1OwnedRange)) {
+						return false;
 					}
-					
-					public long getMaximum() {
-						return maximum;
-					}
-					
-					public OptionalLong getDelta() {
-						return delta;
-					}
-					
-					@Override
-					public int hashCode() {
-						return Objects.hash(minimum, maximum, delta);
-					}
-					
-					@Override
-					public boolean equals(Object obj) {
-						if (this == obj) {
-							return true;
-						}
-						if (!(obj instanceof ElementType)) {
-							return false;
-						}
-						ElementType other = (ElementType) obj;
-						return minimum == other.minimum && maximum == other.maximum && Objects.equals(delta, other.delta);
-					}
-					
-					@Override
-					public String toString() {
-						StringBuilder builder = new StringBuilder(minimum + " .. " + maximum);
-						delta.ifPresent(it -> builder.append(" delta " + it));
-						return builder.toString();
-					}
+					List1OwnedRange other = (List1OwnedRange) obj;
+					return minimum == other.minimum && maximum == other.maximum && Objects.equals(delta, other.delta);
+				}
+				
+				@Override
+				public String toString() {
+					StringBuilder builder = new StringBuilder(minimum + " .. " + maximum);
+					delta.ifPresent(it -> builder.append(" delta " + it));
+					return builder.toString();
 				}
 			}
 		'''
 		val list1OwnedRecord = '''
 			package ps1;
 			
-			import java.util.List;
 			import java.util.Objects;
 			import java.util.Optional;
 			import java.util.OptionalDouble;
 			import java.util.OptionalLong;
-			import java.util.stream.Collectors;
 			
 			import org.osate.aadl2.BooleanLiteral;
 			import org.osate.aadl2.IntegerLiteral;
-			import org.osate.aadl2.ListValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RealLiteral;
 			import org.osate.aadl2.RecordValue;
 			import org.osate.aadl2.StringLiteral;
 			
 			public class List1OwnedRecord {
-				public static List<ElementType> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						return new ElementType(element1);
-					}).collect(Collectors.toList());
+				private final Optional<Boolean> booleanField;
+				private final Optional<String> stringField;
+				private final Optional<RecordFieldType> recordField;
+				
+				private List1OwnedRecord(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					booleanField = recordValue.getOwnedFieldValues()
+							.stream()
+							.filter(field -> field.getProperty().getName().equals("boolean_field"))
+							.map(field -> ((BooleanLiteral) field.getOwnedValue()).getValue())
+							.findAny();
+					stringField = recordValue.getOwnedFieldValues()
+							.stream()
+							.filter(field -> field.getProperty().getName().equals("string_field"))
+							.map(field -> ((StringLiteral) field.getOwnedValue()).getValue())
+							.findAny();
+					recordField = recordValue.getOwnedFieldValues()
+							.stream()
+							.filter(field -> field.getProperty().getName().equals("record_field"))
+							.map(field -> new RecordFieldType(field.getOwnedValue()))
+							.findAny();
 				}
 				
-				public static class ElementType {
-					private final Optional<Boolean> booleanField;
-					private final Optional<String> stringField;
-					private final Optional<RecordFieldType> recordField;
+				public static List1OwnedRecord getValue(PropertyExpression propertyExpression) {
+					return new List1OwnedRecord(propertyExpression);
+				}
+				
+				public Optional<Boolean> getBooleanField() {
+					return booleanField;
+				}
+				
+				public Optional<String> getStringField() {
+					return stringField;
+				}
+				
+				public Optional<RecordFieldType> getRecordField() {
+					return recordField;
+				}
+				
+				@Override
+				public int hashCode() {
+					return Objects.hash(
+							booleanField,
+							stringField,
+							recordField
+					);
+				}
+				
+				@Override
+				public boolean equals(Object obj) {
+					if (this == obj) {
+						return true;
+					}
+					if (!(obj instanceof List1OwnedRecord)) {
+						return false;
+					}
+					List1OwnedRecord other = (List1OwnedRecord) obj;
+					return Objects.equals(booleanField, other.booleanField)
+							&& Objects.equals(stringField, other.stringField)
+							&& Objects.equals(recordField, other.recordField);
+				}
+				
+				@Override
+				public String toString() {
+					StringBuilder builder = new StringBuilder();
+					builder.append('[');
+					booleanField.ifPresent(field -> {
+						builder.append("boolean_field => ");
+						builder.append(field);
+						builder.append(';');
+					});
+					stringField.ifPresent(field -> {
+						builder.append("string_field => \"");
+						builder.append(field);
+						builder.append("\";");
+					});
+					recordField.ifPresent(field -> {
+						builder.append("record_field => ");
+						builder.append(field);
+						builder.append(';');
+					});
+					builder.append(']');
+					return builder.toString();
+				}
+				
+				public static class RecordFieldType {
+					private final OptionalLong integerField;
+					private final OptionalDouble realField;
 					
-					private ElementType(PropertyExpression propertyExpression) {
+					private RecordFieldType(PropertyExpression propertyExpression) {
 						RecordValue recordValue = (RecordValue) propertyExpression;
-						booleanField = recordValue.getOwnedFieldValues()
+						integerField = recordValue.getOwnedFieldValues()
 								.stream()
-								.filter(field -> field.getProperty().getName().equals("boolean_field"))
-								.map(field -> ((BooleanLiteral) field.getOwnedValue()).getValue())
+								.filter(field -> field.getProperty().getName().equals("integer_field"))
+								.mapToLong(field -> ((IntegerLiteral) field.getOwnedValue()).getValue())
 								.findAny();
-						stringField = recordValue.getOwnedFieldValues()
+						realField = recordValue.getOwnedFieldValues()
 								.stream()
-								.filter(field -> field.getProperty().getName().equals("string_field"))
-								.map(field -> ((StringLiteral) field.getOwnedValue()).getValue())
-								.findAny();
-						recordField = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("record_field"))
-								.map(field -> new RecordFieldType(field.getOwnedValue()))
+								.filter(field -> field.getProperty().getName().equals("real_field"))
+								.mapToDouble(field -> ((RealLiteral) field.getOwnedValue()).getValue())
 								.findAny();
 					}
 					
-					public Optional<Boolean> getBooleanField() {
-						return booleanField;
+					public OptionalLong getIntegerField() {
+						return integerField;
 					}
 					
-					public Optional<String> getStringField() {
-						return stringField;
-					}
-					
-					public Optional<RecordFieldType> getRecordField() {
-						return recordField;
+					public OptionalDouble getRealField() {
+						return realField;
 					}
 					
 					@Override
 					public int hashCode() {
 						return Objects.hash(
-								booleanField,
-								stringField,
-								recordField
+								integerField,
+								realField
 						);
 					}
 					
@@ -1044,461 +1141,134 @@ class ListDefinitionTest {
 						if (this == obj) {
 							return true;
 						}
-						if (!(obj instanceof ElementType)) {
+						if (!(obj instanceof RecordFieldType)) {
 							return false;
 						}
-						ElementType other = (ElementType) obj;
-						return Objects.equals(booleanField, other.booleanField)
-								&& Objects.equals(stringField, other.stringField)
-								&& Objects.equals(recordField, other.recordField);
+						RecordFieldType other = (RecordFieldType) obj;
+						return Objects.equals(integerField, other.integerField)
+								&& Objects.equals(realField, other.realField);
 					}
 					
 					@Override
 					public String toString() {
 						StringBuilder builder = new StringBuilder();
 						builder.append('[');
-						booleanField.ifPresent(field -> {
-							builder.append("boolean_field => ");
+						integerField.ifPresent(field -> {
+							builder.append("integer_field => ");
 							builder.append(field);
 							builder.append(';');
 						});
-						stringField.ifPresent(field -> {
-							builder.append("string_field => \"");
-							builder.append(field);
-							builder.append("\";");
-						});
-						recordField.ifPresent(field -> {
-							builder.append("record_field => ");
+						realField.ifPresent(field -> {
+							builder.append("real_field => ");
 							builder.append(field);
 							builder.append(';');
 						});
 						builder.append(']');
 						return builder.toString();
 					}
-					
-					public static class RecordFieldType {
-						private final OptionalLong integerField;
-						private final OptionalDouble realField;
-						
-						private RecordFieldType(PropertyExpression propertyExpression) {
-							RecordValue recordValue = (RecordValue) propertyExpression;
-							integerField = recordValue.getOwnedFieldValues()
-									.stream()
-									.filter(field -> field.getProperty().getName().equals("integer_field"))
-									.mapToLong(field -> ((IntegerLiteral) field.getOwnedValue()).getValue())
-									.findAny();
-							realField = recordValue.getOwnedFieldValues()
-									.stream()
-									.filter(field -> field.getProperty().getName().equals("real_field"))
-									.mapToDouble(field -> ((RealLiteral) field.getOwnedValue()).getValue())
-									.findAny();
-						}
-						
-						public OptionalLong getIntegerField() {
-							return integerField;
-						}
-						
-						public OptionalDouble getRealField() {
-							return realField;
-						}
-						
-						@Override
-						public int hashCode() {
-							return Objects.hash(
-									integerField,
-									realField
-							);
-						}
-						
-						@Override
-						public boolean equals(Object obj) {
-							if (this == obj) {
-								return true;
-							}
-							if (!(obj instanceof RecordFieldType)) {
-								return false;
-							}
-							RecordFieldType other = (RecordFieldType) obj;
-							return Objects.equals(integerField, other.integerField)
-									&& Objects.equals(realField, other.realField);
-						}
-						
-						@Override
-						public String toString() {
-							StringBuilder builder = new StringBuilder();
-							builder.append('[');
-							integerField.ifPresent(field -> {
-								builder.append("integer_field => ");
-								builder.append(field);
-								builder.append(';');
-							});
-							realField.ifPresent(field -> {
-								builder.append("real_field => ");
-								builder.append(field);
-								builder.append(';');
-							});
-							builder.append(']');
-							return builder.toString();
-						}
-					}
-				}
-			}
-		'''
-		val list1ReferencedEnumNoImport = '''
-			package ps1;
-			
-			import java.util.List;
-			import java.util.stream.Collectors;
-			
-			import org.osate.aadl2.ListValue;
-			import org.osate.aadl2.PropertyExpression;
-			
-			public class List1ReferencedEnumNoImport {
-				public static List<EnumType1> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						return EnumType1.getValue(element1);
-					}).collect(Collectors.toList());
-				}
-			}
-		'''
-		val list1ReferencedEnumWithImport = '''
-			package ps1;
-			
-			import java.util.List;
-			import java.util.stream.Collectors;
-			
-			import org.osate.aadl2.ListValue;
-			import org.osate.aadl2.PropertyExpression;
-			
-			import ps2.Color;
-			
-			public class List1ReferencedEnumWithImport {
-				public static List<Color> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						return Color.getValue(element1);
-					}).collect(Collectors.toList());
-				}
-			}
-		'''
-		val list1ReferencedUnitsNoImport = '''
-			package ps1;
-			
-			import java.util.List;
-			import java.util.stream.Collectors;
-			
-			import org.osate.aadl2.ListValue;
-			import org.osate.aadl2.PropertyExpression;
-			
-			public class List1ReferencedUnitsNoImport {
-				public static List<Time> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						return Time.getValue(element1);
-					}).collect(Collectors.toList());
-				}
-			}
-		'''
-		val list1ReferencedUnitsWithImport = '''
-			package ps1;
-			
-			import java.util.List;
-			import java.util.stream.Collectors;
-			
-			import org.osate.aadl2.ListValue;
-			import org.osate.aadl2.PropertyExpression;
-			
-			import ps2.Mass;
-			
-			public class List1ReferencedUnitsWithImport {
-				public static List<Mass> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						return Mass.getValue(element1);
-					}).collect(Collectors.toList());
-				}
-			}
-		'''
-		val list1ReferencedNumberWithUnitsNoImport = '''
-			package ps1;
-			
-			import java.util.List;
-			import java.util.stream.Collectors;
-			
-			import org.osate.aadl2.ListValue;
-			import org.osate.aadl2.PropertyExpression;
-			
-			public class List1ReferencedNumberWithUnitsNoImport {
-				public static List<IntegerOwnedUnits> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						return IntegerOwnedUnits.getValue(element1);
-					}).collect(Collectors.toList());
-				}
-			}
-		'''
-		val list1ReferencedNumberWithUnitsWithImport = '''
-			package ps1;
-			
-			import java.util.List;
-			import java.util.stream.Collectors;
-			
-			import org.osate.aadl2.ListValue;
-			import org.osate.aadl2.PropertyExpression;
-			
-			import ps2.MassType;
-			
-			public class List1ReferencedNumberWithUnitsWithImport {
-				public static List<MassType> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						return MassType.getValue(element1);
-					}).collect(Collectors.toList());
-				}
-			}
-		'''
-		val list1ReferencedRangeNoImport = '''
-			package ps1;
-			
-			import java.util.List;
-			import java.util.stream.Collectors;
-			
-			import org.osate.aadl2.ListValue;
-			import org.osate.aadl2.PropertyExpression;
-			
-			public class List1ReferencedRangeNoImport {
-				public static List<RangeOfIntegerNoUnits> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						return RangeOfIntegerNoUnits.getValue(element1);
-					}).collect(Collectors.toList());
-				}
-			}
-		'''
-		val list1ReferencedRangeWithImport = '''
-			package ps1;
-			
-			import java.util.List;
-			import java.util.stream.Collectors;
-			
-			import org.osate.aadl2.ListValue;
-			import org.osate.aadl2.PropertyExpression;
-			
-			import ps2.BasicRange;
-			
-			public class List1ReferencedRangeWithImport {
-				public static List<BasicRange> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						return BasicRange.getValue(element1);
-					}).collect(Collectors.toList());
-				}
-			}
-		'''
-		val list1ReferencedRecordNoImport = '''
-			package ps1;
-			
-			import java.util.List;
-			import java.util.stream.Collectors;
-			
-			import org.osate.aadl2.ListValue;
-			import org.osate.aadl2.PropertyExpression;
-			
-			public class List1ReferencedRecordNoImport {
-				public static List<RecordOfBoolean> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						return RecordOfBoolean.getValue(element1);
-					}).collect(Collectors.toList());
-				}
-			}
-		'''
-		val list1ReferencedRecordWithImport = '''
-			package ps1;
-			
-			import java.util.List;
-			import java.util.stream.Collectors;
-			
-			import org.osate.aadl2.ListValue;
-			import org.osate.aadl2.PropertyExpression;
-			
-			import ps2.BasicRecord;
-			
-			public class List1ReferencedRecordWithImport {
-				public static List<BasicRecord> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						return BasicRecord.getValue(element1);
-					}).collect(Collectors.toList());
 				}
 			}
 		'''
 		val list3OwnedEnum = '''
 			package ps1;
 			
-			import java.util.List;
-			import java.util.stream.Collectors;
-			
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.EnumerationLiteral;
-			import org.osate.aadl2.ListValue;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			
-			public class List3OwnedEnum {
-				public static List<List<List<ElementType>>> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
-							return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
-								AbstractNamedValue abstractNamedValue = ((NamedValue) element3).getNamedValue();
-								return ElementType.valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
-							}).collect(Collectors.toList());
-						}).collect(Collectors.toList());
-					}).collect(Collectors.toList());
+			public enum List3OwnedEnum {
+				NORTH_AMERICA("north_america"),
+				SOUTH_AMERICA("south_america");
+				
+				private final String originalName;
+				
+				private List3OwnedEnum(String originalName) {
+					this.originalName = originalName;
 				}
 				
-				public enum ElementType {
-					NORTH_AMERICA("north_america"),
-					SOUTH_AMERICA("south_america");
-					
-					private final String originalName;
-					
-					private ElementType(String originalName) {
-						this.originalName = originalName;
-					}
-					
-					@Override
-					public String toString() {
-						return originalName;
-					}
+				public static List3OwnedEnum getValue(PropertyExpression propertyExpression) {
+					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+					return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
+				}
+				
+				@Override
+				public String toString() {
+					return originalName;
 				}
 			}
 		'''
 		val list5OwnedRange = '''
 			package ps1;
 			
-			import java.util.List;
 			import java.util.Objects;
 			import java.util.OptionalDouble;
-			import java.util.stream.Collectors;
 			
-			import org.osate.aadl2.ListValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RangeValue;
 			import org.osate.aadl2.RealLiteral;
 			
 			public class List5OwnedRange {
-				public static List<List<List<List<List<ElementType>>>>> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
-							return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
-								return ((ListValue) element3).getOwnedListElements().stream().map(element4 -> {
-									return ((ListValue) element4).getOwnedListElements().stream().map(element5 -> {
-										return new ElementType(element5);
-									}).collect(Collectors.toList());
-								}).collect(Collectors.toList());
-							}).collect(Collectors.toList());
-						}).collect(Collectors.toList());
-					}).collect(Collectors.toList());
+				private final double minimum;
+				private final double maximum;
+				private final OptionalDouble delta;
+				
+				private List5OwnedRange(PropertyExpression propertyExpression) {
+					RangeValue rangeValue = (RangeValue) propertyExpression;
+					minimum = ((RealLiteral) rangeValue.getMinimum()).getValue();
+					maximum = ((RealLiteral) rangeValue.getMaximum()).getValue();
+					if (rangeValue.getDelta() == null) {
+						delta = OptionalDouble.empty();
+					} else {
+						delta = OptionalDouble.of(((RealLiteral) rangeValue.getDelta()).getValue());
+					}
 				}
 				
-				public static class ElementType {
-					private final double minimum;
-					private final double maximum;
-					private final OptionalDouble delta;
-					
-					private ElementType(PropertyExpression propertyExpression) {
-						RangeValue rangeValue = (RangeValue) propertyExpression;
-						minimum = ((RealLiteral) rangeValue.getMinimum()).getValue();
-						maximum = ((RealLiteral) rangeValue.getMaximum()).getValue();
-						if (rangeValue.getDelta() == null) {
-							delta = OptionalDouble.empty();
-						} else {
-							delta = OptionalDouble.of(((RealLiteral) rangeValue.getDelta()).getValue());
-						}
-					}
-					
-					public double getMinimum() {
-						return minimum;
-					}
-					
-					public double getMaximum() {
-						return maximum;
-					}
-					
-					public OptionalDouble getDelta() {
-						return delta;
-					}
-					
-					@Override
-					public int hashCode() {
-						return Objects.hash(minimum, maximum, delta);
-					}
-					
-					@Override
-					public boolean equals(Object obj) {
-						if (this == obj) {
-							return true;
-						}
-						if (!(obj instanceof ElementType)) {
-							return false;
-						}
-						ElementType other = (ElementType) obj;
-						return Double.doubleToLongBits(minimum) == Double.doubleToLongBits(other.minimum)
-								&& Double.doubleToLongBits(maximum) == Double.doubleToLongBits(other.maximum)
-								&& Objects.equals(delta, other.delta);
-					}
-					
-					@Override
-					public String toString() {
-						StringBuilder builder = new StringBuilder(minimum + " .. " + maximum);
-						delta.ifPresent(it -> builder.append(" delta " + it));
-						return builder.toString();
-					}
+				public static List5OwnedRange getValue(PropertyExpression propertyExpression) {
+					return new List5OwnedRange(propertyExpression);
 				}
-			}
-		'''
-		val list3ReferencedEnumNoImport = '''
-			package ps1;
-			
-			import java.util.List;
-			import java.util.stream.Collectors;
-			
-			import org.osate.aadl2.ListValue;
-			import org.osate.aadl2.PropertyExpression;
-			
-			public class List3ReferencedEnumNoImport {
-				public static List<List<List<EnumType1>>> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
-							return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
-								return EnumType1.getValue(element3);
-							}).collect(Collectors.toList());
-						}).collect(Collectors.toList());
-					}).collect(Collectors.toList());
+				
+				public double getMinimum() {
+					return minimum;
 				}
-			}
-		'''
-		val list5ReferencedRangeWithImport = '''
-			package ps1;
-			
-			import java.util.List;
-			import java.util.stream.Collectors;
-			
-			import org.osate.aadl2.ListValue;
-			import org.osate.aadl2.PropertyExpression;
-			
-			import ps2.BasicRange;
-			
-			public class List5ReferencedRangeWithImport {
-				public static List<List<List<List<List<BasicRange>>>>> getValue(PropertyExpression propertyExpression) {
-					return ((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-						return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
-							return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
-								return ((ListValue) element3).getOwnedListElements().stream().map(element4 -> {
-									return ((ListValue) element4).getOwnedListElements().stream().map(element5 -> {
-										return BasicRange.getValue(element5);
-									}).collect(Collectors.toList());
-								}).collect(Collectors.toList());
-							}).collect(Collectors.toList());
-						}).collect(Collectors.toList());
-					}).collect(Collectors.toList());
+				
+				public double getMaximum() {
+					return maximum;
+				}
+				
+				public OptionalDouble getDelta() {
+					return delta;
+				}
+				
+				@Override
+				public int hashCode() {
+					return Objects.hash(minimum, maximum, delta);
+				}
+				
+				@Override
+				public boolean equals(Object obj) {
+					if (this == obj) {
+						return true;
+					}
+					if (!(obj instanceof List5OwnedRange)) {
+						return false;
+					}
+					List5OwnedRange other = (List5OwnedRange) obj;
+					return Double.doubleToLongBits(minimum) == Double.doubleToLongBits(other.minimum)
+							&& Double.doubleToLongBits(maximum) == Double.doubleToLongBits(other.maximum)
+							&& Objects.equals(delta, other.delta);
+				}
+				
+				@Override
+				public String toString() {
+					StringBuilder builder = new StringBuilder(minimum + " .. " + maximum);
+					delta.ifPresent(it -> builder.append(" delta " + it));
+					return builder.toString();
 				}
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(ps1, ps2))
-		assertEquals(25, results.size)
+		assertEquals(13, results.size)
 		
 		assertEquals("Ps1.java", results.get(0).fileName)
 		assertEquals(ps1Class.toString, results.get(0).contents)
@@ -1533,46 +1303,10 @@ class ListDefinitionTest {
 		assertEquals("List1OwnedRecord.java", results.get(10).fileName)
 		assertEquals(list1OwnedRecord.toString, results.get(10).contents)
 		
-		assertEquals("List1ReferencedEnumNoImport.java", results.get(11).fileName)
-		assertEquals(list1ReferencedEnumNoImport.toString, results.get(11).contents)
+		assertEquals("List3OwnedEnum.java", results.get(11).fileName)
+		assertEquals(list3OwnedEnum.toString, results.get(11).contents)
 		
-		assertEquals("List1ReferencedEnumWithImport.java", results.get(12).fileName)
-		assertEquals(list1ReferencedEnumWithImport.toString, results.get(12).contents)
-		
-		assertEquals("List1ReferencedUnitsNoImport.java", results.get(13).fileName)
-		assertEquals(list1ReferencedUnitsNoImport.toString, results.get(13).contents)
-		
-		assertEquals("List1ReferencedUnitsWithImport.java", results.get(14).fileName)
-		assertEquals(list1ReferencedUnitsWithImport.toString, results.get(14).contents)
-		
-		assertEquals("List1ReferencedNumberWithUnitsNoImport.java", results.get(15).fileName)
-		assertEquals(list1ReferencedNumberWithUnitsNoImport.toString, results.get(15).contents)
-		
-		assertEquals("List1ReferencedNumberWithUnitsWithImport.java", results.get(16).fileName)
-		assertEquals(list1ReferencedNumberWithUnitsWithImport.toString, results.get(16).contents)
-		
-		assertEquals("List1ReferencedRangeNoImport.java", results.get(17).fileName)
-		assertEquals(list1ReferencedRangeNoImport.toString, results.get(17).contents)
-		
-		assertEquals("List1ReferencedRangeWithImport.java", results.get(18).fileName)
-		assertEquals(list1ReferencedRangeWithImport.toString, results.get(18).contents)
-		
-		assertEquals("List1ReferencedRecordNoImport.java", results.get(19).fileName)
-		assertEquals(list1ReferencedRecordNoImport.toString, results.get(19).contents)
-		
-		assertEquals("List1ReferencedRecordWithImport.java", results.get(20).fileName)
-		assertEquals(list1ReferencedRecordWithImport.toString, results.get(20).contents)
-		
-		assertEquals("List3OwnedEnum.java", results.get(21).fileName)
-		assertEquals(list3OwnedEnum.toString, results.get(21).contents)
-		
-		assertEquals("List5OwnedRange.java", results.get(22).fileName)
-		assertEquals(list5OwnedRange.toString, results.get(22).contents)
-		
-		assertEquals("List3ReferencedEnumNoImport.java", results.get(23).fileName)
-		assertEquals(list3ReferencedEnumNoImport.toString, results.get(23).contents)
-		
-		assertEquals("List5ReferencedRangeWithImport.java", results.get(24).fileName)
-		assertEquals(list5ReferencedRangeWithImport.toString, results.get(24).contents)
+		assertEquals("List5OwnedRange.java", results.get(12).fileName)
+		assertEquals(list5OwnedRange.toString, results.get(12).contents)
 	}
 }
