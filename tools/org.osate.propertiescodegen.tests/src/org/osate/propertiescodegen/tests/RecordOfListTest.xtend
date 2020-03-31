@@ -145,14 +145,10 @@ class RecordOfListTest {
 				private final long value;
 				private final Units unit;
 				
-				private IntegerOwnedUnits(PropertyExpression propertyExpression) {
+				public IntegerOwnedUnits(PropertyExpression propertyExpression) {
 					IntegerLiteral numberValue = (IntegerLiteral) propertyExpression;
 					value = numberValue.getValue();
 					unit = Units.valueOf(numberValue.getUnit().getName().toUpperCase());
-				}
-				
-				public static IntegerOwnedUnits getValue(PropertyExpression propertyExpression) {
-					return new IntegerOwnedUnits(propertyExpression);
 				}
 				
 				public long getValue() {
@@ -263,7 +259,7 @@ class RecordOfListTest {
 				private final long maximum;
 				private final OptionalLong delta;
 				
-				private RangeOfIntegerNoUnits(PropertyExpression propertyExpression) {
+				public RangeOfIntegerNoUnits(PropertyExpression propertyExpression) {
 					RangeValue rangeValue = (RangeValue) propertyExpression;
 					minimum = ((IntegerLiteral) rangeValue.getMinimum()).getValue();
 					maximum = ((IntegerLiteral) rangeValue.getMaximum()).getValue();
@@ -272,10 +268,6 @@ class RecordOfListTest {
 					} else {
 						delta = OptionalLong.of(((IntegerLiteral) rangeValue.getDelta()).getValue());
 					}
-				}
-				
-				public static RangeOfIntegerNoUnits getValue(PropertyExpression propertyExpression) {
-					return new RangeOfIntegerNoUnits(propertyExpression);
 				}
 				
 				public long getMinimum() {
@@ -328,17 +320,13 @@ class RecordOfListTest {
 			public class RecordOfBoolean {
 				private final Optional<Boolean> field;
 				
-				private RecordOfBoolean(PropertyExpression propertyExpression) {
+				public RecordOfBoolean(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
 							.map(field -> ((BooleanLiteral) field.getOwnedValue()).getValue())
 							.findAny();
-				}
-				
-				public static RecordOfBoolean getValue(PropertyExpression propertyExpression) {
-					return new RecordOfBoolean(propertyExpression);
 				}
 				
 				public Optional<Boolean> getField() {
@@ -396,7 +384,7 @@ class RecordOfListTest {
 				private final Optional<List<List<List<List<Boolean>>>>> field4;
 				private final Optional<List<List<List<List<List<Boolean>>>>>> field5;
 				
-				private RecordOfListOfBoolean(PropertyExpression propertyExpression) {
+				public RecordOfListOfBoolean(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					field1 = recordValue.getOwnedFieldValues()
 							.stream()
@@ -463,10 +451,6 @@ class RecordOfListTest {
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-				}
-				
-				public static RecordOfListOfBoolean getValue(PropertyExpression propertyExpression) {
-					return new RecordOfListOfBoolean(propertyExpression);
 				}
 				
 				public Optional<List<Boolean>> getField1() {
@@ -587,7 +571,7 @@ class RecordOfListTest {
 				private final Optional<List<String>> field1;
 				private final Optional<List<List<List<List<List<String>>>>>> field5;
 				
-				private RecordOfListOfString(PropertyExpression propertyExpression) {
+				public RecordOfListOfString(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					field1 = recordValue.getOwnedFieldValues()
 							.stream()
@@ -615,10 +599,6 @@ class RecordOfListTest {
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-				}
-				
-				public static RecordOfListOfString getValue(PropertyExpression propertyExpression) {
-					return new RecordOfListOfString(propertyExpression);
 				}
 				
 				public Optional<List<String>> getField1() {
@@ -699,7 +679,7 @@ class RecordOfListTest {
 				private final Optional<List<Classifier>> field1;
 				private final Optional<List<List<List<List<List<Classifier>>>>>> field5;
 				
-				private RecordOfListOfClassifier(PropertyExpression propertyExpression) {
+				public RecordOfListOfClassifier(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					field1 = recordValue.getOwnedFieldValues()
 							.stream()
@@ -727,10 +707,6 @@ class RecordOfListTest {
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-				}
-				
-				public static RecordOfListOfClassifier getValue(PropertyExpression propertyExpression) {
-					return new RecordOfListOfClassifier(propertyExpression);
 				}
 				
 				public Optional<List<Classifier>> getField1() {
@@ -809,7 +785,7 @@ class RecordOfListTest {
 			public class RecordOfListOfIntegerNoUnits {
 				private final Optional<List<Long>> field;
 				
-				private RecordOfListOfIntegerNoUnits(PropertyExpression propertyExpression) {
+				public RecordOfListOfIntegerNoUnits(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					field = recordValue.getOwnedFieldValues()
 							.stream()
@@ -820,10 +796,6 @@ class RecordOfListTest {
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-				}
-				
-				public static RecordOfListOfIntegerNoUnits getValue(PropertyExpression propertyExpression) {
-					return new RecordOfListOfIntegerNoUnits(propertyExpression);
 				}
 				
 				public Optional<List<Long>> getField() {
@@ -877,7 +849,7 @@ class RecordOfListTest {
 			public class RecordOfListOfRealNoUnits {
 				private final Optional<List<Double>> field;
 				
-				private RecordOfListOfRealNoUnits(PropertyExpression propertyExpression) {
+				public RecordOfListOfRealNoUnits(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					field = recordValue.getOwnedFieldValues()
 							.stream()
@@ -888,10 +860,6 @@ class RecordOfListTest {
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-				}
-				
-				public static RecordOfListOfRealNoUnits getValue(PropertyExpression propertyExpression) {
-					return new RecordOfListOfRealNoUnits(propertyExpression);
 				}
 				
 				public Optional<List<Double>> getField() {
@@ -947,7 +915,7 @@ class RecordOfListTest {
 				private final Optional<List<InstanceObject>> field1;
 				private final Optional<List<List<List<List<List<InstanceObject>>>>>> field5;
 				
-				private RecordOfListOfReference(PropertyExpression propertyExpression) {
+				public RecordOfListOfReference(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					field1 = recordValue.getOwnedFieldValues()
 							.stream()
@@ -975,10 +943,6 @@ class RecordOfListTest {
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-				}
-				
-				public static RecordOfListOfReference getValue(PropertyExpression propertyExpression) {
-					return new RecordOfListOfReference(propertyExpression);
 				}
 				
 				public Optional<List<InstanceObject>> getField1() {
@@ -1069,7 +1033,7 @@ class RecordOfListTest {
 				private final Optional<List<OwnedRangeType>> ownedRange;
 				private final Optional<List<OwnedRecordType>> ownedRecord;
 				
-				private RecordOfListOfOwnedTypes(PropertyExpression propertyExpression) {
+				public RecordOfListOfOwnedTypes(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					ownedEnum = recordValue.getOwnedFieldValues()
 							.stream()
@@ -1116,10 +1080,6 @@ class RecordOfListTest {
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-				}
-				
-				public static RecordOfListOfOwnedTypes getValue(PropertyExpression propertyExpression) {
-					return new RecordOfListOfOwnedTypes(propertyExpression);
 				}
 				
 				public Optional<List<OwnedEnumType>> getOwnedEnum() {
@@ -1259,7 +1219,7 @@ class RecordOfListTest {
 					private final long value;
 					private final Time unit;
 					
-					private OwnedIntegerWithUnitsType(PropertyExpression propertyExpression) {
+					public OwnedIntegerWithUnitsType(PropertyExpression propertyExpression) {
 						IntegerLiteral numberValue = (IntegerLiteral) propertyExpression;
 						value = numberValue.getValue();
 						unit = Time.valueOf(numberValue.getUnit().getName().toUpperCase());
@@ -1301,7 +1261,7 @@ class RecordOfListTest {
 					private final long maximum;
 					private final OptionalLong delta;
 					
-					private OwnedRangeType(PropertyExpression propertyExpression) {
+					public OwnedRangeType(PropertyExpression propertyExpression) {
 						RangeValue rangeValue = (RangeValue) propertyExpression;
 						minimum = ((IntegerLiteral) rangeValue.getMinimum()).getValue();
 						maximum = ((IntegerLiteral) rangeValue.getMaximum()).getValue();
@@ -1353,7 +1313,7 @@ class RecordOfListTest {
 					private final Optional<Boolean> booleanField;
 					private final Optional<RecordFieldType> recordField;
 					
-					private OwnedRecordType(PropertyExpression propertyExpression) {
+					public OwnedRecordType(PropertyExpression propertyExpression) {
 						RecordValue recordValue = (RecordValue) propertyExpression;
 						booleanField = recordValue.getOwnedFieldValues()
 								.stream()
@@ -1418,7 +1378,7 @@ class RecordOfListTest {
 						private final Optional<String> stringField;
 						private final OptionalLong integerField;
 						
-						private RecordFieldType(PropertyExpression propertyExpression) {
+						public RecordFieldType(PropertyExpression propertyExpression) {
 							RecordValue recordValue = (RecordValue) propertyExpression;
 							stringField = recordValue.getOwnedFieldValues()
 									.stream()
@@ -1512,7 +1472,7 @@ class RecordOfListTest {
 				private final Optional<List<RecordOfBoolean>> recordNoImport;
 				private final Optional<List<BasicRecord>> recordWithImport;
 				
-				private RecordOfListOfReferencedTypes(PropertyExpression propertyExpression) {
+				public RecordOfListOfReferencedTypes(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					enumNoImport = recordValue.getOwnedFieldValues()
 							.stream()
@@ -1555,7 +1515,7 @@ class RecordOfListTest {
 							.filter(field -> field.getProperty().getName().equals("number_with_units_no_import"))
 							.map(field -> {
 								return ((ListValue) field.getOwnedValue()).getOwnedListElements().stream().map(element1 -> {
-									return IntegerOwnedUnits.getValue(element1);
+									return new IntegerOwnedUnits(element1);
 								}).collect(Collectors.toList());
 							})
 							.findAny();
@@ -1564,7 +1524,7 @@ class RecordOfListTest {
 							.filter(field -> field.getProperty().getName().equals("number_with_units_with_import"))
 							.map(field -> {
 								return ((ListValue) field.getOwnedValue()).getOwnedListElements().stream().map(element1 -> {
-									return MassType.getValue(element1);
+									return new MassType(element1);
 								}).collect(Collectors.toList());
 							})
 							.findAny();
@@ -1573,7 +1533,7 @@ class RecordOfListTest {
 							.filter(field -> field.getProperty().getName().equals("range_no_import"))
 							.map(field -> {
 								return ((ListValue) field.getOwnedValue()).getOwnedListElements().stream().map(element1 -> {
-									return RangeOfIntegerNoUnits.getValue(element1);
+									return new RangeOfIntegerNoUnits(element1);
 								}).collect(Collectors.toList());
 							})
 							.findAny();
@@ -1582,7 +1542,7 @@ class RecordOfListTest {
 							.filter(field -> field.getProperty().getName().equals("range_with_import"))
 							.map(field -> {
 								return ((ListValue) field.getOwnedValue()).getOwnedListElements().stream().map(element1 -> {
-									return BasicRange.getValue(element1);
+									return new BasicRange(element1);
 								}).collect(Collectors.toList());
 							})
 							.findAny();
@@ -1591,7 +1551,7 @@ class RecordOfListTest {
 							.filter(field -> field.getProperty().getName().equals("record_no_import"))
 							.map(field -> {
 								return ((ListValue) field.getOwnedValue()).getOwnedListElements().stream().map(element1 -> {
-									return RecordOfBoolean.getValue(element1);
+									return new RecordOfBoolean(element1);
 								}).collect(Collectors.toList());
 							})
 							.findAny();
@@ -1600,14 +1560,10 @@ class RecordOfListTest {
 							.filter(field -> field.getProperty().getName().equals("record_with_import"))
 							.map(field -> {
 								return ((ListValue) field.getOwnedValue()).getOwnedListElements().stream().map(element1 -> {
-									return BasicRecord.getValue(element1);
+									return new BasicRecord(element1);
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-				}
-				
-				public static RecordOfListOfReferencedTypes getValue(PropertyExpression propertyExpression) {
-					return new RecordOfListOfReferencedTypes(propertyExpression);
 				}
 				
 				public Optional<List<EnumType1>> getEnumNoImport() {

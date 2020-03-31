@@ -165,7 +165,7 @@ class PropertiesCodeGen {
 			AadlInteger case type.unitsType === null: "((IntegerLiteral) propertyExpression).getValue()"
 			AadlReal case type.unitsType === null: "((RealLiteral) propertyExpression).getValue()"
 			ReferenceType: "((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject()"
-			default: otherJavaClass + ".getValue(propertyExpression)"
+			default: '''new «otherJavaClass»(propertyExpression)'''
 		}
 		
 		'''
@@ -261,14 +261,11 @@ class PropertiesCodeGen {
 			AadlBoolean: '''return ((BooleanLiteral) «parameterName»).getValue();'''
 			AadlString: '''return ((StringLiteral) «parameterName»).getValue();'''
 			ClassifierType: '''return ((ClassifierValue) «parameterName»).getClassifier();'''
-			EnumerationType case topListType.isAncestor(type): '''return «ownedTypeName».valueOf(«parameterName»);'''
-			EnumerationType: '''return «type.name.toCamelCase».valueOf(«parameterName»);'''
+			EnumerationType: '''return «IF topListType.isAncestor(type)»«ownedTypeName»«ELSE»«type.name.toCamelCase»«ENDIF».valueOf(«parameterName»);'''
 			AadlInteger case type.unitsType === null: '''return ((IntegerLiteral) «parameterName»).getValue();'''
 			AadlReal case type.unitsType === null: '''return ((RealLiteral) «parameterName»).getValue();'''
 			ReferenceType: '''return ((InstanceReferenceValue) «parameterName»).getReferencedInstanceObject();'''
-			case topListType.isAncestor(type) && !(topListType.eContainer instanceof Property): '''return new «ownedTypeName»(«parameterName»);'''
-			case topListType.isAncestor(type): '''return «ownedTypeName».getValue(«parameterName»);'''
-			default: '''return «type.name.toCamelCase».getValue(«parameterName»);'''
+			default: '''return new «IF topListType.isAncestor(type)»«ownedTypeName»«ELSE»«type.name.toCamelCase»«ENDIF»(«parameterName»);'''
 		}
 	}
 	
@@ -370,17 +367,11 @@ class PropertiesCodeGen {
 				private final «javaType» value;
 				private final «unitsTypeName» unit;
 				
-				private «typeName»(PropertyExpression propertyExpression) {
+				public «typeName»(PropertyExpression propertyExpression) {
 					«valueType» numberValue = («valueType») propertyExpression;
 					value = numberValue.getValue();
 					unit = «unitsTypeName».valueOf(numberValue.getUnit().getName().toUpperCase());
 				}
-				«IF topLevel»
-				
-				public static «typeName» getValue(PropertyExpression propertyExpression) {
-					return new «typeName»(propertyExpression);
-				}
-				«ENDIF»
 				
 				public «javaType» getValue() {
 					return value;
@@ -468,7 +459,7 @@ class PropertiesCodeGen {
 				private final «numberTypeName» maximum;
 				private final «optionalType» delta;
 				
-				private «typeName»(PropertyExpression propertyExpression) {
+				public «typeName»(PropertyExpression propertyExpression) {
 					RangeValue rangeValue = (RangeValue) propertyExpression;
 					«IF unitsType === null»
 					minimum = ((«literalType») rangeValue.getMinimum()).getValue();
@@ -478,22 +469,12 @@ class PropertiesCodeGen {
 					} else {
 						delta = «optionalType».of(((«literalType») rangeValue.getDelta()).getValue());
 					}
-					«ELSEIF numberType == rangeType.ownedNumberType»
-					minimum = new Number(rangeValue.getMinimum());
-					maximum = new Number(rangeValue.getMaximum());
-					delta = Optional.ofNullable(rangeValue.getDelta()).map(Number::new);
 					«ELSE»
-					minimum = «numberTypeName».getValue(rangeValue.getMinimum());
-					maximum = «numberTypeName».getValue(rangeValue.getMaximum());
-					delta = Optional.ofNullable(rangeValue.getDelta()).map(«numberTypeName»::getValue);
+					minimum = new «numberTypeName»(rangeValue.getMinimum());
+					maximum = new «numberTypeName»(rangeValue.getMaximum());
+					delta = Optional.ofNullable(rangeValue.getDelta()).map(«numberTypeName»::new);
 					«ENDIF»
 				}
-				«IF topLevel»
-				
-				public static «typeName» getValue(PropertyExpression propertyExpression) {
-					return new «typeName»(propertyExpression);
-				}
-				«ENDIF»
 				
 				public «numberTypeName» getMinimum() {
 					return minimum;
@@ -597,7 +578,7 @@ class PropertiesCodeGen {
 				private final «fieldType» «field.name.toCamelCase.toFirstLower»;
 				«ENDFOR»
 				
-				private «typeName»(PropertyExpression propertyExpression) {
+				public «typeName»(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					«FOR field : recordType.ownedFields»
 					«field.name.toCamelCase.toFirstLower» = recordValue.getOwnedFieldValues()
@@ -607,12 +588,6 @@ class PropertiesCodeGen {
 							.findAny();
 					«ENDFOR»
 				}
-				«IF topLevel»
-				
-				public static «typeName» getValue(PropertyExpression propertyExpression) {
-					return new «typeName»(propertyExpression);
-				}
-				«ENDIF»
 				«FOR field : recordType.ownedFields»
 				
 				«val fieldType = getOptionalType(field, field.propertyType, field.name.toCamelCase + "Type")»
@@ -710,8 +685,7 @@ class PropertiesCodeGen {
 			AadlInteger case propertyType.unitsType === null: ".mapToLong(field -> ((IntegerLiteral) field.getOwnedValue()).getValue())"
 			AadlReal case propertyType.unitsType === null: ".mapToDouble(field -> ((RealLiteral) field.getOwnedValue()).getValue())"
 			ReferenceType: ".map(field -> ((InstanceReferenceValue) field.getOwnedValue()).getReferencedInstanceObject())"
-			case field.ownedPropertyType !== null: '''.map(field -> new «field.name.toCamelCase»Type(field.getOwnedValue()))'''
-			case field.referencedPropertyType !== null: '''.map(field -> «propertyType.name.toCamelCase».getValue(field.getOwnedValue()))'''
+			default: '''.map(field -> new «IF field.ownedPropertyType !== null»«field.name.toCamelCase»Type«ELSE»«propertyType.name.toCamelCase»«ENDIF»(field.getOwnedValue()))'''
 		}
 	}
 	
