@@ -152,6 +152,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getProperty();
 	}
@@ -332,6 +333,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY__DEFAULT_VALUE:
@@ -347,6 +349,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY__INHERIT:
@@ -404,6 +407,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY__INHERIT:
@@ -433,6 +437,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY__INHERIT:
@@ -456,6 +461,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();
@@ -614,6 +620,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	// }
 	// }
 	// }
+	@Override
 	public boolean equals(Object p) {
 		if (p instanceof Property) {
 			String p1Name = getQualifiedName();
@@ -624,6 +631,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 		}
 		return this == p;
 	}
+	@Override
 	public int hashCode() {
 		if (eIsProxy()) {
 			return eProxyURI().toString().hashCode();
