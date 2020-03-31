@@ -235,13 +235,22 @@ public interface EMV2InstancePackage extends EPackage {
 	int EMV2_ANNEX_INSTANCE__ACTIONS = InstancePackage.ANNEX_INSTANCE_FEATURE_COUNT + 8;
 
 	/**
+	 * The feature id for the '<em><b>Propagation Paths</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS = InstancePackage.ANNEX_INSTANCE_FEATURE_COUNT + 9;
+
+	/**
 	 * The number of structural features of the '<em>EMV2 Annex Instance</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EMV2_ANNEX_INSTANCE_FEATURE_COUNT = InstancePackage.ANNEX_INSTANCE_FEATURE_COUNT + 9;
+	int EMV2_ANNEX_INSTANCE_FEATURE_COUNT = InstancePackage.ANNEX_INSTANCE_FEATURE_COUNT + 10;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -487,7 +496,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl#getConstraintElement()
 	 * @generated
 	 */
-	int CONSTRAINT_ELEMENT = 14;
+	int CONSTRAINT_ELEMENT = 13;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1241,97 +1250,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl#getPropagationPathInstance()
 	 * @generated
 	 */
-	int PROPAGATION_PATH_INSTANCE = 10;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPAGATION_PATH_INSTANCE__OWNED_ELEMENT = EMV2_INSTANCE_OBJECT__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPAGATION_PATH_INSTANCE__OWNED_COMMENT = EMV2_INSTANCE_OBJECT__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPAGATION_PATH_INSTANCE__NAME = EMV2_INSTANCE_OBJECT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPAGATION_PATH_INSTANCE__QUALIFIED_NAME = EMV2_INSTANCE_OBJECT__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPAGATION_PATH_INSTANCE__OWNED_PROPERTY_ASSOCIATION = EMV2_INSTANCE_OBJECT__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPAGATION_PATH_INSTANCE__ANNEX_INSTANCE = EMV2_INSTANCE_OBJECT__ANNEX_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Emv2 Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPAGATION_PATH_INSTANCE__EMV2_ELEMENT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Source</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPAGATION_PATH_INSTANCE__SOURCE = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Target</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPAGATION_PATH_INSTANCE__TARGET = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 2;
-
-	/**
-	 * The number of structural features of the '<em>Propagation Path Instance</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPAGATION_PATH_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 3;
+	int PROPAGATION_PATH_INSTANCE = 14;
 
 	/**
 	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.PropagationPointInstanceImpl <em>Propagation Point Instance</em>}' class.
@@ -1341,7 +1260,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl#getPropagationPointInstance()
 	 * @generated
 	 */
-	int PROPAGATION_POINT_INSTANCE = 11;
+	int PROPAGATION_POINT_INSTANCE = 10;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1423,7 +1342,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl#getEventInstance()
 	 * @generated
 	 */
-	int EVENT_INSTANCE = 12;
+	int EVENT_INSTANCE = 11;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1514,7 +1433,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl#getConstraint()
 	 * @generated
 	 */
-	int CONSTRAINT = 13;
+	int CONSTRAINT = 12;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1605,6 +1524,96 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int CONSTRAINT_FEATURE_COUNT = CONSTRAINT_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPAGATION_PATH_INSTANCE__OWNED_ELEMENT = EMV2_INSTANCE_OBJECT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPAGATION_PATH_INSTANCE__OWNED_COMMENT = EMV2_INSTANCE_OBJECT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPAGATION_PATH_INSTANCE__NAME = EMV2_INSTANCE_OBJECT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPAGATION_PATH_INSTANCE__QUALIFIED_NAME = EMV2_INSTANCE_OBJECT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPAGATION_PATH_INSTANCE__OWNED_PROPERTY_ASSOCIATION = EMV2_INSTANCE_OBJECT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPAGATION_PATH_INSTANCE__ANNEX_INSTANCE = EMV2_INSTANCE_OBJECT__ANNEX_INSTANCE;
+
+	/**
+	 * The feature id for the '<em><b>Emv2 Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPAGATION_PATH_INSTANCE__EMV2_ELEMENT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPAGATION_PATH_INSTANCE__SOURCE = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPAGATION_PATH_INSTANCE__TARGET = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Propagation Path Instance</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPAGATION_PATH_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EOperation <em>EOperation</em>}' enum.
@@ -1735,6 +1744,17 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getEMV2AnnexInstance_Actions();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2AnnexInstance#getPropagationPaths <em>Propagation Paths</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Propagation Paths</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2AnnexInstance#getPropagationPaths()
+	 * @see #getEMV2AnnexInstance()
+	 * @generated
+	 */
+	EReference getEMV2AnnexInstance_PropagationPaths();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateMachineInstance <em>State Machine Instance</em>}'.
@@ -2418,6 +2438,14 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EReference EMV2_ANNEX_INSTANCE__ACTIONS = eINSTANCE.getEMV2AnnexInstance_Actions();
+
+		/**
+		 * The meta object literal for the '<em><b>Propagation Paths</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS = eINSTANCE.getEMV2AnnexInstance_PropagationPaths();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateMachineInstanceImpl <em>State Machine Instance</em>}' class.

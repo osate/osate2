@@ -20,6 +20,8 @@
         eType="#//CompositeStateInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="actions" upperBound="-1"
         eType="#//ConstrainedInstanceObject" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propagationPaths" upperBound="-1"
+        eType="#//PropagationPathInstance" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EMV2InstanceObject" abstract="true"
       eSuperTypes="../../org.osate.aadl2/model/instance.ecore#//InstanceObject"/>

@@ -27,6 +27,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//EMV2AnnexInstance/errorFlows"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//EMV2AnnexInstance/composites"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//EMV2AnnexInstance/actions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//EMV2AnnexInstance/propagationPaths"/>
     </genClasses>
     <genClasses image="false" ecoreClass="EMV2Instance.ecore#//EMV2InstanceObject"/>
     <genClasses ecoreClass="EMV2Instance.ecore#//StateMachineInstance">
