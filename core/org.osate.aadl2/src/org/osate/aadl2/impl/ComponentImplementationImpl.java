@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -461,9 +461,10 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	public void setNoSubcomponents(boolean newNoSubcomponents) {
 		boolean oldNoSubcomponents = noSubcomponents;
 		noSubcomponents = newNoSubcomponents;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.COMPONENT_IMPLEMENTATION__NO_SUBCOMPONENTS, oldNoSubcomponents, noSubcomponents));
+		}
 	}
 
 	/**
@@ -483,9 +484,10 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	public void setNoCalls(boolean newNoCalls) {
 		boolean oldNoCalls = noCalls;
 		noCalls = newNoCalls;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPONENT_IMPLEMENTATION__NO_CALLS,
 					oldNoCalls, noCalls));
+		}
 	}
 
 	/**
@@ -601,9 +603,10 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	public void setNoConnections(boolean newNoConnections) {
 		boolean oldNoConnections = noConnections;
 		noConnections = newNoConnections;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPONENT_IMPLEMENTATION__NO_CONNECTIONS,
 					oldNoConnections, noConnections));
+		}
 	}
 
 	/**
@@ -830,10 +833,11 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION, oldOwnedExtension, newOwnedExtension);
-			if (msgs == null)
+			if (msgs == null) {
 				msgs = notification;
-			else
+			} else {
 				msgs.add(notification);
+			}
 		}
 		return msgs;
 	}
@@ -846,18 +850,22 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	public void setOwnedExtension(ImplementationExtension newOwnedExtension) {
 		if (newOwnedExtension != ownedExtension) {
 			NotificationChain msgs = null;
-			if (ownedExtension != null)
+			if (ownedExtension != null) {
 				msgs = ((InternalEObject) ownedExtension).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION, null, msgs);
-			if (newOwnedExtension != null)
+			}
+			if (newOwnedExtension != null) {
 				msgs = ((InternalEObject) newOwnedExtension).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION, null, msgs);
+			}
 			msgs = basicSetOwnedExtension(newOwnedExtension, msgs);
-			if (msgs != null)
+			if (msgs != null) {
 				msgs.dispatch();
-		} else if (eNotificationRequired())
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION, newOwnedExtension, newOwnedExtension));
+		}
 	}
 
 	/**
@@ -892,10 +900,11 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION, oldOwnedRealization, newOwnedRealization);
-			if (msgs == null)
+			if (msgs == null) {
 				msgs = notification;
-			else
+			} else {
 				msgs.add(notification);
+			}
 		}
 		return msgs;
 	}
@@ -908,19 +917,23 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	public void setOwnedRealization(Realization newOwnedRealization) {
 		if (newOwnedRealization != ownedRealization) {
 			NotificationChain msgs = null;
-			if (ownedRealization != null)
+			if (ownedRealization != null) {
 				msgs = ((InternalEObject) ownedRealization).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION, null, msgs);
-			if (newOwnedRealization != null)
+			}
+			if (newOwnedRealization != null) {
 				msgs = ((InternalEObject) newOwnedRealization).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION, null, msgs);
+			}
 			msgs = basicSetOwnedRealization(newOwnedRealization, msgs);
-			if (msgs != null)
+			if (msgs != null) {
 				msgs.dispatch();
-		} else if (eNotificationRequired())
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION, newOwnedRealization,
 					newOwnedRealization));
+		}
 	}
 
 	/**
@@ -1163,12 +1176,14 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_INTERNAL_FEATURE:
 			return getOwnedInternalFeatures();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__TYPE:
-			if (resolve)
+			if (resolve) {
 				return getType();
+			}
 			return basicGetType();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__EXTENDED:
-			if (resolve)
+			if (resolve) {
 				return getExtended();
+			}
 			return basicGetExtended();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION:
 			return getOwnedFlowImplementations();
@@ -1428,8 +1443,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * @generated
 	 */
 	public String toString() {
-		if (eIsProxy())
+		if (eIsProxy()) {
 			return super.toString();
+		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (noSubcomponents: ");
@@ -1836,7 +1852,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 		// try the type hierarchy
 		return getType().isDescendentOf(c);
 	}
-
 	public void getPropertyValueInternal(Property property, final PropertyAcc pas, final boolean fromInstanceSlaveCall,
 			final boolean all) throws InvalidModelException {
 		// this implementation's properties subclause

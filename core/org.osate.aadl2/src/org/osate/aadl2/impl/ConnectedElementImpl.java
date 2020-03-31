@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -108,9 +108,10 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 			InternalEObject oldContext = (InternalEObject) context;
 			context = (Context) eResolveProxy(oldContext);
 			if (context != oldContext) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.CONNECTED_ELEMENT__CONTEXT,
 							oldContext, context));
+				}
 			}
 		}
 		return context;
@@ -133,9 +134,10 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 	public void setContext(Context newContext) {
 		Context oldContext = context;
 		context = newContext;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONNECTED_ELEMENT__CONTEXT, oldContext,
 					context));
+		}
 	}
 
 	/**
@@ -148,9 +150,10 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 			InternalEObject oldConnectionEnd = (InternalEObject) connectionEnd;
 			connectionEnd = (ConnectionEnd) eResolveProxy(oldConnectionEnd);
 			if (connectionEnd != oldConnectionEnd) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.CONNECTED_ELEMENT__CONNECTION_END, oldConnectionEnd, connectionEnd));
+				}
 			}
 		}
 		return connectionEnd;
@@ -173,9 +176,10 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 	public void setConnectionEnd(ConnectionEnd newConnectionEnd) {
 		ConnectionEnd oldConnectionEnd = connectionEnd;
 		connectionEnd = newConnectionEnd;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONNECTED_ELEMENT__CONNECTION_END,
 					oldConnectionEnd, connectionEnd));
+		}
 	}
 
 	/**
@@ -198,10 +202,11 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.CONNECTED_ELEMENT__NEXT, oldNext, newNext);
-			if (msgs == null)
+			if (msgs == null) {
 				msgs = notification;
-			else
+			} else {
 				msgs.add(notification);
+			}
 		}
 		return msgs;
 	}
@@ -214,18 +219,22 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 	public void setNext(ConnectedElement newNext) {
 		if (newNext != next) {
 			NotificationChain msgs = null;
-			if (next != null)
+			if (next != null) {
 				msgs = ((InternalEObject) next).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONNECTED_ELEMENT__NEXT, null, msgs);
-			if (newNext != null)
+			}
+			if (newNext != null) {
 				msgs = ((InternalEObject) newNext).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONNECTED_ELEMENT__NEXT, null, msgs);
+			}
 			msgs = basicSetNext(newNext, msgs);
-			if (msgs != null)
+			if (msgs != null) {
 				msgs.dispatch();
-		} else if (eNotificationRequired())
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONNECTED_ELEMENT__NEXT, newNext,
 					newNext));
+		}
 	}
 
 	/**
@@ -260,12 +269,14 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.CONNECTED_ELEMENT__CONTEXT:
-			if (resolve)
+			if (resolve) {
 				return getContext();
+			}
 			return basicGetContext();
 		case Aadl2Package.CONNECTED_ELEMENT__CONNECTION_END:
-			if (resolve)
+			if (resolve) {
 				return getConnectionEnd();
+			}
 			return basicGetConnectionEnd();
 		case Aadl2Package.CONNECTED_ELEMENT__NEXT:
 			return getNext();

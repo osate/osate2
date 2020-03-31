@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -295,10 +295,11 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.CONNECTION__DESTINATION, oldDestination, newDestination);
-			if (msgs == null)
+			if (msgs == null) {
 				msgs = notification;
-			else
+			} else {
 				msgs.add(notification);
+			}
 		}
 		return msgs;
 	}
@@ -311,18 +312,22 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	public void setDestination(ConnectedElement newDestination) {
 		if (newDestination != destination) {
 			NotificationChain msgs = null;
-			if (destination != null)
+			if (destination != null) {
 				msgs = ((InternalEObject) destination).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONNECTION__DESTINATION, null, msgs);
-			if (newDestination != null)
+			}
+			if (newDestination != null) {
 				msgs = ((InternalEObject) newDestination).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONNECTION__DESTINATION, null, msgs);
+			}
 			msgs = basicSetDestination(newDestination, msgs);
-			if (msgs != null)
+			if (msgs != null) {
 				msgs.dispatch();
-		} else if (eNotificationRequired())
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONNECTION__DESTINATION, newDestination,
 					newDestination));
+		}
 	}
 
 	/**
@@ -356,10 +361,11 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.CONNECTION__SOURCE, oldSource, newSource);
-			if (msgs == null)
+			if (msgs == null) {
 				msgs = notification;
-			else
+			} else {
 				msgs.add(notification);
+			}
 		}
 		return msgs;
 	}
@@ -372,18 +378,22 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	public void setSource(ConnectedElement newSource) {
 		if (newSource != source) {
 			NotificationChain msgs = null;
-			if (source != null)
+			if (source != null) {
 				msgs = ((InternalEObject) source).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONNECTION__SOURCE, null, msgs);
-			if (newSource != null)
+			}
+			if (newSource != null) {
 				msgs = ((InternalEObject) newSource).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONNECTION__SOURCE, null, msgs);
+			}
 			msgs = basicSetSource(newSource, msgs);
-			if (msgs != null)
+			if (msgs != null) {
 				msgs.dispatch();
-		} else if (eNotificationRequired())
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONNECTION__SOURCE, newSource,
 					newSource));
+		}
 	}
 
 	/**
@@ -414,9 +424,10 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	public void setBidirectional(boolean newBidirectional) {
 		boolean oldBidirectional = bidirectional;
 		bidirectional = newBidirectional;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONNECTION__BIDIRECTIONAL,
 					oldBidirectional, bidirectional));
+		}
 	}
 
 	/**
@@ -429,9 +440,10 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 			InternalEObject oldRefined = (InternalEObject) refined;
 			refined = (Connection) eResolveProxy(oldRefined);
 			if (refined != oldRefined) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.CONNECTION__REFINED,
 							oldRefined, refined));
+				}
 			}
 		}
 		return refined;
@@ -454,9 +466,10 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	public void setRefined(Connection newRefined) {
 		Connection oldRefined = refined;
 		refined = newRefined;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONNECTION__REFINED, oldRefined,
 					refined));
+		}
 	}
 
 	/**
@@ -519,8 +532,9 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		case Aadl2Package.CONNECTION__BIDIRECTIONAL:
 			return isBidirectional();
 		case Aadl2Package.CONNECTION__REFINED:
-			if (resolve)
+			if (resolve) {
 				return getRefined();
+			}
 			return basicGetRefined();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -692,8 +706,9 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * @generated
 	 */
 	public String toString() {
-		if (eIsProxy())
+		if (eIsProxy()) {
 			return super.toString();
+		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (bidirectional: ");
@@ -759,7 +774,6 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		ConnectedElement end = getRootConnection().getSource();
 		return end.getContext();
 	}
-
 	public final void getPropertyValueInternal(final Property pn, final PropertyAcc pas,
 			final boolean fromInstanceSlaveCall, final boolean all) throws InvalidModelException {
 		final ComponentImplementation partOf = (ComponentImplementation) getContainingClassifier();
