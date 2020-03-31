@@ -73,7 +73,7 @@ class RangeTypeTest {
 					this.originalName = originalName;
 				}
 				
-				public static Time getValue(PropertyExpression propertyExpression) {
+				public static Time valueOf(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
@@ -97,8 +97,11 @@ class RangeTypeTest {
 			
 			import java.util.Objects;
 			
+			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.IntegerLiteral;
+			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
+			import org.osate.aadl2.UnitLiteral;
 			
 			public class IntegerOwnedUnits {
 				private final long value;
@@ -155,6 +158,11 @@ class RangeTypeTest {
 					private Units(double factorToBase, String originalName) {
 						this.factorToBase = factorToBase;
 						this.originalName = originalName;
+					}
+					
+					public static Units valueOf(PropertyExpression propertyExpression) {
+						AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 					}
 					
 					public double getFactorToBase() {
@@ -245,9 +253,12 @@ class RangeTypeTest {
 			import java.util.Objects;
 			import java.util.Optional;
 			
+			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.IntegerLiteral;
+			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RangeValue;
+			import org.osate.aadl2.UnitLiteral;
 			
 			public class RangeOfIntegerOwnedUnits {
 				private final Number minimum;
@@ -352,6 +363,11 @@ class RangeTypeTest {
 						private Units(double factorToBase, String originalName) {
 							this.factorToBase = factorToBase;
 							this.originalName = originalName;
+						}
+						
+						public static Units valueOf(PropertyExpression propertyExpression) {
+							AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+							return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 						}
 						
 						public double getFactorToBase() {
@@ -657,9 +673,12 @@ class RangeTypeTest {
 			import java.util.Objects;
 			import java.util.Optional;
 			
+			import org.osate.aadl2.AbstractNamedValue;
+			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RangeValue;
 			import org.osate.aadl2.RealLiteral;
+			import org.osate.aadl2.UnitLiteral;
 			
 			public class RangeOfRealOwnedUnits {
 				private final Number minimum;
@@ -765,6 +784,11 @@ class RangeTypeTest {
 						private Units(double factorToBase, String originalName) {
 							this.factorToBase = factorToBase;
 							this.originalName = originalName;
+						}
+						
+						public static Units valueOf(PropertyExpression propertyExpression) {
+							AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+							return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 						}
 						
 						public double getFactorToBase() {

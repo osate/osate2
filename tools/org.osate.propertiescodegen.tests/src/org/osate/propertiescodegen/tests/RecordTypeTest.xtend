@@ -113,7 +113,7 @@ class RecordTypeTest {
 					this.originalName = originalName;
 				}
 				
-				public static Time getValue(PropertyExpression propertyExpression) {
+				public static Time valueOf(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
@@ -137,8 +137,11 @@ class RecordTypeTest {
 			
 			import java.util.Objects;
 			
+			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.IntegerLiteral;
+			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
+			import org.osate.aadl2.UnitLiteral;
 			
 			public class IntegerOwnedUnits {
 				private final long value;
@@ -195,6 +198,11 @@ class RecordTypeTest {
 					private Units(double factorToBase, String originalName) {
 						this.factorToBase = factorToBase;
 						this.originalName = originalName;
+					}
+					
+					public static Units valueOf(PropertyExpression propertyExpression) {
+						AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 					}
 					
 					public double getFactorToBase() {
@@ -286,7 +294,7 @@ class RecordTypeTest {
 					this.originalName = originalName;
 				}
 				
-				public static EnumType1 getValue(PropertyExpression propertyExpression) {
+				public static EnumType1 valueOf(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 					return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
 				}
@@ -446,18 +454,12 @@ class RecordTypeTest {
 					ownedEnumeration = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_enumeration"))
-							.map(field -> {
-								AbstractNamedValue abstractNamedValue = ((NamedValue) field.getOwnedValue()).getNamedValue();
-								return OwnedEnumerationType.valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
-							})
+							.map(field -> OwnedEnumerationType.valueOf(field.getOwnedValue()))
 							.findAny();
 					ownedUnits = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_units"))
-							.map(field -> {
-								AbstractNamedValue abstractNamedValue = ((NamedValue) field.getOwnedValue()).getNamedValue();
-								return OwnedUnitsType.valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
-							})
+							.map(field -> OwnedUnitsType.valueOf(field.getOwnedValue()))
 							.findAny();
 					ownedIntegerNoUnits = recordValue.getOwnedFieldValues()
 							.stream()
@@ -522,22 +524,22 @@ class RecordTypeTest {
 					referencedEnumerationNoImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_enumeration_no_import"))
-							.map(field -> EnumType1.getValue(field.getOwnedValue()))
+							.map(field -> EnumType1.valueOf(field.getOwnedValue()))
 							.findAny();
 					referencedEnumerationWithImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_enumeration_with_import"))
-							.map(field -> Color.getValue(field.getOwnedValue()))
+							.map(field -> Color.valueOf(field.getOwnedValue()))
 							.findAny();
 					referencedUnitsNoImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_units_no_import"))
-							.map(field -> Time.getValue(field.getOwnedValue()))
+							.map(field -> Time.valueOf(field.getOwnedValue()))
 							.findAny();
 					referencedUnitsWithImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_units_with_import"))
-							.map(field -> Mass.getValue(field.getOwnedValue()))
+							.map(field -> Mass.valueOf(field.getOwnedValue()))
 							.findAny();
 					referencedIntegerNoUnits = recordValue.getOwnedFieldValues()
 							.stream()
@@ -956,6 +958,11 @@ class RecordTypeTest {
 						this.originalName = originalName;
 					}
 					
+					public static OwnedEnumerationType valueOf(PropertyExpression propertyExpression) {
+						AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+						return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
+					}
+					
 					@Override
 					public String toString() {
 						return originalName;
@@ -973,6 +980,11 @@ class RecordTypeTest {
 					private OwnedUnitsType(double factorToBase, String originalName) {
 						this.factorToBase = factorToBase;
 						this.originalName = originalName;
+					}
+					
+					public static OwnedUnitsType valueOf(PropertyExpression propertyExpression) {
+						AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 					}
 					
 					public double getFactorToBase() {
@@ -1533,10 +1545,7 @@ class RecordTypeTest {
 					field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
-							.map(field -> {
-								AbstractNamedValue abstractNamedValue = ((NamedValue) field.getOwnedValue()).getNamedValue();
-								return FieldType.valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
-							})
+							.map(field -> FieldType.valueOf(field.getOwnedValue()))
 							.findAny();
 				}
 				
@@ -1589,6 +1598,11 @@ class RecordTypeTest {
 						this.originalName = originalName;
 					}
 					
+					public static FieldType valueOf(PropertyExpression propertyExpression) {
+						AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+						return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
+					}
+					
 					@Override
 					public String toString() {
 						return originalName;
@@ -1616,10 +1630,7 @@ class RecordTypeTest {
 					field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
-							.map(field -> {
-								AbstractNamedValue abstractNamedValue = ((NamedValue) field.getOwnedValue()).getNamedValue();
-								return FieldType.valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
-							})
+							.map(field -> FieldType.valueOf(field.getOwnedValue()))
 							.findAny();
 				}
 				
@@ -1671,6 +1682,11 @@ class RecordTypeTest {
 					private FieldType(double factorToBase, String originalName) {
 						this.factorToBase = factorToBase;
 						this.originalName = originalName;
+					}
+					
+					public static FieldType valueOf(PropertyExpression propertyExpression) {
+						AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 					}
 					
 					public double getFactorToBase() {

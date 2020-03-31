@@ -161,6 +161,7 @@ class PropertiesCodeGen {
 			AadlBoolean: "((BooleanLiteral) propertyExpression).getValue()"
 			AadlString: "((StringLiteral) propertyExpression).getValue()"
 			ClassifierType: "((ClassifierValue) propertyExpression).getClassifier()"
+			EnumerationType: otherJavaClass + ".valueOf(propertyExpression)"
 			AadlInteger case type.unitsType === null: "((IntegerLiteral) propertyExpression).getValue()"
 			AadlReal case type.unitsType === null: "((RealLiteral) propertyExpression).getValue()"
 			ReferenceType: "((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject()"
@@ -192,8 +193,8 @@ class PropertiesCodeGen {
 	def private static GeneratedJava generateFile(PropertySet propertySet, PropertyType propertyType, String typeName) {
 		val generator = new PropertiesCodeGen(propertySet)
 		val generatedJavaType = switch baseType : propertyType.basePropertyType {
-			UnitsType: generator.generateUnits(typeName, baseType, true)
-			EnumerationType: generator.generateEnumeration(typeName, baseType, true)
+			UnitsType: generator.generateUnits(typeName, baseType)
+			EnumerationType: generator.generateEnumeration(typeName, baseType)
 			NumberType: generator.generateNumberWithUnits(typeName, baseType, true)
 			RangeType: generator.generateRange(typeName, baseType, true)
 			RecordType: generator.generateRecord(typeName, baseType, true)
@@ -260,14 +261,8 @@ class PropertiesCodeGen {
 			AadlBoolean: '''return ((BooleanLiteral) «parameterName»).getValue();'''
 			AadlString: '''return ((StringLiteral) «parameterName»).getValue();'''
 			ClassifierType: '''return ((ClassifierValue) «parameterName»).getClassifier();'''
-			UnitsType case topListType.isAncestor(type) && !(topListType.eContainer instanceof Property): '''
-				AbstractNamedValue abstractNamedValue = ((NamedValue) «parameterName»).getNamedValue();
-				return «ownedTypeName».valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
-			'''
-			EnumerationType case topListType.isAncestor(type) && !(topListType.eContainer instanceof Property): '''
-				AbstractNamedValue abstractNamedValue = ((NamedValue) «parameterName»).getNamedValue();
-				return «ownedTypeName».valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
-			'''
+			EnumerationType case topListType.isAncestor(type): '''return «ownedTypeName».valueOf(«parameterName»);'''
+			EnumerationType: '''return «type.name.toCamelCase».valueOf(«parameterName»);'''
 			AadlInteger case type.unitsType === null: '''return ((IntegerLiteral) «parameterName»).getValue();'''
 			AadlReal case type.unitsType === null: '''return ((RealLiteral) «parameterName»).getValue();'''
 			ReferenceType: '''return ((InstanceReferenceValue) «parameterName»).getReferencedInstanceObject();'''
@@ -277,14 +272,12 @@ class PropertiesCodeGen {
 		}
 	}
 	
-	def private String generateEnumeration(String typeName, EnumerationType enumType, boolean topLevel) {
-		if (topLevel) {
-			imports += #{
-				"org.osate.aadl2.AbstractNamedValue",
-				"org.osate.aadl2.EnumerationLiteral",
-				"org.osate.aadl2.NamedValue",
-				"org.osate.aadl2.PropertyExpression"
-			}
+	def private String generateEnumeration(String typeName, EnumerationType enumType) {
+		imports += #{
+			"org.osate.aadl2.AbstractNamedValue",
+			"org.osate.aadl2.EnumerationLiteral",
+			"org.osate.aadl2.NamedValue",
+			"org.osate.aadl2.PropertyExpression"
 		}
 		val literals = enumType.ownedLiterals.join(",\n")['''«it.name.toUpperCase»("«it.name»")''']
 		'''
@@ -296,13 +289,11 @@ class PropertiesCodeGen {
 				private «typeName»(String originalName) {
 					this.originalName = originalName;
 				}
-				«IF topLevel»
 				
-				public static «typeName» getValue(PropertyExpression propertyExpression) {
+				public static «typeName» valueOf(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 					return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
 				}
-				«ENDIF»
 				
 				@Override
 				public String toString() {
@@ -312,14 +303,12 @@ class PropertiesCodeGen {
 		'''
 	}
 	
-	def private String generateUnits(String typeName, UnitsType unitsType, boolean topLevel) {
-		if (topLevel) {
-			imports += #{
-				"org.osate.aadl2.AbstractNamedValue",
-				"org.osate.aadl2.NamedValue",
-				"org.osate.aadl2.PropertyExpression",
-				"org.osate.aadl2.UnitLiteral"
-			}
+	def private String generateUnits(String typeName, UnitsType unitsType) {
+		imports += #{
+			"org.osate.aadl2.AbstractNamedValue",
+			"org.osate.aadl2.NamedValue",
+			"org.osate.aadl2.PropertyExpression",
+			"org.osate.aadl2.UnitLiteral"
 		}
 		val literals = unitsType.ownedLiterals.filter(UnitLiteral).sortBy[it.absoluteFactor]
 		val literalsString = literals.join(",\n")['''«it.name.toUpperCase»(«it.absoluteFactor», "«it.name»")''']
@@ -334,13 +323,11 @@ class PropertiesCodeGen {
 					this.factorToBase = factorToBase;
 					this.originalName = originalName;
 				}
-				«IF topLevel»
 				
-				public static «typeName» getValue(PropertyExpression propertyExpression) {
+				public static «typeName» valueOf(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
-				«ENDIF»
 				
 				public double getFactorToBase() {
 					return factorToBase;
@@ -430,7 +417,7 @@ class PropertiesCodeGen {
 				}
 				«IF unitsType == numberType.ownedUnitsType»
 				
-				«generateUnits("Units", unitsType, false)»
+				«generateUnits("Units", unitsType)»
 				«ENDIF»
 			}
 		'''
@@ -580,16 +567,6 @@ class PropertiesCodeGen {
 				AadlBoolean: #{"org.osate.aadl2.BooleanLiteral"}
 				AadlString: #{"org.osate.aadl2.StringLiteral"}
 				ClassifierType: #{"org.osate.aadl2.Classifier", "org.osate.aadl2.ClassifierValue"}
-				UnitsType case field.isAncestor(baseType): #{
-					"org.osate.aadl2.AbstractNamedValue",
-					"org.osate.aadl2.NamedValue",
-					"org.osate.aadl2.UnitLiteral"
-				}
-				EnumerationType case field.isAncestor(baseType): #{
-					"org.osate.aadl2.AbstractNamedValue",
-					"org.osate.aadl2.NamedValue",
-					"org.osate.aadl2.EnumerationLiteral"
-				}
 				AadlInteger case baseType.unitsType === null: #{"org.osate.aadl2.IntegerLiteral"}
 				AadlReal case baseType.unitsType === null: #{"org.osate.aadl2.RealLiteral"}
 				ReferenceType: #{
@@ -697,10 +674,10 @@ class PropertiesCodeGen {
 				«val baseType = field.propertyType.basePropertyType»
 				«IF baseType instanceof UnitsType»
 				
-				«generateUnits(field.name.toCamelCase + "Type", baseType, false)»
+				«generateUnits(field.name.toCamelCase + "Type", baseType)»
 				«ELSEIF baseType instanceof EnumerationType»
 				
-				«generateEnumeration(field.name.toCamelCase + "Type", baseType, false)»
+				«generateEnumeration(field.name.toCamelCase + "Type", baseType)»
 				«ELSEIF baseType instanceof NumberType && (baseType as NumberType).unitsType !== null»
 				
 				«generateNumberWithUnits(field.name.toCamelCase + "Type", baseType as NumberType, false)»
@@ -728,21 +705,11 @@ class PropertiesCodeGen {
 			AadlBoolean: ".map(field -> ((BooleanLiteral) field.getOwnedValue()).getValue())"
 			AadlString: ".map(field -> ((StringLiteral) field.getOwnedValue()).getValue())"
 			ClassifierType: ".map(field -> ((ClassifierValue) field.getOwnedValue()).getClassifier())"
+			EnumerationType case field.ownedPropertyType !== null: '''.map(field -> «field.name.toCamelCase»Type.valueOf(field.getOwnedValue()))'''
+			EnumerationType case field.referencedPropertyType !== null: '''.map(field -> «propertyType.name.toCamelCase».valueOf(field.getOwnedValue()))'''
 			AadlInteger case propertyType.unitsType === null: ".mapToLong(field -> ((IntegerLiteral) field.getOwnedValue()).getValue())"
 			AadlReal case propertyType.unitsType === null: ".mapToDouble(field -> ((RealLiteral) field.getOwnedValue()).getValue())"
 			ReferenceType: ".map(field -> ((InstanceReferenceValue) field.getOwnedValue()).getReferencedInstanceObject())"
-			UnitsType case field.ownedPropertyType !== null: '''
-				.map(field -> {
-					AbstractNamedValue abstractNamedValue = ((NamedValue) field.getOwnedValue()).getNamedValue();
-					return «field.name.toCamelCase»Type.valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
-				})
-			'''
-			EnumerationType case field.ownedPropertyType !== null: '''
-				.map(field -> {
-					AbstractNamedValue abstractNamedValue = ((NamedValue) field.getOwnedValue()).getNamedValue();
-					return «field.name.toCamelCase»Type.valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
-				})
-			'''
 			case field.ownedPropertyType !== null: '''.map(field -> new «field.name.toCamelCase»Type(field.getOwnedValue()))'''
 			case field.referencedPropertyType !== null: '''.map(field -> «propertyType.name.toCamelCase».getValue(field.getOwnedValue()))'''
 		}

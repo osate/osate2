@@ -266,7 +266,7 @@ class ListDefinitionTest {
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return List1OwnedEnum.getValue(element1);
+							return List1OwnedEnum.valueOf(element1);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
@@ -279,7 +279,7 @@ class ListDefinitionTest {
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return List1OwnedUnits.getValue(element1);
+							return List1OwnedUnits.valueOf(element1);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
@@ -331,7 +331,7 @@ class ListDefinitionTest {
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return EnumType1.getValue(element1);
+							return EnumType1.valueOf(element1);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
@@ -344,7 +344,7 @@ class ListDefinitionTest {
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return Color.getValue(element1);
+							return Color.valueOf(element1);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
@@ -357,7 +357,7 @@ class ListDefinitionTest {
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return Time.getValue(element1);
+							return Time.valueOf(element1);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
@@ -370,7 +370,7 @@ class ListDefinitionTest {
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return Mass.getValue(element1);
+							return Mass.valueOf(element1);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
@@ -463,7 +463,7 @@ class ListDefinitionTest {
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
 							return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
 								return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
-									return List3OwnedEnum.getValue(element3);
+									return List3OwnedEnum.valueOf(element3);
 								}).collect(Collectors.toList());
 							}).collect(Collectors.toList());
 						}).collect(Collectors.toList()));
@@ -501,7 +501,7 @@ class ListDefinitionTest {
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
 							return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
 								return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
-									return EnumType1.getValue(element3);
+									return EnumType1.valueOf(element3);
 								}).collect(Collectors.toList());
 							}).collect(Collectors.toList());
 						}).collect(Collectors.toList()));
@@ -554,7 +554,7 @@ class ListDefinitionTest {
 					this.originalName = originalName;
 				}
 				
-				public static Time getValue(PropertyExpression propertyExpression) {
+				public static Time valueOf(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
@@ -578,8 +578,11 @@ class ListDefinitionTest {
 			
 			import java.util.Objects;
 			
+			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.IntegerLiteral;
+			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
+			import org.osate.aadl2.UnitLiteral;
 			
 			public class IntegerOwnedUnits {
 				private final long value;
@@ -638,6 +641,11 @@ class ListDefinitionTest {
 						this.originalName = originalName;
 					}
 					
+					public static Units valueOf(PropertyExpression propertyExpression) {
+						AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
+					}
+					
 					public double getFactorToBase() {
 						return factorToBase;
 					}
@@ -672,7 +680,7 @@ class ListDefinitionTest {
 					this.originalName = originalName;
 				}
 				
-				public static EnumType1 getValue(PropertyExpression propertyExpression) {
+				public static EnumType1 valueOf(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 					return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
 				}
@@ -831,7 +839,7 @@ class ListDefinitionTest {
 					this.originalName = originalName;
 				}
 				
-				public static List1OwnedEnum getValue(PropertyExpression propertyExpression) {
+				public static List1OwnedEnum valueOf(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 					return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
 				}
@@ -862,7 +870,7 @@ class ListDefinitionTest {
 					this.originalName = originalName;
 				}
 				
-				public static List1OwnedUnits getValue(PropertyExpression propertyExpression) {
+				public static List1OwnedUnits valueOf(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
@@ -1187,7 +1195,7 @@ class ListDefinitionTest {
 					this.originalName = originalName;
 				}
 				
-				public static List3OwnedEnum getValue(PropertyExpression propertyExpression) {
+				public static List3OwnedEnum valueOf(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 					return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
 				}

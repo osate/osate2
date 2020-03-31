@@ -44,7 +44,7 @@ class PropertiesCodeGenTest {
 					this.originalName = originalName;
 				}
 				
-				public static EnumType1 getValue(PropertyExpression propertyExpression) {
+				public static EnumType1 valueOf(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 					return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
 				}
@@ -91,7 +91,7 @@ class PropertiesCodeGenTest {
 					this.originalName = originalName;
 				}
 				
-				public static UnitsType1 getValue(PropertyExpression propertyExpression) {
+				public static UnitsType1 valueOf(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
@@ -157,7 +157,7 @@ class PropertiesCodeGenTest {
 					this.originalName = originalName;
 				}
 				
-				public static Time getValue(PropertyExpression propertyExpression) {
+				public static Time valueOf(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
@@ -181,8 +181,11 @@ class PropertiesCodeGenTest {
 			
 			import java.util.Objects;
 			
+			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.IntegerLiteral;
+			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
+			import org.osate.aadl2.UnitLiteral;
 			
 			public class IntegerOwnedUnits {
 				private final long value;
@@ -239,6 +242,11 @@ class PropertiesCodeGenTest {
 					private Units(double factorToBase, String originalName) {
 						this.factorToBase = factorToBase;
 						this.originalName = originalName;
+					}
+					
+					public static Units valueOf(PropertyExpression propertyExpression) {
+						AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 					}
 					
 					public double getFactorToBase() {
@@ -421,7 +429,7 @@ class PropertiesCodeGenTest {
 					this.originalName = originalName;
 				}
 				
-				public static Time getValue(PropertyExpression propertyExpression) {
+				public static Time valueOf(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
@@ -445,8 +453,11 @@ class PropertiesCodeGenTest {
 			
 			import java.util.Objects;
 			
+			import org.osate.aadl2.AbstractNamedValue;
+			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RealLiteral;
+			import org.osate.aadl2.UnitLiteral;
 			
 			public class RealOwnedUnits {
 				private final double value;
@@ -503,6 +514,11 @@ class PropertiesCodeGenTest {
 					private Units(double factorToBase, String originalName) {
 						this.factorToBase = factorToBase;
 						this.originalName = originalName;
+					}
+					
+					public static Units valueOf(PropertyExpression propertyExpression) {
+						AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 					}
 					
 					public double getFactorToBase() {

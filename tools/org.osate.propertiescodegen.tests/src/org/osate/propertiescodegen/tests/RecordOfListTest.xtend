@@ -111,7 +111,7 @@ class RecordOfListTest {
 					this.originalName = originalName;
 				}
 				
-				public static Time getValue(PropertyExpression propertyExpression) {
+				public static Time valueOf(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
@@ -135,8 +135,11 @@ class RecordOfListTest {
 			
 			import java.util.Objects;
 			
+			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.IntegerLiteral;
+			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
+			import org.osate.aadl2.UnitLiteral;
 			
 			public class IntegerOwnedUnits {
 				private final long value;
@@ -195,6 +198,11 @@ class RecordOfListTest {
 						this.originalName = originalName;
 					}
 					
+					public static Units valueOf(PropertyExpression propertyExpression) {
+						AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
+					}
+					
 					public double getFactorToBase() {
 						return factorToBase;
 					}
@@ -229,7 +237,7 @@ class RecordOfListTest {
 					this.originalName = originalName;
 				}
 				
-				public static EnumType1 getValue(PropertyExpression propertyExpression) {
+				public static EnumType1 valueOf(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 					return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
 				}
@@ -1068,8 +1076,7 @@ class RecordOfListTest {
 							.filter(field -> field.getProperty().getName().equals("owned_enum"))
 							.map(field -> {
 								return ((ListValue) field.getOwnedValue()).getOwnedListElements().stream().map(element1 -> {
-									AbstractNamedValue abstractNamedValue = ((NamedValue) element1).getNamedValue();
-									return OwnedEnumType.valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
+									return OwnedEnumType.valueOf(element1);
 								}).collect(Collectors.toList());
 							})
 							.findAny();
@@ -1078,8 +1085,7 @@ class RecordOfListTest {
 							.filter(field -> field.getProperty().getName().equals("owned_units"))
 							.map(field -> {
 								return ((ListValue) field.getOwnedValue()).getOwnedListElements().stream().map(element1 -> {
-									AbstractNamedValue abstractNamedValue = ((NamedValue) element1).getNamedValue();
-									return OwnedUnitsType.valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
+									return OwnedUnitsType.valueOf(element1);
 								}).collect(Collectors.toList());
 							})
 							.findAny();
@@ -1207,6 +1213,11 @@ class RecordOfListTest {
 						this.originalName = originalName;
 					}
 					
+					public static OwnedEnumType valueOf(PropertyExpression propertyExpression) {
+						AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+						return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
+					}
+					
 					@Override
 					public String toString() {
 						return originalName;
@@ -1223,6 +1234,11 @@ class RecordOfListTest {
 					private OwnedUnitsType(double factorToBase, String originalName) {
 						this.factorToBase = factorToBase;
 						this.originalName = originalName;
+					}
+					
+					public static OwnedUnitsType valueOf(PropertyExpression propertyExpression) {
+						AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 					}
 					
 					public double getFactorToBase() {
@@ -1503,7 +1519,7 @@ class RecordOfListTest {
 							.filter(field -> field.getProperty().getName().equals("enum_no_import"))
 							.map(field -> {
 								return ((ListValue) field.getOwnedValue()).getOwnedListElements().stream().map(element1 -> {
-									return EnumType1.getValue(element1);
+									return EnumType1.valueOf(element1);
 								}).collect(Collectors.toList());
 							})
 							.findAny();
@@ -1512,7 +1528,7 @@ class RecordOfListTest {
 							.filter(field -> field.getProperty().getName().equals("enum_with_import"))
 							.map(field -> {
 								return ((ListValue) field.getOwnedValue()).getOwnedListElements().stream().map(element1 -> {
-									return Color.getValue(element1);
+									return Color.valueOf(element1);
 								}).collect(Collectors.toList());
 							})
 							.findAny();
@@ -1521,7 +1537,7 @@ class RecordOfListTest {
 							.filter(field -> field.getProperty().getName().equals("units_no_import"))
 							.map(field -> {
 								return ((ListValue) field.getOwnedValue()).getOwnedListElements().stream().map(element1 -> {
-									return Time.getValue(element1);
+									return Time.valueOf(element1);
 								}).collect(Collectors.toList());
 							})
 							.findAny();
@@ -1530,7 +1546,7 @@ class RecordOfListTest {
 							.filter(field -> field.getProperty().getName().equals("units_with_import"))
 							.map(field -> {
 								return ((ListValue) field.getOwnedValue()).getOwnedListElements().stream().map(element1 -> {
-									return Mass.getValue(element1);
+									return Mass.valueOf(element1);
 								}).collect(Collectors.toList());
 							})
 							.findAny();
