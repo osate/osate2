@@ -64,7 +64,7 @@ public class NewBusLoadAnalysisHandler extends AaxlReadOnlyHandlerAsJob {
 	@Override
 	public void doAaxlAction(IProgressMonitor monitor, Element root) {
 		InstanceModelUtil.clearCache();
-		new NewBusLoadAnalysis(getActionName()).analysisBody(monitor, root);
+		new NewBusLoadAnalysis().analysisBody(monitor, root);
 	}
 
 	public void invoke(IProgressMonitor monitor, SystemInstance root) {
