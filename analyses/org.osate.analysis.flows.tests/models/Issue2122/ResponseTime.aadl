@@ -1,0 +1,72 @@
+package ResponseTime
+public
+	with SEI;
+
+	data D1
+		properties
+			Data_Size => 8 Bytes;
+	end D1;
+
+	data D2
+		properties
+			Data_Size => 16 Bytes;
+	end D2;
+
+	data D3
+		properties
+			Data_Size => 24 Bytes;
+	end D3;
+
+	device Device1
+		features
+			out1: out event data port D1;
+			out2: out event data port D2;
+			out3: out event data port D3;
+		flows
+			fsrc1: flow source out1 {Latency => 1ms .. 2ms;};
+			fsrc2: flow source out2 {Latency => 1ms .. 2ms;};
+			fsrc3: flow source out3 {Latency => 1ms .. 2ms;};
+	end Device1;
+
+	device Device2
+		features
+			in1: in event data port D1;
+			in2: in event data port D2;
+			in3: in event data port D3;
+		flows
+			fsink1: flow sink in1 {Latency => 3ms .. 5ms;};
+			fsink2: flow sink in2 {Latency => 3ms .. 5ms;};
+			fsink3: flow sink in3 {Latency => 3ms .. 5ms;};
+	end Device2;
+
+	system Top
+	end Top;
+
+	system implementation Top.unbound
+		subcomponents
+			sub1: device Device1;
+			sub2: device Device2;
+		connections
+			conn1: feature sub1.out1 -> sub2.in1;
+			conn2: feature sub1.out2 -> sub2.in2;
+			conn3: feature sub1.out3 -> sub2.in3;
+		flows
+			etef1: end to end flow sub1.fsrc1 -> conn1 -> sub2.fsink1 {Latency => 0ms .. 500ms;};
+			etef2: end to end flow sub1.fsrc2 -> conn2 -> sub2.fsink2 {Latency => 0ms .. 500ms;};
+			etef3: end to end flow sub1.fsrc3 -> conn3 -> sub2.fsink3 {Latency => 0ms .. 500ms;};
+	end Top.unbound;
+
+	system implementation Top.CET extends Top.unbound
+		properties
+			Compute_Execution_Time => 4ms .. 10ms applies to sub1, sub2;
+			Compute_Execution_Time => 1ms .. 2ms applies to sub1.out1, sub1.out2, sub1.out3;
+			Compute_Execution_Time => 3ms .. 6ms applies to sub2.in1, sub2.in2, sub2.in3;
+	end Top.CET;
+
+	system implementation Top.RT extends Top.CET
+		properties
+			SEI::Response_Time => 8ms .. 20ms applies to sub1, sub2;
+			SEI::Response_Time => 2ms .. 4ms applies to sub1.out1, sub1.out2, sub1.out3;
+			SEI::Response_Time => 6ms .. 12ms applies to sub2.in1, sub2.in2, sub2.in3;
+	end Top.RT;
+end ResponseTime;
