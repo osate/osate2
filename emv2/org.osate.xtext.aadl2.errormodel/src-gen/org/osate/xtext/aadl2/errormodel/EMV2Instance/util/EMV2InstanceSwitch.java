@@ -192,16 +192,6 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE: {
-				PropagationPathInstance propagationPathInstance = (PropagationPathInstance)theEObject;
-				T result = casePropagationPathInstance(propagationPathInstance);
-				if (result == null) result = caseEMV2InstanceObject(propagationPathInstance);
-				if (result == null) result = caseInstanceObject(propagationPathInstance);
-				if (result == null) result = caseNamedElement(propagationPathInstance);
-				if (result == null) result = caseElement(propagationPathInstance);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE: {
 				PropagationPointInstance propagationPointInstance = (PropagationPointInstance)theEObject;
 				T result = casePropagationPointInstance(propagationPointInstance);
@@ -240,6 +230,16 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 				if (result == null) result = caseInstanceObject(constraintElement);
 				if (result == null) result = caseNamedElement(constraintElement);
 				if (result == null) result = caseElement(constraintElement);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE: {
+				PropagationPathInstance propagationPathInstance = (PropagationPathInstance)theEObject;
+				T result = casePropagationPathInstance(propagationPathInstance);
+				if (result == null) result = caseEMV2InstanceObject(propagationPathInstance);
+				if (result == null) result = caseInstanceObject(propagationPathInstance);
+				if (result == null) result = caseNamedElement(propagationPathInstance);
+				if (result == null) result = caseElement(propagationPathInstance);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

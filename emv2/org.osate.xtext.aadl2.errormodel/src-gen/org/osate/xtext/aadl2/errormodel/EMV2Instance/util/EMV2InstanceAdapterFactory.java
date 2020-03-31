@@ -135,10 +135,6 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 				return createErrorDetectionInstanceAdapter();
 			}
 			@Override
-			public Adapter casePropagationPathInstance(PropagationPathInstance object) {
-				return createPropagationPathInstanceAdapter();
-			}
-			@Override
 			public Adapter casePropagationPointInstance(PropagationPointInstance object) {
 				return createPropagationPointInstanceAdapter();
 			}
@@ -153,6 +149,10 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseConstraintElement(ConstraintElement object) {
 				return createConstraintElementAdapter();
+			}
+			@Override
+			public Adapter casePropagationPathInstance(PropagationPathInstance object) {
+				return createPropagationPathInstanceAdapter();
 			}
 			@Override
 			public Adapter caseElement(Element object) {
