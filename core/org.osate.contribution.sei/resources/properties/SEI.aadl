@@ -115,4 +115,8 @@ property set SEI is
 	Filename   : aadlstring;
 	Artifact   : aadlstring;);
   Model_References : list of SEI::Model_Reference applies to (all);
+  
+  -- Response time, meant to account delays in response not attributable to computation
+  Response_Time: Time_Range
+        applies to (thread, device, subprogram, event port, event data port);
 end SEI;
