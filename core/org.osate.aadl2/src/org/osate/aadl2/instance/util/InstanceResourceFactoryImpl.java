@@ -52,7 +52,6 @@ public class InstanceResourceFactoryImpl extends ResourceFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Resource createResource(URI uri) {
 		XMLResource result = new InstanceResourceImpl(uri);
 		return result;

@@ -66,7 +66,6 @@ public class EndToEndFlowInstanceItemProvider extends FlowElementInstanceItemPro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -147,7 +146,6 @@ public class EndToEndFlowInstanceItemProvider extends FlowElementInstanceItemPro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object getImage(Object object) {
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/EndToEndFlowInstance")); //$NON-NLS-1$
 	}
@@ -158,7 +156,6 @@ public class EndToEndFlowInstanceItemProvider extends FlowElementInstanceItemPro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String getText(Object object) {
 		String label = ((EndToEndFlowInstance) object).getName();
 		return label == null || label.length() == 0 ? getString("_UI_EndToEndFlowInstance_type") : //$NON-NLS-1$
@@ -172,7 +169,6 @@ public class EndToEndFlowInstanceItemProvider extends FlowElementInstanceItemPro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 		super.notifyChanged(notification);
@@ -181,7 +177,6 @@ public class EndToEndFlowInstanceItemProvider extends FlowElementInstanceItemPro
 	/**
 	 * Manually added to show the flow elements in an EndToEndFlowInstance.
 	 */
-	@Override
 	public Collection<?> getChildren(Object object) {
 		EndToEndFlowInstance etef = (EndToEndFlowInstance) object;
 		List<Object> result = new ArrayList<Object>();
@@ -207,29 +202,19 @@ public class EndToEndFlowInstanceItemProvider extends FlowElementInstanceItemPro
 		public FlowElementInstance getFlowElement() {
 			return flowElement;
 		}
-
-		@Override
 		public Collection<?> getChildren(Object object) {
 			return Collections.emptyList();
 		}
-
-		@Override
 		public Object getParent(Object object) {
 			return target;
 		}
-
-		@Override
 		public Collection<?> getNewChildDescriptors(Object object, EditingDomain editingDomain, Object sibling) {
 			return Collections.emptyList();
 		}
-
-		@Override
 		public String getText(Object object) {
 			return ((IItemLabelProvider) adapterFactory.adapt(flowElement, IItemLabelProvider.class))
 					.getText(flowElement);
 		}
-
-		@Override
 		public Object getImage(Object object) {
 			return ((IItemLabelProvider) adapterFactory.adapt(flowElement, IItemLabelProvider.class))
 					.getImage(flowElement);
