@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -86,1043 +86,786 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		public Adapter caseElement(Element object) {
 			return createElementAdapter();
 		}
-
 		public Adapter caseComment(Comment object) {
 			return createCommentAdapter();
 		}
-
 		public Adapter caseType(Type object) {
 			return createTypeAdapter();
 		}
-
 		public Adapter caseNamedElement(NamedElement object) {
 			return createNamedElementAdapter();
 		}
-
 		public Adapter casePropertyAssociation(PropertyAssociation object) {
 			return createPropertyAssociationAdapter();
 		}
-
 		public Adapter caseProperty(Property object) {
 			return createPropertyAdapter();
 		}
-
 		public Adapter caseBasicProperty(BasicProperty object) {
 			return createBasicPropertyAdapter();
 		}
-
 		public Adapter caseTypedElement(TypedElement object) {
 			return createTypedElementAdapter();
 		}
-
 		public Adapter casePropertyType(PropertyType object) {
 			return createPropertyTypeAdapter();
 		}
-
 		public Adapter caseAbstractNamedValue(AbstractNamedValue object) {
 			return createAbstractNamedValueAdapter();
 		}
-
 		public Adapter casePropertyExpression(PropertyExpression object) {
 			return createPropertyExpressionAdapter();
 		}
-
 		public Adapter caseMetaclassReference(MetaclassReference object) {
 			return createMetaclassReferenceAdapter();
 		}
-
 		public Adapter casePropertyOwner(PropertyOwner object) {
 			return createPropertyOwnerAdapter();
 		}
-
 		public Adapter caseClassifier(Classifier object) {
 			return createClassifierAdapter();
 		}
-
 		public Adapter caseNamespace(Namespace object) {
 			return createNamespaceAdapter();
 		}
-
 		public Adapter caseClassifierFeature(ClassifierFeature object) {
 			return createClassifierFeatureAdapter();
 		}
-
 		public Adapter caseGeneralization(Generalization object) {
 			return createGeneralizationAdapter();
 		}
-
 		public Adapter caseDirectedRelationship(DirectedRelationship object) {
 			return createDirectedRelationshipAdapter();
 		}
-
 		public Adapter caseRelationship(Relationship object) {
 			return createRelationshipAdapter();
 		}
-
 		public Adapter caseAnnexSubclause(AnnexSubclause object) {
 			return createAnnexSubclauseAdapter();
 		}
-
 		public Adapter caseModalElement(ModalElement object) {
 			return createModalElementAdapter();
 		}
-
 		public Adapter caseMode(Mode object) {
 			return createModeAdapter();
 		}
-
 		public Adapter caseModeFeature(ModeFeature object) {
 			return createModeFeatureAdapter();
 		}
-
 		public Adapter casePrototype(Prototype object) {
 			return createPrototypeAdapter();
 		}
-
 		public Adapter caseStructuralFeature(StructuralFeature object) {
 			return createStructuralFeatureAdapter();
 		}
-
 		public Adapter caseRefinableElement(RefinableElement object) {
 			return createRefinableElementAdapter();
 		}
-
 		public Adapter caseCalledSubprogram(CalledSubprogram object) {
 			return createCalledSubprogramAdapter();
 		}
-
 		public Adapter casePrototypeBinding(PrototypeBinding object) {
 			return createPrototypeBindingAdapter();
 		}
-
 		public Adapter caseContainedNamedElement(ContainedNamedElement object) {
 			return createContainedNamedElementAdapter();
 		}
-
 		public Adapter caseContainmentPathElement(ContainmentPathElement object) {
 			return createContainmentPathElementAdapter();
 		}
-
 		public Adapter caseArrayRange(ArrayRange object) {
 			return createArrayRangeAdapter();
 		}
-
 		public Adapter caseModalPropertyValue(ModalPropertyValue object) {
 			return createModalPropertyValueAdapter();
 		}
-
 		public Adapter caseBehavioralFeature(BehavioralFeature object) {
 			return createBehavioralFeatureAdapter();
 		}
-
 		public Adapter caseArrayDimension(ArrayDimension object) {
 			return createArrayDimensionAdapter();
 		}
-
 		public Adapter caseArraySize(ArraySize object) {
 			return createArraySizeAdapter();
 		}
-
 		public Adapter caseArraySizeProperty(ArraySizeProperty object) {
 			return createArraySizePropertyAdapter();
 		}
-
 		public Adapter caseArrayableElement(ArrayableElement object) {
 			return createArrayableElementAdapter();
 		}
-
 		public Adapter caseComponentImplementationReference(ComponentImplementationReference object) {
 			return createComponentImplementationReferenceAdapter();
 		}
-
 		public Adapter caseComponentImplementation(ComponentImplementation object) {
 			return createComponentImplementationAdapter();
 		}
-
 		public Adapter caseComponentClassifier(ComponentClassifier object) {
 			return createComponentClassifierAdapter();
 		}
-
 		public Adapter caseSubcomponentType(SubcomponentType object) {
 			return createSubcomponentTypeAdapter();
 		}
-
 		public Adapter caseFeatureClassifier(FeatureClassifier object) {
 			return createFeatureClassifierAdapter();
 		}
-
 		public Adapter caseModeTransition(ModeTransition object) {
 			return createModeTransitionAdapter();
 		}
-
 		public Adapter caseModeTransitionTrigger(ModeTransitionTrigger object) {
 			return createModeTransitionTriggerAdapter();
 		}
-
 		public Adapter caseContext(Context object) {
 			return createContextAdapter();
 		}
-
 		public Adapter caseTriggerPort(TriggerPort object) {
 			return createTriggerPortAdapter();
 		}
-
 		public Adapter caseComponentType(ComponentType object) {
 			return createComponentTypeAdapter();
 		}
-
 		public Adapter caseFeature(Feature object) {
 			return createFeatureAdapter();
 		}
-
 		public Adapter caseFeatureConnectionEnd(FeatureConnectionEnd object) {
 			return createFeatureConnectionEndAdapter();
 		}
-
 		public Adapter caseConnectionEnd(ConnectionEnd object) {
 			return createConnectionEndAdapter();
 		}
-
 		public Adapter caseComponentPrototype(ComponentPrototype object) {
 			return createComponentPrototypeAdapter();
 		}
-
 		public Adapter caseFlowSpecification(FlowSpecification object) {
 			return createFlowSpecificationAdapter();
 		}
-
 		public Adapter caseFlowFeature(FlowFeature object) {
 			return createFlowFeatureAdapter();
 		}
-
 		public Adapter caseFlow(Flow object) {
 			return createFlowAdapter();
 		}
-
 		public Adapter caseModalPath(ModalPath object) {
 			return createModalPathAdapter();
 		}
-
 		public Adapter caseFlowElement(FlowElement object) {
 			return createFlowElementAdapter();
 		}
-
 		public Adapter caseEndToEndFlowElement(EndToEndFlowElement object) {
 			return createEndToEndFlowElementAdapter();
 		}
-
 		public Adapter caseFlowEnd(FlowEnd object) {
 			return createFlowEndAdapter();
 		}
-
 		public Adapter caseTypeExtension(TypeExtension object) {
 			return createTypeExtensionAdapter();
 		}
-
 		public Adapter caseFeatureGroup(FeatureGroup object) {
 			return createFeatureGroupAdapter();
 		}
-
 		public Adapter caseCallContext(CallContext object) {
 			return createCallContextAdapter();
 		}
-
 		public Adapter caseDirectedFeature(DirectedFeature object) {
 			return createDirectedFeatureAdapter();
 		}
-
 		public Adapter caseFeatureGroupConnectionEnd(FeatureGroupConnectionEnd object) {
 			return createFeatureGroupConnectionEndAdapter();
 		}
-
 		public Adapter caseFeatureType(FeatureType object) {
 			return createFeatureTypeAdapter();
 		}
-
 		public Adapter caseFeatureGroupType(FeatureGroupType object) {
 			return createFeatureGroupTypeAdapter();
 		}
-
 		public Adapter caseGroupExtension(GroupExtension object) {
 			return createGroupExtensionAdapter();
 		}
-
 		public Adapter caseBusAccess(BusAccess object) {
 			return createBusAccessAdapter();
 		}
-
 		public Adapter caseAccess(Access object) {
 			return createAccessAdapter();
 		}
-
 		public Adapter caseAccessConnectionEnd(AccessConnectionEnd object) {
 			return createAccessConnectionEndAdapter();
 		}
-
 		public Adapter caseBusFeatureClassifier(BusFeatureClassifier object) {
 			return createBusFeatureClassifierAdapter();
 		}
-
 		public Adapter caseDataAccess(DataAccess object) {
 			return createDataAccessAdapter();
 		}
-
 		public Adapter caseParameterConnectionEnd(ParameterConnectionEnd object) {
 			return createParameterConnectionEndAdapter();
 		}
-
 		public Adapter casePortConnectionEnd(PortConnectionEnd object) {
 			return createPortConnectionEndAdapter();
 		}
-
 		public Adapter caseDataSubcomponentType(DataSubcomponentType object) {
 			return createDataSubcomponentTypeAdapter();
 		}
-
+		public Adapter caseAbstractFeatureClassifier(AbstractFeatureClassifier object) {
+			return createAbstractFeatureClassifierAdapter();
+		}
 		public Adapter caseDataPort(DataPort object) {
 			return createDataPortAdapter();
 		}
-
 		public Adapter casePort(Port object) {
 			return createPortAdapter();
 		}
-
 		public Adapter caseEventDataPort(EventDataPort object) {
 			return createEventDataPortAdapter();
 		}
-
 		public Adapter caseEventPort(EventPort object) {
 			return createEventPortAdapter();
 		}
-
 		public Adapter caseParameter(Parameter object) {
 			return createParameterAdapter();
 		}
-
 		public Adapter caseSubprogramAccess(SubprogramAccess object) {
 			return createSubprogramAccessAdapter();
 		}
-
 		public Adapter caseSubprogramSubcomponentType(SubprogramSubcomponentType object) {
 			return createSubprogramSubcomponentTypeAdapter();
 		}
-
 		public Adapter caseSubprogramGroupAccess(SubprogramGroupAccess object) {
 			return createSubprogramGroupAccessAdapter();
 		}
-
 		public Adapter caseSubprogramGroupSubcomponentType(SubprogramGroupSubcomponentType object) {
 			return createSubprogramGroupSubcomponentTypeAdapter();
 		}
-
 		public Adapter caseAbstractFeature(AbstractFeature object) {
 			return createAbstractFeatureAdapter();
 		}
-
 		public Adapter caseFeaturePrototype(FeaturePrototype object) {
 			return createFeaturePrototypeAdapter();
 		}
-
 		public Adapter caseFeatureGroupPrototype(FeatureGroupPrototype object) {
 			return createFeatureGroupPrototypeAdapter();
 		}
-
 		public Adapter caseSubcomponent(Subcomponent object) {
 			return createSubcomponentAdapter();
 		}
-
 		public Adapter caseModeBinding(ModeBinding object) {
 			return createModeBindingAdapter();
 		}
-
 		public Adapter caseFlowImplementation(FlowImplementation object) {
 			return createFlowImplementationAdapter();
 		}
-
 		public Adapter caseFlowSegment(FlowSegment object) {
 			return createFlowSegmentAdapter();
 		}
-
 		public Adapter caseConnection(Connection object) {
 			return createConnectionAdapter();
 		}
-
 		public Adapter caseConnectedElement(ConnectedElement object) {
 			return createConnectedElementAdapter();
 		}
-
 		public Adapter caseImplementationExtension(ImplementationExtension object) {
 			return createImplementationExtensionAdapter();
 		}
-
 		public Adapter caseRealization(Realization object) {
 			return createRealizationAdapter();
 		}
-
 		public Adapter caseEndToEndFlow(EndToEndFlow object) {
 			return createEndToEndFlowAdapter();
 		}
-
 		public Adapter caseEndToEndFlowSegment(EndToEndFlowSegment object) {
 			return createEndToEndFlowSegmentAdapter();
 		}
-
 		public Adapter caseAbstractSubcomponent(AbstractSubcomponent object) {
 			return createAbstractSubcomponentAdapter();
 		}
-
 		public Adapter caseAbstract(Abstract object) {
 			return createAbstractAdapter();
 		}
-
 		public Adapter caseAbstractSubcomponentType(AbstractSubcomponentType object) {
 			return createAbstractSubcomponentTypeAdapter();
 		}
-
 		public Adapter caseAccessConnection(AccessConnection object) {
 			return createAccessConnectionAdapter();
 		}
-
 		public Adapter caseParameterConnection(ParameterConnection object) {
 			return createParameterConnectionAdapter();
 		}
-
 		public Adapter casePortConnection(PortConnection object) {
 			return createPortConnectionAdapter();
 		}
-
 		public Adapter caseFeatureConnection(FeatureConnection object) {
 			return createFeatureConnectionAdapter();
 		}
-
 		public Adapter caseFeatureGroupConnection(FeatureGroupConnection object) {
 			return createFeatureGroupConnectionAdapter();
 		}
-
 		public Adapter caseProcessorFeature(ProcessorFeature object) {
 			return createProcessorFeatureAdapter();
 		}
-
 		public Adapter caseInternalFeature(InternalFeature object) {
 			return createInternalFeatureAdapter();
 		}
-
 		public Adapter caseEventSource(EventSource object) {
 			return createEventSourceAdapter();
 		}
-
 		public Adapter caseEventDataSource(EventDataSource object) {
 			return createEventDataSourceAdapter();
 		}
-
 		public Adapter caseDataClassifier(DataClassifier object) {
 			return createDataClassifierAdapter();
 		}
-
 		public Adapter caseData(Data object) {
 			return createDataAdapter();
 		}
-
 		public Adapter casePortProxy(PortProxy object) {
 			return createPortProxyAdapter();
 		}
-
 		public Adapter caseSubprogramProxy(SubprogramProxy object) {
 			return createSubprogramProxyAdapter();
 		}
-
 		public Adapter caseSubprogramClassifier(SubprogramClassifier object) {
 			return createSubprogramClassifierAdapter();
 		}
-
 		public Adapter caseSubprogram(Subprogram object) {
 			return createSubprogramAdapter();
 		}
-
 		public Adapter caseAnnexLibrary(AnnexLibrary object) {
 			return createAnnexLibraryAdapter();
 		}
-
 		public Adapter caseDefaultAnnexLibrary(DefaultAnnexLibrary object) {
 			return createDefaultAnnexLibraryAdapter();
 		}
-
 		public Adapter caseDefaultAnnexSubclause(DefaultAnnexSubclause object) {
 			return createDefaultAnnexSubclauseAdapter();
 		}
-
 		public Adapter casePublicPackageSection(PublicPackageSection object) {
 			return createPublicPackageSectionAdapter();
 		}
-
 		public Adapter casePackageSection(PackageSection object) {
 			return createPackageSectionAdapter();
 		}
-
 		public Adapter casePackageRename(PackageRename object) {
 			return createPackageRenameAdapter();
 		}
-
 		public Adapter caseAadlPackage(AadlPackage object) {
 			return createAadlPackageAdapter();
 		}
-
 		public Adapter caseModelUnit(ModelUnit object) {
 			return createModelUnitAdapter();
 		}
-
 		public Adapter casePrivatePackageSection(PrivatePackageSection object) {
 			return createPrivatePackageSectionAdapter();
 		}
-
 		public Adapter caseComponentTypeRename(ComponentTypeRename object) {
 			return createComponentTypeRenameAdapter();
 		}
-
 		public Adapter caseFeatureGroupTypeRename(FeatureGroupTypeRename object) {
 			return createFeatureGroupTypeRenameAdapter();
 		}
-
 		public Adapter caseComponentPrototypeBinding(ComponentPrototypeBinding object) {
 			return createComponentPrototypeBindingAdapter();
 		}
-
 		public Adapter caseComponentPrototypeActual(ComponentPrototypeActual object) {
 			return createComponentPrototypeActualAdapter();
 		}
-
 		public Adapter caseFeatureGroupPrototypeBinding(FeatureGroupPrototypeBinding object) {
 			return createFeatureGroupPrototypeBindingAdapter();
 		}
-
 		public Adapter caseFeatureGroupPrototypeActual(FeatureGroupPrototypeActual object) {
 			return createFeatureGroupPrototypeActualAdapter();
 		}
-
 		public Adapter caseFeaturePrototypeActual(FeaturePrototypeActual object) {
 			return createFeaturePrototypeActualAdapter();
 		}
-
 		public Adapter caseFeaturePrototypeBinding(FeaturePrototypeBinding object) {
 			return createFeaturePrototypeBindingAdapter();
 		}
-
 		public Adapter caseAccessSpecification(AccessSpecification object) {
 			return createAccessSpecificationAdapter();
 		}
-
 		public Adapter casePortSpecification(PortSpecification object) {
 			return createPortSpecificationAdapter();
 		}
-
 		public Adapter caseFeaturePrototypeReference(FeaturePrototypeReference object) {
 			return createFeaturePrototypeReferenceAdapter();
 		}
-
 		public Adapter caseSubprogramCallSequence(SubprogramCallSequence object) {
 			return createSubprogramCallSequenceAdapter();
 		}
-
 		public Adapter caseSubprogramCall(SubprogramCall object) {
 			return createSubprogramCallAdapter();
 		}
-
 		public Adapter caseBehavioredImplementation(BehavioredImplementation object) {
 			return createBehavioredImplementationAdapter();
 		}
-
 		public Adapter caseAbstractType(AbstractType object) {
 			return createAbstractTypeAdapter();
 		}
-
 		public Adapter caseAbstractClassifier(AbstractClassifier object) {
 			return createAbstractClassifierAdapter();
 		}
-
 		public Adapter caseVirtualProcessorSubcomponentType(VirtualProcessorSubcomponentType object) {
 			return createVirtualProcessorSubcomponentTypeAdapter();
 		}
-
 		public Adapter caseVirtualBusSubcomponentType(VirtualBusSubcomponentType object) {
 			return createVirtualBusSubcomponentTypeAdapter();
 		}
-
 		public Adapter caseThreadGroupSubcomponentType(ThreadGroupSubcomponentType object) {
 			return createThreadGroupSubcomponentTypeAdapter();
 		}
-
 		public Adapter caseThreadSubcomponentType(ThreadSubcomponentType object) {
 			return createThreadSubcomponentTypeAdapter();
 		}
-
 		public Adapter caseSystemSubcomponentType(SystemSubcomponentType object) {
 			return createSystemSubcomponentTypeAdapter();
 		}
-
 		public Adapter caseProcessSubcomponentType(ProcessSubcomponentType object) {
 			return createProcessSubcomponentTypeAdapter();
 		}
-
 		public Adapter caseMemorySubcomponentType(MemorySubcomponentType object) {
 			return createMemorySubcomponentTypeAdapter();
 		}
-
 		public Adapter caseDeviceSubcomponentType(DeviceSubcomponentType object) {
 			return createDeviceSubcomponentTypeAdapter();
 		}
-
 		public Adapter caseBusSubcomponentType(BusSubcomponentType object) {
 			return createBusSubcomponentTypeAdapter();
 		}
-
 		public Adapter caseProcessorSubcomponentType(ProcessorSubcomponentType object) {
 			return createProcessorSubcomponentTypeAdapter();
 		}
-
 		public Adapter caseAbstractImplementation(AbstractImplementation object) {
 			return createAbstractImplementationAdapter();
 		}
-
 		public Adapter caseBusSubcomponent(BusSubcomponent object) {
 			return createBusSubcomponentAdapter();
 		}
-
 		public Adapter caseBus(Bus object) {
 			return createBusAdapter();
 		}
-
 		public Adapter caseDataSubcomponent(DataSubcomponent object) {
 			return createDataSubcomponentAdapter();
 		}
-
 		public Adapter caseDeviceSubcomponent(DeviceSubcomponent object) {
 			return createDeviceSubcomponentAdapter();
 		}
-
 		public Adapter caseDevice(Device object) {
 			return createDeviceAdapter();
 		}
-
 		public Adapter caseMemorySubcomponent(MemorySubcomponent object) {
 			return createMemorySubcomponentAdapter();
 		}
-
 		public Adapter caseMemory(Memory object) {
 			return createMemoryAdapter();
 		}
-
 		public Adapter caseProcessSubcomponent(ProcessSubcomponent object) {
 			return createProcessSubcomponentAdapter();
 		}
-
 		public Adapter caseProcess(org.osate.aadl2.Process object) {
 			return createProcessAdapter();
 		}
-
 		public Adapter caseProcessorSubcomponent(ProcessorSubcomponent object) {
 			return createProcessorSubcomponentAdapter();
 		}
-
 		public Adapter caseProcessor(Processor object) {
 			return createProcessorAdapter();
 		}
-
 		public Adapter caseSystemSubcomponent(SystemSubcomponent object) {
 			return createSystemSubcomponentAdapter();
 		}
-
 		public Adapter caseSystem(org.osate.aadl2.System object) {
 			return createSystemAdapter();
 		}
-
 		public Adapter caseSubprogramSubcomponent(SubprogramSubcomponent object) {
 			return createSubprogramSubcomponentAdapter();
 		}
-
 		public Adapter caseSubprogramGroupSubcomponent(SubprogramGroupSubcomponent object) {
 			return createSubprogramGroupSubcomponentAdapter();
 		}
-
 		public Adapter caseSubprogramGroup(SubprogramGroup object) {
 			return createSubprogramGroupAdapter();
 		}
-
 		public Adapter caseThreadSubcomponent(ThreadSubcomponent object) {
 			return createThreadSubcomponentAdapter();
 		}
-
 		public Adapter caseThread(org.osate.aadl2.Thread object) {
 			return createThreadAdapter();
 		}
-
 		public Adapter caseThreadGroupSubcomponent(ThreadGroupSubcomponent object) {
 			return createThreadGroupSubcomponentAdapter();
 		}
-
 		public Adapter caseThreadGroup(org.osate.aadl2.ThreadGroup object) {
 			return createThreadGroupAdapter();
 		}
-
 		public Adapter caseVirtualBusSubcomponent(VirtualBusSubcomponent object) {
 			return createVirtualBusSubcomponentAdapter();
 		}
-
 		public Adapter caseVirtualBus(VirtualBus object) {
 			return createVirtualBusAdapter();
 		}
-
 		public Adapter caseVirtualProcessorSubcomponent(VirtualProcessorSubcomponent object) {
 			return createVirtualProcessorSubcomponentAdapter();
 		}
-
 		public Adapter caseVirtualProcessor(VirtualProcessor object) {
 			return createVirtualProcessorAdapter();
 		}
-
 		public Adapter caseAbstractPrototype(AbstractPrototype object) {
 			return createAbstractPrototypeAdapter();
 		}
-
 		public Adapter caseBusClassifier(BusClassifier object) {
 			return createBusClassifierAdapter();
 		}
-
 		public Adapter caseBusType(BusType object) {
 			return createBusTypeAdapter();
 		}
-
 		public Adapter caseBusImplementation(BusImplementation object) {
 			return createBusImplementationAdapter();
 		}
-
 		public Adapter caseBusPrototype(BusPrototype object) {
 			return createBusPrototypeAdapter();
 		}
-
 		public Adapter caseDataType(DataType object) {
 			return createDataTypeAdapter();
 		}
-
 		public Adapter caseDataImplementation(DataImplementation object) {
 			return createDataImplementationAdapter();
 		}
-
 		public Adapter caseDataPrototype(DataPrototype object) {
 			return createDataPrototypeAdapter();
 		}
-
 		public Adapter caseDeviceClassifier(DeviceClassifier object) {
 			return createDeviceClassifierAdapter();
 		}
-
 		public Adapter caseDeviceType(DeviceType object) {
 			return createDeviceTypeAdapter();
 		}
-
 		public Adapter caseDeviceImplementation(DeviceImplementation object) {
 			return createDeviceImplementationAdapter();
 		}
-
 		public Adapter caseDevicePrototype(DevicePrototype object) {
 			return createDevicePrototypeAdapter();
 		}
-
 		public Adapter caseMemoryClassifier(MemoryClassifier object) {
 			return createMemoryClassifierAdapter();
 		}
-
 		public Adapter caseMemoryType(MemoryType object) {
 			return createMemoryTypeAdapter();
 		}
-
 		public Adapter caseMemoryImplementation(MemoryImplementation object) {
 			return createMemoryImplementationAdapter();
 		}
-
 		public Adapter caseMemoryPrototype(MemoryPrototype object) {
 			return createMemoryPrototypeAdapter();
 		}
-
 		public Adapter caseSubprogramType(SubprogramType object) {
 			return createSubprogramTypeAdapter();
 		}
-
 		public Adapter caseSubprogramImplementation(SubprogramImplementation object) {
 			return createSubprogramImplementationAdapter();
 		}
-
 		public Adapter caseSubprogramPrototype(SubprogramPrototype object) {
 			return createSubprogramPrototypeAdapter();
 		}
-
 		public Adapter caseSubprogramGroupClassifier(SubprogramGroupClassifier object) {
 			return createSubprogramGroupClassifierAdapter();
 		}
-
 		public Adapter caseSubprogramGroupType(SubprogramGroupType object) {
 			return createSubprogramGroupTypeAdapter();
 		}
-
 		public Adapter caseSubprogramGroupImplementation(SubprogramGroupImplementation object) {
 			return createSubprogramGroupImplementationAdapter();
 		}
-
 		public Adapter caseSubprogramGroupPrototype(SubprogramGroupPrototype object) {
 			return createSubprogramGroupPrototypeAdapter();
 		}
-
 		public Adapter caseSystemClassifier(SystemClassifier object) {
 			return createSystemClassifierAdapter();
 		}
-
 		public Adapter caseSystemType(SystemType object) {
 			return createSystemTypeAdapter();
 		}
-
 		public Adapter caseSystemImplementation(SystemImplementation object) {
 			return createSystemImplementationAdapter();
 		}
-
 		public Adapter caseSystemPrototype(SystemPrototype object) {
 			return createSystemPrototypeAdapter();
 		}
-
 		public Adapter caseProcessorClassifier(ProcessorClassifier object) {
 			return createProcessorClassifierAdapter();
 		}
-
 		public Adapter caseProcessorType(ProcessorType object) {
 			return createProcessorTypeAdapter();
 		}
-
 		public Adapter caseProcessorImplementation(ProcessorImplementation object) {
 			return createProcessorImplementationAdapter();
 		}
-
 		public Adapter caseProcessorPrototype(ProcessorPrototype object) {
 			return createProcessorPrototypeAdapter();
 		}
-
 		public Adapter caseProcessClassifier(ProcessClassifier object) {
 			return createProcessClassifierAdapter();
 		}
-
 		public Adapter caseProcessType(ProcessType object) {
 			return createProcessTypeAdapter();
 		}
-
 		public Adapter caseProcessImplementation(ProcessImplementation object) {
 			return createProcessImplementationAdapter();
 		}
-
 		public Adapter caseProcessPrototype(ProcessPrototype object) {
 			return createProcessPrototypeAdapter();
 		}
-
 		public Adapter caseThreadClassifier(ThreadClassifier object) {
 			return createThreadClassifierAdapter();
 		}
-
 		public Adapter caseThreadType(ThreadType object) {
 			return createThreadTypeAdapter();
 		}
-
 		public Adapter caseThreadImplementation(ThreadImplementation object) {
 			return createThreadImplementationAdapter();
 		}
-
 		public Adapter caseThreadPrototype(ThreadPrototype object) {
 			return createThreadPrototypeAdapter();
 		}
-
 		public Adapter caseThreadGroupClassifier(ThreadGroupClassifier object) {
 			return createThreadGroupClassifierAdapter();
 		}
-
 		public Adapter caseThreadGroupType(ThreadGroupType object) {
 			return createThreadGroupTypeAdapter();
 		}
-
 		public Adapter caseThreadGroupImplementation(ThreadGroupImplementation object) {
 			return createThreadGroupImplementationAdapter();
 		}
-
 		public Adapter caseThreadGroupPrototype(ThreadGroupPrototype object) {
 			return createThreadGroupPrototypeAdapter();
 		}
-
 		public Adapter caseVirtualBusClassifier(VirtualBusClassifier object) {
 			return createVirtualBusClassifierAdapter();
 		}
-
 		public Adapter caseVirtualBusType(VirtualBusType object) {
 			return createVirtualBusTypeAdapter();
 		}
-
 		public Adapter caseVirtualBusImplementation(VirtualBusImplementation object) {
 			return createVirtualBusImplementationAdapter();
 		}
-
 		public Adapter caseVirtualBusPrototype(VirtualBusPrototype object) {
 			return createVirtualBusPrototypeAdapter();
 		}
-
 		public Adapter caseVirtualProcessorClassifier(VirtualProcessorClassifier object) {
 			return createVirtualProcessorClassifierAdapter();
 		}
-
 		public Adapter caseVirtualProcessorType(VirtualProcessorType object) {
 			return createVirtualProcessorTypeAdapter();
 		}
-
 		public Adapter caseVirtualProcessorImplementation(VirtualProcessorImplementation object) {
 			return createVirtualProcessorImplementationAdapter();
 		}
-
 		public Adapter caseVirtualProcessorPrototype(VirtualProcessorPrototype object) {
 			return createVirtualProcessorPrototypeAdapter();
 		}
-
 		public Adapter caseBasicPropertyAssociation(BasicPropertyAssociation object) {
 			return createBasicPropertyAssociationAdapter();
 		}
-
 		public Adapter casePropertyConstant(PropertyConstant object) {
 			return createPropertyConstantAdapter();
 		}
-
 		public Adapter caseStringLiteral(StringLiteral object) {
 			return createStringLiteralAdapter();
 		}
-
 		public Adapter casePropertyValue(PropertyValue object) {
 			return createPropertyValueAdapter();
 		}
-
 		public Adapter caseNumberValue(NumberValue object) {
 			return createNumberValueAdapter();
 		}
-
 		public Adapter caseUnitLiteral(UnitLiteral object) {
 			return createUnitLiteralAdapter();
 		}
-
 		public Adapter caseEnumerationLiteral(EnumerationLiteral object) {
 			return createEnumerationLiteralAdapter();
 		}
-
 		public Adapter caseClassifierValue(ClassifierValue object) {
 			return createClassifierValueAdapter();
 		}
-
 		public Adapter caseReferenceValue(ReferenceValue object) {
 			return createReferenceValueAdapter();
 		}
-
 		public Adapter caseBooleanLiteral(BooleanLiteral object) {
 			return createBooleanLiteralAdapter();
 		}
-
 		public Adapter caseRangeValue(RangeValue object) {
 			return createRangeValueAdapter();
 		}
-
 		public Adapter caseIntegerLiteral(IntegerLiteral object) {
 			return createIntegerLiteralAdapter();
 		}
-
 		public Adapter caseRealLiteral(RealLiteral object) {
 			return createRealLiteralAdapter();
 		}
-
 		public Adapter caseOperation(Operation object) {
 			return createOperationAdapter();
 		}
-
 		public Adapter caseRecordValue(RecordValue object) {
 			return createRecordValueAdapter();
 		}
-
 		public Adapter caseComputedValue(ComputedValue object) {
 			return createComputedValueAdapter();
 		}
-
 		public Adapter caseListValue(ListValue object) {
 			return createListValueAdapter();
 		}
-
 		public Adapter caseNamedValue(NamedValue object) {
 			return createNamedValueAdapter();
 		}
-
 		public Adapter casePropertySet(PropertySet object) {
 			return createPropertySetAdapter();
 		}
-
 		public Adapter caseGlobalNamespace(GlobalNamespace object) {
 			return createGlobalNamespaceAdapter();
 		}
-
 		public Adapter caseNonListType(NonListType object) {
 			return createNonListTypeAdapter();
 		}
-
 		public Adapter caseAadlBoolean(AadlBoolean object) {
 			return createAadlBooleanAdapter();
 		}
-
 		public Adapter caseAadlString(AadlString object) {
 			return createAadlStringAdapter();
 		}
-
 		public Adapter caseAadlInteger(AadlInteger object) {
 			return createAadlIntegerAdapter();
 		}
-
 		public Adapter caseNumberType(NumberType object) {
 			return createNumberTypeAdapter();
 		}
-
 		public Adapter caseUnitsType(UnitsType object) {
 			return createUnitsTypeAdapter();
 		}
-
 		public Adapter caseEnumerationType(EnumerationType object) {
 			return createEnumerationTypeAdapter();
 		}
-
 		public Adapter caseNumericRange(NumericRange object) {
 			return createNumericRangeAdapter();
 		}
-
 		public Adapter caseAadlReal(AadlReal object) {
 			return createAadlRealAdapter();
 		}
-
 		public Adapter caseClassifierType(ClassifierType object) {
 			return createClassifierTypeAdapter();
 		}
-
 		public Adapter caseRangeType(RangeType object) {
 			return createRangeTypeAdapter();
 		}
-
 		public Adapter caseRecordType(RecordType object) {
 			return createRecordTypeAdapter();
 		}
-
 		public Adapter caseRecordField(RecordField object) {
 			return createRecordFieldAdapter();
 		}
-
 		public Adapter caseReferenceType(ReferenceType object) {
 			return createReferenceTypeAdapter();
 		}
-
 		public Adapter caseListType(ListType object) {
 			return createListTypeAdapter();
 		}
-
 		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -2831,6 +2574,21 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createDataSubcomponentTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.AbstractFeatureClassifier <em>Abstract Feature Classifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * @since 3.0
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.AbstractFeatureClassifier
+	 * @generated
+	 */
+	public Adapter createAbstractFeatureClassifierAdapter() {
 		return null;
 	}
 

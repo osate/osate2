@@ -57,7 +57,6 @@ public class FlowSpecificationInstanceItemProvider extends FlowElementInstanceIt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -156,7 +155,6 @@ public class FlowSpecificationInstanceItemProvider extends FlowElementInstanceIt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object getImage(Object object) {
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSpecificationInstance")); //$NON-NLS-1$
 	}
@@ -167,7 +165,6 @@ public class FlowSpecificationInstanceItemProvider extends FlowElementInstanceIt
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public String getText(Object object) {
 		FlowSpecificationInstance flowInstance = (FlowSpecificationInstance) object;
 
@@ -195,7 +192,6 @@ public class FlowSpecificationInstanceItemProvider extends FlowElementInstanceIt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 		super.notifyChanged(notification);
