@@ -110,7 +110,7 @@ class PropertyDefinitionTest {
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
-						return Optional.of(UnitsDefinition.getValue(propertyExpression));
+						return Optional.of(UnitsDefinition.valueOf(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -121,7 +121,7 @@ class PropertyDefinitionTest {
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
-						return Optional.of(EnumDefinition.getValue(propertyExpression));
+						return Optional.of(EnumDefinition.valueOf(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -209,7 +209,7 @@ class PropertyDefinitionTest {
 					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
-						return Optional.of(Color.getValue(propertyExpression));
+						return Optional.of(Color.valueOf(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -236,7 +236,7 @@ class PropertyDefinitionTest {
 					this.originalName = originalName;
 				}
 				
-				public static UnitsDefinition getValue(PropertyExpression propertyExpression) {
+				public static UnitsDefinition valueOf(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
@@ -273,7 +273,7 @@ class PropertyDefinitionTest {
 					this.originalName = originalName;
 				}
 				
-				public static EnumDefinition getValue(PropertyExpression propertyExpression) {
+				public static EnumDefinition valueOf(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 					return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
 				}
