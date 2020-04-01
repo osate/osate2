@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
@@ -63,7 +62,6 @@ public final class BusLoadModel extends ModelElement {
 		rootBuses.add(bus);
 	}
 
-	// may not need this?
 	public Iterable<Bus> getRootBuses() {
 		return rootBuses;
 	}
@@ -83,49 +81,18 @@ public final class BusLoadModel extends ModelElement {
 		visitor.visitModelPostfix(this);
 	}
 
-	public static class PrintVisitor implements Visitor {
-		private Consumer<String> prefixWriter;
-
-		public final void setPrefixWriter(final Consumer<String> prefixWriter) {
-			this.prefixWriter = prefixWriter;
-		}
-
-		protected final void println(final String s) {
-			prefixWriter.accept(s);
-		}
-
-		@Override
-		public final void visitBusOrVirtualBusPostfix(final BusOrVirtualBus b) {
-		}
-
-		@Override
-		public final void visitBusPostfix(final Bus b) {
-		}
-
-		@Override
-		public final void visitVirtualBusPostfix(final VirtualBus vb) {
-		}
-	}
-
 	public void print(final PrintWriter pw) {
-		print(pw, new PrintVisitor());
-	}
-
-	public void print(final PrintWriter pw, final PrintVisitor pv) {
 		visit(new Visitor() {
 			private Deque<String> stack = new LinkedList<>();
 			private String prefix = "";
-
-			{
-				pv.setPrefixWriter(s -> pw.println(prefix + s));
-			}
 
 			@Override
 			public void visitConnection(final Connection c) {
 				pw.println(prefix + "Connection " + c.getConnectionInstance().getName());
 				stack.push(prefix);
 				prefix = prefix + "  ";
-				pv.visitConnection(c);
+				pw.println(prefix + "Budget = " + c.getBudget() + " KB/s");
+				pw.println(prefix + "Actual usage = " + c.getActual() + " KB/s");
 				prefix = stack.pop();
 			}
 
@@ -134,8 +101,10 @@ public final class BusLoadModel extends ModelElement {
 				pw.println(prefix + "Bus " + b.getBusInstance().getName());
 				stack.push(prefix);
 				prefix = prefix + "  ";
-
-				pv.visitBusPrefix(b);
+				pw.println(prefix + "Capacity = " + b.getCapacity() + " KB/s");
+				pw.println(prefix + "Budget = " + b.getBudget() + " KB/s");
+				pw.println(prefix + "Required budget = " + b.getTotalBudget() + " KB/s");
+				pw.println(prefix + "Actual usage = " + b.getActual() + " KB/s");
 			}
 
 			@Override
@@ -148,8 +117,10 @@ public final class BusLoadModel extends ModelElement {
 				pw.println(prefix + "Virtual Bus " + b.getBusInstance().getName());
 				stack.push(prefix);
 				prefix = prefix + "  ";
-
-				pv.visitVirtualBusPrefix(b);
+				pw.println(prefix + "Capacity = " + b.getCapacity() + " KB/s");
+				pw.println(prefix + "Budget = " + b.getBudget() + " KB/s");
+				pw.println(prefix + "Required budget = " + b.getTotalBudget() + " KB/s");
+				pw.println(prefix + "Actual usage = " + b.getActual() + " KB/s");
 			}
 
 			@Override

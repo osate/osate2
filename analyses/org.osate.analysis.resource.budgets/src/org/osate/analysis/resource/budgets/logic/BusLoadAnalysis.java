@@ -42,6 +42,7 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.analysis.resource.budgets.busload.NewBusLoadAnalysis;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.handlers.AbstractAaxlHandler;
 import org.osate.xtext.aadl2.properties.util.AadlProject;
@@ -50,7 +51,9 @@ import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 /**
  * @since 2.0
+ * @deprecated Use {@link NewBusLoadAnalysis} instead. Will be removed in 2.8.
  */
+@Deprecated
 public class BusLoadAnalysis extends AbstractLoggingAnalysis {
 	private final String actionName;
 
