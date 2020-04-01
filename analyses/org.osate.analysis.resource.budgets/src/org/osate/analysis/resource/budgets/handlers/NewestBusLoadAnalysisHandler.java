@@ -123,8 +123,8 @@ public final class NewestBusLoadAnalysisHandler extends NewAbstractAaxlHandler {
 			final AnalysisErrorReporterManager errManager) {
 		// Handle each SOM
 		analysisResult.getResults().forEach(r -> {
-			String somPostfix = Aadl2Util.isNoModes((SystemOperationMode) r.getModelElement()) ? ""
-					: (" in modes " + r.getMessage());
+			final String somName = r.getMessage();
+			final String somPostfix = somName.isEmpty() ? "" : (" in modes " + somName);
 			generateMarkersForSOM(r, errManager, somPostfix);
 		});
 	}
@@ -188,8 +188,8 @@ public final class NewestBusLoadAnalysisHandler extends NewAbstractAaxlHandler {
 	}
 
 	private static void generateCSVforSOM(final PrintWriter pw, final Result somResult) {
-		if (!Aadl2Util.isNoModes((SystemOperationMode) somResult.getModelElement())) {
-			pw.println(somResult.getMessage());
+		if (Aadl2Util.isPrintableSOMName((SystemOperationMode) somResult.getModelElement())) {
+			pw.println("Analysis results in modes " + somResult.getMessage());
 			pw.println();
 		}
 		somResult.getSubResults().forEach(busResult -> generateCSVforBus(pw, busResult, null));
@@ -213,31 +213,31 @@ public final class NewestBusLoadAnalysisHandler extends NewAbstractAaxlHandler {
 		 */
 
 		pw.println(
-				"Bound Virtual Bus/Connection, Capacity (KB/s), Budget (KB/s), Required Budget (KB/s), Actual (KB/s)");
+				"Bound Virtual Bus/Connection\tCapacity (KB/s)\tBudget (KB/s)\tRequired Budget (KB/s)\tActual (KB/s)");
 
 		final int numBus = (int) ResultUtil.getInteger(busResult, 4);
 		final List<Result> subResults = busResult.getSubResults();
 		for (final Result subResult : subResults.subList(0, numBus)) {
 			pw.print(subResult.getMessage());
-			pw.print(", ");
+			pw.print("\t");
 			pw.print(ResultUtil.getReal(subResult, 0)); // Capacity
-			pw.print(", ");
+			pw.print("\t");
 			pw.print(ResultUtil.getReal(subResult, 1)); // Budget
-			pw.print(", ");
+			pw.print("\t");
 			pw.print(ResultUtil.getReal(subResult, 2)); // Required Capacity
-			pw.print(", ");
+			pw.print("\t");
 			pw.print(ResultUtil.getReal(subResult, 3)); // Actual
 			pw.println();
 		}
 		for (final Result subResult : subResults.subList(numBus, subResults.size())) {
 			pw.print(subResult.getMessage());
-			pw.print(", ");
+			pw.print("\t");
 			// NO CAPACITY
-			pw.print(", ");
+			pw.print("\t");
 			pw.print(ResultUtil.getReal(subResult, 0)); // Budget
-			pw.print(", ");
+			pw.print("\t");
 			// NO REQUIRED CAPACITY
-			pw.print(", ");
+			pw.print("\t");
 			pw.print(ResultUtil.getReal(subResult, 1)); // Actual
 			pw.println();
 		}
