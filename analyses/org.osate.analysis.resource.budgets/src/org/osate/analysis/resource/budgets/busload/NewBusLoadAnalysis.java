@@ -27,6 +27,7 @@ import java.util.Deque;
 import java.util.LinkedList;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -51,6 +52,55 @@ import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 /**
+ * Class for performing "bus load" analysis on a system.  Basically it makes sure all the connections and buses
+ * have enough actual capacity to carry the data loads bound to them.
+ *
+ * <p>The format for the returned {@code AnalysisResult} object is as follows:
+ *
+ * <p>For the {@code AnalysisResult} object itself:
+ * <ul>
+ *   <li>analysis = "Bus Load"
+ *   <li>modelElement = {@code SystemInstance} being analyzed
+ *   <li>resultType = SUCCESS
+ *   <li>message = "Bus load analysis of ..."
+ *   <li>diagnostics = empty list
+ *   <li>parameters = empty list
+ *   <li>results = one {@code Result} for each system operation mode
+ *     <ul>
+ *       <li>modelElement = {@code SystemOperationMode} instance object
+ *       <li>resultType = SUCCESS
+ *       <li>message = "" if the SOM is {@code null} or the empty SOM, otherwise "(xxx, ..., yyy)"
+ *       <li>values = empty list
+ *       <li>diagnostics = empty list
+ *       <li>subResults = one {@code Result} for each {@code ComponentInstance} with category of {@code Bus}
+ *         <ul>
+ *           <li>modelElement = {@code ComponentInstance} instance object
+ *           <li>resultType = SUCCESS
+ *           <li>message = The component's name from {@link ComponentInstance#getName()}
+ *           <li>values[0] = The capacity of the bus in KB/s as specified by the SEI::BandwidthCapacity property (RealValue)
+ *           <li>values[1] = The budget of the bus in KB/s as specified by the SEI::BandwidthBudget property (RealValue)
+ *           <li>values[2] = The required budget of the bus in KB/s (the sum of the budgets of all the bound buses and connections) (RealValue)
+ *           <li>values[3] = The actual usage of the bus in KB/s (the sum of the actual usages of all the bound buses and connections) (RealValue)
+ *           <li>values[4] = The number of virtual buses bound to this bus (IntegerValue)
+ *           <li>values[5] = The number of connections bound to this bus (IntegerValue)
+ *           <li>diagnostics = Diagnostics associated with this bus.
+ *           <li>subResults indexes 0 through (values[4] -1) refer to {@code Result} objects for virtual buses.
+ *             <ul>
+ *               <li>subResults objects for virtual buses are the same as for buses
+ *             </ul>
+ *           <li>subResults indexes values[4] through values[4] + values[5] - 1) refer to {@code Result} objects for connections.
+ *           <li>modelElement = {@code ConnectionInstance} instance object
+ *           <li>resultType = SUCCESS
+ *           <li>message = The connection's name from {@link ConnectionInstance#geName()}
+ *           <li>values[0] = The budget of the connection in KB/s as specified by the SEI::BandwidthBudget property (RealValue)
+ *           <li>values[1] = The actual usage of the bus in KB/s as computed by the multiplying the connection's data size by the connection's message rate. This takes into
+ *                           account any messaging overhead by the bus hierarchy the connection is bound to. (RealValue)
+ *           <li>diagnostics = Diagnostics associated with this connection
+ *           <li>subResults = empty list
+ *         </ul>
+ *     </ul>
+ * </ul>
+ *
  * @since 3.0
  */
 public final class NewBusLoadAnalysis {
@@ -58,7 +108,26 @@ public final class NewBusLoadAnalysis {
 		super();
 	}
 
-	public AnalysisResult analysisBody(final IProgressMonitor monitor, final Element obj) {
+	/*
+	 * For now we just have an invoke() method that runs over all the SOMs in the model.
+	 * That is all I need for the JUnit tests.
+	 * Add more methods as they are needed rather than try to guess and just leave
+	 * a bunch of useless junky methods in there.
+	 */
+
+	/**
+	 * Analyze the given system instance, taking all the system operation modes into account.
+	 *
+	 * @param monitor The progress monitor to use, or {@code null} if one is not needed.
+	 * @param systemInstance The system instance to analyze.
+	 * @return The results in a {@code AnalysisResult} object.
+	 */
+	public AnalysisResult invoke(final IProgressMonitor monitor, final SystemInstance systemInstance) {
+		final IProgressMonitor pm = monitor == null ? new NullProgressMonitor() : monitor;
+		return analyzeBody(pm, systemInstance);
+	}
+
+	private AnalysisResult analyzeBody(final IProgressMonitor monitor, final Element obj) {
 		if (obj instanceof InstanceObject) {
 			final SystemInstance root = ((InstanceObject) obj).getSystemInstance();
 			final AnalysisResult analysisResult = ResultUtil.createAnalysisResult("Bus  Load", root);
