@@ -413,7 +413,7 @@ class PropertyDefinitionTest {
 				
 				public RecordDefinition(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					field = recordValue.getOwnedFieldValues()
+					this.field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
 							.map(field -> ((BooleanLiteral) field.getOwnedValue()).getValue())
@@ -438,14 +438,14 @@ class PropertyDefinitionTest {
 						return false;
 					}
 					RecordDefinition other = (RecordDefinition) obj;
-					return Objects.equals(field, other.field);
+					return Objects.equals(this.field, other.field);
 				}
 				
 				@Override
 				public String toString() {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
-					field.ifPresent(field -> {
+					this.field.ifPresent(field -> {
 						builder.append("field => ");
 						builder.append(field);
 						builder.append(';');

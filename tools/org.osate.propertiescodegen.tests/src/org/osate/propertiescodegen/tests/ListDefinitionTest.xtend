@@ -765,7 +765,7 @@ class ListDefinitionTest {
 				
 				public RecordOfBoolean(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					field = recordValue.getOwnedFieldValues()
+					this.field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
 							.map(field -> ((BooleanLiteral) field.getOwnedValue()).getValue())
@@ -790,14 +790,14 @@ class ListDefinitionTest {
 						return false;
 					}
 					RecordOfBoolean other = (RecordOfBoolean) obj;
-					return Objects.equals(field, other.field);
+					return Objects.equals(this.field, other.field);
 				}
 				
 				@Override
 				public String toString() {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
-					field.ifPresent(field -> {
+					this.field.ifPresent(field -> {
 						builder.append("field => ");
 						builder.append(field);
 						builder.append(';');
@@ -1011,17 +1011,17 @@ class ListDefinitionTest {
 				
 				public List1OwnedRecord(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					booleanField = recordValue.getOwnedFieldValues()
+					this.booleanField = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("boolean_field"))
 							.map(field -> ((BooleanLiteral) field.getOwnedValue()).getValue())
 							.findAny();
-					stringField = recordValue.getOwnedFieldValues()
+					this.stringField = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("string_field"))
 							.map(field -> ((StringLiteral) field.getOwnedValue()).getValue())
 							.findAny();
-					recordField = recordValue.getOwnedFieldValues()
+					this.recordField = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("record_field"))
 							.map(field -> new RecordField_FieldType(field.getOwnedValue()))
@@ -1058,26 +1058,26 @@ class ListDefinitionTest {
 						return false;
 					}
 					List1OwnedRecord other = (List1OwnedRecord) obj;
-					return Objects.equals(booleanField, other.booleanField)
-							&& Objects.equals(stringField, other.stringField)
-							&& Objects.equals(recordField, other.recordField);
+					return Objects.equals(this.booleanField, other.booleanField)
+							&& Objects.equals(this.stringField, other.stringField)
+							&& Objects.equals(this.recordField, other.recordField);
 				}
 				
 				@Override
 				public String toString() {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
-					booleanField.ifPresent(field -> {
+					this.booleanField.ifPresent(field -> {
 						builder.append("boolean_field => ");
 						builder.append(field);
 						builder.append(';');
 					});
-					stringField.ifPresent(field -> {
+					this.stringField.ifPresent(field -> {
 						builder.append("string_field => \"");
 						builder.append(field);
 						builder.append("\";");
 					});
-					recordField.ifPresent(field -> {
+					this.recordField.ifPresent(field -> {
 						builder.append("record_field => ");
 						builder.append(field);
 						builder.append(';');
@@ -1092,12 +1092,12 @@ class ListDefinitionTest {
 					
 					public RecordField_FieldType(PropertyExpression propertyExpression) {
 						RecordValue recordValue = (RecordValue) propertyExpression;
-						integerField = recordValue.getOwnedFieldValues()
+						this.integerField = recordValue.getOwnedFieldValues()
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("integer_field"))
 								.mapToLong(field -> ((IntegerLiteral) field.getOwnedValue()).getValue())
 								.findAny();
-						realField = recordValue.getOwnedFieldValues()
+						this.realField = recordValue.getOwnedFieldValues()
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("real_field"))
 								.mapToDouble(field -> ((RealLiteral) field.getOwnedValue()).getValue())
@@ -1129,20 +1129,20 @@ class ListDefinitionTest {
 							return false;
 						}
 						RecordField_FieldType other = (RecordField_FieldType) obj;
-						return Objects.equals(integerField, other.integerField)
-								&& Objects.equals(realField, other.realField);
+						return Objects.equals(this.integerField, other.integerField)
+								&& Objects.equals(this.realField, other.realField);
 					}
 					
 					@Override
 					public String toString() {
 						StringBuilder builder = new StringBuilder();
 						builder.append('[');
-						integerField.ifPresent(field -> {
+						this.integerField.ifPresent(field -> {
 							builder.append("integer_field => ");
 							builder.append(field);
 							builder.append(';');
 						});
-						realField.ifPresent(field -> {
+						this.realField.ifPresent(field -> {
 							builder.append("real_field => ");
 							builder.append(field);
 							builder.append(';');
