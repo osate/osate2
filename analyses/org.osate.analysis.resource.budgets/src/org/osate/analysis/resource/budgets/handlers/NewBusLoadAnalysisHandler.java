@@ -39,6 +39,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
@@ -97,8 +98,8 @@ public final class NewBusLoadAnalysisHandler extends NewAbstractAaxlHandler {
 			boolean cancelled = false;
 
 			try {
-				final AnalysisResult analysisResult = new NewBusLoadAnalysis().analysisBody(subMonitor.split(1),
-						AadlUtil.getElement(aaxlFile));
+				final AnalysisResult analysisResult = new NewBusLoadAnalysis().invoke(subMonitor.split(1),
+						(SystemInstance) AadlUtil.getElement(aaxlFile));
 				if (subMonitor.isCanceled()) {
 					throw new OperationCanceledException();
 				}
