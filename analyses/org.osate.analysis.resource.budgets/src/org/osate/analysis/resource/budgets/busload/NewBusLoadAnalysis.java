@@ -23,7 +23,6 @@
  */
 package org.osate.analysis.resource.budgets.busload;
 
-import java.io.PrintWriter;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -40,7 +39,6 @@ import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.analysis.resource.budgets.busload.model.Bus;
 import org.osate.analysis.resource.budgets.busload.model.BusLoadModel;
-import org.osate.analysis.resource.budgets.busload.model.BusLoadModel.PrintVisitor;
 import org.osate.analysis.resource.budgets.busload.model.BusOrVirtualBus;
 import org.osate.analysis.resource.budgets.busload.model.Connection;
 import org.osate.analysis.resource.budgets.busload.model.Visitor;
@@ -59,9 +57,6 @@ public final class NewBusLoadAnalysis {
 
 	public AnalysisResult analysisBody(final IProgressMonitor monitor, final Element obj) {
 		if (obj instanceof InstanceObject) {
-			final PrintWriter pw = new PrintWriter(System.out, true);
-			monitor.beginTask("", IProgressMonitor.UNKNOWN);
-
 			final SystemInstance root = ((InstanceObject) obj).getSystemInstance();
 			final AnalysisResult analysisResult = ResultUtil.createAnalysisResult("Bus  Load", root);
 			analysisResult.setResultType(ResultType.SUCCESS);
@@ -78,28 +73,6 @@ public final class NewBusLoadAnalysis {
 
 				// Analyze the model
 				model.visit(new BusLoadAnalysisVisitor(somResult));
-
-				pw.println("Model for system operation mode " + som);
-				pw.println();
-				final PrintVisitor pv = new PrintVisitor() {
-					@Override
-					public void visitBusOrVirtualBusPrefix(final BusOrVirtualBus b) {
-						println("Capacity = " + b.getCapacity() + " KB/s");
-						println("Budget = " + b.getBudget() + " KB/s");
-						println("Required budget = " + b.getTotalBudget() + " KB/s");
-						println("Actual usage = " + b.getActual() + " KB/s");
-					}
-
-					@Override
-					public void visitConnection(final Connection c) {
-						println("Budget = " + c.getBudget() + " KB/s");
-						println("Actual usage = " + c.getActual() + " KB/s");
-					}
-				};
-				model.print(pw, pv);
-				pw.println();
-				pw.println("===============================================");
-				pw.println();
 			}
 			monitor.done();
 
@@ -108,7 +81,6 @@ public final class NewBusLoadAnalysis {
 			Dialog.showError("Bound Bus Bandwidth Analysis Error", "Can only check system instances");
 			return null;
 		}
-
 	}
 
 	// ==== Analysis Visitor ====
@@ -264,11 +236,9 @@ public final class NewBusLoadAnalysis {
 
 	private static void error(final Result result, final InstanceObject io, final String msg) {
 		result.getDiagnostics().add(ResultUtil.createDiagnostic(msg, io, DiagnosticType.ERROR));
-		System.out.println("ERROR: " + msg);
 	}
 
 	private static void warning(final Result result, final InstanceObject io, final String msg) {
 		result.getDiagnostics().add(ResultUtil.createDiagnostic(msg, io, DiagnosticType.WARNING));
-		System.out.println("WARNING: " + msg);
 	}
 }

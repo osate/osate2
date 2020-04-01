@@ -42,6 +42,7 @@ public abstract class BusOrVirtualBus extends AnalysisElement {
 		this.totalBudget = totalBudget;
 	}
 
+	// Non-public, only used for building the model
 	void addBoundBus(final VirtualBus virtualBus) {
 		boundBuses.add(virtualBus);
 	}
@@ -50,6 +51,7 @@ public abstract class BusOrVirtualBus extends AnalysisElement {
 		return boundBuses;
 	}
 
+	// Non-public, only used for building the model
 	Connection addBoundConnection(final ConnectionInstance connection) {
 		final Connection theConnection = new Connection(connection);
 		boundConnections.add(theConnection);
