@@ -51,6 +51,9 @@ import org.osate.result.Diagnostic;
 import org.osate.result.Result;
 import org.osate.result.util.ResultUtil;
 
+/**
+ * @since 3.0
+ */
 public final class NewBusLoadAnalysisHandler extends NewAbstractAaxlHandler {
 	private static final String MARKER_TYPE = "org.osate.analysis.resource.budgets.BusLoadAnalysisMarker";
 	private static final String REPORT_SUB_DIR = "BusLoad";

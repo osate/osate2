@@ -1,5 +1,8 @@
 package org.osate.analysis.resource.budgets.busload.model;
 
+/**
+ * @since 3.0
+ */
 public interface Visitor {
 	public default void visitModelPrefix(BusLoadModel model) {
 	}
