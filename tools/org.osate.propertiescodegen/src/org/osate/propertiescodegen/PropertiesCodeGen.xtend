@@ -3,7 +3,6 @@ package org.osate.propertiescodegen
 import java.util.ArrayList
 import java.util.List
 import java.util.Set
-import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
 import org.osate.aadl2.AadlBoolean
 import org.osate.aadl2.AadlInteger
@@ -111,16 +110,10 @@ class PropertiesCodeGen {
 	
 	def private String generatePropertyGetter(Property property) {
 		val type = property.propertyType
-		val camelName = property.name.toCamelCase
 		val optionalType = switch type {
 			AadlInteger case type.unitsType === null: "OptionalLong"
 			AadlReal case type.unitsType === null: "OptionalDouble"
 			default: "Optional"
-		}
-		val otherJavaClass = if (property.referencedPropertyType !== null) {
-			property.referencedPropertyType.name.toCamelCase
-		} else {
-			camelName
 		}
 		
 		imports += #{
@@ -153,28 +146,13 @@ class PropertiesCodeGen {
 			}
 		}
 		
-		val valueExtractor = switch type {
-			ListType: '''
-				((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-					«getListValueExtractor(type, type.elementType, "element1", 2, camelName)»
-				}).collect(Collectors.toList())'''
-			AadlBoolean: "((BooleanLiteral) propertyExpression).getValue()"
-			AadlString: "((StringLiteral) propertyExpression).getValue()"
-			ClassifierType: "((ClassifierValue) propertyExpression).getClassifier()"
-			EnumerationType: otherJavaClass + ".valueOf(propertyExpression)"
-			AadlInteger case type.unitsType === null: "((IntegerLiteral) propertyExpression).getValue()"
-			AadlReal case type.unitsType === null: "((RealLiteral) propertyExpression).getValue()"
-			ReferenceType: "((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject()"
-			default: '''new «otherJavaClass»(propertyExpression)'''
-		}
-		
 		'''
-			public static «getOptionalType(property, type, camelName)» get«camelName»(InstanceObject instanceObject) {
+			public static «getOptionalType(type)» get«property.name.toCamelCase»(InstanceObject instanceObject) {
 				String name = "«propertySet.name»::«property.name»";
 				Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
 				try {
 					PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
-					return «optionalType».of(«valueExtractor»);
+					return «optionalType».of(«getValueExtractor(type, "propertyExpression", 1)»);
 				} catch (PropertyNotPresentException e) {
 					return «optionalType».empty();
 				}
@@ -182,11 +160,50 @@ class PropertiesCodeGen {
 		'''
 	}
 	
-	def private static getOptionalType(EObject topObject, PropertyType type, String ownedTypeName) {
+	def private static getOptionalType(PropertyType type) {
 		switch type {
 			AadlInteger case type.unitsType === null: "OptionalLong"
 			AadlReal case type.unitsType === null: "OptionalDouble"
-			default: '''Optional<«getGenericType(topObject, type, ownedTypeName)»>'''
+			default: '''Optional<«getJavaName(type)»>'''
+		}
+	}
+	
+	def private static String getJavaName(PropertyType type) {
+		switch type {
+			ListType: '''List<«getJavaName(type.elementType)»>'''
+			AadlBoolean: "Boolean"
+			AadlString: "String"
+			ClassifierType: "Classifier"
+			AadlInteger case type.unitsType === null: "Long"
+			AadlReal case type.unitsType === null: "Double"
+			ReferenceType: "InstanceObject"
+			case type.name !== null: type.name.toCamelCase
+			default: {
+				switch basicProperty : type.getContainerOfType(BasicProperty) {
+					Property: basicProperty.name.toCamelCase
+					default: basicProperty.name.toCamelCase + "_FieldType"
+				}
+			}
+		}
+	}
+	
+	def private static String getValueExtractor(PropertyType type, String parameterName, int listDepth) {
+		switch type {
+			ListType: {
+				val nextParameterName = "element" + listDepth
+				'''
+					((ListValue) «parameterName»).getOwnedListElements().stream().map(«nextParameterName» -> {
+						return «getValueExtractor(type.elementType, nextParameterName, listDepth + 1)»;
+					}).collect(Collectors.toList())'''
+			}
+			AadlBoolean: '''((BooleanLiteral) «parameterName»).getValue()'''
+			AadlString: '''((StringLiteral) «parameterName»).getValue()'''
+			ClassifierType: '''((ClassifierValue) «parameterName»).getClassifier()'''
+			EnumerationType: '''«getJavaName(type)».valueOf(«parameterName»)'''
+			AadlInteger case type.unitsType === null: '''((IntegerLiteral) «parameterName»).getValue()'''
+			AadlReal case type.unitsType === null: '''((RealLiteral) «parameterName»).getValue()'''
+			ReferenceType: '''((InstanceReferenceValue) «parameterName»).getReferencedInstanceObject()'''
+			default: '''new «getJavaName(type)»(«parameterName»)'''
 		}
 	}
 	
@@ -226,47 +243,6 @@ class PropertiesCodeGen {
 			«generatedJavaType»
 		'''
 		new GeneratedJava(typeName + ".java", contents)
-	}
-	
-	def private static String getGenericType(EObject topObject, PropertyType type, String ownedTypeName) {
-		switch type {
-			ListType: '''List<«getGenericType(topObject, type.elementType, ownedTypeName)»>'''
-			AadlBoolean: "Boolean"
-			AadlString: "String"
-			ClassifierType: "Classifier"
-			AadlInteger case type.unitsType === null: "Long"
-			AadlReal case type.unitsType === null: "Double"
-			ReferenceType: "InstanceObject"
-			case topObject.isAncestor(type): ownedTypeName
-			default: type.name.toCamelCase
-		}
-	}
-	
-	def private static String getListValueExtractor(
-		ListType topListType,
-		PropertyType type,
-		String parameterName,
-		int listDepth,
-		String ownedTypeName
-	) {
-		switch type {
-			ListType: {
-				val nextParameterName = "element" + listDepth
-				'''
-					return ((ListValue) «parameterName»).getOwnedListElements().stream().map(«nextParameterName» -> {
-						«getListValueExtractor(topListType, type.elementType, nextParameterName, listDepth + 1, ownedTypeName)»
-					}).collect(Collectors.toList());
-				'''
-			}
-			AadlBoolean: '''return ((BooleanLiteral) «parameterName»).getValue();'''
-			AadlString: '''return ((StringLiteral) «parameterName»).getValue();'''
-			ClassifierType: '''return ((ClassifierValue) «parameterName»).getClassifier();'''
-			EnumerationType: '''return «IF topListType.isAncestor(type)»«ownedTypeName»«ELSE»«type.name.toCamelCase»«ENDIF».valueOf(«parameterName»);'''
-			AadlInteger case type.unitsType === null: '''return ((IntegerLiteral) «parameterName»).getValue();'''
-			AadlReal case type.unitsType === null: '''return ((RealLiteral) «parameterName»).getValue();'''
-			ReferenceType: '''return ((InstanceReferenceValue) «parameterName»).getReferencedInstanceObject();'''
-			default: '''return new «IF topListType.isAncestor(type)»«ownedTypeName»«ELSE»«type.name.toCamelCase»«ENDIF»(«parameterName»);'''
-		}
 	}
 	
 	def private String generateEnumeration(String typeName, EnumerationType enumType) {
@@ -574,8 +550,7 @@ class PropertiesCodeGen {
 		'''
 			public«IF !topLevel» static«ENDIF» class «typeName» {
 				«FOR field : recordType.ownedFields»
-				«val fieldType = getOptionalType(field, field.propertyType, field.name.toCamelCase + "_FieldType")»
-				private final «fieldType» «field.name.toCamelCase.toFirstLower»;
+				private final «getOptionalType(field.propertyType)» «field.name.toCamelCase.toFirstLower»;
 				«ENDFOR»
 				
 				public «typeName»(PropertyExpression propertyExpression) {
@@ -590,8 +565,7 @@ class PropertiesCodeGen {
 				}
 				«FOR field : recordType.ownedFields»
 				
-				«val fieldType = getOptionalType(field, field.propertyType, field.name.toCamelCase + "_FieldType")»
-				public «fieldType» get«field.name.toCamelCase»() {
+				public «getOptionalType(field.propertyType)» get«field.name.toCamelCase»() {
 					return «field.name.toCamelCase.toFirstLower»;
 				}
 				«ENDFOR»
@@ -672,20 +646,12 @@ class PropertiesCodeGen {
 		switch propertyType : field.propertyType {
 			ListType: '''
 				.map(field -> {
-					return ((ListValue) field.getOwnedValue()).getOwnedListElements().stream().map(element1 -> {
-						«getListValueExtractor(propertyType, propertyType.elementType, "element1", 2, field.name.toCamelCase + "_FieldType")»
-					}).collect(Collectors.toList());
+					return «getValueExtractor(propertyType, "field.getOwnedValue()", 1)»;
 				})
 			'''
-			AadlBoolean: ".map(field -> ((BooleanLiteral) field.getOwnedValue()).getValue())"
-			AadlString: ".map(field -> ((StringLiteral) field.getOwnedValue()).getValue())"
-			ClassifierType: ".map(field -> ((ClassifierValue) field.getOwnedValue()).getClassifier())"
-			EnumerationType case field.ownedPropertyType !== null: '''.map(field -> «field.name.toCamelCase»_FieldType.valueOf(field.getOwnedValue()))'''
-			EnumerationType case field.referencedPropertyType !== null: '''.map(field -> «propertyType.name.toCamelCase».valueOf(field.getOwnedValue()))'''
 			AadlInteger case propertyType.unitsType === null: ".mapToLong(field -> ((IntegerLiteral) field.getOwnedValue()).getValue())"
 			AadlReal case propertyType.unitsType === null: ".mapToDouble(field -> ((RealLiteral) field.getOwnedValue()).getValue())"
-			ReferenceType: ".map(field -> ((InstanceReferenceValue) field.getOwnedValue()).getReferencedInstanceObject())"
-			default: '''.map(field -> new «IF field.ownedPropertyType !== null»«field.name.toCamelCase»_FieldType«ELSE»«propertyType.name.toCamelCase»«ENDIF»(field.getOwnedValue()))'''
+			default: '''.map(field -> «getValueExtractor(propertyType, "field.getOwnedValue()", 0)»)'''
 		}
 	}
 	
