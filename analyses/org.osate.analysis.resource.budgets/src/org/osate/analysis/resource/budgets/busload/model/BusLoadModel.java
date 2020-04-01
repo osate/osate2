@@ -20,6 +20,9 @@ import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
+/**
+ * @since 3.0
+ */
 public final class BusLoadModel extends ModelElement {
 	private final Map<ComponentInstance, Bus> buses = new HashMap<>();
 	private final Map<ComponentInstance, VirtualBus> virtualBuses = new HashMap<>();

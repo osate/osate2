@@ -2,6 +2,9 @@ package org.osate.analysis.resource.budgets.busload.model;
 
 import java.util.List;
 
+/**
+ * @since 3.0
+ */
 abstract class ModelElement {
 	public final void visit(final Visitor visitor) {
 		visitSelfPrefix(visitor);

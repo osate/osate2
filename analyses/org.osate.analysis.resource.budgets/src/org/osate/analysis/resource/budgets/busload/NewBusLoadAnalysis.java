@@ -50,6 +50,9 @@ import org.osate.result.util.ResultUtil;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
+/**
+ * @since 3.0
+ */
 public final class NewBusLoadAnalysis {
 	public NewBusLoadAnalysis() {
 		super();

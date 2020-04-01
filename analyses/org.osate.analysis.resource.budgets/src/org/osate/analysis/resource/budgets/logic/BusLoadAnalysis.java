@@ -291,7 +291,7 @@ public class BusLoadAnalysis extends AbstractLoggingAnalysis {
 	}
 
 	/**
-	 * @since 2.1
+	 * @since 3.0
 	 */
 	protected void detailedLog(InstanceObject obj, double budget, String msg) {
 		String budgetmsg = budget + " " + AadlProject.KBYTESPS_LITERAL + ",";

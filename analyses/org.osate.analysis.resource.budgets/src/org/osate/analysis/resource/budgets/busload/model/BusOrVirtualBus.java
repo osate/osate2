@@ -6,6 +6,9 @@ import java.util.List;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 
+/**
+ * @since 3.0
+ */
 public abstract class BusOrVirtualBus extends AnalysisElement {
 	private final ComponentInstance busInstance;
 	private final List<VirtualBus> boundBuses = new ArrayList<>();

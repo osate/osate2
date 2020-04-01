@@ -77,6 +77,7 @@ import org.osate.workspace.WorkspacePlugin;
  *
  * @author aarong
  *
+ * @since 3.0
  */
 abstract class NewAbstractAaxlHandler extends AbstractHandler {
 	private static final String REPORTS_DIR = "/reports";
