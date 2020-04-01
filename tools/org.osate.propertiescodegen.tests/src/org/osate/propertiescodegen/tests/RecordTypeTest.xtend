@@ -424,152 +424,152 @@ class RecordTypeTest {
 				
 				public RecordType1(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					ownedBoolean = recordValue.getOwnedFieldValues()
+					this.ownedBoolean = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_boolean"))
 							.map(field -> ((BooleanLiteral) field.getOwnedValue()).getValue())
 							.findAny();
-					ownedString = recordValue.getOwnedFieldValues()
+					this.ownedString = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_string"))
 							.map(field -> ((StringLiteral) field.getOwnedValue()).getValue())
 							.findAny();
-					ownedClassifier = recordValue.getOwnedFieldValues()
+					this.ownedClassifier = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_classifier"))
 							.map(field -> ((ClassifierValue) field.getOwnedValue()).getClassifier())
 							.findAny();
-					ownedEnumeration = recordValue.getOwnedFieldValues()
+					this.ownedEnumeration = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_enumeration"))
 							.map(field -> OwnedEnumeration_FieldType.valueOf(field.getOwnedValue()))
 							.findAny();
-					ownedUnits = recordValue.getOwnedFieldValues()
+					this.ownedUnits = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_units"))
 							.map(field -> OwnedUnits_FieldType.valueOf(field.getOwnedValue()))
 							.findAny();
-					ownedIntegerNoUnits = recordValue.getOwnedFieldValues()
+					this.ownedIntegerNoUnits = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_integer_no_units"))
 							.mapToLong(field -> ((IntegerLiteral) field.getOwnedValue()).getValue())
 							.findAny();
-					ownedRealNoUnits = recordValue.getOwnedFieldValues()
+					this.ownedRealNoUnits = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_real_no_units"))
 							.mapToDouble(field -> ((RealLiteral) field.getOwnedValue()).getValue())
 							.findAny();
-					ownedNumberWithUnitsNoImport = recordValue.getOwnedFieldValues()
+					this.ownedNumberWithUnitsNoImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_number_with_units_no_import"))
 							.map(field -> new OwnedNumberWithUnitsNoImport_FieldType(field.getOwnedValue()))
 							.findAny();
-					ownedNumberWithUnitsWithImport = recordValue.getOwnedFieldValues()
+					this.ownedNumberWithUnitsWithImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_number_with_units_with_import"))
 							.map(field -> new OwnedNumberWithUnitsWithImport_FieldType(field.getOwnedValue()))
 							.findAny();
-					ownedRangeNoImport = recordValue.getOwnedFieldValues()
+					this.ownedRangeNoImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_range_no_import"))
 							.map(field -> new OwnedRangeNoImport_FieldType(field.getOwnedValue()))
 							.findAny();
-					ownedRangeImportNumber = recordValue.getOwnedFieldValues()
+					this.ownedRangeImportNumber = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_range_import_number"))
 							.map(field -> new OwnedRangeImportNumber_FieldType(field.getOwnedValue()))
 							.findAny();
-					ownedRangeImportUnits = recordValue.getOwnedFieldValues()
+					this.ownedRangeImportUnits = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_range_import_units"))
 							.map(field -> new OwnedRangeImportUnits_FieldType(field.getOwnedValue()))
 							.findAny();
-					ownedRecord = recordValue.getOwnedFieldValues()
+					this.ownedRecord = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_record"))
 							.map(field -> new OwnedRecord_FieldType(field.getOwnedValue()))
 							.findAny();
-					ownedReference = recordValue.getOwnedFieldValues()
+					this.ownedReference = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_reference"))
 							.map(field -> ((InstanceReferenceValue) field.getOwnedValue()).getReferencedInstanceObject())
 							.findAny();
-					referencedBoolean = recordValue.getOwnedFieldValues()
+					this.referencedBoolean = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_boolean"))
 							.map(field -> ((BooleanLiteral) field.getOwnedValue()).getValue())
 							.findAny();
-					referencedString = recordValue.getOwnedFieldValues()
+					this.referencedString = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_string"))
 							.map(field -> ((StringLiteral) field.getOwnedValue()).getValue())
 							.findAny();
-					referencedClassifier = recordValue.getOwnedFieldValues()
+					this.referencedClassifier = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_classifier"))
 							.map(field -> ((ClassifierValue) field.getOwnedValue()).getClassifier())
 							.findAny();
-					referencedEnumerationNoImport = recordValue.getOwnedFieldValues()
+					this.referencedEnumerationNoImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_enumeration_no_import"))
 							.map(field -> EnumType1.valueOf(field.getOwnedValue()))
 							.findAny();
-					referencedEnumerationWithImport = recordValue.getOwnedFieldValues()
+					this.referencedEnumerationWithImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_enumeration_with_import"))
 							.map(field -> Color.valueOf(field.getOwnedValue()))
 							.findAny();
-					referencedUnitsNoImport = recordValue.getOwnedFieldValues()
+					this.referencedUnitsNoImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_units_no_import"))
 							.map(field -> Time.valueOf(field.getOwnedValue()))
 							.findAny();
-					referencedUnitsWithImport = recordValue.getOwnedFieldValues()
+					this.referencedUnitsWithImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_units_with_import"))
 							.map(field -> Mass.valueOf(field.getOwnedValue()))
 							.findAny();
-					referencedIntegerNoUnits = recordValue.getOwnedFieldValues()
+					this.referencedIntegerNoUnits = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_integer_no_units"))
 							.mapToLong(field -> ((IntegerLiteral) field.getOwnedValue()).getValue())
 							.findAny();
-					referencedRealNoUnits = recordValue.getOwnedFieldValues()
+					this.referencedRealNoUnits = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_real_no_units"))
 							.mapToDouble(field -> ((RealLiteral) field.getOwnedValue()).getValue())
 							.findAny();
-					referencedNumberWithUnitsNoImport = recordValue.getOwnedFieldValues()
+					this.referencedNumberWithUnitsNoImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_number_with_units_no_import"))
 							.map(field -> new IntegerOwnedUnits(field.getOwnedValue()))
 							.findAny();
-					referencedNumberWithUnitsWithImport = recordValue.getOwnedFieldValues()
+					this.referencedNumberWithUnitsWithImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_number_with_units_with_import"))
 							.map(field -> new MassType(field.getOwnedValue()))
 							.findAny();
-					referencedRangeNoImport = recordValue.getOwnedFieldValues()
+					this.referencedRangeNoImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_range_no_import"))
 							.map(field -> new RangeOfIntegerNoUnits(field.getOwnedValue()))
 							.findAny();
-					referencedRangeWithImport = recordValue.getOwnedFieldValues()
+					this.referencedRangeWithImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_range_with_import"))
 							.map(field -> new BasicRange(field.getOwnedValue()))
 							.findAny();
-					referencedRecordNoImport = recordValue.getOwnedFieldValues()
+					this.referencedRecordNoImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_record_no_import"))
 							.map(field -> new RecordOfBoolean(field.getOwnedValue()))
 							.findAny();
-					referencedRecordWithImport = recordValue.getOwnedFieldValues()
+					this.referencedRecordWithImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_record_with_import"))
 							.map(field -> new BasicRecord(field.getOwnedValue()))
 							.findAny();
-					referencedReference = recordValue.getOwnedFieldValues()
+					this.referencedReference = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_reference"))
 							.map(field -> ((InstanceReferenceValue) field.getOwnedValue()).getReferencedInstanceObject())
@@ -741,188 +741,188 @@ class RecordTypeTest {
 						return false;
 					}
 					RecordType1 other = (RecordType1) obj;
-					return Objects.equals(ownedBoolean, other.ownedBoolean)
-							&& Objects.equals(ownedString, other.ownedString)
-							&& Objects.equals(ownedClassifier, other.ownedClassifier)
-							&& Objects.equals(ownedEnumeration, other.ownedEnumeration)
-							&& Objects.equals(ownedUnits, other.ownedUnits)
-							&& Objects.equals(ownedIntegerNoUnits, other.ownedIntegerNoUnits)
-							&& Objects.equals(ownedRealNoUnits, other.ownedRealNoUnits)
-							&& Objects.equals(ownedNumberWithUnitsNoImport, other.ownedNumberWithUnitsNoImport)
-							&& Objects.equals(ownedNumberWithUnitsWithImport, other.ownedNumberWithUnitsWithImport)
-							&& Objects.equals(ownedRangeNoImport, other.ownedRangeNoImport)
-							&& Objects.equals(ownedRangeImportNumber, other.ownedRangeImportNumber)
-							&& Objects.equals(ownedRangeImportUnits, other.ownedRangeImportUnits)
-							&& Objects.equals(ownedRecord, other.ownedRecord)
-							&& Objects.equals(ownedReference, other.ownedReference)
-							&& Objects.equals(referencedBoolean, other.referencedBoolean)
-							&& Objects.equals(referencedString, other.referencedString)
-							&& Objects.equals(referencedClassifier, other.referencedClassifier)
-							&& Objects.equals(referencedEnumerationNoImport, other.referencedEnumerationNoImport)
-							&& Objects.equals(referencedEnumerationWithImport, other.referencedEnumerationWithImport)
-							&& Objects.equals(referencedUnitsNoImport, other.referencedUnitsNoImport)
-							&& Objects.equals(referencedUnitsWithImport, other.referencedUnitsWithImport)
-							&& Objects.equals(referencedIntegerNoUnits, other.referencedIntegerNoUnits)
-							&& Objects.equals(referencedRealNoUnits, other.referencedRealNoUnits)
-							&& Objects.equals(referencedNumberWithUnitsNoImport, other.referencedNumberWithUnitsNoImport)
-							&& Objects.equals(referencedNumberWithUnitsWithImport, other.referencedNumberWithUnitsWithImport)
-							&& Objects.equals(referencedRangeNoImport, other.referencedRangeNoImport)
-							&& Objects.equals(referencedRangeWithImport, other.referencedRangeWithImport)
-							&& Objects.equals(referencedRecordNoImport, other.referencedRecordNoImport)
-							&& Objects.equals(referencedRecordWithImport, other.referencedRecordWithImport)
-							&& Objects.equals(referencedReference, other.referencedReference);
+					return Objects.equals(this.ownedBoolean, other.ownedBoolean)
+							&& Objects.equals(this.ownedString, other.ownedString)
+							&& Objects.equals(this.ownedClassifier, other.ownedClassifier)
+							&& Objects.equals(this.ownedEnumeration, other.ownedEnumeration)
+							&& Objects.equals(this.ownedUnits, other.ownedUnits)
+							&& Objects.equals(this.ownedIntegerNoUnits, other.ownedIntegerNoUnits)
+							&& Objects.equals(this.ownedRealNoUnits, other.ownedRealNoUnits)
+							&& Objects.equals(this.ownedNumberWithUnitsNoImport, other.ownedNumberWithUnitsNoImport)
+							&& Objects.equals(this.ownedNumberWithUnitsWithImport, other.ownedNumberWithUnitsWithImport)
+							&& Objects.equals(this.ownedRangeNoImport, other.ownedRangeNoImport)
+							&& Objects.equals(this.ownedRangeImportNumber, other.ownedRangeImportNumber)
+							&& Objects.equals(this.ownedRangeImportUnits, other.ownedRangeImportUnits)
+							&& Objects.equals(this.ownedRecord, other.ownedRecord)
+							&& Objects.equals(this.ownedReference, other.ownedReference)
+							&& Objects.equals(this.referencedBoolean, other.referencedBoolean)
+							&& Objects.equals(this.referencedString, other.referencedString)
+							&& Objects.equals(this.referencedClassifier, other.referencedClassifier)
+							&& Objects.equals(this.referencedEnumerationNoImport, other.referencedEnumerationNoImport)
+							&& Objects.equals(this.referencedEnumerationWithImport, other.referencedEnumerationWithImport)
+							&& Objects.equals(this.referencedUnitsNoImport, other.referencedUnitsNoImport)
+							&& Objects.equals(this.referencedUnitsWithImport, other.referencedUnitsWithImport)
+							&& Objects.equals(this.referencedIntegerNoUnits, other.referencedIntegerNoUnits)
+							&& Objects.equals(this.referencedRealNoUnits, other.referencedRealNoUnits)
+							&& Objects.equals(this.referencedNumberWithUnitsNoImport, other.referencedNumberWithUnitsNoImport)
+							&& Objects.equals(this.referencedNumberWithUnitsWithImport, other.referencedNumberWithUnitsWithImport)
+							&& Objects.equals(this.referencedRangeNoImport, other.referencedRangeNoImport)
+							&& Objects.equals(this.referencedRangeWithImport, other.referencedRangeWithImport)
+							&& Objects.equals(this.referencedRecordNoImport, other.referencedRecordNoImport)
+							&& Objects.equals(this.referencedRecordWithImport, other.referencedRecordWithImport)
+							&& Objects.equals(this.referencedReference, other.referencedReference);
 				}
 				
 				@Override
 				public String toString() {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
-					ownedBoolean.ifPresent(field -> {
+					this.ownedBoolean.ifPresent(field -> {
 						builder.append("owned_boolean => ");
 						builder.append(field);
 						builder.append(';');
 					});
-					ownedString.ifPresent(field -> {
+					this.ownedString.ifPresent(field -> {
 						builder.append("owned_string => \"");
 						builder.append(field);
 						builder.append("\";");
 					});
-					ownedClassifier.ifPresent(field -> {
+					this.ownedClassifier.ifPresent(field -> {
 						builder.append("owned_classifier => classifier (");
 						builder.append(field.getQualifiedName());
 						builder.append(");");
 					});
-					ownedEnumeration.ifPresent(field -> {
+					this.ownedEnumeration.ifPresent(field -> {
 						builder.append("owned_enumeration => ");
 						builder.append(field);
 						builder.append(';');
 					});
-					ownedUnits.ifPresent(field -> {
+					this.ownedUnits.ifPresent(field -> {
 						builder.append("owned_units => ");
 						builder.append(field);
 						builder.append(';');
 					});
-					ownedIntegerNoUnits.ifPresent(field -> {
+					this.ownedIntegerNoUnits.ifPresent(field -> {
 						builder.append("owned_integer_no_units => ");
 						builder.append(field);
 						builder.append(';');
 					});
-					ownedRealNoUnits.ifPresent(field -> {
+					this.ownedRealNoUnits.ifPresent(field -> {
 						builder.append("owned_real_no_units => ");
 						builder.append(field);
 						builder.append(';');
 					});
-					ownedNumberWithUnitsNoImport.ifPresent(field -> {
+					this.ownedNumberWithUnitsNoImport.ifPresent(field -> {
 						builder.append("owned_number_with_units_no_import => ");
 						builder.append(field);
 						builder.append(';');
 					});
-					ownedNumberWithUnitsWithImport.ifPresent(field -> {
+					this.ownedNumberWithUnitsWithImport.ifPresent(field -> {
 						builder.append("owned_number_with_units_with_import => ");
 						builder.append(field);
 						builder.append(';');
 					});
-					ownedRangeNoImport.ifPresent(field -> {
+					this.ownedRangeNoImport.ifPresent(field -> {
 						builder.append("owned_range_no_import => ");
 						builder.append(field);
 						builder.append(';');
 					});
-					ownedRangeImportNumber.ifPresent(field -> {
+					this.ownedRangeImportNumber.ifPresent(field -> {
 						builder.append("owned_range_import_number => ");
 						builder.append(field);
 						builder.append(';');
 					});
-					ownedRangeImportUnits.ifPresent(field -> {
+					this.ownedRangeImportUnits.ifPresent(field -> {
 						builder.append("owned_range_import_units => ");
 						builder.append(field);
 						builder.append(';');
 					});
-					ownedRecord.ifPresent(field -> {
+					this.ownedRecord.ifPresent(field -> {
 						builder.append("owned_record => ");
 						builder.append(field);
 						builder.append(';');
 					});
-					ownedReference.ifPresent(field -> {
+					this.ownedReference.ifPresent(field -> {
 						builder.append("owned_reference => reference (");
 						builder.append(field.getName());
 						builder.append(");");
 					});
-					referencedBoolean.ifPresent(field -> {
+					this.referencedBoolean.ifPresent(field -> {
 						builder.append("referenced_boolean => ");
 						builder.append(field);
 						builder.append(';');
 					});
-					referencedString.ifPresent(field -> {
+					this.referencedString.ifPresent(field -> {
 						builder.append("referenced_string => \"");
 						builder.append(field);
 						builder.append("\";");
 					});
-					referencedClassifier.ifPresent(field -> {
+					this.referencedClassifier.ifPresent(field -> {
 						builder.append("referenced_classifier => classifier (");
 						builder.append(field.getQualifiedName());
 						builder.append(");");
 					});
-					referencedEnumerationNoImport.ifPresent(field -> {
+					this.referencedEnumerationNoImport.ifPresent(field -> {
 						builder.append("referenced_enumeration_no_import => ");
 						builder.append(field);
 						builder.append(';');
 					});
-					referencedEnumerationWithImport.ifPresent(field -> {
+					this.referencedEnumerationWithImport.ifPresent(field -> {
 						builder.append("referenced_enumeration_with_import => ");
 						builder.append(field);
 						builder.append(';');
 					});
-					referencedUnitsNoImport.ifPresent(field -> {
+					this.referencedUnitsNoImport.ifPresent(field -> {
 						builder.append("referenced_units_no_import => ");
 						builder.append(field);
 						builder.append(';');
 					});
-					referencedUnitsWithImport.ifPresent(field -> {
+					this.referencedUnitsWithImport.ifPresent(field -> {
 						builder.append("referenced_units_with_import => ");
 						builder.append(field);
 						builder.append(';');
 					});
-					referencedIntegerNoUnits.ifPresent(field -> {
+					this.referencedIntegerNoUnits.ifPresent(field -> {
 						builder.append("referenced_integer_no_units => ");
 						builder.append(field);
 						builder.append(';');
 					});
-					referencedRealNoUnits.ifPresent(field -> {
+					this.referencedRealNoUnits.ifPresent(field -> {
 						builder.append("referenced_real_no_units => ");
 						builder.append(field);
 						builder.append(';');
 					});
-					referencedNumberWithUnitsNoImport.ifPresent(field -> {
+					this.referencedNumberWithUnitsNoImport.ifPresent(field -> {
 						builder.append("referenced_number_with_units_no_import => ");
 						builder.append(field);
 						builder.append(';');
 					});
-					referencedNumberWithUnitsWithImport.ifPresent(field -> {
+					this.referencedNumberWithUnitsWithImport.ifPresent(field -> {
 						builder.append("referenced_number_with_units_with_import => ");
 						builder.append(field);
 						builder.append(';');
 					});
-					referencedRangeNoImport.ifPresent(field -> {
+					this.referencedRangeNoImport.ifPresent(field -> {
 						builder.append("referenced_range_no_import => ");
 						builder.append(field);
 						builder.append(';');
 					});
-					referencedRangeWithImport.ifPresent(field -> {
+					this.referencedRangeWithImport.ifPresent(field -> {
 						builder.append("referenced_range_with_import => ");
 						builder.append(field);
 						builder.append(';');
 					});
-					referencedRecordNoImport.ifPresent(field -> {
+					this.referencedRecordNoImport.ifPresent(field -> {
 						builder.append("referenced_record_no_import => ");
 						builder.append(field);
 						builder.append(';');
 					});
-					referencedRecordWithImport.ifPresent(field -> {
+					this.referencedRecordWithImport.ifPresent(field -> {
 						builder.append("referenced_record_with_import => ");
 						builder.append(field);
 						builder.append(';');
 					});
-					referencedReference.ifPresent(field -> {
+					this.referencedReference.ifPresent(field -> {
 						builder.append("referenced_reference => reference (");
 						builder.append(field.getName());
 						builder.append(");");
@@ -1264,12 +1264,12 @@ class RecordTypeTest {
 					
 					public OwnedRecord_FieldType(PropertyExpression propertyExpression) {
 						RecordValue recordValue = (RecordValue) propertyExpression;
-						stringField = recordValue.getOwnedFieldValues()
+						this.stringField = recordValue.getOwnedFieldValues()
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("string_field"))
 								.map(field -> ((StringLiteral) field.getOwnedValue()).getValue())
 								.findAny();
-						integerField = recordValue.getOwnedFieldValues()
+						this.integerField = recordValue.getOwnedFieldValues()
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("integer_field"))
 								.mapToLong(field -> ((IntegerLiteral) field.getOwnedValue()).getValue())
@@ -1301,20 +1301,20 @@ class RecordTypeTest {
 							return false;
 						}
 						OwnedRecord_FieldType other = (OwnedRecord_FieldType) obj;
-						return Objects.equals(stringField, other.stringField)
-								&& Objects.equals(integerField, other.integerField);
+						return Objects.equals(this.stringField, other.stringField)
+								&& Objects.equals(this.integerField, other.integerField);
 					}
 					
 					@Override
 					public String toString() {
 						StringBuilder builder = new StringBuilder();
 						builder.append('[');
-						stringField.ifPresent(field -> {
+						this.stringField.ifPresent(field -> {
 							builder.append("string_field => \"");
 							builder.append(field);
 							builder.append("\";");
 						});
-						integerField.ifPresent(field -> {
+						this.integerField.ifPresent(field -> {
 							builder.append("integer_field => ");
 							builder.append(field);
 							builder.append(';');
@@ -1340,7 +1340,7 @@ class RecordTypeTest {
 				
 				public RecordOfBoolean(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					field = recordValue.getOwnedFieldValues()
+					this.field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
 							.map(field -> ((BooleanLiteral) field.getOwnedValue()).getValue())
@@ -1365,14 +1365,14 @@ class RecordTypeTest {
 						return false;
 					}
 					RecordOfBoolean other = (RecordOfBoolean) obj;
-					return Objects.equals(field, other.field);
+					return Objects.equals(this.field, other.field);
 				}
 				
 				@Override
 				public String toString() {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
-					field.ifPresent(field -> {
+					this.field.ifPresent(field -> {
 						builder.append("field => ");
 						builder.append(field);
 						builder.append(';');
@@ -1397,7 +1397,7 @@ class RecordTypeTest {
 				
 				public RecordOfString(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					field = recordValue.getOwnedFieldValues()
+					this.field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
 							.map(field -> ((StringLiteral) field.getOwnedValue()).getValue())
@@ -1422,14 +1422,14 @@ class RecordTypeTest {
 						return false;
 					}
 					RecordOfString other = (RecordOfString) obj;
-					return Objects.equals(field, other.field);
+					return Objects.equals(this.field, other.field);
 				}
 				
 				@Override
 				public String toString() {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
-					field.ifPresent(field -> {
+					this.field.ifPresent(field -> {
 						builder.append("field => \"");
 						builder.append(field);
 						builder.append("\";");
@@ -1455,7 +1455,7 @@ class RecordTypeTest {
 				
 				public RecordOfClassifier(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					field = recordValue.getOwnedFieldValues()
+					this.field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
 							.map(field -> ((ClassifierValue) field.getOwnedValue()).getClassifier())
@@ -1480,14 +1480,14 @@ class RecordTypeTest {
 						return false;
 					}
 					RecordOfClassifier other = (RecordOfClassifier) obj;
-					return Objects.equals(field, other.field);
+					return Objects.equals(this.field, other.field);
 				}
 				
 				@Override
 				public String toString() {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
-					field.ifPresent(field -> {
+					this.field.ifPresent(field -> {
 						builder.append("field => classifier (");
 						builder.append(field.getQualifiedName());
 						builder.append(");");
@@ -1514,7 +1514,7 @@ class RecordTypeTest {
 				
 				public RecordOfEnum(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					field = recordValue.getOwnedFieldValues()
+					this.field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
 							.map(field -> Field_FieldType.valueOf(field.getOwnedValue()))
@@ -1539,14 +1539,14 @@ class RecordTypeTest {
 						return false;
 					}
 					RecordOfEnum other = (RecordOfEnum) obj;
-					return Objects.equals(field, other.field);
+					return Objects.equals(this.field, other.field);
 				}
 				
 				@Override
 				public String toString() {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
-					field.ifPresent(field -> {
+					this.field.ifPresent(field -> {
 						builder.append("field => ");
 						builder.append(field);
 						builder.append(';');
@@ -1595,7 +1595,7 @@ class RecordTypeTest {
 				
 				public RecordOfUnits(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					field = recordValue.getOwnedFieldValues()
+					this.field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
 							.map(field -> Field_FieldType.valueOf(field.getOwnedValue()))
@@ -1620,14 +1620,14 @@ class RecordTypeTest {
 						return false;
 					}
 					RecordOfUnits other = (RecordOfUnits) obj;
-					return Objects.equals(field, other.field);
+					return Objects.equals(this.field, other.field);
 				}
 				
 				@Override
 				public String toString() {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
-					field.ifPresent(field -> {
+					this.field.ifPresent(field -> {
 						builder.append("field => ");
 						builder.append(field);
 						builder.append(';');
@@ -1683,7 +1683,7 @@ class RecordTypeTest {
 				
 				public RecordOfInteger(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					field = recordValue.getOwnedFieldValues()
+					this.field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
 							.mapToLong(field -> ((IntegerLiteral) field.getOwnedValue()).getValue())
@@ -1708,14 +1708,14 @@ class RecordTypeTest {
 						return false;
 					}
 					RecordOfInteger other = (RecordOfInteger) obj;
-					return Objects.equals(field, other.field);
+					return Objects.equals(this.field, other.field);
 				}
 				
 				@Override
 				public String toString() {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
-					field.ifPresent(field -> {
+					this.field.ifPresent(field -> {
 						builder.append("field => ");
 						builder.append(field);
 						builder.append(';');
@@ -1740,7 +1740,7 @@ class RecordTypeTest {
 				
 				public RecordOfReal(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					field = recordValue.getOwnedFieldValues()
+					this.field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
 							.mapToDouble(field -> ((RealLiteral) field.getOwnedValue()).getValue())
@@ -1765,14 +1765,14 @@ class RecordTypeTest {
 						return false;
 					}
 					RecordOfReal other = (RecordOfReal) obj;
-					return Objects.equals(field, other.field);
+					return Objects.equals(this.field, other.field);
 				}
 				
 				@Override
 				public String toString() {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
-					field.ifPresent(field -> {
+					this.field.ifPresent(field -> {
 						builder.append("field => ");
 						builder.append(field);
 						builder.append(';');
@@ -1798,7 +1798,7 @@ class RecordTypeTest {
 				
 				public RecordOfReference(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					field = recordValue.getOwnedFieldValues()
+					this.field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
 							.map(field -> ((InstanceReferenceValue) field.getOwnedValue()).getReferencedInstanceObject())
@@ -1823,14 +1823,14 @@ class RecordTypeTest {
 						return false;
 					}
 					RecordOfReference other = (RecordOfReference) obj;
-					return Objects.equals(field, other.field);
+					return Objects.equals(this.field, other.field);
 				}
 				
 				@Override
 				public String toString() {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
-					field.ifPresent(field -> {
+					this.field.ifPresent(field -> {
 						builder.append("field => reference (");
 						builder.append(field.getName());
 						builder.append(");");
@@ -1856,7 +1856,7 @@ class RecordTypeTest {
 				
 				public NestedRecord(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					field1 = recordValue.getOwnedFieldValues()
+					this.field1 = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field1"))
 							.map(field -> new Field1_FieldType(field.getOwnedValue()))
@@ -1881,14 +1881,14 @@ class RecordTypeTest {
 						return false;
 					}
 					NestedRecord other = (NestedRecord) obj;
-					return Objects.equals(field1, other.field1);
+					return Objects.equals(this.field1, other.field1);
 				}
 				
 				@Override
 				public String toString() {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
-					field1.ifPresent(field -> {
+					this.field1.ifPresent(field -> {
 						builder.append("field1 => ");
 						builder.append(field);
 						builder.append(';');
@@ -1902,7 +1902,7 @@ class RecordTypeTest {
 					
 					public Field1_FieldType(PropertyExpression propertyExpression) {
 						RecordValue recordValue = (RecordValue) propertyExpression;
-						field2 = recordValue.getOwnedFieldValues()
+						this.field2 = recordValue.getOwnedFieldValues()
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("field2"))
 								.map(field -> new Field2_FieldType(field.getOwnedValue()))
@@ -1927,14 +1927,14 @@ class RecordTypeTest {
 							return false;
 						}
 						Field1_FieldType other = (Field1_FieldType) obj;
-						return Objects.equals(field2, other.field2);
+						return Objects.equals(this.field2, other.field2);
 					}
 					
 					@Override
 					public String toString() {
 						StringBuilder builder = new StringBuilder();
 						builder.append('[');
-						field2.ifPresent(field -> {
+						this.field2.ifPresent(field -> {
 							builder.append("field2 => ");
 							builder.append(field);
 							builder.append(';');
@@ -1948,7 +1948,7 @@ class RecordTypeTest {
 						
 						public Field2_FieldType(PropertyExpression propertyExpression) {
 							RecordValue recordValue = (RecordValue) propertyExpression;
-							field3 = recordValue.getOwnedFieldValues()
+							this.field3 = recordValue.getOwnedFieldValues()
 									.stream()
 									.filter(field -> field.getProperty().getName().equals("field3"))
 									.map(field -> new Field3_FieldType(field.getOwnedValue()))
@@ -1973,14 +1973,14 @@ class RecordTypeTest {
 								return false;
 							}
 							Field2_FieldType other = (Field2_FieldType) obj;
-							return Objects.equals(field3, other.field3);
+							return Objects.equals(this.field3, other.field3);
 						}
 						
 						@Override
 						public String toString() {
 							StringBuilder builder = new StringBuilder();
 							builder.append('[');
-							field3.ifPresent(field -> {
+							this.field3.ifPresent(field -> {
 								builder.append("field3 => ");
 								builder.append(field);
 								builder.append(';');
@@ -1994,7 +1994,7 @@ class RecordTypeTest {
 							
 							public Field3_FieldType(PropertyExpression propertyExpression) {
 								RecordValue recordValue = (RecordValue) propertyExpression;
-								innerField = recordValue.getOwnedFieldValues()
+								this.innerField = recordValue.getOwnedFieldValues()
 										.stream()
 										.filter(field -> field.getProperty().getName().equals("inner_field"))
 										.mapToLong(field -> ((IntegerLiteral) field.getOwnedValue()).getValue())
@@ -2019,14 +2019,14 @@ class RecordTypeTest {
 									return false;
 								}
 								Field3_FieldType other = (Field3_FieldType) obj;
-								return Objects.equals(innerField, other.innerField);
+								return Objects.equals(this.innerField, other.innerField);
 							}
 							
 							@Override
 							public String toString() {
 								StringBuilder builder = new StringBuilder();
 								builder.append('[');
-								innerField.ifPresent(field -> {
+								this.innerField.ifPresent(field -> {
 									builder.append("inner_field => ");
 									builder.append(field);
 									builder.append(';');

@@ -322,7 +322,7 @@ class RecordOfListTest {
 				
 				public RecordOfBoolean(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					field = recordValue.getOwnedFieldValues()
+					this.field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
 							.map(field -> ((BooleanLiteral) field.getOwnedValue()).getValue())
@@ -347,14 +347,14 @@ class RecordOfListTest {
 						return false;
 					}
 					RecordOfBoolean other = (RecordOfBoolean) obj;
-					return Objects.equals(field, other.field);
+					return Objects.equals(this.field, other.field);
 				}
 				
 				@Override
 				public String toString() {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
-					field.ifPresent(field -> {
+					this.field.ifPresent(field -> {
 						builder.append("field => ");
 						builder.append(field);
 						builder.append(';');
@@ -386,7 +386,7 @@ class RecordOfListTest {
 				
 				public RecordOfListOfBoolean(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					field1 = recordValue.getOwnedFieldValues()
+					this.field1 = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field1"))
 							.map(field -> {
@@ -395,7 +395,7 @@ class RecordOfListTest {
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-					field2 = recordValue.getOwnedFieldValues()
+					this.field2 = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field2"))
 							.map(field -> {
@@ -406,7 +406,7 @@ class RecordOfListTest {
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-					field3 = recordValue.getOwnedFieldValues()
+					this.field3 = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field3"))
 							.map(field -> {
@@ -419,7 +419,7 @@ class RecordOfListTest {
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-					field4 = recordValue.getOwnedFieldValues()
+					this.field4 = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field4"))
 							.map(field -> {
@@ -434,7 +434,7 @@ class RecordOfListTest {
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-					field5 = recordValue.getOwnedFieldValues()
+					this.field5 = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field5"))
 							.map(field -> {
@@ -493,30 +493,30 @@ class RecordOfListTest {
 						return false;
 					}
 					RecordOfListOfBoolean other = (RecordOfListOfBoolean) obj;
-					return Objects.equals(field1, other.field1)
-							&& Objects.equals(field2, other.field2)
-							&& Objects.equals(field3, other.field3)
-							&& Objects.equals(field4, other.field4)
-							&& Objects.equals(field5, other.field5);
+					return Objects.equals(this.field1, other.field1)
+							&& Objects.equals(this.field2, other.field2)
+							&& Objects.equals(this.field3, other.field3)
+							&& Objects.equals(this.field4, other.field4)
+							&& Objects.equals(this.field5, other.field5);
 				}
 				
 				@Override
 				public String toString() {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
-					field1.ifPresent(field -> {
+					this.field1.ifPresent(field -> {
 						builder.append("field1 => ");
 						builder.append(field.stream().map(Object::toString).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
-					field2.ifPresent(field -> {
+					this.field2.ifPresent(field -> {
 						builder.append("field2 => ");
 						builder.append(field.stream().map(element1 -> {
 							return element1.stream().map(Object::toString).collect(Collectors.joining(", ", "(", ")"));
 						}).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
-					field3.ifPresent(field -> {
+					this.field3.ifPresent(field -> {
 						builder.append("field3 => ");
 						builder.append(field.stream().map(element1 -> {
 							return element1.stream().map(element2 -> {
@@ -525,7 +525,7 @@ class RecordOfListTest {
 						}).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
-					field4.ifPresent(field -> {
+					this.field4.ifPresent(field -> {
 						builder.append("field4 => ");
 						builder.append(field.stream().map(element1 -> {
 							return element1.stream().map(element2 -> {
@@ -536,7 +536,7 @@ class RecordOfListTest {
 						}).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
-					field5.ifPresent(field -> {
+					this.field5.ifPresent(field -> {
 						builder.append("field5 => ");
 						builder.append(field.stream().map(element1 -> {
 							return element1.stream().map(element2 -> {
@@ -573,7 +573,7 @@ class RecordOfListTest {
 				
 				public RecordOfListOfString(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					field1 = recordValue.getOwnedFieldValues()
+					this.field1 = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field1"))
 							.map(field -> {
@@ -582,7 +582,7 @@ class RecordOfListTest {
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-					field5 = recordValue.getOwnedFieldValues()
+					this.field5 = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field5"))
 							.map(field -> {
@@ -626,22 +626,22 @@ class RecordOfListTest {
 						return false;
 					}
 					RecordOfListOfString other = (RecordOfListOfString) obj;
-					return Objects.equals(field1, other.field1)
-							&& Objects.equals(field5, other.field5);
+					return Objects.equals(this.field1, other.field1)
+							&& Objects.equals(this.field5, other.field5);
 				}
 				
 				@Override
 				public String toString() {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
-					field1.ifPresent(field -> {
+					this.field1.ifPresent(field -> {
 						builder.append("field1 => ");
 						builder.append(field.stream().map(element1 -> {
 							return '\"' + element1 + '\"';
 						}).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
-					field5.ifPresent(field -> {
+					this.field5.ifPresent(field -> {
 						builder.append("field5 => ");
 						builder.append(field.stream().map(element1 -> {
 							return element1.stream().map(element2 -> {
@@ -681,7 +681,7 @@ class RecordOfListTest {
 				
 				public RecordOfListOfClassifier(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					field1 = recordValue.getOwnedFieldValues()
+					this.field1 = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field1"))
 							.map(field -> {
@@ -690,7 +690,7 @@ class RecordOfListTest {
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-					field5 = recordValue.getOwnedFieldValues()
+					this.field5 = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field5"))
 							.map(field -> {
@@ -734,22 +734,22 @@ class RecordOfListTest {
 						return false;
 					}
 					RecordOfListOfClassifier other = (RecordOfListOfClassifier) obj;
-					return Objects.equals(field1, other.field1)
-							&& Objects.equals(field5, other.field5);
+					return Objects.equals(this.field1, other.field1)
+							&& Objects.equals(this.field5, other.field5);
 				}
 				
 				@Override
 				public String toString() {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
-					field1.ifPresent(field -> {
+					this.field1.ifPresent(field -> {
 						builder.append("field1 => ");
 						builder.append(field.stream().map(element1 -> {
 							return "classifier (" + element1.getQualifiedName() + ")";
 						}).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
-					field5.ifPresent(field -> {
+					this.field5.ifPresent(field -> {
 						builder.append("field5 => ");
 						builder.append(field.stream().map(element1 -> {
 							return element1.stream().map(element2 -> {
@@ -787,7 +787,7 @@ class RecordOfListTest {
 				
 				public RecordOfListOfIntegerNoUnits(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					field = recordValue.getOwnedFieldValues()
+					this.field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
 							.map(field -> {
@@ -816,14 +816,14 @@ class RecordOfListTest {
 						return false;
 					}
 					RecordOfListOfIntegerNoUnits other = (RecordOfListOfIntegerNoUnits) obj;
-					return Objects.equals(field, other.field);
+					return Objects.equals(this.field, other.field);
 				}
 				
 				@Override
 				public String toString() {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
-					field.ifPresent(field -> {
+					this.field.ifPresent(field -> {
 						builder.append("field => ");
 						builder.append(field.stream().map(Object::toString).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
@@ -851,7 +851,7 @@ class RecordOfListTest {
 				
 				public RecordOfListOfRealNoUnits(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					field = recordValue.getOwnedFieldValues()
+					this.field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
 							.map(field -> {
@@ -880,14 +880,14 @@ class RecordOfListTest {
 						return false;
 					}
 					RecordOfListOfRealNoUnits other = (RecordOfListOfRealNoUnits) obj;
-					return Objects.equals(field, other.field);
+					return Objects.equals(this.field, other.field);
 				}
 				
 				@Override
 				public String toString() {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
-					field.ifPresent(field -> {
+					this.field.ifPresent(field -> {
 						builder.append("field => ");
 						builder.append(field.stream().map(Object::toString).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
@@ -917,7 +917,7 @@ class RecordOfListTest {
 				
 				public RecordOfListOfReference(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					field1 = recordValue.getOwnedFieldValues()
+					this.field1 = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field1"))
 							.map(field -> {
@@ -926,7 +926,7 @@ class RecordOfListTest {
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-					field5 = recordValue.getOwnedFieldValues()
+					this.field5 = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field5"))
 							.map(field -> {
@@ -970,22 +970,22 @@ class RecordOfListTest {
 						return false;
 					}
 					RecordOfListOfReference other = (RecordOfListOfReference) obj;
-					return Objects.equals(field1, other.field1)
-							&& Objects.equals(field5, other.field5);
+					return Objects.equals(this.field1, other.field1)
+							&& Objects.equals(this.field5, other.field5);
 				}
 				
 				@Override
 				public String toString() {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
-					field1.ifPresent(field -> {
+					this.field1.ifPresent(field -> {
 						builder.append("field1 => ");
 						builder.append(field.stream().map(element1 -> {
 							return "reference (" + element1.getName() + ")";
 						}).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
-					field5.ifPresent(field -> {
+					this.field5.ifPresent(field -> {
 						builder.append("field5 => ");
 						builder.append(field.stream().map(element1 -> {
 							return element1.stream().map(element2 -> {
@@ -1035,7 +1035,7 @@ class RecordOfListTest {
 				
 				public RecordOfListOfOwnedTypes(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					ownedEnum = recordValue.getOwnedFieldValues()
+					this.ownedEnum = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_enum"))
 							.map(field -> {
@@ -1044,7 +1044,7 @@ class RecordOfListTest {
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-					ownedUnits = recordValue.getOwnedFieldValues()
+					this.ownedUnits = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_units"))
 							.map(field -> {
@@ -1053,7 +1053,7 @@ class RecordOfListTest {
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-					ownedIntegerWithUnits = recordValue.getOwnedFieldValues()
+					this.ownedIntegerWithUnits = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_integer_with_units"))
 							.map(field -> {
@@ -1062,7 +1062,7 @@ class RecordOfListTest {
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-					ownedRange = recordValue.getOwnedFieldValues()
+					this.ownedRange = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_range"))
 							.map(field -> {
@@ -1071,7 +1071,7 @@ class RecordOfListTest {
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-					ownedRecord = recordValue.getOwnedFieldValues()
+					this.ownedRecord = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_record"))
 							.map(field -> {
@@ -1122,38 +1122,38 @@ class RecordOfListTest {
 						return false;
 					}
 					RecordOfListOfOwnedTypes other = (RecordOfListOfOwnedTypes) obj;
-					return Objects.equals(ownedEnum, other.ownedEnum)
-							&& Objects.equals(ownedUnits, other.ownedUnits)
-							&& Objects.equals(ownedIntegerWithUnits, other.ownedIntegerWithUnits)
-							&& Objects.equals(ownedRange, other.ownedRange)
-							&& Objects.equals(ownedRecord, other.ownedRecord);
+					return Objects.equals(this.ownedEnum, other.ownedEnum)
+							&& Objects.equals(this.ownedUnits, other.ownedUnits)
+							&& Objects.equals(this.ownedIntegerWithUnits, other.ownedIntegerWithUnits)
+							&& Objects.equals(this.ownedRange, other.ownedRange)
+							&& Objects.equals(this.ownedRecord, other.ownedRecord);
 				}
 				
 				@Override
 				public String toString() {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
-					ownedEnum.ifPresent(field -> {
+					this.ownedEnum.ifPresent(field -> {
 						builder.append("owned_enum => ");
 						builder.append(field.stream().map(Object::toString).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
-					ownedUnits.ifPresent(field -> {
+					this.ownedUnits.ifPresent(field -> {
 						builder.append("owned_units => ");
 						builder.append(field.stream().map(Object::toString).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
-					ownedIntegerWithUnits.ifPresent(field -> {
+					this.ownedIntegerWithUnits.ifPresent(field -> {
 						builder.append("owned_integer_with_units => ");
 						builder.append(field.stream().map(Object::toString).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
-					ownedRange.ifPresent(field -> {
+					this.ownedRange.ifPresent(field -> {
 						builder.append("owned_range => ");
 						builder.append(field.stream().map(Object::toString).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
-					ownedRecord.ifPresent(field -> {
+					this.ownedRecord.ifPresent(field -> {
 						builder.append("owned_record => ");
 						builder.append(field.stream().map(Object::toString).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
@@ -1315,12 +1315,12 @@ class RecordOfListTest {
 					
 					public OwnedRecord_FieldType(PropertyExpression propertyExpression) {
 						RecordValue recordValue = (RecordValue) propertyExpression;
-						booleanField = recordValue.getOwnedFieldValues()
+						this.booleanField = recordValue.getOwnedFieldValues()
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("boolean_field"))
 								.map(field -> ((BooleanLiteral) field.getOwnedValue()).getValue())
 								.findAny();
-						recordField = recordValue.getOwnedFieldValues()
+						this.recordField = recordValue.getOwnedFieldValues()
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("record_field"))
 								.map(field -> new RecordField_FieldType(field.getOwnedValue()))
@@ -1352,20 +1352,20 @@ class RecordOfListTest {
 							return false;
 						}
 						OwnedRecord_FieldType other = (OwnedRecord_FieldType) obj;
-						return Objects.equals(booleanField, other.booleanField)
-								&& Objects.equals(recordField, other.recordField);
+						return Objects.equals(this.booleanField, other.booleanField)
+								&& Objects.equals(this.recordField, other.recordField);
 					}
 					
 					@Override
 					public String toString() {
 						StringBuilder builder = new StringBuilder();
 						builder.append('[');
-						booleanField.ifPresent(field -> {
+						this.booleanField.ifPresent(field -> {
 							builder.append("boolean_field => ");
 							builder.append(field);
 							builder.append(';');
 						});
-						recordField.ifPresent(field -> {
+						this.recordField.ifPresent(field -> {
 							builder.append("record_field => ");
 							builder.append(field);
 							builder.append(';');
@@ -1380,12 +1380,12 @@ class RecordOfListTest {
 						
 						public RecordField_FieldType(PropertyExpression propertyExpression) {
 							RecordValue recordValue = (RecordValue) propertyExpression;
-							stringField = recordValue.getOwnedFieldValues()
+							this.stringField = recordValue.getOwnedFieldValues()
 									.stream()
 									.filter(field -> field.getProperty().getName().equals("string_field"))
 									.map(field -> ((StringLiteral) field.getOwnedValue()).getValue())
 									.findAny();
-							integerField = recordValue.getOwnedFieldValues()
+							this.integerField = recordValue.getOwnedFieldValues()
 									.stream()
 									.filter(field -> field.getProperty().getName().equals("integer_field"))
 									.mapToLong(field -> ((IntegerLiteral) field.getOwnedValue()).getValue())
@@ -1417,20 +1417,20 @@ class RecordOfListTest {
 								return false;
 							}
 							RecordField_FieldType other = (RecordField_FieldType) obj;
-							return Objects.equals(stringField, other.stringField)
-									&& Objects.equals(integerField, other.integerField);
+							return Objects.equals(this.stringField, other.stringField)
+									&& Objects.equals(this.integerField, other.integerField);
 						}
 						
 						@Override
 						public String toString() {
 							StringBuilder builder = new StringBuilder();
 							builder.append('[');
-							stringField.ifPresent(field -> {
+							this.stringField.ifPresent(field -> {
 								builder.append("string_field => \"");
 								builder.append(field);
 								builder.append("\";");
 							});
-							integerField.ifPresent(field -> {
+							this.integerField.ifPresent(field -> {
 								builder.append("integer_field => ");
 								builder.append(field);
 								builder.append(';');
@@ -1474,7 +1474,7 @@ class RecordOfListTest {
 				
 				public RecordOfListOfReferencedTypes(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					enumNoImport = recordValue.getOwnedFieldValues()
+					this.enumNoImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("enum_no_import"))
 							.map(field -> {
@@ -1483,7 +1483,7 @@ class RecordOfListTest {
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-					enumWithImport = recordValue.getOwnedFieldValues()
+					this.enumWithImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("enum_with_import"))
 							.map(field -> {
@@ -1492,7 +1492,7 @@ class RecordOfListTest {
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-					unitsNoImport = recordValue.getOwnedFieldValues()
+					this.unitsNoImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("units_no_import"))
 							.map(field -> {
@@ -1501,7 +1501,7 @@ class RecordOfListTest {
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-					unitsWithImport = recordValue.getOwnedFieldValues()
+					this.unitsWithImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("units_with_import"))
 							.map(field -> {
@@ -1510,7 +1510,7 @@ class RecordOfListTest {
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-					numberWithUnitsNoImport = recordValue.getOwnedFieldValues()
+					this.numberWithUnitsNoImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("number_with_units_no_import"))
 							.map(field -> {
@@ -1519,7 +1519,7 @@ class RecordOfListTest {
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-					numberWithUnitsWithImport = recordValue.getOwnedFieldValues()
+					this.numberWithUnitsWithImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("number_with_units_with_import"))
 							.map(field -> {
@@ -1528,7 +1528,7 @@ class RecordOfListTest {
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-					rangeNoImport = recordValue.getOwnedFieldValues()
+					this.rangeNoImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("range_no_import"))
 							.map(field -> {
@@ -1537,7 +1537,7 @@ class RecordOfListTest {
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-					rangeWithImport = recordValue.getOwnedFieldValues()
+					this.rangeWithImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("range_with_import"))
 							.map(field -> {
@@ -1546,7 +1546,7 @@ class RecordOfListTest {
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-					recordNoImport = recordValue.getOwnedFieldValues()
+					this.recordNoImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("record_no_import"))
 							.map(field -> {
@@ -1555,7 +1555,7 @@ class RecordOfListTest {
 								}).collect(Collectors.toList());
 							})
 							.findAny();
-					recordWithImport = recordValue.getOwnedFieldValues()
+					this.recordWithImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("record_with_import"))
 							.map(field -> {
@@ -1631,68 +1631,68 @@ class RecordOfListTest {
 						return false;
 					}
 					RecordOfListOfReferencedTypes other = (RecordOfListOfReferencedTypes) obj;
-					return Objects.equals(enumNoImport, other.enumNoImport)
-							&& Objects.equals(enumWithImport, other.enumWithImport)
-							&& Objects.equals(unitsNoImport, other.unitsNoImport)
-							&& Objects.equals(unitsWithImport, other.unitsWithImport)
-							&& Objects.equals(numberWithUnitsNoImport, other.numberWithUnitsNoImport)
-							&& Objects.equals(numberWithUnitsWithImport, other.numberWithUnitsWithImport)
-							&& Objects.equals(rangeNoImport, other.rangeNoImport)
-							&& Objects.equals(rangeWithImport, other.rangeWithImport)
-							&& Objects.equals(recordNoImport, other.recordNoImport)
-							&& Objects.equals(recordWithImport, other.recordWithImport);
+					return Objects.equals(this.enumNoImport, other.enumNoImport)
+							&& Objects.equals(this.enumWithImport, other.enumWithImport)
+							&& Objects.equals(this.unitsNoImport, other.unitsNoImport)
+							&& Objects.equals(this.unitsWithImport, other.unitsWithImport)
+							&& Objects.equals(this.numberWithUnitsNoImport, other.numberWithUnitsNoImport)
+							&& Objects.equals(this.numberWithUnitsWithImport, other.numberWithUnitsWithImport)
+							&& Objects.equals(this.rangeNoImport, other.rangeNoImport)
+							&& Objects.equals(this.rangeWithImport, other.rangeWithImport)
+							&& Objects.equals(this.recordNoImport, other.recordNoImport)
+							&& Objects.equals(this.recordWithImport, other.recordWithImport);
 				}
 				
 				@Override
 				public String toString() {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
-					enumNoImport.ifPresent(field -> {
+					this.enumNoImport.ifPresent(field -> {
 						builder.append("enum_no_import => ");
 						builder.append(field.stream().map(Object::toString).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
-					enumWithImport.ifPresent(field -> {
+					this.enumWithImport.ifPresent(field -> {
 						builder.append("enum_with_import => ");
 						builder.append(field.stream().map(Object::toString).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
-					unitsNoImport.ifPresent(field -> {
+					this.unitsNoImport.ifPresent(field -> {
 						builder.append("units_no_import => ");
 						builder.append(field.stream().map(Object::toString).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
-					unitsWithImport.ifPresent(field -> {
+					this.unitsWithImport.ifPresent(field -> {
 						builder.append("units_with_import => ");
 						builder.append(field.stream().map(Object::toString).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
-					numberWithUnitsNoImport.ifPresent(field -> {
+					this.numberWithUnitsNoImport.ifPresent(field -> {
 						builder.append("number_with_units_no_import => ");
 						builder.append(field.stream().map(Object::toString).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
-					numberWithUnitsWithImport.ifPresent(field -> {
+					this.numberWithUnitsWithImport.ifPresent(field -> {
 						builder.append("number_with_units_with_import => ");
 						builder.append(field.stream().map(Object::toString).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
-					rangeNoImport.ifPresent(field -> {
+					this.rangeNoImport.ifPresent(field -> {
 						builder.append("range_no_import => ");
 						builder.append(field.stream().map(Object::toString).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
-					rangeWithImport.ifPresent(field -> {
+					this.rangeWithImport.ifPresent(field -> {
 						builder.append("range_with_import => ");
 						builder.append(field.stream().map(Object::toString).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
-					recordNoImport.ifPresent(field -> {
+					this.recordNoImport.ifPresent(field -> {
 						builder.append("record_no_import => ");
 						builder.append(field.stream().map(Object::toString).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
-					recordWithImport.ifPresent(field -> {
+					this.recordWithImport.ifPresent(field -> {
 						builder.append("record_with_import => ");
 						builder.append(field.stream().map(Object::toString).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');

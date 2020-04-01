@@ -556,7 +556,7 @@ class PropertiesCodeGen {
 				public «typeName»(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					«FOR field : recordType.ownedFields»
-					«field.name.toCamelCase.toFirstLower» = recordValue.getOwnedFieldValues()
+					this.«field.name.toCamelCase.toFirstLower» = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("«field.name»"))
 							«getFieldValueExtractor(field)»
@@ -592,16 +592,16 @@ class PropertiesCodeGen {
 					«typeName» other = («typeName») obj;
 					«IF recordType.ownedFields.size == 1»
 					«val fieldName = recordType.ownedFields.head.name.toCamelCase.toFirstLower»
-					return Objects.equals(«fieldName», other.«fieldName»);
+					return Objects.equals(this.«fieldName», other.«fieldName»);
 					«ELSE»
 					«val firstFieldName = recordType.ownedFields.head.name.toCamelCase.toFirstLower»
-					return Objects.equals(«firstFieldName», other.«firstFieldName»)
+					return Objects.equals(this.«firstFieldName», other.«firstFieldName»)
 							«FOR field : recordType.ownedFields.take(recordType.ownedFields.size - 1).tail»
 							«val fieldName = field.name.toCamelCase.toFirstLower»
-							&& Objects.equals(«fieldName», other.«fieldName»)
+							&& Objects.equals(this.«fieldName», other.«fieldName»)
 							«ENDFOR»
 							«val lastFieldName = recordType.ownedFields.last.name.toCamelCase.toFirstLower»
-							&& Objects.equals(«lastFieldName», other.«lastFieldName»);
+							&& Objects.equals(this.«lastFieldName», other.«lastFieldName»);
 					«ENDIF»
 				}
 				
@@ -610,7 +610,7 @@ class PropertiesCodeGen {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
 					«FOR field : recordType.ownedFields»
-					«field.name.toCamelCase.toFirstLower».ifPresent(field -> {
+					this.«field.name.toCamelCase.toFirstLower».ifPresent(field -> {
 						builder.append("«field.name» => «getStringPrefix(field.propertyType)»");
 						builder.append(«getStringBody(field.propertyType)»);
 						builder.append(«getStringPostfix(field.propertyType)»);
