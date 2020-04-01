@@ -65,19 +65,11 @@ class PropertiesCodeGen {
 		(propertySetFile + typeFiles).toList
 	}
 	
-	def private static GeneratedJava generateFile(PropertySet propertySet) {
-		val generator = new PropertiesCodeGen(propertySet)
-		/*
-		 * Place the property getters into a new ArrayList for eager evaluation. This is important so that
-		 * generator.imports will be filled when populating javaImports, orgImports, and otherImports.
-		 */
-		val propertyGetters = new ArrayList(propertySet.ownedProperties.map[generator.generatePropertyGetter(it)])
-		val javaImports = generator.imports.filter[it.startsWith("java.")].sort
-		val orgImports = generator.imports.filter[it.startsWith("org.")].sort
-		val otherImports = generator.imports.filter[!it.startsWith("java.") && !it.startsWith("org.")].sort
-		val className = propertySet.name.toCamelCase
-		val contents = '''
-			package «propertySet.name.toLowerCase»;
+	def private String generateImports() {
+		val javaImports = imports.filter[it.startsWith("java.")].sort
+		val orgImports = imports.filter[it.startsWith("org.")].sort
+		val otherImports = imports.filter[!it.startsWith("java.") && !it.startsWith("org.")].sort
+		'''
 			«IF !javaImports.empty»
 			
 			«FOR javaImport : javaImports»
@@ -96,6 +88,20 @@ class PropertiesCodeGen {
 			import «otherImport»;
 			«ENDFOR»
 			«ENDIF»
+		'''
+	}
+	
+	def private static GeneratedJava generateFile(PropertySet propertySet) {
+		val generator = new PropertiesCodeGen(propertySet)
+		/*
+		 * Place the property getters into a new ArrayList for eager evaluation. This is important so that
+		 * generator.imports will be filled when calling generator.generateImports.
+		 */
+		val propertyGetters = new ArrayList(propertySet.ownedProperties.map[generator.generatePropertyGetter(it)])
+		val className = propertySet.name.toCamelCase
+		val contents = '''
+			package «propertySet.name.toLowerCase»;
+			«generator.generateImports»
 			
 			public class «className» {
 				«propertyGetters.head»
@@ -125,26 +131,6 @@ class PropertiesCodeGen {
 			"org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil",
 			"org.osate.aadl2.properties.PropertyNotPresentException"
 		}
-		if (type instanceof ListType) {
-			imports += #{"java.util.List", "java.util.stream.Collectors", "org.osate.aadl2.ListValue"}
-		}
-		val baseType = type.basePropertyType
-		imports += switch baseType {
-			AadlBoolean: #{"org.osate.aadl2.BooleanLiteral"}
-			AadlString: #{"org.osate.aadl2.StringLiteral"}
-			ClassifierType: #{"org.osate.aadl2.Classifier", "org.osate.aadl2.ClassifierValue"}
-			AadlInteger case baseType.unitsType === null: #{"org.osate.aadl2.IntegerLiteral"}
-			AadlReal case baseType.unitsType === null: #{"org.osate.aadl2.RealLiteral"}
-			ReferenceType: #{"org.osate.aadl2.instance.InstanceReferenceValue"}
-			default: {
-				val basePropertySet = baseType.getContainerOfType(PropertySet)
-				if (propertySet != basePropertySet) {
-					#{basePropertySet.name.toLowerCase + "." + baseType.name.toCamelCase}
-				} else {
-					emptySet
-				}
-			}
-		}
 		
 		'''
 			public static «getOptionalType(type)» get«property.name.toCamelCase»(InstanceObject instanceObject) {
@@ -160,24 +146,49 @@ class PropertiesCodeGen {
 		'''
 	}
 	
-	def private static getOptionalType(PropertyType type) {
+	def private String getOptionalType(PropertyType type) {
 		switch type {
-			AadlInteger case type.unitsType === null: "OptionalLong"
-			AadlReal case type.unitsType === null: "OptionalDouble"
-			default: '''Optional<«getJavaName(type)»>'''
+			AadlInteger case type.unitsType === null: {
+				imports += "java.util.OptionalLong"
+				"OptionalLong"
+			}
+			AadlReal case type.unitsType === null: {
+				imports += "java.util.OptionalDouble"
+				"OptionalDouble"
+			}
+			default: {
+				imports += "java.util.Optional"
+				'''Optional<«getJavaName(type)»>'''
+			}
 		}
 	}
 	
-	def private static String getJavaName(PropertyType type) {
+	def private String getJavaName(PropertyType type) {
 		switch type {
-			ListType: '''List<«getJavaName(type.elementType)»>'''
+			ListType: {
+				imports += "java.util.List"
+				'''List<«getJavaName(type.elementType)»>'''
+			}
 			AadlBoolean: "Boolean"
 			AadlString: "String"
-			ClassifierType: "Classifier"
+			ClassifierType: {
+				imports += "org.osate.aadl2.Classifier"
+				"Classifier"
+			}
 			AadlInteger case type.unitsType === null: "Long"
 			AadlReal case type.unitsType === null: "Double"
-			ReferenceType: "InstanceObject"
-			case type.name !== null: type.name.toCamelCase
+			ReferenceType: {
+				imports += "org.osate.aadl2.instance.InstanceObject"
+				"InstanceObject"
+			}
+			case type.name !== null: {
+				val name = type.name.toCamelCase
+				val typePropertySet = type.getContainerOfType(PropertySet)
+				if (typePropertySet != propertySet) {
+					imports += typePropertySet.name.toLowerCase + "." + name
+				}
+				name
+			}
 			default: {
 				switch basicProperty : type.getContainerOfType(BasicProperty) {
 					Property: basicProperty.name.toCamelCase
@@ -187,22 +198,41 @@ class PropertiesCodeGen {
 		}
 	}
 	
-	def private static String getValueExtractor(PropertyType type, String parameterName, int listDepth) {
+	def private String getValueExtractor(PropertyType type, String parameterName, int listDepth) {
 		switch type {
 			ListType: {
+				imports += #{"java.util.stream.Collectors", "org.osate.aadl2.ListValue"}
 				val nextParameterName = "element" + listDepth
 				'''
 					((ListValue) «parameterName»).getOwnedListElements().stream().map(«nextParameterName» -> {
 						return «getValueExtractor(type.elementType, nextParameterName, listDepth + 1)»;
 					}).collect(Collectors.toList())'''
 			}
-			AadlBoolean: '''((BooleanLiteral) «parameterName»).getValue()'''
-			AadlString: '''((StringLiteral) «parameterName»).getValue()'''
-			ClassifierType: '''((ClassifierValue) «parameterName»).getClassifier()'''
+			AadlBoolean: {
+				imports += "org.osate.aadl2.BooleanLiteral"
+				'''((BooleanLiteral) «parameterName»).getValue()'''
+			}
+			AadlString: {
+				imports += "org.osate.aadl2.StringLiteral"
+				'''((StringLiteral) «parameterName»).getValue()'''
+			}
+			ClassifierType: {
+				imports += "org.osate.aadl2.ClassifierValue"
+				'''((ClassifierValue) «parameterName»).getClassifier()'''
+			}
 			EnumerationType: '''«getJavaName(type)».valueOf(«parameterName»)'''
-			AadlInteger case type.unitsType === null: '''((IntegerLiteral) «parameterName»).getValue()'''
-			AadlReal case type.unitsType === null: '''((RealLiteral) «parameterName»).getValue()'''
-			ReferenceType: '''((InstanceReferenceValue) «parameterName»).getReferencedInstanceObject()'''
+			AadlInteger case type.unitsType === null: {
+				imports += "org.osate.aadl2.IntegerLiteral"
+				'''((IntegerLiteral) «parameterName»).getValue()'''
+			}
+			AadlReal case type.unitsType === null: {
+				imports += "org.osate.aadl2.RealLiteral"
+				'''((RealLiteral) «parameterName»).getValue()'''
+			}
+			ReferenceType: {
+				imports += "org.osate.aadl2.instance.InstanceReferenceValue"
+				'''((InstanceReferenceValue) «parameterName»).getReferencedInstanceObject()'''
+			}
 			default: '''new «getJavaName(type)»(«parameterName»)'''
 		}
 	}
@@ -216,29 +246,9 @@ class PropertiesCodeGen {
 			RangeType: generator.generateRange(typeName, baseType, true)
 			RecordType: generator.generateRecord(typeName, baseType, true)
 		}
-		val javaImports = generator.imports.filter[it.startsWith("java.")].sort
-		val orgImports = generator.imports.filter[it.startsWith("org.")].sort
-		val otherImports = generator.imports.filter[!it.startsWith("java.") && !it.startsWith("org.")].sort
 		val contents = '''
 			package «propertySet.name.toLowerCase»;
-			«IF !javaImports.empty»
-			
-			«FOR javaImport : javaImports»
-			import «javaImport»;
-			«ENDFOR»
-			«ENDIF»
-			«IF !orgImports.empty»
-			
-			«FOR orgImport : orgImports»
-			import «orgImport»;
-			«ENDFOR»
-			«ENDIF»
-			«IF !otherImports.empty»
-			
-			«FOR otherImport : otherImports»
-			import «otherImport»;
-			«ENDFOR»
-			«ENDIF»
+			«generator.generateImports»
 			
 			«generatedJavaType»
 		'''
@@ -323,21 +333,24 @@ class PropertiesCodeGen {
 			AadlInteger: "IntegerLiteral"
 			AadlReal: "RealLiteral"
 		}
-		val javaType = switch numberType {
-			AadlInteger: "long"
-			AadlReal: "double"
-		}
 		val unitsType = numberType.unitsType
 		val unitsTypeName = if (unitsType == numberType.ownedUnitsType) {
 			"Units"
 		} else {
 			unitsType.name.toCamelCase
 		}
+		
 		imports += #{"java.util.Objects", "org.osate.aadl2.PropertyExpression", "org.osate.aadl2." + valueType}
 		val unitsPropertySet = unitsType.getContainerOfType(PropertySet)
-		if (unitsType !== null && unitsType == numberType.referencedUnitsType && unitsPropertySet != propertySet) {
-			imports += unitsPropertySet.name.toLowerCase + "." + unitsType.name.toCamelCase
+		if (unitsType == numberType.referencedUnitsType && unitsPropertySet != propertySet) {
+			imports += unitsPropertySet.name.toLowerCase + "." + unitsTypeName.toCamelCase
 		}
+		
+		val javaType = switch numberType {
+			AadlInteger: "long"
+			AadlReal: "double"
+		}
+		
 		'''
 			public«IF !topLevel» static«ENDIF» class «typeName» {
 				private final «javaType» value;
@@ -391,42 +404,46 @@ class PropertiesCodeGen {
 	}
 	
 	def private String generateRange(String typeName, RangeType rangeType, boolean topLevel) {
+		imports += #{"java.util.Objects", "org.osate.aadl2.PropertyExpression", "org.osate.aadl2.RangeValue"}
+		
 		val numberType = rangeType.numberType
 		val unitsType = numberType.unitsType
-		
-		val literalType = switch numberType {
-			AadlInteger: "IntegerLiteral"
-			AadlReal: "RealLiteral"
-		}
 		
 		val numberTypeName = switch numberType {
 			AadlInteger case unitsType === null: "long"
 			AadlReal case unitsType === null: "double"
 			case rangeType.ownedNumberType: "Number"
-			case rangeType.referencedNumberType: numberType.name.toCamelCase
+			case rangeType.referencedNumberType: {
+				val numberTypeName = numberType.name.toCamelCase
+				val numberPropertySet = numberType.getContainerOfType(PropertySet)
+				if (numberPropertySet != propertySet) {
+					imports += numberPropertySet.name.toLowerCase + "." + numberTypeName
+				}
+				numberTypeName
+			}
 		}
 		
 		val optionalType = switch numberType {
-			AadlInteger case unitsType === null: "OptionalLong"
-			AadlReal case unitsType === null: "OptionalDouble"
-			default: '''Optional<«numberTypeName»>'''
+			AadlInteger case unitsType === null: {
+				imports += "java.util.OptionalLong"
+				"OptionalLong"
+			}
+			AadlReal case unitsType === null: {
+				imports += "java.util.OptionalDouble"
+				"OptionalDouble"
+			}
+			default: {
+				imports += "java.util.Optional"
+				'''Optional<«numberTypeName»>'''
+			}
 		}
 		
-		imports += #{"java.util.Objects", "org.osate.aadl2.PropertyExpression", "org.osate.aadl2.RangeValue"}
-		imports += if (unitsType === null) {
-			#{"java.util." + optionalType, "org.osate.aadl2." + literalType}
-		} else {
-			#{"java.util.Optional"}
+		val literalType = switch numberType {
+			AadlInteger: "IntegerLiteral"
+			AadlReal: "RealLiteral"
 		}
-		if (unitsType !== null) {
-			val numberPropertySet = numberType.getContainerOfType(PropertySet)
-			val unitsPropertySet = unitsType.getContainerOfType(PropertySet)
-			if (numberType == rangeType.referencedNumberType && numberPropertySet != propertySet) {
-				imports += numberPropertySet.name.toLowerCase + "." + numberTypeName
-			} else if (numberType == rangeType.ownedNumberType && unitsType == numberType.referencedUnitsType &&
-				unitsPropertySet != propertySet) {
-				imports += unitsPropertySet.name.toLowerCase + "." + unitsType.name.toCamelCase
-			}
+		if (unitsType === null) {
+			imports += "org.osate.aadl2." + literalType
 		}
 		
 		'''
@@ -506,47 +523,6 @@ class PropertiesCodeGen {
 	
 	def private String generateRecord(String typeName, RecordType recordType, boolean topLevel) {
 		imports += #{"java.util.Objects", "org.osate.aadl2.PropertyExpression", "org.osate.aadl2.RecordValue"}
-		for (field : recordType.ownedFields) {
-			val propertyType = field.propertyType
-			val baseType = propertyType.basePropertyType
-			
-			imports += switch propertyType {
-				AadlInteger case propertyType.unitsType === null: "java.util.OptionalLong"
-				AadlReal case propertyType.unitsType === null: "java.util.OptionalDouble"
-				default: "java.util.Optional"
-			}
-			
-			if (propertyType instanceof ListType) {
-				imports += #{"java.util.List", "java.util.stream.Collectors", "org.osate.aadl2.ListValue"}
-			}
-			
-			imports += switch baseType {
-				AadlBoolean: #{"org.osate.aadl2.BooleanLiteral"}
-				AadlString: #{"org.osate.aadl2.StringLiteral"}
-				ClassifierType: #{"org.osate.aadl2.Classifier", "org.osate.aadl2.ClassifierValue"}
-				AadlInteger case baseType.unitsType === null: #{"org.osate.aadl2.IntegerLiteral"}
-				AadlReal case baseType.unitsType === null: #{"org.osate.aadl2.RealLiteral"}
-				ReferenceType: #{
-					"org.osate.aadl2.instance.InstanceObject",
-					"org.osate.aadl2.instance.InstanceReferenceValue"
-				}
-				default: emptySet
-			}
-			
-			if (!field.isAncestor(baseType)) {
-				val basePropertySet = baseType.getContainerOfType(PropertySet)
-				if (basePropertySet != propertySet) {
-					switch baseType {
-						EnumerationType,
-						NumberType case baseType.unitsType !== null,
-						RangeType,
-						RecordType: {
-							imports += basePropertySet.name.toLowerCase + "." + baseType.name.toCamelCase
-						}
-					}
-				}
-			}
-		}
 		'''
 			public«IF !topLevel» static«ENDIF» class «typeName» {
 				«FOR field : recordType.ownedFields»
@@ -642,15 +618,21 @@ class PropertiesCodeGen {
 		'''
 	}
 	
-	def private static String getFieldValueExtractor(BasicProperty field) {
+	def private String getFieldValueExtractor(BasicProperty field) {
 		switch propertyType : field.propertyType {
 			ListType: '''
 				.map(field -> {
 					return «getValueExtractor(propertyType, "field.getOwnedValue()", 1)»;
 				})
 			'''
-			AadlInteger case propertyType.unitsType === null: ".mapToLong(field -> ((IntegerLiteral) field.getOwnedValue()).getValue())"
-			AadlReal case propertyType.unitsType === null: ".mapToDouble(field -> ((RealLiteral) field.getOwnedValue()).getValue())"
+			AadlInteger case propertyType.unitsType === null: {
+				imports += "org.osate.aadl2.IntegerLiteral"
+				".mapToLong(field -> ((IntegerLiteral) field.getOwnedValue()).getValue())"
+			}
+			AadlReal case propertyType.unitsType === null: {
+				imports += "org.osate.aadl2.RealLiteral"
+				".mapToDouble(field -> ((RealLiteral) field.getOwnedValue()).getValue())"
+			}
 			default: '''.map(field -> «getValueExtractor(propertyType, "field.getOwnedValue()", 0)»)'''
 		}
 	}
@@ -664,9 +646,10 @@ class PropertiesCodeGen {
 		}
 	}
 	
-	def private static String getStringBody(PropertyType type) {
+	def private String getStringBody(PropertyType type) {
 		switch type {
 			ListType: {
+				imports += "java.util.stream.Collectors"
 				val transform = getStringTransform(type.elementType, 1)
 				'''field.stream().map(«transform»).collect(Collectors.joining(", ", "(", ")"))'''
 			}
@@ -676,9 +659,10 @@ class PropertiesCodeGen {
 		}
 	}
 	
-	def private static String getStringTransform(PropertyType type, int listDepth) {
+	def private String getStringTransform(PropertyType type, int listDepth) {
 		switch type {
 			ListType: {
+				imports += "java.util.stream.Collectors"
 				val transform = getStringTransform(type.elementType, listDepth + 1)
 				'''
 					element«listDepth» -> {
