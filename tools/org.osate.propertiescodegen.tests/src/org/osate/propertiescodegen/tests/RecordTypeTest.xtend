@@ -394,16 +394,16 @@ class RecordTypeTest {
 				private final Optional<Boolean> ownedBoolean;
 				private final Optional<String> ownedString;
 				private final Optional<Classifier> ownedClassifier;
-				private final Optional<OwnedEnumerationType> ownedEnumeration;
-				private final Optional<OwnedUnitsType> ownedUnits;
+				private final Optional<OwnedEnumeration_FieldType> ownedEnumeration;
+				private final Optional<OwnedUnits_FieldType> ownedUnits;
 				private final OptionalLong ownedIntegerNoUnits;
 				private final OptionalDouble ownedRealNoUnits;
-				private final Optional<OwnedNumberWithUnitsNoImportType> ownedNumberWithUnitsNoImport;
-				private final Optional<OwnedNumberWithUnitsWithImportType> ownedNumberWithUnitsWithImport;
-				private final Optional<OwnedRangeNoImportType> ownedRangeNoImport;
-				private final Optional<OwnedRangeImportNumberType> ownedRangeImportNumber;
-				private final Optional<OwnedRangeImportUnitsType> ownedRangeImportUnits;
-				private final Optional<OwnedRecordType> ownedRecord;
+				private final Optional<OwnedNumberWithUnitsNoImport_FieldType> ownedNumberWithUnitsNoImport;
+				private final Optional<OwnedNumberWithUnitsWithImport_FieldType> ownedNumberWithUnitsWithImport;
+				private final Optional<OwnedRangeNoImport_FieldType> ownedRangeNoImport;
+				private final Optional<OwnedRangeImportNumber_FieldType> ownedRangeImportNumber;
+				private final Optional<OwnedRangeImportUnits_FieldType> ownedRangeImportUnits;
+				private final Optional<OwnedRecord_FieldType> ownedRecord;
 				private final Optional<InstanceObject> ownedReference;
 				private final Optional<Boolean> referencedBoolean;
 				private final Optional<String> referencedString;
@@ -442,12 +442,12 @@ class RecordTypeTest {
 					ownedEnumeration = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_enumeration"))
-							.map(field -> OwnedEnumerationType.valueOf(field.getOwnedValue()))
+							.map(field -> OwnedEnumeration_FieldType.valueOf(field.getOwnedValue()))
 							.findAny();
 					ownedUnits = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_units"))
-							.map(field -> OwnedUnitsType.valueOf(field.getOwnedValue()))
+							.map(field -> OwnedUnits_FieldType.valueOf(field.getOwnedValue()))
 							.findAny();
 					ownedIntegerNoUnits = recordValue.getOwnedFieldValues()
 							.stream()
@@ -462,32 +462,32 @@ class RecordTypeTest {
 					ownedNumberWithUnitsNoImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_number_with_units_no_import"))
-							.map(field -> new OwnedNumberWithUnitsNoImportType(field.getOwnedValue()))
+							.map(field -> new OwnedNumberWithUnitsNoImport_FieldType(field.getOwnedValue()))
 							.findAny();
 					ownedNumberWithUnitsWithImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_number_with_units_with_import"))
-							.map(field -> new OwnedNumberWithUnitsWithImportType(field.getOwnedValue()))
+							.map(field -> new OwnedNumberWithUnitsWithImport_FieldType(field.getOwnedValue()))
 							.findAny();
 					ownedRangeNoImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_range_no_import"))
-							.map(field -> new OwnedRangeNoImportType(field.getOwnedValue()))
+							.map(field -> new OwnedRangeNoImport_FieldType(field.getOwnedValue()))
 							.findAny();
 					ownedRangeImportNumber = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_range_import_number"))
-							.map(field -> new OwnedRangeImportNumberType(field.getOwnedValue()))
+							.map(field -> new OwnedRangeImportNumber_FieldType(field.getOwnedValue()))
 							.findAny();
 					ownedRangeImportUnits = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_range_import_units"))
-							.map(field -> new OwnedRangeImportUnitsType(field.getOwnedValue()))
+							.map(field -> new OwnedRangeImportUnits_FieldType(field.getOwnedValue()))
 							.findAny();
 					ownedRecord = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_record"))
-							.map(field -> new OwnedRecordType(field.getOwnedValue()))
+							.map(field -> new OwnedRecord_FieldType(field.getOwnedValue()))
 							.findAny();
 					ownedReference = recordValue.getOwnedFieldValues()
 							.stream()
@@ -588,11 +588,11 @@ class RecordTypeTest {
 					return ownedClassifier;
 				}
 				
-				public Optional<OwnedEnumerationType> getOwnedEnumeration() {
+				public Optional<OwnedEnumeration_FieldType> getOwnedEnumeration() {
 					return ownedEnumeration;
 				}
 				
-				public Optional<OwnedUnitsType> getOwnedUnits() {
+				public Optional<OwnedUnits_FieldType> getOwnedUnits() {
 					return ownedUnits;
 				}
 				
@@ -604,27 +604,27 @@ class RecordTypeTest {
 					return ownedRealNoUnits;
 				}
 				
-				public Optional<OwnedNumberWithUnitsNoImportType> getOwnedNumberWithUnitsNoImport() {
+				public Optional<OwnedNumberWithUnitsNoImport_FieldType> getOwnedNumberWithUnitsNoImport() {
 					return ownedNumberWithUnitsNoImport;
 				}
 				
-				public Optional<OwnedNumberWithUnitsWithImportType> getOwnedNumberWithUnitsWithImport() {
+				public Optional<OwnedNumberWithUnitsWithImport_FieldType> getOwnedNumberWithUnitsWithImport() {
 					return ownedNumberWithUnitsWithImport;
 				}
 				
-				public Optional<OwnedRangeNoImportType> getOwnedRangeNoImport() {
+				public Optional<OwnedRangeNoImport_FieldType> getOwnedRangeNoImport() {
 					return ownedRangeNoImport;
 				}
 				
-				public Optional<OwnedRangeImportNumberType> getOwnedRangeImportNumber() {
+				public Optional<OwnedRangeImportNumber_FieldType> getOwnedRangeImportNumber() {
 					return ownedRangeImportNumber;
 				}
 				
-				public Optional<OwnedRangeImportUnitsType> getOwnedRangeImportUnits() {
+				public Optional<OwnedRangeImportUnits_FieldType> getOwnedRangeImportUnits() {
 					return ownedRangeImportUnits;
 				}
 				
-				public Optional<OwnedRecordType> getOwnedRecord() {
+				public Optional<OwnedRecord_FieldType> getOwnedRecord() {
 					return ownedRecord;
 				}
 				
@@ -931,18 +931,18 @@ class RecordTypeTest {
 					return builder.toString();
 				}
 				
-				public enum OwnedEnumerationType {
+				public enum OwnedEnumeration_FieldType {
 					ALLEGHENY("allegheny"),
 					MONONGAHELA("monongahela"),
 					OHIO("ohio");
 					
 					private final String originalName;
 					
-					private OwnedEnumerationType(String originalName) {
+					private OwnedEnumeration_FieldType(String originalName) {
 						this.originalName = originalName;
 					}
 					
-					public static OwnedEnumerationType valueOf(PropertyExpression propertyExpression) {
+					public static OwnedEnumeration_FieldType valueOf(PropertyExpression propertyExpression) {
 						AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 						return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
 					}
@@ -953,7 +953,7 @@ class RecordTypeTest {
 					}
 				}
 				
-				public enum OwnedUnitsType {
+				public enum OwnedUnits_FieldType {
 					INCH(1.0, "inch"),
 					FOOT(12.0, "foot"),
 					YARD(36.0, "yard");
@@ -961,12 +961,12 @@ class RecordTypeTest {
 					private final double factorToBase;
 					private final String originalName;
 					
-					private OwnedUnitsType(double factorToBase, String originalName) {
+					private OwnedUnits_FieldType(double factorToBase, String originalName) {
 						this.factorToBase = factorToBase;
 						this.originalName = originalName;
 					}
 					
-					public static OwnedUnitsType valueOf(PropertyExpression propertyExpression) {
+					public static OwnedUnits_FieldType valueOf(PropertyExpression propertyExpression) {
 						AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 					}
@@ -975,7 +975,7 @@ class RecordTypeTest {
 						return factorToBase;
 					}
 					
-					public double getFactorTo(OwnedUnitsType target) {
+					public double getFactorTo(OwnedUnits_FieldType target) {
 						return factorToBase / target.factorToBase;
 					}
 					
@@ -985,11 +985,11 @@ class RecordTypeTest {
 					}
 				}
 				
-				public static class OwnedNumberWithUnitsNoImportType {
+				public static class OwnedNumberWithUnitsNoImport_FieldType {
 					private final long value;
 					private final Time unit;
 					
-					public OwnedNumberWithUnitsNoImportType(PropertyExpression propertyExpression) {
+					public OwnedNumberWithUnitsNoImport_FieldType(PropertyExpression propertyExpression) {
 						IntegerLiteral numberValue = (IntegerLiteral) propertyExpression;
 						value = numberValue.getValue();
 						unit = Time.valueOf(numberValue.getUnit().getName().toUpperCase());
@@ -1013,10 +1013,10 @@ class RecordTypeTest {
 						if (this == obj) {
 							return true;
 						}
-						if (!(obj instanceof OwnedNumberWithUnitsNoImportType)) {
+						if (!(obj instanceof OwnedNumberWithUnitsNoImport_FieldType)) {
 							return false;
 						}
-						OwnedNumberWithUnitsNoImportType other = (OwnedNumberWithUnitsNoImportType) obj;
+						OwnedNumberWithUnitsNoImport_FieldType other = (OwnedNumberWithUnitsNoImport_FieldType) obj;
 						return value == other.value && unit == other.unit;
 					}
 					
@@ -1026,11 +1026,11 @@ class RecordTypeTest {
 					}
 				}
 				
-				public static class OwnedNumberWithUnitsWithImportType {
+				public static class OwnedNumberWithUnitsWithImport_FieldType {
 					private final long value;
 					private final Mass unit;
 					
-					public OwnedNumberWithUnitsWithImportType(PropertyExpression propertyExpression) {
+					public OwnedNumberWithUnitsWithImport_FieldType(PropertyExpression propertyExpression) {
 						IntegerLiteral numberValue = (IntegerLiteral) propertyExpression;
 						value = numberValue.getValue();
 						unit = Mass.valueOf(numberValue.getUnit().getName().toUpperCase());
@@ -1054,10 +1054,10 @@ class RecordTypeTest {
 						if (this == obj) {
 							return true;
 						}
-						if (!(obj instanceof OwnedNumberWithUnitsWithImportType)) {
+						if (!(obj instanceof OwnedNumberWithUnitsWithImport_FieldType)) {
 							return false;
 						}
-						OwnedNumberWithUnitsWithImportType other = (OwnedNumberWithUnitsWithImportType) obj;
+						OwnedNumberWithUnitsWithImport_FieldType other = (OwnedNumberWithUnitsWithImport_FieldType) obj;
 						return value == other.value && unit == other.unit;
 					}
 					
@@ -1067,12 +1067,12 @@ class RecordTypeTest {
 					}
 				}
 				
-				public static class OwnedRangeNoImportType {
+				public static class OwnedRangeNoImport_FieldType {
 					private final IntegerReferencedUnitsOtherFile minimum;
 					private final IntegerReferencedUnitsOtherFile maximum;
 					private final Optional<IntegerReferencedUnitsOtherFile> delta;
 					
-					public OwnedRangeNoImportType(PropertyExpression propertyExpression) {
+					public OwnedRangeNoImport_FieldType(PropertyExpression propertyExpression) {
 						RangeValue rangeValue = (RangeValue) propertyExpression;
 						minimum = new IntegerReferencedUnitsOtherFile(rangeValue.getMinimum());
 						maximum = new IntegerReferencedUnitsOtherFile(rangeValue.getMaximum());
@@ -1101,10 +1101,10 @@ class RecordTypeTest {
 						if (this == obj) {
 							return true;
 						}
-						if (!(obj instanceof OwnedRangeNoImportType)) {
+						if (!(obj instanceof OwnedRangeNoImport_FieldType)) {
 							return false;
 						}
-						OwnedRangeNoImportType other = (OwnedRangeNoImportType) obj;
+						OwnedRangeNoImport_FieldType other = (OwnedRangeNoImport_FieldType) obj;
 						return Objects.equals(minimum, other.minimum) && Objects.equals(maximum, other.maximum)
 								&& Objects.equals(delta, other.delta);
 					}
@@ -1117,12 +1117,12 @@ class RecordTypeTest {
 					}
 				}
 				
-				public static class OwnedRangeImportNumberType {
+				public static class OwnedRangeImportNumber_FieldType {
 					private final MassType minimum;
 					private final MassType maximum;
 					private final Optional<MassType> delta;
 					
-					public OwnedRangeImportNumberType(PropertyExpression propertyExpression) {
+					public OwnedRangeImportNumber_FieldType(PropertyExpression propertyExpression) {
 						RangeValue rangeValue = (RangeValue) propertyExpression;
 						minimum = new MassType(rangeValue.getMinimum());
 						maximum = new MassType(rangeValue.getMaximum());
@@ -1151,10 +1151,10 @@ class RecordTypeTest {
 						if (this == obj) {
 							return true;
 						}
-						if (!(obj instanceof OwnedRangeImportNumberType)) {
+						if (!(obj instanceof OwnedRangeImportNumber_FieldType)) {
 							return false;
 						}
-						OwnedRangeImportNumberType other = (OwnedRangeImportNumberType) obj;
+						OwnedRangeImportNumber_FieldType other = (OwnedRangeImportNumber_FieldType) obj;
 						return Objects.equals(minimum, other.minimum) && Objects.equals(maximum, other.maximum)
 								&& Objects.equals(delta, other.delta);
 					}
@@ -1167,12 +1167,12 @@ class RecordTypeTest {
 					}
 				}
 				
-				public static class OwnedRangeImportUnitsType {
+				public static class OwnedRangeImportUnits_FieldType {
 					private final Number minimum;
 					private final Number maximum;
 					private final Optional<Number> delta;
 					
-					public OwnedRangeImportUnitsType(PropertyExpression propertyExpression) {
+					public OwnedRangeImportUnits_FieldType(PropertyExpression propertyExpression) {
 						RangeValue rangeValue = (RangeValue) propertyExpression;
 						minimum = new Number(rangeValue.getMinimum());
 						maximum = new Number(rangeValue.getMaximum());
@@ -1201,10 +1201,10 @@ class RecordTypeTest {
 						if (this == obj) {
 							return true;
 						}
-						if (!(obj instanceof OwnedRangeImportUnitsType)) {
+						if (!(obj instanceof OwnedRangeImportUnits_FieldType)) {
 							return false;
 						}
-						OwnedRangeImportUnitsType other = (OwnedRangeImportUnitsType) obj;
+						OwnedRangeImportUnits_FieldType other = (OwnedRangeImportUnits_FieldType) obj;
 						return Objects.equals(minimum, other.minimum) && Objects.equals(maximum, other.maximum)
 								&& Objects.equals(delta, other.delta);
 					}
@@ -1258,11 +1258,11 @@ class RecordTypeTest {
 					}
 				}
 				
-				public static class OwnedRecordType {
+				public static class OwnedRecord_FieldType {
 					private final Optional<String> stringField;
 					private final OptionalLong integerField;
 					
-					public OwnedRecordType(PropertyExpression propertyExpression) {
+					public OwnedRecord_FieldType(PropertyExpression propertyExpression) {
 						RecordValue recordValue = (RecordValue) propertyExpression;
 						stringField = recordValue.getOwnedFieldValues()
 								.stream()
@@ -1297,10 +1297,10 @@ class RecordTypeTest {
 						if (this == obj) {
 							return true;
 						}
-						if (!(obj instanceof OwnedRecordType)) {
+						if (!(obj instanceof OwnedRecord_FieldType)) {
 							return false;
 						}
-						OwnedRecordType other = (OwnedRecordType) obj;
+						OwnedRecord_FieldType other = (OwnedRecord_FieldType) obj;
 						return Objects.equals(stringField, other.stringField)
 								&& Objects.equals(integerField, other.integerField);
 					}
@@ -1510,18 +1510,18 @@ class RecordTypeTest {
 			import org.osate.aadl2.RecordValue;
 			
 			public class RecordOfEnum {
-				private final Optional<FieldType> field;
+				private final Optional<Field_FieldType> field;
 				
 				public RecordOfEnum(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
-							.map(field -> FieldType.valueOf(field.getOwnedValue()))
+							.map(field -> Field_FieldType.valueOf(field.getOwnedValue()))
 							.findAny();
 				}
 				
-				public Optional<FieldType> getField() {
+				public Optional<Field_FieldType> getField() {
 					return field;
 				}
 				
@@ -1555,18 +1555,18 @@ class RecordTypeTest {
 					return builder.toString();
 				}
 				
-				public enum FieldType {
+				public enum Field_FieldType {
 					A("a"),
 					B("b"),
 					C("c");
 					
 					private final String originalName;
 					
-					private FieldType(String originalName) {
+					private Field_FieldType(String originalName) {
 						this.originalName = originalName;
 					}
 					
-					public static FieldType valueOf(PropertyExpression propertyExpression) {
+					public static Field_FieldType valueOf(PropertyExpression propertyExpression) {
 						AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 						return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
 					}
@@ -1591,18 +1591,18 @@ class RecordTypeTest {
 			import org.osate.aadl2.UnitLiteral;
 			
 			public class RecordOfUnits {
-				private final Optional<FieldType> field;
+				private final Optional<Field_FieldType> field;
 				
 				public RecordOfUnits(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
-							.map(field -> FieldType.valueOf(field.getOwnedValue()))
+							.map(field -> Field_FieldType.valueOf(field.getOwnedValue()))
 							.findAny();
 				}
 				
-				public Optional<FieldType> getField() {
+				public Optional<Field_FieldType> getField() {
 					return field;
 				}
 				
@@ -1636,19 +1636,19 @@ class RecordTypeTest {
 					return builder.toString();
 				}
 				
-				public enum FieldType {
+				public enum Field_FieldType {
 					MM(1.0, "mm"),
 					CM(10.0, "cm");
 					
 					private final double factorToBase;
 					private final String originalName;
 					
-					private FieldType(double factorToBase, String originalName) {
+					private Field_FieldType(double factorToBase, String originalName) {
 						this.factorToBase = factorToBase;
 						this.originalName = originalName;
 					}
 					
-					public static FieldType valueOf(PropertyExpression propertyExpression) {
+					public static Field_FieldType valueOf(PropertyExpression propertyExpression) {
 						AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 					}
@@ -1657,7 +1657,7 @@ class RecordTypeTest {
 						return factorToBase;
 					}
 					
-					public double getFactorTo(FieldType target) {
+					public double getFactorTo(Field_FieldType target) {
 						return factorToBase / target.factorToBase;
 					}
 					
@@ -1852,18 +1852,18 @@ class RecordTypeTest {
 			import org.osate.aadl2.RecordValue;
 			
 			public class NestedRecord {
-				private final Optional<Field1Type> field1;
+				private final Optional<Field1_FieldType> field1;
 				
 				public NestedRecord(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					field1 = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field1"))
-							.map(field -> new Field1Type(field.getOwnedValue()))
+							.map(field -> new Field1_FieldType(field.getOwnedValue()))
 							.findAny();
 				}
 				
-				public Optional<Field1Type> getField1() {
+				public Optional<Field1_FieldType> getField1() {
 					return field1;
 				}
 				
@@ -1897,19 +1897,19 @@ class RecordTypeTest {
 					return builder.toString();
 				}
 				
-				public static class Field1Type {
-					private final Optional<Field2Type> field2;
+				public static class Field1_FieldType {
+					private final Optional<Field2_FieldType> field2;
 					
-					public Field1Type(PropertyExpression propertyExpression) {
+					public Field1_FieldType(PropertyExpression propertyExpression) {
 						RecordValue recordValue = (RecordValue) propertyExpression;
 						field2 = recordValue.getOwnedFieldValues()
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("field2"))
-								.map(field -> new Field2Type(field.getOwnedValue()))
+								.map(field -> new Field2_FieldType(field.getOwnedValue()))
 								.findAny();
 					}
 					
-					public Optional<Field2Type> getField2() {
+					public Optional<Field2_FieldType> getField2() {
 						return field2;
 					}
 					
@@ -1923,10 +1923,10 @@ class RecordTypeTest {
 						if (this == obj) {
 							return true;
 						}
-						if (!(obj instanceof Field1Type)) {
+						if (!(obj instanceof Field1_FieldType)) {
 							return false;
 						}
-						Field1Type other = (Field1Type) obj;
+						Field1_FieldType other = (Field1_FieldType) obj;
 						return Objects.equals(field2, other.field2);
 					}
 					
@@ -1943,19 +1943,19 @@ class RecordTypeTest {
 						return builder.toString();
 					}
 					
-					public static class Field2Type {
-						private final Optional<Field3Type> field3;
+					public static class Field2_FieldType {
+						private final Optional<Field3_FieldType> field3;
 						
-						public Field2Type(PropertyExpression propertyExpression) {
+						public Field2_FieldType(PropertyExpression propertyExpression) {
 							RecordValue recordValue = (RecordValue) propertyExpression;
 							field3 = recordValue.getOwnedFieldValues()
 									.stream()
 									.filter(field -> field.getProperty().getName().equals("field3"))
-									.map(field -> new Field3Type(field.getOwnedValue()))
+									.map(field -> new Field3_FieldType(field.getOwnedValue()))
 									.findAny();
 						}
 						
-						public Optional<Field3Type> getField3() {
+						public Optional<Field3_FieldType> getField3() {
 							return field3;
 						}
 						
@@ -1969,10 +1969,10 @@ class RecordTypeTest {
 							if (this == obj) {
 								return true;
 							}
-							if (!(obj instanceof Field2Type)) {
+							if (!(obj instanceof Field2_FieldType)) {
 								return false;
 							}
-							Field2Type other = (Field2Type) obj;
+							Field2_FieldType other = (Field2_FieldType) obj;
 							return Objects.equals(field3, other.field3);
 						}
 						
@@ -1989,10 +1989,10 @@ class RecordTypeTest {
 							return builder.toString();
 						}
 						
-						public static class Field3Type {
+						public static class Field3_FieldType {
 							private final OptionalLong innerField;
 							
-							public Field3Type(PropertyExpression propertyExpression) {
+							public Field3_FieldType(PropertyExpression propertyExpression) {
 								RecordValue recordValue = (RecordValue) propertyExpression;
 								innerField = recordValue.getOwnedFieldValues()
 										.stream()
@@ -2015,10 +2015,10 @@ class RecordTypeTest {
 								if (this == obj) {
 									return true;
 								}
-								if (!(obj instanceof Field3Type)) {
+								if (!(obj instanceof Field3_FieldType)) {
 									return false;
 								}
-								Field3Type other = (Field3Type) obj;
+								Field3_FieldType other = (Field3_FieldType) obj;
 								return Objects.equals(innerField, other.innerField);
 							}
 							

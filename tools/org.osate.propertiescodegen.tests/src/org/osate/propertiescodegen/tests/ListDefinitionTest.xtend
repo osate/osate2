@@ -1007,7 +1007,7 @@ class ListDefinitionTest {
 			public class List1OwnedRecord {
 				private final Optional<Boolean> booleanField;
 				private final Optional<String> stringField;
-				private final Optional<RecordFieldType> recordField;
+				private final Optional<RecordField_FieldType> recordField;
 				
 				public List1OwnedRecord(PropertyExpression propertyExpression) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
@@ -1024,7 +1024,7 @@ class ListDefinitionTest {
 					recordField = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("record_field"))
-							.map(field -> new RecordFieldType(field.getOwnedValue()))
+							.map(field -> new RecordField_FieldType(field.getOwnedValue()))
 							.findAny();
 				}
 				
@@ -1036,7 +1036,7 @@ class ListDefinitionTest {
 					return stringField;
 				}
 				
-				public Optional<RecordFieldType> getRecordField() {
+				public Optional<RecordField_FieldType> getRecordField() {
 					return recordField;
 				}
 				
@@ -1086,11 +1086,11 @@ class ListDefinitionTest {
 					return builder.toString();
 				}
 				
-				public static class RecordFieldType {
+				public static class RecordField_FieldType {
 					private final OptionalLong integerField;
 					private final OptionalDouble realField;
 					
-					public RecordFieldType(PropertyExpression propertyExpression) {
+					public RecordField_FieldType(PropertyExpression propertyExpression) {
 						RecordValue recordValue = (RecordValue) propertyExpression;
 						integerField = recordValue.getOwnedFieldValues()
 								.stream()
@@ -1125,10 +1125,10 @@ class ListDefinitionTest {
 						if (this == obj) {
 							return true;
 						}
-						if (!(obj instanceof RecordFieldType)) {
+						if (!(obj instanceof RecordField_FieldType)) {
 							return false;
 						}
-						RecordFieldType other = (RecordFieldType) obj;
+						RecordField_FieldType other = (RecordField_FieldType) obj;
 						return Objects.equals(integerField, other.integerField)
 								&& Objects.equals(realField, other.realField);
 					}

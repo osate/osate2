@@ -574,7 +574,7 @@ class PropertiesCodeGen {
 		'''
 			public«IF !topLevel» static«ENDIF» class «typeName» {
 				«FOR field : recordType.ownedFields»
-				«val fieldType = getOptionalType(field, field.propertyType, field.name.toCamelCase + "Type")»
+				«val fieldType = getOptionalType(field, field.propertyType, field.name.toCamelCase + "_FieldType")»
 				private final «fieldType» «field.name.toCamelCase.toFirstLower»;
 				«ENDFOR»
 				
@@ -590,7 +590,7 @@ class PropertiesCodeGen {
 				}
 				«FOR field : recordType.ownedFields»
 				
-				«val fieldType = getOptionalType(field, field.propertyType, field.name.toCamelCase + "Type")»
+				«val fieldType = getOptionalType(field, field.propertyType, field.name.toCamelCase + "_FieldType")»
 				public «fieldType» get«field.name.toCamelCase»() {
 					return «field.name.toCamelCase.toFirstLower»;
 				}
@@ -649,19 +649,19 @@ class PropertiesCodeGen {
 				«val baseType = field.propertyType.basePropertyType»
 				«IF baseType instanceof UnitsType»
 				
-				«generateUnits(field.name.toCamelCase + "Type", baseType)»
+				«generateUnits(field.name.toCamelCase + "_FieldType", baseType)»
 				«ELSEIF baseType instanceof EnumerationType»
 				
-				«generateEnumeration(field.name.toCamelCase + "Type", baseType)»
+				«generateEnumeration(field.name.toCamelCase + "_FieldType", baseType)»
 				«ELSEIF baseType instanceof NumberType && (baseType as NumberType).unitsType !== null»
 				
-				«generateNumberWithUnits(field.name.toCamelCase + "Type", baseType as NumberType, false)»
+				«generateNumberWithUnits(field.name.toCamelCase + "_FieldType", baseType as NumberType, false)»
 				«ELSEIF baseType instanceof RangeType»
 				
-				«generateRange(field.name.toCamelCase + "Type", baseType, false)»
+				«generateRange(field.name.toCamelCase + "_FieldType", baseType, false)»
 				«ELSEIF baseType instanceof RecordType»
 				
-				«generateRecord(field.name.toCamelCase + "Type", baseType, false)»
+				«generateRecord(field.name.toCamelCase + "_FieldType", baseType, false)»
 				«ENDIF»
 				«ENDFOR»
 			}
@@ -673,19 +673,19 @@ class PropertiesCodeGen {
 			ListType: '''
 				.map(field -> {
 					return ((ListValue) field.getOwnedValue()).getOwnedListElements().stream().map(element1 -> {
-						«getListValueExtractor(propertyType, propertyType.elementType, "element1", 2, field.name.toCamelCase + "Type")»
+						«getListValueExtractor(propertyType, propertyType.elementType, "element1", 2, field.name.toCamelCase + "_FieldType")»
 					}).collect(Collectors.toList());
 				})
 			'''
 			AadlBoolean: ".map(field -> ((BooleanLiteral) field.getOwnedValue()).getValue())"
 			AadlString: ".map(field -> ((StringLiteral) field.getOwnedValue()).getValue())"
 			ClassifierType: ".map(field -> ((ClassifierValue) field.getOwnedValue()).getClassifier())"
-			EnumerationType case field.ownedPropertyType !== null: '''.map(field -> «field.name.toCamelCase»Type.valueOf(field.getOwnedValue()))'''
+			EnumerationType case field.ownedPropertyType !== null: '''.map(field -> «field.name.toCamelCase»_FieldType.valueOf(field.getOwnedValue()))'''
 			EnumerationType case field.referencedPropertyType !== null: '''.map(field -> «propertyType.name.toCamelCase».valueOf(field.getOwnedValue()))'''
 			AadlInteger case propertyType.unitsType === null: ".mapToLong(field -> ((IntegerLiteral) field.getOwnedValue()).getValue())"
 			AadlReal case propertyType.unitsType === null: ".mapToDouble(field -> ((RealLiteral) field.getOwnedValue()).getValue())"
 			ReferenceType: ".map(field -> ((InstanceReferenceValue) field.getOwnedValue()).getReferencedInstanceObject())"
-			default: '''.map(field -> new «IF field.ownedPropertyType !== null»«field.name.toCamelCase»Type«ELSE»«propertyType.name.toCamelCase»«ENDIF»(field.getOwnedValue()))'''
+			default: '''.map(field -> new «IF field.ownedPropertyType !== null»«field.name.toCamelCase»_FieldType«ELSE»«propertyType.name.toCamelCase»«ENDIF»(field.getOwnedValue()))'''
 		}
 	}
 	
