@@ -68,6 +68,12 @@ class IntegerNoUnitsTest {
 					}
 				}
 				
+				public static PropertyExpression getOwnedInteger_EObject(NamedElement namedElement) {
+					String name = "integer_no_units_test::owned_integer";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static OptionalLong getReferencedIntegerLocal(NamedElement namedElement) {
 					String name = "integer_no_units_test::referenced_integer_local";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -77,6 +83,12 @@ class IntegerNoUnitsTest {
 					} catch (PropertyNotPresentException e) {
 						return OptionalLong.empty();
 					}
+				}
+				
+				public static PropertyExpression getReferencedIntegerLocal_EObject(NamedElement namedElement) {
+					String name = "integer_no_units_test::referenced_integer_local";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static OptionalLong getReferencedIntegerOther(NamedElement namedElement) {
@@ -90,6 +102,12 @@ class IntegerNoUnitsTest {
 					}
 				}
 				
+				public static PropertyExpression getReferencedIntegerOther_EObject(NamedElement namedElement) {
+					String name = "integer_no_units_test::referenced_integer_other";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static Optional<List<Long>> getList1Integer(NamedElement namedElement) {
 					String name = "integer_no_units_test::list_1_integer";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -101,6 +119,12 @@ class IntegerNoUnitsTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getList1Integer_EObject(NamedElement namedElement) {
+					String name = "integer_no_units_test::list_1_integer";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static Optional<List<List<List<List<List<Long>>>>>> getList5Integer(NamedElement namedElement) {
@@ -122,6 +146,12 @@ class IntegerNoUnitsTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getList5Integer_EObject(NamedElement namedElement) {
+					String name = "integer_no_units_test::list_5_integer";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 			}
 		'''

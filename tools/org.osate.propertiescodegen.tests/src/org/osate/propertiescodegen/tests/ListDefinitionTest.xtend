@@ -124,6 +124,12 @@ class ListDefinitionTest {
 					}
 				}
 				
+				public static PropertyExpression getList1Boolean_EObject(NamedElement namedElement) {
+					String name = "ps1::list_1_boolean";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static Optional<List<List<Boolean>>> getList2Boolean(NamedElement namedElement) {
 					String name = "ps1::list_2_boolean";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -137,6 +143,12 @@ class ListDefinitionTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getList2Boolean_EObject(NamedElement namedElement) {
+					String name = "ps1::list_2_boolean";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static Optional<List<List<List<Boolean>>>> getList3Boolean(NamedElement namedElement) {
@@ -156,6 +168,12 @@ class ListDefinitionTest {
 					}
 				}
 				
+				public static PropertyExpression getList3Boolean_EObject(NamedElement namedElement) {
+					String name = "ps1::list_3_boolean";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static Optional<List<List<List<List<Boolean>>>>> getList4Boolean(NamedElement namedElement) {
 					String name = "ps1::list_4_boolean";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -173,6 +191,12 @@ class ListDefinitionTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getList4Boolean_EObject(NamedElement namedElement) {
+					String name = "ps1::list_4_boolean";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static Optional<List<List<List<List<List<Boolean>>>>>> getList5Boolean(NamedElement namedElement) {
@@ -196,6 +220,12 @@ class ListDefinitionTest {
 					}
 				}
 				
+				public static PropertyExpression getList5Boolean_EObject(NamedElement namedElement) {
+					String name = "ps1::list_5_boolean";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static Optional<List<String>> getList1String(NamedElement namedElement) {
 					String name = "ps1::list_1_string";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -207,6 +237,12 @@ class ListDefinitionTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getList1String_EObject(NamedElement namedElement) {
+					String name = "ps1::list_1_string";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static Optional<List<Classifier>> getList1Classifier(NamedElement namedElement) {
@@ -222,6 +258,12 @@ class ListDefinitionTest {
 					}
 				}
 				
+				public static PropertyExpression getList1Classifier_EObject(NamedElement namedElement) {
+					String name = "ps1::list_1_classifier";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static Optional<List<Long>> getList1IntegerNoUnits(NamedElement namedElement) {
 					String name = "ps1::list_1_integer_no_units";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -233,6 +275,12 @@ class ListDefinitionTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getList1IntegerNoUnits_EObject(NamedElement namedElement) {
+					String name = "ps1::list_1_integer_no_units";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static Optional<List<Double>> getList1RealNoUnits(NamedElement namedElement) {
@@ -248,6 +296,12 @@ class ListDefinitionTest {
 					}
 				}
 				
+				public static PropertyExpression getList1RealNoUnits_EObject(NamedElement namedElement) {
+					String name = "ps1::list_1_real_no_units";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static Optional<List<InstanceObject>> getList1Reference(NamedElement namedElement) {
 					String name = "ps1::list_1_reference";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -259,6 +313,12 @@ class ListDefinitionTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getList1Reference_EObject(NamedElement namedElement) {
+					String name = "ps1::list_1_reference";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static Optional<List<List1OwnedEnum>> getList1OwnedEnum(NamedElement namedElement) {
@@ -274,6 +334,12 @@ class ListDefinitionTest {
 					}
 				}
 				
+				public static PropertyExpression getList1OwnedEnum_EObject(NamedElement namedElement) {
+					String name = "ps1::list_1_owned_enum";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static Optional<List<List1OwnedUnits>> getList1OwnedUnits(NamedElement namedElement) {
 					String name = "ps1::list_1_owned_units";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -285,6 +351,12 @@ class ListDefinitionTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getList1OwnedUnits_EObject(NamedElement namedElement) {
+					String name = "ps1::list_1_owned_units";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static Optional<List<List1OwnedIntegerWithUnits>> getList1OwnedIntegerWithUnits(NamedElement namedElement) {
@@ -300,6 +372,12 @@ class ListDefinitionTest {
 					}
 				}
 				
+				public static PropertyExpression getList1OwnedIntegerWithUnits_EObject(NamedElement namedElement) {
+					String name = "ps1::list_1_owned_integer_with_units";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static Optional<List<List1OwnedRange>> getList1OwnedRange(NamedElement namedElement) {
 					String name = "ps1::list_1_owned_range";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -311,6 +389,12 @@ class ListDefinitionTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getList1OwnedRange_EObject(NamedElement namedElement) {
+					String name = "ps1::list_1_owned_range";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static Optional<List<List1OwnedRecord>> getList1OwnedRecord(NamedElement namedElement) {
@@ -326,6 +410,12 @@ class ListDefinitionTest {
 					}
 				}
 				
+				public static PropertyExpression getList1OwnedRecord_EObject(NamedElement namedElement) {
+					String name = "ps1::list_1_owned_record";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static Optional<List<EnumType1>> getList1ReferencedEnumNoImport(NamedElement namedElement) {
 					String name = "ps1::list_1_referenced_enum_no_import";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -337,6 +427,12 @@ class ListDefinitionTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getList1ReferencedEnumNoImport_EObject(NamedElement namedElement) {
+					String name = "ps1::list_1_referenced_enum_no_import";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static Optional<List<Color>> getList1ReferencedEnumWithImport(NamedElement namedElement) {
@@ -352,6 +448,12 @@ class ListDefinitionTest {
 					}
 				}
 				
+				public static PropertyExpression getList1ReferencedEnumWithImport_EObject(NamedElement namedElement) {
+					String name = "ps1::list_1_referenced_enum_with_import";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static Optional<List<Time>> getList1ReferencedUnitsNoImport(NamedElement namedElement) {
 					String name = "ps1::list_1_referenced_units_no_import";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -363,6 +465,12 @@ class ListDefinitionTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getList1ReferencedUnitsNoImport_EObject(NamedElement namedElement) {
+					String name = "ps1::list_1_referenced_units_no_import";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static Optional<List<Mass>> getList1ReferencedUnitsWithImport(NamedElement namedElement) {
@@ -378,6 +486,12 @@ class ListDefinitionTest {
 					}
 				}
 				
+				public static PropertyExpression getList1ReferencedUnitsWithImport_EObject(NamedElement namedElement) {
+					String name = "ps1::list_1_referenced_units_with_import";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static Optional<List<IntegerOwnedUnits>> getList1ReferencedNumberWithUnitsNoImport(NamedElement namedElement) {
 					String name = "ps1::list_1_referenced_number_with_units_no_import";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -389,6 +503,12 @@ class ListDefinitionTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getList1ReferencedNumberWithUnitsNoImport_EObject(NamedElement namedElement) {
+					String name = "ps1::list_1_referenced_number_with_units_no_import";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static Optional<List<MassType>> getList1ReferencedNumberWithUnitsWithImport(NamedElement namedElement) {
@@ -404,6 +524,12 @@ class ListDefinitionTest {
 					}
 				}
 				
+				public static PropertyExpression getList1ReferencedNumberWithUnitsWithImport_EObject(NamedElement namedElement) {
+					String name = "ps1::list_1_referenced_number_with_units_with_import";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static Optional<List<RangeOfIntegerNoUnits>> getList1ReferencedRangeNoImport(NamedElement namedElement) {
 					String name = "ps1::list_1_referenced_range_no_import";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -415,6 +541,12 @@ class ListDefinitionTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getList1ReferencedRangeNoImport_EObject(NamedElement namedElement) {
+					String name = "ps1::list_1_referenced_range_no_import";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static Optional<List<BasicRange>> getList1ReferencedRangeWithImport(NamedElement namedElement) {
@@ -430,6 +562,12 @@ class ListDefinitionTest {
 					}
 				}
 				
+				public static PropertyExpression getList1ReferencedRangeWithImport_EObject(NamedElement namedElement) {
+					String name = "ps1::list_1_referenced_range_with_import";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static Optional<List<RecordOfBoolean>> getList1ReferencedRecordNoImport(NamedElement namedElement) {
 					String name = "ps1::list_1_referenced_record_no_import";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -443,6 +581,12 @@ class ListDefinitionTest {
 					}
 				}
 				
+				public static PropertyExpression getList1ReferencedRecordNoImport_EObject(NamedElement namedElement) {
+					String name = "ps1::list_1_referenced_record_no_import";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static Optional<List<BasicRecord>> getList1ReferencedRecordWithImport(NamedElement namedElement) {
 					String name = "ps1::list_1_referenced_record_with_import";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -454,6 +598,12 @@ class ListDefinitionTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getList1ReferencedRecordWithImport_EObject(NamedElement namedElement) {
+					String name = "ps1::list_1_referenced_record_with_import";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static Optional<List<List<List<List3OwnedEnum>>>> getList3OwnedEnum(NamedElement namedElement) {
@@ -471,6 +621,12 @@ class ListDefinitionTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getList3OwnedEnum_EObject(NamedElement namedElement) {
+					String name = "ps1::list_3_owned_enum";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static Optional<List<List<List<List<List<List5OwnedRange>>>>>> getList5OwnedRange(NamedElement namedElement) {
@@ -494,6 +650,12 @@ class ListDefinitionTest {
 					}
 				}
 				
+				public static PropertyExpression getList5OwnedRange_EObject(NamedElement namedElement) {
+					String name = "ps1::list_5_owned_range";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static Optional<List<List<List<EnumType1>>>> getList3ReferencedEnumNoImport(NamedElement namedElement) {
 					String name = "ps1::list_3_referenced_enum_no_import";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -509,6 +671,12 @@ class ListDefinitionTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getList3ReferencedEnumNoImport_EObject(NamedElement namedElement) {
+					String name = "ps1::list_3_referenced_enum_no_import";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static Optional<List<List<List<List<List<BasicRange>>>>>> getList5ReferencedRangeWithImport(NamedElement namedElement) {
@@ -530,6 +698,12 @@ class ListDefinitionTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getList5ReferencedRangeWithImport_EObject(NamedElement namedElement) {
+					String name = "ps1::list_5_referenced_range_with_import";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 			}
 		'''

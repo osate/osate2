@@ -143,6 +143,12 @@ class PropertiesCodeGen {
 					return «optionalType».empty();
 				}
 			}
+			
+			public static PropertyExpression get«property.name.toCamelCase»_EObject(NamedElement namedElement) {
+				String name = "«propertySet.name»::«property.name»";
+				Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+				return namedElement.getNonModalPropertyValue(property);
+			}
 		'''
 	}
 	
