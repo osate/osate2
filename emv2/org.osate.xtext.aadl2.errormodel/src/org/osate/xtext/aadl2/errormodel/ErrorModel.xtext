@@ -603,9 +603,13 @@ ErrorDetection returns ErrorDetection:
     	allStates?='all'
     )
 	'-[' (condition=ConditionExpression)? ']->' 
-	( detectionReportingPort=[aadl2::TriggerPort|ID] ) '!'
+	( detectionReportingPort=ReportingPortReference ) '!'
 	('('errorCode=ErrorCodeValue')')?
 	';' 
+;
+
+ReportingPortReference:
+	element=[aadl2::NamedElement] ({ReportingPortReference.previous=current} '.' element=[aadl2::NamedElement])*
 ;
 
 ErrorCodeValue returns ErrorCodeValue:

@@ -284,6 +284,8 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getErrorDetectionAccess().getGroup_0(), "rule__ErrorDetection__Group_0__0");
 					put(grammarAccess.getErrorDetectionAccess().getGroup_1_0(), "rule__ErrorDetection__Group_1_0__0");
 					put(grammarAccess.getErrorDetectionAccess().getGroup_7(), "rule__ErrorDetection__Group_7__0");
+					put(grammarAccess.getReportingPortReferenceAccess().getGroup(), "rule__ReportingPortReference__Group__0");
+					put(grammarAccess.getReportingPortReferenceAccess().getGroup_1(), "rule__ReportingPortReference__Group_1__0");
 					put(grammarAccess.getErrorStateToModeMappingAccess().getGroup(), "rule__ErrorStateToModeMapping__Group__0");
 					put(grammarAccess.getErrorStateToModeMappingAccess().getGroup_5(), "rule__ErrorStateToModeMapping__Group_5__0");
 					put(grammarAccess.getCompositeStateAccess().getGroup(), "rule__CompositeState__Group__0");
@@ -621,6 +623,8 @@ public class ErrorModelParser extends AbstractPartialContentAssistParser {
 					put(grammarAccess.getErrorDetectionAccess().getConditionAssignment_3(), "rule__ErrorDetection__ConditionAssignment_3");
 					put(grammarAccess.getErrorDetectionAccess().getDetectionReportingPortAssignment_5(), "rule__ErrorDetection__DetectionReportingPortAssignment_5");
 					put(grammarAccess.getErrorDetectionAccess().getErrorCodeAssignment_7_1(), "rule__ErrorDetection__ErrorCodeAssignment_7_1");
+					put(grammarAccess.getReportingPortReferenceAccess().getElementAssignment_0(), "rule__ReportingPortReference__ElementAssignment_0");
+					put(grammarAccess.getReportingPortReferenceAccess().getElementAssignment_1_2(), "rule__ReportingPortReference__ElementAssignment_1_2");
 					put(grammarAccess.getErrorCodeValueAccess().getIntValueAssignment_0(), "rule__ErrorCodeValue__IntValueAssignment_0");
 					put(grammarAccess.getErrorCodeValueAccess().getConstantAssignment_1(), "rule__ErrorCodeValue__ConstantAssignment_1");
 					put(grammarAccess.getErrorCodeValueAccess().getEnumLiteralAssignment_2(), "rule__ErrorCodeValue__EnumLiteralAssignment_2");

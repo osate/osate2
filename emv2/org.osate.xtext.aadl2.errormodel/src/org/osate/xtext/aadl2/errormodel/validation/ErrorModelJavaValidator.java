@@ -37,6 +37,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
+import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -84,6 +85,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.ReportingPortReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
@@ -346,6 +348,19 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	@Check(CheckType.FAST)
 	public void caseErrorDetection(ErrorDetection ebt) {
 		checkDetectionSourceTypes(ebt);
+	}
+	
+	@Check
+	public void typeCheckDetectionReportingPort(ErrorDetection detection) {
+		ReportingPortReference portReference = detection.getDetectionReportingPort();
+		if (portReference != null) {
+			NamedElement element = portReference.getElement();
+			if (!element.eIsProxy() && !(element instanceof AbstractFeature || element instanceof Port
+					|| element instanceof InternalFeature)) {
+				error("'" + element.getName() + "' is not a port, abstract feature, or internal feature.",
+						portReference, ErrorModelPackage.eINSTANCE.getReportingPortReference_Element());
+			}
+		}
 	}
 
 	@Check(CheckType.FAST)

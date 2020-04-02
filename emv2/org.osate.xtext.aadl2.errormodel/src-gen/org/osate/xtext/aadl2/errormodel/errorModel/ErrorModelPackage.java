@@ -3341,7 +3341,7 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_DETECTION__CONDITION = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 3;
 
   /**
-   * The feature id for the '<em><b>Detection Reporting Port</b></em>' reference.
+   * The feature id for the '<em><b>Detection Reporting Port</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -3368,6 +3368,43 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_DETECTION_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 6;
 
   /**
+   * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ReportingPortReferenceImpl <em>Reporting Port Reference</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ReportingPortReferenceImpl
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getReportingPortReference()
+   * @generated
+   */
+  int REPORTING_PORT_REFERENCE = 39;
+
+  /**
+   * The feature id for the '<em><b>Element</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REPORTING_PORT_REFERENCE__ELEMENT = 0;
+
+  /**
+   * The feature id for the '<em><b>Previous</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REPORTING_PORT_REFERENCE__PREVIOUS = 1;
+
+  /**
+   * The number of structural features of the '<em>Reporting Port Reference</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REPORTING_PORT_REFERENCE_FEATURE_COUNT = 2;
+
+  /**
    * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorCodeValueImpl <em>Error Code Value</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3375,7 +3412,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorCodeValue()
    * @generated
    */
-  int ERROR_CODE_VALUE = 39;
+  int ERROR_CODE_VALUE = 40;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3439,7 +3476,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getErrorStateToModeMapping()
    * @generated
    */
-  int ERROR_STATE_TO_MODE_MAPPING = 40;
+  int ERROR_STATE_TO_MODE_MAPPING = 41;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3503,7 +3540,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getCompositeState()
    * @generated
    */
-  int COMPOSITE_STATE = 41;
+  int COMPOSITE_STATE = 42;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3603,7 +3640,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getQualifiedErrorBehaviorState()
    * @generated
    */
-  int QUALIFIED_ERROR_BEHAVIOR_STATE = 42;
+  int QUALIFIED_ERROR_BEHAVIOR_STATE = 43;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3667,7 +3704,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getSubcomponentElement()
    * @generated
    */
-  int SUBCOMPONENT_ELEMENT = 43;
+  int SUBCOMPONENT_ELEMENT = 44;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3713,7 +3750,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getEMV2Root()
    * @generated
    */
-  int EMV2_ROOT = 44;
+  int EMV2_ROOT = 45;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3795,7 +3832,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getOrExpression()
    * @generated
    */
-  int OR_EXPRESSION = 45;
+  int OR_EXPRESSION = 46;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3841,7 +3878,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getAndExpression()
    * @generated
    */
-  int AND_EXPRESSION = 46;
+  int AND_EXPRESSION = 47;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3887,7 +3924,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getAllExpression()
    * @generated
    */
-  int ALL_EXPRESSION = 47;
+  int ALL_EXPRESSION = 48;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3942,7 +3979,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getQualifiedErrorEventOrPropagation()
    * @generated
    */
-  int QUALIFIED_ERROR_EVENT_OR_PROPAGATION = 48;
+  int QUALIFIED_ERROR_EVENT_OR_PROPAGATION = 49;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -3997,7 +4034,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getQualifiedErrorPropagation()
    * @generated
    */
-  int QUALIFIED_ERROR_PROPAGATION = 49;
+  int QUALIFIED_ERROR_PROPAGATION = 50;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -4052,7 +4089,7 @@ public interface ErrorModelPackage extends EPackage
    * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getSConditionElement()
    * @generated
    */
-  int SCONDITION_ELEMENT = 50;
+  int SCONDITION_ELEMENT = 51;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -5886,10 +5923,10 @@ public interface ErrorModelPackage extends EPackage
   EReference getErrorDetection_Condition();
 
   /**
-   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#getDetectionReportingPort <em>Detection Reporting Port</em>}'.
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#getDetectionReportingPort <em>Detection Reporting Port</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Detection Reporting Port</em>'.
+   * @return the meta object for the containment reference '<em>Detection Reporting Port</em>'.
    * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#getDetectionReportingPort()
    * @see #getErrorDetection()
    * @generated
@@ -5906,6 +5943,38 @@ public interface ErrorModelPackage extends EPackage
    * @generated
    */
   EReference getErrorDetection_ErrorCode();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ReportingPortReference <em>Reporting Port Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Reporting Port Reference</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ReportingPortReference
+   * @generated
+   */
+  EClass getReportingPortReference();
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ReportingPortReference#getElement <em>Element</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Element</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ReportingPortReference#getElement()
+   * @see #getReportingPortReference()
+   * @generated
+   */
+  EReference getReportingPortReference_Element();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ReportingPortReference#getPrevious <em>Previous</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Previous</em>'.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ReportingPortReference#getPrevious()
+   * @see #getReportingPortReference()
+   * @generated
+   */
+  EReference getReportingPortReference_Previous();
 
   /**
    * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorCodeValue <em>Error Code Value</em>}'.
@@ -7680,7 +7749,7 @@ public interface ErrorModelPackage extends EPackage
     EReference ERROR_DETECTION__CONDITION = eINSTANCE.getErrorDetection_Condition();
 
     /**
-     * The meta object literal for the '<em><b>Detection Reporting Port</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Detection Reporting Port</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -7694,6 +7763,32 @@ public interface ErrorModelPackage extends EPackage
      * @generated
      */
     EReference ERROR_DETECTION__ERROR_CODE = eINSTANCE.getErrorDetection_ErrorCode();
+
+    /**
+     * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ReportingPortReferenceImpl <em>Reporting Port Reference</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ReportingPortReferenceImpl
+     * @see org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl#getReportingPortReference()
+     * @generated
+     */
+    EClass REPORTING_PORT_REFERENCE = eINSTANCE.getReportingPortReference();
+
+    /**
+     * The meta object literal for the '<em><b>Element</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference REPORTING_PORT_REFERENCE__ELEMENT = eINSTANCE.getReportingPortReference_Element();
+
+    /**
+     * The meta object literal for the '<em><b>Previous</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference REPORTING_PORT_REFERENCE__PREVIOUS = eINSTANCE.getReportingPortReference_Previous();
 
     /**
      * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorCodeValueImpl <em>Error Code Value</em>}' class.
