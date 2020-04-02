@@ -55,8 +55,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstrainedInstanceObjectImpl#getInstanceObject <em>Instance Object</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstrainedInstanceObjectImpl#getConstraint <em>Constraint</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstrainedInstanceObjectImpl#isOutgoing <em>Outgoing</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstrainedInstanceObjectImpl#getBindingKind <em>Binding Kind</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstrainedInstanceObjectImpl#getPropagationKind <em>Propagation Kind</em>}</li>
  * </ul>
  *
  * @generated
@@ -83,44 +82,24 @@ public class ConstrainedInstanceObjectImpl extends ConstraintElementImpl impleme
 	protected EList<TypeToken> constraint;
 
 	/**
-	 * The default value of the '{@link #isOutgoing() <em>Outgoing</em>}' attribute.
+	 * The default value of the '{@link #getPropagationKind() <em>Propagation Kind</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isOutgoing()
+	 * @see #getPropagationKind()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean OUTGOING_EDEFAULT = false;
+	protected static final String PROPAGATION_KIND_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #isOutgoing() <em>Outgoing</em>}' attribute.
+	 * The cached value of the '{@link #getPropagationKind() <em>Propagation Kind</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isOutgoing()
+	 * @see #getPropagationKind()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean outgoing = OUTGOING_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getBindingKind() <em>Binding Kind</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getBindingKind()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String BINDING_KIND_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getBindingKind() <em>Binding Kind</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getBindingKind()
-	 * @generated
-	 * @ordered
-	 */
-	protected String bindingKind = BINDING_KIND_EDEFAULT;
+	protected String propagationKind = PROPAGATION_KIND_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -200,8 +179,8 @@ public class ConstrainedInstanceObjectImpl extends ConstraintElementImpl impleme
 	 * @generated
 	 */
 	@Override
-	public boolean isOutgoing() {
-		return outgoing;
+	public String getPropagationKind() {
+		return propagationKind;
 	}
 
 	/**
@@ -210,34 +189,11 @@ public class ConstrainedInstanceObjectImpl extends ConstraintElementImpl impleme
 	 * @generated
 	 */
 	@Override
-	public void setOutgoing(boolean newOutgoing) {
-		boolean oldOutgoing = outgoing;
-		outgoing = newOutgoing;
+	public void setPropagationKind(String newPropagationKind) {
+		String oldPropagationKind = propagationKind;
+		propagationKind = newPropagationKind;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__OUTGOING, oldOutgoing, outgoing));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String getBindingKind() {
-		return bindingKind;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setBindingKind(String newBindingKind) {
-		String oldBindingKind = bindingKind;
-		bindingKind = newBindingKind;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__BINDING_KIND, oldBindingKind, bindingKind));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__PROPAGATION_KIND, oldPropagationKind, propagationKind));
 	}
 
 	/**
@@ -267,10 +223,8 @@ public class ConstrainedInstanceObjectImpl extends ConstraintElementImpl impleme
 				return basicGetInstanceObject();
 			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT:
 				return getConstraint();
-			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__OUTGOING:
-				return isOutgoing();
-			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__BINDING_KIND:
-				return getBindingKind();
+			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__PROPAGATION_KIND:
+				return getPropagationKind();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -291,11 +245,8 @@ public class ConstrainedInstanceObjectImpl extends ConstraintElementImpl impleme
 				getConstraint().clear();
 				getConstraint().addAll((Collection<? extends TypeToken>)newValue);
 				return;
-			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__OUTGOING:
-				setOutgoing((Boolean)newValue);
-				return;
-			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__BINDING_KIND:
-				setBindingKind((String)newValue);
+			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__PROPAGATION_KIND:
+				setPropagationKind((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -315,11 +266,8 @@ public class ConstrainedInstanceObjectImpl extends ConstraintElementImpl impleme
 			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT:
 				getConstraint().clear();
 				return;
-			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__OUTGOING:
-				setOutgoing(OUTGOING_EDEFAULT);
-				return;
-			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__BINDING_KIND:
-				setBindingKind(BINDING_KIND_EDEFAULT);
+			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__PROPAGATION_KIND:
+				setPropagationKind(PROPAGATION_KIND_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -337,10 +285,8 @@ public class ConstrainedInstanceObjectImpl extends ConstraintElementImpl impleme
 				return instanceObject != null;
 			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__CONSTRAINT:
 				return constraint != null && !constraint.isEmpty();
-			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__OUTGOING:
-				return outgoing != OUTGOING_EDEFAULT;
-			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__BINDING_KIND:
-				return BINDING_KIND_EDEFAULT == null ? bindingKind != null : !BINDING_KIND_EDEFAULT.equals(bindingKind);
+			case EMV2InstancePackage.CONSTRAINED_INSTANCE_OBJECT__PROPAGATION_KIND:
+				return PROPAGATION_KIND_EDEFAULT == null ? propagationKind != null : !PROPAGATION_KIND_EDEFAULT.equals(propagationKind);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -355,10 +301,8 @@ public class ConstrainedInstanceObjectImpl extends ConstraintElementImpl impleme
 		if (eIsProxy()) return super.toString();
 
 		StringBuilder result = new StringBuilder(super.toString());
-		result.append(" (outgoing: ");
-		result.append(outgoing);
-		result.append(", bindingKind: ");
-		result.append(bindingKind);
+		result.append(" (propagationKind: ");
+		result.append(propagationKind);
 		result.append(')');
 		return result.toString();
 	}

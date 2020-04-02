@@ -56,7 +56,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ErrorPropagationConditionInstanceImpl#getEmv2Element <em>Emv2 Element</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ErrorPropagationConditionInstanceImpl#getInStates <em>In States</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ErrorPropagationConditionInstanceImpl#getCondition <em>Condition</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ErrorPropagationConditionInstanceImpl#getAction <em>Action</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ErrorPropagationConditionInstanceImpl#getOutgoingPropagation <em>Outgoing Propagation</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ErrorPropagationConditionInstanceImpl#isSource <em>Source</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ErrorPropagationConditionInstanceImpl#isSink <em>Sink</em>}</li>
  * </ul>
@@ -95,14 +95,14 @@ public class ErrorPropagationConditionInstanceImpl extends EMV2InstanceObjectImp
 	protected ConstraintElement condition;
 
 	/**
-	 * The cached value of the '{@link #getAction() <em>Action</em>}' reference.
+	 * The cached value of the '{@link #getOutgoingPropagation() <em>Outgoing Propagation</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAction()
+	 * @see #getOutgoingPropagation()
 	 * @generated
 	 * @ordered
 	 */
-	protected ConstrainedInstanceObject action;
+	protected ConstrainedInstanceObject outgoingPropagation;
 
 	/**
 	 * The default value of the '{@link #isSource() <em>Source</em>}' attribute.
@@ -267,16 +267,8 @@ public class ErrorPropagationConditionInstanceImpl extends EMV2InstanceObjectImp
 	 * @generated
 	 */
 	@Override
-	public ConstrainedInstanceObject getAction() {
-		if (action != null && action.eIsProxy()) {
-			InternalEObject oldAction = (InternalEObject)action;
-			action = (ConstrainedInstanceObject)eResolveProxy(oldAction);
-			if (action != oldAction) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE__ACTION, oldAction, action));
-			}
-		}
-		return action;
+	public ConstrainedInstanceObject getOutgoingPropagation() {
+		return outgoingPropagation;
 	}
 
 	/**
@@ -284,8 +276,14 @@ public class ErrorPropagationConditionInstanceImpl extends EMV2InstanceObjectImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ConstrainedInstanceObject basicGetAction() {
-		return action;
+	public NotificationChain basicSetOutgoingPropagation(ConstrainedInstanceObject newOutgoingPropagation, NotificationChain msgs) {
+		ConstrainedInstanceObject oldOutgoingPropagation = outgoingPropagation;
+		outgoingPropagation = newOutgoingPropagation;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE__OUTGOING_PROPAGATION, oldOutgoingPropagation, newOutgoingPropagation);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -294,11 +292,18 @@ public class ErrorPropagationConditionInstanceImpl extends EMV2InstanceObjectImp
 	 * @generated
 	 */
 	@Override
-	public void setAction(ConstrainedInstanceObject newAction) {
-		ConstrainedInstanceObject oldAction = action;
-		action = newAction;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE__ACTION, oldAction, action));
+	public void setOutgoingPropagation(ConstrainedInstanceObject newOutgoingPropagation) {
+		if (newOutgoingPropagation != outgoingPropagation) {
+			NotificationChain msgs = null;
+			if (outgoingPropagation != null)
+				msgs = ((InternalEObject)outgoingPropagation).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE__OUTGOING_PROPAGATION, null, msgs);
+			if (newOutgoingPropagation != null)
+				msgs = ((InternalEObject)newOutgoingPropagation).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE__OUTGOING_PROPAGATION, null, msgs);
+			msgs = basicSetOutgoingPropagation(newOutgoingPropagation, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE__OUTGOING_PROPAGATION, newOutgoingPropagation, newOutgoingPropagation));
 	}
 
 	/**
@@ -357,6 +362,8 @@ public class ErrorPropagationConditionInstanceImpl extends EMV2InstanceObjectImp
 		switch (featureID) {
 			case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE__CONDITION:
 				return basicSetCondition(null, msgs);
+			case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE__OUTGOING_PROPAGATION:
+				return basicSetOutgoingPropagation(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -376,9 +383,8 @@ public class ErrorPropagationConditionInstanceImpl extends EMV2InstanceObjectImp
 				return getInStates();
 			case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE__CONDITION:
 				return getCondition();
-			case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE__ACTION:
-				if (resolve) return getAction();
-				return basicGetAction();
+			case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE__OUTGOING_PROPAGATION:
+				return getOutgoingPropagation();
 			case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE__SOURCE:
 				return isSource();
 			case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE__SINK:
@@ -406,8 +412,8 @@ public class ErrorPropagationConditionInstanceImpl extends EMV2InstanceObjectImp
 			case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE__CONDITION:
 				setCondition((ConstraintElement)newValue);
 				return;
-			case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE__ACTION:
-				setAction((ConstrainedInstanceObject)newValue);
+			case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE__OUTGOING_PROPAGATION:
+				setOutgoingPropagation((ConstrainedInstanceObject)newValue);
 				return;
 			case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE__SOURCE:
 				setSource((Boolean)newValue);
@@ -436,8 +442,8 @@ public class ErrorPropagationConditionInstanceImpl extends EMV2InstanceObjectImp
 			case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE__CONDITION:
 				setCondition((ConstraintElement)null);
 				return;
-			case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE__ACTION:
-				setAction((ConstrainedInstanceObject)null);
+			case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE__OUTGOING_PROPAGATION:
+				setOutgoingPropagation((ConstrainedInstanceObject)null);
 				return;
 			case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE__SOURCE:
 				setSource(SOURCE_EDEFAULT);
@@ -463,8 +469,8 @@ public class ErrorPropagationConditionInstanceImpl extends EMV2InstanceObjectImp
 				return inStates != null && !inStates.isEmpty();
 			case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE__CONDITION:
 				return condition != null;
-			case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE__ACTION:
-				return action != null;
+			case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE__OUTGOING_PROPAGATION:
+				return outgoingPropagation != null;
 			case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE__SOURCE:
 				return source != SOURCE_EDEFAULT;
 			case EMV2InstancePackage.ERROR_PROPAGATION_CONDITION_INSTANCE__SINK:

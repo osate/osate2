@@ -212,14 +212,14 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EMV2InstancePackage.CONSTRAINT: {
-				Constraint constraint = (Constraint)theEObject;
-				T result = caseConstraint(constraint);
-				if (result == null) result = caseConstraintElement(constraint);
-				if (result == null) result = caseEMV2InstanceObject(constraint);
-				if (result == null) result = caseInstanceObject(constraint);
-				if (result == null) result = caseNamedElement(constraint);
-				if (result == null) result = caseElement(constraint);
+			case EMV2InstancePackage.CONSTRAINT_EXPRESSION: {
+				ConstraintExpression constraintExpression = (ConstraintExpression)theEObject;
+				T result = caseConstraintExpression(constraintExpression);
+				if (result == null) result = caseConstraintElement(constraintExpression);
+				if (result == null) result = caseEMV2InstanceObject(constraintExpression);
+				if (result == null) result = caseInstanceObject(constraintExpression);
+				if (result == null) result = caseNamedElement(constraintExpression);
+				if (result == null) result = caseElement(constraintExpression);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -443,17 +443,17 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Constraint</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Constraint Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Constraint</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Constraint Expression</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseConstraint(Constraint object) {
+	public T caseConstraintExpression(ConstraintExpression object) {
 		return null;
 	}
 

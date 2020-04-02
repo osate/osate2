@@ -27,23 +27,23 @@ import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Constraint</b></em>'.
+ * A representation of the model object '<em><b>Constraint Expression</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint#getOperator <em>Operator</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint#getK <em>K</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint#getConstraintElements <em>Constraint Elements</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstraintExpression#getOperator <em>Operator</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstraintExpression#getK <em>K</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstraintExpression#getConstraintElements <em>Constraint Elements</em>}</li>
  * </ul>
  *
- * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getConstraint()
+ * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getConstraintExpression()
  * @model
  * @generated
  */
-public interface Constraint extends ConstraintElement {
+public interface ConstraintExpression extends ConstraintElement {
 	/**
 	 * Returns the value of the '<em><b>Operator</b></em>' attribute.
 	 * The literals are from the enumeration {@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EOperation}.
@@ -52,14 +52,14 @@ public interface Constraint extends ConstraintElement {
 	 * @return the value of the '<em>Operator</em>' attribute.
 	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EOperation
 	 * @see #setOperator(EOperation)
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getConstraint_Operator()
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getConstraintExpression_Operator()
 	 * @model
 	 * @generated
 	 */
 	EOperation getOperator();
 
 	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint#getOperator <em>Operator</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstraintExpression#getOperator <em>Operator</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Operator</em>' attribute.
@@ -75,14 +75,14 @@ public interface Constraint extends ConstraintElement {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>K</em>' attribute.
 	 * @see #setK(long)
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getConstraint_K()
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getConstraintExpression_K()
 	 * @model
 	 * @generated
 	 */
 	long getK();
 
 	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint#getK <em>K</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstraintExpression#getK <em>K</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>K</em>' attribute.
@@ -97,10 +97,10 @@ public interface Constraint extends ConstraintElement {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Constraint Elements</em>' containment reference list.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getConstraint_ConstraintElements()
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getConstraintExpression_ConstraintElements()
 	 * @model containment="true"
 	 * @generated
 	 */
 	EList<ConstraintElement> getConstraintElements();
 
-} // Constraint
+} // ConstraintExpression

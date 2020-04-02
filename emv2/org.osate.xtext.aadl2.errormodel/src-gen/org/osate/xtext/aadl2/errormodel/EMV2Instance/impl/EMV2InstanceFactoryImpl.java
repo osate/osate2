@@ -89,7 +89,7 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			case EMV2InstancePackage.ERROR_DETECTION_INSTANCE: return createErrorDetectionInstance();
 			case EMV2InstancePackage.PROPAGATION_POINT_INSTANCE: return createPropagationPointInstance();
 			case EMV2InstancePackage.EVENT_INSTANCE: return createEventInstance();
-			case EMV2InstancePackage.CONSTRAINT: return createConstraint();
+			case EMV2InstancePackage.CONSTRAINT_EXPRESSION: return createConstraintExpression();
 			case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE: return createPropagationPathInstance();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -264,9 +264,9 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public Constraint createConstraint() {
-		ConstraintImpl constraint = new ConstraintImpl();
-		return constraint;
+	public ConstraintExpression createConstraintExpression() {
+		ConstraintExpressionImpl constraintExpression = new ConstraintExpressionImpl();
+		return constraintExpression;
 	}
 
 	/**
