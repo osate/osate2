@@ -40,7 +40,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
@@ -382,8 +384,9 @@ public class InstantiateModel {
 			monitor.subTask("Saving instance model");
 			aadlResource.save(null);
 		} catch (IOException e) {
-			e.printStackTrace();
-			setErrorMessage(e.getMessage());
+			InstancePlugin.log(new Status(IStatus.ERROR, InstancePlugin.getPluginId(), IStatus.OK,
+					"Exception during instantiation", e));
+			setErrorMessage("Exception during instantiation, see error log");
 			return null;
 		}
 
@@ -415,33 +418,13 @@ public class InstantiateModel {
 			if (save) {
 				aadlResource.save(null);
 			}
-
-			try {
-				fillSystemInstance(root);
-			} catch (InterruptedException e) {
-				throw e;
-			} catch (Exception e) {
-				InstantiateModel.setErrorMessage(e.getMessage());
-				e.printStackTrace();
-				return null;
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			setErrorMessage(e.getMessage());
-			return null;
-		} catch (NullPointerException npe) {
-			npe.printStackTrace();
-			setErrorMessage(npe.getMessage());
-
-			npe.getMessage();
-			return null;
+			fillSystemInstance(root);
 		} catch (InterruptedException e) {
 			throw e;
 		} catch (Exception e) {
-			e.printStackTrace();
-			errorMessage = e.getMessage();
-
-			e.getMessage();
+			InstancePlugin.log(new Status(IStatus.ERROR, InstancePlugin.getPluginId(), IStatus.OK,
+					"Exception during instantiation", e));
+			setErrorMessage("Exception during instantiation, see error log");
 			return null;
 		}
 		return root;
@@ -517,8 +500,9 @@ public class InstantiateModel {
 		String last = modeluri.lastSegment();
 		String filename = last.substring(0, last.indexOf('.'));
 		URI path = modeluri.trimSegments(1);
-		URI instanceURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR).appendSegment(filename + "_"
-				+ ci.getTypeName() + "_" + ci.getImplementationName() + WorkspacePlugin.INSTANCE_MODEL_POSTFIX);
+		URI instanceURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR)
+				.appendSegment(filename + "_" + ci.getTypeName() + "_" + ci.getImplementationName()
+						+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX);
 		instanceURI = instanceURI.appendFileExtension(WorkspacePlugin.INSTANCE_FILE_EXT);
 		return instanceURI;
 	}
@@ -1570,8 +1554,9 @@ public class InstantiateModel {
 
 	private PropertyAssociation getPA(ConnectionInstance conni, String name) {
 		for (PropertyAssociation pa : conni.getOwnedPropertyAssociations()) {
-			if (pa.getProperty().getName().equalsIgnoreCase(name) && ((PropertySet) pa.getProperty().getOwner())
-					.getName().equalsIgnoreCase("Communication_Properties")) {
+			if (pa.getProperty().getName().equalsIgnoreCase(name)
+					&& ((PropertySet) pa.getProperty().getOwner()).getName()
+							.equalsIgnoreCase("Communication_Properties")) {
 				return pa;
 			}
 		}
