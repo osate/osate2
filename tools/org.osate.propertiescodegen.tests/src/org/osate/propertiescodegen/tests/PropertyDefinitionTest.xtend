@@ -477,4 +477,54 @@ class PropertyDefinitionTest {
 		assertEquals("RecordDefinition.java", results.get(5).fileName)
 		assertEquals(recordDefinition.toString, results.get(5).contents)
 	}
+	
+	@Test
+	def void testEmptyPropertySet() {
+		val emptyPs = '''
+			property set empty_ps is
+			end empty_ps;
+		'''
+		val results = PropertiesCodeGen.generateJava(testHelper.parseString(emptyPs))
+		assertEquals(0, results.size)
+	}
+	
+	@Test
+	def void testSingleDefinition() {
+		val singleDefinitionPs = '''
+			property set single_definition_ps is
+				sole_definition: aadlboolean applies to (all);
+			end single_definition_ps;
+		'''
+		val singleDefinitionPsClass = '''
+			package single_definition_ps;
+			
+			import java.util.Optional;
+			
+			import org.osate.aadl2.Aadl2Package;
+			import org.osate.aadl2.BooleanLiteral;
+			import org.osate.aadl2.NamedElement;
+			import org.osate.aadl2.Property;
+			import org.osate.aadl2.PropertyExpression;
+			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
+			import org.osate.aadl2.properties.PropertyNotPresentException;
+			
+			public class SingleDefinitionPs {
+				public static Optional<Boolean> getSoleDefinition(NamedElement namedElement) {
+					String name = "single_definition_ps::sole_definition";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					try {
+						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
+						return Optional.of(((BooleanLiteral) propertyExpression).getValue());
+					} catch (PropertyNotPresentException e) {
+						return Optional.empty();
+					}
+				}
+			}
+		'''
+		val results = PropertiesCodeGen.generateJava(testHelper.parseString(singleDefinitionPs))
+		assertEquals(1, results.size)
+		
+		assertEquals("SingleDefinitionPs.java", results.head.fileName)
+		assertEquals(singleDefinitionPsClass.toString, results.head.contents)
+	}
 }
