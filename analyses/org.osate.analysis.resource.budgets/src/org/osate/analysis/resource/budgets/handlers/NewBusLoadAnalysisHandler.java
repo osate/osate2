@@ -196,6 +196,30 @@ public final class NewBusLoadAnalysisHandler extends NewAbstractAaxlHandler {
 			pw.println("Analysis results in modes " + somResult.getMessage());
 			pw.println();
 		}
+
+		/*
+		 * Go through the children twice: First to print summary information and then to recursively
+		 * print the sub information.
+		 */
+
+		pw.println("Physical Bus\tCapacity (KB/s)\tBudget (KB/s)\tRequired Budget (KB/s)\tActual (KB/s)");
+
+		for (final Result subResult : somResult.getSubResults()) {
+			pw.print(subResult.getMessage());
+			pw.print("\t");
+			pw.print(ResultUtil.getReal(subResult, 0)); // Capacity
+			pw.print("\t");
+			pw.print(ResultUtil.getReal(subResult, 1)); // Budget
+			pw.print("\t");
+			pw.print(ResultUtil.getReal(subResult, 2)); // Required Capacity
+			pw.print("\t");
+			pw.print(ResultUtil.getReal(subResult, 3)); // Actual
+			pw.println();
+		}
+		pw.println();
+
+		// NO DIAGNOSTICS AT THE SOM LEVEL
+
 		somResult.getSubResults().forEach(busResult -> generateCSVforBus(pw, busResult, null));
 		pw.println(); // add a second newline, the first is from the end of generateCSVforBus()
 	}
