@@ -40,12 +40,16 @@ import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.ComponentPrototype
+import org.osate.aadl2.Connection
 import org.osate.aadl2.ContainmentPathElement
 import org.osate.aadl2.Element
 import org.osate.aadl2.EnumerationType
 import org.osate.aadl2.FeatureGroup
 import org.osate.aadl2.FeatureGroupPrototype
 import org.osate.aadl2.FeatureGroupType
+import org.osate.aadl2.FlowSpecification
+import org.osate.aadl2.Mode
+import org.osate.aadl2.ModeTransition
 import org.osate.aadl2.NumberType
 import org.osate.aadl2.PackageSection
 import org.osate.aadl2.Property
@@ -321,7 +325,12 @@ class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 	 * @since 1.1
 	 */
 	def protected static namespaceForPropertyAssociation(PropertyAssociation propertyAssociation) {
-		switch container : propertyAssociation.owner {
+		val container = switch o : propertyAssociation.owner {
+			Classifier, FeatureGroup, Subcomponent: o
+			default: o.owner
+		}
+		
+		switch container {
 			Classifier:
 				container
 			FeatureGroup: {
