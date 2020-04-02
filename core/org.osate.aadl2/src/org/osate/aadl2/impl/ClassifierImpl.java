@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -206,7 +206,6 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this, Aadl2Package.CLASSIFIER__MEMBER,
 				MEMBER_ESUBSETS);
 	}
-
 	public EList<NamedElement> getMembers() {
 		// DB This should be an EStructuralFeature.Setting
 		// BasicEList<NamedElement> results = new BasicEList<NamedElement>(
@@ -434,9 +433,10 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	public void setNoProperties(boolean newNoProperties) {
 		boolean oldNoProperties = noProperties;
 		noProperties = newNoProperties;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CLASSIFIER__NO_PROPERTIES,
 					oldNoProperties, noProperties));
+		}
 	}
 
 	/**
@@ -456,9 +456,10 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	public void setNoPrototypes(boolean newNoPrototypes) {
 		boolean oldNoPrototypes = noPrototypes;
 		noPrototypes = newNoPrototypes;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CLASSIFIER__NO_PROTOTYPES,
 					oldNoPrototypes, noPrototypes));
+		}
 	}
 
 	/**
@@ -478,9 +479,10 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	public void setNoAnnexes(boolean newNoAnnexes) {
 		boolean oldNoAnnexes = noAnnexes;
 		noAnnexes = newNoAnnexes;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CLASSIFIER__NO_ANNEXES, oldNoAnnexes,
 					noAnnexes));
+		}
 	}
 
 	/**
@@ -636,8 +638,9 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 */
 	public String toString() {
-		if (eIsProxy())
+		if (eIsProxy()) {
 			return super.toString();
+		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (noPrototypes: ");
