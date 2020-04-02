@@ -27,10 +27,12 @@ import static org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil.isNoError;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.NamedElement;
@@ -47,8 +49,8 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.annexsupport.AnnexInstantiator;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.CompositeStateInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject;
-import org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstraintElement;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstraintExpression;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2AnnexInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstanceFactory;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EOperation;
@@ -93,6 +95,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
+import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	@Override
@@ -145,6 +148,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			instantiatePropagationPath(ppath, emv2AI);
 		}
 
+		instantiateBindingPaths(instance, emv2AI);
+
 	}
 
 
@@ -187,11 +192,10 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return cio;
 	}
 
-	public ConstrainedInstanceObject createConstrainedInstanceObject(InstanceObject io, boolean outgoing) {
+	public ConstrainedInstanceObject createConstrainedInstanceObject(InstanceObject io) {
 		ConstrainedInstanceObject cio = EMV2InstanceFactory.eINSTANCE.createConstrainedInstanceObject();
 		cio.setInstanceObject(io);
 		cio.setName(cio.getInstanceObject().toString());
-		cio.setOutgoing(outgoing);
 		return cio;
 	}
 
@@ -348,16 +352,17 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		bi.setEmv2Element(ef);
 		annex.getErrorFlows().add(bi);
 		if (inep != null) {
-			ConstrainedInstanceObject cio = createCIO(inep, constraint, annex);
+			ConstrainedInstanceObject cio = createErrorPropagationCIO(inep, constraint, annex);
 			bi.setIncoming(cio);
 		}
 		if (outep != null) {
-			ConstrainedInstanceObject cio = processAction(annex, outep, outToken);
+			ConstrainedInstanceObject cio = createErrorPropagationCIO(outep, outToken, annex);
 			bi.setOutgoing(cio);
 		}
 	}
 
-	private ConstrainedInstanceObject createCIO(ErrorPropagation ep, TypeSet ts, EMV2AnnexInstance eai) {
+	private ConstrainedInstanceObject createErrorPropagationCIO(ErrorPropagation ep, TypeSet ts,
+			EMV2AnnexInstance eai) {
 		ConstrainedInstanceObject cio = EMV2InstanceFactory.eINSTANCE.createConstrainedInstanceObject();
 		FeatureorPPReference fppref = ep.getFeatureorPPRef();
 		if (fppref != null) {
@@ -373,26 +378,12 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				cio.setName(ppi.getName());
 			}
 		} else if (ep.getKind() != null) {
-			cio.setBindingKind(ep.getKind());
+			cio.setPropagationKind(ep.getKind());
 		}
 		if (ts != null){
 			cio.getConstraint().addAll(ts.getTypeTokens());
 		}
 		return cio;
-	}
-
-	private ConstrainedInstanceObject processAction(EMV2AnnexInstance annex, ErrorPropagation ep,
-			TypeSet ts) {
-		ConstrainedInstanceObject foundcio = findMatchingActionCIO(annex, ep, ts.getTypeTokens().get(0));
-		if (foundcio != null) {
-			return foundcio;
-		} else {
-			ConstrainedInstanceObject tcio = createCIO(ep, ts, annex);
-			annex.getActions().add(tcio);
-			tcio.setOutgoing(true);
-			return tcio;
-		}
-
 	}
 
 	public void instantiateOutgoingPropagationCondition(OutgoingPropagationCondition opc, EMV2AnnexInstance annex) {
@@ -419,8 +410,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			// TODO
 		} else {
 			ErrorPropagation outep = opc.getOutgoing();
-			ConstrainedInstanceObject outcio = processAction(annex, outep, opc.getTypeToken());
-			bi.setAction(outcio);
+			ConstrainedInstanceObject outcio = createErrorPropagationCIO(outep, opc.getTypeToken(), annex);
+			bi.setOutgoingPropagation(outcio);
 		}
 	}
 
@@ -466,30 +457,32 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			}
 		}
 	}
-
-	private ConstrainedInstanceObject findMatchingActionCIO(EMV2AnnexInstance annex, ErrorPropagation ep,
-			TypeToken tt) {
-		FeatureorPPReference fppref = ep.getFeatureorPPRef();
-		InstanceObject io = null;
-		if (fppref != null) {
-			NamedElement fpp = fppref.getFeatureorPP();
-			ComponentInstance component = (ComponentInstance) annex.eContainer();
-			if (fpp instanceof Feature) {
-				io = component.findFeatureInstance((Feature) fpp);
-			} else if (fpp instanceof PropagationPoint) {
-				io = findPropagationPointInstance(annex, (PropagationPoint) fpp);
-			}
-		}
-		for (ConstrainedInstanceObject action : annex.getActions()) {
-			if ((ep.getKind() != null && action.getBindingKind().equals(ep.getKind()))
-					|| (io != null && action.getInstanceObject() == io)) {
-				if (action.getConstraint().contains(tt)) {
-					return action;
-				}
-			}
-		}
-		return null;
-	}
+//
+//	private ConstrainedInstanceObject findMatchingActionCIO(EMV2AnnexInstance annex, ErrorPropagation ep,
+//			TypeToken tt) {
+//		FeatureorPPReference fppref = ep.getFeatureorPPRef();
+//		InstanceObject io = null;
+//		if (fppref != null) {
+//			NamedElement fpp = fppref.getFeatureorPP();
+//			ComponentInstance component = (ComponentInstance) annex.eContainer();
+//			if (fpp instanceof Feature) {
+//				io = component.findFeatureInstance((Feature) fpp);
+//			} else if (fpp instanceof PropagationPoint) {
+//				io = findPropagationPointInstance(annex, (PropagationPoint) fpp);
+//			}
+//		} else {
+//
+//		}
+//		for (ConstrainedInstanceObject action : allOutgoingCIOs(io, annex)) {
+//			if ((ep.getKind() != null && action.getBindingKind().equals(ep.getKind()))
+//					|| (io != null && action.getInstanceObject() == io)) {
+//				if (action.getConstraint().contains(tt)) {
+//					return action;
+//				}
+//			}
+//		}
+//		return null;
+//	}
 
 	private StateInstance findStateInstance(EMV2AnnexInstance annex, ErrorBehaviorState state) {
 		StateMachineInstance svi = annex.getStateMachine();
@@ -513,7 +506,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		// Mapping of AND expression
 		if (condition instanceof AndExpression) {
 			AndExpression expression = (AndExpression) condition;
-			Constraint andExpr = EMV2InstanceFactory.eINSTANCE.createConstraint();
+			ConstraintExpression andExpr = EMV2InstanceFactory.eINSTANCE.createConstraintExpression();
 			andExpr.setOperator(EOperation.ALL);
 			for (ConditionExpression ce : expression.getOperands()) {
 				ConstraintElement res = instantiateCondition(ce, annex);
@@ -529,7 +522,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		if (condition instanceof AllExpression) {
 			AllExpression allCondition = (AllExpression) condition;
 			if (allCondition.getCount() == 0) {
-				Constraint allExpr = EMV2InstanceFactory.eINSTANCE.createConstraint();
+				ConstraintExpression allExpr = EMV2InstanceFactory.eINSTANCE.createConstraintExpression();
 				allExpr.setOperator(EOperation.ALL);
 				for (ConditionExpression ce : allCondition.getOperands()) {
 					ConstraintElement res = instantiateCondition(ce, annex);
@@ -545,7 +538,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		// Mapping of OR expression
 		if (condition instanceof OrExpression) {
 			OrExpression orExpression = (OrExpression) condition;
-			Constraint allExpr = EMV2InstanceFactory.eINSTANCE.createConstraint();
+			ConstraintExpression allExpr = EMV2InstanceFactory.eINSTANCE.createConstraintExpression();
 			allExpr.setOperator(EOperation.ONEOF);
 			for (ConditionExpression ce : orExpression.getOperands()) {
 				ConstraintElement res = instantiateCondition(ce, annex);
@@ -562,7 +555,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 			if (omCondition.getCount() == 1) {
 				/* 1 ormore is mapped to a OR gate */
-				Constraint allExpr = EMV2InstanceFactory.eINSTANCE.createConstraint();
+				ConstraintExpression allExpr = EMV2InstanceFactory.eINSTANCE.createConstraintExpression();
 				allExpr.setOperator(EOperation.ANY);
 				for (ConditionExpression ce : omCondition.getOperands()) {
 					ConstraintElement res = instantiateCondition(ce, annex);
@@ -573,7 +566,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 			} else {
 				/* x ormore with x > 1 is mapped to a ORMORE gate */
-				Constraint omExpr = EMV2InstanceFactory.eINSTANCE.createConstraint();
+				ConstraintExpression omExpr = EMV2InstanceFactory.eINSTANCE.createConstraintExpression();
 				omExpr.setOperator(EOperation.KORMORE);
 				omExpr.setK(omCondition.getCount());
 				for (ConditionExpression ce : omCondition.getOperands()) {
@@ -626,7 +619,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					TypeSet referencedErrorType = (sconditionElement.getConstraint() != null)
 							? sconditionElement.getConstraint()
 							: ep.getTypeSet();
-					ConstrainedInstanceObject cio = createCIO(ep, referencedErrorType,
+					ConstrainedInstanceObject cio = createErrorPropagationCIO(ep, referencedErrorType,
 							findEMV2AnnexInstance(referencedComponent));
 					return cio;
 				}
@@ -670,7 +663,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					ErrorPropagation errorPropagation = (ErrorPropagation) errorModelElement;
 					TypeSet ts = conditionElement.getConstraint() != null ? conditionElement.getConstraint()
 							: errorPropagation.getTypeSet();
-					cio = createCIO(errorPropagation, ts, referencedAnnex);
+					cio = createErrorPropagationCIO(errorPropagation, ts, referencedAnnex);
 					return cio;
 				}
 
@@ -730,7 +723,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		ConnectionInstanceEnd dst = conni.getDestination();
 		EMV2AnnexInstance srcAnnex = findEMV2AnnexInstance(src.getComponentInstance());
 		EMV2AnnexInstance dstAnnex = findEMV2AnnexInstance(dst.getComponentInstance());
-		for (ConstrainedInstanceObject action : srcAnnex.getActions()) {
+		for (ConstrainedInstanceObject action : allOutgoingCIOs(src, srcAnnex)) {
 			if (action.getInstanceObject() == src) {
 				EList<TypeToken> outTypeTokens = action.getConstraint();
 				for (TypeToken tt : outTypeTokens) {
@@ -747,15 +740,119 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 	}
 
-	private Collection<ConstrainedInstanceObject> allIncomingCIOs(InstanceObject ppi, TypeToken tt,
-			EMV2AnnexInstance annex) {
+	/**
+	 * return all outgoing CIOs related to connections, i.e., propagation points, features, and access to components
+	 * They are specified by outgoing propagation conditions and error flows
+	 * binding related CIOs are retrieved separately.
+	 * @param ppi ComponentInstance, FeatureInstance, PropagationPointInstance
+	 * @param annex
+	 * @return
+	 */
+	private Collection<ConstrainedInstanceObject> allOutgoingCIOs(InstanceObject ppi, EMV2AnnexInstance annex) {
 		EList<ErrorPropagationConditionInstance> epcs = annex.getErrorPropagationConditions();
 		Collection<ConstrainedInstanceObject> cios = new ArrayList<ConstrainedInstanceObject>();
 		for (ErrorPropagationConditionInstance epc : epcs) {
+			ConstrainedInstanceObject outGoing = epc.getOutgoingPropagation();
+			// add if CIO for feature instance or propagation point instance
+			// also add if component instance and propagation kind is access
+			if (outGoing != null && outGoing.getInstanceObject() == ppi && (!(ppi instanceof ComponentInstance)
+					|| (outGoing.getPropagationKind() != null && outGoing.getPropagationKind().equals("access")))) {
+				cios.add(outGoing);
+			}
+		}
+		for (ErrorFlowInstance epc : annex.getErrorFlows()) {
+			ConstrainedInstanceObject outGoing = epc.getOutgoing();
+			// add if CIO for feature instance or propagation point instance
+			// also add if component instance and propagation kind is access
+			if (outGoing != null && outGoing.getInstanceObject() == ppi && (!(ppi instanceof ComponentInstance)
+					|| (outGoing.getPropagationKind() != null && outGoing.getPropagationKind().equals("access")))) {
+				cios.add(outGoing);
+			}
+		}
+		return cios;
+	}
+
+	private Collection<ConstrainedInstanceObject> allOutgoingBindingCIOs(ComponentInstance ppi, EMV2AnnexInstance annex,
+			String bindingKind) {
+		EList<ErrorPropagationConditionInstance> epcs = annex.getErrorPropagationConditions();
+		Collection<ConstrainedInstanceObject> cios = new ArrayList<ConstrainedInstanceObject>();
+		for (ErrorPropagationConditionInstance epc : epcs) {
+			ConstrainedInstanceObject outGoing = epc.getOutgoingPropagation();
+			if (outGoing != null && outGoing.getInstanceObject() == ppi
+					&& outGoing.getPropagationKind() != null
+					&& outGoing.getPropagationKind().contentEquals(bindingKind)) {
+				cios.add(epc.getOutgoingPropagation());
+			}
+		}
+		for (ErrorFlowInstance epc : annex.getErrorFlows()) {
+			ConstrainedInstanceObject outGoing = epc.getOutgoing();
+			if (outGoing != null && outGoing.getInstanceObject() == ppi && outGoing.getPropagationKind() != null
+					&& outGoing.getPropagationKind().contentEquals(bindingKind)) {
+				cios.add(outGoing);
+			}
+		}
+		return cios;
+	}
+
+	/**
+	 * all incoming CIO not related to bindings. This includes state transition conditions, outgoing propagation conditions, and error flows
+	 * @param ppi
+	 * @param tt
+	 * @param annex
+	 * @return
+	 */
+	private Collection<ConstrainedInstanceObject> allIncomingCIOs(InstanceObject ppi, TypeToken tt,
+			EMV2AnnexInstance annex) {
+		Collection<ConstrainedInstanceObject> cios = new ArrayList<ConstrainedInstanceObject>();
+		for (ErrorPropagationConditionInstance epc : annex.getErrorPropagationConditions()) {
 			if (epc.getCondition() != null) {
 				for (ConstrainedInstanceObject cio : EcoreUtil2.eAllOfType(epc.getCondition(),
 						ConstrainedInstanceObject.class)) {
-					if (cio.getInstanceObject() == ppi) {
+					if (cio.getInstanceObject() == ppi && (!(ppi instanceof ComponentInstance)
+							|| (cio.getPropagationKind() != null && cio.getPropagationKind().equals("access")))) {
+						if (tt == null || EMV2TypeSetUtil.contains(cio.getConstraint(), tt)) {
+							cios.add(cio);
+						}
+					}
+				}
+			}
+		}
+		EList<StateTransitionInstance> sts = annex.getTransitions();
+		for (StateTransitionInstance st : sts) {
+			if (st.getCondition() != null) {
+				for (ConstrainedInstanceObject cio : EcoreUtil2.eAllOfType(st.getCondition(),
+						ConstrainedInstanceObject.class)) {
+					if (cio.getInstanceObject() == ppi && (!(ppi instanceof ComponentInstance)
+							|| (cio.getPropagationKind() != null && cio.getPropagationKind().equals("access")))) {
+						if (tt == null || EMV2TypeSetUtil.contains(cio.getConstraint(), tt)) {
+							cios.add(cio);
+						}
+					}
+				}
+				;
+			}
+		}
+		for (ErrorFlowInstance epc : annex.getErrorFlows()) {
+			ConstrainedInstanceObject inComing = epc.getIncoming();
+			if (inComing != null && inComing.getInstanceObject() == ppi && (!(ppi instanceof ComponentInstance)
+					|| (inComing.getPropagationKind() != null && inComing.getPropagationKind().equals("access")))) {
+				if (tt == null || EMV2TypeSetUtil.contains(inComing.getConstraint(), tt)) {
+					cios.add(inComing);
+				}
+			}
+		}
+		return cios;
+	}
+
+	private Collection<ConstrainedInstanceObject> allIncomingBindingCIOs(InstanceObject ppi, TypeToken tt,
+			EMV2AnnexInstance annex, String bindingKind) {
+		Collection<ConstrainedInstanceObject> cios = new ArrayList<ConstrainedInstanceObject>();
+		for (ErrorPropagationConditionInstance epc : annex.getErrorPropagationConditions()) {
+			if (epc.getCondition() != null) {
+				for (ConstrainedInstanceObject cio : EcoreUtil2.eAllOfType(epc.getCondition(),
+						ConstrainedInstanceObject.class)) {
+					if (cio.getInstanceObject() == ppi
+							&& (cio.getPropagationKind() == null || cio.getPropagationKind().equals(bindingKind))) {
 						if (tt == null || EMV2TypeSetUtil.contains(cio.getConstraint(), tt)) {
 							cios.add(cio);
 						}
@@ -769,14 +866,26 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			if (st.getCondition() != null) {
 				for (ConstrainedInstanceObject cio : EcoreUtil2.eAllOfType(st.getCondition(),
 						ConstrainedInstanceObject.class)) {
-					if (cio.getInstanceObject() == ppi) {
-						cios.add(cio);
+					if (cio.getInstanceObject() == ppi
+							&& (cio.getPropagationKind() == null || cio.getPropagationKind().equals(bindingKind))) {
+						if (tt == null || EMV2TypeSetUtil.contains(cio.getConstraint(), tt)) {
+							cios.add(cio);
+						}
 					}
 				}
 				;
 			}
 		}
-		return null;
+		for (ErrorFlowInstance epc : annex.getErrorFlows()) {
+			ConstrainedInstanceObject inComing = epc.getIncoming();
+			if (inComing != null && inComing.getInstanceObject() == ppi
+					&& (inComing.getPropagationKind() == null || inComing.getPropagationKind().equals(bindingKind))) {
+				if (tt == null || EMV2TypeSetUtil.contains(inComing.getConstraint(), tt)) {
+					cios.add(inComing);
+				}
+			}
+		}
+		return cios;
 	}
 
 	public void instantiatePropagationPath(PropagationPath pp, EMV2AnnexInstance annex) {
@@ -785,7 +894,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		InstanceObject dstIO = findQualifiedPropagationPoint(pp.getTarget(), contextCI);
 		EMV2AnnexInstance srcAnnex = findEMV2AnnexInstance(srcIO.getComponentInstance());
 		EMV2AnnexInstance dstAnnex = findEMV2AnnexInstance(dstIO.getComponentInstance());
-		for (ConstrainedInstanceObject action : srcAnnex.getActions()) {
+		for (ConstrainedInstanceObject action : allOutgoingCIOs(srcIO, srcAnnex)) {
 			if (action.getInstanceObject() == srcIO) {
 				EList<TypeToken> outTypeTokens = action.getConstraint();
 				for (TypeToken tt : outTypeTokens) {
@@ -824,136 +933,119 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return null;
 	}
 
+
+	private void instantiateBindingPaths(ComponentInstance ci, EMV2AnnexInstance annex) {
+		List<ComponentInstance> cpus = InstanceModelUtil.getProcessorBinding(ci);
+		for (ComponentInstance cpu : cpus) {
+			instantiateBindingPropagationPaths(annex, ci, cpu, "processor");
+		}
+		if (!(ci.getCategory() != ComponentCategory.VIRTUAL_PROCESSOR)) {
+			// do memory bindings
+			List<ComponentInstance> mems = InstanceModelUtil.getMemoryBinding(ci);
+			for (ComponentInstance mem : mems) {
+				instantiateBindingPropagationPaths(annex, ci, mem, "memory");
+			}
+		}
+		if (ci.getCategory() == ComponentCategory.VIRTUAL_BUS) {
+			// do connection bindings of virtual buses
+			List<ComponentInstance> boundresources = InstanceModelUtil.getConnectionBinding(ci);
+			for (ComponentInstance bres : boundresources) {
+				instantiateBindingPropagationPaths(annex, ci, bres, "connection");
+			}
+		}
+		List<ComponentInstance> systems = InstanceModelUtil.getFunctionBinding(ci);
+		for (ComponentInstance system : systems) {
+			instantiateBindingPropagationPaths(annex, ci, system, "binding");
+		}
+	}
+
+	private void instantiateBindingPaths(ConnectionInstance conni, EMV2AnnexInstance annex) {
+		List<ComponentInstance> boundresources = InstanceModelUtil.getConnectionBinding(conni);
+			if (boundresources.isEmpty()) {
+			boundresources = InstanceModelUtil.deriveBoundBuses(conni);
+			}
+			for (ComponentInstance bres : boundresources) {
+//				populateBindingPropagationPaths(pg, (conni, bres, "connection");
+			}
+	}
+
+	/**
+	 * Add a binding as propagation path.
+	 * The first argument is the component bound to a resource (e.g. a process) and the
+	 * boundResource argument the associated resources (e.g. a processor).
+	 * We will add the propagation path in each direction if declared in the EMV2 annex.
+	 * @param comp
+	 * @param boundResource
+	 */
+	private void instantiateBindingPropagationPaths(EMV2AnnexInstance annex, ComponentInstance comp,
+			ComponentInstance boundResource, String resourcebindingKind) {
+		EMV2AnnexInstance resourceAnnex = findEMV2AnnexInstance(boundResource);
+		for (ConstrainedInstanceObject outGoing : allOutgoingBindingCIOs(boundResource, resourceAnnex, "bindings")) {
+			EList<TypeToken> outTypeTokens = outGoing.getConstraint();
+			for (TypeToken tt : outTypeTokens) {
+				Collection<ConstrainedInstanceObject> dstCIOs = allIncomingBindingCIOs(comp, tt, annex,
+						resourcebindingKind);
+				for (ConstrainedInstanceObject dstCIO : dstCIOs) {
+					PropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE.createPropagationPathInstance();
+					ppi.setSource(outGoing);
+					ppi.setTarget(dstCIO);
+					ppi.setName(boundResource.getName() + "-bindings-" + EMV2Util.getName(tt));
+					annex.getPropagationPaths().add(ppi);
+				}
+			}
+		}
+		for (ConstrainedInstanceObject outGoing : allOutgoingBindingCIOs(comp, annex, resourcebindingKind)) {
+			EList<TypeToken> outTypeTokens = outGoing.getConstraint();
+			for (TypeToken tt : outTypeTokens) {
+				Collection<ConstrainedInstanceObject> dstCIOs = allIncomingBindingCIOs(boundResource, tt, annex,
+						"bindings");
+				for (ConstrainedInstanceObject dstCIO : dstCIOs) {
+					PropagationPathInstance ppi = EMV2InstanceFactory.eINSTANCE.createPropagationPathInstance();
+					ppi.setSource(outGoing);
+					ppi.setTarget(dstCIO);
+					ppi.setName(boundResource.getName() + "-" + resourcebindingKind + "-" + EMV2Util.getName(tt));
+					annex.getPropagationPaths().add(ppi);
+				}
+			}
+		}
+		// subcomponents are bound too
+		for (ComponentInstance subci : comp.getComponentInstances()) {
+			instantiateBindingPropagationPaths(annex, subci, boundResource, resourcebindingKind);
+		}
+	}
+
 //	public void instantiatePropertyAssociations(ComponentInstance ci) {
-//		List<ErrorModelSubclause> emslist = EMV2Util.getAllContainingClassifierEMV2Subclauses(ci);
-//		ErrorBehaviorStateMachine ebsm = null;
+//	List<ErrorModelSubclause> emslist = EMV2Util.getAllContainingClassifierEMV2Subclauses(ci);
+//	ErrorBehaviorStateMachine ebsm = null;
 //
-//		for (ErrorModelSubclause ems : emslist) {
-//			List<EMV2PropertyAssociation> props = ems.getProperties();
-//			// process each property
-//			// in top down - only if not already existing
-//			// for use types also consider property associations in library
-//			// for use behavior also consider properties in EBSM
-//		}
-//
-//
+//	for (ErrorModelSubclause ems : emslist) {
+//		List<EMV2PropertyAssociation> props = ems.getProperties();
+//		// process each property
+//		// in top down - only if not already existing
+//		// for use types also consider property associations in library
+//		// for use behavior also consider properties in EBSM
 //	}
+//
+//
+//}
 
-	// property associations
+// property associations
 //
-//	InstanceObject io = (InstanceObject) event.getRelatedInstanceObject();
-//	NamedElement ne = (NamedElement) event.getRelatedEMV2Object();
-//	TypeToken type = (TypeToken) event.getRelatedErrorType();
-//	event.setAssignedProbability(
-//			new BigDecimal(EMV2Properties.getProbability(io, ne, type), MathContext.UNLIMITED));
+//InstanceObject io = (InstanceObject) event.getRelatedInstanceObject();
+//NamedElement ne = (NamedElement) event.getRelatedEMV2Object();
+//TypeToken type = (TypeToken) event.getRelatedErrorType();
+//event.setAssignedProbability(
+//		new BigDecimal(EMV2Properties.getProbability(io, ne, type), MathContext.UNLIMITED));
 
-	// PropertyAssociationInstance newPA = InstanceFactory.eINSTANCE
-//			.createPropertyAssociationInstance();
+// PropertyAssociationInstance newPA = InstanceFactory.eINSTANCE
+//		.createPropertyAssociationInstance();
 //
-//	io.removePropertyAssociations(property);
-//	newPA.setProperty(property);
-//	newPA.setPropertyAssociation(getDeclarativePA(result.getPa()));
-//	fillPropertyValue(io, newPA, evaluated);
-//	if (!newPA.getOwnedValues().isEmpty()) {
-//		io.getOwnedPropertyAssociations().add(newPA);
-//	}
-
-// USE if we explicitly record propagation paths in instance model
-	// private void populateBindingPaths(EMV2AnnexInstance eai, InstanceObject obj) {
-//		if (obj instanceof ComponentInstance) {
-//			ComponentInstance ci = (ComponentInstance) obj;
-//			List<ComponentInstance> cpus = InstanceModelUtil.getProcessorBinding(ci);
-//			for (ComponentInstance cpu : cpus) {
-//				populateBindingPropagationPaths(eai, ci, cpu, "processor");
-//			}
-//			if (!(ci instanceof VirtualProcessor)) {
-//				// do memory bindings
-//				List<ComponentInstance> mems = InstanceModelUtil.getMemoryBinding(ci);
-//				for (ComponentInstance mem : mems) {
-//					populateBindingPropagationPaths(eai, ci, mem, "memory");
-//				}
-//			}
-//			if (ci instanceof VirtualBus) {
-//				// do connection bindings
-//				List<ComponentInstance> boundresources = InstanceModelUtil.getConnectionBinding(ci);
-//				for (ComponentInstance bres : boundresources) {
-//					populateBindingPropagationPaths(pg, ci, bres, "connection");
-//				}
-//			}
-//			List<ComponentInstance> systems = InstanceModelUtil.getFunctionBinding(ci);
-//			for (ComponentInstance system : systems) {
-//				populateBindingPropagationPaths(pg, ci, system, "binding");
-//			}
-//		} else if (obj instanceof ConnectionInstance) {
-//			// do connection bindings
-//			List<ComponentInstance> boundresources = InstanceModelUtil.getConnectionBinding(obj);
-//			if (boundresources.isEmpty()) {
-//				boundresources = InstanceModelUtil.deriveBoundBuses((ConnectionInstance) obj);
-//			}
-//			for (ComponentInstance bres : boundresources) {
-//				populateBindingPropagationPaths(pg, (ConnectionInstance) obj, bres, "connection");
-//			}
-//		}
-//	}
-//	/**
-//	 * Add a binding as propagation path.
-//	 * The first argument is the component bound to a resource (e.g. a process) and the
-//	 * boundResource argument the associated resources (e.g. a processor).
-//	 * We will add the propagation path in each direction if declared in the EMV2 annex.
-//	 * @param comp
-//	 * @param boundResource
-//	 */
-//	private void populateBindingPropagationPaths(EMV2AnnexInstance eai, ComponentInstance comp,
-//			ComponentInstance boundResource, String resourcebindingKind) {
-//		ErrorPropagation BRsrcprop = EMV2Util.findOutgoingErrorPropagation(boundResource.getComponentClassifier(),
-//				"bindings");
-//		ErrorPropagation BCdstprop = EMV2Util.findIncomingErrorPropagation(comp.getComponentClassifier(),
-//				resourcebindingKind);
-//		if (BRsrcprop != null && BCdstprop != null) {
-//			addPropagationpathRecord(pg, boundResource, BRsrcprop, comp, BCdstprop);
-//		}
-//		ErrorPropagation BCsrcprop = EMV2Util.findOutgoingErrorPropagation(comp.getComponentClassifier(),
-//				resourcebindingKind);
-//		ErrorPropagation BRdstprop = EMV2Util.findIncomingErrorPropagation(boundResource.getComponentClassifier(),
-//				"bindings");
-//		if (BCsrcprop != null && BRdstprop != null) {
-//			addPropagationpathRecord(pg, comp, BCsrcprop, boundResource, BRdstprop);
-//		}
-//		for (ComponentInstance subci : comp.getComponentInstances()) {
-//			populateBindingPropagationPaths(pg, subci, boundResource, resourcebindingKind);
-//		}
-//	}
-//
-//	/**
-//	 * This is made to support the binding between connection and components.
-//	 * Here, the first argument is the connection bound to a resource and the
-//	 * boundResource argument the associated resources (e.g. a bus).
-//	 *
-//	 * @param conn
-//	 * @param boundResource
-//	 */
-//	private void populateBindingPropagationPaths(EMV2AnnexInstance eai, ConnectionInstance conn,
-//			ComponentInstance boundResource, String bindingKind) {
-//		boolean added = false;
-//		// source prop kind determined by destination and vice versa (BR = bound
-//		// resource, BC bound component
-//		ErrorPropagation BRsrcprop = EMV2Util.findOutgoingErrorPropagation(boundResource.getComponentClassifier(),
-//				"bindings");
-//
-//		if (BRsrcprop != null) {
-//			addPropagationpathRecord(pg, boundResource, BRsrcprop, conn);
-//			added = true;
-//		}
-//		ErrorPropagation BRdstprop = EMV2Util.findIncomingErrorPropagation(boundResource.getComponentClassifier(),
-//				"bindings");
-//		if (BRdstprop != null) {
-//			addPropagationpathRecord(pg, conn, boundResource, BRdstprop);
-//			added = true;
-//		}
-//		if (added) {
-//			pg.getConnections().add(conn);
-//			pg.getComponents().add(boundResource);
-//		}
-//	}
+//io.removePropertyAssociations(property);
+//newPA.setProperty(property);
+//newPA.setPropertyAssociation(getDeclarativePA(result.getPa()));
+//fillPropertyValue(io, newPA, evaluated);
+//if (!newPA.getOwnedValues().isEmpty()) {
+//	io.getOwnedPropertyAssociations().add(newPA);
+//}
 
 }

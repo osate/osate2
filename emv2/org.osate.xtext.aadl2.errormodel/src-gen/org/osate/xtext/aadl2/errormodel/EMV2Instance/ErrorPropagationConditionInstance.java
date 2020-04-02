@@ -39,7 +39,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorPropagationConditionInstance#getEmv2Element <em>Emv2 Element</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorPropagationConditionInstance#getInStates <em>In States</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorPropagationConditionInstance#getCondition <em>Condition</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorPropagationConditionInstance#getAction <em>Action</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorPropagationConditionInstance#getOutgoingPropagation <em>Outgoing Propagation</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorPropagationConditionInstance#isSource <em>Source</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorPropagationConditionInstance#isSink <em>Sink</em>}</li>
  * </ul>
@@ -106,26 +106,26 @@ public interface ErrorPropagationConditionInstance extends EMV2InstanceObject {
 	void setCondition(ConstraintElement value);
 
 	/**
-	 * Returns the value of the '<em><b>Action</b></em>' reference.
+	 * Returns the value of the '<em><b>Outgoing Propagation</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Action</em>' reference.
-	 * @see #setAction(ConstrainedInstanceObject)
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getErrorPropagationConditionInstance_Action()
-	 * @model
+	 * @return the value of the '<em>Outgoing Propagation</em>' containment reference.
+	 * @see #setOutgoingPropagation(ConstrainedInstanceObject)
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getErrorPropagationConditionInstance_OutgoingPropagation()
+	 * @model containment="true"
 	 * @generated
 	 */
-	ConstrainedInstanceObject getAction();
+	ConstrainedInstanceObject getOutgoingPropagation();
 
 	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorPropagationConditionInstance#getAction <em>Action</em>}' reference.
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorPropagationConditionInstance#getOutgoingPropagation <em>Outgoing Propagation</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Action</em>' reference.
-	 * @see #getAction()
+	 * @param value the new value of the '<em>Outgoing Propagation</em>' containment reference.
+	 * @see #getOutgoingPropagation()
 	 * @generated
 	 */
-	void setAction(ConstrainedInstanceObject value);
+	void setOutgoingPropagation(ConstrainedInstanceObject value);
 
 	/**
 	 * Returns the value of the '<em><b>Source</b></em>' attribute.

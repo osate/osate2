@@ -143,8 +143,8 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 				return createEventInstanceAdapter();
 			}
 			@Override
-			public Adapter caseConstraint(Constraint object) {
-				return createConstraintAdapter();
+			public Adapter caseConstraintExpression(ConstraintExpression object) {
+				return createConstraintExpressionAdapter();
 			}
 			@Override
 			public Adapter caseConstraintElement(ConstraintElement object) {
@@ -373,16 +373,16 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint <em>Constraint</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstraintExpression <em>Constraint Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstraintExpression
 	 * @generated
 	 */
-	public Adapter createConstraintAdapter() {
+	public Adapter createConstraintExpressionAdapter() {
 		return null;
 	}
 

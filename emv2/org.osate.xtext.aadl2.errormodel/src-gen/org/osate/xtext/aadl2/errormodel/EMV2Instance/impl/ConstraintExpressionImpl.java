@@ -38,27 +38,27 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.xtext.aadl2.errormodel.EMV2Instance.Constraint;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstraintElement;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstraintExpression;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EOperation;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Constraint</b></em>'.
+ * An implementation of the model object '<em><b>Constraint Expression</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstraintImpl#getOperator <em>Operator</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstraintImpl#getK <em>K</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstraintImpl#getConstraintElements <em>Constraint Elements</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstraintExpressionImpl#getOperator <em>Operator</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstraintExpressionImpl#getK <em>K</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ConstraintExpressionImpl#getConstraintElements <em>Constraint Elements</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ConstraintImpl extends ConstraintElementImpl implements Constraint {
+public class ConstraintExpressionImpl extends ConstraintElementImpl implements ConstraintExpression {
 	/**
 	 * The default value of the '{@link #getOperator() <em>Operator</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -114,7 +114,7 @@ public class ConstraintImpl extends ConstraintElementImpl implements Constraint 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ConstraintImpl() {
+	protected ConstraintExpressionImpl() {
 		super();
 	}
 
@@ -125,7 +125,7 @@ public class ConstraintImpl extends ConstraintElementImpl implements Constraint 
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EMV2InstancePackage.Literals.CONSTRAINT;
+		return EMV2InstancePackage.Literals.CONSTRAINT_EXPRESSION;
 	}
 
 	/**
@@ -148,7 +148,7 @@ public class ConstraintImpl extends ConstraintElementImpl implements Constraint 
 		EOperation oldOperator = operator;
 		operator = newOperator == null ? OPERATOR_EDEFAULT : newOperator;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.CONSTRAINT__OPERATOR, oldOperator, operator));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.CONSTRAINT_EXPRESSION__OPERATOR, oldOperator, operator));
 	}
 
 	/**
@@ -171,7 +171,7 @@ public class ConstraintImpl extends ConstraintElementImpl implements Constraint 
 		long oldK = k;
 		k = newK;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.CONSTRAINT__K, oldK, k));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.CONSTRAINT_EXPRESSION__K, oldK, k));
 	}
 
 	/**
@@ -182,7 +182,7 @@ public class ConstraintImpl extends ConstraintElementImpl implements Constraint 
 	@Override
 	public EList<ConstraintElement> getConstraintElements() {
 		if (constraintElements == null) {
-			constraintElements = new EObjectContainmentEList<ConstraintElement>(ConstraintElement.class, this, EMV2InstancePackage.CONSTRAINT__CONSTRAINT_ELEMENTS);
+			constraintElements = new EObjectContainmentEList<ConstraintElement>(ConstraintElement.class, this, EMV2InstancePackage.CONSTRAINT_EXPRESSION__CONSTRAINT_ELEMENTS);
 		}
 		return constraintElements;
 	}
@@ -195,7 +195,7 @@ public class ConstraintImpl extends ConstraintElementImpl implements Constraint 
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case EMV2InstancePackage.CONSTRAINT__CONSTRAINT_ELEMENTS:
+			case EMV2InstancePackage.CONSTRAINT_EXPRESSION__CONSTRAINT_ELEMENTS:
 				return ((InternalEList<?>)getConstraintElements()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -209,11 +209,11 @@ public class ConstraintImpl extends ConstraintElementImpl implements Constraint 
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EMV2InstancePackage.CONSTRAINT__OPERATOR:
+			case EMV2InstancePackage.CONSTRAINT_EXPRESSION__OPERATOR:
 				return getOperator();
-			case EMV2InstancePackage.CONSTRAINT__K:
+			case EMV2InstancePackage.CONSTRAINT_EXPRESSION__K:
 				return getK();
-			case EMV2InstancePackage.CONSTRAINT__CONSTRAINT_ELEMENTS:
+			case EMV2InstancePackage.CONSTRAINT_EXPRESSION__CONSTRAINT_ELEMENTS:
 				return getConstraintElements();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -228,13 +228,13 @@ public class ConstraintImpl extends ConstraintElementImpl implements Constraint 
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EMV2InstancePackage.CONSTRAINT__OPERATOR:
+			case EMV2InstancePackage.CONSTRAINT_EXPRESSION__OPERATOR:
 				setOperator((EOperation)newValue);
 				return;
-			case EMV2InstancePackage.CONSTRAINT__K:
+			case EMV2InstancePackage.CONSTRAINT_EXPRESSION__K:
 				setK((Long)newValue);
 				return;
-			case EMV2InstancePackage.CONSTRAINT__CONSTRAINT_ELEMENTS:
+			case EMV2InstancePackage.CONSTRAINT_EXPRESSION__CONSTRAINT_ELEMENTS:
 				getConstraintElements().clear();
 				getConstraintElements().addAll((Collection<? extends ConstraintElement>)newValue);
 				return;
@@ -250,13 +250,13 @@ public class ConstraintImpl extends ConstraintElementImpl implements Constraint 
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.CONSTRAINT__OPERATOR:
+			case EMV2InstancePackage.CONSTRAINT_EXPRESSION__OPERATOR:
 				setOperator(OPERATOR_EDEFAULT);
 				return;
-			case EMV2InstancePackage.CONSTRAINT__K:
+			case EMV2InstancePackage.CONSTRAINT_EXPRESSION__K:
 				setK(K_EDEFAULT);
 				return;
-			case EMV2InstancePackage.CONSTRAINT__CONSTRAINT_ELEMENTS:
+			case EMV2InstancePackage.CONSTRAINT_EXPRESSION__CONSTRAINT_ELEMENTS:
 				getConstraintElements().clear();
 				return;
 		}
@@ -271,11 +271,11 @@ public class ConstraintImpl extends ConstraintElementImpl implements Constraint 
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.CONSTRAINT__OPERATOR:
+			case EMV2InstancePackage.CONSTRAINT_EXPRESSION__OPERATOR:
 				return operator != OPERATOR_EDEFAULT;
-			case EMV2InstancePackage.CONSTRAINT__K:
+			case EMV2InstancePackage.CONSTRAINT_EXPRESSION__K:
 				return k != K_EDEFAULT;
-			case EMV2InstancePackage.CONSTRAINT__CONSTRAINT_ELEMENTS:
+			case EMV2InstancePackage.CONSTRAINT_EXPRESSION__CONSTRAINT_ELEMENTS:
 				return constraintElements != null && !constraintElements.isEmpty();
 		}
 		return super.eIsSet(featureID);
@@ -299,4 +299,4 @@ public class ConstraintImpl extends ConstraintElementImpl implements Constraint 
 		return result.toString();
 	}
 
-} //ConstraintImpl
+} //ConstraintExpressionImpl
