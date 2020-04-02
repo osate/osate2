@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -95,9 +95,10 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 			InternalEObject oldParentMode = (InternalEObject) parentMode;
 			parentMode = (Mode) eResolveProxy(oldParentMode);
 			if (parentMode != oldParentMode) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.MODE_BINDING__PARENT_MODE,
 							oldParentMode, parentMode));
+				}
 			}
 		}
 		return parentMode;
@@ -120,9 +121,10 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 	public void setParentMode(Mode newParentMode) {
 		Mode oldParentMode = parentMode;
 		parentMode = newParentMode;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.MODE_BINDING__PARENT_MODE, oldParentMode,
 					parentMode));
+		}
 	}
 
 	/**
@@ -135,9 +137,10 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 			InternalEObject oldDerivedMode = (InternalEObject) derivedMode;
 			derivedMode = (Mode) eResolveProxy(oldDerivedMode);
 			if (derivedMode != oldDerivedMode) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.MODE_BINDING__DERIVED_MODE,
 							oldDerivedMode, derivedMode));
+				}
 			}
 		}
 		return derivedMode;
@@ -160,9 +163,10 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 	public void setDerivedMode(Mode newDerivedMode) {
 		Mode oldDerivedMode = derivedMode;
 		derivedMode = newDerivedMode;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.MODE_BINDING__DERIVED_MODE,
 					oldDerivedMode, derivedMode));
+		}
 	}
 
 	/**
@@ -173,12 +177,14 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.MODE_BINDING__PARENT_MODE:
-			if (resolve)
+			if (resolve) {
 				return getParentMode();
+			}
 			return basicGetParentMode();
 		case Aadl2Package.MODE_BINDING__DERIVED_MODE:
-			if (resolve)
+			if (resolve) {
 				return getDerivedMode();
+			}
 			return basicGetDerivedMode();
 		}
 		return super.eGet(featureID, resolve, coreType);

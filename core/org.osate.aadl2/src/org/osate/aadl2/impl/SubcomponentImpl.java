@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -368,9 +368,10 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	public void setAllModes(boolean newAllModes) {
 		boolean oldAllModes = allModes;
 		allModes = newAllModes;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.SUBCOMPONENT__ALL_MODES, oldAllModes,
 					allModes));
+		}
 	}
 
 	/**
@@ -408,9 +409,10 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 			InternalEObject oldRefined = (InternalEObject) refined;
 			refined = (Subcomponent) eResolveProxy(oldRefined);
 			if (refined != oldRefined) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.SUBCOMPONENT__REFINED,
 							oldRefined, refined));
+				}
 			}
 		}
 		return refined;
@@ -486,14 +488,16 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		case Aadl2Package.SUBCOMPONENT__ARRAY_DIMENSION:
 			return getArrayDimensions();
 		case Aadl2Package.SUBCOMPONENT__SUBCOMPONENT_TYPE:
-			if (resolve)
+			if (resolve) {
 				return getSubcomponentType();
+			}
 			return basicGetSubcomponentType();
 		case Aadl2Package.SUBCOMPONENT__OWNED_PROTOTYPE_BINDING:
 			return getOwnedPrototypeBindings();
 		case Aadl2Package.SUBCOMPONENT__PROTOTYPE:
-			if (resolve)
+			if (resolve) {
 				return getPrototype();
+			}
 			return basicGetPrototype();
 		case Aadl2Package.SUBCOMPONENT__OWNED_MODE_BINDING:
 			return getOwnedModeBindings();
@@ -502,12 +506,14 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		case Aadl2Package.SUBCOMPONENT__IMPLEMENTATION_REFERENCE:
 			return getImplementationReferences();
 		case Aadl2Package.SUBCOMPONENT__REFINED:
-			if (resolve)
+			if (resolve) {
 				return getRefined();
+			}
 			return basicGetRefined();
 		case Aadl2Package.SUBCOMPONENT__CLASSIFIER:
-			if (resolve)
+			if (resolve) {
 				return getClassifier();
+			}
 			return basicGetClassifier();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -708,8 +714,9 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * @generated
 	 */
 	public String toString() {
-		if (eIsProxy())
+		if (eIsProxy()) {
 			return super.toString();
+		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (allModes: ");

@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -209,9 +209,10 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	public void setKind(FlowKind newKind) {
 		FlowKind oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_SPECIFICATION__KIND, oldKind,
 					kind));
+		}
 	}
 
 	/**
@@ -244,10 +245,11 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.FLOW_SPECIFICATION__OUT_END, oldOutEnd, newOutEnd);
-			if (msgs == null)
+			if (msgs == null) {
 				msgs = notification;
-			else
+			} else {
 				msgs.add(notification);
+			}
 		}
 		return msgs;
 	}
@@ -260,18 +262,22 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	public void setOutEnd(FlowEnd newOutEnd) {
 		if (newOutEnd != outEnd) {
 			NotificationChain msgs = null;
-			if (outEnd != null)
+			if (outEnd != null) {
 				msgs = ((InternalEObject) outEnd).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.FLOW_SPECIFICATION__OUT_END, null, msgs);
-			if (newOutEnd != null)
+			}
+			if (newOutEnd != null) {
 				msgs = ((InternalEObject) newOutEnd).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.FLOW_SPECIFICATION__OUT_END, null, msgs);
+			}
 			msgs = basicSetOutEnd(newOutEnd, msgs);
-			if (msgs != null)
+			if (msgs != null) {
 				msgs.dispatch();
-		} else if (eNotificationRequired())
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_SPECIFICATION__OUT_END, newOutEnd,
 					newOutEnd));
+		}
 	}
 
 	/**
@@ -315,10 +321,11 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.FLOW_SPECIFICATION__IN_END, oldInEnd, newInEnd);
-			if (msgs == null)
+			if (msgs == null) {
 				msgs = notification;
-			else
+			} else {
 				msgs.add(notification);
+			}
 		}
 		return msgs;
 	}
@@ -331,18 +338,22 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	public void setInEnd(FlowEnd newInEnd) {
 		if (newInEnd != inEnd) {
 			NotificationChain msgs = null;
-			if (inEnd != null)
+			if (inEnd != null) {
 				msgs = ((InternalEObject) inEnd).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.FLOW_SPECIFICATION__IN_END, null, msgs);
-			if (newInEnd != null)
+			}
+			if (newInEnd != null) {
 				msgs = ((InternalEObject) newInEnd).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.FLOW_SPECIFICATION__IN_END, null, msgs);
+			}
 			msgs = basicSetInEnd(newInEnd, msgs);
-			if (msgs != null)
+			if (msgs != null) {
 				msgs.dispatch();
-		} else if (eNotificationRequired())
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_SPECIFICATION__IN_END, newInEnd,
 					newInEnd));
+		}
 	}
 
 	/**
@@ -366,9 +377,10 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 			InternalEObject oldRefined = (InternalEObject) refined;
 			refined = (FlowSpecification) eResolveProxy(oldRefined);
 			if (refined != oldRefined) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.FLOW_SPECIFICATION__REFINED,
 							oldRefined, refined));
+				}
 			}
 		}
 		return refined;
@@ -391,9 +403,10 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	public void setRefined(FlowSpecification newRefined) {
 		FlowSpecification oldRefined = refined;
 		refined = newRefined;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_SPECIFICATION__REFINED, oldRefined,
 					refined));
+		}
 	}
 
 	/**
@@ -450,8 +463,9 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 		case Aadl2Package.FLOW_SPECIFICATION__IN_MODE_OR_TRANSITION:
 			return getInModeOrTransitions();
 		case Aadl2Package.FLOW_SPECIFICATION__REFINED:
-			if (resolve)
+			if (resolve) {
 				return getRefined();
+			}
 			return basicGetRefined();
 		case Aadl2Package.FLOW_SPECIFICATION__KIND:
 			return getKind();
@@ -629,8 +643,9 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	 * @generated
 	 */
 	public String toString() {
-		if (eIsProxy())
+		if (eIsProxy()) {
 			return super.toString();
+		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (kind: ");
@@ -724,7 +739,6 @@ public class FlowSpecificationImpl extends FlowFeatureImpl implements FlowSpecif
 	// fs = fs.getRefined();
 	// return fs.getOutContext();
 	// }
-
 	public final void getPropertyValueInternal(final Property prop, final PropertyAcc paa,
 			final boolean fromInstanceSlaveCall, final boolean all) throws InvalidModelException {
 		final Classifier owner = getContainingClassifier();

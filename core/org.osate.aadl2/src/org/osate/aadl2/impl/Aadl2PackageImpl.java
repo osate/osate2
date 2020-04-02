@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -563,6 +563,13 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	private EClass dataSubcomponentTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass abstractFeatureClassifierEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -3971,6 +3978,15 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 */
 	public EClass getDataSubcomponentType() {
 		return dataSubcomponentTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAbstractFeatureClassifier() {
+		return abstractFeatureClassifierEClass;
 	}
 
 	/**
@@ -8734,6 +8750,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 
 		dataSubcomponentTypeEClass = createEClass(DATA_SUBCOMPONENT_TYPE);
 
+		abstractFeatureClassifierEClass = createEClass(ABSTRACT_FEATURE_CLASSIFIER);
+
 		dataPortEClass = createEClass(DATA_PORT);
 		createEReference(dataPortEClass, DATA_PORT__DATA_FEATURE_CLASSIFIER);
 
@@ -9541,7 +9559,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		parameterConnectionEndEClass.getESuperTypes().add(getConnectionEnd());
 		portConnectionEndEClass.getESuperTypes().add(getConnectionEnd());
 		dataSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
-		dataSubcomponentTypeEClass.getESuperTypes().add(getFeatureClassifier());
+		dataSubcomponentTypeEClass.getESuperTypes().add(getAbstractFeatureClassifier());
+		abstractFeatureClassifierEClass.getESuperTypes().add(getFeatureClassifier());
 		dataPortEClass.getESuperTypes().add(getPort());
 		dataPortEClass.getESuperTypes().add(getContext());
 		dataPortEClass.getESuperTypes().add(getParameterConnectionEnd());
@@ -9559,11 +9578,11 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		subprogramAccessEClass.getESuperTypes().add(getContext());
 		subprogramAccessEClass.getESuperTypes().add(getCalledSubprogram());
 		subprogramSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
-		subprogramSubcomponentTypeEClass.getESuperTypes().add(getFeatureClassifier());
+		subprogramSubcomponentTypeEClass.getESuperTypes().add(getAbstractFeatureClassifier());
 		subprogramGroupAccessEClass.getESuperTypes().add(getAccess());
 		subprogramGroupAccessEClass.getESuperTypes().add(getCallContext());
 		subprogramGroupSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
-		subprogramGroupSubcomponentTypeEClass.getESuperTypes().add(getFeatureClassifier());
+		subprogramGroupSubcomponentTypeEClass.getESuperTypes().add(getAbstractFeatureClassifier());
 		abstractFeatureEClass.getESuperTypes().add(getDirectedFeature());
 		abstractFeatureEClass.getESuperTypes().add(getTriggerPort());
 		featurePrototypeEClass.getESuperTypes().add(getPrototype());
@@ -9593,6 +9612,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		abstractSubcomponentEClass.getESuperTypes().add(getAbstract());
 		abstractEClass.getESuperTypes().add(getNamedElement());
 		abstractSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
+		abstractSubcomponentTypeEClass.getESuperTypes().add(getAbstractFeatureClassifier());
 		accessConnectionEClass.getESuperTypes().add(getConnection());
 		parameterConnectionEClass.getESuperTypes().add(getConnection());
 		portConnectionEClass.getESuperTypes().add(getConnection());
@@ -9667,6 +9687,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		abstractClassifierEClass.getESuperTypes().add(getVirtualProcessorSubcomponentType());
 		virtualProcessorSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
 		virtualBusSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
+		virtualBusSubcomponentTypeEClass.getESuperTypes().add(getAbstractFeatureClassifier());
 		virtualBusSubcomponentTypeEClass.getESuperTypes().add(getBusFeatureClassifier());
 		threadGroupSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
 		threadSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
@@ -9675,6 +9696,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		memorySubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
 		deviceSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
 		busSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
+		busSubcomponentTypeEClass.getESuperTypes().add(getAbstractFeatureClassifier());
 		busSubcomponentTypeEClass.getESuperTypes().add(getBusFeatureClassifier());
 		processorSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
 		abstractImplementationEClass.getESuperTypes().add(getBehavioredImplementation());
@@ -10572,6 +10594,9 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(dataSubcomponentTypeEClass, DataSubcomponentType.class, "DataSubcomponentType", IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+		initEClass(abstractFeatureClassifierEClass, AbstractFeatureClassifier.class, "AbstractFeatureClassifier",
+				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
 		initEClass(dataPortEClass, DataPort.class, "DataPort", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDataPort_DataFeatureClassifier(), getDataSubcomponentType(), null, "dataFeatureClassifier",
@@ -10621,7 +10646,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEReference(getAbstractFeature_FeaturePrototype(), getFeaturePrototype(), null, "featurePrototype", null, 0,
 				1, AbstractFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getAbstractFeature_AbstractFeatureClassifier(), getFeatureClassifier(), null,
+		initEReference(getAbstractFeature_AbstractFeatureClassifier(), getAbstractFeatureClassifier(), null,
 				"abstractFeatureClassifier", null, 0, 1, AbstractFeature.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
