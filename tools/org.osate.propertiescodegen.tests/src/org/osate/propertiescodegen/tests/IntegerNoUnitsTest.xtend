@@ -50,51 +50,51 @@ class IntegerNoUnitsTest {
 			import org.osate.aadl2.Aadl2Package;
 			import org.osate.aadl2.IntegerLiteral;
 			import org.osate.aadl2.ListValue;
+			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.Property;
 			import org.osate.aadl2.PropertyExpression;
-			import org.osate.aadl2.instance.InstanceObject;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			
 			public class IntegerNoUnitsTest {
-				public static OptionalLong getOwnedInteger(InstanceObject instanceObject) {
+				public static OptionalLong getOwnedInteger(NamedElement namedElement) {
 					String name = "integer_no_units_test::owned_integer";
-					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return OptionalLong.of(((IntegerLiteral) propertyExpression).getValue());
 					} catch (PropertyNotPresentException e) {
 						return OptionalLong.empty();
 					}
 				}
 				
-				public static OptionalLong getReferencedIntegerLocal(InstanceObject instanceObject) {
+				public static OptionalLong getReferencedIntegerLocal(NamedElement namedElement) {
 					String name = "integer_no_units_test::referenced_integer_local";
-					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return OptionalLong.of(((IntegerLiteral) propertyExpression).getValue());
 					} catch (PropertyNotPresentException e) {
 						return OptionalLong.empty();
 					}
 				}
 				
-				public static OptionalLong getReferencedIntegerOther(InstanceObject instanceObject) {
+				public static OptionalLong getReferencedIntegerOther(NamedElement namedElement) {
 					String name = "integer_no_units_test::referenced_integer_other";
-					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return OptionalLong.of(((IntegerLiteral) propertyExpression).getValue());
 					} catch (PropertyNotPresentException e) {
 						return OptionalLong.empty();
 					}
 				}
 				
-				public static Optional<List<Long>> getList1Integer(InstanceObject instanceObject) {
+				public static Optional<List<Long>> getList1Integer(NamedElement namedElement) {
 					String name = "integer_no_units_test::list_1_integer";
-					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
 							return ((IntegerLiteral) element1).getValue();
 						}).collect(Collectors.toList()));
@@ -103,11 +103,11 @@ class IntegerNoUnitsTest {
 					}
 				}
 				
-				public static Optional<List<List<List<List<List<Long>>>>>> getList5Integer(InstanceObject instanceObject) {
+				public static Optional<List<List<List<List<List<Long>>>>>> getList5Integer(NamedElement namedElement) {
 					String name = "integer_no_units_test::list_5_integer";
-					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
 							return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
 								return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {

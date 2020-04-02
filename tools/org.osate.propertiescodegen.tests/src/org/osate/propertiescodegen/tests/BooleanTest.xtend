@@ -49,51 +49,51 @@ class BooleanTest {
 			import org.osate.aadl2.Aadl2Package;
 			import org.osate.aadl2.BooleanLiteral;
 			import org.osate.aadl2.ListValue;
+			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.Property;
 			import org.osate.aadl2.PropertyExpression;
-			import org.osate.aadl2.instance.InstanceObject;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			
 			public class BooleanTest {
-				public static Optional<Boolean> getOwnedBoolean(InstanceObject instanceObject) {
+				public static Optional<Boolean> getOwnedBoolean(NamedElement namedElement) {
 					String name = "boolean_test::owned_boolean";
-					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return Optional.of(((BooleanLiteral) propertyExpression).getValue());
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static Optional<Boolean> getReferencedBooleanLocal(InstanceObject instanceObject) {
+				public static Optional<Boolean> getReferencedBooleanLocal(NamedElement namedElement) {
 					String name = "boolean_test::referenced_boolean_local";
-					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return Optional.of(((BooleanLiteral) propertyExpression).getValue());
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static Optional<Boolean> getReferencedBooleanOther(InstanceObject instanceObject) {
+				public static Optional<Boolean> getReferencedBooleanOther(NamedElement namedElement) {
 					String name = "boolean_test::referenced_boolean_other";
-					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return Optional.of(((BooleanLiteral) propertyExpression).getValue());
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static Optional<List<Boolean>> getList1Boolean(InstanceObject instanceObject) {
+				public static Optional<List<Boolean>> getList1Boolean(NamedElement namedElement) {
 					String name = "boolean_test::list_1_boolean";
-					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
 							return ((BooleanLiteral) element1).getValue();
 						}).collect(Collectors.toList()));
@@ -102,11 +102,11 @@ class BooleanTest {
 					}
 				}
 				
-				public static Optional<List<List<List<List<List<Boolean>>>>>> getList5Boolean(InstanceObject instanceObject) {
+				public static Optional<List<List<List<List<List<Boolean>>>>>> getList5Boolean(NamedElement namedElement) {
 					String name = "boolean_test::list_5_boolean";
-					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
 							return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
 								return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {

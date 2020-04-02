@@ -125,19 +125,19 @@ class PropertiesCodeGen {
 		imports += #{
 			"java.util." + optionalType,
 			"org.osate.aadl2.Aadl2Package",
+			"org.osate.aadl2.NamedElement",
 			"org.osate.aadl2.Property",
 			"org.osate.aadl2.PropertyExpression",
-			"org.osate.aadl2.instance.InstanceObject",
 			"org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil",
 			"org.osate.aadl2.properties.PropertyNotPresentException"
 		}
 		
 		'''
-			public static «getOptionalType(type)» get«property.name.toCamelCase»(InstanceObject instanceObject) {
+			public static «getOptionalType(type)» get«property.name.toCamelCase»(NamedElement namedElement) {
 				String name = "«propertySet.name»::«property.name»";
-				Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
+				Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 				try {
-					PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+					PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 					return «optionalType».of(«getValueExtractor(type, "propertyExpression", 1)»);
 				} catch (PropertyNotPresentException e) {
 					return «optionalType».empty();

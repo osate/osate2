@@ -53,6 +53,7 @@ class ReferenceTest {
 			
 			import org.osate.aadl2.Aadl2Package;
 			import org.osate.aadl2.ListValue;
+			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.Property;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.instance.InstanceObject;
@@ -61,44 +62,44 @@ class ReferenceTest {
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			
 			public class ReferenceTest {
-				public static Optional<InstanceObject> getOwnedReference(InstanceObject instanceObject) {
+				public static Optional<InstanceObject> getOwnedReference(NamedElement namedElement) {
 					String name = "reference_test::owned_reference";
-					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return Optional.of(((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject());
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static Optional<InstanceObject> getReferencedReferenceLocal(InstanceObject instanceObject) {
+				public static Optional<InstanceObject> getReferencedReferenceLocal(NamedElement namedElement) {
 					String name = "reference_test::referenced_reference_local";
-					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return Optional.of(((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject());
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static Optional<InstanceObject> getReferencedReferenceOther(InstanceObject instanceObject) {
+				public static Optional<InstanceObject> getReferencedReferenceOther(NamedElement namedElement) {
 					String name = "reference_test::referenced_reference_other";
-					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return Optional.of(((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject());
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static Optional<List<InstanceObject>> getList1Reference(InstanceObject instanceObject) {
+				public static Optional<List<InstanceObject>> getList1Reference(NamedElement namedElement) {
 					String name = "reference_test::list_1_reference";
-					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
 							return ((InstanceReferenceValue) element1).getReferencedInstanceObject();
 						}).collect(Collectors.toList()));
@@ -107,11 +108,11 @@ class ReferenceTest {
 					}
 				}
 				
-				public static Optional<List<List<List<List<List<InstanceObject>>>>>> getList5Reference(InstanceObject instanceObject) {
+				public static Optional<List<List<List<List<List<InstanceObject>>>>>> getList5Reference(NamedElement namedElement) {
 					String name = "reference_test::list_5_reference";
-					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
 							return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
 								return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
