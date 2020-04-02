@@ -235,6 +235,10 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorDetection/errorCode"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorDetection/internalDetectionPort"/>
     </genClasses>
+    <genClasses ecoreClass="ErrorModel.ecore#//ReportingPortReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ReportingPortReference/element"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ReportingPortReference/previous"/>
+    </genClasses>
     <genClasses ecoreClass="ErrorModel.ecore#//ErrorCodeValue">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ErrorModel.ecore#//ErrorCodeValue/intValue"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ErrorModel.ecore#//ErrorCodeValue/constant"/>
