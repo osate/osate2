@@ -84,6 +84,12 @@ class PropertyDefinitionTest {
 					}
 				}
 				
+				public static PropertyExpression getBooleanDefinition_EObject(NamedElement namedElement) {
+					String name = "ps1::boolean_definition";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static Optional<String> getStringDefinition(NamedElement namedElement) {
 					String name = "ps1::string_definition";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -93,6 +99,12 @@ class PropertyDefinitionTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getStringDefinition_EObject(NamedElement namedElement) {
+					String name = "ps1::string_definition";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static Optional<Classifier> getClassifierDefinition(NamedElement namedElement) {
@@ -106,6 +118,12 @@ class PropertyDefinitionTest {
 					}
 				}
 				
+				public static PropertyExpression getClassifierDefinition_EObject(NamedElement namedElement) {
+					String name = "ps1::classifier_definition";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static Optional<UnitsDefinition> getUnitsDefinition(NamedElement namedElement) {
 					String name = "ps1::units_definition";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -115,6 +133,12 @@ class PropertyDefinitionTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getUnitsDefinition_EObject(NamedElement namedElement) {
+					String name = "ps1::units_definition";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static Optional<EnumDefinition> getEnumDefinition(NamedElement namedElement) {
@@ -128,6 +152,12 @@ class PropertyDefinitionTest {
 					}
 				}
 				
+				public static PropertyExpression getEnumDefinition_EObject(NamedElement namedElement) {
+					String name = "ps1::enum_definition";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static OptionalLong getIntegerDefinitionNoUnits(NamedElement namedElement) {
 					String name = "ps1::integer_definition_no_units";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -137,6 +167,12 @@ class PropertyDefinitionTest {
 					} catch (PropertyNotPresentException e) {
 						return OptionalLong.empty();
 					}
+				}
+				
+				public static PropertyExpression getIntegerDefinitionNoUnits_EObject(NamedElement namedElement) {
+					String name = "ps1::integer_definition_no_units";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static Optional<IntegerDefinitionWithUnits> getIntegerDefinitionWithUnits(NamedElement namedElement) {
@@ -150,6 +186,12 @@ class PropertyDefinitionTest {
 					}
 				}
 				
+				public static PropertyExpression getIntegerDefinitionWithUnits_EObject(NamedElement namedElement) {
+					String name = "ps1::integer_definition_with_units";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static OptionalDouble getRealDefinitionNoUnits(NamedElement namedElement) {
 					String name = "ps1::real_definition_no_units";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -159,6 +201,12 @@ class PropertyDefinitionTest {
 					} catch (PropertyNotPresentException e) {
 						return OptionalDouble.empty();
 					}
+				}
+				
+				public static PropertyExpression getRealDefinitionNoUnits_EObject(NamedElement namedElement) {
+					String name = "ps1::real_definition_no_units";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static Optional<RangeDefinition> getRangeDefinition(NamedElement namedElement) {
@@ -172,6 +220,12 @@ class PropertyDefinitionTest {
 					}
 				}
 				
+				public static PropertyExpression getRangeDefinition_EObject(NamedElement namedElement) {
+					String name = "ps1::range_definition";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static Optional<RecordDefinition> getRecordDefinition(NamedElement namedElement) {
 					String name = "ps1::record_definition";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -181,6 +235,12 @@ class PropertyDefinitionTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getRecordDefinition_EObject(NamedElement namedElement) {
+					String name = "ps1::record_definition";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static Optional<InstanceObject> getReferenceDefinition(NamedElement namedElement) {
@@ -194,6 +254,12 @@ class PropertyDefinitionTest {
 					}
 				}
 				
+				public static PropertyExpression getReferenceDefinition_EObject(NamedElement namedElement) {
+					String name = "ps1::reference_definition";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static Optional<Boolean> getDefinitionWithReferencedTypeLocal(NamedElement namedElement) {
 					String name = "ps1::definition_with_referenced_type_local";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -205,6 +271,12 @@ class PropertyDefinitionTest {
 					}
 				}
 				
+				public static PropertyExpression getDefinitionWithReferencedTypeLocal_EObject(NamedElement namedElement) {
+					String name = "ps1::definition_with_referenced_type_local";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static Optional<Color> getDefinitionWithReferencedTypeOtherFile(NamedElement namedElement) {
 					String name = "ps1::definition_with_referenced_type_other_file";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -214,6 +286,12 @@ class PropertyDefinitionTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getDefinitionWithReferencedTypeOtherFile_EObject(NamedElement namedElement) {
+					String name = "ps1::definition_with_referenced_type_other_file";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 			}
 		'''
@@ -518,6 +596,12 @@ class PropertyDefinitionTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getSoleDefinition_EObject(NamedElement namedElement) {
+					String name = "single_definition_ps::sole_definition";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 			}
 		'''

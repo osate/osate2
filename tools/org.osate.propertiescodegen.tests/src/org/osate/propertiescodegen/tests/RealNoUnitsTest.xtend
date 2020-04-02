@@ -68,6 +68,12 @@ class RealNoUnitsTest {
 					}
 				}
 				
+				public static PropertyExpression getOwnedReal_EObject(NamedElement namedElement) {
+					String name = "real_no_units_test::owned_real";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static OptionalDouble getReferencedRealLocal(NamedElement namedElement) {
 					String name = "real_no_units_test::referenced_real_local";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -77,6 +83,12 @@ class RealNoUnitsTest {
 					} catch (PropertyNotPresentException e) {
 						return OptionalDouble.empty();
 					}
+				}
+				
+				public static PropertyExpression getReferencedRealLocal_EObject(NamedElement namedElement) {
+					String name = "real_no_units_test::referenced_real_local";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static OptionalDouble getReferencedRealOther(NamedElement namedElement) {
@@ -90,6 +102,12 @@ class RealNoUnitsTest {
 					}
 				}
 				
+				public static PropertyExpression getReferencedRealOther_EObject(NamedElement namedElement) {
+					String name = "real_no_units_test::referenced_real_other";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static Optional<List<Double>> getList1Real(NamedElement namedElement) {
 					String name = "real_no_units_test::list_1_real";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -101,6 +119,12 @@ class RealNoUnitsTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getList1Real_EObject(NamedElement namedElement) {
+					String name = "real_no_units_test::list_1_real";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static Optional<List<List<List<List<List<Double>>>>>> getList5Real(NamedElement namedElement) {
@@ -122,6 +146,12 @@ class RealNoUnitsTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getList5Real_EObject(NamedElement namedElement) {
+					String name = "real_no_units_test::list_5_real";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 			}
 		'''

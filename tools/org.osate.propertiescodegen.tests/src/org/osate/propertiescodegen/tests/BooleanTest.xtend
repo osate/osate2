@@ -67,6 +67,12 @@ class BooleanTest {
 					}
 				}
 				
+				public static PropertyExpression getOwnedBoolean_EObject(NamedElement namedElement) {
+					String name = "boolean_test::owned_boolean";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static Optional<Boolean> getReferencedBooleanLocal(NamedElement namedElement) {
 					String name = "boolean_test::referenced_boolean_local";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -76,6 +82,12 @@ class BooleanTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getReferencedBooleanLocal_EObject(NamedElement namedElement) {
+					String name = "boolean_test::referenced_boolean_local";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static Optional<Boolean> getReferencedBooleanOther(NamedElement namedElement) {
@@ -89,6 +101,12 @@ class BooleanTest {
 					}
 				}
 				
+				public static PropertyExpression getReferencedBooleanOther_EObject(NamedElement namedElement) {
+					String name = "boolean_test::referenced_boolean_other";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static Optional<List<Boolean>> getList1Boolean(NamedElement namedElement) {
 					String name = "boolean_test::list_1_boolean";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -100,6 +118,12 @@ class BooleanTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getList1Boolean_EObject(NamedElement namedElement) {
+					String name = "boolean_test::list_1_boolean";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static Optional<List<List<List<List<List<Boolean>>>>>> getList5Boolean(NamedElement namedElement) {
@@ -121,6 +145,12 @@ class BooleanTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getList5Boolean_EObject(NamedElement namedElement) {
+					String name = "boolean_test::list_5_boolean";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 			}
 		'''

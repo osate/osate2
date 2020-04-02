@@ -68,6 +68,12 @@ class ClassifierTest {
 					}
 				}
 				
+				public static PropertyExpression getOwnedClassifier_EObject(NamedElement namedElement) {
+					String name = "classifier_test::owned_classifier";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static Optional<Classifier> getReferencedClassifierLocal(NamedElement namedElement) {
 					String name = "classifier_test::referenced_classifier_local";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -77,6 +83,12 @@ class ClassifierTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getReferencedClassifierLocal_EObject(NamedElement namedElement) {
+					String name = "classifier_test::referenced_classifier_local";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static Optional<Classifier> getReferencedClassifierOther(NamedElement namedElement) {
@@ -90,6 +102,12 @@ class ClassifierTest {
 					}
 				}
 				
+				public static PropertyExpression getReferencedClassifierOther_EObject(NamedElement namedElement) {
+					String name = "classifier_test::referenced_classifier_other";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static Optional<List<Classifier>> getList1Classifier(NamedElement namedElement) {
 					String name = "classifier_test::list_1_classifier";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -101,6 +119,12 @@ class ClassifierTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getList1Classifier_EObject(NamedElement namedElement) {
+					String name = "classifier_test::list_1_classifier";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static Optional<List<List<List<List<List<Classifier>>>>>> getList5Classifier(NamedElement namedElement) {
@@ -122,6 +146,12 @@ class ClassifierTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getList5Classifier_EObject(NamedElement namedElement) {
+					String name = "classifier_test::list_5_classifier";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 			}
 		'''

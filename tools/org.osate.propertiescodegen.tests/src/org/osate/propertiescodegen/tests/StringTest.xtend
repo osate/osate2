@@ -67,6 +67,12 @@ class StringTest {
 					}
 				}
 				
+				public static PropertyExpression getOwnedString_EObject(NamedElement namedElement) {
+					String name = "string_test::owned_string";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static Optional<String> getReferencedStringLocal(NamedElement namedElement) {
 					String name = "string_test::referenced_string_local";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -76,6 +82,12 @@ class StringTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getReferencedStringLocal_EObject(NamedElement namedElement) {
+					String name = "string_test::referenced_string_local";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static Optional<String> getReferencedStringOther(NamedElement namedElement) {
@@ -89,6 +101,12 @@ class StringTest {
 					}
 				}
 				
+				public static PropertyExpression getReferencedStringOther_EObject(NamedElement namedElement) {
+					String name = "string_test::referenced_string_other";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
+				}
+				
 				public static Optional<List<String>> getList1String(NamedElement namedElement) {
 					String name = "string_test::list_1_string";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
@@ -100,6 +118,12 @@ class StringTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getList1String_EObject(NamedElement namedElement) {
+					String name = "string_test::list_1_string";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 				
 				public static Optional<List<List<List<List<List<String>>>>>> getList5String(NamedElement namedElement) {
@@ -121,6 +145,12 @@ class StringTest {
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
+				}
+				
+				public static PropertyExpression getList5String_EObject(NamedElement namedElement) {
+					String name = "string_test::list_5_string";
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					return namedElement.getNonModalPropertyValue(property);
 				}
 			}
 		'''
