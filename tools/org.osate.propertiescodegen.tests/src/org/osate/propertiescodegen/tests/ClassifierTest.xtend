@@ -50,51 +50,51 @@ class ClassifierTest {
 			import org.osate.aadl2.Classifier;
 			import org.osate.aadl2.ClassifierValue;
 			import org.osate.aadl2.ListValue;
+			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.Property;
 			import org.osate.aadl2.PropertyExpression;
-			import org.osate.aadl2.instance.InstanceObject;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			
 			public class ClassifierTest {
-				public static Optional<Classifier> getOwnedClassifier(InstanceObject instanceObject) {
+				public static Optional<Classifier> getOwnedClassifier(NamedElement namedElement) {
 					String name = "classifier_test::owned_classifier";
-					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return Optional.of(((ClassifierValue) propertyExpression).getClassifier());
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static Optional<Classifier> getReferencedClassifierLocal(InstanceObject instanceObject) {
+				public static Optional<Classifier> getReferencedClassifierLocal(NamedElement namedElement) {
 					String name = "classifier_test::referenced_classifier_local";
-					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return Optional.of(((ClassifierValue) propertyExpression).getClassifier());
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static Optional<Classifier> getReferencedClassifierOther(InstanceObject instanceObject) {
+				public static Optional<Classifier> getReferencedClassifierOther(NamedElement namedElement) {
 					String name = "classifier_test::referenced_classifier_other";
-					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return Optional.of(((ClassifierValue) propertyExpression).getClassifier());
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static Optional<List<Classifier>> getList1Classifier(InstanceObject instanceObject) {
+				public static Optional<List<Classifier>> getList1Classifier(NamedElement namedElement) {
 					String name = "classifier_test::list_1_classifier";
-					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
 							return ((ClassifierValue) element1).getClassifier();
 						}).collect(Collectors.toList()));
@@ -103,11 +103,11 @@ class ClassifierTest {
 					}
 				}
 				
-				public static Optional<List<List<List<List<List<Classifier>>>>>> getList5Classifier(InstanceObject instanceObject) {
+				public static Optional<List<List<List<List<List<Classifier>>>>>> getList5Classifier(NamedElement namedElement) {
 					String name = "classifier_test::list_5_classifier";
-					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
 							return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
 								return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {

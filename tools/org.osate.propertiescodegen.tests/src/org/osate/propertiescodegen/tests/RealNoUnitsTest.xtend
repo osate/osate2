@@ -49,52 +49,52 @@ class RealNoUnitsTest {
 			
 			import org.osate.aadl2.Aadl2Package;
 			import org.osate.aadl2.ListValue;
+			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.Property;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RealLiteral;
-			import org.osate.aadl2.instance.InstanceObject;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			
 			public class RealNoUnitsTest {
-				public static OptionalDouble getOwnedReal(InstanceObject instanceObject) {
+				public static OptionalDouble getOwnedReal(NamedElement namedElement) {
 					String name = "real_no_units_test::owned_real";
-					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return OptionalDouble.of(((RealLiteral) propertyExpression).getValue());
 					} catch (PropertyNotPresentException e) {
 						return OptionalDouble.empty();
 					}
 				}
 				
-				public static OptionalDouble getReferencedRealLocal(InstanceObject instanceObject) {
+				public static OptionalDouble getReferencedRealLocal(NamedElement namedElement) {
 					String name = "real_no_units_test::referenced_real_local";
-					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return OptionalDouble.of(((RealLiteral) propertyExpression).getValue());
 					} catch (PropertyNotPresentException e) {
 						return OptionalDouble.empty();
 					}
 				}
 				
-				public static OptionalDouble getReferencedRealOther(InstanceObject instanceObject) {
+				public static OptionalDouble getReferencedRealOther(NamedElement namedElement) {
 					String name = "real_no_units_test::referenced_real_other";
-					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return OptionalDouble.of(((RealLiteral) propertyExpression).getValue());
 					} catch (PropertyNotPresentException e) {
 						return OptionalDouble.empty();
 					}
 				}
 				
-				public static Optional<List<Double>> getList1Real(InstanceObject instanceObject) {
+				public static Optional<List<Double>> getList1Real(NamedElement namedElement) {
 					String name = "real_no_units_test::list_1_real";
-					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
 							return ((RealLiteral) element1).getValue();
 						}).collect(Collectors.toList()));
@@ -103,11 +103,11 @@ class RealNoUnitsTest {
 					}
 				}
 				
-				public static Optional<List<List<List<List<List<Double>>>>>> getList5Real(InstanceObject instanceObject) {
+				public static Optional<List<List<List<List<List<Double>>>>>> getList5Real(NamedElement namedElement) {
 					String name = "real_no_units_test::list_5_real";
-					Property property = Aadl2GlobalScopeUtil.get(instanceObject, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = instanceObject.getNonModalPropertyValue(property);
+						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
 							return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
 								return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
