@@ -56,6 +56,9 @@ public abstract class EMV2InstanceObjectImpl extends InstanceObjectImpl implemen
 		return EMV2InstancePackage.Literals.EMV2_INSTANCE_OBJECT;
 	}
 
+	/**
+	 * @generated NOT
+	 */
 	@Override
 	public boolean isActive(SystemOperationMode som) {
 		return true;
