@@ -37,6 +37,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstraintElement;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateInstance;

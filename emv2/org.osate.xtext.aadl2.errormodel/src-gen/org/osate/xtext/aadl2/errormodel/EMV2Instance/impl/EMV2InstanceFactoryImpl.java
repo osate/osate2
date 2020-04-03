@@ -231,17 +231,6 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public PropagationPathInstance createPropagationPathInstance() {
-		PropagationPathInstanceImpl propagationPathInstance = new PropagationPathInstanceImpl();
-		return propagationPathInstance;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public PropagationPointInstance createPropagationPointInstance() {
 		PropagationPointInstanceImpl propagationPointInstance = new PropagationPointInstanceImpl();
 		return propagationPointInstance;
@@ -267,6 +256,17 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public ConstraintExpression createConstraintExpression() {
 		ConstraintExpressionImpl constraintExpression = new ConstraintExpressionImpl();
 		return constraintExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public PropagationPathInstance createPropagationPathInstance() {
+		PropagationPathInstanceImpl propagationPathInstance = new PropagationPathInstanceImpl();
+		return propagationPathInstance;
 	}
 
 	/**

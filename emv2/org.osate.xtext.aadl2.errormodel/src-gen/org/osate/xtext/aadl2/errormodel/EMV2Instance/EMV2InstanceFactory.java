@@ -124,15 +124,6 @@ public interface EMV2InstanceFactory extends EFactory {
 	ErrorDetectionInstance createErrorDetectionInstance();
 
 	/**
-	 * Returns a new object of class '<em>Propagation Path Instance</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Propagation Path Instance</em>'.
-	 * @generated
-	 */
-	PropagationPathInstance createPropagationPathInstance();
-
-	/**
 	 * Returns a new object of class '<em>Propagation Point Instance</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -158,6 +149,15 @@ public interface EMV2InstanceFactory extends EFactory {
 	 * @generated
 	 */
 	ConstraintExpression createConstraintExpression();
+
+	/**
+	 * Returns a new object of class '<em>Propagation Path Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Propagation Path Instance</em>'.
+	 * @generated
+	 */
+	PropagationPathInstance createPropagationPathInstance();
 
 	/**
 	 * Returns the package supported by this factory.
