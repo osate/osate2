@@ -26,6 +26,7 @@ package org.osate.xtext.aadl2.errormodel.EMV2Instance;
 import org.eclipse.emf.common.util.EList;
 
 import org.osate.aadl2.instance.FeatureInstance;
+
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 
 /**

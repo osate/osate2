@@ -80,16 +80,6 @@ public interface EMV2InstancePackage extends EPackage {
 	EMV2InstancePackage eINSTANCE = org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl.init();
 
 	/**
-	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstanceObjectImpl <em>Object</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstanceObjectImpl
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl#getEMV2InstanceObject()
-	 * @generated
-	 */
-	int EMV2_INSTANCE_OBJECT = 1;
-
-	/**
 	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2AnnexInstanceImpl <em>EMV2 Annex Instance</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -242,6 +232,16 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int EMV2_ANNEX_INSTANCE_FEATURE_COUNT = InstancePackage.ANNEX_INSTANCE_FEATURE_COUNT + 9;
+
+	/**
+	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstanceObjectImpl <em>Object</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstanceObjectImpl
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl#getEMV2InstanceObject()
+	 * @generated
+	 */
+	int EMV2_INSTANCE_OBJECT = 1;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1225,16 +1225,6 @@ public interface EMV2InstancePackage extends EPackage {
 	int ERROR_DETECTION_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 5;
 
 	/**
-	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.PropagationPathInstanceImpl <em>Propagation Path Instance</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.PropagationPathInstanceImpl
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl#getPropagationPathInstance()
-	 * @generated
-	 */
-	int PROPAGATION_PATH_INSTANCE = 14;
-
-	/**
 	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.PropagationPointInstanceImpl <em>Propagation Point Instance</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1508,6 +1498,16 @@ public interface EMV2InstancePackage extends EPackage {
 	int CONSTRAINT_EXPRESSION_FEATURE_COUNT = CONSTRAINT_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
+	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.PropagationPathInstanceImpl <em>Propagation Path Instance</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.PropagationPathInstanceImpl
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl#getPropagationPathInstance()
+	 * @generated
+	 */
+	int PROPAGATION_PATH_INSTANCE = 14;
+
+	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1607,16 +1607,6 @@ public interface EMV2InstancePackage extends EPackage {
 	 */
 	int EOPERATION = 15;
 
-
-	/**
-	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstanceObject <em>Object</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Object</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstanceObject
-	 * @generated
-	 */
-	EClass getEMV2InstanceObject();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2AnnexInstance <em>EMV2 Annex Instance</em>}'.
@@ -1726,6 +1716,16 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getEMV2AnnexInstance_PropagationPaths();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstanceObject <em>Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Object</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstanceObject
+	 * @generated
+	 */
+	EClass getEMV2InstanceObject();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateMachineInstance <em>State Machine Instance</em>}'.
@@ -2127,49 +2127,6 @@ public interface EMV2InstancePackage extends EPackage {
 	EReference getErrorDetectionInstance_Port();
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPathInstance <em>Propagation Path Instance</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Propagation Path Instance</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPathInstance
-	 * @generated
-	 */
-	EClass getPropagationPathInstance();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPathInstance#getEmv2Element <em>Emv2 Element</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Emv2 Element</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPathInstance#getEmv2Element()
-	 * @see #getPropagationPathInstance()
-	 * @generated
-	 */
-	EReference getPropagationPathInstance_Emv2Element();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPathInstance#getSource <em>Source</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Source</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPathInstance#getSource()
-	 * @see #getPropagationPathInstance()
-	 * @generated
-	 */
-	EReference getPropagationPathInstance_Source();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPathInstance#getTarget <em>Target</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Target</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPathInstance#getTarget()
-	 * @see #getPropagationPathInstance()
-	 * @generated
-	 */
-	EReference getPropagationPathInstance_Target();
-
-	/**
 	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPointInstance <em>Propagation Point Instance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2276,6 +2233,49 @@ public interface EMV2InstancePackage extends EPackage {
 	EClass getConstraintElement();
 
 	/**
+	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPathInstance <em>Propagation Path Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Propagation Path Instance</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPathInstance
+	 * @generated
+	 */
+	EClass getPropagationPathInstance();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPathInstance#getEmv2Element <em>Emv2 Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Emv2 Element</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPathInstance#getEmv2Element()
+	 * @see #getPropagationPathInstance()
+	 * @generated
+	 */
+	EReference getPropagationPathInstance_Emv2Element();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPathInstance#getSource <em>Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Source</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPathInstance#getSource()
+	 * @see #getPropagationPathInstance()
+	 * @generated
+	 */
+	EReference getPropagationPathInstance_Source();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPathInstance#getTarget <em>Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Target</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPathInstance#getTarget()
+	 * @see #getPropagationPathInstance()
+	 * @generated
+	 */
+	EReference getPropagationPathInstance_Target();
+
+	/**
 	 * Returns the meta object for enum '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EOperation <em>EOperation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2307,16 +2307,6 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	interface Literals {
-		/**
-		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstanceObjectImpl <em>Object</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstanceObjectImpl
-		 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl#getEMV2InstanceObject()
-		 * @generated
-		 */
-		EClass EMV2_INSTANCE_OBJECT = eINSTANCE.getEMV2InstanceObject();
-
 		/**
 		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2AnnexInstanceImpl <em>EMV2 Annex Instance</em>}' class.
 		 * <!-- begin-user-doc -->
@@ -2398,6 +2388,16 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EReference EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS = eINSTANCE.getEMV2AnnexInstance_PropagationPaths();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstanceObjectImpl <em>Object</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstanceObjectImpl
+		 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl#getEMV2InstanceObject()
+		 * @generated
+		 */
+		EClass EMV2_INSTANCE_OBJECT = eINSTANCE.getEMV2InstanceObject();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateMachineInstanceImpl <em>State Machine Instance</em>}' class.
@@ -2712,40 +2712,6 @@ public interface EMV2InstancePackage extends EPackage {
 		EReference ERROR_DETECTION_INSTANCE__PORT = eINSTANCE.getErrorDetectionInstance_Port();
 
 		/**
-		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.PropagationPathInstanceImpl <em>Propagation Path Instance</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.PropagationPathInstanceImpl
-		 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl#getPropagationPathInstance()
-		 * @generated
-		 */
-		EClass PROPAGATION_PATH_INSTANCE = eINSTANCE.getPropagationPathInstance();
-
-		/**
-		 * The meta object literal for the '<em><b>Emv2 Element</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference PROPAGATION_PATH_INSTANCE__EMV2_ELEMENT = eINSTANCE.getPropagationPathInstance_Emv2Element();
-
-		/**
-		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference PROPAGATION_PATH_INSTANCE__SOURCE = eINSTANCE.getPropagationPathInstance_Source();
-
-		/**
-		 * The meta object literal for the '<em><b>Target</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference PROPAGATION_PATH_INSTANCE__TARGET = eINSTANCE.getPropagationPathInstance_Target();
-
-		/**
 		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.PropagationPointInstanceImpl <em>Propagation Point Instance</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2832,6 +2798,40 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EClass CONSTRAINT_ELEMENT = eINSTANCE.getConstraintElement();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.PropagationPathInstanceImpl <em>Propagation Path Instance</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.PropagationPathInstanceImpl
+		 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.EMV2InstancePackageImpl#getPropagationPathInstance()
+		 * @generated
+		 */
+		EClass PROPAGATION_PATH_INSTANCE = eINSTANCE.getPropagationPathInstance();
+
+		/**
+		 * The meta object literal for the '<em><b>Emv2 Element</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PROPAGATION_PATH_INSTANCE__EMV2_ELEMENT = eINSTANCE.getPropagationPathInstance_Emv2Element();
+
+		/**
+		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PROPAGATION_PATH_INSTANCE__SOURCE = eINSTANCE.getPropagationPathInstance_Source();
+
+		/**
+		 * The meta object literal for the '<em><b>Target</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PROPAGATION_PATH_INSTANCE__TARGET = eINSTANCE.getPropagationPathInstance_Target();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EOperation <em>EOperation</em>}' enum.

@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.osate.aadl2.Aadl2Package;
 
 import org.osate.aadl2.instance.InstancePackage;
+
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.CompositeStateInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstraintElement;
@@ -68,14 +69,14 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass emv2InstanceObjectEClass = null;
+	private EClass emv2AnnexInstanceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass emv2AnnexInstanceEClass = null;
+	private EClass emv2InstanceObjectEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -138,13 +139,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass propagationPathInstanceEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass propagationPointInstanceEClass = null;
 
 	/**
@@ -167,6 +161,13 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass constraintElementEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass propagationPathInstanceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -240,16 +241,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(EMV2InstancePackage.eNS_URI, theEMV2InstancePackage);
 		return theEMV2InstancePackage;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EClass getEMV2InstanceObject() {
-		return emv2InstanceObjectEClass;
 	}
 
 	/**
@@ -350,6 +341,16 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	@Override
 	public EReference getEMV2AnnexInstance_PropagationPaths() {
 		return (EReference)emv2AnnexInstanceEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getEMV2InstanceObject() {
+		return emv2InstanceObjectEClass;
 	}
 
 	/**
@@ -728,46 +729,6 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EClass getPropagationPathInstance() {
-		return propagationPathInstanceEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getPropagationPathInstance_Emv2Element() {
-		return (EReference)propagationPathInstanceEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getPropagationPathInstance_Source() {
-		return (EReference)propagationPathInstanceEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getPropagationPathInstance_Target() {
-		return (EReference)propagationPathInstanceEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EClass getPropagationPointInstance() {
 		return propagationPointInstanceEClass;
 	}
@@ -860,6 +821,46 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	@Override
 	public EClass getConstraintElement() {
 		return constraintElementEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getPropagationPathInstance() {
+		return propagationPathInstanceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getPropagationPathInstance_Emv2Element() {
+		return (EReference)propagationPathInstanceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getPropagationPathInstance_Source() {
+		return (EReference)propagationPathInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getPropagationPathInstance_Target() {
+		return (EReference)propagationPathInstanceEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
