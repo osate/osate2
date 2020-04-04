@@ -349,7 +349,10 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	public void caseErrorDetection(ErrorDetection ebt) {
 		checkDetectionSourceTypes(ebt);
 	}
-	
+
+	/**
+	 * @since 3.0
+	 */
 	@Check
 	public void typeCheckDetectionReportingPort(ErrorDetection detection) {
 		ReportingPortReference portReference = detection.getDetectionReportingPort();
