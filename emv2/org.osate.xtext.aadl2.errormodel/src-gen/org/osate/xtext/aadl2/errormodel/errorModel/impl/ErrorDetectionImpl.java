@@ -27,12 +27,9 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.osate.aadl2.TriggerPort;
 
 import org.osate.aadl2.impl.NamedElementImpl;
 
@@ -41,6 +38,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorCodeValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
+import org.osate.xtext.aadl2.errormodel.errorModel.ReportingPortReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
 /**
@@ -114,14 +112,14 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
   protected ConditionExpression condition;
 
   /**
-   * The cached value of the '{@link #getDetectionReportingPort() <em>Detection Reporting Port</em>}' reference.
+   * The cached value of the '{@link #getDetectionReportingPort() <em>Detection Reporting Port</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getDetectionReportingPort()
    * @generated
    * @ordered
    */
-  protected TriggerPort detectionReportingPort;
+  protected ReportingPortReference detectionReportingPort;
 
   /**
    * The cached value of the '{@link #getErrorCode() <em>Error Code</em>}' containment reference.
@@ -321,27 +319,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
    * <!-- end-user-doc -->
    * @generated
    */
-  public TriggerPort getDetectionReportingPort()
-  {
-    if (detectionReportingPort != null && ((EObject)detectionReportingPort).eIsProxy())
-    {
-      InternalEObject oldDetectionReportingPort = (InternalEObject)detectionReportingPort;
-      detectionReportingPort = (TriggerPort)eResolveProxy(oldDetectionReportingPort);
-      if (detectionReportingPort != oldDetectionReportingPort)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.ERROR_DETECTION__DETECTION_REPORTING_PORT, oldDetectionReportingPort, detectionReportingPort));
-      }
-    }
-    return detectionReportingPort;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public TriggerPort basicGetDetectionReportingPort()
+  public ReportingPortReference getDetectionReportingPort()
   {
     return detectionReportingPort;
   }
@@ -351,12 +329,37 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setDetectionReportingPort(TriggerPort newDetectionReportingPort)
+  public NotificationChain basicSetDetectionReportingPort(ReportingPortReference newDetectionReportingPort, NotificationChain msgs)
   {
-    TriggerPort oldDetectionReportingPort = detectionReportingPort;
+    ReportingPortReference oldDetectionReportingPort = detectionReportingPort;
     detectionReportingPort = newDetectionReportingPort;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_DETECTION__DETECTION_REPORTING_PORT, oldDetectionReportingPort, detectionReportingPort));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_DETECTION__DETECTION_REPORTING_PORT, oldDetectionReportingPort, newDetectionReportingPort);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDetectionReportingPort(ReportingPortReference newDetectionReportingPort)
+  {
+    if (newDetectionReportingPort != detectionReportingPort)
+    {
+      NotificationChain msgs = null;
+      if (detectionReportingPort != null)
+        msgs = ((InternalEObject)detectionReportingPort).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_DETECTION__DETECTION_REPORTING_PORT, null, msgs);
+      if (newDetectionReportingPort != null)
+        msgs = ((InternalEObject)newDetectionReportingPort).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_DETECTION__DETECTION_REPORTING_PORT, null, msgs);
+      msgs = basicSetDetectionReportingPort(newDetectionReportingPort, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_DETECTION__DETECTION_REPORTING_PORT, newDetectionReportingPort, newDetectionReportingPort));
   }
 
   /**
@@ -421,6 +424,8 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
         return basicSetTypeTokenConstraint(null, msgs);
       case ErrorModelPackage.ERROR_DETECTION__CONDITION:
         return basicSetCondition(null, msgs);
+      case ErrorModelPackage.ERROR_DETECTION__DETECTION_REPORTING_PORT:
+        return basicSetDetectionReportingPort(null, msgs);
       case ErrorModelPackage.ERROR_DETECTION__ERROR_CODE:
         return basicSetErrorCode(null, msgs);
     }
@@ -447,8 +452,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
       case ErrorModelPackage.ERROR_DETECTION__CONDITION:
         return getCondition();
       case ErrorModelPackage.ERROR_DETECTION__DETECTION_REPORTING_PORT:
-        if (resolve) return getDetectionReportingPort();
-        return basicGetDetectionReportingPort();
+        return getDetectionReportingPort();
       case ErrorModelPackage.ERROR_DETECTION__ERROR_CODE:
         return getErrorCode();
     }
@@ -478,7 +482,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
         setCondition((ConditionExpression)newValue);
         return;
       case ErrorModelPackage.ERROR_DETECTION__DETECTION_REPORTING_PORT:
-        setDetectionReportingPort((TriggerPort)newValue);
+        setDetectionReportingPort((ReportingPortReference)newValue);
         return;
       case ErrorModelPackage.ERROR_DETECTION__ERROR_CODE:
         setErrorCode((ErrorCodeValue)newValue);
@@ -510,7 +514,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
         setCondition((ConditionExpression)null);
         return;
       case ErrorModelPackage.ERROR_DETECTION__DETECTION_REPORTING_PORT:
-        setDetectionReportingPort((TriggerPort)null);
+        setDetectionReportingPort((ReportingPortReference)null);
         return;
       case ErrorModelPackage.ERROR_DETECTION__ERROR_CODE:
         setErrorCode((ErrorCodeValue)null);
