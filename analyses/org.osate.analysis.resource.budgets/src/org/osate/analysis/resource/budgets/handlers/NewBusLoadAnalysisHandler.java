@@ -179,11 +179,6 @@ public final class NewBusLoadAnalysisHandler extends NewAbstractAaxlHandler {
 	private static String getCSVasString(final AnalysisResult analysisResult) {
 		final StringWriter writer = new StringWriter();
 		final PrintWriter pw = new PrintWriter(writer);
-
-		// Define TAB as the separator for the columns!
-		pw.println("Sep=\t");
-
-		// Output the analysis results
 		generateCSVforAnalysis(pw, analysisResult);
 		pw.close();
 		return writer.toString();
@@ -198,7 +193,7 @@ public final class NewBusLoadAnalysisHandler extends NewAbstractAaxlHandler {
 
 	private static void generateCSVforSOM(final PrintWriter pw, final Result somResult) {
 		if (Aadl2Util.isPrintableSOMName((SystemOperationMode) somResult.getModelElement())) {
-			pw.println("Analysis results in modes " + somResult.getMessage());
+			printItem(pw, "Analysis results in modes " + somResult.getMessage());
 			pw.println();
 		}
 
@@ -207,19 +202,14 @@ public final class NewBusLoadAnalysisHandler extends NewAbstractAaxlHandler {
 		 * print the sub information.
 		 */
 
-		pw.println("Physical Bus\tCapacity (KB/s)\tBudget (KB/s)\tRequired Budget (KB/s)\tActual (KB/s)");
+		printItems(pw, "Physical Bus", "Capacity (KB/s)", "Budget (KB/s)", "Required Budget (KB/s)", "Actual (KB/s)");
 
 		for (final Result subResult : somResult.getSubResults()) {
-			pw.print(subResult.getMessage());
-			pw.print("\t");
-			pw.print(ResultUtil.getReal(subResult, 0)); // Capacity
-			pw.print("\t");
-			pw.print(ResultUtil.getReal(subResult, 1)); // Budget
-			pw.print("\t");
-			pw.print(ResultUtil.getReal(subResult, 2)); // Required Capacity
-			pw.print("\t");
-			pw.print(ResultUtil.getReal(subResult, 3)); // Actual
-			pw.println();
+			// Label, Capacity, Budget, Required Capacity, Actual
+			printItems(pw, subResult.getMessage(), Double.toString(ResultUtil.getReal(subResult, 0)),
+					Double.toString(ResultUtil.getReal(subResult, 1)),
+					Double.toString(ResultUtil.getReal(subResult, 2)),
+					Double.toString(ResultUtil.getReal(subResult, 3)));
 		}
 		pw.println();
 
@@ -231,48 +221,34 @@ public final class NewBusLoadAnalysisHandler extends NewAbstractAaxlHandler {
 
 	private static void generateCSVforBus(final PrintWriter pw, final Result busResult, final Result boundTo) {
 		if (boundTo == null) {
-			pw.print("Bus ");
-			pw.println(busResult.getMessage());
+			printItem(pw, "Bus " + busResult.getMessage());
 		} else {
-			pw.print("Virtual bus ");
-			pw.print(busResult.getMessage());
-			pw.print(" bound to ");
-			pw.println(boundTo.getMessage());
+			printItem(pw, "Virtual bus " + busResult.getMessage() + " bound to " + boundTo.getMessage());
 		}
+		pw.println();
 
 		/*
 		 * Go through the children twice: First to print summary information and then to recursively
 		 * print the sub information.
 		 */
 
-		pw.println(
-				"Bound Virtual Bus/Connection\tCapacity (KB/s)\tBudget (KB/s)\tRequired Budget (KB/s)\tActual (KB/s)");
+		printItems(pw, "Bound Virtual Bus/Connection", "Capacity (KB/s)", "Budget (KB/s)", "Required Budget (KB/s)",
+				"Actual (KB/s)");
 
 		final int numBus = (int) ResultUtil.getInteger(busResult, 4);
 		final List<Result> subResults = busResult.getSubResults();
 		for (final Result subResult : subResults.subList(0, numBus)) {
-			pw.print(subResult.getMessage());
-			pw.print("\t");
-			pw.print(ResultUtil.getReal(subResult, 0)); // Capacity
-			pw.print("\t");
-			pw.print(ResultUtil.getReal(subResult, 1)); // Budget
-			pw.print("\t");
-			pw.print(ResultUtil.getReal(subResult, 2)); // Required Capacity
-			pw.print("\t");
-			pw.print(ResultUtil.getReal(subResult, 3)); // Actual
-			pw.println();
+			// Label, Capacity, Budget, Required Capacity, Actual
+			printItems(pw, subResult.getMessage(), Double.toString(ResultUtil.getReal(subResult, 0)),
+					Double.toString(ResultUtil.getReal(subResult, 1)),
+					Double.toString(ResultUtil.getReal(subResult, 2)),
+					Double.toString(ResultUtil.getReal(subResult, 3)));
 		}
 		for (final Result subResult : subResults.subList(numBus, subResults.size())) {
-			pw.print(subResult.getMessage());
-			pw.print("\t");
-			// NO CAPACITY
-			pw.print("\t");
-			pw.print(ResultUtil.getReal(subResult, 0)); // Budget
-			pw.print("\t");
-			// NO REQUIRED CAPACITY
-			pw.print("\t");
-			pw.print(ResultUtil.getReal(subResult, 1)); // Actual
-			pw.println();
+			// Label, NO CAPACITY, Budget, NO REQUIRED CAPACITY, Actual
+			// Capacity, NO BUDGET, Required
+			printItems(pw, subResult.getMessage(), "", Double.toString(ResultUtil.getReal(subResult, 0)), "",
+					Double.toString(ResultUtil.getReal(subResult, 1)));
 		}
 		pw.println();
 
@@ -289,10 +265,7 @@ public final class NewBusLoadAnalysisHandler extends NewAbstractAaxlHandler {
 			final Result boundTo) {
 		// only do something if there are diagnostics
 		if (!connectionResult.getDiagnostics().isEmpty()) {
-			pw.print("Connection ");
-			pw.print(connectionResult.getMessage());
-			pw.print(" bound to ");
-			pw.println(boundTo.getMessage());
+			printItem(pw, "Connection " + connectionResult.getMessage() + " bound to " + boundTo.getMessage());
 			generateCSVforDiagnostics(pw, connectionResult.getDiagnostics());
 			pw.println();
 		}
@@ -300,9 +273,28 @@ public final class NewBusLoadAnalysisHandler extends NewAbstractAaxlHandler {
 
 	private static void generateCSVforDiagnostics(final PrintWriter pw, final List<Diagnostic> diagnostics) {
 		for (final Diagnostic issue : diagnostics) {
-			pw.print(issue.getDiagnosticType().getName());
-			pw.print(": ");
-			pw.println(issue.getMessage());
+			printItem(pw, issue.getDiagnosticType().getName() + ": " + issue.getMessage());
+			pw.println();
 		}
+	}
+
+	private static void printItems(final PrintWriter pw, final String item1, final String... items) {
+		printItem(pw, item1);
+		for (final String nextItem : items) {
+			printSeparator(pw);
+			printItem(pw, nextItem);
+		}
+		pw.println();
+	}
+
+	// TODO: Doesn't handle quotes in the item!
+	private static void printItem(final PrintWriter pw, final String item) {
+		pw.print('"');
+		pw.print(item);
+		pw.print('"');
+	}
+
+	private static void printSeparator(final PrintWriter pw) {
+		pw.print(",");
 	}
 }
