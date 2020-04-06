@@ -179,6 +179,11 @@ public final class NewBusLoadAnalysisHandler extends NewAbstractAaxlHandler {
 	private static String getCSVasString(final AnalysisResult analysisResult) {
 		final StringWriter writer = new StringWriter();
 		final PrintWriter pw = new PrintWriter(writer);
+
+		// Define TAB as the separator for the columns!
+		pw.println("Sep=\t");
+
+		// Output the analysis results
 		generateCSVforAnalysis(pw, analysisResult);
 		pw.close();
 		return writer.toString();
