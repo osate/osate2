@@ -70,7 +70,7 @@ public final class NewBusLoadAnalysisHandler extends NewAbstractAaxlHandler {
 
 	@Override
 	protected String getOutputFileForAaxlFile(final IFile aaxlFile, final String filename) {
-		return filename + ".csv";
+		return filename + "__BusLoad.csv";
 	}
 
 	@Override
