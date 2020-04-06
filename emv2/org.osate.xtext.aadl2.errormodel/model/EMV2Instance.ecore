@@ -104,7 +104,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PropagationPathInstance" eSuperTypes="#//EMV2InstanceObject">
     <eStructuralFeatures xsi:type="ecore:EReference" name="emv2Element" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//ConstrainedInstanceObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//ConstraintElement"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//ConstrainedInstanceObject"/>
   </eClassifiers>
 </ecore:EPackage>

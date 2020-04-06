@@ -69,6 +69,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
@@ -77,6 +78,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorCodeValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
@@ -405,7 +407,6 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		} else {
 			bi.getInStates().add(findStateInstance(annex, opc.getState()));
 		}
-		// action. We keep shared action instances such that there is only one per type
 		if (opc.isAllPropagations()) {
 			// TODO
 		} else {
@@ -723,6 +724,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		ConnectionInstanceEnd dst = conni.getDestination();
 		EMV2AnnexInstance srcAnnex = findEMV2AnnexInstance(src.getComponentInstance());
 		EMV2AnnexInstance dstAnnex = findEMV2AnnexInstance(dst.getComponentInstance());
+		// binding CIOs
+		allBindingCIOs(conni, annex);
 		for (ConstrainedInstanceObject action : allOutgoingCIOs(src, srcAnnex)) {
 			if (action.getInstanceObject() == src) {
 				EList<TypeToken> outTypeTokens = action.getConstraint();
@@ -959,14 +962,21 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 	}
 
-	private void instantiateBindingPaths(ConnectionInstance conni, EMV2AnnexInstance annex) {
+	private Collection<ConstrainedInstanceObject> allBindingCIOs(ConnectionInstance conni, EMV2AnnexInstance annex) {
+		Collection<ConstrainedInstanceObject> cios = new ArrayList<ConstrainedInstanceObject>();
 		List<ComponentInstance> boundresources = InstanceModelUtil.getConnectionBinding(conni);
-			if (boundresources.isEmpty()) {
+		if (boundresources.isEmpty()) {
 			boundresources = InstanceModelUtil.deriveBoundBuses(conni);
-			}
-			for (ComponentInstance bres : boundresources) {
-//				populateBindingPropagationPaths(pg, (conni, bres, "connection");
-			}
+		}
+		for (ComponentInstance boundResource : boundresources) {
+			ErrorPropagation BRsrcprop = EMV2Util.findOutgoingErrorPropagation(boundResource.getComponentClassifier(),
+					"bindings");
+			// TODO
+			ErrorPropagation BRdstprop = EMV2Util.findIncomingErrorPropagation(boundResource.getComponentClassifier(),
+					"bindings");
+			// TODO
+		}
+		return cios;
 	}
 
 	/**
@@ -1014,20 +1024,19 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 	}
 
-//	public void instantiatePropertyAssociations(ComponentInstance ci) {
-//	List<ErrorModelSubclause> emslist = EMV2Util.getAllContainingClassifierEMV2Subclauses(ci);
-//	ErrorBehaviorStateMachine ebsm = null;
-//
-//	for (ErrorModelSubclause ems : emslist) {
-//		List<EMV2PropertyAssociation> props = ems.getProperties();
-//		// process each property
-//		// in top down - only if not already existing
-//		// for use types also consider property associations in library
-//		// for use behavior also consider properties in EBSM
-//	}
-//
-//
-//}
+	public void instantiatePropertyAssociations(ComponentInstance ci) {
+		List<ErrorModelSubclause> emslist = EMV2Util.getAllContainingClassifierEMV2Subclauses(ci);
+		ErrorBehaviorStateMachine ebsm = EMV2Util.getAllErrorBehaviorStateMachine(ci);
+
+		for (ErrorModelSubclause ems : emslist) {
+			List<EMV2PropertyAssociation> props = ems.getProperties();
+			// process each property
+			// in top down - only if not already existing
+			// for use types also consider property associations in library
+			// for use behavior also consider properties in EBSM
+		}
+
+	}
 
 // property associations
 //
