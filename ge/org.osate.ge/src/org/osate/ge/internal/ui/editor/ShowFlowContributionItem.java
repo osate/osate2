@@ -84,8 +84,6 @@ import org.osate.ge.internal.util.AadlClassifierUtil;
 import org.osate.ge.internal.util.AadlFlowSpecificationUtil.FlowSegmentReference;
 import org.osate.ge.internal.util.AadlInstanceObjectUtil;
 
-import com.google.common.base.Predicates;
-
 /**
  * Finds the flow segments of the flow that is currently selected in the FlowComboContributionItem
  * and adds them to the diagram if necessary.
@@ -220,8 +218,7 @@ public class ShowFlowContributionItem extends ControlContribution {
 			}
 
 			private void enableFlowSegments(final List<FlowSegmentReference> highlightableFlowElements) {
-				highlightableFlowElements.stream().filter(Predicates.notNull())
-						.forEach(fs -> enableFlowSegments(findFlowSegments(fs)));
+				highlightableFlowElements.forEach(fs -> enableFlowSegments(findFlowSegments(fs)));
 			}
 
 			private Object getContainerComponent(final Object container) {
@@ -432,7 +429,7 @@ public class ShowFlowContributionItem extends ControlContribution {
 			private void ensureEnabledChild(final Object childBo, final BusinessObjectNode parent) {
 				final RelativeBusinessObjectReference childRef = getRelativeBusinessObjectReference(childBo);
 				final BusinessObjectNode childNode = parent.getChild(childRef);
-				if (childRef != null && childNode == null) {
+				if (childNode == null) {
 					createNode(parent, childRef, childBo);
 				}
 			}
