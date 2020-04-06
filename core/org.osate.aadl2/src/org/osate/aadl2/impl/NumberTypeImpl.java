@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -118,10 +118,11 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.NUMBER_TYPE__OWNED_UNITS_TYPE, oldOwnedUnitsType, newOwnedUnitsType);
-			if (msgs == null)
+			if (msgs == null) {
 				msgs = notification;
-			else
+			} else {
 				msgs.add(notification);
+			}
 		}
 		return msgs;
 	}
@@ -134,18 +135,22 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 	public void setOwnedUnitsType(UnitsType newOwnedUnitsType) {
 		if (newOwnedUnitsType != ownedUnitsType) {
 			NotificationChain msgs = null;
-			if (ownedUnitsType != null)
+			if (ownedUnitsType != null) {
 				msgs = ((InternalEObject) ownedUnitsType).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.NUMBER_TYPE__OWNED_UNITS_TYPE, null, msgs);
-			if (newOwnedUnitsType != null)
+			}
+			if (newOwnedUnitsType != null) {
 				msgs = ((InternalEObject) newOwnedUnitsType).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.NUMBER_TYPE__OWNED_UNITS_TYPE, null, msgs);
+			}
 			msgs = basicSetOwnedUnitsType(newOwnedUnitsType, msgs);
-			if (msgs != null)
+			if (msgs != null) {
 				msgs.dispatch();
-		} else if (eNotificationRequired())
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.NUMBER_TYPE__OWNED_UNITS_TYPE,
 					newOwnedUnitsType, newOwnedUnitsType));
+		}
 	}
 
 	/**
@@ -169,10 +174,11 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 			InternalEObject oldReferencedUnitsType = (InternalEObject) referencedUnitsType;
 			referencedUnitsType = (UnitsType) eResolveProxy(oldReferencedUnitsType);
 			if (referencedUnitsType != oldReferencedUnitsType) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.NUMBER_TYPE__REFERENCED_UNITS_TYPE, oldReferencedUnitsType,
 							referencedUnitsType));
+				}
 			}
 		}
 		return referencedUnitsType;
@@ -195,9 +201,10 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 	public void setReferencedUnitsType(UnitsType newReferencedUnitsType) {
 		UnitsType oldReferencedUnitsType = referencedUnitsType;
 		referencedUnitsType = newReferencedUnitsType;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.NUMBER_TYPE__REFERENCED_UNITS_TYPE,
 					oldReferencedUnitsType, referencedUnitsType));
+		}
 	}
 
 	/**
@@ -242,10 +249,11 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.NUMBER_TYPE__RANGE, oldRange, newRange);
-			if (msgs == null)
+			if (msgs == null) {
 				msgs = notification;
-			else
+			} else {
 				msgs.add(notification);
+			}
 		}
 		return msgs;
 	}
@@ -258,17 +266,21 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 	public void setRange(NumericRange newRange) {
 		if (newRange != range) {
 			NotificationChain msgs = null;
-			if (range != null)
+			if (range != null) {
 				msgs = ((InternalEObject) range).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.NUMBER_TYPE__RANGE, null, msgs);
-			if (newRange != null)
+			}
+			if (newRange != null) {
 				msgs = ((InternalEObject) newRange).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.NUMBER_TYPE__RANGE, null, msgs);
+			}
 			msgs = basicSetRange(newRange, msgs);
-			if (msgs != null)
+			if (msgs != null) {
 				msgs.dispatch();
-		} else if (eNotificationRequired())
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.NUMBER_TYPE__RANGE, newRange, newRange));
+		}
 	}
 
 	/**
@@ -307,14 +319,16 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberTy
 		case Aadl2Package.NUMBER_TYPE__OWNED_UNITS_TYPE:
 			return getOwnedUnitsType();
 		case Aadl2Package.NUMBER_TYPE__REFERENCED_UNITS_TYPE:
-			if (resolve)
+			if (resolve) {
 				return getReferencedUnitsType();
+			}
 			return basicGetReferencedUnitsType();
 		case Aadl2Package.NUMBER_TYPE__RANGE:
 			return getRange();
 		case Aadl2Package.NUMBER_TYPE__UNITS_TYPE:
-			if (resolve)
+			if (resolve) {
 				return getUnitsType();
+			}
 			return basicGetUnitsType();
 		}
 		return super.eGet(featureID, resolve, coreType);

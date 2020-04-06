@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -166,9 +166,10 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 			InternalEObject oldSpecification = (InternalEObject) specification;
 			specification = (FlowSpecification) eResolveProxy(oldSpecification);
 			if (specification != oldSpecification) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION, oldSpecification, specification));
+				}
 			}
 		}
 		return specification;
@@ -191,9 +192,10 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	public void setSpecification(FlowSpecification newSpecification) {
 		FlowSpecification oldSpecification = specification;
 		specification = newSpecification;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION,
 					oldSpecification, specification));
+		}
 	}
 
 	/**
@@ -240,10 +242,11 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.FLOW_IMPLEMENTATION__IN_END, oldInEnd, newInEnd);
-			if (msgs == null)
+			if (msgs == null) {
 				msgs = notification;
-			else
+			} else {
 				msgs.add(notification);
+			}
 		}
 		return msgs;
 	}
@@ -256,18 +259,22 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	public void setInEnd(FlowEnd newInEnd) {
 		if (newInEnd != inEnd) {
 			NotificationChain msgs = null;
-			if (inEnd != null)
+			if (inEnd != null) {
 				msgs = ((InternalEObject) inEnd).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.FLOW_IMPLEMENTATION__IN_END, null, msgs);
-			if (newInEnd != null)
+			}
+			if (newInEnd != null) {
 				msgs = ((InternalEObject) newInEnd).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.FLOW_IMPLEMENTATION__IN_END, null, msgs);
+			}
 			msgs = basicSetInEnd(newInEnd, msgs);
-			if (msgs != null)
+			if (msgs != null) {
 				msgs.dispatch();
-		} else if (eNotificationRequired())
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_IMPLEMENTATION__IN_END, newInEnd,
 					newInEnd));
+		}
 	}
 
 	/**
@@ -301,10 +308,11 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.FLOW_IMPLEMENTATION__OUT_END, oldOutEnd, newOutEnd);
-			if (msgs == null)
+			if (msgs == null) {
 				msgs = notification;
-			else
+			} else {
 				msgs.add(notification);
+			}
 		}
 		return msgs;
 	}
@@ -317,18 +325,22 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	public void setOutEnd(FlowEnd newOutEnd) {
 		if (newOutEnd != outEnd) {
 			NotificationChain msgs = null;
-			if (outEnd != null)
+			if (outEnd != null) {
 				msgs = ((InternalEObject) outEnd).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.FLOW_IMPLEMENTATION__OUT_END, null, msgs);
-			if (newOutEnd != null)
+			}
+			if (newOutEnd != null) {
 				msgs = ((InternalEObject) newOutEnd).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.FLOW_IMPLEMENTATION__OUT_END, null, msgs);
+			}
 			msgs = basicSetOutEnd(newOutEnd, msgs);
-			if (msgs != null)
+			if (msgs != null) {
 				msgs.dispatch();
-		} else if (eNotificationRequired())
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_IMPLEMENTATION__OUT_END, newOutEnd,
 					newOutEnd));
+		}
 	}
 
 	/**
@@ -376,9 +388,10 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	public void setKind(FlowKind newKind) {
 		FlowKind oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_IMPLEMENTATION__KIND, oldKind,
 					kind));
+		}
 	}
 
 	/**
@@ -393,8 +406,9 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 		case Aadl2Package.FLOW_IMPLEMENTATION__KIND:
 			return getKind();
 		case Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION:
-			if (resolve)
+			if (resolve) {
 				return getSpecification();
+			}
 			return basicGetSpecification();
 		case Aadl2Package.FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT:
 			return getOwnedFlowSegments();
@@ -535,8 +549,9 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * @generated
 	 */
 	public String toString() {
-		if (eIsProxy())
+		if (eIsProxy()) {
 			return super.toString();
+		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (kind: ");
