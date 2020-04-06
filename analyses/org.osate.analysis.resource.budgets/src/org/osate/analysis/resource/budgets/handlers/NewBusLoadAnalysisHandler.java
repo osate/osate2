@@ -278,6 +278,8 @@ public final class NewBusLoadAnalysisHandler extends NewAbstractAaxlHandler {
 		}
 	}
 
+	// ==== Low-level CSV format, this should be abstracted somewhere
+
 	private static void printItems(final PrintWriter pw, final String item1, final String... items) {
 		printItem(pw, item1);
 		for (final String nextItem : items) {
@@ -287,8 +289,8 @@ public final class NewBusLoadAnalysisHandler extends NewAbstractAaxlHandler {
 		pw.println();
 	}
 
-	// TODO: Doesn't handle quotes in the item!
 	private static void printItem(final PrintWriter pw, final String item) {
+		// TODO: Doesn't handle quotes in the item!
 		pw.print('"');
 		pw.print(item);
 		pw.print('"');
