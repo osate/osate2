@@ -37,37 +37,34 @@ import javafx.scene.layout.VBox;
  *
  */
 public class Palette<G, I> extends Region {
-	// TODO: Note: These should be private and final. Our general rule is that all fields should be private and everything
-	// that can be final should be made final. It can be tedious but we generally try to keep to it. It ensures values
-	// that are not intended to be modified are not modified by mistake.
+
 	private final VBox paletteVbox = new VBox();
 	private final ArrayList<PaletteGroup<G, I>> paletteList = new ArrayList<PaletteGroup<G, I>>();
 
 	public Palette(final PaletteModel<G, I> model) {
 		Objects.requireNonNull(model, "model must not be null");
 
-		// TODO: Create contents based on the model controller
+		for (I item : model.getItems(null)) {
 
-		// TODO: Add items which are not contained in a group at the top.
-		// NOTE: Such items can be retrieved by using getItems(null);
+			PaletteItem<I> grouplessItem = new PaletteItem<I>(model, item);
+			paletteVbox.getChildren().add(grouplessItem);
+
+		}
 
 		for (G group : model.getGroups()) {
-			// TODO: Move into PaletteGroup
-			// TODO: Create a palette group for each group
-			// TODO: Add each palette to a list
-			// TODO: Listen for change to expanded property. When it is set, adjust expanded state of other
+
 
 			final PaletteGroup<G, I> paletteGroup = new PaletteGroup<>(model, group);
 			paletteList.add(paletteGroup);
 			paletteVbox.getChildren().add(paletteGroup);
 
-			for (PaletteGroup G : paletteList) {
+			for (PaletteGroup<?, ?> G : paletteList) {
 
 				G.expandedProperty().addListener((observable, oldValue, newValue) -> {
 
 					if (newValue) {
 
-						for (PaletteGroup I : paletteList) {
+						for (PaletteGroup<?, ?> I : paletteList) {
 
 							if (I != G) {
 

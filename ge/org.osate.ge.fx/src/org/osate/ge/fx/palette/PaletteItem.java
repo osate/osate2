@@ -10,6 +10,13 @@ class PaletteItem<I> extends Region {
 
 		Button itemButton = new Button(model.getItemLabel(item));
 		itemButton.setGraphic(new ImageView(model.getItemIcon(item)));
+		itemButton.setOnAction(e -> {
+
+			if (model.getActiveItem() != item) {
+			model.activateItem(item);
+		}
+
+		});
 		this.getChildren().add(itemButton);
 	}
 }
