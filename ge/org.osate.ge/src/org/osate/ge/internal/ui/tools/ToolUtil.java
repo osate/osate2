@@ -25,14 +25,23 @@ package org.osate.ge.internal.ui.tools;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Optional;
+import java.util.function.Function;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.resource.XtextResourceSet;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.internal.util.ProjectUtil;
 
 public class ToolUtil {
 	/**
@@ -87,25 +96,63 @@ public class ToolUtil {
 		return contextBoc == null || contextBoc == ownerBoc ? null : (Context) contextBoc.getBusinessObject();
 	}
 
-	public static int getConcreteErrorSize(final XtextResource resource) {
-		return resource.validateConcreteSyntax().size();
+	/**
+	 * Modifies an eObject to determine if the modification is valid
+	 * @param eObject is the eObject to modify
+	 * @param getModifiedObject is the modification to perform on the eObject
+	 * @return whether the modification is valid
+	 */
+	public static boolean isValidModification(final EObject eObject,
+			final Function<ResourceSet, EObject> getModifiedObject) {
+		final IProject project = ProjectUtil.getProjectForBoOrThrow(eObject);
+		final ResourceSet testResourceSet = ProjectUtil.getLiveResourceSet(project);
+		final XtextResource testResource = getXtextResource(testResourceSet, eObject.eResource().getURI());
+		final EObject modifiedObject = getModifiedObject.apply(testResourceSet);
+
+		final Optional<String> serializedSrc = getSerializedSource(modifiedObject);
+		if (!serializedSrc.isPresent()) {
+			return false;
+		}
+
+		loadResource(testResource, serializedSrc.get());
+
+		if (testResource.validateConcreteSyntax().size() > 0) {
+			return false;
+		}
+
+		final Diagnostic diagnostic = Diagnostician.INSTANCE.validate(modifiedObject,
+				Collections.singletonMap(Diagnostician.VALIDATE_RECURSIVELY, true));
+		if (diagnostic.getSeverity() == Diagnostic.ERROR) {
+			return false;
+		}
+
+		return true;
 	}
 
-	public static void loadResource(final XtextResource resource, final String src) {
+	private static Optional<String> getSerializedSource(final EObject modifiedObject) {
+		String serializedSrc = null;
+		try {
+			serializedSrc = ((XtextResource) modifiedObject.eResource()).getSerializer()
+					.serialize(modifiedObject.eResource().getContents().get(0));
+		} catch (final RuntimeException e) {
+			// Error serializing modified object
+		}
+
+		return Optional.ofNullable(serializedSrc);
+	}
+
+	private static void loadResource(final XtextResource resource, final String src) {
 		try {
 			resource.load(new ByteArrayInputStream(src.getBytes()), null);
 		} catch (final IOException e) {
-			throw new RuntimeException("Source cannot be loaded");
+			throw new RuntimeException("Serialized source cannot be loaded");
 		}
 	}
 
-	public static XtextResource getXtextResource(final ResourceSet resourceSet, final URI uri) {
+	private static XtextResource getXtextResource(final ResourceSet resourceSet, final URI uri) {
+		assert resourceSet instanceof XtextResourceSet;
+
 		final XtextResource resource = (XtextResource) resourceSet.getResource(uri, true);
-		if (resource == null) {
-			return (XtextResource) resourceSet.createResource(uri);
-		}
-
-		return resource;
-
+		return resource != null ? resource : (XtextResource) resourceSet.createResource(uri);
 	}
 }
