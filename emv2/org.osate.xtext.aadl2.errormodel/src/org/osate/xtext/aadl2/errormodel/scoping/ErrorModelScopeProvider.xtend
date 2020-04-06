@@ -765,6 +765,9 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		context.scopeForErrorPropagation(DirectionType.OUT)
 	}
 
+	/**
+	 * @since 3.0
+	 */
 	def scope_ReportingPortReference_element(ReportingPortReference context, EReference reference) {
 		val previous = context.previous
 		if (previous === null) {
