@@ -71,12 +71,12 @@ public interface PropagationPathInstance extends EMV2InstanceObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Source</em>' reference.
-	 * @see #setSource(ConstrainedInstanceObject)
+	 * @see #setSource(ConstraintElement)
 	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getPropagationPathInstance_Source()
 	 * @model
 	 * @generated
 	 */
-	ConstrainedInstanceObject getSource();
+	ConstraintElement getSource();
 
 	/**
 	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPathInstance#getSource <em>Source</em>}' reference.
@@ -86,7 +86,7 @@ public interface PropagationPathInstance extends EMV2InstanceObject {
 	 * @see #getSource()
 	 * @generated
 	 */
-	void setSource(ConstrainedInstanceObject value);
+	void setSource(ConstraintElement value);
 
 	/**
 	 * Returns the value of the '<em><b>Target</b></em>' reference.

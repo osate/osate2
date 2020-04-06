@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.NamedElement;
 
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstraintElement;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPathInstance;
 
@@ -71,7 +72,7 @@ public class PropagationPathInstanceImpl extends EMV2InstanceObjectImpl implemen
 	 * @generated
 	 * @ordered
 	 */
-	protected ConstrainedInstanceObject source;
+	protected ConstraintElement source;
 
 	/**
 	 * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
@@ -148,10 +149,10 @@ public class PropagationPathInstanceImpl extends EMV2InstanceObjectImpl implemen
 	 * @generated
 	 */
 	@Override
-	public ConstrainedInstanceObject getSource() {
+	public ConstraintElement getSource() {
 		if (source != null && source.eIsProxy()) {
 			InternalEObject oldSource = (InternalEObject)source;
-			source = (ConstrainedInstanceObject)eResolveProxy(oldSource);
+			source = (ConstraintElement)eResolveProxy(oldSource);
 			if (source != oldSource) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__SOURCE, oldSource, source));
@@ -165,7 +166,7 @@ public class PropagationPathInstanceImpl extends EMV2InstanceObjectImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ConstrainedInstanceObject basicGetSource() {
+	public ConstraintElement basicGetSource() {
 		return source;
 	}
 
@@ -175,8 +176,8 @@ public class PropagationPathInstanceImpl extends EMV2InstanceObjectImpl implemen
 	 * @generated
 	 */
 	@Override
-	public void setSource(ConstrainedInstanceObject newSource) {
-		ConstrainedInstanceObject oldSource = source;
+	public void setSource(ConstraintElement newSource) {
+		ConstraintElement oldSource = source;
 		source = newSource;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__SOURCE, oldSource, source));
@@ -255,7 +256,7 @@ public class PropagationPathInstanceImpl extends EMV2InstanceObjectImpl implemen
 				setEmv2Element((NamedElement)newValue);
 				return;
 			case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__SOURCE:
-				setSource((ConstrainedInstanceObject)newValue);
+				setSource((ConstraintElement)newValue);
 				return;
 			case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__TARGET:
 				setTarget((ConstrainedInstanceObject)newValue);
@@ -276,7 +277,7 @@ public class PropagationPathInstanceImpl extends EMV2InstanceObjectImpl implemen
 				setEmv2Element((NamedElement)null);
 				return;
 			case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__SOURCE:
-				setSource((ConstrainedInstanceObject)null);
+				setSource((ConstraintElement)null);
 				return;
 			case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE__TARGET:
 				setTarget((ConstrainedInstanceObject)null);
