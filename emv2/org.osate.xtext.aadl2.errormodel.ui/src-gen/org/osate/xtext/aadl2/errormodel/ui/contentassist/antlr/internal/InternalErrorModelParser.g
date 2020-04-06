@@ -1890,6 +1890,34 @@ finally {
 
 
 
+// Entry rule entryRuleReportingPortReference
+entryRuleReportingPortReference 
+:
+{ before(grammarAccess.getReportingPortReferenceRule()); }
+	 ruleReportingPortReference
+{ after(grammarAccess.getReportingPortReferenceRule()); } 
+	 EOF 
+;
+
+// Rule ReportingPortReference
+ruleReportingPortReference 
+    @init {
+		int stackSize = keepStackSize();
+    }
+    :
+(
+{ before(grammarAccess.getReportingPortReferenceAccess().getGroup()); }
+(rule__ReportingPortReference__Group__0)
+{ after(grammarAccess.getReportingPortReferenceAccess().getGroup()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
 // Entry rule entryRuleErrorCodeValue
 entryRuleErrorCodeValue 
 :
@@ -24680,6 +24708,163 @@ finally {
 
 
 
+rule__ReportingPortReference__Group__0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__ReportingPortReference__Group__0__Impl
+	rule__ReportingPortReference__Group__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__ReportingPortReference__Group__0__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getReportingPortReferenceAccess().getElementAssignment_0()); }
+(rule__ReportingPortReference__ElementAssignment_0)
+{ after(grammarAccess.getReportingPortReferenceAccess().getElementAssignment_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__ReportingPortReference__Group__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__ReportingPortReference__Group__1__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__ReportingPortReference__Group__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getReportingPortReferenceAccess().getGroup_1()); }
+(rule__ReportingPortReference__Group_1__0)*
+{ after(grammarAccess.getReportingPortReferenceAccess().getGroup_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
+
+
+
+rule__ReportingPortReference__Group_1__0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__ReportingPortReference__Group_1__0__Impl
+	rule__ReportingPortReference__Group_1__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__ReportingPortReference__Group_1__0__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getReportingPortReferenceAccess().getReportingPortReferencePreviousAction_1_0()); }
+(
+
+)
+{ after(grammarAccess.getReportingPortReferenceAccess().getReportingPortReferencePreviousAction_1_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__ReportingPortReference__Group_1__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__ReportingPortReference__Group_1__1__Impl
+	rule__ReportingPortReference__Group_1__2
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__ReportingPortReference__Group_1__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getReportingPortReferenceAccess().getFullStopKeyword_1_1()); }
+
+	FullStop 
+
+{ after(grammarAccess.getReportingPortReferenceAccess().getFullStopKeyword_1_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__ReportingPortReference__Group_1__2
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__ReportingPortReference__Group_1__2__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__ReportingPortReference__Group_1__2__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getReportingPortReferenceAccess().getElementAssignment_1_2()); }
+(rule__ReportingPortReference__ElementAssignment_1_2)
+{ after(grammarAccess.getReportingPortReferenceAccess().getElementAssignment_1_2()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
+
+
+
+
+
 rule__ErrorStateToModeMapping__Group__0
     @init {
 		int stackSize = keepStackSize();
@@ -36577,12 +36762,8 @@ rule__ErrorDetection__DetectionReportingPortAssignment_5
     }
 :
 (
-{ before(grammarAccess.getErrorDetectionAccess().getDetectionReportingPortTriggerPortCrossReference_5_0()); }
-(
-{ before(grammarAccess.getErrorDetectionAccess().getDetectionReportingPortTriggerPortIDTerminalRuleCall_5_0_1()); }
-	RULE_ID{ after(grammarAccess.getErrorDetectionAccess().getDetectionReportingPortTriggerPortIDTerminalRuleCall_5_0_1()); }
-)
-{ after(grammarAccess.getErrorDetectionAccess().getDetectionReportingPortTriggerPortCrossReference_5_0()); }
+{ before(grammarAccess.getErrorDetectionAccess().getDetectionReportingPortReportingPortReferenceParserRuleCall_5_0()); }
+	ruleReportingPortReference{ after(grammarAccess.getErrorDetectionAccess().getDetectionReportingPortReportingPortReferenceParserRuleCall_5_0()); }
 )
 
 ;
@@ -36598,6 +36779,44 @@ rule__ErrorDetection__ErrorCodeAssignment_7_1
 (
 { before(grammarAccess.getErrorDetectionAccess().getErrorCodeErrorCodeValueParserRuleCall_7_1_0()); }
 	ruleErrorCodeValue{ after(grammarAccess.getErrorDetectionAccess().getErrorCodeErrorCodeValueParserRuleCall_7_1_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__ReportingPortReference__ElementAssignment_0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getReportingPortReferenceAccess().getElementNamedElementCrossReference_0_0()); }
+(
+{ before(grammarAccess.getReportingPortReferenceAccess().getElementNamedElementIDTerminalRuleCall_0_0_1()); }
+	RULE_ID{ after(grammarAccess.getReportingPortReferenceAccess().getElementNamedElementIDTerminalRuleCall_0_0_1()); }
+)
+{ after(grammarAccess.getReportingPortReferenceAccess().getElementNamedElementCrossReference_0_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__ReportingPortReference__ElementAssignment_1_2
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getReportingPortReferenceAccess().getElementNamedElementCrossReference_1_2_0()); }
+(
+{ before(grammarAccess.getReportingPortReferenceAccess().getElementNamedElementIDTerminalRuleCall_1_2_0_1()); }
+	RULE_ID{ after(grammarAccess.getReportingPortReferenceAccess().getElementNamedElementIDTerminalRuleCall_1_2_0_1()); }
+)
+{ after(grammarAccess.getReportingPortReferenceAccess().getElementNamedElementCrossReference_1_2_0()); }
 )
 
 ;

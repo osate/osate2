@@ -51,7 +51,6 @@ import org.osate.aadl2.PropertyType
 import org.osate.aadl2.RecordType
 import org.osate.aadl2.ReferenceValue
 import org.osate.aadl2.Subcomponent
-import org.osate.aadl2.TriggerPort
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement
@@ -75,6 +74,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorEventOrPropagation
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorPropagation
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint
+import org.osate.xtext.aadl2.errormodel.errorModel.ReportingPortReference
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet
 import org.osate.xtext.aadl2.errormodel.serializer.ErrorModelCrossReferenceSerializer
@@ -765,14 +765,26 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		context.scopeForErrorPropagation(DirectionType.OUT)
 	}
 
-	def scope_ErrorDetection_detectionReportingPort(Classifier context, EReference reference) {
-		val features = context.getAllFeatures.filter(TriggerPort)
-		val internalFeatures = if (context instanceof ComponentImplementation) {
-				context.allInternalFeatures
-			} else {
-				emptySet
+	/**
+	 * @since 3.0
+	 */
+	def scope_ReportingPortReference_element(ReportingPortReference context, EReference reference) {
+		val previous = context.previous
+		if (previous === null) {
+			val features = context.getContainerOfType(Classifier).allFeatures
+			val internalFeatures = switch classifier : context.getContainerOfType(Classifier) {
+				ComponentImplementation: classifier.allInternalFeatures
+				default: emptySet
 			}
-		(features + internalFeatures).scopeFor
+			(features + internalFeatures).scopeFor
+		} else {
+			val previousElement = previous.element
+			if (previousElement instanceof FeatureGroup) {
+				previousElement.allFeatureGroupType?.allFeatures?.scopeFor ?: IScope.NULLSCOPE
+			} else {
+				IScope.NULLSCOPE
+			}
+		}
 	}
 
 	def scope_ErrorStateToModeMapping_mappedModes(ComponentClassifier context, EReference reference) {
@@ -872,21 +884,21 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		new SimpleScope(noConflictsDescriptions + conflictsDescriptions + qualifiedDescriptions, true)
 	}
 
-	def public static eDescriptionsForErrorPropagation(Classifier context, DirectionType requiredDirection) {
+	def static eDescriptionsForErrorPropagation(Classifier context, DirectionType requiredDirection) {
 		val propagations = context.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter [
 			!not && direction == requiredDirection
 		]
 		propagations.map[EObjectDescription.create(propagationName, it)]
 	}
 
-	def public static scopeForErrorPropagation(Classifier context, DirectionType requiredDirection) {
+	def static scopeForErrorPropagation(Classifier context, DirectionType requiredDirection) {
 		val propagations = context.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter [
 			!not && direction == requiredDirection
 		]
 		new SimpleScope(propagations.map[EObjectDescription.create(propagationName, it)], true)
 	}
 
-	def public static getEventandIncomingPropagationDescriptions(Classifier classifier) {
+	def static getEventandIncomingPropagationDescriptions(Classifier classifier) {
 		val stateMachine = classifier?.allContainingClassifierEMV2Subclauses?.map[useBehavior]?.filterNull?.head
 		val ebsmevents = stateMachine?.events
 		val ebsmeventDescriptions = ebsmevents?.map[EObjectDescription.create(QualifiedName.create(name), it)] ?:
