@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -617,6 +617,29 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 		}
 
 		return dataAccessItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.AbstractFeatureClassifier} instances.
+	 * <!-- begin-user-doc -->
+	 * @since 3.0
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AbstractFeatureClassifierItemProvider abstractFeatureClassifierItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.AbstractFeatureClassifier}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createAbstractFeatureClassifierAdapter() {
+		if (abstractFeatureClassifierItemProvider == null) {
+			abstractFeatureClassifierItemProvider = new AbstractFeatureClassifierItemProvider(this);
+		}
+
+		return abstractFeatureClassifierItemProvider;
 	}
 
 	/**
@@ -3591,322 +3614,480 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	}
 
 	/**
-	 * This disposes all of the item providers created by this factory. 
+	 * This disposes all of the item providers created by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void dispose() {
-		if (commentItemProvider != null)
+		if (commentItemProvider != null) {
 			commentItemProvider.dispose();
-		if (propertyAssociationItemProvider != null)
+		}
+		if (propertyAssociationItemProvider != null) {
 			propertyAssociationItemProvider.dispose();
-		if (propertyItemProvider != null)
+		}
+		if (propertyItemProvider != null) {
 			propertyItemProvider.dispose();
-		if (basicPropertyItemProvider != null)
+		}
+		if (basicPropertyItemProvider != null) {
 			basicPropertyItemProvider.dispose();
-		if (metaclassReferenceItemProvider != null)
+		}
+		if (metaclassReferenceItemProvider != null) {
 			metaclassReferenceItemProvider.dispose();
-		if (modalElementItemProvider != null)
+		}
+		if (modalElementItemProvider != null) {
 			modalElementItemProvider.dispose();
-		if (modeItemProvider != null)
+		}
+		if (modeItemProvider != null) {
 			modeItemProvider.dispose();
-		if (containedNamedElementItemProvider != null)
+		}
+		if (containedNamedElementItemProvider != null) {
 			containedNamedElementItemProvider.dispose();
-		if (containmentPathElementItemProvider != null)
+		}
+		if (containmentPathElementItemProvider != null) {
 			containmentPathElementItemProvider.dispose();
-		if (arrayRangeItemProvider != null)
+		}
+		if (arrayRangeItemProvider != null) {
 			arrayRangeItemProvider.dispose();
-		if (modalPropertyValueItemProvider != null)
+		}
+		if (modalPropertyValueItemProvider != null) {
 			modalPropertyValueItemProvider.dispose();
-		if (arrayDimensionItemProvider != null)
+		}
+		if (arrayDimensionItemProvider != null) {
 			arrayDimensionItemProvider.dispose();
-		if (arraySizeItemProvider != null)
+		}
+		if (arraySizeItemProvider != null) {
 			arraySizeItemProvider.dispose();
-		if (componentImplementationReferenceItemProvider != null)
+		}
+		if (componentImplementationReferenceItemProvider != null) {
 			componentImplementationReferenceItemProvider.dispose();
-		if (modeTransitionItemProvider != null)
+		}
+		if (modeTransitionItemProvider != null) {
 			modeTransitionItemProvider.dispose();
-		if (modeTransitionTriggerItemProvider != null)
+		}
+		if (modeTransitionTriggerItemProvider != null) {
 			modeTransitionTriggerItemProvider.dispose();
-		if (flowSpecificationItemProvider != null)
+		}
+		if (flowSpecificationItemProvider != null) {
 			flowSpecificationItemProvider.dispose();
-		if (flowEndItemProvider != null)
+		}
+		if (flowEndItemProvider != null) {
 			flowEndItemProvider.dispose();
-		if (typeExtensionItemProvider != null)
+		}
+		if (typeExtensionItemProvider != null) {
 			typeExtensionItemProvider.dispose();
-		if (featureGroupItemProvider != null)
+		}
+		if (featureGroupItemProvider != null) {
 			featureGroupItemProvider.dispose();
-		if (featureGroupTypeItemProvider != null)
+		}
+		if (featureGroupTypeItemProvider != null) {
 			featureGroupTypeItemProvider.dispose();
-		if (groupExtensionItemProvider != null)
+		}
+		if (groupExtensionItemProvider != null) {
 			groupExtensionItemProvider.dispose();
-		if (busAccessItemProvider != null)
+		}
+		if (busAccessItemProvider != null) {
 			busAccessItemProvider.dispose();
-		if (dataAccessItemProvider != null)
+		}
+		if (dataAccessItemProvider != null) {
 			dataAccessItemProvider.dispose();
-		if (dataPortItemProvider != null)
+		}
+		if (abstractFeatureClassifierItemProvider != null) {
+			abstractFeatureClassifierItemProvider.dispose();
+		}
+		if (dataPortItemProvider != null) {
 			dataPortItemProvider.dispose();
-		if (eventDataPortItemProvider != null)
+		}
+		if (eventDataPortItemProvider != null) {
 			eventDataPortItemProvider.dispose();
-		if (eventPortItemProvider != null)
+		}
+		if (eventPortItemProvider != null) {
 			eventPortItemProvider.dispose();
-		if (parameterItemProvider != null)
+		}
+		if (parameterItemProvider != null) {
 			parameterItemProvider.dispose();
-		if (subprogramAccessItemProvider != null)
+		}
+		if (subprogramAccessItemProvider != null) {
 			subprogramAccessItemProvider.dispose();
-		if (subprogramGroupAccessItemProvider != null)
+		}
+		if (subprogramGroupAccessItemProvider != null) {
 			subprogramGroupAccessItemProvider.dispose();
-		if (abstractFeatureItemProvider != null)
+		}
+		if (abstractFeatureItemProvider != null) {
 			abstractFeatureItemProvider.dispose();
-		if (featurePrototypeItemProvider != null)
+		}
+		if (featurePrototypeItemProvider != null) {
 			featurePrototypeItemProvider.dispose();
-		if (featureGroupPrototypeItemProvider != null)
+		}
+		if (featureGroupPrototypeItemProvider != null) {
 			featureGroupPrototypeItemProvider.dispose();
-		if (modeBindingItemProvider != null)
+		}
+		if (modeBindingItemProvider != null) {
 			modeBindingItemProvider.dispose();
-		if (flowImplementationItemProvider != null)
+		}
+		if (flowImplementationItemProvider != null) {
 			flowImplementationItemProvider.dispose();
-		if (flowSegmentItemProvider != null)
+		}
+		if (flowSegmentItemProvider != null) {
 			flowSegmentItemProvider.dispose();
-		if (connectedElementItemProvider != null)
+		}
+		if (connectedElementItemProvider != null) {
 			connectedElementItemProvider.dispose();
-		if (implementationExtensionItemProvider != null)
+		}
+		if (implementationExtensionItemProvider != null) {
 			implementationExtensionItemProvider.dispose();
-		if (realizationItemProvider != null)
+		}
+		if (realizationItemProvider != null) {
 			realizationItemProvider.dispose();
-		if (endToEndFlowItemProvider != null)
+		}
+		if (endToEndFlowItemProvider != null) {
 			endToEndFlowItemProvider.dispose();
-		if (endToEndFlowSegmentItemProvider != null)
+		}
+		if (endToEndFlowSegmentItemProvider != null) {
 			endToEndFlowSegmentItemProvider.dispose();
-		if (abstractSubcomponentItemProvider != null)
+		}
+		if (abstractSubcomponentItemProvider != null) {
 			abstractSubcomponentItemProvider.dispose();
-		if (accessConnectionItemProvider != null)
+		}
+		if (accessConnectionItemProvider != null) {
 			accessConnectionItemProvider.dispose();
-		if (parameterConnectionItemProvider != null)
+		}
+		if (parameterConnectionItemProvider != null) {
 			parameterConnectionItemProvider.dispose();
-		if (portConnectionItemProvider != null)
+		}
+		if (portConnectionItemProvider != null) {
 			portConnectionItemProvider.dispose();
-		if (featureConnectionItemProvider != null)
+		}
+		if (featureConnectionItemProvider != null) {
 			featureConnectionItemProvider.dispose();
-		if (featureGroupConnectionItemProvider != null)
+		}
+		if (featureGroupConnectionItemProvider != null) {
 			featureGroupConnectionItemProvider.dispose();
-		if (eventSourceItemProvider != null)
+		}
+		if (eventSourceItemProvider != null) {
 			eventSourceItemProvider.dispose();
-		if (eventDataSourceItemProvider != null)
+		}
+		if (eventDataSourceItemProvider != null) {
 			eventDataSourceItemProvider.dispose();
-		if (portProxyItemProvider != null)
+		}
+		if (portProxyItemProvider != null) {
 			portProxyItemProvider.dispose();
-		if (subprogramProxyItemProvider != null)
+		}
+		if (subprogramProxyItemProvider != null) {
 			subprogramProxyItemProvider.dispose();
-		if (defaultAnnexLibraryItemProvider != null)
+		}
+		if (defaultAnnexLibraryItemProvider != null) {
 			defaultAnnexLibraryItemProvider.dispose();
-		if (defaultAnnexSubclauseItemProvider != null)
+		}
+		if (defaultAnnexSubclauseItemProvider != null) {
 			defaultAnnexSubclauseItemProvider.dispose();
-		if (publicPackageSectionItemProvider != null)
+		}
+		if (publicPackageSectionItemProvider != null) {
 			publicPackageSectionItemProvider.dispose();
-		if (packageRenameItemProvider != null)
+		}
+		if (packageRenameItemProvider != null) {
 			packageRenameItemProvider.dispose();
-		if (aadlPackageItemProvider != null)
+		}
+		if (aadlPackageItemProvider != null) {
 			aadlPackageItemProvider.dispose();
-		if (privatePackageSectionItemProvider != null)
+		}
+		if (privatePackageSectionItemProvider != null) {
 			privatePackageSectionItemProvider.dispose();
-		if (componentTypeRenameItemProvider != null)
+		}
+		if (componentTypeRenameItemProvider != null) {
 			componentTypeRenameItemProvider.dispose();
-		if (featureGroupTypeRenameItemProvider != null)
+		}
+		if (featureGroupTypeRenameItemProvider != null) {
 			featureGroupTypeRenameItemProvider.dispose();
-		if (componentPrototypeBindingItemProvider != null)
+		}
+		if (componentPrototypeBindingItemProvider != null) {
 			componentPrototypeBindingItemProvider.dispose();
-		if (componentPrototypeActualItemProvider != null)
+		}
+		if (componentPrototypeActualItemProvider != null) {
 			componentPrototypeActualItemProvider.dispose();
-		if (featureGroupPrototypeBindingItemProvider != null)
+		}
+		if (featureGroupPrototypeBindingItemProvider != null) {
 			featureGroupPrototypeBindingItemProvider.dispose();
-		if (featureGroupPrototypeActualItemProvider != null)
+		}
+		if (featureGroupPrototypeActualItemProvider != null) {
 			featureGroupPrototypeActualItemProvider.dispose();
-		if (featurePrototypeBindingItemProvider != null)
+		}
+		if (featurePrototypeBindingItemProvider != null) {
 			featurePrototypeBindingItemProvider.dispose();
-		if (accessSpecificationItemProvider != null)
+		}
+		if (accessSpecificationItemProvider != null) {
 			accessSpecificationItemProvider.dispose();
-		if (portSpecificationItemProvider != null)
+		}
+		if (portSpecificationItemProvider != null) {
 			portSpecificationItemProvider.dispose();
-		if (featurePrototypeReferenceItemProvider != null)
+		}
+		if (featurePrototypeReferenceItemProvider != null) {
 			featurePrototypeReferenceItemProvider.dispose();
-		if (subprogramCallSequenceItemProvider != null)
+		}
+		if (subprogramCallSequenceItemProvider != null) {
 			subprogramCallSequenceItemProvider.dispose();
-		if (subprogramCallItemProvider != null)
+		}
+		if (subprogramCallItemProvider != null) {
 			subprogramCallItemProvider.dispose();
-		if (abstractTypeItemProvider != null)
+		}
+		if (abstractTypeItemProvider != null) {
 			abstractTypeItemProvider.dispose();
-		if (abstractImplementationItemProvider != null)
+		}
+		if (abstractImplementationItemProvider != null) {
 			abstractImplementationItemProvider.dispose();
-		if (busSubcomponentItemProvider != null)
+		}
+		if (busSubcomponentItemProvider != null) {
 			busSubcomponentItemProvider.dispose();
-		if (dataSubcomponentItemProvider != null)
+		}
+		if (dataSubcomponentItemProvider != null) {
 			dataSubcomponentItemProvider.dispose();
-		if (deviceSubcomponentItemProvider != null)
+		}
+		if (deviceSubcomponentItemProvider != null) {
 			deviceSubcomponentItemProvider.dispose();
-		if (memorySubcomponentItemProvider != null)
+		}
+		if (memorySubcomponentItemProvider != null) {
 			memorySubcomponentItemProvider.dispose();
-		if (processSubcomponentItemProvider != null)
+		}
+		if (processSubcomponentItemProvider != null) {
 			processSubcomponentItemProvider.dispose();
-		if (processorSubcomponentItemProvider != null)
+		}
+		if (processorSubcomponentItemProvider != null) {
 			processorSubcomponentItemProvider.dispose();
-		if (systemSubcomponentItemProvider != null)
+		}
+		if (systemSubcomponentItemProvider != null) {
 			systemSubcomponentItemProvider.dispose();
-		if (subprogramSubcomponentItemProvider != null)
+		}
+		if (subprogramSubcomponentItemProvider != null) {
 			subprogramSubcomponentItemProvider.dispose();
-		if (subprogramGroupSubcomponentItemProvider != null)
+		}
+		if (subprogramGroupSubcomponentItemProvider != null) {
 			subprogramGroupSubcomponentItemProvider.dispose();
-		if (threadSubcomponentItemProvider != null)
+		}
+		if (threadSubcomponentItemProvider != null) {
 			threadSubcomponentItemProvider.dispose();
-		if (threadGroupSubcomponentItemProvider != null)
+		}
+		if (threadGroupSubcomponentItemProvider != null) {
 			threadGroupSubcomponentItemProvider.dispose();
-		if (virtualBusSubcomponentItemProvider != null)
+		}
+		if (virtualBusSubcomponentItemProvider != null) {
 			virtualBusSubcomponentItemProvider.dispose();
-		if (virtualProcessorSubcomponentItemProvider != null)
+		}
+		if (virtualProcessorSubcomponentItemProvider != null) {
 			virtualProcessorSubcomponentItemProvider.dispose();
-		if (abstractPrototypeItemProvider != null)
+		}
+		if (abstractPrototypeItemProvider != null) {
 			abstractPrototypeItemProvider.dispose();
-		if (busTypeItemProvider != null)
+		}
+		if (busTypeItemProvider != null) {
 			busTypeItemProvider.dispose();
-		if (busImplementationItemProvider != null)
+		}
+		if (busImplementationItemProvider != null) {
 			busImplementationItemProvider.dispose();
-		if (busPrototypeItemProvider != null)
+		}
+		if (busPrototypeItemProvider != null) {
 			busPrototypeItemProvider.dispose();
-		if (dataTypeItemProvider != null)
+		}
+		if (dataTypeItemProvider != null) {
 			dataTypeItemProvider.dispose();
-		if (dataImplementationItemProvider != null)
+		}
+		if (dataImplementationItemProvider != null) {
 			dataImplementationItemProvider.dispose();
-		if (dataPrototypeItemProvider != null)
+		}
+		if (dataPrototypeItemProvider != null) {
 			dataPrototypeItemProvider.dispose();
-		if (deviceTypeItemProvider != null)
+		}
+		if (deviceTypeItemProvider != null) {
 			deviceTypeItemProvider.dispose();
-		if (deviceImplementationItemProvider != null)
+		}
+		if (deviceImplementationItemProvider != null) {
 			deviceImplementationItemProvider.dispose();
-		if (devicePrototypeItemProvider != null)
+		}
+		if (devicePrototypeItemProvider != null) {
 			devicePrototypeItemProvider.dispose();
-		if (memoryTypeItemProvider != null)
+		}
+		if (memoryTypeItemProvider != null) {
 			memoryTypeItemProvider.dispose();
-		if (memoryImplementationItemProvider != null)
+		}
+		if (memoryImplementationItemProvider != null) {
 			memoryImplementationItemProvider.dispose();
-		if (memoryPrototypeItemProvider != null)
+		}
+		if (memoryPrototypeItemProvider != null) {
 			memoryPrototypeItemProvider.dispose();
-		if (subprogramTypeItemProvider != null)
+		}
+		if (subprogramTypeItemProvider != null) {
 			subprogramTypeItemProvider.dispose();
-		if (subprogramImplementationItemProvider != null)
+		}
+		if (subprogramImplementationItemProvider != null) {
 			subprogramImplementationItemProvider.dispose();
-		if (subprogramPrototypeItemProvider != null)
+		}
+		if (subprogramPrototypeItemProvider != null) {
 			subprogramPrototypeItemProvider.dispose();
-		if (subprogramGroupTypeItemProvider != null)
+		}
+		if (subprogramGroupTypeItemProvider != null) {
 			subprogramGroupTypeItemProvider.dispose();
-		if (subprogramGroupImplementationItemProvider != null)
+		}
+		if (subprogramGroupImplementationItemProvider != null) {
 			subprogramGroupImplementationItemProvider.dispose();
-		if (subprogramGroupPrototypeItemProvider != null)
+		}
+		if (subprogramGroupPrototypeItemProvider != null) {
 			subprogramGroupPrototypeItemProvider.dispose();
-		if (systemTypeItemProvider != null)
+		}
+		if (systemTypeItemProvider != null) {
 			systemTypeItemProvider.dispose();
-		if (systemImplementationItemProvider != null)
+		}
+		if (systemImplementationItemProvider != null) {
 			systemImplementationItemProvider.dispose();
-		if (systemPrototypeItemProvider != null)
+		}
+		if (systemPrototypeItemProvider != null) {
 			systemPrototypeItemProvider.dispose();
-		if (processorTypeItemProvider != null)
+		}
+		if (processorTypeItemProvider != null) {
 			processorTypeItemProvider.dispose();
-		if (processorImplementationItemProvider != null)
+		}
+		if (processorImplementationItemProvider != null) {
 			processorImplementationItemProvider.dispose();
-		if (processorPrototypeItemProvider != null)
+		}
+		if (processorPrototypeItemProvider != null) {
 			processorPrototypeItemProvider.dispose();
-		if (processTypeItemProvider != null)
+		}
+		if (processTypeItemProvider != null) {
 			processTypeItemProvider.dispose();
-		if (processImplementationItemProvider != null)
+		}
+		if (processImplementationItemProvider != null) {
 			processImplementationItemProvider.dispose();
-		if (processPrototypeItemProvider != null)
+		}
+		if (processPrototypeItemProvider != null) {
 			processPrototypeItemProvider.dispose();
-		if (threadTypeItemProvider != null)
+		}
+		if (threadTypeItemProvider != null) {
 			threadTypeItemProvider.dispose();
-		if (threadImplementationItemProvider != null)
+		}
+		if (threadImplementationItemProvider != null) {
 			threadImplementationItemProvider.dispose();
-		if (threadPrototypeItemProvider != null)
+		}
+		if (threadPrototypeItemProvider != null) {
 			threadPrototypeItemProvider.dispose();
-		if (threadGroupTypeItemProvider != null)
+		}
+		if (threadGroupTypeItemProvider != null) {
 			threadGroupTypeItemProvider.dispose();
-		if (threadGroupImplementationItemProvider != null)
+		}
+		if (threadGroupImplementationItemProvider != null) {
 			threadGroupImplementationItemProvider.dispose();
-		if (threadGroupPrototypeItemProvider != null)
+		}
+		if (threadGroupPrototypeItemProvider != null) {
 			threadGroupPrototypeItemProvider.dispose();
-		if (virtualBusTypeItemProvider != null)
+		}
+		if (virtualBusTypeItemProvider != null) {
 			virtualBusTypeItemProvider.dispose();
-		if (virtualBusImplementationItemProvider != null)
+		}
+		if (virtualBusImplementationItemProvider != null) {
 			virtualBusImplementationItemProvider.dispose();
-		if (virtualBusPrototypeItemProvider != null)
+		}
+		if (virtualBusPrototypeItemProvider != null) {
 			virtualBusPrototypeItemProvider.dispose();
-		if (virtualProcessorTypeItemProvider != null)
+		}
+		if (virtualProcessorTypeItemProvider != null) {
 			virtualProcessorTypeItemProvider.dispose();
-		if (virtualProcessorImplementationItemProvider != null)
+		}
+		if (virtualProcessorImplementationItemProvider != null) {
 			virtualProcessorImplementationItemProvider.dispose();
-		if (virtualProcessorPrototypeItemProvider != null)
+		}
+		if (virtualProcessorPrototypeItemProvider != null) {
 			virtualProcessorPrototypeItemProvider.dispose();
-		if (basicPropertyAssociationItemProvider != null)
+		}
+		if (basicPropertyAssociationItemProvider != null) {
 			basicPropertyAssociationItemProvider.dispose();
-		if (propertyConstantItemProvider != null)
+		}
+		if (propertyConstantItemProvider != null) {
 			propertyConstantItemProvider.dispose();
-		if (stringLiteralItemProvider != null)
+		}
+		if (stringLiteralItemProvider != null) {
 			stringLiteralItemProvider.dispose();
-		if (unitLiteralItemProvider != null)
+		}
+		if (unitLiteralItemProvider != null) {
 			unitLiteralItemProvider.dispose();
-		if (enumerationLiteralItemProvider != null)
+		}
+		if (enumerationLiteralItemProvider != null) {
 			enumerationLiteralItemProvider.dispose();
-		if (classifierValueItemProvider != null)
+		}
+		if (classifierValueItemProvider != null) {
 			classifierValueItemProvider.dispose();
-		if (referenceValueItemProvider != null)
+		}
+		if (referenceValueItemProvider != null) {
 			referenceValueItemProvider.dispose();
-		if (booleanLiteralItemProvider != null)
+		}
+		if (booleanLiteralItemProvider != null) {
 			booleanLiteralItemProvider.dispose();
-		if (rangeValueItemProvider != null)
+		}
+		if (rangeValueItemProvider != null) {
 			rangeValueItemProvider.dispose();
-		if (integerLiteralItemProvider != null)
+		}
+		if (integerLiteralItemProvider != null) {
 			integerLiteralItemProvider.dispose();
-		if (realLiteralItemProvider != null)
+		}
+		if (realLiteralItemProvider != null) {
 			realLiteralItemProvider.dispose();
-		if (operationItemProvider != null)
+		}
+		if (operationItemProvider != null) {
 			operationItemProvider.dispose();
-		if (recordValueItemProvider != null)
+		}
+		if (recordValueItemProvider != null) {
 			recordValueItemProvider.dispose();
-		if (computedValueItemProvider != null)
+		}
+		if (computedValueItemProvider != null) {
 			computedValueItemProvider.dispose();
-		if (listValueItemProvider != null)
+		}
+		if (listValueItemProvider != null) {
 			listValueItemProvider.dispose();
-		if (namedValueItemProvider != null)
+		}
+		if (namedValueItemProvider != null) {
 			namedValueItemProvider.dispose();
-		if (propertySetItemProvider != null)
+		}
+		if (propertySetItemProvider != null) {
 			propertySetItemProvider.dispose();
-		if (globalNamespaceItemProvider != null)
+		}
+		if (globalNamespaceItemProvider != null) {
 			globalNamespaceItemProvider.dispose();
-		if (aadlBooleanItemProvider != null)
+		}
+		if (aadlBooleanItemProvider != null) {
 			aadlBooleanItemProvider.dispose();
-		if (aadlStringItemProvider != null)
+		}
+		if (aadlStringItemProvider != null) {
 			aadlStringItemProvider.dispose();
-		if (aadlIntegerItemProvider != null)
+		}
+		if (aadlIntegerItemProvider != null) {
 			aadlIntegerItemProvider.dispose();
-		if (unitsTypeItemProvider != null)
+		}
+		if (unitsTypeItemProvider != null) {
 			unitsTypeItemProvider.dispose();
-		if (enumerationTypeItemProvider != null)
+		}
+		if (enumerationTypeItemProvider != null) {
 			enumerationTypeItemProvider.dispose();
-		if (numericRangeItemProvider != null)
+		}
+		if (numericRangeItemProvider != null) {
 			numericRangeItemProvider.dispose();
-		if (aadlRealItemProvider != null)
+		}
+		if (aadlRealItemProvider != null) {
 			aadlRealItemProvider.dispose();
-		if (classifierTypeItemProvider != null)
+		}
+		if (classifierTypeItemProvider != null) {
 			classifierTypeItemProvider.dispose();
-		if (rangeTypeItemProvider != null)
+		}
+		if (rangeTypeItemProvider != null) {
 			rangeTypeItemProvider.dispose();
-		if (recordTypeItemProvider != null)
+		}
+		if (recordTypeItemProvider != null) {
 			recordTypeItemProvider.dispose();
-		if (recordFieldItemProvider != null)
+		}
+		if (recordFieldItemProvider != null) {
 			recordFieldItemProvider.dispose();
-		if (referenceTypeItemProvider != null)
+		}
+		if (referenceTypeItemProvider != null) {
 			referenceTypeItemProvider.dispose();
-		if (listTypeItemProvider != null)
+		}
+		if (listTypeItemProvider != null) {
 			listTypeItemProvider.dispose();
+		}
 	}
 
 }
