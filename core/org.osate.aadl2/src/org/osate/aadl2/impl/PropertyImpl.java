@@ -579,47 +579,10 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	}
 
 	public EvaluatedProperty evaluateDefault(EvaluationContext ctx) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-	// public final AadlPropertyValue evaluate(final OperationKind sign, final
-	// NamedElement context)
-	// throws InvalidModelException {
-	// // Obtained value will already be evaluated
-	// /* Should only get here if we know the property applies to property
-	// * holder, so we ignore the possibility of a null return from
-	// * getPropertyValue.
-	// */
-	//
-	// /* Check for circular property reference. Here, we actually catch
-	// * the 2nd (!) loop in the circularity. To catch the first loop, we
-	// * would have to initialize the stack in the property value accumulator,
-	// * and it is too much work to make the stack available there and here.
-	// * So to keep everything self-contained, we don't do that. Catching
-	// * the 2nd loop doesn't really matter, just as long as we detect it.
-	// */
-	// final LinkedList<Property> stack = lookupStack.get();
-	// final int idx = stack.indexOf(this);
-	// if (idx != -1) {
-	// final StringBuilder sb = new StringBuilder();
-	// for (int i = idx; i >= 0; i--) {
-	// final Property pd = stack.get(i);
-	// sb.append(pd.getQualifiedName());
-	// sb.append(" -> ");
-	// }
-	// sb.append(getQualifiedName());
-	// throw new IllegalStateException("Circular property reference dependency "
-	// + sb);
-	// } else {
-	// try {
-	// stack.addFirst(this);
-	// return context.getPropertyValue(this).getValue();
-	// } finally {
-	// stack.removeFirst();
-	// }
-	// }
-	// }
+
 	@Override
 	public boolean equals(Object p) {
 		if (p instanceof Property) {
@@ -631,6 +594,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 		}
 		return this == p;
 	}
+
 	@Override
 	public int hashCode() {
 		if (eIsProxy()) {
