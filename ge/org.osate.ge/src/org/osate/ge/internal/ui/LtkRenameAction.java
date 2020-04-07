@@ -1,4 +1,4 @@
-package org.osate.ge.internal.util.renaming;
+package org.osate.ge.internal.ui;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;

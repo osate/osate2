@@ -48,9 +48,9 @@ import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.ProjectProvider;
+import org.osate.ge.internal.ui.LtkRenameAction;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.util.UiUtil;
-import org.osate.ge.internal.util.renaming.LtkRenameAction;
 import org.osate.ge.internal.viewModels.BusinessObjectSelectionPrototypesModel;
 import org.osate.ge.swt.prototypes.PrototypesEditor;
 import org.osate.ge.ui.properties.PropertySectionUtil;
@@ -71,8 +71,7 @@ public class PrototypesPropertySection extends AbstractPropertySection {
 
 	private BusinessObjectSelection selectedBos;
 	private final BusinessObjectSelectionPrototypesModel model = new BusinessObjectSelectionPrototypesModel(
-			(boSupplier, name, originalName) -> {
-				// TODO: Can disable property section when editor not active. Do other users do that?
+			(prototypeSupplier, name, originalName) -> {
 				final AgeDiagramEditor editor = UiUtil.getActiveDiagramEditor();
 				if (editor == null) {
 					throw new RuntimeException("Editor not active");
@@ -84,10 +83,10 @@ public class PrototypesPropertySection extends AbstractPropertySection {
 				final ModelChangeNotifier modelChangeNotifier = (ModelChangeNotifier) Objects.requireNonNull(
 						editor.getAdapter(ModelChangeNotifier.class), "Unable to get model change notifier");
 				final ActionService actionService = (ActionService) Objects
-						.requireNonNull(editor.getAdapter(ActionService.class), "Unable to get action service"); // TODO: Should use graphiti service?
+						.requireNonNull(editor.getAdapter(ActionService.class), "Unable to get action service");
 
 				final LtkRenameAction action = new LtkRenameAction(projectProvider, modelChangeNotifier,
-						boSupplier, name, originalName);
+						currentName -> prototypeSupplier.getBusinessObject(currentName), name, originalName);
 				actionService.execute("Rename Prototype " + originalName + " to " + name,
 						ActionExecutor.ExecutionMode.NORMAL, action);
 			}, getNamingService(),

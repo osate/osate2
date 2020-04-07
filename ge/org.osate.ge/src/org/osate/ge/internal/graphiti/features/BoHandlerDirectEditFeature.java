@@ -53,12 +53,12 @@ import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.DiagramService.ReferenceCollection;
 import org.osate.ge.internal.services.DiagramService.UpdatedReferenceValueProvider;
+import org.osate.ge.internal.ui.LtkRenameAction;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.util.AnnotationUtil;
 import org.osate.ge.internal.util.ProjectUtil;
 import org.osate.ge.internal.util.RenameUtil;
-import org.osate.ge.internal.util.renaming.LtkRenameAction;
 import org.osate.ge.services.ReferenceBuilderService;
 
 // Direct Editing Feature implementation that uses Xtext/LTK refactoring to rename an element.

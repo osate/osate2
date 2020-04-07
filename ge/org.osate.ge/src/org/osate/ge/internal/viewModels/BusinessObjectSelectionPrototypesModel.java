@@ -42,8 +42,7 @@ import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
-import org.osate.ge.internal.util.renaming.LtkRenameAction;
-import org.osate.ge.internal.viewModels.BusinessObjectSelectionPrototypesModel.PrototypeData;
+import org.osate.ge.internal.viewModels.BusinessObjectSelectionPrototypesModel.EditablePrototype;
 import org.osate.ge.swt.BaseObservableModel;
 import org.osate.ge.swt.prototypes.PrototypeDirection;
 import org.osate.ge.swt.prototypes.PrototypeType;
@@ -51,44 +50,87 @@ import org.osate.ge.swt.prototypes.PrototypesEditorModel;
 
 import com.google.common.base.Strings;
 
-// TODO: Implement
-// TODO; WIll need to update with the BOS like the feature direction model
-// TODO: Document classifier type. IEObjectDescription OR Classifier
-// TODO: Should use action service to perform modifications with labels? Should BOS have a way of doing that?
+/**
+ * {@link org.osate.ge.swt.prototypes.PrototypesEditorModel} implementation which uses the AADL model elements provided by a
+ * {@link org.osate.ge.BusinessObjectSelection}.
+ *
+ * Classifiers provided by this model are either a {@link org.osate.aadl2.Classifier} or
+ * @{link org.eclipse.xtext.resource.IEObjectDescription}. However, that is an implementation detail and users should not rely
+ * on that.
+ *
+ */
 public class BusinessObjectSelectionPrototypesModel extends BaseObservableModel
-implements PrototypesEditorModel<PrototypeData, Object> {
-	// TODO: Is there a better way to do this to avoid needing so many services?
-
+implements PrototypesEditorModel<EditablePrototype, Object> {
 	private final Renamer renamer;
 	private final NamingService namingService;
 	private BusinessObjectSelection bos;
-	private List<PrototypeData> prototypes;
-	private PrototypeData selectedPrototype = null;
+	private List<EditablePrototype> prototypes;
+	private EditablePrototype selectedPrototype = null;
 
-	// TODO: Rename
-	public static interface Renamer {
-		void rename(LtkRenameAction.BusinessObjectSupplier boSupplier, final String name, final String originalName);
+	/**
+	 * Supplies a prototype with a given name. Created in the context of a business object context and is used to find the prototype
+	 * that should be rename.
+	 *
+	 */
+	public static interface PrototypeSupplier {
+		/**
+		 * Returns the prototype with the given name.
+		 * @param currentName is the current name of the prototype
+		 * @return the prototype
+		 */
+		Prototype getBusinessObject(final String currentName);
 	}
 
-	// TODO: Rename
-	public static class PrototypeData {
-		// TODO: BOC or reference for context
-		final BusinessObjectContext boc; // Classifier BOC
+	/**
+	 * Interface of object which is used to rename a prototype
+	 */
+	public static interface Renamer {
+		void rename(PrototypeSupplier prototypeSupplier, final String name, final String originalName);
+	}
+
+	/**
+	 * Represents a prototype provided by the model.
+	 */
+	public static class EditablePrototype {
+		// Business object context for the classifier containing the prototype
+		final BusinessObjectContext classifierBoc;
 
 		final String label;
-		final String name; // TODO: Needed to maintain selection?
+
+		// The name is stored so that it will be available even if the model changes and the prototype itself is invalidated.
+		// It is necessary to maintain selection after rename.
+		final String name;
 
 		final Prototype prototype;
 
-		public PrototypeData(final BusinessObjectContext boc, final String label, final String name,
+		public EditablePrototype(final BusinessObjectContext boc, final String label, final String name,
 				final Prototype prototype) {
-			this.boc = Objects.requireNonNull(boc, "box must not be null");
+			this.classifierBoc = Objects.requireNonNull(boc, "box must not be null");
 			this.label = Objects.requireNonNull(label, "label must not be null");
 			this.name = Objects.requireNonNull(name, "name must not be null");
 			this.prototype = Objects.requireNonNull(prototype, "prototype must not be null");
 		}
 
-		// TODO; Need equals support? Is there a benefit from comparing that way when dealing with selections, etc?
+		@Override
+		public int hashCode() {
+			return Objects.hash(classifierBoc, label, name, prototype);
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj) {
+				return true;
+			}
+			if (obj == null) {
+				return false;
+			}
+			if (getClass() != obj.getClass()) {
+				return false;
+			}
+			EditablePrototype other = (EditablePrototype) obj;
+			return Objects.equals(classifierBoc, other.classifierBoc) && Objects.equals(label, other.label)
+					&& Objects.equals(name, other.name) && Objects.equals(prototype, other.prototype);
+		}
 	}
 
 	public BusinessObjectSelectionPrototypesModel(final Renamer renamer,
@@ -100,7 +142,7 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 	}
 
 	@Override
-	public Stream<PrototypeData> getPrototypes() {
+	public Stream<EditablePrototype> getPrototypes() {
 		return prototypes.stream();
 	}
 
@@ -111,7 +153,8 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 
 	@Override
 	public void addPrototype() {
-		bos.modify(boc -> boc.getBusinessObject() instanceof Classifier, boc -> (Classifier) boc.getBusinessObject(),
+		bos.modify("Add Prototype", boc -> boc.getBusinessObject() instanceof Classifier,
+				boc -> (Classifier) boc.getBusinessObject(),
 				(c, boc) -> {
 					// Create a new prototype
 					final ComponentPrototype cp = (ComponentPrototype) c
@@ -122,27 +165,27 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 					cp.setName(newName);
 
 					// Update the selected prototype
-					selectedPrototype = new PrototypeData(boc, newName, newName, cp);
+					selectedPrototype = new EditablePrototype(boc, newName, newName, cp);
 				});
 	}
 
 	@Override
-	public void removePrototype(final PrototypeData prototype) {
-		modifyPrototype(prototype, EcoreUtil::remove);
+	public void removePrototype(final EditablePrototype prototype) {
+		modifyPrototype("Remove Prototype", prototype, EcoreUtil::remove);
 	}
 
 	@Override
-	public String getPrototypeLabel(final PrototypeData prototype) {
+	public String getPrototypeLabel(final EditablePrototype prototype) {
 		return prototype.label;
 	}
 
 	@Override
-	public PrototypeData getSelectedPrototype() {
+	public EditablePrototype getSelectedPrototype() {
 		return selectedPrototype;
 	}
 
 	@Override
-	public void setSelectedPrototype(final PrototypeData value) {
+	public void setSelectedPrototype(final EditablePrototype value) {
 		if (!Objects.equals(selectedPrototype, value)) {
 			this.selectedPrototype = value;
 			triggerChangeEvent();
@@ -150,13 +193,16 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 	}
 
 	@Override
-	public String getPrototypeName(final PrototypeData prototype) {
+	public String getPrototypeName(final EditablePrototype prototype) {
 		return prototype.name;
 	}
 
-	// TODO: Move, document, etc
-	// TODO; Weak, etc
-	private static class RenamePrototypeSupplier implements LtkRenameAction.BusinessObjectSupplier {
+	/**
+	 * Supplies the prototype that should be renamed. Stores a weak reference to the classifier business object context to avoid
+	 * potential memory leaks.
+	 *
+	 */
+	private static class RenamePrototypeSupplier implements PrototypeSupplier {
 		private final WeakReference<BusinessObjectContext> weakClassifierBoc;
 
 		public RenamePrototypeSupplier(final BusinessObjectContext classifierBoc) {
@@ -164,7 +210,7 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 		}
 
 		@Override
-		public EObject getBusinessObject(final String currentName) {
+		public Prototype getBusinessObject(final String currentName) {
 			final BusinessObjectContext classifierBoc = weakClassifierBoc.get();
 			if (classifierBoc == null) {
 				return null;
@@ -184,23 +230,20 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 
 
 	@Override
-	public void setPrototypeName(PrototypeData prototype, String value) {
-		// TODO: Renaming refined elements isn't working properly. Works in text editor but not in editor
+	public void setPrototypeName(EditablePrototype prototype, String value) {
+		renamer.rename(new RenamePrototypeSupplier(prototype.classifierBoc), value, prototype.name);
 
-		renamer.rename(new RenamePrototypeSupplier(prototype.boc), value, prototype.name);
-
-		// TODO: This doesn't handle undo/redo properly. Is that okay?
-		selectedPrototype = new PrototypeData(prototype.boc, value, value, prototype.prototype);
+		// Select will be lost on undo/redo but this will retain selection on the original rename.
+		selectedPrototype = new EditablePrototype(prototype.classifierBoc, value, value, prototype.prototype);
 	}
 
 	@Override
-	public String validatePrototypeName(PrototypeData prototype, String newName) {
-		// TODO
-		return null;
+	public String validatePrototypeName(final EditablePrototype prototype, final String newName) {
+		return namingService.checkNameValidity(prototype.prototype, newName);
 	}
 
 	@Override
-	public PrototypeDirection getPrototypeDirection(PrototypeData prototype) {
+	public PrototypeDirection getPrototypeDirection(EditablePrototype prototype) {
 		if (prototype.prototype instanceof FeaturePrototype) {
 			final FeaturePrototype fp = (FeaturePrototype) prototype.prototype;
 			if (fp.isIn()) {
@@ -216,8 +259,8 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 	}
 
 	@Override
-	public void setPrototypeDirection(final PrototypeData prototype, final PrototypeDirection value) {
-		modifyPrototype(prototype, p -> {
+	public void setPrototypeDirection(final EditablePrototype prototype, final PrototypeDirection value) {
+		modifyPrototype("Set Prototype Direction", prototype, p -> {
 			if (p instanceof FeaturePrototype) {
 				final FeaturePrototype fp = (FeaturePrototype) p;
 				switch (value) {
@@ -242,12 +285,12 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 	}
 
 	@Override
-	public PrototypeType getPrototypeType(final PrototypeData prototype) {
+	public PrototypeType getPrototypeType(final EditablePrototype prototype) {
 		return prototypeToPrototypeType(prototype.prototype);
 	}
 
 	@Override
-	public void setPrototypeType(final PrototypeData prototype, final PrototypeType value) {
+	public void setPrototypeType(final EditablePrototype prototype, final PrototypeType value) {
 		// Check if the type is different by comparing EClass values
 		final EClass currentEClass = prototype.prototype.eClass();
 		final EClass newEClass = prototypeTypeToEClass(value);
@@ -255,7 +298,7 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 			return;
 		}
 
-		modifyOwningClassifier(prototype, c -> {
+		modifyOwningClassifier("Set Prototype Type", prototype, c -> {
 			getPrototypeByName(c, prototype.name).ifPresent(p -> {
 				// Store location in list
 				final int index = c.getOwnedPrototypes().indexOf(p);
@@ -321,7 +364,7 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 	}
 
 	@Override
-	public Stream<Object> getConstrainingClassifierOptions(final PrototypeData prototype) {
+	public Stream<Object> getConstrainingClassifierOptions(final EditablePrototype prototype) {
 		if (prototype.prototype.eResource() == null) {
 			return Stream.empty();
 		}
@@ -364,7 +407,7 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 	}
 
 	@Override
-	public Object getConstrainingClassifier(final PrototypeData prototype) {
+	public Object getConstrainingClassifier(final EditablePrototype prototype) {
 		final Prototype p = prototype.prototype;
 		if (p instanceof ComponentPrototype) {
 			return ((ComponentPrototype) p).getConstrainingClassifier();
@@ -378,8 +421,8 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 	}
 
 	@Override
-	public void setConstrainingClassifier(final PrototypeData prototype, final Object value) {
-		modifyPrototype(prototype, p -> {
+	public void setConstrainingClassifier(final EditablePrototype prototype, final Object value) {
+		modifyPrototype("Set Constraining Classifier", prototype, p -> {
 			EObject classifier = null;
 			if (value == null) {
 				classifier = null;
@@ -421,7 +464,7 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 	}
 
 	@Override
-	public Boolean isArray(final PrototypeData prototype) {
+	public Boolean isArray(final EditablePrototype prototype) {
 		final Prototype p = prototype.prototype;
 		if (p instanceof ComponentPrototype) {
 			return ((ComponentPrototype) p).isArray();
@@ -431,9 +474,9 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 	}
 
 	@Override
-	public void setArray(PrototypeData prototype, boolean value) {
+	public void setArray(EditablePrototype prototype, boolean value) {
 		// Set whether the component prototype is an array
-		modifyPrototype(prototype, p -> {
+		modifyPrototype("Set Prototype Array", prototype, p -> {
 			if (p instanceof ComponentPrototype) {
 				((ComponentPrototype) p).setArray(value);
 			}
@@ -441,10 +484,10 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 	}
 
 	@Override
-	public String getRefineableElementLabel(PrototypeData prototype) {
+	public String getRefineableElementLabel(EditablePrototype prototype) {
 		if (prototype.prototype.getRefinedElement() != null) {
 			return prototype.prototype.getRefined().getQualifiedName();
-		} else if (prototype.prototype.getContainingClassifier() == prototype.boc.getBusinessObject()) {
+		} else if (prototype.prototype.getContainingClassifier() == prototype.classifierBoc.getBusinessObject()) {
 			return null;
 		} else {
 			return prototype.prototype.getQualifiedName();
@@ -452,21 +495,21 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 	}
 
 	@Override
-	public Boolean isRefined(final PrototypeData prototype) {
+	public Boolean isRefined(final EditablePrototype prototype) {
 		return prototype.prototype.getRefined() != null;
 	}
 
 	@Override
-	public void setRefined(final PrototypeData prototype, final boolean value) {
+	public void setRefined(final EditablePrototype prototype, final boolean value) {
 		if (value) {
 			// Create refinement
-			modifySelectedClassifier(prototype, c -> {
+			modifySelectedClassifier("Refine Prototype", prototype, c -> {
 				final Prototype refinement = (Prototype) c.createOwnedPrototype(prototype.prototype.eClass());
-				refinement.setRefined(prototype.prototype); // TODO: Need to worry about proxies, etc?
+				refinement.setRefined(prototype.prototype);
 			});
 		} else {
 			// Remove refinement
-			modifyPrototype(prototype, p -> EcoreUtil.remove(p));
+			modifyPrototype("Remove Prototype Refinement", prototype, p -> EcoreUtil.remove(p));
 		}
 	}
 
@@ -479,47 +522,56 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 		final boolean singleSelection = this.bos.boStream(Classifier.class).limit(2).count() == 1;
 
 		// Build set of all editable prototypes..
-		// TODO: Is there any chance of conflict? Just use a list
-		prototypes = new ArrayList<>(); // TODO: Initial size? Just clear the other one...
+		final ArrayList<EditablePrototype> newPrototypes = new ArrayList<>();
 		value.bocStream().filter(boc -> boc.getBusinessObject() instanceof Classifier).forEachOrdered(boc -> {
 			final Classifier c = (Classifier) boc.getBusinessObject();
 			final String suffix = singleSelection ? "" : " [" + c.getQualifiedName() + "]";
 			getAllPrototypes(boc.getBusinessObject()).forEach(p -> {
 				final String name = p.getName();
 				if (!Strings.isNullOrEmpty(name)) {
-					prototypes.add(new PrototypeData(boc, name + suffix, name, p));
+					newPrototypes.add(new EditablePrototype(boc, name + suffix, name, p));
 				}
 			});
 		});
 
-		// TODO: Update selection with potentially new BOC/prototype? Model so prototype object would change... BOC would change?
-		if (this.selectedPrototype != null) {
-			this.selectedPrototype = prototypes.stream().filter(p -> {
-				return p.boc == selectedPrototype.boc && p.name.equalsIgnoreCase(this.selectedPrototype.name);
-			}).findAny().orElse(null);
+		// If a prototype was previously selected, update the selection based on the previously selected prototype's same classifier BOC and name.
+		final EditablePrototype newSelectedPrototype = this.selectedPrototype == null ? null
+				: newPrototypes.stream().filter(p -> {
+					return p.classifierBoc == selectedPrototype.classifierBoc && p.name.equalsIgnoreCase(this.selectedPrototype.name);
+				}).findAny().orElse(null);
+
+
+		// Update fields and send notification if anything has changed.
+		if (!Objects.equals(prototypes, newPrototypes) || !Objects.equals(selectedPrototype, newSelectedPrototype)) {
+			prototypes = newPrototypes;
+			selectedPrototype = newSelectedPrototype;
+
+			triggerChangeEvent();
 		}
-
-		// TODO; Depend on whether things have changed?
-		triggerChangeEvent();
 	}
 
-	// TODO: Cleanup names, etc
-	void modifySelectedClassifier(final PrototypeData prototype, final Consumer<Classifier> modifier) {
-		bos.modify(boc -> boc == prototype.boc, Classifier.class, c -> modifier.accept(c));
+	void modifySelectedClassifier(final String label, final EditablePrototype editablePrototype,
+			final Consumer<Classifier> modifier) {
+		bos.modify(label, Classifier.class, boc -> boc == editablePrototype.classifierBoc, c -> modifier.accept(c));
 	}
 
-	void modifyOwningClassifier(final PrototypeData prototype, final Consumer<Classifier> modifier) {
-		bos.modify(boc -> boc == prototype.boc, boc -> prototype.prototype.getContainingClassifier(),
+	void modifyOwningClassifier(final String label, final EditablePrototype editablePrototype,
+			final Consumer<Classifier> modifier) {
+		bos.modify(label, boc -> boc == editablePrototype.classifierBoc, boc -> editablePrototype.prototype.getContainingClassifier(),
 				(c, boc) -> modifier.accept(c));
 	}
 
-	void modifyPrototype(final PrototypeData prototype, final Consumer<Prototype> modifier) {
-		modifyOwningClassifier(prototype, c -> getPrototypeByName(c, prototype.name).ifPresent(p -> {
+	void modifyPrototype(final String label, final EditablePrototype editablePrototype, final Consumer<Prototype> modifier) {
+		modifyOwningClassifier(label, editablePrototype, c -> getPrototypeByName(c, editablePrototype.name).ifPresent(p -> {
 			modifier.accept(p);
 		}));
 	}
 
-	// TODO: Document intention
+	/**
+	 * Gets all prototypes owned by the specified classifier or more general classifiers.
+	 * @param bo is the classifier for which to get prototypes.
+	 * @return a stream of prototype objects or an empty stream if the bo is not a classifier.
+	 */
 	private static Stream<Prototype> getAllPrototypes(final Object bo) {
 		if (bo instanceof ComponentClassifier) {
 			return ((ComponentClassifier) bo).getAllPrototypes().stream();
@@ -529,8 +581,13 @@ implements PrototypesEditorModel<PrototypeData, Object> {
 			return Stream.empty();
 		}
 	}
-	// TODO: Document intention
 
+	/**
+	 * Finds the prototype owned by the specified business object or a more general classifiers with the specified name.
+	 * @param bo is the classifier for which to get the prototype.
+	 * @param filterName is the name of the prototype for which to look.
+	 * @return an optional describing the prototype.
+	 */
 	private static Optional<Prototype> getPrototypeByName(final Object bo, final String filterName) {
 		return getAllPrototypes(bo).filter(p -> {
 			final String name = p.getName();

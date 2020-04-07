@@ -38,7 +38,7 @@ import org.osate.ge.operations.OperationBuilder;
  */
 public interface BusinessObjectSelection {
 	/**
-	 * Throws an exception if any of the objects in the set are not of the specified type.
+	 * Returns a stream of all the business objects which are instances of the specified type.
 	 * Business objects provided by this stream must not be modified.
 	 * @param c
 	 * @return a stream to the business objects represented.
@@ -55,12 +55,12 @@ public interface BusinessObjectSelection {
 	 * Calls the specified modifier for each business object provided by the bocToBoToModifyMapper.
 	 * Also provides the business object context.
 	 * The business objects contained in the business object context must not be modified.
-	 * @param bocToBoToModifyMapper
-	 * @param modifier
+	 * @param bocToBoToModifyMapper is a function which returns the object which should be modified based on a business object context.
+	 * @param modifier is a function which is passed the object to be modified and the business object context.
 	 */
 	default <T extends EObject> void modify(Function<BusinessObjectContext, T> bocToBoToModifyMapper,
 			BiConsumer<T, BusinessObjectContext> modifier) {
-		modify(boc -> true, bocToBoToModifyMapper, modifier);
+		modify("Modify Model", boc -> true, bocToBoToModifyMapper, modifier);
 	}
 
 	/**
@@ -68,36 +68,38 @@ public interface BusinessObjectSelection {
 	 * calls the specified modifier for each business object provided by the bocToBoToModifyMapper.
 	 * Also provides the business object context.
 	 * The business objects contained in the business object context must not be modified.
+	 * @param label is a description of the modification.
 	 * @param bocFilter is the filter for business object contexts. Only business object contexts which pass the filter are modified.
-	 * @param bocToBoToModifyMapper
-	 * @param modifier
+	 * @param bocToBoToModifyMapper is a function which returns the object which should be modified based on a business object context.
+	 * @param modifier is a function which is passed the object to be modified and the business object context.
 	 */
-	<T extends EObject> void modify(Predicate<BusinessObjectContext> bocFilter,
+	<T extends EObject> void modify(String label, Predicate<BusinessObjectContext> bocFilter,
 			Function<BusinessObjectContext, T> bocToBoToModifyMapper,
 			BiConsumer<T, BusinessObjectContext> modifier);
 
 	/**
-	 * Calls the specified modifier for each business object.
-	 * Throws an exception if any of the objects in the set are not of the specified type.
+	 * Calls the specified modifier for each business object which is an instanceof of the specified class.
 	 * @param c
 	 * @param modifier
 	 */
 	default <T extends EObject> void modify(Class<T> c, Consumer<T> modifier) {
-		modify(boc -> true, c, modifier);
+		modify("Modify Model", c, boc -> true, modifier);
 	}
 
 	/**
-	 * Calls the specified modifier for each business object for the business object contexts which pass the bocFilter.
-	 * Throws an exception if the business object of any of the business object contexts which pass the filter are not of the specified type;.
-	 * @param bocFilter is the filter for business object contexts. Only business object contexts which pass the filter are modified.
-	 * @param c is the type of object being modified
-	 * @param modifier is the consumer which modified the passed in business object
+	 * Calls the specified modifier for each business object for the business object contexts which pass the bocFilter and are instances
+	 * of the specified class.
+	 * @param label is a description of the modification.
+	 * @param c is the type of object being modified.
+	 * @param bocFilter is the filter for business object contexts. Only called for business object contexts which are instances of the specified class. Only business object contexts which pass the filter are modified.
+	 * @param modifier is the consumer which modified the passed in business object.
 	 */
-	<T extends EObject> void modify(Predicate<BusinessObjectContext> bocFilter, Class<T> c, Consumer<T> modifier);
+	<T extends EObject> void modify(String label, Class<T> c, Predicate<BusinessObjectContext> bocFilter,
+			Consumer<T> modifier);
 
 	/**
 	 * Adds a modification for each business object to the operation being constructed using opBuilder
-	 * Throws an exception if any of the objects in the set are not of the specified type.
+	 * Ignores business objects which are not of the specified type.
 	 */
 	<T extends EObject, O> void modifyWithOperation(final OperationBuilder<O> opBuilder, Class<T> c,
 			BiConsumer<T, O> modifier);

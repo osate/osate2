@@ -70,7 +70,8 @@ public class AgeBusinessObjectSelection implements BusinessObjectSelection {
 
 	@Override
 	public final <T> Stream<T> boStream(final Class<T> c) {
-		return bocs.stream().map(boc -> c.cast(boc.getBusinessObject()));
+		return bocs.stream().filter(boc -> c.isInstance(boc.getBusinessObject()))
+				.map(boc -> c.cast(boc.getBusinessObject()));
 	}
 
 	@Override
@@ -79,7 +80,7 @@ public class AgeBusinessObjectSelection implements BusinessObjectSelection {
 	}
 
 	@Override
-	public <T extends EObject> void modify(final Predicate<BusinessObjectContext> bocFilter,
+	public <T extends EObject> void modify(final String label, final Predicate<BusinessObjectContext> bocFilter,
 			final Function<BusinessObjectContext, T> bocToBoToModifyMapper,
 			final BiConsumer<T, BusinessObjectContext> modifier) {
 		if (!bocs.stream().filter(bocFilter).findAny().isPresent()) {
@@ -92,16 +93,19 @@ public class AgeBusinessObjectSelection implements BusinessObjectSelection {
 				})).collect(ImmutableList.toImmutableList());
 
 		// Wrap the modifications in an another action so that the undo will take the user to the currently active graphical editor(if any).
-		getActionExecutor().execute("Modify Model", ExecutionMode.NORMAL, () -> {
+		getActionExecutor().execute(label, ExecutionMode.NORMAL, () -> {
 			modificationService.modify(modifications);
 			return null;
 		});
 	}
 
 	@Override
-	public <T extends EObject> void modify(final Predicate<BusinessObjectContext> bocFilter, final Class<T> c,
+	public <T extends EObject> void modify(final String label, final Class<T> c,
+			final Predicate<BusinessObjectContext> bocFilter,
 			final Consumer<T> modifier) {
-		modify(bocFilter, boc -> c.cast(boc.getBusinessObject()), (bo, boc) -> modifier.accept(bo));
+		modify(label, boc -> c.isInstance(boc.getBusinessObject()) && bocFilter.test(boc),
+				boc -> c.cast(boc.getBusinessObject()),
+				(bo, boc) -> modifier.accept(bo));
 	}
 
 	@Override
