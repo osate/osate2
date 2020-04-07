@@ -38,11 +38,17 @@ import javafx.scene.layout.VBox;
  */
 public class Palette<G, I> extends Region {
 
+	// TODO: Find a way to bind the width property of the palette to the window size.
+	// Using a simple paletteVbox.widthProperty().bind(this.widthProperty())
+	// does not work.
+
 	private final VBox paletteVbox = new VBox();
 	private final ArrayList<PaletteGroup<G, I>> paletteList = new ArrayList<PaletteGroup<G, I>>();
 
 	public Palette(final PaletteModel<G, I> model) {
 		Objects.requireNonNull(model, "model must not be null");
+
+		paletteVbox.setFillWidth(true);
 
 		for (I item : model.getItems(null)) {
 
@@ -81,7 +87,6 @@ public class Palette<G, I> extends Region {
 			}
 
 		}
-
 		this.getChildren().add(paletteVbox);
 	}
 

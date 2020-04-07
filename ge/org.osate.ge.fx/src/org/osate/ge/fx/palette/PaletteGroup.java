@@ -23,6 +23,7 @@ class PaletteGroup<G, I> extends Region {
 		// TODO: Populate contents based in a manner similar to what is currently in Palette
 
 		VBox buttonBox = new VBox();
+		buttonBox.setFillWidth(true);
 
 		Button groupButton = new Button(model.getGroupLabel(groupModel));
 		buttonList.add(groupButton);
@@ -55,6 +56,7 @@ class PaletteGroup<G, I> extends Region {
 			scrollPane.setVisible(false);
 			scrollPane.managedProperty().bind(expandedProperty());
 			scrollPane.visibleProperty().bind(expandedProperty());
+			scrollPane.setFitToWidth(true);
 			this.getChildren().add(buttonBox);
 
 		}
