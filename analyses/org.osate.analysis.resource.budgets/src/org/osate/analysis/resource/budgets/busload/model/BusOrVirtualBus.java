@@ -13,6 +13,7 @@ public abstract class BusOrVirtualBus extends AnalysisElement {
 	private final ComponentInstance busInstance;
 	private final List<VirtualBus> boundBuses = new ArrayList<>();
 	private final List<Connection> boundConnections = new ArrayList<>();
+	private final List<Broadcast> boundBroadcasts = new ArrayList<>();
 
 	/** Capacity in KB/s. */
 	private double capacity;
@@ -65,9 +66,19 @@ public abstract class BusOrVirtualBus extends AnalysisElement {
 		return boundConnections;
 	}
 
+	// Non-public, only used for building the model
+	void addBoundBroadcast(final Broadcast broadcast) {
+		boundBroadcasts.add(broadcast);
+	}
+
+	public final List<Broadcast> getBoundBroadcasts() {
+		return boundBroadcasts;
+	}
+
 	@Override
 	protected final void visitChildren(final Visitor visitor) {
 		visit(boundBuses, visitor);
 		visit(boundConnections, visitor);
+		visit(boundBroadcasts, visitor);
 	}
 }

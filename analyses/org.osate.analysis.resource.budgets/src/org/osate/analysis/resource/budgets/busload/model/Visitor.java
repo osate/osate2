@@ -32,6 +32,12 @@ public interface Visitor {
 		visitBusOrVirtualBusPostfix(virtualBus);
 	}
 
+	public default void visitBroadcastPrefix(final Broadcast broadcast) {
+	}
+
+	public default void visitBroadcastPostfix(final Broadcast broadcast) {
+	}
+
 	// N.B. Leaf node
 	public default void visitConnection(Connection connection) {
 	}

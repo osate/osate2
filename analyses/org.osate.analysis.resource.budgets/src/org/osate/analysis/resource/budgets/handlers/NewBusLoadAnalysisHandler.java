@@ -236,6 +236,7 @@ public final class NewBusLoadAnalysisHandler extends NewAbstractAaxlHandler {
 				"Actual (KB/s)");
 
 		final int numBus = (int) ResultUtil.getInteger(busResult, 4);
+		final int numConnections = (int) ResultUtil.getInteger(busResult, 5);
 		final List<Result> subResults = busResult.getSubResults();
 		for (final Result subResult : subResults.subList(0, numBus)) {
 			// Label, Capacity, Budget, Required Capacity, Actual
@@ -258,7 +259,36 @@ public final class NewBusLoadAnalysisHandler extends NewAbstractAaxlHandler {
 		}
 
 		subResults.subList(0, numBus).forEach(br -> generateCSVforBus(pw, br, busResult));
-		subResults.subList(numBus, subResults.size()).forEach(br -> generateCSVforConnection(pw, br, busResult));
+		subResults.subList(numBus, numBus + numConnections).forEach(br -> generateCSVforConnection(pw, br, busResult));
+		subResults.subList(numBus + numConnections, subResults.size())
+				.forEach(br -> generateCSVforBroadcast(pw, br, busResult));
+	}
+
+	private static void generateCSVforBroadcast(final PrintWriter pw, final Result broadcastResult,
+			final Result boundTo) {
+		printItem(pw, broadcastResult.getMessage() + " over bus " + boundTo.getMessage());
+		pw.println();
+
+		/*
+		 * Go through the children twice: First to print summary information and then to recursively
+		 * print the sub information.
+		 */
+
+		printItems(pw, "Included Connection", "Budget (KB/s)", "Actual (KB/s)");
+
+		final List<Result> subResults = broadcastResult.getSubResults();
+		for (final Result subResult : subResults) {
+			printItems(pw, subResult.getMessage(), Double.toString(ResultUtil.getReal(subResult, 0)),
+					Double.toString(ResultUtil.getReal(subResult, 1)));
+		}
+		pw.println();
+
+		if (!broadcastResult.getDiagnostics().isEmpty()) {
+			generateCSVforDiagnostics(pw, broadcastResult.getDiagnostics());
+			pw.println();
+		}
+
+		subResults.forEach(br -> generateCSVforConnection(pw, br, broadcastResult));
 	}
 
 	private static void generateCSVforConnection(final PrintWriter pw, final Result connectionResult,

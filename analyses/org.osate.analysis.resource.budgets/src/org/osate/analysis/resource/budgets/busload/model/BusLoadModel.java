@@ -2,11 +2,13 @@ package org.osate.analysis.resource.budgets.busload.model;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
@@ -100,6 +102,20 @@ public final class BusLoadModel extends ModelElement {
 			}
 
 			@Override
+			public void visitBroadcastPrefix(final Broadcast b) {
+				pw.println(prefix + "Broadcast from " + b.getSource().getName());
+				stack.push(prefix);
+				prefix = prefix + "  ";
+				pw.println(prefix + "Budget = " + b.getBudget() + " KB/s");
+				pw.println(prefix + "Actual usage = " + b.getActual() + " KB/s");
+			}
+
+			@Override
+			public void visitBroadcastPostfix(final Broadcast b) {
+				prefix = stack.pop();
+			}
+
+			@Override
 			public void visitBusPrefix(final Bus b) {
 				pw.println(prefix + "Bus " + b.getBusInstance().getName());
 				stack.push(prefix);
@@ -181,7 +197,8 @@ public final class BusLoadModel extends ModelElement {
 		 * for each source feature.
 		 */
 		if (isBroadcast) {
-			budgetedConnections = filterSameSourceConnections(budgetedConnections);
+//			budgetedConnections = filterSameSourceConnections(budgetedConnections);
+			budgetedConnections = findBroadcasts(budgetedConnections, bus);
 		}
 
 		// Make sure the virtual buses exist in the current mode
@@ -202,24 +219,84 @@ public final class BusLoadModel extends ModelElement {
 		return result;
 	}
 
-	private static List<ConnectionInstance> filterSameSourceConnections(final List<ConnectionInstance> connections) {
-		final List<ConnectionInstance> result = new ArrayList<>();
-		for (final ConnectionInstance conni : connections) {
-			if (!hasConnectionSource(result, conni)) {
-				result.add(conni);
-			}
+	private static final class FeatureComparator implements Comparator<ConnectionInstanceEnd> {
+		public static final FeatureComparator INSTANCE = new FeatureComparator();
+
+		private FeatureComparator() {
+			super();
 		}
-		return result;
+
+		@Override
+		public int compare(final ConnectionInstanceEnd o1, final ConnectionInstanceEnd o2) {
+			final String name1 = o1.getInstanceObjectPath();
+			final String name2 = o2.getInstanceObjectPath();
+			return name1.compareTo(name2);
+		}
 	}
 
-	private static boolean hasConnectionSource(final List<ConnectionInstance> connections,
-			final ConnectionInstance conni) {
-		final ConnectionInstanceEnd src = conni.getSource();
-		for (final ConnectionInstance connectionInstance : connections) {
-			if (connectionInstance.getSource() == src) {
-				return true;
+	/*
+	 * Build go through the list of connections and sort based on the connection source. For each
+	 * group, create a new Broadcast child of the bus. Returns the list of remaining individual connections.
+	 */
+	private static List<ConnectionInstance> findBroadcasts(final List<ConnectionInstance> connections,
+			final BusOrVirtualBus bus) {
+		// Linked list is better for removals, below
+		final List<ConnectionInstance> nonBroadcast = new LinkedList<>(connections);
+
+		// Group all the connections by their source feature
+		final Map<ConnectionInstanceEnd, List<ConnectionInstance>> broadcastGroups = new TreeMap<>(
+				FeatureComparator.INSTANCE);
+		for (final ConnectionInstance ci : connections) {
+			final ConnectionInstanceEnd src = ci.getSource();
+			List<ConnectionInstance> list = broadcastGroups.get(src);
+			if (list == null) {
+				list = new ArrayList<ConnectionInstance>();
+				broadcastGroups.put(src, list);
+			}
+			list.add(ci);
+		}
+
+		/*
+		 * Create a Broadcast object for each group with size > 1, and then remove the
+		 * connections from the noBroadcast list. We do this, instead of building a new
+		 * list with the groups of size 1 so that the order of the list remains deterministic
+		 * and not influencing by hashing in the map.
+		 *
+		 * So we should have alphabetical order for the broadcast groups (from the TreeMap)
+		 * and declarative order for the singletons.
+		 */
+		for (final Map.Entry<ConnectionInstanceEnd, List<ConnectionInstance>> group : broadcastGroups.entrySet()) {
+			final ConnectionInstanceEnd groupSource = group.getKey();
+			final List<ConnectionInstance> groupedConnections = group.getValue();
+			if (groupedConnections.size() > 1) {
+				nonBroadcast.removeAll(groupedConnections);
+				final Broadcast broadcast = new Broadcast(groupSource);
+				groupedConnections.forEach(c -> broadcast.addConnection(c));
+				bus.addBoundBroadcast(broadcast);
 			}
 		}
-		return false;
+
+		return nonBroadcast;
 	}
+
+//	private static List<ConnectionInstance> filterSameSourceConnections(final List<ConnectionInstance> connections) {
+//		final List<ConnectionInstance> result = new ArrayList<>();
+//		for (final ConnectionInstance conni : connections) {
+//			if (!hasConnectionSource(result, conni)) {
+//				result.add(conni);
+//			}
+//		}
+//		return result;
+//	}
+//
+//	private static boolean hasConnectionSource(final List<ConnectionInstance> connections,
+//			final ConnectionInstance conni) {
+//		final ConnectionInstanceEnd src = conni.getSource();
+//		for (final ConnectionInstance connectionInstance : connections) {
+//			if (connectionInstance.getSource() == src) {
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
 }

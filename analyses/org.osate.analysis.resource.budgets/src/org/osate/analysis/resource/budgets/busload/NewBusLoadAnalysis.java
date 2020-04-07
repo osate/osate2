@@ -38,6 +38,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.analysis.resource.budgets.busload.model.Broadcast;
 import org.osate.analysis.resource.budgets.busload.model.Bus;
 import org.osate.analysis.resource.budgets.busload.model.BusLoadModel;
 import org.osate.analysis.resource.budgets.busload.model.BusOrVirtualBus;
@@ -207,6 +208,10 @@ public final class NewBusLoadAnalysis {
 				actual += c.getActual();
 				totalBudget += c.getBudget();
 			}
+			for (final Broadcast b : bus.getBoundBroadcasts()) {
+				actual += b.getActual();
+				totalBudget += b.getBudget();
+			}
 			bus.setActual(actual);
 			bus.setTotalBudget(totalBudget);
 
@@ -222,6 +227,7 @@ public final class NewBusLoadAnalysis {
 			ResultUtil.addRealValue(busResult, actual);
 			ResultUtil.addIntegerValue(busResult, bus.getBoundBuses().size());
 			ResultUtil.addIntegerValue(busResult, bus.getBoundConnections().size());
+			ResultUtil.addIntegerValue(busResult, bus.getBoundBroadcasts().size());
 
 			if (capacity == 0.0) {
 				warning(busResult, busInstance, (bus instanceof Bus ? "Bus " : "Virtual bus ") +
@@ -254,13 +260,62 @@ public final class NewBusLoadAnalysis {
 		}
 
 		@Override
+		public void visitBroadcastPrefix(final Broadcast broadcast) {
+			final ConnectionInstanceEnd cie = broadcast.getSource();
+
+			// Create a new result object for the bus
+			final Result broadcastResult = ResultUtil.createResult("Broadcast from " + cie.getInstanceObjectPath(), cie,
+					ResultType.SUCCESS);
+			currentResult.getSubResults().add(broadcastResult);
+			previousResult.push(currentResult);
+			currentResult = broadcastResult;
+		}
+
+		@Override
+		public void visitBroadcastPostfix(final Broadcast broadcast) {
+			// unroll the result stack
+			final Result broadcastResult = currentResult;
+			currentResult = previousResult.pop();
+
+			// Compute the actual usage and budget requirements
+			final double actual = getConnectionActualKBytesps(broadcast.getSource(), dataOverheadKBytesps);
+			broadcast.setActual(actual);
+
+			// Use the maximum budget from the connections, warn if they are not equal
+			double maxBudget = 0.0;
+			boolean unequal = false;
+			Connection last = null;
+			for (final Connection c : broadcast.getConnections()) {
+				final double current = c.getBudget();
+				maxBudget = Math.max(maxBudget, current);
+				if (last != null) {
+					unequal = last.getBudget() != current;
+				}
+				last = c;
+			}
+			broadcast.setBudget(maxBudget);
+
+			ResultUtil.addRealValue(broadcastResult, maxBudget);
+			ResultUtil.addRealValue(broadcastResult, actual);
+
+			if (unequal) {
+				for (final Connection c : broadcast.getConnections()) {
+					warning(broadcastResult, c.getConnectionInstance(),
+							"Connection " + c.getConnectionInstance().getName() + " sharing broadcast source "
+									+ broadcast.getSource().getInstanceObjectPath() + " has budget " + c.getBudget()
+									+ " KB/s; using maximum");
+				}
+			}
+		}
+
+		@Override
 		public void visitConnection(final Connection connection) {
 			final ConnectionInstance connectionInstance = connection.getConnectionInstance();
 			final Result connectionResult = ResultUtil.createResult(connectionInstance.getName(),
 					connectionInstance, ResultType.SUCCESS);
 			currentResult.getSubResults().add(connectionResult);
 
-			final double actual = getConnectionActualKBytesps(connectionInstance, dataOverheadKBytesps);
+			final double actual = getConnectionActualKBytesps(connectionInstance.getSource(), dataOverheadKBytesps);
 			connection.setActual(actual);
 
 			final double budget = GetProperties.getBandWidthBudgetInKBytesps(connectionInstance, 0.0);
@@ -291,9 +346,9 @@ public final class NewBusLoadAnalysis {
 	 * @param dataOverheadKBytesps The current data overhead from bound buses expressed in KB/s.  This is applied to
 	 * the connections message size.
 	 */
-	private static double getConnectionActualKBytesps(final ConnectionInstance ci, final double dataOverheadKBytesps) {
+	private static double getConnectionActualKBytesps(final ConnectionInstanceEnd cie,
+			final double dataOverheadKBytesps) {
 		double actualDataRate = 0;
-		final ConnectionInstanceEnd cie = ci.getSource();
 		if (cie instanceof FeatureInstance) {
 			final FeatureInstance fi = (FeatureInstance) cie;
 			final double datasize = dataOverheadKBytesps
