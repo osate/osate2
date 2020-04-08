@@ -398,6 +398,168 @@ class Issue2205Test extends XtextTest {
 	}
 
 	@Test
+	def void testBroadcast() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestBroadcast.aadl")
+
+		// instantiate
+		val cls = pkg.ownedPublicSection.ownedClassifiers
+		val sysImpl = cls.findFirst[name == "top.i"] as SystemImplementation
+		val instance = InstantiateModel.instantiate(sysImpl)
+
+		// check bus load
+		val checker = new NewBusLoadAnalysis()
+		val analysisResult = checker.invoke(null, instance)
+
+		val somResult = analysisResult.results.get(0)
+		{
+			val noBroadcastBusResult = somResult.subResults.get(0)
+			checkValues(noBroadcastBusResult, #[96.0, 64.0, 32.0, 32.0], #[])
+			val c1Result = noBroadcastBusResult.subResults.get(0)
+			checkValues(c1Result, #[8.0, 8.0], #[])
+			val c2Result = noBroadcastBusResult.subResults.get(1)
+			checkValues(c2Result, #[8.0, 8.0], #[])
+			val c3Result = noBroadcastBusResult.subResults.get(2)
+			checkValues(c3Result, #[8.0, 8.0], #[])
+			val c4Result = noBroadcastBusResult.subResults.get(3)
+			checkValues(c4Result, #[8.0, 8.0], #[])
+		}		
+		{
+			val broadcastBusResult = somResult.subResults.get(1)
+			checkValues(broadcastBusResult, #[96.0, 64.0, 16.0, 16.0], #[])
+			val c1Result = broadcastBusResult.subResults.get(0)
+			checkValues(c1Result, #[8.0, 8.0], #[])
+			val broadcastResult = broadcastBusResult.subResults.get(1)
+			checkValues(broadcastResult, #[8.0, 8.0], #[])
+			val c2Result = broadcastResult.subResults.get(0)
+			checkValues(c2Result, #[8.0, 8.0], #[])
+			val c3Result = broadcastResult.subResults.get(1)
+			checkValues(c3Result, #[8.0, 8.0], #[])
+			val c4Result = broadcastResult.subResults.get(2)
+			checkValues(c4Result, #[8.0, 8.0], #[])
+		}		
+	}
+
+	@Test
+	def void testBiggerBroadcast() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestBiggerBroadcast.aadl")
+
+		// instantiate
+		val cls = pkg.ownedPublicSection.ownedClassifiers
+		val sysImpl = cls.findFirst[name == "top.i"] as SystemImplementation
+		val instance = InstantiateModel.instantiate(sysImpl)
+
+		// check bus load
+		val checker = new NewBusLoadAnalysis()
+		val analysisResult = checker.invoke(null, instance)
+
+		val somResult = analysisResult.results.get(0)
+		{
+			val noBroadcastBusResult = somResult.subResults.get(0)
+			checkValues(noBroadcastBusResult, #[96.0, 64.0, 24.0, 24.0], #[])
+			val c1Result = noBroadcastBusResult.subResults.get(0)
+			checkValues(c1Result, #[8.0, 8.0], #[])
+			val c2Result = noBroadcastBusResult.subResults.get(1)
+			checkValues(c2Result, #[8.0, 8.0], #[])
+			val c3Result = noBroadcastBusResult.subResults.get(2)
+			checkValues(c3Result, #[8.0, 8.0], #[])
+		}		
+		{
+			val broadcastBusResult = somResult.subResults.get(1)
+			checkValues(broadcastBusResult, #[96.0, 64.0, 24.0, 24.0], #[])
+			val broadcast1Result = broadcastBusResult.subResults.get(0)
+			checkValues(broadcast1Result, #[8.0, 8.0], #[])
+			{
+				val c1Result = broadcast1Result.subResults.get(0)
+				checkValues(c1Result, #[8.0, 8.0], #[])
+				val c2Result = broadcast1Result.subResults.get(1)
+				checkValues(c2Result, #[8.0, 8.0], #[])
+				val c3Result = broadcast1Result.subResults.get(2)
+				checkValues(c3Result, #[8.0, 8.0], #[])
+			}
+			val broadcast2Result = broadcastBusResult.subResults.get(1)
+			checkValues(broadcast2Result, #[8.0, 8.0], #[])
+			{
+				val c1Result = broadcast2Result.subResults.get(0)
+				checkValues(c1Result, #[8.0, 8.0], #[])
+				val c2Result = broadcast2Result.subResults.get(1)
+				checkValues(c2Result, #[8.0, 8.0], #[])
+				val c3Result = broadcast2Result.subResults.get(2)
+				checkValues(c3Result, #[8.0, 8.0], #[])
+			}
+			val broadcast3Result = broadcastBusResult.subResults.get(2)
+			checkValues(broadcast3Result, #[8.0, 8.0], #[])
+			{
+				val c1Result = broadcast3Result.subResults.get(0)
+				checkValues(c1Result, #[8.0, 8.0], #[])
+				val c2Result = broadcast3Result.subResults.get(1)
+				checkValues(c2Result, #[8.0, 8.0], #[])
+				val c3Result = broadcast3Result.subResults.get(2)
+				checkValues(c3Result, #[8.0, 8.0], #[])
+			}
+		}		
+	}
+
+	@Test
+	def void testBiggerBroadcastWarnings() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestBiggerBroadcast_warnings.aadl")
+
+		// instantiate
+		val cls = pkg.ownedPublicSection.ownedClassifiers
+		val sysImpl = cls.findFirst[name == "top.i"] as SystemImplementation
+		val instance = InstantiateModel.instantiate(sysImpl)
+
+		// check bus load
+		val checker = new NewBusLoadAnalysis()
+		val analysisResult = checker.invoke(null, instance)
+
+		val somResult = analysisResult.results.get(0)
+		{
+			val noBroadcastBusResult = somResult.subResults.get(0)
+			checkValues(noBroadcastBusResult, #[96.0, 64.0, 24.0, 24.0], #[])
+			val c1Result = noBroadcastBusResult.subResults.get(0)
+			checkValues(c1Result, #[8.0, 8.0], #[])
+			val c2Result = noBroadcastBusResult.subResults.get(1)
+			checkValues(c2Result, #[8.0, 8.0], #[])
+			val c3Result = noBroadcastBusResult.subResults.get(2)
+			checkValues(c3Result, #[8.0, 8.0], #[])
+		}		
+		{
+			val broadcastBusResult = somResult.subResults.get(1)
+			checkValues(broadcastBusResult, #[96.0, 64.0, 40.0, 24.0], #[])
+			val broadcast1Result = broadcastBusResult.subResults.get(0)
+			checkValues(broadcast1Result, #[8.0, 8.0], #[])
+			{
+				val c1Result = broadcast1Result.subResults.get(0)
+				checkValues(c1Result, #[8.0, 8.0], #[])
+				val c2Result = broadcast1Result.subResults.get(1)
+				checkValues(c2Result, #[8.0, 8.0], #[])
+				val c3Result = broadcast1Result.subResults.get(2)
+				checkValues(c3Result, #[8.0, 8.0], #[])
+			}
+			val broadcast2Result = broadcastBusResult.subResults.get(1)
+			checkValues(broadcast2Result, #[8.0, 8.0], #[])
+			{
+				val c1Result = broadcast2Result.subResults.get(0)
+				checkValues(c1Result, #[8.0, 8.0], #[])
+				val c2Result = broadcast2Result.subResults.get(1)
+				checkValues(c2Result, #[8.0, 8.0], #[])
+				val c3Result = broadcast2Result.subResults.get(2)
+				checkValues(c3Result, #[8.0, 8.0], #[])
+			}
+			val broadcast3Result = broadcastBusResult.subResults.get(2)
+			checkValues(broadcast3Result, #[24.0, 8.0], #[warning("Connection sub3c.out1 -> sub4a.in3 sharing broadcast source top_i_Instance.sub3c.out1 has budget 8.0 KB/s; using maximum"), warning("Connection sub3c.out1 -> sub4b.in3 sharing broadcast source top_i_Instance.sub3c.out1 has budget 16.0 KB/s; using maximum"), warning("Connection sub3c.out1 -> sub4c.in3 sharing broadcast source top_i_Instance.sub3c.out1 has budget 24.0 KB/s; using maximum")])
+			{
+				val c1Result = broadcast3Result.subResults.get(0)
+				checkValues(c1Result, #[8.0, 8.0], #[])
+				val c2Result = broadcast3Result.subResults.get(1)
+				checkValues(c2Result, #[16.0, 8.0], #[])
+				val c3Result = broadcast3Result.subResults.get(2)
+				checkValues(c3Result, #[24.0, 8.0], #[])
+			}
+		}		
+	}
+
+	@Test
 	def void testComplicated() {
 		val pkg = testHelper.parseFile(PROJECT_LOCATION + "Complicated.aadl")
 
