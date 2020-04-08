@@ -197,7 +197,6 @@ public final class BusLoadModel extends ModelElement {
 		 * for each source feature.
 		 */
 		if (isBroadcast) {
-//			budgetedConnections = filterSameSourceConnections(budgetedConnections);
 			budgetedConnections = findBroadcasts(budgetedConnections, bus);
 		}
 
@@ -278,25 +277,4 @@ public final class BusLoadModel extends ModelElement {
 
 		return nonBroadcast;
 	}
-
-//	private static List<ConnectionInstance> filterSameSourceConnections(final List<ConnectionInstance> connections) {
-//		final List<ConnectionInstance> result = new ArrayList<>();
-//		for (final ConnectionInstance conni : connections) {
-//			if (!hasConnectionSource(result, conni)) {
-//				result.add(conni);
-//			}
-//		}
-//		return result;
-//	}
-//
-//	private static boolean hasConnectionSource(final List<ConnectionInstance> connections,
-//			final ConnectionInstance conni) {
-//		final ConnectionInstanceEnd src = conni.getSource();
-//		for (final ConnectionInstance connectionInstance : connections) {
-//			if (connectionInstance.getSource() == src) {
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
 }
