@@ -84,20 +84,36 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
  *           <li>values[3] = The actual usage of the bus in KB/s (the sum of the actual usages of all the bound buses and connections) (RealValue)
  *           <li>values[4] = The number of virtual buses bound to this bus (IntegerValue)
  *           <li>values[5] = The number of connections bound to this bus (IntegerValue)
+ *           <li>values[6] = The number of broadcast sources bound to this bus (IntegerValue)
  *           <li>diagnostics = Diagnostics associated with this bus.
  *           <li>subResults indexes 0 through (values[4] -1) refer to {@code Result} objects for virtual buses.
  *             <ul>
  *               <li>subResults objects for virtual buses are the same as for buses
  *             </ul>
  *           <li>subResults indexes values[4] through values[4] + values[5] - 1) refer to {@code Result} objects for connections.
- *           <li>modelElement = {@code ConnectionInstance} instance object
- *           <li>resultType = SUCCESS
- *           <li>message = The connection's name from {@link ConnectionInstance#geName()}
- *           <li>values[0] = The budget of the connection in KB/s as specified by the SEI::BandwidthBudget property (RealValue)
- *           <li>values[1] = The actual usage of the bus in KB/s as computed by the multiplying the connection's data size by the connection's message rate. This takes into
+ *             <ul>
+ *               <li>modelElement = {@code ConnectionInstance} instance object
+ *               <li>resultType = SUCCESS
+ *               <li>message = The connection's name from {@link ConnectionInstance#geName()}
+ *               <li>values[0] = The budget of the connection in KB/s as specified by the SEI::BandwidthBudget property (RealValue)
+ *               <li>values[1] = The actual usage of the bus in KB/s as computed by the multiplying the connection's data size by the connection's message rate. This takes into
  *                           account any messaging overhead by the bus hierarchy the connection is bound to. (RealValue)
- *           <li>diagnostics = Diagnostics associated with this connection
- *           <li>subResults = empty list
+ *               <li>diagnostics = Diagnostics associated with this connection
+ *               <li>subResults = empty list
+ *           </ul>
+ *           <li>subResults indexes values[4] + values[5] through values[4] + values[5] + values[6] - 1 refer to {@code Result} objects for broadcast sources.
+ *             <ul>
+ *               <li>modelElement = {@code ConnectionInstanceEnd} instance object of the feature that is the source of the broadcast
+ *               <li>resultType = SUCCESS
+ *               <li>message = "Broadcast from " + the feature's path in the model as returned by {@link ConnectionInstanceEnd#getInstanceObjectPath()}
+ *               <li>values[0] = The budget of the broadcast source in KB/s (RealValue)
+ *               <li>values[1] = The actual usage of the bus in KB/s (RealValue)
+ *               <li>diagnostics = Diagnostics associated with this broadcast source
+ *               <li>subResults = The {@code Result} objects for the connections that are part of the broadcast (share the same source)
+ *                   <ul>
+ *                       <li>Same as above
+ *                   </ul>
+ *           </ul>
  *         </ul>
  *     </ul>
  * </ul>
