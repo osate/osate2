@@ -75,6 +75,22 @@ public final class FilteringListSelectorField<T> extends Composite {
 		refresh();
 	}
 
+	/**
+	 * Sets the testing ID of the label indicating the selected value
+	 * @param value is the testing ID
+	 */
+	public void setLabelTestingId(final String value) {
+		SwtTestUtil.setTestingId(selectedLbl, value);
+	}
+
+	/**
+	 * Sets the testing ID of the button for choose button.
+	 * @param value is the testing ID
+	 */
+	public void setChooseButtonTestingId(final String value) {
+		SwtTestUtil.setTestingId(chooseBtn, value);
+	}
+
 	private void refresh() {
 		if (!this.isDisposed()) {
 			selectedLbl.setText(model.getLabel(model.getSelectedElement()));

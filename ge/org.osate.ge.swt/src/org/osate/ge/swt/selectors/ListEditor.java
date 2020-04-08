@@ -90,6 +90,14 @@ public final class ListEditor<T> extends Composite {
 		refresh();
 	}
 
+	/**
+	 * Sets the testing ID of SWT List
+	 * @param value is the testing ID
+	 */
+	public void setListTestingId(final String value) {
+		this.listViewer.setListTestingId(value);
+	}
+
 	private void refresh() {
 		if (!this.isDisposed()) {
 			setEnabled(this.isEnabled()); // Refresh enabled status

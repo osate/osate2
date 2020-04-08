@@ -50,7 +50,12 @@ import org.osate.ge.swt.selectors.SelectorModel;
  * View for editing a prototype.
  *
  */
-final class PrototypeEditor<C> extends Composite {
+public final class PrototypeEditor<C> extends Composite {
+	private static final String WIDGET_ID_PREFIX = "org.osate.ge.swt.prototypes.prototypeEditor.";
+	public static final String WIDGET_ID_CHOOSE_CLASSIFIER_BUTTON = WIDGET_ID_PREFIX + "chooseClassifier";
+	public static final String WIDGET_ID_CLASSIFIER_LABEL = WIDGET_ID_PREFIX + "classifierButton";
+	public static final String WIDGET_ID_TYPE_COMBO = WIDGET_ID_PREFIX + "type";
+
 	private final PrototypeEditorModel<C> model;
 	private final CheckboxEditor refinedEditor;
 	private final CLabel directionLabel;
@@ -167,6 +172,7 @@ final class PrototypeEditor<C> extends Composite {
 				return element.toString();
 			}
 		});
+		typeSelector.setComboTestingId(WIDGET_ID_TYPE_COMBO);
 		typeSelector
 				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER).create());
 
@@ -205,6 +211,8 @@ final class PrototypeEditor<C> extends Composite {
 				}));
 		classifierSelector
 				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER).create());
+		classifierSelector.setLabelTestingId(WIDGET_ID_CLASSIFIER_LABEL);
+		classifierSelector.setChooseButtonTestingId(WIDGET_ID_CHOOSE_CLASSIFIER_BUTTON);
 
 		//
 		// Direction

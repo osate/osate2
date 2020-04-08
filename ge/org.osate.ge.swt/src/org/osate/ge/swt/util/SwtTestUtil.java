@@ -28,12 +28,15 @@ import java.util.function.Consumer;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Widget;
 
 /**
  * Contains functions for putting together tests to interactively test single components outside the Eclipse workbench.
  *
  */
 public final class SwtTestUtil {
+	private static String AUTOMATED_SWTBOT_TESTING_KEY = "org.eclipse.swtbot.widget.key";
+
 	private SwtTestUtil() {
 	}
 
@@ -67,5 +70,24 @@ public final class SwtTestUtil {
 		final Display display = new Display();
 		runnable.run();
 		display.dispose();
+	}
+
+	/**
+	 * Assigns an identifier to a widget to allow identification during automated testing.
+	 * @param widget is the widget for which to test the id.
+	 * @param value is the id to assign.
+	 */
+	public static void setTestingId(final Widget widget, final String value) {
+		widget.setData(AUTOMATED_SWTBOT_TESTING_KEY, value);
+	}
+
+	/**
+	 * Returns the value of the id assigned to the widget for allow identification during automated testing
+	 * @param widget is the widget for which to return the id.
+	 * @return the id for the widget or null if one has not been assigned.
+	 */
+	public static String getTestingId(final Widget widget) {
+		final Object value = widget.getData(AUTOMATED_SWTBOT_TESTING_KEY);
+		return value == null ? null : value.toString();
 	}
 }

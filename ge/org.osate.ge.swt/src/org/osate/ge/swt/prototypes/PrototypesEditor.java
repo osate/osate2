@@ -43,6 +43,9 @@ import org.osate.ge.swt.util.SwtTestUtil;
  *
  */
 public final class PrototypesEditor<T, C> extends Composite {
+	private static final String WIDGET_ID_PREFIX = "org.osate.ge.swt.prototypes.prototypesEditor.";
+	public static final String WIDGET_ID_PROTOTYPE_LIST = WIDGET_ID_PREFIX + "prototypeList";
+
 	private final ListEditor<T> listView;
 	private final PrototypeEditor<C> detailsView;
 
@@ -93,6 +96,7 @@ public final class PrototypesEditor<T, C> extends Composite {
 				return model.getPrototypeLabel(prototype);
 			}
 		});
+		this.listView.setListTestingId(WIDGET_ID_PROTOTYPE_LIST);
 		this.listView
 				.setLayoutData(GridDataFactory.swtDefaults().grab(true, true).align(SWT.FILL, SWT.FILL).create());
 

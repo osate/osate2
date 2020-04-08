@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -173,12 +173,29 @@ public class UiTestUtil {
 	}
 
 	/**
+	 * Waits until the nth combo box has the specified selection
+	 */
+	public static void waitUntilComboBoxSelect(final int comboIndex, final String text) {
+		waitUntil(() -> Objects.equals(text, bot.comboBox(comboIndex).getText()),
+				"Combo selection does not match '" + text + "'");
+	}
+
+	/**
+	 * Waits until the combo box with the specified ID has the specified selection
+	 */
+	public static void waitUntilComboBoxWithIdSelect(final String id, final String text) {
+		waitUntil(() -> Objects.equals(text, bot.comboBoxWithId(id).getText()),
+				"Combo selection does not match '" + text + "'");
+	}
+
+	/**
 	 * Sets the selection of the nth combo box to the specified value.
 	 */
 	public static void setComboBoxSelection(final int index, final String value) {
 		bot.comboBox(index).setSelection(value);
 		assertComboBoxSelection("New value not valid", index, value);
 	}
+
 
 	/**
 	 * Sets the combo box with specified ID to the specified value.
@@ -195,10 +212,31 @@ public class UiTestUtil {
 	}
 
 	/**
-	 * Clicks the radio button at specified index.
+	 * Returns whether the radio button with the specified mnemonic is selected.
 	 */
-	public static void clickCheckBox(final int index) {
+	public static boolean isRadioButtonSelected(final String text) {
+		return bot.radio(text).isSelected();
+	}
+
+	/**
+	 * Clicks the check box at specified index.
+	 */
+	public static void clickCheckbox(final int index) {
 		bot.checkBox(index).click();
+	}
+
+	/**
+	 * Clicks the radio button with the specified mnemonic text
+	 */
+	public static void clickCheckbox(final String text) {
+		bot.checkBox(text).click();
+	}
+
+	/**
+	 * Returns whether check box with the specified mnemonic text is checked
+	 */
+	public static boolean isCheckboxChecked(final String text) {
+		return bot.checkBox(text).isChecked();
 	}
 
 	/**
@@ -206,6 +244,14 @@ public class UiTestUtil {
 	 */
 	public static void clickButton(final String text) {
 		final SWTBotButton btn = bot.button(text);
+		btn.click();
+	}
+
+	/**
+	 * Clicks the button which has the specified testing ID.
+	 */
+	public static void clickButtonWithId(final String id) {
+		final SWTBotButton btn = bot.buttonWithId(id);
 		btn.click();
 	}
 
@@ -244,15 +290,15 @@ public class UiTestUtil {
 	}
 
 	public static void clickTableItem(final int tableIndex, final String tableItem) {
-		bot.table().getTableItem(tableItem).click();
+		bot.table(tableIndex).getTableItem(tableItem).click();
 	}
 
 	public static void clickTableItem(final int tableIndex, final int rowIndex) {
-		bot.table().getTableItem(rowIndex).click();
+		bot.table(tableIndex).getTableItem(rowIndex).click();
 	}
 
 	public static int getNumberOfTableRows(final int tableIndex) {
-		return bot.table().rowCount();
+		return bot.table(tableIndex).rowCount();
 	}
 
 	public static void assertNumberOfTableRows(final int tableIndex, final int expectedValue) {
@@ -261,7 +307,31 @@ public class UiTestUtil {
 
 	public static void assertTableItemText(final int tableIndex, final int rowIndex,
 			final String expectedValue) {
-		assertEquals("Unexpected table item text", expectedValue, bot.table().getTableItem(rowIndex).getText());
+		assertEquals("Unexpected table item text", expectedValue,
+				bot.table(tableIndex).getTableItem(rowIndex).getText());
+	}
+
+	public static void selectListWithIdItem(final String id, final String text) {
+		bot.listWithId(id).select(text);
+	}
+
+	public static void doubleClickListItem(final int listIndex, final String text) {
+		bot.list(listIndex).doubleClick(text);
+	}
+
+	/**
+	 * Returns whether the text for a CLabel with the specified id
+	 */
+	public static String getTextForClabelWithId(final String id) {
+		return bot.clabelWithId(id).getText();
+	}
+
+	/**
+	 * Returns whether an item with the specified text is contained in the list with the specified ID.
+	 * Throws an exception if it is unable to find the tree.
+	 */
+	public static boolean doesItemExistsInListWithId(final String id, final String text) {
+		return Arrays.asList(bot.listWithId(id).getItems()).contains(text);
 	}
 
 	/**

@@ -96,6 +96,14 @@ public final class ListSelector<T> extends Composite implements SelectionDoubleC
 		return selectionDoubleClickedEventSrc;
 	}
 
+	/**
+	 * Sets the testing ID of the SWT List
+	 * @param value is the testing ID
+	 */
+	public void setListTestingId(final String value) {
+		SwtTestUtil.setTestingId(this.listViewer.getControl(), value);
+	}
+
 	private void refresh() {
 		if (!this.isDisposed()) {
 			this.listViewer.refresh();

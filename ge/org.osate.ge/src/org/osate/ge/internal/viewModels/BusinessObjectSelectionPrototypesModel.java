@@ -133,27 +133,6 @@ implements PrototypesEditorModel<EditablePrototype, Object> {
 			this.name = Objects.requireNonNull(name, "name must not be null");
 			this.prototype = Objects.requireNonNull(prototype, "prototype must not be null");
 		}
-
-		@Override
-		public int hashCode() {
-			return Objects.hash(classifierBoc, label, name, prototype);
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj) {
-				return true;
-			}
-			if (obj == null) {
-				return false;
-			}
-			if (getClass() != obj.getClass()) {
-				return false;
-			}
-			EditablePrototype other = (EditablePrototype) obj;
-			return Objects.equals(classifierBoc, other.classifierBoc) && Objects.equals(label, other.label)
-					&& Objects.equals(name, other.name) && Objects.equals(prototype, other.prototype);
-		}
 	}
 
 	public BusinessObjectSelectionPrototypesModel(final Renamer renamer,
@@ -545,32 +524,26 @@ implements PrototypesEditorModel<EditablePrototype, Object> {
 		final boolean singleSelection = this.bos.boStream(Classifier.class).limit(2).count() == 1;
 
 		// Build set of all editable prototypes..
-		final ArrayList<EditablePrototype> newPrototypes = new ArrayList<>();
+		prototypes = new ArrayList<>();
 		value.bocStream().filter(boc -> boc.getBusinessObject() instanceof Classifier).forEachOrdered(boc -> {
 			final Classifier c = (Classifier) boc.getBusinessObject();
 			final String suffix = singleSelection ? "" : " [" + c.getQualifiedName() + "]";
 			getAllPrototypes(boc.getBusinessObject()).forEach(p -> {
 				final String name = p.getName();
 				if (!Strings.isNullOrEmpty(name)) {
-					newPrototypes.add(new EditablePrototype(boc, name + suffix, name, p));
+					prototypes.add(new EditablePrototype(boc, name + suffix, name, p));
 				}
 			});
 		});
 
 		// If a prototype was previously selected, update the selection based on the previously selected prototype's same classifier BOC and name.
-		final EditablePrototype newSelectedPrototype = this.selectedPrototype == null ? null
-				: newPrototypes.stream().filter(p -> {
-					return p.classifierBoc == selectedPrototype.classifierBoc && p.name.equalsIgnoreCase(this.selectedPrototype.name);
-				}).findAny().orElse(null);
-
-
-		// Update fields and send notification if anything has changed.
-		if (!Objects.equals(prototypes, newPrototypes) || !Objects.equals(selectedPrototype, newSelectedPrototype)) {
-			prototypes = newPrototypes;
-			selectedPrototype = newSelectedPrototype;
-
-			triggerChangeEvent();
+		if (this.selectedPrototype != null) {
+			selectedPrototype = prototypes.stream().filter(p -> {
+				return p.classifierBoc == selectedPrototype.classifierBoc && p.name.equalsIgnoreCase(this.selectedPrototype.name);
+			}).findAny().orElse(null);
 		}
+
+		triggerChangeEvent();
 	}
 
 	void modifySelectedClassifier(final String label, final EditablePrototype editablePrototype,

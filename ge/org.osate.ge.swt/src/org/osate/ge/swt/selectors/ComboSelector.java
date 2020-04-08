@@ -82,6 +82,13 @@ public final class ComboSelector<T> extends Composite {
 		refresh();
 	}
 
+	/**
+	 * Sets the testing ID use to identify the combo box during testing.
+	 */
+	public void setComboTestingId(final String value) {
+		SwtTestUtil.setTestingId(comboViewer.getControl(), value);
+	}
+
 	private void refresh() {
 		if (!this.isDisposed()) {
 			this.comboViewer.refresh();

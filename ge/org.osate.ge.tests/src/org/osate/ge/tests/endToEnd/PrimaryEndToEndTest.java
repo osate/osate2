@@ -901,7 +901,7 @@ public class PrimaryEndToEndTest {
 				getClassifierRelativeReference("robotic_system.specialized")));
 
 		// Set specialized_app refined
-		clickCheckBoxInPropertiesView(integratedDiagram, "AADL", 0,
+		clickCheckboxInPropertiesView(integratedDiagram, "AADL", 0,
 				element(getPackageRelativeReference(INTEGRATED),
 						getClassifierRelativeReference("robotic_system.specialized"),
 						getSubcomponentRelativeReference("specialized_app")));
