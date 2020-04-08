@@ -93,7 +93,6 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 *
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return InstancePackage.Literals.INSTANCE_OBJECT;
 	}
@@ -116,7 +115,6 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<PropertyAssociation> getOwnedPropertyAssociations() {
 		if (ownedPropertyAssociations == null) {
 			ownedPropertyAssociations = new EObjectContainmentEList<PropertyAssociation>(
@@ -131,7 +129,6 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public PropertyAssociation createOwnedPropertyAssociation() {
 		PropertyAssociationInstance newOwnedPropertyAssociation = (PropertyAssociationInstance) create(
 				InstancePackage.Literals.PROPERTY_ASSOCIATION_INSTANCE);
@@ -153,7 +150,6 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE:
@@ -169,7 +165,6 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE:
@@ -184,7 +179,6 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE:
@@ -200,7 +194,6 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE:
@@ -215,7 +208,6 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case InstancePackage.INSTANCE_OBJECT__ANNEX_INSTANCE:
@@ -284,8 +276,6 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 		return path.length() == 0 ? localname : path + "." + localname;
 	}
-
-	@Override
 	public void getPropertyValueInternal(final Property property, final PropertyAcc pas,
 			final boolean fromInstanceSlaveCall, final boolean all) throws InvalidModelException {
 		/*
@@ -387,7 +377,6 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * org.osate.aadl2.impl.NamedElementImpl#acceptsProperty(edu.cmu.
 	 * sei.aadl.aadl2.Property)
 	 */
-	@Override
 	public boolean acceptsProperty(Property property) {
 		// OsateDebug.osateDebug ("[InstanceObjectImpl] property=" + property);
 

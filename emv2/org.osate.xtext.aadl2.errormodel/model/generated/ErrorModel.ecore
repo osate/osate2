@@ -278,8 +278,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//ConditionExpression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="detectionReportingPort"
-        eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//TriggerPort"/>
+        eType="#//ReportingPortReference" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="errorCode" eType="#//ErrorCodeValue"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ReportingPortReference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="element" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="previous" eType="#//ReportingPortReference"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorCodeValue" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Element">
