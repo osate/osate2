@@ -102,7 +102,7 @@ public class InstantiationPreferencePage extends FieldEditorPreferencePage imple
 		addField(maxField);
 
 		final BooleanFieldEditor alwaysShowField = new BooleanFieldEditor(
-				OsateCorePlugin.ALWAYS_SHOW_INSTANTIATION_RESULTS,
+				OsateCorePlugin.getAlwaysShowInstantiationResultsPreferenceName(),
 				"Always show instantiation results dialog, even when successful", getFieldEditorParent());
 		addField(alwaysShowField);
 	}
