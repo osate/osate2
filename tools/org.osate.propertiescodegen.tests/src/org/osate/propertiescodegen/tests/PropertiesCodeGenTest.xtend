@@ -179,201 +179,51 @@ class PropertiesCodeGenTest {
 		val integerOwnedUnits = '''
 			package ps1;
 			
-			import java.util.Objects;
-			
 			import org.osate.aadl2.AbstractNamedValue;
-			import org.osate.aadl2.IntegerLiteral;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
 			
-			public class IntegerOwnedUnits {
-				private final long value;
-				private final Units unit;
+			public enum IntegerOwnedUnits {
+				MM(1.0, "mm"),
+				CM(10.0, "cm"),
+				M(1000.0, "m");
 				
-				public IntegerOwnedUnits(PropertyExpression propertyExpression) {
-					IntegerLiteral numberValue = (IntegerLiteral) propertyExpression;
-					value = numberValue.getValue();
-					unit = Units.valueOf(numberValue.getUnit().getName().toUpperCase());
+				private final double factorToBase;
+				private final String originalName;
+				
+				private IntegerOwnedUnits(double factorToBase, String originalName) {
+					this.factorToBase = factorToBase;
+					this.originalName = originalName;
 				}
 				
-				public long getValue() {
-					return value;
+				public static IntegerOwnedUnits valueOf(PropertyExpression propertyExpression) {
+					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
-				public Units getUnit() {
-					return unit;
+				public double getFactorToBase() {
+					return factorToBase;
 				}
 				
-				@Override
-				public int hashCode() {
-					return Objects.hash(value, unit);
-				}
-				
-				@Override
-				public boolean equals(Object obj) {
-					if (this == obj) {
-						return true;
-					}
-					if (!(obj instanceof IntegerOwnedUnits)) {
-						return false;
-					}
-					IntegerOwnedUnits other = (IntegerOwnedUnits) obj;
-					return value == other.value && unit == other.unit;
+				public double getFactorTo(IntegerOwnedUnits target) {
+					return factorToBase / target.factorToBase;
 				}
 				
 				@Override
 				public String toString() {
-					return value + unit.toString();
-				}
-				
-				public enum Units {
-					MM(1.0, "mm"),
-					CM(10.0, "cm"),
-					M(1000.0, "m");
-					
-					private final double factorToBase;
-					private final String originalName;
-					
-					private Units(double factorToBase, String originalName) {
-						this.factorToBase = factorToBase;
-						this.originalName = originalName;
-					}
-					
-					public static Units valueOf(PropertyExpression propertyExpression) {
-						AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
-						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
-					}
-					
-					public double getFactorToBase() {
-						return factorToBase;
-					}
-					
-					public double getFactorTo(Units target) {
-						return factorToBase / target.factorToBase;
-					}
-					
-					@Override
-					public String toString() {
-						return originalName;
-					}
-				}
-			}
-		'''
-		val integerReferencedUnitsLocal = '''
-			package ps1;
-			
-			import java.util.Objects;
-			
-			import org.osate.aadl2.IntegerLiteral;
-			import org.osate.aadl2.PropertyExpression;
-			
-			public class IntegerReferencedUnitsLocal {
-				private final long value;
-				private final Time unit;
-				
-				public IntegerReferencedUnitsLocal(PropertyExpression propertyExpression) {
-					IntegerLiteral numberValue = (IntegerLiteral) propertyExpression;
-					value = numberValue.getValue();
-					unit = Time.valueOf(numberValue.getUnit().getName().toUpperCase());
-				}
-				
-				public long getValue() {
-					return value;
-				}
-				
-				public Time getUnit() {
-					return unit;
-				}
-				
-				@Override
-				public int hashCode() {
-					return Objects.hash(value, unit);
-				}
-				
-				@Override
-				public boolean equals(Object obj) {
-					if (this == obj) {
-						return true;
-					}
-					if (!(obj instanceof IntegerReferencedUnitsLocal)) {
-						return false;
-					}
-					IntegerReferencedUnitsLocal other = (IntegerReferencedUnitsLocal) obj;
-					return value == other.value && unit == other.unit;
-				}
-				
-				@Override
-				public String toString() {
-					return value + unit.toString();
-				}
-			}
-		'''
-		val integerReferencedUnitsOtherFile = '''
-			package ps1;
-			
-			import java.util.Objects;
-			
-			import org.osate.aadl2.IntegerLiteral;
-			import org.osate.aadl2.PropertyExpression;
-			
-			import ps2.Mass;
-			
-			public class IntegerReferencedUnitsOtherFile {
-				private final long value;
-				private final Mass unit;
-				
-				public IntegerReferencedUnitsOtherFile(PropertyExpression propertyExpression) {
-					IntegerLiteral numberValue = (IntegerLiteral) propertyExpression;
-					value = numberValue.getValue();
-					unit = Mass.valueOf(numberValue.getUnit().getName().toUpperCase());
-				}
-				
-				public long getValue() {
-					return value;
-				}
-				
-				public Mass getUnit() {
-					return unit;
-				}
-				
-				@Override
-				public int hashCode() {
-					return Objects.hash(value, unit);
-				}
-				
-				@Override
-				public boolean equals(Object obj) {
-					if (this == obj) {
-						return true;
-					}
-					if (!(obj instanceof IntegerReferencedUnitsOtherFile)) {
-						return false;
-					}
-					IntegerReferencedUnitsOtherFile other = (IntegerReferencedUnitsOtherFile) obj;
-					return value == other.value && unit == other.unit;
-				}
-				
-				@Override
-				public String toString() {
-					return value + unit.toString();
+					return originalName;
 				}
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(ps1, ps2))
-		assertEquals(4, results.size)
+		assertEquals(2, results.size)
 		
 		assertEquals("Time.java", results.get(0).fileName)
 		assertEquals(time.toString, results.get(0).contents)
 		
 		assertEquals("IntegerOwnedUnits.java", results.get(1).fileName)
 		assertEquals(integerOwnedUnits.toString, results.get(1).contents)
-		
-		assertEquals("IntegerReferencedUnitsLocal.java", results.get(2).fileName)
-		assertEquals(integerReferencedUnitsLocal.toString, results.get(2).contents)
-		
-		assertEquals("IntegerReferencedUnitsOtherFile.java", results.get(3).fileName)
-		assertEquals(integerReferencedUnitsOtherFile.toString, results.get(3).contents)
 	}
 	
 	@Test
@@ -439,200 +289,50 @@ class PropertiesCodeGenTest {
 		val realOwnedUnits = '''
 			package ps1;
 			
-			import java.util.Objects;
-			
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
-			import org.osate.aadl2.RealLiteral;
 			import org.osate.aadl2.UnitLiteral;
 			
-			public class RealOwnedUnits {
-				private final double value;
-				private final Units unit;
+			public enum RealOwnedUnits {
+				ML(1.0, "ml"),
+				CL(10.0, "cl"),
+				L(1000.0, "l");
 				
-				public RealOwnedUnits(PropertyExpression propertyExpression) {
-					RealLiteral numberValue = (RealLiteral) propertyExpression;
-					value = numberValue.getValue();
-					unit = Units.valueOf(numberValue.getUnit().getName().toUpperCase());
+				private final double factorToBase;
+				private final String originalName;
+				
+				private RealOwnedUnits(double factorToBase, String originalName) {
+					this.factorToBase = factorToBase;
+					this.originalName = originalName;
 				}
 				
-				public double getValue() {
-					return value;
+				public static RealOwnedUnits valueOf(PropertyExpression propertyExpression) {
+					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
-				public Units getUnit() {
-					return unit;
+				public double getFactorToBase() {
+					return factorToBase;
 				}
 				
-				@Override
-				public int hashCode() {
-					return Objects.hash(value, unit);
-				}
-				
-				@Override
-				public boolean equals(Object obj) {
-					if (this == obj) {
-						return true;
-					}
-					if (!(obj instanceof RealOwnedUnits)) {
-						return false;
-					}
-					RealOwnedUnits other = (RealOwnedUnits) obj;
-					return Double.doubleToLongBits(value) == Double.doubleToLongBits(other.value) && unit == other.unit;
+				public double getFactorTo(RealOwnedUnits target) {
+					return factorToBase / target.factorToBase;
 				}
 				
 				@Override
 				public String toString() {
-					return value + unit.toString();
-				}
-				
-				public enum Units {
-					ML(1.0, "ml"),
-					CL(10.0, "cl"),
-					L(1000.0, "l");
-					
-					private final double factorToBase;
-					private final String originalName;
-					
-					private Units(double factorToBase, String originalName) {
-						this.factorToBase = factorToBase;
-						this.originalName = originalName;
-					}
-					
-					public static Units valueOf(PropertyExpression propertyExpression) {
-						AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
-						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
-					}
-					
-					public double getFactorToBase() {
-						return factorToBase;
-					}
-					
-					public double getFactorTo(Units target) {
-						return factorToBase / target.factorToBase;
-					}
-					
-					@Override
-					public String toString() {
-						return originalName;
-					}
-				}
-			}
-		'''
-		val realReferencedUnitsLocal = '''
-			package ps1;
-			
-			import java.util.Objects;
-			
-			import org.osate.aadl2.PropertyExpression;
-			import org.osate.aadl2.RealLiteral;
-			
-			public class RealReferencedUnitsLocal {
-				private final double value;
-				private final Time unit;
-				
-				public RealReferencedUnitsLocal(PropertyExpression propertyExpression) {
-					RealLiteral numberValue = (RealLiteral) propertyExpression;
-					value = numberValue.getValue();
-					unit = Time.valueOf(numberValue.getUnit().getName().toUpperCase());
-				}
-				
-				public double getValue() {
-					return value;
-				}
-				
-				public Time getUnit() {
-					return unit;
-				}
-				
-				@Override
-				public int hashCode() {
-					return Objects.hash(value, unit);
-				}
-				
-				@Override
-				public boolean equals(Object obj) {
-					if (this == obj) {
-						return true;
-					}
-					if (!(obj instanceof RealReferencedUnitsLocal)) {
-						return false;
-					}
-					RealReferencedUnitsLocal other = (RealReferencedUnitsLocal) obj;
-					return Double.doubleToLongBits(value) == Double.doubleToLongBits(other.value) && unit == other.unit;
-				}
-				
-				@Override
-				public String toString() {
-					return value + unit.toString();
-				}
-			}
-		'''
-		val realReferencedUnitsOtherFile = '''
-			package ps1;
-			
-			import java.util.Objects;
-			
-			import org.osate.aadl2.PropertyExpression;
-			import org.osate.aadl2.RealLiteral;
-			
-			import ps2.Mass;
-			
-			public class RealReferencedUnitsOtherFile {
-				private final double value;
-				private final Mass unit;
-				
-				public RealReferencedUnitsOtherFile(PropertyExpression propertyExpression) {
-					RealLiteral numberValue = (RealLiteral) propertyExpression;
-					value = numberValue.getValue();
-					unit = Mass.valueOf(numberValue.getUnit().getName().toUpperCase());
-				}
-				
-				public double getValue() {
-					return value;
-				}
-				
-				public Mass getUnit() {
-					return unit;
-				}
-				
-				@Override
-				public int hashCode() {
-					return Objects.hash(value, unit);
-				}
-				
-				@Override
-				public boolean equals(Object obj) {
-					if (this == obj) {
-						return true;
-					}
-					if (!(obj instanceof RealReferencedUnitsOtherFile)) {
-						return false;
-					}
-					RealReferencedUnitsOtherFile other = (RealReferencedUnitsOtherFile) obj;
-					return Double.doubleToLongBits(value) == Double.doubleToLongBits(other.value) && unit == other.unit;
-				}
-				
-				@Override
-				public String toString() {
-					return value + unit.toString();
+					return originalName;
 				}
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(ps1, ps2))
-		assertEquals(4, results.size)
+		assertEquals(2, results.size)
 		
 		assertEquals("Time.java", results.get(0).fileName)
 		assertEquals(time.toString, results.get(0).contents)
 		
 		assertEquals("RealOwnedUnits.java", results.get(1).fileName)
 		assertEquals(realOwnedUnits.toString, results.get(1).contents)
-		
-		assertEquals("RealReferencedUnitsLocal.java", results.get(2).fileName)
-		assertEquals(realReferencedUnitsLocal.toString, results.get(2).contents)
-		
-		assertEquals("RealReferencedUnitsOtherFile.java", results.get(3).fileName)
-		assertEquals(realReferencedUnitsOtherFile.toString, results.get(3).contents)
 	}
 }
