@@ -44,7 +44,7 @@ The analysis finds all the instance models (`.aaxl` files) in the selected items
 
 ## Using the Analysis
 
-For each bus component, the analysis finds each virtual bus and connection bound to the bus.  Virtual buses are recursively explored to find all the virtual buses and connections bound to them.  Analysis checks that capacity of each bus is sufficient for the data requirements for all the bound virtual buses and connections.  This check is recursively applies to all the bound virtual buses.  The specifics of this analysis are elaborated in the following subsections.
+For each bus component, the analysis finds each virtual bus and connection bound to the bus.  Virtual buses are recursively explored to find all the virtual buses and connections bound to them.  Analysis checks that the capacity of each bus is sufficient for the data requirements for all the bound virtual buses and connections.  This check  recursively applies to all the bound virtual buses.  The specifics of this analysis are elaborated in the following subsections.
 
 ### Specifying Bindings
 
@@ -64,7 +64,7 @@ A virtual bus can be bound to a bus or another virtual bus in two ways:
 
 A bus or virtual bus can be marked as supporting broadcast communication by associating `true` with the property `SEI::Broadcast_Protocol` on the component.  When this is the case, all the connections bound to the bus/virtual bus that share the same source feature instance are merged into a single communication.  That is, analysis acts as if a single message is sent over all the connections simultaneously, instead of counting a single message for connection.  
 
-When a bus/virtual bus supports broadcasting, analysis creates a "broadcast group" for each set of bound connections that share a source feature.  In what follows connections are considered separately from broadcast groups.  That is, the connections in a broadcast group are replaced by the single broadcast group for analysis purposes.  The treatment of broadcast groups is further elaborated in the following sections.
+When a bus/virtual bus supports broadcasting, analysis creates a "broadcast group" for each set of bound connections that share a source feature.  In what follows, connections are considered separately from broadcast groups.  That is, the connections in a broadcast group are replaced by the single broadcast group for analysis purposes.  The treatment of broadcast groups is further elaborated in the following sections.
 
 ### Specifying Budget and Capacity
 
@@ -72,8 +72,8 @@ Every connection is expected to declare its bandwidth budget via the `SEI::BandW
 
 Every bus and virtual bus is expected to
 
-* declare its bandwidth budget via the `SEI::BandWidthBudget` property
-* declare its bandwidth capacity via the `SEI::BandWidthCapacity` property
+* Declare its bandwidth budget via the `SEI::BandWidthBudget` property.
+* Declare its bandwidth capacity via the `SEI::BandWidthCapacity` property.
 
 The _capacity_ represents the limit of how much data the bus/virtual bus is capable of carrying.  The _budget_ represents the maximum amount of data the connection/bus/virtual bus is intended to carry.  The purpose of analysis is to determine the _actual_ amount of data carried by each connection/bus/virtual bus.  Ideally, we should have
 
@@ -84,11 +84,11 @@ The _actual_ data rate is discussed in more detail in the next section.
 
 The _budget_ for a broadcast group is the maximum of the budgets of the connections in the group.  (Ideally, all the connections have the same budget in which case this is a trivial operation.)
 
-For each bus/virtual bus, the _total budget_ is computed.  This is the sum of
+For each bus/virtual bus, the _required budget_ is computed.  This is the sum of
 
 1. The _budget_ of each connection bound to the bus/virtual bus.
 2. The _budget_ of each broadcast group in a bus/virtual bus.  (Remember, the connections in a broadcast group are not counted in the list of connections bound to the bus/virtual bus.)
-3. The _total budget_ of each virtual bus bound to the bus/virtual bus.
+3. The _required budget_ of each virtual bus bound to the bus/virtual bus.
 
 (This is a straightforward bottom-up calculation.)
 
@@ -101,19 +101,218 @@ Analysis produces a **warning** when
 Analysis produces an **error** when
 
 * _budget_ > _capacity_ for a bus/virtual bus
-* _total budget_ > _budget_ for a bus/virtual bus   
+* _required budget_ > _budget_ for a bus/virtual bus   
 
-### Calculating the _actual_ data usage
+### Calculating the _Actual_ Data Usage
 
-#### Data Overhead
+As stated above, the purpose this analysis to determine the _actual_ amount of data carried by each connection/bus/virtual bus.  This is computed bottom-up from the connections/broadcast groups through the buses they are bound to.  The data volume is determined from values bound to properties on the connections and the features used as connection sources.
+
+#### Specifying Connection Data Usage
+
+There are two components to specifying the data usage of a connection:
+
+1. The size of each message sent over a connection
+2. The rate at which message are sent over a connection
+
+The product of these values determines the data rate requirements of the connection.
+
+For each connection, the message size is determined by the source of the connection.  The value associated with the `Memory::Data_Size` property is the preferred way to specify this.  (This association may be inherited from the data classifier named in the feature.)  If no value is found for the `Data_Size` property, then the `Memory::Source_Data_Size` property association is used.  Otherwise the value 0 is used.
+
+For each connection, the preferred way to specify the data rate is via the `Communication_Properties::Output_Rate` property on the connection's source.  However, for backwards compatibility reasons, the data rate is retrieved by checking property associations in the following manner:
+
+1. The source's `SEI::Data_Rate` property.
+2. The source's `SEI::Message_Rate` property.
+3. The source's `Communication_Properties::Output_Rate` property.
+4. The `Timing_Properties::Period` property of the source's containing classifier.
+
+Analysis produces an **error** when
+
+* `actual` > `budget` for a connection.
+
+##### Data Overhead
+
+The size of each message is additionally influenced by the data overhead of bus and virtual the connection is (recursively) bound to.  The data overhead of each such bus is added to the connection's message size.  
+
+For each bus/virtual bus, the data overhead is determined by the component's property associations.  The value associated with the `Memory::Data_Size` property is the preferred way to specify this.  If no value is found for the `Data_Size` property, then the `Memory::Source_Data_Size` property association is used.  Otherwise the value 0 is used.
+
+#### Broadcast Group Data Usage
+
+A broadcast group is associated with a feature that is the source of the broadcast.  The _actual_ data usage of
+the broadcast group is computed in the same manner as a connection from that data source.
+
+####  Bus/Virtual Bus Data Usage
+
+The _actual_ data usage for a bus/virtual bus is the sum of
+
+1. The _actual_ data usage of each connection bound to the bus/virtual bus.
+2. The _actual_ data usage of each broadcast group in a bus/virtual.
+3. The _actual_ data usage of each virtual bus bound to the bus/virtual bus.
+
+(This is a straightforward bottom-up calculation.)
+
+Analysis produces an **error** when
+
+* `actual` > `capacity` for a bus/virtual bus.
 
 ## The CSV File
+
+For each analyzed model a comma-separated-values (`.csv`) file is generated in the `reports/BusLoad` folder.  The file has the same name as the model file, but with `__BusLoad` appended to the end.
+
+The content is organized in a top-down manner, sorted in the following order
+
+1. System operation modes
+2. Physical buses
+3. The virtual buses, broadcast groups, and connections bound to that bus, with virtual buses and broadcast groups being recursively output.
+
+The output follows the general format, that for each system operation mode/bus/virtual bus/broadcast group, first a summary of the data (_capacity_, _budget_, _required budget_, and _actual_) for that level is displayed in tabular form, and then particular contained items are recursively visited.
+
+Any warnings or errors associated with a bus/virtual bus/connection are output after the summary information for that item.
+
+## Example
+
+Here we analyze the system instance made from instantiating the classifier `Example::top.i` :
+
+    package Example
+        public
+            with SEI;
+    
+        -- Some basics
+    
+        data D8
+            properties
+                Data_Size => 8 Bytes;
+        end D8;
+	
+        -- buses
+    
+        bus MyBus
+            properties
+                Data_Size => 8 Bytes;
+                SEI::BandWidthBudget => 512.0 KBytesps;
+                SEI::BandWidthCapacity => 768.0 KBytesps;
+        end MyBus;
+
+        virtual bus MyVB1
+            properties
+                Data_Size => 16 Bytes; 
+                SEI::BandWidthBudget => 384.0 KBytesps;
+                SEI::BandWidthCapacity => 512.0 KBytesps;
+        end MyVB1;
+    
+        virtual bus MyVB2
+            properties
+                Data_Size => 24 Bytes; 
+                SEI::BandWidthBudget => 256.0 KBytesps;
+                SEI::BandWidthCapacity => 384.0 KBytesps;
+        end MyVB2;
+
+        virtual bus MyVB3
+            modes
+                z1: initial mode;
+                z2: mode;
+            properties
+		    	Data_Size => 32 Bytes in modes (z1), 64 Bytes in modes (z2);
+			    SEI::BandWidthBudget => 128.0 KBytesps;
+            SEI::BandWidthCapacity => 256.0 KBytesps;
+        end MyVB3;
+    
+        system S1
+            features
+                out1: out data port D8;
+                out2: out data port D8;
+                out3: out data port D8;
+                out4: out data port D8;
+        end S1;
+    
+        system S2
+            features
+                in1: in data port D8;
+                in2: in data port D8;
+                in3: in data port D8;
+                in4: in data port D8;
+        end S2;
+
+        -- assembled system
+	
+        system top
+        end top;
+	
+        system implementation top.i
+            subcomponents
+                sub1: system s1;
+                sub2: system s2;
+                theBus: bus MyBus;
+                VB1: virtual bus MyVB1;
+                VB2: virtual bus MyVB2;
+                VB3: virtual bus MyVB3;
+            connections
+                conn1: port sub1.out1 -> sub2.in1 {
+                    Actual_Connection_Binding => (reference (theBus));
+                    SEI::BandWidthBudget => 20.0 KBytesps;
+                };
+                conn2: port sub1.out2 -> sub2.in2 {
+                    Actual_Connection_Binding => (reference (VB1));
+                    SEI::BandWidthBudget => 40.0 KBytesps;
+                };
+                conn3: port sub1.out3 -> sub2.in3 {
+                    Actual_Connection_Binding => (reference (VB2));
+                    SEI::BandWidthBudget => 64.0 KBytesps;
+                };
+                conn4: port sub1.out4 -> sub2.in4 {
+                    Actual_Connection_Binding => (reference (VB3));
+                    SEI::BandWidthBudget => 96.0 KBytesps;
+                };
+            properties
+                -- Bind the remaining virtual buses
+                Actual_Connection_Binding => (reference (theBus)) applies to vb1;			
+                Actual_Connection_Binding => (reference (vb1)) applies to vb2;			
+                Actual_Connection_Binding => (reference (vb2)) applies to vb3;			
+			
+                -- Communication rates
+                Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub1.out1;
+                Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub1.out2;
+                Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub1.out3;
+                Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub1.out4;
+        end top.i;
+    end Example;
+
+
+The system `top.i` has two subsystems that communicate across four connections.  There is one physical bus, and three layers of virtual buses.  Analysis operates over the following communication model:
+
+* Bus `theBus`
+
+    * Connection `conn1`
+    * Virtual bus `VB1`
+    
+	    * Connection `conn2`
+	    * Virtual bus `VB2`
+	    
+	        * Connection `conn3`
+	        * Virtual bus `VB4`
+	        
+	            * Connection `conn4`
+	            
+In addition, the bus `VB3` (from classifier `MyVB3`) has two modes, giving the overall system instance two system operation modes.
+
+Analysis gives a single error on the fourth connection in the system operation mode `(VB3.z2)`.  This error marker is visible in the `Problems` view:
+
+![Screen shot of OSATE after analysis.](images/OSATE_problems.png)
+
+The image below shows output file `Example_top_i_Instance__BusLoad.csv` opened in Excel.  Note how the output order follows the structure of communication model above.  
+
+![Output file opened in Excel.](images/Excel.png)
 
 ## Invoking Programmatically
 
 The analysis can be invoked programmatically by other tools by calling the method
-`AnalysisResult invoke(IProgressMonitor, SystemInstance)` on an instance of the class `NewBusLoadAnalysis` in the
-package `org.osate.analysis.resource.budgets.busload`.  This is found in the plug-in `org.osate.analysis.resource.budgets`.  As the signature indicates, the method takes a possibly-`null` progress monitor, and the `SystemInstance` object of the model to analyze.  All the system operation modes of the model are analyzed.   
+
+        AnalysisResult invoke(IProgressMonitor, SystemInstance)
+
+on an instance of the class `NewBusLoadAnalysis` in the package `org.osate.analysis.resource.budgets.busload`.  This is found in the plug-in `org.osate.analysis.resource.budgets`.
+
+As the signature indicates, the method takes a possibly-`null` progress monitor, and the `SystemInstance` object of the model to analyze.  All the system operation modes of the model are analyzed.
+
+A new instance of the class `NewBusLoadAnalysis` should be used for each system instance.   
 
 ### Result format
 
