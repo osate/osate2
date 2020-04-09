@@ -10,7 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
-/**
+/*
  * Represents a single group in the palette.
  *
  */
@@ -20,12 +20,12 @@ class PaletteGroup<G, I> extends Region {
 	public final ArrayList<Button> buttonList = new ArrayList<Button>();
 
 	public PaletteGroup(final PaletteModel<G, I> model, final G groupModel) {
-		// TODO: Populate contents based in a manner similar to what is currently in Palette
 
 		VBox buttonBox = new VBox();
 		buttonBox.setFillWidth(true);
 
 		Button groupButton = new Button(model.getGroupLabel(groupModel));
+		groupButton.minWidthProperty().bind(buttonBox.widthProperty());
 		buttonList.add(groupButton);
 		groupButton.setGraphic(new ImageView(model.getGroupIcon(groupModel)));
 		groupButton.setOnAction(e -> {
