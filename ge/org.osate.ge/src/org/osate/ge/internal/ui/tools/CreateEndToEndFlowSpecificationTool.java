@@ -30,6 +30,8 @@ import java.util.Optional;
 
 import javax.inject.Named;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -50,7 +52,11 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.xtext.linking.ILinkingDiagnosticMessageProvider;
+import org.eclipse.xtext.linking.impl.LinkingHelper;
+import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.util.Strings;
+import org.eclipse.xtext.util.Triple;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentImplementation;
@@ -223,10 +229,8 @@ public class CreateEndToEndFlowSpecificationTool {
 	 */
 	private boolean isValidFirstElement(final Element selectedEle, final Context context) {
 		return selectedEle instanceof FlowSpecification
-				&& ((FlowSpecification) selectedEle).getKind() == FlowKind.SOURCE
-				&& context instanceof Subcomponent;
+				&& ((FlowSpecification) selectedEle).getKind() == FlowKind.SOURCE && context instanceof Subcomponent;
 	}
-
 
 	private Element getRefinedElement(final Element ce) {
 		if (ce instanceof RefinableElement) {
@@ -386,6 +390,8 @@ public class CreateEndToEndFlowSpecificationTool {
 			BusinessObjectContext tmp = boc.getParent();
 			while (tmp != null) {
 				if (tmp.getBusinessObject() instanceof ComponentImplementation) {
+					// TODO
+					System.err.println("SHOULD NOT BE HERE TODO REMOVE");
 					return Optional.of((ComponentImplementation) tmp.getBusinessObject());
 				} else if (tmp.getBusinessObject() instanceof Subcomponent) {
 					return Optional.ofNullable(((Subcomponent) tmp.getBusinessObject()).getComponentImplementation());
@@ -403,17 +409,47 @@ public class CreateEndToEndFlowSpecificationTool {
 			final Optional<ComponentImplementation> optCi = getOwnerComponentImplementation();
 			if (optCi.isPresent()) {
 				final ComponentImplementation ci = optCi.get();
-				return ToolUtil.isValidModification(ci, (testResourceSet) -> {
+				return ToolUtil.isValidModification(ci, eTEFlow, (testResourceSet) -> {
 					// Make modification with test resource
 					final ComponentImplementation objectToModify = (ComponentImplementation) testResourceSet
 							.getEObject(EcoreUtil.getURI(ci), true);
-					objectToModify.setNoFlows(false);
+
 					objectToModify.getOwnedEndToEndFlows().add(eTEFlow);
+					objectToModify.setNoFlows(false);
+
 					return objectToModify;
 				});
 			}
 
 			return false;
+		}
+
+		protected class DiagnosticMessageContext
+		implements ILinkingDiagnosticMessageProvider.ILinkingDiagnosticContext {
+
+			private final Triple<EObject, EReference, INode> triple;
+			private final LinkingHelper linkingHelper;
+
+			protected DiagnosticMessageContext(Triple<EObject, EReference, INode> triple, LinkingHelper helper) {
+				this.triple = triple;
+				this.linkingHelper = helper;
+			}
+
+			@Override
+			public EObject getContext() {
+				return triple.getFirst();
+			}
+
+			@Override
+			public EReference getReference() {
+				return triple.getSecond();
+			}
+
+			@Override
+			public String getLinkText() {
+				return linkingHelper.getCrossRefNodeAsString(triple.getThird(), true);
+			}
+
 		}
 
 		private void updateWidgets() {
@@ -455,7 +491,7 @@ public class CreateEndToEndFlowSpecificationTool {
 			if ((eTEFlow.getAllFlowSegments().size() == 0 && selectedEle instanceof FlowSpecification)) {
 				return isValidFirstElement(selectedEle, context);
 			} else if (selectedEle instanceof ModeFeature) {
-				return context == null;
+				return true;
 			} else {
 				final Element prevEle = getRefinedElement(getPreviousSegmentElement());
 				if (prevEle != null) {

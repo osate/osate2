@@ -468,7 +468,7 @@ public class CreateFlowImplementationTool {
 			final Optional<ComponentImplementation> optCi = getFlowComponentImplementation(getOwnerBoc().orElse(null));
 			if (optCi.isPresent()) {
 				final ComponentImplementation ci = optCi.get();
-				return ToolUtil.isValidModification(ci, (testResourceSet) -> {
+				return ToolUtil.isValidModification(ci, fi, (testResourceSet) -> {
 					final ComponentImplementation objectToModify = (ComponentImplementation) testResourceSet
 							.getEObject(EcoreUtil.getURI(ci), true);
 					objectToModify.setNoFlows(false);

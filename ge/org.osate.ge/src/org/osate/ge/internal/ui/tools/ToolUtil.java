@@ -35,6 +35,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.Diagnostician;
+import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.osate.aadl2.ComponentImplementation;
@@ -102,19 +103,20 @@ public class ToolUtil {
 	 * @param getModifiedObject is the modification to perform on the eObject
 	 * @return whether the modification is valid
 	 */
-	public static boolean isValidModification(final EObject eObject,
+	public static boolean isValidModification(final EObject eObject, final EObject flow,
 			final Function<ResourceSet, EObject> getModifiedObject) {
 		final IProject project = ProjectUtil.getProjectForBoOrThrow(eObject);
 		final ResourceSet testResourceSet = ProjectUtil.getLiveResourceSet(project);
 		final XtextResource testResource = getXtextResource(testResourceSet, eObject.eResource().getURI());
 		final EObject modifiedObject = getModifiedObject.apply(testResourceSet);
+		final LazyLinkingResource resource = (LazyLinkingResource) testResource;
 
 		final Optional<String> serializedSrc = getSerializedSource(modifiedObject);
 		if (!serializedSrc.isPresent()) {
 			return false;
 		}
 
-		loadResource(testResource, serializedSrc.get());
+		loadResource(resource, serializedSrc.get());
 
 		if (testResource.validateConcreteSyntax().size() > 0) {
 			return false;
