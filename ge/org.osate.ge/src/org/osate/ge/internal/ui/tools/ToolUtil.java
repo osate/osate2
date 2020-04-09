@@ -35,11 +35,13 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.Diagnostician;
-import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Context;
+import org.osate.aadl2.EndToEndFlow;
+import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.util.ProjectUtil;
@@ -103,29 +105,62 @@ public class ToolUtil {
 	 * @param getModifiedObject is the modification to perform on the eObject
 	 * @return whether the modification is valid
 	 */
-	public static boolean isValidModification(final EObject eObject, final EObject flow,
+	public static boolean isValidModification(final EObject eObject, final EObject UNUSEDTODO,
 			final Function<ResourceSet, EObject> getModifiedObject) {
 		final IProject project = ProjectUtil.getProjectForBoOrThrow(eObject);
 		final ResourceSet testResourceSet = ProjectUtil.getLiveResourceSet(project);
 		final XtextResource testResource = getXtextResource(testResourceSet, eObject.eResource().getURI());
 		final EObject modifiedObject = getModifiedObject.apply(testResourceSet);
-		final LazyLinkingResource resource = (LazyLinkingResource) testResource;
+		// final LazyLinkingResource resource = (LazyLinkingResource) testResource;
 
 		final Optional<String> serializedSrc = getSerializedSource(modifiedObject);
 		if (!serializedSrc.isPresent()) {
 			return false;
 		}
 
-		loadResource(resource, serializedSrc.get());
+		System.err.println("A1 : " + modifiedObject);
+
+		return abc(project, serializedSrc.get(), eObject.eResource().getURI(), EcoreUtil.getURI(modifiedObject));
+	}
+
+	private static boolean abc(final IProject project, final String src, final URI resourceUri,
+			final URI modifiedObjectUri) {
+		final ResourceSet testResourceSet = ProjectUtil.getLiveResourceSet(project);
+		final XtextResource testResource = (XtextResource) testResourceSet.createResource(resourceUri);
+
+		loadResource(testResource, src);
 
 		if (testResource.validateConcreteSyntax().size() > 0) {
 			return false;
 		}
 
-		final Diagnostic diagnostic = Diagnostician.INSTANCE.validate(modifiedObject,
+
+		final EObject modifiedObjectNew = testResourceSet.getEObject(modifiedObjectUri, true);
+		System.err.println("A2 : " + modifiedObjectNew);
+
+		ComponentImplementation c = (ComponentImplementation) modifiedObjectNew;
+		for (EndToEndFlow f : c.getOwnedEndToEndFlows()) {
+
+			for (Mode m : f.getInModes()) {
+				System.err.println("M1: " + m);
+			}
+		}
+
+		// EcoreUtil.resolveAll(modifiedObjectNew);
+		// LazyLinkingResource a = (LazyLinkingResource) testResource;
+		// a.resolveLazyCrossReferences(null);
+
+
+		final Diagnostic diagnostic = Diagnostician.INSTANCE.validate(modifiedObjectNew,
 				Collections.singletonMap(Diagnostician.VALIDATE_RECURSIVELY, true));
-		if (diagnostic.getSeverity() == Diagnostic.ERROR) {
-			return false;
+		System.err.println("E1: " + diagnostic + " : " + diagnostic.getSeverity());
+
+		for (final org.eclipse.emf.ecore.resource.Resource.Diagnostic d : testResource.getErrors()) {
+			System.err.println("F1: " + d);
+		}
+
+		for (final org.eclipse.emf.ecore.resource.Resource.Diagnostic d : testResource.getWarnings()) {
+			System.err.println("F2: " + d);
 		}
 
 		return true;
