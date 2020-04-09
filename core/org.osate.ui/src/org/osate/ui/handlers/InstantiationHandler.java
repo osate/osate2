@@ -61,6 +61,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.modelsupport.EObjectURIWrapper;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.core.OsateCorePlugin;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.dialogs.InstantiationResultsDialog;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
@@ -289,14 +290,17 @@ public final class InstantiationHandler extends AbstractMultiJobHandler {
 			try {
 				instantiationJobs.join(0L, null);
 
-				/* Get the results and display them */
-				PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
-					final InstantiationResultsDialog<?> d = new InstantiationResultsDialog<ComponentImplementation>(
-							PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Instantiation",
-							"Component Implementation", compImpl -> compImpl.getQualifiedName(), results);
-					d.open();
-				});
-
+				/* User can suppress the dialog if all the results are successful */
+				if (OsateCorePlugin.getDefault().getAlwaysShowInstantiationResults()
+						|| !Result.allSuccessful(results.values())) {
+					/* Get the results and display them */
+					PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
+						final InstantiationResultsDialog<?> d = new InstantiationResultsDialog<ComponentImplementation>(
+								PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Instantiation",
+								"Component Implementation", compImpl -> compImpl.getQualifiedName(), results);
+						d.open();
+					});
+				}
 			} catch (final InterruptedException | OperationCanceledException e) {
 				/*
 				 * InterruptedException thrown if we are somehow cancelled. Not sure if
