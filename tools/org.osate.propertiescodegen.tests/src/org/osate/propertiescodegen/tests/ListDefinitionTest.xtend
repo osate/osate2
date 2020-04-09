@@ -103,12 +103,14 @@ class ListDefinitionTest {
 			import org.osate.aadl2.instance.InstanceReferenceValue;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
+			import org.osate.propertiescodegen.common.IntegerRange;
+			import org.osate.propertiescodegen.common.IntegerWithUnits;
+			import org.osate.propertiescodegen.common.RealRange;
+			import org.osate.propertiescodegen.common.RealWithUnits;
 			
-			import ps2.BasicRange;
 			import ps2.BasicRecord;
 			import ps2.Color;
 			import ps2.Mass;
-			import ps2.MassType;
 			
 			public class Ps1 {
 				public static Optional<List<Boolean>> getList1Boolean(NamedElement namedElement) {
@@ -359,13 +361,13 @@ class ListDefinitionTest {
 					return namedElement.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<List1OwnedIntegerWithUnits>> getList1OwnedIntegerWithUnits(NamedElement namedElement) {
+				public static Optional<List<IntegerWithUnits<Time>>> getList1OwnedIntegerWithUnits(NamedElement namedElement) {
 					String name = "ps1::list_1_owned_integer_with_units";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return new List1OwnedIntegerWithUnits(element1);
+							return new IntegerWithUnits<>(element1, Time.class);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
@@ -378,13 +380,13 @@ class ListDefinitionTest {
 					return namedElement.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<List1OwnedRange>> getList1OwnedRange(NamedElement namedElement) {
+				public static Optional<List<IntegerRange>> getList1OwnedRange(NamedElement namedElement) {
 					String name = "ps1::list_1_owned_range";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return new List1OwnedRange(element1);
+							return new IntegerRange(element1);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
@@ -492,13 +494,13 @@ class ListDefinitionTest {
 					return namedElement.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<IntegerOwnedUnits>> getList1ReferencedNumberWithUnitsNoImport(NamedElement namedElement) {
+				public static Optional<List<IntegerWithUnits<IntegerOwnedUnits>>> getList1ReferencedNumberWithUnitsNoImport(NamedElement namedElement) {
 					String name = "ps1::list_1_referenced_number_with_units_no_import";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return new IntegerOwnedUnits(element1);
+							return new IntegerWithUnits<>(element1, IntegerOwnedUnits.class);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
@@ -511,13 +513,13 @@ class ListDefinitionTest {
 					return namedElement.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<MassType>> getList1ReferencedNumberWithUnitsWithImport(NamedElement namedElement) {
+				public static Optional<List<RealWithUnits<Mass>>> getList1ReferencedNumberWithUnitsWithImport(NamedElement namedElement) {
 					String name = "ps1::list_1_referenced_number_with_units_with_import";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return new MassType(element1);
+							return new RealWithUnits<>(element1, Mass.class);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
@@ -530,13 +532,13 @@ class ListDefinitionTest {
 					return namedElement.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<RangeOfIntegerNoUnits>> getList1ReferencedRangeNoImport(NamedElement namedElement) {
+				public static Optional<List<IntegerRange>> getList1ReferencedRangeNoImport(NamedElement namedElement) {
 					String name = "ps1::list_1_referenced_range_no_import";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return new RangeOfIntegerNoUnits(element1);
+							return new IntegerRange(element1);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
@@ -549,13 +551,13 @@ class ListDefinitionTest {
 					return namedElement.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<BasicRange>> getList1ReferencedRangeWithImport(NamedElement namedElement) {
+				public static Optional<List<RealRange>> getList1ReferencedRangeWithImport(NamedElement namedElement) {
 					String name = "ps1::list_1_referenced_range_with_import";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
 						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return new BasicRange(element1);
+							return new RealRange(element1);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
@@ -629,7 +631,7 @@ class ListDefinitionTest {
 					return namedElement.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<List<List<List<List<List5OwnedRange>>>>>> getList5OwnedRange(NamedElement namedElement) {
+				public static Optional<List<List<List<List<List<RealRange>>>>>> getList5OwnedRange(NamedElement namedElement) {
 					String name = "ps1::list_5_owned_range";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
@@ -639,7 +641,7 @@ class ListDefinitionTest {
 								return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
 									return ((ListValue) element3).getOwnedListElements().stream().map(element4 -> {
 										return ((ListValue) element4).getOwnedListElements().stream().map(element5 -> {
-											return new List5OwnedRange(element5);
+											return new RealRange(element5);
 										}).collect(Collectors.toList());
 									}).collect(Collectors.toList());
 								}).collect(Collectors.toList());
@@ -679,7 +681,7 @@ class ListDefinitionTest {
 					return namedElement.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<List<List<List<List<BasicRange>>>>>> getList5ReferencedRangeWithImport(NamedElement namedElement) {
+				public static Optional<List<List<List<List<List<RealRange>>>>>> getList5ReferencedRangeWithImport(NamedElement namedElement) {
 					String name = "ps1::list_5_referenced_range_with_import";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
@@ -689,7 +691,7 @@ class ListDefinitionTest {
 								return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
 									return ((ListValue) element3).getOwnedListElements().stream().map(element4 -> {
 										return ((ListValue) element4).getOwnedListElements().stream().map(element5 -> {
-											return new BasicRange(element5);
+											return new RealRange(element5);
 										}).collect(Collectors.toList());
 									}).collect(Collectors.toList());
 								}).collect(Collectors.toList());
@@ -751,84 +753,40 @@ class ListDefinitionTest {
 		val integerOwnedUnits = '''
 			package ps1;
 			
-			import java.util.Objects;
-			
 			import org.osate.aadl2.AbstractNamedValue;
-			import org.osate.aadl2.IntegerLiteral;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
 			
-			public class IntegerOwnedUnits {
-				private final long value;
-				private final Units unit;
+			public enum IntegerOwnedUnits {
+				MM(1.0, "mm"),
+				CM(10.0, "cm"),
+				M(1000.0, "m");
 				
-				public IntegerOwnedUnits(PropertyExpression propertyExpression) {
-					IntegerLiteral numberValue = (IntegerLiteral) propertyExpression;
-					value = numberValue.getValue();
-					unit = Units.valueOf(numberValue.getUnit().getName().toUpperCase());
+				private final double factorToBase;
+				private final String originalName;
+				
+				private IntegerOwnedUnits(double factorToBase, String originalName) {
+					this.factorToBase = factorToBase;
+					this.originalName = originalName;
 				}
 				
-				public long getValue() {
-					return value;
+				public static IntegerOwnedUnits valueOf(PropertyExpression propertyExpression) {
+					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
-				public Units getUnit() {
-					return unit;
+				public double getFactorToBase() {
+					return factorToBase;
 				}
 				
-				@Override
-				public int hashCode() {
-					return Objects.hash(value, unit);
-				}
-				
-				@Override
-				public boolean equals(Object obj) {
-					if (this == obj) {
-						return true;
-					}
-					if (!(obj instanceof IntegerOwnedUnits)) {
-						return false;
-					}
-					IntegerOwnedUnits other = (IntegerOwnedUnits) obj;
-					return value == other.value && unit == other.unit;
+				public double getFactorTo(IntegerOwnedUnits target) {
+					return factorToBase / target.factorToBase;
 				}
 				
 				@Override
 				public String toString() {
-					return value + unit.toString();
-				}
-				
-				public enum Units {
-					MM(1.0, "mm"),
-					CM(10.0, "cm"),
-					M(1000.0, "m");
-					
-					private final double factorToBase;
-					private final String originalName;
-					
-					private Units(double factorToBase, String originalName) {
-						this.factorToBase = factorToBase;
-						this.originalName = originalName;
-					}
-					
-					public static Units valueOf(PropertyExpression propertyExpression) {
-						AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
-						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
-					}
-					
-					public double getFactorToBase() {
-						return factorToBase;
-					}
-					
-					public double getFactorTo(Units target) {
-						return factorToBase / target.factorToBase;
-					}
-					
-					@Override
-					public String toString() {
-						return originalName;
-					}
+					return originalName;
 				}
 			}
 		'''
@@ -859,69 +817,6 @@ class ListDefinitionTest {
 				@Override
 				public String toString() {
 					return originalName;
-				}
-			}
-		'''
-		val rangeOfIntegerNoUnits = '''
-			package ps1;
-			
-			import java.util.Objects;
-			import java.util.OptionalLong;
-			
-			import org.osate.aadl2.IntegerLiteral;
-			import org.osate.aadl2.PropertyExpression;
-			import org.osate.aadl2.RangeValue;
-			
-			public class RangeOfIntegerNoUnits {
-				private final long minimum;
-				private final long maximum;
-				private final OptionalLong delta;
-				
-				public RangeOfIntegerNoUnits(PropertyExpression propertyExpression) {
-					RangeValue rangeValue = (RangeValue) propertyExpression;
-					minimum = ((IntegerLiteral) rangeValue.getMinimum()).getValue();
-					maximum = ((IntegerLiteral) rangeValue.getMaximum()).getValue();
-					if (rangeValue.getDelta() == null) {
-						delta = OptionalLong.empty();
-					} else {
-						delta = OptionalLong.of(((IntegerLiteral) rangeValue.getDelta()).getValue());
-					}
-				}
-				
-				public long getMinimum() {
-					return minimum;
-				}
-				
-				public long getMaximum() {
-					return maximum;
-				}
-				
-				public OptionalLong getDelta() {
-					return delta;
-				}
-				
-				@Override
-				public int hashCode() {
-					return Objects.hash(minimum, maximum, delta);
-				}
-				
-				@Override
-				public boolean equals(Object obj) {
-					if (this == obj) {
-						return true;
-					}
-					if (!(obj instanceof RangeOfIntegerNoUnits)) {
-						return false;
-					}
-					RangeOfIntegerNoUnits other = (RangeOfIntegerNoUnits) obj;
-					return minimum == other.minimum && maximum == other.maximum && Objects.equals(delta, other.delta);
-				}
-				
-				@Override
-				public String toString() {
-					StringBuilder builder = new StringBuilder(minimum + " .. " + maximum);
-					delta.ifPresent(it -> builder.append(" delta " + it));
-					return builder.toString();
 				}
 			}
 		'''
@@ -1049,118 +944,6 @@ class ListDefinitionTest {
 				@Override
 				public String toString() {
 					return originalName;
-				}
-			}
-		'''
-		val list1OwnedIntegerWithUnits = '''
-			package ps1;
-			
-			import java.util.Objects;
-			
-			import org.osate.aadl2.IntegerLiteral;
-			import org.osate.aadl2.PropertyExpression;
-			
-			public class List1OwnedIntegerWithUnits {
-				private final long value;
-				private final Time unit;
-				
-				public List1OwnedIntegerWithUnits(PropertyExpression propertyExpression) {
-					IntegerLiteral numberValue = (IntegerLiteral) propertyExpression;
-					value = numberValue.getValue();
-					unit = Time.valueOf(numberValue.getUnit().getName().toUpperCase());
-				}
-				
-				public long getValue() {
-					return value;
-				}
-				
-				public Time getUnit() {
-					return unit;
-				}
-				
-				@Override
-				public int hashCode() {
-					return Objects.hash(value, unit);
-				}
-				
-				@Override
-				public boolean equals(Object obj) {
-					if (this == obj) {
-						return true;
-					}
-					if (!(obj instanceof List1OwnedIntegerWithUnits)) {
-						return false;
-					}
-					List1OwnedIntegerWithUnits other = (List1OwnedIntegerWithUnits) obj;
-					return value == other.value && unit == other.unit;
-				}
-				
-				@Override
-				public String toString() {
-					return value + unit.toString();
-				}
-			}
-		'''
-		val list1OwnedRange = '''
-			package ps1;
-			
-			import java.util.Objects;
-			import java.util.OptionalLong;
-			
-			import org.osate.aadl2.IntegerLiteral;
-			import org.osate.aadl2.PropertyExpression;
-			import org.osate.aadl2.RangeValue;
-			
-			public class List1OwnedRange {
-				private final long minimum;
-				private final long maximum;
-				private final OptionalLong delta;
-				
-				public List1OwnedRange(PropertyExpression propertyExpression) {
-					RangeValue rangeValue = (RangeValue) propertyExpression;
-					minimum = ((IntegerLiteral) rangeValue.getMinimum()).getValue();
-					maximum = ((IntegerLiteral) rangeValue.getMaximum()).getValue();
-					if (rangeValue.getDelta() == null) {
-						delta = OptionalLong.empty();
-					} else {
-						delta = OptionalLong.of(((IntegerLiteral) rangeValue.getDelta()).getValue());
-					}
-				}
-				
-				public long getMinimum() {
-					return minimum;
-				}
-				
-				public long getMaximum() {
-					return maximum;
-				}
-				
-				public OptionalLong getDelta() {
-					return delta;
-				}
-				
-				@Override
-				public int hashCode() {
-					return Objects.hash(minimum, maximum, delta);
-				}
-				
-				@Override
-				public boolean equals(Object obj) {
-					if (this == obj) {
-						return true;
-					}
-					if (!(obj instanceof List1OwnedRange)) {
-						return false;
-					}
-					List1OwnedRange other = (List1OwnedRange) obj;
-					return minimum == other.minimum && maximum == other.maximum && Objects.equals(delta, other.delta);
-				}
-				
-				@Override
-				public String toString() {
-					StringBuilder builder = new StringBuilder(minimum + " .. " + maximum);
-					delta.ifPresent(it -> builder.append(" delta " + it));
-					return builder.toString();
 				}
 			}
 		'''
@@ -1357,73 +1140,8 @@ class ListDefinitionTest {
 				}
 			}
 		'''
-		val list5OwnedRange = '''
-			package ps1;
-			
-			import java.util.Objects;
-			import java.util.OptionalDouble;
-			
-			import org.osate.aadl2.PropertyExpression;
-			import org.osate.aadl2.RangeValue;
-			import org.osate.aadl2.RealLiteral;
-			
-			public class List5OwnedRange {
-				private final double minimum;
-				private final double maximum;
-				private final OptionalDouble delta;
-				
-				public List5OwnedRange(PropertyExpression propertyExpression) {
-					RangeValue rangeValue = (RangeValue) propertyExpression;
-					minimum = ((RealLiteral) rangeValue.getMinimum()).getValue();
-					maximum = ((RealLiteral) rangeValue.getMaximum()).getValue();
-					if (rangeValue.getDelta() == null) {
-						delta = OptionalDouble.empty();
-					} else {
-						delta = OptionalDouble.of(((RealLiteral) rangeValue.getDelta()).getValue());
-					}
-				}
-				
-				public double getMinimum() {
-					return minimum;
-				}
-				
-				public double getMaximum() {
-					return maximum;
-				}
-				
-				public OptionalDouble getDelta() {
-					return delta;
-				}
-				
-				@Override
-				public int hashCode() {
-					return Objects.hash(minimum, maximum, delta);
-				}
-				
-				@Override
-				public boolean equals(Object obj) {
-					if (this == obj) {
-						return true;
-					}
-					if (!(obj instanceof List5OwnedRange)) {
-						return false;
-					}
-					List5OwnedRange other = (List5OwnedRange) obj;
-					return Double.doubleToLongBits(minimum) == Double.doubleToLongBits(other.minimum)
-							&& Double.doubleToLongBits(maximum) == Double.doubleToLongBits(other.maximum)
-							&& Objects.equals(delta, other.delta);
-				}
-				
-				@Override
-				public String toString() {
-					StringBuilder builder = new StringBuilder(minimum + " .. " + maximum);
-					delta.ifPresent(it -> builder.append(" delta " + it));
-					return builder.toString();
-				}
-			}
-		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(ps1, ps2))
-		assertEquals(13, results.size)
+		assertEquals(9, results.size)
 		
 		assertEquals("Ps1.java", results.get(0).fileName)
 		assertEquals(ps1Class.toString, results.get(0).contents)
@@ -1437,31 +1155,19 @@ class ListDefinitionTest {
 		assertEquals("EnumType1.java", results.get(3).fileName)
 		assertEquals(enumType1.toString, results.get(3).contents)
 		
-		assertEquals("RangeOfIntegerNoUnits.java", results.get(4).fileName)
-		assertEquals(rangeOfIntegerNoUnits.toString, results.get(4).contents)
+		assertEquals("RecordOfBoolean.java", results.get(4).fileName)
+		assertEquals(recordOfBoolean.toString, results.get(4).contents)
 		
-		assertEquals("RecordOfBoolean.java", results.get(5).fileName)
-		assertEquals(recordOfBoolean.toString, results.get(5).contents)
+		assertEquals("List1OwnedEnum.java", results.get(5).fileName)
+		assertEquals(list1OwnedEnum.toString, results.get(5).contents)
 		
-		assertEquals("List1OwnedEnum.java", results.get(6).fileName)
-		assertEquals(list1OwnedEnum.toString, results.get(6).contents)
+		assertEquals("List1OwnedUnits.java", results.get(6).fileName)
+		assertEquals(list1OwnedUnits.toString, results.get(6).contents)
 		
-		assertEquals("List1OwnedUnits.java", results.get(7).fileName)
-		assertEquals(list1OwnedUnits.toString, results.get(7).contents)
+		assertEquals("List1OwnedRecord.java", results.get(7).fileName)
+		assertEquals(list1OwnedRecord.toString, results.get(7).contents)
 		
-		assertEquals("List1OwnedIntegerWithUnits.java", results.get(8).fileName)
-		assertEquals(list1OwnedIntegerWithUnits.toString, results.get(8).contents)
-		
-		assertEquals("List1OwnedRange.java", results.get(9).fileName)
-		assertEquals(list1OwnedRange.toString, results.get(9).contents)
-		
-		assertEquals("List1OwnedRecord.java", results.get(10).fileName)
-		assertEquals(list1OwnedRecord.toString, results.get(10).contents)
-		
-		assertEquals("List3OwnedEnum.java", results.get(11).fileName)
-		assertEquals(list3OwnedEnum.toString, results.get(11).contents)
-		
-		assertEquals("List5OwnedRange.java", results.get(12).fileName)
-		assertEquals(list5OwnedRange.toString, results.get(12).contents)
+		assertEquals("List3OwnedEnum.java", results.get(8).fileName)
+		assertEquals(list3OwnedEnum.toString, results.get(8).contents)
 	}
 }

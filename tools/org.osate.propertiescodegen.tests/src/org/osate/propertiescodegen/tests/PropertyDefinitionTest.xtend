@@ -69,8 +69,11 @@ class PropertyDefinitionTest {
 			import org.osate.aadl2.instance.InstanceReferenceValue;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
+			import org.osate.propertiescodegen.common.IntegerRange;
+			import org.osate.propertiescodegen.common.IntegerWithUnits;
 			
 			import ps2.Color;
+			import ps2.Mass;
 			
 			public class Ps1 {
 				public static Optional<Boolean> getBooleanDefinition(NamedElement namedElement) {
@@ -175,12 +178,12 @@ class PropertyDefinitionTest {
 					return namedElement.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<IntegerDefinitionWithUnits> getIntegerDefinitionWithUnits(NamedElement namedElement) {
+				public static Optional<IntegerWithUnits<Mass>> getIntegerDefinitionWithUnits(NamedElement namedElement) {
 					String name = "ps1::integer_definition_with_units";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(new IntegerDefinitionWithUnits(propertyExpression));
+						return Optional.of(new IntegerWithUnits<>(propertyExpression, Mass.class));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -209,12 +212,12 @@ class PropertyDefinitionTest {
 					return namedElement.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<RangeDefinition> getRangeDefinition(NamedElement namedElement) {
+				public static Optional<IntegerRange> getRangeDefinition(NamedElement namedElement) {
 					String name = "ps1::range_definition";
 					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
 						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(new RangeDefinition(propertyExpression));
+						return Optional.of(new IntegerRange(propertyExpression));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -363,120 +366,6 @@ class PropertyDefinitionTest {
 				}
 			}
 		'''
-		val integerDefinitionWithUnits = '''
-			package ps1;
-			
-			import java.util.Objects;
-			
-			import org.osate.aadl2.IntegerLiteral;
-			import org.osate.aadl2.PropertyExpression;
-			
-			import ps2.Mass;
-			
-			public class IntegerDefinitionWithUnits {
-				private final long value;
-				private final Mass unit;
-				
-				public IntegerDefinitionWithUnits(PropertyExpression propertyExpression) {
-					IntegerLiteral numberValue = (IntegerLiteral) propertyExpression;
-					value = numberValue.getValue();
-					unit = Mass.valueOf(numberValue.getUnit().getName().toUpperCase());
-				}
-				
-				public long getValue() {
-					return value;
-				}
-				
-				public Mass getUnit() {
-					return unit;
-				}
-				
-				@Override
-				public int hashCode() {
-					return Objects.hash(value, unit);
-				}
-				
-				@Override
-				public boolean equals(Object obj) {
-					if (this == obj) {
-						return true;
-					}
-					if (!(obj instanceof IntegerDefinitionWithUnits)) {
-						return false;
-					}
-					IntegerDefinitionWithUnits other = (IntegerDefinitionWithUnits) obj;
-					return value == other.value && unit == other.unit;
-				}
-				
-				@Override
-				public String toString() {
-					return value + unit.toString();
-				}
-			}
-		'''
-		val rangeDefinition = '''
-			package ps1;
-			
-			import java.util.Objects;
-			import java.util.OptionalLong;
-			
-			import org.osate.aadl2.IntegerLiteral;
-			import org.osate.aadl2.PropertyExpression;
-			import org.osate.aadl2.RangeValue;
-			
-			public class RangeDefinition {
-				private final long minimum;
-				private final long maximum;
-				private final OptionalLong delta;
-				
-				public RangeDefinition(PropertyExpression propertyExpression) {
-					RangeValue rangeValue = (RangeValue) propertyExpression;
-					minimum = ((IntegerLiteral) rangeValue.getMinimum()).getValue();
-					maximum = ((IntegerLiteral) rangeValue.getMaximum()).getValue();
-					if (rangeValue.getDelta() == null) {
-						delta = OptionalLong.empty();
-					} else {
-						delta = OptionalLong.of(((IntegerLiteral) rangeValue.getDelta()).getValue());
-					}
-				}
-				
-				public long getMinimum() {
-					return minimum;
-				}
-				
-				public long getMaximum() {
-					return maximum;
-				}
-				
-				public OptionalLong getDelta() {
-					return delta;
-				}
-				
-				@Override
-				public int hashCode() {
-					return Objects.hash(minimum, maximum, delta);
-				}
-				
-				@Override
-				public boolean equals(Object obj) {
-					if (this == obj) {
-						return true;
-					}
-					if (!(obj instanceof RangeDefinition)) {
-						return false;
-					}
-					RangeDefinition other = (RangeDefinition) obj;
-					return minimum == other.minimum && maximum == other.maximum && Objects.equals(delta, other.delta);
-				}
-				
-				@Override
-				public String toString() {
-					StringBuilder builder = new StringBuilder(minimum + " .. " + maximum);
-					delta.ifPresent(it -> builder.append(" delta " + it));
-					return builder.toString();
-				}
-			}
-		'''
 		val recordDefinition = '''
 			package ps1;
 			
@@ -535,7 +424,7 @@ class PropertyDefinitionTest {
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(ps1, ps2))
-		assertEquals(6, results.size)
+		assertEquals(4, results.size)
 		
 		assertEquals("Ps1.java", results.get(0).fileName)
 		assertEquals(ps1Class.toString, results.get(0).contents)
@@ -546,14 +435,8 @@ class PropertyDefinitionTest {
 		assertEquals("EnumDefinition.java", results.get(2).fileName)
 		assertEquals(enumDefinition.toString, results.get(2).contents)
 		
-		assertEquals("IntegerDefinitionWithUnits.java", results.get(3).fileName)
-		assertEquals(integerDefinitionWithUnits.toString, results.get(3).contents)
-		
-		assertEquals("RangeDefinition.java", results.get(4).fileName)
-		assertEquals(rangeDefinition.toString, results.get(4).contents)
-		
-		assertEquals("RecordDefinition.java", results.get(5).fileName)
-		assertEquals(recordDefinition.toString, results.get(5).contents)
+		assertEquals("RecordDefinition.java", results.get(3).fileName)
+		assertEquals(recordDefinition.toString, results.get(3).contents)
 	}
 	
 	@Test

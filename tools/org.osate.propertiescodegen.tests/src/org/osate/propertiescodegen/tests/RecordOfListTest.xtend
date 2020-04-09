@@ -133,84 +133,40 @@ class RecordOfListTest {
 		val integerOwnedUnits = '''
 			package ps1;
 			
-			import java.util.Objects;
-			
 			import org.osate.aadl2.AbstractNamedValue;
-			import org.osate.aadl2.IntegerLiteral;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
 			
-			public class IntegerOwnedUnits {
-				private final long value;
-				private final Units unit;
+			public enum IntegerOwnedUnits {
+				MM(1.0, "mm"),
+				CM(10.0, "cm"),
+				M(1000.0, "m");
 				
-				public IntegerOwnedUnits(PropertyExpression propertyExpression) {
-					IntegerLiteral numberValue = (IntegerLiteral) propertyExpression;
-					value = numberValue.getValue();
-					unit = Units.valueOf(numberValue.getUnit().getName().toUpperCase());
+				private final double factorToBase;
+				private final String originalName;
+				
+				private IntegerOwnedUnits(double factorToBase, String originalName) {
+					this.factorToBase = factorToBase;
+					this.originalName = originalName;
 				}
 				
-				public long getValue() {
-					return value;
+				public static IntegerOwnedUnits valueOf(PropertyExpression propertyExpression) {
+					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
-				public Units getUnit() {
-					return unit;
+				public double getFactorToBase() {
+					return factorToBase;
 				}
 				
-				@Override
-				public int hashCode() {
-					return Objects.hash(value, unit);
-				}
-				
-				@Override
-				public boolean equals(Object obj) {
-					if (this == obj) {
-						return true;
-					}
-					if (!(obj instanceof IntegerOwnedUnits)) {
-						return false;
-					}
-					IntegerOwnedUnits other = (IntegerOwnedUnits) obj;
-					return value == other.value && unit == other.unit;
+				public double getFactorTo(IntegerOwnedUnits target) {
+					return factorToBase / target.factorToBase;
 				}
 				
 				@Override
 				public String toString() {
-					return value + unit.toString();
-				}
-				
-				public enum Units {
-					MM(1.0, "mm"),
-					CM(10.0, "cm"),
-					M(1000.0, "m");
-					
-					private final double factorToBase;
-					private final String originalName;
-					
-					private Units(double factorToBase, String originalName) {
-						this.factorToBase = factorToBase;
-						this.originalName = originalName;
-					}
-					
-					public static Units valueOf(PropertyExpression propertyExpression) {
-						AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
-						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
-					}
-					
-					public double getFactorToBase() {
-						return factorToBase;
-					}
-					
-					public double getFactorTo(Units target) {
-						return factorToBase / target.factorToBase;
-					}
-					
-					@Override
-					public String toString() {
-						return originalName;
-					}
+					return originalName;
 				}
 			}
 		'''
@@ -241,69 +197,6 @@ class RecordOfListTest {
 				@Override
 				public String toString() {
 					return originalName;
-				}
-			}
-		'''
-		val rangeOfIntegerNoUnits = '''
-			package ps1;
-			
-			import java.util.Objects;
-			import java.util.OptionalLong;
-			
-			import org.osate.aadl2.IntegerLiteral;
-			import org.osate.aadl2.PropertyExpression;
-			import org.osate.aadl2.RangeValue;
-			
-			public class RangeOfIntegerNoUnits {
-				private final long minimum;
-				private final long maximum;
-				private final OptionalLong delta;
-				
-				public RangeOfIntegerNoUnits(PropertyExpression propertyExpression) {
-					RangeValue rangeValue = (RangeValue) propertyExpression;
-					minimum = ((IntegerLiteral) rangeValue.getMinimum()).getValue();
-					maximum = ((IntegerLiteral) rangeValue.getMaximum()).getValue();
-					if (rangeValue.getDelta() == null) {
-						delta = OptionalLong.empty();
-					} else {
-						delta = OptionalLong.of(((IntegerLiteral) rangeValue.getDelta()).getValue());
-					}
-				}
-				
-				public long getMinimum() {
-					return minimum;
-				}
-				
-				public long getMaximum() {
-					return maximum;
-				}
-				
-				public OptionalLong getDelta() {
-					return delta;
-				}
-				
-				@Override
-				public int hashCode() {
-					return Objects.hash(minimum, maximum, delta);
-				}
-				
-				@Override
-				public boolean equals(Object obj) {
-					if (this == obj) {
-						return true;
-					}
-					if (!(obj instanceof RangeOfIntegerNoUnits)) {
-						return false;
-					}
-					RangeOfIntegerNoUnits other = (RangeOfIntegerNoUnits) obj;
-					return minimum == other.minimum && maximum == other.maximum && Objects.equals(delta, other.delta);
-				}
-				
-				@Override
-				public String toString() {
-					StringBuilder builder = new StringBuilder(minimum + " .. " + maximum);
-					delta.ifPresent(it -> builder.append(" delta " + it));
-					return builder.toString();
 				}
 			}
 		'''
@@ -1021,16 +914,17 @@ class RecordOfListTest {
 			import org.osate.aadl2.ListValue;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
-			import org.osate.aadl2.RangeValue;
 			import org.osate.aadl2.RecordValue;
 			import org.osate.aadl2.StringLiteral;
 			import org.osate.aadl2.UnitLiteral;
+			import org.osate.propertiescodegen.common.IntegerRange;
+			import org.osate.propertiescodegen.common.IntegerWithUnits;
 			
 			public class RecordOfListOfOwnedTypes {
 				private final Optional<List<OwnedEnum_FieldType>> ownedEnum;
 				private final Optional<List<OwnedUnits_FieldType>> ownedUnits;
-				private final Optional<List<OwnedIntegerWithUnits_FieldType>> ownedIntegerWithUnits;
-				private final Optional<List<OwnedRange_FieldType>> ownedRange;
+				private final Optional<List<IntegerWithUnits<Time>>> ownedIntegerWithUnits;
+				private final Optional<List<IntegerRange>> ownedRange;
 				private final Optional<List<OwnedRecord_FieldType>> ownedRecord;
 				
 				public RecordOfListOfOwnedTypes(PropertyExpression propertyExpression) {
@@ -1058,7 +952,7 @@ class RecordOfListTest {
 							.filter(field -> field.getProperty().getName().equals("owned_integer_with_units"))
 							.map(field -> {
 								return ((ListValue) field.getOwnedValue()).getOwnedListElements().stream().map(element1 -> {
-									return new OwnedIntegerWithUnits_FieldType(element1);
+									return new IntegerWithUnits<>(element1, Time.class);
 								}).collect(Collectors.toList());
 							})
 							.findAny();
@@ -1067,7 +961,7 @@ class RecordOfListTest {
 							.filter(field -> field.getProperty().getName().equals("owned_range"))
 							.map(field -> {
 								return ((ListValue) field.getOwnedValue()).getOwnedListElements().stream().map(element1 -> {
-									return new OwnedRange_FieldType(element1);
+									return new IntegerRange(element1);
 								}).collect(Collectors.toList());
 							})
 							.findAny();
@@ -1090,11 +984,11 @@ class RecordOfListTest {
 					return ownedUnits;
 				}
 				
-				public Optional<List<OwnedIntegerWithUnits_FieldType>> getOwnedIntegerWithUnits() {
+				public Optional<List<IntegerWithUnits<Time>>> getOwnedIntegerWithUnits() {
 					return ownedIntegerWithUnits;
 				}
 				
-				public Optional<List<OwnedRange_FieldType>> getOwnedRange() {
+				public Optional<List<IntegerRange>> getOwnedRange() {
 					return ownedRange;
 				}
 				
@@ -1212,100 +1106,6 @@ class RecordOfListTest {
 					@Override
 					public String toString() {
 						return originalName;
-					}
-				}
-				
-				public static class OwnedIntegerWithUnits_FieldType {
-					private final long value;
-					private final Time unit;
-					
-					public OwnedIntegerWithUnits_FieldType(PropertyExpression propertyExpression) {
-						IntegerLiteral numberValue = (IntegerLiteral) propertyExpression;
-						value = numberValue.getValue();
-						unit = Time.valueOf(numberValue.getUnit().getName().toUpperCase());
-					}
-					
-					public long getValue() {
-						return value;
-					}
-					
-					public Time getUnit() {
-						return unit;
-					}
-					
-					@Override
-					public int hashCode() {
-						return Objects.hash(value, unit);
-					}
-					
-					@Override
-					public boolean equals(Object obj) {
-						if (this == obj) {
-							return true;
-						}
-						if (!(obj instanceof OwnedIntegerWithUnits_FieldType)) {
-							return false;
-						}
-						OwnedIntegerWithUnits_FieldType other = (OwnedIntegerWithUnits_FieldType) obj;
-						return value == other.value && unit == other.unit;
-					}
-					
-					@Override
-					public String toString() {
-						return value + unit.toString();
-					}
-				}
-				
-				public static class OwnedRange_FieldType {
-					private final long minimum;
-					private final long maximum;
-					private final OptionalLong delta;
-					
-					public OwnedRange_FieldType(PropertyExpression propertyExpression) {
-						RangeValue rangeValue = (RangeValue) propertyExpression;
-						minimum = ((IntegerLiteral) rangeValue.getMinimum()).getValue();
-						maximum = ((IntegerLiteral) rangeValue.getMaximum()).getValue();
-						if (rangeValue.getDelta() == null) {
-							delta = OptionalLong.empty();
-						} else {
-							delta = OptionalLong.of(((IntegerLiteral) rangeValue.getDelta()).getValue());
-						}
-					}
-					
-					public long getMinimum() {
-						return minimum;
-					}
-					
-					public long getMaximum() {
-						return maximum;
-					}
-					
-					public OptionalLong getDelta() {
-						return delta;
-					}
-					
-					@Override
-					public int hashCode() {
-						return Objects.hash(minimum, maximum, delta);
-					}
-					
-					@Override
-					public boolean equals(Object obj) {
-						if (this == obj) {
-							return true;
-						}
-						if (!(obj instanceof OwnedRange_FieldType)) {
-							return false;
-						}
-						OwnedRange_FieldType other = (OwnedRange_FieldType) obj;
-						return minimum == other.minimum && maximum == other.maximum && Objects.equals(delta, other.delta);
-					}
-					
-					@Override
-					public String toString() {
-						StringBuilder builder = new StringBuilder(minimum + " .. " + maximum);
-						delta.ifPresent(it -> builder.append(" delta " + it));
-						return builder.toString();
 					}
 				}
 				
@@ -1453,22 +1253,24 @@ class RecordOfListTest {
 			import org.osate.aadl2.ListValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
+			import org.osate.propertiescodegen.common.IntegerRange;
+			import org.osate.propertiescodegen.common.IntegerWithUnits;
+			import org.osate.propertiescodegen.common.RealRange;
+			import org.osate.propertiescodegen.common.RealWithUnits;
 			
-			import ps2.BasicRange;
 			import ps2.BasicRecord;
 			import ps2.Color;
 			import ps2.Mass;
-			import ps2.MassType;
 			
 			public class RecordOfListOfReferencedTypes {
 				private final Optional<List<EnumType1>> enumNoImport;
 				private final Optional<List<Color>> enumWithImport;
 				private final Optional<List<Time>> unitsNoImport;
 				private final Optional<List<Mass>> unitsWithImport;
-				private final Optional<List<IntegerOwnedUnits>> numberWithUnitsNoImport;
-				private final Optional<List<MassType>> numberWithUnitsWithImport;
-				private final Optional<List<RangeOfIntegerNoUnits>> rangeNoImport;
-				private final Optional<List<BasicRange>> rangeWithImport;
+				private final Optional<List<IntegerWithUnits<IntegerOwnedUnits>>> numberWithUnitsNoImport;
+				private final Optional<List<RealWithUnits<Mass>>> numberWithUnitsWithImport;
+				private final Optional<List<IntegerRange>> rangeNoImport;
+				private final Optional<List<RealRange>> rangeWithImport;
 				private final Optional<List<RecordOfBoolean>> recordNoImport;
 				private final Optional<List<BasicRecord>> recordWithImport;
 				
@@ -1515,7 +1317,7 @@ class RecordOfListTest {
 							.filter(field -> field.getProperty().getName().equals("number_with_units_no_import"))
 							.map(field -> {
 								return ((ListValue) field.getOwnedValue()).getOwnedListElements().stream().map(element1 -> {
-									return new IntegerOwnedUnits(element1);
+									return new IntegerWithUnits<>(element1, IntegerOwnedUnits.class);
 								}).collect(Collectors.toList());
 							})
 							.findAny();
@@ -1524,7 +1326,7 @@ class RecordOfListTest {
 							.filter(field -> field.getProperty().getName().equals("number_with_units_with_import"))
 							.map(field -> {
 								return ((ListValue) field.getOwnedValue()).getOwnedListElements().stream().map(element1 -> {
-									return new MassType(element1);
+									return new RealWithUnits<>(element1, Mass.class);
 								}).collect(Collectors.toList());
 							})
 							.findAny();
@@ -1533,7 +1335,7 @@ class RecordOfListTest {
 							.filter(field -> field.getProperty().getName().equals("range_no_import"))
 							.map(field -> {
 								return ((ListValue) field.getOwnedValue()).getOwnedListElements().stream().map(element1 -> {
-									return new RangeOfIntegerNoUnits(element1);
+									return new IntegerRange(element1);
 								}).collect(Collectors.toList());
 							})
 							.findAny();
@@ -1542,7 +1344,7 @@ class RecordOfListTest {
 							.filter(field -> field.getProperty().getName().equals("range_with_import"))
 							.map(field -> {
 								return ((ListValue) field.getOwnedValue()).getOwnedListElements().stream().map(element1 -> {
-									return new BasicRange(element1);
+									return new RealRange(element1);
 								}).collect(Collectors.toList());
 							})
 							.findAny();
@@ -1582,19 +1384,19 @@ class RecordOfListTest {
 					return unitsWithImport;
 				}
 				
-				public Optional<List<IntegerOwnedUnits>> getNumberWithUnitsNoImport() {
+				public Optional<List<IntegerWithUnits<IntegerOwnedUnits>>> getNumberWithUnitsNoImport() {
 					return numberWithUnitsNoImport;
 				}
 				
-				public Optional<List<MassType>> getNumberWithUnitsWithImport() {
+				public Optional<List<RealWithUnits<Mass>>> getNumberWithUnitsWithImport() {
 					return numberWithUnitsWithImport;
 				}
 				
-				public Optional<List<RangeOfIntegerNoUnits>> getRangeNoImport() {
+				public Optional<List<IntegerRange>> getRangeNoImport() {
 					return rangeNoImport;
 				}
 				
-				public Optional<List<BasicRange>> getRangeWithImport() {
+				public Optional<List<RealRange>> getRangeWithImport() {
 					return rangeWithImport;
 				}
 				
@@ -1703,7 +1505,7 @@ class RecordOfListTest {
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(ps1, ps2))
-		assertEquals(13, results.size)
+		assertEquals(12, results.size)
 		
 		assertEquals("Time.java", results.get(0).fileName)
 		assertEquals(time.toString, results.get(0).contents)
@@ -1714,34 +1516,31 @@ class RecordOfListTest {
 		assertEquals("EnumType1.java", results.get(2).fileName)
 		assertEquals(enumType1.toString, results.get(2).contents)
 		
-		assertEquals("RangeOfIntegerNoUnits.java", results.get(3).fileName)
-		assertEquals(rangeOfIntegerNoUnits.toString, results.get(3).contents)
+		assertEquals("RecordOfBoolean.java", results.get(3).fileName)
+		assertEquals(recordOfBoolean.toString, results.get(3).contents)
 		
-		assertEquals("RecordOfBoolean.java", results.get(4).fileName)
-		assertEquals(recordOfBoolean.toString, results.get(4).contents)
+		assertEquals("RecordOfListOfBoolean.java", results.get(4).fileName)
+		assertEquals(recordOfListOfBoolean.toString, results.get(4).contents)
 		
-		assertEquals("RecordOfListOfBoolean.java", results.get(5).fileName)
-		assertEquals(recordOfListOfBoolean.toString, results.get(5).contents)
+		assertEquals("RecordOfListOfString.java", results.get(5).fileName)
+		assertEquals(recordOfListOfString.toString, results.get(5).contents)
 		
-		assertEquals("RecordOfListOfString.java", results.get(6).fileName)
-		assertEquals(recordOfListOfString.toString, results.get(6).contents)
+		assertEquals("RecordOfListOfClassifier.java", results.get(6).fileName)
+		assertEquals(recordOfListOfClassifier.toString, results.get(6).contents)
 		
-		assertEquals("RecordOfListOfClassifier.java", results.get(7).fileName)
-		assertEquals(recordOfListOfClassifier.toString, results.get(7).contents)
+		assertEquals("RecordOfListOfIntegerNoUnits.java", results.get(7).fileName)
+		assertEquals(recordOfListOfIntegerNoUnits.toString, results.get(7).contents)
 		
-		assertEquals("RecordOfListOfIntegerNoUnits.java", results.get(8).fileName)
-		assertEquals(recordOfListOfIntegerNoUnits.toString, results.get(8).contents)
+		assertEquals("RecordOfListOfRealNoUnits.java", results.get(8).fileName)
+		assertEquals(recordOfListOfRealNoUnits.toString, results.get(8).contents)
 		
-		assertEquals("RecordOfListOfRealNoUnits.java", results.get(9).fileName)
-		assertEquals(recordOfListOfRealNoUnits.toString, results.get(9).contents)
+		assertEquals("RecordOfListOfReference.java", results.get(9).fileName)
+		assertEquals(recordOfListOfReference.toString, results.get(9).contents)
 		
-		assertEquals("RecordOfListOfReference.java", results.get(10).fileName)
-		assertEquals(recordOfListOfReference.toString, results.get(10).contents)
+		assertEquals("RecordOfListOfOwnedTypes.java", results.get(10).fileName)
+		assertEquals(recordOfListOfOwnedTypes.toString, results.get(10).contents)
 		
-		assertEquals("RecordOfListOfOwnedTypes.java", results.get(11).fileName)
-		assertEquals(recordOfListOfOwnedTypes.toString, results.get(11).contents)
-		
-		assertEquals("RecordOfListOfReferencedTypes.java", results.get(12).fileName)
-		assertEquals(recordOfListOfReferencedTypes.toString, results.get(12).contents)
+		assertEquals("RecordOfListOfReferencedTypes.java", results.get(11).fileName)
+		assertEquals(recordOfListOfReferencedTypes.toString, results.get(11).contents)
 	}
 }

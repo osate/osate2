@@ -12,6 +12,7 @@ import org.osate.aadl2.BasicProperty
 import org.osate.aadl2.ClassifierType
 import org.osate.aadl2.EnumerationType
 import org.osate.aadl2.ListType
+import org.osate.aadl2.NamedElement
 import org.osate.aadl2.NumberType
 import org.osate.aadl2.Property
 import org.osate.aadl2.PropertySet
@@ -38,27 +39,32 @@ class PropertiesCodeGen {
 			#[generateFile(propertySet)]
 		}
 		
-		val typeFiles = propertySet.eContents.map[eObject |
-			switch eObject {
-				EnumerationType,
-				NumberType case eObject.unitsType !== null,
-				RangeType,
-				RecordType: generateFile(propertySet, eObject, eObject.name.toCamelCase)
+		val typeFiles = propertySet.eContents.filter(NamedElement).map[namedElement |
+			val name = namedElement.name.toCamelCase
+			val type = switch namedElement {
+				PropertyType: namedElement
 				Property: {
-					val baseType = eObject.propertyType.basePropertyType
-					if (eObject.isAncestor(baseType)) {
-						switch baseType {
-							EnumerationType,
-							NumberType case baseType.unitsType !== null,
-							RangeType,
-							RecordType: generateFile(propertySet, eObject.propertyType, eObject.name.toCamelCase)
-							default: null
-						}
-					} else {
-						null
+					switch baseType : namedElement.propertyType.basePropertyType {
+						case namedElement.isAncestor(baseType): baseType
+						default: null
 					}
 				}
 				default: null
+			}
+			val (PropertiesCodeGen)=>String generatorMethod = switch type {
+				UnitsType: [it.generateUnits(name, type)]
+				EnumerationType: [it.generateEnumeration(name, type)]
+				NumberType case type.ownedUnitsType !== null: [it.generateUnits(name, type.unitsType)]
+				RangeType case type.ownedNumberType?.ownedUnitsType !== null: {
+					[it.generateUnits(name, type.numberType.unitsType)]
+				}
+				RecordType: [it.generateRecord(name, type, true)]
+				default: null
+			}
+			if (generatorMethod !== null) {
+				generateFile(propertySet, name, generatorMethod)
+			} else {
+				null
 			}
 		].filterNull.toList;
 		
@@ -182,7 +188,35 @@ class PropertiesCodeGen {
 				"Classifier"
 			}
 			AadlInteger case type.unitsType === null: "Long"
+			AadlInteger: {
+				imports += "org.osate.propertiescodegen.common.IntegerWithUnits"
+				'''IntegerWithUnits<«getUnitsJavaName(type.unitsType)»>'''
+			}
 			AadlReal case type.unitsType === null: "Double"
+			AadlReal: {
+				imports += "org.osate.propertiescodegen.common.RealWithUnits"
+				'''RealWithUnits<«getUnitsJavaName(type.unitsType)»>'''
+			}
+			RangeType: {
+				switch numberType : type.numberType {
+					AadlInteger case numberType.unitsType === null: {
+						imports += "org.osate.propertiescodegen.common.IntegerRange"
+						"IntegerRange"
+					}
+					AadlInteger: {
+						imports += "org.osate.propertiescodegen.common.IntegerRangeWithUnits"
+						'''IntegerRangeWithUnits<«getUnitsJavaName(numberType.unitsType)»>'''
+					}
+					AadlReal case numberType.unitsType === null: {
+						imports += "org.osate.propertiescodegen.common.RealRange"
+						"RealRange"
+					}
+					AadlReal: {
+						imports += "org.osate.propertiescodegen.common.RealRangeWithUnits"
+						'''RealRangeWithUnits<«getUnitsJavaName(numberType.unitsType)»>'''
+					}
+				}
+			}
 			ReferenceType: {
 				imports += "org.osate.aadl2.instance.InstanceObject"
 				"InstanceObject"
@@ -201,6 +235,32 @@ class PropertiesCodeGen {
 					default: basicProperty.name.toCamelCase + "_FieldType"
 				}
 			}
+		}
+	}
+	
+	def private String getUnitsJavaName(UnitsType type) {
+		/*
+		 * Options for getting the name of a UnitsType:
+		 * 1. The UnitsType could have a name.
+		 * 2. The UnitsType could be in a NumberType with a name.
+		 * 3. The UnitsType could be in a NumberType in a RangeType with a name.
+		 * 4. The UnitsType could be indirectly in a Property which must have a name.
+		 * 5. The UnitsType could be indirectly in a BasicProperty (record field) which must have a name.
+		 */
+		var NamedElement namedElement = type
+		while (namedElement !== null && namedElement.name === null) {
+			namedElement = namedElement.eContainer.getContainerOfType(NamedElement)
+		}
+		switch namedElement {
+			PropertyType: {
+				val unitsPropertySet = namedElement.getContainerOfType(PropertySet)
+				if (unitsPropertySet != propertySet) {
+					imports += unitsPropertySet.name.toLowerCase + "."+ namedElement.name.toCamelCase
+				}
+				namedElement.name.toCamelCase
+			}
+			Property: namedElement.name.toCamelCase
+			BasicProperty: namedElement.name.toCamelCase + "_FieldType"
 		}
 	}
 	
@@ -231,9 +291,37 @@ class PropertiesCodeGen {
 				imports += "org.osate.aadl2.IntegerLiteral"
 				'''((IntegerLiteral) «parameterName»).getValue()'''
 			}
+			AadlInteger: {
+				imports += "org.osate.propertiescodegen.common.IntegerWithUnits"
+				'''new IntegerWithUnits<>(«parameterName», «getUnitsJavaName(type.unitsType)».class)'''
+			}
 			AadlReal case type.unitsType === null: {
 				imports += "org.osate.aadl2.RealLiteral"
 				'''((RealLiteral) «parameterName»).getValue()'''
+			}
+			AadlReal: {
+				imports += "org.osate.propertiescodegen.common.RealWithUnits"
+				'''new RealWithUnits<>(«parameterName», «getUnitsJavaName(type.unitsType)».class)'''
+			}
+			RangeType: {
+				switch numberType : type.numberType {
+					AadlInteger case numberType.unitsType === null: {
+						imports += "org.osate.propertiescodegen.common.IntegerRange"
+						'''new IntegerRange(«parameterName»)'''
+					}
+					AadlInteger: {
+						imports += "org.osate.propertiescodegen.common.IntegerRangeWithUnits"
+						'''new IntegerRangeWithUnits<>(«parameterName», «getUnitsJavaName(numberType.unitsType)».class)'''
+					}
+					AadlReal case numberType.unitsType === null: {
+						imports += "org.osate.propertiescodegen.common.RealRange"
+						'''new RealRange(«parameterName»)'''
+					}
+					AadlReal: {
+						imports += "org.osate.propertiescodegen.common.RealRangeWithUnits"
+						'''new RealRangeWithUnits<>(«parameterName», «getUnitsJavaName(numberType.unitsType)».class)'''
+					}
+				}
 			}
 			ReferenceType: {
 				imports += "org.osate.aadl2.instance.InstanceReferenceValue"
@@ -243,15 +331,13 @@ class PropertiesCodeGen {
 		}
 	}
 	
-	def private static GeneratedJava generateFile(PropertySet propertySet, PropertyType propertyType, String typeName) {
+	def private static GeneratedJava generateFile(
+		PropertySet propertySet,
+		String typeName,
+		(PropertiesCodeGen)=>String generatorMethod
+	) {
 		val generator = new PropertiesCodeGen(propertySet)
-		val generatedJavaType = switch baseType : propertyType.basePropertyType {
-			UnitsType: generator.generateUnits(typeName, baseType)
-			EnumerationType: generator.generateEnumeration(typeName, baseType)
-			NumberType: generator.generateNumberWithUnits(typeName, baseType, true)
-			RangeType: generator.generateRange(typeName, baseType, true)
-			RecordType: generator.generateRecord(typeName, baseType, true)
-		}
+		val generatedJavaType = generatorMethod.apply(generator)
 		val contents = '''
 			package «propertySet.name.toLowerCase»;
 			«generator.generateImports»
@@ -334,199 +420,6 @@ class PropertiesCodeGen {
 		'''
 	}
 	
-	def private String generateNumberWithUnits(String typeName, NumberType numberType, boolean topLevel) {
-		val valueType = switch numberType {
-			AadlInteger: "IntegerLiteral"
-			AadlReal: "RealLiteral"
-		}
-		val unitsType = numberType.unitsType
-		val unitsTypeName = if (unitsType == numberType.ownedUnitsType) {
-			"Units"
-		} else {
-			unitsType.name.toCamelCase
-		}
-		
-		imports += #{"java.util.Objects", "org.osate.aadl2.PropertyExpression", "org.osate.aadl2." + valueType}
-		val unitsPropertySet = unitsType.getContainerOfType(PropertySet)
-		if (unitsType == numberType.referencedUnitsType && unitsPropertySet != propertySet) {
-			imports += unitsPropertySet.name.toLowerCase + "." + unitsTypeName.toCamelCase
-		}
-		
-		val javaType = switch numberType {
-			AadlInteger: "long"
-			AadlReal: "double"
-		}
-		
-		'''
-			public«IF !topLevel» static«ENDIF» class «typeName» {
-				private final «javaType» value;
-				private final «unitsTypeName» unit;
-				
-				public «typeName»(PropertyExpression propertyExpression) {
-					«valueType» numberValue = («valueType») propertyExpression;
-					value = numberValue.getValue();
-					unit = «unitsTypeName».valueOf(numberValue.getUnit().getName().toUpperCase());
-				}
-				
-				public «javaType» getValue() {
-					return value;
-				}
-				
-				public «unitsTypeName» getUnit() {
-					return unit;
-				}
-				
-				@Override
-				public int hashCode() {
-					return Objects.hash(value, unit);
-				}
-				
-				@Override
-				public boolean equals(Object obj) {
-					if (this == obj) {
-						return true;
-					}
-					if (!(obj instanceof «typeName»)) {
-						return false;
-					}
-					«typeName» other = («typeName») obj;
-					«IF numberType instanceof AadlInteger»
-					return value == other.value && unit == other.unit;
-					«ELSE»
-					return Double.doubleToLongBits(value) == Double.doubleToLongBits(other.value) && unit == other.unit;
-					«ENDIF»
-				}
-				
-				@Override
-				public String toString() {
-					return value + unit.toString();
-				}
-				«IF unitsType == numberType.ownedUnitsType»
-				
-				«generateUnits("Units", unitsType)»
-				«ENDIF»
-			}
-		'''
-	}
-	
-	def private String generateRange(String typeName, RangeType rangeType, boolean topLevel) {
-		imports += #{"java.util.Objects", "org.osate.aadl2.PropertyExpression", "org.osate.aadl2.RangeValue"}
-		
-		val numberType = rangeType.numberType
-		val unitsType = numberType.unitsType
-		
-		val numberTypeName = switch numberType {
-			AadlInteger case unitsType === null: "long"
-			AadlReal case unitsType === null: "double"
-			case rangeType.ownedNumberType: "Number"
-			case rangeType.referencedNumberType: {
-				val numberTypeName = numberType.name.toCamelCase
-				val numberPropertySet = numberType.getContainerOfType(PropertySet)
-				if (numberPropertySet != propertySet) {
-					imports += numberPropertySet.name.toLowerCase + "." + numberTypeName
-				}
-				numberTypeName
-			}
-		}
-		
-		val optionalType = switch numberType {
-			AadlInteger case unitsType === null: {
-				imports += "java.util.OptionalLong"
-				"OptionalLong"
-			}
-			AadlReal case unitsType === null: {
-				imports += "java.util.OptionalDouble"
-				"OptionalDouble"
-			}
-			default: {
-				imports += "java.util.Optional"
-				'''Optional<«numberTypeName»>'''
-			}
-		}
-		
-		val literalType = switch numberType {
-			AadlInteger: "IntegerLiteral"
-			AadlReal: "RealLiteral"
-		}
-		if (unitsType === null) {
-			imports += "org.osate.aadl2." + literalType
-		}
-		
-		'''
-			public«IF !topLevel» static«ENDIF» class «typeName» {
-				private final «numberTypeName» minimum;
-				private final «numberTypeName» maximum;
-				private final «optionalType» delta;
-				
-				public «typeName»(PropertyExpression propertyExpression) {
-					RangeValue rangeValue = (RangeValue) propertyExpression;
-					«IF unitsType === null»
-					minimum = ((«literalType») rangeValue.getMinimum()).getValue();
-					maximum = ((«literalType») rangeValue.getMaximum()).getValue();
-					if (rangeValue.getDelta() == null) {
-						delta = «optionalType».empty();
-					} else {
-						delta = «optionalType».of(((«literalType») rangeValue.getDelta()).getValue());
-					}
-					«ELSE»
-					minimum = new «numberTypeName»(rangeValue.getMinimum());
-					maximum = new «numberTypeName»(rangeValue.getMaximum());
-					delta = Optional.ofNullable(rangeValue.getDelta()).map(«numberTypeName»::new);
-					«ENDIF»
-				}
-				
-				public «numberTypeName» getMinimum() {
-					return minimum;
-				}
-				
-				public «numberTypeName» getMaximum() {
-					return maximum;
-				}
-				
-				public «optionalType» getDelta() {
-					return delta;
-				}
-				
-				@Override
-				public int hashCode() {
-					return Objects.hash(minimum, maximum, delta);
-				}
-				
-				@Override
-				public boolean equals(Object obj) {
-					if (this == obj) {
-						return true;
-					}
-					if (!(obj instanceof «typeName»)) {
-						return false;
-					}
-					«typeName» other = («typeName») obj;
-					«IF unitsType !== null»
-					return Objects.equals(minimum, other.minimum) && Objects.equals(maximum, other.maximum)
-							&& Objects.equals(delta, other.delta);
-					«ELSEIF numberType instanceof AadlInteger»
-					return minimum == other.minimum && maximum == other.maximum && Objects.equals(delta, other.delta);
-					«ELSE»
-					return Double.doubleToLongBits(minimum) == Double.doubleToLongBits(other.minimum)
-							&& Double.doubleToLongBits(maximum) == Double.doubleToLongBits(other.maximum)
-							&& Objects.equals(delta, other.delta);
-					«ENDIF»
-				}
-				
-				@Override
-				public String toString() {
-					StringBuilder builder = new StringBuilder(minimum + " .. " + maximum);
-					delta.ifPresent(it -> builder.append(" delta " + it));
-					return builder.toString();
-				}
-				«IF numberType == rangeType.ownedNumberType && unitsType !== null»
-				
-				«generateNumberWithUnits("Number", numberType, false)»
-				«ENDIF»
-			}
-		'''
-	}
-	
 	def private String generateRecord(String typeName, RecordType recordType, boolean topLevel) {
 		imports += #{"java.util.Objects", "org.osate.aadl2.PropertyExpression", "org.osate.aadl2.RecordValue"}
 		'''
@@ -601,24 +494,9 @@ class PropertiesCodeGen {
 					builder.append(']');
 					return builder.toString();
 				}
-				«FOR field : recordType.ownedFields.filter[it.isAncestor(it.propertyType.basePropertyType)]»
-				«val baseType = field.propertyType.basePropertyType»
-				«IF baseType instanceof UnitsType»
+				«FOR fieldType : recordType.ownedFields.map[generateFieldType(it)].filterNull»
 				
-				«generateUnits(field.name.toCamelCase + "_FieldType", baseType)»
-				«ELSEIF baseType instanceof EnumerationType»
-				
-				«generateEnumeration(field.name.toCamelCase + "_FieldType", baseType)»
-				«ELSEIF baseType instanceof NumberType && (baseType as NumberType).unitsType !== null»
-				
-				«generateNumberWithUnits(field.name.toCamelCase + "_FieldType", baseType as NumberType, false)»
-				«ELSEIF baseType instanceof RangeType»
-				
-				«generateRange(field.name.toCamelCase + "_FieldType", baseType, false)»
-				«ELSEIF baseType instanceof RecordType»
-				
-				«generateRecord(field.name.toCamelCase + "_FieldType", baseType, false)»
-				«ENDIF»
+				«fieldType»
 				«ENDFOR»
 			}
 		'''
@@ -697,6 +575,25 @@ class PropertiesCodeGen {
 			ClassifierType,
 			ReferenceType: '");"'
 			default: "';'"
+		}
+	}
+	
+	def private String generateFieldType(BasicProperty field) {
+		val baseType = field.propertyType.basePropertyType
+		if (field.isAncestor(baseType)) {
+			val name = field.name.toCamelCase + "_FieldType"
+			switch baseType {
+				UnitsType: generateUnits(name, baseType)
+				EnumerationType: generateEnumeration(name, baseType)
+				NumberType case baseType.ownedUnitsType !== null: generateUnits(name, baseType.unitsType)
+				RangeType case baseType.ownedNumberType?.ownedUnitsType !== null: {
+					generateUnits(name, baseType.numberType.unitsType)
+				}
+				RecordType: generateRecord(name, baseType, false)
+				default: null
+			}
+		} else {
+			null
 		}
 	}
 	
