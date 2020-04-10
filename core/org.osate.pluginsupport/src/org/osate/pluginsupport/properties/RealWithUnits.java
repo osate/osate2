@@ -1,10 +1,13 @@
-package org.osate.propertiescodegen.common;
+package org.osate.pluginsupport.properties;
 
 import java.util.Objects;
 
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RealLiteral;
 
+/**
+ * @since 3.0
+ */
 public class RealWithUnits<U extends Enum<U>> {
 	private final double value;
 	private final U unit;

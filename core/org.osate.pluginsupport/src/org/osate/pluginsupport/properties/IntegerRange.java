@@ -1,4 +1,4 @@
-package org.osate.propertiescodegen.common;
+package org.osate.pluginsupport.properties;
 
 import java.util.Objects;
 import java.util.OptionalLong;
@@ -7,6 +7,9 @@ import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RangeValue;
 
+/**
+ * @since 3.0
+ */
 public class IntegerRange {
 	private final long minimum;
 	private final long maximum;

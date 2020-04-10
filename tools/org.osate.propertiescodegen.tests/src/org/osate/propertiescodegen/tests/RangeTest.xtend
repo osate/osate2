@@ -88,10 +88,10 @@ class RangeTest {
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
-			import org.osate.propertiescodegen.common.IntegerRange;
-			import org.osate.propertiescodegen.common.IntegerRangeWithUnits;
-			import org.osate.propertiescodegen.common.RealRange;
-			import org.osate.propertiescodegen.common.RealRangeWithUnits;
+			import org.osate.pluginsupport.properties.IntegerRange;
+			import org.osate.pluginsupport.properties.IntegerRangeWithUnits;
+			import org.osate.pluginsupport.properties.RealRange;
+			import org.osate.pluginsupport.properties.RealRangeWithUnits;
 			
 			import other_ps.Mass;
 			
@@ -613,10 +613,10 @@ class RangeTest {
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
 			import org.osate.aadl2.UnitLiteral;
-			import org.osate.propertiescodegen.common.IntegerRange;
-			import org.osate.propertiescodegen.common.IntegerRangeWithUnits;
-			import org.osate.propertiescodegen.common.RealRange;
-			import org.osate.propertiescodegen.common.RealRangeWithUnits;
+			import org.osate.pluginsupport.properties.IntegerRange;
+			import org.osate.pluginsupport.properties.IntegerRangeWithUnits;
+			import org.osate.pluginsupport.properties.RealRange;
+			import org.osate.pluginsupport.properties.RealRangeWithUnits;
 			
 			import other_ps.Mass;
 			

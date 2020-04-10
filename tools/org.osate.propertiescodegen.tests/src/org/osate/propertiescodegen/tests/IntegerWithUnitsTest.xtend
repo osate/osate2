@@ -64,7 +64,7 @@ class IntegerWithUnitsTest {
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
-			import org.osate.propertiescodegen.common.IntegerWithUnits;
+			import org.osate.pluginsupport.properties.IntegerWithUnits;
 			
 			import other_ps.Mass;
 			
@@ -328,7 +328,7 @@ class IntegerWithUnitsTest {
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
 			import org.osate.aadl2.UnitLiteral;
-			import org.osate.propertiescodegen.common.IntegerWithUnits;
+			import org.osate.pluginsupport.properties.IntegerWithUnits;
 			
 			import other_ps.Mass;
 			

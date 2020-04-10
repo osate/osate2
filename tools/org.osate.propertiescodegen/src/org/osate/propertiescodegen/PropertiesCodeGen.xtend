@@ -189,30 +189,30 @@ class PropertiesCodeGen {
 			}
 			AadlInteger case type.unitsType === null: "Long"
 			AadlInteger: {
-				imports += "org.osate.propertiescodegen.common.IntegerWithUnits"
+				imports += "org.osate.pluginsupport.properties.IntegerWithUnits"
 				'''IntegerWithUnits<«getUnitsJavaName(type.unitsType)»>'''
 			}
 			AadlReal case type.unitsType === null: "Double"
 			AadlReal: {
-				imports += "org.osate.propertiescodegen.common.RealWithUnits"
+				imports += "org.osate.pluginsupport.properties.RealWithUnits"
 				'''RealWithUnits<«getUnitsJavaName(type.unitsType)»>'''
 			}
 			RangeType: {
 				switch numberType : type.numberType {
 					AadlInteger case numberType.unitsType === null: {
-						imports += "org.osate.propertiescodegen.common.IntegerRange"
+						imports += "org.osate.pluginsupport.properties.IntegerRange"
 						"IntegerRange"
 					}
 					AadlInteger: {
-						imports += "org.osate.propertiescodegen.common.IntegerRangeWithUnits"
+						imports += "org.osate.pluginsupport.properties.IntegerRangeWithUnits"
 						'''IntegerRangeWithUnits<«getUnitsJavaName(numberType.unitsType)»>'''
 					}
 					AadlReal case numberType.unitsType === null: {
-						imports += "org.osate.propertiescodegen.common.RealRange"
+						imports += "org.osate.pluginsupport.properties.RealRange"
 						"RealRange"
 					}
 					AadlReal: {
-						imports += "org.osate.propertiescodegen.common.RealRangeWithUnits"
+						imports += "org.osate.pluginsupport.properties.RealRangeWithUnits"
 						'''RealRangeWithUnits<«getUnitsJavaName(numberType.unitsType)»>'''
 					}
 				}
@@ -292,7 +292,7 @@ class PropertiesCodeGen {
 				'''((IntegerLiteral) «parameterName»).getValue()'''
 			}
 			AadlInteger: {
-				imports += "org.osate.propertiescodegen.common.IntegerWithUnits"
+				imports += "org.osate.pluginsupport.properties.IntegerWithUnits"
 				'''new IntegerWithUnits<>(«parameterName», «getUnitsJavaName(type.unitsType)».class)'''
 			}
 			AadlReal case type.unitsType === null: {
@@ -300,25 +300,25 @@ class PropertiesCodeGen {
 				'''((RealLiteral) «parameterName»).getValue()'''
 			}
 			AadlReal: {
-				imports += "org.osate.propertiescodegen.common.RealWithUnits"
+				imports += "org.osate.pluginsupport.properties.RealWithUnits"
 				'''new RealWithUnits<>(«parameterName», «getUnitsJavaName(type.unitsType)».class)'''
 			}
 			RangeType: {
 				switch numberType : type.numberType {
 					AadlInteger case numberType.unitsType === null: {
-						imports += "org.osate.propertiescodegen.common.IntegerRange"
+						imports += "org.osate.pluginsupport.properties.IntegerRange"
 						'''new IntegerRange(«parameterName»)'''
 					}
 					AadlInteger: {
-						imports += "org.osate.propertiescodegen.common.IntegerRangeWithUnits"
+						imports += "org.osate.pluginsupport.properties.IntegerRangeWithUnits"
 						'''new IntegerRangeWithUnits<>(«parameterName», «getUnitsJavaName(numberType.unitsType)».class)'''
 					}
 					AadlReal case numberType.unitsType === null: {
-						imports += "org.osate.propertiescodegen.common.RealRange"
+						imports += "org.osate.pluginsupport.properties.RealRange"
 						'''new RealRange(«parameterName»)'''
 					}
 					AadlReal: {
-						imports += "org.osate.propertiescodegen.common.RealRangeWithUnits"
+						imports += "org.osate.pluginsupport.properties.RealRangeWithUnits"
 						'''new RealRangeWithUnits<>(«parameterName», «getUnitsJavaName(numberType.unitsType)».class)'''
 					}
 				}

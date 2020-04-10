@@ -103,10 +103,10 @@ class ListDefinitionTest {
 			import org.osate.aadl2.instance.InstanceReferenceValue;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
-			import org.osate.propertiescodegen.common.IntegerRange;
-			import org.osate.propertiescodegen.common.IntegerWithUnits;
-			import org.osate.propertiescodegen.common.RealRange;
-			import org.osate.propertiescodegen.common.RealWithUnits;
+			import org.osate.pluginsupport.properties.IntegerRange;
+			import org.osate.pluginsupport.properties.IntegerWithUnits;
+			import org.osate.pluginsupport.properties.RealRange;
+			import org.osate.pluginsupport.properties.RealWithUnits;
 			
 			import ps2.BasicRecord;
 			import ps2.Color;

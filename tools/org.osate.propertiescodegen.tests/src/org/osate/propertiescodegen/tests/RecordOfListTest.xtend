@@ -917,8 +917,8 @@ class RecordOfListTest {
 			import org.osate.aadl2.RecordValue;
 			import org.osate.aadl2.StringLiteral;
 			import org.osate.aadl2.UnitLiteral;
-			import org.osate.propertiescodegen.common.IntegerRange;
-			import org.osate.propertiescodegen.common.IntegerWithUnits;
+			import org.osate.pluginsupport.properties.IntegerRange;
+			import org.osate.pluginsupport.properties.IntegerWithUnits;
 			
 			public class RecordOfListOfOwnedTypes {
 				private final Optional<List<OwnedEnum_FieldType>> ownedEnum;
@@ -1253,10 +1253,10 @@ class RecordOfListTest {
 			import org.osate.aadl2.ListValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
-			import org.osate.propertiescodegen.common.IntegerRange;
-			import org.osate.propertiescodegen.common.IntegerWithUnits;
-			import org.osate.propertiescodegen.common.RealRange;
-			import org.osate.propertiescodegen.common.RealWithUnits;
+			import org.osate.pluginsupport.properties.IntegerRange;
+			import org.osate.pluginsupport.properties.IntegerWithUnits;
+			import org.osate.pluginsupport.properties.RealRange;
+			import org.osate.pluginsupport.properties.RealWithUnits;
 			
 			import ps2.BasicRecord;
 			import ps2.Color;
