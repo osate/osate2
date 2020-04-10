@@ -69,8 +69,8 @@ class PropertyDefinitionTest {
 			import org.osate.aadl2.instance.InstanceReferenceValue;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
-			import org.osate.propertiescodegen.common.IntegerRange;
-			import org.osate.propertiescodegen.common.IntegerWithUnits;
+			import org.osate.pluginsupport.properties.IntegerRange;
+			import org.osate.pluginsupport.properties.IntegerWithUnits;
 			
 			import ps2.Color;
 			import ps2.Mass;

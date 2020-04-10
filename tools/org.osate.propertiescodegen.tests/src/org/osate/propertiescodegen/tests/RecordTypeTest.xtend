@@ -224,12 +224,12 @@ class RecordTypeTest {
 			import org.osate.aadl2.UnitLiteral;
 			import org.osate.aadl2.instance.InstanceObject;
 			import org.osate.aadl2.instance.InstanceReferenceValue;
-			import org.osate.propertiescodegen.common.IntegerRange;
-			import org.osate.propertiescodegen.common.IntegerRangeWithUnits;
-			import org.osate.propertiescodegen.common.IntegerWithUnits;
-			import org.osate.propertiescodegen.common.RealRange;
-			import org.osate.propertiescodegen.common.RealRangeWithUnits;
-			import org.osate.propertiescodegen.common.RealWithUnits;
+			import org.osate.pluginsupport.properties.IntegerRange;
+			import org.osate.pluginsupport.properties.IntegerRangeWithUnits;
+			import org.osate.pluginsupport.properties.IntegerWithUnits;
+			import org.osate.pluginsupport.properties.RealRange;
+			import org.osate.pluginsupport.properties.RealRangeWithUnits;
+			import org.osate.pluginsupport.properties.RealWithUnits;
 			
 			import ps2.BasicRecord;
 			import ps2.Color;

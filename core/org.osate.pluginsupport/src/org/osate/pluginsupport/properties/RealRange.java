@@ -1,4 +1,4 @@
-package org.osate.propertiescodegen.common;
+package org.osate.pluginsupport.properties;
 
 import java.util.Objects;
 import java.util.OptionalDouble;
@@ -7,6 +7,9 @@ import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RealLiteral;
 
+/**
+ * @since 3.0
+ */
 public class RealRange {
 	private final double minimum;
 	private final double maximum;

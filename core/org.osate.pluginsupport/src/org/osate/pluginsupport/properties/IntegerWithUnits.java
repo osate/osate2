@@ -1,10 +1,13 @@
-package org.osate.propertiescodegen.common;
+package org.osate.pluginsupport.properties;
 
 import java.util.Objects;
 
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.PropertyExpression;
 
+/**
+ * @since 3.0
+ */
 public class IntegerWithUnits<U extends Enum<U>> {
 	private final long value;
 	private final U unit;
