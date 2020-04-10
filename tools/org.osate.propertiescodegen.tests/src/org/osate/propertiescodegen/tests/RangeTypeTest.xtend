@@ -58,8 +58,9 @@ class RangeTypeTest {
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
+			import org.osate.pluginsupport.properties.GeneratedUnits;
 			
-			public enum Time {
+			public enum Time implements GeneratedUnits {
 				SEC(1.0, "sec"),
 				MIN(60.0, "min"),
 				HR(3600.0, "hr"),
@@ -78,6 +79,7 @@ class RangeTypeTest {
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
+				@Override
 				public double getFactorToBase() {
 					return factorToBase;
 				}
@@ -99,8 +101,9 @@ class RangeTypeTest {
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
+			import org.osate.pluginsupport.properties.GeneratedUnits;
 			
-			public enum IntegerOwnedUnits {
+			public enum IntegerOwnedUnits implements GeneratedUnits {
 				MM(1.0, "mm"),
 				CM(10.0, "cm"),
 				M(1000.0, "m");
@@ -118,6 +121,7 @@ class RangeTypeTest {
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
+				@Override
 				public double getFactorToBase() {
 					return factorToBase;
 				}
@@ -139,8 +143,9 @@ class RangeTypeTest {
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
+			import org.osate.pluginsupport.properties.GeneratedUnits;
 			
-			public enum RangeOfIntegerOwnedUnits {
+			public enum RangeOfIntegerOwnedUnits implements GeneratedUnits {
 				G(1.0, "g"),
 				KG(1000.0, "kg");
 				
@@ -157,6 +162,7 @@ class RangeTypeTest {
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
+				@Override
 				public double getFactorToBase() {
 					return factorToBase;
 				}
@@ -178,8 +184,9 @@ class RangeTypeTest {
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
+			import org.osate.pluginsupport.properties.GeneratedUnits;
 			
-			public enum RangeOfRealOwnedUnits {
+			public enum RangeOfRealOwnedUnits implements GeneratedUnits {
 				MN(1.0, "mN"),
 				CN(10.0, "cN"),
 				N(1000.0, "N");
@@ -197,6 +204,7 @@ class RangeTypeTest {
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
+				@Override
 				public double getFactorToBase() {
 					return factorToBase;
 				}

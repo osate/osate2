@@ -202,8 +202,9 @@ class RealWithUnitsTest {
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
+			import org.osate.pluginsupport.properties.GeneratedUnits;
 			
-			public enum Time {
+			public enum Time implements GeneratedUnits {
 				SEC(1.0, "sec"),
 				MIN(60.0, "min"),
 				HR(3600.0, "hr"),
@@ -222,6 +223,7 @@ class RealWithUnitsTest {
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
+				@Override
 				public double getFactorToBase() {
 					return factorToBase;
 				}
@@ -243,8 +245,9 @@ class RealWithUnitsTest {
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
+			import org.osate.pluginsupport.properties.GeneratedUnits;
 			
-			public enum Owned {
+			public enum Owned implements GeneratedUnits {
 				B(1.0, "B"),
 				KIB(1024.0, "KiB");
 				
@@ -261,6 +264,7 @@ class RealWithUnitsTest {
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
+				@Override
 				public double getFactorToBase() {
 					return factorToBase;
 				}
@@ -282,8 +286,9 @@ class RealWithUnitsTest {
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
+			import org.osate.pluginsupport.properties.GeneratedUnits;
 			
-			public enum List1Owned {
+			public enum List1Owned implements GeneratedUnits {
 				MG(1.0, "mg"),
 				G(1000.0, "g");
 				
@@ -300,6 +305,7 @@ class RealWithUnitsTest {
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
+				@Override
 				public double getFactorToBase() {
 					return factorToBase;
 				}
@@ -328,6 +334,7 @@ class RealWithUnitsTest {
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
 			import org.osate.aadl2.UnitLiteral;
+			import org.osate.pluginsupport.properties.GeneratedUnits;
 			import org.osate.pluginsupport.properties.RealWithUnits;
 			
 			import other_ps.Mass;
@@ -477,7 +484,7 @@ class RealWithUnitsTest {
 					return builder.toString();
 				}
 				
-				public enum Owned_FieldType {
+				public enum Owned_FieldType implements GeneratedUnits {
 					HOUR(1.0, "hour"),
 					DAY(24.0, "day");
 					
@@ -494,6 +501,7 @@ class RealWithUnitsTest {
 						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 					}
 					
+					@Override
 					public double getFactorToBase() {
 						return factorToBase;
 					}
@@ -508,7 +516,7 @@ class RealWithUnitsTest {
 					}
 				}
 				
-				public enum List1Owned_FieldType {
+				public enum List1Owned_FieldType implements GeneratedUnits {
 					ML(1.0, "ml"),
 					L(1000.0, "l");
 					
@@ -525,6 +533,7 @@ class RealWithUnitsTest {
 						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 					}
 					
+					@Override
 					public double getFactorToBase() {
 						return factorToBase;
 					}

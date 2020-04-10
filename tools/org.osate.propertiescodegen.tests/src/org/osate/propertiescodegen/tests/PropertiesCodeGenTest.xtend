@@ -75,8 +75,9 @@ class PropertiesCodeGenTest {
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
+			import org.osate.pluginsupport.properties.GeneratedUnits;
 			
-			public enum UnitsType1 {
+			public enum UnitsType1 implements GeneratedUnits {
 				MM(1.0, "mm"),
 				CM(10.0, "cm"),
 				INCH(25.4, "inch"),
@@ -96,6 +97,7 @@ class PropertiesCodeGenTest {
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
+				@Override
 				public double getFactorToBase() {
 					return factorToBase;
 				}
@@ -142,8 +144,9 @@ class PropertiesCodeGenTest {
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
+			import org.osate.pluginsupport.properties.GeneratedUnits;
 			
-			public enum Time {
+			public enum Time implements GeneratedUnits {
 				SEC(1.0, "sec"),
 				MIN(60.0, "min"),
 				HR(3600.0, "hr"),
@@ -162,6 +165,7 @@ class PropertiesCodeGenTest {
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
+				@Override
 				public double getFactorToBase() {
 					return factorToBase;
 				}
@@ -183,8 +187,9 @@ class PropertiesCodeGenTest {
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
+			import org.osate.pluginsupport.properties.GeneratedUnits;
 			
-			public enum IntegerOwnedUnits {
+			public enum IntegerOwnedUnits implements GeneratedUnits {
 				MM(1.0, "mm"),
 				CM(10.0, "cm"),
 				M(1000.0, "m");
@@ -202,6 +207,7 @@ class PropertiesCodeGenTest {
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
+				@Override
 				public double getFactorToBase() {
 					return factorToBase;
 				}
@@ -252,8 +258,9 @@ class PropertiesCodeGenTest {
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
+			import org.osate.pluginsupport.properties.GeneratedUnits;
 			
-			public enum Time {
+			public enum Time implements GeneratedUnits {
 				SEC(1.0, "sec"),
 				MIN(60.0, "min"),
 				HR(3600.0, "hr"),
@@ -272,6 +279,7 @@ class PropertiesCodeGenTest {
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
+				@Override
 				public double getFactorToBase() {
 					return factorToBase;
 				}
@@ -293,8 +301,9 @@ class PropertiesCodeGenTest {
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
+			import org.osate.pluginsupport.properties.GeneratedUnits;
 			
-			public enum RealOwnedUnits {
+			public enum RealOwnedUnits implements GeneratedUnits {
 				ML(1.0, "ml"),
 				CL(10.0, "cl"),
 				L(1000.0, "l");
@@ -312,6 +321,7 @@ class PropertiesCodeGenTest {
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
+				@Override
 				public double getFactorToBase() {
 					return factorToBase;
 				}

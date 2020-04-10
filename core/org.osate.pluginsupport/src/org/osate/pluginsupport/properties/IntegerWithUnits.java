@@ -8,7 +8,7 @@ import org.osate.aadl2.PropertyExpression;
 /**
  * @since 3.0
  */
-public class IntegerWithUnits<U extends Enum<U>> {
+public class IntegerWithUnits<U extends Enum<U> & GeneratedUnits> {
 	private final long value;
 	private final U unit;
 	
@@ -24,6 +24,10 @@ public class IntegerWithUnits<U extends Enum<U>> {
 	
 	public U getUnit() {
 		return unit;
+	}
+	
+	public double getValue(U targetUnit) {
+		return value * unit.getFactorToBase() / targetUnit.getFactorToBase();
 	}
 	
 	@Override
