@@ -9,7 +9,7 @@ import org.osate.aadl2.RangeValue;
 /**
  * @since 3.0
  */
-public class IntegerRangeWithUnits<U extends Enum<U>> {
+public class IntegerRangeWithUnits<U extends Enum<U> & GeneratedUnits> {
 	private final IntegerWithUnits<U> minimum;
 	private final IntegerWithUnits<U> maximum;
 	private final Optional<IntegerWithUnits<U>> delta;

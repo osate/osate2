@@ -305,8 +305,9 @@ class PropertyDefinitionTest {
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
+			import org.osate.pluginsupport.properties.GeneratedUnits;
 			
-			public enum UnitsDefinition {
+			public enum UnitsDefinition implements GeneratedUnits {
 				M(1.0, "m"),
 				KM(1000.0, "km");
 				
@@ -323,6 +324,7 @@ class PropertyDefinitionTest {
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
+				@Override
 				public double getFactorToBase() {
 					return factorToBase;
 				}

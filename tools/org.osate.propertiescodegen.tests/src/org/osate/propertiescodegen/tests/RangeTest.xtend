@@ -409,8 +409,9 @@ class RangeTest {
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
+			import org.osate.pluginsupport.properties.GeneratedUnits;
 			
-			public enum Time {
+			public enum Time implements GeneratedUnits {
 				SEC(1.0, "sec"),
 				MIN(60.0, "min"),
 				HR(3600.0, "hr"),
@@ -429,6 +430,7 @@ class RangeTest {
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
+				@Override
 				public double getFactorToBase() {
 					return factorToBase;
 				}
@@ -450,8 +452,9 @@ class RangeTest {
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
+			import org.osate.pluginsupport.properties.GeneratedUnits;
 			
-			public enum IntegerOwnedUnits {
+			public enum IntegerOwnedUnits implements GeneratedUnits {
 				CM(1.0, "cm"),
 				M(100.0, "m");
 				
@@ -468,6 +471,7 @@ class RangeTest {
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
+				@Override
 				public double getFactorToBase() {
 					return factorToBase;
 				}
@@ -489,8 +493,9 @@ class RangeTest {
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
+			import org.osate.pluginsupport.properties.GeneratedUnits;
 			
-			public enum List1IntegerOwnedUnits {
+			public enum List1IntegerOwnedUnits implements GeneratedUnits {
 				M(1.0, "m"),
 				KM(1000.0, "km");
 				
@@ -507,6 +512,7 @@ class RangeTest {
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
+				@Override
 				public double getFactorToBase() {
 					return factorToBase;
 				}
@@ -528,8 +534,9 @@ class RangeTest {
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
+			import org.osate.pluginsupport.properties.GeneratedUnits;
 			
-			public enum RealOwnedUnits {
+			public enum RealOwnedUnits implements GeneratedUnits {
 				MM(1.0, "mm"),
 				CM(10.0, "cm");
 				
@@ -546,6 +553,7 @@ class RangeTest {
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
+				@Override
 				public double getFactorToBase() {
 					return factorToBase;
 				}
@@ -567,8 +575,9 @@ class RangeTest {
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
+			import org.osate.pluginsupport.properties.GeneratedUnits;
 			
-			public enum List1RealOwnedUnits {
+			public enum List1RealOwnedUnits implements GeneratedUnits {
 				MG(1.0, "mg"),
 				CG(10.0, "cg");
 				
@@ -585,6 +594,7 @@ class RangeTest {
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
+				@Override
 				public double getFactorToBase() {
 					return factorToBase;
 				}
@@ -613,6 +623,7 @@ class RangeTest {
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
 			import org.osate.aadl2.UnitLiteral;
+			import org.osate.pluginsupport.properties.GeneratedUnits;
 			import org.osate.pluginsupport.properties.IntegerRange;
 			import org.osate.pluginsupport.properties.IntegerRangeWithUnits;
 			import org.osate.pluginsupport.properties.RealRange;
@@ -955,7 +966,7 @@ class RangeTest {
 					return builder.toString();
 				}
 				
-				public enum IntegerOwnedUnits_FieldType {
+				public enum IntegerOwnedUnits_FieldType implements GeneratedUnits {
 					CM(1.0, "cm"),
 					M(100.0, "m");
 					
@@ -972,6 +983,7 @@ class RangeTest {
 						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 					}
 					
+					@Override
 					public double getFactorToBase() {
 						return factorToBase;
 					}
@@ -986,7 +998,7 @@ class RangeTest {
 					}
 				}
 				
-				public enum List1IntegerOwnedUnits_FieldType {
+				public enum List1IntegerOwnedUnits_FieldType implements GeneratedUnits {
 					M(1.0, "m"),
 					KM(1000.0, "km");
 					
@@ -1003,6 +1015,7 @@ class RangeTest {
 						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 					}
 					
+					@Override
 					public double getFactorToBase() {
 						return factorToBase;
 					}
@@ -1017,7 +1030,7 @@ class RangeTest {
 					}
 				}
 				
-				public enum RealOwnedUnits_FieldType {
+				public enum RealOwnedUnits_FieldType implements GeneratedUnits {
 					MM(1.0, "mm"),
 					CM(10.0, "cm");
 					
@@ -1034,6 +1047,7 @@ class RangeTest {
 						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 					}
 					
+					@Override
 					public double getFactorToBase() {
 						return factorToBase;
 					}
@@ -1048,7 +1062,7 @@ class RangeTest {
 					}
 				}
 				
-				public enum List1RealOwnedUnits_FieldType {
+				public enum List1RealOwnedUnits_FieldType implements GeneratedUnits {
 					MG(1.0, "mg"),
 					CG(10.0, "cg");
 					
@@ -1065,6 +1079,7 @@ class RangeTest {
 						return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 					}
 					
+					@Override
 					public double getFactorToBase() {
 						return factorToBase;
 					}

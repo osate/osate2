@@ -383,12 +383,13 @@ class PropertiesCodeGen {
 			"org.osate.aadl2.AbstractNamedValue",
 			"org.osate.aadl2.NamedValue",
 			"org.osate.aadl2.PropertyExpression",
-			"org.osate.aadl2.UnitLiteral"
+			"org.osate.aadl2.UnitLiteral",
+			"org.osate.pluginsupport.properties.GeneratedUnits"
 		}
 		val literals = unitsType.ownedLiterals.filter(UnitLiteral).sortBy[it.absoluteFactor]
 		val literalsString = literals.join(",\n")['''«it.name.toUpperCase»(«it.absoluteFactor», "«it.name»")''']
 		'''
-			public enum «typeName» {
+			public enum «typeName» implements GeneratedUnits {
 				«literalsString»;
 				
 				private final double factorToBase;
@@ -404,6 +405,7 @@ class PropertiesCodeGen {
 					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
+				@Override
 				public double getFactorToBase() {
 					return factorToBase;
 				}
