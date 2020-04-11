@@ -160,6 +160,15 @@ public interface EMV2InstanceFactory extends EFactory {
 	PropagationPathInstance createPropagationPathInstance();
 
 	/**
+	 * Returns a new object of class '<em>Error Propagation Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Error Propagation Instance</em>'.
+	 * @generated
+	 */
+	ErrorPropagationInstance createErrorPropagationInstance();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

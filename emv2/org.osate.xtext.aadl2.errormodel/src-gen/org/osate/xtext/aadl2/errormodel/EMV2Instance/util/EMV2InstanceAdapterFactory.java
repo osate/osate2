@@ -155,6 +155,10 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 				return createPropagationPathInstanceAdapter();
 			}
 			@Override
+			public Adapter caseErrorPropagationInstance(ErrorPropagationInstance object) {
+				return createErrorPropagationInstanceAdapter();
+			}
+			@Override
 			public Adapter caseElement(Element object) {
 				return createElementAdapter();
 			}
@@ -397,6 +401,20 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPropagationPathInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorPropagationInstance <em>Error Propagation Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorPropagationInstance
+	 * @generated
+	 */
+	public Adapter createErrorPropagationInstanceAdapter() {
 		return null;
 	}
 

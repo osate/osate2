@@ -45,6 +45,8 @@ import org.osate.aadl2.instance.AnnexInstance;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2AnnexInstance#getErrorFlows <em>Error Flows</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2AnnexInstance#getComposites <em>Composites</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2AnnexInstance#getPropagationPaths <em>Propagation Paths</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2AnnexInstance#getInPropagations <em>In Propagations</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2AnnexInstance#getOutPropagations <em>Out Propagations</em>}</li>
  * </ul>
  *
  * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getEMV2AnnexInstance()
@@ -169,5 +171,29 @@ public interface EMV2AnnexInstance extends AnnexInstance {
 	 * @generated
 	 */
 	EList<PropagationPathInstance> getPropagationPaths();
+
+	/**
+	 * Returns the value of the '<em><b>In Propagations</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorPropagationInstance}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>In Propagations</em>' containment reference list.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getEMV2AnnexInstance_InPropagations()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<ErrorPropagationInstance> getInPropagations();
+
+	/**
+	 * Returns the value of the '<em><b>Out Propagations</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorPropagationInstance}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Out Propagations</em>' containment reference list.
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getEMV2AnnexInstance_OutPropagations()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<ErrorPropagationInstance> getOutPropagations();
 
 } // EMV2AnnexInstance

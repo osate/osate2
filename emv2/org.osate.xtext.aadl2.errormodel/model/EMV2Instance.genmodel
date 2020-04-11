@@ -27,6 +27,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//EMV2AnnexInstance/errorFlows"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//EMV2AnnexInstance/composites"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//EMV2AnnexInstance/propagationPaths"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//EMV2AnnexInstance/inPropagations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//EMV2AnnexInstance/outPropagations"/>
     </genClasses>
     <genClasses image="false" ecoreClass="EMV2Instance.ecore#//EMV2InstanceObject"/>
     <genClasses ecoreClass="EMV2Instance.ecore#//StateMachineInstance">
@@ -34,7 +36,9 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//StateMachineInstance/currentState"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//StateMachineInstance/stateMachine"/>
     </genClasses>
-    <genClasses ecoreClass="EMV2Instance.ecore#//StateInstance"/>
+    <genClasses ecoreClass="EMV2Instance.ecore#//StateInstance">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//StateInstance/state"/>
+    </genClasses>
     <genClasses ecoreClass="EMV2Instance.ecore#//ConstrainedInstanceObject">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ConstrainedInstanceObject/instanceObject"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ConstrainedInstanceObject/constraint"/>
@@ -90,6 +94,9 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//PropagationPathInstance/emv2Element"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//PropagationPathInstance/source"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//PropagationPathInstance/target"/>
+    </genClasses>
+    <genClasses ecoreClass="EMV2Instance.ecore#//ErrorPropagationInstance">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ErrorPropagationInstance/errorPropagation"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

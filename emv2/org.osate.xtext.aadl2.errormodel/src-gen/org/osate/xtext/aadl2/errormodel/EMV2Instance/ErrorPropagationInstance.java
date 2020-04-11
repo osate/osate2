@@ -23,46 +23,45 @@
  */
 package org.osate.xtext.aadl2.errormodel.EMV2Instance;
 
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
-
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>State Instance</b></em>'.
+ * A representation of the model object '<em><b>Error Propagation Instance</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateInstance#getState <em>State</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorPropagationInstance#getErrorPropagation <em>Error Propagation</em>}</li>
  * </ul>
  *
- * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getStateInstance()
+ * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getErrorPropagationInstance()
  * @model
  * @generated
  */
-public interface StateInstance extends EMV2InstanceObject {
-
+public interface ErrorPropagationInstance extends ConstrainedInstanceObject {
 	/**
-	 * Returns the value of the '<em><b>State</b></em>' reference.
+	 * Returns the value of the '<em><b>Error Propagation</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>State</em>' reference.
-	 * @see #setState(ErrorBehaviorState)
-	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getStateInstance_State()
+	 * @return the value of the '<em>Error Propagation</em>' reference.
+	 * @see #setErrorPropagation(ErrorPropagation)
+	 * @see org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage#getErrorPropagationInstance_ErrorPropagation()
 	 * @model
 	 * @generated
 	 */
-	ErrorBehaviorState getState();
+	ErrorPropagation getErrorPropagation();
 
 	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.StateInstance#getState <em>State</em>}' reference.
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorPropagationInstance#getErrorPropagation <em>Error Propagation</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>State</em>' reference.
-	 * @see #getState()
+	 * @param value the new value of the '<em>Error Propagation</em>' reference.
+	 * @see #getErrorPropagation()
 	 * @generated
 	 */
-	void setState(ErrorBehaviorState value);
-} // StateInstance
+	void setErrorPropagation(ErrorPropagation value);
+
+} // ErrorPropagationInstance

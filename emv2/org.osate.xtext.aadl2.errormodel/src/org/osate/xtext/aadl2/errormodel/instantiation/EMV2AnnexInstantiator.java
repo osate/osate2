@@ -33,6 +33,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.NamedElement;
@@ -57,6 +58,7 @@ import org.osate.xtext.aadl2.errormodel.EMV2Instance.EOperation;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorDetectionInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorFlowInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorPropagationConditionInstance;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorPropagationInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EventInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPathInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.PropagationPointInstance;
@@ -108,6 +110,11 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		Collection<PropagationPoint> pps = EMV2Util.getAllPropagationPoints(instance.getClassifier());
 		for (PropagationPoint pp : pps) {
 			instantiatePropagationPoint(pp, emv2AI);
+		}
+
+		Collection<ErrorPropagation> eps = EMV2Util.getAllErrorPropagations(instance.getClassifier());
+		for (ErrorPropagation ep : eps) {
+			instantiateErrorPropagation(ep, emv2AI);
 		}
 
 		Collection<ErrorBehaviorEvent> events = EMV2Util.getAllErrorBehaviorEvents(instance);
@@ -225,6 +232,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	public StateInstance createStateInstance(ErrorBehaviorState ss) {
 		StateInstance si = EMV2InstanceFactory.eINSTANCE.createStateInstance();
 		si.setName(ss.getName());
+		si.setState(ss);
 		return si;
 	}
 
@@ -294,6 +302,30 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		sti.setCondition(cio);
 		// explicit target state
 		sti.setTargetState(findStateInstance(annex, st.getState()));
+	}
+
+	public void instantiateErrorPropagation(ErrorPropagation ep, EMV2AnnexInstance annex) {
+		ErrorPropagationInstance epi = EMV2InstanceFactory.eINSTANCE.createErrorPropagationInstance();
+		epi.setName(EMV2Util.getName(ep));
+		epi.setErrorPropagation(ep);
+		ComponentInstance ci = (ComponentInstance) annex.eContainer();
+		InstanceObject io = findFeatureInstance(ci, ep.getFeatureorPPRef());
+		if (io == null) {
+			io = ci;
+		}
+		epi.setInstanceObject(io);
+		for (TypeToken token : ep.getTypeSet().getTypeTokens()) {
+			epi.getConstraint().add(EcoreUtil.copy(token));
+		}
+		if (ep.getDirection() == DirectionType.IN) {
+			annex.getInPropagations().add(epi);
+		} else if (ep.getDirection() == DirectionType.OUT) {
+			annex.getOutPropagations().add(epi);
+		} else if (ep.getDirection() == DirectionType.IN_OUT) {
+			annex.getInPropagations().add(epi);
+			ErrorPropagationInstance epicopy = EcoreUtil.copy(epi);
+			annex.getOutPropagations().add(epicopy);
+		}
 	}
 
 	public void instantiateErrorFlow(ErrorFlow ef, EMV2AnnexInstance annex) {
