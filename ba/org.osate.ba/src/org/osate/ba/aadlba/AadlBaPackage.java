@@ -2471,13 +2471,22 @@ public interface AadlBaPackage extends EPackage
   int BEHAVIOR_VARIABLE__OWNED_PROPERTY_ASSOCIATIONS = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 2;
 
   /**
+   * The feature id for the '<em><b>Owned Value Constant</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BEHAVIOR_VARIABLE__OWNED_VALUE_CONSTANT = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 3;
+
+  /**
    * The number of structural features of the '<em>Behavior Variable</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int BEHAVIOR_VARIABLE_FEATURE_COUNT = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 3;
+  int BEHAVIOR_VARIABLE_FEATURE_COUNT = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -7238,6 +7247,17 @@ public interface AadlBaPackage extends EPackage
   EReference getBehaviorVariable_OwnedPropertyAssociations();
 
   /**
+   * Returns the meta object for the containment reference '{@link org.osate.ba.aadlba.BehaviorVariable#getOwnedValueConstant <em>Owned Value Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Owned Value Constant</em>'.
+   * @see org.osate.ba.aadlba.BehaviorVariable#getOwnedValueConstant()
+   * @see #getBehaviorVariable()
+   * @generated
+   */
+  EReference getBehaviorVariable_OwnedValueConstant();
+
+  /**
    * Returns the meta object for class '{@link org.osate.ba.aadlba.BehaviorVariableHolder <em>Behavior Variable Holder</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -9477,6 +9497,14 @@ public interface AadlBaPackage extends EPackage
      * @generated
      */
     EReference BEHAVIOR_VARIABLE__OWNED_PROPERTY_ASSOCIATIONS = eINSTANCE.getBehaviorVariable_OwnedPropertyAssociations();
+
+    /**
+     * The meta object literal for the '<em><b>Owned Value Constant</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference BEHAVIOR_VARIABLE__OWNED_VALUE_CONSTANT = eINSTANCE.getBehaviorVariable_OwnedValueConstant();
 
     /**
      * The meta object literal for the '{@link org.osate.ba.aadlba.impl.BehaviorVariableHolderImpl <em>Behavior Variable Holder</em>}' class.

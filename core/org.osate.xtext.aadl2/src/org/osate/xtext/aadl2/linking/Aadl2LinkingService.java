@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.util.IResourceScopeCache;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.CallContext;
@@ -82,7 +83,14 @@ import org.osate.annexsupport.AnnexLinkingServiceRegistry;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
+import com.google.inject.Inject;
+
 public class Aadl2LinkingService extends PropertiesLinkingService {
+
+	private static final boolean useCache = Boolean.valueOf(System.getProperty("org.osate.linking.cache", "false"));
+
+	@Inject
+	IResourceScopeCache linkingCache;
 
 	AnnexLinkingServiceRegistry annexlinkingserviceregistry;
 
@@ -100,6 +108,21 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 	@Override
 	public List<EObject> getLinkedObjects(EObject context, EReference reference, INode node)
 			throws IllegalNodeException {
+		List<EObject> result;
+		String crossRefString = getCrossRefNodeAsString(node);
+		boolean global = crossRefString.contains("::");
+
+		if (useCache) {
+			result = linkingCache.get(global ? crossRefString : node, context.eResource(),
+					() -> doGetLinkedObjects(context, reference, node));
+		} else {
+			result = doGetLinkedObjects(context, reference, node);
+		}
+		return result;
+	}
+
+	private List<EObject> doGetLinkedObjects(EObject context, EReference reference, INode node)
+			throws IllegalNodeException {
 		NamedElement annex = AadlUtil.getContainingAnnex(context);
 		if (annex != null) {
 			String annexName = annex.getName();
@@ -110,17 +133,13 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 				if (annexlinkingserviceregistry != null) {
 					AnnexLinkingService linkingservice = annexlinkingserviceregistry.getAnnexLinkingService(annexName);
 					if (linkingservice != null) {
-						List<EObject> result = linkingservice.resolveAnnexReference(annexName, context, reference,
-								node);
-						if (!result.isEmpty()) {
-							return result;
-						}
+						return linkingservice.resolveAnnexReference(annexName, context, reference, node);
 					}
 				}
 			}
+			return Collections.<EObject> emptyList();
 		}
 
-//		EMFIndexRetrieval.printEMFIndexEMV2(context);
 		final EClass requiredType = reference.getEReferenceType();
 		if (requiredType == null) {
 			return Collections.<EObject> emptyList();

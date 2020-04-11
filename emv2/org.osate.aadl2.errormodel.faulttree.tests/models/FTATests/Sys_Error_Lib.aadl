@@ -1,20 +1,21 @@
 package Sys_Error_lib
 public
-annex EMV2 {**
-       error types
-             NoValue : type;
-             BadData : type;
-             LateValue : type;
-              NoService : type;
-       end types;
-       error behavior Simple
-       events
-              SError : error event ;
-      states
-             NormalState : initial state ;
-              FaultyState : state ;
-      transitions
-             transerr : NormalState -[ SError ]-> FaultyState ;
-      end behavior ;
-**};
+	annex EMV2 {**
+		error types
+			NoValue: type;
+			BadData: type;
+			LateValue: type;
+			NoService: type;
+		end types;
+		
+		error behavior Simple
+			events
+				SError: error event;
+			states
+				NormalState: initial state;
+				FaultyState: state;
+			transitions
+				transerr: NormalState -[SError]-> FaultyState;
+		end behavior;
+	**};
 end Sys_Error_lib;

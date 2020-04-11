@@ -3,38 +3,39 @@ public
 
 -- internal error events result in degraded or failstop
 -- incoming propagation on both inputs results in item omission
-thread voter
-features
-	valuein1 : in data port ;
-	valuein2 : in data port ;
-	valueout : out data port ;
-annex EMV2{**
- 	use types ErrorLibrary;
- 	-- we use our own three state EBSM.
- 	-- a computeerror error event leads to Degraded, which as error source generates InconsistentValue
- 	-- a Failure error event leads to FailStop, which propagates ItemOmission
- 	use behavior FTErrorLibrary::DegradedFailStop;
- 	error propagations
- 		valuein1 : in propagation {OutOfRange};
- 		valuein2 : in propagation {OutOfRange};
- 		valueout : out propagation {ItemOmission,ValueCorruption,InconsistentValue};
- 	flows
- 		ef1 : error path valuein1{OutOfRange} -> valueout{ItemOmission};
- 		ef2 : error path valuein2{OutOfRange} -> valueout{ItemOmission};
- 		ef6 : error source valueout{InconsistentValue};
- 	end propagations;
- 	component error behavior
- 	propagations
- 	prop1: Operational -[valuein1{ OutOfRange} and valuein2{OutOfRange}]-> valueout{ItemOmission};
- 	prop2: Degraded -[]-> valueout{InconsistentValue};
- 	prop3: FailStop -[]-> valueout{ItemOmission};
- 	end component;
- **};
-end voter;
+	thread voter
+		features
+			valuein1: in data port;
+			valuein2: in data port;
+			valueout: out data port;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			-- we use our own three state EBSM.
+			-- a computeerror error event leads to Degraded, which as error source generates InconsistentValue
+			-- a Failure error event leads to FailStop, which propagates ItemOmission
+			use behavior FTErrorLibrary::DegradedFailStop;
+			
+			error propagations
+				valuein1: in propagation {OutOfRange};
+				valuein2: in propagation {OutOfRange};
+				valueout: out propagation {ItemOmission, ValueCorruption, InconsistentValue};
+				flows
+					ef1: error path valuein1 {OutOfRange} -> valueout {ItemOmission};
+					ef2: error path valuein2 {OutOfRange} -> valueout {ItemOmission};
+					ef6: error source valueout {InconsistentValue};
+			end propagations;
+			
+			component error behavior
+				propagations
+					prop1: Operational -[valuein1 {OutOfRange} and valuein2 {OutOfRange}]-> valueout {ItemOmission};
+					prop2: Degraded -[]-> valueout {InconsistentValue};
+					prop3: FailStop -[]-> valueout {ItemOmission};
+			end component;
+		**};
+	end voter;
 
-thread implementation voter.i
-	
-end voter.i;
+	thread implementation voter.i
 
+	end voter.i;
 
 end voter;

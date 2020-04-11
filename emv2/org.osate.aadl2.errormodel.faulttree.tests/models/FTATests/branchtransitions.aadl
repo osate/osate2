@@ -1,76 +1,64 @@
 package branchtransitions
 public
 
-	
 	device BTCU_Error_Root
 		features
-			p_out	:	out event port;
-			
-			
-		annex EMV2{**
-			use types	 ErrorLibrary;
-			use behavior ErrorLibrary::PermanentTransientFailure; 
-			
+			p_out: out event port;
 
-			
-			component error behavior
-			events
-			myevent : error event;
-				transitions
-					failtransition	:	Operational-[myevent and Failure]->(FailedTransient with 0.4, FailedPermanent with others);	
-			end component;
-			
-			properties
-				emv2::occurrencedistribution => [ probabilityValue => 0.05e-6 ;] applies to Failure, myevent;				
-		**};
-	end BTCU_Error_Root;
-	
-	
-	device IO
-					
-		annex EMV2{**
-			use types	ErrorLibrary;
-			use behavior ErrorLibrary::FailStop; 
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior ErrorLibrary::PermanentTransientFailure;
 			
 			component error behavior
 				events
-					Reset	:	recover event;
+					myevent: error event;
 				transitions
-					t0	:	Operational-[Failure]->FailStop;
-					t1	:	FailStop-[Reset]->Operational;		
+					failtransition: Operational -[myevent and Failure]-> (FailedTransient with 0.4, FailedPermanent with others);
 			end component;
 			
 			properties
-				emv2::occurrencedistribution => [ probabilityValue => 0.06e-6 ;] applies to Failure;				
+				emv2::occurrencedistribution => [probabilityValue => 0.05e-6;] applies to Failure, myevent;
+		**};
+	end BTCU_Error_Root;
+
+	device IO
+
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior ErrorLibrary::FailStop;
+			
+			component error behavior
+				events
+					Reset: recover event;
+				transitions
+					t0: Operational -[Failure]-> FailStop;
+					t1: FailStop -[Reset]-> Operational;
+			end component;
+			
+			properties
+				emv2::occurrencedistribution => [probabilityValue => 0.06e-6;] applies to Failure;
 		**};
 	end IO;
-	
-	
-	
-	
+
 	system BTCU
 
 	end BTCU;
 
-	
 	system implementation BTCU.i
 		subcomponents
-			BTCU_Error_Root	:	device BTCU_Error_Root;
-			IO				:	device IO;
+			BTCU_Error_Root: device BTCU_Error_Root;
+			IO: device IO;
 
-			
-		annex EMV2{**
-			use types	ErrorLibrary;
-			use behavior ErrorLibrary::FailStop; 
-			
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior ErrorLibrary::FailStop;
 			
 			composite error behavior
-			states
-				[BTCU_Error_Root.FailedPermanent]-> FailStop;
-				[IO.FailStop]-> FailStop;
-			end composite;					
-		**};	
+				states
+					[BTCU_Error_Root.FailedPermanent]-> FailStop;
+					[IO.FailStop]-> FailStop;
+			end composite;
+		**};
 	end BTCU.i;
 
-	
 end branchtransitions;

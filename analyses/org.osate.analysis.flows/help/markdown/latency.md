@@ -79,7 +79,7 @@ is calculated. This allows users to perform studies along different dimensions w
 
 ![Configuration Dialog](images/FlowLatencyDialog.png "Flow Latency Configuration Dialog")
 
-The body of the dialog contains four sets of radio buttons that are described below.  Clicking on
+The body of the dialog contains five sets of radio buttons that are described below.  Clicking on
 **OK** executes the analysis with the chosen settings.  The settings are remembered the next time the
 analysis is run.  Clicking on **Cancel** discards the settings and does not run the analysis.  If
 **Don't show this dialog again** is selected when **OK** is pressed, the dialog will not be shown 
@@ -116,7 +116,7 @@ The flow latency analysis supports the following settings:
       order of partition A or partition B.
 - **For worst-case processing time use**: Users can choose between deadline
   and worst-case compute execution time as worst case processing time. For best case 
-  we always use compute execution time.
+  we always use compute execution time.  This setting is only relevant when no response time is available.
     - **Deadline (DL)**: Deadline represents the worst-case 
       completion time assuming the tasks are schedulable.
     - **Maximum compute execution time (ET)**: Maximum compute execution time 
@@ -127,7 +127,10 @@ The flow latency analysis supports the following settings:
       is assumed to be empty.
     - **Assume full queue (FQ)**: Use minimum compute execution time
       times the queue size to determine the best case queuing time.
-
+- **Disable queuing latency in the results**: Determines whether worst-case queuing delay is reported for asyncronous busses.
+    - **Disable**: The worst-case queuing delay is always reported as 0.
+    - **Enable**: The worst-case queuing delay is reported as calculated below.
+ 
 The OSATE preference settings controlling the default values for flow latency analysis
 are found in the **OSATE > Analysis > Flow Latency** preference pane.
 
@@ -208,6 +211,7 @@ Each contributor entry has a number of columns:
     - **no latency**: Use value zero as no latency contribution was specified or 
       computed from the model.
     - **specified**: Use the specified latency property value.
+    - **response time**: The response time of the component, if specified.
     - **processing time**: The processing related latency contribution of a component 
       based on compute execution time and deadline.
     - **transmission time**: Latency contribution for a connection. Uses on 
@@ -408,24 +412,33 @@ period property values with threads and devices.
   
 > The first end to end flow element may be a periodic component. In this case, no sampling latency is added. However, succeeding periodic sampling components may be aligned in the synchronous use scenario. 
 
+### Queuing Delay in Asynchronous Communication ###
+
+As described above, when a bus is periodic (has a **Period** property association), the period is used to determine the worst-case sampling delay.  When a bus does not have a period, a sender may need to wait for other users of the bus to finish sending data on the bus before it can access it.  Analysis computes the worst-case queuing delay based on the **Transmission_Time** property of the bus and the **Data_Size** of the information that flows over the bus.  Specifically, the maximum queuing delay for a connection is the sum off all the maximum transmission times for any other connections bound to the bus.  The data sizes for the communication includes the data overhead imposed by the bus, connections, and any higher-level protocols (virtual buses) encountered.
+
+> Buses with a period will always have a non-zero sampling delay and no queuing delay.
+>
+> Buses without a period will always have a queuing delay and no sampling delay.
+
 ### Processing Times as Latency Contributors
 
 Users may have specified a **Deadline** property value for components. This 
 property value represents the upper bound of worst-case completion time as long 
 as the component is deemed as schedulable. 
 
-Users can specify **Compute\_Execution\_Time** property values for threads and 
-devices. 
+Users can specify **SEI::Response\_Time** and **Compute\_Execution\_Time** property values for threads and devices.  Using response time is preferable to using the computation time because the compuation time does not account for preemption by other threads.  
 
-The minimum value of **Compute\_Execution\_Time** is used as best-case latency 
-contribution.
+The _best-case latency_ contribution is the lower bound of the response time, if specified (that is, has an explicit property association).  Otherwise it is the lower bound of the compute execution time, if specified.  If there is no compute execution time, then the lower bound of the expected latency is used.
 
-The latency analysis uses explicitly assigned **Deadline** value as worst-case 
-latency contribution. 
+The _worst-case latency_ contribution is the upper bound of the response time, if specified by the user.  Otherwise it depends on the analysis preference settings:
 
-> The latency analysis tool only considers explicitly set Deadline values. The 
-  default value of the Deadline is that of the Period value and is ignored by the 
-  latency analysis.
+* If the preference is to use deadline, then the deadline is used.  _The latency analysis tool only considers explicitly set Deadline values. The 
+default value of the Deadline is that of the Period value and is ignored by the 
+latency analysis._  If the deadline is not available then the upper bound of the compute execution time is used.
+
+* If the preference is to use the computation time, then the upper bound of the compute execution time is used.
+
+In all cases, if none of the above property values are available then the upper bound of the expected latency is used.
 
 Users can change the preference setting to use the worst-case 
 Compute\_Execution\_Time (**ET** setting) instead of the Deadline (**DL** 

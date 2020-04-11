@@ -30,6 +30,7 @@ import org.eclipse.xtext.resource.EObjectDescription
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
+import org.eclipse.xtext.scoping.impl.FilteringScope
 import org.eclipse.xtext.scoping.impl.SimpleScope
 import org.eclipse.xtext.util.SimpleAttributeResolver
 import org.osate.aadl2.Aadl2Package
@@ -50,6 +51,7 @@ import org.osate.aadl2.PackageSection
 import org.osate.aadl2.Property
 import org.osate.aadl2.PropertyAssociation
 import org.osate.aadl2.PropertyConstant
+import org.osate.aadl2.PropertySet
 import org.osate.aadl2.PropertyType
 import org.osate.aadl2.RangeType
 import org.osate.aadl2.RecordType
@@ -119,6 +121,12 @@ class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 	//Reference is from LiteralorReferenceTerm in Properties.xtext
 	def scope_NamedValue_namedValue(Element context, EReference reference) {
 		var scope = delegateGetScope(context, reference)
+		val ps = context.getContainerOfType(PropertySet)
+		if (ps !== null) {
+			scope = new FilteringScope(scope, [desc | 
+				desc.name.segmentCount > 1 || desc.EObjectOrProxy.eContainer != ps
+			]);
+		}
 		var PropertyType propertyType = null;
 		//Inner value of a record value.
 		propertyType = context.getContainerOfType(BasicPropertyAssociation)?.property?.propertyType
@@ -314,8 +322,6 @@ class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 	 */
 	def protected static namespaceForPropertyAssociation(PropertyAssociation propertyAssociation) {
 		switch container : propertyAssociation.owner {
-			Classifier:
-				container
 			FeatureGroup: {
 				switch featureType : container.allFeatureType {
 					FeatureGroupType:
@@ -332,6 +338,7 @@ class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 						subcomponentType.resolveComponentPrototype(propertyAssociation.getContainerOfType(Classifier))
 				}
 			}
+			default: container.getContainerOfType(Classifier)
 		}
 	}
 	

@@ -2,9 +2,9 @@ package emv2_errortype_definition
 public
 	annex emv2 {**
 		error types
-		BTCU_Error: type;
-		 CCUS_Error:type;
-		 User_Error:type;
+			BTCU_Error: type;
+			CCUS_Error: type;
+			User_Error: type;
 		end types;
 	**};
 end emv2_errortype_definition;
