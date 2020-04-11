@@ -135,7 +135,7 @@ public final class InstantiationHandler extends AbstractMultiJobHandler {
 				selectedCompImpls.add(impl);
 				final IFile outputFile = OsateResourceUtil.toIFile(InstantiateModel.getInstanceModelURI(impl));
 				outputFiles.add(outputFile);
-				final IFolder outputFolder = (IFolder) outputFile.getParent(); // N.B. We KNOW there is an "Instances" folder about the .aaxl file
+				final IFolder outputFolder = (IFolder) outputFile.getParent(); // N.B. We KNOW there is an "Instances" folder above the .aaxl file
 				outputFolders.add(outputFolder);
 				prereqRule = MultiRule.combine(prereqRule, factory.createRule(outputFolder));
 				/*
@@ -145,9 +145,14 @@ public final class InstantiationHandler extends AbstractMultiJobHandler {
 				results.put(impl, new Result(false, true, null, null));
 			}
 
+			/* Make sure the resources are saved if they are open in an editor */
+			if (!saveDirtyEditors()) {
+				return Status.CANCEL_STATUS;
+			}
+
 			/*
 			 * Make sure all the output folders exists before hand. Could add the folder creation rules to the
-			 * jobs below, but they would limit the parallelism to much. So we create them atomically here first,
+			 * jobs below, but they would limit the parallelism too much. So we create them atomically here first,
 			 * before we launch the main worker jobs.
 			 */
 			boolean prereqFailed = false;
@@ -201,7 +206,6 @@ public final class InstantiationHandler extends AbstractMultiJobHandler {
 					job.schedule();
 				}
 			}
-
 			return Status.OK_STATUS;
 		}
 	}

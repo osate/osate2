@@ -1,0 +1,101 @@
+property set Props is
+	RecordType1: type record (f1: aadlinteger;);
+	RecordType2: type record (f1: aadlstring;);
+	C1: constant Props::RecordType1 => [f1 => 123;];
+	C2: constant Props::RecordType2 => [f1 => "abc";];
+	
+	GoodConstant1: constant Props::RecordType1 => Props::C1; -- good
+	GoodConstant2: constant Props::RecordType2 => Props::C2; -- good
+	GoodDefault1: Props::RecordType1 => Props::C1 applies to (all);
+	GoodDefault2: Props::RecordType2 => Props::C2 applies to (all);
+	GoodPA1: Props::RecordType1 applies to (all);
+	GoodPA2: Props::RecordType2 applies to (all);
+
+	
+	BadConstant1: constant Props::RecordType1 => Props::C2; -- bad
+	BadConstant2: constant Props::RecordType2 => Props::C1; -- bad
+	BadDefault1: Props::RecordType1 => Props::C2 applies to (all);
+	BadDefault2: Props::RecordType2 => Props::C1 applies to (all);
+	BadPA1: Props::RecordType1 applies to (all);
+	BadPA2: Props::RecordType2 applies to (all);
+	
+	GoodListConstant1: constant list of Props::RecordType1 => (Props::C1, [f1 => 0;]);
+	GoodListConstant2: constant list of Props::RecordType2 => (Props::C2, [f1 => "hello";]);
+	GoodListDefault1: list of Props::RecordType1 => (Props::C1, [f1 => 0;]) applies to (all);
+	GoodListDefault2: list of Props::RecordType2 => (Props::C2, [f1 => "hello";]) applies to (all);
+	GoodListPA1: list of Props::RecordType1 applies to (all);
+	GoodListPA2: list of Props::RecordType2 applies to (all);
+	
+	BadListConstant1: constant list of Props::RecordType1 => (Props::C1, Props::C2, [f1 => 0;]);
+	BadListConstant2: constant list of Props::RecordType2 => (Props::C1, Props::C2, [f1 => "hello";]);
+	BadListDefault1: list of Props::RecordType1 => (Props::C1, Props::C2, [f1 => 0;]) applies to (all);
+	BadListDefault2: list of Props::RecordType2 => (Props::C1, Props::C2, [f1 => "hello";]) applies to (all);
+	BadListPA1: list of Props::RecordType1 applies to (all);
+	BadListPA2: list of Props::RecordType2 applies to (all);
+
+
+	
+	RecordOfRecordTypes: type record (q1: Props::RecordType1; q2: Props::RecordType2;);
+	
+	GoodFieldsConstant1: constant Props::RecordOfRecordTypes => [q1 => Props::C1; q2 => Props::C2;];
+	GoodFieldsListConstant1: constant list of Props::RecordOfRecordTypes => ([q1 => Props::C1; q2 => Props::C2;]);
+	GoodFieldsDefault1: Props::RecordOfRecordTypes => [q1 => Props::C1; q2 => Props::C2;] applies to (all);
+	GoodFieldsListDefault1: list of Props::RecordOfRecordTypes => ([q1 => Props::C1; q2 => Props::C2;]) applies to (all);
+	GoodFieldsPA1: Props::RecordOfRecordTypes applies to (all);
+	GoodFieldsListPA: list of Props::RecordOfRecordTypes applies to (all);
+
+	BadFieldsConstant1: constant Props::RecordOfRecordTypes => [
+		q1 => Props::C2;
+		q2 => Props::C1;
+	];
+	BadFieldsListConstant1: constant list of Props::RecordOfRecordTypes => ([
+		q1 => Props::C2;
+		q2 => Props::C1;
+	]);
+	BadFieldsDefault1: Props::RecordOfRecordTypes => [
+		q1 => Props::C2;
+		q2 => Props::C1;
+	] applies to (all);
+	BadFieldsListDefault1: list of Props::RecordOfRecordTypes => ([
+		q1 => Props::C2;
+		q2 => Props::C1;
+	]) applies to (all);
+	BadFieldsPA1: Props::RecordOfRecordTypes applies to (all);
+	BadFieldsListPA1: list of Props::RecordOfRecordTypes applies to (all);
+	
+
+	R1_prop: Props::RecordType1 applies to (all);
+	R2_prop: Props::RecordType2 applies to (all);
+	
+	GoodPropRefConstant1: constant Props::RecordType1 => Props::R1_prop;
+	GoodPropRefConstant2: constant Props::RecordType2 => Props::R2_prop;
+	GoodPropRefDefault1: Props::RecordType1 => Props::R1_prop applies to (all);
+	GoodPropRefDefault2: Props::RecordType2 => Props::R2_prop applies to (all);
+	GoodPropRefPA1: Props::RecordType1 applies to (all);
+	GoodPropRefPA2: Props::RecordType2 applies to (all);
+
+	BadPropRefConstant1: constant Props::RecordType1 => Props::R2_prop;
+	BadPropRefConstant2: constant Props::RecordType2 => Props::R1_prop;
+	BadPropRefDefault1: Props::RecordType1 => Props::R2_prop applies to (all);
+	BadPropRefDefault2: Props::RecordType2 => Props::R1_prop applies to (all);
+	BadPropRefPA1: Props::RecordType1 applies to (all);
+	BadPropRefPA2: Props::RecordType2 applies to (all);
+
+	GoodListOfPropRefConstant1: constant list of Props::RecordType1 => (Props::R1_prop, [f1 => 0;]);
+	GoodListOfPropRefConstant2: constant list of Props::RecordType2 => (Props::R2_prop, [f1 => "hello";]);
+	GoodListOfPropRefDefault1: list of Props::RecordType1 => (Props::R1_prop, [f1 => 0;]) applies to (all);
+	GoodListOfPropRefDefault2: list of Props::RecordType2 => (Props::R2_prop, [f1 => "hello";]) applies to (all);
+	GoodListOfPropRefPA1: list of Props::RecordType1 applies to (all);
+	GoodListOfPropRefPA2: list of Props::RecordType2 applies to (all);
+	
+	BadListOfPropRefConstant1: constant list of Props::RecordType1 => (Props::R1_prop, Props::R2_prop, [f1 => 0;]);
+	BadListOfPropRefConstant2: constant list of Props::RecordType2 => (Props::R1_prop, Props::R2_prop, [f1 => "hello";]);
+	BadListOfPropRefDefault1: list of Props::RecordType1 => (Props::R1_prop, Props::R2_prop, [f1 => 0;]) applies to (all);
+	BadListOfPropRefDefault2: list of Props::RecordType2 => (Props::R1_prop, Props::R2_prop, [f1 => "hello";]) applies to (all);
+	BadListOfPropRefPA1: list of Props::RecordType1 applies to (all);
+	BadListOfPropRefPA2: list of Props::RecordType2 applies to (all);
+	
+	
+	ggg: list of Props::RecordType1 applies to (all);
+end Props;
+

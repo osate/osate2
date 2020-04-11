@@ -69,7 +69,6 @@ public class SystemOperationModeItemProvider extends ModeItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -100,7 +99,6 @@ public class SystemOperationModeItemProvider extends ModeItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object getImage(Object object) {
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/SystemOperationMode")); //$NON-NLS-1$
 	}
@@ -111,7 +109,6 @@ public class SystemOperationModeItemProvider extends ModeItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String getText(Object object) {
 		String label = ((SystemOperationMode) object).getName();
 		return label == null || label.length() == 0 ? getString("_UI_SystemOperationMode_type") : //$NON-NLS-1$
@@ -125,7 +122,6 @@ public class SystemOperationModeItemProvider extends ModeItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 		super.notifyChanged(notification);
@@ -137,7 +133,6 @@ public class SystemOperationModeItemProvider extends ModeItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ResourceLocator getResourceLocator() {
 		return Aadl2EditPlugin.INSTANCE;
 	}
@@ -145,7 +140,6 @@ public class SystemOperationModeItemProvider extends ModeItemProvider {
 	/**
 	 * Manually added to show the individual modes of a SystemOperationMode.
 	 */
-	@Override
 	public Collection<?> getChildren(Object object) {
 		SystemOperationMode som = (SystemOperationMode) object;
 		List<SubModeItemProvider> result = new ArrayList<SubModeItemProvider>();
@@ -168,29 +162,19 @@ public class SystemOperationModeItemProvider extends ModeItemProvider {
 		public ModeInstance getSubMode() {
 			return subMode;
 		}
-
-		@Override
 		public Collection<?> getChildren(Object object) {
 			return Collections.emptyList();
 		}
-
-		@Override
 		public Object getParent(Object object) {
 			return target;
 		}
-
-		@Override
 		public Collection<?> getNewChildDescriptors(Object object, EditingDomain editingDomain, Object sibling) {
 			return Collections.emptyList();
 		}
-
-		@Override
 		public String getText(Object object) {
 			String label = subMode.getComponentInstancePath();
 			return label == null || label.length() == 0 ? "Mode" : "Mode " + label;
 		}
-
-		@Override
 		public Object getImage(Object object) {
 			return ((IItemLabelProvider) adapterFactory.adapt(subMode, IItemLabelProvider.class)).getImage(subMode);
 		}

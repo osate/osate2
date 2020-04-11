@@ -5123,8 +5123,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cConditionConditionExpressionParserRuleCall_3_0 = (RuleCall)cConditionAssignment_3.eContents().get(0);
 		private final Keyword cRightSquareBracketHyphenMinusGreaterThanSignKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final Assignment cDetectionReportingPortAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final CrossReference cDetectionReportingPortTriggerPortCrossReference_5_0 = (CrossReference)cDetectionReportingPortAssignment_5.eContents().get(0);
-		private final RuleCall cDetectionReportingPortTriggerPortIDTerminalRuleCall_5_0_1 = (RuleCall)cDetectionReportingPortTriggerPortCrossReference_5_0.eContents().get(1);
+		private final RuleCall cDetectionReportingPortReportingPortReferenceParserRuleCall_5_0 = (RuleCall)cDetectionReportingPortAssignment_5.eContents().get(0);
 		private final Keyword cExclamationMarkKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
 		private final Keyword cLeftParenthesisKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
@@ -5136,12 +5135,12 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//ErrorDetection:
 		//	(name=ID ':')? (state=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?='all')
 		//	'-[' condition=ConditionExpression? ']->'
-		//	detectionReportingPort=[aadl2::TriggerPort] '!' ('(' errorCode=ErrorCodeValue ')')?
+		//	detectionReportingPort=ReportingPortReference '!' ('(' errorCode=ErrorCodeValue ')')?
 		//	';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//(name=ID ':')? (state=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?='all') '-['
-		//condition=ConditionExpression? ']->' detectionReportingPort=[aadl2::TriggerPort] '!' ('(' errorCode=ErrorCodeValue
+		//condition=ConditionExpression? ']->' detectionReportingPort=ReportingPortReference '!' ('(' errorCode=ErrorCodeValue
 		//')')? ';'
 		public Group getGroup() { return cGroup; }
 
@@ -5196,14 +5195,11 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//']->'
 		public Keyword getRightSquareBracketHyphenMinusGreaterThanSignKeyword_4() { return cRightSquareBracketHyphenMinusGreaterThanSignKeyword_4; }
 
-		//detectionReportingPort=[aadl2::TriggerPort]
+		//detectionReportingPort=ReportingPortReference
 		public Assignment getDetectionReportingPortAssignment_5() { return cDetectionReportingPortAssignment_5; }
 
-		//[aadl2::TriggerPort]
-		public CrossReference getDetectionReportingPortTriggerPortCrossReference_5_0() { return cDetectionReportingPortTriggerPortCrossReference_5_0; }
-
-		//ID
-		public RuleCall getDetectionReportingPortTriggerPortIDTerminalRuleCall_5_0_1() { return cDetectionReportingPortTriggerPortIDTerminalRuleCall_5_0_1; }
+		//ReportingPortReference
+		public RuleCall getDetectionReportingPortReportingPortReferenceParserRuleCall_5_0() { return cDetectionReportingPortReportingPortReferenceParserRuleCall_5_0; }
 
 		//'!'
 		public Keyword getExclamationMarkKeyword_6() { return cExclamationMarkKeyword_6; }
@@ -5225,6 +5221,54 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 		//';'
 		public Keyword getSemicolonKeyword_8() { return cSemicolonKeyword_8; }
+	}
+
+	public class ReportingPortReferenceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.errormodel.ErrorModel.ReportingPortReference");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cElementAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final CrossReference cElementNamedElementCrossReference_0_0 = (CrossReference)cElementAssignment_0.eContents().get(0);
+		private final RuleCall cElementNamedElementIDTerminalRuleCall_0_0_1 = (RuleCall)cElementNamedElementCrossReference_0_0.eContents().get(1);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Action cReportingPortReferencePreviousAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Keyword cFullStopKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Assignment cElementAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
+		private final CrossReference cElementNamedElementCrossReference_1_2_0 = (CrossReference)cElementAssignment_1_2.eContents().get(0);
+		private final RuleCall cElementNamedElementIDTerminalRuleCall_1_2_0_1 = (RuleCall)cElementNamedElementCrossReference_1_2_0.eContents().get(1);
+		
+		//ReportingPortReference:
+		//	element=[aadl2::NamedElement] ({ReportingPortReference.previous=current} '.' element=[aadl2::NamedElement])*;
+		@Override public ParserRule getRule() { return rule; }
+
+		//element=[aadl2::NamedElement] ({ReportingPortReference.previous=current} '.' element=[aadl2::NamedElement])*
+		public Group getGroup() { return cGroup; }
+
+		//element=[aadl2::NamedElement]
+		public Assignment getElementAssignment_0() { return cElementAssignment_0; }
+
+		//[aadl2::NamedElement]
+		public CrossReference getElementNamedElementCrossReference_0_0() { return cElementNamedElementCrossReference_0_0; }
+
+		//ID
+		public RuleCall getElementNamedElementIDTerminalRuleCall_0_0_1() { return cElementNamedElementIDTerminalRuleCall_0_0_1; }
+
+		//({ReportingPortReference.previous=current} '.' element=[aadl2::NamedElement])*
+		public Group getGroup_1() { return cGroup_1; }
+
+		//{ReportingPortReference.previous=current}
+		public Action getReportingPortReferencePreviousAction_1_0() { return cReportingPortReferencePreviousAction_1_0; }
+
+		//'.'
+		public Keyword getFullStopKeyword_1_1() { return cFullStopKeyword_1_1; }
+
+		//element=[aadl2::NamedElement]
+		public Assignment getElementAssignment_1_2() { return cElementAssignment_1_2; }
+
+		//[aadl2::NamedElement]
+		public CrossReference getElementNamedElementCrossReference_1_2_0() { return cElementNamedElementCrossReference_1_2_0; }
+
+		//ID
+		public RuleCall getElementNamedElementIDTerminalRuleCall_1_2_0_1() { return cElementNamedElementIDTerminalRuleCall_1_2_0_1; }
 	}
 
 	public class ErrorCodeValueElements extends AbstractParserRuleElementFinder {
@@ -6713,6 +6757,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	private final EventOrPropagationElements pEventOrPropagation;
 	private final OutgoingPropagationConditionElements pOutgoingPropagationCondition;
 	private final ErrorDetectionElements pErrorDetection;
+	private final ReportingPortReferenceElements pReportingPortReference;
 	private final ErrorCodeValueElements pErrorCodeValue;
 	private final ErrorStateToModeMappingElements pErrorStateToModeMapping;
 	private final CompositeStateElements pCompositeState;
@@ -6840,6 +6885,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		this.pEventOrPropagation = new EventOrPropagationElements();
 		this.pOutgoingPropagationCondition = new OutgoingPropagationConditionElements();
 		this.pErrorDetection = new ErrorDetectionElements();
+		this.pReportingPortReference = new ReportingPortReferenceElements();
 		this.pErrorCodeValue = new ErrorCodeValueElements();
 		this.pErrorStateToModeMapping = new ErrorStateToModeMappingElements();
 		this.pCompositeState = new CompositeStateElements();
@@ -7754,7 +7800,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//ErrorDetection:
 	//	(name=ID ':')? (state=[ErrorBehaviorState] typeTokenConstraint=TypeTokenConstraint? | allStates?='all')
 	//	'-[' condition=ConditionExpression? ']->'
-	//	detectionReportingPort=[aadl2::TriggerPort] '!' ('(' errorCode=ErrorCodeValue ')')?
+	//	detectionReportingPort=ReportingPortReference '!' ('(' errorCode=ErrorCodeValue ')')?
 	//	';';
 	public ErrorDetectionElements getErrorDetectionAccess() {
 		return pErrorDetection;
@@ -7762,6 +7808,16 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getErrorDetectionRule() {
 		return getErrorDetectionAccess().getRule();
+	}
+
+	//ReportingPortReference:
+	//	element=[aadl2::NamedElement] ({ReportingPortReference.previous=current} '.' element=[aadl2::NamedElement])*;
+	public ReportingPortReferenceElements getReportingPortReferenceAccess() {
+		return pReportingPortReference;
+	}
+	
+	public ParserRule getReportingPortReferenceRule() {
+		return getReportingPortReferenceAccess().getRule();
 	}
 
 	//ErrorCodeValue:

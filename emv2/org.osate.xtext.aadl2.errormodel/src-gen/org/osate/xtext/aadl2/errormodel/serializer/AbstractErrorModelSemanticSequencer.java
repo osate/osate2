@@ -90,6 +90,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.ReportingPortReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
@@ -455,6 +456,9 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				return; 
 			case ErrorModelPackage.REPAIR_EVENT:
 				sequence_RepairEvent(context, (RepairEvent) semanticObject); 
+				return; 
+			case ErrorModelPackage.REPORTING_PORT_REFERENCE:
+				sequence_ReportingPortReference(context, (ReportingPortReference) semanticObject); 
 				return; 
 			case ErrorModelPackage.SCONDITION_ELEMENT:
 				sequence_SConditionElement(context, (SConditionElement) semanticObject); 
@@ -872,7 +876,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         name=ID? 
 	 *         ((state=[ErrorBehaviorState|ID] typeTokenConstraint=TypeTokenConstraint?) | allStates?='all') 
 	 *         condition=ConditionExpression? 
-	 *         detectionReportingPort=[TriggerPort|ID] 
+	 *         detectionReportingPort=ReportingPortReference 
 	 *         errorCode=ErrorCodeValue?
 	 *     )
 	 */
@@ -1285,6 +1289,19 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *     (name=ID (eventInitiator+=[NamedElement|ID] eventInitiator+=[NamedElement|ID]*)?)
 	 */
 	protected void sequence_RepairEvent(ISerializationContext context, RepairEvent semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     ReportingPortReference returns ReportingPortReference
+	 *     ReportingPortReference.ReportingPortReference_1_0 returns ReportingPortReference
+	 *
+	 * Constraint:
+	 *     (element=[NamedElement|ID] | (previous=ReportingPortReference_ReportingPortReference_1_0 element=[NamedElement|ID]))
+	 */
+	protected void sequence_ReportingPortReference(ISerializationContext context, ReportingPortReference semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
