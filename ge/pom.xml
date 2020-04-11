@@ -30,13 +30,13 @@ censes only apply to the Third Party Software and not any other portion of this 
 	<parent>
 		<groupId>org.osate</groupId>
 		<artifactId>osate2.parent</artifactId>
-		<version>2.7.1-SNAPSHOT</version>
+		<version>2.7.1.vfinal</version>
 	</parent>
 
 	<groupId>org.osate</groupId>
 	<artifactId>ge.parent</artifactId>
 	<packaging>pom</packaging>
-	<version>2.7.1-SNAPSHOT</version>
+	<version>2.7.1.vfinal</version>
 
 	<modules>
 		<module>org.osate.ge</module>
