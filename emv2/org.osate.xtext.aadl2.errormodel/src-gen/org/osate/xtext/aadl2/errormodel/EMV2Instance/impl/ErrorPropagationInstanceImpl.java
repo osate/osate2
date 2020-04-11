@@ -24,44 +24,47 @@
 package org.osate.xtext.aadl2.errormodel.EMV2Instance.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.EMV2InstancePackage;
-import org.osate.xtext.aadl2.errormodel.EMV2Instance.StateInstance;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
+import org.osate.xtext.aadl2.errormodel.EMV2Instance.ErrorPropagationInstance;
+
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>State Instance</b></em>'.
+ * An implementation of the model object '<em><b>Error Propagation Instance</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.StateInstanceImpl#getState <em>State</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.EMV2Instance.impl.ErrorPropagationInstanceImpl#getErrorPropagation <em>Error Propagation</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class StateInstanceImpl extends EMV2InstanceObjectImpl implements StateInstance {
+public class ErrorPropagationInstanceImpl extends ConstrainedInstanceObjectImpl implements ErrorPropagationInstance {
 	/**
-	 * The cached value of the '{@link #getState() <em>State</em>}' reference.
+	 * The cached value of the '{@link #getErrorPropagation() <em>Error Propagation</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getState()
+	 * @see #getErrorPropagation()
 	 * @generated
 	 * @ordered
 	 */
-	protected ErrorBehaviorState state;
+	protected ErrorPropagation errorPropagation;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected StateInstanceImpl() {
+	protected ErrorPropagationInstanceImpl() {
 		super();
 	}
 
@@ -72,7 +75,7 @@ public class StateInstanceImpl extends EMV2InstanceObjectImpl implements StateIn
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EMV2InstancePackage.Literals.STATE_INSTANCE;
+		return EMV2InstancePackage.Literals.ERROR_PROPAGATION_INSTANCE;
 	}
 
 	/**
@@ -81,16 +84,16 @@ public class StateInstanceImpl extends EMV2InstanceObjectImpl implements StateIn
 	 * @generated
 	 */
 	@Override
-	public ErrorBehaviorState getState() {
-		if (state != null && state.eIsProxy()) {
-			InternalEObject oldState = (InternalEObject)state;
-			state = (ErrorBehaviorState)eResolveProxy(oldState);
-			if (state != oldState) {
+	public ErrorPropagation getErrorPropagation() {
+		if (errorPropagation != null && errorPropagation.eIsProxy()) {
+			InternalEObject oldErrorPropagation = (InternalEObject)errorPropagation;
+			errorPropagation = (ErrorPropagation)eResolveProxy(oldErrorPropagation);
+			if (errorPropagation != oldErrorPropagation) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.STATE_INSTANCE__STATE, oldState, state));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION, oldErrorPropagation, errorPropagation));
 			}
 		}
-		return state;
+		return errorPropagation;
 	}
 
 	/**
@@ -98,8 +101,8 @@ public class StateInstanceImpl extends EMV2InstanceObjectImpl implements StateIn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ErrorBehaviorState basicGetState() {
-		return state;
+	public ErrorPropagation basicGetErrorPropagation() {
+		return errorPropagation;
 	}
 
 	/**
@@ -108,11 +111,11 @@ public class StateInstanceImpl extends EMV2InstanceObjectImpl implements StateIn
 	 * @generated
 	 */
 	@Override
-	public void setState(ErrorBehaviorState newState) {
-		ErrorBehaviorState oldState = state;
-		state = newState;
+	public void setErrorPropagation(ErrorPropagation newErrorPropagation) {
+		ErrorPropagation oldErrorPropagation = errorPropagation;
+		errorPropagation = newErrorPropagation;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.STATE_INSTANCE__STATE, oldState, state));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION, oldErrorPropagation, errorPropagation));
 	}
 
 	/**
@@ -123,9 +126,9 @@ public class StateInstanceImpl extends EMV2InstanceObjectImpl implements StateIn
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EMV2InstancePackage.STATE_INSTANCE__STATE:
-				if (resolve) return getState();
-				return basicGetState();
+			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION:
+				if (resolve) return getErrorPropagation();
+				return basicGetErrorPropagation();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -138,8 +141,8 @@ public class StateInstanceImpl extends EMV2InstanceObjectImpl implements StateIn
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EMV2InstancePackage.STATE_INSTANCE__STATE:
-				setState((ErrorBehaviorState)newValue);
+			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION:
+				setErrorPropagation((ErrorPropagation)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -153,8 +156,8 @@ public class StateInstanceImpl extends EMV2InstanceObjectImpl implements StateIn
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.STATE_INSTANCE__STATE:
-				setState((ErrorBehaviorState)null);
+			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION:
+				setErrorPropagation((ErrorPropagation)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -168,10 +171,10 @@ public class StateInstanceImpl extends EMV2InstanceObjectImpl implements StateIn
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.STATE_INSTANCE__STATE:
-				return state != null;
+			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION:
+				return errorPropagation != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //StateInstanceImpl
+} //ErrorPropagationInstanceImpl

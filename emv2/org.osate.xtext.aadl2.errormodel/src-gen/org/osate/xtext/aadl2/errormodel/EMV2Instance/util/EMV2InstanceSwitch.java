@@ -243,6 +243,18 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE: {
+				ErrorPropagationInstance errorPropagationInstance = (ErrorPropagationInstance)theEObject;
+				T result = caseErrorPropagationInstance(errorPropagationInstance);
+				if (result == null) result = caseConstrainedInstanceObject(errorPropagationInstance);
+				if (result == null) result = caseConstraintElement(errorPropagationInstance);
+				if (result == null) result = caseEMV2InstanceObject(errorPropagationInstance);
+				if (result == null) result = caseInstanceObject(errorPropagationInstance);
+				if (result == null) result = caseNamedElement(errorPropagationInstance);
+				if (result == null) result = caseElement(errorPropagationInstance);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -469,6 +481,21 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T casePropagationPathInstance(PropagationPathInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Propagation Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Propagation Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseErrorPropagationInstance(ErrorPropagationInstance object) {
 		return null;
 	}
 

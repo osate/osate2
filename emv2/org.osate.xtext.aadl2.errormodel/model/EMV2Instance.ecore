@@ -20,6 +20,10 @@
         eType="#//CompositeStateInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="propagationPaths" upperBound="-1"
         eType="#//PropagationPathInstance" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inPropagations" upperBound="-1"
+        eType="#//ErrorPropagationInstance" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outPropagations" upperBound="-1"
+        eType="#//ErrorPropagationInstance" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EMV2InstanceObject" abstract="true"
       eSuperTypes="../../org.osate.aadl2/model/instance.ecore#//InstanceObject"/>
@@ -29,7 +33,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="currentState" eType="#//StateInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="stateMachine" eType="ecore:EClass generated/ErrorModel.ecore#//ErrorBehaviorStateMachine"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="StateInstance" eSuperTypes="#//EMV2InstanceObject"/>
+  <eClassifiers xsi:type="ecore:EClass" name="StateInstance" eSuperTypes="#//EMV2InstanceObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="ecore:EClass generated/ErrorModel.ecore#//ErrorBehaviorState"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConstrainedInstanceObject" eSuperTypes="#//ConstraintElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="instanceObject" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//InstanceObject"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" upperBound="-1"
@@ -106,5 +112,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="emv2Element" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//ConstraintElement"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//ConstrainedInstanceObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ErrorPropagationInstance" eSuperTypes="#//ConstrainedInstanceObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="errorPropagation" eType="ecore:EClass generated/ErrorModel.ecore#//ErrorPropagation"/>
   </eClassifiers>
 </ecore:EPackage>
