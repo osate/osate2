@@ -297,7 +297,8 @@ public final class InstantiationHandler extends AbstractMultiJobHandler {
 					PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
 						final InstantiationResultsDialog<?> d = new InstantiationResultsDialog<ComponentImplementation>(
 								PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Instantiation",
-								"Component Implementation", compImpl -> compImpl.getQualifiedName(), results);
+								"Component Implementation", compImpl -> compImpl.getQualifiedName(), results,
+								OsateCorePlugin.getDefault().getPreferenceStore());
 						d.open();
 					});
 				}
