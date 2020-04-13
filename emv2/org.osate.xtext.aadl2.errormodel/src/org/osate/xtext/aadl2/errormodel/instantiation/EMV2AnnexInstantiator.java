@@ -744,6 +744,16 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		return null;
 	}
 
+	private ErrorPropagationInstance findErrorPropagationInstance(EMV2AnnexInstance annex, ErrorPropagation ep,
+			boolean outgoing) {
+		Collection<ErrorPropagationInstance> eps = outgoing ? annex.getOutPropagations() : annex.getInPropagations();
+		for (ErrorPropagationInstance epi : eps) {
+			if (epi.getErrorPropagation() == ep) {
+				return epi;
+			}
+		}
+		return null;
+	}
 
 	public void instantiateConnectionPropagationPaths(ConnectionInstance conni, EMV2AnnexInstance annex) {
 		ConnectionInstanceEnd src = conni.getSource();
@@ -761,6 +771,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 						ppi.setTarget(dstCIO);
 						ppi.setName(conni.getName() + "-" + dstCIO.getName());
 						annex.getPropagationPaths().add(ppi);
+						addConnectionBindingCIOs(conni, annex, ppi);
 					}
 					if (dstCIOs.isEmpty()) {
 						// use flow if no out propagation condition
@@ -771,6 +782,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 							ppi.setTarget(dstCIO);
 							ppi.setName(conni.getName() + "-" + dstCIO.getName());
 							annex.getPropagationPaths().add(ppi);
+							addConnectionBindingCIOs(conni, annex, ppi);
 						}
 					}
 					dstCIOs = allTransitionConditionCIOs(dst, tt, dstAnnex);
@@ -780,6 +792,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 						ppi.setTarget(dstCIO);
 						ppi.setName(conni.getName() + "-" + dstCIO.getName());
 						annex.getPropagationPaths().add(ppi);
+						addConnectionBindingCIOs(conni, annex, ppi);
 					}
 				}
 			}
@@ -793,10 +806,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			ppi.setTarget(inep);
 			ppi.setName(conni.getName() + "-" + inep.getName());
 			annex.getPropagationPaths().add(ppi);
+			addConnectionBindingCIOs(conni, annex, ppi);
 		}
-		// binding CIOs
-		allBindingCIOs(conni, annex);
-
 	}
 
 	/**
@@ -1063,7 +1074,9 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 	}
 
-	private Collection<ConstrainedInstanceObject> allBindingCIOs(ConnectionInstance conni, EMV2AnnexInstance annex) {
+	private Collection<ConstrainedInstanceObject> addConnectionBindingCIOs(ConnectionInstance conni,
+			EMV2AnnexInstance annex,
+			PropagationPathInstance ppi) {
 		Collection<ConstrainedInstanceObject> cios = new ArrayList<ConstrainedInstanceObject>();
 		List<ComponentInstance> boundresources = InstanceModelUtil.getConnectionBinding(conni);
 		if (boundresources.isEmpty()) {
@@ -1072,10 +1085,26 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		for (ComponentInstance boundResource : boundresources) {
 			ErrorPropagation BRsrcprop = EMV2Util.findOutgoingErrorPropagation(boundResource.getComponentClassifier(),
 					"bindings");
-			// TODO
+			if (BRsrcprop != null) {
+				ErrorPropagationInstance srcEPI = findErrorPropagationInstance(annex, BRsrcprop, true);
+				if (srcEPI != null) {
+					PropagationPathInstance srcBindPPI = EcoreUtil.copy(ppi);
+					srcBindPPI.setSource(srcEPI);
+					srcBindPPI.setName(ppi.getName() + "-bindings-" + boundResource.getName());
+					annex.getPropagationPaths().add(srcBindPPI);
+				}
+			}
 			ErrorPropagation BRdstprop = EMV2Util.findIncomingErrorPropagation(boundResource.getComponentClassifier(),
 					"bindings");
-			// TODO
+			if (BRdstprop != null) {
+				ErrorPropagationInstance dstEPI = findErrorPropagationInstance(annex, BRdstprop, false);
+				if (dstEPI != null) {
+					PropagationPathInstance dstBindPPI = EcoreUtil.copy(ppi);
+					dstBindPPI.setTarget(dstEPI);
+					dstBindPPI.setName(ppi.getName() + "-bindings-" + boundResource.getName());
+					annex.getPropagationPaths().add(dstBindPPI);
+				}
+			}
 		}
 		return cios;
 	}
