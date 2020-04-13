@@ -361,6 +361,9 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 				OsateCorePlugin.ALWAYS_SHOW_INSTANTIATION_RESULTS_DEFAULT);
 	}
 
+	/**
+	 * @since 2.1
+	 */
 	public static String getAlwaysShowInstantiationResultsPreferenceName() {
 		return ALWAYS_SHOW_INSTANTIATION_RESULTS;
 	}

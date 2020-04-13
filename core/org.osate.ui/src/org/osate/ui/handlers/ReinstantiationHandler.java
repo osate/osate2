@@ -256,7 +256,8 @@ public final class ReinstantiationHandler extends AbstractMultiJobHandler {
 					PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
 						final InstantiationResultsDialog<?> d = new InstantiationResultsDialog<IFile>(
 								PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Reinstantiation",
-								"Instance Model", modelFile -> modelFile.getFullPath().toString(), results);
+								"Instance Model", modelFile -> modelFile.getFullPath().toString(), results,
+								OsateCorePlugin.getDefault().getPreferenceStore());
 						d.open();
 					});
 				}
