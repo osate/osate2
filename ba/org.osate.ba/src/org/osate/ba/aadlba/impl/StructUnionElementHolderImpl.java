@@ -22,12 +22,15 @@ package org.osate.ba.aadlba.impl;
 
 import java.util.Collection ;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain ;
 import org.eclipse.emf.common.util.EList ;
 import org.eclipse.emf.ecore.EClass ;
 import org.eclipse.emf.ecore.InternalEObject ;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList ;
 import org.eclipse.emf.ecore.util.InternalEList ;
+import org.osate.aadl2.NamedElement ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.ElementValues ;
 import org.osate.ba.aadlba.IndexableElement ;
@@ -47,6 +50,7 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.StructUnionElementHolderImpl#getArrayIndexes <em>Array Indexes</em>}</li>
+ *   <li>{@link org.osate.ba.aadlba.impl.StructUnionElementHolderImpl#getStructUnionElement <em>Struct Union Element</em>}</li>
  * </ul>
  *
  * @generated
@@ -62,6 +66,16 @@ public class StructUnionElementHolderImpl extends DataHolderImpl implements Stru
    * @ordered
    */
   protected EList<IntegerValue> arrayIndexes;
+
+  /**
+   * The cached value of the '{@link #getStructUnionElement() <em>Struct Union Element</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getStructUnionElement()
+   * @generated
+   * @ordered
+   */
+  protected StructUnionElement structUnionElement;
 
   /**
    * <!-- begin-user-doc -->
@@ -127,9 +141,20 @@ public class StructUnionElementHolderImpl extends DataHolderImpl implements Stru
    * @generated
    */
   @Override
-  public void setStructUnionElement(final StructUnionElement structUnionElement )
+  public void setStructUnionElement(StructUnionElement newStructUnionElement )
   {
-    element = structUnionElement ;
+    if (newStructUnionElement != structUnionElement)
+    {
+      NotificationChain msgs = null;
+      if (structUnionElement != null)
+        msgs = ((InternalEObject)structUnionElement).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__STRUCT_UNION_ELEMENT, null, msgs);
+      if (newStructUnionElement != null)
+        msgs = ((InternalEObject)newStructUnionElement).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__STRUCT_UNION_ELEMENT, null, msgs);
+      msgs = basicSetStructUnionElement(newStructUnionElement, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__STRUCT_UNION_ELEMENT, newStructUnionElement, newStructUnionElement));
   }
 
   /**
@@ -140,7 +165,25 @@ public class StructUnionElementHolderImpl extends DataHolderImpl implements Stru
   @Override
   public StructUnionElement getStructUnionElement()
   {
-    return (StructUnionElement) element;
+    return structUnionElement;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated NOT
+   */
+  public NotificationChain basicSetStructUnionElement(StructUnionElement newStructUnionElement, NotificationChain msgs)
+  {
+    super.setElement(newStructUnionElement);
+    StructUnionElement oldStructUnionElement = structUnionElement;
+    structUnionElement = newStructUnionElement;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__STRUCT_UNION_ELEMENT, oldStructUnionElement, newStructUnionElement);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
   }
 
   /**
@@ -155,6 +198,8 @@ public class StructUnionElementHolderImpl extends DataHolderImpl implements Stru
     {
       case AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__ARRAY_INDEXES:
         return ((InternalEList<?>)getArrayIndexes()).basicRemove(otherEnd, msgs);
+      case AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__STRUCT_UNION_ELEMENT:
+        return basicSetStructUnionElement(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -171,6 +216,8 @@ public class StructUnionElementHolderImpl extends DataHolderImpl implements Stru
     {
       case AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__ARRAY_INDEXES:
         return getArrayIndexes();
+      case AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__STRUCT_UNION_ELEMENT:
+        return getStructUnionElement();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -190,6 +237,9 @@ public class StructUnionElementHolderImpl extends DataHolderImpl implements Stru
         getArrayIndexes().clear();
         getArrayIndexes().addAll((Collection<? extends IntegerValue>)newValue);
         return;
+      case AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__STRUCT_UNION_ELEMENT:
+        setStructUnionElement((StructUnionElement)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -207,6 +257,9 @@ public class StructUnionElementHolderImpl extends DataHolderImpl implements Stru
       case AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__ARRAY_INDEXES:
         unsetArrayIndexes();
         return;
+      case AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__STRUCT_UNION_ELEMENT:
+        setStructUnionElement((StructUnionElement)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -223,6 +276,8 @@ public class StructUnionElementHolderImpl extends DataHolderImpl implements Stru
     {
       case AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__ARRAY_INDEXES:
         return isSetArrayIndexes();
+      case AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__STRUCT_UNION_ELEMENT:
+        return structUnionElement != null;
     }
     return super.eIsSet(featureID);
   }
@@ -310,5 +365,14 @@ public class StructUnionElementHolderImpl extends DataHolderImpl implements Stru
   public void accept(IBAVisitor visitor) {
     visitor.visit(this);
   }
-
+  
+  @Override
+  public void setElement(NamedElement elt)
+  {
+    if(elt instanceof StructUnionElement)
+      setStructUnionElement((StructUnionElement) elt);
+    else
+      super.setElement(elt);
+  }
+  
 } //StructUnionElementHolderImpl
