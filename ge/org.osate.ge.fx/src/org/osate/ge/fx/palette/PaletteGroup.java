@@ -1,7 +1,5 @@
 package org.osate.ge.fx.palette;
 
-import java.util.ArrayList;
-
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Button;
@@ -17,16 +15,11 @@ import javafx.scene.layout.VBox;
 class PaletteGroup<G, I> extends Region {
 	private BooleanProperty expanded = new SimpleBooleanProperty(false);
 
-	public final ArrayList<Button> buttonList = new ArrayList<Button>();
+	final VBox buttonBox = new VBox();
 
 	public PaletteGroup(final PaletteModel<G, I> model, final G groupModel) {
 
-		VBox buttonBox = new VBox();
-		buttonBox.setFillWidth(true);
-
-		Button groupButton = new Button(model.getGroupLabel(groupModel));
-		groupButton.minWidthProperty().bind(buttonBox.widthProperty());
-		buttonList.add(groupButton);
+		final Button groupButton = new Button(model.getGroupLabel(groupModel));
 		groupButton.setGraphic(new ImageView(model.getGroupIcon(groupModel)));
 		groupButton.setOnAction(e -> {
 
@@ -39,10 +32,11 @@ class PaletteGroup<G, I> extends Region {
 		});
 
 		buttonBox.getChildren().add(groupButton);
+		buttonBox.setFillWidth(true);
 
-		ScrollPane scrollPane = new ScrollPane();
+		final ScrollPane scrollPane = new ScrollPane();
 
-		VBox itemBox = new VBox();
+		final VBox itemBox = new VBox();
 
 		for (I itemModel : model.getItems(groupModel)) {
 
@@ -61,7 +55,6 @@ class PaletteGroup<G, I> extends Region {
 
 		}
 
-	// The palette group has a property which indicates whether it is be expanded.
 	public boolean getExpanded() {
 		return expanded.get();
 	}
@@ -73,4 +66,18 @@ class PaletteGroup<G, I> extends Region {
 	public BooleanProperty expandedProperty() {
 		return expanded;
 	}
+
+	@Override
+	public void layoutChildren() {
+
+		final double width = this.getWidth();
+		final double height = this.getHeight();
+
+		// This does not resize the buttonBox, or the group Buttons within it
+		// appropriately, all other items are properly sized, however, the
+		// group buttons are not changed.
+
+		buttonBox.resize(width, height);
+	}
+
 }

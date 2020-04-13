@@ -6,9 +6,11 @@ import javafx.scene.layout.Region;
 
 class PaletteItem<I> extends Region {
 
+	Button itemButton;
+
 	public PaletteItem(final PaletteModel<?, I> model, I item) {
 
-		Button itemButton = new Button(model.getItemLabel(item));
+		itemButton = new Button(model.getItemLabel(item));
 		itemButton.setGraphic(new ImageView(model.getItemIcon(item)));
 		itemButton.setOnAction(e -> {
 
@@ -18,5 +20,15 @@ class PaletteItem<I> extends Region {
 
 		});
 		this.getChildren().add(itemButton);
+	}
+
+	@Override
+	public void layoutChildren() {
+
+		final double width = this.getWidth();
+		final double height = this.getHeight();
+
+		itemButton.resize(width, height);
+
 	}
 }
