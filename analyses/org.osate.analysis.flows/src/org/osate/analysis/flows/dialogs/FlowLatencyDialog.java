@@ -43,6 +43,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
 import org.osate.analysis.flows.preferences.Constants;
 import org.osate.ui.dialogs.Dialog;
 
@@ -60,8 +61,6 @@ public final class FlowLatencyDialog extends TitleAreaDialog {
 
 	public FlowLatencyDialog(Shell parentShell, final IPreferenceStore prefs) {
 		super(parentShell);
-		// FIXME: there should be help available, see https://github.com/osate/osate2/issues/1560
-		setHelpAvailable(false);
 		latencyPrefs = prefs;
 		for (String prefId : LAST_USED_PREF_IDS) {
 			localValues.put(prefId, latencyPrefs.getString(prefId));
@@ -90,6 +89,9 @@ public final class FlowLatencyDialog extends TitleAreaDialog {
 
 	@Override
 	protected Control createDialogArea(final Composite parent) {
+		setHelpAvailable(true);
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(getShell(), "org.osate.analysis.flows.flow_latency_dialog");
+
 		final Composite root = (Composite) super.createDialogArea(parent);
 		final Composite myWorkArea = new Composite(root, SWT.NONE);
 		myWorkArea.setLayoutData(new GridData(GridData.FILL_BOTH));
