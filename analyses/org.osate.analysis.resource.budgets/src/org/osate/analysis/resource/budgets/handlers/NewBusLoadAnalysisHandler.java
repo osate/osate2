@@ -220,10 +220,12 @@ public final class NewBusLoadAnalysisHandler extends NewAbstractAaxlHandler {
 	}
 
 	private static void generateCSVforBus(final PrintWriter pw, final Result busResult, final Result boundTo) {
+		final long dataOverhead = ResultUtil.getInteger(busResult, 7);
 		if (boundTo == null) {
-			printItem(pw, "Bus " + busResult.getMessage());
+			printItem(pw, "Bus " + busResult.getMessage() + " has data overhead of " + dataOverhead + " bytes");
 		} else {
-			printItem(pw, "Virtual bus " + busResult.getMessage() + " bound to " + boundTo.getMessage());
+			printItem(pw, "Virtual bus " + busResult.getMessage() + " bound to " + boundTo.getMessage()
+					+ " has data overhead of " + dataOverhead + " bytes");
 		}
 		pw.println();
 
