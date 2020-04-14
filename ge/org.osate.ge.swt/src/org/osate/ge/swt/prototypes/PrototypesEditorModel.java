@@ -31,7 +31,7 @@ import org.osate.ge.swt.ObservableModel;
  * View Model interface for {@link PrototypesEditor}
  *
  * @param <P> the type of the prototypes being edited.
- * @param <C> the type used for the constraining classifier of the prototypse.
+ * @param <C> the type used for the constraining classifier of the prototypes.
  */
 public interface PrototypesEditorModel<P, C> extends ObservableModel {
 	/**
