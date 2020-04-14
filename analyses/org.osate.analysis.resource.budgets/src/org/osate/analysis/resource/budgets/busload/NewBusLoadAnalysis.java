@@ -85,6 +85,7 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
  *           <li>values[4] = The number of virtual buses bound to this bus (IntegerValue)
  *           <li>values[5] = The number of connections bound to this bus (IntegerValue)
  *           <li>values[6] = The number of broadcast sources bound to this bus (IntegerValue)
+ *           <li>values[7] = The overhead of the bus in bytes as computed by analysis (IntegerValue)
  *           <li>diagnostics = Diagnostics associated with this bus.
  *           <li>subResults indexes 0 through (values[4] -1) refer to {@code Result} objects for virtual buses.
  *             <ul>
@@ -179,7 +180,7 @@ public final class NewBusLoadAnalysis {
 		private Result currentResult;
 
 		private Deque<Double> previousOverhead = new LinkedList<>();
-		private double dataOverheadKBytesps = 0.0;
+		private double dataOverheadKBytes = 0.0;
 
 		public BusLoadAnalysisVisitor(final Result rootResult) {
 			this.currentResult = rootResult;
@@ -199,8 +200,8 @@ public final class NewBusLoadAnalysis {
 			// Increment the data overhead
 			final double newOverheadKBytesps = GetProperties.getDataSize(busInstance,
 					GetProperties.getKBUnitLiteral(busInstance));
-			previousOverhead.push(dataOverheadKBytesps);
-			dataOverheadKBytesps += newOverheadKBytesps;
+			previousOverhead.push(dataOverheadKBytes);
+			dataOverheadKBytes += newOverheadKBytesps;
 		}
 
 		@Override
@@ -209,8 +210,9 @@ public final class NewBusLoadAnalysis {
 			final Result busResult = currentResult;
 			currentResult = previousResult.pop();
 
-			// Unroll the overhead calculation
-			dataOverheadKBytesps = previousOverhead.pop();
+			// Unroll the overhead calculation, but save the old value for output
+			final long myDataOverheadInBytes = (long) (1000.0 * dataOverheadKBytes);
+			dataOverheadKBytes = previousOverhead.pop();
 
 			// Compute the actual usage and budget requirements
 			double actual = 0.0;
@@ -244,6 +246,7 @@ public final class NewBusLoadAnalysis {
 			ResultUtil.addIntegerValue(busResult, bus.getBoundBuses().size());
 			ResultUtil.addIntegerValue(busResult, bus.getBoundConnections().size());
 			ResultUtil.addIntegerValue(busResult, bus.getBoundBroadcasts().size());
+			ResultUtil.addIntegerValue(busResult, myDataOverheadInBytes);
 
 			if (capacity == 0.0) {
 				warning(busResult, busInstance, (bus instanceof Bus ? "Bus " : "Virtual bus ") +
@@ -294,7 +297,7 @@ public final class NewBusLoadAnalysis {
 			currentResult = previousResult.pop();
 
 			// Compute the actual usage and budget requirements
-			final double actual = getConnectionActualKBytesps(broadcast.getSource(), dataOverheadKBytesps);
+			final double actual = getConnectionActualKBytesps(broadcast.getSource(), dataOverheadKBytes);
 			broadcast.setActual(actual);
 
 			// Use the maximum budget from the connections, warn if they are not equal
@@ -331,7 +334,7 @@ public final class NewBusLoadAnalysis {
 					connectionInstance, ResultType.SUCCESS);
 			currentResult.getSubResults().add(connectionResult);
 
-			final double actual = getConnectionActualKBytesps(connectionInstance.getSource(), dataOverheadKBytesps);
+			final double actual = getConnectionActualKBytesps(connectionInstance.getSource(), dataOverheadKBytes);
 			connection.setActual(actual);
 
 			final double budget = GetProperties.getBandWidthBudgetInKBytesps(connectionInstance, 0.0);
@@ -359,15 +362,15 @@ public final class NewBusLoadAnalysis {
 	/**
 	 * Calculate bandwidth demand from rate & data size
 	 * @param ci The connection instance to calculate for
-	 * @param dataOverheadKBytesps The current data overhead from bound buses expressed in KB/s.  This is applied to
+	 * @param dataOverheadKBytes The current data overhead from bound buses expressed in KB/s.  This is applied to
 	 * the connections message size.
 	 */
 	private static double getConnectionActualKBytesps(final ConnectionInstanceEnd cie,
-			final double dataOverheadKBytesps) {
+			final double dataOverheadKBytes) {
 		double actualDataRate = 0;
 		if (cie instanceof FeatureInstance) {
 			final FeatureInstance fi = (FeatureInstance) cie;
-			final double datasize = dataOverheadKBytesps
+			final double datasize = dataOverheadKBytes
 					+ GetProperties.getSourceDataSize(fi, GetProperties.getKBUnitLiteral(fi));
 			final double srcRate = GetProperties.getOutgoingMessageRatePerSecond(fi);
 			actualDataRate = datasize * srcRate;
