@@ -36,6 +36,28 @@ public class TestPaletteModel implements PaletteModel<TestPaletteGroup, TestPale
 		new TestPaletteItem(groups[1], icons[2]);
 		new TestPaletteItem(groups[1], icons[2]);
 		new TestPaletteItem(groups[1], icons[1]);
+
+		new TestPaletteItem(groups[1], icons[1]);
+		new TestPaletteItem(groups[1], icons[1]);
+		new TestPaletteItem(groups[1], icons[1]);
+		new TestPaletteItem(groups[1], icons[1]);
+		new TestPaletteItem(groups[1], icons[1]);
+		new TestPaletteItem(groups[1], icons[1]);
+		new TestPaletteItem(groups[1], icons[1]);
+		new TestPaletteItem(groups[1], icons[1]);
+		new TestPaletteItem(groups[1], icons[1]);
+		new TestPaletteItem(groups[1], icons[1]);
+		new TestPaletteItem(groups[1], icons[1]);
+		new TestPaletteItem(groups[1], icons[1]);
+		new TestPaletteItem(groups[1], icons[1]);
+		new TestPaletteItem(groups[1], icons[1]);
+		new TestPaletteItem(groups[1], icons[1]);
+		new TestPaletteItem(groups[1], icons[1]);
+		new TestPaletteItem(groups[1], icons[1]);
+		new TestPaletteItem(groups[1], icons[1]);
+		new TestPaletteItem(groups[1], icons[1]);
+		new TestPaletteItem(groups[1], icons[1]);
+
 		new TestPaletteItem(groups[2], icons[0]);
 		new TestPaletteItem(groups[2], null);
 	}

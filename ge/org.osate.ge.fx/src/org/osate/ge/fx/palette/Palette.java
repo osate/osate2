@@ -28,14 +28,9 @@ import java.util.Objects;
 
 import org.osate.ge.fx.NodeApplication;
 
-import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 /**
  * Generic palette component.
@@ -48,12 +43,6 @@ public class Palette<G, I> extends Region {
 
 	public Palette(final PaletteModel<G, I> model) {
 		Objects.requireNonNull(model, "model must not be null");
-
-
-		// TODO: Example. Remove this
-		setBackground(new Background(new BackgroundFill(Color.web("#FF0000"), CornerRadii.EMPTY, Insets.EMPTY)));
-		paletteVbox.setBackground(
-				new Background(new BackgroundFill(Color.web("#00FF00"), CornerRadii.EMPTY, Insets.EMPTY)));
 
 		paletteVbox.setFillWidth(true);
 

@@ -16,10 +16,11 @@ class PaletteGroup<G, I> extends Region {
 	private BooleanProperty expanded = new SimpleBooleanProperty(false);
 
 	final VBox buttonBox = new VBox();
+	final Button groupButton;
 
 	public PaletteGroup(final PaletteModel<G, I> model, final G groupModel) {
 
-		final Button groupButton = new Button(model.getGroupLabel(groupModel));
+		groupButton = new Button(model.getGroupLabel(groupModel));
 		groupButton.setGraphic(new ImageView(model.getGroupIcon(groupModel)));
 		groupButton.setOnAction(e -> {
 
@@ -73,11 +74,8 @@ class PaletteGroup<G, I> extends Region {
 		final double width = this.getWidth();
 		final double height = this.getHeight();
 
-		// This does not resize the buttonBox, or the group Buttons within it
-		// appropriately, all other items are properly sized, however, the
-		// group buttons are not changed.
-
 		buttonBox.resize(width, height);
+		groupButton.setPrefWidth(width);
 	}
 
 }
