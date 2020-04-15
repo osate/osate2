@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.osate.analysis.security;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Activator: org.osate.analysis.security.SecurityPlugin
+Bundle-Vendor: CMU-SEI
+Bundle-Localization: plugin
+Export-Package: org.osate.analysis.security,
+ org.osate.analysis.security.handlers
+Require-Bundle: org.osate.aadl2,
+ org.osate.ui,
+ org.osate.aadl2.modelsupport,
+ org.osate.xtext.aadl2.properties;bundle-version="1.0.0"
+Bundle-ActivationPolicy: lazy
+Import-Package: org.osate.contribution.sei.names
+Automatic-Module-Name: org.osate.analysis.security
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+
