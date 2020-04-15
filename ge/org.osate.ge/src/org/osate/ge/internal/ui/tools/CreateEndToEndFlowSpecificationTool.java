@@ -92,10 +92,11 @@ public class CreateEndToEndFlowSpecificationTool {
 			final AadlModificationService aadlModService, final UiService uiService,
 			final ColoringService coloringService, final NamingService namingService) {
 		try {
+			// Check for existing errors or warnings
 			final List<Diagnostic> diagnostics = ToolUtil.getModelDiagnostics(selectedBoc);
 			if (!diagnostics.isEmpty()) {
 				Display.getDefault()
-						.asyncExec(() -> ToolUtil.getErrorDialog("Cannot create a new end-to-end flow.").open());
+				.asyncExec(() -> FlowDialogUtil.getErrorDialog("Cannot create a new end-to-end flow.").open());
 			} else {
 				coloring = coloringService.adjustColors(); // Create a coloring object that will allow adjustment of pictogram
 				final Display display = Display.getCurrent();
@@ -424,7 +425,7 @@ public class CreateEndToEndFlowSpecificationTool {
 				});
 			}
 
-			FlowErrorTableUtil.setInput(errorTableViewer, diagnostics);
+			FlowDialogUtil.setInput(errorTableViewer, diagnostics);
 
 			final Optional<Diagnostic> errorDiagnostic = diagnostics.stream()
 					.filter(diagnostic -> diagnostic.getSeverity() == Diagnostic.ERROR).findAny();
@@ -432,14 +433,11 @@ public class CreateEndToEndFlowSpecificationTool {
 		}
 
 		private void updateWidgets(final boolean isValid) {
-			System.err.println(isValid + " isValid");
 			dlg.setMessage(getDialogMessage());
-
 			setNavigationButtonsEnabled(isValid && eTEFlow.getName().length() != 0);
 		}
 
 		private void updateWidgets() {
-			System.err.println("update wid");
 			updateWidgets(isEndToEndFlowValid());
 		}
 
@@ -507,10 +505,10 @@ public class CreateEndToEndFlowSpecificationTool {
 
 		@Override
 		protected Control createDialogArea(final Composite parent) {
-			final Composite area = FlowErrorTableUtil.createFlowArea(parent);
-			flowSegmentComposite = FlowErrorTableUtil.createSegmentComposite(area);
-			flowSegmentLabel = FlowErrorTableUtil.createFlowSegmentLabel(flowSegmentComposite);
-			errorTableViewer = FlowErrorTableUtil.createErrorTableViewer(new Composite(area, SWT.NONE));
+			final Composite area = FlowDialogUtil.createFlowArea(parent);
+			flowSegmentComposite = FlowDialogUtil.createSegmentComposite(area);
+			flowSegmentLabel = FlowDialogUtil.createFlowSegmentLabel(flowSegmentComposite);
+			errorTableViewer = FlowDialogUtil.createErrorTableViewer(new Composite(area, SWT.NONE));
 
 			return flowSegmentComposite;
 		}

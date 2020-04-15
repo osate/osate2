@@ -1,6 +1,9 @@
 package org.osate.ge.internal.ui.tools;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.ArrayContentProvider;
@@ -21,8 +24,12 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
+import org.osate.ge.internal.Activator;
 
-class FlowErrorTableUtil {
+class FlowDialogUtil {
+	private FlowDialogUtil() {
+	}
+
 	private final static Image errorImage = PlatformUI.getWorkbench().getSharedImages()
 			.getImage(ISharedImages.IMG_OBJS_ERROR_TSK);
 	private final static Image warningImage = PlatformUI.getWorkbench().getSharedImages()
@@ -126,7 +133,7 @@ class FlowErrorTableUtil {
 		errorTableViewer.getTable().layout(true, true);
 	}
 
-	public static TableViewer getErrorTableViewer(final Composite container) {
+	private static TableViewer getErrorTableViewer(final Composite container) {
 		final TableViewer errorTableViewer = new TableViewer(container,
 				SWT.V_SCROLL | SWT.H_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
 		errorTableViewer.setContentProvider(ArrayContentProvider.getInstance());
@@ -143,6 +150,14 @@ class FlowErrorTableUtil {
 				cell.setImage(diagnostic.getSeverity() == Diagnostic.ERROR ? errorImage : warningImage);
 			}
 		});
+	}
+
+	// Dialog to tell user existing model errors and warnings must be resolved before using the flow tools
+	public static ErrorDialog getErrorDialog(final String message) {
+		final IStatus errorStatus = new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+				"There are existing errors and warnings in the model.");
+		return new ErrorDialog(Display.getDefault().getActiveShell(), "Flow Tool Error", message, errorStatus,
+				IStatus.ERROR);
 	}
 
 	public static StyledText createFlowSegmentLabel(final Composite flowSegmentComposite) {

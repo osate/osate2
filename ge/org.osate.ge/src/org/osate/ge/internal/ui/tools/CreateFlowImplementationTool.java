@@ -88,10 +88,12 @@ public class CreateFlowImplementationTool {
 			final AadlModificationService aadlModService, final UiService uiService,
 			final ColoringService coloringService) {
 		try {
+			// Check for existing errors or warnings
 			final List<Diagnostic> diagnostics = ToolUtil.getModelDiagnostics(selectedBoc);
 			if (!diagnostics.isEmpty()) {
 				Display.getDefault()
-				.asyncExec(() -> ToolUtil.getErrorDialog("Cannot create a new flow implemenation.").open());
+				.asyncExec(
+						() -> FlowDialogUtil.getErrorDialog("Cannot create a new flow implemenation.").open());
 			} else {
 				this.coloring = coloringService.adjustColors();
 
@@ -184,36 +186,6 @@ public class CreateFlowImplementationTool {
 			this.isValid = isValid;
 		}
 
-		// Returns whether the flow has both a start and end.
-		private boolean isFlowComplete() {
-			if (!isValid) {
-				return false;
-			}
-			final FlowSpecification fs = getFlowSpecification();
-			if (fs == null) {
-				return false;
-			}
-
-			if (!getFlowComponentImplementation(getOwnerBoc().orElse(null)).isPresent()) {
-				return false;
-			}
-
-			if (fs.getKind() == FlowKind.SOURCE) {
-				return getSelectedBocsOtherThanFirst().stream()
-						.filter(boc -> boc.getBusinessObject() instanceof Feature).count() == 1;
-			} else if (fs.getKind() == FlowKind.PATH) {
-				return getSelectedBocsOtherThanFirst().stream()
-						.filter(boc -> boc.getBusinessObject() instanceof Feature).count() == 2;
-			} else if (fs.getKind() == FlowKind.SINK) {
-				return getSelectedBocsOtherThanFirst().stream()
-						.filter(boc -> boc.getBusinessObject() instanceof FlowSpecification
-								&& FlowSpecification.class.cast(boc.getBusinessObject()).getKind() == FlowKind.SINK)
-						.count() == 1;
-			}
-
-			return false;
-		}
-
 		private void setMultipleElementsSelected(final boolean value) {
 			multipleElementsSelected = value;
 			updateMessage();
@@ -240,7 +212,7 @@ public class CreateFlowImplementationTool {
 				msg = "Select a flow specification to implement.";
 			} else if (selectingFlowIn()) {
 				msg = "Select a starting feature.";
-			} else if (isFlowComplete()) {
+			} else if (isValid) {
 				msg = "Select the OK button to create the flow implementation. Optionally, select a mode or mode transition.";
 			} else if (needsEndingFeature()) {
 				if (selectingFlowEnd()) {
@@ -347,7 +319,7 @@ public class CreateFlowImplementationTool {
 		}
 
 		private boolean selectingSubcomponentFlow() {
-			if (selectingFlowSpecificationToImplement() || selectingFlowIn() || isFlowComplete()) {
+			if (selectingFlowSpecificationToImplement() || selectingFlowIn()) {
 				return false;
 			}
 
@@ -363,7 +335,7 @@ public class CreateFlowImplementationTool {
 		}
 
 		private boolean selectingConnectionFlow() {
-			if (selectingFlowSpecificationToImplement() || selectingFlowIn() || isFlowComplete()) {
+			if (selectingFlowSpecificationToImplement() || selectingFlowIn()) {
 				return false;
 			}
 
@@ -379,8 +351,7 @@ public class CreateFlowImplementationTool {
 		}
 
 		private boolean selectingFlowEnd() {
-			if (selectingFlowSpecificationToImplement() || selectingFlowIn() || !needsEndingFeature()
-					|| isFlowComplete()) {
+			if (selectingFlowSpecificationToImplement() || selectingFlowIn() || !needsEndingFeature()) {
 				return false;
 			}
 
@@ -490,7 +461,7 @@ public class CreateFlowImplementationTool {
 				});
 			}
 
-			FlowErrorTableUtil.setInput(errorTableViewer, diagnostics);
+			FlowDialogUtil.setInput(errorTableViewer, diagnostics);
 
 			final Optional<Diagnostic> errorDiagnostic = diagnostics.stream()
 					.filter(diagnostic -> diagnostic.getSeverity() == Diagnostic.ERROR).findAny();
@@ -545,9 +516,9 @@ public class CreateFlowImplementationTool {
 				flowLabel.setText("");
 			} else {
 				final FlowSpecification flowSpec = fi.getSpecification();
-				String flowStr = flowSpec.getName() + ":" + "  flow ";
+				String flowStr = flowSpec.getName() + ":";
 				final int kindStartIndex = flowStr.length();
-				flowStr += fi.getKind() + " ";
+				flowStr += "  flow " + fi.getKind() + " ";
 				final int kindEndIndex = flowStr.length();
 
 				final List<String> flowSegmentStrings = new ArrayList<>();
@@ -644,10 +615,10 @@ public class CreateFlowImplementationTool {
 
 		@Override
 		protected Control createDialogArea(final Composite parent) {
-			final Composite area = FlowErrorTableUtil.createFlowArea(parent);
-			flowComposite = FlowErrorTableUtil.createSegmentComposite(area);
-			flowLabel = FlowErrorTableUtil.createFlowSegmentLabel(flowComposite);
-			errorTableViewer = FlowErrorTableUtil.createErrorTableViewer(new Composite(area, SWT.NONE));
+			final Composite area = FlowDialogUtil.createFlowArea(parent);
+			flowComposite = FlowDialogUtil.createSegmentComposite(area);
+			flowLabel = FlowDialogUtil.createFlowSegmentLabel(flowComposite);
+			errorTableViewer = FlowDialogUtil.createErrorTableViewer(new Composite(area, SWT.NONE));
 
 			return flowComposite;
 		}

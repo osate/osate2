@@ -35,8 +35,6 @@ import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
@@ -44,8 +42,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.jface.dialogs.ErrorDialog;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.validation.FeatureBasedDiagnostic;
 import org.osate.aadl2.AadlPackage;
@@ -53,7 +49,6 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.util.ProjectUtil;
 
 public class ToolUtil {
@@ -110,12 +105,11 @@ public class ToolUtil {
 	}
 
 	/**
-	 *
-	 * @param root
-	 * @return
+	 * Get model diagnostics
 	 */
 	public static List<Diagnostic> getModelDiagnostics(final BusinessObjectContext boc) {
-		final NamedElement pkg = findPackage(boc).orElseThrow(() -> new RuntimeException("Cannot find package"));
+		// Find package to get entire model diagnostics
+		final AadlPackage pkg = findPackage(boc).orElseThrow(() -> new RuntimeException("Cannot find package"));
 		final IProject project = ProjectUtil.getProjectForBoOrThrow(pkg);
 		final ResourceSet testResourceSet = ProjectUtil.getLiveResourceSet(project);
 
@@ -124,12 +118,11 @@ public class ToolUtil {
 		return diagnostics;
 	}
 
-	public static Optional<NamedElement> findPackage(final BusinessObjectContext boc) {
+	private static Optional<AadlPackage> findPackage(final BusinessObjectContext boc) {
 		BusinessObjectContext tmp = boc;
 		while (tmp != null) {
 			if (tmp.getBusinessObject() instanceof AadlPackage) {
-				System.err.println(tmp.getBusinessObject() + " getBo");
-				return Optional.of((NamedElement) tmp.getBusinessObject());
+				return Optional.of((AadlPackage) tmp.getBusinessObject());
 			}
 
 			tmp = tmp.getParent();
@@ -156,14 +149,15 @@ public class ToolUtil {
 		return diagnostics;
 	}
 
-	private static List<Diagnostic> getDiagnostics(final EObject root, final ResourceSet testResourceSet) {
+	// Get error and warning diagnostics
+	private static List<Diagnostic> getDiagnostics(final EObject eObjectToValidate, final ResourceSet testResourceSet) {
 		// Serialize
-		final Optional<String> serializedSrc = getSerializedSource(root);
+		final Optional<String> serializedSrc = getSerializedSource(eObjectToValidate);
 		if (!serializedSrc.isPresent()) {
 			return Arrays.asList(new DiagnosticWrapper(Diagnostic.ERROR, "Serialization Error"));
 		}
 
-		final XtextResource testResource = getXtextResource(testResourceSet, root.eResource().getURI());
+		final XtextResource testResource = getXtextResource(testResourceSet, eObjectToValidate.eResource().getURI());
 		loadResource(testResource, serializedSrc.get());
 
 		final Builder<Diagnostic> diagnostics = Stream.builder();
@@ -176,7 +170,7 @@ public class ToolUtil {
 			}
 		}
 
-		final EObject serializedObject = testResourceSet.getEObject(EcoreUtil.getURI(root), true);
+		final EObject serializedObject = testResourceSet.getEObject(EcoreUtil.getURI(eObjectToValidate), true);
 		final Diagnostic validationDiagnostic = Diagnostician.INSTANCE.validate(serializedObject,
 				Collections.singletonMap(Diagnostician.VALIDATE_RECURSIVELY, true));
 		final int severity = validationDiagnostic.getSeverity();
@@ -253,12 +247,5 @@ public class ToolUtil {
 		return resource != null ? resource : (XtextResource) resourceSet.createResource(uri);
 	}
 
-	public static IStatus getErrorStatus() {
-		return new Status(IStatus.ERROR, Activator.PLUGIN_ID, "There are existing errors and warnings in the model.");
-	}
 
-	public static ErrorDialog getErrorDialog(final String message) {
-		return new ErrorDialog(Display.getDefault().getActiveShell(), "Flow Tool Error", message, getErrorStatus(),
-				IStatus.ERROR);
-	}
 }
