@@ -61,28 +61,6 @@ public class Palette<G, I> extends Region {
 			paletteList.add(paletteGroup);
 			paletteVbox.getChildren().add(paletteGroup);
 
-			for (PaletteGroup<?, ?> G : paletteList) {
-
-				G.expandedProperty().addListener((observable, oldValue, newValue) -> {
-
-					if (newValue) {
-
-						for (PaletteGroup<?, ?> I : paletteList) {
-
-							if (I != G) {
-
-								I.setExpanded(false);
-
-							}
-
-						}
-
-					}
-
-				});
-
-			}
-
 		}
 		this.getChildren().add(paletteVbox);
 	}

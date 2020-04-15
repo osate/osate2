@@ -7,6 +7,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 
 /*
  * Represents a single group in the palette.
@@ -21,6 +22,13 @@ class PaletteGroup<G, I> extends Region {
 	public PaletteGroup(final PaletteModel<G, I> model, final G groupModel) {
 
 		groupButton = new Button(model.getGroupLabel(groupModel));
+
+		/*
+		 * This should align the text of the Button to the left,
+		 * however, running this function does nothing.
+		 */
+		groupButton.setTextAlignment(TextAlignment.LEFT);
+
 		groupButton.setGraphic(new ImageView(model.getGroupIcon(groupModel)));
 		groupButton.setOnAction(e -> {
 
@@ -33,7 +41,6 @@ class PaletteGroup<G, I> extends Region {
 		});
 
 		buttonBox.getChildren().add(groupButton);
-		buttonBox.setFillWidth(true);
 
 		final ScrollPane scrollPane = new ScrollPane();
 
