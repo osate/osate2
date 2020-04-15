@@ -25,25 +25,35 @@ package org.osate.ge.internal.ui.tools;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.Stream.Builder;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.resource.XtextResource;
-import org.eclipse.xtext.resource.XtextResourceSet;
+import org.eclipse.xtext.validation.FeatureBasedDiagnostic;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Context;
-import org.osate.aadl2.EndToEndFlow;
-import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.util.ProjectUtil;
 
 public class ToolUtil {
@@ -100,70 +110,121 @@ public class ToolUtil {
 	}
 
 	/**
-	 * Modifies an eObject to determine if the modification is valid
-	 * @param eObject is the eObject to modify
-	 * @param getModifiedObject is the modification to perform on the eObject
-	 * @return whether the modification is valid
+	 *
+	 * @param root
+	 * @return
 	 */
-	public static boolean isValidModification(final EObject eObject, final EObject UNUSEDTODO,
-			final Function<ResourceSet, EObject> getModifiedObject) {
-		final IProject project = ProjectUtil.getProjectForBoOrThrow(eObject);
+	public static List<Diagnostic> getModelDiagnostics(final BusinessObjectContext boc) {
+		final NamedElement pkg = findPackage(boc).orElseThrow(() -> new RuntimeException("Cannot find package"));
+		final IProject project = ProjectUtil.getProjectForBoOrThrow(pkg);
 		final ResourceSet testResourceSet = ProjectUtil.getLiveResourceSet(project);
-		final XtextResource testResource = getXtextResource(testResourceSet, eObject.eResource().getURI());
-		final EObject modifiedObject = getModifiedObject.apply(testResourceSet);
-		// final LazyLinkingResource resource = (LazyLinkingResource) testResource;
 
-		final Optional<String> serializedSrc = getSerializedSource(modifiedObject);
-		if (!serializedSrc.isPresent()) {
-			return false;
-		}
-
-		System.err.println("A1 : " + modifiedObject);
-
-		return abc(project, serializedSrc.get(), eObject.eResource().getURI(), EcoreUtil.getURI(modifiedObject));
+		// Model error and warning diagnostics
+		final List<Diagnostic> diagnostics = getDiagnostics(pkg, testResourceSet);
+		return diagnostics;
 	}
 
-	private static boolean abc(final IProject project, final String src, final URI resourceUri,
-			final URI modifiedObjectUri) {
-		final ResourceSet testResourceSet = ProjectUtil.getLiveResourceSet(project);
-		final XtextResource testResource = (XtextResource) testResourceSet.createResource(resourceUri);
+	public static Optional<NamedElement> findPackage(final BusinessObjectContext boc) {
+		BusinessObjectContext tmp = boc;
+		while (tmp != null) {
+			if (tmp.getBusinessObject() instanceof AadlPackage) {
+				System.err.println(tmp.getBusinessObject() + " getBo");
+				return Optional.of((NamedElement) tmp.getBusinessObject());
+			}
 
-		loadResource(testResource, src);
-
-		if (testResource.validateConcreteSyntax().size() > 0) {
-			return false;
+			tmp = tmp.getParent();
 		}
 
+		return Optional.empty();
+	}
 
-		final EObject modifiedObjectNew = testResourceSet.getEObject(modifiedObjectUri, true);
-		System.err.println("A2 : " + modifiedObjectNew);
+	/**
+	 * Modifies an eObject and returns error and warning diagnostics
+	 * @param objectToModify is the eObject to modify
+	 * @param getModifiedObject performs the modification and returns modified eObject
+	 * @return a list of error and warning diagnostics found during validation
+	 */
+	public static List<Diagnostic> getModificationDiagnostics(final EObject objectToModify,
+			final Function<ResourceSet, EObject> getModifiedObject) {
+		final IProject project = ProjectUtil.getProjectForBoOrThrow(objectToModify);
+		final ResourceSet testResourceSet = ProjectUtil.getLiveResourceSet(project);
+		// Make modification
+		final EObject modifiedObject = getModifiedObject.apply(testResourceSet);
 
-		ComponentImplementation c = (ComponentImplementation) modifiedObjectNew;
-		for (EndToEndFlow f : c.getOwnedEndToEndFlows()) {
+		// Model error and warning diagnostics
+		final List<Diagnostic> diagnostics = getDiagnostics(modifiedObject, testResourceSet);
+		return diagnostics;
+	}
 
-			for (Mode m : f.getInModes()) {
-				System.err.println("M1: " + m);
+	private static List<Diagnostic> getDiagnostics(final EObject root, final ResourceSet testResourceSet) {
+		// Serialize
+		final Optional<String> serializedSrc = getSerializedSource(root);
+		if (!serializedSrc.isPresent()) {
+			return Arrays.asList(new DiagnosticWrapper(Diagnostic.ERROR, "Serialization Error"));
+		}
+
+		final XtextResource testResource = getXtextResource(testResourceSet, root.eResource().getURI());
+		loadResource(testResource, serializedSrc.get());
+
+		final Builder<Diagnostic> diagnostics = Stream.builder();
+
+		// Concrete Validation
+		for (final Diagnostic diagnostic : testResource.validateConcreteSyntax()) {
+			final int severity = diagnostic.getSeverity();
+			if (isErrorOrWarning(severity)) {
+				diagnostics.add(diagnostic);
 			}
 		}
 
-		// EcoreUtil.resolveAll(modifiedObjectNew);
-		// LazyLinkingResource a = (LazyLinkingResource) testResource;
-		// a.resolveLazyCrossReferences(null);
-
-
-		final Diagnostic diagnostic = Diagnostician.INSTANCE.validate(modifiedObjectNew,
+		final EObject serializedObject = testResourceSet.getEObject(EcoreUtil.getURI(root), true);
+		final Diagnostic validationDiagnostic = Diagnostician.INSTANCE.validate(serializedObject,
 				Collections.singletonMap(Diagnostician.VALIDATE_RECURSIVELY, true));
-		System.err.println("E1: " + diagnostic + " : " + diagnostic.getSeverity());
-
-		for (final org.eclipse.emf.ecore.resource.Resource.Diagnostic d : testResource.getErrors()) {
-			System.err.println("F1: " + d);
+		final int severity = validationDiagnostic.getSeverity();
+		if (isErrorOrWarning(severity)) {
+			// Validation Diagnostics
+			final Stream<Diagnostic> qualifiedDiagnostics = getDiagnosticDescendants(validationDiagnostic)
+					.filter(diagnostic -> FeatureBasedDiagnostic.class.isInstance(diagnostic));
+			addDiagnostics(diagnostics, qualifiedDiagnostics);
 		}
 
-		for (final org.eclipse.emf.ecore.resource.Resource.Diagnostic d : testResource.getWarnings()) {
-			System.err.println("F2: " + d);
+		// Errors
+		final Stream<Diagnostic> resourceErrors = testResource.getErrors().stream()
+				.map(resourceDiagnostic -> new DiagnosticWrapper(Diagnostic.ERROR, resourceDiagnostic.getMessage()));
+		addDiagnostics(diagnostics, resourceErrors);
+
+		// Warnings
+		final Stream<Diagnostic> resourceWarnings = testResource.getWarnings().stream()
+				.map(resourceDiagnostic -> new DiagnosticWrapper(Diagnostic.WARNING, resourceDiagnostic.getMessage()));
+		addDiagnostics(diagnostics, resourceWarnings);
+
+		return diagnostics.build().collect(Collectors.toList());
+	}
+
+	private static class DiagnosticWrapper extends BasicDiagnostic {
+		public DiagnosticWrapper(final int severity, final String message) {
+			this.severity = severity;
+			this.message = message;
+		}
+	}
+
+	private static boolean isErrorOrWarning(final int severity) {
+		return severity == Diagnostic.ERROR || severity == Diagnostic.WARNING;
+	}
+
+	// Add diagnostics to stream builder
+	private static void addDiagnostics(final Builder<Diagnostic> diagnostics,
+			final Stream<Diagnostic> diagnosticsToAdd) {
+		diagnosticsToAdd.forEach(diagnostic -> diagnostics.add(diagnostic));
+	}
+
+	// Retrieves all diagnostics
+	private static Stream<Diagnostic> getDiagnosticDescendants(final Diagnostic diagnostic) {
+		if (diagnostic.getChildren().isEmpty()) {
+			return Stream.of(diagnostic);
 		}
 
-		return true;
+		return Stream.concat(Stream.of(diagnostic), diagnostic.getChildren().stream()
+				.flatMap(childDiagnostic -> getDiagnosticDescendants(childDiagnostic)));
 	}
 
 	private static Optional<String> getSerializedSource(final EObject modifiedObject) {
@@ -180,6 +241,7 @@ public class ToolUtil {
 
 	private static void loadResource(final XtextResource resource, final String src) {
 		try {
+			resource.unload();
 			resource.load(new ByteArrayInputStream(src.getBytes()), null);
 		} catch (final IOException e) {
 			throw new RuntimeException("Serialized source cannot be loaded");
@@ -187,9 +249,16 @@ public class ToolUtil {
 	}
 
 	private static XtextResource getXtextResource(final ResourceSet resourceSet, final URI uri) {
-		assert resourceSet instanceof XtextResourceSet;
-
 		final XtextResource resource = (XtextResource) resourceSet.getResource(uri, true);
 		return resource != null ? resource : (XtextResource) resourceSet.createResource(uri);
+	}
+
+	public static IStatus getErrorStatus() {
+		return new Status(IStatus.ERROR, Activator.PLUGIN_ID, "There are existing errors and warnings in the model.");
+	}
+
+	public static ErrorDialog getErrorDialog(final String message) {
+		return new ErrorDialog(Display.getDefault().getActiveShell(), "Flow Tool Error", message, getErrorStatus(),
+				IStatus.ERROR);
 	}
 }

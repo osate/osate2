@@ -25,6 +25,7 @@ package org.osate.ge.internal.ui.tools;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -32,9 +33,11 @@ import java.util.stream.Collectors;
 
 import javax.inject.Named;
 
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
@@ -85,23 +88,29 @@ public class CreateFlowImplementationTool {
 			final AadlModificationService aadlModService, final UiService uiService,
 			final ColoringService coloringService) {
 		try {
-			this.coloring = coloringService.adjustColors();
+			final List<Diagnostic> diagnostics = ToolUtil.getModelDiagnostics(selectedBoc);
+			if (!diagnostics.isEmpty()) {
+				Display.getDefault()
+				.asyncExec(() -> ToolUtil.getErrorDialog("Cannot create a new flow implemenation.").open());
+			} else {
+				this.coloring = coloringService.adjustColors();
 
-			dlg = new CreateFlowImplementationDialog(Display.getCurrent().getActiveShell(), uiService, coloring);
-			// Create and update based on current selection
-			dlg.create();
-			update(new BusinessObjectContext[] { selectedBoc }, true);
-			if (dlg.open() == Window.CANCEL) {
-				return;
-			}
+				dlg = new CreateFlowImplementationDialog(Display.getCurrent().getActiveShell(), uiService, coloring);
+				// Create and update based on current selection
+				dlg.create();
+				update(new BusinessObjectContext[] { selectedBoc }, true);
+				if (dlg.open() == Window.CANCEL) {
+					return;
+				}
 
-			if (dlg != null) {
-				CreateFlowImplementationDialog.getFlowComponentImplementation(dlg.getOwnerBoc().orElse(null)).ifPresent(ownerCi -> {
-					aadlModService.modify(ownerCi, ci -> {
-						ci.getOwnedFlowImplementations().add(dlg.createFlow());
-						ci.setNoFlows(false);
+				if (dlg != null) {
+					CreateFlowImplementationDialog.getFlowComponentImplementation(dlg.getOwnerBoc().orElse(null)).ifPresent(ownerCi -> {
+						aadlModService.modify(ownerCi, ci -> {
+							ci.getOwnedFlowImplementations().add(dlg.createFlow());
+							ci.setNoFlows(false);
+						});
 					});
-				});
+				}
 			}
 		} finally {
 			uiService.deactivateActiveTool();
@@ -154,6 +163,7 @@ public class CreateFlowImplementationTool {
 		private final UiService uiService;
 		private final ColoringService.Coloring coloring;
 		private final Aadl2Package pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
+		private TableViewer errorTableViewer;
 		private Composite flowComposite;
 		private StyledText flowLabel;
 		private Button undoButton;
@@ -465,10 +475,13 @@ public class CreateFlowImplementationTool {
 		}
 
 		private boolean isFlowImplValid(final FlowImplementation fi) {
+			final List<Diagnostic> diagnostics;
 			final Optional<ComponentImplementation> optCi = getFlowComponentImplementation(getOwnerBoc().orElse(null));
-			if (optCi.isPresent()) {
+			if (!optCi.isPresent()) {
+				diagnostics = Collections.emptyList();
+			} else {
 				final ComponentImplementation ci = optCi.get();
-				return ToolUtil.isValidModification(ci, fi, (testResourceSet) -> {
+				diagnostics = ToolUtil.getModificationDiagnostics(ci, (testResourceSet) -> {
 					final ComponentImplementation objectToModify = (ComponentImplementation) testResourceSet
 							.getEObject(EcoreUtil.getURI(ci), true);
 					objectToModify.setNoFlows(false);
@@ -477,7 +490,11 @@ public class CreateFlowImplementationTool {
 				});
 			}
 
-			return false;
+			FlowErrorTableUtil.setInput(errorTableViewer, diagnostics);
+
+			final Optional<Diagnostic> errorDiagnostic = diagnostics.stream()
+					.filter(diagnostic -> diagnostic.getSeverity() == Diagnostic.ERROR).findAny();
+			return !errorDiagnostic.isPresent();
 		}
 
 		private static Optional<ComponentImplementation> getFlowComponentImplementation(
@@ -627,17 +644,10 @@ public class CreateFlowImplementationTool {
 
 		@Override
 		protected Control createDialogArea(final Composite parent) {
-			flowComposite = (Composite) super.createDialogArea(parent);
-			GridLayout layout = (GridLayout) flowComposite.getLayout();
-			layout.marginLeft = 10;
-			layout.marginTop = 5;
-
-			flowLabel = new StyledText(flowComposite, SWT.BORDER | SWT.WRAP | SWT.V_SCROLL | SWT.MULTI);
-			flowLabel.setEditable(false);
-			flowLabel.setEnabled(false);
-			flowLabel.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WIDGET_BACKGROUND));
-			flowLabel.setMargins(5, 5, 5, 5);
-			flowLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+			final Composite area = FlowErrorTableUtil.createFlowArea(parent);
+			flowComposite = FlowErrorTableUtil.createSegmentComposite(area);
+			flowLabel = FlowErrorTableUtil.createFlowSegmentLabel(flowComposite);
+			errorTableViewer = FlowErrorTableUtil.createErrorTableViewer(new Composite(area, SWT.NONE));
 
 			return flowComposite;
 		}

@@ -24,17 +24,18 @@
 package org.osate.ge.internal.ui.tools;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 import javax.inject.Named;
 
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
@@ -52,11 +53,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.xtext.linking.ILinkingDiagnosticMessageProvider;
-import org.eclipse.xtext.linking.impl.LinkingHelper;
-import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.util.Strings;
-import org.eclipse.xtext.util.Triple;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentImplementation;
@@ -95,25 +92,31 @@ public class CreateEndToEndFlowSpecificationTool {
 			final AadlModificationService aadlModService, final UiService uiService,
 			final ColoringService coloringService, final NamingService namingService) {
 		try {
-			coloring = coloringService.adjustColors(); // Create a coloring object that will allow adjustment of pictogram
-			final Display display = Display.getCurrent();
-			dlg = new CreateFlowsToolsDialog(display.getActiveShell(), namingService, uiService);
-			// Create and update based on current selection
-			dlg.create();
-			update(new BusinessObjectContext[] { selectedBoc }, true);
-			if (dlg.open() == Window.CANCEL) {
-				return;
-			}
+			final List<Diagnostic> diagnostics = ToolUtil.getModelDiagnostics(selectedBoc);
+			if (!diagnostics.isEmpty()) {
+				Display.getDefault()
+						.asyncExec(() -> ToolUtil.getErrorDialog("Cannot create a new end-to-end flow.").open());
+			} else {
+				coloring = coloringService.adjustColors(); // Create a coloring object that will allow adjustment of pictogram
+				final Display display = Display.getCurrent();
+				dlg = new CreateFlowsToolsDialog(display.getActiveShell(), namingService, uiService);
+				// Create and update based on current selection
+				dlg.create();
+				update(new BusinessObjectContext[] { selectedBoc }, true);
+				if (dlg.open() == Window.CANCEL) {
+					return;
+				}
 
-			if (dlg != null) {
-				dlg.getFlow().ifPresent(eteFlow -> {
-					dlg.getOwnerComponentImplementation().ifPresent(ownerCi -> {
-						aadlModService.modify(ownerCi, ci -> {
-							ci.getOwnedEndToEndFlows().add(eteFlow);
-							ci.setNoFlows(false);
+				if (dlg != null) {
+					dlg.getFlow().ifPresent(eteFlow -> {
+						dlg.getOwnerComponentImplementation().ifPresent(ownerCi -> {
+							aadlModService.modify(ownerCi, ci -> {
+								ci.getOwnedEndToEndFlows().add(eteFlow);
+								ci.setNoFlows(false);
+							});
 						});
 					});
-				});
+				}
 			}
 		} finally {
 			uiService.deactivateActiveTool();
@@ -248,9 +251,11 @@ public class CreateEndToEndFlowSpecificationTool {
 		private final EndToEndFlow eTEFlow = (EndToEndFlow) pkg.getEFactoryInstance().create(pkg.getEndToEndFlow());
 		private final List<String> segmentList = new ArrayList<String>();
 		private final List<String> modeList = new ArrayList<String>();
+
 		private Optional<EndToEndFlow> flow = Optional.empty();
 		private Button undoButton;
 		private Composite flowSegmentComposite;
+		private TableViewer errorTableViewer;
 		private StyledText flowSegmentLabel;
 		private Text newETEFlowName;
 
@@ -292,9 +297,6 @@ public class CreateEndToEndFlowSpecificationTool {
 			}
 			return false;
 		}
-
-
-
 
 		/**
 		 * @param ctx - context of element
@@ -390,8 +392,6 @@ public class CreateEndToEndFlowSpecificationTool {
 			BusinessObjectContext tmp = boc.getParent();
 			while (tmp != null) {
 				if (tmp.getBusinessObject() instanceof ComponentImplementation) {
-					// TODO
-					System.err.println("SHOULD NOT BE HERE TODO REMOVE");
 					return Optional.of((ComponentImplementation) tmp.getBusinessObject());
 				} else if (tmp.getBusinessObject() instanceof Subcomponent) {
 					return Optional.ofNullable(((Subcomponent) tmp.getBusinessObject()).getComponentImplementation());
@@ -406,10 +406,13 @@ public class CreateEndToEndFlowSpecificationTool {
 		}
 
 		private boolean isEndToEndFlowValid() {
+			final List<Diagnostic> diagnostics;
 			final Optional<ComponentImplementation> optCi = getOwnerComponentImplementation();
-			if (optCi.isPresent()) {
+			if (!optCi.isPresent()) {
+				diagnostics = Collections.emptyList();
+			} else {
 				final ComponentImplementation ci = optCi.get();
-				return ToolUtil.isValidModification(ci, eTEFlow, (testResourceSet) -> {
+				diagnostics = ToolUtil.getModificationDiagnostics(ci, (testResourceSet) -> {
 					// Make modification with test resource
 					final ComponentImplementation objectToModify = (ComponentImplementation) testResourceSet
 							.getEObject(EcoreUtil.getURI(ci), true);
@@ -421,47 +424,23 @@ public class CreateEndToEndFlowSpecificationTool {
 				});
 			}
 
-			return false;
+			FlowErrorTableUtil.setInput(errorTableViewer, diagnostics);
+
+			final Optional<Diagnostic> errorDiagnostic = diagnostics.stream()
+					.filter(diagnostic -> diagnostic.getSeverity() == Diagnostic.ERROR).findAny();
+			return !errorDiagnostic.isPresent();
 		}
 
-		protected class DiagnosticMessageContext
-		implements ILinkingDiagnosticMessageProvider.ILinkingDiagnosticContext {
+		private void updateWidgets(final boolean isValid) {
+			System.err.println(isValid + " isValid");
+			dlg.setMessage(getDialogMessage());
 
-			private final Triple<EObject, EReference, INode> triple;
-			private final LinkingHelper linkingHelper;
-
-			protected DiagnosticMessageContext(Triple<EObject, EReference, INode> triple, LinkingHelper helper) {
-				this.triple = triple;
-				this.linkingHelper = helper;
-			}
-
-			@Override
-			public EObject getContext() {
-				return triple.getFirst();
-			}
-
-			@Override
-			public EReference getReference() {
-				return triple.getSecond();
-			}
-
-			@Override
-			public String getLinkText() {
-				return linkingHelper.getCrossRefNodeAsString(triple.getThird(), true);
-			}
-
+			setNavigationButtonsEnabled(isValid && eTEFlow.getName().length() != 0);
 		}
 
 		private void updateWidgets() {
-			dlg.setMessage(getDialogMessage());
-			setNavigationButtonsEnabled(isCompleteAndValid() && eTEFlow.getName().length() != 0);
-		}
-
-		private boolean isCompleteAndValid() {
-			return (eTEFlow.getAllFlowSegments().size() > 2 && eTEFlow.getAllFlowSegments().size() % 2 == 1
-					&& eTEFlow.getAllFlowSegments().get(0).getFlowElement() instanceof FlowSpecification
-					&& eTEFlow.getAllFlowSegments().get(eTEFlow.getAllFlowSegments().size() - 1)
-					.getFlowElement() instanceof FlowSpecification);
+			System.err.println("update wid");
+			updateWidgets(isEndToEndFlowValid());
 		}
 
 		private void setNavigationButtonsEnabled(final boolean enabled) {
@@ -528,17 +507,10 @@ public class CreateEndToEndFlowSpecificationTool {
 
 		@Override
 		protected Control createDialogArea(final Composite parent) {
-			flowSegmentComposite = (Composite) super.createDialogArea(parent);
-			GridLayout layout = (GridLayout) flowSegmentComposite.getLayout();
-			layout.marginLeft = 10;
-			layout.marginTop = 5;
-
-			flowSegmentLabel = new StyledText(flowSegmentComposite, SWT.BORDER | SWT.WRAP | SWT.V_SCROLL | SWT.MULTI);
-			flowSegmentLabel.setEditable(false);
-			flowSegmentLabel.setEnabled(false);
-			flowSegmentLabel.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WIDGET_BACKGROUND));
-			flowSegmentLabel.setMargins(5, 5, 5, 5);
-			flowSegmentLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+			final Composite area = FlowErrorTableUtil.createFlowArea(parent);
+			flowSegmentComposite = FlowErrorTableUtil.createSegmentComposite(area);
+			flowSegmentLabel = FlowErrorTableUtil.createFlowSegmentLabel(flowSegmentComposite);
+			errorTableViewer = FlowErrorTableUtil.createErrorTableViewer(new Composite(area, SWT.NONE));
 
 			return flowSegmentComposite;
 		}
@@ -572,7 +544,6 @@ public class CreateEndToEndFlowSpecificationTool {
 					eTEFlow.setName(newETEFlowName.getText());
 					updateWidgets();
 				}
-
 			});
 
 			undoButton = new Button(buttonBar, SWT.PUSH);
@@ -614,7 +585,8 @@ public class CreateEndToEndFlowSpecificationTool {
 						uiService.clearSelection();
 
 						String error = getNameErrorMessage().orElse(null);
-						if (!isEndToEndFlowValid()) {
+						final boolean isValid = isEndToEndFlowValid();
+						if (!isValid) {
 							error = Strings.emptyIfNull(error) + "Invalid End-To-End Flow.  ";
 						}
 
@@ -625,7 +597,7 @@ public class CreateEndToEndFlowSpecificationTool {
 							dlg.setErrorMessage(error + getDialogMessage());
 						}
 
-						updateWidgets();
+						updateWidgets(isValid);
 					}
 				}
 			});
