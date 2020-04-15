@@ -55,6 +55,13 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
@@ -118,94 +125,97 @@ public final class InstantiationHandler extends AbstractMultiJobHandler {
 			final Set<ComponentImplementation> selectedCompImplsSet = getComponentImplsFromSelection(selectionAsList);
 			final int size = selectedCompImplsSet.size();
 
-			/*
-			 * This map is shared by all the jobs to build the set of results. It is created here,
-			 * given to all the jobs, and then forgotten.
-			 */
-			final Map<ComponentImplementation, Result> results = new ConcurrentHashMap<>(size);
-
-			final List<ComponentImplementation> selectedCompImpls = new ArrayList<>(size);
-			final List<IFile> outputFiles = new ArrayList<>(size);
-			final Set<IFolder> outputFolders = new HashSet<>();
-
-			final IResourceRuleFactory factory = ResourcesPlugin.getWorkspace().getRuleFactory();
-			ISchedulingRule prereqRule = null;
-
-			for (final ComponentImplementation impl : selectedCompImplsSet) {
-				selectedCompImpls.add(impl);
-				final IFile outputFile = OsateResourceUtil.toIFile(InstantiateModel.getInstanceModelURI(impl));
-				outputFiles.add(outputFile);
-				final IFolder outputFolder = (IFolder) outputFile.getParent(); // N.B. We KNOW there is an "Instances" folder above the .aaxl file
-				outputFolders.add(outputFolder);
-				prereqRule = MultiRule.combine(prereqRule, factory.createRule(outputFolder));
+			if (size > 0) {
 				/*
-				 * Init each result as cancelled because if the job is cancelled before it starts, it will never
-				 * add a new result record to the map. This way those jobs that never run are accounted for.
+				 * This map is shared by all the jobs to build the set of results. It is created here,
+				 * given to all the jobs, and then forgotten.
 				 */
-				results.put(impl, new Result(false, true, null, null));
-			}
+				final Map<ComponentImplementation, Result> results = new ConcurrentHashMap<>(size);
 
-			/* Make sure the resources are saved if they are open in an editor */
-			if (!saveDirtyEditors()) {
-				return Status.CANCEL_STATUS;
-			}
+				final List<ComponentImplementation> selectedCompImpls = new ArrayList<>(size);
+				final List<IFile> outputFiles = new ArrayList<>(size);
+				final Set<IFolder> outputFolders = new HashSet<>();
 
-			/*
-			 * Make sure all the output folders exists before hand. Could add the folder creation rules to the
-			 * jobs below, but they would limit the parallelism too much. So we create them atomically here first,
-			 * before we launch the main worker jobs.
-			 */
-			boolean prereqFailed = false;
-			try {
-				ResourcesPlugin.getWorkspace().run(m -> {
-					for (final IFolder folder : outputFolders) {
-						if (!folder.exists()) {
-							folder.create(false, true, null);
-						}
-					}
-				}, prereqRule, IWorkspace.AVOID_UPDATE, null);
-			} catch (CoreException e) {
-				prereqFailed = true;
-				OsateUiPlugin.log(e);
+				final IResourceRuleFactory factory = ResourcesPlugin.getWorkspace().getRuleFactory();
+				ISchedulingRule prereqRule = null;
 
-				PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
-					MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-							"Error staring instantiation",
-							"Excepting starting model instantiation, see the error log: " + e.getMessage());
-				});
-			}
-
-			if (!prereqFailed) {
-				final JobGroup jobGroup = new JobGroup("Instantiation", 0, 0);
-				final Job myJobs[] = new Job[size];
-				for (int i = 0; i < size; i++) {
-					final IFile outputFile = outputFiles.get(i);
-					final Job job = new InstantiationJob(selectedCompImpls.get(i), outputFile, results);
+				for (final ComponentImplementation impl : selectedCompImplsSet) {
+					selectedCompImpls.add(impl);
+					final IFile outputFile = OsateResourceUtil.toIFile(InstantiateModel.getInstanceModelURI(impl));
+					outputFiles.add(outputFile);
+					final IFolder outputFolder = (IFolder) outputFile.getParent(); // N.B. We KNOW there is an "Instances" folder above the .aaxl file
+					outputFolders.add(outputFolder);
+					prereqRule = MultiRule.combine(prereqRule, factory.createRule(outputFolder));
 					/*
-					 * NB. According to <https://www.eclipse.org/articles/Article-Concurrency/jobs-api.html> locking
-					 * is only needed for modification, not for reading from resources. This seems sketchy to me
-					 * but I'm going to go with it. Readers are supposed to written defensively, to expect that
-					 * things might go wonky.
-					 *
-					 * We create and possibly remove the aaxl file in the case of errors.
+					 * Init each result as cancelled because if the job is cancelled before it starts, it will never
+					 * add a new result record to the map. This way those jobs that never run are accounted for.
 					 */
-					job.setRule(MultiRule.combine(factory.createRule(outputFile), factory.deleteRule(outputFile)));
-					job.setUser(true);
-					job.setJobGroup(jobGroup);
-					myJobs[i] = job;
+					results.put(impl, new Result(false, true, null, null));
 				}
 
-				final Job resultJob = new ResultJob(jobGroup, results);
-				resultJob.setRule(null); // doesn't use resources
-				resultJob.setUser(false); // background helper job, don't let the user see it
-				resultJob.setSystem(true); // background helper job, don't let the user see it
-				resultJob.schedule();
+				/* Make sure the resources are saved if they are open in an editor */
+				if (!saveDirtyEditors()) {
+					return Status.CANCEL_STATUS;
+				}
 
-				// now launch the main jobs
-				for (final Job job : myJobs) {
-					job.schedule();
+				/*
+				 * Make sure all the output folders exists before hand. Could add the folder creation rules to the
+				 * jobs below, but they would limit the parallelism too much. So we create them atomically here first,
+				 * before we launch the main worker jobs.
+				 */
+				boolean prereqFailed = false;
+				try {
+					ResourcesPlugin.getWorkspace().run(m -> {
+						for (final IFolder folder : outputFolders) {
+							if (!folder.exists()) {
+								folder.create(false, true, null);
+							}
+						}
+					}, prereqRule, IWorkspace.AVOID_UPDATE, null);
+				} catch (CoreException e) {
+					prereqFailed = true;
+					OsateUiPlugin.log(e);
+
+					PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
+						MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+								"Error staring instantiation",
+								"Excepting starting model instantiation, see the error log: " + e.getMessage());
+					});
+				}
+
+				if (!prereqFailed) {
+					final JobGroup jobGroup = new JobGroup("Instantiation", 0, 0);
+					final Job myJobs[] = new Job[size];
+					for (int i = 0; i < size; i++) {
+						final IFile outputFile = outputFiles.get(i);
+						final Job job = new InstantiationJob(selectedCompImpls.get(i), outputFile, results);
+						/*
+						 * NB. According to <https://www.eclipse.org/articles/Article-Concurrency/jobs-api.html> locking
+						 * is only needed for modification, not for reading from resources. This seems sketchy to me
+						 * but I'm going to go with it. Readers are supposed to written defensively, to expect that
+						 * things might go wonky.
+						 *
+						 * We create and possibly remove the aaxl file in the case of errors.
+						 */
+						job.setRule(MultiRule.combine(factory.createRule(outputFile), factory.deleteRule(outputFile)));
+						job.setUser(true);
+						job.setJobGroup(jobGroup);
+						myJobs[i] = job;
+					}
+
+					final Job resultJob = new ResultJob(jobGroup, results);
+					resultJob.setRule(null); // doesn't use resources
+					resultJob.setUser(false); // background helper job, don't let the user see it
+					resultJob.setSystem(true); // background helper job, don't let the user see it
+					resultJob.schedule();
+
+					// now launch the main jobs
+					for (final Job job : myJobs) {
+						job.schedule();
+					}
 				}
 			}
+
 			return Status.OK_STATUS;
 		}
 	}
@@ -364,7 +374,54 @@ public final class InstantiationHandler extends AbstractMultiJobHandler {
 							public String getText(final Object element) {
 								return ((ComponentImplementation) element).getQualifiedName();
 							}
+						}) {
+					Button systemsOnly;
+
+					@Override
+					protected Control createDialogArea(final Composite parent) {
+						Composite contents = (Composite) super.createDialogArea(parent);
+
+						final Button hide = new Button(contents, SWT.CHECK);
+						hide.setText("Don't show this dialog again");
+//						hide.setToolTipText("Check this button to hide this dialog in the future.  Use the" + System.lineSeparator()
+//								+ "OSATE > Analysis > Flow Latency preference pane to bring it back.");
+						hide.addSelectionListener(new SelectionAdapter() {
+							@Override
+							public void widgetSelected(final SelectionEvent event) {
+								systemsOnly.setEnabled(hide.getSelection());
+//								dontShowDialog = hide.getSelection();
+							}
 						});
+						GridData data = new GridData();
+						data.grabExcessVerticalSpace = false;
+						data.grabExcessHorizontalSpace = true;
+						data.horizontalAlignment = GridData.FILL;
+						data.verticalAlignment = GridData.BEGINNING;
+						hide.setLayoutData(data);
+						hide.setFont(parent.getFont());
+
+						systemsOnly = new Button(contents, SWT.CHECK);
+						systemsOnly.setText("Only instantiate systems");
+//						hide.setToolTipText("Check this button to hide this dialog in the future.  Use the" + System.lineSeparator()
+//								+ "OSATE > Analysis > Flow Latency preference pane to bring it back.");
+//						hide.addSelectionListener(new SelectionAdapter() {
+//							@Override
+//							public void widgetSelected(final SelectionEvent event) {
+//								dontShowDialog = hide.getSelection();
+//							}
+//						});
+						GridData data2 = new GridData();
+						data2.grabExcessVerticalSpace = false;
+						data2.grabExcessHorizontalSpace = true;
+						data2.horizontalAlignment = GridData.FILL;
+						data2.verticalAlignment = GridData.BEGINNING;
+						systemsOnly.setLayoutData(data2);
+						systemsOnly.setFont(parent.getFont());
+						systemsOnly.setEnabled(false);
+
+						return contents;
+					}
+				};
 				d.setTitle("Select Component Implementations");
 				d.setMessage("Select the component implementations from the selected .aadl files to instantiate.");
 				d.setElements(fromAadl.toArray());
