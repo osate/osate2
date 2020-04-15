@@ -56,19 +56,23 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
+import org.eclipse.xtext.ui.label.AbstractLabelProvider;
 import org.eclipse.xtext.ui.resource.XtextResourceSetProvider;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.SubprogramGroupImplementation;
 import org.osate.aadl2.SubprogramImplementation;
+import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.modelsupport.EObjectURIWrapper;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ui.OsateUiPlugin;
+import org.osate.ui.UiUtil;
 import org.osate.ui.dialogs.InstantiationResultsDialog;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
@@ -311,6 +315,7 @@ public final class InstantiationHandler extends AbstractMultiJobHandler {
 
 	private Set<ComponentImplementation> getComponentImplsFromSelection(final List<?> selectionAsList) {
 		final Set<ComponentImplementation> ciSet = new HashSet<>();
+		final List<ComponentImplementation> fromAadl = new ArrayList<>();
 
 		for (final Object selection : selectionAsList) {
 			if (selection instanceof IFile) {
@@ -321,7 +326,7 @@ public final class InstantiationHandler extends AbstractMultiJobHandler {
 					if (!(root instanceof AadlPackage)) {
 						throw new AssertionError("Unexpected selection: " + selection + " is not an AADL package file");
 					}
-					getComponentImplsFromPackage((AadlPackage) root, ciSet);
+					getComponentImplsFromPackage((AadlPackage) root, fromAadl);
 				}
 			} else {
 				URI uri = null;
@@ -338,16 +343,70 @@ public final class InstantiationHandler extends AbstractMultiJobHandler {
 				ciSet.add(impl);
 			}
 		}
+
+		if (!fromAadl.isEmpty()) {
+			final List<SystemImplementation> systems = new ArrayList<>();
+			for (final ComponentImplementation ci : fromAadl) {
+				if (ci instanceof SystemImplementation) {
+					systems.add((SystemImplementation) ci);
+				}
+			}
+
+			/*
+			 * THe label provider is sloppy, as I'm replacing the text portion of the delegate and just using
+			 * the image portion of the delegate, but I don't know how else to get the images.
+			 */
+			PlatformUI.getWorkbench().getDisplay().syncExec(() -> {
+				final ElementListSelectionDialog d = new ElementListSelectionDialog(
+						PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+						new AbstractLabelProvider(UiUtil.getModelElementLabelProvider()) {
+							@Override
+							public String getText(final Object element) {
+								return ((ComponentImplementation) element).getQualifiedName();
+							}
+						});
+				d.setTitle("Select Component Implementations");
+				d.setMessage("Select the component implementations from the selected .aadl files to instantiate.");
+				d.setElements(fromAadl.toArray());
+				d.setMultipleSelection(true);
+				d.setInitialElementSelections(systems);
+				d.setBlockOnOpen(true);
+				if (d.open() == IStatus.OK) {
+					final Object[] result = d.getResult();
+					for (final Object ci : result) {
+						ciSet.add((ComponentImplementation) ci);
+					}
+				}
+			});
+
+		}
+
 		return ciSet;
 	}
 
-	private void getComponentImplsFromPackage(final AadlPackage root, Set<ComponentImplementation> ciSet) {
-		// Get all the public component implemetatiosn that yare not subprograms or subprogram groups
+	private void getComponentImplsFromPackage(final AadlPackage root, List<ComponentImplementation> ciList) {
+		// Get all the public component implementations that are not subprograms or subprogram groups
 		for (final Classifier c : root.getPublicSection().getOwnedClassifiers()) {
 			if (c instanceof ComponentImplementation
 					&& !(c instanceof SubprogramImplementation || c instanceof SubprogramGroupImplementation)) {
-				ciSet.add((ComponentImplementation) c);
+				ciList.add((ComponentImplementation) c);
 			}
 		}
 	}
+
+
+//		PlatformUI.getWorkbench().getDisplay().syncExec(() -> {
+//			final ElementListSelectionDialog d = new ElementListSelectionDialog(
+//					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+//					UiUtil.getModelElementLabelProvider());
+//			d.setElements(list.toArray());
+//			d.setTitle("Select Component Implementations");
+//			d.setMessage("Select the component implementations from the selected .aadl files to instantiate.");
+//			d.setMultipleSelection(true);
+//			d.setInitialSelections(initialElements);
+//			d.setBlockOnOpen(true);
+//			d.open();
+//			System.out.println(d.getResult());
+//		});
+//	}
 }
