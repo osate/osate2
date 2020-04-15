@@ -49,14 +49,21 @@ import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobGroup;
 import org.eclipse.core.runtime.jobs.MultiRule;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.resource.XtextResourceSetProvider;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.SubprogramGroupImplementation;
+import org.osate.aadl2.SubprogramImplementation;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.modelsupport.EObjectURIWrapper;
@@ -104,7 +111,8 @@ public final class InstantiationHandler extends AbstractMultiJobHandler {
 
 		@Override
 		protected IStatus run(final IProgressMonitor monitor) {
-			final int size = selectionAsList.size();
+			final Set<ComponentImplementation> selectedCompImplsSet = getComponentImplsFromSelection(selectionAsList);
+			final int size = selectedCompImplsSet.size();
 
 			/*
 			 * This map is shared by all the jobs to build the set of results. It is created here,
@@ -119,19 +127,7 @@ public final class InstantiationHandler extends AbstractMultiJobHandler {
 			final IResourceRuleFactory factory = ResourcesPlugin.getWorkspace().getRuleFactory();
 			ISchedulingRule prereqRule = null;
 
-			for (final Object selection : selectionAsList) {
-				final URI uri;
-				if (selection instanceof EObjectNode) {
-					uri = ((EObjectNode) selection).getEObjectURI();
-				} else if (selection instanceof EObjectURIWrapper) {
-					uri = ((EObjectURIWrapper) selection).getUri();
-				} else {
-					throw new AssertionError("Unexpected selection: " + selection);
-				}
-
-				final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(uri.segment(1));
-				final ResourceSet resourceSet = resourceSetProvider.get(project);
-				final ComponentImplementation impl = (ComponentImplementation) resourceSet.getEObject(uri, true);
+			for (final ComponentImplementation impl : selectedCompImplsSet) {
 				selectedCompImpls.add(impl);
 				final IFile outputFile = OsateResourceUtil.toIFile(InstantiateModel.getInstanceModelURI(impl));
 				outputFiles.add(outputFile);
@@ -310,6 +306,48 @@ public final class InstantiationHandler extends AbstractMultiJobHandler {
 			}
 
 			return cancelled ? Status.CANCEL_STATUS : Status.OK_STATUS;
+		}
+	}
+
+	private Set<ComponentImplementation> getComponentImplsFromSelection(final List<?> selectionAsList) {
+		final Set<ComponentImplementation> ciSet = new HashSet<>();
+
+		for (final Object selection : selectionAsList) {
+			if (selection instanceof IFile) {
+				final URI uri = OsateResourceUtil.toResourceURI((IFile) selection);
+				final EList<EObject> contents = new ResourceSetImpl().getResource(uri, true).getContents();
+				if (null != contents && !contents.isEmpty()) {
+					final EObject root = contents.get(0);
+					if (!(root instanceof AadlPackage)) {
+						throw new AssertionError("Unexpected selection: " + selection + " is not an AADL package file");
+					}
+					getComponentImplsFromPackage((AadlPackage) root, ciSet);
+				}
+			} else {
+				URI uri = null;
+				if (selection instanceof EObjectNode) {
+					uri = ((EObjectNode) selection).getEObjectURI();
+				} else if (selection instanceof EObjectURIWrapper) {
+					uri = ((EObjectURIWrapper) selection).getUri();
+				} else {
+					throw new AssertionError("Unexpected selection: " + selection);
+				}
+				final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(uri.segment(1));
+				final ResourceSet resourceSet = resourceSetProvider.get(project);
+				final ComponentImplementation impl = (ComponentImplementation) resourceSet.getEObject(uri, true);
+				ciSet.add(impl);
+			}
+		}
+		return ciSet;
+	}
+
+	private void getComponentImplsFromPackage(final AadlPackage root, Set<ComponentImplementation> ciSet) {
+		// Get all the public component implemetatiosn that yare not subprograms or subprogram groups
+		for (final Classifier c : root.getPublicSection().getOwnedClassifiers()) {
+			if (c instanceof ComponentImplementation
+					&& !(c instanceof SubprogramImplementation || c instanceof SubprogramGroupImplementation)) {
+				ciSet.add((ComponentImplementation) c);
+			}
 		}
 	}
 }
