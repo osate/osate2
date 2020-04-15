@@ -23,6 +23,7 @@
  */
 package org.osate.ui.handlers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -55,11 +56,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.preference.IPersistentPreferenceStore;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
@@ -380,20 +384,15 @@ public final class InstantiationHandler extends AbstractMultiJobHandler {
 									return ((ComponentImplementation) element).getQualifiedName();
 								}
 							}) {
+						private Button dontShowButton;
+						private Button systemsOnlyButton;
+
 						@Override
 						protected Control createDialogArea(final Composite parent) {
 							Composite contents = (Composite) super.createDialogArea(parent);
 
-							final Button dontShowButton = new Button(contents, SWT.CHECK);
+							dontShowButton = new Button(contents, SWT.CHECK);
 							dontShowButton.setText("Don't show this dialog again");
-//							hide.setToolTipText("Check this button to hide this dialog in the future.  Use the" + System.lineSeparator()
-//									+ "OSATE > Analysis > Flow Latency preference pane to bring it back.");
-//							hide.addSelectionListener(new SelectionAdapter() {
-//								@Override
-//								public void widgetSelected(final SelectionEvent event) {
-//									dontShowDialog = hide.getSelection();
-//								}
-//							});
 							GridData data = new GridData();
 							data.grabExcessVerticalSpace = false;
 							data.grabExcessHorizontalSpace = true;
@@ -402,16 +401,8 @@ public final class InstantiationHandler extends AbstractMultiJobHandler {
 							dontShowButton.setLayoutData(data);
 							dontShowButton.setFont(parent.getFont());
 
-							final Button systemsOnlyButton = new Button(contents, SWT.CHECK);
+							systemsOnlyButton = new Button(contents, SWT.CHECK);
 							systemsOnlyButton.setText("Only systems by default");
-//							hide.setToolTipText("Check this button to hide this dialog in the future.  Use the" + System.lineSeparator()
-//									+ "OSATE > Analysis > Flow Latency preference pane to bring it back.");
-//							hide.addSelectionListener(new SelectionAdapter() {
-//								@Override
-//								public void widgetSelected(final SelectionEvent event) {
-//									dontShowDialog = hide.getSelection();
-//								}
-//							});
 							GridData data2 = new GridData();
 							data2.grabExcessVerticalSpace = false;
 							data2.grabExcessHorizontalSpace = true;
@@ -422,6 +413,37 @@ public final class InstantiationHandler extends AbstractMultiJobHandler {
 							systemsOnlyButton.setSelection(systemsOnly);
 
 							return contents;
+						}
+
+						@Override
+						protected void okPressed() {
+							final IPreferenceStore prefs = OsateCorePlugin.getDefault().getPreferenceStore();
+							if (dontShowButton.getSelection()) {
+								// User just toggled the "don't show option"
+								if (MessageDialog.openQuestion(getShell(), "Confirm change",
+										"This results dialog will be hidden in the future.  "
+										+ "You can restore it by going to the \"OSATE > Instantiation\" preference pane.  "
+												+ "Do you wish to make this change?")) {
+									prefs.setValue(OsateCorePlugin.getAlwaysShowInstantiationAadlDialogPreferenceName(),
+											false);
+								}
+							}
+							prefs.setValue(OsateCorePlugin.getOnlyInstantiateSystemImplsPreferenceName(), systemsOnlyButton.getSelection());
+							if (prefs.needsSaving()) {
+								final Job saveJob = Job.create("Save preferences", monitor -> {
+									try {
+										((IPersistentPreferenceStore) prefs).save();
+									} catch (final IOException e) {
+										Display.getDefault().asyncExec(() -> {
+											MessageDialog.openError(getShell(), "Error",
+													"There was a problem saving the preferences: " + e.getMessage());
+										});
+									}
+								});
+								saveJob.schedule();
+							}
+
+							super.okPressed();
 						}
 					};
 					d.setTitle("Select Component Implementations");
