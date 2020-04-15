@@ -13,7 +13,7 @@ import org.osate.core.AadlNature;
 
 /**
  * Abstract root class for handlers that generate multiple independent jobs and that shows a single
- * result dialog at the end showing there status.
+ * result dialog at the end showing their status.
  *
  * NB. This is not fully formed right now but I am leaving it as a placeholder for future work to
  * abstract the commonalities between {@link InstantiationHandler} and {@link ReinstantiationHandler}.

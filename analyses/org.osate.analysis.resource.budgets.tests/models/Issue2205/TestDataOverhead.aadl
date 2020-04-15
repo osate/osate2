@@ -1,0 +1,104 @@
+package TestDataOverhead
+public
+	with SEI;
+
+	-- Some basics
+	
+	data D8
+		properties
+			Data_Size => 8 Bytes;
+	end D8;
+	
+	-- buses
+	
+	bus MyBus
+		properties
+			Data_Size => 8 Bytes;
+			SEI::BandWidthBudget => 512.0 KBytesps;
+			SEI::BandWidthCapacity => 768.0 KBytesps;
+	end MyBus;
+
+	virtual bus MyVB1
+		properties
+			Data_Size => 16 Bytes;  -- total overhead will be 24
+			SEI::BandWidthBudget => 384.0 KBytesps;
+			SEI::BandWidthCapacity => 512.0 KBytesps;
+	end MyVB1;
+
+	virtual bus MyVB2
+		properties
+			Data_Size => 24 Bytes; -- total overhead will be 48
+			SEI::BandWidthBudget => 256.0 KBytesps;
+			SEI::BandWidthCapacity => 384.0 KBytesps;
+	end MyVB2;
+
+	virtual bus MyVB3
+		properties
+			Data_Size => 32 Bytes; -- total overhead will be 80
+			SEI::BandWidthBudget => 128.0 KBytesps;
+			SEI::BandWidthCapacity => 256.0 KBytesps;
+	end MyVB3;
+	
+	system S1
+		features
+			out1: out data port D8;
+			out2: out data port D8;
+			out3: out data port D8;
+			out4: out data port D8;
+	end S1;
+
+	system S2
+		features
+			in1: in data port D8;
+			in2: in data port D8;
+			in3: in data port D8;
+			in4: in data port D8;
+	end S2;
+
+	-- assembled system
+	
+	system top
+	end top;
+	
+	system implementation top.i
+		subcomponents
+			sub1: system s1;
+			sub2: system s2;
+			theBus: bus MyBus;
+			VB1: virtual bus MyVB1;
+			VB2: virtual bus MyVB2;
+			VB3: virtual bus MyVB3;
+		connections
+			conn1: port sub1.out1 -> sub2.in1 {
+				Actual_Connection_Binding => (reference (theBus));
+				SEI::BandWidthBudget => 20.0 KBytesps;
+				-- actual will be 16
+			};
+			conn2: port sub1.out2 -> sub2.in2 {
+				Actual_Connection_Binding => (reference (VB1));
+				SEI::BandWidthBudget => 40.0 KBytesps;
+				-- actual will be 32
+			};
+			conn3: port sub1.out3 -> sub2.in3 {
+				Actual_Connection_Binding => (reference (VB2));
+				SEI::BandWidthBudget => 64.0 KBytesps;
+				-- actual will be 56
+			};
+			conn4: port sub1.out4 -> sub2.in4 {
+				Actual_Connection_Binding => (reference (VB3));
+				SEI::BandWidthBudget => 96.0 KBytesps;
+				-- actual will be 88
+			};
+		properties
+			-- Bind the remaining virtual buses
+			Actual_Connection_Binding => (reference (theBus)) applies to vb1;			
+			Actual_Connection_Binding => (reference (vb1)) applies to vb2;			
+			Actual_Connection_Binding => (reference (vb2)) applies to vb3;			
+			
+			-- Communication rates
+			Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub1.out1;
+			Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub1.out2;
+			Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub1.out3;
+			Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub1.out4;
+	end top.i;
+end TestDataOverhead;
