@@ -56,8 +56,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -78,6 +76,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.modelsupport.EObjectURIWrapper;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.core.OsateCorePlugin;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.UiUtil;
 import org.osate.ui.dialogs.InstantiationResultsDialog;
@@ -355,6 +354,9 @@ public final class InstantiationHandler extends AbstractMultiJobHandler {
 		}
 
 		if (!fromAadl.isEmpty()) {
+			final boolean showDialog = OsateCorePlugin.getDefault().getAlwaysShowInstantiationAadlDialog();
+			final boolean systemsOnly = OsateCorePlugin.getDefault().getOnlyInstantiateSystemImpls();
+
 			final List<SystemImplementation> systems = new ArrayList<>();
 			for (final ComponentImplementation ci : fromAadl) {
 				if (ci instanceof SystemImplementation) {
@@ -362,80 +364,80 @@ public final class InstantiationHandler extends AbstractMultiJobHandler {
 				}
 			}
 
-			/*
-			 * THe label provider is sloppy, as I'm replacing the text portion of the delegate and just using
-			 * the image portion of the delegate, but I don't know how else to get the images.
-			 */
-			PlatformUI.getWorkbench().getDisplay().syncExec(() -> {
-				final ElementListSelectionDialog d = new ElementListSelectionDialog(
-						PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-						new AbstractLabelProvider(UiUtil.getModelElementLabelProvider()) {
-							@Override
-							public String getText(final Object element) {
-								return ((ComponentImplementation) element).getQualifiedName();
-							}
-						}) {
-					Button systemsOnly;
+			if (!showDialog) {
+				ciSet.addAll(systemsOnly ? systems : fromAadl);
+			} else {
+				/*
+				 * THe label provider is sloppy, as I'm replacing the text portion of the delegate and just using
+				 * the image portion of the delegate, but I don't know how else to get the images.
+				 */
+				PlatformUI.getWorkbench().getDisplay().syncExec(() -> {
+					final ElementListSelectionDialog d = new ElementListSelectionDialog(
+							PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+							new AbstractLabelProvider(UiUtil.getModelElementLabelProvider()) {
+								@Override
+								public String getText(final Object element) {
+									return ((ComponentImplementation) element).getQualifiedName();
+								}
+							}) {
+						@Override
+						protected Control createDialogArea(final Composite parent) {
+							Composite contents = (Composite) super.createDialogArea(parent);
 
-					@Override
-					protected Control createDialogArea(final Composite parent) {
-						Composite contents = (Composite) super.createDialogArea(parent);
+							final Button dontShowButton = new Button(contents, SWT.CHECK);
+							dontShowButton.setText("Don't show this dialog again");
+//							hide.setToolTipText("Check this button to hide this dialog in the future.  Use the" + System.lineSeparator()
+//									+ "OSATE > Analysis > Flow Latency preference pane to bring it back.");
+//							hide.addSelectionListener(new SelectionAdapter() {
+//								@Override
+//								public void widgetSelected(final SelectionEvent event) {
+//									dontShowDialog = hide.getSelection();
+//								}
+//							});
+							GridData data = new GridData();
+							data.grabExcessVerticalSpace = false;
+							data.grabExcessHorizontalSpace = true;
+							data.horizontalAlignment = GridData.FILL;
+							data.verticalAlignment = GridData.BEGINNING;
+							dontShowButton.setLayoutData(data);
+							dontShowButton.setFont(parent.getFont());
 
-						final Button hide = new Button(contents, SWT.CHECK);
-						hide.setText("Don't show this dialog again");
-//						hide.setToolTipText("Check this button to hide this dialog in the future.  Use the" + System.lineSeparator()
-//								+ "OSATE > Analysis > Flow Latency preference pane to bring it back.");
-						hide.addSelectionListener(new SelectionAdapter() {
-							@Override
-							public void widgetSelected(final SelectionEvent event) {
-								systemsOnly.setEnabled(hide.getSelection());
-//								dontShowDialog = hide.getSelection();
-							}
-						});
-						GridData data = new GridData();
-						data.grabExcessVerticalSpace = false;
-						data.grabExcessHorizontalSpace = true;
-						data.horizontalAlignment = GridData.FILL;
-						data.verticalAlignment = GridData.BEGINNING;
-						hide.setLayoutData(data);
-						hide.setFont(parent.getFont());
+							final Button systemsOnlyButton = new Button(contents, SWT.CHECK);
+							systemsOnlyButton.setText("Only systems by default");
+//							hide.setToolTipText("Check this button to hide this dialog in the future.  Use the" + System.lineSeparator()
+//									+ "OSATE > Analysis > Flow Latency preference pane to bring it back.");
+//							hide.addSelectionListener(new SelectionAdapter() {
+//								@Override
+//								public void widgetSelected(final SelectionEvent event) {
+//									dontShowDialog = hide.getSelection();
+//								}
+//							});
+							GridData data2 = new GridData();
+							data2.grabExcessVerticalSpace = false;
+							data2.grabExcessHorizontalSpace = true;
+							data2.horizontalAlignment = GridData.FILL;
+							data2.verticalAlignment = GridData.BEGINNING;
+							systemsOnlyButton.setLayoutData(data2);
+							systemsOnlyButton.setFont(parent.getFont());
+							systemsOnlyButton.setSelection(systemsOnly);
 
-						systemsOnly = new Button(contents, SWT.CHECK);
-						systemsOnly.setText("Only instantiate systems");
-//						hide.setToolTipText("Check this button to hide this dialog in the future.  Use the" + System.lineSeparator()
-//								+ "OSATE > Analysis > Flow Latency preference pane to bring it back.");
-//						hide.addSelectionListener(new SelectionAdapter() {
-//							@Override
-//							public void widgetSelected(final SelectionEvent event) {
-//								dontShowDialog = hide.getSelection();
-//							}
-//						});
-						GridData data2 = new GridData();
-						data2.grabExcessVerticalSpace = false;
-						data2.grabExcessHorizontalSpace = true;
-						data2.horizontalAlignment = GridData.FILL;
-						data2.verticalAlignment = GridData.BEGINNING;
-						systemsOnly.setLayoutData(data2);
-						systemsOnly.setFont(parent.getFont());
-						systemsOnly.setEnabled(false);
-
-						return contents;
+							return contents;
+						}
+					};
+					d.setTitle("Select Component Implementations");
+					d.setMessage("Select the component implementations from the selected .aadl files to instantiate.");
+					d.setElements(fromAadl.toArray());
+					d.setMultipleSelection(true);
+					d.setInitialElementSelections(systemsOnly ? systems : fromAadl);
+					d.setBlockOnOpen(true);
+					if (d.open() == IStatus.OK) {
+						final Object[] result = d.getResult();
+						for (final Object ci : result) {
+							ciSet.add((ComponentImplementation) ci);
+						}
 					}
-				};
-				d.setTitle("Select Component Implementations");
-				d.setMessage("Select the component implementations from the selected .aadl files to instantiate.");
-				d.setElements(fromAadl.toArray());
-				d.setMultipleSelection(true);
-				d.setInitialElementSelections(systems);
-				d.setBlockOnOpen(true);
-				if (d.open() == IStatus.OK) {
-					final Object[] result = d.getResult();
-					for (final Object ci : result) {
-						ciSet.add((ComponentImplementation) ci);
-					}
-				}
-			});
-
+				});
+			}
 		}
 
 		return ciSet;
@@ -450,20 +452,4 @@ public final class InstantiationHandler extends AbstractMultiJobHandler {
 			}
 		}
 	}
-
-
-//		PlatformUI.getWorkbench().getDisplay().syncExec(() -> {
-//			final ElementListSelectionDialog d = new ElementListSelectionDialog(
-//					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-//					UiUtil.getModelElementLabelProvider());
-//			d.setElements(list.toArray());
-//			d.setTitle("Select Component Implementations");
-//			d.setMessage("Select the component implementations from the selected .aadl files to instantiate.");
-//			d.setMultipleSelection(true);
-//			d.setInitialSelections(initialElements);
-//			d.setBlockOnOpen(true);
-//			d.open();
-//			System.out.println(d.getResult());
-//		});
-//	}
 }
