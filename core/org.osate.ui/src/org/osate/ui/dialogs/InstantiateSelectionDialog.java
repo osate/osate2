@@ -21,6 +21,9 @@ import org.osate.aadl2.SystemImplementation;
 import org.osate.core.OsateCorePlugin;
 import org.osate.ui.UiUtil;
 
+/**
+ * @since 3.0
+ */
 public class InstantiateSelectionDialog extends ElementListSelectionDialog {
 	private final boolean systemsOnlyDefault;
 	private Button dontShowButton;

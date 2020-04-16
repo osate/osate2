@@ -23,6 +23,7 @@
  */
 package org.osate.ui.handlers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -55,9 +56,19 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.preference.IPersistentPreferenceStore;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
+import org.eclipse.xtext.ui.label.AbstractLabelProvider;
 import org.eclipse.xtext.ui.resource.XtextResourceSetProvider;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
@@ -71,7 +82,7 @@ import org.osate.aadl2.modelsupport.EObjectURIWrapper;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.core.OsateCorePlugin;
 import org.osate.ui.OsateUiPlugin;
-import org.osate.ui.dialogs.InstantiateSelectionDialog;
+import org.osate.ui.UiUtil;
 import org.osate.ui.dialogs.InstantiationResultsDialog;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
@@ -365,9 +376,82 @@ public final class InstantiationHandler extends AbstractMultiJobHandler {
 				 * the image portion of the delegate, but I don't know how else to get the images.
 				 */
 				PlatformUI.getWorkbench().getDisplay().syncExec(() -> {
-					final InstantiateSelectionDialog d = new InstantiateSelectionDialog(
+					final ElementListSelectionDialog d = new ElementListSelectionDialog(
 							PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-							systemsOnly, fromAadl, systems);
+							new AbstractLabelProvider(UiUtil.getModelElementLabelProvider()) {
+								@Override
+								public String getText(final Object element) {
+									return ((ComponentImplementation) element).getQualifiedName();
+								}
+							}) {
+						private Button dontShowButton;
+						private Button systemsOnlyButton;
+
+						@Override
+						protected Control createDialogArea(final Composite parent) {
+							Composite contents = (Composite) super.createDialogArea(parent);
+
+							dontShowButton = new Button(contents, SWT.CHECK);
+							dontShowButton.setText("Don't show this dialog again");
+							GridData data = new GridData();
+							data.grabExcessVerticalSpace = false;
+							data.grabExcessHorizontalSpace = true;
+							data.horizontalAlignment = GridData.FILL;
+							data.verticalAlignment = GridData.BEGINNING;
+							dontShowButton.setLayoutData(data);
+							dontShowButton.setFont(parent.getFont());
+
+							systemsOnlyButton = new Button(contents, SWT.CHECK);
+							systemsOnlyButton.setText("Only systems by default");
+							GridData data2 = new GridData();
+							data2.grabExcessVerticalSpace = false;
+							data2.grabExcessHorizontalSpace = true;
+							data2.horizontalAlignment = GridData.FILL;
+							data2.verticalAlignment = GridData.BEGINNING;
+							systemsOnlyButton.setLayoutData(data2);
+							systemsOnlyButton.setFont(parent.getFont());
+							systemsOnlyButton.setSelection(systemsOnly);
+
+							return contents;
+						}
+
+						@Override
+						protected void okPressed() {
+							final IPreferenceStore prefs = OsateCorePlugin.getDefault().getPreferenceStore();
+							if (dontShowButton.getSelection()) {
+								// User just toggled the "don't show option"
+								if (MessageDialog.openQuestion(getShell(), "Confirm change",
+										"This results dialog will be hidden in the future.  "
+										+ "You can restore it by going to the \"OSATE > Instantiation\" preference pane.  "
+												+ "Do you wish to make this change?")) {
+									prefs.setValue(OsateCorePlugin.getAlwaysShowInstantiationAadlDialogPreferenceName(),
+											false);
+								}
+							}
+							prefs.setValue(OsateCorePlugin.getOnlyInstantiateSystemImplsPreferenceName(), systemsOnlyButton.getSelection());
+							if (prefs.needsSaving()) {
+								final Job saveJob = Job.create("Save preferences", monitor -> {
+									try {
+										((IPersistentPreferenceStore) prefs).save();
+									} catch (final IOException e) {
+										Display.getDefault().asyncExec(() -> {
+											MessageDialog.openError(getShell(), "Error",
+													"There was a problem saving the preferences: " + e.getMessage());
+										});
+									}
+								});
+								saveJob.schedule();
+							}
+
+							super.okPressed();
+						}
+					};
+					d.setTitle("Select Component Implementations");
+					d.setMessage("Select the component implementations from the selected .aadl files to instantiate.");
+					d.setElements(fromAadl.toArray());
+					d.setMultipleSelection(true);
+					d.setInitialElementSelections(systemsOnly ? systems : fromAadl);
+					d.setBlockOnOpen(true);
 					if (d.open() == IStatus.OK) {
 						final Object[] result = d.getResult();
 						for (final Object ci : result) {
