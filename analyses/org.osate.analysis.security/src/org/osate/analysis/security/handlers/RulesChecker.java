@@ -51,7 +51,7 @@ public final class RulesChecker extends AbstractInstanceOrDeclarativeModelModify
 
 	@Override
 	public String getMarkerType() {
-		return "org.osate.analysis.security.SecurityRulesObjectMarker";
+		return "org.osate.analysis.security.SecurityRuleObjectMarker";
 	}
 
 	@Override
