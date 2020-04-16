@@ -46,10 +46,10 @@ class FlowDialogUtil {
 
 		errorTableViewer.setComparator(new ViewerComparator() {
 			@Override
-			public int compare(final Viewer viewer, Object e1, Object e2) {
+			public int compare(final Viewer viewer, final Object o1, final Object o2) {
 				// Show errors at top of table
-				final int severity1 = ((Diagnostic) e1).getSeverity();
-				final int severity2 = ((Diagnostic) e2).getSeverity();
+				final int severity1 = ((Diagnostic) o1).getSeverity();
+				final int severity2 = ((Diagnostic) o2).getSeverity();
 				if (severity1 == severity2) {
 					return 0;
 				}
@@ -76,7 +76,7 @@ class FlowDialogUtil {
 		return composite;
 	}
 
-	public static Composite createSegmentComposite(Composite parent) {
+	public static Composite createSegmentComposite(final Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);
 		GridLayout layout = new GridLayout();
 		layout.marginHeight = 0;
