@@ -3,7 +3,6 @@ package org.osate.ge.internal.ui.tools;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.Diagnostic;
-import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.ArrayContentProvider;
@@ -16,8 +15,11 @@ import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Table;
@@ -47,11 +49,14 @@ class FlowDialogUtil {
 		errorTableViewer.setComparator(new ViewerComparator() {
 			@Override
 			public int compare(final Viewer viewer, final Object o1, final Object o2) {
-				// Show errors at top of table
-				final int severity1 = ((Diagnostic) o1).getSeverity();
-				final int severity2 = ((Diagnostic) o2).getSeverity();
+				// Show errors at top of table, sorted alphabetically
+				final Diagnostic diagnostic1 = (Diagnostic) o1;
+				final Diagnostic diagnostic2 = (Diagnostic) o2;
+				final int severity1 = diagnostic1.getSeverity();
+				final int severity2 = diagnostic2.getSeverity();
 				if (severity1 == severity2) {
-					return 0;
+					// Sort alphabetically
+					return diagnostic1.getMessage().compareToIgnoreCase(diagnostic2.getMessage());
 				}
 
 				return severity1 == Diagnostic.ERROR ? -1 : 1;
@@ -152,12 +157,37 @@ class FlowDialogUtil {
 		});
 	}
 
-	// Dialog to tell user existing model errors and warnings must be resolved before using the flow tools
-	public static ErrorDialog getErrorDialog(final String message) {
-		final IStatus errorStatus = new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-				"There are existing errors and warnings in the model.");
-		return new ErrorDialog(Display.getDefault().getActiveShell(), "Flow Tool Error", message, errorStatus,
-				IStatus.ERROR);
+	static class ErrorDialog extends org.eclipse.jface.dialogs.ErrorDialog {
+		private final Object input;
+
+		public ErrorDialog(final String message, final Object input) {
+			super(Display.getDefault().getActiveShell(), "Flow Tool Error", message, new Status(IStatus.ERROR,
+					Activator.PLUGIN_ID, "There are existing errors and warnings in the model."), IStatus.ERROR);
+			this.input = input;
+		}
+
+		@Override
+		public void create() {
+			super.create();
+			final Point size = new Point(500, 300);
+			getShell().setSize(size);
+			getShell().setMinimumSize(size);
+		}
+
+		@Override
+		protected Control createDialogArea(final Composite parent) {
+			final Composite area = (Composite) super.createDialogArea(parent);
+			final GridData areaGridData = (GridData) area.getLayoutData();
+			areaGridData.grabExcessVerticalSpace = true;
+
+			final Composite container = new Composite(area, SWT.NONE);
+			final TableViewer errorTableViewer = FlowDialogUtil.createErrorTableViewer(container);
+			final GridData containerGridData = (GridData) container.getLayoutData();
+			containerGridData.horizontalSpan = 2;
+
+			errorTableViewer.setInput(input);
+			return area;
+		}
 	}
 
 	public static StyledText createFlowSegmentLabel(final Composite flowSegmentComposite) {

@@ -93,10 +93,11 @@ public class CreateEndToEndFlowSpecificationTool {
 			final ColoringService coloringService, final NamingService namingService) {
 		try {
 			// Check for existing errors or warnings
-			final List<Diagnostic> diagnostics = ToolUtil.getModelDiagnostics(selectedBoc);
+			final List<Diagnostic> diagnostics = ToolUtil.getAllReferencedPackageDiagnostics(selectedBoc);
 			if (!diagnostics.isEmpty()) {
 				Display.getDefault()
-				.asyncExec(() -> FlowDialogUtil.getErrorDialog("Cannot create a new end-to-end flow.").open());
+						.asyncExec(() -> new FlowDialogUtil.ErrorDialog("Cannot create a new end-to-end flow.",
+								diagnostics).open());
 			} else {
 				coloring = coloringService.adjustColors(); // Create a coloring object that will allow adjustment of pictogram
 				final Display display = Display.getCurrent();

@@ -25,10 +25,12 @@ package org.osate.ge.internal.ui.tools;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -44,12 +46,14 @@ import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.validation.FeatureBasedDiagnostic;
-import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Context;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.util.ProjectUtil;
+
+import com.google.common.base.Predicates;
 
 public class ToolUtil {
 	/**
@@ -105,30 +109,48 @@ public class ToolUtil {
 	}
 
 	/**
-	 * Get model diagnostics
+	 * Get the errors and warnings for referenced elements' root
 	 */
-	public static List<Diagnostic> getModelDiagnostics(final BusinessObjectContext boc) {
-		// Find package to get entire model diagnostics
-		final AadlPackage pkg = findPackage(boc).orElseThrow(() -> new RuntimeException("Cannot find package"));
-		final IProject project = ProjectUtil.getProjectForBoOrThrow(pkg);
-		final ResourceSet testResourceSet = ProjectUtil.getLiveResourceSet(project);
+	public static List<Diagnostic> getAllReferencedPackageDiagnostics(final BusinessObjectContext boc) {
+		// Find root to get all referenced package diagnostics
+		final BusinessObjectContext root = findRoot(boc)
+				.orElseThrow(() -> new RuntimeException("Cannot find root"));
 
-		// Model error and warning diagnostics
-		final List<Diagnostic> diagnostics = getDiagnostics(pkg, testResourceSet);
+		// Get get root elements
+		final Set<NamedElement> rootElements = root.getAllDescendants().map(queryable -> {
+			final Object bo = queryable.getBusinessObject();
+			return Element.class.isInstance(bo) ? bo : null;
+		}).filter(Predicates.notNull()).map(bo -> ((Element) bo).getElementRoot()).collect(Collectors.toSet());
+
+		// Collect errors and warnings for root elements
+		final List<Diagnostic> diagnostics = new ArrayList<>();
+		for (final NamedElement rootElement : rootElements) {
+			final IProject project = ProjectUtil.getProjectForBoOrThrow(rootElement);
+			final ResourceSet testResourceSet = ProjectUtil.getLiveResourceSet(project);
+
+			// Model error and warning diagnostics
+			final List<Diagnostic> rootDiagnostics = getDiagnostics(getErrorMessagePrefix(rootElement), rootElement,
+					testResourceSet);
+			diagnostics.addAll(rootDiagnostics);
+		}
+
 		return diagnostics;
 	}
 
-	private static Optional<AadlPackage> findPackage(final BusinessObjectContext boc) {
-		BusinessObjectContext tmp = boc;
-		while (tmp != null) {
-			if (tmp.getBusinessObject() instanceof AadlPackage) {
-				return Optional.of((AadlPackage) tmp.getBusinessObject());
-			}
+	private static String getErrorMessagePrefix(final NamedElement ne) {
+		final StringBuilder builder = new StringBuilder("Package ");
+		builder.append(ne.getName());
+		return builder.append(": ").toString();
+	}
 
+	// Find the editor root boc
+	private static Optional<BusinessObjectContext> findRoot(final BusinessObjectContext boc) {
+		BusinessObjectContext tmp = boc;
+		while (tmp.getParent() != null) {
 			tmp = tmp.getParent();
 		}
 
-		return Optional.empty();
+		return Optional.ofNullable(tmp);
 	}
 
 	/**
@@ -137,7 +159,7 @@ public class ToolUtil {
 	 * @param getModifiedObject performs the modification and returns modified eObject
 	 * @return a list of error and warning diagnostics found during validation
 	 */
-	public static List<Diagnostic> getModificationDiagnostics(final EObject objectToModify,
+	public static List<Diagnostic> getModificationDiagnostics(final Element objectToModify,
 			final Function<ResourceSet, EObject> getModifiedObject) {
 		final IProject project = ProjectUtil.getProjectForBoOrThrow(objectToModify);
 		final ResourceSet testResourceSet = ProjectUtil.getLiveResourceSet(project);
@@ -145,12 +167,16 @@ public class ToolUtil {
 		final EObject modifiedObject = getModifiedObject.apply(testResourceSet);
 
 		// Model error and warning diagnostics
-		final List<Diagnostic> diagnostics = getDiagnostics(modifiedObject, testResourceSet);
+		final List<Diagnostic> diagnostics = getDiagnostics(getErrorMessagePrefix(objectToModify.getElementRoot()),
+				modifiedObject,
+				testResourceSet);
 		return diagnostics;
 	}
 
 	// Get error and warning diagnostics
-	private static List<Diagnostic> getDiagnostics(final EObject eObjectToValidate, final ResourceSet testResourceSet) {
+	private static List<Diagnostic> getDiagnostics(final String errorMsgPrefix, final EObject eObjectToValidate,
+			final ResourceSet testResourceSet) {
+
 		// Serialize
 		final Optional<String> serializedSrc = getSerializedSource(eObjectToValidate);
 		if (!serializedSrc.isPresent()) {
@@ -166,7 +192,8 @@ public class ToolUtil {
 		for (final Diagnostic diagnostic : testResource.validateConcreteSyntax()) {
 			final int severity = diagnostic.getSeverity();
 			if (isErrorOrWarning(severity)) {
-				diagnostics.add(diagnostic);
+				diagnostics.add(new DiagnosticWrapper(diagnostic.getSeverity(),
+						getDetailedDiagnosticMessage(errorMsgPrefix, diagnostic.getMessage())));
 			}
 		}
 
@@ -177,21 +204,29 @@ public class ToolUtil {
 		if (isErrorOrWarning(severity)) {
 			// Validation Diagnostics
 			final Stream<Diagnostic> qualifiedDiagnostics = getDiagnosticDescendants(validationDiagnostic)
-					.filter(diagnostic -> FeatureBasedDiagnostic.class.isInstance(diagnostic));
+					.filter(diagnostic -> FeatureBasedDiagnostic.class.isInstance(diagnostic))
+					.map(diagnostic -> new DiagnosticWrapper(diagnostic.getSeverity(),
+							getDetailedDiagnosticMessage(errorMsgPrefix, diagnostic.getMessage())));
 			addDiagnostics(diagnostics, qualifiedDiagnostics);
 		}
 
 		// Errors
 		final Stream<Diagnostic> resourceErrors = testResource.getErrors().stream()
-				.map(resourceDiagnostic -> new DiagnosticWrapper(Diagnostic.ERROR, resourceDiagnostic.getMessage()));
+				.map(resourceDiagnostic -> new DiagnosticWrapper(Diagnostic.ERROR,
+						getDetailedDiagnosticMessage(errorMsgPrefix, resourceDiagnostic.getMessage())));
 		addDiagnostics(diagnostics, resourceErrors);
 
 		// Warnings
 		final Stream<Diagnostic> resourceWarnings = testResource.getWarnings().stream()
-				.map(resourceDiagnostic -> new DiagnosticWrapper(Diagnostic.WARNING, resourceDiagnostic.getMessage()));
+				.map(resourceDiagnostic -> new DiagnosticWrapper(Diagnostic.WARNING,
+						getDetailedDiagnosticMessage(errorMsgPrefix, resourceDiagnostic.getMessage())));
 		addDiagnostics(diagnostics, resourceWarnings);
 
 		return diagnostics.build().collect(Collectors.toList());
+	}
+
+	private static String getDetailedDiagnosticMessage(final String prefix, final String msg) {
+		return new StringBuilder(prefix).append(msg).toString();
 	}
 
 	private static class DiagnosticWrapper extends BasicDiagnostic {

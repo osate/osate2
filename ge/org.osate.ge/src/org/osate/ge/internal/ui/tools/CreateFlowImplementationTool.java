@@ -89,11 +89,12 @@ public class CreateFlowImplementationTool {
 			final ColoringService coloringService) {
 		try {
 			// Check for existing errors or warnings
-			final List<Diagnostic> diagnostics = ToolUtil.getModelDiagnostics(selectedBoc);
+			final List<Diagnostic> diagnostics = ToolUtil.getAllReferencedPackageDiagnostics(selectedBoc);
 			if (!diagnostics.isEmpty()) {
 				Display.getDefault()
 				.asyncExec(
-						() -> FlowDialogUtil.getErrorDialog("Cannot create a new flow implemenation.").open());
+						() -> new FlowDialogUtil.ErrorDialog("Cannot create a new flow implementation.",
+								diagnostics).open());
 			} else {
 				this.coloring = coloringService.adjustColors();
 
