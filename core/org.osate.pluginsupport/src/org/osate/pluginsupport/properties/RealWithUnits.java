@@ -1,14 +1,12 @@
 package org.osate.pluginsupport.properties;
 
-import java.util.Objects;
-
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RealLiteral;
 
 /**
  * @since 3.0
  */
-public class RealWithUnits<U extends Enum<U> & GeneratedUnits> {
+public class RealWithUnits<U extends Enum<U> & GeneratedUnits> implements Comparable<RealWithUnits<U>> {
 	private final double value;
 	private final U unit;
 	
@@ -32,7 +30,7 @@ public class RealWithUnits<U extends Enum<U> & GeneratedUnits> {
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(value, unit);
+		return Double.hashCode(value * unit.getFactorToBase());
 	}
 	
 	@Override
@@ -43,8 +41,21 @@ public class RealWithUnits<U extends Enum<U> & GeneratedUnits> {
 		if (!(obj instanceof RealWithUnits)) {
 			return false;
 		}
-		RealWithUnits<?> other = (RealWithUnits<?>) obj;
-		return Double.doubleToLongBits(value) == Double.doubleToLongBits(other.value) && unit == other.unit;
+		@SuppressWarnings("unchecked")
+		RealWithUnits<U> other = (RealWithUnits<U>) obj;
+		if (!unit.getClass().equals(other.unit.getClass())) {
+			return false;
+		}
+		if (unit == other.unit) {
+			return Double.doubleToLongBits(value) == Double.doubleToLongBits(other.value);
+		} else {
+			return compareTo(other) == 0;
+		}
+	}
+	
+	@Override
+	public int compareTo(RealWithUnits<U> o) {
+		return Double.compare(value * unit.getFactorToBase(), o.value * o.unit.getFactorToBase());
 	}
 	
 	@Override

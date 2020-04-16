@@ -1,14 +1,12 @@
 package org.osate.pluginsupport.properties;
 
-import java.util.Objects;
-
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.PropertyExpression;
 
 /**
  * @since 3.0
  */
-public class IntegerWithUnits<U extends Enum<U> & GeneratedUnits> {
+public class IntegerWithUnits<U extends Enum<U> & GeneratedUnits> implements Comparable<IntegerWithUnits<U>> {
 	private final long value;
 	private final U unit;
 	
@@ -32,7 +30,7 @@ public class IntegerWithUnits<U extends Enum<U> & GeneratedUnits> {
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(value, unit);
+		return Double.hashCode(value * unit.getFactorToBase());
 	}
 	
 	@Override
@@ -43,8 +41,21 @@ public class IntegerWithUnits<U extends Enum<U> & GeneratedUnits> {
 		if (!(obj instanceof IntegerWithUnits)) {
 			return false;
 		}
-		IntegerWithUnits<?> other = (IntegerWithUnits<?>) obj;
-		return value == other.value && unit == other.unit;
+		@SuppressWarnings("unchecked")
+		IntegerWithUnits<U> other = (IntegerWithUnits<U>) obj;
+		if (!unit.getClass().equals(other.unit.getClass())) {
+			return false;
+		}
+		if (unit == other.unit) {
+			return value == other.value;
+		} else {
+			return compareTo(other) == 0;
+		}
+	}
+	
+	@Override
+	public int compareTo(IntegerWithUnits<U> o) {
+		return Double.compare(value * unit.getFactorToBase(), o.value * o.unit.getFactorToBase());
 	}
 	
 	@Override
