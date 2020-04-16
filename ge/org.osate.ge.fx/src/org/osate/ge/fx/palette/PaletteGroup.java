@@ -2,12 +2,12 @@ package org.osate.ge.fx.palette;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
 
 /*
  * Represents a single group in the palette.
@@ -22,12 +22,7 @@ class PaletteGroup<G, I> extends Region {
 	public PaletteGroup(final PaletteModel<G, I> model, final G groupModel) {
 
 		groupButton = new Button(model.getGroupLabel(groupModel));
-
-		/*
-		 * This should align the text of the Button to the left,
-		 * however, running this function does nothing.
-		 */
-		groupButton.setTextAlignment(TextAlignment.LEFT);
+		groupButton.setAlignment(Pos.BASELINE_LEFT);
 
 		groupButton.setGraphic(new ImageView(model.getGroupIcon(groupModel)));
 		groupButton.setOnAction(e -> {
