@@ -155,19 +155,19 @@ public class ToolUtil {
 
 	/**
 	 * Modifies an eObject and returns error and warning diagnostics
-	 * @param objectToModify is the eObject to modify
+	 * @param elementToModify is the element to modify
 	 * @param getModifiedObject performs the modification and returns modified eObject
 	 * @return a list of error and warning diagnostics found during validation
 	 */
-	public static List<Diagnostic> getModificationDiagnostics(final Element objectToModify,
+	public static List<Diagnostic> getModificationDiagnostics(final Element elementToModify,
 			final Function<ResourceSet, EObject> getModifiedObject) {
-		final IProject project = ProjectUtil.getProjectForBoOrThrow(objectToModify);
+		final IProject project = ProjectUtil.getProjectForBoOrThrow(elementToModify);
 		final ResourceSet testResourceSet = ProjectUtil.getLiveResourceSet(project);
 		// Make modification
 		final EObject modifiedObject = getModifiedObject.apply(testResourceSet);
 
 		// Model error and warning diagnostics
-		final List<Diagnostic> diagnostics = getDiagnostics(getErrorMessagePrefix(objectToModify.getElementRoot()),
+		final List<Diagnostic> diagnostics = getDiagnostics(getErrorMessagePrefix(elementToModify.getElementRoot()),
 				modifiedObject,
 				testResourceSet);
 		return diagnostics;
