@@ -180,7 +180,8 @@ public class ToolUtil {
 		// Serialize
 		final Optional<String> serializedSrc = getSerializedSource(eObjectToValidate);
 		if (!serializedSrc.isPresent()) {
-			return Arrays.asList(new DiagnosticWrapper(Diagnostic.ERROR, "Serialization Error"));
+			return Arrays.asList(new DiagnosticWrapper(Diagnostic.ERROR,
+					getDetailedDiagnosticMessage(errorMsgPrefix, "Serialization Error")));
 		}
 
 		final XtextResource testResource = getXtextResource(testResourceSet, eObjectToValidate.eResource().getURI());
