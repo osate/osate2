@@ -212,6 +212,7 @@ class RecordTypeTest {
 			import org.osate.aadl2.ClassifierValue;
 			import org.osate.aadl2.EnumerationLiteral;
 			import org.osate.aadl2.IntegerLiteral;
+			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RealLiteral;
@@ -220,6 +221,7 @@ class RecordTypeTest {
 			import org.osate.aadl2.UnitLiteral;
 			import org.osate.aadl2.instance.InstanceObject;
 			import org.osate.aadl2.instance.InstanceReferenceValue;
+			import org.osate.pluginsupport.properties.CodeGenUtil;
 			import org.osate.pluginsupport.properties.GeneratedUnits;
 			import org.osate.pluginsupport.properties.IntegerRange;
 			import org.osate.pluginsupport.properties.IntegerRangeWithUnits;
@@ -264,157 +266,247 @@ class RecordTypeTest {
 				private final Optional<BasicRecord> referencedRecordWithImport;
 				private final Optional<InstanceObject> referencedReference;
 				
-				public RecordType1(PropertyExpression propertyExpression) {
+				public RecordType1(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					this.ownedBoolean = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_boolean"))
-							.map(field -> ((BooleanLiteral) field.getOwnedValue()).getValue())
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return ((BooleanLiteral) resolved).getValue();
+							})
 							.findAny();
 					this.ownedString = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_string"))
-							.map(field -> ((StringLiteral) field.getOwnedValue()).getValue())
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return ((StringLiteral) resolved).getValue();
+							})
 							.findAny();
 					this.ownedClassifier = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_classifier"))
-							.map(field -> ((ClassifierValue) field.getOwnedValue()).getClassifier())
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return ((ClassifierValue) resolved).getClassifier();
+							})
 							.findAny();
 					this.ownedEnumeration = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_enumeration"))
-							.map(field -> OwnedEnumeration_FieldType.valueOf(field.getOwnedValue()))
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return OwnedEnumeration_FieldType.valueOf(resolved);
+							})
 							.findAny();
 					this.ownedUnits = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_units"))
-							.map(field -> OwnedUnits_FieldType.valueOf(field.getOwnedValue()))
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return OwnedUnits_FieldType.valueOf(resolved);
+							})
 							.findAny();
 					this.ownedIntegerNoUnits = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_integer_no_units"))
-							.mapToLong(field -> ((IntegerLiteral) field.getOwnedValue()).getValue())
+							.mapToLong(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return ((IntegerLiteral) resolved).getValue();
+							})
 							.findAny();
 					this.ownedRealNoUnits = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_real_no_units"))
-							.mapToDouble(field -> ((RealLiteral) field.getOwnedValue()).getValue())
+							.mapToDouble(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return ((RealLiteral) resolved).getValue();
+							})
 							.findAny();
 					this.ownedNumberWithUnitsNoImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_number_with_units_no_import"))
-							.map(field -> new IntegerWithUnits<>(field.getOwnedValue(), Time.class))
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return new IntegerWithUnits<>(resolved, Time.class);
+							})
 							.findAny();
 					this.ownedNumberWithUnitsWithImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_number_with_units_with_import"))
-							.map(field -> new IntegerWithUnits<>(field.getOwnedValue(), Mass.class))
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return new IntegerWithUnits<>(resolved, Mass.class);
+							})
 							.findAny();
 					this.ownedRangeNoImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_range_no_import"))
-							.map(field -> new IntegerRangeWithUnits<>(field.getOwnedValue(), Mass.class))
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return new IntegerRangeWithUnits<>(resolved, Mass.class, lookupContext);
+							})
 							.findAny();
 					this.ownedRangeImportNumber = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_range_import_number"))
-							.map(field -> new RealRangeWithUnits<>(field.getOwnedValue(), Mass.class))
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return new RealRangeWithUnits<>(resolved, Mass.class, lookupContext);
+							})
 							.findAny();
 					this.ownedRangeImportUnits = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_range_import_units"))
-							.map(field -> new IntegerRangeWithUnits<>(field.getOwnedValue(), Mass.class))
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return new IntegerRangeWithUnits<>(resolved, Mass.class, lookupContext);
+							})
 							.findAny();
 					this.ownedRecord = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_record"))
-							.map(field -> new OwnedRecord_FieldType(field.getOwnedValue()))
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return new OwnedRecord_FieldType(resolved, lookupContext);
+							})
 							.findAny();
 					this.ownedReference = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned_reference"))
-							.map(field -> ((InstanceReferenceValue) field.getOwnedValue()).getReferencedInstanceObject())
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return ((InstanceReferenceValue) resolved).getReferencedInstanceObject();
+							})
 							.findAny();
 					this.referencedBoolean = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_boolean"))
-							.map(field -> ((BooleanLiteral) field.getOwnedValue()).getValue())
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return ((BooleanLiteral) resolved).getValue();
+							})
 							.findAny();
 					this.referencedString = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_string"))
-							.map(field -> ((StringLiteral) field.getOwnedValue()).getValue())
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return ((StringLiteral) resolved).getValue();
+							})
 							.findAny();
 					this.referencedClassifier = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_classifier"))
-							.map(field -> ((ClassifierValue) field.getOwnedValue()).getClassifier())
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return ((ClassifierValue) resolved).getClassifier();
+							})
 							.findAny();
 					this.referencedEnumerationNoImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_enumeration_no_import"))
-							.map(field -> EnumType1.valueOf(field.getOwnedValue()))
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return EnumType1.valueOf(resolved);
+							})
 							.findAny();
 					this.referencedEnumerationWithImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_enumeration_with_import"))
-							.map(field -> Color.valueOf(field.getOwnedValue()))
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return Color.valueOf(resolved);
+							})
 							.findAny();
 					this.referencedUnitsNoImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_units_no_import"))
-							.map(field -> Time.valueOf(field.getOwnedValue()))
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return Time.valueOf(resolved);
+							})
 							.findAny();
 					this.referencedUnitsWithImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_units_with_import"))
-							.map(field -> Mass.valueOf(field.getOwnedValue()))
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return Mass.valueOf(resolved);
+							})
 							.findAny();
 					this.referencedIntegerNoUnits = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_integer_no_units"))
-							.mapToLong(field -> ((IntegerLiteral) field.getOwnedValue()).getValue())
+							.mapToLong(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return ((IntegerLiteral) resolved).getValue();
+							})
 							.findAny();
 					this.referencedRealNoUnits = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_real_no_units"))
-							.mapToDouble(field -> ((RealLiteral) field.getOwnedValue()).getValue())
+							.mapToDouble(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return ((RealLiteral) resolved).getValue();
+							})
 							.findAny();
 					this.referencedNumberWithUnitsNoImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_number_with_units_no_import"))
-							.map(field -> new IntegerWithUnits<>(field.getOwnedValue(), IntegerOwnedUnits.class))
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return new IntegerWithUnits<>(resolved, IntegerOwnedUnits.class);
+							})
 							.findAny();
 					this.referencedNumberWithUnitsWithImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_number_with_units_with_import"))
-							.map(field -> new RealWithUnits<>(field.getOwnedValue(), Mass.class))
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return new RealWithUnits<>(resolved, Mass.class);
+							})
 							.findAny();
 					this.referencedRangeNoImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_range_no_import"))
-							.map(field -> new IntegerRange(field.getOwnedValue()))
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return new IntegerRange(resolved, lookupContext);
+							})
 							.findAny();
 					this.referencedRangeWithImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_range_with_import"))
-							.map(field -> new RealRange(field.getOwnedValue()))
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return new RealRange(resolved, lookupContext);
+							})
 							.findAny();
 					this.referencedRecordNoImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_record_no_import"))
-							.map(field -> new RecordOfBoolean(field.getOwnedValue()))
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return new RecordOfBoolean(resolved, lookupContext);
+							})
 							.findAny();
 					this.referencedRecordWithImport = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_record_with_import"))
-							.map(field -> new BasicRecord(field.getOwnedValue()))
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return new BasicRecord(resolved, lookupContext);
+							})
 							.findAny();
 					this.referencedReference = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("referenced_reference"))
-							.map(field -> ((InstanceReferenceValue) field.getOwnedValue()).getReferencedInstanceObject())
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return ((InstanceReferenceValue) resolved).getReferencedInstanceObject();
+							})
 							.findAny();
 				}
 				
@@ -828,17 +920,23 @@ class RecordTypeTest {
 					private final Optional<String> stringField;
 					private final OptionalLong integerField;
 					
-					public OwnedRecord_FieldType(PropertyExpression propertyExpression) {
+					public OwnedRecord_FieldType(PropertyExpression propertyExpression, NamedElement lookupContext) {
 						RecordValue recordValue = (RecordValue) propertyExpression;
 						this.stringField = recordValue.getOwnedFieldValues()
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("string_field"))
-								.map(field -> ((StringLiteral) field.getOwnedValue()).getValue())
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((StringLiteral) resolved).getValue();
+								})
 								.findAny();
 						this.integerField = recordValue.getOwnedFieldValues()
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("integer_field"))
-								.mapToLong(field -> ((IntegerLiteral) field.getOwnedValue()).getValue())
+								.mapToLong(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((IntegerLiteral) resolved).getValue();
+								})
 								.findAny();
 					}
 					
@@ -898,18 +996,23 @@ class RecordTypeTest {
 			import java.util.Optional;
 			
 			import org.osate.aadl2.BooleanLiteral;
+			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
+			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class RecordOfBoolean {
 				private final Optional<Boolean> field;
 				
-				public RecordOfBoolean(PropertyExpression propertyExpression) {
+				public RecordOfBoolean(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					this.field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
-							.map(field -> ((BooleanLiteral) field.getOwnedValue()).getValue())
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return ((BooleanLiteral) resolved).getValue();
+							})
 							.findAny();
 				}
 				
@@ -954,19 +1057,24 @@ class RecordTypeTest {
 			import java.util.Objects;
 			import java.util.Optional;
 			
+			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
 			import org.osate.aadl2.StringLiteral;
+			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class RecordOfString {
 				private final Optional<String> field;
 				
-				public RecordOfString(PropertyExpression propertyExpression) {
+				public RecordOfString(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					this.field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
-							.map(field -> ((StringLiteral) field.getOwnedValue()).getValue())
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return ((StringLiteral) resolved).getValue();
+							})
 							.findAny();
 				}
 				
@@ -1013,18 +1121,23 @@ class RecordTypeTest {
 			
 			import org.osate.aadl2.Classifier;
 			import org.osate.aadl2.ClassifierValue;
+			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
+			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class RecordOfClassifier {
 				private final Optional<Classifier> field;
 				
-				public RecordOfClassifier(PropertyExpression propertyExpression) {
+				public RecordOfClassifier(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					this.field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
-							.map(field -> ((ClassifierValue) field.getOwnedValue()).getClassifier())
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return ((ClassifierValue) resolved).getClassifier();
+							})
 							.findAny();
 				}
 				
@@ -1071,19 +1184,24 @@ class RecordTypeTest {
 			
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.EnumerationLiteral;
+			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
+			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class RecordOfEnum {
 				private final Optional<Field_FieldType> field;
 				
-				public RecordOfEnum(PropertyExpression propertyExpression) {
+				public RecordOfEnum(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					this.field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
-							.map(field -> Field_FieldType.valueOf(field.getOwnedValue()))
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return Field_FieldType.valueOf(resolved);
+							})
 							.findAny();
 				}
 				
@@ -1151,21 +1269,26 @@ class RecordTypeTest {
 			import java.util.Optional;
 			
 			import org.osate.aadl2.AbstractNamedValue;
+			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
 			import org.osate.aadl2.UnitLiteral;
+			import org.osate.pluginsupport.properties.CodeGenUtil;
 			import org.osate.pluginsupport.properties.GeneratedUnits;
 			
 			public class RecordOfUnits {
 				private final Optional<Field_FieldType> field;
 				
-				public RecordOfUnits(PropertyExpression propertyExpression) {
+				public RecordOfUnits(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					this.field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
-							.map(field -> Field_FieldType.valueOf(field.getOwnedValue()))
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return Field_FieldType.valueOf(resolved);
+							})
 							.findAny();
 				}
 				
@@ -1239,18 +1362,23 @@ class RecordTypeTest {
 			import java.util.OptionalLong;
 			
 			import org.osate.aadl2.IntegerLiteral;
+			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
+			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class RecordOfInteger {
 				private final OptionalLong field;
 				
-				public RecordOfInteger(PropertyExpression propertyExpression) {
+				public RecordOfInteger(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					this.field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
-							.mapToLong(field -> ((IntegerLiteral) field.getOwnedValue()).getValue())
+							.mapToLong(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return ((IntegerLiteral) resolved).getValue();
+							})
 							.findAny();
 				}
 				
@@ -1295,19 +1423,24 @@ class RecordTypeTest {
 			import java.util.Objects;
 			import java.util.OptionalDouble;
 			
+			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RealLiteral;
 			import org.osate.aadl2.RecordValue;
+			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class RecordOfReal {
 				private final OptionalDouble field;
 				
-				public RecordOfReal(PropertyExpression propertyExpression) {
+				public RecordOfReal(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					this.field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
-							.mapToDouble(field -> ((RealLiteral) field.getOwnedValue()).getValue())
+							.mapToDouble(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return ((RealLiteral) resolved).getValue();
+							})
 							.findAny();
 				}
 				
@@ -1352,20 +1485,25 @@ class RecordTypeTest {
 			import java.util.Objects;
 			import java.util.Optional;
 			
+			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
 			import org.osate.aadl2.instance.InstanceObject;
 			import org.osate.aadl2.instance.InstanceReferenceValue;
+			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class RecordOfReference {
 				private final Optional<InstanceObject> field;
 				
-				public RecordOfReference(PropertyExpression propertyExpression) {
+				public RecordOfReference(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					this.field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
-							.map(field -> ((InstanceReferenceValue) field.getOwnedValue()).getReferencedInstanceObject())
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return ((InstanceReferenceValue) resolved).getReferencedInstanceObject();
+							})
 							.findAny();
 				}
 				
@@ -1412,18 +1550,23 @@ class RecordTypeTest {
 			import java.util.OptionalLong;
 			
 			import org.osate.aadl2.IntegerLiteral;
+			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
+			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class NestedRecord {
 				private final Optional<Field1_FieldType> field1;
 				
-				public NestedRecord(PropertyExpression propertyExpression) {
+				public NestedRecord(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					this.field1 = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field1"))
-							.map(field -> new Field1_FieldType(field.getOwnedValue()))
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return new Field1_FieldType(resolved, lookupContext);
+							})
 							.findAny();
 				}
 				
@@ -1464,12 +1607,15 @@ class RecordTypeTest {
 				public static class Field1_FieldType {
 					private final Optional<Field2_FieldType> field2;
 					
-					public Field1_FieldType(PropertyExpression propertyExpression) {
+					public Field1_FieldType(PropertyExpression propertyExpression, NamedElement lookupContext) {
 						RecordValue recordValue = (RecordValue) propertyExpression;
 						this.field2 = recordValue.getOwnedFieldValues()
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("field2"))
-								.map(field -> new Field2_FieldType(field.getOwnedValue()))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return new Field2_FieldType(resolved, lookupContext);
+								})
 								.findAny();
 					}
 					
@@ -1510,12 +1656,15 @@ class RecordTypeTest {
 					public static class Field2_FieldType {
 						private final Optional<Field3_FieldType> field3;
 						
-						public Field2_FieldType(PropertyExpression propertyExpression) {
+						public Field2_FieldType(PropertyExpression propertyExpression, NamedElement lookupContext) {
 							RecordValue recordValue = (RecordValue) propertyExpression;
 							this.field3 = recordValue.getOwnedFieldValues()
 									.stream()
 									.filter(field -> field.getProperty().getName().equals("field3"))
-									.map(field -> new Field3_FieldType(field.getOwnedValue()))
+									.map(field -> {
+										PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+										return new Field3_FieldType(resolved, lookupContext);
+									})
 									.findAny();
 						}
 						
@@ -1556,12 +1705,15 @@ class RecordTypeTest {
 						public static class Field3_FieldType {
 							private final OptionalLong innerField;
 							
-							public Field3_FieldType(PropertyExpression propertyExpression) {
+							public Field3_FieldType(PropertyExpression propertyExpression, NamedElement lookupContext) {
 								RecordValue recordValue = (RecordValue) propertyExpression;
 								this.innerField = recordValue.getOwnedFieldValues()
 										.stream()
 										.filter(field -> field.getProperty().getName().equals("inner_field"))
-										.mapToLong(field -> ((IntegerLiteral) field.getOwnedValue()).getValue())
+										.mapToLong(field -> {
+											PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+											return ((IntegerLiteral) resolved).getValue();
+										})
 										.findAny();
 							}
 							

@@ -54,89 +54,101 @@ class StringTest {
 			import org.osate.aadl2.StringLiteral;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
+			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class StringTest {
-				public static Optional<String> getOwnedString(NamedElement namedElement) {
+				public static Optional<String> getOwnedString(NamedElement lookupContext) {
 					String name = "string_test::owned_string";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((StringLiteral) propertyExpression).getValue());
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((StringLiteral) resolved).getValue());
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getOwnedString_EObject(NamedElement namedElement) {
+				public static PropertyExpression getOwnedString_EObject(NamedElement lookupContext) {
 					String name = "string_test::owned_string";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<String> getReferencedStringLocal(NamedElement namedElement) {
+				public static Optional<String> getReferencedStringLocal(NamedElement lookupContext) {
 					String name = "string_test::referenced_string_local";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((StringLiteral) propertyExpression).getValue());
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((StringLiteral) resolved).getValue());
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getReferencedStringLocal_EObject(NamedElement namedElement) {
+				public static PropertyExpression getReferencedStringLocal_EObject(NamedElement lookupContext) {
 					String name = "string_test::referenced_string_local";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<String> getReferencedStringOther(NamedElement namedElement) {
+				public static Optional<String> getReferencedStringOther(NamedElement lookupContext) {
 					String name = "string_test::referenced_string_other";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((StringLiteral) propertyExpression).getValue());
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((StringLiteral) resolved).getValue());
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getReferencedStringOther_EObject(NamedElement namedElement) {
+				public static PropertyExpression getReferencedStringOther_EObject(NamedElement lookupContext) {
 					String name = "string_test::referenced_string_other";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<String>> getList1String(NamedElement namedElement) {
+				public static Optional<List<String>> getList1String(NamedElement lookupContext) {
 					String name = "string_test::list_1_string";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return ((StringLiteral) element1).getValue();
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return ((StringLiteral) resolved1).getValue();
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getList1String_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList1String_EObject(NamedElement lookupContext) {
 					String name = "string_test::list_1_string";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<List<List<List<List<String>>>>>> getList5String(NamedElement namedElement) {
+				public static Optional<List<List<List<List<List<String>>>>>> getList5String(NamedElement lookupContext) {
 					String name = "string_test::list_5_string";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
-								return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
-									return ((ListValue) element3).getOwnedListElements().stream().map(element4 -> {
-										return ((ListValue) element4).getOwnedListElements().stream().map(element5 -> {
-											return ((StringLiteral) element5).getValue();
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
+								PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2, lookupContext);
+								return ((ListValue) resolved2).getOwnedListElements().stream().map(element3 -> {
+									PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3, lookupContext);
+									return ((ListValue) resolved3).getOwnedListElements().stream().map(element4 -> {
+										PropertyExpression resolved4 = CodeGenUtil.resolveNamedValue(element4, lookupContext);
+										return ((ListValue) resolved4).getOwnedListElements().stream().map(element5 -> {
+											PropertyExpression resolved5 = CodeGenUtil.resolveNamedValue(element5, lookupContext);
+											return ((StringLiteral) resolved5).getValue();
 										}).collect(Collectors.toList());
 									}).collect(Collectors.toList());
 								}).collect(Collectors.toList());
@@ -147,10 +159,10 @@ class StringTest {
 					}
 				}
 				
-				public static PropertyExpression getList5String_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList5String_EObject(NamedElement lookupContext) {
 					String name = "string_test::list_5_string";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 			}
 		'''
