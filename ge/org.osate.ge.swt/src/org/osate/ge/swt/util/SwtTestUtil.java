@@ -47,7 +47,7 @@ public final class SwtTestUtil {
 	public static void run(final Consumer<Shell> run) {
 		final Display display = new Display();
 		final Shell shell = new Shell(display);
-		shell.setText("Viewer Test");
+		shell.setText("View Test");
 		shell.setSize(640, 480);
 		shell.setLayout(new FillLayout());
 

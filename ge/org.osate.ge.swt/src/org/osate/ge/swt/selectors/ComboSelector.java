@@ -84,6 +84,7 @@ public final class ComboSelector<T> extends Composite {
 
 	/**
 	 * Sets the testing ID use to identify the combo box during testing.
+	 * @param value is the identifier used to identify the combo box during testing.
 	 */
 	public void setComboTestingId(final String value) {
 		SwtTestUtil.setTestingId(comboViewer.getControl(), value);
