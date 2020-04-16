@@ -64,134 +64,145 @@ class RealWithUnitsTest {
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
+			import org.osate.pluginsupport.properties.CodeGenUtil;
 			import org.osate.pluginsupport.properties.RealWithUnits;
 			
 			import other_ps.Mass;
 			
 			public class RealWithUnitsTest {
-				public static Optional<RealWithUnits<Owned>> getOwned(NamedElement namedElement) {
+				public static Optional<RealWithUnits<Owned>> getOwned(NamedElement lookupContext) {
 					String name = "real_with_units_test::owned";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(new RealWithUnits<>(propertyExpression, Owned.class));
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(new RealWithUnits<>(resolved, Owned.class));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getOwned_EObject(NamedElement namedElement) {
+				public static PropertyExpression getOwned_EObject(NamedElement lookupContext) {
 					String name = "real_with_units_test::owned";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<RealWithUnits<Time>> getSameFile(NamedElement namedElement) {
+				public static Optional<RealWithUnits<Time>> getSameFile(NamedElement lookupContext) {
 					String name = "real_with_units_test::same_file";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(new RealWithUnits<>(propertyExpression, Time.class));
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(new RealWithUnits<>(resolved, Time.class));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getSameFile_EObject(NamedElement namedElement) {
+				public static PropertyExpression getSameFile_EObject(NamedElement lookupContext) {
 					String name = "real_with_units_test::same_file";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<RealWithUnits<Mass>> getOtherFile(NamedElement namedElement) {
+				public static Optional<RealWithUnits<Mass>> getOtherFile(NamedElement lookupContext) {
 					String name = "real_with_units_test::other_file";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(new RealWithUnits<>(propertyExpression, Mass.class));
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(new RealWithUnits<>(resolved, Mass.class));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getOtherFile_EObject(NamedElement namedElement) {
+				public static PropertyExpression getOtherFile_EObject(NamedElement lookupContext) {
 					String name = "real_with_units_test::other_file";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<RealWithUnits<List1Owned>>> getList1Owned(NamedElement namedElement) {
+				public static Optional<List<RealWithUnits<List1Owned>>> getList1Owned(NamedElement lookupContext) {
 					String name = "real_with_units_test::list_1_owned";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return new RealWithUnits<>(element1, List1Owned.class);
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return new RealWithUnits<>(resolved1, List1Owned.class);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getList1Owned_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList1Owned_EObject(NamedElement lookupContext) {
 					String name = "real_with_units_test::list_1_owned";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<RealWithUnits<Time>>> getList1SameFile(NamedElement namedElement) {
+				public static Optional<List<RealWithUnits<Time>>> getList1SameFile(NamedElement lookupContext) {
 					String name = "real_with_units_test::list_1_same_file";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return new RealWithUnits<>(element1, Time.class);
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return new RealWithUnits<>(resolved1, Time.class);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getList1SameFile_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList1SameFile_EObject(NamedElement lookupContext) {
 					String name = "real_with_units_test::list_1_same_file";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<RealWithUnits<Mass>>> getList1OtherFile(NamedElement namedElement) {
+				public static Optional<List<RealWithUnits<Mass>>> getList1OtherFile(NamedElement lookupContext) {
 					String name = "real_with_units_test::list_1_other_file";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return new RealWithUnits<>(element1, Mass.class);
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return new RealWithUnits<>(resolved1, Mass.class);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getList1OtherFile_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList1OtherFile_EObject(NamedElement lookupContext) {
 					String name = "real_with_units_test::list_1_other_file";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<RecordProperty> getRecordProperty(NamedElement namedElement) {
+				public static Optional<RecordProperty> getRecordProperty(NamedElement lookupContext) {
 					String name = "real_with_units_test::record_property";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(new RecordProperty(propertyExpression));
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(new RecordProperty(resolved, lookupContext));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getRecordProperty_EObject(NamedElement namedElement) {
+				public static PropertyExpression getRecordProperty_EObject(NamedElement lookupContext) {
 					String name = "real_with_units_test::record_property";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 			}
 		'''
@@ -318,10 +329,12 @@ class RealWithUnitsTest {
 			
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.ListValue;
+			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
 			import org.osate.aadl2.UnitLiteral;
+			import org.osate.pluginsupport.properties.CodeGenUtil;
 			import org.osate.pluginsupport.properties.GeneratedUnits;
 			import org.osate.pluginsupport.properties.RealWithUnits;
 			
@@ -335,29 +348,40 @@ class RealWithUnitsTest {
 				private final Optional<List<RealWithUnits<Time>>> list1SameFile;
 				private final Optional<List<RealWithUnits<Mass>>> list1OtherFile;
 				
-				public RecordProperty(PropertyExpression propertyExpression) {
+				public RecordProperty(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					this.owned = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("owned"))
-							.map(field -> new RealWithUnits<>(field.getOwnedValue(), Owned_FieldType.class))
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return new RealWithUnits<>(resolved, Owned_FieldType.class);
+							})
 							.findAny();
 					this.sameFile = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("same_file"))
-							.map(field -> new RealWithUnits<>(field.getOwnedValue(), Time.class))
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return new RealWithUnits<>(resolved, Time.class);
+							})
 							.findAny();
 					this.otherFile = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("other_file"))
-							.map(field -> new RealWithUnits<>(field.getOwnedValue(), Mass.class))
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return new RealWithUnits<>(resolved, Mass.class);
+							})
 							.findAny();
 					this.list1Owned = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("list_1_owned"))
 							.map(field -> {
-								return ((ListValue) field.getOwnedValue()).getOwnedListElements().stream().map(element1 -> {
-									return new RealWithUnits<>(element1, List1Owned_FieldType.class);
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+									PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+									return new RealWithUnits<>(resolved1, List1Owned_FieldType.class);
 								}).collect(Collectors.toList());
 							})
 							.findAny();
@@ -365,8 +389,10 @@ class RealWithUnitsTest {
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("list_1_same_file"))
 							.map(field -> {
-								return ((ListValue) field.getOwnedValue()).getOwnedListElements().stream().map(element1 -> {
-									return new RealWithUnits<>(element1, Time.class);
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+									PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+									return new RealWithUnits<>(resolved1, Time.class);
 								}).collect(Collectors.toList());
 							})
 							.findAny();
@@ -374,8 +400,10 @@ class RealWithUnitsTest {
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("list_1_other_file"))
 							.map(field -> {
-								return ((ListValue) field.getOwnedValue()).getOwnedListElements().stream().map(element1 -> {
-									return new RealWithUnits<>(element1, Mass.class);
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+									PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+									return new RealWithUnits<>(resolved1, Mass.class);
 								}).collect(Collectors.toList());
 							})
 							.findAny();

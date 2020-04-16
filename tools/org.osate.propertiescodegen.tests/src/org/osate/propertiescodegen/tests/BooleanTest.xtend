@@ -54,89 +54,101 @@ class BooleanTest {
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
+			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class BooleanTest {
-				public static Optional<Boolean> getOwnedBoolean(NamedElement namedElement) {
+				public static Optional<Boolean> getOwnedBoolean(NamedElement lookupContext) {
 					String name = "boolean_test::owned_boolean";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((BooleanLiteral) propertyExpression).getValue());
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((BooleanLiteral) resolved).getValue());
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getOwnedBoolean_EObject(NamedElement namedElement) {
+				public static PropertyExpression getOwnedBoolean_EObject(NamedElement lookupContext) {
 					String name = "boolean_test::owned_boolean";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<Boolean> getReferencedBooleanLocal(NamedElement namedElement) {
+				public static Optional<Boolean> getReferencedBooleanLocal(NamedElement lookupContext) {
 					String name = "boolean_test::referenced_boolean_local";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((BooleanLiteral) propertyExpression).getValue());
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((BooleanLiteral) resolved).getValue());
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getReferencedBooleanLocal_EObject(NamedElement namedElement) {
+				public static PropertyExpression getReferencedBooleanLocal_EObject(NamedElement lookupContext) {
 					String name = "boolean_test::referenced_boolean_local";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<Boolean> getReferencedBooleanOther(NamedElement namedElement) {
+				public static Optional<Boolean> getReferencedBooleanOther(NamedElement lookupContext) {
 					String name = "boolean_test::referenced_boolean_other";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((BooleanLiteral) propertyExpression).getValue());
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((BooleanLiteral) resolved).getValue());
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getReferencedBooleanOther_EObject(NamedElement namedElement) {
+				public static PropertyExpression getReferencedBooleanOther_EObject(NamedElement lookupContext) {
 					String name = "boolean_test::referenced_boolean_other";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<Boolean>> getList1Boolean(NamedElement namedElement) {
+				public static Optional<List<Boolean>> getList1Boolean(NamedElement lookupContext) {
 					String name = "boolean_test::list_1_boolean";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return ((BooleanLiteral) element1).getValue();
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return ((BooleanLiteral) resolved1).getValue();
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getList1Boolean_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList1Boolean_EObject(NamedElement lookupContext) {
 					String name = "boolean_test::list_1_boolean";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<List<List<List<List<Boolean>>>>>> getList5Boolean(NamedElement namedElement) {
+				public static Optional<List<List<List<List<List<Boolean>>>>>> getList5Boolean(NamedElement lookupContext) {
 					String name = "boolean_test::list_5_boolean";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
-								return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
-									return ((ListValue) element3).getOwnedListElements().stream().map(element4 -> {
-										return ((ListValue) element4).getOwnedListElements().stream().map(element5 -> {
-											return ((BooleanLiteral) element5).getValue();
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
+								PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2, lookupContext);
+								return ((ListValue) resolved2).getOwnedListElements().stream().map(element3 -> {
+									PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3, lookupContext);
+									return ((ListValue) resolved3).getOwnedListElements().stream().map(element4 -> {
+										PropertyExpression resolved4 = CodeGenUtil.resolveNamedValue(element4, lookupContext);
+										return ((ListValue) resolved4).getOwnedListElements().stream().map(element5 -> {
+											PropertyExpression resolved5 = CodeGenUtil.resolveNamedValue(element5, lookupContext);
+											return ((BooleanLiteral) resolved5).getValue();
 										}).collect(Collectors.toList());
 									}).collect(Collectors.toList());
 								}).collect(Collectors.toList());
@@ -147,10 +159,10 @@ class BooleanTest {
 					}
 				}
 				
-				public static PropertyExpression getList5Boolean_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList5Boolean_EObject(NamedElement lookupContext) {
 					String name = "boolean_test::list_5_boolean";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 			}
 		'''

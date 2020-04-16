@@ -103,6 +103,7 @@ class ListDefinitionTest {
 			import org.osate.aadl2.instance.InstanceReferenceValue;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
+			import org.osate.pluginsupport.properties.CodeGenUtil;
 			import org.osate.pluginsupport.properties.IntegerRange;
 			import org.osate.pluginsupport.properties.IntegerWithUnits;
 			import org.osate.pluginsupport.properties.RealRange;
@@ -113,33 +114,38 @@ class ListDefinitionTest {
 			import ps2.Mass;
 			
 			public class Ps1 {
-				public static Optional<List<Boolean>> getList1Boolean(NamedElement namedElement) {
+				public static Optional<List<Boolean>> getList1Boolean(NamedElement lookupContext) {
 					String name = "ps1::list_1_boolean";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return ((BooleanLiteral) element1).getValue();
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return ((BooleanLiteral) resolved1).getValue();
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getList1Boolean_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList1Boolean_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_1_boolean";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<List<Boolean>>> getList2Boolean(NamedElement namedElement) {
+				public static Optional<List<List<Boolean>>> getList2Boolean(NamedElement lookupContext) {
 					String name = "ps1::list_2_boolean";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
-								return ((BooleanLiteral) element2).getValue();
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
+								PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2, lookupContext);
+								return ((BooleanLiteral) resolved2).getValue();
 							}).collect(Collectors.toList());
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
@@ -147,21 +153,25 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static PropertyExpression getList2Boolean_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList2Boolean_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_2_boolean";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<List<List<Boolean>>>> getList3Boolean(NamedElement namedElement) {
+				public static Optional<List<List<List<Boolean>>>> getList3Boolean(NamedElement lookupContext) {
 					String name = "ps1::list_3_boolean";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
-								return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
-									return ((BooleanLiteral) element3).getValue();
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
+								PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2, lookupContext);
+								return ((ListValue) resolved2).getOwnedListElements().stream().map(element3 -> {
+									PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3, lookupContext);
+									return ((BooleanLiteral) resolved3).getValue();
 								}).collect(Collectors.toList());
 							}).collect(Collectors.toList());
 						}).collect(Collectors.toList()));
@@ -170,22 +180,27 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static PropertyExpression getList3Boolean_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList3Boolean_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_3_boolean";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<List<List<List<Boolean>>>>> getList4Boolean(NamedElement namedElement) {
+				public static Optional<List<List<List<List<Boolean>>>>> getList4Boolean(NamedElement lookupContext) {
 					String name = "ps1::list_4_boolean";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
-								return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
-									return ((ListValue) element3).getOwnedListElements().stream().map(element4 -> {
-										return ((BooleanLiteral) element4).getValue();
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
+								PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2, lookupContext);
+								return ((ListValue) resolved2).getOwnedListElements().stream().map(element3 -> {
+									PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3, lookupContext);
+									return ((ListValue) resolved3).getOwnedListElements().stream().map(element4 -> {
+										PropertyExpression resolved4 = CodeGenUtil.resolveNamedValue(element4, lookupContext);
+										return ((BooleanLiteral) resolved4).getValue();
 									}).collect(Collectors.toList());
 								}).collect(Collectors.toList());
 							}).collect(Collectors.toList());
@@ -195,23 +210,29 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static PropertyExpression getList4Boolean_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList4Boolean_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_4_boolean";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<List<List<List<List<Boolean>>>>>> getList5Boolean(NamedElement namedElement) {
+				public static Optional<List<List<List<List<List<Boolean>>>>>> getList5Boolean(NamedElement lookupContext) {
 					String name = "ps1::list_5_boolean";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
-								return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
-									return ((ListValue) element3).getOwnedListElements().stream().map(element4 -> {
-										return ((ListValue) element4).getOwnedListElements().stream().map(element5 -> {
-											return ((BooleanLiteral) element5).getValue();
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
+								PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2, lookupContext);
+								return ((ListValue) resolved2).getOwnedListElements().stream().map(element3 -> {
+									PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3, lookupContext);
+									return ((ListValue) resolved3).getOwnedListElements().stream().map(element4 -> {
+										PropertyExpression resolved4 = CodeGenUtil.resolveNamedValue(element4, lookupContext);
+										return ((ListValue) resolved4).getOwnedListElements().stream().map(element5 -> {
+											PropertyExpression resolved5 = CodeGenUtil.resolveNamedValue(element5, lookupContext);
+											return ((BooleanLiteral) resolved5).getValue();
 										}).collect(Collectors.toList());
 									}).collect(Collectors.toList());
 								}).collect(Collectors.toList());
@@ -222,401 +243,445 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static PropertyExpression getList5Boolean_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList5Boolean_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_5_boolean";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<String>> getList1String(NamedElement namedElement) {
+				public static Optional<List<String>> getList1String(NamedElement lookupContext) {
 					String name = "ps1::list_1_string";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return ((StringLiteral) element1).getValue();
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return ((StringLiteral) resolved1).getValue();
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getList1String_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList1String_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_1_string";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<Classifier>> getList1Classifier(NamedElement namedElement) {
+				public static Optional<List<Classifier>> getList1Classifier(NamedElement lookupContext) {
 					String name = "ps1::list_1_classifier";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return ((ClassifierValue) element1).getClassifier();
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return ((ClassifierValue) resolved1).getClassifier();
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getList1Classifier_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList1Classifier_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_1_classifier";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<Long>> getList1IntegerNoUnits(NamedElement namedElement) {
+				public static Optional<List<Long>> getList1IntegerNoUnits(NamedElement lookupContext) {
 					String name = "ps1::list_1_integer_no_units";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return ((IntegerLiteral) element1).getValue();
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return ((IntegerLiteral) resolved1).getValue();
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getList1IntegerNoUnits_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList1IntegerNoUnits_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_1_integer_no_units";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<Double>> getList1RealNoUnits(NamedElement namedElement) {
+				public static Optional<List<Double>> getList1RealNoUnits(NamedElement lookupContext) {
 					String name = "ps1::list_1_real_no_units";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return ((RealLiteral) element1).getValue();
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return ((RealLiteral) resolved1).getValue();
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getList1RealNoUnits_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList1RealNoUnits_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_1_real_no_units";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<InstanceObject>> getList1Reference(NamedElement namedElement) {
+				public static Optional<List<InstanceObject>> getList1Reference(NamedElement lookupContext) {
 					String name = "ps1::list_1_reference";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return ((InstanceReferenceValue) element1).getReferencedInstanceObject();
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return ((InstanceReferenceValue) resolved1).getReferencedInstanceObject();
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getList1Reference_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList1Reference_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_1_reference";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<List1OwnedEnum>> getList1OwnedEnum(NamedElement namedElement) {
+				public static Optional<List<List1OwnedEnum>> getList1OwnedEnum(NamedElement lookupContext) {
 					String name = "ps1::list_1_owned_enum";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return List1OwnedEnum.valueOf(element1);
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return List1OwnedEnum.valueOf(resolved1);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getList1OwnedEnum_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList1OwnedEnum_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_1_owned_enum";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<List1OwnedUnits>> getList1OwnedUnits(NamedElement namedElement) {
+				public static Optional<List<List1OwnedUnits>> getList1OwnedUnits(NamedElement lookupContext) {
 					String name = "ps1::list_1_owned_units";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return List1OwnedUnits.valueOf(element1);
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return List1OwnedUnits.valueOf(resolved1);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getList1OwnedUnits_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList1OwnedUnits_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_1_owned_units";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<IntegerWithUnits<Time>>> getList1OwnedIntegerWithUnits(NamedElement namedElement) {
+				public static Optional<List<IntegerWithUnits<Time>>> getList1OwnedIntegerWithUnits(NamedElement lookupContext) {
 					String name = "ps1::list_1_owned_integer_with_units";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return new IntegerWithUnits<>(element1, Time.class);
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return new IntegerWithUnits<>(resolved1, Time.class);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getList1OwnedIntegerWithUnits_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList1OwnedIntegerWithUnits_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_1_owned_integer_with_units";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<IntegerRange>> getList1OwnedRange(NamedElement namedElement) {
+				public static Optional<List<IntegerRange>> getList1OwnedRange(NamedElement lookupContext) {
 					String name = "ps1::list_1_owned_range";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return new IntegerRange(element1);
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return new IntegerRange(resolved1, lookupContext);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getList1OwnedRange_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList1OwnedRange_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_1_owned_range";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<List1OwnedRecord>> getList1OwnedRecord(NamedElement namedElement) {
+				public static Optional<List<List1OwnedRecord>> getList1OwnedRecord(NamedElement lookupContext) {
 					String name = "ps1::list_1_owned_record";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return new List1OwnedRecord(element1);
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return new List1OwnedRecord(resolved1, lookupContext);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getList1OwnedRecord_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList1OwnedRecord_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_1_owned_record";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<EnumType1>> getList1ReferencedEnumNoImport(NamedElement namedElement) {
+				public static Optional<List<EnumType1>> getList1ReferencedEnumNoImport(NamedElement lookupContext) {
 					String name = "ps1::list_1_referenced_enum_no_import";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return EnumType1.valueOf(element1);
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return EnumType1.valueOf(resolved1);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getList1ReferencedEnumNoImport_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList1ReferencedEnumNoImport_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_1_referenced_enum_no_import";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<Color>> getList1ReferencedEnumWithImport(NamedElement namedElement) {
+				public static Optional<List<Color>> getList1ReferencedEnumWithImport(NamedElement lookupContext) {
 					String name = "ps1::list_1_referenced_enum_with_import";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return Color.valueOf(element1);
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return Color.valueOf(resolved1);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getList1ReferencedEnumWithImport_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList1ReferencedEnumWithImport_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_1_referenced_enum_with_import";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<Time>> getList1ReferencedUnitsNoImport(NamedElement namedElement) {
+				public static Optional<List<Time>> getList1ReferencedUnitsNoImport(NamedElement lookupContext) {
 					String name = "ps1::list_1_referenced_units_no_import";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return Time.valueOf(element1);
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return Time.valueOf(resolved1);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getList1ReferencedUnitsNoImport_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList1ReferencedUnitsNoImport_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_1_referenced_units_no_import";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<Mass>> getList1ReferencedUnitsWithImport(NamedElement namedElement) {
+				public static Optional<List<Mass>> getList1ReferencedUnitsWithImport(NamedElement lookupContext) {
 					String name = "ps1::list_1_referenced_units_with_import";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return Mass.valueOf(element1);
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return Mass.valueOf(resolved1);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getList1ReferencedUnitsWithImport_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList1ReferencedUnitsWithImport_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_1_referenced_units_with_import";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<IntegerWithUnits<IntegerOwnedUnits>>> getList1ReferencedNumberWithUnitsNoImport(NamedElement namedElement) {
+				public static Optional<List<IntegerWithUnits<IntegerOwnedUnits>>> getList1ReferencedNumberWithUnitsNoImport(NamedElement lookupContext) {
 					String name = "ps1::list_1_referenced_number_with_units_no_import";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return new IntegerWithUnits<>(element1, IntegerOwnedUnits.class);
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return new IntegerWithUnits<>(resolved1, IntegerOwnedUnits.class);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getList1ReferencedNumberWithUnitsNoImport_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList1ReferencedNumberWithUnitsNoImport_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_1_referenced_number_with_units_no_import";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<RealWithUnits<Mass>>> getList1ReferencedNumberWithUnitsWithImport(NamedElement namedElement) {
+				public static Optional<List<RealWithUnits<Mass>>> getList1ReferencedNumberWithUnitsWithImport(NamedElement lookupContext) {
 					String name = "ps1::list_1_referenced_number_with_units_with_import";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return new RealWithUnits<>(element1, Mass.class);
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return new RealWithUnits<>(resolved1, Mass.class);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getList1ReferencedNumberWithUnitsWithImport_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList1ReferencedNumberWithUnitsWithImport_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_1_referenced_number_with_units_with_import";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<IntegerRange>> getList1ReferencedRangeNoImport(NamedElement namedElement) {
+				public static Optional<List<IntegerRange>> getList1ReferencedRangeNoImport(NamedElement lookupContext) {
 					String name = "ps1::list_1_referenced_range_no_import";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return new IntegerRange(element1);
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return new IntegerRange(resolved1, lookupContext);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getList1ReferencedRangeNoImport_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList1ReferencedRangeNoImport_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_1_referenced_range_no_import";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<RealRange>> getList1ReferencedRangeWithImport(NamedElement namedElement) {
+				public static Optional<List<RealRange>> getList1ReferencedRangeWithImport(NamedElement lookupContext) {
 					String name = "ps1::list_1_referenced_range_with_import";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return new RealRange(element1);
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return new RealRange(resolved1, lookupContext);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getList1ReferencedRangeWithImport_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList1ReferencedRangeWithImport_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_1_referenced_range_with_import";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<RecordOfBoolean>> getList1ReferencedRecordNoImport(NamedElement namedElement) {
+				public static Optional<List<RecordOfBoolean>> getList1ReferencedRecordNoImport(NamedElement lookupContext) {
 					String name = "ps1::list_1_referenced_record_no_import";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return new RecordOfBoolean(element1);
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return new RecordOfBoolean(resolved1, lookupContext);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getList1ReferencedRecordNoImport_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList1ReferencedRecordNoImport_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_1_referenced_record_no_import";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<BasicRecord>> getList1ReferencedRecordWithImport(NamedElement namedElement) {
+				public static Optional<List<BasicRecord>> getList1ReferencedRecordWithImport(NamedElement lookupContext) {
 					String name = "ps1::list_1_referenced_record_with_import";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return new BasicRecord(element1);
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return new BasicRecord(resolved1, lookupContext);
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
 				}
 				
-				public static PropertyExpression getList1ReferencedRecordWithImport_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList1ReferencedRecordWithImport_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_1_referenced_record_with_import";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<List<List<List3OwnedEnum>>>> getList3OwnedEnum(NamedElement namedElement) {
+				public static Optional<List<List<List<List3OwnedEnum>>>> getList3OwnedEnum(NamedElement lookupContext) {
 					String name = "ps1::list_3_owned_enum";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
-								return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
-									return List3OwnedEnum.valueOf(element3);
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
+								PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2, lookupContext);
+								return ((ListValue) resolved2).getOwnedListElements().stream().map(element3 -> {
+									PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3, lookupContext);
+									return List3OwnedEnum.valueOf(resolved3);
 								}).collect(Collectors.toList());
 							}).collect(Collectors.toList());
 						}).collect(Collectors.toList()));
@@ -625,23 +690,29 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static PropertyExpression getList3OwnedEnum_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList3OwnedEnum_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_3_owned_enum";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<List<List<List<List<RealRange>>>>>> getList5OwnedRange(NamedElement namedElement) {
+				public static Optional<List<List<List<List<List<RealRange>>>>>> getList5OwnedRange(NamedElement lookupContext) {
 					String name = "ps1::list_5_owned_range";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
-								return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
-									return ((ListValue) element3).getOwnedListElements().stream().map(element4 -> {
-										return ((ListValue) element4).getOwnedListElements().stream().map(element5 -> {
-											return new RealRange(element5);
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
+								PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2, lookupContext);
+								return ((ListValue) resolved2).getOwnedListElements().stream().map(element3 -> {
+									PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3, lookupContext);
+									return ((ListValue) resolved3).getOwnedListElements().stream().map(element4 -> {
+										PropertyExpression resolved4 = CodeGenUtil.resolveNamedValue(element4, lookupContext);
+										return ((ListValue) resolved4).getOwnedListElements().stream().map(element5 -> {
+											PropertyExpression resolved5 = CodeGenUtil.resolveNamedValue(element5, lookupContext);
+											return new RealRange(resolved5, lookupContext);
 										}).collect(Collectors.toList());
 									}).collect(Collectors.toList());
 								}).collect(Collectors.toList());
@@ -652,21 +723,25 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static PropertyExpression getList5OwnedRange_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList5OwnedRange_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_5_owned_range";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<List<List<EnumType1>>>> getList3ReferencedEnumNoImport(NamedElement namedElement) {
+				public static Optional<List<List<List<EnumType1>>>> getList3ReferencedEnumNoImport(NamedElement lookupContext) {
 					String name = "ps1::list_3_referenced_enum_no_import";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
-								return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
-									return EnumType1.valueOf(element3);
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
+								PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2, lookupContext);
+								return ((ListValue) resolved2).getOwnedListElements().stream().map(element3 -> {
+									PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3, lookupContext);
+									return EnumType1.valueOf(resolved3);
 								}).collect(Collectors.toList());
 							}).collect(Collectors.toList());
 						}).collect(Collectors.toList()));
@@ -675,23 +750,29 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static PropertyExpression getList3ReferencedEnumNoImport_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList3ReferencedEnumNoImport_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_3_referenced_enum_no_import";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 				
-				public static Optional<List<List<List<List<List<RealRange>>>>>> getList5ReferencedRangeWithImport(NamedElement namedElement) {
+				public static Optional<List<List<List<List<List<RealRange>>>>>> getList5ReferencedRangeWithImport(NamedElement lookupContext) {
 					String name = "ps1::list_5_referenced_range_with_import";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = namedElement.getNonModalPropertyValue(property);
-						return Optional.of(((ListValue) propertyExpression).getOwnedListElements().stream().map(element1 -> {
-							return ((ListValue) element1).getOwnedListElements().stream().map(element2 -> {
-								return ((ListValue) element2).getOwnedListElements().stream().map(element3 -> {
-									return ((ListValue) element3).getOwnedListElements().stream().map(element4 -> {
-										return ((ListValue) element4).getOwnedListElements().stream().map(element5 -> {
-											return new RealRange(element5);
+						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
+								PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2, lookupContext);
+								return ((ListValue) resolved2).getOwnedListElements().stream().map(element3 -> {
+									PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3, lookupContext);
+									return ((ListValue) resolved3).getOwnedListElements().stream().map(element4 -> {
+										PropertyExpression resolved4 = CodeGenUtil.resolveNamedValue(element4, lookupContext);
+										return ((ListValue) resolved4).getOwnedListElements().stream().map(element5 -> {
+											PropertyExpression resolved5 = CodeGenUtil.resolveNamedValue(element5, lookupContext);
+											return new RealRange(resolved5, lookupContext);
 										}).collect(Collectors.toList());
 									}).collect(Collectors.toList());
 								}).collect(Collectors.toList());
@@ -702,10 +783,10 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static PropertyExpression getList5ReferencedRangeWithImport_EObject(NamedElement namedElement) {
+				public static PropertyExpression getList5ReferencedRangeWithImport_EObject(NamedElement lookupContext) {
 					String name = "ps1::list_5_referenced_range_with_import";
-					Property property = Aadl2GlobalScopeUtil.get(namedElement, Aadl2Package.eINSTANCE.getProperty(), name);
-					return namedElement.getNonModalPropertyValue(property);
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
 				}
 			}
 		'''
@@ -823,18 +904,23 @@ class ListDefinitionTest {
 			import java.util.Optional;
 			
 			import org.osate.aadl2.BooleanLiteral;
+			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
+			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class RecordOfBoolean {
 				private final Optional<Boolean> field;
 				
-				public RecordOfBoolean(PropertyExpression propertyExpression) {
+				public RecordOfBoolean(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					this.field = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("field"))
-							.map(field -> ((BooleanLiteral) field.getOwnedValue()).getValue())
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return ((BooleanLiteral) resolved).getValue();
+							})
 							.findAny();
 				}
 				
@@ -951,32 +1037,43 @@ class ListDefinitionTest {
 			
 			import org.osate.aadl2.BooleanLiteral;
 			import org.osate.aadl2.IntegerLiteral;
+			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RealLiteral;
 			import org.osate.aadl2.RecordValue;
 			import org.osate.aadl2.StringLiteral;
+			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class List1OwnedRecord {
 				private final Optional<Boolean> booleanField;
 				private final Optional<String> stringField;
 				private final Optional<RecordField_FieldType> recordField;
 				
-				public List1OwnedRecord(PropertyExpression propertyExpression) {
+				public List1OwnedRecord(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					this.booleanField = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("boolean_field"))
-							.map(field -> ((BooleanLiteral) field.getOwnedValue()).getValue())
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return ((BooleanLiteral) resolved).getValue();
+							})
 							.findAny();
 					this.stringField = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("string_field"))
-							.map(field -> ((StringLiteral) field.getOwnedValue()).getValue())
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return ((StringLiteral) resolved).getValue();
+							})
 							.findAny();
 					this.recordField = recordValue.getOwnedFieldValues()
 							.stream()
 							.filter(field -> field.getProperty().getName().equals("record_field"))
-							.map(field -> new RecordField_FieldType(field.getOwnedValue()))
+							.map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+								return new RecordField_FieldType(resolved, lookupContext);
+							})
 							.findAny();
 				}
 				
@@ -1042,17 +1139,23 @@ class ListDefinitionTest {
 					private final OptionalLong integerField;
 					private final OptionalDouble realField;
 					
-					public RecordField_FieldType(PropertyExpression propertyExpression) {
+					public RecordField_FieldType(PropertyExpression propertyExpression, NamedElement lookupContext) {
 						RecordValue recordValue = (RecordValue) propertyExpression;
 						this.integerField = recordValue.getOwnedFieldValues()
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("integer_field"))
-								.mapToLong(field -> ((IntegerLiteral) field.getOwnedValue()).getValue())
+								.mapToLong(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((IntegerLiteral) resolved).getValue();
+								})
 								.findAny();
 						this.realField = recordValue.getOwnedFieldValues()
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("real_field"))
-								.mapToDouble(field -> ((RealLiteral) field.getOwnedValue()).getValue())
+								.mapToDouble(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((RealLiteral) resolved).getValue();
+								})
 								.findAny();
 					}
 					
