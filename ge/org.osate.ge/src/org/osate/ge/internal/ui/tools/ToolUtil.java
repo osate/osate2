@@ -25,9 +25,8 @@ package org.osate.ge.internal.ui.tools;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -46,6 +45,7 @@ import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.validation.FeatureBasedDiagnostic;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.Element;
@@ -54,6 +54,7 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.util.ProjectUtil;
 
 import com.google.common.base.Predicates;
+import com.google.common.collect.Sets;
 
 public class ToolUtil {
 	/**
@@ -111,25 +112,32 @@ public class ToolUtil {
 	/**
 	 * Get the errors and warnings for referenced elements' root
 	 */
-	public static List<Diagnostic> getAllReferencedPackageDiagnostics(final BusinessObjectContext boc) {
+	public static Set<Diagnostic> getAllReferencedPackageDiagnostics(final BusinessObjectContext boc) {
 		// Find root to get all referenced package diagnostics
 		final BusinessObjectContext root = findRoot(boc)
 				.orElseThrow(() -> new RuntimeException("Cannot find root"));
 
-		// Get get root elements
-		final Set<NamedElement> rootElements = root.getAllDescendants().map(queryable -> {
+		// Get get referenced packages
+		final Set<NamedElement> packages = root.getAllDescendants().map(queryable -> {
 			final Object bo = queryable.getBusinessObject();
-			return Element.class.isInstance(bo) ? bo : null;
-		}).filter(Predicates.notNull()).map(bo -> ((Element) bo).getElementRoot()).collect(Collectors.toSet());
+			if (bo instanceof Element) {
+				final Element element = (Element) bo;
+				if (element.getElementRoot() instanceof AadlPackage) {
+					return (AadlPackage) element.getElementRoot();
+				}
+			}
+
+			return null;
+		}).filter(Predicates.notNull()).collect(Collectors.toSet());
 
 		// Collect errors and warnings for root elements
-		final List<Diagnostic> diagnostics = new ArrayList<>();
-		for (final NamedElement rootElement : rootElements) {
-			final IProject project = ProjectUtil.getProjectForBoOrThrow(rootElement);
+		final Set<Diagnostic> diagnostics = new HashSet<>();
+		for (final NamedElement pkg : packages) {
+			final IProject project = ProjectUtil.getProjectForBoOrThrow(pkg);
 			final ResourceSet testResourceSet = ProjectUtil.getLiveResourceSet(project);
 
 			// Model error and warning diagnostics
-			final List<Diagnostic> rootDiagnostics = getDiagnostics(getErrorMessagePrefix(rootElement), rootElement,
+			final Set<Diagnostic> rootDiagnostics = getDiagnostics(new DiagnosticBuilder(getMessagePrefix(pkg)), pkg,
 					testResourceSet);
 			diagnostics.addAll(rootDiagnostics);
 		}
@@ -137,7 +145,7 @@ public class ToolUtil {
 		return diagnostics;
 	}
 
-	private static String getErrorMessagePrefix(final NamedElement ne) {
+	private static String getMessagePrefix(final NamedElement ne) {
 		final StringBuilder builder = new StringBuilder("Package ");
 		builder.append(ne.getName());
 		return builder.append(": ").toString();
@@ -157,9 +165,9 @@ public class ToolUtil {
 	 * Modifies an eObject and returns error and warning diagnostics
 	 * @param elementToModify is the element to modify
 	 * @param getModifiedObject performs the modification and returns modified eObject
-	 * @return a list of error and warning diagnostics found during validation
+	 * @return a set of error and warning diagnostics found during validation
 	 */
-	public static List<Diagnostic> getModificationDiagnostics(final Element elementToModify,
+	public static Set<Diagnostic> getModificationDiagnostics(final Element elementToModify,
 			final Function<ResourceSet, EObject> getModifiedObject) {
 		final IProject project = ProjectUtil.getProjectForBoOrThrow(elementToModify);
 		final ResourceSet testResourceSet = ProjectUtil.getLiveResourceSet(project);
@@ -167,67 +175,90 @@ public class ToolUtil {
 		final EObject modifiedObject = getModifiedObject.apply(testResourceSet);
 
 		// Model error and warning diagnostics
-		final List<Diagnostic> diagnostics = getDiagnostics(getErrorMessagePrefix(elementToModify.getElementRoot()),
+		final Set<Diagnostic> diagnostics = getDiagnostics(
+				new DiagnosticBuilder(getMessagePrefix(elementToModify.getElementRoot())),
 				modifiedObject,
 				testResourceSet);
 		return diagnostics;
 	}
 
 	// Get error and warning diagnostics
-	private static List<Diagnostic> getDiagnostics(final String errorMsgPrefix, final EObject eObjectToValidate,
+	private static Set<Diagnostic> getDiagnostics(final DiagnosticBuilder diagnosticBuilder,
+			final EObject eObjectToValidate,
 			final ResourceSet testResourceSet) {
-
 		// Serialize
 		final Optional<String> serializedSrc = getSerializedSource(eObjectToValidate);
 		if (!serializedSrc.isPresent()) {
-			return Arrays.asList(new DiagnosticWrapper(Diagnostic.ERROR,
-					getDetailedDiagnosticMessage(errorMsgPrefix, "Serialization Error")));
+			return Sets.newHashSet(diagnosticBuilder.build(Diagnostic.ERROR, "Serialization Error"));
 		}
 
 		final XtextResource testResource = getXtextResource(testResourceSet, eObjectToValidate.eResource().getURI());
 		loadResource(testResource, serializedSrc.get());
 
-		final Builder<Diagnostic> diagnostics = Stream.builder();
+		final Builder<DiagnosticWrapper> diagnostics = Stream.builder();
 
-		// Concrete Validation
-		for (final Diagnostic diagnostic : testResource.validateConcreteSyntax()) {
-			final int severity = diagnostic.getSeverity();
-			if (isErrorOrWarning(severity)) {
-				diagnostics.add(new DiagnosticWrapper(diagnostic.getSeverity(),
-						getDetailedDiagnosticMessage(errorMsgPrefix, diagnostic.getMessage())));
-			}
-		}
+		// Concrete Syntax Validation
+		final Stream<DiagnosticWrapper> syntaxDiagnostics = testResource.validateConcreteSyntax().stream()
+				.filter(diagnostic -> isErrorOrWarning(diagnostic.getSeverity()))
+				.map(diagnostic -> diagnosticBuilder.build(diagnostic));
+		addToBuilder(diagnostics, syntaxDiagnostics);
 
 		final EObject serializedObject = testResourceSet.getEObject(EcoreUtil.getURI(eObjectToValidate), true);
 		final Diagnostic validationDiagnostic = Diagnostician.INSTANCE.validate(serializedObject,
 				Collections.singletonMap(Diagnostician.VALIDATE_RECURSIVELY, true));
-		final int severity = validationDiagnostic.getSeverity();
-		if (isErrorOrWarning(severity)) {
+		if (isErrorOrWarning(validationDiagnostic.getSeverity())) {
 			// Validation Diagnostics
-			final Stream<Diagnostic> qualifiedDiagnostics = getDiagnosticDescendants(validationDiagnostic)
-					.filter(diagnostic -> FeatureBasedDiagnostic.class.isInstance(diagnostic))
-					.map(diagnostic -> new DiagnosticWrapper(diagnostic.getSeverity(),
-							getDetailedDiagnosticMessage(errorMsgPrefix, diagnostic.getMessage())));
-			addDiagnostics(diagnostics, qualifiedDiagnostics);
+			final Stream<DiagnosticWrapper> qualifiedDiagnostics = getDiagnosticDescendants(validationDiagnostic)
+					.filter(diagnostic -> diagnostic instanceof FeatureBasedDiagnostic)
+					.map(diagnostic -> diagnosticBuilder.build(diagnostic));
+			addToBuilder(diagnostics, qualifiedDiagnostics);
 		}
 
 		// Errors
-		final Stream<Diagnostic> resourceErrors = testResource.getErrors().stream()
-				.map(resourceDiagnostic -> new DiagnosticWrapper(Diagnostic.ERROR,
-						getDetailedDiagnosticMessage(errorMsgPrefix, resourceDiagnostic.getMessage())));
-		addDiagnostics(diagnostics, resourceErrors);
+		final Stream<DiagnosticWrapper> resourceErrors = getResourceDiagnostics(testResource.getErrors(),
+				diagnosticBuilder,
+				Diagnostic.ERROR);
+		addToBuilder(diagnostics, resourceErrors);
 
 		// Warnings
-		final Stream<Diagnostic> resourceWarnings = testResource.getWarnings().stream()
-				.map(resourceDiagnostic -> new DiagnosticWrapper(Diagnostic.WARNING,
-						getDetailedDiagnosticMessage(errorMsgPrefix, resourceDiagnostic.getMessage())));
-		addDiagnostics(diagnostics, resourceWarnings);
+		final Stream<DiagnosticWrapper> resourceWarnings = getResourceDiagnostics(testResource.getWarnings(),
+				diagnosticBuilder,
+				Diagnostic.WARNING);
+		addToBuilder(diagnostics, resourceWarnings);
 
-		return diagnostics.build().collect(Collectors.toList());
+		return diagnostics.build().collect(Collectors.toSet());
 	}
 
-	private static String getDetailedDiagnosticMessage(final String prefix, final String msg) {
-		return new StringBuilder(prefix).append(msg).toString();
+	private static void addToBuilder(final Builder<DiagnosticWrapper> builder,
+			final Stream<DiagnosticWrapper> diagnosticsToAdd) {
+		diagnosticsToAdd.forEach(diagnostic -> builder.add(diagnostic));
+	}
+
+	private static class DiagnosticBuilder {
+		private final String msgPrefix;
+
+		public DiagnosticBuilder(final String msgPrefix) {
+			this.msgPrefix = msgPrefix;
+		}
+
+		public DiagnosticWrapper build(final int severity, final String msg) {
+			return new DiagnosticWrapper(severity, getDetailedDiagnosticMessage(this.msgPrefix, msg));
+		}
+
+		public DiagnosticWrapper build(final Diagnostic diagnostic) {
+			return new DiagnosticWrapper(diagnostic.getSeverity(),
+					getDetailedDiagnosticMessage(this.msgPrefix, diagnostic.getMessage()));
+		}
+
+		public DiagnosticWrapper build(final int severity,
+				final org.eclipse.emf.ecore.resource.Resource.Diagnostic diagnostic) {
+			return new DiagnosticWrapper(severity,
+					getDetailedDiagnosticMessage(this.msgPrefix, diagnostic.getMessage()));
+		}
+
+		private static String getDetailedDiagnosticMessage(final String prefix, final String message) {
+			return new StringBuilder(prefix).append(message).toString();
+		}
 	}
 
 	private static class DiagnosticWrapper extends BasicDiagnostic {
@@ -235,16 +266,39 @@ public class ToolUtil {
 			this.severity = severity;
 			this.message = message;
 		}
+
+		@Override
+		public boolean equals(final Object o) {
+			if (o == null) {
+				return false;
+			}
+			if (o == this) {
+				return true;
+			}
+			if (getClass() != o.getClass()) {
+				return false;
+			}
+
+			final DiagnosticWrapper e = (DiagnosticWrapper) o;
+			return (this.message.equalsIgnoreCase(e.getMessage()));
+		}
+
+		@Override
+		public int hashCode() {
+			return this.message.hashCode();
+		}
 	}
 
 	private static boolean isErrorOrWarning(final int severity) {
 		return severity == Diagnostic.ERROR || severity == Diagnostic.WARNING;
 	}
 
-	// Add diagnostics to stream builder
-	private static void addDiagnostics(final Builder<Diagnostic> diagnostics,
-			final Stream<Diagnostic> diagnosticsToAdd) {
-		diagnosticsToAdd.forEach(diagnostic -> diagnostics.add(diagnostic));
+	private static Stream<DiagnosticWrapper> getResourceDiagnostics(
+			final List<org.eclipse.emf.ecore.resource.Resource.Diagnostic> diagnostics,
+			final DiagnosticBuilder diagnosticBuilder,
+			final int severity) {
+		return diagnostics.stream()
+				.map(diagnostic -> diagnosticBuilder.build(severity, diagnostic));
 	}
 
 	// Retrieves all diagnostics

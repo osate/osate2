@@ -28,6 +28,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.inject.Named;
 
@@ -66,6 +67,7 @@ import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Namespace;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
@@ -93,11 +95,11 @@ public class CreateEndToEndFlowSpecificationTool {
 			final ColoringService coloringService, final NamingService namingService) {
 		try {
 			// Check for existing errors or warnings
-			final List<Diagnostic> diagnostics = ToolUtil.getAllReferencedPackageDiagnostics(selectedBoc);
+			final Set<Diagnostic> diagnostics = ToolUtil.getAllReferencedPackageDiagnostics(selectedBoc);
 			if (!diagnostics.isEmpty()) {
 				Display.getDefault()
-						.asyncExec(() -> new FlowDialogUtil.ErrorDialog("Cannot create a new end-to-end flow.",
-								diagnostics).open());
+				.asyncExec(() -> new FlowDialogUtil.ErrorDialog("The Create End-To-End",
+						diagnostics).open());
 			} else {
 				coloring = coloringService.adjustColors(); // Create a coloring object that will allow adjustment of pictogram
 				final Display display = Display.getCurrent();
@@ -163,6 +165,12 @@ public class CreateEndToEndFlowSpecificationTool {
 
 				String error = null;
 				if (!userSelections.contains(selectedBoc) && dlg.addSelectedElement(selectedBoc)) {
+					// Set default name on first selection if one does not exist
+					if (userSelections.isEmpty() && dlg.eTEFlow.getName().isEmpty()) {
+						final FlowSpecification fs = (FlowSpecification) selectedBoc.getBusinessObject();
+						dlg.setEndToEndFlowName(fs.getNamespace());
+					}
+
 					if (selectedBoc instanceof DiagramElement) {
 						final DiagramElement selectedDe = (DiagramElement) selectedBoc;
 						if (selectedBoc.getBusinessObject() instanceof ModeFeature) {
@@ -173,19 +181,20 @@ public class CreateEndToEndFlowSpecificationTool {
 							coloring.setForeground(selectedDe, Color.MAGENTA.darker());
 						}
 					}
+
+					error = dlg.getNameErrorMessage().orElse(null);
+
 					userSelections.add(selectedBoc);
-
-					final Optional<String> optNameError = dlg.getNameErrorMessage();
-					if (optNameError.isPresent()) {
-						error = optNameError.get();
-					}
-
-					if (!dlg.isEndToEndFlowValid()) {
-						error = Strings.emptyIfNull(error) + "Invalid End-To-End Flow.  ";
-					}
 				} else if (!isInit) {
 					error = "Invalid element selected.  ";
 				}
+
+				final boolean isValid = dlg.isEndToEndFlowValid();
+				if (!isValid) {
+					error = Strings.emptyIfNull(error) + dlg.getValidFlowErrorMessage();
+				}
+
+				dlg.updateWidgets(isValid);
 
 				if (error == null) {
 					dlg.setErrorMessage(null);
@@ -196,6 +205,8 @@ public class CreateEndToEndFlowSpecificationTool {
 			}
 		}
 	}
+
+
 
 	// Determine message based on currently selected element
 	private String getDialogMessage() {
@@ -253,8 +264,10 @@ public class CreateEndToEndFlowSpecificationTool {
 		private final EndToEndFlow eTEFlow = (EndToEndFlow) pkg.getEFactoryInstance().create(pkg.getEndToEndFlow());
 		private final List<String> segmentList = new ArrayList<String>();
 		private final List<String> modeList = new ArrayList<String>();
+		private final String invalidErrorMessage = "Invalid End-To-End Flow.  ";
 
-		private Optional<EndToEndFlow> flow = Optional.empty();
+
+		private EndToEndFlow flow;
 		private Button undoButton;
 		private Composite flowSegmentComposite;
 		private TableViewer errorTableViewer;
@@ -270,8 +283,14 @@ public class CreateEndToEndFlowSpecificationTool {
 			setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
 		}
 
+		public void setEndToEndFlowName(final Namespace namespace) {
+			final String eteName = namingService.buildUniqueIdentifier(namespace, "new_ete_flow");
+			eTEFlow.setName(eteName);
+			newETEFlowName.setText(eteName);
+		}
+
 		private Optional<EndToEndFlow> getFlow() {
-			return flow;
+			return Optional.ofNullable(flow);
 		}
 
 		/**
@@ -349,7 +368,6 @@ public class CreateEndToEndFlowSpecificationTool {
 				}
 
 				setEndToEndFlowString();
-				updateWidgets();
 				return true;
 			}
 			return false;
@@ -408,10 +426,10 @@ public class CreateEndToEndFlowSpecificationTool {
 		}
 
 		private boolean isEndToEndFlowValid() {
-			final List<Diagnostic> diagnostics;
+			final Set<Diagnostic> diagnostics;
 			final Optional<ComponentImplementation> optCi = getOwnerComponentImplementation();
 			if (!optCi.isPresent()) {
-				diagnostics = Collections.emptyList();
+				diagnostics = Collections.emptySet();
 			} else {
 				final ComponentImplementation ci = optCi.get();
 				diagnostics = ToolUtil.getModificationDiagnostics(ci, (testResourceSet) -> {
@@ -436,10 +454,6 @@ public class CreateEndToEndFlowSpecificationTool {
 		private void updateWidgets(final boolean isValid) {
 			dlg.setMessage(getDialogMessage());
 			setNavigationButtonsEnabled(isValid && eTEFlow.getName().length() != 0);
-		}
-
-		private void updateWidgets() {
-			updateWidgets(isEndToEndFlowValid());
 		}
 
 		private void setNavigationButtonsEnabled(final boolean enabled) {
@@ -539,9 +553,11 @@ public class CreateEndToEndFlowSpecificationTool {
 			newETEFlowName.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyReleased(final KeyEvent e) {
-					dlg.setErrorMessage(getNameErrorMessage().orElse(null));
+					final boolean isValid = isEndToEndFlowValid();
+					final String error = getFlowErrorMessage(isValid).orElse(null);
+					setErrorMessage(error);
 					eTEFlow.setName(newETEFlowName.getText());
-					updateWidgets();
+					updateWidgets(isValid);
 				}
 			});
 
@@ -583,11 +599,8 @@ public class CreateEndToEndFlowSpecificationTool {
 
 						uiService.clearSelection();
 
-						String error = getNameErrorMessage().orElse(null);
 						final boolean isValid = isEndToEndFlowValid();
-						if (!isValid) {
-							error = Strings.emptyIfNull(error) + "Invalid End-To-End Flow.  ";
-						}
+						String error = getFlowErrorMessage(isValid).orElse(null);
 
 						if (error == null) {
 							dlg.setErrorMessage(null);
@@ -610,7 +623,7 @@ public class CreateEndToEndFlowSpecificationTool {
 			okBtn.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
-					flow = Optional.of(eTEFlow);
+					flow = eTEFlow;
 				}
 			});
 
@@ -629,6 +642,19 @@ public class CreateEndToEndFlowSpecificationTool {
 			}
 
 			return Optional.ofNullable(errorMsg);
+		}
+
+		private Optional<String> getFlowErrorMessage(final boolean isValid) {
+			String error = getNameErrorMessage().orElse(null);
+			if (!isValid) {
+				return Optional.of(Strings.emptyIfNull(error) + getValidFlowErrorMessage());
+			}
+
+			return Optional.ofNullable(error);
+		}
+
+		private String getValidFlowErrorMessage() {
+			return invalidErrorMessage;
 		}
 	}
 }

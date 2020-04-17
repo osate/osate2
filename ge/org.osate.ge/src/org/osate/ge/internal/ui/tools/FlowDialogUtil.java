@@ -161,8 +161,10 @@ class FlowDialogUtil {
 		private final Object input;
 
 		public ErrorDialog(final String message, final Object input) {
-			super(Display.getDefault().getActiveShell(), "Flow Tool Error", message, new Status(IStatus.ERROR,
-					Activator.PLUGIN_ID, "There are existing errors and warnings in the model."), IStatus.ERROR);
+			super(Display.getDefault().getActiveShell(), "Flow Tool Error",
+					message + " Tool cannot be used until errors have been resolved.  Resolve errors and try again.",
+					new Status(IStatus.ERROR,
+					Activator.PLUGIN_ID, "Errors detected in the model."), IStatus.ERROR);
 			this.input = input;
 		}
 

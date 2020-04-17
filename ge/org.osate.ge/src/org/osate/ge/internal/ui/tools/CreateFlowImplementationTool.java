@@ -29,6 +29,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.inject.Named;
@@ -89,11 +90,12 @@ public class CreateFlowImplementationTool {
 			final ColoringService coloringService) {
 		try {
 			// Check for existing errors or warnings
-			final List<Diagnostic> diagnostics = ToolUtil.getAllReferencedPackageDiagnostics(selectedBoc);
+			final Set<Diagnostic> diagnostics = ToolUtil.getAllReferencedPackageDiagnostics(selectedBoc);
 			if (!diagnostics.isEmpty()) {
 				Display.getDefault()
 				.asyncExec(
-						() -> new FlowDialogUtil.ErrorDialog("Cannot create a new flow implementation.",
+						() -> new FlowDialogUtil.ErrorDialog(
+								"The Create Flow Implementation",
 								diagnostics).open());
 			} else {
 				this.coloring = coloringService.adjustColors();
@@ -447,10 +449,10 @@ public class CreateFlowImplementationTool {
 		}
 
 		private boolean isFlowImplValid(final FlowImplementation fi) {
-			final List<Diagnostic> diagnostics;
+			final Set<Diagnostic> diagnostics;
 			final Optional<ComponentImplementation> optCi = getFlowComponentImplementation(getOwnerBoc().orElse(null));
 			if (!optCi.isPresent()) {
-				diagnostics = Collections.emptyList();
+				diagnostics = Collections.emptySet();
 			} else {
 				final ComponentImplementation ci = optCi.get();
 				diagnostics = ToolUtil.getModificationDiagnostics(ci, (testResourceSet) -> {
