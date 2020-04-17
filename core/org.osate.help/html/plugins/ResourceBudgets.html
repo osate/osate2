@@ -1,3 +1,333 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>ResourceBudgets</title>
+
+
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb
+}
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+}
+</style>
+
+
+</head>
+
+<body>
+
 <!--
 Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
 All Rights Reserved.
@@ -21,44 +351,78 @@ Software. The parties who own the Third Party Software ("Third Party Licensors")
 aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
 censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
 -->
-<!DOCTYPE html>
-<html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <title>ResourceBudgets.html</title>
-  <meta name="generator" content="Haroopad 0.13.1" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>div.oembedall-githubrepos{border:1px solid #DDD;border-radius:4px;list-style-type:none;margin:0 0 10px;padding:8px 10px 0;font:13.34px/1.4 helvetica,arial,freesans,clean,sans-serif;width:452px;background-color:#fff}div.oembedall-githubrepos .oembedall-body{background:-moz-linear-gradient(center top,#FAFAFA,#EFEFEF);background:-webkit-gradient(linear,left top,left bottom,from(#FAFAFA),to(#EFEFEF));border-bottom-left-radius:4px;border-bottom-right-radius:4px;border-top:1px solid #EEE;margin-left:-10px;margin-top:8px;padding:5px 10px;width:100%}div.oembedall-githubrepos h3{font-size:14px;margin:0;padding-left:18px;white-space:nowrap}div.oembedall-githubrepos p.oembedall-description{color:#444;font-size:12px;margin:0 0 3px}div.oembedall-githubrepos p.oembedall-updated-at{color:#888;font-size:11px;margin:0}div.oembedall-githubrepos ul.oembedall-repo-stats{border:none;float:right;font-size:11px;font-weight:700;padding-left:15px;position:relative;z-index:5;margin:0}div.oembedall-githubrepos ul.oembedall-repo-stats li{border:none;color:#666;display:inline-block;list-style-type:none;margin:0!important}div.oembedall-githubrepos ul.oembedall-repo-stats li a{background-color:transparent;border:none;color:#666!important;background-position:5px -2px;background-repeat:no-repeat;border-left:1px solid #DDD;display:inline-block;height:21px;line-height:21px;padding:0 5px 0 23px}div.oembedall-githubrepos ul.oembedall-repo-stats li:first-child a{border-left:medium none;margin-right:-3px}div.oembedall-githubrepos ul.oembedall-repo-stats li a:hover{background:5px -27px no-repeat #4183C4;color:#FFF!important;text-decoration:none}div.oembedall-githubrepos ul.oembedall-repo-stats li:first-child a:hover{border-bottom-left-radius:3px;border-top-left-radius:3px}ul.oembedall-repo-stats li:last-child a:hover{border-bottom-right-radius:3px;border-top-right-radius:3px}span.oembedall-closehide{background-color:#aaa;border-radius:2px;cursor:pointer;margin-right:3px}div.oembedall-container{margin-top:5px;text-align:left}.oembedall-ljuser{font-weight:700}.oembedall-ljuser img{vertical-align:bottom;border:0;padding-right:1px}.oembedall-stoqembed{border-bottom:1px dotted #999;float:left;overflow:hidden;width:730px;line-height:1;background:#FFF;color:#000;font-family:Arial,Liberation Sans,DejaVu Sans,sans-serif;font-size:80%;text-align:left;margin:0;padding:0}.oembedall-stoqembed a{color:#07C;text-decoration:none;margin:0;padding:0}.oembedall-stoqembed a:hover{text-decoration:underline}.oembedall-stoqembed a:visited{color:#4A6B82}.oembedall-stoqembed h3{font-family:Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif;font-size:130%;font-weight:700;margin:0;padding:0}.oembedall-stoqembed .oembedall-reputation-score{color:#444;font-size:120%;font-weight:700;margin-right:2px}.oembedall-stoqembed .oembedall-user-info{height:35px;width:185px}.oembedall-stoqembed .oembedall-user-info .oembedall-user-gravatar32{float:left;height:32px;width:32px}.oembedall-stoqembed .oembedall-user-info .oembedall-user-details{float:left;margin-left:5px;overflow:hidden;white-space:nowrap;width:145px}.oembedall-stoqembed .oembedall-question-hyperlink{font-weight:700}.oembedall-stoqembed .oembedall-stats{background:#EEE;margin:0 0 0 7px;padding:4px 7px 6px;width:58px}.oembedall-stoqembed .oembedall-statscontainer{float:left;margin-right:8px;width:86px}.oembedall-stoqembed .oembedall-votes{color:#555;padding:0 0 7px;text-align:center}.oembedall-stoqembed .oembedall-vote-count-post{font-size:240%;color:#808185;display:block;font-weight:700}.oembedall-stoqembed .oembedall-views{color:#999;padding-top:4px;text-align:center}.oembedall-stoqembed .oembedall-status{margin-top:-3px;padding:4px 0;text-align:center;background:#75845C;color:#FFF}.oembedall-stoqembed .oembedall-status strong{color:#FFF;display:block;font-size:140%}.oembedall-stoqembed .oembedall-summary{float:left;width:635px}.oembedall-stoqembed .oembedall-excerpt{line-height:1.2;margin:0;padding:0 0 5px}.oembedall-stoqembed .oembedall-tags{float:left;line-height:18px}.oembedall-stoqembed .oembedall-tags a:hover{text-decoration:none}.oembedall-stoqembed .oembedall-post-tag{background-color:#E0EAF1;border-bottom:1px solid #3E6D8E;border-right:1px solid #7F9FB6;color:#3E6D8E;font-size:90%;line-height:2.4;margin:2px 2px 2px 0;padding:3px 4px;text-decoration:none;white-space:nowrap}.oembedall-stoqembed .oembedall-post-tag:hover{background-color:#3E6D8E;border-bottom:1px solid #37607D;border-right:1px solid #37607D;color:#E0EAF1}.oembedall-stoqembed .oembedall-fr{float:right}.oembedall-stoqembed .oembedall-statsarrow{background-image:url(http://cdn.sstatic.net/stackoverflow/img/sprites.png?v=3);background-repeat:no-repeat;overflow:hidden;background-position:0 -435px;float:right;height:13px;margin-top:12px;width:7px}.oembedall-facebook1{border:1px solid #1A3C6C;padding:0;font:13.34px/1.4 verdana;width:500px}.oembedall-facebook2{background-color:#627add}.oembedall-facebook2 a{color:#e8e8e8;text-decoration:none}.oembedall-facebookBody{background-color:#fff;vertical-align:top;padding:5px}.oembedall-facebookBody .contents{display:inline-block;width:100%}.oembedall-facebookBody div img{float:left;margin-right:5px}div.oembedall-lanyard{-webkit-box-shadow:none;-webkit-transition-delay:0s;-webkit-transition-duration:.4000000059604645s;-webkit-transition-property:width;-webkit-transition-timing-function:cubic-bezier(0.42,0,.58,1);background-attachment:scroll;background-clip:border-box;background-color:transparent;background-image:none;background-origin:padding-box;border-width:0;box-shadow:none;color:#112644;display:block;float:left;font-family:'Trebuchet MS',Trebuchet,sans-serif;font-size:16px;height:253px;line-height:19px;margin:0;max-width:none;min-height:0;outline:#112644 0;overflow-x:visible;overflow-y:visible;padding:0;position:relative;text-align:left;vertical-align:baseline;width:804px}div.oembedall-lanyard .tagline{font-size:1.5em}div.oembedall-lanyard .wrapper{overflow:hidden;clear:both}div.oembedall-lanyard .split{float:left;display:inline}div.oembedall-lanyard .prominent-place .flag:active,div.oembedall-lanyard .prominent-place .flag:focus,div.oembedall-lanyard .prominent-place .flag:hover,div.oembedall-lanyard .prominent-place .flag:link,div.oembedall-lanyard .prominent-place .flag:visited{float:left;display:block;width:48px;height:48px;position:relative;top:-5px;margin-right:10px}div.oembedall-lanyard .place-context{font-size:.889em}div.oembedall-lanyard .prominent-place .sub-place{display:block}div.oembedall-lanyard .prominent-place{font-size:1.125em;line-height:1.1em;font-weight:400}div.oembedall-lanyard .main-date{color:#8CB4E0;font-weight:700;line-height:1.1}div.oembedall-lanyard .first{width:48.57%;margin:0 0 0 2.857%}.mermaid .label{color:#333}.node circle,.node polygon,.node rect{fill:#cde498;stroke:#13540c;stroke-width:1px}.edgePath .path{stroke:green;stroke-width:1.5px}.cluster rect{fill:#cdffb2;rx:40;stroke:#6eaa49;stroke-width:1px}.cluster text{fill:#333}.actor{stroke:#13540c;fill:#cde498}text.actor{fill:#000;stroke:none}.actor-line{stroke:grey}.messageLine0{stroke-width:1.5;stroke-dasharray:"2 2";marker-end:"url(#arrowhead)";stroke:#333}.messageLine1{stroke-width:1.5;stroke-dasharray:"2 2";stroke:#333}#arrowhead{fill:#333}#crosshead path{fill:#333!important;stroke:#333!important}.messageText{fill:#333;stroke:none}.labelBox{stroke:#326932;fill:#cde498}.labelText,.loopText{fill:#000;stroke:none}.loopLine{stroke-width:2;stroke-dasharray:"2 2";marker-end:"url(#arrowhead)";stroke:#326932}.note{stroke:#6eaa49;fill:#fff5ad}.noteText{fill:#000;stroke:none;font-family:'trebuchet ms',verdana,arial;font-size:14px}.section{stroke:none;opacity:.2}.section0,.section2{fill:#6eaa49}.section1,.section3{fill:#fff;opacity:.2}.sectionTitle0,.sectionTitle1,.sectionTitle2,.sectionTitle3{fill:#333}.sectionTitle{text-anchor:start;font-size:11px;text-height:14px}.grid .tick{stroke:lightgrey;opacity:.3;shape-rendering:crispEdges}.grid path{stroke-width:0}.today{fill:none;stroke:red;stroke-width:2px}.task{stroke-width:2}.taskText{text-anchor:middle;font-size:11px}.taskTextOutsideRight{fill:#000;text-anchor:start;font-size:11px}.taskTextOutsideLeft{fill:#000;text-anchor:end;font-size:11px}.taskText0,.taskText1,.taskText2,.taskText3{fill:#fff}.task0,.task1,.task2,.task3{fill:#487e3a;stroke:#13540c}.taskTextOutside0,.taskTextOutside1,.taskTextOutside2,.taskTextOutside3{fill:#000}.active0,.active1,.active2,.active3{fill:#cde498;stroke:#13540c}.activeText0,.activeText1,.activeText2,.activeText3{fill:#000!important}.done0,.done1,.done2,.done3{stroke:grey;fill:lightgrey;stroke-width:2}.doneText0,.doneText1,.doneText2,.doneText3{fill:#000!important}.crit0,.crit1,.crit2,.crit3{stroke:#f88;fill:red;stroke-width:2}.activeCrit0,.activeCrit1,.activeCrit2,.activeCrit3{stroke:#f88;fill:#cde498;stroke-width:2}.doneCrit0,.doneCrit1,.doneCrit2,.doneCrit3{stroke:#f88;fill:lightgrey;stroke-width:2;cursor:pointer;shape-rendering:crispEdges}.activeCritText0,.activeCritText1,.activeCritText2,.activeCritText3,.doneCritText0,.doneCritText1,.doneCritText2,.doneCritText3{fill:#000!important}.titleText{text-anchor:middle;font-size:18px;fill:#000}text{font-family:'trebuchet ms',verdana,arial;font-size:14px}html{height:100%}body{margin:0!important;padding:5px 20px 26px!important;background-color:#fff;font-family:"Lucida Grande","Segoe UI","Apple SD Gothic Neo","Malgun Gothic","Lucida Sans Unicode",Helvetica,Arial,sans-serif;font-size:.9em;overflow-x:hidden;overflow-y:auto}br,h1,h2,h3,h4,h5,h6{clear:both}hr.page{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x;border:0;height:3px;padding:0}hr.underscore{border-top-style:dashed!important}body >:first-child{margin-top:0!important}img.plugin{box-shadow:0 1px 3px rgba(0,0,0,.1);border-radius:3px}iframe{border:0}figure{-webkit-margin-before:0;-webkit-margin-after:0;-webkit-margin-start:0;-webkit-margin-end:0}kbd{border:1px solid #aaa;-moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;-moz-box-shadow:1px 2px 2px #ddd;-webkit-box-shadow:1px 2px 2px #ddd;box-shadow:1px 2px 2px #ddd;background-color:#f9f9f9;background-image:-moz-linear-gradient(top,#eee,#f9f9f9,#eee);background-image:-o-linear-gradient(top,#eee,#f9f9f9,#eee);background-image:-webkit-linear-gradient(top,#eee,#f9f9f9,#eee);background-image:linear-gradient(top,#eee,#f9f9f9,#eee);padding:1px 3px;font-family:inherit;font-size:.85em}.oembeded .oembed_photo{display:inline-block}img[data-echo]{margin:25px 0;width:100px;height:100px;background:url(../img/ajax.gif) center center no-repeat #fff}.spinner{display:inline-block;width:10px;height:10px;margin-bottom:-.1em;border:2px solid rgba(0,0,0,.5);border-top-color:transparent;border-radius:100%;-webkit-animation:spin 1s infinite linear;animation:spin 1s infinite linear}.spinner:after{content:'';display:block;width:0;height:0;position:absolute;top:-6px;left:0;border:4px solid transparent;border-bottom-color:rgba(0,0,0,.5);-webkit-transform:rotate(45deg);transform:rotate(45deg)}@-webkit-keyframes spin{to{-webkit-transform:rotate(360deg)}}@keyframes spin{to{transform:rotate(360deg)}}p.toc{margin:0!important}p.toc ul{padding-left:10px}p.toc>ul{padding:10px;margin:0 10px;display:inline-block;border:1px solid #ededed;border-radius:5px}p.toc li,p.toc ul{list-style-type:none}p.toc li{width:100%;padding:0;overflow:hidden}p.toc li a::after{content:"."}p.toc li a:before{content:"• "}p.toc h5{text-transform:uppercase}p.toc .title{float:left;padding-right:3px}p.toc .number{margin:0;float:right;padding-left:3px;background:#fff;display:none}input.task-list-item{margin-left:-1.62em}.markdown{font-family:"Hiragino Sans GB","Microsoft YaHei",STHeiti,SimSun,"Lucida Grande","Lucida Sans Unicode","Lucida Sans",'Segoe UI',AppleSDGothicNeo-Medium,'Malgun Gothic',Verdana,Tahoma,sans-serif;padding:20px}.markdown a{text-decoration:none;vertical-align:baseline}.markdown a:hover{text-decoration:underline}.markdown h1{font-size:2.2em;font-weight:700;margin:1.5em 0 1em}.markdown h2{font-size:1.8em;font-weight:700;margin:1.275em 0 .85em}.markdown h3{font-size:1.6em;font-weight:700;margin:1.125em 0 .75em}.markdown h4{font-size:1.4em;font-weight:700;margin:.99em 0 .66em}.markdown h5{font-size:1.2em;font-weight:700;margin:.855em 0 .57em}.markdown h6{font-size:1em;font-weight:700;margin:.75em 0 .5em}.markdown h1+p,.markdown h1:first-child,.markdown h2+p,.markdown h2:first-child,.markdown h3+p,.markdown h3:first-child,.markdown h4+p,.markdown h4:first-child,.markdown h5+p,.markdown h5:first-child,.markdown h6+p,.markdown h6:first-child{margin-top:0}.markdown hr{border:1px solid #ccc}.markdown p{margin:1em 0;word-wrap:break-word}.markdown ol{list-style-type:decimal}.markdown li{display:list-item;line-height:1.4em}.markdown blockquote{margin:1em 20px}.markdown blockquote>:first-child{margin-top:0}.markdown blockquote>:last-child{margin-bottom:0}.markdown blockquote cite:before{content:'\2014 \00A0'}.markdown .code{border-radius:3px;word-wrap:break-word}.markdown pre{border-radius:3px;word-wrap:break-word;border:1px solid #ccc;overflow:auto;padding:.5em}.markdown pre code{border:0;display:block}.markdown pre>code{font-family:Consolas,Inconsolata,Courier,monospace;font-weight:700;white-space:pre;margin:0}.markdown code{border-radius:3px;word-wrap:break-word;border:1px solid #ccc;padding:0 5px;margin:0 2px}.markdown img{max-width:100%}.markdown mark{color:#000;background-color:#fcf8e3}.markdown table{padding:0;border-collapse:collapse;border-spacing:0;margin-bottom:16px}.markdown table tr td,.markdown table tr th{border:1px solid #ccc;margin:0;padding:6px 13px}.markdown table tr th{font-weight:700}.markdown table tr th>:first-child{margin-top:0}.markdown table tr th>:last-child{margin-bottom:0}.markdown table tr td>:first-child{margin-top:0}.markdown table tr td>:last-child{margin-bottom:0}@import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400italic,700italic,400,300,700);.haroopad{padding:20px;color:#222;font-size:15px;font-family:"Roboto Condensed",Tauri,"Hiragino Sans GB","Microsoft YaHei",STHeiti,SimSun,"Lucida Grande","Lucida Sans Unicode","Lucida Sans",'Segoe UI',AppleSDGothicNeo-Medium,'Malgun Gothic',Verdana,Tahoma,sans-serif;background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased}.haroopad a{color:#3269a0}.haroopad a:hover{color:#4183c4}.haroopad h2{border-bottom:1px solid #e6e6e6}.haroopad h6{color:#777}.haroopad hr{border:1px solid #e6e6e6}.haroopad blockquote>code,.haroopad h1>code,.haroopad h2>code,.haroopad h3>code,.haroopad h4>code,.haroopad h5>code,.haroopad h6>code,.haroopad li>code,.haroopad p>code,.haroopad td>code{font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;font-size:85%;background-color:rgba(0,0,0,.02);padding:.2em .5em;border:1px solid #efefef}.haroopad pre>code{font-size:1em;letter-spacing:-1px;font-weight:700}.haroopad blockquote{border-left:4px solid #e6e6e6;padding:0 15px;color:#777}.haroopad table{background-color:#fafafa}.haroopad table tr td,.haroopad table tr th{border:1px solid #e6e6e6}.haroopad table tr:nth-child(2n){background-color:#f2f2f2}.hljs{display:block;overflow-x:auto;padding:.5em;background:#474949;color:#d1d9e1;-webkit-text-size-adjust:none}.hljs-body,.hljs-collection{color:#d1d9e1}.diff .hljs-header,.hljs-comment,.hljs-doctype,.hljs-javadoc,.lisp .hljs-string{color:#969896;font-style:italic}.clojure .hljs-attribute,.css .hljs-tag,.hljs-addition,.hljs-keyword,.hljs-winutils,.javascript .hljs-title{color:#c9c}.hljs-number{color:#f99157}.hljs-command,.hljs-dartdoc,.hljs-hexcolor,.hljs-phpdoc,.hljs-regexp,.hljs-string,.hljs-tag .hljs-value,.tex .hljs-formula{color:#8abeb7}.hljs-built_in,.hljs-chunk,.hljs-decorator,.hljs-function .hljs-title,.hljs-identifier,.hljs-localvars,.hljs-title{color:#b5bd68}.hljs-class .hljs-keyword{color:#f2777a}.haskell .hljs-label,.hljs-class .hljs-title,.hljs-constant,.hljs-id,.hljs-parent,.hljs-variable,.smalltalk .hljs-number{color:#fc6}.django .hljs-tag .hljs-keyword,.hljs-rules .hljs-property,.hljs-tag .hljs-title{font-weight:700}.hljs-attribute{color:#81a2be}.diff .hljs-change,.hljs-attr_selector,.hljs-cdata,.hljs-important,.hljs-pi,.hljs-pragma,.hljs-preprocessor,.hljs-shebang,.hljs-special,.hljs-subst,.hljs-symbol,.hljs-symbol .hljs-string{color:#f99157}.hljs-deletion{color:#dc322f}.tex .hljs-formula{background:#eee8d5}.MathJax_Hover_Frame{border-radius:.25em;-webkit-border-radius:.25em;-moz-border-radius:.25em;-khtml-border-radius:.25em;box-shadow:0 0 15px #83A;-webkit-box-shadow:0 0 15px #83A;-moz-box-shadow:0 0 15px #83A;-khtml-box-shadow:0 0 15px #83A;border:1px solid #A6D!important;display:inline-block;position:absolute}.MathJax_Hover_Arrow{position:absolute;width:15px;height:11px;cursor:pointer}#MathJax_About{position:fixed;left:50%;width:auto;text-align:center;border:3px outset;padding:1em 2em;background-color:#DDD;color:#000;cursor:default;font-family:message-box;font-size:120%;font-style:normal;text-indent:0;text-transform:none;line-height:normal;letter-spacing:normal;word-spacing:normal;word-wrap:normal;white-space:nowrap;float:none;z-index:201;border-radius:15px;-webkit-border-radius:15px;-moz-border-radius:15px;-khtml-border-radius:15px;box-shadow:0 10px 20px gray;-webkit-box-shadow:0 10px 20px gray;-moz-box-shadow:0 10px 20px gray;-khtml-box-shadow:0 10px 20px gray;filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}.MathJax_Menu{position:absolute;background-color:#fff;color:#000;width:auto;padding:2px;border:1px solid #CCC;margin:0;cursor:default;font:menu;text-align:left;text-indent:0;text-transform:none;line-height:normal;letter-spacing:normal;word-spacing:normal;word-wrap:normal;white-space:nowrap;float:none;z-index:201;box-shadow:0 10px 20px gray;-webkit-box-shadow:0 10px 20px gray;-moz-box-shadow:0 10px 20px gray;-khtml-box-shadow:0 10px 20px gray;filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}.MathJax_MenuItem{padding:2px 2em;background:0 0}.MathJax_MenuArrow{position:absolute;right:.5em;color:#666}.MathJax_MenuActive .MathJax_MenuArrow{color:#fff}.MathJax_MenuArrow.RTL{left:.5em;right:auto}.MathJax_MenuCheck{position:absolute;left:.7em}.MathJax_MenuCheck.RTL{right:.7em;left:auto}.MathJax_MenuRadioCheck{position:absolute;left:1em}.MathJax_MenuRadioCheck.RTL{right:1em;left:auto}.MathJax_MenuLabel{padding:2px 2em 4px 1.33em;font-style:italic}.MathJax_MenuRule{border-top:1px solid #CCC;margin:4px 1px 0}.MathJax_MenuDisabled{color:GrayText}.MathJax_MenuActive{background-color:Highlight;color:HighlightText}.MathJax_Menu_Close{position:absolute;width:31px;height:31px;top:-15px;left:-15px}#MathJax_Zoom{position:absolute;background-color:#F0F0F0;overflow:auto;display:block;z-index:301;padding:.5em;border:1px solid #000;margin:0;font-weight:400;font-style:normal;text-align:left;text-indent:0;text-transform:none;line-height:normal;letter-spacing:normal;word-spacing:normal;word-wrap:normal;white-space:nowrap;float:none;box-shadow:5px 5px 15px #AAA;-webkit-box-shadow:5px 5px 15px #AAA;-moz-box-shadow:5px 5px 15px #AAA;-khtml-box-shadow:5px 5px 15px #AAA;filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}#MathJax_ZoomOverlay{position:absolute;left:0;top:0;z-index:300;display:inline-block;width:100%;height:100%;border:0;padding:0;margin:0;background-color:#fff;opacity:0;filter:alpha(opacity=0)}#MathJax_ZoomFrame{position:relative;display:inline-block;height:0;width:0}#MathJax_ZoomEventTrap{position:absolute;left:0;top:0;z-index:302;display:inline-block;border:0;padding:0;margin:0;background-color:#fff;opacity:0;filter:alpha(opacity=0)}.MathJax_Preview{color:#888}#MathJax_Message{position:fixed;left:1px;bottom:2px;background-color:#E6E6E6;border:1px solid #959595;margin:0;padding:2px 8px;z-index:102;color:#000;font-size:80%;width:auto;white-space:nowrap}#MathJax_MSIE_Frame{position:absolute;top:0;left:0;width:0;z-index:101;border:0;margin:0;padding:0}.MathJax_Error{color:#C00;font-style:italic}footer{position:fixed;font-size:.8em;text-align:right;bottom:0;margin-left:-25px;height:20px;width:100%}</style>
-</head>
-<body class="markdown haroopad">
-<h1 id="resource-budget-analyses"><a name="resource-budget-analyses" href="#resource-budget-analyses"></a>Resource Budget Analyses</h1><p>The intent of the resource budget analysis is to provide resource budgeting support early in the development life cycle. Users may have defined a system model that essentially is a high level parts list, i.e., defines the execution platform in terms of a collection of processors, memory, buses. </p><p>The application system in terms of major subsystems that may or may not be executed as separate partitions. The components may not yet have features, nor do their implementations have connections.  The application components may not have been elaborated beyond the first level of application subsystems, which may be represented as AADL <strong>system</strong>, <strong>abstract</strong>, or <strong>process</strong> component.</p><p>The SEI has provided a plug-in that supports resource budgeting and resource allocation analysis for computing resources, i.e., processors, memory, and buses (networks).</p><ul>
-<li><p>Processor: a processor has a capacity in terms of MIPS. This is specified with the predeclared standard property <strong>Processor_Capacity</strong> (or the property <strong>SEI::MIPSCapacity</strong>). It takes real values with units of <em>KIPS, MIPS, GIPS</em>.  Application components specify their processor resource demand through the property <strong>SEI::MIPSBudget</strong>.  Systems, processes, thread groups, threads, and abstract components can have a MIPS budget.</p>
+<h1 id="toc_0">Resource Budget Analyses</h1>
+
+<p>The intent of the resource budget analysis is to provide resource budgeting support early in the development life cycle. Users may have defined a system model that essentially is a high level parts list, i.e., defines the execution platform in terms of a collection of processors, memory, buses. </p>
+
+<p>The application system in terms of major subsystems that may or may not be executed as separate partitions. The components may not yet have features, nor do their implementations have connections.  The application components may not have been elaborated beyond the first level of application subsystems, which may be represented as AADL <strong>system</strong>, <strong>abstract</strong>, or <strong>process</strong> component.</p>
+
+<p>The SEI has provided a plug-in that supports resource budgeting and resource allocation analysis for computing resources, i.e., processors, memory, and buses (networks).
+* Processor: a processor has a capacity in terms of MIPS. This is specified with the predeclared standard property <strong>Processor_Capacity</strong> (or the property <strong>SEI::MIPSCapacity</strong>). It takes real values with units of <em>KIPS, MIPS, GIPS</em>.  Application components specify their processor resource demand through the property <strong>SEI::MIPSBudget</strong>.  Systems, processes, thread groups, threads, and abstract components can have a MIPS budget.</p>
+
 <blockquote>
 <p>Note: A virtual processor is both a MIPS provider and a MIPS consumer. We use the <strong>SEI::MIPSBudget</strong> property to indicate the MIPS demand it has on the processor it is allocated to and the MIPS capacity it makes available to application components bound to it.</p>
 </blockquote>
-</li><li><p>Memory: we recognize both RAM and ROM as memory.  We have introduced the properties <strong>SEI::RAMCapacity</strong>, <strong>SEI::ROMCapacity</strong>, <strong>SEI::RAMBudget</strong>, and <strong>SEI::ROMBudget</strong> for that purpose.  These properties take real values using <em>Size_Units</em> as unit (<em>B, KB, MB, GB</em>). The capacity is associated with memory components.  Typically, a memory component will have either RAM capacity or ROM capacity.  RAM and ROM budgets can be associated with application components such as system, process, thread group, thread. We also look for <strong>Memory_Size</strong> as available capacity of a memory and <strong>Data_Size</strong>, <strong>Code_Size</strong>, <strong>Heap_Size</strong>, <strong>Stack_Size</strong> as actual demand for memory.</p>
-</li><li><p>Bus: we recognize bandWidth as a resource. Buses have <strong>SEI::BandwidthCapacity</strong> and connections have <strong>SEI::BandwidthBudget</strong>.</p>
-</li></ul><h2 id="analyze-mips-and-memory-budgets-against-capacities"><a name="analyze-mips-and-memory-budgets-against-capacities" href="#analyze-mips-and-memory-budgets-against-capacities"></a>Analyze MIPS and Memory Budgets Against Capacities</h2><p>The first resource budget analysis does not assume allocation of resources. It simply adds up the MIPS, RAM, and ROM capacities and budgets throughout a system instance and compares the totals.</p><p>The <strong>Resource Budget Analysis</strong> is invoked on an instance model through a toolbar command, or through the <em>Analysis</em> menu and the <em>Architecture</em> submenu, or through the green spreadsheet icon in the toolbar.</p><p>The analysis adds up the memory capacity expressed in terms of <strong>Memory_Size</strong>, <strong>SEI::RAMCapacity</strong>, <strong>SEI::ROMCapacity</strong>. A memory component may have only the <strong>Memory_Size</strong>, only <strong>SEI::RAMCapacity</strong> and/or <strong>SEI::ROMCapacity</strong>, or all three.<br>The analysis also adds up the memory budgets expressed as <strong>SEI::RAMBudget</strong>, <strong>SEI::ROMBudget</strong>, and actual memory demand expressed by <strong>Data_Size</strong>, <strong>Code_Size</strong>, <strong>Heap_Size</strong>, and <strong>Stack_Size</strong>.</p><p>The results are reported in the <em>reports/ResourceBudgets</em> folder. </p><p>The analysis keeps track of how many components that are expected to have capacity or budget property values and how many actually have the appropriate property value assigned.</p><p>As the application architecture of a system is refined we may have components with resource budgets that contain subcomponents with resource budgets. In this case the resource budget analysis tool will add up the budgets of the subcomponents and compare them to the budget of the enclosing component. It will use this number as the resource demand of the enclosing component to total up the demand. It will also compare this number against the specified budget of the enclosing component and report any difference (under- and over-allocation of the budget to subcomponents).</p><h2 id="analyze-allocated-resources-budgets"><a name="analyze-allocated-resources-budgets" href="#analyze-allocated-resources-budgets"></a>Analyze Allocated Resources Budgets</h2><p>This analysis interprets allocation of software components to processors and to memory to compare the budgets of allocated components to the capacity of the resource they are allocated to. The allocations are specified through the <strong>Actual_Processor_Binding</strong> and <strong>Actual_Memory_Binding</strong> properties. In addition, this analysis takes into account any specification of actual resource usage such as execution time of threads, or actual memory requirements of application source code into account if they have been specified via properties.</p><p>Both the processor allocation and memory allocation analysis are invoked through the <strong>Analyze Resource Allocation</strong> command, available through the toolbar or through the <em>Analysis</em> menu and the <em>Architecture</em> submenu. The results are reported in the <em>reports/BoundResourceBudgets</em> folder and as Eclipse Problem Markers that can be examined through the <em>Problems</em> view.</p><blockquote>
+
+<ul>
+<li>Memory: we recognize both RAM and ROM as memory.  We have introduced the properties <strong>SEI::RAMCapacity</strong>, <strong>SEI::ROMCapacity</strong>, <strong>SEI::RAMBudget</strong>, and <strong>SEI::ROMBudget</strong> for that purpose.  These properties take real values using <em>Size_Units</em> as unit (<em>B, KB, MB, GB</em>). The capacity is associated with memory components.  Typically, a memory component will have either RAM capacity or ROM capacity.  RAM and ROM budgets can be associated with application components such as system, process, thread group, thread. We also look for <strong>Memory_Size</strong> as available capacity of a memory and <strong>Data_Size</strong>, <strong>Code_Size</strong>, <strong>Heap_Size</strong>, <strong>Stack_Size</strong> as actual demand for memory.</li>
+</ul>
+
+<h2 id="toc_1">Analyze MIPS and Memory Budgets Against Capacities</h2>
+
+<p>The first resource budget analysis does not assume allocation of resources. It simply adds up the MIPS, RAM, and ROM capacities and budgets throughout a system instance and compares the totals.</p>
+
+<p>The <strong>Resource Budget Analysis</strong> is invoked on an instance model through a toolbar command, or through the <em>Analysis</em> menu and the <em>Architecture</em> submenu, or through the green spreadsheet icon in the toolbar.</p>
+
+<p>The analysis adds up the memory capacity expressed in terms of <strong>Memory_Size</strong>, <strong>SEI::RAMCapacity</strong>, <strong>SEI::ROMCapacity</strong>. A memory component may have only the <strong>Memory_Size</strong>, only <strong>SEI::RAMCapacity</strong> and/or <strong>SEI::ROMCapacity</strong>, or all three. 
+The analysis also adds up the memory budgets expressed as <strong>SEI::RAMBudget</strong>, <strong>SEI::ROMBudget</strong>, and actual memory demand expressed by <strong>Data_Size</strong>, <strong>Code_Size</strong>, <strong>Heap_Size</strong>, and <strong>Stack_Size</strong>.</p>
+
+<p>The results are reported in the <em>reports/ResourceBudgets</em> folder. </p>
+
+<p>The analysis keeps track of how many components that are expected to have capacity or budget property values and how many actually have the appropriate property value assigned.</p>
+
+<p>As the application architecture of a system is refined we may have components with resource budgets that contain subcomponents with resource budgets. In this case the resource budget analysis tool will add up the budgets of the subcomponents and compare them to the budget of the enclosing component. It will use this number as the resource demand of the enclosing component to total up the demand. It will also compare this number against the specified budget of the enclosing component and report any difference (under- and over-allocation of the budget to subcomponents).</p>
+
+<h2 id="toc_2">Analyze Allocated Resources Budgets</h2>
+
+<p>This analysis interprets allocation of software components to processors and to memory to compare the budgets of allocated components to the capacity of the resource they are allocated to. The allocations are specified through the <strong>Actual<em>Processor</em>Binding</strong> and <strong>Actual<em>Memory</em>Binding</strong> properties. In addition, this analysis takes into account any specification of actual resource usage such as execution time of threads, or actual memory requirements of application source code into account if they have been specified via properties.</p>
+
+<p>Both the processor allocation and memory allocation analysis are invoked through the <strong>Analyze Resource Allocation</strong> command, available through the toolbar or through the <em>Analysis</em> menu and the <em>Architecture</em> submenu. The results are reported in the <em>reports/BoundResourceBudgets</em> folder and as Eclipse Problem Markers that can be examined through the <em>Problems</em> view.</p>
+
+<blockquote>
 <p>Note: If the system has operational modes, then the analysis is executed for each operational mode.</p>
-</blockquote><h3 id="processor-allocation-analysis"><a name="processor-allocation-analysis" href="#processor-allocation-analysis"></a>Processor Allocation Analysis</h3><p>For each <em>processor</em> and <em>virtual processor</em> instance the analysis identifies the components that are bound to it.<br>For each of these bound components the analysis examines the budget specification (<strong>SEI::MIPSBudget</strong>). In addition, if specified as properties of threads, the period (<strong>Period</strong>) and execution time (<strong>Compute_Execution_Time</strong>) are converted into MIPS and compared to the budget.  </p><blockquote>
-<p>Note: For conversion to MIPS execution time is multiplied by the number of times a thread can execute per second (1 sec / period in sec). This time is then converted into MIPS by multiplying it with the <em>Processor_Capacity</em> or <em>SEI::MIPSCapacity</em> of the processor the thread is bound to. If more than one processor type with different MIPS capacity exists, then the thread may have a <strong>Reference_Proessor</strong> property to indicate the processor used to specify the execution time. In this case the time is adjusted to the allocated processor according to the MIPS ratio between the reference and the allocated processor.</p>
-</blockquote><p>The actual values, or the budget if the actual does not exist, are totaled up and compared against the capacity of the processor to which the components are bound.</p><p>This allows the user to make allocation decisions by reflecting them in the actual processor binding property. Early in the development those decisions are validated in terms of MIPS budget specifications. Later in the development, when timing information about components is available it can be added into the model. This may be done for the whole model or for some of the application components. The actuals are compared against the budgets and are used in the totaling of the resource demand on a processor.</p><blockquote>
-<p>Note: The application system may have been defined as a nested set of components, each with a budget. As mentioned above the processor binding is inherited, i.e., both the parent and its children may have a processor binding value. In that case only the actual or budget MIPS of the children are totaled in order to avoid double counting of bound application component budgets.</p>
-</blockquote><h3 id="memory-allocation-analysis"><a name="memory-allocation-analysis" href="#memory-allocation-analysis"></a>Memory Allocation Analysis</h3><p>For each of the memory components with a RAM or ROM capacity or <strong>Memory_Size</strong>, we sum up actual memory demand expressed by <strong>Data_Size</strong>, <strong>Code_Size</strong>, <strong>Heap_Size</strong>, and <strong>Stack_Size</strong>, or the RAM and ROM budgets for all component bound to the memory and compare the result with the memory size, and RAM/ROM capacity. For comparison against RAM or ROM capacity we assume code resides in ROM and the others in RAM. </p><blockquote>
-<p>In addition the <strong>SEI::RAMActual</strong> and SEI::<strong>ROMActual</strong> properties are added up and compared to the budgets. These two properties have been provided such that users can reflect actual memory usage of individual components, e.g., as reported by a compiler for threads, data components, and ports within threads.<br>In case of nested application components with RAMActual or ROMActual property values, the actual value accounts for memory demands of that component only. In other words, contrary to the memory budget figures, the actual value does not represent a cumulative memory demand.</p>
-</blockquote><h2 id="analyze-bound-bus-load"><a name="analyze-bound-bus-load" href="#analyze-bound-bus-load"></a>Analyze Bound Bus Load</h2><p>This analysis takes each bus instance and compares its bandwidth capacity against the demands placed on the bus by connections that are bound directly to the bus, or indirectly via virtual bus bindings. The binding is expressed by the <strong>Actual_Connection_Binding</strong> property.</p><p>Both the processor allocation and memory allocation analysis are invoked through the <strong>Analyze Bus Load</strong> command, available through the toolbar or through the <em>Analysis</em> menu and the <em>Architecture</em> submenu. The results are reported in the <em>reports/Bandwidth</em> folder and as Eclipse Problem Markers that can be examined through the <em>Problems</em> view.</p><blockquote>
-<p>Note: If the system has operational modes, then the analysis is executed for each operational mode.</p>
-</blockquote><p>The bandwidth demand is determined as follows:</p><ul>
-<li>By computing the budget value of the connection using the <strong>Data_Size</strong> property of the data type of the source port and the  the <strong>Period</strong> property of the source thread or device. If not present</li><li>By retrieving the budget value associated to this connection         specified with the <strong>SEI::BandWidthBudget</strong> property on the connection.</li></ul><blockquote>
-<p>Note: If the bus has a <strong>Broadcast_Protocol</strong> property value of <strong>true</strong>, then the transfer of data from the same source port to multiple destination ports is counted only once.</p>
-<p>Note: If a connection does not have an Actual_Connection_Binding property, the tool tries to infer a connection binding from the processor bindings of the connection source and destination by looking for a bus that connects the hardware components of the source and destination, i.e., the hardware component the software component is bound to, or the device that is connected.</p>
-<h2 id="examples"><a name="examples" href="#examples"></a>Examples</h2>
-<p>One example is available on <a href="https://github.com/osate/examples">Github/Osate</a> and is called <em>ResourceBudgets</em>. You instantiate the top level system called <em>MySystem</em> as a tier0 model or as a tier2 model. It has a single transmission system.</p>
-</blockquote><p>A second example is available on <a href="https://github.com/osate/alisa-examples">Github/Osate</a> and is called <em>MutliTierAircraftExample</em>. You will find a set of project under <em>MultiTierAircraft</em> with the AADL model. The example is from the System Architecture Virtual Integration (SAVI) initiative. It has a backbone transmission system as well as a subsystem within the IMA of the ar&gt; ##Examples##<br>One example is available on <a href="https://github.com/osate/examples">Github/Osate</a> and is called <em>ResourceBudgets</em>. You instantiate the top level system called <em>MySystem</em> as a tier0 model or as a tier2 model. It has a single transmission system.</p><p>A second example is available on <a href="https://github.com/osate/alisa-examples">Github/Osate</a> and is called <em>MutliTierAircraftExample</em>. You will find a set of project under <em>MultiTierAircraft</em> with the AADL model. The example is from the System Architecture Virtual Integration (SAVI) initiative. It has a backbone transmission system as well as a subsystem within the IMA of the aircraft.<br>The project AircraftSpecified represents <em>Tier1</em>, i.e., a single layer. AircraftIntegrated represents variants of <em>Tier2</em>, which includes the Integrated Modular Avionics (IMA) at one level of detail. For resource budget analysis we can instantiate the IMA, i.e., the <strong>FlightGuidanceImplementation</strong>. </p><blockquote>
-<p>Note: The example also includes a requirement and verification plan specification for automated incremental life cycle assurance under the ALISA plug-ins (see ALISA help for details).</p>
 </blockquote>
 
-<footer style="position:fixed; font-size:.8em; text-align:right; bottom:0px; margin-left:-25px; height:20px; width:100%;">generated by <a href="http://pad.haroopress.com" target="_blank">haroopad</a></footer>
+<h3 id="toc_3">Processor Allocation Analysis</h3>
+
+<p>For each <em>processor</em> and <em>virtual processor</em> instance the analysis identifies the components that are bound to it. 
+For each of these bound components the analysis examines the budget specification (<strong>SEI::MIPSBudget</strong>). In addition, if specified as properties of threads, the period (<strong>Period</strong>) and execution time (<strong>Compute<em>Execution</em>Time</strong>) are converted into MIPS and compared to the budget.  </p>
+
+<blockquote>
+<p>Note: For conversion to MIPS execution time is multiplied by the number of times a thread can execute per second (1 sec / period in sec). This time is then converted into MIPS by multiplying it with the <em>Processor_Capacity</em> or <em>SEI::MIPSCapacity</em> of the processor the thread is bound to. If more than one processor type with different MIPS capacity exists, then the thread may have a <strong>Reference_Proessor</strong> property to indicate the processor used to specify the execution time. In this case the time is adjusted to the allocated processor according to the MIPS ratio between the reference and the allocated processor.</p>
+</blockquote>
+
+<p>The actual values, or the budget if the actual does not exist, are totaled up and compared against the capacity of the processor to which the components are bound.</p>
+
+<p>This allows the user to make allocation decisions by reflecting them in the actual processor binding property. Early in the development those decisions are validated in terms of MIPS budget specifications. Later in the development, when timing information about components is available it can be added into the model. This may be done for the whole model or for some of the application components. The actuals are compared against the budgets and are used in the totaling of the resource demand on a processor.</p>
+
+<blockquote>
+<p>Note: The application system may have been defined as a nested set of components, each with a budget. As mentioned above the processor binding is inherited, i.e., both the parent and its children may have a processor binding value. In that case only the actual or budget MIPS of the children are totaled in order to avoid double counting of bound application component budgets.</p>
+</blockquote>
+
+<h3 id="toc_4">Memory Allocation Analysis</h3>
+
+<p>For each of the memory components with a RAM or ROM capacity or <strong>Memory_Size</strong>, we sum up actual memory demand expressed by <strong>Data_Size</strong>, <strong>Code_Size</strong>, <strong>Heap_Size</strong>, and <strong>Stack_Size</strong>, or the RAM and ROM budgets for all component bound to the memory and compare the result with the memory size, and RAM/ROM capacity. For comparison against RAM or ROM capacity we assume code resides in ROM and the others in RAM. </p>
+
+<blockquote>
+<p>In addition the <strong>SEI::RAMActual</strong> and SEI::<strong>ROMActual</strong> properties are added up and compared to the budgets. These two properties have been provided such that users can reflect actual memory usage of individual components, e.g., as reported by a compiler for threads, data components, and ports within threads.
+In case of nested application components with RAMActual or ROMActual property values, the actual value accounts for memory demands of that component only. In other words, contrary to the memory budget figures, the actual value does not represent a cumulative memory demand.</p>
+</blockquote>
+
+
+
+
 </body>
+
 </html>

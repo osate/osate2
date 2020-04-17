@@ -24,6 +24,7 @@
 package org.osate.analysis.resource.budgets.logic;
 
 import java.util.Iterator;
+import java.util.function.Function;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.BasicEList;
@@ -41,14 +42,18 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.analysis.resource.budgets.busload.NewBusLoadAnalysis;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.handlers.AbstractAaxlHandler;
+import org.osate.xtext.aadl2.properties.util.AadlProject;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 /**
  * @since 2.0
+ * @deprecated Use {@link NewBusLoadAnalysis} instead. Will be removed in 2.8.
  */
+@Deprecated
 public class BusLoadAnalysis extends AbstractLoggingAnalysis {
 	private final String actionName;
 
@@ -76,11 +81,26 @@ public class BusLoadAnalysis extends AbstractLoggingAnalysis {
 		errManager.infoSummaryReportOnly(si, null, "\nBus Summary Report: " + Aadl2Util.getPrintableSOMName(som));
 		ForAllElement mal = new ForAllElement() {
 			@Override
-			protected void process(Element obj) {
-				checkBandWidthLoad((ComponentInstance) obj, som);
+			protected void process(final Element obj) {
+				final ComponentInstance ci = (ComponentInstance) obj;
+				final ComponentCategory cat = ci.getCategory();
+				if (cat == ComponentCategory.BUS) {
+					checkBusBandWidthLoad(ci, som);
+				} else if (cat == ComponentCategory.VIRTUAL_BUS) {
+					checkVirtualBusBandWidthLoad(ci, som);
+				}
 			}
 		};
-		mal.processPreOrderComponentInstance(si, ComponentCategory.BUS);
+		mal.processPreOrderComponentInstance(si);
+	}
+
+	private void checkBusBandWidthLoad(final ComponentInstance curBus, SystemOperationMode som) {
+		checkBandWidthLoad(curBus, som, b -> GetProperties.getBandWidthCapacityInKBytesps(b, 0.0), "bus", "capacity");
+	}
+
+	private void checkVirtualBusBandWidthLoad(final ComponentInstance curBus, SystemOperationMode som) {
+		checkBandWidthLoad(curBus, som, b -> GetProperties.getBandWidthBudgetInKBytesps(b, 0.0), "virtual bus",
+				"budget");
 	}
 
 	/**
@@ -91,99 +111,125 @@ public class BusLoadAnalysis extends AbstractLoggingAnalysis {
 	 *            for EtherSwitch
 	 * @param somName String somName to be used in messages
 	 */
-	private void checkBandWidthLoad(final ComponentInstance curBus, SystemOperationMode som) {
+	private void checkBandWidthLoad(final ComponentInstance curBus, SystemOperationMode som,
+			Function<ComponentInstance, Double> getCapacityOrBudget, String busLabel, String capacityOrBudgetLabel) {
 		UnitLiteral kbspsliteral = GetProperties.getKBytespsUnitLiteral(curBus);
-		double Buscapacity = GetProperties.getBandWidthCapacityInKBytesps(curBus, 0.0);
+		double busCapacityOrBudget = getCapacityOrBudget.apply(curBus);
 		boolean doBroadcast = GetProperties.isBroadcastProtocol(curBus);
 		double totalBandWidth = 0.0;
 		EList<ConnectionInstance> budgetedConnections = InstanceModelUtil.getBoundConnections(curBus);
+		EList<ComponentInstance> budgetedVBs = InstanceModelUtil.getBoundVirtualBuses(curBus);
 
 		// filters out to use only Port connections or feature group connections
 		// it also tries to be smart about not double accounting for budgets on FG that now show for every port instance inside.
-
-		budgetedConnections = filterInModeConnections(budgetedConnections, som);
+		budgetedConnections = filterInMode(budgetedConnections, som);
 		if (doBroadcast) {
 			budgetedConnections = filterSameSourceConnections(budgetedConnections);
 		}
-		if (Buscapacity == 0) {
-			if (!budgetedConnections.isEmpty()) {
+		budgetedVBs = filterInMode(budgetedVBs, som);
+
+		if (busCapacityOrBudget == 0) {
+			if (!budgetedConnections.isEmpty() || !budgetedVBs.isEmpty()) {
 				errManager.errorSummary(curBus, null,
-						"  " + curBus.getComponentInstancePath() + " has no capacity but bound connections");
+						"  " + curBus.getComponentInstancePath() + " has no " + capacityOrBudgetLabel
+								+ " but has bound connections or virtual buses");
 			} else {
 				errManager.warningSummary(curBus, null,
-						"  " + curBus.getComponentInstancePath() + " has no capacity and no demand");
+						"  " + curBus.getComponentInstancePath() + " has no " + capacityOrBudgetLabel
+								+ " and no demand");
 			}
 			return;
 		}
-		if (budgetedConnections.isEmpty()) {
-			errManager.infoSummary(curBus, null, "  " + curBus.getComponentInstancePath() + " with bandwidth capacity "
-					+ Buscapacity + " " + kbspsliteral.getName() + " has no bound connections");
+		if (budgetedConnections.isEmpty() && budgetedVBs.isEmpty()) {
+			errManager.infoSummary(curBus, null,
+					"  " + curBus.getComponentInstancePath() + " with bandwidth " + capacityOrBudgetLabel + " "
+					+ busCapacityOrBudget + " " + kbspsliteral.getName() + " has no bound connections");
 			return;
 		}
 		if (Aadl2Util.isNoModes(som)) {
-			errManager.logInfo("\n\nConnection Budget Details for bus " + curBus.getFullName() + " with capacity "
-					+ Buscapacity + " " + kbspsliteral.getName() + "\n");
+			errManager.logInfo("\n\nBudget Details for " + busLabel + " " + curBus.getFullName() + " with "
+					+ capacityOrBudgetLabel + " "
+					+ busCapacityOrBudget + " " + kbspsliteral.getName());
 		} else {
 			errManager.logInfo(
-					"\n\nConnection Budget Details for bus " + curBus.getFullName() + Aadl2Util.getPrintableSOMName(som)
-							+ " with capacity " + Buscapacity + " " + kbspsliteral.getName() + "\n");
+					"\n\nBudget Details for " + busLabel + " " + curBus.getFullName()
+							+ Aadl2Util.getPrintableSOMName(som)
+							+ " with " + capacityOrBudgetLabel + " " + busCapacityOrBudget + " "
+							+ kbspsliteral.getName());
 		}
 
-		errManager.logInfo("Connection,Budget,Actual (Data Size * Sender Rate),Note");
-		for (ConnectionInstance connectionInstance : budgetedConnections) {
-			double budget = 0.0;
-			double actual = 0.0;
+		if (budgetedConnections.size() > 0) {
+			errManager.logInfo("\nConnection,Budget,Actual (Data Size * Sender Rate),Note");
+			for (ConnectionInstance connectionInstance : budgetedConnections) {
+				double budget = 0.0;
+				double actual = 0.0;
 
-			if ((!connectionInstance.getSource().isActive(som))
-					|| (!connectionInstance.getDestination().isActive(som))) {
-				continue;
-			}
+				if ((!connectionInstance.getSource().isActive(som))
+						|| (!connectionInstance.getDestination().isActive(som))) {
+					continue;
+				}
 
-			// we have a binding, is it to the current bus
-			budget = GetProperties.getBandWidthBudgetInKBytesps(connectionInstance, 0.0);
-			actual = calcBandwidthKBytesps(connectionInstance.getSource());
-			String note = "";
-			if (budget > 0) {
-				if ((actual > 0) && (actual > budget)) {
-					totalBandWidth += actual;
-					note = "Actual bandwidth exceeds bandwidth budget. Using actual";
+				// we have a binding, is it to the current bus
+				budget = GetProperties.getBandWidthBudgetInKBytesps(connectionInstance, 0.0);
+				actual = calcBandwidthKBytesps(connectionInstance.getSource());
+				String note = "";
+				if (budget > 0) {
+					if ((actual > 0) && (actual > budget)) {
+						totalBandWidth += actual;
+						note = "Actual bandwidth exceeds bandwidth budget. Using actual";
+					} else {
+						totalBandWidth += budget;
+						note = "Using budget bandwidth";
+					}
 				} else {
+					if (actual > 0) {
+						totalBandWidth += actual;
+						note = "No bandwidth budget. Using actual";
+					} else {
+						note = "No bandwidth budget or actual bandwidth from port data size&rate";
+					}
+				}
+				detailedLog(connectionInstance, budget, actual, note);
+			}
+		}
+
+		if (budgetedVBs.size() > 0) {
+			errManager.logInfo("\nVirtual Bus,Budget,Note");
+			for (ComponentInstance componentInstance : budgetedVBs) {
+				double budget = 0.0;
+
+				// we have a binding, is it to the current bus
+				budget = GetProperties.getBandWidthBudgetInKBytesps(componentInstance, 0.0);
+				if (budget > 0) {
 					totalBandWidth += budget;
-					note = "Using budget bandwidth";
 				}
-			} else {
-				if (actual > 0) {
-					totalBandWidth += actual;
-					note = "No bandwidth budget. Using actual";
-				} else {
-					note = "No bandwidth budget or actual bandwidth from port data size&rate";
-				}
+				detailedLog(componentInstance, budget, "See separate virtual bus entry");
 			}
-			detailedLog(connectionInstance, budget, actual, note);
 		}
+
 		detailedLogTotal2(null, totalBandWidth, kbspsliteral);
-		if (totalBandWidth > Buscapacity) {
+		if (totalBandWidth > busCapacityOrBudget) {
 			errManager.errorSummary(curBus, null,
-					curBus.getComponentInstancePath() + " bandwidth capacity " + Buscapacity + " "
+					curBus.getComponentInstancePath() + " bandwidth capacity " + busCapacityOrBudget + " "
 							+ kbspsliteral.getName() + " exceeded by connection bandwidth budget totals "
 							+ totalBandWidth + " " + kbspsliteral.getName());
 		} else if (totalBandWidth > 0.0) {
 			errManager.infoSummary(curBus, null,
-					curBus.getComponentInstancePath() + " bandwidth capacity " + Buscapacity + " "
-							+ kbspsliteral.getName() + " sufficient for connection bandwidth  budget totals "
+					curBus.getComponentInstancePath() + " bandwidth capacity " + busCapacityOrBudget + " "
+							+ kbspsliteral.getName() + " sufficient for connection bandwidth budget totals "
 							+ totalBandWidth + " " + kbspsliteral.getName());
 		} else {
 			errManager.warningSummary(curBus, null, curBus.getComponentInstancePath() + " bandwidth capacity "
-					+ Buscapacity + " " + kbspsliteral.getName() + " and bound connections without bandwidth budget");
+					+ busCapacityOrBudget + " " + kbspsliteral.getName() + " and bound connections without bandwidth budget");
 		}
 	}
 
-	private EList<ConnectionInstance> filterInModeConnections(EList<ConnectionInstance> connections,
+	private <E extends InstanceObject> EList<E> filterInMode(EList<E> instanceObjects,
 			SystemOperationMode som) {
-		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
-		for (ConnectionInstance conni : connections) {
-			if (conni.isActive(som)) {
-				result.add(conni);
+		EList<E> result = new BasicEList<E>();
+		for (E io : instanceObjects) {
+			if (io.isActive(som)) {
+				result.add(io);
 			}
 		}
 		return result;
@@ -242,5 +288,15 @@ public class BusLoadAnalysis extends AbstractLoggingAnalysis {
 		}
 		return false;
 
+	}
+
+	/**
+	 * @since 3.0
+	 */
+	protected void detailedLog(InstanceObject obj, double budget, String msg) {
+		String budgetmsg = budget + " " + AadlProject.KBYTESPS_LITERAL + ",";
+		String objname = (obj instanceof ConnectionInstance) ? obj.getFullName()
+				: ((ComponentInstance) obj).getComponentInstancePath();
+		errManager.logInfo(objname + ", " + budgetmsg + msg);
 	}
 }
