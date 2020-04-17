@@ -21,25 +21,25 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.swt.prototypeBindings;
+package org.osate.ge.swt.classifiers;
 
 import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.EventSource;
+import org.osate.ge.swt.internal.InternalUtil;
 import org.osate.ge.swt.selectors.ComboSelector;
-import org.osate.ge.swt.selectors.FilteringListSelectorField;
-import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
 import org.osate.ge.swt.selectors.SelectorModel;
-import org.osate.ge.swt.util.SwtTestUtil;
 
-// TODO: Rename. Intended for displaying/allowing selection of subcomponent type as well
 /**
- * View for editing prototype bindings
+ * View for editing prototype bindings. Also intended to be used for selecting the type for subcomponent types. Fields for which options are not available are hidden.
  *
  * @param <N> is the type of the node being edited.
  * @param <D> is the type of the direction options.
@@ -47,21 +47,22 @@ import org.osate.ge.swt.util.SwtTestUtil;
  * @param <C> is the type of the classifiers.
  */
 public class PrototypeBindingActualEditor<N, D, T, C> extends Composite {
+	private final PrototypeBindingsModel<N, D, T, C> model;
 	private N node;
+	private final ComboSelector<D> directionSelector;
+	private final ComboSelector<T> typeSelector;
+	private final ClassifierWithBindingsField<N, D, T, C> classifierAndBindingSelector;
+	private final Consumer<ChangeEvent> changeListener = e -> refresh();
 
 	public PrototypeBindingActualEditor(final Composite parent, final PrototypeBindingsModel<N, D, T, C> model,
 			N node) {
 		super(parent, SWT.NONE);
-		Objects.requireNonNull(model, "model must not be null");
+		this.model = Objects.requireNonNull(model, "model must not be null");
 		this.node = node;
 		this.setBackground(parent.getBackground());
-		this.setLayout(GridLayoutFactory.swtDefaults().numColumns(3).create()); // TODO. Adjust layout. Some widgets won't be visible. No need for grid
-
-		// TODO: Hide widgets when no selections are available
-		// TODO: Widget layout
 
 		// Direction
-		final ComboSelector<D> directionSelector = new ComboSelector<D>(this, new SelectorModel<D>() {
+		directionSelector = new ComboSelector<D>(this, new SelectorModel<D>() {
 			@Override
 			public EventSource<ChangeEvent> changed() {
 				return model.changed();
@@ -85,11 +86,14 @@ public class PrototypeBindingActualEditor<N, D, T, C> extends Composite {
 			@Override
 			public void setSelectedElement(D value) {
 				model.setDirection(node, value);
+				model.flush();
 			}
 		});
+		directionSelector
+				.setLayoutData(GridDataFactory.swtDefaults().grab(false, false).align(SWT.FILL, SWT.CENTER).create());
 
 		// Type
-		final ComboSelector<T> typeSelector = new ComboSelector<T>(this, new SelectorModel<T>() {
+		typeSelector = new ComboSelector<T>(this, new SelectorModel<T>() {
 			@Override
 			public EventSource<ChangeEvent> changed() {
 				return model.changed();
@@ -113,43 +117,50 @@ public class PrototypeBindingActualEditor<N, D, T, C> extends Composite {
 			@Override
 			public void setSelectedElement(T value) {
 				model.setType(node, value);
+				model.flush();
 			}
 		});
+		typeSelector
+				.setLayoutData(GridDataFactory.swtDefaults().grab(false, false).align(SWT.FILL, SWT.CENTER).create());
 
 		// Classifier and bindings
-		final FilteringListSelectorField classifierAndBindingSelector = new FilteringListSelectorField<>(this,
-				new LabelFilteringListSelectorModel<>(new SelectorModel<C>() {
+		classifierAndBindingSelector = new ClassifierWithBindingsField<>(this, model, node);
+		classifierAndBindingSelector
+				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER).create());
 
-					@Override
-					public EventSource<ChangeEvent> changed() {
-						return model.changed();
-					}
+		model.changed().addListener(changeListener);
+		refresh();
+	}
 
-					@Override
-					public Stream<C> getElements() {
-						return model.getClassifierOptions(node);
-					}
+	private void refresh() {
+		if (!this.isDisposed()) {
+			InternalUtil.setVisibilityAndExclusion(directionSelector,
+					model.getDirectionOptions(node).findAny().isPresent());
+			InternalUtil.setVisibilityAndExclusion(typeSelector, model.getTypeOptions(node).findAny().isPresent());
+			InternalUtil.setVisibilityAndExclusion(classifierAndBindingSelector,
+					model.getClassifierOptions(node).findAny().isPresent());
 
-					@Override
-					public C getSelectedElement() {
-						return model.getClassifier(node);
-					}
+			this.setLayout(GridLayoutFactory.swtDefaults().numColumns(oneIfVisible(directionSelector)
+					+ oneIfVisible(typeSelector) + oneIfVisible(classifierAndBindingSelector)).create());
+		}
+	}
 
-					@Override
-					public String getLabel(final C element) {
-						return model.getClassifierLabel(element);
-					}
+	private int oneIfVisible(final Control control) {
+		return control.getVisible() ? 1 : 0;
+	}
 
-					@Override
-					public void setSelectedElement(final C value) {
-						model.setClassifier(node, value);
-					}
-
-				}));
+	/**
+	 * Sets the node which this control is editing.
+	 * @param node the new node. May be null. Must be valid node as provided by the model.
+	 */
+	public void setNode(final N node) {
+		this.node = node;
+		classifierAndBindingSelector.setNode(node);
+		refresh();
 	}
 
 	public static void main(String[] args) {
-		SwtTestUtil.run(shell -> {
+		InternalUtil.run(shell -> {
 			new PrototypeBindingActualEditor<>(shell, new TestPrototypeBindingsModel(), null);
 		});
 	}

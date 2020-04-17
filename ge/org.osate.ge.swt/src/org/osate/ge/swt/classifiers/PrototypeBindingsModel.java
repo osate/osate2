@@ -21,14 +21,18 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.swt.prototypeBindings;
+package org.osate.ge.swt.classifiers;
 
 import java.util.stream.Stream;
 
 import org.osate.ge.swt.ObservableModel;
 
 /**
- * View model for editing a tree of nodes which each may have a direction, a type, and a classifier. Intended for selecting and editing prototype binding and classifier references.
+ * Model for editing a tree of nodes which each may have a direction, a type, and a classifier. Intended for selecting and editing prototype binding and classifier references.
+ *
+ * It is critical that values set using this model not automatically change or clear other values. Furthermore it is critical that children returned are consistent.
+ * For example if the classifier is changed and then reverted, the values returned by the model should be the same. This functionality is required to allow users of the model
+ * to revert changes by tracking values before setting them.
  *
  * @param <N> is the type of the nodes.
  * @param <D> is the type of the direction options.
@@ -133,4 +137,11 @@ public interface PrototypeBindingsModel<N, D, T, C> extends ObservableModel {
 	 * @param value the new classifier for the node.
 	 */
 	void setClassifier(N node, C value);
+
+	/**
+	 * Requests that changes be flushed to the underlying model.
+	 * The model is not required to wait until this method is called but may wait to allow batching modifications.
+	 * This method must be called to ensure changes are committed to the underlying model.
+	 */
+	void flush();
 }

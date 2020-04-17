@@ -34,7 +34,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.osate.ge.swt.ChangeEvent;
-import org.osate.ge.swt.util.SwtTestUtil;
+import org.osate.ge.swt.internal.InternalUtil;
 
 /**
  * A view that contains a checkbox for editing a boolean value.
@@ -87,7 +87,7 @@ public class CheckboxEditor extends Composite {
 	}
 
 	public static void main(String[] args) {
-		SwtTestUtil.run(shell -> {
+		InternalUtil.run(shell -> {
 			new CheckboxEditor(shell, new TestCheckboxEditorModel());
 		});
 	}

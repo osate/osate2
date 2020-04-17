@@ -33,9 +33,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.EventSource;
+import org.osate.ge.swt.internal.InternalUtil;
 import org.osate.ge.swt.selectors.ListEditor;
 import org.osate.ge.swt.selectors.ListEditorModel;
-import org.osate.ge.swt.util.SwtTestUtil;
 
 /**
  * View for editing a list of prototypes and their details.
@@ -214,7 +214,7 @@ public final class PrototypesEditor<T, C> extends Composite {
 	}
 
 	public static void main(String[] args) {
-		SwtTestUtil.run(shell -> {
+		InternalUtil.run(shell -> {
 			new PrototypesEditor<>(shell, new TestPrototypesEditorModel());
 		});
 	}

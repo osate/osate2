@@ -29,7 +29,7 @@ import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
-import org.osate.ge.swt.util.SwtTestUtil;
+import org.osate.ge.swt.internal.InternalUtil;
 
 /**
  * Simple dialog for renaming something.
@@ -60,7 +60,7 @@ public final class NameEditorDialog {
 	}
 
 	public static void main(String[] args) {
-		SwtTestUtil.runDialog(() -> {
+		InternalUtil.runDialog(() -> {
 			NameEditorDialog.open(null, new NameEditorRenameDialogModel(new TestNameEditorModel()));
 		});
 	}

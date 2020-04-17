@@ -25,10 +25,17 @@ package org.osate.ge.swt.selectors;
 
 import java.util.Objects;
 
-public class FilteringListSelectorModelDecorator<T> extends SelectorModelDecorator<T>
+/**
+ * Abstract decorator for {@link FilteringSelectorModel}
+ */
+public abstract class FilteringListSelectorModelDecorator<T> extends SelectorModelDecorator<T>
 		implements FilteringSelectorModel<T> {
 	private final FilteringSelectorModel<T> inner;
 
+	/**
+	 * Creates a new instance
+	 * @param inner the model to decorate.
+	 */
 	public FilteringListSelectorModelDecorator(FilteringSelectorModel<T> inner) {
 		super(inner);
 		this.inner = Objects.requireNonNull(inner, "inner must not be null");

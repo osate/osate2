@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.swt.prototypeBindings;
+package org.osate.ge.swt.classifiers;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -33,9 +33,8 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.osate.ge.swt.ChangeEvent;
-import org.osate.ge.swt.util.SwtTestUtil;
+import org.osate.ge.swt.internal.InternalUtil;
 
-// TODO: Edits bindings from the specified children.
 /**
  * View for editing prototype bindings
  *
@@ -62,30 +61,40 @@ public class PrototypeBindingsEditor<B, D, T, C> extends Composite {
 
 	private void refresh() {
 		if (!this.isDisposed()) {
-			for (final Control child : getChildren()) {
-				child.dispose();
-			}
-
-			model.getChildren(parentBinding).forEachOrdered(b -> {
+			final Control[] children = this.getChildren();
+			int nextChildIndex = 0;
+			for (B b : (Iterable<B>) model.getChildren(parentBinding)::iterator) {
 				// Label
-				final CLabel label = new CLabel(this, SWT.BORDER);
+				final CLabel label = children.length > nextChildIndex ? (CLabel) children[nextChildIndex]
+						: new CLabel(this, SWT.BORDER);
 				label.setBackground(getBackground());
 				label.setText(model.getLabel(b));
 				label.setLayoutData(
-						GridDataFactory.swtDefaults().grab(false, false).align(SWT.FILL, SWT.CENTER).create()); // TODO
+						GridDataFactory.swtDefaults().grab(false, false).align(SWT.FILL, SWT.CENTER).create());
+				nextChildIndex++;
 
-				// TODO: Other, etc to make things look nice
+				// Component for editing the "value" for the binding.
+				@SuppressWarnings("unchecked")
+				final PrototypeBindingActualEditor<B, D, T, C> bindingActualEditor = children.length > nextChildIndex
+						? (PrototypeBindingActualEditor<B, D, T, C>) children[nextChildIndex]
+						: new PrototypeBindingActualEditor<>(this, model, b);
+				bindingActualEditor.setNode(b);
+				bindingActualEditor.setLayoutData(
+						GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER).create());
+				nextChildIndex++;
+			}
 
-				// TODO: Create component for editing the binding... Separate component
-				new PrototypeBindingActualEditor<>(this, model, b);
-			});
+			// Remove other children
+			for (int i = nextChildIndex; i < children.length; i++) {
+				children[i].dispose();
+			}
 
 			requestLayout();
 		}
 	}
 
 	public static void main(String[] args) {
-		SwtTestUtil.run(shell -> {
+		InternalUtil.run(shell -> {
 			new PrototypeBindingsEditor<>(shell, new TestPrototypeBindingsModel(), null);
 		});
 	}

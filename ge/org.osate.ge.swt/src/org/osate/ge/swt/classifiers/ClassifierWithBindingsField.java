@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.swt.prototypeBindings;
+package org.osate.ge.swt.classifiers;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -36,14 +36,11 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.osate.ge.swt.ChangeEvent;
-import org.osate.ge.swt.selectors.FilteringSelectorDialog;
+import org.osate.ge.swt.internal.InternalUtil;
 import org.osate.ge.swt.util.SwtTestUtil;
 
-// TODO: Update documentation...
-// TODO: Move to other package
-
 /**
- * A selector which combines a text field for displaying the label of the current selection and {@link FilteringSelectorDialog}.
+ * A component which allows selecting a classifier and bindings for a node provided by a {@link PrototypeBindingsModel}.
  *
  * @param <N> is the type of the node being edited.
  * @param <D> is the type of the direction options.
@@ -52,17 +49,24 @@ import org.osate.ge.swt.util.SwtTestUtil;
  */
 public final class ClassifierWithBindingsField<N, D, T, C> extends Composite {
 	private final PrototypeBindingsModel<N, D, T, C> model;
-	private final N node;
+	private N node;
 	private final CLabel selectedLbl;
 	private final Button chooseBtn;
 	private final Consumer<ChangeEvent> changeListener = e -> refresh();
 
+	/**
+	 * Create a new instance.
+	 * @param parent is the container for the new component.
+	 * @param model provides the information for the component.
+	 * @param initNode is the node from the model for which the component displays and sets values.
+	 */
 	public ClassifierWithBindingsField(final Composite parent, final PrototypeBindingsModel<N, D, T, C> model,
-			final N node) {
+			final N initNode) {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
-		this.node = node;
+		this.node = initNode;
 		this.setBackground(parent.getBackground());
+
 		this.setLayout(GridLayoutFactory.fillDefaults().numColumns(2).create());
 
 		this.selectedLbl = new CLabel(this, SWT.BORDER);
@@ -77,14 +81,21 @@ public final class ClassifierWithBindingsField<N, D, T, C> extends Composite {
 		this.chooseBtn.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				// TODO: Open dialog. Dialog is responsible for having a model that doesn't save until. OK
-				// FilteringSelectorDialog.open(getShell(), "Select", model);
+				ClassifierWithBindingsDialog.open(getShell(), "Select Classifier and Prototype Bindings", model, node);
 			}
 		});
 
 		model.changed().addListener(changeListener);
 
 		refresh();
+	}
+
+	/**
+	 * Sets the node which this control is editing.
+	 * @param node the new node. May be null. Must be valid node as provided by the model.
+	 */
+	public void setNode(N node) {
+		this.node = node;
 	}
 
 	/**
@@ -150,7 +161,7 @@ public final class ClassifierWithBindingsField<N, D, T, C> extends Composite {
 	}
 
 	public static void main(String[] args) {
-		SwtTestUtil.run(shell -> {
+		InternalUtil.run(shell -> {
 			new ClassifierWithBindingsField<>(shell, new TestPrototypeBindingsModel(), null);
 		});
 	}

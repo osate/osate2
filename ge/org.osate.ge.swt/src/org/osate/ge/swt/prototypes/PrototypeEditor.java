@@ -31,13 +31,12 @@ import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.EventSource;
 import org.osate.ge.swt.check.CheckboxEditor;
 import org.osate.ge.swt.check.CheckboxEditorModel;
+import org.osate.ge.swt.internal.InternalUtil;
 import org.osate.ge.swt.name.NameEditor;
 import org.osate.ge.swt.name.NameEditorModel;
 import org.osate.ge.swt.selectors.ComboSelector;
@@ -294,30 +293,21 @@ public final class PrototypeEditor<C> extends Composite {
 			final PrototypeType type = model.getType();
 
 			// Make the refine checkbox visible when the refinement status can be adjusted or the refinement status is not false.
-			setVisibilityAndExclusion(refinedEditor, model.isEnabled()
+			InternalUtil.setVisibilityAndExclusion(refinedEditor, model.isEnabled()
 					&& (model.getRefineableElementLabel() != null || model.isRefined() != Boolean.FALSE));
 
 			// Update visibility of direction editor and label
 			final boolean directionVisible = type == PrototypeType.FEATURE;
-			setVisibilityAndExclusion(directionLabel, directionVisible);
-			setVisibilityAndExclusion(directionEditor, directionVisible);
+			InternalUtil.setVisibilityAndExclusion(directionLabel, directionVisible);
+			InternalUtil.setVisibilityAndExclusion(directionEditor, directionVisible);
 
 			// Hide the array checkbox unless the component is an array.
-			setVisibilityAndExclusion(arrayFlagEditor, model.isEnabled() && type != null && type.isComponent());
+			InternalUtil.setVisibilityAndExclusion(arrayFlagEditor,
+					model.isEnabled() && type != null && type.isComponent());
 
 			// Update enabled state
 			setEnabled(model.isEnabled());
 		}
-	}
-
-	/**
-	 * Sets the visibility of a control and the exclude field of its layout data. Assumes the layout data is a GridData
-	 * @param c
-	 * @param visible
-	 */
-	private void setVisibilityAndExclusion(final Control c, final boolean visible) {
-		c.setVisible(visible);
-		((GridData) c.getLayoutData()).exclude = !visible;
 	}
 
 	private CLabel addLabel(final String txt) {

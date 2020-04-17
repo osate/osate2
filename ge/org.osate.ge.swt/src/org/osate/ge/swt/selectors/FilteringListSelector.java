@@ -33,7 +33,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.EventSource;
-import org.osate.ge.swt.util.SwtTestUtil;
+import org.osate.ge.swt.internal.InternalUtil;
 
 /**
  * A selector which combines a text field for user specified filtering with a {@link ListSelector}
@@ -78,7 +78,7 @@ public final class FilteringListSelector<T> extends Composite implements Selecti
 	}
 
 	public static void main(String[] args) {
-		SwtTestUtil.run(shell -> {
+		InternalUtil.run(shell -> {
 			new FilteringListSelector<>(shell, new LabelFilteringListSelectorModel<>(new TestListEditorModel()));
 		});
 	}

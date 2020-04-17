@@ -21,47 +21,73 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.swt.prototypeBindings;
+package org.osate.ge.swt.classifiers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 import org.osate.ge.swt.BaseObservableModel;
 
 /**
- * Test implementation of the {@link PrototypeBindingsModel} view model.
+ * Test implementation of the {@link PrototypeBindingsModel} model.
  * The root node represents a subcomponent and will not have options for the direction or type.
  */
 public class TestPrototypeBindingsModel extends BaseObservableModel
-		implements PrototypeBindingsModel<TestNode, String, String, String> {
-	private final TestNode root;
+		implements PrototypeBindingsModel<String, String, String, String> {
+	private Map<String, String> directionMap = new HashMap<>();
+	private Map<String, String> typeMap = new HashMap<>();
+	private Map<String, String> classifierMap = new HashMap<>();
 
 	public TestPrototypeBindingsModel() {
-		root = new TestNode("");
-		root.classifier = "c1";
-
-		final TestNode cn1 = new TestNode("n1");
-		cn1.classifier = "c2";
-		root.children.add(cn1);
-		root.children.add(new TestNode("n2"));
-		root.children.add(new TestNode("n3"));
+		setClassifier("", "c1");
 	}
 
 	@Override
-	public Stream<TestNode> getChildren(final TestNode parent) {
-		// Don't return children when classifier isn't set. Children represent bindings and those require a classifier.
-		return rootIfNull(parent).classifier == null ? Stream.empty() : rootIfNull(parent).children.stream();
+	public Stream<String> getChildren(final String parent) {
+		final String c = getClassifier(parent);
+
+		if (c == null) {
+			return Stream.empty();
+		}
+
+		final ArrayList<String> children = new ArrayList<>();
+		if (Objects.equals(c, "c1")) {
+			children.add(node(parent, "n1"));
+			children.add(node(parent, "n2"));
+			children.add(node(parent, "n3"));
+			children.add(node(parent, "n4"));
+			children.add(node(parent, "n5"));
+			children.add(node(parent, "n6"));
+			children.add(node(parent, "n7"));
+		} else {
+			children.add(node(parent, "n1"));
+			children.add(node(parent, "n2"));
+		}
+
+		return children.stream();
+	}
+
+	private static String node(final String parent, String label) {
+		final String n = parent == null ? "" : parent;
+		return n + "_" + label;
 	}
 
 	@Override
-	public String getLabel(final TestNode node) {
-		return rootIfNull(node).label;
+	public String getLabel(final String node) {
+		if (node == null) {
+			return "";
+		}
+
+		// Get the label for the node from the reference
+		return node.substring(node.lastIndexOf("_") + 1);
 	}
 
 	@Override
-	public Stream<String> getDirectionOptions(final TestNode node) {
+	public Stream<String> getDirectionOptions(final String node) {
 		return node == null ? Stream.empty() : Arrays.stream(new String[] { "d1", "d2" });
 	}
 
@@ -71,18 +97,18 @@ public class TestPrototypeBindingsModel extends BaseObservableModel
 	}
 
 	@Override
-	public String getDirection(final TestNode node) {
-		return rootIfNull(node).direction;
+	public String getDirection(final String node) {
+		return directionMap.get(node);
 	}
 
 	@Override
-	public void setDirection(final TestNode node, final String value) {
-		rootIfNull(node).direction = value;
+	public void setDirection(final String node, final String value) {
+		directionMap.put(node, value);
 		triggerChangeEvent();
 	}
 
 	@Override
-	public Stream<String> getTypeOptions(final TestNode node) {
+	public Stream<String> getTypeOptions(final String node) {
 		return node == null ? Stream.empty() : Arrays.stream(new String[] { "t1", "t2" });
 	}
 
@@ -92,19 +118,19 @@ public class TestPrototypeBindingsModel extends BaseObservableModel
 	}
 
 	@Override
-	public String getType(final TestNode node) {
-		return rootIfNull(node).type;
+	public String getType(final String node) {
+		return typeMap.get(node);
 	}
 
 	@Override
-	public void setType(final TestNode node, final String value) {
-		rootIfNull(node).type = value;
+	public void setType(final String node, final String value) {
+		typeMap.put(node, value);
 		triggerChangeEvent();
 	}
 
 	@Override
-	public Stream<String> getClassifierOptions(final TestNode node) {
-		return Arrays.stream(new String[] { "c1", "c2" });
+	public Stream<String> getClassifierOptions(final String node) {
+		return Arrays.stream(new String[] { "c1", "c2", "c3", "c4", "c5", "c6" });
 	}
 
 	@Override
@@ -113,34 +139,18 @@ public class TestPrototypeBindingsModel extends BaseObservableModel
 	}
 
 	@Override
-	public String getClassifier(final TestNode node) {
-		return rootIfNull(node).classifier;
+	public String getClassifier(final String node) {
+		return classifierMap.get(node);
 	}
 
 	@Override
-	public void setClassifier(final TestNode node, final String value) {
-		rootIfNull(node).classifier = value;
+	public void setClassifier(final String node, final String value) {
+		classifierMap.put(node, value);
 		triggerChangeEvent();
 	}
 
-	/**
-	 * Returns the root node if the specified node is null. Otherwise, returns the specified node.
-	 * @param node is the node to check
-	 * @return the specified node or the root node.
-	 */
-	private TestNode rootIfNull(final TestNode node) {
-		return node == null ? root : node;
-	}
-}
-
-class TestNode {
-	public final String label;
-	public String direction = null;
-	public String type = null;
-	public String classifier = null;
-	public final List<TestNode> children = new ArrayList<>();
-
-	public TestNode(final String label) {
-		this.label = label;
+	@Override
+	public void flush() {
+		System.out.println("Flushing");
 	}
 }

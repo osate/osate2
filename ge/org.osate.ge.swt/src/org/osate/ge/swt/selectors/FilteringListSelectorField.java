@@ -35,6 +35,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.osate.ge.swt.ChangeEvent;
+import org.osate.ge.swt.internal.InternalUtil;
 import org.osate.ge.swt.util.SwtTestUtil;
 
 /**
@@ -105,7 +106,7 @@ public final class FilteringListSelectorField<T> extends Composite {
 	}
 
 	public static void main(String[] args) {
-		SwtTestUtil.run(shell -> {
+		InternalUtil.run(shell -> {
 			new FilteringListSelectorField<>(shell, new LabelFilteringListSelectorModel<>(new TestListEditorModel()));
 		});
 	}

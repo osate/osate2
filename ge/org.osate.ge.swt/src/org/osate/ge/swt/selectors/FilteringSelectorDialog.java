@@ -34,7 +34,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
-import org.osate.ge.swt.util.SwtTestUtil;
+import org.osate.ge.swt.internal.InternalUtil;
 
 /**
  * Dialog for selecting from a filtering selector. Selected element is set when dialog is closed.
@@ -165,7 +165,7 @@ public final class FilteringSelectorDialog {
 	}
 
 	public static void main(String[] args) {
-		SwtTestUtil.runDialog(() -> {
+		InternalUtil.runDialog(() -> {
 			FilteringSelectorDialog.open(null, "Select an Item",
 					new LabelFilteringListSelectorModel<>(new TestListEditorModel()));
 		});

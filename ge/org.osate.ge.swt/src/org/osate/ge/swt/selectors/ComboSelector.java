@@ -35,6 +35,7 @@ import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.osate.ge.swt.ChangeEvent;
+import org.osate.ge.swt.internal.InternalUtil;
 import org.osate.ge.swt.util.SwtTestUtil;
 
 /**
@@ -113,7 +114,7 @@ public final class ComboSelector<T> extends Composite {
 	}
 
 	public static void main(String[] args) {
-		SwtTestUtil.run(shell -> {
+		InternalUtil.run(shell -> {
 			new ComboSelector<>(shell, new TestListEditorModel());
 		});
 	}

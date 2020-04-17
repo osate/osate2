@@ -37,6 +37,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.DefaultEventSource;
 import org.osate.ge.swt.EventSource;
+import org.osate.ge.swt.internal.InternalUtil;
 import org.osate.ge.swt.util.SwtTestUtil;
 
 /**
@@ -127,7 +128,7 @@ public final class ListSelector<T> extends Composite implements SelectionDoubleC
 	}
 
 	public static void main(String[] args) {
-		SwtTestUtil.run(shell -> {
+		InternalUtil.run(shell -> {
 			new ListSelector<>(shell, new TestListEditorModel());
 		});
 	}

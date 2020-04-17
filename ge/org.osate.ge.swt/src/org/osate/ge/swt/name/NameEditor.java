@@ -35,7 +35,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.osate.ge.swt.ChangeEvent;
-import org.osate.ge.swt.util.SwtTestUtil;
+import org.osate.ge.swt.internal.InternalUtil;
 
 /**
  * View for displaying a name and allowing it to be edited using the {@link NameEditorDialog}
@@ -87,7 +87,7 @@ public final class NameEditor extends Composite {
 	}
 
 	public static void main(String[] args) {
-		SwtTestUtil.run(shell -> {
+		InternalUtil.run(shell -> {
 			new NameEditor(shell, new TestNameEditorModel());
 		});
 	}

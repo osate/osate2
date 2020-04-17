@@ -35,7 +35,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.osate.ge.swt.ChangeEvent;
-import org.osate.ge.swt.util.SwtTestUtil;
+import org.osate.ge.swt.internal.InternalUtil;
 
 /**
  * Set of radio buttons which uses a {@link SelectorModel}
@@ -100,7 +100,7 @@ public final class RadioSelector<T> extends Composite {
 	};
 
 	public static void main(String[] args) {
-		SwtTestUtil.run(shell -> {
+		InternalUtil.run(shell -> {
 			new RadioSelector<>(shell, new TestListEditorModel());
 		});
 	}

@@ -23,6 +23,6 @@
  */
 
 /**
- * Components for editing AADL prototype bindings.
+ * Components related to AADL classifiers.
  */
-package org.osate.ge.swt.prototypeBindings;
+package org.osate.ge.swt.classifiers;
