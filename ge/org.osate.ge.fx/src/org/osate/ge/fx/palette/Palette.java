@@ -64,8 +64,6 @@ public class Palette<G, I> extends Region {
 		}
 		this.getChildren().add(paletteVbox);
 
-		String css = this.getClass().getResource("Palette.css").toExternalForm();
-		this.getStylesheets().add(css);
 	}
 
 	public static void main(final String[] args) {
