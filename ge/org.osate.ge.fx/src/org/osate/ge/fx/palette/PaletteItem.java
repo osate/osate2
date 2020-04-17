@@ -12,14 +12,31 @@ class PaletteItem<I> extends Region {
 	public PaletteItem(final PaletteModel<?, I> model, I item) {
 
 		itemButton = new Button(model.getItemLabel(item));
-		// Look into a way to indent, may not be possible.
-		// You can indent the text by simply adding spaces, but moving the icon is harder.
+
+		itemButton.setStyle("-fx-background-color: white;");
+		itemButton.setOnMouseEntered(e -> {
+
+			if (model.getActiveItem() != item) {
+			itemButton.setStyle("-fx-background-color: rgba(255,165,0,0.3)");
+		}
+
+		});
+		itemButton.setOnMouseExited(e -> {
+
+			if (model.getActiveItem() != item) {
+			itemButton.setStyle("-fx-background-color: white;");
+		}
+
+		});
+
 		itemButton.setAlignment(Pos.BASELINE_LEFT);
 		itemButton.setGraphic(new ImageView(model.getItemIcon(item)));
 		itemButton.setOnAction(e -> {
 
 			if (model.getActiveItem() != item) {
 			model.activateItem(item);
+
+			itemButton.setStyle("-fx-background-color: rgba(0,100,255,0.2)");
 		}
 
 		});

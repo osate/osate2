@@ -23,7 +23,6 @@ class PaletteGroup<G, I> extends Region {
 
 		groupButton = new Button(model.getGroupLabel(groupModel));
 		groupButton.setAlignment(Pos.BASELINE_LEFT);
-
 		groupButton.setGraphic(new ImageView(model.getGroupIcon(groupModel)));
 		groupButton.setOnAction(e -> {
 
