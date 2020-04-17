@@ -1,0 +1,114 @@
+package TestBiggerBroadcast
+public
+	with SEI;
+
+	-- Some basics
+	
+	data D8
+		properties
+			Data_Size => 8 Bytes;
+	end D8;
+
+	-- bus
+	
+	bus B
+		properties
+			SEI::BandWidthBudget => 64.0 KBytesps;
+			SEI::BandwidthCapacity => 96.0 KBytesps;
+	end B;
+
+
+	-- communicating components
+	
+	system S1
+		features
+			out1: out data port D8;
+	end S1;
+
+	system S2
+		features
+			in1: in data port D8;
+			in2: in data port D8;
+			in3: in data port D8;
+	end S2;
+
+	-- assembled system
+	
+	system top
+	end top;
+	
+	system implementation top.i
+		subcomponents
+			sub1: system s1;
+			sub2: system s2;
+			noBroadcastBus: bus B;
+			
+			sub3a: system s1;
+			sub3b: system s1;
+			sub3c: system s1;
+			sub4a: system s2;
+			sub4b: system s2;
+			sub4c: system s2;
+			broadcastBus: bus B {
+				SEI::Broadcast_Protocol => true;
+			};
+		connections
+			conn1: port sub1.out1 -> sub2.in1 {
+				SEI::BandWidthBudget => 8.0 KBytesps;
+				Actual_Connection_Binding => (reference (noBroadcastBus));
+			};
+			conn2: port sub1.out1 -> sub2.in2 {
+				SEI::BandWidthBudget => 8.0 KBytesps;
+				Actual_Connection_Binding => (reference (noBroadcastBus));
+			};
+			conn3: port sub1.out1 -> sub2.in3 {
+				SEI::BandWidthBudget => 8.0 KBytesps;
+				Actual_Connection_Binding => (reference (noBroadcastBus));
+			};
+			
+			conn4a: port sub3a.out1 -> sub4a.in1 {
+				SEI::BandWidthBudget => 8.0 KBytesps;
+				Actual_Connection_Binding => (reference (broadcastBus));
+			};
+			conn5a: port sub3a.out1 -> sub4b.in1 {
+				SEI::BandWidthBudget => 8.0 KBytesps;
+				Actual_Connection_Binding => (reference (broadcastBus));
+			};
+			conn6a: port sub3a.out1 -> sub4c.in1 {
+				SEI::BandWidthBudget => 8.0 KBytesps;
+				Actual_Connection_Binding => (reference (broadcastBus));
+			};
+			
+			conn4b: port sub3b.out1 -> sub4a.in2 {
+				SEI::BandWidthBudget => 8.0 KBytesps;
+				Actual_Connection_Binding => (reference (broadcastBus));
+			};
+			conn5b: port sub3b.out1 -> sub4b.in2 {
+				SEI::BandWidthBudget => 8.0 KBytesps;
+				Actual_Connection_Binding => (reference (broadcastBus));
+			};
+			conn6b: port sub3b.out1 -> sub4c.in2 {
+				SEI::BandWidthBudget => 8.0 KBytesps;
+				Actual_Connection_Binding => (reference (broadcastBus));
+			};
+			
+			conn4c: port sub3c.out1 -> sub4a.in3 {
+				SEI::BandWidthBudget => 8.0 KBytesps;
+				Actual_Connection_Binding => (reference (broadcastBus));
+			};
+			conn5c: port sub3c.out1 -> sub4b.in3 {
+				SEI::BandWidthBudget => 8.0 KBytesps;
+				Actual_Connection_Binding => (reference (broadcastBus));
+			};
+			conn6c: port sub3c.out1 -> sub4c.in3 {
+				SEI::BandWidthBudget => 8.0 KBytesps;
+				Actual_Connection_Binding => (reference (broadcastBus));
+			};
+		properties			-- Communication rates
+			Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub1.out1;
+			
+			Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub3a.out1;
+			Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub3b.out1;
+			Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub3c.out1;
+	end top.i;
+end TestBiggerBroadcast;
