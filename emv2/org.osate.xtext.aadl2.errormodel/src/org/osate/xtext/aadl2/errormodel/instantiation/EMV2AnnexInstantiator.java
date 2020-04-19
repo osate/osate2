@@ -578,7 +578,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 						allExpr.getConstraintElements().add(res);
 					}
 				}
-
+				return allExpr;
 			} else {
 				/* x ormore with x > 1 is mapped to a ORMORE gate */
 				ConstraintExpression omExpr = EMV2InstanceFactory.eINSTANCE.createConstraintExpression();
@@ -590,6 +590,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 						omExpr.getConstraintElements().add(res);
 					}
 				}
+				return omExpr;
 			}
 		}
 
@@ -623,7 +624,9 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					ConstrainedInstanceObject cio = EMV2InstanceFactory.eINSTANCE.createConstrainedInstanceObject();
 					cio.setInstanceObject(si);
 					cio.setName(si.getName());
-					cio.getConstraint().addAll(referencedErrorType.getTypeTokens());
+					if (referencedErrorType != null) {
+						cio.getConstraint().addAll(referencedErrorType.getTypeTokens());
+					}
 					return cio;
 				} else if (sconditionElement.getQualifiedErrorPropagationReference() != null) {
 					EMV2Path path = sconditionElement.getQualifiedErrorPropagationReference();
@@ -716,6 +719,9 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	private FeatureInstance findFeatureInstance(ComponentInstance ci, FeatureorPPReference fppref) {
+		if (fppref == null) {
+			return null;
+		}
 		NamedElement fpp = fppref.getFeatureorPP();
 		FeatureInstance fi = ci.findFeatureInstance((Feature) fpp);
 		FeatureorPPReference curfppref = fppref.getNext();
