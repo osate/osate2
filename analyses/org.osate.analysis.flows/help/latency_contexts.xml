@@ -1,0 +1,8 @@
+<contexts>
+	<context id="flow_latency_dialog"
+			title="Flow Latency Dialog">
+		<description>This dialog allows the settings for the flow latency analysis to be configured.  The dialog can hidden for future runs of the analysis by checking "Don't show this dialog again".  The "OSATE > Analysis > Flow Latency" preference pane can be used to bring the dialog back.
+		</description>
+		<topic href="help/html/latency.html#latency-analysis-preferences" label="About the latency analysis preferences"/>
+	</context>
+</contexts>
