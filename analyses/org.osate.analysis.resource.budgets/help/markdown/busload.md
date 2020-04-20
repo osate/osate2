@@ -345,6 +345,7 @@ The format for the `AnalysisResult` tree returned by `invoke()` is as follows:
         * `values[4]` = The number of virtual buses bound to this bus (`IntegerValue`)
         * `values[5]` = The number of connections bound to this bus (`IntegerValue`)
         * `values[6]` = The number of broadcast sources bound to this bus (`IntegerValue`)
+        * `values[7]` = The data overhead of the bus in bytes as computed by the analysis (`IntegerValue`)
         * `diagnostics` = Diagnostics associated with this bus.
         * `subResults` = indexes `0` through (`values[4]` - 1) refer to `Result` objects for virtual buses.
 
