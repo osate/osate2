@@ -72,7 +72,9 @@ public final class ClassifierWithBindingsField<N, D, T, C> extends Composite {
 		this.selectedLbl = new CLabel(this, SWT.BORDER);
 		this.selectedLbl
 				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER)
+						.minSize(200, SWT.DEFAULT)
 						.create());
+
 
 		this.chooseBtn = new Button(this, SWT.FLAT);
 		this.chooseBtn
