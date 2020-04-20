@@ -40,6 +40,7 @@ import org.osate.aadl2.Classifier;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.selection.AgeBusinessObjectSelection;
 import org.osate.ge.internal.viewModels.BusinessObjectSelectionPrototypeBindingsModel;
+import org.osate.ge.internal.viewModels.ClassifierBusinessObjectSelectionPrototypeBindingsModel;
 import org.osate.ge.swt.classifiers.PrototypeBindingsEditor;
 import org.osate.ge.ui.properties.PropertySectionUtil;
 
@@ -53,12 +54,12 @@ public class ClassifierPrototypeBindingsPropertySection extends AbstractProperty
 		public boolean select(final Object toTest) {
 			return PropertySectionUtil.isBoCompatible(toTest,
 					bo -> bo instanceof Classifier
-							&& BusinessObjectSelectionPrototypeBindingsModel.hasAvailableBindings((Classifier) bo));
+					&& BusinessObjectSelectionPrototypeBindingsModel.hasAvailableBindings((Classifier) bo));
 		}
 	}
 
 	private BusinessObjectSelection selectedBos;
-	private final BusinessObjectSelectionPrototypeBindingsModel model = new BusinessObjectSelectionPrototypeBindingsModel(
+	private final BusinessObjectSelectionPrototypeBindingsModel model = new ClassifierBusinessObjectSelectionPrototypeBindingsModel(
 			new AgeBusinessObjectSelection());
 
 	@Override

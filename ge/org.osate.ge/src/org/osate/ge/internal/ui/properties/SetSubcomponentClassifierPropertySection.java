@@ -52,40 +52,9 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
-import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.AbstractSubcomponent;
-import org.osate.aadl2.AbstractSubcomponentType;
-import org.osate.aadl2.BusSubcomponent;
-import org.osate.aadl2.BusSubcomponentType;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.DataSubcomponent;
-import org.osate.aadl2.DataSubcomponentType;
-import org.osate.aadl2.DeviceSubcomponent;
-import org.osate.aadl2.DeviceSubcomponentType;
-import org.osate.aadl2.MemorySubcomponent;
-import org.osate.aadl2.MemorySubcomponentType;
-import org.osate.aadl2.PackageSection;
-import org.osate.aadl2.ProcessSubcomponent;
-import org.osate.aadl2.ProcessSubcomponentType;
-import org.osate.aadl2.ProcessorSubcomponent;
-import org.osate.aadl2.ProcessorSubcomponentType;
 import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.SubcomponentType;
-import org.osate.aadl2.SubprogramGroupSubcomponent;
-import org.osate.aadl2.SubprogramGroupSubcomponentType;
-import org.osate.aadl2.SubprogramSubcomponent;
-import org.osate.aadl2.SubprogramSubcomponentType;
-import org.osate.aadl2.SystemSubcomponent;
-import org.osate.aadl2.SystemSubcomponentType;
-import org.osate.aadl2.ThreadGroupSubcomponent;
-import org.osate.aadl2.ThreadGroupSubcomponentType;
-import org.osate.aadl2.ThreadSubcomponent;
-import org.osate.aadl2.ThreadSubcomponentType;
-import org.osate.aadl2.VirtualBusSubcomponent;
-import org.osate.aadl2.VirtualBusSubcomponentType;
-import org.osate.aadl2.VirtualProcessorSubcomponent;
-import org.osate.aadl2.VirtualProcessorSubcomponentType;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.operations.OperationExecutor;
 import org.osate.ge.internal.selection.AgeBusinessObjectSelection;
@@ -96,12 +65,13 @@ import org.osate.ge.internal.ui.dialogs.DefaultCreateSelectClassifierDialogModel
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.internal.util.AadlClassifierUtil;
 import org.osate.ge.internal.util.AadlHelper;
-import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.EditingUtil;
+import org.osate.ge.internal.util.SubcomponentUtil;
 import org.osate.ge.internal.util.classifiers.ClassifierOperation;
 import org.osate.ge.internal.util.classifiers.ClassifierOperationExecutor;
 import org.osate.ge.internal.util.classifiers.ClassifierOperationPartType;
 import org.osate.ge.internal.viewModels.BusinessObjectSelectionPrototypeBindingsModel;
+import org.osate.ge.internal.viewModels.SubcomponentBusinessObjectSelectionPrototypeBindingsModel;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.swt.classifiers.ClassifierWithBindingsField;
 import org.osate.ge.ui.properties.PropertySectionUtil;
@@ -119,7 +89,7 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 	}
 
 	private BusinessObjectSelection selectedBos;
-	private final BusinessObjectSelectionPrototypeBindingsModel model = new BusinessObjectSelectionPrototypeBindingsModel(
+	private final BusinessObjectSelectionPrototypeBindingsModel model = new SubcomponentBusinessObjectSelectionPrototypeBindingsModel(
 			new AgeBusinessObjectSelection());
 	private Control currentClassifier;
 	private Button createBtn;
@@ -222,7 +192,7 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 						final EObject resolvedClassifier = EditingUtil
 								.resolveWithLiveResourceSetIfProject((EObject) classifier, project);
 
-						setClassifier(scToModify, (ComponentClassifier) resolvedClassifier);
+						SubcomponentUtil.setClassifier(scToModify, (ComponentClassifier) resolvedClassifier);
 					});
 				});
 
@@ -249,63 +219,4 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 				&& AadlHelper.getCommonProject(scs).isPresent());
 	}
 
-
-	private void setClassifier(final Subcomponent sc, final SubcomponentType selectedSubcomponentType) {
-		// Import as necessary
-		if (selectedSubcomponentType != null) {
-			// Import its package if necessary
-			final AadlPackage pkg = (AadlPackage) sc.getElementRoot();
-			if (selectedSubcomponentType instanceof ComponentClassifier
-					&& selectedSubcomponentType.getNamespace() != null && pkg != null) {
-				final PackageSection section = pkg.getPublicSection();
-				final AadlPackage selectedClassifierPkg = (AadlPackage) selectedSubcomponentType.getNamespace()
-						.getOwner();
-				if (selectedClassifierPkg != null && pkg != selectedClassifierPkg) {
-					AadlImportsUtil.addImportIfNeeded(section, selectedClassifierPkg);
-				}
-			}
-		}
-
-		if (sc instanceof SystemSubcomponent) {
-			((SystemSubcomponent) sc).setSystemSubcomponentType((SystemSubcomponentType) selectedSubcomponentType);
-		} else if (sc instanceof AbstractSubcomponent) {
-			((AbstractSubcomponent) sc)
-			.setAbstractSubcomponentType((AbstractSubcomponentType) selectedSubcomponentType);
-		} else if (sc instanceof ThreadGroupSubcomponent) {
-			((ThreadGroupSubcomponent) sc)
-			.setThreadGroupSubcomponentType((ThreadGroupSubcomponentType) selectedSubcomponentType);
-		} else if (sc instanceof ThreadSubcomponent) {
-			((ThreadSubcomponent) sc).setThreadSubcomponentType((ThreadSubcomponentType) selectedSubcomponentType);
-		} else if (sc instanceof SubprogramSubcomponent) {
-			((SubprogramSubcomponent) sc)
-			.setSubprogramSubcomponentType((SubprogramSubcomponentType) selectedSubcomponentType);
-		} else if (sc instanceof SubprogramGroupSubcomponent) {
-			((SubprogramGroupSubcomponent) sc)
-			.setSubprogramGroupSubcomponentType((SubprogramGroupSubcomponentType) selectedSubcomponentType);
-		} else if (sc instanceof DataSubcomponent) {
-			((DataSubcomponent) sc).setDataSubcomponentType((DataSubcomponentType) selectedSubcomponentType);
-		} else if (sc instanceof AbstractSubcomponent) {
-			((AbstractSubcomponent) sc)
-			.setAbstractSubcomponentType((AbstractSubcomponentType) selectedSubcomponentType);
-		} else if (sc instanceof VirtualBusSubcomponent) {
-			((VirtualBusSubcomponent) sc)
-			.setVirtualBusSubcomponentType((VirtualBusSubcomponentType) selectedSubcomponentType);
-		} else if (sc instanceof VirtualProcessorSubcomponent) {
-			((VirtualProcessorSubcomponent) sc)
-			.setVirtualProcessorSubcomponentType((VirtualProcessorSubcomponentType) selectedSubcomponentType);
-		} else if (sc instanceof BusSubcomponent) {
-			((BusSubcomponent) sc).setBusSubcomponentType((BusSubcomponentType) selectedSubcomponentType);
-		} else if (sc instanceof ProcessSubcomponent) {
-			((ProcessSubcomponent) sc).setProcessSubcomponentType((ProcessSubcomponentType) selectedSubcomponentType);
-		} else if (sc instanceof ProcessorSubcomponent) {
-			((ProcessorSubcomponent) sc)
-			.setProcessorSubcomponentType((ProcessorSubcomponentType) selectedSubcomponentType);
-		} else if (sc instanceof DeviceSubcomponent) {
-			((DeviceSubcomponent) sc).setDeviceSubcomponentType((DeviceSubcomponentType) selectedSubcomponentType);
-		} else if (sc instanceof MemorySubcomponent) {
-			((MemorySubcomponent) sc).setMemorySubcomponentType((MemorySubcomponentType) selectedSubcomponentType);
-		} else {
-			throw new RuntimeException("Unexpected type: " + sc.getClass().getName());
-		}
-	}
 }

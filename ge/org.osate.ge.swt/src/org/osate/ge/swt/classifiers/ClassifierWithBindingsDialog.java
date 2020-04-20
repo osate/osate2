@@ -46,6 +46,7 @@ import org.osate.ge.swt.EventSource;
 import org.osate.ge.swt.internal.InternalUtil;
 import org.osate.ge.swt.selectors.FilteringListSelector;
 import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
+import org.osate.ge.swt.selectors.SelectionDoubleClickedEvent;
 import org.osate.ge.swt.selectors.SelectorModel;
 
 /**
@@ -93,6 +94,7 @@ public class ClassifierWithBindingsDialog {
 		private final PrototypeBindingsModel<N, D, T, C> model;
 		private final N node;
 		private final Consumer<ChangeEvent> changeListener = e -> refresh();
+		private final Consumer<SelectionDoubleClickedEvent> selectionDoubleClickedListener = e -> okPressed();
 		private ScrolledComposite bindingsScrolled;
 
 		public InnerDialog(final Shell parent, final String title, final PrototypeBindingsModel<N, D, T, C> model,
@@ -122,7 +124,7 @@ public class ClassifierWithBindingsDialog {
 					.setLayoutData(GridDataFactory.swtDefaults().grab(true, true).align(SWT.FILL, SWT.FILL).create());
 			classifierGroup.setLayout(GridLayoutFactory.swtDefaults().numColumns(1).create());
 
-			final Control classifierSelector = new FilteringListSelector<>(classifierGroup,
+			final FilteringListSelector<C> classifierSelector = new FilteringListSelector<>(classifierGroup,
 					new LabelFilteringListSelectorModel<>(new SelectorModel<C>() {
 
 						@Override
@@ -157,6 +159,10 @@ public class ClassifierWithBindingsDialog {
 					.hint(classifierSelectorPreferredWidth, classifierSelectorPreferredHeight)
 					.align(SWT.FILL, SWT.FILL).create());
 
+			classifierSelector.selectionDoubleClicked()
+						.addListener(selectionDoubleClickedListener);
+
+
 			//
 			// Bindings
 			//
@@ -187,6 +193,7 @@ public class ClassifierWithBindingsDialog {
 
 			model.changed().addListener(changeListener);
 			refresh();
+
 
 			return container;
 		}

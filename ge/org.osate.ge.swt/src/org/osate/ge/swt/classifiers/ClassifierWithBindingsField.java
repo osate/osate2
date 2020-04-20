@@ -86,6 +86,8 @@ public final class ClassifierWithBindingsField<N, D, T, C> extends Composite {
 				ClassifierWithBindingsDialog.open(getShell(), "Select Classifier and Prototype Bindings", model, node);
 			}
 		});
+		this.chooseBtn.setBackground(getBackground());
+		this.chooseBtn.setForeground(getForeground());
 
 		model.changed().addListener(changeListener);
 
