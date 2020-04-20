@@ -102,12 +102,12 @@ public class InstantiationPreferencePage extends FieldEditorPreferencePage imple
 		addField(f);
 
 		final BooleanFieldEditor alwaysShowAadlDialog = new BooleanFieldEditor(
-				OsateCorePlugin.getAlwaysShowInstantiationAadlDialogPreferenceName(),
+				OsateCorePlugin.ALWAYS_SHOW_INSTANTIATION_AADL_DIALOG,
 				"Always show the AADL component implementation selection dialog", getFieldEditorParent());
 		addField(alwaysShowAadlDialog);
 
 		final BooleanFieldEditor onlyInstantiateSystemImpls = new BooleanFieldEditor(
-				OsateCorePlugin.getOnlyInstantiateSystemImplsPreferenceName(),
+				OsateCorePlugin.ONLY_INSTANTIATE_SYSTEM_IMPLS,
 				"Only instantiate system implementations", getFieldEditorParent());
 		addField(onlyInstantiateSystemImpls);
 	}
