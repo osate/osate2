@@ -134,11 +134,11 @@ public class ToolUtil {
 		final Set<Diagnostic> diagnostics = new HashSet<>();
 		for (final NamedElement pkg : packages) {
 			final IProject project = ProjectUtil.getProjectForBoOrThrow(pkg);
-			final ResourceSet testResourceSet = ProjectUtil.getLiveResourceSet(project);
+			final ResourceSet resourceSet = ProjectUtil.getLiveResourceSet(project);
 
 			// Model error and warning diagnostics
 			final Set<Diagnostic> rootDiagnostics = getDiagnostics(new DiagnosticBuilder(getMessagePrefix(pkg)), pkg,
-					testResourceSet);
+					resourceSet);
 			diagnostics.addAll(rootDiagnostics);
 		}
 
@@ -170,40 +170,40 @@ public class ToolUtil {
 	public static Set<Diagnostic> getModificationDiagnostics(final Element elementToModify,
 			final Function<ResourceSet, EObject> getModifiedObject) {
 		final IProject project = ProjectUtil.getProjectForBoOrThrow(elementToModify);
-		final ResourceSet testResourceSet = ProjectUtil.getLiveResourceSet(project);
+		final ResourceSet resourceSet = ProjectUtil.getLiveResourceSet(project);
 		// Make modification
-		final EObject modifiedObject = getModifiedObject.apply(testResourceSet);
+		final EObject modifiedObject = getModifiedObject.apply(resourceSet);
 
 		// Model error and warning diagnostics
 		final Set<Diagnostic> diagnostics = getDiagnostics(
 				new DiagnosticBuilder(getMessagePrefix(elementToModify.getElementRoot())),
 				modifiedObject,
-				testResourceSet);
+				resourceSet);
 		return diagnostics;
 	}
 
 	// Get error and warning diagnostics
 	private static Set<Diagnostic> getDiagnostics(final DiagnosticBuilder diagnosticBuilder,
 			final EObject eObjectToValidate,
-			final ResourceSet testResourceSet) {
+			final ResourceSet resourceSet) {
 		// Serialize
 		final Optional<String> serializedSrc = getSerializedSource(eObjectToValidate);
 		if (!serializedSrc.isPresent()) {
 			return Sets.newHashSet(diagnosticBuilder.build(Diagnostic.ERROR, "Serialization Error"));
 		}
 
-		final XtextResource testResource = getXtextResource(testResourceSet, eObjectToValidate.eResource().getURI());
-		loadResource(testResource, serializedSrc.get());
+		final XtextResource resource = getXtextResource(resourceSet, eObjectToValidate.eResource().getURI());
+		loadResource(resource, serializedSrc.get());
 
 		final Builder<DiagnosticWrapper> diagnostics = Stream.builder();
 
 		// Concrete Syntax Validation
-		final Stream<DiagnosticWrapper> syntaxDiagnostics = testResource.validateConcreteSyntax().stream()
+		final Stream<DiagnosticWrapper> syntaxDiagnostics = resource.validateConcreteSyntax().stream()
 				.filter(diagnostic -> isErrorOrWarning(diagnostic.getSeverity()))
 				.map(diagnostic -> diagnosticBuilder.build(diagnostic));
 		addToBuilder(diagnostics, syntaxDiagnostics);
 
-		final EObject serializedObject = testResourceSet.getEObject(EcoreUtil.getURI(eObjectToValidate), true);
+		final EObject serializedObject = resourceSet.getEObject(EcoreUtil.getURI(eObjectToValidate), true);
 		final Diagnostic validationDiagnostic = Diagnostician.INSTANCE.validate(serializedObject,
 				Collections.singletonMap(Diagnostician.VALIDATE_RECURSIVELY, true));
 		if (isErrorOrWarning(validationDiagnostic.getSeverity())) {
@@ -215,13 +215,13 @@ public class ToolUtil {
 		}
 
 		// Errors
-		final Stream<DiagnosticWrapper> resourceErrors = getResourceDiagnostics(testResource.getErrors(),
+		final Stream<DiagnosticWrapper> resourceErrors = getResourceDiagnostics(resource.getErrors(),
 				diagnosticBuilder,
 				Diagnostic.ERROR);
 		addToBuilder(diagnostics, resourceErrors);
 
 		// Warnings
-		final Stream<DiagnosticWrapper> resourceWarnings = getResourceDiagnostics(testResource.getWarnings(),
+		final Stream<DiagnosticWrapper> resourceWarnings = getResourceDiagnostics(resource.getWarnings(),
 				diagnosticBuilder,
 				Diagnostic.WARNING);
 		addToBuilder(diagnostics, resourceWarnings);

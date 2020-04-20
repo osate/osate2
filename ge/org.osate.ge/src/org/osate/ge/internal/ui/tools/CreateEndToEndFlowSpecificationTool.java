@@ -166,9 +166,13 @@ public class CreateEndToEndFlowSpecificationTool {
 				String error = null;
 				if (!userSelections.contains(selectedBoc) && dlg.addSelectedElement(selectedBoc)) {
 					// Set default name on first selection if one does not exist
-					if (userSelections.isEmpty() && dlg.eTEFlow.getName().isEmpty()) {
-						final FlowSpecification fs = (FlowSpecification) selectedBoc.getBusinessObject();
-						dlg.setEndToEndFlowName(fs.getNamespace());
+					if (userSelections.isEmpty()) {
+						dlg.findOwnerComponentImplementation(selectedBoc.getParent()).ifPresent(ci -> {
+							dlg.setTitle("Creating End To End Flow in: " + ci.getQualifiedName());
+							if (dlg.eTEFlow.getName().isEmpty()) {
+								dlg.setEndToEndFlowName(ci);
+							}
+						});
 					}
 
 					if (selectedBoc instanceof DiagramElement) {
@@ -206,12 +210,10 @@ public class CreateEndToEndFlowSpecificationTool {
 		}
 	}
 
-
-
 	// Determine message based on currently selected element
 	private String getDialogMessage() {
 		String msg = "";
-		if (userSelections.size() > 0) {
+		if (!userSelections.isEmpty()) {
 			final Object bo = userSelections.get(userSelections.size() - 1)
 					.getBusinessObject();
 			if (bo instanceof FlowSpecification || bo instanceof org.osate.aadl2.Connection) {
@@ -227,6 +229,7 @@ public class CreateEndToEndFlowSpecificationTool {
 				return dlg.getMessage();
 			}
 		} else {
+			dlg.setDefaultTitle();
 			msg = "Select a starting flow specification.";
 		}
 
@@ -237,6 +240,8 @@ public class CreateEndToEndFlowSpecificationTool {
 
 		return msg;
 	}
+
+
 
 	/**
 	 * @param selectedEle - current element
@@ -503,7 +508,7 @@ public class CreateEndToEndFlowSpecificationTool {
 		@Override
 		protected void configureShell(final Shell newShell) {
 			super.configureShell(newShell);
-			newShell.setText("Create End To End Flow Specification");
+			newShell.setText("End To End Flow Specification Tool");
 			newShell.setLocation(DialogPlacementHelper
 					.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
 			newShell.setSize(800, 400);
@@ -513,9 +518,13 @@ public class CreateEndToEndFlowSpecificationTool {
 		@Override
 		public void create() {
 			super.create();
-			setTitle("Select Elements");
+			setDefaultTitle();
 			setMessage(CreateEndToEndFlowSpecificationTool.this.getDialogMessage());
 			ContextHelpUtil.setHelp(getShell(), ContextHelpUtil.END_TO_END_TOOL);
+		}
+
+		private void setDefaultTitle() {
+			setTitle("Creating End To End Flow Specification");
 		}
 
 		@Override
@@ -550,13 +559,14 @@ public class CreateEndToEndFlowSpecificationTool {
 			newETEFlowName.setLayoutData(nameTextData);
 			newETEFlowName.setEditable(true);
 			newETEFlowName.setOrientation(SWT.LEFT_TO_RIGHT);
+
 			newETEFlowName.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyReleased(final KeyEvent e) {
+					eTEFlow.setName(newETEFlowName.getText());
 					final boolean isValid = isEndToEndFlowValid();
 					final String error = getFlowErrorMessage(isValid).orElse(null);
 					setErrorMessage(error);
-					eTEFlow.setName(newETEFlowName.getText());
 					updateWidgets(isValid);
 				}
 			});

@@ -211,7 +211,7 @@ public class CreateFlowImplementationTool {
 
 		private String getDirectionMessage() {
 			String msg;
-			if (userSelections.size() == 0) {
+			if (userSelections.isEmpty()) {
 				msg = "Select a flow specification to implement.";
 			} else if (selectingFlowIn()) {
 				msg = "Select a starting feature.";
@@ -314,7 +314,7 @@ public class CreateFlowImplementationTool {
 		}
 
 		private boolean selectingFlowSpecificationToImplement() {
-			return userSelections.size() == 0;
+			return userSelections.isEmpty();
 		}
 
 		private boolean selectingFlowIn() {
@@ -363,7 +363,7 @@ public class CreateFlowImplementationTool {
 			if ((flowImpl.getKind() == FlowKind.SOURCE || flowImpl.getKind() == FlowKind.SINK)
 					&& (flowImpl.getOwnedFlowSegments().size() % 2) == 0) {
 				return true;
-			} else if (flowImpl.getKind() == FlowKind.PATH && (flowImpl.getOwnedFlowSegments().size() == 0
+			} else if (flowImpl.getKind() == FlowKind.PATH && (flowImpl.getOwnedFlowSegments().isEmpty()
 					|| (flowImpl.getOwnedFlowSegments().size() % 2) == 1)) {
 				// For flow paths, require an odd number of flow segments if there are any flow segments
 				return true;
@@ -453,10 +453,14 @@ public class CreateFlowImplementationTool {
 			final Optional<ComponentImplementation> optCi = getFlowComponentImplementation(getOwnerBoc().orElse(null));
 			if (!optCi.isPresent()) {
 				diagnostics = Collections.emptySet();
+				setDefaultTitle();
 			} else {
 				final ComponentImplementation ci = optCi.get();
-				diagnostics = ToolUtil.getModificationDiagnostics(ci, (testResourceSet) -> {
-					final ComponentImplementation objectToModify = (ComponentImplementation) testResourceSet
+
+				// Update title
+				setTitle("Creating Flow Implementation in: " + ci.getQualifiedName());
+				diagnostics = ToolUtil.getModificationDiagnostics(ci, (resourceSet) -> {
+					final ComponentImplementation objectToModify = (ComponentImplementation) resourceSet
 							.getEObject(EcoreUtil.getURI(ci), true);
 					objectToModify.setNoFlows(false);
 					objectToModify.getOwnedFlowImplementations().add(fi);
@@ -464,6 +468,7 @@ public class CreateFlowImplementationTool {
 				});
 			}
 
+			// Update error table
 			FlowDialogUtil.setInput(errorTableViewer, diagnostics);
 
 			final Optional<Diagnostic> errorDiagnostic = diagnostics.stream()
@@ -504,7 +509,7 @@ public class CreateFlowImplementationTool {
 		 * Updates the UI
 		 */
 		private void updateWidgets() {
-			undoButton.setEnabled(userSelections.size() > 0);
+			undoButton.setEnabled(!userSelections.isEmpty());
 
 			final FlowImplementation fi = createFlow();
 			isValid = isFlowImplValid(fi);
@@ -540,7 +545,7 @@ public class CreateFlowImplementationTool {
 				flowStr += flowSegmentStrings.stream().collect(Collectors.joining(" -> "));
 
 				final int modeStartIndex = flowStr.length();
-				if (fi.getInModeOrTransitions().size() > 0) {
+				if (!fi.getInModeOrTransitions().isEmpty()) {
 					flowStr += " in modes (" + fi.getInModeOrTransitions().stream().map(mf -> mf.getName())
 							.collect(Collectors.joining(", ")) + ")";
 				}
@@ -578,7 +583,7 @@ public class CreateFlowImplementationTool {
 
 		private FlowSpecification getFlowSpecification() {
 			// The flow specification should be the first thing selected by the user
-			if (userSelections.size() == 0) {
+			if (userSelections.isEmpty()) {
 				return null;
 			}
 
@@ -591,7 +596,7 @@ public class CreateFlowImplementationTool {
 		 */
 		private Optional<BusinessObjectContext> getOwnerBoc() {
 			// The flow specification should be the first thing selected by the user
-			if (userSelections.size() == 0) {
+			if (userSelections.isEmpty()) {
 				return Optional.empty();
 			}
 
@@ -601,7 +606,7 @@ public class CreateFlowImplementationTool {
 		@Override
 		protected void configureShell(final Shell newShell) {
 			super.configureShell(newShell);
-			newShell.setText("Create Flow Implementation");
+			newShell.setText("Flow Implementation Tool");
 			newShell.setLocation(DialogPlacementHelper
 					.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
 			newShell.setSize(800, 400);
@@ -611,9 +616,13 @@ public class CreateFlowImplementationTool {
 		@Override
 		public void create() {
 			super.create();
-			setTitle("Select Elements");
+			setDefaultTitle();
 			ContextHelpUtil.setHelp(getShell(), ContextHelpUtil.FLOW_IMPL_TOOL);
 			updateWidgets();
+		}
+
+		private void setDefaultTitle() {
+			setTitle("Creating Flow Implementation");
 		}
 
 		@Override
@@ -642,7 +651,7 @@ public class CreateFlowImplementationTool {
 			undoButton.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
-					if (userSelections.size() > 0) {
+					if (!userSelections.isEmpty()) {
 						userSelections.remove(userSelections.size() - 1);
 						uiService.clearSelection();
 						updateWidgets();
