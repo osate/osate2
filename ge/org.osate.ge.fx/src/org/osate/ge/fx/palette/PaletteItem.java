@@ -17,15 +17,15 @@ class PaletteItem<I> extends Region {
 		itemButton.setOnMouseEntered(e -> {
 
 			if (model.getActiveItem() != item) {
-			itemButton.setStyle("-fx-background-color: rgba(255,165,0,0.3)");
-		}
+				itemButton.setStyle("-fx-background-color: rgba(255,165,0,0.2)");
+			}
 
 		});
 		itemButton.setOnMouseExited(e -> {
 
 			if (model.getActiveItem() != item) {
-			itemButton.setStyle("-fx-background-color: white;");
-		}
+				itemButton.setStyle("-fx-background-color: white;");
+			}
 
 		});
 
@@ -34,10 +34,10 @@ class PaletteItem<I> extends Region {
 		itemButton.setOnAction(e -> {
 
 			if (model.getActiveItem() != item) {
-			model.activateItem(item);
+				model.activateItem(item);
 
-			itemButton.setStyle("-fx-background-color: rgba(0,100,255,0.2)");
-		}
+				itemButton.setStyle("-fx-background-color: rgba(0,0,255,0.1)");
+			}
 
 		});
 		this.getChildren().add(itemButton);

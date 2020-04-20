@@ -46,7 +46,6 @@ public class Palette<G, I> extends Region {
 
 		paletteVbox.setFillWidth(true);
 
-
 		for (I item : model.getItems(null)) {
 
 			PaletteItem<I> grouplessItem = new PaletteItem<I>(model, item);
@@ -55,7 +54,6 @@ public class Palette<G, I> extends Region {
 		}
 
 		for (G group : model.getGroups()) {
-
 
 			final PaletteGroup<G, I> paletteGroup = new PaletteGroup<>(model, group);
 			paletteList.add(paletteGroup);
@@ -77,7 +75,6 @@ public class Palette<G, I> extends Region {
 		final double height = this.getHeight();
 
 		paletteVbox.resize(width, height);
-
 
 	}
 
