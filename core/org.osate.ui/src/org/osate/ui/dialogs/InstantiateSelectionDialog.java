@@ -86,10 +86,10 @@ public class InstantiateSelectionDialog extends ElementListSelectionDialog {
 					"This results dialog will be hidden in the future.  "
 							+ "You can restore it by going to the \"OSATE > Instantiation\" preference pane.  "
 							+ "Do you wish to make this change?")) {
-				prefs.setValue(OsateCorePlugin.getAlwaysShowInstantiationAadlDialogPreferenceName(), false);
+				prefs.setValue(OsateCorePlugin.ALWAYS_SHOW_INSTANTIATION_AADL_DIALOG, false);
 			}
 		}
-		prefs.setValue(OsateCorePlugin.getOnlyInstantiateSystemImplsPreferenceName(), systemsOnlyButton.getSelection());
+		prefs.setValue(OsateCorePlugin.ONLY_INSTANTIATE_SYSTEM_IMPLS, systemsOnlyButton.getSelection());
 		if (prefs.needsSaving()) {
 			final Job saveJob = Job.create("Save preferences", monitor -> {
 				try {

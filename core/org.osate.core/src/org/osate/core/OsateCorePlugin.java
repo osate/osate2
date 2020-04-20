@@ -72,15 +72,11 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 	public static final String MAX_SOM = "maxSOM";
 	public static final int MAX_SOM_DEFAULT = 1000;
 
-	// Package visible: only used locally any how, and this way we don't break the plug-in versioning
-	static final String ALWAYS_SHOW_INSTANTIATION_AADL_DIALOG = "alwaysShowInstantiationAADLDialog";
-	// Package visible: only used locally any how, and this way we don't break the plug-in versioning
-	static final boolean ALWAYS_SHOW_INSTANTIATION_AADL_DIALOG_DEFAULT = true;
+	public static final String ALWAYS_SHOW_INSTANTIATION_AADL_DIALOG = "alwaysShowInstantiationAADLDialog";
+	public static final boolean ALWAYS_SHOW_INSTANTIATION_AADL_DIALOG_DEFAULT = true;
 
-	// Package visible: only used locally any how, and this way we don't break the plug-in versioning
-	static final String ONLY_INSTANTIATE_SYSTEM_IMPLS = "onlyInstantiateSystemImpls";
-	// Package visible: only used locally any how, and this way we don't break the plug-in versioning
-	static final boolean ONLY_INSTANTIATE_SYSTEM_IMPLS_DEFAULT = false;
+	public static final String ONLY_INSTANTIATE_SYSTEM_IMPLS = "onlyInstantiateSystemImpls";
+	public static final boolean ONLY_INSTANTIATE_SYSTEM_IMPLS_DEFAULT = false;
 
 	public static final String AUTO_REINSTANTIATE = "autoReinstantiate";
 	public static final String AUTO_INDENT = "AUTO_INDENT";
@@ -355,26 +351,8 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 		return store.getBoolean(ALWAYS_SHOW_INSTANTIATION_AADL_DIALOG);
 	}
 
-	public static void setAlwaysShowInstantiationAadlDialogDefault(final IPreferenceStore store) {
-		store.setDefault(OsateCorePlugin.ALWAYS_SHOW_INSTANTIATION_AADL_DIALOG,
-				OsateCorePlugin.ALWAYS_SHOW_INSTANTIATION_AADL_DIALOG_DEFAULT);
-	}
-
-	public static String getAlwaysShowInstantiationAadlDialogPreferenceName() {
-		return ALWAYS_SHOW_INSTANTIATION_AADL_DIALOG;
-	}
-
 	public final boolean getOnlyInstantiateSystemImpls() {
 		final IPreferenceStore store = getPreferenceStore();
 		return store.getBoolean(ONLY_INSTANTIATE_SYSTEM_IMPLS);
-	}
-
-	public static void setOnlyInstantiateSystemImplsDefault(final IPreferenceStore store) {
-		store.setDefault(OsateCorePlugin.ONLY_INSTANTIATE_SYSTEM_IMPLS,
-				OsateCorePlugin.ONLY_INSTANTIATE_SYSTEM_IMPLS_DEFAULT);
-	}
-
-	public static String getOnlyInstantiateSystemImplsPreferenceName() {
-		return ONLY_INSTANTIATE_SYSTEM_IMPLS;
 	}
 }

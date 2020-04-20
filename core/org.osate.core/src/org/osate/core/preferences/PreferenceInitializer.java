@@ -53,7 +53,9 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(OsateCorePlugin.AUTO_COMPLETE, true);
 		store.setDefault(OsateCorePlugin.CAPITALIZE, false);
 		store.setDefault(OsateCorePlugin.INDENT_SECTIONS, true);
-		OsateCorePlugin.setAlwaysShowInstantiationAadlDialogDefault(store);
-		OsateCorePlugin.setOnlyInstantiateSystemImplsDefault(store);
+		store.setDefault(OsateCorePlugin.ALWAYS_SHOW_INSTANTIATION_AADL_DIALOG,
+				OsateCorePlugin.ALWAYS_SHOW_INSTANTIATION_AADL_DIALOG_DEFAULT);
+		store.setDefault(OsateCorePlugin.ONLY_INSTANTIATE_SYSTEM_IMPLS,
+				OsateCorePlugin.ONLY_INSTANTIATE_SYSTEM_IMPLS_DEFAULT);
 	}
 }
