@@ -37,7 +37,6 @@ import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -196,10 +195,10 @@ public class ToolUtil {
 		final XtextResource resource = getOrCreateXtextResource(resourceSet, eObjectToValidate.eResource().getURI());
 		loadResource(resource, serializedSrc.get());
 
-		final Builder<DiagnosticWrapper> diagnostics = Stream.builder();
+		final Builder<BasicDiagnostic> diagnostics = Stream.builder();
 
 		// Concrete Syntax Validation
-		final Stream<DiagnosticWrapper> syntaxDiagnostics = resource.validateConcreteSyntax().stream()
+		final Stream<BasicDiagnostic> syntaxDiagnostics = resource.validateConcreteSyntax().stream()
 				.filter(diagnostic -> isErrorOrWarning(diagnostic))
 				.map(diagnostic -> diagnosticBuilder.build(diagnostic));
 		addToBuilder(diagnostics, syntaxDiagnostics);
@@ -209,20 +208,20 @@ public class ToolUtil {
 				Collections.singletonMap(Diagnostician.VALIDATE_RECURSIVELY, true));
 		if (isErrorOrWarning(validationDiagnostic)) {
 			// Validation Diagnostics
-			final Stream<DiagnosticWrapper> qualifiedDiagnostics = getDiagnosticDescendants(validationDiagnostic)
+			final Stream<BasicDiagnostic> qualifiedDiagnostics = getDiagnosticDescendants(validationDiagnostic)
 					.filter(diagnostic -> diagnostic instanceof FeatureBasedDiagnostic)
 					.map(diagnostic -> diagnosticBuilder.build(diagnostic));
 			addToBuilder(diagnostics, qualifiedDiagnostics);
 		}
 
 		// Errors
-		final Stream<DiagnosticWrapper> resourceErrors = getResourceDiagnostics(resource.getErrors(),
+		final Stream<BasicDiagnostic> resourceErrors = getResourceDiagnostics(resource.getErrors(),
 				diagnosticBuilder,
 				Diagnostic.ERROR);
 		addToBuilder(diagnostics, resourceErrors);
 
 		// Warnings
-		final Stream<DiagnosticWrapper> resourceWarnings = getResourceDiagnostics(resource.getWarnings(),
+		final Stream<BasicDiagnostic> resourceWarnings = getResourceDiagnostics(resource.getWarnings(),
 				diagnosticBuilder,
 				Diagnostic.WARNING);
 		addToBuilder(diagnostics, resourceWarnings);
@@ -230,8 +229,8 @@ public class ToolUtil {
 		return diagnostics.build().collect(Collectors.toCollection(HashSet::new));
 	}
 
-	private static void addToBuilder(final Builder<DiagnosticWrapper> builder,
-			final Stream<DiagnosticWrapper> diagnosticsToAdd) {
+	private static void addToBuilder(final Builder<BasicDiagnostic> builder,
+			final Stream<BasicDiagnostic> diagnosticsToAdd) {
 		diagnosticsToAdd.forEach(diagnostic -> builder.add(diagnostic));
 	}
 
@@ -242,18 +241,18 @@ public class ToolUtil {
 			this.msgPrefix = msgPrefix;
 		}
 
-		public DiagnosticWrapper build(final int severity, final String msg) {
-			return new DiagnosticWrapper(severity, getDetailedDiagnosticMessage(this.msgPrefix, msg));
+		public BasicDiagnostic build(final int severity, final String msg) {
+			return new BasicDiagnostic(severity, getDetailedDiagnosticMessage(this.msgPrefix, msg));
 		}
 
-		public DiagnosticWrapper build(final Diagnostic diagnostic) {
-			return new DiagnosticWrapper(diagnostic.getSeverity(),
+		public BasicDiagnostic build(final Diagnostic diagnostic) {
+			return new BasicDiagnostic(diagnostic.getSeverity(),
 					getDetailedDiagnosticMessage(this.msgPrefix, diagnostic.getMessage()));
 		}
 
-		public DiagnosticWrapper build(final int severity,
+		public BasicDiagnostic build(final int severity,
 				final org.eclipse.emf.ecore.resource.Resource.Diagnostic diagnostic) {
-			return new DiagnosticWrapper(severity,
+			return new BasicDiagnostic(severity,
 					getDetailedDiagnosticMessage(this.msgPrefix, diagnostic.getMessage()));
 		}
 
@@ -262,8 +261,9 @@ public class ToolUtil {
 		}
 	}
 
-	private static class DiagnosticWrapper extends BasicDiagnostic {
-		public DiagnosticWrapper(final int severity, final String message) {
+	// Diagnostic that contains a severity and message
+	private static class BasicDiagnostic extends org.eclipse.emf.common.util.BasicDiagnostic {
+		public BasicDiagnostic(final int severity, final String message) {
 			this.severity = Objects.requireNonNull(severity, "severity cannot be null");
 			this.message = Objects.requireNonNull(message, "message cannot be null");
 		}
@@ -278,7 +278,7 @@ public class ToolUtil {
 				return false;
 			}
 
-			final DiagnosticWrapper diagnostic = (DiagnosticWrapper) o;
+			final BasicDiagnostic diagnostic = (BasicDiagnostic) o;
 			return this.severity == diagnostic.getSeverity() && this.message.equals(diagnostic.getMessage());
 		}
 
@@ -298,7 +298,7 @@ public class ToolUtil {
 		return severity == Diagnostic.ERROR || severity == Diagnostic.WARNING;
 	}
 
-	private static Stream<DiagnosticWrapper> getResourceDiagnostics(
+	private static Stream<BasicDiagnostic> getResourceDiagnostics(
 			final List<org.eclipse.emf.ecore.resource.Resource.Diagnostic> diagnostics,
 			final DiagnosticBuilder diagnosticBuilder,
 			final int severity) {
