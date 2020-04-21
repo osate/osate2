@@ -22,7 +22,7 @@ import org.osate.core.OsateCorePlugin;
 import org.osate.ui.UiUtil;
 
 /**
- * @since 3.0
+ * @since 3.1
  */
 public class InstantiateSelectionDialog extends ElementListSelectionDialog {
 	private final boolean systemsOnlyDefault;

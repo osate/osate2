@@ -72,10 +72,22 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 	public static final String MAX_SOM = "maxSOM";
 	public static final int MAX_SOM_DEFAULT = 1000;
 
+	/**
+	 * @since 3.0
+	 */
 	public static final String ALWAYS_SHOW_INSTANTIATION_AADL_DIALOG = "alwaysShowInstantiationAADLDialog";
+	/**
+	 * @since 3.0
+	 */
 	public static final boolean ALWAYS_SHOW_INSTANTIATION_AADL_DIALOG_DEFAULT = true;
 
+	/**
+	 * @since 3.0
+	 */
 	public static final String ONLY_INSTANTIATE_SYSTEM_IMPLS = "onlyInstantiateSystemImpls";
+	/**
+	 * @since 3.0
+	 */
 	public static final boolean ONLY_INSTANTIATE_SYSTEM_IMPLS_DEFAULT = false;
 
 	public static final String AUTO_REINSTANTIATE = "autoReinstantiate";
