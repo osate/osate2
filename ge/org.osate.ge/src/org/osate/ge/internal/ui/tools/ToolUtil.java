@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
@@ -192,21 +193,21 @@ public class ToolUtil {
 			return Sets.newHashSet(diagnosticBuilder.build(Diagnostic.ERROR, "Serialization Error"));
 		}
 
-		final XtextResource resource = getXtextResource(resourceSet, eObjectToValidate.eResource().getURI());
+		final XtextResource resource = getOrCreateXtextResource(resourceSet, eObjectToValidate.eResource().getURI());
 		loadResource(resource, serializedSrc.get());
 
 		final Builder<DiagnosticWrapper> diagnostics = Stream.builder();
 
 		// Concrete Syntax Validation
 		final Stream<DiagnosticWrapper> syntaxDiagnostics = resource.validateConcreteSyntax().stream()
-				.filter(diagnostic -> isErrorOrWarning(diagnostic.getSeverity()))
+				.filter(diagnostic -> isErrorOrWarning(diagnostic))
 				.map(diagnostic -> diagnosticBuilder.build(diagnostic));
 		addToBuilder(diagnostics, syntaxDiagnostics);
 
 		final EObject serializedObject = resourceSet.getEObject(EcoreUtil.getURI(eObjectToValidate), true);
 		final Diagnostic validationDiagnostic = Diagnostician.INSTANCE.validate(serializedObject,
 				Collections.singletonMap(Diagnostician.VALIDATE_RECURSIVELY, true));
-		if (isErrorOrWarning(validationDiagnostic.getSeverity())) {
+		if (isErrorOrWarning(validationDiagnostic)) {
 			// Validation Diagnostics
 			final Stream<DiagnosticWrapper> qualifiedDiagnostics = getDiagnosticDescendants(validationDiagnostic)
 					.filter(diagnostic -> diagnostic instanceof FeatureBasedDiagnostic)
@@ -226,7 +227,7 @@ public class ToolUtil {
 				Diagnostic.WARNING);
 		addToBuilder(diagnostics, resourceWarnings);
 
-		return diagnostics.build().collect(Collectors.toSet());
+		return diagnostics.build().collect(Collectors.toCollection(HashSet::new));
 	}
 
 	private static void addToBuilder(final Builder<DiagnosticWrapper> builder,
@@ -263,8 +264,8 @@ public class ToolUtil {
 
 	private static class DiagnosticWrapper extends BasicDiagnostic {
 		public DiagnosticWrapper(final int severity, final String message) {
-			this.severity = severity;
-			this.message = message;
+			this.severity = Objects.requireNonNull(severity, "severity cannot be null");
+			this.message = Objects.requireNonNull(message, "message cannot be null");
 		}
 
 		@Override
@@ -272,24 +273,28 @@ public class ToolUtil {
 			if (o == null) {
 				return false;
 			}
-			if (o == this) {
-				return true;
-			}
-			if (getClass() != o.getClass()) {
+
+			if (this.getClass() != o.getClass()) {
 				return false;
 			}
 
-			final DiagnosticWrapper e = (DiagnosticWrapper) o;
-			return (this.message.equalsIgnoreCase(e.getMessage()));
+			final DiagnosticWrapper diagnostic = (DiagnosticWrapper) o;
+			return this.severity == diagnostic.getSeverity() && this.message.equals(diagnostic.getMessage());
 		}
 
 		@Override
 		public int hashCode() {
-			return this.message.hashCode();
+			return Objects.hash(this.severity, this.message);
 		}
 	}
 
-	private static boolean isErrorOrWarning(final int severity) {
+	/**
+	 * Checks if a diagnostic's severity is an error or warning
+	 * @param diagnostic the diagnostic to check
+	 * @return true if the diagnostic's severity is an error or warning
+	 */
+	private static boolean isErrorOrWarning(final Diagnostic diagnostic) {
+		final int severity = diagnostic.getSeverity();
 		return severity == Diagnostic.ERROR || severity == Diagnostic.WARNING;
 	}
 
@@ -332,7 +337,7 @@ public class ToolUtil {
 		}
 	}
 
-	private static XtextResource getXtextResource(final ResourceSet resourceSet, final URI uri) {
+	private static XtextResource getOrCreateXtextResource(final ResourceSet resourceSet, final URI uri) {
 		final XtextResource resource = (XtextResource) resourceSet.getResource(uri, true);
 		return resource != null ? resource : (XtextResource) resourceSet.createResource(uri);
 	}

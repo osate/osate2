@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -332,15 +332,15 @@ public class OsateGeTestCommands {
 
 		clickToolbarItem("Create End to End Flow Specification");
 
-		waitForWindowWithTitle("Create End To End Flow Specification");
+		waitForWindowWithTitle("End To End Flow Specification Tool");
 
 		clickElements(flowSegments);
 
 		final String eteName = eteQualifiedName.substring(eteQualifiedName.lastIndexOf(':') + 1);
-		setTextForShell("Create End To End Flow Specification", 0, eteName);
-		sendTextKeyUpEvent("Create End To End Flow Specification", 0, SWT.KeyUp, new Event());
+		setTextForShell("End To End Flow Specification Tool", 0, eteName);
+		sendTextKeyUpEvent("End To End Flow Specification Tool", 0, SWT.KeyUp, new Event());
 
-		clickButtonForShell("Create End To End Flow Specification", "OK");
+		clickButtonForShell("End To End Flow Specification Tool", "OK");
 
 		// Highlight flow to ensure it was created successfully
 		setComboBoxWithIdSelection(FlowContributionItem.highlightFlow, eteQualifiedName);
@@ -378,11 +378,11 @@ public class OsateGeTestCommands {
 
 		clickToolbarItem("Create Flow Implementation");
 
-		waitForWindowWithTitle("Create Flow Implementation");
+		waitForWindowWithTitle("Flow Implementation Tool");
 
 		clickElements(flowSegments);
 
-		clickButtonForShell("Create Flow Implementation", "OK");
+		clickButtonForShell("Flow Implementation Tool", "OK");
 
 		// Highlight flow to ensure it was created successfully
 		setComboBoxWithIdSelection(FlowContributionItem.highlightFlow, flowImpQualifiedlName);
