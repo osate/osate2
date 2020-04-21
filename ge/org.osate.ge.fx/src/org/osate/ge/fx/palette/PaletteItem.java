@@ -1,5 +1,6 @@
 package org.osate.ge.fx.palette;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -9,9 +10,15 @@ class PaletteItem<I> extends Region {
 
 	Button itemButton;
 
-	public PaletteItem(final PaletteModel<?, I> model, I item) {
+	public PaletteItem(final PaletteModel<?, I> model, I item, boolean grouped) {
 
 		itemButton = new Button(model.getItemLabel(item));
+
+		if (grouped) {
+
+			itemButton.setPadding(new Insets(0, 0, 0, 20));
+
+		}
 
 		itemButton.setStyle("-fx-background-color: white;");
 		itemButton.setOnMouseEntered(e -> {

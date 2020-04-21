@@ -48,7 +48,7 @@ public class Palette<G, I> extends Region {
 
 		for (I item : model.getItems(null)) {
 
-			PaletteItem<I> grouplessItem = new PaletteItem<I>(model, item);
+			PaletteItem<I> grouplessItem = new PaletteItem<I>(model, item, false);
 			paletteVbox.getChildren().add(grouplessItem);
 
 		}

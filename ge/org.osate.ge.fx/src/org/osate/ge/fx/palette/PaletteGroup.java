@@ -57,7 +57,7 @@ class PaletteGroup<G, I> extends Region {
 
 		for (I itemModel : model.getItems(groupModel)) {
 
-			PaletteItem<I> paletteItem = new PaletteItem<>(model, itemModel);
+			PaletteItem<I> paletteItem = new PaletteItem<>(model, itemModel, true);
 			itemBox.getChildren().add(paletteItem);
 
 		}
