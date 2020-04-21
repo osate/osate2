@@ -162,5 +162,8 @@ censes only apply to the Third Party Software and not any other portion of this 
             path="org.osate.analysis.flows.FlowLatencyAnalysisSwitch">
       </class>
    </extension>
-   
+
+   <extension point="org.eclipse.help.contexts">
+      <contexts file="help/latency_contexts.xml"  />
+   </extension>   
 </plugin>
