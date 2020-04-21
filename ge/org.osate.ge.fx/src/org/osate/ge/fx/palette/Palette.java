@@ -37,31 +37,27 @@ import javafx.scene.layout.VBox;
  *
  */
 public class Palette<G, I> extends Region {
-
-	private final VBox paletteVbox = new VBox();
+	private final VBox paletteVbox = new VBox(2);
+	final String PALETTE_BACKGROUND = "-fx-background-color: white;";
 	private final ArrayList<PaletteGroup<G, I>> paletteList = new ArrayList<PaletteGroup<G, I>>();
 
 	public Palette(final PaletteModel<G, I> model) {
 		Objects.requireNonNull(model, "model must not be null");
 
 		paletteVbox.setFillWidth(true);
+		paletteVbox.setStyle(PALETTE_BACKGROUND);
 
 		for (I item : model.getItems(null)) {
-
-			PaletteItem<I> grouplessItem = new PaletteItem<I>(model, item, false);
+			PaletteItem<I> grouplessItem = new PaletteItem<I>(model, item);
 			paletteVbox.getChildren().add(grouplessItem);
-
 		}
 
 		for (G group : model.getGroups()) {
-
 			final PaletteGroup<G, I> paletteGroup = new PaletteGroup<>(model, group);
 			paletteList.add(paletteGroup);
 			paletteVbox.getChildren().add(paletteGroup);
-
 		}
 		this.getChildren().add(paletteVbox);
-
 	}
 
 	public static void main(final String[] args) {
@@ -70,12 +66,10 @@ public class Palette<G, I> extends Region {
 
 	@Override
 	public void layoutChildren() {
-
 		final double width = this.getWidth();
 		final double height = this.getHeight();
 
 		paletteVbox.resize(width, height);
-
 	}
 
 }
