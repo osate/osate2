@@ -12,54 +12,52 @@ import javafx.scene.layout.VBox;
  *
  */
 class PaletteGroup<G, I> extends Region {
-
 	final VBox buttonBox = new VBox();
 	final ToggleButton groupButton;
 
-	public PaletteGroup(final PaletteModel<G, I> model, final G groupModel) {
+	final String IDLE_GROUP_STYLE = "-fx-background-color: linear-gradient(rgb(247,247,247),rgb(200,200,200));"
+			+ "-fx-border-width: 1px;" + "-fx-border-color: rgba(0,0,0,.2);";
+	final String HOVER_OR_SELECTED_GROUP_STYLE = "-fx-background-color: linear-gradient(rgb(243,243,243), rgb(222,222,222));"
+			+ "-fx-border-width: 1px;" + "-fx-border-color: rgba(0,0,0,.2);";
+	final String ITEMBOX_BACKGROUND = "-fx-background-color: white;";
 
+	public PaletteGroup(final PaletteModel<G, I> model, final G groupModel) {
 		final ScrollPane scrollPane = new ScrollPane();
 		groupButton = new ToggleButton(model.getGroupLabel(groupModel));
-		groupButton.setStyle("-fx-background-color: linear-gradient(#ededed, #d9d9d9)");
+		groupButton.setStyle(IDLE_GROUP_STYLE);
 		groupButton.setAlignment(Pos.BASELINE_LEFT);
 		groupButton.setGraphic(new ImageView(model.getGroupIcon(groupModel)));
-		groupButton.setOnAction(e -> {
 
+		groupButton.setOnAction(e -> {
 			if (groupButton.isSelected() == true) {
 				scrollPane.setManaged(true);
 				scrollPane.setVisible(true);
-				groupButton.setStyle("-fx-background-color: rgb(242,242,242)");
+				groupButton.setStyle(HOVER_OR_SELECTED_GROUP_STYLE);
 			} else {
 				scrollPane.setVisible(false);
 				scrollPane.setManaged(false);
-				groupButton.setStyle("-fx-background-color: linear-gradient(#ededed, #d9d9d9)");
+				groupButton.setStyle(IDLE_GROUP_STYLE);
 			}
-
 		});
 
 		groupButton.setOnMouseEntered(e -> {
-
-			groupButton.setStyle("-fx-background-color: rgb(242,242,242)");
-
+			groupButton.setStyle(HOVER_OR_SELECTED_GROUP_STYLE);
 		});
 
 		groupButton.setOnMouseExited(e -> {
-
 			if (!groupButton.isSelected()) {
-				groupButton.setStyle("-fx-background-color: linear-gradient(#ededed, #d9d9d9)");
+				groupButton.setStyle(IDLE_GROUP_STYLE);
 			}
-
 		});
 
 		buttonBox.getChildren().add(groupButton);
 
-		final VBox itemBox = new VBox();
+		final VBox itemBox = new VBox(4);
+		itemBox.setStyle(ITEMBOX_BACKGROUND);
 
 		for (I itemModel : model.getItems(groupModel)) {
-
-			PaletteItem<I> paletteItem = new PaletteItem<>(model, itemModel, true);
+			PaletteItem<I> paletteItem = new PaletteItem<>(model, itemModel);
 			itemBox.getChildren().add(paletteItem);
-
 		}
 		scrollPane.setContent(itemBox);
 		buttonBox.getChildren().add(scrollPane);
@@ -72,7 +70,6 @@ class PaletteGroup<G, I> extends Region {
 
 	@Override
 	public void layoutChildren() {
-
 		final double width = this.getWidth();
 		final double height = this.getHeight();
 
