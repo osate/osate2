@@ -67,6 +67,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -94,7 +95,17 @@ public class UiTestUtil {
 
 	static {
 		bot = new SWTGefBot();
-		SWTBotPreferences.TIMEOUT = 5000;
+		SWTBotPreferences.TIMEOUT = 10000;
+	}
+
+	/**
+	 * Function that should be called to perform test setup which is shared with all tests
+	 */
+	public static void prepareForTesting() {
+		// Sets the window size. Most of the test functions are size independent but selecting tabs in the properties view requires the tab to be visible.
+		Display.getDefault().syncExec(() -> {
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().setSize(1920, 1080);
+		});
 	}
 
 	/**
@@ -284,7 +295,11 @@ public class UiTestUtil {
 		bot.viewByTitle(title).setFocus();
 	}
 
-	public static void clickViewTab(final String title) {
+	/**
+	 * Clicks a properties view tab. If the tab is not visible due to scrolling, it will not be clicked.
+	 * @param title
+	 */
+	public static void clickPropertiesViewTab(final String title) {
 		final SWTBotCanvas canvas = findViewCanvasByTitle(title);
 		canvas.click();
 	}

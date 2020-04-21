@@ -259,7 +259,7 @@ public class OsateGeTestUtil {
 		assertViewIsVisible("Properties");
 		setViewFocus("Properties");
 
-		clickViewTab(tabLabel);
+		clickPropertiesViewTab(tabLabel);
 		clickCheckbox(index);
 	}
 
@@ -267,7 +267,7 @@ public class OsateGeTestUtil {
 		assertViewIsVisible("Properties");
 		setViewFocus("Properties");
 
-		clickViewTab(tabLabel);
+		clickPropertiesViewTab(tabLabel);
 		clickRadioButton(btnLabel);
 	}
 
@@ -278,7 +278,7 @@ public class OsateGeTestUtil {
 		assertViewIsVisible("Properties");
 		setViewFocus("Properties");
 
-		clickViewTab(tabLabel);
+		clickPropertiesViewTab(tabLabel);
 		clickButton(btnLabel);
 	}
 
