@@ -34,7 +34,9 @@ import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 /**
  * @since 2.0
+ * @deprecated Use {@link NewBusLoadAnalysisHandler} instead. Will be removed in 2.8.
  */
+@Deprecated
 public class BusLoadAnalysisHandler extends AaxlReadOnlyHandlerAsJob {
 	@Override
 	protected String getActionName() {
