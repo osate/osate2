@@ -459,7 +459,7 @@ public class OsateGeTestCommands {
 		assertViewIsVisible("Properties");
 		setViewFocus("Properties");
 
-		clickViewTab("AADL");
+		clickPropertiesViewTab("AADL");
 		clickButton("Choose...");
 		waitForWindowWithTitle("Select a Classifier");
 
@@ -551,7 +551,7 @@ public class OsateGeTestCommands {
 		assertViewIsVisible("Properties");
 		setViewFocus("Properties");
 
-		clickViewTab("AADL");
+		clickPropertiesViewTab("AADL");
 		final int dimensionCount = getNumberOfTableRows(0);
 		clickButton("Add");
 		waitForWindowWithTitle("Modify Dimension");
@@ -580,7 +580,7 @@ public class OsateGeTestCommands {
 		assertViewIsVisible("Properties");
 		setViewFocus("Properties");
 
-		clickViewTab("AADL");
+		clickPropertiesViewTab("AADL");
 		clickTableItem(0, dimensionIndex);
 		clickButton("Modify...");
 		waitForWindowWithTitle("Modify Dimension");
@@ -609,7 +609,7 @@ public class OsateGeTestCommands {
 		assertViewIsVisible("Properties");
 		setViewFocus("Properties");
 
-		clickViewTab("AADL");
+		clickPropertiesViewTab("AADL");
 		final int dimensionCount = getNumberOfTableRows(0);
 		clickTableItem(0, dimensionIndex);
 		clickButton("Delete");
