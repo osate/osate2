@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <release>
-	<product name="osate2" version="2.7.0">
-		<feature name="org.osate.core.feature" version="3.0.0"/>
-		<feature name="org.osate.plugins.feature" version="3.0.0"/>
-		<feature name="org.osate.xtext.aadl2.errormodel.feature" version="3.0.0"/>
-		<feature name="org.osate.ge.feature" version="3.0.0"/>
-		<feature name="org.osate.ba.feature" version="2.0.0"/>
-		<feature name="org.osate.utils.feature" version="1.0.1"/>
-		<feature name="org.osate.alisa.workbench.sdk" version="2.0.0"/>
+	<product name="osate2" version="2.7.1">
+		<feature name="org.osate.core.feature" version="4.0.0"/>
+		<feature name="org.osate.plugins.feature" version="4.0.0"/>
+		<feature name="org.osate.xtext.aadl2.errormodel.feature" version="4.0.0"/>
+		<feature name="org.osate.ge.feature" version="3.1.0"/>
+		<feature name="org.osate.ba.feature" version="3.0.0"/>
+		<feature name="org.osate.utils.feature" version="1.0.2"/>
+		<feature name="org.osate.alisa.workbench.sdk" version="3.0.0"/>
 		<feature name="org.osate.dependencies.birt" version="4.9.0"/>
 		<feature name="org.eclipse.xsemantics.runtime.feature" version="1.19.0"/>
 		<feature name="org.eclipse.egit" version="5.6.0"/>
@@ -24,7 +24,7 @@
 		<feature name="org.eclipse.ease.lang.unittest.feature" version="0.6.0"/>
 		<feature name="org.eclipse.ease.modules.feature" version="0.6.0"/>
 		<feature name="org.eclipse.ease.ui.feature" version="0.6.0"/>
-		<feature name="org.py4j.feature" version="0.10.9"/>
+		<feature name="org.py4j.feature" version="0.10.8"/>
 	</product>
 	<feature name="org.eclipse.e4.rcp" version="4.14.0">
 		<plugin name="org.eclipse.e4.core.services" version="2.2.100"/>
@@ -381,54 +381,54 @@
 	<feature name="org.eclipse.xsemantics.runtime.feature" version="1.19.0">
 		<plugin name="org.eclipse.xsemantics.runtime" version="1.19.0"/>
 	</feature>
-	<feature name="org.osate.alisa.workbench.sdk" version="2.0.0">
+	<feature name="org.osate.alisa.workbench.sdk" version="3.0.0">
 		<feature name="org.osate.license" version="1.0.0" license="true"/>
-		<plugin name="org.osate.alisa.workbench" version="2.0.0"/>
-		<plugin name="org.osate.alisa.workbench.ui" version="2.0.0"/>
-		<plugin name="org.osate.verify" version="2.0.0"/>
-		<plugin name="org.osate.verify.ui" version="2.0.0"/>
-		<plugin name="org.osate.assure" version="2.0.0"/>
+		<plugin name="org.osate.alisa.workbench" version="2.0.1"/>
+		<plugin name="org.osate.alisa.workbench.ui" version="2.0.1"/>
+		<plugin name="org.osate.verify" version="2.0.1"/>
+		<plugin name="org.osate.verify.ui" version="2.0.1"/>
+		<plugin name="org.osate.assure" version="3.0.0"/>
 		<plugin name="org.osate.results" version="2.0.0"/>
-		<plugin name="org.osate.reqspec" version="2.0.0"/>
-		<plugin name="org.osate.reqspec.ui" version="1.0.1"/>
-		<plugin name="org.osate.alisa.common" version="2.0.0"/>
-		<plugin name="org.osate.alisa.common.ui" version="2.0.0"/>
-		<plugin name="org.osate.categories" version="2.0.0"/>
-		<plugin name="org.osate.categories.ui" version="2.0.0"/>
-		<plugin name="org.osate.organization" version="2.0.0"/>
-		<plugin name="org.osate.organization.ui" version="2.0.0"/>
-		<plugin name="org.osate.reqtrace" version="1.0.1"/>
+		<plugin name="org.osate.reqspec" version="2.0.1"/>
+		<plugin name="org.osate.reqspec.ui" version="1.0.2"/>
+		<plugin name="org.osate.alisa.common" version="2.0.1"/>
+		<plugin name="org.osate.alisa.common.ui" version="2.0.1"/>
+		<plugin name="org.osate.categories" version="2.0.1"/>
+		<plugin name="org.osate.categories.ui" version="2.0.1"/>
+		<plugin name="org.osate.organization" version="2.0.1"/>
+		<plugin name="org.osate.organization.ui" version="2.0.1"/>
+		<plugin name="org.osate.reqtrace" version="1.0.2"/>
 		<plugin name="org.osate.alisa.help" version="1.0.1"/>
-		<plugin name="org.osate.alisa.contribution" version="1.0.1"/>
+		<plugin name="org.osate.alisa.contribution" version="1.0.2"/>
 	</feature>
-	<feature name="org.osate.ba.feature" version="2.0.0">
-		<plugin name="org.osate.ba" version="2.0.0"/>
-		<plugin name="org.osate.ba.edit" version="2.0.0"/>
-		<plugin name="org.osate.ba.contrib" version="1.0.1"/>
+	<feature name="org.osate.ba.feature" version="3.0.0">
+		<plugin name="org.osate.ba" version="3.0.0"/>
+		<plugin name="org.osate.ba.edit" version="3.0.0"/>
+		<plugin name="org.osate.ba.contrib" version="1.0.2"/>
 	</feature>
-	<feature name="org.osate.core.feature" version="3.0.0">
+	<feature name="org.osate.core.feature" version="4.0.0">
 		<feature name="org.osate.license" version="1.0.0" license="true"/>
-		<plugin name="org.osate.aadl2" version="2.0.0"/>
-		<plugin name="org.osate.aadl2.edit" version="2.0.0"/>
-		<plugin name="org.osate.aadl2.instantiation" version="1.0.1"/>
-		<plugin name="org.osate.aadl2.model.editor" version="2.0.0"/>
-		<plugin name="org.osate.aadl2.modelsupport" version="2.0.0"/>
-		<plugin name="org.osate.annexsupport" version="1.0.1"/>
+		<plugin name="org.osate.aadl2" version="3.0.0"/>
+		<plugin name="org.osate.aadl2.edit" version="3.0.0"/>
+		<plugin name="org.osate.aadl2.instantiation" version="1.1.0"/>
+		<plugin name="org.osate.aadl2.model.editor" version="3.0.0"/>
+		<plugin name="org.osate.aadl2.modelsupport" version="3.0.0"/>
+		<plugin name="org.osate.annexsupport" version="2.0.0"/>
 		<plugin name="org.osate.branding" version="1.0.1"/>
-		<plugin name="org.osate.core" version="2.0.0"/>
-		<plugin name="org.osate.pluginsupport" version="2.0.0"/>
-		<plugin name="org.osate.help" version="1.0.1"/>
-		<plugin name="org.osate.ui" version="2.0.0"/>
-		<plugin name="org.osate.workspace" version="2.0.0"/>
-		<plugin name="org.osate.xtext.aadl2" version="2.0.0"/>
-		<plugin name="org.osate.xtext.aadl2.properties" version="1.1.0"/>
-		<plugin name="org.osate.xtext.aadl2.properties.ui" version="2.0.0"/>
-		<plugin name="org.osate.xtext.aadl2.ui" version="2.0.0"/>
-		<plugin name="org.osate.contribution.sei" version="1.0.1"/>
-		<plugin name="org.osate.aadl2.instance.textual" version="2.0.0"/>
-		<plugin name="org.osate.aadl2.instance.textual.ui" version="2.0.0"/>
-		<plugin name="org.osate.aadl2.instance.ui" version="1.0.1"/>
-		<plugin name="org.osate.mylyn.aadl.ui" version="1.0.1"/>
+		<plugin name="org.osate.core" version="2.0.1"/>
+		<plugin name="org.osate.pluginsupport" version="3.0.0"/>
+		<plugin name="org.osate.help" version="2.7.1"/>
+		<plugin name="org.osate.ui" version="3.0.0"/>
+		<plugin name="org.osate.workspace" version="3.0.0"/>
+		<plugin name="org.osate.xtext.aadl2" version="3.0.0"/>
+		<plugin name="org.osate.xtext.aadl2.properties" version="1.2.0"/>
+		<plugin name="org.osate.xtext.aadl2.properties.ui" version="2.1.0"/>
+		<plugin name="org.osate.xtext.aadl2.ui" version="3.0.0"/>
+		<plugin name="org.osate.contribution.sei" version="1.1.0"/>
+		<plugin name="org.osate.aadl2.instance.textual" version="2.0.1"/>
+		<plugin name="org.osate.aadl2.instance.textual.ui" version="2.0.1"/>
+		<plugin name="org.osate.aadl2.instance.ui" version="1.0.2"/>
+		<plugin name="org.osate.mylyn.aadl.ui" version="1.0.2"/>
 	</feature>
 	<feature name="org.osate.dependencies.birt" version="4.9.0">
 		<plugin name="org.eclipse.birt.chart.engine.extension" version="4.9.0"/>
@@ -465,44 +465,44 @@
 		<plugin name="org.eclipse.birt.report.model" version="4.9.0"/>
 		<plugin name="uk.co.spudsoft.birt.emitters.excel" version="4.9.0"/>
 	</feature>
-	<feature name="org.osate.ge.feature" version="3.0.0">
+	<feature name="org.osate.ge.feature" version="3.1.0">
 		<feature name="org.osate.license" version="1.0.0" license="true"/>
-		<plugin name="org.osate.ge" version="1.0.1"/>
-		<plugin name="org.osate.ge.doc" version="1.0.1"/>
-		<plugin name="org.osate.ge.diagram" version="2.0.0"/>
+		<plugin name="org.osate.ge" version="1.1.0"/>
+		<plugin name="org.osate.ge.doc" version="1.0.2"/>
+		<plugin name="org.osate.ge.diagram" version="2.0.1"/>
 	</feature>
 	<feature name="org.osate.license" version="1.0.0"/>
-	<feature name="org.osate.plugins.feature" version="3.0.0">
+	<feature name="org.osate.plugins.feature" version="4.0.0">
 		<feature name="org.osate.license" version="1.0.0" license="true"/>
-		<plugin name="org.osate.analysis.architecture" version="1.0.1"/>
+		<plugin name="org.osate.analysis.architecture" version="1.0.2"/>
 		<plugin name="org.osate.analysis.binpacking" version="1.0.1"/>
-		<plugin name="org.osate.analysis.flows" version="2.0.0"/>
-		<plugin name="org.osate.analysis.resource.budgets" version="2.0.0"/>
-		<plugin name="org.osate.analysis.resource.management" version="1.0.1"/>
+		<plugin name="org.osate.analysis.flows" version="3.0.0"/>
+		<plugin name="org.osate.analysis.resource.budgets" version="3.0.0"/>
+		<plugin name="org.osate.analysis.resource.management" version="2.0.0"/>
 		<plugin name="org.osate.importer" version="1.0.1"/>
-		<plugin name="org.osate.importer.simulink" version="1.0.1"/>
-		<plugin name="org.osate.codegen.checker" version="1.0.1"/>
+		<plugin name="org.osate.importer.simulink" version="1.0.2"/>
+		<plugin name="org.osate.codegen.checker" version="1.0.2"/>
 	</feature>
-	<feature name="org.osate.utils.feature" version="1.0.1">
-		<plugin name="org.osate.utils" version="1.0.1"/>
+	<feature name="org.osate.utils.feature" version="1.0.2">
+		<plugin name="org.osate.utils" version="1.0.2"/>
 	</feature>
-	<feature name="org.osate.xtext.aadl2.errormodel.feature" version="3.0.0">
+	<feature name="org.osate.xtext.aadl2.errormodel.feature" version="4.0.0">
 		<feature name="org.osate.license" version="1.0.0" license="true"/>
-		<plugin name="org.osate.aadl2.errormodel.analysis" version="1.1.0"/>
-		<plugin name="org.osate.xtext.aadl2.errormodel" version="2.0.0"/>
-		<plugin name="org.osate.xtext.aadl2.errormodel.ui" version="2.0.0"/>
-		<plugin name="org.osate.aadl2.errormodel.contrib" version="1.0.1"/>
-		<plugin name="org.osate.aadl2.errormodel.faulttree" version="2.0.0"/>
-		<plugin name="org.osate.aadl2.errormodel.faulttree.design" version="1.1.0"/>
-		<plugin name="org.osate.aadl2.errormodel.faulttree.edit" version="2.0.0"/>
-		<plugin name="org.osate.aadl2.errormodel.faulttree.generation" version="1.0.1"/>
-		<plugin name="org.osate.aadl2.errormodel.propagationgraph" version="2.0.0"/>
-		<plugin name="org.osate.aadl2.errormodel.help" version="1.0.0"/>
+		<plugin name="org.osate.aadl2.errormodel.analysis" version="1.1.1"/>
+		<plugin name="org.osate.xtext.aadl2.errormodel" version="3.0.0"/>
+		<plugin name="org.osate.xtext.aadl2.errormodel.ui" version="3.0.0"/>
+		<plugin name="org.osate.aadl2.errormodel.contrib" version="1.0.2"/>
+		<plugin name="org.osate.aadl2.errormodel.faulttree" version="3.0.0"/>
+		<plugin name="org.osate.aadl2.errormodel.faulttree.design" version="1.1.1"/>
+		<plugin name="org.osate.aadl2.errormodel.faulttree.edit" version="3.0.0"/>
+		<plugin name="org.osate.aadl2.errormodel.faulttree.generation" version="1.0.2"/>
+		<plugin name="org.osate.aadl2.errormodel.propagationgraph" version="3.0.0"/>
+		<plugin name="org.osate.aadl2.errormodel.help" version="1.0.1"/>
 	</feature>
-	<feature name="org.py4j.feature" version="0.10.9">
-		<plugin name="py4j-java" version="0.10.9"/>
-		<plugin name="py4j-java.source" version="0.10.9"/>
-		<plugin name="py4j-python" version="0.10.9"/>
+	<feature name="org.py4j.feature" version="0.10.8">
+		<plugin name="py4j-java" version="0.10.8"/>
+		<plugin name="py4j-java.source" version="0.10.8"/>
+		<plugin name="py4j-python" version="0.10.8"/>
 	</feature>
 	<plugin name="com.ibm.icu" version="64.2.0"/>
 	<plugin name="com.jcraft.jsch" version="0.1.55"/>
@@ -804,70 +804,70 @@
 	<plugin name="org.eclipse.update.configurator" version="3.4.400"/>
 	<plugin name="org.eclipse.urischeme" version="1.0.500"/>
 	<plugin name="org.eclipse.xsemantics.runtime" version="1.19.0"/>
-	<plugin name="org.osate.aadl2" version="2.0.0"/>
-	<plugin name="org.osate.aadl2.edit" version="2.0.0"/>
-	<plugin name="org.osate.aadl2.errormodel.analysis" version="1.1.0"/>
-	<plugin name="org.osate.aadl2.errormodel.contrib" version="1.0.1"/>
-	<plugin name="org.osate.aadl2.errormodel.faulttree" version="2.0.0"/>
-	<plugin name="org.osate.aadl2.errormodel.faulttree.design" version="1.1.0"/>
-	<plugin name="org.osate.aadl2.errormodel.faulttree.edit" version="2.0.0"/>
-	<plugin name="org.osate.aadl2.errormodel.faulttree.generation" version="1.0.1"/>
-	<plugin name="org.osate.aadl2.errormodel.help" version="1.0.0"/>
-	<plugin name="org.osate.aadl2.errormodel.propagationgraph" version="2.0.0"/>
-	<plugin name="org.osate.aadl2.instance.textual" version="2.0.0"/>
-	<plugin name="org.osate.aadl2.instance.textual.ui" version="2.0.0"/>
-	<plugin name="org.osate.aadl2.instance.ui" version="1.0.1"/>
-	<plugin name="org.osate.aadl2.instantiation" version="1.0.1"/>
-	<plugin name="org.osate.aadl2.model.editor" version="2.0.0"/>
-	<plugin name="org.osate.aadl2.modelsupport" version="2.0.0"/>
-	<plugin name="org.osate.alisa.common" version="2.0.0"/>
-	<plugin name="org.osate.alisa.common.ui" version="2.0.0"/>
-	<plugin name="org.osate.alisa.contribution" version="1.0.1"/>
+	<plugin name="org.osate.aadl2" version="3.0.0"/>
+	<plugin name="org.osate.aadl2.edit" version="3.0.0"/>
+	<plugin name="org.osate.aadl2.errormodel.analysis" version="1.1.1"/>
+	<plugin name="org.osate.aadl2.errormodel.contrib" version="1.0.2"/>
+	<plugin name="org.osate.aadl2.errormodel.faulttree" version="3.0.0"/>
+	<plugin name="org.osate.aadl2.errormodel.faulttree.design" version="1.1.1"/>
+	<plugin name="org.osate.aadl2.errormodel.faulttree.edit" version="3.0.0"/>
+	<plugin name="org.osate.aadl2.errormodel.faulttree.generation" version="1.0.2"/>
+	<plugin name="org.osate.aadl2.errormodel.help" version="1.0.1"/>
+	<plugin name="org.osate.aadl2.errormodel.propagationgraph" version="3.0.0"/>
+	<plugin name="org.osate.aadl2.instance.textual" version="2.0.1"/>
+	<plugin name="org.osate.aadl2.instance.textual.ui" version="2.0.1"/>
+	<plugin name="org.osate.aadl2.instance.ui" version="1.0.2"/>
+	<plugin name="org.osate.aadl2.instantiation" version="1.1.0"/>
+	<plugin name="org.osate.aadl2.model.editor" version="3.0.0"/>
+	<plugin name="org.osate.aadl2.modelsupport" version="3.0.0"/>
+	<plugin name="org.osate.alisa.common" version="2.0.1"/>
+	<plugin name="org.osate.alisa.common.ui" version="2.0.1"/>
+	<plugin name="org.osate.alisa.contribution" version="1.0.2"/>
 	<plugin name="org.osate.alisa.help" version="1.0.1"/>
-	<plugin name="org.osate.alisa.workbench" version="2.0.0"/>
-	<plugin name="org.osate.alisa.workbench.ui" version="2.0.0"/>
-	<plugin name="org.osate.analysis.architecture" version="1.0.1"/>
+	<plugin name="org.osate.alisa.workbench" version="2.0.1"/>
+	<plugin name="org.osate.alisa.workbench.ui" version="2.0.1"/>
+	<plugin name="org.osate.analysis.architecture" version="1.0.2"/>
 	<plugin name="org.osate.analysis.binpacking" version="1.0.1"/>
-	<plugin name="org.osate.analysis.flows" version="2.0.0"/>
-	<plugin name="org.osate.analysis.resource.budgets" version="2.0.0"/>
-	<plugin name="org.osate.analysis.resource.management" version="1.0.1"/>
-	<plugin name="org.osate.annexsupport" version="1.0.1"/>
-	<plugin name="org.osate.assure" version="2.0.0"/>
-	<plugin name="org.osate.ba" version="2.0.0"/>
-	<plugin name="org.osate.ba.contrib" version="1.0.1"/>
-	<plugin name="org.osate.ba.edit" version="2.0.0"/>
+	<plugin name="org.osate.analysis.flows" version="3.0.0"/>
+	<plugin name="org.osate.analysis.resource.budgets" version="3.0.0"/>
+	<plugin name="org.osate.analysis.resource.management" version="2.0.0"/>
+	<plugin name="org.osate.annexsupport" version="2.0.0"/>
+	<plugin name="org.osate.assure" version="3.0.0"/>
+	<plugin name="org.osate.ba" version="3.0.0"/>
+	<plugin name="org.osate.ba.contrib" version="1.0.2"/>
+	<plugin name="org.osate.ba.edit" version="3.0.0"/>
 	<plugin name="org.osate.branding" version="1.0.1"/>
-	<plugin name="org.osate.categories" version="2.0.0"/>
-	<plugin name="org.osate.categories.ui" version="2.0.0"/>
-	<plugin name="org.osate.codegen.checker" version="1.0.1"/>
-	<plugin name="org.osate.contribution.sei" version="1.0.1"/>
-	<plugin name="org.osate.core" version="2.0.0"/>
-	<plugin name="org.osate.ge" version="1.0.1"/>
-	<plugin name="org.osate.ge.diagram" version="2.0.0"/>
-	<plugin name="org.osate.ge.doc" version="1.0.1"/>
-	<plugin name="org.osate.help" version="1.0.1"/>
+	<plugin name="org.osate.categories" version="2.0.1"/>
+	<plugin name="org.osate.categories.ui" version="2.0.1"/>
+	<plugin name="org.osate.codegen.checker" version="1.0.2"/>
+	<plugin name="org.osate.contribution.sei" version="1.1.0"/>
+	<plugin name="org.osate.core" version="2.0.1"/>
+	<plugin name="org.osate.ge" version="1.1.0"/>
+	<plugin name="org.osate.ge.diagram" version="2.0.1"/>
+	<plugin name="org.osate.ge.doc" version="1.0.2"/>
+	<plugin name="org.osate.help" version="2.7.1"/>
 	<plugin name="org.osate.importer" version="1.0.1"/>
-	<plugin name="org.osate.importer.simulink" version="1.0.1"/>
-	<plugin name="org.osate.mylyn.aadl.ui" version="1.0.1"/>
-	<plugin name="org.osate.organization" version="2.0.0"/>
-	<plugin name="org.osate.organization.ui" version="2.0.0"/>
-	<plugin name="org.osate.pluginsupport" version="2.0.0"/>
-	<plugin name="org.osate.reqspec" version="2.0.0"/>
-	<plugin name="org.osate.reqspec.ui" version="1.0.1"/>
-	<plugin name="org.osate.reqtrace" version="1.0.1"/>
+	<plugin name="org.osate.importer.simulink" version="1.0.2"/>
+	<plugin name="org.osate.mylyn.aadl.ui" version="1.0.2"/>
+	<plugin name="org.osate.organization" version="2.0.1"/>
+	<plugin name="org.osate.organization.ui" version="2.0.1"/>
+	<plugin name="org.osate.pluginsupport" version="3.0.0"/>
+	<plugin name="org.osate.reqspec" version="2.0.1"/>
+	<plugin name="org.osate.reqspec.ui" version="1.0.2"/>
+	<plugin name="org.osate.reqtrace" version="1.0.2"/>
 	<plugin name="org.osate.results" version="2.0.0"/>
-	<plugin name="org.osate.smaccm.stubs" version="1.0.1"/>
-	<plugin name="org.osate.ui" version="2.0.0"/>
-	<plugin name="org.osate.utils" version="1.0.1"/>
-	<plugin name="org.osate.verify" version="2.0.0"/>
-	<plugin name="org.osate.verify.ui" version="2.0.0"/>
-	<plugin name="org.osate.workspace" version="2.0.0"/>
-	<plugin name="org.osate.xtext.aadl2" version="2.0.0"/>
-	<plugin name="org.osate.xtext.aadl2.errormodel" version="2.0.0"/>
-	<plugin name="org.osate.xtext.aadl2.errormodel.ui" version="2.0.0"/>
-	<plugin name="org.osate.xtext.aadl2.properties" version="1.1.0"/>
-	<plugin name="org.osate.xtext.aadl2.properties.ui" version="2.0.0"/>
-	<plugin name="org.osate.xtext.aadl2.ui" version="2.0.0"/>
+	<plugin name="org.osate.smaccm.stubs" version="1.0.2"/>
+	<plugin name="org.osate.ui" version="3.0.0"/>
+	<plugin name="org.osate.utils" version="1.0.2"/>
+	<plugin name="org.osate.verify" version="2.0.1"/>
+	<plugin name="org.osate.verify.ui" version="2.0.1"/>
+	<plugin name="org.osate.workspace" version="3.0.0"/>
+	<plugin name="org.osate.xtext.aadl2" version="3.0.0"/>
+	<plugin name="org.osate.xtext.aadl2.errormodel" version="3.0.0"/>
+	<plugin name="org.osate.xtext.aadl2.errormodel.ui" version="3.0.0"/>
+	<plugin name="org.osate.xtext.aadl2.properties" version="1.2.0"/>
+	<plugin name="org.osate.xtext.aadl2.properties.ui" version="2.1.0"/>
+	<plugin name="org.osate.xtext.aadl2.ui" version="3.0.0"/>
 	<plugin name="org.sat4j.core" version="2.3.5"/>
 	<plugin name="org.sat4j.pb" version="2.3.5"/>
 	<plugin name="org.tukaani.xz" version="1.8.0"/>
@@ -875,8 +875,8 @@
 	<plugin name="org.w3c.dom.events" version="3.0.0"/>
 	<plugin name="org.w3c.dom.smil" version="1.0.1"/>
 	<plugin name="org.w3c.dom.svg" version="1.1.0"/>
-	<plugin name="py4j-java" version="0.10.9"/>
-	<plugin name="py4j-java.source" version="0.10.9"/>
-	<plugin name="py4j-python" version="0.10.9"/>
+	<plugin name="py4j-java" version="0.10.8"/>
+	<plugin name="py4j-java.source" version="0.10.8"/>
+	<plugin name="py4j-python" version="0.10.8"/>
 	<plugin name="uk.co.spudsoft.birt.emitters.excel" version="4.9.0"/>
 </release>
