@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -29,170 +29,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.osate.aadl2.Aadl2Factory;
-import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.AadlBoolean;
-import org.osate.aadl2.AadlInteger;
-import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.AadlReal;
-import org.osate.aadl2.AadlString;
-import org.osate.aadl2.AbstractFeature;
-import org.osate.aadl2.AbstractImplementation;
-import org.osate.aadl2.AbstractPrototype;
-import org.osate.aadl2.AbstractSubcomponent;
-import org.osate.aadl2.AbstractType;
-import org.osate.aadl2.AccessCategory;
-import org.osate.aadl2.AccessConnection;
-import org.osate.aadl2.AccessSpecification;
-import org.osate.aadl2.AccessType;
-import org.osate.aadl2.ArrayDimension;
-import org.osate.aadl2.ArrayRange;
-import org.osate.aadl2.ArraySize;
-import org.osate.aadl2.BasicProperty;
-import org.osate.aadl2.BasicPropertyAssociation;
-import org.osate.aadl2.BooleanLiteral;
-import org.osate.aadl2.BusAccess;
-import org.osate.aadl2.BusImplementation;
-import org.osate.aadl2.BusPrototype;
-import org.osate.aadl2.BusSubcomponent;
-import org.osate.aadl2.BusType;
-import org.osate.aadl2.ClassifierType;
-import org.osate.aadl2.ClassifierValue;
-import org.osate.aadl2.Comment;
-import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.ComponentImplementationReference;
-import org.osate.aadl2.ComponentPrototypeActual;
-import org.osate.aadl2.ComponentPrototypeBinding;
-import org.osate.aadl2.ComponentTypeRename;
-import org.osate.aadl2.ComputedValue;
-import org.osate.aadl2.ConnectedElement;
-import org.osate.aadl2.ContainedNamedElement;
-import org.osate.aadl2.ContainmentPathElement;
-import org.osate.aadl2.DataAccess;
-import org.osate.aadl2.DataImplementation;
-import org.osate.aadl2.DataPort;
-import org.osate.aadl2.DataPrototype;
-import org.osate.aadl2.DataSubcomponent;
-import org.osate.aadl2.DataType;
-import org.osate.aadl2.DefaultAnnexLibrary;
-import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.aadl2.DeviceImplementation;
-import org.osate.aadl2.DevicePrototype;
-import org.osate.aadl2.DeviceSubcomponent;
-import org.osate.aadl2.DeviceType;
-import org.osate.aadl2.DirectionType;
-import org.osate.aadl2.EndToEndFlow;
-import org.osate.aadl2.EndToEndFlowSegment;
-import org.osate.aadl2.EnumerationLiteral;
-import org.osate.aadl2.EnumerationType;
-import org.osate.aadl2.EventDataPort;
-import org.osate.aadl2.EventDataSource;
-import org.osate.aadl2.EventPort;
-import org.osate.aadl2.EventSource;
-import org.osate.aadl2.FeatureConnection;
-import org.osate.aadl2.FeatureGroup;
-import org.osate.aadl2.FeatureGroupConnection;
-import org.osate.aadl2.FeatureGroupPrototype;
-import org.osate.aadl2.FeatureGroupPrototypeActual;
-import org.osate.aadl2.FeatureGroupPrototypeBinding;
-import org.osate.aadl2.FeatureGroupType;
-import org.osate.aadl2.FeatureGroupTypeRename;
-import org.osate.aadl2.FeaturePrototype;
-import org.osate.aadl2.FeaturePrototypeBinding;
-import org.osate.aadl2.FeaturePrototypeReference;
-import org.osate.aadl2.FlowEnd;
-import org.osate.aadl2.FlowImplementation;
-import org.osate.aadl2.FlowKind;
-import org.osate.aadl2.FlowSegment;
-import org.osate.aadl2.FlowSpecification;
-import org.osate.aadl2.GlobalNamespace;
-import org.osate.aadl2.GroupExtension;
-import org.osate.aadl2.ImplementationExtension;
-import org.osate.aadl2.IntegerLiteral;
-import org.osate.aadl2.ListType;
-import org.osate.aadl2.ListValue;
-import org.osate.aadl2.MemoryImplementation;
-import org.osate.aadl2.MemoryPrototype;
-import org.osate.aadl2.MemorySubcomponent;
-import org.osate.aadl2.MemoryType;
-import org.osate.aadl2.MetaclassReference;
-import org.osate.aadl2.ModalElement;
-import org.osate.aadl2.ModalPropertyValue;
-import org.osate.aadl2.Mode;
-import org.osate.aadl2.ModeBinding;
-import org.osate.aadl2.ModeTransition;
-import org.osate.aadl2.ModeTransitionTrigger;
-import org.osate.aadl2.NamedValue;
-import org.osate.aadl2.NumericRange;
-import org.osate.aadl2.Operation;
-import org.osate.aadl2.OperationKind;
-import org.osate.aadl2.PackageRename;
-import org.osate.aadl2.Parameter;
-import org.osate.aadl2.ParameterConnection;
-import org.osate.aadl2.PortCategory;
-import org.osate.aadl2.PortConnection;
-import org.osate.aadl2.PortProxy;
-import org.osate.aadl2.PortSpecification;
-import org.osate.aadl2.PrivatePackageSection;
-import org.osate.aadl2.ProcessImplementation;
-import org.osate.aadl2.ProcessPrototype;
-import org.osate.aadl2.ProcessSubcomponent;
-import org.osate.aadl2.ProcessType;
-import org.osate.aadl2.ProcessorImplementation;
-import org.osate.aadl2.ProcessorPrototype;
-import org.osate.aadl2.ProcessorSubcomponent;
-import org.osate.aadl2.ProcessorType;
-import org.osate.aadl2.Property;
-import org.osate.aadl2.PropertyAssociation;
-import org.osate.aadl2.PropertyConstant;
-import org.osate.aadl2.PropertySet;
-import org.osate.aadl2.PublicPackageSection;
-import org.osate.aadl2.RangeType;
-import org.osate.aadl2.RangeValue;
-import org.osate.aadl2.RealLiteral;
-import org.osate.aadl2.Realization;
-import org.osate.aadl2.RecordField;
-import org.osate.aadl2.RecordType;
-import org.osate.aadl2.RecordValue;
-import org.osate.aadl2.ReferenceType;
-import org.osate.aadl2.ReferenceValue;
-import org.osate.aadl2.StringLiteral;
-import org.osate.aadl2.SubprogramAccess;
-import org.osate.aadl2.SubprogramCall;
-import org.osate.aadl2.SubprogramCallSequence;
-import org.osate.aadl2.SubprogramGroupAccess;
-import org.osate.aadl2.SubprogramGroupImplementation;
-import org.osate.aadl2.SubprogramGroupPrototype;
-import org.osate.aadl2.SubprogramGroupSubcomponent;
-import org.osate.aadl2.SubprogramGroupType;
-import org.osate.aadl2.SubprogramImplementation;
-import org.osate.aadl2.SubprogramPrototype;
-import org.osate.aadl2.SubprogramProxy;
-import org.osate.aadl2.SubprogramSubcomponent;
-import org.osate.aadl2.SubprogramType;
-import org.osate.aadl2.SystemImplementation;
-import org.osate.aadl2.SystemPrototype;
-import org.osate.aadl2.SystemSubcomponent;
-import org.osate.aadl2.SystemType;
-import org.osate.aadl2.ThreadGroupImplementation;
-import org.osate.aadl2.ThreadGroupPrototype;
-import org.osate.aadl2.ThreadGroupSubcomponent;
-import org.osate.aadl2.ThreadGroupType;
-import org.osate.aadl2.ThreadImplementation;
-import org.osate.aadl2.ThreadPrototype;
-import org.osate.aadl2.ThreadSubcomponent;
-import org.osate.aadl2.ThreadType;
-import org.osate.aadl2.TypeExtension;
-import org.osate.aadl2.UnitLiteral;
-import org.osate.aadl2.UnitsType;
-import org.osate.aadl2.VirtualBusImplementation;
-import org.osate.aadl2.VirtualBusPrototype;
-import org.osate.aadl2.VirtualBusSubcomponent;
-import org.osate.aadl2.VirtualBusType;
-import org.osate.aadl2.VirtualProcessorImplementation;
-import org.osate.aadl2.VirtualProcessorPrototype;
-import org.osate.aadl2.VirtualProcessorSubcomponent;
-import org.osate.aadl2.VirtualProcessorType;
 import org.osate.aadl2.*;
 
 /**
@@ -238,315 +74,317 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 		case Aadl2Package.COMMENT:
-			return (EObject) createComment();
+			return createComment();
 		case Aadl2Package.PROPERTY_ASSOCIATION:
-			return (EObject) createPropertyAssociation();
+			return createPropertyAssociation();
 		case Aadl2Package.PROPERTY:
-			return (EObject) createProperty();
+			return createProperty();
 		case Aadl2Package.BASIC_PROPERTY:
-			return (EObject) createBasicProperty();
+			return createBasicProperty();
 		case Aadl2Package.METACLASS_REFERENCE:
-			return (EObject) createMetaclassReference();
+			return createMetaclassReference();
 		case Aadl2Package.MODAL_ELEMENT:
-			return (EObject) createModalElement();
+			return createModalElement();
 		case Aadl2Package.MODE:
-			return (EObject) createMode();
+			return createMode();
 		case Aadl2Package.CONTAINED_NAMED_ELEMENT:
-			return (EObject) createContainedNamedElement();
+			return createContainedNamedElement();
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT:
-			return (EObject) createContainmentPathElement();
+			return createContainmentPathElement();
 		case Aadl2Package.ARRAY_RANGE:
-			return (EObject) createArrayRange();
+			return createArrayRange();
 		case Aadl2Package.MODAL_PROPERTY_VALUE:
-			return (EObject) createModalPropertyValue();
+			return createModalPropertyValue();
 		case Aadl2Package.ARRAY_DIMENSION:
-			return (EObject) createArrayDimension();
+			return createArrayDimension();
 		case Aadl2Package.ARRAY_SIZE:
-			return (EObject) createArraySize();
+			return createArraySize();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE:
-			return (EObject) createComponentImplementationReference();
+			return createComponentImplementationReference();
 		case Aadl2Package.MODE_TRANSITION:
-			return (EObject) createModeTransition();
+			return createModeTransition();
 		case Aadl2Package.MODE_TRANSITION_TRIGGER:
-			return (EObject) createModeTransitionTrigger();
+			return createModeTransitionTrigger();
 		case Aadl2Package.FLOW_SPECIFICATION:
-			return (EObject) createFlowSpecification();
+			return createFlowSpecification();
 		case Aadl2Package.FLOW_END:
-			return (EObject) createFlowEnd();
+			return createFlowEnd();
 		case Aadl2Package.TYPE_EXTENSION:
-			return (EObject) createTypeExtension();
+			return createTypeExtension();
 		case Aadl2Package.FEATURE_GROUP:
-			return (EObject) createFeatureGroup();
+			return createFeatureGroup();
 		case Aadl2Package.FEATURE_GROUP_TYPE:
-			return (EObject) createFeatureGroupType();
+			return createFeatureGroupType();
 		case Aadl2Package.GROUP_EXTENSION:
-			return (EObject) createGroupExtension();
+			return createGroupExtension();
 		case Aadl2Package.BUS_ACCESS:
-			return (EObject) createBusAccess();
+			return createBusAccess();
 		case Aadl2Package.DATA_ACCESS:
-			return (EObject) createDataAccess();
+			return createDataAccess();
+		case Aadl2Package.ABSTRACT_FEATURE_CLASSIFIER:
+			return createAbstractFeatureClassifier();
 		case Aadl2Package.DATA_PORT:
-			return (EObject) createDataPort();
+			return createDataPort();
 		case Aadl2Package.EVENT_DATA_PORT:
-			return (EObject) createEventDataPort();
+			return createEventDataPort();
 		case Aadl2Package.EVENT_PORT:
-			return (EObject) createEventPort();
+			return createEventPort();
 		case Aadl2Package.PARAMETER:
-			return (EObject) createParameter();
+			return createParameter();
 		case Aadl2Package.SUBPROGRAM_ACCESS:
-			return (EObject) createSubprogramAccess();
+			return createSubprogramAccess();
 		case Aadl2Package.SUBPROGRAM_GROUP_ACCESS:
-			return (EObject) createSubprogramGroupAccess();
+			return createSubprogramGroupAccess();
 		case Aadl2Package.ABSTRACT_FEATURE:
-			return (EObject) createAbstractFeature();
+			return createAbstractFeature();
 		case Aadl2Package.FEATURE_PROTOTYPE:
-			return (EObject) createFeaturePrototype();
+			return createFeaturePrototype();
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE:
-			return (EObject) createFeatureGroupPrototype();
+			return createFeatureGroupPrototype();
 		case Aadl2Package.MODE_BINDING:
-			return (EObject) createModeBinding();
+			return createModeBinding();
 		case Aadl2Package.FLOW_IMPLEMENTATION:
-			return (EObject) createFlowImplementation();
+			return createFlowImplementation();
 		case Aadl2Package.FLOW_SEGMENT:
-			return (EObject) createFlowSegment();
+			return createFlowSegment();
 		case Aadl2Package.CONNECTED_ELEMENT:
-			return (EObject) createConnectedElement();
+			return createConnectedElement();
 		case Aadl2Package.IMPLEMENTATION_EXTENSION:
-			return (EObject) createImplementationExtension();
+			return createImplementationExtension();
 		case Aadl2Package.REALIZATION:
-			return (EObject) createRealization();
+			return createRealization();
 		case Aadl2Package.END_TO_END_FLOW:
-			return (EObject) createEndToEndFlow();
+			return createEndToEndFlow();
 		case Aadl2Package.END_TO_END_FLOW_SEGMENT:
-			return (EObject) createEndToEndFlowSegment();
+			return createEndToEndFlowSegment();
 		case Aadl2Package.ABSTRACT_SUBCOMPONENT:
-			return (EObject) createAbstractSubcomponent();
+			return createAbstractSubcomponent();
 		case Aadl2Package.ACCESS_CONNECTION:
-			return (EObject) createAccessConnection();
+			return createAccessConnection();
 		case Aadl2Package.PARAMETER_CONNECTION:
-			return (EObject) createParameterConnection();
+			return createParameterConnection();
 		case Aadl2Package.PORT_CONNECTION:
-			return (EObject) createPortConnection();
+			return createPortConnection();
 		case Aadl2Package.FEATURE_CONNECTION:
-			return (EObject) createFeatureConnection();
+			return createFeatureConnection();
 		case Aadl2Package.FEATURE_GROUP_CONNECTION:
-			return (EObject) createFeatureGroupConnection();
+			return createFeatureGroupConnection();
 		case Aadl2Package.EVENT_SOURCE:
-			return (EObject) createEventSource();
+			return createEventSource();
 		case Aadl2Package.EVENT_DATA_SOURCE:
-			return (EObject) createEventDataSource();
+			return createEventDataSource();
 		case Aadl2Package.PORT_PROXY:
-			return (EObject) createPortProxy();
+			return createPortProxy();
 		case Aadl2Package.SUBPROGRAM_PROXY:
-			return (EObject) createSubprogramProxy();
+			return createSubprogramProxy();
 		case Aadl2Package.DEFAULT_ANNEX_LIBRARY:
-			return (EObject) createDefaultAnnexLibrary();
+			return createDefaultAnnexLibrary();
 		case Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE:
-			return (EObject) createDefaultAnnexSubclause();
+			return createDefaultAnnexSubclause();
 		case Aadl2Package.PUBLIC_PACKAGE_SECTION:
-			return (EObject) createPublicPackageSection();
+			return createPublicPackageSection();
 		case Aadl2Package.PACKAGE_RENAME:
-			return (EObject) createPackageRename();
+			return createPackageRename();
 		case Aadl2Package.AADL_PACKAGE:
-			return (EObject) createAadlPackage();
+			return createAadlPackage();
 		case Aadl2Package.PRIVATE_PACKAGE_SECTION:
-			return (EObject) createPrivatePackageSection();
+			return createPrivatePackageSection();
 		case Aadl2Package.COMPONENT_TYPE_RENAME:
-			return (EObject) createComponentTypeRename();
+			return createComponentTypeRename();
 		case Aadl2Package.FEATURE_GROUP_TYPE_RENAME:
-			return (EObject) createFeatureGroupTypeRename();
+			return createFeatureGroupTypeRename();
 		case Aadl2Package.COMPONENT_PROTOTYPE_BINDING:
-			return (EObject) createComponentPrototypeBinding();
+			return createComponentPrototypeBinding();
 		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL:
-			return (EObject) createComponentPrototypeActual();
+			return createComponentPrototypeActual();
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING:
-			return (EObject) createFeatureGroupPrototypeBinding();
+			return createFeatureGroupPrototypeBinding();
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL:
-			return (EObject) createFeatureGroupPrototypeActual();
+			return createFeatureGroupPrototypeActual();
 		case Aadl2Package.FEATURE_PROTOTYPE_BINDING:
-			return (EObject) createFeaturePrototypeBinding();
+			return createFeaturePrototypeBinding();
 		case Aadl2Package.ACCESS_SPECIFICATION:
-			return (EObject) createAccessSpecification();
+			return createAccessSpecification();
 		case Aadl2Package.PORT_SPECIFICATION:
-			return (EObject) createPortSpecification();
+			return createPortSpecification();
 		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE:
-			return (EObject) createFeaturePrototypeReference();
+			return createFeaturePrototypeReference();
 		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE:
-			return (EObject) createSubprogramCallSequence();
+			return createSubprogramCallSequence();
 		case Aadl2Package.SUBPROGRAM_CALL:
-			return (EObject) createSubprogramCall();
+			return createSubprogramCall();
 		case Aadl2Package.ABSTRACT_TYPE:
-			return (EObject) createAbstractType();
+			return createAbstractType();
 		case Aadl2Package.ABSTRACT_IMPLEMENTATION:
-			return (EObject) createAbstractImplementation();
+			return createAbstractImplementation();
 		case Aadl2Package.BUS_SUBCOMPONENT:
-			return (EObject) createBusSubcomponent();
+			return createBusSubcomponent();
 		case Aadl2Package.DATA_SUBCOMPONENT:
-			return (EObject) createDataSubcomponent();
+			return createDataSubcomponent();
 		case Aadl2Package.DEVICE_SUBCOMPONENT:
-			return (EObject) createDeviceSubcomponent();
+			return createDeviceSubcomponent();
 		case Aadl2Package.MEMORY_SUBCOMPONENT:
-			return (EObject) createMemorySubcomponent();
+			return createMemorySubcomponent();
 		case Aadl2Package.PROCESS_SUBCOMPONENT:
-			return (EObject) createProcessSubcomponent();
+			return createProcessSubcomponent();
 		case Aadl2Package.PROCESSOR_SUBCOMPONENT:
-			return (EObject) createProcessorSubcomponent();
+			return createProcessorSubcomponent();
 		case Aadl2Package.SYSTEM_SUBCOMPONENT:
-			return (EObject) createSystemSubcomponent();
+			return createSystemSubcomponent();
 		case Aadl2Package.SUBPROGRAM_SUBCOMPONENT:
-			return (EObject) createSubprogramSubcomponent();
+			return createSubprogramSubcomponent();
 		case Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT:
-			return (EObject) createSubprogramGroupSubcomponent();
+			return createSubprogramGroupSubcomponent();
 		case Aadl2Package.THREAD_SUBCOMPONENT:
-			return (EObject) createThreadSubcomponent();
+			return createThreadSubcomponent();
 		case Aadl2Package.THREAD_GROUP_SUBCOMPONENT:
-			return (EObject) createThreadGroupSubcomponent();
+			return createThreadGroupSubcomponent();
 		case Aadl2Package.VIRTUAL_BUS_SUBCOMPONENT:
-			return (EObject) createVirtualBusSubcomponent();
+			return createVirtualBusSubcomponent();
 		case Aadl2Package.VIRTUAL_PROCESSOR_SUBCOMPONENT:
-			return (EObject) createVirtualProcessorSubcomponent();
+			return createVirtualProcessorSubcomponent();
 		case Aadl2Package.ABSTRACT_PROTOTYPE:
-			return (EObject) createAbstractPrototype();
+			return createAbstractPrototype();
 		case Aadl2Package.BUS_TYPE:
-			return (EObject) createBusType();
+			return createBusType();
 		case Aadl2Package.BUS_IMPLEMENTATION:
-			return (EObject) createBusImplementation();
+			return createBusImplementation();
 		case Aadl2Package.BUS_PROTOTYPE:
-			return (EObject) createBusPrototype();
+			return createBusPrototype();
 		case Aadl2Package.DATA_TYPE:
-			return (EObject) createDataType();
+			return createDataType();
 		case Aadl2Package.DATA_IMPLEMENTATION:
-			return (EObject) createDataImplementation();
+			return createDataImplementation();
 		case Aadl2Package.DATA_PROTOTYPE:
-			return (EObject) createDataPrototype();
+			return createDataPrototype();
 		case Aadl2Package.DEVICE_TYPE:
-			return (EObject) createDeviceType();
+			return createDeviceType();
 		case Aadl2Package.DEVICE_IMPLEMENTATION:
-			return (EObject) createDeviceImplementation();
+			return createDeviceImplementation();
 		case Aadl2Package.DEVICE_PROTOTYPE:
-			return (EObject) createDevicePrototype();
+			return createDevicePrototype();
 		case Aadl2Package.MEMORY_TYPE:
-			return (EObject) createMemoryType();
+			return createMemoryType();
 		case Aadl2Package.MEMORY_IMPLEMENTATION:
-			return (EObject) createMemoryImplementation();
+			return createMemoryImplementation();
 		case Aadl2Package.MEMORY_PROTOTYPE:
-			return (EObject) createMemoryPrototype();
+			return createMemoryPrototype();
 		case Aadl2Package.SUBPROGRAM_TYPE:
-			return (EObject) createSubprogramType();
+			return createSubprogramType();
 		case Aadl2Package.SUBPROGRAM_IMPLEMENTATION:
-			return (EObject) createSubprogramImplementation();
+			return createSubprogramImplementation();
 		case Aadl2Package.SUBPROGRAM_PROTOTYPE:
-			return (EObject) createSubprogramPrototype();
+			return createSubprogramPrototype();
 		case Aadl2Package.SUBPROGRAM_GROUP_TYPE:
-			return (EObject) createSubprogramGroupType();
+			return createSubprogramGroupType();
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION:
-			return (EObject) createSubprogramGroupImplementation();
+			return createSubprogramGroupImplementation();
 		case Aadl2Package.SUBPROGRAM_GROUP_PROTOTYPE:
-			return (EObject) createSubprogramGroupPrototype();
+			return createSubprogramGroupPrototype();
 		case Aadl2Package.SYSTEM_TYPE:
-			return (EObject) createSystemType();
+			return createSystemType();
 		case Aadl2Package.SYSTEM_IMPLEMENTATION:
-			return (EObject) createSystemImplementation();
+			return createSystemImplementation();
 		case Aadl2Package.SYSTEM_PROTOTYPE:
-			return (EObject) createSystemPrototype();
+			return createSystemPrototype();
 		case Aadl2Package.PROCESSOR_TYPE:
-			return (EObject) createProcessorType();
+			return createProcessorType();
 		case Aadl2Package.PROCESSOR_IMPLEMENTATION:
-			return (EObject) createProcessorImplementation();
+			return createProcessorImplementation();
 		case Aadl2Package.PROCESSOR_PROTOTYPE:
-			return (EObject) createProcessorPrototype();
+			return createProcessorPrototype();
 		case Aadl2Package.PROCESS_TYPE:
-			return (EObject) createProcessType();
+			return createProcessType();
 		case Aadl2Package.PROCESS_IMPLEMENTATION:
-			return (EObject) createProcessImplementation();
+			return createProcessImplementation();
 		case Aadl2Package.PROCESS_PROTOTYPE:
-			return (EObject) createProcessPrototype();
+			return createProcessPrototype();
 		case Aadl2Package.THREAD_TYPE:
-			return (EObject) createThreadType();
+			return createThreadType();
 		case Aadl2Package.THREAD_IMPLEMENTATION:
-			return (EObject) createThreadImplementation();
+			return createThreadImplementation();
 		case Aadl2Package.THREAD_PROTOTYPE:
-			return (EObject) createThreadPrototype();
+			return createThreadPrototype();
 		case Aadl2Package.THREAD_GROUP_TYPE:
-			return (EObject) createThreadGroupType();
+			return createThreadGroupType();
 		case Aadl2Package.THREAD_GROUP_IMPLEMENTATION:
-			return (EObject) createThreadGroupImplementation();
+			return createThreadGroupImplementation();
 		case Aadl2Package.THREAD_GROUP_PROTOTYPE:
-			return (EObject) createThreadGroupPrototype();
+			return createThreadGroupPrototype();
 		case Aadl2Package.VIRTUAL_BUS_TYPE:
-			return (EObject) createVirtualBusType();
+			return createVirtualBusType();
 		case Aadl2Package.VIRTUAL_BUS_IMPLEMENTATION:
-			return (EObject) createVirtualBusImplementation();
+			return createVirtualBusImplementation();
 		case Aadl2Package.VIRTUAL_BUS_PROTOTYPE:
-			return (EObject) createVirtualBusPrototype();
+			return createVirtualBusPrototype();
 		case Aadl2Package.VIRTUAL_PROCESSOR_TYPE:
-			return (EObject) createVirtualProcessorType();
+			return createVirtualProcessorType();
 		case Aadl2Package.VIRTUAL_PROCESSOR_IMPLEMENTATION:
-			return (EObject) createVirtualProcessorImplementation();
+			return createVirtualProcessorImplementation();
 		case Aadl2Package.VIRTUAL_PROCESSOR_PROTOTYPE:
-			return (EObject) createVirtualProcessorPrototype();
+			return createVirtualProcessorPrototype();
 		case Aadl2Package.BASIC_PROPERTY_ASSOCIATION:
-			return (EObject) createBasicPropertyAssociation();
+			return createBasicPropertyAssociation();
 		case Aadl2Package.PROPERTY_CONSTANT:
-			return (EObject) createPropertyConstant();
+			return createPropertyConstant();
 		case Aadl2Package.STRING_LITERAL:
-			return (EObject) createStringLiteral();
+			return createStringLiteral();
 		case Aadl2Package.UNIT_LITERAL:
-			return (EObject) createUnitLiteral();
+			return createUnitLiteral();
 		case Aadl2Package.ENUMERATION_LITERAL:
-			return (EObject) createEnumerationLiteral();
+			return createEnumerationLiteral();
 		case Aadl2Package.CLASSIFIER_VALUE:
-			return (EObject) createClassifierValue();
+			return createClassifierValue();
 		case Aadl2Package.REFERENCE_VALUE:
-			return (EObject) createReferenceValue();
+			return createReferenceValue();
 		case Aadl2Package.BOOLEAN_LITERAL:
-			return (EObject) createBooleanLiteral();
+			return createBooleanLiteral();
 		case Aadl2Package.RANGE_VALUE:
-			return (EObject) createRangeValue();
+			return createRangeValue();
 		case Aadl2Package.INTEGER_LITERAL:
-			return (EObject) createIntegerLiteral();
+			return createIntegerLiteral();
 		case Aadl2Package.REAL_LITERAL:
-			return (EObject) createRealLiteral();
+			return createRealLiteral();
 		case Aadl2Package.OPERATION:
-			return (EObject) createOperation();
+			return createOperation();
 		case Aadl2Package.RECORD_VALUE:
-			return (EObject) createRecordValue();
+			return createRecordValue();
 		case Aadl2Package.COMPUTED_VALUE:
-			return (EObject) createComputedValue();
+			return createComputedValue();
 		case Aadl2Package.LIST_VALUE:
-			return (EObject) createListValue();
+			return createListValue();
 		case Aadl2Package.NAMED_VALUE:
-			return (EObject) createNamedValue();
+			return createNamedValue();
 		case Aadl2Package.PROPERTY_SET:
-			return (EObject) createPropertySet();
+			return createPropertySet();
 		case Aadl2Package.GLOBAL_NAMESPACE:
-			return (EObject) createGlobalNamespace();
+			return createGlobalNamespace();
 		case Aadl2Package.AADL_BOOLEAN:
-			return (EObject) createAadlBoolean();
+			return createAadlBoolean();
 		case Aadl2Package.AADL_STRING:
-			return (EObject) createAadlString();
+			return createAadlString();
 		case Aadl2Package.AADL_INTEGER:
-			return (EObject) createAadlInteger();
+			return createAadlInteger();
 		case Aadl2Package.UNITS_TYPE:
-			return (EObject) createUnitsType();
+			return createUnitsType();
 		case Aadl2Package.ENUMERATION_TYPE:
-			return (EObject) createEnumerationType();
+			return createEnumerationType();
 		case Aadl2Package.NUMERIC_RANGE:
-			return (EObject) createNumericRange();
+			return createNumericRange();
 		case Aadl2Package.AADL_REAL:
-			return (EObject) createAadlReal();
+			return createAadlReal();
 		case Aadl2Package.CLASSIFIER_TYPE:
-			return (EObject) createClassifierType();
+			return createClassifierType();
 		case Aadl2Package.RANGE_TYPE:
-			return (EObject) createRangeType();
+			return createRangeType();
 		case Aadl2Package.RECORD_TYPE:
-			return (EObject) createRecordType();
+			return createRecordType();
 		case Aadl2Package.RECORD_FIELD:
-			return (EObject) createRecordField();
+			return createRecordField();
 		case Aadl2Package.REFERENCE_TYPE:
-			return (EObject) createReferenceType();
+			return createReferenceType();
 		case Aadl2Package.LIST_TYPE:
-			return (EObject) createListType();
+			return createListType();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -865,6 +703,16 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public AbstractFeatureClassifier createAbstractFeatureClassifier() {
+		AbstractFeatureClassifierImpl abstractFeatureClassifier = new AbstractFeatureClassifierImpl();
+		return abstractFeatureClassifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public DataPort createDataPort() {
 		DataPortImpl dataPort = new DataPortImpl();
 		return dataPort;
@@ -1113,11 +961,9 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public AnnexSubclause createAnnexSubclause() {
 		AnnexSubclauseImpl annex = new AnnexSubclauseImpl() {
 			private String annexContent;
-
 			public String getAnnexContent() {
 				return annexContent;
 			}
-
 			public void setAnnexContent(String s) {
 				annexContent = s;
 			}
@@ -2192,9 +2038,10 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 */
 	public DirectionType createDirectionTypeFromString(EDataType eDataType, String initialValue) {
 		DirectionType result = DirectionType.get(initialValue);
-		if (result == null)
+		if (result == null) {
 			throw new IllegalArgumentException(
 					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		}
 		return result;
 	}
 
@@ -2214,9 +2061,10 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 */
 	public PortCategory createPortCategoryFromString(EDataType eDataType, String initialValue) {
 		PortCategory result = PortCategory.get(initialValue);
-		if (result == null)
+		if (result == null) {
 			throw new IllegalArgumentException(
 					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		}
 		return result;
 	}
 
@@ -2236,9 +2084,10 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 */
 	public FlowKind createFlowKindFromString(EDataType eDataType, String initialValue) {
 		FlowKind result = FlowKind.get(initialValue);
-		if (result == null)
+		if (result == null) {
 			throw new IllegalArgumentException(
 					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		}
 		return result;
 	}
 
@@ -2258,9 +2107,10 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 */
 	public AccessType createAccessTypeFromString(EDataType eDataType, String initialValue) {
 		AccessType result = AccessType.get(initialValue);
-		if (result == null)
+		if (result == null) {
 			throw new IllegalArgumentException(
 					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		}
 		return result;
 	}
 
@@ -2280,9 +2130,10 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 */
 	public AccessCategory createAccessCategoryFromString(EDataType eDataType, String initialValue) {
 		AccessCategory result = AccessCategory.get(initialValue);
-		if (result == null)
+		if (result == null) {
 			throw new IllegalArgumentException(
 					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		}
 		return result;
 	}
 
@@ -2302,9 +2153,10 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 */
 	public ComponentCategory createComponentCategoryFromString(EDataType eDataType, String initialValue) {
 		ComponentCategory result = ComponentCategory.get(initialValue);
-		if (result == null)
+		if (result == null) {
 			throw new IllegalArgumentException(
 					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		}
 		return result;
 	}
 
@@ -2324,9 +2176,10 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 */
 	public OperationKind createOperationKindFromString(EDataType eDataType, String initialValue) {
 		OperationKind result = OperationKind.get(initialValue);
-		if (result == null)
+		if (result == null) {
 			throw new IllegalArgumentException(
 					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		}
 		return result;
 	}
 

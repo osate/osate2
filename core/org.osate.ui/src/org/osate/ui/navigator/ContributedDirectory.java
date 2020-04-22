@@ -35,7 +35,7 @@ public class ContributedDirectory implements ProjectMember {
 	private final List<String> path;
 
 	/**
-	 * @since 3.0
+	 * @since 4.0
 	 */
 	public ContributedDirectory(ProjectMember parent, List<String> path) {
 		this.path = path;

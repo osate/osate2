@@ -11,7 +11,7 @@ import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RangeValue;
 
 /**
- * @since 3.0
+ * @since 4.0
  */
 public class IntegerRange {
 	private final long minimum;

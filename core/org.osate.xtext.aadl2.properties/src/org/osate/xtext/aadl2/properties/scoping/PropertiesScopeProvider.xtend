@@ -322,8 +322,6 @@ class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 	 */
 	def protected static namespaceForPropertyAssociation(PropertyAssociation propertyAssociation) {
 		switch container : propertyAssociation.owner {
-			Classifier:
-				container
 			FeatureGroup: {
 				switch featureType : container.allFeatureType {
 					FeatureGroupType:
@@ -340,6 +338,7 @@ class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 						subcomponentType.resolveComponentPrototype(propertyAssociation.getContainerOfType(Classifier))
 				}
 			}
+			default: container.getContainerOfType(Classifier)
 		}
 	}
 	
