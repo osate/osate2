@@ -77,6 +77,24 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 	// Package visible: only used locally any how, and this way we don't break the plug-in versioning
 	static final boolean ALWAYS_SHOW_INSTANTIATION_RESULTS_DEFAULT = true;
 
+	/**
+	 * @since 3.0
+	 */
+	public static final String ALWAYS_SHOW_INSTANTIATION_AADL_DIALOG = "alwaysShowInstantiationAADLDialog";
+	/**
+	 * @since 3.0
+	 */
+	public static final boolean ALWAYS_SHOW_INSTANTIATION_AADL_DIALOG_DEFAULT = true;
+
+	/**
+	 * @since 3.0
+	 */
+	public static final String ONLY_INSTANTIATE_SYSTEM_IMPLS = "onlyInstantiateSystemImpls";
+	/**
+	 * @since 3.0
+	 */
+	public static final boolean ONLY_INSTANTIATE_SYSTEM_IMPLS_DEFAULT = false;
+
 	public static final String AUTO_REINSTANTIATE = "autoReinstantiate";
 	public static final String AUTO_INDENT = "AUTO_INDENT";
 	public static final String AUTO_COMPLETE = "AUTO_COMPLETE";
@@ -366,5 +384,21 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 	 */
 	public static String getAlwaysShowInstantiationResultsPreferenceName() {
 		return ALWAYS_SHOW_INSTANTIATION_RESULTS;
+	}
+
+	/**
+	 * @since 3.0
+	 */
+	public final boolean getAlwaysShowInstantiationAadlDialog() {
+		final IPreferenceStore store = getPreferenceStore();
+		return store.getBoolean(ALWAYS_SHOW_INSTANTIATION_AADL_DIALOG);
+	}
+
+	/**
+	 * @since 3.0
+	 */
+	public final boolean getOnlyInstantiateSystemImpls() {
+		final IPreferenceStore store = getPreferenceStore();
+		return store.getBoolean(ONLY_INSTANTIATE_SYSTEM_IMPLS);
 	}
 }

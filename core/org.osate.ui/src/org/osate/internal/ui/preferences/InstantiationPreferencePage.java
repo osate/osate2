@@ -105,6 +105,16 @@ public class InstantiationPreferencePage extends FieldEditorPreferencePage imple
 				OsateCorePlugin.getAlwaysShowInstantiationResultsPreferenceName(),
 				"Always show instantiation results dialog, even when successful", getFieldEditorParent());
 		addField(alwaysShowField);
+
+		final BooleanFieldEditor alwaysShowAadlDialog = new BooleanFieldEditor(
+				OsateCorePlugin.ALWAYS_SHOW_INSTANTIATION_AADL_DIALOG,
+				"Always show the AADL component implementation selection dialog", getFieldEditorParent());
+		addField(alwaysShowAadlDialog);
+
+		final BooleanFieldEditor onlyInstantiateSystemImpls = new BooleanFieldEditor(
+				OsateCorePlugin.ONLY_INSTANTIATE_SYSTEM_IMPLS,
+				"Only instantiate system implementations", getFieldEditorParent());
+		addField(onlyInstantiateSystemImpls);
 	}
 
 	@Override
