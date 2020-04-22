@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Font;
 
 class PaletteItem<I> extends Region {
 
@@ -16,6 +17,7 @@ class PaletteItem<I> extends Region {
 	public PaletteItem(final PaletteModel<?, I> model, I item) {
 		itemButton = new Button(model.getItemLabel(item));
 		itemButton.setPadding(new Insets(0, 0, 0, 20));
+		itemButton.setFont(new Font(15));
 
 		itemButton.setStyle(IDLE_ITEM_STYLE);
 		itemButton.setOnMouseEntered(e -> {

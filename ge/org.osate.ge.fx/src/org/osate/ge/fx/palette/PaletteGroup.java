@@ -1,11 +1,13 @@
 package org.osate.ge.fx.palette;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 /*
  * Represents a single group in the palette.
@@ -16,15 +18,17 @@ class PaletteGroup<G, I> extends Region {
 	final ToggleButton groupButton;
 
 	final String IDLE_GROUP_STYLE = "-fx-background-color: linear-gradient(rgb(247,247,247),rgb(200,200,200));"
-			+ "-fx-border-width: 1px;" + "-fx-border-color: rgba(0,0,0,.2);";
+			+ "-fx-border-width: 1;" + "-fx-border-color: rgba(0,0,0,.2);";
 	final String HOVER_OR_SELECTED_GROUP_STYLE = "-fx-background-color: linear-gradient(rgb(243,243,243), rgb(222,222,222));"
-			+ "-fx-border-width: 1px;" + "-fx-border-color: rgba(0,0,0,.2);";
+			+ "-fx-border-width: 1;" + "-fx-border-color: rgba(0,0,0,.2);";
 	final String ITEMBOX_BACKGROUND = "-fx-background-color: white;";
 
 	public PaletteGroup(final PaletteModel<G, I> model, final G groupModel) {
 		final ScrollPane scrollPane = new ScrollPane();
 		groupButton = new ToggleButton(model.getGroupLabel(groupModel));
 		groupButton.setStyle(IDLE_GROUP_STYLE);
+		groupButton.setFont(new Font(15));
+		groupButton.setPadding(new Insets(2, 0, 2, 2));
 		groupButton.setAlignment(Pos.BASELINE_LEFT);
 		groupButton.setGraphic(new ImageView(model.getGroupIcon(groupModel)));
 
@@ -52,7 +56,7 @@ class PaletteGroup<G, I> extends Region {
 
 		buttonBox.getChildren().add(groupButton);
 
-		final VBox itemBox = new VBox(4);
+		final VBox itemBox = new VBox(6);
 		itemBox.setStyle(ITEMBOX_BACKGROUND);
 
 		for (I itemModel : model.getItems(groupModel)) {
