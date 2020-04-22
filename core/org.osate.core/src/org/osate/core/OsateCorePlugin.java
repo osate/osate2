@@ -358,11 +358,17 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 		return store.getInt(MAX_SOM);
 	}
 
+	/**
+	 * @since 3.0
+	 */
 	public final boolean getAlwaysShowInstantiationAadlDialog() {
 		final IPreferenceStore store = getPreferenceStore();
 		return store.getBoolean(ALWAYS_SHOW_INSTANTIATION_AADL_DIALOG);
 	}
 
+	/**
+	 * @since 3.0
+	 */
 	public final boolean getOnlyInstantiateSystemImpls() {
 		final IPreferenceStore store = getPreferenceStore();
 		return store.getBoolean(ONLY_INSTANTIATE_SYSTEM_IMPLS);
