@@ -239,7 +239,7 @@ public final class InstantiationResultsDialog<T> extends Dialog {
 		viewer.setContentProvider(new ModelContentProvider());
 		viewer.setInput(model);
 
-		hideInFutureOriginal = !prefs.getBoolean(OsateCorePlugin.getAlwaysShowInstantiationResultsPreferenceName());
+		hideInFutureOriginal = !prefs.getBoolean(OsateCorePlugin.ALWAYS_SHOW_INSTANTIATION_RESULTS);
 		hideInFuture = hideInFutureOriginal;
 		final Button hide = new Button(composite, SWT.CHECK);
 		hide.setSelection(hideInFuture);
@@ -267,7 +267,7 @@ public final class InstantiationResultsDialog<T> extends Dialog {
 		}
 
 		if (doSave) {
-			prefs.setValue(OsateCorePlugin.getAlwaysShowInstantiationResultsPreferenceName(), !hideInFuture);
+			prefs.setValue(OsateCorePlugin.ALWAYS_SHOW_INSTANTIATION_RESULTS, !hideInFuture);
 			final Job saveJob = Job.create("Save prefences", monitor -> {
 				try {
 					((IPersistentPreferenceStore) prefs).save();
