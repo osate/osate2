@@ -72,10 +72,14 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 	public static final String MAX_SOM = "maxSOM";
 	public static final int MAX_SOM_DEFAULT = 1000;
 
-	// Package visible: only used locally any how, and this way we don't break the plug-in versioning
-	static final String ALWAYS_SHOW_INSTANTIATION_RESULTS = "alwaysShowInstantiationResults";
-	// Package visible: only used locally any how, and this way we don't break the plug-in versioning
-	static final boolean ALWAYS_SHOW_INSTANTIATION_RESULTS_DEFAULT = true;
+	/**
+	 * @since 3.0
+	 */
+	public static final String ALWAYS_SHOW_INSTANTIATION_RESULTS = "alwaysShowInstantiationResults";
+	/**
+	 * @since 3.0
+	 */
+	public static final boolean ALWAYS_SHOW_INSTANTIATION_RESULTS_DEFAULT = true;
 
 	/**
 	 * @since 3.0
@@ -369,21 +373,6 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 	public final boolean getAlwaysShowInstantiationResults() {
 		final IPreferenceStore store = getPreferenceStore();
 		return store.getBoolean(ALWAYS_SHOW_INSTANTIATION_RESULTS);
-	}
-
-	/**
-	 * @since 3.0
-	 */
-	public static void setAlwaysShowInstantiationResultsDefault(final IPreferenceStore store) {
-		store.setDefault(OsateCorePlugin.ALWAYS_SHOW_INSTANTIATION_RESULTS,
-				OsateCorePlugin.ALWAYS_SHOW_INSTANTIATION_RESULTS_DEFAULT);
-	}
-
-	/**
-	 * @since 3.0
-	 */
-	public static String getAlwaysShowInstantiationResultsPreferenceName() {
-		return ALWAYS_SHOW_INSTANTIATION_RESULTS;
 	}
 
 	/**
