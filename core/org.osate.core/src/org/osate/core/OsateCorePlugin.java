@@ -364,7 +364,7 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * @since 2.1
+	 * @since 3.0
 	 */
 	public final boolean getAlwaysShowInstantiationResults() {
 		final IPreferenceStore store = getPreferenceStore();
@@ -372,7 +372,7 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * @since 2.1
+	 * @since 3.0
 	 */
 	public static void setAlwaysShowInstantiationResultsDefault(final IPreferenceStore store) {
 		store.setDefault(OsateCorePlugin.ALWAYS_SHOW_INSTANTIATION_RESULTS,
@@ -380,7 +380,7 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * @since 2.1
+	 * @since 3.0
 	 */
 	public static String getAlwaysShowInstantiationResultsPreferenceName() {
 		return ALWAYS_SHOW_INSTANTIATION_RESULTS;
