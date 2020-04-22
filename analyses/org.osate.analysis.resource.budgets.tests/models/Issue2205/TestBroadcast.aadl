@@ -1,0 +1,94 @@
+package TestBroadcast
+public
+	with SEI;
+
+	-- Some basics
+	
+	data D8
+		properties
+			Data_Size => 8 Bytes;
+	end D8;
+
+	-- bus
+	
+	bus B
+		properties
+			SEI::BandWidthBudget => 64.0 KBytesps;
+			SEI::BandwidthCapacity => 96.0 KBytesps;
+	end B;
+
+
+	-- communicating components
+	
+	system S1
+		features
+			out1: out data port D8;
+			out2: out data port D8;
+	end S1;
+
+	system S2
+		features
+			in1: in data port D8;
+			in2: in data port D8;
+			in3: in data port D8;
+			in4: in data port D8;
+	end S2;
+
+	-- assembled system
+	
+	system top
+	end top;
+	
+	system implementation top.i
+		subcomponents
+			sub1: system s1;
+			sub2: system s2;
+			noBroadcastBus: bus B;
+			
+			sub3: system s1;
+			sub4: system s2;
+			broadcastBus: bus B {
+				SEI::Broadcast_Protocol => true;
+			};
+		connections
+			conn1a: port sub1.out1 -> sub2.in1 {
+				SEI::BandWidthBudget => 8.0 KBytesps;
+				Actual_Connection_Binding => (reference (noBroadcastBus));
+			};
+			conn2a: port sub1.out1 -> sub2.in2 {
+				SEI::BandWidthBudget => 8.0 KBytesps;
+				Actual_Connection_Binding => (reference (noBroadcastBus));
+			};
+			conn3a: port sub1.out1 -> sub2.in3 {
+				SEI::BandWidthBudget => 8.0 KBytesps;
+				Actual_Connection_Binding => (reference (noBroadcastBus));
+			};
+			conn4a: port sub1.out2 -> sub2.in4 {
+				SEI::BandWidthBudget => 8.0 KBytesps;
+				Actual_Connection_Binding => (reference (noBroadcastBus));
+			};
+			
+			conn1b: port sub3.out1 -> sub4.in1 {
+				SEI::BandWidthBudget => 8.0 KBytesps;
+				Actual_Connection_Binding => (reference (broadcastBus));
+			};
+			conn2b: port sub3.out1 -> sub4.in2 {
+				SEI::BandWidthBudget => 8.0 KBytesps;
+				Actual_Connection_Binding => (reference (broadcastBus));
+			};
+			conn3b: port sub3.out1 -> sub4.in3 {
+				SEI::BandWidthBudget => 8.0 KBytesps;
+				Actual_Connection_Binding => (reference (broadcastBus));
+			};
+			conn4b: port sub3.out2 -> sub4.in4 {
+				SEI::BandWidthBudget => 8.0 KBytesps;
+				Actual_Connection_Binding => (reference (broadcastBus));
+			};
+		properties			-- Communication rates
+			Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub1.out1;
+			Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub1.out2;
+			
+			Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub3.out1;
+			Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub3.out2;
+	end top.i;
+end TestBroadcast;
