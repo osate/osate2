@@ -38,7 +38,7 @@ class ContributedAadlStorage extends PlatformObject implements IStorage, Project
 	val URI uri
 	
 	/**
-	 * @since 3.0
+	 * @since 4.0
 	 */
 	new(ProjectMember parent, URI uri) {
 		this.parent = parent
@@ -46,7 +46,7 @@ class ContributedAadlStorage extends PlatformObject implements IStorage, Project
 	}
 	
 	/**
-	 * @since 3.0
+	 * @since 4.0
 	 */
 	def ProjectMember getParent() {
 		parent

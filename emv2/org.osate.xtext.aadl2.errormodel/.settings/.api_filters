@@ -1,255 +1,413 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.xtext.aadl2.errormodel" version="2">
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/errorModel/ErrorDetection.java" type="org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection">
+        <filter comment="Xtext generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="getDetectionReportingPort()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="setDetectionReportingPort(ReportingPortReference)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/errorModel/ErrorModelFactory.java" type="org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory">
+        <filter comment="Xtext generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="createReportingPortReference()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/errorModel/ErrorModelPackage.java" type="org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage">
+        <filter comment="Xtext generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="REPORTING_PORT_REFERENCE"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="REPORTING_PORT_REFERENCE_FEATURE_COUNT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="REPORTING_PORT_REFERENCE__ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="REPORTING_PORT_REFERENCE__PREVIOUS"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="getReportingPortReference()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="getReportingPortReference_Element()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="getReportingPortReference_Previous()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/errorModel/ErrorModelPackage.java" type="org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage$Literals">
+        <filter comment="Xtext generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="REPORTING_PORT_REFERENCE"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="REPORTING_PORT_REFERENCE__ELEMENT"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated" id="1211105284">
+            <message_arguments>
+                <message_argument value="REPORTING_PORT_REFERENCE__PREVIOUS"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/errorModel/ReportingPortReference.java" type="org.osate.xtext.aadl2.errormodel.errorModel.ReportingPortReference">
+        <filter comment="Xtext generated" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.errorModel.ReportingPortReference"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/errorModel/impl/ErrorDetectionImpl.java" type="org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorDetectionImpl">
+        <filter comment="Xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="basicSetDetectionReportingPort(ReportingPortReference, NotificationChain)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/errorModel/impl/ReportingPortReferenceImpl.java" type="org.osate.xtext.aadl2.errormodel.errorModel.impl.ReportingPortReferenceImpl">
+        <filter comment="Xtext generated" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.errorModel.impl.ReportingPortReferenceImpl"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/errorModel/util/ErrorModelAdapterFactory.java" type="org.osate.xtext.aadl2.errormodel.errorModel.util.ErrorModelAdapterFactory">
+        <filter comment="Xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="createReportingPortReferenceAdapter()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/errorModel/util/ErrorModelSwitch.java" type="org.osate.xtext.aadl2.errormodel.errorModel.util.ErrorModelSwitch">
+        <filter comment="Xtext generated" id="1143996420">
+            <message_arguments>
+                <message_argument value="caseReportingPortReference(ReportingPortReference)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.java" type="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="dfa233"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="entryRuleReportingPortReference()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="ruleReportingPortReference()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/serializer/AbstractErrorModelSemanticSequencer.java" type="org.osate.xtext.aadl2.errormodel.serializer.AbstractErrorModelSemanticSequencer">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="sequence_ReportingPortReference(ISerializationContext, ReportingPortReference)"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src-gen/org/osate/xtext/aadl2/errormodel/serializer/AbstractErrorModelSyntacticSequencer.java" type="org.osate.xtext.aadl2.errormodel.serializer.AbstractErrorModelSyntacticSequencer">
-        <filter comment="xtext" id="576720909">
+        <filter id="576720909">
             <message_arguments>
                 <message_argument value="AbstractSyntacticSequencer"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="627060751">
+        <filter id="627060751">
             <message_arguments>
                 <message_argument value="AbstractElementAlias"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="match_ConditionTerm_LeftParenthesisKeyword_4_0_a"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="627060751">
+        <filter id="627060751">
             <message_arguments>
                 <message_argument value="AbstractElementAlias"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="match_ConditionTerm_LeftParenthesisKeyword_4_0_p"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="627060751">
+        <filter id="627060751">
             <message_arguments>
                 <message_argument value="AbstractElementAlias"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="match_EMV2Library___ErrorTypesKeywordsParserRuleCall_0_1_2_0_EndTypesKeywordsParserRuleCall_0_1_2_5_SemicolonKeyword_0_1_2_6__q"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="627060751">
+        <filter id="627060751">
             <message_arguments>
                 <message_argument value="AbstractElementAlias"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="match_EMV2Library___ErrorTypesKeywordsParserRuleCall_1_6_0_EndTypesKeywordsParserRuleCall_1_6_5_SemicolonKeyword_1_6_6__q"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="627060751">
+        <filter id="627060751">
             <message_arguments>
                 <message_argument value="AbstractElementAlias"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="match_EMV2Subclause___ComponentErrorBehaviorKeywordsParserRuleCall_8_0_EndComponentKeywordsParserRuleCall_8_7_SemicolonKeyword_8_8__q"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="627060751">
+        <filter id="627060751">
             <message_arguments>
                 <message_argument value="AbstractElementAlias"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="match_EMV2Subclause___CompositeErrorBehaviorKeywordsParserRuleCall_9_0_EndCompositeKeywordsParserRuleCall_9_2_SemicolonKeyword_9_3__q"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="627060751">
+        <filter id="627060751">
             <message_arguments>
                 <message_argument value="AbstractElementAlias"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="match_EMV2Subclause___ConnectionErrorKeywordsParserRuleCall_10_0_EndConnectionKeywordsParserRuleCall_10_3_SemicolonKeyword_10_4__q"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="627060751">
+        <filter id="627060751">
             <message_arguments>
                 <message_argument value="AbstractElementAlias"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="match_EMV2Subclause___ErrorPropagationsKeywordsParserRuleCall_7_0_EndPropagationsKeywordsParserRuleCall_7_3_SemicolonKeyword_7_4__q"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="627060751">
+        <filter id="627060751">
             <message_arguments>
                 <message_argument value="AbstractElementAlias"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="match_EMV2Subclause___PropagationPathsKeywordsParserRuleCall_11_0_EndPathsKeywordsParserRuleCall_11_3_SemicolonKeyword_11_4__q"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="627060751">
+        <filter id="627060751">
             <message_arguments>
                 <message_argument value="AbstractElementAlias"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="match_ErrorModelLibrary___ErrorTypesKeywordsParserRuleCall_1_0_EndTypesKeywordsParserRuleCall_1_5_SemicolonKeyword_1_6__q"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="627060751">
+        <filter id="627060751">
             <message_arguments>
                 <message_argument value="AbstractElementAlias"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="match_ErrorModelSubclause___ComponentErrorBehaviorKeywordsParserRuleCall_6_0_EndComponentKeywordsParserRuleCall_6_7_SemicolonKeyword_6_8__q"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="627060751">
+        <filter id="627060751">
             <message_arguments>
                 <message_argument value="AbstractElementAlias"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="match_ErrorModelSubclause___CompositeErrorBehaviorKeywordsParserRuleCall_7_0_EndCompositeKeywordsParserRuleCall_7_2_SemicolonKeyword_7_3__q"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="627060751">
+        <filter id="627060751">
             <message_arguments>
                 <message_argument value="AbstractElementAlias"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="match_ErrorModelSubclause___ConnectionErrorKeywordsParserRuleCall_8_0_EndConnectionKeywordsParserRuleCall_8_3_SemicolonKeyword_8_4__q"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="627060751">
+        <filter id="627060751">
             <message_arguments>
                 <message_argument value="AbstractElementAlias"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="match_ErrorModelSubclause___ErrorPropagationsKeywordsParserRuleCall_5_0_EndPropagationsKeywordsParserRuleCall_5_3_SemicolonKeyword_5_4__q"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="627060751">
+        <filter id="627060751">
             <message_arguments>
                 <message_argument value="AbstractElementAlias"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="match_ErrorModelSubclause___PropagationPathsKeywordsParserRuleCall_9_0_EndPathsKeywordsParserRuleCall_9_3_SemicolonKeyword_9_4__q"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="627060751">
+        <filter id="627060751">
             <message_arguments>
                 <message_argument value="AbstractElementAlias"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="match_SConditionTerm_LeftParenthesisKeyword_4_0_a"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="627060751">
+        <filter id="627060751">
             <message_arguments>
                 <message_argument value="AbstractElementAlias"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="match_SConditionTerm_LeftParenthesisKeyword_4_0_p"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="643846161">
+        <filter id="643846161">
             <message_arguments>
                 <message_argument value="ISynNavigable"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="emit_ConditionTerm_LeftParenthesisKeyword_4_0_a(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="643846161">
+        <filter id="643846161">
             <message_arguments>
                 <message_argument value="ISynNavigable"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="emit_ConditionTerm_LeftParenthesisKeyword_4_0_p(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="643846161">
+        <filter id="643846161">
             <message_arguments>
                 <message_argument value="ISynNavigable"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="emit_EMV2Library___ErrorTypesKeywordsParserRuleCall_0_1_2_0_EndTypesKeywordsParserRuleCall_0_1_2_5_SemicolonKeyword_0_1_2_6__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="643846161">
+        <filter id="643846161">
             <message_arguments>
                 <message_argument value="ISynNavigable"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="emit_EMV2Library___ErrorTypesKeywordsParserRuleCall_1_6_0_EndTypesKeywordsParserRuleCall_1_6_5_SemicolonKeyword_1_6_6__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="643846161">
+        <filter id="643846161">
             <message_arguments>
                 <message_argument value="ISynNavigable"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="emit_EMV2Subclause___ComponentErrorBehaviorKeywordsParserRuleCall_8_0_EndComponentKeywordsParserRuleCall_8_7_SemicolonKeyword_8_8__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="643846161">
+        <filter id="643846161">
             <message_arguments>
                 <message_argument value="ISynNavigable"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="emit_EMV2Subclause___CompositeErrorBehaviorKeywordsParserRuleCall_9_0_EndCompositeKeywordsParserRuleCall_9_2_SemicolonKeyword_9_3__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="643846161">
+        <filter id="643846161">
             <message_arguments>
                 <message_argument value="ISynNavigable"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="emit_EMV2Subclause___ConnectionErrorKeywordsParserRuleCall_10_0_EndConnectionKeywordsParserRuleCall_10_3_SemicolonKeyword_10_4__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="643846161">
+        <filter id="643846161">
             <message_arguments>
                 <message_argument value="ISynNavigable"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="emit_EMV2Subclause___ErrorPropagationsKeywordsParserRuleCall_7_0_EndPropagationsKeywordsParserRuleCall_7_3_SemicolonKeyword_7_4__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="643846161">
+        <filter id="643846161">
             <message_arguments>
                 <message_argument value="ISynNavigable"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="emit_EMV2Subclause___PropagationPathsKeywordsParserRuleCall_11_0_EndPathsKeywordsParserRuleCall_11_3_SemicolonKeyword_11_4__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="643846161">
+        <filter id="643846161">
             <message_arguments>
                 <message_argument value="ISynNavigable"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="emit_ErrorModelLibrary___ErrorTypesKeywordsParserRuleCall_1_0_EndTypesKeywordsParserRuleCall_1_5_SemicolonKeyword_1_6__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="643846161">
+        <filter id="643846161">
             <message_arguments>
                 <message_argument value="ISynNavigable"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="emit_ErrorModelSubclause___ComponentErrorBehaviorKeywordsParserRuleCall_6_0_EndComponentKeywordsParserRuleCall_6_7_SemicolonKeyword_6_8__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="643846161">
+        <filter id="643846161">
             <message_arguments>
                 <message_argument value="ISynNavigable"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="emit_ErrorModelSubclause___CompositeErrorBehaviorKeywordsParserRuleCall_7_0_EndCompositeKeywordsParserRuleCall_7_2_SemicolonKeyword_7_3__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="643846161">
+        <filter id="643846161">
             <message_arguments>
                 <message_argument value="ISynNavigable"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="emit_ErrorModelSubclause___ConnectionErrorKeywordsParserRuleCall_8_0_EndConnectionKeywordsParserRuleCall_8_3_SemicolonKeyword_8_4__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="643846161">
+        <filter id="643846161">
             <message_arguments>
                 <message_argument value="ISynNavigable"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="emit_ErrorModelSubclause___ErrorPropagationsKeywordsParserRuleCall_5_0_EndPropagationsKeywordsParserRuleCall_5_3_SemicolonKeyword_5_4__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="643846161">
+        <filter id="643846161">
             <message_arguments>
                 <message_argument value="ISynNavigable"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="emit_ErrorModelSubclause___PropagationPathsKeywordsParserRuleCall_9_0_EndPathsKeywordsParserRuleCall_9_3_SemicolonKeyword_9_4__q(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="643846161">
+        <filter id="643846161">
             <message_arguments>
                 <message_argument value="ISynNavigable"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="emit_SConditionTerm_LeftParenthesisKeyword_4_0_a(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="643846161">
+        <filter id="643846161">
             <message_arguments>
                 <message_argument value="ISynNavigable"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="emit_SConditionTerm_LeftParenthesisKeyword_4_0_p(EObject, ISyntacticSequencerPDAProviderISynNavigable, List&lt;INode&gt;)"/>
             </message_arguments>
         </filter>
-        <filter comment="xtext" id="643846161">
+        <filter id="643846161">
             <message_arguments>
                 <message_argument value="ISynTransition"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="emitUnassignedTokens(EObject, ISyntacticSequencerPDAProviderISynTransition, INode, INode)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/services/ErrorModelGrammarAccess.java" type="org.osate.xtext.aadl2.errormodel.services.ErrorModelGrammarAccess">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getReportingPortReferenceAccess()"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getReportingPortReferenceRule()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/services/ErrorModelGrammarAccess.java" type="org.osate.xtext.aadl2.errormodel.services.ErrorModelGrammarAccess$ErrorDetectionElements">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getDetectionReportingPortReportingPortReferenceParserRuleCall_5_0()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/services/ErrorModelGrammarAccess.java" type="org.osate.xtext.aadl2.errormodel.services.ErrorModelGrammarAccess$ReportingPortReferenceElements">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="ReportingPortReferenceElements"/>
             </message_arguments>
         </filter>
     </resource>

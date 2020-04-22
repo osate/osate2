@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -152,6 +152,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getProperty();
 	}
@@ -173,8 +174,9 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	public void setInherit(boolean newInherit) {
 		boolean oldInherit = inherit;
 		inherit = newInherit;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROPERTY__INHERIT, oldInherit, inherit));
+		}
 	}
 
 	/**
@@ -197,10 +199,11 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.PROPERTY__DEFAULT_VALUE, oldDefaultValue, newDefaultValue);
-			if (msgs == null)
+			if (msgs == null) {
 				msgs = notification;
-			else
+			} else {
 				msgs.add(notification);
+			}
 		}
 		return msgs;
 	}
@@ -213,18 +216,22 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	public void setDefaultValue(PropertyExpression newDefaultValue) {
 		if (newDefaultValue != defaultValue) {
 			NotificationChain msgs = null;
-			if (defaultValue != null)
+			if (defaultValue != null) {
 				msgs = ((InternalEObject) defaultValue).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.PROPERTY__DEFAULT_VALUE, null, msgs);
-			if (newDefaultValue != null)
+			}
+			if (newDefaultValue != null) {
 				msgs = ((InternalEObject) newDefaultValue).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.PROPERTY__DEFAULT_VALUE, null, msgs);
+			}
 			msgs = basicSetDefaultValue(newDefaultValue, msgs);
-			if (msgs != null)
+			if (msgs != null) {
 				msgs.dispatch();
-		} else if (eNotificationRequired())
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROPERTY__DEFAULT_VALUE, newDefaultValue,
 					newDefaultValue));
+		}
 	}
 
 	/**
@@ -268,9 +275,10 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	public void setEmptyListDefault(boolean newEmptyListDefault) {
 		boolean oldEmptyListDefault = emptyListDefault;
 		emptyListDefault = newEmptyListDefault;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROPERTY__EMPTY_LIST_DEFAULT,
 					oldEmptyListDefault, emptyListDefault));
+		}
 	}
 
 	/**
@@ -325,6 +333,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY__DEFAULT_VALUE:
@@ -340,6 +349,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY__INHERIT:
@@ -363,6 +373,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -396,6 +407,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY__INHERIT:
@@ -425,6 +437,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY__INHERIT:
@@ -448,9 +461,11 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
-		if (eIsProxy())
+		if (eIsProxy()) {
 			return super.toString();
+		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (inherit: ");
@@ -466,10 +481,9 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 		List<EvaluatedProperty> vals = new LinkedList<EvaluatedProperty>();
 
 		for (PropertyAssociation pa : pas) {
-			// OsateDebug.osateDebug("pa" + pa);
 			vals.add(pa.evaluate(ctx, depth));
 
-			if ((!(ctx.getInstanceObject() instanceof ConnectionReference)) && (!pa.isAppend())) {
+			if (!pa.isAppend()) {
 				break;
 			}
 		}
@@ -565,48 +579,11 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	}
 
 	public EvaluatedProperty evaluateDefault(EvaluationContext ctx) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-	// public final AadlPropertyValue evaluate(final OperationKind sign, final
-	// NamedElement context)
-	// throws InvalidModelException {
-	// // Obtained value will already be evaluated
-	// /* Should only get here if we know the property applies to property
-	// * holder, so we ignore the possibility of a null return from
-	// * getPropertyValue.
-	// */
-	//
-	// /* Check for circular property reference. Here, we actually catch
-	// * the 2nd (!) loop in the circularity. To catch the first loop, we
-	// * would have to initialize the stack in the property value accumulator,
-	// * and it is too much work to make the stack available there and here.
-	// * So to keep everything self-contained, we don't do that. Catching
-	// * the 2nd loop doesn't really matter, just as long as we detect it.
-	// */
-	// final LinkedList<Property> stack = lookupStack.get();
-	// final int idx = stack.indexOf(this);
-	// if (idx != -1) {
-	// final StringBuilder sb = new StringBuilder();
-	// for (int i = idx; i >= 0; i--) {
-	// final Property pd = stack.get(i);
-	// sb.append(pd.getQualifiedName());
-	// sb.append(" -> ");
-	// }
-	// sb.append(getQualifiedName());
-	// throw new IllegalStateException("Circular property reference dependency "
-	// + sb);
-	// } else {
-	// try {
-	// stack.addFirst(this);
-	// return context.getPropertyValue(this).getValue();
-	// } finally {
-	// stack.removeFirst();
-	// }
-	// }
-	// }
 
+	@Override
 	public boolean equals(Object p) {
 		if (p instanceof Property) {
 			String p1Name = getQualifiedName();
@@ -618,6 +595,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 		return this == p;
 	}
 
+	@Override
 	public int hashCode() {
 		if (eIsProxy()) {
 			return eProxyURI().toString().hashCode();

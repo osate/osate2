@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -1120,7 +1120,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPort()
 	 * @generated
 	 */
-	int PORT = 75;
+	int PORT = 76;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ConnectionEndImpl <em>Connection End</em>}' class.
@@ -1280,7 +1280,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusClassifier()
 	 * @generated
 	 */
-	int BUS_CLASSIFIER = 175;
+	int BUS_CLASSIFIER = 176;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.BusImpl <em>Bus</em>}' class.
@@ -1290,7 +1290,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBus()
 	 * @generated
 	 */
-	int BUS = 151;
+	int BUS = 152;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.BusSubcomponentTypeImpl <em>Bus Subcomponent Type</em>}' class.
@@ -1300,7 +1300,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusSubcomponentType()
 	 * @generated
 	 */
-	int BUS_SUBCOMPONENT_TYPE = 147;
+	int BUS_SUBCOMPONENT_TYPE = 148;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DataAccessImpl <em>Data Access</em>}' class.
@@ -1360,7 +1360,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataClassifier()
 	 * @generated
 	 */
-	int DATA_CLASSIFIER = 108;
+	int DATA_CLASSIFIER = 109;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DataImpl <em>Data</em>}' class.
@@ -1370,7 +1370,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getData()
 	 * @generated
 	 */
-	int DATA = 109;
+	int DATA = 110;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DataSubcomponentTypeImpl <em>Data Subcomponent Type</em>}' class.
@@ -1390,7 +1390,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataPort()
 	 * @generated
 	 */
-	int DATA_PORT = 74;
+	int DATA_PORT = 75;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.EventDataPortImpl <em>Event Data Port</em>}' class.
@@ -1400,7 +1400,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEventDataPort()
 	 * @generated
 	 */
-	int EVENT_DATA_PORT = 76;
+	int EVENT_DATA_PORT = 77;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.EventPortImpl <em>Event Port</em>}' class.
@@ -1410,7 +1410,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEventPort()
 	 * @generated
 	 */
-	int EVENT_PORT = 77;
+	int EVENT_PORT = 78;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ParameterImpl <em>Parameter</em>}' class.
@@ -1420,7 +1420,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getParameter()
 	 * @generated
 	 */
-	int PARAMETER = 78;
+	int PARAMETER = 79;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramAccessImpl <em>Subprogram Access</em>}' class.
@@ -1430,7 +1430,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramAccess()
 	 * @generated
 	 */
-	int SUBPROGRAM_ACCESS = 79;
+	int SUBPROGRAM_ACCESS = 80;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.CalledSubprogramImpl <em>Called Subprogram</em>}' class.
@@ -1450,7 +1450,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramClassifier()
 	 * @generated
 	 */
-	int SUBPROGRAM_CLASSIFIER = 112;
+	int SUBPROGRAM_CLASSIFIER = 113;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramSubcomponentTypeImpl <em>Subprogram Subcomponent Type</em>}' class.
@@ -1460,7 +1460,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramSubcomponentType()
 	 * @generated
 	 */
-	int SUBPROGRAM_SUBCOMPONENT_TYPE = 80;
+	int SUBPROGRAM_SUBCOMPONENT_TYPE = 81;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramImpl <em>Subprogram</em>}' class.
@@ -1470,7 +1470,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogram()
 	 * @generated
 	 */
-	int SUBPROGRAM = 113;
+	int SUBPROGRAM = 114;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupAccessImpl <em>Subprogram Group Access</em>}' class.
@@ -1480,7 +1480,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupAccess()
 	 * @generated
 	 */
-	int SUBPROGRAM_GROUP_ACCESS = 81;
+	int SUBPROGRAM_GROUP_ACCESS = 82;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupClassifierImpl <em>Subprogram Group Classifier</em>}' class.
@@ -1490,7 +1490,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupClassifier()
 	 * @generated
 	 */
-	int SUBPROGRAM_GROUP_CLASSIFIER = 193;
+	int SUBPROGRAM_GROUP_CLASSIFIER = 194;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupSubcomponentTypeImpl <em>Subprogram Group Subcomponent Type</em>}' class.
@@ -1500,7 +1500,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupSubcomponentType()
 	 * @generated
 	 */
-	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE = 82;
+	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE = 83;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupImpl <em>Subprogram Group</em>}' class.
@@ -1510,7 +1510,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroup()
 	 * @generated
 	 */
-	int SUBPROGRAM_GROUP = 165;
+	int SUBPROGRAM_GROUP = 166;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractFeatureImpl <em>Abstract Feature</em>}' class.
@@ -1520,7 +1520,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractFeature()
 	 * @generated
 	 */
-	int ABSTRACT_FEATURE = 83;
+	int ABSTRACT_FEATURE = 84;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubcomponentImpl <em>Subcomponent</em>}' class.
@@ -1530,7 +1530,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubcomponent()
 	 * @generated
 	 */
-	int SUBCOMPONENT = 86;
+	int SUBCOMPONENT = 87;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentPrototypeImpl <em>Component Prototype</em>}' class.
@@ -1550,7 +1550,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModeBinding()
 	 * @generated
 	 */
-	int MODE_BINDING = 87;
+	int MODE_BINDING = 88;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractClassifierImpl <em>Abstract Classifier</em>}' class.
@@ -1560,7 +1560,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractClassifier()
 	 * @generated
 	 */
-	int ABSTRACT_CLASSIFIER = 138;
+	int ABSTRACT_CLASSIFIER = 139;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractImpl <em>Abstract</em>}' class.
@@ -1570,7 +1570,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstract()
 	 * @generated
 	 */
-	int ABSTRACT = 97;
+	int ABSTRACT = 98;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractSubcomponentTypeImpl <em>Abstract Subcomponent Type</em>}' class.
@@ -1580,7 +1580,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractSubcomponentType()
 	 * @generated
 	 */
-	int ABSTRACT_SUBCOMPONENT_TYPE = 98;
+	int ABSTRACT_SUBCOMPONENT_TYPE = 99;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FlowImplementationImpl <em>Flow Implementation</em>}' class.
@@ -1590,7 +1590,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFlowImplementation()
 	 * @generated
 	 */
-	int FLOW_IMPLEMENTATION = 88;
+	int FLOW_IMPLEMENTATION = 89;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ModalPathImpl <em>Modal Path</em>}' class.
@@ -1610,7 +1610,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFlowSegment()
 	 * @generated
 	 */
-	int FLOW_SEGMENT = 89;
+	int FLOW_SEGMENT = 90;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ConnectionImpl <em>Connection</em>}' class.
@@ -1620,7 +1620,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getConnection()
 	 * @generated
 	 */
-	int CONNECTION = 90;
+	int CONNECTION = 91;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ConnectedElementImpl <em>Connected Element</em>}' class.
@@ -1630,7 +1630,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getConnectedElement()
 	 * @generated
 	 */
-	int CONNECTED_ELEMENT = 91;
+	int CONNECTED_ELEMENT = 92;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ImplementationExtensionImpl <em>Implementation Extension</em>}' class.
@@ -1640,7 +1640,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getImplementationExtension()
 	 * @generated
 	 */
-	int IMPLEMENTATION_EXTENSION = 92;
+	int IMPLEMENTATION_EXTENSION = 93;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.RealizationImpl <em>Realization</em>}' class.
@@ -1650,7 +1650,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRealization()
 	 * @generated
 	 */
-	int REALIZATION = 93;
+	int REALIZATION = 94;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.EndToEndFlowImpl <em>End To End Flow</em>}' class.
@@ -1660,7 +1660,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEndToEndFlow()
 	 * @generated
 	 */
-	int END_TO_END_FLOW = 94;
+	int END_TO_END_FLOW = 95;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.EndToEndFlowSegmentImpl <em>End To End Flow Segment</em>}' class.
@@ -1670,7 +1670,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEndToEndFlowSegment()
 	 * @generated
 	 */
-	int END_TO_END_FLOW_SEGMENT = 95;
+	int END_TO_END_FLOW_SEGMENT = 96;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractSubcomponentImpl <em>Abstract Subcomponent</em>}' class.
@@ -1680,7 +1680,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractSubcomponent()
 	 * @generated
 	 */
-	int ABSTRACT_SUBCOMPONENT = 96;
+	int ABSTRACT_SUBCOMPONENT = 97;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AccessConnectionImpl <em>Access Connection</em>}' class.
@@ -1690,7 +1690,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAccessConnection()
 	 * @generated
 	 */
-	int ACCESS_CONNECTION = 99;
+	int ACCESS_CONNECTION = 100;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ParameterConnectionImpl <em>Parameter Connection</em>}' class.
@@ -1700,7 +1700,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getParameterConnection()
 	 * @generated
 	 */
-	int PARAMETER_CONNECTION = 100;
+	int PARAMETER_CONNECTION = 101;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PortConnectionImpl <em>Port Connection</em>}' class.
@@ -1710,7 +1710,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPortConnection()
 	 * @generated
 	 */
-	int PORT_CONNECTION = 101;
+	int PORT_CONNECTION = 102;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureConnectionImpl <em>Feature Connection</em>}' class.
@@ -1720,7 +1720,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureConnection()
 	 * @generated
 	 */
-	int FEATURE_CONNECTION = 102;
+	int FEATURE_CONNECTION = 103;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupConnectionImpl <em>Feature Group Connection</em>}' class.
@@ -1730,7 +1730,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupConnection()
 	 * @generated
 	 */
-	int FEATURE_GROUP_CONNECTION = 103;
+	int FEATURE_GROUP_CONNECTION = 104;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AnnexLibraryImpl <em>Annex Library</em>}' class.
@@ -1740,7 +1740,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAnnexLibrary()
 	 * @generated
 	 */
-	int ANNEX_LIBRARY = 114;
+	int ANNEX_LIBRARY = 115;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DefaultAnnexLibraryImpl <em>Default Annex Library</em>}' class.
@@ -1750,7 +1750,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDefaultAnnexLibrary()
 	 * @generated
 	 */
-	int DEFAULT_ANNEX_LIBRARY = 115;
+	int DEFAULT_ANNEX_LIBRARY = 116;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DefaultAnnexSubclauseImpl <em>Default Annex Subclause</em>}' class.
@@ -1760,7 +1760,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDefaultAnnexSubclause()
 	 * @generated
 	 */
-	int DEFAULT_ANNEX_SUBCLAUSE = 116;
+	int DEFAULT_ANNEX_SUBCLAUSE = 117;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PackageSectionImpl <em>Package Section</em>}' class.
@@ -1770,7 +1770,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPackageSection()
 	 * @generated
 	 */
-	int PACKAGE_SECTION = 118;
+	int PACKAGE_SECTION = 119;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PublicPackageSectionImpl <em>Public Package Section</em>}' class.
@@ -1780,7 +1780,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPublicPackageSection()
 	 * @generated
 	 */
-	int PUBLIC_PACKAGE_SECTION = 117;
+	int PUBLIC_PACKAGE_SECTION = 118;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PackageRenameImpl <em>Package Rename</em>}' class.
@@ -1790,7 +1790,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPackageRename()
 	 * @generated
 	 */
-	int PACKAGE_RENAME = 119;
+	int PACKAGE_RENAME = 120;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ModelUnitImpl <em>Model Unit</em>}' class.
@@ -1800,7 +1800,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getModelUnit()
 	 * @generated
 	 */
-	int MODEL_UNIT = 121;
+	int MODEL_UNIT = 122;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AadlPackageImpl <em>Aadl Package</em>}' class.
@@ -1810,7 +1810,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAadlPackage()
 	 * @generated
 	 */
-	int AADL_PACKAGE = 120;
+	int AADL_PACKAGE = 121;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PrivatePackageSectionImpl <em>Private Package Section</em>}' class.
@@ -1820,7 +1820,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPrivatePackageSection()
 	 * @generated
 	 */
-	int PRIVATE_PACKAGE_SECTION = 122;
+	int PRIVATE_PACKAGE_SECTION = 123;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentTypeRenameImpl <em>Component Type Rename</em>}' class.
@@ -1830,7 +1830,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentTypeRename()
 	 * @generated
 	 */
-	int COMPONENT_TYPE_RENAME = 123;
+	int COMPONENT_TYPE_RENAME = 124;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupTypeRenameImpl <em>Feature Group Type Rename</em>}' class.
@@ -1840,7 +1840,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupTypeRename()
 	 * @generated
 	 */
-	int FEATURE_GROUP_TYPE_RENAME = 124;
+	int FEATURE_GROUP_TYPE_RENAME = 125;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractTypeImpl <em>Abstract Type</em>}' class.
@@ -1850,7 +1850,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractType()
 	 * @generated
 	 */
-	int ABSTRACT_TYPE = 137;
+	int ABSTRACT_TYPE = 138;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.BehavioredImplementationImpl <em>Behaviored Implementation</em>}' class.
@@ -1860,7 +1860,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBehavioredImplementation()
 	 * @generated
 	 */
-	int BEHAVIORED_IMPLEMENTATION = 136;
+	int BEHAVIORED_IMPLEMENTATION = 137;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractImplementationImpl <em>Abstract Implementation</em>}' class.
@@ -1870,7 +1870,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractImplementation()
 	 * @generated
 	 */
-	int ABSTRACT_IMPLEMENTATION = 149;
+	int ABSTRACT_IMPLEMENTATION = 150;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramCallSequenceImpl <em>Subprogram Call Sequence</em>}' class.
@@ -1880,7 +1880,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramCallSequence()
 	 * @generated
 	 */
-	int SUBPROGRAM_CALL_SEQUENCE = 134;
+	int SUBPROGRAM_CALL_SEQUENCE = 135;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.BusSubcomponentImpl <em>Bus Subcomponent</em>}' class.
@@ -1890,7 +1890,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusSubcomponent()
 	 * @generated
 	 */
-	int BUS_SUBCOMPONENT = 150;
+	int BUS_SUBCOMPONENT = 151;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DataSubcomponentImpl <em>Data Subcomponent</em>}' class.
@@ -1900,7 +1900,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataSubcomponent()
 	 * @generated
 	 */
-	int DATA_SUBCOMPONENT = 152;
+	int DATA_SUBCOMPONENT = 153;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceSubcomponentImpl <em>Device Subcomponent</em>}' class.
@@ -1910,7 +1910,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceSubcomponent()
 	 * @generated
 	 */
-	int DEVICE_SUBCOMPONENT = 153;
+	int DEVICE_SUBCOMPONENT = 154;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceImpl <em>Device</em>}' class.
@@ -1920,7 +1920,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDevice()
 	 * @generated
 	 */
-	int DEVICE = 154;
+	int DEVICE = 155;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceClassifierImpl <em>Device Classifier</em>}' class.
@@ -1930,7 +1930,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceClassifier()
 	 * @generated
 	 */
-	int DEVICE_CLASSIFIER = 182;
+	int DEVICE_CLASSIFIER = 183;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.MemorySubcomponentImpl <em>Memory Subcomponent</em>}' class.
@@ -1940,7 +1940,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemorySubcomponent()
 	 * @generated
 	 */
-	int MEMORY_SUBCOMPONENT = 155;
+	int MEMORY_SUBCOMPONENT = 156;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryImpl <em>Memory</em>}' class.
@@ -1950,7 +1950,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemory()
 	 * @generated
 	 */
-	int MEMORY = 156;
+	int MEMORY = 157;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryClassifierImpl <em>Memory Classifier</em>}' class.
@@ -1960,7 +1960,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemoryClassifier()
 	 * @generated
 	 */
-	int MEMORY_CLASSIFIER = 186;
+	int MEMORY_CLASSIFIER = 187;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessSubcomponentImpl <em>Process Subcomponent</em>}' class.
@@ -1970,7 +1970,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessSubcomponent()
 	 * @generated
 	 */
-	int PROCESS_SUBCOMPONENT = 157;
+	int PROCESS_SUBCOMPONENT = 158;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessImpl <em>Process</em>}' class.
@@ -1980,7 +1980,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcess()
 	 * @generated
 	 */
-	int PROCESS = 158;
+	int PROCESS = 159;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessClassifierImpl <em>Process Classifier</em>}' class.
@@ -1990,7 +1990,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessClassifier()
 	 * @generated
 	 */
-	int PROCESS_CLASSIFIER = 205;
+	int PROCESS_CLASSIFIER = 206;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorSubcomponentImpl <em>Processor Subcomponent</em>}' class.
@@ -2000,7 +2000,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorSubcomponent()
 	 * @generated
 	 */
-	int PROCESSOR_SUBCOMPONENT = 159;
+	int PROCESSOR_SUBCOMPONENT = 160;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorImpl <em>Processor</em>}' class.
@@ -2010,7 +2010,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessor()
 	 * @generated
 	 */
-	int PROCESSOR = 160;
+	int PROCESSOR = 161;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorClassifierImpl <em>Processor Classifier</em>}' class.
@@ -2020,7 +2020,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorClassifier()
 	 * @generated
 	 */
-	int PROCESSOR_CLASSIFIER = 201;
+	int PROCESSOR_CLASSIFIER = 202;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemSubcomponentImpl <em>System Subcomponent</em>}' class.
@@ -2030,7 +2030,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemSubcomponent()
 	 * @generated
 	 */
-	int SYSTEM_SUBCOMPONENT = 161;
+	int SYSTEM_SUBCOMPONENT = 162;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemImpl <em>System</em>}' class.
@@ -2040,7 +2040,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystem()
 	 * @generated
 	 */
-	int SYSTEM = 162;
+	int SYSTEM = 163;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemClassifierImpl <em>System Classifier</em>}' class.
@@ -2050,7 +2050,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemClassifier()
 	 * @generated
 	 */
-	int SYSTEM_CLASSIFIER = 197;
+	int SYSTEM_CLASSIFIER = 198;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramSubcomponentImpl <em>Subprogram Subcomponent</em>}' class.
@@ -2060,7 +2060,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramSubcomponent()
 	 * @generated
 	 */
-	int SUBPROGRAM_SUBCOMPONENT = 163;
+	int SUBPROGRAM_SUBCOMPONENT = 164;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupSubcomponentImpl <em>Subprogram Group Subcomponent</em>}' class.
@@ -2070,7 +2070,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupSubcomponent()
 	 * @generated
 	 */
-	int SUBPROGRAM_GROUP_SUBCOMPONENT = 164;
+	int SUBPROGRAM_GROUP_SUBCOMPONENT = 165;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadSubcomponentImpl <em>Thread Subcomponent</em>}' class.
@@ -2080,7 +2080,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadSubcomponent()
 	 * @generated
 	 */
-	int THREAD_SUBCOMPONENT = 166;
+	int THREAD_SUBCOMPONENT = 167;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadImpl <em>Thread</em>}' class.
@@ -2090,7 +2090,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThread()
 	 * @generated
 	 */
-	int THREAD = 167;
+	int THREAD = 168;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadClassifierImpl <em>Thread Classifier</em>}' class.
@@ -2100,7 +2100,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadClassifier()
 	 * @generated
 	 */
-	int THREAD_CLASSIFIER = 209;
+	int THREAD_CLASSIFIER = 210;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupSubcomponentImpl <em>Thread Group Subcomponent</em>}' class.
@@ -2110,7 +2110,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupSubcomponent()
 	 * @generated
 	 */
-	int THREAD_GROUP_SUBCOMPONENT = 168;
+	int THREAD_GROUP_SUBCOMPONENT = 169;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupImpl <em>Thread Group</em>}' class.
@@ -2120,7 +2120,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroup()
 	 * @generated
 	 */
-	int THREAD_GROUP = 169;
+	int THREAD_GROUP = 170;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupClassifierImpl <em>Thread Group Classifier</em>}' class.
@@ -2130,7 +2130,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupClassifier()
 	 * @generated
 	 */
-	int THREAD_GROUP_CLASSIFIER = 213;
+	int THREAD_GROUP_CLASSIFIER = 214;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusSubcomponentImpl <em>Virtual Bus Subcomponent</em>}' class.
@@ -2140,7 +2140,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusSubcomponent()
 	 * @generated
 	 */
-	int VIRTUAL_BUS_SUBCOMPONENT = 170;
+	int VIRTUAL_BUS_SUBCOMPONENT = 171;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusImpl <em>Virtual Bus</em>}' class.
@@ -2150,7 +2150,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBus()
 	 * @generated
 	 */
-	int VIRTUAL_BUS = 171;
+	int VIRTUAL_BUS = 172;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusClassifierImpl <em>Virtual Bus Classifier</em>}' class.
@@ -2160,7 +2160,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusClassifier()
 	 * @generated
 	 */
-	int VIRTUAL_BUS_CLASSIFIER = 217;
+	int VIRTUAL_BUS_CLASSIFIER = 218;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorSubcomponentImpl <em>Virtual Processor Subcomponent</em>}' class.
@@ -2170,7 +2170,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorSubcomponent()
 	 * @generated
 	 */
-	int VIRTUAL_PROCESSOR_SUBCOMPONENT = 172;
+	int VIRTUAL_PROCESSOR_SUBCOMPONENT = 173;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorImpl <em>Virtual Processor</em>}' class.
@@ -2180,7 +2180,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessor()
 	 * @generated
 	 */
-	int VIRTUAL_PROCESSOR = 173;
+	int VIRTUAL_PROCESSOR = 174;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorClassifierImpl <em>Virtual Processor Classifier</em>}' class.
@@ -2190,7 +2190,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorClassifier()
 	 * @generated
 	 */
-	int VIRTUAL_PROCESSOR_CLASSIFIER = 221;
+	int VIRTUAL_PROCESSOR_CLASSIFIER = 222;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.BusTypeImpl <em>Bus Type</em>}' class.
@@ -2200,7 +2200,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusType()
 	 * @generated
 	 */
-	int BUS_TYPE = 176;
+	int BUS_TYPE = 177;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.BusImplementationImpl <em>Bus Implementation</em>}' class.
@@ -2210,7 +2210,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusImplementation()
 	 * @generated
 	 */
-	int BUS_IMPLEMENTATION = 177;
+	int BUS_IMPLEMENTATION = 178;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DataTypeImpl <em>Data Type</em>}' class.
@@ -2220,7 +2220,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataType()
 	 * @generated
 	 */
-	int DATA_TYPE = 179;
+	int DATA_TYPE = 180;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DataImplementationImpl <em>Data Implementation</em>}' class.
@@ -2230,7 +2230,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataImplementation()
 	 * @generated
 	 */
-	int DATA_IMPLEMENTATION = 180;
+	int DATA_IMPLEMENTATION = 181;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceTypeImpl <em>Device Type</em>}' class.
@@ -2240,7 +2240,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceType()
 	 * @generated
 	 */
-	int DEVICE_TYPE = 183;
+	int DEVICE_TYPE = 184;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceImplementationImpl <em>Device Implementation</em>}' class.
@@ -2250,7 +2250,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceImplementation()
 	 * @generated
 	 */
-	int DEVICE_IMPLEMENTATION = 184;
+	int DEVICE_IMPLEMENTATION = 185;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryTypeImpl <em>Memory Type</em>}' class.
@@ -2260,7 +2260,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemoryType()
 	 * @generated
 	 */
-	int MEMORY_TYPE = 187;
+	int MEMORY_TYPE = 188;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryImplementationImpl <em>Memory Implementation</em>}' class.
@@ -2270,7 +2270,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemoryImplementation()
 	 * @generated
 	 */
-	int MEMORY_IMPLEMENTATION = 188;
+	int MEMORY_IMPLEMENTATION = 189;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessTypeImpl <em>Process Type</em>}' class.
@@ -2280,7 +2280,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessType()
 	 * @generated
 	 */
-	int PROCESS_TYPE = 206;
+	int PROCESS_TYPE = 207;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorTypeImpl <em>Processor Type</em>}' class.
@@ -2290,7 +2290,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorType()
 	 * @generated
 	 */
-	int PROCESSOR_TYPE = 202;
+	int PROCESSOR_TYPE = 203;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessImplementationImpl <em>Process Implementation</em>}' class.
@@ -2300,7 +2300,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessImplementation()
 	 * @generated
 	 */
-	int PROCESS_IMPLEMENTATION = 207;
+	int PROCESS_IMPLEMENTATION = 208;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorImplementationImpl <em>Processor Implementation</em>}' class.
@@ -2310,7 +2310,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorImplementation()
 	 * @generated
 	 */
-	int PROCESSOR_IMPLEMENTATION = 203;
+	int PROCESSOR_IMPLEMENTATION = 204;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramTypeImpl <em>Subprogram Type</em>}' class.
@@ -2320,7 +2320,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramType()
 	 * @generated
 	 */
-	int SUBPROGRAM_TYPE = 190;
+	int SUBPROGRAM_TYPE = 191;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramImplementationImpl <em>Subprogram Implementation</em>}' class.
@@ -2330,7 +2330,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramImplementation()
 	 * @generated
 	 */
-	int SUBPROGRAM_IMPLEMENTATION = 191;
+	int SUBPROGRAM_IMPLEMENTATION = 192;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupTypeImpl <em>Subprogram Group Type</em>}' class.
@@ -2340,7 +2340,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupType()
 	 * @generated
 	 */
-	int SUBPROGRAM_GROUP_TYPE = 194;
+	int SUBPROGRAM_GROUP_TYPE = 195;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupImplementationImpl <em>Subprogram Group Implementation</em>}' class.
@@ -2350,7 +2350,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupImplementation()
 	 * @generated
 	 */
-	int SUBPROGRAM_GROUP_IMPLEMENTATION = 195;
+	int SUBPROGRAM_GROUP_IMPLEMENTATION = 196;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemTypeImpl <em>System Type</em>}' class.
@@ -2360,7 +2360,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemType()
 	 * @generated
 	 */
-	int SYSTEM_TYPE = 198;
+	int SYSTEM_TYPE = 199;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemImplementationImpl <em>System Implementation</em>}' class.
@@ -2370,7 +2370,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemImplementation()
 	 * @generated
 	 */
-	int SYSTEM_IMPLEMENTATION = 199;
+	int SYSTEM_IMPLEMENTATION = 200;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadTypeImpl <em>Thread Type</em>}' class.
@@ -2380,7 +2380,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadType()
 	 * @generated
 	 */
-	int THREAD_TYPE = 210;
+	int THREAD_TYPE = 211;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadImplementationImpl <em>Thread Implementation</em>}' class.
@@ -2390,7 +2390,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadImplementation()
 	 * @generated
 	 */
-	int THREAD_IMPLEMENTATION = 211;
+	int THREAD_IMPLEMENTATION = 212;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupTypeImpl <em>Thread Group Type</em>}' class.
@@ -2400,7 +2400,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupType()
 	 * @generated
 	 */
-	int THREAD_GROUP_TYPE = 214;
+	int THREAD_GROUP_TYPE = 215;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupImplementationImpl <em>Thread Group Implementation</em>}' class.
@@ -2410,7 +2410,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupImplementation()
 	 * @generated
 	 */
-	int THREAD_GROUP_IMPLEMENTATION = 215;
+	int THREAD_GROUP_IMPLEMENTATION = 216;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusTypeImpl <em>Virtual Bus Type</em>}' class.
@@ -2420,7 +2420,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusType()
 	 * @generated
 	 */
-	int VIRTUAL_BUS_TYPE = 218;
+	int VIRTUAL_BUS_TYPE = 219;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusImplementationImpl <em>Virtual Bus Implementation</em>}' class.
@@ -2430,7 +2430,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusImplementation()
 	 * @generated
 	 */
-	int VIRTUAL_BUS_IMPLEMENTATION = 219;
+	int VIRTUAL_BUS_IMPLEMENTATION = 220;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorTypeImpl <em>Virtual Processor Type</em>}' class.
@@ -2440,7 +2440,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorType()
 	 * @generated
 	 */
-	int VIRTUAL_PROCESSOR_TYPE = 222;
+	int VIRTUAL_PROCESSOR_TYPE = 223;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorImplementationImpl <em>Virtual Processor Implementation</em>}' class.
@@ -2450,7 +2450,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorImplementation()
 	 * @generated
 	 */
-	int VIRTUAL_PROCESSOR_IMPLEMENTATION = 223;
+	int VIRTUAL_PROCESSOR_IMPLEMENTATION = 224;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentPrototypeBindingImpl <em>Component Prototype Binding</em>}' class.
@@ -2460,7 +2460,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentPrototypeBinding()
 	 * @generated
 	 */
-	int COMPONENT_PROTOTYPE_BINDING = 125;
+	int COMPONENT_PROTOTYPE_BINDING = 126;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ComponentPrototypeActualImpl <em>Component Prototype Actual</em>}' class.
@@ -2470,7 +2470,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentPrototypeActual()
 	 * @generated
 	 */
-	int COMPONENT_PROTOTYPE_ACTUAL = 126;
+	int COMPONENT_PROTOTYPE_ACTUAL = 127;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupPrototypeImpl <em>Feature Group Prototype</em>}' class.
@@ -2480,7 +2480,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupPrototype()
 	 * @generated
 	 */
-	int FEATURE_GROUP_PROTOTYPE = 85;
+	int FEATURE_GROUP_PROTOTYPE = 86;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupPrototypeBindingImpl <em>Feature Group Prototype Binding</em>}' class.
@@ -2490,7 +2490,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupPrototypeBinding()
 	 * @generated
 	 */
-	int FEATURE_GROUP_PROTOTYPE_BINDING = 127;
+	int FEATURE_GROUP_PROTOTYPE_BINDING = 128;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeatureGroupPrototypeActualImpl <em>Feature Group Prototype Actual</em>}' class.
@@ -2500,7 +2500,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeatureGroupPrototypeActual()
 	 * @generated
 	 */
-	int FEATURE_GROUP_PROTOTYPE_ACTUAL = 128;
+	int FEATURE_GROUP_PROTOTYPE_ACTUAL = 129;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeImpl <em>Feature Prototype</em>}' class.
@@ -2510,7 +2510,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototype()
 	 * @generated
 	 */
-	int FEATURE_PROTOTYPE = 84;
+	int FEATURE_PROTOTYPE = 85;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeBindingImpl <em>Feature Prototype Binding</em>}' class.
@@ -2520,7 +2520,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototypeBinding()
 	 * @generated
 	 */
-	int FEATURE_PROTOTYPE_BINDING = 130;
+	int FEATURE_PROTOTYPE_BINDING = 131;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeActualImpl <em>Feature Prototype Actual</em>}' class.
@@ -2530,7 +2530,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototypeActual()
 	 * @generated
 	 */
-	int FEATURE_PROTOTYPE_ACTUAL = 129;
+	int FEATURE_PROTOTYPE_ACTUAL = 130;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AccessSpecificationImpl <em>Access Specification</em>}' class.
@@ -2540,7 +2540,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAccessSpecification()
 	 * @generated
 	 */
-	int ACCESS_SPECIFICATION = 131;
+	int ACCESS_SPECIFICATION = 132;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PortSpecificationImpl <em>Port Specification</em>}' class.
@@ -2550,7 +2550,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPortSpecification()
 	 * @generated
 	 */
-	int PORT_SPECIFICATION = 132;
+	int PORT_SPECIFICATION = 133;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.FeaturePrototypeReferenceImpl <em>Feature Prototype Reference</em>}' class.
@@ -2560,7 +2560,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFeaturePrototypeReference()
 	 * @generated
 	 */
-	int FEATURE_PROTOTYPE_REFERENCE = 133;
+	int FEATURE_PROTOTYPE_REFERENCE = 134;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramCallImpl <em>Subprogram Call</em>}' class.
@@ -2570,7 +2570,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramCall()
 	 * @generated
 	 */
-	int SUBPROGRAM_CALL = 135;
+	int SUBPROGRAM_CALL = 136;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DeviceSubcomponentTypeImpl <em>Device Subcomponent Type</em>}' class.
@@ -2580,7 +2580,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDeviceSubcomponentType()
 	 * @generated
 	 */
-	int DEVICE_SUBCOMPONENT_TYPE = 146;
+	int DEVICE_SUBCOMPONENT_TYPE = 147;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.MemorySubcomponentTypeImpl <em>Memory Subcomponent Type</em>}' class.
@@ -2590,7 +2590,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemorySubcomponentType()
 	 * @generated
 	 */
-	int MEMORY_SUBCOMPONENT_TYPE = 145;
+	int MEMORY_SUBCOMPONENT_TYPE = 146;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessSubcomponentTypeImpl <em>Process Subcomponent Type</em>}' class.
@@ -2600,7 +2600,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessSubcomponentType()
 	 * @generated
 	 */
-	int PROCESS_SUBCOMPONENT_TYPE = 144;
+	int PROCESS_SUBCOMPONENT_TYPE = 145;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorSubcomponentTypeImpl <em>Processor Subcomponent Type</em>}' class.
@@ -2610,7 +2610,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorSubcomponentType()
 	 * @generated
 	 */
-	int PROCESSOR_SUBCOMPONENT_TYPE = 148;
+	int PROCESSOR_SUBCOMPONENT_TYPE = 149;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemSubcomponentTypeImpl <em>System Subcomponent Type</em>}' class.
@@ -2620,7 +2620,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemSubcomponentType()
 	 * @generated
 	 */
-	int SYSTEM_SUBCOMPONENT_TYPE = 143;
+	int SYSTEM_SUBCOMPONENT_TYPE = 144;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadSubcomponentTypeImpl <em>Thread Subcomponent Type</em>}' class.
@@ -2630,7 +2630,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadSubcomponentType()
 	 * @generated
 	 */
-	int THREAD_SUBCOMPONENT_TYPE = 142;
+	int THREAD_SUBCOMPONENT_TYPE = 143;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupSubcomponentTypeImpl <em>Thread Group Subcomponent Type</em>}' class.
@@ -2640,7 +2640,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupSubcomponentType()
 	 * @generated
 	 */
-	int THREAD_GROUP_SUBCOMPONENT_TYPE = 141;
+	int THREAD_GROUP_SUBCOMPONENT_TYPE = 142;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorSubcomponentTypeImpl <em>Virtual Processor Subcomponent Type</em>}' class.
@@ -2650,7 +2650,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorSubcomponentType()
 	 * @generated
 	 */
-	int VIRTUAL_PROCESSOR_SUBCOMPONENT_TYPE = 139;
+	int VIRTUAL_PROCESSOR_SUBCOMPONENT_TYPE = 140;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractPrototypeImpl <em>Abstract Prototype</em>}' class.
@@ -2660,7 +2660,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractPrototype()
 	 * @generated
 	 */
-	int ABSTRACT_PROTOTYPE = 174;
+	int ABSTRACT_PROTOTYPE = 175;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.BusPrototypeImpl <em>Bus Prototype</em>}' class.
@@ -2670,7 +2670,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusPrototype()
 	 * @generated
 	 */
-	int BUS_PROTOTYPE = 178;
+	int BUS_PROTOTYPE = 179;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DataPrototypeImpl <em>Data Prototype</em>}' class.
@@ -2680,7 +2680,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataPrototype()
 	 * @generated
 	 */
-	int DATA_PROTOTYPE = 181;
+	int DATA_PROTOTYPE = 182;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DevicePrototypeImpl <em>Device Prototype</em>}' class.
@@ -2690,7 +2690,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDevicePrototype()
 	 * @generated
 	 */
-	int DEVICE_PROTOTYPE = 185;
+	int DEVICE_PROTOTYPE = 186;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.MemoryPrototypeImpl <em>Memory Prototype</em>}' class.
@@ -2700,7 +2700,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getMemoryPrototype()
 	 * @generated
 	 */
-	int MEMORY_PROTOTYPE = 189;
+	int MEMORY_PROTOTYPE = 190;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramPrototypeImpl <em>Subprogram Prototype</em>}' class.
@@ -2710,7 +2710,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramPrototype()
 	 * @generated
 	 */
-	int SUBPROGRAM_PROTOTYPE = 192;
+	int SUBPROGRAM_PROTOTYPE = 193;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupPrototypeImpl <em>Subprogram Group Prototype</em>}' class.
@@ -2720,7 +2720,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupPrototype()
 	 * @generated
 	 */
-	int SUBPROGRAM_GROUP_PROTOTYPE = 196;
+	int SUBPROGRAM_GROUP_PROTOTYPE = 197;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SystemPrototypeImpl <em>System Prototype</em>}' class.
@@ -2730,7 +2730,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSystemPrototype()
 	 * @generated
 	 */
-	int SYSTEM_PROTOTYPE = 200;
+	int SYSTEM_PROTOTYPE = 201;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessorPrototypeImpl <em>Processor Prototype</em>}' class.
@@ -2740,7 +2740,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorPrototype()
 	 * @generated
 	 */
-	int PROCESSOR_PROTOTYPE = 204;
+	int PROCESSOR_PROTOTYPE = 205;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ProcessPrototypeImpl <em>Process Prototype</em>}' class.
@@ -2750,7 +2750,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessPrototype()
 	 * @generated
 	 */
-	int PROCESS_PROTOTYPE = 208;
+	int PROCESS_PROTOTYPE = 209;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadPrototypeImpl <em>Thread Prototype</em>}' class.
@@ -2760,7 +2760,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadPrototype()
 	 * @generated
 	 */
-	int THREAD_PROTOTYPE = 212;
+	int THREAD_PROTOTYPE = 213;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.ThreadGroupPrototypeImpl <em>Thread Group Prototype</em>}' class.
@@ -2770,7 +2770,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getThreadGroupPrototype()
 	 * @generated
 	 */
-	int THREAD_GROUP_PROTOTYPE = 216;
+	int THREAD_GROUP_PROTOTYPE = 217;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualBusPrototypeImpl <em>Virtual Bus Prototype</em>}' class.
@@ -2780,7 +2780,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusPrototype()
 	 * @generated
 	 */
-	int VIRTUAL_BUS_PROTOTYPE = 220;
+	int VIRTUAL_BUS_PROTOTYPE = 221;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.VirtualProcessorPrototypeImpl <em>Virtual Processor Prototype</em>}' class.
@@ -2790,7 +2790,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualProcessorPrototype()
 	 * @generated
 	 */
-	int VIRTUAL_PROCESSOR_PROTOTYPE = 224;
+	int VIRTUAL_PROCESSOR_PROTOTYPE = 225;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.BasicPropertyAssociationImpl <em>Basic Property Association</em>}' class.
@@ -2800,7 +2800,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBasicPropertyAssociation()
 	 * @generated
 	 */
-	int BASIC_PROPERTY_ASSOCIATION = 225;
+	int BASIC_PROPERTY_ASSOCIATION = 226;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PropertyConstantImpl <em>Property Constant</em>}' class.
@@ -2810,7 +2810,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPropertyConstant()
 	 * @generated
 	 */
-	int PROPERTY_CONSTANT = 226;
+	int PROPERTY_CONSTANT = 227;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractNamedValueImpl <em>Abstract Named Value</em>}' class.
@@ -5382,7 +5382,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getProcessorFeature()
 	 * @generated
 	 */
-	int PROCESSOR_FEATURE = 104;
+	int PROCESSOR_FEATURE = 105;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.InternalFeatureImpl <em>Internal Feature</em>}' class.
@@ -5392,7 +5392,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getInternalFeature()
 	 * @generated
 	 */
-	int INTERNAL_FEATURE = 105;
+	int INTERNAL_FEATURE = 106;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.EventSourceImpl <em>Event Source</em>}' class.
@@ -5402,7 +5402,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEventSource()
 	 * @generated
 	 */
-	int EVENT_SOURCE = 106;
+	int EVENT_SOURCE = 107;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.EventDataSourceImpl <em>Event Data Source</em>}' class.
@@ -5412,7 +5412,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEventDataSource()
 	 * @generated
 	 */
-	int EVENT_DATA_SOURCE = 107;
+	int EVENT_DATA_SOURCE = 108;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.PortProxyImpl <em>Port Proxy</em>}' class.
@@ -5422,7 +5422,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPortProxy()
 	 * @generated
 	 */
-	int PORT_PROXY = 110;
+	int PORT_PROXY = 111;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramProxyImpl <em>Subprogram Proxy</em>}' class.
@@ -5432,7 +5432,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramProxy()
 	 * @generated
 	 */
-	int SUBPROGRAM_PROXY = 111;
+	int SUBPROGRAM_PROXY = 112;
 
 	/**
 	 * The number of structural features of the '<em>Trigger Port</em>' class.
@@ -8107,6 +8107,27 @@ public interface Aadl2Package extends EPackage {
 	 * @ordered
 	 */
 	int DATA_SUBCOMPONENT_TYPE_FEATURE_COUNT = SUBCOMPONENT_TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractFeatureClassifierImpl <em>Abstract Feature Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * @since 3.0
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.impl.AbstractFeatureClassifierImpl
+	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAbstractFeatureClassifier()
+	 * @generated
+	 */
+	int ABSTRACT_FEATURE_CLASSIFIER = 74;
+
+	/**
+	 * The number of structural features of the '<em>Abstract Feature Classifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * @since 3.0
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_FEATURE_CLASSIFIER_FEATURE_COUNT = FEATURE_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -12040,7 +12061,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getVirtualBusSubcomponentType()
 	 * @generated
 	 */
-	int VIRTUAL_BUS_SUBCOMPONENT_TYPE = 140;
+	int VIRTUAL_BUS_SUBCOMPONENT_TYPE = 141;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -33319,7 +33340,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPropertyValue()
 	 * @generated
 	 */
-	int PROPERTY_VALUE = 228;
+	int PROPERTY_VALUE = 229;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.EnumerationLiteralImpl <em>Enumeration Literal</em>}' class.
@@ -33329,7 +33350,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEnumerationLiteral()
 	 * @generated
 	 */
-	int ENUMERATION_LITERAL = 231;
+	int ENUMERATION_LITERAL = 232;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.UnitLiteralImpl <em>Unit Literal</em>}' class.
@@ -33339,7 +33360,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getUnitLiteral()
 	 * @generated
 	 */
-	int UNIT_LITERAL = 230;
+	int UNIT_LITERAL = 231;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -33376,7 +33397,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNumberValue()
 	 * @generated
 	 */
-	int NUMBER_VALUE = 229;
+	int NUMBER_VALUE = 230;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.StringLiteralImpl <em>String Literal</em>}' class.
@@ -33386,7 +33407,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getStringLiteral()
 	 * @generated
 	 */
-	int STRING_LITERAL = 227;
+	int STRING_LITERAL = 228;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -33594,7 +33615,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getClassifierValue()
 	 * @generated
 	 */
-	int CLASSIFIER_VALUE = 232;
+	int CLASSIFIER_VALUE = 233;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -33640,7 +33661,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getReferenceValue()
 	 * @generated
 	 */
-	int REFERENCE_VALUE = 233;
+	int REFERENCE_VALUE = 234;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -33695,7 +33716,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBooleanLiteral()
 	 * @generated
 	 */
-	int BOOLEAN_LITERAL = 234;
+	int BOOLEAN_LITERAL = 235;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -33741,7 +33762,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRangeValue()
 	 * @generated
 	 */
-	int RANGE_VALUE = 235;
+	int RANGE_VALUE = 236;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -33805,7 +33826,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getIntegerLiteral()
 	 * @generated
 	 */
-	int INTEGER_LITERAL = 236;
+	int INTEGER_LITERAL = 237;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -33869,7 +33890,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRealLiteral()
 	 * @generated
 	 */
-	int REAL_LITERAL = 237;
+	int REAL_LITERAL = 238;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -33924,7 +33945,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getOperation()
 	 * @generated
 	 */
-	int OPERATION = 238;
+	int OPERATION = 239;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -33979,7 +34000,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRecordValue()
 	 * @generated
 	 */
-	int RECORD_VALUE = 239;
+	int RECORD_VALUE = 240;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -34025,7 +34046,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComputedValue()
 	 * @generated
 	 */
-	int COMPUTED_VALUE = 240;
+	int COMPUTED_VALUE = 241;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -34071,7 +34092,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getListValue()
 	 * @generated
 	 */
-	int LIST_VALUE = 241;
+	int LIST_VALUE = 242;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -34117,7 +34138,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNamedValue()
 	 * @generated
 	 */
-	int NAMED_VALUE = 242;
+	int NAMED_VALUE = 243;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -34163,7 +34184,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPropertySet()
 	 * @generated
 	 */
-	int PROPERTY_SET = 243;
+	int PROPERTY_SET = 244;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -34290,7 +34311,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getGlobalNamespace()
 	 * @generated
 	 */
-	int GLOBAL_NAMESPACE = 244;
+	int GLOBAL_NAMESPACE = 245;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -34390,7 +34411,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNonListType()
 	 * @generated
 	 */
-	int NON_LIST_TYPE = 245;
+	int NON_LIST_TYPE = 246;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -34454,7 +34475,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAadlBoolean()
 	 * @generated
 	 */
-	int AADL_BOOLEAN = 246;
+	int AADL_BOOLEAN = 247;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -34518,7 +34539,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAadlString()
 	 * @generated
 	 */
-	int AADL_STRING = 247;
+	int AADL_STRING = 248;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -34582,7 +34603,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNumberType()
 	 * @generated
 	 */
-	int NUMBER_TYPE = 249;
+	int NUMBER_TYPE = 250;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -34682,7 +34703,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAadlInteger()
 	 * @generated
 	 */
-	int AADL_INTEGER = 248;
+	int AADL_INTEGER = 249;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -34782,7 +34803,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getEnumerationType()
 	 * @generated
 	 */
-	int ENUMERATION_TYPE = 251;
+	int ENUMERATION_TYPE = 252;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -34873,7 +34894,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getUnitsType()
 	 * @generated
 	 */
-	int UNITS_TYPE = 250;
+	int UNITS_TYPE = 251;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -34964,7 +34985,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getNumericRange()
 	 * @generated
 	 */
-	int NUMERIC_RANGE = 252;
+	int NUMERIC_RANGE = 253;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -35019,7 +35040,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAadlReal()
 	 * @generated
 	 */
-	int AADL_REAL = 253;
+	int AADL_REAL = 254;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -35119,7 +35140,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getClassifierType()
 	 * @generated
 	 */
-	int CLASSIFIER_TYPE = 254;
+	int CLASSIFIER_TYPE = 255;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -35192,7 +35213,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRangeType()
 	 * @generated
 	 */
-	int RANGE_TYPE = 255;
+	int RANGE_TYPE = 256;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -35283,7 +35304,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRecordType()
 	 * @generated
 	 */
-	int RECORD_TYPE = 256;
+	int RECORD_TYPE = 257;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -35374,7 +35395,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getRecordField()
 	 * @generated
 	 */
-	int RECORD_FIELD = 257;
+	int RECORD_FIELD = 258;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -35474,7 +35495,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getReferenceType()
 	 * @generated
 	 */
-	int REFERENCE_TYPE = 258;
+	int REFERENCE_TYPE = 259;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -35547,7 +35568,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getListType()
 	 * @generated
 	 */
-	int LIST_TYPE = 259;
+	int LIST_TYPE = 260;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -35638,7 +35659,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDirectionType()
 	 * @generated
 	 */
-	int DIRECTION_TYPE = 261;
+	int DIRECTION_TYPE = 262;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.PortCategory <em>Port Category</em>}' enum.
@@ -35648,7 +35669,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getPortCategory()
 	 * @generated
 	 */
-	int PORT_CATEGORY = 264;
+	int PORT_CATEGORY = 265;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.FlowKind <em>Flow Kind</em>}' enum.
@@ -35658,7 +35679,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getFlowKind()
 	 * @generated
 	 */
-	int FLOW_KIND = 260;
+	int FLOW_KIND = 261;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.AccessType <em>Access Type</em>}' enum.
@@ -35668,7 +35689,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAccessType()
 	 * @generated
 	 */
-	int ACCESS_TYPE = 262;
+	int ACCESS_TYPE = 263;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.AccessCategory <em>Access Category</em>}' enum.
@@ -35678,7 +35699,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getAccessCategory()
 	 * @generated
 	 */
-	int ACCESS_CATEGORY = 263;
+	int ACCESS_CATEGORY = 264;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.ComponentCategory <em>Component Category</em>}' enum.
@@ -35688,7 +35709,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getComponentCategory()
 	 * @generated
 	 */
-	int COMPONENT_CATEGORY = 265;
+	int COMPONENT_CATEGORY = 266;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.OperationKind <em>Operation Kind</em>}' enum.
@@ -35698,7 +35719,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getOperationKind()
 	 * @generated
 	 */
-	int OPERATION_KIND = 266;
+	int OPERATION_KIND = 267;
 
 	/**
 	 * The meta object id for the '<em>String</em>' data type.
@@ -35708,7 +35729,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getString()
 	 * @generated
 	 */
-	int STRING = 267;
+	int STRING = 268;
 
 	/**
 	 * The meta object id for the '<em>Boolean</em>' data type.
@@ -35717,7 +35738,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBoolean()
 	 * @generated
 	 */
-	int BOOLEAN = 268;
+	int BOOLEAN = 269;
 
 	/**
 	 * The meta object id for the '<em>Integer</em>' data type.
@@ -35726,7 +35747,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getInteger()
 	 * @generated
 	 */
-	int INTEGER = 269;
+	int INTEGER = 270;
 
 	/**
 	 * The meta object id for the '<em>Real</em>' data type.
@@ -35735,7 +35756,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getReal()
 	 * @generated
 	 */
-	int REAL = 270;
+	int REAL = 271;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.Element <em>Element</em>}'.
@@ -38049,6 +38070,17 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EClass getDataSubcomponentType();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.AbstractFeatureClassifier <em>Abstract Feature Classifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * @since 3.0
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Abstract Feature Classifier</em>'.
+	 * @see org.osate.aadl2.AbstractFeatureClassifier
+	 * @generated
+	 */
+	EClass getAbstractFeatureClassifier();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.Data <em>Data</em>}'.

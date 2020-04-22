@@ -819,9 +819,11 @@
     <description>Call maven to generate HTML from markdown help text</description>
   </setupTask>
   <setupTask
-      xsi:type="pde:APIBaselineFromTargetTask"
-      name="OSATE API"
-      targetName="osate-api"/>
+      xsi:type="pde:APIBaselineTask"
+      id="api.baseline"
+      name="OSATE-API"
+      version="2.7.1"
+      remoteURI="https://osate-build.sei.cmu.edu/download/osate/stable/2.7.1-vfinal/osate.repository-2.7.1.vfinal.zip"/>
   <stream name="master"
       label="master">
     <setupTask

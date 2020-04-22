@@ -1731,7 +1731,7 @@ AbstractFeature returns aadl2::AbstractFeature:
 	(in ?= 'in' | out ?= 'out')?
 	(
 	'prototype' featurePrototype=[aadl2::FeaturePrototype|QCREF]
-	| 'feature' abstractFeatureClassifier=[aadl2::FeatureClassifier|QCREF] | 'feature'
+	| 'feature' abstractFeatureClassifier=[aadl2::AbstractFeatureClassifier|QCREF] | 'feature'
 	)
 	(arrayDimension+=ArrayDimension)?
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')? ';'
