@@ -25,5 +25,103 @@ censes only apply to the Third Party Software and not any other portion of this 
 
 [TOC levels=2-4 bullet hierarchy]
 
-Analyses are run over instantiated systems, which are typically generated from system implementation classifiers.
+Analyses are run over instantiated systems, which are typically generated from system implementation classifiers, but can be generated from any implementation classifier except for subprogram and subprogram group.
+
+The semantics of instantiating from declarative model are described section 13, "Operational System," of the AADL standard.
+
+## Instantiating a Model
+
+An instance model can be created in 3 ways:
+
+1. **From the context menu of the AADL editor `Outline` view.**  Select one or more component classifier in the view.  The command is active in the context menu as long as none of the classifiers is `subprogram` or `subprgram group`.
+  
+2. **From the context menu of the `AADL Navigator` view.**  Select one or more component classifier or `.aadl` file in the view.  The classifiers/files can be from different projects.  The command is active in the context menu as long as none of the classifiers is `subprogram` or `subprogram group`.  
+
+3. **From the `OSATE > Instantiate` menu.**  Select one or more component classifier or `.aadl` file in the view.  The classifiers/files can be from different projects.  The command is active in the context menu as long as none of the classifiers is `subprogram` or `subprogram group`.  
+
+If only classifiers are selected then the instantiation process continues without any more user interaction.  
+
+### Choosing the Components to Instantiate
+
+If any `.aadl` files are selected, a dialog is displayed asked you to choose the component implementations in the selected `.aadl` files to instantiate:
+
+  ![Context Menu](images/SelectComponentImplementations.png)
+
+The dialog shows all the component implementation classifiers from the selected `.aadl` files excluding the `subprogram` and `subprogram group` classifiers.  By default, all the classifiers are selected.  The dialog has a filter field on top to help find specific classifiers.
+
+Click on `OK` to add the selected classifiers to the list of classifiers to be instantiated.  Click on `Cancel` to avoid instantiating any of the classifiers in the selected `.aadl` files.  
+
+> _Clicking `Cancel` does not cancel instantiation of any classifiers that were selected in the workspace when the operation was selected._ 
+
+#### Only Systems by Default
+
+Checking `Only systems by default` changes the preferences so that in the future the dialog will only preselect `system` implementation classifiers.  You must click on `OK` for this change to take effect.
+
+#### Hiding the Selection Dialog
+
+Checking `Don't show this dialog again` changes the preferences so that this dialog will not be shown in the future.  You must click `OK` to make this change.  A second dialog will appear asking you to confirm the change:
+
+  ![Context Menu](images/ConfirmChange2.png)
+
+Click `Yes` to proceed with updating the preferences, click `No` to leave them unchanged.
+
+The preference can be returned to the default setting via the `OSATE > Instantiation` preference pane (see below).
+
+When the dialog is not displayed, the "only systems" preference controls which component implementations are instantiated:
+
+* If the "only systems" preference is not set (the default case), then all the non-`subprogram`, non-`subprogram group` implementations in the selected `.aadl` files are instantiated.
+
+* If the "only systems" preference is set, then only the `system` implementation classifiers in the selected `.aadl` files are instantiated.
+
+### Instantiation Results Dialog
+
+Each classifier is instantiated as a separate Eclipse task, and (assuming the instantiation runs long enough) is visible in the `Progress` view.  By default (but see below), when all the models have been processed a result dialog is displayed.  
+
+  ![Context Menu](images/InstantiationResults2.png)
+
+For each classifier, it gives the result of instantiation:
+
+* **OK.** The classifier was instantiated successfully.
+
+* **Cancelled.** The user cancelled the instantiation from the `Progress` view or progress dialog.  
+
+* **Error.** There was an error during instantiation.  The error message is shown in the `Error Message` column.
+
+* **Exception.** There was a Java exception during instantiation.  The exception's message is shown in the `Error Message` column.  More information about the exception itself can be found in the `Error Log` view.
+
+#### Hiding the Results Dialog
+
+If you do not want to see the results dialog when all of the instantiations are successful, click checkbox for `Don't show this dialog when successful`.  
+
+When you click the `OK` button, you will be shown another dialog to confirm your decision:
+
+  ![Context Menu](images/ConfirmChange.png)
+
+Click `Yes` to proceed with updating the preferences, click `No` to leave them unchanged.
+
+The preference can be returned to the default setting via the `OSATE > Instantiation` preference pane (see below).
+
+### Name and Location of Instance Models
+
+An instance model is created and placed in a directory called `instances` in the same directory as the `.aadl` file that contains the root component classifier.  This directory is created if it does not already exist.  The file is only created if the result status is "OK".
+
+The instance model built from system implementation `my::package::system.impl` is named `my_package_system_impl_Instance.aaxl2`.  This is an XML-based model description that is not readily readable by people.  It can be opened and viewed in a hierarchical manner in OSATE.  Here we see the model we just generated:
+
+## Reinstantiating a Model
+
+If you update the declarative model it is necessary to reinstantiate the instance model.
+
+Existing instance models can be reinstantiated by selecting one or more `.aaxl` file, folder, project, or working set in the `AADL Navigator` view and then either
+
+* Choosing `Reinstantiate` from the view's context menu, or
+
+* Choosing `OSATE > Reinstantiate` from the OSATE menu bar.
+
+OSATE will find all the instance models in the selected resources (ignoring duplication) and create an instantiation task for each one.  
+
+If there is an error than the results dialog will be displayed.  If all the models are reinstantiated successfully the results dialog will only be displayed if the workspace preference to always show the dialog is set.
+
+## Workspace Preferences and Project Preferences
+
+
 
