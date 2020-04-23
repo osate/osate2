@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.osate.assure
 Bundle-Vendor: SEI
-Bundle-Version: 2.0.1.qualifier
+Bundle-Version: 3.0.1.qualifier
 Bundle-SymbolicName: org.osate.assure; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)";visibility:=reexport,
@@ -20,12 +20,12 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)";visibility:=re
  org.eclipse.emf.common;bundle-version="[2.17.0,3.0.0)",
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
  org.objectweb.asm;bundle-version="[7.2.0,8.0.0)";resolution:=optional,
- org.osate.aadl2;bundle-version="[2.1.0,3.0.0)",
- org.osate.xtext.aadl2.properties;bundle-version="[1.1.0,2.0.0)",
+ org.osate.aadl2;bundle-version="[3.0.0,4.0.0)",
+ org.osate.xtext.aadl2.properties;bundle-version="[1.2.0,3.0.0)",
  org.eclipse.core.resources;bundle-version="[3.9.1,4.0.0)",
- org.osate.aadl2.modelsupport;bundle-version="[2.0.0,3.0.0)",
+ org.osate.aadl2.modelsupport;bundle-version="[4.0.0,5.0.0)",
  org.junit;bundle-version="[4.11.0,5.0.0)",
- org.osate.pluginsupport;bundle-version="[2.0.0,3.0.0)",
+ org.osate.pluginsupport;bundle-version="[4.0.0,5.0.0)",
  org.eclipse.xtext.ui;bundle-version="[2.20.0,3.0.0)",
  org.eclipse.ui.editors;bundle-version="[3.6.0,4.0.0)",
  org.eclipse.ui;bundle-version="[3.6.0,4.0.0)",
@@ -40,10 +40,10 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)";visibility:=re
  org.eclipse.xtext.xbase.lib;bundle-version="[2.20.0,3.0.0)",
  org.eclipse.xsemantics.runtime;bundle-version="[1.8.1,2.0.0)",
  org.osate.results;bundle-version="[2.0.0,3.0.0)",
- org.osate.xtext.aadl2;bundle-version="[2.0.0,3.0.0)",
- org.osate.pluginsupport;bundle-version="[2.0.0,3.0.0)",
+ org.osate.xtext.aadl2;bundle-version="[4.0.0,5.0.0)",
+ org.osate.pluginsupport;bundle-version="[4.0.0,5.0.0)",
  org.osate.organization;bundle-version="[2.0.0,3.0.0)",
- org.osate.annexsupport;bundle-version="[1.0.0,2.0.0)"
+ org.osate.annexsupport;bundle-version="[2.0.0,3.0.0)"
 Import-Package: com.rockwellcollins.atc.resolute.analysis.execution;resolution:=optional,
  com.rockwellcollins.atc.resolute.analysis.results;resolution:=optional,
  com.rockwellcollins.atc.resolute.analysis.values;resolution:=optional,

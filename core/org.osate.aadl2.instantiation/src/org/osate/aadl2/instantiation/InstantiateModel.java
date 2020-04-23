@@ -40,7 +40,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
@@ -227,14 +229,16 @@ public class InstantiateModel {
 		if (file != null && file.isAccessible()) {
 			file.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
 		}
-		Resource aadlResource = new ResourceSetImpl().createResource(instanceURI);
+		ResourceSet resourceSet = new ResourceSetImpl();
+		Resource aadlResource = resourceSet.createResource(instanceURI);
 		aadlResource.save(null);
 		aadlResource.unload();
 
 		// now instantiate the rest of the model
 		final InstantiateModel instantiateModel = new InstantiateModel(monitor, new AnalysisErrorReporterManager(
 				new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
-		return instantiateModel.createSystemInstance(ci, aadlResource);
+		return instantiateModel.createSystemInstance(
+				(ComponentImplementation) resourceSet.getEObject(EcoreUtil.getURI(ci), true), aadlResource);
 	}
 
 	public static SystemInstance buildInstanceModelFile(ComponentImplementation ci) throws Exception {
@@ -380,8 +384,9 @@ public class InstantiateModel {
 			monitor.subTask("Saving instance model");
 			aadlResource.save(null);
 		} catch (IOException e) {
-			e.printStackTrace();
-			setErrorMessage(e.getMessage());
+			InstancePlugin.log(new Status(IStatus.ERROR, InstancePlugin.getPluginId(), IStatus.OK,
+					"Exception during instantiation", e));
+			setErrorMessage("Exception during instantiation, see error log");
 			return null;
 		}
 
@@ -413,33 +418,13 @@ public class InstantiateModel {
 			if (save) {
 				aadlResource.save(null);
 			}
-
-			try {
-				fillSystemInstance(root);
-			} catch (InterruptedException e) {
-				throw e;
-			} catch (Exception e) {
-				InstantiateModel.setErrorMessage(e.getMessage());
-				e.printStackTrace();
-				return null;
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			setErrorMessage(e.getMessage());
-			return null;
-		} catch (NullPointerException npe) {
-			npe.printStackTrace();
-			setErrorMessage(npe.getMessage());
-
-			npe.getMessage();
-			return null;
+			fillSystemInstance(root);
 		} catch (InterruptedException e) {
 			throw e;
 		} catch (Exception e) {
-			e.printStackTrace();
-			errorMessage = e.getMessage();
-
-			e.getMessage();
+			InstancePlugin.log(new Status(IStatus.ERROR, InstancePlugin.getPluginId(), IStatus.OK,
+					"Exception during instantiation", e));
+			setErrorMessage("Exception during instantiation, see error log");
 			return null;
 		}
 		return root;
@@ -477,23 +462,13 @@ public class InstantiateModel {
 			throw new InterruptedException();
 		}
 
-		/*
-		 * XXX: Currently, there are no annexes that use instantiation. If a
-		 * case is found, then this code needs to be moved elsewhere, such as
-		 * the UI action code that calls the regular instantiator. If this code
-		 * were to be left here, it would case a circular plugin dependency. The
-		 * annex plugin currently depends on the instance plugin because
-		 * AnnexInstantiationController needs to use InstanceUtil. Uncommenting
-		 * this code and leaving it in place would cause the instance plugin to
-		 * depend on the annex plugin.
-		 */
-//		// instantiation of annexes
-//		monitor.subTask("Instantiating annexes");
-//		AnnexInstantiationController aic = new AnnexInstantiationController();
-//		aic.instantiateAllAnnexes(root);
-//		if (monitor.isCanceled()) {
-//			return null;
-//		}
+		// instantiation of annexes
+		monitor.subTask("Instantiating annexes");
+		AnnexInstantiationController aic = new AnnexInstantiationController();
+		aic.instantiateAllAnnexes(root);
+		if (monitor.isCanceled()) {
+			throw new InterruptedException();
+		}
 
 		getUsedPropertyDefinitions(root);
 		// handle connection patterns
@@ -510,7 +485,6 @@ public class InstantiateModel {
 //					.getSOMasModeBindings(), cpas.getSemanticConnectionProperties(), errManager);
 //			semanticsSwitch.processPostOrderAll(root);
 //		}
-		return;
 	}
 
 	/*
@@ -526,8 +500,9 @@ public class InstantiateModel {
 		String last = modeluri.lastSegment();
 		String filename = last.substring(0, last.indexOf('.'));
 		URI path = modeluri.trimSegments(1);
-		URI instanceURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR).appendSegment(filename + "_"
-				+ ci.getTypeName() + "_" + ci.getImplementationName() + WorkspacePlugin.INSTANCE_MODEL_POSTFIX);
+		URI instanceURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR)
+				.appendSegment(filename + "_" + ci.getTypeName() + "_" + ci.getImplementationName()
+						+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX);
 		instanceURI = instanceURI.appendFileExtension(WorkspacePlugin.INSTANCE_FILE_EXT);
 		return instanceURI;
 	}
@@ -1579,8 +1554,9 @@ public class InstantiateModel {
 
 	private PropertyAssociation getPA(ConnectionInstance conni, String name) {
 		for (PropertyAssociation pa : conni.getOwnedPropertyAssociations()) {
-			if (pa.getProperty().getName().equalsIgnoreCase(name) && ((PropertySet) pa.getProperty().getOwner())
-					.getName().equalsIgnoreCase("Communication_Properties")) {
+			if (pa.getProperty().getName().equalsIgnoreCase(name)
+					&& ((PropertySet) pa.getProperty().getOwner()).getName()
+							.equalsIgnoreCase("Communication_Properties")) {
 				return pa;
 			}
 		}

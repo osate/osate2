@@ -26,7 +26,6 @@ package org.osate.xtext.aadl2.errormodel.errorModel;
 import org.eclipse.emf.ecore.EObject;
 
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.TriggerPort;
 
 /**
  * <!-- begin-user-doc -->
@@ -140,26 +139,26 @@ public interface ErrorDetection extends EObject, NamedElement
   void setCondition(ConditionExpression value);
 
   /**
-   * Returns the value of the '<em><b>Detection Reporting Port</b></em>' reference.
+   * Returns the value of the '<em><b>Detection Reporting Port</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Detection Reporting Port</em>' reference.
-   * @see #setDetectionReportingPort(TriggerPort)
+   * @return the value of the '<em>Detection Reporting Port</em>' containment reference.
+   * @see #setDetectionReportingPort(ReportingPortReference)
    * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorDetection_DetectionReportingPort()
-   * @model
+   * @model containment="true"
    * @generated
    */
-  TriggerPort getDetectionReportingPort();
+  ReportingPortReference getDetectionReportingPort();
 
   /**
-   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#getDetectionReportingPort <em>Detection Reporting Port</em>}' reference.
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection#getDetectionReportingPort <em>Detection Reporting Port</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Detection Reporting Port</em>' reference.
+   * @param value the new value of the '<em>Detection Reporting Port</em>' containment reference.
    * @see #getDetectionReportingPort()
    * @generated
    */
-  void setDetectionReportingPort(TriggerPort value);
+  void setDetectionReportingPort(ReportingPortReference value);
 
   /**
    * Returns the value of the '<em><b>Error Code</b></em>' containment reference.

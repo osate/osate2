@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractFeature;
+import org.osate.aadl2.AbstractFeatureClassifier;
 import org.osate.aadl2.FeatureClassifier;
 import org.osate.aadl2.FeaturePrototype;
 
@@ -67,7 +68,7 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * @generated
 	 * @ordered
 	 */
-	protected FeatureClassifier abstractFeatureClassifier;
+	protected AbstractFeatureClassifier abstractFeatureClassifier;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -121,9 +122,10 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 			InternalEObject oldFeaturePrototype = (InternalEObject) featurePrototype;
 			featurePrototype = (FeaturePrototype) eResolveProxy(oldFeaturePrototype);
 			if (featurePrototype != oldFeaturePrototype) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.ABSTRACT_FEATURE__FEATURE_PROTOTYPE, oldFeaturePrototype, featurePrototype));
+				}
 			}
 		}
 		return featurePrototype;
@@ -146,9 +148,10 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	public void setFeaturePrototype(FeaturePrototype newFeaturePrototype) {
 		FeaturePrototype oldFeaturePrototype = featurePrototype;
 		featurePrototype = newFeaturePrototype;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ABSTRACT_FEATURE__FEATURE_PROTOTYPE,
 					oldFeaturePrototype, featurePrototype));
+		}
 	}
 
 	/**
@@ -156,15 +159,16 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureClassifier getAbstractFeatureClassifier() {
+	public AbstractFeatureClassifier getAbstractFeatureClassifier() {
 		if (abstractFeatureClassifier != null && ((EObject) abstractFeatureClassifier).eIsProxy()) {
 			InternalEObject oldAbstractFeatureClassifier = (InternalEObject) abstractFeatureClassifier;
-			abstractFeatureClassifier = (FeatureClassifier) eResolveProxy(oldAbstractFeatureClassifier);
+			abstractFeatureClassifier = (AbstractFeatureClassifier) eResolveProxy(oldAbstractFeatureClassifier);
 			if (abstractFeatureClassifier != oldAbstractFeatureClassifier) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.ABSTRACT_FEATURE__ABSTRACT_FEATURE_CLASSIFIER, oldAbstractFeatureClassifier,
 							abstractFeatureClassifier));
+				}
 			}
 		}
 		return abstractFeatureClassifier;
@@ -172,10 +176,11 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * @since 3.0
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureClassifier basicGetAbstractFeatureClassifier() {
+	public AbstractFeatureClassifier basicGetAbstractFeatureClassifier() {
 		return abstractFeatureClassifier;
 	}
 
@@ -184,13 +189,14 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setAbstractFeatureClassifier(FeatureClassifier newAbstractFeatureClassifier) {
-		FeatureClassifier oldAbstractFeatureClassifier = abstractFeatureClassifier;
+	public void setAbstractFeatureClassifier(AbstractFeatureClassifier newAbstractFeatureClassifier) {
+		AbstractFeatureClassifier oldAbstractFeatureClassifier = abstractFeatureClassifier;
 		abstractFeatureClassifier = newAbstractFeatureClassifier;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.ABSTRACT_FEATURE__ABSTRACT_FEATURE_CLASSIFIER, oldAbstractFeatureClassifier,
 					abstractFeatureClassifier));
+		}
 	}
 
 	/**
@@ -201,12 +207,14 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.ABSTRACT_FEATURE__FEATURE_PROTOTYPE:
-			if (resolve)
+			if (resolve) {
 				return getFeaturePrototype();
+			}
 			return basicGetFeaturePrototype();
 		case Aadl2Package.ABSTRACT_FEATURE__ABSTRACT_FEATURE_CLASSIFIER:
-			if (resolve)
+			if (resolve) {
 				return getAbstractFeatureClassifier();
+			}
 			return basicGetAbstractFeatureClassifier();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -223,7 +231,7 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 			setFeaturePrototype((FeaturePrototype) newValue);
 			return;
 		case Aadl2Package.ABSTRACT_FEATURE__ABSTRACT_FEATURE_CLASSIFIER:
-			setAbstractFeatureClassifier((FeatureClassifier) newValue);
+			setAbstractFeatureClassifier((AbstractFeatureClassifier) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -240,7 +248,7 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 			setFeaturePrototype((FeaturePrototype) null);
 			return;
 		case Aadl2Package.ABSTRACT_FEATURE__ABSTRACT_FEATURE_CLASSIFIER:
-			setAbstractFeatureClassifier((FeatureClassifier) null);
+			setAbstractFeatureClassifier((AbstractFeatureClassifier) null);
 			return;
 		}
 		super.eUnset(featureID);

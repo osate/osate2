@@ -1,10 +1,19 @@
 package org.osate.ui.handlers;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.ide.IDE;
+import org.osate.core.AadlNature;
 
 /**
  * Abstract root class for handlers that generate multiple independent jobs and that shows a single
- * result dialog at the end showing there status.
+ * result dialog at the end showing their status.
  *
  * NB. This is not fully formed right now but I am leaving it as a placeholder for future work to
  * abstract the commonalities between {@link InstantiationHandler} and {@link ReinstantiationHandler}.
@@ -51,6 +60,28 @@ public abstract class AbstractMultiJobHandler extends AbstractHandler {
 			this.errorMessage = errorMessage;
 			this.exception = exception;
 		}
+	}
+
+	/**
+	 * Ask to save all the dirty editors that belong to open AADL projects.
+	 * @return {@code true} If the action should continue; {@code false} if the user
+	 * selected the cancel option in the save dialog.
+	 */
+	protected boolean saveDirtyEditors() {
+		/* Find all the open AADL projects */
+		final IProject[] allProjects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+		final List<IProject> openAADLProjects = new ArrayList<>(allProjects.length);
+		for (final IProject project : allProjects) {
+			if (project.isOpen() && AadlNature.hasNature(project)) {
+				openAADLProjects.add(project);
+			}
+		}
+
+		final AtomicBoolean result = new AtomicBoolean();
+		PlatformUI.getWorkbench().getDisplay().syncExec(() -> {
+			result.set(IDE.saveAllEditors(openAADLProjects.toArray(new IProject[openAADLProjects.size()]), true));
+		});
+		return result.get();
 	}
 
 	protected AbstractMultiJobHandler() {

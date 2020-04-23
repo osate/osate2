@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.osate.ba;singleton:=true
-Bundle-Version: 3.0.0.qualifier
+Bundle-Version: 3.0.1.qualifier
 Bundle-ClassPath: .,
  resources/libs/antlr-runtime-4.4.jar
 Bundle-Vendor: %providerName
@@ -32,11 +32,11 @@ Require-Bundle: org.eclipse.ui.ide;bundle-version="[3.16.0,4.0.0)",
  org.eclipse.core.runtime;bundle-version="[3.17.0,4.0.0)",
  org.eclipse.emf.ecore;bundle-version="[2.20.0,3.0.0)";visibility:=reexport,
  org.eclipse.emf.ecore.xmi;bundle-version="[2.16.0,3.0.0)";visibility:=reexport,
- org.osate.aadl2;bundle-version="[2.1.0,3.0.0)";visibility:=reexport,
- org.osate.aadl2.modelsupport;bundle-version="[2.0.0,3.0.0)",
- org.osate.annexsupport;bundle-version="[1.0.0,2.0.0)",
- org.osate.xtext.aadl2.properties;bundle-version="[1.1.0,2.0.0)",
- org.osate.ui;bundle-version="[3.0.0,4.0.0)",
+ org.osate.aadl2;bundle-version="[3.0.0,4.0.0)";visibility:=reexport,
+ org.osate.aadl2.modelsupport;bundle-version="[4.0.0,5.0.0)",
+ org.osate.annexsupport;bundle-version="[2.0.0,3.0.0)",
+ org.osate.xtext.aadl2.properties;bundle-version="[1.2.0,3.0.0)",
+ org.osate.ui;bundle-version="[3.1.0,4.0.0)",
  org.osate.utils;bundle-version="[1.0.0,2.0.0)";visibility:=reexport
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.osate.ba

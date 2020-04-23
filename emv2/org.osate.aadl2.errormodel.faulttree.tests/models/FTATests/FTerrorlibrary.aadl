@@ -1,30 +1,30 @@
 package FTerrorlibrary
 public
 	annex emv2 {**
-	
-error types
-	ComputationError: type;
-end types;
-error behavior DegradedFailStop
-events
-	ComputeError : error event;
-	Failure : error event ;
-states
-	Operational : initial state ;
-	Degraded: state;
-	FailStop : state ;
-transitions
-	FirstFailure : Operational -[ ComputeError ]-> Degraded ;
-	SecondFailure : Degraded -[ Failure ]-> FailStop ;
-	DirectFailure : Operational -[ Failure ]-> FailStop ;
-end behavior ;
-	error behavior ThreeStates
-	  states 
-	    operational: initial state; 
-	    standby : state;
-	    failed : state;
-	end behavior;
+		error types
+			ComputationError: type;
+		end types;
 		
+		error behavior DegradedFailStop
+			events
+				ComputeError: error event;
+				Failure: error event;
+			states
+				Operational: initial state;
+				Degraded: state;
+				FailStop: state;
+			transitions
+				FirstFailure: Operational -[ComputeError]-> Degraded;
+				SecondFailure: Degraded -[Failure]-> FailStop;
+				DirectFailure: Operational -[Failure]-> FailStop;
+		end behavior;
+		
+		error behavior ThreeStates
+			states
+				operational: initial state;
+				standby: state;
+				failed: state;
+		end behavior;
 	**};
-	
+
 end FTerrorlibrary;

@@ -287,7 +287,9 @@ behavior_variable_list[BehaviorAnnex ba] locals[int variableCount]
       }
     )*
         
-    COLON unique_component_classifier_reference (LCURLY (property_associations+=data_classifier_property_association)+ RCURLY)? (SEMICOLON)?
+    COLON unique_component_classifier_reference 
+    (ASSIGN value_constant)?
+    (LCURLY (property_associations+=data_classifier_property_association)+ RCURLY)? (SEMICOLON)?
     {
       if($SEMICOLON() == null)
       {
@@ -349,7 +351,7 @@ property_value returns [DeclarativePropertyExpression result]
   	record_property_value
   	| reference_property_value
   	| classifier_property_value
-  	| string_literal
+  	| string_property_value
   	| numeric_range_property_value
   	| integer_property_value
   	| real_property_value
@@ -405,6 +407,11 @@ signed_int returns [Integer result]:
 real_property_value returns [BehaviorRealLiteral result]:
 	value=signed_real (unit=unit_reference)?
 	;
+
+string_property_value returns [BehaviorStringLiteral result]
+  :
+   STRING_LITERAL
+;
 
 signed_real returns [Double result]:
 	('+'|'-')?real_literal ;
@@ -1586,7 +1593,7 @@ numeric_literal returns [NumericLiteral result]
     integer_literal | real_literal
 ;
 
-real_literal returns [DeclarativeRealLiteral result]
+real_literal returns [BehaviorRealLiteral result]
   :
     REAL_LIT
     {
@@ -1594,7 +1601,7 @@ real_literal returns [DeclarativeRealLiteral result]
     }
 ;
 
-integer_literal returns [DeclarativeIntegerLiteral result]
+integer_literal returns [BehaviorIntegerLiteral result]
  :
     INTEGER_LIT
     {
@@ -1603,7 +1610,7 @@ integer_literal returns [DeclarativeIntegerLiteral result]
 ;
 
 // string_literal ::= <refer to [AS5506A 15.5]>
-string_literal returns [DeclarativeStringLiteral result]
+string_literal returns [BehaviorStringLiteral result]
   :
    STRING_LITERAL
 ;

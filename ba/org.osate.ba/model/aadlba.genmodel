@@ -217,6 +217,7 @@
     <genClasses ecoreClass="aadlba.ecore#//BehaviorVariable">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorVariable/dataClassifier"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorVariable/ownedPropertyAssociations"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//BehaviorVariable/ownedValueConstant"/>
     </genClasses>
     <genClasses ecoreClass="aadlba.ecore#//BehaviorVariableHolder">
       <genOperations ecoreOperation="aadlba.ecore#//BehaviorVariableHolder/setVariable"
@@ -474,12 +475,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference aadlba.ecore#//StructUnionElement/dataClassifier"/>
     </genClasses>
     <genClasses ecoreClass="aadlba.ecore#//StructUnionElementHolder">
-      <genOperations ecoreOperation="aadlba.ecore#//StructUnionElementHolder/setStructUnionElement"
-          body="element = structUnionElement ;">
-        <genParameters ecoreParameter="aadlba.ecore#//StructUnionElementHolder/setStructUnionElement/structUnionElement"/>
-      </genOperations>
-      <genOperations ecoreOperation="aadlba.ecore#//StructUnionElementHolder/getStructUnionElement"
-          body="return (StructUnionElement) element;"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference aadlba.ecore#//StructUnionElementHolder/structUnionElement"/>
     </genClasses>
     <genClasses ecoreClass="aadlba.ecore#//SubcomponentHolder">
       <genOperations ecoreOperation="aadlba.ecore#//SubcomponentHolder/setSubcomponent"
