@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
 All Rights Reserved.
@@ -22,36 +21,9 @@ Software. The parties who own the Third Party Software ("Third Party Licensors")
 aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
 censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
 -->
-<?eclipse version="3.0"?>
-<plugin>
+# System Instantiation
 
-    <extension
-         point="org.eclipse.help.toc">
-      <toc
-            file="aadlhelp.xml"
-            primary="true">
-      </toc>
-   </extension>
-   <extension
-         point="org.eclipse.help.toc">
-      <toc
-            file="usermanualcontents.xml">
-      </toc>
-      <toc
-            file="refcontents.xml">
-      </toc>
-      <toc
-            file="metamodelcontents.xml">
-      </toc>
-      <toc
-            file="plugindevcontents.xml">
-      </toc>
-      <toc
-            file="javadoccontents.xml">
-      </toc>
-      <toc
-      		file="help/toc_instantiation.xml">
-      </toc>
-   </extension>
+[TOC levels=2-4 bullet hierarchy]
 
-</plugin>
+Analyses are run over instantiated systems, which are typically generated from system implementation classifiers.
+
