@@ -18,9 +18,14 @@ class PaletteGroup<G, I> extends Region {
 	final ToggleButton groupButton;
 
 	final String IDLE_GROUP_STYLE = "-fx-background-color: linear-gradient(rgb(247,247,247),rgb(200,200,200));"
-			+ "-fx-border-width: 1;" + "-fx-border-color: rgba(0,0,0,.2);";
-	final String HOVER_OR_SELECTED_GROUP_STYLE = "-fx-background-color: linear-gradient(rgb(243,243,243), rgb(222,222,222));"
-			+ "-fx-border-width: 1;" + "-fx-border-color: rgba(0,0,0,.2);";
+			+ "-fx-border-width: 1;" + "-fx-border-color: rgba(0,0,0,.2);"
+			+ "-fx-border-style: solid, hidden, solid, hidden;";
+	final String HOVER_GROUP_STYLE = "-fx-background-color: linear-gradient(rgb(243,243,243), rgb(222,222,222));"
+			+ "-fx-border-width: 1;" + "-fx-border-color: rgba(0,0,0,.2);"
+			+ "-fx-border-style: solid, hidden, solid, hidden;";
+	final String SELECTED_GROUP_STYLE = "-fx-background-color: linear-gradient(rgb(243,243,243), rgb(222,222,222));"
+			+ "-fx-border-width: 1;" + "-fx-border-color: rgba(0,0,0,.2);"
+			+ "-fx-border-style: solid, hidden, hidden, hidden;";
 	final String ITEMBOX_BACKGROUND = "-fx-background-color: white;";
 
 	public PaletteGroup(final PaletteModel<G, I> model, final G groupModel) {
@@ -36,7 +41,7 @@ class PaletteGroup<G, I> extends Region {
 			if (groupButton.isSelected() == true) {
 				scrollPane.setManaged(true);
 				scrollPane.setVisible(true);
-				groupButton.setStyle(HOVER_OR_SELECTED_GROUP_STYLE);
+				groupButton.setStyle(SELECTED_GROUP_STYLE);
 			} else {
 				scrollPane.setVisible(false);
 				scrollPane.setManaged(false);
@@ -45,7 +50,7 @@ class PaletteGroup<G, I> extends Region {
 		});
 
 		groupButton.setOnMouseEntered(e -> {
-			groupButton.setStyle(HOVER_OR_SELECTED_GROUP_STYLE);
+			groupButton.setStyle(HOVER_GROUP_STYLE);
 		});
 
 		groupButton.setOnMouseExited(e -> {
