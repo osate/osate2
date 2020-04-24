@@ -45,7 +45,7 @@ If only classifiers are selected then the instantiation process continues withou
 
 If any `.aadl` files are selected, a dialog is displayed asked you to choose the component implementations in the selected `.aadl` files to instantiate:
 
-  ![Context Menu](images/SelectComponentImplementations.png)
+  ![Component classifier selection dialog.](images/SelectComponentImplementations.png)
 
 The dialog shows all the component implementation classifiers from the selected `.aadl` files excluding the `subprogram` and `subprogram group` classifiers.  By default, all the classifiers are selected.  The dialog has a filter field on top to help find specific classifiers.
 
@@ -61,7 +61,7 @@ Checking `Only systems by default` changes the preferences so that in the future
 
 Checking `Don't show this dialog again` changes the preferences so that this dialog will not be shown in the future.  You must click `OK` to make this change.  A second dialog will appear asking you to confirm the change:
 
-  ![Context Menu](images/ConfirmChange2.png)
+  ![Confirm change dialog box.](images/ConfirmChange2.png)
 
 Click `Yes` to proceed with updating the preferences, click `No` to leave them unchanged.
 
@@ -77,7 +77,7 @@ When the dialog is not displayed, the "only systems" preference controls which c
 
 Each classifier is instantiated as a separate Eclipse task, and (assuming the instantiation runs long enough) is visible in the `Progress` view.  By default (but see below), when all the models have been processed a result dialog is displayed.  
 
-  ![Context Menu](images/InstantiationResults2.png)
+  ![Results dialog box.](images/InstantiationResults2.png)
 
 For each classifier, it gives the result of instantiation:
 
@@ -95,7 +95,7 @@ If you do not want to see the results dialog when all of the instantiations are 
 
 When you click the `OK` button, you will be shown another dialog to confirm your decision:
 
-  ![Context Menu](images/ConfirmChange.png)
+  ![Confirm change dialog box.](images/ConfirmChange.png)
 
 Click `Yes` to proceed with updating the preferences, click `No` to leave them unchanged.
 
@@ -119,9 +119,36 @@ Existing instance models can be reinstantiated by selecting one or more `.aaxl` 
 
 OSATE will find all the instance models in the selected resources (ignoring duplication) and create an instantiation task for each one.  
 
-If there is an error than the results dialog will be displayed.  If all the models are reinstantiated successfully the results dialog will only be displayed if the workspace preference to always show the dialog is set.
+If there is an error then the results dialog will be displayed.  If all the models are reinstantiated successfully the results dialog will only be displayed if the workspace preference is set to always show the dialog.
 
-## Workspace Preferences and Project Preferences
+## Workspace Preferences
 
+As mentioned already, the behavior of instantiation is controlled by several workspace preferences.  These are accessed via the `OSATE > Instantiation" preference pane:
 
+  ![Instantiation preference pane](images/InstantiationPreferences.png)
 
+There are four preferences:
+
+* **Maximum number of system operation modes to generate.**. This is the maximum number of system operation modes that are created for any one system instance.  The default value is **1000**.  This limit exists to prevent combinbatorial explosion.
+
+* **Always show instantiation results dialog, even when successful.**  When checked, the results dialog is always displayed.  When uncheck, the results dialog is only displayed when there is an error or exception.  The default value is **true** (checked).
+
+* **Always show the AADL component implementation selection dialog.** When checked, the component selection dialog is shown when `.aadl` files are selected for instantiation.  When unchecked, the dialog is not shown.  When the dialog is not shown then the selected components are controlled by the next preference.  The default value is **true** (checked).
+
+* **Only instantiate system implementations.** When checked, only only system implementations are preselected in the component implementation dialog box.  When unchecked, all the component implementions are preselected.  The default value is **false** (unchecked).  When the component implementation dialog box is not shown, then this preference controls the implementations that are instantiated.  As you would expect, when checked all system implementations from the selected `.aadl` files are instantiated only; when unchecked, all the non-`subprogram` non-`subprogram group` implementations in the selected `.aadl` files are instantiated.
+
+The top of the pane has a link to set the properties of a project.  Clicking the link brings up a dialog box to select an AADL project.
+
+  ![Project selection dialog](images/SelectAADLProject.png)
+
+Choosing a project and selecting `OK` will bring up the `OSATE > Instantiation` project properties pane for the selected project.
+
+## Project Properties
+
+Project-specific properties can be used to control instantiation behavior as well.  These are accessed via the `OSATE > Instantiation` properites pane:
+
+  ![Instantiation properties pane](images/InstantiationProperties.png)
+
+The only property concurrently avaiable is a project-specific version of the **maximum number of system operation nodes to generate**.  By default, the propject-specfiic version is ignored.  By clicking on `Use project settings`, you can enable the property and change its value to be customized for the project.  Click on `Use workspace settings` to return to using the system-wide value.
+
+Clicking the `Configure Workspace Settings...` button to open the `OSATE > Instantiation` workspace preferences pane.
