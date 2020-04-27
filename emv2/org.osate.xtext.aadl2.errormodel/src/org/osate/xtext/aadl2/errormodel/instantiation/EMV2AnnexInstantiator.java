@@ -126,6 +126,11 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			instantiateEvent(ev, emv2AI);
 		}
 
+		Collection<ErrorFlow> fls = EMV2Util.getAllErrorFlows(instance);
+		for (ErrorFlow fl : fls) {
+			instantiateErrorFlow(fl, emv2AI);
+		}
+
 		ErrorBehaviorStateMachine ebsm = EMV2Util.getAllErrorBehaviorStateMachine(instance);
 		if (ebsm != null) {
 			instantiateStateMachine(ebsm, emv2AI);
@@ -288,8 +293,10 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				}
 			} else {
 				StateInstance ssti = findStateInstance(annex, st.getSource());
-				sti.getInStates().add(ssti);
-				sti.setTargetState(ssti);
+				if (ssti != null) {
+					sti.getInStates().add(ssti);
+					sti.setTargetState(ssti);
+				}
 			}
 		} else {
 			// explicit target state
@@ -299,7 +306,10 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					sti.getInStates().add(si);
 				}
 			} else {
-				sti.getInStates().add(findStateInstance(annex, st.getSource()));
+				StateInstance si = findStateInstance(annex, st.getSource());
+				if (si != null) {
+					sti.getInStates().add(si);
+				}
 			}
 		}
 	}
@@ -392,6 +402,15 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 	}
 
+	/**
+	 *
+	 * @param ef
+	 * @param annex
+	 * @param inep
+	 * @param constraint incoming type constraint in flow. Can be null
+	 * @param outep
+	 * @param outToken outgoing type constraint in flow. Can be null
+	 */
 	private void instantiateErrorFlow(NamedElement ef, EMV2AnnexInstance annex,
 			ErrorPropagation inep, TypeSet constraint, ErrorPropagation outep, TypeSet outToken) {
 		ComponentInstance ci = (ComponentInstance) annex.eContainer();
@@ -420,10 +439,11 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 					// replicate for each typed token
 					for (TypeToken tt : tts) {
 						ErrorFlowInstance bicopy = EcoreUtil.copy(bi);
-						ConstrainedInstanceObject ciocopy = bicopy.getOutgoing();
+						ConstrainedInstanceObject ciocopy = EcoreUtil.copy(cio);
 						ciocopy.getConstraint().clear();
-						ciocopy.getConstraint().add(tt);
+						ciocopy.getConstraint().add(EcoreUtil.copy(tt));
 						instantiatePropertyAssociations(bi, ci, ef, tts.get(0));
+						bicopy.setOutgoing(ciocopy);
 						annex.getErrorFlows().add(bicopy);
 					}
 				}
@@ -434,6 +454,13 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 	}
 
+	/**
+	 *
+	 * @param ep
+	 * @param ts type constraint from flow. Can be null. If null then use type set from error propagation
+	 * @param eai
+	 * @return
+	 */
 	private ConstrainedInstanceObject createErrorPropagationCIO(ErrorPropagation ep, TypeSet ts,
 			EMV2AnnexInstance eai) {
 		ConstrainedInstanceObject cio = EMV2InstanceFactory.eINSTANCE.createConstrainedInstanceObject();
@@ -453,8 +480,11 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		} else if (ep.getKind() != null) {
 			cio.setPropagationKind(ep.getKind());
 		}
-		if (ts != null){
-			cio.getConstraint().addAll(ts.getTypeTokens());
+		TypeSet outts = (ts == null) ? ep.getTypeSet() : ts;
+		if (outts != null) {
+			for (TypeToken tt : outts.getTypeTokens()) {
+				cio.getConstraint().add(EcoreUtil.copy(tt));
+			}
 		}
 		return cio;
 	}
@@ -1238,25 +1268,21 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 	public void instantiatePropertyAssociations(EMV2InstanceObject emv2io, ComponentInstance ci,
 			NamedElement emv2element, TypeToken tt) {
-		EList<ErrorTypes> types = tt.getType();
+		ErrorTypes et = tt != null && tt.getType().size() == 1 ? tt.getType().get(0) : null;
 		// token with a single type can have property values. Multiple types represents a product type
-		if (types.size() == 1) {
-			ErrorTypes et = types.get(0);
-			List<EMV2PropertyAssociation> ODs = EMV2Properties.getOccurrenceDistributionProperty(ci, emv2element, et);
-			instantiatePropertyAssociation(ODs, emv2io);
-			List<EMV2PropertyAssociation> Hazards = EMV2Properties.getHazardsProperty(ci, emv2element, et);
-			instantiatePropertyAssociation(Hazards, emv2io);
-			List<EMV2PropertyAssociation> SEVs = EMV2Properties.getSeverityProperty(ci, emv2element, et);
-			instantiatePropertyAssociation(SEVs, emv2io);
-			List<EMV2PropertyAssociation> Likes = EMV2Properties.getLikelihoodProperty(ci, emv2element, et);
-			instantiatePropertyAssociation(Likes, emv2io);
-			// currently only the above properties are actually being used in analyses
-			// for other EMV2 properties here is the generic method
+		List<EMV2PropertyAssociation> ODs = EMV2Properties.getOccurrenceDistributionProperty(ci, emv2element, et);
+		instantiatePropertyAssociation(ODs, emv2io);
+		List<EMV2PropertyAssociation> Hazards = EMV2Properties.getHazardsProperty(ci, emv2element, et);
+		instantiatePropertyAssociation(Hazards, emv2io);
+		List<EMV2PropertyAssociation> SEVs = EMV2Properties.getSeverityProperty(ci, emv2element, et);
+		instantiatePropertyAssociation(SEVs, emv2io);
+		List<EMV2PropertyAssociation> Likes = EMV2Properties.getLikelihoodProperty(ci, emv2element, et);
+		instantiatePropertyAssociation(Likes, emv2io);
+		// currently only the above properties are actually being used in analyses
+		// for other EMV2 properties here is the generic method
 //			List<EMV2PropertyAssociation> PAs = EMV2Properties.getProperty("EMV2::propertyname",ci, emv2element, et);
 //			instantiatePropertyAssociation(PAs, emv2io);
-		}
 	}
-
 
 	private void instantiatePropertyAssociation(List<EMV2PropertyAssociation> PAs, EMV2InstanceObject emv2io) {
 		if (!PAs.isEmpty()) {
