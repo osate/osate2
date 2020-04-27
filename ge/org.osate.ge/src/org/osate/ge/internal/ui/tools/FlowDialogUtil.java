@@ -9,9 +9,7 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerCell;
-import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Image;
@@ -45,23 +43,6 @@ class FlowDialogUtil {
 		final TableColumnLayout layout = getColumnLayout(errorTable);
 		container.setLayout(layout);
 		container.setLayoutData(GridDataFactory.fillDefaults().grab(true, true).create());
-
-		errorTableViewer.setComparator(new ViewerComparator() {
-			@Override
-			public int compare(final Viewer viewer, final Object o1, final Object o2) {
-				// Show errors at top of table, sorted alphabetically
-				final Diagnostic diagnostic1 = (Diagnostic) o1;
-				final Diagnostic diagnostic2 = (Diagnostic) o2;
-				final int severity1 = diagnostic1.getSeverity();
-				final int severity2 = diagnostic2.getSeverity();
-				if (severity1 == severity2) {
-					// Sort alphabetically
-					return diagnostic1.getMessage().compareToIgnoreCase(diagnostic2.getMessage());
-				}
-
-				return severity1 == Diagnostic.ERROR ? -1 : 1;
-			}
-		});
 
 		return errorTableViewer;
 	}
@@ -163,8 +144,7 @@ class FlowDialogUtil {
 		public ErrorDialog(final String message, final Object input) {
 			super(Display.getDefault().getActiveShell(), "Flow Tool Error",
 					message + " Tool cannot be used until errors have been resolved.  Resolve errors and try again.",
-					new Status(IStatus.ERROR,
-					Activator.PLUGIN_ID, "Errors detected in the model."), IStatus.ERROR);
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID, "Errors detected in the model."), IStatus.ERROR);
 			this.input = input;
 		}
 

@@ -28,15 +28,15 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.util.stream.Stream.Builder;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -54,7 +54,6 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.util.ProjectUtil;
 
 import com.google.common.base.Predicates;
-import com.google.common.collect.Sets;
 
 public class ToolUtil {
 	/**
@@ -110,45 +109,49 @@ public class ToolUtil {
 	}
 
 	/**
-	 * Get the errors and warnings for referenced elements' root
+	 * Get the errors and warnings for referenced element's root
 	 */
 	public static Set<Diagnostic> getAllReferencedPackageDiagnostics(final BusinessObjectContext boc) {
 		// Find root to get all referenced package diagnostics
 		final BusinessObjectContext root = findRoot(boc)
 				.orElseThrow(() -> new RuntimeException("Cannot find root"));
 
-		// Get get referenced packages
-		final Set<NamedElement> packages = root.getAllDescendants().map(queryable -> {
-			final Object bo = queryable.getBusinessObject();
-			if (bo instanceof Element) {
-				final Element element = (Element) bo;
-				if (element.getElementRoot() instanceof AadlPackage) {
-					return (AadlPackage) element.getElementRoot();
-				}
-			}
+		// Get referenced packages of root boc
+		final Set<AadlPackage> packages = getReferencedPackages(root);
 
-			return null;
-		}).filter(Predicates.notNull()).collect(Collectors.toSet());
-
-		// Collect errors and warnings for root elements
-		final Set<Diagnostic> diagnostics = new HashSet<>();
-		for (final NamedElement pkg : packages) {
+		// Collect errors and warnings for referenced AADL packages
+		final Set<Diagnostic> diagnostics = getDiagnosticsTreeSet();
+		for (final AadlPackage pkg : packages) {
 			final IProject project = ProjectUtil.getProjectForBoOrThrow(pkg);
 			final ResourceSet resourceSet = ProjectUtil.getLiveResourceSet(project);
-
+			final DiagnosticBuilder diagnosticBuilder = new DiagnosticBuilder(pkg);
 			// Model error and warning diagnostics
-			final Set<Diagnostic> rootDiagnostics = getDiagnostics(new DiagnosticBuilder(getMessagePrefix(pkg)), pkg,
+			populateDiagnostics(diagnosticBuilder,
+					pkg,
 					resourceSet);
-			diagnostics.addAll(rootDiagnostics);
+
+			diagnostics.addAll(diagnosticBuilder.getDiagnostics());
 		}
 
 		return diagnostics;
 	}
 
-	private static String getMessagePrefix(final NamedElement ne) {
-		final StringBuilder builder = new StringBuilder("Package ");
-		builder.append(ne.getName());
-		return builder.append(": ").toString();
+	/**
+	 * Search a boc's descendants for elements and collect each element's root element that are an AadlPackage.
+	 * @param rootBoc the boc that contains descendants to iterate
+	 * @return a set of AadlPackages that are referenced within a root boc
+	 */
+	private static Set<AadlPackage> getReferencedPackages(final BusinessObjectContext rootBoc) {
+		return rootBoc.getAllDescendants().map(queryable -> {
+			final Object bo = queryable.getBusinessObject();
+			if (bo instanceof Element) {
+				final Element element = (Element) bo;
+				final NamedElement root = element.getElementRoot();
+				return root instanceof AadlPackage ? (AadlPackage) root : null;
+			}
+
+			return null;
+		}).filter(Predicates.notNull()).collect(Collectors.toCollection(HashSet::new));
 	}
 
 	// Find the editor root boc
@@ -174,123 +177,135 @@ public class ToolUtil {
 		// Make modification
 		final EObject modifiedObject = getModifiedObject.apply(resourceSet);
 
-		// Model error and warning diagnostics
-		final Set<Diagnostic> diagnostics = getDiagnostics(
-				new DiagnosticBuilder(getMessagePrefix(elementToModify.getElementRoot())),
-				modifiedObject,
-				resourceSet);
+		final Set<Diagnostic> diagnostics = getDiagnosticsTreeSet();
+		final NamedElement root = elementToModify.getElementRoot();
+		if (root instanceof AadlPackage) {
+			final DiagnosticBuilder diagnosticBuilder = new DiagnosticBuilder((AadlPackage)root);
+			// Model error and warning diagnostics
+			populateDiagnostics(diagnosticBuilder,
+					modifiedObject,
+					resourceSet);
+
+			diagnostics.addAll(diagnosticBuilder.getDiagnostics());
+		}
+
 		return diagnostics;
 	}
 
+	/**
+	 * Returns tree set of diagnostics with a comparator to sort diagnostics by severity and message.
+	 * Diagnostics that have a severity of error (Diagnostic.ERROR or 0x4)
+	 * are grouped to the top of the tree set in alphabetical order.  Diagnostics that
+	 * have a severity of warning (Diagnostic.WARNING or 0x2) are grouped to
+	 * the bottom of the tree set in alphabetical order.
+	 */
+	private static TreeSet<Diagnostic> getDiagnosticsTreeSet() {
+		return new TreeSet<Diagnostic>((d1, d2) -> {
+			final int severity1 = d1.getSeverity();
+			final int severity2 = d2.getSeverity();
+			if (severity1 == severity2) {
+				// Diagnostic considered equal if it has same severity and message
+				return d1.getMessage().compareToIgnoreCase(d2.getMessage());
+			}
+
+			// Warnings will be grouped at end of set
+			return severity1 == Diagnostic.ERROR ? -1 : 1;
+		});
+	}
+
 	// Get error and warning diagnostics
-	private static Set<Diagnostic> getDiagnostics(final DiagnosticBuilder diagnosticBuilder,
+	private static void populateDiagnostics(
+			final DiagnosticBuilder diagnosticBuilder,
 			final EObject eObjectToValidate,
 			final ResourceSet resourceSet) {
 		// Serialize
 		final Optional<String> serializedSrc = getSerializedSource(eObjectToValidate);
 		if (!serializedSrc.isPresent()) {
-			return Sets.newHashSet(diagnosticBuilder.build(Diagnostic.ERROR, "Serialization Error"));
+			diagnosticBuilder.addDiagnostic(Diagnostic.ERROR, "Serialization Error");
+			return;
 		}
 
 		final XtextResource resource = getOrCreateXtextResource(resourceSet, eObjectToValidate.eResource().getURI());
 		loadResource(resource, serializedSrc.get());
 
-		final Builder<BasicDiagnostic> diagnostics = Stream.builder();
-
 		// Concrete Syntax Validation
-		final Stream<BasicDiagnostic> syntaxDiagnostics = resource.validateConcreteSyntax().stream()
-				.filter(diagnostic -> isErrorOrWarning(diagnostic))
-				.map(diagnostic -> diagnosticBuilder.build(diagnostic));
-		addToBuilder(diagnostics, syntaxDiagnostics);
+		resource.validateConcreteSyntax().stream()
+		.filter(diagnostic -> isErrorOrWarning(diagnostic))
+		.forEach(diagnostic -> diagnosticBuilder.addDiagnostic(diagnostic));
 
 		final EObject serializedObject = resourceSet.getEObject(EcoreUtil.getURI(eObjectToValidate), true);
 		final Diagnostic validationDiagnostic = Diagnostician.INSTANCE.validate(serializedObject,
 				Collections.singletonMap(Diagnostician.VALIDATE_RECURSIVELY, true));
 		if (isErrorOrWarning(validationDiagnostic)) {
 			// Validation Diagnostics
-			final Stream<BasicDiagnostic> qualifiedDiagnostics = getDiagnosticDescendants(validationDiagnostic)
-					.filter(diagnostic -> diagnostic instanceof FeatureBasedDiagnostic)
-					.map(diagnostic -> diagnosticBuilder.build(diagnostic));
-			addToBuilder(diagnostics, qualifiedDiagnostics);
+			getDiagnosticDescendants(validationDiagnostic)
+			.filter(diagnostic -> diagnostic instanceof FeatureBasedDiagnostic)
+			.forEach(diagnostic -> diagnosticBuilder.addDiagnostic(diagnostic));
 		}
 
 		// Errors
-		final Stream<BasicDiagnostic> resourceErrors = getResourceDiagnostics(resource.getErrors(),
+		getResourceDiagnostics(resource.getErrors(),
 				diagnosticBuilder,
 				Diagnostic.ERROR);
-		addToBuilder(diagnostics, resourceErrors);
 
 		// Warnings
-		final Stream<BasicDiagnostic> resourceWarnings = getResourceDiagnostics(resource.getWarnings(),
+		getResourceDiagnostics(resource.getWarnings(),
 				diagnosticBuilder,
 				Diagnostic.WARNING);
-		addToBuilder(diagnostics, resourceWarnings);
-
-		return diagnostics.build().collect(Collectors.toCollection(HashSet::new));
 	}
 
-	private static void addToBuilder(final Builder<BasicDiagnostic> builder,
-			final Stream<BasicDiagnostic> diagnosticsToAdd) {
-		diagnosticsToAdd.forEach(diagnostic -> builder.add(diagnostic));
-	}
-
+	/**
+	 * Builder to create a new BasicDiagnostic that contains an error or warning severity and a message
+	 * with a prefix of the AadlPackage the diagnostic applies to.
+	 *
+	 * Possible severity values:
+	 * 0x2 = Diagnostic.WARNING
+	 * 0x4 = Diagnostic.ERROR
+	 */
 	private static class DiagnosticBuilder {
+		private final Set<Diagnostic> diagnostics = new HashSet<>();
 		private final String msgPrefix;
 
-		public DiagnosticBuilder(final String msgPrefix) {
-			this.msgPrefix = msgPrefix;
+		public DiagnosticBuilder(final AadlPackage pkg) {
+			this.msgPrefix = getMessagePrefix(pkg.getName());
 		}
 
-		public BasicDiagnostic build(final int severity, final String msg) {
-			return new BasicDiagnostic(severity, getDetailedDiagnosticMessage(this.msgPrefix, msg));
+		private static String getMessagePrefix(final String pkgName) {
+			return new StringBuilder("Package ").append(pkgName).append(": ")
+					.toString();
 		}
 
-		public BasicDiagnostic build(final Diagnostic diagnostic) {
-			return new BasicDiagnostic(diagnostic.getSeverity(),
-					getDetailedDiagnosticMessage(this.msgPrefix, diagnostic.getMessage()));
+		public Set<Diagnostic> getDiagnostics() {
+			return diagnostics;
 		}
 
-		public BasicDiagnostic build(final int severity,
+		public void addDiagnostic(final Diagnostic diagnostic) {
+			addDiagnostic(diagnostic.getSeverity(), diagnostic.getMessage());
+		}
+
+		public void addDiagnostic(final int severity,
 				final org.eclipse.emf.ecore.resource.Resource.Diagnostic diagnostic) {
-			return new BasicDiagnostic(severity,
-					getDetailedDiagnosticMessage(this.msgPrefix, diagnostic.getMessage()));
+			addDiagnostic(severity, diagnostic.getMessage());
 		}
 
-		private static String getDetailedDiagnosticMessage(final String prefix, final String message) {
-			return new StringBuilder(prefix).append(message).toString();
-		}
-	}
-
-	// Diagnostic that contains a severity and message
-	private static class BasicDiagnostic extends org.eclipse.emf.common.util.BasicDiagnostic {
-		public BasicDiagnostic(final int severity, final String message) {
-			this.severity = Objects.requireNonNull(severity, "severity cannot be null");
-			this.message = Objects.requireNonNull(message, "message cannot be null");
-		}
-
-		@Override
-		public boolean equals(final Object o) {
-			if (o == null) {
-				return false;
+		// Only support error and warning severity levels
+		public void addDiagnostic(final int severity, final String msg) {
+			if (severity != Diagnostic.ERROR && severity != Diagnostic.WARNING) {
+				throw new RuntimeException("Severity must be an error or warning");
 			}
-
-			if (this.getClass() != o.getClass()) {
-				return false;
-			}
-
-			final BasicDiagnostic diagnostic = (BasicDiagnostic) o;
-			return this.severity == diagnostic.getSeverity() && this.message.equals(diagnostic.getMessage());
+			diagnostics.add(new BasicDiagnostic(severity, "", 0, getDetailedDiagnosticMessage(msg), null));
 		}
 
-		@Override
-		public int hashCode() {
-			return Objects.hash(this.severity, this.message);
+		private String getDetailedDiagnosticMessage(final String message) {
+			return new StringBuilder(this.msgPrefix).append(message).toString();
 		}
 	}
 
 	/**
-	 * Checks if a diagnostic's severity is an error or warning
-	 * @param diagnostic the diagnostic to check
+	 * Diagnostics contain a severity level that can be Diagnostic.OK(0x0), Diagnostic.INFO(0x1),
+	 * Diagnostic.WARNING(0x2), Diagnostic.ERROR(0x4), or Diagnostic.CANCEL(0x8).
+	 * This returns true if the diagnostic's severity level is Diagnstic.ERROR or Diagnostic.WARNING
+	 * @param diagnostic the diagnostic that contains the severity to check
 	 * @return true if the diagnostic's severity is an error or warning
 	 */
 	private static boolean isErrorOrWarning(final Diagnostic diagnostic) {
@@ -298,15 +313,18 @@ public class ToolUtil {
 		return severity == Diagnostic.ERROR || severity == Diagnostic.WARNING;
 	}
 
-	private static Stream<BasicDiagnostic> getResourceDiagnostics(
+	private static void getResourceDiagnostics(
 			final List<org.eclipse.emf.ecore.resource.Resource.Diagnostic> diagnostics,
 			final DiagnosticBuilder diagnosticBuilder,
 			final int severity) {
-		return diagnostics.stream()
-				.map(diagnostic -> diagnosticBuilder.build(severity, diagnostic));
+		diagnostics.stream().forEach(diagnostic -> diagnosticBuilder.addDiagnostic(severity, diagnostic));
 	}
 
-	// Retrieves all diagnostics
+	/**
+	 * Recursively collects a diagnostic and its descendants
+	 * @param diagnostic the diagnostic to get descendants from
+	 * @return a stream of diagnostics that contains the diagnostic its descendants
+	 */
 	private static Stream<Diagnostic> getDiagnosticDescendants(final Diagnostic diagnostic) {
 		if (diagnostic.getChildren().isEmpty()) {
 			return Stream.of(diagnostic);
