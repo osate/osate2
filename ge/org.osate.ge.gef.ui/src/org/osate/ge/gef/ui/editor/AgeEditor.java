@@ -54,7 +54,12 @@ import com.google.inject.util.Modules;
 
 import javafx.embed.swt.FXCanvas;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 // TODO: Implement selection notification..
 // TODO: Rename to AgeDiagramEditor to match name of existing editor?
@@ -113,9 +118,18 @@ public class AgeEditor extends AbstractFXEditor {
 	protected void hookViewers() {
 		// TODO: Replace this with widget derived from DemoApplication
 		final SplitPane sp = new SplitPane();
+		sp.setDividerPositions(1.0);
+		final VBox paletteContainer = new VBox();
+		final HBox titleContainer = new HBox();
+		final Label paletteTitle = new Label("Palette");
+		final ToggleButton collapseButton = new ToggleButton();
+		final ScrollPane scrollPane = new ScrollPane();
 		final Palette<TestPaletteGroup, TestPaletteItem> palette = new Palette<>(new TestPaletteModel());
+		scrollPane.setContent(palette);
+		titleContainer.getChildren().addAll(paletteTitle, collapseButton);
+		paletteContainer.getChildren().addAll(titleContainer, scrollPane);
 
-		sp.getItems().addAll(getContentViewer().getCanvas(), palette);
+		sp.getItems().addAll(getContentViewer().getCanvas(), paletteContainer);
 
 		// Set the scene
 		getCanvas().setScene(new Scene(sp));
