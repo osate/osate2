@@ -21,41 +21,34 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.core.preferences;
+package org.osate.core.tests.issues;
 
-import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
-import org.eclipse.jface.preference.IPreferenceStore;
-import org.osate.core.OsateCorePlugin;
+import org.eclipse.xtext.testing.InjectWith;
+import org.eclipse.xtext.testing.XtextRunner;
+import org.eclipse.xtext.testing.validation.ValidationTestHelper;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.osate.aadl2.AadlPackage;
+import org.osate.testsupport.Aadl2InjectorProvider;
+import org.osate.testsupport.TestHelper;
 
-/**
- * @author lwrage
- * @version $Id: PreferenceInitializer.java,v 1.9 2007-06-18 18:47:25 jseibel
- *          Exp $
- */
-public class PreferenceInitializer extends AbstractPreferenceInitializer {
+import com.google.inject.Inject;
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @seeorg.eclipse.core.runtime.preferences.AbstractPreferenceInitializer#
-	 * initializeDefaultPreferences()
-	 */
-	@Override
-	public void initializeDefaultPreferences() {
-		/**
-		 * Sets the default values of the preferences.
-		 */
-		IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
-		store.setDefault(OsateCorePlugin.EXPAND_DEFAULT_FLAG, false);
-		store.setDefault(OsateCorePlugin.MAX_SOM, OsateCorePlugin.MAX_SOM_DEFAULT);
-		store.setDefault(OsateCorePlugin.AUTO_REINSTANTIATE, true);
-		store.setDefault(OsateCorePlugin.AUTO_INDENT, true);
-		store.setDefault(OsateCorePlugin.AUTO_COMPLETE, true);
-		store.setDefault(OsateCorePlugin.CAPITALIZE, false);
-		store.setDefault(OsateCorePlugin.INDENT_SECTIONS, true);
-		store.setDefault(OsateCorePlugin.ALWAYS_SHOW_INSTANTIATION_AADL_DIALOG,
-				OsateCorePlugin.ALWAYS_SHOW_INSTANTIATION_AADL_DIALOG_DEFAULT);
-		store.setDefault(OsateCorePlugin.ONLY_INSTANTIATE_SYSTEM_IMPLS,
-				OsateCorePlugin.ONLY_INSTANTIATE_SYSTEM_IMPLS_DEFAULT);
+@RunWith(XtextRunner.class)
+@InjectWith(Aadl2InjectorProvider.class)
+public class Issue2295Test {
+
+	private static final String PATH = "org.osate.core.tests/models/issue2295/";
+
+	@Inject
+	private TestHelper<AadlPackage> testHelper;
+
+	@Inject
+	private ValidationTestHelper validationHelper;
+
+	@Test
+	public void testModeResolution() {
+		validationHelper.assertNoIssues(testHelper.parseFile(PATH + "Issue2295.aadl"));
 	}
+
 }
