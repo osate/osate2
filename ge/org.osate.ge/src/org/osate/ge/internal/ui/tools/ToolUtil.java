@@ -25,6 +25,7 @@ package org.osate.ge.internal.ui.tools;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -32,6 +33,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.function.Function;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -120,7 +122,7 @@ public class ToolUtil {
 		final Set<AadlPackage> packages = getReferencedPackages(root);
 
 		// Collect errors and warnings for referenced AADL packages
-		final Set<Diagnostic> diagnostics = getDiagnosticsTreeSet();
+		final List<DiagnosticBuilder> diagnosticBuilders = new ArrayList<>();
 		for (final AadlPackage pkg : packages) {
 			final IProject project = ProjectUtil.getProjectForBoOrThrow(pkg);
 			final ResourceSet resourceSet = ProjectUtil.getLiveResourceSet(project);
@@ -130,10 +132,11 @@ public class ToolUtil {
 					pkg,
 					resourceSet);
 
-			diagnostics.addAll(diagnosticBuilder.getDiagnostics());
+			diagnosticBuilders.add(diagnosticBuilder);
 		}
 
-		return diagnostics;
+		return diagnosticBuilders.stream().flatMap(DiagnosticBuilder::getDiagnostics)
+				.collect(toDiagnosticTreeSet());
 	}
 
 	/**
@@ -177,7 +180,7 @@ public class ToolUtil {
 		// Make modification
 		final EObject modifiedObject = getModifiedObject.apply(resourceSet);
 
-		final Set<Diagnostic> diagnostics = getDiagnosticsTreeSet();
+		final List<DiagnosticBuilder> diagnosticBuilders = new ArrayList<>();
 		final NamedElement root = elementToModify.getElementRoot();
 		if (root instanceof AadlPackage) {
 			final DiagnosticBuilder diagnosticBuilder = new DiagnosticBuilder((AadlPackage)root);
@@ -185,22 +188,24 @@ public class ToolUtil {
 			populateDiagnostics(diagnosticBuilder,
 					modifiedObject,
 					resourceSet);
-
-			diagnostics.addAll(diagnosticBuilder.getDiagnostics());
+			diagnosticBuilders.add(diagnosticBuilder);
 		}
 
-		return diagnostics;
+		return diagnosticBuilders.stream().flatMap(DiagnosticBuilder::getDiagnostics)
+				.collect(toDiagnosticTreeSet());
 	}
 
+
 	/**
-	 * Returns tree set of diagnostics with a comparator to sort diagnostics by severity and message.
+	 * Converts a stream to a tree set of diagnostics sorted by severity and message.
 	 * Diagnostics that have a severity of error (Diagnostic.ERROR or 0x4)
 	 * are grouped to the top of the tree set in alphabetical order.  Diagnostics that
 	 * have a severity of warning (Diagnostic.WARNING or 0x2) are grouped to
 	 * the bottom of the tree set in alphabetical order.
+	 * @return returns a tree set of diagnostics that are sorted by severity and message
 	 */
-	private static TreeSet<Diagnostic> getDiagnosticsTreeSet() {
-		return new TreeSet<Diagnostic>((d1, d2) -> {
+	private static Collector<Diagnostic, ?, TreeSet<Diagnostic>> toDiagnosticTreeSet() {
+		return Collectors.toCollection(() -> new TreeSet<Diagnostic>((d1, d2) -> {
 			final int severity1 = d1.getSeverity();
 			final int severity2 = d2.getSeverity();
 			if (severity1 == severity2) {
@@ -210,18 +215,18 @@ public class ToolUtil {
 
 			// Warnings will be grouped at end of set
 			return severity1 == Diagnostic.ERROR ? -1 : 1;
-		});
+		}));
 	}
 
 	// Get error and warning diagnostics
 	private static void populateDiagnostics(
-			final DiagnosticBuilder diagnosticBuilder,
+			final DiagnosticBuilder diagnosticsBuilder,
 			final EObject eObjectToValidate,
 			final ResourceSet resourceSet) {
 		// Serialize
 		final Optional<String> serializedSrc = getSerializedSource(eObjectToValidate);
 		if (!serializedSrc.isPresent()) {
-			diagnosticBuilder.addDiagnostic(Diagnostic.ERROR, "Serialization Error");
+			diagnosticsBuilder.addDiagnostic(Diagnostic.ERROR, "Serialization Error");
 			return;
 		}
 
@@ -231,7 +236,7 @@ public class ToolUtil {
 		// Concrete Syntax Validation
 		resource.validateConcreteSyntax().stream()
 		.filter(diagnostic -> isErrorOrWarning(diagnostic))
-		.forEach(diagnostic -> diagnosticBuilder.addDiagnostic(diagnostic));
+		.forEach(diagnostic -> diagnosticsBuilder.addDiagnostic(diagnostic));
 
 		final EObject serializedObject = resourceSet.getEObject(EcoreUtil.getURI(eObjectToValidate), true);
 		final Diagnostic validationDiagnostic = Diagnostician.INSTANCE.validate(serializedObject,
@@ -240,30 +245,30 @@ public class ToolUtil {
 			// Validation Diagnostics
 			getDiagnosticDescendants(validationDiagnostic)
 			.filter(diagnostic -> diagnostic instanceof FeatureBasedDiagnostic)
-			.forEach(diagnostic -> diagnosticBuilder.addDiagnostic(diagnostic));
+			.forEach(diagnostic -> diagnosticsBuilder.addDiagnostic(diagnostic));
 		}
 
 		// Errors
 		getResourceDiagnostics(resource.getErrors(),
-				diagnosticBuilder,
+				diagnosticsBuilder,
 				Diagnostic.ERROR);
 
 		// Warnings
 		getResourceDiagnostics(resource.getWarnings(),
-				diagnosticBuilder,
+				diagnosticsBuilder,
 				Diagnostic.WARNING);
 	}
 
 	/**
-	 * Builder to create a new BasicDiagnostic that contains an error or warning severity and a message
-	 * with a prefix of the AadlPackage the diagnostic applies to.
+	 * Diagnostic builder to hold the diagnostics that contain an error or warning
+	 * severity and a message created for an AadlPackage
 	 *
 	 * Possible severity values:
 	 * 0x2 = Diagnostic.WARNING
 	 * 0x4 = Diagnostic.ERROR
 	 */
 	private static class DiagnosticBuilder {
-		private final Set<Diagnostic> diagnostics = new HashSet<>();
+		private final Stream.Builder<Diagnostic> diagnostics = Stream.builder();
 		private final String msgPrefix;
 
 		public DiagnosticBuilder(final AadlPackage pkg) {
@@ -275,8 +280,8 @@ public class ToolUtil {
 					.toString();
 		}
 
-		public Set<Diagnostic> getDiagnostics() {
-			return diagnostics;
+		public Stream<Diagnostic> getDiagnostics() {
+			return diagnostics.build();
 		}
 
 		public void addDiagnostic(final Diagnostic diagnostic) {
