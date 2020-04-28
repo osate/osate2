@@ -913,7 +913,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			// add if CIO for feature instance or propagation point instance
 			// also add if component instance and propagation kind is access
 			if (outGoing != null && outGoing.getInstanceObject() == ppi
-					&& (outGoing.getPropagationKind() != null || outGoing.getPropagationKind().equals("access"))) {
+					&& (outGoing.getPropagationKind() == null || outGoing.getPropagationKind().equals("access"))) {
 				cios.add(outGoing);
 			}
 		}
