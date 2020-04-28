@@ -51,7 +51,7 @@ public final class ListEditor<T> extends Composite {
 	public ListEditor(final Composite parent, final ListEditorModel<T> model) {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
-		this.setBackground(parent.getBackground());
+		InternalUtil.setColorsToMatchParent(this);
 		this.setLayout(GridLayoutFactory.fillDefaults().numColumns(2).create());
 
 		this.listViewer = new ListSelector<>(this, model);

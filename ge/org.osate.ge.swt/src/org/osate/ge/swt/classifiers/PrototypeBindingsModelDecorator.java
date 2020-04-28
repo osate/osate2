@@ -36,6 +36,16 @@ public abstract class PrototypeBindingsModelDecorator<N, D, T, C> implements Pro
 	}
 
 	@Override
+	public String getValueLabel(final N node) {
+		return inner.getValueLabel(node);
+	}
+
+	@Override
+	public String getChildrenLabel(final N node) {
+		return inner.getChildrenLabel(node);
+	}
+
+	@Override
 	public Stream<D> getDirectionOptions(final N node) {
 		return inner.getDirectionOptions(node);
 	}
@@ -93,6 +103,11 @@ public abstract class PrototypeBindingsModelDecorator<N, D, T, C> implements Pro
 	@Override
 	public void setClassifier(final N node, final C value) {
 		inner.setClassifier(node, value);
+	}
+
+	@Override
+	public String validateNode(final N node) {
+		return inner.validateNode(node);
 	}
 
 	@Override

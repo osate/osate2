@@ -41,6 +41,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.ui.editor.FlowContributionItem;
+import org.osate.ge.internal.ui.properties.AbstractFeaturePrototypePropertySection;
+import org.osate.ge.swt.classifiers.PrototypeBindingsField;
 
 import com.google.common.collect.ImmutableList;
 
@@ -444,18 +446,15 @@ public class OsateGeTestCommands {
 	}
 
 	/**
-	 * Sets the classifier for elements using the Properties view.
+	 * Sets the extended classifier of feature classifier for elements using the Properties view.
 	 * @param classifier the classifier qualified name
 	 * @param elements the elements to set classifier
 	 */
-	public static void setClassifierFromPropertiesView(final DiagramReference diagram, final String classifier,
+	public static void setExtendedOrFeatureClassifierFromPropertiesView(final DiagramReference diagram, final String classifier,
 			final DiagramElementReference... elements) {
 		openDiagramEditor(diagram);
 		selectDiagramElements(diagram, elements);
-		setClassifierFromPropertiesView(classifier);
-	}
 
-	private static void setClassifierFromPropertiesView(final String classifier) {
 		assertViewIsVisible("Properties");
 		setViewFocus("Properties");
 
@@ -465,6 +464,91 @@ public class OsateGeTestCommands {
 
 		clickTableItem(0, classifier);
 		clickButton("OK");
+	}
+
+	public static void setSubcomponentClassifierFromPropertiesView(final DiagramReference diagram,
+			final String classifier, final DiagramElementReference... elements) {
+		setSubcomponentClassifierFromPropertiesView(diagram, classifier, () -> {
+		}, elements);
+	}
+
+	/**
+	 * Sets the classifier for subcomponent elements using the Properties view.
+	 * @param classifier the classifier qualified name
+	 * @param extra is a runnable called before selecting OK to perform additional operations. For example: to configure bindings.
+	 * @param elements the elements for which to set the classifier
+	 */
+	public static void setSubcomponentClassifierFromPropertiesView(final DiagramReference diagram,
+			final String classifier, Runnable extra, final DiagramElementReference... elements) {
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, elements);
+
+		assertViewIsVisible("Properties");
+		setViewFocus("Properties");
+
+		clickPropertiesViewTab("AADL");
+		clickButton("Choose...");
+		waitForWindowWithTitle("Select Classifier and Prototype Bindings");
+
+		selectListItem(0, classifier);
+
+		extra.run();
+
+		clickButton("OK");
+	}
+
+	/**
+	 * Edits a classifier's bindings using the Properties view.
+	 * @param modifier is a runnable called to perform actual edits before selecting OK.
+	 * @param elements the elements for which to edit bindings.
+	 */
+	public static void setClassifierBindingsFromPropertiesView(final DiagramReference diagram, final Runnable modifier,
+			final DiagramElementReference... elements) {
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, elements);
+
+		assertViewIsVisible("Properties");
+		setViewFocus("Properties");
+
+		clickPropertiesViewTab("AADL");
+		clickButtonWithId(PrototypeBindingsField.WIDGET_ID_EDIT_BUTTON);
+		waitForWindowWithTitle("Edit Prototype Bindings");
+
+		modifier.run();
+
+		clickButton("OK");
+	}
+
+	/**
+	 * Sets the feature prototype for elements using the Properties view.
+	 * @param prototype the prototype qualified name
+	 * @param elements the elements for which to set the prototype.
+	 */
+	public static void setFeaturePrototypeFromPropertiesView(final DiagramReference diagram, final String prototype,
+			final DiagramElementReference... elements) {
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, elements);
+
+		assertViewIsVisible("Properties");
+		setViewFocus("Properties");
+
+		clickPropertiesViewTab("AADL");
+		clickButtonWithId(AbstractFeaturePrototypePropertySection.WIDGET_ID_CHOOSE_BUTTON);
+		waitForWindowWithTitle("Select Feature Prototype");
+
+		selectListItem(0, prototype);
+		clickButton("OK");
+	}
+
+	/**
+	 * Sets the direction for directional features. Assumes that the only radio buttons with the specified label are the direction buttons.
+	 * @param directionLabel is the label for the radio button for the direction.
+	 * @param elements the element for which to set the direction.
+	 */
+	public static void setFeatureDirectionFromPropertiesView(final DiagramReference diagram,
+			final String directionLabel,
+			final DiagramElementReference... elements) {
+		clickRadioButtonInPropertiesView(diagram, "AADL", directionLabel, elements);
 	}
 
 	private static void layoutDiagram(final DiagramReference diagram,

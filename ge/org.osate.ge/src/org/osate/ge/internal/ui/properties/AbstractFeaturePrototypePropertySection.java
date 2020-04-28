@@ -26,67 +26,56 @@ package org.osate.ge.internal.ui.properties;
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.jface.viewers.IFilter;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
-import org.osate.aadl2.Classifier;
+import org.osate.aadl2.AbstractFeature;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.selection.AgeBusinessObjectSelection;
-import org.osate.ge.internal.viewModels.BusinessObjectSelectionPrototypeBindingsModel;
-import org.osate.ge.internal.viewModels.ClassifierPrototypeBindingsModel;
-import org.osate.ge.swt.classifiers.PrototypeBindingsField;
+import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
+import org.osate.ge.internal.viewModels.AbstractFeaturePrototypeModel;
+import org.osate.ge.swt.selectors.FilteringListSelectorField;
+import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
 import org.osate.ge.ui.properties.PropertySectionUtil;
 
 /**
- * Property section for editing prototypes for classifiers.
- *
+ * Property section for setting the feature prototype for abstract features.
  */
-public class ClassifierPrototypeBindingsPropertySection extends AbstractPropertySection {
+public class AbstractFeaturePrototypePropertySection extends AbstractPropertySection {
+	public static final String WIDGET_ID_CHOOSE_BUTTON = "org.osate.ge.internal.ui.properties.abstractFeaturePrototypePropertiesSection.choose";
+
 	public static class Filter implements IFilter {
 		@Override
 		public boolean select(final Object toTest) {
-			return PropertySectionUtil.isBoCompatible(toTest,
-					bo -> bo instanceof Classifier
-					&& BusinessObjectSelectionPrototypeBindingsModel.hasAvailableBindings((Classifier) bo));
+			return PropertySectionUtil.isBoCompatible(toTest, bo -> bo instanceof AbstractFeature);
 		}
 	}
 
 	private BusinessObjectSelection selectedBos;
-	private final BusinessObjectSelectionPrototypeBindingsModel model = new ClassifierPrototypeBindingsModel(
+	private final AbstractFeaturePrototypeModel model = new AbstractFeaturePrototypeModel(
 			new AgeBusinessObjectSelection());
+	private FilteringListSelectorField<?> currentPrototype;
 
 	@Override
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
 		super.createControls(parent, aTabbedPropertySheetPage);
+		FormData fd;
 
-		final Composite composite = getWidgetFactory().createFlatFormComposite(parent);
-		final CLabel label = getWidgetFactory().createCLabel(composite, "Prototype\nBindings:");
-		final Control field = new PrototypeBindingsField<>(composite, model, null);
+		final Composite container = getWidgetFactory().createFlatFormComposite(parent);
+		InternalPropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Prototype:");
 
-		// Configure layout data
-		{
-			final FormData data = new FormData();
-			data.left = new FormAttachment(0, 0);
-			data.right = new FormAttachment(field, -ITabbedPropertyConstants.HSPACE);
-			data.top = new FormAttachment(field, 0, SWT.CENTER);
-			label.setLayoutData(data);
-		}
+		currentPrototype = new FilteringListSelectorField<>(container, "Select Feature Prototype", new LabelFilteringListSelectorModel<>(model));
+		currentPrototype.setChooseButtonTestingId(WIDGET_ID_CHOOSE_BUTTON);
+		fd = new FormData();
+		fd.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
+		fd.top = new FormAttachment(0, ITabbedPropertyConstants.VSPACE);
+		currentPrototype.setLayoutData(fd);
 
-		{
-			final FormData data = new FormData();
-			data.left = new FormAttachment(0, AbstractPropertySection.STANDARD_LABEL_WIDTH);
-			data.right = new FormAttachment(100, 0);
-			data.top = new FormAttachment(0, ITabbedPropertyConstants.VSPACE);
-			data.width = 200;
-			field.setLayoutData(data);
-		}
+		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 
 	@Override

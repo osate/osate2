@@ -27,30 +27,159 @@ import static org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGePrototypeTestCommands.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGeTestCommands.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGeTestUtil.*;
+import static org.osate.ge.tests.endToEnd.util.UiTestUtil.*;
 
+import org.eclipse.swt.widgets.Shell;
 import org.junit.Test;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.tests.endToEnd.util.DiagramElementReference;
 import org.osate.ge.tests.endToEnd.util.DiagramReference;
 
 /**
- * This class is an end to end test focusing on prototypes.
+ * This class is an end to end test focusing on prototypes and prototype bindings.
  */
 public class PrototypeEndToEndTest {
 	private static final String PROTOTYPE_TEST = "prototype_test";
+	private static final String INTERFACES = "interfaces";
 
 	@Test
 	public void testPrototypes() {
 		createAadlProject(PROTOTYPE_TEST);
 		createNewPackageWithPackageDiagram(PROTOTYPE_TEST, PROTOTYPE_TEST);
 
+		createInterfacesPackage();
+		createSubsystemTypes();
+		createTestSystem();
+		createAndEditPrototypes();
+	}
+
+	private void createInterfacesPackage() {
+		//
+		// Create feature group with prototype
+		//
+		createNewPackageWithPackageDiagram(PROTOTYPE_TEST, INTERFACES);
+		final DiagramReference diagram = defaultDiagram(PROTOTYPE_TEST, INTERFACES);
+		final DiagramElementReference pkgElement = packageElement(INTERFACES);
+		final RelativeBusinessObjectReference pkg = getPackageRelativeReference(INTERFACES);
+
+		createElementAndLayout(diagram, pkgElement, "Feature Group Type",
+				getClassifierRelativeReference("new_classifier"), "subsystem_interface");
+		final DiagramElementReference subsystemInterface = element(pkg,
+				getClassifierRelativeReference("subsystem_interface"));
+
+		// Create Prototypes
+		createPrototype(diagram, "subsystem_interface_new_prototype", subsystemInterface);
+		renamePrototype(diagram, "subsystem_interface_new_prototype", "message_cpt", subsystemInterface);
+		setPrototypeType(diagram, "message_cpt", "Data", subsystemInterface);
+
+		createPrototype(diagram, "subsystem_interface_new_prototype", subsystemInterface);
+		renamePrototype(diagram, "subsystem_interface_new_prototype", "event_fpt", subsystemInterface);
+		setPrototypeType(diagram, "event_fpt", "Feature", subsystemInterface);
+
+		//
+		// Create event data port which uses the message prototype
+		//
+		createElementAndLayout(diagram, subsystemInterface, "Event Data Port",
+				getFeatureRelativeReference("subsystem_interface_new_feature"), "message_out");
+
+		setExtendedOrFeatureClassifierFromPropertiesView(diagram, "interfaces::subsystem_interface.message_cpt",
+				element(pkg, getClassifierRelativeReference("subsystem_interface"),
+						getFeatureRelativeReference("message_out")));
+
+		// Create an abstract feature that uses the event feature prototype
+		createElementAndLayout(diagram, subsystemInterface, "Abstract Feature",
+				getFeatureRelativeReference("subsystem_interface_new_feature"), "events");
+
+		// Set direction to output
+		setFeatureDirectionFromPropertiesView(diagram, "Bidirectional", element(pkg,
+				getClassifierRelativeReference("subsystem_interface"), getFeatureRelativeReference("events")));
+
+		setFeaturePrototypeFromPropertiesView(diagram, "interfaces::subsystem_interface.event_fpt", element(pkg,
+				getClassifierRelativeReference("subsystem_interface"), getFeatureRelativeReference("events")));
+	}
+
+	private void createSubsystemTypes() {
+		final DiagramReference diagram = defaultDiagram(PROTOTYPE_TEST, PROTOTYPE_TEST);
+		final DiagramElementReference pkgElement = packageElement(PROTOTYPE_TEST);
+		final RelativeBusinessObjectReference pkg = getPackageRelativeReference(PROTOTYPE_TEST);
+
+		// Create subsystem system type
+		createElementAndLayout(diagram, pkgElement, "System Type", getClassifierRelativeReference("new_classifier"),
+				"subsystem");
+		final DiagramElementReference subsystem = element(pkg, getClassifierRelativeReference("subsystem"));
+
+		// Create feature group prototype
+		createPrototype(diagram, "subsystem_new_prototype", subsystem);
+		renamePrototype(diagram, "subsystem_new_prototype", "iface_pt", subsystem);
+		setPrototypeType(diagram, "iface_pt", "Feature Group", subsystem);
+
+		// Create subsystem extension
+		createElementAndLayout(diagram, pkgElement, "System Type", getClassifierRelativeReference("new_classifier"),
+				"subsystem_ext");
+		final DiagramElementReference subsystemExt = element(pkg, getClassifierRelativeReference("subsystem_ext"));
+		setExtendedOrFeatureClassifierFromPropertiesView(diagram, "prototype_test::subsystem", subsystemExt);
+
+		// Set bindings
+		setClassifierBindingsFromPropertiesView(diagram, () -> {
+			// Edit the binding for iface_pt
+			clickButton("Choose...", 0);
+			waitForWindowWithTitle("Select Classifier and Prototype Bindings");
+			selectListItem(0, "interfaces::subsystem_interface");
+			clickButton("OK");
+		}, subsystemExt);
+	}
+
+	// Creates a test system implementation and subsystem which uses the previously created interface feature group and subsystem
+	private void createTestSystem() {
+		final DiagramReference diagram = defaultDiagram(PROTOTYPE_TEST, PROTOTYPE_TEST);
+		final DiagramElementReference pkgElement = packageElement(PROTOTYPE_TEST);
+		final RelativeBusinessObjectReference pkg = getPackageRelativeReference(PROTOTYPE_TEST);
+
+		// Create system system implementation
+		createImplementationWithNewType(diagram, pkgElement, "System Implementation", "impl", "test_system");
+
+		// Create subsystem subcomponent and set classifier
+		createElementAndLayout(diagram, element(pkg, getClassifierRelativeReference("test_system.impl")),
+				"System Subcomponent", getSubcomponentRelativeReference("test_system_impl_new_subcomponent"), "ss");
+		setSubcomponentClassifierFromPropertiesView(diagram, "prototype_test::subsystem", () -> {
+			final Shell dialog = getActiveShell();
+
+			// Edit the binding for iface_pt
+			clickButton("Choose...");
+			waitForOtherWindowWithTitle("Select Classifier and Prototype Bindings", dialog);
+			selectListItem(0, "interfaces::subsystem_interface");
+
+			// Edit the binding for event_fpt
+			final Shell bindingDialog = getActiveShell();
+			setComboBoxSelection(0, "data");
+			setComboBoxSelection(1, "out");
+			clickButton("Choose...", 0);
+			waitForOtherWindowWithTitle("Select Classifier and Prototype Bindings", bindingDialog);
+			selectListItem(0, "Base_Types::Integer");
+			clickButton("OK");
+
+			// Edit the binding for message_cpt
+			clickButton("Choose...", 1);
+			waitForOtherWindowWithTitle("Select Classifier and Prototype Bindings", bindingDialog);
+			selectListItem(0, "Base_Types::String");
+			clickButton("OK");
+
+			// Confirm the dialog for the binding for iface_pt
+			clickButton("OK");
+		}, element(pkg, getClassifierRelativeReference("test_system.impl"), getSubcomponentRelativeReference("ss")));
+
+	}
+
+	// Assumes the prototype_test package exists
+	// Create prototypes of various types. More exhaustive than other tests.
+	private void createAndEditPrototypes() {
 		final DiagramReference diagram = defaultDiagram(PROTOTYPE_TEST, PROTOTYPE_TEST);
 		final DiagramElementReference pkgElement = packageElement(PROTOTYPE_TEST);
 		final RelativeBusinessObjectReference pkg = getPackageRelativeReference(PROTOTYPE_TEST);
 
 		// Create system which will have prototypes
-		createElementAndLayout(diagram, pkgElement, "System Type",
-				getClassifierRelativeReference("new_classifier"), "top");
+		createElementAndLayout(diagram, pkgElement, "System Type", getClassifierRelativeReference("new_classifier"),
+				"top");
 		final DiagramElementReference top = element(pkg, getClassifierRelativeReference("top"));
 
 		// Create system which will extend the other one and will be used to test prototype refinement
@@ -59,14 +188,13 @@ public class PrototypeEndToEndTest {
 		final DiagramElementReference topExt = element(pkg, getClassifierRelativeReference("top_ext"));
 
 		// Set Extension
-		setClassifierFromPropertiesView(diagram, "prototype_test::top",
+		setExtendedOrFeatureClassifierFromPropertiesView(diagram, "prototype_test::top",
 				element(pkg, getClassifierRelativeReference("top_ext")));
 
 		//
 		// Create a process prototype
 		//
-		createPrototype(diagram, "top_new_prototype",
-				top);
+		createPrototype(diagram, "top_new_prototype", top);
 		renamePrototype(diagram, "top_new_prototype", "process_pt", top);
 
 		// Cycle through different types
@@ -93,16 +221,14 @@ public class PrototypeEndToEndTest {
 		//
 		// Create a feature group prototype
 		//
-		createPrototype(diagram, "top_new_prototype",
-				element(pkg, getClassifierRelativeReference("top")));
+		createPrototype(diagram, "top_new_prototype", element(pkg, getClassifierRelativeReference("top")));
 		renamePrototype(diagram, "top_new_prototype", "feature_group_pt", top);
 		setPrototypeType(diagram, "process_pt", "Feature Group", top);
 
 		//
 		// Create a feature prototype
 		//
-		createPrototype(diagram, "top_new_prototype",
-				element(pkg, getClassifierRelativeReference("top")));
+		createPrototype(diagram, "top_new_prototype", element(pkg, getClassifierRelativeReference("top")));
 		renamePrototype(diagram, "top_new_prototype", "feature_pt", top);
 		setPrototypeType(diagram, "feature_pt", "Feature", top);
 		setPrototypeDirection(diagram, "feature_pt", "Output", top);

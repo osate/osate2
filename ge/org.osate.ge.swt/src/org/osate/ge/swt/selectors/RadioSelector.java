@@ -48,7 +48,7 @@ public final class RadioSelector<T> extends Composite {
 	public RadioSelector(final Composite parent, final SelectorModel<T> model) {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
-		this.setBackground(parent.getBackground());
+		InternalUtil.setColorsToMatchParent(this);
 		this.setLayout(RowLayoutFactory.fillDefaults().wrap(false).create());
 
 		model.changed().addListener(changeListener);
@@ -66,7 +66,7 @@ public final class RadioSelector<T> extends Composite {
 			// Create new buttons
 			model.getElements().forEachOrdered(element -> {
 				final Button btn = new Button(this, SWT.RADIO);
-				btn.setBackground(getBackground());
+				InternalUtil.setColorsToMatchParent(btn);
 				btn.setText(model.getLabel(element));
 				btn.setData(element);
 				btn.setSelection(element == value);

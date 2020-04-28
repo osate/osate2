@@ -51,7 +51,7 @@ import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.ui.LtkRenameAction;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.util.UiUtil;
-import org.osate.ge.internal.viewModels.BusinessObjectSelectionPrototypesModel;
+import org.osate.ge.internal.viewModels.PrototypesModel;
 import org.osate.ge.swt.prototypes.PrototypesEditor;
 import org.osate.ge.ui.properties.PropertySectionUtil;
 import org.osgi.framework.Bundle;
@@ -70,7 +70,7 @@ public class PrototypesPropertySection extends AbstractPropertySection {
 	}
 
 	private BusinessObjectSelection selectedBos;
-	private final BusinessObjectSelectionPrototypesModel model = new BusinessObjectSelectionPrototypesModel(
+	private final PrototypesModel model = new PrototypesModel(
 			(prototypeSupplier, name, originalName) -> {
 				final AgeDiagramEditor editor = UiUtil.getActiveDiagramEditor();
 				if (editor == null) {

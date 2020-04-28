@@ -32,6 +32,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BooleanSupplier;
 
 import org.eclipse.draw2d.FigureCanvas;
@@ -48,6 +49,7 @@ import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swtbot.eclipse.finder.finders.WorkbenchContentsFinder;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
@@ -138,6 +140,30 @@ public class UiTestUtil {
 	 */
 	public static void waitForWindowWithTitle(final String title) {
 		bot.waitUntil(Conditions.shellIsActive(title));
+	}
+
+	/**
+	 * Waits for a window with the specified title to appear but is not the specified window.
+	 */
+	public static void waitForOtherWindowWithTitle(final String title, final Shell shellToIgnore) {
+		waitUntil(() -> {
+			final AtomicBoolean result = new AtomicBoolean(false);
+			Display.getDefault().syncExec(() -> {
+				final Shell activeShell = bot.getFinder().activeShell();
+				result.set(activeShell != null && activeShell != shellToIgnore
+						&& Objects.equals(title, bot.activeShell().getText()));
+			});
+
+			return result.get();
+		}, "Unable to find shell with title '" + title + "' which is also not the specified shell");
+	}
+
+	/**
+	 * Returns the active shell
+	 * @return the active shell
+	 */
+	public static Shell getActiveShell() {
+		return bot.getFinder().activeShell();
 	}
 
 	/**
@@ -259,6 +285,14 @@ public class UiTestUtil {
 	}
 
 	/**
+	 * Clicks the nth button which has the specified text.
+	 */
+	public static void clickButton(final String text, final int index) {
+		final SWTBotButton btn = bot.button(text, index);
+		btn.click();
+	}
+
+	/**
 	 * Clicks the button which has the specified testing ID.
 	 */
 	public static void clickButtonWithId(final String id) {
@@ -328,6 +362,10 @@ public class UiTestUtil {
 
 	public static void selectListWithIdItem(final String id, final String text) {
 		bot.listWithId(id).select(text);
+	}
+
+	public static void selectListItem(final int listIndex, final String text) {
+		bot.list(listIndex).select(text);
 	}
 
 	public static void doubleClickListItem(final int listIndex, final String text) {

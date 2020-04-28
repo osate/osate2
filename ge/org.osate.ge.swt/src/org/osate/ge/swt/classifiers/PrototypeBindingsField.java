@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.swt.name;
+package org.osate.ge.swt.classifiers;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -29,66 +29,92 @@ import java.util.function.Consumer;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.internal.InternalUtil;
+import org.osate.ge.swt.util.SwtTestUtil;
 
 /**
- * View for displaying a name and allowing it to be edited using the {@link NameEditorDialog}
+ * A component which allows selecting view and editing bindings for a node provided by a {@link PrototypeBindingsModel}.
  *
+ * @param <N> is the type of the node being edited.
+ * @param <D> is the type of the direction options.
+ * @param <T> is the type of the type options.
+ * @param <C> is the type of the classifiers.
  */
-public final class NameEditor extends Composite {
-	private final NameEditorModel model;
-	private final CLabel nameLbl;
-	private final Button renameBtn;
+public final class PrototypeBindingsField<N, D, T, C> extends Composite {
+	private static final String WIDGET_ID_PREFIX = "org.osate.ge.swt.classifiers.prototypeBindingsField.";
+	public static final String WIDGET_ID_SELECTED_LABEL = WIDGET_ID_PREFIX + "selectedLabel";
+	public static final String WIDGET_ID_EDIT_BUTTON = WIDGET_ID_PREFIX + "editButton";
+
+	private final PrototypeBindingsModel<N, D, T, C> model;
+	private N node;
+	private final Label selectedLbl;
+	private final Button editBtn;
 	private final Consumer<ChangeEvent> changeListener = e -> refresh();
 
-	public NameEditor(final Composite parent, final NameEditorModel model) {
+	/**
+	 * Create a new instance.
+	 * @param parent is the container for the new component.
+	 * @param model provides the information for the component.
+	 * @param initNode is the node from the model for which the component displays and sets values.
+	 */
+	public PrototypeBindingsField(final Composite parent, final PrototypeBindingsModel<N, D, T, C> model,
+			final N initNode) {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
+		this.node = initNode;
 		InternalUtil.setColorsToMatchParent(this);
+
 		this.setLayout(GridLayoutFactory.fillDefaults().numColumns(2).create());
 
-		this.nameLbl = new CLabel(this, SWT.BORDER);
-		this.nameLbl
-				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER).create());
+		this.selectedLbl = new Label(this, SWT.BORDER);
+		SwtTestUtil.setTestingId(this.selectedLbl, WIDGET_ID_SELECTED_LABEL);
+		this.selectedLbl
+				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER)
+						.minSize(200, SWT.DEFAULT)
+						.create());
 
-		this.renameBtn = new Button(this, SWT.FLAT);
-		this.renameBtn
+		this.editBtn = new Button(this, SWT.FLAT);
+		SwtTestUtil.setTestingId(this.editBtn, WIDGET_ID_EDIT_BUTTON);
+		this.editBtn
 				.setLayoutData(GridDataFactory.swtDefaults().grab(false, false).align(SWT.CENTER, SWT.CENTER).create());
-		this.renameBtn.setText("Rename");
-		this.renameBtn.addSelectionListener(new SelectionAdapter() {
+		this.editBtn.setText("Edit...");
+		this.editBtn.addSelectionListener(new SelectionAdapter() {
 			@Override
-			public void widgetSelected(SelectionEvent e) {
-				NameEditorDialog.open(getShell(), new NameEditorRenameDialogModel(model));
+			public void widgetSelected(final SelectionEvent e) {
+				PrototypeBindingsEditorDialog.open(getShell(), "Edit Prototype Bindings", model, node);
 			}
 		});
+		InternalUtil.setColorsToMatchParent(this.editBtn);
 
 		model.changed().addListener(changeListener);
 
 		refresh();
 	}
 
-	private void refresh() {
-		if (!this.isDisposed()) {
-			nameLbl.setText(model.getName());
-			setEnabled(model.isEnabled());
-		}
+	/**
+	 * Sets the node which this control is editing.
+	 * @param node the new node. May be null. Must be valid node as provided by the model.
+	 */
+	public void setNode(N node) {
+		this.node = node;
 	}
 
-	@Override
-	public void setEnabled(final boolean enabled) {
-		super.setEnabled(enabled);
-		renameBtn.setEnabled(enabled);
+	private void refresh() {
+		if (!this.isDisposed()) {
+			selectedLbl.setText(model.getChildrenLabel(node));
+			editBtn.setEnabled(model.getChildren(node).findAny().isPresent());
+		}
 	}
 
 	public static void main(String[] args) {
 		InternalUtil.run(shell -> {
-			new NameEditor(shell, new TestNameEditorModel());
+			new PrototypeBindingsField<>(shell, new TestPrototypeBindingsModel(), null);
 		});
 	}
 }

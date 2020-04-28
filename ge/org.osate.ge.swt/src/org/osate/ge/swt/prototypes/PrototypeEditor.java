@@ -32,6 +32,7 @@ import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.EventSource;
 import org.osate.ge.swt.check.CheckboxEditor;
@@ -57,7 +58,7 @@ public final class PrototypeEditor<C> extends Composite {
 
 	private final PrototypeEditorModel<C> model;
 	private final CheckboxEditor refinedEditor;
-	private final CLabel directionLabel;
+	private final Control directionLabel;
 	private final RadioSelector<PrototypeDirection> directionEditor;
 	private final CheckboxEditor arrayFlagEditor;
 	private final Consumer<ChangeEvent> changeListener = e -> refresh();
@@ -65,7 +66,7 @@ public final class PrototypeEditor<C> extends Composite {
 	public PrototypeEditor(final Composite parent, final PrototypeEditorModel<C> model) {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
-		this.setBackground(parent.getBackground());
+		InternalUtil.setColorsToMatchParent(this);
 		this.setLayout(GridLayoutFactory.fillDefaults().numColumns(2).create());
 
 		//
@@ -310,9 +311,9 @@ public final class PrototypeEditor<C> extends Composite {
 		}
 	}
 
-	private CLabel addLabel(final String txt) {
+	private Control addLabel(final String txt) {
 		final CLabel label = new CLabel(this, SWT.NONE);
-		label.setBackground(getBackground());
+		InternalUtil.setColorsToMatchParent(label);
 		label.setText(txt);
 		label.setLayoutData(GridDataFactory.swtDefaults().grab(false, false).align(SWT.FILL, SWT.CENTER).create());
 		return label;

@@ -25,7 +25,6 @@ package org.osate.ge.swt.classifiers;
 
 import java.util.Objects;
 import java.util.function.Consumer;
-import java.util.stream.Stream;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -37,22 +36,17 @@ import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
 import org.osate.ge.swt.ChangeEvent;
-import org.osate.ge.swt.EventSource;
-import org.osate.ge.swt.selectors.FilteringListSelector;
-import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
-import org.osate.ge.swt.selectors.SelectionDoubleClickedEvent;
-import org.osate.ge.swt.selectors.SelectorModel;
+import org.osate.ge.swt.internal.InternalUtil;
 
 /**
- * Dialog for selecting a classifier and prototype bindings. Values are set while the dialog is open and then reverted if the dialog is closed without pressing the OK button.
+ * Dialog for editing prototype bindings. Values are set while the dialog is open and then reverted if the dialog is closed without pressing the OK button.
  * This behavior is important because options displayed by the dialog may change based on current values.
  *
  */
-public class ClassifierWithBindingsDialog {
-	private ClassifierWithBindingsDialog() {
+public class PrototypeBindingsEditorDialog {
+	private PrototypeBindingsEditorDialog() {
 	}
 
 	/**
@@ -91,7 +85,6 @@ public class ClassifierWithBindingsDialog {
 		private final PrototypeBindingsModel<N, D, T, C> model;
 		private final N node;
 		private final Consumer<ChangeEvent> changeListener = e -> refresh();
-		private final Consumer<SelectionDoubleClickedEvent> selectionDoubleClickedListener = e -> okPressed();
 		private ScrolledComposite bindingsScrolled;
 
 		public InnerDialog(final Shell parent, final String title, final PrototypeBindingsModel<N, D, T, C> model,
@@ -116,72 +109,14 @@ public class ClassifierWithBindingsDialog {
 			container.setLayout(GridLayoutFactory.swtDefaults().numColumns(1).create());
 
 			//
-			// Classifier
-			//
-			// Determine preferred size for the classifier selector
-			final int classifierSelectorPreferredWidth = convertWidthInCharsToPixels(120);
-			final int classifierSelectorPreferredHeight = convertHeightInCharsToPixels(30);
-
-			final Group classifierGroup = new Group(container, SWT.SHADOW_ETCHED_IN);
-			classifierGroup.setText("Classifier");
-			classifierGroup
-					.setLayoutData(GridDataFactory.swtDefaults().grab(true, true).align(SWT.FILL, SWT.FILL).create());
-			classifierGroup.setLayout(GridLayoutFactory.swtDefaults().numColumns(1).create());
-
-			final FilteringListSelector<C> classifierSelector = new FilteringListSelector<>(classifierGroup,
-					new LabelFilteringListSelectorModel<>(new SelectorModel<C>() {
-
-						@Override
-						public EventSource<ChangeEvent> changed() {
-							return model.changed();
-						}
-
-						@Override
-						public Stream<C> getElements() {
-							return model.getClassifierOptions(node);
-						}
-
-						@Override
-						public String getLabel(C element) {
-							return model.getClassifierLabel(element);
-						}
-
-						@Override
-						public C getSelectedElement() {
-							return model.getClassifier(node);
-						}
-
-						@Override
-						public void setSelectedElement(C value) {
-							model.setClassifier(node, value);
-						}
-					}));
-
-
-			// Create contents
-			classifierSelector.setLayoutData(GridDataFactory.swtDefaults().grab(true, true)
-					.hint(classifierSelectorPreferredWidth, classifierSelectorPreferredHeight)
-					.align(SWT.FILL, SWT.FILL).create());
-
-			classifierSelector.selectionDoubleClicked()
-						.addListener(selectionDoubleClickedListener);
-
-
-			//
 			// Bindings
 			//
 			// Determine preferred size for the binding editor
 			final int bindingEditorPreferredWidth = convertWidthInCharsToPixels(120);
 			final int bindingEditorPreferredHeight = convertHeightInCharsToPixels(10);
 
-			final Group bindingsGroup = new Group(container, SWT.SHADOW_ETCHED_IN);
-			bindingsGroup.setText("Prototype Bindings");
-			bindingsGroup
-					.setLayoutData(GridDataFactory.swtDefaults().grab(true, true).align(SWT.FILL, SWT.FILL).create());
-			bindingsGroup.setLayout(GridLayoutFactory.swtDefaults().numColumns(1).create());
-
 			// Scrollable for Bindings
-			bindingsScrolled = new ScrolledComposite(bindingsGroup, SWT.H_SCROLL | SWT.V_SCROLL);
+			bindingsScrolled = new ScrolledComposite(container, SWT.H_SCROLL | SWT.V_SCROLL);
 			bindingsScrolled.setLayoutData(GridDataFactory.swtDefaults().grab(true, true)
 					.hint(bindingEditorPreferredWidth, bindingEditorPreferredHeight)
 					.align(SWT.FILL, SWT.FILL).create());
@@ -221,5 +156,12 @@ public class ClassifierWithBindingsDialog {
 				bindingsScrolled.setMinSize(minSize);
 			}
 		}
+	}
+
+	public static void main(String[] args) {
+		InternalUtil.runDialog(() -> {
+			PrototypeBindingsEditorDialog.open(null, "Select Classifier and Bindings",
+					new TestPrototypeBindingsModel(), null);
+		});
 	}
 }

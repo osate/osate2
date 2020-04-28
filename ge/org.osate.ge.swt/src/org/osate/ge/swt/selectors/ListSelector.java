@@ -59,7 +59,7 @@ public final class ListSelector<T> extends Composite implements SelectionDoubleC
 	public ListSelector(final Composite parent, final SelectorModel<T> model) {
 		super(parent, SWT.NONE);
 		this.wrappedModel = new NullRemovingSelectorModel(Objects.requireNonNull(model, "model must not be null"));
-		this.setBackground(parent.getBackground());
+		InternalUtil.setColorsToMatchParent(this);
 		this.setLayout(GridLayoutFactory.fillDefaults().numColumns(1).create());
 
 		this.listViewer = new org.eclipse.jface.viewers.ListViewer(this,

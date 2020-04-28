@@ -59,38 +59,7 @@ public class PrototypeBindingActualEditor<N, D, T, C> extends Composite {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
 		this.node = node;
-		this.setBackground(parent.getBackground());
-
-		// Direction
-		directionSelector = new ComboSelector<D>(this, new SelectorModel<D>() {
-			@Override
-			public EventSource<ChangeEvent> changed() {
-				return model.changed();
-			}
-
-			@Override
-			public Stream<D> getElements() {
-				return model.getDirectionOptions(node);
-			}
-
-			@Override
-			public String getLabel(D element) {
-				return model.getDirectionLabel(element);
-			}
-
-			@Override
-			public D getSelectedElement() {
-				return model.getDirection(node);
-			}
-
-			@Override
-			public void setSelectedElement(D value) {
-				model.setDirection(node, value);
-				model.flush();
-			}
-		});
-		directionSelector
-				.setLayoutData(GridDataFactory.swtDefaults().grab(false, false).align(SWT.FILL, SWT.CENTER).create());
+		InternalUtil.setColorsToMatchParent(this);
 
 		// Type
 		typeSelector = new ComboSelector<T>(this, new SelectorModel<T>() {
@@ -123,6 +92,37 @@ public class PrototypeBindingActualEditor<N, D, T, C> extends Composite {
 		typeSelector
 				.setLayoutData(GridDataFactory.swtDefaults().grab(false, false).align(SWT.FILL, SWT.CENTER).create());
 
+		// Direction
+		directionSelector = new ComboSelector<D>(this, new SelectorModel<D>() {
+			@Override
+			public EventSource<ChangeEvent> changed() {
+				return model.changed();
+			}
+
+			@Override
+			public Stream<D> getElements() {
+				return model.getDirectionOptions(node);
+			}
+
+			@Override
+			public String getLabel(D element) {
+				return model.getDirectionLabel(element);
+			}
+
+			@Override
+			public D getSelectedElement() {
+				return model.getDirection(node);
+			}
+
+			@Override
+			public void setSelectedElement(D value) {
+				model.setDirection(node, value);
+				model.flush();
+			}
+		});
+		directionSelector
+				.setLayoutData(GridDataFactory.swtDefaults().grab(false, false).align(SWT.FILL, SWT.CENTER).create());
+
 		// Classifier and bindings
 		classifierAndBindingSelector = new ClassifierWithBindingsField<>(this, model, node);
 		classifierAndBindingSelector
@@ -134,14 +134,14 @@ public class PrototypeBindingActualEditor<N, D, T, C> extends Composite {
 
 	private void refresh() {
 		if (!this.isDisposed()) {
+			InternalUtil.setVisibilityAndExclusion(typeSelector, model.getTypeOptions(node).limit(1).count() != 0);
 			InternalUtil.setVisibilityAndExclusion(directionSelector,
-					model.getDirectionOptions(node).findAny().isPresent());
-			InternalUtil.setVisibilityAndExclusion(typeSelector, model.getTypeOptions(node).findAny().isPresent());
-			InternalUtil.setVisibilityAndExclusion(classifierAndBindingSelector,
-					model.getClassifierOptions(node).findAny().isPresent());
+					model.getDirectionOptions(node).limit(1).count() != 0);
 
 			this.setLayout(GridLayoutFactory.swtDefaults().numColumns(oneIfVisible(directionSelector)
 					+ oneIfVisible(typeSelector) + oneIfVisible(classifierAndBindingSelector)).create());
+
+			this.requestLayout();
 		}
 	}
 

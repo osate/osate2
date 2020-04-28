@@ -40,7 +40,7 @@ import org.osate.aadl2.DirectionType;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.selection.AgeBusinessObjectSelection;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
-import org.osate.ge.internal.viewModels.BusinessObjectSelectionFeatureDirectionModel;
+import org.osate.ge.internal.viewModels.FeatureDirectionModel;
 import org.osate.ge.swt.selectors.RadioSelector;
 import org.osate.ge.ui.properties.PropertySectionUtil;
 
@@ -54,7 +54,7 @@ public class DirectionalFeaturePropertySection extends AbstractPropertySection {
 
 	private BusinessObjectSelection selectedBos;
 	private RadioSelector<DirectionType> directionView;
-	private final BusinessObjectSelectionFeatureDirectionModel directionModel = new BusinessObjectSelectionFeatureDirectionModel(
+	private final FeatureDirectionModel directionModel = new FeatureDirectionModel(
 			new AgeBusinessObjectSelection());
 
 	@Override

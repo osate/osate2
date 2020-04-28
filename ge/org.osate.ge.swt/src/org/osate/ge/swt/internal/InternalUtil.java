@@ -65,4 +65,9 @@ public class InternalUtil {
 			throw new RuntimeException("Unsupported layout data type: " + layoutData.getClass().getName());
 		}
 	}
+
+	public static void setColorsToMatchParent(final Control c) {
+		c.setBackground(c.getParent().getBackground());
+		c.setForeground(c.getParent().getForeground());
+	}
 }

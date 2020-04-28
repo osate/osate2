@@ -48,11 +48,11 @@ public class CheckboxEditor extends Composite {
 	public CheckboxEditor(final Composite parent, final CheckboxEditorModel model) {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
-		this.setBackground(parent.getBackground());
+		InternalUtil.setColorsToMatchParent(this);
 		this.setLayout(GridLayoutFactory.fillDefaults().numColumns(1).create());
 
 		check = new Button(this, SWT.CHECK);
-		check.setBackground(getBackground());
+		InternalUtil.setColorsToMatchParent(check);
 		check.setLayoutData(
 				GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.FILL).create());
 		check.addSelectionListener(new SelectionAdapter() {

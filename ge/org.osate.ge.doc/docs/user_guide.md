@@ -450,6 +450,9 @@ When viewing a component implementation diagram, a binding property associations
 ## Prototypes
 Prototypes can be edited by selecting a classifier and using the *AADL* tab of the *Properties* view (See @sec:properties_view).
 
+Classifier prototype bindings can be edited using the *AADL* tab of the *Properties* view (See @sec:properties_view). Subcomponent prototype bindings can be edited when selecting the component classifier.
+
+
 ## Editing Flow Implementations and End-to-End Flows
 When editing a component implementation, flow implementations and end-to-end flow can be edited using the flow editor.  The flow editor can be accessed by double-clicking the component implementation, selecting the *AADL* tab in the *Properties* view, and selecting *Edit...* from the *Flows* section.
 

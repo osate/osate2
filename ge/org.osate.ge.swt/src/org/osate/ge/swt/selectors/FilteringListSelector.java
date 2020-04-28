@@ -48,7 +48,7 @@ public final class FilteringListSelector<T> extends Composite implements Selecti
 	public FilteringListSelector(final Composite parent, final FilteringSelectorModel<T> model) {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
-		this.setBackground(parent.getBackground());
+		InternalUtil.setColorsToMatchParent(this);
 		this.setLayout(GridLayoutFactory.fillDefaults().numColumns(1).create());
 
 		// Field field to specify filter

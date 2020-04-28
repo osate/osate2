@@ -28,6 +28,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.osate.ge.swt.BaseObservableModel;
@@ -43,7 +44,7 @@ public class TestPrototypeBindingsModel extends BaseObservableModel
 	private Map<String, String> classifierMap = new HashMap<>();
 
 	public TestPrototypeBindingsModel() {
-		setClassifier("", "c1");
+		setClassifier(null, "c1");
 	}
 
 	@Override
@@ -69,6 +70,17 @@ public class TestPrototypeBindingsModel extends BaseObservableModel
 		}
 
 		return children.stream();
+	}
+
+	@Override
+	public String getValueLabel(final String node) {
+		return getDirectionLabel(getDirection(node)) + " : " + getTypeLabel(getType(node)) + " : "
+				+ getClassifierLabel(getClassifier(node)) + " (" + getChildrenLabel(node) + ")";
+	}
+
+	@Override
+	public String getChildrenLabel(final String node) {
+		return getChildren(node).map(c -> getLabel(c) + " => " + getValueLabel(c)).collect(Collectors.joining(","));
 	}
 
 	private static String node(final String parent, String label) {
@@ -147,6 +159,15 @@ public class TestPrototypeBindingsModel extends BaseObservableModel
 	public void setClassifier(final String node, final String value) {
 		classifierMap.put(node, value);
 		triggerChangeEvent();
+	}
+
+	@Override
+	public String validateNode(final String node) {
+		if (Objects.equals("c6", getClassifier(node))) {
+			return "Classifier must not be 'c6'";
+		}
+
+		return null;
 	}
 
 	@Override

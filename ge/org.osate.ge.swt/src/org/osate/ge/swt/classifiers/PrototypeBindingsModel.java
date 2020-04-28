@@ -55,6 +55,21 @@ public interface PrototypeBindingsModel<N, D, T, C> extends ObservableModel {
 	String getLabel(N node);
 
 	/**
+	 * Returns a string that can be shown to the user to describe the value of the node. This will generally contain the labels for the classifier, direction, type, and children.
+	 * @param node is the node for which to return the value label.
+	 * @return the value label for the node. Must not return null.
+	 */
+	String getValueLabel(N node);
+
+	/**
+	 * Returns a string that can be shown to the user to describe the children of the node. This will generally contain the name and value labels for the subset of children which
+	 * have values that can be displayed.
+	 * @param node is the node for which to return the children label.
+	 * @return the label for the children. Must not be null.
+	 */
+	String getChildrenLabel(N node);
+
+	/**
 	 * Returns values which may be set as the direction of the specified node.
 	 * @param node is the node for which to return potential direction values.
 	 * @return directions which may be set for the specified node.
@@ -137,6 +152,13 @@ public interface PrototypeBindingsModel<N, D, T, C> extends ObservableModel {
 	 * @param value the new classifier for the node.
 	 */
 	void setClassifier(N node, C value);
+
+	/**
+	 * Validates the value of a node. Returns an error message if an error is detected.
+	 * @param node is the node to validate.
+	 * @return an error message if validation failed. Otherwise, null.
+	 */
+	String validateNode(N node);
 
 	/**
 	 * Requests that changes be flushed to the underlying model.

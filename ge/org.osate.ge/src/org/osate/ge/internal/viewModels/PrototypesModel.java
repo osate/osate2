@@ -34,7 +34,6 @@ import java.util.stream.Stream;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
@@ -49,6 +48,7 @@ import org.osate.aadl2.FeatureGroupPrototype;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.MemoryPrototype;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.ProcessPrototype;
 import org.osate.aadl2.ProcessorPrototype;
@@ -64,8 +64,9 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.AadlImportsUtil;
+import org.osate.ge.internal.util.AadlPrototypeUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
-import org.osate.ge.internal.viewModels.BusinessObjectSelectionPrototypesModel.EditablePrototype;
+import org.osate.ge.internal.viewModels.PrototypesModel.EditablePrototype;
 import org.osate.ge.swt.BaseObservableModel;
 import org.osate.ge.swt.prototypes.PrototypeDirection;
 import org.osate.ge.swt.prototypes.PrototypeType;
@@ -82,8 +83,8 @@ import com.google.common.base.Strings;
  * on that.
  *
  */
-public class BusinessObjectSelectionPrototypesModel extends BaseObservableModel
-implements PrototypesEditorModel<EditablePrototype, Object> {
+public class PrototypesModel extends BaseObservableModel
+implements PrototypesEditorModel<EditablePrototype, NamedElementOrDescription> {
 	private final Renamer renamer;
 	private final NamingService namingService;
 	private BusinessObjectSelection bos;
@@ -135,7 +136,7 @@ implements PrototypesEditorModel<EditablePrototype, Object> {
 		}
 	}
 
-	public BusinessObjectSelectionPrototypesModel(final Renamer renamer,
+	public PrototypesModel(final Renamer renamer,
 			final NamingService namingService,
 			final BusinessObjectSelection bos) {
 		this.renamer = Objects.requireNonNull(renamer, "renamer must not be null");
@@ -366,7 +367,7 @@ implements PrototypesEditorModel<EditablePrototype, Object> {
 	}
 
 	@Override
-	public Stream<Object> getConstrainingClassifierOptions(final EditablePrototype prototype) {
+	public Stream<NamedElementOrDescription> getConstrainingClassifierOptions(final EditablePrototype prototype) {
 		if (prototype.prototype.eResource() == null) {
 			return Stream.empty();
 		}
@@ -383,63 +384,49 @@ implements PrototypesEditorModel<EditablePrototype, Object> {
 		}
 
 		// null is always a valid option
-		Stream<Object> options = Stream.of((Object) null);
+		Stream<NamedElementOrDescription> options = Stream.of((NamedElementOrDescription) null);
 
 		// Concatenate all classifiers that match the supported EClass
 		if (filterEClass != null) {
 			options = Stream.concat(options,
 					ScopedEMFIndexRetrieval.getAllEObjectsByType(prototype.prototype.eResource(), filterEClass).stream()
-					.map(Object.class::cast));
+					.map(NamedElementOrDescription::new));
 		}
 
 		return options;
 	}
 
 	@Override
-	public String getClassifierLabel(Object classifier) {
+	public String getClassifierLabel(NamedElementOrDescription classifier) {
 		if (classifier == null) {
 			return "<None>";
-		} else if (classifier instanceof Classifier) {
-			return ((Classifier) classifier).getQualifiedName();
-		} else if (classifier instanceof IEObjectDescription) {
-			return ((IEObjectDescription) classifier).getName().toString("::");
 		} else {
-			return "<Unknown>";
+			return classifier.getQualifiedName();
 		}
 	}
 
 	@Override
-	public Object getConstrainingClassifier(final EditablePrototype prototype) {
+	public NamedElementOrDescription getConstrainingClassifier(final EditablePrototype prototype) {
 		final Prototype p = prototype.prototype;
+		final NamedElement namedElement;
 		if (p instanceof ComponentPrototype) {
-			return ((ComponentPrototype) p).getConstrainingClassifier();
+			namedElement = ((ComponentPrototype) p).getConstrainingClassifier();
 		} else if (p instanceof FeatureGroupPrototype) {
-			return ((FeatureGroupPrototype) p).getConstrainingFeatureGroupType();
+			namedElement = ((FeatureGroupPrototype) p).getConstrainingFeatureGroupType();
 		} else if (p instanceof FeaturePrototype) {
-			return ((FeaturePrototype) p).getConstrainingClassifier();
+			namedElement = ((FeaturePrototype) p).getConstrainingClassifier();
 		} else {
-			return null;
+			namedElement = null;
 		}
+
+		return namedElement == null ? null : new NamedElementOrDescription(namedElement);
 	}
 
 	@Override
-	public void setConstrainingClassifier(final EditablePrototype prototype, final Object value) {
+	public void setConstrainingClassifier(final EditablePrototype prototype, final NamedElementOrDescription value) {
 		modifyPrototype("Set Constraining Classifier", prototype, p -> {
-			EObject classifier = null;
-			if (value == null) {
-				classifier = null;
-			} else if (value instanceof IEObjectDescription) {
-				classifier = ((IEObjectDescription) value).getEObjectOrProxy();
-			} else if (value instanceof Classifier) {
-				classifier = (EObject) value;
-			} else {
-				throw new RuntimeException("Unexpected value: " + classifier);
-			}
-
+			final EObject classifier = value.getResolvedValue(prototype.prototype.eResource().getResourceSet());
 			if (classifier != null) {
-				// Resolve the classifier in case it is a proxy
-				classifier = EcoreUtil.resolve(classifier, prototype.prototype.eResource());
-
 				// Import its package if necessary
 				final AadlPackage pkg = (AadlPackage) p.getElementRoot();
 				if (classifier instanceof Classifier && ((Classifier) classifier).getNamespace() != null
@@ -508,6 +495,12 @@ implements PrototypesEditorModel<EditablePrototype, Object> {
 			modifySelectedClassifier("Refine Prototype", prototype, c -> {
 				final Prototype refinement = (Prototype) c.createOwnedPrototype(prototype.prototype.eClass());
 				refinement.setRefined(prototype.prototype);
+				if (refinement instanceof FeaturePrototype) {
+					final FeaturePrototype fpRefinement = ((FeaturePrototype) refinement);
+					final FeaturePrototype fp = (FeaturePrototype) prototype.prototype;
+					fpRefinement.setIn(fp.isIn());
+					fpRefinement.setOut(fp.isOut());
+				}
 			});
 		} else {
 			// Remove refinement
@@ -528,7 +521,7 @@ implements PrototypesEditorModel<EditablePrototype, Object> {
 		value.bocStream().filter(boc -> boc.getBusinessObject() instanceof Classifier).forEachOrdered(boc -> {
 			final Classifier c = (Classifier) boc.getBusinessObject();
 			final String suffix = singleSelection ? "" : " [" + c.getQualifiedName() + "]";
-			getAllPrototypes(boc.getBusinessObject()).forEach(p -> {
+			AadlPrototypeUtil.getAllPrototypes(boc.getBusinessObject()).forEach(p -> {
 				final String name = p.getName();
 				if (!Strings.isNullOrEmpty(name)) {
 					prototypes.add(new EditablePrototype(boc, name + suffix, name, p));
@@ -564,28 +557,13 @@ implements PrototypesEditorModel<EditablePrototype, Object> {
 	}
 
 	/**
-	 * Gets all prototypes owned by the specified classifier or more general classifiers.
-	 * @param bo is the classifier for which to get prototypes.
-	 * @return a stream of prototype objects or an empty stream if the bo is not a classifier.
-	 */
-	private static Stream<Prototype> getAllPrototypes(final Object bo) {
-		if (bo instanceof ComponentClassifier) {
-			return ((ComponentClassifier) bo).getAllPrototypes().stream();
-		} else if (bo instanceof FeatureGroupType) {
-			return ((FeatureGroupType) bo).getAllPrototypes().stream();
-		} else {
-			return Stream.empty();
-		}
-	}
-
-	/**
 	 * Finds the prototype owned by the specified business object or a more general classifiers with the specified name.
 	 * @param bo is the classifier for which to get the prototype.
 	 * @param filterName is the name of the prototype for which to look.
 	 * @return an optional describing the prototype.
 	 */
 	private static Optional<Prototype> getPrototypeByName(final Object bo, final String filterName) {
-		return getAllPrototypes(bo).filter(p -> {
+		return AadlPrototypeUtil.getAllPrototypes(bo).filter(p -> {
 			final String name = p.getName();
 			if (name == null) {
 				return false;

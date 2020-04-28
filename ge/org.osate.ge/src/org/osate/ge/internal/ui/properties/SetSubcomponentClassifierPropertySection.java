@@ -71,7 +71,7 @@ import org.osate.ge.internal.util.classifiers.ClassifierOperation;
 import org.osate.ge.internal.util.classifiers.ClassifierOperationExecutor;
 import org.osate.ge.internal.util.classifiers.ClassifierOperationPartType;
 import org.osate.ge.internal.viewModels.BusinessObjectSelectionPrototypeBindingsModel;
-import org.osate.ge.internal.viewModels.SubcomponentBusinessObjectSelectionPrototypeBindingsModel;
+import org.osate.ge.internal.viewModels.SubcomponentPrototypeBindingsModel;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.swt.classifiers.ClassifierWithBindingsField;
 import org.osate.ge.ui.properties.PropertySectionUtil;
@@ -89,7 +89,7 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 	}
 
 	private BusinessObjectSelection selectedBos;
-	private final BusinessObjectSelectionPrototypeBindingsModel model = new SubcomponentBusinessObjectSelectionPrototypeBindingsModel(
+	private final BusinessObjectSelectionPrototypeBindingsModel model = new SubcomponentPrototypeBindingsModel(
 			new AgeBusinessObjectSelection());
 	private Control currentClassifier;
 	private Button createBtn;

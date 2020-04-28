@@ -52,7 +52,7 @@ public final class PrototypesEditor<T, C> extends Composite {
 	public PrototypesEditor(final Composite parent, final PrototypesEditorModel<T, C> model) {
 		super(parent, SWT.NONE);
 		Objects.requireNonNull(model, "model must not be null");
-		this.setBackground(parent.getBackground());
+		InternalUtil.setColorsToMatchParent(this);
 
 		this.setLayout(GridLayoutFactory.swtDefaults().numColumns(3).create());
 		this.listView = new ListEditor<>(this, new ListEditorModel<T>() {

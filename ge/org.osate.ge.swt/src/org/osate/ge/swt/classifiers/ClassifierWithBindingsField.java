@@ -25,7 +25,6 @@ package org.osate.ge.swt.classifiers;
 
 import java.util.Objects;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -65,7 +64,7 @@ public final class ClassifierWithBindingsField<N, D, T, C> extends Composite {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
 		this.node = initNode;
-		this.setBackground(parent.getBackground());
+		InternalUtil.setColorsToMatchParent(this);
 
 		this.setLayout(GridLayoutFactory.fillDefaults().numColumns(2).create());
 
@@ -74,7 +73,7 @@ public final class ClassifierWithBindingsField<N, D, T, C> extends Composite {
 				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER)
 						.minSize(200, SWT.DEFAULT)
 						.create());
-
+		InternalUtil.setColorsToMatchParent(this.selectedLbl);
 
 		this.chooseBtn = new Button(this, SWT.FLAT);
 		this.chooseBtn
@@ -86,8 +85,7 @@ public final class ClassifierWithBindingsField<N, D, T, C> extends Composite {
 				ClassifierWithBindingsDialog.open(getShell(), "Select Classifier and Prototype Bindings", model, node);
 			}
 		});
-		this.chooseBtn.setBackground(getBackground());
-		this.chooseBtn.setForeground(getForeground());
+		InternalUtil.setColorsToMatchParent(this.chooseBtn);
 
 		model.changed().addListener(changeListener);
 
@@ -120,48 +118,9 @@ public final class ClassifierWithBindingsField<N, D, T, C> extends Composite {
 
 	private void refresh() {
 		if (!this.isDisposed()) {
-			selectedLbl.setText(buildNodeValueDescription(node));
+			selectedLbl.setText(model.getValueLabel(node));
+			chooseBtn.setEnabled(model.getClassifierOptions(node).limit(1).count() != 0);
 		}
-	}
-
-	/**
-	 * Build a string that combines the labels of the node's direction, type, classifier, and children.
-	 * @param node is the node for which to build the label.
-	 * @return the build label.
-	 */
-	private String buildNodeValueDescription(final N node) {
-		final D direction = model.getDirection(node);
-		final T type = model.getType(node);
-		final C classifier = model.getClassifier(node);
-
-		final StringBuilder sb = new StringBuilder();
-		if (direction != null) {
-			sb.append(model.getDirectionLabel(direction));
-			sb.append(" ");
-		}
-
-		if (type != null) {
-			sb.append(model.getTypeLabel(type));
-			sb.append(" ");
-		}
-
-		if (classifier != null) {
-			sb.append(model.getClassifierLabel(classifier));
-		}
-
-		// Children
-		final String bindings = model.getChildren(node).filter(
-				c -> model.getDirection(c) != null || model.getType(c) != null || model.getClassifier(c) != null)
-				.map(c -> model.getLabel(c) + " => " + buildNodeValueDescription(c))
-				.collect(Collectors.joining(","));
-
-		if(!bindings.isEmpty()) {
-			sb.append("(");
-			sb.append(bindings);
-			sb.append(")");
-		}
-
-		return sb.toString();
 	}
 
 	public static void main(String[] args) {

@@ -40,13 +40,13 @@ import org.osate.ge.swt.selectors.SelectorModel;
  * Model implementation which is driven by a business object selection
  *
  */
-public class BusinessObjectSelectionFeatureDirectionModel extends BaseObservableModel
+public class FeatureDirectionModel extends BaseObservableModel
 implements SelectorModel<DirectionType> {
 	private BusinessObjectSelection bos;
 	private DirectionType direction = null;
 	private boolean enabled = false;
 
-	public BusinessObjectSelectionFeatureDirectionModel(final BusinessObjectSelection bos) {
+	public FeatureDirectionModel(final BusinessObjectSelection bos) {
 		setBusinessObjectSelection(bos);
 	}
 

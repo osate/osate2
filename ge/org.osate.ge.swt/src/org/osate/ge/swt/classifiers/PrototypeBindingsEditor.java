@@ -53,7 +53,7 @@ public class PrototypeBindingsEditor<B, D, T, C> extends Composite {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
 		this.parentBinding = parentBinding;
-		this.setBackground(parent.getBackground());
+		InternalUtil.setColorsToMatchParent(this);
 		this.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
 		model.changed().addListener(changeListener);
 		refresh();
@@ -67,7 +67,7 @@ public class PrototypeBindingsEditor<B, D, T, C> extends Composite {
 				// Label
 				final CLabel label = children.length > nextChildIndex ? (CLabel) children[nextChildIndex]
 						: new CLabel(this, SWT.BORDER);
-				label.setBackground(getBackground());
+				InternalUtil.setColorsToMatchParent(label);
 				label.setText(model.getLabel(b));
 				label.setLayoutData(
 						GridDataFactory.swtDefaults().grab(false, false).align(SWT.FILL, SWT.CENTER).create());

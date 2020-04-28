@@ -50,24 +50,31 @@ public final class FilteringListSelectorField<T> extends Composite {
 	private final Consumer<ChangeEvent> changeListener = e -> refresh();
 
 	public FilteringListSelectorField(final Composite parent, final FilteringSelectorModel<T> model) {
+		this(parent, "Select", model);
+	}
+
+	public FilteringListSelectorField(final Composite parent, final String dialogTitle,
+			final FilteringSelectorModel<T> model) {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
-		this.setBackground(parent.getBackground());
+		InternalUtil.setColorsToMatchParent(this);
 		this.setLayout(GridLayoutFactory.fillDefaults().numColumns(2).create());
 
 		this.selectedLbl = new CLabel(this, SWT.BORDER);
+		InternalUtil.setColorsToMatchParent(this.selectedLbl);
 		this.selectedLbl
 				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER)
 						.create());
 
 		this.chooseBtn = new Button(this, SWT.FLAT);
+		InternalUtil.setColorsToMatchParent(this.chooseBtn);
 		this.chooseBtn
 				.setLayoutData(GridDataFactory.swtDefaults().grab(false, false).align(SWT.CENTER, SWT.CENTER).create());
 		this.chooseBtn.setText("Choose...");
 		this.chooseBtn.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				FilteringSelectorDialog.open(getShell(), "Select", model);
+				FilteringSelectorDialog.open(getShell(), dialogTitle, model);
 			}
 		});
 
@@ -96,6 +103,7 @@ public final class FilteringListSelectorField<T> extends Composite {
 		if (!this.isDisposed()) {
 			selectedLbl.setText(model.getLabel(model.getSelectedElement()));
 			setEnabled(model.isEnabled());
+			requestLayout();
 		}
 	}
 
