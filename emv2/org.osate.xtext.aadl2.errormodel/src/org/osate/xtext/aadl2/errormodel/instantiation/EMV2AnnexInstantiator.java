@@ -49,6 +49,7 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.PropertyAssociationInstance;
+import org.osate.aadl2.instance.SystemInstance;
 import org.osate.annexsupport.AnnexInstantiator;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.CompositeStateInstance;
 import org.osate.xtext.aadl2.errormodel.EMV2Instance.ConstrainedInstanceObject;
@@ -166,8 +167,16 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			instantiatePropagationPath(ppath, emv2AI);
 		}
 
-		instantiateBindingPaths(instance, emv2AI);
+		// for bindings we need to first process all components EMV2 instantiations since the binding property instance
+		// is attached to the component being bound and points to the resource.
+		// During the depth first traversal the resource component may not have its EMV2 instantiated yet, thus, we cannot create the binding propagation path
+		// instance.
 
+		if (instance instanceof SystemInstance) {
+			for (ComponentInstance ci : EcoreUtil2.eAllOfType(instance, ComponentInstance.class)) {
+				instantiateBindingPaths(ci, emv2AI);
+			}
+		}
 	}
 
 
@@ -1194,6 +1203,9 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	private void instantiateBindingPropagationPaths(EMV2AnnexInstance annex, ComponentInstance comp,
 			ComponentInstance boundResource, String resourcebindingKind) {
 		EMV2AnnexInstance resourceAnnex = findEMV2AnnexInstance(boundResource);
+		if (resourceAnnex == null) {
+			return;
+		}
 		for (ConstrainedInstanceObject outGoing : allOutgoingBindingCIOs(boundResource, resourceAnnex, "bindings")) {
 			EList<TypeToken> outTypeTokens = outGoing.getConstraint();
 			for (TypeToken tt : outTypeTokens) {
