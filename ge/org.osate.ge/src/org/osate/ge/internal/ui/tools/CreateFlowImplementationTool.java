@@ -412,7 +412,7 @@ public class CreateFlowImplementationTool {
 					updateWidgets();
 				}
 			} else if (!isInit) {
-				setErrorMessage("Invalid element selected. " + "getDirectionMessage()");
+				setErrorMessage("Invalid element selected. " + getDirectionMessage());
 			}
 		}
 
