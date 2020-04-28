@@ -51,6 +51,7 @@ class EMV2InstantiationTests {
 	var primaryroot = null
 
 	var static SystemInstance GPSBasicInstance
+	var static SystemInstance GPSBasicBoundInstance
 
 
 	val modelroot = "org.osate.aadl2.errormodel.tests/models/instantiation/"
@@ -68,6 +69,7 @@ class EMV2InstantiationTests {
 			modelroot + GPSSystemFile
 		)
 		GPSBasicInstance = instanceGenerator(modelroot + GPSSystemFile, "GPS.basic")
+		GPSBasicBoundInstance = instanceGenerator(modelroot + GPSSystemFile, "GPS.BasicBound")
 	}
 
 	def SystemInstance instanceGenerator(String filename, String rootclassifier) {
@@ -84,18 +86,14 @@ class EMV2InstantiationTests {
 		return InstantiateModel::instantiate(sysImpl)
 	}
 
-	/**
-	 * example of simple composite error state with an AND operator.
-	 * The subcomponents have two states and a transition triggered by an error event.
-	 * The error event is a Basic Event.
-	 */
+
 	@Test
 	def void testGPSBasic() {
 		val system = GPSBasicInstance
 		val GPSEMV2 = system.annexInstances.get(0) as EMV2AnnexInstance
 		GPSEMV2 => [
-			assertTrue(3 == errorFlows.size() )
-			assertTrue(9 == propagationPaths.size() )
+			assertTrue(5 == errorFlows.size() )
+			assertTrue(19 == propagationPaths.size() )
 			assertTrue(1 == errorPropagationConditions.size() )
 			assertTrue(null !== stateMachine )
 			assertTrue(1 == transitions.size())
@@ -103,7 +101,31 @@ class EMV2InstantiationTests {
 		val sensor1 = findComponent(system,"SatelliteSignalReceiver1")
 		val sensor1EMV2 = sensor1.annexInstances.get(0) as EMV2AnnexInstance
 		sensor1EMV2 => [
-			assertTrue(1 == errorFlows.size() )
+			assertTrue(4 == errorFlows.size() )
+			assertTrue(4 == (inPropagations+outPropagations).size() )
+			assertTrue(null !== stateMachine )
+			assertTrue(1 == transitions.size())
+			assertTrue(1 == events.size() )
+			val eventInstance = events.get(0)
+			assertTrue(eventInstance.ownedPropertyAssociations.size == 1)
+		]
+	}
+	
+	@Test
+	def void testGPSBasicBound() {
+		val system = GPSBasicBoundInstance
+		val GPSEMV2 = system.annexInstances.get(0) as EMV2AnnexInstance
+		GPSEMV2 => [
+			assertTrue(5 == errorFlows.size() )
+			assertTrue(22 == propagationPaths.size() )
+			assertTrue(1 == errorPropagationConditions.size() )
+			assertTrue(null !== stateMachine )
+			assertTrue(1 == transitions.size())
+		]
+		val sensor1 = findComponent(system,"SatelliteSignalReceiver1")
+		val sensor1EMV2 = sensor1.annexInstances.get(0) as EMV2AnnexInstance
+		sensor1EMV2 => [
+			assertTrue(4 == errorFlows.size() )
 			assertTrue(4 == (inPropagations+outPropagations).size() )
 			assertTrue(null !== stateMachine )
 			assertTrue(1 == transitions.size())
