@@ -91,7 +91,11 @@ public class ClassifierWithBindingsDialog {
 		private final PrototypeBindingsModel<N, D, T, C> model;
 		private final N node;
 		private final Consumer<ChangeEvent> changeListener = e -> refresh();
-		private final Consumer<SelectionDoubleClickedEvent> selectionDoubleClickedListener = e -> okPressed();
+		private final Consumer<SelectionDoubleClickedEvent> selectionDoubleClickedListener = e -> {
+			if(getErrorMessage() == null) {
+				okPressed();
+			}
+		};
 		private ScrolledComposite bindingsScrolled;
 
 		public InnerDialog(final Shell parent, final String title, final PrototypeBindingsModel<N, D, T, C> model,

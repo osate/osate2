@@ -46,7 +46,6 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
@@ -81,6 +80,10 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Sets;
 
 public class SetSubcomponentClassifierPropertySection extends AbstractPropertySection {
+	private static String WIDGET_ID_PREFIX = "org.osate.ge.internal.ui.properties.setSubcomponentClassifierPropertySection.";
+	public static String WIDGET_ID_CURRENT_CLASSIFIER_LABEL = WIDGET_ID_PREFIX + "currentClassifier";
+	public static String WIDGET_ID_CHOOSE_CLASSIFIER_BUTTON = WIDGET_ID_PREFIX + "chooseClassifier";
+
 	public static class Filter implements IFilter {
 		@Override
 		public boolean select(final Object toTest) {
@@ -91,7 +94,7 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 	private BusinessObjectSelection selectedBos;
 	private final BusinessObjectSelectionPrototypeBindingsModel model = new SubcomponentPrototypeBindingsModel(
 			new AgeBusinessObjectSelection());
-	private Control currentClassifier;
+	private ClassifierWithBindingsField<?, ?, ?, ?> currentClassifier;
 	private Button createBtn;
 
 	@Override
@@ -103,6 +106,8 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 		InternalPropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Classifier:");
 
 		currentClassifier = new ClassifierWithBindingsField<>(container, model, null);
+		currentClassifier.setLabelTestingId(WIDGET_ID_CURRENT_CLASSIFIER_LABEL);
+		currentClassifier.setChooseButtonTestingId(WIDGET_ID_CHOOSE_CLASSIFIER_BUTTON);
 		fd = new FormData();
 		fd.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
 		fd.top = new FormAttachment(0, ITabbedPropertyConstants.VSPACE);

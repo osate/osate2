@@ -126,7 +126,9 @@ public class PrototypeEndToEndTest {
 			waitForWindowWithTitle("Select Classifier and Prototype Bindings");
 			selectListItem(0, "interfaces::subsystem_interface");
 			clickButton("OK");
-		}, subsystemExt);
+		},
+				"iface_pt => interfaces::subsystem_interface",
+				subsystemExt);
 	}
 
 	// Creates a test system implementation and subsystem which uses the previously created interface feature group and subsystem
@@ -151,7 +153,7 @@ public class PrototypeEndToEndTest {
 
 			// Edit the binding for event_fpt
 			final Shell bindingDialog = getActiveShell();
-			setComboBoxSelection(0, "data");
+			setComboBoxSelection(0, "data port");
 			setComboBoxSelection(1, "out");
 			clickButton("Choose...", 0);
 			waitForOtherWindowWithTitle("Select Classifier and Prototype Bindings", bindingDialog);
@@ -166,12 +168,37 @@ public class PrototypeEndToEndTest {
 
 			// Confirm the dialog for the binding for iface_pt
 			clickButton("OK");
-		}, element(pkg, getClassifierRelativeReference("test_system.impl"), getSubcomponentRelativeReference("ss")));
+		}, "prototype_test::subsystem(iface_pt => interfaces::subsystem_interface(event_fpt => out data port Base_Types::Integer, message_cpt => Base_Types::String))",
+				element(pkg, getClassifierRelativeReference("test_system.impl"),
+						getSubcomponentRelativeReference("ss")));
 
+		// Create another subsystem subcomponent without configuring the classifier
+		createElementAndLayout(diagram, element(pkg, getClassifierRelativeReference("test_system.impl")),
+				"System Subcomponent", getSubcomponentRelativeReference("test_system_impl_new_subcomponent"), "ss2");
+
+		// Check the current classifier label with selecting multiple subcomponents with classifiers which do not match.
+		checkSubcomponentClassifier(diagram, "<Multiple>",
+				element(pkg, getClassifierRelativeReference("test_system.impl"),
+						getSubcomponentRelativeReference("ss")),
+				element(pkg, getClassifierRelativeReference("test_system.impl"),
+						getSubcomponentRelativeReference("ss2")));
+
+		// Create another subsystem subcomponent and set the classifier to match the first subsystem but do not configure bindings.
+		createElementAndLayout(diagram, element(pkg, getClassifierRelativeReference("test_system.impl")),
+				"System Subcomponent", getSubcomponentRelativeReference("test_system_impl_new_subcomponent"), "ss3");
+		setSubcomponentClassifierFromPropertiesView(diagram, "prototype_test::subsystem", element(pkg,
+				getClassifierRelativeReference("test_system.impl"), getSubcomponentRelativeReference("ss3")));
+
+		// Check the current classifier label with selecting multiple subcomponents with the same classifier but different bindings
+		checkSubcomponentClassifier(diagram, "<Multiple>",
+				element(pkg, getClassifierRelativeReference("test_system.impl"),
+						getSubcomponentRelativeReference("ss")),
+				element(pkg, getClassifierRelativeReference("test_system.impl"),
+						getSubcomponentRelativeReference("ss3")));
 	}
 
 	// Assumes the prototype_test package exists
-	// Create prototypes of various types. More exhaustive than other tests.
+	// Create, edits, and views prototypes and bindings of various types. More exhaustive than other tests.
 	private void createAndEditPrototypes() {
 		final DiagramReference diagram = defaultDiagram(PROTOTYPE_TEST, PROTOTYPE_TEST);
 		final DiagramElementReference pkgElement = packageElement(PROTOTYPE_TEST);
@@ -237,6 +264,13 @@ public class PrototypeEndToEndTest {
 		setPrototypeConstrainingClassifier(diagram, "feature_pt", "Base_Types::Boolean", top);
 
 		//
+		// Create a second feature prototype
+		//
+		createPrototype(diagram, "top_new_prototype", element(pkg, getClassifierRelativeReference("top")));
+		renamePrototype(diagram, "top_new_prototype", "ss_event_fpt", top);
+		setPrototypeType(diagram, "ss_event_fpt", "Feature", top);
+
+		//
 		// Create a prototype and then remove it
 		//
 		createPrototype(diagram, "top_new_prototype", top);
@@ -248,6 +282,69 @@ public class PrototypeEndToEndTest {
 		// Refinement
 		//
 		setPrototypeRefined(diagram, "feature_pt", "prototype_test::top", false, true, topExt);
-		renamePrototype(diagram, "feature_pt", "feature_pt_renamed", topExt);
+		renamePrototype(diagram, "feature_pt", "fpt", topExt);
+
+		//
+		// Bindings
+		//
+		// Create types to use for the bindings
+		createElementAndLayout(diagram, pkgElement, "Bus Type", getClassifierRelativeReference("new_classifier"),
+				"test_bus");
+		createElementAndLayout(diagram, pkgElement, "Virtual Bus Type",
+				getClassifierRelativeReference("new_classifier"), "test_virtual_bus");
+		createElementAndLayout(diagram, pkgElement, "Subprogram Type", getClassifierRelativeReference("new_classifier"),
+				"test_sp");
+		createElementAndLayout(diagram, pkgElement, "Subprogram Group Type",
+				getClassifierRelativeReference("new_classifier"), "test_spg");
+
+		// Actually set bindings
+		updateTopExtFeatureBinding("bus access", "provides", "prototype_test::test_bus");
+		updateTopExtFeatureBinding("bus access", "requires", "prototype_test::test_bus");
+		updateTopExtFeatureBinding("data access", "provides", "Base_Types::Float");
+		updateTopExtFeatureBinding("data access", "requires", "Base_Types::Float_32");
+		updateTopExtFeatureBinding("subprogram access", "provides", "prototype_test::test_sp");
+		updateTopExtFeatureBinding("subprogram access", "requires", "prototype_test::test_sp");
+		updateTopExtFeatureBinding("subprogram group access", "provides", "prototype_test::test_spg");
+		updateTopExtFeatureBinding("subprogram group access", "requires", "prototype_test::test_spg");
+		updateTopExtFeatureBinding("virtual bus access", "provides", "prototype_test::test_virtual_bus");
+		updateTopExtFeatureBinding("virtual bus access", "requires", "prototype_test::test_virtual_bus");
+		updateTopExtFeatureBinding("data port", "in", "Base_Types::Float_64");
+		updateTopExtFeatureBinding("data port", "out", "Base_Types::Integer");
+		updateTopExtFeatureBinding("event port", "in", "<None>", false, "fpt => in event port ");
+		updateTopExtFeatureBinding("event port", "out", "<None>", false, "fpt => out event port ");
+		updateTopExtFeatureBinding("event data port", "in", "Base_Types::Float_64");
+		updateTopExtFeatureBinding("event data port", "out", "Base_Types::Integer");
+		updateTopExtFeatureBinding("prototype", "in", "prototype_test::top.ss_event_fpt");
+
+		// Chagne the binding and then cancel to revert changes
+		updateTopExtFeatureBinding("bus access", "provides", "prototype_test::test_bus", true,
+				"fpt => in prototype prototype_test::top.ss_event_fpt");
+
+		// Check the value of the classifier prototype bindings label when both top and top_ext are selected.
+		checkClassifierPrototypeBindings(diagram, "<Multiple Elements Selected>", top, topExt);
+	}
+
+	// Updates the "fpt" binding for the "top_ext" type. Assumes the feature prototype is the second prototype and the first feature prototype in the
+	// prototype binding editor.
+	private void updateTopExtFeatureBinding(final String type, final String direction, final String classifier,
+			final boolean cancel, final String expectedNewLabelText) {
+		final DiagramReference diagram = defaultDiagram(PROTOTYPE_TEST, PROTOTYPE_TEST);
+		final DiagramElementReference topExt = element(getPackageRelativeReference(PROTOTYPE_TEST),
+				getClassifierRelativeReference("top_ext"));
+
+		setClassifierPrototypeBindingsFromPropertiesView(diagram, () -> {
+			// Edit the binding for fpt
+			setComboBoxSelection(0, type);
+			setComboBoxSelection(1, direction);
+			clickButton("Choose...", 1);
+			waitForWindowWithTitle("Select Classifier and Prototype Bindings");
+			selectListItem(0, classifier);
+			clickButton("OK");
+		}, cancel, expectedNewLabelText, topExt);
+	}
+
+	private void updateTopExtFeatureBinding(final String type, final String direction, final String classifier) {
+		updateTopExtFeatureBinding(type, direction, classifier, false,
+				"fpt => " + direction + " " + type + " " + classifier);
 	}
 }

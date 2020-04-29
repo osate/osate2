@@ -42,6 +42,7 @@ import org.eclipse.swt.widgets.Event;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.ui.editor.FlowContributionItem;
 import org.osate.ge.internal.ui.properties.AbstractFeaturePrototypePropertySection;
+import org.osate.ge.internal.ui.properties.SetSubcomponentClassifierPropertySection;
 import org.osate.ge.swt.classifiers.PrototypeBindingsField;
 
 import com.google.common.collect.ImmutableList;
@@ -466,20 +467,25 @@ public class OsateGeTestCommands {
 		clickButton("OK");
 	}
 
+	/**
+	 * Variant of {@link #setSubcomponentClassifierFromPropertiesView(DiagramReference, String, Runnable, String, DiagramElementReference...)
+	 * Assumes the final label will match the specified classifier value.
+	 */
 	public static void setSubcomponentClassifierFromPropertiesView(final DiagramReference diagram,
 			final String classifier, final DiagramElementReference... elements) {
 		setSubcomponentClassifierFromPropertiesView(diagram, classifier, () -> {
-		}, elements);
+		}, classifier, elements);
 	}
 
 	/**
 	 * Sets the classifier for subcomponent elements using the Properties view.
 	 * @param classifier the classifier qualified name
 	 * @param extra is a runnable called before selecting OK to perform additional operations. For example: to configure bindings.
+	 * @param expectedNewLabelText the text label that is expected after editing.
 	 * @param elements the elements for which to set the classifier
 	 */
 	public static void setSubcomponentClassifierFromPropertiesView(final DiagramReference diagram,
-			final String classifier, Runnable extra, final DiagramElementReference... elements) {
+			final String classifier, Runnable extra, final String expectedNewLabelText, final DiagramElementReference... elements) {
 		openDiagramEditor(diagram);
 		selectDiagramElements(diagram, elements);
 
@@ -487,7 +493,7 @@ public class OsateGeTestCommands {
 		setViewFocus("Properties");
 
 		clickPropertiesViewTab("AADL");
-		clickButton("Choose...");
+		clickButtonWithId(SetSubcomponentClassifierPropertySection.WIDGET_ID_CHOOSE_CLASSIFIER_BUTTON);
 		waitForWindowWithTitle("Select Classifier and Prototype Bindings");
 
 		selectListItem(0, classifier);
@@ -495,14 +501,49 @@ public class OsateGeTestCommands {
 		extra.run();
 
 		clickButton("OK");
+
+		// Wait until the current classifier label has been updated
+		waitUntilCLabelWithIdTextMatches(SetSubcomponentClassifierPropertySection.WIDGET_ID_CURRENT_CLASSIFIER_LABEL,
+				expectedNewLabelText);
+	}
+
+	public static void checkSubcomponentClassifier(final DiagramReference diagram, final String labelText,
+			final DiagramElementReference... elements) {
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, elements);
+
+		assertViewIsVisible("Properties");
+		setViewFocus("Properties");
+
+		clickPropertiesViewTab("AADL");
+
+		// Wait until the current classifier label is the expected value
+		waitUntilCLabelWithIdTextMatches(SetSubcomponentClassifierPropertySection.WIDGET_ID_CURRENT_CLASSIFIER_LABEL,
+				labelText);
 	}
 
 	/**
 	 * Edits a classifier's bindings using the Properties view.
 	 * @param modifier is a runnable called to perform actual edits before selecting OK.
+	 * @param expectedNewLabelText the text for the classifier's current prototype bindings label that is expected after editing.
 	 * @param elements the elements for which to edit bindings.
 	 */
 	public static void setClassifierBindingsFromPropertiesView(final DiagramReference diagram, final Runnable modifier,
+			final String expectedNewLabelText,
+			final DiagramElementReference... elements) {
+		setClassifierPrototypeBindingsFromPropertiesView(diagram, modifier, false, expectedNewLabelText, elements);
+	}
+
+	/**
+	 * Edits a classifier's bindings using the Properties view.
+	 * @param modifier is a runnable called to perform actual edits before selecting OK.
+	 * @param expectedNewLabelText the text for the classifier's current prototype bindings label that is expected after editing.
+	 * @param cancel whether to cancel the edit. If true then "Cancel" is selected rather than "OK".
+	 * @param elements the elements for which to edit bindings.
+	 */
+	public static void setClassifierPrototypeBindingsFromPropertiesView(final DiagramReference diagram, final Runnable modifier,
+			final boolean cancel,
+			final String expectedNewLabelText,
 			final DiagramElementReference... elements) {
 		openDiagramEditor(diagram);
 		selectDiagramElements(diagram, elements);
@@ -516,7 +557,31 @@ public class OsateGeTestCommands {
 
 		modifier.run();
 
-		clickButton("OK");
+		if (cancel) {
+			clickButton("Cancel");
+		} else {
+			clickButton("OK");
+		}
+
+		// Wait until the classifier's prototype bindings label has been updated
+		waitUntilLabelWithIdTextMatches(PrototypeBindingsField.WIDGET_ID_SELECTED_LABEL, expectedNewLabelText);
+	}
+
+	/**
+	 * Waits until the current prototype bindings label for the specified classifier matches the given label text
+	 */
+	public static void checkClassifierPrototypeBindings(final DiagramReference diagram, final String labelText,
+			final DiagramElementReference... elements) {
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, elements);
+
+		assertViewIsVisible("Properties");
+		setViewFocus("Properties");
+
+		clickPropertiesViewTab("AADL");
+
+		// Wait until the classifier's prototype bindings label is the expected value
+		waitUntilLabelWithIdTextMatches(PrototypeBindingsField.WIDGET_ID_SELECTED_LABEL, labelText);
 	}
 
 	/**

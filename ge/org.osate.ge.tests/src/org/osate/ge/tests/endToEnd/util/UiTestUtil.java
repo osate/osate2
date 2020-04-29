@@ -233,7 +233,6 @@ public class UiTestUtil {
 		assertComboBoxSelection("New value not valid", index, value);
 	}
 
-
 	/**
 	 * Sets the combo box with specified ID to the specified value.
 	 */
@@ -354,8 +353,7 @@ public class UiTestUtil {
 		assertEquals("Unexpected number of table rows", expectedValue, getNumberOfTableRows(tableIndex));
 	}
 
-	public static void assertTableItemText(final int tableIndex, final int rowIndex,
-			final String expectedValue) {
+	public static void assertTableItemText(final int tableIndex, final int rowIndex, final String expectedValue) {
 		assertEquals("Unexpected table item text", expectedValue,
 				bot.table(tableIndex).getTableItem(rowIndex).getText());
 	}
@@ -370,6 +368,13 @@ public class UiTestUtil {
 
 	public static void doubleClickListItem(final int listIndex, final String text) {
 		bot.list(listIndex).doubleClick(text);
+	}
+
+	/**
+	 * Returns whether the text for a Label with the specified id
+	 */
+	public static String getTextForlabelWithId(final String id) {
+		return bot.labelWithId(id).getText();
 	}
 
 	/**
@@ -754,25 +759,23 @@ public class UiTestUtil {
 			final DiagramElementReference... elements) {
 		final AgeDiagramEditor editor = getDiagramEditor(diagram);
 
-		final List<EditPart> editPartsToSelect = new ArrayList<>();
+		final List<PictogramElement> pictogramElementsToSelect = new ArrayList<>();
 		for (int i = 0; i < elements.length; i++) {
 			final DiagramElementReference element = elements[i];
 			final DiagramElement de = getDiagramElement(diagram, element)
 					.orElseThrow(() -> new RuntimeException("Cannot find element for '" + element + "'."));
-
 			final PictogramElement pe = editor.getGraphitiAgeDiagram().getPictogramElement(de);
-			final EditPart editPart = editor.getDiagramBehavior().getEditPartForPictogramElement(pe);
-			assertNotNull("Edit part is null", editPart);
-			editPartsToSelect.add(editPart);
+			pictogramElementsToSelect.add(pe);
 		}
 
-		final SWTBotGefEditor editorBot = getDiagramEditorBot(diagram);
-		final List<SWTBotGefEditPart> partBots = findEditParts(editorBot, editPartsToSelect);
-		editorBot.select(partBots);
+		final PictogramElement[] pictogramElementsToSelectArray = pictogramElementsToSelect.toArray(new PictogramElement[pictogramElementsToSelect.size()]);
+		Display.getDefault().syncExec(() -> {
+			editor.selectPictogramElements(pictogramElementsToSelectArray);
+		});
 
-		// Assert elements are selected
-		assertTrue("Elements '" + getDiagramElementReferences(elements) + "' were not selected",
-				editorBot.selectedEditParts().containsAll(partBots));
+		waitUntil(() -> {
+			return Arrays.equals(pictogramElementsToSelectArray, editor.getSelectedPictogramElements());
+		}, "Elements '" + getDiagramElementReferences(elements) + "' are not selected");
 	}
 
 	private static String getDiagramElementReferences(final DiagramElementReference... elements) {

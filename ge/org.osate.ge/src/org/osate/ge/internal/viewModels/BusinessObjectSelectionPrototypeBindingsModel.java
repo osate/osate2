@@ -145,7 +145,7 @@ PrototypeBindingsModel<PrototypeBindingsModelNode, Object, PrototypeBindingType,
 		}
 
 		return getChildren(node).filter(c -> getDirection(c) != null || getType(c) != null || getClassifier(c) != null)
-				.map(c -> getLabel(c) + " => " + getValueLabel(c)).collect(Collectors.joining(","));
+				.map(c -> getLabel(c) + " => " + getValueLabel(c)).collect(Collectors.joining(", "));
 	}
 
 	@Override
@@ -259,6 +259,7 @@ PrototypeBindingsModel<PrototypeBindingsModelNode, Object, PrototypeBindingType,
 		} else if (bo instanceof FeaturePrototype && type instanceof FeatureReferenceBindingType) {
 			filterEClasses = Stream.empty();
 			prototypeFilter = FeaturePrototype.class;
+			includeNull = false;
 		} else {
 			filterEClasses = Stream.empty();
 			prototypeFilter = null;
@@ -338,16 +339,56 @@ PrototypeBindingsModel<PrototypeBindingsModelNode, Object, PrototypeBindingType,
 
 	@Override
 	public final String validateNode(final PrototypeBindingsModelNode node) {
-		return validateNode(node, 1);
+		return validateClassifierAndChildren(node, 1);
 	}
 
 	/**
-	 * Validates a node and optionally validates children.
+	 * Validates just the classifier and children. Does not validate top level type and direction.
+	 * This is expected behavior because this view model is used for cases such as a select classifier dialog
+	 * where validation of the type of the same level is not desired.
 	 * @param node is the node to validate.
-	 * @param depthToValidate is the number of additional levels of children to validate. 0 disabled the validaton of children.
+	 * @param depthToValidate is the number of additional levels of children to validate. 0 disabled the validation of children.
 	 * @return an error message describing an error if validation fails. Otherwise, null.
 	 */
-	private final String validateNode(final PrototypeBindingsModelNode node, final int depthToValidate) {
+	private final String validateClassifierAndChildren(final PrototypeBindingsModelNode node,
+			final int depthToValidate) {
+		final PrototypeBindingsModelNodeData data = data(node);
+
+		// Perform validation for the classifier of feature prototypes.
+		if (data.bo instanceof FeaturePrototype) {
+			final PrototypeBindingType type = data.type;
+			if (type instanceof FeatureReferenceBindingType) {
+				if (data.classifier == null
+						|| !(data.classifier.getResolvedValue(resourceSet) instanceof FeaturePrototype)) {
+					return "Component classifier not set";
+				}
+			}
+		}
+
+		// Stop recursing if we've reached the requested depth
+		if (depthToValidate <= 0) {
+			return null;
+		}
+
+		// Check children
+		return getChildren(node).map(c -> {
+			final String error = validateChild(c, depthToValidate - 1);
+			return error == null ? error : getLabel(c) + ": " + error;
+		}).filter(e -> e != null).findFirst().orElse(null);
+	}
+
+	/**
+	 * Validates a node's classifier and children and then performs validation of the direction of access and port specifications.
+	 * @param node is the node to validate.
+	 * @param depthToValidate is the number of additional levels of children to validate. 0 disabled the validation of children.
+	 * @return an error message describing an error if validation fails. Otherwise, null.
+	 */
+	private final String validateChild(final PrototypeBindingsModelNode node, final int depthToValidate) {
+		final String result = validateClassifierAndChildren(node, depthToValidate);
+		if (result != null) {
+			return result;
+		}
+
 		final PrototypeBindingsModelNodeData data = data(node);
 
 		// Perform validation for feature prototypes. Feature prototypes have multiple fields and multiple fields must be set in order for the binding to be
@@ -357,37 +398,16 @@ PrototypeBindingsModel<PrototypeBindingsModelNode, Object, PrototypeBindingType,
 			final PrototypeBindingType type = data.type;
 			if (type instanceof AccessSpecificationBindingType) {
 				if (!(data.direction instanceof AccessType)) {
-					return "access type not set";
-				} else if (data.classifier == null
-						|| !(data.classifier.getResolvedValue(resourceSet) instanceof ComponentClassifier)) {
-					return "component classifier not set";
+					return "Access type not set";
 				}
 			} else if (type instanceof PortSpecificationBindingType) {
 				if (!(data.direction instanceof DirectionType)) {
 					return "Port direction not set";
-				} else if (data.classifier == null
-						|| !(data.classifier.getResolvedValue(resourceSet) instanceof ComponentClassifier)) {
-					return "component classifier not set";
-				}
-			} else if (type instanceof FeatureReferenceBindingType) {
-				if (data.classifier == null
-						|| !(data.classifier.getResolvedValue(resourceSet) instanceof ComponentClassifier)) {
-					return "component classifier not set";
 				}
 			}
 		}
 
-		// Stop recursing if we've reached the requested depth
-		if(depthToValidate <= 0) {
-			return null;
-		}
-
-		// Check children
-		return getChildren(node).map(c -> {
-			final String error = validateNode(c, depthToValidate - 1);
-			return error == null ? error : getLabel(c) + ": " + error;
-		}).filter(e -> e != null).findFirst()
-				.orElse(null);
+		return null;
 	}
 
 	/**
@@ -877,7 +897,7 @@ class PortSpecificationBindingType extends PrototypeBindingType {
 
 	@Override
 	public String getLabel() {
-		return StringUtil.camelCaseToUser(this.category.toString()).toLowerCase();
+		return StringUtil.camelCaseToUser(this.category.toString()).toLowerCase() + " port";
 	}
 
 	public final PortCategory getCategory() {
@@ -914,7 +934,7 @@ class AccessSpecificationBindingType extends PrototypeBindingType {
 
 	@Override
 	public String getLabel() {
-		return "access " + this.category.toString();
+		return this.category.toString() + " access";
 	}
 
 	public final AccessCategory getCategory() {

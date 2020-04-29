@@ -313,10 +313,18 @@ public class OsateGeTestUtil {
 	}
 
 	/**
+	 * Waits until the text contained in a Label with the specified ID matches the specified value.
+	 */
+	public static void waitUntilLabelWithIdTextMatches(final String id, final String value) {
+		waitUntil(() -> Objects.deepEquals(getTextForlabelWithId(id), value),
+				"Label text of '" + id + "' is not '" + value + "'. Label Value '" + getTextForlabelWithId(id) + "'");
+	}
+
+	/**
 	 * Waits until the text contained in a CLabel with the specified ID matches the specified value.
 	 */
 	public static void waitUntilCLabelWithIdTextMatches(final String id, final String value) {
 		waitUntil(() -> Objects.deepEquals(getTextForClabelWithId(id), value),
-				"Label text of '" + id + "' is not " + value + ".");
+				"Label text of '" + id + "' is not '" + value + "'. Label Value '" + getTextForClabelWithId(id) + "'");
 	}
 }
