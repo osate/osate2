@@ -29,6 +29,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -49,6 +50,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swtbot.eclipse.finder.finders.WorkbenchContentsFinder;
+import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
@@ -77,6 +79,7 @@ import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Sets;
 
 /**
  * Provides functions for controlling the user interface.
@@ -88,6 +91,8 @@ import com.google.common.collect.ImmutableList;
  */
 public class UiTestUtil {
 	private static final SWTGefBot bot;
+	private static final HashSet<String> allowedViewTitles = Sets.newHashSet("AADL Navigator", "AADL Diagrams",
+			"Properties", "Outline");
 
 	// All methods are static
 	private UiTestUtil() {
@@ -105,6 +110,13 @@ public class UiTestUtil {
 		// Sets the window size. Most of the test functions are size independent but selecting tabs in the properties view requires the tab to be visible.
 		Display.getDefault().syncExec(() -> {
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().setSize(1920, 1080);
+
+			// Close all views whose titles aren't in the whitelist
+			for (final SWTBotView view : bot.views()) {
+				if (!allowedViewTitles.contains(view.getTitle())) {
+					view.close();
+				}
+			}
 		});
 	}
 
