@@ -5,6 +5,7 @@
   <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
   <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
   <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787000"/>
   <results message="Latency results for etef10" resultType="FAILURE">
     <values xsi:type="result:StringValue" value=""/>
     <values xsi:type="result:RealValue" value="4.0"/>
@@ -35,6 +36,7 @@
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:StringValue" value="first sampling"/>
       <values xsi:type="result:StringValue" value="first sampling"/>
+      <values xsi:type="result:StringValue" value="source fsource1"/>
       <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/partition10_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
     </subResults>
     <subResults>
@@ -44,6 +46,7 @@
       <values xsi:type="result:RealValue" value="2.0"/>
       <values xsi:type="result:StringValue" value="specified"/>
       <values xsi:type="result:StringValue" value="specified"/>
+      <values xsi:type="result:StringValue" value="source fsource1"/>
       <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/partition10_s1_i1_Instance.aaxl2#//@componentInstance.1"/>
     </subResults>
     <subResults>
@@ -53,6 +56,7 @@
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
       <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value=""/>
       <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/partition10_s1_i1_Instance.aaxl2#//@connectionInstance.0"/>
     </subResults>
     <subResults>
@@ -62,6 +66,7 @@
       <values xsi:type="result:RealValue"/>
       <values xsi:type="result:StringValue" value="partition major frame"/>
       <values xsi:type="result:StringValue" value="partition major frame"/>
+      <values xsi:type="result:StringValue" value=""/>
       <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/partition10_s1_i1_Instance.aaxl2#//@componentInstance.3/@componentInstance.0"/>
     </subResults>
     <subResults>
@@ -71,6 +76,7 @@
       <values xsi:type="result:RealValue" value="4.0"/>
       <values xsi:type="result:StringValue" value="specified"/>
       <values xsi:type="result:StringValue" value="specified"/>
+      <values xsi:type="result:StringValue" value="sink fsink1"/>
       <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/partition10_s1_i1_Instance.aaxl2#//@componentInstance.0"/>
     </subResults>
     <modelElement href="org.osate.analysis.flows.tests/models/FlowLatencyCodeCoverage/instances/partition10_s1_i1_Instance.aaxl2#//@endToEndFlow.0"/>
