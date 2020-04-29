@@ -44,6 +44,7 @@ public class PrototypeEndToEndTest {
 
 	@Test
 	public void testPrototypes() {
+		prepareForTesting();
 		createAadlProject(PROTOTYPE_TEST);
 		createNewPackageWithPackageDiagram(PROTOTYPE_TEST, PROTOTYPE_TEST);
 
