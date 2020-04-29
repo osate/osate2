@@ -198,23 +198,24 @@ public class ToolUtil {
 
 	/**
 	 * Converts a stream to a tree set of diagnostics sorted by severity and message.
-	 * Diagnostics that have a severity of error (Diagnostic.ERROR or 0x4)
-	 * are grouped to the top of the tree set in alphabetical order.  Diagnostics that
-	 * have a severity of warning (Diagnostic.WARNING or 0x2) are grouped to
-	 * the bottom of the tree set in alphabetical order.
+	 * Diagnostics that have a severity of error Diagnostic.ERROR
+	 * are grouped to the start of the tree set in alphabetical order.  Diagnostics that
+	 * have another severity are grouped to the end of the tree set in alphabetical order.
 	 * @return returns a tree set of diagnostics that are sorted by severity and message
 	 */
 	private static Collector<Diagnostic, ?, TreeSet<Diagnostic>> toDiagnosticTreeSet() {
 		return Collectors.toCollection(() -> new TreeSet<Diagnostic>((d1, d2) -> {
-			final int severity1 = d1.getSeverity();
-			final int severity2 = d2.getSeverity();
-			if (severity1 == severity2) {
-				// Diagnostic considered equal if it has same severity and message
-				return d1.getMessage().compareToIgnoreCase(d2.getMessage());
+			// Convert severity into a sorting value based on whether it is an error.
+			final int severity1 = d1.getSeverity() == Diagnostic.ERROR ? 0 : 1;
+			final int severity2 = d2.getSeverity() == Diagnostic.ERROR ? 0 : 1;
+			int result = Integer.compare(severity1, severity2);
+
+			// Compare messages for equal severity
+			if (result == 0) {
+				result = d1.getMessage().compareToIgnoreCase(d2.getMessage());
 			}
 
-			// Warnings will be grouped at end of set
-			return severity1 == Diagnostic.ERROR ? -1 : 1;
+			return result;
 		}));
 	}
 
