@@ -335,15 +335,15 @@ public class OsateGeTestCommands {
 
 		clickToolbarItem("Create End to End Flow Specification");
 
-		waitForWindowWithTitle("Create End To End Flow Specification");
+		waitForWindowWithTitle("End To End Flow Specification Tool");
 
 		clickElements(flowSegments);
 
 		final String eteName = eteQualifiedName.substring(eteQualifiedName.lastIndexOf(':') + 1);
-		setTextForShell("Create End To End Flow Specification", 0, eteName);
-		sendTextKeyUpEvent("Create End To End Flow Specification", 0, SWT.KeyUp, new Event());
+		setTextForShell("End To End Flow Specification Tool", 0, eteName);
+		sendTextKeyUpEvent("End To End Flow Specification Tool", 0, SWT.KeyUp, new Event());
 
-		clickButtonForShell("Create End To End Flow Specification", "OK");
+		clickButtonForShell("End To End Flow Specification Tool", "OK");
 
 		// Highlight flow to ensure it was created successfully
 		setComboBoxWithIdSelection(FlowContributionItem.highlightFlow, eteQualifiedName);
@@ -381,11 +381,11 @@ public class OsateGeTestCommands {
 
 		clickToolbarItem("Create Flow Implementation");
 
-		waitForWindowWithTitle("Create Flow Implementation");
+		waitForWindowWithTitle("Flow Implementation Tool");
 
 		clickElements(flowSegments);
 
-		clickButtonForShell("Create Flow Implementation", "OK");
+		clickButtonForShell("Flow Implementation Tool", "OK");
 
 		// Highlight flow to ensure it was created successfully
 		setComboBoxWithIdSelection(FlowContributionItem.highlightFlow, flowImpQualifiedlName);

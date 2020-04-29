@@ -469,13 +469,13 @@ Create a system type and implementation named “ControlSystem” and “Control
 <h2 id="creating-mode-transitions"><span class="header-section-number">3.2</span> Creating Mode Transitions</h2>
 <p>Select <em>Mode Transition</em> from the palette and select the starting mode then the ending mode.</p>
 <h2 id="creating-flow-implementations-and-end-to-end-flow-specifications"><span class="header-section-number">3.3</span> Creating Flow Implementations and End-To-End Flow Specifications</h2>
-<p>When editing a component implementation, flow implementations and end-to-end flow specifications can be created graphically by selecting the <em>Create Flow Implementation</em> and <em>Create End-To-End Flow Specification</em> tools from the toolbar and following the prompts to select a series of elements from the diagram or outline view. The dialog and colors of elements in the diagram will update as valid selections are made. The starting flow specification will be highlighted dark orange and flow elements will be highlighted purple. The <em>Undo</em> button will remove the elements in the order they were selected.</p>
+<p>Flow implementations and end-to-end flow specifications can be created graphically by selecting the <em>Create Flow Implementation</em> and <em>Create End-To-End Flow Specification</em> tools from the toolbar and following the prompts to select a series of elements from the diagram or outline view. The tools cannot be activated if there are existing errors or warnings in the model. The dialog and colors of elements in the diagram will update as valid selections are made. The starting flow specification will be highlighted dark orange and flow elements will be highlighted purple. The <em>Undo</em> button will remove the elements in the order they were selected.</p>
 <h3 id="creating-flow-implementations"><span class="header-section-number">3.3.1</span> Creating Flow Implementations</h3>
 <p>Select <em>Create Flow Implementation</em> from the toolbar, the dialog will appear.</p>
 <p><img src="../images/CreateFlowImplementationToolbar.png" /></p>
 <h3 id="creating-source-flow-implementations"><span class="header-section-number">3.3.2</span> Creating Source Flow Implementations</h3>
 <ol type="1">
-<li>Select a source flow specification.</li>
+<li>Select a source flow specification and feature.</li>
 </ol>
 <p><img src="../images/FlowImplSourceStep1.png" /></p>
 <ol start="2" type="1">
@@ -491,7 +491,7 @@ Create a system type and implementation named “ControlSystem” and “Control
 </ol>
 <h3 id="creating-sink-flow-implementations"><span class="header-section-number">3.3.3</span> Creating Sink Flow Implementations</h3>
 <ol type="1">
-<li>Select a valid sink flow specification..</li>
+<li>Select a valid sink flow specification and feature.</li>
 </ol>
 <p><img src="../images/FlowImplSinkStep1.png" /></p>
 <ol start="2" type="1">
@@ -507,7 +507,7 @@ Create a system type and implementation named “ControlSystem” and “Control
 </ol>
 <h3 id="creating-path-flow-implementations"><span class="header-section-number">3.3.4</span> Creating Path Flow Implementations</h3>
 <ol type="1">
-<li>Select a valid path flow specification.</li>
+<li>Select a valid path flow specification and feature.</li>
 </ol>
 <p><img src="../images/FlowImplPathStep1.png" /></p>
 <ol start="2" type="1">
@@ -616,7 +616,7 @@ Create a system type and implementation named “ControlSystem” and “Control
 <p>Prototypes can be edited by selecting a classifier and using the <em>AADL</em> tab of the <em>Properties</em> view (See section <a href="#sec:properties_view">4.1</a>).</p>
 <p>Classifier prototype bindings can be edited using the <em>AADL</em> tab of the <em>Properties</em> view (See section <a href="#sec:properties_view">4.1</a>). Subcomponent prototype bindings can be edited when selecting the component classifier.</p>
 <h2 id="editing-flow-implementations-and-end-to-end-flows"><span class="header-section-number">4.9</span> Editing Flow Implementations and End-to-End Flows</h2>
-<p>When editing a component implementation, flow implementations and end-to-end flow can be edited using the flow editor. The flow editor can be accessed by double-clicking the component implementation, selecting the <em>AADL</em> tab in the <em>Properties</em> view, and selecting <em>Edit…</em> from the <em>Flows</em> section.</p>
+<p>Flow implementations and end-to-end flow can be edited using the flow editor. The flow editor can be accessed by double-clicking a component implementation, selecting the <em>AADL</em> tab in the <em>Properties</em> view, and selecting <em>Edit…</em> from the <em>Flows</em> section.</p>
 <h2 id="refining-model-elements"><span class="header-section-number">4.10</span> Refining Model Elements</h2>
 <p>Appropriate elements can be refined by using the <em>AADL</em> tab of the <em>Properties</em> view (See section <a href="#sec:properties_view">4.1</a>), and using the <em>Refined</em> section option.</p>
 <h2 id="sec:edit_in_modes"><span class="header-section-number">4.11</span> Specifying Modes in which Elements are Active</h2>
