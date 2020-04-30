@@ -53,12 +53,13 @@ import com.google.inject.Guice;
 import com.google.inject.util.Modules;
 
 import javafx.embed.swt.FXCanvas;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 // TODO: Implement selection notification..
@@ -118,15 +119,27 @@ public class AgeEditor extends AbstractFXEditor {
 	protected void hookViewers() {
 		// TODO: Replace this with widget derived from DemoApplication
 		final SplitPane sp = new SplitPane();
-		sp.setDividerPositions(1.0);
 		final VBox paletteContainer = new VBox();
-		final HBox titleContainer = new HBox();
+		final AnchorPane titleContainer = new AnchorPane();
 		final Label paletteTitle = new Label("Palette");
+		paletteTitle.setPadding(new Insets(5, 0, 5, 0));
 		final ToggleButton collapseButton = new ToggleButton();
 		final ScrollPane scrollPane = new ScrollPane();
 		final Palette<TestPaletteGroup, TestPaletteItem> palette = new Palette<>(new TestPaletteModel());
+
+		// TODO: Use a color picker to determine background gradient of current palette.
+
 		scrollPane.setContent(palette);
+		scrollPane.setFitToHeight(true);
+		scrollPane.setFitToWidth(true);
+		scrollPane.maxWidthProperty().bind(paletteContainer.maxWidthProperty());
+		scrollPane.prefWidthProperty().bind(paletteContainer.prefWidthProperty());
+		paletteContainer.setPrefWidth(250);
+		paletteContainer.setMaxWidth(500);
+
 		titleContainer.getChildren().addAll(paletteTitle, collapseButton);
+		AnchorPane.setRightAnchor(collapseButton, 5.0);
+		AnchorPane.setLeftAnchor(paletteTitle, 5.0);
 		paletteContainer.getChildren().addAll(titleContainer, scrollPane);
 
 		sp.getItems().addAll(getContentViewer().getCanvas(), paletteContainer);
@@ -134,8 +147,7 @@ public class AgeEditor extends AbstractFXEditor {
 		// Set the scene
 		getCanvas().setScene(new Scene(sp));
 
-		final double initialDividerPosition = Math.max(0.0, 1.0 - (palette.prefWidth(100) + 5) / sp.getWidth());
-		sp.setDividerPositions(initialDividerPosition);
+		sp.setDividerPositions(1.0 - (paletteContainer.getPrefWidth() / sp.getWidth()));
 		sp.layout();
 		SplitPane.setResizableWithParent(palette, false);
 	}

@@ -44,7 +44,6 @@ public class Palette<G, I> extends Region {
 	public Palette(final PaletteModel<G, I> model) {
 		Objects.requireNonNull(model, "model must not be null");
 
-		paletteVbox.setFillWidth(true);
 		paletteVbox.setStyle(PALETTE_BACKGROUND);
 
 		for (I item : model.getItems(null)) {
