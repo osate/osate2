@@ -192,7 +192,7 @@ abstract class NewAbstractAaxlHandler extends AbstractHandler {
 				PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
 					MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
 							"Error starting analysis",
-							"Excepting starting analysis, see the error log: " + e.getMessage());
+							"Exception starting analysis, see the error log: " + e.getMessage());
 				});
 			}
 
