@@ -144,7 +144,6 @@ abstract class NewAbstractAaxlHandler extends AbstractHandler {
 
 				final IFolder reportsFolder = ResourcesPlugin.getWorkspace().getRoot().getFolder(reportsPath);
 				final IFolder outputFolder = ResourcesPlugin.getWorkspace().getRoot().getFolder(outputPath);
-				outputFolders.add(reportsFolder);
 				outputFolders.add(outputFolder);
 
 				final IFile outputFile = ResourcesPlugin.getWorkspace().getRoot()
@@ -178,9 +177,7 @@ abstract class NewAbstractAaxlHandler extends AbstractHandler {
 			try {
 				ResourcesPlugin.getWorkspace().run(m -> {
 					for (final IFolder folder : outputFolders) {
-						if (!folder.exists()) {
-							folder.create(false, true, null);
-						}
+						makeSureFoldersExist(folder);
 					}
 					for (final IFile file : outputFiles) {
 						if (!file.exists()) {
@@ -313,4 +310,20 @@ abstract class NewAbstractAaxlHandler extends AbstractHandler {
 			}
 		}
 	}
+
+	/**
+	 * make sure the folders exist all along the path
+	 *
+	 * @param path
+	 */
+	private static void makeSureFoldersExist(IFolder folder) {
+		if (!folder.exists()) {
+			makeSureFoldersExist((IFolder) folder.getParent());
+			try {
+				folder.create(true, true, null);
+			} catch (CoreException e) {
+			}
+		}
+	}
+
 }
