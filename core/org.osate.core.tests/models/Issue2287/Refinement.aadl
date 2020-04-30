@@ -1,0 +1,64 @@
+package Refinement
+public
+    
+    feature group HighLevel
+    end HighLevel;
+    
+    system HighLeft
+        features
+            outgroup: feature group HighLevel;
+        flows
+            outflow: flow source outgroup;
+    end HighLeft;
+    
+    system HighRight
+        features
+            ingroup: feature group inverse of HighLevel;
+        flows
+            inflow: flow sink ingroup;          
+    end HighRight;  
+    
+    system Example
+    end Example;
+    
+    system implementation Example.High
+        subcomponents
+            left: system HighLeft;
+            right: system HighRight;
+--      connections
+--          lr: feature left.outgroup -> right.ingroup;
+--      flows
+--          leftright: end to end flow left.outflow -> lr -> right.inflow;
+    end Example.High;
+    
+    feature group LowLevel extends HighLevel
+        features
+            msg1: feature;
+            msg2: feature;
+    end LowLevel;
+    
+    system LowLeft extends HighLeft
+        features
+            outgroup: refined to feature group LowLevel{ Classifier_Substitution_Rule => Type_Extension; };
+        flows
+            outflow: refined to flow source; -- outgroup;
+    end LowLeft;
+    
+    system LowRight extends HighRight
+        features
+            ingroup: refined to feature group inverse of LowLevel{ Classifier_Substitution_Rule => Type_Extension; };
+        flows
+            inflow: refined to flow sink; -- ingroup;           
+    end LowRight;       
+    
+    system implementation Example.Low extends Example.High
+        subcomponents
+            left: refined to system LowLeft{ Classifier_Substitution_Rule => Type_Extension; };
+            right: refined to system LowRight{ Classifier_Substitution_Rule => Type_Extension; };           
+        connections
+            lr1: feature left.outgroup.msg1 -> right.ingroup.msg1;
+        flows
+            leftright1: end to end flow left.outflow -> lr1 -> right.inflow;
+    end Example.Low;
+    
+end Refinement;
