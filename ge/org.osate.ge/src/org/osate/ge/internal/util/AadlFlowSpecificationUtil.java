@@ -62,7 +62,8 @@ public class AadlFlowSpecificationUtil {
 				.filter(q -> {
 					if (q.getBusinessObject() instanceof NamedElement) {
 						final NamedElement ne = (NamedElement) q.getBusinessObject();
-						return AadlHelper.getRootRefinedElement(ne) == flowElementRef.flowSegmentElement;
+						return AadlHelper.getRootRefinedElement(ne) == AadlHelper
+								.getRootRefinedElement(flowElementRef.flowSegmentElement);
 					}
 					return false;
 				}).findAny().orElse(null);
@@ -123,7 +124,8 @@ public class AadlFlowSpecificationUtil {
 						.filter(child -> {
 							if (child.getBusinessObject() instanceof NamedElement) {
 								final NamedElement ne = (NamedElement) child.getBusinessObject();
-								return AadlHelper.getRootRefinedElement(ne) == flowSegment.getContext();
+								return AadlHelper.getRootRefinedElement(ne) == AadlHelper
+										.getRootRefinedElement(flowSegment.getContext());
 							}
 							return false;
 						}).findAny()
@@ -139,7 +141,8 @@ public class AadlFlowSpecificationUtil {
 						.filter(child -> {
 							if (child.getBusinessObject() instanceof NamedElement) {
 								final NamedElement ne = (NamedElement) child.getBusinessObject();
-								return AadlHelper.getRootRefinedElement(ne) == flowSegment.getContext();
+								return AadlHelper.getRootRefinedElement(ne) == AadlHelper
+										.getRootRefinedElement(flowSegment.getContext());
 							}
 							return false;
 						}).findAny()

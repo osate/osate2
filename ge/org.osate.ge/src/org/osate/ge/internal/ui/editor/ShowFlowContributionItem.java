@@ -82,6 +82,7 @@ import org.osate.ge.internal.ui.editor.FlowContributionItem.FlowSegmentState;
 import org.osate.ge.internal.ui.editor.FlowContributionItem.HighlightableFlowInfo;
 import org.osate.ge.internal.util.AadlClassifierUtil;
 import org.osate.ge.internal.util.AadlFlowSpecificationUtil.FlowSegmentReference;
+import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.AadlInstanceObjectUtil;
 
 import com.google.common.base.Predicates;
@@ -249,7 +250,14 @@ public class ShowFlowContributionItem extends ControlContribution {
 					} else {
 						ensureEnabledChild(flowSegment.getContext(), container);
 						return container.getChildren().stream()
-								.filter(child -> child.getBusinessObject() == flowSegment.getContext()).findAny()
+								.filter(child -> {
+									if (child.getBusinessObject() instanceof NamedElement) {
+										final NamedElement ne = (NamedElement) child.getBusinessObject();
+										return AadlHelper.getRootRefinedElement(ne) == AadlHelper
+												.getRootRefinedElement(flowSegment.getContext());
+									}
+									return false;
+								}).findAny()
 								.map(contextQueryable -> createFlowSegmentReference(flowElement, contextQueryable))
 								.orElse(null);
 					}
@@ -261,7 +269,14 @@ public class ShowFlowContributionItem extends ControlContribution {
 					} else {
 						ensureEnabledChild(flowSegment.getContext(), container);
 						return container.getChildren().stream()
-								.filter(child -> child.getBusinessObject() == flowSegment.getContext()).findAny()
+								.filter(child -> {
+									if (child.getBusinessObject() instanceof NamedElement) {
+										final NamedElement ne = (NamedElement) child.getBusinessObject();
+										return AadlHelper.getRootRefinedElement(ne) == AadlHelper
+												.getRootRefinedElement(flowSegment.getContext());
+									}
+									return false;
+								}).findAny()
 								.map(contextQueryable -> createFlowSegmentReference(flowElement, contextQueryable))
 								.orElse(null);
 					}
