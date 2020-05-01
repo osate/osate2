@@ -68,6 +68,9 @@ public final class ComboSelector<T> extends Composite {
 			}
 		});
 
+		// Disable mouse wheel scrolling to prevent a large number of change and refresh events which could be potentially expensive.
+		this.comboViewer.getControl().addListener(SWT.MouseVerticalWheel, event -> event.doit = false);
+
 		// Listen to selection changes
 		this.comboViewer.addSelectionChangedListener(event -> {
 			@SuppressWarnings("unchecked")
