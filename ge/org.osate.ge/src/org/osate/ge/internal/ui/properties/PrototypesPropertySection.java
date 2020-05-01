@@ -31,11 +31,12 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.viewers.IFilter;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CLabel;
+import org.eclipse.swt.events.ControlAdapter;
+import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
@@ -97,8 +98,8 @@ public class PrototypesPropertySection extends AbstractPropertySection {
 		super.createControls(parent, aTabbedPropertySheetPage);
 
 		final Composite composite = getWidgetFactory().createFlatFormComposite(parent);
-		final CLabel label = getWidgetFactory().createCLabel(composite, "Prototypes:");
-		final Control editor = new PrototypesEditor<>(composite, model);
+		final Label label = getWidgetFactory().createLabel(composite, "Prototypes:");
+		final PrototypesEditor<?, ?> editor = new PrototypesEditor<>(composite, model);
 
 		// Configure layout data
 		{
@@ -116,6 +117,15 @@ public class PrototypesPropertySection extends AbstractPropertySection {
 			data.top = new FormAttachment(0, ITabbedPropertyConstants.VSPACE);
 			editor.setLayoutData(data);
 		}
+
+		composite.addControlListener(new ControlAdapter() {
+			@Override
+			public void controlResized(ControlEvent e) {
+				if (aTabbedPropertySheetPage != null) {
+					aTabbedPropertySheetPage.resizeScrolledComposite();
+				}
+			}
+		});
 	}
 
 	@Override
