@@ -82,7 +82,6 @@ import org.osate.ge.internal.ui.editor.FlowContributionItem.FlowSegmentState;
 import org.osate.ge.internal.ui.editor.FlowContributionItem.HighlightableFlowInfo;
 import org.osate.ge.internal.util.AadlClassifierUtil;
 import org.osate.ge.internal.util.AadlFlowSpecificationUtil.FlowSegmentReference;
-import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.AadlInstanceObjectUtil;
 
 import com.google.common.base.Predicates;
@@ -248,18 +247,8 @@ public class ShowFlowContributionItem extends ControlContribution {
 					if (flowSegment.getContext() == null) {
 						return createFlowSegmentReference(flowElement, container);
 					} else {
-						ensureEnabledChild(flowSegment.getContext(), container);
-						return container.getChildren().stream()
-								.filter(child -> {
-									if (child.getBusinessObject() instanceof NamedElement) {
-										final NamedElement ne = (NamedElement) child.getBusinessObject();
-										return AadlHelper.getRootRefinedElement(ne) == AadlHelper
-												.getRootRefinedElement(flowSegment.getContext());
-									}
-									return false;
-								}).findAny()
-								.map(contextQueryable -> createFlowSegmentReference(flowElement, contextQueryable))
-								.orElse(null);
+						final BusinessObjectNode contextNode = ensureEnabledChild(flowSegment.getContext(), container);
+						return createFlowSegmentReference(flowElement, contextNode);
 					}
 				} else if (bo instanceof EndToEndFlowSegment) {
 					final EndToEndFlowSegment flowSegment = (EndToEndFlowSegment) bo;
@@ -267,18 +256,8 @@ public class ShowFlowContributionItem extends ControlContribution {
 					if (flowSegment.getContext() == null) {
 						return createFlowSegmentReference(flowElement, container);
 					} else {
-						ensureEnabledChild(flowSegment.getContext(), container);
-						return container.getChildren().stream()
-								.filter(child -> {
-									if (child.getBusinessObject() instanceof NamedElement) {
-										final NamedElement ne = (NamedElement) child.getBusinessObject();
-										return AadlHelper.getRootRefinedElement(ne) == AadlHelper
-												.getRootRefinedElement(flowSegment.getContext());
-									}
-									return false;
-								}).findAny()
-								.map(contextQueryable -> createFlowSegmentReference(flowElement, contextQueryable))
-								.orElse(null);
+						final BusinessObjectNode contextNode = ensureEnabledChild(flowSegment.getContext(), container);
+						return createFlowSegmentReference(flowElement, contextNode);
 					}
 				} else if (bo instanceof InstanceObject) {
 					final InstanceObject io = (InstanceObject) bo;
@@ -357,24 +336,14 @@ public class ShowFlowContributionItem extends ControlContribution {
 				return contextContainer;
 			}
 
-			private void enableFlowEnd(final FlowEnd flowEnd, final BusinessObjectNode containerNode) {
+			private void enableFlowEnd(final FlowEnd flowEnd, BusinessObjectNode containerNode) {
 				final Feature feature = (Feature) flowEnd.getFeature();
-				final RelativeBusinessObjectReference featureRef = getRelativeBusinessObjectReference(feature);
 				if (flowEnd.getContext() != null) {
-					final Context context = flowEnd.getContext();
-					final RelativeBusinessObjectReference contextRef = getRelativeBusinessObjectReference(context);
-					if (containerNode.getChild(contextRef) == null) {
-						createNode(containerNode, contextRef, context);
-					}
-
-					final BusinessObjectNode contextNode = containerNode
-							.getChild(getRelativeBusinessObjectReference(flowEnd.getContext()));
-					if (contextNode.getChild(featureRef) == null) {
-						createNode(contextNode, featureRef, feature);
-					}
-				} else if (containerNode.getChild(featureRef) == null) {
-					createNode(containerNode, featureRef, feature);
+					containerNode = ensureEnabledChild(flowEnd.getContext(),
+							containerNode);
 				}
+
+				ensureEnabledChild(feature, containerNode);
 			}
 
 			private void enableFlowSpecificationInstanceNodes(final Map<Object, Queryable> descendantBoToQueryable,
@@ -444,12 +413,14 @@ public class ShowFlowContributionItem extends ControlContribution {
 				}
 			}
 
-			private void ensureEnabledChild(final Object childBo, final BusinessObjectNode parent) {
+			private BusinessObjectNode ensureEnabledChild(final Object childBo, final BusinessObjectNode parent) {
 				final RelativeBusinessObjectReference childRef = getRelativeBusinessObjectReference(childBo);
 				final BusinessObjectNode childNode = parent.getChild(childRef);
 				if (childRef != null && childNode == null) {
-					createNode(parent, childRef, childBo);
+					return createNode(parent, childRef, childBo);
 				}
+
+				return Objects.requireNonNull(childNode, "Child node does not exist");
 			}
 
 			private BusinessObjectNode createNode(final BusinessObjectNode parent,
