@@ -32,7 +32,7 @@ class PaletteGroup<G, I> extends Region {
 		final ScrollPane scrollPane = new ScrollPane();
 		groupButton = new ToggleButton(model.getGroupLabel(groupModel));
 		groupButton.setStyle(IDLE_GROUP_STYLE);
-		groupButton.setFont(new Font(15));
+		groupButton.setFont(new Font(14));
 		groupButton.setPadding(new Insets(2, 0, 2, 2));
 		groupButton.setAlignment(Pos.BASELINE_LEFT);
 		groupButton.setGraphic(new ImageView(model.getGroupIcon(groupModel)));
