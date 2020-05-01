@@ -118,13 +118,51 @@ public class AgeEditor extends AbstractFXEditor {
 	@Override
 	protected void hookViewers() {
 		// TODO: Replace this with widget derived from DemoApplication
+		final String TITLE_STYLE = "-fx-background-color: linear-gradient(rgb(255,255,255), rgb(237,237,237));";
+		final String COLLAPSE_BUTTON_ACTIVATED = "-fx-background-color: linear-gradient(rgb(255,255,255), rgb(237,237,237));"
+				+ "-fx-border-style: dotted; -fx-border-color: black;";
+		final String COLLAPSE_BUTTON_IDLE = "-fx-background-color: linear-gradient(rgb(255,255,255), rgb(237,237,237));"
+				+ "-fx-border-style: dotted; -fx-border-color: black;";
+
 		final SplitPane sp = new SplitPane();
 		final VBox paletteContainer = new VBox();
 		final AnchorPane titleContainer = new AnchorPane();
+		final ScrollPane scrollPane = new ScrollPane();
+		titleContainer.setStyle(TITLE_STYLE);
 		final Label paletteTitle = new Label("Palette");
+		paletteTitle.setStyle(TITLE_STYLE);
 		paletteTitle.setPadding(new Insets(5, 0, 5, 0));
 		final ToggleButton collapseButton = new ToggleButton();
-		final ScrollPane scrollPane = new ScrollPane();
+		collapseButton.setPadding(new Insets(10, 0, 10, 0));
+		collapseButton.setStyle(COLLAPSE_BUTTON_IDLE);
+		collapseButton.setMaxSize(30, 30);
+		collapseButton.setMinSize(30, 30);
+		collapseButton.setOnAction(e -> {
+
+			if (collapseButton.isSelected()) {
+				scrollPane.setManaged(false);
+				scrollPane.setVisible(false);
+				paletteTitle.setManaged(false);
+				paletteTitle.setVisible(false);
+				sp.setDividerPositions(1.0);
+				collapseButton.setStyle(COLLAPSE_BUTTON_ACTIVATED);
+				collapseButton.setMinWidth(10);
+				collapseButton.setMaxWidth(10);
+			}
+
+			else {
+				scrollPane.setManaged(true);
+				scrollPane.setVisible(true);
+				paletteTitle.setManaged(true);
+				paletteTitle.setVisible(true);
+				sp.setDividerPositions(1.0 - (paletteContainer.getPrefWidth() / sp.getWidth()));
+				collapseButton.setStyle(COLLAPSE_BUTTON_IDLE);
+				collapseButton.setMaxSize(30, 30);
+				collapseButton.setMinSize(30, 30);
+			}
+
+		});
+
 		final Palette<TestPaletteGroup, TestPaletteItem> palette = new Palette<>(new TestPaletteModel());
 
 		// TODO: Use a color picker to determine background gradient of current palette.
