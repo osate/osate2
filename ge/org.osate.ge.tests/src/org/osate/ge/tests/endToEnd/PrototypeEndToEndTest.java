@@ -317,12 +317,17 @@ public class PrototypeEndToEndTest {
 		updateTopExtFeatureBinding("event data port", "out", "Base_Types::Integer");
 		updateTopExtFeatureBinding("prototype", "in", "prototype_test::top.ss_event_fpt");
 
-		// Chagne the binding and then cancel to revert changes
+		// Change the binding and then cancel to revert changes
 		updateTopExtFeatureBinding("bus access", "provides", "prototype_test::test_bus", true,
 				"fpt => in prototype prototype_test::top.ss_event_fpt");
 
 		// Check the value of the classifier prototype bindings label when both top and top_ext are selected.
-		checkClassifierPrototypeBindings(diagram, "<Multiple Elements Selected>", top, topExt);
+		createElementAndLayout(diagram, pkgElement, "System Type", getClassifierRelativeReference("new_classifier"),
+				"top_ext2");
+		final DiagramElementReference topExt2 = element(pkg, getClassifierRelativeReference("top_ext2"));
+		setExtendedOrFeatureClassifierFromPropertiesView(diagram, "prototype_test::top",
+				element(pkg, getClassifierRelativeReference("top_ext2")));
+		checkClassifierPrototypeBindings(diagram, "<Multiple Elements Selected>", topExt, topExt2);
 	}
 
 	// Updates the "fpt" binding for the "top_ext" type. Assumes the feature prototype is the second prototype and the first feature prototype in the
