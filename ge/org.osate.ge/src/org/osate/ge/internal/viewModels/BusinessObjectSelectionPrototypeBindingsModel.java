@@ -26,6 +26,7 @@ import org.osate.aadl2.AccessType;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.ComponentPrototypeActual;
 import org.osate.aadl2.ComponentPrototypeBinding;
@@ -451,7 +452,26 @@ PrototypeBindingsModel<PrototypeBindingsModelNode, Object, PrototypeBindingType,
 	 * @return whether the specified classifier has any prototypes for which bindings can be created or modified.
 	 */
 	public static boolean hasAvailableBindings(final Classifier classifier) {
-		return AadlPrototypeUtil.getAllPrototypes(classifier).limit(1).count() != 0;
+		return AadlPrototypeUtil.getAllPrototypes(getExtendedOrImplemented(classifier)).limit(1).count() != 0;
+	}
+
+	/**
+	 * Gets the extended classifier or the implemented type.
+	 * @param bo the classifier for which to get the extended classifier or implemented type.
+	 * @return the extended classifier or implemented type. Null of neither of those exists or if the business object is not a classifier.
+	 */
+	private static Classifier getExtendedOrImplemented(final EObject bo) {
+		if (!(bo instanceof Classifier)) {
+			return null;
+		}
+
+		final Classifier classifier = (Classifier) bo;
+		Classifier result = classifier.getExtended();
+		if (result == null && bo instanceof ComponentImplementation) {
+			result = ((ComponentImplementation) bo).getType();
+		}
+
+		return result;
 	}
 
 	// Populate the model's data structure based on the specified bindings
@@ -545,8 +565,10 @@ PrototypeBindingsModel<PrototypeBindingsModelNode, Object, PrototypeBindingType,
 				// We need to get an actual EObject to determine children.
 				final EObject eobj = classifierValue.getResolvedValue(resourceSet);
 
+				final EObject prototypeSource = bo instanceof Classifier ? getExtendedOrImplemented(eobj) : eobj;
+
 				// Get all the prototypes for the business object and create a child node for each of them
-				AadlPrototypeUtil.getAllPrototypes(eobj).forEachOrdered(c -> {
+				AadlPrototypeUtil.getAllPrototypes(prototypeSource).forEachOrdered(c -> {
 					final PrototypeBindingsModelNode newChild = new PrototypeBindingsModelNode(node, c);
 					data(node).children.add(newChild);
 					data(newChild).bo = c;
