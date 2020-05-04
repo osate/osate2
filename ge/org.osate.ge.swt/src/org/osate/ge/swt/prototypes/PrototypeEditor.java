@@ -101,7 +101,7 @@ public final class PrototypeEditor<C> extends Composite {
 
 		});
 		refinedEditor.setLayoutData(
-				GridDataFactory.swtDefaults().span(2, 1).grab(true, false).align(SWT.LEFT, SWT.CENTER).create());
+				GridDataFactory.swtDefaults().span(2, 1).grab(true, false).align(SWT.FILL, SWT.CENTER).create());
 
 		//
 		// Name

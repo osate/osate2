@@ -54,7 +54,7 @@ public class CheckboxEditor extends Composite {
 		check = new Button(this, SWT.CHECK);
 		InternalUtil.setColorsToMatchParent(check);
 		check.setLayoutData(
-				GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.FILL).create());
+				GridDataFactory.swtDefaults().grab(true, false).align(SWT.LEFT, SWT.TOP).create());
 		check.addSelectionListener(new SelectionAdapter() {
 
 			@Override
