@@ -29,17 +29,17 @@ import java.util.function.Consumer;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.internal.InternalUtil;
 import org.osate.ge.swt.util.SwtTestUtil;
 
 /**
- * A component which allows selecting view and editing bindings for a node provided by a {@link PrototypeBindingsModel}.
+ * A component which allows viewing and editing bindings for a node provided by a {@link PrototypeBindingsModel}.
  *
  * @param <N> is the type of the node being edited.
  * @param <D> is the type of the direction options.
@@ -53,7 +53,7 @@ public final class PrototypeBindingsField<N, D, T, C> extends Composite {
 
 	private final PrototypeBindingsModel<N, D, T, C> model;
 	private N node;
-	private final Label selectedLbl;
+	private final CLabel bindingsLbl;
 	private final Button editBtn;
 	private final Consumer<ChangeEvent> changeListener = e -> refresh();
 
@@ -72,12 +72,13 @@ public final class PrototypeBindingsField<N, D, T, C> extends Composite {
 
 		this.setLayout(GridLayoutFactory.fillDefaults().numColumns(2).create());
 
-		this.selectedLbl = new Label(this, SWT.BORDER);
-		SwtTestUtil.setTestingId(this.selectedLbl, WIDGET_ID_SELECTED_LABEL);
-		this.selectedLbl
+		this.bindingsLbl = new CLabel(this, SWT.BORDER);
+		SwtTestUtil.setTestingId(this.bindingsLbl, WIDGET_ID_SELECTED_LABEL);
+		this.bindingsLbl
 				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER)
 						.minSize(200, SWT.DEFAULT)
 						.create());
+		InternalUtil.setColorsToMatchParent(this.bindingsLbl);
 
 		this.editBtn = new Button(this, SWT.FLAT);
 		SwtTestUtil.setTestingId(this.editBtn, WIDGET_ID_EDIT_BUTTON);
@@ -107,7 +108,7 @@ public final class PrototypeBindingsField<N, D, T, C> extends Composite {
 
 	private void refresh() {
 		if (!this.isDisposed()) {
-			selectedLbl.setText(model.getChildrenLabel(node));
+			bindingsLbl.setText(model.getChildrenLabel(node));
 			editBtn.setEnabled(model.getChildren(node).findAny().isPresent());
 		}
 	}

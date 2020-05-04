@@ -36,6 +36,8 @@ import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.IFilter;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
@@ -100,26 +102,32 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 	@Override
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
 		super.createControls(parent, aTabbedPropertySheetPage);
-		FormData fd;
 
 		final Composite container = getWidgetFactory().createFlatFormComposite(parent);
 		InternalPropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Classifier:");
 
-		currentClassifier = new ClassifierWithBindingsField<>(container, model, null);
+		final Composite fieldComposite = getWidgetFactory().createComposite(container);
+		fieldComposite.setLayout(
+				GridLayoutFactory.fillDefaults().numColumns(2).spacing(ITabbedPropertyConstants.HSPACE, 0).create());
+
+		currentClassifier = new ClassifierWithBindingsField<>(fieldComposite, model, null);
 		currentClassifier.setLabelTestingId(WIDGET_ID_CURRENT_CLASSIFIER_LABEL);
 		currentClassifier.setChooseButtonTestingId(WIDGET_ID_CHOOSE_CLASSIFIER_BUTTON);
-		fd = new FormData();
-		fd.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
-		fd.top = new FormAttachment(0, ITabbedPropertyConstants.VSPACE);
-		currentClassifier.setLayoutData(fd);
+		currentClassifier
+		.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER).create());
 
-		createBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), container, null,
+		createBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), fieldComposite, null,
 				createClassifierListener, "Create...", SWT.PUSH);
+		createBtn.setLayoutData(GridDataFactory.swtDefaults().grab(false, false).align(SWT.FILL, SWT.CENTER).create());
 
-		fd = new FormData();
-		fd.left = new FormAttachment(currentClassifier, ITabbedPropertyConstants.HSPACE);
-		fd.top = new FormAttachment(currentClassifier, 0, SWT.CENTER);
-		createBtn.setLayoutData(fd);
+		{
+			final FormData fd = new FormData();
+			fd.left = new FormAttachment(0, AbstractPropertySection.STANDARD_LABEL_WIDTH);
+			fd.right = new FormAttachment(100, 0);
+			fd.top = new FormAttachment(0, ITabbedPropertyConstants.VSPACE);
+			fd.width = 200;
+			fieldComposite.setLayoutData(fd);
+		}
 
 		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
