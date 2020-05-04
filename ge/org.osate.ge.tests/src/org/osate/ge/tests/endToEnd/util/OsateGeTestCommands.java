@@ -564,7 +564,7 @@ public class OsateGeTestCommands {
 		}
 
 		// Wait until the classifier's prototype bindings label has been updated
-		waitUntilLabelWithIdTextMatches(PrototypeBindingsField.WIDGET_ID_SELECTED_LABEL, expectedNewLabelText);
+		waitUntilCLabelWithIdTextMatches(PrototypeBindingsField.WIDGET_ID_SELECTED_LABEL, expectedNewLabelText);
 	}
 
 	/**
@@ -581,7 +581,7 @@ public class OsateGeTestCommands {
 		clickPropertiesViewTab("AADL");
 
 		// Wait until the classifier's prototype bindings label is the expected value
-		waitUntilLabelWithIdTextMatches(PrototypeBindingsField.WIDGET_ID_SELECTED_LABEL, labelText);
+		waitUntilCLabelWithIdTextMatches(PrototypeBindingsField.WIDGET_ID_SELECTED_LABEL, labelText);
 	}
 
 	/**
