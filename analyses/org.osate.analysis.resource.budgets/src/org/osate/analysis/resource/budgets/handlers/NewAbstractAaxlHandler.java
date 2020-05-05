@@ -303,7 +303,7 @@ abstract class NewAbstractAaxlHandler extends AbstractHandler {
 				if (!container.getName().startsWith(".")) {
 					try {
 						findAllInstanceFiles(container.members(), instanceFiles);
-					} catch (CoreException e) {
+					} catch (final CoreException e) {
 						WorkspacePlugin.log(e);
 					}
 				}
@@ -321,7 +321,8 @@ abstract class NewAbstractAaxlHandler extends AbstractHandler {
 			makeSureFoldersExist((IFolder) folder.getParent());
 			try {
 				folder.create(true, true, null);
-			} catch (CoreException e) {
+			} catch (final CoreException e) {
+				WorkspacePlugin.log(e);
 			}
 		}
 	}
