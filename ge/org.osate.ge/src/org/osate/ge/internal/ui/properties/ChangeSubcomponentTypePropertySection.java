@@ -127,7 +127,7 @@ public class ChangeSubcomponentTypePropertySection extends AbstractPropertySecti
 
 		// Get comboviewer selected value and populate available type options for comboviewer
 		selectedScType = InternalPropertySectionUtil.getTypeOptionsInformation(selectedSubcomponenents,
-				SubcomponentUtil.getSubcomponentTypes(), (sc, type) -> isCompatibleSupcomponentType(sc, type),
+				SubcomponentUtil.getSubcomponentTypes(), (sc, type) -> isCompatibleSubcomponentType(sc, type),
 				addSubcomponentTypeElement);
 
 		comboViewer.setInput(subcomponentTypeOptions);
@@ -140,7 +140,7 @@ public class ChangeSubcomponentTypePropertySection extends AbstractPropertySecti
 		}
 	}
 
-	private static boolean isCompatibleSupcomponentType(final NamedElement ne, final EClass subcomponentType) {
+	private static boolean isCompatibleSubcomponentType(final NamedElement ne, final EClass subcomponentType) {
 		final Subcomponent sc = (Subcomponent) AadlHelper.getRootRefinedElement(ne);
 		final ComponentImplementation ci = (ComponentImplementation) sc.getContainingClassifier();
 		return SubcomponentUtil.canContainSubcomponentType(ci, subcomponentType)
