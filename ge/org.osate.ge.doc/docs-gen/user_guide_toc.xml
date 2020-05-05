@@ -49,6 +49,8 @@
 		</topic>
 		<topic label="Bindings" href="docs-gen/user_guide.html#sec:bindings">
 		</topic>
+		<topic label="Prototypes" href="docs-gen/user_guide.html#prototypes">
+		</topic>
 		<topic label="Editing Flow Implementations and End-to-End Flows" href="docs-gen/user_guide.html#editing-flow-implementations-and-end-to-end-flows">
 		</topic>
 		<topic label="Refining Model Elements" href="docs-gen/user_guide.html#refining-model-elements">
@@ -147,3 +149,4 @@
 	<topic label="Notices" href="docs-gen/user_guide.html#notices">
 	</topic>
 </toc>
+
