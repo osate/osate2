@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -27,6 +27,7 @@ import static org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder.*;
 import static org.osate.ge.tests.endToEnd.util.UiTestUtil.*;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
@@ -247,19 +248,19 @@ public class OsateGeTestUtil {
 	 * Selects referenced element and clicks the nth
 	 * check box with in the properties view specified tab.
 	 */
-	public static void clickCheckBoxInPropertiesView(final DiagramReference diagram, final String tabLabel,
+	public static void clickCheckboxInPropertiesView(final DiagramReference diagram, final String tabLabel,
 			final int index, final DiagramElementReference... elements) {
 		openDiagramEditor(diagram);
 		selectDiagramElements(diagram, elements);
-		clickCheckBoxInPropertiesView(tabLabel, index);
+		clickCheckboxInPropertiesView(tabLabel, index);
 	}
 
-	private static void clickCheckBoxInPropertiesView(final String tabLabel, final int index) {
+	private static void clickCheckboxInPropertiesView(final String tabLabel, final int index) {
 		assertViewIsVisible("Properties");
 		setViewFocus("Properties");
 
 		clickPropertiesViewTab(tabLabel);
-		clickCheckBox(index);
+		clickCheckbox(index);
 	}
 
 	private static void clickRadioButtonInPropertiesView(final String tabLabel, final String btnLabel) {
@@ -279,5 +280,51 @@ public class OsateGeTestUtil {
 
 		clickPropertiesViewTab(tabLabel);
 		clickButton(btnLabel);
+	}
+
+	/**
+	 * Waits until a list item exists
+	 */
+	public static void waitUntilListWithIdItemExists(final String id,
+			final String text) {
+		waitUntil(() -> doesItemExistsInListWithId(id, text), "Expected list item '" + text + "' does not exist.");
+	}
+
+	/**
+	 * Waits until a list item does not exists
+	 */
+	public static void waitUntilListWithIdItemNotExists(final String id, final String text) {
+		waitUntil(() -> !doesItemExistsInListWithId(id, text), "Expected list item '" + text + "' exists.");
+	}
+
+	/**
+	 * Waits until a check box's check state matches the specified value
+	 */
+	public static void waitUntilCheckboxCheckedState(final String text, final boolean value) {
+		waitUntil(() -> isCheckboxChecked(text) == value, "Check box '" + text + "' check state is not " + value + ".");
+	}
+
+	/**
+	 * Waits until a radio buttons selected state matches the specified value
+	 */
+	public static void waitUntilRadioButtonSelectedState(final String text, final boolean value) {
+		waitUntil(() -> isRadioButtonSelected(text) == value,
+				"Radio button '" + text + "' selected state is not " + value + ".");
+	}
+
+	/**
+	 * Waits until the text contained in a Label with the specified ID matches the specified value.
+	 */
+	public static void waitUntilLabelWithIdTextMatches(final String id, final String value) {
+		waitUntil(() -> Objects.deepEquals(getTextForlabelWithId(id), value),
+				"Label text of '" + id + "' is not '" + value + "'. Label Value '" + getTextForlabelWithId(id) + "'");
+	}
+
+	/**
+	 * Waits until the text contained in a CLabel with the specified ID matches the specified value.
+	 */
+	public static void waitUntilCLabelWithIdTextMatches(final String id, final String value) {
+		waitUntil(() -> Objects.deepEquals(getTextForClabelWithId(id), value),
+				"Label text of '" + id + "' is not '" + value + "'. Label Value '" + getTextForClabelWithId(id) + "'");
 	}
 }

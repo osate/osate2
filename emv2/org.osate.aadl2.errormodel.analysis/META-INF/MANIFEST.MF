@@ -12,10 +12,10 @@ Require-Bundle: org.eclipse.ui;bundle-version="[3.115.0,4.0.0)",
  org.osate.aadl2.modelsupport;bundle-version="[4.0.0,5.0.0)",
  org.osate.aadl2;bundle-version="[3.0.0,4.0.0)",
  org.osate.ui;bundle-version="[3.1.0,4.0.0)",
- org.osate.xtext.aadl2.errormodel;bundle-version="[4.0.0,5.0.0)",
- org.osate.xtext.aadl2.properties;bundle-version="[1.2.0,3.0.0)",
- org.osate.aadl2.errormodel.propagationgraph;bundle-version="[4.0.0,5.0.0)",
- org.osate.pluginsupport;bundle-version="[4.0.0,5.0.0)"
+ org.osate.xtext.aadl2.errormodel;bundle-version="[3.0.0,4.0.0)",
+ org.osate.xtext.aadl2.properties;bundle-version="[1.2.0,2.0.0)",
+ org.osate.aadl2.errormodel.propagationgraph;bundle-version="[3.0.0,4.0.0)",
+ org.osate.pluginsupport;bundle-version="[3.0.0,4.0.0)"
 Bundle-ActivationPolicy: lazy
 Import-Package: org.osate.xtext.aadl2.properties
 Export-Package: org.osate.aadl2.errormodel.analysis,
