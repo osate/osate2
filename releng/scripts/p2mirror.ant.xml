@@ -129,8 +129,8 @@ Run with
             <iu id="org.eclipse.xsemantics.runtime.feature.feature.group"/>
         </p2.mirror>
         
-        <p2.mirror source="http://download.eclipse.org/elk/updates/releases/0.5.0">
-            <destination location="${target.dir}/elk/updates/releases/0.5.0"/>
+        <p2.mirror source="http://download.eclipse.org/elk/updates/releases/0.6.1">
+            <destination location="${target.dir}/elk/updates/releases/0.6.1"/>
             <iu id="org.eclipse.elk.feature.feature.group"/>
             <iu id="org.eclipse.elk.algorithms.feature.feature.group"/>
         </p2.mirror>
