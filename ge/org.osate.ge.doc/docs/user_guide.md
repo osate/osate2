@@ -447,6 +447,12 @@ A mode can be designated as the initial mode by using the *AADL* tab of the *Pro
 When viewing a component implementation diagram, a binding property associations can be created using the toolbar.
 ![](../images/BindToolbar.png)
 
+## Prototypes
+Prototypes can be edited by selecting a classifier and using the *AADL* tab of the *Properties* view (See @sec:properties_view).
+
+Classifier prototype bindings can be edited using the *AADL* tab of the *Properties* view (See @sec:properties_view). Subcomponent prototype bindings can be edited when selecting the component classifier.
+
+
 ## Editing Flow Implementations and End-to-End Flows
 Flow implementations and end-to-end flow can be edited using the flow editor.  The flow editor can be accessed by double-clicking a component implementation, selecting the *AADL* tab in the *Properties* view, and selecting *Edit...* from the *Flows* section.
 

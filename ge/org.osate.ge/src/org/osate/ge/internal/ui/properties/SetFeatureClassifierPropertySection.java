@@ -67,11 +67,11 @@ import org.eclipse.xtext.util.Strings;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.AbstractFeatureClassifier;
 import org.osate.aadl2.BusFeatureClassifier;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.DataSubcomponentType;
 import org.osate.aadl2.Feature;
@@ -95,6 +95,7 @@ import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.internal.util.AadlClassifierUtil;
 import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.AadlImportsUtil;
+import org.osate.ge.internal.util.AadlPrototypeUtil;
 import org.osate.ge.internal.util.EditingUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.internal.util.classifiers.ClassifierOperation;
@@ -419,13 +420,11 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 		}
 
 		// Add any prototypes that are of the appropriate type
-		if (feature.getContainingClassifier() instanceof ComponentClassifier) {
-			for (final Prototype p : ((ComponentClassifier) feature.getContainingClassifier()).getAllPrototypes()) {
-				if (setterInfo.classifierEClass.isInstance(p)) {
-					featureClassifiers.add(p);
-				}
+		AadlPrototypeUtil.getAllPrototypes(feature.getContainingClassifier()).forEachOrdered(p -> {
+			if (setterInfo.classifierEClass.isInstance(p)) {
+				featureClassifiers.add(p);
 			}
-		}
+		});
 
 		return featureClassifiers;
 	}
@@ -441,6 +440,11 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 				if (selectedClassifierPkg != null && pkg != selectedClassifierPkg) {
 					AadlImportsUtil.addImportIfNeeded(section, selectedClassifierPkg);
 				}
+			}
+
+			// If the feature is an abstract feature, need to reset the feature prototype. Only a prototype or a classifier may be set.
+			if (feature instanceof AbstractFeature) {
+				((AbstractFeature) feature).setFeaturePrototype(null);
 			}
 		}
 
