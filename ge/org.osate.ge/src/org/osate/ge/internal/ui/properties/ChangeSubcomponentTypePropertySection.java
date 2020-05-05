@@ -95,7 +95,7 @@ public class ChangeSubcomponentTypePropertySection extends AbstractPropertySecti
 					AgeEmfUtil.transferStructuralFeatureValues(sc,
 							SubcomponentUtil.createSubcomponent(ci, scTypeElement.getType()));
 
-// Remove the old object
+					// Remove the old object
 					EcoreUtil.remove(sc);
 				});
 			}
@@ -125,13 +125,13 @@ public class ChangeSubcomponentTypePropertySection extends AbstractPropertySecti
 		final Consumer<EClass> addSubcomponentTypeElement = (type) -> subcomponentTypeOptions
 				.add(new SubcomponentTypeElement(type));
 
-// Get comboviewer selected value and populate available type options for comboviewer
+		// Get comboviewer selected value and populate available type options for comboviewer
 		selectedScType = InternalPropertySectionUtil.getTypeOptionsInformation(selectedSubcomponenents,
 				SubcomponentUtil.getSubcomponentTypes(), (sc, type) -> isCompatibleSupcomponentType(sc, type),
 				addSubcomponentTypeElement);
 
 		comboViewer.setInput(subcomponentTypeOptions);
-// Set comboviewer selection
+		// Set comboviewer selection
 		if (selectedScType != null) {
 			subcomponentTypeOptions.stream().filter(scTypeElement -> selectedScType == scTypeElement.getType())
 			.findAny().ifPresent(scTypeElement -> {
