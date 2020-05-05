@@ -17,8 +17,9 @@
     label="OSATE2 Development 2019-12">
   <setupTask
       xsi:type="setup:CompoundTask"
-      filter=""
       name="User Preferences">
+    <annotation
+        source="http://www.eclipse.org/oomph/setup/UserPreferences"/>
     <setupTask
         xsi:type="setup:CompoundTask"
         name="org.eclipse.core.resources">
@@ -282,6 +283,22 @@
           xsi:type="setup:PreferenceTask"
           key="/instance/org.eclipse.jdt.ui/sp_cleanup.use_this_for_non_static_method_access_only_if_necessary"
           value="true"/>
+    </setupTask>
+    <setupTask
+        xsi:type="setup:CompoundTask"
+        name="org.eclipse.pde.api.tools">
+      <setupTask
+          xsi:type="setup:PreferenceTask"
+          key="/instance/org.eclipse.pde.api.tools/incompatible_api_component_version"
+          value="Error"/>
+      <setupTask
+          xsi:type="setup:PreferenceTask"
+          key="/instance/org.eclipse.pde.api.tools/incompatible_api_component_version_report_major_without_breaking_change"
+          value="Error"/>
+      <setupTask
+          xsi:type="setup:PreferenceTask"
+          key="/instance/org.eclipse.pde.api.tools/incompatible_api_component_version_report_minor_without_api_change"
+          value="Error"/>
     </setupTask>
     <setupTask
         xsi:type="setup:CompoundTask"
