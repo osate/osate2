@@ -1,26 +1,3 @@
-<!--
-Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
-All Rights Reserved.
-
-NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
-KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
-OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
-MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
-
-This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
-which is available at https://www.eclipse.org/legal/epl-2.0/
-SPDX-License-Identifier: EPL-2.0
-
-Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
-
-This program includes and/or can make use of certain third party source code, object code, documentation and other
-files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
-configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
-conditions contained in any such Third Party Software or separate license file distributed with such Third Party
-Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
-aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
-censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
--->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
@@ -74,13 +51,14 @@ censes only apply to the Third Party Software and not any other portion of this 
 <li><a href="#setting-the-initial-mode"><span class="toc-section-number">4.5</span> Setting the Initial Mode</a></li>
 <li><a href="#arrays"><span class="toc-section-number">4.6</span> Arrays</a></li>
 <li><a href="#sec:bindings"><span class="toc-section-number">4.7</span> Bindings</a></li>
-<li><a href="#editing-flow-implementations-and-end-to-end-flows"><span class="toc-section-number">4.8</span> Editing Flow Implementations and End-to-End Flows</a></li>
-<li><a href="#refining-model-elements"><span class="toc-section-number">4.9</span> Refining Model Elements</a></li>
-<li><a href="#sec:edit_in_modes"><span class="toc-section-number">4.10</span> Specifying Modes in which Elements are Active</a></li>
-<li><a href="#editing-subprogram-call-sequences"><span class="toc-section-number">4.11</span> Editing Subprogram Call Sequences</a></li>
-<li><a href="#extending"><span class="toc-section-number">4.12</span> Extending</a></li>
-<li><a href="#selecting-a-diagram-elements-container"><span class="toc-section-number">4.13</span> Selecting a Diagram Element’s Container</a></li>
-<li><a href="#selecting-all-connections"><span class="toc-section-number">4.14</span> Selecting All Connections</a></li>
+<li><a href="#prototypes"><span class="toc-section-number">4.8</span> Prototypes</a></li>
+<li><a href="#editing-flow-implementations-and-end-to-end-flows"><span class="toc-section-number">4.9</span> Editing Flow Implementations and End-to-End Flows</a></li>
+<li><a href="#refining-model-elements"><span class="toc-section-number">4.10</span> Refining Model Elements</a></li>
+<li><a href="#sec:edit_in_modes"><span class="toc-section-number">4.11</span> Specifying Modes in which Elements are Active</a></li>
+<li><a href="#editing-subprogram-call-sequences"><span class="toc-section-number">4.12</span> Editing Subprogram Call Sequences</a></li>
+<li><a href="#extending"><span class="toc-section-number">4.13</span> Extending</a></li>
+<li><a href="#selecting-a-diagram-elements-container"><span class="toc-section-number">4.14</span> Selecting a Diagram Element’s Container</a></li>
+<li><a href="#selecting-all-connections"><span class="toc-section-number">4.15</span> Selecting All Connections</a></li>
 </ul></li>
 <li><a href="#sec:instantiating"><span class="toc-section-number">5</span> Instantiating</a></li>
 <li><a href="#copying-and-pasting"><span class="toc-section-number">6</span> Copying and Pasting</a></li>
@@ -132,6 +110,29 @@ censes only apply to the Third Party Software and not any other portion of this 
 <li><a href="#notices"><span class="toc-section-number">13</span> Notices</a></li>
 </ul>
 </nav>
+<!--
+Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+All Rights Reserved.
+
+NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+
+This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+SPDX-License-Identifier: EPL-2.0
+
+Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+
+This program includes and/or can make use of certain third party source code, object code, documentation and other
+files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+-->
 <h1 id="sec:getting_started"><span class="header-section-number">1</span> Tutorial: Getting Started</h1>
 <p>This tutorial will show the basic functionality of using the graphical editor. In this tutorial we will create a simple model of an alarm system. The alarm system will consist of a controller which receives data from a single door sensor and controls an alarm.</p>
 <p><img src="../images/SecuritySystemImplConnections.png" /></p>
@@ -468,13 +469,13 @@ Create a system type and implementation named “ControlSystem” and “Control
 <h2 id="creating-mode-transitions"><span class="header-section-number">3.2</span> Creating Mode Transitions</h2>
 <p>Select <em>Mode Transition</em> from the palette and select the starting mode then the ending mode.</p>
 <h2 id="creating-flow-implementations-and-end-to-end-flow-specifications"><span class="header-section-number">3.3</span> Creating Flow Implementations and End-To-End Flow Specifications</h2>
-<p>When editing a component implementation, flow implementations and end-to-end flow specifications can be created graphically by selecting the <em>Create Flow Implementation</em> and <em>Create End-To-End Flow Specification</em> tools from the toolbar and following the prompts to select a series of elements from the diagram or outline view. The dialog and colors of elements in the diagram will update as valid selections are made. The starting flow specification will be highlighted dark orange and flow elements will be highlighted purple. The <em>Undo</em> button will remove the elements in the order they were selected.</p>
+<p>Flow implementations and end-to-end flow specifications can be created graphically by selecting the <em>Create Flow Implementation</em> and <em>Create End-To-End Flow Specification</em> tools from the toolbar and following the prompts to select a series of elements from the diagram or outline view. The tools cannot be activated if there are existing errors or warnings in the model. The dialog and colors of elements in the diagram will update as valid selections are made. The starting flow specification will be highlighted dark orange and flow elements will be highlighted purple. The <em>Undo</em> button will remove the elements in the order they were selected.</p>
 <h3 id="creating-flow-implementations"><span class="header-section-number">3.3.1</span> Creating Flow Implementations</h3>
 <p>Select <em>Create Flow Implementation</em> from the toolbar, the dialog will appear.</p>
 <p><img src="../images/CreateFlowImplementationToolbar.png" /></p>
 <h3 id="creating-source-flow-implementations"><span class="header-section-number">3.3.2</span> Creating Source Flow Implementations</h3>
 <ol type="1">
-<li>Select a source flow specification.</li>
+<li>Select a source flow specification and feature.</li>
 </ol>
 <p><img src="../images/FlowImplSourceStep1.png" /></p>
 <ol start="2" type="1">
@@ -490,7 +491,7 @@ Create a system type and implementation named “ControlSystem” and “Control
 </ol>
 <h3 id="creating-sink-flow-implementations"><span class="header-section-number">3.3.3</span> Creating Sink Flow Implementations</h3>
 <ol type="1">
-<li>Select a valid sink flow specification..</li>
+<li>Select a valid sink flow specification and feature.</li>
 </ol>
 <p><img src="../images/FlowImplSinkStep1.png" /></p>
 <ol start="2" type="1">
@@ -506,7 +507,7 @@ Create a system type and implementation named “ControlSystem” and “Control
 </ol>
 <h3 id="creating-path-flow-implementations"><span class="header-section-number">3.3.4</span> Creating Path Flow Implementations</h3>
 <ol type="1">
-<li>Select a valid path flow specification.</li>
+<li>Select a valid path flow specification and feature.</li>
 </ol>
 <p><img src="../images/FlowImplPathStep1.png" /></p>
 <ol start="2" type="1">
@@ -611,18 +612,21 @@ Create a system type and implementation named “ControlSystem” and “Control
 </table>
 <h2 id="sec:bindings"><span class="header-section-number">4.7</span> Bindings</h2>
 <p>When viewing a component implementation diagram, a binding property associations can be created using the toolbar. <img src="../images/BindToolbar.png" /></p>
-<h2 id="editing-flow-implementations-and-end-to-end-flows"><span class="header-section-number">4.8</span> Editing Flow Implementations and End-to-End Flows</h2>
-<p>When editing a component implementation, flow implementations and end-to-end flow can be edited using the flow editor. The flow editor can be accessed by double-clicking the component implementation, selecting the <em>AADL</em> tab in the <em>Properties</em> view, and selecting <em>Edit…</em> from the <em>Flows</em> section.</p>
-<h2 id="refining-model-elements"><span class="header-section-number">4.9</span> Refining Model Elements</h2>
+<h2 id="prototypes"><span class="header-section-number">4.8</span> Prototypes</h2>
+<p>Prototypes can be edited by selecting a classifier and using the <em>AADL</em> tab of the <em>Properties</em> view (See section <a href="#sec:properties_view">4.1</a>).</p>
+<p>Classifier prototype bindings can be edited using the <em>AADL</em> tab of the <em>Properties</em> view (See section <a href="#sec:properties_view">4.1</a>). Subcomponent prototype bindings can be edited when selecting the component classifier.</p>
+<h2 id="editing-flow-implementations-and-end-to-end-flows"><span class="header-section-number">4.9</span> Editing Flow Implementations and End-to-End Flows</h2>
+<p>Flow implementations and end-to-end flow can be edited using the flow editor. The flow editor can be accessed by double-clicking a component implementation, selecting the <em>AADL</em> tab in the <em>Properties</em> view, and selecting <em>Edit…</em> from the <em>Flows</em> section.</p>
+<h2 id="refining-model-elements"><span class="header-section-number">4.10</span> Refining Model Elements</h2>
 <p>Appropriate elements can be refined by using the <em>AADL</em> tab of the <em>Properties</em> view (See section <a href="#sec:properties_view">4.1</a>), and using the <em>Refined</em> section option.</p>
-<h2 id="sec:edit_in_modes"><span class="header-section-number">4.10</span> Specifying Modes in which Elements are Active</h2>
+<h2 id="sec:edit_in_modes"><span class="header-section-number">4.11</span> Specifying Modes in which Elements are Active</h2>
 <p>The modes in which the selected elements are active can be specified selecting the <em>AADL</em> tab of the <em>Properties</em> view (See section <a href="#sec:properties_view">4.1</a>), and using the <em>In Modes</em> section options.</p>
-<h2 id="editing-subprogram-call-sequences"><span class="header-section-number">4.11</span> Editing Subprogram Call Sequences</h2>
+<h2 id="editing-subprogram-call-sequences"><span class="header-section-number">4.12</span> Editing Subprogram Call Sequences</h2>
 <p>The subprogram call’s order in the subprogram call sequence (See section <a href="#sec:subprogram_call_seq">3.4</a>) can be changed from the <em>AADL</em> tab of the <em>Properties</em> view (See section <a href="#sec:properties_view">4.1</a>), and using the <em>Call Order</em> section options.</p>
-<h2 id="extending"><span class="header-section-number">4.12</span> Extending</h2>
-<h2 id="selecting-a-diagram-elements-container"><span class="header-section-number">4.13</span> Selecting a Diagram Element’s Container</h2>
+<h2 id="extending"><span class="header-section-number">4.13</span> Extending</h2>
+<h2 id="selecting-a-diagram-elements-container"><span class="header-section-number">4.14</span> Selecting a Diagram Element’s Container</h2>
 <p>To select a diagram element’s container, right click on the child element and select <em>Select Container</em> from the context menu.</p>
-<h2 id="selecting-all-connections"><span class="header-section-number">4.14</span> Selecting All Connections</h2>
+<h2 id="selecting-all-connections"><span class="header-section-number">4.15</span> Selecting All Connections</h2>
 <p>All connections can be selected by selecting <em>Edit-&gt;Select All Connections</em>.</p>
 <h1 id="sec:instantiating"><span class="header-section-number">5</span> Instantiating</h1>
 <p>Component implementations can be instantiated by right-clicking the implementation on the diagram or <em>Outline</em> view and selecting <em>Instantiate</em> from the context menu. The instance model will be created in that projects <em>instances</em> folder in the AADL Navigator.</p>
