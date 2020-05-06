@@ -10,7 +10,7 @@ import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RangeValue;
 
 /**
- * @since 4.0
+ * @since 3.1
  */
 public class RealRangeWithUnits<U extends Enum<U> & GeneratedUnits> {
 	private final RealWithUnits<U> minimum;

@@ -4,35 +4,35 @@ import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RealLiteral;
 
 /**
- * @since 4.0
+ * @since 3.1
  */
 public class RealWithUnits<U extends Enum<U> & GeneratedUnits> implements Comparable<RealWithUnits<U>> {
 	private final double value;
 	private final U unit;
-	
+
 	public RealWithUnits(PropertyExpression propertyExpression, Class<U> unitsType) {
 		RealLiteral numberValue = (RealLiteral) propertyExpression;
 		value = numberValue.getValue();
 		unit = Enum.valueOf(unitsType, numberValue.getUnit().getName().toUpperCase());
 	}
-	
+
 	public double getValue() {
 		return value;
 	}
-	
+
 	public U getUnit() {
 		return unit;
 	}
-	
+
 	public double getValue(U targetUnit) {
 		return value * unit.getFactorToBase() / targetUnit.getFactorToBase();
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Double.hashCode(value * unit.getFactorToBase());
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -52,12 +52,12 @@ public class RealWithUnits<U extends Enum<U> & GeneratedUnits> implements Compar
 			return compareTo(other) == 0;
 		}
 	}
-	
+
 	@Override
 	public int compareTo(RealWithUnits<U> o) {
 		return Double.compare(value * unit.getFactorToBase(), o.value * o.unit.getFactorToBase());
 	}
-	
+
 	@Override
 	public String toString() {
 		return value + unit.toString();
