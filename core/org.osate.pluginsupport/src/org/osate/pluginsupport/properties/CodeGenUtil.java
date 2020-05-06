@@ -8,7 +8,7 @@ import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
 
 /**
- * @since 4.0
+ * @since 3.1
  */
 public class CodeGenUtil {
 	public static PropertyExpression resolveNamedValue(PropertyExpression propertyExpression,

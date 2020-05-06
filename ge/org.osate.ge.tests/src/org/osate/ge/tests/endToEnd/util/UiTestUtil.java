@@ -29,9 +29,11 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BooleanSupplier;
 
 import org.eclipse.draw2d.FigureCanvas;
@@ -48,7 +50,9 @@ import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swtbot.eclipse.finder.finders.WorkbenchContentsFinder;
+import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
@@ -77,6 +81,7 @@ import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Sets;
 
 /**
  * Provides functions for controlling the user interface.
@@ -88,6 +93,8 @@ import com.google.common.collect.ImmutableList;
  */
 public class UiTestUtil {
 	private static final SWTGefBot bot;
+	private static final HashSet<String> allowedViewTitles = Sets.newHashSet("AADL Navigator", "AADL Diagrams",
+			"Properties", "Outline");
 
 	// All methods are static
 	private UiTestUtil() {
@@ -105,6 +112,13 @@ public class UiTestUtil {
 		// Sets the window size. Most of the test functions are size independent but selecting tabs in the properties view requires the tab to be visible.
 		Display.getDefault().syncExec(() -> {
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().setSize(1920, 1080);
+
+			// Close all views whose titles aren't in the whitelist
+			for (final SWTBotView view : bot.views()) {
+				if (!allowedViewTitles.contains(view.getTitle())) {
+					view.close();
+				}
+			}
 		});
 	}
 
@@ -138,6 +152,30 @@ public class UiTestUtil {
 	 */
 	public static void waitForWindowWithTitle(final String title) {
 		bot.waitUntil(Conditions.shellIsActive(title));
+	}
+
+	/**
+	 * Waits for a window with the specified title to appear but is not the specified window.
+	 */
+	public static void waitForOtherWindowWithTitle(final String title, final Shell shellToIgnore) {
+		waitUntil(() -> {
+			final AtomicBoolean result = new AtomicBoolean(false);
+			Display.getDefault().syncExec(() -> {
+				final Shell activeShell = bot.getFinder().activeShell();
+				result.set(activeShell != null && activeShell != shellToIgnore
+						&& Objects.equals(title, bot.activeShell().getText()));
+			});
+
+			return result.get();
+		}, "Unable to find shell with title '" + title + "' which is also not the specified shell");
+	}
+
+	/**
+	 * Returns the active shell
+	 * @return the active shell
+	 */
+	public static Shell getActiveShell() {
+		return bot.getFinder().activeShell();
 	}
 
 	/**
@@ -184,6 +222,22 @@ public class UiTestUtil {
 	}
 
 	/**
+	 * Waits until the nth combo box has the specified selection
+	 */
+	public static void waitUntilComboBoxSelect(final int comboIndex, final String text) {
+		waitUntil(() -> Objects.equals(text, bot.comboBox(comboIndex).getText()),
+				"Combo selection does not match '" + text + "'");
+	}
+
+	/**
+	 * Waits until the combo box with the specified ID has the specified selection
+	 */
+	public static void waitUntilComboBoxWithIdSelect(final String id, final String text) {
+		waitUntil(() -> Objects.equals(text, bot.comboBoxWithId(id).getText()),
+				"Combo selection does not match '" + text + "'");
+	}
+
+	/**
 	 * Sets the selection of the nth combo box to the specified value.
 	 */
 	public static void setComboBoxSelection(final int index, final String value) {
@@ -206,10 +260,31 @@ public class UiTestUtil {
 	}
 
 	/**
-	 * Clicks the radio button at specified index.
+	 * Returns whether the radio button with the specified mnemonic is selected.
 	 */
-	public static void clickCheckBox(final int index) {
+	public static boolean isRadioButtonSelected(final String text) {
+		return bot.radio(text).isSelected();
+	}
+
+	/**
+	 * Clicks the check box at specified index.
+	 */
+	public static void clickCheckbox(final int index) {
 		bot.checkBox(index).click();
+	}
+
+	/**
+	 * Clicks the radio button with the specified mnemonic text
+	 */
+	public static void clickCheckbox(final String text) {
+		bot.checkBox(text).click();
+	}
+
+	/**
+	 * Returns whether check box with the specified mnemonic text is checked
+	 */
+	public static boolean isCheckboxChecked(final String text) {
+		return bot.checkBox(text).isChecked();
 	}
 
 	/**
@@ -217,6 +292,22 @@ public class UiTestUtil {
 	 */
 	public static void clickButton(final String text) {
 		final SWTBotButton btn = bot.button(text);
+		btn.click();
+	}
+
+	/**
+	 * Clicks the nth button which has the specified text.
+	 */
+	public static void clickButton(final String text, final int index) {
+		final SWTBotButton btn = bot.button(text, index);
+		btn.click();
+	}
+
+	/**
+	 * Clicks the button which has the specified testing ID.
+	 */
+	public static void clickButtonWithId(final String id) {
+		final SWTBotButton btn = bot.buttonWithId(id);
 		btn.click();
 	}
 
@@ -259,24 +350,58 @@ public class UiTestUtil {
 	}
 
 	public static void clickTableItem(final int tableIndex, final String tableItem) {
-		bot.table().getTableItem(tableItem).click();
+		bot.table(tableIndex).getTableItem(tableItem).click();
 	}
 
 	public static void clickTableItem(final int tableIndex, final int rowIndex) {
-		bot.table().getTableItem(rowIndex).click();
+		bot.table(tableIndex).getTableItem(rowIndex).click();
 	}
 
 	public static int getNumberOfTableRows(final int tableIndex) {
-		return bot.table().rowCount();
+		return bot.table(tableIndex).rowCount();
 	}
 
 	public static void assertNumberOfTableRows(final int tableIndex, final int expectedValue) {
 		assertEquals("Unexpected number of table rows", expectedValue, getNumberOfTableRows(tableIndex));
 	}
 
-	public static void assertTableItemText(final int tableIndex, final int rowIndex,
-			final String expectedValue) {
-		assertEquals("Unexpected table item text", expectedValue, bot.table().getTableItem(rowIndex).getText());
+	public static void assertTableItemText(final int tableIndex, final int rowIndex, final String expectedValue) {
+		assertEquals("Unexpected table item text", expectedValue,
+				bot.table(tableIndex).getTableItem(rowIndex).getText());
+	}
+
+	public static void selectListWithIdItem(final String id, final String text) {
+		bot.listWithId(id).select(text);
+	}
+
+	public static void selectListItem(final int listIndex, final String text) {
+		bot.list(listIndex).select(text);
+	}
+
+	public static void doubleClickListItem(final int listIndex, final String text) {
+		bot.list(listIndex).doubleClick(text);
+	}
+
+	/**
+	 * Returns whether the text for a Label with the specified id
+	 */
+	public static String getTextForlabelWithId(final String id) {
+		return bot.labelWithId(id).getText();
+	}
+
+	/**
+	 * Returns whether the text for a CLabel with the specified id
+	 */
+	public static String getTextForClabelWithId(final String id) {
+		return bot.clabelWithId(id).getText();
+	}
+
+	/**
+	 * Returns whether an item with the specified text is contained in the list with the specified ID.
+	 * Throws an exception if it is unable to find the tree.
+	 */
+	public static boolean doesItemExistsInListWithId(final String id, final String text) {
+		return Arrays.asList(bot.listWithId(id).getItems()).contains(text);
 	}
 
 	/**
@@ -646,25 +771,23 @@ public class UiTestUtil {
 			final DiagramElementReference... elements) {
 		final AgeDiagramEditor editor = getDiagramEditor(diagram);
 
-		final List<EditPart> editPartsToSelect = new ArrayList<>();
+		final List<PictogramElement> pictogramElementsToSelect = new ArrayList<>();
 		for (int i = 0; i < elements.length; i++) {
 			final DiagramElementReference element = elements[i];
 			final DiagramElement de = getDiagramElement(diagram, element)
 					.orElseThrow(() -> new RuntimeException("Cannot find element for '" + element + "'."));
-
 			final PictogramElement pe = editor.getGraphitiAgeDiagram().getPictogramElement(de);
-			final EditPart editPart = editor.getDiagramBehavior().getEditPartForPictogramElement(pe);
-			assertNotNull("Edit part is null", editPart);
-			editPartsToSelect.add(editPart);
+			pictogramElementsToSelect.add(pe);
 		}
 
-		final SWTBotGefEditor editorBot = getDiagramEditorBot(diagram);
-		final List<SWTBotGefEditPart> partBots = findEditParts(editorBot, editPartsToSelect);
-		editorBot.select(partBots);
+		final PictogramElement[] pictogramElementsToSelectArray = pictogramElementsToSelect.toArray(new PictogramElement[pictogramElementsToSelect.size()]);
+		Display.getDefault().syncExec(() -> {
+			editor.selectPictogramElements(pictogramElementsToSelectArray);
+		});
 
-		// Assert elements are selected
-		assertTrue("Elements '" + getDiagramElementReferences(elements) + "' were not selected",
-				editorBot.selectedEditParts().containsAll(partBots));
+		waitUntil(() -> {
+			return Arrays.equals(pictogramElementsToSelectArray, editor.getSelectedPictogramElements());
+		}, "Elements '" + getDiagramElementReferences(elements) + "' are not selected");
 	}
 
 	private static String getDiagramElementReferences(final DiagramElementReference... elements) {

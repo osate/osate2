@@ -29,18 +29,6 @@
             </message_arguments>
         </filter>
     </resource>
-    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$AbstractFeatureElements">
-        <filter id="1143996420">
-            <message_arguments>
-                <message_argument value="getAbstractFeatureClassifierAbstractFeatureClassifierCrossReference_2_1_1_0()"/>
-            </message_arguments>
-        </filter>
-        <filter id="1143996420">
-            <message_arguments>
-                <message_argument value="getAbstractFeatureClassifierAbstractFeatureClassifierQCREFParserRuleCall_2_1_1_0_1()"/>
-            </message_arguments>
-        </filter>
-    </resource>
     <resource path="src/org/osate/xtext/aadl2/formatting2/regionaccess/Aadl2TextRegionAccessBuilder.java" type="org.osate.xtext.aadl2.formatting2.regionaccess.Aadl2TextRegionAccessBuilder">
         <filter comment="xtext" id="643842064">
             <message_arguments>

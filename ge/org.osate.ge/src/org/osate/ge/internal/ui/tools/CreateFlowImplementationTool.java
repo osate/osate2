@@ -23,16 +23,22 @@
  */
 package org.osate.ge.internal.ui.tools;
 
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.OptionalInt;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.inject.Named;
 
+import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
@@ -80,26 +86,36 @@ public class CreateFlowImplementationTool {
 
 	@Activate
 	public void activate(@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext selectedBoc,
-			final AadlModificationService aadlModService,
-			final UiService uiService,
+			final AadlModificationService aadlModService, final UiService uiService,
 			final ColoringService coloringService) {
 		try {
-			this.coloring = coloringService.adjustColors();
+			// Check for existing errors or warnings
+			final Set<Diagnostic> diagnostics = ToolUtil.getAllReferencedPackageDiagnostics(selectedBoc);
+			if (!diagnostics.isEmpty()) {
+				Display.getDefault()
+				.asyncExec(
+						() -> new FlowDialogUtil.ErrorDialog(
+								"The Create Flow Implementation",
+								diagnostics).open());
+			} else {
+				this.coloring = coloringService.adjustColors();
 
-			dlg = new CreateFlowImplementationDialog(Display.getCurrent().getActiveShell(), uiService, coloring);
-			// Create and update based on current selection
-			dlg.create();
-			update(new BusinessObjectContext[] { selectedBoc }, true);
-			if (dlg.open() == Window.CANCEL) {
-				return;
-			}
+				dlg = new CreateFlowImplementationDialog(Display.getCurrent().getActiveShell(), uiService, coloring);
+				// Create and update based on current selection
+				dlg.create();
+				update(new BusinessObjectContext[] { selectedBoc }, true);
+				if (dlg.open() == Window.CANCEL) {
+					return;
+				}
 
-			if (dlg != null) {
-				final ComponentImplementation ownerCi = dlg.getOwnerComponentImplementation();
-				aadlModService.modify(ownerCi, ci -> {
-					ci.getOwnedFlowImplementations().add(dlg.createFlow());
-					ci.setNoFlows(false);
-				});
+				if (dlg != null) {
+					CreateFlowImplementationDialog.getFlowComponentImplementation(dlg.getOwnerBoc().orElse(null)).ifPresent(ownerCi -> {
+						aadlModService.modify(ownerCi, ci -> {
+							ci.getOwnedFlowImplementations().add(dlg.createFlow());
+							ci.setNoFlows(false);
+						});
+					});
+				}
 			}
 		} finally {
 			uiService.deactivateActiveTool();
@@ -118,6 +134,7 @@ public class CreateFlowImplementationTool {
 				dlg.setMultipleElementsSelected(true);
 			} else if (selectedBocs.length == 1) {
 				dlg.setMultipleElementsSelected(false);
+				dlg.setValid(false);
 				dlg.addSelectedElement(selectedBocs[0], isInit);
 			}
 		}
@@ -151,15 +168,16 @@ public class CreateFlowImplementationTool {
 		private final UiService uiService;
 		private final ColoringService.Coloring coloring;
 		private final Aadl2Package pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
+		private TableViewer errorTableViewer;
 		private Composite flowComposite;
 		private StyledText flowLabel;
 		private Button undoButton;
 		private List<BusinessObjectContext> userSelections = new ArrayList<>(); // Include the flow specification, flow segments, features and modes. First item
-		// should be the flow specification being implemented.
 		private boolean multipleElementsSelected = false;
+		private boolean isValid = true;
 
-		CreateFlowImplementationDialog(final Shell parentShell,
-				final UiService uiService, final ColoringService.Coloring coloring) {
+		CreateFlowImplementationDialog(final Shell parentShell, final UiService uiService,
+				final ColoringService.Coloring coloring) {
 			super(parentShell);
 			this.uiService = Objects.requireNonNull(uiService, "ui service must not be null");
 			this.coloring = Objects.requireNonNull(coloring, "coloring must not be null");
@@ -167,32 +185,11 @@ public class CreateFlowImplementationTool {
 			setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
 		}
 
-		// Returns whether the flow has both a start and end.
-		private boolean isFlowComplete() {
-			final FlowSpecification fs = getFlowSpecification();
-			if(fs == null) {
-				return false;
-			}
-
-			if (getOwnerComponentImplementation() == null) {
-				return false;
-			}
-
-			if(fs.getKind() == FlowKind.SOURCE) {
-				return getSelectedBocsOtherThanFirst().stream().filter(boc -> boc.getBusinessObject() instanceof Feature).count() == 1;
-			} else if(fs.getKind() == FlowKind.PATH) {
-				return getSelectedBocsOtherThanFirst().stream().filter(boc -> boc.getBusinessObject() instanceof Feature).count() == 2;
-			} else if(fs.getKind() == FlowKind.SINK) {
-				return getSelectedBocsOtherThanFirst().stream()
-						.filter(boc -> boc.getBusinessObject() instanceof FlowSpecification
-								&& ((FlowSpecification) boc.getBusinessObject()).getKind() == FlowKind.SINK)
-						.count() == 1;
-			}
-
-			return false;
+		private void setValid(final boolean isValid) {
+			this.isValid = isValid;
 		}
 
-		public void setMultipleElementsSelected(final boolean value) {
+		private void setMultipleElementsSelected(final boolean value) {
 			multipleElementsSelected = value;
 			updateMessage();
 		}
@@ -214,11 +211,11 @@ public class CreateFlowImplementationTool {
 
 		private String getDirectionMessage() {
 			String msg;
-			if (userSelections.size() == 0) {
+			if (userSelections.isEmpty()) {
 				msg = "Select a flow specification to implement.";
 			} else if (selectingFlowIn()) {
 				msg = "Select a starting feature.";
-			} else if (isFlowComplete()) {
+			} else if (isValid) {
 				msg = "Select the OK button to create the flow implementation. Optionally, select a mode or mode transition.";
 			} else if (needsEndingFeature()) {
 				if (selectingFlowEnd()) {
@@ -238,11 +235,13 @@ public class CreateFlowImplementationTool {
 			final String msg = getDirectionMessage();
 			String error = null;
 
-			if(multipleElementsSelected) {
+			if (multipleElementsSelected) {
 				error = "Multiple elements selected. Select a single element.";
+			} else if (!isValid) {
+				error = "Invalid Flow Implemenation.";
 			}
 
-			if(error == null) {
+			if (error == null) {
 				setErrorMessage(null);
 				setMessage(msg);
 			} else {
@@ -251,62 +250,71 @@ public class CreateFlowImplementationTool {
 		}
 
 		private List<BusinessObjectContext> getSelectedBocsOtherThanFirst() {
-			return userSelections.subList(1,  userSelections.size());
+			return userSelections.subList(1, userSelections.size());
 		}
 
-		public FlowImplementation createFlow() {
+		private FlowImplementation createFlow() {
 			// Create a flow implementation based on the state of the dialog
-			final FlowImplementation flowImpl = (FlowImplementation)pkg.getEFactoryInstance().create(pkg.getFlowImplementation());
+			final FlowImplementation flowImpl = (FlowImplementation) pkg.getEFactoryInstance()
+					.create(pkg.getFlowImplementation());
 			flowImpl.setSpecification(getFlowSpecification());
 
-			if(flowImpl.getSpecification() != null) {
+			if (flowImpl.getSpecification() != null) {
 				flowImpl.setKind(flowImpl.getSpecification().getKind());
 			}
 
-			final BusinessObjectContext flowImplOwnerBoc = getOwnerBoc();
-			if (userSelections.size() > 1 && flowImplOwnerBoc != null) {
-				final List<BusinessObjectContext> modesAndSegmentBocs = getSelectedBocsOtherThanFirst();
-				final List<BusinessObjectContext> featureBocs = modesAndSegmentBocs.stream().filter(boc -> boc.getBusinessObject() instanceof Feature).collect(Collectors.toCollection(ArrayList::new));
-				final List<BusinessObjectContext> flowElementBocs = modesAndSegmentBocs.stream().filter(boc -> boc.getBusinessObject() instanceof FlowElement).collect(Collectors.toCollection(ArrayList::new));
-				final List<BusinessObjectContext> modeFeatureBocs = modesAndSegmentBocs.stream().filter(boc -> boc.getBusinessObject() instanceof ModeFeature).collect(Collectors.toCollection(ArrayList::new));
+			getFlowComponentImplementationBoc(getOwnerBoc().orElse(null)).ifPresent(flowImplOwnerBoc -> {
+				if (userSelections.size() > 1) {
+					final List<BusinessObjectContext> modesAndSegmentBocs = getSelectedBocsOtherThanFirst();
+					final List<BusinessObjectContext> featureBocs = modesAndSegmentBocs.stream()
+							.filter(boc -> boc.getBusinessObject() instanceof Feature)
+							.collect(Collectors.toCollection(ArrayList::new));
+					final List<BusinessObjectContext> flowElementBocs = modesAndSegmentBocs.stream()
+							.filter(boc -> boc.getBusinessObject() instanceof FlowElement)
+							.collect(Collectors.toCollection(ArrayList::new));
+					final List<BusinessObjectContext> modeFeatureBocs = modesAndSegmentBocs.stream()
+							.filter(boc -> boc.getBusinessObject() instanceof ModeFeature)
+							.collect(Collectors.toCollection(ArrayList::new));
 
-				int nextFeatureIndex = 0;
-				BusinessObjectContext inBoc = null;
-				if(needsStartingFeature() && featureBocs.size() > nextFeatureIndex) {
-					final FlowEnd inEnd = flowImpl.createInEnd();
-					inBoc = featureBocs.get(nextFeatureIndex);
-					inEnd.setContext(ToolUtil.findContextExcludeOwner(inBoc, flowImplOwnerBoc));
-					inEnd.setFeature((Feature) inBoc.getBusinessObject());
-					nextFeatureIndex++;
-				}
+					int nextFeatureIndex = 0;
+					BusinessObjectContext inBoc = null;
+					if (needsStartingFeature() && featureBocs.size() > nextFeatureIndex) {
+						final FlowEnd inEnd = flowImpl.createInEnd();
+						inBoc = featureBocs.get(nextFeatureIndex);
+						inEnd.setContext(ToolUtil.findContextExcludeOwner(inBoc, flowImplOwnerBoc));
+						inEnd.setFeature((Feature) inBoc.getBusinessObject());
+						nextFeatureIndex++;
+					}
 
-				BusinessObjectContext outBoc = null;
-				if(needsEndingFeature() && featureBocs.size() > nextFeatureIndex) {
-					final FlowEnd outEnd = flowImpl.createOutEnd();
-					outBoc = featureBocs.get(nextFeatureIndex);
-					outEnd.setContext(ToolUtil.findContextExcludeOwner(outBoc, flowImplOwnerBoc));
-					outEnd.setFeature((Feature) outBoc.getBusinessObject());
-					nextFeatureIndex++;
-				}
+					BusinessObjectContext outBoc = null;
+					if (needsEndingFeature() && featureBocs.size() > nextFeatureIndex) {
+						final FlowEnd outEnd = flowImpl.createOutEnd();
+						outBoc = featureBocs.get(nextFeatureIndex);
+						outEnd.setContext(ToolUtil.findContextExcludeOwner(outBoc, flowImplOwnerBoc));
+						outEnd.setFeature((Feature) outBoc.getBusinessObject());
+						nextFeatureIndex++;
+					}
 
-				for(final BusinessObjectContext tmpBoc : flowElementBocs) {
-					if (!(tmpBoc.getBusinessObject() instanceof DataAccess) || (tmpBoc != outBoc && tmpBoc != inBoc)) {
-						final FlowSegment newFlowSegment = flowImpl.createOwnedFlowSegment();
-						newFlowSegment.setContext(ToolUtil.findContextExcludeOwner(tmpBoc, flowImplOwnerBoc));
-						newFlowSegment.setFlowElement((FlowElement) tmpBoc.getBusinessObject());
+					for (final BusinessObjectContext tmpBoc : flowElementBocs) {
+						if (!(tmpBoc.getBusinessObject() instanceof DataAccess)
+								|| (tmpBoc != outBoc && tmpBoc != inBoc)) {
+							final FlowSegment newFlowSegment = flowImpl.createOwnedFlowSegment();
+							newFlowSegment.setContext(ToolUtil.findContextExcludeOwner(tmpBoc, flowImplOwnerBoc));
+							newFlowSegment.setFlowElement((FlowElement) tmpBoc.getBusinessObject());
+						}
+					}
+
+					for (final BusinessObjectContext tmpModeFeature : modeFeatureBocs) {
+						flowImpl.getInModeOrTransitions().add((ModeFeature) tmpModeFeature.getBusinessObject());
 					}
 				}
-
-				for(final BusinessObjectContext tmpModeFeature : modeFeatureBocs) {
-					flowImpl.getInModeOrTransitions().add((ModeFeature)tmpModeFeature.getBusinessObject());
-				}
-			}
+			});
 
 			return flowImpl;
 		}
 
 		private boolean selectingFlowSpecificationToImplement() {
-			return userSelections.size() == 0;
+			return userSelections.isEmpty();
 		}
 
 		private boolean selectingFlowIn() {
@@ -314,7 +322,7 @@ public class CreateFlowImplementationTool {
 		}
 
 		private boolean selectingSubcomponentFlow() {
-			if (selectingFlowSpecificationToImplement() || selectingFlowIn() || isFlowComplete()) {
+			if (selectingFlowSpecificationToImplement() || selectingFlowIn()) {
 				return false;
 			}
 
@@ -330,7 +338,7 @@ public class CreateFlowImplementationTool {
 		}
 
 		private boolean selectingConnectionFlow() {
-			if (selectingFlowSpecificationToImplement() || selectingFlowIn() || isFlowComplete()) {
+			if (selectingFlowSpecificationToImplement() || selectingFlowIn()) {
 				return false;
 			}
 
@@ -346,8 +354,7 @@ public class CreateFlowImplementationTool {
 		}
 
 		private boolean selectingFlowEnd() {
-			if (selectingFlowSpecificationToImplement() || selectingFlowIn() || !needsEndingFeature()
-					|| isFlowComplete()) {
+			if (selectingFlowSpecificationToImplement() || selectingFlowIn() || !needsEndingFeature()) {
 				return false;
 			}
 
@@ -356,7 +363,7 @@ public class CreateFlowImplementationTool {
 			if ((flowImpl.getKind() == FlowKind.SOURCE || flowImpl.getKind() == FlowKind.SINK)
 					&& (flowImpl.getOwnedFlowSegments().size() % 2) == 0) {
 				return true;
-			} else if (flowImpl.getKind() == FlowKind.PATH && (flowImpl.getOwnedFlowSegments().size() == 0
+			} else if (flowImpl.getKind() == FlowKind.PATH && (flowImpl.getOwnedFlowSegments().isEmpty()
 					|| (flowImpl.getOwnedFlowSegments().size() % 2) == 1)) {
 				// For flow paths, require an odd number of flow segments if there are any flow segments
 				return true;
@@ -369,59 +376,43 @@ public class CreateFlowImplementationTool {
 		 * @param boc - the business object context for the selected element
 		 * @param isInit - whether the boc is the initial selection when tool is activated
 		 */
-		public void addSelectedElement(final BusinessObjectContext boc, final boolean isInit) {
-			// Decide whether to add the element to the selection list
-			boolean add = false;
-			final Object bo = boc.getBusinessObject();
-			if(selectingFlowSpecificationToImplement()) {
-				if(bo instanceof FlowSpecification) {
-					add = true;
-				}
-			} else if(selectingFlowIn()) {
-				if (bo instanceof Feature && calculateDistanceToOwner(boc).orElse(Integer.MAX_VALUE) <= 2) {
-					add = true;
-				}
-			} else { // Selecting flow segments and modes
-				if (bo instanceof ModeFeature) {
-					add = true;
-				} else {
-					if (selectingFlowEnd() && bo instanceof Feature
-							&& calculateDistanceToOwner(boc).orElse(Integer.MAX_VALUE) <= 2) {
-						add = true;
-					} else if (selectingConnectionFlow() && bo instanceof Connection
-							&& calculateDistanceToOwner(boc).orElse(Integer.MAX_VALUE) == 1) {
-						add = true;
-					} else if (selectingSubcomponentFlow() && bo instanceof FlowElement
-							&& calculateDistanceToOwner(boc).orElse(Integer.MAX_VALUE) <= 2) {
+		private void addSelectedElement(final BusinessObjectContext boc, final boolean isInit) {
+			if (!userSelections.contains(boc)) {
+				// Decide whether to add the element to the selection list
+				boolean add = false;
+				final Object bo = boc.getBusinessObject();
+				if (selectingFlowSpecificationToImplement()) {
+					if (bo instanceof FlowSpecification) {
 						add = true;
 					}
+				} else if (selectingFlowIn()) {
+					if (bo instanceof Feature) {
+						add = true;
+					}
+				} else { // Selecting flow segments and modes
+					if (bo instanceof ModeFeature) {
+						add = true;
+					} else {
+						if (selectingFlowEnd() && bo instanceof Feature) {
+							add = true;
+						} else if (selectingConnectionFlow() && bo instanceof Connection) {
+							add = true;
+						} else if (selectingSubcomponentFlow() && bo instanceof FlowElement) {
+							add = true;
+						}
+					}
 				}
-			}
 
-			if (add && !userSelections.contains(boc)) {
-				setErrorMessage(null);
+				if (add) {
+					setErrorMessage(null);
 
-				// Don't allow duplicate selections
-				userSelections.add(boc);
+					userSelections.add(boc);
 
-				// Update the UI
-				updateWidgets();
+					// Update the UI
+					updateWidgets();
+				}
 			} else if (!isInit) {
 				setErrorMessage("Invalid element selected. " + getDirectionMessage());
-			}
-		}
-
-		private OptionalInt calculateDistanceToOwner(final BusinessObjectContext boc) {
-			BusinessObjectContext tmp = boc;
-			int distance = 0;
-			while(true) {
-				distance++;
-				tmp = tmp.getParent();
-				if(tmp == null) {
-					return OptionalInt.empty();
-				} else if (tmp == getOwnerBoc()) {
-					return OptionalInt.of(distance);
-				}
 			}
 		}
 
@@ -431,12 +422,12 @@ public class CreateFlowImplementationTool {
 
 		private static String flowEndToString(final FlowEnd flowEnd) {
 			final StringBuilder sb = new StringBuilder();
-			if(flowEnd.getContext() != null) {
+			if (flowEnd.getContext() != null) {
 				sb.append(getName(flowEnd.getContext()));
 				sb.append('.');
 			}
 
-			if(flowEnd.getFeature() != null) {
+			if (flowEnd.getFeature() != null) {
 				sb.append(getName(flowEnd.getFeature()));
 			}
 
@@ -445,57 +436,118 @@ public class CreateFlowImplementationTool {
 
 		private static String flowSegmentToString(final FlowSegment flowSegment) {
 			final StringBuilder sb = new StringBuilder();
-			if(flowSegment.getContext() != null) {
+			if (flowSegment.getContext() != null) {
 				sb.append(getName(flowSegment.getContext()));
 				sb.append('.');
 			}
 
-			if(flowSegment.getFlowElement() != null) {
+			if (flowSegment.getFlowElement() != null) {
 				sb.append(getName(flowSegment.getFlowElement()));
 			}
 
 			return sb.toString();
 		}
 
+		private boolean isFlowImplValid(final FlowImplementation fi) {
+			final Set<Diagnostic> diagnostics;
+			final Optional<ComponentImplementation> optCi = getFlowComponentImplementation(getOwnerBoc().orElse(null));
+			if (!optCi.isPresent()) {
+				diagnostics = Collections.emptySet();
+				setDefaultTitle();
+			} else {
+				final ComponentImplementation ci = optCi.get();
+
+				// Update title
+				setTitle("Creating Flow Implementation in: " + ci.getQualifiedName());
+				diagnostics = ToolUtil.getModificationDiagnostics(ci, (resourceSet) -> {
+					final ComponentImplementation objectToModify = (ComponentImplementation) resourceSet
+							.getEObject(EcoreUtil.getURI(ci), true);
+					objectToModify.setNoFlows(false);
+					objectToModify.getOwnedFlowImplementations().add(fi);
+					return objectToModify;
+				});
+			}
+
+			// Update error table
+			FlowDialogUtil.setInput(errorTableViewer, diagnostics);
+
+			final Optional<Diagnostic> errorDiagnostic = diagnostics.stream()
+					.filter(diagnostic -> diagnostic.getSeverity() == Diagnostic.ERROR).findAny();
+			return !errorDiagnostic.isPresent();
+		}
+
+		private static Optional<ComponentImplementation> getFlowComponentImplementation(
+				final BusinessObjectContext owner) {
+			return getFlowBocToComponentImplementation(owner).map(entry -> entry.getValue());
+		}
+
+		private static Optional<BusinessObjectContext> getFlowComponentImplementationBoc(
+				final BusinessObjectContext owner) {
+			return getFlowBocToComponentImplementation(owner).map(entry -> entry.getKey());
+		}
+
+		private static Optional<SimpleEntry<BusinessObjectContext, ComponentImplementation>> getFlowBocToComponentImplementation(
+				final BusinessObjectContext owner) {
+			if (owner == null) {
+				return Optional.empty();
+			}
+
+			final Object bo = owner.getBusinessObject();
+			final ComponentImplementation ci;
+			if (bo instanceof ComponentImplementation) {
+				ci = ComponentImplementation.class.cast(bo);
+			} else if (bo instanceof Subcomponent) {
+				ci = Subcomponent.class.cast(bo).getComponentImplementation();
+			} else {
+				return Optional.empty();
+			}
+
+			return Optional.of(new SimpleEntry<BusinessObjectContext, ComponentImplementation>(owner, ci));
+		}
+
 		/**
 		 * Updates the UI
 		 */
 		private void updateWidgets() {
-			getButton(IDialogConstants.OK_ID).setEnabled(isFlowComplete());
-			undoButton.setEnabled(userSelections.size() > 0);
+			undoButton.setEnabled(!userSelections.isEmpty());
+
+			final FlowImplementation fi = createFlow();
+			isValid = isFlowImplValid(fi);
 
 			updateMessage();
 
+			getButton(IDialogConstants.OK_ID).setEnabled(isValid);
+
 			// Update the flow implementation string
-			final FlowImplementation fi = createFlow();
-			if(fi.getSpecification() == null) {
+			if (fi.getSpecification() == null) {
 				flowLabel.setStyleRange(null);
 				flowLabel.setText("");
 			} else {
 				final FlowSpecification flowSpec = fi.getSpecification();
-				String flowStr = flowSpec.getName() + ":" + "  flow ";
+				String flowStr = flowSpec.getName() + ":";
 				final int kindStartIndex = flowStr.length();
-				flowStr += fi.getKind() + " ";
+				flowStr += "  flow " + fi.getKind() + " ";
 				final int kindEndIndex = flowStr.length();
 
 				final List<String> flowSegmentStrings = new ArrayList<>();
-				if(needsStartingFeature() && fi.getInEnd() != null) {
+				if (needsStartingFeature() && fi.getInEnd() != null) {
 					flowSegmentStrings.add(flowEndToString(fi.getInEnd()));
 				}
 
-				for(final FlowSegment seg : fi.getOwnedFlowSegments()) {
+				for (final FlowSegment seg : fi.getOwnedFlowSegments()) {
 					flowSegmentStrings.add(flowSegmentToString(seg));
 				}
 
-				if(needsEndingFeature() && fi.getOutEnd() != null) {
+				if (needsEndingFeature() && fi.getOutEnd() != null) {
 					flowSegmentStrings.add(flowEndToString(fi.getOutEnd()));
 				}
 
 				flowStr += flowSegmentStrings.stream().collect(Collectors.joining(" -> "));
 
 				final int modeStartIndex = flowStr.length();
-				if(fi.getInModeOrTransitions().size() > 0) {
-					flowStr += " in modes (" + fi.getInModeOrTransitions().stream().map(mf -> mf.getName()).collect(Collectors.joining(", ")) + ")";
+				if (!fi.getInModeOrTransitions().isEmpty()) {
+					flowStr += " in modes (" + fi.getInModeOrTransitions().stream().map(mf -> mf.getName())
+							.collect(Collectors.joining(", ")) + ")";
 				}
 				final int modeEndIndex = flowStr.length();
 
@@ -504,21 +556,23 @@ public class CreateFlowImplementationTool {
 				flowLabel.setText(flowStr);
 
 				// Adjust style of label
-				flowLabel.setStyleRange(new StyleRange(kindStartIndex, kindEndIndex-kindStartIndex, Display.getCurrent().getSystemColor(SWT.COLOR_DARK_RED), null, SWT.BOLD));
+				flowLabel.setStyleRange(new StyleRange(kindStartIndex, kindEndIndex - kindStartIndex,
+						Display.getCurrent().getSystemColor(SWT.COLOR_DARK_RED), null, SWT.BOLD));
 				if (modeStartIndex != modeEndIndex) {
-					flowLabel.setStyleRange(new StyleRange(modeStartIndex, 10, Display.getCurrent().getSystemColor(SWT.COLOR_DARK_RED), null, SWT.BOLD));
+					flowLabel.setStyleRange(new StyleRange(modeStartIndex, 10,
+							Display.getCurrent().getSystemColor(SWT.COLOR_DARK_RED), null, SWT.BOLD));
 				}
 			}
 
 			coloring.clear();
-			for(int i = 0; i < userSelections.size(); i++) {
+			for (int i = 0; i < userSelections.size(); i++) {
 				final BusinessObjectContext boc = userSelections.get(i);
 				if (boc instanceof DiagramElement) {
 					// Update diagram element highlighting
 					final DiagramElement de = (DiagramElement) boc;
-					if(i == 0) {
+					if (i == 0) {
 						coloring.setForeground(de, Color.ORANGE.darker());
-					} else if(de instanceof ModeFeature) {
+					} else if (de instanceof ModeFeature) {
 						coloring.setForeground(de, Color.MAGENTA.brighter());
 					} else {
 						coloring.setForeground(de, Color.MAGENTA.darker());
@@ -529,49 +583,32 @@ public class CreateFlowImplementationTool {
 
 		private FlowSpecification getFlowSpecification() {
 			// The flow specification should be the first thing selected by the user
-			if(userSelections.size() == 0) {
+			if (userSelections.isEmpty()) {
 				return null;
 			}
 
-			final BusinessObjectContext boc = userSelections.get(0);
-			return (FlowSpecification)boc.getBusinessObject();
+			return FlowSpecification.class.cast(userSelections.get(0).getBusinessObject());
 		}
 
 		/**
 		 * Returns the business object context for the owner of the new flow implementation
 		 * @return
 		 */
-		private BusinessObjectContext getOwnerBoc() {
+		private Optional<BusinessObjectContext> getOwnerBoc() {
 			// The flow specification should be the first thing selected by the user
-			if (userSelections.size() == 0) {
-				return null;
+			if (userSelections.isEmpty()) {
+				return Optional.empty();
 			}
 
-			return userSelections.get(0).getParent();
-		}
-
-		/**
-		 * Returns the component implementation in which the flow specification is being created.
-		 * @return
-		 */
-		private ComponentImplementation getOwnerComponentImplementation() {
-			final BusinessObjectContext ownerBoc = getOwnerBoc();
-
-			final Object tmpBo = ownerBoc.getBusinessObject();
-			if (tmpBo instanceof ComponentImplementation) {
-				return (ComponentImplementation) tmpBo;
-			} else if (tmpBo instanceof Subcomponent) {
-				return ((Subcomponent) tmpBo).getComponentImplementation();
-			}
-
-			return null;
+			return Optional.of(userSelections.get(0).getParent());
 		}
 
 		@Override
 		protected void configureShell(final Shell newShell) {
 			super.configureShell(newShell);
-			newShell.setText("Create Flow Implementation");
-			newShell.setLocation(DialogPlacementHelper.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
+			newShell.setText("Flow Implementation Tool");
+			newShell.setLocation(DialogPlacementHelper
+					.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
 			newShell.setSize(800, 400);
 			newShell.setMinimumSize(300, 215);
 		}
@@ -579,24 +616,21 @@ public class CreateFlowImplementationTool {
 		@Override
 		public void create() {
 			super.create();
-			setTitle("Select Elements");
+			setDefaultTitle();
 			ContextHelpUtil.setHelp(getShell(), ContextHelpUtil.FLOW_IMPL_TOOL);
 			updateWidgets();
 		}
 
+		private void setDefaultTitle() {
+			setTitle("Creating Flow Implementation");
+		}
+
 		@Override
 		protected Control createDialogArea(final Composite parent) {
-			flowComposite = (Composite)super.createDialogArea(parent);
-			GridLayout layout = (GridLayout)flowComposite.getLayout();
-			layout.marginLeft = 10;
-			layout.marginTop = 5;
-
-			flowLabel = new StyledText(flowComposite, SWT.BORDER | SWT.WRAP | SWT.V_SCROLL | SWT.MULTI);
-			flowLabel.setEditable(false);
-			flowLabel.setEnabled(false);
-			flowLabel.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WIDGET_BACKGROUND));
-			flowLabel.setMargins(5, 5, 5, 5);
-			flowLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+			final Composite area = FlowDialogUtil.createFlowArea(parent);
+			flowComposite = FlowDialogUtil.createSegmentComposite(area);
+			flowLabel = FlowDialogUtil.createFlowSegmentLabel(flowComposite);
+			errorTableViewer = FlowDialogUtil.createErrorTableViewer(new Composite(area, SWT.NONE));
 
 			return flowComposite;
 		}
@@ -617,8 +651,8 @@ public class CreateFlowImplementationTool {
 			undoButton.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
-					if(userSelections.size() > 0) {
-						userSelections.remove(userSelections.size()-1);
+					if (!userSelections.isEmpty()) {
+						userSelections.remove(userSelections.size() - 1);
 						uiService.clearSelection();
 						updateWidgets();
 					}

@@ -238,6 +238,11 @@ public abstract class LatencyContributor {
 		return "";
 	}
 
+	/**
+	 * @since 4.0
+	 */
+	protected abstract String getFlowSpecName();
+
 	protected abstract String getContributorType();
 
 	public void setSynchronous() {
@@ -518,6 +523,7 @@ public abstract class LatencyContributor {
 		addRealValue(result, expectedMax);
 		addStringValue(result, mapMethodToString(bestCaseMethod));
 		addStringValue(result, mapMethodToString(worstCaseMethod));
+		addStringValue(result, getFlowSpecName());
 		/**
 		 * We also add the lines of all the sub-contributors.
 		 */
@@ -561,7 +567,7 @@ public abstract class LatencyContributor {
 		myLine.setSeverity(ReportSeverity.INFO);
 
 		myLine.addContent(levelOpenLabel(level) + this.getContributorType() + " "
-				+ this.getFullComponentContributorName() + levelCloseLabel(level));
+				+ this.getFullComponentContributorName() + " " + getFlowSpecName() + levelCloseLabel(level));
 		if (this.expectedMin != 0.0) {
 			myLine.addContent(this.expectedMin + "ms");
 		} else {

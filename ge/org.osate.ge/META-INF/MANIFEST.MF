@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: OSATE Graphical Editor
 Bundle-SymbolicName: org.osate.ge;singleton:=true
-Bundle-Version: 1.1.1.qualifier
+Bundle-Version: 1.2.0.qualifier
 Bundle-Activator: org.osate.ge.internal.Activator
 Require-Bundle: org.eclipse.ui;bundle-version="[3.115.0,4.0.0)",
  org.eclipse.core.runtime;bundle-version="[3.17.0,4.0.0)",
@@ -12,7 +12,7 @@ Require-Bundle: org.eclipse.ui;bundle-version="[3.115.0,4.0.0)",
  org.eclipse.xtext.ui;bundle-version="[2.20.0,3.0.0)",
  org.osate.aadl2;bundle-version="[3.0.0,4.0.0)",
  org.osate.aadl2.modelsupport;bundle-version="[4.0.0,5.0.0)",
- org.osate.xtext.aadl2.properties.ui;bundle-version="[3.0.0,4.0.0)",
+ org.osate.xtext.aadl2.properties.ui;bundle-version="[2.1.0,3.0.0)",
  org.eclipse.graphiti.pattern;bundle-version="[0.16.0,1.0.0)",
  org.eclipse.gef;bundle-version="[3.11.0,4.0.0)",
  org.osate.xtext.aadl2.ui;bundle-version="[4.0.0,5.0.0)",
@@ -33,7 +33,8 @@ Require-Bundle: org.eclipse.ui;bundle-version="[3.115.0,4.0.0)",
  org.eclipse.elk.graph;bundle-version="[0.3.0,1.0.0)",
  org.eclipse.elk.alg.layered;bundle-version="[0.3.0,1.0.0)",
  org.eclipse.elk.core.service;bundle-version="[0.3.0,1.0.0)",
- com.google.guava;bundle-version="[21.0.0,22.0.0)"
+ com.google.guava;bundle-version="[21.0.0,22.0.0)",
+ org.osate.ge.swt;bundle-version="[1.0.0,2.0.0)"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: 
