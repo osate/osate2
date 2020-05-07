@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -53,6 +53,7 @@ import org.eclipse.elk.graph.ElkGraphElement;
 import org.eclipse.elk.graph.ElkLabel;
 import org.eclipse.elk.graph.ElkNode;
 import org.eclipse.elk.graph.ElkPort;
+import org.eclipse.elk.graph.properties.IPropertyHolder;
 import org.eclipse.elk.graph.util.ElkGraphUtil;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.ge.DockingPosition;
@@ -148,12 +149,9 @@ class ElkGraphBuilder {
 		rootNode.setProperty(CoreOptions.DIRECTION, Direction.RIGHT);
 		mapping.setLayoutGraph(rootNode);
 
-		// As of 2017-11-28, INCLUDE_CHILDREN causes an exception with hierarchical connections with fixed position ports
-		// If fixed position ports are used, the hierarchy handling will be adjusted accordingly.
-		// rootNode.setProperty(CoreOptions.HIERARCHY_HANDLING, HierarchyHandling.INCLUDE_CHILDREN);
-
-		// As of 20180-03-15, INCLUDE_CHILDREN causes ports to be positioned incorrectly and nodes to be sized incorrectly under certain conditions.
+		// As of 2020-04-06, INCLUDE_CHILDREN causes layout issues. In particular, labels can overlap with children
 		// https://github.com/eclipse/elk/issues/316
+		// https://github.com/eclipse/elk/issues/412
 		rootNode.setProperty(CoreOptions.HIERARCHY_HANDLING, HierarchyHandling.SEPARATE_CHILDREN);
 
 		if (rootDiagramNode instanceof AgeDiagram) {
@@ -221,9 +219,6 @@ class ElkGraphBuilder {
 				} else {
 					if (hasNestedPorts || options.layoutPortsOnDefaultSides) {
 						portConstraints = PortConstraints.FIXED_POS;
-						// If using fixed port positions, adjust the hierarchy handling so that ELK will not throw an exception due to missing dummy ports.
-						mapping.getLayoutGraph().setProperty(CoreOptions.HIERARCHY_HANDLING,
-								HierarchyHandling.SEPARATE_CHILDREN);
 					} else {
 						portConstraints = PortConstraints.FREE;
 					}
@@ -645,24 +640,12 @@ class ElkGraphBuilder {
 					final ElkConnectableShape start = edgeStart;
 					final ElkConnectableShape end = edgeEnd;
 
-					// As of ELK 0.3.0 and 2018-02-26, an exception will be thrown when using a self loop with fixed ports which are on the same side.
-					// See https://github.com/eclipse/elk/issues/297
-					// As of ELK 0.3.0 and 2018-02-26, an exception will be thrown in certain cases where a self loop references a south/north port.
-					// See https://github.com/eclipse/elk/issues/298
 					boolean insideSelfLoopsYo = true;
-
 					boolean isSelfLoop = false;
 
 					if (start instanceof ElkPort && end instanceof ElkPort) {
 						if (start.eContainer() == end.eContainer()) {
 							isSelfLoop = true;
-
-							final PortSide startSide = start.getProperty(CoreOptions.PORT_SIDE);
-							final PortSide endSide = end.getProperty(CoreOptions.PORT_SIDE);
-							if (startSide == endSide || startSide == PortSide.NORTH || startSide == PortSide.SOUTH
-									|| endSide == PortSide.NORTH || endSide == PortSide.SOUTH) {
-								insideSelfLoopsYo = false;
-							}
 						}
 					}
 
@@ -672,11 +655,12 @@ class ElkGraphBuilder {
 						insideSelfLoopsYo = false;
 					}
 
-					// ELK 0.5.0 includes a bug that can cause an exception when laying out self loops. To work around this issue, we disable routing of such
-					// connections
-					// See https://github.com/osate/osate2/issues/1911
-					// Disable layout of edges that are a self loop
-					if (isSelfLoop) {
+					// As of ELK 0.6.1 an 2020-04-06, an exception will be thrown when using fixed position port and inside self loops.
+					// https://github.com/eclipse/elk/issues/548
+					// Disable layout of such edges
+					if (isSelfLoop && insideSelfLoopsYo && start.eContainer() instanceof IPropertyHolder
+							&& ((IPropertyHolder) start.eContainer())
+							.getProperty(CoreOptions.PORT_CONSTRAINTS) == PortConstraints.FIXED_POS) {
 						continue;
 					}
 
