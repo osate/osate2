@@ -53,6 +53,7 @@ import org.osate.ge.internal.util.AadlFlowSpecificationUtil.FlowSegmentReference
 import org.osate.ge.internal.util.AadlInstanceObjectUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
+import org.osate.ge.swt.util.SwtTestUtil;
 
 import com.google.common.base.Predicates;
 
@@ -137,7 +138,7 @@ public class FlowContributionItem extends ComboContributionItem {
 			}
 		});
 
-		comboViewer.getCombo().setData(UiUtil.AUTOMATED_SWTBOT_TESTING_KEY, highlightFlow);
+		SwtTestUtil.setTestingId(comboViewer.getCombo(), highlightFlow);
 		refresh(); // Populate the combo box
 		return control;
 	}
