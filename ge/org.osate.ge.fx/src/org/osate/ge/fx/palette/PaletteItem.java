@@ -1,19 +1,16 @@
 package org.osate.ge.fx.palette;
 
-import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
 
 class PaletteItem<I> extends Region {
 
-	ToggleButton itemButton;
-	ToggleGroup itemGroup = new ToggleGroup();
+	final ToggleButton itemButton;
+	boolean itemHovered[] = { false };
 	final String HOVER_ITEM_STYLE = "-fx-background-color: rgba(252,228,179,1.0);";
 	final String SELECTED_ITEM_STYLE = "-fx-background-color: rgba(207,227,250,1.0);";
 	final String IDLE_ITEM_STYLE = "-fx-background-color: white;";
@@ -22,32 +19,16 @@ class PaletteItem<I> extends Region {
 		itemButton = new ToggleButton(model.getItemLabel(item));
 		itemButton.setPadding(new Insets(0, 0, 0, 20));
 		itemButton.setFont(new Font(14));
-		itemButton.setToggleGroup(itemGroup);
 
 		itemButton.setStyle(IDLE_ITEM_STYLE);
 
-		// TODO: Find a way to listen to the activeItemProperty and change the style based on that.
-		model.activeItemProperty().addListener((ChangeListener<I>) (o, oldValue, newValue) -> {
-			for (Toggle t : itemGroup.getToggles()) {
-				if (t.isSelected()) {
-					itemButton.setStyle(SELECTED_ITEM_STYLE);
-				} else {
-					itemButton.setStyle(IDLE_ITEM_STYLE);
-				}
-			}
-		});
 		itemButton.setOnMouseEntered(e -> {
-
-			if (model.getActiveItem() != item) {
-				itemButton.setStyle(HOVER_ITEM_STYLE);
-			}
-
+			itemHovered[0] = true;
+			updateStyle(itemHovered[0], model, item);
 		});
 		itemButton.setOnMouseExited(e -> {
-			if (model.getActiveItem() != item) {
-				itemButton.setStyle(IDLE_ITEM_STYLE);
-			}
-
+			itemHovered[0] = false;
+			updateStyle(itemHovered[0], model, item);
 		});
 
 		itemButton.setAlignment(Pos.BASELINE_LEFT);
@@ -57,11 +38,20 @@ class PaletteItem<I> extends Region {
 			if (model.getActiveItem() != item) {
 				model.activateItem(item);
 
-				itemButton.setStyle(SELECTED_ITEM_STYLE);
+				updateStyle(itemHovered[0], model, item);
 			}
 
 		});
 		this.getChildren().add(itemButton);
+	}
+
+	public void updateStyle(boolean itemHovered, PaletteModel<?, I> model, I item) {
+
+		if (itemHovered && model.getActiveItem() != item) {
+			itemButton.setStyle(HOVER_ITEM_STYLE);
+		} else if (model.getActiveItem() == item) {
+			itemButton.setStyle(SELECTED_ITEM_STYLE);
+		}
 	}
 
 	@Override
