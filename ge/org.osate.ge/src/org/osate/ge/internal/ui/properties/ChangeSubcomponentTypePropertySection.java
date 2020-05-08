@@ -45,11 +45,9 @@ import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.aadl2.AbstractSubcomponent;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
-import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.AgeEmfUtil;
 import org.osate.ge.internal.util.StringUtil;
 import org.osate.ge.internal.util.SubcomponentUtil;
@@ -118,7 +116,7 @@ public class ChangeSubcomponentTypePropertySection extends AbstractPropertySecti
 
 	@Override
 	public void refresh() {
-		final Set<NamedElement> selectedSubcomponenents = selectedBos.boStream(NamedElement.class)
+		final Set<Subcomponent> selectedSubcomponenents = selectedBos.boStream(Subcomponent.class)
 				.collect(Collectors.toSet());
 		final Set<SubcomponentTypeElement> subcomponentTypeOptions = new HashSet<>();
 		// Add to options
@@ -140,11 +138,11 @@ public class ChangeSubcomponentTypePropertySection extends AbstractPropertySecti
 		}
 	}
 
-	private static boolean isCompatibleSubcomponentType(final NamedElement ne, final EClass subcomponentType) {
-		final Subcomponent sc = (Subcomponent) AadlHelper.getRootRefinedElement(ne);
-		final ComponentImplementation ci = (ComponentImplementation) sc.getContainingClassifier();
-		return SubcomponentUtil.canContainSubcomponentType(ci, subcomponentType)
-				&& (sc.getRefined() == null || sc.getRefined() instanceof AbstractSubcomponent);
+	private static boolean isCompatibleSubcomponentType(final Subcomponent sc, final EClass subcomponentType) {
+		final ComponentImplementation ci = sc.getContainingComponentImpl();
+		return (SubcomponentUtil.canContainSubcomponentType(ci, subcomponentType)
+				&& (sc.getRefined() == null || sc.getRefined() instanceof AbstractSubcomponent))
+				|| subcomponentType == sc.eClass();
 	}
 
 	private class SubcomponentTypeElement {
