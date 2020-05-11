@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -54,8 +55,10 @@ public class Services {
 	 * @return The set of neighbors for the given component.
 	 */
 	public static Collection<EObject> getAllNeighbors(EObject self) {
-		return (Stream.concat(getSuccessorNeighbors(self).stream(), getPredecessorNeighbors(self).stream()))
-				.collect(Collectors.toSet());
+//		return (Stream.concat(getSuccessorNeighbors(self).stream(), getPredecessorNeighbors(self).stream()))
+//				.collect(Collectors.toSet());
+		return Stream.of(getSuccessorNeighbors(self).stream(), getPredecessorNeighbors(self).stream(),
+				getOneHopNeighbors(self).stream()).flatMap(Function.identity()).collect(Collectors.toSet());
 	}
 
 	/**
@@ -73,6 +76,7 @@ public class Services {
 		for (EObject pred : getPredecessorNeighbors(self)) {
 			ret.addAll(getPredecessorNeighbors(pred));
 		}
+		ret.remove(self); // Filter out the object if there's a loop
 		return ret;
 	}
 

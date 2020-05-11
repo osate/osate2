@@ -25,9 +25,10 @@ import org.sireum.aadl.osate.util.Util;
 import org.sireum.awas.AADLBridge.AadlHandler;
 import org.sireum.awas.ast.Model;
 import org.sireum.awas.awasfacade.AwasGraphImpl;
-import org.sireum.awas.fptc.FlowEdge;
-import org.sireum.awas.fptc.FlowGraph;
-import org.sireum.awas.fptc.FlowNode;
+import org.sireum.awas.flow.FlowEdge;
+import org.sireum.awas.flow.FlowGraph;
+import org.sireum.awas.flow.FlowNode;
+import org.sireum.awas.flow.NodeType;
 import org.sireum.awas.symbol.Resource;
 import org.sireum.awas.symbol.SymbolTable;
 import org.sireum.awas.symbol.SymbolTableHelper;
@@ -124,6 +125,8 @@ public class AwasManager {
 			neighborConns.stream().map(nodeGraph::getPredecessorNodes).map(JavaConverters::toJavaSet)
 					.forEach(neighbors::addAll);
 		}
+
+		neighbors.removeIf(n -> n.getResourceType() != NodeType.COMPONENT());
 
 		Set<String> uris = neighbors.stream().map(n -> n.getUri()).collect(Collectors.toSet());
 		return urisToInstEObjs(parent, uris);

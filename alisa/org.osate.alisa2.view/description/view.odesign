@@ -5,23 +5,7 @@
       <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
       <layout xsi:type="description_1:CustomLayoutConfiguration" id="org.eclipse.elk.graphviz.circo" label="Circo" description="Circular layout, after Six and Tollis '99, Kaufmann and Wiese '02. The algorithm finds biconnected components and arranges each component in a circle, trying to minimize the number of crossings inside the circle. This is suitable for certain diagrams of multiple cyclic structures such as certain telecommunications networks."/>
       <defaultLayer name="Default">
-        <nodeMappings name="OneHopNeighbors" detailDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedRepresentationCreationDescriptions[name='Table%20Creation%20NewTopLevelErrors']" semanticCandidatesExpression="service:getOneHopNeighbors()" domainClass="instance.ComponentInstance">
-          <style xsi:type="style:BundledImageDescription" sizeComputationExpression="20" labelPosition="node" resizeKind="NSEW">
-            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_red']"/>
-          </style>
-          <conditionnalStyles predicateExpression="service:isFocused()">
-            <style xsi:type="style:BundledImageDescription" sizeComputationExpression="20" labelPosition="node" resizeKind="NSEW">
-              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_red']"/>
-              <labelFormat>bold</labelFormat>
-              <labelFormat>italic</labelFormat>
-              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_red']"/>
-              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_red']"/>
-            </style>
-          </conditionnalStyles>
-        </nodeMappings>
-        <nodeMappings name="RootNode" detailDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedRepresentationCreationDescriptions[name='Table%20Creation%20NewTopLevelErrors']" semanticCandidatesExpression="aql:self" domainClass="instance.ComponentInstance">
+        <nodeMappings name="RootNode" detailDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedRepresentationCreationDescriptions[name='Table%20Creation%20NewTopLevelErrors']" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" semanticCandidatesExpression="aql:self" domainClass="instance.ComponentInstance">
           <style xsi:type="style:BundledImageDescription" sizeComputationExpression="20" labelPosition="node" resizeKind="NSEW">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -37,7 +21,7 @@
             </style>
           </conditionnalStyles>
         </nodeMappings>
-        <nodeMappings name="ImmediateNeighbors" detailDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedRepresentationCreationDescriptions[name='Table%20Creation%20NewTopLevelErrors']" semanticCandidatesExpression="service:getAllNeighbors" domainClass="instance.ComponentInstance">
+        <nodeMappings name="ImmediateNeighbors" detailDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedRepresentationCreationDescriptions[name='Table%20Creation%20NewTopLevelErrors']" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" semanticCandidatesExpression="service:getAllNeighbors" domainClass="instance.ComponentInstance">
           <style xsi:type="style:BundledImageDescription" sizeComputationExpression="20" labelPosition="node" resizeKind="NSEW">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -53,7 +37,7 @@
             </style>
           </conditionnalStyles>
         </nodeMappings>
-        <edgeMappings name="ConnectedSuccessorEdges" sourceMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']" targetMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']" targetFinderExpression="service:getSuccessorNeighbors()">
+        <edgeMappings name="ConnectedSuccessorEdges" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" sourceMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']" targetMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']" targetFinderExpression="service:getSuccessorNeighbors()">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription>
@@ -69,7 +53,7 @@
             </style>
           </conditionnalStyles>
         </edgeMappings>
-        <edgeMappings name="ConnectedPredecessorEdges" sourceMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']" targetMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']" targetFinderExpression="service:getPredecessorNeighbors()">
+        <edgeMappings name="ConnectedPredecessorEdges" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" sourceMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']" targetMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']" targetFinderExpression="service:getPredecessorNeighbors()">
           <style sourceArrow="InputArrow" targetArrow="NoDecoration" sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription>
@@ -85,7 +69,7 @@
             </style>
           </conditionnalStyles>
         </edgeMappings>
-        <edgeMappings name="ConnectedOneHopSuccessorEdges" preconditionExpression="service:isFirstConnection(sourceView, targetView)" sourceMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors'] //@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']" targetMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']" targetFinderExpression="service:getSuccessorNeighbors()">
+        <edgeMappings name="ConnectedOneHopSuccessorEdges" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" preconditionExpression="service:isFirstConnection(sourceView, targetView)" sourceMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']" targetMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors'] //@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']" targetFinderExpression="service:getSuccessorNeighbors()">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription>
@@ -101,7 +85,7 @@
             </style>
           </conditionnalStyles>
         </edgeMappings>
-        <edgeMappings name="ConnectedOneHopPredecessorEdges" preconditionExpression="service:isFirstConnection(sourceView, targetView)" sourceMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors'] //@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']" targetMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']" targetFinderExpression="service:getPredecessorNeighbors()">
+        <edgeMappings name="ConnectedOneHopPredecessorEdges" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" preconditionExpression="service:isFirstConnection(sourceView, targetView)" sourceMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']" targetMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors'] //@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']" targetFinderExpression="service:getPredecessorNeighbors()">
           <style sourceArrow="InputArrow" targetArrow="NoDecoration" sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription>
@@ -135,7 +119,7 @@
     </ownedRepresentations>
     <ownedRepresentations xsi:type="description_2:TreeDescription" documentation="Placeholder initial view until we iron out the SAFE2.0 process." endUserDocumentation="Shows the subcomponents contained in this component, as well as what they contain." name="Containment" initialisation="true" showOnStartup="true" domainClass="instance.ComponentInstance">
       <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
-      <subItemMappings name="component" detailDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@ownedRepresentationCreationDescriptions[name='NewConnectedNeighbors'] //@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedRepresentationCreationDescriptions[name='Table%20Creation%20NewTopLevelErrors']" domainClass="instance.ComponentInstance" semanticCandidatesExpression="feature:eContents">
+      <subItemMappings name="component" detailDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@ownedRepresentationCreationDescriptions[name='NewConnectedNeighbors'] //@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedRepresentationCreationDescriptions[name='Table%20Creation%20NewTopLevelErrors']" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" domainClass="instance.ComponentInstance" semanticCandidatesExpression="feature:eContents">
         <defaultStyle>
           <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
           <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
@@ -148,7 +132,7 @@
             <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
           </style>
         </conditionalStyles>
-        <subItemMappings name="subcomponent" domainClass="instance.ComponentInstance" semanticCandidatesExpression="feature:eContents">
+        <subItemMappings name="subcomponent" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" domainClass="instance.ComponentInstance" semanticCandidatesExpression="feature:eContents">
           <defaultStyle>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
@@ -161,7 +145,7 @@
               <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
             </style>
           </conditionalStyles>
-          <subItemMappings name="subsubcomponent" domainClass="instance.ComponentInstance" semanticCandidatesExpression="feature:eContents">
+          <subItemMappings name="subsubcomponent" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" domainClass="instance.ComponentInstance" semanticCandidatesExpression="feature:eContents">
             <defaultStyle>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
@@ -227,7 +211,7 @@
     </ownedRepresentations>
     <ownedRepresentations xsi:type="description_2:TreeDescription" endUserDocumentation="The fundamentals (accident levels, accidents, hazards, and constraints) associated with the component." name="Fundamentals" initialisation="true" domainClass="safe2.SystemOverview">
       <metamodel href="../../org.osate.alisa2.model/model/safe2.ecore#/"/>
-      <subItemMappings name="Accident Level" domainClass="safe2.AccidentLevel" semanticCandidatesExpression="feature:eAllContents">
+      <subItemMappings name="Accident Level" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" domainClass="safe2.AccidentLevel" semanticCandidatesExpression="feature:eAllContents">
         <defaultStyle>
           <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
           <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
@@ -240,7 +224,7 @@
             <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
           </style>
         </conditionalStyles>
-        <subItemMappings name="Accident" domainClass="safe2.Accident" semanticCandidatesExpression="feature:eAllContents">
+        <subItemMappings name="Accident" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" domainClass="safe2.Accident" semanticCandidatesExpression="feature:eAllContents">
           <defaultStyle>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
@@ -253,7 +237,7 @@
               <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
             </style>
           </conditionalStyles>
-          <subItemMappings name="Hazard" domainClass="safe2.Hazard" semanticCandidatesExpression="feature:eAllContents">
+          <subItemMappings name="Hazard" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" domainClass="safe2.Hazard" semanticCandidatesExpression="feature:eAllContents">
             <defaultStyle>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
@@ -266,7 +250,7 @@
                 <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
               </style>
             </conditionalStyles>
-            <subItemMappings name="Constraint" domainClass="safe2.Constraint" semanticCandidatesExpression="feature:eAllContents">
+            <subItemMappings name="Constraint" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" domainClass="safe2.Constraint" semanticCandidatesExpression="feature:eAllContents">
               <defaultStyle>
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
                 <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
@@ -339,6 +323,11 @@
           </menuItemDescriptions>
         </popupMenus>
       </subItemMappings>
+      <ownedRepresentationNavigationDescriptions xsi:type="description_2:TreeNavigationDescription" name="ToFundamentals" elementsToSelect="service:debug" treeDescription="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']">
+        <containerViewVariable name="containerView"/>
+        <containerVariable name="container"/>
+        <representationNameVariable name="treeName"/>
+      </ownedRepresentationNavigationDescriptions>
     </ownedRepresentations>
     <ownedRepresentations xsi:type="description_3:CrossTableDescription" endUserDocumentation="A table, similar to the unsafe control action table of STPA, showing the selected component's connections and the families of error types propagated on those convnections." name="TopLevelErrors" domainClass="instance.ComponentInstance">
       <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
@@ -347,7 +336,7 @@
         <containerViewVariable name="containerView"/>
         <representationNameVariable name="tableName"/>
       </ownedRepresentationCreationDescriptions>
-      <ownedLineMappings name="ControlActionsTopLevelErrors" domainClass="instance.ConnectionInstance" headerLabelExpression="service:getControlActionRowHeader()">
+      <ownedLineMappings name="ControlActionsTopLevelErrors" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" domainClass="instance.ConnectionInstance" headerLabelExpression="service:getControlActionRowHeader()">
         <defaultForeground>
           <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
         </defaultForeground>
@@ -355,7 +344,7 @@
           <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
         </defaultBackground>
       </ownedLineMappings>
-      <ownedColumnMappings name="ErrorTypesTopLevelErrors" headerLabelExpression="service:getErrorTypeColumnHeader()" domainClass="errorModel.ErrorType" semanticCandidatesExpression="service:getRootErrorTypes()">
+      <ownedColumnMappings name="ErrorTypesTopLevelErrors" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" headerLabelExpression="service:getErrorTypeColumnHeader()" domainClass="errorModel.ErrorType" semanticCandidatesExpression="service:getRootErrorTypes()">
         <defaultForeground>
           <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
         </defaultForeground>
@@ -363,7 +352,7 @@
           <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
         </defaultBackground>
       </ownedColumnMappings>
-      <intersection name="HasErrorTopLevelErrors" detailDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='FamilyErrors']/@ownedRepresentationCreationDescriptions[name='CreateFamilyErrors'] //@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='UCA-Refinement']/@ownedRepresentationCreationDescriptions[name='CreateUCA-Refinement']" lineMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedLineMappings[name='ControlActionsTopLevelErrors']" columnMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedColumnMappings.0" labelExpression="X" columnFinderExpression="service:getRootErrorTypesByConnection()">
+      <intersection name="HasErrorTopLevelErrors" detailDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='UCA-Refinement']/@ownedRepresentationCreationDescriptions[name='CreateUCA-Refinement']" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" lineMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedLineMappings[name='ControlActionsTopLevelErrors']" columnMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='TopLevelErrors']/@ownedColumnMappings.0" labelExpression="X" columnFinderExpression="service:getRootErrorTypesByConnection()">
         <foregroundConditionalStyle predicateExpression="service:isFocused()">
           <style labelSize="8">
             <labelFormat>bold</labelFormat>
@@ -378,7 +367,7 @@
       <metamodel href="../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#/"/>
       <layout xsi:type="description_1:CustomLayoutConfiguration" id="org.eclipse.elk.layered" label="ELK Layered" description="Layer-based algorithm provided by the Eclipse Layout Kernel. Arranges as many edges as possible into one direction by placing nodes into subsequent layers. This implementation supports different routing styles (straight, orthogonal, splines); if orthogonal routing is selected, arbitrary port constraints are respected, thus enabling the layout of block diagrams such as actor-oriented models or circuit schematics. Furthermore, full layout of compound graphs with cross-hierarchy edges is supported when the respective option is activated on the top level."/>
       <defaultLayer name="Default">
-        <edgeMappings name="ErrTransitions" preconditionExpression="service:isFirstConnection(sourceView, targetView)" sourceMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ProcessModel']/@defaultLayer/@containerMappings[name='TheComponent']/@subContainerMappings[name='ErrStateMachine']/@subNodeMappings[name='ErrState']" targetMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ProcessModel']/@defaultLayer/@containerMappings[name='TheComponent']/@subContainerMappings[name='ErrStateMachine']/@subNodeMappings[name='ErrState']" targetFinderExpression="feature:target" sourceFinderExpression="feature:source" domainClass="errorModel.ErrorBehaviorTransition" useDomainElement="true">
+        <edgeMappings name="ErrTransitions" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" preconditionExpression="service:isFirstConnection(sourceView, targetView)" sourceMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ProcessModel']/@defaultLayer/@containerMappings[name='TheComponent']/@subContainerMappings[name='ErrStateMachine']/@subNodeMappings[name='ErrState']" targetMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ProcessModel']/@defaultLayer/@containerMappings[name='TheComponent']/@subContainerMappings[name='ErrStateMachine']/@subNodeMappings[name='ErrState']" targetFinderExpression="feature:target" sourceFinderExpression="feature:source" domainClass="errorModel.ErrorBehaviorTransition" useDomainElement="true">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription labelSize="12">
@@ -386,8 +375,8 @@
             </centerLabelStyleDescription>
           </style>
         </edgeMappings>
-        <containerMappings name="TheComponent" semanticCandidatesExpression="var:self" domainClass="instance.ComponentInstance">
-          <borderedNodeMappings name="InFeatures" semanticCandidatesExpression="service:getInFeatures()" domainClass="instance.FeatureInstance">
+        <containerMappings name="TheComponent" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" semanticCandidatesExpression="var:self" domainClass="instance.ComponentInstance">
+          <borderedNodeMappings name="InFeatures" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" semanticCandidatesExpression="service:getInFeatures()" domainClass="instance.FeatureInstance">
             <style xsi:type="style:SquareDescription" labelSize="12" sizeComputationExpression="10" labelPosition="node" resizeKind="NSEW" width="10" height="3">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -397,7 +386,7 @@
               <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             </style>
           </borderedNodeMappings>
-          <borderedNodeMappings name="OutFeatures" semanticCandidatesExpression="service:getOutFeatures()" domainClass="instance.FeatureInstance">
+          <borderedNodeMappings name="OutFeatures" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" semanticCandidatesExpression="service:getOutFeatures()" domainClass="instance.FeatureInstance">
             <style xsi:type="style:SquareDescription" labelSize="12" sizeComputationExpression="10" labelPosition="node" resizeKind="NSEW" width="10" height="3">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -407,7 +396,7 @@
               <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             </style>
           </borderedNodeMappings>
-          <borderedNodeMappings name="InOutFeatures" semanticCandidatesExpression="service:getInOutFeatures()" domainClass="instance.FeatureInstance">
+          <borderedNodeMappings name="InOutFeatures" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" semanticCandidatesExpression="service:getInOutFeatures()" domainClass="instance.FeatureInstance">
             <style xsi:type="style:SquareDescription" labelSize="12" sizeComputationExpression="10" labelPosition="node" resizeKind="NSEW" width="3" height="10">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -417,8 +406,8 @@
               <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             </style>
           </borderedNodeMappings>
-          <subContainerMappings name="ErrStateMachine" domainClass="errorModel.ErrorBehaviorStateMachine">
-            <subNodeMappings name="ErrState" semanticCandidatesExpression="feature:states" domainClass="errorModel::ErrorBehaviorState">
+          <subContainerMappings name="ErrStateMachine" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" domainClass="errorModel.ErrorBehaviorStateMachine">
+            <subNodeMappings name="ErrState" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" semanticCandidatesExpression="feature:states" domainClass="errorModel::ErrorBehaviorState">
               <style xsi:type="style:SquareDescription" labelSize="12" labelPosition="node" resizeKind="NSEW" width="10" height="3">
                 <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -442,42 +431,6 @@
         </containerMappings>
       </defaultLayer>
     </ownedRepresentations>
-    <ownedRepresentations xsi:type="description_3:CrossTableDescription" endUserDocumentation="A table, similar to the unsafe control action table of STPA, showing the selected component's connections and the specific error types in one family propagated on those convnections." name="FamilyErrors" domainClass="instance.ComponentInstance">
-      <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
-      <metamodel href="../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#/"/>
-      <ownedRepresentationCreationDescriptions xsi:type="description_3:TableCreationDescription" name="CreateFamilyErrors" browseExpression="service:getContainer()" tableDescription="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='FamilyErrors']">
-        <initialOperation>
-          <firstModelOperations xsi:type="tool:ExternalJavaAction" name="ForceVariableInitialization" id="org.osate.alisa2.view.ForceVariableInitializationActionID"/>
-        </initialOperation>
-        <containerViewVariable name="TLECellContainerView"/>
-        <representationNameVariable name="tableName"/>
-      </ownedRepresentationCreationDescriptions>
-      <ownedLineMappings name="ControlActionsFamilyErrors" domainClass="instance.ConnectionInstance" headerLabelExpression="service:getControlActionRowHeader()">
-        <defaultForeground>
-          <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-        </defaultForeground>
-        <defaultBackground>
-          <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
-        </defaultBackground>
-      </ownedLineMappings>
-      <ownedColumnMappings name="ErrorTypesFamilyErrors" headerLabelExpression="service:getErrorTypeColumnHeader()" domainClass="errorModel.ErrorType" semanticCandidatesExpression="service:getFamilyErrorTypes(TLECellContainerView)">
-        <defaultForeground>
-          <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-        </defaultForeground>
-        <defaultBackground>
-          <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
-        </defaultBackground>
-      </ownedColumnMappings>
-      <intersection name="HasErrorFamilyErrors" lineMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='FamilyErrors']/@ownedLineMappings[name='ControlActionsFamilyErrors']" columnMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='FamilyErrors']/@ownedColumnMappings.0" labelExpression="service:getCauseAndCompensation(lineSemantic, columnSemantic, root, line, column, container)" columnFinderExpression="service:getErrorTypesByConnection()">
-        <foregroundConditionalStyle predicateExpression="service:isFocused()">
-          <style labelSize="8">
-            <labelFormat>bold</labelFormat>
-            <labelFormat>italic</labelFormat>
-            <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_red']"/>
-          </style>
-        </foregroundConditionalStyle>
-      </intersection>
-    </ownedRepresentations>
     <ownedRepresentations xsi:type="description_3:CrossTableDescription" endUserDocumentation="A table, similar to the unsafe control action table of STPA, showing the selected component's connections and the specific error types in one family propagated on those convnections." name="UCA-Refinement" titleExpression="service:getUCARefinementTitle()" domainClass="instance.ComponentInstance">
       <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
       <metamodel href="../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#/"/>
@@ -489,16 +442,16 @@
         <containerViewVariable name="TLECellContainerView"/>
         <representationNameVariable name="tableName"/>
       </ownedRepresentationCreationDescriptions>
-      <ownedLineMappings name="ControlActionsUCA-Refinement" domainClass="instance.ConnectionInstance" headerLabelExpression="service:getControlActionRowHeader()">
+      <ownedLineMappings name="ControlActionsUCA-Refinement" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" domainClass="instance.ConnectionInstance" headerLabelExpression="service:getControlActionRowHeader()">
         <defaultForeground>
           <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
         </defaultForeground>
         <defaultBackground>
           <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
         </defaultBackground>
-        <ownedSubLines name="secondLine" domainClass="instance.ConnectionInstance" semanticCandidatesExpression="service:duplicate()" headerLabelExpression="service:getControlActionRowHeader()"/>
+        <ownedSubLines name="secondLine" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" domainClass="instance.ConnectionInstance" semanticCandidatesExpression="service:duplicate()" headerLabelExpression="service:getControlActionRowHeader()"/>
       </ownedLineMappings>
-      <ownedColumnMappings name="ErrorTypesUCA-Refinement" headerLabelExpression="service:getErrorTypeColumnHeader()" domainClass="errorModel.ErrorType" semanticCandidatesExpression="service:getFamilyErrorTypes(TLECellContainerView)">
+      <ownedColumnMappings name="ErrorTypesUCA-Refinement" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" headerLabelExpression="service:getErrorTypeColumnHeader()" domainClass="errorModel.ErrorType" semanticCandidatesExpression="service:getFamilyErrorTypes(TLECellContainerView)">
         <defaultForeground>
           <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
         </defaultForeground>
@@ -506,7 +459,7 @@
           <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
         </defaultBackground>
       </ownedColumnMappings>
-      <intersection name="HasErrorUCA-Refinement" lineMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='UCA-Refinement']/@ownedLineMappings[name='ControlActionsUCA-Refinement'] //@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='UCA-Refinement']/@ownedLineMappings[name='ControlActionsUCA-Refinement']/@ownedSubLines[name='secondLine']" columnMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='UCA-Refinement']/@ownedColumnMappings.0" labelExpression="service:getCauseAndCompensation(columnSemantic, line)" columnFinderExpression="service:getErrorTypesByConnection()">
+      <intersection name="HasErrorUCA-Refinement" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" lineMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='UCA-Refinement']/@ownedLineMappings[name='ControlActionsUCA-Refinement'] //@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='UCA-Refinement']/@ownedLineMappings[name='ControlActionsUCA-Refinement']/@ownedSubLines[name='secondLine']" columnMapping="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='UCA-Refinement']/@ownedColumnMappings.0" labelExpression="service:getCauseAndCompensation(columnSemantic, line)" columnFinderExpression="service:getErrorTypesByConnection()">
         <foregroundConditionalStyle predicateExpression="service:isFocused()">
           <style labelSize="8">
             <labelFormat>bold</labelFormat>
