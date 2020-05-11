@@ -144,7 +144,6 @@ abstract class NewAbstractAaxlHandler extends AbstractHandler {
 
 				final IFolder reportsFolder = ResourcesPlugin.getWorkspace().getRoot().getFolder(reportsPath);
 				final IFolder outputFolder = ResourcesPlugin.getWorkspace().getRoot().getFolder(outputPath);
-				outputFolders.add(reportsFolder);
 				outputFolders.add(outputFolder);
 
 				final IFile outputFile = ResourcesPlugin.getWorkspace().getRoot()
@@ -178,9 +177,7 @@ abstract class NewAbstractAaxlHandler extends AbstractHandler {
 			try {
 				ResourcesPlugin.getWorkspace().run(m -> {
 					for (final IFolder folder : outputFolders) {
-						if (!folder.exists()) {
-							folder.create(false, true, null);
-						}
+						makeSureFoldersExist(folder);
 					}
 					for (final IFile file : outputFiles) {
 						if (!file.exists()) {
@@ -195,7 +192,7 @@ abstract class NewAbstractAaxlHandler extends AbstractHandler {
 				PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
 					MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
 							"Error starting analysis",
-							"Excepting starting analysis, see the error log: " + e.getMessage());
+							"Exception starting analysis, see the error log: " + e.getMessage());
 				});
 			}
 
@@ -306,11 +303,28 @@ abstract class NewAbstractAaxlHandler extends AbstractHandler {
 				if (!container.getName().startsWith(".")) {
 					try {
 						findAllInstanceFiles(container.members(), instanceFiles);
-					} catch (CoreException e) {
+					} catch (final CoreException e) {
 						WorkspacePlugin.log(e);
 					}
 				}
 			}
 		}
 	}
+
+	/**
+	 * make sure the folders exist all along the path
+	 *
+	 * @param path
+	 */
+	private static void makeSureFoldersExist(IFolder folder) {
+		if (!folder.exists()) {
+			makeSureFoldersExist((IFolder) folder.getParent());
+			try {
+				folder.create(true, true, null);
+			} catch (final CoreException e) {
+				WorkspacePlugin.log(e);
+			}
+		}
+	}
+
 }

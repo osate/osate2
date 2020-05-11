@@ -255,7 +255,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 					// period is set, and if thread, abstract, or device needs to be dispatched as periodic
 					// We sample only data ports. Event and event data ports have queuing latency
 					LatencyContributorComponent samplingLatencyContributor = new LatencyContributorComponent(
-							componentInstance, report.isMajorFrameDelay());
+							componentInstance, flowElementInstance, report.isMajorFrameDelay());
 					samplingLatencyContributor.setSamplingPeriod(period);
 					if ((InstanceModelUtil.isThread(componentInstance) || InstanceModelUtil.isDevice(componentInstance))
 							&& !GetProperties.hasAssignedPropertyValue(componentInstance, "Dispatch_Protocol")) {
@@ -291,7 +291,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				// The periodic component is the first component in the ETEF
 				// record fact that first element is periodic so we can process synchronous behavior correctly
 				LatencyContributorComponent samplingLatencyContributor = new LatencyContributorComponent(
-						componentInstance, report.isMajorFrameDelay());
+						componentInstance, flowElementInstance, report.isMajorFrameDelay());
 				samplingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.FIRST_PERIODIC);
 				samplingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.FIRST_PERIODIC);
 				entry.addContributor(samplingLatencyContributor);
@@ -306,6 +306,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 					List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(firstPartition);
 					double partitionDuration = FlowLatencyUtil.getPartitionDuration(firstPartition, schedule);
 					LatencyContributorComponent platencyContributor = new LatencyContributorComponent(firstPartition,
+							flowElementInstance,
 							report.isMajorFrameDelay());
 					if (!FlowLatencyUtil.isInSchedule(firstPartition, schedule)) {
 						platencyContributor.reportWarning("Partition not found in ARINC653 schedule of processor "
@@ -340,6 +341,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		worstmethod = LatencyContributorMethod.UNKNOWN;
 
 		LatencyContributorComponent processingLatencyContributor = new LatencyContributorComponent(componentInstance,
+				flowElementInstance,
 				report.isMajorFrameDelay());
 
 		if (responseTimeHigher != 0.0) {
@@ -397,7 +399,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		// take into account queuing delay
 		if (incomingConnectionFI != null) {
 			double qs = 0;
-			LatencyContributorComponent ql = new LatencyContributorComponent(componentInstance,
+			LatencyContributorComponent ql = new LatencyContributorComponent(componentInstance, flowElementInstance,
 					report.isMajorFrameDelay());
 			if (GetProperties.hasAssignedPropertyValue(incomingConnectionFI, CommunicationProperties.QUEUE_SIZE)) {
 				qs = GetProperties.getQueueSize(incomingConnectionFI);
@@ -473,6 +475,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			double partitionDuration = FlowLatencyUtil.getPartitionDuration(srcPartition, schedule);
 			if (partitionDuration > 0) {
 				LatencyContributor ioLatencyContributor = new LatencyContributorComponent(srcPartition,
+						flowElementInstance,
 						report.isMajorFrameDelay());
 				if (!FlowLatencyUtil.isInSchedule(srcPartition, schedule)) {
 					ioLatencyContributor.reportWarning("Partition not found in ARINC653 schedule of processor "
@@ -565,6 +568,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(dstPartition);
 			double partitionDuration = FlowLatencyUtil.getPartitionDuration(dstPartition, schedule);
 			LatencyContributorComponent platencyContributor = new LatencyContributorComponent(dstPartition,
+					flowElementInstance,
 					report.isMajorFrameDelay());
 			if (!FlowLatencyUtil.isInSchedule(dstPartition, schedule)) {
 				platencyContributor.reportWarning("Partition not found in ARINC653 schedule of processor "

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.osate.analysis.flows;singleton:=true
-Bundle-Version: 3.0.1.qualifier
+Bundle-Version: 4.0.0.qualifier
 Bundle-Activator: org.osate.analysis.flows.FlowanalysisPlugin
 Bundle-Vendor: CMU-SEI
 Bundle-Localization: plugin
@@ -16,7 +16,7 @@ Export-Package: org.osate.analysis.flows,
 Require-Bundle: org.osate.aadl2;bundle-version="[3.0.0,4.0.0)",
  org.osate.aadl2.modelsupport;bundle-version="[4.0.0,5.0.0)",
  org.osate.ui;bundle-version="[3.1.0,4.0.0)",
- org.osate.xtext.aadl2.properties;bundle-version="[1.2.0,3.0.0)",
+ org.osate.xtext.aadl2.properties;bundle-version="[1.2.0,2.0.0)",
  org.osate.contribution.sei;bundle-version="[1.1.0,3.0.0)",
  org.osate.results;bundle-version="[2.0.0,3.0.0)"
 Bundle-ActivationPolicy: lazy

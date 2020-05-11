@@ -234,7 +234,7 @@ public class ClassifierOperationDialog {
 							return args.model.getUnfilteredPrimarySelectOptions();
 						}
 					});
-					primaryPartEditor.setData(primaryPartIdentifier);
+					primaryPartEditor.setIdentifierFieldTestingId(primaryPartIdentifier);
 					primaryPartEditor.setSelectedElement(args.defaultSelection);
 					primaryPartEditor.setSelectedComponentCategory(initialComponentCategory);
 					primaryPartEditor.setSelectedPackage(args.defaultPackage);
@@ -275,7 +275,7 @@ public class ClassifierOperationDialog {
 									primaryPartEditor.getConfiguredOperation().getType());
 						}
 					});
-					baseValueWidget.setData(baseValueIdentifier);
+					baseValueWidget.setIdentifierFieldTestingId(baseValueIdentifier);
 					baseValueWidget.setSelectedElement(args.defaultSelection);
 					baseValueWidget.setSelectedComponentCategory(initialComponentCategory);
 					baseValueWidget.setSelectedPackage(args.defaultPackage);
