@@ -7,7 +7,7 @@ public
 	end S1;
 	
 	system S2 extends S1
-	end S1;
+	end S2;
 	
 	system Other
 	end Other;
