@@ -44,11 +44,6 @@ public
             f0: refined to out data port E; -- bad not subtype
     end SrcSys5;
     
-    system SrcSys6 extends SrcSys
-        features
-            f0: refined to in data port D; -- bad, changed direction
-    end SrcSys6;
-    
     system SrcSys7 extends SrcSys
         features
             f0: refined to out data port; -- should not be allowed?  removed type
@@ -58,11 +53,6 @@ public
         features
             f0: refined to out event port; -- should not be allowed?  removed type -- not supposed to have event here at all
     end SrcSys8;
-
-    system SrcSys88 extends SrcSys
-        features
-            f0: refined to provides data access D; -- bad, changes direction
-    end SrcSys88;
 
 
 
@@ -99,11 +89,6 @@ public
         features
             f0: refined to provides bus access; -- should not be allowed?  removed type
     end SrcSys13;
-
-    system SrcSys14 extends SrcSysNoDir
-        features
-            f0: refined to provides bus access D; -- bad!
-    end SrcSys14;
 
     system SrcSys15 extends SrcSysNoDir
         features
