@@ -212,13 +212,19 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 								Aadl2Package.eINSTANCE.getArrayRange_LowerBound(), ARRAY_LOWER_BOUND_IS_ZERO);
 					}
 					// If the upper is zero, then we have an index. Otherwise, we have a range.
-					if (providedRange.getUpperBound() != 0
-							&& providedRange.getLowerBound() > providedRange.getUpperBound()) {
-						error("Range lower bound is greater than upper bound", providedRange, null,
-								ARRAY_RANGE_UPPER_LESS_THAN_LOWER);
+					if (providedRange.getUpperBound() != 0) {
+						if (providedRange.getLowerBound() > providedRange.getUpperBound()) {
+							error("Range lower bound is greater than upper bound", providedRange, null,
+									ARRAY_RANGE_UPPER_LESS_THAN_LOWER);
+						}
+						if (EcoreUtil2.getContainerOfType(pathElement, ReferenceValue.class) != null) {
+							warning(providedRange, "Array ranges in reference values are not property instantiated");
+						}
 					}
 					ArrayDimension requiredDimension = requiredDimensions.get(i);
-					if (requiredDimension.getSize() != null) {
+					if (requiredDimension.getSize() == null) {
+						error(providedRange, "'" + name + "' does not have an array size");
+					} else {
 						ArraySizeProperty sizeProperty = requiredDimension.getSize().getSizeProperty();
 						OptionalLong size = OptionalLong.empty();
 						/*

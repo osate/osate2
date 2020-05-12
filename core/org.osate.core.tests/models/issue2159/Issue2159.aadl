@@ -1,0 +1,16 @@
+package Issue2159
+public
+	with ps1;
+	
+	abstract a1
+		features
+			f1: feature[];
+			f2: feature[10];
+		properties
+			ps1::ref1 => reference (f1[1]);
+			ps1::ref2 => reference (f2[1 .. 2]);
+			
+			ps1::str => "Error" applies to f1[2];
+			ps1::str => "OK" applies to f2[4 .. 5];
+	end a1;
+end Issue2159;
