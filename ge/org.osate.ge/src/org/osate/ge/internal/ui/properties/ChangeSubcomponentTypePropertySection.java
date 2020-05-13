@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -45,7 +45,6 @@ import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.aadl2.AbstractSubcomponent;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
@@ -94,7 +93,7 @@ public class ChangeSubcomponentTypePropertySection extends AbstractPropertySecti
 					AgeEmfUtil.transferStructuralFeatureValues(sc,
 							SubcomponentUtil.createSubcomponent(ci, scTypeElement.getType()));
 
-// Remove the old object
+					// Remove the old object
 					EcoreUtil.remove(sc);
 				});
 			}
@@ -117,20 +116,20 @@ public class ChangeSubcomponentTypePropertySection extends AbstractPropertySecti
 
 	@Override
 	public void refresh() {
-		final Set<NamedElement> selectedSubcomponenents = selectedBos.boStream(NamedElement.class)
+		final Set<Subcomponent> selectedSubcomponenents = selectedBos.boStream(Subcomponent.class)
 				.collect(Collectors.toSet());
 		final Set<SubcomponentTypeElement> subcomponentTypeOptions = new HashSet<>();
 		// Add to options
 		final Consumer<EClass> addSubcomponentTypeElement = (type) -> subcomponentTypeOptions
 				.add(new SubcomponentTypeElement(type));
 
-// Get comboviewer selected value and populate available type options for comboviewer
+		// Get comboviewer selected value and populate available type options for comboviewer
 		selectedScType = InternalPropertySectionUtil.getTypeOptionsInformation(selectedSubcomponenents,
-				SubcomponentUtil.getSubcomponentTypes(), (sc, type) -> isCompatibleSupcomponentType(sc, type),
+				SubcomponentUtil.getSubcomponentTypes(), (sc, type) -> isCompatibleSubcomponentType(sc, type),
 				addSubcomponentTypeElement);
 
 		comboViewer.setInput(subcomponentTypeOptions);
-// Set comboviewer selection
+		// Set comboviewer selection
 		if (selectedScType != null) {
 			subcomponentTypeOptions.stream().filter(scTypeElement -> selectedScType == scTypeElement.getType())
 			.findAny().ifPresent(scTypeElement -> {
@@ -139,15 +138,11 @@ public class ChangeSubcomponentTypePropertySection extends AbstractPropertySecti
 		}
 	}
 
-	private static boolean isCompatibleSupcomponentType(final NamedElement ne, final EClass subcomponentType) {
-		Subcomponent sc = (Subcomponent) ne;
-		if (sc.getRefined() != null) {
-			sc = sc.getRefined();
-		}
-
-		final ComponentImplementation ci = (ComponentImplementation) sc.getContainingClassifier();
-		return SubcomponentUtil.canContainSubcomponentType(ci, subcomponentType)
-				&& (sc.getRefined() == null || sc.getRefined() instanceof AbstractSubcomponent);
+	private static boolean isCompatibleSubcomponentType(final Subcomponent sc, final EClass subcomponentType) {
+		final ComponentImplementation ci = sc.getContainingComponentImpl();
+		return (SubcomponentUtil.canContainSubcomponentType(ci, subcomponentType)
+				&& (sc.getRefined() == null || sc.getRefined() instanceof AbstractSubcomponent))
+				|| subcomponentType == sc.eClass();
 	}
 
 	private class SubcomponentTypeElement {

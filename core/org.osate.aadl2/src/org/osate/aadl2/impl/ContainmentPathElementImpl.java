@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -158,9 +158,10 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 			InternalEObject oldNamedElement = (InternalEObject) namedElement;
 			namedElement = (NamedElement) eResolveProxy(oldNamedElement);
 			if (namedElement != oldNamedElement) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.CONTAINMENT_PATH_ELEMENT__NAMED_ELEMENT, oldNamedElement, namedElement));
+				}
 			}
 		}
 		return namedElement;
@@ -183,9 +184,10 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	public void setNamedElement(NamedElement newNamedElement) {
 		NamedElement oldNamedElement = namedElement;
 		namedElement = newNamedElement;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONTAINMENT_PATH_ELEMENT__NAMED_ELEMENT,
 					oldNamedElement, namedElement));
+		}
 	}
 
 	/**
@@ -205,9 +207,10 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	public void setAnnexName(String newAnnexName) {
 		String oldAnnexName = annexName;
 		annexName = newAnnexName;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONTAINMENT_PATH_ELEMENT__ANNEX_NAME,
 					oldAnnexName, annexName));
+		}
 	}
 
 	/**
@@ -230,10 +233,11 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.CONTAINMENT_PATH_ELEMENT__PATH, oldPath, newPath);
-			if (msgs == null)
+			if (msgs == null) {
 				msgs = notification;
-			else
+			} else {
 				msgs.add(notification);
+			}
 		}
 		return msgs;
 	}
@@ -246,18 +250,22 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	public void setPath(ContainmentPathElement newPath) {
 		if (newPath != path) {
 			NotificationChain msgs = null;
-			if (path != null)
+			if (path != null) {
 				msgs = ((InternalEObject) path).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONTAINMENT_PATH_ELEMENT__PATH, null, msgs);
-			if (newPath != null)
+			}
+			if (newPath != null) {
 				msgs = ((InternalEObject) newPath).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONTAINMENT_PATH_ELEMENT__PATH, null, msgs);
+			}
 			msgs = basicSetPath(newPath, msgs);
-			if (msgs != null)
+			if (msgs != null) {
 				msgs.dispatch();
-		} else if (eNotificationRequired())
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONTAINMENT_PATH_ELEMENT__PATH, newPath,
 					newPath));
+		}
 	}
 
 	/**
@@ -297,8 +305,9 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ARRAY_RANGE:
 			return getArrayRanges();
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__NAMED_ELEMENT:
-			if (resolve)
+			if (resolve) {
 				return getNamedElement();
+			}
 			return basicGetNamedElement();
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ANNEX_NAME:
 			return getAnnexName();
@@ -381,8 +390,9 @@ public class ContainmentPathElementImpl extends ElementImpl implements Containme
 	 * @generated
 	 */
 	public String toString() {
-		if (eIsProxy())
+		if (eIsProxy()) {
 			return super.toString();
+		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (annexName: ");

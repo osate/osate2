@@ -80,8 +80,56 @@ censes only apply to the Third Party Software and not any other portion of this 
       </command>
       <command
             categoryId="org.osate.analysis.resource.budgets.category"
-            id="org.osate.analysis.resource.budgets.busLoadAnalysis"
+            id="org.osate.analysis.resource.budgets.BusLoadAnalysis"
             name="Analyze Bus Load">
+          <visibleWhen>
+             <with
+                   variable="selection">
+                <and>
+                   <count
+                         value="+">
+                   </count>
+                   <iterate
+                         ifEmpty="false"
+                         operator="or">
+                      <or>
+                         <!-- Working set -->
+                            <instanceof value="org.eclipse.ui.IWorkingSet" />
+							 
+                         <!-- open AADL project or any closed project -->
+                         <and>
+                            <instanceof value="org.eclipse.core.resources.IProject" />
+                            <or>
+                                <test
+                                    property="org.eclipse.core.resources.projectNature"
+   	                                value="org.osate.core.aadlnature" />
+                                <not>
+                                    <test property="org.eclipse.core.resources.open" />
+   	                            </not>
+                            </or>
+                         </and>
+	                         
+                         <!-- folder in an AADL project -->
+                         <and>
+                            <instanceof value="org.eclipse.core.resources.IFolder" />
+                            <test
+                                property="org.eclipse.core.resources.projectNature"
+                                value="org.osate.core.aadlnature" />
+                         </and>
+                         
+                         <!-- Instance model file -->
+                         <adapt
+                                type="org.eclipse.core.resources.IFile">
+                            <test
+                                  property="org.eclipse.core.resources.contentTypeId"
+                                  value="org.osate.core.instanceModelFile">
+                            </test>
+                         </adapt>
+                      </or>
+                   </iterate>
+                </and>
+             </with>
+          </visibleWhen>
       </command>
    </extension>
    <extension
@@ -189,38 +237,56 @@ censes only apply to the Third Party Software and not any other portion of this 
          </enabledWhen>
       </handler>
       <handler
-            class="org.osate.analysis.resource.budgets.handlers.BusLoadAnalysisHandler"
-            commandId="org.osate.analysis.resource.budgets.busLoadAnalysis">
-         <enabledWhen>
-            <or>
-               <reference
-                     definitionId="org.osate.core.isInstanceFileSelected">
-               </reference>
-               <with
-                     variable="selection">
-                  <and>
-                     <count
-                           value="1">
-                     </count>
-                     <iterate>
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
-                              <test
-                                    property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                    value="SystemInstance"
-                                    forcePluginActivation="true">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </and>
-               </with>
-            </or>
-         </enabledWhen>
+            class="org.osate.analysis.resource.budgets.handlers.NewBusLoadAnalysisHandler"
+            commandId="org.osate.analysis.resource.budgets.BusLoadAnalysis">
+          <enabledWhen>
+             <with
+                   variable="selection">
+                <and>
+                   <count
+                         value="+">
+                   </count>
+                   <iterate
+                         ifEmpty="false"
+                         operator="and">
+                      <or>
+                         <!-- Working Set -->
+                         <instanceof value="org.eclipse.ui.IWorkingSet" />
+                         
+                         <!-- open AADL project -->
+                         <and>
+                            <instanceof value="org.eclipse.core.resources.IProject" />
+                            <or>
+                                <test
+                                    property="org.eclipse.core.resources.projectNature"
+	                                value="org.osate.core.aadlnature" />
+                                 <not>
+                                     <test property="org.eclipse.core.resources.open" />
+	                             </not>
+                            </or>
+                         </and>
+                         
+                         <!-- folder in an AADL project -->
+                         <and>
+                            <instanceof value="org.eclipse.core.resources.IFolder" />
+                            <test
+                                property="org.eclipse.core.resources.projectNature"
+                                value="org.osate.core.aadlnature" />
+                         </and>
+                         
+                         <!-- Instance model file -->
+                         <adapt
+                                type="org.eclipse.core.resources.IFile">
+                            <test
+                                  property="org.eclipse.core.resources.contentTypeId"
+                                  value="org.osate.core.instanceModelFile">
+                            </test>
+                         </adapt>
+                      </or>
+                   </iterate>
+                </and>
+             </with>
+          </enabledWhen>
       </handler>
    </extension>
    <extension
@@ -238,7 +304,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             icon="icons/power.gif">
       </image>
       <image
-            commandId="org.osate.analysis.resource.budgets.busLoadAnalysis"
+            commandId="org.osate.analysis.resource.budgets.BusLoadAnalysis"
             icon="icons/switchB.gif">
       </image>
    </extension>
@@ -247,7 +313,7 @@ censes only apply to the Third Party Software and not any other portion of this 
       <menuContribution
             locationURI="menu:org.osate.ui.budgetMenu?after=core">
          <command
-               commandId="org.osate.analysis.resource.budgets.busLoadAnalysis">
+               commandId="org.osate.analysis.resource.budgets.BusLoadAnalysis">
          </command>
          <command
                commandId="org.osate.analysis.resource.budgets.powerAnalysis">
@@ -262,7 +328,7 @@ censes only apply to the Third Party Software and not any other portion of this 
       <menuContribution
             locationURI="toolbar:org.osate.ui.budgetToolbar?after=core">
          <command
-               commandId="org.osate.analysis.resource.budgets.busLoadAnalysis"
+               commandId="org.osate.analysis.resource.budgets.BusLoadAnalysis"
                tooltip="Analyze bus load for bound connections">
             <!--
                Remove visibleWhen on the command when this bug is fixed:
@@ -333,7 +399,7 @@ censes only apply to the Third Party Software and not any other portion of this 
       <menuContribution
             locationURI="popup:org.osate.ui.budgetNavigatorPopup?after=core">
          <command
-               commandId="org.osate.analysis.resource.budgets.busLoadAnalysis">
+               commandId="org.osate.analysis.resource.budgets.BusLoadAnalysis">
             <visibleWhen
                   checkEnabled="true">
             </visibleWhen>
@@ -357,5 +423,14 @@ censes only apply to the Third Party Software and not any other portion of this 
             </visibleWhen>
          </command>
       </menuContribution>
+   </extension>
+   <extension
+         id="toc_busload"
+         name="Bus Load Analysis Help Table of Contents"
+         point="org.eclipse.help.toc">
+      <toc
+            file="help/toc_busload.xml"
+            primary="true">
+      </toc>
    </extension>
 </plugin>
