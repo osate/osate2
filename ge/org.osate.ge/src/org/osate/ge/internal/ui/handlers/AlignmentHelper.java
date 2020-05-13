@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -32,6 +32,7 @@ import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.DockArea;
+import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.query.Queryable;
 
 
@@ -46,7 +47,9 @@ class AlignmentHelper {
 		return new AlignmentHelper(axis);
 	}
 
-	public void alignElement(final DiagramModification m, AlignmentElement alignmentElement, final double alignLocation,
+	public void alignElement(
+			final DiagramModification m,
+			AlignmentElement alignmentElement, final double alignLocation,
 			final double elementOffset) {
 
 		// Alignment location for element relative to diagram
@@ -67,7 +70,7 @@ class AlignmentHelper {
 
 				// Move shape to top or left edge of parent depending on axis alignment
 				final DiagramElement de = alignmentElement.getDiagramElement();
-				m.setPosition(de, axis.getEdgeLocation(de), false, true);
+				DiagramElementLayoutUtil.moveElement(m, de, axis.getEdgeLocation(de), false, true);
 
 				// Set parent size to accommodate for the new alignment element location
 				m.setSize(parentDe, axis.getParentSize(parentDe, childOffset));
@@ -93,10 +96,11 @@ class AlignmentHelper {
 		}
 
 		// Set the element new location and update bendpoints
-		m.setPosition(de, axis.getAlignmentPosition(de, newLocation), false, true);
+		DiagramElementLayoutUtil.moveElement(m, de, axis.getAlignmentPosition(de, newLocation), false, true);
 	}
 
-	private void shiftCollidingPorts(final DiagramModification m, final DiagramElement de, final double newLocation) {
+	private void shiftCollidingPorts(final DiagramModification m,
+			final DiagramElement de, final double newLocation) {
 		// Check for colliding ports
 		for (final Queryable q : de.getParent().getChildren()) {
 			if (q instanceof DiagramElement && ((DiagramElement) q).getDockArea() == de.getDockArea()) {
@@ -104,7 +108,10 @@ class AlignmentHelper {
 
 				if (axis.isPortCollision(dockedChild, newLocation)) {
 					// Adjust colliding port
-					m.setPosition(dockedChild, axis.getNewPortLocation(dockedChild, newLocation + 1), false, true);
+					DiagramElementLayoutUtil.moveElement(
+							m,
+							dockedChild,
+							axis.getNewPortLocation(dockedChild, newLocation + 1), false, true);
 					break;
 				}
 			}
@@ -112,11 +119,14 @@ class AlignmentHelper {
 	}
 
 	// Shift eligible children
-	private void shiftChildren(final DiagramModification m, final DiagramElement parentDe, final double childOffset) {
+	private void shiftChildren(final DiagramModification m,
+			final DiagramElement parentDe, final double childOffset) {
 		for (final Queryable q : parentDe.getChildren()) {
 			if (q instanceof DiagramElement && axis.isValidDockArea().apply(((DiagramElement) q).getDockArea())) {
 				final DiagramElement childDe = (DiagramElement) q;
-				m.setPosition(childDe, axis.getShiftPostion(childDe, childOffset), false, true);
+				DiagramElementLayoutUtil.moveElement(m, childDe, axis.getShiftPostion(childDe, childOffset),
+						false,
+						true);
 			}
 		}
 	}

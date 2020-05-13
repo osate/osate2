@@ -37,6 +37,7 @@ import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.internal.AgeShape;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 
@@ -93,7 +94,8 @@ public class AgeResizeShapeFeature extends DefaultResizeShapeFeature {
 		final GraphitiAgeDiagram graphitiAgeDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram();
 		final DiagramElement diagramElement = graphitiAgeDiagram.getDiagramElement(context.getShape());
 		graphitiAgeDiagram.modify("Resize Shape", m -> {
-			m.setPosition(diagramElement, new Point(context.getX(), context.getY()));
+			DiagramElementLayoutUtil.moveElement(m, diagramElement,
+					new Point(context.getX(), context.getY()));
 			m.setSize(diagramElement, new Dimension(context.getWidth(), context.getHeight()));
 		});
 	}

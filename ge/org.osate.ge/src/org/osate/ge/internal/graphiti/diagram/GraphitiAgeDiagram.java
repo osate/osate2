@@ -74,6 +74,7 @@ import org.eclipse.graphiti.util.IColorConstant;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.LocalResourceManager;
 import org.eclipse.swt.widgets.Display;
+import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
@@ -81,6 +82,8 @@ import org.osate.ge.graphics.internal.AgeConnection;
 import org.osate.ge.graphics.internal.AgeConnectionTerminator;
 import org.osate.ge.graphics.internal.AgeShape;
 import org.osate.ge.graphics.internal.ConnectionTerminatorSize;
+import org.osate.ge.graphics.internal.FeatureGraphic;
+import org.osate.ge.graphics.internal.FeatureGraphicType;
 import org.osate.ge.graphics.internal.Label;
 import org.osate.ge.graphics.internal.Poly;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
@@ -92,11 +95,14 @@ import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.DiagramModificationListener;
 import org.osate.ge.internal.diagram.runtime.DiagramModifier;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
+import org.osate.ge.internal.diagram.runtime.DiagramNodePredicates;
 import org.osate.ge.internal.diagram.runtime.ElementAddedEvent;
 import org.osate.ge.internal.diagram.runtime.ElementRemovedEvent;
 import org.osate.ge.internal.diagram.runtime.ElementUpdatedEvent;
 import org.osate.ge.internal.diagram.runtime.ModificationsCompletedEvent;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
+import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
+import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
 import org.osate.ge.internal.diagram.runtime.styling.StyleCalculator;
 import org.osate.ge.internal.graphiti.AgeDiagramTypeProvider;
 import org.osate.ge.internal.graphiti.AnchorNames;
@@ -112,7 +118,7 @@ import org.osate.ge.internal.util.DiagramElementUtil;
  * Not all style fields are supported as both the graphical configuration or diagram element style.
  *
  */
-public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
+public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable, LayoutInfoProvider {
 	public final static String AADL_DIAGRAM_TYPE_ID = "AADL Diagram";
 	public final static String incompleteIndicator = "*";
 	private final static int defaultWrappingLabelWidth = 100;
@@ -467,16 +473,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 					AgeGraphitiGraphicsUtil.toGraphitiLineStyle(de.getGraphicalConfiguration().style.getLineStyle()));
 			ga.setLineWidth(2);
 			ga.setForeground(Graphiti.getGaService().manageColor(graphitiDiagram, IColorConstant.BLACK));
-
-			if (pe instanceof FreeFormConnection) {
-				final FreeFormConnection ffc = (FreeFormConnection) pe;
-				final List<org.eclipse.graphiti.mm.algorithms.styles.Point> graphitiBendpoints = ffc.getBendpoints();
-				graphitiBendpoints.clear();
-				for (final org.osate.ge.graphics.Point bendpoint : de.getBendpoints()) {
-					graphitiBendpoints.add(Graphiti.getGaService().createPoint((int) Math.round(bendpoint.x),
-							(int) Math.round(bendpoint.y)));
-				}
-			}
+			setBendpointsFromDiagramElement(de, pe);
 		}
 
 		// Update Children
@@ -589,6 +586,17 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		}
 	}
 
+	private void setBendpointsFromDiagramElement(final DiagramElement de, final PictogramElement pe) {
+		if (pe instanceof FreeFormConnection) {
+			final FreeFormConnection ffc = (FreeFormConnection) pe;
+			final List<org.eclipse.graphiti.mm.algorithms.styles.Point> graphitiBendpoints = ffc.getBendpoints();
+			graphitiBendpoints.clear();
+			for (final org.osate.ge.graphics.Point bendpoint : de.getBendpoints()) {
+				graphitiBendpoints.add(Graphiti.getGaService().createPoint((int) Math.round(bendpoint.x),
+						(int) Math.round(bendpoint.y)));
+			}
+		}
+	}
 	/**
 	 * Finishes updating all elements contained in the diagram.
 	 */
@@ -1029,6 +1037,8 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 							elementsToCheckParentsForLayout = parentsToLayout; // Check the parents next
 						}
 
+						updateUnpositionedFlowIndicators(event.mod);
+
 						// Update affected connections
 						for (final DiagramElement element : elementsToUpdate) {
 							finishUpdating(element);
@@ -1043,6 +1053,32 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 				}
 			});
 
+		}
+
+		private void updateUnpositionedFlowIndicators(DiagramModification mod) {
+			final List<DiagramElement> flowIndicatorsWithoutPosition = getAgeDiagram().getAllDiagramNodes()
+					.filter(DiagramNodePredicates::isFlowIndicator).map(DiagramElement.class::cast)
+					.filter(t -> !t.hasPosition() && t.getStartElement() != null).collect(Collectors.toList());
+
+			if (flowIndicatorsWithoutPosition.isEmpty()) {
+				return;
+			}
+
+			DiagramElementLayoutUtil.layoutFlowIndicators(mod,
+					flowIndicatorsWithoutPosition.stream(),
+					GraphitiAgeDiagram.this);
+
+			// Get or create the end anchor inside the pictogram element for the diagram element's parent
+			for (final DiagramElement de : flowIndicatorsWithoutPosition) {
+				final PictogramElement containerPe = diagramNodeToPictogramElementMap.get(de.getContainer());
+				if (de.hasPosition() && containerPe instanceof AnchorContainer) {
+					AnchorUtil.getOrCreateFlowIndicatorAnchor((AnchorContainer) containerPe, de,
+							(int) Math.round(de.getX()), (int) Math.round(de.getY()));
+				}
+
+				setBendpointsFromDiagramElement(de, getPictogramElement(de));
+
+			}
 		}
 
 		@Override
@@ -1167,5 +1203,93 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			localResourceManager.dispose();
 			localResourceManager = newResourceManager;
 		}
+	}
+
+	@Override
+	public Dimension getLabelsSize(final DiagramElement dockedElement) {
+		double width = 0;
+		double height = 0;
+
+		// Primary Label
+		final GraphicsAlgorithm primaryLabelGa = getChildShapeGraphicsAlgorithm(dockedElement,
+				ShapeNames.primaryLabelShapeName);
+		if (primaryLabelGa != null) {
+			width = Math.max(width, primaryLabelGa.getWidth());
+			height += primaryLabelGa.getHeight();
+		}
+
+		// Annotation
+		final GraphicsAlgorithm annotationGa = getChildShapeGraphicsAlgorithm(dockedElement,
+				ShapeNames.annotationShapeName);
+		if (annotationGa != null) {
+			width = Math.max(width, annotationGa.getWidth());
+			height += annotationGa.getHeight();
+		}
+
+		// Secondary shapes
+		for (final DiagramElement child : dockedElement.getDiagramElements()) {
+			if (child.getGraphic() instanceof Label) {
+				final Dimension secondaryLabelSize = getPrimaryLabelSize(child);
+				if (secondaryLabelSize != null) {
+					width = Math.max(width, secondaryLabelSize.width);
+					height += secondaryLabelSize.height;
+				}
+			}
+		}
+
+		return new Dimension(width + LayoutUtil.labelPadding, height + LayoutUtil.labelPadding);
+	}
+
+	private Dimension getChildShapeSize(final DiagramElement de, final String shapeName) {
+		final GraphicsAlgorithm ga = getChildShapeGraphicsAlgorithm(de, shapeName);
+		return ga == null ? new Dimension(0, 0) : new Dimension(ga.getWidth(), ga.getHeight());
+	}
+
+	private GraphicsAlgorithm getChildShapeGraphicsAlgorithm(final DiagramElement de, final String shapeName) {
+		final PictogramElement pe = getPictogramElement(de);
+		if (pe == null) {
+			return null;
+		}
+
+		final Shape targetShape = getChildShapeByName(pe, shapeName);
+		if (targetShape == null) {
+			return null;
+
+		}
+		return targetShape.getGraphicsAlgorithm();
+	}
+
+	private static Shape getChildShapeByName(final PictogramElement pe, final String name) {
+		if (pe instanceof Connection) {
+			return ShapeUtil.getShapeByName(((Connection) pe).getConnectionDecorators(), name);
+		} else if (pe instanceof ContainerShape) {
+			return ShapeUtil.getShapeByName(((ContainerShape) pe).getChildren(), name);
+		} else {
+			throw new RuntimeException("Unexpected pictogram element: " + pe);
+		}
+	}
+
+	@Override
+	public Dimension getPrimaryLabelSize(final DiagramElement de) {
+		return getChildShapeSize(de, ShapeNames.primaryLabelShapeName);
+	}
+
+	@Override
+	public Dimension getAnnotationLabelSize(final DiagramElement de) {
+		return getChildShapeSize(de, ShapeNames.annotationShapeName);
+	}
+
+	@Override
+	public Dimension getPortGraphicSize(final DiagramElement dockedElement) {
+		final Graphic g = dockedElement.getGraphic();
+		if (g instanceof FeatureGraphic) {
+			final FeatureGraphic fg = (FeatureGraphic) g;
+			if (fg.featureType == FeatureGraphicType.FEATURE_GROUP) {
+				return AgeGraphitiGraphicsUtil.featureGroupCircleSize;
+			}
+		}
+
+		// Return the default feature size regardless of the type of graphic
+		return AgeGraphitiGraphicsUtil.defaultFeatureSize;
 	}
 }

@@ -71,6 +71,7 @@ import org.osate.ge.graphics.internal.AgeShape;
 import org.osate.ge.graphics.internal.Label;
 import org.osate.ge.graphics.internal.ModeGraphic;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
+import org.osate.ge.internal.diagram.runtime.AgeDiagramUtil;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
@@ -247,8 +248,7 @@ public class DiagramElementLayoutUtil {
 		final IncrementalLayoutMode currentLayoutMode = LayoutPreferences.getCurrentLayoutMode();
 
 		// Get all the nodes that need to be layed out.
-		final Set<DiagramNode> unfilteredNodesToLayout = getNodesToLayoutIncrementally(diagram,
-				currentLayoutMode,
+		final Set<DiagramNode> unfilteredNodesToLayout = getNodesToLayoutIncrementally(diagram, currentLayoutMode,
 				new HashSet<>());
 		if (unfilteredNodesToLayout.size() == 0) {
 			return;
@@ -256,11 +256,12 @@ public class DiagramElementLayoutUtil {
 
 		// Lay our flow indicators. In the container is eventually layed out, this will be replaced but in cases where that is not the case,
 		// we provide a default layout. Flow indicators are connections and as such will be filtered in the next step.
-		layoutFlowIndicators(mod, diagram, unfilteredNodesToLayout.stream()
-				.filter(DiagramNodePredicates::isFlowIndicator).map(DiagramElement.class::cast), layoutInfoProvider);
+		layoutFlowIndicators(mod, unfilteredNodesToLayout.stream().filter(DiagramNodePredicates::isFlowIndicator)
+				.map(DiagramElement.class::cast), layoutInfoProvider);
 
 		final Collection<DiagramNode> nodesToLayout = DiagramElementLayoutUtil.filterUnnecessaryNodes(
-				unfilteredNodesToLayout, currentLayoutMode == IncrementalLayoutMode.LAYOUT_DIAGRAM);
+				getNodesToLayoutIncrementally(diagram, currentLayoutMode, new HashSet<>()),
+				currentLayoutMode == IncrementalLayoutMode.LAYOUT_DIAGRAM);
 		if (nodesToLayout.size() == 0) {
 			return;
 		}
@@ -409,17 +410,16 @@ public class DiagramElementLayoutUtil {
 	 *
 	 * This function simply positions flow indicators such that they are in a after existing indicators.
 	 * @param m is the modification to use to modify the diagram.
-	 * @param diagram the diagram to modify.
 	 * @param flowIndicatorsToLayout is the stream of flow indicators to layout.
 	 * @param layoutInfoProvider is the source for layout info needed to determine source anchor points.
 	 */
-	private static void layoutFlowIndicators(final DiagramModification m,
-			final AgeDiagram diagram,
+	public static void layoutFlowIndicators(
+			final DiagramModification m,
 			final Stream<DiagramElement> flowIndicatorsToLayout, final LayoutInfoProvider layoutInfoProvider) {
 		Objects.requireNonNull(flowIndicatorsToLayout, "flowIndicators must not be null");
 
 		// Create set of a start elements in which we are interested.
-		final Set<DiagramElement> startElements = flowIndicatorsToLayout.map(n -> ((DiagramElement) n).getStartElement())
+		final Set<DiagramNode> startElements = flowIndicatorsToLayout.map(n -> n.getStartElement())
 				.collect(Collectors.toSet());
 		if (startElements.isEmpty()) {
 			return;
@@ -428,7 +428,8 @@ public class DiagramElementLayoutUtil {
 		// Search diagram and build a multimap mapping start elements to the flow indicators which reference them.
 		final ArrayListMultimap<DiagramElement, DiagramElement> startElementToFlowIndicators = ArrayListMultimap
 				.create();
-		diagram.getAllDescendants().filter(
+		m.getDiagram().getAllDescendants()
+		.filter(
 				q -> q instanceof DiagramElement && DiagramElementPredicates.isFlowIndicator((DiagramElement) q))
 		.forEachOrdered(q -> {
 			final DiagramElement e = (DiagramElement) q;
@@ -440,6 +441,11 @@ public class DiagramElementLayoutUtil {
 
 		// Process each start element
 		for (DiagramElement startElement : startElementToFlowIndicators.keySet()) {
+			// Skip start elements that haven't been positioned
+			if (!startElement.hasPosition()) {
+				continue;
+			}
+
 			// Skip if unable to determine what side the start element is on. Flow indicators are only supported when there is a source element which is docked.
 			final DockArea dockArea = getNonGroupDockArea(startElement);
 			if (dockArea == null) {
@@ -465,7 +471,6 @@ public class DiagramElementLayoutUtil {
 
 			});
 
-
 			// Find the position of the start element for the flow indicator
 			final Point startElementAbsPosition = getAbsolutePosition(startElement);
 
@@ -484,18 +489,29 @@ public class DiagramElementLayoutUtil {
 			// Determine how to adjust position of bendpoints and indicator positions based on the dock area
 			//
 			final Point startAnchorPosition; // Relative to container abs position
-			if (dockArea.isLeftOrRight()) {
-				startAnchorPosition = new Point(startElementAbsPosition.x - containerAbsPosition.x,
-						startElementAbsPosition.y
-						- containerAbsPosition.y
-						+ layoutInfoProvider.getLabelsSize(startElement).height
-						+ layoutInfoProvider.getPortGraphicSize(startElement).height / 2.0);
-			} else {
+			final Dimension portGraphicSize = layoutInfoProvider.getPortGraphicSize(startElement);
+			if (dockArea == DockArea.LEFT) {
+				startAnchorPosition = new Point(startElementAbsPosition.x - containerAbsPosition.x / 2.0,
+						startElementAbsPosition.y - containerAbsPosition.y
+						+ layoutInfoProvider.getLabelsSize(startElement).height + portGraphicSize.height / 2.0);
+			} else if (dockArea == DockArea.RIGHT) {
+				startAnchorPosition = new Point(
+						startElementAbsPosition.x - containerAbsPosition.x + startElement
+						.getWidth(),
+						startElementAbsPosition.y - containerAbsPosition.y
+						+ layoutInfoProvider.getLabelsSize(startElement).height + portGraphicSize.height / 2.0);
+			} else if (dockArea == DockArea.TOP) {
 				startAnchorPosition = new Point(
 						startElementAbsPosition.x - containerAbsPosition.x
-						+ layoutInfoProvider.getLabelsSize(startElement).width
-						+ layoutInfoProvider.getPortGraphicSize(startElement).height / 2.0,
+						+ layoutInfoProvider.getLabelsSize(startElement).width + portGraphicSize.height
+						/ 2.0,
 						startElementAbsPosition.y - containerAbsPosition.y);
+			} else { // BOTTOM
+				startAnchorPosition = new Point(
+						startElementAbsPosition.x - containerAbsPosition.x
+						+ layoutInfoProvider.getLabelsSize(startElement).width + portGraphicSize.height
+						/ 2.0,
+						startElementAbsPosition.y - containerAbsPosition.y + startElement.getHeight());
 			}
 
 			final double initialPositionOffsetX;
@@ -505,7 +521,6 @@ public class DiagramElementLayoutUtil {
 
 			switch (dockArea) {
 			case LEFT:
-
 				initialPositionOffsetX = incrementalFlowIndicatorPrimaryOffset;
 				initialPositionOffsetY = 0;
 				positionIncrementX = 0.0;
@@ -557,7 +572,7 @@ public class DiagramElementLayoutUtil {
 				} else {
 					// Set the position
 					currentPosition = nextPosition;
-					m.setPosition(indicator, nextPosition, false, false);
+					m.setPosition(indicator, nextPosition);
 
 					// The first flow indicator should not need bendpoints, to reset them
 					if (nextPosition.equals(firstPosition)) {
@@ -566,15 +581,16 @@ public class DiagramElementLayoutUtil {
 						// Set bendpoints
 						final Point bp1 = new Point(
 								startAnchorAbsPosition.x
-								+ (initialPositionOffsetX
-										* incrementalFlowIndicatorBendpointOffsetScaling),
-								startAnchorAbsPosition.y + (initialPositionOffsetY * incrementalFlowIndicatorBendpointOffsetScaling));
+								+ (initialPositionOffsetX * incrementalFlowIndicatorBendpointOffsetScaling),
+								startAnchorAbsPosition.y
+								+ (initialPositionOffsetY * incrementalFlowIndicatorBendpointOffsetScaling));
 
 						final Point positionAbs = new Point(containerAbsPosition.x + nextPosition.x,
 								+containerAbsPosition.y + nextPosition.y);
-						final Point bp2 = new Point(
-								positionAbs.x - (initialPositionOffsetX * (1.0 - incrementalFlowIndicatorBendpointOffsetScaling)),
-								positionAbs.y - (initialPositionOffsetY * (1.0 - incrementalFlowIndicatorBendpointOffsetScaling)));
+						final Point bp2 = new Point(positionAbs.x
+								- (initialPositionOffsetX * (1.0 - incrementalFlowIndicatorBendpointOffsetScaling)),
+								positionAbs.y - (initialPositionOffsetY
+										* (1.0 - incrementalFlowIndicatorBendpointOffsetScaling)));
 
 						m.setBendpoints(indicator, ImmutableList.of(bp1, bp2));
 					}
@@ -585,6 +601,28 @@ public class DiagramElementLayoutUtil {
 						currentPosition.y + positionIncrementY);
 			}
 		}
+	}
+
+	public static void resetFlowIndicatorsWithStartElementsPositions(final DiagramModification m,
+			final Stream<? extends DiagramNode> startElementsStream) {
+		getFlowIndicatorsWithStartElements(m.getDiagram(), startElementsStream).forEach(de -> {
+			m.setPosition(de, null);
+		});
+	}
+
+	private static Stream<DiagramElement> getFlowIndicatorsWithStartElements(final AgeDiagram diagram,
+			final Stream<? extends DiagramNode> startElementsStream) {
+		Objects.requireNonNull(startElementsStream, "startElementsStream must not be null");
+
+		// Create set of a start elements in which we are interested.
+		final Set<DiagramNode> startElements = startElementsStream.collect(Collectors.toSet());
+		if (startElements.isEmpty()) {
+			return Stream.empty();
+		}
+
+		return diagram.getAllDescendants().filter(
+				q -> q instanceof DiagramElement && DiagramElementPredicates.isFlowIndicator((DiagramElement) q))
+				.map(DiagramElement.class::cast);
 	}
 
 	/**
@@ -775,7 +813,7 @@ public class DiagramElementLayoutUtil {
 					}
 				}
 
-				m.setPosition(de, new Point(x, y));
+				DiagramElementLayoutUtil.moveElement(m, de, new Point(x, y));
 
 				// Set the dock area
 				if (de.getDockArea() != DockArea.GROUP && de.getDockArea() != null) {
@@ -1009,18 +1047,20 @@ public class DiagramElementLayoutUtil {
 
 	/**
 	 * Shifts the bendpoints of all connections for which both endpoints are contained within the specified elements.
-	 * @param ageDiagram the diagram that contains the connections
+	 * Shifts position and bendpoints of flow indicators if source elements are contained within the specified elements.
+	 *
 	 * @param elements in which to look for the endpoints
 	 * @param delta the amount to shift the bendpoints
 	 * @param m the modification that will be used to update the bendpoints
 	 */
-	public static void shiftRelatedConnectionBendpoints(final AgeDiagram ageDiagram,
-			final Stream<DiagramElement> elements, final org.osate.ge.graphics.Point delta,
-			final DiagramModification m) {
+	public static void shiftRelatedConnections(final Stream<DiagramElement> elements,
+			final org.osate.ge.graphics.Point delta, final DiagramModification m, boolean shiftBendpoints,
+			boolean shiftFlowIndicatorPositions) {
 		// Build a set containing the moved elements and all of their descendant which are represented as shapes
 		final Set<Queryable> diagramElements = elements
 				.flatMap(de -> Stream.concat(Stream.of(de), de.getAllDescendants())).collect(Collectors.toSet());
-		final Stream<DiagramElement> connections = ageDiagram.getAllDiagramNodes()
+		final Stream<DiagramElement> connections = m.getDiagram()
+				.getAllDiagramNodes()
 				.filter(q -> q instanceof DiagramElement && DiagramElementPredicates.isConnection((DiagramElement) q))
 				.map(DiagramElement.class::cast);
 
@@ -1028,9 +1068,17 @@ public class DiagramElementLayoutUtil {
 		connections.forEachOrdered(connection -> {
 			final DiagramElement startElement = connection.getStartElement();
 			final DiagramElement endElement = connection.getEndElement();
-			if (diagramElements.contains(startElement) && (diagramElements.contains(endElement)
-					|| ((AgeConnection) connection.getGraphic()).isFlowIndicator)) {
-				shiftBendpoints(connection, delta, m);
+			final boolean isFlowIndicator = ((AgeConnection) connection.getGraphic()).isFlowIndicator;
+			if (diagramElements.contains(startElement) && (diagramElements.contains(endElement) || isFlowIndicator)) {
+				if (shiftBendpoints) {
+					shiftBendpoints(connection, delta, m);
+				}
+
+				// Shift flow indicator positions
+				if (shiftFlowIndicatorPositions && isFlowIndicator && connection.hasPosition()) {
+					m.setPosition(connection,
+							new org.osate.ge.graphics.Point(connection.getX() + delta.x, connection.getY() + delta.y));
+				}
 			}
 		});
 	}
@@ -1045,44 +1093,6 @@ public class DiagramElementLayoutUtil {
 		}
 
 		m.setBendpoints(connection, bendpoints);
-	}
-
-	// TODO: Rename
-	public static void shiftRelatedFlowIndicators(final AgeDiagram ageDiagram,
-			final Stream<DiagramElement> elements,
-			final org.osate.ge.graphics.Point delta, final DiagramModification m) {
-		// TODO: Cleanup
-		final Set<Queryable> diagramElements = elements.collect(Collectors.toSet());
-		// Build a set containing the moved elements and all of their descendant which are represented as shapes
-//		final Set<Queryable> diagramElements = elements
-		// .flatMap(de -> Stream.concat(Stream.of(de), de.getAllDescendants())).collect(Collectors.toSet());
-		// TODO
-		// TODO: Test for feature groups, etc..
-		final Stream<DiagramElement> flowIndicators = ageDiagram
-				.getAllDiagramNodes()
-				.filter(q -> q instanceof DiagramElement && DiagramElementPredicates.isConnection((DiagramElement) q))
-				.map(DiagramElement.class::cast)
-				.filter(e -> ((AgeConnection) e.getGraphic()).isFlowIndicator && e.hasPosition());
-
-		// TODO
-		flowIndicators.forEachOrdered(flowIndicator -> {
-			final DiagramElement startElement = flowIndicator.getStartElement();
-			if (diagramElements.contains(startElement)) {
-//				final Point currentPosition = flowIndicator.getPosition();
-//				m.setPosition(flowIndicator, new Point(currentPosition.x + delta.x, currentPosition.y + delta.y), false,
-//						true);
-
-				// TODO: Remove/adjust/cleanup. If changing sides(non-group dock area)... then want to reset layout entirely.
-				// Otherwise, we probably just want to shift things...
-// m.setPosition(flowIndicator, null);
-// m.setBendpoints(flowIndicator, Collections.emptyList());
-			}
-		});
-
-		// TODO; Avoid needing to buidl list
-		// TODO: ANyway to get layoutInfo provider?
-		// layoutFlowIndicators(m, ageDiagram, flowIndicators.collect(Collectors.toList()), final LayoutInfoProvider layoutInfoProvider) {
-
 	}
 
 	/**
@@ -1104,4 +1114,71 @@ public class DiagramElementLayoutUtil {
 
 		return result;
 	}
+
+	//
+	// The following methods are used to move elements and make related changes appropriate
+	//
+	public static void moveElement(final DiagramModification modification, final DiagramElement e,
+			final Point value) {
+		moveElement(modification, e, value, true, true);
+	}
+
+	public static void moveElement(final DiagramModification modification, final DiagramElement e,
+			final Point value,
+			final boolean updateDockArea, final boolean updatedBendpoints) {
+		moveElement(modification, e, value, updateDockArea, updatedBendpoints, true);
+	}
+
+	/**
+	 * Sets the position of a diagram element
+	 * @param e the element to set position
+	 * @param value the new position of the element
+	 * @param updateDockArea whether the dock area should be updated based on the set position.
+	 * @param updateBendpoints whether to update contained bendpoints
+	 * @param updateFlowIndicators if related flow indicators should be moved. If dock area has changed the position of the dock areas will be reset to allow for a new layout.
+	 */
+	public static void moveElement(final DiagramModification modification, final DiagramElement e,
+			final Point value,
+			final boolean updateDockArea, final boolean updateBendpoints, final boolean updateFlowIndicators) {
+		if (!Objects.equals(e.getPosition(), value)) {
+
+			// Determine the different between X and Y
+			final Point delta = value == null ? null : new Point(value.x - e.getX(), value.y - e.getY());
+
+			modification.setPosition(e, value);
+
+			// Only update dock area and bendpoints if position is being set to an actual value
+			if (delta != null) {
+				final DockArea originalDockArea = e.getDockArea();
+
+				if (updateDockArea) {
+					// Update the dock area based on the position
+					if (originalDockArea != null) {
+						if (originalDockArea != DockArea.GROUP) {
+							modification.setDockArea(e, calculateDockArea(e));
+						}
+					}
+				}
+
+				if (updateBendpoints || updateFlowIndicators) {
+					DiagramElementLayoutUtil.shiftRelatedConnections(Stream.of(e), new Point(delta.x, delta.y),
+							modification, updateBendpoints, updateFlowIndicators);
+				}
+
+				// Reset flow indicators entirely if dock area has changed
+				if (updateFlowIndicators && originalDockArea != e.getDockArea()) {
+					final Stream<DiagramNode> affectedStartElements = e.getAllDiagramNodes();
+					DiagramElementLayoutUtil.resetFlowIndicatorsWithStartElementsPositions(modification,
+							affectedStartElements);
+				}
+			}
+		}
+	}
+
+	private static DockArea calculateDockArea(final DiagramElement e) {
+		return AgeDiagramUtil
+				.determineDockingPosition(e.getContainer(), e.getX(), e.getY(), e.getWidth(), e.getHeight())
+				.getDefaultDockArea();
+	}
+
 }

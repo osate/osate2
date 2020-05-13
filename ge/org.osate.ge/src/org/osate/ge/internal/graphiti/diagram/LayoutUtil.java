@@ -225,8 +225,9 @@ public class LayoutUtil {
 						decorationShapes.addAll(getChildShapesByName(shape, ShapeNames.annotationShapeName));
 
 						// Add decoration shapes to the list. Sort them by name so that labels will be ordered consistently.
-						element.getDiagramElements().stream().filter(childElement -> childElement.isDecoration()).sorted((ce1,
-								ce2) -> Strings.nullToEmpty(ce1.getLabelName()).compareToIgnoreCase(Strings.nullToEmpty(ce2.getLabelName())))
+						element.getDiagramElements().stream().filter(childElement -> childElement.isDecoration())
+						.sorted((ce1, ce2) -> Strings.nullToEmpty(ce1.getLabelName())
+								.compareToIgnoreCase(Strings.nullToEmpty(ce2.getLabelName())))
 						.forEachOrdered(childElement -> {
 							final PictogramElement decorationPictogramElement = diagramNodeProvider
 									.getPictogramElement(childElement);
@@ -357,8 +358,7 @@ public class LayoutUtil {
 
 						// Only adjust the size of an element if it doesn't have a size. If it doens't already have a size, the incremental layout will handle it.
 						if (!DiagramElementPredicates.isResizeable(element) || element.hasSize()) {
-							mod.setSize(element,
-									new org.osate.ge.graphics.Dimension(shapeGa.getWidth(), shapeGa.getHeight()));
+							mod.setSize(element, new org.osate.ge.graphics.Dimension(shapeGa.getWidth(), shapeGa.getHeight()));
 						}
 						// Position docked shapes
 						for (final Entry<DockArea, List<Shape>> dockAreaToShapesEntry : dockAreaToShapesMap.entrySet()) {
@@ -500,12 +500,10 @@ public class LayoutUtil {
 						for (final DiagramElement child : element.getDiagramElements()) {
 							final PictogramElement childPe = diagramNodeProvider.getPictogramElement(child);
 							// Only update the child's position if it already has a position. Otherwise, it may not have been layed out yet.
-							if (child.hasPosition() && childPe instanceof Shape && childPe.getGraphicsAlgorithm() != null) {
+							if ((child.hasPosition() || child.getDockArea() == DockArea.GROUP)
+									&& childPe instanceof Shape && childPe.getGraphicsAlgorithm() != null) {
 								final GraphicsAlgorithm childGa = childPe.getGraphicsAlgorithm();
-								final DockArea oldDockArea = child.getDockArea();
-								mod.setPosition(child, new org.osate.ge.graphics.Point(childGa.getX(), childGa.getY()),
-										true, false);
-								mod.setDockArea(child, oldDockArea); // Prevent changing the dock area when positioning the shape.
+								mod.setPosition(child, new org.osate.ge.graphics.Point(childGa.getX(), childGa.getY()));
 							}
 						}
 
