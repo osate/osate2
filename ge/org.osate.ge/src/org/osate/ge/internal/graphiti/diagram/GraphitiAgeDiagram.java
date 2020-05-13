@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -103,6 +103,7 @@ import org.osate.ge.internal.graphiti.AnchorNames;
 import org.osate.ge.internal.graphiti.ShapeNames;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 import org.osate.ge.internal.services.ActionExecutor;
+import org.osate.ge.internal.util.DiagramElementUtil;
 
 /**
  * Class that integrates AgeDiagram with Graphiti.
@@ -371,7 +372,6 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 
 			if (de.getDockArea() != null) {
 				// Create/update named anchors for all docked shapes
-				AnchorUtil.createOrUpdateFixPointAnchor(shape, AnchorNames.FLOW_SPECIFICATION, 0, 0, false);
 				AnchorUtil.createOrUpdateFixPointAnchor(shape, AnchorNames.INTERIOR_ANCHOR, 0, 0, false);
 				AnchorUtil.createOrUpdateFixPointAnchor(shape, AnchorNames.EXTERIOR_ANCHOR, 0, 0, false);
 			}
@@ -445,10 +445,15 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 
 			// Set Anchors
 			if (ac.isFlowIndicator) {
-				connection.setStart(getAnchor(de.getStartElement(), true));
 				// If it is a flow indicator, get the appropriate anchor from the start element
-				final PictogramElement startPe = diagramNodeToPictogramElementMap.get(de.getStartElement());
-				connection.setEnd(AnchorUtil.getAnchorByName(startPe, AnchorNames.FLOW_SPECIFICATION));
+				connection.setStart(getAnchor(de.getStartElement(), true));
+
+				// Get or create the end anchor inside the pictogram element for the diagram element's parent
+				final PictogramElement containerPe = diagramNodeToPictogramElementMap.get(de.getContainer());
+				if (de.hasPosition() && containerPe instanceof AnchorContainer) {
+					connection.setEnd(AnchorUtil.getOrCreateFlowIndicatorAnchor((AnchorContainer) containerPe, de,
+							(int) Math.round(de.getX()), (int) Math.round(de.getY())));
+				}
 			} else {
 				connection.setStart(
 						getAnchor(de.getStartElement(), useInteriorAnchor(de.getStartElement(), de.getEndElement())));
@@ -528,7 +533,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			if (primaryLabelStr != null) {
 				final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 				final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true,
-						ageConnection.isFlowIndicator ? 1.0 : 0.5, true);
+						0.5, true);
 				final Text text = gaService.createDefaultText(graphitiDiagram, textDecorator);
 				PropertyUtil.setIsStylingChild(text, true);
 				PropertyUtil.setName(textDecorator, ShapeNames.primaryLabelShapeName);
@@ -541,14 +546,8 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 					// Set default position
 					final IDimension labelTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(primaryLabelStr,
 							text.getFont());
-					if (ageConnection.isFlowIndicator) { // Special default position for flow indicator labels
-						labelX = -28; // Position the label such that it the default text does not intersect with the border when docked on the left or on the
-						// right
-						labelY = 5;
-					} else {
-						labelX = -labelTextSize.getWidth() / 2;
-						labelY = -labelTextSize.getHeight() - 2;
-					}
+					labelX = -labelTextSize.getWidth() / 2;
+					labelY = -labelTextSize.getHeight() - 2;
 				} else {
 					labelX = primaryLabelPosition.x;
 					labelY = primaryLabelPosition.y;
@@ -879,19 +878,6 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		throw new RuntimeException("Unsupported connection terminator size: " + size);
 	}
 
-	private DiagramNode getUndockedDiagramNode(DiagramNode n) {
-		while (n instanceof DiagramElement) {
-			final DiagramElement e = ((DiagramElement) n);
-			if (e.getDockArea() == null) {
-				return e;
-			}
-
-			n = e.getContainer();
-		}
-		return n;
-
-	}
-
 	// OPTIMIZE: This uses a simple algorithm where a diagram update is performed when a new item is added. Ideally, it would only update the affected items.
 	private class GraphitiDiagramModificationListener implements DiagramModificationListener {
 		private boolean inBeforeModificationsCompleted = false;
@@ -985,8 +971,9 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 							updateDiagramElement(event.mod, element, false);
 
 							if (pe instanceof ContainerShape || pe instanceof ConnectionDecorator) {
-								final DiagramNode undockedContainer = getUndockedDiagramNode(
-										element.getContainer());
+								final DiagramNode undockedContainer = DiagramElementUtil
+										.getUndockedDiagramNode(
+												element.getContainer());
 								nodesToLayout.add(undockedContainer);
 							} else if (pe instanceof Connection) { // Relayout connections
 								// Relayout the entire diagram. This is needed because line width of connection do not

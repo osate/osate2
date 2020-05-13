@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -58,6 +58,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.DockArea;
+import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.graphiti.AgeGraphicsAlgorithmRendererFactory;
 import org.osate.ge.internal.graphiti.AnchorNames;
 import org.osate.ge.internal.graphiti.ShapeNames;
@@ -214,7 +215,7 @@ public class LayoutUtil {
 						final LayoutMetrics lm = new LayoutMetrics();
 
 						final Shape nameShape = getChildShapeByName(shape, ShapeNames.primaryLabelShapeName);
-						final DockArea shapeDockArea = getNonGroupDockArea(element);
+						final DockArea shapeDockArea = DiagramElementLayoutUtil.getNonGroupDockArea(element);
 
 						// Build a list of all the labels. These labels will be positioned based on the name label configuration
 						final List<Shape> decorationShapes = new ArrayList<Shape>();
@@ -410,8 +411,6 @@ public class LayoutUtil {
 						if (shapeDockArea != null) {
 							org.osate.ge.graphics.Point interiorAnchorPosition;
 							org.osate.ge.graphics.Point exteriorAnchorPosition;
-							final org.osate.ge.graphics.Point flowSpecAnchorPosition;
-							final int flowSpecOffsetLength = 50;
 							final int interiorExteriorOffset = 0; // Adjustment so that connections will reach all the way to the appropriate connection point.
 							switch (shapeDockArea) {
 							case LEFT:
@@ -420,8 +419,6 @@ public class LayoutUtil {
 										innerGa.getY() + (innerGa.getHeight() / 2));
 								exteriorAnchorPosition = new org.osate.ge.graphics.Point(innerGa.getX() + interiorExteriorOffset,
 										interiorAnchorPosition.y);
-								flowSpecAnchorPosition = new org.osate.ge.graphics.Point(
-										interiorAnchorPosition.x + flowSpecOffsetLength, interiorAnchorPosition.y);
 								break;
 
 							case RIGHT:
@@ -429,8 +426,6 @@ public class LayoutUtil {
 										innerGa.getY() + (innerGa.getHeight() / 2));
 								exteriorAnchorPosition = new org.osate.ge.graphics.Point(
 										innerGa.getX() + innerGa.getWidth() - interiorExteriorOffset, interiorAnchorPosition.y);
-								flowSpecAnchorPosition = new org.osate.ge.graphics.Point(
-										interiorAnchorPosition.x - flowSpecOffsetLength, interiorAnchorPosition.y);
 								break;
 
 							case TOP:
@@ -438,8 +433,6 @@ public class LayoutUtil {
 										innerGa.getY() + innerGa.getHeight() - interiorExteriorOffset);
 								exteriorAnchorPosition = new org.osate.ge.graphics.Point(interiorAnchorPosition.x,
 										innerGa.getY() + interiorExteriorOffset);
-								flowSpecAnchorPosition = new org.osate.ge.graphics.Point(interiorAnchorPosition.x,
-										interiorAnchorPosition.y + flowSpecOffsetLength);
 								break;
 
 							case BOTTOM:
@@ -447,8 +440,6 @@ public class LayoutUtil {
 										innerGa.getY() + interiorExteriorOffset);
 								exteriorAnchorPosition = new org.osate.ge.graphics.Point(interiorAnchorPosition.x,
 										innerGa.getY() + innerGa.getHeight() - interiorExteriorOffset);
-								flowSpecAnchorPosition = new org.osate.ge.graphics.Point(interiorAnchorPosition.x,
-										interiorAnchorPosition.y - flowSpecOffsetLength);
 								break;
 
 							default:
@@ -457,12 +448,8 @@ public class LayoutUtil {
 										innerGa.getY() + (innerGa.getHeight() / 2));
 								exteriorAnchorPosition = new org.osate.ge.graphics.Point(innerGa.getX() + interiorExteriorOffset,
 										interiorAnchorPosition.y);
-								flowSpecAnchorPosition = new org.osate.ge.graphics.Point(0, 0);
 								break;
 							}
-
-							AnchorUtil.createOrUpdateFixPointAnchor(shape, AnchorNames.FLOW_SPECIFICATION,
-									(int) flowSpecAnchorPosition.x, (int) flowSpecAnchorPosition.y, true);
 
 							AnchorUtil.createOrUpdateFixPointAnchor(shape, AnchorNames.INTERIOR_ANCHOR, (int) interiorAnchorPosition.x,
 									(int) interiorAnchorPosition.y, true);
@@ -516,7 +503,8 @@ public class LayoutUtil {
 							if (child.hasPosition() && childPe instanceof Shape && childPe.getGraphicsAlgorithm() != null) {
 								final GraphicsAlgorithm childGa = childPe.getGraphicsAlgorithm();
 								final DockArea oldDockArea = child.getDockArea();
-								mod.setPosition(child, new org.osate.ge.graphics.Point(childGa.getX(), childGa.getY()));
+								mod.setPosition(child, new org.osate.ge.graphics.Point(childGa.getX(), childGa.getY()),
+										true, false);
 								mod.setDockArea(child, oldDockArea); // Prevent changing the dock area when positioning the shape.
 							}
 						}
@@ -675,26 +663,6 @@ public class LayoutUtil {
 		}
 
 		return new int[] { maxRight - innerLeftX, maxBottom - innerTopY };
-	}
-
-	/**
-	 * Returns the first dock area that isn't the group dock area. Checks the specified shape and then ancestors.
-	 * @param shape
-	 * @return
-	 */
-	private static DockArea getNonGroupDockArea(DiagramNode diagramNode) {
-		DockArea result = null;
-		do {
-			if (!(diagramNode instanceof DiagramElement)) {
-				result = null;
-				break;
-			}
-
-			result = ((DiagramElement) diagramNode).getDockArea();
-			diagramNode = diagramNode.getContainer();
-		} while (result != null && result == DockArea.GROUP);
-
-		return result;
 	}
 
 	private final static Comparator<Shape> xComparator = (s1, s2) -> {
