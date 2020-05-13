@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Tests
+Bundle-SymbolicName: org.osate.analysis.resource.budgets.tests
+Bundle-Version: 1.0.0.qualifier
+Automatic-Module-Name: org.osate.analysis.resource.budgets.tests
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: com.google.guava,
+ org.osate.aadl2;bundle-version="1.0.0",
+ org.osate.xtext.aadl2,
+ org.osate.aadl2.instantiation;bundle-version="1.0.0",
+ org.osate.results;bundle-version="1.0.0",
+ org.osate.testsupport;bundle-version="1.0.0",
+ org.osate.analysis.resource.budgets;bundle-version="3.0.0"

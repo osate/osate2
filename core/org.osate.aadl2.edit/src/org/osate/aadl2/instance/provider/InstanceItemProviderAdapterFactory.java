@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -105,7 +105,6 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createFeatureInstanceAdapter() {
 		if (featureInstanceItemProvider == null) {
 			featureInstanceItemProvider = new FeatureInstanceItemProvider(this);
@@ -128,7 +127,6 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createPropertyAssociationInstanceAdapter() {
 		if (propertyAssociationInstanceItemProvider == null) {
 			propertyAssociationInstanceItemProvider = new PropertyAssociationInstanceItemProvider(this);
@@ -151,7 +149,6 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createConnectionInstanceAdapter() {
 		if (connectionInstanceItemProvider == null) {
 			connectionInstanceItemProvider = new ConnectionInstanceItemProvider(this);
@@ -174,7 +171,6 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createSystemOperationModeAdapter() {
 		if (systemOperationModeItemProvider == null) {
 			systemOperationModeItemProvider = new SystemOperationModeItemProvider(this);
@@ -197,7 +193,6 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createModeInstanceAdapter() {
 		if (modeInstanceItemProvider == null) {
 			modeInstanceItemProvider = new ModeInstanceItemProvider(this);
@@ -220,7 +215,6 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createModeTransitionInstanceAdapter() {
 		if (modeTransitionInstanceItemProvider == null) {
 			modeTransitionInstanceItemProvider = new ModeTransitionInstanceItemProvider(this);
@@ -243,7 +237,6 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createConnectionReferenceAdapter() {
 		if (connectionReferenceItemProvider == null) {
 			connectionReferenceItemProvider = new ConnectionReferenceItemProvider(this);
@@ -266,7 +259,6 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createComponentInstanceAdapter() {
 		if (componentInstanceItemProvider == null) {
 			componentInstanceItemProvider = new ComponentInstanceItemProvider(this);
@@ -289,7 +281,6 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createFlowSpecificationInstanceAdapter() {
 		if (flowSpecificationInstanceItemProvider == null) {
 			flowSpecificationInstanceItemProvider = new FlowSpecificationInstanceItemProvider(this);
@@ -312,7 +303,6 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createEndToEndFlowInstanceAdapter() {
 		if (endToEndFlowInstanceItemProvider == null) {
 			endToEndFlowInstanceItemProvider = new EndToEndFlowInstanceItemProvider(this);
@@ -335,7 +325,6 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createSystemInstanceAdapter() {
 		if (systemInstanceItemProvider == null) {
 			systemInstanceItemProvider = new SystemInstanceItemProvider(this);
@@ -358,7 +347,6 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createInstanceReferenceValueAdapter() {
 		if (instanceReferenceValueItemProvider == null) {
 			instanceReferenceValueItemProvider = new InstanceReferenceValueItemProvider(this);
@@ -392,7 +380,6 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isFactoryForType(Object type) {
 		return supportedTypes.contains(type) || super.isFactoryForType(type);
 	}
@@ -403,7 +390,6 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter adapt(Notifier notifier, Object type) {
 		return super.adapt(notifier, this);
 	}
@@ -413,7 +399,6 @@ public class InstanceItemProviderAdapterFactory extends InstanceAdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object adapt(Object object, Object type) {
 		if (isFactoryForType(type)) {
 			Object adapter = super.adapt(object, type);

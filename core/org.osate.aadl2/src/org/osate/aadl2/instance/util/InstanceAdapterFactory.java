@@ -90,7 +90,6 @@ public class InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
-	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -108,127 +107,78 @@ public class InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	protected InstanceSwitch<Adapter> modelSwitch = new InstanceSwitch<Adapter>() {
-		@Override
 		public Adapter caseFeatureInstance(FeatureInstance object) {
 			return createFeatureInstanceAdapter();
 		}
-
-		@Override
 		public Adapter caseInstanceObject(InstanceObject object) {
 			return createInstanceObjectAdapter();
 		}
-
-		@Override
 		public Adapter caseAnnexInstance(AnnexInstance object) {
 			return createAnnexInstanceAdapter();
 		}
-
-		@Override
 		public Adapter casePropertyAssociationInstance(PropertyAssociationInstance object) {
 			return createPropertyAssociationInstanceAdapter();
 		}
-
-		@Override
 		public Adapter caseConnectionInstanceEnd(ConnectionInstanceEnd object) {
 			return createConnectionInstanceEndAdapter();
 		}
-
-		@Override
 		public Adapter caseConnectionInstance(ConnectionInstance object) {
 			return createConnectionInstanceAdapter();
 		}
-
-		@Override
 		public Adapter caseFlowElementInstance(FlowElementInstance object) {
 			return createFlowElementInstanceAdapter();
 		}
-
-		@Override
 		public Adapter caseSystemOperationMode(SystemOperationMode object) {
 			return createSystemOperationModeAdapter();
 		}
-
-		@Override
 		public Adapter caseModeInstance(ModeInstance object) {
 			return createModeInstanceAdapter();
 		}
-
-		@Override
 		public Adapter caseModeTransitionInstance(ModeTransitionInstance object) {
 			return createModeTransitionInstanceAdapter();
 		}
-
-		@Override
 		public Adapter caseConnectionReference(ConnectionReference object) {
 			return createConnectionReferenceAdapter();
 		}
-
-		@Override
 		public Adapter caseComponentInstance(ComponentInstance object) {
 			return createComponentInstanceAdapter();
 		}
-
-		@Override
 		public Adapter caseFlowSpecificationInstance(FlowSpecificationInstance object) {
 			return createFlowSpecificationInstanceAdapter();
 		}
-
-		@Override
 		public Adapter caseEndToEndFlowInstance(EndToEndFlowInstance object) {
 			return createEndToEndFlowInstanceAdapter();
 		}
-
-		@Override
 		public Adapter caseSystemInstance(SystemInstance object) {
 			return createSystemInstanceAdapter();
 		}
-
-		@Override
 		public Adapter caseInstanceReferenceValue(InstanceReferenceValue object) {
 			return createInstanceReferenceValueAdapter();
 		}
-
-		@Override
 		public Adapter caseElement(Element object) {
 			return createElementAdapter();
 		}
-
-		@Override
 		public Adapter caseNamedElement(NamedElement object) {
 			return createNamedElementAdapter();
 		}
-
-		@Override
 		public Adapter casePropertyAssociation(PropertyAssociation object) {
 			return createPropertyAssociationAdapter();
 		}
-
-		@Override
 		public Adapter caseClassifierFeature(ClassifierFeature object) {
 			return createClassifierFeatureAdapter();
 		}
-
-		@Override
 		public Adapter caseModeFeature(ModeFeature object) {
 			return createModeFeatureAdapter();
 		}
-
-		@Override
 		public Adapter caseMode(Mode object) {
 			return createModeAdapter();
 		}
-
-		@Override
 		public Adapter casePropertyExpression(PropertyExpression object) {
 			return createPropertyExpressionAdapter();
 		}
-
-		@Override
 		public Adapter casePropertyValue(PropertyValue object) {
 			return createPropertyValueAdapter();
 		}
-
-		@Override
 		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -242,7 +192,6 @@ public class InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
-	@Override
 	public Adapter createAdapter(Notifier target) {
 		return modelSwitch.doSwitch((EObject) target);
 	}

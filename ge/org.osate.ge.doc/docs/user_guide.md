@@ -314,7 +314,7 @@ Select the desired implementation from the palette and place it on the diagram o
 Select *Mode Transition* from the palette and select the starting mode then the ending mode.
 
 ## Creating Flow Implementations and End-To-End Flow Specifications
-When editing a component implementation, flow implementations and end-to-end flow specifications can be created graphically by selecting the *Create Flow Implementation* and *Create End-To-End Flow Specification* tools from the toolbar and following the prompts to select a series of elements from the diagram or outline view. The dialog and colors of elements in the diagram will update as valid selections are made. The starting flow specification will be highlighted dark orange and flow elements will be highlighted purple. The *Undo* button will remove the elements in the order they were selected.
+Flow implementations and end-to-end flow specifications can be created graphically by selecting the *Create Flow Implementation* and *Create End-To-End Flow Specification* tools from the toolbar and following the prompts to select a series of elements from the diagram or outline view.  The tools cannot be activated if there are existing errors or warnings in the model.  The dialog and colors of elements in the diagram will update as valid selections are made. The starting flow specification will be highlighted dark orange and flow elements will be highlighted purple. The *Undo* button will remove the elements in the order they were selected.
 
 ### Creating Flow Implementations
 Select *Create Flow Implementation* from the toolbar, the dialog will appear. 
@@ -322,7 +322,7 @@ Select *Create Flow Implementation* from the toolbar, the dialog will appear.
 ![](../images/CreateFlowImplementationToolbar.png)
 
 ### Creating Source Flow Implementations
-1. Select a source flow specification.
+1. Select a source flow specification and feature.
 
 ![](../images/FlowImplSourceStep1.png)
 
@@ -337,7 +337,7 @@ Select *Create Flow Implementation* from the toolbar, the dialog will appear.
 4. Select *OK* when done.
 
 ### Creating Sink Flow Implementations
-1. Select a valid sink flow specification..
+1. Select a valid sink flow specification and feature.
 
 ![](../images/FlowImplSinkStep1.png)
 
@@ -352,7 +352,7 @@ Select *Create Flow Implementation* from the toolbar, the dialog will appear.
 4. Select *OK* when done.
 
 ### Creating Path Flow Implementations
-1. Select a valid path flow specification.
+1. Select a valid path flow specification and feature.
 
 ![](../images/FlowImplPathStep1.png)
 
@@ -447,8 +447,14 @@ A mode can be designated as the initial mode by using the *AADL* tab of the *Pro
 When viewing a component implementation diagram, a binding property associations can be created using the toolbar.
 ![](../images/BindToolbar.png)
 
+## Prototypes
+Prototypes can be edited by selecting a classifier and using the *AADL* tab of the *Properties* view (See @sec:properties_view).
+
+Classifier prototype bindings can be edited using the *AADL* tab of the *Properties* view (See @sec:properties_view). Subcomponent prototype bindings can be edited when selecting the component classifier.
+
+
 ## Editing Flow Implementations and End-to-End Flows
-When editing a component implementation, flow implementations and end-to-end flow can be edited using the flow editor.  The flow editor can be accessed by double-clicking the component implementation, selecting the *AADL* tab in the *Properties* view, and selecting *Edit...* from the *Flows* section.
+Flow implementations and end-to-end flow can be edited using the flow editor.  The flow editor can be accessed by double-clicking a component implementation, selecting the *AADL* tab in the *Properties* view, and selecting *Edit...* from the *Flows* section.
 
 ## Refining Model Elements
 Appropriate elements can be refined by using the *AADL* tab of the *Properties* view (See @sec:properties_view), and using the *Refined* section option.

@@ -46,6 +46,8 @@ public class AadlPerspectiveFactory implements IPerspectiveFactory {
 		bottom.addView(IPageLayout.ID_PROP_SHEET);
 		bottom.addView("org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView");
 		bottom.addView("org.osate.ui.classifier_info_view");
+		bottom.addView("org.osate.ui.projectdependencyvisualization");
+		bottom.addView("org.osate.ui.modelunitdependencyvisualization");
 
 		layout.addView(IPageLayout.ID_OUTLINE, IPageLayout.RIGHT, (float) 0.75, editorArea);
 
@@ -59,6 +61,8 @@ public class AadlPerspectiveFactory implements IPerspectiveFactory {
 		layout.addShowViewShortcut("org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView");
 		layout.addShowViewShortcut("org.osate.ui.navigator.AadlNavigator");
 		layout.addShowViewShortcut("org.osate.ui.classifier_info_view");
+		layout.addShowViewShortcut("org.osate.ui.projectdependencyvisualization");
+		layout.addShowViewShortcut("org.osate.ui.modelunitdependencyvisualization");
 
 		layout.addNewWizardShortcut("org.osate.ui.wizards.AadlProjectWizardID");
 		layout.addNewWizardShortcut("org.osate.ui.NewAadlPackageWizard");

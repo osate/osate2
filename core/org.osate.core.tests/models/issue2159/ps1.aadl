@@ -1,0 +1,5 @@
+property set ps1 is
+	ref1: reference applies to (all);
+	ref2: reference applies to (all);
+	str: aadlstring applies to (all);
+end ps1;

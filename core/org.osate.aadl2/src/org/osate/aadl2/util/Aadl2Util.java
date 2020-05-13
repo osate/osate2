@@ -272,7 +272,7 @@ public class Aadl2Util {
 	 *   <li>Both types are equal as determined by the <code>==</code> operator.
 	 * </ul>
 	 *
-	 * @since 2.1
+	 * @since 3.0
 	 */
 	public static boolean arePropertyTypesEqual(final PropertyType type1, final PropertyType type2) {
 		boolean equal = false;

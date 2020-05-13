@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -145,9 +145,10 @@ public class AadlPackageImpl extends ModelUnitImpl implements AadlPackage {
 			InternalEObject oldPublicSection = (InternalEObject) publicSection;
 			publicSection = (PublicPackageSection) eResolveProxy(oldPublicSection);
 			if (publicSection != oldPublicSection) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.AADL_PACKAGE__PUBLIC_SECTION,
 							oldPublicSection, publicSection));
+				}
 			}
 		}
 		return publicSection;
@@ -210,9 +211,10 @@ public class AadlPackageImpl extends ModelUnitImpl implements AadlPackage {
 			InternalEObject oldPrivateSection = (InternalEObject) privateSection;
 			privateSection = (PrivatePackageSection) eResolveProxy(oldPrivateSection);
 			if (privateSection != oldPrivateSection) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.AADL_PACKAGE__PRIVATE_SECTION, oldPrivateSection, privateSection));
+				}
 			}
 		}
 		return privateSection;
@@ -286,10 +288,11 @@ public class AadlPackageImpl extends ModelUnitImpl implements AadlPackage {
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.AADL_PACKAGE__OWNED_PUBLIC_SECTION, oldOwnedPublicSection, newOwnedPublicSection);
-			if (msgs == null)
+			if (msgs == null) {
 				msgs = notification;
-			else
+			} else {
 				msgs.add(notification);
+			}
 		}
 		Resource.Internal eInternalResource = eInternalResource();
 		if (eInternalResource == null || !eInternalResource.isLoading()) {
@@ -310,18 +313,22 @@ public class AadlPackageImpl extends ModelUnitImpl implements AadlPackage {
 	public void setOwnedPublicSection(PublicPackageSection newOwnedPublicSection) {
 		if (newOwnedPublicSection != ownedPublicSection) {
 			NotificationChain msgs = null;
-			if (ownedPublicSection != null)
+			if (ownedPublicSection != null) {
 				msgs = ((InternalEObject) ownedPublicSection).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.AADL_PACKAGE__OWNED_PUBLIC_SECTION, null, msgs);
-			if (newOwnedPublicSection != null)
+			}
+			if (newOwnedPublicSection != null) {
 				msgs = ((InternalEObject) newOwnedPublicSection).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.AADL_PACKAGE__OWNED_PUBLIC_SECTION, null, msgs);
+			}
 			msgs = basicSetOwnedPublicSection(newOwnedPublicSection, msgs);
-			if (msgs != null)
+			if (msgs != null) {
 				msgs.dispatch();
-		} else if (eNotificationRequired())
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.AADL_PACKAGE__OWNED_PUBLIC_SECTION,
 					newOwnedPublicSection, newOwnedPublicSection));
+		}
 	}
 
 	/**
@@ -357,10 +364,11 @@ public class AadlPackageImpl extends ModelUnitImpl implements AadlPackage {
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.AADL_PACKAGE__OWNED_PRIVATE_SECTION, oldOwnedPrivateSection, newOwnedPrivateSection);
-			if (msgs == null)
+			if (msgs == null) {
 				msgs = notification;
-			else
+			} else {
 				msgs.add(notification);
+			}
 		}
 		Resource.Internal eInternalResource = eInternalResource();
 		if (eInternalResource == null || !eInternalResource.isLoading()) {
@@ -381,18 +389,22 @@ public class AadlPackageImpl extends ModelUnitImpl implements AadlPackage {
 	public void setOwnedPrivateSection(PrivatePackageSection newOwnedPrivateSection) {
 		if (newOwnedPrivateSection != ownedPrivateSection) {
 			NotificationChain msgs = null;
-			if (ownedPrivateSection != null)
+			if (ownedPrivateSection != null) {
 				msgs = ((InternalEObject) ownedPrivateSection).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.AADL_PACKAGE__OWNED_PRIVATE_SECTION, null, msgs);
-			if (newOwnedPrivateSection != null)
+			}
+			if (newOwnedPrivateSection != null) {
 				msgs = ((InternalEObject) newOwnedPrivateSection).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.AADL_PACKAGE__OWNED_PRIVATE_SECTION, null, msgs);
+			}
 			msgs = basicSetOwnedPrivateSection(newOwnedPrivateSection, msgs);
-			if (msgs != null)
+			if (msgs != null) {
 				msgs.dispatch();
-		} else if (eNotificationRequired())
+			}
+		} else if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.AADL_PACKAGE__OWNED_PRIVATE_SECTION,
 					newOwnedPrivateSection, newOwnedPrivateSection));
+		}
 	}
 
 	/**
@@ -430,12 +442,14 @@ public class AadlPackageImpl extends ModelUnitImpl implements AadlPackage {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.AADL_PACKAGE__PUBLIC_SECTION:
-			if (resolve)
+			if (resolve) {
 				return getPublicSection();
+			}
 			return basicGetPublicSection();
 		case Aadl2Package.AADL_PACKAGE__PRIVATE_SECTION:
-			if (resolve)
+			if (resolve) {
 				return getPrivateSection();
+			}
 			return basicGetPrivateSection();
 		case Aadl2Package.AADL_PACKAGE__OWNED_PUBLIC_SECTION:
 			return getOwnedPublicSection();
