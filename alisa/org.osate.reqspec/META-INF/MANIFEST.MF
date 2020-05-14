@@ -25,8 +25,8 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)";visibility:=re
  org.osate.organization;bundle-version="[2.0.0,3.0.0)",
  org.osate.xtext.aadl2;bundle-version="[4.0.0,5.0.0)",
  org.eclipse.xtext.xbase.lib;bundle-version="[2.20.0,3.0.0)",
- org.osate.xtext.aadl2.errormodel;bundle-version="[4.0.0,5.0.0)",
- org.osate.pluginsupport;bundle-version="[4.0.0,5.0.0)"
+ org.osate.xtext.aadl2.errormodel;bundle-version="[3.0.0,4.0.0)",
+ org.osate.pluginsupport;bundle-version="[3.0.0,4.0.0)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.osate.reqspec,
  org.osate.reqspec.formatting,
