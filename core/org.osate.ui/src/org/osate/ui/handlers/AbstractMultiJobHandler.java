@@ -62,6 +62,9 @@ public abstract class AbstractMultiJobHandler extends AbstractHandler {
 			this.exception = exception;
 		}
 
+		/**
+		 * @since 4.0
+		 */
 		public static boolean allSuccessful(final Collection<Result> results) {
 			boolean allSuccessful = true;
 			for (final Result r : results) {
