@@ -1037,7 +1037,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable, La
 							elementsToCheckParentsForLayout = parentsToLayout; // Check the parents next
 						}
 
-						updateUnpositionedFlowIndicators(event.mod);
+						updateFlowIndicators(event.mod);
 
 						// Update affected connections
 						for (final DiagramElement element : elementsToUpdate) {
@@ -1055,21 +1055,23 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable, La
 
 		}
 
-		private void updateUnpositionedFlowIndicators(DiagramModification mod) {
-			final List<DiagramElement> flowIndicatorsWithoutPosition = getAgeDiagram().getAllDiagramNodes()
+		// Flow anchors can be affected by changes during the layout process. Update them last.
+		private void updateFlowIndicators(DiagramModification mod) {
+			final List<DiagramElement> flowIndicators = getAgeDiagram()
+					.getAllDiagramNodes()
 					.filter(DiagramNodePredicates::isFlowIndicator).map(DiagramElement.class::cast)
-					.filter(t -> !t.hasPosition() && t.getStartElement() != null).collect(Collectors.toList());
-
-			if (flowIndicatorsWithoutPosition.isEmpty()) {
+					.filter(t -> t.getStartElement() != null).collect(Collectors.toList());
+			if (flowIndicators.isEmpty()) {
 				return;
 			}
 
 			DiagramElementLayoutUtil.layoutFlowIndicators(mod,
-					flowIndicatorsWithoutPosition.stream(),
+					flowIndicators.stream()
+					.filter(t -> !t.hasPosition()),
 					GraphitiAgeDiagram.this);
 
 			// Get or create the end anchor inside the pictogram element for the diagram element's parent
-			for (final DiagramElement de : flowIndicatorsWithoutPosition) {
+			for (final DiagramElement de : flowIndicators) {
 				final PictogramElement containerPe = diagramNodeToPictogramElementMap.get(de.getContainer());
 				if (de.hasPosition() && containerPe instanceof AnchorContainer) {
 					AnchorUtil.getOrCreateFlowIndicatorAnchor((AnchorContainer) containerPe, de,
@@ -1077,7 +1079,6 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable, La
 				}
 
 				setBendpointsFromDiagramElement(de, getPictogramElement(de));
-
 			}
 		}
 

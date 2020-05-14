@@ -229,7 +229,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 									ctxs.stream().map(ctx -> ctx.getShape()).map(shape -> graphitiAgeDiagram
 											.getDiagramElement(
 													shape)),
-									new org.osate.ge.graphics.Point(delta.x, delta.y), m, true, true);
+									new org.osate.ge.graphics.Point(delta.x, delta.y), m, true, true, true);
 
 							// Reset the positions of associated flow anchors. Flow anchors will be set after child shape positions are updated
 							// by the GraphitiAgeDiagram

@@ -489,27 +489,40 @@ public class DiagramElementLayoutUtil {
 			// Determine how to adjust position of bendpoints and indicator positions based on the dock area
 			//
 			final Point startAnchorPosition; // Relative to container abs position
-			final Dimension portGraphicSize = layoutInfoProvider.getPortGraphicSize(startElement);
+
+			// Find offset based on orientation and nature of the diagram element
+			final Dimension labelsSize = layoutInfoProvider.getLabelsSize(startElement);
+			final double anchorOffset;
+			if (DiagramElementPredicates.isResizeable(startElement) && startElement.hasSize()) {
+				// Feature groups
+				anchorOffset = dockArea.isLeftOrRight() ? startElement.getHeight() - labelsSize.height
+						: startElement.getWidth() - labelsSize.width;
+			} else {
+				anchorOffset = layoutInfoProvider.getPortGraphicSize(startElement).height;
+			}
+
 			if (dockArea == DockArea.LEFT) {
 				startAnchorPosition = new Point(startElementAbsPosition.x - containerAbsPosition.x / 2.0,
 						startElementAbsPosition.y - containerAbsPosition.y
-						+ layoutInfoProvider.getLabelsSize(startElement).height + portGraphicSize.height / 2.0);
+						+ labelsSize.height + anchorOffset / 2.0);
 			} else if (dockArea == DockArea.RIGHT) {
 				startAnchorPosition = new Point(
 						startElementAbsPosition.x - containerAbsPosition.x + startElement
 						.getWidth(),
 						startElementAbsPosition.y - containerAbsPosition.y
-						+ layoutInfoProvider.getLabelsSize(startElement).height + portGraphicSize.height / 2.0);
+						+ labelsSize.height + anchorOffset / 2.0);
 			} else if (dockArea == DockArea.TOP) {
 				startAnchorPosition = new Point(
 						startElementAbsPosition.x - containerAbsPosition.x
-						+ layoutInfoProvider.getLabelsSize(startElement).width + portGraphicSize.height
+						+ labelsSize.width
+						+ anchorOffset
 						/ 2.0,
 						startElementAbsPosition.y - containerAbsPosition.y);
 			} else { // BOTTOM
 				startAnchorPosition = new Point(
 						startElementAbsPosition.x - containerAbsPosition.x
-						+ layoutInfoProvider.getLabelsSize(startElement).width + portGraphicSize.height
+						+ labelsSize.width
+						+ anchorOffset
 						/ 2.0,
 						startElementAbsPosition.y - containerAbsPosition.y + startElement.getHeight());
 			}
@@ -1049,16 +1062,18 @@ public class DiagramElementLayoutUtil {
 	 * Shifts the bendpoints of all connections for which both endpoints are contained within the specified elements.
 	 * Shifts position and bendpoints of flow indicators if source elements are contained within the specified elements.
 	 *
-	 * @param elements in which to look for the endpoints
+	 * @param elements in which to look for the bendpoints
 	 * @param delta the amount to shift the bendpoints
 	 * @param m the modification that will be used to update the bendpoints
+	 * @param checkDescendants whether to check descendants of hte specified elements as potential start elements
 	 */
 	public static void shiftRelatedConnections(final Stream<DiagramElement> elements,
 			final org.osate.ge.graphics.Point delta, final DiagramModification m, boolean shiftBendpoints,
-			boolean shiftFlowIndicatorPositions) {
+			boolean shiftFlowIndicatorPositions, final boolean checkDescendants) {
 		// Build a set containing the moved elements and all of their descendant which are represented as shapes
-		final Set<Queryable> diagramElements = elements
-				.flatMap(de -> Stream.concat(Stream.of(de), de.getAllDescendants())).collect(Collectors.toSet());
+		final Set<Queryable> diagramElements = (checkDescendants
+				? elements.flatMap(de -> Stream.concat(Stream.of(de), de.getAllDescendants()))
+						: elements).collect(Collectors.toSet());
 		final Stream<DiagramElement> connections = m.getDiagram()
 				.getAllDiagramNodes()
 				.filter(q -> q instanceof DiagramElement && DiagramElementPredicates.isConnection((DiagramElement) q))
@@ -1162,7 +1177,7 @@ public class DiagramElementLayoutUtil {
 
 				if (updateBendpoints || updateFlowIndicators) {
 					DiagramElementLayoutUtil.shiftRelatedConnections(Stream.of(e), new Point(delta.x, delta.y),
-							modification, updateBendpoints, updateFlowIndicators);
+							modification, updateBendpoints, updateFlowIndicators, true);
 				}
 
 				// Reset flow indicators entirely if dock area has changed
