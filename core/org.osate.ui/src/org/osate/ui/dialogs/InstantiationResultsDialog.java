@@ -45,6 +45,9 @@ public final class InstantiationResultsDialog<T> extends Dialog {
 	private boolean hideInFutureOriginal;
 	private boolean hideInFuture;
 
+	/**
+	 * @since 4.0
+	 */
 	public InstantiationResultsDialog(final Shell shell, final String actionName, final String labelName,
 			final Function<T, String> labelProvider, final Map<T, Result> results, final IPreferenceStore prefs) {
 		super(shell);
