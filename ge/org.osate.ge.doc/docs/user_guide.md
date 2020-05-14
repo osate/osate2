@@ -447,6 +447,12 @@ A mode can be designated as the initial mode by using the *AADL* tab of the *Pro
 When viewing a component implementation diagram, a binding property associations can be created using the toolbar.
 ![](../images/BindToolbar.png)
 
+## Prototypes
+Prototypes can be edited by selecting a classifier and using the *AADL* tab of the *Properties* view (See @sec:properties_view).
+
+Classifier prototype bindings can be edited using the *AADL* tab of the *Properties* view (See @sec:properties_view). Subcomponent prototype bindings can be edited when selecting the component classifier.
+
+
 ## Editing Flow Implementations and End-to-End Flows
 Flow implementations and end-to-end flow can be edited using the flow editor.  The flow editor can be accessed by double-clicking a component implementation, selecting the *AADL* tab in the *Properties* view, and selecting *Edit...* from the *Flows* section.
 
@@ -564,10 +570,10 @@ In some cases a connection between diagram elements will be represented by a dot
 - An AADL property reference value for which the referenced model element is hidden.
 
 ## Highlighting Flow Implementations and End-to-End Flow Specifications
-Selecting a Flow Implementation or End-to-End Flow specification from the flow drop-down in the toolbar will highlight the flow.  Flow Implementations and End-to-End Flows that have no segments and missing segments are marked with an empty tag (E) or a partial tag (P), respectively.
+Selecting a Flow Implementation or End-to-End Flow specification from the flow drop-down in the toolbar will highlight the flow.
 
 ## Showing Flow Implementation and End-to-End Flow Specification Segments
-Selecting the "Show" button on the toolbar shows the missing flow segments of the currently selected flow drop-down Flow Implementation or End-to-End Flow when it is marked empty (E) or partial (P).
+Selecting the "Show" button on the toolbar shows the missing flow segments of the currently selected flow drop-down Flow Implementation or End-to-End Flow when the the flow contains segments which are missing from the diagram.
 
 ## Highlighting In Mode Elements
 Selecting a Mode or Mode Transition from the mode drop-down in the toolbar will highlight the in mode elements in the diagram.

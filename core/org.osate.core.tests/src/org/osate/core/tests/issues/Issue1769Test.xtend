@@ -38,6 +38,7 @@ import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.osate.testsupport.AssertHelper.assertError
+import static extension org.osate.testsupport.AssertHelper.assertWarning
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
@@ -55,6 +56,14 @@ class Issue1769Test extends XtextTest {
 			"reference_arrays".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) as SystemImplementation => [
 				"s1.i".assertEquals(name)
+				ownedPropertyAssociations.get(2) => [
+					"def3".assertEquals(property.name)
+					(ownedValues.head.ownedValue as ReferenceValue).path.arrayRanges.head => [
+						assertWarning(testFileResult.issues, issueCollection,
+							"Array ranges in reference values are not property instantiated"
+						)
+					]
+				]
 				ownedPropertyAssociations.get(3) => [
 					"def4".assertEquals(property.name)
 					(ownedValues.head.ownedValue as ReferenceValue).path.arrayRanges.head => [
@@ -95,12 +104,18 @@ class Issue1769Test extends XtextTest {
 					"def10".assertEquals(property.name)
 					(ownedValues.head.ownedValue as ReferenceValue).path.arrayRanges.head => [
 						assertError(testFileResult.issues, issueCollection, "Array indices start at 1")
+						assertWarning(testFileResult.issues, issueCollection,
+							"Array ranges in reference values are not property instantiated"
+						)
 					]
 				]
 				ownedPropertyAssociations.get(10) => [
 					"def11".assertEquals(property.name)
 					(ownedValues.head.ownedValue as ReferenceValue).path.arrayRanges.head => [
 						assertError(testFileResult.issues, issueCollection, "Upper bound is greater than array size 5")
+						assertWarning(testFileResult.issues, issueCollection,
+							"Array ranges in reference values are not property instantiated"
+						)
 					]
 				]
 				ownedPropertyAssociations.get(11) => [
@@ -110,12 +125,18 @@ class Issue1769Test extends XtextTest {
 							"Array indices start at 1",
 							"Upper bound is greater than array size 5"
 						)
+						assertWarning(testFileResult.issues, issueCollection,
+							"Array ranges in reference values are not property instantiated"
+						)
 					]
 				]
 				ownedPropertyAssociations.get(12) => [
 					"def13".assertEquals(property.name)
 					(ownedValues.head.ownedValue as ReferenceValue).path.arrayRanges.head => [
 						assertError(testFileResult.issues, issueCollection, "Range lower bound is greater than upper bound")
+						assertWarning(testFileResult.issues, issueCollection,
+							"Array ranges in reference values are not property instantiated"
+						)
 					]
 				]
 				ownedPropertyAssociations.get(13) => [
@@ -128,6 +149,9 @@ class Issue1769Test extends XtextTest {
 					"def15".assertEquals(property.name)
 					(ownedValues.head.ownedValue as ReferenceValue).path.arrayRanges.head => [
 						assertError(testFileResult.issues, issueCollection, "Upper bound is greater than array size 5")
+						assertWarning(testFileResult.issues, issueCollection,
+							"Array ranges in reference values are not property instantiated"
+						)
 					]
 				]
 			]
