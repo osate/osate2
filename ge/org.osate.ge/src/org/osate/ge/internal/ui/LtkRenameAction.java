@@ -29,13 +29,10 @@ import java.util.Objects;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.window.Window;
@@ -47,8 +44,6 @@ import org.eclipse.ltk.ui.refactoring.RefactoringUI;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.xtext.ui.editor.XtextEditor;
@@ -119,37 +114,6 @@ public class LtkRenameAction implements AgeAction {
 	 * @return
 	 */
 	private boolean renameWithLtk(final EObject bo, final String value) {
-		// TODO: Remove when issue regarding Xtext Dirty State has been resolved.
-		// https://github.com/osate/osate-ge/issues/210
-		// This works around the issue by saving the resource before trying to refactor.
-		if (bo instanceof EObject) {
-			final EObject eObj = bo;
-			if (eObj.eResource() != null) {
-				// Get the IResource for the current BO
-				final IResource boRes = ResourcesPlugin.getWorkspace().getRoot()
-						.getFile(new Path(eObj.eResource().getURI().toPlatformString(true)));
-
-				// Find and save the edit part
-				if (boRes != null && PlatformUI.getWorkbench() != null) {
-					for (final IWorkbenchWindow window : PlatformUI.getWorkbench().getWorkbenchWindows()) {
-						for (final IWorkbenchPage page : window.getPages()) {
-							for (final IEditorReference editorRef : page.getEditorReferences()) {
-								if (editorRef.isDirty()) {
-									final IEditorPart editorPart = editorRef.getEditor(false);
-									if (editorPart instanceof XtextEditor) {
-										final IResource editorRes = ((XtextEditor) editorPart).getResource();
-										if (boRes.equals(editorRes)) {
-											page.saveEditor(editorPart, false);
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-
 		// Lock the diagram to treat all model change notifications as part of the current action.
 		try (Lock lock = modelChangeNotifier.lock()) {
 			// Rename the element using LTK
