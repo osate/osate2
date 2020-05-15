@@ -79,7 +79,7 @@ class PropertiesJavaValidatorTest extends XtextTest {
 					"Period".assertEquals(property.name)
 					ownedValues.get(0).ownedValue => [
 						// Tests checkUnits
-						assertError(testFileResult.issues, issueCollection, "Number value is missing a unit")
+						assertError(testFileResult.issues, issueCollection, "Property value is not of expected type AADL_Project::Time")
 					]
 				]
 			]
@@ -627,8 +627,6 @@ class PropertiesJavaValidatorTest extends XtextTest {
 						deadline => 7 ms applies to nodes1[2].t1[1], nodes1[5].t1[2] ;
 						-- array out of bounds (upperbound)
 						deadline => 6 ms applies to nodes2[1 .. 8];
-						-- the following is fine because its not defined yet
-						deadline => 7 ms applies to nodes4[2];
 				end S.i;
 				system S
 				end S;

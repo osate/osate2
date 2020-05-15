@@ -1402,7 +1402,7 @@ public class AadlBaTypeChecker
           InternalEObject child = (InternalEObject) sue ;
           
           child.eBasicSetContainer(parent,
-                                   AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER,
+                                   AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__STRUCT_UNION_ELEMENT,
                                    null) ;
           result = sueHolder ;
           break ;
@@ -2397,50 +2397,7 @@ public class AadlBaTypeChecker
       refs.add(ssh);
       return subprogramCallActionResolver(refs, comAct);
     }
-    else
-    {
-      TypeCheckRule rule = TypeCheckRule.SUBPROGRAM_UCCR ; 
-      Subprogram sub = (Subprogram) 
-          uniqueNamedElementReferenceResolver(qne, rule) ;
-      if(sub != null)
-      {
-        // Gets subprogram type.
-        Classifier subprogType = subprogramTypeCheck(comAct) ;
-
-        // Checks and resolves parameter labels.
-        // Event if the subprogram call action doesn't have any parameter labels,
-        // the subprogram type may have and vice versa: 
-        // subprogramParameterListCheck is also design for these cases. 
-        // It also binds the subprogram type found to the subprogram call action. 
-        if(subprogType != null)
-        {
-          if (subprogramParameterListCheck(comAct, comAct.getParameters(),
-                                           subprogType))
-          {
-            SubprogramCallAction result = _fact.createSubprogramCallAction() ;
-            SubprogramHolder sh = _fact.createSubprogramHolder() ;
-            sh.setLocationReference(comAct.getLocationReference()) ;
-            sh.setSubprogram(sub) ;
-            result.setSubprogram(sh) ;
-            result.setLocationReference(comAct.getLocationReference()) ;
-            result.getParameterLabels().addAll(comAct.getParameters()) ;
-            return result ;
-          }
-          else
-          {
-            return null ;
-          }
-        }
-        else
-        {
-          return null ;
-        }
-      }
-      else
-      {
-        return  null ;
-      }
-    }
+    return null;
   }
   
   // This method checks the given object and returns a communication action
@@ -2459,7 +2416,7 @@ public class AadlBaTypeChecker
     CommAction comAct = (CommAction) ca ;
     
     // Subprogram qualified classifier call.
-    if(comAct.getQualifiedName() != null)
+    if(isSubprogramClassifierCallOrPortSendAction(comAct))
     {
       return qualifiedSubprogramClassifierCallOrPortSendActionActionResolver(comAct) ;
     }
@@ -2484,38 +2441,85 @@ public class AadlBaTypeChecker
     }
   }
   
+  private boolean isSubprogramClassifierCallOrPortSendAction(CommAction comAct)
+  {
+    QualifiedNamedElement qne = comAct.getQualifiedName() ;
+    
+    if(qne == null)
+      return false;
+
+    if(qne.getOsateRef() instanceof EventPort
+        || qne.getOsateRef() instanceof EventDataPort
+        || qne.getOsateRef() instanceof SubprogramAccess
+        || qne.getOsateRef() instanceof SubprogramSubcomponent)
+      return true;
+    return false;
+  }
+
   // Resolves semantic ambiguities (subprogram call and port send action).
   // On error, reports error and returns null.
   private CommunicationAction subprogramCallActionAndPortSendActionResolver
                                                              (CommAction comAct)
   {
-    TypeCheckRule stopOnThisRule = TypeCheckRule.OUT_PORT ;
-    TypeCheckRule[] checkRules = new TypeCheckRule[]
+    if(comAct.getQualifiedName()!=null)
+    {
+      TypeCheckRule rule = TypeCheckRule.SUBPROGRAM_UCCR ; 
+      Subprogram sub = (Subprogram) 
+          uniqueNamedElementReferenceResolver(comAct.getQualifiedName(), rule) ;
+      if(sub != null)
+      {
+        // Gets subprogram type.
+        Classifier subprogType = subprogramTypeCheck(comAct) ;
+
+        // Checks and resolves parameter labels.
+        // Event if the subprogram call action doesn't have any parameter labels,
+        // the subprogram type may have and vice versa: 
+        // subprogramParameterListCheck is also design for these cases. 
+        // It also binds the subprogram type found to the subprogram call action. 
+        if(subprogType != null)
+        {
+          if (subprogramParameterListCheck(comAct, comAct.getParameters(),
+                                           subprogType))
+          {
+            SubprogramCallAction result = _fact.createSubprogramCallAction() ;
+            SubprogramHolder sh = _fact.createSubprogramHolder() ;
+            sh.setLocationReference(comAct.getLocationReference()) ;
+            sh.setSubprogram(sub) ;
+            result.setSubprogram(sh) ;
+            result.setLocationReference(comAct.getLocationReference()) ;
+            result.getParameterLabels().addAll(comAct.getParameters()) ;
+            return result ;
+          }
+        }
+      }
+    }
+    else if (comAct.getReference()!=null)
+    {
+      TypeCheckRule stopOnThisRule = TypeCheckRule.OUT_PORT ;
+      TypeCheckRule[] checkRules = new TypeCheckRule[]
           { TypeCheckRule.SUBPROGRAM_CALL_ACTION_FIRST_NAME,
             TypeCheckRule.SUBPROGRAM_CALL_ACTION_SD_NAME
           } ;
-    
-    List<ElementHolder> resolvedRef = refResolver(comAct.getReference(),
-                                                  null, stopOnThisRule,
-                                                  checkRules) ;
-    
-    if(resolvedRef != null)
-    {
-      // Port send action case.
-      if(resolvedRef.get(0) instanceof PortHolder)
+
+      List<ElementHolder> resolvedRef = refResolver(comAct.getReference(),
+                                                    null, stopOnThisRule,
+                                                    checkRules) ;
+
+      if(resolvedRef != null)
       {
-        ActualPortHolder portHolder = (ActualPortHolder) resolvedRef.get(0) ;
-        return portSendActionResolver(portHolder, comAct) ;
-      }
-      else // Subprogram call action case. 
-      {
-        return subprogramCallActionResolver(resolvedRef, comAct) ;
+        // Port send action case.
+        if(resolvedRef.get(0) instanceof PortHolder)
+        {
+          ActualPortHolder portHolder = (ActualPortHolder) resolvedRef.get(0) ;
+          return portSendActionResolver(portHolder, comAct) ;
+        }
+        else // Subprogram call action case. 
+        {
+          return subprogramCallActionResolver(resolvedRef, comAct) ;
+        }
       }
     }
-    else
-    {
-      return null ;
-    }
+    return null;
   }
 
   private SubprogramCallAction subprogramCallActionResolver

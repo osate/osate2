@@ -124,6 +124,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
       case ErrorModelPackage.EVENT_OR_PROPAGATION: return createEventOrPropagation();
       case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION: return createOutgoingPropagationCondition();
       case ErrorModelPackage.ERROR_DETECTION: return createErrorDetection();
+      case ErrorModelPackage.REPORTING_PORT_REFERENCE: return createReportingPortReference();
       case ErrorModelPackage.ERROR_CODE_VALUE: return createErrorCodeValue();
       case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING: return createErrorStateToModeMapping();
       case ErrorModelPackage.COMPOSITE_STATE: return createCompositeState();
@@ -568,6 +569,17 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
     ErrorDetectionImpl errorDetection = new ErrorDetectionImpl();
     return errorDetection;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ReportingPortReference createReportingPortReference()
+  {
+    ReportingPortReferenceImpl reportingPortReference = new ReportingPortReferenceImpl();
+    return reportingPortReference;
   }
 
   /**

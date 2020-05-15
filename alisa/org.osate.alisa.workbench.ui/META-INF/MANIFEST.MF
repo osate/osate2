@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.osate.alisa.workbench.ui
 Bundle-Vendor: SEI
-Bundle-Version: 2.0.1.qualifier
+Bundle-Version: 2.0.2.qualifier
 Bundle-SymbolicName: org.osate.alisa.workbench.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.osate.alisa.workbench;bundle-version="[2.0.0,3.0.0)";visibility:=reexport,
@@ -17,10 +17,10 @@ Require-Bundle: org.osate.alisa.workbench;bundle-version="[2.0.0,3.0.0)";visibil
  org.eclipse.compare;bundle-version="[3.7.0,4.0.0)",
  org.eclipse.core.runtime;bundle-version="[3.17.0,4.0.0)",
  org.eclipse.core.resources;bundle-version="[3.13.0,4.0.0)",
- org.osate.aadl2;bundle-version="[2.1.0,3.0.0)",
+ org.osate.aadl2;bundle-version="[3.0.0,4.0.0)",
  org.osate.aadl2.instantiation;bundle-version="[1.1.0,2.0.0)",
- org.osate.ui;bundle-version="[3.0.0,4.0.0)",
- org.osate.assure;bundle-version="[2.0.0,3.0.0)",
+ org.osate.ui;bundle-version="[3.1.0,4.0.0)",
+ org.osate.assure;bundle-version="[3.0.0,4.0.0)",
  org.eclipse.jdt.debug.ui;bundle-version="[3.10.0,4.0.0)",
  org.osate.alisa.common.ui;bundle-version="[2.0.0,3.0.0)",
  org.osate.verify;bundle-version="[2.0.0,3.0.0)",

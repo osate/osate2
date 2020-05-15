@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -24,17 +24,15 @@
 
 package org.osate.analysis.scheduling;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
+import java.util.List;
 
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.modelsupport.QuickSort;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.analysis.resource.management.handlers.Schedule;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -42,7 +40,7 @@ import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 public class RuntimeProcessWalker {
 	// to record the invariants visisted and put back to the system tree.
-	private static EList runTimeComponents = new BasicEList();
+	private static List<RuntimeProcess> runTimeComponents = new ArrayList<RuntimeProcess>();
 	private static int ARCID = 0;
 
 	// since the current timing schedulability analysis is based on per-processor.
@@ -51,18 +49,6 @@ public class RuntimeProcessWalker {
 	private static ComponentInstance currentProcessor;
 
 	final Schedule scheduleAction;
-
-	private QuickSort quick = new QuickSort() {
-		protected int compare(Object obj1, Object obj2) {
-			int a = ((RuntimeProcess) obj1).getPeriod();
-			int b = ((RuntimeProcess) obj2).getPeriod();
-			if (a > b)
-				return 1;
-			if (a == b)
-				return 0;
-			return -1;
-		}
-	};
 
 	/**
 	 * Schedule Action is the action extended from AbstractAaxlAction.
@@ -87,13 +73,16 @@ public class RuntimeProcessWalker {
 		runTimeComponents.clear();
 	}
 
-	public EList getRunTimeComponents() {
+	/**
+	 * @since 2.0
+	 */
+	public List<RuntimeProcess> getRunTimeComponents() {
 		return runTimeComponents;
 	};
 
 	public void initWalker() {
 		Element root = currentProcessor.getSystemInstance();
-		TreeIterator ciit = EcoreUtil.getAllContents(Collections.singleton(root));
+		TreeIterator<Element> ciit = EcoreUtil.getAllContents(Collections.singleton(root));
 		while (ciit.hasNext()) {
 			Object o = ciit.next();
 			if (o instanceof ComponentInstance && ((ComponentInstance) o).getCategory() == ComponentCategory.THREAD) {
@@ -150,17 +139,18 @@ public class RuntimeProcessWalker {
 	}
 
 	public void componentsSortByPeriod() {
-		if (runTimeComponents.size() == 0)
+		if (runTimeComponents.size() == 0) {
 			return;
-		quick.quickSort(runTimeComponents);
+		}
+		Collections.sort(runTimeComponents, (p1, p2) -> p1.getPeriod() - p2.getPeriod());
 	}
 
 	public void assignPriority() {
-		if (runTimeComponents.size() == 0)
+		if (runTimeComponents.size() == 0) {
 			return;
+		}
 		int prior = runTimeComponents.size();
-		for (Iterator it = runTimeComponents.iterator(); it.hasNext();) {
-			RuntimeProcess curComponent = (RuntimeProcess) it.next();
+		for (RuntimeProcess curComponent : runTimeComponents) {
 			if (curComponent.getPriority() == 0) {
 				curComponent.setPriority(prior--);
 			}
@@ -170,7 +160,7 @@ public class RuntimeProcessWalker {
 	private int getARCID(RuntimeProcess comp) {
 		int result = -1;
 		for (int i = 0; i < runTimeComponents.size(); i++) {
-			RuntimeProcess curComponent = (RuntimeProcess) runTimeComponents.get(i);
+			RuntimeProcess curComponent = runTimeComponents.get(i);
 			if (curComponent.getARCName() != null && comp.getARCName() != null) {
 				if (curComponent.getARCName().equals(comp.getARCName())) {
 					if (curComponent.getARCID() >= 0) {
@@ -189,12 +179,13 @@ public class RuntimeProcessWalker {
 	 */
 	public boolean timingSchedualabilityAnalysis() {
 		// no process bounded to this process, so it is true. Of course.
-		if (runTimeComponents.size() == 0)
+		if (runTimeComponents.size() == 0) {
 			return true;
+		}
 
 		// numbering the ARC ID for all the schedulable component in the system.
 		for (int i = 0; i < runTimeComponents.size(); i++) {
-			RuntimeProcess curComponent = (RuntimeProcess) runTimeComponents.get(i);
+			RuntimeProcess curComponent = runTimeComponents.get(i);
 			// construct ARCID.
 			if (curComponent.getARCName() == null) {
 				// no ARC name associated, it is a normal component.
@@ -202,10 +193,11 @@ public class RuntimeProcessWalker {
 			} else {
 				// it is associated with ARC component
 				int id = getARCID(curComponent);
-				if (id >= 0)
+				if (id >= 0) {
 					curComponent.setARCID(id);
-				else
+				} else {
 					curComponent.setARCID(ARCID++);
+				}
 			}
 		}
 
@@ -215,7 +207,7 @@ public class RuntimeProcessWalker {
 		analysis.setExactOrTractable(true);
 
 		for (int i = 0; i < runTimeComponents.size(); i++) {
-			RuntimeProcess curComponent = (RuntimeProcess) runTimeComponents.get(i);
+			RuntimeProcess curComponent = runTimeComponents.get(i);
 			analysis.addProcessToList(curComponent, curComponent.getARCID());
 		}
 
@@ -223,7 +215,7 @@ public class RuntimeProcessWalker {
 
 		double totaltime = 0;
 		for (int i = 0; i < runTimeComponents.size(); i++) {
-			RuntimeProcess curComponent = (RuntimeProcess) runTimeComponents.get(i);
+			RuntimeProcess curComponent = runTimeComponents.get(i);
 			totaltime += curComponent.getExecutionTime() * 1000 / curComponent.getPeriod();
 		}
 
@@ -239,7 +231,7 @@ public class RuntimeProcessWalker {
 				"thread name, period, deadline, execution time, phase offset, priority, max response time, schedulability ");
 
 		for (int i = 0; i < runTimeComponents.size(); i++) {
-			RuntimeProcess curComponent = (RuntimeProcess) runTimeComponents.get(i);
+			RuntimeProcess curComponent = runTimeComponents.get(i);
 			scheduleAction.logInfo(curComponent.getComponentName() + ", " + curComponent.getPeriod() + ", "
 					+ curComponent.getDeadline() + ", " + curComponent.getExecutionTime() + ", "
 					+ curComponent.getPhaseOffset() + ", " + curComponent.getPriority() + ", "

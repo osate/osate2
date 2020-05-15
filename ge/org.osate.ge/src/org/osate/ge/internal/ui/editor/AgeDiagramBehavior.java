@@ -158,8 +158,8 @@ import org.osate.ge.internal.ui.editor.actions.PasteAction;
 import org.osate.ge.internal.ui.editor.actions.RedoAction;
 import org.osate.ge.internal.ui.editor.actions.SelectAllAction;
 import org.osate.ge.internal.ui.editor.actions.UndoAction;
+import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
 import org.osate.ge.internal.ui.util.ContextHelpUtil;
-import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
@@ -193,7 +193,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	};
 
 	private final ISelectionListener toolPostSelectionListener = (part, selection) -> {
-		toolHandler.setSelectedDiagramElements(SelectionUtil.getSelectedDiagramElements(selection, false));
+		toolHandler.setSelectedElements(AgeHandlerUtil.getSelectedBusinessObjectContexts());
 	};
 
 	@Override
@@ -530,8 +530,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 			editor.getSite().getWorkbenchWindow().getSelectionService()
 			.addPostSelectionListener(toolPostSelectionListener);
-			toolHandler.setSelectedDiagramElements(SelectionUtil.getSelectedDiagramElements(
-					editor.getSite().getWorkbenchWindow().getSelectionService().getSelection(), false));
+			toolHandler.setSelectedElements(AgeHandlerUtil.getSelectedBusinessObjectContexts());
 
 			// Deactivate the tool when the part is deactivated or closed
 			editor.getSite().getWorkbenchWindow().getPartService().addPartListener(toolPartListener);

@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -34,6 +34,7 @@ import org.eclipse.xtext.resource.containers.IAllContainersState;
 import org.eclipse.xtext.ui.LanguageSpecific;
 import org.eclipse.xtext.ui.editor.IURIEditorOpener;
 import org.eclipse.xtext.ui.editor.autoedit.AbstractEditStrategyProvider;
+import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
 import org.eclipse.xtext.ui.editor.model.IResourceForEditorInputFactory;
 import org.eclipse.xtext.ui.editor.model.XtextDocumentProvider;
 import org.eclipse.xtext.ui.editor.model.edit.ITextEditComposer;
@@ -45,6 +46,7 @@ import org.osate.xtext.aadl2.ui.containers.Aadl2ProjectsStateHelper;
 import org.osate.xtext.aadl2.ui.contentassist.AnnexAwareContentAssistProcessor;
 import org.osate.xtext.aadl2.ui.editor.Aadl2LanguageSpecificURIEditorOpener;
 import org.osate.xtext.aadl2.ui.editor.Aadl2WorkspaceEncodingProvider;
+import org.osate.xtext.aadl2.ui.editor.hover.Aadl2EObjectHoverProvider;
 import org.osate.xtext.aadl2.ui.editor.model.Aadl2DocumentProvider;
 import org.osate.xtext.aadl2.ui.editor.model.Aadl2ResourceForEditorInputFactory;
 import org.osate.xtext.aadl2.ui.editor.model.edit.FormattingTextEditComposer;
@@ -87,7 +89,6 @@ public class Aadl2UiModule extends org.osate.xtext.aadl2.ui.AbstractAadl2UiModul
 		return Aadl2OccurrenceComputer.class;
 	}
 
-	@SuppressWarnings("restriction")
 	@Override
 	public Class<? extends org.eclipse.xtext.ui.refactoring.IRenameStrategy> bindIRenameStrategy() {
 		return Aadl2RenameStrategy.class;
@@ -155,4 +156,12 @@ public class Aadl2UiModule extends org.osate.xtext.aadl2.ui.AbstractAadl2UiModul
 	public Class<? extends IDependentElementsCalculator> bindIDependentElementsCalculator() {
 		return Aadl2DependentElementsCalculator.class;
 	}
+
+	/**
+	 * @since 3.0
+	 */
+	public Class<? extends IEObjectHoverProvider> bindIEObjectHoverProvider() {
+		return Aadl2EObjectHoverProvider.class;
+	}
+
 }

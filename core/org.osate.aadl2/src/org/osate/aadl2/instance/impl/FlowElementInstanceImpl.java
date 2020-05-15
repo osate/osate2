@@ -49,7 +49,6 @@ public abstract class FlowElementInstanceImpl extends InstanceObjectImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return InstancePackage.Literals.FLOW_ELEMENT_INSTANCE;
 	}

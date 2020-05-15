@@ -106,7 +106,7 @@ package class CachePropertyLookupJob extends Job {
 					].entrySet.map[key.URI -> value]).unmodifiableView
 				}
 			]
-		} catch (NullPointerException e) {
+		} catch (RuntimeException e) {
 		}
 		if (monitor.canceled) {
 			Status.CANCEL_STATUS
