@@ -25,17 +25,17 @@ censes only apply to the Third Party Software and not any other portion of this 
 
 [TOC levels=2-4 bullet hierarchy]
 
-Analyses are run over instantiated systems, which are typically generated from system implementation classifiers, but can be generated from any implementation classifier except for subprogram and subprogram group.
+Analyses are run over instantiated systems, which are typically generated from system implementation classifiers, but can be generated from any implementation classifier except for `subprogram` and `subprogram group`.
 
-The semantics of instantiating from declarative model are described section 13, "Operational System," of the AADL standard.
+The semantics of instantiating from a declarative model are described section 13, "Operational System," of the AADL standard.
 
 ## Instantiating a Model
 
 An instance model can be created in 3 ways:
 
-1. **From the context menu of the AADL editor `Outline` view.**  Select one or more component classifier in the view.  The command is active in the context menu as long as none of the classifiers is `subprogram` or `subprgram group`.
+1. **From the context menu of the AADL editor `Outline` view.**  Select one or more component classifiers in the view.  The command is active in the context menu as long as none of the classifiers is `subprogram` or `subprgram group`.
   
-2. **From the context menu of the `AADL Navigator` view.**  Select one or more component classifier or `.aadl` file in the view.  The classifiers/files can be from different projects.  The command is active in the context menu as long as none of the classifiers is `subprogram` or `subprogram group`.  
+2. **From the context menu of the `AADL Navigator` view.**  Select one or more component classifiers or `.aadl` files in the view.  The classifiers/files can be from different projects.  The command is active in the context menu as long as none of the classifiers is `subprogram` or `subprogram group`.  
 
 3. **From the `OSATE > Instantiate` menu.**  Select one or more component classifier or `.aadl` file in the view.  The classifiers/files can be from different projects.  The command is active in the context menu as long as none of the classifiers is `subprogram` or `subprogram group`.  
 
@@ -43,7 +43,7 @@ If only classifiers are selected then the instantiation process continues withou
 
 ### Choosing the Components to Instantiate
 
-If any `.aadl` files are selected, a dialog is displayed asked you to choose the component implementations in the selected `.aadl` files to instantiate:
+If any `.aadl` files are selected, a dialog might be displayed (depending on the workspace preferences) asking you to choose the component implementations in the selected `.aadl` files to instantiate:
 
   ![Component classifier selection dialog.](images/SelectComponentImplementations.png)
 
@@ -55,7 +55,7 @@ Click on `OK` to add the selected classifiers to the list of classifiers to be i
 
 #### Only Systems by Default
 
-Checking `Only systems by default` changes the preferences so that in the future the dialog will only preselect `system` implementation classifiers.  You must click on `OK` for this change to take effect.
+Checking `Only systems by default` changes the preferences so that in the future the dialog will only preselect `system implementation` classifiers.  You must click on `OK` for this change to take effect.
 
 #### Hiding the Selection Dialog
 
@@ -91,7 +91,7 @@ For each classifier, it gives the result of instantiation:
 
 #### Hiding the Results Dialog
 
-If you do not want to see the results dialog when all of the instantiations are successful, click checkbox for `Don't show this dialog when successful`.  
+If you do not want to see the results dialog when all of the instantiations are successful, click the checkbox for `Don't show this dialog when successful`.  
 
 When you click the `OK` button, you will be shown another dialog to confirm your decision:
 
@@ -105,13 +105,13 @@ The preference can be returned to the default setting via the `OSATE > Instantia
 
 An instance model is created and placed in a directory called `instances` in the same directory as the `.aadl` file that contains the root component classifier.  This directory is created if it does not already exist.  The file is only created if the result status is "OK".
 
-The instance model built from system implementation `my::package::system.impl` is named `my_package_system_impl_Instance.aaxl2`.  This is an XML-based model description that is not readily readable by people.  It can be opened and viewed in a hierarchical manner in OSATE.  Here we see the model we just generated:
+The instance model built from system implementation `my::package::system.impl` is named `my_package_system_impl_Instance.aaxl2`.  This is an XML-based model description that is not readily readable by people.  It can be opened and viewed in a hierarchical manner in OSATE. 
 
 ## Reinstantiating a Model
 
 If you update the declarative model it is necessary to reinstantiate the instance model.
 
-Existing instance models can be reinstantiated by selecting one or more `.aaxl` file, folder, project, or working set in the `AADL Navigator` view and then either
+Existing instance models can be reinstantiated by selecting one or more `.aaxl` files, folders, projects, or working sets in the `AADL Navigator` view and then either
 
 * Choosing `Reinstantiate` from the view's context menu, or
 
@@ -123,13 +123,13 @@ If there is an error then the results dialog will be displayed.  If all the mode
 
 ## Workspace Preferences
 
-As mentioned already, the behavior of instantiation is controlled by several workspace preferences.  These are accessed via the `OSATE > Instantiation" preference pane:
+As mentioned already, the behavior of instantiation is controlled by several workspace preferences.  These are accessed via the `OSATE > Instantiation` preference pane:
 
   ![Instantiation preference pane](images/InstantiationPreferences.png)
 
 There are four preferences:
 
-* **Maximum number of system operation modes to generate.**. This is the maximum number of system operation modes that are created for any one system instance.  The default value is **1000**.  This limit exists to prevent combinbatorial explosion.
+* **Maximum number of system operation modes to generate.**. This is the maximum number of system operation modes that are created for any one system instance.  The default value is **1000**.  This limit exists to prevent combinatorial explosion.
 
 * **Always show instantiation results dialog, even when successful.**  When checked, the results dialog is always displayed.  When uncheck, the results dialog is only displayed when there is an error or exception.  The default value is **true** (checked).
 
