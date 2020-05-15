@@ -149,6 +149,6 @@ Project-specific properties can be used to control instantiation behavior as wel
 
   ![Instantiation properties pane](images/InstantiationProperties.png)
 
-The only property concurrently avaiable is a project-specific version of the **maximum number of system operation nodes to generate**.  By default, the propject-specfiic version is ignored.  By clicking on `Use project settings`, you can enable the property and change its value to be customized for the project.  Click on `Use workspace settings` to return to using the system-wide value.
+The only property concurrently avaiable is a project-specific version of the **maximum number of system operation modes to generate**.  By default, the propject-specfiic version is ignored.  By clicking on `Use project settings`, you can enable the property and change its value to be customized for the project.  Click on `Use workspace settings` to return to using the system-wide value.
 
 Clicking the `Configure Workspace Settings...` button to open the `OSATE > Instantiation` workspace preferences pane.
