@@ -182,7 +182,7 @@ public final class InstantiationHandler extends AbstractMultiJobHandler {
 					PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
 						MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
 								"Error staring instantiation",
-								"Excepting starting model instantiation, see the error log: " + e.getMessage());
+								"Exception starting model instantiation, see the error log: " + e.getMessage());
 					});
 				}
 
