@@ -22,36 +22,7 @@ Software. The parties who own the Third Party Software ("Third Party Licensors")
 aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
 censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
 -->
-<?eclipse version="3.0"?>
-<plugin>
-
-    <extension
-         point="org.eclipse.help.toc">
-      <toc
-            file="aadlhelp.xml"
-            primary="true">
-      </toc>
-   </extension>
-   <extension
-         point="org.eclipse.help.toc">
-      <toc
-            file="usermanualcontents.xml">
-      </toc>
-      <toc
-            file="refcontents.xml">
-      </toc>
-      <toc
-            file="metamodelcontents.xml">
-      </toc>
-      <toc
-            file="plugindevcontents.xml">
-      </toc>
-      <toc
-            file="javadoccontents.xml">
-      </toc>
-      <toc
-      		file="help/toc_instantiation.xml">
-      </toc>
-   </extension>
-
-</plugin>
+<toc link_to="aadlhelp.xml#_instantiation" label="System Instantiation">
+   <topic href="help/html/instantiation.html" label="System Instantiation">
+   </topic>
+</toc>
