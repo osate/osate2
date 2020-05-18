@@ -2,6 +2,9 @@ package org.osate.ge.fx.palette;
 
 import java.util.Objects;
 
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.beans.value.WeakChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -11,8 +14,8 @@ import javafx.scene.text.Font;
 
 class PaletteItem<I> extends Region {
 
-	private final Button itemButton;
-	private boolean itemHovered;
+	private final Button Button;
+	private boolean Hovered;
 	private final PaletteModel<?, ?> model;
 	private final I item;
 	private static final String HOVER_ITEM_STYLE = "-fx-background-color: rgba(252,228,179,1.0);";
@@ -22,46 +25,46 @@ class PaletteItem<I> extends Region {
 	public PaletteItem(final PaletteModel<?, I> model, I item) {
 		this.model = Objects.requireNonNull(model, "model must not be null");
 		this.item = Objects.requireNonNull(item, "item must not be null");
-		setItemHovered(false);
-		itemButton = new Button(model.getItemLabel(item));
-		itemButton.setPadding(new Insets(0, 0, 0, 20));
-		itemButton.setFont(new Font(14));
-
-		itemButton.setStyle(IDLE_ITEM_STYLE);
-
-		itemButton.setOnMouseEntered(e -> {
-			setItemHovered(true);
+		Hovered = false;
+		Button = new Button(model.getItemLabel(item));
+		Button.setPadding(new Insets(0, 0, 0, 20));
+		Button.setFont(new Font(14));
+		Button.setOnMouseEntered(e -> {
+			Hovered = true;
 			updateStyle();
 		});
-		itemButton.setOnMouseExited(e -> {
-			setItemHovered(false);
+		Button.setOnMouseExited(e -> {
+			Hovered = false;
 			updateStyle();
 		});
+		model.activeItemProperty().addListener(new WeakChangeListener<ReadOnlyProperty<I>>() {
+			public void changed(ObservableValue<ReadOnlyProperty<I>> observable, ReadOnlyProperty<I> oldValue,
+					ReadOnlyProperty<I> newValue) {
+				updateStyle();
+			}
+		});
 
-		itemButton.setAlignment(Pos.BASELINE_LEFT);
-		itemButton.setGraphic(new ImageView(model.getItemIcon(item)));
-		itemButton.setOnAction(e -> {
-
+		Button.setAlignment(Pos.BASELINE_LEFT);
+		Button.setGraphic(new ImageView(model.getItemIcon(item)));
+		Button.setOnAction(e -> {
 			model.activateItem(item);
-			updateStyle();
-
 		});
-		this.getChildren().add(itemButton);
+		this.getChildren().add(Button);
+		updateStyle();
 	}
 
-	public void updateStyle() {
+	private void updateStyle() {
 
-		if (isItemHovered() && model.getActiveItem() != item) {
-			itemButton.setStyle(HOVER_ITEM_STYLE);
+		if (Hovered && model.getActiveItem() != item) {
+			Button.setStyle(HOVER_ITEM_STYLE);
+		}
+		else if (!Hovered && model.getActiveItem() != item) {
+			Button.setStyle(IDLE_ITEM_STYLE);
+		}
+		else if (model.getActiveItem() == item) {
+			Button.setStyle(SELECTED_ITEM_STYLE);
 		}
 
-		for (G group : model.getGroups()) {
-			for (PaletteItem I : model.getItems(G)) {
-				if (model.getActiveItem() == item) {
-					itemButton.setStyle(SELECTED_ITEM_STYLE);
-				}
-			}
-		}
 
 	}
 
@@ -70,14 +73,6 @@ class PaletteItem<I> extends Region {
 		final double width = this.getWidth();
 		final double height = this.getHeight();
 
-		itemButton.resize(width, height);
-	}
-
-	public boolean isItemHovered() {
-		return itemHovered;
-	}
-
-	public void setItemHovered(boolean itemHovered) {
-		this.itemHovered = itemHovered;
+		Button.resize(width, height);
 	}
 }
