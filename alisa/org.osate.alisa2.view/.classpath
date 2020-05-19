@@ -4,6 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/org.sireum.aadl.osate"/>
-	<classpathentry kind="lib" path="/org.sireum.aadl.osate.awas/lib/awas.jar"/>
+	<classpathentry kind="lib" path="lib/awas.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
