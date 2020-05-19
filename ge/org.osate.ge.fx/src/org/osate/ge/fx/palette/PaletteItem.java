@@ -2,7 +2,6 @@ package org.osate.ge.fx.palette;
 
 import java.util.Objects;
 
-import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
 import javafx.geometry.Insets;
@@ -37,12 +36,7 @@ class PaletteItem<I> extends Region {
 			Hovered = false;
 			updateStyle();
 		});
-		model.activeItemProperty().addListener(new WeakChangeListener<ReadOnlyProperty<I>>() {
-			public void changed(ObservableValue<ReadOnlyProperty<I>> observable, ReadOnlyProperty<I> oldValue,
-					ReadOnlyProperty<I> newValue) {
-				updateStyle();
-			}
-		});
+		model.activeItemProperty().addListener(new WeakChangeListener<I>(this::resourceChangeListenerHandler));
 
 		Button.setAlignment(Pos.BASELINE_LEFT);
 		Button.setGraphic(new ImageView(model.getItemIcon(item)));
@@ -50,6 +44,13 @@ class PaletteItem<I> extends Region {
 			model.activateItem(item);
 		});
 		this.getChildren().add(Button);
+		updateStyle();
+	}
+
+	private void resourceChangeListenerHandler(ObservableValue<? extends I> observable, I oldValue, I value) {
+		System.err.println(observable + " observable");
+		System.err.println(oldValue + " oldValue");
+		System.err.println(value + " value");
 		updateStyle();
 	}
 
