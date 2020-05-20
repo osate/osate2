@@ -280,7 +280,7 @@ The search results are displayed grouped by the containing resource.  Resources 
 
 There are two classifiers `FIND_ME` and `FIND_ME.impl` that contain the string `find`, and seven references to those classifiers.  Double-clicking on the results opens an editor to the site of the declaration/reference.
 
-These view below shows the result of searching for property declaratiosn in the workspace that contain the string `time`.  Here we see that declarations are found in property sets contributed by plug-ins.
+These view below shows the result of searching for property declarations in the workspace that contain the string `time`.  Here we see that declarations are found in property sets contributed by plug-ins.
 
 ![AADL Search Results](images/OSATEUserGuide/AadlSearchResults2.png)
 
@@ -730,7 +730,7 @@ A **local** property value is defined directly on the AADL model element in eith
 
 #### Contained Property Values
 
-Contained property values are those defined in a `properties` subclause and are applied to a nested model element using the `appies to` clause. In general, the property can be applied to an element nested several layers down in the containment hierarchy, e.g., to a sub-sub-subcomponent. _The `AADL Property Values` view only displays contained property values for the immediate children of a classifier._   To view the property values resulting from all contained property associations in a model, a system instance model must be created. The instantiation evaluates the applicable contained property associations and copies the resulting values as local associations into the instance model.
+Contained property values are those defined in a `properties` subclause and are applied to a nested model element using the `applies to` clause. In general, the property can be applied to an element nested several layers down in the containment hierarchy, e.g., to a sub-sub-subcomponent. _The `AADL Property Values` view only displays contained property values for the immediate children of a classifier._   To view the property values resulting from all contained property associations in a model, a system instance model must be created. The instantiation evaluates the applicable contained property associations and copies the resulting values as local associations into the instance model.
 
 The view distinguishes between a **local contained** and **shared local contained** property association:
 
@@ -843,7 +843,7 @@ This action is especially useful in an instance model to find out which containe
 
 #### Create Local Property Association
 
-This action is enabled for **inherited**, **default**, and **undefined** properties.  Executing this action will creates a new **local** value for the selected property and begins the editing process. The new property association is inserted in curly braces with the current model element in the AADL text editor.
+This action is enabled for **inherited**, **default**, and **undefined** properties.  Executing this action will create a new **local** value for the selected property and begins the editing process. The new property association is inserted in curly braces with the current model element in the AADL text editor.
 
 
 
