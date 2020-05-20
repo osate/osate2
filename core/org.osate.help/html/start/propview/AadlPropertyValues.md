@@ -57,7 +57,7 @@ A **local contained** property value is defined in the properties subclause of t
 
 ![Shared Local Contained Properties](images/SharedLocalContained.png)
 
-Contained property values are defined in a properties subclause and are applied to a model element using the `appies to` clause. In general, the property can be applied to an element nested several layers down in the containment hierarchy, e.g., to a sub sub sub component. The AADL property view does not display these deeply nested property applications. To view the property values resulting from all contained property associations in a model, an instance model must be created. The instantiation evaluates the applicable contained property associations and copies the resulting values as local associations into the instance model.
+Contained property values are defined in a properties subclause and are applied to a model element using the `applies to` clause. In general, the property can be applied to an element nested several layers down in the containment hierarchy, e.g., to a sub sub sub component. The AADL property view does not display these deeply nested property applications. To view the property values resulting from all contained property associations in a model, an instance model must be created. The instantiation evaluates the applicable contained property associations and copies the resulting values as local associations into the instance model.
 
 ### Inherited Property Values
 **Inherited** indicates that the property value is defined in an extended classifier or in the component type if the selected model element is a component implementation.  Inherited property values can also come from a refined element. In the following screenshot, the thread `Prime_Reporter_One` is selected.  The property `Dispatch_Protocol` is **inherited** because it is defined in `Prime_Reporter` which is extended by `Prime_Reporter_One`.
@@ -99,7 +99,7 @@ This action opens the property association that provides the deisplayed property
 This action is especially useful in an instance model to find out which contained property association in the declarative model is used to provide an instance property value.
 
 ### Create Local Property Association
-This action is enabled for **inherited**, **default**, and **undefined** properties.  Executing this action will creates a new **local** value for the selected property and begins the editing process. The new property association is inserted in curly braces with the current model element in the AADL text editor.
+This action is enabled for **inherited**, **default**, and **undefined** properties.  Executing this action will create a new **local** value for the selected property and begins the editing process. The new property association is inserted in curly braces with the current model element in the AADL text editor.
 
 ### Create Local Contained Property Association
 This action is enabled for **inherited**, **default**, and **undefined** properties.  Executing this action creates a new **local contained** value for the selected property and begins the editing process.
