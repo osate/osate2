@@ -1,4 +1,4 @@
-package TestNestedAbstractDirection
+package TestNestedAbstractDirection_InToComponent
 public
 	Data D
 	end D;
@@ -59,19 +59,20 @@ public
 		subcomponents
 			s: system InnerSys_blank;
 		connections
-			c0: feature s.f0 <-> f0;
+			c0: feature f0 -> s.f0;
 			
-			blank_to_blank: feature s.blank_feature <-> blank_to_blank_feature;
-			blank_to_out: feature s.blank_feature <-> blank_to_out_feature;
-			blank_to_in: feature s.blank_feature <-> blank_to_in_feature;
+			blank_to_blank: feature blank_to_blank_feature -> s.blank_feature;
+			blank_to_out: feature blank_to_out_feature -> s.blank_feature; -- BAD: cannot start at out
+			blank_to_in: feature blank_to_in_feature -> s.blank_feature;
 
-			out_to_blank: feature s.out_feature <-> out_to_blank_feature;
-			out_to_out: feature s.out_feature <-> out_to_out_feature;
-			out_to_in: feature s.out_feature <-> out_to_in_feature;
+			-- All of these are bad because the connection cannot end an "out" feature of a subcomponent
+			out_to_blank: feature out_to_blank_feature -> s.out_feature; 
+			out_to_out: feature out_to_out_feature -> s.out_feature;  -- BAD: cannot start at out
+			out_to_in: feature out_to_in_feature -> s.out_feature;  
 			
-			in_to_blank: feature s.in_feature <-> in_to_blank_feature;
-			in_to_out: feature s.in_feature <-> in_to_out_feature;
-			in_to_in: feature s.in_feature <-> in_to_in_feature;
+			in_to_blank: feature in_to_blank_feature -> s.in_feature;
+			in_to_out: feature in_to_out_feature -> s.in_feature;  -- BAD: cannot start at out
+			in_to_in: feature in_to_in_feature -> s.in_feature; 
 	end SrcSys.blank_to_blank;
 		
 	system implementation SrcSys.out_to_blank extends SrcSys.blank_to_blank
@@ -141,43 +142,48 @@ public
 			srcSys: system SrcSys.blank_to_blank;
 			destSys: system DestSys;
 		connections
-			c0: feature srcSys.f0 <-> destSys.f0;
+			c0: feature destSys.f0 -> srcSys.f0;
 			
-			blank_to_blank_to_blank: feature srcSys.blank_to_blank_feature <-> destSys.blank_feature;
-			blank_to_blank_to_out: feature srcSys.blank_to_blank_feature <-> destSys.out_feature;
-			blank_to_blank_to_in: feature srcSys.blank_to_blank_feature <-> destSys.in_feature;
+			blank_to_blank_to_blank: feature destSys.blank_feature -> srcSys.blank_to_blank_feature;
+			blank_to_blank_to_out: feature destSys.out_feature -> srcSys.blank_to_blank_feature;
+			blank_to_blank_to_in: feature destSys.in_feature -> srcSys.blank_to_blank_feature; -- BAD: Cannot start at "in" when peer to peer
 
-			blank_to_out_to_blank: feature srcSys.blank_to_out_feature <-> destSys.blank_feature;
-			blank_to_out_to_out: feature srcSys.blank_to_out_feature <-> destSys.out_feature;
-			blank_to_out_to_in: feature srcSys.blank_to_out_feature <-> destSys.in_feature;
+			-- blank_to_out is BAD, shouldn't even process it during instantiation
+			blank_to_out_to_blank: feature destSys.blank_feature -> srcSys.blank_to_out_feature; -- BAD: Cannot end with "out" when peer to peer
+			blank_to_out_to_out: feature destSys.out_feature -> srcSys.blank_to_out_feature; -- BAD: Cannot end with "out" when peer to peer
+			blank_to_out_to_in: feature destSys.in_feature -> srcSys.blank_to_out_feature; -- BAD: Cannot start at "in" when peer to peer; Cannot end with "out" when peer to peer
 			
-			blank_to_in_to_blank: feature srcSys.blank_to_in_feature <-> destSys.blank_feature;
-			blank_to_in_to_out: feature srcSys.blank_to_in_feature <-> destSys.out_feature;
-			blank_to_in_to_in: feature srcSys.blank_to_in_feature <-> destSys.in_feature;
+			blank_to_in_to_blank: feature destSys.blank_feature -> srcSys.blank_to_in_feature;
+			blank_to_in_to_out: feature destSys.out_feature -> srcSys.blank_to_in_feature;
+			blank_to_in_to_in: feature destSys.in_feature -> srcSys.blank_to_in_feature; -- BAD: Cannot start at "in" when peer to peer
 			
-			out_to_blank_to_blank: feature srcSys.out_to_blank_feature <-> destSys.blank_feature;
-			out_to_blank_to_out: feature srcSys.out_to_blank_feature <-> destSys.out_feature;
-			out_to_blank_to_in: feature srcSys.out_to_blank_feature <-> destSys.in_feature;
+			-- out_to_blank is BAD, shouldn't even process it during instantiation
+			out_to_blank_to_blank: feature destSys.blank_feature -> srcSys.out_to_blank_feature;
+			out_to_blank_to_out: feature destSys.out_feature -> srcSys.out_to_blank_feature;
+			out_to_blank_to_in: feature destSys.in_feature -> srcSys.out_to_blank_feature; -- BAD: Cannot start at "in" when peer to peer
 
-			out_to_out_to_blank: feature srcSys.out_to_out_feature <-> destSys.blank_feature;
-			out_to_out_to_out: feature srcSys.out_to_out_feature <-> destSys.out_feature;
-			out_to_out_to_in: feature srcSys.out_to_out_feature <-> destSys.in_feature;
+			-- out_to_out is BAD, shouldn't even process it during instantiation
+			out_to_out_to_blank: feature destSys.blank_feature -> srcSys.out_to_out_feature; -- BAD: Cannot end with "out" when peer to peer
+			out_to_out_to_out: feature destSys.out_feature -> srcSys.out_to_out_feature; -- BAD: Cannot end with "out" when peer to peer
+			out_to_out_to_in: feature destSys.in_feature -> srcSys.out_to_out_feature; -- BAD: Cannot start at "in" when peer to peer; Cannot end with "out" when peer to peer
 			
-			out_to_in_to_blank: feature srcSys.out_to_in_feature <-> destSys.blank_feature;
-			out_to_in_to_out: feature srcSys.out_to_in_feature <-> destSys.out_feature;
-			out_to_in_to_in: feature srcSys.out_to_in_feature <-> destSys.in_feature;
+			-- out_to_in is BAD, shouldn't even process it during instantiation
+			out_to_in_to_blank: feature destSys.blank_feature -> srcSys.out_to_in_feature;
+			out_to_in_to_out: feature destSys.out_feature -> srcSys.out_to_in_feature;
+			out_to_in_to_in: feature destSys.in_feature -> srcSys.out_to_in_feature; -- BAD: Cannot start at "in" when peer to peer
 			
-			in_to_blank_to_blank: feature srcSys.in_to_blank_feature <-> destSys.blank_feature;
-			in_to_blank_to_out: feature srcSys.in_to_blank_feature <-> destSys.out_feature;
-			in_to_blank_to_in: feature srcSys.in_to_blank_feature <-> destSys.in_feature;
+			in_to_blank_to_blank: feature destSys.blank_feature -> srcSys.in_to_blank_feature;
+			in_to_blank_to_out: feature destSys.out_feature -> srcSys.in_to_blank_feature;
+			in_to_blank_to_in: feature destSys.in_feature -> srcSys.in_to_blank_feature; -- BAD: Cannot start at "in" when peer to peer
 
-			in_to_out_to_blank: feature srcSys.in_to_out_feature <-> destSys.blank_feature;
-			in_to_out_to_out: feature srcSys.in_to_out_feature <-> destSys.out_feature;
-			in_to_out_to_in: feature srcSys.in_to_out_feature <-> destSys.in_feature;
+			-- in_to_out is BAD, shouldn't even process it during instantiation
+			in_to_out_to_blank: feature destSys.blank_feature -> srcSys.in_to_out_feature; -- BAD: Cannot end with "out" when peer to peer
+			in_to_out_to_out: feature destSys.out_feature -> srcSys.in_to_out_feature; -- BAD: Cannot end with "out" when peer to peer
+			in_to_out_to_in: feature destSys.in_feature -> srcSys.in_to_out_feature; -- BAD: Cannot start at "in" when peer to peer; Cannot end with "out" when peer to peer
 			
-			in_to_in_to_blank: feature srcSys.in_to_in_feature <-> destSys.blank_feature;
-			in_to_in_to_out: feature srcSys.in_to_in_feature <-> destSys.out_feature;
-			in_to_in_to_in: feature srcSys.in_to_in_feature <-> destSys.in_feature;
+			in_to_in_to_blank: feature destSys.blank_feature -> srcSys.in_to_in_feature;
+			in_to_in_to_out: feature destSys.out_feature -> srcSys.in_to_in_feature;
+			in_to_in_to_in: feature destSys.in_feature -> srcSys.in_to_in_feature; -- BAD: Cannot start at "in" when peer to peer
 	end Top.blank_to_blank_to_blank;
 	
 	system implementation Top.blank_to_blank_to_out extends Top.blank_to_blank_to_blank 
@@ -317,5 +323,4 @@ public
 		subcomponents
 			destSys: refined to system DestSysIn;
 	end Top.in_to_in_to_in;
-	
-end TestNestedAbstractDirection;
+end TestNestedAbstractDirection_InToComponent;
