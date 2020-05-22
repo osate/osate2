@@ -673,34 +673,37 @@ public class PropagateErrorSources {
 				for (PropagationPathEnd propagationPathEnd : dstEnds) {
 					ComponentInstance destci = propagationPathEnd.getComponentInstance();
 					ErrorPropagation destEP = propagationPathEnd.getErrorPropagation();
-					TypeSet dstTS = destEP.getTypeSet();
-					TypeToken targettt = null;
-					if (tt != null && EMV2TypeSetUtil.contains(dstTS, tt)) {
-						targettt = tt;
-					} else if (mappedtt != null && EMV2TypeSetUtil.contains(dstTS, mappedtt)) {
-						targettt = mappedtt;
-					} else if (xformedtt != null && EMV2TypeSetUtil.contains(dstTS, xformedtt)) {
-						targettt = xformedtt;
-					}
-					if (targettt == null) {
-						// type token or mapped/xformed type token is not contained in incoming EP
-						String connText = connSymbol
-								+ generateComponentPropagationPointTypeTokenText(destci, destEP, resulttt)
-								+ " [Unhandled Type]";
-						reportEntry(entryText + effectText + connText, depth);
-					} else if (destci instanceof SystemInstance) {
-						// we have an external propagation (out only connection)
-						String connText = connSymbol + generateComponentPropagationPointText(destci, destEP)
-								+ " [External Effect]";
-						reportEntry(entryText + effectText + connText, depth);
-					} else if (pathConni != null && Aadl2InstanceUtil.outOnly(pathConni) && !pathConni.isComplete()) {
-						// outgoing only, but not ending at root
-						String connText = connSymbol + generateComponentPropagationPointText(destci, destEP)
-								+ " [External Effect]";
-						reportEntry(entryText + effectText + connText, depth);
-					} else if (destci != null && destEP != null) {
-						String connText = connSymbol + generateComponentPropagationPointText(destci, destEP);
-						traceErrorFlows(destci, destEP, targettt, depth, entryText + effectText + connText);
+					if (destEP != null) {
+						TypeSet dstTS = destEP.getTypeSet();
+						TypeToken targettt = null;
+						if (tt != null && EMV2TypeSetUtil.contains(dstTS, tt)) {
+							targettt = tt;
+						} else if (mappedtt != null && EMV2TypeSetUtil.contains(dstTS, mappedtt)) {
+							targettt = mappedtt;
+						} else if (xformedtt != null && EMV2TypeSetUtil.contains(dstTS, xformedtt)) {
+							targettt = xformedtt;
+						}
+						if (targettt == null) {
+							// type token or mapped/xformed type token is not contained in incoming EP
+							String connText = connSymbol
+									+ generateComponentPropagationPointTypeTokenText(destci, destEP, resulttt)
+									+ " [Unhandled Type]";
+							reportEntry(entryText + effectText + connText, depth);
+						} else if (destci instanceof SystemInstance) {
+							// we have an external propagation (out only connection)
+							String connText = connSymbol + generateComponentPropagationPointText(destci, destEP)
+									+ " [External Effect]";
+							reportEntry(entryText + effectText + connText, depth);
+						} else if (pathConni != null && Aadl2InstanceUtil.outOnly(pathConni)
+								&& !pathConni.isComplete()) {
+							// outgoing only, but not ending at root
+							String connText = connSymbol + generateComponentPropagationPointText(destci, destEP)
+									+ " [External Effect]";
+							reportEntry(entryText + effectText + connText, depth);
+						} else if (destci != null) {
+							String connText = connSymbol + generateComponentPropagationPointText(destci, destEP);
+							traceErrorFlows(destci, destEP, targettt, depth, entryText + effectText + connText);
+						}
 					}
 				}
 			}
