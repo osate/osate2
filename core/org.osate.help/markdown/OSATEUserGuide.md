@@ -312,7 +312,7 @@ Much like a web browser, when you navigate to different locations within a file,
 
 ## <span id="instance">Instance Models</span>
 
-Most analyses are executed over the _instance model_ of a system.  The instance model represents the complete nested architecture of a system.  Generally an instance model would be created from a system implementation classifier.  But OSATE allows an instance model to be created from all implementation classifiers except for `subprogram`.
+Most analyses are executed over the _instance model_ of a system.  The instance model represents the complete nested architecture of a system.  Generally an instance model would be created from a system implementation classifier.  But OSATE allows an instance model to be created from all implementation classifiers except for `subprogram` and `subprogram group`.
 
 An instance model can be created in 3 ways:
 
@@ -334,7 +334,7 @@ To create an instance model of our example system
 
 Here we see the status "OK" for the model built from component classifier `aadlmodel::MySystem.i`.
 
-The result dialog is more interesting when many classifiers are selected for instantiation.  Each instantiation is invoked as separate Eclipse task, and (assuming the instantiation runs long enough) is visible in the `Progress` view.  The result dialog is displayed when all the instantiation tasks have completed.  It gives the result of each instantiation:
+The result dialog is more interesting when many classifiers are selected for instantiation.  Each instantiation is invoked as a separate Eclipse task, and (assuming the instantiation runs long enough) is visible in the `Progress` view.  The result dialog is displayed when all the instantiation tasks have completed.  It gives the result of each instantiation:
 
 * **OK.** The classifier was instantiated successfully.
 * **Cancelled.** The user cancelled the instantiation from the `Progress` view or progress dialog.  
