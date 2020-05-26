@@ -1,0 +1,10 @@
+Bind threads to processors Report
+
+Binpacker Analysis Report
+
+Warning! Thread CheckSpO2Thread is missing period property. Using default of 1 ns
+Warning! Thread CheckSpO2Thread is missing compute_execution_time or InstructionsPerDispatch property. Using default of 0 ns
+
+Binpacking results: FAILED
+
+Thread to Processor Bindings

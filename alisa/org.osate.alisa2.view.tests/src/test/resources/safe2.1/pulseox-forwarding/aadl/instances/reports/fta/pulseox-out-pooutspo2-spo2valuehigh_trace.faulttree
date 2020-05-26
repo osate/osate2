@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ASCII"?>
+<FaultTree:FaultTree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:FaultTree="http://www.aadl.info/FaultTree" name="pulseox-out-pooutspo2-spo2valuehigh_trace" faultTreeType="FaultTrace" root="//@events.1">
+  <instanceRoot href="../../PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.2"/>
+  <events name="pulseox-spo2toohighflowsource-spo2valuehigh" assignedProbability="0" referenceCount="1" scale="1">
+    <relatedInstanceObject href="../../PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.2"/>
+    <relatedErrorType href="../../../PulseOx_Interface.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0/@typeSet/@typeTokens.0"/>
+    <relatedEMV2Object href="../../../PulseOx_Interface.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@flows.0"/>
+  </events>
+  <events name="pulseox-out-pooutspo2-spo2valuehigh" subEvents="//@events.0" assignedProbability="0" computedProbability="0" referenceCount="1" type="Intermediate">
+    <relatedInstanceObject href="../../PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.2"/>
+    <relatedErrorType href="../../../PulseOx_Interface.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0/@typeSet/@typeTokens.0"/>
+    <relatedEMV2Object href="../../../PulseOx_Interface.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedAnnexSubclause.0/@parsedAnnexSubclause/@propagations.0"/>
+  </events>
+</FaultTree:FaultTree>

@@ -12,7 +12,7 @@ public class TestBase extends AbstractSiriusSwtBotGefTestCase {
 	private static final String SAFE2_FILE1 = "pca-interlock.safe2";
 	private static final String SAFE2_FILE2 = "pulseox-forwarding.safe2";
 
-	private static final String DATA_UNIT_DIR = "src/test/resources/BoundaryDiagramTests/";
+	private static final String DATA_UNIT_DIR = "src/test/resources/safe2.1/";
 	private static final String AADL_DIAGRAMS_DIR = "diagrams/";
 	private static final String POFWRD_DIR = "pulseox-forwarding/";
 	private static final String AADL_DIR = POFWRD_DIR + "aadl/";
@@ -40,7 +40,7 @@ public class TestBase extends AbstractSiriusSwtBotGefTestCase {
 			AADL_DIR + "PulseOx_Forwarding_Types.aadl",
 			AADL_DIR + "PulseOx_Interface.aadl",
 			AADL_DIR + "ErrorLibrary.aadl",
-//			INSTANCE_DIR + "PulseOx_Forwarding_Logic_PulseOx_Logic_Process_imp_Instance.aaxl2",
+			INSTANCE_DIR + "PulseOx_Forwarding_Logic_PulseOx_Logic_Process_imp_Instance.aaxl2",
 			INSTANCE_DIR + "PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2"
 	};
 	// @formatter:on

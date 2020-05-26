@@ -5,7 +5,7 @@ public
 annex EMV2
 {**
 		error types
-		extends MAP_Errors with
+			extends MAP_Errors with
 			SpO2ValueHigh: type extends High;
 			SpO2ValueLow: type extends Low;
 			EarlySpO2: type extends Early;
@@ -18,9 +18,9 @@ annex EMV2
 		end types;
 		
 		error behavior PulseOxStatus
-		states
-			Normal: initial state;
-			NoOutput: state;
+			states
+				Normal: initial state;
+				NoOutput: state;
 		end behavior;
 	**};
 

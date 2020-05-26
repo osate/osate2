@@ -3,10 +3,10 @@
   <fundamentals xsi:type="safe2:AccidentLevel" name="DeathOrInjury" description="A human is killed or seriously injured">
     <accident name="PatientHarmed" description="Patient is killed or seriously injured.">
       <hazard name="BadInfoDisplayed" description="Incorrect information is sent to the display.">
-        <constraint name="ShowGoodInfo" description="The app must accurately inform the display of the status of the patient’s vital signs."/>
+        <constraint name="ShowGoodInfo" description="The app must accurately inform the display of the status of the patient’s vital signs." cause="Bad information arrives" compensation="Bad information should not arrive"/>
       </hazard>
       <hazard name="InfoLate" description="Information that is out of date is sent to the display.">
-        <constraint name="ShowInfoOnTime" description="The app must inform the display of the status of the patient’s vital signs in a timely manner. "/>
+        <constraint name="ShowInfoOnTime" description="The app must inform the display of the status of the patient’s vital signs in a timely manner. " cause="Good information arrives late" compensation="Good information should arrive on time"/>
       </hazard>
     </accident>
   </fundamentals>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ASCII"?>
+<diagram:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diagram="http://osate.org/diagram" formatVersion="7">
+  <element uuid="ea1dc836-231d-45e6-980f-1ae3a8a32e56" manual="true">
+    <element uuid="bcb9b328-49a8-46b2-99b2-ccdf44d1aa73" manual="true">
+      <bo>
+        <seg>classifier</seg>
+        <seg>checkspo2thread</seg>
+      </bo>
+      <position x="442.0" y="38.0"/>
+      <size width="178.0" height="35.0"/>
+    </element>
+    <element uuid="6a22af6c-1fb5-4fde-b61c-31ee054eab43" manual="true">
+      <element uuid="e4d8acf7-9a33-4050-8282-17dbc64d16ff" manual="true">
+        <bo>
+          <seg>realization</seg>
+        </bo>
+        <bendpoints>
+          <point x="438.0" y="67.5"/>
+          <point x="450.0" y="67.5"/>
+        </bendpoints>
+      </element>
+      <bo>
+        <seg>classifier</seg>
+        <seg>checkspo2thread.imp</seg>
+      </bo>
+      <position x="213.0" y="38.0"/>
+      <size width="209.0" height="35.0"/>
+    </element>
+    <element uuid="c5b145fe-5e38-4fc0-b5de-582fdd1feff5" manual="true">
+      <bo>
+        <seg>classifier</seg>
+        <seg>pulseox_logic_process</seg>
+      </bo>
+      <position x="483.0" y="93.0"/>
+      <size width="219.0" height="35.0"/>
+    </element>
+    <element uuid="7c1c71ac-0df2-4b1f-af04-bd325d86ca95" manual="true">
+      <element uuid="b6dc4f7a-1c22-4bdd-a628-494dea1fbf16" manual="true">
+        <bo>
+          <seg>realization</seg>
+        </bo>
+        <bendpoints>
+          <point x="479.0" y="122.5"/>
+          <point x="491.0" y="122.5"/>
+        </bendpoints>
+      </element>
+      <bo>
+        <seg>classifier</seg>
+        <seg>pulseox_logic_process.imp</seg>
+      </bo>
+      <position x="213.0" y="93.0"/>
+      <size width="250.0" height="35.0"/>
+    </element>
+    <bo>
+      <seg>package</seg>
+      <seg>pulseox_forwarding_logic</seg>
+    </bo>
+    <position x="12.0" y="12.0"/>
+    <size width="714.0" height="140.0"/>
+  </element>
+  <config type="package" connectionPrimaryLabelsVisible="false">
+    <enabledAadlProperties/>
+    <context>
+      <seg>package</seg>
+      <seg>pulseox_forwarding_logic</seg>
+    </context>
+  </config>
+</diagram:Diagram>

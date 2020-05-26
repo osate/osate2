@@ -3,14 +3,16 @@
   <fundamentals xsi:type="safe2:AccidentLevel" name="DeathOrInjury" description="A human is killed or seriously injured">
     <accident name="PatientHarmed" description="The patient is killed or seriously injured">
       <hazard name="BadInfoDisplayed" description="Incorrect information is sent to the display" hazardousFactor="SpO2 Information">
-        <constraint name="ShowGoodInfo"/>
+        <constraint name="ShowGoodInfo" cause="Uncalibrated PulseOx used" compensation="Calibrate PulseOx monthly">
+          <port href="aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.2/@featureInstance.2"/>
+        </constraint>
         <environmentElement href="aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.0"/>
         <systemElement href="aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.4/@featureInstance.1"/>
         <errorType href="aadl/PulseOx_Forwarding_Errors.aadl#emv2$PulseOx_Forwarding_Errors.SpO2ValueHigh"/>
       </hazard>
       <hazard name="InfoLate" description="Information that is out of date is sent to the display." hazardousFactor="SpO2 Information">
         <explanations>Here is a test explanation.</explanations>
-        <constraint name="ShowInfoOnTime" description="The app must inform the display of the status of the patient's vital signs in a timely manner">
+        <constraint name="ShowInfoOnTime" description="The app must inform the display of the status of the patient's vital signs in a timely manner" cause="Network congestion" compensation="Router must support QoS ">
           <port href="aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.2/@featureInstance.2"/>
         </constraint>
         <environmentElement href="aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.0"/>

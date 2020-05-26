@@ -7,8 +7,8 @@ annex EMV2
 			-- These values shouldn't be used as normal errors, and we use this type at the root
 			-- of the hierarchy to enforce that distinction. 
 			ProcessModel: type;
-				-- Type extension is used throughout this library (rather than renaming) to
-				-- avoid aliasing
+			-- Type extension is used throughout this library (rather than renaming) to
+			-- avoid aliasing
 			Content: type;
 			High: type extends Content;
 			Low: type extends Content;
@@ -18,11 +18,11 @@ annex EMV2
 			Halted: type;
 			Erratic: type;
 			Cleartext: type;
-				-- Since our first set of successor dangers are actually violated constraints, we need 
-				-- an error type that represents these violated constraints
+			-- Since our first set of successor dangers are actually violated constraints, we need 
+			-- an error type that represents these violated constraints
 			ViolatedConstraint: type;
-				-- Fault types from Avizienis-etal's taxonomy
-				-- TODO: Group these into their classifications / the question-based groups?
+			-- Fault types from Avizienis-etal's taxonomy
+			-- TODO: Group these into their classifications / the question-based groups?
 			SoftwareBug: type;
 			BadSoftwareDesign: type;
 			CompromisedSoftware: type;
