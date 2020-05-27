@@ -135,7 +135,7 @@ public class SecurityLabelChecker extends AadlProcessingSwitch {
 				return checkValidFlow(element, Access.FLOW, src, dst);
 			}
 
-			protected String checkValidContainment(Element element, NamedElement parent, NamedElement child) {
+			protected String checkValidContainment(Element element, NamedElement child, NamedElement parent) {
 				if (parent == null || child == null) {
 					return DONE;
 				}

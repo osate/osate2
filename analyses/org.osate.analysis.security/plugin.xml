@@ -10,8 +10,13 @@
       </category>
       <command
             categoryId="org.osate.analysis.architecture.category"
-            id="org.osate.analysis.security.checkSecurity"
-            name="Check Security">
+            id="org.osate.analysis.security.checkSecurityRules"
+            name="Check Security Rules">
+      </command>
+      <command
+            categoryId="org.osate.analysis.architecture.category"
+            id="org.osate.analysis.security.checkSecurityLabels"
+            name="Check Security Labels">
       </command>
    </extension>
 
@@ -19,7 +24,31 @@
          point="org.eclipse.ui.handlers">
       <handler
             class="org.osate.analysis.security.handlers.RulesChecker"
-            commandId="org.osate.analysis.security.checkSecurity">
+            commandId="org.osate.analysis.security.checkSecurityRules">
+         <enabledWhen>
+            <or>
+               <reference
+                     definitionId="org.osate.core.isInstanceFileSelected">
+               </reference>
+               <with
+                     variable="selection">
+                  <and>
+                     <count
+                           value="1">
+                     </count>
+                     <iterate>
+                        <instanceof
+                              value="org.osate.aadl2.instance.SystemInstance">
+                        </instanceof>
+                     </iterate>
+                  </and>
+               </with>
+            </or>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="org.osate.analysis.security.handlers.SecurityChecker"
+            commandId="org.osate.analysis.security.checkSecurityLabels">
          <enabledWhen>
             <or>
                <reference
@@ -46,7 +75,12 @@
    <extension
          point="org.eclipse.ui.commandImages">
       <image
-            commandId="org.osate.analysis.security.checkSecurity"
+            commandId="org.osate.analysis.security.checkSecurityRules"
+            disabledIcon="icons/noCheckSecurity.gif"
+            icon="icons/checkSecurity.gif">
+      </image>
+      <image
+            commandId="org.osate.analysis.security.checkSecurityLabels"
             disabledIcon="icons/noCheckSecurity.gif"
             icon="icons/checkSecurity.gif">
       </image>
@@ -57,13 +91,39 @@
       <menuContribution
             locationURI="menu:org.osate.ui.semanticChecksMenu?after=core">
          <command
-               commandId="org.osate.analysis.security.checkSecurity">
+               commandId="org.osate.analysis.security.checkSecurityRules">
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="menu:org.osate.ui.semanticChecksMenu?after=core">
+         <command
+               commandId="org.osate.analysis.security.checkSecurityLabels">
          </command>
       </menuContribution>
       <menuContribution
             locationURI="toolbar:org.osate.ui.semanticChecksToolbar?after=core">
          <command
-               commandId="org.osate.analysis.security.checkSecurity"
+               commandId="org.osate.analysis.security.checkSecurityRules"
+               tooltip="%checkSecurity.toolTip">
+            <!--
+               Remove visibleWhen on the command when this bug is fixed:
+               https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
+            -->
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.osate.ui.semanticChecksToolbar?after=core">
+         <command
+               commandId="org.osate.analysis.security.checkSecurityLabels"
                tooltip="%checkSecurity.toolTip">
             <!--
                Remove visibleWhen on the command when this bug is fixed:
@@ -83,7 +143,16 @@
       <menuContribution
             locationURI="popup:org.osate.ui.semanticChecksNavigatorPopup?after=core">
          <command
-               commandId="org.osate.analysis.security.checkSecurity">
+               commandId="org.osate.analysis.security.checkSecurityRules">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="popup:org.osate.ui.semanticChecksNavigatorPopup?after=core">
+         <command
+               commandId="org.osate.analysis.security.checkSecurityLabels">
             <visibleWhen
                   checkEnabled="true">
             </visibleWhen>
@@ -93,6 +162,17 @@
    <extension
          id="SecurityRuleObjectMarker"
          name="Security Rule Violation"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.osate.aadl2.modelsupport.AadlObjectMarker">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
+   <extension
+         id="SecurityLabelObjectMarker"
+         name="Security Label Issue"
          point="org.eclipse.core.resources.markers">
       <super
             type="org.osate.aadl2.modelsupport.AadlObjectMarker">
