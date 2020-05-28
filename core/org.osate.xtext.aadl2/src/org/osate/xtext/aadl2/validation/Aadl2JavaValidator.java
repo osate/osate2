@@ -5350,7 +5350,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private boolean testClassifierMatchRule(Connection connection, ConnectionEnd source, Classifier sourceClassifier,
 			ConnectionEnd destination, Classifier destinationClassifier) {
 		if (sourceClassifier != destinationClassifier) {
-			if (sourceClassifier instanceof ComponentImplementation
+			// bidirectional connections must have equal classifiers
+			if (connection.isAllBidirectional()) {
+				return false;
+			} else if (sourceClassifier instanceof ComponentImplementation
 					&& destinationClassifier instanceof ComponentType) {
 				if (!destinationClassifier.equals(((ComponentImplementation) sourceClassifier).getType())) {
 					error(connection, "The types of '" + source.getName() + "' and '"
