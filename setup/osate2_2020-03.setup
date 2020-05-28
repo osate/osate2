@@ -795,7 +795,7 @@
         <repository
             url="http://download.eclipse.org/ease/release/0.7.0"/>
         <repository
-            url="https://osate-build.sei.cmu.edu/p2/elk-nightly/"/>
+            url="http://osate-build.sei.cmu.edu/p2/elk-nightly/"/>
         <repository
             url="http://download.eclipse.org/xsemantics/milestones/1.19"/>
         <repository
