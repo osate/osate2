@@ -1,4 +1,4 @@
-package TestBidirectinal
+package TestBidirectional
 public
 	data D
 	end D;
@@ -45,4 +45,4 @@ public
 			di_to_di: port a.f_di <-> b.f_di; -- GOOD
 			di_to_dj: port a.f_di <-> b.f_dj; -- error
 	end top.i;
-end TestBidirectinal;
+end TestBidirectional;
