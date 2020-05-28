@@ -588,7 +588,7 @@
           <value>remoteURI</value>
         </detail>
       </annotation>
-      <description>Clone OSATE2 all repository</description>
+      <description>OSATE2</description>
     </setupTask>
     <setupTask
         xsi:type="setup.p2:P2Task"

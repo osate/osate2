@@ -655,9 +655,11 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 
 			case RELATIVE_REFERENCE:
 				((AgeDiagramModification) m).setRelativeReference(element, (RelativeBusinessObjectReference) value);
+				break;
 
 			case EMBEDDED_BUSINESS_OBJECT:
 				m.updateBusinessObjectWithSameRelativeReference(element, value);
+				break;
 
 			default:
 				break;
