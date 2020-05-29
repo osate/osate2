@@ -302,14 +302,18 @@ public final class InstantiationHandler extends AbstractMultiJobHandler {
 			try {
 				instantiationJobs.join(0L, null);
 
-				/* Get the results and display them */
-				PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
-					final InstantiationResultsDialog<?> d = new InstantiationResultsDialog<ComponentImplementation>(
-							PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Instantiation",
-							"Component Implementation", compImpl -> compImpl.getQualifiedName(), results);
-					d.open();
-				});
-
+				/* User can suppress the dialog if all the results are successful */
+				if (OsateCorePlugin.getDefault().getAlwaysShowInstantiationResults()
+						|| !Result.allSuccessful(results.values())) {
+					/* Get the results and display them */
+					PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
+						final InstantiationResultsDialog<?> d = new InstantiationResultsDialog<ComponentImplementation>(
+								PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Instantiation",
+								"Component Implementation", compImpl -> compImpl.getQualifiedName(), results,
+								OsateCorePlugin.getDefault().getPreferenceStore());
+						d.open();
+					});
+				}
 			} catch (final InterruptedException | OperationCanceledException e) {
 				/*
 				 * InterruptedException thrown if we are somehow cancelled. Not sure if

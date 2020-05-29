@@ -87,8 +87,8 @@ import com.google.common.collect.HashMultimap;
 
 public class PropagationGraphBackwardTraversal {
 
-	public static BigDecimal BigZero = new BigDecimal(0.0);
-	public static BigDecimal BigOne = new BigDecimal(1.0);
+	public static BigDecimal BigZero = BigDecimal.valueOf(0.0);
+	public static BigDecimal BigOne = BigDecimal.valueOf(1.0);
 
 	private PropagationGraph currentAnalysisModel;
 
