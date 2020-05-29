@@ -210,7 +210,7 @@ public class DiagramElementLayoutUtil {
 
 							return null;
 						}
-									});
+					});
 					layoutGraph = mapping.getLayoutGraph();
 					layoutGraph.setProperty(CoreOptions.ALGORITHM, layoutAlgorithm);
 					applyProperties(dn, mapping, layoutInfoProvider, options);
@@ -429,7 +429,7 @@ public class DiagramElementLayoutUtil {
 		final ArrayListMultimap<DiagramElement, DiagramElement> startElementToFlowIndicators = ArrayListMultimap
 				.create();
 		m.getDiagram().getAllDescendants()
-				.filter(
+		.filter(
 				q -> q instanceof DiagramElement && DiagramElementPredicates.isFlowIndicator((DiagramElement) q))
 		.forEachOrdered(q -> {
 			final DiagramElement e = (DiagramElement) q;
@@ -511,12 +511,12 @@ public class DiagramElementLayoutUtil {
 			} else if (dockArea == DockArea.TOP) {
 				startAnchorPosition = new Point(
 						startElementAbsPosition.x - containerAbsPosition.x + labelsSize.width + anchorOffset
-								/ 2.0,
+						/ 2.0,
 						startElementAbsPosition.y - containerAbsPosition.y);
 			} else { // BOTTOM
 				startAnchorPosition = new Point(
 						startElementAbsPosition.x - containerAbsPosition.x + labelsSize.width + anchorOffset
-								/ 2.0,
+						/ 2.0,
 						startElementAbsPosition.y - containerAbsPosition.y + startElement.getHeight());
 			}
 
@@ -588,7 +588,7 @@ public class DiagramElementLayoutUtil {
 						final Point bp1 = new Point(
 								startAnchorAbsPosition.x
 								+ (initialPositionOffsetX
-												* incrementalFlowIndicatorBendpointOffsetScaling),
+										* incrementalFlowIndicatorBendpointOffsetScaling),
 								startAnchorAbsPosition.y
 								+ (initialPositionOffsetY * incrementalFlowIndicatorBendpointOffsetScaling));
 
@@ -914,10 +914,10 @@ public class DiagramElementLayoutUtil {
 							getAdjacentPoint(
 									bendpointsInParentCoordinateSystem
 									.get(bendpointsInParentCoordinateSystem.size()
-													- 1),
+											- 1),
 									bendpointsInParentCoordinateSystem
 									.get(bendpointsInParentCoordinateSystem.size()
-													- 2),
+											- 2),
 									startAndEndBendpointDistance));
 				}
 
@@ -1056,12 +1056,16 @@ public class DiagramElementLayoutUtil {
 
 	/**
 	 * Shifts the bendpoints of all connections for which both endpoints are contained within the specified elements.
-	 * Shifts position and bendpoints of flow indicators if source elements are contained within the specified elements.
+	 * Shifts bendpoints of flow indicators if start elements are contained within the specified elements.
+	 * Shifts position of flow indicators if start elements are contained within the specified elements and the flow indicator container is not
+	 * is not in movedElements.
 	 *
 	 * @param movedElements are the element which have been moved.
 	 * @param delta the amount to shift the bendpoints
 	 * @param m the modification that will be used to update the bendpoints
-	 * @param checkDescendants whether to check descendants of the specified elements as potential start elements
+	 * @param shiftBendpoints whether to shift bendpoints
+	 * @param shiftFlowIndicatorPositions whether to shift flow indicator positions.
+	 * @param checkDescendants whether to check descendants of the specified elements when looking for connections
 	 */
 	public static void shiftRelatedConnections(final Stream<DiagramElement> movedElements,
 			final org.osate.ge.graphics.Point delta, final DiagramModification m, boolean shiftBendpoints,
@@ -1100,7 +1104,7 @@ public class DiagramElementLayoutUtil {
 							if (!ancestorHasMoved) {
 								final DockArea startDockArea = getNonGroupDockArea(startElement);
 								m.setPosition(connection, new org.osate.ge.graphics.Point(connection
-								.getX()
+										.getX()
 										+ (startDockArea == null || !startDockArea.isLeftOrRight() ? delta.x : 0),
 										connection
 										.getY()
@@ -1124,8 +1128,8 @@ public class DiagramElementLayoutUtil {
 	}
 
 	/**
-	 * Returns the first dock area that isn't the group dock area. Checks the specified shape and then ancestors.
-	 * @param shape
+	 * Returns the first dock area that isn't the group dock area. Checks the specified diagram node and then ancestors.
+	 * @param diagramNode is the diagram for which to return the non group docker area.
 	 * @return
 	 */
 	public static DockArea getNonGroupDockArea(DiagramNode diagramNode) {
