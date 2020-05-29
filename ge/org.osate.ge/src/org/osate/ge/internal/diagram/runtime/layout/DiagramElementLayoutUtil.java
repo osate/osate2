@@ -627,8 +627,10 @@ public class DiagramElementLayoutUtil {
 			return Stream.empty();
 		}
 
-		return diagram.getAllDescendants().filter(
-				q -> q instanceof DiagramElement && DiagramElementPredicates.isFlowIndicator((DiagramElement) q))
+		return diagram.getAllDescendants()
+				.filter(q -> q instanceof DiagramElement && DiagramElementPredicates.isFlowIndicator((DiagramElement) q)
+						&& startElements.contains(((DiagramElement) q)
+								.getStartElement()))
 				.map(DiagramElement.class::cast);
 	}
 
@@ -1097,10 +1099,11 @@ public class DiagramElementLayoutUtil {
 
 							if (!ancestorHasMoved) {
 								final DockArea startDockArea = getNonGroupDockArea(startElement);
-								m.setPosition(connection, new org.osate.ge.graphics.Point(
-										connection.getX()
+								m.setPosition(connection, new org.osate.ge.graphics.Point(connection
+								.getX()
 										+ (startDockArea == null || !startDockArea.isLeftOrRight() ? delta.x : 0),
-										connection.getY()
+										connection
+										.getY()
 										+ (startDockArea == null || startDockArea.isLeftOrRight() ? delta.y : 0)));
 							}
 						}
