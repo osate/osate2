@@ -1,0 +1,97 @@
+package TestAbstractFeatureRefinement
+public
+    Data D
+    end D;
+    
+    Data D2 extends D
+    end D2;
+    
+    Data E
+    end E;
+
+    Bus B
+    end B;
+    
+    system SrcSys
+        features
+            f0: out feature D;
+        properties
+            Classifier_Substitution_Rule => Type_Extension;
+    end SrcSys;
+    
+    system SrcSys1 extends SrcSys
+        features
+            f0: refined to out feature D2; -- good subtype
+    end SrcSys1;
+    
+    system SrcSys2 extends SrcSys
+        features
+            f0: refined to out feature E; -- bad, not subtype
+    end SrcSys2;
+    
+    system SrcSys3 extends SrcSys
+        features
+            f0: refined to out data port D; -- good, same type
+    end SrcSys3;
+    
+    system SrcSys4 extends SrcSys
+        features
+            f0: refined to out data port D2; -- good subtype
+    end SrcSys4;
+    
+    system SrcSys5 extends SrcSys
+        features
+            f0: refined to out data port E; -- bad not subtype
+    end SrcSys5;
+    
+    system SrcSys7 extends SrcSys
+        features
+            f0: refined to out data port; -- should not be allowed?  removed type
+    end SrcSys7;
+
+    system SrcSys8 extends SrcSys
+        features
+            f0: refined to out event port; -- should not be allowed?  removed type -- not supposed to have event here at all
+    end SrcSys8;
+
+
+
+    
+    system SrcSysNoDir
+        features
+            f0: feature D;
+        properties
+            Classifier_Substitution_Rule => Type_Extension;
+    end SrcSysNoDir;
+
+
+    system SrcSys9 extends SrcSysNoDir
+        features
+            f0: refined to provides data access; -- should not be allowed?  removed type
+    end SrcSys9;
+
+    system SrcSys10 extends SrcSysNoDir
+        features
+            f0: refined to provides data access D; -- good, same type
+    end SrcSys10;
+
+    system SrcSys11 extends SrcSysNoDir
+        features
+            f0: refined to provides data access D2; -- good, subtype
+    end SrcSys11;
+
+    system SrcSys12 extends SrcSysNoDir
+        features
+            f0: refined to provides data access E; -- bad,  not subtype
+    end SrcSys12;
+    
+    system SrcSys13 extends SrcSysNoDir
+        features
+            f0: refined to provides bus access; -- should not be allowed?  removed type
+    end SrcSys13;
+
+    system SrcSys15 extends SrcSysNoDir
+        features
+            f0: refined to provides bus access B; -- bad!
+    end SrcSys15;
+end TestAbstractFeatureRefinement;
