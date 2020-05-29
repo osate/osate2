@@ -1,0 +1,71 @@
+package TestSubcomponentRefinement
+public
+	system S
+	end S;
+	
+	system S1 extends S
+	end S1;
+	
+	system S2 extends S1
+	end S2;
+	
+	system Other
+	end Other;
+	
+	
+	
+	system Top
+	end Top;
+	
+	system implementation Top.i
+		subcomponents
+			s: system S;
+		properties
+			Classifier_Substitution_Rule => Type_Extension;
+	end Top.i;
+	
+	system implementation Top.i1 extends Top.i
+		subcomponents
+			s: refined to system ; -- should be bad, dropping the classifier
+	end Top.i1;
+	
+	system implementation Top.i2 extends Top.i
+		subcomponents
+			s: refined to system S1; --Good
+	end Top.i2;
+	
+	system implementation Top.i3 extends Top.i
+		subcomponents
+			s: refined to system Other; -- bad
+	end Top.i3;
+	
+	
+	
+	
+	system implementation Top.i4 extends Top.i2
+		subcomponents
+			s: refined to system ; -- should be bad, dropping the classifier
+	end Top.i4;
+	
+	system implementation Top.i5 extends Top.i2
+		subcomponents
+			s: refined to system S; -- should be bad
+	end Top.i5;
+	
+	system implementation Top.i6 extends Top.i2
+		subcomponents
+			s: refined to system S2; -- good
+	end Top.i6;
+
+	system implementation Top.i7 extends Top.i2
+		subcomponents
+			s: refined to system Other; -- bad
+	end Top.i7;
+
+
+
+	system implementation Top.i10 extends Top.i4
+		subcomponents
+			s: refined to system Other; -- should be bad
+	end Top.i10;
+end TestSubcomponentRefinement;
