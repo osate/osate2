@@ -1378,11 +1378,11 @@ class EMV2PathElementTest extends XtextTest {
 						error propagations
 							port1: in propagation {t1};
 							port1: not in propagation {t2};
-							port1: out propagation {t3};
+							port1: out propagation {t3, t1};
 							port1: not out propagation {t4};
 							fg1.fg2.fg3.port2: in propagation {t1};
 							fg1.fg2.fg3.port2: not in propagation {t2};
-							fg1.fg2.fg3.port2: out propagation {t3};
+							fg1.fg2.fg3.port2: out propagation {t3, t1};
 							fg1.fg2.fg3.port2: not out propagation {t4};
 						flows
 							errorSource1: error source all {t3};
@@ -1535,11 +1535,11 @@ class EMV2PathElementTest extends XtextTest {
 						error propagations
 							port3: in propagation {t1};
 							port3: not in propagation {t2};
-							port3: out propagation {t3};
+							port3: out propagation {t3, t1};
 							port3: not out propagation {t4};
 							fg4.fg2.fg3.port2: in propagation {t1};
 							fg4.fg2.fg3.port2: not in propagation {t2};
-							fg4.fg2.fg3.port2: out propagation {t3};
+							fg4.fg2.fg3.port2: out propagation {t3, t1};
 							fg4.fg2.fg3.port2: not out propagation {t4};
 						flows
 							errorSource2: error source all {t3};

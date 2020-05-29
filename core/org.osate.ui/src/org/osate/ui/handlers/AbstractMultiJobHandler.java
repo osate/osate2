@@ -1,6 +1,7 @@
 package org.osate.ui.handlers;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -59,6 +60,17 @@ public abstract class AbstractMultiJobHandler extends AbstractHandler {
 			this.cancelled = cancelled;
 			this.errorMessage = errorMessage;
 			this.exception = exception;
+		}
+
+		/**
+		 * @since 4.0
+		 */
+		public static boolean allSuccessful(final Collection<Result> results) {
+			boolean allSuccessful = true;
+			for (final Result r : results) {
+				allSuccessful &= r.successful;
+			}
+			return allSuccessful;
 		}
 	}
 

@@ -75,6 +75,15 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 	/**
 	 * @since 3.0
 	 */
+	public static final String ALWAYS_SHOW_INSTANTIATION_RESULTS = "alwaysShowInstantiationResults";
+	/**
+	 * @since 3.0
+	 */
+	public static final boolean ALWAYS_SHOW_INSTANTIATION_RESULTS_DEFAULT = true;
+
+	/**
+	 * @since 3.0
+	 */
 	public static final String ALWAYS_SHOW_INSTANTIATION_AADL_DIALOG = "alwaysShowInstantiationAADLDialog";
 	/**
 	 * @since 3.0
@@ -356,6 +365,14 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 	public final int getSOMLimit() {
 		final IPreferenceStore store = getPreferenceStore();
 		return store.getInt(MAX_SOM);
+	}
+
+	/**
+	 * @since 3.0
+	 */
+	public final boolean getAlwaysShowInstantiationResults() {
+		final IPreferenceStore store = getPreferenceStore();
+		return store.getBoolean(ALWAYS_SHOW_INSTANTIATION_RESULTS);
 	}
 
 	/**
