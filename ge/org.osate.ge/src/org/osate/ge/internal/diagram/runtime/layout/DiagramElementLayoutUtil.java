@@ -1091,8 +1091,14 @@ public class DiagramElementLayoutUtil {
 
 				// Shift flow indicator positions
 				if (shiftFlowIndicatorPositions && isFlowIndicator && connection.hasPosition()) {
+					final DockArea startDockArea = getNonGroupDockArea(startElement);
 					m.setPosition(connection,
-							new org.osate.ge.graphics.Point(connection.getX() + delta.x, connection.getY() + delta.y));
+							new org.osate.ge.graphics.Point(
+									connection.getX() + (startDockArea == null || !startDockArea.isLeftOrRight()
+									? delta.x
+											: 0),
+									connection.getY()
+											+ (startDockArea == null || startDockArea.isLeftOrRight() ? delta.y : 0)));
 				}
 			}
 		});
