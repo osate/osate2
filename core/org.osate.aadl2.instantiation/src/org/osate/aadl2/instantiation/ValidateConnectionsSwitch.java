@@ -35,7 +35,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -244,7 +243,7 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 							+ destEnd.getComponentInstancePath() + "' to have classifier '"
 							+ srcClassifier.getQualifiedName() + '\'');
 				} else {
-
+					checkEndPointClassifierMatching(conni, srcEnd, destEnd, srcClassifier, destClassifier);
 				}
 			}
 		}
@@ -254,11 +253,10 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			final ConnectionInstanceEnd destEnd, final Classifier srcClassifier, final Classifier destClassifier) {
 		String classifierMatchingRuleValue = GetProperties.getClassifierMatchingRuleProperty(conni);
 		if (ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue)) {
-//			if (!testClassifierMatchRule(conni, srcEnd, srcClassifier, destEnd, destClassifier)) {
-//				error(conni, '\'' + srcEnd.getComponentInstancePath() + "' and '"
-//						+ destEnd.getComponentInstancePath()
-//						+ "' have incompatible classifiers.");
-//			}
+			if (!testClassifierMatchRule(conni, srcEnd, srcClassifier, destEnd, destClassifier)) {
+				error(conni, '\'' + srcEnd.getComponentInstancePath() + "' and '" + destEnd.getComponentInstancePath()
+						+ "' have incompatible classifiers.");
+			}
 		}
 //		else if (ModelingProperties.EQUIVALENCE.equalsIgnoreCase(classifierMatchingRuleValue)) {
 //			if (!testClassifierMatchRule(connection, source, sourceClassifier, destination, destinationClassifier)
@@ -297,19 +295,14 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	}
 
 	// XXX How can I avoid duplicating this method for the instance and the declarative models?
-	private boolean testClassifierMatchRule(final ConnectionInstance connection, ConnectionEnd source, Classifier sourceClassifier,
-			ConnectionEnd destination, Classifier destinationClassifier) {
+	private boolean testClassifierMatchRule(final ConnectionInstance connection, ConnectionInstanceEnd source,
+			Classifier sourceClassifier, ConnectionInstanceEnd destination, Classifier destinationClassifier) {
 		if (sourceClassifier != destinationClassifier) {
-			if (sourceClassifier instanceof ComponentType && destinationClassifier instanceof ComponentImplementation) {
-				if (!sourceClassifier.equals(((ComponentImplementation) destinationClassifier).getType())) {
-					warning(connection, "The types of '" + source.getName() + "' and '" + destination.getName()
-							+ "' do not match.");
-				}
-			} else if (sourceClassifier instanceof ComponentImplementation
+			if (sourceClassifier instanceof ComponentImplementation
 					&& destinationClassifier instanceof ComponentType) {
 				if (!destinationClassifier.equals(((ComponentImplementation) sourceClassifier).getType())) {
-					warning(connection, "The types of '" + source.getName() + "' and '" + destination.getName()
-							+ "' do not match.");
+					error(connection, "The types of '" + source.getComponentInstancePath()
+							+ "' and '" + destination.getComponentInstancePath() + "' do not match.");
 				}
 			} else {
 				return false;

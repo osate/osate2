@@ -73,15 +73,15 @@ public
 			destSys: refined to system DestSys_Di;
 	end Top.d_to_Di;
 	
-	system implementation Top.x_to_d extends Top.notype_to_notype
+	system implementation Top.di_to_d extends Top.notype_to_notype
 		subcomponents
 			srcSys: refined to system SrcSys_Di;
 			destSys: refined to system DestSys_D;
-	end Top.x_to_d;
+	end Top.di_to_d;
 	
-	system implementation Top.x_to_Di extends Top.notype_to_notype
+	system implementation Top.di_to_Di extends Top.notype_to_notype
 		subcomponents
 			srcSys: refined to system SrcSys_Di;
 			destSys: refined to system DestSys_Di;
-	end Top.x_to_Di;
+	end Top.di_to_Di;
 end TestDataPortClassifierTypeExtension1;
