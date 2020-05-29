@@ -210,7 +210,7 @@ public class DiagramElementLayoutUtil {
 
 							return null;
 						}
-					});
+									});
 					layoutGraph = mapping.getLayoutGraph();
 					layoutGraph.setProperty(CoreOptions.ALGORITHM, layoutAlgorithm);
 					applyProperties(dn, mapping, layoutInfoProvider, options);
@@ -429,7 +429,7 @@ public class DiagramElementLayoutUtil {
 		final ArrayListMultimap<DiagramElement, DiagramElement> startElementToFlowIndicators = ArrayListMultimap
 				.create();
 		m.getDiagram().getAllDescendants()
-		.filter(
+				.filter(
 				q -> q instanceof DiagramElement && DiagramElementPredicates.isFlowIndicator((DiagramElement) q))
 		.forEachOrdered(q -> {
 			final DiagramElement e = (DiagramElement) q;
@@ -503,27 +503,20 @@ public class DiagramElementLayoutUtil {
 
 			if (dockArea == DockArea.LEFT) {
 				startAnchorPosition = new Point(startElementAbsPosition.x - containerAbsPosition.x / 2.0,
-						startElementAbsPosition.y - containerAbsPosition.y
-						+ labelsSize.height + anchorOffset / 2.0);
+						startElementAbsPosition.y - containerAbsPosition.y + labelsSize.height + anchorOffset / 2.0);
 			} else if (dockArea == DockArea.RIGHT) {
 				startAnchorPosition = new Point(
-						startElementAbsPosition.x - containerAbsPosition.x + startElement
-						.getWidth(),
-						startElementAbsPosition.y - containerAbsPosition.y
-						+ labelsSize.height + anchorOffset / 2.0);
+						startElementAbsPosition.x - containerAbsPosition.x + startElement.getWidth(),
+						startElementAbsPosition.y - containerAbsPosition.y + labelsSize.height + anchorOffset / 2.0);
 			} else if (dockArea == DockArea.TOP) {
 				startAnchorPosition = new Point(
-						startElementAbsPosition.x - containerAbsPosition.x
-						+ labelsSize.width
-						+ anchorOffset
-						/ 2.0,
+						startElementAbsPosition.x - containerAbsPosition.x + labelsSize.width + anchorOffset
+								/ 2.0,
 						startElementAbsPosition.y - containerAbsPosition.y);
 			} else { // BOTTOM
 				startAnchorPosition = new Point(
-						startElementAbsPosition.x - containerAbsPosition.x
-						+ labelsSize.width
-						+ anchorOffset
-						/ 2.0,
+						startElementAbsPosition.x - containerAbsPosition.x + labelsSize.width + anchorOffset
+								/ 2.0,
 						startElementAbsPosition.y - containerAbsPosition.y + startElement.getHeight());
 			}
 
@@ -594,7 +587,8 @@ public class DiagramElementLayoutUtil {
 						// Set bendpoints
 						final Point bp1 = new Point(
 								startAnchorAbsPosition.x
-								+ (initialPositionOffsetX * incrementalFlowIndicatorBendpointOffsetScaling),
+								+ (initialPositionOffsetX
+												* incrementalFlowIndicatorBendpointOffsetScaling),
 								startAnchorAbsPosition.y
 								+ (initialPositionOffsetY * incrementalFlowIndicatorBendpointOffsetScaling));
 
@@ -918,10 +912,10 @@ public class DiagramElementLayoutUtil {
 							getAdjacentPoint(
 									bendpointsInParentCoordinateSystem
 									.get(bendpointsInParentCoordinateSystem.size()
-											- 1),
+													- 1),
 									bendpointsInParentCoordinateSystem
 									.get(bendpointsInParentCoordinateSystem.size()
-											- 2),
+													- 2),
 									startAndEndBendpointDistance));
 				}
 
@@ -1062,46 +1056,56 @@ public class DiagramElementLayoutUtil {
 	 * Shifts the bendpoints of all connections for which both endpoints are contained within the specified elements.
 	 * Shifts position and bendpoints of flow indicators if source elements are contained within the specified elements.
 	 *
-	 * @param elements in which to look for the bendpoints
+	 * @param movedElements are the element which have been moved.
 	 * @param delta the amount to shift the bendpoints
 	 * @param m the modification that will be used to update the bendpoints
-	 * @param checkDescendants whether to check descendants of hte specified elements as potential start elements
+	 * @param checkDescendants whether to check descendants of the specified elements as potential start elements
 	 */
-	public static void shiftRelatedConnections(final Stream<DiagramElement> elements,
+	public static void shiftRelatedConnections(final Stream<DiagramElement> movedElements,
 			final org.osate.ge.graphics.Point delta, final DiagramModification m, boolean shiftBendpoints,
 			boolean shiftFlowIndicatorPositions, final boolean checkDescendants) {
+		final Set<Queryable> movedElementsSet = movedElements.collect(Collectors.toSet());
+
 		// Build a set containing the moved elements and all of their descendant which are represented as shapes
-		final Set<Queryable> diagramElements = (checkDescendants
-				? elements.flatMap(de -> Stream.concat(Stream.of(de), de.getAllDescendants()))
-						: elements).collect(Collectors.toSet());
-		final Stream<DiagramElement> connections = m.getDiagram()
-				.getAllDiagramNodes()
-				.filter(q -> q instanceof DiagramElement && DiagramElementPredicates.isConnection((DiagramElement) q))
-				.map(DiagramElement.class::cast);
+		final Set<Queryable> diagramElements = checkDescendants ? movedElementsSet.stream()
+				.flatMap(de -> Stream.concat(Stream.of(de), de.getAllDescendants())).collect(Collectors.toSet())
+				: movedElementsSet;
+				final Stream<DiagramElement> connections = m.getDiagram().getAllDiagramNodes()
+						.filter(q -> q instanceof DiagramElement && DiagramElementPredicates.isConnection((DiagramElement) q))
+						.map(DiagramElement.class::cast);
 
-		// Iterate over all the connections in the diagram and update their bendpoints if their ends are in the set above.
-		connections.forEachOrdered(connection -> {
-			final DiagramElement startElement = connection.getStartElement();
-			final DiagramElement endElement = connection.getEndElement();
-			final boolean isFlowIndicator = ((AgeConnection) connection.getGraphic()).isFlowIndicator;
-			if (diagramElements.contains(startElement) && (diagramElements.contains(endElement) || isFlowIndicator)) {
-				if (shiftBendpoints) {
-					shiftBendpoints(connection, delta, m);
-				}
+				// Iterate over all the connections in the diagram and update their bendpoints if their ends are in the set above.
+				connections.forEachOrdered(connection -> {
+					final DiagramElement startElement = connection.getStartElement();
+					final DiagramElement endElement = connection.getEndElement();
+					final boolean isFlowIndicator = ((AgeConnection) connection.getGraphic()).isFlowIndicator;
+					if (diagramElements.contains(startElement) && (diagramElements.contains(endElement) || isFlowIndicator)) {
+						if (shiftBendpoints) {
+							shiftBendpoints(connection, delta, m);
+						}
 
-				// Shift flow indicator positions
-				if (shiftFlowIndicatorPositions && isFlowIndicator && connection.hasPosition()) {
-					final DockArea startDockArea = getNonGroupDockArea(startElement);
-					m.setPosition(connection,
-							new org.osate.ge.graphics.Point(
-									connection.getX() + (startDockArea == null || !startDockArea.isLeftOrRight()
-									? delta.x
-											: 0),
-									connection.getY()
-											+ (startDockArea == null || startDockArea.isLeftOrRight() ? delta.y : 0)));
-				}
-			}
-		});
+						// Shift flow indicator positions
+						if (shiftFlowIndicatorPositions && isFlowIndicator && connection.hasPosition()) {
+							// Flow indicator positions are relative to the container of the flow indicator.
+							// If the flow indicator's ancestor has moved, then do not shift the flow indicator's position
+							boolean ancestorHasMoved = false;
+							for (DiagramNode tmp = connection.getParent(); tmp != null; tmp = tmp.getParent()) {
+								if (movedElementsSet.contains(tmp)) {
+									ancestorHasMoved = true;
+								}
+							}
+
+							if (!ancestorHasMoved) {
+								final DockArea startDockArea = getNonGroupDockArea(startElement);
+								m.setPosition(connection, new org.osate.ge.graphics.Point(
+										connection.getX()
+										+ (startDockArea == null || !startDockArea.isLeftOrRight() ? delta.x : 0),
+										connection.getY()
+										+ (startDockArea == null || startDockArea.isLeftOrRight() ? delta.y : 0)));
+							}
+						}
+					}
+				});
 	}
 
 	private static void shiftBendpoints(final DiagramElement connection, final org.osate.ge.graphics.Point delta,
@@ -1139,8 +1143,7 @@ public class DiagramElementLayoutUtil {
 	//
 	// The following methods are used to move elements and make related changes appropriate
 	//
-	public static void moveElement(final DiagramModification modification, final DiagramElement e,
-			final Point value) {
+	public static void moveElement(final DiagramModification modification, final DiagramElement e, final Point value) {
 		moveElement(modification, e, value, true, true);
 	}
 
