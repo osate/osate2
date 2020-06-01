@@ -55,7 +55,6 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
-import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 
 /**
  * @author lwrage
@@ -108,7 +107,7 @@ public class InstanceUtil {
 		}
 	}
 
-	public static EList<PrototypeBinding> noBindings = new BasicEList<PrototypeBinding>();
+	private static final EList<PrototypeBinding> noBindings = new BasicEList<PrototypeBinding>();
 
 	/**
 	 * Get the component type of a component instance. Resolve prototypes if
