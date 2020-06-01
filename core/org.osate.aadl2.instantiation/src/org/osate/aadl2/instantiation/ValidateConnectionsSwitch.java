@@ -32,9 +32,16 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.DataImplementation;
+import org.osate.aadl2.ListValue;
+import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -48,6 +55,7 @@ import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
+import org.osate.xtext.aadl2.properties.util.AadlProject;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.ModelingProperties;
 
@@ -262,36 +270,42 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				error(conni, '\'' + srcEnd.getComponentInstancePath() + "' and '" + destEnd.getComponentInstancePath()
 						+ "' have incompatible classifiers.");
 			}
+		} else if (ModelingProperties.EQUIVALENCE.equalsIgnoreCase(classifierMatchingRuleValue)) {
+			if (!testClassifierMatchRule(conni, srcEnd, srcClassifier, destEnd,
+					destClassifier)
+					&& !classifiersFoundInSupportedClassifierEquivalenceMatchesProperty(conni, srcClassifier,
+							destClassifier)) {
+				error(conni, "The types of '" + srcEnd.getComponentInstancePath() + "' and '"
+						+ destEnd.getComponentInstancePath() + "' ('" + srcClassifier.getQualifiedName() + "' and '"
+						+ destClassifier
+								.getQualifiedName()
+						+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
+						+ AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES + "'.");
+			}
+		} else if (ModelingProperties.SUBSET.equalsIgnoreCase(classifierMatchingRuleValue)) {
+			if (!classifiersFoundInSupportedClassifierSubsetMatchesProperty(conni, srcClassifier, destClassifier)
+					&& !isDataSubset(srcClassifier, destClassifier)) {
+				error(conni, "The data type of '" + srcEnd.getComponentInstancePath() + "' ('"
+						+ srcClassifier
+						.getQualifiedName()
+						+ "') is not a subset of the data type of '" + destEnd.getComponentInstancePath() + "' ('"
+						+ destClassifier
+								.getQualifiedName()
+								+ "') based on name matching or the property constant '"
+								+ AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES + "'.");
+			}
+		} else if (ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue)) {
+			if (!testClassifierMatchRule(conni, srcEnd, srcClassifier, destEnd,
+					destClassifier)
+					&& !classifiersFoundInSupportedTypeConversionsProperty(conni, srcClassifier, destClassifier)) {
+				error(conni, "The types of '" + srcEnd.getComponentInstancePath() + "' and '"
+						+ destEnd.getComponentInstancePath() + "' ('" + srcClassifier.getQualifiedName() + "' and '"
+						+ destClassifier
+								.getQualifiedName()
+						+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
+						+ AadlProject.SUPPORTED_TYPE_CONVERSIONS + "'.");
+			}
 		}
-//		else if (ModelingProperties.EQUIVALENCE.equalsIgnoreCase(classifierMatchingRuleValue)) {
-//			if (!testClassifierMatchRule(connection, source, sourceClassifier, destination, destinationClassifier)
-//					&& !classifiersFoundInSupportedClassifierEquivalenceMatchesProperty(connection, sourceClassifier,
-//							destinationClassifier)) {
-//				error(connection, "The types of '" + source.getName() + "' and '" + destination.getName() + "' ('"
-//						+ sourceClassifier.getQualifiedName() + "' and '" + destinationClassifier.getQualifiedName()
-//						+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
-//						+ AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES + "'.");
-//			}
-//		} else if (ModelingProperties.SUBSET.equalsIgnoreCase(classifierMatchingRuleValue)) {
-//			if (!classifiersFoundInSupportedClassifierSubsetMatchesProperty(connection, sourceClassifier,
-//					destinationClassifier) && !isDataSubset(sourceClassifier, destinationClassifier)) {
-//				error(connection,
-//						"The data type of '" + source.getName() + "' ('" + sourceClassifier.getQualifiedName()
-//								+ "') is not a subset of the data type of '" + destination.getName() + "' ('"
-//								+ destinationClassifier.getQualifiedName()
-//								+ "') based on name matching or the property constant '"
-//								+ AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES + "'.");
-//			}
-//		} else if (ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue)) {
-//			if (!testClassifierMatchRule(connection, source, sourceClassifier, destination, destinationClassifier)
-//					&& !classifiersFoundInSupportedTypeConversionsProperty(connection, sourceClassifier,
-//							destinationClassifier)) {
-//				error(connection, "The types of '" + source.getName() + "' and '" + destination.getName() + "' ('"
-//						+ sourceClassifier.getQualifiedName() + "' and '" + destinationClassifier.getQualifiedName()
-//						+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
-//						+ AadlProject.SUPPORTED_TYPE_CONVERSIONS + "'.");
-//			}
-//		}
 	}
 
 	private static boolean isAbstractFeature(final ConnectionInstanceEnd end) {
@@ -320,5 +334,116 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			}
 		}
 		return true;
+	}
+
+	// XXX How can I avoid duplicating this method for the instance and the declarative models?
+	private boolean classifiersFoundInSupportedClassifierEquivalenceMatchesProperty(final ConnectionInstance connection,
+			Classifier source, Classifier destination) {
+		final PropertyConstant matchesPropertyConstant = GetProperties
+				.lookupPropertyConstant(connection,
+				AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES);
+		if (matchesPropertyConstant == null) {
+			return false;
+		}
+		final PropertyExpression constantValue = matchesPropertyConstant.getConstantValue();
+		if (!(constantValue instanceof ListValue)) {
+			return false;
+		}
+		for (final PropertyExpression classifierPair : ((ListValue) constantValue).getOwnedListElements()) {
+			if (classifierPair instanceof ListValue) {
+				EList<PropertyExpression> innerListElements = ((ListValue) classifierPair).getOwnedListElements();
+				if (innerListElements.size() == 2 && innerListElements.get(0) instanceof ClassifierValue
+						&& innerListElements.get(1) instanceof ClassifierValue) {
+					Classifier firstPairElement = ((ClassifierValue) innerListElements.get(0)).getClassifier();
+					Classifier secondPairElement = ((ClassifierValue) innerListElements.get(1)).getClassifier();
+					if ((firstPairElement == source && secondPairElement == destination)
+							|| (firstPairElement == destination && secondPairElement == source)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	// XXX How can I avoid duplicating this method for the instance and the declarative models?
+	private boolean classifiersFoundInSupportedClassifierSubsetMatchesProperty(ConnectionInstance connection,
+			Classifier source,
+			Classifier destination) {
+		PropertyConstant matchesPropertyConstant = GetProperties.lookupPropertyConstant(connection,
+				AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES);
+		if (matchesPropertyConstant == null) {
+			return false;
+		}
+		PropertyExpression constantValue = matchesPropertyConstant.getConstantValue();
+		if (!(constantValue instanceof ListValue)) {
+			return false;
+		}
+		for (PropertyExpression classifierPair : ((ListValue) constantValue).getOwnedListElements()) {
+			if (classifierPair instanceof ListValue) {
+				EList<PropertyExpression> innerListElements = ((ListValue) classifierPair).getOwnedListElements();
+				if (innerListElements.size() == 2 && innerListElements.get(0) instanceof ClassifierValue
+						&& innerListElements.get(1) instanceof ClassifierValue) {
+					Classifier firstPairElement = ((ClassifierValue) innerListElements.get(0)).getClassifier();
+					Classifier secondPairElement = ((ClassifierValue) innerListElements.get(1)).getClassifier();
+					if (firstPairElement == source && secondPairElement == destination) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	// XXX How can I avoid duplicating this method for the instance and the declarative models?
+	private boolean isDataSubset(Classifier source, Classifier destination) {
+		Boolean result = true;
+		if (source instanceof DataImplementation && destination instanceof DataImplementation) {
+			EList<Subcomponent> destElements = ((DataImplementation) destination).getAllSubcomponents();
+			EList<Subcomponent> srcElements = ((DataImplementation) source).getAllSubcomponents();
+			for (Subcomponent destSubcomponent : destElements) {
+				result = result && containsNamedElement(destSubcomponent.getName(), srcElements);
+			}
+		}
+		return result;
+	}
+
+	// XXX How can I avoid duplicating this method for the instance and the declarative models?
+	private boolean containsNamedElement(String name, EList<Subcomponent> srcElements) {
+		for (Subcomponent srcsubcomponent : srcElements) {
+			if (name.equalsIgnoreCase(srcsubcomponent.getName())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// XXX How can I avoid duplicating this method for the instance and the declarative models?
+	private boolean classifiersFoundInSupportedTypeConversionsProperty(ConnectionInstance connection,
+			Classifier source,
+			Classifier destination) {
+		PropertyConstant conversionsPropertyConstant = GetProperties.lookupPropertyConstant(connection,
+				AadlProject.SUPPORTED_TYPE_CONVERSIONS);
+		if (conversionsPropertyConstant == null) {
+			return false;
+		}
+		PropertyExpression constantValue = conversionsPropertyConstant.getConstantValue();
+		if (!(constantValue instanceof ListValue)) {
+			return false;
+		}
+		for (PropertyExpression classifierPair : ((ListValue) constantValue).getOwnedListElements()) {
+			if (classifierPair instanceof ListValue) {
+				EList<PropertyExpression> innerListElements = ((ListValue) classifierPair).getOwnedListElements();
+				if (innerListElements.size() == 2 && innerListElements.get(0) instanceof ClassifierValue
+						&& innerListElements.get(1) instanceof ClassifierValue) {
+					Classifier firstPairElement = ((ClassifierValue) innerListElements.get(0)).getClassifier();
+					Classifier secondPairElement = ((ClassifierValue) innerListElements.get(1)).getClassifier();
+					if (firstPairElement == source && secondPairElement == destination) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 }
