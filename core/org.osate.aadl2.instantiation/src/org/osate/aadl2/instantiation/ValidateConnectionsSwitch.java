@@ -40,6 +40,7 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionKind;
 import org.osate.aadl2.instance.ConnectionReference;
+import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.ModeTransitionInstance;
@@ -233,15 +234,19 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				final Classifier srcClassifier = getConnectionEndClassifier(srcEnd);
 				final Classifier destClassifier = getConnectionEndClassifier(destEnd);
 				if (srcClassifier == null && destClassifier != null) {
-					warning(conni, "Expected " + (sourceIsSubcomponent ? "subcomponent \'"
-							: "feature \'")
-							+ srcEnd.getComponentInstancePath()
-							+ "' to have classifier '" + destClassifier.getQualifiedName() + '\'');
+					if (!isAbstractFeature(srcEnd)) {
+						warning(conni,
+								"Expected " + (sourceIsSubcomponent ? "subcomponent \'" : "feature \'")
+										+ srcEnd.getComponentInstancePath() + "' to have classifier '"
+										+ destClassifier.getQualifiedName() + '\'');
+					}
 				} else if (srcClassifier != null && destClassifier == null) {
-					warning(conni, "Expected " + (destIsSubcomponent ? "subcomponent \'"
-							: "feature \'")
-							+ destEnd.getComponentInstancePath() + "' to have classifier '"
-							+ srcClassifier.getQualifiedName() + '\'');
+					if (!isAbstractFeature(destEnd)) {
+						warning(conni,
+								"Expected " + (destIsSubcomponent ? "subcomponent \'" : "feature \'")
+										+ destEnd.getComponentInstancePath() + "' to have classifier '"
+										+ srcClassifier.getQualifiedName() + '\'');
+					}
 				} else {
 					checkEndPointClassifierMatching(conni, srcEnd, destEnd, srcClassifier, destClassifier);
 				}
@@ -287,6 +292,12 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 //						+ AadlProject.SUPPORTED_TYPE_CONVERSIONS + "'.");
 //			}
 //		}
+	}
+
+	private static boolean isAbstractFeature(final ConnectionInstanceEnd end) {
+		return end instanceof FeatureInstance
+				? (((FeatureInstance) end).getCategory() == FeatureCategory.ABSTRACT_FEATURE)
+				: false;
 	}
 
 	private static Classifier getConnectionEndClassifier(final ConnectionInstanceEnd end) {
