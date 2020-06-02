@@ -43,18 +43,17 @@ public
 	
 	system Top
 	end Top;
-	
-	system implementation Top.i0
+		
+	system implementation Top.allExplicit
 		subcomponents
 			srcSys: system SrcSys;
 			destSys: system DestSys;
 		connections
-			c0: feature srcSys.f0 -> destSys.f0;
-			
 			out_to_out: feature srcSys.out_feature -> destSys.out_feature;
 			out_to_in: feature srcSys.out_feature -> destSys.in_feature;
 			out_to_blank: feature srcSys.out_feature -> destSys.blank_feature;
 			
+			-- These are fundamentally bad and will not never be instantiated
 			in_to_out: feature srcSys.in_feature -> destSys.out_feature;
 			in_to_in: feature srcSys.in_feature -> destSys.in_feature;
 			in_to_blank: feature srcSys.in_feature -> destSys.blank_feature;
@@ -64,48 +63,58 @@ public
 			blank_to_blank: feature srcSys.blank_feature -> destSys.blank_feature;
 		properties
 			Classifier_Substitution_Rule => Type_Extension;
-	end Top.i0;
+	end Top.allExplicit;
 	
-	system implementation Top.out_to_out extends Top.i0
+	system implementation Top.blank_to_blank
+		subcomponents
+			srcSys: system SrcSys;
+			destSys: system DestSys;
+		connections
+			c0: feature srcSys.f0 -> destSys.f0;
+		properties
+			Classifier_Substitution_Rule => Type_Extension;
+	end Top.blank_to_blank;
+	
+	system implementation Top.out_to_out extends Top.blank_to_blank
 		subcomponents
 			srcSys: refined to system SrcSysOut;
 			destSys: refined to system DestSysOut;
 	end Top.out_to_out;
 	
-	system implementation Top.out_to_in extends Top.i0
+	system implementation Top.out_to_in extends Top.blank_to_blank
 		subcomponents
 			srcSys: refined to system SrcSysOut;
 			destSys: refined to system DestSysIn;
 	end Top.out_to_in;
 	
-	system implementation Top.in_to_out extends Top.i0
+	system implementation Top.in_to_out extends Top.blank_to_blank
 		subcomponents
 			srcSys: refined to system SrcSysIn;
 			destSys: refined to system DestSysOut;
 	end Top.in_to_out;
 	
-	system implementation Top.in_to_in extends Top.i0
+	system implementation Top.in_to_in extends Top.blank_to_blank
 		subcomponents
 			srcSys: refined to system SrcSysIn;
 			destSys: refined to system DestSysIn;
 	end Top.in_to_in;
 
-	system implementation Top.blank_to_in extends Top.i0
+	system implementation Top.blank_to_in extends Top.blank_to_blank
 		subcomponents
 			destSys: refined to system DestSysIn;
 	end Top.blank_to_in;
 
-	system implementation Top.blank_to_out extends Top.i0
+	system implementation Top.blank_to_out extends Top.blank_to_blank
 		subcomponents
 			destSys: refined to system DestSysOut;
 	end Top.blank_to_out;
 	
-	system implementation Top.in_to_blank extends Top.i0
+	system implementation Top.in_to_blank extends Top.blank_to_blank
 		subcomponents
 			srcSys: refined to system SrcSysIn;
 	end Top.in_to_blank;
 	
-	system implementation Top.out_to_blank extends Top.i0
+	system implementation Top.out_to_blank extends Top.blank_to_blank
 		subcomponents
 			srcSys: refined to system SrcSysOut;
 	end Top.out_to_blank;	
