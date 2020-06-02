@@ -14,25 +14,26 @@ import javafx.scene.text.Font;
  *
  */
 class PaletteGroup<G, I> extends Region {
-	final VBox buttonBox = new VBox();
-	final ToggleButton groupButton;
-
-	final String IDLE_GROUP_STYLE = "-fx-background-color: linear-gradient(rgb(247,247,247),rgb(200,200,200));"
+	private static final String IDLE_GROUP_STYLE = "-fx-background-color: linear-gradient(rgb(247,247,247),rgb(200,200,200));"
 			+ "-fx-border-width: 1;" + "-fx-border-color: rgba(0,0,0,.2);"
 			+ "-fx-border-style: solid, hidden, solid, hidden;";
-	final String HOVER_GROUP_STYLE = "-fx-background-color: linear-gradient(rgb(243,243,243), rgb(222,222,222));"
+	private static final String HOVER_GROUP_STYLE = "-fx-background-color: linear-gradient(rgb(243,243,243), rgb(222,222,222));"
 			+ "-fx-border-width: 1;" + "-fx-border-color: rgba(0,0,0,.2);"
 			+ "-fx-border-style: solid, hidden, solid, hidden;";
-	final String SELECTED_GROUP_STYLE = "-fx-background-color: linear-gradient(rgb(243,243,243), rgb(222,222,222));"
+	private static final String SELECTED_GROUP_STYLE = "-fx-background-color: linear-gradient(rgb(243,243,243), rgb(222,222,222));"
 			+ "-fx-border-width: 1;" + "-fx-border-color: rgba(0,0,0,.2);"
 			+ "-fx-border-style: solid, hidden, hidden, hidden;";
-	final String ITEMBOX_BACKGROUND = "-fx-background-color: white;";
+	private static final String ITEMBOX_BACKGROUND = "-fx-background-color: white;";
+	private static final VBox buttonBox = new VBox();
+	private final ToggleButton groupButton;
+	private final ScrollPane scrollPane;
+	private final VBox itemBox;
 
 	public PaletteGroup(final PaletteModel<G, I> model, final G groupModel) {
-		final ScrollPane scrollPane = new ScrollPane();
+		scrollPane = new ScrollPane();
 		groupButton = new ToggleButton(model.getGroupLabel(groupModel));
 		groupButton.setStyle(IDLE_GROUP_STYLE);
-		groupButton.setFont(new Font(14));
+		groupButton.setFont(new Font(12));
 		groupButton.setPadding(new Insets(2, 0, 2, 2));
 		groupButton.setAlignment(Pos.BASELINE_LEFT);
 		groupButton.setGraphic(new ImageView(model.getGroupIcon(groupModel)));
@@ -61,7 +62,7 @@ class PaletteGroup<G, I> extends Region {
 
 		buttonBox.getChildren().add(groupButton);
 
-		final VBox itemBox = new VBox(6);
+		itemBox = new VBox(6);
 		itemBox.setStyle(ITEMBOX_BACKGROUND);
 
 		for (I itemModel : model.getItems(groupModel)) {

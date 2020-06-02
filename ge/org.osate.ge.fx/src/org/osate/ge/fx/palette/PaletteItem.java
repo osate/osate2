@@ -12,58 +12,54 @@ import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
 
 class PaletteItem<I> extends Region {
-
-	private final Button Button;
-	private boolean Hovered;
-	private final PaletteModel<?, ?> model;
-	private final I item;
 	private static final String HOVER_ITEM_STYLE = "-fx-background-color: rgba(252,228,179,1.0);";
 	private static final String SELECTED_ITEM_STYLE = "-fx-background-color: rgba(207,227,250,1.0);";
 	private static final String IDLE_ITEM_STYLE = "-fx-background-color: white;";
+	private final PaletteModel<?, ?> model;
+	private final Button button;
+	private boolean hovered;
+	private final I item;
 
 	public PaletteItem(final PaletteModel<?, I> model, I item) {
 		this.model = Objects.requireNonNull(model, "model must not be null");
 		this.item = Objects.requireNonNull(item, "item must not be null");
-		Hovered = false;
-		Button = new Button(model.getItemLabel(item));
-		Button.setPadding(new Insets(0, 0, 0, 20));
-		Button.setFont(new Font(14));
-		Button.setOnMouseEntered(e -> {
-			Hovered = true;
+		hovered = false;
+		button = new Button(model.getItemLabel(item));
+		button.setPadding(new Insets(0, 0, 0, 20));
+		button.setFont(new Font(12));
+		button.setOnMouseEntered(e -> {
+			hovered = true;
 			updateStyle();
 		});
-		Button.setOnMouseExited(e -> {
-			Hovered = false;
+		button.setOnMouseExited(e -> {
+			hovered = false;
 			updateStyle();
 		});
-		model.activeItemProperty().addListener(new WeakChangeListener<I>(this::resourceChangeListenerHandler));
+		model.activeItemProperty().addListener(new WeakChangeListener<I>(this::activeItemChanged));
 
-		Button.setAlignment(Pos.BASELINE_LEFT);
-		Button.setGraphic(new ImageView(model.getItemIcon(item)));
-		Button.setOnAction(e -> {
+		button.setAlignment(Pos.BASELINE_LEFT);
+		button.setGraphic(new ImageView(model.getItemIcon(item)));
+		button.setOnAction(e -> {
 			model.activateItem(item);
 		});
-		this.getChildren().add(Button);
+		this.getChildren().add(button);
 		updateStyle();
 	}
 
-	private void resourceChangeListenerHandler(ObservableValue<? extends I> observable, I oldValue, I value) {
-		System.err.println(observable + " observable");
-		System.err.println(oldValue + " oldValue");
-		System.err.println(value + " value");
+	private void activeItemChanged(ObservableValue<? extends I> observable, I oldValue, I value) {
 		updateStyle();
 	}
 
 	private void updateStyle() {
 
-		if (Hovered && model.getActiveItem() != item) {
-			Button.setStyle(HOVER_ITEM_STYLE);
+		if (hovered && model.getActiveItem() != item) {
+			button.setStyle(HOVER_ITEM_STYLE);
 		}
-		else if (!Hovered && model.getActiveItem() != item) {
-			Button.setStyle(IDLE_ITEM_STYLE);
+		else if (!hovered && model.getActiveItem() != item) {
+			button.setStyle(IDLE_ITEM_STYLE);
 		}
 		else if (model.getActiveItem() == item) {
-			Button.setStyle(SELECTED_ITEM_STYLE);
+			button.setStyle(SELECTED_ITEM_STYLE);
 		}
 
 
@@ -74,6 +70,6 @@ class PaletteItem<I> extends Region {
 		final double width = this.getWidth();
 		final double height = this.getHeight();
 
-		Button.resize(width, height);
+		button.resize(width, height);
 	}
 }
