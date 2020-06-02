@@ -1,3 +1,5 @@
+-- There are no errors or warnings on these connections because the standard
+-- does not required classifier checks on "feature connections"!
 package TestAbstractClassifier
 public
 	Data D
