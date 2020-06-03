@@ -2,7 +2,7 @@ package org.osate.ge.fx.palette;
 
 import java.util.Objects;
 
-import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
 import javafx.geometry.Insets;
@@ -20,7 +20,7 @@ class PaletteItem<I> extends Region {
 	private final Button button;
 	private boolean hovered;
 	private final I item;
-	private ReadOnlyProperty itemListener;
+	private ChangeListener<I> listener;
 
 	public PaletteItem(final PaletteModel<?, I> model, I item) {
 		this.model = Objects.requireNonNull(model, "model must not be null");
@@ -37,8 +37,8 @@ class PaletteItem<I> extends Region {
 			hovered = false;
 			updateStyle();
 		});
-		this.itemListener = model.activeItemProperty();
-		this.itemListener.addListener(new WeakChangeListener<I>(this::activeItemChanged));
+		this.listener = this::activeItemChanged;
+		model.activeItemProperty().addListener(new WeakChangeListener<I>(listener));
 
 		button.setAlignment(Pos.BASELINE_LEFT);
 		button.setGraphic(new ImageView(model.getItemIcon(item)));
