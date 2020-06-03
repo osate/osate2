@@ -24,7 +24,7 @@ class PaletteGroup<G, I> extends Region {
 			+ "-fx-border-width: 1;" + "-fx-border-color: rgba(0,0,0,.2);"
 			+ "-fx-border-style: solid, hidden, hidden, hidden;";
 	private static final String ITEMBOX_BACKGROUND = "-fx-background-color: white;";
-	private static final VBox buttonBox = new VBox();
+	private final VBox buttonBox = new VBox();
 	private final ToggleButton groupButton;
 	private final ScrollPane scrollPane;
 	private final VBox itemBox;
@@ -74,6 +74,7 @@ class PaletteGroup<G, I> extends Region {
 		scrollPane.setManaged(false);
 		scrollPane.setVisible(false);
 		scrollPane.setFitToWidth(true);
+		scrollPane.setMaxHeight(buttonBox.getHeight() / 2);
 		this.getChildren().add(buttonBox);
 
 	}
