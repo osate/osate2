@@ -73,14 +73,12 @@ public
 		
 	system Top
 	end Top;
-	
-	system implementation Top.notype_to_notype
+		
+	system implementation Top.allExplicit
 		subcomponents
 			srcSys: system DataProvider_untyped;
 			destSys: system DataConsumer_untyped;
 		connections
-			c0: feature srcSys.f0 -> destSys.f0;  -- (no type) -> (no type)
-			
 			c11: data access srcSys.p_type -> destSys.p_type;
 			c12: data access srcSys.p_type -> destSys.p_notype;
 			c13: data access srcSys.p_type -> destSys.r_type;
@@ -100,6 +98,16 @@ public
 			c42: data access srcSys.r_notype -> destSys.p_notype;
 			c43: data access srcSys.r_notype -> destSys.r_type;
 			c44: data access srcSys.r_notype -> destSys.r_notype;
+		properties
+			Classifier_Substitution_Rule => Type_Extension;
+	end Top.allExplicit;
+	
+	system implementation Top.notype_to_notype
+		subcomponents
+			srcSys: system DataProvider_untyped;
+			destSys: system DataConsumer_untyped;
+		connections
+			c0: feature srcSys.f0 -> destSys.f0;  -- (no type) -> (no type)
 		properties
 			Classifier_Substitution_Rule => Type_Extension;
 	end Top.notype_to_notype;
