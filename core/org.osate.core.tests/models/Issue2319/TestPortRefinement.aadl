@@ -1,0 +1,80 @@
+package TestPortRefinement
+public
+	Data D
+	end D;
+	
+	Data D2 extends D
+	end D2;
+	
+	Data D3 extends D2
+	end D3;
+	
+	Data E
+	end E;
+
+	Bus B
+	end B;
+	
+	system SrcSys
+		features
+			f0: out data port D;
+		properties
+			Classifier_Substitution_Rule => Type_Extension;
+	end SrcSys;
+	
+	system SrcSys1 extends SrcSys
+		features
+			f0: refined to out data port D2; -- good subtype
+	end SrcSys1;
+	
+	system SrcSys2 extends SrcSys
+		features
+			f0: refined to out data port E; -- bad, not subtype
+	end SrcSys2;
+	
+	system SrcSys3 extends SrcSys
+		features
+			f0: refined to out data port D; -- good, same type
+	end SrcSys3;
+	
+	system SrcSys7 extends SrcSys
+		features
+			f0: refined to out data port; -- should not be allowed?  removed type
+	end SrcSys7;
+	
+	
+	
+	system x1 extends SrcSys1
+		features
+			f0: refined to out data port; -- should not be allowed?  removed type
+	end x1;
+	
+	system x2 extends SrcSys1
+		features
+			f0: refined to out data port D; -- bad, D is not a subtype
+	end x2;
+	
+	system x3 extends SrcSys1
+		features
+			f0: refined to out data port D2;  -- good, same type
+	end x3;
+	
+	system x4 extends SrcSys1
+		features
+			f0: refined to out data port D3; -- good, subtype
+	end x4;
+	
+	system x5 extends SrcSys1
+		features
+			f0: refined to out data port E; -- bad, not related
+	end x5;
+	
+	
+	system y extends SrcSys7
+		features
+			f0: refined to out data port E; -- should be bad, sys7 removed the classifier, E is not compatible with the original classifier D
+	end y;
+	
+end TestPortRefinement;
+
+

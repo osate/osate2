@@ -5474,8 +5474,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (!Aadl2Util.isNull(feature.getRefined())) {
 			Classifier refinedCl = feature.getClassifier();
 			Classifier originalCl = feature.getRefined().getClassifier();
-			if (!Aadl2Util.isNull(refinedCl) && !Aadl2Util.isNull(originalCl)) {
-				checkClassifierSubstitutionMatch(feature, originalCl, refinedCl);
+			if (!Aadl2Util.isNull(originalCl)) {
+				if (!Aadl2Util.isNull(refinedCl)) {
+					checkClassifierSubstitutionMatch(feature, originalCl, refinedCl);
+				} else {
+					warning(feature, "Refinement removes classifier " + originalCl.getName());
+				}
 			}
 		}
 	}
@@ -5484,17 +5488,19 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (!Aadl2Util.isNull(subcomponent.getRefined())) {
 			ComponentClassifier refinedCl = subcomponent.getClassifier();
 			ComponentClassifier originalCl = subcomponent.getRefined().getClassifier();
-			if (!Aadl2Util.isNull(refinedCl) && !Aadl2Util.isNull(originalCl)) {
-				checkClassifierSubstitutionMatch(subcomponent, originalCl, refinedCl);
+			if (!Aadl2Util.isNull(originalCl)) {
+				if (!Aadl2Util.isNull(refinedCl)) {
+					checkClassifierSubstitutionMatch(subcomponent, originalCl, refinedCl);
+				} else {
+					warning(subcomponent, "Refinement removes classifier " + originalCl.getName());
+				}
 			}
 		}
 	}
 
 	private void checkClassifierSubstitutionMatch(NamedElement target, Classifier originalClassifier,
 			Classifier refinedClassifier) {
-		Property classifierMatchingRuleProperty = GetProperties.lookupPropertyDefinition(target,
-				ModelingProperties._NAME, ModelingProperties.CLASSIFIER_SUBSTITUTION_RULE);
-		String classifierMatchingRuleValue = GetProperties.getClassifierSubstitutionRuleProperty(target);
+		final String classifierMatchingRuleValue = GetProperties.getClassifierSubstitutionRuleProperty(target);
 		if (ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue)) {
 			if (!AadlUtil.isokClassifierSubstitutionMatch(originalClassifier, refinedClassifier)) {
 				warning(target, "Classifier " + originalClassifier.getName() + " refined to "
