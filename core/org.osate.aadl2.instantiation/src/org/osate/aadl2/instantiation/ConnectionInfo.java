@@ -49,6 +49,7 @@ import org.osate.aadl2.Context;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupConnection;
 import org.osate.aadl2.FeatureGroupType;
@@ -184,12 +185,23 @@ class ConnectionInfo {
 		 * Issue 582 -- This does not catch all the bad things that can happen. NOT testing for
 		 * subcomponents being connected to requires (goingup) or provides (goingdon).
 		 */
-		if (source instanceof DataAccess && dest instanceof DataAccess) {
-			if (goingUp || goingDown) {
-				valid &= ((DataAccess) source).getKind() == ((DataAccess) dest).getKind();
-			} else {
-				valid &= ((DataAccess) source).getKind().getInverseType() == ((DataAccess) dest).getKind();
+		// XXX: the arguemnt below "this.src" may not be correct, but I'm not really sure what is the correct thing
+		final ConnectionInstanceEnd resolvedSrc = resolveFeatureInstance(this.src, srcFi);
+		final ConnectionInstanceEnd resolvedDst = resolveFeatureInstance(this.src, dstFi);
+		if (resolvedSrc instanceof FeatureInstance) {
+			final Feature srcF = ((FeatureInstance) resolvedSrc).getFeature();
+			if (resolvedDst instanceof FeatureInstance) {
+				final Feature dstF = ((FeatureInstance) resolvedDst).getFeature();
+				if (srcF instanceof DataAccess && dstF instanceof DataAccess) {
+					if (goingUp || goingDown) {
+						valid &= ((DataAccess) srcF).getKind() == ((DataAccess) dstF).getKind();
+					} else {
+						valid &= ((DataAccess) srcF).getKind().getInverseType() == ((DataAccess) dstF).getKind();
+					}
+				}
 			}
+		} else {
+			// TODO ComponentInstance
 		}
 
 		if (valid) {
