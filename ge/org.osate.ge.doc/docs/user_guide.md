@@ -685,9 +685,7 @@ When the *Layout Features Based on Direction* preference is enabled, the graphic
 ## Known Layout Issues and Limitations
 * Connections between multiple levels of the diagram hierarchy are not automatically routed and must be routed manually. Such connections usually represent property values such as bindings.
 * Mode transition triggers are not routed. The recommended workaround is to show the mode transition triggers as text labels.
-* Flow source and sinks are not consider when laying out the diagram.
 * The automatic layout for flow path may produce unexpected routing and label placement for the flow path. To workaround this issue, it is recommended to disable labels for flow paths.	
-* Flow paths other than those which include a feature on the left side and a feature on the right side of the container will not layout correctly. To workaround this issue, it is recommended to adjust the location of the features.
 
 # Annotations and Documentation
 The following sections describe the graphical editors support for annotations and AADL documentation.
