@@ -55,7 +55,7 @@ public
 			f0: refined to in feature;
 	end SrcSysIn;
 		
-	system implementation SrcSys.blank_to_blank
+	system implementation SrcSys.allExplicit
 		subcomponents
 			s: system InnerSys_blank;
 		connections
@@ -73,6 +73,13 @@ public
 			in_to_blank: feature in_to_blank_feature -> s.in_feature;
 			in_to_out: feature in_to_out_feature -> s.in_feature;  -- BAD: cannot start at out
 			in_to_in: feature in_to_in_feature -> s.in_feature; 
+	end SrcSys.allExplicit;
+		
+	system implementation SrcSys.blank_to_blank
+		subcomponents
+			s: system InnerSys_blank;
+		connections
+			c0: feature f0 -> s.f0;
 	end SrcSys.blank_to_blank;
 		
 	system implementation SrcSys.out_to_blank extends SrcSys.blank_to_blank
@@ -137,13 +144,11 @@ public
 			Classifier_Substitution_Rule => Type_Extension;
 	end Top;
 	
-	system implementation Top.blank_to_blank_to_blank
+	system implementation Top.allExplicit
 		subcomponents
-			srcSys: system SrcSys.blank_to_blank;
+			srcSys: system SrcSys.allExplicit;
 			destSys: system DestSys;
 		connections
-			c0: feature destSys.f0 -> srcSys.f0;
-			
 			blank_to_blank_to_blank: feature destSys.blank_feature -> srcSys.blank_to_blank_feature;
 			blank_to_blank_to_out: feature destSys.out_feature -> srcSys.blank_to_blank_feature;
 			blank_to_blank_to_in: feature destSys.in_feature -> srcSys.blank_to_blank_feature; -- BAD: Cannot start at "in" when peer to peer
@@ -184,6 +189,14 @@ public
 			in_to_in_to_blank: feature destSys.blank_feature -> srcSys.in_to_in_feature;
 			in_to_in_to_out: feature destSys.out_feature -> srcSys.in_to_in_feature;
 			in_to_in_to_in: feature destSys.in_feature -> srcSys.in_to_in_feature; -- BAD: Cannot start at "in" when peer to peer
+	end Top.allExplicit;
+	
+	system implementation Top.blank_to_blank_to_blank
+		subcomponents
+			srcSys: system SrcSys.blank_to_blank;
+			destSys: system DestSys;
+		connections
+			c0: feature destSys.f0 -> srcSys.f0;
 	end Top.blank_to_blank_to_blank;
 	
 	system implementation Top.blank_to_blank_to_out extends Top.blank_to_blank_to_blank 
