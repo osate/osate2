@@ -201,7 +201,7 @@ class ConnectionInfo {
 				}
 			}
 		} else {
-			// TODO ComponentInstance
+			// TODO ComponentInstance -- Should check connections between components and access features here
 		}
 
 		if (valid) {
