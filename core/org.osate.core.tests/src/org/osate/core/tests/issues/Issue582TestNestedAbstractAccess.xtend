@@ -503,25 +503,4 @@ class Issue582TestNestedAbstractAccess extends XtextTest {
 			assertEquals("Connection from Top_requires_to_requires_to_requires_Instance.srcSys.s.f0 to Top_requires_to_requires_to_requires_Instance.destSys.f0 has no valid direction. Connection instance not created.", message)
 		]
 	}
-
-
-
-
-//	@Test
-//	def void test_provides_nt_to_provides_nt() {
-//		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestAbstractToDataAccessClassifier.aadl")
-//		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.provides_nt_to_provides_nt"] as SystemImplementation
-//		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
-//		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
-//		
-//		assertNull(instance.connectionInstances.findFirst[name == "srcSys.f0 -> destSys.f0"])
-//
-//		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-//		assertTrue(messages.size == 1)
-//		messages.get(0) => [
-//			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-//			assertEquals("Connection from Top_provides_nt_to_provides_nt_Instance.srcSys.f0 to Top_provides_nt_to_provides_nt_Instance.destSys.f0 has no valid direction. Connection instance not created.", message)
-//		]
-//	}
-
 }
