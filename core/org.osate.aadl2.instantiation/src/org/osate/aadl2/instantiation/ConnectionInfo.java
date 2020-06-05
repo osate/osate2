@@ -185,8 +185,9 @@ class ConnectionInfo {
 		 * Issue 582 -- This does not catch all the bad things that can happen. NOT testing for
 		 * subcomponents being connected to requires (goingup) or provides (goingdon).
 		 */
-		// XXX: the arguemnt below "this.src" may not be correct, but I'm not really sure what is the correct thing
+		// XXX: the argument below, "this.src", may not be correct, but I'm not really sure what is the correct thing
 		final ConnectionInstanceEnd resolvedSrc = resolveFeatureInstance(this.src, srcFi);
+		// XXX: the argument below, "this.src", may not be correct, but I'm not really sure what is the correct thing
 		final ConnectionInstanceEnd resolvedDst = resolveFeatureInstance(this.src, dstFi);
 		if (resolvedSrc instanceof FeatureInstance) {
 			final Feature srcF = ((FeatureInstance) resolvedSrc).getFeature();
