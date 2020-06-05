@@ -198,7 +198,7 @@ class Issue582TestNestedAbstractAccess extends XtextTest {
 	@Test
 	def void test_blank_to_requires_to_blank() {
 		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractAccess.aadl")
-		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.blank_to_provides_to_blank"] as SystemImplementation
+		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.blank_to_requires_to_blank"] as SystemImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
