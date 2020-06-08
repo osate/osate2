@@ -55,12 +55,10 @@ public
 			f0: refined to in feature;
 	end SrcSysIn;
 		
-	system implementation SrcSys.blank_to_blank
+	system implementation SrcSys.allExplicit
 		subcomponents
 			s: system InnerSys_blank;
 		connections
-			c0: feature s.f0 -> f0;
-			
 			blank_to_blank: feature s.blank_feature -> blank_to_blank_feature; 
 			blank_to_out: feature s.blank_feature -> blank_to_out_feature;  
 			blank_to_in: feature s.blank_feature -> blank_to_in_feature;  -- BAD
@@ -72,6 +70,13 @@ public
 			in_to_blank: feature s.in_feature -> in_to_blank_feature;  -- BAD
 			in_to_out: feature s.in_feature -> in_to_out_feature;  -- BAD
 			in_to_in: feature s.in_feature -> in_to_in_feature; -- BAD
+	end SrcSys.allExplicit;
+		
+	system implementation SrcSys.blank_to_blank
+		subcomponents
+			s: system InnerSys_blank;
+		connections
+			c0: feature s.f0 -> f0;
 	end SrcSys.blank_to_blank;
 		
 	system implementation SrcSys.out_to_blank extends SrcSys.blank_to_blank
@@ -135,14 +140,12 @@ public
 		properties
 			Classifier_Substitution_Rule => Type_Extension;
 	end Top;
-	
-	system implementation Top.blank_to_blank_to_blank
+		
+	system implementation Top.allExplicit
 		subcomponents
-			srcSys: system SrcSys.blank_to_blank;
+			srcSys: system SrcSys.allExplicit;
 			destSys: system DestSys;
 		connections
-			c0: feature srcSys.f0 -> destSys.f0;
-			
 			blank_to_blank_to_blank: feature srcSys.blank_to_blank_feature -> destSys.blank_feature;
 			blank_to_blank_to_out: feature srcSys.blank_to_blank_feature -> destSys.out_feature; -- BAD, cannot end at OUT
 			blank_to_blank_to_in: feature srcSys.blank_to_blank_feature -> destSys.in_feature; 
@@ -186,6 +189,14 @@ public
 			in_to_in_to_blank: feature srcSys.in_to_in_feature -> destSys.blank_feature;
 			in_to_in_to_out: feature srcSys.in_to_in_feature -> destSys.out_feature; -- BAD, cannot end at OUT
 			in_to_in_to_in: feature srcSys.in_to_in_feature -> destSys.in_feature;
+	end Top.allExplicit;
+	
+	system implementation Top.blank_to_blank_to_blank
+		subcomponents
+			srcSys: system SrcSys.blank_to_blank;
+			destSys: system DestSys;
+		connections
+			c0: feature srcSys.f0 -> destSys.f0;
 	end Top.blank_to_blank_to_blank;
 	
 	system implementation Top.blank_to_blank_to_out extends Top.blank_to_blank_to_blank 
