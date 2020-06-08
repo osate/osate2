@@ -63,7 +63,6 @@ import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.AadlModificationService.SimpleModifier;
 import org.osate.ge.internal.services.ClipboardService;
 import org.osate.ge.internal.services.ExtensionService;
-import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
@@ -107,8 +106,6 @@ public class PasteAction extends ActionStackAction {
 				getWorkbenchPart().getAdapter(ProjectProvider.class), "Unable to retrieve project provider");
 		final ExtensionService extService = Objects.requireNonNull(
 				getWorkbenchPart().getAdapter(ExtensionService.class), "Unable to retrieve extension service");
-		final NamingService namingService = Objects.requireNonNull(getWorkbenchPart().getAdapter(NamingService.class),
-				"Unable to retrieve naming service");
 
 		// This is safe because the constructor requires the part to be an AgeDiagramEditor.
 		final AgeDiagramEditor editor = (AgeDiagramEditor) getWorkbenchPart();
@@ -123,7 +120,7 @@ public class PasteAction extends ActionStackAction {
 			// if the copied element includes the business object.
 			final SimpleModifier<EObject> modifier = dstBoToModify -> {
 				newDiagramElements.addAll(copyClipboardContents(dstBoToModify, dstDiagramNode, m, refBuilder,
-						projectProvider, extService, namingService));
+						projectProvider, extService));
 			};
 
 			// If any non-embedded business objects have been copied, then modify the AADL model. Otherwise, just modify the diagram.
@@ -152,8 +149,7 @@ public class PasteAction extends ActionStackAction {
 	 */
 	private Collection<DiagramElement> copyClipboardContents(final EObject dstBoToModify,
 			final DiagramNode dstDiagramNode, final DiagramModification m, final ReferenceBuilderService refBuilder,
-			final ProjectProvider projectProvider, final ExtensionService extService,
-			final NamingService namingService) {
+			final ProjectProvider projectProvider, final ExtensionService extService) {
 		// Determine the minimum coordinates from the elements whose positions will be copied
 		// The minimum coordinates is null if none of the copied diagram elements have an absolute position. This is reasonable because the minimum coordinates
 		// are only needed if a copied diagram element has an absolute position.
@@ -194,7 +190,7 @@ public class PasteAction extends ActionStackAction {
 					ensureBusinessObjectHasUniqueName(copiedEObject,
 							copiedDiagramElement.getDiagramElement().getBusinessObjectHandler(),
 							copiedDiagramElement.getDiagramElement().getLabelName(), projectProvider.getProject(),
-							namingService, extService);
+							extService);
 
 					ensurePackagesAreImported(copiedEObject);
 
@@ -240,7 +236,7 @@ public class PasteAction extends ActionStackAction {
 	 * @param extService
 	 */
 	private static void ensureBusinessObjectHasUniqueName(final EObject bo, final Object boHandler,
-			final String diagramElementName, final IProject project, final NamingService namingService,
+			final String diagramElementName, final IProject project,
 			final ExtensionService extService) {
 		if (supportsRenaming(bo, boHandler) && RenameUtil.hasValidateNameMethod(boHandler)) {
 			// Determine the current name of the business object.
@@ -252,7 +248,7 @@ public class PasteAction extends ActionStackAction {
 			if (bo instanceof ComponentImplementation) {
 				final ComponentImplementation ci = (ComponentImplementation) bo;
 				final ComponentType ct = ci.getType();
-				final ClassifierCreationHelper classifierCreationHelper = new ClassifierCreationHelper(namingService,
+				final ClassifierCreationHelper classifierCreationHelper = new ClassifierCreationHelper(
 						ci.eResource().getResourceSet());
 
 				final String ciTypeName;

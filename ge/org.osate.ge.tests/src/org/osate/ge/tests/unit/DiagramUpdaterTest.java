@@ -23,22 +23,15 @@
  */
 package org.osate.ge.tests.unit;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.osate.ge.tests.unit.TestBusinessObject.newBO;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
+import static org.osate.ge.tests.unit.TestBusinessObject.*;
 
 import java.util.Collection;
 import java.util.EnumSet;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.osate.ge.DockingPosition;
 import org.osate.ge.graphics.internal.AgeConnection;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
@@ -207,9 +200,6 @@ public class DiagramUpdaterTest {
 		assertThat(dockableDiagramElement.getDockArea(), is(equalTo(newDockArea)));
 
 	}
-
-	@Rule
-	public ExpectedException thrown = ExpectedException.none();
 
 	@Test
 	public void testConnectionEndPointsAreSet() {

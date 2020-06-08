@@ -59,8 +59,8 @@ import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.AgeEmfUtil;
-import org.osate.ge.internal.util.StringUtil;
 import org.osate.ge.ui.properties.PropertySectionUtil;
+import org.osate.ge.util.StringUtil;
 
 public class ChangeFeatureTypePropertySection extends AbstractPropertySection {
 	public static class Filter implements IFilter {

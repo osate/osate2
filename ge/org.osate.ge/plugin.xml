@@ -25,13 +25,13 @@ censes only apply to the Third Party Software and not any other portion of this 
 <?eclipse version="3.4"?>
 <plugin>
    <extension-point id="org.osate.ge.tooltips" name="Tooltips" schema="schema/org.osate.ge.tooltips.exsd"/>
-   <extension-point id="org.osate.ge.categories" name="Categories" schema="schema/org.osate.ge.categories.exsd"/>
    <extension-point id="org.osate.ge.images" name="Images" schema="schema/org.osate.ge.images.exsd"/>
    <extension-point id="org.osate.ge.references" name="Reference Handling" schema="schema/org.osate.ge.references.exsd"/>
    <extension-point id="org.osate.ge.businessObjectHandlers" name="Business Object Handlers" schema="schema/org.osate.ge.businessObjectHandlers.exsd"/>
    <extension-point id="org.osate.ge.businessObjectProviders" name="Business Object Providers" schema="schema/org.osate.ge.businessObjectProviders.exsd"/>
    <extension-point id="org.osate.ge.contentFilters" name="Content Filters" schema="schema/org.osate.ge.contentFilters.exsd"/>
    <extension-point id="org.osate.ge.diagramTypes" name="Diagram Types" schema="schema/org.osate.ge.diagramTypes.exsd"/>
+   <extension-point id="org.osate.ge.paletteCommands" name="OSATE Graphical Editor Palette Commands" schema="schema/org.osate.ge.paletteCommands.exsd"/>
 	<extension point="org.eclipse.ui.commands">
     <category
           id="org.osate.ge.commands.categories.tool"
@@ -1699,416 +1699,7 @@ censes only apply to the Third Party Software and not any other portion of this 
     </extension>
 
     <extension
-          point="org.osate.ge.categories">
-       <category
-             id="org.osate.ge.categories.annotation"
-             name="Annotation"
-             order="1">
-       </category>
-       
-       <category
-             id="org.osate.ge.categories.classifiers"
-             name="Classifiers"
-             order="10">
-       </category>
-       <category
-             id="org.osate.ge.categories.connections"
-             name="Connections"
-             order="20">
-       </category>
-       <category
-             id="org.osate.ge.categories.features"
-             name="Features"
-             order="30">
-       </category>
-       <category
-             id="org.osate.ge.categories.subcomponents"
-             name="Subcomponents"
-             order="40">
-       </category>
-       <category
-             id="org.osate.ge.categories.flows"
-             name="Flows"
-             order="50">
-       </category>
-       <category
-             id="org.osate.ge.categories.modes"
-             name="Modes"
-             order="60">
-       </category>
-       <category
-             id="org.osate.ge.categories.subprogram_calls"
-             name="Subprogram Calls"
-             order="80">
-       </category>
-    </extension>
-    <extension
           point="org.osate.ge.images">
-       <image
-             id="org.osate.ge.AbstractType"
-             path="/icons/full/obj16/AbstractType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.AbstractImplementation"
-             path="/icons/full/obj16/AbstractImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.BusType"
-             path="/icons/full/obj16/BusType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-           <image
-             id="org.osate.ge.BusImplementation"
-             path="/icons/full/obj16/BusImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.DataType"
-             path="/icons/full/obj16/DataType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.DataImplementation"
-             path="/icons/full/obj16/DataImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.DeviceType"
-             path="/icons/full/obj16/DeviceType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.DeviceImplementation"
-             path="/icons/full/obj16/DeviceImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.FeatureGroupType"
-             path="/icons/full/obj16/FeatureGroup.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.MemoryType"
-             path="/icons/full/obj16/MemoryType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.MemoryImplementation"
-             path="/icons/full/obj16/MemoryImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.ProcessType"
-             path="/icons/full/obj16/ProcessType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.ProcessImplementation"
-             path="/icons/full/obj16/ProcessImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.ProcessorType"
-             path="/icons/full/obj16/ProcessorType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.ProcessorImplementation"
-             path="/icons/full/obj16/ProcessorImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.SubprogramType"
-             path="/icons/full/obj16/SubprogramType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.SubprogramImplementation"
-             path="/icons/full/obj16/SubprogramImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.SubprogramGroupType"
-             path="/icons/full/obj16/SubprogramGroupType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.SubprogramGroupImplementation"
-             path="/icons/full/obj16/SubprogramGroupImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.SystemType"
-             path="/icons/full/obj16/SystemType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.SystemImplementation"
-             path="/icons/full/obj16/SystemImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.ThreadType"
-             path="/icons/full/obj16/ThreadType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.ThreadImplementation"
-             path="/icons/full/obj16/ThreadImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.ThreadGroupType"
-             path="/icons/full/obj16/ThreadGroupType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.ThreadGroupImplementation"
-             path="/icons/full/obj16/ThreadGroupImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.VirtualBusType"
-             path="/icons/full/obj16/VirtualBusType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.VirtualBusImplementation"
-             path="/icons/full/obj16/VirtualBusImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.VirtualProcessorType"
-             path="/icons/full/obj16/VirtualProcessorType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.VirtualProcessorImplementation"
-             path="/icons/full/obj16/VirtualProcessorImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.AbstractFeature"
-             path="/icons/full/obj16/AbstractFeature.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.BusAccess"
-             path="/icons/full/obj16/BusAccess.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.DataAccess"
-             path="/icons/full/obj16/DataAccess.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.DataPort"
-             path="/icons/full/obj16/DataPort.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.EventDataPort"
-             path="/icons/full/obj16/EventDataPort.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.EventPort"
-             path="/icons/full/obj16/EventPort.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.FeatureGroup"
-             path="/icons/full/obj16/FeatureGroup.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.SubprogramAccess"
-             path="/icons/full/obj16/SubprogramAccess.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.SubprogramGroupAccess"
-             path="/icons/full/obj16/SubprogramGroupAccess.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.AccessConnection"
-             path="/icons/full/obj16/AccessConnection.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.FeatureConnection"
-             path="/icons/full/obj16/FeatureConnection.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.FeatureGroupConnection"
-             path="/icons/full/obj16/FeatureGroupConnection.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.ParameterConnection"
-             path="/icons/full/obj16/AccessConnection.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.PortConnection"
-             path="/icons/full/obj16/PortConnection.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.AbstractSubcomponent"
-             path="/icons/full/obj16/AbstractSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.BusSubcomponent"
-             path="/icons/full/obj16/BusSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.DataSubcomponent"
-             path="/icons/full/obj16/DataSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.DeviceSubcomponent"
-             path="/icons/full/obj16/DeviceSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.MemorySubcomponent"
-             path="/icons/full/obj16/MemorySubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.ProcessorSubcomponent"
-             path="/icons/full/obj16/ProcessorSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.ProcessSubcomponent"
-             path="/icons/full/obj16/ProcessSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.SubprogramSubcomponent"
-             path="/icons/full/obj16/SubprogramSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.SubprogramGroupSubcomponent"
-             path="/icons/full/obj16/SubprogramGroupSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.SystemSubcomponent"
-             path="/icons/full/obj16/SystemSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.ThreadSubcomponent"
-             path="/icons/full/obj16/ThreadSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.ThreadGroupSubcomponent"
-             path="/icons/full/obj16/ThreadGroupSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.VirtualBusSubcomponent"
-             path="/icons/full/obj16/VirtualBusSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.VirtualProcessorSubcomponent"
-             path="/icons/full/obj16/VirtualProcessorSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.Mode"
-             path="/icons/full/obj16/Mode.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.ModeTransition"
-             path="/icons/full/obj16/ModeTransition.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.Parameter"
-             path="/icons/full/obj16/Parameter.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.EventSource"
-             path="/icons/full/obj16/EventPort.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.EventDataSource"
-             path="/icons/full/obj16/EventDataPort.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.PortProxy"
-             path="/icons/full/obj16/AbstractFeature.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.SubprogramProxy"
-             path="/icons/full/obj16/SubprogramAccess.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.FlowPath"
-             path="/icons/full/obj16/FlowPath.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.FlowSink"
-             path="/icons/full/obj16/FlowSink.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.FlowSource"
-             path="/icons/full/obj16/FlowSource.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.Generalization"
-             path="/icons/full/obj16/ModeTransition.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.SubprogramCall"
-             path="/icons/full/obj16/SubprogramSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.SubprogramCallSequence"
-             path="/icons/full/obj16/SubprogramCallSequence.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.DefaultAnnexLibrary"
-             path="/icons/full/obj16/DefaultAnnexLibrary.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.DefaultAnnexSubclause"
-             path="/icons/full/obj16/DefaultAnnexSubclause.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.AadlPackage"
-             path="/icons/full/obj16/AadlPackage.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
        <image
              id="org.osate.ge.Note"
              path="/icons/note.png">
@@ -2691,4 +2282,94 @@ censes only apply to the Third Party Software and not any other portion of this 
          </selection>
       </wizard>
    </extension>
+    <extension point="org.osate.ge.paletteCommands">
+       <category id="org.osate.ge.categories.annotation" name="Annotation" order="1" />
+       <commandProvider class="org.osate.ge.palette.internal.AgePaletteCommandProvider" />
+    </extension>
+    
+      <extension point="org.osate.ge.images">
+        <image id="org.osate.ge.aadl2.images.AbstractType" path="/icons/full/obj16/AbstractType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.AbstractImplementation" path="/icons/full/obj16/AbstractImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.BusType" path="/icons/full/obj16/BusType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.BusImplementation" path="/icons/full/obj16/BusImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.DataType" path="/icons/full/obj16/DataType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.DataImplementation" path="/icons/full/obj16/DataImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.DeviceType" path="/icons/full/obj16/DeviceType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.DeviceImplementation" path="/icons/full/obj16/DeviceImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.FeatureGroupType" path="/icons/full/obj16/FeatureGroup.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.MemoryType" path="/icons/full/obj16/MemoryType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.MemoryImplementation" path="/icons/full/obj16/MemoryImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ProcessType" path="/icons/full/obj16/ProcessType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ProcessImplementation" path="/icons/full/obj16/ProcessImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ProcessorType" path="/icons/full/obj16/ProcessorType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ProcessorImplementation" path="/icons/full/obj16/ProcessorImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SubprogramType" path="/icons/full/obj16/SubprogramType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SubprogramImplementation" path="/icons/full/obj16/SubprogramImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SubprogramGroupType" path="/icons/full/obj16/SubprogramGroupType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SubprogramGroupImplementation" path="/icons/full/obj16/SubprogramGroupImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SystemType" path="/icons/full/obj16/SystemType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SystemImplementation" path="/icons/full/obj16/SystemImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ThreadType" path="/icons/full/obj16/ThreadType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ThreadImplementation" path="/icons/full/obj16/ThreadImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ThreadGroupType" path="/icons/full/obj16/ThreadGroupType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ThreadGroupImplementation" path="/icons/full/obj16/ThreadGroupImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.VirtualBusType" path="/icons/full/obj16/VirtualBusType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.VirtualBusImplementation" path="/icons/full/obj16/VirtualBusImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.VirtualProcessorType" path="/icons/full/obj16/VirtualProcessorType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.VirtualProcessorImplementation" path="/icons/full/obj16/VirtualProcessorImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.AbstractFeature" path="/icons/full/obj16/AbstractFeature.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.BusAccess" path="/icons/full/obj16/BusAccess.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.DataAccess" path="/icons/full/obj16/DataAccess.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.DataPort" path="/icons/full/obj16/DataPort.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.EventDataPort" path="/icons/full/obj16/EventDataPort.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.EventPort" path="/icons/full/obj16/EventPort.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.FeatureGroup" path="/icons/full/obj16/FeatureGroup.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SubprogramAccess" path="/icons/full/obj16/SubprogramAccess.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SubprogramGroupAccess" path="/icons/full/obj16/SubprogramGroupAccess.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.AccessConnection" path="/icons/full/obj16/AccessConnection.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.FeatureConnection" path="/icons/full/obj16/FeatureConnection.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.FeatureGroupConnection" path="/icons/full/obj16/FeatureGroupConnection.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ParameterConnection" path="/icons/full/obj16/AccessConnection.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.PortConnection" path="/icons/full/obj16/PortConnection.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.AbstractSubcomponent" path="/icons/full/obj16/AbstractSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.BusSubcomponent" path="/icons/full/obj16/BusSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.DataSubcomponent" path="/icons/full/obj16/DataSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.DeviceSubcomponent" path="/icons/full/obj16/DeviceSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.MemorySubcomponent" path="/icons/full/obj16/MemorySubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ProcessorSubcomponent" path="/icons/full/obj16/ProcessorSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ProcessSubcomponent" path="/icons/full/obj16/ProcessSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SubprogramSubcomponent" path="/icons/full/obj16/SubprogramSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SubprogramGroupSubcomponent" path="/icons/full/obj16/SubprogramGroupSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SystemSubcomponent" path="/icons/full/obj16/SystemSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ThreadSubcomponent" path="/icons/full/obj16/ThreadSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ThreadGroupSubcomponent" path="/icons/full/obj16/ThreadGroupSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.VirtualBusSubcomponent" path="/icons/full/obj16/VirtualBusSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.VirtualProcessorSubcomponent" path="/icons/full/obj16/VirtualProcessorSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.Mode" path="/icons/full/obj16/Mode.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ModeTransition" path="/icons/full/obj16/ModeTransition.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.Parameter" path="/icons/full/obj16/Parameter.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.EventSource" path="/icons/full/obj16/EventPort.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.EventDataSource" path="/icons/full/obj16/EventDataPort.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.PortProxy" path="/icons/full/obj16/AbstractFeature.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SubprogramProxy" path="/icons/full/obj16/SubprogramAccess.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.FlowPath" path="/icons/full/obj16/FlowPath.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.FlowSink" path="/icons/full/obj16/FlowSink.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.FlowSource" path="/icons/full/obj16/FlowSource.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.Generalization" path="/icons/full/obj16/ModeTransition.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SubprogramCall" path="/icons/full/obj16/SubprogramSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SubprogramCallSequence" path="/icons/full/obj16/SubprogramCallSequence.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.DefaultAnnexLibrary" path="/icons/full/obj16/DefaultAnnexLibrary.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.DefaultAnnexSubclause" path="/icons/full/obj16/DefaultAnnexSubclause.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.AadlPackage" path="/icons/full/obj16/AadlPackage.gif" plugin="org.osate.aadl2.edit" />
+    </extension>  
+    <extension point="org.osate.ge.paletteCommands">
+        <category id="org.osate.ge.aadl2.palette.categories.classifiers" name="Classifiers" />
+        <category id="org.osate.ge.aadl2.palette.categories.connections" name="Connections" />
+        <category id="org.osate.ge.aadl2.palette.categories.features" name="Features" />
+        <category id="org.osate.ge.aadl2.palette.categories.subcomponents" name="Subcomponents" />
+        <category id="org.osate.ge.aadl2.palette.categories.flows" name="Flows" />
+        <category id="org.osate.ge.aadl2.palette.categories.modes" name="Modes" />
+        <category id="org.osate.ge.aadl2.palette.categories.subprogram_calls" name="Subprogram Calls" />
+        <commandProvider class="org.osate.ge.aadl2.ui.internal.palette.Aadl2PaletteCommandProvider" />
+    </extension>
 </plugin>

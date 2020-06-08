@@ -60,7 +60,6 @@ import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.operations.OperationExecutor;
 import org.osate.ge.internal.selection.AgeBusinessObjectSelection;
 import org.osate.ge.internal.services.AadlModificationService;
-import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.ui.dialogs.ClassifierOperationDialog;
 import org.osate.ge.internal.ui.dialogs.DefaultCreateSelectClassifierDialogModel;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
@@ -144,8 +143,6 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 			// Get required services
 			final IEclipseContext context = EclipseContextFactory
 					.getServiceContext(FrameworkUtil.getBundle(getClass()).getBundleContext());
-			final NamingService namingService = Objects.requireNonNull(context.getActive(NamingService.class),
-					"Unable to retrieve naming service");
 			final AadlModificationService aadlModService = Objects.requireNonNull(
 					context.getActive(AadlModificationService.class), "Unable to retrieve AADL modification service");
 
@@ -157,8 +154,8 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 			// If the resource set did not match for all model elements, the create button would be disabled
 			final ResourceSet rs = scs.get(0).eResource().getResourceSet();
 
-			final ClassifierOperationDialog.Model model = new DefaultCreateSelectClassifierDialogModel(namingService,
-					rs, "Configure classifier.") {
+			final ClassifierOperationDialog.Model model = new DefaultCreateSelectClassifierDialogModel(rs,
+					"Configure classifier.") {
 				@Override
 				public String getTitle() {
 					return "Create Component Classifier";
@@ -190,10 +187,10 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 					.show(Display.getCurrent().getActiveShell(), argBuilder.create());
 
 			if (classifierOp != null) {
-				final Operation op = Operation.create(opBuilder -> {
+				final Operation op = Operation.createWithBuilder(opBuilder -> {
 					// Add actual operation steps to the operation builder based on the classifier operation
 					final ClassifierOperationExecutor classifierOperationHandler = new ClassifierOperationExecutor(
-							namingService, rs, project);
+							rs, project);
 					opBuilder = classifierOperationHandler.execute(opBuilder, classifierOp, null);
 
 					// Modify the subcomponents based on the result of the classifier operation

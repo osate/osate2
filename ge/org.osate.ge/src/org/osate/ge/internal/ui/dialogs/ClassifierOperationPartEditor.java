@@ -57,10 +57,10 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.osate.aadl2.ComponentCategory;
-import org.osate.ge.internal.util.StringUtil;
 import org.osate.ge.internal.util.classifiers.ClassifierOperationPart;
 import org.osate.ge.internal.util.classifiers.ClassifierOperationPartType;
 import org.osate.ge.swt.util.SwtTestUtil;
+import org.osate.ge.util.StringUtil;
 
 import com.google.common.base.CaseFormat;
 import com.google.common.collect.ImmutableList;

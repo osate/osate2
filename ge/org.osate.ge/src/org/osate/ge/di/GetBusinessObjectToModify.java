@@ -51,7 +51,6 @@ import java.lang.annotation.Target;
  *   <tr><td>{@link org.osate.ge.di.Names#DESTINATION_BO}</td><td>Business Object handler ({@link org.osate.ge.PaletteEntryBuilder#connectionCreation()} entries only)</td><td>The business object of the destination of the connection.</td></tr>
  * </table>
  * @see Create
- * @see GetPaletteEntries
  */
 
 @Documented

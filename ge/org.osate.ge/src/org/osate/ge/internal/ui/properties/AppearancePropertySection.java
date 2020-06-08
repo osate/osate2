@@ -95,8 +95,8 @@ import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.internal.ui.util.UiUtil;
-import org.osate.ge.internal.util.StringUtil;
 import org.osate.ge.swt.util.SwtTestUtil;
+import org.osate.ge.util.StringUtil;
 
 import com.google.common.collect.Lists;
 

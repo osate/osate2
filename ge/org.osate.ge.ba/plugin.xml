@@ -39,13 +39,9 @@ censes only apply to the Third Party Software and not any other portion of this 
             class="org.osate.ge.ba.businessObjectHandlers.BaStateHandler">
       </handler>
    </extension>
-   <extension
-         point="org.osate.ge.categories">
-      <category
-            id="org.osate.ge.errormodel.categories.ba"
-            name="Behavior Annex"
-            order="300">
-      </category>
+   <extension point="org.osate.ge.paletteCommands">
+      <category id="org.osate.ge.ba.categories.ba" name="Behavior Annex" />
+      <commandProvider class="org.osate.ge.ba.ui.palette.BaPaletteCommandProvider" />
    </extension>
    <extension
          point="org.osate.ge.references">

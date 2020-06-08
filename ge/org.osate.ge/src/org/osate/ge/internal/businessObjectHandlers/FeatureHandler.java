@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -23,28 +23,19 @@
  */
 package org.osate.ge.internal.businessObjectHandlers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Named;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.Access;
 import org.osate.aadl2.AccessSpecification;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.ArrayableElement;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EventDataSource;
 import org.osate.aadl2.EventSource;
 import org.osate.aadl2.Feature;
-import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeaturePrototypeActual;
 import org.osate.aadl2.FeaturePrototypeBinding;
 import org.osate.aadl2.InternalFeature;
@@ -55,39 +46,26 @@ import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.SubprogramProxy;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.Categories;
 import org.osate.ge.DockingPosition;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.PaletteEntry;
-import org.osate.ge.PaletteEntryBuilder;
-import org.osate.ge.di.BuildCreateOperation;
-import org.osate.ge.di.CanCreate;
+import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.CanRename;
 import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetNameForEditing;
-import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.graphics.internal.FeatureGraphic;
-import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.AadlGraphics;
-import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.AadlArrayUtil;
 import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.internal.util.AadlPrototypeUtil;
-import org.osate.ge.internal.util.ImageHelper;
-import org.osate.ge.internal.util.StringUtil;
-import org.osate.ge.operations.Operation;
-import org.osate.ge.operations.OperationBuilderHelper;
-import org.osate.ge.operations.StepResultBuilder;
-import org.osate.ge.services.QueryService;
 
 public class FeatureHandler {
 	@IsApplicable
@@ -95,74 +73,6 @@ public class FeatureHandler {
 	@CanDelete
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Object bo) {
 		return bo instanceof Feature || bo instanceof InternalFeature || bo instanceof ProcessorFeature;
-	}
-
-	@GetPaletteEntries
-	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Object diagramBo) {
-		if (!BusinessObjectHandlerUtil.diagramSupportsPackageOrClassifiers(diagramBo)) {
-			return null;
-		}
-
-		final List<PaletteEntry> entries = new ArrayList<PaletteEntry>();
-		for (EClass featureType : AadlFeatureUtil.getFeatureTypes()) {
-			entries.add(createPaletteEntry(featureType));
-		}
-
-		return entries.toArray(new PaletteEntry[entries.size()]);
-	}
-
-	private static PaletteEntry createPaletteEntry(final EClass featureType) {
-		return PaletteEntryBuilder.create().label(StringUtil.camelCaseToUser(featureType.getName()))
-				.icon(ImageHelper.getImage(featureType.getName())).category(Categories.FEATURES).context(featureType)
-				.build();
-	}
-
-	private static OperationBuilderHelper<Classifier> getClassifierOpBuilder(final EClass featureType) {
-		return OperationBuilderHelper.classifiers()
-				.filter(c -> AadlFeatureUtil.canOwnFeatureType(c, featureType));
-	}
-
-	@CanCreate
-	public boolean canCreate(final @Named(Names.TARGET_BO) EObject targetBo,
-			final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass featureType) {
-		return getClassifierOpBuilder(featureType).canBuildOperation(targetBo);
-	}
-
-	@BuildCreateOperation
-	public Operation buildCreateOperation(final @Named(Names.TARGET_BO) EObject targetBo,
-			final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc,
-			final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass featureType,
-			final @Named(Names.DOCKING_POSITION) DockingPosition dockingPosition,
-			final @Named(InternalNames.PROJECT) IProject project,
-			final QueryService queryService, final NamingService namingService) {
-		return Operation.create(createOp -> {
-			// Create the feature
-			getClassifierOpBuilder(featureType).buildOperation(createOp, targetBo).modifyPreviousResult(owner -> {
-				final String newFeatureName = namingService.buildUniqueIdentifier(owner, "new_feature");
-
-				final NamedElement newFeature = AadlFeatureUtil.createFeature(owner, featureType);
-				newFeature.setName(newFeatureName);
-
-				// Set in or out based on target docking position
-				final boolean isRight = dockingPosition == DockingPosition.RIGHT;
-				if (newFeature instanceof DirectedFeature) {
-					if (!(newFeature instanceof FeatureGroup)) {
-						final DirectedFeature newDirectedFeature = (DirectedFeature) newFeature;
-						newDirectedFeature.setIn(!isRight);
-						newDirectedFeature.setOut(isRight);
-					}
-				} else if (newFeature instanceof Access) {
-					final Access access = (Access) newFeature;
-					access.setKind(isRight ? AccessType.PROVIDES : AccessType.REQUIRES);
-				}
-
-				if (owner instanceof ComponentType) {
-					((ComponentType) owner).setNoFeatures(false);
-				}
-
-				return StepResultBuilder.create().showNewBusinessObject(targetBoc, newFeature).build();
-			});
-		});
 	}
 
 	@GetGraphicalConfiguration
@@ -274,7 +184,7 @@ public class FeatureHandler {
 
 	@ValidateName
 	public String validateName(final @Named(Names.BUSINESS_OBJECT) NamedElement feature,
-			final @Named(Names.NAME) String value, final NamingService namingService) {
-		return namingService.checkNameValidity(feature, value);
+			final @Named(Names.NAME) String value) {
+		return AadlNamingUtil.checkNameValidity(feature, value);
 	}
 }
