@@ -32,7 +32,7 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.ge.ContentFilter;
-import org.osate.ge.internal.util.StringUtil;
+import org.osate.ge.util.StringUtil;
 
 public class FlowSpecificationKindFilter implements ContentFilter {
 	private final FlowKind kind;

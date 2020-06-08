@@ -60,13 +60,9 @@ censes only apply to the Third Party Software and not any other portion of this 
             class="org.osate.ge.errormodel.businessObjectHandlers.TransitionBranchHandler">
       </handler>
    </extension>
-   <extension
-         point="org.osate.ge.categories">
-      <category
-            id="org.osate.ge.errormodel.categories.emv"
-            name="Error Model"
-            order="200">
-      </category>
+   <extension point="org.osate.ge.paletteCommands">
+      <category id="org.osate.ge.errormodel.categories.em" name="Error Model" />
+      <commandProvider class = "org.osate.ge.errormodel.ui.palette.ErrorModelPaletteCommandProvider" />
    </extension>
    <extension
          point="org.osate.ge.references">

@@ -51,7 +51,6 @@ Service-Component: components/DefaultExtensionRegistryService.xml,
  components/DefaultAadlResourceService.xml,
  components/DefaultGraphicalEditorService.xml,
  components/DefaultModelChangeNotifier.xml,
- components/DefaultNamingService.xml,
  components/DefaultAadlModificationService.xml,
  components/DefaultActionService.xml,
  components/DefaultClipboardService.xml
@@ -77,9 +76,11 @@ Export-Package: org.osate.ge,
  org.osate.ge.internal.ui.util;x-friends:="org.osate.ge.tests,org.osate.ge.errormodel",
  org.osate.ge.internal.util;x-friends:="org.osate.ge.tests",
  org.osate.ge.operations,
+ org.osate.ge.palette,
  org.osate.ge.query,
  org.osate.ge.services,
- org.osate.ge.ui.properties
+ org.osate.ge.ui.properties,
+ org.osate.ge.util
 Bundle-ClassPath: .
 Automatic-Module-Name: org.osate.ge
 Bundle-Vendor: The University of Alabama in Huntsville

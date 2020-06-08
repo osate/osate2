@@ -44,7 +44,7 @@ import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.util.BusinessObjectContextHelper;
 import org.osate.ge.internal.util.DiagramElementUtil;
-import org.osate.ge.internal.util.StringUtil;
+import org.osate.ge.util.StringUtil;
 
 public class UiUtil {
 	public static IWorkbenchWindow getActiveWorkbenchWindow() {

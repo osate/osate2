@@ -26,7 +26,7 @@ package org.osate.ge.tests.unit;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.osate.ge.internal.util.StringUtil;
+import org.osate.ge.util.StringUtil;
 
 public class StringUtilTest {
 

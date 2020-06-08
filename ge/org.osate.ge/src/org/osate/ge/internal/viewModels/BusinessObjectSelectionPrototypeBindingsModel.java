@@ -76,9 +76,9 @@ import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.AadlPrototypeUtil;
 import org.osate.ge.internal.util.ProjectUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
-import org.osate.ge.internal.util.StringUtil;
 import org.osate.ge.swt.BaseObservableModel;
 import org.osate.ge.swt.classifiers.PrototypeBindingsModel;
+import org.osate.ge.util.StringUtil;
 
 import com.google.common.base.Strings;
 

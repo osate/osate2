@@ -26,8 +26,6 @@ package org.osate.ge.internal.ui.properties;
 import java.util.Objects;
 
 import org.eclipse.core.runtime.Adapters;
-import org.eclipse.e4.core.contexts.EclipseContextFactory;
-import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.jface.viewers.IFilter;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
@@ -47,7 +45,6 @@ import org.osate.ge.internal.selection.AgeBusinessObjectSelection;
 import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ModelChangeNotifier;
-import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.ui.LtkRenameAction;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
@@ -55,8 +52,6 @@ import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.internal.viewModels.PrototypesModel;
 import org.osate.ge.swt.prototypes.PrototypesEditor;
 import org.osate.ge.ui.properties.PropertySectionUtil;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
 
 /**
  * Property section for editing prototypes.
@@ -90,7 +85,7 @@ public class PrototypesPropertySection extends AbstractPropertySection {
 						currentName -> prototypeSupplier.getBusinessObject(currentName), name, originalName);
 				actionService.execute("Rename Prototype " + originalName + " to " + name,
 						ActionExecutor.ExecutionMode.NORMAL, action);
-			}, getNamingService(),
+					},
 			new AgeBusinessObjectSelection());
 
 	@Override
@@ -137,11 +132,5 @@ public class PrototypesPropertySection extends AbstractPropertySection {
 	@Override
 	public void refresh() {
 		model.setBusinessObjectSelection(selectedBos);
-	}
-
-	private static NamingService getNamingService() {
-		final Bundle bundle = FrameworkUtil.getBundle(PropertySectionUtil.class);
-		final IEclipseContext context = EclipseContextFactory.getServiceContext(bundle.getBundleContext());
-		return Objects.requireNonNull(context.getActive(NamingService.class), "Unable to retrieve naming service");
 	}
 }

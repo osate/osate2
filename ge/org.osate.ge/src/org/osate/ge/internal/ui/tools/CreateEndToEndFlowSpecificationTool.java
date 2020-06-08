@@ -71,6 +71,7 @@ import org.osate.aadl2.Namespace;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Color;
@@ -79,7 +80,6 @@ import org.osate.ge.internal.di.SelectionChanged;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ColoringService;
-import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.ui.util.ContextHelpUtil;
 import org.osate.ge.internal.ui.util.DialogPlacementHelper;
@@ -92,7 +92,7 @@ public class CreateEndToEndFlowSpecificationTool {
 	@Activate
 	public void activate(@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext selectedBoc,
 			final AadlModificationService aadlModService, final UiService uiService,
-			final ColoringService coloringService, final NamingService namingService) {
+			final ColoringService coloringService) {
 		try {
 			// Check for existing errors or warnings
 			final Set<Diagnostic> diagnostics = ToolUtil.getAllReferencedPackageDiagnostics(selectedBoc);
@@ -103,7 +103,7 @@ public class CreateEndToEndFlowSpecificationTool {
 			} else {
 				coloring = coloringService.adjustColors(); // Create a coloring object that will allow adjustment of pictogram
 				final Display display = Display.getCurrent();
-				dlg = new CreateFlowsToolsDialog(display.getActiveShell(), namingService, uiService);
+				dlg = new CreateFlowsToolsDialog(display.getActiveShell(), uiService);
 				// Create and update based on current selection
 				dlg.create();
 				update(new BusinessObjectContext[] { selectedBoc }, true);
@@ -263,7 +263,6 @@ public class CreateEndToEndFlowSpecificationTool {
 	}
 
 	private class CreateFlowsToolsDialog extends TitleAreaDialog {
-		private final NamingService namingService;
 		private final UiService uiService;
 		private final Aadl2Package pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
 		private final EndToEndFlow eTEFlow = (EndToEndFlow) pkg.getEFactoryInstance().create(pkg.getEndToEndFlow());
@@ -279,17 +278,16 @@ public class CreateEndToEndFlowSpecificationTool {
 		private StyledText flowSegmentLabel;
 		private Text newETEFlowName;
 
-		public CreateFlowsToolsDialog(final Shell parentShell, final NamingService namingService,
+		public CreateFlowsToolsDialog(final Shell parentShell,
 				final UiService uiService) {
 			super(parentShell);
 			setHelpAvailable(true);
-			this.namingService = Objects.requireNonNull(namingService, "naming service must not be null");
 			this.uiService = Objects.requireNonNull(uiService, "ui service must not be null");
 			setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
 		}
 
 		public void setEndToEndFlowName(final Namespace namespace) {
-			final String eteName = namingService.buildUniqueIdentifier(namespace, "new_ete_flow");
+			final String eteName = AadlNamingUtil.buildUniqueIdentifier(namespace, "new_ete_flow");
 			eTEFlow.setName(eteName);
 			newETEFlowName.setText(eteName);
 		}
@@ -643,9 +641,9 @@ public class CreateEndToEndFlowSpecificationTool {
 		private Optional<String> getNameErrorMessage() {
 			final String errorMsg;
 			final Optional<ComponentImplementation> optCi = getOwnerComponentImplementation();
-			if (optCi.isPresent() && namingService.isNameInUse(optCi.get(), newETEFlowName.getText())) {
+			if (optCi.isPresent() && AadlNamingUtil.isNameInUse(optCi.get(), newETEFlowName.getText())) {
 				errorMsg = "The specified name is already is use.  ";
-			} else if (!namingService.isValidIdentifier(newETEFlowName.getText())) {
+			} else if (!AadlNamingUtil.isValidIdentifier(newETEFlowName.getText())) {
 				errorMsg = "Name is not a valid identifier.  ";
 			} else {
 				errorMsg = null;

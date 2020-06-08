@@ -51,7 +51,7 @@ import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.internal.util.BusinessObjectContextHelper;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
-import org.osate.ge.internal.util.StringUtil;
+import org.osate.ge.util.StringUtil;
 
 import com.google.common.collect.ImmutableSet;
 

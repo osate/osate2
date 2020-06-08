@@ -69,8 +69,8 @@ import org.osate.ge.internal.services.AadlResourceService;
 import org.osate.ge.internal.services.AadlResourceService.AadlPackageReference;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
-import org.osate.ge.internal.util.StringUtil;
 import org.osate.ge.services.ReferenceResolutionService;
+import org.osate.ge.util.StringUtil;
 
 // Handles resolving references related to the AADL declarative model
 public class DeclarativeReferenceResolver {

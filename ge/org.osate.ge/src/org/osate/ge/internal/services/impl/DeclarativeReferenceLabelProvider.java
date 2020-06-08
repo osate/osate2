@@ -37,7 +37,7 @@ import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
-import org.osate.ge.internal.util.StringUtil;
+import org.osate.ge.util.StringUtil;
 
 import com.google.common.base.CaseFormat;
 

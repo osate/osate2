@@ -62,7 +62,7 @@ import org.osate.aadl2.VirtualBusPrototype;
 import org.osate.aadl2.VirtualProcessorPrototype;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.BusinessObjectSelection;
-import org.osate.ge.internal.services.NamingService;
+import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.AadlPrototypeUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
@@ -86,7 +86,6 @@ import com.google.common.base.Strings;
 public class PrototypesModel extends BaseObservableModel
 implements PrototypesEditorModel<EditablePrototype, NamedElementOrDescription> {
 	private final Renamer renamer;
-	private final NamingService namingService;
 	private BusinessObjectSelection bos;
 	private List<EditablePrototype> prototypes;
 	private EditablePrototype selectedPrototype = null;
@@ -137,10 +136,8 @@ implements PrototypesEditorModel<EditablePrototype, NamedElementOrDescription> {
 	}
 
 	public PrototypesModel(final Renamer renamer,
-			final NamingService namingService,
 			final BusinessObjectSelection bos) {
 		this.renamer = Objects.requireNonNull(renamer, "renamer must not be null");
-		this.namingService = Objects.requireNonNull(namingService, "namingService must not be null");
 		setBusinessObjectSelection(bos);
 	}
 
@@ -164,7 +161,7 @@ implements PrototypesEditorModel<EditablePrototype, NamedElementOrDescription> {
 							.createOwnedPrototype(Aadl2Factory.eINSTANCE.getAadl2Package().getDataPrototype());
 
 					// Assign a name
-					final String newName = namingService.buildUniqueIdentifier(c, "new_prototype");
+					final String newName = AadlNamingUtil.buildUniqueIdentifier(c, "new_prototype");
 					cp.setName(newName);
 
 					// Update the selected prototype
@@ -242,7 +239,7 @@ implements PrototypesEditorModel<EditablePrototype, NamedElementOrDescription> {
 
 	@Override
 	public String validatePrototypeName(final EditablePrototype prototype, final String newName) {
-		return namingService.checkNameValidity(prototype.prototype, newName);
+		return AadlNamingUtil.checkNameValidity(prototype.prototype, newName);
 	}
 
 	@Override

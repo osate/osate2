@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -33,22 +33,20 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.PackageSection;
-import org.osate.ge.internal.services.NamingService;
-import org.osate.ge.internal.util.StringUtil;
+import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.internal.util.classifiers.ClassifierCreationHelper;
 import org.osate.ge.internal.util.classifiers.ClassifierOperation;
 import org.osate.ge.internal.util.classifiers.ClassifierOperationPart;
 import org.osate.ge.internal.util.classifiers.ClassifierOperationPartType;
+import org.osate.ge.util.StringUtil;
 
 public class DefaultCreateSelectClassifierDialogModel implements ClassifierOperationDialog.Model {
-	private final NamingService namingService;
 	private final ClassifierCreationHelper classifierCreationHelper;
 	private final String defaultMessage;
 
-	public DefaultCreateSelectClassifierDialogModel(final NamingService namingService, final ResourceSet resourceSet,
+	public DefaultCreateSelectClassifierDialogModel(final ResourceSet resourceSet,
 			final String defaultMessage) {
-		this.namingService = Objects.requireNonNull(namingService, "namingService must not be null");
-		this.classifierCreationHelper = new ClassifierCreationHelper(namingService, resourceSet);
+		this.classifierCreationHelper = new ClassifierCreationHelper(resourceSet);
 		this.defaultMessage = Objects.requireNonNull(defaultMessage, "defaultMessage must not be null");
 	}
 
@@ -141,7 +139,7 @@ public class DefaultCreateSelectClassifierDialogModel implements ClassifierOpera
 	private String validate(final ClassifierOperationPart op, final ClassifierOperationPart baseOperation) {
 		if (ClassifierOperationPartType.isCreate(op.getType())) {
 			// Check identifier validity
-			if (!namingService.isValidIdentifier(op.getIdentifier())) {
+			if (!AadlNamingUtil.isValidIdentifier(op.getIdentifier())) {
 				return "The specified identifier is not a valid AADL identifier";
 			}
 
@@ -201,7 +199,7 @@ public class DefaultCreateSelectClassifierDialogModel implements ClassifierOpera
 			}
 
 			// Check if the name is in use
-			if (namingService.isNameInUse(section, newName)) {
+			if (AadlNamingUtil.isNameInUse(section, newName)) {
 				return "The specified name conflicts with an existing member of the package.";
 			}
 		} else if (op.getType() == ClassifierOperationPartType.EXISTING) {

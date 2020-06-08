@@ -193,7 +193,7 @@ public class AadlClassifierUtil {
 		}
 	}
 
-	private static EClass componentCategoryToClassifierEClass(final ComponentCategory category) {
+	public static EClass componentCategoryToClassifierEClass(final ComponentCategory category) {
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
 
 		switch (category) {

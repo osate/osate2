@@ -23,6 +23,8 @@
  */
 package org.osate.ge;
 
+import java.util.Optional;
+
 import org.osate.ge.internal.query.Queryable;
 
 /**
@@ -38,5 +40,10 @@ public interface BusinessObjectContext extends Queryable {
 	@Override
 	public default BusinessObjectContext getAncestor(final int depth) {
 		return (BusinessObjectContext) Queryable.super.getAncestor(depth);
+	}
+
+	public default <T> Optional<T> getBusinessObject(final Class<T> c) {
+		final Object bo = getBusinessObject();
+		return c.isInstance(bo) ? Optional.of(c.cast(bo)) : Optional.empty();
 	}
 }
