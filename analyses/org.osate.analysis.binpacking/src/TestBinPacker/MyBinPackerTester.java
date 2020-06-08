@@ -2111,7 +2111,7 @@ public class MyBinPackerTester {
 			int messageNumber = 0;
 			Vector linksProcessed = new Vector();
 			Vector msgsProcessed = new Vector();
-			int linkNumber = 0;
+			int linkNumber = -1;
 			for (Iterator iter = result.problem.hardwareGraph.iterator(); iter.hasNext();) {
 				HardwareNode n = (HardwareNode) iter.next();
 				textArea.append("Node " + n.name + ":\n ");
