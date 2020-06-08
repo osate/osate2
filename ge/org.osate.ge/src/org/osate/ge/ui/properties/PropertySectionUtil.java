@@ -31,7 +31,6 @@ import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.operations.OperationExecutor;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.operations.Operation;

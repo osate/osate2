@@ -21,44 +21,69 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.diagram.runtime.types;
+package org.osate.ge.aadl2.internal.diagramTypes;
 
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubprogramCall;
+import org.osate.aadl2.SubprogramCallSequence;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ge.DiagramType;
-import org.osate.ge.internal.diagram.runtime.filtering.ModeFilter;
-import org.osate.ge.internal.diagram.runtime.filtering.ModeTransitionFilter;
+import org.osate.ge.internal.diagram.runtime.filtering.ConnectionFilter;
+import org.osate.ge.internal.diagram.runtime.filtering.FeatureFilter;
+import org.osate.ge.internal.diagram.runtime.filtering.FlowSpecificationFilter;
+import org.osate.ge.internal.diagram.runtime.filtering.InternalFeatureFilter;
+import org.osate.ge.internal.diagram.runtime.filtering.ProcessorFeatureFilter;
+import org.osate.ge.internal.diagram.runtime.filtering.SubcomponentFilter;
+import org.osate.ge.internal.diagram.runtime.filtering.SubprogramCallFilter;
+import org.osate.ge.internal.diagram.runtime.filtering.SubprogramCallOrderFilter;
 
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableSet;
 
-public class ModeDiagramType implements DiagramType {
-	private final ImmutableSet<String> defaultClassifierOrSubcomponentFilters = ImmutableSet.of(ModeFilter.ID,
-			ModeTransitionFilter.ID);
+public class StructureDiagramType implements DiagramType {
+	public static final String ID = "structure";
+
+	private final ImmutableSet<String> defaultClassifierFilters = ImmutableSet.of(FeatureFilter.ID,
+			InternalFeatureFilter.ID, ProcessorFeatureFilter.ID, ConnectionFilter.ID, FlowSpecificationFilter.ID,
+			SubcomponentFilter.ID);
+	private final ImmutableSet<String> defaultSubcomponentFilters = ImmutableSet.of(FeatureFilter.ID,
+			InternalFeatureFilter.ID, ProcessorFeatureFilter.ID, ConnectionFilter.ID, FlowSpecificationFilter.ID);
+	private final ImmutableSet<String> defaultSubprogramCallSequenceFilters = ImmutableSet
+			.of(SubprogramCallOrderFilter.ID, SubprogramCallFilter.ID);
+	private final ImmutableSet<String> defaultSubprogramCallFilters = ImmutableSet.of(FeatureFilter.ID,
+			FlowSpecificationFilter.ID);
 
 	@Override
 	public String getId() {
-		return "mode";
+		return ID;
 	}
 
 	@Override
 	public String getName() {
-		return "Mode Diagram";
+		return "Structure Diagram";
 	}
 
 	@Override
 	public boolean isApplicableToContext(final Object contextBo) {
-		return contextBo instanceof ComponentClassifier;
+		return contextBo instanceof Classifier
+				|| contextBo instanceof SystemInstance;
 	}
 
 	@Override
 	public ImmutableSet<String> getDefaultContentFilters(final Object bo) {
-		if (bo instanceof Classifier || bo instanceof Subcomponent) {
-			return defaultClassifierOrSubcomponentFilters;
+		if (bo instanceof Classifier || bo instanceof SystemInstance) {
+			return defaultClassifierFilters;
+		} else if (bo instanceof Subcomponent || bo instanceof ComponentInstance) {
+			return defaultSubcomponentFilters;
+		} else if (bo instanceof SubprogramCallSequence) {
+			return defaultSubprogramCallSequenceFilters;
+		} else if (bo instanceof SubprogramCall) {
+			return defaultSubprogramCallFilters;
 		}
 
-		return DiagramTypeUtil.getDefaultContentFilters(bo);
+		return AadlDiagramTypeUtil.getDefaultContentFilters(bo);
 	}
 
 	@Override

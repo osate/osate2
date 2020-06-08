@@ -33,7 +33,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
+import org.osate.ge.RelativeBusinessObjectReference;
 
 public class BusinessObjectNode implements BusinessObjectContext {
 	private BusinessObjectNode parent;

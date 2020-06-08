@@ -32,6 +32,8 @@ import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.aadl2.internal.diagramTypes.CustomDiagramType;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.BeforeModificationsCompletedEvent;
@@ -45,8 +47,6 @@ import org.osate.ge.internal.diagram.runtime.ElementRemovedEvent;
 import org.osate.ge.internal.diagram.runtime.ElementUpdatedEvent;
 import org.osate.ge.internal.diagram.runtime.ModifiableField;
 import org.osate.ge.internal.diagram.runtime.ModificationsCompletedEvent;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
-import org.osate.ge.internal.diagram.runtime.types.CustomDiagramType;
 
 /**
  * Contains tests for the AgeDiagram class.

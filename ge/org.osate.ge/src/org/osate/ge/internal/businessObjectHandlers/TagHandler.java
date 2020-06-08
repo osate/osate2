@@ -27,9 +27,9 @@ import java.util.Objects;
 
 import javax.inject.Named;
 
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.IsApplicable;

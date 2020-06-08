@@ -28,10 +28,9 @@ import java.util.Map.Entry;
 import java.util.Objects;
 
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.layout.IncrementalLayoutMode;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutPreferences;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;

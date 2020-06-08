@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -36,11 +36,10 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.ContentFilter;
 import org.osate.ge.DiagramType;
-import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.filtering.Filtering;
 import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.services.ExtensionService;
@@ -50,6 +49,7 @@ import org.osate.ge.internal.ui.util.ImageUiHelper;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.internal.util.BusinessObjectContextHelper;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
+import org.osate.ge.internal.util.DiagramTypeUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.util.StringUtil;
 
@@ -115,7 +115,7 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 
 	@Override
 	public ImmutableSet<ContentFilter> getDefaultContentFilters(final Object bo) {
-		return diagramType.getApplicableDefaultContentFilters(bo, extService);
+		return DiagramTypeUtil.getApplicableDefaultContentFilters(diagramType, bo, extService);
 	}
 
 	@Override

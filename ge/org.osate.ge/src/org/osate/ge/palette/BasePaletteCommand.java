@@ -28,6 +28,7 @@ import java.util.Optional;
 
 /**
  * Implementation of the {@link PaletteCommand} interface. Intended to serve as a base class for palette commands.
+ * @since 2.0
  *
  */
 public abstract class BasePaletteCommand implements PaletteCommand {

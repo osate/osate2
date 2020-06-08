@@ -24,6 +24,7 @@
 package org.osate.ge.internal.tooltips;
 
 import javax.inject.Named;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
@@ -37,8 +38,8 @@ import org.osate.aadl2.PortProxy;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.SubprogramProxy;
 import org.osate.aadl2.instance.FeatureInstance;
-import org.osate.ge.di.Names;
 import org.osate.ge.di.Activate;
+import org.osate.ge.di.Names;
 
 /**
  * Shows tooltip for feature instances

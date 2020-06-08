@@ -21,51 +21,48 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.diagram.runtime.types;
+package org.osate.ge.aadl2.internal.diagramTypes;
 
-import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.Subcomponent;
 import org.osate.ge.DiagramType;
+import org.osate.ge.internal.diagram.runtime.filtering.ModeFilter;
+import org.osate.ge.internal.diagram.runtime.filtering.ModeTransitionFilter;
 
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableSet;
 
-/**
- * Diagram type that includes minimal contents.
- *
- */
-public class CustomDiagramType implements DiagramType {
-	public static final String ID = "custom";
+public class ModeDiagramType implements DiagramType {
+	private final ImmutableSet<String> defaultClassifierOrSubcomponentFilters = ImmutableSet.of(ModeFilter.ID,
+			ModeTransitionFilter.ID);
 
 	@Override
 	public String getId() {
-		return ID;
+		return "mode";
 	}
 
 	@Override
 	public String getName() {
-		return "Custom Diagram";
+		return "Mode Diagram";
 	}
 
 	@Override
 	public boolean isApplicableToContext(final Object contextBo) {
-		return contextBo == null || contextBo instanceof AadlPackage || contextBo instanceof Classifier
-				|| contextBo instanceof SystemInstance;
+		return contextBo instanceof ComponentClassifier;
 	}
 
 	@Override
 	public ImmutableSet<String> getDefaultContentFilters(final Object bo) {
-		return DiagramTypeUtil.getDefaultContentFilters(bo);
+		if (bo instanceof Classifier || bo instanceof Subcomponent) {
+			return defaultClassifierOrSubcomponentFilters;
+		}
+
+		return AadlDiagramTypeUtil.getDefaultContentFilters(bo);
 	}
 
 	@Override
 	public ImmutableCollection<String> getDefaultAadlPropertyNames() {
 		return ImmutableSet.of();
-	}
-
-	@Override
-	public boolean isUserCreatable() {
-		return false;
 	}
 }

@@ -33,12 +33,12 @@ import java.util.EnumSet;
 import org.junit.Before;
 import org.junit.Test;
 import org.osate.ge.DockingPosition;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.graphics.internal.AgeConnection;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.DockArea;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.services.impl.SimpleActionExecutor;
 

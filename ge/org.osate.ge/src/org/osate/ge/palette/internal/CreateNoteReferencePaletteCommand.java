@@ -35,8 +35,8 @@ import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.ConnectionStartContext;
-import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.palette.CreateConnectionContext;
+import org.osate.ge.palette.CreateConnectionPaletteCommand;
 
 public class CreateNoteReferencePaletteCommand extends BasePaletteCommand implements CreateConnectionPaletteCommand {
 

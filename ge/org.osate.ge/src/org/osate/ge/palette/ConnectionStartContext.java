@@ -26,13 +26,13 @@ package org.osate.ge.palette;
 import java.util.Objects;
 
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.services.QueryService;
 
 /**
  * Contains information needed to check whether a start of a connection is supported by a palette command.
  *
  * @noinstantiate This class is not intended to be instantiated by clients.
+ * @since 2.0
  */
 public class ConnectionStartContext {
 	private final BusinessObjectContext sourceBoc;

@@ -27,11 +27,11 @@ import java.util.List;
 
 import javax.inject.Named;
 
+import org.osate.ge.CanonicalBusinessObjectReference;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.internal.di.GetCanonicalReferenceLabel;
 import org.osate.ge.internal.di.GetRelativeReferenceLabel;
 import org.osate.ge.internal.di.InternalNames;
-import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 
 /**
  * Provides labels for references to the instance models.

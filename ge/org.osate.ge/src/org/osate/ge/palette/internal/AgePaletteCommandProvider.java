@@ -28,9 +28,9 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
-import org.osate.ge.palette.TargetedPaletteCommand;
 import org.osate.ge.palette.PaletteCommandProvider;
 import org.osate.ge.palette.PaletteCommandProviderContext;
+import org.osate.ge.palette.TargetedPaletteCommand;
 
 /**
  * Provides built-in palette commands
