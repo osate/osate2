@@ -317,7 +317,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		final List<ICreateFeature> features = new ArrayList<>();
 
 		final PaletteCommandProviderContext ctx = new PaletteCommandProviderContext(getDiagramBo());
-		extService.getPaletteCommandProviders().stream().flatMap(p -> p.getTargetedCommands(ctx))
+		extService.getPaletteContributors().stream().flatMap(p -> p.getTargetedCommands(ctx))
 		.map(c -> new PaletteCommandCreateFeature(graphitiService, aadlModService, diagramUpdater,
 				referenceResolver, queryService, this, c))
 		.forEachOrdered(features::add);
@@ -344,7 +344,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		final List<ICreateConnectionFeature> retList = new ArrayList<ICreateConnectionFeature>();
 
 		final PaletteCommandProviderContext ctx = new PaletteCommandProviderContext(getDiagramBo());
-		extService.getPaletteCommandProviders().stream().flatMap(p -> p.getCreateConnectionCommands(ctx))
+		extService.getPaletteContributors().stream().flatMap(p -> p.getCreateConnectionCommands(ctx))
 		.map(c -> new PaletteCommandCreateConnectionFeature(graphitiService, aadlModService, diagramUpdater,
 				referenceResolver, queryService, this, c))
 		.forEachOrdered(retList::add);

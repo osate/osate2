@@ -26,8 +26,8 @@ package org.osate.ge.aadl2.internal.diagramTypes;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.ge.DiagramType;
-import org.osate.ge.internal.diagram.runtime.filtering.ClassifierFilter;
-import org.osate.ge.internal.diagram.runtime.filtering.GeneralizationFilter;
+import org.osate.ge.aadl2.internal.contentFilters.ClassifierFilter;
+import org.osate.ge.aadl2.internal.contentFilters.GeneralizationFilter;
 
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableSet;

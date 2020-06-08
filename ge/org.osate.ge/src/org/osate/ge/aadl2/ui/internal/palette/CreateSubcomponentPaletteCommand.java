@@ -30,9 +30,9 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
+import org.osate.ge.aadl2.ui.AadlOperationBuilder;
 import org.osate.ge.internal.util.AadlSubcomponentUtil;
 import org.osate.ge.operations.Operation;
-import org.osate.ge.operations.OperationBuilderHelper;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.TargetedPaletteCommand;
@@ -70,9 +70,9 @@ public class CreateSubcomponentPaletteCommand extends BasePaletteCommand impleme
 				}));
 	}
 
-	private static OperationBuilderHelper<ComponentImplementation> getClassifierOpBuilder(
+	private static AadlOperationBuilder<ComponentImplementation> getClassifierOpBuilder(
 			final EClass subcomponentType) {
-		return OperationBuilderHelper.componentImplementations()
+		return AadlOperationBuilder.componentImplementations()
 				.filter(ci -> AadlSubcomponentUtil.canContainSubcomponentType(ci, subcomponentType));
 	}
 

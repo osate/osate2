@@ -61,8 +61,8 @@ import org.osate.ge.DiagramType;
 import org.osate.ge.FundamentalContentFilter;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ExtensionService;
-import org.osate.ge.palette.PaletteCommandProvider;
-import org.osate.ge.palette.internal.PaletteCategory;
+import org.osate.ge.palette.PaletteCategory;
+import org.osate.ge.palette.PaletteContributor;
 
 import com.google.common.collect.ImmutableCollection;
 
@@ -122,7 +122,7 @@ public class DefaultExtensionService implements ExtensionService {
 	}
 
 	@Override
-	public Collection<PaletteCommandProvider> getPaletteCommandProviders() {
-		return globalExtService.getPaletteCommandProviders();
+	public Collection<PaletteContributor> getPaletteContributors() {
+		return globalExtService.getPaletteContributors();
 	}
 }

@@ -31,14 +31,14 @@ import javax.inject.Named;
 
 import org.eclipse.xtext.util.Strings;
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.aadl2.internal.model.PropertyValueGroup;
+import org.osate.ge.aadl2.internal.model.Tag;
 import org.osate.ge.di.BuildCanonicalReference;
 import org.osate.ge.di.BuildRelativeReference;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.model.Note;
 import org.osate.ge.internal.model.NoteReference;
-import org.osate.ge.internal.model.PropertyValueGroup;
-import org.osate.ge.internal.model.Tag;
 import org.osate.ge.services.ReferenceBuilderService;
 
 /**

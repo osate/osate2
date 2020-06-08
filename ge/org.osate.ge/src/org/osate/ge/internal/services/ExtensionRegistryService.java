@@ -58,8 +58,8 @@ import java.util.List;
 import org.osate.ge.aadl2.internal.diagramTypes.DiagramTypeProvider;
 import org.osate.ge.internal.businessObjectHandlers.BusinessObjectHandlerProvider;
 import org.osate.ge.internal.diagram.runtime.filtering.ContentFilterProvider;
-import org.osate.ge.palette.PaletteCommandProvider;
-import org.osate.ge.palette.internal.PaletteCategory;
+import org.osate.ge.palette.PaletteCategory;
+import org.osate.ge.palette.PaletteContributor;
 
 public interface ExtensionRegistryService
 extends BusinessObjectHandlerProvider, ContentFilterProvider, DiagramTypeProvider {
@@ -89,5 +89,5 @@ extends BusinessObjectHandlerProvider, ContentFilterProvider, DiagramTypeProvide
 	 * Returns a collection containing palette command providers
 	 * @return an unmodifiable collection of palette command providers.
 	 */
-	Collection<PaletteCommandProvider> getPaletteCommandProviders();
+	Collection<PaletteContributor> getPaletteContributors();
 }

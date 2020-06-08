@@ -96,7 +96,7 @@ import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ActionService.ActionGroup;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.ui.editor.AgeDiagramBehavior;
-import org.osate.ge.palette.internal.PaletteCategory;
+import org.osate.ge.palette.PaletteCategory;
 
 public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	private final IEclipseContext context;
@@ -189,7 +189,7 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 			private ArrayList<PaletteCompartmentEntry> createCompartmentEntries() {
 				final ArrayList<PaletteCompartmentEntry> compartmentEntries= new ArrayList<PaletteCompartmentEntry>();
 				for (final PaletteCategory category : extensionService.getCategories()) {
-					final PaletteCompartmentEntry newEntry = new PaletteCompartmentEntry(category.getName(), null);
+					final PaletteCompartmentEntry newEntry = new PaletteCompartmentEntry(category.getLabel(), null);
 					newEntry.setInitiallyOpen(false);
 					compartmentEntries.add(newEntry);
 				}
@@ -206,7 +206,7 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 				final PaletteCategory category = getCategory(feature);
 				if(category != null) {
 					for(final PaletteCompartmentEntry compartmentEntry : compartments) {
-						if(compartmentEntry.getLabel().equals(category.getName())) {
+						if(compartmentEntry.getLabel().equals(category.getLabel())) {
 							compartmentEntry.addToolEntry(toolEntry);
 						}
 					}

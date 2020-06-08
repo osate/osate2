@@ -37,11 +37,11 @@ import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
+import org.osate.ge.aadl2.ui.AadlOperationBuilder;
 import org.osate.ge.aadl2.ui.internal.dialogs.DefaultSelectSubprogramDialogModel;
 import org.osate.ge.aadl2.ui.internal.dialogs.SelectSubprogramDialog;
 import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.operations.Operation;
-import org.osate.ge.operations.OperationBuilderHelper;
 import org.osate.ge.operations.StepResult;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
@@ -116,7 +116,7 @@ public class CreateSubprogramCallSequencePaletteCommand extends BasePaletteComma
 		}));
 	}
 
-	private static OperationBuilderHelper<ComponentImplementation> getClassifierOpBuilder() {
-		return OperationBuilderHelper.componentImplementations().filter(ci -> ci instanceof BehavioredImplementation);
+	private static AadlOperationBuilder<ComponentImplementation> getClassifierOpBuilder() {
+		return AadlOperationBuilder.componentImplementations().filter(ci -> ci instanceof BehavioredImplementation);
 	}
 }

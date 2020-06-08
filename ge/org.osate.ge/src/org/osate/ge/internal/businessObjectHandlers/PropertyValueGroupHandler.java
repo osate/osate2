@@ -28,6 +28,7 @@ import javax.inject.Named;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.aadl2.internal.model.PropertyValueGroup;
 import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.IsApplicable;
@@ -42,7 +43,6 @@ import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.aadlproperties.PropertyValueFormatter;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.model.PropertyValueGroup;
 import org.osate.ge.internal.util.BusinessObjectContextUtil;
 import org.osate.ge.services.QueryService;
 

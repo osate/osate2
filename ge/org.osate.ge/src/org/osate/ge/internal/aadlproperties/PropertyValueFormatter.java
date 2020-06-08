@@ -51,9 +51,9 @@ import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.aadl2.internal.model.AgePropertyValue;
+import org.osate.ge.aadl2.internal.model.PropertyValueGroup;
 import org.osate.ge.di.Names;
-import org.osate.ge.internal.model.AgePropertyValue;
-import org.osate.ge.internal.model.PropertyValueGroup;
 
 import com.google.common.collect.Ordering;
 

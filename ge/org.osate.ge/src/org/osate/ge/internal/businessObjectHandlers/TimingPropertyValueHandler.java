@@ -32,6 +32,8 @@ import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.aadl2.internal.model.AgePropertyValue;
+import org.osate.ge.aadl2.internal.model.PropertyValueGroup;
 import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.IsApplicable;
@@ -40,8 +42,6 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.PolyBuilder;
 import org.osate.ge.internal.AgeDiagramProvider;
-import org.osate.ge.internal.model.AgePropertyValue;
-import org.osate.ge.internal.model.PropertyValueGroup;
 import org.osate.ge.services.QueryService;
 import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 public class TimingPropertyValueHandler {

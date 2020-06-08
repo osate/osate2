@@ -39,7 +39,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 public class CreateTypePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	public CreateTypePaletteCommand() {
-		super("Error Type", ErrorModelCategories.ERROR_MODEL, null);
+		super("Error Type", ErrorModelPaletteCategories.ERROR_MODEL, null);
 	}
 
 	@Override

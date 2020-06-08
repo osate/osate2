@@ -29,10 +29,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.aadl2.internal.model.PropertyValueGroup;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.aadlproperties.PropertyValueFormatter;
-import org.osate.ge.internal.model.PropertyValueGroup;
 
 public class PropertyValueTooltipContributor {
 	@Activate

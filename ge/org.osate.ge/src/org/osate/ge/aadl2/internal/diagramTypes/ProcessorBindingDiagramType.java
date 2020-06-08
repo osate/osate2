@@ -30,7 +30,7 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ge.DiagramType;
-import org.osate.ge.internal.diagram.runtime.filtering.SubcomponentCategoryFilter;
+import org.osate.ge.aadl2.internal.contentFilters.SubcomponentCategoryFilter;
 
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableSet;

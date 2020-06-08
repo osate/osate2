@@ -31,7 +31,8 @@ import org.osate.ge.services.QueryService;
 
 /**
  * Contains information provided to targeted palette commands.
- * @noreference This class is not intended to be referenced by clients.
+ * @noinstantiate This class is not intended to be instantiated by clients.
+ * @since 2.0
  */
 public class TargetedPaletteCommandContext {
 	private final BusinessObjectContext targetBoc;

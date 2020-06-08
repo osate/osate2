@@ -31,7 +31,7 @@ censes only apply to the Third Party Software and not any other portion of this 
    <extension-point id="org.osate.ge.businessObjectProviders" name="Business Object Providers" schema="schema/org.osate.ge.businessObjectProviders.exsd"/>
    <extension-point id="org.osate.ge.contentFilters" name="Content Filters" schema="schema/org.osate.ge.contentFilters.exsd"/>
    <extension-point id="org.osate.ge.diagramTypes" name="Diagram Types" schema="schema/org.osate.ge.diagramTypes.exsd"/>
-   <extension-point id="org.osate.ge.paletteCommands" name="OSATE Graphical Editor Palette Commands" schema="schema/org.osate.ge.paletteCommands.exsd"/>
+   <extension-point id="org.osate.ge.paletteContributors" name="OSATE Graphical Editor Palette Contributors" schema="schema/org.osate.ge.paletteContributors.exsd"/>
 	<extension point="org.eclipse.ui.commands">
     <category
           id="org.osate.ge.commands.categories.tool"
@@ -2079,82 +2079,82 @@ censes only apply to the Third Party Software and not any other portion of this 
    <extension
          point="org.osate.ge.contentFilters">
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.GeneralizationFilter">
+            class="org.osate.ge.aadl2.internal.contentFilters.GeneralizationFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.SubcomponentTypeFilter">
+            class="org.osate.ge.aadl2.internal.contentFilters.SubcomponentTypeFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.SubprogramCallOrderFilter">
+            class="org.osate.ge.aadl2.internal.contentFilters.SubprogramCallOrderFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.CalledSubprogramFilter">
+            class="org.osate.ge.aadl2.internal.contentFilters.CalledSubprogramFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.FeatureFilter">
+            class="org.osate.ge.aadl2.internal.contentFilters.FeatureFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.ModeTransitionTriggerNameFilter">
+            class="org.osate.ge.aadl2.internal.contentFilters.ModeTransitionTriggerNameFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.ModeTransitionFilter">
+            class="org.osate.ge.aadl2.internal.contentFilters.ModeTransitionFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.ModeFilter">
+            class="org.osate.ge.aadl2.internal.contentFilters.ModeFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.FlowSpecificationFilter">
+            class="org.osate.ge.aadl2.internal.contentFilters.FlowSpecificationFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.ClassifierFilter">
+            class="org.osate.ge.aadl2.internal.contentFilters.ClassifierFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.ConnectionFilter">
+            class="org.osate.ge.aadl2.internal.contentFilters.ConnectionFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.SubcomponentFilter">
+            class="org.osate.ge.aadl2.internal.contentFilters.SubcomponentFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.SubprogramCallFilter">
+            class="org.osate.ge.aadl2.internal.contentFilters.SubprogramCallFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.SubprogramCallSequenceFilter">
+            class="org.osate.ge.aadl2.internal.contentFilters.SubprogramCallSequenceFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.ProcessorFeatureFilter">
+            class="org.osate.ge.aadl2.internal.contentFilters.ProcessorFeatureFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.InternalFeatureFilter">
+            class="org.osate.ge.aadl2.internal.contentFilters.InternalFeatureFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.FeatureCategoryFilterFactory">
+            class="org.osate.ge.aadl2.internal.contentFilters.FeatureCategoryFilterFactory">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.FlowSpecificationKindFilterFactory">
+            class="org.osate.ge.aadl2.internal.contentFilters.FlowSpecificationKindFilterFactory">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.AccessConnectionFilter">
+            class="org.osate.ge.aadl2.internal.contentFilters.AccessConnectionFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.FeatureConnectionFilter">
+            class="org.osate.ge.aadl2.internal.contentFilters.FeatureConnectionFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.FeatureGroupConnectionFilter">
+            class="org.osate.ge.aadl2.internal.contentFilters.FeatureGroupConnectionFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.ParameterConnectionFilter">
+            class="org.osate.ge.aadl2.internal.contentFilters.ParameterConnectionFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.PortConnectionFilter">
+            class="org.osate.ge.aadl2.internal.contentFilters.PortConnectionFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.FeatureGroupTypeFilter">
+            class="org.osate.ge.aadl2.internal.contentFilters.FeatureGroupTypeFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.ComponentCategoryFilterFactory">
+            class="org.osate.ge.aadl2.internal.contentFilters.ComponentCategoryFilterFactory">
       </contentFilter>
       <fundamentalContentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.FundamentalTagFilter">
+            class="org.osate.ge.aadl2.internal.contentFilters.FundamentalTagFilter">
       </fundamentalContentFilter>
    </extension>
    <extension
@@ -2282,9 +2282,8 @@ censes only apply to the Third Party Software and not any other portion of this 
          </selection>
       </wizard>
    </extension>
-    <extension point="org.osate.ge.paletteCommands">
-       <category id="org.osate.ge.categories.annotation" name="Annotation" order="1" />
-       <commandProvider class="org.osate.ge.palette.internal.AgePaletteCommandProvider" />
+    <extension point="org.osate.ge.paletteContributors">
+       <commandProvider class="org.osate.ge.palette.internal.AgePaletteContributor" />
     </extension>
     
       <extension point="org.osate.ge.images">
@@ -2362,14 +2361,7 @@ censes only apply to the Third Party Software and not any other portion of this 
         <image id="org.osate.ge.aadl2.images.DefaultAnnexSubclause" path="/icons/full/obj16/DefaultAnnexSubclause.gif" plugin="org.osate.aadl2.edit" />
         <image id="org.osate.ge.aadl2.images.AadlPackage" path="/icons/full/obj16/AadlPackage.gif" plugin="org.osate.aadl2.edit" />
     </extension>  
-    <extension point="org.osate.ge.paletteCommands">
-        <category id="org.osate.ge.aadl2.palette.categories.classifiers" name="Classifiers" />
-        <category id="org.osate.ge.aadl2.palette.categories.connections" name="Connections" />
-        <category id="org.osate.ge.aadl2.palette.categories.features" name="Features" />
-        <category id="org.osate.ge.aadl2.palette.categories.subcomponents" name="Subcomponents" />
-        <category id="org.osate.ge.aadl2.palette.categories.flows" name="Flows" />
-        <category id="org.osate.ge.aadl2.palette.categories.modes" name="Modes" />
-        <category id="org.osate.ge.aadl2.palette.categories.subprogram_calls" name="Subprogram Calls" />
-        <commandProvider class="org.osate.ge.aadl2.ui.internal.palette.Aadl2PaletteCommandProvider" />
+    <extension point="org.osate.ge.paletteContributors">
+        <contributor class="org.osate.ge.aadl2.ui.internal.palette.AadlPaletteContributor" />
     </extension>
 </plugin>

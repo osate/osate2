@@ -27,8 +27,8 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.DiagramType;
-import org.osate.ge.internal.diagram.runtime.filtering.ModeFilter;
-import org.osate.ge.internal.diagram.runtime.filtering.ModeTransitionFilter;
+import org.osate.ge.aadl2.internal.contentFilters.ModeFilter;
+import org.osate.ge.aadl2.internal.contentFilters.ModeTransitionFilter;
 
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableSet;

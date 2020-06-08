@@ -30,7 +30,7 @@ import java.util.stream.Stream;
 public interface BusinessObjectContext {
 	/**
 	 * Returns the parent of the context.
-	 * @return the parent of the context. May return null
+	 * @return the parent of the context. May return null.
 	 */
 	BusinessObjectContext getParent();
 

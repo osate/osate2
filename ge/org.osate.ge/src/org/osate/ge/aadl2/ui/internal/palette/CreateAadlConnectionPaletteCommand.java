@@ -53,9 +53,9 @@ import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
+import org.osate.ge.aadl2.ui.AadlOperationBuilder;
 import org.osate.ge.internal.util.AadlConnectionUtil;
 import org.osate.ge.operations.Operation;
-import org.osate.ge.operations.OperationBuilderHelper;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.ConnectionStartContext;
@@ -189,8 +189,8 @@ public class CreateAadlConnectionPaletteCommand extends BasePaletteCommand imple
 		});
 	}
 
-	private static OperationBuilderHelper<ComponentImplementation> getClassifierOpBuilder() {
-		return OperationBuilderHelper.componentImplementations();
+	private static AadlOperationBuilder<ComponentImplementation> getClassifierOpBuilder() {
+		return AadlOperationBuilder.componentImplementations();
 	}
 
 	/**

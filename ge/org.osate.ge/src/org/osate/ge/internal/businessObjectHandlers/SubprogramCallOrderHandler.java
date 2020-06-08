@@ -29,6 +29,7 @@ import org.eclipse.xtext.util.Strings;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.aadl2.internal.model.SubprogramCallOrder;
 import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetNameForUserInterface;
 import org.osate.ge.di.IsApplicable;
@@ -39,7 +40,6 @@ import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
