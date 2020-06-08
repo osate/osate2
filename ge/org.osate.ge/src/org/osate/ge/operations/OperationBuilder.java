@@ -67,6 +67,7 @@ public interface OperationBuilder<PrevResultUserType> {
 	 * Execute a suboperation. This function is intended for use only in the rare cases that the number of steps is not known
 	 * until runtime.
 	 * @param opProvider a function that provides a suboperation to execute.
+	 * @since 2.0
 	 */
 	void executeOperation(Function<PrevResultUserType, Operation> opProvider);
 

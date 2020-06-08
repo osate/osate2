@@ -24,8 +24,8 @@
 package org.osate.ge.tests.unit;
 
 import org.osate.ge.DockingPosition;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.graphics.Point;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 
 // Class used for test business objects. Allowed to contain children or have a value specified but not both.
 public class TestBusinessObject {

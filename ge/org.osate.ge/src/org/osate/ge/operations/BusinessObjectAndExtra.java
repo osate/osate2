@@ -30,6 +30,7 @@ import java.util.Objects;
  *
  * @param <B>
  * @param <E>
+ * @since 2.0
  */
 public class BusinessObjectAndExtra<B, E> {
 	private final B bo;

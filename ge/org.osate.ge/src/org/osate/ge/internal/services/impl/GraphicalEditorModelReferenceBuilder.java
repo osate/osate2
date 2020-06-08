@@ -30,10 +30,10 @@ import java.util.UUID;
 import javax.inject.Named;
 
 import org.eclipse.xtext.util.Strings;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.di.BuildCanonicalReference;
 import org.osate.ge.di.BuildRelativeReference;
 import org.osate.ge.di.Names;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.model.Note;
 import org.osate.ge.internal.model.NoteReference;

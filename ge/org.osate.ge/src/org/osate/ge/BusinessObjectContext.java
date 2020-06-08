@@ -28,10 +28,28 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 public interface BusinessObjectContext {
+	/**
+	 * Returns the parent of the context.
+	 * @return the parent of the context. May return null
+	 */
 	BusinessObjectContext getParent();
+
+	/**
+	 * The children which are available for this context.
+	 * @return the context's children.
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
 	Collection<? extends BusinessObjectContext> getChildren();
+
+	/**
+	 * Returns the business object associated with this context.
+	 * @return the business object for the context.
+	 */
 	Object getBusinessObject();
 
+	/**
+	 * @since 2.0
+	 */
 	public default Stream<BusinessObjectContext> getAllDescendants() {
 		return Stream.concat(Stream.of(this), getChildren().stream().flatMap(BusinessObjectContext::getAllDescendants));
 	}
@@ -50,11 +68,17 @@ public interface BusinessObjectContext {
 		return e;
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public default <T> Optional<T> getBusinessObject(final Class<T> c) {
 		final Object bo = getBusinessObject();
 		return c.isInstance(bo) ? Optional.of(c.cast(bo)) : Optional.empty();
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	static Optional<BusinessObjectContext> getFirstCommonAncestor(final BusinessObjectContext q1,
 			final BusinessObjectContext q2) {
 		BusinessObjectContext temp1 = q1;

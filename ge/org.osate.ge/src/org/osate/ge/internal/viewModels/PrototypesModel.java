@@ -62,7 +62,6 @@ import org.osate.aadl2.VirtualBusPrototype;
 import org.osate.aadl2.VirtualProcessorPrototype;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.BusinessObjectSelection;
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.AadlPrototypeUtil;

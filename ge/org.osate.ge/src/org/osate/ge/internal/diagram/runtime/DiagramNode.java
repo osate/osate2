@@ -27,6 +27,7 @@ import java.util.Collection;
 import java.util.stream.Stream;
 
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.RelativeBusinessObjectReference;
 
 public interface DiagramNode extends BusinessObjectContext {
 	/**

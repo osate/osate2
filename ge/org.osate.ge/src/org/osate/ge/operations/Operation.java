@@ -52,6 +52,7 @@ public interface Operation {
 	 * Creates an operation by calling a consumer which will provide an OperationBuilder to use to create the operation.
 	 * @param operationBuilder
 	 * @return
+	 * @since 2.0
 	 */
 	public static Operation createWithBuilder(final Consumer<OperationBuilder<?>> operationBuilder) {
 		final DefaultOperationBuilder rootOpBuilder = new DefaultOperationBuilder();
@@ -68,13 +69,14 @@ public interface Operation {
 	 * @param containerBoType is the type of business object expected for the context.
 	 * @param modifier is a function that performs the modification operation to the passed in business object.
 	 * @return an optional containing an operation. If the type of the context's business object does not match the specified type an empty optional will be returned.
+	 * @since 2.0
 	 */
 	public static <BusinessObjectType> Optional<Operation> createSimple(final BusinessObjectContext containerToModify,
 			final Class<BusinessObjectType> containerBoType, Function<BusinessObjectType, StepResult<?>> modifier) {
 		return containerToModify.getBusinessObject(containerBoType)
 				.map(containerBo -> Operation.createWithBuilder(b -> {
 					b.supply(() -> StepResult.forValue(containerBo)).modifyPreviousResult(bo2 -> {
-								return modifier.apply(bo2);
+						return modifier.apply(bo2);
 					});
 				}));
 	}
@@ -85,6 +87,7 @@ public interface Operation {
 	 * @param prompter is a function which returns the business object to be modified. Must not return null.
 	 * @param modifier is a function used to modify the model. The argument for this function may not match that which is returned by the prompter. Only the business object passed into this function should be modified.
 	 * @return the created operation.
+	 * @since 2.0
 	 */
 	public static <BusinessObjectType> Operation createPromptAndModify(
 			final Supplier<Optional<BusinessObjectType>> prompter,
@@ -105,6 +108,7 @@ public interface Operation {
 	 * @param prompter is a function that prompts the user and then provides a business object to modify along with additional data. Must not return null.
 	 * @param modifier is a function used to modify the model. The argument for this function may not match that which is returned by the prompter. Only the business object passed into this function should be modified.
 	 * @return the created operation.
+	 * @since 2.0
 	 */
 	public static <BusinessObjectType extends EObject, Extra> Operation createPromptAndModifyWithExtra(
 			final Supplier<Optional<BusinessObjectAndExtra<BusinessObjectType, Extra>>> prompter,

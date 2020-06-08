@@ -25,9 +25,10 @@ package org.osate.ge.internal.query;
 
 import java.util.Deque;
 import java.util.function.Predicate;
-import org.osate.ge.query.Query;
+
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.query.FilterArguments;
+import org.osate.ge.query.Query;
 import org.osate.ge.query.Supplier;
 
 public abstract class DefaultQuery implements Query {

@@ -26,8 +26,8 @@ package org.osate.ge.internal.model;
 import java.util.Objects;
 
 import org.eclipse.emf.ecore.EClass;
-import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
+import org.osate.ge.CanonicalBusinessObjectReference;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.internal.services.ProjectReferenceService;
 
 /**

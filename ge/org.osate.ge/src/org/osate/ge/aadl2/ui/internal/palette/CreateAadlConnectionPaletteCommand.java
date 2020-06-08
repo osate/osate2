@@ -51,7 +51,6 @@ import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.internal.util.AadlConnectionUtil;
@@ -60,8 +59,8 @@ import org.osate.ge.operations.OperationBuilderHelper;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.ConnectionStartContext;
-import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.palette.CreateConnectionContext;
+import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.services.QueryService;
 import org.osate.ge.util.StringUtil;
 

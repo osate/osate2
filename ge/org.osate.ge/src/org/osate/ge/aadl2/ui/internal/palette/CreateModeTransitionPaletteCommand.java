@@ -36,7 +36,6 @@ import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.ui.internal.AadlUiUtil;
@@ -47,8 +46,8 @@ import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.ConnectionStartContext;
-import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.palette.CreateConnectionContext;
+import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 

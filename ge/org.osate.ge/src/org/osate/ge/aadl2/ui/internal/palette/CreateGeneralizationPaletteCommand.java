@@ -44,8 +44,8 @@ import org.osate.ge.operations.StepResult;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.ConnectionStartContext;
-import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.palette.CreateConnectionContext;
+import org.osate.ge.palette.CreateConnectionPaletteCommand;
 
 public class CreateGeneralizationPaletteCommand extends BasePaletteCommand implements CreateConnectionPaletteCommand {
 

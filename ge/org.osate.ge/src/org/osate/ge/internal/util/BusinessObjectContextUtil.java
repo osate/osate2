@@ -27,7 +27,6 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.services.ProjectProvider;
 
 public class BusinessObjectContextUtil {

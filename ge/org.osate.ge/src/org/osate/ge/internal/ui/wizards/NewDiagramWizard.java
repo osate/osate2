@@ -67,7 +67,7 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Element;
 import org.osate.ge.DiagramType;
-import org.osate.ge.internal.diagram.runtime.types.DiagramTypeProvider;
+import org.osate.ge.aadl2.internal.diagramTypes.DiagramTypeProvider;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.ui.dialogs.CreateDiagramComposite;
 import org.osate.ge.internal.ui.dialogs.DefaultCreateDiagramModel;

@@ -33,15 +33,14 @@ import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.ui.internal.AadlUiUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.ConnectionStartContext;
-import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.palette.CreateConnectionContext;
+import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.services.QueryService;
 
 public class CreateFlowPathSpecificationPaletteCommand extends BasePaletteCommand

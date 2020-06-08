@@ -29,7 +29,7 @@ import static org.osate.ge.tests.endToEnd.util.UiTestUtil.*;
 import java.util.Arrays;
 import java.util.Objects;
 
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
 /**

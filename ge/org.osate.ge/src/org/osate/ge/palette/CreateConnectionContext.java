@@ -26,13 +26,13 @@ package org.osate.ge.palette;
 import java.util.Objects;
 
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.services.QueryService;
 
 /**
  * Contains information provided to the palette command to create an operation to create a connection.
  *
  * @noinstantiate This class is not intended to be instantiated by clients.
+ * @since 2.0
  */
 public class CreateConnectionContext {
 	private final BusinessObjectContext sourceBoc;

@@ -26,7 +26,7 @@ package org.osate.ge.internal.diagram.runtime.boTree;
 import java.util.Objects;
 import java.util.UUID;
 
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.internal.services.ProjectReferenceService;
 
 public class DefaultBusinessObjectNodeFactory {

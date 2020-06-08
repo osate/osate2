@@ -28,6 +28,7 @@ import java.util.Optional;
 /**
  * Base interface for all palettte commands. In general, {@link TargetedPaletteCommand} and {@link CreateConnectionPaletteCommand} should be implemented.
  * @noextend This class is not intended to be subclassed by clients.
+ * @since 2.0
  *
  */
 public interface PaletteCommand {

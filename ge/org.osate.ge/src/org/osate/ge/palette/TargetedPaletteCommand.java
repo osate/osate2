@@ -32,6 +32,7 @@ import org.osate.ge.operations.Operation;
  * to create model elements which are represented by shapes.
  *
  * @noextend This interface is not intended to be extended by clients.
+ * @since 2.0
  *
  */
 public interface TargetedPaletteCommand extends PaletteCommand {

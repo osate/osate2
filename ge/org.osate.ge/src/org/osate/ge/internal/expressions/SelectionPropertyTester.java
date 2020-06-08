@@ -29,7 +29,6 @@ import java.util.stream.Collectors;
 import org.eclipse.core.expressions.PropertyTester;
 import org.eclipse.jface.viewers.ISelection;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.ui.tools.ToolUtil;
 import org.osate.ge.internal.ui.util.SelectionUtil;

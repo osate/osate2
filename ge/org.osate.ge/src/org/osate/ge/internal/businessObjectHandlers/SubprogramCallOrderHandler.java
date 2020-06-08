@@ -26,9 +26,9 @@ package org.osate.ge.internal.businessObjectHandlers;
 import javax.inject.Named;
 
 import org.eclipse.xtext.util.Strings;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetNameForUserInterface;
 import org.osate.ge.di.IsApplicable;
