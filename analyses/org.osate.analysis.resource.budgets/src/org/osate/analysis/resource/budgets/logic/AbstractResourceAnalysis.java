@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -39,23 +39,23 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 abstract class AbstractResourceAnalysis extends AbstractLoggingAnalysis {
 	private final String prefixSymbol = "  ";
-	
+
 	protected int components = 0;
 	protected int budgetedComponents = 0;
-	
+
 	protected AbstractResourceAnalysis(AbstractAaxlHandler handler) {
 		super(handler);
 	}
-	
+
 	protected enum ResourceKind {
 		MIPS, RAM, ROM, Memory
 	}
-	
+
 	/**
 	 * calculate the budget of components with budgets, i.e., application
 	 * components and devices For application components they are required,
 	 * while for devices they are optional
-	 * 
+	 *
 	 * @param ci component instance whose subtree is to be added up
 	 * @param rk Property Definition of property to be added
 	 * @param unit Unit in which the property value should be retrieved
@@ -103,8 +103,9 @@ abstract class AbstractResourceAnalysis extends AbstractLoggingAnalysis {
 				}
 			}
 		}
-		if (HWOnly)
+		if (HWOnly) {
 			return -1;
+		}
 		double budget = getBudget(ci, rk);
 		if (rk.equals(ResourceKind.RAM) || rk.equals(ResourceKind.ROM) || rk.equals(ResourceKind.Memory)) {
 			double actualsize = getMemoryUseActual(ci, rk.name(), unit);
@@ -120,17 +121,18 @@ abstract class AbstractResourceAnalysis extends AbstractLoggingAnalysis {
 		if (budget > 0 && subtotal > budget) {
 			notes = String.format("Error: subtotal/actual exceeds budget %.3f by %.3f " + unit.getName(), budget,
 					(subtotal - budget));
-		} else if (subtotal > 0 && subtotal < budget) {
+		} else if (budget > 0 && subtotal < budget) {
 			notes = String.format(
 					resourceName + " " + ci.getInstanceObjectPath() + " total %.3f " + unit.getName()
 							+ " below budget %.3f " + unit.getName() + " (%.1f %% slack)",
 					subtotal, budget, (budget - subtotal) / budget * 100);
 		}
-		if (!isSystemInstance)
+		if (!isSystemInstance) {
 			detailedLog(prefix, ci, budget, subtotal, resourceName, unit, notes);
+		}
 		return subtotal == 0 ? budget : subtotal;
 	}
-	
+
 	protected double getMemoryUseActual(ComponentInstance bci, String resourceName, UnitLiteral unit) {
 		double actualsize = 0.0;
 		if (resourceName.equals("ROM")) {
@@ -147,7 +149,7 @@ abstract class AbstractResourceAnalysis extends AbstractLoggingAnalysis {
 		}
 		return actualsize;
 	}
-	
+
 	private double getBudget(NamedElement ne, ResourceKind kind) {
 		switch (kind) {
 		case MIPS:
@@ -161,12 +163,13 @@ abstract class AbstractResourceAnalysis extends AbstractLoggingAnalysis {
 		}
 		return 0.0;
 	}
-	
+
 	private boolean isHardware(ComponentInstance ci) {
 		ComponentCategory cat = ci.getCategory();
 		if (cat == ComponentCategory.BUS || cat == ComponentCategory.PROCESSOR
-				|| cat == ComponentCategory.VIRTUAL_PROCESSOR || cat == ComponentCategory.MEMORY)
+				|| cat == ComponentCategory.VIRTUAL_PROCESSOR || cat == ComponentCategory.MEMORY) {
 			return true;
+		}
 		if (cat == ComponentCategory.SYSTEM || cat == ComponentCategory.DEVICE) {
 			EList<FeatureInstance> el = ci.getFeatureInstances();
 			for (Iterator<FeatureInstance> it = el.iterator(); it.hasNext();) {
