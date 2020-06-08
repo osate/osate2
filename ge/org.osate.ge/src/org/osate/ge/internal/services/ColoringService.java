@@ -26,9 +26,9 @@ package org.osate.ge.internal.services;
 import java.util.Map;
 
 import org.osate.aadl2.NamedElement;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.query.Queryable;
 
 /**
  * Contains methods to handle highlighting objects based on editor state
@@ -62,7 +62,7 @@ public interface ColoringService {
 	Map<DiagramElement, Color> buildForegroundColorMap();
 
 	// TODO: Rework. Should be split out from the service.
-	void setHighlightedMode(NamedElement ne, Queryable boc);
+	void setHighlightedMode(NamedElement ne, BusinessObjectContext boc);
 
-	void setHighlightedFlow(NamedElement ne, Queryable boc);
+	void setHighlightedFlow(NamedElement ne, BusinessObjectContext boc);
 }

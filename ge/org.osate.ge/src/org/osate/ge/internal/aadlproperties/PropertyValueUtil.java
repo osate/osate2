@@ -28,7 +28,7 @@ import java.util.LinkedList;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.instance.InstanceObject;
-import org.osate.ge.internal.query.Queryable;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -40,11 +40,11 @@ public class PropertyValueUtil {
 	private static StandaloneQuery instanceObjectQuery = StandaloneQuery.create((rootQuery) -> rootQuery
 			.descendantsByBusinessObjectsRelativeReference((InstanceObject io) -> getInstanceObjectPath(io)).first());
 
-	public static Queryable getReferencedClassifier(final Queryable q,
+	public static BusinessObjectContext getReferencedClassifier(final BusinessObjectContext q,
 			final ClassifierValue cv,
 			final QueryService queryService) {
 		// Decide whether to show it as connection or not.
-		Queryable top = q;
+		BusinessObjectContext top = q;
 		while(top.getParent() != null) {
 			top = top.getParent();
 		}
@@ -52,18 +52,18 @@ public class PropertyValueUtil {
 		return queryService.getFirstResult(classifierQuery, top, cv.getClassifier());
 	}
 
-	public static AadlPropertyResolutionResults getReferencedInstanceObject(final Queryable q, final InstanceObject io,
+	public static AadlPropertyResolutionResults getReferencedInstanceObject(final BusinessObjectContext q, final InstanceObject io,
 			final QueryService queryService) {
 
 		// Decide whether to show it as connection or not.
-		Queryable top = q;
+		BusinessObjectContext top = q;
 		while (top.getParent() != null) {
 			top = top.getParent();
 		}
 
-		final Queryable dst = queryService.getFirstResult(partialInstanceObjectQuery, top, io);
+		final BusinessObjectContext dst = queryService.getFirstResult(partialInstanceObjectQuery, top, io);
 		final boolean hasPartial = dst != null;
-		final Queryable referencedQueryable = queryService.getFirstResult(instanceObjectQuery, top, io);
+		final BusinessObjectContext referencedQueryable = queryService.getFirstResult(instanceObjectQuery, top, io);
 		final boolean isPartial = hasPartial && dst != referencedQueryable;
 		return new AadlPropertyResolutionResults(dst, isPartial);
 	}

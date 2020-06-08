@@ -37,7 +37,6 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.internal.query.Queryable;
 
 public class AadlModalElementUtil {
 	public static class ModeFeatureReference {
@@ -70,7 +69,7 @@ public class AadlModalElementUtil {
 	 * @param container
 	 * @return
 	 */
-	public static Queryable getModalElement(final Queryable container) {
+	public static BusinessObjectContext getModalElement(final BusinessObjectContext container) {
 		return container.getChildren().stream().filter(child -> isModalElementWithContainer(child.getBusinessObject()))
 				.findAny().orElse(null);
 	}

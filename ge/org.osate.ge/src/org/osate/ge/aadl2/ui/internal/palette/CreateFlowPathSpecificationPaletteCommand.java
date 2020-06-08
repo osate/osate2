@@ -33,6 +33,7 @@ import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.ui.internal.AadlUiUtil;
 import org.osate.ge.operations.Operation;

@@ -43,9 +43,9 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
-import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.internal.util.AadlClassifierUtil;
 import org.osate.ge.internal.util.AadlFlowSpecificationUtil;
@@ -196,14 +196,14 @@ public class FlowContributionItem extends ComboContributionItem {
 		}
 	}
 
-	private static Stream<FlowSegmentReference> createFlowSegmentReferences(final Queryable flowContainerBoc,
+	private static Stream<FlowSegmentReference> createFlowSegmentReferences(final BusinessObjectContext flowContainerBoc,
 			final ComponentInstance ci) {
 		return ci.getEndToEndFlows().stream().filter(f -> f != null).distinct().map(flow -> {
 			return AadlFlowSpecificationUtil.createFlowSegmentReference(flow, flowContainerBoc);
 		});
 	}
 
-	private static Stream<FlowSegmentReference> createFlowSegmentReferences(final Queryable flowContainerBoc,
+	private static Stream<FlowSegmentReference> createFlowSegmentReferences(final BusinessObjectContext flowContainerBoc,
 			final ComponentImplementation ci) {
 		return Stream
 				.concat(ci.getAllEndToEndFlows().stream(),
@@ -269,7 +269,7 @@ public class FlowContributionItem extends ComboContributionItem {
 		final FlowSegmentReference highlightableFlowElement = highlightableFlowsMapEntry
 				.getValue().highlightableFlowElement;
 		NamedElement flowSegmentElement = null;
-		Queryable container = null;
+		BusinessObjectContext container = null;
 		if (highlightableFlowElement != null) {
 			flowSegmentElement = highlightableFlowElement.flowSegmentElement;
 			container = highlightableFlowElement.container;
@@ -304,7 +304,7 @@ public class FlowContributionItem extends ComboContributionItem {
 			return state;
 		}
 
-		public Queryable getContainer() {
+		public BusinessObjectContext getContainer() {
 			return highlightableFlowElement.container;
 		}
 

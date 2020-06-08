@@ -23,27 +23,53 @@
  */
 package org.osate.ge;
 
+import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Stream;
 
-import org.osate.ge.internal.query.Queryable;
-
-/**
- *
- * @noimplement
- */
-public interface BusinessObjectContext extends Queryable {
-	@Override
+public interface BusinessObjectContext {
 	BusinessObjectContext getParent();
-	@Override
+	Collection<? extends BusinessObjectContext> getChildren();
 	Object getBusinessObject();
 
-	@Override
+	public default Stream<BusinessObjectContext> getAllDescendants() {
+		return Stream.concat(Stream.of(this), getChildren().stream().flatMap(BusinessObjectContext::getAllDescendants));
+	}
+
+	/**
+	 * Returns the ancestors which has a specified depth relative to this query.
+	 * @param depth must be {@literal >} 0. A value of 1 returns the immediate ancestor.
+	 * @return the new query
+	 */
 	public default BusinessObjectContext getAncestor(final int depth) {
-		return (BusinessObjectContext) Queryable.super.getAncestor(depth);
+		BusinessObjectContext e = this;
+		for (int i = 0; i < depth && e != null; i++) {
+			e = e.getParent();
+		}
+
+		return e;
 	}
 
 	public default <T> Optional<T> getBusinessObject(final Class<T> c) {
 		final Object bo = getBusinessObject();
 		return c.isInstance(bo) ? Optional.of(c.cast(bo)) : Optional.empty();
+	}
+
+	static Optional<BusinessObjectContext> getFirstCommonAncestor(final BusinessObjectContext q1,
+			final BusinessObjectContext q2) {
+		BusinessObjectContext temp1 = q1;
+		while (temp1 != null) {
+			BusinessObjectContext temp2 = q2;
+			while (temp2 != null) {
+				if (temp1 == temp2) {
+					return Optional.of(temp1);
+				}
+				temp2 = temp2.getParent();
+			}
+
+			temp1 = temp1.getParent();
+		}
+
+		return Optional.empty();
 	}
 }

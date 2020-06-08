@@ -27,9 +27,9 @@ import java.util.Objects;
 
 import javax.inject.Named;
 
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.IsApplicable;
@@ -39,7 +39,6 @@ import org.osate.ge.graphics.LabelBuilder;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.PolyBuilder;
 import org.osate.ge.internal.model.Tag;
-import org.osate.ge.internal.query.Queryable;
 
 public class TagHandler {
 	private final Graphic defaultGraphic = LabelBuilder.create().build();
@@ -58,7 +57,7 @@ public class TagHandler {
 		switch(tv.key) {
 		case Tag.KEY_UNIDIRECTIONAL:
 			// Don't show the directional indicator if there is a timing property value which is delayed or immediate
-			for (final Queryable sibling : boc.getParent().getChildren()) {
+			for (final BusinessObjectContext sibling : boc.getParent().getChildren()) {
 				if(TimingPropertyValueHandler.isImmediateTimingProperty(sibling.getBusinessObject())) {
 					return null;
 				}

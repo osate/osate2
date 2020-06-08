@@ -50,7 +50,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.PropertyAssociationInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.properties.PropertyAcc;
-import org.osate.ge.internal.query.Queryable;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.util.AadlPrototypeUtil;
 
 import com.google.common.collect.Iterables;
@@ -68,7 +68,7 @@ import com.google.common.collect.Iterables;
  * at this time. If a property contains property associations for multiple bindings, only the first one will be processed.
  */
 public class AadlPropertyResolver {
-	private final Map<Queryable, PropertyNode> propertyNodeMap = new HashMap<>();
+	private final Map<BusinessObjectContext, PropertyNode> propertyNodeMap = new HashMap<>();
 
 	/**
 	 * Contains processed property associations for a specific Queryable.
@@ -92,7 +92,7 @@ public class AadlPropertyResolver {
 		private final Map<Property, ProcessedPropertyAssociationCollection> propertyNameToProcessedPropertyAssociationsMap = new HashMap<>(); // Maping from property to Processed Property Association List
 	}
 
-	public AadlPropertyResolver(final Queryable topContext) {
+	public AadlPropertyResolver(final BusinessObjectContext topContext) {
 		// Process Contained Property Associations
 		if(topContext.getBusinessObject() instanceof Classifier) {
 			processDeclarativeContainedPropertyAssociations(topContext, (Classifier) topContext.getBusinessObject());
@@ -101,9 +101,9 @@ public class AadlPropertyResolver {
 		}
 	}
 
-	private void processContainedPropertyAssociationsInChildren(final Queryable q) {
+	private void processContainedPropertyAssociationsInChildren(final BusinessObjectContext q) {
 		// Process contained property associations contained in children
-		for(final Queryable childQueryable : q.getChildren()) {
+		for(final BusinessObjectContext childQueryable : q.getChildren()) {
 			final Object childBo = childQueryable.getBusinessObject();
 			if (childBo instanceof InstanceObject) {
 				processPropertyAssociationsForInstanceObjectsNotInTree(childQueryable, (InstanceObject) childBo);
@@ -147,7 +147,7 @@ public class AadlPropertyResolver {
 	 * @param property
 	 * @return
 	 */
-	public final List<ProcessedPropertyAssociation> getProcessedPropertyAssociations(final Queryable q, final Property property) {
+	public final List<ProcessedPropertyAssociation> getProcessedPropertyAssociations(final BusinessObjectContext q, final Property property) {
 		final PropertyNode pn = getOrCreatePropertyNode(q);
 
 		final ProcessedPropertyAssociationCollection ppas = pn.getCreateProcessedPropertyAssociations(property);
@@ -180,7 +180,7 @@ public class AadlPropertyResolver {
 		return ppas == null || ppas.processedPropertyAssociations == null ? Collections.emptyList() : Collections.unmodifiableList(ppas.processedPropertyAssociations);
 	}
 
-	private PropertyNode getOrCreatePropertyNode(final Queryable q) {
+	private PropertyNode getOrCreatePropertyNode(final BusinessObjectContext q) {
 		Objects.requireNonNull(q, "q must not be null");
 
 		// Get/Create the property node
@@ -193,7 +193,7 @@ public class AadlPropertyResolver {
 		return pn;
 	}
 
-	private void processDeclarativeContainedPropertyAssociations(final Queryable q, final Classifier classifier) {
+	private void processDeclarativeContainedPropertyAssociations(final BusinessObjectContext q, final Classifier classifier) {
 		// Process classifiers in the appropriate order while only processing elements that are included in the queryable tree.
 		for(final Classifier tmpClassifier : classifier.getSelfPlusAllExtended()) {
 			// Process the classifier's property associations
@@ -203,7 +203,7 @@ public class AadlPropertyResolver {
 		processContainedPropertyAssociationsInChildren(q);
 	}
 
-	private void processDeclarativeContainedPropertyAssociations(final Queryable q,
+	private void processDeclarativeContainedPropertyAssociations(final BusinessObjectContext q,
 			final List<PropertyAssociation> propertyAssociations) {
 		for(final PropertyAssociation pa : propertyAssociations) {
 			// Only process contained property associations
@@ -215,7 +215,7 @@ public class AadlPropertyResolver {
 				// Find the queryable for each contained named element
 				for(final ContainedNamedElement cne : pa.getAppliesTos()) {
 					// Try to find the queryable being referenced
-					Queryable appliedToQueryable = q;
+					BusinessObjectContext appliedToQueryable = q;
 					final List<ContainmentPathElement> containmentPathElements = cne.getContainmentPathElements();
 					int containmentPathElementIndex;
 					for(containmentPathElementIndex = 0; containmentPathElementIndex < containmentPathElements.size(); containmentPathElementIndex++) {
@@ -224,10 +224,10 @@ public class AadlPropertyResolver {
 							break;
 						}
 
-						Queryable next = null;
+						BusinessObjectContext next = null;
 						final String pathElementName = pathElement.getNamedElement().getName();
 						if(pathElementName != null) {
-							for(final Queryable child : appliedToQueryable.getChildren()) {
+							for(final BusinessObjectContext child : appliedToQueryable.getChildren()) {
 								final Object childBo = child.getBusinessObject();
 								if(childBo instanceof NamedElement) {
 									final NamedElement childNamedElement = (NamedElement)childBo;
@@ -259,7 +259,7 @@ public class AadlPropertyResolver {
 		}
 	}
 
-	private void processPropertyAssociationsForInstanceObjectsNotInTree(final Queryable q, final InstanceObject io) {
+	private void processPropertyAssociationsForInstanceObjectsNotInTree(final BusinessObjectContext q, final InstanceObject io) {
 		// Find the support instance objects which are not represented in the queryable tree
 		final Set<Object> childrenBosInTree = q.getChildren().stream().map(c -> c.getBusinessObject())
 				.filter(childBo -> childBo != null).collect(Collectors.toCollection(HashSet::new));
@@ -274,7 +274,7 @@ public class AadlPropertyResolver {
 		}
 
 		// Process children of the queryable
-		for (final Queryable child : q.getChildren()) {
+		for (final BusinessObjectContext child : q.getChildren()) {
 			final Object childBo = child.getBusinessObject();
 			if (childBo instanceof InstanceObject) {
 				processPropertyAssociationsForInstanceObjectsNotInTree(child, (InstanceObject) childBo);
@@ -282,7 +282,7 @@ public class AadlPropertyResolver {
 		}
 	}
 
-	private void processedPropertyAssociationsForInstanceObjectNotInTree(final Queryable q,
+	private void processedPropertyAssociationsForInstanceObjectNotInTree(final BusinessObjectContext q,
 			final InstanceObject ioNotInTree, final Iterable<InstanceObject> parentPath) {
 
 		final Iterable<InstanceObject> newPath = Iterables.concat(parentPath,

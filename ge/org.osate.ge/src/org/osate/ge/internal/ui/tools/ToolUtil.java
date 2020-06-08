@@ -53,6 +53,7 @@ import org.osate.aadl2.Context;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.util.ProjectUtil;
 
 import com.google.common.base.Predicates;

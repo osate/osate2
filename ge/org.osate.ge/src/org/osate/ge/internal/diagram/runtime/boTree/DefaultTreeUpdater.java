@@ -50,6 +50,7 @@ import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.ContentFilter;
 import org.osate.ge.DiagramType;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.aadlproperties.AadlPropertyResolutionResults;
 import org.osate.ge.internal.aadlproperties.AadlPropertyResolver;
 import org.osate.ge.internal.aadlproperties.AadlPropertyUtil;
@@ -63,7 +64,6 @@ import org.osate.ge.internal.model.AgePropertyValue;
 import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.model.PropertyValueGroup;
-import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ProjectReferenceService;
@@ -125,7 +125,7 @@ public class DefaultTreeUpdater implements TreeUpdater {
 				// project as the business object.
 				final BusinessObjectContext contextlessRootBoc = new BusinessObjectContext() {
 					@Override
-					public Collection<? extends Queryable> getChildren() {
+					public Collection<? extends BusinessObjectContext> getChildren() {
 						return Collections.emptyList();
 					}
 

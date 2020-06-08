@@ -25,9 +25,9 @@ package org.osate.ge.errormodel.businessObjectHandlers;
 
 import javax.inject.Named;
 
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.Delete;
 import org.osate.ge.di.GetGraphicalConfiguration;

@@ -26,6 +26,7 @@ package org.osate.ge.palette;
 import java.util.Objects;
 
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.services.QueryService;
 
 /**

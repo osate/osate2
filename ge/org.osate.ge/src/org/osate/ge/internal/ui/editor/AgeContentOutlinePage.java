@@ -76,7 +76,6 @@ import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.model.BusinessObjectProxy;
-import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ProjectReferenceService;
@@ -224,7 +223,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 									.getContextBoReference() == null) {
 								parentForRetrieval = new BusinessObjectContext() {
 									@Override
-									public Collection<? extends Queryable> getChildren() {
+									public Collection<? extends BusinessObjectContext> getChildren() {
 										return parentNode.getChildren();
 									}
 
@@ -305,7 +304,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 					return childRef != null && filterPredicate.test(childRef);
 				}).map(childBo -> new BusinessObjectContext() {
 					@Override
-					public Collection<? extends Queryable> getChildren() {
+					public Collection<? extends BusinessObjectContext> getChildren() {
 						// Returns an empty list. Shouldn't be needed. All children are hidden and such children will be provided by the content provider.
 						return Collections.emptyList();
 					}

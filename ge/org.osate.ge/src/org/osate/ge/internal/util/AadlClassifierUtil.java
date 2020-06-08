@@ -38,7 +38,7 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Subcomponent;
-import org.osate.ge.internal.query.Queryable;
+import org.osate.ge.BusinessObjectContext;
 
 public class AadlClassifierUtil {
 	/**
@@ -49,8 +49,8 @@ public class AadlClassifierUtil {
 	public static Optional<ComponentImplementation> getComponentImplementation(final Object bo) {
 		final ComponentImplementation ci;
 
-		if (bo instanceof Queryable) {
-			return getComponentImplementation(((Queryable) bo).getBusinessObject());
+		if (bo instanceof BusinessObjectContext) {
+			return getComponentImplementation(((BusinessObjectContext) bo).getBusinessObject());
 		} else if (bo instanceof ComponentImplementation) {
 			ci = (ComponentImplementation) bo;
 		} else if (bo instanceof Subcomponent) {
@@ -71,8 +71,8 @@ public class AadlClassifierUtil {
 	public static Optional<ComponentClassifier> getComponentClassifier(final Object bo) {
 		final ComponentClassifier ci;
 
-		if (bo instanceof Queryable) {
-			return getComponentClassifier(((Queryable) bo).getBusinessObject());
+		if (bo instanceof BusinessObjectContext) {
+			return getComponentClassifier(((BusinessObjectContext) bo).getBusinessObject());
 		} else if (bo instanceof ComponentImplementation) {
 			ci = (ComponentImplementation) bo;
 		} else if (bo instanceof Subcomponent) {

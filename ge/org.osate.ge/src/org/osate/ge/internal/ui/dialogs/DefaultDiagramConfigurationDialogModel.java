@@ -38,11 +38,11 @@ import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.ContentFilter;
 import org.osate.ge.DiagramType;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.filtering.Filtering;
 import org.osate.ge.internal.model.BusinessObjectProxy;
-import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ProjectReferenceService;
@@ -153,7 +153,7 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 			// Create a business object context and use getName() to return the type.
 			return getName(new BusinessObjectContext() {
 				@Override
-				public Collection<? extends Queryable> getChildren() {
+				public Collection<? extends BusinessObjectContext> getChildren() {
 					return Collections.emptyList();
 				}
 

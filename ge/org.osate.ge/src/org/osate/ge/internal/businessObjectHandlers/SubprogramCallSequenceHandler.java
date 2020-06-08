@@ -26,9 +26,9 @@ package org.osate.ge.internal.businessObjectHandlers;
 import javax.inject.Named;
 
 import org.osate.aadl2.SubprogramCallSequence;
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.CanRename;

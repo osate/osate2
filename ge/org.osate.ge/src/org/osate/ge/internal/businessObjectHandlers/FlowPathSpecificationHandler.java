@@ -27,9 +27,9 @@ import javax.inject.Named;
 
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;

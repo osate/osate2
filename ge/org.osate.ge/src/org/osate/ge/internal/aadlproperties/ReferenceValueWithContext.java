@@ -29,7 +29,7 @@ import java.util.List;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.ReferenceValue;
-import org.osate.ge.internal.query.Queryable;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -57,10 +57,10 @@ public class ReferenceValueWithContext {
 	}
 
 	// Rename q. It is the lowest element to which the element applies.
-	public AadlPropertyResolutionResults resolve(final Queryable q, final QueryService queryService) {
+	public AadlPropertyResolutionResults resolve(final BusinessObjectContext q, final QueryService queryService) {
 		// Get the queryable
 		boolean referenceOwnerInTree = true;
-		Queryable tmp = q;
+		BusinessObjectContext tmp = q;
 		for(int i = 0; i < propertyAssociationOwnerAncestorLevel; i++) {
 			tmp = tmp.getParent();
 			if (tmp == null) {
@@ -73,13 +73,13 @@ public class ReferenceValueWithContext {
 		// OPTIMIZE: Don't use queries. Should be able to do this in one loop instead of requiring 2 queries.
 		final boolean hasPartialDestination;
 		final boolean hasFinalDestination;
-		final Queryable dst;
+		final BusinessObjectContext dst;
 		if(referenceOwnerInTree) {
 			dst = queryService.getFirstResult(partialCneQuery, tmp, referenceValue);
 			hasPartialDestination = dst != null;
 
 			if(hasPartialDestination) {
-				final Queryable referencedQueryable = queryService.getFirstResult(cneQuery, tmp, referenceValue);
+				final BusinessObjectContext referencedQueryable = queryService.getFirstResult(cneQuery, tmp, referenceValue);
 				hasFinalDestination = dst == referencedQueryable && !containsArrayElementReference(referenceValue);
 			} else {
 				hasFinalDestination = false;

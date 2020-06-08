@@ -33,13 +33,13 @@ import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
-import org.osate.ge.internal.query.Queryable;
+import org.osate.ge.BusinessObjectContext;
 
 public class AadlInstanceObjectUtil {
 	public static Optional<ComponentInstance> getComponentInstance(final Object bo) {
 		final ComponentInstance ci;
-		if (bo instanceof Queryable) {
-			return getComponentInstance(((Queryable) bo).getBusinessObject());
+		if (bo instanceof BusinessObjectContext) {
+			return getComponentInstance(((BusinessObjectContext) bo).getBusinessObject());
 		} else if (bo instanceof ComponentInstance) {
 			// If component instance is a subcomponent, it must extend a component implementation
 			ci = (((ComponentInstance) bo).getSubcomponent() == null

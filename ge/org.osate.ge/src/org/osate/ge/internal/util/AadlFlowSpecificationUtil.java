@@ -35,7 +35,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.InstanceObject;
-import org.osate.ge.internal.query.Queryable;
+import org.osate.ge.BusinessObjectContext;
 
 /**
  * Utility functions for working with flow specifications and end to end flow specifications.
@@ -49,15 +49,15 @@ public class AadlFlowSpecificationUtil {
 	 */
 	public static class FlowSegmentReference {
 		public final NamedElement flowSegmentElement; // The element portion of the flow segment being referenced.
-		public final Queryable container;
+		public final BusinessObjectContext container;
 
-		public FlowSegmentReference(final NamedElement flowSegmentElement, final Queryable container) {
+		public FlowSegmentReference(final NamedElement flowSegmentElement, final BusinessObjectContext container) {
 			this.flowSegmentElement = Objects.requireNonNull(flowSegmentElement, "flowSegmentElement must not be null");
 			this.container = Objects.requireNonNull(container, "container must not be null");
 		}
 	}
 
-	public static Queryable findQueryable(final FlowSegmentReference flowElementRef) {
+	public static BusinessObjectContext findQueryable(final FlowSegmentReference flowElementRef) {
 		return flowElementRef.container.getChildren().stream()
 				.filter(q -> {
 					if (q.getBusinessObject() instanceof NamedElement) {
@@ -113,7 +113,7 @@ public class AadlFlowSpecificationUtil {
 		}
 	}
 
-	public static FlowSegmentReference createFlowSegmentReference(final Object bo, final Queryable container) {
+	public static FlowSegmentReference createFlowSegmentReference(final Object bo, final BusinessObjectContext container) {
 		if (bo instanceof FlowSegment) {
 			final FlowSegment flowSegment = (FlowSegment) bo;
 			final FlowElement flowElement = flowSegment.getFlowElement();

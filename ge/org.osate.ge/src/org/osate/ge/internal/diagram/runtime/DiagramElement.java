@@ -31,13 +31,13 @@ import java.util.Objects;
 import java.util.UUID;
 
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
-import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.query.RelativeReferenceProvider;
 
 import com.google.common.collect.ImmutableList;
@@ -102,7 +102,7 @@ implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext
 	}
 
 	@Override
-	public final Collection<Queryable> getChildren() {
+	public final Collection<BusinessObjectContext> getChildren() {
 		return Collections.unmodifiableCollection(children);
 	}
 
