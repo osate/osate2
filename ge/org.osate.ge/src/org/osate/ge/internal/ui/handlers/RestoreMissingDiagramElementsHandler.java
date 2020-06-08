@@ -40,6 +40,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
@@ -47,7 +48,6 @@ import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.AgeFeatureProvider;
-import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ExtensionService;
@@ -136,7 +136,7 @@ public class RestoreMissingDiagramElementsHandler extends AbstractHandler {
 						// Store the ghosts and the available business objects
 						relRefToBusinessObjectMap.values().stream().map(bo -> new BusinessObjectContext() {
 							@Override
-							public Collection<? extends Queryable> getChildren() {
+							public Collection<? extends BusinessObjectContext> getChildren() {
 								return Collections.emptyList();
 							}
 

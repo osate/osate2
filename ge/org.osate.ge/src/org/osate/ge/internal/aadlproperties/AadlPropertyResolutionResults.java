@@ -23,13 +23,13 @@
  */
 package org.osate.ge.internal.aadlproperties;
 
-import org.osate.ge.internal.query.Queryable;
+import org.osate.ge.BusinessObjectContext;
 
 public class AadlPropertyResolutionResults {
-	public final Queryable dst;
+	public final BusinessObjectContext dst;
 	public final boolean isPartial;
 
-	public AadlPropertyResolutionResults(final Queryable dst,
+	public AadlPropertyResolutionResults(final BusinessObjectContext dst,
 			final boolean isPartial) {
 		this.dst = dst;
 		this.isPartial = isPartial;

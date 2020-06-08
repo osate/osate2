@@ -71,6 +71,7 @@ import org.osate.aadl2.Namespace;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.Names;

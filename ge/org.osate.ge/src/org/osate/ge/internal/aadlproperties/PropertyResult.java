@@ -39,7 +39,7 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.ReferenceValue;
-import org.osate.ge.internal.query.Queryable;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.services.QueryService;
 
 import com.google.common.collect.ImmutableMap;
@@ -88,7 +88,7 @@ public class PropertyResult {
 	 */
 	public static PropertyResult getProcessedPropertyValue(final AadlPropertyResolver qr,
 			final QueryService queryService,
-			final Queryable q,
+			final BusinessObjectContext q,
 			final Property p) {
 		// Return null if the business object isn't a named element.
 		Object bo = q.getBusinessObject();
@@ -127,7 +127,7 @@ public class PropertyResult {
 	 */
 	public static Map<String, PropertyResult> getIncompletelyProcessedReferencePropertyValues(final AadlPropertyResolver pr,
 			final QueryService queryService,
-			final Queryable q,
+			final BusinessObjectContext q,
 			final Property p) {
 		// Return an empty map if the business object isn't a named element.
 		final Object bo = q.getBusinessObject();
@@ -152,7 +152,7 @@ public class PropertyResult {
 	 */
 	@SuppressWarnings("unchecked")
 	private static PropertyResult createPropertyResult(final Iterable<ProcessedPropertyAssociation> ppas,
-			final Queryable q,
+			final BusinessObjectContext q,
 			final QueryService queryService) {
 		// Find the value which isn't tied to a specific array element, mode, or binding
 		Object value = null;

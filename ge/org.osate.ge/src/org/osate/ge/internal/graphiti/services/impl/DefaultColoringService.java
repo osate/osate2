@@ -56,11 +56,11 @@ import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.ModeTransitionInstance;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
-import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.util.AadlClassifierUtil;
 import org.osate.ge.internal.util.AadlFlowSpecificationUtil;
@@ -77,12 +77,12 @@ public class DefaultColoringService implements ColoringService {
 	private static final Color inSelectedModeAndFlowColor = Color.CYAN.darker();
 	private final GraphitiService graphitiService;
 	private final LinkedList<ColoringCalculator> coloringCalculators = new LinkedList<ColoringCalculator>();
-	private Queryable modeFeatureContainer;
+	private BusinessObjectContext modeFeatureContainer;
 	private String highlightInModeName;
 	private String highlightInModeTransitionName;
 	private String highlightFlowImplSpecName;
 	private String highlightEndToEndFlowName;
-	private Queryable flowsContainerBoc;
+	private BusinessObjectContext flowsContainerBoc;
 
 	private static interface ColoringCalculator {
 		Map<DiagramElement, Color> buildColorMap();
@@ -280,9 +280,9 @@ public class DefaultColoringService implements ColoringService {
 		 * @param modeFeatureContainer
 		 * @return
 		 */
-		private Stream<Queryable> getInModeElements(
+		private Stream<BusinessObjectContext> getInModeElements(
 				final NamedElement selectedMode,
-				final Queryable modeFeatureContainer) {
+				final BusinessObjectContext modeFeatureContainer) {
 			final ModeFeature selectedModeFeature;
 
 			if(selectedMode instanceof ModeFeature) {
@@ -375,8 +375,8 @@ public class DefaultColoringService implements ColoringService {
 		 * @param subcompQueryable
 		 * @return
 		 */
-		private Stream<? extends Queryable> getDerivedSubcomponentInModes(final ModeFeature selectedModeFeature,
-				final Queryable subcompQueryable) {
+		private Stream<? extends BusinessObjectContext> getDerivedSubcomponentInModes(final ModeFeature selectedModeFeature,
+				final BusinessObjectContext subcompQueryable) {
 			final Subcomponent subcomponent = subcompQueryable.getBusinessObject() instanceof Subcomponent
 					? (Subcomponent) subcompQueryable.getBusinessObject()
 							: ((ComponentInstance) subcompQueryable.getBusinessObject())
@@ -419,8 +419,8 @@ public class DefaultColoringService implements ColoringService {
 		 * @param container
 		 * @return
 		 */
-		private Stream<Queryable> getInModeElements(final ModeFeature mode, final ModalElement me,
-				final Queryable container) {
+		private Stream<BusinessObjectContext> getInModeElements(final ModeFeature mode, final ModalElement me,
+				final BusinessObjectContext container) {
 			final List<Mode> allModes = me.getAllInModes();
 
 			// In all modes
@@ -444,8 +444,8 @@ public class DefaultColoringService implements ColoringService {
 		 * @param container
 		 * @return
 		 */
-		private Stream<Queryable> getInModeElements(final ModeFeature mode, final ComponentInstance ci,
-				final Queryable container) {
+		private Stream<BusinessObjectContext> getInModeElements(final ModeFeature mode, final ComponentInstance ci,
+				final BusinessObjectContext container) {
 			final List<ModeInstance> allModes = ci.getInModes();
 
 			// In all modes
@@ -468,7 +468,7 @@ public class DefaultColoringService implements ColoringService {
 		 * @param children
 		 * @return a stream of queryables to be highlighted
 		 */
-		private Stream<Queryable> getModalElementChildren(final Stream<? extends Queryable> children) {
+		private Stream<BusinessObjectContext> getModalElementChildren(final Stream<? extends BusinessObjectContext> children) {
 			return children.flatMap(
 					child -> Stream.concat(Stream.of(child), getModalElementChildren(getChildrenApplicableToModeHighlighting(child))));
 		}
@@ -508,7 +508,7 @@ public class DefaultColoringService implements ColoringService {
 	 * @param parent
 	 * @return stream of child queryables to be highlighted
 	 */
-	private static Stream<? extends Queryable> getChildrenApplicableToModeHighlighting(final Queryable parent) {
+	private static Stream<? extends BusinessObjectContext> getChildrenApplicableToModeHighlighting(final BusinessObjectContext parent) {
 		return parent.getChildren().stream().filter(child -> {
 			final Object childBo = child.getBusinessObject();
 			return isApplicableElementToModeHighlighting(childBo);
@@ -528,7 +528,7 @@ public class DefaultColoringService implements ColoringService {
 	}
 
 	@Override
-	public void setHighlightedMode(final NamedElement highlightInMode, final Queryable modalElementBoc) {
+	public void setHighlightedMode(final NamedElement highlightInMode, final BusinessObjectContext modalElementBoc) {
 		this.modeFeatureContainer = modalElementBoc;
 		highlightInModeName = highlightInMode instanceof Mode || highlightInMode instanceof ModeInstance
 				? highlightInMode.getName()
@@ -539,7 +539,7 @@ public class DefaultColoringService implements ColoringService {
 	}
 
 	@Override
-	public void setHighlightedFlow(final NamedElement highlightedFlow, final Queryable flowsContainerBoc) {
+	public void setHighlightedFlow(final NamedElement highlightedFlow, final BusinessObjectContext flowsContainerBoc) {
 		this.flowsContainerBoc = flowsContainerBoc;
 		highlightFlowImplSpecName = highlightedFlow instanceof FlowSpecification
 				? ((FlowSpecification) highlightedFlow).getName()

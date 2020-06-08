@@ -62,6 +62,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.ge.DockingPosition;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Point;
@@ -80,7 +81,6 @@ import org.osate.ge.internal.diagram.runtime.DiagramNodePredicates;
 import org.osate.ge.internal.diagram.runtime.DockArea;
 import org.osate.ge.internal.diagram.runtime.styling.StyleCalculator;
 import org.osate.ge.internal.diagram.runtime.styling.StyleProvider;
-import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.util.DiagramElementUtil;
 
@@ -380,7 +380,7 @@ public class DiagramElementLayoutUtil {
 				} else if (alwaysLayoutContainer) {
 					// Only layout the connection if its bendpoints have not been set regardless of whether it has any bendpoints.
 					if (child.getStartElement() != null && child.getEndElement() != null && !child.isBendpointsSet()) {
-						final Optional<Queryable> ancestor = Queryable.getFirstCommonAncestor(
+						final Optional<BusinessObjectContext> ancestor = BusinessObjectContext.getFirstCommonAncestor(
 								child.getStartElement().getContainer(), child.getEndElement().getContainer());
 						if (ancestor.isPresent()) {
 							results.add((DiagramNode) ancestor.get());
@@ -1070,10 +1070,10 @@ public class DiagramElementLayoutUtil {
 	public static void shiftRelatedConnections(final Stream<DiagramElement> movedElements,
 			final org.osate.ge.graphics.Point delta, final DiagramModification m, boolean shiftBendpoints,
 			boolean shiftFlowIndicatorPositions, final boolean checkDescendants) {
-		final Set<Queryable> movedElementsSet = movedElements.collect(Collectors.toSet());
+		final Set<BusinessObjectContext> movedElementsSet = movedElements.collect(Collectors.toSet());
 
 		// Build a set containing the moved elements and all of their descendant which are represented as shapes
-		final Set<Queryable> diagramElements = checkDescendants ? movedElementsSet.stream()
+		final Set<BusinessObjectContext> diagramElements = checkDescendants ? movedElementsSet.stream()
 				.flatMap(de -> Stream.concat(Stream.of(de), de.getAllDescendants())).collect(Collectors.toSet())
 				: movedElementsSet;
 				final Stream<DiagramElement> connections = m.getDiagram().getAllDiagramNodes()

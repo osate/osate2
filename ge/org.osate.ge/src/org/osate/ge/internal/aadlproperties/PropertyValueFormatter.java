@@ -50,10 +50,10 @@ import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.model.AgePropertyValue;
 import org.osate.ge.internal.model.PropertyValueGroup;
-import org.osate.ge.internal.query.Queryable;
 
 import com.google.common.collect.Ordering;
 
@@ -90,7 +90,7 @@ public class PropertyValueFormatter {
 	 * @param expandComplexValues if true values inside of lists and groups will be contained in the result.
 	 * @return
 	 */
-	public static String getUserString(final @Named(Names.BUSINESS_OBJECT_CONTEXT) Queryable pvgQueryable,
+	public static String getUserString(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext pvgQueryable,
 			final boolean singleLine,
 			final boolean includeOnlyValuesBasedOnCompletelyProcessedAssociations,
 			final boolean includeValues,
@@ -123,7 +123,7 @@ public class PropertyValueFormatter {
 				sb.append(": <multiple>");
 			}
 		} else {
-			final Queryable pvgParentQueryable = pvgQueryable.getParent();
+			final BusinessObjectContext pvgParentQueryable = pvgQueryable.getParent();
 			for(final AgePropertyValue pv : sortedPropertyValues) {
 				if(sb.length() != 0) {
 					sb.append('\n');
@@ -163,7 +163,7 @@ public class PropertyValueFormatter {
 	private static void appendPropertyResultValue(final StringBuilder sb,
 			final PropertyResult pr,
 			final Object valueToDisplay,
-			final Queryable pvgParentQueryable,
+			final BusinessObjectContext pvgParentQueryable,
 			final boolean expandComplexValues) {
 		if(valueToDisplay == null) {
 			// Append explanation for null value
@@ -195,7 +195,7 @@ public class PropertyValueFormatter {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static void appendPropertyValue(final Queryable q,
+	public static void appendPropertyValue(final BusinessObjectContext q,
 			final Object value,
 			final boolean expandComplexValues,
 			final StringBuilder sb) {
@@ -280,7 +280,7 @@ public class PropertyValueFormatter {
 			} else if(value instanceof ReferenceValueWithContext) {
 				final ReferenceValueWithContext rv = (ReferenceValueWithContext)value;
 
-				Queryable tmp = q;
+				BusinessObjectContext tmp = q;
 				for(int i = 0; i < rv.propertyAssociationOwnerAncestorLevel; i++) {
 					tmp = tmp.getParent();
 					if(tmp == null) {

@@ -25,14 +25,16 @@ package org.osate.ge.internal.query;
 
 import java.util.Deque;
 
+import org.osate.ge.BusinessObjectContext;
+
 class AncestorsQuery extends DefaultQuery {
 	public AncestorsQuery(final DefaultQuery prev) {
 		super(prev);
 	}
 	
 	@Override
-	void run(final Deque<DefaultQuery> remainingQueries, final Queryable ctx, final QueryExecutionState state, final QueryResult result) {
-		Queryable e = ctx;
+	void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx, final QueryExecutionState state, final QueryResult result) {
+		BusinessObjectContext e = ctx;
 
 		while(e != null && !result.done) {		
 			e = e.getParent();

@@ -28,9 +28,9 @@ import java.util.Optional;
 import javax.inject.Named;
 
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;

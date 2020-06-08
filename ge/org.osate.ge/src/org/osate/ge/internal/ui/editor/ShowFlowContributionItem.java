@@ -64,6 +64,7 @@ import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.boTree.BusinessObjectNode;
@@ -74,7 +75,6 @@ import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.AgeFeatureProvider;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
-import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ProjectReferenceService;
@@ -264,8 +264,8 @@ public class ShowFlowContributionItem extends ControlContribution {
 					if (bo instanceof EndToEndFlowInstance) {
 						return new FlowSegmentReference(io, container);
 					} else {
-						final Map<Object, Queryable> descendantBoToQueryable = container.getAllDescendants()
-								.collect(Collectors.toMap(Queryable::getBusinessObject, Function.identity()));
+						final Map<Object, BusinessObjectContext> descendantBoToQueryable = container.getAllDescendants()
+								.collect(Collectors.toMap(BusinessObjectContext::getBusinessObject, Function.identity()));
 						if (bo instanceof FlowSpecificationInstance) {
 							final FlowSpecificationInstance fsi = (FlowSpecificationInstance) bo;
 							enableFlowSpecificationInstanceNodes(descendantBoToQueryable, fsi);
@@ -346,7 +346,7 @@ public class ShowFlowContributionItem extends ControlContribution {
 				ensureEnabledChild(feature, containerNode);
 			}
 
-			private void enableFlowSpecificationInstanceNodes(final Map<Object, Queryable> descendantBoToQueryable,
+			private void enableFlowSpecificationInstanceNodes(final Map<Object, BusinessObjectContext> descendantBoToQueryable,
 					final FlowSpecificationInstance fsi) {
 				enableAncestorNodes(descendantBoToQueryable, fsi);
 				if (fsi.getDestination() != null) {
@@ -358,7 +358,7 @@ public class ShowFlowContributionItem extends ControlContribution {
 				}
 			}
 
-			private void enableConnectionReferenceNodes(final Map<Object, Queryable> descendantBoToQueryable,
+			private void enableConnectionReferenceNodes(final Map<Object, BusinessObjectContext> descendantBoToQueryable,
 					final ConnectionReference cr) {
 				Element tmpElement = cr;
 				// Ancestors to ensure are enabled on the diagram
@@ -382,7 +382,7 @@ public class ShowFlowContributionItem extends ControlContribution {
 			}
 
 			// Gets the first element ancestor that is enabled
-			private void populateAncestorsQueue(final Map<Object, Queryable> descendantBoToQueryable,
+			private void populateAncestorsQueue(final Map<Object, BusinessObjectContext> descendantBoToQueryable,
 					final Queue<Element> ancestors,
 					Element ancestor) {
 				while (!descendantBoToQueryable.containsKey(ancestor)) {
@@ -394,7 +394,7 @@ public class ShowFlowContributionItem extends ControlContribution {
 			}
 
 			// Find ancestors and create if necessary
-			private void enableAncestorNodes(final Map<Object, Queryable> descendantBoToQueryable,
+			private void enableAncestorNodes(final Map<Object, BusinessObjectContext> descendantBoToQueryable,
 					final Element ancestor) {
 				final Queue<Element> ancestors = Collections.asLifoQueue(new LinkedList<Element>());
 				populateAncestorsQueue(descendantBoToQueryable, ancestors, ancestor);
@@ -402,7 +402,7 @@ public class ShowFlowContributionItem extends ControlContribution {
 			}
 
 			// Create ancestor nodes
-			private void enableAncestorNodes(final Map<Object, Queryable> descendantBoToQueryable,
+			private void enableAncestorNodes(final Map<Object, BusinessObjectContext> descendantBoToQueryable,
 					final Queue<Element> ancestors, final Element ancestor) {
 				BusinessObjectNode ancestorNode = (BusinessObjectNode) descendantBoToQueryable.get(ancestor);
 				for (final Element ancestorToEnable : ancestors) {

@@ -51,6 +51,7 @@ import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.internal.util.AadlConnectionUtil;

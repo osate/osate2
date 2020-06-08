@@ -35,7 +35,7 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
-import org.osate.ge.internal.query.Queryable;
+import org.osate.ge.BusinessObjectContext;
 
 public class AadlPrototypeUtil {
 	public static ComponentClassifier getComponentClassifier(final Element bindingContext, final Subcomponent sc) {
@@ -71,8 +71,8 @@ public class AadlPrototypeUtil {
 		return null;
 	}
 
-	public static Element getPrototypeBindingContext(final Queryable queryable) {
-		final Queryable container = queryable.getParent();
+	public static Element getPrototypeBindingContext(final BusinessObjectContext queryable) {
+		final BusinessObjectContext container = queryable.getParent();
 		if(container != null) {
 			return getPrototypeBindingContextByContainer(container);
 		}
@@ -80,8 +80,8 @@ public class AadlPrototypeUtil {
 		return null;
 	}
 
-	public static Element getPrototypeBindingContextByContainer(final Queryable queryable) {
-		Queryable temp = queryable;
+	public static Element getPrototypeBindingContextByContainer(final BusinessObjectContext queryable) {
+		BusinessObjectContext temp = queryable;
 
 		while(temp != null) {
 			Object bo = temp.getBusinessObject();
@@ -108,7 +108,7 @@ public class AadlPrototypeUtil {
 	 * @param fp
 	 * @return
 	 */
-	private static Element getFeatureGroupTypeOrActual(final Queryable queryable, final FeatureGroup fg) {
+	private static Element getFeatureGroupTypeOrActual(final BusinessObjectContext queryable, final FeatureGroup fg) {
 		if(fg.getFeatureGroupPrototype() == null) {
 			return fg.getAllFeatureGroupType();
 		} else {

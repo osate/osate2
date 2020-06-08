@@ -32,6 +32,7 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
@@ -39,7 +40,6 @@ import org.osate.ge.graphics.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
 import org.osate.ge.internal.diagram.runtime.types.CustomDiagramType;
 import org.osate.ge.internal.model.EmbeddedBusinessObject;
-import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.AgeAction;
 import org.osate.ge.internal.services.impl.SimpleActionExecutor;
@@ -171,7 +171,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 	}
 
 	@Override
-	public Collection<Queryable> getChildren() {
+	public Collection<BusinessObjectContext> getChildren() {
 		return Collections.unmodifiableCollection(elements);
 	}
 
