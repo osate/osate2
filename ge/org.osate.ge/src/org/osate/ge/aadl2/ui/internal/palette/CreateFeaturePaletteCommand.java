@@ -37,9 +37,9 @@ import org.osate.aadl2.NamedElement;
 import org.osate.ge.DockingPosition;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
+import org.osate.ge.aadl2.ui.AadlOperationBuilder;
 import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.operations.Operation;
-import org.osate.ge.operations.OperationBuilderHelper;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.TargetedPaletteCommand;
@@ -59,7 +59,7 @@ public class CreateFeaturePaletteCommand extends BasePaletteCommand implements T
 	@Override
 	public Optional<Operation> createOperation(final TargetedPaletteCommandContext ctx) {
 		return ctx.getTarget().getBusinessObject(EObject.class).map(targetBo -> {
-			final OperationBuilderHelper<Classifier> opBuilder = OperationBuilderHelper.classifiers()
+			final AadlOperationBuilder<Classifier> opBuilder = AadlOperationBuilder.classifiers()
 					.filter(c -> AadlFeatureUtil.canOwnFeatureType(c, featureType));
 			if (!opBuilder.canBuildOperation(targetBo)) {
 				return null;

@@ -73,9 +73,9 @@ import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.util.EclipseExtensionUtil;
-import org.osate.ge.palette.PaletteCommandProvider;
-import org.osate.ge.palette.internal.PaletteCategory;
-import org.osate.ge.palette.internal.PaletteCommandExtensionRegistry;
+import org.osate.ge.palette.PaletteCategory;
+import org.osate.ge.palette.PaletteContributor;
+import org.osate.ge.palette.internal.PaletteContributorRegistry;
 
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
@@ -120,7 +120,7 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	private final ImmutableCollection<ContentFilter> configurableContentFilters;
 	private final ImmutableCollection<FundamentalContentFilter> fundamentalContentFilters;
 	private final ImmutableCollection<DiagramType> diagramTypes;
-	private final PaletteCommandExtensionRegistry paletteExtensions;
+	private final PaletteContributorRegistry paletteExtensions;
 
 
 	public DefaultExtensionRegistryService() {
@@ -140,7 +140,7 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 		diagramTypes = EclipseExtensionUtil.instantiateSimpleExtensions(registry, DIAGRAM_TYPES_EXTENSION_POINT_ID,
 				"diagramType",
 				DiagramType.class);
-		paletteExtensions = new PaletteCommandExtensionRegistry(registry);
+		paletteExtensions = new PaletteContributorRegistry(registry);
 	}
 
 	@Override
@@ -202,8 +202,8 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	}
 
 	@Override
-	public ImmutableCollection<PaletteCommandProvider> getPaletteCommandProviders() {
-		return paletteExtensions.getPaletteCommandProviders();
+	public ImmutableCollection<PaletteContributor> getPaletteContributors() {
+		return paletteExtensions.getPaletteContributors();
 	}
 
 	// Extensions with a lower priority values are sorted so that they are earlier in the resulting collection

@@ -56,10 +56,10 @@ import org.osate.aadl2.TypeExtension;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.aadl2.internal.model.SubprogramCallOrder;
 import org.osate.ge.di.BuildCanonicalReference;
 import org.osate.ge.di.BuildRelativeReference;
 import org.osate.ge.di.Names;
-import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.services.ReferenceBuilderService;
 
 import com.google.common.collect.Lists;

@@ -23,8 +23,8 @@
  */
 package org.osate.ge.internal.diagram.runtime.filtering;
 
+import org.osate.ge.aadl2.internal.model.PropertyValueGroup;
 import org.osate.ge.internal.model.EmbeddedBusinessObject;
-import org.osate.ge.internal.model.PropertyValueGroup;
 
 public class Filtering {
 	// Determines which business objects should be configurable using Hide and Show actions.

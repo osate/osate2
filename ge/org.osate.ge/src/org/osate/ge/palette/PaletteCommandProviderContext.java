@@ -26,7 +26,7 @@ package org.osate.ge.palette;
 import java.util.Objects;
 
 /**
- * Contains information provided to {@link PaletteCommandProvider} to determine which commands should be contributed
+ * Contains information provided to {@link PaletteContributor} to determine which commands should be contributed
  * to the palette.
  *
  * @noextend This class is not intended to be subclassed by clients.

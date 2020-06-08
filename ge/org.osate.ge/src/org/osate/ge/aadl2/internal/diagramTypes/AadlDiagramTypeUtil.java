@@ -25,8 +25,8 @@ package org.osate.ge.aadl2.internal.diagramTypes;
 
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.SubprogramCallSequence;
-import org.osate.ge.internal.diagram.runtime.filtering.ModeTransitionTriggerNameFilter;
-import org.osate.ge.internal.diagram.runtime.filtering.SubprogramCallOrderFilter;
+import org.osate.ge.aadl2.internal.contentFilters.ModeTransitionTriggerNameFilter;
+import org.osate.ge.aadl2.internal.contentFilters.SubprogramCallOrderFilter;
 
 import com.google.common.collect.ImmutableSet;
 

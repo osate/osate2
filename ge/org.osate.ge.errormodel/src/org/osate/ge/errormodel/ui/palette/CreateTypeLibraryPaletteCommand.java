@@ -39,7 +39,7 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 public class CreateTypeLibraryPaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	public CreateTypeLibraryPaletteCommand() {
-		super("Error Type Library", ErrorModelCategories.ERROR_MODEL, null);
+		super("Error Type Library", ErrorModelPaletteCategories.ERROR_MODEL, null);
 	}
 
 	@Override

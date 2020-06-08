@@ -30,6 +30,7 @@ import javax.inject.Named;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.aadl2.internal.model.Tag;
 import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.IsApplicable;
@@ -38,7 +39,6 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.LabelBuilder;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.PolyBuilder;
-import org.osate.ge.internal.model.Tag;
 
 public class TagHandler {
 	private final Graphic defaultGraphic = LabelBuilder.create().build();

@@ -41,7 +41,7 @@ import org.osate.ge.palette.TargetedPaletteCommandContext;
 
 public class CreateStatePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	public CreateStatePaletteCommand() {
-		super("State", BaCategories.BEHAVIOR_ANNEX, null);
+		super("State", BaPaletteCategories.BEHAVIOR_ANNEX, null);
 	}
 
 	@Override

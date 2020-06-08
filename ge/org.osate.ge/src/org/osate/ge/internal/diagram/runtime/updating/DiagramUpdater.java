@@ -37,6 +37,7 @@ import java.util.stream.Collectors;
 
 import org.osate.ge.DockingPosition;
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.aadl2.internal.model.PropertyValueGroup;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.internal.AgeConnection;
 import org.osate.ge.graphics.internal.AgeGraphicalConfiguration;
@@ -51,7 +52,6 @@ import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
 import org.osate.ge.internal.diagram.runtime.boTree.DiagramToBusinessObjectTreeConverter;
 import org.osate.ge.internal.diagram.runtime.boTree.TreeUpdater;
 import org.osate.ge.internal.model.EmbeddedBusinessObject;
-import org.osate.ge.internal.model.PropertyValueGroup;
 import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.AgeAction;
 

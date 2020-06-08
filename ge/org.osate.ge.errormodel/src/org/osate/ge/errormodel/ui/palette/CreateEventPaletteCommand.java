@@ -41,7 +41,7 @@ public class CreateEventPaletteCommand extends BasePaletteCommand implements Tar
 	private final EClass eventType;
 
 	public CreateEventPaletteCommand(final EClass eventType) {
-		super(StringUtil.camelCaseToUser(eventType.getName()), ErrorModelCategories.ERROR_MODEL, null);
+		super(StringUtil.camelCaseToUser(eventType.getName()), ErrorModelPaletteCategories.ERROR_MODEL, null);
 		this.eventType = eventType;
 	}
 
