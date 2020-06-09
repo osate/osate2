@@ -23,15 +23,17 @@
  */
 package org.osate.ge.errormodel.businessObjectHandlers;
 
+import java.util.Optional;
+
 import javax.inject.Named;
 
-import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
-import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
@@ -44,19 +46,25 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 public class ErrorBehaviorStateHandler implements BusinessObjectHandler {
 	private static final Graphic graphic = EllipseBuilder.create().build();
 
-	@IsApplicable
+	@Override
+	public boolean isApplicable(final IsApplicableContext ctx) {
+		return ctx.getBusinessObject(ErrorBehaviorState.class).isPresent();
+	}
+
 	@CanDelete
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorState state) {
 		return true;
 	}
 
-	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorState state) {
-		return GraphicalConfigurationBuilder.create().
+	@Override
+	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
+		final ErrorBehaviorState state = ctx.getBusinessObjectContext().getBusinessObject(ErrorBehaviorState.class)
+				.get();
+		return Optional.of(GraphicalConfigurationBuilder.create().
 				graphic(graphic).
 				annotation(state.isIntial() ? "<Initial>" : null).
 				style(ErrorModelGeUtil.centeredStyle).
-				build();
+				build());
 	}
 
 	@GetName

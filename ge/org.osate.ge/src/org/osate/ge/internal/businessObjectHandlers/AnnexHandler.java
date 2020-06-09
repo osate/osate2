@@ -23,19 +23,21 @@
  */
 package org.osate.ge.internal.businessObjectHandlers;
 
+import java.util.Optional;
+
 import javax.inject.Named;
 
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
-import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.graphics.internal.FolderGraphicBuilder;
@@ -49,13 +51,18 @@ public class AnnexHandler implements BusinessObjectHandler {
 			.style(StyleBuilder.create().labelsCenter().build()).
 			build();
 
-	@IsApplicable
+	@Override
+	public boolean isApplicable(final IsApplicableContext ctx) {
+		return ctx.getBusinessObject(DefaultAnnexLibrary.class).isPresent()
+				|| ctx.getBusinessObject(DefaultAnnexSubclause.class).isPresent();
+	}
+
 	@CanDelete
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) DefaultAnnexLibrary bo) {
 		return true;
 	}
 
-	@IsApplicable
+	@CanDelete
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) DefaultAnnexSubclause bo) {
 		return true;
 	}
@@ -66,9 +73,9 @@ public class AnnexHandler implements BusinessObjectHandler {
 		return bo.getContainingClassifier() == queryService.getFirstBusinessObject(parentQuery, boc);
 	}
 
-	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalRepresentation() {
-		return graphicalConfig;
+	@Override
+	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
+		return Optional.of(graphicalConfig);
 	}
 
 	/**

@@ -23,21 +23,22 @@
  */
 package org.osate.ge.internal.businessObjectHandlers;
 
+import java.util.Optional;
+
 import javax.inject.Named;
 
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.GetGraphicalConfiguration;
-import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.model.Note;
 import org.osate.ge.internal.model.NoteReference;
@@ -46,30 +47,37 @@ public class NoteReferenceHandler implements BusinessObjectHandler {
 	private static final Graphic graphic = ConnectionBuilder.create().build();
 	private static final Style style = StyleBuilder.create().build();
 
-	@IsApplicable
+	@Override
+	public boolean isApplicable(final IsApplicableContext ctx) {
+		return ctx.getBusinessObject(NoteReference.class).isPresent();
+	}
+
 	@CanDelete
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) NoteReference bo) {
 		return true;
 	}
 
-	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalConfiguration(
-			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
-			final @Named(Names.BUSINESS_OBJECT) NoteReference noteReference, final AgeDiagramProvider diagramProvider) {
+	@Override
+	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
+		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
+		final NoteReference noteReference = boc.getBusinessObject(NoteReference.class).get();
+
 		// Require the note reference's parent to be a note. This prevents being able to paste a note reference into other objects.
 		if (boc.getParent() == null || !(boc.getParent().getBusinessObject() instanceof Note)) {
-			return null;
+			return Optional.empty();
 		}
 
 		// Try to get the referenced element
-		final DiagramElement referencedElement = diagramProvider.getAgeDiagram()
+		final DiagramElement referencedElement = ctx
+				.getDiagram()
 				.findElementById(noteReference.getReferencedDiagramElementId());
 		if (referencedElement == null) {
-			return null;
+			return Optional.empty();
 		}
 
-		return GraphicalConfigurationBuilder.create().graphic(graphic)
+		return Optional.of(GraphicalConfigurationBuilder.create().graphic(
+				graphic)
 				.source(boc.getParent())
-				.destination(referencedElement).style(style).build();
+				.destination(referencedElement).style(style).build());
 	}
 }

@@ -23,21 +23,22 @@
  */
 package org.osate.ge.internal.businessObjectHandlers;
 
+import java.util.Optional;
+
 import javax.inject.Named;
 
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.CanRename;
-import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetNameForEditing;
-import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
@@ -48,17 +49,21 @@ import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.internal.util.AadlSubcomponentUtil;
 
 public class SubcomponentHandler implements BusinessObjectHandler {
-	@IsApplicable
-	@CanRename
+	@Override
+	public boolean isApplicable(final IsApplicableContext ctx) {
+		return ctx.getBusinessObject(Subcomponent.class).isPresent();
+	}
+
 	@CanDelete
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc) {
 		return true;
 	}
 
-	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc,
-			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext scBoc) {
-		return GraphicalConfigurationBuilder.create().
+	@Override
+	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
+		final BusinessObjectContext scBoc = ctx.getBusinessObjectContext();
+		final Subcomponent sc = scBoc.getBusinessObject(Subcomponent.class).get();
+		return Optional.of(GraphicalConfigurationBuilder.create().
 				graphic(getGraphicalRepresentation(sc, scBoc)).
 				style(StyleBuilder.create(
 						AadlInheritanceUtil.isInherited(scBoc) ? Styles.INHERITED_ELEMENT : Style.EMPTY,
@@ -66,7 +71,7 @@ public class SubcomponentHandler implements BusinessObjectHandler {
 						.labelsTop().labelsHorizontalCenter()
 						.build())
 				.
-				build();
+				build());
 	}
 
 	private Graphic getGraphicalRepresentation(final Subcomponent sc,

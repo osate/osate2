@@ -23,16 +23,18 @@
  */
 package org.osate.ge.internal.businessObjectHandlers;
 
+import java.util.Optional;
+
 import javax.inject.Named;
 
 import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.di.GetGraphicalConfiguration;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.GetName;
-import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.Style;
@@ -55,21 +57,23 @@ public class ModeTransitionInstanceHandler implements BusinessObjectHandler {
 		return queryService.getFirstResult(dstQuery, boc);
 	}
 
-	@IsApplicable
-	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ModeTransitionInstance mti) {
-		return true;
+	@Override
+	public boolean isApplicable(final IsApplicableContext ctx) {
+		return ctx.getBusinessObject(ModeTransitionInstance.class).isPresent();
 	}
 
-	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalConfiguration(
-			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
-		return GraphicalConfigurationBuilder.create().graphic(AadlGraphics.getModeTransitionGraphic())
+	@Override
+	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
+		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
+		final QueryService queryService = ctx.getQueryService();
+		return Optional.of(GraphicalConfigurationBuilder.create().graphic(AadlGraphics
+				.getModeTransitionGraphic())
 				.source(getSource(boc, queryService))
 				.destination(getDestination(boc, queryService))
 				.style(StyleBuilder
 						.create(AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT : Style.EMPTY)
 						.backgroundColor(Color.BLACK).build())
-				.build();
+				.build());
 	}
 
 	@GetName

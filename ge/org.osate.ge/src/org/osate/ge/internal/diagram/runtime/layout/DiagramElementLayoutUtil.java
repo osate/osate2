@@ -283,7 +283,7 @@ public class DiagramElementLayoutUtil {
 						} else if (de.getDockArea() != DockArea.GROUP && de.getParent() instanceof DiagramElement) {
 							final DiagramElement parent = (DiagramElement) de.getParent();
 							final DockingPosition defaultDockingPosition = de
-									.getGraphicalConfiguration().defaultDockingPosition;
+									.getGraphicalConfiguration().getDefaultDockingPosition();
 							final DockArea defaultDockArea = defaultDockingPosition.getDefaultDockArea();
 
 							if (parent.hasSize()) {

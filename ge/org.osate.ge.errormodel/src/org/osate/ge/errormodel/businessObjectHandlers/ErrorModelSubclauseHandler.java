@@ -23,16 +23,22 @@
  */
 package org.osate.ge.errormodel.businessObjectHandlers;
 
-import javax.inject.Named;
+import java.util.Optional;
 
-import org.osate.ge.BusinessObjectHandler;
-import org.osate.ge.di.IsApplicable;
-import org.osate.ge.di.Names;
+import org.osate.ge.GraphicalConfiguration;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 
 public class ErrorModelSubclauseHandler implements BusinessObjectHandler {
-	@IsApplicable
-	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ErrorModelSubclause subclause) {
-		return true;
+	@Override
+	public boolean isApplicable(final IsApplicableContext ctx) {
+		return ctx.getBusinessObject(ErrorModelSubclause.class).isPresent();
+	}
+
+	@Override
+	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
+		return Optional.empty();
 	}
 }

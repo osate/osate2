@@ -25,6 +25,7 @@ package org.osate.ge.internal.businessObjectHandlers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.inject.Named;
 
@@ -33,15 +34,14 @@ import org.osate.aadl2.Connection;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.CanRename;
-import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
-import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Color;
@@ -82,16 +82,21 @@ public class ConnectionHandler implements BusinessObjectHandler {
 							1)
 					.first());
 
-	@IsApplicable
-	@CanRename
+	@Override
+	public boolean isApplicable(final IsApplicableContext ctx) {
+		return ctx.getBusinessObject(Connection.class).isPresent();
+	}
+
 	@CanDelete
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Connection c) {
 		return true;
 	}
 
-	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT) Connection c,
-			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
+	@Override
+	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
+		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
+		final QueryService queryService = ctx.getQueryService();
+
 		BusinessObjectContext src = queryService.getFirstResult(srcQuery, boc);
 		BusinessObjectContext dst = queryService.getFirstResult(dstQuery, boc);
 		boolean partial = false;
@@ -113,8 +118,8 @@ public class ConnectionHandler implements BusinessObjectHandler {
 			sb.dotted();
 		}
 
-		return GraphicalConfigurationBuilder.create().graphic(graphic).style(sb.build()).source(src).destination(dst)
-				.build();
+		return Optional.of(GraphicalConfigurationBuilder.create().graphic(graphic).style(sb.build()).source(src)
+				.destination(dst).build());
 	}
 
 	/**

@@ -23,6 +23,8 @@
  */
 package org.osate.ge.internal.businessObjectHandlers;
 
+import java.util.Optional;
+
 import javax.inject.Named;
 
 import org.osate.aadl2.Classifier;
@@ -32,14 +34,14 @@ import org.osate.aadl2.ImplementationExtension;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetNameForUserInterface;
-import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.Color;
@@ -60,9 +62,12 @@ public class GeneralizatonHandler implements BusinessObjectHandler {
 	private static final Graphic labelGraphic = LabelBuilder.create().build();
 	private static StandaloneQuery nestedClassifierQuery = StandaloneQuery.create((rootQuery) -> rootQuery.descendantsByBusinessObjectsRelativeReference((Generalization g) -> getBusinessObjectPath(g.getGeneral())));
 
-	@IsApplicable
-	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Object bo) {
-		return bo instanceof Realization || bo instanceof TypeExtension || bo instanceof ImplementationExtension || bo instanceof GroupExtension;
+	@Override
+	public boolean isApplicable(final IsApplicableContext ctx) {
+		return ctx.getBusinessObject(Realization.class).isPresent()
+				|| ctx.getBusinessObject(TypeExtension.class).isPresent()
+				|| ctx.getBusinessObject(ImplementationExtension.class).isPresent()
+				|| ctx.getBusinessObject(GroupExtension.class).isPresent();
 	}
 
 	@CanDelete
@@ -70,24 +75,25 @@ public class GeneralizatonHandler implements BusinessObjectHandler {
 		return bo instanceof TypeExtension || bo instanceof ImplementationExtension || bo instanceof GroupExtension;
 	}
 
-	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT) Object bo,
-			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
-			final QueryService queryService) {
+	@Override
+	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
+		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
+		final Object bo = boc.getBusinessObject();
+		final QueryService queryService = ctx.getQueryService();
 		final BusinessObjectContext destination = getDestination(boc, queryService);
 
 		if(destination == null) {
-			return GraphicalConfigurationBuilder.create().
+			return Optional.of(GraphicalConfigurationBuilder.create().
 					graphic(labelGraphic).
 					decoration().
-					build();
+					build());
 		} else {
-			return GraphicalConfigurationBuilder.create().
+			return Optional.of(GraphicalConfigurationBuilder.create().
 					graphic(getConnectionGraphicalRepresentation(bo)).
 					style(getStyle(bo)).
 					source(boc.getParent()). // Source is the owner of the BO
 					destination(getDestination(boc, queryService)).
-					build();
+					build());
 		}
 	}
 

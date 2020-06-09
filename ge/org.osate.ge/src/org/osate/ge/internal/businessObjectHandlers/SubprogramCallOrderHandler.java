@@ -23,17 +23,19 @@
  */
 package org.osate.ge.internal.businessObjectHandlers;
 
+import java.util.Optional;
+
 import javax.inject.Named;
 
 import org.eclipse.xtext.util.Strings;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.aadl2.internal.model.SubprogramCallOrder;
-import org.osate.ge.di.GetGraphicalConfiguration;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.GetNameForUserInterface;
-import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.Color;
@@ -50,9 +52,9 @@ public class SubprogramCallOrderHandler implements BusinessObjectHandler {
 	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObjectRelativeReference(sco->((SubprogramCallOrder)sco).previousSubprogramCall));
 	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObjectRelativeReference(sco->((SubprogramCallOrder)sco).subprogramCall));
 
-	@IsApplicable
-	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) SubprogramCallOrder bo) {
-		return true;
+	@Override
+	public boolean isApplicable(final IsApplicableContext ctx) {
+		return ctx.getBusinessObject(SubprogramCallOrder.class).isPresent();
 	}
 
 	@GetNameForUserInterface
@@ -61,16 +63,17 @@ public class SubprogramCallOrderHandler implements BusinessObjectHandler {
 				+ Strings.emptyIfNull(bo.subprogramCall.getName());
 	}
 
-	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT) SubprogramCallOrder bo,
-			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
-			final QueryService queryService) {
-		return GraphicalConfigurationBuilder.create().
+	@Override
+	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
+		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
+		final SubprogramCallOrder bo = boc.getBusinessObject(SubprogramCallOrder.class).get();
+		final QueryService queryService = ctx.getQueryService();
+		return Optional.of(GraphicalConfigurationBuilder.create().
 				graphic(getGraphicalRepresentation(bo)).
 				style(style).
 				source(getSource(boc, queryService)).
 				destination(getDestination(boc, queryService)).
-				build();
+				build());
 	}
 
 	private Graphic getGraphicalRepresentation(final SubprogramCallOrder bo) {

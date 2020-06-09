@@ -23,6 +23,8 @@
  */
 package org.osate.ge.internal.businessObjectHandlers;
 
+import java.util.Optional;
+
 import javax.inject.Named;
 
 import org.osate.aadl2.Connection;
@@ -30,19 +32,18 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.aadl2.internal.model.AgePropertyValue;
 import org.osate.ge.aadl2.internal.model.PropertyValueGroup;
-import org.osate.ge.di.GetGraphicalConfiguration;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.GetName;
-import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.PolyBuilder;
-import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.services.QueryService;
 import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 
@@ -71,16 +72,18 @@ public class TimingPropertyValueHandler implements BusinessObjectHandler {
 
 	private final PropertyValueGroupHandler fallbackBoh = new PropertyValueGroupHandler();
 
-	@IsApplicable
-	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) PropertyValueGroup pvg) {
-		if (qualifiedTimingPropertyName.equalsIgnoreCase(pvg.getProperty().getQualifiedName())) {
-			AgePropertyValue pv = pvg.getFirstValueBasedOnCompletelyProcessedAssociation();
-			if(pv != null && pv.getValue() instanceof NamedValue) {
-				return true;
+	@Override
+	public boolean isApplicable(final IsApplicableContext ctx) {
+		return ctx.getBusinessObject(PropertyValueGroup.class).filter(pvg -> {
+			if (qualifiedTimingPropertyName.equalsIgnoreCase(pvg.getProperty().getQualifiedName())) {
+				AgePropertyValue pv = pvg.getFirstValueBasedOnCompletelyProcessedAssociation();
+				if(pv != null && pv.getValue() instanceof NamedValue) {
+					return true;
+				}
 			}
-		}
 
-		return false;
+			return false;
+		}).isPresent();
 	}
 
 	public static boolean isImmediateTimingProperty(final Object bo) {
@@ -103,16 +106,16 @@ public class TimingPropertyValueHandler implements BusinessObjectHandler {
 		return false;
 	}
 
-	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
-			final @Named(Names.BUSINESS_OBJECT) PropertyValueGroup pvg,
-			final QueryService queryService,
-			final AgeDiagramProvider diagramProvider) {
+	@Override
+	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
+		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
+		final PropertyValueGroup pvg = boc.getBusinessObject(PropertyValueGroup.class).get();
+
 		final Object parentBo = boc.getParent() == null ? null : boc.getParent().getBusinessObject();
 
 		// Use default property handler if the BO isn't a connection or connection reference.
 		if(!(parentBo instanceof Connection || parentBo instanceof ConnectionReference)) {
-			return fallbackBoh.getGraphicalConfiguration(boc, pvg, diagramProvider);
+			return fallbackBoh.getGraphicalConfiguration(ctx);
 		}
 
 		final NamedValue namedValue = (NamedValue)pvg.getFirstValueBasedOnCompletelyProcessedAssociation().getValue();
@@ -127,13 +130,13 @@ public class TimingPropertyValueHandler implements BusinessObjectHandler {
 		}
 
 		if(graphic == null) {
-			return null;
+			return Optional.empty();
 		}
 
-		return GraphicalConfigurationBuilder.create().
+		return Optional.of(GraphicalConfigurationBuilder.create().
 				graphic(graphic).
 				decoration().
-				build();
+				build());
 	}
 
 	@GetName

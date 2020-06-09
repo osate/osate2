@@ -23,17 +23,19 @@
  */
 package org.osate.ge.errormodel.businessObjectHandlers;
 
+import java.util.Optional;
+
 import javax.inject.Named;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
-import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.ge.internal.services.AadlModificationService;
@@ -57,20 +59,25 @@ public class TransitionBranchHandler implements BusinessObjectHandler {
 								: branch.getTarget();
 					}));
 
-	@IsApplicable
+					@Override
+					public boolean isApplicable(final IsApplicableContext ctx) {
+						return ctx.getBusinessObject(TransitionBranch.class).isPresent();
+					}
+
 	@CanDelete
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) TransitionBranch branch) {
 		return true;
 	}
 
-	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalConfiguration(
-			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
-			final QueryService queryService) {
-		return GraphicalConfigurationBuilder.create().graphic(ErrorModelGeUtil.transitionConnectionGraphic)
+	@Override
+	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
+		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
+		final QueryService queryService = ctx.getQueryService();
+		return Optional.of(GraphicalConfigurationBuilder.create().graphic(
+				ErrorModelGeUtil.transitionConnectionGraphic)
 				.style(ErrorModelGeUtil.transitionConnectionStyle)
 				.source(getSource(boc, queryService))
-				.destination(getDestination(boc, queryService)).build();
+				.destination(getDestination(boc, queryService)).build());
 	}
 
 	private BusinessObjectContext getSource(final BusinessObjectContext boc,

@@ -21,13 +21,35 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge;
+package org.osate.ge.businessObjectHandlers;
+
+import java.util.Objects;
+import java.util.Optional;
+
+// TODO: Rename
 
 /**
- * Handles the graphical behavior for a business object. The business object must be contributed using a
- * {@link BusinessObjectProvider}
  * @since 2.0
+ * @noextend This class is not intended to be subclassed by clients.
  */
-public interface BusinessObjectHandler {
+public class IsApplicableContext {
+	private final Object bo;
 
+	/**
+	 * Context used to check applicability of a business object handler
+	 * @param bo is the business object for which to check whether the business object handler is applicable.
+	 * @noreference This constructor is not intended to be referenced by clients.
+	 */
+	public IsApplicableContext(final Object bo) {
+		this.bo = Objects.requireNonNull(bo, "bo must not be null");
+	}
+
+	// TODO: Document
+	public <T> Optional<T> getBusinessObject(final Class<T> boType) {
+		if (!boType.isInstance(bo)) {
+			return Optional.empty();
+		}
+
+		return Optional.of(boType.cast(bo));
+	}
 }

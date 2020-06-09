@@ -35,7 +35,7 @@ import org.osate.ge.services.QueryService;
  * @noextend This class is not intended to be subclassed by clients.
  * @since 2.0
  */
-public class TargetedPaletteCommandContext {
+public final class TargetedPaletteCommandContext {
 	private final BusinessObjectContext targetBoc;
 	private final DockingPosition dockingPostion;
 	private final QueryService queryService;

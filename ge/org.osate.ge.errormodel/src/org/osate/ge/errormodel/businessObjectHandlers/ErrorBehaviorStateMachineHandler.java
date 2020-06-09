@@ -23,15 +23,17 @@
  */
 package org.osate.ge.errormodel.businessObjectHandlers;
 
+import java.util.Optional;
+
 import javax.inject.Named;
 
-import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
-import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
@@ -44,17 +46,22 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 public class ErrorBehaviorStateMachineHandler implements BusinessObjectHandler {
 	private static final Graphic graphic = RectangleBuilder.create().rounded().build();
 
-	@IsApplicable
+	@Override
+	public boolean isApplicable(final IsApplicableContext ctx) {
+		return ctx.getBusinessObject(ErrorBehaviorStateMachine.class).isPresent();
+	}
+
 	@CanDelete
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorStateMachine bo) {
 		return true;
 	}
 
-	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalConfiguration() {
-		return GraphicalConfigurationBuilder.create().graphic(graphic)
+	@Override
+	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
+		return Optional.of(GraphicalConfigurationBuilder.create().graphic(
+				graphic)
 				.annotation("<Error Behavior State Machine>")
-				.style(ErrorModelGeUtil.topCenteredLabelStyle).build();
+				.style(ErrorModelGeUtil.topCenteredLabelStyle).build());
 	}
 
 	@GetName

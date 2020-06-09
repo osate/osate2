@@ -25,6 +25,7 @@ package org.osate.ge.internal.businessObjectHandlers;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Optional;
 
 import javax.inject.Named;
 
@@ -32,14 +33,14 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlPackage;
-import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
-import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
@@ -52,16 +53,16 @@ import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 public class PackageHandler implements BusinessObjectHandler {
 	private final Graphic graphic = FolderGraphicBuilder.create().build();
 
-	@IsApplicable
-	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) AadlPackage pkg) {
-		return true;
+	@Override
+	public boolean isApplicable(final IsApplicableContext ctx) {
+		return ctx.getBusinessObject(AadlPackage.class).isPresent();
 	}
 
-	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalConfiguration() {
-		return GraphicalConfigurationBuilder.create().
+	@Override
+	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
+		return Optional.of(GraphicalConfigurationBuilder.create().
 				graphic(graphic).
-				build();
+				build());
 	}
 
 	@GetName

@@ -23,15 +23,17 @@
  */
 package org.osate.ge.ba.businessObjectHandlers;
 
+import java.util.Optional;
+
 import javax.inject.Named;
 
 import org.osate.ba.aadlba.BehaviorState;
-import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.di.GetGraphicalConfiguration;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.GetName;
-import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.EllipseBuilder;
 import org.osate.ge.graphics.Graphic;
@@ -39,16 +41,16 @@ import org.osate.ge.graphics.Graphic;
 public class BaStateHandler implements BusinessObjectHandler {
 	private static final Graphic graphic = EllipseBuilder.create().build();
 
-	@IsApplicable
-	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) BehaviorState state) {
-		return true;
+	@Override
+	public boolean isApplicable(final IsApplicableContext ctx) {
+		return ctx.getBusinessObject(BehaviorState.class).isPresent();
 	}
 
-	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalConfiguration() {
-		return GraphicalConfigurationBuilder.create().
+	@Override
+	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
+		return Optional.of(GraphicalConfigurationBuilder.create().
 				graphic(graphic).
-				build();
+				build());
 	}
 
 	@GetName

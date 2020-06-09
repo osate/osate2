@@ -23,17 +23,16 @@
  */
 package org.osate.ge.internal.businessObjectHandlers;
 
-import javax.inject.Named;
+import java.util.Optional;
 
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.di.GetGraphicalConfiguration;
-import org.osate.ge.di.IsApplicable;
-import org.osate.ge.di.Names;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
@@ -48,16 +47,16 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler imple
 	private static StandaloneQuery partialDstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllOutEnd()), 1).first());
 
 	// Basics
-	@IsApplicable
-	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs) {
-		return fs.getKind() == FlowKind.PATH;
+	@Override
+	public boolean isApplicable(final IsApplicableContext ctx) {
+		return ctx.getBusinessObject(FlowSpecification.class).filter(fs -> fs.getKind() == FlowKind.PATH).isPresent();
 	}
 
-	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalConfiguration(
-			final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs,
-			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
-			final QueryService queryService) {
+	@Override
+	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
+		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
+		final FlowSpecification fs = boc.getBusinessObject(FlowSpecification.class).get();
+		final QueryService queryService = ctx.getQueryService();
 		BusinessObjectContext src = queryService.getFirstResult(srcQuery, boc);
 		BusinessObjectContext dst = queryService.getFirstResult(dstQuery, boc);
 		boolean partial = false;
@@ -81,11 +80,11 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler imple
 			sb.dotted();
 		}
 
-		return GraphicalConfigurationBuilder.create().
+		return Optional.of(GraphicalConfigurationBuilder.create().
 				graphic(AadlGraphics.getFlowSpecificationGraphic(fs))
 				.style(sb.build()).
 				source(src).
 				destination(dst).
-				build();
+				build());
 	}
 }

@@ -29,14 +29,14 @@ import javax.inject.Named;
 
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetNameForEditing;
-import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
@@ -72,22 +72,29 @@ public class ErrorBehaviorTransitionHandler implements BusinessObjectHandler {
 	private static Style branchPointStyle = StyleBuilder.create().backgroundColor(Color.BLACK).labelsAboveTop()
 			.labelsLeft().primaryLabelVisible(false).build();
 
-	@IsApplicable
+	@Override
+	public boolean isApplicable(final IsApplicableContext ctx) {
+		return ctx.getBusinessObject(ErrorBehaviorTransition.class).isPresent();
+	}
+
 	@CanDelete
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorTransition transition) {
 		return true;
 	}
 
-	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalConfiguration(
-			final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorTransition transition,
-			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
+	@Override
+	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
+		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
+		final ErrorBehaviorTransition transition = boc.getBusinessObject(ErrorBehaviorTransition.class).get();
+		final QueryService queryService = ctx.getQueryService();
 		if (transition.getDestinationBranches().isEmpty()) {
-			return GraphicalConfigurationBuilder.create().graphic(ErrorModelGeUtil.transitionConnectionGraphic)
+			return Optional.of(GraphicalConfigurationBuilder.create().graphic(
+					ErrorModelGeUtil.transitionConnectionGraphic)
 					.style(ErrorModelGeUtil.transitionConnectionStyle).source(getSource(boc, queryService))
-					.destination(getDestination(boc, queryService)).build();
+					.destination(getDestination(boc, queryService)).build());
 		} else {
-			return GraphicalConfigurationBuilder.create().graphic(branchPointGraphic).style(branchPointStyle).build();
+			return Optional.of(
+					GraphicalConfigurationBuilder.create().graphic(branchPointGraphic).style(branchPointStyle).build());
 		}
 
 	}

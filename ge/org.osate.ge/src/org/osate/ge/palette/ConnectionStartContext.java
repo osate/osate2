@@ -35,7 +35,7 @@ import org.osate.ge.services.QueryService;
  * @noextend This class is not intended to be subclassed by clients.
  * @since 2.0
  */
-public class ConnectionStartContext {
+public final class ConnectionStartContext {
 	private final BusinessObjectContext sourceBoc;
 	private final QueryService queryService;
 
