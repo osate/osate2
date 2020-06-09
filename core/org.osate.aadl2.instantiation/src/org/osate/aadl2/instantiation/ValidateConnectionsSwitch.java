@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -25,32 +25,40 @@ package org.osate.aadl2.instantiation;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.osate.aadl2.DataPort;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionKind;
 import org.osate.aadl2.instance.ConnectionReference;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 
 class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
-
-	Map<InstanceObject, InstantiatedClassifier> classifierCache;
+	private final Map<InstanceObject, InstantiatedClassifier> classifierCache;
+	private final Map<FeatureInstance, Set<ConnectionInstance>> inDataPortConnectionsMap;
 
 	public ValidateConnectionsSwitch(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
 			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		super(monitor, errManager);
 		this.classifierCache = classifierCache;
+		inDataPortConnectionsMap = new HashMap<>();
 	}
 
 	@Override
@@ -69,8 +77,13 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		};
 	}
 
+	public void postProcess() {
+		flagInDataPortsWIthMultipleConnections();
+	}
+
 	private void validateConnections(ComponentInstance ci) {
 		removeShortAccessConnections(ci);
+		recordInDataPortConnections(ci);
 		// more
 	}
 
@@ -213,4 +226,71 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		return false;
 	}
 
+	private void recordInDataPortConnections(final ComponentInstance ci) {
+		final List<ConnectionInstance> connis = ci.getConnectionInstances();
+		for (final ConnectionInstance conni : connis) {
+			final ConnectionInstanceEnd cie = conni.getDestination();
+			if (cie instanceof FeatureInstance) {
+				final FeatureInstance fi = (FeatureInstance) cie;
+				if (fi.getFeature() instanceof DataPort) {
+					Set<ConnectionInstance> set = inDataPortConnectionsMap.get(fi);
+					if (set == null) {
+						set = new HashSet<>();
+						inDataPortConnectionsMap.put(fi, set);
+					}
+					set.add(conni);
+				}
+			}
+		}
+	}
+
+	// XXX: Clean this up!
+	private void flagInDataPortsWIthMultipleConnections() {
+		for (final Entry<FeatureInstance, Set<ConnectionInstance>> entry : inDataPortConnectionsMap.entrySet()) {
+			final FeatureInstance fi = entry.getKey();
+			final Set<ConnectionInstance> connis = entry.getValue();
+			if (connis.size() > 1) {
+				final Set<ConnectionInstance> allModes = new HashSet<>();
+				final Map<SystemOperationMode, Set<ConnectionInstance>> modeToConnection = new HashMap<>();
+				for (final ConnectionInstance ci : connis) {
+					final List<SystemOperationMode> inModes = ci.getInSystemOperationModes();
+					if (inModes != null && !inModes.isEmpty()) {
+						for (final SystemOperationMode som : inModes) {
+							Set<ConnectionInstance> conns = modeToConnection.get(som);
+							if (conns == null) {
+								conns = new HashSet<>();
+								modeToConnection.put(som, conns);
+							}
+							conns.add(ci);
+						}
+					} else {
+						allModes.add(ci);
+					}
+				}
+
+				// Look for problems
+
+				// are all the connections modeless?
+				if (modeToConnection.isEmpty()) {
+					if (allModes.size() > 1) {
+						for (final ConnectionInstance ci : allModes) {
+							error(ci, "More than one semantic connection ends at data port " + fi.getInstanceObjectPath());
+						}
+					}
+				} else {
+					for (final Entry<SystemOperationMode, Set<ConnectionInstance>> mToC : modeToConnection.entrySet()) {
+						final Set<ConnectionInstance> conns = mToC.getValue();
+						conns.addAll(allModes);
+						if (conns.size() > 1) {
+							for (final ConnectionInstance ci : conns) {
+								error(ci, "More than one semantic connection ends at data port "
+										+ fi.getInstanceObjectPath() + " in system operation mode "
+										+ mToC.getKey().getName());
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
