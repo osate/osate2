@@ -25,6 +25,14 @@ public
     end S.no_modes_good;
 
 
+	-- Makes the connection c1: above a potential duplicate
+    system implementation S.extends_bad extends S.no_modes_good
+        connections
+            c2: port a2.aout -> b.bin;
+    end S.extends_bad;
+
+
+
 	system SS
 		modes
 			m1: initial mode;

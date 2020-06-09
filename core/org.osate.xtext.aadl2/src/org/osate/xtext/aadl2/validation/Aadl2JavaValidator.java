@@ -8597,4 +8597,78 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		((Feature) element).setRefined((Feature) duplicated);
 		java.lang.System.out.println(((Feature) element).getRefined());
 	}
+
+	/**
+	 * @since 4.0
+	 */
+	@Check(CheckType.FAST)
+	public void checkInDataPortConnections(final ComponentImplementation compImpl) {
+		final Map<DataPort, Set<Connection>> inDataPortConnectionsMap = new HashMap<>();
+		for (final Connection c : compImpl.getAllConnections()) {
+			final ConnectionEnd ce = c.getAllDestination();
+			if (ce instanceof DataPort) {
+				addToHashedSet(inDataPortConnectionsMap, (DataPort) ce, c);
+			}
+		}
+
+		for (final Entry<DataPort, Set<Connection>> entry : inDataPortConnectionsMap.entrySet()) {
+			final DataPort dataPort = entry.getKey();
+			final Set<Connection> incomingConnections = entry.getValue();
+
+			// If there is more than 1 incoming connection, report an error (maybe)
+			if (incomingConnections.size() > 1) {
+				// This is made more complicated by modes... There can be at most connection per mode
+				final Set<Connection> allModes = new HashSet<>();
+				final Map<Mode, Set<Connection>> modeToConnection = new HashMap<>();
+				for (final Connection c : incomingConnections) {
+					final List<Mode> inModes = c.getAllInModes();
+					if (inModes != null && !inModes.isEmpty()) {
+						for (final Mode mode : inModes) {
+							addToHashedSet(modeToConnection, mode, c);
+						}
+					} else {
+						allModes.add(c);
+					}
+				}
+
+				// Look for problems
+
+				// are all the connections modeless?
+				if (modeToConnection.isEmpty()) {
+					if (allModes.size() > 1) {
+						error(dataPort, "More than one connection instance ends at data port");
+						for (final Connection c : allModes) {
+							error(c, "More than one connection instance ends at data port "
+									+ dataPort.getName());
+						}
+					}
+				} else {
+					for (final Entry<Mode, Set<Connection>> mToC : modeToConnection.entrySet()) {
+						final Set<Connection> conns = mToC.getValue();
+						conns.addAll(allModes);
+						if (conns.size() > 1) {
+							final String modeName = mToC.getKey().getName();
+							error(dataPort, "More than one connection instance ends at data port in mode "
+									+ modeName);
+							for (final Connection ci : conns) {
+								error(ci,
+										"More than one connection instance ends at data port "
+										+ dataPort.getName() + " in mode "
+										+ modeName);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private static <K, V> void addToHashedSet(final Map<K, Set<V>> map, final K key, final V value) {
+		Set<V> set = map.get(key);
+		if (set == null) {
+			set = new HashSet<>();
+			map.put(key, set);
+		}
+		set.add(value);
+	}
 }

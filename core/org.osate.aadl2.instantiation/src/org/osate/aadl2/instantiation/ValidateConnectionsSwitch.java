@@ -249,14 +249,14 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	private void flagInDataPortsWIthMultipleConnections() {
 		for (final Entry<FeatureInstance, Set<ConnectionInstance>> entry : inDataPortConnectionsMap.entrySet()) {
 			final FeatureInstance dataPortFI = entry.getKey();
-			final Set<ConnectionInstance> inComingConnections = entry.getValue();
+			final Set<ConnectionInstance> incomingConnections = entry.getValue();
 
 			// If there is more than 1 incoming connection, report an error (maybe)
-			if (inComingConnections.size() > 1) {
+			if (incomingConnections.size() > 1) {
 				// This is made more complicated by modes... There can be at most connection per mode
 				final Set<ConnectionInstance> allModes = new HashSet<>();
 				final Map<SystemOperationMode, Set<ConnectionInstance>> modeToConnection = new HashMap<>();
-				for (final ConnectionInstance ci : inComingConnections) {
+				for (final ConnectionInstance ci : incomingConnections) {
 					final List<SystemOperationMode> inModes = ci.getInSystemOperationModes();
 					if (inModes != null && !inModes.isEmpty()) {
 						for (final SystemOperationMode som : inModes) {
