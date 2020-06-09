@@ -33,12 +33,13 @@ import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.diagramTypes.CustomDiagramType;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
-import org.osate.ge.graphics.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
 import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.services.ActionExecutor;
@@ -295,7 +296,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		}
 
 		@Override
-		public void setBusinessObjectHandler(final DiagramElement e, final Object boh) {
+		public void setBusinessObjectHandler(final DiagramElement e, final BusinessObjectHandler boh) {
 			e.setBusinessObjectHandler(boh);
 			// Do not notify listeners
 		}
@@ -354,7 +355,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		}
 
 		@Override
-		public void setGraphicalConfiguration(final DiagramElement e, final AgeGraphicalConfiguration value) {
+		public void setGraphicalConfiguration(final DiagramElement e, final GraphicalConfiguration value) {
 			if (!Objects.equals(value, e.getGraphicalConfiguration())) {
 				storeFieldChange(e, ModifiableField.GRAPHICAL_CONFIGURATION, e.getGraphicalConfiguration(), value);
 				e.setGraphicalConfiguration(value);
@@ -631,7 +632,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 				break;
 
 			case GRAPHICAL_CONFIGURATION:
-				m.setGraphicalConfiguration(element, (AgeGraphicalConfiguration) value);
+				m.setGraphicalConfiguration(element, (GraphicalConfiguration) value);
 				break;
 
 			case POSITION:

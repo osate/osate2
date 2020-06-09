@@ -33,7 +33,7 @@ import java.util.Objects;
  * @noextend This class is not intended to be subclassed by clients.
  * @since 2.0
  */
-public class PaletteCommandProviderContext {
+public final class PaletteCommandProviderContext {
 	private final Object diagramBo;
 
 	/**

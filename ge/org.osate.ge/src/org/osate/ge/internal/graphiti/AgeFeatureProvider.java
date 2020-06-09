@@ -152,10 +152,14 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		this.eclipseContext.set(IFeatureProvider.class, this);
 		this.referenceService = Objects.requireNonNull(eclipseContext.get(ReferenceService.class),
 				"unable to retrieve reference service service");
-		this.extService = Objects.requireNonNull(eclipseContext.get(ExtensionService.class), "unable to retrieve extension service");
-		this.aadlModService = Objects.requireNonNull(eclipseContext.get(AadlModificationService.class), "unable to retrieve AADL modification service");
-		this.graphitiService = Objects.requireNonNull(eclipseContext.get(GraphitiService.class), "unablet to retrieve Graphiti service");
-		this.referenceResolver = Objects.requireNonNull(eclipseContext.get(ProjectReferenceService.class), "unable to retrieve internal reference resolution service");
+		this.extService = Objects.requireNonNull(eclipseContext.get(ExtensionService.class),
+				"unable to retrieve extension service");
+		this.aadlModService = Objects.requireNonNull(eclipseContext.get(AadlModificationService.class),
+				"unable to retrieve AADL modification service");
+		this.graphitiService = Objects.requireNonNull(eclipseContext.get(GraphitiService.class),
+				"unablet to retrieve Graphiti service");
+		this.referenceResolver = Objects.requireNonNull(eclipseContext.get(ProjectReferenceService.class),
+				"unable to retrieve internal reference resolution service");
 		this.queryService = Objects.requireNonNull(eclipseContext.get(QueryService.class),
 				"unable to retrieve query service");
 
@@ -172,25 +176,25 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		final DefaultBusinessObjectNodeFactory nodeFactory = new DefaultBusinessObjectNodeFactory(referenceResolver);
 		final ActionService actionService = Objects.requireNonNull(eclipseContext.get(ActionService.class),
 				"unable to retrieve action service");
-		boTreeExpander = new DefaultTreeUpdater(graphitiService, extService, referenceResolver,
-				queryService, nodeFactory);
-		deInfoProvider = new DefaultDiagramElementGraphicalConfigurationProvider(referenceResolver, extService);
+		boTreeExpander = new DefaultTreeUpdater(graphitiService, extService, referenceResolver, queryService,
+				nodeFactory);
+		deInfoProvider = new DefaultDiagramElementGraphicalConfigurationProvider(referenceResolver, queryService,
+				graphitiService, extService);
 		diagramUpdater = new DiagramUpdater(boTreeExpander, deInfoProvider, actionService);
 		final SystemInstanceLoadingService systemInstanceLoader = Objects.requireNonNull(
 				eclipseContext.get(SystemInstanceLoadingService.class),
 				"unable to retrieve system instance loading service");
 		this.updateDiagramFeature = new UpdateDiagramFeature(this, actionService, graphitiService, diagramUpdater,
-				graphitiService,
-				referenceResolver, systemInstanceLoader);
+				graphitiService, referenceResolver, systemInstanceLoader);
 	}
 
 	@Override
 	public void dispose() {
-		if(deInfoProvider != null) {
+		if (deInfoProvider != null) {
 			deInfoProvider.close();
 		}
 
-		if(eclipseContext != null) {
+		if (eclipseContext != null) {
 			eclipseContext.dispose();
 		}
 
@@ -224,7 +228,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 
 	@Override
 	public Object getBusinessObjectForPictogramElement(final PictogramElement pictogramElement) {
-		if(pictogramElement == null) {
+		if (pictogramElement == null) {
 			return null;
 		}
 
@@ -237,8 +241,9 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		final AgeDiagram ageDiagram = graphitiService.getGraphitiAgeDiagram().getAgeDiagram();
 		final List<PictogramElement> pes = new ArrayList<>();
 		final CanonicalBusinessObjectReference searchRef = referenceService.getCanonicalReference(businessObject);
-		if(searchRef != null) {
-			getPictogramElements(searchRef, ageDiagram, graphitiService.getGraphitiAgeDiagram(), pes, Integer.MAX_VALUE);
+		if (searchRef != null) {
+			getPictogramElements(searchRef, ageDiagram, graphitiService.getGraphitiAgeDiagram(), pes,
+					Integer.MAX_VALUE);
 		}
 		return pes.toArray(new PictogramElement[pes.size()]);
 	}
@@ -248,7 +253,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		final AgeDiagram ageDiagram = graphitiService.getGraphitiAgeDiagram().getAgeDiagram();
 		final List<PictogramElement> pes = new ArrayList<>();
 		final CanonicalBusinessObjectReference searchRef = referenceService.getCanonicalReference(businessObject);
-		if(searchRef != null) {
+		if (searchRef != null) {
 			getPictogramElements(searchRef, ageDiagram, graphitiService.getGraphitiAgeDiagram(), pes, 1);
 		}
 
@@ -260,23 +265,20 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	 * Returns the associated pictogram elmeents. Returns up to limit entries.
 	 * @return whether the limit has been reached
 	 */
-	private boolean getPictogramElements(final CanonicalBusinessObjectReference searchRef,
-			final DiagramNode dn,
-			final NodePictogramBiMap mapping,
-			final List<PictogramElement> results,
-			final int limit) {
-		for(final DiagramElement child : dn.getDiagramElements()) {
-			if(searchRef.equals(referenceService.getCanonicalReference(child.getBusinessObject()))) {
+	private boolean getPictogramElements(final CanonicalBusinessObjectReference searchRef, final DiagramNode dn,
+			final NodePictogramBiMap mapping, final List<PictogramElement> results, final int limit) {
+		for (final DiagramElement child : dn.getDiagramElements()) {
+			if (searchRef.equals(referenceService.getCanonicalReference(child.getBusinessObject()))) {
 				final PictogramElement pe = mapping.getPictogramElement(child);
-				if(pe != null) {
+				if (pe != null) {
 					results.add(pe);
-					if(results.size() >= limit) {
+					if (results.size() >= limit) {
 						return true;
 					}
 				}
 			}
 
-			if(getPictogramElements(searchRef, child, mapping, results, limit)) {
+			if (getPictogramElements(searchRef, child, mapping, results, limit)) {
 				return true;
 			}
 		}
@@ -332,7 +334,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 
 	@Override
 	public IUpdateFeature getUpdateFeature(final IUpdateContext updateCtx) {
-		if(updateCtx.getPictogramElement() instanceof Diagram) {
+		if (updateCtx.getPictogramElement() instanceof Diagram) {
 			return updateDiagramFeature;
 		}
 
@@ -361,6 +363,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 
 		return diagramBo;
 	}
+
 	@Override
 	public IMoveBendpointFeature getMoveBendpointFeature(final IMoveBendpointContext context) {
 		return moveBendpointFeature;
@@ -377,7 +380,8 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	}
 
 	@Override
-	public IMoveConnectionDecoratorFeature getMoveConnectionDecoratorFeature(final IMoveConnectionDecoratorContext context) {
+	public IMoveConnectionDecoratorFeature getMoveConnectionDecoratorFeature(
+			final IMoveConnectionDecoratorContext context) {
 		return defaultMoveConnectionDecoratorFeature;
 	}
 
@@ -397,4 +401,3 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		return null;
 	}
 }
-

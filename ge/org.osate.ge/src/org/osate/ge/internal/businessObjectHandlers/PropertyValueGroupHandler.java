@@ -23,16 +23,18 @@
  */
 package org.osate.ge.internal.businessObjectHandlers;
 
+import java.util.Optional;
+
 import javax.inject.Named;
 
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.aadl2.internal.model.PropertyValueGroup;
-import org.osate.ge.di.GetGraphicalConfiguration;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.GetName;
-import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.Color;
@@ -41,7 +43,6 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.LabelBuilder;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.aadlproperties.PropertyValueFormatter;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.util.BusinessObjectContextUtil;
@@ -55,23 +56,23 @@ public class PropertyValueGroupHandler implements BusinessObjectHandler {
 	private static final Style referenceStyle = StyleBuilder.create().backgroundColor(Color.BLACK).dashed().build();
 	private static final Style abstractStyle = StyleBuilder.create().backgroundColor(Color.BLACK).dotted().build();
 
-	@IsApplicable
-	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) PropertyValueGroup pvg) {
-		return true;
+	@Override
+	public boolean isApplicable(final IsApplicableContext ctx) {
+		return ctx.getBusinessObject(PropertyValueGroup.class).isPresent();
 	}
 
-	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
-			final @Named(Names.BUSINESS_OBJECT) PropertyValueGroup pvg,
-			final AgeDiagramProvider diagramProvider) {
+	@Override
+	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
+		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
+		final PropertyValueGroup pvg = boc.getBusinessObject(PropertyValueGroup.class).get();
 
 		if(pvg.getReferenceId() == null) {
-			return createTextGraphicalConfiguration();
+			return Optional.of(createTextGraphicalConfiguration());
 		} else {
 			// Try to get the referenced element
-			final DiagramElement referencedElement = diagramProvider.getAgeDiagram().findElementById(pvg.getReferenceId());
+			final DiagramElement referencedElement = ctx.getDiagram().findElementById(pvg.getReferenceId());
 			if(referencedElement == null) {
-				return null;
+				return Optional.empty();
 			}
 
 			// If the reference is from the child to an ancestor or from an ancestor to a child, show it as text if it is is based on a completely processed
@@ -80,18 +81,18 @@ public class PropertyValueGroupHandler implements BusinessObjectHandler {
 			if (BusinessObjectContextUtil.isAncestor(parent, referencedElement)
 					|| BusinessObjectContextUtil.isAncestor(referencedElement, parent)) {
 				if (pvg.getFirstValueBasedOnCompletelyProcessedAssociation() == null) {
-					return null;
+					return Optional.empty();
 				} else {
-					return createTextGraphicalConfiguration();
+					return Optional.of(createTextGraphicalConfiguration());
 				}
 			}
 
-			return GraphicalConfigurationBuilder.create().
+			return Optional.of(GraphicalConfigurationBuilder.create().
 					graphic(graphic).style(pvg.isAbstract() ? abstractStyle : referenceStyle)
 					.
 					source(boc.getParent()).
 					destination(referencedElement).
-					build();
+					build());
 		}
 	}
 

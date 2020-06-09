@@ -32,8 +32,6 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.e4.core.contexts.ContextInjectionFactory;
-import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -41,8 +39,6 @@ import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.RelativeBusinessObjectReference;
-import org.osate.ge.di.CanRename;
-import org.osate.ge.di.Names;
 import org.osate.ge.di.Rename;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.graphiti.ShapeNames;
@@ -115,24 +111,11 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature {
 			return false;
 		}
 
-		// Ensure that the specified pictogram elmenet is a primary label unless the context contains a property specifying otherwise.
+		// Ensure that the specified pictogram element is a primary label unless the context contains a property specifying otherwise.
 		if (!Boolean.FALSE.equals(context.getProperty(PROPERTY_REQUIRE_PRIMARY_LABEL))) {
 			if (!ShapeNames.primaryLabelShapeName.equals(PropertyUtil.getName(context.getPictogramElement()))) {
 				return false;
 			}
-		}
-
-		final IEclipseContext childCtx = extService.createChildContext();
-		boolean canRename = true;
-		try {
-			childCtx.set(Names.BUSINESS_OBJECT, bo);
-			childCtx.set(Names.BUSINESS_OBJECT_CONTEXT, de);
-			canRename = (boolean)ContextInjectionFactory.invoke(handler, CanRename.class, childCtx, true);
-			if(!canRename) {
-				return false;
-			}
-		} finally {
-			childCtx.dispose();
 		}
 
 		return true;

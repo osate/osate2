@@ -21,53 +21,52 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.palette;
+package org.osate.ge.businessObjectHandlers;
 
 import java.util.Objects;
 
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.services.QueryService;
 
+// TODO: Rename
+
 /**
- * Contains information provided to the palette command to create an operation to create a connection.
- *
- * @noinstantiate This class is not intended to be instantiated by clients.
- * @noextend This class is not intended to be subclassed by clients.
  * @since 2.0
+ * @noextend This class is not intended to be subclassed by clients.
+ * @noinstantiate This class is not intended to be instantiated by clients.
  */
-public final class CreateConnectionContext {
-	private final BusinessObjectContext sourceBoc;
-	private final BusinessObjectContext destinationBoc;
+public class GetGraphicalConfigurationContext {
+	private final BusinessObjectContext boc;
 	private final QueryService queryService;
+	private final AgeDiagram diagram;
 
 	/**
-	 * Create a new instance.
-	 * @param sourceBoc the start of the connection.
-	 * @param destinationBoc the end of the connection.
+	 * Context used to get the graphical configuration for an business object
+	 * @param bo is the business object for which to check whether the business object handler is applicable.
 	 * @param queryService is a query service instance to provide to the palette command.
+	 * @param diagram is the diagram in which the business object context is contained.
 	 * @noreference This constructor is not intended to be referenced by clients.
 	 */
-	public CreateConnectionContext(final BusinessObjectContext sourceBoc,
-			final BusinessObjectContext destinationBoc, final QueryService queryService) {
-		this.sourceBoc = Objects.requireNonNull(sourceBoc, "sourceBoc must not be null");
-		this.destinationBoc = Objects.requireNonNull(destinationBoc, "destinationBoc must not be null");
+	public GetGraphicalConfigurationContext(final BusinessObjectContext boc, final QueryService queryService,
+			final AgeDiagram diagram) {
+		this.boc = Objects.requireNonNull(boc, "boc must not be null");
 		this.queryService = Objects.requireNonNull(queryService, "queryService must not be null");
+		this.diagram = Objects.requireNonNull(diagram, "diagram must not be null");
+	}
+
+	// TODO: Document
+	public BusinessObjectContext getBusinessObjectContext() {
+		return boc;
 	}
 
 	/**
-	 * Returns the business object context which defines the start of the connection.
-	 * @return the start of the connection.
+	 * Returns the diagram in which the business object context is contained. Internal use only.
+	 * @return the diagram in which the business object context is contained.
+	 * @noreference This method is not intended to be referenced by clients.
 	 */
-	public final BusinessObjectContext getSource() {
-		return sourceBoc;
-	}
-
-	/**
-	 * Returns the business object context which defines the end of the connection.
-	 * @return the end of the connection.
-	 */
-	public final BusinessObjectContext getDestination() {
-		return destinationBoc;
+	public AgeDiagram getDiagram() {
+		return diagram;
 	}
 
 	/**

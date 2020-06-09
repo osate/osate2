@@ -23,38 +23,41 @@
  */
 package org.osate.ge.internal.businessObjectHandlers;
 
+import java.util.Optional;
+
 import javax.inject.Named;
 
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.instance.FeatureInstance;
-import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.DockingPosition;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.di.GetGraphicalConfiguration;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.GetName;
-import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.graphics.internal.FeatureGraphic;
 
 public class FeatureInstanceHandler implements BusinessObjectHandler {
-	@IsApplicable
-	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) FeatureInstance fi) {
-		return true;
+	@Override
+	public boolean isApplicable(final IsApplicableContext ctx) {
+		return ctx.getBusinessObject(FeatureInstance.class).isPresent();
 	}
 
-	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT) FeatureInstance fi) {
+	@Override
+	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
+		final FeatureInstance fi = ctx.getBusinessObjectContext().getBusinessObject(FeatureInstance.class).get();
 		final FeatureGraphic graphic = getGraphicalRepresentation(fi);
-		return GraphicalConfigurationBuilder.create().
+		return Optional.of(GraphicalConfigurationBuilder.create().
 				graphic(graphic).
 				annotation(AadlGraphics.getFeatureAnnotation(fi.getFeature().eClass())).
 				style(StyleBuilder.create().backgroundColor(AadlGraphics.getDefaultBackgroundColor(graphic.featureType))
 						.labelsAboveTop().labelsLeft().build())
 				.
 				defaultDockingPosition(getDefaultDockingPosition(fi)).
-				build();
+				build());
 	}
 
 	private FeatureGraphic getGraphicalRepresentation(final FeatureInstance fi) {

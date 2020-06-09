@@ -33,7 +33,7 @@ import org.osate.ge.internal.services.ExtensionRegistryService;
  * @noextend This class is not intended to be subclassed by clients.
  * @noinstantiate This class is not intended to be instantiated by clients.
  */
-public class BusinessObjectProviderContext {
+public final class BusinessObjectProviderContext {
 	private final BusinessObjectContext boc;
 	private final ExtensionRegistryService extensionRegistry;
 

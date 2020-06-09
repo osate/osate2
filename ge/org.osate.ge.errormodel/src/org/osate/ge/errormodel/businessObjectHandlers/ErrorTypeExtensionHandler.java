@@ -23,18 +23,20 @@
  */
 package org.osate.ge.errormodel.businessObjectHandlers;
 
+import java.util.Optional;
+
 import javax.inject.Named;
 
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.Delete;
-import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetNameForUserInterface;
-import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.errormodel.model.ErrorTypeExtension;
 import org.osate.ge.errormodel.model.ErrorTypeLibrary;
@@ -57,22 +59,27 @@ public class ErrorTypeExtensionHandler implements BusinessObjectHandler {
 					.descendantsByBusinessObjectsRelativeReference(
 							ete -> getBusinessObjectPath(((ErrorTypeExtension) ete).getSupertype())));
 
-	@IsApplicable
+	@Override
+	public boolean isApplicable(final IsApplicableContext ctx) {
+		return ctx.getBusinessObject(ErrorTypeExtension.class).isPresent();
+	}
+
 	@CanDelete
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ErrorTypeExtension errorTypeExtension) {
 		return true;
 	}
 
-	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT) Object bo,
-			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
+	@Override
+	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
+		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
+		final QueryService queryService = ctx.getQueryService();
 		final BusinessObjectContext destination = getDestination(boc, queryService);
 
 		if (destination == null) {
-			return GraphicalConfigurationBuilder.create().graphic(labelGraphic).decoration().build();
+			return Optional.of(GraphicalConfigurationBuilder.create().graphic(labelGraphic).decoration().build());
 		} else {
-			return GraphicalConfigurationBuilder.create().graphic(connectionGraphic).
-					source(boc.getParent()).destination(destination).build();
+			return Optional.of(GraphicalConfigurationBuilder.create().graphic(connectionGraphic).source(boc.getParent())
+					.destination(destination).build());
 		}
 	}
 

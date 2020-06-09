@@ -23,17 +23,16 @@
  */
 package org.osate.ge.internal.businessObjectHandlers;
 
-import javax.inject.Named;
+import java.util.Optional;
 
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.di.GetGraphicalConfiguration;
-import org.osate.ge.di.IsApplicable;
-import org.osate.ge.di.Names;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.util.AadlHelper;
@@ -43,7 +42,7 @@ import org.osate.ge.query.Supplier;
 import org.osate.ge.services.QueryService;
 
 public class FlowSourceSinkSpecificationInstanceHandler extends FlowSpecificationInstanceHandler
-		implements BusinessObjectHandler {
+implements BusinessObjectHandler {
 	private static final Supplier<FlowSpecificationInstance, Object[]> getPathToFlowSpecificationInstance = (
 			fsi) -> AadlHelper.getPathToBusinessObject(fsi
 					.getComponentInstance(),
@@ -53,16 +52,20 @@ public class FlowSourceSinkSpecificationInstanceHandler extends FlowSpecificatio
 			private static final StandaloneQuery partialSrcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent()
 					.descendantsByBusinessObjectsRelativeReference(getPathToFlowSpecificationInstance, 1).first());
 
-			@IsApplicable
-			public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) FlowSpecificationInstance fsi) {
-				final FlowKind flowKind = fsi.getFlowSpecification().getKind();
-				return flowKind == FlowKind.SOURCE || flowKind == FlowKind.SINK;
+			@Override
+			public boolean isApplicable(final IsApplicableContext ctx) {
+				return ctx.getBusinessObject(FlowSpecificationInstance.class).filter(fsi -> {
+					final FlowKind flowKind = fsi.getFlowSpecification().getKind();
+					return flowKind == FlowKind.SOURCE || flowKind == FlowKind.SINK;
+				}).isPresent();
 			}
 
-			@GetGraphicalConfiguration
-			public GraphicalConfiguration getGraphicalConfiguration(
-					final @Named(Names.BUSINESS_OBJECT) FlowSpecificationInstance fsi,
-					final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
+			@Override
+			public Optional<GraphicalConfiguration> getGraphicalConfiguration(
+					final GetGraphicalConfigurationContext ctx) {
+				final BusinessObjectContext boc = ctx.getBusinessObjectContext();
+				final FlowSpecificationInstance fsi = boc.getBusinessObject(FlowSpecificationInstance.class).get();
+				final QueryService queryService = ctx.getQueryService();
 				BusinessObjectContext src = queryService.getFirstResult(srcQuery, boc);
 				boolean partial = false;
 
@@ -77,8 +80,9 @@ public class FlowSourceSinkSpecificationInstanceHandler extends FlowSpecificatio
 					sb.dotted();
 				}
 
-				return GraphicalConfigurationBuilder.create()
+				return Optional.of(GraphicalConfigurationBuilder
+						.create()
 						.graphic(AadlGraphics.getFlowSpecificationGraphic(fsi.getFlowSpecification())).style(sb.build())
-						.source(src).build();
+						.source(src).build());
 			}
 }

@@ -35,7 +35,6 @@ import java.util.stream.Collectors;
 import org.eclipse.emf.ecore.EObject;
 import org.junit.Test;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.diagram.Point;
 import org.osate.ge.internal.operations.DefaultOperationBuilder;
 import org.osate.ge.internal.operations.OperationExecutor;

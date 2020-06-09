@@ -66,16 +66,13 @@ import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.e4.core.contexts.ContextInjectionFactory;
-import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.ContentFilter;
 import org.osate.ge.DiagramType;
 import org.osate.ge.FundamentalContentFilter;
-import org.osate.ge.di.IsApplicable;
-import org.osate.ge.di.Names;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.util.EclipseExtensionUtil;
@@ -158,23 +155,18 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	}
 
 	@Override
-	public Object getApplicableBusinessObjectHandler(final Object bo) {
-		final IEclipseContext eclipseCtx =  EclipseContextFactory.create();
+	public BusinessObjectHandler getApplicableBusinessObjectHandler(final Object bo) {
+		if (bo == null) {
+			return null;
+		}
 
-		try {
-			eclipseCtx.set(Names.BUSINESS_OBJECT, bo);
+		final IsApplicableContext ctx = new IsApplicableContext(bo);
 
-			// Find the business object handler which is applicable for this business object
-			for(final Object handler : getBusinessObjectHandlers()) {
-				final boolean isApplicable = (boolean)ContextInjectionFactory.invoke(handler, IsApplicable.class, eclipseCtx, false);
-				if(isApplicable) {
-					return handler;
-				}
-
+		// Find the business object handler which is applicable for this business object
+		for (final BusinessObjectHandler handler : getBusinessObjectHandlers()) {
+			if (handler.isApplicable(ctx)) {
+				return handler;
 			}
-
-		} finally {
-			eclipseCtx.dispose();
 		}
 
 		return null;

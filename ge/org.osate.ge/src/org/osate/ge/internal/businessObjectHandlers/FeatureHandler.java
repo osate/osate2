@@ -23,6 +23,8 @@
  */
 package org.osate.ge.internal.businessObjectHandlers;
 
+import java.util.Optional;
+
 import javax.inject.Named;
 
 import org.osate.aadl2.AbstractFeature;
@@ -46,17 +48,16 @@ import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.SubprogramProxy;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.DockingPosition;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.CanRename;
-import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetNameForEditing;
-import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Style;
@@ -68,25 +69,33 @@ import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.internal.util.AadlPrototypeUtil;
 
 public class FeatureHandler implements BusinessObjectHandler {
-	@IsApplicable
-	@CanRename
-	@CanDelete
-	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Object bo) {
-		return bo instanceof Feature || bo instanceof InternalFeature || bo instanceof ProcessorFeature;
+	@Override
+	public boolean isApplicable(final IsApplicableContext ctx) {
+
+		return ctx.getBusinessObject(Feature.class).isPresent()
+				|| ctx.getBusinessObject(InternalFeature.class).isPresent()
+				|| ctx.getBusinessObject(ProcessorFeature.class).isPresent();
 	}
 
-	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT) NamedElement feature,
-			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext featureBoc) {
+	@CanDelete
+	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Object bo) {
+		return true;
+	}
+
+	@Override
+	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
+		final BusinessObjectContext featureBoc = ctx.getBusinessObjectContext();
+		final NamedElement feature = featureBoc.getBusinessObject(NamedElement.class).get();
 		final FeatureGraphic graphic = getGraphicalRepresentation(feature, featureBoc);
-		return GraphicalConfigurationBuilder.create().graphic(graphic)
+		return Optional.of(GraphicalConfigurationBuilder.create().graphic(
+				graphic)
 				.annotation(AadlGraphics.getFeatureAnnotation(feature.eClass()))
 				.style(StyleBuilder
 						.create(AadlInheritanceUtil.isInherited(featureBoc) ? Styles.INHERITED_ELEMENT : Style.EMPTY)
 						.backgroundColor(AadlGraphics.getDefaultBackgroundColor(graphic.featureType)).labelsAboveTop()
 						.labelsLeft()
 						.build())
-				.defaultDockingPosition(getDefaultDockingPosition(feature, featureBoc)).build();
+				.defaultDockingPosition(getDefaultDockingPosition(feature, featureBoc)).build());
 	}
 
 	private FeatureGraphic getGraphicalRepresentation(NamedElement feature, BusinessObjectContext featureBoc) {

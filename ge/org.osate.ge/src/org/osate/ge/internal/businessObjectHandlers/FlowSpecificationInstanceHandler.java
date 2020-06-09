@@ -26,11 +26,11 @@ package org.osate.ge.internal.businessObjectHandlers;
 import javax.inject.Named;
 
 import org.osate.aadl2.instance.FlowSpecificationInstance;
-import org.osate.ge.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
 
-class FlowSpecificationInstanceHandler implements BusinessObjectHandler {
+abstract class FlowSpecificationInstanceHandler implements BusinessObjectHandler {
 	@GetName
 	public String getName(final @Named(Names.BUSINESS_OBJECT) FlowSpecificationInstance fsi) {
 		return fsi.getName();

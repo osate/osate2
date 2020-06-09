@@ -23,16 +23,18 @@
  */
 package org.osate.ge.internal.businessObjectHandlers;
 
+import java.util.Optional;
+
 import javax.inject.Named;
 
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.di.GetGraphicalConfiguration;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.GetName;
-import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
@@ -72,14 +74,15 @@ public class ConnectionReferenceHandler implements BusinessObjectHandler {
 					.getPathToBusinessObject(cr.getComponentInstance(), cr.getDestination()), 1)
 			.first());
 
-	@IsApplicable
-	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ConnectionReference cr) {
-		return true;
+	@Override
+	public boolean isApplicable(final IsApplicableContext ctx) {
+		return ctx.getBusinessObject(ConnectionReference.class).isPresent();
 	}
 
-	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
-			final QueryService queryService) {
+	@Override
+	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
+		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
+		final QueryService queryService = ctx.getQueryService();
 		BusinessObjectContext src = queryService.getFirstResult(srcQuery, boc);
 		BusinessObjectContext dst = queryService.getFirstResult(dstQuery, boc);
 		boolean partial = false;
@@ -95,30 +98,30 @@ public class ConnectionReferenceHandler implements BusinessObjectHandler {
 		}
 
 		if (src == dst) {
-			return null;
+			return Optional.empty();
 		}
 
 		// Don't display connection references when one endpoint is an ancestor of the other. This can happen for a subset of partial connections.
 		if (src != null && dst != null) {
 			for(BusinessObjectContext srcAncestor = src.getParent(); srcAncestor != null; srcAncestor = srcAncestor.getParent()) {
 				if(srcAncestor == dst) {
-					return null;
+					return Optional.empty();
 				}
 			}
 
 			for(BusinessObjectContext dstAncestor = dst.getParent(); dstAncestor != null; dstAncestor = dstAncestor.getParent()) {
 				if(dstAncestor == src) {
-					return null;
+					return Optional.empty();
 				}
 			}
 		}
 
-		return GraphicalConfigurationBuilder.create().
+		return Optional.of(GraphicalConfigurationBuilder.create().
 				graphic(graphic).
 				style(partial ? partialStyle : style).
 				source(src).
 				destination(dst).
-				build();
+				build());
 	}
 
 	@GetName

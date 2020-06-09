@@ -56,11 +56,11 @@ import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.ContentFilter;
 import org.osate.ge.DiagramType;
 import org.osate.ge.FundamentalContentFilter;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.palette.PaletteCategory;
@@ -84,7 +84,7 @@ public class DefaultExtensionService implements ExtensionService {
 	}
 
 	@Override
-	public Object getApplicableBusinessObjectHandler(final Object bo) {
+	public BusinessObjectHandler getApplicableBusinessObjectHandler(final Object bo) {
 		return globalExtService.getApplicableBusinessObjectHandler(bo);
 	}
 

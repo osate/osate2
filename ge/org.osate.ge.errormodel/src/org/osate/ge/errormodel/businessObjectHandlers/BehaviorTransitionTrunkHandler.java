@@ -23,17 +23,19 @@
  */
 package org.osate.ge.errormodel.businessObjectHandlers;
 
+import java.util.Optional;
+
 import javax.inject.Named;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.Delete;
-import org.osate.ge.di.GetGraphicalConfiguration;
-import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.errormodel.model.BehaviorTransitionTrunk;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
@@ -51,20 +53,22 @@ public class BehaviorTransitionTrunkHandler implements BusinessObjectHandler {
 	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.ancestor(2).children()
 			.filterByBusinessObjectRelativeReference(t -> ((BehaviorTransitionTrunk) t).getTransition()));
 
-	@IsApplicable
+	@Override
+	public boolean isApplicable(final IsApplicableContext ctx) {
+		return ctx.getBusinessObject(BehaviorTransitionTrunk.class).isPresent();
+	}
 	@CanDelete
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) BehaviorTransitionTrunk trunk) {
 		return true;
 	}
 
-	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalConfiguration(
-			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
-			final QueryService queryService) {
-		return GraphicalConfigurationBuilder.create().graphic(ErrorModelGeUtil.transitionConnectionGraphic)
+	@Override
+	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
+		return Optional.of(GraphicalConfigurationBuilder.create().graphic(
+				ErrorModelGeUtil.transitionConnectionGraphic)
 				.style(ErrorModelGeUtil.transitionConnectionStyle)
-				.source(getSource(boc, queryService))
-				.destination(getDestination(boc, queryService)).build();
+				.source(getSource(ctx.getBusinessObjectContext(), ctx.getQueryService()))
+				.destination(getDestination(ctx.getBusinessObjectContext(), ctx.getQueryService())).build());
 	}
 
 	private BusinessObjectContext getSource(final BusinessObjectContext boc,

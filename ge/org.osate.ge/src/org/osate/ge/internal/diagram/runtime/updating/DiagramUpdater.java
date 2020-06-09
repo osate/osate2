@@ -36,11 +36,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.osate.ge.DockingPosition;
+import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.model.PropertyValueGroup;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.internal.AgeConnection;
-import org.osate.ge.graphics.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
@@ -139,7 +140,8 @@ public class DiagramUpdater {
 			if(element == null) {
 				final DiagramElement removedGhost = removeGhost(container, n.getRelativeReference());
 				if(removedGhost == null) {
-					final Object boh = infoProvider.getApplicableBusinessObjectHandler(n.getBusinessObject());
+					final BusinessObjectHandler boh = infoProvider
+							.getApplicableBusinessObjectHandler(n.getBusinessObject());
 					if(boh == null) {
 						// Ignore the object
 						continue;
@@ -160,7 +162,8 @@ public class DiagramUpdater {
 
 			// Set the business object handler if it is null
 			if(element.getBusinessObjectHandler() == null) {
-				final Object boh = infoProvider.getApplicableBusinessObjectHandler(n.getBusinessObject());
+				final BusinessObjectHandler boh = infoProvider
+						.getApplicableBusinessObjectHandler(n.getBusinessObject());
 				if(boh == null) {
 					ghostAndRemove(m, element);
 					continue;
@@ -227,20 +230,20 @@ public class DiagramUpdater {
 			m.setUserInterfaceName(element, infoProvider.getUserInterfaceName(element));
 
 			// Set the graphical Configuration
-			final AgeGraphicalConfiguration graphicalConfiguration = infoProvider.getGraphicalConfiguration(element);
+			final GraphicalConfiguration graphicalConfiguration = infoProvider.getGraphicalConfiguration(element);
 			if(graphicalConfiguration == null) {
 				ghostAndRemove(m, element);
 			} else {
 				// Reset position of flow indicators if the start element has changed. This can occur when feature groups are expanded for example.
 				if (element.hasPosition() && DiagramElementPredicates.isFlowIndicator(element)
-						&& graphicalConfiguration.connectionSource != element.getStartElement()) {
+						&& graphicalConfiguration.getConnectionSource() != element.getStartElement()) {
 					m.setPosition(element, null);
 				}
 
 				m.setGraphicalConfiguration(element, graphicalConfiguration);
 
 				// Set the dock area based on the default docking position
-				final DockingPosition defaultDockingPosition = graphicalConfiguration.defaultDockingPosition;
+				final DockingPosition defaultDockingPosition = graphicalConfiguration.getDefaultDockingPosition();
 				final boolean dockable = defaultDockingPosition != DockingPosition.NOT_DOCKABLE;
 				if(dockable) {
 					// If parent is docked, the child should use the group docking area
