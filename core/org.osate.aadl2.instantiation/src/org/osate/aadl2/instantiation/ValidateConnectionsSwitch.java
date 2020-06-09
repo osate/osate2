@@ -226,6 +226,9 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		return false;
 	}
 
+	/**
+	 * Save all the connection instances that end at a data port.
+	 */
 	private void recordInDataPortConnections(final ComponentInstance ci) {
 		final List<ConnectionInstance> connis = ci.getConnectionInstances();
 		for (final ConnectionInstance conni : connis) {
@@ -233,35 +236,31 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			if (cie instanceof FeatureInstance) {
 				final FeatureInstance fi = (FeatureInstance) cie;
 				if (fi.getFeature() instanceof DataPort) {
-					Set<ConnectionInstance> set = inDataPortConnectionsMap.get(fi);
-					if (set == null) {
-						set = new HashSet<>();
-						inDataPortConnectionsMap.put(fi, set);
-					}
-					set.add(conni);
+					addToHashedSet(inDataPortConnectionsMap, fi, conni);
 				}
 			}
 		}
 	}
 
-	// XXX: Clean this up!
+	/**
+	 * Go through the data port features and complain if any of them are a destination for more
+	 * than one connection per mode.
+	 */
 	private void flagInDataPortsWIthMultipleConnections() {
 		for (final Entry<FeatureInstance, Set<ConnectionInstance>> entry : inDataPortConnectionsMap.entrySet()) {
-			final FeatureInstance fi = entry.getKey();
-			final Set<ConnectionInstance> connis = entry.getValue();
-			if (connis.size() > 1) {
+			final FeatureInstance dataPortFI = entry.getKey();
+			final Set<ConnectionInstance> inComingConnections = entry.getValue();
+
+			// If there is more than 1 incoming connection, report an error (maybe)
+			if (inComingConnections.size() > 1) {
+				// This is made more complicated by modes... There can be at most connection per mode
 				final Set<ConnectionInstance> allModes = new HashSet<>();
 				final Map<SystemOperationMode, Set<ConnectionInstance>> modeToConnection = new HashMap<>();
-				for (final ConnectionInstance ci : connis) {
+				for (final ConnectionInstance ci : inComingConnections) {
 					final List<SystemOperationMode> inModes = ci.getInSystemOperationModes();
 					if (inModes != null && !inModes.isEmpty()) {
 						for (final SystemOperationMode som : inModes) {
-							Set<ConnectionInstance> conns = modeToConnection.get(som);
-							if (conns == null) {
-								conns = new HashSet<>();
-								modeToConnection.put(som, conns);
-							}
-							conns.add(ci);
+							addToHashedSet(modeToConnection, som, ci);
 						}
 					} else {
 						allModes.add(ci);
@@ -273,10 +272,10 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				// are all the connections modeless?
 				if (modeToConnection.isEmpty()) {
 					if (allModes.size() > 1) {
-						error(fi, "More than one connection instance ends at data port");
+						error(dataPortFI, "More than one connection instance ends at data port");
 						for (final ConnectionInstance ci : allModes) {
 							error(ci, "More than one connection instance ends at data port "
-									+ fi.getInstanceObjectPath());
+									+ dataPortFI.getInstanceObjectPath());
 						}
 					}
 				} else {
@@ -285,12 +284,12 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						conns.addAll(allModes);
 						if (conns.size() > 1) {
 							final String somName = mToC.getKey().getName();
-							error(fi, "More than one connection instance ends at data port in system operation mode "
+							error(dataPortFI, "More than one connection instance ends at data port in system operation mode "
 									+ somName);
 							for (final ConnectionInstance ci : conns) {
 								error(ci,
 										"More than one connection instance ends at data port "
-										+ fi.getInstanceObjectPath() + " in system operation mode "
+										+ dataPortFI.getInstanceObjectPath() + " in system operation mode "
 										+ somName);
 							}
 						}
@@ -298,5 +297,14 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				}
 			}
 		}
+	}
+
+	private static <K, V> void addToHashedSet(final Map<K, Set<V>> map, final K key, final V value) {
+		Set<V> set = map.get(key);
+		if (set == null) {
+			set = new HashSet<>();
+			map.put(key, set);
+		}
+		set.add(value);
 	}
 }
