@@ -273,8 +273,10 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				// are all the connections modeless?
 				if (modeToConnection.isEmpty()) {
 					if (allModes.size() > 1) {
+						error(fi, "More than one connection instance ends at data port");
 						for (final ConnectionInstance ci : allModes) {
-							error(ci, "More than one semantic connection ends at data port " + fi.getInstanceObjectPath());
+							error(ci, "More than one connection instance ends at data port "
+									+ fi.getInstanceObjectPath());
 						}
 					}
 				} else {
@@ -282,10 +284,14 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						final Set<ConnectionInstance> conns = mToC.getValue();
 						conns.addAll(allModes);
 						if (conns.size() > 1) {
+							final String somName = mToC.getKey().getName();
+							error(fi, "More than one connection instance ends at data port in system operation mode "
+									+ somName);
 							for (final ConnectionInstance ci : conns) {
-								error(ci, "More than one semantic connection ends at data port "
+								error(ci,
+										"More than one connection instance ends at data port "
 										+ fi.getInstanceObjectPath() + " in system operation mode "
-										+ mToC.getKey().getName());
+										+ somName);
 							}
 						}
 					}
