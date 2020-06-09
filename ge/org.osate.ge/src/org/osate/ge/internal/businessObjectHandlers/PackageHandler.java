@@ -32,6 +32,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlPackage;
+import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
@@ -48,7 +49,7 @@ import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 
-public class PackageHandler {
+public class PackageHandler implements BusinessObjectHandler {
 	private final Graphic graphic = FolderGraphicBuilder.create().build();
 
 	@IsApplicable

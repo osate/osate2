@@ -30,6 +30,7 @@ import javax.inject.Named;
 
 import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowSpecification;
+import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.CanRename;
@@ -37,7 +38,7 @@ import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
 
-class FlowSpecificationHandler {
+class FlowSpecificationHandler implements BusinessObjectHandler {
 	// Basics
 	@GetName
 	public String getName(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs) {

@@ -46,6 +46,7 @@ import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.SubprogramProxy;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.DockingPosition;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
@@ -66,7 +67,7 @@ import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.internal.util.AadlPrototypeUtil;
 
-public class FeatureHandler {
+public class FeatureHandler implements BusinessObjectHandler {
 	@IsApplicable
 	@CanRename
 	@CanDelete

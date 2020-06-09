@@ -27,6 +27,7 @@ import javax.inject.Named;
 
 import org.osate.aadl2.ModeTransition;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
@@ -44,7 +45,7 @@ import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
-public class ModeTransitionHandler {
+public class ModeTransitionHandler implements BusinessObjectHandler {
 	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObjectRelativeReference((ModeTransition mt) -> mt.getSource()));
 	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObjectRelativeReference((ModeTransition mt) -> mt.getDestination()));
 

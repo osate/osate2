@@ -25,9 +25,10 @@ package org.osate.ge.errormodel.businessObjectHandlers;
 
 import javax.inject.Named;
 
+import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.Delete;
 import org.osate.ge.di.GetGraphicalConfiguration;
@@ -46,7 +47,7 @@ import org.osate.ge.services.QueryService;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
-public class ErrorTypeExtensionHandler {
+public class ErrorTypeExtensionHandler implements BusinessObjectHandler {
 	private static final Graphic labelGraphic = LabelBuilder.create().build();
 	private static final Graphic connectionGraphic = ConnectionBuilder.create()
 			.destinationTerminator(ArrowBuilder.create().open().build()).build();

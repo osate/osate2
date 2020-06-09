@@ -28,6 +28,7 @@ import java.util.Objects;
 import javax.inject.Named;
 
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.aadl2.internal.model.Tag;
@@ -40,7 +41,7 @@ import org.osate.ge.graphics.LabelBuilder;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.PolyBuilder;
 
-public class TagHandler {
+public class TagHandler implements BusinessObjectHandler {
 	private final Graphic defaultGraphic = LabelBuilder.create().build();
 	private static final Graphic directionIndicator = PolyBuilder.create().polyline()
 			.points(new Point(8.0, 6.0), new Point(0.0, 0.0), new Point(8.0, -6.0)).build();

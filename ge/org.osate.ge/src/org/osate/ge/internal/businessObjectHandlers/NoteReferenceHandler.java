@@ -26,6 +26,7 @@ package org.osate.ge.internal.businessObjectHandlers;
 import javax.inject.Named;
 
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.di.CanDelete;
@@ -41,7 +42,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.model.Note;
 import org.osate.ge.internal.model.NoteReference;
 
-public class NoteReferenceHandler {
+public class NoteReferenceHandler implements BusinessObjectHandler {
 	private static final Graphic graphic = ConnectionBuilder.create().build();
 	private static final Style style = StyleBuilder.create().build();
 

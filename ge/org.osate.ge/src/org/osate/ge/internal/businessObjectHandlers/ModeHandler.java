@@ -27,6 +27,7 @@ import javax.inject.Named;
 
 import org.osate.aadl2.Mode;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
@@ -41,7 +42,7 @@ import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 
-public class ModeHandler {
+public class ModeHandler implements BusinessObjectHandler {
 	@IsApplicable
 	@CanRename
 	@CanDelete

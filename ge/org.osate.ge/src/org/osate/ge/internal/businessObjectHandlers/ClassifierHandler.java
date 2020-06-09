@@ -27,6 +27,7 @@ import javax.inject.Named;
 
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
@@ -39,7 +40,7 @@ import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
 
-public class ClassifierHandler {
+public class ClassifierHandler implements BusinessObjectHandler {
 	@IsApplicable
 	@CanRename
 	@CanDelete

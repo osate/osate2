@@ -27,6 +27,7 @@ import javax.inject.Named;
 
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.di.GetGraphicalConfiguration;
@@ -42,7 +43,7 @@ import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
-public class ConnectionReferenceHandler {
+public class ConnectionReferenceHandler implements BusinessObjectHandler {
 	private static final Graphic graphic = ConnectionBuilder.create().build();
 	private static final Style style = StyleBuilder.create().backgroundColor(Color.BLACK).build();
 	private static final Style partialStyle = StyleBuilder.create().backgroundColor(Color.BLACK).dotted().build();

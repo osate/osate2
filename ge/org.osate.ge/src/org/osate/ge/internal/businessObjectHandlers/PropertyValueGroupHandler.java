@@ -26,6 +26,7 @@ package org.osate.ge.internal.businessObjectHandlers;
 import javax.inject.Named;
 
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.aadl2.internal.model.PropertyValueGroup;
@@ -46,7 +47,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.util.BusinessObjectContextUtil;
 import org.osate.ge.services.QueryService;
 
-public class PropertyValueGroupHandler {
+public class PropertyValueGroupHandler implements BusinessObjectHandler {
 	private final Graphic labelGraphic = LabelBuilder.create().build();
 	private static final Graphic graphic = ConnectionBuilder.create().
 			destinationTerminator(ArrowBuilder.create().filled().small().build()).

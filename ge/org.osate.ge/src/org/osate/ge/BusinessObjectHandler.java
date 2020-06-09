@@ -21,18 +21,13 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.businessObjectHandlers;
+package org.osate.ge;
 
-import javax.inject.Named;
+/**
+ * Handles the graphical behavior for a business object. The business object must be contributed using a
+ * {@link BusinessObjectProvider}
+ * @since 2.0
+ */
+public interface BusinessObjectHandler {
 
-import org.osate.aadl2.instance.FlowSpecificationInstance;
-import org.osate.ge.BusinessObjectHandler;
-import org.osate.ge.di.GetName;
-import org.osate.ge.di.Names;
-
-class FlowSpecificationInstanceHandler implements BusinessObjectHandler {
-	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) FlowSpecificationInstance fsi) {
-		return fsi.getName();
-	}
 }

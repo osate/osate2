@@ -29,6 +29,7 @@ import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.di.CanDelete;
@@ -41,7 +42,7 @@ import org.osate.ge.graphics.internal.FolderGraphicBuilder;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
-public class AnnexHandler {
+public class AnnexHandler implements BusinessObjectHandler {
 	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestors().first());
 	private static final GraphicalConfiguration graphicalConfig = GraphicalConfigurationBuilder.create().
 			graphic(FolderGraphicBuilder.create().build())

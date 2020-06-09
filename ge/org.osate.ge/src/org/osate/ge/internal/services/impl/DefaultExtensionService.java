@@ -56,6 +56,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.ContentFilter;
 import org.osate.ge.DiagramType;
@@ -78,7 +79,7 @@ public class DefaultExtensionService implements ExtensionService {
 	}
 
 	@Override
-	public Collection<Object> getBusinessObjectHandlers() {
+	public List<BusinessObjectHandler> getBusinessObjectHandlers() {
 		return globalExtService.getBusinessObjectHandlers();
 	}
 

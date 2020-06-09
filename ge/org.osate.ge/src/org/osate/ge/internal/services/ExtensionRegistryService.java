@@ -55,6 +55,7 @@ package org.osate.ge.internal.services;
 import java.util.Collection;
 import java.util.List;
 
+import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.aadl2.internal.diagramTypes.DiagramTypeProvider;
 import org.osate.ge.internal.businessObjectHandlers.BusinessObjectHandlerProvider;
@@ -68,7 +69,7 @@ extends BusinessObjectHandlerProvider, ContentFilterProvider, DiagramTypeProvide
 	/**
 	 * Business object handlers are extension which provide
 	 */
-	Collection<Object> getBusinessObjectHandlers();
+	List<BusinessObjectHandler> getBusinessObjectHandlers();
 
 	@Override
 	Object getApplicableBusinessObjectHandler(Object bo);
