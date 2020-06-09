@@ -1,0 +1,46 @@
+package P3
+public
+	system inner
+		features
+			f1: out data port;
+			f2: out data port;
+	end inner;
+	
+    system middle
+    	features
+    		d: out data port;
+    	modes
+    		m1: initial mode;
+    		m2: mode;
+    		m3: mode;
+    end middle;
+    
+    system implementation middle.i
+    	subcomponents
+    		s: system inner;
+    	connections
+    		c1: port s.f1 -> d in modes (m1, m2);
+    		c2: port s.f2 -> d in modes (m2, m3);
+    end middle.i;
+
+    abstract B
+        features
+            bin: in data port;
+    end B;
+    
+  
+    system S
+    end S;
+    
+    system implementation S.i
+        subcomponents
+            m: system middle.i;
+            b: abstract B;
+        connections
+            c1: port m.d -> b.bin;
+	end S.i;
+   
+end P3;
+
+
+
