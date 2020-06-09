@@ -28,6 +28,7 @@ import javax.inject.Named;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
@@ -46,7 +47,7 @@ import org.osate.ge.internal.util.AadlArrayUtil;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.internal.util.AadlSubcomponentUtil;
 
-public class SubcomponentHandler {
+public class SubcomponentHandler implements BusinessObjectHandler {
 	@IsApplicable
 	@CanRename
 	@CanDelete

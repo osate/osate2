@@ -30,6 +30,13 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.ILog;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
+import org.osate.ge.internal.Activator;
+import org.osate.ge.internal.services.impl.DefaultExtensionRegistryService;
+import org.osgi.framework.FrameworkUtil;
 
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
@@ -51,6 +58,7 @@ public class EclipseExtensionUtil {
 	private static <T> void instantiateSimpleExtensions(final ImmutableList.Builder<T> extensionListBuilder,
 			final IExtensionRegistry registry, final String extensionPointId, final String elementName,
 			final Class<T> extClass) {
+		final ILog logger = Platform.getLog(FrameworkUtil.getBundle(DefaultExtensionRegistryService.class));
 		final IExtensionPoint point = registry.getExtensionPoint(extensionPointId);
 		if (point != null) {
 			// Iterate over all the extensions
@@ -73,8 +81,10 @@ public class EclipseExtensionUtil {
 									extensionListBuilder.add(extClass.cast(ext));
 								}
 							}
-						} catch (final CoreException ex) {
-							throw new RuntimeException(ex);
+						} catch (final CoreException | ClassCastException ex) {
+							logger.log(
+									new Status(IStatus.ERROR, Activator.PLUGIN_ID, "Error instantiating extension",
+											ex));
 						}
 					}
 				}

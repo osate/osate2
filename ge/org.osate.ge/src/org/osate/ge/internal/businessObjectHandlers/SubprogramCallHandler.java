@@ -28,6 +28,7 @@ import javax.inject.Named;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
@@ -44,7 +45,7 @@ import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.services.QueryService;
 
-public class SubprogramCallHandler {
+public class SubprogramCallHandler implements BusinessObjectHandler {
 	private Graphic graphic = EllipseBuilder.create().build();
 	private Style style = StyleBuilder.create().dashed().labelsCenter().build();
 

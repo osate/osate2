@@ -33,6 +33,7 @@ import org.osate.aadl2.Connection;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
@@ -52,7 +53,7 @@ import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
-public class ConnectionHandler {
+public class ConnectionHandler implements BusinessObjectHandler {
 	private static final Graphic graphic = ConnectionBuilder.create().build();
 	private static StandaloneQuery srcQuery = StandaloneQuery
 			.create((rootQuery) -> rootQuery.parent()

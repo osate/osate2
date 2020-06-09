@@ -62,22 +62,28 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.ILog;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.ContentFilter;
 import org.osate.ge.DiagramType;
 import org.osate.ge.FundamentalContentFilter;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
+import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.util.EclipseExtensionUtil;
 import org.osate.ge.palette.PaletteCategory;
 import org.osate.ge.palette.PaletteContributor;
 import org.osate.ge.palette.internal.PaletteContributorRegistry;
 import org.osate.ge.ui.TooltipContributor;
+import org.osgi.framework.FrameworkUtil;
 
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
@@ -117,7 +123,7 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	private static final String CONTENT_FILTERS_EXTENSION_POINT_ID = "org.osate.ge.contentFilters";
 	private static final String DIAGRAM_TYPES_EXTENSION_POINT_ID = "org.osate.ge.diagramTypes";
 
-	private final ImmutableCollection<Object> boHandlers;
+	private final ImmutableList<BusinessObjectHandler> boHandlers;
 	private final ImmutableList<TooltipContributor> tooltipContributors;
 	private final ImmutableCollection<BusinessObjectProvider> businessObjectProviders;
 	private final ImmutableCollection<ContentFilter> configurableContentFilters;
@@ -128,7 +134,7 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	public DefaultExtensionRegistryService() {
 		final IExtensionRegistry registry = Platform.getExtensionRegistry();
 		boHandlers = instantiatePrioritizedExtensions(registry, BUSINESS_OBJECT_HANDLERS_EXTENSION_POINT_ID, "handler",
-				Object.class);
+				BusinessObjectHandler.class);
 		tooltipContributors = instantiatePrioritizedExtensions(registry, TOOLTIP_EXTENSION_POINT_ID,
 				"tooltipContributor", TooltipContributor.class);
 		businessObjectProviders = EclipseExtensionUtil.instantiateSimpleExtensions(registry,
@@ -147,7 +153,7 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	}
 
 	@Override
-	public Collection<Object> getBusinessObjectHandlers() {
+	public List<BusinessObjectHandler> getBusinessObjectHandlers() {
 		return boHandlers;
 	}
 
@@ -214,6 +220,8 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 			final IExtensionRegistry registry,
 			final String extensionPointId,
 			final String elementName, final Class<T> extClass) {
+		final ILog logger = Platform.getLog(FrameworkUtil.getBundle(DefaultExtensionRegistryService.class));
+
 		final ImmutableList.Builder<T> extensionListBuilder = ImmutableList.builder();
 		final Comparator<PrioritizedExtensionInfo<T>> priorityComparator = (tooltipContributor1,
 				tooltipContributor2) -> Integer.compare(tooltipContributor1.getPriority(),
@@ -232,8 +240,9 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 									final PrioritizedExtensionInfo<T> tooltipContributerInfo = new PrioritizedExtensionInfo<>(
 											priority, contributor);
 									prioritizedExtensionInfos.add(tooltipContributerInfo);
-								} catch (final CoreException e) {
-									throw new RuntimeException(e);
+								} catch (final CoreException | ClassCastException e) {
+									logger.log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+											"Error instantiating extension", e));
 								}
 							}
 						}

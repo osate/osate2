@@ -26,9 +26,10 @@ package org.osate.ge.errormodel.businessObjectHandlers;
 import javax.inject.Named;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
@@ -45,7 +46,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 /**
  * @see ErrorBehaviorTransitionHandler for details about how transitions are represented.
  */
-public class TransitionBranchHandler {
+public class TransitionBranchHandler implements BusinessObjectHandler {
 	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.ancestor(2).children()
 			.filterByBusinessObjectRelativeReference(b -> ((TransitionBranch) b).eContainer()));
 	private static StandaloneQuery dstQuery = StandaloneQuery

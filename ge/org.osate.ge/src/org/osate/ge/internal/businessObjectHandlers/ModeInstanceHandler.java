@@ -27,6 +27,7 @@ import javax.inject.Named;
 
 import org.osate.aadl2.instance.ModeInstance;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.di.GetGraphicalConfiguration;
@@ -37,7 +38,7 @@ import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 
-public class ModeInstanceHandler {
+public class ModeInstanceHandler implements BusinessObjectHandler {
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ModeInstance mi) {
 		return true;

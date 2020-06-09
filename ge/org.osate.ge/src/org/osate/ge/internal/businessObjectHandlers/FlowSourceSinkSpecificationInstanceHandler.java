@@ -28,6 +28,7 @@ import javax.inject.Named;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.di.GetGraphicalConfiguration;
@@ -41,7 +42,8 @@ import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.query.Supplier;
 import org.osate.ge.services.QueryService;
 
-public class FlowSourceSinkSpecificationInstanceHandler extends FlowSpecificationInstanceHandler {
+public class FlowSourceSinkSpecificationInstanceHandler extends FlowSpecificationInstanceHandler
+		implements BusinessObjectHandler {
 	private static final Supplier<FlowSpecificationInstance, Object[]> getPathToFlowSpecificationInstance = (
 			fsi) -> AadlHelper.getPathToBusinessObject(fsi
 					.getComponentInstance(),

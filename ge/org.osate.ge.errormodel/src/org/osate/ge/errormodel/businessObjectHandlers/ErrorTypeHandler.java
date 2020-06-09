@@ -25,6 +25,7 @@ package org.osate.ge.errormodel.businessObjectHandlers;
 
 import javax.inject.Named;
 
+import org.osate.ge.BusinessObjectHandler;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.di.CanDelete;
@@ -40,7 +41,7 @@ import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
-public class ErrorTypeHandler {
+public class ErrorTypeHandler implements BusinessObjectHandler {
 	private static final Graphic graphic = RectangleBuilder.create().build();
 
 	@IsApplicable
