@@ -81,10 +81,4 @@ public class EclipseExtensionUtil {
 			}
 		}
 	}
-
-	public static <T> ImmutableCollection<Object> instantiateSimpleExtensions(
-			final IExtensionRegistry registry,
-			final String extensionPointId, final String elementName) {
-		return instantiateSimpleExtensions(registry, extensionPointId, elementName, Object.class);
-	}
 }

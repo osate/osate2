@@ -56,6 +56,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.ContentFilter;
 import org.osate.ge.DiagramType;
 import org.osate.ge.FundamentalContentFilter;
@@ -63,6 +64,7 @@ import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.palette.PaletteCategory;
 import org.osate.ge.palette.PaletteContributor;
+import org.osate.ge.ui.TooltipContributor;
 
 import com.google.common.collect.ImmutableCollection;
 
@@ -86,7 +88,7 @@ public class DefaultExtensionService implements ExtensionService {
 	}
 
 	@Override
-	public Collection<Object> getTooltipContributors() {
+	public List<TooltipContributor> getTooltipContributors() {
 		return globalExtService.getTooltipContributors();
 	}
 
@@ -102,7 +104,7 @@ public class DefaultExtensionService implements ExtensionService {
 	}
 
 	@Override
-	public Collection<Object> getBusinessObjectProviders() {
+	public Collection<BusinessObjectProvider> getBusinessObjectProviders() {
 		return globalExtService.getBusinessObjectProviders();
 	}
 

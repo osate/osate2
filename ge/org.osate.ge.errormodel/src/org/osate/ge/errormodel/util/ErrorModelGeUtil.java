@@ -24,7 +24,7 @@
 package org.osate.ge.errormodel.util;
 
 import org.osate.aadl2.AadlPackage;
-import org.osate.ge.GraphicalAnnexUtil;
+import org.osate.ge.aadl2.GraphicalAnnexUtil;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;

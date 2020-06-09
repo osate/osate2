@@ -139,7 +139,6 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	@Override
 	public void dispose() {
 		bocHelper.close();
-		bopHelper.close();
 		preferences.removePreferenceChangeListener(preferenceChangeListener);
 		super.dispose();
 	}

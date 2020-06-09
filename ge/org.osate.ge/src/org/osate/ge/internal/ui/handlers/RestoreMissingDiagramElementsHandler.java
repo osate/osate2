@@ -103,8 +103,8 @@ public class RestoreMissingDiagramElementsHandler extends AbstractHandler {
 		// Build a list of ghosts that will be presented to the user to modify
 		final List<DiagramUpdater.GhostedElement> ghostsToModify = new ArrayList<>();
 
-		try (final BusinessObjectProviderHelper bopHelper = new BusinessObjectProviderHelper(extService);
-				final BusinessObjectContextHelper bocHelper = new BusinessObjectContextHelper(extService)) {
+		try (final BusinessObjectContextHelper bocHelper = new BusinessObjectContextHelper(extService)) {
+			final BusinessObjectProviderHelper bopHelper = new BusinessObjectProviderHelper(extService);
 			// Walk all nodes and look for ghosts
 			diagram.getAllDiagramNodes().forEachOrdered(parent -> {
 				final Collection<DiagramUpdater.GhostedElement> ghosts = diagramUpdater.getGhosts(parent);

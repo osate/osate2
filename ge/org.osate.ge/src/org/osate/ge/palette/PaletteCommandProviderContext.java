@@ -29,8 +29,8 @@ import java.util.Objects;
  * Contains information provided to {@link PaletteContributor} to determine which commands should be contributed
  * to the palette.
  *
- * @noextend This class is not intended to be subclassed by clients.
  * @noinstantiate This class is not intended to be instantiated by clients.
+ * @noextend This class is not intended to be subclassed by clients.
  * @since 2.0
  */
 public class PaletteCommandProviderContext {

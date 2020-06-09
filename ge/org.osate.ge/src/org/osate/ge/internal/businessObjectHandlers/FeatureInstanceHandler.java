@@ -36,7 +36,6 @@ import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.graphics.internal.FeatureGraphic;
-import org.osate.ge.internal.graphics.AadlGraphics;
 
 public class FeatureInstanceHandler {
 	@IsApplicable

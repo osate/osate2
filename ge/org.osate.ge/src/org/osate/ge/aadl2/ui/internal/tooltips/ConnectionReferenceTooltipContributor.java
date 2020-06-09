@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -21,22 +21,36 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.di;
+package org.osate.ge.aadl2.ui.internal.tooltips;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Label;
+import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.instance.ConnectionInstanceEnd;
+import org.osate.aadl2.instance.ConnectionReference;
+import org.osate.ge.ui.TooltipContributor;
+import org.osate.ge.ui.TooltipContributorContext;
 
-/**
- * Use this annotation to tag the method that returns the business object context for the business object which is modified by the command
- * If a command does not have this annotation or if it returns null, then the command must not modify any business object.
- * This annotation must not be applied to more than one method per class.
- */
-@Documented
-@Target({ElementType.METHOD})
-@Retention(RetentionPolicy.RUNTIME)
-public @interface GetBusinessObjectToModify {
+public class ConnectionReferenceTooltipContributor implements TooltipContributor {
+	@Override
+	public void addTooltipContents(final TooltipContributorContext ctx) {
+		ctx.getBusinessObjectContext().getBusinessObject(ConnectionReference.class).ifPresent(cr -> {
+			final String srcStr = getConnectionEndName(cr.getSource());
+			final String dstStr = getConnectionEndName(cr.getDestination());
 
+			final String conType = cr.getConnection().eClass().getName().toLowerCase().replace("connection", "");
+			final Label lbl = new Label(ctx.getTooltip(), SWT.NONE);
+			lbl.setText(cr.getName() + ": " + conType + " " + srcStr + " -> " + dstStr);
+		});
+	}
+
+	/**
+	 * Get connection end name and containing subcomponent name formatted for tool tip
+	 * @param cie
+	 * @return containing subcomponent name if applicable and connection end name
+	 */
+	private String getConnectionEndName(final ConnectionInstanceEnd cie) {
+		final Subcomponent ctx = cie.getComponentInstance().getSubcomponent();
+		return ctx == null ? cie.getName() : ctx.getName() + "." + cie.getName();
+	}
 }

@@ -55,11 +55,13 @@ package org.osate.ge.internal.services;
 import java.util.Collection;
 import java.util.List;
 
+import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.aadl2.internal.diagramTypes.DiagramTypeProvider;
 import org.osate.ge.internal.businessObjectHandlers.BusinessObjectHandlerProvider;
 import org.osate.ge.internal.diagram.runtime.filtering.ContentFilterProvider;
 import org.osate.ge.palette.PaletteCategory;
 import org.osate.ge.palette.PaletteContributor;
+import org.osate.ge.ui.TooltipContributor;
 
 public interface ExtensionRegistryService
 extends BusinessObjectHandlerProvider, ContentFilterProvider, DiagramTypeProvider {
@@ -76,14 +78,14 @@ extends BusinessObjectHandlerProvider, ContentFilterProvider, DiagramTypeProvide
 	 * The following annotations are used with tooltip contributors:
 	 * Activate - Required
 	 */
-	Collection<Object> getTooltipContributors();
+	List<TooltipContributor> getTooltipContributors();
 
 	/**
 	 * Returns a list of registered categories for the palette.
 	 */
 	List<PaletteCategory> getCategories();
 
-	Collection<Object> getBusinessObjectProviders();
+	Collection<BusinessObjectProvider> getBusinessObjectProviders();
 
 	/**
 	 * Returns a collection containing palette command providers

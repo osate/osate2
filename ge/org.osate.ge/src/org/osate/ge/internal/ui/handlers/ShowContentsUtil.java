@@ -87,7 +87,8 @@ class ShowContentsUtil {
 				// Update the diagram
 				final IUpdateContext updateCtx = new UpdateContext(
 						diagramEditor.getGraphitiAgeDiagram().getGraphitiDiagram());
-				diagramEditor.getDiagramBehavior().executeFeature(featureProvider.getUpdateFeature(updateCtx), updateCtx);
+				diagramEditor.getDiagramBehavior().executeFeature(featureProvider.getUpdateFeature(updateCtx),
+						updateCtx);
 
 				return null;
 			});
@@ -99,22 +100,20 @@ class ShowContentsUtil {
 	 * Adds children of the specified diagram elements to the list of elements which will be added during the next diagram update.
 	 * @return whether children were added to the diagram.
 	 */
-	private static boolean addChildrenDuringNextUpdate(final List<DiagramElement> diagramElements, final DiagramUpdater diagramUpdater,
-			final ExtensionService extService, final ReferenceBuilderService referenceBuilder,
-			final BiFunction<DiagramElement, Object, Boolean> filter) {
+	private static boolean addChildrenDuringNextUpdate(final List<DiagramElement> diagramElements,
+			final DiagramUpdater diagramUpdater, final ExtensionService extService,
+			final ReferenceBuilderService referenceBuilder, final BiFunction<DiagramElement, Object, Boolean> filter) {
 		boolean childrenAdded = false;
-		try (BusinessObjectProviderHelper bopHelper = new BusinessObjectProviderHelper(extService)) {
-			for (final DiagramElement selectedElement : diagramElements) {
-				for (final Object childBo : bopHelper.getChildBusinessObjects(selectedElement)) {
-					final RelativeBusinessObjectReference relativeReference = referenceBuilder
-							.getRelativeReference(childBo);
+		final BusinessObjectProviderHelper bopHelper = new BusinessObjectProviderHelper(extService);
+		for (final DiagramElement selectedElement : diagramElements) {
+			for (final Object childBo : bopHelper.getChildBusinessObjects(selectedElement)) {
+				final RelativeBusinessObjectReference relativeReference = referenceBuilder
+						.getRelativeReference(childBo);
 
-					if (relativeReference != null
-							&& selectedElement.getByRelativeReference(relativeReference) == null) {
-						if (filter.apply(selectedElement, childBo)) {
-							diagramUpdater.addToNextUpdate(selectedElement, relativeReference, new FutureElementInfo());
-							childrenAdded = true;
-						}
+				if (relativeReference != null && selectedElement.getByRelativeReference(relativeReference) == null) {
+					if (filter.apply(selectedElement, childBo)) {
+						diagramUpdater.addToNextUpdate(selectedElement, relativeReference, new FutureElementInfo());
+						childrenAdded = true;
 					}
 				}
 			}

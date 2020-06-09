@@ -32,6 +32,7 @@ import org.osate.ge.services.QueryService;
  * Contains information provided to the palette command to create an operation to create a connection.
  *
  * @noinstantiate This class is not intended to be instantiated by clients.
+ * @noextend This class is not intended to be subclassed by clients.
  * @since 2.0
  */
 public class CreateConnectionContext {

@@ -33,7 +33,6 @@ import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
-import org.osate.ge.internal.graphics.AadlGraphics;
 
 public class ComponentInstanceHandler {
 	@IsApplicable

@@ -79,7 +79,6 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 	@Override
 	public void close() {
 		bocHelper.close();
-		bopHelper.close();
 	}
 
 	@Override

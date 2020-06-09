@@ -21,7 +21,48 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
+package org.osate.ge;
+
+import java.util.Objects;
+
+import org.osate.ge.internal.services.ExtensionRegistryService;
+
 /**
- * View models for OSATE Graphical Editor user interface components which are independent of the Eclipse workbench UI.
+ * Provides context information to {@link BusinessObjectProvider} methods.
+ * @since 2.0
+ * @noextend This class is not intended to be subclassed by clients.
+ * @noinstantiate This class is not intended to be instantiated by clients.
  */
-package org.osate.ge.internal.viewModels;
+public class BusinessObjectProviderContext {
+	private final BusinessObjectContext boc;
+	private final ExtensionRegistryService extensionRegistry;
+
+	/**
+	 * Create a new instance.
+	 * @param boc is the business object context for which the business object provider will be called.
+	 * @param extensionRegistry is the global extension registry/
+	 * @noreference This constructor is not intended to be referenced by clients.
+	 */
+	public BusinessObjectProviderContext(final BusinessObjectContext boc,
+			final ExtensionRegistryService extensionRegistry) {
+		this.boc = Objects.requireNonNull(boc, "boc must not be null");
+		this.extensionRegistry = Objects.requireNonNull(extensionRegistry, "extensionRegistry must not be null");
+	}
+
+	/**
+	 * Provides access to the business object context for which the business object provider is being called.
+	 * @return the business object context
+	 */
+	public BusinessObjectContext getBusinessObjectContext() {
+		return boc;
+	}
+
+	/**
+	 * Provides access to the global extension registry
+	 * @return
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
+	public ExtensionRegistryService getExtensionRegistry() {
+		return extensionRegistry;
+	}
+}

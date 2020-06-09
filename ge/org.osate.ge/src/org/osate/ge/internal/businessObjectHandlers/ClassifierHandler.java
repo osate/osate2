@@ -38,7 +38,6 @@ import org.osate.ge.di.GetNameForEditing;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
-import org.osate.ge.internal.graphics.AadlGraphics;
 
 public class ClassifierHandler {
 	@IsApplicable
