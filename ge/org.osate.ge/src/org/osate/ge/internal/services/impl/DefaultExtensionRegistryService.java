@@ -66,6 +66,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.ContentFilter;
 import org.osate.ge.DiagramType;
 import org.osate.ge.FundamentalContentFilter;
@@ -76,6 +77,7 @@ import org.osate.ge.internal.util.EclipseExtensionUtil;
 import org.osate.ge.palette.PaletteCategory;
 import org.osate.ge.palette.PaletteContributor;
 import org.osate.ge.palette.internal.PaletteContributorRegistry;
+import org.osate.ge.ui.TooltipContributor;
 
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
@@ -91,10 +93,11 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 		}
 	}
 
-	private static class PrioritizedExtensionInfo {
+	private static class PrioritizedExtensionInfo<T> {
 		final private int priority;
-		final private Object object;
-		public PrioritizedExtensionInfo(final int priority, final Object object) {
+		final private T object;
+
+		public PrioritizedExtensionInfo(final int priority, final T object) {
 			this.priority = priority;
 			this.object = object;
 		}
@@ -103,7 +106,7 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 			return priority;
 		}
 
-		public Object getObject() {
+		public T getObject() {
 			return object;
 		}
 	}
@@ -115,22 +118,22 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	private static final String DIAGRAM_TYPES_EXTENSION_POINT_ID = "org.osate.ge.diagramTypes";
 
 	private final ImmutableCollection<Object> boHandlers;
-	private final ImmutableCollection<Object> tooltipContributors;
-	private final ImmutableCollection<Object> businessObjectProviders;
+	private final ImmutableList<TooltipContributor> tooltipContributors;
+	private final ImmutableCollection<BusinessObjectProvider> businessObjectProviders;
 	private final ImmutableCollection<ContentFilter> configurableContentFilters;
 	private final ImmutableCollection<FundamentalContentFilter> fundamentalContentFilters;
 	private final ImmutableCollection<DiagramType> diagramTypes;
 	private final PaletteContributorRegistry paletteExtensions;
 
-
 	public DefaultExtensionRegistryService() {
 		final IExtensionRegistry registry = Platform.getExtensionRegistry();
-		boHandlers = instantiatePrioritizedExtensions(registry, BUSINESS_OBJECT_HANDLERS_EXTENSION_POINT_ID, "handler");
+		boHandlers = instantiatePrioritizedExtensions(registry, BUSINESS_OBJECT_HANDLERS_EXTENSION_POINT_ID, "handler",
+				Object.class);
 		tooltipContributors = instantiatePrioritizedExtensions(registry, TOOLTIP_EXTENSION_POINT_ID,
-				"tooltipContributor");
+				"tooltipContributor", TooltipContributor.class);
 		businessObjectProviders = EclipseExtensionUtil.instantiateSimpleExtensions(registry,
 				BUSINESS_OBJECT_PROVIDERS_EXTENSION_POINT_ID,
-				"provider");
+				"provider", BusinessObjectProvider.class);
 		configurableContentFilters = EclipseExtensionUtil.instantiateSimpleExtensions(registry,
 				CONTENT_FILTERS_EXTENSION_POINT_ID,
 				"contentFilter", ContentFilter.class);
@@ -177,12 +180,12 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	}
 
 	@Override
-	public Collection<Object> getTooltipContributors() {
+	public List<TooltipContributor> getTooltipContributors() {
 		return tooltipContributors;
 	}
 
 	@Override
-	public Collection<Object> getBusinessObjectProviders() {
+	public Collection<BusinessObjectProvider> getBusinessObjectProviders() {
 		return businessObjectProviders;
 	}
 
@@ -207,37 +210,41 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	}
 
 	// Extensions with a lower priority values are sorted so that they are earlier in the resulting collection
-	private static ImmutableCollection<Object> instantiatePrioritizedExtensions(final IExtensionRegistry registry,
+	private static <T> ImmutableList<T> instantiatePrioritizedExtensions(
+			final IExtensionRegistry registry,
 			final String extensionPointId,
-			final String elementName) {
-		final ImmutableList.Builder<Object> extensionListBuilder = ImmutableList.builder();
-		final Comparator<PrioritizedExtensionInfo> priorityComparator = (tooltipContributor1, tooltipContributor2) -> Integer.compare(tooltipContributor1.getPriority(), tooltipContributor2.getPriority());
+			final String elementName, final Class<T> extClass) {
+		final ImmutableList.Builder<T> extensionListBuilder = ImmutableList.builder();
+		final Comparator<PrioritizedExtensionInfo<T>> priorityComparator = (tooltipContributor1,
+				tooltipContributor2) -> Integer.compare(tooltipContributor1.getPriority(),
+						tooltipContributor2.getPriority());
 
-		final IExtensionPoint extPoint = registry.getExtensionPoint(extensionPointId);
-		if(extPoint != null) {
-			final ArrayList<PrioritizedExtensionInfo> prioritizedExtensionInfos = new ArrayList<>();
-			for(final IExtension extension : extPoint.getExtensions()) {
-				for(final IConfigurationElement ce : extension.getConfigurationElements()) {
-					if(ce.getName().equals(elementName)) {
-						final String priorityStr = ce.getAttribute("priority");
-						final int priority = priorityStr == null ? Integer.MAX_VALUE : Integer.parseInt(priorityStr);
-						try {
-							final Object contributor = ce.createExecutableExtension("class");
-							final PrioritizedExtensionInfo tooltipContributerInfo = new PrioritizedExtensionInfo(priority, contributor);
-							prioritizedExtensionInfos.add(tooltipContributerInfo);
-						} catch (final CoreException e) {
-							throw new RuntimeException(e);
+				final IExtensionPoint extPoint = registry.getExtensionPoint(extensionPointId);
+				if(extPoint != null) {
+					final ArrayList<PrioritizedExtensionInfo<T>> prioritizedExtensionInfos = new ArrayList<>();
+					for(final IExtension extension : extPoint.getExtensions()) {
+						for(final IConfigurationElement ce : extension.getConfigurationElements()) {
+							if(ce.getName().equals(elementName)) {
+								final String priorityStr = ce.getAttribute("priority");
+								final int priority = priorityStr == null ? Integer.MAX_VALUE : Integer.parseInt(priorityStr);
+								try {
+									final T contributor = extClass.cast(ce.createExecutableExtension("class"));
+									final PrioritizedExtensionInfo<T> tooltipContributerInfo = new PrioritizedExtensionInfo<>(
+											priority, contributor);
+									prioritizedExtensionInfos.add(tooltipContributerInfo);
+								} catch (final CoreException e) {
+									throw new RuntimeException(e);
+								}
+							}
 						}
 					}
+
+					prioritizedExtensionInfos.sort(priorityComparator);
+					for (final PrioritizedExtensionInfo<T> info : prioritizedExtensionInfos) {
+						extensionListBuilder.add(info.getObject());
+					}
 				}
-			}
 
-			prioritizedExtensionInfos.sort(priorityComparator);
-			for (final PrioritizedExtensionInfo info : prioritizedExtensionInfos) {
-				extensionListBuilder.add(info.getObject());
-			}
-		}
-
-		return extensionListBuilder.build();
+				return extensionListBuilder.build();
 	}
 }

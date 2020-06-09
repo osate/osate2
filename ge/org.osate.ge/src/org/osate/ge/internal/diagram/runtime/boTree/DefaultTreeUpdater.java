@@ -110,94 +110,93 @@ public class DefaultTreeUpdater implements TreeUpdater {
 	@Override
 	public BusinessObjectNode expandTree(final DiagramConfiguration configuration, final BusinessObjectNode tree) {
 		// Refresh Child Nodes
-		try (final BusinessObjectProviderHelper bopHelper = new BusinessObjectProviderHelper(extService)) {
-			final BusinessObjectNode newRoot = nodeFactory.create(null, UUID.randomUUID(), null, Completeness.UNKNOWN);
+		final BusinessObjectProviderHelper bopHelper = new BusinessObjectProviderHelper(extService);
+		final BusinessObjectNode newRoot = nodeFactory.create(null, UUID.randomUUID(), null, Completeness.UNKNOWN);
 
-			final Map<RelativeBusinessObjectReference, Object> boMap;
+		final Map<RelativeBusinessObjectReference, Object> boMap;
 
-			// If the context business object is non-null, then only one business object may exist at the root of the resulting tree and it must be the context
-			// business object.
-			// This restriction prevents the need to retrieve all packages as potential top level business objects.
-			// Determine what business objects are required based on the diagram configuration
-			if (configuration.getContextBoReference() == null) {
-				// Get potential top level business objects from providers
-				// A simple business object context which is used as the root BOC for contextless diagrams. It has no parent and used the current
-				// project as the business object.
-				final BusinessObjectContext contextlessRootBoc = new BusinessObjectContext() {
-					@Override
-					public Collection<? extends BusinessObjectContext> getChildren() {
-						return Collections.emptyList();
-					}
-
-					@Override
-					public BusinessObjectContext getParent() {
-						return null;
-					}
-
-					@Override
-					public Object getBusinessObject() {
-						return projectProvider.getProject();
-					}
-				};
-				final Collection<Object> potentialRootBusinessObjects = bopHelper
-						.getChildBusinessObjects(contextlessRootBoc);
-
-				// Determine the root business objects
-				final Set<RelativeBusinessObjectReference> existingRootBranches = tree.getChildrenMap().keySet();
-
-				// Content filters are not supported for the root of diagrams.
-				final ImmutableSet<ContentFilter> rootContentFilters = ImmutableSet.of();
-
-				boMap = getChildBusinessObjects(potentialRootBusinessObjects, existingRootBranches, rootContentFilters);
-
-				// Contextless diagrams are always considered complete
-				newRoot.setCompleteness(Completeness.COMPLETE);
-
-				// TODO: Is this the proper way to handle this? This is needed so the configure diagram dialog, etc will know which project should be used to
-				// retrieve root objects.
-				// Set the root of the BO tree to the project
-				newRoot.setBusinessObject(projectProvider.getProject());
-			} else {
-				// Get the context business object
-				Object contextBo = refService.resolve(configuration.getContextBoReference());
-				if (contextBo == null) {
-					final String contextLabel = refService.getLabel(configuration.getContextBoReference(),
-							projectProvider.getProject());
-					throw new RuntimeException("Unable to find context business object: "
-							+ (contextLabel == null ? configuration.getContextBoReference() : contextLabel));
+		// If the context business object is non-null, then only one business object may exist at the root of the resulting tree and it must be the context
+		// business object.
+		// This restriction prevents the need to retrieve all packages as potential top level business objects.
+		// Determine what business objects are required based on the diagram configuration
+		if (configuration.getContextBoReference() == null) {
+			// Get potential top level business objects from providers
+			// A simple business object context which is used as the root BOC for contextless diagrams. It has no parent and used the current
+			// project as the business object.
+			final BusinessObjectContext contextlessRootBoc = new BusinessObjectContext() {
+				@Override
+				public Collection<? extends BusinessObjectContext> getChildren() {
+					return Collections.emptyList();
 				}
 
-				// Require the use of the business object specified in the diagram along with any other business objects which are already in the diagram.
-				final RelativeBusinessObjectReference relativeReference = refService.getRelativeReference(contextBo);
-				if (relativeReference == null) {
-					throw new RuntimeException("Unable to build relative reference for context business object");
+				@Override
+				public BusinessObjectContext getParent() {
+					return null;
 				}
 
-				boMap = new HashMap<>();
-				boMap.put(relativeReference, contextBo);
-				newRoot.setCompleteness(Completeness.COMPLETE);
+				@Override
+				public Object getBusinessObject() {
+					return projectProvider.getProject();
+				}
+			};
+			final Collection<Object> potentialRootBusinessObjects = bopHelper
+					.getChildBusinessObjects(contextlessRootBoc);
+
+			// Determine the root business objects
+			final Set<RelativeBusinessObjectReference> existingRootBranches = tree.getChildrenMap().keySet();
+
+			// Content filters are not supported for the root of diagrams.
+			final ImmutableSet<ContentFilter> rootContentFilters = ImmutableSet.of();
+
+			boMap = getChildBusinessObjects(potentialRootBusinessObjects, existingRootBranches, rootContentFilters);
+
+			// Contextless diagrams are always considered complete
+			newRoot.setCompleteness(Completeness.COMPLETE);
+
+			// TODO: Is this the proper way to handle this? This is needed so the configure diagram dialog, etc will know which project should be used to
+			// retrieve root objects.
+			// Set the root of the BO tree to the project
+			newRoot.setBusinessObject(projectProvider.getProject());
+		} else {
+			// Get the context business object
+			Object contextBo = refService.resolve(configuration.getContextBoReference());
+			if (contextBo == null) {
+				final String contextLabel = refService.getLabel(configuration.getContextBoReference(),
+						projectProvider.getProject());
+				throw new RuntimeException("Unable to find context business object: "
+						+ (contextLabel == null ? configuration.getContextBoReference() : contextLabel));
 			}
 
-			// Add embedded business objects to the child BO map
-			addEmbeddedBusinessObjectsToBoMap(tree.getChildrenMap().values(), boMap);
+			// Require the use of the business object specified in the diagram along with any other business objects which are already in the diagram.
+			final RelativeBusinessObjectReference relativeReference = refService.getRelativeReference(contextBo);
+			if (relativeReference == null) {
+				throw new RuntimeException("Unable to build relative reference for context business object");
+			}
 
-			// Populate the new tree
-			final Map<RelativeBusinessObjectReference, BusinessObjectNode> oldNodes = tree.getChildrenMap();
-			createNodes(configuration.getDiagramType(), bopHelper, boMap, oldNodes, newRoot);
-
-			// Build set of the names of all properties which are enabled
-			final Set<String> enabledPropertyNames = new HashSet<>(configuration.getEnabledAadlPropertyNames());
-			enabledPropertyNames.add("communication_properties::timing"); // Add properties which are always enabled regardless of configuration setting
-
-			// Get the property objects
-			final Set<Property> enabledProperties = getPropertiesByLowercasePropertyNames(enabledPropertyNames);
-
-			// Process properties. This is done after everything else since properties may need to refer to other nodes.
-			final AadlPropertyResolver propertyResolver = new AadlPropertyResolver(newRoot);
-			processProperties(propertyResolver, newRoot, tree, enabledProperties);
-
-			return newRoot;
+			boMap = new HashMap<>();
+			boMap.put(relativeReference, contextBo);
+			newRoot.setCompleteness(Completeness.COMPLETE);
 		}
+
+		// Add embedded business objects to the child BO map
+		addEmbeddedBusinessObjectsToBoMap(tree.getChildrenMap().values(), boMap);
+
+		// Populate the new tree
+		final Map<RelativeBusinessObjectReference, BusinessObjectNode> oldNodes = tree.getChildrenMap();
+		createNodes(configuration.getDiagramType(), bopHelper, boMap, oldNodes, newRoot);
+
+		// Build set of the names of all properties which are enabled
+		final Set<String> enabledPropertyNames = new HashSet<>(configuration.getEnabledAadlPropertyNames());
+		enabledPropertyNames.add("communication_properties::timing"); // Add properties which are always enabled regardless of configuration setting
+
+		// Get the property objects
+		final Set<Property> enabledProperties = getPropertiesByLowercasePropertyNames(enabledPropertyNames);
+
+		// Process properties. This is done after everything else since properties may need to refer to other nodes.
+		final AadlPropertyResolver propertyResolver = new AadlPropertyResolver(newRoot);
+		processProperties(propertyResolver, newRoot, tree, enabledProperties);
+
+		return newRoot;
 	}
 
 	private Set<Property> getPropertiesByLowercasePropertyNames(final Set<String> lcPropertyNames) {

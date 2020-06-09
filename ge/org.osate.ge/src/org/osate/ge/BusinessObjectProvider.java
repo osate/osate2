@@ -21,45 +21,20 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.util;
+package org.osate.ge;
 
-import java.util.Collection;
-import java.util.Objects;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectProvider;
-import org.osate.ge.BusinessObjectProviderContext;
-import org.osate.ge.internal.services.ExtensionRegistryService;
-
 /**
- * Helper class for invoking business object providers.
- *
+ * Contributes business objects to the graphical editor. Only objects provided by a {@link BusinessObjectProvider}.
+ * will be available in the graphical editor.
+ * @since 2.0
  */
-public class BusinessObjectProviderHelper {
-	private final ExtensionRegistryService extRegistry;
-
-	public BusinessObjectProviderHelper(final ExtensionRegistryService extRegistry) {
-		this.extRegistry = Objects.requireNonNull(extRegistry, "extRegistry must not be null");
-	}
-
+public interface BusinessObjectProvider {
 	/**
-	 * Returns the business objects from all the business object providers for the specified business object context.
-	 * @param boc
-	 * @return
+	 * Provides child business objects based for a given context.
+	 * @param ctx a context which contains a reference to the business object context for which to return children.
+	 * @return a stream containing child business objects.
 	 */
-	public Collection<Object> getChildBusinessObjects(final BusinessObjectContext boc) {
-		// Use business object providers to determine the children
-		Stream<Object> allChildren = Stream.empty();
-		final BusinessObjectProviderContext ctx = new BusinessObjectProviderContext(boc, extRegistry);
-		for (final BusinessObjectProvider bop : extRegistry.getBusinessObjectProviders()) {
-			final Stream<?> childBos = bop.getChildBusinessObjects(ctx);
-			if (childBos != null) {
-				allChildren = Stream.concat(allChildren, childBos);
-			}
-		}
-
-		return allChildren.distinct().collect(Collectors.toList());
-	}
+	Stream<?> getChildBusinessObjects(BusinessObjectProviderContext ctx);
 }

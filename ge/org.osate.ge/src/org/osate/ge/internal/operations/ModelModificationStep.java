@@ -27,16 +27,16 @@ import java.util.Objects;
 
 import org.eclipse.emf.ecore.EObject;
 import org.osate.ge.operations.ModelModifier;
-import org.osate.ge.operations.OperationBuilder.BusinessObjectProvider;
+import org.osate.ge.operations.OperationBuilder.BusinessObjectToModifyProvider;
 
 public class ModelModificationStep<TagType, BusinessObjectType extends EObject, PrevResultUserType, ResultUserType>
 extends AbstractStep<ResultUserType> {
 	private final TagType tag;
-	private final BusinessObjectProvider<TagType, BusinessObjectType, PrevResultUserType> boProvider;
+	private final BusinessObjectToModifyProvider<TagType, BusinessObjectType, PrevResultUserType> boProvider;
 	private final ModelModifier<TagType, BusinessObjectType, PrevResultUserType, ResultUserType> modifier;
 
 	public ModelModificationStep(final Step<?> nextStep, final TagType tag,
-			final BusinessObjectProvider<TagType, BusinessObjectType, PrevResultUserType> boProvider,
+			final BusinessObjectToModifyProvider<TagType, BusinessObjectType, PrevResultUserType> boProvider,
 			final ModelModifier<TagType, BusinessObjectType, PrevResultUserType, ResultUserType> modifier) {
 		super(nextStep);
 		this.tag = tag;
@@ -48,7 +48,7 @@ extends AbstractStep<ResultUserType> {
 		return tag;
 	}
 
-	public final BusinessObjectProvider<TagType, BusinessObjectType, PrevResultUserType> getBusinessObjectProvider() {
+	public final BusinessObjectToModifyProvider<TagType, BusinessObjectType, PrevResultUserType> getBusinessObjectProvider() {
 		return boProvider;
 	}
 

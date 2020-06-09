@@ -21,14 +21,12 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal;
+package org.osate.ge.aadl2.internal;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import javax.inject.Named;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
@@ -75,14 +73,13 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.BusinessObjectProvider;
+import org.osate.ge.BusinessObjectProviderContext;
 import org.osate.ge.aadl2.internal.model.SubprogramCallOrder;
 import org.osate.ge.aadl2.internal.model.Tag;
-import org.osate.ge.di.Activate;
-import org.osate.ge.di.Names;
 import org.osate.ge.internal.businessObjectHandlers.ModeTransitionTriggerHandler;
 import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.services.ExtensionRegistryService;
-import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder;
 import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.AadlHelper;
@@ -91,14 +88,12 @@ import org.osate.ge.internal.util.AadlSubprogramCallUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
-public class AadlBusinessObjectProvider {
+public class AadlBusinessObjectProvider implements BusinessObjectProvider {
 	private final ModeTransitionTriggerHandler mttHandler = new ModeTransitionTriggerHandler();
 
-	@Activate
-	public Stream<?> getBusinessObjects(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
-			final ExtensionRegistryService extRegistryService, final ReferenceService refService) {
-
-		final Object bo = boc.getBusinessObject();
+	@Override
+	public Stream<?> getChildBusinessObjects(final BusinessObjectProviderContext ctx) {
+		final Object bo = ctx.getBusinessObjectContext().getBusinessObject();
 		// An IProject is specified as the business object for contextless diagrams.
 		if (bo instanceof IProject) { // Special handling for project
 			final IProject project = (IProject) bo;
@@ -125,14 +120,14 @@ public class AadlBusinessObjectProvider {
 
 			return packages;
 		} else if (bo instanceof AadlPackage) {
-			return getChildren((AadlPackage)bo, extRegistryService);
+			return getChildren((AadlPackage) bo, ctx.getExtensionRegistry());
 		} else if(bo instanceof Classifier) {
-			return getChildren((Classifier)bo, true, extRegistryService);
+			return getChildren((Classifier) bo, true, ctx.getExtensionRegistry());
 		} else if(bo instanceof FeatureGroup) {
-			final FeatureGroupType fgt = AadlFeatureUtil.getFeatureGroupType(boc, (FeatureGroup)bo);
+			final FeatureGroupType fgt = AadlFeatureUtil.getFeatureGroupType(ctx.getBusinessObjectContext(), (FeatureGroup) bo);
 			return fgt == null ? null : AadlFeatureUtil.getAllFeatures(fgt).stream();
 		} else if(bo instanceof Subcomponent) {
-			return getChildren((Subcomponent)bo, boc, extRegistryService);
+			return getChildren((Subcomponent) bo, ctx.getBusinessObjectContext(), ctx.getExtensionRegistry());
 		} else if(bo instanceof SubprogramCall) {
 			return getChildren((SubprogramCall)bo);
 		} else if(bo instanceof SubprogramCallSequence) {

@@ -60,7 +60,6 @@ import org.eclipse.elk.graph.ElkPort;
 import org.eclipse.elk.graph.ElkShape;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.statushandlers.StatusManager;
-import org.osate.aadl2.modelsupport.Activator;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.DockingPosition;
 import org.osate.ge.graphics.Dimension;
@@ -71,6 +70,7 @@ import org.osate.ge.graphics.internal.AgeConnection;
 import org.osate.ge.graphics.internal.AgeShape;
 import org.osate.ge.graphics.internal.Label;
 import org.osate.ge.graphics.internal.ModeGraphic;
+import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.AgeDiagramUtil;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
@@ -229,7 +229,7 @@ public class DiagramElementLayoutUtil {
 			// degrade performance but allow the user to keep working and should ensure things stay in a valid state.
 			// It would be best for other parts of the code to handle exceptions properly to avoid entering into an invalid state but this is the best
 			// workaround.
-			final Status status = new Status(IStatus.ERROR, Activator.getPluginId(), "A layout error occured.", ex);
+			final Status status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, "A layout error occured.", ex);
 			StatusManager.getManager().handle(status, StatusManager.SHOW | StatusManager.LOG);
 		}
 	}

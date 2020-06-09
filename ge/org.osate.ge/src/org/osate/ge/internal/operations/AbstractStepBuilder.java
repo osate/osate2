@@ -40,7 +40,7 @@ abstract class AbstractStepBuilder<PrevResultUserType> implements OperationBuild
 
 	@Override
 	public <TagType, BusinessObjectType extends EObject, ResultUserType> OperationBuilder<ResultUserType> modifyModel(final TagType tag,
-			BusinessObjectProvider<TagType, BusinessObjectType, PrevResultUserType> boProvider,
+			BusinessObjectToModifyProvider<TagType, BusinessObjectType, PrevResultUserType> boProvider,
 			final ModelModifier<TagType, BusinessObjectType, PrevResultUserType, ResultUserType> modifier) {
 		return addNextStepBuilder(new ModelModificationStepBuilder<>(tag, boProvider, modifier));
 	}

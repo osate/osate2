@@ -35,12 +35,19 @@ import org.eclipse.emf.ecore.EObject;
  * @param <PrevResultUserType>
  */
 public interface OperationBuilder<PrevResultUserType> {
-	interface BusinessObjectProvider<TagType, BusinessObjectType, PrevResultUserType> {
+	/**
+	 * @since 2.0
+	 */
+	interface BusinessObjectToModifyProvider<TagType, BusinessObjectType, PrevResultUserType> {
 		BusinessObjectType getBusinessObject(TagType tag, PrevResultUserType previousUserValue);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	<TagType, BusinessObjectType extends EObject, ResultUserType> OperationBuilder<ResultUserType> modifyModel(
-			TagType obj, BusinessObjectProvider<TagType, BusinessObjectType, PrevResultUserType> boProvider,
+			TagType obj,
+			BusinessObjectToModifyProvider<TagType, BusinessObjectType, PrevResultUserType> boProvider,
 			ModelModifier<TagType, BusinessObjectType, PrevResultUserType, ResultUserType> modifier);
 
 	/**

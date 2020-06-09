@@ -83,35 +83,34 @@ public class ShowElementsInModeHandler extends AbstractHandler {
 				"Unable to retrieve reference service");
 		final ExtensionService extService = Objects.requireNonNull(Adapters.adapt(editor, ExtensionService.class),
 				"Unable to retrieve extension service");
-		try (final BusinessObjectProviderHelper bopHelper = new BusinessObjectProviderHelper(extService)) {
-			final AgeFeatureProvider featureProvider = (AgeFeatureProvider) editor.getDiagramTypeProvider()
-					.getFeatureProvider();
-			final TreeUpdater boTreeExpander = featureProvider.getBoTreeUpdater();
-			final BusinessObjectNode boTree = getBoTree((AgeDiagramEditor) editor, boTreeExpander);
-			final List<BusinessObjectContext> selectedModes = AgeHandlerUtil.getSelectedBusinessObjectContexts()
-					.stream().filter(de -> isModal(de.getBusinessObject())).collect(Collectors.toList());
-			for (final BusinessObjectContext selectedMode : selectedModes) {
-				enableInModeNodes(bopHelper, boTree, selectedMode);
-			}
-
-			final AgeDiagram diagram = editor.getAgeDiagram();
-			final DiagramUpdater diagramUpdater = featureProvider.getDiagramUpdater();
-			final GraphitiService graphitiService = Objects.requireNonNull(
-					Adapters.adapt(editor, GraphitiService.class), "Unable to retrieve graphiti service");
-
-			final ActionService actionService = Objects.requireNonNull(Adapters.adapt(editor, ActionService.class),
-					"Unable to retrieve action service");
-			actionService.execute("Show Elements In Mode", ExecutionMode.NORMAL, () -> {
-				// Update the diagram
-				diagramUpdater.updateDiagram(diagram, boTree);
-
-				// Update layout
-				diagram.modify("Layout Incrementally",
-						m -> DiagramElementLayoutUtil.layoutIncrementally(diagram, m, graphitiService));
-
-				return null;
-			});
+		final BusinessObjectProviderHelper bopHelper = new BusinessObjectProviderHelper(extService);
+		final AgeFeatureProvider featureProvider = (AgeFeatureProvider) editor.getDiagramTypeProvider()
+				.getFeatureProvider();
+		final TreeUpdater boTreeExpander = featureProvider.getBoTreeUpdater();
+		final BusinessObjectNode boTree = getBoTree((AgeDiagramEditor) editor, boTreeExpander);
+		final List<BusinessObjectContext> selectedModes = AgeHandlerUtil.getSelectedBusinessObjectContexts().stream()
+				.filter(de -> isModal(de.getBusinessObject())).collect(Collectors.toList());
+		for (final BusinessObjectContext selectedMode : selectedModes) {
+			enableInModeNodes(bopHelper, boTree, selectedMode);
 		}
+
+		final AgeDiagram diagram = editor.getAgeDiagram();
+		final DiagramUpdater diagramUpdater = featureProvider.getDiagramUpdater();
+		final GraphitiService graphitiService = Objects.requireNonNull(Adapters.adapt(editor, GraphitiService.class),
+				"Unable to retrieve graphiti service");
+
+		final ActionService actionService = Objects.requireNonNull(Adapters.adapt(editor, ActionService.class),
+				"Unable to retrieve action service");
+		actionService.execute("Show Elements In Mode", ExecutionMode.NORMAL, () -> {
+			// Update the diagram
+			diagramUpdater.updateDiagram(diagram, boTree);
+
+			// Update layout
+			diagram.modify("Layout Incrementally",
+					m -> DiagramElementLayoutUtil.layoutIncrementally(diagram, m, graphitiService));
+
+			return null;
+		});
 
 		return null;
 	}
@@ -153,9 +152,8 @@ public class ShowElementsInModeHandler extends AbstractHandler {
 	private static ModeFeature getModeFeature(final BusinessObjectContext selectedBoc) {
 		if (selectedBoc.getBusinessObject() instanceof InstanceObject) {
 			final Object modeFeatureInstance = selectedBoc.getBusinessObject();
-			return modeFeatureInstance instanceof ModeInstance
-					? ((ModeInstance) modeFeatureInstance).getMode()
-							: ((ModeTransitionInstance) modeFeatureInstance).getModeTransition();
+			return modeFeatureInstance instanceof ModeInstance ? ((ModeInstance) modeFeatureInstance).getMode()
+					: ((ModeTransitionInstance) modeFeatureInstance).getModeTransition();
 		}
 
 		return (ModeFeature) selectedBoc.getBusinessObject();
@@ -166,10 +164,8 @@ public class ShowElementsInModeHandler extends AbstractHandler {
 				|| ModeTransitionInstance.class.isInstance(ob);
 	}
 
-	private void enableInModeChild(final BusinessObjectProviderHelper bopHelper,
-			final List<ModeFeature> inModeFeatures, final Object child,
-			final ModeFeature selectedModeFeature,
-			final BusinessObjectNode parentNode) {
+	private void enableInModeChild(final BusinessObjectProviderHelper bopHelper, final List<ModeFeature> inModeFeatures,
+			final Object child, final ModeFeature selectedModeFeature, final BusinessObjectNode parentNode) {
 		if (inModeFeatures.isEmpty() || inModeFeatures.contains(selectedModeFeature)) {
 			enableChild(bopHelper, selectedModeFeature, child, parentNode);
 		}
@@ -236,7 +232,8 @@ public class ShowElementsInModeHandler extends AbstractHandler {
 			if (childNode == null) {
 				if (childBo instanceof ModalElement) {
 					final ModalElement modalElement = (ModalElement) childBo;
-					final List<ModeFeature> inModeFeatures = AadlModalElementUtil.getAllInModesOrTransitions(modalElement);
+					final List<ModeFeature> inModeFeatures = AadlModalElementUtil
+							.getAllInModesOrTransitions(modalElement);
 					if (inModeFeatures.isEmpty() || inModeFeatures.contains(selectedMode)) {
 						enableChild(bopHelper, selectedMode, childBo, node);
 					}

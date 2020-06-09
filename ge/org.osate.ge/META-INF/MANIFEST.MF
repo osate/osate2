@@ -55,6 +55,7 @@ Service-Component: components/DefaultExtensionRegistryService.xml,
  components/DefaultActionService.xml,
  components/DefaultClipboardService.xml
 Export-Package: org.osate.ge,
+ org.osate.ge.aadl2,
  org.osate.ge.aadl2.internal.diagramTypes;x-friends:="org.osate.ge.tests",
  org.osate.ge.di,
  org.osate.ge.graphics,
@@ -80,6 +81,7 @@ Export-Package: org.osate.ge,
  org.osate.ge.palette,
  org.osate.ge.query,
  org.osate.ge.services,
+ org.osate.ge.ui,
  org.osate.ge.ui.properties,
  org.osate.ge.util
 Bundle-ClassPath: .

@@ -21,45 +21,53 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.util;
+package org.osate.ge.aadl2.ui.internal.tooltips;
 
-import java.util.Collection;
-import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
+import org.osate.aadl2.Connection;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.InternalFeature;
+import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.ModeTransitionTrigger;
+import org.osate.aadl2.ProcessorFeature;
+import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubprogramCall;
+import org.osate.ge.ui.TooltipContributor;
+import org.osate.ge.ui.TooltipContributorContext;
 
-import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectProvider;
-import org.osate.ge.BusinessObjectProviderContext;
-import org.osate.ge.internal.services.ExtensionRegistryService;
-
-/**
- * Helper class for invoking business object providers.
- *
- */
-public class BusinessObjectProviderHelper {
-	private final ExtensionRegistryService extRegistry;
-
-	public BusinessObjectProviderHelper(final ExtensionRegistryService extRegistry) {
-		this.extRegistry = Objects.requireNonNull(extRegistry, "extRegistry must not be null");
-	}
-
-	/**
-	 * Returns the business objects from all the business object providers for the specified business object context.
-	 * @param boc
-	 * @return
-	 */
-	public Collection<Object> getChildBusinessObjects(final BusinessObjectContext boc) {
-		// Use business object providers to determine the children
-		Stream<Object> allChildren = Stream.empty();
-		final BusinessObjectProviderContext ctx = new BusinessObjectProviderContext(boc, extRegistry);
-		for (final BusinessObjectProvider bop : extRegistry.getBusinessObjectProviders()) {
-			final Stream<?> childBos = bop.getChildBusinessObjects(ctx);
-			if (childBos != null) {
-				allChildren = Stream.concat(allChildren, childBos);
+public class AadlSourceTooltipContributor implements TooltipContributor {
+	@Override
+	public void addTooltipContents(final TooltipContributorContext ctx) {
+		ctx.getBusinessObjectContext().getBusinessObject(EObject.class).ifPresent(bo -> {
+			final boolean showSource = bo instanceof Feature ||
+					bo instanceof InternalFeature ||
+					bo instanceof ProcessorFeature ||
+					bo instanceof Feature ||
+					bo instanceof Connection ||
+					bo instanceof FlowSpecification ||
+					bo instanceof Subcomponent ||
+					bo instanceof SubprogramCall || bo instanceof ModeTransition || bo instanceof ModeTransitionTrigger;
+			if(!showSource) {
+				return;
 			}
-		}
 
-		return allChildren.distinct().collect(Collectors.toList());
+			final INode n = NodeModelUtils.getNode(bo);
+			if(n == null) {
+				return;
+			}
+
+			final String txt = NodeModelUtils.getTokenText(n);
+			if(txt == null) {
+				return;
+			}
+
+			final Label lbl = new Label(ctx.getTooltip(), SWT.NONE);
+			lbl.setText(txt);
+		});
 	}
 }

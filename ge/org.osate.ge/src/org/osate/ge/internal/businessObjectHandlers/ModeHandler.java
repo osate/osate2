@@ -39,7 +39,6 @@ import org.osate.ge.di.Names;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 
 public class ModeHandler {

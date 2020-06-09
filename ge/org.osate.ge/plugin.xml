@@ -1666,37 +1666,38 @@ censes only apply to the Third Party Software and not any other portion of this 
        </definition>
     </extension>
         
-    <extension
-          point="org.osate.ge.tooltips">
-       <tooltipContributor 
-       		class="org.osate.ge.internal.tooltips.FeatureInstanceTooltipContributor"
-       		priority="1">
-       </tooltipContributor>
+    <extension point="org.osate.ge.tooltips">
        <tooltipContributor
-       		class="org.osate.ge.internal.tooltips.ModeTransitionInstanceTooltipContributor"
-       		priority="1">
-       </tooltipContributor>
-       <tooltipContributor
-       		class="org.osate.ge.internal.tooltips.ConnectionReferenceTooltipContributor"
-       		priority="1">
-       </tooltipContributor>
-       <tooltipContributor
-             class="org.osate.ge.internal.tooltips.AadlSourceTooltipContributor"
-             priority="1">
-       </tooltipContributor>
-       <tooltipContributor
-             class="org.osate.ge.internal.tooltips.PropertyValueTooltipContributor"
-             priority="1">
-       </tooltipContributor>
-       <tooltipContributor
-       		 class="org.osate.ge.internal.tooltips.ImageErrorTooltipContributor"
+       		 class="org.osate.ge.internal.ui.tooltips.ImageErrorTooltipContributor"
        		 priority="1">
        </tooltipContributor>
        <tooltipContributor
-             class="org.osate.ge.internal.tooltips.EObjectDocumentationTooltipContributor"
+             class="org.osate.ge.internal.ui.tooltips.EObjectDocumentationTooltipContributor"
              priority="2">
        </tooltipContributor>
     </extension>
+	<extension point="org.osate.ge.tooltips">
+       <tooltipContributor 
+       		class="org.osate.ge.aadl2.ui.internal.tooltips.FeatureInstanceTooltipContributor"
+       		priority="1">
+       </tooltipContributor>
+       <tooltipContributor
+       		class="org.osate.ge.aadl2.ui.internal.tooltips.ModeTransitionInstanceTooltipContributor"
+       		priority="1">
+       </tooltipContributor>
+       <tooltipContributor
+       		class="org.osate.ge.aadl2.ui.internal.tooltips.ConnectionReferenceTooltipContributor"
+       		priority="1">
+       </tooltipContributor>
+       <tooltipContributor
+             class="org.osate.ge.aadl2.ui.internal.tooltips.AadlSourceTooltipContributor"
+             priority="1">
+       </tooltipContributor>
+       <tooltipContributor
+             class="org.osate.ge.aadl2.ui.internal.tooltips.PropertyValueTooltipContributor"
+             priority="1">
+       </tooltipContributor>
+	</extension>
 
     <extension
           point="org.osate.ge.images">
@@ -1820,7 +1821,7 @@ censes only apply to the Third Party Software and not any other portion of this 
     <extension
           point="org.osate.ge.businessObjectProviders">
        <provider
-             class="org.osate.ge.internal.AadlBusinessObjectProvider">
+             class="org.osate.ge.aadl2.internal.AadlBusinessObjectProvider">
        </provider>
     </extension>
     <extension
@@ -2283,7 +2284,7 @@ censes only apply to the Third Party Software and not any other portion of this 
       </wizard>
    </extension>
     <extension point="org.osate.ge.paletteContributors">
-       <commandProvider class="org.osate.ge.palette.internal.AgePaletteContributor" />
+       <contributor class="org.osate.ge.palette.internal.AgePaletteContributor" />
     </extension>
     
       <extension point="org.osate.ge.images">

@@ -30,6 +30,7 @@ import org.osate.ge.operations.Operation;
 /**
  * Interface used for palette commands which allow creating a connection between two diagram elements.
  * @noextend This class is not intended to be subclassed by clients.
+ * @since 2.0
  *
  */
 public interface CreateConnectionPaletteCommand extends PaletteCommand {

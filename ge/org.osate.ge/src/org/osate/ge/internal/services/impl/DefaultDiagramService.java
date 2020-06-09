@@ -177,8 +177,6 @@ public class DefaultDiagramService implements DiagramService {
 	}
 
 	public void dispose() {
-		bopHelper.close();
-
 		final IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		workspace.removeResourceChangeListener(indexUpdater);
 	}
