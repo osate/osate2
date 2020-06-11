@@ -143,7 +143,7 @@ class RefinedElementsTest extends XtextTest {
 			  
 			  abstract implementation a1.i2 extends a1.i1
 			  subcomponents
-			    asub1: refined to abstract;
+			    asub1: refined to abstract a1;
 			    asub2: abstract;
 			  connections
 			    fgconn1: refined to feature group;
