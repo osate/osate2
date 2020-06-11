@@ -87,8 +87,6 @@ import com.google.inject.Inject;
 
 public class Aadl2LinkingService extends PropertiesLinkingService {
 
-	private static final boolean useCache = Boolean.valueOf(System.getProperty("org.osate.linking.cache", "false"));
-
 	@Inject
 	IResourceScopeCache linkingCache;
 
@@ -112,12 +110,8 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 		String crossRefString = getCrossRefNodeAsString(node);
 		boolean global = crossRefString.contains("::");
 
-		if (useCache) {
-			result = linkingCache.get(global ? crossRefString : node, context.eResource(),
-					() -> doGetLinkedObjects(context, reference, node));
-		} else {
-			result = doGetLinkedObjects(context, reference, node);
-		}
+		result = linkingCache.get(global ? crossRefString : node, context.eResource(),
+				() -> doGetLinkedObjects(context, reference, node));
 		return result;
 	}
 
