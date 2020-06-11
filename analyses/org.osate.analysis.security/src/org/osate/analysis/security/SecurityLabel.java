@@ -1,11 +1,13 @@
 package org.osate.analysis.security;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import org.osate.aadl2.Aadl2Package;
@@ -20,29 +22,35 @@ import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 
 public class SecurityLabel {
 
-	private static Property securityLevelProperty = null;
+	public static final SecurityLabel MIN = new SecurityLabel(1, Collections.emptySet());
 
-	private static Property securityCaveatsProperty = null;
+	public static final String LEVEL_PROPERTY_NAME = "Security_Classification_Properties::Security_Level";
+
+	public static final String CATEGORY_PROPERTY_NAME = "Security_Classification_Properties::Security_Level_Caveats";
+
+	private static Property levelProperty = null;
+
+	private static Property categoryProperty = null;
 
 	private static Map<EnumerationLiteral, Integer> literal2level = new HashMap<EnumerationLiteral, Integer>();
 
 	private static Map<Integer, EnumerationLiteral> level2literal = new HashMap<Integer, EnumerationLiteral>();
 
 	public static Optional<SecurityLabel> of(NamedElement ne) {
-		if (securityLevelProperty == null) {
+		if (levelProperty == null) {
 			init(ne);
 		}
 
 		int level = -1;
 		try {
-			NamedValue levelValue = (NamedValue) ne.getSimplePropertyValue(securityLevelProperty);
+			NamedValue levelValue = (NamedValue) ne.getSimplePropertyValue(levelProperty);
 			EnumerationLiteral levelLiteral = (EnumerationLiteral) levelValue.getNamedValue();
 			level = literal2level.get(levelLiteral);
 		} catch (Exception e) {
 		}
 		try {
 			Set<EnumerationLiteral> tags = new HashSet<EnumerationLiteral>();
-			ListValue caveatsValue = (ListValue) ne.getSimplePropertyValue(securityCaveatsProperty);
+			ListValue caveatsValue = (ListValue) ne.getSimplePropertyValue(categoryProperty);
 			List<PropertyExpression> lelems = caveatsValue.getOwnedListElements();
 			for (PropertyExpression nv : lelems) {
 				EnumerationLiteral literal = (EnumerationLiteral) ((NamedValue) nv).getNamedValue();
@@ -55,10 +63,8 @@ public class SecurityLabel {
 	}
 
 	private static void init(NamedElement ne) {
-		securityLevelProperty = Aadl2GlobalScopeUtil.get(ne, Aadl2Package.eINSTANCE.getProperty(),
-				"Security_Classification_Properties::Security_Level");
-		securityCaveatsProperty = Aadl2GlobalScopeUtil.get(ne, Aadl2Package.eINSTANCE.getProperty(),
-				"Security_Classification_Properties::Security_Level_Caveats");
+		levelProperty = Aadl2GlobalScopeUtil.get(ne, Aadl2Package.eINSTANCE.getProperty(), LEVEL_PROPERTY_NAME);
+		categoryProperty = Aadl2GlobalScopeUtil.get(ne, Aadl2Package.eINSTANCE.getProperty(), CATEGORY_PROPERTY_NAME);
 		EnumerationType levelType = Aadl2GlobalScopeUtil.get(ne, Aadl2Package.eINSTANCE.getPropertyType(),
 				"Security_Type_Specifications::Level_Type");
 		List<EnumerationLiteral> literals = levelType.getOwnedLiterals();
@@ -72,11 +78,12 @@ public class SecurityLabel {
 
 	private Integer level;
 
-	private Set<EnumerationLiteral> tags;
+	private Set<EnumerationLiteral> categories;
 
 	public SecurityLabel(Integer level, Set<EnumerationLiteral> tags) {
 		this.level = level;
-		this.tags = tags;
+		categories = new TreeSet<EnumerationLiteral>((e1, e2) -> e1.getName().compareToIgnoreCase(e2.getName()));
+		categories.addAll(tags);
 	}
 
 	/**
@@ -97,14 +104,14 @@ public class SecurityLabel {
 	 * @return the tags
 	 */
 	public Set<EnumerationLiteral> getTags() {
-		return tags;
+		return categories;
 	}
 
 	/**
 	 * @param tags the tags to set
 	 */
 	public void setTags(Set<EnumerationLiteral> tags) {
-		this.tags = tags;
+		this.categories = tags;
 	}
 
 	/*
@@ -114,9 +121,10 @@ public class SecurityLabel {
 	 */
 	@Override
 	public String toString() {
-		return "SecurityLabel [level=" + level2literal.get(level).getName()
-				+ ", tags="
-				+ tags.stream().map(EnumerationLiteral::getName).collect(Collectors.joining(", ", "{", "}")) + "]";
+		return "SecurityLabel [" + level2literal.get(level).getName()
+				+ ", "
+				+ categories.stream().map(EnumerationLiteral::getName).collect(Collectors.joining(", ", "{", "}"))
+				+ "]";
 	}
 
 	/*
@@ -129,7 +137,7 @@ public class SecurityLabel {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (level ^ (level >>> 32));
-		result = prime * result + ((tags == null) ? 0 : tags.hashCode());
+		result = prime * result + ((categories == null) ? 0 : categories.hashCode());
 		return result;
 	}
 
@@ -153,18 +161,18 @@ public class SecurityLabel {
 		if (level != other.level) {
 			return false;
 		}
-		if (tags == null) {
-			if (other.tags != null) {
+		if (categories == null) {
+			if (other.categories != null) {
 				return false;
 			}
-		} else if (!tags.equals(other.tags)) {
+		} else if (!categories.equals(other.categories)) {
 			return false;
 		}
 		return true;
 	}
 
 	public boolean dominates(SecurityLabel that) {
-		return this.level >= that.level && this.tags.containsAll(that.tags);
+		return this.level >= that.level && this.categories.containsAll(that.categories);
 	}
 
 	public boolean greaterThan(SecurityLabel that) {
@@ -176,15 +184,22 @@ public class SecurityLabel {
 	}
 
 	public SecurityLabel join(SecurityLabel that) {
-		HashSet<EnumerationLiteral> allTags = new HashSet<>(this.tags);
-		allTags.addAll(that.tags);
-		return new SecurityLabel(Math.max(this.level, that.level), allTags);
+		HashSet<EnumerationLiteral> allCategories = new HashSet<>(this.categories);
+		allCategories.addAll(that.categories);
+		return new SecurityLabel(Math.max(this.level, that.level), allCategories);
+	}
+
+	public SecurityLabel meet(Optional<SecurityLabel> that) {
+		if (that.isPresent()) {
+			return meet(that.get());
+		}
+		return this;
 	}
 
 	public SecurityLabel meet(SecurityLabel that) {
-		HashSet<EnumerationLiteral> allTags = new HashSet<>(this.tags);
-		allTags.removeAll(that.tags);
-		return new SecurityLabel(Math.min(this.level, that.level), allTags);
+		HashSet<EnumerationLiteral> commonCategories = new HashSet<>(this.categories);
+		commonCategories.removeAll(that.categories);
+		return new SecurityLabel(Math.min(this.level, that.level), commonCategories);
 	}
 
 //

@@ -7,14 +7,15 @@ Bundle-ClassPath: .
 Bundle-Activator: org.osate.analysis.security.SecurityPlugin
 Bundle-Vendor: CMU-SEI
 Bundle-Localization: plugin
-Export-Package: org.osate.analysis.security,
- org.osate.analysis.security.handlers
+Export-Package: org.osate.analysis.security
 Require-Bundle: org.osate.aadl2,
  org.osate.ui,
  org.osate.aadl2.modelsupport,
- org.osate.xtext.aadl2.properties;bundle-version="1.0.0"
+ org.osate.xtext.aadl2.properties;bundle-version="1.0.0",
+ org.osate.results
 Bundle-ActivationPolicy: lazy
-Import-Package: org.osate.contribution.sei.names
+Import-Package: org.eclipse.e4.core.services.log,
+ org.osate.contribution.sei.names
 Automatic-Module-Name: org.osate.analysis.security
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 
