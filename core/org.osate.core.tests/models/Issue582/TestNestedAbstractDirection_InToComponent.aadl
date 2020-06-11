@@ -1,0 +1,339 @@
+package TestNestedAbstractDirection_InToComponent
+public
+	Data D
+	end D;
+	
+	system InnerSys_blank
+		features
+			f0: feature;
+			
+			blank_feature: feature;
+			out_feature: out feature;
+			in_feature: in feature;
+		properties
+			Classifier_Substitution_Rule => Type_Extension;
+	end InnerSys_blank;
+	
+	system InnerSys_out extends InnerSys_blank
+		features
+			f0: refined to out feature;
+	end InnerSys_out;
+	
+	system InnerSys_in extends InnerSys_blank
+		features
+			f0: refined to in feature;
+	end InnerSys_in;
+	
+	--
+	
+	system SrcSys
+		features
+			f0: feature;
+			
+			blank_to_blank_feature: feature;
+			blank_to_out_feature: out feature;
+			blank_to_in_feature: in feature;
+			
+			out_to_blank_feature: feature;
+			out_to_out_feature: out feature;
+			out_to_in_feature: in feature;
+			
+			in_to_blank_feature: feature;
+			in_to_out_feature: out feature;
+			in_to_in_feature: in feature;
+		properties
+			Classifier_Substitution_Rule => Type_Extension;
+	end SrcSys;
+		
+	system SrcSysOut extends SrcSys
+		features
+			f0: refined to out feature;
+	end SrcSysOut;
+		
+	system SrcSysIn extends SrcSys
+		features
+			f0: refined to in feature;
+	end SrcSysIn;
+		
+	system implementation SrcSys.allExplicit
+		subcomponents
+			s: system InnerSys_blank;
+		connections
+			c0: feature f0 -> s.f0;
+			
+			blank_to_blank: feature blank_to_blank_feature -> s.blank_feature;
+			blank_to_out: feature blank_to_out_feature -> s.blank_feature; -- BAD: cannot start at out
+			blank_to_in: feature blank_to_in_feature -> s.blank_feature;
+
+			-- All of these are bad because the connection cannot end an "out" feature of a subcomponent
+			out_to_blank: feature out_to_blank_feature -> s.out_feature; 
+			out_to_out: feature out_to_out_feature -> s.out_feature;  -- BAD: cannot start at out
+			out_to_in: feature out_to_in_feature -> s.out_feature;  
+			
+			in_to_blank: feature in_to_blank_feature -> s.in_feature;
+			in_to_out: feature in_to_out_feature -> s.in_feature;  -- BAD: cannot start at out
+			in_to_in: feature in_to_in_feature -> s.in_feature; 
+	end SrcSys.allExplicit;
+		
+	system implementation SrcSys.blank_to_blank
+		subcomponents
+			s: system InnerSys_blank;
+		connections
+			c0: feature f0 -> s.f0;
+	end SrcSys.blank_to_blank;
+		
+	system implementation SrcSys.out_to_blank extends SrcSys.blank_to_blank
+		subcomponents
+			s: refined to system InnerSys_out;
+	end SrcSys.out_to_blank;
+		
+	system implementation SrcSys.in_to_blank extends SrcSys.blank_to_blank
+		subcomponents
+			s: refined to system InnerSys_in;
+	end SrcSys.in_to_blank;
+	
+	system implementation SrcSysOut.blank_to_out extends SrcSys.blank_to_blank
+	end SrcSysOut.blank_to_out;
+	
+	system implementation SrcSysOut.out_to_out extends SrcSysOut.blank_to_out
+		subcomponents
+			s: refined to system InnerSys_out;
+	end SrcSysOut.out_to_out;
+	
+	system implementation SrcSysOut.in_to_out extends SrcSysOut.blank_to_out
+		subcomponents
+			s: refined to system InnerSys_in;
+	end SrcSysOut.in_to_out;
+	
+	system implementation SrcSysIn.blank_to_in extends SrcSys.blank_to_blank
+	end SrcSysIn.blank_to_in;
+	
+	system implementation SrcSysIn.out_to_in extends SrcSysIn.blank_to_in
+		subcomponents
+			s: refined to system InnerSys_out;
+	end SrcSysIn.out_to_in;
+	
+	system implementation SrcSysIn.in_to_in extends SrcSysIn.blank_to_in
+		subcomponents
+			s: refined to system InnerSys_in;
+	end SrcSysIn.in_to_in;
+	
+	--
+	
+	system DestSys
+		features
+			f0: feature;
+			
+			blank_feature: feature;
+			out_feature: out feature;
+			in_feature: in feature;
+	end DestSys;
+	
+	system DestSysIn extends DestSys
+		features
+			f0: refined to in feature;
+	end DestSysIn;
+	
+	system DestSysOut extends DestSys
+		features
+			f0: refined to out feature;
+	end DestSysOut;
+	
+	system Top
+		properties
+			Classifier_Substitution_Rule => Type_Extension;
+	end Top;
+	
+	system implementation Top.allExplicit
+		subcomponents
+			srcSys: system SrcSys.allExplicit;
+			destSys: system DestSys;
+		connections
+			blank_to_blank_to_blank: feature destSys.blank_feature -> srcSys.blank_to_blank_feature;
+			blank_to_blank_to_out: feature destSys.out_feature -> srcSys.blank_to_blank_feature;
+			blank_to_blank_to_in: feature destSys.in_feature -> srcSys.blank_to_blank_feature; -- BAD: Cannot start at "in" when peer to peer
+
+			-- blank_to_out is BAD, shouldn't even process it during instantiation
+			blank_to_out_to_blank: feature destSys.blank_feature -> srcSys.blank_to_out_feature; -- BAD: Cannot end with "out" when peer to peer
+			blank_to_out_to_out: feature destSys.out_feature -> srcSys.blank_to_out_feature; -- BAD: Cannot end with "out" when peer to peer
+			blank_to_out_to_in: feature destSys.in_feature -> srcSys.blank_to_out_feature; -- BAD: Cannot start at "in" when peer to peer; Cannot end with "out" when peer to peer
+			
+			blank_to_in_to_blank: feature destSys.blank_feature -> srcSys.blank_to_in_feature;
+			blank_to_in_to_out: feature destSys.out_feature -> srcSys.blank_to_in_feature;
+			blank_to_in_to_in: feature destSys.in_feature -> srcSys.blank_to_in_feature; -- BAD: Cannot start at "in" when peer to peer
+			
+			-- out_to_blank is BAD, shouldn't even process it during instantiation
+			out_to_blank_to_blank: feature destSys.blank_feature -> srcSys.out_to_blank_feature;
+			out_to_blank_to_out: feature destSys.out_feature -> srcSys.out_to_blank_feature;
+			out_to_blank_to_in: feature destSys.in_feature -> srcSys.out_to_blank_feature; -- BAD: Cannot start at "in" when peer to peer
+
+			-- out_to_out is BAD, shouldn't even process it during instantiation
+			out_to_out_to_blank: feature destSys.blank_feature -> srcSys.out_to_out_feature; -- BAD: Cannot end with "out" when peer to peer
+			out_to_out_to_out: feature destSys.out_feature -> srcSys.out_to_out_feature; -- BAD: Cannot end with "out" when peer to peer
+			out_to_out_to_in: feature destSys.in_feature -> srcSys.out_to_out_feature; -- BAD: Cannot start at "in" when peer to peer; Cannot end with "out" when peer to peer
+			
+			-- out_to_in is BAD, shouldn't even process it during instantiation
+			out_to_in_to_blank: feature destSys.blank_feature -> srcSys.out_to_in_feature;
+			out_to_in_to_out: feature destSys.out_feature -> srcSys.out_to_in_feature;
+			out_to_in_to_in: feature destSys.in_feature -> srcSys.out_to_in_feature; -- BAD: Cannot start at "in" when peer to peer
+			
+			in_to_blank_to_blank: feature destSys.blank_feature -> srcSys.in_to_blank_feature;
+			in_to_blank_to_out: feature destSys.out_feature -> srcSys.in_to_blank_feature;
+			in_to_blank_to_in: feature destSys.in_feature -> srcSys.in_to_blank_feature; -- BAD: Cannot start at "in" when peer to peer
+
+			-- in_to_out is BAD, shouldn't even process it during instantiation
+			in_to_out_to_blank: feature destSys.blank_feature -> srcSys.in_to_out_feature; -- BAD: Cannot end with "out" when peer to peer
+			in_to_out_to_out: feature destSys.out_feature -> srcSys.in_to_out_feature; -- BAD: Cannot end with "out" when peer to peer
+			in_to_out_to_in: feature destSys.in_feature -> srcSys.in_to_out_feature; -- BAD: Cannot start at "in" when peer to peer; Cannot end with "out" when peer to peer
+			
+			in_to_in_to_blank: feature destSys.blank_feature -> srcSys.in_to_in_feature;
+			in_to_in_to_out: feature destSys.out_feature -> srcSys.in_to_in_feature;
+			in_to_in_to_in: feature destSys.in_feature -> srcSys.in_to_in_feature; -- BAD: Cannot start at "in" when peer to peer
+	end Top.allExplicit;
+	
+	system implementation Top.blank_to_blank_to_blank
+		subcomponents
+			srcSys: system SrcSys.blank_to_blank;
+			destSys: system DestSys;
+		connections
+			c0: feature destSys.f0 -> srcSys.f0;
+	end Top.blank_to_blank_to_blank;
+	
+	system implementation Top.blank_to_blank_to_out extends Top.blank_to_blank_to_blank 
+		subcomponents
+			destSys: refined to system DestSysOut;
+	end Top.blank_to_blank_to_out;
+	
+	system implementation Top.blank_to_blank_to_in extends Top.blank_to_blank_to_blank 
+		subcomponents
+			destSys: refined to system DestSysIn;
+	end Top.blank_to_blank_to_in;
+	
+	
+	system implementation Top.blank_to_out_to_blank extends Top.blank_to_blank_to_blank
+		subcomponents
+			srcSys: refined to system SrcSysOut.blank_to_out;
+	end Top.blank_to_out_to_blank;
+	
+	system implementation Top.blank_to_out_to_out extends Top.blank_to_out_to_blank
+		subcomponents
+			destSys: refined to system DestSysOut;
+	end Top.blank_to_out_to_out;
+	
+	system implementation Top.blank_to_out_to_in extends Top.blank_to_out_to_blank
+		subcomponents
+			destSys: refined to system DestSysIn;
+	end Top.blank_to_out_to_in;
+	
+	
+	system implementation Top.blank_to_in_to_blank extends Top.blank_to_blank_to_blank
+		subcomponents
+			srcSys: refined to system SrcSysIn.blank_to_in;
+	end Top.blank_to_in_to_blank;
+	
+	system implementation Top.blank_to_in_to_out extends Top.blank_to_out_to_blank
+		subcomponents
+			destSys: refined to system DestSysOut;
+	end Top.blank_to_in_to_out;
+	
+	system implementation Top.blank_to_in_to_in extends Top.blank_to_out_to_blank
+		subcomponents
+			destSys: refined to system DestSysIn;
+	end Top.blank_to_in_to_in;
+	
+	
+	system implementation Top.out_to_blank_to_blank extends Top.blank_to_blank_to_blank 
+		subcomponents
+			srcSys: refined to system SrcSys.out_to_blank;
+	end Top.out_to_blank_to_blank;
+	
+	system implementation Top.out_to_blank_to_out extends Top.out_to_blank_to_blank
+		subcomponents
+			destSys: refined to system DestSysOut;
+	end Top.out_to_blank_to_out;
+	
+	system implementation Top.out_to_blank_to_in extends Top.out_to_blank_to_blank
+		subcomponents
+			destSys: refined to system DestSysIn;
+	end Top.out_to_blank_to_in;
+	
+	
+	system implementation Top.out_to_out_to_blank extends Top.blank_to_blank_to_blank 
+		subcomponents
+			srcSys: refined to system SrcSysOut.out_to_out;
+	end Top.out_to_out_to_blank;
+	
+	system implementation Top.out_to_out_to_out extends Top.out_to_out_to_blank
+		subcomponents
+			destSys: refined to system DestSysOut;
+	end Top.out_to_out_to_out;
+	
+	system implementation Top.out_to_out_to_in extends Top.out_to_out_to_blank
+		subcomponents
+			destSys: refined to system DestSysIn;
+	end Top.out_to_out_to_in;
+	
+	
+	system implementation Top.out_to_in_to_blank extends Top.blank_to_blank_to_blank 
+		subcomponents
+			srcSys: refined to system SrcSysIn.out_to_in;
+	end Top.out_to_in_to_blank;
+	
+	system implementation Top.out_to_in_to_out extends Top.out_to_in_to_blank
+		subcomponents
+			destSys: refined to system DestSysOut;
+	end Top.out_to_in_to_out;
+	
+	system implementation Top.out_to_in_to_in extends Top.out_to_in_to_blank
+		subcomponents
+			destSys: refined to system DestSysIn;
+	end Top.out_to_in_to_in;
+	
+	
+	system implementation Top.in_to_blank_to_blank extends Top.blank_to_blank_to_blank 
+		subcomponents
+			srcSys: refined to system SrcSys.in_to_blank;
+	end Top.in_to_blank_to_blank;
+	
+	system implementation Top.in_to_blank_to_out extends Top.in_to_blank_to_blank
+		subcomponents
+			destSys: refined to system DestSysOut;
+	end Top.in_to_blank_to_out;
+	
+	system implementation Top.in_to_blank_to_in extends Top.in_to_blank_to_blank
+		subcomponents
+			destSys: refined to system DestSysIn;
+	end Top.in_to_blank_to_in;
+	
+	
+	system implementation Top.in_to_out_to_blank extends Top.blank_to_blank_to_blank 
+		subcomponents
+			srcSys: refined to system SrcSysOut.in_to_out;
+	end Top.in_to_out_to_blank;
+	
+	system implementation Top.in_to_out_to_out extends Top.in_to_out_to_blank
+		subcomponents
+			destSys: refined to system DestSysOut;
+	end Top.in_to_out_to_out;
+	
+	system implementation Top.in_to_out_to_in extends Top.in_to_out_to_blank
+		subcomponents
+			destSys: refined to system DestSysIn;
+	end Top.in_to_out_to_in;
+	
+	
+	system implementation Top.in_to_in_to_blank extends Top.blank_to_blank_to_blank 
+		subcomponents
+			srcSys: refined to system SrcSysOut.in_to_out;
+	end Top.in_to_in_to_blank;
+	
+	system implementation Top.in_to_in_to_out extends Top.in_to_in_to_blank
+		subcomponents
+			destSys: refined to system DestSysOut;
+	end Top.in_to_in_to_out;
+	
+	system implementation Top.in_to_in_to_in extends Top.in_to_in_to_blank
+		subcomponents
+			destSys: refined to system DestSysIn;
+	end Top.in_to_in_to_in;
+end TestNestedAbstractDirection_InToComponent;
