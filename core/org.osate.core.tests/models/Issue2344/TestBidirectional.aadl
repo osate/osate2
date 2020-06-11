@@ -1,0 +1,48 @@
+package TestBidirectional
+public
+	data D
+	end D;
+	
+	Data implementation D.i
+	end D.i;
+	
+	Data implementation D.j
+	end D.j;
+	
+	Data X
+	end X;
+	
+	
+	system A
+		features
+			f_none: in out data port;
+			f_d: in out data port D;
+			f_di: in out data port D.i;
+			f_dj: in out data port D.j;
+			f_x: in out data port X;
+	end A;
+	
+	system top
+	end top;
+	
+	system implementation top.i
+		subcomponents
+			a: system a;
+			b: system a;
+		connections
+			none_to_none: port a.f_none <-> b.f_none; -- GOOD
+			none_to_d: port a.f_none <-> b.f_d; -- warning
+			none_to_di: port a.f_none <-> b.f_di; -- warning
+			d_to_none: port a.f_d <-> b.f_none; -- warning
+			di_to_none: port a.f_di <-> b.f_none; -- warning
+			
+			d_to_d: port a.f_d <-> b.f_d; -- GOOD
+			d_to_di: port a.f_d <-> b.f_di; -- error
+			di_to_d: port a.f_di <-> b.f_d; -- error
+			d_to_x: port a.f_d <-> b.f_x; -- error
+			
+			di_to_x: port a.f_di <-> b.f_x; -- error
+			di_to_di: port a.f_di <-> b.f_di; -- GOOD
+			di_to_dj: port a.f_di <-> b.f_dj; -- error
+	end top.i;
+end TestBidirectional;

@@ -669,7 +669,7 @@
       <repository
           url="http://download.eclipse.org/efxclipse/updates-released/3.6.0/site"/>
       <repository
-          url="http://download.eclipse.org/elk/updates/releases/0.6.1"/>
+          url="http://osate-build.sei.cmu.edu/p2/elk-nightly/"/>
       <description>Additional features for the graphical editor</description>
     </setupTask>
   </setupTask>
@@ -795,7 +795,7 @@
         <repository
             url="http://download.eclipse.org/ease/release/0.7.0"/>
         <repository
-            url="http://download.eclipse.org/elk/updates/releases/0.6.1"/>
+            url="http://osate-build.sei.cmu.edu/p2/elk-nightly/"/>
         <repository
             url="http://download.eclipse.org/xsemantics/milestones/1.19"/>
         <repository
