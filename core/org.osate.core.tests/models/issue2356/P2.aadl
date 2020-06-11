@@ -20,7 +20,9 @@ public
             a1: abstract A;
             a2: abstract A;
             b: abstract B;
-        connections
+    	connections
+    		-- There will be an error on this connection, but it is misleading.  The connection is good in S.no_modes_good, 
+    	    -- but made to be bad in S.extends_bad
             c1: port a1.aout -> b.bin;
     end S.no_modes_good;
 
@@ -39,6 +41,7 @@ public
 			m2: mode;
 			m3: mode;
 	end SS;
+	
     system implementation SS.simple_modes_bad
         subcomponents
             a1: abstract A;
