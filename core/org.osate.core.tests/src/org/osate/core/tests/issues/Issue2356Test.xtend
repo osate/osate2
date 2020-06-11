@@ -37,6 +37,7 @@ import org.osate.testsupport.TestHelper
 import static extension org.osate.testsupport.AssertHelper.assertError
 import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.AbstractType
+import org.osate.aadl2.SystemType
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
@@ -82,6 +83,54 @@ class Issue2356Test extends XtextTest {
 			publicSection.ownedClassifiers.findFirst[name == "B"] as AbstractType => [
 				ownedFeatures.findFirst[name == "bin"] => [
 					assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port", "More than one connection instance ends at data port", "More than one connection instance ends at data port in mode m2")
+				]
+			]
+		]
+		issueCollection.sizeIs(testFileResult.issues.size)
+		assertConstraints(issueCollection)
+	}
+	
+	@Test
+	def void testP3() {
+		val testFileResult = issues =  testHelper.testFile("org.osate.core.tests/models/Issue2356/P3.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		testFileResult.resource.contents.head as AadlPackage => [
+			publicSection.ownedClassifiers.findFirst[name == "middle"] as SystemType => [
+				ownedFeatures.findFirst[name == "d"] => [
+					assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port in mode m2")
+				]
+			]
+
+			publicSection.ownedClassifiers.findFirst[name == "middle.i"] as SystemImplementation => [
+				ownedConnections.findFirst[name == "c1"] => [
+					assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port d in mode m2")
+				]
+				ownedConnections.findFirst[name == "c2"] => [
+					assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port d in mode m2")
+				]
+			]
+		]
+		issueCollection.sizeIs(testFileResult.issues.size)
+		assertConstraints(issueCollection)
+	}
+	
+	@Test
+	def void testP4() {
+		val testFileResult = issues =  testHelper.testFile("org.osate.core.tests/models/Issue2356/P4.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		testFileResult.resource.contents.head as AadlPackage => [
+			publicSection.ownedClassifiers.findFirst[name == "B"] as AbstractType => [
+				ownedFeatures.findFirst[name == "bin"] => [
+					assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port")
+				]
+			]
+
+			publicSection.ownedClassifiers.findFirst[name == "m.i"] as SystemImplementation => [
+				ownedConnections.findFirst[name == "c1"] => [
+					assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port bin")
+				]
+				ownedConnections.findFirst[name == "c2"] => [
+					assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port bin")
 				]
 			]
 		]
