@@ -842,7 +842,7 @@ class OtherAadl2JavaValidatorTest extends XtextTest {
 				end a;
 				abstract a2
 					features
-						dp2: in data port;
+						dp2: in event data port;
 				end a2;
 				abstract implementation a.i
 					subcomponents
@@ -1441,7 +1441,7 @@ class OtherAadl2JavaValidatorTest extends XtextTest {
 										dp4: data;
 									features
 										dp1: in data port; 
-										dp2: out data port;
+										dp2: out event data port;
 										dp99: out data port;
 										name1: feature;
 								end ab1;

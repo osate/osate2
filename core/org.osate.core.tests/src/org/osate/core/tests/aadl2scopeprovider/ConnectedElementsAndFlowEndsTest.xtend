@@ -41,6 +41,7 @@ import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.osate.testsupport.AssertHelper.*
+import org.osate.aadl2.ComponentType
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
@@ -406,6 +407,9 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 				]
 				ownedPortConnections.get(0) => [
 					"conn6".assertEquals(name)
+					
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp2")
+					
 					source.assertWarning(testFileResult.issues, issueCollection, "Aggregate data ports not supported by instantiator.")
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
 					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
@@ -430,6 +434,9 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 				]
 				ownedPortConnections.get(1) => [
 					"conn7".assertEquals(name)
+					
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp2")
+					
 					source.assertWarning(testFileResult.issues, issueCollection, "Aggregate data ports not supported by instantiator.")
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
 					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
@@ -454,6 +461,9 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 				]
 				ownedPortConnections.get(2) => [
 					"conn8".assertEquals(name)
+					
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp2")
+					
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
 					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
 					//Tests scope_ConnectedElement_context
@@ -477,6 +487,9 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 				]
 				ownedPortConnections.get(3) => [
 					"conn9".assertEquals(name)
+					
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp2")
+					
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
 					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, emptyList)
 					//Tests scope_ConnectedElement_context
@@ -614,6 +627,12 @@ class ConnectedElementsAndFlowEndsTest extends XtextTest {
 						"dsub3", "edp4", "eds2", "ep4", "fg4", "fg5", "param1", "pp2", "sp2", "subpa2", "subpa3",
 						"subpga1", "subpga2", "subpsub3"
 					])
+				]
+			]
+			publicSection.ownedClassifiers.get(2) as AbstractType => [
+				"a2".assertEquals(name)
+				ownedDataPorts.get(0) => [
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port")
 				]
 			]
 			publicSection.ownedClassifiers.get(5) as ComponentImplementation => [
