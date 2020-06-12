@@ -2615,90 +2615,138 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"portconn1".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'bus subcomponent' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
+				]
+				ownedPortConnections.get(1) => [
+					"portconn2".assertEquals(name)
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(2) => [
 					"portconn3".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'subprogram group subcomponent' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(3) => [
 					"portconn4".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'subprogram subcomponent' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(4) => [
 					"portconn5".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'subprogram proxy' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
+				]
+				ownedPortConnections.get(5) => [
+					"portconn6".assertEquals(name)
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
+				]
+				ownedPortConnections.get(6) => [
+					"portconn7".assertEquals(name)
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(7) => [
 					"portconn8".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "An 'abstract feature' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(8) => [
 					"portconn9".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'feature group' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(9) => [
 					"portconn10".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'bus access' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
+				]
+				ownedPortConnections.get(10) => [
+					"portconn11".assertEquals(name)
+					//Tests typeCheckPortConnectionEnd
+					source.assertError(testFileResult.issues, issueCollection)
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
+				]
+				ownedPortConnections.get(12) => [
+					"portconn13".assertEquals(name)
+					//Tests typeCheckPortConnectionEnd
+					source.assertError(testFileResult.issues, issueCollection)
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
+				]
+				ownedPortConnections.get(13) => [
+					"portconn14".assertEquals(name)
+					//Tests typeCheckPortConnectionEnd
+					source.assertError(testFileResult.issues, issueCollection)
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(14) => [
 					"portconn15".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'bus subcomponent' in a 'data port' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(15) => [
 					"portconn16".assertEquals(name)
 					source.assertWarning(testFileResult.issues, issueCollection, "Aggregate data ports not supported by instantiator.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(16) => [
 					"portconn17".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'subprogram group subcomponent' in a 'data port' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(17) => [
 					"portconn18".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'subprogram subcomponent' in a 'data port' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(18) => [
 					"portconn19".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'subprogram proxy' in a 'data port' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(19) => [
 					"portconn20".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'port proxy' in a 'data port' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(20) => [
 					"portconn21".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "An 'event data source' in a 'data port' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(21) => [
 					"portconn22".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "An 'abstract feature' in a 'data port' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(22) => [
 					"portconn23".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'feature group' in a 'data port' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(23) => [
 					"portconn24".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'bus access' in a 'data port' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(24) => [
 					"portconn25".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'data access' in a 'data port' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(25) => [
 					"portconn26".assertEquals(name)
@@ -2709,65 +2757,78 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"portconn27".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'data port' in a 'data port' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(27) => [
 					"portconn28".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "An 'event data port' in a 'data port' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(28) => [
 					"portconn29".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'bus subcomponent' in an 'event data port' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(29) => [
 					"portconn30".assertEquals(name)
 					source.assertWarning(testFileResult.issues, issueCollection, "Aggregate data ports not supported by instantiator.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(30) => [
 					"portconn31".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'subprogram group subcomponent' in an 'event data port' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(31) => [
 					"portconn32".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'subprogram subcomponent' in an 'event data port' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(32) => [
 					"portconn33".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'subprogram proxy' in an 'event data port' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(33) => [
 					"portconn34".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'port proxy' in an 'event data port' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(34) => [
 					"portconn35".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "An 'event data source' in an 'event data port' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(35) => [
 					"portconn36".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "An 'abstract feature' in an 'event data port' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(36) => [
 					"portconn37".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'feature group' in an 'event data port' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(37) => [
 					"portconn38".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'bus access' in an 'event data port' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(38) => [
 					"portconn39".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'data access' in an 'event data port' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(39) => [
 					"portconn40".assertEquals(name)
@@ -2778,171 +2839,270 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"portconn41".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'data port' in an 'event data port' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(41) => [
 					"portconn42".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "An 'event data port' in an 'event data port' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(42) => [
 					"portconn43".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "An 'abstract feature' in a 'feature group' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(43) => [
 					"portconn44".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'feature group' in a 'feature group' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(44) => [
 					"portconn45".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'parameter' in a 'feature group' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(45) => [
 					"portconn46".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'bus access' in a 'feature group' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
+				]
+				ownedPortConnections.get(46) => [
+					"portconn47".assertEquals(name)
+					//Tests typeCheckPortConnectionEnd
+					source.assertError(testFileResult.issues, issueCollection)
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
+				]
+				ownedPortConnections.get(48) => [
+					"portconn49".assertEquals(name)
+					//Tests typeCheckPortConnectionEnd
+					source.assertError(testFileResult.issues, issueCollection)
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
+				]
+				ownedPortConnections.get(49) => [
+					"portconn50".assertEquals(name)
+					//Tests typeCheckPortConnectionEnd
+					source.assertError(testFileResult.issues, issueCollection)
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(50) => [
 					"portconn51".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'bus subcomponent' in an 'abstract subcomponent' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(51) => [
 					"portconn52".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'data subcomponent' in an 'abstract subcomponent' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(52) => [
 					"portconn53".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'subprogram group subcomponent' in an 'abstract subcomponent' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(53) => [
 					"portconn54".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'subprogram subcomponent' in an 'abstract subcomponent' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(54) => [
 					"portconn55".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'subprogram proxy' in an 'abstract subcomponent' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(55) => [
 					"portconn56".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'port proxy' in an 'abstract subcomponent' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(56) => [
 					"portconn57".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "An 'event data source' in an 'abstract subcomponent' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(57) => [
 					"portconn58".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "An 'abstract feature' in an 'abstract subcomponent' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(58) => [
 					"portconn59".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'feature group' in an 'abstract subcomponent' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(59) => [
 					"portconn60".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'parameter' in a 'subprogram subcomponent' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(60) => [
 					"portconn61".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'bus access' in an 'abstract subcomponent' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
+				]
+				ownedPortConnections.get(61) => [
+					"portconn62".assertEquals(name)
+					//Tests typeCheckPortConnectionEnd
+					source.assertError(testFileResult.issues, issueCollection)
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
+				]
+				ownedPortConnections.get(63) => [
+					"portconn64".assertEquals(name)
+					//Tests typeCheckPortConnectionEnd
+					source.assertError(testFileResult.issues, issueCollection)
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
+				]
+				ownedPortConnections.get(64) => [
+					"portconn65".assertEquals(name)
+					//Tests typeCheckPortConnectionEnd
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp4")
 				]
 				ownedPortConnections.get(65) => [
 					"portconn66".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'bus subcomponent' in a 'data subcomponent' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
+				]
+				ownedPortConnections.get(66) => [
+					"portconn67".assertEquals(name)
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(67) => [
 					"portconn68".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'subprogram group subcomponent' in a 'data subcomponent' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(68) => [
 					"portconn69".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'subprogram subcomponent' in a 'data subcomponent' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(69) => [
 					"portconn70".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'subprogram proxy' in a 'data subcomponent' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(70) => [
 					"portconn71".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'port proxy' in a 'data subcomponent' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(71) => [
 					"portconn72".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "An 'event data source' in a 'data subcomponent' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(72) => [
 					"portconn73".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "An 'abstract feature' in a 'data subcomponent' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(73) => [
 					"portconn74".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'feature group' in a 'data subcomponent' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(74) => [
 					"portconn75".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'bus access' in a 'data subcomponent' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
+				]
+				ownedPortConnections.get(75) => [
+					"portconn76".assertEquals(name)
+					//Tests typeCheckPortConnectionEnd
+					source.assertError(testFileResult.issues, issueCollection)
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
+				]
+				ownedPortConnections.get(77) => [
+					"portconn78".assertEquals(name)
+					//Tests typeCheckPortConnectionEnd
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp4")
+				]
+				ownedPortConnections.get(78) => [
+					"portconn79".assertEquals(name)
+					//Tests typeCheckPortConnectionEnd
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp4")
+				]
+				ownedPortConnections.get(79) => [
+					"portconn80".assertEquals(name)
+					//Tests typeCheckPortConnectionEnd
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp5")
 				]
 				ownedPortConnections.get(80) => [
 					"portconn81".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'subprogram subcomponent' in a 'subprogram call' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(81) => [
 					"portconn82".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'subprogram proxy' in a 'subprogram call' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(82) => [
 					"portconn83".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'port proxy' in a 'subprogram call' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp5")
 				]
 				ownedPortConnections.get(83) => [
 					"portconn84".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "An 'event data source' in a 'subprogram call' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp5")
 				]
 				ownedPortConnections.get(84) => [
 					"portconn85".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "An 'abstract feature' in a 'subprogram call' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(85) => [
 					"portconn86".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'feature group' in a 'subprogram call' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(86) => [
 					"portconn87".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'parameter' in a 'subprogram call' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(87) => [
 					"portconn88".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'subprogram access' in a 'subprogram call' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
+				]
+				ownedPortConnections.get(88) => [
+					"portconn89".assertEquals(name)
+					//Tests typeCheckPortConnectionEnd
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp5")
 				]
 			]
 			publicSection.ownedClassifiers.get(2) as SubprogramType => [
@@ -3259,62 +3419,74 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"portconn92".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'parameter' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(1) => [
 					"portconn93".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(2) => [
 					"portconn94".assertEquals(name)
 					source.assertWarning(testFileResult.issues, issueCollection, "Aggregate data ports not supported by instantiator.")
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(3) => [
 					"portconn95".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(4) => [
 					"portconn96".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(5) => [
 					"portconn97".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(6) => [
 					"portconn98".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(7) => [
 					"portconn99".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(8) => [
 					"portconn100".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(9) => [
 					"portconn101".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(10) => [
 					"portconn102".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(11) => [
 					"portconn103".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(12) => [
 					"portconn104".assertEquals(name)
@@ -3325,11 +3497,29 @@ class ConnectionAndFlowTypesTest extends XtextTest {
 					"portconn105".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
 				]
 				ownedPortConnections.get(14) => [
 					"portconn106".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid port connection end.")
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port dp3")
+				]
+			]
+			
+			publicSection.ownedClassifiers.get(4) as AbstractType => [
+				"a1".assertEquals(name)
+				ownedDataPorts.get(0) => [
+					"dp3".assertEquals(name)
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port", "More than one connection instance ends at data port")
+				]
+				ownedDataPorts.get(1) => [
+					"dp4".assertEquals(name)
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port")
+				]
+				ownedDataPorts.get(2) => [
+					"dp5".assertEquals(name)
+					it.assertError(testFileResult.issues, issueCollection, "More than one connection instance ends at data port")
 				]
 			]
 		]
