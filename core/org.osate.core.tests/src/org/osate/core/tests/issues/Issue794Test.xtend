@@ -55,10 +55,10 @@ class Issue794Test extends XtextTest {
 			public
 				process ps1
 					features
-						in1: in data port;
-						in2: in data port;
-						out1: out data port;
-						out2: out data port;
+						in1: in event data port;
+						in2: in event data port;
+						out1: out event data port;
+						out2: out event data port;
 						fg1: feature group fgt1;
 						fg2: feature group fgt1;
 					flows
@@ -99,18 +99,18 @@ class Issue794Test extends XtextTest {
 				
 				thread t1
 					features
-						t_in: in data port;
-						t_out: out data port;
+						t_in: in event data port;
+						t_out: out event data port;
 					flows
 						t_flow: flow path t_in -> t_out;
 				end t1;
 				
 				feature group fgt1
 					features
-						fg_in1: in data port;
-						fg_in2: in data port;
-						fg_out1: out data port;
-						fg_out2: out data port;
+						fg_in1: in event data port;
+						fg_in2: in event data port;
+						fg_out1: out event data port;
+						fg_out2: out event data port;
 				end fgt1;
 			end pkg1;
 		'''
