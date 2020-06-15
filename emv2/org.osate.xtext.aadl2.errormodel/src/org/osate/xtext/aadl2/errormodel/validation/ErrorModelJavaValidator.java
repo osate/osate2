@@ -124,7 +124,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 		EList<ModalPropertyValue> pvl = pa.getOwnedValues();
 		for (ModalPropertyValue modalPropertyValue : pvl) {
-			typeCheckPropertyValues(pt, modalPropertyValue.getOwnedValue(), pa, pdef.getQualifiedName());
+			typeCheckPropertyValues(pt, modalPropertyValue.getOwnedValue(), pa, pdef.getQualifiedName(), 0);
 		}
 		checkAssociationAppliesTo(pa);
 	}

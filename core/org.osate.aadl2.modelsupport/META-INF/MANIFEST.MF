@@ -18,6 +18,6 @@ Export-Package: org.osate.aadl2.modelsupport,
  org.osate.aadl2.modelsupport.scoping,
  org.osate.aadl2.modelsupport.util
 Bundle-Vendor: CMU-SEI
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: org.eclipse.emf.transaction
 Automatic-Module-Name: org.osate.aadl2.modelsupport
