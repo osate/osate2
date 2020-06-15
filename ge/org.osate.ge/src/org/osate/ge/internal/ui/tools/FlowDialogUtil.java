@@ -26,7 +26,7 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.osate.ge.internal.Activator;
 
-class FlowDialogUtil {
+public class FlowDialogUtil {
 	private FlowDialogUtil() {
 	}
 
@@ -47,8 +47,8 @@ class FlowDialogUtil {
 		return errorTableViewer;
 	}
 
-	public static Composite createFlowArea(final Composite parent) {
-		final Composite composite = new Composite(parent, SWT.NONE);
+	public static Composite createFlowArea(final Composite parent, final int style) {
+		final Composite composite = new Composite(parent, style);
 		final GridLayout layout = new GridLayout();
 		layout.marginHeight = 0;
 		layout.marginWidth = 0;

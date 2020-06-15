@@ -50,6 +50,7 @@ import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlow;
+import org.osate.aadl2.EndToEndFlowElement;
 import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FlowElement;
@@ -163,7 +164,9 @@ public class ShowFlowContributionItem extends ControlContribution {
 					return AadlClassifierUtil.getComponentImplementation(flowElementRef.container.getBusinessObject())
 							.map(ci -> ci.getAllEndToEndFlows().stream()
 									.filter(ete -> ete == flowElementRef.flowSegmentElement)
-									.flatMap(ete -> ete.getAllFlowSegments().stream())
+									.flatMap(ete -> ete.getAllFlowSegments().stream()
+											.filter(eTEFlowSegment -> eTEFlowSegment
+													.getFlowElement() != flowElementRef.flowSegmentElement))
 									.map(eteFlowSegment -> createFlowSegmentReference(eteFlowSegment,
 											(BusinessObjectNode) flowElementRef.container)))
 							.orElse(Stream.empty()).collect(Collectors.toList());
@@ -252,13 +255,13 @@ public class ShowFlowContributionItem extends ControlContribution {
 					}
 				} else if (bo instanceof EndToEndFlowSegment) {
 					final EndToEndFlowSegment flowSegment = (EndToEndFlowSegment) bo;
-					final FlowElement flowElement = (FlowElement) flowSegment.getFlowElement();
+					final EndToEndFlowElement flowElement = flowSegment.getFlowElement();
 					if (flowSegment.getContext() == null) {
 						return createFlowSegmentReference(flowElement, container);
-					} else {
-						final BusinessObjectNode contextNode = ensureEnabledChild(flowSegment.getContext(), container);
-						return createFlowSegmentReference(flowElement, contextNode);
 					}
+
+					final BusinessObjectNode contextNode = ensureEnabledChild(flowSegment.getContext(), container);
+					return createFlowSegmentReference(flowElement, contextNode);
 				} else if (bo instanceof InstanceObject) {
 					final InstanceObject io = (InstanceObject) bo;
 					if (bo instanceof EndToEndFlowInstance) {
