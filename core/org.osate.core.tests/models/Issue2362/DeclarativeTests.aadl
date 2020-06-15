@@ -1,0 +1,353 @@
+package DeclarativeTests
+public
+	data D
+	end D;
+	
+	data DD extends D
+	end DD;
+	
+	data implementation D.i
+	end D.i;
+	
+	data implementation D.j
+	end D.j;
+	
+	data E
+	end E;
+	
+	
+	
+	system Sub_to_provides
+		features
+			p_d_d: provides data access D;
+			p_d_dd: provides data access D;
+			p_d_di: provides data access D;
+			p_d_dj: provides data access D;
+			p_d_e: provides data access D;
+			
+			p_e_d: provides data access E;
+			p_e_dd: provides data access E;
+			p_e_di: provides data access E;
+			p_e_dj: provides data access E;
+	end Sub_to_provides;
+	
+	system implementation Sub_to_provides.comp_outgoing
+		subcomponents
+			d: data D;
+			dd: data DD;
+			di: data D.i;
+			dj: data D.j;
+			e: data E;
+		connections
+			c1: data access d -> p_d_d; -- good
+			c2: data access dd -> p_d_dd; -- bad
+			c3: data access di -> p_d_di; -- good
+			c4: data access dj -> p_d_dj; -- good
+			d5: data access e -> p_d_e; -- bad
+
+			x1: data access d -> p_e_d; -- bad
+			x2: data access dd -> p_e_dd; -- bad
+			x3: data access di -> p_e_di; -- bad
+			x4: data access dj -> p_e_dj; -- bad
+	end Sub_to_provides.comp_outgoing;
+	
+	system implementation Sub_to_provides.comp_incoming
+		subcomponents
+			d: data D;
+			dd: data DD;
+			di: data D.i;
+			dj: data D.j;
+			e: data E;
+		connections
+			c1: data access p_d_d -> d; -- good
+			c2: data access p_d_dd -> dd; -- bad
+			c3: data access p_d_di -> di; -- good
+			c4: data access p_d_dj -> dj; -- good
+			d5: data access p_d_e -> e; -- bad
+
+			x1: data access p_e_d -> d; -- bad
+			x2: data access p_e_dd -> dd; -- bad
+			x3: data access p_e_di -> di; -- bad
+			x4: data access p_e_dj -> dj; -- bad
+	end Sub_to_provides.comp_incoming;
+	
+	system implementation Sub_to_provides.comp_bidir
+		subcomponents
+			d: data D;
+			dd: data DD;
+			di: data D.i;
+			dj: data D.j;
+			e: data E;
+		connections
+			c1: data access d <-> p_d_d; -- good
+			c2: data access dd <-> p_d_dd; -- bad
+			c3: data access di <-> p_d_di; -- good
+			c4: data access dj <-> p_d_dj; -- good
+			d5: data access e <-> p_d_e; -- bad
+
+			x1: data access d <-> p_e_d; -- bad
+			x2: data access dd <-> p_e_dd; -- bad
+			x3: data access di <-> p_e_di; -- bad
+			x4: data access dj <-> p_e_dj; -- bad
+	end Sub_to_provides.comp_bidir;
+	
+	-- ===========================================================================
+	
+	system SubRequires
+		features
+			r_d_d: requires data access D;
+			r_d_dd: requires data access D;
+			r_d_di: requires data access D;
+			r_d_dj: requires data access D;
+			r_d_e: requires data access D;
+			
+			r_e_d: requires data access E;
+			r_e_dd: requires data access E;
+			r_e_di: requires data access E;
+			r_e_dj: requires data access E;
+	end SubRequires;
+	
+	system Sub_to_peer_requires
+	end Sub_to_peer_requires;
+	
+	system implementation Sub_to_peer_requires.toPeer
+		subcomponents
+			peer: system SubRequires;
+			
+			d: data D;
+			dd: data DD;
+			di: data D.i;
+			dj: data D.j;
+			e: data E;
+		connections
+			c1: data access d -> peer.r_d_d; -- good
+			c2: data access dd -> peer.r_d_dd; -- bad
+			c3: data access di -> peer.r_d_di; -- good
+			c4: data access dj -> peer.r_d_dj; -- good
+			c5: data access e -> peer.r_d_e; -- bad
+			
+			x1: data access d -> peer.r_e_d; -- bad
+			x2: data access dd -> peer.r_e_dd; -- bad
+			x3: data access di -> peer.r_e_di; -- bad
+			x4: data access dj -> peer.r_e_dj; -- bad
+	end Sub_to_peer_requires.toPeer;
+	
+	system implementation Sub_to_peer_requires.fromPeer
+		subcomponents
+			peer: system SubRequires;
+			
+			d: data D;
+			dd: data DD;
+			di: data D.i;
+			dj: data D.j;
+			e: data E;
+		connections
+			c1: data access peer.r_d_d -> d; -- good
+			c2: data access peer.r_d_dd -> dd; -- bad
+			c3: data access peer.r_d_di -> di; -- good
+			c4: data access peer.r_d_dj -> dj; -- good
+			c5: data access peer.r_d_e -> e; -- bad
+			
+			x1: data access peer.r_e_d -> d; -- bad
+			x2: data access peer.r_e_dd -> dd; -- bad
+			x3: data access peer.r_e_di -> di; -- bad
+			x4: data access peer.r_e_dj -> dj; -- bad
+	end Sub_to_peer_requires.fromPeer;
+	
+	system implementation Sub_to_peer_requires.bidir
+		subcomponents
+			peer: system SubRequires;
+			
+			d: data D;
+			dd: data DD;
+			di: data D.i;
+			dj: data D.j;
+			e: data E;
+		connections
+			c1: data access d <-> peer.r_d_d; -- good
+			c2: data access dd <-> peer.r_d_dd; -- bad
+			c3: data access di <-> peer.r_d_di; -- good
+			c4: data access dj <-> peer.r_d_dj; -- good
+			c5: data access e <-> peer.r_d_e; -- bad
+			
+			x1: data access d <-> peer.r_e_d; -- bad
+			x2: data access dd <-> peer.r_e_dd; -- bad
+			x3: data access di <-> peer.r_e_di; -- bad
+			x4: data access dj <-> peer.r_e_dj; -- bad
+	end Sub_to_peer_requires.bidir;
+	
+	-- ===========================================================================
+	
+	system SubProvides
+		features
+			p_d: provides data access D;
+			p_dd: provides data access DD;
+			p_di: provides data access D.i;
+			p_dj: provides data access D.j;
+			p_e: provides data access E;
+	end SubProvides;
+	
+	system implementation Sub_to_provides.sub_outgoing
+		subcomponents
+			sub: system SubProvides;
+		connections
+			c1: data access sub.p_d -> p_d_d; -- good
+			c2: data access sub.p_dd -> p_d_dd; -- bad
+			c3: data access sub.p_di -> p_d_di; -- good
+			c4: data access sub.p_dj -> p_d_dj; -- good
+			d5: data access sub.p_e -> p_d_e; -- bad
+
+			x1: data access sub.p_d -> p_e_d; -- bad
+			x2: data access sub.p_dd -> p_e_dd; -- bad
+			x3: data access sub.p_di -> p_e_di; -- bad
+			x4: data access sub.p_dj -> p_e_dj; -- bad
+	end Sub_to_provides.sub_outgoing;
+	
+	system implementation Sub_to_provides.sub_incoming
+		subcomponents
+			sub: system SubProvides;
+		connections
+			c1: data access p_d_d -> sub.p_d; -- good
+			c2: data access p_d_dd -> sub.p_dd; -- bad
+			c3: data access p_d_di -> sub.p_di; -- good
+			c4: data access p_d_dj -> sub.p_dj; -- good
+			d5: data access p_d_e -> sub.p_e; -- bad
+
+			x1: data access p_e_d -> sub.p_d; -- bad
+			x2: data access p_e_dd -> sub.p_dd; -- bad
+			x3: data access p_e_di -> sub.p_di; -- bad
+			x4: data access p_e_dj -> sub.p_dj; -- bad
+	end Sub_to_provides.sub_incoming;
+	
+	system implementation Sub_to_provides.sub_bidir
+		subcomponents
+			sub: system SubProvides;
+		connections
+			c1: data access sub.p_d <-> p_d_d; -- good
+			c2: data access sub.p_dd <-> p_d_dd; -- bad
+			c3: data access sub.p_di <-> p_d_di; -- good
+			c4: data access sub.p_dj <-> p_d_dj; -- good
+			d5: data access sub.p_e <-> p_d_e; -- bad
+
+			x1: data access sub.p_d <-> p_e_d; -- bad
+			x2: data access sub.p_dd <-> p_e_dd; -- bad
+			x3: data access sub.p_di <-> p_e_di; -- bad
+			x4: data access sub.p_dj <-> p_e_dj; -- bad
+	end Sub_to_provides.sub_bidir;
+
+	-- ===========================================================================
+
+	system Peer_to_peer
+	end Peer_to_peer;
+	
+	system implementation Peer_to_peer.toPeer
+		subcomponents
+			provider: system SubProvides;
+			requirer: system SubRequires;
+		connections
+			c1: data access provider.p_d -> requirer.r_d_d; -- good
+			c2: data access provider.p_dd -> requirer.r_d_dd; -- bad
+			c3: data access provider.p_di -> requirer.r_d_di; -- good
+			c4: data access provider.p_dj -> requirer.r_d_dj; -- good
+			c5: data access provider.p_e -> requirer.r_d_e; -- bad
+			
+			x1: data access provider.p_d -> requirer.r_e_d; -- bad
+			x2: data access provider.p_dd -> requirer.r_e_dd; -- bad
+			x3: data access provider.p_di -> requirer.r_e_di; -- bad
+			x4: data access provider.p_dj -> requirer.r_e_dj; -- bad
+	end Peer_to_peer.toPeer;
+	
+	system implementation Peer_to_peer.fromPeer
+		subcomponents
+			provider: system SubProvides;
+			requirer: system SubRequires;
+		connections
+			c1: data access requirer.r_d_d -> provider.p_d; -- good
+			c2: data access requirer.r_d_dd -> provider.p_dd; -- bad
+			c3: data access requirer.r_d_di -> provider.p_di; -- good
+			c4: data access requirer.r_d_dj -> provider.p_dj; -- good
+			c5: data access requirer.r_d_e -> provider.p_e; -- bad
+			
+			x1: data access requirer.r_e_d -> provider.p_d; -- bad
+			x2: data access requirer.r_e_dd -> provider.p_dd; -- bad
+			x3: data access requirer.r_e_di -> provider.p_di; -- bad
+			x4: data access requirer.r_e_dj -> provider.p_dj; -- bad
+	end Peer_to_peer.fromPeer;
+	
+	system implementation Peer_to_peer.bidir
+		subcomponents
+			provider: system SubProvides;
+			requirer: system SubRequires;
+		connections
+			c1: data access provider.p_d <-> requirer.r_d_d; -- good
+			c2: data access provider.p_dd <-> requirer.r_d_dd; -- bad
+			c3: data access provider.p_di <-> requirer.r_d_di; -- good
+			c4: data access provider.p_dj <-> requirer.r_d_dj; -- good
+			c5: data access provider.p_e <-> requirer.r_d_e; -- bad
+			
+			x1: data access provider.p_d <-> requirer.r_e_d; -- bad
+			x2: data access provider.p_dd <-> requirer.r_e_dd; -- bad
+			x3: data access provider.p_di <-> requirer.r_e_di; -- bad
+			x4: data access provider.p_dj <-> requirer.r_e_dj; -- bad
+	end Peer_to_peer.bidir;	
+
+	-- ===========================================================================
+
+	system To_sub_requires
+		features
+			r_d_d: requires data access D;
+			r_d_dd: requires data access D;
+			r_d_di: requires data access D;
+			r_d_dj: requires data access D;
+			r_d_e: requires data access D;
+	end To_sub_requires;
+	
+	system implementation To_sub_requires.incoming
+		subcomponents
+			sub: system SubRequires;
+		connections
+			c1: data access r_d_d -> sub.r_d_d; -- good
+			c2: data access r_d_dd -> sub.r_d_dd; -- bad
+			c3: data access r_d_di -> sub.r_d_di; -- good
+			c4: data access r_d_dj -> sub.r_d_dj; -- good
+			c5: data access r_d_e -> sub.r_d_e; -- bad
+			
+			x1: data access r_d_d -> sub.r_e_d; -- bad
+			x2: data access r_d_dd -> sub.r_e_dd; -- bad
+			x3: data access r_d_di -> sub.r_e_di; -- bad
+			x4: data access r_d_dj -> sub.r_e_dj; -- bad
+	end To_sub_requires.incoming;
+	
+	system implementation To_sub_requires.outgoing
+		subcomponents
+			sub: system SubRequires;
+		connections
+			c1: data access sub.r_d_d -> r_d_d; -- good
+			c2: data access sub.r_d_dd -> r_d_dd; -- bad
+			c3: data access sub.r_d_di -> r_d_di; -- good
+			c4: data access sub.r_d_dj -> r_d_dj; -- good
+			c5: data access sub.r_d_e -> r_d_e; -- bad
+			
+			x1: data access sub.r_e_d -> r_d_d; -- bad
+			x2: data access sub.r_e_dd -> r_d_dd; -- bad
+			x3: data access sub.r_e_di -> r_d_di; -- bad
+			x4: data access sub.r_e_dj -> r_d_dj; -- bad
+	end To_sub_requires.outgoing;
+	
+	system implementation To_sub_requires.bidir
+		subcomponents
+			sub: system SubRequires;
+		connections
+			c1: data access r_d_d <-> sub.r_d_d; -- good
+			c2: data access r_d_dd <-> sub.r_d_dd; -- bad
+			c3: data access r_d_di <-> sub.r_d_di; -- good
+			c4: data access r_d_dj <-> sub.r_d_dj; -- good
+			c5: data access r_d_e <-> sub.r_d_e; -- bad
+			
+			x1: data access r_d_d <-> sub.r_e_d; -- bad
+			x2: data access r_d_dd <-> sub.r_e_dd; -- bad
+			x3: data access r_d_di <-> sub.r_e_di; -- bad
+			x4: data access r_d_dj <-> sub.r_e_dj; -- bad
+	end To_sub_requires.bidir;
+	
+end DeclarativeTests;
