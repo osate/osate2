@@ -1,13 +1,13 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
- * This program is free software: you can redistribute it and/or modify 
+ *
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the Eclipse Public License as published by Eclipse,
  * either version 2.0 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful,
@@ -15,28 +15,40 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Eclipse Public License for more details.
  * You should have received a copy of the Eclipse Public License
- * along with this program.  If not, see 
+ * along with this program.  If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
 
 package org.osate.ba.utils ;
 
-import java.util.ArrayList ;
-import java.util.HashMap ;
 import java.util.HashSet ;
 import java.util.List ;
 import java.util.Map ;
 import java.util.Set ;
+import java.util.WeakHashMap ;
 
 import org.eclipse.emf.common.util.BasicEList ;
 import org.eclipse.emf.common.util.EList ;
-
 import org.osate.aadl2.AadlPackage ;
 import org.osate.aadl2.ComponentClassifier ;
 import org.osate.aadl2.PackageSection ;
 import org.osate.aadl2.Port ;
 import org.osate.aadl2.PrivatePackageSection ;
-import org.osate.ba.aadlba.* ;
+import org.osate.ba.aadlba.AadlBaFactory ;
+import org.osate.ba.aadlba.BasicAction ;
+import org.osate.ba.aadlba.BehaviorAction ;
+import org.osate.ba.aadlba.BehaviorActionCollection ;
+import org.osate.ba.aadlba.BehaviorActions ;
+import org.osate.ba.aadlba.BehaviorAnnex ;
+import org.osate.ba.aadlba.BehaviorState ;
+import org.osate.ba.aadlba.BehaviorTransition ;
+import org.osate.ba.aadlba.BehaviorVariable ;
+import org.osate.ba.aadlba.DispatchConjunction ;
+import org.osate.ba.aadlba.DispatchTrigger ;
+import org.osate.ba.aadlba.DispatchTriggerLogicalExpression ;
+import org.osate.ba.aadlba.ElseStatement ;
+import org.osate.ba.aadlba.IfStatement ;
+import org.osate.ba.aadlba.LoopStatement ;
 import org.osate.utils.Aadl2Visitors ;
 
 
@@ -46,30 +58,30 @@ import org.osate.utils.Aadl2Visitors ;
 public class AadlBaVisitors
 {
    // Some names.
-   
-   public static final String INITIALIZE_ENTRYPOINT_PROPERTYSET = 
+
+   public static final String INITIALIZE_ENTRYPOINT_PROPERTYSET =
                                                        "Programming_Properties";
    public static final String INITIALIZE_ENTRYPOINT_PROPERTY_NAME =
                                                        "Initialize_Entrypoint" ;
-   
+
    public static final String DISPATCH_PROTOCOL_PROPERTY_NAME = "Dispatch_Protocol";
-   
+
    public static final String SEI_AADL2_PACKAGE_NAME = "org.osate.aadl2";
-   
+
    public static final String SEI_AADL2_CLASSIFIER_SUFFIX = "Classifier" ;
-   
+
    public static final long DEFAULT_TRANSITION_PRIORITY ;
-   
-   static 
+
+   static
    {
      DEFAULT_TRANSITION_PRIORITY = AadlBaFactory.eINSTANCE.
                                       createBehaviorTransition().getPriority() ;
    }
-   
+
    /**
     * Returns a list of basic action contained in the given behavior
-    * action (recursively). 
-    * 
+    * action (recursively).
+    *
     * @param BehAction the given behavior action
     * @return a list of basic action contained in the given behavior
     * action
@@ -77,7 +89,7 @@ public class AadlBaVisitors
    public static EList<BasicAction> getBasicActions(BehaviorAction BehAction)
    {
       EList<BasicAction> result = null ;
-      
+
       if(BehAction instanceof BasicAction)
       {
          result = new BasicEList<BasicAction>() ;
@@ -94,9 +106,9 @@ public class AadlBaVisitors
          else if(BehAction instanceof IfStatement)
          {
             IfStatement stat = (IfStatement) BehAction ;
-            
+
             result = getBasicActions(stat.getBehaviorActions()) ;
-            
+
             if(stat.getElseStatement() != null)
             {
               result.addAll(getBasicActions(stat.getElseStatement().
@@ -109,15 +121,15 @@ public class AadlBaVisitors
            result = getBasicActions(elseStat.getBehaviorActions()) ;
          }
       }
-      
+
       return result ;
    }
-   
+
    /**
     * Return a list of the BasicAction objects contained in a given BehaviorActions
     * object (recursively). If the given BehaviorActions object is {@code null},
     * the returned list is empty.
-    * 
+    *
     * @param BehActions the given BehaviorActions object or {@code null} (for
     * batch processing purpose)
     * @return the list of BasicAction contained in the given BehaviorActions
@@ -126,7 +138,7 @@ public class AadlBaVisitors
    public static EList<BasicAction> getBasicActions(BehaviorActions BehActions)
    {
       EList<BasicAction> result = new BasicEList<BasicAction>() ;
-      
+
       // A behavior transition may have no behavior actions.
       if(BehActions != null)
       {
@@ -143,20 +155,20 @@ public class AadlBaVisitors
                result.addAll(getBasicActions(BehAct)) ;
             }
          }
-      }   
-      
+      }
+
       return result ;
    }
-   
+
    /**
-    * Return the package sections related to a given BehaviorAnnex. As 
+    * Return the package sections related to a given BehaviorAnnex. As
     * "Classifier declarations in public sections are accessible to other
     * packages, while classifiers in private sections can only be referenced
     * within the private section of the same package".<br><br>
     * table[0] always refers to public section.
-    * If the given BehaviorAnnex is declared in a private section, table's 
+    * If the given BehaviorAnnex is declared in a private section, table's
     * length equals to 2 and table[1] refers to the private section.
-    * 
+    *
     * @param ba The given BehaviorAnnex
     * @return the package sections related to the given BehaviorAnnex.
     */
@@ -164,11 +176,11 @@ public class AadlBaVisitors
    {
       PackageSection result[] ;
       PackageSection container = Aadl2Visitors.getContainingPackageSection(
-    		                                (org.osate.aadl2.Element)ba);
+    		                                ba);
 
       // Init contexts tab with current package's sections.
       // Private section is also investigated only if ba is declared in
-      // package's private section. 
+      // package's private section.
       if(container instanceof PrivatePackageSection)
       {
          result = new PackageSection[2] ;
@@ -189,7 +201,7 @@ public class AadlBaVisitors
     * Find the first occurrence of an BehaviorVariable within a given
     * BehaviorAnnex which name equals to the given name. Return {@code null}
     * if no BehaviorVariable is found.
-    * 
+    *
     * @param ba the given BehaviorAnnex
     * @param variableName the given name
     * @return the first occurrence of an BehaviorVariable related to the given
@@ -210,9 +222,9 @@ public class AadlBaVisitors
 
    /**
     * Find the first occurrence of an BehaviorState within a given BehaviorAnnex
-    * which name equals to a given name. Return {@code null} if no 
+    * which name equals to a given name. Return {@code null} if no
     * BehaviorState is found.
-    * 
+    *
     * @param ba the given BehaviorAnnex
     * @param stateName the given name
     * @return the first occurrence of an BehaviorState related to the given name
@@ -230,12 +242,12 @@ public class AadlBaVisitors
       }
       return null ;
    }
-   
+
    /**
     * Return a list of DispatchTrigger objects contained in the given
-    * DispatchTriggerLogicelExpression object. The list may be empty but not 
+    * DispatchTriggerLogicelExpression object. The list may be empty but not
     * {@code null}.
-    * 
+    *
     * @param dtle the given DispatchTriggerLogicelExpression object
     * @return a list of DispatchTrigger objects, eventually empty.
     */
@@ -243,18 +255,18 @@ public class AadlBaVisitors
                                           DispatchTriggerLogicalExpression dtle)
    {
       EList<DispatchTrigger> result = new BasicEList<DispatchTrigger>();
-      
+
       for(DispatchConjunction dc : dtle.getDispatchConjunctions())
       {
          result.addAll(dc.getDispatchTriggers()) ;
       }
-      
+
       return result;
    }
 
    /**
     * Returns the behavior annex's parent component.
-    * 
+    *
     * @param ba the behavior annex
     * @return the behavior annex's parent component
     */
@@ -263,14 +275,14 @@ public class AadlBaVisitors
      return (ComponentClassifier) ba.getContainingClassifier() ;
    }
 
-  protected static final Map<BehaviorAnnex, Set<Port>> _IS_FRESH = 
-                                       new HashMap<BehaviorAnnex, Set<Port>>() ;
+  protected static final Map<BehaviorAnnex, Set<Port>> _IS_FRESH =
+                                                                 new WeakHashMap<BehaviorAnnex, Set<Port>>() ;
 
   /**
-   * Return {@code true} if the given port which is contained in the given 
-   * BehaviorAnnex object is used as a fresh port value. Otherwise return 
+   * Return {@code true} if the given port which is contained in the given
+   * BehaviorAnnex object is used as a fresh port value. Otherwise return
    * {@code false}.
-   * 
+   *
    * @param ba the given BehaviorAnnex object which contains the given port
    * @param port the given port
    * @return {@code true} if the given is used as a fresh port value.
@@ -288,10 +300,10 @@ public class AadlBaVisitors
       return false ;
     }
   }
-  
+
   /**
    * Tag the given port as a port used as a fresh port value.
-   * 
+   *
    * @param ba the BehaviorAnnex object which contains the given port
    * @param port the given port
    */
@@ -307,76 +319,77 @@ public class AadlBaVisitors
     ports.add(port) ;
   }
 
-  protected static final Map<BehaviorState, List<BehaviorTransition>> 
-    _SRC_IN_TRANS = new HashMap<BehaviorState, List<BehaviorTransition>>() ;
 
-  
-  
+
   /**
-   * Return a list of behavior transitions where the given behavior state is 
+   * Return a list of behavior transitions where the given behavior state is
    * the source state. May return empty list.<br><br>
-   * 
+   *
    * The list of behavior transitions is sorted according to:<br><br>
    * _ the behavior priority (highest to the lowest).<br>
    * _ the behavior transitions which have "otherwise" execution condition are
    *   set at the end of the list.<br>
    * _ in case of equality, the order of behavior transition appearance in the
    *   aadl code is applied.<br><br>
-   * 
+   *
    * @param state the given behavior state
-   * @return the list of behavior transitions where the given behavior state is 
+   * @return the list of behavior transitions where the given behavior state is
    * the source state or an empty list
    */
   public static List<BehaviorTransition> getTransitionWhereSrc(BehaviorState
                                                                 state)
   {
-    List<BehaviorTransition> result = _SRC_IN_TRANS.get(state) ;
-    if(result == null)
-    {
-      result = new BasicEList<BehaviorTransition>(0) ;
-    }
-
+    List<BehaviorTransition> result = new BasicEList<BehaviorTransition>(state
+                                                                              .getOutgoingTransitions()) ;
+    sort(result) ;
     return result ;
   }
 
   /**
    * Specify that the given behavior state is the source state of the given
-   * behavior transition. 
-   * 
+   * behavior transition.
+   *
    * @param state the given behavior state
    * @param bt the given behavior transition where the the given behavior state
    * is source
    */
+  @Deprecated
   public static void putTransitionWhereSrc(BehaviorState state,
                                            BehaviorTransition bt)
   {
-    List<BehaviorTransition> list = _SRC_IN_TRANS.get(state) ;
-    
+    List<BehaviorTransition> list = state.getOutgoingTransitions() ;
+
     if(list == null)
     {
-      list = new ArrayList<BehaviorTransition>() ;
-      _SRC_IN_TRANS.put(state, list) ;
+      return ;
     }
-    
+
     if(false == list.contains(bt))
     {
       addAndSort(list, bt) ;
     }
   }
-  
+
   // Add the given behavior transition to the given list and sort the list.
-  // Sort (insertion) behavior transitions list 
-  // according to their priority (highest to the lowest).
-  // In case of equality, the order of transition appearance in the aadl
-  // code is applied.
-  // Behavior transition which have execution condition set to "otherwise"
-  // will be set at the end of the list.
   protected static void addAndSort(List<BehaviorTransition> btl,
                                    BehaviorTransition bt)
   {
     // TODO to be optimized.
     btl.add(bt) ;
-    
+    sort(btl) ;
+  }
+
+  // Sort (insertion) behavior transitions list
+  // according to their priority (highest to the lowest).
+  // In case of equality, the order of transition appearance in the aadl
+  // code is applied.
+  // Behavior transition which have execution condition set to "otherwise"
+  // will be set at the end of the list.
+  /**
+   * @since 4.0
+   */
+  protected static void sort(List<BehaviorTransition> btl)
+  {
     BehaviorTransition tmp = null ;
     int i ;
     int j ;
@@ -385,7 +398,7 @@ public class AadlBaVisitors
     {
       tmp = btl.get(i) ;
       j = i ;
-      
+
       while(j < btl.size() - 1 &&
             AadlBaUtils.compareBehaviorTransitionPriority(btl.get(j + 1), tmp))
       {
@@ -396,4 +409,5 @@ public class AadlBaVisitors
       btl.set(j, tmp) ;
     }
   }
+
 }
