@@ -1,0 +1,7 @@
+property set cycle is
+	single_cycle: constant aadlinteger => cycle::single_cycle;
+	
+	a: constant aadlinteger => cycle::b;
+	b: constant aadlinteger => cycle::c;
+	c: constant aadlinteger => cycle::a;
+end cycle;
