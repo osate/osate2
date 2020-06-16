@@ -45,8 +45,8 @@ import org.osate.ge.operations.BusinessObjectAndExtra;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
-import org.osate.ge.palette.ConnectionStartContext;
-import org.osate.ge.palette.CreateConnectionContext;
+import org.osate.ge.palette.CanStartConnectionContext;
+import org.osate.ge.palette.GetCreateConnectionOperationContext;
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
@@ -63,13 +63,13 @@ public class CreateModeTransitionPaletteCommand extends BasePaletteCommand imple
 	}
 
 	@Override
-	public boolean canStartConnection(final ConnectionStartContext ctx) {
+	public boolean canStartConnection(final CanStartConnectionContext ctx) {
 		return ctx.getSource().getBusinessObject(Mode.class).isPresent()
 				&& getPotentialOwnersByMode(ctx.getSource(), ctx.getQueryService()).size() > 0;
 	}
 
 	@Override
-	public Optional<Operation> createOperation(final CreateConnectionContext ctx) {
+	public Optional<Operation> getOperation(final GetCreateConnectionOperationContext ctx) {
 		if (!ctx.getDestination().getBusinessObject(Mode.class).isPresent()) {
 			return Optional.empty();
 		}

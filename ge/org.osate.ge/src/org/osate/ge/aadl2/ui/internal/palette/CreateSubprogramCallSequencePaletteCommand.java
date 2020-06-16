@@ -46,7 +46,7 @@ import org.osate.ge.operations.StepResult;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.TargetedPaletteCommand;
-import org.osate.ge.palette.TargetedPaletteCommandContext;
+import org.osate.ge.palette.GetTargetedOperationContext;
 
 public class CreateSubprogramCallSequencePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 
@@ -56,7 +56,7 @@ public class CreateSubprogramCallSequencePaletteCommand extends BasePaletteComma
 	}
 
 	@Override
-	public Optional<Operation> createOperation(final TargetedPaletteCommandContext ctx) {
+	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
 		final BusinessObjectContext targetBoc = ctx.getTarget();
 		final Object targetBo = targetBoc.getBusinessObject();
 

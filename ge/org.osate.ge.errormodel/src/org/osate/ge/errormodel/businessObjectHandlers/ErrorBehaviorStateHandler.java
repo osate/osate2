@@ -30,12 +30,13 @@ import javax.inject.Named;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.RenameContext;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
-import org.osate.ge.di.ValidateName;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
 import org.osate.ge.graphics.EllipseBuilder;
@@ -60,21 +61,25 @@ public class ErrorBehaviorStateHandler implements BusinessObjectHandler {
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		final ErrorBehaviorState state = ctx.getBusinessObjectContext().getBusinessObject(ErrorBehaviorState.class)
 				.get();
-		return Optional.of(GraphicalConfigurationBuilder.create().
-				graphic(graphic).
-				annotation(state.isIntial() ? "<Initial>" : null).
-				style(ErrorModelGeUtil.centeredStyle).
-				build());
+		return Optional.of(GraphicalConfigurationBuilder.create().graphic(graphic)
+				.annotation(state.isIntial() ? "<Initial>" : null).style(ErrorModelGeUtil.centeredStyle).build());
 	}
 
-	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorState bo) {
-		return bo.getName();
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(ErrorBehaviorState.class).map(bo -> bo.getName()).orElse("");
 	}
 
-	@ValidateName
-	public String validateName(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorState state, final @Named(Names.NAME) String value) {
-		final ErrorBehaviorStateMachine stateMachine = (ErrorBehaviorStateMachine)state.eContainer();
-		return ErrorModelNamingUtil.validateName(stateMachine, state.getName(), value);
+	@Override
+	public boolean canRename(final CanRenameContext ctx) {
+		return true;
+	}
+
+	@Override
+	public Optional<String> validateName(final RenameContext ctx) {
+		return ctx.getBusinessObject(ErrorBehaviorState.class).map(state -> {
+			final ErrorBehaviorStateMachine stateMachine = (ErrorBehaviorStateMachine) state.eContainer();
+			return ErrorModelNamingUtil.validateName(stateMachine, state.getName(), ctx.getNewName());
+		});
 	}
 }

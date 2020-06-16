@@ -31,7 +31,7 @@ import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.TargetedPaletteCommand;
-import org.osate.ge.palette.TargetedPaletteCommandContext;
+import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
@@ -42,7 +42,7 @@ public class CreateStatePaletteCommand extends BasePaletteCommand implements Tar
 	}
 
 	@Override
-	public Optional<Operation> createOperation(final TargetedPaletteCommandContext ctx) {
+	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
 		return Operation.createSimple(ctx.getTarget(), ErrorBehaviorStateMachine.class, stateMachine -> {
 			// Create the state
 			final ErrorBehaviorState newState = (ErrorBehaviorState) EcoreUtil

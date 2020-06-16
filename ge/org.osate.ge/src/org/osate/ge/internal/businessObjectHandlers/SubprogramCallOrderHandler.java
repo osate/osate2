@@ -25,18 +25,15 @@ package org.osate.ge.internal.businessObjectHandlers;
 
 import java.util.Optional;
 
-import javax.inject.Named;
-
 import org.eclipse.xtext.util.Strings;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.aadl2.internal.model.SubprogramCallOrder;
-import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
+import org.osate.ge.businessObjectHandlers.GetNameForDiagramContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
-import org.osate.ge.di.GetNameForUserInterface;
-import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
@@ -46,7 +43,7 @@ import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
-public class SubprogramCallOrderHandler implements BusinessObjectHandler {
+public class SubprogramCallOrderHandler extends AadlBusinessObjectHandler {
 	private static final Graphic graphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().line().build()).build();
 	private static final Style style = StyleBuilder.create().backgroundColor(Color.BLACK).build();
 	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObjectRelativeReference(sco->((SubprogramCallOrder)sco).previousSubprogramCall));
@@ -57,10 +54,18 @@ public class SubprogramCallOrderHandler implements BusinessObjectHandler {
 		return ctx.getBusinessObject(SubprogramCallOrder.class).isPresent();
 	}
 
-	@GetNameForUserInterface
-	public String getNameForUi(final @Named(Names.BUSINESS_OBJECT) SubprogramCallOrder bo) {
-		return "Subprogram Call Order " + Strings.emptyIfNull(bo.previousSubprogramCall.getName()) + " -> "
-				+ Strings.emptyIfNull(bo.subprogramCall.getName());
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(
+				SubprogramCallOrder.class)
+				.map(bo -> "Subprogram Call Order " + Strings.emptyIfNull(bo.previousSubprogramCall.getName()) + " -> "
+						+ Strings.emptyIfNull(bo.subprogramCall.getName()))
+				.orElse("");
+	}
+
+	@Override
+	public String getNameForDiagram(final GetNameForDiagramContext ctx) {
+		return "";
 	}
 
 	@Override

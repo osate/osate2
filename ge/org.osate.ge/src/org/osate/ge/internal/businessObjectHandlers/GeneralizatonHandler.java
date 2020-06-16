@@ -36,12 +36,11 @@ import org.osate.aadl2.TypeExtension;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
+import org.osate.ge.businessObjectHandlers.GetNameForDiagramContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.GetName;
-import org.osate.ge.di.GetNameForUserInterface;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.Color;
@@ -53,14 +52,17 @@ import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
-public class GeneralizatonHandler implements BusinessObjectHandler {
-	private static final Graphic extendsGraphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().open().build()).build();
+public class GeneralizatonHandler extends AadlBusinessObjectHandler {
+	private static final Graphic extendsGraphic = ConnectionBuilder.create()
+			.destinationTerminator(ArrowBuilder.create().open().build()).build();
 	private static final Style extendsStyle = StyleBuilder.create().backgroundColor(Color.BLACK).build();
 	private static final Graphic implementsGraphic = ConnectionBuilder.create()
 			.destinationTerminator(ArrowBuilder.create().open().build()).build();
 	private static final Style implementsStyle = StyleBuilder.create().backgroundColor(Color.BLACK).dashed().build();
 	private static final Graphic labelGraphic = LabelBuilder.create().build();
-	private static StandaloneQuery nestedClassifierQuery = StandaloneQuery.create((rootQuery) -> rootQuery.descendantsByBusinessObjectsRelativeReference((Generalization g) -> getBusinessObjectPath(g.getGeneral())));
+	private static StandaloneQuery nestedClassifierQuery = StandaloneQuery
+			.create((rootQuery) -> rootQuery.descendantsByBusinessObjectsRelativeReference(
+					(Generalization g) -> getBusinessObjectPath(g.getGeneral())));
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
@@ -82,18 +84,12 @@ public class GeneralizatonHandler implements BusinessObjectHandler {
 		final QueryService queryService = ctx.getQueryService();
 		final BusinessObjectContext destination = getDestination(boc, queryService);
 
-		if(destination == null) {
-			return Optional.of(GraphicalConfigurationBuilder.create().
-					graphic(labelGraphic).
-					decoration().
-					build());
+		if (destination == null) {
+			return Optional.of(GraphicalConfigurationBuilder.create().graphic(labelGraphic).decoration().build());
 		} else {
-			return Optional.of(GraphicalConfigurationBuilder.create().
-					graphic(getConnectionGraphicalRepresentation(bo)).
-					style(getStyle(bo)).
-					source(boc.getParent()). // Source is the owner of the BO
-					destination(getDestination(boc, queryService)).
-					build());
+			return Optional.of(GraphicalConfigurationBuilder.create().graphic(getConnectionGraphicalRepresentation(bo))
+					.style(getStyle(bo)).source(boc.getParent()). // Source is the owner of the BO
+					destination(getDestination(boc, queryService)).build());
 		}
 	}
 
@@ -105,17 +101,16 @@ public class GeneralizatonHandler implements BusinessObjectHandler {
 		return bo instanceof Realization ? implementsStyle : extendsStyle;
 	}
 
-	private BusinessObjectContext getDestination(final BusinessObjectContext boc,
-			final QueryService queryService) {
+	private BusinessObjectContext getDestination(final BusinessObjectContext boc, final QueryService queryService) {
 		final BusinessObjectContext pkgBoc = boc.getParent().getParent();
-		if(pkgBoc == null) {
+		if (pkgBoc == null) {
 			return null;
 		}
 
 		final BusinessObjectContext packageParentBoc = pkgBoc.getParent();
 
 		// Showing generalizations as connections is only supported on diagrams which contain package symbols
-		if(packageParentBoc == null) {
+		if (packageParentBoc == null) {
 			return null;
 		}
 
@@ -126,56 +121,39 @@ public class GeneralizatonHandler implements BusinessObjectHandler {
 		return new Object[] { c.getElementRoot(), c };
 	}
 
-	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) Generalization generalization,
-			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
-			final QueryService queryService) {
+	@Override
+	public String getNameForDiagram(final GetNameForDiagramContext ctx) {
 		// Don't show the name when displaying as a connection
-		if(getDestination(boc, queryService) != null) {
-			return null;
+		if (getDestination(ctx.getBusinessObjectContext(), ctx.getQueryService()) != null) {
+			return "";
 		}
 
-		final Classifier general = generalization.getGeneral();
-		if(general == null) {
-			return null;
-		}
-
-		final Classifier specific = generalization.getSpecific();
-		if (specific == null) {
-			return null;
-		}
-
-		// Only show the name of the general element if both elements are in the same package.
-		final String generalName;
-		if (general.getElementRoot() == specific.getElementRoot()) {
-			generalName = general.getName();
-		} else {
-			generalName = general.getQualifiedName();
-		}
-
-		return (generalization instanceof Realization ? "Implements " : "Extends ") + generalName;
+		return super.getNameForDiagram(ctx);
 	}
 
-	@GetNameForUserInterface
-	public String getNameForUi(final @Named(Names.BUSINESS_OBJECT) Generalization generalization) {
-		final Classifier general = generalization.getGeneral();
-		if(general == null) {
-			return null;
-		}
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(Generalization.class).map(generalization -> {
+			final Classifier general = generalization.getGeneral();
+			if (general == null) {
+				return null;
+			}
 
-		final Classifier specific = generalization.getSpecific();
-		if (specific == null) {
-			return null;
-		}
+			final Classifier specific = generalization.getSpecific();
+			if (specific == null) {
+				return null;
+			}
 
-		// Only show the name of the general element if both elements are in the same package.
-		final String generalName;
-		if (general.getElementRoot() == specific.getElementRoot()) {
-			generalName = general.getName();
-		} else {
-			generalName = general.getQualifiedName();
-		}
+			// Only show the name of the general element if both elements are in the same package.
+			final String generalName;
+			if (general.getElementRoot() == specific.getElementRoot()) {
+				generalName = general.getName();
+			} else {
+				generalName = general.getQualifiedName();
+			}
 
-		return (generalization instanceof Realization ? "Implements " : "Extends ") + generalName;
+			return (generalization instanceof Realization ? "Implements " : "Extends ") + generalName;
+
+		}).orElse("");
 	}
 }

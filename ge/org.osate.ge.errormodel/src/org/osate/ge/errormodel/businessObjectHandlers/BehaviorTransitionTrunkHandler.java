@@ -34,6 +34,7 @@ import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.Delete;
 import org.osate.ge.di.Names;
@@ -84,5 +85,10 @@ public class BehaviorTransitionTrunkHandler implements BusinessObjectHandler {
 	@Delete
 	public void delete(final @Named(Names.MODIFY_BO) ErrorBehaviorTransition transition) {
 		EcoreUtil.delete(transition);
+	}
+
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return "";
 	}
 }

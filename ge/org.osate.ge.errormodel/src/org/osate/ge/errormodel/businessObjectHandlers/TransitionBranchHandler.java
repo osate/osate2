@@ -34,8 +34,8 @@ import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.ge.internal.services.AadlModificationService;
@@ -52,17 +52,16 @@ public class TransitionBranchHandler implements BusinessObjectHandler {
 	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.ancestor(2).children()
 			.filterByBusinessObjectRelativeReference(b -> ((TransitionBranch) b).eContainer()));
 	private static StandaloneQuery dstQuery = StandaloneQuery
-			.create((rootQuery) -> rootQuery.ancestor(2).children()
-					.filterByBusinessObjectRelativeReference(b -> {
-						final TransitionBranch branch = (TransitionBranch) b;
-						return branch.isSteadyState() ? ((ErrorBehaviorTransition) branch.eContainer()).getSource()
-								: branch.getTarget();
-					}));
+			.create((rootQuery) -> rootQuery.ancestor(2).children().filterByBusinessObjectRelativeReference(b -> {
+				final TransitionBranch branch = (TransitionBranch) b;
+				return branch.isSteadyState() ? ((ErrorBehaviorTransition) branch.eContainer()).getSource()
+						: branch.getTarget();
+			}));
 
-					@Override
-					public boolean isApplicable(final IsApplicableContext ctx) {
-						return ctx.getBusinessObject(TransitionBranch.class).isPresent();
-					}
+	@Override
+	public boolean isApplicable(final IsApplicableContext ctx) {
+		return ctx.getBusinessObject(TransitionBranch.class).isPresent();
+	}
 
 	@CanDelete
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) TransitionBranch branch) {
@@ -73,20 +72,17 @@ public class TransitionBranchHandler implements BusinessObjectHandler {
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
 		final QueryService queryService = ctx.getQueryService();
-		return Optional.of(GraphicalConfigurationBuilder.create().graphic(
-				ErrorModelGeUtil.transitionConnectionGraphic)
-				.style(ErrorModelGeUtil.transitionConnectionStyle)
-				.source(getSource(boc, queryService))
+		return Optional.of(GraphicalConfigurationBuilder.create().graphic(ErrorModelGeUtil.transitionConnectionGraphic)
+				.style(ErrorModelGeUtil.transitionConnectionStyle).source(getSource(boc,
+						queryService))
 				.destination(getDestination(boc, queryService)).build());
 	}
 
-	private BusinessObjectContext getSource(final BusinessObjectContext boc,
-			final QueryService queryService) {
+	private BusinessObjectContext getSource(final BusinessObjectContext boc, final QueryService queryService) {
 		return queryService.getFirstResult(srcQuery, boc);
 	}
 
-	private BusinessObjectContext getDestination(final BusinessObjectContext boc,
-			final QueryService queryService) {
+	private BusinessObjectContext getDestination(final BusinessObjectContext boc, final QueryService queryService) {
 		return queryService.getFirstResult(dstQuery, boc);
 	}
 
@@ -112,25 +108,27 @@ public class TransitionBranchHandler implements BusinessObjectHandler {
 		});
 	}
 
-	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) TransitionBranch branch) {
-		final BranchValue value = branch.getValue();
-		if (value == null) {
-			return null;
-		}
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(TransitionBranch.class).map(branch -> {
+			final BranchValue value = branch.getValue();
+			if (value == null) {
+				return "";
+			}
 
-		if (value.getRealvalue() != null) {
-			return value.getRealvalue();
-		}
+			if (value.getRealvalue() != null) {
+				return value.getRealvalue();
+			}
 
-		if (value.isOthers()) {
-			return "others";
-		}
+			if (value.isOthers()) {
+				return "others";
+			}
 
-		if (value.getSymboliclabel() != null) {
-			return value.getSymboliclabel().getQualifiedName();
-		}
+			if (value.getSymboliclabel() != null) {
+				return value.getSymboliclabel().getQualifiedName();
+			}
 
-		return null;
+			return "";
+		}).orElse("");
 	}
 }

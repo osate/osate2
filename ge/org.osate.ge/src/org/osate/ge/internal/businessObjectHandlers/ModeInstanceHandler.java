@@ -25,22 +25,18 @@ package org.osate.ge.internal.businessObjectHandlers;
 
 import java.util.Optional;
 
-import javax.inject.Named;
-
 import org.osate.aadl2.instance.ModeInstance;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
-import org.osate.ge.di.GetName;
-import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 
-public class ModeInstanceHandler implements BusinessObjectHandler {
+public class ModeInstanceHandler extends AadlBusinessObjectHandler {
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(ModeInstance.class).isPresent();
@@ -59,8 +55,8 @@ public class ModeInstanceHandler implements BusinessObjectHandler {
 				.build());
 	}
 
-	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) ModeInstance mi) {
-		return mi.getName();
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(ModeInstance.class).map(mi -> mi.getName()).orElse("");
 	}
 }

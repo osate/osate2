@@ -39,7 +39,7 @@ import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.TargetedPaletteCommand;
-import org.osate.ge.palette.TargetedPaletteCommandContext;
+import org.osate.ge.palette.GetTargetedOperationContext;
 
 public class CreateAnnexLibraryPaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 
@@ -49,7 +49,7 @@ public class CreateAnnexLibraryPaletteCommand extends BasePaletteCommand impleme
 	}
 
 	@Override
-	public Optional<Operation> createOperation(final TargetedPaletteCommandContext ctx) {
+	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
 		return ctx.getTarget().getBusinessObject(AadlPackage.class).map(readonlyPkg -> Operation.createPromptAndModifyWithExtra(() -> {
 			final AnnexNameDialog annexNameDialog = new AnnexNameDialog(Display.getCurrent().getActiveShell(),
 					readonlyPkg, "Create Annex Library", "Enter a name for the new Annex Library.");

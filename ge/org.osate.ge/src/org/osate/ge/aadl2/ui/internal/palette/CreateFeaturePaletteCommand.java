@@ -43,7 +43,7 @@ import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.TargetedPaletteCommand;
-import org.osate.ge.palette.TargetedPaletteCommandContext;
+import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.util.StringUtil;
 
 public class CreateFeaturePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
@@ -57,7 +57,7 @@ public class CreateFeaturePaletteCommand extends BasePaletteCommand implements T
 	}
 
 	@Override
-	public Optional<Operation> createOperation(final TargetedPaletteCommandContext ctx) {
+	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
 		return ctx.getTarget().getBusinessObject(EObject.class).map(targetBo -> {
 			final AadlOperationBuilder<Classifier> opBuilder = AadlOperationBuilder.classifiers()
 					.filter(c -> AadlFeatureUtil.canOwnFeatureType(c, featureType));

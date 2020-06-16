@@ -39,14 +39,14 @@ public interface CreateConnectionPaletteCommand extends PaletteCommand {
 	 * @param ctx is the context for the command.
 	 * @return true if the specified source is a valid connection start.
 	 */
-	boolean canStartConnection(ConnectionStartContext ctx);
+	boolean canStartConnection(CanStartConnectionContext ctx);
 
 	/**
-	 * Creates an operation that will executed when the command is activated. This method
+	 * Gets an operation that will executed when the command is activated. This method
 	 * must be a low cost method and must not prompt the user. However, the provided operation may prompt the user
 	 * as appropriate. An empty optional is considered an indication that the command is not valid for the specified context.
 	 * @param ctx is the context for the command.
 	 * @return an optional describing the operation that should be executed when the command is activated.
 	 */
-	Optional<Operation> createOperation(CreateConnectionContext ctx);
+	Optional<Operation> getOperation(GetCreateConnectionOperationContext ctx);
 }

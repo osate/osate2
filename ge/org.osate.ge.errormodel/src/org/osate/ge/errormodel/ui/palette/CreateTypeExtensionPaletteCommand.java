@@ -30,9 +30,9 @@ import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResult;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
-import org.osate.ge.palette.ConnectionStartContext;
+import org.osate.ge.palette.CanStartConnectionContext;
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
-import org.osate.ge.palette.CreateConnectionContext;
+import org.osate.ge.palette.GetCreateConnectionOperationContext;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 public class CreateTypeExtensionPaletteCommand extends BasePaletteCommand implements CreateConnectionPaletteCommand {
@@ -41,12 +41,12 @@ public class CreateTypeExtensionPaletteCommand extends BasePaletteCommand implem
 	}
 
 	@Override
-	public boolean canStartConnection(final ConnectionStartContext ctx) {
+	public boolean canStartConnection(final CanStartConnectionContext ctx) {
 		return ctx.getSource().getBusinessObject(ErrorType.class).isPresent();
 	}
 
 	@Override
-	public Optional<Operation> createOperation(final CreateConnectionContext ctx) {
+	public Optional<Operation> getOperation(final GetCreateConnectionOperationContext ctx) {
 		final ErrorType subtypeReadonly = ctx.getSource().getBusinessObject(ErrorType.class).get();
 		return ctx.getDestination().getBusinessObject(ErrorType.class).map(supertype -> {
 			if (supertype == subtypeReadonly) {

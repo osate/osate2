@@ -30,12 +30,13 @@ import javax.inject.Named;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.RenameContext;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
-import org.osate.ge.di.ValidateName;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
 import org.osate.ge.graphics.Graphic;
@@ -55,6 +56,7 @@ public class ErrorBehaviorEventHandler implements BusinessObjectHandler {
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(ErrorBehaviorEvent.class).isPresent();
 	}
+
 	@CanDelete
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorEvent event) {
 		return true;
@@ -80,14 +82,22 @@ public class ErrorBehaviorEventHandler implements BusinessObjectHandler {
 		}
 	}
 
-	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorEvent bo) {
-		return bo.getName();
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(ErrorBehaviorEvent.class).map(bo -> bo.getName())
+				.orElse("");
 	}
 
-	@ValidateName
-	public String validateName(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorEvent event, final @Named(Names.NAME) String value) {
-		final ErrorBehaviorStateMachine stateMachine = (ErrorBehaviorStateMachine)event.eContainer();
-		return ErrorModelNamingUtil.validateName(stateMachine, event.getName(), value);
+	@Override
+	public boolean canRename(final CanRenameContext ctx) {
+		return true;
+	}
+
+	@Override
+	public Optional<String> validateName(final RenameContext ctx) {
+		return ctx.getBusinessObject(ErrorBehaviorEvent.class).map(event -> {
+			final ErrorBehaviorStateMachine stateMachine = (ErrorBehaviorStateMachine) event.eContainer();
+			return ErrorModelNamingUtil.validateName(stateMachine, event.getName(), ctx.getNewName());
+		});
 	}
 }

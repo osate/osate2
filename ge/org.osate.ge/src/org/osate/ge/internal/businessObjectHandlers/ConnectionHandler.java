@@ -36,14 +36,12 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.aadl2.internal.AadlNamingUtil;
-import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
-import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
@@ -53,7 +51,7 @@ import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
-public class ConnectionHandler implements BusinessObjectHandler {
+public class ConnectionHandler extends AadlBusinessObjectHandler {
 	private static final Graphic graphic = ConnectionBuilder.create().build();
 	private static StandaloneQuery srcQuery = StandaloneQuery
 			.create((rootQuery) -> rootQuery.parent()
@@ -150,16 +148,13 @@ public class ConnectionHandler implements BusinessObjectHandler {
 		return path.toArray();
 	}
 
-	// Labels
-	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) Connection c) {
-		return c.getName();
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(Connection.class).map(c -> c.getName()).orElse("");
 	}
 
-// Renaming
-	@ValidateName
-	public String validateName(final @Named(Names.BUSINESS_OBJECT) Connection c,
-			final @Named(Names.NAME) String value) {
-		return AadlNamingUtil.checkNameValidity(c, value);
+	@Override
+	public boolean canRename(final CanRenameContext ctx) {
+		return true;
 	}
 }

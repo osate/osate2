@@ -31,14 +31,12 @@ import org.osate.aadl2.ModeTransition;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.aadl2.internal.AadlNamingUtil;
-import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
-import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
@@ -46,7 +44,7 @@ import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
-public class ModeTransitionHandler implements BusinessObjectHandler {
+public class ModeTransitionHandler extends AadlBusinessObjectHandler {
 	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObjectRelativeReference((ModeTransition mt) -> mt.getSource()));
 	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObjectRelativeReference((ModeTransition mt) -> mt.getDestination()));
 
@@ -85,14 +83,14 @@ public class ModeTransitionHandler implements BusinessObjectHandler {
 		return queryService.getFirstResult(dstQuery, boc);
 	}
 
-	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) ModeTransition mt) {
-		return mt.getName() == null ? "" : mt.getName();
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(ModeTransition.class).map(mt -> mt.getName())
+				.orElse("");
 	}
 
-	@ValidateName
-	public String validateName(final @Named(Names.BUSINESS_OBJECT) ModeTransition mt,
-			final @Named(Names.NAME) String value) {
-		return AadlNamingUtil.checkNameValidity(mt, value);
+	@Override
+	public boolean canRename(final CanRenameContext ctx) {
+		return true;
 	}
 }

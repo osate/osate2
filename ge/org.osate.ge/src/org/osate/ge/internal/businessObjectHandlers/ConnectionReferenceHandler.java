@@ -25,17 +25,13 @@ package org.osate.ge.internal.businessObjectHandlers;
 
 import java.util.Optional;
 
-import javax.inject.Named;
-
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
-import org.osate.ge.di.GetName;
-import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
@@ -45,7 +41,7 @@ import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
-public class ConnectionReferenceHandler implements BusinessObjectHandler {
+public class ConnectionReferenceHandler extends AadlBusinessObjectHandler {
 	private static final Graphic graphic = ConnectionBuilder.create().build();
 	private static final Style style = StyleBuilder.create().backgroundColor(Color.BLACK).build();
 	private static final Style partialStyle = StyleBuilder.create().backgroundColor(Color.BLACK).dotted().build();
@@ -124,8 +120,10 @@ public class ConnectionReferenceHandler implements BusinessObjectHandler {
 				build());
 	}
 
-	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) ConnectionReference cr) {
-		return cr.getFullName();
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(ConnectionReference.class)
+				.map(cr -> cr.getFullName())
+				.orElse("");
 	}
 }

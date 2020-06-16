@@ -32,15 +32,12 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.aadl2.internal.AadlNamingUtil;
-import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.GetName;
-import org.osate.ge.di.GetNameForEditing;
 import org.osate.ge.di.Names;
-import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
@@ -48,7 +45,7 @@ import org.osate.ge.internal.util.AadlArrayUtil;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.internal.util.AadlSubcomponentUtil;
 
-public class SubcomponentHandler implements BusinessObjectHandler {
+public class SubcomponentHandler extends AadlBusinessObjectHandler {
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(Subcomponent.class).isPresent();
@@ -94,24 +91,26 @@ public class SubcomponentHandler implements BusinessObjectHandler {
 	}
 
 	// Labels
-	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc) {
-		return getSubcomponentName(sc) + AadlArrayUtil.getDimensionUserString(sc);
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(
+				Subcomponent.class)
+				.map(sc -> getSubcomponentName(sc) + AadlArrayUtil.getDimensionUserString(sc)).orElse("");
 	}
 
-	@GetNameForEditing
-	public String getNameForEditing(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc) {
-		return getSubcomponentName(sc);
+	@Override
+	public String getNameForRenaming(final GetNameContext ctx) {
+		return ctx.getBusinessObject(Subcomponent.class)
+				.map(this::getSubcomponentName)
+				.orElse("");
 	}
 
 	private String getSubcomponentName(final Subcomponent sc) {
 		return sc.getName() == null ? "" : sc.getName();
 	}
 
-	// Renaming
-	@ValidateName
-	public String validateName(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc,
-			final @Named(Names.NAME) String value) {
-		return AadlNamingUtil.checkNameValidity(sc, value);
+	@Override
+	public boolean canRename(final CanRenameContext ctx) {
+		return true;
 	}
 }

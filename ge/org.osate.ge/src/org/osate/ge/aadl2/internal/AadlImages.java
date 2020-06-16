@@ -25,22 +25,25 @@ package org.osate.ge.aadl2.internal;
 
 import org.eclipse.emf.ecore.EClass;
 
-public class AadlImages {
+public final class AadlImages {
 	private static final String PREFIX = "org.osate.ge.aadl2.images.";
+
+	private AadlImages() {
+	}
 
 	/**
 	 * Returns the id of an image registered by this plugin based on the EClass from the AADL 2 metamodel.
 	 * @param eClass is the eclass for which to return the image id.
-	 * @return is the id of the image.
+	 * @return the ID of the image.
 	 */
 	public static String getImage(final EClass eClass) {
 		return getImage(eClass.getName());
 	}
 
 	/**
-	 * Retursn the ID of an image based on a name. The ID is simplify the name with the PREFIX prepended.
+	 * Returns the ID of an image based on a name. The ID is simplify the name with the PREFIX prepended.
 	 * @param name is the name to add to the ID prefix.
-	 * @return the ID of teh image.
+	 * @return the ID of the image.
 	 */
 	public static String getImage(final String name) {
 		return PREFIX + name;

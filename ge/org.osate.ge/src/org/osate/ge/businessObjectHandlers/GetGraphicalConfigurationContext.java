@@ -29,9 +29,9 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.services.QueryService;
 
-// TODO: Rename
-
 /**
+ * Contains contextual information when requesting a graphical configuration from a business object handler.
+ *
  * @since 2.0
  * @noextend This class is not intended to be subclassed by clients.
  * @noinstantiate This class is not intended to be instantiated by clients.
@@ -42,8 +42,8 @@ public class GetGraphicalConfigurationContext {
 	private final AgeDiagram diagram;
 
 	/**
-	 * Context used to get the graphical configuration for an business object
-	 * @param bo is the business object for which to check whether the business object handler is applicable.
+	 * Creates a new instance.
+	 * @param boc is the business object context for which to get the graphical configuration.
 	 * @param queryService is a query service instance to provide to the palette command.
 	 * @param diagram is the diagram in which the business object context is contained.
 	 * @noreference This constructor is not intended to be referenced by clients.
@@ -55,7 +55,10 @@ public class GetGraphicalConfigurationContext {
 		this.diagram = Objects.requireNonNull(diagram, "diagram must not be null");
 	}
 
-	// TODO: Document
+	/**
+	 * Returns the business object context for which to return the graphical configuration.
+	 * @return the business object context for which to return the graphical configuration.
+	 */
 	public BusinessObjectContext getBusinessObjectContext() {
 		return boc;
 	}

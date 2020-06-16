@@ -27,6 +27,10 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+/**
+ * Interface for objects which are part of a hierarchical structure where each node references a business object.
+ *
+ */
 public interface BusinessObjectContext {
 	/**
 	 * Returns the parent of the context.
@@ -69,6 +73,12 @@ public interface BusinessObjectContext {
 	}
 
 	/**
+	 * Retrieves the business object contained in the business object context if it is an instance of the specified class.
+	 * @param <T> is the requested type.
+	 * @param c is the class to which to cast the business object.
+	 * @return an optional containing the context's business object. An empty optional if the context's business object is not
+	 * an instance the specified class.
+	 *
 	 * @since 2.0
 	 */
 	public default <T> Optional<T> getBusinessObject(final Class<T> c) {

@@ -25,8 +25,6 @@ package org.osate.ge.internal.businessObjectHandlers;
 
 import java.util.Optional;
 
-import javax.inject.Named;
-
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
@@ -36,18 +34,15 @@ import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.aadl2.internal.model.AgePropertyValue;
 import org.osate.ge.aadl2.internal.model.PropertyValueGroup;
-import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
-import org.osate.ge.di.GetName;
-import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.PolyBuilder;
-import org.osate.ge.services.QueryService;
 import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 
-public class TimingPropertyValueHandler implements BusinessObjectHandler {
+public class TimingPropertyValueHandler extends AadlBusinessObjectHandler {
 	private static final String qualifiedTimingPropertyName = CommunicationProperties._NAME + "::" + CommunicationProperties.TIMING;
 
 	private static final Graphic immediateGraphic = PolyBuilder.create().
@@ -139,11 +134,8 @@ public class TimingPropertyValueHandler implements BusinessObjectHandler {
 				build());
 	}
 
-	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
-			final @Named(Names.BUSINESS_OBJECT) PropertyValueGroup pvg,
-			final QueryService queryService) {
-		// Only used for the fallback handler
-		return fallbackBoh.getName(boc, pvg, queryService);
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return fallbackBoh.getName(ctx);
 	}
 }

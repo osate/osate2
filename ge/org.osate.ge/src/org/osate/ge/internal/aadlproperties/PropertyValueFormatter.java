@@ -28,8 +28,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.inject.Named;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
@@ -53,7 +51,6 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.internal.model.AgePropertyValue;
 import org.osate.ge.aadl2.internal.model.PropertyValueGroup;
-import org.osate.ge.di.Names;
 
 import com.google.common.collect.Ordering;
 
@@ -90,7 +87,8 @@ public class PropertyValueFormatter {
 	 * @param expandComplexValues if true values inside of lists and groups will be contained in the result.
 	 * @return
 	 */
-	public static String getUserString(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext pvgQueryable,
+	public static String getUserString(
+			final BusinessObjectContext pvgQueryable,
 			final boolean singleLine,
 			final boolean includeOnlyValuesBasedOnCompletelyProcessedAssociations,
 			final boolean includeValues,

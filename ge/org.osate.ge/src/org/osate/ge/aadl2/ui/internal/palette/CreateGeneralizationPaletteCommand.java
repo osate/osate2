@@ -43,8 +43,8 @@ import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResult;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
-import org.osate.ge.palette.ConnectionStartContext;
-import org.osate.ge.palette.CreateConnectionContext;
+import org.osate.ge.palette.CanStartConnectionContext;
+import org.osate.ge.palette.GetCreateConnectionOperationContext;
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
 
 public class CreateGeneralizationPaletteCommand extends BasePaletteCommand implements CreateConnectionPaletteCommand {
@@ -56,7 +56,7 @@ public class CreateGeneralizationPaletteCommand extends BasePaletteCommand imple
 	}
 
 	@Override
-	public boolean canStartConnection(final ConnectionStartContext ctx) {
+	public boolean canStartConnection(final CanStartConnectionContext ctx) {
 		return ctx.getSource().getBusinessObject(Classifier.class).map(subtype -> {
 			// Determine whether it is a valid starting object
 			if (subtype instanceof ComponentType) {
@@ -75,7 +75,7 @@ public class CreateGeneralizationPaletteCommand extends BasePaletteCommand imple
 	}
 
 	@Override
-	public Optional<Operation> createOperation(final CreateConnectionContext ctx) {
+	public Optional<Operation> getOperation(final GetCreateConnectionOperationContext ctx) {
 		final Object readonlySubtype = ctx.getSource().getBusinessObject();
 		final Classifier supertype = ctx.getDestination().getBusinessObject(Classifier.class).orElse(null);
 

@@ -23,16 +23,13 @@
  */
 package org.osate.ge.internal.businessObjectHandlers;
 
-import javax.inject.Named;
-
 import org.osate.aadl2.instance.FlowSpecificationInstance;
-import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
-import org.osate.ge.di.GetName;
-import org.osate.ge.di.Names;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 
-abstract class FlowSpecificationInstanceHandler implements BusinessObjectHandler {
-	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) FlowSpecificationInstance fsi) {
-		return fsi.getName();
+abstract class FlowSpecificationInstanceHandler extends AadlBusinessObjectHandler {
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(FlowSpecificationInstance.class)
+				.map(fsi -> fsi.getName()).orElse("");
 	}
 }

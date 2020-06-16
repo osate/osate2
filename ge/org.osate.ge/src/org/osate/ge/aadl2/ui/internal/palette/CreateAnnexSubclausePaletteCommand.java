@@ -39,7 +39,7 @@ import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.TargetedPaletteCommand;
-import org.osate.ge.palette.TargetedPaletteCommandContext;
+import org.osate.ge.palette.GetTargetedOperationContext;
 
 public class CreateAnnexSubclausePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 
@@ -49,7 +49,7 @@ public class CreateAnnexSubclausePaletteCommand extends BasePaletteCommand imple
 	}
 
 	@Override
-	public Optional<Operation> createOperation(final TargetedPaletteCommandContext ctx) {
+	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
 		return ctx.getTarget().getBusinessObject(Classifier.class).map(readonlyClassifier -> Operation.createPromptAndModifyWithExtra(() -> {
 			final AnnexNameDialog annexNameDialog = new AnnexNameDialog(Display.getCurrent().getActiveShell(),
 					readonlyClassifier, "Create Annex Subclause", "Enter a name for the new Annex Subclause.");

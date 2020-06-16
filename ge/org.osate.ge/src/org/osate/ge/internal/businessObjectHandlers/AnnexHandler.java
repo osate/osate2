@@ -33,18 +33,17 @@ import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.graphics.internal.FolderGraphicBuilder;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
-public class AnnexHandler implements BusinessObjectHandler {
+public class AnnexHandler extends AadlBusinessObjectHandler {
 	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestors().first());
 	private static final GraphicalConfiguration graphicalConfig = GraphicalConfigurationBuilder.create().
 			graphic(FolderGraphicBuilder.create().build())
@@ -78,13 +77,9 @@ public class AnnexHandler implements BusinessObjectHandler {
 		return Optional.of(graphicalConfig);
 	}
 
-	/**
-	 * Create the label text
-	 * @param annexName the name of the AnnexLibrary or AnnexSubclause
-	 * @return the label text
-	 */
-	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) NamedElement annex) {
-		return "{**" + annex.getName() + "**}";
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(NamedElement.class)
+				.map(annex -> "{**" + annex.getName() + "**}").orElse("");
 	}
 }

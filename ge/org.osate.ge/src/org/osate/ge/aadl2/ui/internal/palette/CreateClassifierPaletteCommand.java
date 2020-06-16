@@ -54,7 +54,7 @@ import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResult;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.TargetedPaletteCommand;
-import org.osate.ge.palette.TargetedPaletteCommandContext;
+import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 import org.osate.ge.util.StringUtil;
@@ -89,7 +89,7 @@ public class CreateClassifierPaletteCommand extends BasePaletteCommand implement
 	}
 
 	@Override
-	public Optional<Operation> createOperation(final TargetedPaletteCommandContext ctx) {
+	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
 		return ctx.getTarget().getBusinessObject(EObject.class).map(targetBo -> {
 			if (!(targetBo instanceof AadlPackage || isValidBaseClassifier(targetBo))) {
 				return null;

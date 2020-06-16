@@ -37,7 +37,7 @@ import org.osate.ge.operations.StepResult;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.TargetedPaletteCommand;
-import org.osate.ge.palette.TargetedPaletteCommandContext;
+import org.osate.ge.palette.GetTargetedOperationContext;
 
 public class CreateStatePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	public CreateStatePaletteCommand() {
@@ -45,7 +45,7 @@ public class CreateStatePaletteCommand extends BasePaletteCommand implements Tar
 	}
 
 	@Override
-	public Optional<Operation> createOperation(final TargetedPaletteCommandContext ctx) {
+	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
 		return ctx.getTarget().getBusinessObject(Classifier.class).map(c -> {
 			return Operation.createWithBuilder(b -> {
 				b.supply(() -> {

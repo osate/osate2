@@ -33,10 +33,10 @@ import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
+import org.osate.ge.businessObjectHandlers.GetNameForDiagramContext;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.Delete;
-import org.osate.ge.di.GetName;
-import org.osate.ge.di.GetNameForUserInterface;
 import org.osate.ge.di.Names;
 import org.osate.ge.errormodel.model.ErrorTypeExtension;
 import org.osate.ge.errormodel.model.ErrorTypeLibrary;
@@ -55,9 +55,8 @@ public class ErrorTypeExtensionHandler implements BusinessObjectHandler {
 			.destinationTerminator(ArrowBuilder.create().open().build()).build();
 
 	private static StandaloneQuery dstDifferentPackageQuery = StandaloneQuery
-			.create((rootQuery) -> rootQuery.ancestor(4)
-					.descendantsByBusinessObjectsRelativeReference(
-							ete -> getBusinessObjectPath(((ErrorTypeExtension) ete).getSupertype())));
+			.create((rootQuery) -> rootQuery.ancestor(4).descendantsByBusinessObjectsRelativeReference(
+					ete -> getBusinessObjectPath(((ErrorTypeExtension) ete).getSupertype())));
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
@@ -83,28 +82,29 @@ public class ErrorTypeExtensionHandler implements BusinessObjectHandler {
 		}
 	}
 
-	@GetNameForUserInterface
-	public String getName() {
+	@Override
+	public String getName(final GetNameContext ctx) {
 		return "Extension";
 	}
 
-	@GetName
-	public String getLabelName(final @Named(Names.BUSINESS_OBJECT) ErrorTypeExtension ext,
-			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
-		// Don't show the name when displaying as a connection
-		if (getDestination(boc, queryService) != null) {
-			return null;
-		}
+	@Override
+	public String getNameForDiagram(final GetNameForDiagramContext ctx) {
+		return ctx.getBusinessObjectContext().getBusinessObject(ErrorTypeExtension.class).map(ext -> {
+			// Don't show the name when displaying as a connection
+			if (getDestination(ctx.getBusinessObjectContext(), ctx.getQueryService()) != null) {
+				return null;
+			}
 
-		// If elements are in the same package, only show the name instead of the equalified name
-		final String superName;
-		if (ext.getSupertype().getElementRoot() == ext.getSubtype().getElementRoot()) {
-			superName = ext.getSupertype().getName();
-		} else {
-			superName = ext.getSupertype().getQualifiedName();
-		}
+			// If elements are in the same package, only show the name instead of the qualified name
+			final String superName;
+			if (ext.getSupertype().getElementRoot() == ext.getSubtype().getElementRoot()) {
+				superName = ext.getSupertype().getName();
+			} else {
+				superName = ext.getSupertype().getQualifiedName();
+			}
 
-		return "Extends: " + superName;
+			return "Extends: " + superName;
+		}).orElse("");
 	}
 
 	private BusinessObjectContext getDestination(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,

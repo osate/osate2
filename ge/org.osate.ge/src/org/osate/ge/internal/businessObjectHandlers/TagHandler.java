@@ -26,23 +26,20 @@ package org.osate.ge.internal.businessObjectHandlers;
 import java.util.Objects;
 import java.util.Optional;
 
-import javax.inject.Named;
-
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.aadl2.internal.model.Tag;
-import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
+import org.osate.ge.businessObjectHandlers.GetNameForDiagramContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
-import org.osate.ge.di.GetName;
-import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.LabelBuilder;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.PolyBuilder;
 
-public class TagHandler implements BusinessObjectHandler {
+public class TagHandler extends AadlBusinessObjectHandler {
 	private final Graphic defaultGraphic = LabelBuilder.create().build();
 	private static final Graphic directionIndicator = PolyBuilder.create().polyline()
 			.points(new Point(8.0, 6.0), new Point(0.0, 0.0), new Point(8.0, -6.0)).build();
@@ -79,8 +76,16 @@ public class TagHandler implements BusinessObjectHandler {
 				build());
 	}
 
-	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) Tag tv) {
-		return Objects.toString(tv.value, null);
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(Tag.class).map(tv -> Objects.toString(tv.value, null))
+				.map(n -> "Misc " + n)
+				.orElse("");
+	}
+
+	@Override
+	public String getNameForDiagram(final GetNameForDiagramContext ctx) {
+		return ctx.getBusinessObjectContext().getBusinessObject(Tag.class).map(tv -> Objects.toString(tv.value, null))
+				.orElse("");
 	}
 }
