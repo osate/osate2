@@ -66,7 +66,7 @@ public
 			dj: data D.j;
 			e: data E;
 		connections
-			c1: data access d -> p_d_d; -- goo
+			c1: data access d -> p_d_d; -- good
 			c2: data access dd -> p_d_dd; -- bad
 			c3: data access di -> p_d_di; -- good
 			c4: data access dj -> p_d_dj; -- good
