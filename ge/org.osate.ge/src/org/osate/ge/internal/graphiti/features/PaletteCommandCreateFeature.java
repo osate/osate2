@@ -41,7 +41,7 @@ import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.AgeAction;
 import org.osate.ge.palette.TargetedPaletteCommand;
-import org.osate.ge.palette.TargetedPaletteCommandContext;
+import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.services.QueryService;
 import org.osate.ge.services.ReferenceBuilderService;
 
@@ -84,7 +84,7 @@ public class PaletteCommandCreateFeature extends AbstractCreateFeature implement
 
 	@Override
 	public boolean canCreate(final ICreateContext context) {
-		return createContext(context).flatMap(cmd::createOperation).isPresent();
+		return createContext(context).flatMap(cmd::getOperation).isPresent();
 	}
 
 	@Override
@@ -96,7 +96,7 @@ public class PaletteCommandCreateFeature extends AbstractCreateFeature implement
 				@Override
 				public AgeAction execute() {
 					final DiagramNode targetNode = (DiagramNode) c.getTarget();
-					cmd.createOperation(c).ifPresent(operation -> {
+					cmd.getOperation(c).ifPresent(operation -> {
 						// Perform modification
 						final OperationExecutor opExecutor = new OperationExecutor(aadlModService);
 						opExecutor.execute(operation,
@@ -116,7 +116,7 @@ public class PaletteCommandCreateFeature extends AbstractCreateFeature implement
 		}).orElse(EMPTY);
 	}
 
-	private Optional<TargetedPaletteCommandContext> createContext(final ICreateContext context) {
+	private Optional<GetTargetedOperationContext> createContext(final ICreateContext context) {
 		final DiagramNode targetNode = graphitiService.getGraphitiAgeDiagram().getClosestDiagramNode(context.getTargetContainer());
 		if(targetNode == null) {
 			return Optional.empty();
@@ -125,6 +125,6 @@ public class PaletteCommandCreateFeature extends AbstractCreateFeature implement
 		final DockingPosition targetDockingPosition = AgeDiagramUtil.determineDockingPosition(targetNode,
 				context.getX(), context.getY(), 0, 0);
 
-		return Optional.of(new TargetedPaletteCommandContext(targetNode, targetDockingPosition, queryService));
+		return Optional.of(new GetTargetedOperationContext(targetNode, targetDockingPosition, queryService));
 	}
 }

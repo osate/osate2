@@ -38,6 +38,7 @@ import org.osate.ge.aadl2.internal.diagramTypes.CustomDiagramType;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.BeforeModificationsCompletedEvent;
@@ -67,6 +68,12 @@ public class AgeDiagramTest {
 
 		@Override
 		public Optional<GraphicalConfiguration> getGraphicalConfiguration(GetGraphicalConfigurationContext ctx) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public String getName(GetNameContext ctx) {
 			// TODO Auto-generated method stub
 			return null;
 		}

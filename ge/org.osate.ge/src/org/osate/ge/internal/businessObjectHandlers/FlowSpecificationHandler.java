@@ -30,18 +30,17 @@ import javax.inject.Named;
 
 import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowSpecification;
-import org.osate.ge.aadl2.internal.AadlNamingUtil;
-import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.CanRenameContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
-import org.osate.ge.di.ValidateName;
 
-abstract class FlowSpecificationHandler implements BusinessObjectHandler {
+abstract class FlowSpecificationHandler extends AadlBusinessObjectHandler {
 	// Basics
-	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs) {
-		return fs.getName();
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(FlowSpecification.class)
+				.map(fs -> fs.getName()).orElse("");
 	}
 
 	@CanDelete
@@ -49,10 +48,9 @@ abstract class FlowSpecificationHandler implements BusinessObjectHandler {
 		return true;
 	}
 
-	@ValidateName
-	public String validateName(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs,
-			final @Named(Names.NAME) String value) {
-		return AadlNamingUtil.checkNameValidity(fs, value);
+	@Override
+	public boolean canRename(final CanRenameContext ctx) {
+		return true;
 	}
 
 	/**

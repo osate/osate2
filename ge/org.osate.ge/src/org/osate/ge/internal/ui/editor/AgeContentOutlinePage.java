@@ -70,6 +70,8 @@ import org.eclipse.ui.part.IPageSite;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
@@ -80,10 +82,10 @@ import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.ui.util.ContextHelpUtil;
-import org.osate.ge.internal.ui.util.ImageUiHelper;
 import org.osate.ge.internal.ui.util.UiUtil;
-import org.osate.ge.internal.util.BusinessObjectContextHelper;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
+
+import com.google.common.base.Strings;
 
 public class AgeContentOutlinePage extends ContentOutlinePage {
 	private static final String PREFERENCE_OUTLINE_LINK_WITH_EDITOR = "outline.linkWithEditor";
@@ -95,7 +97,6 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	private final ProjectReferenceService referenceService;
 	private final ExtensionService extService;
 	private final BusinessObjectProviderHelper bopHelper;
-	private final BusinessObjectContextHelper bocHelper;
 	private final Action linkWithEditorAction = new ToggleLinkWithEditorAction();
 	private final Action showHiddenElementsAction = new ToggleShowHiddenElementsAction();
 
@@ -114,7 +115,6 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		this.referenceService = Objects.requireNonNull(referenceService, "referenceService must not be null");
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");
 		this.bopHelper = new BusinessObjectProviderHelper(extService);
-		this.bocHelper = new BusinessObjectContextHelper(extService);
 	}
 
 	@Override
@@ -138,7 +138,6 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 	@Override
 	public void dispose() {
-		bocHelper.close();
 		preferences.removePreferenceChangeListener(preferenceChangeListener);
 		super.dispose();
 	}
@@ -277,8 +276,8 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 					return true;
 				}
 
-				final Object boh = extService.getApplicableBusinessObjectHandler(bo);
-				return boh != null && bocHelper.getNameForUserInterface(boc, boh) != null;
+				final BusinessObjectHandler boh = extService.getApplicableBusinessObjectHandler(bo);
+				return boh != null && !Strings.isNullOrEmpty(boh.getName(new GetNameContext(bo)));
 			}
 
 			/**
@@ -346,7 +345,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 			public String getText(final Object element) {
 				if (element instanceof BusinessObjectContext) {
 					final BusinessObjectContext boc = (BusinessObjectContext) element;
-					return UiUtil.getDescription(boc, extService, bocHelper);
+					return UiUtil.getDescription(boc, extService);
 				}
 
 				return super.getText(element);
@@ -354,10 +353,13 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 			@Override
 			public Image getImage(final Object element) {
-				if (element instanceof BusinessObjectContext) {
+				if (element instanceof DiagramElement) {
+					final DiagramElement de = (DiagramElement) element;
+					return UiUtil.getImage(de.getBusinessObjectHandler(), de.getBusinessObject()).orElse(null);
+				} else if (element instanceof BusinessObjectContext) {
 					final BusinessObjectContext boc = (BusinessObjectContext) element;
 					final Object bo = boc.getBusinessObject();
-					return ImageUiHelper.getImage(bo);
+					return UiUtil.getImage(extService, bo).orElse(null);
 				}
 
 				return null;

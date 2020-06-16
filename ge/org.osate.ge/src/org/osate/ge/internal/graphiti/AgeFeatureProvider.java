@@ -157,7 +157,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		this.aadlModService = Objects.requireNonNull(eclipseContext.get(AadlModificationService.class),
 				"unable to retrieve AADL modification service");
 		this.graphitiService = Objects.requireNonNull(eclipseContext.get(GraphitiService.class),
-				"unablet to retrieve Graphiti service");
+				"unable to retrieve Graphiti service");
 		this.referenceResolver = Objects.requireNonNull(eclipseContext.get(ProjectReferenceService.class),
 				"unable to retrieve internal reference resolution service");
 		this.queryService = Objects.requireNonNull(eclipseContext.get(QueryService.class),
@@ -190,10 +190,6 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 
 	@Override
 	public void dispose() {
-		if (deInfoProvider != null) {
-			deInfoProvider.close();
-		}
-
 		if (eclipseContext != null) {
 			eclipseContext.dispose();
 		}

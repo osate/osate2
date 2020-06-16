@@ -32,16 +32,15 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
-import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.RenameContext;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.GetName;
-import org.osate.ge.di.GetNameForEditing;
 import org.osate.ge.di.Names;
-import org.osate.ge.di.ValidateName;
 
-public class ClassifierHandler implements BusinessObjectHandler {
+public class ClassifierHandler extends AadlBusinessObjectHandler {
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(Classifier.class).isPresent();
@@ -59,48 +58,58 @@ public class ClassifierHandler implements BusinessObjectHandler {
 				.style(AadlGraphics.getStyle(bo)).build());
 	}
 
-	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) Classifier classifier) {
-		return classifier.getName();
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(Classifier.class)
+				.map(classifier -> classifier.getName()).orElse("");
 	}
 
-	@GetNameForEditing
-	public String getName(final @Named(Names.BUSINESS_OBJECT) ComponentImplementation ci) {
-		return ci.getImplementationName();
+	@Override
+	public String getNameForRenaming(final GetNameContext ctx) {
+		return ctx.getBusinessObject(
+				ComponentImplementation.class)
+				.map(ci -> ci.getImplementationName()).orElseGet(() -> getName(ctx));
 	}
 
-	@ValidateName
-	public String validateName(final @Named(Names.BUSINESS_OBJECT) Classifier classifier,
-			final @Named(Names.NAME) String value) {
-		final String newFullName;
-		final String oldName;
+	@Override
+	public boolean canRename(final CanRenameContext ctx) {
+		return true;
+	}
 
-		// Transform value so that is is the full name
-		if (classifier instanceof ComponentImplementation) {
-			final ComponentImplementation ci = (ComponentImplementation) classifier;
-			newFullName = ci.getTypeName() + "." + value;
-			oldName = ci.getImplementationName();
-		} else {
-			newFullName = value;
-			oldName = classifier.getName();
-		}
+	@Override
+	public Optional<String> validateName(final RenameContext ctx) {
+		return ctx.getBusinessObject(Classifier.class).map(classifier -> {
+			final String newName = ctx.getNewName();
+			final String newFullName;
+			final String oldName;
 
-		// If the name hasn't changed or has only changed case
-		if (value.equalsIgnoreCase(oldName)) {
+			// Transform value so that is is the full name
+			if (classifier instanceof ComponentImplementation) {
+				final ComponentImplementation ci = (ComponentImplementation) classifier;
+				newFullName = ci.getTypeName() + "." + newName;
+				oldName = ci.getImplementationName();
+			} else {
+				newFullName = newName;
+				oldName = classifier.getName();
+			}
+
+			// If the name hasn't changed or has only changed case
+			if (newName.equalsIgnoreCase(oldName)) {
+				return null;
+			}
+
+			// Check if the value matches the format for AADL identifiers
+			if (!AadlNamingUtil.isValidIdentifier(newName)) {
+				return "The specified name is not a valid AADL identifier";
+			}
+
+			// Check for conflicts in the namespace
+			if (AadlNamingUtil.isNameInUse(classifier.getNamespace(), newFullName)) {
+				return "The specified name conflicts with an existing member of the namespace.";
+			}
+
+			// The value is valid
 			return null;
-		}
-
-		// Check if the value matches the format for AADL identifiers
-		if (!AadlNamingUtil.isValidIdentifier(value)) {
-			return "The specified name is not a valid AADL identifier";
-		}
-
-		// Check for conflicts in the namespace
-		if (AadlNamingUtil.isNameInUse(classifier.getNamespace(), newFullName)) {
-			return "The specified name conflicts with an existing member of the namespace.";
-		}
-
-		// The value is valid
-		return null;
+		});
 	}
 }

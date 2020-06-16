@@ -26,48 +26,49 @@ package org.osate.ge.palette;
 import java.util.Objects;
 
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.DockingPosition;
 import org.osate.ge.services.QueryService;
 
 /**
- * Contains information provided to the palette command to create an operation to create a connection.
- *
+ * Contains information provided to targeted palette commands.
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  * @since 2.0
  */
-public final class CreateConnectionContext {
-	private final BusinessObjectContext sourceBoc;
-	private final BusinessObjectContext destinationBoc;
+public final class GetTargetedOperationContext {
+	private final BusinessObjectContext targetBoc;
+	private final DockingPosition dockingPostion;
 	private final QueryService queryService;
 
 	/**
-	 * Create a new instance.
-	 * @param sourceBoc the start of the connection.
-	 * @param destinationBoc the end of the connection.
+	 * Creates a new instance.
+	 * @param targetBoc is the target for the command.
+	 * @param dockingPostion is the most appropriate DockingPosition based on the location at which the command was activated is being created.
 	 * @param queryService is a query service instance to provide to the palette command.
 	 * @noreference This constructor is not intended to be referenced by clients.
 	 */
-	public CreateConnectionContext(final BusinessObjectContext sourceBoc,
-			final BusinessObjectContext destinationBoc, final QueryService queryService) {
-		this.sourceBoc = Objects.requireNonNull(sourceBoc, "sourceBoc must not be null");
-		this.destinationBoc = Objects.requireNonNull(destinationBoc, "destinationBoc must not be null");
+	public GetTargetedOperationContext(final BusinessObjectContext targetBoc, final DockingPosition dockingPostion,
+			final QueryService queryService) {
+		this.targetBoc = Objects.requireNonNull(targetBoc, "targetBoc must not be null");
+		this.dockingPostion = Objects.requireNonNull(dockingPostion,
+				"targetDockingPosition must not be null");
 		this.queryService = Objects.requireNonNull(queryService, "queryService must not be null");
 	}
 
 	/**
-	 * Returns the business object context which defines the start of the connection.
-	 * @return the start of the connection.
+	 * Returns the business object context based on the location at which the command is being activated.
+	 * @return the business object context in which the command is being activated.
 	 */
-	public final BusinessObjectContext getSource() {
-		return sourceBoc;
+	public final BusinessObjectContext getTarget() {
+		return targetBoc;
 	}
 
 	/**
-	 * Returns the business object context which defines the end of the connection.
-	 * @return the end of the connection.
+	 * Return the docking position based on the location at which the command is being activated.
+	 * @return the docking position
 	 */
-	public final BusinessObjectContext getDestination() {
-		return destinationBoc;
+	public final DockingPosition getDockingPosition() {
+		return dockingPostion;
 	}
 
 	/**

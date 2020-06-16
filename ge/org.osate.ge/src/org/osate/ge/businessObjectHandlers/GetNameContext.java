@@ -21,48 +21,39 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.palette;
+package org.osate.ge.businessObjectHandlers;
 
-import java.util.Objects;
-
-import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.services.QueryService;
+import java.util.Optional;
 
 /**
- * Contains information needed to check whether a start of a connection is supported by a palette command.
+ * Contains contextual information when requesting a name from a business object handler.
  *
- * @noinstantiate This class is not intended to be instantiated by clients.
- * @noextend This class is not intended to be subclassed by clients.
  * @since 2.0
+ * @noextend This class is not intended to be subclassed by clients.
+ * @noinstantiate This class is not intended to be instantiated by clients.
  */
-public final class ConnectionStartContext {
-	private final BusinessObjectContext sourceBoc;
-	private final QueryService queryService;
+public class GetNameContext {
+	private final Object bo;
 
 	/**
 	 * Creates a new instance.
-	 * @param sourceBoc is the business object context for the start of the connection.
-	 * @param queryService is a query service instance to provide to the palette command.
+	 * @param bo is the business object for which to get the label.
 	 * @noreference This constructor is not intended to be referenced by clients.
 	 */
-	public ConnectionStartContext(final BusinessObjectContext sourceBoc, final QueryService queryService) {
-		this.sourceBoc = Objects.requireNonNull(sourceBoc, "sourceBoc must not be null");
-		this.queryService = Objects.requireNonNull(queryService, "queryService must not be null");
+	public GetNameContext(final Object bo) {
+		this.bo = bo;
 	}
 
 	/**
-	 * Returns the business object context which defines the start of the connection.
-	 * @return the start of the connection.
+	 * Retrieves the business object for which the name is being requested if it is an instance of the specified class.
+	 * @param <T> is the requested type.
+	 * @param c is the class to which to cast the business object.
+	 * @return an optional containing the business object. An empty optional if the context's business object is not
+	 * an instance the specified class.
+	 *
+	 * @since 2.0
 	 */
-	public final BusinessObjectContext getSource() {
-		return sourceBoc;
-	}
-
-	/**
-	 * Returns the query service
-	 * @return the query service
-	 */
-	public final QueryService getQueryService() {
-		return queryService;
+	public <T> Optional<T> getBusinessObject(final Class<T> c) {
+		return c.isInstance(bo) ? Optional.of(c.cast(bo)) : Optional.empty();
 	}
 }

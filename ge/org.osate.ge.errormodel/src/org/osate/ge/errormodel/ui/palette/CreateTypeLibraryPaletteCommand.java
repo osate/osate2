@@ -34,7 +34,7 @@ import org.osate.ge.operations.StepResult;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.TargetedPaletteCommand;
-import org.osate.ge.palette.TargetedPaletteCommandContext;
+import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 public class CreateTypeLibraryPaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
@@ -43,7 +43,7 @@ public class CreateTypeLibraryPaletteCommand extends BasePaletteCommand implemen
 	}
 
 	@Override
-	public Optional<Operation> createOperation(final TargetedPaletteCommandContext ctx) {
+	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
 		return ctx.getTarget().getBusinessObject(AadlPackage.class).map(pkg -> {
 			if(hasErrorModelLibrary(pkg)) {
 				return null;

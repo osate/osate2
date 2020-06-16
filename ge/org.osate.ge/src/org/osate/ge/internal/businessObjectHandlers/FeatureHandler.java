@@ -51,15 +51,12 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.DockingPosition;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.aadl2.internal.AadlNamingUtil;
-import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.GetName;
-import org.osate.ge.di.GetNameForEditing;
 import org.osate.ge.di.Names;
-import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.graphics.internal.FeatureGraphic;
@@ -68,7 +65,7 @@ import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.internal.util.AadlPrototypeUtil;
 
-public class FeatureHandler implements BusinessObjectHandler {
+public class FeatureHandler extends AadlBusinessObjectHandler {
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 
@@ -131,9 +128,9 @@ public class FeatureHandler implements BusinessObjectHandler {
 
 	private DockingPosition getDefaultDockingPosition(NamedElement feature, BusinessObjectContext featureBoc) {
 		final DirectionType direction = getDirection(feature, featureBoc);
-		if(direction == DirectionType.IN) {
+		if (direction == DirectionType.IN) {
 			return DockingPosition.LEFT;
-		} else if(direction == DirectionType.OUT) {
+		} else if (direction == DirectionType.OUT) {
 			return DockingPosition.RIGHT;
 		} else {
 			return DockingPosition.ANY;
@@ -175,25 +172,28 @@ public class FeatureHandler implements BusinessObjectHandler {
 		return direction;
 	}
 
-	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) NamedElement feature) {
-		String name = feature.getName() == null ? "" : feature.getName();
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(NamedElement.class).map(feature -> {
+			String name = feature.getName() == null ? "" : feature.getName();
 
-		if (feature instanceof ArrayableElement) {
-			name += AadlArrayUtil.getDimensionUserString((ArrayableElement) feature);
-		}
+			if (feature instanceof ArrayableElement) {
+				name += AadlArrayUtil.getDimensionUserString((ArrayableElement) feature);
+			}
 
-		return name;
+			return name;
+		}).orElse("");
+
 	}
 
-	@GetNameForEditing
-	public String getNameForEditing(final @Named(Names.BUSINESS_OBJECT) NamedElement feature) {
-		return feature.getName();
+	@Override
+	public String getNameForRenaming(GetNameContext ctx) {
+		return ctx.getBusinessObject(NamedElement.class).map(feature -> feature.getName())
+				.orElse("");
 	}
 
-	@ValidateName
-	public String validateName(final @Named(Names.BUSINESS_OBJECT) NamedElement feature,
-			final @Named(Names.NAME) String value) {
-		return AadlNamingUtil.checkNameValidity(feature, value);
+	@Override
+	public boolean canRename(final CanRenameContext ctx) {
+		return true;
 	}
 }

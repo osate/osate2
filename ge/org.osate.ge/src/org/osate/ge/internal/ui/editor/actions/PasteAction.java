@@ -29,7 +29,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EClass;
@@ -49,6 +48,9 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.CanRenameContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
@@ -62,8 +64,6 @@ import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.AadlModificationService.SimpleModifier;
 import org.osate.ge.internal.services.ClipboardService;
-import org.osate.ge.internal.services.ExtensionService;
-import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
 import org.osate.ge.internal.util.AadlImportsUtil;
@@ -102,10 +102,6 @@ public class PasteAction extends ActionStackAction {
 				context.getActive(AadlModificationService.class), "Unable to retrieve AADL modification service");
 		final ReferenceBuilderService refBuilder = Objects.requireNonNull(
 				context.getActive(ReferenceBuilderService.class), "Unable to retrieve reference builder service");
-		final ProjectProvider projectProvider = Objects.requireNonNull(
-				getWorkbenchPart().getAdapter(ProjectProvider.class), "Unable to retrieve project provider");
-		final ExtensionService extService = Objects.requireNonNull(
-				getWorkbenchPart().getAdapter(ExtensionService.class), "Unable to retrieve extension service");
 
 		// This is safe because the constructor requires the part to be an AgeDiagramEditor.
 		final AgeDiagramEditor editor = (AgeDiagramEditor) getWorkbenchPart();
@@ -119,8 +115,7 @@ public class PasteAction extends ActionStackAction {
 			// The modifier will do the actual copying to the diagram elements. It will also copy the business objects
 			// if the copied element includes the business object.
 			final SimpleModifier<EObject> modifier = dstBoToModify -> {
-				newDiagramElements.addAll(copyClipboardContents(dstBoToModify, dstDiagramNode, m, refBuilder,
-						projectProvider, extService));
+				newDiagramElements.addAll(copyClipboardContents(dstBoToModify, dstDiagramNode, m, refBuilder));
 			};
 
 			// If any non-embedded business objects have been copied, then modify the AADL model. Otherwise, just modify the diagram.
@@ -148,8 +143,7 @@ public class PasteAction extends ActionStackAction {
 	 * @return the diagram elements which were created. Does not include children of created diagram elements.
 	 */
 	private Collection<DiagramElement> copyClipboardContents(final EObject dstBoToModify,
-			final DiagramNode dstDiagramNode, final DiagramModification m, final ReferenceBuilderService refBuilder,
-			final ProjectProvider projectProvider, final ExtensionService extService) {
+			final DiagramNode dstDiagramNode, final DiagramModification m, final ReferenceBuilderService refBuilder) {
 		// Determine the minimum coordinates from the elements whose positions will be copied
 		// The minimum coordinates is null if none of the copied diagram elements have an absolute position. This is reasonable because the minimum coordinates
 		// are only needed if a copied diagram element has an absolute position.
@@ -189,8 +183,7 @@ public class PasteAction extends ActionStackAction {
 
 					ensureBusinessObjectHasUniqueName(copiedEObject,
 							copiedDiagramElement.getDiagramElement().getBusinessObjectHandler(),
-							copiedDiagramElement.getDiagramElement().getLabelName(), projectProvider.getProject(),
-							extService);
+							copiedDiagramElement.getDiagramElement().getLabelName());
 
 					ensurePackagesAreImported(copiedEObject);
 
@@ -231,16 +224,13 @@ public class PasteAction extends ActionStackAction {
 	 * @param bo
 	 * @param boHandler
 	 * @param diagramElementName the name provided by the diagram element. Treated as the current name unless the business object handler provided an editing name using GetNameForEditing
-	 * @param project
-	 * @param namingService
-	 * @param extService
 	 */
-	private static void ensureBusinessObjectHasUniqueName(final EObject bo, final Object boHandler,
-			final String diagramElementName, final IProject project,
-			final ExtensionService extService) {
-		if (supportsRenaming(bo, boHandler) && RenameUtil.hasValidateNameMethod(boHandler)) {
+	private static void ensureBusinessObjectHasUniqueName(final EObject bo,
+			final BusinessObjectHandler boHandler,
+			final String diagramElementName) {
+		if (supportsRenaming(bo, boHandler) && boHandler.canRename(new CanRenameContext(bo))) {
 			// Determine the current name of the business object.
-			final String originalName = RenameUtil.getCurrentEditingName(bo, boHandler, extService, diagramElementName);
+			final String originalName = boHandler.getNameForRenaming(new GetNameContext(bo));
 
 			// See the name of the business object to something other than the current name so that name validation for the
 			// copied business object will not treat the name as unchanged. For component implementations, the name needs to
@@ -283,11 +273,11 @@ public class PasteAction extends ActionStackAction {
 					}
 				}
 
-				setName(bo, boHandler, ciTypeName + ".osate_ge_temporary_name_00001", extService);
+				setName(bo, boHandler, ciTypeName + ".osate_ge_temporary_name_00001");
 			} else {
 				// Set name to dummy name so that validate name will work as expected. Many implementations
 				// of validate name check if the name has changed.
-				setName(bo, boHandler, "", extService);
+				setName(bo, boHandler, "");
 			}
 
 			// Determine a new name for the business object
@@ -296,7 +286,7 @@ public class PasteAction extends ActionStackAction {
 
 			int count = 1;
 			while (true) {
-				final String result = RenameUtil.checkNewNameValidity(bo, boHandler, newName, project, extService);
+				final String result = RenameUtil.checkNewNameValidity(bo, boHandler, newName);
 
 				if (result == null) {
 					break;
@@ -315,7 +305,7 @@ public class PasteAction extends ActionStackAction {
 			}
 
 			// Update the business object's name
-			setName(bo, boHandler, newName, extService);
+			setName(bo, boHandler, newName);
 		}
 	}
 
@@ -352,7 +342,7 @@ public class PasteAction extends ActionStackAction {
 	 * @param handler
 	 * @return
 	 */
-	private static boolean supportsRenaming(final Object bo, final Object handler) {
+	private static boolean supportsRenaming(final Object bo, final BusinessObjectHandler handler) {
 		if (bo instanceof NamedElement) {
 			return true;
 		}
@@ -364,12 +354,11 @@ public class PasteAction extends ActionStackAction {
 		return false;
 	}
 
-	private static void setName(final Object bo, final Object handler, final String newName,
-			final ExtensionService extService) {
+	private static void setName(final Object bo, final BusinessObjectHandler handler, final String newName) {
 		if (bo instanceof NamedElement) {
 			((NamedElement) bo).setName(newName);
 		} else {
-			RenameUtil.performNonLtkRename(bo, handler, newName, extService);
+			RenameUtil.performNonLtkRename(bo, handler, newName);
 		}
 	}
 

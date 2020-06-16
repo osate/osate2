@@ -45,9 +45,7 @@ import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ProjectReferenceService;
-import org.osate.ge.internal.ui.util.ImageUiHelper;
 import org.osate.ge.internal.ui.util.UiUtil;
-import org.osate.ge.internal.util.BusinessObjectContextHelper;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 import org.osate.ge.internal.util.DiagramTypeUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
@@ -55,13 +53,12 @@ import org.osate.ge.util.StringUtil;
 
 import com.google.common.collect.ImmutableSet;
 
-public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurationDialog.Model, AutoCloseable {
+public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurationDialog.Model {
 	private final ProjectReferenceService referenceService;
 	private final ExtensionService extService;
 	private final ProjectProvider projectProvider;
 	private final DiagramType diagramType;
 	private final BusinessObjectProviderHelper bopHelper;
-	private final BusinessObjectContextHelper bocHelper;
 
 	public DefaultDiagramConfigurationDialogModel(final ProjectReferenceService referenceService,
 			final ExtensionService extService,
@@ -72,13 +69,6 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 		this.projectProvider = Objects.requireNonNull(projectProvider, "projectProvider must not be null");
 		this.diagramType = Objects.requireNonNull(diagramType, "diagramType must not be null");
 		this.bopHelper = new BusinessObjectProviderHelper(extService);
-		this.bocHelper = new BusinessObjectContextHelper(extService);
-	}
-
-
-	@Override
-	public void close() {
-		bocHelper.close();
 	}
 
 	@Override
@@ -109,7 +99,7 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 	@Override
 	public String getName(final BusinessObjectContext boc) {
 		// Pad with an extra space to avoid text from being clipped.
-		return UiUtil.getDescription(boc, extService, bocHelper) + " ";
+		return UiUtil.getDescription(boc, extService) + " ";
 	}
 
 	@Override
@@ -176,6 +166,6 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 
 	@Override
 	public Image getImage(final Object bo) {
-		return ImageUiHelper.getImage(bo);
+		return UiUtil.getImage(extService, bo).orElse(null);
 	}
 }

@@ -29,6 +29,7 @@ import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 
 public class ErrorModelLibraryHandler implements BusinessObjectHandler {
@@ -40,5 +41,10 @@ public class ErrorModelLibraryHandler implements BusinessObjectHandler {
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		return Optional.empty();
+	}
+
+	@Override
+	public String getName(GetNameContext ctx) {
+		return "";
 	}
 }

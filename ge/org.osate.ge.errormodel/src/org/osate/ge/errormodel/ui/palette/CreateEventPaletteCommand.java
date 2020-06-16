@@ -32,7 +32,7 @@ import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.TargetedPaletteCommand;
-import org.osate.ge.palette.TargetedPaletteCommandContext;
+import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.util.StringUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
@@ -46,7 +46,7 @@ public class CreateEventPaletteCommand extends BasePaletteCommand implements Tar
 	}
 
 	@Override
-	public Optional<Operation> createOperation(final TargetedPaletteCommandContext ctx) {
+	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
 		return Operation.createSimple(ctx.getTarget(), ErrorBehaviorStateMachine.class, stateMachine -> {
 			final ErrorBehaviorEvent newEvent = (ErrorBehaviorEvent) EcoreUtil.create(eventType);
 			final String newEventName = ErrorModelNamingUtil.buildUniqueIdentifier(stateMachine, "new_event");

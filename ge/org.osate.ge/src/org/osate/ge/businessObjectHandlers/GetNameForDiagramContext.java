@@ -21,54 +21,42 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.palette;
+package org.osate.ge.businessObjectHandlers;
 
 import java.util.Objects;
 
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.DockingPosition;
 import org.osate.ge.services.QueryService;
 
 /**
- * Contains information provided to targeted palette commands.
- * @noinstantiate This class is not intended to be instantiated by clients.
- * @noextend This class is not intended to be subclassed by clients.
+ * Contains contextual information when requesting the name used for the primary label for diagram elements representing the business
+ * object in the diagram editor.
+ *
  * @since 2.0
+ * @noextend This class is not intended to be subclassed by clients.
+ * @noinstantiate This class is not intended to be instantiated by clients.
  */
-public final class TargetedPaletteCommandContext {
-	private final BusinessObjectContext targetBoc;
-	private final DockingPosition dockingPostion;
+public class GetNameForDiagramContext {
+	private final BusinessObjectContext boc;
 	private final QueryService queryService;
 
 	/**
-	 * Creates a new instance
-	 * @param targetBoc is the target for the command.
-	 * @param dockingPostion is the most appropriate DockingPosition based on the location at which the command was activated is being created.
+	 * Creates a new instance.
+	 * @param boc is the business object context for which to retrieve the label
 	 * @param queryService is a query service instance to provide to the palette command.
 	 * @noreference This constructor is not intended to be referenced by clients.
 	 */
-	public TargetedPaletteCommandContext(final BusinessObjectContext targetBoc, final DockingPosition dockingPostion,
-			final QueryService queryService) {
-		this.targetBoc = Objects.requireNonNull(targetBoc, "targetBoc must not be null");
-		this.dockingPostion = Objects.requireNonNull(dockingPostion,
-				"targetDockingPosition must not be null");
+	public GetNameForDiagramContext(final BusinessObjectContext boc, final QueryService queryService) {
+		this.boc = Objects.requireNonNull(boc, "boc must not be null");
 		this.queryService = Objects.requireNonNull(queryService, "queryService must not be null");
 	}
 
 	/**
-	 * Returns the business object context based on the location at which the command is being activated.
-	 * @return the business object context in which the command is being activated.
+	 * Returns the business object context for which to return the name.
+	 * @return the business object context for which to return the name.
 	 */
-	public final BusinessObjectContext getTarget() {
-		return targetBoc;
-	}
-
-	/**
-	 * Return the docking position based on the location at which the command is being activated.
-	 * @return the docking position
-	 */
-	public final DockingPosition getDockingPosition() {
-		return dockingPostion;
+	public BusinessObjectContext getBusinessObjectContext() {
+		return boc;
 	}
 
 	/**

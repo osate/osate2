@@ -23,30 +23,58 @@
  */
 package org.osate.ge.palette;
 
-import java.util.Optional;
+import java.util.Objects;
+
+import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.services.QueryService;
 
 /**
- * Base interface for all palettte commands. In general, {@link TargetedPaletteCommand} and {@link CreateConnectionPaletteCommand} should be implemented.
+ * Contains information provided to the palette command to create an operation to create a connection.
+ *
+ * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  * @since 2.0
- *
  */
-public interface PaletteCommand {
-	/**
-	 * Returns a category ID for the command.
-	 * @return the id of the category used to group the command. Must not return null.
-	 */
-	String getCategoryId();
+public final class GetCreateConnectionOperationContext {
+	private final BusinessObjectContext sourceBoc;
+	private final BusinessObjectContext destinationBoc;
+	private final QueryService queryService;
 
 	/**
-	 * Returns a label to be used in the user interface for the command.
-	 * @return the label for the command.
+	 * Create a new instance.
+	 * @param sourceBoc the start of the connection.
+	 * @param destinationBoc the end of the connection.
+	 * @param queryService is a query service instance to provide to the palette command.
+	 * @noreference This constructor is not intended to be referenced by clients.
 	 */
-	String getLabel();
+	public GetCreateConnectionOperationContext(final BusinessObjectContext sourceBoc,
+			final BusinessObjectContext destinationBoc, final QueryService queryService) {
+		this.sourceBoc = Objects.requireNonNull(sourceBoc, "sourceBoc must not be null");
+		this.destinationBoc = Objects.requireNonNull(destinationBoc, "destinationBoc must not be null");
+		this.queryService = Objects.requireNonNull(queryService, "queryService must not be null");
+	}
 
 	/**
-	 * Returns an icon to display for the command.
-	 * @return an optional describing the icon used for the command.
+	 * Returns the business object context which defines the start of the connection.
+	 * @return the start of the connection.
 	 */
-	Optional<String> getIconId();
+	public final BusinessObjectContext getSource() {
+		return sourceBoc;
+	}
+
+	/**
+	 * Returns the business object context which defines the end of the connection.
+	 * @return the end of the connection.
+	 */
+	public final BusinessObjectContext getDestination() {
+		return destinationBoc;
+	}
+
+	/**
+	 * Returns the query service
+	 * @return the query service
+	 */
+	public final QueryService getQueryService() {
+		return queryService;
+	}
 }

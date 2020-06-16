@@ -38,9 +38,9 @@ import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResult;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
-import org.osate.ge.palette.ConnectionStartContext;
+import org.osate.ge.palette.CanStartConnectionContext;
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
-import org.osate.ge.palette.CreateConnectionContext;
+import org.osate.ge.palette.GetCreateConnectionOperationContext;
 import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement;
@@ -58,14 +58,14 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 	}
 
 	@Override
-	public boolean canStartConnection(ConnectionStartContext ctx) {
+	public boolean canStartConnection(CanStartConnectionContext ctx) {
 		final Object src = ctx.getSource().getBusinessObject();
 		return src instanceof ErrorBehaviorState || src instanceof ErrorBehaviorTransition
 				|| src instanceof BehaviorTransitionTrunk || src instanceof TransitionBranch;
 	}
 
 	@Override
-	public Optional<Operation> createOperation(CreateConnectionContext ctx) {
+	public Optional<Operation> getOperation(GetCreateConnectionOperationContext ctx) {
 		return ctx.getDestination().getBusinessObject(ErrorBehaviorState.class).map(targetStateReadonly -> {
 			if(getStateMachine(ctx.getSource().getBusinessObject()) != getStateMachine(targetStateReadonly)) {
 				return null;

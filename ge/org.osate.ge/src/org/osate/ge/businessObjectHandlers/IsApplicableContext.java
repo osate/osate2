@@ -26,9 +26,9 @@ package org.osate.ge.businessObjectHandlers;
 import java.util.Objects;
 import java.util.Optional;
 
-// TODO: Rename
-
 /**
+ * Contains contextual information for determining the applicability of a business object handler.
+ *
  * @since 2.0
  * @noextend This class is not intended to be subclassed by clients.
  */
@@ -36,7 +36,7 @@ public class IsApplicableContext {
 	private final Object bo;
 
 	/**
-	 * Context used to check applicability of a business object handler
+	 * Creates a new instance.
 	 * @param bo is the business object for which to check whether the business object handler is applicable.
 	 * @noreference This constructor is not intended to be referenced by clients.
 	 */
@@ -44,7 +44,16 @@ public class IsApplicableContext {
 		this.bo = Objects.requireNonNull(bo, "bo must not be null");
 	}
 
-	// TODO: Document
+	/**
+	 * Retrieves the business object for which the business object handler is being checked for applicability if it is an instance
+	 * of the specified class.
+	 * @param <T> is the requested type.
+	 * @param c is the class to which to cast the business object.
+	 * @return an optional containing the context's business object. An empty optional if the context's business object is not
+	 * an instance the specified class.
+	 *
+	 * @since 2.0
+	 */
 	public <T> Optional<T> getBusinessObject(final Class<T> boType) {
 		if (!boType.isInstance(bo)) {
 			return Optional.empty();

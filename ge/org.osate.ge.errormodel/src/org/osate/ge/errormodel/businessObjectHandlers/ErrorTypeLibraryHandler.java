@@ -30,7 +30,7 @@ import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
-import org.osate.ge.di.GetName;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.errormodel.model.ErrorTypeLibrary;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
@@ -48,8 +48,8 @@ public class ErrorTypeLibraryHandler implements BusinessObjectHandler {
 		return Optional.of(GraphicalConfigurationBuilder.create().graphic(graphic).build());
 	}
 
-	@GetName
-	public String getName() {
+	@Override
+	public String getName(final GetNameContext ctx) {
 		return "Error Type Library";
 	}
 }

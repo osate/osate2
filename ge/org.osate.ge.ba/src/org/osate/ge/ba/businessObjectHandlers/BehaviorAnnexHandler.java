@@ -30,6 +30,7 @@ import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 
 public class BehaviorAnnexHandler implements BusinessObjectHandler {
 	@Override
@@ -40,5 +41,11 @@ public class BehaviorAnnexHandler implements BusinessObjectHandler {
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		return Optional.empty();
+	}
+
+	@Override
+	public String getName(final GetNameContext ctx) {
+		// Hide this element from the user interface
+		return "";
 	}
 }

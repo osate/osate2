@@ -30,7 +30,6 @@ import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.graphics.Color;
@@ -42,8 +41,7 @@ import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.query.Supplier;
 import org.osate.ge.services.QueryService;
 
-public class FlowPathSpecificationInstanceHandler extends FlowSpecificationInstanceHandler
-implements BusinessObjectHandler {
+public class FlowPathSpecificationInstanceHandler extends FlowSpecificationInstanceHandler {
 	private static final Supplier<FlowSpecificationInstance, Object[]> getPathToFlowSpecificationInstanceSource = (
 			fsi) -> AadlHelper.getPathToBusinessObject(fsi.getComponentInstance(), fsi.getSource());
 			private static final StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent()

@@ -32,13 +32,13 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.RenameContext;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.GetName;
-import org.osate.ge.di.GetNameForEditing;
 import org.osate.ge.di.Names;
-import org.osate.ge.di.ValidateName;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
 import org.osate.ge.graphics.Color;
@@ -88,10 +88,10 @@ public class ErrorBehaviorTransitionHandler implements BusinessObjectHandler {
 		final ErrorBehaviorTransition transition = boc.getBusinessObject(ErrorBehaviorTransition.class).get();
 		final QueryService queryService = ctx.getQueryService();
 		if (transition.getDestinationBranches().isEmpty()) {
-			return Optional.of(GraphicalConfigurationBuilder.create().graphic(
-					ErrorModelGeUtil.transitionConnectionGraphic)
-					.style(ErrorModelGeUtil.transitionConnectionStyle).source(getSource(boc, queryService))
-					.destination(getDestination(boc, queryService)).build());
+			return Optional
+					.of(GraphicalConfigurationBuilder.create().graphic(ErrorModelGeUtil.transitionConnectionGraphic)
+							.style(ErrorModelGeUtil.transitionConnectionStyle).source(getSource(boc, queryService))
+							.destination(getDestination(boc, queryService)).build());
 		} else {
 			return Optional.of(
 					GraphicalConfigurationBuilder.create().graphic(branchPointGraphic).style(branchPointStyle).build());
@@ -107,25 +107,33 @@ public class ErrorBehaviorTransitionHandler implements BusinessObjectHandler {
 		return queryService.getFirstResult(dstQuery, boc);
 	}
 
-	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorTransition bo) {
-		final String name = bo.getName() == null ? "" : bo.getName() + ": ";
-		return name + getText(bo.getCondition()).map(t -> "-[" + t + "]").orElse("");
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(ErrorBehaviorTransition.class).map(bo -> {
+			final String name = bo.getName() == null ? "" : bo.getName() + ": ";
+			return name + getText(bo.getCondition()).map(t -> "-[" + t + "]").orElse("");
+		}).orElse("");
 	}
 
 	private static Optional<String> getText(final ConditionExpression e) {
 		return Optional.ofNullable(e).map(el -> NodeModelUtils.findActualNodeFor(el)).map(n -> n.getText());
 	}
 
-	@GetNameForEditing
-	public String getNameForEditing(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorTransition bo) {
-		return bo.getName();
+	@Override
+	public String getNameForRenaming(final GetNameContext ctx) {
+		return ctx.getBusinessObject(ErrorBehaviorTransition.class).map(bo -> bo.getName()).orElse("");
 	}
 
-	@ValidateName
-	public String validateName(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorTransition transition,
-			final @Named(Names.NAME) String value) {
-		final ErrorBehaviorStateMachine stateMachine = (ErrorBehaviorStateMachine) transition.eContainer();
-		return ErrorModelNamingUtil.validateName(stateMachine, transition.getName(), value);
+	@Override
+	public boolean canRename(final CanRenameContext ctx) {
+		return true;
+	}
+
+	@Override
+	public Optional<String> validateName(final RenameContext ctx) {
+		return ctx.getBusinessObject(ErrorBehaviorTransition.class).map(transition -> {
+			final ErrorBehaviorStateMachine stateMachine = (ErrorBehaviorStateMachine) transition.eContainer();
+			return ErrorModelNamingUtil.validateName(stateMachine, transition.getName(), ctx.getNewName());
+		});
 	}
 }

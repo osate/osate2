@@ -34,7 +34,88 @@ import org.osate.ge.GraphicalConfiguration;
  * @since 2.0
  */
 public interface BusinessObjectHandler {
+	/**
+	 * Determines whether a business object handler is applicable based on the specified context. This method should return true if the
+	 * business object handler handles the business object provided in the context. If this method returns false, no other methods will be executed
+	 * for the specified business object.
+	 * @param ctx is the context which contains the business object for which the handler is being checked for applicability.
+	 * @return whether the business object handler is applicable based on the specified context.
+	 */
 	boolean isApplicable(IsApplicableContext ctx);
 
+	/**
+	 * Returns the graphical configuration for the specified context.
+	 * An empty optional should only be returned in specialized cases. In most cases a handler should return false in {@link #isApplicable(IsApplicableContext)}
+	 * Such cases where an empty optional is appropriate include:
+	 * <ul>
+	 * <li>A business object handler for an annex library or subclause. This will override the default AADL annex library or subclause behavior and
+	 * result in a representation of the annex library or subclause not appearing in the diagram.</li>
+	 * <li>Cases where it is not possible to determine whether the element can be represented graphically during {@link #isApplicable(IsApplicableContext)}.
+	 * For example: if the appearance of the element depends on the existence of another element.</li>
+	 * </ul>
+	 * @param ctx is the context for which to return the graphical configuration.
+	 * @return the graphical configuration for the specified context or an empty optional if the business object should not be shown in the diagram.
+	 */
 	Optional<GraphicalConfiguration> getGraphicalConfiguration(GetGraphicalConfigurationContext ctx);
+
+	/**
+	 * Gets the name that should be displayed in labels for the business object in the user interface.
+	 * This value is also used in the default implementations of {@link #getNameForDiagram(GetNameForDiagramContext)} and {@link #getNameForRenaming(GetNameContext)}
+	 * A blank string will result in the object and its children not appearing the the outline or configure diagram dialog.
+	 * @param ctx is the context for the request.
+	 * @return the name that should be displayed for the business object in the user interface. Must not be null.
+	 */
+	String getName(GetNameContext ctx);
+
+	/**
+	 * Returns the name that should be used for the primary label for diagram elements representing the business object in the diagram editor.
+	 * A blank string will result in the no label being displayed in the diagram editor.
+	 * Defaults to the value returned by {@link #getNameForUserInterface}
+	 * @param ctx the context for the request.
+	 * @return is the name to be displayed for the business object in the diagram editor. Must not be null.
+	 */
+	default String getNameForDiagram(final GetNameForDiagramContext ctx) {
+		return getName(new GetNameContext(ctx.getBusinessObjectContext().getBusinessObject()));
+	}
+
+	/**
+	 * Gets the name of the element that is edited by the user during the renaming process.
+	 * Used as the initial value when the user is editing the name of a business object.
+	 * Defaults to the value returned by {@link #getNameForUserInterface}
+	 * @param ctx the context for the request.
+	 * @return the name that should be the initial value when a user is editing the name of a business object. Must not be null.
+	 */
+	default String getNameForRenaming(final GetNameContext ctx) {
+		return getName(ctx);
+	}
+
+	/**
+	 * Returns an icon to use for the business object specified in the context.
+	 * @param ctx the context for the request.
+	 * @return an optional describing the icon used for the command.
+	 */
+	default Optional<String> getIconId(final GetIconIdContext ctx) {
+		return Optional.empty();
+	}
+
+	/**
+	 * Returns true if the business object specified in the context can be renamed. If this method returns true, the business object
+	 * should be supported by the graphical editor's the LTK-based rename refactoring or the business object handler must implement
+	 * the {@link CustomRenamer} interface.
+	 * @param ctx the context for the request.
+	 * @return whether the business object can be renamed.
+	 */
+	default boolean canRename(final CanRenameContext ctx) {
+		return false;
+	}
+
+	/**
+	 * Determines whether a proposed name is a valid new name for a business object.
+	 * should be implemented if {@link #canRename(CanRenameContext) is implemented.
+	 * @param ctx the context for the request.
+	 * @return empty if validation succeeds. Otherwise, a validation error to be presented to the user. Must not return null.
+	 */
+	default Optional<String> validateName(final RenameContext ctx) {
+		return Optional.empty();
+	}
 }

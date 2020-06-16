@@ -30,9 +30,9 @@ import javax.inject.Named;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
@@ -64,8 +64,10 @@ public class NoteHandler implements BusinessObjectHandler {
 				.build());
 	}
 
-	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) Note note) {
-		return note.getText().trim();
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(Note.class)
+				.map(note -> note.getText().trim())
+				.orElse("");
 	}
 }

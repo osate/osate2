@@ -25,17 +25,14 @@ package org.osate.ge.internal.businessObjectHandlers;
 
 import java.util.Optional;
 
-import javax.inject.Named;
-
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.aadl2.internal.model.PropertyValueGroup;
-import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
+import org.osate.ge.businessObjectHandlers.GetNameForDiagramContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
-import org.osate.ge.di.GetName;
-import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
@@ -46,9 +43,8 @@ import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.aadlproperties.PropertyValueFormatter;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.util.BusinessObjectContextUtil;
-import org.osate.ge.services.QueryService;
 
-public class PropertyValueGroupHandler implements BusinessObjectHandler {
+public class PropertyValueGroupHandler extends AadlBusinessObjectHandler {
 	private final Graphic labelGraphic = LabelBuilder.create().build();
 	private static final Graphic graphic = ConnectionBuilder.create().
 			destinationTerminator(ArrowBuilder.create().filled().small().build()).
@@ -103,14 +99,19 @@ public class PropertyValueGroupHandler implements BusinessObjectHandler {
 				build();
 	}
 
-	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
-			final @Named(Names.BUSINESS_OBJECT) PropertyValueGroup pvg,
-			final QueryService queryService) {
+	@Override
+	public String getNameForDiagram(final GetNameForDiagramContext ctx) {
+		return ctx.getBusinessObjectContext().getBusinessObject(PropertyValueGroup.class).map(pvg -> {
+			final boolean includeOnlyValuesBasedOnCompletelyProcessedAssociations = pvg.getReferenceId() == null;
+			final boolean includeValues = pvg.getReferenceId() == null;
+			return PropertyValueFormatter.getUserString(ctx.getBusinessObjectContext(),
+					true,
+					includeOnlyValuesBasedOnCompletelyProcessedAssociations, includeValues, false, false);
+		}).orElse("");
+	}
 
-		final boolean includeOnlyValuesBasedOnCompletelyProcessedAssociations = pvg.getReferenceId() == null;
-		final boolean includeValues = pvg.getReferenceId() == null;
-		return PropertyValueFormatter.getUserString(boc, true, includeOnlyValuesBasedOnCompletelyProcessedAssociations,
-				includeValues, false, false);
+	@Override
+	public String getName(GetNameContext ctx) {
+		return "";
 	}
 }

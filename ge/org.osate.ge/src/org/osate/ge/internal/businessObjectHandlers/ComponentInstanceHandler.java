@@ -25,19 +25,15 @@ package org.osate.ge.internal.businessObjectHandlers;
 
 import java.util.Optional;
 
-import javax.inject.Named;
-
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
-import org.osate.ge.di.GetName;
-import org.osate.ge.di.Names;
 
-public class ComponentInstanceHandler implements BusinessObjectHandler {
+public class ComponentInstanceHandler extends AadlBusinessObjectHandler {
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(ComponentInstance.class).isPresent();
@@ -55,8 +51,9 @@ public class ComponentInstanceHandler implements BusinessObjectHandler {
 				build());
 	}
 
-	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) ComponentInstance ci) {
-		return ci.getFullName();
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(ComponentInstance.class).map(ci -> ci.getFullName())
+				.orElse("");
 	}
 }

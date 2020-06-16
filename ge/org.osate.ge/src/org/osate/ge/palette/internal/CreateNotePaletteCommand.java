@@ -35,7 +35,7 @@ import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.TargetedPaletteCommand;
-import org.osate.ge.palette.TargetedPaletteCommandContext;
+import org.osate.ge.palette.GetTargetedOperationContext;
 
 public class CreateNotePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 
@@ -44,7 +44,7 @@ public class CreateNotePaletteCommand extends BasePaletteCommand implements Targ
 	}
 
 	@Override
-	public Optional<Operation> createOperation(final TargetedPaletteCommandContext ctx) {
+	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
 		if (!(ctx.getTarget() instanceof DiagramNode)) {
 			return Optional.empty();
 		}

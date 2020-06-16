@@ -31,10 +31,9 @@ import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
-import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
@@ -46,7 +45,7 @@ import org.osate.ge.services.QueryService;
 
 import com.google.common.base.Strings;
 
-public class ModeTransitionTriggerHandler implements BusinessObjectHandler {
+public class ModeTransitionTriggerHandler extends AadlBusinessObjectHandler {
 	private static final Graphic graphic = ConnectionBuilder.create().build();
 	private static final Style style = StyleBuilder.create().backgroundColor(Color.BLACK).dashed()
 			.primaryLabelVisible(false).build();
@@ -74,7 +73,12 @@ public class ModeTransitionTriggerHandler implements BusinessObjectHandler {
 				build());
 	}
 
-	@GetName
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(ModeTransitionTrigger.class)
+				.map(this::getName).orElse("");
+	}
+
 	public String getName(final @Named(Names.BUSINESS_OBJECT) ModeTransitionTrigger mtt) {
 		final String portName = Strings
 				.nullToEmpty(mtt.getTriggerPort() == null ? null : mtt.getTriggerPort().getName());

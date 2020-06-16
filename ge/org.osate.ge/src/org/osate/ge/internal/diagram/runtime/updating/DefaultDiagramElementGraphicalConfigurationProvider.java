@@ -28,23 +28,23 @@ import java.util.Objects;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
+import org.osate.ge.businessObjectHandlers.GetNameForDiagramContext;
 import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.businessObjectHandlers.BusinessObjectHandlerProvider;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectReferenceService;
-import org.osate.ge.internal.util.BusinessObjectContextHelper;
 import org.osate.ge.services.QueryService;
 
 /**
  * DiagramElementGraphicalConfigurationProvider implementation that uses business object handlers.
  *
  */
-public class DefaultDiagramElementGraphicalConfigurationProvider implements DiagramElementInformationProvider, AutoCloseable {
+public class DefaultDiagramElementGraphicalConfigurationProvider implements DiagramElementInformationProvider {
 	private final BusinessObjectHandlerProvider bohProvider;
 	private final QueryService queryService;
 	private final AgeDiagramProvider diagramProvider;
-	private final BusinessObjectContextHelper bocHelper;
 
 	public DefaultDiagramElementGraphicalConfigurationProvider(final ProjectReferenceService refService,
 			final QueryService queryService, final AgeDiagramProvider diagramProvider,
@@ -52,24 +52,18 @@ public class DefaultDiagramElementGraphicalConfigurationProvider implements Diag
 		this.bohProvider = Objects.requireNonNull(extService, "extService must not be null");
 		this.queryService = Objects.requireNonNull(queryService, "queryService must not be null");
 		this.diagramProvider = Objects.requireNonNull(diagramProvider, "diagramProvider must not be null");
-		this.bocHelper = new BusinessObjectContextHelper(extService);
-	}
-
-	@Override
-	public void close() {
-		bocHelper.close();
 	}
 
 	@Override
 	public String getLabelName(final DiagramElement element) {
-		final Object boh = element.getBusinessObjectHandler();
-		return bocHelper.getNameForLabel(element, boh);
+		return element.getBusinessObjectHandler()
+				.getNameForDiagram(new GetNameForDiagramContext(element, queryService));
 	}
 
 	@Override
 	public String getUserInterfaceName(final DiagramElement element) {
-		final Object boh = element.getBusinessObjectHandler();
-		return bocHelper.getNameForUserInterface(element, boh);
+		return element.getBusinessObjectHandler()
+				.getName(new GetNameContext(element.getBusinessObject()));
 	}
 
 	@Override

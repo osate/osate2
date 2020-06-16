@@ -36,21 +36,21 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
-import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.RenameContext;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
-import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.internal.FolderGraphicBuilder;
 import org.osate.ge.internal.di.DeleteRaw;
-import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.services.ReferenceService;
+import org.osate.ge.internal.util.ProjectUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 
-public class PackageHandler implements BusinessObjectHandler {
+public class PackageHandler extends AadlBusinessObjectHandler {
 	private final Graphic graphic = FolderGraphicBuilder.create().build();
 
 	@Override
@@ -65,41 +65,50 @@ public class PackageHandler implements BusinessObjectHandler {
 				build());
 	}
 
-	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) AadlPackage pkg) {
-		return pkg.getQualifiedName();
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(AadlPackage.class).map(pkg -> pkg.getQualifiedName())
+				.orElse("");
 	}
 
-	@ValidateName
-	public String validateName(final @Named(Names.BUSINESS_OBJECT) AadlPackage pkg,
-			final @Named(Names.NAME) String value,
-			final @Named(InternalNames.PROJECT) IProject project) {
-		// If the name hasn't changed or has only changed case
-		final String qualifiedName = getName(pkg);
-		if (value.equalsIgnoreCase(qualifiedName)) {
+	@Override
+	public boolean canRename(final CanRenameContext ctx) {
+		return true;
+	}
+
+	@Override
+	public Optional<String> validateName(final RenameContext ctx) {
+		return ctx.getBusinessObject(AadlPackage.class).map(pkg -> {
+			final String newName = ctx.getNewName();
+
+			// If the name hasn't changed or has only changed case
+			final String qualifiedName = pkg.getQualifiedName();
+			if (newName.equalsIgnoreCase(qualifiedName)) {
+				return null;
+			}
+
+			final String[] segments = newName.split("::");
+			for (String segment : segments) {
+				if (segment.length() == 0) {
+					return "One of the segments in the package name is empty.";
+				}
+
+				if (!AadlNamingUtil.isValidIdentifier(segment)) {
+					return "The segment '" + segment + "' is not valid.";
+				}
+			}
+			// Compare names with other packages
+			final IProject project = ProjectUtil.getProjectForBoOrThrow(pkg);
+			for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(project,
+					Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage())) {
+				if (newName.equalsIgnoreCase(desc.getQualifiedName().toString("::"))) {
+					return "The specified name conflicts with an existing package.";
+				}
+			}
+
+			// The value is valid
 			return null;
-		}
-
-		final String[] segments = value.split("::");
-		for(String segment : segments) {
-			if(segment.length() == 0) {
-				return "One of the segments in the package name is empty.";
-			}
-
-			if (!AadlNamingUtil.isValidIdentifier(segment)) {
-				return "The segment '" + segment + "' is not valid.";
-			}
-		}
-		// Compare names with other packages
-		for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(project,
-				Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage())) {
-			if(value.equalsIgnoreCase(desc.getQualifiedName().toString("::"))) {
-				return "The specified name conflicts with an existing package.";
-			}
-		}
-
-		// The value is valid
-		return null;
+		});
 	}
 
 	@CanDelete

@@ -80,60 +80,55 @@ public class ConfigureDiagramHandler extends AbstractHandler {
 		final TreeUpdater boTreeExpander = featureProvider.getBoTreeUpdater();
 		final DiagramUpdater diagramUpdater = featureProvider.getDiagramUpdater();
 		final GraphitiService graphitiService = Objects.requireNonNull(
-				Adapters.adapt(diagramEditor, GraphitiService.class),
-				"Unable to retrieve graphiti service");
+				Adapters.adapt(diagramEditor, GraphitiService.class), "Unable to retrieve graphiti service");
 		final ExtensionService extService = Objects.requireNonNull(
-				Adapters.adapt(diagramEditor, ExtensionService.class),
-				"Unable to retrieve extension service");
-		final ProjectReferenceService referenceService = Objects
-				.requireNonNull(Adapters.adapt(diagramEditor, ProjectReferenceService.class),
-						"Unable to retrieve reference service");
+				Adapters.adapt(diagramEditor, ExtensionService.class), "Unable to retrieve extension service");
+		final ProjectReferenceService referenceService = Objects.requireNonNull(
+				Adapters.adapt(diagramEditor, ProjectReferenceService.class), "Unable to retrieve reference service");
 		final ActionService actionService = Objects.requireNonNull(Adapters.adapt(diagramEditor, ActionService.class),
 				"Unable to retrieve action service");
 
 		BusinessObjectNode boTree = DiagramToBusinessObjectTreeConverter.createBusinessObjectNode(diagram);
 
-
 		// Update the tree so that it's business objects are refreshed
 		boTree = boTreeExpander.expandTree(diagram.getConfiguration(), boTree);
 
-		try (final DefaultDiagramConfigurationDialogModel model = new DefaultDiagramConfigurationDialogModel(
-				referenceService, extService, graphitiService, diagram.getConfiguration().getDiagramType())) {
-			// Create a BO path for the initial selection. The initial selection will be the first diagram element which will be included in the BO tree.
-			Object[] initialSelectionBoPath = null;
-			for (final DiagramElement selectedDiagramElement : selectedDiagramElements) {
-				if (model.shouldShowBusinessObject(selectedDiagramElement.getBusinessObject())) { // Only build a selection path if the BO will be shown
-					DiagramNode tmp = selectedDiagramElement;
-					final LinkedList<Object> boList = new LinkedList<>();
-					while (tmp instanceof DiagramElement) {
-						boList.addFirst(tmp.getBusinessObject());
-						tmp = tmp.getParent();
-					}
-
-					initialSelectionBoPath = boList.toArray();
-					break;
+		final DefaultDiagramConfigurationDialogModel model = new DefaultDiagramConfigurationDialogModel(
+				referenceService, extService, graphitiService, diagram.getConfiguration().getDiagramType());
+		// Create a BO path for the initial selection. The initial selection will be the first diagram element which will be included in the BO tree.
+		Object[] initialSelectionBoPath = null;
+		for (final DiagramElement selectedDiagramElement : selectedDiagramElements) {
+			if (model.shouldShowBusinessObject(selectedDiagramElement.getBusinessObject())) { // Only build a selection path if the BO will be shown
+				DiagramNode tmp = selectedDiagramElement;
+				final LinkedList<Object> boList = new LinkedList<>();
+				while (tmp instanceof DiagramElement) {
+					boList.addFirst(tmp.getBusinessObject());
+					tmp = tmp.getParent();
 				}
+
+				initialSelectionBoPath = boList.toArray();
+				break;
 			}
+		}
 
-			// Show the dialog
-			final DiagramConfigurationDialog.Result result = DiagramConfigurationDialog.show(null, model,
-					diagram.getConfiguration(), boTree, initialSelectionBoPath);
-			if (result != null) {
-				// Update the diagram
-				actionService.execute("Set Diagram Configuration", ExecutionMode.NORMAL, () -> {
-					diagram.modify("Set Diagram Configuration", m -> {
-						m.setDiagramConfiguration(result.getDiagramConfiguration());
-						diagramUpdater.updateDiagram(diagram, result.getBusinessObjectTree());
-					});
-					// Clear ghosts triggered by this update to prevent them from being unghosted during the next update.
-					diagramUpdater.clearGhosts();
-
-					diagram.modify("Layout",
-							m -> DiagramElementLayoutUtil.layoutIncrementally(diagram, m, graphitiService));
-
-					return null;
+		// Show the dialog
+		final DiagramConfigurationDialog.Result result = DiagramConfigurationDialog.show(null, model,
+				diagram.getConfiguration(), boTree, initialSelectionBoPath);
+		if (result != null) {
+			// Update the diagram
+			actionService.execute("Set Diagram Configuration", ExecutionMode.NORMAL, () -> {
+				diagram.modify("Set Diagram Configuration", m -> {
+					m.setDiagramConfiguration(result.getDiagramConfiguration());
+					diagramUpdater.updateDiagram(diagram, result.getBusinessObjectTree());
 				});
-			}
+				// Clear ghosts triggered by this update to prevent them from being unghosted during the next update.
+				diagramUpdater.clearGhosts();
+
+				diagram.modify("Layout",
+						m -> DiagramElementLayoutUtil.layoutIncrementally(diagram, m, graphitiService));
+
+				return null;
+			});
 		}
 
 		return null;

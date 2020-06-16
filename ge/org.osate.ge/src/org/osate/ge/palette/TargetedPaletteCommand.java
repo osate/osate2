@@ -37,11 +37,11 @@ import org.osate.ge.operations.Operation;
  */
 public interface TargetedPaletteCommand extends PaletteCommand {
 	/**
-	 * Creates an operation that will executed when the command is activated. This method
+	 * Gets an operation that will executed when the command is activated. This method
 	 * must be a low cost method and must not prompt the user. However, the provided operation may prompt the user
 	 * as appropriate. An empty optional is considered an indication that the command is not valid for the specified context.
 	 * @param ctx is the context for the command.
 	 * @return an optional describing the operation that should be executed when the command is activated.
 	 */
-	Optional<Operation> createOperation(TargetedPaletteCommandContext ctx);
+	Optional<Operation> getOperation(GetTargetedOperationContext ctx);
 }

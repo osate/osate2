@@ -39,8 +39,8 @@ import org.osate.ge.internal.operations.OperationExecutor;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.AgeAction;
-import org.osate.ge.palette.ConnectionStartContext;
-import org.osate.ge.palette.CreateConnectionContext;
+import org.osate.ge.palette.CanStartConnectionContext;
+import org.osate.ge.palette.GetCreateConnectionOperationContext;
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.services.QueryService;
 import org.osate.ge.services.ReferenceBuilderService;
@@ -91,12 +91,12 @@ public class PaletteCommandCreateConnectionFeature extends AbstractCreateConnect
 			return false;
 		}
 
-		return cmd.canStartConnection(new ConnectionStartContext(srcElement, queryService));
+		return cmd.canStartConnection(new CanStartConnectionContext(srcElement, queryService));
 	}
 
 	@Override
 	public boolean canCreate(final ICreateConnectionContext context) {
-		return createContext(context).flatMap(cmd::createOperation).isPresent();
+		return createContext(context).flatMap(cmd::getOperation).isPresent();
 	}
 
 	@Override
@@ -105,7 +105,7 @@ public class PaletteCommandCreateConnectionFeature extends AbstractCreateConnect
 			class CreateAction implements AgeAction {
 				@Override
 				public AgeAction execute() {
-					cmd.createOperation(c).ifPresent(operation -> {
+					cmd.getOperation(c).ifPresent(operation -> {
 						// Perform modification
 						final OperationExecutor opExecutor = new OperationExecutor(aadlModService);
 						opExecutor.execute(operation,
@@ -125,7 +125,7 @@ public class PaletteCommandCreateConnectionFeature extends AbstractCreateConnect
 		return null;
 	}
 
-	private Optional<CreateConnectionContext> createContext(final ICreateConnectionContext context) {
+	private Optional<GetCreateConnectionOperationContext> createContext(final ICreateConnectionContext context) {
 		final GraphitiAgeDiagram graphitiAgeDiagram = graphitiService.getGraphitiAgeDiagram();
 		final DiagramElement srcElement = graphitiAgeDiagram
 				.getClosestDiagramElement(context.getSourcePictogramElement());
@@ -135,6 +135,6 @@ public class PaletteCommandCreateConnectionFeature extends AbstractCreateConnect
 			return Optional.empty();
 		}
 
-		return Optional.of(new CreateConnectionContext(srcElement, dstElement, queryService));
+		return Optional.of(new GetCreateConnectionOperationContext(srcElement, dstElement, queryService));
 	}
 }

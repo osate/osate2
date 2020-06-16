@@ -25,16 +25,13 @@ package org.osate.ge.ba.businessObjectHandlers;
 
 import java.util.Optional;
 
-import javax.inject.Named;
-
 import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
-import org.osate.ge.di.GetName;
-import org.osate.ge.di.Names;
 import org.osate.ge.graphics.EllipseBuilder;
 import org.osate.ge.graphics.Graphic;
 
@@ -48,13 +45,11 @@ public class BaStateHandler implements BusinessObjectHandler {
 
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
-		return Optional.of(GraphicalConfigurationBuilder.create().
-				graphic(graphic).
-				build());
+		return Optional.of(GraphicalConfigurationBuilder.create().graphic(graphic).build());
 	}
 
-	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) BehaviorState state) {
-		return state.getFullName();
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(BehaviorState.class).map(state -> state.getFullName()).orElse("");
 	}
 }

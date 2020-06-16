@@ -32,6 +32,7 @@ import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.Names;
@@ -79,5 +80,10 @@ public class NoteReferenceHandler implements BusinessObjectHandler {
 				graphic)
 				.source(boc.getParent())
 				.destination(referencedElement).style(style).build());
+	}
+
+	@Override
+	public String getName(GetNameContext ctx) {
+		return "";
 	}
 }

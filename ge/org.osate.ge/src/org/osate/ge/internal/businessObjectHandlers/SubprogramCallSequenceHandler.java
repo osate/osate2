@@ -31,21 +31,19 @@ import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.aadl2.internal.AadlNamingUtil;
-import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
-import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 
-public class SubprogramCallSequenceHandler implements BusinessObjectHandler {
+public class SubprogramCallSequenceHandler extends AadlBusinessObjectHandler {
 	private Graphic graphic = RectangleBuilder.create().build();
 
 	@Override
@@ -69,14 +67,14 @@ public class SubprogramCallSequenceHandler implements BusinessObjectHandler {
 				.build());
 	}
 
-	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) SubprogramCallSequence cs) {
-		return cs.getName();
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(SubprogramCallSequence.class).map(cs -> cs.getName())
+				.orElse("");
 	}
 
-	@ValidateName
-	public String validateName(final @Named(Names.BUSINESS_OBJECT) SubprogramCallSequence cs,
-			final @Named(Names.NAME) String value) {
-		return AadlNamingUtil.checkNameValidity(cs, value);
+	@Override
+	public boolean canRename(final CanRenameContext ctx) {
+		return true;
 	}
 }
