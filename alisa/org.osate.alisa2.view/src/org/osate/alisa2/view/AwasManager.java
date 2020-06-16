@@ -3,6 +3,7 @@ package org.osate.alisa2.view;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -23,7 +24,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.sireum.aadl.osate.util.Util;
 import org.sireum.awas.AADLBridge.AadlHandler;
+import org.sireum.awas.ast.ConnectionDecl;
 import org.sireum.awas.ast.Model;
+import org.sireum.awas.ast.PrettyPrinter;
 import org.sireum.awas.awasfacade.AwasGraphImpl;
 import org.sireum.awas.flow.FlowEdge;
 import org.sireum.awas.flow.FlowGraph;
@@ -35,6 +38,10 @@ import org.sireum.awas.symbol.SymbolTableHelper;
 import org.sireum.awas.util.JavaConverters;
 import org.sireum.hamr.ir.Aadl;
 import org.sireum.util.ConsoleTagReporter;
+
+import com.google.common.collect.Sets;
+
+import scala.collection.mutable.StringBuilder;
 
 /**
  * Singleton that provides access to AWAS related functionality. We use a
@@ -278,21 +285,42 @@ public class AwasManager {
 	 * @return The instance object associated with the given URI, or null if it can't be found
 	 */
 	private EObject uriToInstEObj(Map<String, EObject> children, String uri, SymbolTable st) {
+
 		// If we're given the URI of a port (virtual or not) we grab the associated component
-		if(SymbolTableHelper.uri2TypeString(uri).equals(SymbolTableHelper.PORT_OUT_VIRTUAL_TYPE()) ||
-				SymbolTableHelper.uri2TypeString(uri).equals(SymbolTableHelper.PORT_IN_VIRTUAL_TYPE())
-				|| SymbolTableHelper.uri2TypeString(uri).equals(SymbolTableHelper.PORT_OUT_TYPE())
-				|| SymbolTableHelper.uri2TypeString(uri).equals(SymbolTableHelper.PORT_IN_TYPE())) {
+		final Set<String> portTypeNames = Sets.newHashSet(SymbolTableHelper.PORT_OUT_VIRTUAL_TYPE(), SymbolTableHelper
+				.PORT_IN_VIRTUAL_TYPE(), SymbolTableHelper.PORT_OUT_TYPE(), SymbolTableHelper.PORT_IN_TYPE());
+		if (portTypeNames.contains(SymbolTableHelper.uri2TypeString(uri))) {
 			uri = JavaConverters.toJavaList(SymbolTableHelper.getAllAncestors(uri, st)).get(1);
 		}
-		String componentName = SymbolTableHelper.uri2IdString(uri);
 
-		if (!children.containsKey(componentName)) {
-			// Right now this only is hit when we're given an error uri -- I don't think we can
-			// get an EObject for an error type / token
-			System.err.println("AWASManager.java: unknown component name derived from: " + uri);
+		String name = "UNSET NAME";
+
+		if (SymbolTableHelper.uri2TypeString(uri).equals(SymbolTableHelper.COMPONENT_TYPE())
+				|| SymbolTableHelper.uri2TypeString(uri).equals(SymbolTableHelper.ERROR_TYPE())) {
+			name = SymbolTableHelper.uri2IdString(uri);
+		} else if (SymbolTableHelper.uri2TypeString(uri).equals(SymbolTableHelper.CONNECTION_TYPE())) {
+			ConnectionDecl connDecl = st.componentTable(st.system()).connection(uri);
+
+			StringBuilder sb = new StringBuilder();
+			PrettyPrinter pp = new PrettyPrinter(sb);
+			pp.print(connDecl, 0); // format "spo2_to_logic_POOutSpO2_LogicSpO2 : pulseOx.POOutSpO2 -> appLogic.LogicSpO2\n"
+			name = sb.toString().substring(sb.toString().indexOf(": ") + 2).trim();
 		}
-		return children.get(componentName);
+
+		if (!children.containsKey(name)) {
+			System.err.println("AWASManager.java: unknown element name (" + name + ") derived from uri: " + uri);
+		}
+		return children.get(name);
+	}
+
+	public Collection<EObject> getAllConnections(ComponentInstance self) {
+		initTableAndGraph(self);
+		SymbolTable st = graphTableCache.get(self).table;
+		String componentUri = SymbolTableHelper.getUriFromString(st, self.getInstanceObjectPath()).get();
+		List<String> connectionUris = JavaConverters
+				.toJavaList(st.componentTable(componentUri).connections().toSeq());
+		Collection<EObject> ret = urisToInstEObjs(self, connectionUris);
+		return ret;
 	}
 
 	/**

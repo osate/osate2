@@ -106,8 +106,8 @@ public class Services {
 		return ((ComponentInstance) self).getAllComponentInstances();
 	}
 
-	public static EList<ConnectionInstance> getAllConnectionInstances(EObject self) {
-		return ((ComponentInstance) self).getConnectionInstances();
+	public static Collection<EObject> getAllConnectionInstances(EObject self, EObject root) {
+		return AwasManager.getInstance().getAllConnections((ComponentInstance) self);
 	}
 
 	public static boolean isLeafComponent(EObject self) {

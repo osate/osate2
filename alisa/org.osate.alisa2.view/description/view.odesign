@@ -336,7 +336,7 @@
         <containerViewVariable name="containerView"/>
         <representationNameVariable name="tableName"/>
       </ownedRepresentationCreationDescriptions>
-      <ownedLineMappings name="ControlActionsTopLevelErrors" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" domainClass="instance.ConnectionInstance" headerLabelExpression="service:getControlActionRowHeader()">
+      <ownedLineMappings name="ControlActionsTopLevelErrors" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" domainClass="instance.ConnectionInstance" semanticCandidatesExpression="service:getAllConnectionInstances(root)" headerLabelExpression="service:getControlActionRowHeader()">
         <defaultForeground>
           <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
         </defaultForeground>
