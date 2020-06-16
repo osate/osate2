@@ -15,6 +15,7 @@ public
 	data E
 	end E;
 	
+	-- TODO: feature groups
 	
 	
 	system Sub_to_provides
@@ -39,7 +40,7 @@ public
 			dj: data D.j;
 			e: data E;
 		connections
-			c1: data access d -> p_d_d; -- good
+			c1: data access d -> p_d_d; -- goo
 			c2: data access dd -> p_d_dd; -- bad
 			c3: data access di -> p_d_di; -- good
 			c4: data access dj -> p_d_dj; -- good
@@ -296,10 +297,10 @@ public
 	system To_sub_requires
 		features
 			r_d_d: requires data access D;
-			r_d_dd: requires data access D;
-			r_d_di: requires data access D;
-			r_d_dj: requires data access D;
-			r_d_e: requires data access D;
+			r_d_dd: requires data access DD;
+			r_d_di: requires data access D.i;
+			r_d_dj: requires data access D.j;
+			r_d_e: requires data access E;
 	end To_sub_requires;
 	
 	system implementation To_sub_requires.incoming
