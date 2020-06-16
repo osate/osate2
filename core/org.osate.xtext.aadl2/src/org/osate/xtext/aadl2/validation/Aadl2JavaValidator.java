@@ -3145,7 +3145,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		} else if (componentType.isDerivedModes()) {
 			INode requiresModesNode = getRequiresModesNode(componentType);
 			if (componentType.getExtended() != null && componentType.getExtended().getAllModes().stream()
-					.anyMatch(extendedMode -> !extendedMode.isDerived())) {
+					.anyMatch(extendedMode -> !extendedMode.isDerived()) && requiresModesNode != null) {
 				// Section 4.3 (L6): Only modes permitted when inheriting modes.
 				getMessageAcceptor().acceptError("Must be modes because modes are inherited.", componentType,
 						requiresModesNode.getOffset(), requiresModesNode.getLength(), null);
@@ -6244,7 +6244,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 		// Test for L5: connection between access features of sibling components
 		if (srcContext instanceof Subcomponent && dstContext instanceof Subcomponent && source instanceof Access
-				&& destination instanceof Access) {
+				&& destination instanceof Access && destinationType != null) {
 			if (sourceType.equals(AccessType.PROVIDES) && destinationType.equals(AccessType.PROVIDES)) {
 				error(connection,
 						"Source and destination of access connections between sibling components cannot both be 'provides'.");
@@ -6268,7 +6268,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		// Test for L6: connection between subcomponent and access feature
 		else if (source instanceof Subcomponent && destination instanceof Access
-				&& (dstContext == null || dstContext instanceof FeatureGroup)) {
+				&& (dstContext == null || dstContext instanceof FeatureGroup) && destinationType != null) {
 			if (!destinationType.equals(AccessType.PROVIDES)) {
 				error('\'' + destination.getName()
 						+ "' must be a provides access feature for a connection from an accessed subcomponent.",
@@ -6287,7 +6287,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		// Test for L7: connection between subcomponent and access feature of
 		// subcomponent
 		else if (source instanceof Subcomponent && destination instanceof Access
-				&& dstContext instanceof Subcomponent) {
+				&& dstContext instanceof Subcomponent && destinationType != null) {
 			if (!destinationType.equals(AccessType.REQUIRES)) {
 				error('\'' + destination.getName()
 						+ "' must be a requires access feature for a connection from an accessed subcomponent.",
