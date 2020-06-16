@@ -27,8 +27,6 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Optional;
 
-import javax.inject.Named;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Factory;
@@ -36,21 +34,20 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
+import org.osate.ge.businessObjectHandlers.CanDeleteContext;
 import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.RawDeleteContext;
+import org.osate.ge.businessObjectHandlers.RawDeleter;
 import org.osate.ge.businessObjectHandlers.RenameContext;
-import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.internal.FolderGraphicBuilder;
-import org.osate.ge.internal.di.DeleteRaw;
-import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.util.ProjectUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 
-public class PackageHandler extends AadlBusinessObjectHandler {
+public class PackageHandler extends AadlBusinessObjectHandler implements RawDeleter {
 	private final Graphic graphic = FolderGraphicBuilder.create().build();
 
 	@Override
@@ -111,17 +108,20 @@ public class PackageHandler extends AadlBusinessObjectHandler {
 		});
 	}
 
-	@CanDelete
-	public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) AadlPackage pkg, final ReferenceService refService) {
-		return pkg.eResource() != null && !pkg.eResource().getURI().isPlatformPlugin();
+	@Override
+	public boolean canDelete(final CanDeleteContext ctx) {
+		return ctx.getBusinessObject(AadlPackage.class)
+				.map(pkg -> pkg.eResource() != null && !pkg.eResource().getURI().isPlatformPlugin()).orElse(false);
 	}
 
-	@DeleteRaw
-	public void delete(final @Named(Names.BUSINESS_OBJECT) AadlPackage pkg, final ReferenceService refService) {
-		try {
-			((AadlPackage) pkg).eResource().delete(Collections.emptyMap());
-		} catch (final IOException e) {
-			throw new RuntimeException(e);
-		}
+	@Override
+	public void delete(final RawDeleteContext ctx) {
+		ctx.getBusinessObject(AadlPackage.class).ifPresent(pkg -> {
+			try {
+				((AadlPackage) pkg).eResource().delete(Collections.emptyMap());
+			} catch (final IOException e) {
+				throw new RuntimeException(e);
+			}
+		});
 	}
 }

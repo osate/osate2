@@ -27,38 +27,56 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Contains contextual information for determining the applicability of a business object handler.
+ * Contains contextual information for deleting a business object.
  *
  * @since 2.0
  * @noextend This class is not intended to be subclassed by clients.
  */
-public class IsApplicableContext {
-	private final Object bo;
+public class CustomDeleteContext {
+	private final Object containerToModify;
+	private final Object readonlyBoToDelete;
 
 	/**
 	 * Creates a new instance.
-	 * @param bo is the business object for which to check whether the business object handler is applicable.
+	 * @param containerToModify is the object which should be modified during the custom deletion operation.
+	 * @param readonlyBoToDelete is a readonly version business object that was selected for deletion. It should not be modified.
 	 * @noreference This constructor is not intended to be referenced by clients.
 	 */
-	public IsApplicableContext(final Object bo) {
-		this.bo = Objects.requireNonNull(bo, "bo must not be null");
+	public CustomDeleteContext(final Object containerToModify, final Object readonlyBoToDelete) {
+		this.containerToModify = Objects.requireNonNull(containerToModify, "containerToModify must not be null");
+		this.readonlyBoToDelete = Objects.requireNonNull(readonlyBoToDelete, "readonlyBoToDelete must not be null");
 	}
 
 	/**
-	 * Retrieves the business object for which the business object handler is being checked for applicability if the business object is an instance
-	 * of the specified class.
+	 * Retrieves the container of the business object which is being deleted if it is an instance of the specified class.
+	 * This is the object which should be modified.
 	 * @param <T> is the requested type.
 	 * @param c is the class to which to cast the business object.
-	 * @return an optional containing the context's business object. An empty optional if the context's business object is not
+	 * @return an optional containing the container of the business object being deleted. An empty optional if the business object is not
 	 * an instance the specified class.
-	 *
-	 * @since 2.0
 	 */
-	public <T> Optional<T> getBusinessObject(final Class<T> boType) {
-		if (!boType.isInstance(bo)) {
+	public <T> Optional<T> getContainerBusinessObject(final Class<T> boType) {
+		if (!boType.isInstance(containerToModify)) {
 			return Optional.empty();
 		}
 
-		return Optional.of(boType.cast(bo));
+		return Optional.of(boType.cast(containerToModify));
+	}
+
+	/**
+	 * If the business object selected for deletion is an instance of the specified class, this method returns a readonly instance
+	 * the business object. The returned object must not be modified. All modifications must be made via the
+	 * object returned by {@link #getContainerBusinessObject(Class)}
+	 * @param <T> is the requested type.
+	 * @param c is the class to which to cast the business object.
+	 * @return an optional containing the readonly business object. An empty optional if the business object is not
+	 * an instance the specified class.
+	 */
+	public <T> Optional<T> s(final Class<T> boType) {
+		if (!boType.isInstance(readonlyBoToDelete)) {
+			return Optional.empty();
+		}
+
+		return Optional.of(boType.cast(readonlyBoToDelete));
 	}
 }

@@ -25,18 +25,15 @@ package org.osate.ge.internal.businessObjectHandlers;
 
 import java.util.Optional;
 
-import javax.inject.Named;
-
 import org.osate.aadl2.Mode;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.businessObjectHandlers.CanDeleteContext;
 import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
-import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
@@ -47,8 +44,8 @@ public class ModeHandler extends AadlBusinessObjectHandler {
 		return ctx.getBusinessObject(Mode.class).isPresent();
 	}
 
-	@CanDelete
-	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Mode mode) {
+	@Override
+	public boolean canDelete(final CanDeleteContext ctx) {
 		return true;
 	}
 

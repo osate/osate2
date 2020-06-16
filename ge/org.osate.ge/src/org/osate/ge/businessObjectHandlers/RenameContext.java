@@ -27,7 +27,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Contains contextual information for renaming a business object handler.
+ * Contains contextual information for renaming a business object.
  *
  * @since 2.0
  * @noextend This class is not intended to be subclassed by clients.
@@ -48,7 +48,7 @@ public class RenameContext {
 	}
 
 	/**
-	 * Retrieves the business object for which the business object handler is being renamed if it is an instance
+	 * Retrieves the business object which is being renamed if it is an instance
 	 * of the specified class.
 	 * @param <T> is the requested type.
 	 * @param c is the class to which to cast the business object.

@@ -118,4 +118,19 @@ public interface BusinessObjectHandler {
 	default Optional<String> validateName(final RenameContext ctx) {
 		return Optional.empty();
 	}
+
+	/**
+	 * Returns true if the business object specified in the context can be deleted.
+	 * Deletable business objects must match one of the following criteria:
+	 * <ul>
+	 * <li>It must be an instance of {@link org.eclipse.emf.ecore.EObject}.</li>
+	 * <li>It must be an instance of {@link org.osate.ge.EmfContainerProvider} and the business object handler must implement {@link CustomDeleter}.</li>
+	 * <li>The business object handler must implement {@link RawDeleter}.
+	 * </ul>
+	 * @param ctx the context for the request.
+	 * @return whether the business object can be deleted.
+	 */
+	default boolean canDelete(final CanDeleteContext ctx) {
+		return false;
+	}
 }

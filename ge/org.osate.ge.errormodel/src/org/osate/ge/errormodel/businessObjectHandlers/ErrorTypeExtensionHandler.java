@@ -31,12 +31,13 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.CanDeleteContext;
+import org.osate.ge.businessObjectHandlers.CustomDeleteContext;
+import org.osate.ge.businessObjectHandlers.CustomDeleter;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
-import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.GetNameForDiagramContext;
-import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.Delete;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.Names;
 import org.osate.ge.errormodel.model.ErrorTypeExtension;
 import org.osate.ge.errormodel.model.ErrorTypeLibrary;
@@ -49,7 +50,7 @@ import org.osate.ge.services.QueryService;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
-public class ErrorTypeExtensionHandler implements BusinessObjectHandler {
+public class ErrorTypeExtensionHandler implements BusinessObjectHandler, CustomDeleter {
 	private static final Graphic labelGraphic = LabelBuilder.create().build();
 	private static final Graphic connectionGraphic = ConnectionBuilder.create()
 			.destinationTerminator(ArrowBuilder.create().open().build()).build();
@@ -63,8 +64,8 @@ public class ErrorTypeExtensionHandler implements BusinessObjectHandler {
 		return ctx.getBusinessObject(ErrorTypeExtension.class).isPresent();
 	}
 
-	@CanDelete
-	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ErrorTypeExtension errorTypeExtension) {
+	@Override
+	public boolean canDelete(final CanDeleteContext ctx) {
 		return true;
 	}
 
@@ -118,10 +119,11 @@ public class ErrorTypeExtensionHandler implements BusinessObjectHandler {
 		}
 	}
 
-	@Delete
-	public void delete(final @Named(Names.MODIFY_BO) ErrorType subtype,
-			final @Named(Names.BUSINESS_OBJECT) ErrorTypeExtension errorTypeExtension) {
-		subtype.setSuperType(null);
+	@Override
+	public void delete(final CustomDeleteContext ctx) {
+		ctx.getContainerBusinessObject(ErrorType.class).ifPresent(subtype -> {
+			subtype.setSuperType(null);
+		});
 	}
 
 	private static Object[] getBusinessObjectPath(final ErrorType et) {

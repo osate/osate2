@@ -25,23 +25,18 @@ package org.osate.ge.internal.businessObjectHandlers;
 
 import java.util.Optional;
 
-import javax.inject.Named;
-
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.businessObjectHandlers.CanDeleteContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
-import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.Names;
 import org.osate.ge.graphics.EllipseBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.services.QueryService;
 
 public class SubprogramCallHandler extends AadlBusinessObjectHandler {
 	private Graphic graphic = EllipseBuilder.create().build();
@@ -63,11 +58,12 @@ public class SubprogramCallHandler extends AadlBusinessObjectHandler {
 				.orElse("");
 	}
 
-	@CanDelete
-	public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call,
-			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
+	@Override
+	public boolean canDelete(final CanDeleteContext ctx) {
 		// Don't allow deleting the last subprogram call
-		return call.eContainer() instanceof SubprogramCallSequence
-				&& ((SubprogramCallSequence) call.eContainer()).getOwnedSubprogramCalls().size() > 1;
+		return ctx.getBusinessObject(SubprogramCall.class)
+				.map(call -> call.eContainer() instanceof SubprogramCallSequence
+						&& ((SubprogramCallSequence) call.eContainer()).getOwnedSubprogramCalls().size() > 1)
+				.orElse(false);
 	}
 }

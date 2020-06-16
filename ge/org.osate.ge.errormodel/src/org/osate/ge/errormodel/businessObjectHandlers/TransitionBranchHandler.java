@@ -32,10 +32,10 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.CanDeleteContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
-import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
-import org.osate.ge.di.CanDelete;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.di.Names;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.ge.internal.services.AadlModificationService;
@@ -63,8 +63,8 @@ public class TransitionBranchHandler implements BusinessObjectHandler {
 		return ctx.getBusinessObject(TransitionBranch.class).isPresent();
 	}
 
-	@CanDelete
-	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) TransitionBranch branch) {
+	@Override
+	public boolean canDelete(final CanDeleteContext ctx) {
 		return true;
 	}
 

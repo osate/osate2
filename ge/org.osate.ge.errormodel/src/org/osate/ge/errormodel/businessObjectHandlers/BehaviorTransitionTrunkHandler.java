@@ -25,19 +25,17 @@ package org.osate.ge.errormodel.businessObjectHandlers;
 
 import java.util.Optional;
 
-import javax.inject.Named;
-
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.CanDeleteContext;
+import org.osate.ge.businessObjectHandlers.CustomDeleteContext;
+import org.osate.ge.businessObjectHandlers.CustomDeleter;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
-import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
-import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.Delete;
-import org.osate.ge.di.Names;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.errormodel.model.BehaviorTransitionTrunk;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.ge.query.StandaloneQuery;
@@ -47,7 +45,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 /**
  * @see ErrorBehaviorTransitionHandler for details about how transitions are represented.
  */
-public class BehaviorTransitionTrunkHandler implements BusinessObjectHandler {
+public class BehaviorTransitionTrunkHandler implements BusinessObjectHandler, CustomDeleter
+{
 	private static StandaloneQuery srcQuery = StandaloneQuery
 			.create((rootQuery) -> rootQuery.ancestor(2).children()
 			.filterByBusinessObjectRelativeReference(t -> ((BehaviorTransitionTrunk) t).getTransition().getSource()));
@@ -58,8 +57,9 @@ public class BehaviorTransitionTrunkHandler implements BusinessObjectHandler {
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(BehaviorTransitionTrunk.class).isPresent();
 	}
-	@CanDelete
-	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) BehaviorTransitionTrunk trunk) {
+
+	@Override
+	public boolean canDelete(final CanDeleteContext ctx) {
 		return true;
 	}
 
@@ -82,13 +82,15 @@ public class BehaviorTransitionTrunkHandler implements BusinessObjectHandler {
 		return queryService.getFirstResult(dstQuery, boc);
 	}
 
-	@Delete
-	public void delete(final @Named(Names.MODIFY_BO) ErrorBehaviorTransition transition) {
-		EcoreUtil.delete(transition);
-	}
-
 	@Override
 	public String getName(final GetNameContext ctx) {
 		return "";
+	}
+
+	@Override
+	public void delete(final CustomDeleteContext ctx) {
+		ctx.getContainerBusinessObject(ErrorBehaviorTransition.class).ifPresent(transition -> {
+			EcoreUtil.delete(transition);
+		});
 	}
 }

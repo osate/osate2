@@ -25,26 +25,19 @@ package org.osate.ge.internal.businessObjectHandlers;
 
 import java.util.Optional;
 
-import javax.inject.Named;
-
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.NamedElement;
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.businessObjectHandlers.CanDeleteContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
-import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.Names;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.graphics.internal.FolderGraphicBuilder;
-import org.osate.ge.query.StandaloneQuery;
-import org.osate.ge.services.QueryService;
 
 public class AnnexHandler extends AadlBusinessObjectHandler {
-	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestors().first());
 	private static final GraphicalConfiguration graphicalConfig = GraphicalConfigurationBuilder.create().
 			graphic(FolderGraphicBuilder.create().build())
 			.style(StyleBuilder.create().labelsCenter().build()).
@@ -56,20 +49,9 @@ public class AnnexHandler extends AadlBusinessObjectHandler {
 				|| ctx.getBusinessObject(DefaultAnnexSubclause.class).isPresent();
 	}
 
-	@CanDelete
-	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) DefaultAnnexLibrary bo) {
+	@Override
+	public boolean canDelete(final CanDeleteContext ctx) {
 		return true;
-	}
-
-	@CanDelete
-	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) DefaultAnnexSubclause bo) {
-		return true;
-	}
-
-	@CanDelete
-	public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) DefaultAnnexSubclause bo,
-			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
-		return bo.getContainingClassifier() == queryService.getFirstBusinessObject(parentQuery, boc);
 	}
 
 	@Override
