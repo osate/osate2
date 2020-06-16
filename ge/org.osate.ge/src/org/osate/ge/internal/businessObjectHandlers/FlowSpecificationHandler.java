@@ -26,14 +26,11 @@ package org.osate.ge.internal.businessObjectHandlers;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Named;
-
 import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowSpecification;
+import org.osate.ge.businessObjectHandlers.CanDeleteContext;
 import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
-import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.Names;
 
 abstract class FlowSpecificationHandler extends AadlBusinessObjectHandler {
 	// Basics
@@ -43,8 +40,8 @@ abstract class FlowSpecificationHandler extends AadlBusinessObjectHandler {
 				.map(fs -> fs.getName()).orElse("");
 	}
 
-	@CanDelete
-	public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs) {
+	@Override
+	public boolean canDelete(final CanDeleteContext ctx) {
 		return true;
 	}
 

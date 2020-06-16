@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -21,32 +21,42 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.di;
+package org.osate.ge.businessObjectHandlers;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
- * <p>
- * This annotation must not be applied to more than one method per class.
- * </p>
- * <h1>Usages</h1>
- * <table summary="Annotation Usages">
- *   <tr><th>Usage</th><th>Description</th><th>Return Value</th></tr>
- *   <tr><td>Business Object Handler</td><td>Returns whether the a business object is deletable.</td><td>boolean</td></tr>
- * </table>
- * <h1>Named Parameters</h1>
- * <table summary="Named Parameters">
- *   <tr><th>Parameter</th><th>Usage</th><th>Description</th></tr>
- *   <tr><td>{@link org.osate.ge.di.Names#BUSINESS_OBJECT}</td><td>Business Object handler</td><td>The business object being deleted.</td></tr>
- * </table>
- * @see Delete
+ * Contains contextual information for determining if a business object can be deleted.
+ *
+ * @since 2.0
+ * @noextend This class is not intended to be subclassed by clients.
  */
-@Documented
-@Target({ElementType.METHOD})
-@Retention(RetentionPolicy.RUNTIME)
-public @interface CanDelete {
+public class CanDeleteContext {
+	private final Object bo;
+
+	/**
+	 * Creates a new instance.
+	 * @param bo is the business object which is being deleted.
+	 * @noreference This constructor is not intended to be referenced by clients.
+	 */
+	public CanDeleteContext(final Object bo) {
+		this.bo = Objects.requireNonNull(bo, "bo must not be null");
+	}
+
+	/**
+	 * Retrieves the business object which is being deleted if it is an instance
+	 * of the specified class.
+	 * @param <T> is the requested type.
+	 * @param c is the class to which to cast the business object.
+	 * @return an optional containing the context's business object. An empty optional if the context's business object is not
+	 * an instance the specified class.
+	 */
+	public <T> Optional<T> getBusinessObject(final Class<T> boType) {
+		if (!boType.isInstance(bo)) {
+			return Optional.empty();
+		}
+
+		return Optional.of(boType.cast(bo));
+	}
 }

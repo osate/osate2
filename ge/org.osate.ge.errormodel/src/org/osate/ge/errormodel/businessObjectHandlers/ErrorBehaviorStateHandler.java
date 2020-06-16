@@ -25,18 +25,15 @@ package org.osate.ge.errormodel.businessObjectHandlers;
 
 import java.util.Optional;
 
-import javax.inject.Named;
-
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.CanDeleteContext;
 import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.businessObjectHandlers.RenameContext;
-import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.Names;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
 import org.osate.ge.graphics.EllipseBuilder;
@@ -52,8 +49,8 @@ public class ErrorBehaviorStateHandler implements BusinessObjectHandler {
 		return ctx.getBusinessObject(ErrorBehaviorState.class).isPresent();
 	}
 
-	@CanDelete
-	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorState state) {
+	@Override
+	public boolean canDelete(final CanDeleteContext ctx) {
 		return true;
 	}
 

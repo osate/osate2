@@ -27,8 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.inject.Named;
-
 import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.Context;
@@ -36,12 +34,11 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.businessObjectHandlers.CanDeleteContext;
 import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
-import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
@@ -85,8 +82,8 @@ public class ConnectionHandler extends AadlBusinessObjectHandler {
 		return ctx.getBusinessObject(Connection.class).isPresent();
 	}
 
-	@CanDelete
-	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Connection c) {
+	@Override
+	public boolean canDelete(final CanDeleteContext ctx) {
 		return true;
 	}
 

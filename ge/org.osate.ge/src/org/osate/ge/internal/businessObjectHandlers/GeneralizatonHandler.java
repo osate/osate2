@@ -25,8 +25,6 @@ package org.osate.ge.internal.businessObjectHandlers;
 
 import java.util.Optional;
 
-import javax.inject.Named;
-
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Generalization;
 import org.osate.aadl2.GroupExtension;
@@ -36,12 +34,11 @@ import org.osate.aadl2.TypeExtension;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.businessObjectHandlers.CanDeleteContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.GetNameForDiagramContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
-import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
@@ -72,9 +69,11 @@ public class GeneralizatonHandler extends AadlBusinessObjectHandler {
 				|| ctx.getBusinessObject(GroupExtension.class).isPresent();
 	}
 
-	@CanDelete
-	public boolean canDeleteGeneralization(final @Named(Names.BUSINESS_OBJECT) Object bo) {
-		return bo instanceof TypeExtension || bo instanceof ImplementationExtension || bo instanceof GroupExtension;
+	@Override
+	public boolean canDelete(final CanDeleteContext ctx) {
+		return ctx.getBusinessObject(TypeExtension.class).isPresent()
+				|| ctx.getBusinessObject(ImplementationExtension.class).isPresent()
+				|| ctx.getBusinessObject(GroupExtension.class).isPresent();
 	}
 
 	@Override

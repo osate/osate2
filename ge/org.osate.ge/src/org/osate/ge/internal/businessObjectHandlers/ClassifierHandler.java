@@ -25,20 +25,17 @@ package org.osate.ge.internal.businessObjectHandlers;
 
 import java.util.Optional;
 
-import javax.inject.Named;
-
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
+import org.osate.ge.businessObjectHandlers.CanDeleteContext;
 import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.businessObjectHandlers.RenameContext;
-import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.Names;
 
 public class ClassifierHandler extends AadlBusinessObjectHandler {
 	@Override
@@ -46,8 +43,8 @@ public class ClassifierHandler extends AadlBusinessObjectHandler {
 		return ctx.getBusinessObject(Classifier.class).isPresent();
 	}
 
-	@CanDelete
-	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Classifier bo) {
+	@Override
+	public boolean canDelete(final CanDeleteContext ctx) {
 		return true;
 	}
 

@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -34,8 +34,6 @@ import java.util.function.Consumer;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.e4.core.contexts.ContextInjectionFactory;
-import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -51,10 +49,12 @@ import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.EmfContainerProvider;
-import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.Delete;
-import org.osate.ge.di.Names;
-import org.osate.ge.internal.di.DeleteRaw;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.CanDeleteContext;
+import org.osate.ge.businessObjectHandlers.CustomDeleteContext;
+import org.osate.ge.businessObjectHandlers.CustomDeleter;
+import org.osate.ge.businessObjectHandlers.RawDeleteContext;
+import org.osate.ge.businessObjectHandlers.RawDeleter;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
@@ -62,9 +62,7 @@ import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.AadlModificationService.Modification;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
-import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
-import org.osate.ge.internal.util.AnnotationUtil;
 import org.osate.ge.internal.util.DiagramElementUtil;
 import org.osate.ge.services.ReferenceBuilderService;
 
@@ -91,17 +89,12 @@ public class DeleteHandler extends AbstractHandler {
 			return false;
 		}
 
-		final ExtensionService extensionService = Objects.requireNonNull(
-				(ExtensionService) ageEditor.getAdapter(ExtensionService.class),
-				"Unable to retrieve extension service");
-
 		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements();
 
-		return canExecute(selectedDiagramElements, extensionService);
+		return canExecute(selectedDiagramElements);
 	}
 
-	private boolean canExecute(final List<DiagramElement> selectedDiagramElements,
-			final ExtensionService extensionService) {
+	private boolean canExecute(final List<DiagramElement> selectedDiagramElements) {
 		if (selectedDiagramElements.size() == 0) {
 			return false;
 		}
@@ -117,7 +110,7 @@ public class DeleteHandler extends AbstractHandler {
 		}
 
 		for (final DiagramElement de : selectedDiagramElements) {
-			if (!canDelete(de, extensionService)) {
+			if (!canDelete(de)) {
 				return false;
 			}
 		}
@@ -125,15 +118,11 @@ public class DeleteHandler extends AbstractHandler {
 		return true;
 	}
 
-	private boolean canDelete(final DiagramElement de, final ExtensionService extService) {
+	private boolean canDelete(final DiagramElement de) {
 		final Object bo = de.getBusinessObject();
 
-		final Object boHandler = de.getBusinessObjectHandler();
+		final BusinessObjectHandler boHandler = de.getBusinessObjectHandler();
 		if (boHandler == null) {
-			return false;
-		}
-
-		if (!AnnotationUtil.hasMethodWithAnnotation(CanDelete.class, boHandler)) {
 			return false;
 		}
 
@@ -151,14 +140,7 @@ public class DeleteHandler extends AbstractHandler {
 			}
 		}
 
-		final IEclipseContext childCtx = extService.createChildContext();
-		try {
-			childCtx.set(Names.BUSINESS_OBJECT, bo);
-			childCtx.set(Names.BUSINESS_OBJECT_CONTEXT, de);
-			return (boolean) ContextInjectionFactory.invoke(boHandler, CanDelete.class, childCtx, false);
-		} finally {
-			childCtx.dispose();
-		}
+		return boHandler.canDelete(new CanDeleteContext(bo));
 	}
 
 	@Override
@@ -170,9 +152,6 @@ public class DeleteHandler extends AbstractHandler {
 
 		final AgeDiagramEditor ageEditor = (AgeDiagramEditor) activeEditor;
 
-		final ExtensionService extensionService = Objects.requireNonNull(
-				(ExtensionService) ageEditor.getAdapter(ExtensionService.class),
-				"Unable to retrieve extension service");
 		final ReferenceBuilderService refBuilder = Objects.requireNonNull(
 				(ReferenceBuilderService) ageEditor.getAdapter(ReferenceBuilderService.class),
 				"Unable to retrieve reference builder service");
@@ -182,7 +161,7 @@ public class DeleteHandler extends AbstractHandler {
 
 		// Get diagram and selected elements
 		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements();
-		if (!canExecute(selectedDiagramElements, extensionService)) {
+		if (!canExecute(selectedDiagramElements)) {
 			throw new RuntimeException("canExecute() returned false");
 		}
 
@@ -199,7 +178,12 @@ public class DeleteHandler extends AbstractHandler {
 					throw new RuntimeException("Deleting multiple elements when using DeleteRaw is not supported");
 				}
 
-				deleteRaw(selectedDiagramElements.get(0), extensionService);
+				final DiagramElement deToDelete = selectedDiagramElements.get(0);
+
+				// This is safe because we have already check that at least one business object requires a raw deletion and there is exactly one
+				// business object being deleted.
+				final RawDeleter deleter = (RawDeleter) deToDelete.getBusinessObjectHandler();
+				deleter.delete(new RawDeleteContext(deToDelete.getBusinessObject()));
 			} else if (anyIsInAnnex(selectedDiagramElements)) {
 				if (selectedDiagramElements.size() != 1) {
 					throw new RuntimeException(
@@ -210,21 +194,18 @@ public class DeleteHandler extends AbstractHandler {
 				// Only a single annex element can be modified at a time because modifying annex elements as part of a
 				// group is not supported.
 				final BusinessObjectRemoval modInfo = createBusinessObjectRemovalOrRemoveDiagramElement(
-						selectedDiagramElements.get(0),
-						extensionService);
+						selectedDiagramElements.get(0));
 				if (modInfo != null) {
 					aadlModificationService.modify(modInfo.staleBoToModify, (boToModify) -> {
 						modInfo.remover.accept(boToModify);
 					});
 				}
-
 			} else {
 				// Group elements to be removed by resource. All the elements will be removed as part of the same modification.
 				// This ensures that the appropriate element is retrieved regardless of the order in the model or the URI scheme.
 				final ListMultimap<Resource, BusinessObjectRemoval> removals = ArrayListMultimap.create();
 				for (final DiagramElement de : selectedDiagramElements) {
-					final BusinessObjectRemoval removal = createBusinessObjectRemovalOrRemoveDiagramElement(de,
-							extensionService);
+					final BusinessObjectRemoval removal = createBusinessObjectRemovalOrRemoveDiagramElement(de);
 					if (removal != null) {
 						removals.put(removal.staleBoToModify.eResource(), removal);
 					}
@@ -295,11 +276,9 @@ public class DeleteHandler extends AbstractHandler {
 	 * Creates a BusinessObjectRemoval object which can be used to remove the business object for the diagram element.
 	 * If the diagram element's business object is an embedded business object, remove the element.
 	 * @param de
-	 * @param extService
 	 * @return
 	 */
-	private static BusinessObjectRemoval createBusinessObjectRemovalOrRemoveDiagramElement(final DiagramElement de,
-			final ExtensionService extService) {
+	private static BusinessObjectRemoval createBusinessObjectRemovalOrRemoveDiagramElement(final DiagramElement de) {
 		// Remove the EObject from the model
 		final Object bo = de.getBusinessObject();
 
@@ -310,17 +289,17 @@ public class DeleteHandler extends AbstractHandler {
 				EcoreUtil.remove(boToModify);
 			});
 		} else if (bo instanceof EmfContainerProvider) {
+			if(!(boHandler instanceof CustomDeleter)) {
+				throw new RuntimeException("Business object handler '" + boHandler + "' for "
+						+ EmfContainerProvider.class.getName() + " based business object must implement "
+						+ CustomDeleter.class.getCanonicalName() + ".");
+			}
+
+			final CustomDeleter deleter = (CustomDeleter) boHandler;
 			final EObject ownerBo = ((EmfContainerProvider) bo).getEmfContainer();
+
 			return new BusinessObjectRemoval(ownerBo, (boToModify) -> {
-				// Call delete
-				final IEclipseContext eclipseCtx = extService.createChildContext();
-				try {
-					eclipseCtx.set(Names.BUSINESS_OBJECT, bo);
-					eclipseCtx.set(Names.MODIFY_BO, boToModify);
-					ContextInjectionFactory.invoke(boHandler, Delete.class, eclipseCtx);
-				} finally {
-					eclipseCtx.dispose();
-				}
+				deleter.delete(new CustomDeleteContext(ownerBo, bo));
 			});
 		} else if (bo instanceof EmbeddedBusinessObject) {
 			// For embedded business objects, there isn't a model from which to remove the business object.
@@ -331,19 +310,6 @@ public class DeleteHandler extends AbstractHandler {
 		} else {
 			// canDelete() should have returned false in this case
 			throw new RuntimeException("Unhandled case: " + bo);
-		}
-	}
-
-	private static void deleteRaw(final DiagramElement de, final ExtensionService extService) {
-		// Call raw delete method
-		final Object bo = de.getBusinessObject();
-		final Object boHandler = de.getBusinessObjectHandler();
-		final IEclipseContext eclipseCtx = extService.createChildContext();
-		try {
-			eclipseCtx.set(Names.BUSINESS_OBJECT, bo);
-			ContextInjectionFactory.invoke(boHandler, DeleteRaw.class, eclipseCtx);
-		} finally {
-			eclipseCtx.dispose();
 		}
 	}
 
@@ -387,7 +353,7 @@ public class DeleteHandler extends AbstractHandler {
 
 	private static boolean anyRequiresRawDelete(final List<DiagramElement> diagramElements) {
 		return diagramElements.stream()
-				.anyMatch(bo -> AnnotationUtil.hasMethodWithAnnotation(DeleteRaw.class, bo.getBusinessObjectHandler()));
+				.anyMatch(de -> de.getBusinessObjectHandler() instanceof RawDeleter);
 	}
 
 	private static boolean isInAnnex(final Object bo) {
