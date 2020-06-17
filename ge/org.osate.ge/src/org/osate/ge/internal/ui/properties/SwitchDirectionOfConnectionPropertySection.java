@@ -48,7 +48,7 @@ import org.osate.aadl2.Connection;
 import org.osate.aadl2.ParameterConnection;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
-import org.osate.ge.internal.util.AadlHelper;
+import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.ui.properties.PropertySectionUtil;
 
 public class SwitchDirectionOfConnectionPropertySection extends AbstractPropertySection {
@@ -103,7 +103,7 @@ public class SwitchDirectionOfConnectionPropertySection extends AbstractProperty
 	};
 
 	private static Connection getEditConnection(final Connection connection) {
-		return (Connection) AadlHelper.getRootRefinedElement(connection);
+		return (Connection) AgeAadlUtil.getRootRefinedElement(connection);
 	}
 
 	@Override

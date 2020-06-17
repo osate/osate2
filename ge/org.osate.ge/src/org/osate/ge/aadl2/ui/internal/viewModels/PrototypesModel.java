@@ -34,7 +34,6 @@ import java.util.stream.Stream;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractPrototype;
@@ -64,6 +63,7 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.ui.internal.viewModels.PrototypesModel.EditablePrototype;
+import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.AadlPrototypeUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
@@ -158,7 +158,8 @@ implements PrototypesEditorModel<EditablePrototype, NamedElementOrDescription> {
 				(c, boc) -> {
 					// Create a new prototype
 					final ComponentPrototype cp = (ComponentPrototype) c
-							.createOwnedPrototype(Aadl2Factory.eINSTANCE.getAadl2Package().getDataPrototype());
+									.createOwnedPrototype(
+											AgeAadlUtil.getAadl2Factory().getAadl2Package().getDataPrototype());
 
 					// Assign a name
 					final String newName = AadlNamingUtil.buildUniqueIdentifier(c, "new_prototype");
@@ -373,9 +374,9 @@ implements PrototypesEditorModel<EditablePrototype, NamedElementOrDescription> {
 		final Prototype p = prototype.prototype;
 		final EClass filterEClass;
 		if (p instanceof ComponentPrototype || p instanceof FeaturePrototype) {
-			filterEClass = Aadl2Factory.eINSTANCE.getAadl2Package().getComponentClassifier();
+			filterEClass = AgeAadlUtil.getAadl2Factory().getAadl2Package().getComponentClassifier();
 		} else if (p instanceof FeatureGroupPrototype) {
-			filterEClass = Aadl2Factory.eINSTANCE.getAadl2Package().getFeatureGroupType();
+			filterEClass = AgeAadlUtil.getAadl2Factory().getAadl2Package().getFeatureGroupType();
 		} else {
 			filterEClass = null;
 		}
@@ -609,7 +610,7 @@ implements PrototypesEditorModel<EditablePrototype, NamedElementOrDescription> {
 	}
 
 	private static EClass prototypeTypeToEClass(final PrototypeType type) {
-		final Aadl2Package pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
+		final Aadl2Package pkg = AgeAadlUtil.getAadl2Factory().getAadl2Package();
 
 		switch (type) {
 		case ABSTRACT:

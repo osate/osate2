@@ -28,18 +28,18 @@ import java.util.Optional;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.ge.Categories;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.ui.internal.dialogs.AnnexNameDialog;
+import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.operations.BusinessObjectAndExtra;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
-import org.osate.ge.palette.TargetedPaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
+import org.osate.ge.palette.TargetedPaletteCommand;
 
 public class CreateAnnexLibraryPaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 
@@ -70,6 +70,6 @@ public class CreateAnnexLibraryPaletteCommand extends BasePaletteCommand impleme
 	}
 
 	private static EClass getDefaultAnnexLibrary() {
-		return Aadl2Factory.eINSTANCE.getAadl2Package().getDefaultAnnexLibrary();
+		return AgeAadlUtil.getAadl2Factory().getAadl2Package().getDefaultAnnexLibrary();
 	}
 }

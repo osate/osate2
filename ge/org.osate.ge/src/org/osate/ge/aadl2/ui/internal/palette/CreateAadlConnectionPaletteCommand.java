@@ -28,7 +28,6 @@ import java.util.Optional;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.AccessConnection;
@@ -55,12 +54,13 @@ import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.ui.AadlOperationBuilder;
 import org.osate.ge.internal.util.AadlConnectionUtil;
+import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.CanStartConnectionContext;
-import org.osate.ge.palette.GetCreateConnectionOperationContext;
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
+import org.osate.ge.palette.GetCreateConnectionOperationContext;
 import org.osate.ge.services.QueryService;
 import org.osate.ge.util.StringUtil;
 
@@ -143,49 +143,49 @@ public class CreateAadlConnectionPaletteCommand extends BasePaletteCommand imple
 		return Operation.createWithBuilder(createOp -> {
 			// Create the subcomponent
 			getClassifierOpBuilder().buildOperation(createOp, ownerBoc.getBusinessObject())
-					.modifyPreviousResult(owner -> {
-						// Create the appropriate type of connection object
-						final org.osate.aadl2.Connection newAadlConnection = AadlConnectionUtil.createConnection(owner,
-								connectionType);
-						if (newAadlConnection == null) {
-							return null;
-						}
+			.modifyPreviousResult(owner -> {
+				// Create the appropriate type of connection object
+				final org.osate.aadl2.Connection newAadlConnection = AadlConnectionUtil.createConnection(owner,
+						connectionType);
+				if (newAadlConnection == null) {
+					return null;
+				}
 
-						// Reset the no connections flag
-						owner.setNoConnections(false);
+				// Reset the no connections flag
+				owner.setNoConnections(false);
 
-						// Set the source and destination
-						final ConnectedElement src = getConnectedElementForBusinessObjectContext(srcBoc, connectionType,
-								false, ownerBoc);
-						newAadlConnection.setSource(src);
-						final ConnectedElement dst = getConnectedElementForBusinessObjectContext(dstBoc, connectionType,
-								!(src.getContext() instanceof Subcomponent), ownerBoc);
-						newAadlConnection.setDestination(dst);
+				// Set the source and destination
+				final ConnectedElement src = getConnectedElementForBusinessObjectContext(srcBoc, connectionType,
+						false, ownerBoc);
+				newAadlConnection.setSource(src);
+				final ConnectedElement dst = getConnectedElementForBusinessObjectContext(dstBoc, connectionType,
+						!(src.getContext() instanceof Subcomponent), ownerBoc);
+				newAadlConnection.setDestination(dst);
 
-						// Determine the name for the new connection
-						final String newConnectionName = AadlNamingUtil.buildUniqueIdentifier(owner, "new_connection");
-						newAadlConnection.setName(newConnectionName);
+				// Determine the name for the new connection
+				final String newConnectionName = AadlNamingUtil.buildUniqueIdentifier(owner, "new_connection");
+				newAadlConnection.setName(newConnectionName);
 
-						// Set type of access connection
-						if (newAadlConnection instanceof AccessConnection) {
-							final AccessConnection ac = (AccessConnection) newAadlConnection;
-							if (src.getConnectionEnd() instanceof SubprogramAccess
-									|| dst.getConnectionEnd() instanceof SubprogramAccess) {
-								ac.setAccessCategory(AccessCategory.SUBPROGRAM);
-							} else if (src.getConnectionEnd() instanceof SubprogramGroupAccess
-									|| dst.getConnectionEnd() instanceof SubprogramGroupAccess) {
-								ac.setAccessCategory(AccessCategory.SUBPROGRAM_GROUP);
-							} else if (src.getConnectionEnd() instanceof BusAccess
-									|| dst.getConnectionEnd() instanceof BusAccess) {
-								ac.setAccessCategory(AccessCategory.BUS);
-							} else if (src.getConnectionEnd() instanceof DataAccess
-									|| dst.getConnectionEnd() instanceof DataAccess) {
-								ac.setAccessCategory(AccessCategory.DATA);
-							}
-						}
+				// Set type of access connection
+				if (newAadlConnection instanceof AccessConnection) {
+					final AccessConnection ac = (AccessConnection) newAadlConnection;
+					if (src.getConnectionEnd() instanceof SubprogramAccess
+							|| dst.getConnectionEnd() instanceof SubprogramAccess) {
+						ac.setAccessCategory(AccessCategory.SUBPROGRAM);
+					} else if (src.getConnectionEnd() instanceof SubprogramGroupAccess
+							|| dst.getConnectionEnd() instanceof SubprogramGroupAccess) {
+						ac.setAccessCategory(AccessCategory.SUBPROGRAM_GROUP);
+					} else if (src.getConnectionEnd() instanceof BusAccess
+							|| dst.getConnectionEnd() instanceof BusAccess) {
+						ac.setAccessCategory(AccessCategory.BUS);
+					} else if (src.getConnectionEnd() instanceof DataAccess
+							|| dst.getConnectionEnd() instanceof DataAccess) {
+						ac.setAccessCategory(AccessCategory.DATA);
+					}
+				}
 
-						return StepResultBuilder.create().showNewBusinessObject(ownerBoc, newAadlConnection).build();
-					});
+				return StepResultBuilder.create().showNewBusinessObject(ownerBoc, newAadlConnection).build();
+			});
 		});
 	}
 
@@ -199,7 +199,7 @@ public class CreateAadlConnectionPaletteCommand extends BasePaletteCommand imple
 	 */
 	private Class<?> getConnectionEndType(final EClass connectionType) {
 		final Class<?> connectionEndType;
-		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
+		final Aadl2Package p = AgeAadlUtil.getAadl2Factory().getAadl2Package();
 		if (connectionType == p.getAccessConnection()) {
 			connectionEndType = AccessConnectionEnd.class;
 		} else if (connectionType == p.getFeatureConnection()) {
@@ -259,14 +259,14 @@ public class CreateAadlConnectionPaletteCommand extends BasePaletteCommand imple
 
 		final Object firstBo = pathObjects[0];
 		final boolean allowNested = !disableNesting
-				&& connectionType == Aadl2Factory.eINSTANCE.getAadl2Package().getFeatureConnection();
+				&& connectionType == AgeAadlUtil.getAadl2Factory().getAadl2Package().getFeatureConnection();
 
 		// If nesting is not allowed, then the number of objects must be at most 2.
 		if (!allowNested && pathObjects.length > 2) {
 			return null;
 		}
 
-		final ConnectedElement ce = Aadl2Factory.eINSTANCE.createConnectedElement();
+		final ConnectedElement ce = AgeAadlUtil.getAadl2Factory().createConnectedElement();
 
 		// Add the context
 		int i = 0;

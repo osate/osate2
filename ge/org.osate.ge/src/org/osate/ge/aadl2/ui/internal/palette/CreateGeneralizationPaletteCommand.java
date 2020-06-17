@@ -25,7 +25,6 @@ package org.osate.ge.aadl2.ui.internal.palette;
 
 import java.util.Optional;
 
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractImplementation;
 import org.osate.aadl2.AbstractType;
@@ -38,20 +37,21 @@ import org.osate.aadl2.ImplementationExtension;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.TypeExtension;
 import org.osate.ge.aadl2.internal.AadlImages;
+import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResult;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.CanStartConnectionContext;
-import org.osate.ge.palette.GetCreateConnectionOperationContext;
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
+import org.osate.ge.palette.GetCreateConnectionOperationContext;
 
 public class CreateGeneralizationPaletteCommand extends BasePaletteCommand implements CreateConnectionPaletteCommand {
 
 	public CreateGeneralizationPaletteCommand() {
 		super("Extension", AadlPaletteCategories.CLASSIFIERS,
-				AadlImages.getImage(Aadl2Factory.eINSTANCE.getAadl2Package().getGeneralization()));
+				AadlImages.getImage(AgeAadlUtil.getAadl2Factory().getAadl2Package().getGeneralization()));
 
 	}
 
@@ -91,7 +91,7 @@ public class CreateGeneralizationPaletteCommand extends BasePaletteCommand imple
 		// Feature Group Types can extend other feature group types
 		final boolean canCreate = (readonlySubtype instanceof ComponentType
 				&& (supertype instanceof AbstractType || supertype.getClass() == readonlySubtype
-						.getClass()))
+				.getClass()))
 				|| (readonlySubtype instanceof ComponentImplementation && (supertype instanceof AbstractImplementation
 						|| supertype.getClass() == readonlySubtype.getClass()))
 				|| (readonlySubtype instanceof FeatureGroupType && supertype instanceof FeatureGroupType);

@@ -83,6 +83,7 @@ import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.ui.util.ContextHelpUtil;
 import org.osate.ge.internal.ui.util.DialogPlacementHelper;
+import org.osate.ge.internal.util.AgeAadlUtil;
 
 public class CreateEndToEndFlowSpecificationTool {
 	private ColoringService.Coloring coloring = null;
@@ -264,7 +265,7 @@ public class CreateEndToEndFlowSpecificationTool {
 
 	private class CreateFlowsToolsDialog extends TitleAreaDialog {
 		private final UiService uiService;
-		private final Aadl2Package pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
+		private final Aadl2Package pkg = AgeAadlUtil.getAadl2Factory().getAadl2Package();
 		private final EndToEndFlow eTEFlow = (EndToEndFlow) pkg.getEFactoryInstance().create(pkg.getEndToEndFlow());
 		private final List<String> segmentList = new ArrayList<String>();
 		private final List<String> modeList = new ArrayList<String>();

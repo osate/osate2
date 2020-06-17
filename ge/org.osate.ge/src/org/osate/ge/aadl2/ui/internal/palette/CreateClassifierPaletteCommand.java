@@ -32,7 +32,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.swt.widgets.Display;
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
@@ -44,6 +43,7 @@ import org.osate.ge.aadl2.ui.internal.AadlUiUtil;
 import org.osate.ge.internal.ui.dialogs.ClassifierOperationDialog;
 import org.osate.ge.internal.ui.dialogs.DefaultCreateSelectClassifierDialogModel;
 import org.osate.ge.internal.util.AadlClassifierUtil;
+import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.ProjectUtil;
 import org.osate.ge.internal.util.classifiers.ClassifierCreationHelper;
 import org.osate.ge.internal.util.classifiers.ClassifierOperation;
@@ -53,8 +53,8 @@ import org.osate.ge.internal.util.classifiers.ClassifierOperationPartType;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResult;
 import org.osate.ge.palette.BasePaletteCommand;
-import org.osate.ge.palette.TargetedPaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
+import org.osate.ge.palette.TargetedPaletteCommand;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 import org.osate.ge.util.StringUtil;
@@ -236,7 +236,8 @@ public class CreateClassifierPaletteCommand extends BasePaletteCommand implement
 		boolean containerIsValidBaseClassifier = false;
 		if (componentImplementation) {
 			for (final EClass superType : classifierEClass.getESuperTypes()) {
-				if (!Aadl2Factory.eINSTANCE.getAadl2Package().getComponentImplementation().isSuperTypeOf(superType)) {
+				if (!AgeAadlUtil.getAadl2Factory().getAadl2Package().getComponentImplementation()
+						.isSuperTypeOf(superType)) {
 					if (superType.isSuperTypeOf(containerType)) {
 						containerIsValidBaseClassifier = true;
 						break;
@@ -246,7 +247,7 @@ public class CreateClassifierPaletteCommand extends BasePaletteCommand implement
 		} else {
 			containerIsValidBaseClassifier = classifierEClass.isSuperTypeOf(
 					containerType)
-					|| Aadl2Factory.eINSTANCE.getAadl2Package().getAbstractType().isSuperTypeOf(containerType);
+					|| AgeAadlUtil.getAadl2Factory().getAadl2Package().getAbstractType().isSuperTypeOf(containerType);
 		}
 
 		return containerIsValidBaseClassifier;

@@ -37,7 +37,7 @@ import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.internal.util.AadlHelper;
+import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -48,25 +48,25 @@ public class ConnectionReferenceHandler extends AadlBusinessObjectHandler {
 	private static StandaloneQuery srcQuery = StandaloneQuery
 			.create((rootQuery) -> rootQuery.parent()
 					.descendantsByBusinessObjectsRelativeReference((
-							ConnectionReference cr) -> AadlHelper
+							ConnectionReference cr) -> AgeAadlUtil
 							.getPathToBusinessObject(cr.getComponentInstance(), cr.getSource()))
 					.first());
 	private static StandaloneQuery partialSrcQuery = StandaloneQuery
 			.create((rootQuery) -> rootQuery.parent()
 					.descendantsByBusinessObjectsRelativeReference(
-							(ConnectionReference cr) -> AadlHelper
+							(ConnectionReference cr) -> AgeAadlUtil
 							.getPathToBusinessObject(cr.getComponentInstance(), cr.getSource()),
 							1)
 					.first());
 	private static StandaloneQuery dstQuery = StandaloneQuery
 			.create((rootQuery) -> rootQuery.parent()
 					.descendantsByBusinessObjectsRelativeReference((
-							ConnectionReference cr) -> AadlHelper
+							ConnectionReference cr) -> AgeAadlUtil
 							.getPathToBusinessObject(cr.getComponentInstance(), cr.getDestination()))
 					.first());
 	private static StandaloneQuery partialDstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent()
 			.descendantsByBusinessObjectsRelativeReference((
-					ConnectionReference cr) -> AadlHelper
+					ConnectionReference cr) -> AgeAadlUtil
 					.getPathToBusinessObject(cr.getComponentInstance(), cr.getDestination()), 1)
 			.first());
 

@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -50,7 +50,6 @@ import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.util.Strings;
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
@@ -59,6 +58,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
+import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.ui.properties.PropertySectionUtil;
@@ -240,19 +240,19 @@ public class SetExtendedClassifierPropertySection extends AbstractPropertySectio
 
 			// Ensure that abstract classifiers are in the list
 			if (classifier instanceof ComponentType) {
-				if (classifier.eClass() != Aadl2Factory.eINSTANCE.getAadl2Package().getAbstractType()) {
+				if (classifier.eClass() != AgeAadlUtil.getAadl2Factory().getAadl2Package().getAbstractType()) {
 					for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(
-							classifier.eResource(), Aadl2Factory.eINSTANCE.getAadl2Package().getAbstractType())) {
+							classifier.eResource(), AgeAadlUtil.getAadl2Factory().getAadl2Package().getAbstractType())) {
 						if (!name.equalsIgnoreCase(desc.getName().toString("::"))) {
 							objectDescriptions.add(desc);
 						}
 					}
 				}
 			} else if (classifier instanceof ComponentImplementation) {
-				if (classifier.eClass() != Aadl2Factory.eINSTANCE.getAadl2Package().getAbstractImplementation()) {
+				if (classifier.eClass() != AgeAadlUtil.getAadl2Factory().getAadl2Package().getAbstractImplementation()) {
 					for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(
 							classifier.eResource(),
-							Aadl2Factory.eINSTANCE.getAadl2Package().getAbstractImplementation())) {
+							AgeAadlUtil.getAadl2Factory().getAadl2Package().getAbstractImplementation())) {
 						if (!name.equalsIgnoreCase(desc.getName().toString("::"))) {
 							objectDescriptions.add(desc);
 						}

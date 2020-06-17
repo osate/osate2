@@ -39,6 +39,7 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.ui.internal.AadlUiUtil;
+import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
@@ -49,7 +50,7 @@ public class CreateModePaletteCommand extends BasePaletteCommand implements Targ
 
 	public CreateModePaletteCommand() {
 		super("Mode", AadlPaletteCategories.MODES,
-				AadlImages.getImage(Aadl2Factory.eINSTANCE.getAadl2Package().getMode()));
+				AadlImages.getImage(AgeAadlUtil.getAadl2Factory().getAadl2Package().getMode()));
 
 	}
 

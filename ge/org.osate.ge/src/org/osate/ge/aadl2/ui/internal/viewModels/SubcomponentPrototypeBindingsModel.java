@@ -50,6 +50,7 @@ import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.ge.BusinessObjectSelection;
+import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.internal.util.SubcomponentUtil;
 import org.osate.ge.swt.classifiers.PrototypeBindingsModel;
@@ -226,7 +227,7 @@ extends BusinessObjectSelectionPrototypeBindingsModel {
 	}
 
 	private EClass componentCategoryToSubcomponentTypeEClass(final ComponentCategory category) {
-		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
+		final Aadl2Package p = AgeAadlUtil.getAadl2Factory().getAadl2Package();
 
 		switch (category) {
 		case SYSTEM:

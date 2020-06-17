@@ -30,7 +30,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EClass;
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractSubcomponent;
@@ -75,7 +74,7 @@ public class SubcomponentUtil {
 	 */
 	private static Map<EClass,String> createSubcomponentTypeToMethodMap() {
 		final LinkedHashMap<EClass, String> map = new LinkedHashMap<EClass, String>();
-		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
+		final Aadl2Package p = AgeAadlUtil.getAadl2Factory().getAadl2Package();
 		map.put(p.getAbstractSubcomponent(), "createOwnedAbstractSubcomponent");
 		map.put(p.getBusSubcomponent(), "createOwnedBusSubcomponent");
 		map.put(p.getDataSubcomponent(), "createOwnedDataSubcomponent");

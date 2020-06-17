@@ -31,7 +31,6 @@ import java.util.Set;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.xtext.resource.IEObjectDescription;
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
@@ -194,7 +193,7 @@ public class AadlClassifierUtil {
 	}
 
 	public static EClass componentCategoryToClassifierEClass(final ComponentCategory category) {
-		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
+		final Aadl2Package p = AgeAadlUtil.getAadl2Factory().getAadl2Package();
 
 		switch (category) {
 		case SYSTEM:
@@ -253,9 +252,10 @@ public class AadlClassifierUtil {
 		final EClass classifierClass = componentCategoryToClassifierEClass(componentCategory);
 		final Set<IEObjectDescription> objectDescriptions = new HashSet<IEObjectDescription>();
 		for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(project,
-				Aadl2Factory.eINSTANCE.getAadl2Package().getComponentClassifier())) {
+				AgeAadlUtil.getAadl2Factory().getAadl2Package().getComponentClassifier())) {
 			// Add objects that have are either types or implementations of the same category as the classifier type
-			if (classifierClass.isSuperTypeOf(desc.getEClass()) && (includeImplementations || !Aadl2Factory.eINSTANCE
+			if (classifierClass.isSuperTypeOf(desc.getEClass()) && (includeImplementations || !AgeAadlUtil
+					.getAadl2Factory()
 					.getAadl2Package().getComponentImplementation().isSuperTypeOf(desc.getEClass()))) {
 				objectDescriptions.add(desc);
 			}
