@@ -3215,7 +3215,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				isAncestor = true;
 			}
 		}
-		if (!isAncestor) {
+		if (!isAncestor && typeOfChild != null) {
 			error(implementationExtension, '\'' + typeOfParent.getQualifiedName() + "' is not an ancestor of '"
 					+ typeOfChild.getQualifiedName() + "'.");
 		}
@@ -3423,7 +3423,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 		for (FeatureType featureType : typesOfInheritedFeatures) {
-			if (!acceptableFeatureTypes.contains(featureType)) {
+			if (typeCategory != null && !acceptableFeatureTypes.contains(featureType)) {
 
 				String changeFrom = typeCategory.getName();
 				String offset = "" + findKeywordOffset(componentType, changeFrom);
@@ -3485,7 +3485,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 		for (ComponentCategory subcomponentCategory : categoriesOfInheritedSubcomponents) {
-			if (!acceptableSubcomponentCategories.contains(subcomponentCategory)) {
+			if (implementationCategory != null && !acceptableSubcomponentCategories.contains(subcomponentCategory)) {
 				error(componentImplementation.getOwnedExtension(),
 						"A " + implementationCategory.getName()
 								+ " implementation cannot extend an abstract implementation that contains a "
