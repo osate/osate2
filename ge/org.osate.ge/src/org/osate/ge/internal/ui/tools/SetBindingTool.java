@@ -52,7 +52,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.xtext.util.Strings;
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.ArrayRange;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
@@ -82,6 +81,7 @@ import org.osate.ge.internal.services.AadlModificationService.Modification;
 import org.osate.ge.internal.services.AadlModificationService.SimpleModifier;
 import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.ui.util.ContextHelpUtil;
+import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.swt.util.SwtTestUtil;
 import org.osate.xtext.aadl2.properties.util.DeploymentProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -363,7 +363,7 @@ public class SetBindingTool {
 			@Override
 			public void modify(final ComponentClassifier ci) {
 				for (final BusinessObjectContext bocToBind : currentWindow.getBocsToBind()) {
-					final PropertyAssociation newPa = Aadl2Factory.eINSTANCE.createPropertyAssociation();
+					final PropertyAssociation newPa = AgeAadlUtil.getAadl2Factory().createPropertyAssociation();
 
 					// Set property
 					newPa.setProperty(currentWindow.getSelectedProperty());
@@ -375,12 +375,14 @@ public class SetBindingTool {
 
 					// Create owned values
 					final ModalPropertyValue pv = newPa.createOwnedValue();
-					final ListValue lv = (ListValue) pv.createOwnedValue(Aadl2Factory.eINSTANCE.getAadl2Package()
+					final ListValue lv = (ListValue) pv.createOwnedValue(AgeAadlUtil.getAadl2Factory()
+							.getAadl2Package()
 							.getListValue());
 
 					for (final BusinessObjectContext targetBoc : currentWindow.getTargetBocs()) {
 						// Ignore diagram selections
-						final ReferenceValue rv = (ReferenceValue) lv.createOwnedListElement(Aadl2Factory.eINSTANCE.getAadl2Package().getReferenceValue());
+						final ReferenceValue rv = (ReferenceValue) lv.createOwnedListElement(
+								AgeAadlUtil.getAadl2Factory().getAadl2Package().getReferenceValue());
 						setContainedNamedElementPath(rv, ciBoc, targetBoc);
 					}
 

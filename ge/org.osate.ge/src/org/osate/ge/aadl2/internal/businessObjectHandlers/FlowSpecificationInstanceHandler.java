@@ -36,7 +36,7 @@ import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.internal.util.AadlHelper;
+import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
@@ -113,11 +113,11 @@ public class FlowSpecificationInstanceHandler extends AadlBusinessObjectHandler 
 	}
 
 	private static Object[] getPathToFlowSpecificationInstanceSource(FlowSpecificationInstance fsi) {
-		return AadlHelper.getPathToBusinessObject(fsi.getComponentInstance(),
+		return AgeAadlUtil.getPathToBusinessObject(fsi.getComponentInstance(),
 				fsi.getFlowSpecification().getKind() == FlowKind.SOURCE ? fsi.getDestination() : fsi.getSource());
 	}
 
 	private static Object[] getPathToFlowSpecificationInstanceDestination(FlowSpecificationInstance fsi) {
-		return AadlHelper.getPathToBusinessObject(fsi.getComponentInstance(), fsi.getDestination());
+		return AgeAadlUtil.getPathToBusinessObject(fsi.getComponentInstance(), fsi.getDestination());
 	}
 }

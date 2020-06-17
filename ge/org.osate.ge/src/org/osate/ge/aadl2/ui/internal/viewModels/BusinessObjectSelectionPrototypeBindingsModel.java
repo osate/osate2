@@ -71,7 +71,7 @@ import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.ge.BusinessObjectSelection;
-import org.osate.ge.internal.util.AadlHelper;
+import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.AadlPrototypeUtil;
 import org.osate.ge.internal.util.ProjectUtil;
@@ -274,11 +274,11 @@ PrototypeBindingsModel<PrototypeBindingsModelNode, Object, PrototypeBindingType,
 			filterEClasses = componentCategoryToPrototypeFilterTypeEClasses(category);
 			prototypeFilter = ComponentPrototype.class;
 		} else if (bo instanceof FeatureGroupPrototype) {
-			filterEClasses = Stream.of(Aadl2Factory.eINSTANCE.getAadl2Package().getFeatureGroupType());
+			filterEClasses = Stream.of(AgeAadlUtil.getAadl2Factory().getAadl2Package().getFeatureGroupType());
 			prototypeFilter = FeatureGroupPrototype.class;
 		} else if (bo instanceof FeaturePrototype && type instanceof AccessSpecificationBindingType
 				|| type instanceof PortSpecificationBindingType) {
-			filterEClasses = Stream.of(Aadl2Factory.eINSTANCE.getAadl2Package().getComponentClassifier());
+			filterEClasses = Stream.of(AgeAadlUtil.getAadl2Factory().getAadl2Package().getComponentClassifier());
 			prototypeFilter = null;
 		} else if (bo instanceof FeaturePrototype && type instanceof FeatureReferenceBindingType) {
 			filterEClasses = Stream.empty();
@@ -340,7 +340,7 @@ PrototypeBindingsModel<PrototypeBindingsModelNode, Object, PrototypeBindingType,
 	 */
 	public final void setBusinessObjectSelection(final BusinessObjectSelection value) {
 		this.bos = Objects.requireNonNull(value, "value must not be null");
-		this.project = AadlHelper.getCommonProject(this.bos.boStream(Element.class).collect(Collectors.toList()))
+		this.project = AgeAadlUtil.getCommonProject(this.bos.boStream(Element.class).collect(Collectors.toList()))
 				.orElse(null);
 		this.resourceSet = project == null ? null : ProjectUtil.getLiveResourceSet(project);
 
@@ -609,7 +609,7 @@ PrototypeBindingsModel<PrototypeBindingsModelNode, Object, PrototypeBindingType,
 	 */
 	protected final void createNewBindings(final PrototypeBindingsModelNode parent, final Object classifier,
 			final Element boBeingModified, final List<PrototypeBinding> newBindings) {
-		final Aadl2Factory f = Aadl2Factory.eINSTANCE;
+		final Aadl2Factory f = AgeAadlUtil.getAadl2Factory();
 
 		// Check for a binding for each prototype of the specified classifier
 		AadlPrototypeUtil.getAllPrototypes(classifier).forEachOrdered(p -> {
@@ -758,7 +758,7 @@ PrototypeBindingsModel<PrototypeBindingsModelNode, Object, PrototypeBindingType,
 
 	// Returns a stream containing EClass instances to use to filter component prototype classifier options
 	private static Stream<EClass> componentCategoryToPrototypeFilterTypeEClasses(final ComponentCategory category) {
-		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
+		final Aadl2Package p = AgeAadlUtil.getAadl2Factory().getAadl2Package();
 
 		switch (category) {
 		case ABSTRACT:

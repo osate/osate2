@@ -46,6 +46,7 @@ import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.ui.util.UiUtil;
+import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 import org.osate.ge.internal.util.DiagramTypeUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
@@ -111,7 +112,8 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 	public Map<String, Collection<String>> getAadlProperties() {
 		// Retrieve properties from the EMF Index
 		final Map<String, Collection<String>> result = new HashMap<>();
-		for(final IEObjectDescription propDesc : ScopedEMFIndexRetrieval.getAllEObjectsByType(projectProvider.getProject(), Aadl2Factory.eINSTANCE.getAadl2Package().getProperty())) {
+		for (final IEObjectDescription propDesc : ScopedEMFIndexRetrieval.getAllEObjectsByType(
+				projectProvider.getProject(), AgeAadlUtil.getAadl2Factory().getAadl2Package().getProperty())) {
 			final QualifiedName qn = propDesc.getQualifiedName();
 			if(qn.getSegmentCount() == 2) { // Qualified property names should only have two segments.
 				final String propertySetName = qn.getFirstSegment();

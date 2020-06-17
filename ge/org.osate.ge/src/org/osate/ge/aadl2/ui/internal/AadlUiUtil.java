@@ -44,7 +44,6 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.ui.resource.XtextLiveScopeResourceSetProvider;
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
@@ -58,6 +57,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
 import org.osate.ge.internal.util.AadlClassifierUtil;
+import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.operations.OperationBuilder;
 import org.osate.ge.operations.StepResult;
@@ -87,7 +87,8 @@ public class AadlUiUtil {
 
 	public static Set<IEObjectDescription> getEditablePackages(final IProject project) {
 		return ScopedEMFIndexRetrieval
-				.getAllEObjectsByType(project, Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage()).stream()
+				.getAllEObjectsByType(project, AgeAadlUtil.getAadl2Factory().getAadl2Package().getAadlPackage())
+				.stream()
 				.filter(od -> od.getEObjectURI() != null && !od.getEObjectURI().isPlatformPlugin())
 				.collect(Collectors.toSet());
 	}
@@ -108,9 +109,10 @@ public class AadlUiUtil {
 		final Set<IEObjectDescription> objectDescriptions = new HashSet<IEObjectDescription>();
 		for (final IEObjectDescription desc : ScopedEMFIndexRetrieval
 				.getAllEObjectsByType(project,
-				Aadl2Factory.eINSTANCE.getAadl2Package().getComponentClassifier())) {
+						AgeAadlUtil.getAadl2Factory().getAadl2Package().getComponentClassifier())) {
 			// Add objects that have are either types or implementations of the same category as the classifier type
-			if (classifierClass.isSuperTypeOf(desc.getEClass()) && (includeImplementations || !Aadl2Factory.eINSTANCE
+			if (classifierClass.isSuperTypeOf(desc.getEClass()) && (includeImplementations || !AgeAadlUtil
+					.getAadl2Factory()
 					.getAadl2Package().getComponentImplementation().isSuperTypeOf(desc.getEClass()))) {
 				objectDescriptions.add(desc);
 			}

@@ -64,7 +64,6 @@ import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.util.Strings;
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractFeature;
@@ -92,7 +91,7 @@ import org.osate.ge.internal.ui.dialogs.DefaultCreateSelectClassifierDialogModel
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.internal.util.AadlClassifierUtil;
-import org.osate.ge.internal.util.AadlHelper;
+import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.AadlPrototypeUtil;
 import org.osate.ge.internal.util.EditingUtil;
@@ -125,7 +124,7 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 	private static Map<EClass, FeatureClassifierMetadata> featureTypeToMetadataMap = new HashMap<EClass, FeatureClassifierMetadata>();
 
 	static {
-		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
+		final Aadl2Package p = AgeAadlUtil.getAadl2Factory().getAadl2Package();
 		featureTypeToMetadataMap.put(p.getBusAccess(), new FeatureClassifierMetadata(
 				p.getBusFeatureClassifier(), BusFeatureClassifier.class, "setBusFeatureClassifier",
 				ImmutableList.of(ComponentCategory.BUS, ComponentCategory.VIRTUAL_BUS)));
@@ -279,7 +278,7 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 					context.getActive(AadlModificationService.class), "Unable to retrieve AADL modification service");
 
 			// Determine project to use
-			final IProject project = AadlHelper.getCommonProject(features)
+			final IProject project = AgeAadlUtil.getCommonProject(features)
 					.orElseThrow(() -> new RuntimeException("Unable to determine project"));
 
 			// Get the resource set to use. Use the resource set from the selected model elements to ensure the proper model elements are modified.
@@ -295,7 +294,7 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 
 				@Override
 				public Collection<?> getPackageOptions() {
-					return AadlHelper.getEditablePackages(project);
+					return AgeAadlUtil.getEditablePackages(project);
 				}
 
 				@Override
@@ -308,7 +307,8 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 			};
 
 			// Show the dialog to determine the operation
-			final boolean isFeatureGroup = metadata.classifierEClass == Aadl2Factory.eINSTANCE.getAadl2Package()
+			final boolean isFeatureGroup = metadata.classifierEClass == AgeAadlUtil.getAadl2Factory()
+					.getAadl2Package()
 					.getFeatureType();
 
 			final ClassifierOperationDialog.ArgumentBuilder argBuilder = new ClassifierOperationDialog.ArgumentBuilder(
@@ -316,7 +316,7 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 					isFeatureGroup ? EnumSet.of(ClassifierOperationPartType.NEW_FEATURE_GROUP_TYPE)
 							: EnumSet.of(ClassifierOperationPartType.NEW_COMPONENT_TYPE,
 									ClassifierOperationPartType.NEW_COMPONENT_IMPLEMENTATION))
-					.defaultPackage(AadlHelper.getCommonPackage(features).orElse(null))
+					.defaultPackage(AgeAadlUtil.getCommonPackage(features).orElse(null))
 					.componentCategories(metadata.createComponentCategories);
 
 			final ClassifierOperation classifierOp = ClassifierOperationDialog
@@ -358,7 +358,7 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 		createBtn.setEnabled(
 				!features.isEmpty() && features.stream().allMatch(f -> f.eClass() == features.get(0).eClass())
 				&& EditingUtil.allHaveSameValidResourceSet(features)
-				&& AadlHelper.getCommonProject(features).isPresent());
+				&& AgeAadlUtil.getCommonProject(features).isPresent());
 	}
 
 	private static String getFeatureClassifierLabel(final List<Feature> features) {

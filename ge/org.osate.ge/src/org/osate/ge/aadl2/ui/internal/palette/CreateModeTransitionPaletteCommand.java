@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Mode;
@@ -41,13 +40,14 @@ import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.ui.internal.AadlUiUtil;
 import org.osate.ge.internal.ui.dialogs.ModeTransitionTriggerSelectionDialog;
 import org.osate.ge.internal.ui.dialogs.ModeTransitionTriggerSelectionDialog.ModeTransitionTriggerInfo;
+import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.operations.BusinessObjectAndExtra;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.CanStartConnectionContext;
-import org.osate.ge.palette.GetCreateConnectionOperationContext;
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
+import org.osate.ge.palette.GetCreateConnectionOperationContext;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -58,7 +58,7 @@ public class CreateModeTransitionPaletteCommand extends BasePaletteCommand imple
 
 	public CreateModeTransitionPaletteCommand() {
 		super("Mode Transition", AadlPaletteCategories.MODES,
-				AadlImages.getImage(Aadl2Factory.eINSTANCE.getAadl2Package().getModeTransition()));
+				AadlImages.getImage(AgeAadlUtil.getAadl2Factory().getAadl2Package().getModeTransition()));
 
 	}
 

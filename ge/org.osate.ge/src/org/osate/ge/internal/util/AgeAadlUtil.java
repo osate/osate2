@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -45,12 +45,13 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.SubprogramCallSequence;
+import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
 /**
  * Stand-alone static methods for working with AADL models
  *
  */
-public class AadlHelper {
+public class AgeAadlUtil {
 	/**
 	 * Checks whether the named elements have the same name. Ignores case.
 	 * @param ne1
@@ -148,7 +149,8 @@ public class AadlHelper {
 
 	public static Set<IEObjectDescription> getEditablePackages(final IProject project) {
 		return ScopedEMFIndexRetrieval
-				.getAllEObjectsByType(project, Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage())
+				.getAllEObjectsByType(project, AgeAadlUtil.getAadl2Factory().getAadl2Package()
+						.getAadlPackage())
 				.stream().filter(od -> od.getEObjectURI() != null && !od.getEObjectURI().isPlatformPlugin())
 				.collect(Collectors.toSet());
 	}
@@ -172,6 +174,20 @@ public class AadlHelper {
 		return Optional.ofNullable(elements.stream()
 				.map(e -> e.getElementRoot() instanceof AadlPackage ? (AadlPackage) e.getElementRoot() : null)
 				.reduce(null, (p1, p2) -> p1 == p2 ? p1 : null));
+	}
+
+	private static boolean injectorInitialized = false;;
+
+	/**
+	 * Method intended to get the Aadl2Factory. Ensures that the injector has been initialized.
+	 * If it hasn't been initialized the Aadl2Package may be null.
+	 */
+	public static Aadl2Factory getAadl2Factory() {
+		if (!injectorInitialized) {
+			Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2);
+			injectorInitialized = true;
+		}
+		return Aadl2Factory.eINSTANCE;
 	}
 
 }

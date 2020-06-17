@@ -2293,6 +2293,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.ClassifierHandler" />
 	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.GeneralizatonHandler" />
 	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.PackageHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.PackageProxyHandler" />
 	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.ConnectionReferenceHandler" />
 	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.AnnexHandler" />
 	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.ComponentInstanceHandler" />

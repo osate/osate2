@@ -82,6 +82,7 @@ import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
+import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.AadlPrototypeUtil;
 import org.osate.ge.util.StringUtil;
 
@@ -367,7 +368,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 				final Object selectedFlowSpecification = flowSpecSelectionDlg.getFirstSelectedElement();
 				if (selectedFlowSpecification instanceof FlowSpecification) {
 					// Create a flow implementation
-					final Aadl2Package pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
+					final Aadl2Package pkg = AgeAadlUtil.getAadl2Factory().getAadl2Package();
 					final FlowImplementation newFlow = (FlowImplementation) pkg.getEFactoryInstance()
 							.create(pkg.getFlowImplementation());
 
@@ -395,8 +396,8 @@ public class EditFlowsDialog extends TitleAreaDialog {
 						"Enter a name for the new End-to-End flow", "", newText -> {
 							// Check if the name is a valid identifier and is not being used
 							boolean invalid = false;
-									if (!AadlNamingUtil.isValidIdentifier(newText)
-											|| AadlNamingUtil.isNameInUse(ci, newText)) {
+							if (!AadlNamingUtil.isValidIdentifier(newText)
+									|| AadlNamingUtil.isNameInUse(ci, newText)) {
 								invalid = true;
 							}
 
@@ -416,7 +417,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 				}
 
 				// Create a new end to end flow
-				final Aadl2Package pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
+				final Aadl2Package pkg = AgeAadlUtil.getAadl2Factory().getAadl2Package();
 				final EndToEndFlow newFlow = (EndToEndFlow) pkg.getEFactoryInstance().create(pkg.getEndToEndFlow());
 
 				// Set the name
@@ -800,7 +801,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 			final FeatureGroup fg = (FeatureGroup) flowSpecFlowEnd.getFeature();
 			final FeatureGroupType fgt = fg.getAllFeatureGroupType();
 			if (fgt != null) {
-				final Aadl2Factory factory = Aadl2Factory.eINSTANCE.getAadl2Package().getAadl2Factory();
+				final Aadl2Factory factory = AgeAadlUtil.getAadl2Factory().getAadl2Package().getAadl2Factory();
 				for (final Feature tmpFeature : fgt.getAllFeatures()) {
 					final FlowEnd flowEnd = factory.createFlowEnd();
 					flowEnd.setContext(fg);

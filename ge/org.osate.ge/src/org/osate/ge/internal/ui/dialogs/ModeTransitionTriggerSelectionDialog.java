@@ -40,7 +40,7 @@ import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.TriggerPort;
-import org.osate.ge.internal.util.AadlHelper;
+import org.osate.ge.internal.util.AgeAadlUtil;
 
 public abstract class ModeTransitionTriggerSelectionDialog {
 	
@@ -105,12 +105,12 @@ public abstract class ModeTransitionTriggerSelectionDialog {
 			final ComponentImplementation ci = (ComponentImplementation)cc;
 			
 			// Get Internal Features
-			for(final InternalFeature f : AadlHelper.getAllInternalFeatures(ci)) {
+			for(final InternalFeature f : AgeAadlUtil.getAllInternalFeatures(ci)) {
 				ports.add(new ModeTransitionTriggerInfo(f, null));
 			}
 			
 			// Get Port Proxies
-			for(final ProcessorFeature f : AadlHelper.getAllProcessorFeatures(ci)) {
+			for(final ProcessorFeature f : AgeAadlUtil.getAllProcessorFeatures(ci)) {
 				if(f instanceof TriggerPort) {
 					ports.add(new ModeTransitionTriggerInfo((TriggerPort)f, null));
 				}				

@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -52,11 +52,11 @@ import org.osate.aadl2.SubprogramPrototype;
 import org.osate.aadl2.SubprogramProxy;
 import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.ge.internal.util.AadlFeatureUtil;
-import org.osate.ge.internal.util.AadlHelper;
+import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 
 /**
- * This is a default implementation of the model used for the SelectSubprogramDialog. 
+ * This is a default implementation of the model used for the SelectSubprogramDialog.
  * It supplies contexts and subprogram from the ScopedEMFIndexRetrieval and the specified BehavioredImplementation.
  *
  */
@@ -65,10 +65,10 @@ public class DefaultSelectSubprogramDialogModel implements SelectSubprogramDialo
 	private static final Object nullContext = new Object();
 	private final BehavioredImplementation bi;
 	private final List<Object> contexts;
-	
+
 	public DefaultSelectSubprogramDialogModel(final BehavioredImplementation bi) {
 		this.bi = bi;
-		
+
 		// Build a list of contexts
 		final List<Object> modifiableContextList = new ArrayList<Object>();
 
@@ -76,17 +76,17 @@ public class DefaultSelectSubprogramDialogModel implements SelectSubprogramDialo
 		// data unique type reference
 		// subprogram group unique type reference
 		// abstract unique type reference
-		final Aadl2Package aadl2Package = Aadl2Factory.eINSTANCE.getAadl2Package();
+		final Aadl2Package aadl2Package = AgeAadlUtil.getAadl2Factory().getAadl2Package();
 		for(final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(bi.eResource(), aadl2Package.getComponentClassifier())) {
 			// Add objects that have care either types or implementations of the same category as the classifier type
 			final EClass classifierEClass = desc.getEClass();
 			if(aadl2Package.getDataType() == classifierEClass ||
-					aadl2Package.getSubprogramGroupType() == classifierEClass || 
+					aadl2Package.getSubprogramGroupType() == classifierEClass ||
 					aadl2Package.getAbstractType() == classifierEClass) {
 				modifiableContextList.add(desc);
 			}
 		}
-		
+
 		// Add contexts that are related to the component implementation
 		// Add Feature Groups and Required Subprogram Group Access Features
 		for(final Feature feature : bi.getAllFeatures()) {
@@ -99,7 +99,7 @@ public class DefaultSelectSubprogramDialogModel implements SelectSubprogramDialo
 				}
 			}
 		}
-	
+
 		// Add Subprogram Group Subcomponents
 		for(final Subcomponent sc : bi.getAllSubcomponents()) {
 			if(sc instanceof SubprogramGroupSubcomponent && sc.getAllClassifier() != null) {
@@ -110,7 +110,7 @@ public class DefaultSelectSubprogramDialogModel implements SelectSubprogramDialo
 		// Add other contexts
 		modifiableContextList.add(processorContext);
 		modifiableContextList.add(nullContext);
-		
+
 		contexts = Collections.unmodifiableList(modifiableContextList);
 	}
 
@@ -123,7 +123,7 @@ public class DefaultSelectSubprogramDialogModel implements SelectSubprogramDialo
 	public List<Object> getSubprograms(final Object context) {
 		// Build a list of subprograms
 		final List<Object> subprograms = new ArrayList<Object>();
-		
+
 		// Cases:
 		// Data/Subprogram Group/Abstract Type
 		if(context instanceof IEObjectDescription) {
@@ -161,14 +161,14 @@ public class DefaultSelectSubprogramDialogModel implements SelectSubprogramDialo
 			addProvidesSubprogramAccessesForComponentClassifier(((SubprogramGroupSubcomponent) context).getAllClassifier(), subprograms);
 		} else if(context == processorContext) { // Processor Context
 			// Subprogram Proxy
-			for(final ProcessorFeature processorFeature : AadlHelper.getAllProcessorFeatures(bi)) {
+			for(final ProcessorFeature processorFeature : AgeAadlUtil.getAllProcessorFeatures(bi)) {
 				if(processorFeature instanceof SubprogramProxy) {
 					subprograms.add(processorFeature);
 				}
 			}
 		} else if(context == nullContext) { // Null Context
 			// Subprogram classifier reference
-			final Aadl2Package aadl2Package = Aadl2Factory.eINSTANCE.getAadl2Package();
+			final Aadl2Package aadl2Package = AgeAadlUtil.getAadl2Factory().getAadl2Package();
 			for(final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(bi.eResource(), aadl2Package.getComponentClassifier())) {
 				// Add objects that have care either types or implementations of the same category as the classifier type
 				final EClass classifierEClass = desc.getEClass();
@@ -176,21 +176,21 @@ public class DefaultSelectSubprogramDialogModel implements SelectSubprogramDialo
 					subprograms.add(desc);
 				}
 			}
-			
+
 			// Requires Subprogram Access
 			for(final Feature tmpFeature : bi.getAllFeatures()) {
 				if(tmpFeature instanceof SubprogramAccess && ((SubprogramAccess)tmpFeature).getKind() == AccessType.REQUIRES) {
 					subprograms.add(tmpFeature);
-				}							
+				}
 			}
-			
+
 			// Subprogram Subcomponent
 			for(final Subcomponent tmpSc : bi.getAllSubcomponents()) {
 				if(tmpSc instanceof SubprogramSubcomponent) {
 					subprograms.add(tmpSc);
 				}
 			}
-			
+
 			// Subprogram Prototype
 			for(final Prototype prototype : bi.getAllPrototypes()) {
 				if(prototype instanceof SubprogramPrototype) {
@@ -198,10 +198,10 @@ public class DefaultSelectSubprogramDialogModel implements SelectSubprogramDialo
 				}
 			}
 		}
-		
+
 		return Collections.unmodifiableList(subprograms);
 	}
-	
+
 	/**
 	 * Returns a CallContext object from an object provided by getContexts()
 	 * @param context
@@ -218,11 +218,11 @@ public class DefaultSelectSubprogramDialogModel implements SelectSubprogramDialo
 				return (CallContext)desc.getEObjectOrProxy();
 			}
 		}
-			
+
 		throw new RuntimeException("Unhandled case: " + context);
 
 	}
-	
+
 	public CalledSubprogram getCalledSubprogram(final Object subprogram) {
 		if(subprogram instanceof CalledSubprogram) {
 			return (CalledSubprogram)subprogram;
@@ -231,8 +231,8 @@ public class DefaultSelectSubprogramDialogModel implements SelectSubprogramDialo
 			if(desc.getEObjectOrProxy() instanceof CalledSubprogram) {
 				return (CalledSubprogram)desc.getEObjectOrProxy();
 			}
-		} 
-		
+		}
+
 		throw new RuntimeException("Unhandled case: " + subprogram);
 	}
 
@@ -240,10 +240,10 @@ public class DefaultSelectSubprogramDialogModel implements SelectSubprogramDialo
 		for(final Feature tmpFeature : cc.getAllFeatures()) {
 			if(tmpFeature instanceof SubprogramAccess && ((SubprogramAccess)tmpFeature).getKind() == AccessType.PROVIDES) {
 				subprograms.add(tmpFeature);
-			}							
+			}
 		}
 	}
-	
+
 	@Override
 	public String getLabel(final Object value) {
 		if(value instanceof IEObjectDescription){
@@ -257,5 +257,5 @@ public class DefaultSelectSubprogramDialogModel implements SelectSubprogramDialo
 		} else {
 			throw new RuntimeException("Unhandled case");
 		}
-	}			
+	}
 }

@@ -21,60 +21,45 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal;
+package org.osate.ge.aadl2.internal.businessObjectHandlers;
 
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.osgi.framework.BundleContext;
+import java.util.Optional;
+
+import org.osate.ge.GraphicalConfiguration;
+import org.osate.ge.aadl2.internal.AadlImages;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.GetIconIdContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.internal.model.BusinessObjectProxy;
+import org.osate.ge.internal.util.AgeAadlUtil;
 
 /**
- * The activator class controls the plug-in life cycle
+ * Business object handler for {@link BusinessObjectProxy} which reference AADL packages. Used to allow providing an icon. In most cases,
+ * proxies are resolved before use so other functions do not provide functionality.
  */
-public class Activator extends AbstractUIPlugin {
-
-	// The plug-in ID
-	public static final String PLUGIN_ID = "org.osate.ge"; //$NON-NLS-1$
-
-	// The shared instance
-	private static Activator plugin;
-
-	/*
-	 * (non-Javadoc)
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
-	 */
+public class PackageProxyHandler implements BusinessObjectHandler {
 	@Override
-	public void start(BundleContext context) throws Exception {
-		super.start(context);
-		plugin = this;
+	public boolean isApplicable(final IsApplicableContext ctx) {
+		return ctx.getBusinessObject(BusinessObjectProxy.class)
+				.filter(p -> p.getEClass() == AgeAadlUtil.getAadl2Factory().getAadl2Package().getAadlPackage())
+				.isPresent();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
-	 */
 	@Override
-	public void stop(BundleContext context) throws Exception {
-		plugin = null;
-		super.stop(context);
+	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
+		return Optional.empty();
 	}
 
-	/**
-	 * Returns the shared instance
-	 *
-	 * @return the shared instance
-	 */
-	public static Activator getDefault() {
-		return plugin;
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(BusinessObjectProxy.class).map(p -> "Package Proxy " + p.getName()).orElse("");
 	}
 
-	/**
-	 * Returns an image descriptor for the image file at the given
-	 * plug-in relative path
-	 *
-	 * @param path the path
-	 * @return the image descriptor
-	 */
-	public static ImageDescriptor getImageDescriptor(String path) {
-		return imageDescriptorFromPlugin(PLUGIN_ID, path);
+	@Override
+	public final Optional<String> getIconId(final GetIconIdContext ctx) {
+		return ctx.getBusinessObject(BusinessObjectProxy.class).map(p -> AadlImages.getImage(p.getEClass()));
 	}
+
 }

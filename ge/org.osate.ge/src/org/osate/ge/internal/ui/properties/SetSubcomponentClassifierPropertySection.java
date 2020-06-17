@@ -66,7 +66,7 @@ import org.osate.ge.internal.ui.dialogs.ClassifierOperationDialog;
 import org.osate.ge.internal.ui.dialogs.DefaultCreateSelectClassifierDialogModel;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.internal.util.AadlClassifierUtil;
-import org.osate.ge.internal.util.AadlHelper;
+import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.EditingUtil;
 import org.osate.ge.internal.util.SubcomponentUtil;
 import org.osate.ge.internal.util.classifiers.ClassifierOperation;
@@ -147,7 +147,7 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 					context.getActive(AadlModificationService.class), "Unable to retrieve AADL modification service");
 
 			// Determine project to use
-			final IProject project = AadlHelper.getCommonProject(scs)
+			final IProject project = AgeAadlUtil.getCommonProject(scs)
 					.orElseThrow(() -> new RuntimeException("Unable to determine project"));
 
 			// Get the resource set to use. Use the resource set from the selected model elements to ensure the proper model elements are modified.
@@ -163,7 +163,7 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 
 				@Override
 				public Collection<?> getPackageOptions() {
-					return AadlHelper.getEditablePackages(project);
+					return AgeAadlUtil.getEditablePackages(project);
 				}
 
 				@Override
@@ -180,7 +180,7 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 					model,
 					EnumSet.of(ClassifierOperationPartType.NEW_COMPONENT_TYPE,
 							ClassifierOperationPartType.NEW_COMPONENT_IMPLEMENTATION))
-					.defaultPackage(AadlHelper.getCommonPackage(scs).orElse(null))
+					.defaultPackage(AgeAadlUtil.getCommonPackage(scs).orElse(null))
 					.componentCategories(ImmutableList.of(componentCategory));
 
 			final ClassifierOperation classifierOp = ClassifierOperationDialog
@@ -226,7 +226,7 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 		createBtn.setEnabled(!scs.isEmpty() && scs.stream().allMatch(sc -> sc.getCategory() == scs.get(0).getCategory())
 				&& scs.stream().allMatch(sc -> sc.eResource() != null)
 				&& EditingUtil.allHaveSameValidResourceSet(scs)
-				&& AadlHelper.getCommonProject(scs).isPresent());
+				&& AgeAadlUtil.getCommonProject(scs).isPresent());
 	}
 
 }

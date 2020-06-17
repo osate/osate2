@@ -38,7 +38,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
@@ -69,6 +68,7 @@ import org.osate.ge.di.ResolveCanonicalReference;
 import org.osate.ge.internal.services.AadlResourceService;
 import org.osate.ge.internal.services.AadlResourceService.AadlPackageReference;
 import org.osate.ge.internal.services.ProjectProvider;
+import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.services.ReferenceResolutionService;
 import org.osate.ge.util.StringUtil;
@@ -77,7 +77,7 @@ import org.osate.ge.util.StringUtil;
 public class DeclarativeReferenceResolver {
 	// Cache for items that should not change unless models have changed.
 	private static class DeclarativeCache {
-		private static final EClass aadlPackageEClass = Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage();
+		private static final EClass aadlPackageEClass = AgeAadlUtil.getAadl2Factory().getAadl2Package().getAadlPackage();
 		private final ProjectProvider projectProvider;
 
 		// Map for caching. Not cleared to ensure strong references to the AadlPackageReference objects exist during the lifetime of the service

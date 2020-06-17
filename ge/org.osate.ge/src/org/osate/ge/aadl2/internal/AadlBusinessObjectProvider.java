@@ -36,7 +36,6 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.resource.IEObjectDescription;
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
@@ -82,7 +81,7 @@ import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder;
 import org.osate.ge.internal.util.AadlFeatureUtil;
-import org.osate.ge.internal.util.AadlHelper;
+import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.AadlSubcomponentUtil;
 import org.osate.ge.internal.util.AadlSubprogramCallUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
@@ -162,7 +161,7 @@ public class AadlBusinessObjectProvider implements BusinessObjectProvider {
 		Stream.Builder<Object> packages = null;
 
 		for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(project,
-				Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage())) {
+				AgeAadlUtil.getAadl2Factory().getAadl2Package().getAadlPackage())) {
 			if (packages == null) {
 				packages = Stream.builder();
 			}
@@ -312,13 +311,13 @@ public class AadlBusinessObjectProvider implements BusinessObjectProvider {
 
 		if(classifier instanceof ComponentImplementation) {
 			final ComponentImplementation ci = (ComponentImplementation)classifier;
-			children = Stream.concat(children, AadlHelper.getAllInternalFeatures(ci).stream());
-			children = Stream.concat(children, AadlHelper.getAllProcessorFeatures(ci).stream());
+			children = Stream.concat(children, AgeAadlUtil.getAllInternalFeatures(ci).stream());
+			children = Stream.concat(children, AgeAadlUtil.getAllProcessorFeatures(ci).stream());
 			children = Stream.concat(children, ci.getAllSubcomponents().stream());
 		}
 
 		if(classifier instanceof BehavioredImplementation) {
-			children = Stream.concat(children, AadlHelper.getAllSubprogramCallSequences((BehavioredImplementation)classifier).stream());
+			children = Stream.concat(children, AgeAadlUtil.getAllSubprogramCallSequences((BehavioredImplementation)classifier).stream());
 		}
 
 		if(classifier instanceof ComponentClassifier) {

@@ -30,7 +30,6 @@ import java.util.List;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.resource.IEObjectDescription;
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.BehavioredImplementation;
@@ -52,7 +51,7 @@ import org.osate.aadl2.SubprogramPrototype;
 import org.osate.aadl2.SubprogramProxy;
 import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.ge.internal.util.AadlFeatureUtil;
-import org.osate.ge.internal.util.AadlHelper;
+import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 
 /**
@@ -76,7 +75,7 @@ public class DefaultSelectSubprogramDialogModel implements SelectSubprogramDialo
 		// data unique type reference
 		// subprogram group unique type reference
 		// abstract unique type reference
-		final Aadl2Package aadl2Package = Aadl2Factory.eINSTANCE.getAadl2Package();
+		final Aadl2Package aadl2Package = AgeAadlUtil.getAadl2Factory().getAadl2Package();
 		for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(bi.eResource(),
 				aadl2Package.getComponentClassifier())) {
 			// Add objects that have care either types or implementations of the same category as the classifier type
@@ -162,14 +161,14 @@ public class DefaultSelectSubprogramDialogModel implements SelectSubprogramDialo
 			addProvidesSubprogramAccessesForComponentClassifier(((SubprogramGroupSubcomponent) context).getAllClassifier(), subprograms);
 		} else if(context == processorContext) { // Processor Context
 			// Subprogram Proxy
-			for (final ProcessorFeature processorFeature : AadlHelper.getAllProcessorFeatures(bi)) {
+			for (final ProcessorFeature processorFeature : AgeAadlUtil.getAllProcessorFeatures(bi)) {
 				if(processorFeature instanceof SubprogramProxy) {
 					subprograms.add(processorFeature);
 				}
 			}
 		} else if(context == nullContext) { // Null Context
 			// Subprogram classifier reference
-			final Aadl2Package aadl2Package = Aadl2Factory.eINSTANCE.getAadl2Package();
+			final Aadl2Package aadl2Package = AgeAadlUtil.getAadl2Factory().getAadl2Package();
 			for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(bi.eResource(),
 					aadl2Package.getComponentClassifier())) {
 				// Add objects that have care either types or implementations of the same category as the classifier type

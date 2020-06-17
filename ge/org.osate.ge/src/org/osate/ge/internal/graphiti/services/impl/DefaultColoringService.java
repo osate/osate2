@@ -65,7 +65,7 @@ import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.util.AadlClassifierUtil;
 import org.osate.ge.internal.util.AadlFlowSpecificationUtil;
 import org.osate.ge.internal.util.AadlFlowSpecificationUtil.FlowSegmentReference;
-import org.osate.ge.internal.util.AadlHelper;
+import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.AadlInstanceObjectUtil;
 import org.osate.ge.internal.util.AadlModalElementUtil;
 
@@ -306,7 +306,7 @@ public class DefaultColoringService implements ColoringService {
 						// Check in modes
 						if (inModesOrTransitions.isEmpty()
 								|| inModesOrTransitions.stream()
-								.anyMatch(mf -> AadlHelper.namesMatch(mf, selectedModeFeature))) {
+								.anyMatch(mf -> AgeAadlUtil.namesMatch(mf, selectedModeFeature))) {
 							return Stream.of(child);
 						}
 					} else if (childBo instanceof ModalElement) {
@@ -334,7 +334,7 @@ public class DefaultColoringService implements ColoringService {
 						final List<ModeFeature> inModeOrTransitions = AadlModalElementUtil
 								.getAllInModesOrTransitions(modalPath);
 						if (inModeOrTransitions.isEmpty() || inModeOrTransitions.stream()
-								.anyMatch(mi -> AadlHelper.namesMatch(selectedModeFeature, mi))) {
+								.anyMatch(mi -> AgeAadlUtil.namesMatch(selectedModeFeature, mi))) {
 							return Stream.of(child);
 						}
 					} else if (childBo instanceof ComponentInstance) {
@@ -389,7 +389,7 @@ public class DefaultColoringService implements ColoringService {
 						}
 
 						final Optional<Mode> modeOpt = subcomponent.getComponentType().getAllModes().stream()
-								.filter(mode -> AadlHelper.namesMatch(mode, selectedModeFeature)).findAny();
+								.filter(mode -> AgeAadlUtil.namesMatch(mode, selectedModeFeature)).findAny();
 						// Check if mode in subcomponent is also in component type
 						if (modeOpt.isPresent()) {
 							return Stream.concat(Stream.of(subcompQueryable),
@@ -400,7 +400,7 @@ public class DefaultColoringService implements ColoringService {
 						// In modes
 						// Use derived mode to highlight children. If derived mode is null, find the mode with same name as parent mode
 						final Optional<ModeBinding> mbOpt = modeBindings.stream()
-								.filter(mb -> AadlHelper.namesMatch(mb.getParentMode(), selectedModeFeature)).findAny();
+								.filter(mb -> AgeAadlUtil.namesMatch(mb.getParentMode(), selectedModeFeature)).findAny();
 						if (mbOpt.isPresent()) {
 							final ModeBinding mb = mbOpt.get();
 							// If derived mode is null, look for parent mode
@@ -430,7 +430,7 @@ public class DefaultColoringService implements ColoringService {
 
 			// In selected modes
 			if (allModes.stream()
-					.anyMatch(inMode -> AadlHelper.namesMatch(mode, inMode))) {
+					.anyMatch(inMode -> AgeAadlUtil.namesMatch(mode, inMode))) {
 				return Stream.concat(Stream.of(container), getModalElementChildren(getChildrenApplicableToModeHighlighting(container)));
 			}
 
@@ -455,7 +455,7 @@ public class DefaultColoringService implements ColoringService {
 			}
 
 			// In selected modes
-			if (allModes.stream().anyMatch(inMode -> AadlHelper.namesMatch(mode, inMode))) {
+			if (allModes.stream().anyMatch(inMode -> AgeAadlUtil.namesMatch(mode, inMode))) {
 				return Stream.concat(Stream.of(container),
 						getModalElementChildren(getChildrenApplicableToModeHighlighting(container)));
 			}
