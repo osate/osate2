@@ -1,0 +1,90 @@
+package TestDataPortClassifierTypeExtension2
+public
+	Data D
+	end D;
+	
+	Data implementation D.i
+	end D.i;
+	
+	Data X
+	end X;
+	
+	system SrcSys
+		features
+			f0: out data port;
+			
+			f_x: out data port X;
+			f_di: out data port D.i;
+	end SrcSys;
+	
+	system SrcSys_X extends SrcSys
+		features
+			f0: refined to out data port X;
+	end SrcSys_X;
+	
+	system SrcSys_Di extends SrcSys
+		features
+			f0: refined to out data port D.i;
+	end SrcSys_Di;
+	
+	system DestSys
+		features
+			f0: in data port;
+			
+			f_x: in data port X;
+			f_di: in data port D.i;
+	end DestSys;
+	
+	system DestSys_X extends DestSys
+		features
+			f0: refined to in data port X;
+	end DestSys_X;
+	
+	system DestSys_Di extends DestSys
+		features
+			f0: refined to in data port D.i;
+	end DestSys_Di;
+	
+	system Top
+	end Top;
+	
+	system implementation Top.notype_to_notype
+		subcomponents
+			srcSys: system SrcSys;
+			destSys: system DestSys;
+		connections
+			c0: port srcSys.f0 -> destSys.f0;  -- (no type) -> (no type)
+			
+			x_to_x: port srcSys.f_x -> destSys.f_x; -- type -> type
+			x_to_di: port srcSys.f_x -> destSys.f_di; -- type to (no type)
+			di_to_x: port srcSys.f_di -> destSys.f_x; -- (no type) -> type
+			di_to_di: port srcSys.f_di -> destSys.f_di; -- (no type) -> (no type)
+		properties
+			Classifier_Substitution_Rule => Type_Extension;
+			Classifier_Matching_Rule => Classifier_Match;
+	end Top.notype_to_notype;
+	
+	system implementation Top.x_to_x extends Top.notype_to_notype
+		subcomponents
+			srcSys: refined to system SrcSys_X;
+			destSys: refined to system DestSys_X;
+	end Top.x_to_x;
+	
+	system implementation Top.x_to_di extends Top.notype_to_notype
+		subcomponents
+			srcSys: refined to system SrcSys_X;
+			destSys: refined to system DestSys_Di;
+	end Top.x_to_di;
+	
+	system implementation Top.di_to_x extends Top.notype_to_notype
+		subcomponents
+			srcSys: refined to system SrcSys_Di;
+			destSys: refined to system DestSys_X;
+	end Top.di_to_x;
+	
+	system implementation Top.di_to_di extends Top.notype_to_notype
+		subcomponents
+			srcSys: refined to system SrcSys_Di;
+			destSys: refined to system DestSys_Di;
+	end Top.di_to_di;
+end TestDataPortClassifierTypeExtension2;
