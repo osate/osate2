@@ -21,39 +21,73 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.businessObjectHandlers;
+package org.osate.ge.aadl2.internal.businessObjectHandlers;
 
 import java.util.Optional;
 
-import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.ModeTransition;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.businessObjectHandlers.CanDeleteContext;
+import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.graphics.Color;
+import org.osate.ge.graphics.Style;
+import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.internal.util.AadlInheritanceUtil;
+import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.services.QueryService;
 
-public class ComponentInstanceHandler extends AadlBusinessObjectHandler {
+public class ModeTransitionHandler extends AadlBusinessObjectHandler {
+	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObjectRelativeReference((ModeTransition mt) -> mt.getSource()));
+	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObjectRelativeReference((ModeTransition mt) -> mt.getDestination()));
+
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(ComponentInstance.class).isPresent();
+		return ctx.getBusinessObject(ModeTransition.class).isPresent();
+	}
+
+	@Override
+	public boolean canDelete(final CanDeleteContext ctx) {
+		return true;
 	}
 
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
-		final ComponentInstance ci = ctx.getBusinessObjectContext().getBusinessObject(ComponentInstance.class).get();
+		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
+		final QueryService queryService = ctx.getQueryService();
 		return Optional.of(GraphicalConfigurationBuilder.create().
-				graphic(AadlGraphics.getGraphic(ci.getCategory()))
-				.
-				style(AadlGraphics.getStyle(ci.getCategory(),
-						ci.getComponentClassifier() instanceof ComponentImplementation))
-				.
-				build());
+				graphic(AadlGraphics.getModeTransitionGraphic()).
+				source(getSource(boc, queryService)).
+				destination(getDestination(boc, queryService)).
+				style(StyleBuilder.create(
+						AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT : Style.EMPTY)
+						.backgroundColor(Color.BLACK)
+						.build())
+				.build());
+	}
+
+	private BusinessObjectContext getSource(final BusinessObjectContext boc,
+			final QueryService queryService) {
+		return queryService.getFirstResult(srcQuery, boc);
+	}
+
+	private BusinessObjectContext getDestination(final BusinessObjectContext boc,
+			final QueryService queryService) {
+		return queryService.getFirstResult(dstQuery, boc);
 	}
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(ComponentInstance.class).map(ci -> ci.getFullName())
+		return ctx.getBusinessObject(ModeTransition.class).map(mt -> mt.getName())
 				.orElse("");
+	}
+
+	@Override
+	public boolean canRename(final CanRenameContext ctx) {
+		return true;
 	}
 }

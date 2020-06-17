@@ -21,32 +21,31 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.businessObjectHandlers;
+package org.osate.ge.aadl2.internal.businessObjectHandlers;
 
 import java.util.Optional;
 
-import org.osate.aadl2.DefaultAnnexLibrary;
-import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.Subcomponent;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.businessObjectHandlers.CanDeleteContext;
+import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.graphics.Graphic;
+import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.graphics.internal.FolderGraphicBuilder;
+import org.osate.ge.internal.util.AadlArrayUtil;
+import org.osate.ge.internal.util.AadlInheritanceUtil;
+import org.osate.ge.internal.util.AadlSubcomponentUtil;
 
-public class AnnexHandler extends AadlBusinessObjectHandler {
-	private static final GraphicalConfiguration graphicalConfig = GraphicalConfigurationBuilder.create().
-			graphic(FolderGraphicBuilder.create().build())
-			.style(StyleBuilder.create().labelsCenter().build()).
-			build();
-
+public class SubcomponentHandler extends AadlBusinessObjectHandler {
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(DefaultAnnexLibrary.class).isPresent()
-				|| ctx.getBusinessObject(DefaultAnnexSubclause.class).isPresent();
+		return ctx.getBusinessObject(Subcomponent.class).isPresent();
 	}
 
 	@Override
@@ -56,12 +55,59 @@ public class AnnexHandler extends AadlBusinessObjectHandler {
 
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
-		return Optional.of(graphicalConfig);
+		final BusinessObjectContext scBoc = ctx.getBusinessObjectContext();
+		final Subcomponent sc = scBoc.getBusinessObject(Subcomponent.class).get();
+		return Optional.of(GraphicalConfigurationBuilder.create().
+				graphic(getGraphicalRepresentation(sc, scBoc)).
+				style(StyleBuilder.create(
+						AadlInheritanceUtil.isInherited(scBoc) ? Styles.INHERITED_ELEMENT : Style.EMPTY,
+								getClassifierStyle(sc, scBoc))
+						.labelsTop().labelsHorizontalCenter()
+						.build())
+				.
+				build());
+	}
+
+	private Graphic getGraphicalRepresentation(final Subcomponent sc,
+			final BusinessObjectContext scBoc) {
+		final ComponentClassifier cc = AadlSubcomponentUtil.getComponentClassifier(scBoc, sc);
+		if(cc == null) {
+			return AadlGraphics.getGraphic(sc.getCategory());
+		} else {
+			return AadlGraphics.getGraphic(cc);
+		}
+	}
+
+	private Style getClassifierStyle(final Subcomponent sc, final BusinessObjectContext scBoc) {
+		final ComponentClassifier cc = AadlSubcomponentUtil.getComponentClassifier(scBoc, sc);
+		if (cc == null) {
+			return AadlGraphics.getStyle(sc.getCategory(), false);
+		} else {
+			return AadlGraphics.getStyle(cc);
+		}
+	}
+
+	// Labels
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(
+				Subcomponent.class)
+				.map(sc -> getSubcomponentName(sc) + AadlArrayUtil.getDimensionUserString(sc)).orElse("");
 	}
 
 	@Override
-	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(NamedElement.class)
-				.map(annex -> "{**" + annex.getName() + "**}").orElse("");
+	public String getNameForRenaming(final GetNameContext ctx) {
+		return ctx.getBusinessObject(Subcomponent.class)
+				.map(this::getSubcomponentName)
+				.orElse("");
+	}
+
+	private String getSubcomponentName(final Subcomponent sc) {
+		return sc.getName() == null ? "" : sc.getName();
+	}
+
+	@Override
+	public boolean canRename(final CanRenameContext ctx) {
+		return true;
 	}
 }

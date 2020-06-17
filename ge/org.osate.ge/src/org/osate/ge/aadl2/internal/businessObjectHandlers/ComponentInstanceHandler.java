@@ -21,53 +21,39 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.businessObjectHandlers;
+package org.osate.ge.aadl2.internal.businessObjectHandlers;
 
 import java.util.Optional;
 
-import org.osate.aadl2.Mode;
-import org.osate.ge.BusinessObjectContext;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.businessObjectHandlers.CanDeleteContext;
-import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
-import org.osate.ge.graphics.Style;
-import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.internal.util.AadlInheritanceUtil;
 
-public class ModeHandler extends AadlBusinessObjectHandler {
+public class ComponentInstanceHandler extends AadlBusinessObjectHandler {
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(Mode.class).isPresent();
-	}
-
-	@Override
-	public boolean canDelete(final CanDeleteContext ctx) {
-		return true;
+		return ctx.getBusinessObject(ComponentInstance.class).isPresent();
 	}
 
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
-		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
-		final Mode mode = boc.getBusinessObject(Mode.class).get();
-		return Optional.of(GraphicalConfigurationBuilder.create().graphic(AadlGraphics.getModeGraphic(
-				mode))
-				.style(StyleBuilder
-						.create(AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT : Style.EMPTY)
-						.labelsCenter().build())
-				.build());
+		final ComponentInstance ci = ctx.getBusinessObjectContext().getBusinessObject(ComponentInstance.class).get();
+		return Optional.of(GraphicalConfigurationBuilder.create().
+				graphic(AadlGraphics.getGraphic(ci.getCategory()))
+				.
+				style(AadlGraphics.getStyle(ci.getCategory(),
+						ci.getComponentClassifier() instanceof ComponentImplementation))
+				.
+				build());
 	}
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(Mode.class).map(mode -> mode.getName()).orElse("");
-	}
-
-	@Override
-	public boolean canRename(final CanRenameContext ctx) {
-		return true;
+		return ctx.getBusinessObject(ComponentInstance.class).map(ci -> ci.getFullName())
+				.orElse("");
 	}
 }
