@@ -23,8 +23,8 @@
  */
 package org.osate.ge;
 
+import org.osate.ge.aadl2.internal.businessObjectHandlers.Styles;
 import org.osate.ge.graphics.Style;
-import org.osate.ge.internal.businessObjectHandlers.Styles;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 
 /**

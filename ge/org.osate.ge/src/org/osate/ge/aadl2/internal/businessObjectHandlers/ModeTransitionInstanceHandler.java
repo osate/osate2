@@ -21,58 +21,60 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.businessObjectHandlers;
+package org.osate.ge.aadl2.internal.businessObjectHandlers;
 
 import java.util.Optional;
 
-import org.osate.aadl2.FlowKind;
-import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
-public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler implements BusinessObjectHandler {
-	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getKind() == FlowKind.SOURCE ? fs.getAllOutEnd() : fs.getAllInEnd())).first());
-	private static StandaloneQuery partialSrcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getKind() == FlowKind.SOURCE ? fs.getAllOutEnd() : fs.getAllInEnd()), 1).first());
+public class ModeTransitionInstanceHandler extends AadlBusinessObjectHandler {
+	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children()
+			.filterByBusinessObjectRelativeReference((ModeTransitionInstance mt) -> mt.getSource()));
+	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children()
+			.filterByBusinessObjectRelativeReference((ModeTransitionInstance mt) -> mt.getDestination()));
 
-	// Basics
+	private BusinessObjectContext getSource(final BusinessObjectContext boc, final QueryService queryService) {
+		return queryService.getFirstResult(srcQuery, boc);
+	}
+
+	private BusinessObjectContext getDestination(final BusinessObjectContext boc, final QueryService queryService) {
+		return queryService.getFirstResult(dstQuery, boc);
+	}
+
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(FlowSpecification.class)
-				.filter(fs -> fs.getKind() == FlowKind.SOURCE || fs.getKind() == FlowKind.SINK).isPresent();
+		return ctx.getBusinessObject(ModeTransitionInstance.class).isPresent();
 	}
 
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
-		final FlowSpecification fs = boc.getBusinessObject(FlowSpecification.class).get();
 		final QueryService queryService = ctx.getQueryService();
-		BusinessObjectContext src = queryService.getFirstResult(srcQuery, boc);
-		boolean partial = false;
+		return Optional.of(GraphicalConfigurationBuilder.create().graphic(AadlGraphics
+				.getModeTransitionGraphic())
+				.source(getSource(boc, queryService))
+				.destination(getDestination(boc, queryService))
+				.style(StyleBuilder
+						.create(AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT : Style.EMPTY)
+						.backgroundColor(Color.BLACK).build())
+				.build());
+	}
 
-		if(src == null) {
-			src = queryService.getFirstResult(partialSrcQuery, boc);
-			partial = true;
-		}
-
-		final StyleBuilder sb = StyleBuilder.create(
-				AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT : Style.EMPTY);
-		if (partial) {
-			sb.dotted();
-		}
-
-		return Optional.of(GraphicalConfigurationBuilder.create().
-				graphic(AadlGraphics.getFlowSpecificationGraphic(fs)).
-				style(sb.build()).
-				source(src).
-				build());
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(ModeTransitionInstance.class).map(mti -> mti.getName())
+				.orElse("");
 	}
 }

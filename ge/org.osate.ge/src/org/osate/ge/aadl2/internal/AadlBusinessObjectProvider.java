@@ -75,9 +75,9 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.BusinessObjectProviderContext;
+import org.osate.ge.aadl2.internal.businessObjectHandlers.ModeTransitionTriggerHandler;
 import org.osate.ge.aadl2.internal.model.SubprogramCallOrder;
 import org.osate.ge.aadl2.internal.model.Tag;
-import org.osate.ge.internal.businessObjectHandlers.ModeTransitionTriggerHandler;
 import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder;
@@ -86,7 +86,6 @@ import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.AadlSubcomponentUtil;
 import org.osate.ge.internal.util.AadlSubprogramCallUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
-import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
 public class AadlBusinessObjectProvider implements BusinessObjectProvider {
 	private final ModeTransitionTriggerHandler mttHandler = new ModeTransitionTriggerHandler();
@@ -161,9 +160,6 @@ public class AadlBusinessObjectProvider implements BusinessObjectProvider {
 	 */
 	private static Stream<Object> getPackages(final IProject project) {
 		Stream.Builder<Object> packages = null;
-
-		// Required to ensure that the Aadl2Factory's Aadl2Package has been initialized before continuing.
-		Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2);
 
 		for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(project,
 				Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage())) {

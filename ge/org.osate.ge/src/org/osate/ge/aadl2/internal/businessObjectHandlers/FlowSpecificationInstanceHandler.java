@@ -21,69 +21,103 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.businessObjectHandlers;
+package org.osate.ge.aadl2.internal.businessObjectHandlers;
 
 import java.util.Optional;
 
 import org.osate.aadl2.FlowKind;
-import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
-public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
-	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllInEnd())).first());
-	private static StandaloneQuery partialSrcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllInEnd()), 1).first());
-	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllOutEnd())).first());
-	private static StandaloneQuery partialDstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllOutEnd()), 1).first());
+public class FlowSpecificationInstanceHandler extends AadlBusinessObjectHandler {
+	private static final StandaloneQuery srcQuery = StandaloneQuery
+			.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference(
+					(FlowSpecificationInstance fsi) -> getPathToFlowSpecificationInstanceSource(fsi)).first());
+	private static final StandaloneQuery partialSrcQuery = StandaloneQuery
+			.create((rootQuery) -> rootQuery.parent()
+					.descendantsByBusinessObjectsRelativeReference(
+							(FlowSpecificationInstance fsi) -> getPathToFlowSpecificationInstanceSource(fsi), 1)
+					.first());
+	private static final StandaloneQuery dstQuery = StandaloneQuery
+			.create((rootQuery) -> rootQuery.parent()
+					.descendantsByBusinessObjectsRelativeReference(
+							(FlowSpecificationInstance fsi) -> getPathToFlowSpecificationInstanceDestination(fsi))
+					.first());
+	private static final StandaloneQuery partialDstQuery = StandaloneQuery
+			.create((rootQuery) -> rootQuery.parent()
+					.descendantsByBusinessObjectsRelativeReference(
+							(FlowSpecificationInstance fsi) -> getPathToFlowSpecificationInstanceDestination(fsi), 1)
+					.first());
 
-	// Basics
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(FlowSpecification.class).filter(fs -> fs.getKind() == FlowKind.PATH).isPresent();
+		return ctx.getBusinessObject(FlowSpecificationInstance.class).isPresent();
+	}
+
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(FlowSpecificationInstance.class).map(fsi -> fsi.getName()).orElse("");
 	}
 
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
-		final FlowSpecification fs = boc.getBusinessObject(FlowSpecification.class).get();
+		final FlowSpecificationInstance fsi = boc.getBusinessObject(FlowSpecificationInstance.class).get();
 		final QueryService queryService = ctx.getQueryService();
+
 		BusinessObjectContext src = queryService.getFirstResult(srcQuery, boc);
-		BusinessObjectContext dst = queryService.getFirstResult(dstQuery, boc);
+
 		boolean partial = false;
 
-		if(src == null) {
+		if (src == null) {
 			src = queryService.getFirstResult(partialSrcQuery, boc);
 			partial = true;
 		}
 
-		if(dst == null) {
-			dst = queryService.getFirstResult(partialDstQuery, boc);
-			partial = true;
+		BusinessObjectContext dst = null;
+		if (fsi.getFlowSpecification().getKind() == FlowKind.PATH) {
+			dst = queryService.getFirstResult(dstQuery, boc);
+
+			if (dst == null) {
+				dst = queryService.getFirstResult(partialDstQuery, boc);
+				partial = true;
+			}
 		}
 
 		final StyleBuilder sb = StyleBuilder
-				.create(AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT : Style.EMPTY)
-				.lineWidth(4.0).
-				backgroundColor(Color.BLACK);
+				.create(AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT : Style.EMPTY);
+
+		if (fsi.getFlowSpecification().getKind() == FlowKind.PATH) {
+			sb.lineWidth(4.0).backgroundColor(Color.BLACK);
+		}
 
 		if (partial) {
 			sb.dotted();
 		}
 
-		return Optional.of(GraphicalConfigurationBuilder.create().
-				graphic(AadlGraphics.getFlowSpecificationGraphic(fs))
-				.style(sb.build()).
-				source(src).
-				destination(dst).
-				build());
+		return Optional.of(GraphicalConfigurationBuilder.create()
+				.graphic(AadlGraphics.getFlowSpecificationGraphic(fsi.getFlowSpecification())).style(sb.build())
+				.source(src).destination(dst).build());
+	}
+
+	private static Object[] getPathToFlowSpecificationInstanceSource(FlowSpecificationInstance fsi) {
+		return AadlHelper.getPathToBusinessObject(fsi.getComponentInstance(),
+				fsi.getFlowSpecification().getKind() == FlowKind.SOURCE ? fsi.getDestination() : fsi.getSource());
+	}
+
+	private static Object[] getPathToFlowSpecificationInstanceDestination(FlowSpecificationInstance fsi) {
+		return AadlHelper.getPathToBusinessObject(fsi.getComponentInstance(), fsi.getDestination());
 	}
 }

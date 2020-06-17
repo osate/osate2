@@ -21,23 +21,31 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.businessObjectHandlers;
+package org.osate.ge.aadl2.internal.businessObjectHandlers;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
-import org.osate.aadl2.FlowEnd;
-import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.SubprogramCallSequence;
+import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.GraphicalConfiguration;
+import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.businessObjectHandlers.CanDeleteContext;
 import org.osate.ge.businessObjectHandlers.CanRenameContext;
+import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.graphics.Graphic;
+import org.osate.ge.graphics.RectangleBuilder;
+import org.osate.ge.graphics.Style;
+import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.internal.util.AadlInheritanceUtil;
 
-abstract class FlowSpecificationHandler extends AadlBusinessObjectHandler {
-	// Basics
+public class SubprogramCallSequenceHandler extends AadlBusinessObjectHandler {
+	private Graphic graphic = RectangleBuilder.create().build();
+
 	@Override
-	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(FlowSpecification.class)
-				.map(fs -> fs.getName()).orElse("");
+	public boolean isApplicable(final IsApplicableContext ctx) {
+		return ctx.getBusinessObject(SubprogramCallSequence.class).isPresent();
 	}
 
 	@Override
@@ -46,28 +54,24 @@ abstract class FlowSpecificationHandler extends AadlBusinessObjectHandler {
 	}
 
 	@Override
-	public boolean canRename(final CanRenameContext ctx) {
-		return true;
+	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
+		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
+		return Optional.of(GraphicalConfigurationBuilder.create().graphic(
+				graphic)
+				.style(StyleBuilder
+						.create(AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT : Style.EMPTY).dashed()
+						.labelsTop().labelsHorizontalCenter().build())
+				.build());
 	}
 
-	/**
-	 * Gets an array of business objects which describes the logical diagram element path to the flow end.
-	 * @param ctx
-	 * @param flowEnd
-	 * @return
-	 */
-	protected static Object[] getBusinessObjectsPathToFlowEnd(final FlowEnd flowEnd) {
-		if (flowEnd == null || flowEnd.getFeature() == null) {
-			return null;
-		}
+	@Override
+	public String getName(final GetNameContext ctx) {
+		return ctx.getBusinessObject(SubprogramCallSequence.class).map(cs -> cs.getName())
+				.orElse("");
+	}
 
-		final List<Object> path = new ArrayList<>(2);
-		if (flowEnd.getContext() != null) {
-			path.add(flowEnd.getContext());
-		}
-
-		path.add(flowEnd.getFeature());
-
-		return path.toArray();
+	@Override
+	public boolean canRename(final CanRenameContext ctx) {
+		return true;
 	}
 }

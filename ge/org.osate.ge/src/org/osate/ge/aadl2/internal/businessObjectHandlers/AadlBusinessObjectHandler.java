@@ -1,4 +1,4 @@
-package org.osate.ge.internal.businessObjectHandlers;
+package org.osate.ge.aadl2.internal.businessObjectHandlers;
 
 import java.util.Optional;
 

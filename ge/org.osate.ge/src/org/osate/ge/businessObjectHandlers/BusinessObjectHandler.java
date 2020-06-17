@@ -111,7 +111,7 @@ public interface BusinessObjectHandler {
 
 	/**
 	 * Determines whether a proposed name is a valid new name for a business object.
-	 * should be implemented if {@link #canRename(CanRenameContext) is implemented.
+	 * If {@link #canRename(CanRenameContext) is implemented, this method should be implemented as well.
 	 * @param ctx the context for the request.
 	 * @return empty if validation succeeds. Otherwise, a validation error to be presented to the user. Must not return null.
 	 */

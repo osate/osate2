@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.businessObjectHandlers;
+package org.osate.ge.aadl2.internal.businessObjectHandlers;
 
 import java.util.Optional;
 

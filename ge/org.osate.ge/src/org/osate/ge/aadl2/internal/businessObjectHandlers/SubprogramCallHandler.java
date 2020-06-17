@@ -21,60 +21,49 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.businessObjectHandlers;
+package org.osate.ge.aadl2.internal.businessObjectHandlers;
 
 import java.util.Optional;
 
-import org.osate.aadl2.instance.ModeTransitionInstance;
-import org.osate.ge.BusinessObjectContext;
+import org.osate.aadl2.SubprogramCall;
+import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.businessObjectHandlers.CanDeleteContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
-import org.osate.ge.graphics.Color;
+import org.osate.ge.graphics.EllipseBuilder;
+import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.internal.util.AadlInheritanceUtil;
-import org.osate.ge.query.StandaloneQuery;
-import org.osate.ge.services.QueryService;
 
-public class ModeTransitionInstanceHandler extends AadlBusinessObjectHandler {
-	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children()
-			.filterByBusinessObjectRelativeReference((ModeTransitionInstance mt) -> mt.getSource()));
-	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children()
-			.filterByBusinessObjectRelativeReference((ModeTransitionInstance mt) -> mt.getDestination()));
-
-	private BusinessObjectContext getSource(final BusinessObjectContext boc, final QueryService queryService) {
-		return queryService.getFirstResult(srcQuery, boc);
-	}
-
-	private BusinessObjectContext getDestination(final BusinessObjectContext boc, final QueryService queryService) {
-		return queryService.getFirstResult(dstQuery, boc);
-	}
+public class SubprogramCallHandler extends AadlBusinessObjectHandler {
+	private Graphic graphic = EllipseBuilder.create().build();
+	private Style style = StyleBuilder.create().dashed().labelsCenter().build();
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(ModeTransitionInstance.class).isPresent();
+		return ctx.getBusinessObject(SubprogramCall.class).isPresent();
 	}
 
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
-		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
-		final QueryService queryService = ctx.getQueryService();
-		return Optional.of(GraphicalConfigurationBuilder.create().graphic(AadlGraphics
-				.getModeTransitionGraphic())
-				.source(getSource(boc, queryService))
-				.destination(getDestination(boc, queryService))
-				.style(StyleBuilder
-						.create(AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT : Style.EMPTY)
-						.backgroundColor(Color.BLACK).build())
-				.build());
+		return Optional.of(GraphicalConfigurationBuilder.create().graphic(graphic).style(style).build());
 	}
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(ModeTransitionInstance.class).map(mti -> mti.getName())
+		return ctx.getBusinessObject(SubprogramCall.class).map(call -> call.getName())
 				.orElse("");
+	}
+
+	@Override
+	public boolean canDelete(final CanDeleteContext ctx) {
+		// Don't allow deleting the last subprogram call
+		return ctx.getBusinessObject(SubprogramCall.class)
+				.map(call -> call.eContainer() instanceof SubprogramCallSequence
+						&& ((SubprogramCallSequence) call.eContainer()).getOwnedSubprogramCalls().size() > 1)
+				.orElse(false);
 	}
 }

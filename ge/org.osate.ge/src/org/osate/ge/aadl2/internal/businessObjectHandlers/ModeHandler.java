@@ -21,71 +21,53 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.businessObjectHandlers;
+package org.osate.ge.aadl2.internal.businessObjectHandlers;
 
-import java.util.Objects;
 import java.util.Optional;
 
+import org.osate.aadl2.Mode;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.aadl2.internal.model.Tag;
+import org.osate.ge.businessObjectHandlers.CanDeleteContext;
+import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
-import org.osate.ge.businessObjectHandlers.GetNameForDiagramContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
-import org.osate.ge.graphics.Graphic;
-import org.osate.ge.graphics.LabelBuilder;
-import org.osate.ge.graphics.Point;
-import org.osate.ge.graphics.PolyBuilder;
+import org.osate.ge.graphics.Style;
+import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.internal.util.AadlInheritanceUtil;
 
-public class TagHandler extends AadlBusinessObjectHandler {
-	private final Graphic defaultGraphic = LabelBuilder.create().build();
-	private static final Graphic directionIndicator = PolyBuilder.create().polyline()
-			.points(new Point(8.0, 6.0), new Point(0.0, 0.0), new Point(8.0, -6.0)).build();
-
+public class ModeHandler extends AadlBusinessObjectHandler {
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(Tag.class).isPresent();
+		return ctx.getBusinessObject(Mode.class).isPresent();
+	}
+
+	@Override
+	public boolean canDelete(final CanDeleteContext ctx) {
+		return true;
 	}
 
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
-		final Tag tv = boc.getBusinessObject(Tag.class).get();
-		final Graphic graphic;
-		switch(tv.key) {
-		case Tag.KEY_UNIDIRECTIONAL:
-			// Don't show the directional indicator if there is a timing property value which is delayed or immediate
-			for (final BusinessObjectContext sibling : boc.getParent().getChildren()) {
-				if(TimingPropertyValueHandler.isImmediateTimingProperty(sibling.getBusinessObject())) {
-					return Optional.empty();
-				}
-			}
-
-			graphic = directionIndicator;
-			break;
-
-		default:
-			graphic = defaultGraphic;
-		}
-
-		return Optional.of(GraphicalConfigurationBuilder.create().
-				graphic(graphic).
-				decoration().
-				build());
+		final Mode mode = boc.getBusinessObject(Mode.class).get();
+		return Optional.of(GraphicalConfigurationBuilder.create().graphic(AadlGraphics.getModeGraphic(
+				mode))
+				.style(StyleBuilder
+						.create(AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT : Style.EMPTY)
+						.labelsCenter().build())
+				.build());
 	}
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(Tag.class).map(tv -> Objects.toString(tv.value, null))
-				.map(n -> "Misc " + n)
-				.orElse("");
+		return ctx.getBusinessObject(Mode.class).map(mode -> mode.getName()).orElse("");
 	}
 
 	@Override
-	public String getNameForDiagram(final GetNameForDiagramContext ctx) {
-		return ctx.getBusinessObjectContext().getBusinessObject(Tag.class).map(tv -> Objects.toString(tv.value, null))
-				.orElse("");
+	public boolean canRename(final CanRenameContext ctx) {
+		return true;
 	}
 }

@@ -34,8 +34,8 @@ import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.AadlSubcomponentUtil;
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.palette.PaletteCategory;
-import org.osate.ge.palette.PaletteContributor;
 import org.osate.ge.palette.PaletteCommandProviderContext;
+import org.osate.ge.palette.PaletteContributor;
 import org.osate.ge.palette.TargetedPaletteCommand;
 
 public class AadlPaletteContributor implements PaletteContributor {
@@ -45,9 +45,10 @@ public class AadlPaletteContributor implements PaletteContributor {
 				"Classifiers"),
 				new PaletteCategory(AadlPaletteCategories.CONNECTIONS, "Connections"),
 				new PaletteCategory(AadlPaletteCategories.FEATURES, "Features"),
-				new PaletteCategory(AadlPaletteCategories.FLOWS, "Subcomponents"),
-				new PaletteCategory(AadlPaletteCategories.MODES, "Flows"),
-				new PaletteCategory(AadlPaletteCategories.SUBCOMPONENTS, "Modes"),
+				new PaletteCategory(AadlPaletteCategories.FLOWS, "Flows"),
+				new PaletteCategory(AadlPaletteCategories.MODES, "Modes"),
+				new PaletteCategory(AadlPaletteCategories.SUBCOMPONENTS,
+						"Subcomponents"),
 				new PaletteCategory(AadlPaletteCategories.SUBPROGRAM_CALLS, "Subprogram Calls"));
 	}
 
