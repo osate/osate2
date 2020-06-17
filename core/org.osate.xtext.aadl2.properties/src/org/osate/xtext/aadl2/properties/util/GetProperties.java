@@ -864,11 +864,11 @@ public class GetProperties {
 	}
 
 	public static double fromMStoSec(NamedElement ne, double value) {
-		return convertToScale(value, getMSUnitLiteral(ne), getSecUnitLiteral(ne));
+		return getMSUnitLiteral(ne) != null ? convertToScale(value, getMSUnitLiteral(ne), getSecUnitLiteral(ne)) : -1;
 	}
 
 	public static double fromUStoSec(NamedElement ne, double value) {
-		return convertToScale(value, getUSUnitLiteral(ne), getSecUnitLiteral(ne));
+		return getUSUnitLiteral(ne) != null ? convertToScale(value, getUSUnitLiteral(ne), getSecUnitLiteral(ne)) : -1;
 	}
 
 	/**
