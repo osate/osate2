@@ -6326,10 +6326,33 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		return end instanceof Subcomponent;
 	}
 
+	private static boolean isCorrectKind(final Context context, final Access access,
+			final AccessType expectedKind) {
+		final AccessType accessKind = access.getKind();
+		if (context instanceof FeatureGroup) {
+			final FeatureGroup fg = (FeatureGroup) context;
+			if (fg.isInverse()) {
+				return accessKind.getInverseType() == expectedKind;
+			} else {
+				final FeatureGroupType fgt = fg.getFeatureGroupType();
+				final FeatureGroupType inverseFGT = fgt.getInverse();
+				if (inverseFGT != null && access.getContainingClassifier().equals(inverseFGT)) {
+					return accessKind.getInverseType() == expectedKind;
+				}
+			}
+		}
+		return accessKind == expectedKind;
+	}
+
 	private static boolean isContainerFeature(final ConnectionEnd end, final Context context, final AccessType kind) {
 		return (context == null || context instanceof FeatureGroup) && end instanceof Access
-				&& ((Access) end).getKind() == kind;
+				&& isCorrectKind(context, (Access) end, kind);
 	}
+
+//	private static boolean isContainerFeature(final ConnectionEnd end, final Context context, final AccessType kind) {
+//		return (context == null || context instanceof FeatureGroup) && end instanceof Access
+//				&& ((Access) end).getKind() == kind;
+//	}
 
 	private static boolean isSubcomponentFeature(final ConnectionEnd end, final Context context,
 			final AccessType kind) {

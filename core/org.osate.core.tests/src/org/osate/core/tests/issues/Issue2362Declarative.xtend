@@ -57,12 +57,21 @@ class Issue2362Declarative extends XtextTest {
 		testFileResult.resource.contents.head as AadlPackage => [
 			doTests(publicSection, testFileResult.issues, issueCollection, "Sub_to_provides", "comp_outgoing", "comp_incoming", "comp_bidir", "comp_bidir2", "", "p_")
 			doTests(publicSection, testFileResult.issues, issueCollection, "Sub_FG_to_provides", "comp_outgoing", "comp_incoming", "comp_bidir", "comp_bidir2", "", "p_")
+			doTests(publicSection, testFileResult.issues, issueCollection, "Sub_FG_inverse_to_provides", "comp_outgoing", "comp_incoming", "comp_bidir", "comp_bidir2", "", "p_")
+			doTests(publicSection, testFileResult.issues, issueCollection, "Sub_FG_inverse_to_provides2", "comp_outgoing", "comp_incoming", "comp_bidir", "comp_bidir2", "", "p_")
+			doTests(publicSection, testFileResult.issues, issueCollection, "Sub_FG_inverse_to_provides3", "comp_outgoing", "comp_incoming", "comp_bidir", "comp_bidir2", "", "p_")
 			doTests(publicSection, testFileResult.issues, issueCollection, "Sub_to_peer_requires", "toPeer", "fromPeer", "bidir", "bidir2", "", "r_")
 			doTests(publicSection, testFileResult.issues, issueCollection, "Sub_to_provides", "sub_outgoing", "sub_incoming", "sub_bidir", "sub_bidir2", "p_", "p_")
 			doTests(publicSection, testFileResult.issues, issueCollection, "Sub_FG_to_provides", "sub_outgoing", "sub_incoming", "sub_bidir", "sub_bidir2", "p_", "p_")
+			doTests(publicSection, testFileResult.issues, issueCollection, "Sub_FG_inverse_to_provides", "sub_outgoing", "sub_incoming", "sub_bidir", "sub_bidir2", "p_", "p_")
+			doTests(publicSection, testFileResult.issues, issueCollection, "Sub_FG_inverse_to_provides2", "sub_outgoing", "sub_incoming", "sub_bidir", "sub_bidir2", "p_", "p_")
+			doTests(publicSection, testFileResult.issues, issueCollection, "Sub_FG_inverse_to_provides3", "sub_outgoing", "sub_incoming", "sub_bidir", "sub_bidir2", "p_", "p_")
 			doTests(publicSection, testFileResult.issues, issueCollection, "Peer_to_peer", "toPeer", "fromPeer", "bidir", "bidir2", "p_", "r_")
 			doTests(publicSection, testFileResult.issues, issueCollection, "To_sub_requires", "incoming", "outgoing", "bidir", "bidir2", "r_d_", "r_")
 			doTests(publicSection, testFileResult.issues, issueCollection, "FG_To_sub_requires", "incoming", "outgoing", "bidir", "bidir2", "r_d_", "r_")
+			doTests(publicSection, testFileResult.issues, issueCollection, "FG_inverse_To_sub_requires", "incoming", "outgoing", "bidir", "bidir2", "r_d_", "r_")
+			doTests(publicSection, testFileResult.issues, issueCollection, "FG_inverse_To_sub_requires2", "incoming", "outgoing", "bidir", "bidir2", "r_d_", "r_")
+			doTests(publicSection, testFileResult.issues, issueCollection, "FG_inverse_To_sub_requires3", "incoming", "outgoing", "bidir", "bidir2", "r_d_", "r_")
 		]
 
 		issueCollection.sizeIs(testFileResult.issues.size)
