@@ -200,18 +200,6 @@ class ConnectionInfo {
 					}
 				}
 			}
-
-			// final Feature srcF = ((FeatureInstance) resolvedSrc).getFeature();
-//			if (resolvedDst instanceof FeatureInstance) {
-//				final Feature dstF = ((FeatureInstance) resolvedDst).getFeature();
-//				if (srcF instanceof DataAccess && dstF instanceof DataAccess) {
-//					if (goingUp || goingDown) {
-//						valid &= ((DataAccess) srcF).getKind() == ((DataAccess) dstF).getKind();
-//					} else {
-//						valid &= ((DataAccess) srcF).getKind().getInverseType() == ((DataAccess) dstF).getKind();
-//					}
-//				}
-//			}
 		} else {
 			// TODO ComponentInstance -- Should check connections between components and access features here
 		}
