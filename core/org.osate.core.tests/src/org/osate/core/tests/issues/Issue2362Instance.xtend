@@ -68,6 +68,30 @@ class Issue2362Instance {
 	}
 	
 	@Test
+	def void test_Sub_FG_inverse_to_provides() {
+		testOutgoing("Sub_FG_inverse_to_provides.comp_outgoing", "", "fg.p")
+		testIncoming("Sub_FG_inverse_to_provides.comp_incoming", "", "fg.p")
+		testBidirectional("Sub_FG_inverse_to_provides.comp_bidir", "", "fg.p")
+		testBidirectional("Sub_FG_inverse_to_provides.comp_bidir2", "", "fg.p")
+	}
+	
+	@Test
+	def void test_Sub_FG_inverse_to_provides2() {
+		testOutgoing("Sub_FG_inverse_to_provides2.comp_outgoing", "", "fg.p")
+		testIncoming("Sub_FG_inverse_to_provides2.comp_incoming", "", "fg.p")
+		testBidirectional("Sub_FG_inverse_to_provides2.comp_bidir", "", "fg.p")
+		testBidirectional("Sub_FG_inverse_to_provides2.comp_bidir2", "", "fg.p")
+	}
+	
+	@Test
+	def void test_Sub_FG_inverse_to_provides3() {
+		testOutgoing("Sub_FG_inverse_to_provides3.comp_outgoing", "", "fg.p")
+		testIncoming("Sub_FG_inverse_to_provides3.comp_incoming", "", "fg.p")
+		testBidirectional("Sub_FG_inverse_to_provides3.comp_bidir", "", "fg.p")
+		testBidirectional("Sub_FG_inverse_to_provides3.comp_bidir2", "", "fg.p")
+	}
+	
+	@Test
 	def void test_Sub_to_peer_requires() {
 		testOutgoing("Sub_to_peer_requires.toPeer", "", "peer.r")
 		testIncoming("Sub_to_peer_requires.fromPeer", "", "peer.r")
@@ -89,6 +113,30 @@ class Issue2362Instance {
 		testIncoming("Sub_FG_to_provides.sub_incoming", "sub.p_", "fg.p")
 		testBidirectional("Sub_FG_to_provides.sub_bidir", "sub.p_", "fg.p")
 		testBidirectional("Sub_FG_to_provides.sub_bidir2", "sub.p_", "fg.p")
+	}
+	
+	@Test
+	def void test_Sub_FG_inverse_provides_to_provides() {
+		testOutgoing("Sub_FG_inverse_to_provides.sub_outgoing", "sub.p_", "fg.p")
+		testIncoming("Sub_FG_inverse_to_provides.sub_incoming", "sub.p_", "fg.p")
+		testBidirectional("Sub_FG_inverse_to_provides.sub_bidir", "sub.p_", "fg.p")
+		testBidirectional("Sub_FG_inverse_to_provides.sub_bidir2", "sub.p_", "fg.p")
+	}
+	
+	@Test
+	def void test_Sub_FG_inverse_provides_to_provides2() {
+		testOutgoing("Sub_FG_inverse_to_provides2.sub_outgoing", "sub.p_", "fg.p")
+		testIncoming("Sub_FG_inverse_to_provides2.sub_incoming", "sub.p_", "fg.p")
+		testBidirectional("Sub_FG_inverse_to_provides2.sub_bidir", "sub.p_", "fg.p")
+		testBidirectional("Sub_FG_inverse_to_provides2.sub_bidir2", "sub.p_", "fg.p")
+	}
+	
+	@Test
+	def void test_Sub_FG_inverse_provides_to_provides3() {
+		testOutgoing("Sub_FG_inverse_to_provides3.sub_outgoing", "sub.p_", "fg.p")
+		testIncoming("Sub_FG_inverse_to_provides3.sub_incoming", "sub.p_", "fg.p")
+		testBidirectional("Sub_FG_inverse_to_provides3.sub_bidir", "sub.p_", "fg.p")
+		testBidirectional("Sub_FG_inverse_to_provides3.sub_bidir2", "sub.p_", "fg.p")
 	}
 
 	@Test
@@ -113,6 +161,30 @@ class Issue2362Instance {
 		testIncoming("FG_To_sub_requires.outgoing", "fg.r_d_", "sub.r")
 		testBidirectional("FG_To_sub_requires.bidir", "fg.r_d_", "sub.r")
 		testBidirectional("FG_To_sub_requires.bidir2", "fg.r_d_", "sub.r")
+	}
+
+	@Test
+	def void test_FG_inverse_To_sub_requires() {
+		testOutgoing("FG_inverse_To_sub_requires.incoming", "fg.r_d_", "sub.r")
+		testIncoming("FG_inverse_To_sub_requires.outgoing", "fg.r_d_", "sub.r")
+		testBidirectional("FG_inverse_To_sub_requires.bidir", "fg.r_d_", "sub.r")
+		testBidirectional("FG_inverse_To_sub_requires.bidir2", "fg.r_d_", "sub.r")
+	}
+
+	@Test
+	def void test_FG_inverse_To_sub_requires2() {
+		testOutgoing("FG_inverse_To_sub_requires2.incoming", "fg.r_d_", "sub.r")
+		testIncoming("FG_inverse_To_sub_requires2.outgoing", "fg.r_d_", "sub.r")
+		testBidirectional("FG_inverse_To_sub_requires2.bidir", "fg.r_d_", "sub.r")
+		testBidirectional("FG_inverse_To_sub_requires2.bidir2", "fg.r_d_", "sub.r")
+	}
+
+	@Test
+	def void test_FG_inverse_To_sub_requires3() {
+		testOutgoing("FG_inverse_To_sub_requires3.incoming", "fg.r_d_", "sub.r")
+		testIncoming("FG_inverse_To_sub_requires3.outgoing", "fg.r_d_", "sub.r")
+		testBidirectional("FG_inverse_To_sub_requires3.bidir", "fg.r_d_", "sub.r")
+		testBidirectional("FG_inverse_To_sub_requires3.bidir2", "fg.r_d_", "sub.r")
 	}
 	
 	private def void testIncoming(String systemName, String prefix1, String prefix2) {
