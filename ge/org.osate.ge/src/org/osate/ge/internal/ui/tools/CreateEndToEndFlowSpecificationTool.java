@@ -50,6 +50,7 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.RowDataFactory;
+import org.eclipse.jface.layout.RowLayoutFactory;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -66,6 +67,7 @@ import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -76,6 +78,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.xtext.util.Strings;
@@ -121,7 +125,7 @@ import org.osate.ge.internal.ui.util.DialogPlacementHelper;
 import org.osate.ge.internal.util.AadlHelper;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterables;
+import com.google.common.collect.Streams;
 
 public class CreateEndToEndFlowSpecificationTool {
 	private ColoringService.Coloring coloring = null;
@@ -129,7 +133,9 @@ public class CreateEndToEndFlowSpecificationTool {
 	private SelectElementDialog selectionDlg;
 	private final AgeDiagramEditor editor;
 
-	private final Map<BusinessObjectContext, SegmentData> userSelections = new LinkedHashMap<BusinessObjectContext, SegmentData>();
+	private final Map<BusinessObjectContext, SegmentData> segmentSelections = new LinkedHashMap<>();
+	private final Map<BusinessObjectContext, SegmentData> modeFeatureSelections = new LinkedHashMap<>();
+	// private final Map<BusinessObjectContext, SegmentData> userSelections = new LinkedHashMap<BusinessObjectContext, SegmentData>();
 
 	private final ImmutableList<BusinessObjectNode> segmentNodes;
 
@@ -173,7 +179,7 @@ public class CreateEndToEndFlowSpecificationTool {
 		.forEach(flowElement -> {
 			final BusinessObjectContext boc = segmentToBoc.get(flowElement);
 			final SegmentData sd = new SegmentData();
-			userSelections.put(boc, sd);
+			segmentSelections.put(boc, sd);
 			if (boc.getBusinessObject() instanceof EndToEndFlow && ancestor instanceof DiagramElement) {
 				findSegments((EndToEndFlow) boc.getBusinessObject(), ancestor, sd);
 			}
@@ -200,7 +206,7 @@ public class CreateEndToEndFlowSpecificationTool {
 						Completeness.UNKNOWN, false);
 			}
 
-			userSelections.put(boc, new SegmentData());
+			modeFeatureSelections.put(boc, new SegmentData());
 		});
 	}
 
@@ -272,7 +278,7 @@ public class CreateEndToEndFlowSpecificationTool {
 				coloring = coloringService.adjustColors(); // Create a coloring object that will allow adjustment of pictogram
 				// Create and update based on current selection
 				dlg.create();
-				if (userSelections.isEmpty()) {
+				if (segmentSelections.isEmpty() && modeFeatureSelections.isEmpty()) {
 					update(new BusinessObjectContext[] { selectedBoc }, true);
 				} else {
 					update();
@@ -361,7 +367,8 @@ public class CreateEndToEndFlowSpecificationTool {
 			dlg = null;
 		}
 
-		this.userSelections.clear();
+		this.segmentSelections.clear();
+		this.modeFeatureSelections.clear();
 	}
 
 	@SelectionChanged
@@ -385,9 +392,10 @@ public class CreateEndToEndFlowSpecificationTool {
 
 			final EndToEndFlow endToEndFlow = createEndToEndFlow();
 
-			for (final BusinessObjectContext selectedBoc : userSelections.keySet()) {
+			for (final Entry<BusinessObjectContext, SegmentData> entry : segmentSelections.entrySet()) {
+				final BusinessObjectContext selectedBoc = entry.getKey();
 				if (selectedBoc.getBusinessObject() instanceof EndToEndFlow) {
-					userSelections.get(selectedBoc).segments.forEach(de -> {
+					entry.getValue().segments.forEach(de -> {
 						coloring.setForeground(de, Color.MAGENTA.darker());
 					});
 				}
@@ -399,6 +407,13 @@ public class CreateEndToEndFlowSpecificationTool {
 					} else {
 						coloring.setForeground(selectedDe, Color.MAGENTA.darker());
 					}
+				}
+			}
+
+			for (final Entry<BusinessObjectContext, SegmentData> entry : modeFeatureSelections.entrySet()) {
+				final BusinessObjectContext selectedBoc = entry.getKey();
+				if (selectedBoc instanceof DiagramElement) {
+					coloring.setForeground((DiagramElement) selectedBoc, Color.MAGENTA.brighter());
 				}
 			}
 
@@ -424,25 +439,15 @@ public class CreateEndToEndFlowSpecificationTool {
 	private EndToEndFlow createEndToEndFlow() {
 		final EndToEndFlow endToEndFlow = (EndToEndFlow) dlg.pkg.getEFactoryInstance()
 				.create(dlg.pkg.getEndToEndFlow());
-		final List<BusinessObjectContext> flowSegments = new ArrayList<>();
-
-		userSelections.keySet().forEach(boc -> {
-			final Object bo = boc.getBusinessObject();
-			if (bo instanceof EndToEndFlowElement) {
-				flowSegments.add(boc);
-			} else if (bo instanceof ModeFeature) {
-				endToEndFlow.getInModeOrTransitions().add((ModeFeature) bo);
-			} else {
-				throw new RuntimeException("Unsupported type: " + bo);
-			}
-		});
+		// final List<BusinessObjectContext> flowSegments = new ArrayList<>();
 
 		if (dlg.isRefined) {
 			endToEndFlow.setRefined(
 					(EndToEndFlow) AadlHelper.getRootRefinedElement(dlg.flowSegmentToEdit.getFlowSegment()));
 		} else {
 			endToEndFlow.setName(dlg.endToEndFlowName);
-			flowSegments.forEach(boc -> {
+			// flowSegments.forEach(boc -> {
+			segmentSelections.keySet().forEach(boc -> {
 				final EndToEndFlowSegment eteFlowSegment = endToEndFlow.createOwnedEndToEndFlowSegment();
 				if (!(boc.getBusinessObject() instanceof Connection)
 						&& !(boc.getBusinessObject() instanceof DataSubcomponent)
@@ -454,6 +459,51 @@ public class CreateEndToEndFlowSpecificationTool {
 				endToEndFlow.getOwnedEndToEndFlowSegments().add(eteFlowSegment);
 			});
 		}
+
+//		segmentSelections.keySet().forEach(boc -> {
+//
+//			final Object bo = boc.getBusinessObject();
+//			if (bo instanceof EndToEndFlowElement) {
+//				flowSegments.add(boc);
+//			} else if (bo instanceof ModeFeature) {
+//				endToEndFlow.getInModeOrTransitions().add((ModeFeature) bo);
+//			} else {
+//				throw new RuntimeException("Unsupported type: " + bo);
+//			}
+//		});
+//
+//
+//		segmentSelections.keySet().forEach(boc -> {
+//			final Object bo = boc.getBusinessObject();
+//			if (bo instanceof EndToEndFlowElement) {
+//				flowSegments.add(boc);
+//			} else if (bo instanceof ModeFeature) {
+//				endToEndFlow.getInModeOrTransitions().add((ModeFeature) bo);
+//			} else {
+//				throw new RuntimeException("Unsupported type: " + bo);
+//			}
+//		});
+
+		modeFeatureSelections.keySet()
+		.forEach(boc -> endToEndFlow.getInModeOrTransitions().add((ModeFeature) boc.getBusinessObject()));
+
+//		if (dlg.isRefined) {
+//			endToEndFlow.setRefined(
+//					(EndToEndFlow) AadlHelper.getRootRefinedElement(dlg.flowSegmentToEdit.getFlowSegment()));
+//		} else {
+//			endToEndFlow.setName(dlg.endToEndFlowName);
+//			flowSegments.forEach(boc -> {
+//				final EndToEndFlowSegment eteFlowSegment = endToEndFlow.createOwnedEndToEndFlowSegment();
+//				if (!(boc.getBusinessObject() instanceof Connection)
+//						&& !(boc.getBusinessObject() instanceof DataSubcomponent)
+//						&& !(boc.getBusinessObject() instanceof EndToEndFlow)) {
+//					final Context context = ToolUtil.findContext(boc);
+//					eteFlowSegment.setContext(context);
+//				}
+//				eteFlowSegment.setFlowElement((EndToEndFlowElement) boc.getBusinessObject());
+//				endToEndFlow.getOwnedEndToEndFlowSegments().add(eteFlowSegment);
+//			});
+//		}
 
 		return endToEndFlow;
 	}
@@ -475,24 +525,30 @@ public class CreateEndToEndFlowSpecificationTool {
 				// Get the selected boc
 				final BusinessObjectContext selectedBoc = (BusinessObjectContext) selectedBocs[0];
 				String error = null;
-				if (!userSelections.containsKey(selectedBoc) && dlg.addSelectedElement(selectedBoc)) {
+				if (!segmentSelections.containsKey(selectedBoc) && !modeFeatureSelections.containsKey(selectedBoc)
+						&& dlg.addSelectedElement(selectedBoc)) {
 					// Insert flow segments before first mode feature
-					if (!(selectedBoc.getBusinessObject() instanceof ModeFeature)) {
-						int i = 0;
-						for (final BusinessObjectContext key : userSelections.keySet()) {
-							if (key.getBusinessObject() instanceof ModeFeature) {
-								break;
-							}
-							i++;
-						}
+					if (selectedBoc.getBusinessObject() instanceof ModeFeature) {
+//						int i = 0;
+//						for (final BusinessObjectContext key : userSelections.keySet()) {
+//							if (key.getBusinessObject() instanceof ModeFeature) {
+//								break;
+//							}
+//							i++;
+//						}
 
-						dlg.insert(i, selectedBoc, new SegmentData());
+//						dlg.insert(userSelections.keySet().stream().findAny().orElse(null), selectedBoc,
+//								new SegmentData());
+						modeFeatureSelections.put(
+								selectedBoc,
+								new SegmentData());
 					} else {
-						userSelections.put(selectedBoc,
+						segmentSelections.put(
+								selectedBoc,
 								new SegmentData());
 					}
 					// Set default name on first selection if one does not exist
-					if (userSelections.size() == 1) {
+					if (segmentSelections.size() == 1) {
 						dlg.getOwnerComponentImplementation().ifPresent(ci -> {
 							dlg.setTitle("Creating End To End Flow in: " + ci.getQualifiedName());
 							if (dlg.endToEndFlowName.isEmpty()) {
@@ -534,7 +590,7 @@ public class CreateEndToEndFlowSpecificationTool {
 	// Determine message based on currently selected element
 	private String getDialogMessage() {
 		String msg = "";
-		if (!userSelections.isEmpty()) {
+		if (!segmentSelections.isEmpty()) {
 			msg = "Select a flow segment.";
 		} else {
 			dlg.setDefaultTitle();
@@ -636,6 +692,7 @@ public class CreateEndToEndFlowSpecificationTool {
 				}
 			}
 
+			System.err.println("return false");
 			return false;
 		}
 
@@ -658,19 +715,19 @@ public class CreateEndToEndFlowSpecificationTool {
 			}
 
 			// The flow specification should be the first thing selected by the user
-			if (userSelections.size() == 0) {
+			if (segmentSelections.size() == 0) {
 				return Optional.empty();
 			}
 
-			final BusinessObjectContext firstSelection = userSelections.keySet().iterator().next();
+			final BusinessObjectContext firstSelection = segmentSelections.keySet().iterator().next();
 			if (firstSelection.getBusinessObject() instanceof Subcomponent
 					|| firstSelection.getBusinessObject() instanceof EndToEndFlow) {
 				return findOwnerComponentImplementation(
-						userSelections.keySet().iterator().next().getParent());
+						segmentSelections.keySet().iterator().next().getParent());
 			}
 
 			return findOwnerComponentImplementation(
-					userSelections.keySet().iterator().next().getParent().getParent());
+					segmentSelections.keySet().iterator().next().getParent().getParent());
 		}
 
 		private Optional<ComponentImplementation> findOwnerComponentImplementation(
@@ -783,55 +840,63 @@ public class CreateEndToEndFlowSpecificationTool {
 		private void updateWidgets(final boolean isValid) {
 			dlg.setMessage(getDialogMessage());
 			setNavigationButtonsEnabled(isValid && dlg.endToEndFlowName.length() != 0);
-			updateButtons();
+			// updateButtons();
 		}
 
 		private void updateSegments(final boolean clearColoring) {
+			System.err.println("update segments");
 			if (clearColoring) {
 				coloring.clear();
 			}
 
-			userSelections.values().forEach(sd -> {
+			segmentSelections.values().forEach(sd -> {
 				sd.dispose();
 			});
 
-			final List<Entry<BusinessObjectContext, SegmentData>> inModes = new ArrayList<>();
-			final List<Entry<BusinessObjectContext, SegmentData>> segments = new ArrayList<>();
+			modeFeatureSelections.values().forEach(sd -> {
+				sd.dispose();
+			});
+
+			// final List<Entry<BusinessObjectContext, SegmentData>> inModes = new ArrayList<>();
+			// final List<Entry<BusinessObjectContext, SegmentData>> segments = new ArrayList<>();
 			final boolean enable = flowSegmentToEdit == null || !isRefined;
-			final Iterator<Entry<BusinessObjectContext, SegmentData>> userSelectionEntry = userSelections.entrySet()
+			final Iterator<Entry<BusinessObjectContext, SegmentData>> userSelectionEntry = segmentSelections
+					.entrySet()
 					.iterator();
 
-			while (userSelectionEntry.hasNext()) {
-				// Flow spec data
-				final Entry<BusinessObjectContext, SegmentData> flowSpecSD = userSelectionEntry.next();
-				final BusinessObjectContext key = flowSpecSD.getKey();
-				if (key.getBusinessObject() instanceof ModeFeature) {
-					inModes.add(flowSpecSD);
-				} else {
-					segments.add(flowSpecSD);
-				}
-			}
+//			while (userSelectionEntry.hasNext()) {
+//				// Flow spec data
+//				final Entry<BusinessObjectContext, SegmentData> flowSpecSD = userSelectionEntry.next();
+//				final BusinessObjectContext key = flowSpecSD.getKey();
+//				if (key.getBusinessObject() instanceof ModeFeature) {
+//					inModes.add(flowSpecSD);
+//				} else {
+//					segments.add(flowSpecSD);
+//				}
+//			}
 
-			final Iterator<Entry<BusinessObjectContext, SegmentData>> segmentsIt = segments.iterator();
+			final Iterator<Entry<BusinessObjectContext, SegmentData>> segmentsIt = segmentSelections.entrySet()
+					.iterator();
 			while (segmentsIt.hasNext()) {
 				final Entry<BusinessObjectContext, SegmentData> flowSegment = segmentsIt.next();
 				final SegmentData sd = flowSegment.getValue();
 				sd.setButton(flowComposite, AadlHelper
 						.getRootRefinedElement((NamedElement) flowSegment.getKey().getBusinessObject()).getName(),
-						enable);
+						enable, flowSegment.getKey());
 
 				if (flowSegment.getKey() instanceof DiagramElement) {
 					coloring.setForeground((DiagramElement) flowSegment.getKey(), Color.MAGENTA.darker());
 				}
 
 				if (flowSegment.getKey().getBusinessObject() instanceof EndToEndFlow) {
-					userSelections.get(flowSegment.getKey()).segments
+					flowSegment
+					.getValue().segments
 					.forEach(de -> coloring.setForeground(de, Color.MAGENTA.darker()));
 				}
 
 				// If segment is not last, add an arrow
 				if (segmentsIt.hasNext()) {
-					final StyledText segmentLabel = new StyledText(flowComposite, SWT.NONE);
+					final StyledText segmentLabel = new StyledText(flowComposite, SWT.BOTTOM);
 					segmentLabel.setLayoutData(new RowData());
 					segmentLabel.setText("-> ");
 					segmentLabel.setBackground(flowComposite.getBackground());
@@ -839,14 +904,15 @@ public class CreateEndToEndFlowSpecificationTool {
 				}
 			}
 
-			if (!inModes.isEmpty()) {
+			if (!modeFeatureSelections.isEmpty()) {
 				final StyledText inModesText = new StyledText(flowComposite, SWT.NONE);
-				inModesText.setText("in modes (");
+				inModesText.setText("in modes ");
 				inModesText.setStyleRange(
 						new StyleRange(0, 8, Display.getCurrent().getSystemColor(SWT.COLOR_DARK_RED), null, SWT.BOLD));
 				inModesText.setBackground(flowComposite.getBackground());
 
-				final Iterator<Entry<BusinessObjectContext, SegmentData>> it = inModes.iterator();
+				final Iterator<Entry<BusinessObjectContext, SegmentData>> it = modeFeatureSelections.entrySet()
+						.iterator();
 				final Entry<BusinessObjectContext, SegmentData> boc = it.next();
 				if (boc.getKey() instanceof DiagramElement) {
 					coloring.setForeground((DiagramElement) boc.getKey(), Color.MAGENTA.brighter());
@@ -855,14 +921,16 @@ public class CreateEndToEndFlowSpecificationTool {
 				SegmentData sd = boc.getValue();
 				sd.setLabel(inModesText);
 				sd.setButton(flowComposite,
-						((NamedElement) boc.getKey().getBusinessObject()).getName() + (it.hasNext() ? "," : ")"), true);
+						"(" + ((NamedElement) boc.getKey().getBusinessObject()).getName() + (it.hasNext() ? "," : ")"),
+						true,
+						boc.getKey());
 
 				while (it.hasNext()) {
 					final Entry<BusinessObjectContext, SegmentData> mode = it.next();
 					sd = mode.getValue();
 					sd.setButton(flowComposite,
 							((NamedElement) mode.getKey().getBusinessObject()).getName() + (it.hasNext() ? "," : ")"),
-							true);
+							true, boc.getKey());
 					if (mode.getKey() instanceof DiagramElement) {
 						coloring.setForeground((DiagramElement) mode.getKey(), Color.MAGENTA.brighter());
 					}
@@ -885,7 +953,8 @@ public class CreateEndToEndFlowSpecificationTool {
 		 * @param context - context of element
 		 */
 		private boolean isValid(final Element selectedEle, final Context context) {
-			if ((userSelections.isEmpty()
+			if ((segmentSelections
+					.isEmpty()
 					&& (selectedEle instanceof FlowSpecification || (selectedEle instanceof DataSubcomponent)))) {
 				return isValidFirstElement(selectedEle, context);
 			} else if (selectedEle instanceof ModeFeature) {
@@ -931,8 +1000,9 @@ public class CreateEndToEndFlowSpecificationTool {
 			scrollComposite.setAlwaysShowScrollBars(true);
 			scrollComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
 			flowComposite = new Composite(scrollComposite, SWT.NONE);
-			flowComposite.setLayout(new RowLayout(SWT.HORIZONTAL));
-
+			final RowLayout flowCompLayout = RowLayoutFactory.fillDefaults().type(SWT.HORIZONTAL).create();
+			flowCompLayout.center = true;
+			flowComposite.setLayout(flowCompLayout);
 			scrollComposite.setContent(flowComposite);
 			scrollComposite.setExpandVertical(true);
 			scrollComposite.setExpandHorizontal(true);
@@ -956,65 +1026,67 @@ public class CreateEndToEndFlowSpecificationTool {
 			final Label editLabel = new Label(buttonComposite, SWT.NONE);
 			editLabel.setText("Edit:");
 			editLabel.setAlignment(SWT.CENTER);
-			final RowData rowData = RowDataFactory.swtDefaults().hint(75, SWT.DEFAULT).create();
+			final RowData rowData = RowDataFactory.swtDefaults().hint(125, SWT.DEFAULT).create();
 
 			replaceBtn = new Button(buttonComposite, SWT.PUSH);
 			replaceBtn.setEnabled(false);
-			replaceBtn.setText("Replace");
+			// replaceBtn.setText("Replace");
+			replaceBtn.setText("Add End to End Flow");
+
 			replaceBtn.setLayoutData(rowData);
 
 			replaceBtn.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
-					setReplacementSegment("Replace", (bocToReplace) -> {
-						userSelections.remove(bocToReplace);
-						if (bocToReplace instanceof DiagramElement) {
-							coloring.setForeground((DiagramElement) bocToReplace, null);
-						}
-					});
+//					setReplacementSegment("Replace", (bocToReplace) -> {
+//						userSelections.remove(bocToReplace);
+//						if (bocToReplace instanceof DiagramElement) {
+//							coloring.setForeground((DiagramElement) bocToReplace, null);
+//						}
+//					});
 				}
 			});
 
-			insertBtn = new Button(buttonComposite, SWT.PUSH);
-			insertBtn.setText("Insert");
-			insertBtn.setEnabled(false);
-			insertBtn.setLayoutData(rowData);
-			insertBtn.addSelectionListener(new SelectionAdapter() {
-				@Override
-				public void widgetSelected(final SelectionEvent e) {
-					setReplacementSegment("Insert before", (boc) -> {
-					});
-				}
-			});
+//			insertBtn = new Button(buttonComposite, SWT.PUSH);
+//			insertBtn.setText("Insert");
+//			insertBtn.setEnabled(false);
+//			insertBtn.setLayoutData(rowData);
+//			insertBtn.addSelectionListener(new SelectionAdapter() {
+//				@Override
+//				public void widgetSelected(final SelectionEvent e) {
+////					setReplacementSegment("Insert before", (boc) -> {
+////					});
+//				}
+//			});
 
-			removeBtn = new Button(buttonComposite, SWT.PUSH);
-			removeBtn.setText("Remove");
-			removeBtn.setEnabled(false);
-			removeBtn.setLayoutData(rowData);
-			removeBtn.addSelectionListener(new SelectionAdapter() {
-				@Override
-				public void widgetSelected(final SelectionEvent e) {
-					removeSegments();
-
-					uiService.clearSelection();
-
-					final EndToEndFlow endToEndFlow = createEndToEndFlow();
-					final boolean isValid = isEndToEndFlowValid(endToEndFlow);
-
-					updateSegments(false);
-
-					final String error = getFlowErrorMessage(isValid).orElse(null);
-
-					if (error == null) {
-						setErrorMessage(null);
-						setMessage(getDialogMessage());
-					} else {
-						setErrorMessage(error + getDialogMessage());
-					}
-
-					updateWidgets(isValid);
-				}
-			});
+//			removeBtn = new Button(buttonComposite, SWT.PUSH);
+//			removeBtn.setText("Remove");
+//			removeBtn.setEnabled(false);
+//			removeBtn.setLayoutData(rowData);
+//			removeBtn.addSelectionListener(new SelectionAdapter() {
+//				@Override
+//				public void widgetSelected(final SelectionEvent e) {
+//					// removeSegments();
+//
+//					uiService.clearSelection();
+//
+//					final EndToEndFlow endToEndFlow = createEndToEndFlow();
+//					final boolean isValid = isEndToEndFlowValid(endToEndFlow);
+//
+//					updateSegments(false);
+//
+//					final String error = getFlowErrorMessage(isValid).orElse(null);
+//
+//					if (error == null) {
+//						setErrorMessage(null);
+//						setMessage(getDialogMessage());
+//					} else {
+//						setErrorMessage(error + getDialogMessage());
+//					}
+//
+//					updateWidgets(isValid);
+//				}
+//			});
 
 			errorTableViewer = FlowDialogUtil.createErrorTableViewer(new Composite(area, SWT.NONE));
 
@@ -1022,102 +1094,130 @@ public class CreateEndToEndFlowSpecificationTool {
 		}
 
 		protected void setReplacementSegment(final String dialogMessage,
-				final Consumer<BusinessObjectContext> consumer) {
-			getShell().setVisible(false);
-			final int[] index = { 0 };
+				final Consumer<BusinessObjectContext> consumer, final BusinessObjectContext boc) {
+			// getShell().setVisible(false);
+			dlg.getShell().setVisible(false);
+			// final int[] index = { 0 };
+			System.err.println("calling?");
 
-			final Optional<Entry<BusinessObjectContext, SegmentData>> selectedBocToSegmentDataOpt = getSelectedSegment(
-					index);
-			selectedBocToSegmentDataOpt.ifPresent(selectedBocToSegmentData -> {
-				final String msg = selectedBocToSegmentData.getKey().getBusinessObject() instanceof ModeFeature
-						? " mode feature: "
-								: " flow segment: ";
+			// final Optional<Entry<BusinessObjectContext, SegmentData>> selectedBocToSegmentDataOpt = getSelectedSegment(
+			// index, boc);
+			// selectedBocToSegmentDataOpt.ifPresent(selectedBocToSegmentData -> {
+			final String msg = boc
+					.getBusinessObject() instanceof ModeFeature
+					? " mode feature: "
+							: " flow segment: ";
 
-				/*
-				 * Shell parentShell, Object type,
-				 * String dialogMessage, Function<BusinessObjectContext, Boolean> test
-				 */
+			selectionDlg = new SelectElementDialog(dlg
+					.getShell(),
+					boc
+					.getBusinessObject(),
+					dialogMessage + msg + getRefinedName(
+							(NamedElement) boc
+							.getBusinessObject()));
 
-				selectionDlg = new SelectElementDialog(getShell(), selectedBocToSegmentData.getKey()
-						.getBusinessObject(),
-						dialogMessage + msg + getRefinedName((NamedElement) selectedBocToSegmentData.getKey()
-								.getBusinessObject()));
+			int i = selectionDlg.open();
 
-				int i = selectionDlg.open();
+			if (i == Window.OK) {
+				final Optional<BusinessObjectContext> optBoc = getReplacementBoc();
+				if (optBoc.isPresent()) {
+					final BusinessObjectContext selectedBoc = optBoc.get();
+					if (selectedBoc.getBusinessObject() instanceof ModeFeature) {
+						final SegmentData segmentData = modeFeatureSelections.get(selectedBoc);
+						consumer.accept(boc);
+						insert(boc, selectedBoc, segmentData, modeFeatureSelections);
 
-				if (i == Window.OK) {
-					final Optional<BusinessObjectContext> optBoc = getReplacementBoc();
-					if (optBoc.isPresent()) {
-						final BusinessObjectContext selectedBoc = optBoc.get();
-						if (selectedBoc.getBusinessObject() instanceof NamedElement) {
-							consumer.accept(selectedBocToSegmentData.getKey());
-							insert(index[0], selectedBoc, selectedBocToSegmentData.getValue());
+					} else {
+						final SegmentData segmentData = segmentSelections.get(boc);
+						consumer.accept(boc);
+						insert(boc, selectedBoc, segmentData, segmentSelections);
 
-							if (selectedBoc.getBusinessObject() instanceof EndToEndFlow) {
-								final BusinessObjectContext selectedCi = AgeHandlerUtil
-										.getSelectedBusinessObjectContexts().get(0);
-								// Find ancestors of the end to end flow container
-								final Queue<Element> ancestors = FlowUtil.getAncestors(selectedCi, Optional.empty());
-								// Find the diagram element of the container
-								final BusinessObjectContext ancestor = FlowUtil
-										.getAncestorDiagramElement(editor.getAgeDiagram(), ancestors)
-										.orElseThrow(() -> new RuntimeException(
-												"Cannot find container: " + selectedCi.getBusinessObject()));
+						if (selectedBoc.getBusinessObject() instanceof EndToEndFlow) {
+							final BusinessObjectContext selectedCi = AgeHandlerUtil
+									.getSelectedBusinessObjectContexts().get(0);
+							// Find ancestors of the end to end flow container
+							final Queue<Element> ancestors = FlowUtil.getAncestors(selectedCi, Optional.empty());
+							// Find the diagram element of the container
+							final BusinessObjectContext ancestor = FlowUtil
+									.getAncestorDiagramElement(editor.getAgeDiagram(), ancestors)
+									.orElseThrow(() -> new RuntimeException(
+											"Cannot find container: " + selectedCi.getBusinessObject()));
 
-								findSegments((EndToEndFlow) selectedBoc.getBusinessObject(), ancestor,
-										selectedBocToSegmentData.getValue());
-							}
+							findSegments((EndToEndFlow) selectedBoc.getBusinessObject(), ancestor,
+									segmentSelections.get(boc));
 						}
 					}
 
-					updateSegments(false);
-
-					final EndToEndFlow endToEndFlow = createEndToEndFlow();
-					final boolean isValid = isEndToEndFlowValid(endToEndFlow);
-					final String error = getFlowErrorMessage(isValid).orElse(null);
-					if (error == null) {
-						setErrorMessage(null);
-						setMessage(getDialogMessage());
-					} else {
-						setErrorMessage(error + getDialogMessage());
-					}
-
-					updateWidgets(isValid);
+//					if (selectedBoc.getBusinessObject() instanceof NamedElement) {
+//						final SegmentData segmentData = userSelections.get(boc);
+//						consumer.accept(boc);
+//						insert(boc, selectedBoc, segmentData, userSelections);
+//
+//						if (selectedBoc.getBusinessObject() instanceof EndToEndFlow) {
+//							final BusinessObjectContext selectedCi = AgeHandlerUtil
+//									.getSelectedBusinessObjectContexts().get(0);
+//							// Find ancestors of the end to end flow container
+//							final Queue<Element> ancestors = FlowUtil.getAncestors(selectedCi, Optional.empty());
+//							// Find the diagram element of the container
+//							final BusinessObjectContext ancestor = FlowUtil
+//									.getAncestorDiagramElement(editor.getAgeDiagram(), ancestors)
+//									.orElseThrow(() -> new RuntimeException(
+//											"Cannot find container: " + selectedCi.getBusinessObject()));
+//
+//							findSegments((EndToEndFlow) selectedBoc.getBusinessObject(), ancestor,
+//									userSelections.get(boc));
+//						}
+//					}
 				}
 
-				selectionDlg = null;
-				getShell().setVisible(true);
-			});
-		}
+				updateSegments(false);
 
-		private Optional<Entry<BusinessObjectContext, SegmentData>> getSelectedSegment(final int[] index) {
-			for (final Entry<BusinessObjectContext, SegmentData> entry : userSelections.entrySet()) {
-				final Button btn = entry.getValue().getButton();
-				if (btn.getSelection()) {
-					return Optional.of(entry);
+				final EndToEndFlow endToEndFlow = createEndToEndFlow();
+				final boolean isValid = isEndToEndFlowValid(endToEndFlow);
+				final String error = getFlowErrorMessage(isValid).orElse(null);
+				if (error == null) {
+					setErrorMessage(null);
+					setMessage(getDialogMessage());
+				} else {
+					setErrorMessage(error + getDialogMessage());
 				}
-				index[0]++;
+
+				updateWidgets(isValid);
 			}
 
-			return Optional.empty();
+			selectionDlg = null;
+			dlg.getShell().setVisible(true);
+			// });
 		}
 
-		private void removeSegments() {
-			final Iterator<Entry<BusinessObjectContext, SegmentData>> it = userSelections.entrySet().iterator();
-			while (it.hasNext()) {
-				final Entry<BusinessObjectContext, SegmentData> entry = it.next();
-				final SegmentData segmentData = entry.getValue();
-				if (segmentData.getButton().getSelection()) {
-					if (entry.getKey() instanceof DiagramElement) {
-						coloring.setForeground((DiagramElement) entry.getKey(), null);
-					}
+//		private Optional<Entry<BusinessObjectContext, SegmentData>> getSelectedSegment(final int[] index) {
+//			for (final Entry<BusinessObjectContext, SegmentData> entry : userSelections.entrySet()) {
+//				final Button btn = entry.getValue().getButton();
+//				if (btn.getSelection()) {
+//					return Optional.of(entry);
+//				}
+//				index[0]++;
+//			}
+//
+//			return Optional.empty();
+//		}
 
-					segmentData.segments.forEach(de -> coloring.setForeground(de, null));
-					segmentData.dispose();
-					it.remove();
-				}
-			}
-		}
+//		private void removeSegments() {
+//			final Iterator<Entry<BusinessObjectContext, SegmentData>> it = userSelections.entrySet().iterator();
+//			while (it.hasNext()) {
+//				final Entry<BusinessObjectContext, SegmentData> entry = it.next();
+//				final SegmentData segmentData = entry.getValue();
+//				if (segmentData.getButton().getSelection()) {
+//					if (entry.getKey() instanceof DiagramElement) {
+//						coloring.setForeground((DiagramElement) entry.getKey(), null);
+//					}
+//
+//					segmentData.segments.forEach(de -> coloring.setForeground(de, null));
+//					segmentData.dispose();
+//					it.remove();
+//				}
+//			}
+//		}
 
 		private Optional<BusinessObjectContext> getReplacementBoc() {
 			if (selectionDlg.selection instanceof BusinessObjectContext) {
@@ -1195,8 +1295,10 @@ public class CreateEndToEndFlowSpecificationTool {
 				public void widgetSelected(final SelectionEvent e) {
 					isRefined = refineBtn.getSelection();
 					if (isRefined) {
-						userSelections.values().forEach(SegmentData::dispose);
-						userSelections.clear();
+						segmentSelections.values().forEach(SegmentData::dispose);
+						modeFeatureSelections.values().forEach(SegmentData::dispose);
+						segmentSelections.clear();
+						modeFeatureSelections.clear();
 
 						final BusinessObjectNode container = (BusinessObjectNode) flowSegmentToEdit.getContainer();
 
@@ -1223,7 +1325,7 @@ public class CreateEndToEndFlowSpecificationTool {
 						.forEach(flowElement -> {
 							final BusinessObjectContext boc = segmentToBoc.get(flowElement);
 							final SegmentData sd = new SegmentData();
-							userSelections.put(boc, sd);
+							segmentSelections.put(boc, sd);
 							if (boc.getBusinessObject() instanceof EndToEndFlow
 									&& ancestor instanceof DiagramElement) {
 								findSegments((EndToEndFlow) boc.getBusinessObject(), ancestor, sd);
@@ -1247,7 +1349,7 @@ public class CreateEndToEndFlowSpecificationTool {
 								boc = container.getChild(childRef);
 							}
 
-							userSelections.put(boc, new SegmentData());
+							modeFeatureSelections.put(boc, new SegmentData());
 						});
 
 						updateSegments(true);
@@ -1270,7 +1372,9 @@ public class CreateEndToEndFlowSpecificationTool {
 				}
 
 				private void enableSegmentButtons() {
-					userSelections.values().forEach(segmentData -> segmentData.getButton().setEnabled(true));
+					//userSelections.values().forEach(segmentData -> segmentData.getButton().setEnabled(true));
+					Streams.concat(segmentSelections.values().stream(), modeFeatureSelections.values().stream())
+					.forEach(sd -> sd.getButton().setEnabled(true));
 				}
 			});
 
@@ -1304,12 +1408,16 @@ public class CreateEndToEndFlowSpecificationTool {
 			return invalidErrorMessage;
 		}
 
-		public void insert(
-				final int insertIndex, final BusinessObjectContext boc, final SegmentData segmentData) {
-			final List<Entry<BusinessObjectContext, SegmentData>> rest = new ArrayList<>();
-			int i = 0;
-			for (final Entry<BusinessObjectContext, SegmentData> entry : userSelections.entrySet()) {
-				if (i++ >= insertIndex) {
+		public <K extends BusinessObjectContext, V extends SegmentData> void insert(final K insertBefore,
+				final K boc,
+				final V segmentData, final Map<K, V> userSelections) {
+			final List<Entry<K, V>> rest = new ArrayList<>();
+			boolean encountered = false;
+			for (final Entry<K, V> entry : userSelections.entrySet()) {
+				if (encountered) {
+					rest.add(entry);
+				} else if (entry.getKey() == insertBefore) {
+					encountered = true;
 					rest.add(entry);
 				}
 			}
@@ -1317,23 +1425,26 @@ public class CreateEndToEndFlowSpecificationTool {
 			userSelections.put(boc, segmentData);
 
 			for (int j = 0; j < rest.size(); j++) {
-				final Entry<BusinessObjectContext, SegmentData> entry = rest.get(j);
-				entry.getValue().dispose();
+				final Entry<K, V> entry = rest.get(j);
+				// entry.getValue().dispose();
 				userSelections.remove(entry.getKey());
-				final SegmentData sd = new SegmentData();
-				sd.segments.addAll(entry.getValue().segments);
-				userSelections.put(entry.getKey(), sd);
+				// final V v = new SegmentData();
+				// final SegmentData sd = new SegmentData();
+				// sd.segments.addAll(entry.getValue().segments);
+				System.err.println(entry.getValue() + " getValue");
+				userSelections.put(entry.getKey(), entry.getValue());
 			}
 		}
 
-		public void updateButtons() {
-			final long size = userSelections.values().stream().filter(sd -> sd.getButton().getSelection()).limit(2)
-					.count();
-			final boolean isSingleSelection = size == 1;
-			dlg.insertBtn.setEnabled(isSingleSelection);
-			dlg.replaceBtn.setEnabled(isSingleSelection);
-			dlg.removeBtn.setEnabled(size > 0);
-		}
+//		public void updateButtons() {
+//
+//			final long size = userSelections.values().stream().filter(sd -> sd.getButton().getSelection()).limit(2)
+//					.count();
+//			final boolean isSingleSelection = size == 1;
+//			dlg.insertBtn.setEnabled(isSingleSelection);
+//			dlg.replaceBtn.setEnabled(isSingleSelection);
+//			dlg.removeBtn.setEnabled(size > 0);
+//		}
 	}
 
 	private class SelectElementDialog extends TitleAreaDialog {
@@ -1475,39 +1586,132 @@ public class CreateEndToEndFlowSpecificationTool {
 		}
 	}
 
-	public BusinessObjectContext getLastKey() {
-		System.err.println(userSelections.size() + " size");
-		return Iterables.getLast(userSelections.keySet().stream()
-				.filter(boc -> !(boc.getBusinessObject() instanceof ModeFeature)).collect(Collectors.toList()));
-	}
+//	public BusinessObjectContext getLastKey() {
+//		System.err.println(userSelections.size() + " size");
+//		return Iterables.getLast(userSelections.keySet().stream()
+//				.filter(boc -> !(boc.getBusinessObject() instanceof ModeFeature)).collect(Collectors.toList()));
+//	}
 
 	private class SegmentData {
-		private final List<DiagramElement> segments = new ArrayList<>();
+		final List<DiagramElement> segments = new ArrayList<>();
 		private Button btn;
 		private StyledText label;
 
 		public void setLabel(final StyledText label) {
 			this.label = label;
 			this.label.setCaret(null);
+			// this.label.setAlignment(SWT.BOTTOM);
 		}
 
-		public void setButton(final Composite parent, final String text, final boolean enabled) {
-			btn = createSegmentButton(parent, text, enabled);
+		public void setButton(final Composite parent, final String text, final boolean enabled,
+				final BusinessObjectContext boc) {
+			btn = createSegmentButton(parent, text, enabled, boc);
 		}
 
 		public Button getButton() {
 			return btn;
 		}
 
-		protected Button createSegmentButton(final Composite parent, final String text, final boolean enabled) {
-			final Button btn = new Button(parent, SWT.CHECK);
+		protected Button createSegmentButton(final Composite parent, final String text, final boolean enabled,
+				final BusinessObjectContext boc) {
+			final Button btn = new Button(parent, SWT.FLAT);
 			btn.setText(text);
 			btn.setEnabled(enabled);
 			btn.setLayoutData(new RowData());
+
+			final Menu newMenu = new Menu(btn);
+			final MenuItem newItem1 = new MenuItem(newMenu, SWT.NONE);
+			newItem1.setText("Replace");
+			newItem1.addSelectionListener(new SelectionAdapter() {
+				@Override
+				public void widgetSelected(final SelectionEvent e) {
+					System.err.println("what");
+					// remove boc to replace param? justs use boc?
+					dlg.setReplacementSegment("Replace", (bocToReplace) -> {
+						// userSelections.remove(boc);
+						if (boc.getBusinessObject() instanceof ModeFeature) {
+							modeFeatureSelections.remove(boc);
+						} else {
+							segmentSelections.remove(boc);
+						}
+						if (bocToReplace instanceof DiagramElement) {
+							coloring.setForeground((DiagramElement) bocToReplace, null);
+						}
+					}, boc);
+				}
+			});
+
+			final MenuItem newItem2 = new MenuItem(newMenu, SWT.NONE);
+			newItem2.setText("Insert");
+			newItem2.addSelectionListener(new SelectionAdapter() {
+				@Override
+				public void widgetSelected(final SelectionEvent e) {
+					dlg.setReplacementSegment("Insert before", (boc) -> {
+					}, boc);
+				}
+			});
+
+			final MenuItem newItem3 = new MenuItem(newMenu, SWT.NONE);
+			newItem3.setText("Remove");
+			newItem3.addSelectionListener(new SelectionAdapter() {
+				@Override
+				public void widgetSelected(final SelectionEvent e) {
+					// final SegmentData sd = userSelections.get(boc);
+					final SegmentData sd;
+					if (boc.getBusinessObject() instanceof ModeFeature) {
+						sd = modeFeatureSelections.get(boc);
+						modeFeatureSelections.remove(boc);
+					} else {
+						sd = segmentSelections.get(boc);
+						segmentSelections.remove(boc);
+					}
+					if (boc instanceof DiagramElement) {
+						coloring.setForeground((DiagramElement) boc, null);
+					}
+
+					sd.segments.forEach(de -> coloring.setForeground(de, null));
+					sd.dispose();
+					// userSelections.remove(boc);
+
+					dlg.uiService.clearSelection();
+
+					final EndToEndFlow endToEndFlow = createEndToEndFlow();
+					final boolean isValid = dlg.isEndToEndFlowValid(endToEndFlow);
+
+					dlg.updateSegments(false);
+
+					final String error = dlg.getFlowErrorMessage(isValid).orElse(null);
+
+					if (error == null) {
+						dlg.setErrorMessage(null);
+						dlg.setMessage(getDialogMessage());
+					} else {
+						dlg.setErrorMessage(error + getDialogMessage());
+					}
+
+					dlg.updateWidgets(isValid);
+				}
+			});
+
+			final MenuItem newItem4 = new MenuItem(newMenu, SWT.NONE);
+			newItem4.setText("Insert End to End Flow");
+			newItem4.addSelectionListener(new SelectionAdapter() {
+				@Override
+				public void widgetSelected(final SelectionEvent e) {
+
+				}
+			});
+
+			btn.setMenu(newMenu);
 			btn.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
-					dlg.updateButtons();
+					final Point location = btn.getLocation();
+					newMenu.setLocation(Display.getCurrent().map(dlg.flowComposite, null,
+							new Point(location.x, location.y + btn.getSize().y)));
+					newMenu.setVisible(true);
+
+					// dlg.updateButtons();
 				};
 			});
 

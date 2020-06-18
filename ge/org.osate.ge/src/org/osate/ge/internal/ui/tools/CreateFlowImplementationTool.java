@@ -804,8 +804,8 @@ public class CreateFlowImplementationTool {
 				return Optional.empty();
 			}
 
-			final Set<BusinessObjectContext> segmentSelections = userSelections.keySet().stream()
-					.filter(boc -> !(boc.getBusinessObject() instanceof ModeFeature)).collect(Collectors.toSet());
+			final List<BusinessObjectContext> segmentSelections = userSelections.keySet().stream()
+					.filter(boc -> !(boc.getBusinessObject() instanceof ModeFeature)).collect(Collectors.toList());
 			if (!segmentSelections.isEmpty()) {
 				return Optional.ofNullable(segmentSelections.iterator().next().getParent());
 			}
