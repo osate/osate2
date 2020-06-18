@@ -46,17 +46,21 @@ import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.SubprogramProxy;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.DockingPosition;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessObjectHandlers.CanDeleteContext;
 import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.graphics.internal.FeatureGraphic;
+import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 import org.osate.ge.internal.util.AadlArrayUtil;
 import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
@@ -65,10 +69,44 @@ import org.osate.ge.internal.util.AadlPrototypeUtil;
 public class FeatureHandler extends AadlBusinessObjectHandler {
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-
 		return ctx.getBusinessObject(Feature.class).isPresent()
 				|| ctx.getBusinessObject(InternalFeature.class).isPresent()
 				|| ctx.getBusinessObject(ProcessorFeature.class).isPresent();
+	}
+
+	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		final Object bo = ctx.getBusinessObject();
+		if (bo instanceof Feature) {
+			return new CanonicalBusinessObjectReference(DeclarativeReferenceType.FEATURE.getId(),
+					((Feature) bo).getQualifiedName());
+		} else if (bo instanceof InternalFeature) {
+			return new CanonicalBusinessObjectReference(DeclarativeReferenceType.INTERNAL_FEATURE.getId(),
+					((InternalFeature) bo).getQualifiedName());
+		} else if (bo instanceof ProcessorFeature) {
+			return new CanonicalBusinessObjectReference(DeclarativeReferenceType.PROCESSOR_FEATURE.getId(),
+					((ProcessorFeature) bo).getQualifiedName());
+		}
+
+		throw new RuntimeException("Unsupported business object " + bo);
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		final Object bo = ctx.getBusinessObject();
+		if (bo instanceof Feature) {
+			return getFeatureRelativeReference(((Feature) bo).getName());
+		} else if (bo instanceof InternalFeature) {
+			return AadlReferenceUtil.buildSimpleRelativeReference(DeclarativeReferenceType.INTERNAL_FEATURE
+					.getId(),
+					((InternalFeature) bo));
+		} else if (bo instanceof ProcessorFeature) {
+			return AadlReferenceUtil.buildSimpleRelativeReference(
+					DeclarativeReferenceType.PROCESSOR_FEATURE.getId(),
+					((ProcessorFeature) bo));
+		}
+
+		throw new RuntimeException("Unsupported business object " + bo);
 	}
 
 	@Override
@@ -192,5 +230,9 @@ public class FeatureHandler extends AadlBusinessObjectHandler {
 	@Override
 	public boolean canRename(final CanRenameContext ctx) {
 		return true;
+	}
+
+	private static RelativeBusinessObjectReference getFeatureRelativeReference(final String name) {
+		return AadlReferenceUtil.buildSimpleRelativeReference(DeclarativeReferenceType.FEATURE.getId(), name);
 	}
 }

@@ -27,20 +27,35 @@ import java.util.Optional;
 
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.businessObjectHandlers.CanDeleteContext;
 import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
 import org.osate.ge.businessObjectHandlers.RenameContext;
+import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 
 public class ClassifierHandler extends AadlBusinessObjectHandler {
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(Classifier.class).isPresent();
+	}
+
+	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		return new CanonicalBusinessObjectReference(DeclarativeReferenceType.CLASSIFIER.getId(),
+				ctx.getBusinessObject(Classifier.class).get().getQualifiedName());
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		return getClassifierRelativeReference(ctx.getBusinessObject(Classifier.class).get().getName());
 	}
 
 	@Override
@@ -108,5 +123,9 @@ public class ClassifierHandler extends AadlBusinessObjectHandler {
 			// The value is valid
 			return null;
 		});
+	}
+
+	public static RelativeBusinessObjectReference getClassifierRelativeReference(final String name) {
+		return AadlReferenceUtil.buildSimpleRelativeReference(DeclarativeReferenceType.CLASSIFIER.getId(), name);
 	}
 }

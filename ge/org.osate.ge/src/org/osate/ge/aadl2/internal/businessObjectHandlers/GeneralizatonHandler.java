@@ -32,13 +32,16 @@ import org.osate.aadl2.ImplementationExtension;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessObjectHandlers.CanDeleteContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.GetNameForDiagramContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
@@ -46,6 +49,7 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.LabelBuilder;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -67,6 +71,45 @@ public class GeneralizatonHandler extends AadlBusinessObjectHandler {
 				|| ctx.getBusinessObject(TypeExtension.class).isPresent()
 				|| ctx.getBusinessObject(ImplementationExtension.class).isPresent()
 				|| ctx.getBusinessObject(GroupExtension.class).isPresent();
+	}
+
+	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		final Object bo = ctx.getBusinessObject();
+
+		if (bo instanceof Realization) {
+			return new CanonicalBusinessObjectReference(
+					DeclarativeReferenceType.REALIZATION.getId(),
+					((Realization) bo).getSpecific().getQualifiedName());
+		} else if (bo instanceof TypeExtension) {
+			return new CanonicalBusinessObjectReference(DeclarativeReferenceType.TYPE_EXTENSION.getId(),
+					((TypeExtension) bo).getSpecific().getQualifiedName());
+		} else if (bo instanceof ImplementationExtension) {
+			return new CanonicalBusinessObjectReference(DeclarativeReferenceType.IMPLEMENTATION_EXTENSION.getId(),
+					((ImplementationExtension) bo).getSpecific().getQualifiedName());
+		} else if (bo instanceof GroupExtension) {
+			return new CanonicalBusinessObjectReference(DeclarativeReferenceType.GROUP_EXTENSION.getId(),
+					((GroupExtension) bo).getSpecific().getQualifiedName());
+		}
+
+		throw new RuntimeException("Unexpected business object " + bo);
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		final Object bo = ctx.getBusinessObject();
+
+		if (bo instanceof Realization) {
+			return new RelativeBusinessObjectReference(DeclarativeReferenceType.REALIZATION.getId());
+		} else if (bo instanceof TypeExtension) {
+			return new RelativeBusinessObjectReference(DeclarativeReferenceType.TYPE_EXTENSION.getId());
+		} else if (bo instanceof ImplementationExtension) {
+			return new RelativeBusinessObjectReference(DeclarativeReferenceType.IMPLEMENTATION_EXTENSION.getId());
+		} else if (bo instanceof GroupExtension) {
+			return new RelativeBusinessObjectReference(DeclarativeReferenceType.GROUP_EXTENSION.getId());
+		}
+
+		throw new RuntimeException("Unexpected business object " + bo);
 	}
 
 	@Override

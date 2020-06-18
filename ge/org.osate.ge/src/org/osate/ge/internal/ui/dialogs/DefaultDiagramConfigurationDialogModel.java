@@ -33,7 +33,6 @@ import java.util.Objects;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.IEObjectDescription;
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.CanonicalBusinessObjectReference;

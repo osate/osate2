@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -43,12 +43,13 @@ import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.RelativeBusinessObjectReference;
-import org.osate.ge.di.BuildCanonicalReference;
-import org.osate.ge.di.BuildRelativeReference;
-import org.osate.ge.di.Names;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
+import org.osate.ge.internal.businessObjectHandlers.BusinessObjectHandlerProvider;
 import org.osate.ge.internal.di.GetCanonicalReferenceLabel;
 import org.osate.ge.internal.di.GetRelativeReferenceLabel;
 import org.osate.ge.internal.di.InternalNames;
+import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.ReferenceService;
@@ -57,7 +58,6 @@ import org.osgi.framework.FrameworkUtil;
 
 public class DefaultReferenceService implements ReferenceService {
 	public static final String REFERENCES_EXTENSION_POINT_ID = "org.osate.ge.references";
-	private static final String REFERENCE_BUILDER_ELEMENT_NAME = "referenceBuilder";
 	private static final String REFERENCE_LABEL_PROVIDER_ELEMENT_NAME = "referenceLabelProvider";
 
 	private final static ReferenceQueue<ProjectReferenceService> serviceReferenceQueue = new ReferenceQueue<>();
@@ -100,7 +100,8 @@ public class DefaultReferenceService implements ReferenceService {
 	public static class ContextFunction extends SimpleServiceContextFunction<ReferenceService> {
 		@Override
 		public ReferenceService createService(final IEclipseContext context) {
-			return new DefaultReferenceService(context.get(ModelChangeNotifier.class));
+			return new DefaultReferenceService(context.get(ModelChangeNotifier.class),
+					context.get(ExtensionRegistryService.class));
 		}
 
 		@Override
@@ -115,12 +116,12 @@ public class DefaultReferenceService implements ReferenceService {
 		}
 	}
 
-	private List<Object> referenceBuilders = null;
 	private List<Object> referenceLabelProviders = null;
 	private final IEclipseContext argCtx = EclipseContextFactory.create(); // Used for method arguments
 	private final IEclipseContext serviceContext;
 	private final WeakHashMap<IProject, ProjectReferenceServiceReference> projectToProjectReferenceService = new WeakHashMap<>();
 	private final ModelChangeNotifier modelChangeNotifier;
+	private final BusinessObjectHandlerProvider bohProvider;
 
 	private ModelChangeNotifier.ChangeListener modelChangeListener = new ModelChangeNotifier.ChangeListener() {
 		@Override
@@ -135,9 +136,10 @@ public class DefaultReferenceService implements ReferenceService {
 		}
 	};
 
-	public DefaultReferenceService(final ModelChangeNotifier modelChangeNotifier) {
+	public DefaultReferenceService(final ModelChangeNotifier modelChangeNotifier,
+			final BusinessObjectHandlerProvider bohProvider) {
 		this.modelChangeNotifier = Objects.requireNonNull(modelChangeNotifier, "modelChangeNotifier must not be null");
-		referenceBuilders = instantiateReferenceBuilders();
+		this.bohProvider = Objects.requireNonNull(bohProvider, "bohProvider must not be null");
 		referenceLabelProviders = instantiateReferenceLabelProviders();
 
 		final Bundle bundle = FrameworkUtil.getBundle(getClass());
@@ -152,27 +154,6 @@ public class DefaultReferenceService implements ReferenceService {
 		modelChangeNotifier.removeChangeListener(modelChangeListener);
 
 		argCtx.dispose();
-	}
-
-	private static List<Object> instantiateReferenceBuilders() {
-		final List<Object> referenceBuilders = new ArrayList<>();
-
-		final IExtensionRegistry registry = Platform.getExtensionRegistry();
-		final IExtensionPoint point = Objects.requireNonNull(registry.getExtensionPoint(DefaultReferenceService.REFERENCES_EXTENSION_POINT_ID), "unable to retrieve references extension point");
-		for(final IExtension extension : point.getExtensions()) {
-			for(final IConfigurationElement ce : extension.getConfigurationElements()) {
-				if(ce.getName().equals(REFERENCE_BUILDER_ELEMENT_NAME)) {
-					try {
-						final Object ext = ce.createExecutableExtension("class");
-						referenceBuilders.add(ext);
-					} catch(final CoreException ex) {
-						throw new RuntimeException(ex);
-					}
-				}
-			}
-		}
-
-		return Collections.unmodifiableList(referenceBuilders);
 	}
 
 	private static List<Object> instantiateReferenceLabelProviders() {
@@ -201,57 +182,25 @@ public class DefaultReferenceService implements ReferenceService {
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final Object bo) {
 		Objects.requireNonNull(bo, "bo must not be null");
-		try {
-			// Set context fields
-			argCtx.set(Names.BUSINESS_OBJECT, bo);
-			for(final Object refBuilder : referenceBuilders) {
-				final String[] ref = (String[])ContextInjectionFactory.invoke(refBuilder, BuildCanonicalReference.class, serviceContext, argCtx, null);
-				if(ref != null) {
-					// Return null if any segment is null.
-					// This is done to prevent the reference builder from having to check all fields such as qualified name for null values.
-					for(final String seg : ref) {
-						if(seg == null) {
-							return null;
-						}
-					}
 
-					return new CanonicalBusinessObjectReference(ref);
-				}
-			}
-		} finally {
-			// Remove entries from context
-			argCtx.remove(Names.BUSINESS_OBJECT);
+		final BusinessObjectHandler boh = bohProvider.getApplicableBusinessObjectHandler(bo);
+		if (boh == null) {
+			return null;
 		}
 
-		return null;
+		return boh.getCanonicalReference(new ReferenceContext(bo));
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final Object bo) {
 		Objects.requireNonNull(bo, "bo must not be null");
-		try {
-			// Set context fields
-			argCtx.set(Names.BUSINESS_OBJECT, bo);
-			for(final Object refBuilder : referenceBuilders) {
-				final Object rawRef = ContextInjectionFactory.invoke(refBuilder,
-						BuildRelativeReference.class, serviceContext, argCtx, null);
-				if (rawRef != null) {
-					if (rawRef instanceof RelativeBusinessObjectReference) {
-						return (RelativeBusinessObjectReference) rawRef;
-					} else if (rawRef instanceof String[]) {
-						return RelativeBusinessObjectReference.fromNullableSegments((String[]) rawRef);
-					} else {
-						throw new RuntimeException(
-								"Invalid value: '" + rawRef + "' returned by relative reference builder");
-					}
-				}
-			}
-		} finally {
-			// Remove entries from context
-			argCtx.remove(Names.BUSINESS_OBJECT);
+
+		final BusinessObjectHandler boh = bohProvider.getApplicableBusinessObjectHandler(bo);
+		if (boh == null) {
+			return null;
 		}
 
-		return null;
+		return boh.getRelativeReference(new ReferenceContext(bo));
 	}
 
 	@Override

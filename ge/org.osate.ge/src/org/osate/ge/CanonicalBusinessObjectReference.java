@@ -40,18 +40,26 @@ public class CanonicalBusinessObjectReference {
 	private List<String> segments;
 
 	/**
-	 * Creates a canonical reference from an array of segments. Segments are case insensitive.
-	 * @param reference
+	 * Creates an instance from an array of segments. Segments are case insensitive. Throws an exception is optional or if the segments
+	 * array is null or empty.
+	 * @param segments is an array of segments that makes up the reference.
 	 */
-	public CanonicalBusinessObjectReference(final String... reference) {
-		if(reference == null || reference.length < 1) {
-			throw new RuntimeException("reference must contain at least one segment");
+	public CanonicalBusinessObjectReference(final String... segments) {
+		if (segments == null || segments.length < 1) {
+			throw new RuntimeException("segments must contain at least one segment");
+		}
+
+		// Check that all segments are non-null
+		for (final String seg : segments) {
+			if (seg == null) {
+				throw new RuntimeException("segment is null");
+			}
 		}
 
 		// Copy segments into a new list and covert all segments to lower case
-		final List<String> segmentCopy = new ArrayList<>(reference.length);
-		for(int i = 0 ; i < reference.length; i++) {
-			segmentCopy.add(reference[i].toLowerCase());
+		final List<String> segmentCopy = new ArrayList<>(segments.length);
+		for (int i = 0; i < segments.length; i++) {
+			segmentCopy.add(segments[i].toLowerCase());
 		}
 
 		// Store an unmodifiable list of segments

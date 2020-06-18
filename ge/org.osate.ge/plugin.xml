@@ -1715,9 +1715,6 @@ censes only apply to the Third Party Software and not any other portion of this 
        <referenceBuilder
              class="org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder">
        </referenceBuilder>
-		<referenceBuilder
-             class="org.osate.ge.internal.services.impl.InstanceReferenceBuilder">
-       </referenceBuilder>
        <referenceResolver
              class="org.osate.ge.internal.services.impl.InstanceReferenceResolver">
        </referenceResolver>

@@ -26,7 +26,9 @@ package org.osate.ge.businessObjectHandlers;
 import java.util.Optional;
 
 import org.osate.ge.BusinessObjectProvider;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
+import org.osate.ge.RelativeBusinessObjectReference;
 
 /**
  * Handles the graphical behavior for a business object. The business object must be contributed using a
@@ -42,6 +44,15 @@ public interface BusinessObjectHandler {
 	 * @return whether the business object handler is applicable based on the specified context.
 	 */
 	boolean isApplicable(IsApplicableContext ctx);
+
+	// TODO: Document must return value or throw
+	// TODO: References should be the same to allow easier fetching of both references?
+
+	// TODO: Remove default. Add context. Rename?
+	CanonicalBusinessObjectReference getCanonicalReference(ReferenceContext ctx);
+
+	// TODO: Remove default. Add context. Rename?
+	RelativeBusinessObjectReference getRelativeReference(ReferenceContext ctx);
 
 	/**
 	 * Returns the graphical configuration for the specified context.

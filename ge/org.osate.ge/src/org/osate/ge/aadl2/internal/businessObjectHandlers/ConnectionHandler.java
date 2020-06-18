@@ -32,18 +32,22 @@ import org.osate.aadl2.Connection;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessObjectHandlers.CanDeleteContext;
 import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
@@ -80,6 +84,20 @@ public class ConnectionHandler extends AadlBusinessObjectHandler {
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(Connection.class).isPresent();
+	}
+
+	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		return new CanonicalBusinessObjectReference(
+				DeclarativeReferenceType.CONNECTION.getId(),
+				ctx.getBusinessObject(Connection.class).get().getQualifiedName());
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		return AadlReferenceUtil
+				.buildSimpleRelativeReference(DeclarativeReferenceType.CONNECTION.getId(),
+						ctx.getBusinessObject(Connection.class).get());
 	}
 
 	@Override

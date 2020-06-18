@@ -37,40 +37,30 @@ public class RelativeBusinessObjectReference implements Comparable<RelativeBusin
 	private List<String> segments;
 
 	/**
-	 * Creates a relative reference from an array of segments. Segments are case insensitive.
-	 * @param reference
+	 * Creates an instance from an array of segments. Segments are case insensitive. Throws an exception is optional or if the segments
+	 * array is null or empty.
+	 * @param segments is an array of segments that makes up the reference.
 	 */
-	public RelativeBusinessObjectReference(final String... reference) {
-		if(reference == null || reference.length < 1) {
-			throw new RuntimeException("reference must contain at least one segment");
+	public RelativeBusinessObjectReference(final String... segments) {
+		if (segments == null || segments.length < 1) {
+			throw new RuntimeException("segments must contain at least one segment");
+		}
+
+		// Check that all segments are non-null
+		for (final String seg : segments) {
+			if (seg == null) {
+				throw new RuntimeException("segment is null");
+			}
 		}
 
 		// Copy segments into a new list and covert all segments to lower case
-		final List<String> segmentCopy = new ArrayList<>(reference.length);
-		for(int i = 0 ; i < reference.length; i++) {
-			segmentCopy.add(reference[i].toLowerCase());
+		final List<String> segmentCopy = new ArrayList<>(segments.length);
+		for (int i = 0; i < segments.length; i++) {
+			segmentCopy.add(segments[i].toLowerCase());
 		}
 
 		// Store an unmodifiable list of segments
 		this.segments = Collections.unmodifiableList(segmentCopy);
-	}
-
-	/**
-	 * Creates a RelativeBusinessObjectReference from a segment array. Returns null if the segment array or any of the segments is null.
-	 */
-	public static RelativeBusinessObjectReference fromNullableSegments(final String[] segments) {
-		if (segments == null) {
-			return null;
-		}
-
-		// Return null if any segments are null
-		for (final String seg : segments) {
-			if (seg == null) {
-				return null;
-			}
-		}
-
-		return new RelativeBusinessObjectReference(segments);
 	}
 
 	@Override

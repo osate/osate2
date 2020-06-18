@@ -31,16 +31,20 @@ import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessObjectHandlers.CanDeleteContext;
 import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
@@ -64,6 +68,18 @@ public class FlowSpecificationHandler extends AadlBusinessObjectHandler {
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(FlowSpecification.class).isPresent();
+	}
+
+	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		return new CanonicalBusinessObjectReference(DeclarativeReferenceType.FLOW_SPECIFICATION.getId(),
+				ctx.getBusinessObject(FlowSpecification.class).get().getQualifiedName());
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		return AadlReferenceUtil.buildSimpleRelativeReference(DeclarativeReferenceType.FLOW_SPECIFICATION.getId(),
+				((FlowSpecification) ctx.getBusinessObject()));
 	}
 
 	@Override

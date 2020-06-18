@@ -30,8 +30,10 @@ import java.util.Optional;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.AadlPackage;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.businessObjectHandlers.CanDeleteContext;
 import org.osate.ge.businessObjectHandlers.CanRenameContext;
@@ -40,6 +42,7 @@ import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.businessObjectHandlers.RawDeleteContext;
 import org.osate.ge.businessObjectHandlers.RawDeleter;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
 import org.osate.ge.businessObjectHandlers.RenameContext;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.internal.FolderGraphicBuilder;
@@ -53,6 +56,18 @@ public class PackageHandler extends AadlBusinessObjectHandler implements RawDele
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(AadlPackage.class).isPresent();
+	}
+
+	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		return AadlReferenceUtil
+				.getCanonicalReferenceForPackage(((AadlPackage) ctx.getBusinessObject()).getQualifiedName());
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		return AadlReferenceUtil
+				.getRelativeReferenceForPackage(((AadlPackage) ctx.getBusinessObject()).getQualifiedName());
 	}
 
 	@Override

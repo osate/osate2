@@ -28,16 +28,19 @@ import java.util.Optional;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
+import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -64,6 +67,21 @@ public class FlowSpecificationInstanceHandler extends AadlBusinessObjectHandler 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(FlowSpecificationInstance.class).isPresent();
+	}
+
+	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		final FlowSpecificationInstance bo = ctx.getBusinessObject(FlowSpecificationInstance.class).get();
+		return new CanonicalBusinessObjectReference(AadlReferenceUtil.INSTANCE_ID,
+				AadlReferenceUtil.FLOW_SPECIFICATION_INSTANCE_KEY, AadlReferenceUtil.getSystemInstanceKey(bo),
+				bo.getInstanceObjectPath().toLowerCase());
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		return new RelativeBusinessObjectReference(AadlReferenceUtil.INSTANCE_ID,
+				AadlReferenceUtil.FLOW_SPECIFICATION_INSTANCE_KEY,
+				ctx.getBusinessObject(FlowSpecificationInstance.class).get().getFullName());
 	}
 
 	@Override

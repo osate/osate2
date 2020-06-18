@@ -27,11 +27,14 @@ import java.util.Optional;
 
 import org.osate.aadl2.instance.ModeInstance;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
@@ -40,6 +43,21 @@ public class ModeInstanceHandler extends AadlBusinessObjectHandler {
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(ModeInstance.class).isPresent();
+	}
+
+	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		final ModeInstance bo = ctx.getBusinessObject(ModeInstance.class).get();
+		return new CanonicalBusinessObjectReference(AadlReferenceUtil.INSTANCE_ID,
+				AadlReferenceUtil.MODE_INSTANCE_KEY, AadlReferenceUtil.getSystemInstanceKey(bo),
+				bo.getInstanceObjectPath().toLowerCase());
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		return new RelativeBusinessObjectReference(AadlReferenceUtil.INSTANCE_ID,
+				AadlReferenceUtil.MODE_INSTANCE_KEY,
+				ctx.getBusinessObject(ModeInstance.class).get().getFullName());
 	}
 
 	@Override
