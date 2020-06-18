@@ -800,7 +800,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 		val annexName = defaultAnnexLibrary.name
 		val sourceTextRegion = defaultAnnexLibrary.regionFor.assignment(
 			defaultAnnexLibraryAccess.sourceTextAssignment_2)
-		formatAnnexText(annexName, sourceTextRegion, 1, document, [ annexParser, source |
+		formatAnnexText(defaultAnnexLibrary, annexName, sourceTextRegion, 1, document, [ annexParser, source |
 			val library = annexParser.parseAnnexLibrary(annexName, source, "", 0, 0, NullParseErrorReporter.prototype)
 			AnnexParseUtil.saveParseResult(defaultAnnexLibrary)
 			performModification(defaultAnnexLibrary, [defaultAnnexLibrary.parsedAnnexLibrary = library])
@@ -1687,7 +1687,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 		val annexName = defaultAnnexSubclause.name
 		val sourceTextRegion = defaultAnnexSubclause.regionFor.assignment(
 			defaultAnnexSubclauseAccess.sourceTextAssignment_2)
-		formatAnnexText(annexName, sourceTextRegion, 2, document, [ annexParser, source |
+		formatAnnexText(defaultAnnexSubclause, annexName, sourceTextRegion, 2, document, [ annexParser, source |
 			val subclause = annexParser.parseAnnexSubclause(annexName, source, "", 0, 0,
 				NullParseErrorReporter.prototype)
 			AnnexParseUtil.saveParseResult(defaultAnnexSubclause)
@@ -2664,6 +2664,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	 *        trimmed annex text.
 	 */
 	def private void formatAnnexText(
+		EObject annex,
 		String annexName,
 		ISemanticRegion sourceTextRegion,
 		int indentationLevel,
@@ -2672,7 +2673,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	) {
 		if (annexName !== null && sourceTextRegion !== null) {
 			try {
-				unsafeFormatAnnexText(annexName, sourceTextRegion, indentationLevel, document, parseAnnexObject)
+				unsafeFormatAnnexText(annex, annexName, sourceTextRegion, indentationLevel, document, parseAnnexObject)
 			} catch (ConfigurationException e) {
 				// ignore
 			} catch (ProvisionException e) {
@@ -2682,6 +2683,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 
 	def private void unsafeFormatAnnexText(
+		EObject annex,
 		String annexName,
 		ISemanticRegion sourceTextRegion,
 		int indentationLevel,
@@ -2703,8 +2705,10 @@ class Aadl2Formatter extends PropertiesFormatter {
 				val annexExtension = annexInjector.getInstance(FileExtensionProvider).primaryFileExtension
 				val fakeURI = URI.createURI("__synthetic." + annexExtension)
 				val fakeResource = resourceFactory.createResource(fakeURI) as XtextResource
-				fakeResource.contents += annexObject
-				fakeResource.parseResult = annexParseResult
+				performModification(annex, [
+					fakeResource.contents += annexObject
+					fakeResource.parseResult = annexParseResult
+				])
 
 				// Setup the formatting request.
 				val request = annexInjector.getInstance(FormatterRequest)
