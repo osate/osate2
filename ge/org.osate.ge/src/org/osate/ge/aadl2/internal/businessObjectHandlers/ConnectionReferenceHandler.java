@@ -27,11 +27,14 @@ import java.util.Optional;
 
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
@@ -73,6 +76,22 @@ public class ConnectionReferenceHandler extends AadlBusinessObjectHandler {
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(ConnectionReference.class).isPresent();
+	}
+
+	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		final ConnectionReference bo = ctx.getBusinessObject(ConnectionReference.class).get();
+		return new CanonicalBusinessObjectReference(AadlReferenceUtil.INSTANCE_ID,
+				AadlReferenceUtil.CONNECTION_REFERENCE_KEY,
+				AadlReferenceUtil.getSystemInstanceKey(bo),
+				buildConnectionReferenceId(bo));
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		return new RelativeBusinessObjectReference(AadlReferenceUtil.INSTANCE_ID,
+				AadlReferenceUtil.CONNECTION_REFERENCE_KEY,
+				buildConnectionReferenceId(ctx.getBusinessObject(ConnectionReference.class).get()));
 	}
 
 	@Override
@@ -125,5 +144,11 @@ public class ConnectionReferenceHandler extends AadlBusinessObjectHandler {
 		return ctx.getBusinessObject(ConnectionReference.class)
 				.map(cr -> cr.getFullName())
 				.orElse("");
+	}
+
+	private static String buildConnectionReferenceId(final ConnectionReference cr) {
+		return (cr.getConnection() == null ? "<null>" : cr.getConnection().getFullName()) + " : "
+				+ cr.getSource().getInstanceObjectPath().toLowerCase() + " -> "
+				+ cr.getDestination().getInstanceObjectPath().toLowerCase();
 	}
 }

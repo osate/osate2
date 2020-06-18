@@ -27,11 +27,14 @@ import java.util.Optional;
 
 import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
@@ -56,6 +59,21 @@ public class ModeTransitionInstanceHandler extends AadlBusinessObjectHandler {
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(ModeTransitionInstance.class).isPresent();
+	}
+
+	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		final ModeTransitionInstance bo = ctx.getBusinessObject(ModeTransitionInstance.class).get();
+		return new CanonicalBusinessObjectReference(AadlReferenceUtil.INSTANCE_ID,
+				AadlReferenceUtil.MODE_TRANSITION_INSTANCE_KEY, AadlReferenceUtil.getSystemInstanceKey(bo),
+				bo.getInstanceObjectPath().toLowerCase());
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		return new RelativeBusinessObjectReference(AadlReferenceUtil.INSTANCE_ID,
+				AadlReferenceUtil.MODE_TRANSITION_INSTANCE_KEY,
+				ctx.getBusinessObject(ModeTransitionInstance.class).get().getFullName());
 	}
 
 	@Override

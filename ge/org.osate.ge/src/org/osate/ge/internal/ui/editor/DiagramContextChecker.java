@@ -45,12 +45,12 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.aadl2.internal.businessObjectHandlers.AadlReferenceUtil;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramConfigurationBuilder;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.SystemInstanceLoadingService;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
-import org.osate.ge.internal.services.impl.InstanceReferenceBuilder;
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
 import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.ProjectUtil;
@@ -154,7 +154,7 @@ public class DiagramContextChecker {
 
 		final boolean isPackageRef = DeclarativeReferenceType.PACKAGE.getId().equals(refSegs.get(0));
 		final boolean isClassifierRef = DeclarativeReferenceType.CLASSIFIER.getId().equals(refSegs.get(0));
-		final boolean isSystemInstance = InstanceReferenceBuilder.isSystemInstanceReference(refSegs);
+		final boolean isSystemInstance = AadlReferenceUtil.isSystemInstanceReference(missingContextRef);
 		if (!isPackageRef && !isClassifierRef && !isSystemInstance) {
 			return false;
 		}
@@ -216,9 +216,9 @@ public class DiagramContextChecker {
 		final Object newContext;
 		if (isSystemInstance) {
 			final IPath systemInstancePath = (IPath) dlg.getFirstSelectedElement();
-			newContextCanonicalRef = InstanceReferenceBuilder
+			newContextCanonicalRef = AadlReferenceUtil
 					.getCanonicalBusinessObjectReferenceForSystemInstance(systemInstanceLoader, systemInstancePath);
-			newContextRelativeRef = InstanceReferenceBuilder
+			newContextRelativeRef = AadlReferenceUtil
 					.getRelativeBusinessObjectReferenceForSystemInstance(systemInstanceLoader, systemInstancePath);
 
 			// Create a dummy system instance. It will be replaced as part of the diagram updating process.

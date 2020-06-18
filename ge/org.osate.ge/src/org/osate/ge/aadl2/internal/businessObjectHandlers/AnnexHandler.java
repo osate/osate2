@@ -25,28 +25,94 @@ package org.osate.ge.aadl2.internal.businessObjectHandlers;
 
 import java.util.Optional;
 
+import org.eclipse.emf.common.util.EList;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AnnexLibrary;
+import org.osate.aadl2.AnnexSubclause;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
+import org.osate.annexsupport.AnnexUtil;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessObjectHandlers.CanDeleteContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.graphics.internal.FolderGraphicBuilder;
+import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
+
+import com.google.common.collect.Lists;
 
 public class AnnexHandler extends AadlBusinessObjectHandler {
-	private static final GraphicalConfiguration graphicalConfig = GraphicalConfigurationBuilder.create().
-			graphic(FolderGraphicBuilder.create().build())
-			.style(StyleBuilder.create().labelsCenter().build()).
-			build();
+	private static final GraphicalConfiguration graphicalConfig = GraphicalConfigurationBuilder.create()
+			.graphic(FolderGraphicBuilder.create().build()).style(StyleBuilder.create().labelsCenter().build()).build();
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(DefaultAnnexLibrary.class).isPresent()
 				|| ctx.getBusinessObject(DefaultAnnexSubclause.class).isPresent();
+	}
+
+	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		final Object bo = ctx.getBusinessObject();
+
+		if (bo instanceof AnnexLibrary) {
+			final AnnexLibrary annexLibrary = (AnnexLibrary) bo;
+			final AadlPackage annexPkg = getAnnexLibraryPackage(annexLibrary);
+			if (annexPkg == null) {
+				throw new RuntimeException("Unable to retrieve package.");
+			}
+
+			final int index = getAnnexLibraryIndex(annexLibrary);
+			return new CanonicalBusinessObjectReference(DeclarativeReferenceType.ANNEX_LIBRARY.getId(),
+					annexPkg.getQualifiedName(), annexLibrary.getName(), Integer.toString(index));
+		} else if (bo instanceof AnnexSubclause) {
+			final AnnexSubclause annexSubclause = (AnnexSubclause) bo;
+			if (annexSubclause.getContainingClassifier() == null) {
+				throw new RuntimeException("Unable to retrieve containing classifier.");
+			}
+
+			final Classifier annexSubclauseClassifier = annexSubclause.getContainingClassifier();
+			final int index = getAnnexSubclauseIndex(annexSubclause);
+			return new CanonicalBusinessObjectReference(DeclarativeReferenceType.ANNEX_SUBCLAUSE.getId(),
+					annexSubclauseClassifier.getQualifiedName(), annexSubclause.getName(), Integer.toString(index));
+		}
+
+		throw new RuntimeException("Unexpected business object " + bo);
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		final Object bo = ctx.getBusinessObject();
+
+		if (bo instanceof AnnexLibrary) {
+			final AnnexLibrary annexLibrary = (AnnexLibrary) bo;
+			final int index = getAnnexLibraryIndex(annexLibrary);
+			return new RelativeBusinessObjectReference(DeclarativeReferenceType.ANNEX_LIBRARY.getId(),
+					annexLibrary.getName(), Integer.toString(index));
+
+		} else if (bo instanceof AnnexSubclause) {
+			final AnnexSubclause annexSubclause = (AnnexSubclause) bo;
+			if (annexSubclause.getContainingClassifier() == null) {
+				throw new RuntimeException("Unable to retrieve containing classifier.");
+			}
+
+			final int index = getAnnexSubclauseIndex(annexSubclause);
+			return new RelativeBusinessObjectReference(DeclarativeReferenceType.ANNEX_SUBCLAUSE.getId(),
+					annexSubclause.getName(), Integer.toString(index));
+		}
+
+		throw new RuntimeException("Unexpected business object " + bo);
 	}
 
 	@Override
@@ -61,7 +127,105 @@ public class AnnexHandler extends AadlBusinessObjectHandler {
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(NamedElement.class)
-				.map(annex -> "{**" + annex.getName() + "**}").orElse("");
+		return ctx.getBusinessObject(NamedElement.class).map(annex -> "{**" + annex.getName() + "**}").orElse("");
+	}
+
+	/**
+	 * Get the package in which the annex library is contained.
+	 * @param annex
+	 * @return
+	 */
+	private AadlPackage getAnnexLibraryPackage(final AnnexLibrary annexLibrary) {
+		for (Element o = annexLibrary.getOwner(); o != null; o = o.getOwner()) {
+			if (o instanceof AadlPackage) {
+				return (AadlPackage) o;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns a 0 based index for referencing an annex library in a list that contains only annex libraries with the same type and owner
+	 * @param annexLibrary
+	 * @return
+	 */
+	private static int getAnnexLibraryIndex(AnnexLibrary annexLibrary) {
+		// Get the default annex library if a parsed annex library was specified. This is needed for the comparison later in the function.
+		if (!(annexLibrary instanceof DefaultAnnexLibrary)) {
+			if (annexLibrary.eContainer() instanceof DefaultAnnexLibrary) {
+				annexLibrary = (AnnexLibrary) annexLibrary.eContainer();
+			} else {
+				return -1;
+			}
+		}
+
+		final String annexName = annexLibrary.getName();
+		if (annexName == null) {
+			return -1;
+		}
+
+		// Get the Aadl Package
+		Element tmp = annexLibrary.getOwner();
+		while (tmp != null && !(tmp instanceof AadlPackage)) {
+			tmp = tmp.getOwner();
+		}
+
+		int index = 0;
+		if (tmp instanceof AadlPackage) {
+			for (final AnnexLibrary tmpLibrary : AnnexUtil.getAllDefaultAnnexLibraries((AadlPackage) tmp)) {
+				if (tmpLibrary == annexLibrary) {
+					return index;
+				} else if (annexName.equalsIgnoreCase(tmpLibrary.getName())) {
+					index++;
+				}
+			}
+		}
+
+		return -1;
+	}
+
+	/**
+	 * Returns a 0 based index for referencing an annex subclause in a list that contains only annex subclauses with the same type and owner
+	 * @return
+	 */
+	private static int getAnnexSubclauseIndex(AnnexSubclause annexSubclause) {
+		// Get the default annex library if a parsed annex subclause was specified. This is needed for the comparison later in the function.
+		if (!(annexSubclause instanceof DefaultAnnexSubclause)) {
+			if (annexSubclause.eContainer() instanceof DefaultAnnexSubclause) {
+				annexSubclause = (AnnexSubclause) annexSubclause.eContainer();
+			} else {
+				return -1;
+			}
+		}
+
+		final String annexName = annexSubclause.getName();
+		if (annexName == null) {
+			return -1;
+		}
+
+		// Get all related classifiers
+		final Classifier cl = annexSubclause.getContainingClassifier();
+		final EList<Classifier> classifiers = cl.getSelfPlusAllExtended();
+		if (cl instanceof ComponentImplementation) {
+			ComponentType ct = ((ComponentImplementation) cl).getType();
+			final EList<Classifier> tclassifiers = ct.getSelfPlusAllExtended();
+			classifiers.addAll(tclassifiers);
+		}
+
+		int index = 0;
+
+		// Use reversed view of list so that base classifiers will be first. This is needed to ensure subclauses have unique indices
+		for (final Classifier tmpClassifier : Lists.reverse(classifiers)) {
+			for (final AnnexSubclause tmpSubclause : tmpClassifier.getOwnedAnnexSubclauses()) {
+				if (tmpSubclause == annexSubclause) {
+					return index;
+				} else if (annexName.equalsIgnoreCase(tmpSubclause.getName())) {
+					index++;
+				}
+			}
+		}
+
+		return -1;
 	}
 }
