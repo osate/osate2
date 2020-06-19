@@ -643,14 +643,6 @@ public class EMV2TypeSetUtil {
 	}
 
 	/**
-	 * @deprecated Will be removed in 2.7.
-	 */
-	@Deprecated
-	public static EList<TypeToken> flattenTypesetElements(TypeSet typeSet, List<ErrorModelLibrary> usetypes) {
-		return flattenTypesetElements(typeSet);
-	}
-
-	/**
 	 * Get all error types that are direct subtypes of et or any of its aliases.
 	 * If et is an alias we only find subtypes of the alias or its aliases
 	 * We look for any error type accessible in the TypeUseContext, i.e., subclause, type library, type mapping/xform set
