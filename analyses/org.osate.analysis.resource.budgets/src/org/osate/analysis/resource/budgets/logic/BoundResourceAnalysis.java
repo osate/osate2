@@ -200,7 +200,7 @@ public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 		}
 	}
 
-	private static boolean isPossibleMemoryComponent(Element e) {
+	private static boolean canHaveMemory(Element e) {
 		if (e instanceof ComponentInstance) {
 			final ComponentInstance ci = (ComponentInstance) e;
 			final ComponentCategory cc = ci.getCategory();
@@ -217,7 +217,7 @@ public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 		ForAllElement countme = new ForAllElement() {
 			@Override
 			protected void process(Element obj) {
-				if (isPossibleMemoryComponent(obj)) {
+				if (canHaveMemory(obj)) {
 					if (GetProperties.getROMCapacityInKB((InstanceObject) obj, 0.0) > 0.0
 							|| GetProperties.getRAMCapacityInKB((InstanceObject) obj, 0.0) > 0.0
 							|| GetProperties.getMemorySizeInKB((InstanceObject) obj) > 0.0) {
@@ -237,7 +237,7 @@ public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 		ForAllElement mal = new ForAllElement() {
 			@Override
 			protected void process(Element obj) {
-				if (isPossibleMemoryComponent(obj)) {
+				if (canHaveMemory(obj)) {
 					checkMemoryLoad((ComponentInstance) obj, som);
 				}
 			}
