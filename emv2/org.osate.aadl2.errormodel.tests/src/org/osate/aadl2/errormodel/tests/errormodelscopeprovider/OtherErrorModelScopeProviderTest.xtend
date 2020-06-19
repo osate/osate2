@@ -1,3 +1,26 @@
+/**
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ */
 package org.osate.aadl2.errormodel.tests.errormodelscopeprovider
 
 import com.google.inject.Inject
@@ -701,7 +724,7 @@ class OtherErrorModelScopeProviderTest extends XtextTest {
 		]
 	}
 
-	// Tests scope_ErrorDetection_detectionReportingPort and ErrorCodeValue's constant reference
+	// Tests scope_ReportingPortReference_element and ErrorCodeValue's constant reference
 	@Test
 	def void testErrorDetectionReferences() {
 		val ps = '''
@@ -732,6 +755,12 @@ class OtherErrorModelScopeProviderTest extends XtextTest {
 					dp2: in data port;
 					ep2: in event port;
 					edp2: in event data port;
+				annex EMV2 {**
+					component error behavior
+					detections
+						detection1: all -[ access ]-> dp1!;
+					end component;
+				**};
 				end a2;
 				
 				abstract implementation a2.i extends a1.i
@@ -747,7 +776,7 @@ class OtherErrorModelScopeProviderTest extends XtextTest {
 					
 					component error behavior
 					detections
-						detection1: all -[ access ]-> dp1! (ps1::const1);
+						detection2: all -[ access ]-> dp1! (ps1::const1);
 					end component;
 				**};
 				end a2.i;
@@ -755,13 +784,23 @@ class OtherErrorModelScopeProviderTest extends XtextTest {
 		'''
 		testHelper.parseString(subclause, ps) => [
 			"subclause1".assertEquals(name)
+			publicSection.ownedClassifiers.get(2) => [
+				"a2".assertEquals(name)
+				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).
+					errorDetections.head => [
+					"detection1".assertEquals(name)
+					// Tests scope_ReportingPortReference_element
+					detectionReportingPort.assertScope(ErrorModelPackage.eINSTANCE.reportingPortReference_Element,
+						#["af1", "dp1", "ep1", "edp1", "af2", "dp2", "ep2", "edp2"])
+				]
+			]
 			publicSection.ownedClassifiers.get(3) => [
 				"a2.i".assertEquals(name)
 				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).
 					errorDetections.head => [
-					"detection1".assertEquals(name)
-					// Tests scope_ErrorDetection_detectionReportingPort
-					assertScope(ErrorModelPackage.eINSTANCE.errorDetection_DetectionReportingPort, #[
+					"detection2".assertEquals(name)
+					// Tests scope_ReportingPortReference_element
+					detectionReportingPort.assertScope(ErrorModelPackage.eINSTANCE.reportingPortReference_Element, #[
 						"af1",
 						"dp1",
 						"ep1",

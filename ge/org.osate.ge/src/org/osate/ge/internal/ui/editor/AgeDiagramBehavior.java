@@ -1,3 +1,26 @@
+/**
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * All Rights Reserved.
+ *
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ *
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ *
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ */
 package org.osate.ge.internal.ui.editor;
 
 import java.util.ArrayList;
@@ -6,8 +29,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -59,7 +80,6 @@ import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.internal.command.DefaultExecutionInfo;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior;
@@ -135,8 +155,8 @@ import org.osate.ge.internal.ui.editor.actions.PasteAction;
 import org.osate.ge.internal.ui.editor.actions.RedoAction;
 import org.osate.ge.internal.ui.editor.actions.SelectAllAction;
 import org.osate.ge.internal.ui.editor.actions.UndoAction;
+import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
 import org.osate.ge.internal.ui.util.ContextHelpUtil;
-import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
@@ -170,7 +190,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	};
 
 	private final ISelectionListener toolPostSelectionListener = (part, selection) -> {
-		toolHandler.setSelectedDiagramElements(SelectionUtil.getSelectedDiagramElements(selection, false));
+		toolHandler.setSelectedElements(AgeHandlerUtil.getSelectedBusinessObjectContexts());
 	};
 
 	@Override
@@ -201,17 +221,25 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 					final Point delta = ctxs.stream().map(ctx -> new Point(ctx.getDeltaX(), ctx.getDeltaY())).findAny()
 							.orElse(null);
 					if (delta != null) {
-						final List<Shape> shapes = ctxs.stream().map(ctx -> ctx.getShape())
-								.collect(Collectors.toList());
-
-						// Selected elements and their descendants
-						final Stream<DiagramElement> movedElements = shapes.stream()
-								.map(shape -> graphitiAgeDiagram.getDiagramElement(shape));
-
 						graphitiAgeDiagram.modify(gefCommand.getLabel(), m -> {
 							super.execute(gefCommand);
-							DiagramElementLayoutUtil.shiftRelatedConnectionBendpoints(getAgeDiagram(), movedElements,
-									new org.osate.ge.graphics.Point(delta.x, delta.y), m);
+
+							// Shift connection bendpoints and flow indicator positions
+							DiagramElementLayoutUtil.shiftRelatedConnections(
+									ctxs.stream().map(ctx -> ctx.getShape()).map(shape -> graphitiAgeDiagram
+											.getDiagramElement(
+													shape)),
+									new org.osate.ge.graphics.Point(delta.x, delta.y), m, true, true, true);
+
+							// Reset the positions of associated flow anchors. Flow anchors will be set after child shape positions are updated
+							// by the GraphitiAgeDiagram
+							DiagramElementLayoutUtil.resetFlowIndicatorsWithStartElementsPositions(m,
+									ctxs.stream().filter(ctx -> {
+										final Object daChanged = ctx.getProperty(AgeMoveShapeFeature.DOCK_AREA_CHANGED);
+										return daChanged == null || daChanged == Boolean.TRUE;
+									}).map(ctx -> ctx.getShape())
+									.map(shape -> graphitiAgeDiagram.getDiagramElement(shape))
+									.flatMap(DiagramElement::getAllDiagramNodes));
 						});
 
 						return;
@@ -507,8 +535,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 			editor.getSite().getWorkbenchWindow().getSelectionService()
 			.addPostSelectionListener(toolPostSelectionListener);
-			toolHandler.setSelectedDiagramElements(SelectionUtil.getSelectedDiagramElements(
-					editor.getSite().getWorkbenchWindow().getSelectionService().getSelection(), false));
+			toolHandler.setSelectedElements(AgeHandlerUtil.getSelectedBusinessObjectContexts());
 
 			// Deactivate the tool when the part is deactivated or closed
 			editor.getSite().getWorkbenchWindow().getPartService().addPartListener(toolPartListener);

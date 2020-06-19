@@ -11,24 +11,24 @@ package org.osate.ba.wizards;
  * 
  * This program is free software: you can redistribute it and/or modify 
  * it under the terms of the Eclipse Public License as published by Eclipse,
- * either version 1.0 of the License, or (at your option) any later version.
+ * either version 2.0 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Eclipse Public License for more details.
  * You should have received a copy of the Eclipse Public License
  * along with this program.  If not, see 
- * http://www.eclipse.org/org/documents/epl-v10.php
+ * https://www.eclipse.org/legal/epl-2.0/
  */
 
 
 import java.io.File ;
 import java.util.ArrayList ;
 import java.util.Collection ;
-import java.util.HashMap ;
 import java.util.List ;
 import java.util.Map ;
 import java.util.Map.Entry ;
+import java.util.WeakHashMap ;
 
 import org.eclipse.core.runtime.IStatus ;
 import org.eclipse.core.runtime.MultiStatus ;
@@ -37,7 +37,6 @@ import org.eclipse.jface.dialogs.ErrorDialog ;
 import org.eclipse.jface.layout.TreeColumnLayout ;
 import org.eclipse.jface.viewers.ColumnWeightData ;
 import org.eclipse.jface.viewers.DoubleClickEvent ;
-import org.eclipse.jface.viewers.IDoubleClickListener ;
 import org.eclipse.jface.viewers.IStructuredSelection ;
 import org.eclipse.jface.viewers.ITreeContentProvider ;
 import org.eclipse.jface.viewers.LabelProvider ;
@@ -69,11 +68,11 @@ public abstract class AadlBaAbstractWizard extends AadlProjectWizard
   protected static List<String> _EXCLUDED_DIRECTORIES = new ArrayList<String>();
 
   protected Map<String, List<Integer>> _SelectedExamplesTreeContent = 
-      new HashMap<String, List<Integer>>() ;
+      new WeakHashMap<String, List<Integer>>() ;
 
   protected List<File> _files = new ArrayList<File>() ;
 
-  protected static Map<String, File> _ALREADY_SELECTED = new HashMap<String, File>();
+  protected static Map<String, File> _ALREADY_SELECTED = new WeakHashMap<String, File>();
 
   public AadlBaAbstractWizard ()
   {
@@ -119,6 +118,7 @@ public abstract class AadlBaAbstractWizard extends AadlProjectWizard
     {
       Map<String, List<Integer>> _treeContent ; 
 
+      @Override
       public void dispose()
       {
         // Nothing to do.
@@ -278,23 +278,9 @@ public abstract class AadlBaAbstractWizard extends AadlProjectWizard
       pickTree.setSorter(new ViewerSorter()) ;
       selectionTree.setSorter(new ViewerSorter()) ;
 
-      pickTree.addDoubleClickListener(new IDoubleClickListener()
-      {
-        @Override
-        public void doubleClick(DoubleClickEvent event)
-        {
-          swap(pickTree, selectionTree, event) ;
-        }
-      }) ;
+      pickTree.addDoubleClickListener(event -> swap(pickTree, selectionTree, event)) ;
 
-      selectionTree.addDoubleClickListener(new IDoubleClickListener()
-      {
-        @Override
-        public void doubleClick(DoubleClickEvent event)
-        {
-          swap(selectionTree, pickTree, event) ;
-        }
-      }) ;
+      selectionTree.addDoubleClickListener(event -> swap(selectionTree, pickTree, event)) ;
 
       Image imgRemove = null ;
       Image imgAdd = null ;
@@ -434,7 +420,7 @@ public abstract class AadlBaAbstractWizard extends AadlProjectWizard
                                                examplesPath) ;
       if (rootPath.isDirectory())
       {
-        Map<String, List<Integer>> result = new HashMap<String, List<Integer>>();
+        Map<String, List<Integer>> result = new WeakHashMap<String, List<Integer>>();
         int count = 0 ;
 
         for(File f : rootPath.listFiles())

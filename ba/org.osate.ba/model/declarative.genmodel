@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="AADL-BA-FrontEnd&#xA;&#xA;Copyright © 2011 TELECOM ParisTech and CNRS&#xA;&#xA;TELECOM ParisTech/LTCI&#xA;&#xA;Authors: see AUTHORS&#xA;&#xA;This program is free software: you can redistribute it and/or modify it under&#xA;the terms of the Eclipse Public License as published by Eclipse, either&#xA;version 1.0 of the License, or (at your option) any later version. This&#xA;program is distributed in the hope that it will be useful, but WITHOUT ANY&#xA;WARRANTY; without even the implied warranty of MERCHANTABILITY or&#xA;FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License for&#xA;more details. You should have received a copy of the Eclipse Public License&#xA;along with this program. If not, see&#xA;http://www.eclipse.org/org/documents/epl-v10.php"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="AADL-BA-FrontEnd&#xA;&#xA;Copyright (c) 2011-2020 TELECOM ParisTech and CNRS&#xA;&#xA;TELECOM ParisTech/LTCI&#xA;&#xA;Authors: see AUTHORS&#xA;&#xA;This program is free software: you can redistribute it and/or modify it under&#xA;the terms of the Eclipse Public License as published by Eclipse, either&#xA;version 2.0 of the License, or (at your option) any later version. This&#xA;program is distributed in the hope that it will be useful, but WITHOUT ANY&#xA;WARRANTY; without even the implied warranty of MERCHANTABILITY or&#xA;FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License for&#xA;more details. You should have received a copy of the Eclipse Public License&#xA;along with this program. If not, see&#xA;https://www.eclipse.org/legal/epl-2.0/"
     modelDirectory="/org.osate.ba/src" editDirectory="/org.osate.ba.edit/src" editorDirectory="/org.osate.ba.editor/src"
     modelPluginID="org.osate.ba" modelName="Declarative" codeFormatting="true" importerID="org.eclipse.emf.importer.ecore"
     complianceLevel="6.0" copyrightFields="false" editPluginID="org.osate.ba.edit"
@@ -32,11 +32,19 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativeBehaviorTransition/srcStates"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativeBehaviorTransition/destState"/>
     </genClasses>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativePropertyName">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativePropertyName/propertyName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativePropertyName/field"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativePropertyName/indexes"/>
+    </genClasses>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativePropertyReference">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativePropertyReference/qualifiedName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativePropertyReference/reference"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativePropertyReference/propertyNames"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute declarative.ecore#//DeclarativePropertyReference/propertySet"/>
+    </genClasses>
     <genClasses ecoreClass="declarative.ecore#//DeclarativeTime">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativeTime/unitId"/>
-    </genClasses>
-    <genClasses ecoreClass="declarative.ecore#//Enumeration">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//Enumeration/literal"/>
     </genClasses>
     <genClasses ecoreClass="declarative.ecore#//Identifier">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute declarative.ecore#//Identifier/id"/>
@@ -53,6 +61,27 @@
     </genClasses>
     <genClasses ecoreClass="declarative.ecore#//Reference">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//Reference/ids"/>
+    </genClasses>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativePropertyAssociation">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativePropertyAssociation/property"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativePropertyAssociation/ownedValue"/>
+    </genClasses>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativeListValue"/>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativePropertyExpression"/>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativeStringLiteral"/>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativeIntegerLiteral"/>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativeRealLiteral"/>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativeRecordValue"/>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativeBasicPropertyAssociation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute declarative.ecore#//DeclarativeBasicPropertyAssociation/basicPropertyName"/>
+    </genClasses>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativeBooleanLiteral"/>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativeRangeValue"/>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativeReferenceValue">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativeReferenceValue/ref"/>
+    </genClasses>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativeClassifierValue">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativeClassifierValue/classifier"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

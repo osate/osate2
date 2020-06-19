@@ -9,14 +9,14 @@
  * 
  * This program is free software: you can redistribute it and/or modify 
  * it under the terms of the Eclipse Public License as published by Eclipse,
- * either version 1.0 of the License, or (at your option) any later version.
+ * either version 2.0 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Eclipse Public License for more details.
  * You should have received a copy of the Eclipse Public License
  * along with this program.  If not, see 
- * http://www.eclipse.org/org/documents/epl-v10.php
+ * https://www.eclipse.org/legal/epl-2.0/
  */
 
 package org.osate.ba.declarative ;
@@ -33,11 +33,11 @@ import org.osate.ba.aadlba.BehaviorElement ;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.declarative.DeclarativeBehaviorElement#getOsateRef <em>Osate Ref</em>}</li>
  *   <li>{@link org.osate.ba.declarative.DeclarativeBehaviorElement#getBaRef <em>Ba Ref</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativeBehaviorElement()
  * @model abstract="true"

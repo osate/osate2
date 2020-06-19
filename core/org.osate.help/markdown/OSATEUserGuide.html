@@ -328,6 +328,30 @@ kbd {
 
 <body>
 
+<!--
+Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+All Rights Reserved.
+
+NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+
+This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+SPDX-License-Identifier: EPL-2.0
+
+Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+
+This program includes and/or can make use of certain third party source code, object code, documentation and other
+files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+-->
+
 <h1 id="toc_0">OSATE User Guide</h1>
 
 <p>OSATE is a complete modeling environment providing support for describing AADL models. It is composed of many features to model and analyse systems.  Also, a user can build their own tools based on OSATE and extend its initial capability.</p>
@@ -417,7 +441,7 @@ kbd {
 
 <h4 id="toc_6">Reseting the Perspective</h4>
 
-<p>If you open/close too many views, rearrange your views, or otherwise put the workbench in a state that you find unusable, you can bring it back to good state by resetting the perspective.  In the case of OSATE, you should reset the <code>AADL</code> perspective by bringing up the <em>context menu</em> on the <code>AAADL</code> perspecitive icon on the right side of the workbench toolbar, and selecting <code>reset</code>:</p>
+<p>If you open/close too many views, rearrange your views, or otherwise put the workbench in a state that you find unusable, you can bring it back to good state by resetting the perspective.  In the case of OSATE, you should reset the <code>AADL</code> perspective by bringing up the <em>context menu</em> on the <code>AADL</code> perspective icon on the right side of the workbench toolbar, and selecting <code>reset</code>:</p>
 
 <p><img src="images/OSATEUserGuide/ResetPerspective.png" alt="Reset Perspective"></p>
 
@@ -569,7 +593,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <p>There are two classifiers <code>FIND_ME</code> and <code>FIND_ME.impl</code> that contain the string <code>find</code>, and seven references to those classifiers.  Double-clicking on the results opens an editor to the site of the declaration/reference.</p>
 
-<p>These view below shows the result of searching for property declaratiosn in the workspace that contain the string <code>time</code>.  Here we see that declarations are found in property sets contributed by plug-ins.</p>
+<p>These view below shows the result of searching for property declarations in the workspace that contain the string <code>time</code>.  Here we see that declarations are found in property sets contributed by plug-ins.</p>
 
 <p><img src="images/OSATEUserGuide/AadlSearchResults2.png" alt="AADL Search Results"></p>
 
@@ -593,36 +617,70 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <h2 id="toc_21"><span id="instance">Instance Models</span></h2>
 
-<p>Most analyses are executed over the <em>instance model</em> of a system.  The instance model represnts the complete nested architecture of a system, and is built from a root system implementation classifier.</p>
+<p>Most analyses are executed over the <em>instance model</em> of a system.  The instance model represents the complete nested architecture of a system.  Generally an instance model would be created from a system implementation classifier.  But OSATE allows an instance model to be created from all implementation classifiers except for <code>subprogram</code> and <code>subprogram group</code>.</p>
 
-<p>To create an instance model of your system</p>
+<p>An instance model can be created in 3 ways:</p>
 
 <ol>
-<li>Open the AADL package that conatins the system implementation you want to instantiate.  For this example, we open <code>aadlmodel</code> from <a href="#save">above</a>.</li>
-<li>Select the system implementation in the <code>Outline</code> view.  Here we select <code>MySystem.i</code>.</li>
-<li>Select <code>Instantiate</code> from the context menu.
-<img src="images/OSATEUserGuide/Instantiate.png" alt="Context Menu"></li>
+<li><strong>From the context menu of the AADL editor <code>Outline</code> view.</strong>  Select one or more component classifiers in the view.  The command is active in the context menu as long as none of the classifiers is <code>subprogram</code>.<br></li>
+<li><strong>From the context menu of the <code>AADL Navigator</code> view.</strong>    Select one or more component classifiers in the view.  The classifiers can be from different projects.  The command is active in the context menu as long as none of the classifiers is <code>subprogram</code>.<br></li>
+<li><strong>From the <code>OSATE &gt; Instantiate</code> menu.</strong>  Select one or more component classifiers in either the <code>Outline</code> view or the <code>AADL Navigator</code> view.  The classifiers can be from different projects.  The command is active in the context menu as long as none of the classifiers is <code>subprogram</code>.</li>
 </ol>
 
-<p>The instance model is created and placed in directory called <code>instances</code> in the project.  This directory is created if it does not already exist.  The instance model built from system implementation <code>my::package::system.impl</code> is named <code>my_package_systemm_impl_Instance.aaxl2</code>.  This is an xml-based model description that is not readily readable by people.  It can be opened and viewed in a hierachical manner in OSATE.  Here we see the model we just generated:</p>
+<p>To create an instance model of our example system</p>
+
+<ol>
+<li>Open the AADL package that contains the system implementation you want to instantiate.  For this example, we open <code>aadlmodel</code> from <a href="#save">above</a>.</li>
+<li>Select the system implementation in the <code>Outline</code> view.  Here we select <code>MySystem.i</code>.</li>
+<li><p>Select <code>Instantiate</code> from the context menu.</p>
+
+<p><img src="images/OSATEUserGuide/Instantiate.png" alt="Context Menu"></p></li>
+<li><p>OSATE displays a dialog box to show the results of the operation:</p>
+
+<p><img src="images/OSATEUserGuide/InstantiationResults.png" alt="Context Menu"></p></li>
+</ol>
+
+<p>Here we see the status &quot;OK&quot; for the model built from component classifier <code>aadlmodel::MySystem.i</code>.</p>
+
+<p>The result dialog is more interesting when many classifiers are selected for instantiation.  Each instantiation is invoked as a separate Eclipse task, and (assuming the instantiation runs long enough) is visible in the <code>Progress</code> view.  The result dialog is displayed when all the instantiation tasks have completed.  It gives the result of each instantiation:</p>
+
+<ul>
+<li><strong>OK.</strong> The classifier was instantiated successfully.</li>
+<li><strong>Cancelled.</strong> The user cancelled the instantiation from the <code>Progress</code> view or progress dialog.<br></li>
+<li><strong>Error.</strong> There was an error during instantiation.  The error message is shown in the <code>Error Message</code> column.</li>
+<li><strong>Exception.</strong> There was a Java exception during instantiation.  The exception&#39;s message is shown in the <code>Error Message</code> column.</li>
+</ul>
+
+<p>In general, the instance model is created and placed in directory called <code>instances</code> in the same directory as the <code>.aadl</code> file that contains the root component classifier.  This directory is created if it does not already exist.  The file is only created if the status is &quot;OK&quot;.  The instance model built from system implementation <code>my::package::system.impl</code> is named <code>my_package_system_impl_Instance.aaxl2</code>.  This is an XML-based model description that is not readily readable by people.  It can be opened and viewed in a hierarchical manner in OSATE.  Here we see the model we just generated:</p>
 
 <p><img src="images/OSATEUserGuide/InstanceModel.png" alt="Context Menu"></p>
 
-<h3 id="toc_22">Back-links</h3>
+<h3 id="toc_22">Errors</h3>
+
+<p>The instantiation process may generate error and warning markers on the instantiated model.  This occurs, for example, when the declarative model is underspecified or has inconsistencies.</p>
+
+<h3 id="toc_23">Back-links</h3>
 
 <p>Each element in the instance model links back to declarative model element that it is derived from.  You can follow this link by selecting an element of the instance model in the instance model editor or in the <code>Outline</code> view and choosing <code>Goto Instance Object Source</code> in the context menu.  For example, the process <code>sub1</code> element of the instance model links to the <code>sub1</code> subcomponent declaration in the declarative package:</p>
 
 <p><img src="images/OSATEUserGuide/ObjectSource.png" alt="Context Menu"></p>
 
-<h3 id="toc_23">Errors</h3>
+<h3 id="toc_24">Reinstantiation</h3>
 
-<p>The instantiation process may generate error and warning markers on the instantiated model.  This occurs, for example, when the declarative model is underspecified or has inconsistencies.</p>
+<p>Existing instance models can be rebuilt based on the current version of the declarative specifications using the <code>Reinstantiate</code> command.  It is available in two places:</p>
 
-<h2 id="toc_24"><span id="in_out">Importing and Exporting Projects</span></h2>
+<ol>
+<li><strong>From the context menu of the <code>AADL Navigator</code> view.</strong>    Select one or more <code>.aaxl</code> files in the view.  The files can be from different projects.<br></li>
+<li><strong>From the <code>OSATE &gt; Reinstantiate</code> menu.</strong>  Select one or more <code>.aaxl</code> files in the <code>AADL Navigator</code> view.  The classifiers can be from different projects.</li>
+</ol>
+
+<p>Like the <code>Instantiate</code> command, a results dialog box is displayed once all the models are reinstantiated.  A file is deleted if an error or exception occurs during reinstantiation, or if reinstantiation is cancelled while it is running.  If reinstantiation is cancelled while the task is still in the &quot;waiting&quot; state, the file is not deleted.</p>
+
+<h2 id="toc_25"><span id="in_out">Importing and Exporting Projects</span></h2>
 
 <p>Eclipse can import/export projects from/to <code>.zip</code> files.  This is a simple way to share your work with other users, but not the best approach for collaborative work where you would want to use a <a href="#git">version control system</a>.  </p>
 
-<h3 id="toc_25"><span id="import">How To Import a Project</span></h3>
+<h3 id="toc_26"><span id="import">How To Import a Project</span></h3>
 
 <p>Here we show how to import an AADL project containing <code>.aadl</code> model files, but these instructions are not specific to OSATE or working with AADL source files.</p>
 
@@ -632,7 +690,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 <p>In this section we import a project into the workspace from the archive file <a href="examples/PropertyViewerExamples.zip">PropertyViewerExamples.zip</a>.  Please use the link to download the file to follow along with the instructions below.</p>
 </blockquote>
 
-<h4 id="toc_26">Open the Import Wizard</h4>
+<h4 id="toc_27">Open the Import Wizard</h4>
 
 <p>Open the import wizard by selecting <code>Import...</code> from the context menu of the <code>AADL Navigator</code> view:</p>
 
@@ -646,7 +704,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <p><img src="images/OSATEUserGuide/ImportWizard2.png" alt=""></p>
 
-<h4 id="toc_27">Select the Project Archive</h4>
+<h4 id="toc_28">Select the Project Archive</h4>
 
 <p>An <code>Import Projects</code> wizard dialog will open.  (An archive may contain more than one project, although in our example it contains just one.)</p>
 
@@ -660,13 +718,13 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <p><img src="images/OSATEUserGuide/ImportProjects1.png" alt=""></p>
 
-<h4 id="toc_28">Use Your New Project</h4>
+<h4 id="toc_29">Use Your New Project</h4>
 
 <p>The wizard dialog will close when the import process finishes.  The imported project (or projects) will be visible in your workspace.  In the case of our example, you should see a project named <code>PropertyViewerExamples</code> that contains five <code>.aadl</code> files.</p>
 
 <p><img src="images/OSATEUserGuide/Workspace.png" alt=""></p>
 
-<h3 id="toc_29">How To Export a Project</h3>
+<h3 id="toc_30">How To Export a Project</h3>
 
 <p>Here we show how to export an AADL project containing <code>.aadl</code> model files, but these instructions are not specific to OSATE or working with AADL source files.</p>
 
@@ -676,7 +734,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 <p>In this section we export the project that we imported into the workspace in the <a href="#import">previous</a> section.  Below it is assumed that you have a project named <code>PropertyViewerExamples</code> in your workspace.</p>
 </blockquote>
 
-<h4 id="toc_30">Open the Export Wizard</h4>
+<h4 id="toc_31">Open the Export Wizard</h4>
 
 <p>Open the export wizard by </p>
 
@@ -695,7 +753,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <p><img src="images/OSATEUserGuide/ExportWizard2.png" alt=""></p>
 
-<h4 id="toc_31">Create the Archive</h4>
+<h4 id="toc_32">Create the Archive</h4>
 
 <p>An <code>Archive file</code> wizard dialog will open.</p>
 
@@ -708,15 +766,15 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <p><img src="images/OSATEUserGuide/ArchiveFile.png" alt=""></p>
 
-<h4 id="toc_32">Use Your New Archive</h4>
+<h4 id="toc_33">Use Your New Archive</h4>
 
 <p>The wizard dialog will close when the export process finishes.  The new archive file will be created where you specified.  You can now share this archive with other users.</p>
 
-<h3 id="toc_33"><span id="git">Importing a Project from a Git Repository</span></h3>
+<h3 id="toc_34"><span id="git">Importing a Project from a Git Repository</span></h3>
 
 <p>While archive files provide a quick-and-dirty mechanism for sharing projects, this becomes problematic when you want to collaborate.  It is better to store projects in a version control system (VCS) so that changes to the models can be coordianted.  Eclipse (and thus OSATE) supports all the popular VCS, including <strong>svn</strong> and <strong>git</strong>.  In this section, we show how to import a project from a git repository.</p>
 
-<h4 id="toc_34">Clean Up Your Workspace (Removing a Project)</h4>
+<h4 id="toc_35">Clean Up Your Workspace (Removing a Project)</h4>
 
 <p>We are going to reimport the <code>PropertyViewerExamples</code> project, but this time using git.  So if you already have the project in your workspace from the <a href="#import">previous section</a>, you will need to delete it:</p>
 
@@ -732,9 +790,9 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <p>OSATE removes the project from the workspace and deletes the contents of the workspace from the file system.</p>
 
-<h3 id="toc_35">Adding a Git Repository</h3>
+<h3 id="toc_36">Adding a Git Repository</h3>
 
-<h4 id="toc_36">Open the Git Perspective</h4>
+<h4 id="toc_37">Open the Git Perspective</h4>
 
 <p>Work with git repositories is performed in the <code>git</code> perspective.  Open and switch to the perspective by</p>
 
@@ -749,7 +807,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <p><img src="images/OSATEUserGuide/GitPerspective.png" alt="Git Perspective"></p>
 
-<h4 id="toc_37">Clone a Repository</h4>
+<h4 id="toc_38">Clone a Repository</h4>
 
 <p>You need to clone a repository before you can import a project from it.  In this case, we are going to clone the AADL examples repository.</p>
 
@@ -778,7 +836,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <p><img src="images/OSATEUserGuide/Cloned.png" alt="Wizard"></p>
 
-<h3 id="toc_38">Import a Project</h3>
+<h3 id="toc_39">Import a Project</h3>
 
 <p>Now that the repository is cloned, we can import a project from it into the workspace:</p>
 
@@ -794,7 +852,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <p>OSATE imports the shared project into your workspace.</p>
 
-<h3 id="toc_39">Return to the AADL Perspective</h3>
+<h3 id="toc_40">Return to the AADL Perspective</h3>
 
 <p>Return to the <code>AADL</code> perspective by clicking on the <code>AADL Perspective</code> button <img src="images/OSATEUserGuide/AadlPerspectiveButton.png" alt=""> on the top-right of the workbench toolbar.</p>
 
@@ -804,7 +862,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <p>You can now proceed to use the project in your workspace. </p>
 
-<h2 id="toc_40"><span id="analysis">Analyzing Models</span></h2>
+<h2 id="toc_41"><span id="analysis">Analyzing Models</span></h2>
 
 <p>Once you have a system model, you can use OSATE to analyze the model to confirm that the design meets your intended criteria.  In this section we run a latency analysis over the end-to-end flows of a system.  This section is not meant to be a tutorial on using any specific analysis, but instead is a demonstration of</p>
 
@@ -819,7 +877,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 <p>This section uses the project <a href="https://github.com/osate/examples/tree/master/latency-case-study"><code>latency-case-study</code></a> found in the <code>examples</code> git repository.  Follow the <a href="#git">instructions above</a> to import the project into your workspace.</p>
 </blockquote>
 
-<h3 id="toc_41">Instantiate the Model</h3>
+<h3 id="toc_42">Instantiate the Model</h3>
 
 <p>The latency analysis operates on the system instance model, so we first need to create an instance model:</p>
 
@@ -828,7 +886,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 <li>Use the <code>Outline</code> view to create an instance model from the system implementation <code>integration.software_integrated</code>.</li>
 </ol>
 
-<h3 id="toc_42">Analyze the Model</h3>
+<h3 id="toc_43">Analyze the Model</h3>
 
 <ol>
 <li>Select the new <code>.aaxl2</code> instance model file in the project.</li>
@@ -838,7 +896,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <p>The analysis executes and you may see a progress bar at the bottom of the OSATE workbench.</p>
 
-<h3 id="toc_43">Analysis Results</h3>
+<h3 id="toc_44">Analysis Results</h3>
 
 <p>The analysis generates results in two ways:</p>
 
@@ -864,7 +922,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <p>Here we see the full results for the end-to-end flow <code>etef0</code>, including individual components&#39; contributions to the latency.</p>
 
-<h2 id="toc_44"><span id="properties">AADL Property Values</span></h2>
+<h2 id="toc_45"><span id="properties">AADL Property Values</span></h2>
 
 <p>The <code>AADL Property Values</code> view is used to display and edit property values in a structured manner, which is often easier than navigating and manipulating the AADL text files directly.</p>
 
@@ -878,7 +936,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <p><span id="values1"><img src="images/OSATEUserGuide/ExampleScreenshot.png" alt="Example Screenshot"></span></p>
 
-<h3 id="toc_45">Opening the AADL Property Values View</h3>
+<h3 id="toc_46">Opening the AADL Property Values View</h3>
 
 <p>From the main menu, select <code>Window &gt; Show View</code>.  If OSATE is currently in the <code>AADL perspective</code>, then you can select <code>AADL Property Values</code>.</p>
 
@@ -892,7 +950,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <p><img src="images/OSATEUserGuide/ShowView2.png" alt="Example Screenshot"></p>
 
-<h3 id="toc_46">Selecting the Model Element</h3>
+<h3 id="toc_47">Selecting the Model Element</h3>
 
 <p>The view displays all of the properties of the AADL model element that is currently selected in the worksapce.  Selections can be made in the editor or in the outline view.  For example, to show the properties of the process subcomponent <code>Sampler_B</code> of system implementation <code>Software.Basic</code> in project <code>Page_220</code> as shown above, you can </p>
 
@@ -906,7 +964,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 <li>Select <code>Sampler_B</code> in the <code>Outline</code> view.</li>
 </ul>
 
-<h3 id="toc_47">Property Value Structure</h3>
+<h3 id="toc_48">Property Value Structure</h3>
 
 <p>The displayed properties are organized by property set.</p>
 
@@ -931,7 +989,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 <p>The <a href="#values1">screenshot above</a> shows the expanded list value for the property <code>Source_Text</code>.</p>
 </blockquote>
 
-<h3 id="toc_48">The Property Status Column</h3>
+<h3 id="toc_49">The Property Status Column</h3>
 
 <p>The <code>Status</code> column in the view indicates where the property value comes from based on the semantics of AADL.  The status is one of</p>
 
@@ -946,29 +1004,29 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <p>The following sections describe property status in more detail.</p>
 
-<h4 id="toc_49"><em>Local</em> Property Values</h4>
+<h4 id="toc_50"><em>Local</em> Property Values</h4>
 
 <p>A <strong>local</strong> property value is defined directly on the AADL model element in either its <code>properties</code> subclause or in curly braces.</p>
 
 <blockquote>
-<p>** Example **</p>
+<p><strong>Example</strong></p>
 
 <p>In the <a href="#values1">previous screenshot</a>, the properties <code>Source_Text</code> and <code>Period</code> are both <strong>local</strong> because they are defined in curly braces.</p>
 
-<p>** Example **</p>
+<p><strong>Example</strong></p>
 
 <p>In the screenshot below, the properties <code>Car_Length</code>, <code>Car_Name</code>, and <code>Position</code> are all <strong>local</strong> because they are defined in the properties subclause of the device <code>car</code>.</p>
 
 <p><img src="images/OSATEUserGuide/Local.png" alt="Local Properties"></p>
 
-<p>** Example **</p>
+<p><strong>Example</strong></p>
 
 <p>The above screenshot also shows the expanded structure of the record values for properties <code>Car_Name</code> and <code>Position</code>.</p>
 </blockquote>
 
-<h4 id="toc_50">Contained Property Values</h4>
+<h4 id="toc_51">Contained Property Values</h4>
 
-<p>Contained property values are those defined in a <code>properties</code> subclause and are applied to a nested model element using the <code>appies to</code> clause. In general, the property can be applied to an element nested several layers down in the containment hierarchy, e.g., to a sub-sub-subcomponent. <em>The <code>AADL Property Values</code> view only displays contained property values for the immediate children of a classifier.</em>   To view the property values resulting from all contained property associations in a model, a system instance model must be created. The instantiation evaluates the applicable contained property associations and copies the resulting values as local associations into the instance model.</p>
+<p>Contained property values are those defined in a <code>properties</code> subclause and are applied to a nested model element using the <code>applies to</code> clause. In general, the property can be applied to an element nested several layers down in the containment hierarchy, e.g., to a sub-sub-subcomponent. <em>The <code>AADL Property Values</code> view only displays contained property values for the immediate children of a classifier.</em>   To view the property values resulting from all contained property associations in a model, a system instance model must be created. The instantiation evaluates the applicable contained property associations and copies the resulting values as local associations into the instance model.</p>
 
 <p>The view distinguishes between a <strong>local contained</strong> and <strong>shared local contained</strong> property association:</p>
 
@@ -991,7 +1049,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 <p><img src="images/OSATEUserGuide/SharedLocalContained.png" alt="Shared Local Contained Properties"></p>
 </blockquote>
 
-<h4 id="toc_51"><em>Inherited</em> Property Values</h4>
+<h4 id="toc_52"><em>Inherited</em> Property Values</h4>
 
 <p>The <strong>inherited</strong> status indicates that the property association is declared </p>
 
@@ -1013,7 +1071,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 <p><img src="images/OSATEUserGuide/Inherited.png" alt="Inherited Properties"></p>
 </blockquote>
 
-<h4 id="toc_52"><em>Default</em> Property Values</h4>
+<h4 id="toc_53"><em>Default</em> Property Values</h4>
 
 <p>The <strong>default</strong> status indicates that the property value for the selected element is not defined on any model element, but instead comes from the property&#39;s default value declaration.</p>
 
@@ -1027,7 +1085,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 <p><img src="images/OSATEUserGuide/Default.png" alt="Default Properties"></p>
 </blockquote>
 
-<h4 id="toc_53"><em>Undefined</em> Property Values</h4>
+<h4 id="toc_54"><em>Undefined</em> Property Values</h4>
 
 <p>The <strong>undefined</strong> status indicates that the property has no value for the selected model element.  These properties are applicable to the selected element, so they could potentially have values for the selected property holder.</p>
 
@@ -1041,7 +1099,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 <p><img src="images/OSATEUserGuide/Undefined.png" alt="Undefined Properties"></p>
 </blockquote>
 
-<h3 id="toc_54">Property Filters</h3>
+<h3 id="toc_55">Property Filters</h3>
 
 <p>The toolbar contains three buttons that influence which properties are displayed in the view:</p>
 
@@ -1051,45 +1109,50 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 <li><img src="images/OSATEUserGuide/filter_properties.gif" alt="Toggle Default">: Show <strong>default</strong> properties.</li>
 </ul>
 
-<h3 id="toc_55">Editing Values</h3>
+<p>The view&#39;s menu also contains an option for filtering by property set. Selecting <strong>Property Set Filters...</strong> in the
+view&#39;s menu opens a dialog which allows you to choose which property sets should be shown in the view.</p>
+
+<p><img src="images/OSATEUserGuide/property_set_filters.png" alt="Property Set Filters"></p>
+
+<h3 id="toc_56">Editing Values</h3>
 
 <p>Properties with the status of <strong>local</strong>, <strong>local contained</strong>, or <strong>shared local contained</strong> can be edited directly in the view.  To begin editing, simply click on the property value in the view&#39;s table.  The table cell becomes editable and you can type in the new value.  If there are syntax errors in your new value, then the error will be underlined in red and you can hover over the cell to see an error message.  Content assist is also available while editing by pressing <code>Ctrl + Space</code>.  This can be especially useful when entering enumeration literals, unit literals, classifier values, or reference values.</p>
 
 <p>When you are finished editing, press enter or click outside of the table cell and the new value will be updated in the AADL model.  <em>If you edit a property that is <strong>shared local contained</strong> then you will be editing the value for all model elements that are listed in the <code>applies to</code> clause of the property association.</em></p>
 
-<h3 id="toc_56">Context Menu</h3>
+<h3 id="toc_57">Context Menu</h3>
 
 <p>There are several actions available in the view&#39;s context menu when you right-click on a row in the view&#39;s table.</p>
 
 <p><img src="images/OSATEUserGuide/ContextMenu.png" alt="Context Menu"></p>
 
-<h4 id="toc_57">Open Property Definition</h4>
+<h4 id="toc_58">Open Property Definition</h4>
 
 <p>This action opens the declaration of the selected property set, property, or record field in the AADL text editor.</p>
 
-<h4 id="toc_58">Open Property Association</h4>
+<h4 id="toc_59">Open Property Association</h4>
 
 <p>This action opens the property association that provides the displayed property value in the AADL text editor.  This action is enabled for properties that are <strong>local</strong>, <strong>local contained</strong>, or <strong>inherited</strong>.  If the action is executed on an <strong>inherited</strong> property, then the view will be updated as well such that the selected property is shown as a <strong>local</strong> property.</p>
 
 <p>This action is especially useful in an instance model to find out which contained property association in the declarative model is used to provide an instance property value.</p>
 
-<h4 id="toc_59">Create Local Property Association</h4>
+<h4 id="toc_60">Create Local Property Association</h4>
 
-<p>This action is enabled for <strong>inherited</strong>, <strong>default</strong>, and <strong>undefined</strong> properties.  Executing this action will creates a new <strong>local</strong> value for the selected property and begins the editing process. The new property association is inserted in curly braces with the current model element in the AADL text editor.</p>
+<p>This action is enabled for <strong>inherited</strong>, <strong>default</strong>, and <strong>undefined</strong> properties.  Executing this action will create a new <strong>local</strong> value for the selected property and begins the editing process. The new property association is inserted in curly braces with the current model element in the AADL text editor.</p>
 
-<h4 id="toc_60">Create Local Contained Property Association</h4>
+<h4 id="toc_61">Create Local Contained Property Association</h4>
 
 <p>This action is enabled for <strong>inherited</strong>, <strong>default</strong>, and <strong>undefined</strong> properties.  Executing this action creates a new <strong>local contained</strong> value for the selected property and begins the editing process.</p>
 
-<h4 id="toc_61">Make Local</h4>
+<h4 id="toc_62">Make Local</h4>
 
 <p>This action is enabled for <strong>inherited</strong>, <strong>local contained</strong>, <strong>shared local contained</strong>, and <strong>default</strong> properties.  Executing this action creates a new <strong>local</strong> property association with the same value as was displayed in the view when the action was executed.  In other words, the existing value is copied into the new <strong>local</strong> value.</p>
 
-<h4 id="toc_62">Make Local Contained</h4>
+<h4 id="toc_63">Make Local Contained</h4>
 
 <p>This action is enabled for <strong>inherited</strong>, <strong>local</strong>, <strong>shared local contained</strong>, and <strong>default</strong> properties.  Executing this action creates a new <strong>local contained</strong> property with the same value as was displayed in the view when the action was executed.  In other words, the existing value is copied into the new <strong>local contained</strong> value.</p>
 
-<h4 id="toc_63">Remove</h4>
+<h4 id="toc_64">Remove</h4>
 
 <p>This action is enabled for <strong>local</strong>, <strong>local contained</strong>, and <strong>shared local contained</strong> properties.  It can be used to do one of the following:</p>
 
@@ -1102,7 +1165,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <p>Note that executing this action on a <strong>shared local contained</strong> property impacts all model elements that share the selected property value.</p>
 
-<h2 id="toc_64"><span id="classifierView">Viewing Classifier Members</span></h2>
+<h2 id="toc_65"><span id="classifierView">Viewing Classifier Members</span></h2>
 
 <p>The <code>Classifier Information</code> view makes it easy to see the complete ancestry of an AADL classifier (component type, component implementation, or feature group type), and to see the full list of members of the classifier.  To open a classifier in the view, select a classifier in the <code>AADL Navigator</code> or <code>Outline</code> view and choose <code>Open in Classifier Information View</code> from the context menu:</p>
 
@@ -1138,7 +1201,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <p>Double-clicking on any of the members opens the AADL source text for the member in an editor.</p>
 
-<h3 id="toc_65">Synchronizing with the Editor</h3>
+<h3 id="toc_66">Synchronizing with the Editor</h3>
 
 <p>The view&#39;s toolbar contains a single button that controls whether the view&#39;s selection is synchronized with the editor:</p>
 

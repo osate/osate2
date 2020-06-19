@@ -1,37 +1,25 @@
 /**
- * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * All Rights Reserved.
  *
- * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
- * at http://www.eclipse.org/org/documents/epl-v10.html.
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
  *
- * NO WARRANTY
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
  *
- * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
- * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
- * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
- * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
- * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
- * CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
- * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
- * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
- * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
  *
- * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
- * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
- * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
- * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
- * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
- * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- *
- * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
- * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
- * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
- * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
- * under the contract clause at 252.227.7013.
- * </copyright>
- *
- * $Id: FeatureInstanceImpl.java,v 1.15 2010-05-12 20:09:22 lwrage Exp $
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.aadl2.instance.impl;
 
@@ -206,7 +194,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return InstancePackage.Literals.FEATURE_INSTANCE;
 	}
@@ -216,7 +203,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Feature getFeature() {
 		if (feature != null && ((EObject) feature).eIsProxy()) {
 			InternalEObject oldFeature = (InternalEObject) feature;
@@ -245,7 +231,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setFeature(Feature newFeature) {
 		Feature oldFeature = feature;
 		feature = newFeature;
@@ -260,7 +245,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public long getIndex() {
 		return index;
 	}
@@ -270,7 +254,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setIndex(long newIndex) {
 		long oldIndex = index;
 		index = newIndex;
@@ -286,7 +269,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC:
@@ -302,10 +284,9 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<FlowSpecificationInstance> getSrcFlowSpecs() {
 		if (srcFlowSpecs == null) {
-			srcFlowSpecs = new EObjectWithInverseEList<>(FlowSpecificationInstance.class, this,
+			srcFlowSpecs = new EObjectWithInverseEList<FlowSpecificationInstance>(FlowSpecificationInstance.class, this,
 					InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC,
 					InstancePackage.FLOW_SPECIFICATION_INSTANCE__SOURCE);
 		}
@@ -317,10 +298,9 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<FlowSpecificationInstance> getDstFlowSpecs() {
 		if (dstFlowSpecs == null) {
-			dstFlowSpecs = new EObjectWithInverseEList<>(FlowSpecificationInstance.class, this,
+			dstFlowSpecs = new EObjectWithInverseEList<FlowSpecificationInstance>(FlowSpecificationInstance.class, this,
 					InstancePackage.FEATURE_INSTANCE__DST_FLOW_SPEC,
 					InstancePackage.FLOW_SPECIFICATION_INSTANCE__DESTINATION);
 		}
@@ -332,10 +312,9 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<FeatureInstance> getFeatureInstances() {
 		if (featureInstances == null) {
-			featureInstances = new EObjectContainmentEList<>(FeatureInstance.class, this,
+			featureInstances = new EObjectContainmentEList<FeatureInstance>(FeatureInstance.class, this,
 					InstancePackage.FEATURE_INSTANCE__FEATURE_INSTANCE);
 		}
 		return featureInstances;
@@ -346,7 +325,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public FeatureInstance createFeatureInstance() {
 		FeatureInstance newFeatureInstance = (FeatureInstance) create(InstancePackage.Literals.FEATURE_INSTANCE);
 		getFeatureInstances().add(newFeatureInstance);
@@ -358,7 +336,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public FeatureCategory getCategory() {
 		return category;
 	}
@@ -368,7 +345,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setCategory(FeatureCategory newCategory) {
 		FeatureCategory oldCategory = category;
 		category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
@@ -383,7 +359,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public DirectionType getDirection() {
 		return direction;
 	}
@@ -393,7 +368,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setDirection(DirectionType newDirection) {
 		DirectionType oldDirection = direction;
 		direction = newDirection == null ? DIRECTION_EDEFAULT : newDirection;
@@ -408,7 +382,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC:
@@ -426,7 +399,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC:
@@ -456,7 +428,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC:
@@ -492,7 +463,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC:
@@ -525,7 +495,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case InstancePackage.FEATURE_INSTANCE__SRC_FLOW_SPEC:
@@ -551,7 +520,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();
@@ -575,7 +543,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * @return feature instance with the specified feature, or null
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	@Override
 	public FeatureInstance findInverseFeatureGroup(FeatureGroupType targetpgt) {
 		if (!(getFeature() instanceof FeatureGroup)) {
 			return null;
@@ -599,7 +566,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * @param f Feature
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	@Override
 	public void setCategory(Feature f) {
 		if (f instanceof AbstractFeature) {
 			setCategory(FeatureCategory.ABSTRACT_FEATURE);
@@ -630,7 +596,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * @return feature instance with the specified feature, or null
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
-	@Override
 	public FeatureInstance findFeatureInstance(Feature feature) {
 		EList<FeatureInstance> subcil = getFeatureInstances();
 		for (Iterator<FeatureInstance> it = subcil.iterator(); it.hasNext();) {
@@ -645,7 +610,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	/**
 	 * Get all feature instances that fit a given path in a feature group.
 	 */
-	@Override
 	public Collection<FeatureInstance> findFeatureInstances(final EList<ContainmentPathElement> referencePath) {
 		if (referencePath.isEmpty()) {
 			return Collections.singleton((FeatureInstance) this);
@@ -671,12 +635,10 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	}
 
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
-	@Override
 	public List<Feature> getInstantiatedObjects() {
 		return Collections.singletonList(getFeature());
 	}
 
-	@Override
 	public boolean isActive(SystemOperationMode som) {
 		return getContainingComponentInstance().isActive(som);
 	}
@@ -686,7 +648,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 *
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#getPathName()
 	 */
-	@Override
 	public String getFullName() {
 		String array = "";
 		if (getIndex() > 0) {
@@ -700,7 +661,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 *
 	 * @see org.osate.aadl2.instance.InstanceObject#matchesIndex(java.util.List)
 	 */
-	@Override
 	public boolean matchesIndex(List<ArrayRange> ranges) {
 		if (ranges.size() == 0) {
 			return true;
@@ -717,12 +677,10 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 		return false;
 	}
 
-	@Override
 	public boolean isAccess() {
 		return getCategory().isAccess();
 	}
 
-	@Override
 	public DirectionType getFlowDirection() {
 		return isAccess() ? DirectionType.IN_OUT : getDirection();
 	}

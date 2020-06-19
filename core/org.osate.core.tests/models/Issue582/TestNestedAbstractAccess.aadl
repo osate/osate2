@@ -1,0 +1,333 @@
+package TestNestedAbstractAccess
+public
+	Data D
+	end D;
+	
+	system InnerSys_blank
+		features
+			f0: feature;
+			
+			blank_feature: feature;
+			provides_feature: provides data access D;
+			requires_feature: requires data access D;
+		properties
+			Classifier_Substitution_Rule => Type_Extension;
+	end InnerSys_blank;
+	
+	system InnerSys_provides extends InnerSys_blank
+		features
+			f0: refined to provides data access D;
+	end InnerSys_provides;
+	
+	system InnerSys_requires extends InnerSys_blank
+		features
+			f0: refined to requires data access D;
+	end InnerSys_requires;
+	
+	--
+	
+	system SrcSys
+		features
+			f0: feature;
+			
+			blank_to_blank_feature: feature;
+			blank_to_provides_feature: provides data access D;
+			blank_to_requires_feature: requires data access D;
+			
+			provides_to_blank_feature: feature;
+			provides_to_provides_feature: provides data access D;
+			provides_to_requires_feature: requires data access D;
+			
+			requires_to_blank_feature: feature;
+			requires_to_provides_feature: provides data access D;
+			requires_to_requires_feature: requires data access D;
+		properties
+			Classifier_Substitution_Rule => Type_Extension;
+	end SrcSys;
+		
+	system SrcSysProvides extends SrcSys
+		features
+			f0: refined to provides data access D;
+	end SrcSysProvides;
+		
+	system SrcSysRequires extends SrcSys
+		features
+			f0: refined to requires data access D;
+	end SrcSysRequires;
+		
+	system implementation SrcSys.allExplicit
+		subcomponents
+			s: system InnerSys_blank;
+		connections
+			blank_to_blank: feature s.blank_feature -> blank_to_blank_feature; 
+			blank_to_provides: feature s.blank_feature -> blank_to_provides_feature;  
+			blank_to_requires: feature s.blank_feature -> blank_to_requires_feature; 
+
+			provides_to_blank: feature s.provides_feature -> provides_to_blank_feature; 
+			provides_to_provides: data access s.provides_feature -> provides_to_provides_feature; 
+			provides_to_requires: data access s.provides_feature -> provides_to_requires_feature;  -- BAD
+			
+			requires_to_blank: feature s.requires_feature -> requires_to_blank_feature; 
+			requires_to_provides: data access s.requires_feature -> requires_to_provides_feature;  -- BAD
+			requires_to_requires: data access s.requires_feature -> requires_to_requires_feature; 
+	end SrcSys.allExplicit;
+		
+	system implementation SrcSys.blank_to_blank
+		subcomponents
+			s: system InnerSys_blank;
+		connections
+			c0: feature s.f0 -> f0;
+	end SrcSys.blank_to_blank;
+		
+	system implementation SrcSys.provides_to_blank extends SrcSys.blank_to_blank
+		subcomponents
+			s: refined to system InnerSys_provides;
+	end SrcSys.provides_to_blank;
+		
+	system implementation SrcSys.requires_to_blank extends SrcSys.blank_to_blank
+		subcomponents
+			s: refined to system InnerSys_requires;
+	end SrcSys.requires_to_blank;
+	
+	system implementation SrcSysProvides.blank_to_provides extends SrcSys.blank_to_blank
+	end SrcSysProvides.blank_to_provides;
+	
+	system implementation SrcSysProvides.provides_to_provides extends SrcSysProvides.blank_to_provides
+		subcomponents
+			s: refined to system InnerSys_provides;
+	end SrcSysProvides.provides_to_provides;
+	
+	system implementation SrcSysProvides.requires_to_provides extends SrcSysProvides.blank_to_provides
+		subcomponents
+			s: refined to system InnerSys_requires;
+	end SrcSysProvides.requires_to_provides;
+	
+	system implementation SrcSysRequires.blank_to_requires extends SrcSys.blank_to_blank
+	end SrcSysRequires.blank_to_requires;
+	
+	system implementation SrcSysRequires.provides_to_requires extends SrcSysRequires.blank_to_requires
+		subcomponents
+			s: refined to system InnerSys_provides;
+	end SrcSysRequires.provides_to_requires;
+	
+	system implementation SrcSysRequires.requires_to_requires extends SrcSysRequires.blank_to_requires
+		subcomponents
+			s: refined to system InnerSys_requires;
+	end SrcSysRequires.requires_to_requires;
+	
+	--
+	
+	system DestSys
+		features
+			f0: feature;
+			
+			blank_feature: feature;
+			provides_feature: provides data access D;
+			requires_feature: requires data access D;
+	end DestSys;
+	
+	system DestSysRequires extends DestSys
+		features
+			f0: refined to requires data access D;
+	end DestSysRequires;
+	
+	system DestSysProvides extends DestSys
+		features
+			f0: refined to provides data access D;
+	end DestSysProvides;
+	
+	system Top
+		properties
+			Classifier_Substitution_Rule => Type_Extension;
+	end Top;
+		
+	system implementation Top.allExplicit
+		subcomponents
+			srcSys: system SrcSys.allExplicit;
+			destSys: system DestSys;
+		connections
+			blank_to_blank_to_blank: feature srcSys.blank_to_blank_feature -> destSys.blank_feature;
+			blank_to_blank_to_provides: feature srcSys.blank_to_blank_feature -> destSys.provides_feature;
+			blank_to_blank_to_requires: feature srcSys.blank_to_blank_feature -> destSys.requires_feature; 
+
+			blank_to_provides_to_blank: feature srcSys.blank_to_provides_feature -> destSys.blank_feature;
+			blank_to_provides_to_provides: data access srcSys.blank_to_provides_feature -> destSys.provides_feature; -- BAD
+			blank_to_provides_to_requires: data access srcSys.blank_to_provides_feature -> destSys.requires_feature; 
+			
+			blank_to_requires_to_blank: feature srcSys.blank_to_requires_feature -> destSys.blank_feature; 
+			blank_to_requires_to_provides: data access srcSys.blank_to_requires_feature -> destSys.provides_feature;
+			blank_to_requires_to_requires: data access srcSys.blank_to_requires_feature -> destSys.requires_feature; -- BAD
+			
+			provides_to_blank_to_blank: feature srcSys.provides_to_blank_feature -> destSys.blank_feature;
+			provides_to_blank_to_provides: feature srcSys.provides_to_blank_feature -> destSys.provides_feature; -- BAD
+			provides_to_blank_to_requires: feature srcSys.provides_to_blank_feature -> destSys.requires_feature;
+
+			provides_to_provides_to_blank: feature srcSys.provides_to_provides_feature -> destSys.blank_feature;
+			provides_to_provides_to_provides: data access srcSys.provides_to_provides_feature -> destSys.provides_feature; -- BAD,
+			provides_to_provides_to_requires: data access srcSys.provides_to_provides_feature -> destSys.requires_feature;
+			
+			-- provides_to_requires is BAD, shouldn't even process it during instantiation
+			provides_to_requires_to_blank: feature srcSys.provides_to_requires_feature -> destSys.blank_feature; -- BAD
+			provides_to_requires_to_provides: data access srcSys.provides_to_requires_feature -> destSys.provides_feature; -- BAD
+			provides_to_requires_to_requires: data access srcSys.provides_to_requires_feature -> destSys.requires_feature; -- BAD
+			
+			requires_to_blank_to_blank: feature srcSys.requires_to_blank_feature -> destSys.blank_feature;
+			requires_to_blank_to_provides: feature srcSys.requires_to_blank_feature -> destSys.provides_feature;
+			requires_to_blank_to_requires: feature srcSys.requires_to_blank_feature -> destSys.requires_feature; -- BAD
+
+			-- requires_to_provides is BAD, shouldn't even process it during instantiation
+			requires_to_provides_to_blank: feature srcSys.requires_to_provides_feature -> destSys.blank_feature; -- BAD
+			requires_to_provides_to_provides: data access srcSys.requires_to_provides_feature -> destSys.provides_feature;  -- BAD
+			requires_to_provides_to_requires: data access srcSys.requires_to_provides_feature -> destSys.requires_feature;  -- BAD
+			
+			requires_to_requires_to_blank: feature srcSys.requires_to_requires_feature -> destSys.blank_feature;
+			requires_to_requires_to_provides: data access srcSys.requires_to_requires_feature -> destSys.provides_feature; 
+			requires_to_requires_to_requires: data access srcSys.requires_to_requires_feature -> destSys.requires_feature; -- BAD
+	end Top.allExplicit;
+	
+	system implementation Top.blank_to_blank_to_blank
+		subcomponents
+			srcSys: system SrcSys.blank_to_blank;
+			destSys: system DestSys;
+		connections
+			c0: feature srcSys.f0 -> destSys.f0;
+	end Top.blank_to_blank_to_blank;
+	
+	system implementation Top.blank_to_blank_to_provides extends Top.blank_to_blank_to_blank 
+		subcomponents
+			destSys: refined to system DestSysProvides;
+	end Top.blank_to_blank_to_provides;
+	
+	system implementation Top.blank_to_blank_to_requires extends Top.blank_to_blank_to_blank 
+		subcomponents
+			destSys: refined to system DestSysRequires;
+	end Top.blank_to_blank_to_requires;
+	
+	
+	system implementation Top.blank_to_provides_to_blank extends Top.blank_to_blank_to_blank
+		subcomponents
+			srcSys: refined to system SrcSysProvides.blank_to_provides;
+	end Top.blank_to_provides_to_blank;
+	
+	system implementation Top.blank_to_provides_to_provides extends Top.blank_to_provides_to_blank
+		subcomponents
+			destSys: refined to system DestSysProvides;
+	end Top.blank_to_provides_to_provides;
+	
+	system implementation Top.blank_to_provides_to_requires extends Top.blank_to_provides_to_blank
+		subcomponents
+			destSys: refined to system DestSysRequires;
+	end Top.blank_to_provides_to_requires;
+	
+	
+	system implementation Top.blank_to_requires_to_blank extends Top.blank_to_blank_to_blank
+		subcomponents
+			srcSys: refined to system SrcSysRequires.blank_to_requires;
+	end Top.blank_to_requires_to_blank;
+	
+	system implementation Top.blank_to_requires_to_provides extends Top.blank_to_requires_to_blank
+		subcomponents
+			destSys: refined to system DestSysProvides;
+	end Top.blank_to_requires_to_provides;
+	
+	system implementation Top.blank_to_requires_to_requires extends Top.blank_to_requires_to_blank
+		subcomponents
+			destSys: refined to system DestSysRequires;
+	end Top.blank_to_requires_to_requires;
+	
+	
+	system implementation Top.provides_to_blank_to_blank extends Top.blank_to_blank_to_blank 
+		subcomponents
+			srcSys: refined to system SrcSys.provides_to_blank;
+	end Top.provides_to_blank_to_blank;
+	
+	system implementation Top.provides_to_blank_to_provides extends Top.provides_to_blank_to_blank
+		subcomponents
+			destSys: refined to system DestSysProvides;
+	end Top.provides_to_blank_to_provides;
+	
+	system implementation Top.provides_to_blank_to_requires extends Top.provides_to_blank_to_blank
+		subcomponents
+			destSys: refined to system DestSysRequires;
+	end Top.provides_to_blank_to_requires;
+	
+	
+	system implementation Top.provides_to_provides_to_blank extends Top.blank_to_blank_to_blank 
+		subcomponents
+			srcSys: refined to system SrcSysProvides.provides_to_provides;
+	end Top.provides_to_provides_to_blank;
+	
+	system implementation Top.provides_to_provides_to_provides extends Top.provides_to_provides_to_blank
+		subcomponents
+			destSys: refined to system DestSysProvides;
+	end Top.provides_to_provides_to_provides;
+	
+	system implementation Top.provides_to_provides_to_requires extends Top.provides_to_provides_to_blank
+		subcomponents
+			destSys: refined to system DestSysRequires;
+	end Top.provides_to_provides_to_requires;
+	
+	
+	system implementation Top.provides_to_requires_to_blank extends Top.blank_to_blank_to_blank 
+		subcomponents
+			srcSys: refined to system SrcSysRequires.provides_to_requires;
+	end Top.provides_to_requires_to_blank;
+	
+	system implementation Top.provides_to_requires_to_provides extends Top.provides_to_requires_to_blank
+		subcomponents
+			destSys: refined to system DestSysProvides;
+	end Top.provides_to_requires_to_provides;
+	
+	system implementation Top.provides_to_requires_to_requires extends Top.provides_to_requires_to_blank
+		subcomponents
+			destSys: refined to system DestSysRequires;
+	end Top.provides_to_requires_to_requires;
+	
+	
+	system implementation Top.requires_to_blank_to_blank extends Top.blank_to_blank_to_blank 
+		subcomponents
+			srcSys: refined to system SrcSys.requires_to_blank;
+	end Top.requires_to_blank_to_blank;
+	
+	system implementation Top.requires_to_blank_to_provides extends Top.requires_to_blank_to_blank
+		subcomponents
+			destSys: refined to system DestSysProvides;
+	end Top.requires_to_blank_to_provides;
+	
+	system implementation Top.requires_to_blank_to_requires extends Top.requires_to_blank_to_blank
+		subcomponents
+			destSys: refined to system DestSysRequires;
+	end Top.requires_to_blank_to_requires;
+	
+	
+	system implementation Top.requires_to_provides_to_blank extends Top.blank_to_blank_to_blank 
+		subcomponents
+			srcSys: refined to system SrcSysProvides.requires_to_provides;
+	end Top.requires_to_provides_to_blank;
+	
+	system implementation Top.requires_to_provides_to_provides extends Top.requires_to_provides_to_blank
+		subcomponents
+			destSys: refined to system DestSysProvides;
+	end Top.requires_to_provides_to_provides;
+	
+	system implementation Top.requires_to_provides_to_requires extends Top.requires_to_provides_to_blank
+		subcomponents
+			destSys: refined to system DestSysRequires;
+	end Top.requires_to_provides_to_requires;
+	
+	
+	system implementation Top.requires_to_requires_to_blank extends Top.blank_to_blank_to_blank 
+		subcomponents
+			srcSys: refined to system SrcSysRequires.requires_to_requires;
+	end Top.requires_to_requires_to_blank;
+	
+	system implementation Top.requires_to_requires_to_provides extends Top.requires_to_requires_to_blank
+		subcomponents
+			destSys: refined to system DestSysProvides;
+	end Top.requires_to_requires_to_provides;
+	
+	system implementation Top.requires_to_requires_to_requires extends Top.requires_to_requires_to_blank
+		subcomponents
+			destSys: refined to system DestSysRequires;
+	end Top.requires_to_requires_to_requires;
+end TestNestedAbstractAccess;

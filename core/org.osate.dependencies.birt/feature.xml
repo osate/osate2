@@ -2,7 +2,7 @@
 <feature
       id="org.osate.dependencies.birt"
       label="BIRT Dependencies"
-      version="2.7.0.qualifier"
+      version="4.9.0.qualifier"
       provider-name="CMU/SEI">
 
    <description url="http://www.example.com/description">

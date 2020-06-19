@@ -1,4 +1,25 @@
 /**
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.xtext.aadl2.errormodel.errorModel.impl;
 
@@ -6,12 +27,9 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.osate.aadl2.TriggerPort;
 
 import org.osate.aadl2.impl.NamedElementImpl;
 
@@ -20,6 +38,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorCodeValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
+import org.osate.xtext.aadl2.errormodel.errorModel.ReportingPortReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
 /**
@@ -93,14 +112,14 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
   protected ConditionExpression condition;
 
   /**
-   * The cached value of the '{@link #getDetectionReportingPort() <em>Detection Reporting Port</em>}' reference.
+   * The cached value of the '{@link #getDetectionReportingPort() <em>Detection Reporting Port</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getDetectionReportingPort()
    * @generated
    * @ordered
    */
-  protected TriggerPort detectionReportingPort;
+  protected ReportingPortReference detectionReportingPort;
 
   /**
    * The cached value of the '{@link #getErrorCode() <em>Error Code</em>}' containment reference.
@@ -300,27 +319,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
    * <!-- end-user-doc -->
    * @generated
    */
-  public TriggerPort getDetectionReportingPort()
-  {
-    if (detectionReportingPort != null && ((EObject)detectionReportingPort).eIsProxy())
-    {
-      InternalEObject oldDetectionReportingPort = (InternalEObject)detectionReportingPort;
-      detectionReportingPort = (TriggerPort)eResolveProxy(oldDetectionReportingPort);
-      if (detectionReportingPort != oldDetectionReportingPort)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.ERROR_DETECTION__DETECTION_REPORTING_PORT, oldDetectionReportingPort, detectionReportingPort));
-      }
-    }
-    return detectionReportingPort;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public TriggerPort basicGetDetectionReportingPort()
+  public ReportingPortReference getDetectionReportingPort()
   {
     return detectionReportingPort;
   }
@@ -330,12 +329,37 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setDetectionReportingPort(TriggerPort newDetectionReportingPort)
+  public NotificationChain basicSetDetectionReportingPort(ReportingPortReference newDetectionReportingPort, NotificationChain msgs)
   {
-    TriggerPort oldDetectionReportingPort = detectionReportingPort;
+    ReportingPortReference oldDetectionReportingPort = detectionReportingPort;
     detectionReportingPort = newDetectionReportingPort;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_DETECTION__DETECTION_REPORTING_PORT, oldDetectionReportingPort, detectionReportingPort));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_DETECTION__DETECTION_REPORTING_PORT, oldDetectionReportingPort, newDetectionReportingPort);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDetectionReportingPort(ReportingPortReference newDetectionReportingPort)
+  {
+    if (newDetectionReportingPort != detectionReportingPort)
+    {
+      NotificationChain msgs = null;
+      if (detectionReportingPort != null)
+        msgs = ((InternalEObject)detectionReportingPort).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_DETECTION__DETECTION_REPORTING_PORT, null, msgs);
+      if (newDetectionReportingPort != null)
+        msgs = ((InternalEObject)newDetectionReportingPort).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.ERROR_DETECTION__DETECTION_REPORTING_PORT, null, msgs);
+      msgs = basicSetDetectionReportingPort(newDetectionReportingPort, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_DETECTION__DETECTION_REPORTING_PORT, newDetectionReportingPort, newDetectionReportingPort));
   }
 
   /**
@@ -400,6 +424,8 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
         return basicSetTypeTokenConstraint(null, msgs);
       case ErrorModelPackage.ERROR_DETECTION__CONDITION:
         return basicSetCondition(null, msgs);
+      case ErrorModelPackage.ERROR_DETECTION__DETECTION_REPORTING_PORT:
+        return basicSetDetectionReportingPort(null, msgs);
       case ErrorModelPackage.ERROR_DETECTION__ERROR_CODE:
         return basicSetErrorCode(null, msgs);
     }
@@ -426,8 +452,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
       case ErrorModelPackage.ERROR_DETECTION__CONDITION:
         return getCondition();
       case ErrorModelPackage.ERROR_DETECTION__DETECTION_REPORTING_PORT:
-        if (resolve) return getDetectionReportingPort();
-        return basicGetDetectionReportingPort();
+        return getDetectionReportingPort();
       case ErrorModelPackage.ERROR_DETECTION__ERROR_CODE:
         return getErrorCode();
     }
@@ -457,7 +482,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
         setCondition((ConditionExpression)newValue);
         return;
       case ErrorModelPackage.ERROR_DETECTION__DETECTION_REPORTING_PORT:
-        setDetectionReportingPort((TriggerPort)newValue);
+        setDetectionReportingPort((ReportingPortReference)newValue);
         return;
       case ErrorModelPackage.ERROR_DETECTION__ERROR_CODE:
         setErrorCode((ErrorCodeValue)newValue);
@@ -489,7 +514,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
         setCondition((ConditionExpression)null);
         return;
       case ErrorModelPackage.ERROR_DETECTION__DETECTION_REPORTING_PORT:
-        setDetectionReportingPort((TriggerPort)null);
+        setDetectionReportingPort((ReportingPortReference)null);
         return;
       case ErrorModelPackage.ERROR_DETECTION__ERROR_CODE:
         setErrorCode((ErrorCodeValue)null);

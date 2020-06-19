@@ -9,14 +9,14 @@
  * 
  * This program is free software: you can redistribute it and/or modify 
  * it under the terms of the Eclipse Public License as published by Eclipse,
- * either version 1.0 of the License, or (at your option) any later version.
+ * either version 2.0 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Eclipse Public License for more details.
  * You should have received a copy of the Eclipse Public License
  * along with this program.  If not, see 
- * http://www.eclipse.org/org/documents/epl-v10.php
+ * https://www.eclipse.org/legal/epl-2.0/
  */
 
 package org.osate.ba.declarative.util ;
@@ -58,22 +58,7 @@ public class DeclarativeResourceFactoryImpl extends ResourceFactoryImpl
   @Override
   public Resource createResource(URI uri)
   {
-    XMLResource result = new DeclarativeResourceImpl(uri) ;
-    result.getDefaultSaveOptions().put(XMLResource.OPTION_EXTENDED_META_DATA,
-                                       Boolean.TRUE) ;
-    result.getDefaultLoadOptions().put(XMLResource.OPTION_EXTENDED_META_DATA,
-                                       Boolean.TRUE) ;
-
-    result.getDefaultSaveOptions().put(XMLResource.OPTION_SCHEMA_LOCATION,
-                                       Boolean.TRUE) ;
-
-    result.getDefaultLoadOptions()
-          .put(XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE, Boolean.TRUE) ;
-    result.getDefaultSaveOptions()
-          .put(XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE, Boolean.TRUE) ;
-
-    result.getDefaultLoadOptions().put(XMLResource.OPTION_USE_LEXICAL_HANDLER,
-                                       Boolean.TRUE) ;
+    Resource result = new DeclarativeResourceImpl(uri) ;
     return result ;
   }
 

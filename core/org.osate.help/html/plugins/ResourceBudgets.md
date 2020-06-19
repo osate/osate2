@@ -1,3 +1,26 @@
+<!--
+Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+All Rights Reserved.
+
+NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+
+This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+SPDX-License-Identifier: EPL-2.0
+
+Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+
+This program includes and/or can make use of certain third party source code, object code, documentation and other
+files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+-->
 #Resource Budget Analyses#
 The intent of the resource budget analysis is to provide resource budgeting support early in the development life cycle. Users may have defined a system model that essentially is a high level parts list, i.e., defines the execution platform in terms of a collection of processors, memory, buses. 
 
@@ -8,8 +31,6 @@ The SEI has provided a plug-in that supports resource budgeting and resource all
 > Note: A virtual processor is both a MIPS provider and a MIPS consumer. We use the **SEI::MIPSBudget** property to indicate the MIPS demand it has on the processor it is allocated to and the MIPS capacity it makes available to application components bound to it.
 
 * Memory: we recognize both RAM and ROM as memory.  We have introduced the properties **SEI::RAMCapacity**, **SEI::ROMCapacity**, **SEI::RAMBudget**, and **SEI::ROMBudget** for that purpose.  These properties take real values using *Size_Units* as unit (*B, KB, MB, GB*). The capacity is associated with memory components.  Typically, a memory component will have either RAM capacity or ROM capacity.  RAM and ROM budgets can be associated with application components such as system, process, thread group, thread. We also look for **Memory_Size** as available capacity of a memory and **Data_Size**, **Code_Size**, **Heap_Size**, **Stack_Size** as actual demand for memory.
-
-* Bus: we recognize bandWidth as a resource. Buses have **SEI::BandwidthCapacity** and connections have **SEI::BandwidthBudget**.
 
 ##Analyze MIPS and Memory Budgets Against Capacities##
 The first resource budget analysis does not assume allocation of resources. It simply adds up the MIPS, RAM, and ROM capacities and budgets throughout a system instance and compares the totals.
@@ -48,28 +69,3 @@ For each of the memory components with a RAM or ROM capacity or **Memory_Size**,
 
 > In addition the **SEI::RAMActual** and SEI::**ROMActual** properties are added up and compared to the budgets. These two properties have been provided such that users can reflect actual memory usage of individual components, e.g., as reported by a compiler for threads, data components, and ports within threads.
 > In case of nested application components with RAMActual or ROMActual property values, the actual value accounts for memory demands of that component only. In other words, contrary to the memory budget figures, the actual value does not represent a cumulative memory demand.
-
-##Analyze Bound Bus Load##
-This analysis takes each bus instance and compares its bandwidth capacity against the demands placed on the bus by connections that are bound directly to the bus, or indirectly via virtual bus bindings. The binding is expressed by the **Actual_Connection_Binding** property.
-
-Both the processor allocation and memory allocation analysis are invoked through the **Analyze Bus Load** command, available through the toolbar or through the *Analysis* menu and the *Architecture* submenu. The results are reported in the *reports/Bandwidth* folder and as Eclipse Problem Markers that can be examined through the *Problems* view.
-
-> Note: If the system has operational modes, then the analysis is executed for each operational mode.
-
-The bandwidth demand is determined as follows:
-* By computing the budget value of the connection using the **Data_Size** property of the data type of the source port and the  the **Period** property of the source thread or device. If not present
-* By retrieving the budget value associated to this connection 	    specified with the **SEI::BandWidthBudget** property on the connection.
-
-> Note: If the bus has a **Broadcast_Protocol** property value of **true**, then the transfer of data from the same source port to multiple destination ports is counted only once.
-
-> Note: If a connection does not have an Actual_Connection_Binding property, the tool tries to infer a connection binding from the processor bindings of the connection source and destination by looking for a bus that connects the hardware components of the source and destination, i.e., the hardware component the software component is bound to, or the device that is connected.
-> ##Examples##
-One example is available on [Github/Osate](https://github.com/osate/examples) and is called *ResourceBudgets*. You instantiate the top level system called *MySystem* as a tier0 model or as a tier2 model. It has a single transmission system.
-
-A second example is available on [Github/Osate](https://github.com/osate/alisa-examples) and is called *MutliTierAircraftExample*. You will find a set of project under *MultiTierAircraft* with the AADL model. The example is from the System Architecture Virtual Integration (SAVI) initiative. It has a backbone transmission system as well as a subsystem within the IMA of the ar> ##Examples##
-One example is available on [Github/Osate](https://github.com/osate/examples) and is called *ResourceBudgets*. You instantiate the top level system called *MySystem* as a tier0 model or as a tier2 model. It has a single transmission system.
-
-A second example is available on [Github/Osate](https://github.com/osate/alisa-examples) and is called *MutliTierAircraftExample*. You will find a set of project under *MultiTierAircraft* with the AADL model. The example is from the System Architecture Virtual Integration (SAVI) initiative. It has a backbone transmission system as well as a subsystem within the IMA of the aircraft.
-The project AircraftSpecified represents *Tier1*, i.e., a single layer. AircraftIntegrated represents variants of *Tier2*, which includes the Integrated Modular Avionics (IMA) at one level of detail. For resource budget analysis we can instantiate the IMA, i.e., the **FlightGuidanceImplementation**. 
-> Note: The example also includes a requirement and verification plan specification for automated incremental life cycle assurance under the ALISA plug-ins (see ALISA help for details).
-

@@ -1,3 +1,26 @@
+<!--
+Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+All Rights Reserved.
+
+NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+
+This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+SPDX-License-Identifier: EPL-2.0
+
+Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+
+This program includes and/or can make use of certain third party source code, object code, documentation and other
+files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+-->
 ---
 title: OSATE Graphical Editor User Guide
 linkReferences: true
@@ -266,7 +289,7 @@ Now that we will define an integrated system which contains both the execution p
 	3. Select *Application* diagram element.
 	4. Select *Bind...* from the toolbar.
 	5. Select *Actual_Processor_Binding*.
-	6. Select *CPU*.
+	6. Select *CPU* in the diagram or outline view.
 	7. Select *OK*.
 	
 4. **Create a Processor Binding Diagram**
@@ -291,7 +314,7 @@ Select the desired implementation from the palette and place it on the diagram o
 Select *Mode Transition* from the palette and select the starting mode then the ending mode.
 
 ## Creating Flow Implementations and End-To-End Flow Specifications
-When editing a component implementation, flow implementations and end-to-end flow specifications can be created graphically by selecting the *Create Flow Implementation* and *Create End-To-End Flow Specification* tools from the toolbar and following the prompts to select a series of elements from the diagram. The dialog and colors of elements in the diagram will update as valid selections are made. The starting flow specification will be highlighted dark orange and flow elements will be highlighted purple. The *Undo* button will remove the elements in the order they were selected.
+Flow implementations and end-to-end flow specifications can be created graphically by selecting the *Create Flow Implementation* and *Create End-To-End Flow Specification* tools from the toolbar and following the prompts to select a series of elements from the diagram or outline view.  The tools cannot be activated if there are existing errors or warnings in the model.  The dialog and colors of elements in the diagram will update as valid selections are made. The starting flow specification will be highlighted dark orange and flow elements will be highlighted purple. The *Undo* button will remove the elements in the order they were selected.
 
 ### Creating Flow Implementations
 Select *Create Flow Implementation* from the toolbar, the dialog will appear. 
@@ -299,7 +322,7 @@ Select *Create Flow Implementation* from the toolbar, the dialog will appear.
 ![](../images/CreateFlowImplementationToolbar.png)
 
 ### Creating Source Flow Implementations
-1. Select a source flow specification.
+1. Select a source flow specification and feature.
 
 ![](../images/FlowImplSourceStep1.png)
 
@@ -314,7 +337,7 @@ Select *Create Flow Implementation* from the toolbar, the dialog will appear.
 4. Select *OK* when done.
 
 ### Creating Sink Flow Implementations
-1. Select a valid sink flow specification..
+1. Select a valid sink flow specification and feature.
 
 ![](../images/FlowImplSinkStep1.png)
 
@@ -329,7 +352,7 @@ Select *Create Flow Implementation* from the toolbar, the dialog will appear.
 4. Select *OK* when done.
 
 ### Creating Path Flow Implementations
-1. Select a valid path flow specification.
+1. Select a valid path flow specification and feature.
 
 ![](../images/FlowImplPathStep1.png)
 
@@ -424,8 +447,14 @@ A mode can be designated as the initial mode by using the *AADL* tab of the *Pro
 When viewing a component implementation diagram, a binding property associations can be created using the toolbar.
 ![](../images/BindToolbar.png)
 
+## Prototypes
+Prototypes can be edited by selecting a classifier and using the *AADL* tab of the *Properties* view (See @sec:properties_view).
+
+Classifier prototype bindings can be edited using the *AADL* tab of the *Properties* view (See @sec:properties_view). Subcomponent prototype bindings can be edited when selecting the component classifier.
+
+
 ## Editing Flow Implementations and End-to-End Flows
-When editing a component implementation, flow implementations and end-to-end flow can be edited using the flow editor.  The flow editor can be accessed by double-clicking the component implementation, selecting the *AADL* tab in the *Properties* view, and selecting *Edit...* from the *Flows* section.
+Flow implementations and end-to-end flow can be edited using the flow editor.  The flow editor can be accessed by double-clicking a component implementation, selecting the *AADL* tab in the *Properties* view, and selecting *Edit...* from the *Flows* section.
 
 ## Refining Model Elements
 Appropriate elements can be refined by using the *AADL* tab of the *Properties* view (See @sec:properties_view), and using the *Refined* section option.
@@ -509,6 +538,8 @@ Table: Menu Items for Showing and Hiding Elements {#tbl:show_hide_menu_items}
 ## Displaying Hidden Elements in Outline
 By default, the *Outline* view shows hidden elements. Hidden elements are those which are not currently included in the diagram. Hidden elements are greyed out in the outline. Whether hidden elements are shown in the *Outline* view can be toggled using the *Show Hidden Elements* menu item in the view menu (![View Menu](../images/ui_view_menu_icon.png)). When displayed, hidden elements can be added to the diagram using the *Show* menu item which is available in the context menu.
 
+## Showing Connected Elements
+Elements that are directly connected to a subcomponent or feature can be shown by right-clicking on the subcomponent or feature and selecting *Show Connected Elements* from the context menu.
 
 # Visualization
 The following sections describe the diagram visualization capabilities of the graphical editor.
@@ -539,7 +570,16 @@ In some cases a connection between diagram elements will be represented by a dot
 - An AADL property reference value for which the referenced model element is hidden.
 
 ## Highlighting Flow Implementations and End-to-End Flow Specifications
-Selecting a flow implementation or end-to-end flow specification from the flow drop-down in the toolbar will highlight the flow.  Flow Implementations and End To End Flows that have segments that are not shown in the diagram will be marked with an asterisk(*) in the drop-down.
+Selecting a Flow Implementation or End-to-End Flow specification from the flow drop-down in the toolbar will highlight the flow.
+
+## Showing Flow Implementation and End-to-End Flow Specification Segments
+Selecting the "Show" button on the toolbar shows the missing flow segments of the currently selected flow drop-down Flow Implementation or End-to-End Flow when the the flow contains segments which are missing from the diagram.
+
+## Highlighting In Mode Elements
+Selecting a Mode or Mode Transition from the mode drop-down in the toolbar will highlight the in mode elements in the diagram.
+
+## Showing In Mode Elements
+Right clicking a Mode or Mode Transition and selecting the "Show In Mode Elements" will show the elements within the mode's container which are active in the selected mode.
 
 ## Moving Shapes Using Arrow Keys
 1. Select the element to be moved.
@@ -645,9 +685,7 @@ When the *Layout Features Based on Direction* preference is enabled, the graphic
 ## Known Layout Issues and Limitations
 * Connections between multiple levels of the diagram hierarchy are not automatically routed and must be routed manually. Such connections usually represent property values such as bindings.
 * Mode transition triggers are not routed. The recommended workaround is to show the mode transition triggers as text labels.
-* Flow source and sinks are not consider when laying out the diagram.
 * The automatic layout for flow path may produce unexpected routing and label placement for the flow path. To workaround this issue, it is recommended to disable labels for flow paths.	
-* Flow paths other than those which include a feature on the left side and a feature on the right side of the container will not layout correctly. To workaround this issue, it is recommended to adjust the location of the features.
 
 # Annotations and Documentation
 The following sections describe the graphical editors support for annotations and AADL documentation.

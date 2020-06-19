@@ -1,36 +1,25 @@
-/*
+/**
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * All Rights Reserved.
  *
- * <copyright>
- * Copyright  2012 by Carnegie Mellon University, all rights reserved.
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
  *
- * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
- * at http://www.eclipse.org/org/documents/epl-v10.html.
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
  *
- * NO WARRANTY
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
  *
- * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
- * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE "DELIVERABLES") ARE ON AN "AS-IS" BASIS.
- * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
- * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
- * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
- * CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
- * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
- * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
- * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- *
- * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
- * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
- * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
- * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
- * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
- * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- *
- * Carnegie Mellon Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
- * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
- * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
- * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
- * under the contract clause at 252.227.7013.
- * </copyright>
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.xtext.aadl2.properties.validation;
 
@@ -223,13 +212,19 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 								Aadl2Package.eINSTANCE.getArrayRange_LowerBound(), ARRAY_LOWER_BOUND_IS_ZERO);
 					}
 					// If the upper is zero, then we have an index. Otherwise, we have a range.
-					if (providedRange.getUpperBound() != 0
-							&& providedRange.getLowerBound() > providedRange.getUpperBound()) {
-						error("Range lower bound is greater than upper bound", providedRange, null,
-								ARRAY_RANGE_UPPER_LESS_THAN_LOWER);
+					if (providedRange.getUpperBound() != 0) {
+						if (providedRange.getLowerBound() > providedRange.getUpperBound()) {
+							error("Range lower bound is greater than upper bound", providedRange, null,
+									ARRAY_RANGE_UPPER_LESS_THAN_LOWER);
+						}
+						if (EcoreUtil2.getContainerOfType(pathElement, ReferenceValue.class) != null) {
+							warning(providedRange, "Array ranges in reference values are not property instantiated");
+						}
 					}
 					ArrayDimension requiredDimension = requiredDimensions.get(i);
-					if (requiredDimension.getSize() != null) {
+					if (requiredDimension.getSize() == null) {
+						error(providedRange, "'" + name + "' does not have an array size");
+					} else {
 						ArraySizeProperty sizeProperty = requiredDimension.getSize().getSizeProperty();
 						OptionalLong size = OptionalLong.empty();
 						/*
@@ -653,7 +648,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		EList<ModalPropertyValue> pvl = pa.getOwnedValues();
 		for (ModalPropertyValue modalPropertyValue : pvl) {
 			typeCheckPropertyValues(pt, modalPropertyValue.getOwnedValue(), modalPropertyValue.getOwnedValue(),
-					pdef.getQualifiedName());
+					pdef.getQualifiedName(), 0);
 		}
 		checkAssociationAppliesTo(pa);
 		checkInBinding(pa);
@@ -811,9 +806,11 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	 *            PropertyType or unresolved proxy or null
 	 * @param pv:
 	 *            PropertyExpression or null
+	 * @since 2.0
 	 */
-	protected void typeCheckPropertyValues(PropertyType pt, PropertyExpression pv, Element holder, String defName) {
-		typeCheckPropertyValues(pt, pv, "", holder, defName);
+	protected void typeCheckPropertyValues(PropertyType pt, PropertyExpression pv, Element holder, String defName,
+			int depth) {
+		typeCheckPropertyValues(pt, pv, "", holder, defName, depth);
 	}
 
 	/**
@@ -825,13 +822,19 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	 *            PropertyExpression or null
 	 * @param prefix:
 	 *            String prefix to error message used for lists
+	 * @since 2.0
 	 */
 	protected void typeCheckPropertyValues(PropertyType pt, PropertyExpression pv, String prefix, Element holder,
-			String defName) {
+			String defName, int depth) {
 
 		if (Aadl2Util.isNull(pt) || pv == null || holder == null) {
 			return;
 		}
+		if (depth > 50) {
+			error(holder, "Cyclic value discovered for '" + defName + "'");
+			return;
+		}
+		depth++;
 		String msg = " to property '" + defName + "' of type '" + pt.eClass().getName() + "'";
 		if (!prefix.isEmpty() && !prefix.startsWith(" ")) {
 			prefix = prefix + " ";
@@ -839,7 +842,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		if (pv instanceof ListValue) {
 			if (pt instanceof ListType) {
 				typeMatchListElements(((ListType) pt).getElementType(), ((ListValue) pv).getOwnedListElements(), holder,
-						defName);
+						defName, depth);
 			} else {
 				error(holder, prefix + "Assigning a list of values" + msg);
 			}
@@ -880,11 +883,11 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 				error(holder, prefix + "Assigning Range value" + msg);
 			} else {
 				typeCheckPropertyValues(((RangeType) pt).getNumberType(), ((RangeValue) pv).getMinimumValue(), holder,
-						defName);
+						defName, depth);
 				typeCheckPropertyValues(((RangeType) pt).getNumberType(), ((RangeValue) pv).getMaximumValue(), holder,
-						defName);
+						defName, depth);
 				typeCheckPropertyValues(((RangeType) pt).getNumberType(), ((RangeValue) pv).getDeltaValue(), holder,
-						defName);
+						defName, depth);
 			}
 		} else if (pv instanceof ClassifierValue) {
 			if (!(pt instanceof ClassifierType)) {
@@ -907,7 +910,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			if (!(pt instanceof RecordType)) {
 				error(holder, prefix + "Assigning Record value" + msg);
 			} else {
-				typeMatchRecordFields(((RecordValue) pv).getOwnedFieldValues(), holder, defName);
+				typeMatchRecordFields(((RecordValue) pv).getOwnedFieldValues(), holder, defName, depth);
 			}
 		} else if (pv instanceof ReferenceValue) {
 			if (!(pt instanceof ReferenceType)) {
@@ -932,11 +935,48 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		} else if (pv instanceof NamedValue) {
 			AbstractNamedValue nv = ((NamedValue) pv).getNamedValue();
 			if (nv instanceof PropertyConstant) {
-				typeCheckPropertyValues(pt, ((PropertyConstant) nv).getConstantValue(), holder, defName);
+				final PropertyConstant propertyConstant = (PropertyConstant) nv;
+				final PropertyType pct = propertyConstant.getPropertyType();
+				if (!Aadl2Util.isNull(pct) && !Aadl2Util.arePropertyTypesEqual(pt, pct)) {
+					final String expected = getTypeName(pt);
+					final String actual = getTypeName(pct);
+					if (actual != null) {
+						if (expected != null) {
+							error(holder, "Property value of type " + actual + "; expected type " + expected);
+						} else {
+							error(holder, "Propery value of type " + actual + " does not match expected type");
+						}
+					} else {
+						if (expected != null) {
+							error(holder, "Property value is not of expected type " + expected);
+						} else {
+							error(holder, "Propery value is not of expected type");
+						}
+					}
+				} else {
+					// Issue 2222: is this still really necessary?
+					typeCheckPropertyValues(pt, propertyConstant.getConstantValue(), holder, defName, depth);
+				}
 			} else if (nv instanceof Property) {
 				PropertyType pvt = ((Property) nv).getPropertyType();
-				if (!Aadl2Util.isNull(pvt) && pvt.eClass() != pt.eClass()) {
-					error(holder, "Assigning property of incorrect type" + msg);
+				if (!Aadl2Util.isNull(pvt)) {
+					if (pvt.eClass() != pt.eClass() || !Aadl2Util.arePropertyTypesEqual(pt, pvt)) {
+						final String expected = getTypeName(pt);
+						final String actual = getTypeName(pvt);
+						if (actual != null) {
+							if (expected != null) {
+								error(holder, "Property value of type " + actual + "; expected type " + expected);
+							} else {
+								error(holder, "Propery value of type " + actual + " does not match expected type");
+							}
+						} else {
+							if (expected != null) {
+								error(holder, "Property value is not of expected type " + expected);
+							} else {
+								error(holder, "Propery value is not of expected type");
+							}
+						}
+					}
 				}
 			} else {
 				error(holder, "Enum/Unit literal validation should have happened before");
@@ -944,17 +984,25 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		}
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	protected void typeMatchListElements(PropertyType pt, EList<PropertyExpression> pel, Element holder,
-			String defName) {
+			String defName, int depth) {
 		for (PropertyExpression propertyExpression : pel) {
-			typeCheckPropertyValues(pt, propertyExpression, "list element", holder, defName);
+			typeCheckPropertyValues(pt, propertyExpression, "list element", propertyExpression, defName, depth);
 		}
 	}
 
-	protected void typeMatchRecordFields(EList<BasicPropertyAssociation> rfl, Element holder, String defName) {
+	/**
+	 * @since 2.0
+	 */
+	protected void typeMatchRecordFields(EList<BasicPropertyAssociation> rfl, Element holder, String defName,
+			int depth) {
 		for (BasicPropertyAssociation field : rfl) {
 			if (field.getProperty() != null) {
-				typeCheckPropertyValues(field.getProperty().getPropertyType(), field.getValue(), holder, defName);
+				typeCheckPropertyValues(field.getProperty().getPropertyType(), field.getValue(), field.getValue(),
+						defName, depth);
 			}
 		}
 	}
@@ -1002,7 +1050,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			return true;
 		}
 	}
-	
+
 	private void checkInRange(NumberType type, NumberValue value) {
 		NumericRange range = type.getRange();
 		if (range != null) {
@@ -1128,4 +1176,26 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		info(message, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, null);
 	}
 
+	/**
+	 * Get the name of the type, if it has a user-declared name, otherwise returns {@code null}.  The
+	 * only special handing is of list types, where if the ultimate element type of the list has a name,
+	 * then all the "list of" prefixes are attached.  Otherwise if the ultimate element type has no name
+	 * the result is still {@code null}.
+	 */
+	private String getTypeName(final PropertyType pt) {
+		if (pt instanceof ListType) {
+			final String elementTypeName = getTypeName(((ListType) pt).getElementType());
+			if (elementTypeName != null) {
+				return "list of " + elementTypeName;
+			} else {
+				return null;
+			}
+		} else {
+			if (pt.hasName()) {
+				return ((PropertySet) pt.eContainer()).getName() + "::" + pt.getName();
+			} else {
+				return null;
+			}
+		}
+	}
 }

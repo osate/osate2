@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright © 2011 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -9,13 +9,13 @@
  * 
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
- * version 1.0 of the License, or (at your option) any later version. This
+ * version 2.0 of the License, or (at your option) any later version. This
  * program is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License for
  * more details. You should have received a copy of the Eclipse Public License
  * along with this program. If not, see
- * http://www.eclipse.org/org/documents/epl-v10.php
+ * https://www.eclipse.org/legal/epl-2.0/
  */
 package org.osate.ba.aadlba.impl;
 
@@ -39,6 +39,7 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.FactorImpl#getFirstValue <em>First Value</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.FactorImpl#getSecondValue <em>Second Value</em>}</li>
@@ -46,7 +47,6 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  *   <li>{@link org.osate.ba.aadlba.impl.FactorImpl#getUnaryNumericOperator <em>Unary Numeric Operator</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.FactorImpl#getUnaryBooleanOperator <em>Unary Boolean Operator</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -185,6 +185,7 @@ public class FactorImpl extends BehaviorElementImpl implements Factor
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Value getFirstValue()
   {
     return firstValue;
@@ -212,6 +213,7 @@ public class FactorImpl extends BehaviorElementImpl implements Factor
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setFirstValue(Value newFirstValue)
   {
     if (newFirstValue != firstValue)
@@ -233,6 +235,7 @@ public class FactorImpl extends BehaviorElementImpl implements Factor
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Value getSecondValue()
   {
     return secondValue;
@@ -260,6 +263,7 @@ public class FactorImpl extends BehaviorElementImpl implements Factor
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setSecondValue(Value newSecondValue)
   {
     if (newSecondValue != secondValue)
@@ -281,6 +285,7 @@ public class FactorImpl extends BehaviorElementImpl implements Factor
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BinaryNumericOperator getBinaryNumericOperator()
   {
     return binaryNumericOperator;
@@ -291,6 +296,7 @@ public class FactorImpl extends BehaviorElementImpl implements Factor
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setBinaryNumericOperator(BinaryNumericOperator newBinaryNumericOperator)
   {
     BinaryNumericOperator oldBinaryNumericOperator = binaryNumericOperator;
@@ -306,6 +312,7 @@ public class FactorImpl extends BehaviorElementImpl implements Factor
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetBinaryNumericOperator()
   {
     BinaryNumericOperator oldBinaryNumericOperator = binaryNumericOperator;
@@ -321,6 +328,7 @@ public class FactorImpl extends BehaviorElementImpl implements Factor
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetBinaryNumericOperator()
   {
     return binaryNumericOperatorESet;
@@ -331,6 +339,7 @@ public class FactorImpl extends BehaviorElementImpl implements Factor
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public UnaryNumericOperator getUnaryNumericOperator()
   {
     return unaryNumericOperator;
@@ -341,6 +350,7 @@ public class FactorImpl extends BehaviorElementImpl implements Factor
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setUnaryNumericOperator(UnaryNumericOperator newUnaryNumericOperator)
   {
     UnaryNumericOperator oldUnaryNumericOperator = unaryNumericOperator;
@@ -356,6 +366,7 @@ public class FactorImpl extends BehaviorElementImpl implements Factor
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetUnaryNumericOperator()
   {
     UnaryNumericOperator oldUnaryNumericOperator = unaryNumericOperator;
@@ -371,6 +382,7 @@ public class FactorImpl extends BehaviorElementImpl implements Factor
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetUnaryNumericOperator()
   {
     return unaryNumericOperatorESet;
@@ -381,6 +393,7 @@ public class FactorImpl extends BehaviorElementImpl implements Factor
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public UnaryBooleanOperator getUnaryBooleanOperator()
   {
     return unaryBooleanOperator;
@@ -391,6 +404,7 @@ public class FactorImpl extends BehaviorElementImpl implements Factor
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setUnaryBooleanOperator(UnaryBooleanOperator newUnaryBooleanOperator)
   {
     UnaryBooleanOperator oldUnaryBooleanOperator = unaryBooleanOperator;
@@ -406,6 +420,7 @@ public class FactorImpl extends BehaviorElementImpl implements Factor
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetUnaryBooleanOperator()
   {
     UnaryBooleanOperator oldUnaryBooleanOperator = unaryBooleanOperator;
@@ -421,6 +436,7 @@ public class FactorImpl extends BehaviorElementImpl implements Factor
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetUnaryBooleanOperator()
   {
     return unaryBooleanOperatorESet;
@@ -560,7 +576,7 @@ public class FactorImpl extends BehaviorElementImpl implements Factor
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (binaryNumericOperator: ");
     if (binaryNumericOperatorESet) result.append(binaryNumericOperator); else result.append("<unset>");
     result.append(", unaryNumericOperator: ");

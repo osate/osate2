@@ -1,41 +1,25 @@
-/*
- * Created on Jan 30, 2004
+/**
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * All Rights Reserved.
  *
- * <copyright>
- * Copyright  2004 by Carnegie Mellon University, all rights reserved.
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
  *
- * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
- * at http://www.eclipse.org/legal/cpl-v10.html.
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
  *
- * NO WARRANTY
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
  *
- * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
- * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE "DELIVERABLES") ARE ON AN "AS-IS" BASIS.
- * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
- * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
- * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
- * CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
- * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
- * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
- * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- *
- * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
- * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
- * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
- * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
- * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
- * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- *
- * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
- * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
- * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
- * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
- * under the contract clause at 252.227.7013.
- *
- * </copyright>
- *
- * $Id: InstantiateModel.java,v 1.190 2010-05-12 20:09:29 lwrage Exp $
- *
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.aadl2.instantiation;
 
@@ -56,7 +40,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
@@ -243,14 +229,16 @@ public class InstantiateModel {
 		if (file != null && file.isAccessible()) {
 			file.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
 		}
-		Resource aadlResource = new ResourceSetImpl().createResource(instanceURI);
+		ResourceSet resourceSet = new ResourceSetImpl();
+		Resource aadlResource = resourceSet.createResource(instanceURI);
 		aadlResource.save(null);
 		aadlResource.unload();
 
 		// now instantiate the rest of the model
 		final InstantiateModel instantiateModel = new InstantiateModel(monitor, new AnalysisErrorReporterManager(
 				new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
-		return instantiateModel.createSystemInstance(ci, aadlResource);
+		return instantiateModel.createSystemInstance(
+				(ComponentImplementation) resourceSet.getEObject(EcoreUtil.getURI(ci), true), aadlResource);
 	}
 
 	public static SystemInstance buildInstanceModelFile(ComponentImplementation ci) throws Exception {
@@ -306,6 +294,21 @@ public class InstantiateModel {
 	 * @return SystemInstance or <code>null</code> if cancelled.
 	 */
 	public static SystemInstance rebuildInstanceModelFile(final IResource ires) throws Exception {
+		return rebuildInstanceModelFile(ires, new NullProgressMonitor());
+	}
+
+	/**
+	 * This method will construct an instance model, save it on disk and return
+	 * its root object The method will make sure the declarative models are up
+	 * to date.
+	 *
+	 * @param si system implementation
+	 *
+	 * @return SystemInstance or <code>null</code> if cancelled.
+	 * @since 1.1
+	 */
+	public static SystemInstance rebuildInstanceModelFile(final IResource ires, final IProgressMonitor monitor)
+			throws Exception {
 		ires.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
 		ResourceSet rset = new ResourceSetImpl();
 		Resource res = rset.getResource(OsateResourceUtil.toResourceURI(ires), true);
@@ -316,9 +319,12 @@ public class InstantiateModel {
 		res.save(null);
 		res.unload();
 		ci = (ComponentImplementation) rset.getEObject(uri, true);
-		final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
-				new AnalysisErrorReporterManager(
-						new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
+		if (ci == null) {
+			// The root component instance doesn't exist anymore
+			throw new RootMissingException();
+		}
+		final InstantiateModel instantiateModel = new InstantiateModel(monitor, new AnalysisErrorReporterManager(
+				new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 		SystemInstance root = instantiateModel.createSystemInstance(ci, res);
 
 		return root;
@@ -378,8 +384,9 @@ public class InstantiateModel {
 			monitor.subTask("Saving instance model");
 			aadlResource.save(null);
 		} catch (IOException e) {
-			e.printStackTrace();
-			setErrorMessage(e.getMessage());
+			InstancePlugin.log(new Status(IStatus.ERROR, InstancePlugin.getPluginId(), IStatus.OK,
+					"Exception during instantiation", e));
+			setErrorMessage("Exception during instantiation, see error log");
 			return null;
 		}
 
@@ -411,33 +418,13 @@ public class InstantiateModel {
 			if (save) {
 				aadlResource.save(null);
 			}
-
-			try {
-				fillSystemInstance(root);
-			} catch (InterruptedException e) {
-				throw e;
-			} catch (Exception e) {
-				InstantiateModel.setErrorMessage(e.getMessage());
-				e.printStackTrace();
-				return null;
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			setErrorMessage(e.getMessage());
-			return null;
-		} catch (NullPointerException npe) {
-			npe.printStackTrace();
-			setErrorMessage(npe.getMessage());
-
-			npe.getMessage();
-			return null;
+			fillSystemInstance(root);
 		} catch (InterruptedException e) {
 			throw e;
 		} catch (Exception e) {
-			e.printStackTrace();
-			errorMessage = e.getMessage();
-
-			e.getMessage();
+			InstancePlugin.log(new Status(IStatus.ERROR, InstancePlugin.getPluginId(), IStatus.OK,
+					"Exception during instantiation", e));
+			setErrorMessage("Exception during instantiation, see error log");
 			return null;
 		}
 		return root;
@@ -475,23 +462,13 @@ public class InstantiateModel {
 			throw new InterruptedException();
 		}
 
-		/*
-		 * XXX: Currently, there are no annexes that use instantiation. If a
-		 * case is found, then this code needs to be moved elsewhere, such as
-		 * the UI action code that calls the regular instantiator. If this code
-		 * were to be left here, it would case a circular plugin dependency. The
-		 * annex plugin currently depends on the instance plugin because
-		 * AnnexInstantiationController needs to use InstanceUtil. Uncommenting
-		 * this code and leaving it in place would cause the instance plugin to
-		 * depend on the annex plugin.
-		 */
-//		// instantiation of annexes
-//		monitor.subTask("Instantiating annexes");
-//		AnnexInstantiationController aic = new AnnexInstantiationController();
-//		aic.instantiateAllAnnexes(root);
-//		if (monitor.isCanceled()) {
-//			return null;
-//		}
+		// instantiation of annexes
+		monitor.subTask("Instantiating annexes");
+		AnnexInstantiationController aic = new AnnexInstantiationController();
+		aic.instantiateAllAnnexes(root);
+		if (monitor.isCanceled()) {
+			throw new InterruptedException();
+		}
 
 		getUsedPropertyDefinitions(root);
 		// handle connection patterns
@@ -508,7 +485,6 @@ public class InstantiateModel {
 //					.getSOMasModeBindings(), cpas.getSemanticConnectionProperties(), errManager);
 //			semanticsSwitch.processPostOrderAll(root);
 //		}
-		return;
 	}
 
 	/*
@@ -524,8 +500,9 @@ public class InstantiateModel {
 		String last = modeluri.lastSegment();
 		String filename = last.substring(0, last.indexOf('.'));
 		URI path = modeluri.trimSegments(1);
-		URI instanceURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR).appendSegment(filename + "_"
-				+ ci.getTypeName() + "_" + ci.getImplementationName() + WorkspacePlugin.INSTANCE_MODEL_POSTFIX);
+		URI instanceURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR)
+				.appendSegment(filename + "_" + ci.getTypeName() + "_" + ci.getImplementationName()
+						+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX);
 		instanceURI = instanceURI.appendFileExtension(WorkspacePlugin.INSTANCE_FILE_EXT);
 		return instanceURI;
 	}
@@ -823,7 +800,7 @@ public class InstantiateModel {
 		if (ic == null) {
 			cc = null;
 		} else {
-			cc = (ComponentClassifier) ic.classifier;
+			cc = (ComponentClassifier) ic.getClassifier();
 		}
 		if (cc == null) {
 			errManager.warning(newInstance, "Instantiated subcomponent doesn't have a component classifier");
@@ -953,7 +930,7 @@ public class InstantiateModel {
 	 * Add feature instances to component instance
 	 */
 	protected void instantiateFeatures(final ComponentInstance ci) throws InterruptedException {
-		for (final Feature feature : getInstantiatedClassifier(ci).classifier.getAllFeatures()) {
+		for (final Feature feature : getInstantiatedClassifier(ci).getClassifier().getAllFeatures()) {
 			if (monitor.isCanceled()) {
 				throw new InterruptedException();
 			}
@@ -1107,16 +1084,16 @@ public class InstantiateModel {
 			inverse ^= fg.isInverse();
 
 			InstantiatedClassifier ic = getInstantiatedClassifier(fi);
-			if (ic.classifier == null) {
+			if (ic.getClassifier() == null) {
 				errManager.error(fi, "Could not resolve feature group type of feature group prototype "
 						+ fi.getInstanceObjectPath());
 				return;
-			} else if (ic.bindings != null && ic.bindings.isEmpty()) {
+			} else if (ic.getBindings() != null && ic.getBindings().isEmpty()) {
 				// prototype has not been bound yet
 				errManager.warning(fi, "Feature group prototype  of " + fi.getInstanceObjectPath()
 						+ " is not bound yet to feature group type");
 			}
-			FeatureGroupType fgt = (FeatureGroupType) ic.classifier;
+			FeatureGroupType fgt = (FeatureGroupType) ic.getClassifier();
 
 			List<Feature> localFeatures = fgt.getOwnedFeatures();
 			final FeatureGroupType inverseFgt = fgt.getInverse();
@@ -1577,8 +1554,9 @@ public class InstantiateModel {
 
 	private PropertyAssociation getPA(ConnectionInstance conni, String name) {
 		for (PropertyAssociation pa : conni.getOwnedPropertyAssociations()) {
-			if (pa.getProperty().getName().equalsIgnoreCase(name) && ((PropertySet) pa.getProperty().getOwner())
-					.getName().equalsIgnoreCase("Communication_Properties")) {
+			if (pa.getProperty().getName().equalsIgnoreCase(name)
+					&& ((PropertySet) pa.getProperty().getOwner()).getName()
+							.equalsIgnoreCase("Communication_Properties")) {
 				return pa;
 			}
 		}
@@ -2076,10 +2054,10 @@ public class InstantiateModel {
 			if (elem instanceof ComponentInstance) {
 				InstantiatedClassifier ic = getInstantiatedClassifier((ComponentInstance) elem);
 				if (ic != null) {
-					if (ic.classifier.equals(root.getComponentImplementation())) {
-						addUsedProperties(root, ic.classifier, result, false);
+					if (ic.getClassifier().equals(root.getComponentImplementation())) {
+						addUsedProperties(root, ic.getClassifier(), result, false);
 					} else {
-						addUsedProperties(root, ic.classifier, result);
+						addUsedProperties(root, ic.getClassifier(), result);
 					}
 				}
 			} else if (elem instanceof FeatureInstance) {

@@ -1,37 +1,25 @@
 /**
- * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * All Rights Reserved.
  *
- * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
- * at http://www.eclipse.org/org/documents/epl-v10.html.
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
  *
- * NO WARRANTY
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
  *
- * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
- * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE "DELIVERABLES") ARE ON AN "AS-IS" BASIS.
- * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
- * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
- * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
- * CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
- * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
- * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
- * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
  *
- * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
- * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
- * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
- * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
- * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
- * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- *
- * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
- * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
- * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
- * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
- * under the contract clause at 252.227.7013.
- * </copyright>
- *
- * $Id: Aadl2Switch.java,v 1.90 2011-04-11 13:35:56 lwrage Exp $
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.aadl2.util;
 
@@ -82,7 +70,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @return whether this is a switch for the given package.
 	 * @generated
 	 */
-	@Override
 	protected boolean isSwitchFor(EPackage ePackage) {
 		return ePackage == modelPackage;
 	}
@@ -94,7 +81,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
 		case Aadl2Package.ELEMENT: {
@@ -1423,16 +1409,30 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(dataSubcomponentType);
 			}
 			if (result == null) {
-				result = caseFeatureClassifier(dataSubcomponentType);
+				result = caseAbstractFeatureClassifier(dataSubcomponentType);
 			}
 			if (result == null) {
 				result = caseType(dataSubcomponentType);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(dataSubcomponentType);
 			}
 			if (result == null) {
 				result = caseNamedElement(dataSubcomponentType);
 			}
 			if (result == null) {
 				result = caseElement(dataSubcomponentType);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
+		case Aadl2Package.ABSTRACT_FEATURE_CLASSIFIER: {
+			AbstractFeatureClassifier abstractFeatureClassifier = (AbstractFeatureClassifier) theEObject;
+			T result = caseAbstractFeatureClassifier(abstractFeatureClassifier);
+			if (result == null) {
+				result = caseFeatureClassifier(abstractFeatureClassifier);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -1734,10 +1734,13 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(subprogramSubcomponentType);
 			}
 			if (result == null) {
-				result = caseFeatureClassifier(subprogramSubcomponentType);
+				result = caseAbstractFeatureClassifier(subprogramSubcomponentType);
 			}
 			if (result == null) {
 				result = caseType(subprogramSubcomponentType);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(subprogramSubcomponentType);
 			}
 			if (result == null) {
 				result = caseNamedElement(subprogramSubcomponentType);
@@ -1801,10 +1804,13 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(subprogramGroupSubcomponentType);
 			}
 			if (result == null) {
-				result = caseFeatureClassifier(subprogramGroupSubcomponentType);
+				result = caseAbstractFeatureClassifier(subprogramGroupSubcomponentType);
 			}
 			if (result == null) {
 				result = caseType(subprogramGroupSubcomponentType);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(subprogramGroupSubcomponentType);
 			}
 			if (result == null) {
 				result = caseNamedElement(subprogramGroupSubcomponentType);
@@ -2205,7 +2211,13 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(abstractSubcomponentType);
 			}
 			if (result == null) {
+				result = caseAbstractFeatureClassifier(abstractSubcomponentType);
+			}
+			if (result == null) {
 				result = caseType(abstractSubcomponentType);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(abstractSubcomponentType);
 			}
 			if (result == null) {
 				result = caseNamedElement(abstractSubcomponentType);
@@ -2561,13 +2573,16 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(dataClassifier);
 			}
 			if (result == null) {
-				result = caseFeatureClassifier(dataClassifier);
+				result = caseAbstractFeatureClassifier(dataClassifier);
 			}
 			if (result == null) {
 				result = caseNamespace(dataClassifier);
 			}
 			if (result == null) {
 				result = caseType(dataClassifier);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(dataClassifier);
 			}
 			if (result == null) {
 				result = caseNamedElement(dataClassifier);
@@ -2686,16 +2701,19 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(subprogramClassifier);
 			}
 			if (result == null) {
-				result = caseFeatureClassifier(subprogramClassifier);
+				result = caseCalledSubprogram(subprogramClassifier);
 			}
 			if (result == null) {
-				result = caseCalledSubprogram(subprogramClassifier);
+				result = caseAbstractFeatureClassifier(subprogramClassifier);
 			}
 			if (result == null) {
 				result = caseNamespace(subprogramClassifier);
 			}
 			if (result == null) {
 				result = caseType(subprogramClassifier);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(subprogramClassifier);
 			}
 			if (result == null) {
 				result = caseNamedElement(subprogramClassifier);
@@ -3192,6 +3210,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(abstractType);
 			}
 			if (result == null) {
+				result = caseAbstractFeatureClassifier(abstractType);
+			}
+			if (result == null) {
 				result = caseBusFeatureClassifier(abstractType);
 			}
 			if (result == null) {
@@ -3272,6 +3293,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(abstractClassifier);
 			}
 			if (result == null) {
+				result = caseAbstractFeatureClassifier(abstractClassifier);
+			}
+			if (result == null) {
 				result = caseBusFeatureClassifier(abstractClassifier);
 			}
 			if (result == null) {
@@ -3319,6 +3343,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 			T result = caseVirtualBusSubcomponentType(virtualBusSubcomponentType);
 			if (result == null) {
 				result = caseSubcomponentType(virtualBusSubcomponentType);
+			}
+			if (result == null) {
+				result = caseAbstractFeatureClassifier(virtualBusSubcomponentType);
 			}
 			if (result == null) {
 				result = caseBusFeatureClassifier(virtualBusSubcomponentType);
@@ -3467,6 +3494,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(busSubcomponentType);
 			}
 			if (result == null) {
+				result = caseAbstractFeatureClassifier(busSubcomponentType);
+			}
+			if (result == null) {
 				result = caseBusFeatureClassifier(busSubcomponentType);
 			}
 			if (result == null) {
@@ -3565,6 +3595,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseComponentClassifier(abstractImplementation);
+			}
+			if (result == null) {
+				result = caseAbstractFeatureClassifier(abstractImplementation);
 			}
 			if (result == null) {
 				result = caseBusFeatureClassifier(abstractImplementation);
@@ -4421,6 +4454,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(abstractPrototype);
 			}
 			if (result == null) {
+				result = caseAbstractFeatureClassifier(abstractPrototype);
+			}
+			if (result == null) {
 				result = caseBusFeatureClassifier(abstractPrototype);
 			}
 			if (result == null) {
@@ -4471,6 +4507,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(busClassifier);
 			}
 			if (result == null) {
+				result = caseAbstractFeatureClassifier(busClassifier);
+			}
+			if (result == null) {
 				result = caseBusFeatureClassifier(busClassifier);
 			}
 			if (result == null) {
@@ -4516,6 +4555,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseSubcomponentType(busType);
+			}
+			if (result == null) {
+				result = caseAbstractFeatureClassifier(busType);
 			}
 			if (result == null) {
 				result = caseBusFeatureClassifier(busType);
@@ -4565,6 +4607,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(busImplementation);
 			}
 			if (result == null) {
+				result = caseAbstractFeatureClassifier(busImplementation);
+			}
+			if (result == null) {
 				result = caseBusFeatureClassifier(busImplementation);
 			}
 			if (result == null) {
@@ -4604,6 +4649,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseSubcomponentType(busPrototype);
+			}
+			if (result == null) {
+				result = caseAbstractFeatureClassifier(busPrototype);
 			}
 			if (result == null) {
 				result = caseBusFeatureClassifier(busPrototype);
@@ -4665,13 +4713,16 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(dataType);
 			}
 			if (result == null) {
-				result = caseFeatureClassifier(dataType);
+				result = caseAbstractFeatureClassifier(dataType);
 			}
 			if (result == null) {
 				result = caseNamespace(dataType);
 			}
 			if (result == null) {
 				result = caseType(dataType);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(dataType);
 			}
 			if (result == null) {
 				result = caseNamedElement(dataType);
@@ -4709,13 +4760,16 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(dataImplementation);
 			}
 			if (result == null) {
-				result = caseFeatureClassifier(dataImplementation);
+				result = caseAbstractFeatureClassifier(dataImplementation);
 			}
 			if (result == null) {
 				result = caseNamespace(dataImplementation);
 			}
 			if (result == null) {
 				result = caseType(dataImplementation);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(dataImplementation);
 			}
 			if (result == null) {
 				result = caseNamedElement(dataImplementation);
@@ -4747,7 +4801,7 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(dataPrototype);
 			}
 			if (result == null) {
-				result = caseFeatureClassifier(dataPrototype);
+				result = caseAbstractFeatureClassifier(dataPrototype);
 			}
 			if (result == null) {
 				result = caseStructuralFeature(dataPrototype);
@@ -4757,6 +4811,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseType(dataPrototype);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(dataPrototype);
 			}
 			if (result == null) {
 				result = caseRefinableElement(dataPrototype);
@@ -5149,16 +5206,19 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(subprogramType);
 			}
 			if (result == null) {
-				result = caseFeatureClassifier(subprogramType);
+				result = caseCalledSubprogram(subprogramType);
 			}
 			if (result == null) {
-				result = caseCalledSubprogram(subprogramType);
+				result = caseAbstractFeatureClassifier(subprogramType);
 			}
 			if (result == null) {
 				result = caseNamespace(subprogramType);
 			}
 			if (result == null) {
 				result = caseType(subprogramType);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(subprogramType);
 			}
 			if (result == null) {
 				result = caseNamedElement(subprogramType);
@@ -5194,6 +5254,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseCalledSubprogram(subprogramImplementation);
+			}
+			if (result == null) {
+				result = caseAbstractFeatureClassifier(subprogramImplementation);
 			}
 			if (result == null) {
 				result = caseClassifier(subprogramImplementation);
@@ -5240,7 +5303,7 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(subprogramPrototype);
 			}
 			if (result == null) {
-				result = caseFeatureClassifier(subprogramPrototype);
+				result = caseAbstractFeatureClassifier(subprogramPrototype);
 			}
 			if (result == null) {
 				result = caseStructuralFeature(subprogramPrototype);
@@ -5250,6 +5313,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseType(subprogramPrototype);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(subprogramPrototype);
 			}
 			if (result == null) {
 				result = caseRefinableElement(subprogramPrototype);
@@ -5287,13 +5353,16 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(subprogramGroupClassifier);
 			}
 			if (result == null) {
-				result = caseFeatureClassifier(subprogramGroupClassifier);
+				result = caseAbstractFeatureClassifier(subprogramGroupClassifier);
 			}
 			if (result == null) {
 				result = caseNamespace(subprogramGroupClassifier);
 			}
 			if (result == null) {
 				result = caseType(subprogramGroupClassifier);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(subprogramGroupClassifier);
 			}
 			if (result == null) {
 				result = caseNamedElement(subprogramGroupClassifier);
@@ -5334,13 +5403,16 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(subprogramGroupType);
 			}
 			if (result == null) {
-				result = caseFeatureClassifier(subprogramGroupType);
+				result = caseAbstractFeatureClassifier(subprogramGroupType);
 			}
 			if (result == null) {
 				result = caseNamespace(subprogramGroupType);
 			}
 			if (result == null) {
 				result = caseType(subprogramGroupType);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(subprogramGroupType);
 			}
 			if (result == null) {
 				result = caseNamedElement(subprogramGroupType);
@@ -5378,13 +5450,16 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(subprogramGroupImplementation);
 			}
 			if (result == null) {
-				result = caseFeatureClassifier(subprogramGroupImplementation);
+				result = caseAbstractFeatureClassifier(subprogramGroupImplementation);
 			}
 			if (result == null) {
 				result = caseNamespace(subprogramGroupImplementation);
 			}
 			if (result == null) {
 				result = caseType(subprogramGroupImplementation);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(subprogramGroupImplementation);
 			}
 			if (result == null) {
 				result = caseNamedElement(subprogramGroupImplementation);
@@ -5416,7 +5491,7 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(subprogramGroupPrototype);
 			}
 			if (result == null) {
-				result = caseFeatureClassifier(subprogramGroupPrototype);
+				result = caseAbstractFeatureClassifier(subprogramGroupPrototype);
 			}
 			if (result == null) {
 				result = caseStructuralFeature(subprogramGroupPrototype);
@@ -5426,6 +5501,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseType(subprogramGroupPrototype);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(subprogramGroupPrototype);
 			}
 			if (result == null) {
 				result = caseRefinableElement(subprogramGroupPrototype);
@@ -6331,6 +6409,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(virtualBusClassifier);
 			}
 			if (result == null) {
+				result = caseAbstractFeatureClassifier(virtualBusClassifier);
+			}
+			if (result == null) {
 				result = caseBusFeatureClassifier(virtualBusClassifier);
 			}
 			if (result == null) {
@@ -6376,6 +6457,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseSubcomponentType(virtualBusType);
+			}
+			if (result == null) {
+				result = caseAbstractFeatureClassifier(virtualBusType);
 			}
 			if (result == null) {
 				result = caseBusFeatureClassifier(virtualBusType);
@@ -6425,6 +6509,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(virtualBusImplementation);
 			}
 			if (result == null) {
+				result = caseAbstractFeatureClassifier(virtualBusImplementation);
+			}
+			if (result == null) {
 				result = caseBusFeatureClassifier(virtualBusImplementation);
 			}
 			if (result == null) {
@@ -6464,6 +6551,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseSubcomponentType(virtualBusPrototype);
+			}
+			if (result == null) {
+				result = caseAbstractFeatureClassifier(virtualBusPrototype);
 			}
 			if (result == null) {
 				result = caseBusFeatureClassifier(virtualBusPrototype);
@@ -9182,6 +9272,22 @@ public class Aadl2Switch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Abstract Feature Classifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * @since 3.0
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Abstract Feature Classifier</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAbstractFeatureClassifier(AbstractFeatureClassifier object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Data</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -11277,7 +11383,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
 	 */
-	@Override
 	public T defaultCase(EObject object) {
 		return null;
 	}

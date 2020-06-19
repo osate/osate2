@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright © 2011 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -9,13 +9,13 @@
  * 
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
- * version 1.0 of the License, or (at your option) any later version. This
+ * version 2.0 of the License, or (at your option) any later version. This
  * program is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License for
  * more details. You should have received a copy of the Eclipse Public License
  * along with this program. If not, see
- * http://www.eclipse.org/org/documents/epl-v10.php
+ * https://www.eclipse.org/legal/epl-2.0/
  */
 package org.osate.ba.aadlba;
 
@@ -163,6 +163,8 @@ public enum LogicalOperator implements Enumerator
    * Returns the '<em><b>Logical Operator</b></em>' literal with the specified literal value.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
+   * @param literal the literal.
+   * @return the matching enumerator or <code>null</code>.
    * @generated
    */
   public static LogicalOperator get(String literal)
@@ -182,6 +184,8 @@ public enum LogicalOperator implements Enumerator
    * Returns the '<em><b>Logical Operator</b></em>' literal with the specified name.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
+   * @param name the name.
+   * @return the matching enumerator or <code>null</code>.
    * @generated
    */
   public static LogicalOperator getByName(String name)
@@ -201,6 +205,8 @@ public enum LogicalOperator implements Enumerator
    * Returns the '<em><b>Logical Operator</b></em>' literal with the specified integer value.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
+   * @param value the integer value.
+   * @return the matching enumerator or <code>null</code>.
    * @generated
    */
   public static LogicalOperator get(int value)
@@ -254,6 +260,7 @@ public enum LogicalOperator implements Enumerator
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public int getValue()
   {
     return value;
@@ -264,6 +271,7 @@ public enum LogicalOperator implements Enumerator
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getName()
   {
     return name;
@@ -274,6 +282,7 @@ public enum LogicalOperator implements Enumerator
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getLiteral()
   {
     return literal;

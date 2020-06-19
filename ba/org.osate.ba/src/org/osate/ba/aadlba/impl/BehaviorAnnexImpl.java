@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright © 2011 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -9,19 +9,19 @@
  * 
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
- * version 1.0 of the License, or (at your option) any later version. This
+ * version 2.0 of the License, or (at your option) any later version. This
  * program is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License for
  * more details. You should have received a copy of the Eclipse Public License
  * along with this program. If not, see
- * http://www.eclipse.org/org/documents/epl-v10.php
+ * https://www.eclipse.org/legal/epl-2.0/
  */
 package org.osate.ba.aadlba.impl;
 
 import java.util.Collection ;
-import java.util.HashMap ;
 import java.util.Map ;
+import java.util.WeakHashMap ;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain ;
@@ -52,6 +52,7 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorAnnexImpl#getVariables <em>Variables</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorAnnexImpl#getStates <em>States</em>}</li>
@@ -60,7 +61,6 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorAnnexImpl#getConditions <em>Conditions</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.BehaviorAnnexImpl#getInitialState <em>Initial State</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -152,6 +152,7 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<BehaviorVariable> getVariables()
   {
     if (variables == null)
@@ -166,9 +167,13 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetVariables()
   {
-    if (variables != null) ((InternalEList.Unsettable<?>)variables).unset();
+    if (variables != null)
+    {
+      ((InternalEList.Unsettable<?>)variables).unset();
+    }
   }
 
   /**
@@ -176,6 +181,7 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetVariables()
   {
     return variables != null && ((InternalEList.Unsettable<?>)variables).isSet();
@@ -186,6 +192,7 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<BehaviorState> getStates()
   {
     if (states == null)
@@ -200,9 +207,13 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetStates()
   {
-    if (states != null) ((InternalEList.Unsettable<?>)states).unset();
+    if (states != null)
+    {
+      ((InternalEList.Unsettable<?>)states).unset();
+    }
   }
 
   /**
@@ -210,6 +221,7 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetStates()
   {
     return states != null && ((InternalEList.Unsettable<?>)states).isSet();
@@ -220,6 +232,7 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<BehaviorTransition> getTransitions()
   {
     if (transitions == null)
@@ -234,9 +247,13 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetTransitions()
   {
-    if (transitions != null) ((InternalEList.Unsettable<?>)transitions).unset();
+    if (transitions != null)
+    {
+      ((InternalEList.Unsettable<?>)transitions).unset();
+    }
   }
 
   /**
@@ -244,6 +261,7 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetTransitions()
   {
     return transitions != null && ((InternalEList.Unsettable<?>)transitions).isSet();
@@ -254,6 +272,7 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<BehaviorActionBlock> getActions()
   {
     if (actions == null)
@@ -268,6 +287,7 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<BehaviorCondition> getConditions()
   {
     if (conditions == null)
@@ -282,6 +302,7 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BehaviorState getInitialState()
   {
     if (initialState != null && ((EObject)initialState).eIsProxy())
@@ -291,7 +312,9 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
       if (initialState != oldInitialState)
       {
         if (eNotificationRequired())
+        {
           eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_ANNEX__INITIAL_STATE, oldInitialState, initialState));
+        }
       }
     }
     return initialState;
@@ -312,12 +335,15 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setInitialState(BehaviorState newInitialState)
   {
     BehaviorState oldInitialState = initialState;
     initialState = newInitialState;
     if (eNotificationRequired())
+    {
       eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_ANNEX__INITIAL_STATE, oldInitialState, initialState));
+    }
   }
 
   /**
@@ -365,7 +391,10 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
       case AadlBaPackage.BEHAVIOR_ANNEX__CONDITIONS:
         return getConditions();
       case AadlBaPackage.BEHAVIOR_ANNEX__INITIAL_STATE:
-        if (resolve) return getInitialState();
+        if (resolve)
+        {
+          return getInitialState();
+        }
         return basicGetInitialState();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -477,16 +506,17 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
    * @generated NOT
    */
   
-  private Map<AadlBaLocationReference, Element> _links = new HashMap
+  private Map<AadlBaLocationReference, Element> _links = new WeakHashMap
           <AadlBaLocationReference, Element>() ;
   
+  @Override
   public Map<AadlBaLocationReference, Element> getLinks()
   {
     return _links;
   }
   
   private Map<BehaviorAnnex, AadlBaHighlighter> _annexHighlighters = 
-       new HashMap<BehaviorAnnex, AadlBaHighlighter>();
+       new WeakHashMap<BehaviorAnnex, AadlBaHighlighter>();
  
   public Map<BehaviorAnnex, AadlBaHighlighter> getHighlighters()
   {

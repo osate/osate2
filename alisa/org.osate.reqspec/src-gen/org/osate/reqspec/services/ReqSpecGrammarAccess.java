@@ -1,17 +1,25 @@
 /**
- * Copyright 2015 Carnegie Mellon University. All Rights Reserved.
- *
- * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING INSTITUTE
- * MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO
- * WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING,
- * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY,
- * EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON
- * UNIVERSITY DOES NOT MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM
- * PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- *
- * Released under the Eclipse Public License (http://www.eclipse.org/org/documents/epl-v10.php)
- *
- * See COPYRIGHT file for full details.
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.reqspec.services;
 
@@ -244,13 +252,13 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getTitleSTRINGTerminalRuleCall_3_1_0() { return cTitleSTRINGTerminalRuleCall_3_1_0; }
 
-		//'for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+)
+		//('for' (target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+))
 		public Group getGroup_4() { return cGroup_4; }
 
 		//'for'
 		public Keyword getForKeyword_4_0() { return cForKeyword_4_0; }
 
-		//target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+
+		//(target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+)
 		public Alternatives getAlternatives_4_1() { return cAlternatives_4_1; }
 
 		//target=[aadl2::ComponentClassifier|AadlClassifierReference]
@@ -289,8 +297,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//'['
 		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
 
-		//description=Description? & constants+=ValDeclaration* & goals+=Goal* & ('see' 'document'
-		//docReference+=ExternalDocument+)? & ('issues' issues+=STRING+)?
+		//(description=Description? & constants+=ValDeclaration* & goals+=Goal* & ('see' 'document'
+		//docReference+=ExternalDocument+)? & ('issues' issues+=STRING+)?)
 		public UnorderedGroup getUnorderedGroup_7() { return cUnorderedGroup_7; }
 
 		//description=Description?
@@ -409,8 +417,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//'['
 		public Keyword getLeftSquareBracketKeyword_3() { return cLeftSquareBracketKeyword_3; }
 
-		//description=Description? & content+=(DocGoal | DocRequirement | DocumentSection)* & ('see' 'document'
-		//docReference+=ExternalDocument+)? & ('issues' issues+=STRING+)?
+		//(description=Description? & content+=(DocGoal | DocRequirement | DocumentSection)* & ('see' 'document'
+		//docReference+=ExternalDocument+)? & ('issues' issues+=STRING+)?)
 		public UnorderedGroup getUnorderedGroup_4() { return cUnorderedGroup_4; }
 
 		//description=Description?
@@ -504,7 +512,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//'section'
 		public Keyword getSectionKeyword_0() { return cSectionKeyword_0; }
 
-		//label=ID (':' title=STRING)? | title=STRING
+		//(label=ID (':' title=STRING)? | title=STRING)
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
 		//label=ID (':' title=STRING)?
@@ -537,7 +545,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//'['
 		public Keyword getLeftSquareBracketKeyword_2() { return cLeftSquareBracketKeyword_2; }
 
-		//description=Description? & content+=(DocGoal | DocRequirement | DocumentSection)*
+		//(description=Description? & content+=(DocGoal | DocRequirement | DocumentSection)*)
 		public UnorderedGroup getUnorderedGroup_3() { return cUnorderedGroup_3; }
 
 		//description=Description?
@@ -634,8 +642,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//target=[aadl2::ComponentClassifier|AadlClassifierReference] ('use' 'constants'
 		//importConstants+=[GlobalConstants|QualifiedName]+)? '[' (description=Description | constants+=ValDeclaration |
 		//computes+=ComputeDeclaration | requirements+=SystemRequirement | include+=IncludeGlobalRequirement | 'see' 'document'
-		//docReference+=ExternalDocument+ | 'see' 'goals' stakeholderGoals+=[ReqRoot|QualifiedName]+ | 'issues'
-		//issues+=STRING+)* ']'
+		//docReference+=ExternalDocument+ | 'see' 'goals' stakeholderGoals+=[ReqRoot|QualifiedName]+ | 'issues' issues+=STRING+)*
+		//']'
 		public Group getGroup() { return cGroup; }
 
 		//{SystemRequirementSet}
@@ -1105,8 +1113,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//'for'
 		public Keyword getForKeyword_3_0() { return cForKeyword_3_0; }
 
-		//targetDescription=STRING | target=[aadl2::ComponentClassifier|AadlClassifierReference]
-		//targetElement=[aadl2::NamedElement]?
+		//(targetDescription=STRING | target=[aadl2::ComponentClassifier|AadlClassifierReference]
+		//targetElement=[aadl2::NamedElement]?)
 		public Alternatives getAlternatives_3_1() { return cAlternatives_3_1; }
 
 		//targetDescription=STRING
@@ -1139,13 +1147,13 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//'['
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
 
-		//('category' category+=[categories::Category|QualifiedName]+)? & description=Description? & constants+=ValDeclaration* &
+		//(('category' category+=[categories::Category|QualifiedName]+)? & description=Description? & constants+=ValDeclaration* &
 		//whencondition=WhenCondition? // condition under which requirement applies 
 		//& rationale=Rationale? & changeUncertainty=Uncertainty? & ('refines' refinesReference+=[Goal|QualifiedName]+)? &
 		//('conflicts' 'with' conflictsReference+=[Goal|QualifiedName]+)? & ('evolves'
 		//evolvesReference+=[Requirement|QualifiedName]+)? & (dropped?='dropped' dropRationale=STRING?)? & ('stakeholder'
 		//stakeholderReference+=[org::Stakeholder|QualifiedName]+)? & ('see' 'document' docReference+=ExternalDocument+)? &
-		//('issues' issues+=STRING+)?
+		//('issues' issues+=STRING+)?)
 		public UnorderedGroup getUnorderedGroup_5() { return cUnorderedGroup_5; }
 
 		//('category' category+=[categories::Category|QualifiedName]+)?
@@ -1444,13 +1452,13 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//'['
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
 
-		//('category' category+=[categories::Category|QualifiedName]+)? & description=Description? & constants+=ValDeclaration* &
+		//(('category' category+=[categories::Category|QualifiedName]+)? & description=Description? & constants+=ValDeclaration* &
 		//whencondition=WhenCondition? // condition under which requirement applies 
 		//& rationale=Rationale? & changeUncertainty=Uncertainty? & ('refines' refinesReference+=[Goal|QualifiedName]+)? &
 		//('conflicts' 'with' conflictsReference+=[Goal|QualifiedName]+)? & ('evolves'
 		//evolvesReference+=[Requirement|QualifiedName]+)? & (dropped?='dropped' dropRationale=STRING?)? & ('stakeholder'
 		//stakeholderReference+=[org::Stakeholder|QualifiedName]+)? & ('see' 'goal' goalReference+=[Goal|QualifiedName]+)? &
-		//('see' 'document' docReference+=ExternalDocument+)? & ('issues' issues+=STRING+)?
+		//('see' 'document' docReference+=ExternalDocument+)? & ('issues' issues+=STRING+)?)
 		public UnorderedGroup getUnorderedGroup_5() { return cUnorderedGroup_5; }
 
 		//('category' category+=[categories::Category|QualifiedName]+)?
@@ -1728,8 +1736,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//	'[' ('category' category+=[categories::Category|QualifiedName]+ | description=Description |
 		//	whencondition=WhenCondition | predicate=ReqPredicate | rationale=Rationale | changeUncertainty=Uncertainty |
 		//	'mitigates' (exception=[ecore::EObject] | exceptionText=STRING) | 'inherits'
-		//	inheritsReference=[Requirement|QualifiedName] | dropped?='dropped' dropRationale=STRING? | constants+=ValDeclaration
-		//	| computes+=ComputeDeclaration | 'refines' refinesReference+=[Requirement|QualifiedName]+ | 'decomposes'
+		//	inheritsReference=[Requirement|QualifiedName] | dropped?='dropped' dropRationale=STRING? | constants+=ValDeclaration |
+		//	computes+=ComputeDeclaration | 'refines' refinesReference+=[Requirement|QualifiedName]+ | 'decomposes'
 		//	decomposesReference+=[Requirement|QualifiedName]+ | 'evolves' evolvesReference+=[Requirement|QualifiedName]+ |
 		//	'development' 'stakeholder' developmentStakeholder+=[org::Stakeholder|QualifiedName]+ | 'see' 'goal'
 		//	goalReference+=[Goal|QualifiedName]+ | 'see' 'requirement' requirementReference+=[Requirement|QualifiedName]+ | 'see'
@@ -1850,7 +1858,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//'mitigates'
 		public Keyword getMitigatesKeyword_5_6_0() { return cMitigatesKeyword_5_6_0; }
 
-		//exception=[ecore::EObject] | exceptionText=STRING
+		//(exception=[ecore::EObject] | exceptionText=STRING)
 		public Alternatives getAlternatives_5_6_1() { return cAlternatives_5_6_1; }
 
 		//exception=[ecore::EObject]
@@ -2196,7 +2204,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//'for'
 		public Keyword getForKeyword_3_0() { return cForKeyword_3_0; }
 
-		//componentCategory+=ComponentCategory+ | targetType=TargetType
+		//(componentCategory+=ComponentCategory+ | targetType=TargetType)
 		public Alternatives getAlternatives_3_1() { return cAlternatives_3_1; }
 
 		//componentCategory+=ComponentCategory+
@@ -2214,7 +2222,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//'['
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
 
-		//('category' category+=[categories::Category|QualifiedName]+)? & description=Description? & constants+=ValDeclaration* &
+		//(('category' category+=[categories::Category|QualifiedName]+)? & description=Description? & constants+=ValDeclaration* &
 		//computes+=ComputeDeclaration* & whencondition=WhenCondition? // condition under which requirement applies 
 		//& predicate=ReqPredicate? // predicate expression 
 		//& rationale=Rationale? & changeUncertainty=Uncertainty? & ('mitigates' (exception=[ecore::EObject] |
@@ -2223,7 +2231,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//(dropped?='dropped' dropRationale=STRING?)? & ('development' 'stakeholder'
 		//developmentStakeholder+=[org::Stakeholder|QualifiedName]+)? & ('see' 'goal' goalReference+=[Goal|QualifiedName]+)? &
 		//('see' 'requirement' requirementReference+=[Requirement|QualifiedName]+)? & ('see' 'document'
-		//docReference+=ExternalDocument+)? & ('issues' issues+=STRING+)?
+		//docReference+=ExternalDocument+)? & ('issues' issues+=STRING+)?)
 		public UnorderedGroup getUnorderedGroup_5() { return cUnorderedGroup_5; }
 
 		//('category' category+=[categories::Category|QualifiedName]+)?
@@ -2289,7 +2297,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//'mitigates'
 		public Keyword getMitigatesKeyword_5_8_0() { return cMitigatesKeyword_5_8_0; }
 
-		//exception=[ecore::EObject] | exceptionText=STRING
+		//(exception=[ecore::EObject] | exceptionText=STRING)
 		public Alternatives getAlternatives_5_8_1() { return cAlternatives_5_8_1; }
 
 		//exception=[ecore::EObject]
@@ -2618,8 +2626,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//'for'
 		public Keyword getForKeyword_3_0() { return cForKeyword_3_0; }
 
-		//targetDescription=STRING | target=[aadl2::ComponentClassifier|AadlClassifierReference]
-		//targetElement=[aadl2::NamedElement]? | componentCategory+=ComponentCategory+
+		//(targetDescription=STRING | target=[aadl2::ComponentClassifier|AadlClassifierReference]
+		//targetElement=[aadl2::NamedElement]? | componentCategory+=ComponentCategory+)
 		public Alternatives getAlternatives_3_1() { return cAlternatives_3_1; }
 
 		//targetDescription=STRING
@@ -2658,7 +2666,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//'['
 		public Keyword getLeftSquareBracketKeyword_4() { return cLeftSquareBracketKeyword_4; }
 
-		//('category' category+=[categories::Category|QualifiedName]+)? & description=Description? & constants+=ValDeclaration* &
+		//(('category' category+=[categories::Category|QualifiedName]+)? & description=Description? & constants+=ValDeclaration* &
 		//computes+=ComputeDeclaration* & whencondition=WhenCondition? // condition under which requirement applies 
 		//& predicate=ReqPredicate? // predicate expression 
 		//& rationale=Rationale? & changeUncertainty=Uncertainty? & ('mitigates' (exception=[ecore::EObject] |
@@ -2667,7 +2675,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//('evolves' evolvesReference+=[Requirement|QualifiedName]+)? & (dropped?='dropped' dropRationale=STRING?)? &
 		//('development' 'stakeholder' developmentStakeholder+=[org::Stakeholder|QualifiedName]+)? & ('see' 'goal'
 		//goalReference+=[Goal|QualifiedName]+)? & ('see' 'document' docReference+=ExternalDocument+)? & ('issues'
-		//issues+=STRING+)?
+		//issues+=STRING+)?)
 		public UnorderedGroup getUnorderedGroup_5() { return cUnorderedGroup_5; }
 
 		//('category' category+=[categories::Category|QualifiedName]+)?
@@ -2733,7 +2741,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//'mitigates'
 		public Keyword getMitigatesKeyword_5_8_0() { return cMitigatesKeyword_5_8_0; }
 
-		//exception=[ecore::EObject] | exceptionText=STRING
+		//(exception=[ecore::EObject] | exceptionText=STRING)
 		public Alternatives getAlternatives_5_8_1() { return cAlternatives_5_8_1; }
 
 		//exception=[ecore::EObject]
@@ -2934,7 +2942,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//'for'
 		public Keyword getForKeyword_2_0() { return cForKeyword_2_0; }
 
-		//local?='self' | targetElement=[aadl2::NamedElement]
+		//(local?='self' | targetElement=[aadl2::NamedElement])
 		public Alternatives getAlternatives_2_1() { return cAlternatives_2_1; }
 
 		//local?='self'
@@ -2999,8 +3007,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//'when'
 		public Keyword getWhenKeyword_0() { return cWhenKeyword_0; }
 
-		//'in' 'mode' inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])* | 'in' 'error' 'state' inErrorState+=[ecore::EObject]
-		//(',' inErrorState+=[ecore::EObject])* | condition=QualifiedName '(' ')'
+		//('in' 'mode' inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])* | 'in' 'error' 'state' inErrorState+=[ecore::EObject]
+		//(',' inErrorState+=[ecore::EObject])* | condition=QualifiedName '(' ')')
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
 		//'in' 'mode' inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])*
@@ -3207,7 +3215,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//AVariableReference
 		public RuleCall getDesiredAVariableReferenceParserRuleCall_0_0() { return cDesiredAVariableReferenceParserRuleCall_0_0; }
 
-		//upto?='upto' | 'downto'
+		//(upto?='upto' | 'downto')
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
 		//upto?='upto'
@@ -3299,8 +3307,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//@Override
 		//ValDeclaration common::ValDeclaration:
-		//	{ReqValDeclaration} 'val' name=ID (':' (type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef |
-		//	'typeof' type=PropertyRef) ']'))? '=' value=AExpression ('as' property=PropertyRef)?;
+		//	{ReqValDeclaration} 'val' name=ID (':' (type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef | 'typeof'
+		//	type=PropertyRef) ']'))? '=' value=AExpression ('as' property=PropertyRef)?;
 		@Override public ParserRule getRule() { return rule; }
 
 		//{ReqValDeclaration} 'val' name=ID (':' (type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef | 'typeof'
@@ -3325,7 +3333,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//':'
 		public Keyword getColonKeyword_3_0() { return cColonKeyword_3_0; }
 
-		//type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef | 'typeof' type=PropertyRef) ']'
+		//(type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef | 'typeof' type=PropertyRef) ']')
 		public Alternatives getAlternatives_3_1() { return cAlternatives_3_1; }
 
 		//type=TypeRef
@@ -3355,7 +3363,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		//'['
 		public Keyword getRangeLeftSquareBracketKeyword_3_1_2_0_0() { return cRangeLeftSquareBracketKeyword_3_1_2_0_0; }
 
-		//type=TypeRef | 'typeof' type=PropertyRef
+		//(type=TypeRef | 'typeof' type=PropertyRef)
 		public Alternatives getAlternatives_3_1_2_1() { return cAlternatives_3_1_2_1; }
 
 		//type=TypeRef
@@ -3712,8 +3720,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	//	'[' ('category' category+=[categories::Category|QualifiedName]+ | description=Description |
 	//	whencondition=WhenCondition | predicate=ReqPredicate | rationale=Rationale | changeUncertainty=Uncertainty |
 	//	'mitigates' (exception=[ecore::EObject] | exceptionText=STRING) | 'inherits'
-	//	inheritsReference=[Requirement|QualifiedName] | dropped?='dropped' dropRationale=STRING? | constants+=ValDeclaration
-	//	| computes+=ComputeDeclaration | 'refines' refinesReference+=[Requirement|QualifiedName]+ | 'decomposes'
+	//	inheritsReference=[Requirement|QualifiedName] | dropped?='dropped' dropRationale=STRING? | constants+=ValDeclaration |
+	//	computes+=ComputeDeclaration | 'refines' refinesReference+=[Requirement|QualifiedName]+ | 'decomposes'
 	//	decomposesReference+=[Requirement|QualifiedName]+ | 'evolves' evolvesReference+=[Requirement|QualifiedName]+ |
 	//	'development' 'stakeholder' developmentStakeholder+=[org::Stakeholder|QualifiedName]+ | 'see' 'goal'
 	//	goalReference+=[Goal|QualifiedName]+ | 'see' 'requirement' requirementReference+=[Requirement|QualifiedName]+ | 'see'
@@ -3858,8 +3866,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 	//@Override
 	//ValDeclaration common::ValDeclaration:
-	//	{ReqValDeclaration} 'val' name=ID (':' (type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef |
-	//	'typeof' type=PropertyRef) ']'))? '=' value=AExpression ('as' property=PropertyRef)?;
+	//	{ReqValDeclaration} 'val' name=ID (':' (type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef | 'typeof'
+	//	type=PropertyRef) ']'))? '=' value=AExpression ('as' property=PropertyRef)?;
 	public ValDeclarationElements getValDeclarationAccess() {
 		return pValDeclaration;
 	}
@@ -4487,7 +4495,8 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//terminal STRING:
-	//	'"' ('\\' . | !('\\' | '"'))* '"' | "'" ('\\' . | !('\\' | "'"))* "'";
+	//	'"' ('\\' . | !('\\' | '"'))* '"' |
+	//	"'" ('\\' . | !('\\' | "'"))* "'";
 	public TerminalRule getSTRINGRule() {
 		return gaTerminals.getSTRINGRule();
 	} 
