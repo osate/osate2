@@ -561,7 +561,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 				return;
 			}
 			InstantiatedClassifier ic = ctx.getClassifierCache().get(io);
-			Classifier cl = (ic == null) ? null : ic.classifier;
+			Classifier cl = (ic == null) ? null : ic.getClassifier();
 			// OsateDebug.osateDebug("compDecls" + compDecl);
 
 			if (compDecl instanceof Subcomponent) {

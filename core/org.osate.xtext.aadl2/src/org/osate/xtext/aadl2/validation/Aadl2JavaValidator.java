@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -5350,15 +5350,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private boolean testClassifierMatchRule(Connection connection, ConnectionEnd source, Classifier sourceClassifier,
 			ConnectionEnd destination, Classifier destinationClassifier) {
 		if (sourceClassifier != destinationClassifier) {
-			if (sourceClassifier instanceof ComponentType && destinationClassifier instanceof ComponentImplementation) {
-				if (!sourceClassifier.equals(((ComponentImplementation) destinationClassifier).getType())) {
-					warning(connection, "The types of '" + source.getName() + "' and '" + destination.getName()
-							+ "' do not match.");
-				}
+			// bidirectional connections must have equal classifiers
+			if (connection.isAllBidirectional()) {
+				return false;
 			} else if (sourceClassifier instanceof ComponentImplementation
 					&& destinationClassifier instanceof ComponentType) {
 				if (!destinationClassifier.equals(((ComponentImplementation) sourceClassifier).getType())) {
-					warning(connection, "The types of '" + source.getName() + "' and '" + destination.getName()
+					error(connection, "The types of '" + source.getName() + "' and '"
+							+ destination.getName()
 							+ "' do not match.");
 				}
 			} else {
@@ -5475,8 +5474,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (!Aadl2Util.isNull(feature.getRefined())) {
 			Classifier refinedCl = feature.getClassifier();
 			Classifier originalCl = feature.getRefined().getClassifier();
-			if (!Aadl2Util.isNull(refinedCl) && !Aadl2Util.isNull(originalCl)) {
-				checkClassifierSubstitutionMatch(feature, originalCl, refinedCl);
+			if (!Aadl2Util.isNull(originalCl)) {
+				if (!Aadl2Util.isNull(refinedCl)) {
+					checkClassifierSubstitutionMatch(feature, originalCl, refinedCl);
+				} else {
+					warning(feature, "Refinement removes classifier " + originalCl.getName());
+				}
 			}
 		}
 	}
@@ -5485,17 +5488,19 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (!Aadl2Util.isNull(subcomponent.getRefined())) {
 			ComponentClassifier refinedCl = subcomponent.getClassifier();
 			ComponentClassifier originalCl = subcomponent.getRefined().getClassifier();
-			if (!Aadl2Util.isNull(refinedCl) && !Aadl2Util.isNull(originalCl)) {
-				checkClassifierSubstitutionMatch(subcomponent, originalCl, refinedCl);
+			if (!Aadl2Util.isNull(originalCl)) {
+				if (!Aadl2Util.isNull(refinedCl)) {
+					checkClassifierSubstitutionMatch(subcomponent, originalCl, refinedCl);
+				} else {
+					warning(subcomponent, "Refinement removes classifier " + originalCl.getName());
+				}
 			}
 		}
 	}
 
 	private void checkClassifierSubstitutionMatch(NamedElement target, Classifier originalClassifier,
 			Classifier refinedClassifier) {
-		Property classifierMatchingRuleProperty = GetProperties.lookupPropertyDefinition(target,
-				ModelingProperties._NAME, ModelingProperties.CLASSIFIER_SUBSTITUTION_RULE);
-		String classifierMatchingRuleValue = GetProperties.getClassifierSubstitutionRuleProperty(target);
+		final String classifierMatchingRuleValue = GetProperties.getClassifierSubstitutionRuleProperty(target);
 		if (ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue)) {
 			if (!AadlUtil.isokClassifierSubstitutionMatch(originalClassifier, refinedClassifier)) {
 				warning(target, "Classifier " + originalClassifier.getName() + " refined to "
@@ -6649,7 +6654,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkPropertyDefinition(final Property pn) {
 		// Check the type correctness of the default value, if any
-		typeCheckPropertyValues(pn.getPropertyType(), pn.getDefaultValue(), pn.getDefaultValue(), pn.getQualifiedName());
+		typeCheckPropertyValues(pn.getPropertyType(), pn.getDefaultValue(), pn.getDefaultValue(), pn.getQualifiedName(),
+				0);
 		checkAppliesTo(pn);
 	}
 
@@ -6676,7 +6682,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		 * cannot check that a int or real is within range.
 		 */
 		typeCheckPropertyValues(pc.getPropertyType(), pc.getConstantValue(), pc.getConstantValue(),
-				pc.getQualifiedName());
+				pc.getQualifiedName(), 0);
 	}
 
 	//

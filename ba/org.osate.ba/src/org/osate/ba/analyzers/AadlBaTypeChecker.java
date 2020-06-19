@@ -1402,7 +1402,7 @@ public class AadlBaTypeChecker
           InternalEObject child = (InternalEObject) sue ;
           
           child.eBasicSetContainer(parent,
-                                   AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER,
+                                   AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__STRUCT_UNION_ELEMENT,
                                    null) ;
           result = sueHolder ;
           break ;

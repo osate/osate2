@@ -1,6 +1,7 @@
 package org.osate.ui.handlers;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -13,7 +14,7 @@ import org.osate.core.AadlNature;
 
 /**
  * Abstract root class for handlers that generate multiple independent jobs and that shows a single
- * result dialog at the end showing there status.
+ * result dialog at the end showing their status.
  *
  * NB. This is not fully formed right now but I am leaving it as a placeholder for future work to
  * abstract the commonalities between {@link InstantiationHandler} and {@link ReinstantiationHandler}.
@@ -59,6 +60,17 @@ public abstract class AbstractMultiJobHandler extends AbstractHandler {
 			this.cancelled = cancelled;
 			this.errorMessage = errorMessage;
 			this.exception = exception;
+		}
+
+		/**
+		 * @since 4.0
+		 */
+		public static boolean allSuccessful(final Collection<Result> results) {
+			boolean allSuccessful = true;
+			for (final Result r : results) {
+				allSuccessful &= r.successful;
+			}
+			return allSuccessful;
 		}
 	}
 

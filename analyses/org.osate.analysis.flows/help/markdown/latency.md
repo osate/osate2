@@ -742,6 +742,7 @@ The values of the contribution are stored in the following order:
 4. Maximum latency spec value as real/double in milliseconds (ms)
 5. Method to determine best-case actual latency (String)
 6. Method to determine worst-case actual latency (String)
+7. The name of the flow specification being followed through the contributor.  If the contributor is a connection, this is the empty string.  If the contributor is a component, the string is `fs.getKind() + " " + fs.getName()` where `fs` is the `FlowSpecification` object.
 
 For details on methods to determine actual latency see section [Latency Analysis Report Content](latency.html#latency-analysis-report-content).
 

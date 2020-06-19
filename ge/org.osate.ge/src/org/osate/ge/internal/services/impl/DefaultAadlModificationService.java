@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -246,7 +246,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 							}
 
 						} else {
-							fixXtextDocumentDirtyState(doc);
+							prepareToEditDocument(doc);
 							newOriginalTextContents = doc.get();
 							doc.set(modResult.originalTextContents);
 
@@ -304,7 +304,14 @@ public class DefaultAadlModificationService implements AadlModificationService {
 		if (doc == null) {
 			// Modify the EMF resource directly
 			final XtextResource res = (XtextResource) bo.eResource();
-			originalTextContents = getText(res);
+
+			try {
+				originalTextContents = getText(res);
+			} catch (RuntimeException ex) {
+				throw new RuntimeException(
+						"Unable to modify model. Unable to get AADL source text. Check model for errors.",
+						ex);
+			}
 
 			// Check if the AADL file is editable.
 			final IResource aadlResource = ResourcesPlugin.getWorkspace().getRoot()
@@ -342,7 +349,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 				}
 			}
 		} else {
-			fixXtextDocumentDirtyState(doc);
+			prepareToEditDocument(doc);
 
 			// If the element is in an annex, determine the root actual/parsed annex element
 			final EObject parsedAnnexRoot = getParsedAnnexRoot(bo);
@@ -391,19 +398,23 @@ public class DefaultAadlModificationService implements AadlModificationService {
 		}
 	}
 
-	private static void fixXtextDocumentDirtyState(final IXtextDocument doc) {
-		// TODO: Remove when issue regarding Xtext Dirty State has been resolved.
-		// https://github.com/osate/osate-ge/issues/210
-		// This works around the issue by getting the xtext editor and calling doVerify() on it's dirty state editor support which starts
-		// managing
-		// the dirty state.
+	/**
+	 * It is important to validate the Xtext editor input state to ensure the document can be edited before editing the document.
+	 * The editor may change its internal state to prepare for editing as part of validation.
+	 * Otherwise, the document may not be properly changed or notifications
+	 * may not be received.
+	 * @param doc the xtext document to prepare to edit.
+	 */
+	private static void prepareToEditDocument(final IXtextDocument doc) {
 		for (final IEditorReference editorRef : PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 				.getEditorReferences()) {
 			final IEditorPart editor = editorRef.getEditor(false);
 			if (editor instanceof XtextEditor) {
 				final XtextEditor xtextEditor = (XtextEditor) editor;
 				if (xtextEditor.getDocument() == doc) {
-					xtextEditor.getDirtyStateEditorSupport().doVerify();
+					if (!xtextEditor.validateEditorInputState()) {
+						throw new RuntimeException("Unable to edit Xtext document. Editor input validation failed.");
+					}
 					break;
 				}
 			}

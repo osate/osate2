@@ -1,0 +1,84 @@
+package TestBusProperties
+public
+	with SEI;
+
+	-- Some basics
+	
+	data D8
+		properties
+			Data_Size => 8 Bytes;
+	end D8;
+	
+	-- buses
+	
+	bus MyBus
+	end MyBus;
+
+	virtual bus MyVB1
+	end MyVB1;
+
+	
+	system S1
+		features
+			out1: out data port D8;
+	end S1;
+
+	system S2
+		features
+			in1: in data port D8;
+	end S2;
+
+	-- assembled system
+	
+	system top
+	end top;
+	
+	system implementation top.noCapacity_noBudget
+		subcomponents
+			sub1: system s1;
+			sub2: system s2;
+			theBus: bus MyBus;
+			VB1: virtual bus MyVB1;
+		connections
+			conn1: port sub1.out1 -> sub2.in1 {
+				Actual_Connection_Binding => (reference (VB1));
+				SEI::BandWidthBudget => 16.0 KBytesps;
+			};
+		properties
+			-- Bind the remaining virtual buses
+			Actual_Connection_Binding => (reference (theBus)) applies to vb1;			
+			
+			-- Communication rates
+			Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub1.out1;
+	end top.noCapacity_noBudget;
+	
+	system implementation top.noCapacity extends top.noCapacity_noBudget
+		properties
+			SEI::BandWidthBudget => 32.0 KBytesps applies to VB1;
+			SEI::BandWidthBudget => 48.0 KBytesps applies to theBus;
+	end top.noCapacity;
+	
+	system implementation top.noBudget extends top.noCapacity_noBudget
+		properties
+			SEI::BandWidthCapacity => 48.0 KBytesps applies to VB1;
+			SEI::BandWidthCapacity => 64.0 KBytesps applies to theBus;
+	end top.noBudget;
+	
+	system implementation top.budgetLessThanCapacity extends top.noCapacity_noBudget
+		properties
+			SEI::BandWidthBudget => 32.0 KBytesps applies to VB1;
+			SEI::BandWidthCapacity => 48.0 KBytesps applies to VB1;
+
+			SEI::BandWidthBudget => 48.0 KBytesps applies to theBus;
+			SEI::BandWidthCapacity => 64.0 KBytesps applies to theBus;
+	end top.budgetLessThanCapacity;
+
+	system implementation top.budgetGreaterThanCapacity extends top.noCapacity_noBudget
+		properties
+			SEI::BandWidthBudget => 32.0 KBytesps applies to VB1;
+			SEI::BandWidthCapacity => 24.0 KBytesps applies to VB1;
+
+			SEI::BandWidthBudget => 56.0 KBytesps applies to theBus;
+			SEI::BandWidthCapacity => 48.0 KBytesps applies to theBus;
+	end top.budgetGreaterThanCapacity;
+end TestBusProperties;

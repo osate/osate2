@@ -70,7 +70,7 @@ public enum PortCategory implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	EVENT_DATA(2, "eventData", "eventData");
+	EVENT_DATA(2, "event data", "event data");
 
 	/**
 	 * The '<em><b>Data</b></em>' literal value.
@@ -255,6 +255,7 @@ public enum PortCategory implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		return literal;
 	}
