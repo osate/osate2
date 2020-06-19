@@ -23,6 +23,7 @@
  */
 package org.osate.ge.gef.ui.editor;
 
+import java.awt.Composite;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -33,9 +34,6 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
@@ -146,6 +144,7 @@ public class AgeEditor extends AbstractFXEditor {
 				paletteTitle.setVisible(false);
 				sp.setDividerPositions(1.0);
 				collapseButton.setStyle(COLLAPSE_BUTTON_ACTIVATED);
+				collapseButton.setGraphic("ge/Icons/CollapsedIcon");
 				collapseButton.setMinWidth(10);
 				collapseButton.setMaxWidth(10);
 			}
@@ -157,6 +156,7 @@ public class AgeEditor extends AbstractFXEditor {
 				paletteTitle.setVisible(true);
 				sp.setDividerPositions(1.0 - (paletteContainer.getPrefWidth() / sp.getWidth()));
 				collapseButton.setStyle(COLLAPSE_BUTTON_IDLE);
+				collapseButton.setGraphic("ge/Icons/OpenedIcon");
 				collapseButton.setMaxSize(30, 30);
 				collapseButton.setMinSize(30, 30);
 			}
