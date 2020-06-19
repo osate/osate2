@@ -49,6 +49,8 @@
 		</topic>
 		<topic label="Bindings" href="docs-gen/user_guide.html#sec:bindings">
 		</topic>
+		<topic label="Prototypes" href="docs-gen/user_guide.html#prototypes">
+		</topic>
 		<topic label="Editing Flow Implementations and End-to-End Flows" href="docs-gen/user_guide.html#editing-flow-implementations-and-end-to-end-flows">
 		</topic>
 		<topic label="Refining Model Elements" href="docs-gen/user_guide.html#refining-model-elements">
@@ -75,6 +77,8 @@
 		</topic>
 		<topic label="Displaying Hidden Elements in Outline" href="docs-gen/user_guide.html#displaying-hidden-elements-in-outline">
 		</topic>
+		<topic label="Showing Connected Elements" href="docs-gen/user_guide.html#showing-connected-elements">
+		</topic>
 	</topic>
 	<topic label="Visualization" href="docs-gen/user_guide.html#visualization">
 		<topic label="Inherited Elements" href="docs-gen/user_guide.html#sec:inherited_elements">
@@ -86,6 +90,12 @@
 		<topic label="Abstracted Connections" href="docs-gen/user_guide.html#sec:abstracted_connections">
 		</topic>
 		<topic label="Highlighting Flow Implementations and End-to-End Flow Specifications" href="docs-gen/user_guide.html#highlighting-flow-implementations-and-end-to-end-flow-specifications">
+		</topic>
+		<topic label="Showing Flow Implementation and End-to-End Flow Specification Segments" href="docs-gen/user_guide.html#showing-flow-implementation-and-end-to-end-flow-specification-segments">
+		</topic>
+		<topic label="Highlighting In Mode Elements" href="docs-gen/user_guide.html#highlighting-in-mode-elements">
+		</topic>
+		<topic label="Showing In Mode Elements" href="docs-gen/user_guide.html#showing-in-mode-elements">
 		</topic>
 		<topic label="Moving Shapes Using Arrow Keys" href="docs-gen/user_guide.html#moving-shapes-using-arrow-keys">
 		</topic>

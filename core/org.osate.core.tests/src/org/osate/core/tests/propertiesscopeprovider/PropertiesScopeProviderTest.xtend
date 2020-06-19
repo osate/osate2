@@ -1,36 +1,25 @@
-/*
- *
- * <copyright>
- * Copyright  2014 by Carnegie Mellon University, all rights reserved.
- *
- * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
- * at http://www.eclipse.org/org/documents/epl-v10.html.
- *
- * NO WARRANTY
- *
- * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
- * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE "DELIVERABLES") ARE ON AN "AS-IS" BASIS.
- * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
- * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
- * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
- * CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
- * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
- * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
- * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
- *
- * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
- * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
- * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
- * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
- * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
- * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- *
- * Carnegie Mellon Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
- * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
- * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
- * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
- * under the contract clause at 252.227.7013.
- * </copyright>
+/**
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.core.tests.propertiesscopeprovider
 
@@ -2762,7 +2751,7 @@ class PropertiesScopeProviderTest extends XtextTest {
 					prototypes
 						aproto1: refined to abstract;
 					features
-						fg1: refined to feature group {
+						fg1: refined to feature group fgt2 {
 							ps::ref1 => reference(af4) applies to af4;
 							ps::ref2 => reference(fg7.af6) applies to fg7.af6;
 							ps::ref3 => reference(fg8.af6) applies to fg8.af6;
@@ -2774,14 +2763,14 @@ class PropertiesScopeProviderTest extends XtextTest {
 							ps::ref3 => reference(fg8.af6) applies to fg8.af6;
 							ps::ref4 => reference(fg9.af6) applies to fg9.af6;
 						};
-						dp1: refined to in data port;
+						dp1: refined to in data port a3.i1;
 					flows
 						fpath1: refined to flow path;
 					end a2;
 					
 					abstract implementation a2.i1 extends a1.i1 (aproto1 => abstract a3.i1)
 					subcomponents
-						asub1: refined to abstract {
+						asub1: refined to abstract a3.i1 {
 							ps::ref1 => reference(af3) applies to af3;
 							ps::ref2 => reference(asub4.af5) applies to asub4.af5;
 							ps::ref3 => reference(asub5.af5) applies to asub5.af5;
@@ -2793,7 +2782,7 @@ class PropertiesScopeProviderTest extends XtextTest {
 							ps::ref3 => reference(asub5.af5) applies to asub5.af5;
 							ps::ref4 => reference(asub6.af5) applies to asub6.af5;
 						};
-						asub3: refined to abstract {ps::ref1 => reference(asub7.af5) applies to asub7.af5;};
+						asub3: refined to abstract a3.i1 {ps::ref1 => reference(asub7.af5) applies to asub7.af5;};
 					calls
 						sequence2: {
 							call2: subprogram subp1.i1;
@@ -2921,7 +2910,7 @@ class PropertiesScopeProviderTest extends XtextTest {
 					
 					abstract a1 extends a1Base (fgproto6 => feature group fgt1, aproto6 => abstract a2.i)
 					features
-						fg1: refined to feature group {ps::ref1 => reference(fg2.fg3.fg4.fg5.fg6) applies to fg2.fg3.fg4.fg5.fg6;};
+						fg1: refined to feature group fgt1 {ps::ref1 => reference(fg2.fg3.fg4.fg5.fg6) applies to fg2.fg3.fg4.fg5.fg6;};
 						fg7: refined to feature group {ps::ref1 => reference(fg8.fg9.fg10.fg11.fg12) applies to fg8.fg9.fg10.fg11.fg12;};
 						fg13: refined to feature group {ps::ref1 => reference(fg14.fg15.fg16.fg17.fg18) applies to fg14.fg15.fg16.fg17.fg18;};
 					properties
@@ -2940,10 +2929,10 @@ class PropertiesScopeProviderTest extends XtextTest {
 					
 					abstract implementation a1.i extends a1.iBase
 					subcomponents
-						asub1: refined to abstract {ps::ref1 => reference(asub2.asub3.asub4.asub5.asub6) applies to asub2.asub3.asub4.asub5.asub6;};
+						asub1: refined to abstract a2.i {ps::ref1 => reference(asub2.asub3.asub4.asub5.asub6) applies to asub2.asub3.asub4.asub5.asub6;};
 						asub7: refined to abstract {ps::ref1 => reference(asub8.asub9.asub10.asub11.asub12) applies to asub8.asub9.asub10.asub11.asub12;};
 						asub13: refined to abstract {ps::ref1 => reference(asub14.asub15.asub16.asub17.asub18) applies to asub14.asub15.asub16.asub17.asub18;};
-						asub19: refined to abstract {ps::ref1 => reference(asub20.asub21.asub22.asub23.asub24) applies to asub20.asub21.asub22.asub23.asub24;};
+						asub19: refined to abstract a2.i {ps::ref1 => reference(asub20.asub21.asub22.asub23.asub24) applies to asub20.asub21.asub22.asub23.asub24;};
 					properties
 						ps::ref4 => reference(fg1.fg2.fg3.fg4.fg5.fg6) applies to fg1.fg2.fg3.fg4.fg5.fg6;
 						ps::ref5 => reference(fg7.fg8.fg9.fg10.fg11.fg12) applies to fg7.fg8.fg9.fg10.fg11.fg12;

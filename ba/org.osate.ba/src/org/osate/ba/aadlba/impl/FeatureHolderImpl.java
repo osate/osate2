@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright © 2011 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -9,13 +9,13 @@
  * 
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
- * version 1.0 of the License, or (at your option) any later version. This
+ * version 2.0 of the License, or (at your option) any later version. This
  * program is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License for
  * more details. You should have received a copy of the Eclipse Public License
  * along with this program. If not, see
- * http://www.eclipse.org/org/documents/epl-v10.php
+ * https://www.eclipse.org/legal/epl-2.0/
  */
 package org.osate.ba.aadlba.impl;
 
@@ -47,12 +47,12 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.FeatureHolderImpl#getElement <em>Element</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.FeatureHolderImpl#getArrayIndexes <em>Array Indexes</em>}</li>
  *   <li>{@link org.osate.ba.aadlba.impl.FeatureHolderImpl#getGroupHolders <em>Group Holders</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -114,6 +114,7 @@ public class FeatureHolderImpl extends BehaviorElementImpl implements FeatureHol
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public NamedElement getElement()
   {
     if (element != null && ((EObject)element).eIsProxy())
@@ -144,6 +145,7 @@ public class FeatureHolderImpl extends BehaviorElementImpl implements FeatureHol
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setElement(NamedElement newElement)
   {
     NamedElement oldElement = element;
@@ -157,6 +159,7 @@ public class FeatureHolderImpl extends BehaviorElementImpl implements FeatureHol
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<IntegerValue> getArrayIndexes()
   {
     if (arrayIndexes == null)
@@ -171,6 +174,7 @@ public class FeatureHolderImpl extends BehaviorElementImpl implements FeatureHol
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetArrayIndexes()
   {
     if (arrayIndexes != null) ((InternalEList.Unsettable<?>)arrayIndexes).unset();
@@ -181,6 +185,7 @@ public class FeatureHolderImpl extends BehaviorElementImpl implements FeatureHol
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetArrayIndexes()
   {
     return arrayIndexes != null && ((InternalEList.Unsettable<?>)arrayIndexes).isSet();
@@ -191,6 +196,7 @@ public class FeatureHolderImpl extends BehaviorElementImpl implements FeatureHol
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<GroupHolder> getGroupHolders()
   {
     if (groupHolders == null)
@@ -205,6 +211,7 @@ public class FeatureHolderImpl extends BehaviorElementImpl implements FeatureHol
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetGroupHolders()
   {
     if (groupHolders != null) ((InternalEList.Unsettable<?>)groupHolders).unset();
@@ -215,6 +222,7 @@ public class FeatureHolderImpl extends BehaviorElementImpl implements FeatureHol
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetGroupHolders()
   {
     return groupHolders != null && ((InternalEList.Unsettable<?>)groupHolders).isSet();
@@ -225,6 +233,7 @@ public class FeatureHolderImpl extends BehaviorElementImpl implements FeatureHol
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setFeature(final Feature feature)
   {
     element = feature ;
@@ -235,6 +244,7 @@ public class FeatureHolderImpl extends BehaviorElementImpl implements FeatureHol
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Feature getFeature()
   {
     return (Feature) element;
@@ -245,6 +255,7 @@ public class FeatureHolderImpl extends BehaviorElementImpl implements FeatureHol
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setClassifierFeature(final ClassifierFeature classifierFeature)
   {
     element = classifierFeature ;
@@ -255,6 +266,7 @@ public class FeatureHolderImpl extends BehaviorElementImpl implements FeatureHol
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ClassifierFeature getClassifierFeature()
   {
     return (ClassifierFeature) element;

@@ -1,36 +1,25 @@
 /**
- * <copyright>
- * Copyright  2011 by Carnegie Mellon University, all rights reserved.
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * All Rights Reserved.
  *
- * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
- * at http://www.eclipse.org/org/documents/epl-v10.html.
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
  *
- * NO WARRANTY
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
  *
- * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
- * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.
- * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
- * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
- * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
- * CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
- * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
- * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
- * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
  *
- * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
- * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
- * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
- * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
- * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
- * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- *
- * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
- * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
- * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
- * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
- * under the contract clause at 252.227.7013.
- * </copyright>
- *
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.aadl2.provider;
 
@@ -86,7 +75,7 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected Collection<Object> supportedTypes = new ArrayList<>();
+	protected Collection<Object> supportedTypes = new ArrayList<Object>();
 
 	/**
 	 * This constructs an instance.
@@ -116,7 +105,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createCommentAdapter() {
 		if (commentItemProvider == null) {
 			commentItemProvider = new CommentItemProvider(this);
@@ -139,7 +127,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createPropertyAssociationAdapter() {
 		if (propertyAssociationItemProvider == null) {
 			propertyAssociationItemProvider = new PropertyAssociationItemProvider(this);
@@ -162,7 +149,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createPropertyAdapter() {
 		if (propertyItemProvider == null) {
 			propertyItemProvider = new PropertyItemProvider(this);
@@ -185,7 +171,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createBasicPropertyAdapter() {
 		if (basicPropertyItemProvider == null) {
 			basicPropertyItemProvider = new BasicPropertyItemProvider(this);
@@ -208,7 +193,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createMetaclassReferenceAdapter() {
 		if (metaclassReferenceItemProvider == null) {
 			metaclassReferenceItemProvider = new MetaclassReferenceItemProvider(this);
@@ -231,7 +215,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createModalElementAdapter() {
 		if (modalElementItemProvider == null) {
 			modalElementItemProvider = new ModalElementItemProvider(this);
@@ -254,7 +237,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createModeAdapter() {
 		if (modeItemProvider == null) {
 			modeItemProvider = new ModeItemProvider(this);
@@ -277,7 +259,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createContainedNamedElementAdapter() {
 		if (containedNamedElementItemProvider == null) {
 			containedNamedElementItemProvider = new ContainedNamedElementItemProvider(this);
@@ -300,7 +281,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createContainmentPathElementAdapter() {
 		if (containmentPathElementItemProvider == null) {
 			containmentPathElementItemProvider = new ContainmentPathElementItemProvider(this);
@@ -323,7 +303,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createArrayRangeAdapter() {
 		if (arrayRangeItemProvider == null) {
 			arrayRangeItemProvider = new ArrayRangeItemProvider(this);
@@ -346,7 +325,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createModalPropertyValueAdapter() {
 		if (modalPropertyValueItemProvider == null) {
 			modalPropertyValueItemProvider = new ModalPropertyValueItemProvider(this);
@@ -369,7 +347,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createArrayDimensionAdapter() {
 		if (arrayDimensionItemProvider == null) {
 			arrayDimensionItemProvider = new ArrayDimensionItemProvider(this);
@@ -392,7 +369,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createArraySizeAdapter() {
 		if (arraySizeItemProvider == null) {
 			arraySizeItemProvider = new ArraySizeItemProvider(this);
@@ -415,7 +391,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createComponentImplementationReferenceAdapter() {
 		if (componentImplementationReferenceItemProvider == null) {
 			componentImplementationReferenceItemProvider = new ComponentImplementationReferenceItemProvider(this);
@@ -438,7 +413,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createModeTransitionAdapter() {
 		if (modeTransitionItemProvider == null) {
 			modeTransitionItemProvider = new ModeTransitionItemProvider(this);
@@ -461,7 +435,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createModeTransitionTriggerAdapter() {
 		if (modeTransitionTriggerItemProvider == null) {
 			modeTransitionTriggerItemProvider = new ModeTransitionTriggerItemProvider(this);
@@ -484,7 +457,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createFlowSpecificationAdapter() {
 		if (flowSpecificationItemProvider == null) {
 			flowSpecificationItemProvider = new FlowSpecificationItemProvider(this);
@@ -507,7 +479,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createFlowEndAdapter() {
 		if (flowEndItemProvider == null) {
 			flowEndItemProvider = new FlowEndItemProvider(this);
@@ -530,7 +501,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createTypeExtensionAdapter() {
 		if (typeExtensionItemProvider == null) {
 			typeExtensionItemProvider = new TypeExtensionItemProvider(this);
@@ -553,7 +523,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createFeatureGroupAdapter() {
 		if (featureGroupItemProvider == null) {
 			featureGroupItemProvider = new FeatureGroupItemProvider(this);
@@ -576,7 +545,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createFeatureGroupTypeAdapter() {
 		if (featureGroupTypeItemProvider == null) {
 			featureGroupTypeItemProvider = new FeatureGroupTypeItemProvider(this);
@@ -599,7 +567,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createGroupExtensionAdapter() {
 		if (groupExtensionItemProvider == null) {
 			groupExtensionItemProvider = new GroupExtensionItemProvider(this);
@@ -622,7 +589,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createBusAccessAdapter() {
 		if (busAccessItemProvider == null) {
 			busAccessItemProvider = new BusAccessItemProvider(this);
@@ -645,13 +611,35 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createDataAccessAdapter() {
 		if (dataAccessItemProvider == null) {
 			dataAccessItemProvider = new DataAccessItemProvider(this);
 		}
 
 		return dataAccessItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.osate.aadl2.AbstractFeatureClassifier} instances.
+	 * <!-- begin-user-doc -->
+	 * @since 3.0
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AbstractFeatureClassifierItemProvider abstractFeatureClassifierItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.osate.aadl2.AbstractFeatureClassifier}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createAbstractFeatureClassifierAdapter() {
+		if (abstractFeatureClassifierItemProvider == null) {
+			abstractFeatureClassifierItemProvider = new AbstractFeatureClassifierItemProvider(this);
+		}
+
+		return abstractFeatureClassifierItemProvider;
 	}
 
 	/**
@@ -668,7 +656,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createDataPortAdapter() {
 		if (dataPortItemProvider == null) {
 			dataPortItemProvider = new DataPortItemProvider(this);
@@ -691,7 +678,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createEventDataPortAdapter() {
 		if (eventDataPortItemProvider == null) {
 			eventDataPortItemProvider = new EventDataPortItemProvider(this);
@@ -714,7 +700,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createEventPortAdapter() {
 		if (eventPortItemProvider == null) {
 			eventPortItemProvider = new EventPortItemProvider(this);
@@ -737,7 +722,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createParameterAdapter() {
 		if (parameterItemProvider == null) {
 			parameterItemProvider = new ParameterItemProvider(this);
@@ -760,7 +744,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createSubprogramAccessAdapter() {
 		if (subprogramAccessItemProvider == null) {
 			subprogramAccessItemProvider = new SubprogramAccessItemProvider(this);
@@ -783,7 +766,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createSubprogramGroupAccessAdapter() {
 		if (subprogramGroupAccessItemProvider == null) {
 			subprogramGroupAccessItemProvider = new SubprogramGroupAccessItemProvider(this);
@@ -806,7 +788,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createAbstractFeatureAdapter() {
 		if (abstractFeatureItemProvider == null) {
 			abstractFeatureItemProvider = new AbstractFeatureItemProvider(this);
@@ -829,7 +810,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createModeBindingAdapter() {
 		if (modeBindingItemProvider == null) {
 			modeBindingItemProvider = new ModeBindingItemProvider(this);
@@ -852,7 +832,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createFlowImplementationAdapter() {
 		if (flowImplementationItemProvider == null) {
 			flowImplementationItemProvider = new FlowImplementationItemProvider(this);
@@ -875,7 +854,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createFlowSegmentAdapter() {
 		if (flowSegmentItemProvider == null) {
 			flowSegmentItemProvider = new FlowSegmentItemProvider(this);
@@ -898,7 +876,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createConnectedElementAdapter() {
 		if (connectedElementItemProvider == null) {
 			connectedElementItemProvider = new ConnectedElementItemProvider(this);
@@ -921,7 +898,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createImplementationExtensionAdapter() {
 		if (implementationExtensionItemProvider == null) {
 			implementationExtensionItemProvider = new ImplementationExtensionItemProvider(this);
@@ -944,7 +920,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createRealizationAdapter() {
 		if (realizationItemProvider == null) {
 			realizationItemProvider = new RealizationItemProvider(this);
@@ -967,7 +942,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createEndToEndFlowAdapter() {
 		if (endToEndFlowItemProvider == null) {
 			endToEndFlowItemProvider = new EndToEndFlowItemProvider(this);
@@ -990,7 +964,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createEndToEndFlowSegmentAdapter() {
 		if (endToEndFlowSegmentItemProvider == null) {
 			endToEndFlowSegmentItemProvider = new EndToEndFlowSegmentItemProvider(this);
@@ -1013,7 +986,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createAbstractSubcomponentAdapter() {
 		if (abstractSubcomponentItemProvider == null) {
 			abstractSubcomponentItemProvider = new AbstractSubcomponentItemProvider(this);
@@ -1036,7 +1008,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createAccessConnectionAdapter() {
 		if (accessConnectionItemProvider == null) {
 			accessConnectionItemProvider = new AccessConnectionItemProvider(this);
@@ -1059,7 +1030,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createParameterConnectionAdapter() {
 		if (parameterConnectionItemProvider == null) {
 			parameterConnectionItemProvider = new ParameterConnectionItemProvider(this);
@@ -1082,7 +1052,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createPortConnectionAdapter() {
 		if (portConnectionItemProvider == null) {
 			portConnectionItemProvider = new PortConnectionItemProvider(this);
@@ -1105,7 +1074,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createFeatureConnectionAdapter() {
 		if (featureConnectionItemProvider == null) {
 			featureConnectionItemProvider = new FeatureConnectionItemProvider(this);
@@ -1128,7 +1096,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createFeatureGroupConnectionAdapter() {
 		if (featureGroupConnectionItemProvider == null) {
 			featureGroupConnectionItemProvider = new FeatureGroupConnectionItemProvider(this);
@@ -1151,7 +1118,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createEventSourceAdapter() {
 		if (eventSourceItemProvider == null) {
 			eventSourceItemProvider = new EventSourceItemProvider(this);
@@ -1174,7 +1140,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createEventDataSourceAdapter() {
 		if (eventDataSourceItemProvider == null) {
 			eventDataSourceItemProvider = new EventDataSourceItemProvider(this);
@@ -1197,7 +1162,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createPortProxyAdapter() {
 		if (portProxyItemProvider == null) {
 			portProxyItemProvider = new PortProxyItemProvider(this);
@@ -1220,7 +1184,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createSubprogramProxyAdapter() {
 		if (subprogramProxyItemProvider == null) {
 			subprogramProxyItemProvider = new SubprogramProxyItemProvider(this);
@@ -1243,7 +1206,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createDefaultAnnexLibraryAdapter() {
 		if (defaultAnnexLibraryItemProvider == null) {
 			defaultAnnexLibraryItemProvider = new DefaultAnnexLibraryItemProvider(this);
@@ -1266,7 +1228,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createDefaultAnnexSubclauseAdapter() {
 		if (defaultAnnexSubclauseItemProvider == null) {
 			defaultAnnexSubclauseItemProvider = new DefaultAnnexSubclauseItemProvider(this);
@@ -1289,7 +1250,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createPublicPackageSectionAdapter() {
 		if (publicPackageSectionItemProvider == null) {
 			publicPackageSectionItemProvider = new PublicPackageSectionItemProvider(this);
@@ -1312,7 +1272,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createPackageRenameAdapter() {
 		if (packageRenameItemProvider == null) {
 			packageRenameItemProvider = new PackageRenameItemProvider(this);
@@ -1335,7 +1294,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createAadlPackageAdapter() {
 		if (aadlPackageItemProvider == null) {
 			aadlPackageItemProvider = new AadlPackageItemProvider(this);
@@ -1358,7 +1316,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createPrivatePackageSectionAdapter() {
 		if (privatePackageSectionItemProvider == null) {
 			privatePackageSectionItemProvider = new PrivatePackageSectionItemProvider(this);
@@ -1381,7 +1338,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createComponentTypeRenameAdapter() {
 		if (componentTypeRenameItemProvider == null) {
 			componentTypeRenameItemProvider = new ComponentTypeRenameItemProvider(this);
@@ -1404,7 +1360,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createFeatureGroupTypeRenameAdapter() {
 		if (featureGroupTypeRenameItemProvider == null) {
 			featureGroupTypeRenameItemProvider = new FeatureGroupTypeRenameItemProvider(this);
@@ -1427,7 +1382,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createAbstractTypeAdapter() {
 		if (abstractTypeItemProvider == null) {
 			abstractTypeItemProvider = new AbstractTypeItemProvider(this);
@@ -1450,7 +1404,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createAbstractImplementationAdapter() {
 		if (abstractImplementationItemProvider == null) {
 			abstractImplementationItemProvider = new AbstractImplementationItemProvider(this);
@@ -1473,7 +1426,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createSubprogramCallSequenceAdapter() {
 		if (subprogramCallSequenceItemProvider == null) {
 			subprogramCallSequenceItemProvider = new SubprogramCallSequenceItemProvider(this);
@@ -1496,7 +1448,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createBusSubcomponentAdapter() {
 		if (busSubcomponentItemProvider == null) {
 			busSubcomponentItemProvider = new BusSubcomponentItemProvider(this);
@@ -1519,7 +1470,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createDataSubcomponentAdapter() {
 		if (dataSubcomponentItemProvider == null) {
 			dataSubcomponentItemProvider = new DataSubcomponentItemProvider(this);
@@ -1542,7 +1492,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createDeviceSubcomponentAdapter() {
 		if (deviceSubcomponentItemProvider == null) {
 			deviceSubcomponentItemProvider = new DeviceSubcomponentItemProvider(this);
@@ -1565,7 +1514,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createMemorySubcomponentAdapter() {
 		if (memorySubcomponentItemProvider == null) {
 			memorySubcomponentItemProvider = new MemorySubcomponentItemProvider(this);
@@ -1588,7 +1536,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createProcessSubcomponentAdapter() {
 		if (processSubcomponentItemProvider == null) {
 			processSubcomponentItemProvider = new ProcessSubcomponentItemProvider(this);
@@ -1611,7 +1558,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createProcessorSubcomponentAdapter() {
 		if (processorSubcomponentItemProvider == null) {
 			processorSubcomponentItemProvider = new ProcessorSubcomponentItemProvider(this);
@@ -1634,7 +1580,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createSystemSubcomponentAdapter() {
 		if (systemSubcomponentItemProvider == null) {
 			systemSubcomponentItemProvider = new SystemSubcomponentItemProvider(this);
@@ -1657,7 +1602,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createSubprogramSubcomponentAdapter() {
 		if (subprogramSubcomponentItemProvider == null) {
 			subprogramSubcomponentItemProvider = new SubprogramSubcomponentItemProvider(this);
@@ -1680,7 +1624,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createSubprogramGroupSubcomponentAdapter() {
 		if (subprogramGroupSubcomponentItemProvider == null) {
 			subprogramGroupSubcomponentItemProvider = new SubprogramGroupSubcomponentItemProvider(this);
@@ -1703,7 +1646,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createThreadSubcomponentAdapter() {
 		if (threadSubcomponentItemProvider == null) {
 			threadSubcomponentItemProvider = new ThreadSubcomponentItemProvider(this);
@@ -1726,7 +1668,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createThreadGroupSubcomponentAdapter() {
 		if (threadGroupSubcomponentItemProvider == null) {
 			threadGroupSubcomponentItemProvider = new ThreadGroupSubcomponentItemProvider(this);
@@ -1749,7 +1690,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createVirtualBusSubcomponentAdapter() {
 		if (virtualBusSubcomponentItemProvider == null) {
 			virtualBusSubcomponentItemProvider = new VirtualBusSubcomponentItemProvider(this);
@@ -1772,7 +1712,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createVirtualProcessorSubcomponentAdapter() {
 		if (virtualProcessorSubcomponentItemProvider == null) {
 			virtualProcessorSubcomponentItemProvider = new VirtualProcessorSubcomponentItemProvider(this);
@@ -1795,7 +1734,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createAbstractPrototypeAdapter() {
 		if (abstractPrototypeItemProvider == null) {
 			abstractPrototypeItemProvider = new AbstractPrototypeItemProvider(this);
@@ -1818,7 +1756,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createBusTypeAdapter() {
 		if (busTypeItemProvider == null) {
 			busTypeItemProvider = new BusTypeItemProvider(this);
@@ -1841,7 +1778,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createBusImplementationAdapter() {
 		if (busImplementationItemProvider == null) {
 			busImplementationItemProvider = new BusImplementationItemProvider(this);
@@ -1864,7 +1800,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createBusPrototypeAdapter() {
 		if (busPrototypeItemProvider == null) {
 			busPrototypeItemProvider = new BusPrototypeItemProvider(this);
@@ -1887,7 +1822,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createDataTypeAdapter() {
 		if (dataTypeItemProvider == null) {
 			dataTypeItemProvider = new DataTypeItemProvider(this);
@@ -1910,7 +1844,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createDataImplementationAdapter() {
 		if (dataImplementationItemProvider == null) {
 			dataImplementationItemProvider = new DataImplementationItemProvider(this);
@@ -1933,7 +1866,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createDataPrototypeAdapter() {
 		if (dataPrototypeItemProvider == null) {
 			dataPrototypeItemProvider = new DataPrototypeItemProvider(this);
@@ -1956,7 +1888,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createDeviceTypeAdapter() {
 		if (deviceTypeItemProvider == null) {
 			deviceTypeItemProvider = new DeviceTypeItemProvider(this);
@@ -1979,7 +1910,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createDeviceImplementationAdapter() {
 		if (deviceImplementationItemProvider == null) {
 			deviceImplementationItemProvider = new DeviceImplementationItemProvider(this);
@@ -2002,7 +1932,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createDevicePrototypeAdapter() {
 		if (devicePrototypeItemProvider == null) {
 			devicePrototypeItemProvider = new DevicePrototypeItemProvider(this);
@@ -2025,7 +1954,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createMemoryTypeAdapter() {
 		if (memoryTypeItemProvider == null) {
 			memoryTypeItemProvider = new MemoryTypeItemProvider(this);
@@ -2048,7 +1976,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createMemoryImplementationAdapter() {
 		if (memoryImplementationItemProvider == null) {
 			memoryImplementationItemProvider = new MemoryImplementationItemProvider(this);
@@ -2071,7 +1998,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createMemoryPrototypeAdapter() {
 		if (memoryPrototypeItemProvider == null) {
 			memoryPrototypeItemProvider = new MemoryPrototypeItemProvider(this);
@@ -2094,7 +2020,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createProcessTypeAdapter() {
 		if (processTypeItemProvider == null) {
 			processTypeItemProvider = new ProcessTypeItemProvider(this);
@@ -2117,7 +2042,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createProcessorTypeAdapter() {
 		if (processorTypeItemProvider == null) {
 			processorTypeItemProvider = new ProcessorTypeItemProvider(this);
@@ -2140,7 +2064,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createProcessImplementationAdapter() {
 		if (processImplementationItemProvider == null) {
 			processImplementationItemProvider = new ProcessImplementationItemProvider(this);
@@ -2163,7 +2086,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createProcessPrototypeAdapter() {
 		if (processPrototypeItemProvider == null) {
 			processPrototypeItemProvider = new ProcessPrototypeItemProvider(this);
@@ -2186,7 +2108,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createProcessorImplementationAdapter() {
 		if (processorImplementationItemProvider == null) {
 			processorImplementationItemProvider = new ProcessorImplementationItemProvider(this);
@@ -2209,7 +2130,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createProcessorPrototypeAdapter() {
 		if (processorPrototypeItemProvider == null) {
 			processorPrototypeItemProvider = new ProcessorPrototypeItemProvider(this);
@@ -2232,7 +2152,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createSubprogramTypeAdapter() {
 		if (subprogramTypeItemProvider == null) {
 			subprogramTypeItemProvider = new SubprogramTypeItemProvider(this);
@@ -2255,7 +2174,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createSubprogramImplementationAdapter() {
 		if (subprogramImplementationItemProvider == null) {
 			subprogramImplementationItemProvider = new SubprogramImplementationItemProvider(this);
@@ -2278,7 +2196,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createSubprogramPrototypeAdapter() {
 		if (subprogramPrototypeItemProvider == null) {
 			subprogramPrototypeItemProvider = new SubprogramPrototypeItemProvider(this);
@@ -2301,7 +2218,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createSubprogramGroupTypeAdapter() {
 		if (subprogramGroupTypeItemProvider == null) {
 			subprogramGroupTypeItemProvider = new SubprogramGroupTypeItemProvider(this);
@@ -2324,7 +2240,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createSubprogramGroupImplementationAdapter() {
 		if (subprogramGroupImplementationItemProvider == null) {
 			subprogramGroupImplementationItemProvider = new SubprogramGroupImplementationItemProvider(this);
@@ -2347,7 +2262,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createSubprogramGroupPrototypeAdapter() {
 		if (subprogramGroupPrototypeItemProvider == null) {
 			subprogramGroupPrototypeItemProvider = new SubprogramGroupPrototypeItemProvider(this);
@@ -2370,7 +2284,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createSystemTypeAdapter() {
 		if (systemTypeItemProvider == null) {
 			systemTypeItemProvider = new SystemTypeItemProvider(this);
@@ -2393,7 +2306,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createSystemImplementationAdapter() {
 		if (systemImplementationItemProvider == null) {
 			systemImplementationItemProvider = new SystemImplementationItemProvider(this);
@@ -2416,7 +2328,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createSystemPrototypeAdapter() {
 		if (systemPrototypeItemProvider == null) {
 			systemPrototypeItemProvider = new SystemPrototypeItemProvider(this);
@@ -2439,7 +2350,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createThreadTypeAdapter() {
 		if (threadTypeItemProvider == null) {
 			threadTypeItemProvider = new ThreadTypeItemProvider(this);
@@ -2462,7 +2372,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createThreadImplementationAdapter() {
 		if (threadImplementationItemProvider == null) {
 			threadImplementationItemProvider = new ThreadImplementationItemProvider(this);
@@ -2485,7 +2394,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createThreadPrototypeAdapter() {
 		if (threadPrototypeItemProvider == null) {
 			threadPrototypeItemProvider = new ThreadPrototypeItemProvider(this);
@@ -2508,7 +2416,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createThreadGroupTypeAdapter() {
 		if (threadGroupTypeItemProvider == null) {
 			threadGroupTypeItemProvider = new ThreadGroupTypeItemProvider(this);
@@ -2531,7 +2438,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createThreadGroupImplementationAdapter() {
 		if (threadGroupImplementationItemProvider == null) {
 			threadGroupImplementationItemProvider = new ThreadGroupImplementationItemProvider(this);
@@ -2554,7 +2460,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createThreadGroupPrototypeAdapter() {
 		if (threadGroupPrototypeItemProvider == null) {
 			threadGroupPrototypeItemProvider = new ThreadGroupPrototypeItemProvider(this);
@@ -2577,7 +2482,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createVirtualBusTypeAdapter() {
 		if (virtualBusTypeItemProvider == null) {
 			virtualBusTypeItemProvider = new VirtualBusTypeItemProvider(this);
@@ -2600,7 +2504,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createVirtualBusImplementationAdapter() {
 		if (virtualBusImplementationItemProvider == null) {
 			virtualBusImplementationItemProvider = new VirtualBusImplementationItemProvider(this);
@@ -2623,7 +2526,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createVirtualBusPrototypeAdapter() {
 		if (virtualBusPrototypeItemProvider == null) {
 			virtualBusPrototypeItemProvider = new VirtualBusPrototypeItemProvider(this);
@@ -2646,7 +2548,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createVirtualProcessorTypeAdapter() {
 		if (virtualProcessorTypeItemProvider == null) {
 			virtualProcessorTypeItemProvider = new VirtualProcessorTypeItemProvider(this);
@@ -2669,7 +2570,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createVirtualProcessorImplementationAdapter() {
 		if (virtualProcessorImplementationItemProvider == null) {
 			virtualProcessorImplementationItemProvider = new VirtualProcessorImplementationItemProvider(this);
@@ -2692,7 +2592,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createVirtualProcessorPrototypeAdapter() {
 		if (virtualProcessorPrototypeItemProvider == null) {
 			virtualProcessorPrototypeItemProvider = new VirtualProcessorPrototypeItemProvider(this);
@@ -2715,7 +2614,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createComponentPrototypeBindingAdapter() {
 		if (componentPrototypeBindingItemProvider == null) {
 			componentPrototypeBindingItemProvider = new ComponentPrototypeBindingItemProvider(this);
@@ -2738,7 +2636,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createComponentPrototypeActualAdapter() {
 		if (componentPrototypeActualItemProvider == null) {
 			componentPrototypeActualItemProvider = new ComponentPrototypeActualItemProvider(this);
@@ -2761,7 +2658,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createFeatureGroupPrototypeBindingAdapter() {
 		if (featureGroupPrototypeBindingItemProvider == null) {
 			featureGroupPrototypeBindingItemProvider = new FeatureGroupPrototypeBindingItemProvider(this);
@@ -2784,7 +2680,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createFeatureGroupPrototypeActualAdapter() {
 		if (featureGroupPrototypeActualItemProvider == null) {
 			featureGroupPrototypeActualItemProvider = new FeatureGroupPrototypeActualItemProvider(this);
@@ -2807,7 +2702,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createFeaturePrototypeAdapter() {
 		if (featurePrototypeItemProvider == null) {
 			featurePrototypeItemProvider = new FeaturePrototypeItemProvider(this);
@@ -2830,7 +2724,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createFeatureGroupPrototypeAdapter() {
 		if (featureGroupPrototypeItemProvider == null) {
 			featureGroupPrototypeItemProvider = new FeatureGroupPrototypeItemProvider(this);
@@ -2853,7 +2746,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createFeaturePrototypeBindingAdapter() {
 		if (featurePrototypeBindingItemProvider == null) {
 			featurePrototypeBindingItemProvider = new FeaturePrototypeBindingItemProvider(this);
@@ -2876,7 +2768,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createAccessSpecificationAdapter() {
 		if (accessSpecificationItemProvider == null) {
 			accessSpecificationItemProvider = new AccessSpecificationItemProvider(this);
@@ -2899,7 +2790,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createPortSpecificationAdapter() {
 		if (portSpecificationItemProvider == null) {
 			portSpecificationItemProvider = new PortSpecificationItemProvider(this);
@@ -2922,7 +2812,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createFeaturePrototypeReferenceAdapter() {
 		if (featurePrototypeReferenceItemProvider == null) {
 			featurePrototypeReferenceItemProvider = new FeaturePrototypeReferenceItemProvider(this);
@@ -2945,7 +2834,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createSubprogramCallAdapter() {
 		if (subprogramCallItemProvider == null) {
 			subprogramCallItemProvider = new SubprogramCallItemProvider(this);
@@ -2968,7 +2856,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createBasicPropertyAssociationAdapter() {
 		if (basicPropertyAssociationItemProvider == null) {
 			basicPropertyAssociationItemProvider = new BasicPropertyAssociationItemProvider(this);
@@ -2991,7 +2878,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createPropertyConstantAdapter() {
 		if (propertyConstantItemProvider == null) {
 			propertyConstantItemProvider = new PropertyConstantItemProvider(this);
@@ -3014,7 +2900,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createEnumerationLiteralAdapter() {
 		if (enumerationLiteralItemProvider == null) {
 			enumerationLiteralItemProvider = new EnumerationLiteralItemProvider(this);
@@ -3037,7 +2922,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createUnitLiteralAdapter() {
 		if (unitLiteralItemProvider == null) {
 			unitLiteralItemProvider = new UnitLiteralItemProvider(this);
@@ -3060,7 +2944,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createStringLiteralAdapter() {
 		if (stringLiteralItemProvider == null) {
 			stringLiteralItemProvider = new StringLiteralItemProvider(this);
@@ -3083,7 +2966,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createClassifierValueAdapter() {
 		if (classifierValueItemProvider == null) {
 			classifierValueItemProvider = new ClassifierValueItemProvider(this);
@@ -3106,7 +2988,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createReferenceValueAdapter() {
 		if (referenceValueItemProvider == null) {
 			referenceValueItemProvider = new ReferenceValueItemProvider(this);
@@ -3129,7 +3010,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createBooleanLiteralAdapter() {
 		if (booleanLiteralItemProvider == null) {
 			booleanLiteralItemProvider = new BooleanLiteralItemProvider(this);
@@ -3152,7 +3032,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createRangeValueAdapter() {
 		if (rangeValueItemProvider == null) {
 			rangeValueItemProvider = new RangeValueItemProvider(this);
@@ -3175,7 +3054,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createIntegerLiteralAdapter() {
 		if (integerLiteralItemProvider == null) {
 			integerLiteralItemProvider = new IntegerLiteralItemProvider(this);
@@ -3198,7 +3076,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createRealLiteralAdapter() {
 		if (realLiteralItemProvider == null) {
 			realLiteralItemProvider = new RealLiteralItemProvider(this);
@@ -3221,7 +3098,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createOperationAdapter() {
 		if (operationItemProvider == null) {
 			operationItemProvider = new OperationItemProvider(this);
@@ -3244,7 +3120,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createRecordValueAdapter() {
 		if (recordValueItemProvider == null) {
 			recordValueItemProvider = new RecordValueItemProvider(this);
@@ -3267,7 +3142,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createComputedValueAdapter() {
 		if (computedValueItemProvider == null) {
 			computedValueItemProvider = new ComputedValueItemProvider(this);
@@ -3290,7 +3164,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createListValueAdapter() {
 		if (listValueItemProvider == null) {
 			listValueItemProvider = new ListValueItemProvider(this);
@@ -3313,7 +3186,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createNamedValueAdapter() {
 		if (namedValueItemProvider == null) {
 			namedValueItemProvider = new NamedValueItemProvider(this);
@@ -3336,7 +3208,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createPropertySetAdapter() {
 		if (propertySetItemProvider == null) {
 			propertySetItemProvider = new PropertySetItemProvider(this);
@@ -3359,7 +3230,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createGlobalNamespaceAdapter() {
 		if (globalNamespaceItemProvider == null) {
 			globalNamespaceItemProvider = new GlobalNamespaceItemProvider(this);
@@ -3382,7 +3252,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createAadlBooleanAdapter() {
 		if (aadlBooleanItemProvider == null) {
 			aadlBooleanItemProvider = new AadlBooleanItemProvider(this);
@@ -3405,7 +3274,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createAadlStringAdapter() {
 		if (aadlStringItemProvider == null) {
 			aadlStringItemProvider = new AadlStringItemProvider(this);
@@ -3428,7 +3296,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createAadlIntegerAdapter() {
 		if (aadlIntegerItemProvider == null) {
 			aadlIntegerItemProvider = new AadlIntegerItemProvider(this);
@@ -3451,7 +3318,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createUnitsTypeAdapter() {
 		if (unitsTypeItemProvider == null) {
 			unitsTypeItemProvider = new UnitsTypeItemProvider(this);
@@ -3474,7 +3340,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createEnumerationTypeAdapter() {
 		if (enumerationTypeItemProvider == null) {
 			enumerationTypeItemProvider = new EnumerationTypeItemProvider(this);
@@ -3497,7 +3362,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createNumericRangeAdapter() {
 		if (numericRangeItemProvider == null) {
 			numericRangeItemProvider = new NumericRangeItemProvider(this);
@@ -3520,7 +3384,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createAadlRealAdapter() {
 		if (aadlRealItemProvider == null) {
 			aadlRealItemProvider = new AadlRealItemProvider(this);
@@ -3543,7 +3406,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createClassifierTypeAdapter() {
 		if (classifierTypeItemProvider == null) {
 			classifierTypeItemProvider = new ClassifierTypeItemProvider(this);
@@ -3566,7 +3428,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createRangeTypeAdapter() {
 		if (rangeTypeItemProvider == null) {
 			rangeTypeItemProvider = new RangeTypeItemProvider(this);
@@ -3589,7 +3450,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createRecordTypeAdapter() {
 		if (recordTypeItemProvider == null) {
 			recordTypeItemProvider = new RecordTypeItemProvider(this);
@@ -3612,7 +3472,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createRecordFieldAdapter() {
 		if (recordFieldItemProvider == null) {
 			recordFieldItemProvider = new RecordFieldItemProvider(this);
@@ -3635,7 +3494,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createReferenceTypeAdapter() {
 		if (referenceTypeItemProvider == null) {
 			referenceTypeItemProvider = new ReferenceTypeItemProvider(this);
@@ -3658,7 +3516,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter createListTypeAdapter() {
 		if (listTypeItemProvider == null) {
 			listTypeItemProvider = new ListTypeItemProvider(this);
@@ -3673,7 +3530,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ComposeableAdapterFactory getRootAdapterFactory() {
 		return parentAdapterFactory == null ? this : parentAdapterFactory.getRootAdapterFactory();
 	}
@@ -3684,7 +3540,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setParentAdapterFactory(ComposedAdapterFactory parentAdapterFactory) {
 		this.parentAdapterFactory = parentAdapterFactory;
 	}
@@ -3694,7 +3549,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isFactoryForType(Object type) {
 		return supportedTypes.contains(type) || super.isFactoryForType(type);
 	}
@@ -3705,7 +3559,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Adapter adapt(Notifier notifier, Object type) {
 		return super.adapt(notifier, this);
 	}
@@ -3715,7 +3568,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object adapt(Object object, Object type) {
 		if (isFactoryForType(type)) {
 			Object adapter = super.adapt(object, type);
@@ -3733,7 +3585,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void addListener(INotifyChangedListener notifyChangedListener) {
 		changeNotifier.addListener(notifyChangedListener);
 	}
@@ -3744,7 +3595,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void removeListener(INotifyChangedListener notifyChangedListener) {
 		changeNotifier.removeListener(notifyChangedListener);
 	}
@@ -3755,7 +3605,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void fireNotifyChanged(Notification notification) {
 		changeNotifier.fireNotifyChanged(notification);
 
@@ -3770,7 +3619,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void dispose() {
 		if (commentItemProvider != null) {
 			commentItemProvider.dispose();
@@ -3843,6 +3691,9 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory
 		}
 		if (dataAccessItemProvider != null) {
 			dataAccessItemProvider.dispose();
+		}
+		if (abstractFeatureClassifierItemProvider != null) {
+			abstractFeatureClassifierItemProvider.dispose();
 		}
 		if (dataPortItemProvider != null) {
 			dataPortItemProvider.dispose();

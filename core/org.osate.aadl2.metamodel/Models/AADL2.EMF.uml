@@ -1,240 +1,264 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ecore="http://www.eclipse.org/uml2/schemas/Ecore/5" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Ecore/5 pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA">
   <uml:Model xmi:id="_0" name="AADL2" URI="http://aadl.info/AADL/2.0">
-    <packageMerge xmi:id="_packageMerge.0">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_CkolwDJSEeqPArDozzJZgw">
+      <body>Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+All Rights Reserved.
+
+NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN &quot;AS-IS&quot; BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+
+This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+SPDX-License-Identifier: EPL-2.0
+
+Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+
+This program includes and/or can make use of certain third party source code, object code, documentation and other
+files (&quot;Third Party Software&quot;). The Third Party Software that is used by this program is dependent upon your system
+configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+Software. The parties who own the Third Party Software (&quot;Third Party Licensors&quot;) are intended third party benefici-
+aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+</body>
+    </ownedComment>
+    <packageMerge xmi:type="uml:PackageMerge" xmi:id="_packageMerge.0">
       <mergedPackage xmi:type="uml:Model" href="AADL2.uml#_0"/>
     </packageMerge>
     <packagedElement xmi:type="uml:Class" xmi:id="Element" name="Element" isAbstract="true">
-      <ownedAttribute xmi:id="Element-ownedElement" name="ownedElement" isReadOnly="true" aggregation="composite" isDerived="true"/>
-      <ownedOperation xmi:id="Element-getOwner" name="getOwner">
-        <ownedParameter xmi:id="Element-getOwner-_ownedParameter.0" type="Element" direction="return"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Element-ownedElement" name="ownedElement" isReadOnly="true" aggregation="composite" isDerived="true"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="Element-getOwner" name="getOwner">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="Element-getOwner-_ownedParameter.0" type="Element" direction="return"/>
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="RefinableElement" name="RefinableElement" isAbstract="true">
-      <ownedAttribute xmi:id="RefinableElement-refinedElement" name="refinedElement" isReadOnly="true" isDerived="true"/>
-      <ownedAttribute xmi:id="RefinableElement-refinementContext" name="refinementContext" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="RefinableElement-refinedElement" name="refinedElement" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="RefinableElement-refinementContext" name="refinementContext" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="NamedElement" name="NamedElement" isAbstract="true">
-      <ownedAttribute xmi:id="NamedElement-qualifiedName" name="qualifiedName" isReadOnly="true" isDerived="true"/>
-      <ownedOperation xmi:id="NamedElement-getNamespace" name="getNamespace">
-        <ownedParameter xmi:id="NamedElement-getNamespace-_ownedParameter.0" type="Namespace" direction="return"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="NamedElement-qualifiedName" name="qualifiedName" isReadOnly="true" isDerived="true"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="NamedElement-getNamespace" name="getNamespace">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="NamedElement-getNamespace-_ownedParameter.0" type="Namespace" direction="return"/>
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Namespace" name="Namespace" isAbstract="true">
-      <ownedAttribute xmi:id="Namespace-ownedMember" name="ownedMember" isReadOnly="true" aggregation="composite" isDerived="true"/>
-      <ownedAttribute xmi:id="Namespace-member" name="member" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Namespace-ownedMember" name="ownedMember" isReadOnly="true" aggregation="composite" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Namespace-member" name="member" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Classifier" name="Classifier" isAbstract="true">
-      <ownedAttribute xmi:id="Classifier-classifierFeature" name="classifierFeature" isReadOnly="true" isDerived="true"/>
-      <ownedAttribute xmi:id="Classifier-inheritedMember" name="inheritedMember" isReadOnly="true" isDerived="true"/>
-      <ownedAttribute xmi:id="Classifier-generalization" name="generalization" isReadOnly="true" isDerived="true"/>
-      <ownedAttribute xmi:id="Classifier-general" name="general" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-classifierFeature" name="classifierFeature" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-inheritedMember" name="inheritedMember" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-generalization" name="generalization" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Classifier-general" name="general" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ClassifierFeature" name="ClassifierFeature" isAbstract="true">
-      <ownedAttribute xmi:id="ClassifierFeature-featuringClassifier" name="featuringClassifier" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="ClassifierFeature-featuringClassifier" name="featuringClassifier" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Relationship" name="Relationship" isAbstract="true">
-      <ownedAttribute xmi:id="Relationship-relatedElement" name="relatedElement" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Relationship-relatedElement" name="relatedElement" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="DirectedRelationship" name="DirectedRelationship" isAbstract="true">
-      <ownedAttribute xmi:id="DirectedRelationship-source" name="source" isReadOnly="true" isDerived="true"/>
-      <ownedAttribute xmi:id="DirectedRelationship-target" name="target" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="DirectedRelationship-source" name="source" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="DirectedRelationship-target" name="target" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Generalization" name="Generalization" isAbstract="true">
-      <ownedAttribute xmi:id="Generalization-specific" name="specific" isDerived="true"/>
-      <ownedAttribute xmi:id="Generalization-general" name="general" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Generalization-specific" name="specific" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Generalization-general" name="general" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="GlobalNamespace" name="GlobalNamespace">
-      <ownedAttribute xmi:id="GlobalNamespace-package" name="package"/>
-      <ownedAttribute xmi:id="GlobalNamespace-propertySet" name="propertySet"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="GlobalNamespace-package" name="package"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="GlobalNamespace-propertySet" name="propertySet"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Package" name="Package"/>
     <packagedElement xmi:type="uml:Class" xmi:id="PackageSection" name="PackageSection" isAbstract="true">
-      <ownedAttribute xmi:id="PackageSection-name" name="name" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="PackageSection-name" name="name" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="PublicPackageSection" name="PublicPackageSection">
-      <ownedAttribute xmi:id="PublicPackageSection-privateSection" name="privateSection" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="PublicPackageSection-privateSection" name="privateSection" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="PrivatePackageSection" name="PrivatePackageSection">
-      <ownedAttribute xmi:id="PrivatePackageSection-publicSection" name="publicSection" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="PrivatePackageSection-publicSection" name="publicSection" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Access" name="Access" isAbstract="true">
-      <ownedAttribute xmi:id="Access-category" name="category" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Access-category" name="category" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Port" name="Port" isAbstract="true">
-      <ownedAttribute xmi:id="Port-category" name="category" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Port-category" name="category" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="FeatureGroup" name="FeatureGroup">
-      <ownedAttribute xmi:id="FeatureGroup-featureGroupType" name="featureGroupType" isReadOnly="true"/>
-      <ownedAttribute xmi:id="FeatureGroup-featureGroupPrototype" name="featureGroupPrototype" isReadOnly="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="FeatureGroup-featureGroupType" name="featureGroupType" isReadOnly="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="FeatureGroup-featureGroupPrototype" name="featureGroupPrototype" isReadOnly="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="FeatureGroupType" name="FeatureGroupType">
-      <ownedAttribute xmi:id="FeatureGroupType-extended" name="extended" isDerived="true"/>
-      <ownedAttribute xmi:id="FeatureGroupType-ownedFeature" name="ownedFeature" isReadOnly="true" aggregation="composite" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="FeatureGroupType-extended" name="extended" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="FeatureGroupType-ownedFeature" name="ownedFeature" isReadOnly="true" aggregation="composite" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ComponentClassifier" name="ComponentClassifier" isAbstract="true">
-      <ownedAttribute xmi:id="ComponentClassifier-derivedModes" name="derivedModes"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="ComponentClassifier-derivedModes" name="derivedModes"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ComponentType" name="ComponentType" isAbstract="true">
-      <ownedAttribute xmi:id="ComponentType-ownedFeature" name="ownedFeature" isReadOnly="true" aggregation="composite" isDerived="true"/>
-      <ownedAttribute xmi:id="ComponentType-extended" name="extended" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="ComponentType-ownedFeature" name="ownedFeature" isReadOnly="true" aggregation="composite" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="ComponentType-extended" name="extended" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Feature" name="Feature" isAbstract="true">
-      <ownedAttribute xmi:id="Feature-classifier" name="classifier" isReadOnly="true" isDerived="true"/>
-      <ownedAttribute xmi:id="Feature-prototype" name="prototype" isReadOnly="true" isDerived="true"/>
-      <ownedAttribute xmi:id="Feature-featureClassifier" name="featureClassifier" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Feature-classifier" name="classifier" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Feature-prototype" name="prototype" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Feature-featureClassifier" name="featureClassifier" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ComponentImplementation" name="ComponentImplementation" isAbstract="true">
-      <ownedAttribute xmi:id="ComponentImplementation-type" name="type" isDerived="true"/>
-      <ownedAttribute xmi:id="ComponentImplementation-ownedSubcomponent" name="ownedSubcomponent" isReadOnly="true" aggregation="composite" isDerived="true"/>
-      <ownedAttribute xmi:id="ComponentImplementation-extended" name="extended" isDerived="true"/>
-      <ownedAttribute xmi:id="ComponentImplementation-ownedConnection" name="ownedConnection" isReadOnly="true" aggregation="composite" isDerived="true"/>
-      <ownedAttribute xmi:id="ComponentImplementation-ownedInternalFeature" name="ownedInternalFeature" isReadOnly="true" isDerived="true"/>
-      <ownedAttribute xmi:id="ComponentImplementation-ownedProcessorFeature" name="ownedProcessorFeature" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="ComponentImplementation-type" name="type" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="ComponentImplementation-ownedSubcomponent" name="ownedSubcomponent" isReadOnly="true" aggregation="composite" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="ComponentImplementation-extended" name="extended" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="ComponentImplementation-ownedConnection" name="ownedConnection" isReadOnly="true" aggregation="composite" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="ComponentImplementation-ownedInternalFeature" name="ownedInternalFeature" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="ComponentImplementation-ownedProcessorFeature" name="ownedProcessorFeature" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Subcomponent" name="Subcomponent" isAbstract="true">
-      <ownedAttribute xmi:id="Subcomponent-classifier" name="classifier" isReadOnly="true" isDerived="true"/>
-      <ownedAttribute xmi:id="Subcomponent-prototype" name="prototype" isReadOnly="true" isDerived="true"/>
-      <ownedAttribute xmi:id="Subcomponent-subcomponentType" name="subcomponentType" isReadOnly="true" isDerived="true"/>
-      <ownedAttribute xmi:id="Subcomponent-inMode" name="inMode" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Subcomponent-classifier" name="classifier" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Subcomponent-prototype" name="prototype" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Subcomponent-subcomponentType" name="subcomponentType" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Subcomponent-inMode" name="inMode" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="BehavioredImplementation" name="BehavioredImplementation" isAbstract="true">
-      <ownedAttribute xmi:id="BehavioredImplementation-subprogramCall" name="subprogramCall" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="BehavioredImplementation-subprogramCall" name="subprogramCall" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ModalPath" name="ModalPath" isAbstract="true">
-      <ownedAttribute xmi:id="ModalPath-inMode" name="inMode" isDerived="true"/>
-      <ownedOperation xmi:id="ModalPath-getInModes" name="getInModes">
-        <ownedParameter xmi:id="ModalPath-getInModes-_ownedParameter.0" name="" type="Mode" direction="return">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="ModalPath-inMode" name="inMode" isDerived="true"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="ModalPath-getInModes" name="getInModes">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="ModalPath-getInModes-_ownedParameter.0" name="" type="Mode" direction="return">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ModalPath-getInModes-_ownedParameter.0-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ModalPath-getInModes-_ownedParameter.0-_upperValue" value="*"/>
         </ownedParameter>
       </ownedOperation>
-      <ownedOperation xmi:id="ModalPath-getInModeTransitions" name="getInModeTransitions">
-        <ownedParameter xmi:id="ModalPath-getInModeTransitions-_ownedParameter.0" name="" type="ModeTransition" direction="return">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="ModalPath-getInModeTransitions" name="getInModeTransitions">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="ModalPath-getInModeTransitions-_ownedParameter.0" name="" type="ModeTransition" direction="return">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ModalPath-getInModeTransitions-_ownedParameter.0-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ModalPath-getInModeTransitions-_ownedParameter.0-_upperValue" value="*"/>
         </ownedParameter>
       </ownedOperation>
-      <ownedOperation xmi:id="ModalPath-getAllInModeTransitions" name="getAllInModeTransitions">
-        <ownedParameter xmi:id="ModalPath-getAllInModeTransitions-_ownedParameter.0" name="" type="ModeTransition" direction="return">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="ModalPath-getAllInModeTransitions" name="getAllInModeTransitions">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="ModalPath-getAllInModeTransitions-_ownedParameter.0" name="" type="ModeTransition" direction="return">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ModalPath-getAllInModeTransitions-_ownedParameter.0-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ModalPath-getAllInModeTransitions-_ownedParameter.0-_upperValue" value="*"/>
         </ownedParameter>
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ModalElement" name="ModalElement" isAbstract="true">
-      <ownedOperation xmi:id="ModalElement-getAllInModes" name="getAllInModes">
-        <ownedParameter xmi:id="ModalElement-getAllInModes-_ownedParameter.0" name="" type="Mode" direction="return">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="ModalElement-getAllInModes" name="getAllInModes">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="ModalElement-getAllInModes-_ownedParameter.0" name="" type="Mode" direction="return">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ModalElement-getAllInModes-_ownedParameter.0-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ModalElement-getAllInModes-_ownedParameter.0-_upperValue" value="*"/>
         </ownedParameter>
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Mode" name="Mode">
-      <ownedAttribute xmi:id="Mode-derived" name="derived" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Mode-derived" name="derived" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ModeTransition" name="ModeTransition"/>
     <packagedElement xmi:type="uml:Class" xmi:id="AbstractImplementation" name="AbstractImplementation">
-      <ownedAttribute xmi:id="AbstractImplementation-type" name="type" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="AbstractImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="BusImplementation" name="BusImplementation">
-      <ownedAttribute xmi:id="BusImplementation-type" name="type" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="BusImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="DataImplementation" name="DataImplementation">
-      <ownedAttribute xmi:id="DataImplementation-type" name="type" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="DataImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="DeviceImplementation" name="DeviceImplementation">
-      <ownedAttribute xmi:id="DeviceImplementation-type" name="type" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="DeviceImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="MemoryImplementation" name="MemoryImplementation">
-      <ownedAttribute xmi:id="MemoryImplementation-type" name="type" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="MemoryImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ProcessImplementation" name="ProcessImplementation">
-      <ownedAttribute xmi:id="ProcessImplementation-type" name="type" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="ProcessImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ProcessorImplementation" name="ProcessorImplementation">
-      <ownedAttribute xmi:id="ProcessorImplementation-type" name="type" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="ProcessorImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="SubprogramImplementation" name="SubprogramImplementation">
-      <ownedAttribute xmi:id="SubprogramImplementation-type" name="type" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="SubprogramImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="SubprogramGroupImplementation" name="SubprogramGroupImplementation">
-      <ownedAttribute xmi:id="SubprogramGroupImplementation-type" name="type" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="SubprogramGroupImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="SystemImplementation" name="SystemImplementation">
-      <ownedAttribute xmi:id="SystemImplementation-type" name="type" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="SystemImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ThreadImplementation" name="ThreadImplementation">
-      <ownedAttribute xmi:id="ThreadImplementation-type" name="type" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="ThreadImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ThreadGroupImplementation" name="ThreadGroupImplementation">
-      <ownedAttribute xmi:id="ThreadGroupImplementation-type" name="type" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="ThreadGroupImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="VirtualBusImplementation" name="VirtualBusImplementation">
-      <ownedAttribute xmi:id="VirtualBusImplementation-type" name="type" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="VirtualBusImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="VirtualProcessorImplementation" name="VirtualProcessorImplementation">
-      <ownedAttribute xmi:id="VirtualProcessorImplementation-type" name="type" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="VirtualProcessorImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:PrimitiveType" xmi:id="Boolean" name="Boolean"/>
     <packagedElement xmi:type="uml:PrimitiveType" xmi:id="Integer" name="Integer"/>
     <packagedElement xmi:type="uml:PrimitiveType" xmi:id="String" name="String"/>
     <packagedElement xmi:type="uml:PrimitiveType" xmi:id="Real" name="Real"/>
     <packagedElement xmi:type="uml:Class" xmi:id="Property" name="Property">
-      <ownedAttribute xmi:id="Property-appliesToClassifier" name="appliesToClassifier" isDerived="true"/>
-      <ownedAttribute xmi:id="Property-appliesToMetaclass" name="appliesToMetaclass" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-appliesToClassifier" name="appliesToClassifier" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="Property-appliesToMetaclass" name="appliesToMetaclass" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="SubprogramType" name="SubprogramType">
-      <generalization xmi:id="SubprogramType-_generalization.0" general="CallContext"/>
+      <generalization xmi:type="uml:Generalization" xmi:id="SubprogramType-_generalization.0" general="CallContext"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="CallContext" name="CallContext" isAbstract="true"/>
     <packagedElement xmi:type="uml:Class" xmi:id="ContainedNamedElement" name="ContainedNamedElement">
-      <ownedAttribute xmi:id="ContainedNamedElement-containmentPathElement" name="containmentPathElement" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="ContainedNamedElement-containmentPathElement" name="containmentPathElement" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="BasicProperty" name="BasicProperty">
-      <ownedAttribute xmi:id="BasicProperty-propertyType" name="propertyType" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="BasicProperty-propertyType" name="propertyType" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="PropertyConstant" name="PropertyConstant">
-      <ownedAttribute xmi:id="PropertyConstant-propertyType" name="propertyType" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="PropertyConstant-propertyType" name="propertyType" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ListType" name="ListType">
-      <ownedAttribute xmi:id="ListType-elementType" name="elementType" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="ListType-elementType" name="elementType" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="RangeType" name="RangeType">
-      <ownedAttribute xmi:id="RangeType-numberType" name="numberType" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="RangeType-numberType" name="numberType" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="NumberType" name="NumberType" isAbstract="true">
-      <ownedAttribute xmi:id="NumberType-unitsType" name="unitsType" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="NumberType-unitsType" name="unitsType" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="DirectedFeature" name="DirectedFeature" isAbstract="true">
-      <ownedAttribute xmi:id="DirectedFeature-direction" name="direction" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="DirectedFeature-direction" name="direction" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="FeaturePrototype" name="FeaturePrototype">
-      <ownedAttribute xmi:id="FeaturePrototype-direction" name="direction" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="FeaturePrototype-direction" name="direction" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="FeaturePrototypeReference" name="FeaturePrototypeReference">
-      <ownedAttribute xmi:id="FeaturePrototypeReference-direction" name="direction" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="FeaturePrototypeReference-direction" name="direction" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="PortSpecification" name="PortSpecification">
-      <ownedAttribute xmi:id="PortSpecification-direction" name="direction" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="PortSpecification-direction" name="direction" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="InternalFeature" name="InternalFeature" isAbstract="true">
-      <ownedAttribute xmi:id="InternalFeature-direction" name="direction" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="InternalFeature-direction" name="direction" isReadOnly="true" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="PortProxy" name="PortProxy">
-      <ownedAttribute xmi:id="PortProxy-direction" name="direction" isReadOnly="true" isDerived="true"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="PortProxy-direction" name="direction" isReadOnly="true" isDerived="true"/>
     </packagedElement>
-    <profileApplication xmi:id="_profileApplication.0">
-      <eAnnotations xmi:id="_profileApplication.0-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_profileApplication.0">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_profileApplication.0-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA"/>
       </eAnnotations>
-      <appliedProfile href="pathmap://UML_PROFILES/Ecore.profile.uml#_0"/>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Ecore.profile.uml#_0"/>
     </profileApplication>
-    <profileApplication xmi:id="_profileApplication.1">
-      <eAnnotations xmi:id="_profileApplication.1-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_profileApplication.1">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_profileApplication.1-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
       </eAnnotations>
-      <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
     </profileApplication>
   </uml:Model>
   <Ecore:EDataType xmi:id="_kML1MJ60Edy3O8JSiftxsg" instanceClassName="boolean" base_PrimitiveType="Boolean"/>

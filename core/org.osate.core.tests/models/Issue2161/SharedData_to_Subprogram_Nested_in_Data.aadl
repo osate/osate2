@@ -1,0 +1,65 @@
+package SharedData_to_Subprogram_Nested_in_Data
+public
+	data ShareMe
+	end ShareMe;
+	
+	subprogram InnerS
+		features
+			daf1: requires data access ShareMe;
+	end InnerS;
+	
+	data OuterD
+		features
+			daf2: requires data access ShareMe;
+	end OuterD;
+	
+	data implementation OuterD.generic
+		subcomponents
+			inner: subprogram InnerS;
+	end OuterD.generic;
+	
+	data implementation OuterD.bidirectional extends OuterD.generic
+		connections
+			dac1: data access daf2 <-> inner.daf1;
+	end OuterD.bidirectional;
+	
+	data implementation OuterD.fromSharedComponent extends OuterD.generic
+		connections
+			dac1: data access daf2 -> inner.daf1;
+	end OuterD.fromSharedComponent;
+	
+	data implementation OuterD.toSharedComponent extends OuterD.generic
+		connections
+			dac1: data access inner.daf1 -> daf2;
+	end OuterD.toSharedComponent;
+	
+	system Root
+	end Root;
+	
+	system implementation Root.generic
+		subcomponents
+			shareMe: data ShareMe;
+			outer: data OuterD.generic;
+	end Root.generic;
+	
+	system implementation Root.bidirectional extends Root.generic
+		subcomponents
+			outer: refined to data OuterD.bidirectional;
+		connections
+			dac2: data access shareMe <-> outer.daf2;
+	end Root.bidirectional;
+	
+	system implementation Root.fromSharedComponent extends Root.generic
+		subcomponents
+			outer: refined to data OuterD.fromSharedComponent;
+		connections
+			dac2: data access shareMe -> outer.daf2;
+	end Root.fromSharedComponent;
+	
+	system implementation Root.toSharedComponent extends Root.generic
+		subcomponents
+			outer: refined to data OuterD.toSharedComponent;
+		connections
+			dac2: data access outer.daf2 -> shareMe;
+	end Root.toSharedComponent;
+end SharedData_to_Subprogram_Nested_in_Data;

@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright © 2011 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -9,13 +9,13 @@
  * 
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
- * version 1.0 of the License, or (at your option) any later version. This
+ * version 2.0 of the License, or (at your option) any later version. This
  * program is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License for
  * more details. You should have received a copy of the Eclipse Public License
  * along with this program. If not, see
- * http://www.eclipse.org/org/documents/epl-v10.php
+ * https://www.eclipse.org/legal/epl-2.0/
  */
 package org.osate.ba.aadlba.impl;
 
@@ -39,10 +39,10 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.aadlba.impl.DispatchConjunctionImpl#getDispatchTriggers <em>Dispatch Triggers</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -84,6 +84,7 @@ public class DispatchConjunctionImpl extends BehaviorElementImpl implements Disp
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<DispatchTrigger> getDispatchTriggers()
   {
     if (dispatchTriggers == null)
@@ -98,6 +99,7 @@ public class DispatchConjunctionImpl extends BehaviorElementImpl implements Disp
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void unsetDispatchTriggers()
   {
     if (dispatchTriggers != null) ((InternalEList.Unsettable<?>)dispatchTriggers).unset();
@@ -108,6 +110,7 @@ public class DispatchConjunctionImpl extends BehaviorElementImpl implements Disp
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSetDispatchTriggers()
   {
     return dispatchTriggers != null && ((InternalEList.Unsettable<?>)dispatchTriggers).isSet();

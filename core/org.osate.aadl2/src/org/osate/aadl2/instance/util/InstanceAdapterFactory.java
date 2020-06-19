@@ -1,8 +1,25 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id: InstanceAdapterFactory.java,v 1.12 2011-04-11 13:35:57 lwrage Exp $
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.aadl2.instance.util;
 
@@ -73,7 +90,6 @@ public class InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
-	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -91,127 +107,78 @@ public class InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	protected InstanceSwitch<Adapter> modelSwitch = new InstanceSwitch<Adapter>() {
-		@Override
 		public Adapter caseFeatureInstance(FeatureInstance object) {
 			return createFeatureInstanceAdapter();
 		}
-
-		@Override
 		public Adapter caseInstanceObject(InstanceObject object) {
 			return createInstanceObjectAdapter();
 		}
-
-		@Override
 		public Adapter caseAnnexInstance(AnnexInstance object) {
 			return createAnnexInstanceAdapter();
 		}
-
-		@Override
 		public Adapter casePropertyAssociationInstance(PropertyAssociationInstance object) {
 			return createPropertyAssociationInstanceAdapter();
 		}
-
-		@Override
 		public Adapter caseConnectionInstanceEnd(ConnectionInstanceEnd object) {
 			return createConnectionInstanceEndAdapter();
 		}
-
-		@Override
 		public Adapter caseConnectionInstance(ConnectionInstance object) {
 			return createConnectionInstanceAdapter();
 		}
-
-		@Override
 		public Adapter caseFlowElementInstance(FlowElementInstance object) {
 			return createFlowElementInstanceAdapter();
 		}
-
-		@Override
 		public Adapter caseSystemOperationMode(SystemOperationMode object) {
 			return createSystemOperationModeAdapter();
 		}
-
-		@Override
 		public Adapter caseModeInstance(ModeInstance object) {
 			return createModeInstanceAdapter();
 		}
-
-		@Override
 		public Adapter caseModeTransitionInstance(ModeTransitionInstance object) {
 			return createModeTransitionInstanceAdapter();
 		}
-
-		@Override
 		public Adapter caseConnectionReference(ConnectionReference object) {
 			return createConnectionReferenceAdapter();
 		}
-
-		@Override
 		public Adapter caseComponentInstance(ComponentInstance object) {
 			return createComponentInstanceAdapter();
 		}
-
-		@Override
 		public Adapter caseFlowSpecificationInstance(FlowSpecificationInstance object) {
 			return createFlowSpecificationInstanceAdapter();
 		}
-
-		@Override
 		public Adapter caseEndToEndFlowInstance(EndToEndFlowInstance object) {
 			return createEndToEndFlowInstanceAdapter();
 		}
-
-		@Override
 		public Adapter caseSystemInstance(SystemInstance object) {
 			return createSystemInstanceAdapter();
 		}
-
-		@Override
 		public Adapter caseInstanceReferenceValue(InstanceReferenceValue object) {
 			return createInstanceReferenceValueAdapter();
 		}
-
-		@Override
 		public Adapter caseElement(Element object) {
 			return createElementAdapter();
 		}
-
-		@Override
 		public Adapter caseNamedElement(NamedElement object) {
 			return createNamedElementAdapter();
 		}
-
-		@Override
 		public Adapter casePropertyAssociation(PropertyAssociation object) {
 			return createPropertyAssociationAdapter();
 		}
-
-		@Override
 		public Adapter caseClassifierFeature(ClassifierFeature object) {
 			return createClassifierFeatureAdapter();
 		}
-
-		@Override
 		public Adapter caseModeFeature(ModeFeature object) {
 			return createModeFeatureAdapter();
 		}
-
-		@Override
 		public Adapter caseMode(Mode object) {
 			return createModeAdapter();
 		}
-
-		@Override
 		public Adapter casePropertyExpression(PropertyExpression object) {
 			return createPropertyExpressionAdapter();
 		}
-
-		@Override
 		public Adapter casePropertyValue(PropertyValue object) {
 			return createPropertyValueAdapter();
 		}
-
-		@Override
 		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -225,7 +192,6 @@ public class InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
-	@Override
 	public Adapter createAdapter(Notifier target) {
 		return modelSwitch.doSwitch((EObject) target);
 	}

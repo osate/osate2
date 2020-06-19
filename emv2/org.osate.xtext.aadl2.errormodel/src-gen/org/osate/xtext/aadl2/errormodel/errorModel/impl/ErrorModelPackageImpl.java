@@ -1,4 +1,25 @@
 /**
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.xtext.aadl2.errormodel.errorModel.impl;
 
@@ -56,6 +77,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.ReportingPortReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
@@ -346,6 +368,13 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * @generated
    */
   private EClass errorDetectionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass reportingPortReferenceEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -2173,6 +2202,36 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getReportingPortReference()
+  {
+    return reportingPortReferenceEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getReportingPortReference_Element()
+  {
+    return (EReference)reportingPortReferenceEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getReportingPortReference_Previous()
+  {
+    return (EReference)reportingPortReferenceEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getErrorCodeValue()
   {
     return errorCodeValueEClass;
@@ -2734,6 +2793,10 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEReference(errorDetectionEClass, ERROR_DETECTION__DETECTION_REPORTING_PORT);
     createEReference(errorDetectionEClass, ERROR_DETECTION__ERROR_CODE);
 
+    reportingPortReferenceEClass = createEClass(REPORTING_PORT_REFERENCE);
+    createEReference(reportingPortReferenceEClass, REPORTING_PORT_REFERENCE__ELEMENT);
+    createEReference(reportingPortReferenceEClass, REPORTING_PORT_REFERENCE__PREVIOUS);
+
     errorCodeValueEClass = createEClass(ERROR_CODE_VALUE);
     createEAttribute(errorCodeValueEClass, ERROR_CODE_VALUE__INT_VALUE);
     createEReference(errorCodeValueEClass, ERROR_CODE_VALUE__CONSTANT);
@@ -3073,8 +3136,12 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEReference(getErrorDetection_TypeTokenConstraint(), this.getTypeSet(), null, "typeTokenConstraint", null, 0, 1, ErrorDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getErrorDetection_AllStates(), theEcorePackage.getEBoolean(), "allStates", null, 0, 1, ErrorDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorDetection_Condition(), this.getConditionExpression(), null, "condition", null, 0, 1, ErrorDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getErrorDetection_DetectionReportingPort(), theAadl2Package.getTriggerPort(), null, "detectionReportingPort", null, 0, 1, ErrorDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getErrorDetection_DetectionReportingPort(), this.getReportingPortReference(), null, "detectionReportingPort", null, 0, 1, ErrorDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorDetection_ErrorCode(), this.getErrorCodeValue(), null, "errorCode", null, 0, 1, ErrorDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(reportingPortReferenceEClass, ReportingPortReference.class, "ReportingPortReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getReportingPortReference_Element(), theAadl2Package.getNamedElement(), null, "element", null, 0, 1, ReportingPortReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getReportingPortReference_Previous(), this.getReportingPortReference(), null, "previous", null, 0, 1, ReportingPortReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(errorCodeValueEClass, ErrorCodeValue.class, "ErrorCodeValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getErrorCodeValue_IntValue(), theEcorePackage.getEString(), "intValue", null, 0, 1, ErrorCodeValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright © 2011 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -9,13 +9,13 @@
  * 
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the Eclipse Public License as published by Eclipse, either
- * version 1.0 of the License, or (at your option) any later version. This
+ * version 2.0 of the License, or (at your option) any later version. This
  * program is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License for
  * more details. You should have received a copy of the Eclipse Public License
  * along with this program. If not, see
- * http://www.eclipse.org/org/documents/epl-v10.php
+ * https://www.eclipse.org/legal/epl-2.0/
  */
 package org.osate.ba.declarative.impl ;
 
@@ -46,20 +46,20 @@ import org.osate.ba.declarative.Reference ;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.osate.ba.declarative.impl.DeclarativePropertyReferenceImpl#getQualifiedName <em>Qualified Name</em>}</li>
  *   <li>{@link org.osate.ba.declarative.impl.DeclarativePropertyReferenceImpl#getReference <em>Reference</em>}</li>
  *   <li>{@link org.osate.ba.declarative.impl.DeclarativePropertyReferenceImpl#getPropertyNames <em>Property Names</em>}</li>
  *   <li>{@link org.osate.ba.declarative.impl.DeclarativePropertyReferenceImpl#isPropertySet <em>Property Set</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
 public class DeclarativePropertyReferenceImpl extends
-                                             DeclarativeBehaviorElementImpl
-                                                                           implements
-                                                                           DeclarativePropertyReference
+                                              DeclarativeBehaviorElementImpl
+                                              implements
+                                              DeclarativePropertyReference
 {
   /**
    * The cached value of the '{@link #getQualifiedName() <em>Qualified Name</em>}' containment reference.
@@ -137,6 +137,7 @@ public class DeclarativePropertyReferenceImpl extends
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public QualifiedNamedElement getQualifiedName()
   {
     return qualifiedName ;
@@ -147,19 +148,19 @@ public class DeclarativePropertyReferenceImpl extends
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetQualifiedName(QualifiedNamedElement newQualifiedName,
+  public NotificationChain basicSetQualifiedName(
+                                                 QualifiedNamedElement newQualifiedName,
                                                  NotificationChain msgs)
   {
     QualifiedNamedElement oldQualifiedName = qualifiedName ;
     qualifiedName = newQualifiedName ;
     if(eNotificationRequired())
     {
-      ENotificationImpl notification =
-            new ENotificationImpl(
-                  this,
-                  Notification.SET,
-                  DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__QUALIFIED_NAME,
-                  oldQualifiedName, newQualifiedName) ;
+      ENotificationImpl notification = new ENotificationImpl(this,
+                                                             Notification.SET,
+                                                             DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__QUALIFIED_NAME,
+                                                             oldQualifiedName,
+                                                             newQualifiedName) ;
       if(msgs == null)
         msgs = notification ;
       else
@@ -173,33 +174,30 @@ public class DeclarativePropertyReferenceImpl extends
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setQualifiedName(QualifiedNamedElement newQualifiedName)
   {
     if(newQualifiedName != qualifiedName)
     {
       NotificationChain msgs = null ;
       if(qualifiedName != null)
-        msgs =
-              ((InternalEObject) qualifiedName)
-                    .eInverseRemove(this,
-                                    EOPPOSITE_FEATURE_BASE -
-                                          DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__QUALIFIED_NAME,
-                                    null, msgs) ;
+        msgs = ((InternalEObject) qualifiedName).eInverseRemove(this,
+                                                                EOPPOSITE_FEATURE_BASE -
+                                                                      DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__QUALIFIED_NAME,
+                                                                null, msgs) ;
       if(newQualifiedName != null)
-        msgs =
-              ((InternalEObject) newQualifiedName)
-                    .eInverseAdd(this,
-                                 EOPPOSITE_FEATURE_BASE -
-                                       DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__QUALIFIED_NAME,
-                                 null, msgs) ;
+        msgs = ((InternalEObject) newQualifiedName).eInverseAdd(this,
+                                                                EOPPOSITE_FEATURE_BASE -
+                                                                      DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__QUALIFIED_NAME,
+                                                                null, msgs) ;
       msgs = basicSetQualifiedName(newQualifiedName, msgs) ;
       if(msgs != null)
         msgs.dispatch() ;
     }
     else if(eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET,
-            DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__QUALIFIED_NAME,
-            newQualifiedName, newQualifiedName)) ;
+                                    DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__QUALIFIED_NAME,
+                                    newQualifiedName, newQualifiedName)) ;
   }
 
   /**
@@ -207,6 +205,7 @@ public class DeclarativePropertyReferenceImpl extends
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Reference getReference()
   {
     return reference ;
@@ -224,10 +223,11 @@ public class DeclarativePropertyReferenceImpl extends
     reference = newReference ;
     if(eNotificationRequired())
     {
-      ENotificationImpl notification =
-            new ENotificationImpl(this, Notification.SET,
-                  DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__REFERENCE,
-                  oldReference, newReference) ;
+      ENotificationImpl notification = new ENotificationImpl(this,
+                                                             Notification.SET,
+                                                             DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__REFERENCE,
+                                                             oldReference,
+                                                             newReference) ;
       if(msgs == null)
         msgs = notification ;
       else
@@ -241,33 +241,30 @@ public class DeclarativePropertyReferenceImpl extends
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setReference(Reference newReference)
   {
     if(newReference != reference)
     {
       NotificationChain msgs = null ;
       if(reference != null)
-        msgs =
-              ((InternalEObject) reference)
-                    .eInverseRemove(this,
-                                    EOPPOSITE_FEATURE_BASE -
-                                          DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__REFERENCE,
-                                    null, msgs) ;
+        msgs = ((InternalEObject) reference).eInverseRemove(this,
+                                                            EOPPOSITE_FEATURE_BASE -
+                                                                  DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__REFERENCE,
+                                                            null, msgs) ;
       if(newReference != null)
-        msgs =
-              ((InternalEObject) newReference)
-                    .eInverseAdd(this,
-                                 EOPPOSITE_FEATURE_BASE -
-                                       DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__REFERENCE,
-                                 null, msgs) ;
+        msgs = ((InternalEObject) newReference).eInverseAdd(this,
+                                                            EOPPOSITE_FEATURE_BASE -
+                                                                  DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__REFERENCE,
+                                                            null, msgs) ;
       msgs = basicSetReference(newReference, msgs) ;
       if(msgs != null)
         msgs.dispatch() ;
     }
     else if(eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET,
-            DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__REFERENCE,
-            newReference, newReference)) ;
+                                    DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__REFERENCE,
+                                    newReference, newReference)) ;
   }
 
   /**
@@ -275,15 +272,15 @@ public class DeclarativePropertyReferenceImpl extends
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<DeclarativePropertyName> getPropertyNames()
   {
     if(propertyNames == null)
     {
-      propertyNames =
-            new EObjectContainmentEList<DeclarativePropertyName>(
-                  DeclarativePropertyName.class,
-                  this,
-                  DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__PROPERTY_NAMES) ;
+      propertyNames = new EObjectContainmentEList<DeclarativePropertyName>(
+                                                                           DeclarativePropertyName.class,
+                                                                           this,
+                                                                           DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__PROPERTY_NAMES) ;
     }
     return propertyNames ;
   }
@@ -293,6 +290,7 @@ public class DeclarativePropertyReferenceImpl extends
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isPropertySet()
   {
     return propertySet ;
@@ -303,14 +301,15 @@ public class DeclarativePropertyReferenceImpl extends
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setPropertySet(boolean newPropertySet)
   {
     boolean oldPropertySet = propertySet ;
     propertySet = newPropertySet ;
     if(eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET,
-            DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__PROPERTY_SET,
-            oldPropertySet, propertySet)) ;
+                                    DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__PROPERTY_SET,
+                                    oldPropertySet, propertySet)) ;
   }
 
   /**
@@ -320,8 +319,7 @@ public class DeclarativePropertyReferenceImpl extends
    */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd,
-                                          int featureID,
-                                          NotificationChain msgs)
+                                          int featureID, NotificationChain msgs)
   {
     switch ( featureID )
     {
@@ -342,9 +340,7 @@ public class DeclarativePropertyReferenceImpl extends
    * @generated
    */
   @Override
-  public Object eGet(int featureID,
-                     boolean resolve,
-                     boolean coreType)
+  public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
     switch ( featureID )
     {
@@ -367,8 +363,7 @@ public class DeclarativePropertyReferenceImpl extends
    */
   @SuppressWarnings("unchecked")
   @Override
-  public void eSet(int featureID,
-                   Object newValue)
+  public void eSet(int featureID, Object newValue)
   {
     switch ( featureID )
     {
@@ -380,8 +375,7 @@ public class DeclarativePropertyReferenceImpl extends
         return ;
       case DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__PROPERTY_NAMES :
         getPropertyNames().clear() ;
-        getPropertyNames()
-              .addAll((Collection<? extends DeclarativePropertyName>) newValue) ;
+        getPropertyNames().addAll((Collection<? extends DeclarativePropertyName>) newValue) ;
         return ;
       case DeclarativePackage.DECLARATIVE_PROPERTY_REFERENCE__PROPERTY_SET :
         setPropertySet((Boolean) newValue) ;
@@ -449,7 +443,7 @@ public class DeclarativePropertyReferenceImpl extends
     if(eIsProxy())
       return super.toString() ;
 
-    StringBuffer result = new StringBuffer(super.toString()) ;
+    StringBuilder result = new StringBuilder(super.toString()) ;
     result.append(" (propertySet: ") ;
     result.append(propertySet) ;
     result.append(')') ;

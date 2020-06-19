@@ -9,14 +9,14 @@
  * 
  * This program is free software: you can redistribute it and/or modify 
  * it under the terms of the Eclipse Public License as published by Eclipse,
- * either version 1.0 of the License, or (at your option) any later version.
+ * either version 2.0 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Eclipse Public License for more details.
  * You should have received a copy of the Eclipse Public License
  * along with this program.  If not, see 
- * http://www.eclipse.org/org/documents/epl-v10.php
+ * https://www.eclipse.org/legal/epl-2.0/
  */
 
 package org.osate.ba.declarative ;
@@ -77,7 +77,7 @@ public interface DeclarativePackage extends EPackage
    * @generated
    */
   DeclarativePackage eINSTANCE =
-        org.osate.ba.declarative.impl.DeclarativePackageImpl.init() ;
+                               org.osate.ba.declarative.impl.DeclarativePackageImpl.init() ;
 
   /**
    * The meta object id for the '{@link org.osate.ba.declarative.impl.IdentifierImpl <em>Identifier</em>}' class.
@@ -123,7 +123,8 @@ public interface DeclarativePackage extends EPackage
    * @generated
    * @ordered
    */
-  int IDENTIFIER__QUALIFIED_NAME = AadlBaPackage.BEHAVIOR_STATE__QUALIFIED_NAME ;
+  int IDENTIFIER__QUALIFIED_NAME =
+                                 AadlBaPackage.BEHAVIOR_STATE__QUALIFIED_NAME ;
 
   /**
    * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -133,7 +134,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int IDENTIFIER__OWNED_PROPERTY_ASSOCIATION =
-        AadlBaPackage.BEHAVIOR_STATE__OWNED_PROPERTY_ASSOCIATION ;
+                                             AadlBaPackage.BEHAVIOR_STATE__OWNED_PROPERTY_ASSOCIATION ;
 
   /**
    * The feature id for the '<em><b>Initial</b></em>' attribute.
@@ -172,6 +173,26 @@ public interface DeclarativePackage extends EPackage
   int IDENTIFIER__BINDED_MODE = AadlBaPackage.BEHAVIOR_STATE__BINDED_MODE ;
 
   /**
+   * The feature id for the '<em><b>Incoming Transitions</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IDENTIFIER__INCOMING_TRANSITIONS =
+                                       AadlBaPackage.BEHAVIOR_STATE__INCOMING_TRANSITIONS ;
+
+  /**
+   * The feature id for the '<em><b>Outgoing Transitions</b></em>' reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int IDENTIFIER__OUTGOING_TRANSITIONS =
+                                       AadlBaPackage.BEHAVIOR_STATE__OUTGOING_TRANSITIONS ;
+
+  /**
    * The feature id for the '<em><b>Osate Ref</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -205,7 +226,8 @@ public interface DeclarativePackage extends EPackage
    * @generated
    * @ordered
    */
-  int IDENTIFIER_FEATURE_COUNT = AadlBaPackage.BEHAVIOR_STATE_FEATURE_COUNT + 3 ;
+  int IDENTIFIER_FEATURE_COUNT = AadlBaPackage.BEHAVIOR_STATE_FEATURE_COUNT +
+                                 3 ;
 
   /**
    * The meta object id for the '{@link org.osate.ba.declarative.impl.ArrayableIdentifierImpl <em>Arrayable Identifier</em>}' class.
@@ -261,7 +283,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int ARRAYABLE_IDENTIFIER__OWNED_PROPERTY_ASSOCIATION =
-        IDENTIFIER__OWNED_PROPERTY_ASSOCIATION ;
+                                                       IDENTIFIER__OWNED_PROPERTY_ASSOCIATION ;
 
   /**
    * The feature id for the '<em><b>Initial</b></em>' attribute.
@@ -298,6 +320,26 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int ARRAYABLE_IDENTIFIER__BINDED_MODE = IDENTIFIER__BINDED_MODE ;
+
+  /**
+   * The feature id for the '<em><b>Incoming Transitions</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ARRAYABLE_IDENTIFIER__INCOMING_TRANSITIONS =
+                                                 IDENTIFIER__INCOMING_TRANSITIONS ;
+
+  /**
+   * The feature id for the '<em><b>Outgoing Transitions</b></em>' reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ARRAYABLE_IDENTIFIER__OUTGOING_TRANSITIONS =
+                                                 IDENTIFIER__OUTGOING_TRANSITIONS ;
 
   /**
    * The feature id for the '<em><b>Osate Ref</b></em>' reference.
@@ -362,7 +404,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int COMM_ACTION__OWNED_ELEMENT =
-        AadlBaPackage.COMMUNICATION_ACTION__OWNED_ELEMENT ;
+                                 AadlBaPackage.COMMUNICATION_ACTION__OWNED_ELEMENT ;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -372,7 +414,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int COMM_ACTION__OWNED_COMMENT =
-        AadlBaPackage.COMMUNICATION_ACTION__OWNED_COMMENT ;
+                                 AadlBaPackage.COMMUNICATION_ACTION__OWNED_COMMENT ;
 
   /**
    * The feature id for the '<em><b>Osate Ref</b></em>' reference.
@@ -382,7 +424,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int COMM_ACTION__OSATE_REF =
-        AadlBaPackage.COMMUNICATION_ACTION_FEATURE_COUNT + 0 ;
+                             AadlBaPackage.COMMUNICATION_ACTION_FEATURE_COUNT +
+                               0 ;
 
   /**
    * The feature id for the '<em><b>Ba Ref</b></em>' reference.
@@ -391,8 +434,8 @@ public interface DeclarativePackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMM_ACTION__BA_REF =
-        AadlBaPackage.COMMUNICATION_ACTION_FEATURE_COUNT + 1 ;
+  int COMM_ACTION__BA_REF = AadlBaPackage.COMMUNICATION_ACTION_FEATURE_COUNT +
+                            1 ;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
@@ -402,7 +445,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int COMM_ACTION__PARAMETERS =
-        AadlBaPackage.COMMUNICATION_ACTION_FEATURE_COUNT + 2 ;
+                              AadlBaPackage.COMMUNICATION_ACTION_FEATURE_COUNT +
+                                2 ;
 
   /**
    * The feature id for the '<em><b>Port Freeze</b></em>' attribute.
@@ -412,7 +456,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int COMM_ACTION__PORT_FREEZE =
-        AadlBaPackage.COMMUNICATION_ACTION_FEATURE_COUNT + 3 ;
+                               AadlBaPackage.COMMUNICATION_ACTION_FEATURE_COUNT +
+                                 3 ;
 
   /**
    * The feature id for the '<em><b>Port Dequeue</b></em>' attribute.
@@ -422,7 +467,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int COMM_ACTION__PORT_DEQUEUE =
-        AadlBaPackage.COMMUNICATION_ACTION_FEATURE_COUNT + 4 ;
+                                AadlBaPackage.COMMUNICATION_ACTION_FEATURE_COUNT +
+                                  4 ;
 
   /**
    * The feature id for the '<em><b>Lock</b></em>' attribute.
@@ -440,8 +486,8 @@ public interface DeclarativePackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMM_ACTION__UNLOCK =
-        AadlBaPackage.COMMUNICATION_ACTION_FEATURE_COUNT + 6 ;
+  int COMM_ACTION__UNLOCK = AadlBaPackage.COMMUNICATION_ACTION_FEATURE_COUNT +
+                            6 ;
 
   /**
    * The feature id for the '<em><b>Target</b></em>' containment reference.
@@ -450,8 +496,8 @@ public interface DeclarativePackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMM_ACTION__TARGET =
-        AadlBaPackage.COMMUNICATION_ACTION_FEATURE_COUNT + 7 ;
+  int COMM_ACTION__TARGET = AadlBaPackage.COMMUNICATION_ACTION_FEATURE_COUNT +
+                            7 ;
 
   /**
    * The feature id for the '<em><b>Qualified Name</b></em>' containment reference.
@@ -461,7 +507,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int COMM_ACTION__QUALIFIED_NAME =
-        AadlBaPackage.COMMUNICATION_ACTION_FEATURE_COUNT + 8 ;
+                                  AadlBaPackage.COMMUNICATION_ACTION_FEATURE_COUNT +
+                                    8 ;
 
   /**
    * The feature id for the '<em><b>Reference</b></em>' containment reference.
@@ -471,7 +518,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int COMM_ACTION__REFERENCE =
-        AadlBaPackage.COMMUNICATION_ACTION_FEATURE_COUNT + 9 ;
+                             AadlBaPackage.COMMUNICATION_ACTION_FEATURE_COUNT +
+                               9 ;
 
   /**
    * The number of structural features of the '<em>Comm Action</em>' class.
@@ -481,7 +529,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int COMM_ACTION_FEATURE_COUNT =
-        AadlBaPackage.COMMUNICATION_ACTION_FEATURE_COUNT + 10 ;
+                                AadlBaPackage.COMMUNICATION_ACTION_FEATURE_COUNT +
+                                  10 ;
 
   /**
    * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativeArrayDimensionImpl <em>Array Dimension</em>}' class.
@@ -501,7 +550,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_ARRAY_DIMENSION__OWNED_ELEMENT =
-        Aadl2Package.ARRAY_DIMENSION__OWNED_ELEMENT ;
+                                                 Aadl2Package.ARRAY_DIMENSION__OWNED_ELEMENT ;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -511,7 +560,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_ARRAY_DIMENSION__OWNED_COMMENT =
-        Aadl2Package.ARRAY_DIMENSION__OWNED_COMMENT ;
+                                                 Aadl2Package.ARRAY_DIMENSION__OWNED_COMMENT ;
 
   /**
    * The feature id for the '<em><b>Size</b></em>' containment reference.
@@ -530,7 +579,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_ARRAY_DIMENSION__OSATE_REF =
-        Aadl2Package.ARRAY_DIMENSION_FEATURE_COUNT + 0 ;
+                                             Aadl2Package.ARRAY_DIMENSION_FEATURE_COUNT +
+                                               0 ;
 
   /**
    * The feature id for the '<em><b>Ba Ref</b></em>' reference.
@@ -540,7 +590,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_ARRAY_DIMENSION__BA_REF =
-        Aadl2Package.ARRAY_DIMENSION_FEATURE_COUNT + 1 ;
+                                          Aadl2Package.ARRAY_DIMENSION_FEATURE_COUNT +
+                                            1 ;
 
   /**
    * The feature id for the '<em><b>Dimension</b></em>' containment reference.
@@ -550,7 +601,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_ARRAY_DIMENSION__DIMENSION =
-        Aadl2Package.ARRAY_DIMENSION_FEATURE_COUNT + 2 ;
+                                             Aadl2Package.ARRAY_DIMENSION_FEATURE_COUNT +
+                                               2 ;
 
   /**
    * The number of structural features of the '<em>Array Dimension</em>' class.
@@ -560,7 +612,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_ARRAY_DIMENSION_FEATURE_COUNT =
-        Aadl2Package.ARRAY_DIMENSION_FEATURE_COUNT + 3 ;
+                                                Aadl2Package.ARRAY_DIMENSION_FEATURE_COUNT +
+                                                  3 ;
 
   /**
    * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativeBehaviorElementImpl <em>Behavior Element</em>}' class.
@@ -580,7 +633,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_BEHAVIOR_ELEMENT__OWNED_ELEMENT =
-        AadlBaPackage.BEHAVIOR_ELEMENT__OWNED_ELEMENT ;
+                                                  AadlBaPackage.BEHAVIOR_ELEMENT__OWNED_ELEMENT ;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -590,7 +643,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_BEHAVIOR_ELEMENT__OWNED_COMMENT =
-        AadlBaPackage.BEHAVIOR_ELEMENT__OWNED_COMMENT ;
+                                                  AadlBaPackage.BEHAVIOR_ELEMENT__OWNED_COMMENT ;
 
   /**
    * The feature id for the '<em><b>Osate Ref</b></em>' reference.
@@ -600,7 +653,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_BEHAVIOR_ELEMENT__OSATE_REF =
-        AadlBaPackage.BEHAVIOR_ELEMENT_FEATURE_COUNT + 0 ;
+                                              AadlBaPackage.BEHAVIOR_ELEMENT_FEATURE_COUNT +
+                                                0 ;
 
   /**
    * The feature id for the '<em><b>Ba Ref</b></em>' reference.
@@ -610,7 +664,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_BEHAVIOR_ELEMENT__BA_REF =
-        AadlBaPackage.BEHAVIOR_ELEMENT_FEATURE_COUNT + 1 ;
+                                           AadlBaPackage.BEHAVIOR_ELEMENT_FEATURE_COUNT +
+                                             1 ;
 
   /**
    * The number of structural features of the '<em>Behavior Element</em>' class.
@@ -620,7 +675,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT =
-        AadlBaPackage.BEHAVIOR_ELEMENT_FEATURE_COUNT + 2 ;
+                                                 AadlBaPackage.BEHAVIOR_ELEMENT_FEATURE_COUNT +
+                                                   2 ;
 
   /**
    * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativeBehaviorTransitionImpl <em>Behavior Transition</em>}' class.
@@ -640,7 +696,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_BEHAVIOR_TRANSITION__OWNED_ELEMENT =
-        AadlBaPackage.BEHAVIOR_TRANSITION__OWNED_ELEMENT ;
+                                                     AadlBaPackage.BEHAVIOR_TRANSITION__OWNED_ELEMENT ;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -650,7 +706,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_BEHAVIOR_TRANSITION__OWNED_COMMENT =
-        AadlBaPackage.BEHAVIOR_TRANSITION__OWNED_COMMENT ;
+                                                     AadlBaPackage.BEHAVIOR_TRANSITION__OWNED_COMMENT ;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -660,7 +716,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_BEHAVIOR_TRANSITION__NAME =
-        AadlBaPackage.BEHAVIOR_TRANSITION__NAME ;
+                                            AadlBaPackage.BEHAVIOR_TRANSITION__NAME ;
 
   /**
    * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
@@ -670,7 +726,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_BEHAVIOR_TRANSITION__QUALIFIED_NAME =
-        AadlBaPackage.BEHAVIOR_TRANSITION__QUALIFIED_NAME ;
+                                                      AadlBaPackage.BEHAVIOR_TRANSITION__QUALIFIED_NAME ;
 
   /**
    * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -680,7 +736,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_BEHAVIOR_TRANSITION__OWNED_PROPERTY_ASSOCIATION =
-        AadlBaPackage.BEHAVIOR_TRANSITION__OWNED_PROPERTY_ASSOCIATION ;
+                                                                  AadlBaPackage.BEHAVIOR_TRANSITION__OWNED_PROPERTY_ASSOCIATION ;
 
   /**
    * The feature id for the '<em><b>Source State</b></em>' reference.
@@ -690,7 +746,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_BEHAVIOR_TRANSITION__SOURCE_STATE =
-        AadlBaPackage.BEHAVIOR_TRANSITION__SOURCE_STATE ;
+                                                    AadlBaPackage.BEHAVIOR_TRANSITION__SOURCE_STATE ;
 
   /**
    * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -700,7 +756,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_BEHAVIOR_TRANSITION__CONDITION =
-        AadlBaPackage.BEHAVIOR_TRANSITION__CONDITION ;
+                                                 AadlBaPackage.BEHAVIOR_TRANSITION__CONDITION ;
 
   /**
    * The feature id for the '<em><b>Destination State</b></em>' reference.
@@ -710,7 +766,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_BEHAVIOR_TRANSITION__DESTINATION_STATE =
-        AadlBaPackage.BEHAVIOR_TRANSITION__DESTINATION_STATE ;
+                                                         AadlBaPackage.BEHAVIOR_TRANSITION__DESTINATION_STATE ;
 
   /**
    * The feature id for the '<em><b>Action Block</b></em>' reference.
@@ -720,7 +776,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_BEHAVIOR_TRANSITION__ACTION_BLOCK =
-        AadlBaPackage.BEHAVIOR_TRANSITION__ACTION_BLOCK ;
+                                                    AadlBaPackage.BEHAVIOR_TRANSITION__ACTION_BLOCK ;
 
   /**
    * The feature id for the '<em><b>Priority</b></em>' attribute.
@@ -730,7 +786,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_BEHAVIOR_TRANSITION__PRIORITY =
-        AadlBaPackage.BEHAVIOR_TRANSITION__PRIORITY ;
+                                                AadlBaPackage.BEHAVIOR_TRANSITION__PRIORITY ;
 
   /**
    * The feature id for the '<em><b>Osate Ref</b></em>' reference.
@@ -740,7 +796,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_BEHAVIOR_TRANSITION__OSATE_REF =
-        AadlBaPackage.BEHAVIOR_TRANSITION_FEATURE_COUNT + 0 ;
+                                                 AadlBaPackage.BEHAVIOR_TRANSITION_FEATURE_COUNT +
+                                                   0 ;
 
   /**
    * The feature id for the '<em><b>Ba Ref</b></em>' reference.
@@ -750,7 +807,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_BEHAVIOR_TRANSITION__BA_REF =
-        AadlBaPackage.BEHAVIOR_TRANSITION_FEATURE_COUNT + 1 ;
+                                              AadlBaPackage.BEHAVIOR_TRANSITION_FEATURE_COUNT +
+                                                1 ;
 
   /**
    * The feature id for the '<em><b>Src States</b></em>' containment reference list.
@@ -760,7 +818,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_BEHAVIOR_TRANSITION__SRC_STATES =
-        AadlBaPackage.BEHAVIOR_TRANSITION_FEATURE_COUNT + 2 ;
+                                                  AadlBaPackage.BEHAVIOR_TRANSITION_FEATURE_COUNT +
+                                                    2 ;
 
   /**
    * The feature id for the '<em><b>Dest State</b></em>' containment reference.
@@ -770,7 +829,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_BEHAVIOR_TRANSITION__DEST_STATE =
-        AadlBaPackage.BEHAVIOR_TRANSITION_FEATURE_COUNT + 3 ;
+                                                  AadlBaPackage.BEHAVIOR_TRANSITION_FEATURE_COUNT +
+                                                    3 ;
 
   /**
    * The number of structural features of the '<em>Behavior Transition</em>' class.
@@ -780,7 +840,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_BEHAVIOR_TRANSITION_FEATURE_COUNT =
-        AadlBaPackage.BEHAVIOR_TRANSITION_FEATURE_COUNT + 4 ;
+                                                    AadlBaPackage.BEHAVIOR_TRANSITION_FEATURE_COUNT +
+                                                      4 ;
 
   /**
    * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativePropertyNameImpl <em>Property Name</em>}' class.
@@ -800,7 +861,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_PROPERTY_NAME__OWNED_ELEMENT =
-        DECLARATIVE_BEHAVIOR_ELEMENT__OWNED_ELEMENT ;
+                                               DECLARATIVE_BEHAVIOR_ELEMENT__OWNED_ELEMENT ;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -810,7 +871,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_PROPERTY_NAME__OWNED_COMMENT =
-        DECLARATIVE_BEHAVIOR_ELEMENT__OWNED_COMMENT ;
+                                               DECLARATIVE_BEHAVIOR_ELEMENT__OWNED_COMMENT ;
 
   /**
    * The feature id for the '<em><b>Osate Ref</b></em>' reference.
@@ -820,7 +881,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_PROPERTY_NAME__OSATE_REF =
-        DECLARATIVE_BEHAVIOR_ELEMENT__OSATE_REF ;
+                                           DECLARATIVE_BEHAVIOR_ELEMENT__OSATE_REF ;
 
   /**
    * The feature id for the '<em><b>Ba Ref</b></em>' reference.
@@ -839,7 +900,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_PROPERTY_NAME__PROPERTY_NAME =
-        DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT + 0 ;
+                                               DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT +
+                                                 0 ;
 
   /**
    * The feature id for the '<em><b>Field</b></em>' containment reference.
@@ -849,7 +911,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_PROPERTY_NAME__FIELD =
-        DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT + 1 ;
+                                       DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT +
+                                         1 ;
 
   /**
    * The feature id for the '<em><b>Indexes</b></em>' reference list.
@@ -859,7 +922,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_PROPERTY_NAME__INDEXES =
-        DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT + 2 ;
+                                         DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT +
+                                           2 ;
 
   /**
    * The number of structural features of the '<em>Property Name</em>' class.
@@ -869,7 +933,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_PROPERTY_NAME_FEATURE_COUNT =
-        DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT + 3 ;
+                                              DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT +
+                                                3 ;
 
   /**
    * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativePropertyReferenceImpl <em>Property Reference</em>}' class.
@@ -889,7 +954,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_PROPERTY_REFERENCE__OWNED_ELEMENT =
-        DECLARATIVE_BEHAVIOR_ELEMENT__OWNED_ELEMENT ;
+                                                    DECLARATIVE_BEHAVIOR_ELEMENT__OWNED_ELEMENT ;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -899,7 +964,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_PROPERTY_REFERENCE__OWNED_COMMENT =
-        DECLARATIVE_BEHAVIOR_ELEMENT__OWNED_COMMENT ;
+                                                    DECLARATIVE_BEHAVIOR_ELEMENT__OWNED_COMMENT ;
 
   /**
    * The feature id for the '<em><b>Osate Ref</b></em>' reference.
@@ -909,7 +974,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_PROPERTY_REFERENCE__OSATE_REF =
-        DECLARATIVE_BEHAVIOR_ELEMENT__OSATE_REF ;
+                                                DECLARATIVE_BEHAVIOR_ELEMENT__OSATE_REF ;
 
   /**
    * The feature id for the '<em><b>Ba Ref</b></em>' reference.
@@ -919,7 +984,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_PROPERTY_REFERENCE__BA_REF =
-        DECLARATIVE_BEHAVIOR_ELEMENT__BA_REF ;
+                                             DECLARATIVE_BEHAVIOR_ELEMENT__BA_REF ;
 
   /**
    * The feature id for the '<em><b>Qualified Name</b></em>' containment reference.
@@ -929,7 +994,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_PROPERTY_REFERENCE__QUALIFIED_NAME =
-        DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT + 0 ;
+                                                     DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT +
+                                                       0 ;
 
   /**
    * The feature id for the '<em><b>Reference</b></em>' containment reference.
@@ -939,7 +1005,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_PROPERTY_REFERENCE__REFERENCE =
-        DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT + 1 ;
+                                                DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT +
+                                                  1 ;
 
   /**
    * The feature id for the '<em><b>Property Names</b></em>' containment reference list.
@@ -949,7 +1016,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_PROPERTY_REFERENCE__PROPERTY_NAMES =
-        DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT + 2 ;
+                                                     DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT +
+                                                       2 ;
 
   /**
    * The feature id for the '<em><b>Property Set</b></em>' attribute.
@@ -959,7 +1027,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_PROPERTY_REFERENCE__PROPERTY_SET =
-        DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT + 3 ;
+                                                   DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT +
+                                                     3 ;
 
   /**
    * The number of structural features of the '<em>Property Reference</em>' class.
@@ -969,7 +1038,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_PROPERTY_REFERENCE_FEATURE_COUNT =
-        DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT + 4 ;
+                                                   DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT +
+                                                     4 ;
 
   /**
    * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativeTimeImpl <em>Time</em>}' class.
@@ -989,7 +1059,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_TIME__OWNED_ELEMENT =
-        AadlBaPackage.BEHAVIOR_TIME__OWNED_ELEMENT ;
+                                      AadlBaPackage.BEHAVIOR_TIME__OWNED_ELEMENT ;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -999,7 +1069,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_TIME__OWNED_COMMENT =
-        AadlBaPackage.BEHAVIOR_TIME__OWNED_COMMENT ;
+                                      AadlBaPackage.BEHAVIOR_TIME__OWNED_COMMENT ;
 
   /**
    * The feature id for the '<em><b>Integer Value</b></em>' containment reference.
@@ -1009,7 +1079,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_TIME__INTEGER_VALUE =
-        AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE ;
+                                      AadlBaPackage.BEHAVIOR_TIME__INTEGER_VALUE ;
 
   /**
    * The feature id for the '<em><b>Unit</b></em>' reference.
@@ -1027,8 +1097,8 @@ public interface DeclarativePackage extends EPackage
    * @generated
    * @ordered
    */
-  int DECLARATIVE_TIME__OSATE_REF =
-        AadlBaPackage.BEHAVIOR_TIME_FEATURE_COUNT + 0 ;
+  int DECLARATIVE_TIME__OSATE_REF = AadlBaPackage.BEHAVIOR_TIME_FEATURE_COUNT +
+                                    0 ;
 
   /**
    * The feature id for the '<em><b>Ba Ref</b></em>' reference.
@@ -1046,7 +1116,8 @@ public interface DeclarativePackage extends EPackage
    * @generated
    * @ordered
    */
-  int DECLARATIVE_TIME__UNIT_ID = AadlBaPackage.BEHAVIOR_TIME_FEATURE_COUNT + 2 ;
+  int DECLARATIVE_TIME__UNIT_ID = AadlBaPackage.BEHAVIOR_TIME_FEATURE_COUNT +
+                                  2 ;
 
   /**
    * The number of structural features of the '<em>Time</em>' class.
@@ -1056,7 +1127,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int DECLARATIVE_TIME_FEATURE_COUNT =
-        AadlBaPackage.BEHAVIOR_TIME_FEATURE_COUNT + 3 ;
+                                     AadlBaPackage.BEHAVIOR_TIME_FEATURE_COUNT +
+                                       3 ;
 
   /**
    * The meta object id for the '{@link org.osate.ba.declarative.impl.QualifiedNamedElementImpl <em>Qualified Named Element</em>}' class.
@@ -1086,7 +1158,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int NAMED_VALUE__OWNED_ELEMENT =
-        AadlBaPackage.INTEGER_VALUE_VARIABLE__OWNED_ELEMENT ;
+                                 AadlBaPackage.INTEGER_VALUE_VARIABLE__OWNED_ELEMENT ;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -1096,7 +1168,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int NAMED_VALUE__OWNED_COMMENT =
-        AadlBaPackage.INTEGER_VALUE_VARIABLE__OWNED_COMMENT ;
+                                 AadlBaPackage.INTEGER_VALUE_VARIABLE__OWNED_COMMENT ;
 
   /**
    * The feature id for the '<em><b>Osate Ref</b></em>' reference.
@@ -1106,7 +1178,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int NAMED_VALUE__OSATE_REF =
-        AadlBaPackage.INTEGER_VALUE_VARIABLE_FEATURE_COUNT + 0 ;
+                             AadlBaPackage.INTEGER_VALUE_VARIABLE_FEATURE_COUNT +
+                               0 ;
 
   /**
    * The feature id for the '<em><b>Ba Ref</b></em>' reference.
@@ -1115,8 +1188,8 @@ public interface DeclarativePackage extends EPackage
    * @generated
    * @ordered
    */
-  int NAMED_VALUE__BA_REF =
-        AadlBaPackage.INTEGER_VALUE_VARIABLE_FEATURE_COUNT + 1 ;
+  int NAMED_VALUE__BA_REF = AadlBaPackage.INTEGER_VALUE_VARIABLE_FEATURE_COUNT +
+                            1 ;
 
   /**
    * The feature id for the '<em><b>Reference</b></em>' containment reference.
@@ -1126,7 +1199,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int NAMED_VALUE__REFERENCE =
-        AadlBaPackage.INTEGER_VALUE_VARIABLE_FEATURE_COUNT + 2 ;
+                             AadlBaPackage.INTEGER_VALUE_VARIABLE_FEATURE_COUNT +
+                               2 ;
 
   /**
    * The feature id for the '<em><b>Dequeue</b></em>' attribute.
@@ -1136,7 +1210,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int NAMED_VALUE__DEQUEUE =
-        AadlBaPackage.INTEGER_VALUE_VARIABLE_FEATURE_COUNT + 3 ;
+                           AadlBaPackage.INTEGER_VALUE_VARIABLE_FEATURE_COUNT +
+                             3 ;
 
   /**
    * The feature id for the '<em><b>Fresh</b></em>' attribute.
@@ -1145,8 +1220,8 @@ public interface DeclarativePackage extends EPackage
    * @generated
    * @ordered
    */
-  int NAMED_VALUE__FRESH =
-        AadlBaPackage.INTEGER_VALUE_VARIABLE_FEATURE_COUNT + 4 ;
+  int NAMED_VALUE__FRESH = AadlBaPackage.INTEGER_VALUE_VARIABLE_FEATURE_COUNT +
+                           4 ;
 
   /**
    * The feature id for the '<em><b>Count</b></em>' attribute.
@@ -1155,8 +1230,8 @@ public interface DeclarativePackage extends EPackage
    * @generated
    * @ordered
    */
-  int NAMED_VALUE__COUNT =
-        AadlBaPackage.INTEGER_VALUE_VARIABLE_FEATURE_COUNT + 5 ;
+  int NAMED_VALUE__COUNT = AadlBaPackage.INTEGER_VALUE_VARIABLE_FEATURE_COUNT +
+                           5 ;
 
   /**
    * The number of structural features of the '<em>Named Value</em>' class.
@@ -1166,7 +1241,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int NAMED_VALUE_FEATURE_COUNT =
-        AadlBaPackage.INTEGER_VALUE_VARIABLE_FEATURE_COUNT + 6 ;
+                                AadlBaPackage.INTEGER_VALUE_VARIABLE_FEATURE_COUNT +
+                                  6 ;
 
   /**
    * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -1176,7 +1252,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int QUALIFIED_NAMED_ELEMENT__OWNED_ELEMENT =
-        Aadl2Package.DATA_CLASSIFIER__OWNED_ELEMENT ;
+                                             Aadl2Package.DATA_CLASSIFIER__OWNED_ELEMENT ;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -1186,7 +1262,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int QUALIFIED_NAMED_ELEMENT__OWNED_COMMENT =
-        Aadl2Package.DATA_CLASSIFIER__OWNED_COMMENT ;
+                                             Aadl2Package.DATA_CLASSIFIER__OWNED_COMMENT ;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1205,7 +1281,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int QUALIFIED_NAMED_ELEMENT__QUALIFIED_NAME =
-        Aadl2Package.DATA_CLASSIFIER__QUALIFIED_NAME ;
+                                              Aadl2Package.DATA_CLASSIFIER__QUALIFIED_NAME ;
 
   /**
    * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -1215,7 +1291,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int QUALIFIED_NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION =
-        Aadl2Package.DATA_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION ;
+                                                          Aadl2Package.DATA_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION ;
 
   /**
    * The feature id for the '<em><b>Owned Member</b></em>' reference list.
@@ -1225,7 +1301,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int QUALIFIED_NAMED_ELEMENT__OWNED_MEMBER =
-        Aadl2Package.DATA_CLASSIFIER__OWNED_MEMBER ;
+                                            Aadl2Package.DATA_CLASSIFIER__OWNED_MEMBER ;
 
   /**
    * The feature id for the '<em><b>Member</b></em>' reference list.
@@ -1244,7 +1320,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int QUALIFIED_NAMED_ELEMENT__CLASSIFIER_FEATURE =
-        Aadl2Package.DATA_CLASSIFIER__CLASSIFIER_FEATURE ;
+                                                  Aadl2Package.DATA_CLASSIFIER__CLASSIFIER_FEATURE ;
 
   /**
    * The feature id for the '<em><b>Inherited Member</b></em>' reference list.
@@ -1254,7 +1330,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int QUALIFIED_NAMED_ELEMENT__INHERITED_MEMBER =
-        Aadl2Package.DATA_CLASSIFIER__INHERITED_MEMBER ;
+                                                Aadl2Package.DATA_CLASSIFIER__INHERITED_MEMBER ;
 
   /**
    * The feature id for the '<em><b>Generalization</b></em>' reference list.
@@ -1264,7 +1340,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int QUALIFIED_NAMED_ELEMENT__GENERALIZATION =
-        Aadl2Package.DATA_CLASSIFIER__GENERALIZATION ;
+                                              Aadl2Package.DATA_CLASSIFIER__GENERALIZATION ;
 
   /**
    * The feature id for the '<em><b>General</b></em>' reference list.
@@ -1283,7 +1359,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int QUALIFIED_NAMED_ELEMENT__OWNED_ANNEX_SUBCLAUSE =
-        Aadl2Package.DATA_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE ;
+                                                     Aadl2Package.DATA_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE ;
 
   /**
    * The feature id for the '<em><b>Owned Prototype</b></em>' containment reference list.
@@ -1293,7 +1369,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int QUALIFIED_NAMED_ELEMENT__OWNED_PROTOTYPE =
-        Aadl2Package.DATA_CLASSIFIER__OWNED_PROTOTYPE ;
+                                               Aadl2Package.DATA_CLASSIFIER__OWNED_PROTOTYPE ;
 
   /**
    * The feature id for the '<em><b>Owned Prototype Binding</b></em>' containment reference list.
@@ -1303,7 +1379,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int QUALIFIED_NAMED_ELEMENT__OWNED_PROTOTYPE_BINDING =
-        Aadl2Package.DATA_CLASSIFIER__OWNED_PROTOTYPE_BINDING ;
+                                                       Aadl2Package.DATA_CLASSIFIER__OWNED_PROTOTYPE_BINDING ;
 
   /**
    * The feature id for the '<em><b>No Prototypes</b></em>' attribute.
@@ -1313,7 +1389,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int QUALIFIED_NAMED_ELEMENT__NO_PROTOTYPES =
-        Aadl2Package.DATA_CLASSIFIER__NO_PROTOTYPES ;
+                                             Aadl2Package.DATA_CLASSIFIER__NO_PROTOTYPES ;
 
   /**
    * The feature id for the '<em><b>No Annexes</b></em>' attribute.
@@ -1323,7 +1399,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int QUALIFIED_NAMED_ELEMENT__NO_ANNEXES =
-        Aadl2Package.DATA_CLASSIFIER__NO_ANNEXES ;
+                                          Aadl2Package.DATA_CLASSIFIER__NO_ANNEXES ;
 
   /**
    * The feature id for the '<em><b>No Properties</b></em>' attribute.
@@ -1333,7 +1409,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int QUALIFIED_NAMED_ELEMENT__NO_PROPERTIES =
-        Aadl2Package.DATA_CLASSIFIER__NO_PROPERTIES ;
+                                             Aadl2Package.DATA_CLASSIFIER__NO_PROPERTIES ;
 
   /**
    * The feature id for the '<em><b>Owned Mode</b></em>' containment reference list.
@@ -1343,7 +1419,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int QUALIFIED_NAMED_ELEMENT__OWNED_MODE =
-        Aadl2Package.DATA_CLASSIFIER__OWNED_MODE ;
+                                          Aadl2Package.DATA_CLASSIFIER__OWNED_MODE ;
 
   /**
    * The feature id for the '<em><b>Owned Mode Transition</b></em>' containment reference list.
@@ -1353,7 +1429,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int QUALIFIED_NAMED_ELEMENT__OWNED_MODE_TRANSITION =
-        Aadl2Package.DATA_CLASSIFIER__OWNED_MODE_TRANSITION ;
+                                                     Aadl2Package.DATA_CLASSIFIER__OWNED_MODE_TRANSITION ;
 
   /**
    * The feature id for the '<em><b>Derived Modes</b></em>' attribute.
@@ -1363,7 +1439,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int QUALIFIED_NAMED_ELEMENT__DERIVED_MODES =
-        Aadl2Package.DATA_CLASSIFIER__DERIVED_MODES ;
+                                             Aadl2Package.DATA_CLASSIFIER__DERIVED_MODES ;
 
   /**
    * The feature id for the '<em><b>No Flows</b></em>' attribute.
@@ -1373,7 +1449,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int QUALIFIED_NAMED_ELEMENT__NO_FLOWS =
-        Aadl2Package.DATA_CLASSIFIER__NO_FLOWS ;
+                                        Aadl2Package.DATA_CLASSIFIER__NO_FLOWS ;
 
   /**
    * The feature id for the '<em><b>No Modes</b></em>' attribute.
@@ -1383,27 +1459,161 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int QUALIFIED_NAMED_ELEMENT__NO_MODES =
-        Aadl2Package.DATA_CLASSIFIER__NO_MODES ;
+                                        Aadl2Package.DATA_CLASSIFIER__NO_MODES ;
 
   /**
-   * The feature id for the '<em><b>Osate Ref</b></em>' reference.
-   * <!-- begin-user-doc -->
+  	 * The feature id for the '<em><b>Osate Ref</b></em>' reference.
+  	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
+  	 * @generated
+  	 * @ordered
+  	 */
   int QUALIFIED_NAMED_ELEMENT__OSATE_REF =
-        Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT + 0 ;
+                                         Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
+                                           0 ;
 
   /**
-   * The feature id for the '<em><b>Ba Ref</b></em>' reference.
+  	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
+  	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  	 * @generated
+  	 * @ordered
+  	 */
+  int QUALIFIED_NAMED_ELEMENT__BA_REF =
+                                      Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
+                                        1 ;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int QUALIFIED_NAMED_ELEMENT__BA_REF =
-        Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT + 1 ;
+  int QUALIFIED_NAMED_ELEMENT__TYPE =
+                                    Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
+                                      2 ;
+
+  /**
+   * The feature id for the '<em><b>Referenced Property Type</b></em>' reference.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_NAMED_ELEMENT__REFERENCED_PROPERTY_TYPE =
+                                                        Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
+                                                          3 ;
+
+  /**
+   * The feature id for the '<em><b>Owned Property Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_NAMED_ELEMENT__OWNED_PROPERTY_TYPE =
+                                                   Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
+                                                     4 ;
+
+  /**
+   * The feature id for the '<em><b>Property Type</b></em>' reference.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_NAMED_ELEMENT__PROPERTY_TYPE =
+                                             Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
+                                               5 ;
+
+  /**
+   * The feature id for the '<em><b>Inherit</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_NAMED_ELEMENT__INHERIT =
+                                       Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
+                                         6 ;
+
+  /**
+   * The feature id for the '<em><b>Default Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_NAMED_ELEMENT__DEFAULT_VALUE =
+                                             Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
+                                               7 ;
+
+  /**
+   * The feature id for the '<em><b>Applies To Metaclass</b></em>' reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_NAMED_ELEMENT__APPLIES_TO_METACLASS =
+                                                    Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
+                                                      8 ;
+
+  /**
+   * The feature id for the '<em><b>Applies To Classifier</b></em>' reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_NAMED_ELEMENT__APPLIES_TO_CLASSIFIER =
+                                                     Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
+                                                       9 ;
+
+  /**
+   * The feature id for the '<em><b>Applies To</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_NAMED_ELEMENT__APPLIES_TO =
+                                          Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
+                                            10 ;
+
+  /**
+   * The feature id for the '<em><b>Empty List Default</b></em>' attribute.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_NAMED_ELEMENT__EMPTY_LIST_DEFAULT =
+                                                  Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
+                                                    11 ;
+
+  /**
+   * The feature id for the '<em><b>Base Unit</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_NAMED_ELEMENT__BASE_UNIT =
+                                         Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
+                                           12 ;
+
+  /**
+   * The feature id for the '<em><b>Factor</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int QUALIFIED_NAMED_ELEMENT__FACTOR =
+                                      Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
+                                        13 ;
 
   /**
    * The feature id for the '<em><b>Ba Namespace</b></em>' containment reference.
@@ -1413,7 +1623,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int QUALIFIED_NAMED_ELEMENT__BA_NAMESPACE =
-        Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT + 2 ;
+                                            Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
+                                              14 ;
 
   /**
    * The feature id for the '<em><b>Ba Name</b></em>' containment reference.
@@ -1423,7 +1634,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int QUALIFIED_NAMED_ELEMENT__BA_NAME =
-        Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT + 3 ;
+                                       Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
+                                         15 ;
 
   /**
    * The number of structural features of the '<em>Qualified Named Element</em>' class.
@@ -1433,7 +1645,8 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int QUALIFIED_NAMED_ELEMENT_FEATURE_COUNT =
-        Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT + 4 ;
+                                            Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
+                                              16 ;
 
   /**
    * The meta object id for the '{@link org.osate.ba.declarative.impl.ReferenceImpl <em>Reference</em>}' class.
@@ -1453,7 +1666,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int REFERENCE__OWNED_ELEMENT =
-        AadlBaPackage.ACTUAL_PORT_HOLDER__OWNED_ELEMENT ;
+                               AadlBaPackage.ACTUAL_PORT_HOLDER__OWNED_ELEMENT ;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -1463,7 +1676,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int REFERENCE__OWNED_COMMENT =
-        AadlBaPackage.ACTUAL_PORT_HOLDER__OWNED_COMMENT ;
+                               AadlBaPackage.ACTUAL_PORT_HOLDER__OWNED_COMMENT ;
 
   /**
    * The feature id for the '<em><b>Element</b></em>' reference.
@@ -1482,7 +1695,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int REFERENCE__ARRAY_INDEXES =
-        AadlBaPackage.ACTUAL_PORT_HOLDER__ARRAY_INDEXES ;
+                               AadlBaPackage.ACTUAL_PORT_HOLDER__ARRAY_INDEXES ;
 
   /**
    * The feature id for the '<em><b>Group Holders</b></em>' containment reference list.
@@ -1492,7 +1705,7 @@ public interface DeclarativePackage extends EPackage
    * @ordered
    */
   int REFERENCE__GROUP_HOLDERS =
-        AadlBaPackage.ACTUAL_PORT_HOLDER__GROUP_HOLDERS ;
+                               AadlBaPackage.ACTUAL_PORT_HOLDER__GROUP_HOLDERS ;
 
   /**
    * The feature id for the '<em><b>Osate Ref</b></em>' reference.
@@ -1501,7 +1714,8 @@ public interface DeclarativePackage extends EPackage
    * @generated
    * @ordered
    */
-  int REFERENCE__OSATE_REF = AadlBaPackage.ACTUAL_PORT_HOLDER_FEATURE_COUNT + 0 ;
+  int REFERENCE__OSATE_REF = AadlBaPackage.ACTUAL_PORT_HOLDER_FEATURE_COUNT +
+                             0 ;
 
   /**
    * The feature id for the '<em><b>Ba Ref</b></em>' reference.
@@ -1513,13 +1727,53 @@ public interface DeclarativePackage extends EPackage
   int REFERENCE__BA_REF = AadlBaPackage.ACTUAL_PORT_HOLDER_FEATURE_COUNT + 1 ;
 
   /**
+   * The feature id for the '<em><b>Array Range</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REFERENCE__ARRAY_RANGE = AadlBaPackage.ACTUAL_PORT_HOLDER_FEATURE_COUNT +
+                               2 ;
+
+  /**
+   * The feature id for the '<em><b>Named Element</b></em>' reference.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REFERENCE__NAMED_ELEMENT =
+                               AadlBaPackage.ACTUAL_PORT_HOLDER_FEATURE_COUNT +
+                                 3 ;
+
+  /**
+   * The feature id for the '<em><b>Annex Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REFERENCE__ANNEX_NAME = AadlBaPackage.ACTUAL_PORT_HOLDER_FEATURE_COUNT +
+                              4 ;
+
+  /**
+   * The feature id for the '<em><b>Path</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REFERENCE__PATH = AadlBaPackage.ACTUAL_PORT_HOLDER_FEATURE_COUNT + 5 ;
+
+  /**
    * The feature id for the '<em><b>Ids</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REFERENCE__IDS = AadlBaPackage.ACTUAL_PORT_HOLDER_FEATURE_COUNT + 2 ;
+  int REFERENCE__IDS = AadlBaPackage.ACTUAL_PORT_HOLDER_FEATURE_COUNT + 6 ;
 
   /**
    * The number of structural features of the '<em>Reference</em>' class.
@@ -1528,8 +1782,712 @@ public interface DeclarativePackage extends EPackage
    * @generated
    * @ordered
    */
-  int REFERENCE_FEATURE_COUNT =
-        AadlBaPackage.ACTUAL_PORT_HOLDER_FEATURE_COUNT + 3 ;
+  int REFERENCE_FEATURE_COUNT = AadlBaPackage.ACTUAL_PORT_HOLDER_FEATURE_COUNT +
+                                7 ;
+
+  /**
+   * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativePropertyAssociationImpl <em>Property Association</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.ba.declarative.impl.DeclarativePropertyAssociationImpl
+   * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativePropertyAssociation()
+   * @generated
+   */
+  int DECLARATIVE_PROPERTY_ASSOCIATION = 12 ;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_PROPERTY_ASSOCIATION__OWNED_ELEMENT =
+                                                      DECLARATIVE_BEHAVIOR_ELEMENT__OWNED_ELEMENT ;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_PROPERTY_ASSOCIATION__OWNED_COMMENT =
+                                                      DECLARATIVE_BEHAVIOR_ELEMENT__OWNED_COMMENT ;
+
+  /**
+   * The feature id for the '<em><b>Osate Ref</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_PROPERTY_ASSOCIATION__OSATE_REF =
+                                                  DECLARATIVE_BEHAVIOR_ELEMENT__OSATE_REF ;
+
+  /**
+   * The feature id for the '<em><b>Ba Ref</b></em>' reference.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_PROPERTY_ASSOCIATION__BA_REF =
+                                               DECLARATIVE_BEHAVIOR_ELEMENT__BA_REF ;
+
+  /**
+   * The feature id for the '<em><b>Property</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_PROPERTY_ASSOCIATION__PROPERTY =
+                                                 DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT +
+                                                   0 ;
+
+  /**
+   * The feature id for the '<em><b>Owned Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_PROPERTY_ASSOCIATION__OWNED_VALUE =
+                                                    DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT +
+                                                      1 ;
+
+  /**
+   * The number of structural features of the '<em>Property Association</em>' class.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_PROPERTY_ASSOCIATION_FEATURE_COUNT =
+                                                     DECLARATIVE_BEHAVIOR_ELEMENT_FEATURE_COUNT +
+                                                       2 ;
+
+  /**
+   * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativeListValueImpl <em>List Value</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.ba.declarative.impl.DeclarativeListValueImpl
+   * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeListValue()
+   * @generated
+   */
+  int DECLARATIVE_LIST_VALUE = 13 ;
+
+  /**
+   * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativeStringLiteralImpl <em>String Literal</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.ba.declarative.impl.DeclarativeStringLiteralImpl
+   * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeStringLiteral()
+   * @generated
+   */
+  int DECLARATIVE_STRING_LITERAL = 15 ;
+
+  /**
+   * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativePropertyExpressionImpl <em>Property Expression</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.ba.declarative.impl.DeclarativePropertyExpressionImpl
+   * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativePropertyExpression()
+   * @generated
+   */
+  int DECLARATIVE_PROPERTY_EXPRESSION = 14 ;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_LIST_VALUE__OWNED_ELEMENT =
+                                            Aadl2Package.LIST_VALUE__OWNED_ELEMENT ;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_LIST_VALUE__OWNED_COMMENT =
+                                            Aadl2Package.LIST_VALUE__OWNED_COMMENT ;
+
+  /**
+   * The feature id for the '<em><b>Owned List Element</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_LIST_VALUE__OWNED_LIST_ELEMENT =
+                                                 Aadl2Package.LIST_VALUE__OWNED_LIST_ELEMENT ;
+
+  /**
+   * The number of structural features of the '<em>List Value</em>' class.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_LIST_VALUE_FEATURE_COUNT =
+                                           Aadl2Package.LIST_VALUE_FEATURE_COUNT +
+                                             0 ;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_PROPERTY_EXPRESSION__OWNED_ELEMENT =
+                                                     Aadl2Package.PROPERTY_EXPRESSION__OWNED_ELEMENT ;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_PROPERTY_EXPRESSION__OWNED_COMMENT =
+                                                     Aadl2Package.PROPERTY_EXPRESSION__OWNED_COMMENT ;
+
+  /**
+   * The number of structural features of the '<em>Property Expression</em>' class.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_PROPERTY_EXPRESSION_FEATURE_COUNT =
+                                                    Aadl2Package.PROPERTY_EXPRESSION_FEATURE_COUNT +
+                                                      0 ;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_STRING_LITERAL__OWNED_ELEMENT =
+                                                AadlBaPackage.BEHAVIOR_STRING_LITERAL__OWNED_ELEMENT ;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_STRING_LITERAL__OWNED_COMMENT =
+                                                AadlBaPackage.BEHAVIOR_STRING_LITERAL__OWNED_COMMENT ;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_STRING_LITERAL__VALUE =
+                                        AadlBaPackage.BEHAVIOR_STRING_LITERAL__VALUE ;
+
+  /**
+   * The number of structural features of the '<em>String Literal</em>' class.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_STRING_LITERAL_FEATURE_COUNT =
+                                               AadlBaPackage.BEHAVIOR_STRING_LITERAL_FEATURE_COUNT +
+                                                 0 ;
+
+  /**
+   * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativeIntegerLiteralImpl <em>Integer Literal</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.ba.declarative.impl.DeclarativeIntegerLiteralImpl
+   * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeIntegerLiteral()
+   * @generated
+   */
+  int DECLARATIVE_INTEGER_LITERAL = 16 ;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_INTEGER_LITERAL__OWNED_ELEMENT =
+                                                 AadlBaPackage.BEHAVIOR_INTEGER_LITERAL__OWNED_ELEMENT ;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_INTEGER_LITERAL__OWNED_COMMENT =
+                                                 AadlBaPackage.BEHAVIOR_INTEGER_LITERAL__OWNED_COMMENT ;
+
+  /**
+   * The feature id for the '<em><b>Unit</b></em>' reference.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_INTEGER_LITERAL__UNIT =
+                                        AadlBaPackage.BEHAVIOR_INTEGER_LITERAL__UNIT ;
+
+  /**
+   * The feature id for the '<em><b>Base</b></em>' attribute.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_INTEGER_LITERAL__BASE =
+                                        AadlBaPackage.BEHAVIOR_INTEGER_LITERAL__BASE ;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_INTEGER_LITERAL__VALUE =
+                                         AadlBaPackage.BEHAVIOR_INTEGER_LITERAL__VALUE ;
+
+  /**
+   * The number of structural features of the '<em>Integer Literal</em>' class.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_INTEGER_LITERAL_FEATURE_COUNT =
+                                                AadlBaPackage.BEHAVIOR_INTEGER_LITERAL_FEATURE_COUNT +
+                                                  0 ;
+
+  /**
+   * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativeRealLiteralImpl <em>Real Literal</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.ba.declarative.impl.DeclarativeRealLiteralImpl
+   * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeRealLiteral()
+   * @generated
+   */
+  int DECLARATIVE_REAL_LITERAL = 17 ;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_REAL_LITERAL__OWNED_ELEMENT =
+                                              AadlBaPackage.BEHAVIOR_REAL_LITERAL__OWNED_ELEMENT ;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_REAL_LITERAL__OWNED_COMMENT =
+                                              AadlBaPackage.BEHAVIOR_REAL_LITERAL__OWNED_COMMENT ;
+
+  /**
+   * The feature id for the '<em><b>Unit</b></em>' reference.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_REAL_LITERAL__UNIT =
+                                     AadlBaPackage.BEHAVIOR_REAL_LITERAL__UNIT ;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_REAL_LITERAL__VALUE =
+                                      AadlBaPackage.BEHAVIOR_REAL_LITERAL__VALUE ;
+
+  /**
+   * The number of structural features of the '<em>Real Literal</em>' class.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_REAL_LITERAL_FEATURE_COUNT =
+                                             AadlBaPackage.BEHAVIOR_REAL_LITERAL_FEATURE_COUNT +
+                                               0 ;
+
+  /**
+   * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativeRecordValueImpl <em>Record Value</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.ba.declarative.impl.DeclarativeRecordValueImpl
+   * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeRecordValue()
+   * @generated
+   */
+  int DECLARATIVE_RECORD_VALUE = 18 ;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_RECORD_VALUE__OWNED_ELEMENT =
+                                              Aadl2Package.RECORD_VALUE__OWNED_ELEMENT ;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_RECORD_VALUE__OWNED_COMMENT =
+                                              Aadl2Package.RECORD_VALUE__OWNED_COMMENT ;
+
+  /**
+   * The feature id for the '<em><b>Owned Field Value</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_RECORD_VALUE__OWNED_FIELD_VALUE =
+                                                  Aadl2Package.RECORD_VALUE__OWNED_FIELD_VALUE ;
+
+  /**
+   * The number of structural features of the '<em>Record Value</em>' class.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_RECORD_VALUE_FEATURE_COUNT =
+                                             Aadl2Package.RECORD_VALUE_FEATURE_COUNT +
+                                               0 ;
+
+  /**
+   * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativeBasicPropertyAssociationImpl <em>Basic Property Association</em>}' class.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @see org.osate.ba.declarative.impl.DeclarativeBasicPropertyAssociationImpl
+   * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeBasicPropertyAssociation()
+   * @generated
+   */
+  int DECLARATIVE_BASIC_PROPERTY_ASSOCIATION = 19 ;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_BASIC_PROPERTY_ASSOCIATION__OWNED_ELEMENT =
+                                                            Aadl2Package.BASIC_PROPERTY_ASSOCIATION__OWNED_ELEMENT ;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_BASIC_PROPERTY_ASSOCIATION__OWNED_COMMENT =
+                                                            Aadl2Package.BASIC_PROPERTY_ASSOCIATION__OWNED_COMMENT ;
+
+  /**
+   * The feature id for the '<em><b>Property</b></em>' reference.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_BASIC_PROPERTY_ASSOCIATION__PROPERTY =
+                                                       Aadl2Package.BASIC_PROPERTY_ASSOCIATION__PROPERTY ;
+
+  /**
+   * The feature id for the '<em><b>Owned Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_BASIC_PROPERTY_ASSOCIATION__OWNED_VALUE =
+                                                          Aadl2Package.BASIC_PROPERTY_ASSOCIATION__OWNED_VALUE ;
+
+  /**
+   * The feature id for the '<em><b>Basic Property Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_BASIC_PROPERTY_ASSOCIATION__BASIC_PROPERTY_NAME =
+                                                                  Aadl2Package.BASIC_PROPERTY_ASSOCIATION_FEATURE_COUNT +
+                                                                    0 ;
+
+  /**
+   * The number of structural features of the '<em>Basic Property Association</em>' class.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_BASIC_PROPERTY_ASSOCIATION_FEATURE_COUNT =
+                                                           Aadl2Package.BASIC_PROPERTY_ASSOCIATION_FEATURE_COUNT +
+                                                             1 ;
+
+  /**
+   * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativeBooleanLiteralImpl <em>Boolean Literal</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.ba.declarative.impl.DeclarativeBooleanLiteralImpl
+   * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeBooleanLiteral()
+   * @generated
+   */
+  int DECLARATIVE_BOOLEAN_LITERAL = 20 ;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_BOOLEAN_LITERAL__OWNED_ELEMENT =
+                                                 AadlBaPackage.BEHAVIOR_BOOLEAN_LITERAL__OWNED_ELEMENT ;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_BOOLEAN_LITERAL__OWNED_COMMENT =
+                                                 AadlBaPackage.BEHAVIOR_BOOLEAN_LITERAL__OWNED_COMMENT ;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_BOOLEAN_LITERAL__VALUE =
+                                         AadlBaPackage.BEHAVIOR_BOOLEAN_LITERAL__VALUE ;
+
+  /**
+   * The number of structural features of the '<em>Boolean Literal</em>' class.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_BOOLEAN_LITERAL_FEATURE_COUNT =
+                                                AadlBaPackage.BEHAVIOR_BOOLEAN_LITERAL_FEATURE_COUNT +
+                                                  0 ;
+
+  /**
+   * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativeRangeValueImpl <em>Range Value</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.ba.declarative.impl.DeclarativeRangeValueImpl
+   * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeRangeValue()
+   * @generated
+   */
+  int DECLARATIVE_RANGE_VALUE = 21 ;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_RANGE_VALUE__OWNED_ELEMENT =
+                                             Aadl2Package.RANGE_VALUE__OWNED_ELEMENT ;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_RANGE_VALUE__OWNED_COMMENT =
+                                             Aadl2Package.RANGE_VALUE__OWNED_COMMENT ;
+
+  /**
+   * The feature id for the '<em><b>Minimum</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_RANGE_VALUE__MINIMUM = Aadl2Package.RANGE_VALUE__MINIMUM ;
+
+  /**
+   * The feature id for the '<em><b>Maximum</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_RANGE_VALUE__MAXIMUM = Aadl2Package.RANGE_VALUE__MAXIMUM ;
+
+  /**
+   * The feature id for the '<em><b>Delta</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_RANGE_VALUE__DELTA = Aadl2Package.RANGE_VALUE__DELTA ;
+
+  /**
+   * The number of structural features of the '<em>Range Value</em>' class.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_RANGE_VALUE_FEATURE_COUNT =
+                                            Aadl2Package.RANGE_VALUE_FEATURE_COUNT +
+                                              0 ;
+
+  /**
+   * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativeReferenceValueImpl <em>Reference Value</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.ba.declarative.impl.DeclarativeReferenceValueImpl
+   * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeReferenceValue()
+   * @generated
+   */
+  int DECLARATIVE_REFERENCE_VALUE = 22 ;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_REFERENCE_VALUE__OWNED_ELEMENT =
+                                                 DECLARATIVE_PROPERTY_EXPRESSION__OWNED_ELEMENT ;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_REFERENCE_VALUE__OWNED_COMMENT =
+                                                 DECLARATIVE_PROPERTY_EXPRESSION__OWNED_COMMENT ;
+
+  /**
+   * The feature id for the '<em><b>Ref</b></em>' reference.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_REFERENCE_VALUE__REF =
+                                       DECLARATIVE_PROPERTY_EXPRESSION_FEATURE_COUNT +
+                                         0 ;
+
+  /**
+   * The number of structural features of the '<em>Reference Value</em>' class.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_REFERENCE_VALUE_FEATURE_COUNT =
+                                                DECLARATIVE_PROPERTY_EXPRESSION_FEATURE_COUNT +
+                                                  1 ;
+
+  /**
+   * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativeClassifierValueImpl <em>Classifier Value</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.ba.declarative.impl.DeclarativeClassifierValueImpl
+   * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeClassifierValue()
+   * @generated
+   */
+  int DECLARATIVE_CLASSIFIER_VALUE = 23 ;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_CLASSIFIER_VALUE__OWNED_ELEMENT =
+                                                  DECLARATIVE_PROPERTY_EXPRESSION__OWNED_ELEMENT ;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_CLASSIFIER_VALUE__OWNED_COMMENT =
+                                                  DECLARATIVE_PROPERTY_EXPRESSION__OWNED_COMMENT ;
+
+  /**
+   * The feature id for the '<em><b>Classifier</b></em>' reference.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_CLASSIFIER_VALUE__CLASSIFIER =
+                                               DECLARATIVE_PROPERTY_EXPRESSION_FEATURE_COUNT +
+                                                 0 ;
+
+  /**
+   * The number of structural features of the '<em>Classifier Value</em>' class.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATIVE_CLASSIFIER_VALUE_FEATURE_COUNT =
+                                                 DECLARATIVE_PROPERTY_EXPRESSION_FEATURE_COUNT +
+                                                   1 ;
 
   /**
    * Returns the meta object for class '{@link org.osate.ba.declarative.ArrayableIdentifier <em>Arrayable Identifier</em>}'.
@@ -1982,6 +2940,181 @@ public interface DeclarativePackage extends EPackage
   EReference getReference_Ids() ;
 
   /**
+   * Returns the meta object for class '{@link org.osate.ba.declarative.DeclarativePropertyAssociation <em>Property Association</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Property Association</em>'.
+   * @see org.osate.ba.declarative.DeclarativePropertyAssociation
+   * @generated
+   */
+  EClass getDeclarativePropertyAssociation() ;
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.ba.declarative.DeclarativePropertyAssociation#getProperty <em>Property</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Property</em>'.
+   * @see org.osate.ba.declarative.DeclarativePropertyAssociation#getProperty()
+   * @see #getDeclarativePropertyAssociation()
+   * @generated
+   */
+  EReference getDeclarativePropertyAssociation_Property() ;
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.ba.declarative.DeclarativePropertyAssociation#getOwnedValue <em>Owned Value</em>}'.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Owned Value</em>'.
+   * @see org.osate.ba.declarative.DeclarativePropertyAssociation#getOwnedValue()
+   * @see #getDeclarativePropertyAssociation()
+   * @generated
+   */
+  EReference getDeclarativePropertyAssociation_OwnedValue() ;
+
+  /**
+   * Returns the meta object for class '{@link org.osate.ba.declarative.DeclarativeListValue <em>List Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>List Value</em>'.
+   * @see org.osate.ba.declarative.DeclarativeListValue
+   * @generated
+   */
+  EClass getDeclarativeListValue() ;
+
+  /**
+   * Returns the meta object for class '{@link org.osate.ba.declarative.DeclarativePropertyExpression <em>Property Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Property Expression</em>'.
+   * @see org.osate.ba.declarative.DeclarativePropertyExpression
+   * @generated
+   */
+  EClass getDeclarativePropertyExpression() ;
+
+  /**
+   * Returns the meta object for class '{@link org.osate.ba.declarative.DeclarativeStringLiteral <em>String Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>String Literal</em>'.
+   * @see org.osate.ba.declarative.DeclarativeStringLiteral
+   * @generated
+   */
+  EClass getDeclarativeStringLiteral() ;
+
+  /**
+   * Returns the meta object for class '{@link org.osate.ba.declarative.DeclarativeIntegerLiteral <em>Integer Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Integer Literal</em>'.
+   * @see org.osate.ba.declarative.DeclarativeIntegerLiteral
+   * @generated
+   */
+  EClass getDeclarativeIntegerLiteral() ;
+
+  /**
+   * Returns the meta object for class '{@link org.osate.ba.declarative.DeclarativeRealLiteral <em>Real Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Real Literal</em>'.
+   * @see org.osate.ba.declarative.DeclarativeRealLiteral
+   * @generated
+   */
+  EClass getDeclarativeRealLiteral() ;
+
+  /**
+   * Returns the meta object for class '{@link org.osate.ba.declarative.DeclarativeRecordValue <em>Record Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Record Value</em>'.
+   * @see org.osate.ba.declarative.DeclarativeRecordValue
+   * @generated
+   */
+  EClass getDeclarativeRecordValue() ;
+
+  /**
+   * Returns the meta object for class '{@link org.osate.ba.declarative.DeclarativeBasicPropertyAssociation <em>Basic Property Association</em>}'.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Basic Property Association</em>'.
+   * @see org.osate.ba.declarative.DeclarativeBasicPropertyAssociation
+   * @generated
+   */
+  EClass getDeclarativeBasicPropertyAssociation() ;
+
+  /**
+   * Returns the meta object for the attribute '{@link org.osate.ba.declarative.DeclarativeBasicPropertyAssociation#getBasicPropertyName <em>Basic Property Name</em>}'.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Basic Property Name</em>'.
+   * @see org.osate.ba.declarative.DeclarativeBasicPropertyAssociation#getBasicPropertyName()
+   * @see #getDeclarativeBasicPropertyAssociation()
+   * @generated
+   */
+  EAttribute getDeclarativeBasicPropertyAssociation_BasicPropertyName() ;
+
+  /**
+   * Returns the meta object for class '{@link org.osate.ba.declarative.DeclarativeBooleanLiteral <em>Boolean Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Boolean Literal</em>'.
+   * @see org.osate.ba.declarative.DeclarativeBooleanLiteral
+   * @generated
+   */
+  EClass getDeclarativeBooleanLiteral() ;
+
+  /**
+   * Returns the meta object for class '{@link org.osate.ba.declarative.DeclarativeRangeValue <em>Range Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Range Value</em>'.
+   * @see org.osate.ba.declarative.DeclarativeRangeValue
+   * @generated
+   */
+  EClass getDeclarativeRangeValue() ;
+
+  /**
+   * Returns the meta object for class '{@link org.osate.ba.declarative.DeclarativeReferenceValue <em>Reference Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Reference Value</em>'.
+   * @see org.osate.ba.declarative.DeclarativeReferenceValue
+   * @generated
+   */
+  EClass getDeclarativeReferenceValue() ;
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.ba.declarative.DeclarativeReferenceValue#getRef <em>Ref</em>}'.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Ref</em>'.
+   * @see org.osate.ba.declarative.DeclarativeReferenceValue#getRef()
+   * @see #getDeclarativeReferenceValue()
+   * @generated
+   */
+  EReference getDeclarativeReferenceValue_Ref() ;
+
+  /**
+   * Returns the meta object for class '{@link org.osate.ba.declarative.DeclarativeClassifierValue <em>Classifier Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Classifier Value</em>'.
+   * @see org.osate.ba.declarative.DeclarativeClassifierValue
+   * @generated
+   */
+  EClass getDeclarativeClassifierValue() ;
+
+  /**
+   * Returns the meta object for the reference '{@link org.osate.ba.declarative.DeclarativeClassifierValue#getClassifier <em>Classifier</em>}'.
+   * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Classifier</em>'.
+   * @see org.osate.ba.declarative.DeclarativeClassifierValue#getClassifier()
+   * @see #getDeclarativeClassifierValue()
+   * @generated
+   */
+  EReference getDeclarativeClassifierValue_Classifier() ;
+
+  /**
    * Returns the factory that creates the instances of the model.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2021,7 +3154,7 @@ public interface DeclarativePackage extends EPackage
      * @generated
      */
     EReference ARRAYABLE_IDENTIFIER__ARRAY_INDEXES = eINSTANCE
-          .getArrayableIdentifier_ArrayIndexes() ;
+                                                              .getArrayableIdentifier_ArrayIndexes() ;
 
     /**
      * The meta object literal for the '{@link org.osate.ba.declarative.impl.CommActionImpl <em>Comm Action</em>}' class.
@@ -2056,7 +3189,7 @@ public interface DeclarativePackage extends EPackage
      * @generated
      */
     EAttribute COMM_ACTION__PORT_DEQUEUE = eINSTANCE
-          .getCommAction_PortDequeue() ;
+                                                    .getCommAction_PortDequeue() ;
 
     /**
      * The meta object literal for the '<em><b>Lock</b></em>' attribute feature.
@@ -2089,7 +3222,7 @@ public interface DeclarativePackage extends EPackage
      * @generated
      */
     EReference COMM_ACTION__QUALIFIED_NAME = eINSTANCE
-          .getCommAction_QualifiedName() ;
+                                                      .getCommAction_QualifiedName() ;
 
     /**
      * The meta object literal for the '<em><b>Reference</b></em>' containment reference feature.
@@ -2108,7 +3241,7 @@ public interface DeclarativePackage extends EPackage
      * @generated
      */
     EClass DECLARATIVE_ARRAY_DIMENSION = eINSTANCE
-          .getDeclarativeArrayDimension() ;
+                                                  .getDeclarativeArrayDimension() ;
 
     /**
      * The meta object literal for the '<em><b>Dimension</b></em>' containment reference feature.
@@ -2117,7 +3250,7 @@ public interface DeclarativePackage extends EPackage
      * @generated
      */
     EReference DECLARATIVE_ARRAY_DIMENSION__DIMENSION = eINSTANCE
-          .getDeclarativeArrayDimension_Dimension() ;
+                                                                 .getDeclarativeArrayDimension_Dimension() ;
 
     /**
      * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeBehaviorElementImpl <em>Behavior Element</em>}' class.
@@ -2128,7 +3261,7 @@ public interface DeclarativePackage extends EPackage
      * @generated
      */
     EClass DECLARATIVE_BEHAVIOR_ELEMENT = eINSTANCE
-          .getDeclarativeBehaviorElement() ;
+                                                   .getDeclarativeBehaviorElement() ;
 
     /**
      * The meta object literal for the '<em><b>Osate Ref</b></em>' reference feature.
@@ -2137,7 +3270,7 @@ public interface DeclarativePackage extends EPackage
      * @generated
      */
     EReference DECLARATIVE_BEHAVIOR_ELEMENT__OSATE_REF = eINSTANCE
-          .getDeclarativeBehaviorElement_OsateRef() ;
+                                                                  .getDeclarativeBehaviorElement_OsateRef() ;
 
     /**
      * The meta object literal for the '<em><b>Ba Ref</b></em>' reference feature.
@@ -2146,7 +3279,7 @@ public interface DeclarativePackage extends EPackage
      * @generated
      */
     EReference DECLARATIVE_BEHAVIOR_ELEMENT__BA_REF = eINSTANCE
-          .getDeclarativeBehaviorElement_BaRef() ;
+                                                               .getDeclarativeBehaviorElement_BaRef() ;
 
     /**
      * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeBehaviorTransitionImpl <em>Behavior Transition</em>}' class.
@@ -2157,7 +3290,7 @@ public interface DeclarativePackage extends EPackage
      * @generated
      */
     EClass DECLARATIVE_BEHAVIOR_TRANSITION = eINSTANCE
-          .getDeclarativeBehaviorTransition() ;
+                                                      .getDeclarativeBehaviorTransition() ;
 
     /**
      * The meta object literal for the '<em><b>Src States</b></em>' containment reference list feature.
@@ -2166,7 +3299,7 @@ public interface DeclarativePackage extends EPackage
      * @generated
      */
     EReference DECLARATIVE_BEHAVIOR_TRANSITION__SRC_STATES = eINSTANCE
-          .getDeclarativeBehaviorTransition_SrcStates() ;
+                                                                      .getDeclarativeBehaviorTransition_SrcStates() ;
 
     /**
      * The meta object literal for the '<em><b>Dest State</b></em>' containment reference feature.
@@ -2175,7 +3308,7 @@ public interface DeclarativePackage extends EPackage
      * @generated
      */
     EReference DECLARATIVE_BEHAVIOR_TRANSITION__DEST_STATE = eINSTANCE
-          .getDeclarativeBehaviorTransition_DestState() ;
+                                                                      .getDeclarativeBehaviorTransition_DestState() ;
 
     /**
      * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativePropertyNameImpl <em>Property Name</em>}' class.
@@ -2194,7 +3327,7 @@ public interface DeclarativePackage extends EPackage
      * @generated
      */
     EReference DECLARATIVE_PROPERTY_NAME__PROPERTY_NAME = eINSTANCE
-          .getDeclarativePropertyName_PropertyName() ;
+                                                                   .getDeclarativePropertyName_PropertyName() ;
 
     /**
      * The meta object literal for the '<em><b>Field</b></em>' containment reference feature.
@@ -2203,7 +3336,7 @@ public interface DeclarativePackage extends EPackage
      * @generated
      */
     EReference DECLARATIVE_PROPERTY_NAME__FIELD = eINSTANCE
-          .getDeclarativePropertyName_Field() ;
+                                                           .getDeclarativePropertyName_Field() ;
 
     /**
      * The meta object literal for the '<em><b>Indexes</b></em>' reference list feature.
@@ -2212,7 +3345,7 @@ public interface DeclarativePackage extends EPackage
      * @generated
      */
     EReference DECLARATIVE_PROPERTY_NAME__INDEXES = eINSTANCE
-          .getDeclarativePropertyName_Indexes() ;
+                                                             .getDeclarativePropertyName_Indexes() ;
 
     /**
      * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativePropertyReferenceImpl <em>Property Reference</em>}' class.
@@ -2223,7 +3356,7 @@ public interface DeclarativePackage extends EPackage
      * @generated
      */
     EClass DECLARATIVE_PROPERTY_REFERENCE = eINSTANCE
-          .getDeclarativePropertyReference() ;
+                                                     .getDeclarativePropertyReference() ;
 
     /**
      * The meta object literal for the '<em><b>Qualified Name</b></em>' containment reference feature.
@@ -2232,7 +3365,7 @@ public interface DeclarativePackage extends EPackage
      * @generated
      */
     EReference DECLARATIVE_PROPERTY_REFERENCE__QUALIFIED_NAME = eINSTANCE
-          .getDeclarativePropertyReference_QualifiedName() ;
+                                                                         .getDeclarativePropertyReference_QualifiedName() ;
 
     /**
      * The meta object literal for the '<em><b>Reference</b></em>' containment reference feature.
@@ -2241,7 +3374,7 @@ public interface DeclarativePackage extends EPackage
      * @generated
      */
     EReference DECLARATIVE_PROPERTY_REFERENCE__REFERENCE = eINSTANCE
-          .getDeclarativePropertyReference_Reference() ;
+                                                                    .getDeclarativePropertyReference_Reference() ;
 
     /**
      * The meta object literal for the '<em><b>Property Names</b></em>' containment reference list feature.
@@ -2250,7 +3383,7 @@ public interface DeclarativePackage extends EPackage
      * @generated
      */
     EReference DECLARATIVE_PROPERTY_REFERENCE__PROPERTY_NAMES = eINSTANCE
-          .getDeclarativePropertyReference_PropertyNames() ;
+                                                                         .getDeclarativePropertyReference_PropertyNames() ;
 
     /**
      * The meta object literal for the '<em><b>Property Set</b></em>' attribute feature.
@@ -2259,7 +3392,7 @@ public interface DeclarativePackage extends EPackage
      * @generated
      */
     EAttribute DECLARATIVE_PROPERTY_REFERENCE__PROPERTY_SET = eINSTANCE
-          .getDeclarativePropertyReference_PropertySet() ;
+                                                                       .getDeclarativePropertyReference_PropertySet() ;
 
     /**
      * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeTimeImpl <em>Time</em>}' class.
@@ -2278,7 +3411,7 @@ public interface DeclarativePackage extends EPackage
      * @generated
      */
     EReference DECLARATIVE_TIME__UNIT_ID = eINSTANCE
-          .getDeclarativeTime_UnitId() ;
+                                                    .getDeclarativeTime_UnitId() ;
 
     /**
      * The meta object literal for the '{@link org.osate.ba.declarative.impl.IdentifierImpl <em>Identifier</em>}' class.
@@ -2357,7 +3490,7 @@ public interface DeclarativePackage extends EPackage
      * @generated
      */
     EReference QUALIFIED_NAMED_ELEMENT__BA_NAMESPACE = eINSTANCE
-          .getQualifiedNamedElement_BaNamespace() ;
+                                                                .getQualifiedNamedElement_BaNamespace() ;
 
     /**
      * The meta object literal for the '<em><b>Ba Name</b></em>' containment reference feature.
@@ -2366,7 +3499,7 @@ public interface DeclarativePackage extends EPackage
      * @generated
      */
     EReference QUALIFIED_NAMED_ELEMENT__BA_NAME = eINSTANCE
-          .getQualifiedNamedElement_BaName() ;
+                                                           .getQualifiedNamedElement_BaName() ;
 
     /**
      * The meta object literal for the '{@link org.osate.ba.declarative.impl.ReferenceImpl <em>Reference</em>}' class.
@@ -2385,6 +3518,179 @@ public interface DeclarativePackage extends EPackage
      * @generated
      */
     EReference REFERENCE__IDS = eINSTANCE.getReference_Ids() ;
+
+    /**
+     * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativePropertyAssociationImpl <em>Property Association</em>}' class.
+     * <!-- begin-user-doc -->
+    	 * <!-- end-user-doc -->
+     * @see org.osate.ba.declarative.impl.DeclarativePropertyAssociationImpl
+     * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativePropertyAssociation()
+     * @generated
+     */
+    EClass DECLARATIVE_PROPERTY_ASSOCIATION = eINSTANCE
+                                                       .getDeclarativePropertyAssociation() ;
+
+    /**
+     * The meta object literal for the '<em><b>Property</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DECLARATIVE_PROPERTY_ASSOCIATION__PROPERTY = eINSTANCE
+                                                                     .getDeclarativePropertyAssociation_Property() ;
+
+    /**
+     * The meta object literal for the '<em><b>Owned Value</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+    	 * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DECLARATIVE_PROPERTY_ASSOCIATION__OWNED_VALUE = eINSTANCE
+                                                                        .getDeclarativePropertyAssociation_OwnedValue() ;
+
+    /**
+     * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeListValueImpl <em>List Value</em>}' class.
+     * <!-- begin-user-doc -->
+    	 * <!-- end-user-doc -->
+     * @see org.osate.ba.declarative.impl.DeclarativeListValueImpl
+     * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeListValue()
+     * @generated
+     */
+    EClass DECLARATIVE_LIST_VALUE = eINSTANCE.getDeclarativeListValue() ;
+
+    /**
+     * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativePropertyExpressionImpl <em>Property Expression</em>}' class.
+     * <!-- begin-user-doc -->
+    	 * <!-- end-user-doc -->
+     * @see org.osate.ba.declarative.impl.DeclarativePropertyExpressionImpl
+     * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativePropertyExpression()
+     * @generated
+     */
+    EClass DECLARATIVE_PROPERTY_EXPRESSION = eINSTANCE
+                                                      .getDeclarativePropertyExpression() ;
+
+    /**
+     * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeStringLiteralImpl <em>String Literal</em>}' class.
+     * <!-- begin-user-doc -->
+    	 * <!-- end-user-doc -->
+     * @see org.osate.ba.declarative.impl.DeclarativeStringLiteralImpl
+     * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeStringLiteral()
+     * @generated
+     */
+    EClass DECLARATIVE_STRING_LITERAL = eINSTANCE
+                                                 .getDeclarativeStringLiteral() ;
+
+    /**
+     * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeIntegerLiteralImpl <em>Integer Literal</em>}' class.
+     * <!-- begin-user-doc -->
+    	 * <!-- end-user-doc -->
+     * @see org.osate.ba.declarative.impl.DeclarativeIntegerLiteralImpl
+     * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeIntegerLiteral()
+     * @generated
+     */
+    EClass DECLARATIVE_INTEGER_LITERAL = eINSTANCE
+                                                  .getDeclarativeIntegerLiteral() ;
+
+    /**
+     * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeRealLiteralImpl <em>Real Literal</em>}' class.
+     * <!-- begin-user-doc -->
+    	 * <!-- end-user-doc -->
+     * @see org.osate.ba.declarative.impl.DeclarativeRealLiteralImpl
+     * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeRealLiteral()
+     * @generated
+     */
+    EClass DECLARATIVE_REAL_LITERAL = eINSTANCE.getDeclarativeRealLiteral() ;
+
+    /**
+     * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeRecordValueImpl <em>Record Value</em>}' class.
+     * <!-- begin-user-doc -->
+    	 * <!-- end-user-doc -->
+     * @see org.osate.ba.declarative.impl.DeclarativeRecordValueImpl
+     * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeRecordValue()
+     * @generated
+     */
+    EClass DECLARATIVE_RECORD_VALUE = eINSTANCE.getDeclarativeRecordValue() ;
+
+    /**
+     * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeBasicPropertyAssociationImpl <em>Basic Property Association</em>}' class.
+     * <!-- begin-user-doc -->
+    	 * <!-- end-user-doc -->
+     * @see org.osate.ba.declarative.impl.DeclarativeBasicPropertyAssociationImpl
+     * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeBasicPropertyAssociation()
+     * @generated
+     */
+    EClass DECLARATIVE_BASIC_PROPERTY_ASSOCIATION = eINSTANCE
+                                                             .getDeclarativeBasicPropertyAssociation() ;
+
+    /**
+     * The meta object literal for the '<em><b>Basic Property Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+    	 * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DECLARATIVE_BASIC_PROPERTY_ASSOCIATION__BASIC_PROPERTY_NAME =
+                                                                           eINSTANCE.getDeclarativeBasicPropertyAssociation_BasicPropertyName() ;
+
+    /**
+     * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeBooleanLiteralImpl <em>Boolean Literal</em>}' class.
+     * <!-- begin-user-doc -->
+    	 * <!-- end-user-doc -->
+     * @see org.osate.ba.declarative.impl.DeclarativeBooleanLiteralImpl
+     * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeBooleanLiteral()
+     * @generated
+     */
+    EClass DECLARATIVE_BOOLEAN_LITERAL = eINSTANCE
+                                                  .getDeclarativeBooleanLiteral() ;
+
+    /**
+     * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeRangeValueImpl <em>Range Value</em>}' class.
+     * <!-- begin-user-doc -->
+    	 * <!-- end-user-doc -->
+     * @see org.osate.ba.declarative.impl.DeclarativeRangeValueImpl
+     * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeRangeValue()
+     * @generated
+     */
+    EClass DECLARATIVE_RANGE_VALUE = eINSTANCE.getDeclarativeRangeValue() ;
+
+    /**
+     * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeReferenceValueImpl <em>Reference Value</em>}' class.
+     * <!-- begin-user-doc -->
+    	 * <!-- end-user-doc -->
+     * @see org.osate.ba.declarative.impl.DeclarativeReferenceValueImpl
+     * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeReferenceValue()
+     * @generated
+     */
+    EClass DECLARATIVE_REFERENCE_VALUE = eINSTANCE
+                                                  .getDeclarativeReferenceValue() ;
+
+    /**
+     * The meta object literal for the '<em><b>Ref</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+    	 * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DECLARATIVE_REFERENCE_VALUE__REF = eINSTANCE
+                                                           .getDeclarativeReferenceValue_Ref() ;
+
+    /**
+     * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeClassifierValueImpl <em>Classifier Value</em>}' class.
+     * <!-- begin-user-doc -->
+    	 * <!-- end-user-doc -->
+     * @see org.osate.ba.declarative.impl.DeclarativeClassifierValueImpl
+     * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeClassifierValue()
+     * @generated
+     */
+    EClass DECLARATIVE_CLASSIFIER_VALUE = eINSTANCE
+                                                   .getDeclarativeClassifierValue() ;
+
+    /**
+     * The meta object literal for the '<em><b>Classifier</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+    	 * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DECLARATIVE_CLASSIFIER_VALUE__CLASSIFIER = eINSTANCE
+                                                                   .getDeclarativeClassifierValue_Classifier() ;
 
   }
 

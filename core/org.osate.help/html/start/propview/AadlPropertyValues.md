@@ -1,3 +1,26 @@
+<!--
+Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+All Rights Reserved.
+
+NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+
+This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+which is available at https://www.eclipse.org/legal/epl-2.0/
+SPDX-License-Identifier: EPL-2.0
+
+Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+
+This program includes and/or can make use of certain third party source code, object code, documentation and other
+files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+-->
 # AADL Property Values
 This view can be used to display and edit property values in a structured manner which is often easier than navigating and manipulating the aadl text files directly.  Below is an example of the view in action.  It is displaying the properties of the process subcomponent `Sampler_B`.
 
@@ -34,7 +57,7 @@ A **local contained** property value is defined in the properties subclause of t
 
 ![Shared Local Contained Properties](images/SharedLocalContained.png)
 
-Contained property values are defined in a properties subclause and are applied to a model element using the `appies to` clause. In general, the property can be applied to an element nested several layers down in the containment hierarchy, e.g., to a sub sub sub component. The AADL property view does not display these deeply nested property applications. To view the property values resulting from all contained property associations in a model, an instance model must be created. The instantiation evaluates the applicable contained property associations and copies the resulting values as local associations into the instance model.
+Contained property values are defined in a properties subclause and are applied to a model element using the `applies to` clause. In general, the property can be applied to an element nested several layers down in the containment hierarchy, e.g., to a sub sub sub component. The AADL property view does not display these deeply nested property applications. To view the property values resulting from all contained property associations in a model, an instance model must be created. The instantiation evaluates the applicable contained property associations and copies the resulting values as local associations into the instance model.
 
 ### Inherited Property Values
 **Inherited** indicates that the property value is defined in an extended classifier or in the component type if the selected model element is a component implementation.  Inherited property values can also come from a refined element. In the following screenshot, the thread `Prime_Reporter_One` is selected.  The property `Dispatch_Protocol` is **inherited** because it is defined in `Prime_Reporter` which is extended by `Prime_Reporter_One`.
@@ -76,7 +99,7 @@ This action opens the property association that provides the deisplayed property
 This action is especially useful in an instance model to find out which contained property association in the declarative model is used to provide an instance property value.
 
 ### Create Local Property Association
-This action is enabled for **inherited**, **default**, and **undefined** properties.  Executing this action will creates a new **local** value for the selected property and begins the editing process. The new property association is inserted in curly braces with the current model element in the AADL text editor.
+This action is enabled for **inherited**, **default**, and **undefined** properties.  Executing this action will create a new **local** value for the selected property and begins the editing process. The new property association is inserted in curly braces with the current model element in the AADL text editor.
 
 ### Create Local Contained Property Association
 This action is enabled for **inherited**, **default**, and **undefined** properties.  Executing this action creates a new **local contained** value for the selected property and begins the editing process.

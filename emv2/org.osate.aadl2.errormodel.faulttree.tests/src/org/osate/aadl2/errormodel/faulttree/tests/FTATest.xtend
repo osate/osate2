@@ -1,3 +1,26 @@
+/**
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ * 
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ * 
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ * 
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ * 
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ */
 package org.osate.aadl2.errormodel.faulttree.tests
 
 import com.google.inject.Inject
@@ -70,6 +93,7 @@ class FTATest {
 	var static SystemInstance instanceIssue1384
 	var static SystemInstance instanceIssues21232425
 	var static SystemInstance instanceIssue2112
+	var static SystemInstance instanceIssue2177
 
 	val static stateFail = "state Failed"
 	val static stateFailStop = "state FailStop"
@@ -113,6 +137,7 @@ class FTATest {
 	val Issue1384file = "modeling_file.aadl"
 	val Issue1384Errortypesfile = "emv2_errortype_definition.aadl"
 	val ErrorStateWithTypesfile = "ErrorStateWithTypes.aadl"
+	val Issue2177file = "Issue2177.aadl"
 
 	@Before
 	def void initWorkspace() {
@@ -153,7 +178,9 @@ class FTATest {
 			modelroot + Issue1961file,
 			modelroot + Issue1384Errortypesfile,
 			modelroot + Issue1384file,
-			modelroot + ErrorStateWithTypesfile
+			modelroot + ErrorStateWithTypesfile,
+			modelroot + Issue2177file
+			
 		)
 		instance1 = instanceGenerator(modelroot + fta1File, "main.i")
 		instance2 = instanceGenerator(modelroot + fta2File, "main.i")
@@ -189,6 +216,7 @@ class FTATest {
 		instanceIssue1961 = instanceGenerator(modelroot + Issue1961file, "ac.impl")
 		instanceIssue1384 = instanceGenerator(modelroot + Issue1384file, "sys.i")
 		instanceIssues21232425 = instanceGenerator(modelroot + ErrorStateWithTypesfile, "iPCA_Safety.i")
+		instanceIssue2177 = instanceGenerator(modelroot + Issue2177file, "SubSys1.EMV2")
 	}
 
 	def SystemInstance instanceGenerator(String filename, String rootclassifier) {
@@ -684,7 +712,7 @@ class FTATest {
 	def void allFlowFaultTraceTest() {
 		val start = "outgoing propagation on outport{ValueProblem}"
 		val ft = CreateFTAModel.createFaultTrace(instanceAllFlows, start)
-		assertEquals(11,ft.events.size)
+		assertEquals(12,ft.events.size)
 		assertEquals(ft.root.subEvents.size, 1)
 		val sube1 = ft.root.subEvents.get(0)
 		assertEquals(sube1.subEventLogic, LogicOperation.OR)
@@ -1059,5 +1087,16 @@ class FTATest {
 		assertEquals((ev3.relatedEMV2Object as NamedElement).name, "post_not_detect_failure")
 	}
 
-
+	
+	@Test
+	def void issue2177Test() {
+		val ft = CreateFTAModel.createFaultTree(instanceIssue2177, "state LossOfData")
+		assertEquals(ft.events.size, 2)
+		assertEquals(ft.root.subEvents.size,1)
+		val ev1 = ft.root
+		assertEquals((ev1.relatedInstanceObject as NamedElement).name, "SubSys1_EMV2_Instance")
+		val ev2 = ev1.subEvents.get(0)
+		assertEquals((ev2.relatedEMV2Object as NamedElement).name, "Internal_Service_Error")
+	}
+	
 }

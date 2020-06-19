@@ -1,37 +1,25 @@
 /**
- * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * All Rights Reserved.
  *
- * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
- * at http://www.eclipse.org/org/documents/epl-v10.html.
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
  *
- * NO WARRANTY
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
  *
- * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
- * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE "DELIVERABLES") ARE ON AN "AS-IS" BASIS.
- * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
- * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
- * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
- * CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
- * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
- * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
- * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
  *
- * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
- * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
- * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
- * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
- * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
- * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
- *
- * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
- * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
- * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
- * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
- * under the contract clause at 252.227.7013.
- * </copyright>
- *
- * $Id: ComponentImplementationImpl.java,v 1.62 2011-04-11 13:35:51 lwrage Exp $
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.aadl2.impl;
 
@@ -345,7 +333,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getComponentImplementation();
 	}
@@ -355,9 +342,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Subcomponent> getOwnedSubcomponents() {
-		return new DerivedUnionEObjectEList<>(Subcomponent.class, this,
+		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
 				Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS);
 	}
 
@@ -366,9 +352,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<ClassifierFeature> getClassifierFeatures() {
-		return new DerivedUnionEObjectEList<>(ClassifierFeature.class, this,
+		return new DerivedUnionEObjectEList<ClassifierFeature>(ClassifierFeature.class, this,
 				Aadl2Package.COMPONENT_IMPLEMENTATION__CLASSIFIER_FEATURE, CLASSIFIER_FEATURE_ESUBSETS);
 	}
 
@@ -377,9 +362,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<NamedElement> getOwnedMembers() {
-		return new DerivedUnionEObjectEList<>(NamedElement.class, this,
+		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
 				Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
 	}
 
@@ -388,9 +372,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Classifier> getGenerals() {
-		return new DerivedUnionEObjectEList<>(Classifier.class, this,
+		return new DerivedUnionEObjectEList<Classifier>(Classifier.class, this,
 				Aadl2Package.COMPONENT_IMPLEMENTATION__GENERAL, GENERAL_ESUBSETS);
 	}
 
@@ -456,9 +439,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<Generalization> getGeneralizations() {
-		return new DerivedUnionEObjectEList<>(Generalization.class, this,
+		return new DerivedUnionEObjectEList<Generalization>(Generalization.class, this,
 				Aadl2Package.COMPONENT_IMPLEMENTATION__GENERALIZATION, GENERALIZATION_ESUBSETS);
 	}
 
@@ -467,7 +449,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isNoSubcomponents() {
 		return noSubcomponents;
 	}
@@ -477,7 +458,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setNoSubcomponents(boolean newNoSubcomponents) {
 		boolean oldNoSubcomponents = noSubcomponents;
 		noSubcomponents = newNoSubcomponents;
@@ -492,7 +472,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isNoCalls() {
 		return noCalls;
 	}
@@ -502,7 +481,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setNoCalls(boolean newNoCalls) {
 		boolean oldNoCalls = noCalls;
 		noCalls = newNoCalls;
@@ -517,10 +495,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<EventSource> getOwnedEventSources() {
 		if (ownedEventSources == null) {
-			ownedEventSources = new EObjectContainmentEList<>(EventSource.class, this,
+			ownedEventSources = new EObjectContainmentEList<EventSource>(EventSource.class, this,
 					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EVENT_SOURCE);
 		}
 		return ownedEventSources;
@@ -531,7 +508,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EventSource createOwnedEventSource() {
 		EventSource newOwnedEventSource = (EventSource) create(Aadl2Package.eINSTANCE.getEventSource());
 		getOwnedEventSources().add(newOwnedEventSource);
@@ -543,10 +519,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<EventDataSource> getOwnedEventDataSources() {
 		if (ownedEventDataSources == null) {
-			ownedEventDataSources = new EObjectContainmentEList<>(EventDataSource.class, this,
+			ownedEventDataSources = new EObjectContainmentEList<EventDataSource>(EventDataSource.class, this,
 					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EVENT_DATA_SOURCE);
 		}
 		return ownedEventDataSources;
@@ -557,7 +532,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EventDataSource createOwnedEventDataSource() {
 		EventDataSource newOwnedEventDataSource = (EventDataSource) create(Aadl2Package.eINSTANCE.getEventDataSource());
 		getOwnedEventDataSources().add(newOwnedEventDataSource);
@@ -569,10 +543,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<PortProxy> getOwnedPortProxies() {
 		if (ownedPortProxies == null) {
-			ownedPortProxies = new EObjectContainmentEList<>(PortProxy.class, this,
+			ownedPortProxies = new EObjectContainmentEList<PortProxy>(PortProxy.class, this,
 					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PORT_PROXY);
 		}
 		return ownedPortProxies;
@@ -583,7 +556,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public PortProxy createOwnedPortProxy() {
 		PortProxy newOwnedPortProxy = (PortProxy) create(Aadl2Package.eINSTANCE.getPortProxy());
 		getOwnedPortProxies().add(newOwnedPortProxy);
@@ -595,10 +567,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<SubprogramProxy> getOwnedSubprogramProxies() {
 		if (ownedSubprogramProxies == null) {
-			ownedSubprogramProxies = new EObjectContainmentEList<>(SubprogramProxy.class, this,
+			ownedSubprogramProxies = new EObjectContainmentEList<SubprogramProxy>(SubprogramProxy.class, this,
 					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBPROGRAM_PROXY);
 		}
 		return ownedSubprogramProxies;
@@ -609,7 +580,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public SubprogramProxy createOwnedSubprogramProxy() {
 		SubprogramProxy newOwnedSubprogramProxy = (SubprogramProxy) create(Aadl2Package.eINSTANCE.getSubprogramProxy());
 		getOwnedSubprogramProxies().add(newOwnedSubprogramProxy);
@@ -621,7 +591,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isNoConnections() {
 		return noConnections;
 	}
@@ -631,7 +600,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setNoConnections(boolean newNoConnections) {
 		boolean oldNoConnections = noConnections;
 		noConnections = newNoConnections;
@@ -646,7 +614,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public ComponentImplementation getExtended() {
 		ComponentImplementation extended = basicGetExtended();
 		extended = extended != null && ((EObject) extended).eIsProxy()
@@ -674,7 +641,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public void setExtended(ComponentImplementation newExtended) {
 		if (newExtended == null) {
 			setOwnedExtension(null);
@@ -692,10 +658,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<FlowImplementation> getOwnedFlowImplementations() {
 		if (ownedFlowImplementations == null) {
-			ownedFlowImplementations = new EObjectContainmentEList<>(FlowImplementation.class, this,
+			ownedFlowImplementations = new EObjectContainmentEList<FlowImplementation>(FlowImplementation.class, this,
 					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION);
 		}
 		return ownedFlowImplementations;
@@ -706,7 +671,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public FlowImplementation createOwnedFlowImplementation() {
 		FlowImplementation newOwnedFlowImplementation = (FlowImplementation) create(
 				Aadl2Package.eINSTANCE.getFlowImplementation());
@@ -720,11 +684,10 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 *
 	 * @generated NOT
 	 */
-	@Override
 	public EList<Connection> getOwnedConnections() {
 		// DONE: Implemented
 		// DB: The returned list must be an EStructuralFeature.Setting
-		final EList<Connection> connections = new NonNotifyingEObjectEList<>(Connection.class, this,
+		final EList<Connection> connections = new NonNotifyingEObjectEList<Connection>(Connection.class, this,
 				Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_CONNECTION);
 		// BasicInternalEList<Connection> connections = new BasicInternalEList<Connection>(
 		// Connection.class);
@@ -768,9 +731,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<ProcessorFeature> getOwnedProcessorFeatures() {
-		return new DerivedUnionEObjectEList<>(ProcessorFeature.class, this,
+		return new DerivedUnionEObjectEList<ProcessorFeature>(ProcessorFeature.class, this,
 				Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PROCESSOR_FEATURE, OWNED_PROCESSOR_FEATURE_ESUBSETS);
 	}
 
@@ -791,9 +753,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<InternalFeature> getOwnedInternalFeatures() {
-		return new DerivedUnionEObjectEList<>(InternalFeature.class, this,
+		return new DerivedUnionEObjectEList<InternalFeature>(InternalFeature.class, this,
 				Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_INTERNAL_FEATURE, OWNED_INTERNAL_FEATURE_ESUBSETS);
 	}
 
@@ -814,7 +775,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public ComponentType getType() {
 		ComponentType type = basicGetType();
 		type = type != null && ((EObject) type).eIsProxy() ? (ComponentType) eResolveProxy((InternalEObject) type)
@@ -841,7 +801,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public void setType(ComponentType newType) {
 		if (newType == null) {
 			setOwnedRealization(null);
@@ -859,7 +818,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ImplementationExtension getOwnedExtension() {
 		return ownedExtension;
 	}
@@ -889,7 +847,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setOwnedExtension(ImplementationExtension newOwnedExtension) {
 		if (newOwnedExtension != ownedExtension) {
 			NotificationChain msgs = null;
@@ -916,7 +873,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ImplementationExtension createOwnedExtension() {
 		ImplementationExtension newOwnedExtension = (ImplementationExtension) create(
 				Aadl2Package.eINSTANCE.getImplementationExtension());
@@ -929,7 +885,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Realization getOwnedRealization() {
 		return ownedRealization;
 	}
@@ -959,7 +914,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void setOwnedRealization(Realization newOwnedRealization) {
 		if (newOwnedRealization != ownedRealization) {
 			NotificationChain msgs = null;
@@ -987,7 +941,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Realization createOwnedRealization() {
 		Realization newOwnedRealization = (Realization) create(Aadl2Package.eINSTANCE.getRealization());
 		setOwnedRealization(newOwnedRealization);
@@ -999,10 +952,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<AbstractSubcomponent> getOwnedAbstractSubcomponents() {
 		if (ownedAbstractSubcomponents == null) {
-			ownedAbstractSubcomponents = new EObjectContainmentEList<>(AbstractSubcomponent.class,
+			ownedAbstractSubcomponents = new EObjectContainmentEList<AbstractSubcomponent>(AbstractSubcomponent.class,
 					this, Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_ABSTRACT_SUBCOMPONENT);
 		}
 		return ownedAbstractSubcomponents;
@@ -1013,7 +965,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AbstractSubcomponent createOwnedAbstractSubcomponent() {
 		AbstractSubcomponent newOwnedAbstractSubcomponent = (AbstractSubcomponent) create(
 				Aadl2Package.eINSTANCE.getAbstractSubcomponent());
@@ -1026,10 +977,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<AccessConnection> getOwnedAccessConnections() {
 		if (ownedAccessConnections == null) {
-			ownedAccessConnections = new EObjectContainmentEList<>(AccessConnection.class, this,
+			ownedAccessConnections = new EObjectContainmentEList<AccessConnection>(AccessConnection.class, this,
 					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_ACCESS_CONNECTION);
 		}
 		return ownedAccessConnections;
@@ -1040,7 +990,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public AccessConnection createOwnedAccessConnection() {
 		AccessConnection newOwnedAccessConnection = (AccessConnection) create(
 				Aadl2Package.eINSTANCE.getAccessConnection());
@@ -1053,10 +1002,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<ParameterConnection> getOwnedParameterConnections() {
 		if (ownedParameterConnections == null) {
-			ownedParameterConnections = new EObjectContainmentEList<>(ParameterConnection.class,
+			ownedParameterConnections = new EObjectContainmentEList<ParameterConnection>(ParameterConnection.class,
 					this, Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PARAMETER_CONNECTION);
 		}
 		return ownedParameterConnections;
@@ -1067,7 +1015,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public ParameterConnection createOwnedParameterConnection() {
 		ParameterConnection newOwnedParameterConnection = (ParameterConnection) create(
 				Aadl2Package.eINSTANCE.getParameterConnection());
@@ -1080,10 +1027,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<PortConnection> getOwnedPortConnections() {
 		if (ownedPortConnections == null) {
-			ownedPortConnections = new EObjectContainmentEList<>(PortConnection.class, this,
+			ownedPortConnections = new EObjectContainmentEList<PortConnection>(PortConnection.class, this,
 					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_PORT_CONNECTION);
 		}
 		return ownedPortConnections;
@@ -1094,7 +1040,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public PortConnection createOwnedPortConnection() {
 		PortConnection newOwnedPortConnection = (PortConnection) create(Aadl2Package.eINSTANCE.getPortConnection());
 		getOwnedPortConnections().add(newOwnedPortConnection);
@@ -1106,10 +1051,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<FeatureConnection> getOwnedFeatureConnections() {
 		if (ownedFeatureConnections == null) {
-			ownedFeatureConnections = new EObjectContainmentEList<>(FeatureConnection.class, this,
+			ownedFeatureConnections = new EObjectContainmentEList<FeatureConnection>(FeatureConnection.class, this,
 					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_CONNECTION);
 		}
 		return ownedFeatureConnections;
@@ -1120,7 +1064,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public FeatureConnection createOwnedFeatureConnection() {
 		FeatureConnection newOwnedFeatureConnection = (FeatureConnection) create(
 				Aadl2Package.eINSTANCE.getFeatureConnection());
@@ -1133,10 +1076,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<FeatureGroupConnection> getOwnedFeatureGroupConnections() {
 		if (ownedFeatureGroupConnections == null) {
-			ownedFeatureGroupConnections = new EObjectContainmentEList<>(
+			ownedFeatureGroupConnections = new EObjectContainmentEList<FeatureGroupConnection>(
 					FeatureGroupConnection.class, this,
 					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FEATURE_GROUP_CONNECTION);
 		}
@@ -1148,7 +1090,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public FeatureGroupConnection createOwnedFeatureGroupConnection() {
 		FeatureGroupConnection newOwnedFeatureGroupConnection = (FeatureGroupConnection) create(
 				Aadl2Package.eINSTANCE.getFeatureGroupConnection());
@@ -1161,10 +1102,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EList<EndToEndFlow> getOwnedEndToEndFlows() {
 		if (ownedEndToEndFlows == null) {
-			ownedEndToEndFlows = new EObjectContainmentEList<>(EndToEndFlow.class, this,
+			ownedEndToEndFlows = new EObjectContainmentEList<EndToEndFlow>(EndToEndFlow.class, this,
 					Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW);
 		}
 		return ownedEndToEndFlows;
@@ -1175,7 +1115,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public EndToEndFlow createOwnedEndToEndFlow() {
 		EndToEndFlow newOwnedEndToEndFlow = (EndToEndFlow) create(Aadl2Package.eINSTANCE.getEndToEndFlow());
 		getOwnedEndToEndFlows().add(newOwnedEndToEndFlow);
@@ -1187,7 +1126,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION:
@@ -1227,7 +1165,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_SUBCOMPONENT:
@@ -1292,7 +1229,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__TYPE:
@@ -1373,7 +1309,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__TYPE:
@@ -1442,7 +1377,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_IMPLEMENTATION__GENERAL:
@@ -1508,7 +1442,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();
@@ -1530,7 +1463,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetGenerals() {
 		return super.isSetGenerals() || eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__TYPE)
 				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__EXTENDED);
@@ -1550,7 +1482,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetClassifierFeatures() {
 		return super.isSetClassifierFeatures() || isSetOwnedSubcomponents()
 				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION) || isSetOwnedConnections()
@@ -1563,7 +1494,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetOwnedMembers() {
 		return super.isSetOwnedMembers() || isSetOwnedSubcomponents() || isSetOwnedConnections()
 				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW) || isSetOwnedProcessorFeatures()
@@ -1588,7 +1518,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetGeneralizations() {
 		return super.isSetGeneralizations() || eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EXTENSION)
 				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_REALIZATION);
@@ -1614,7 +1543,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 				|| eIsSet(Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_EVENT_DATA_SOURCE);
 	}
 
-	@Override
 	public void addConnection(Connection c) {
 		if (c instanceof AccessConnection) {
 			getOwnedAccessConnections().add((AccessConnection) c);
@@ -1629,7 +1557,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 		}
 	}
 
-	@Override
 	public String getTypeName() {
 		String n = getName();
 		int idx = n.indexOf('.');
@@ -1641,7 +1568,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	@Override
 	public String getImplementationName() {
 		String n = getName();
 		int idx = n.indexOf('.');
@@ -1660,10 +1586,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * @return List of connection objects
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	@Override
 	public EList<Connection> getAllConnections() {
 		final EList<Classifier> ancestors = getSelfPlusAllExtended();
-		final BasicEList<Connection> returnlist = new BasicEList<>();
+		final BasicEList<Connection> returnlist = new BasicEList<Connection>();
 		// Process from farthest ancestor to self
 		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors.size()); li.hasPrevious();) {
 			final ComponentImplementation current = (ComponentImplementation) li.previous();
@@ -1692,9 +1617,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * @param feature component impl feature that is the source of a connection
 	 * @return EList connections with feature as source
 	 */
-	@Override
 	public EList<Connection> getIngoingConnections(Feature feature) {
-		EList<Connection> result = new BasicEList<>();
+		EList<Connection> result = new BasicEList<Connection>();
 
 		for (Connection conn : getAllConnections()) {
 			List<Feature> features = feature.getAllFeatureRefinements();
@@ -1741,7 +1665,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * }
 	 */
 
-	@Override
 	public EList<Subcomponent> getAllSubcomponents() {
 		return ComponentImplementationOperations.getAllSubcomponents(this);
 	}
@@ -1752,7 +1675,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * @return EList of features
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	@Override
 	public EList<Feature> getAllFeatures() {
 		ComponentType type = getType();
 		if (type != null) {
@@ -1771,10 +1693,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup
 	// work.
-	@Override
 	public EList<Mode> getAllModes() {
 		EList<Classifier> ancestors = getSelfPlusAllExtended();
-		final BasicEList<Mode> returnlist = new BasicEList<>();
+		final BasicEList<Mode> returnlist = new BasicEList<Mode>();
 		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
 			final ComponentImplementation current = (ComponentImplementation) it.next();
 			returnlist.addAll(current.getOwnedModes());
@@ -1798,10 +1719,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * @return EList of all mode transition objects
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	@Override
 	public EList<ModeTransition> getAllModeTransitions() {
 		EList<Classifier> ancestors = getSelfPlusAllExtended();
-		final BasicEList<ModeTransition> returnlist = new BasicEList<>();
+		final BasicEList<ModeTransition> returnlist = new BasicEList<ModeTransition>();
 		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
 			final ComponentImplementation current = (ComponentImplementation) it.next();
 			returnlist.addAll(current.getOwnedModeTransitions());
@@ -1825,9 +1745,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup
 	// work.
-	@Override
 	public EList<Prototype> getAllPrototypes() {
-		final BasicEList<Prototype> returnlist = new BasicEList<>();
+		final BasicEList<Prototype> returnlist = new BasicEList<Prototype>();
 
 		ComponentType type = getType();
 		if (Aadl2Util.isNull(type)) {
@@ -1879,10 +1798,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * @return Lis of end to end flows
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	@Override
 	public EList<EndToEndFlow> getAllEndToEndFlows() {
 		final EList<Classifier> ancestors = getSelfPlusAllExtended();
-		final BasicEList<EndToEndFlow> returnlist = new BasicEList<>();
+		final BasicEList<EndToEndFlow> returnlist = new BasicEList<EndToEndFlow>();
 		// Process from farthest ancestor to self
 		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors.size()); li.hasPrevious();) {
 			final ComponentImplementation current = (ComponentImplementation) li.previous();
@@ -1902,9 +1820,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	@Override
 	public EList<FlowImplementation> getAllFlowImplementations() {
-		final BasicEList<FlowImplementation> result = new BasicEList<>();
+		final BasicEList<FlowImplementation> result = new BasicEList<FlowImplementation>();
 
 		for (Classifier current : getSelfPlusAllExtended()) {
 			result.addAll(((ComponentImplementation) current).getOwnedFlowImplementations());
@@ -1923,7 +1840,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * @return Whether this classifier descends from the given classifier.
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
-	@Override
 	public final boolean isDescendentOf(Classifier c) {
 		ComponentImplementation current = this;
 		do {
@@ -1936,8 +1852,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 		// try the type hierarchy
 		return getType().isDescendentOf(c);
 	}
-
-	@Override
 	public void getPropertyValueInternal(Property property, final PropertyAcc pas, final boolean fromInstanceSlaveCall,
 			final boolean all) throws InvalidModelException {
 		// this implementation's properties subclause
@@ -1949,7 +1863,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 
 		// extended implementations
 		// avoid loops
-		final Set<ComponentImplementation> seen = new HashSet<>();
+		final Set<ComponentImplementation> seen = new HashSet<ComponentImplementation>();
 		ComponentImplementation currentImpl = getExtended();
 		while (currentImpl != null && !seen.contains(currentImpl)) {
 			if (pas.addLocal(currentImpl)) {
@@ -1977,7 +1891,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * org.osate.aadl2.ComponentClassifier#lookupPrototypeBinding(edu
 	 * .cmu.sei.aadl.aadl2.Prototype)
 	 */
-	@Override
 	public PrototypeBinding lookupPrototypeBinding(Prototype proto) {
 		PrototypeBinding pb = lookupPrototypeBindingHelper(proto);
 		if (pb == null) {
@@ -2028,10 +1941,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * @param mode Mode for which connections are retrieved.
 	 * @return EList of connection objects (possibly empty).
 	 */
-	@Override
 	public EList<Connection> getOwnedConnections(Mode mode) {
 		EList<Connection> cl = getOwnedConnections();
-		EList<Connection> result = new BasicEList<>();
+		EList<Connection> result = new BasicEList<Connection>();
 		for (Connection cn : cl) {
 			EList<Mode> inModes = cn.getAllInModes();
 			if (inModes.isEmpty() || inModes.contains(mode)) {
@@ -2048,10 +1960,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * @param mode Mode for which connections are to be retrieved.
 	 * @return List of connections
 	 */
-	@Override
 	public EList<Connection> getAllConnections(Mode mode) {
 		final EList<Classifier> ancestors = getSelfPlusAllExtended();
-		final BasicEList<Connection> returnlist = new BasicEList<>();
+		final BasicEList<Connection> returnlist = new BasicEList<Connection>();
 		// Process from farthest ancestor to self
 		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors.size()); li.hasPrevious();) {
 			final ComponentImplementation current = (ComponentImplementation) li.previous();
@@ -2067,7 +1978,6 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 		return returnlist;
 	}
 
-	@Override
 	/**
 	 * According to Legality Rule 3 and Semantic Rule 9 in section 4.2 (Packages), a single component
 	 * implementation can be defined in both the public and private sections of a package.  This
@@ -2109,9 +2019,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 *
 	 * @see org.osate.aadl2.ComponentImplementation#getAllInternalFeatures()
 	 */
-	@Override
 	public EList<InternalFeature> getAllInternalFeatures() {
-		final BasicEList<InternalFeature> result = new BasicEList<>();
+		final BasicEList<InternalFeature> result = new BasicEList<InternalFeature>();
 		result.addAll(getAllEventSources());
 		result.addAll(getAllEventDataSources());
 		return result;
@@ -2122,10 +2031,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 *
 	 * @see org.osate.aadl2.ComponentImplementation#getAllEventSources()
 	 */
-	@Override
 	public EList<EventSource> getAllEventSources() {
 		final EList<Classifier> ancestors = getSelfPlusAllExtended();
-		final BasicEList<EventSource> result = new BasicEList<>();
+		final BasicEList<EventSource> result = new BasicEList<EventSource>();
 		for (Classifier classifier : ancestors) {
 			final ComponentImplementation current = (ComponentImplementation) classifier;
 			result.addAll(current.getOwnedEventSources());
@@ -2138,10 +2046,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 *
 	 * @see org.osate.aadl2.ComponentImplementation#getAllEventDataSources()
 	 */
-	@Override
 	public EList<EventDataSource> getAllEventDataSources() {
 		final EList<Classifier> ancestors = getSelfPlusAllExtended();
-		final BasicEList<EventDataSource> result = new BasicEList<>();
+		final BasicEList<EventDataSource> result = new BasicEList<EventDataSource>();
 		for (Classifier classifier : ancestors) {
 			final ComponentImplementation current = (ComponentImplementation) classifier;
 			result.addAll(current.getOwnedEventDataSources());
@@ -2154,9 +2061,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 *
 	 * @see org.osate.aadl2.ComponentImplementation#getAllProcessorFeatures()
 	 */
-	@Override
 	public EList<ProcessorFeature> getAllProcessorFeatures() {
-		final BasicEList<ProcessorFeature> result = new BasicEList<>();
+		final BasicEList<ProcessorFeature> result = new BasicEList<ProcessorFeature>();
 		result.addAll(getAllPortProxies());
 		result.addAll(getAllSubprogramProxies());
 		return result;
@@ -2167,10 +2073,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 *
 	 * @see org.osate.aadl2.ComponentImplementation#getAllPortProxies()
 	 */
-	@Override
 	public EList<PortProxy> getAllPortProxies() {
 		final EList<Classifier> ancestors = getSelfPlusAllExtended();
-		final BasicEList<PortProxy> result = new BasicEList<>();
+		final BasicEList<PortProxy> result = new BasicEList<PortProxy>();
 		for (Classifier classifier : ancestors) {
 			final ComponentImplementation current = (ComponentImplementation) classifier;
 			result.addAll(current.getOwnedPortProxies());
@@ -2183,10 +2088,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 *
 	 * @see org.osate.aadl2.ComponentImplementation#getAllSubprogramProxies()
 	 */
-	@Override
 	public EList<SubprogramProxy> getAllSubprogramProxies() {
 		final EList<Classifier> ancestors = getSelfPlusAllExtended();
-		final BasicEList<SubprogramProxy> result = new BasicEList<>();
+		final BasicEList<SubprogramProxy> result = new BasicEList<SubprogramProxy>();
 		for (Classifier classifier : ancestors) {
 			final ComponentImplementation current = (ComponentImplementation) classifier;
 			result.addAll(current.getOwnedSubprogramProxies());
