@@ -6733,7 +6733,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkPropertyDefinition(final Property pn) {
 		// Check the type correctness of the default value, if any
-		typeCheckPropertyValues(pn.getPropertyType(), pn.getDefaultValue(), pn.getDefaultValue(), pn.getQualifiedName());
+		typeCheckPropertyValues(pn.getPropertyType(), pn.getDefaultValue(), pn.getDefaultValue(), pn.getQualifiedName(),
+				0);
 		checkAppliesTo(pn);
 	}
 
@@ -6760,7 +6761,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		 * cannot check that a int or real is within range.
 		 */
 		typeCheckPropertyValues(pc.getPropertyType(), pc.getConstantValue(), pc.getConstantValue(),
-				pc.getQualifiedName());
+				pc.getQualifiedName(), 0);
 	}
 
 	//
