@@ -314,7 +314,7 @@ Select the desired implementation from the palette and place it on the diagram o
 Select *Mode Transition* from the palette and select the starting mode then the ending mode.
 
 ## Creating Flow Implementations and End-To-End Flow Specifications
-When editing a component implementation, flow implementations and end-to-end flow specifications can be created graphically by selecting the *Create Flow Implementation* and *Create End-To-End Flow Specification* tools from the toolbar and following the prompts to select a series of elements from the diagram or outline view. The dialog and colors of elements in the diagram will update as valid selections are made. The starting flow specification will be highlighted dark orange and flow elements will be highlighted purple. The *Undo* button will remove the elements in the order they were selected.
+Flow implementations and end-to-end flow specifications can be created graphically by selecting the *Create Flow Implementation* and *Create End-To-End Flow Specification* tools from the toolbar and following the prompts to select a series of elements from the diagram or outline view.  The tools cannot be activated if there are existing errors or warnings in the model.  The dialog and colors of elements in the diagram will update as valid selections are made. The starting flow specification will be highlighted dark orange and flow elements will be highlighted purple. The *Undo* button will remove the elements in the order they were selected.
 
 ### Creating Flow Implementations
 Select *Create Flow Implementation* from the toolbar, the dialog will appear. 
@@ -322,7 +322,7 @@ Select *Create Flow Implementation* from the toolbar, the dialog will appear.
 ![](../images/CreateFlowImplementationToolbar.png)
 
 ### Creating Source Flow Implementations
-1. Select a source flow specification.
+1. Select a source flow specification and feature.
 
 ![](../images/FlowImplSourceStep1.png)
 
@@ -337,7 +337,7 @@ Select *Create Flow Implementation* from the toolbar, the dialog will appear.
 4. Select *OK* when done.
 
 ### Creating Sink Flow Implementations
-1. Select a valid sink flow specification..
+1. Select a valid sink flow specification and feature.
 
 ![](../images/FlowImplSinkStep1.png)
 
@@ -352,7 +352,7 @@ Select *Create Flow Implementation* from the toolbar, the dialog will appear.
 4. Select *OK* when done.
 
 ### Creating Path Flow Implementations
-1. Select a valid path flow specification.
+1. Select a valid path flow specification and feature.
 
 ![](../images/FlowImplPathStep1.png)
 
@@ -447,8 +447,14 @@ A mode can be designated as the initial mode by using the *AADL* tab of the *Pro
 When viewing a component implementation diagram, a binding property associations can be created using the toolbar.
 ![](../images/BindToolbar.png)
 
+## Prototypes
+Prototypes can be edited by selecting a classifier and using the *AADL* tab of the *Properties* view (See @sec:properties_view).
+
+Classifier prototype bindings can be edited using the *AADL* tab of the *Properties* view (See @sec:properties_view). Subcomponent prototype bindings can be edited when selecting the component classifier.
+
+
 ## Editing Flow Implementations and End-to-End Flows
-When editing a component implementation, flow implementations and end-to-end flow can be edited using the flow editor.  The flow editor can be accessed by double-clicking the component implementation, selecting the *AADL* tab in the *Properties* view, and selecting *Edit...* from the *Flows* section.
+Flow implementations and end-to-end flow can be edited using the flow editor.  The flow editor can be accessed by double-clicking a component implementation, selecting the *AADL* tab in the *Properties* view, and selecting *Edit...* from the *Flows* section.
 
 ## Refining Model Elements
 Appropriate elements can be refined by using the *AADL* tab of the *Properties* view (See @sec:properties_view), and using the *Refined* section option.
@@ -564,10 +570,10 @@ In some cases a connection between diagram elements will be represented by a dot
 - An AADL property reference value for which the referenced model element is hidden.
 
 ## Highlighting Flow Implementations and End-to-End Flow Specifications
-Selecting a Flow Implementation or End-to-End Flow specification from the flow drop-down in the toolbar will highlight the flow.  Flow Implementations and End-to-End Flows that have no segments and missing segments are marked with an empty tag (E) or a partial tag (P), respectively.
+Selecting a Flow Implementation or End-to-End Flow specification from the flow drop-down in the toolbar will highlight the flow.
 
 ## Showing Flow Implementation and End-to-End Flow Specification Segments
-Selecting the "Show" button on the toolbar shows the missing flow segments of the currently selected flow drop-down Flow Implementation or End-to-End Flow when it is marked empty (E) or partial (P).
+Selecting the "Show" button on the toolbar shows the missing flow segments of the currently selected flow drop-down Flow Implementation or End-to-End Flow when the the flow contains segments which are missing from the diagram.
 
 ## Highlighting In Mode Elements
 Selecting a Mode or Mode Transition from the mode drop-down in the toolbar will highlight the in mode elements in the diagram.
@@ -679,9 +685,7 @@ When the *Layout Features Based on Direction* preference is enabled, the graphic
 ## Known Layout Issues and Limitations
 * Connections between multiple levels of the diagram hierarchy are not automatically routed and must be routed manually. Such connections usually represent property values such as bindings.
 * Mode transition triggers are not routed. The recommended workaround is to show the mode transition triggers as text labels.
-* Flow source and sinks are not consider when laying out the diagram.
 * The automatic layout for flow path may produce unexpected routing and label placement for the flow path. To workaround this issue, it is recommended to disable labels for flow paths.	
-* Flow paths other than those which include a feature on the left side and a feature on the right side of the container will not layout correctly. To workaround this issue, it is recommended to adjust the location of the features.
 
 # Annotations and Documentation
 The following sections describe the graphical editors support for annotations and AADL documentation.

@@ -28,12 +28,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.events.ControlEvent;
+import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
@@ -43,6 +48,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
 import org.osate.analysis.flows.preferences.Constants;
 import org.osate.ui.dialogs.Dialog;
 
@@ -60,8 +66,6 @@ public final class FlowLatencyDialog extends TitleAreaDialog {
 
 	public FlowLatencyDialog(Shell parentShell, final IPreferenceStore prefs) {
 		super(parentShell);
-		// FIXME: there should be help available, see https://github.com/osate/osate2/issues/1560
-		setHelpAvailable(false);
 		latencyPrefs = prefs;
 		for (String prefId : LAST_USED_PREF_IDS) {
 			localValues.put(prefId, latencyPrefs.getString(prefId));
@@ -90,9 +94,16 @@ public final class FlowLatencyDialog extends TitleAreaDialog {
 
 	@Override
 	protected Control createDialogArea(final Composite parent) {
+		setHelpAvailable(true);
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(getShell(), "org.osate.analysis.flows.flow_latency_dialog");
+
 		final Composite root = (Composite) super.createDialogArea(parent);
-		final Composite myWorkArea = new Composite(root, SWT.NONE);
-		myWorkArea.setLayoutData(new GridData(GridData.FILL_BOTH));
+
+		final ScrolledComposite scroller = new ScrolledComposite(root, SWT.H_SCROLL | SWT.V_SCROLL);
+		scroller.setLayoutData(new GridData(GridData.FILL_BOTH));
+
+		final Composite myWorkArea = new Composite(scroller, SWT.NONE);
+		scroller.setContent(myWorkArea);
 		myWorkArea.setLayout(new GridLayout(2, true));
 
 		createGroup(myWorkArea, "System type", Constants.ASYNCHRONOUS_SYSTEM_LAST_USED,
@@ -162,8 +173,8 @@ public final class FlowLatencyDialog extends TitleAreaDialog {
 		if (latencyPrefs instanceof IPersistentPreferenceStore) {
 			final Button save = new Button(prefButtons, SWT.PUSH);
 			save.setText("Save as Defaults");
-			save.setToolTipText("Make the above settings the defaults as in the" + System.lineSeparator()
-					+ "OSATE > Analysis > Flow Latency preference pane.");
+			save.setToolTipText("Make the above settings the defaults as in the "
+					+ "\"OSATE > Analysis > Flow Latency\" preference pane.");
 			save.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(final SelectionEvent event) {
@@ -175,7 +186,44 @@ public final class FlowLatencyDialog extends TitleAreaDialog {
 			});
 		}
 
+		myWorkArea.layout();
+		final Point workAreaSizeOriginal = myWorkArea.computeSize(SWT.DEFAULT, SWT.DEFAULT);
+		myWorkArea.setSize(workAreaSizeOriginal);
+
+		/*
+		 * This is sleazy. We only need the scroller because on Windows and Linux (but not OS X it seems) fiddling
+		 * with the system magnification/dpi/zoom settings can cause the contents of the window to be enlarged, but
+		 * for some reason the bounds of the dialog remain sized at 100%. So we want to put out "work area" in
+		 * the a scroller for this case. But we need to size the work area based on the size of the dialog so
+		 * it doesn't look funny. Just using its computed size (see immediately above) is not sufficient, because
+		 * it might be too narrow in the overall dialog and look strange. So we now wait for the scroller itself
+		 * to be resized when the dialog/shell/window sets its initial size and then set the size of the
+		 * "work area" to the minimum of its existing size and the new size. Then we can remove the listener.
+		 */
+		scroller.addControlListener(new ControlListener() {
+			@Override
+			public void controlResized(ControlEvent e) {
+				final Point newSize = scroller.getSize();
+				final int newWidth = workAreaSizeOriginal.x < newSize.x ? newSize.x : workAreaSizeOriginal.x;
+				final int newHeight = workAreaSizeOriginal.y < newSize.y ? newSize.y : workAreaSizeOriginal.y;
+				myWorkArea.setSize(new Point(newWidth, newHeight));
+				// Don't need the listener any more
+				scroller.removeControlListener(this);
+			}
+
+			@Override
+			public void controlMoved(ControlEvent e) {
+				// don't care
+			}
+		});
+
 		return root;
+	}
+
+	@Override
+	protected boolean isResizable() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 	@Override
@@ -184,16 +232,23 @@ public final class FlowLatencyDialog extends TitleAreaDialog {
 		for (int i = 0; i < LAST_USED_PREF_IDS.length; i++) {
 			latencyPrefs.setValue(LAST_USED_PREF_IDS[i], localValues.get(LAST_USED_PREF_IDS[i]));
 		}
-		// Save the show dialog pref
-		latencyPrefs.setValue(Constants.DONT_SHOW_DIALOG, dontShowDialog);
-		savePreferences();
+		// Save the show dialog pref -- maybe
+		// Note, we can only go from false to true here becuse if don't show was true, the dialog wouldn't have been shown
+		if (dontShowDialog) {
+			if (MessageDialog.openQuestion(getShell(), "Confirm change",
+					"This options dialog will be hidden in the future.  You can restore it by going "
+							+ "to the \"OSATE > Analysis > Flow Latency\" preference pane.  Do you wish to make this change?")) {
+				latencyPrefs.setValue(Constants.DONT_SHOW_DIALOG, dontShowDialog);
+			}
+		}
 
+		savePreferences();
 		super.okPressed();
 	}
 
 	private void savePreferences() {
 		if (latencyPrefs.needsSaving()) {
-			final Job saveJob = Job.create("Save latency prefencees", monitor -> {
+			final Job saveJob = Job.create("Save latency prefences", monitor -> {
 				try {
 					((IPersistentPreferenceStore) latencyPrefs).save();
 				} catch (final IOException e) {

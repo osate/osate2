@@ -2279,6 +2279,13 @@ censes only apply to the Third Party Software and not any other portion of this 
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
          <propertySection
+               afterSection="org.osate.ge.ui.properties.setFeatureClassifierPropertySection"
+               class="org.osate.ge.internal.ui.properties.AbstractFeaturePrototypePropertySection"
+               filter="org.osate.ge.internal.ui.properties.AbstractFeaturePrototypePropertySection$Filter"
+               id="org.osate.ge.ui.properties.abstractFeaturePrototypePropertySection"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>
+         <propertySection
                afterSection="org.osate.ge.ui.properties.changeFeatureTypePropertySection"
                class="org.osate.ge.internal.ui.properties.AccessPropertySection"
                filter="org.osate.ge.internal.ui.properties.AccessPropertySection$Filter"
@@ -2290,6 +2297,20 @@ censes only apply to the Third Party Software and not any other portion of this 
                class="org.osate.ge.internal.ui.properties.ConfigureInModesSection"
                filter="org.osate.ge.internal.ui.properties.ConfigureInModesSection$Filter"
                id="org.osate.ge.ui.properties.configureInModesSection"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>         
+         <propertySection
+               afterSection="org.osate.ge.ui.properties.configureInModesSection"
+               class="org.osate.ge.internal.ui.properties.ClassifierPrototypeBindingsPropertySection"
+               filter="org.osate.ge.internal.ui.properties.ClassifierPrototypeBindingsPropertySection$Filter"
+               id="org.osate.ge.ui.properties.classifierPrototypeBindingsPropertySection"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.ui.properties.classifierPrototypeBindingsPropertySection"
+               class="org.osate.ge.internal.ui.properties.PrototypesPropertySection"
+               filter="org.osate.ge.internal.ui.properties.PrototypesPropertySection$Filter"
+               id="org.osate.ge.ui.properties.prototypesPropertySection"
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
          <propertySection

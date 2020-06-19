@@ -2,10 +2,10 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: OSATE Graphical Editor Documentation
 Bundle-SymbolicName: org.osate.ge.doc;singleton:=true
-Bundle-Version: 1.0.2.qualifier
+Bundle-Version: 1.0.3.qualifier
 Require-Bundle: org.eclipse.ui;bundle-version="[3.115.0,4.0.0)",
  org.eclipse.core.runtime;bundle-version="[3.17.0,4.0.0)"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: org.osate.ge.doc
 Bundle-Vendor: The University of Alabama in Huntsville

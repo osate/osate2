@@ -212,13 +212,19 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 								Aadl2Package.eINSTANCE.getArrayRange_LowerBound(), ARRAY_LOWER_BOUND_IS_ZERO);
 					}
 					// If the upper is zero, then we have an index. Otherwise, we have a range.
-					if (providedRange.getUpperBound() != 0
-							&& providedRange.getLowerBound() > providedRange.getUpperBound()) {
-						error("Range lower bound is greater than upper bound", providedRange, null,
-								ARRAY_RANGE_UPPER_LESS_THAN_LOWER);
+					if (providedRange.getUpperBound() != 0) {
+						if (providedRange.getLowerBound() > providedRange.getUpperBound()) {
+							error("Range lower bound is greater than upper bound", providedRange, null,
+									ARRAY_RANGE_UPPER_LESS_THAN_LOWER);
+						}
+						if (EcoreUtil2.getContainerOfType(pathElement, ReferenceValue.class) != null) {
+							warning(providedRange, "Array ranges in reference values are not property instantiated");
+						}
 					}
 					ArrayDimension requiredDimension = requiredDimensions.get(i);
-					if (requiredDimension.getSize() != null) {
+					if (requiredDimension.getSize() == null) {
+						error(providedRange, "'" + name + "' does not have an array size");
+					} else {
 						ArraySizeProperty sizeProperty = requiredDimension.getSize().getSizeProperty();
 						OptionalLong size = OptionalLong.empty();
 						/*
@@ -642,7 +648,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		EList<ModalPropertyValue> pvl = pa.getOwnedValues();
 		for (ModalPropertyValue modalPropertyValue : pvl) {
 			typeCheckPropertyValues(pt, modalPropertyValue.getOwnedValue(), modalPropertyValue.getOwnedValue(),
-					pdef.getQualifiedName());
+					pdef.getQualifiedName(), 0);
 		}
 		checkAssociationAppliesTo(pa);
 		checkInBinding(pa);
@@ -800,9 +806,11 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	 *            PropertyType or unresolved proxy or null
 	 * @param pv:
 	 *            PropertyExpression or null
+	 * @since 2.0
 	 */
-	protected void typeCheckPropertyValues(PropertyType pt, PropertyExpression pv, Element holder, String defName) {
-		typeCheckPropertyValues(pt, pv, "", holder, defName);
+	protected void typeCheckPropertyValues(PropertyType pt, PropertyExpression pv, Element holder, String defName,
+			int depth) {
+		typeCheckPropertyValues(pt, pv, "", holder, defName, depth);
 	}
 
 	/**
@@ -814,13 +822,19 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	 *            PropertyExpression or null
 	 * @param prefix:
 	 *            String prefix to error message used for lists
+	 * @since 2.0
 	 */
 	protected void typeCheckPropertyValues(PropertyType pt, PropertyExpression pv, String prefix, Element holder,
-			String defName) {
+			String defName, int depth) {
 
 		if (Aadl2Util.isNull(pt) || pv == null || holder == null) {
 			return;
 		}
+		if (depth > 50) {
+			error(holder, "Cyclic value discovered for '" + defName + "'");
+			return;
+		}
+		depth++;
 		String msg = " to property '" + defName + "' of type '" + pt.eClass().getName() + "'";
 		if (!prefix.isEmpty() && !prefix.startsWith(" ")) {
 			prefix = prefix + " ";
@@ -828,7 +842,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		if (pv instanceof ListValue) {
 			if (pt instanceof ListType) {
 				typeMatchListElements(((ListType) pt).getElementType(), ((ListValue) pv).getOwnedListElements(), holder,
-						defName);
+						defName, depth);
 			} else {
 				error(holder, prefix + "Assigning a list of values" + msg);
 			}
@@ -869,11 +883,11 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 				error(holder, prefix + "Assigning Range value" + msg);
 			} else {
 				typeCheckPropertyValues(((RangeType) pt).getNumberType(), ((RangeValue) pv).getMinimumValue(), holder,
-						defName);
+						defName, depth);
 				typeCheckPropertyValues(((RangeType) pt).getNumberType(), ((RangeValue) pv).getMaximumValue(), holder,
-						defName);
+						defName, depth);
 				typeCheckPropertyValues(((RangeType) pt).getNumberType(), ((RangeValue) pv).getDeltaValue(), holder,
-						defName);
+						defName, depth);
 			}
 		} else if (pv instanceof ClassifierValue) {
 			if (!(pt instanceof ClassifierType)) {
@@ -896,7 +910,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			if (!(pt instanceof RecordType)) {
 				error(holder, prefix + "Assigning Record value" + msg);
 			} else {
-				typeMatchRecordFields(((RecordValue) pv).getOwnedFieldValues(), holder, defName);
+				typeMatchRecordFields(((RecordValue) pv).getOwnedFieldValues(), holder, defName, depth);
 			}
 		} else if (pv instanceof ReferenceValue) {
 			if (!(pt instanceof ReferenceType)) {
@@ -941,7 +955,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 					}
 				} else {
 					// Issue 2222: is this still really necessary?
-					typeCheckPropertyValues(pt, propertyConstant.getConstantValue(), holder, defName);
+					typeCheckPropertyValues(pt, propertyConstant.getConstantValue(), holder, defName, depth);
 				}
 			} else if (nv instanceof Property) {
 				PropertyType pvt = ((Property) nv).getPropertyType();
@@ -970,18 +984,25 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		}
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	protected void typeMatchListElements(PropertyType pt, EList<PropertyExpression> pel, Element holder,
-			String defName) {
+			String defName, int depth) {
 		for (PropertyExpression propertyExpression : pel) {
-			typeCheckPropertyValues(pt, propertyExpression, "list element", propertyExpression, defName);
+			typeCheckPropertyValues(pt, propertyExpression, "list element", propertyExpression, defName, depth);
 		}
 	}
 
-	protected void typeMatchRecordFields(EList<BasicPropertyAssociation> rfl, Element holder, String defName) {
+	/**
+	 * @since 2.0
+	 */
+	protected void typeMatchRecordFields(EList<BasicPropertyAssociation> rfl, Element holder, String defName,
+			int depth) {
 		for (BasicPropertyAssociation field : rfl) {
 			if (field.getProperty() != null) {
 				typeCheckPropertyValues(field.getProperty().getPropertyType(), field.getValue(), field.getValue(),
-						defName);
+						defName, depth);
 			}
 		}
 	}

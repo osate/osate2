@@ -1,0 +1,68 @@
+package TestDataPortClassifier
+public
+	Data D
+	end D;
+	
+	system SrcSys
+		features
+			f0: out data port;
+			
+			f_type: out data port D;
+			f_notype: out data port;
+	end SrcSys;
+	
+	system SrcSys1 extends SrcSys
+		features
+			f0: refined to out data port D;
+	end SrcSys1;
+	
+	system DestSys
+		features
+			f0: in data port;
+			
+			f_type: in data port D;
+			f_notype: in data port;
+	end DestSys;
+	
+	system DestSys1 extends DestSys
+		features
+			f0: refined to in data port D;
+	end DestSys1;
+	
+	system Top
+	end Top;
+	
+	system implementation Top.notype_to_notype
+		subcomponents
+			srcSys: system SrcSys;
+			destSys: system DestSys;
+		connections
+			c0: port srcSys.f0 -> destSys.f0;  -- (no type) -> (no type)
+			
+			type_to_type: port srcSys.f_type -> destSys.f_type; -- type -> type
+			type_to_notype: port srcSys.f_type -> destSys.f_notype; -- type to (no type)
+			notype_to_type: port srcSys.f_notype -> destSys.f_type; -- (no type) -> type
+			notype_to_notype: port srcSys.f_notype -> destSys.f_notype; -- (no type) -> (no type)
+		properties
+			Classifier_Substitution_Rule => Type_Extension;
+	end Top.notype_to_notype;
+	
+	system implementation Top.type_to_type extends Top.notype_to_notype
+		-- now we have have c0 as type -> type
+		subcomponents
+			srcSys: refined to system SrcSys1;
+			destSys: refined to system DestSys1;
+	end Top.type_to_type;
+	
+	system implementation Top.type_to_notype extends Top.notype_to_notype
+		-- now we have have c0 as type -> (no type)
+		subcomponents
+			srcSys: refined to system SrcSys1;
+	end Top.type_to_notype;
+	
+	system implementation Top.notype_to_type extends Top.notype_to_notype
+		-- now we have have c0 as (no type) -> type
+		subcomponents
+			destSys: refined to system DestSys1;
+	end Top.notype_to_type;
+end TestDataPortClassifier;

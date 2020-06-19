@@ -1,0 +1,171 @@
+package Complicated
+public
+	with SEI;
+
+	-- Some basics
+	
+	data D8
+		properties
+			Data_Size => 8 Bytes;
+	end D8;
+	
+	data D16
+		properties
+			Data_Size => 16 Bytes;
+	end D16;
+	
+	data D24
+		properties
+			Data_Size => 24 Bytes;
+	end D24;
+
+	-- Virtual buses
+	
+	virtual bus VB_CAP16
+	end VB_CAP16;
+	
+	virtual bus implementation VB_CAP16.i
+		properties
+			SEI::BandWidthBudget => 16.0 kbytesps;
+			SEI::BandWidthCapacity => 16.0 kbytesps;
+	end VB_CAP16.i;
+
+	virtual bus VB_CAP64
+	end VB_CAP64;
+
+	virtual bus implementation VB_CAP64.i
+		subcomponents
+			vb2: virtual bus VB_CAP16.i {
+				-- property is inherited, so we want to make sure we explicitly clear it here
+				Actual_Connection_Binding => ();
+			};
+		properties
+			SEI::BandWidthBudget => 64.0 kbytesps;
+			SEI::BandWidthCapacity => 64.0 kbytesps;
+	end VB_CAP64.i;
+	
+	virtual bus VB_CAP8
+	end VB_CAP8;
+
+	virtual bus implementation VB_CAP8.i
+		properties
+			SEI::BandWidthBudget => 8.0 kbytesps;
+			SEI::BandWidthCapacity => 8.0 kbytesps;
+	end VB_CAP8.i;
+	
+	-- physical bus
+	
+	bus B_CAP128
+	end B_CAP128;
+
+	bus implementation B_CAP128.i
+		subcomponents
+			vb4: virtual bus VB_CAP8.i {
+				-- property is inherited, so we want to make sure we explicitly clear it here
+				Actual_Connection_Binding => ();
+			};
+		properties
+			SEI::BandWidthCapacity => 128.0 kbytesps;
+			SEI::BandWidthBudget => 128.0 kbytesps;
+	end B_CAP128.i;
+	
+	-- communicating components
+	
+	system S1
+		features
+			out1: out data port D8;
+			out2: out data port D8;
+			out3: out data port D8;
+			out4: out data port D16;
+			out5: out data port D24;
+			out6: out data port D8;
+			out7: out data port D8;
+			out8: out data port D24;
+			out9: out data port D24;
+	end S1;
+
+	system S2
+		features
+			in1: in data port D8;
+			in2: in data port D8;
+			in3: in data port D8;
+			in4: in data port D16;
+			in5: in data port D24;
+			in6: in data port D8;
+			in7: in data port D8;
+			in8: in data port D24;
+			in9: in data port D24;
+	end S2;
+
+	-- assesmbled system
+	
+	system top
+	end top;
+	
+	system implementation top.i
+		subcomponents
+			sub1: system s1;
+			sub2: system s2;
+			theBus: bus B_CAP128.i;
+			vb1: virtual bus VB_CAP16.i;
+			vb3: virtual bus VB_CAP64.i;
+		connections
+			conn1: port sub1.out1 -> sub2.in1 {
+				SEI::BandWidthBudget => 8.0 KBytesps;
+			};
+			conn2: port sub1.out2 -> sub2.in2 {
+				SEI::BandWidthBudget => 8.0 KBytesps;
+			};
+			conn3: port sub1.out3 -> sub2.in3 {
+				SEI::BandWidthBudget => 8.0 KBytesps;
+			};
+			conn4: port sub1.out4 -> sub2.in4 {
+				SEI::BandWidthBudget => 16.0 KBytesps;
+			};
+			conn5: port sub1.out5 -> sub2.in5 {
+				SEI::BandWidthBudget => 24.0 KBytesps;
+			};
+			conn6: port sub1.out6 -> sub2.in6 {
+				SEI::BandWidthBudget => 4.0 KBytesps;
+			};
+			conn7: port sub1.out7 -> sub2.in7 {
+				SEI::BandWidthBudget => 8.0 KBytesps;
+			};
+			conn8: port sub1.out8 -> sub2.in8 {
+				SEI::BandWidthBudget => 24.0 KBytesps;
+			};
+			conn9: port sub1.out9 -> sub2.in9 {
+				SEI::BandWidthBudget => 24.0 KBytesps;
+			};
+		properties
+			-- Bind the remaining virtual buses
+			Actual_Connection_Binding => (reference (vb3)) applies to vb1;			
+			Actual_Connection_Binding => (reference (theBus)) applies to vb3;
+			
+			-- Bind the connections
+			Actual_Connection_Binding => (reference (vb1)) applies to conn1;		
+			Actual_Connection_Binding => (reference (vb1)) applies to conn2;
+					
+			Actual_Connection_Binding => (reference (vb3.vb2)) applies to conn3;		
+			Actual_Connection_Binding => (reference (vb3.vb2)) applies to conn4;
+					
+			Actual_Connection_Binding => (reference (vb3)) applies to conn5;
+					
+			Actual_Connection_Binding => (reference (theBus.vb4)) applies to conn6;		
+			Actual_Connection_Binding => (reference (theBus.vb4)) applies to conn7;
+					
+			Actual_Connection_Binding => (reference (theBus)) applies to conn8;		
+			Actual_Connection_Binding => (reference (theBus)) applies to conn9;
+			
+			-- Communication rates
+			Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub1.out1;
+			Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub1.out2;
+			Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub1.out3;
+			Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub1.out4;
+			Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub1.out5;
+			Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub1.out6;
+			Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub1.out7;
+			Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub1.out8;
+			Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub1.out9; 
+	end top.i;
+end Complicated;
