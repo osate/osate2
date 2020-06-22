@@ -25,8 +25,6 @@ import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.annexsupport.AnnexHighlighter;
 import org.osate.annexsupport.AnnexHighlighterPositionAcceptor;
-import org.osate.annexsupport.AnnexUtil ;
-import org.osate.ba.aadlba.BehaviorAnnex ;
 import org.osate.ba.utils.AadlBaLocationReference ;
 
 
