@@ -5,7 +5,7 @@ Bundle-SymbolicName: org.osate.aadl2.modelsupport;singleton:=true
 Bundle-Version: 4.0.0.qualifier
 Bundle-Activator: org.osate.aadl2.modelsupport.Activator
 Require-Bundle:  org.osate.aadl2;bundle-version="[4.0.0,5.0.0)",
- org.osate.workspace;bundle-version="[3.0.0,4.0.0)";visibility:=reexport,
+ org.osate.workspace;bundle-version="[4.0.0,5.0.0)";visibility:=reexport,
  org.apache.log4j;bundle-version="[1.2.0,2.0.0)",
  org.osate.core;bundle-version="[3.0.0,4.0.0)";visibility:=reexport,
  org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)",
