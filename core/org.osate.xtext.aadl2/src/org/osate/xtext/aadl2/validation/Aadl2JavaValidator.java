@@ -3215,9 +3215,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				isAncestor = true;
 			}
 		}
-		if (!isAncestor && typeOfChild != null) {
+		if (!isAncestor) {
 			error(implementationExtension, '\'' + typeOfParent.getQualifiedName() + "' is not an ancestor of '"
-					+ typeOfChild.getQualifiedName() + "'.");
+					+ typeOfChild != null ? typeOfChild.getQualifiedName() : "TYPE OF CHILD NOT FOUND" + "'.");
 		}
 	}
 
