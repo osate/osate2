@@ -74,16 +74,16 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.BusinessObjectProviderContext;
+import org.osate.ge.aadl2.internal.businessObjectHandlers.AadlReferenceUtil;
 import org.osate.ge.aadl2.internal.businessObjectHandlers.ModeTransitionTriggerHandler;
 import org.osate.ge.aadl2.internal.model.SubprogramCallOrder;
 import org.osate.ge.aadl2.internal.model.Tag;
 import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.services.ExtensionRegistryService;
-import org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder;
 import org.osate.ge.internal.util.AadlFeatureUtil;
-import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.AadlSubcomponentUtil;
 import org.osate.ge.internal.util.AadlSubprogramCallUtil;
+import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 
 public class AadlBusinessObjectProvider implements BusinessObjectProvider {
@@ -168,8 +168,9 @@ public class AadlBusinessObjectProvider implements BusinessObjectProvider {
 
 			final String pkgQualifiedName = desc.getQualifiedName().toString("::");
 			packages.add(new BusinessObjectProxy(pkgQualifiedName, desc.getEClass(),
-					DeclarativeReferenceBuilder.buildPackageCanonicalReference(pkgQualifiedName),
-					DeclarativeReferenceBuilder.getPackageRelativeReference(pkgQualifiedName)));
+					AadlReferenceUtil.getCanonicalReferenceForPackage(
+							pkgQualifiedName),
+					AadlReferenceUtil.getRelativeReferenceForPackage(pkgQualifiedName)));
 		}
 
 		return packages == null ? null : packages.build();

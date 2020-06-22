@@ -26,21 +26,38 @@ package org.osate.ge.ba.businessObjectHandlers;
 import java.util.Optional;
 
 import org.osate.ba.aadlba.BehaviorState;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
 import org.osate.ge.graphics.EllipseBuilder;
 import org.osate.ge.graphics.Graphic;
 
 public class BaStateHandler implements BusinessObjectHandler {
+	private final static String TYPE_STATE = "ba.state";
+
 	private static final Graphic graphic = EllipseBuilder.create().build();
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(BehaviorState.class).isPresent();
+	}
+
+	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		// This should be implemented for full behavior annex support.
+		return null;
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		return new RelativeBusinessObjectReference(TYPE_STATE,
+				ctx.getBusinessObject(BehaviorState.class).get().getFullName());
 	}
 
 	@Override

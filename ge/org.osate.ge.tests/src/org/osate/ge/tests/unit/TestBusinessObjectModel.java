@@ -23,16 +23,12 @@
  */
 package org.osate.ge.tests.unit;
 
-import java.util.Optional;
 import java.util.UUID;
 
 import org.osate.ge.DockingPosition;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
-import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
-import org.osate.ge.businessObjectHandlers.IsApplicableContext;
-import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
@@ -111,25 +107,6 @@ public class TestBusinessObjectModel implements DiagramElementInformationProvide
 
 	@Override
 	public BusinessObjectHandler getApplicableBusinessObjectHandler(final Object bo) {
-		return new BusinessObjectHandler() {
-
-			@Override
-			public boolean isApplicable(IsApplicableContext ctx) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-
-			@Override
-			public Optional<GraphicalConfiguration> getGraphicalConfiguration(GetGraphicalConfigurationContext ctx) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public String getName(GetNameContext ctx) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-		};
+		return new StubBusinessObjectHandler();
 	}
 }

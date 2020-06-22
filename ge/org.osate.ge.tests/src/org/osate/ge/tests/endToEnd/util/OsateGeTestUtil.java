@@ -23,7 +23,7 @@
  */
 package org.osate.ge.tests.endToEnd.util;
 
-import static org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder.*;
+import static org.osate.ge.aadl2.internal.businessObjectHandlers.AadlReferenceUtil.*;
 import static org.osate.ge.tests.endToEnd.util.UiTestUtil.*;
 
 import java.util.Arrays;
@@ -212,7 +212,7 @@ public class OsateGeTestUtil {
 	 * Creates a diagram element reference for the package specified.
 	 */
 	public static DiagramElementReference packageElement(final String packageQualifiedName) {
-		return new DiagramElementReference(getPackageRelativeReference(packageQualifiedName));
+		return new DiagramElementReference(getRelativeReferenceForPackage(packageQualifiedName));
 	}
 
 	/**

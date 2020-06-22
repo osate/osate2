@@ -26,15 +26,19 @@ package org.osate.ge.errormodel.businessObjectHandlers;
 import java.util.Optional;
 
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
+import org.osate.aadl2.AadlPackage;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.CanDeleteContext;
 import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
 import org.osate.ge.businessObjectHandlers.RenameContext;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
@@ -46,6 +50,7 @@ import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
+import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
@@ -71,7 +76,32 @@ public class ErrorBehaviorTransitionHandler implements BusinessObjectHandler {
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(ErrorBehaviorTransition.class).isPresent();
+		return ctx.getBusinessObject(ErrorBehaviorTransition.class)
+				.map(bo -> bo.getElementRoot() instanceof AadlPackage).isPresent();
+	}
+
+	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		final ErrorBehaviorTransition typedBo = ctx.getBusinessObject(ErrorBehaviorTransition.class).get();
+		if (typedBo.getName() == null) {
+			return buildAnonymousBehaviorTransitionCanonicalReference(
+					typedBo,
+					ctx.getReferenceBuilder());
+		} else {
+			return new CanonicalBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_TRANSITION,
+					ctx.getReferenceBuilder().getCanonicalReference(typedBo.eContainer()).encode(), typedBo.getName());
+		}
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		final ErrorBehaviorTransition t = ctx.getBusinessObject(ErrorBehaviorTransition.class).get();
+		final String name = t.getName();
+		if (name == null) {
+			return buildAnonymousBehaviorTransitionRelativeReference(t);
+		} else {
+			return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_TRANSITION, name);
+		}
 	}
 
 	@Override
@@ -132,5 +162,51 @@ public class ErrorBehaviorTransitionHandler implements BusinessObjectHandler {
 			final ErrorBehaviorStateMachine stateMachine = (ErrorBehaviorStateMachine) transition.eContainer();
 			return ErrorModelNamingUtil.validateName(stateMachine, transition.getName(), ctx.getNewName());
 		});
+	}
+
+	private static RelativeBusinessObjectReference buildAnonymousBehaviorTransitionRelativeReference(
+			final ErrorBehaviorTransition t) {
+		return new RelativeBusinessObjectReference(
+				ErrorModelReferenceUtil.TYPE_ANONYMOUS_BEHAVIOR_TRANSITION,
+				ErrorModelReferenceUtil.getNameForSerialization(t.getSource()), getTargetNameForSerialization(
+						t),
+				Integer.toString(getAnonymousBehaviorTransitionIndex(t)));
+	}
+
+	private static CanonicalBusinessObjectReference buildAnonymousBehaviorTransitionCanonicalReference(
+			final ErrorBehaviorTransition t, final ReferenceBuilderService refBuilder) {
+		return new CanonicalBusinessObjectReference(
+				ErrorModelReferenceUtil.TYPE_ANONYMOUS_BEHAVIOR_TRANSITION,
+				refBuilder.getCanonicalReference(t.eContainer()).encode(), ErrorModelReferenceUtil.getNameForSerialization(t
+						.getSource()),
+				getTargetNameForSerialization(t), Integer.toString(getAnonymousBehaviorTransitionIndex(t)));
+	}
+
+	/**
+	 * Gets the index of an anonymous error behavior transition. The index is a zero based value of the transitions with the same source and target.
+	 * @param t
+	 * @return the index or -1 if the appropriate index could not be determined.
+	 */
+	private static int getAnonymousBehaviorTransitionIndex(final ErrorBehaviorTransition t) {
+		// Check type of container
+		if (!(t.eContainer() instanceof ErrorBehaviorStateMachine)) {
+			return -1;
+		}
+
+		final ErrorBehaviorStateMachine sm = (ErrorBehaviorStateMachine) t.eContainer();
+
+		return ErrorModelReferenceUtil.getIndex(
+				t,
+				sm.getTransitions().stream().filter(tmpTransition -> tmpTransition.getSource() == t.getSource()
+						&& tmpTransition.getTarget() == t.getTarget()));
+	}
+
+	private static String getTargetNameForSerialization(final ErrorBehaviorTransition t) {
+		if (t.isSteadyState()) {
+			return ErrorModelReferenceUtil.IS_STEADY;
+		} else {
+			// Branching transitions will use the serialization of the null target name.
+			return ErrorModelReferenceUtil.getNameForSerialization(t.getTarget());
+		}
 	}
 }

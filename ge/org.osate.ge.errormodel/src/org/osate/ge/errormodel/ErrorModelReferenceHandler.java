@@ -31,136 +31,19 @@ import javax.inject.Named;
 
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DefaultAnnexLibrary;
-import org.osate.aadl2.Element;
-import org.osate.aadl2.NamedElement;
 import org.osate.ge.CanonicalBusinessObjectReference;
-import org.osate.ge.di.BuildCanonicalReference;
-import org.osate.ge.di.BuildRelativeReference;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ResolveCanonicalReference;
+import org.osate.ge.errormodel.businessObjectHandlers.ErrorModelReferenceUtil;
 import org.osate.ge.errormodel.model.BehaviorTransitionTrunk;
 import org.osate.ge.errormodel.model.ErrorTypeExtension;
-import org.osate.ge.errormodel.model.ErrorTypeLibrary;
-import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.ge.services.ReferenceResolutionService;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
-import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 
 public class ErrorModelReferenceHandler {
-	private final static String EMV2_REFERENCE_PREFIX = "emv2.";
-	private final static String TYPE_BEHAVIOR_STATE_MACHINE = EMV2_REFERENCE_PREFIX + "behavior";
-	private final static String TYPE_BEHAVIOR_EVENT = EMV2_REFERENCE_PREFIX + "behavior_event";
-	private final static String TYPE_BEHAVIOR_STATE = EMV2_REFERENCE_PREFIX + "behavior_state";
-	private final static String TYPE_BEHAVIOR_TRANSITION = EMV2_REFERENCE_PREFIX + "behavior_transition";
-	private final static String TYPE_ANONYMOUS_BEHAVIOR_TRANSITION = EMV2_REFERENCE_PREFIX
-			+ "anonymous_behavior_transition";
-	private final static String TYPE_BEHAVIOR_TRANSITION_BRANCH = EMV2_REFERENCE_PREFIX + "behavior_transition_branch";
-	private final static String TYPE_BEHAVIOR_TRANSITION_TRUNK = EMV2_REFERENCE_PREFIX + "behavior_transition_trunk";
-	private final static String TYPE_ERROR_TYPE_LIBRARY = EMV2_REFERENCE_PREFIX + "error_type_library";
-	private final static String TYPE_ERROR_TYPE = EMV2_REFERENCE_PREFIX + "error_type";
-	private final static String TYPE_ERROR_TYPE_EXT = EMV2_REFERENCE_PREFIX + "error_type_extension";
-	private final static String IS_STEADY = "<steady>"; // Used to identify the transition or branch as steady state.
-
-	@BuildRelativeReference
-	public String[] getRelativeReference(final @Named(Names.BUSINESS_OBJECT) Object bo) {
-		if(bo instanceof ErrorBehaviorStateMachine) {
-			return new String[] {TYPE_BEHAVIOR_STATE_MACHINE, ((ErrorBehaviorStateMachine)bo).getName()};
-		} else if(bo instanceof ErrorBehaviorEvent) {
-			return new String[] {TYPE_BEHAVIOR_EVENT, ((ErrorBehaviorEvent)bo).getName()};
-		} else if(bo instanceof ErrorBehaviorState) {
-			return new String[] {TYPE_BEHAVIOR_STATE, ((ErrorBehaviorState)bo).getName()};
-		} else if(bo instanceof ErrorBehaviorTransition) {
-			final ErrorBehaviorTransition t = (ErrorBehaviorTransition) bo;
-			final String name = t.getName();
-			if (name == null) {
-				return buildAnonymousBehaviorTransitionRelativeReference(t);
-			} else {
-				return new String[] { TYPE_BEHAVIOR_TRANSITION, name };
-			}
-
-		} else if (bo instanceof TransitionBranch) {
-			final TransitionBranch b = (TransitionBranch) bo;
-			return new String[] { TYPE_BEHAVIOR_TRANSITION_BRANCH, getTargetNameForSerialization(b),
-					Integer.toString(getTransitionBranchIndex(b)) };
-		} else if (bo instanceof BehaviorTransitionTrunk) {
-			return new String[] {TYPE_BEHAVIOR_TRANSITION_TRUNK};
-		} if(bo instanceof ErrorType) {
-			return new String[] {TYPE_ERROR_TYPE, ((ErrorType)bo).getName()};
-		} else if(bo instanceof ErrorTypeExtension) {
-			return new String[] {TYPE_ERROR_TYPE_EXT };
-		} else if (bo instanceof ErrorTypeLibrary) {
-			return new String[] { TYPE_ERROR_TYPE_LIBRARY };
-		}
-
-		return null;
-	}
-
-	@BuildCanonicalReference
-	public String[] getReference(final @Named(Names.BUSINESS_OBJECT) Object bo, final ReferenceBuilderService refBuilder) {
-		if(bo instanceof Element) {
-			final Element el = (Element)bo;
-
-			if(el.getElementRoot() instanceof AadlPackage) {
-				final AadlPackage pkg = (AadlPackage)el.getElementRoot();
-				if(bo instanceof ErrorBehaviorStateMachine) {
-					return new String[] { TYPE_BEHAVIOR_STATE_MACHINE, refBuilder.getCanonicalReference(pkg)
-							.encode(),
-							((ErrorBehaviorStateMachine) bo).getName() };
-				} else if(bo instanceof ErrorBehaviorEvent) {
-					final ErrorBehaviorEvent typedBo = (ErrorBehaviorEvent)bo;
-					return new String[] { TYPE_BEHAVIOR_EVENT, refBuilder.getCanonicalReference(typedBo.eContainer())
-							.encode(),
-							typedBo.getName() };
-				} else if(bo instanceof ErrorBehaviorState) {
-					final ErrorBehaviorState typedBo = (ErrorBehaviorState)bo;
-					return new String[] { TYPE_BEHAVIOR_STATE,
-							refBuilder.getCanonicalReference(typedBo.eContainer()).encode(),
-							typedBo.getName() };
-				} else if(bo instanceof ErrorBehaviorTransition) {
-					final ErrorBehaviorTransition typedBo = (ErrorBehaviorTransition)bo;
-					if (typedBo.getName() == null) {
-						return buildAnonymousBehaviorTransitionCanonicalReference((ErrorBehaviorTransition) bo,
-								refBuilder);
-					} else {
-						return new String[] { TYPE_BEHAVIOR_TRANSITION,
-								refBuilder.getCanonicalReference(typedBo.eContainer()).encode(),
-								typedBo.getName() };
-					}
-				} else if (bo instanceof TransitionBranch) {
-					final TransitionBranch b = (TransitionBranch) bo;
-					return new String[] { TYPE_BEHAVIOR_TRANSITION_BRANCH,
-							refBuilder.getCanonicalReference(b.eContainer()).encode(),
-							getTargetNameForSerialization(
-									b),
-							Integer.toString(getTransitionBranchIndex(b)) };
-				} else if (bo instanceof BehaviorTransitionTrunk) {
-					final BehaviorTransitionTrunk trunk = (BehaviorTransitionTrunk) bo;
-					return new String[] { TYPE_BEHAVIOR_TRANSITION_TRUNK,
-							refBuilder.getCanonicalReference(trunk.getTransition()).encode() };
-				} else if(bo instanceof ErrorType) {
-					return new String[] { TYPE_ERROR_TYPE,
-							refBuilder.getCanonicalReference(pkg).encode(),
-							((ErrorType) bo).getName() };
-				} else if (bo instanceof ErrorTypeLibrary) {
-					return new String[] { TYPE_ERROR_TYPE_LIBRARY, refBuilder.getCanonicalReference(pkg).encode() };
-				}
-			}
-		} else if(bo instanceof ErrorTypeExtension) {
-			final ErrorTypeExtension ete = (ErrorTypeExtension)bo;
-			if(ete.getSubtype().getElementRoot() instanceof AadlPackage && ete.getSupertype().getElementRoot() instanceof AadlPackage) {
-				return new String[] {TYPE_ERROR_TYPE_EXT,
-						refBuilder.getCanonicalReference(ete.getSupertype()).encode(),
-						refBuilder.getCanonicalReference(ete.getSubtype()).encode() };
-			}
-		}
-
-		return null;
-	}
 
 	@ResolveCanonicalReference
 	public Object getReferencedObject(final @Named(Names.REFERENCE) String[] ref, final ReferenceResolutionService refService) {
@@ -172,7 +55,7 @@ public class ErrorModelReferenceHandler {
 
 		// Check that the type is an EMV2 type
 		final String type = ref[0];
-		if(!type.startsWith(EMV2_REFERENCE_PREFIX)) {
+		if (!type.startsWith(ErrorModelReferenceUtil.EMV2_REFERENCE_PREFIX)) {
 			return null;
 		}
 
@@ -182,7 +65,7 @@ public class ErrorModelReferenceHandler {
 			return null;
 		}
 
-		if (ref.length == 2 && type.equals(TYPE_BEHAVIOR_TRANSITION_TRUNK)) {
+		if (ref.length == 2 && type.equals(ErrorModelReferenceUtil.TYPE_BEHAVIOR_TRANSITION_TRUNK)) {
 			final ErrorBehaviorTransition transition = (ErrorBehaviorTransition) ref1;
 			return new BehaviorTransitionTrunk(transition);
 		}
@@ -192,7 +75,7 @@ public class ErrorModelReferenceHandler {
 			return null;
 		}
 
-		if(type.equals(TYPE_BEHAVIOR_STATE_MACHINE)) {
+		if (type.equals(ErrorModelReferenceUtil.TYPE_BEHAVIOR_STATE_MACHINE)) {
 			final AadlPackage pkg = (AadlPackage)ref1;
 			final String name = ref[2];
 			return pkg.getOwnedPublicSection().getOwnedAnnexLibraries().stream(). // Get annex libraries
@@ -201,25 +84,25 @@ public class ErrorModelReferenceHandler {
 					reduce(Stream.empty(), (a, b) -> Stream.concat(a, b)). // Combine streams
 					filter(b -> name.equalsIgnoreCase(b.getName())). // Filter behaviors by name
 					findAny().orElse(null);
-		} else if(type.equals(TYPE_BEHAVIOR_EVENT)) {
+		} else if (type.equals(ErrorModelReferenceUtil.TYPE_BEHAVIOR_EVENT)) {
 			final ErrorBehaviorStateMachine stateMachine = (ErrorBehaviorStateMachine)ref1;
 			final String name = ref[2];
 			return stateMachine.getEvents().stream().
 					filter(o -> name.equalsIgnoreCase(o.getName())). // Filter objects by name
 					findAny().orElse(null);
-		} else if(type.equals(TYPE_BEHAVIOR_STATE)) {
+		} else if (type.equals(ErrorModelReferenceUtil.TYPE_BEHAVIOR_STATE)) {
 			final ErrorBehaviorStateMachine stateMachine = (ErrorBehaviorStateMachine)ref1;
 			final String name = ref[2];
 			return stateMachine.getStates().stream().
 					filter(o -> name.equalsIgnoreCase(o.getName())). // Filter objects by name
 					findAny().orElse(null);
-		} else if(type.equals(TYPE_BEHAVIOR_TRANSITION)) {
+		} else if (type.equals(ErrorModelReferenceUtil.TYPE_BEHAVIOR_TRANSITION)) {
 			final ErrorBehaviorStateMachine stateMachine = (ErrorBehaviorStateMachine)ref1;
 			final String name = ref[2];
 			return stateMachine.getTransitions().stream().
 					filter(o -> name.equalsIgnoreCase(o.getName())). // Filter objects by name
 					findAny().orElse(null);
-		} else if(type.equals(TYPE_ERROR_TYPE)) {
+		} else if (type.equals(ErrorModelReferenceUtil.TYPE_ERROR_TYPE)) {
 			final AadlPackage pkg = (AadlPackage)ref1;
 			final String name = ref[2];
 
@@ -231,7 +114,7 @@ public class ErrorModelReferenceHandler {
 					findAny();
 
 			return errorType.orElse(null);
-		} else if(type.equals(TYPE_ERROR_TYPE_EXT)) {
+		} else if (type.equals(ErrorModelReferenceUtil.TYPE_ERROR_TYPE_EXT)) {
 			final ErrorType supertype = (ErrorType)ref1;
 			final ErrorType subtype = (ErrorType) refService
 					.resolve(CanonicalBusinessObjectReference.decode(ref[2]));
@@ -245,79 +128,5 @@ public class ErrorModelReferenceHandler {
 		return null;
 	}
 
-	private static String getNameForSerialization(final NamedElement ne) {
-		return (ne == null || ne.getName() == null) ? "<null>" : ne.getName();
-	}
-
-	private static String[] buildAnonymousBehaviorTransitionRelativeReference(final ErrorBehaviorTransition t) {
-		return new String[] { TYPE_ANONYMOUS_BEHAVIOR_TRANSITION, getNameForSerialization(t.getSource()),
-				getTargetNameForSerialization(t), Integer.toString(getAnonymousBehaviorTransitionIndex(t)) };
-	}
-
-	private static String[] buildAnonymousBehaviorTransitionCanonicalReference(final ErrorBehaviorTransition t,
-			final ReferenceBuilderService refBuilder) {
-		return new String[] { TYPE_ANONYMOUS_BEHAVIOR_TRANSITION, refBuilder.getCanonicalReference(t.eContainer())
-				.encode(),
-				getNameForSerialization(t.getSource()),
-				getTargetNameForSerialization(t), Integer.toString(getAnonymousBehaviorTransitionIndex(t)) };
-	}
-
-	/**
-	 * Gets the index of an anonymous error behavior transition. The index is a zero based value of the transitions with the same source and target.
-	 * @param t
-	 * @return the index or -1 if the appropriate index could not be determined.
-	 */
-	private static int getAnonymousBehaviorTransitionIndex(final ErrorBehaviorTransition t) {
-		// Check type of container
-		if (!(t.eContainer() instanceof ErrorBehaviorStateMachine)) {
-			return -1;
-		}
-
-		final ErrorBehaviorStateMachine sm = (ErrorBehaviorStateMachine) t.eContainer();
-
-		return getIndex(t,
-				sm.getTransitions().stream().filter(tmpTransition -> tmpTransition.getSource() == t.getSource()
-				&& tmpTransition.getTarget() == t.getTarget()));
-	}
-
-	private static int getTransitionBranchIndex(final TransitionBranch b) {
-		// Check type of container
-		if (!(b.eContainer() instanceof ErrorBehaviorTransition)) {
-			return -1;
-		}
-
-		final ErrorBehaviorTransition t = (ErrorBehaviorTransition) b.eContainer();
-		return getIndex(b,
-				t.getDestinationBranches().stream().filter(tmpBranch -> tmpBranch.getTarget() == t.getTarget()));
-	}
-
-	private static <T> int getIndex(final T bo, final Stream<T> matchingSiblings) {
-		int index = 0;
-		for (final Object tmp : (Iterable<T>) matchingSiblings::iterator) {
-			if (tmp == bo) {
-				return index;
-			}
-
-			index++;
-		}
-		return -1;
-	}
-
-	private static String getTargetNameForSerialization(final ErrorBehaviorTransition t) {
-		if (t.isSteadyState()) {
-			return IS_STEADY;
-		} else {
-			// Branching transitions will use the serialization of the null target name.
-			return getNameForSerialization(t.getTarget());
-		}
-	}
-
-	private static String getTargetNameForSerialization(final TransitionBranch b) {
-		if (b.isSteadyState()) {
-			return IS_STEADY;
-		} else {
-			return getNameForSerialization(b.getTarget());
-		}
-	}
 
 }

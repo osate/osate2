@@ -26,6 +26,8 @@ package org.osate.ge.businessObjectHandlers;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.osate.ge.services.ReferenceBuilderService;
+
 /**
  * Contains contextual information for getting the reference to a business object.
  *
@@ -34,14 +36,17 @@ import java.util.Optional;
  */
 public class ReferenceContext {
 	private final Object bo;
+	private final ReferenceBuilderService referenceBuilder;
 
 	/**
 	 * Creates a new instance.
 	 * @param bo is the business object for which to retrieve a reference.
+	 * @param referenceBuilder is a reference to the reference builder service.
 	 * @noreference This constructor is not intended to be referenced by clients.
 	 */
-	public ReferenceContext(final Object bo) {
+	public ReferenceContext(final Object bo, final ReferenceBuilderService referenceBuilder) {
 		this.bo = Objects.requireNonNull(bo, "bo must not be null");
+		this.referenceBuilder = Objects.requireNonNull(referenceBuilder, "referenceBuilder must not be null");
 	}
 
 	/**
@@ -70,5 +75,13 @@ public class ReferenceContext {
 		}
 
 		return Optional.of(boType.cast(bo));
+	}
+
+	/**
+	 * Returns a reference to the reference builder service.
+	 * @return a reference to the reference builder service
+	 */
+	public ReferenceBuilderService getReferenceBuilder() {
+		return this.referenceBuilder;
 	}
 }

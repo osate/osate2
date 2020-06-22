@@ -27,16 +27,20 @@ import java.util.Optional;
 
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessObjectHandlers.CanDeleteContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
 import org.osate.ge.graphics.EllipseBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 
 public class SubprogramCallHandler extends AadlBusinessObjectHandler {
 	private Graphic graphic = EllipseBuilder.create().build();
@@ -45,6 +49,21 @@ public class SubprogramCallHandler extends AadlBusinessObjectHandler {
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(SubprogramCall.class).isPresent();
+	}
+
+	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		return new CanonicalBusinessObjectReference(
+				DeclarativeReferenceType.SUBPROGRAM_CALL
+				.getId(),
+				ctx.getBusinessObject(SubprogramCall.class).get().getQualifiedName());
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		return AadlReferenceUtil
+				.buildSimpleRelativeReference(DeclarativeReferenceType.SUBPROGRAM_CALL.getId(),
+						ctx.getBusinessObject(SubprogramCall.class).get());
 	}
 
 	@Override

@@ -1,3 +1,8 @@
+package org.osate.ge.tests.unit;
+
+import java.util.Optional;
+
+import org.osate.ge.CanonicalBusinessObjectReference;
 /**
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
@@ -21,11 +26,6 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.errormodel.businessObjectHandlers;
-
-import java.util.Optional;
-
-import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
@@ -33,37 +33,35 @@ import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.businessObjectHandlers.ReferenceContext;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 
 /**
- * Business object handler for {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary}.
- * This handler only exists to prevent the annex from being added by the AADL business object provider.
- *  Since the object isn't contributed at this time, the other methods are not necessary.
+ * Stub {@link BusinessObjectHandler} implementation for testing.
  *
  */
-public class ErrorModelLibraryHandler implements BusinessObjectHandler {
+public class StubBusinessObjectHandler implements BusinessObjectHandler {
 	@Override
-	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(ErrorModelLibrary.class).isPresent();
+	public boolean isApplicable(IsApplicableContext ctx) {
+		return false;
 	}
 
 	@Override
-	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		throw new RuntimeException("Not supported");
+	public CanonicalBusinessObjectReference getCanonicalReference(ReferenceContext ctx) {
+		return null;
 	}
 
 	@Override
-	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		throw new RuntimeException("Not supported");
+	public RelativeBusinessObjectReference getRelativeReference(ReferenceContext ctx) {
+		return null;
 	}
 
 	@Override
-	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
-		return Optional.empty();
+	public Optional<GraphicalConfiguration> getGraphicalConfiguration(GetGraphicalConfigurationContext ctx) {
+		return null;
 	}
 
 	@Override
 	public String getName(GetNameContext ctx) {
-		return "";
+		return null;
 	}
-}
+
+};

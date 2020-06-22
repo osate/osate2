@@ -28,14 +28,18 @@ import java.util.Optional;
 import javax.inject.Named;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.aadl2.AadlPackage;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.CanDeleteContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
 import org.osate.ge.di.Names;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.ge.internal.services.AadlModificationService;
@@ -60,7 +64,28 @@ public class TransitionBranchHandler implements BusinessObjectHandler {
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(TransitionBranch.class).isPresent();
+		return ctx.getBusinessObject(TransitionBranch.class).map(bo -> bo.getElementRoot() instanceof AadlPackage)
+				.isPresent();
+	}
+
+	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		final TransitionBranch b = ctx.getBusinessObject(TransitionBranch.class).get();
+				return new CanonicalBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_TRANSITION_BRANCH,
+						ctx.getReferenceBuilder().getCanonicalReference(b.eContainer())
+								.encode(),
+						ErrorModelReferenceUtil
+								.getTargetNameForSerialization(
+								b),
+						Integer.toString(getTransitionBranchIndex(b)));
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_TRANSITION_BRANCH,
+				ErrorModelReferenceUtil.getTargetNameForSerialization(ctx.getBusinessObject(TransitionBranch.class)
+						.get()),
+				Integer.toString(getTransitionBranchIndex(ctx.getBusinessObject(TransitionBranch.class).get())));
 	}
 
 	@Override
@@ -130,5 +155,17 @@ public class TransitionBranchHandler implements BusinessObjectHandler {
 
 			return "";
 		}).orElse("");
+	}
+
+	private static int getTransitionBranchIndex(final TransitionBranch b) {
+		// Check type of container
+		if (!(b.eContainer() instanceof ErrorBehaviorTransition)) {
+			return -1;
+		}
+
+		final ErrorBehaviorTransition t = (ErrorBehaviorTransition) b.eContainer();
+		return ErrorModelReferenceUtil.getIndex(
+				b,
+				t.getDestinationBranches().stream().filter(tmpBranch -> tmpBranch.getTarget() == t.getTarget()));
 	}
 }

@@ -27,19 +27,23 @@ import java.util.Optional;
 
 import org.eclipse.xtext.util.Strings;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.model.SubprogramCallOrder;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.GetNameForDiagramContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -52,6 +56,22 @@ public class SubprogramCallOrderHandler extends AadlBusinessObjectHandler {
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(SubprogramCallOrder.class).isPresent();
+	}
+
+	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		final SubprogramCallOrder sco = ctx.getBusinessObject(SubprogramCallOrder.class).get();
+		return new CanonicalBusinessObjectReference(DeclarativeReferenceType.SUBPROGRAM_CALL_ORDER.getId(),
+				sco.previousSubprogramCall.getQualifiedName(),
+				sco.subprogramCall.getQualifiedName());
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		final SubprogramCallOrder sco = ctx.getBusinessObject(SubprogramCallOrder.class).get();
+		return new RelativeBusinessObjectReference(DeclarativeReferenceType.SUBPROGRAM_CALL_ORDER.getId(),
+				AadlReferenceUtil.getNameForSerialization(sco.previousSubprogramCall),
+				AadlReferenceUtil.getNameForSerialization(sco.subprogramCall));
 	}
 
 	@Override

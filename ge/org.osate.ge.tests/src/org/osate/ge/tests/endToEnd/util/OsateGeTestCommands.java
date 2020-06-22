@@ -24,7 +24,7 @@
 package org.osate.ge.tests.endToEnd.util;
 
 import static org.junit.Assert.*;
-import static org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder.*;
+import static org.osate.ge.aadl2.internal.businessObjectHandlers.AadlReferenceUtil.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGeTestUtil.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGeTestUtil.setTextField;
 import static org.osate.ge.tests.endToEnd.util.UiTestUtil.*;

@@ -27,18 +27,13 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
 import java.util.EnumSet;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.diagramTypes.CustomDiagramType;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
-import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
-import org.osate.ge.businessObjectHandlers.IsApplicableContext;
-import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.BeforeModificationsCompletedEvent;
@@ -58,27 +53,7 @@ import org.osate.ge.internal.diagram.runtime.ModificationsCompletedEvent;
  *
  */
 public class AgeDiagramTest {
-	private BusinessObjectHandler dummyBoh = new BusinessObjectHandler() {
-
-		@Override
-		public boolean isApplicable(IsApplicableContext ctx) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public Optional<GraphicalConfiguration> getGraphicalConfiguration(GetGraphicalConfigurationContext ctx) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String getName(GetNameContext ctx) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-	};
+	private BusinessObjectHandler stubBoh = new StubBusinessObjectHandler();
 
 	class TestModificationListener implements DiagramModificationListener {
 		public int elementUpdatedEventsReceived = 0;
@@ -162,7 +137,7 @@ public class AgeDiagramTest {
 	@Test
 	public void testElementAddedEvent() {
 		// Test an add event
-		final DiagramElement newElement = new DiagramElement(diagram, 1, dummyBoh,
+		final DiagramElement newElement = new DiagramElement(diagram, 1, stubBoh,
 				new RelativeBusinessObjectReference("1"), UUID.randomUUID());
 		diagram.modify("Add Element", m -> m.addElement(newElement));
 
@@ -216,7 +191,7 @@ public class AgeDiagramTest {
 	}
 
 	private DiagramElement addRootElementAndResetCounter(final int id) {
-		final DiagramElement newElement = new DiagramElement(diagram, id, dummyBoh,
+		final DiagramElement newElement = new DiagramElement(diagram, id, stubBoh,
 				new RelativeBusinessObjectReference(Integer.toString(id)), UUID.randomUUID());
 		diagram.modify("Add Element", m -> m.addElement(newElement));
 

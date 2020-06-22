@@ -45,13 +45,21 @@ public interface BusinessObjectHandler {
 	 */
 	boolean isApplicable(IsApplicableContext ctx);
 
-	// TODO: Document must return value or throw
-	// TODO: References should be the same to allow easier fetching of both references?
-
-	// TODO: Remove default. Add context. Rename?
+	/**
+	 * Returns a canonical reference for the business object contained in the context.
+	 * @param ctx the context containing the business object.
+	 * @return a canonical reference for the business object contained in the context. Should not return null. Null is currently supported for
+	 * legacy reasons but new business object handlers should not return null. The lack of a canonical reference will restrict functionality
+	 * and may result in an error in a future release.
+	 */
 	CanonicalBusinessObjectReference getCanonicalReference(ReferenceContext ctx);
 
-	// TODO: Remove default. Add context. Rename?
+	/**
+	 * Returns a relative reference for the business object contained in the context.
+	 * @param ctx the context containing the business object.
+	 * @return a relative reference for the business object contained in the context. Must not return null.
+	 *  {@link #isApplicable(IsApplicableContext) should only return true if a relative reference can be generated for the business object.
+	 */
 	RelativeBusinessObjectReference getRelativeReference(ReferenceContext ctx);
 
 	/**
