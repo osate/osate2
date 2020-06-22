@@ -25,13 +25,17 @@ package org.osate.ge.aadl2.internal.businessObjectHandlers;
 
 import java.util.Optional;
 
+import org.osate.aadl2.Aadl2Package;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetIconIdContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
 import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.util.AgeAadlUtil;
 
@@ -48,6 +52,16 @@ public class PackageProxyHandler implements BusinessObjectHandler {
 	}
 
 	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		return ctx.getBusinessObject(BusinessObjectProxy.class).get().getCanonicalReference();
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		return ctx.getBusinessObject(BusinessObjectProxy.class).get().getRelativeReference();
+	}
+
+	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		return Optional.empty();
 	}
@@ -59,7 +73,7 @@ public class PackageProxyHandler implements BusinessObjectHandler {
 
 	@Override
 	public final Optional<String> getIconId(final GetIconIdContext ctx) {
-		return ctx.getBusinessObject(BusinessObjectProxy.class).map(p -> AadlImages.getImage(p.getEClass()));
+		return Optional.of(AadlImages.getImage(Aadl2Package.eINSTANCE.getAadlPackage()));
 	}
 
 }

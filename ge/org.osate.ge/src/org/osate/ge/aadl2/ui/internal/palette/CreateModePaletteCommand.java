@@ -29,7 +29,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EObject;
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -43,8 +42,8 @@ import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
-import org.osate.ge.palette.TargetedPaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
+import org.osate.ge.palette.TargetedPaletteCommand;
 
 public class CreateModePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 

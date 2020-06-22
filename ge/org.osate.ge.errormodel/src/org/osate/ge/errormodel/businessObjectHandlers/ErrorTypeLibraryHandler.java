@@ -25,12 +25,16 @@ package org.osate.ge.errormodel.businessObjectHandlers;
 
 import java.util.Optional;
 
+import org.osate.aadl2.AadlPackage;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
-import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
 import org.osate.ge.errormodel.model.ErrorTypeLibrary;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
@@ -40,7 +44,22 @@ public class ErrorTypeLibraryHandler implements BusinessObjectHandler {
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(ErrorTypeLibrary.class).isPresent();
+		return ctx.getBusinessObject(ErrorTypeLibrary.class)
+				.filter(bo -> bo.getErrorModelLibrary().getElementRoot() instanceof AadlPackage).isPresent();
+	}
+
+	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		final AadlPackage pkg = (AadlPackage) ctx.getBusinessObject(ErrorTypeLibrary.class).get()
+				.getErrorModelLibrary()
+				.getElementRoot();
+		return new CanonicalBusinessObjectReference(ErrorModelReferenceUtil.TYPE_ERROR_TYPE_LIBRARY,
+				ctx.getReferenceBuilder().getCanonicalReference(pkg).encode());
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_ERROR_TYPE_LIBRARY);
 	}
 
 	@Override

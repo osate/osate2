@@ -37,14 +37,18 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.ReferenceContext;
+import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.businessObjectHandlers.BusinessObjectHandlerProvider;
 import org.osate.ge.internal.di.GetCanonicalReferenceLabel;
 import org.osate.ge.internal.di.GetRelativeReferenceLabel;
@@ -65,10 +69,10 @@ public class DefaultReferenceService implements ReferenceService {
 	// Start a thread which will monitor the service reference queue and call the dispose method of the reference.
 	static {
 		final Thread referenceDisposalThread = new Thread(() -> {
-			while(!Thread.currentThread().isInterrupted()) {
+			while (!Thread.currentThread().isInterrupted()) {
 				ProjectReferenceServiceReference ref;
 				try {
-					while((ref = (ProjectReferenceServiceReference)serviceReferenceQueue.remove()) != null) {
+					while ((ref = (ProjectReferenceServiceReference) serviceReferenceQueue.remove()) != null) {
 						ref.dispose();
 					}
 				} catch (InterruptedException e) {
@@ -85,8 +89,7 @@ public class DefaultReferenceService implements ReferenceService {
 		private final IEclipseContext ctx;
 
 		public ProjectReferenceServiceReference(final DefaultProjectReferenceService service,
-				final ReferenceQueue<? super ProjectReferenceService> queue,
-				final IEclipseContext ctx) {
+				final ReferenceQueue<? super ProjectReferenceService> queue, final IEclipseContext ctx) {
 			super(service, queue);
 			this.ctx = Objects.requireNonNull(ctx, "ctx must not be null");
 		}
@@ -108,8 +111,8 @@ public class DefaultReferenceService implements ReferenceService {
 		protected void deactivate() {
 			// Dispose the service if it is valid
 			final ReferenceService service = getService();
-			if(service instanceof DefaultReferenceService) {
-				((DefaultReferenceService)service).dispose();
+			if (service instanceof DefaultReferenceService) {
+				((DefaultReferenceService) service).dispose();
 			}
 
 			super.deactivate();
@@ -127,9 +130,9 @@ public class DefaultReferenceService implements ReferenceService {
 		@Override
 		public void modelChanged(final boolean modelWasLocked) {
 			// Notify project reference services of the model change
-			for(final ProjectReferenceServiceReference ref : projectToProjectReferenceService.values()) {
+			for (final ProjectReferenceServiceReference ref : projectToProjectReferenceService.values()) {
 				final DefaultProjectReferenceService projectReferenceService = ref.get();
-				if(projectReferenceService != null) {
+				if (projectReferenceService != null) {
 					projectReferenceService.onModelChanged();
 				}
 			}
@@ -188,7 +191,17 @@ public class DefaultReferenceService implements ReferenceService {
 			return null;
 		}
 
-		return boh.getCanonicalReference(new ReferenceContext(bo));
+		try {
+			return boh.getCanonicalReference(new ReferenceContext(bo, this));
+		} catch (RuntimeException ex) {
+			StatusManager.getManager().handle(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+							"Error retrieving canonical reference for " + bo.getClass().getCanonicalName()
+							+ ".",
+							ex),
+					StatusManager.LOG | StatusManager.SHOW);
+			return null;
+		}
 	}
 
 	@Override
@@ -200,14 +213,25 @@ public class DefaultReferenceService implements ReferenceService {
 			return null;
 		}
 
-		return boh.getRelativeReference(new ReferenceContext(bo));
+		try {
+			return Objects.requireNonNull(boh.getRelativeReference(new ReferenceContext(bo, this)),
+					() -> "Business object handlers must not return a null relative reference. Null reference returned by '"
+							+ boh.getClass().getCanonicalName() + "'");
+		} catch (RuntimeException ex) {
+			StatusManager.getManager().handle(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+							"Error retrieving relative reference for " + bo.getClass().getCanonicalName() + ".",
+							ex),
+					StatusManager.LOG | StatusManager.SHOW);
+			return null;
+		}
 	}
 
 	@Override
 	public ProjectReferenceService getProjectReferenceService(final IProject project) {
 		ProjectReferenceServiceReference serviceRef = projectToProjectReferenceService.get(project);
 		DefaultProjectReferenceService result = serviceRef == null ? null : serviceRef.get();
-		if(result == null) {
+		if (result == null) {
 			// Create a new context
 			final Bundle bundle = FrameworkUtil.getBundle(getClass());
 			final IEclipseContext ctx = EclipseContextFactory.getServiceContext(bundle.getBundleContext())
@@ -217,7 +241,8 @@ public class DefaultReferenceService implements ReferenceService {
 			result = new DefaultProjectReferenceService(this, this, project, ctx);
 
 			// Create the reference
-			final ProjectReferenceServiceReference newServiceRef = new ProjectReferenceServiceReference(result, serviceReferenceQueue, ctx);
+			final ProjectReferenceServiceReference newServiceRef = new ProjectReferenceServiceReference(result,
+					serviceReferenceQueue, ctx);
 			projectToProjectReferenceService.put(project, newServiceRef);
 		}
 
@@ -235,8 +260,7 @@ public class DefaultReferenceService implements ReferenceService {
 			argCtx.set(InternalNames.PROJECT, project);
 			for (final Object refLabelProvider : referenceLabelProviders) {
 				final String label = (String) ContextInjectionFactory.invoke(refLabelProvider,
-						GetCanonicalReferenceLabel.class,
-						serviceContext, argCtx, null);
+						GetCanonicalReferenceLabel.class, serviceContext, argCtx, null);
 				if (label != null) {
 					return label;
 				}

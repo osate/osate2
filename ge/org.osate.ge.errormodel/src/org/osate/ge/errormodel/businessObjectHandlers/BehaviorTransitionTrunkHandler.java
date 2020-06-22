@@ -27,8 +27,10 @@ import java.util.Optional;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.CanDeleteContext;
 import org.osate.ge.businessObjectHandlers.CustomDeleteContext;
@@ -36,6 +38,7 @@ import org.osate.ge.businessObjectHandlers.CustomDeleter;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
 import org.osate.ge.errormodel.model.BehaviorTransitionTrunk;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.ge.query.StandaloneQuery;
@@ -56,6 +59,19 @@ public class BehaviorTransitionTrunkHandler implements BusinessObjectHandler, Cu
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(BehaviorTransitionTrunk.class).isPresent();
+	}
+
+	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		final BehaviorTransitionTrunk trunk = ctx.getBusinessObject(BehaviorTransitionTrunk.class).get();
+		return new CanonicalBusinessObjectReference(
+				ErrorModelReferenceUtil.TYPE_BEHAVIOR_TRANSITION_TRUNK,
+				ctx.getReferenceBuilder().getCanonicalReference(trunk.getTransition()).encode());
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_TRANSITION_TRUNK);
 	}
 
 	@Override

@@ -62,6 +62,7 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.ge.CanonicalBusinessObjectReference;
+import org.osate.ge.aadl2.internal.businessObjectHandlers.AadlReferenceUtil;
 import org.osate.ge.aadl2.internal.model.SubprogramCallOrder;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ResolveCanonicalReference;
@@ -188,6 +189,8 @@ public class DeclarativeReferenceResolver {
 			return null;
 		}
 
+		final CanonicalBusinessObjectReference ref = new CanonicalBusinessObjectReference(refSegs); // TODO; Remove..
+
 		Object referencedObject = null; // The object that will be returned
 		final String type = refSegs[0];
 
@@ -231,7 +234,7 @@ public class DeclarativeReferenceResolver {
 						final ComponentClassifier cc = (ComponentClassifier)referencedClassifier;
 						final String name = refSegs[2];
 						referencedObject = cc.getOwnedModeTransitions().stream().
-								filter(mt -> name.equalsIgnoreCase(DeclarativeReferenceBuilder.getNameForSerialization(mt))). // Filter objects by name
+								filter(mt -> name.equalsIgnoreCase(AadlReferenceUtil.getNameForSerialization(mt))). // Filter objects by name
 								findAny().orElse(null);
 					}
 				}
@@ -239,7 +242,7 @@ public class DeclarativeReferenceResolver {
 				final ComponentClassifier cc = getNamedElementByQualifiedName(qualifiedName, ComponentClassifier.class);
 				if(cc != null) {
 					for(final ModeTransition mt : cc.getOwnedModeTransitions()) {
-						if(equalsIgnoreCase(refSegs, DeclarativeReferenceBuilder.buildUnnamedModeTransitionKey(mt))) {
+						if (ref.equals(AadlReferenceUtil.getCanonicalReferenceForUnnamedModeTransition(mt))) {
 							referencedObject = mt;
 							break;
 						}
@@ -254,8 +257,11 @@ public class DeclarativeReferenceResolver {
 						final String contextName = refSegs[2];
 						final String triggerPortName = refSegs[3];
 						referencedObject = mt.getOwnedTriggers().stream().
-								filter(mtt -> contextName.equalsIgnoreCase(DeclarativeReferenceBuilder.getNameForSerialization(mtt.getContext())) &&
-										triggerPortName.equalsIgnoreCase(DeclarativeReferenceBuilder.getNameForSerialization(mtt.getTriggerPort()))).
+								filter(mtt -> contextName
+										.equalsIgnoreCase(AadlReferenceUtil.getNameForSerialization(mtt.getContext()))
+										&& triggerPortName.equalsIgnoreCase(
+												AadlReferenceUtil.getNameForSerialization(mtt.getTriggerPort())))
+								.
 								findAny().orElse(null);
 					}
 				}

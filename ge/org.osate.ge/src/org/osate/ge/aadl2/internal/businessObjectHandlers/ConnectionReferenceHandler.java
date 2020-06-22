@@ -84,14 +84,14 @@ public class ConnectionReferenceHandler extends AadlBusinessObjectHandler {
 		return new CanonicalBusinessObjectReference(AadlReferenceUtil.INSTANCE_ID,
 				AadlReferenceUtil.CONNECTION_REFERENCE_KEY,
 				AadlReferenceUtil.getSystemInstanceKey(bo),
-				buildConnectionReferenceId(bo));
+				AadlReferenceUtil.buildConnectionReferenceId(bo));
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
 		return new RelativeBusinessObjectReference(AadlReferenceUtil.INSTANCE_ID,
 				AadlReferenceUtil.CONNECTION_REFERENCE_KEY,
-				buildConnectionReferenceId(ctx.getBusinessObject(ConnectionReference.class).get()));
+				AadlReferenceUtil.buildConnectionReferenceId(ctx.getBusinessObject(ConnectionReference.class).get()));
 	}
 
 	@Override
@@ -146,9 +146,5 @@ public class ConnectionReferenceHandler extends AadlBusinessObjectHandler {
 				.orElse("");
 	}
 
-	private static String buildConnectionReferenceId(final ConnectionReference cr) {
-		return (cr.getConnection() == null ? "<null>" : cr.getConnection().getFullName()) + " : "
-				+ cr.getSource().getInstanceObjectPath().toLowerCase() + " -> "
-				+ cr.getDestination().getInstanceObjectPath().toLowerCase();
-	}
+
 }

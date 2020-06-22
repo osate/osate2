@@ -55,7 +55,8 @@ public class ClassifierHandler extends AadlBusinessObjectHandler {
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		return getClassifierRelativeReference(ctx.getBusinessObject(Classifier.class).get().getName());
+		return AadlReferenceUtil
+				.getClassifierRelativeReference(ctx.getBusinessObject(Classifier.class).get().getName());
 	}
 
 	@Override
@@ -123,9 +124,5 @@ public class ClassifierHandler extends AadlBusinessObjectHandler {
 			// The value is valid
 			return null;
 		});
-	}
-
-	public static RelativeBusinessObjectReference getClassifierRelativeReference(final String name) {
-		return AadlReferenceUtil.buildSimpleRelativeReference(DeclarativeReferenceType.CLASSIFIER.getId(), name);
 	}
 }

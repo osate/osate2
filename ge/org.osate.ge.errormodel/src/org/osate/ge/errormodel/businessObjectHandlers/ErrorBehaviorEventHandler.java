@@ -25,14 +25,18 @@ package org.osate.ge.errormodel.businessObjectHandlers;
 
 import java.util.Optional;
 
+import org.osate.aadl2.AadlPackage;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.CanDeleteContext;
 import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
 import org.osate.ge.businessObjectHandlers.RenameContext;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
@@ -51,7 +55,22 @@ public class ErrorBehaviorEventHandler implements BusinessObjectHandler {
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(ErrorBehaviorEvent.class).isPresent();
+		return ctx.getBusinessObject(ErrorBehaviorEvent.class).map(bo -> bo
+				.getElementRoot() instanceof AadlPackage)
+				.isPresent();
+	}
+
+	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		final ErrorBehaviorEvent typedBo = ctx.getBusinessObject(ErrorBehaviorEvent.class).get();
+		return new CanonicalBusinessObjectReference(
+				ctx.getReferenceBuilder().getCanonicalReference(typedBo.eContainer()).encode(), typedBo.getName());
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_EVENT,
+				ctx.getBusinessObject(ErrorBehaviorEvent.class).get().getName());
 	}
 
 	@Override
@@ -81,8 +100,7 @@ public class ErrorBehaviorEventHandler implements BusinessObjectHandler {
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(ErrorBehaviorEvent.class).map(bo -> bo.getName())
-				.orElse("");
+		return ctx.getBusinessObject(ErrorBehaviorEvent.class).map(bo -> bo.getName()).orElse("");
 	}
 
 	@Override

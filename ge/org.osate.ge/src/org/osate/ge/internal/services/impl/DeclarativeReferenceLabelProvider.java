@@ -30,7 +30,6 @@ import javax.inject.Named;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.xtext.resource.IEObjectDescription;
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.internal.di.GetCanonicalReferenceLabel;

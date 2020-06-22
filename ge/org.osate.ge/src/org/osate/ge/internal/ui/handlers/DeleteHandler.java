@@ -343,6 +343,10 @@ public class DeleteHandler extends AbstractHandler {
 	private static boolean anyBoIsDiagramContext(final List<DiagramElement> diagramElements, final AgeDiagram diagram,
 			final ReferenceBuilderService refBuilder) {
 		final CanonicalBusinessObjectReference diagramContextRef = diagram.getConfiguration().getContextBoReference();
+		if (diagramContextRef == null) {
+			return false;
+		}
+
 		return diagramElements.stream().map(de -> refBuilder.getCanonicalReference(de.getBusinessObject()))
 				.filter(Predicates.notNull()).anyMatch(boRef -> boRef.equals(diagramContextRef));
 	}

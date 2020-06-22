@@ -25,14 +25,18 @@ package org.osate.ge.errormodel.businessObjectHandlers;
 
 import java.util.Optional;
 
+import org.osate.aadl2.AadlPackage;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.CanDeleteContext;
 import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
 import org.osate.ge.businessObjectHandlers.RenameContext;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
@@ -46,7 +50,21 @@ public class ErrorBehaviorStateHandler implements BusinessObjectHandler {
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(ErrorBehaviorState.class).isPresent();
+		return ctx.getBusinessObject(ErrorBehaviorState.class).map(bo -> bo.getElementRoot() instanceof AadlPackage)
+				.isPresent();
+	}
+
+	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		final ErrorBehaviorState typedBo = ctx.getBusinessObject(ErrorBehaviorState.class).get();
+		return new CanonicalBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_STATE,
+				ctx.getReferenceBuilder().getCanonicalReference(typedBo.eContainer()).encode(), typedBo.getName());
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_STATE,
+				ctx.getBusinessObject(ErrorBehaviorState.class).get().getName());
 	}
 
 	@Override

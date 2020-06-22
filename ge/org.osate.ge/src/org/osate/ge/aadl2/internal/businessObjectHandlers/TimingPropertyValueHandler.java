@@ -30,13 +30,16 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.model.AgePropertyValue;
 import org.osate.ge.aadl2.internal.model.PropertyValueGroup;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.PolyBuilder;
@@ -65,7 +68,7 @@ public class TimingPropertyValueHandler extends AadlBusinessObjectHandler {
 					new Point(5.0, -10), new Point(5.0, 10.0))
 			.build();
 
-	private final PropertyValueGroupHandler fallbackBoh = new PropertyValueGroupHandler();
+	private final PropertyValueGroupHandler pvgBoh = new PropertyValueGroupHandler();
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
@@ -79,6 +82,16 @@ public class TimingPropertyValueHandler extends AadlBusinessObjectHandler {
 
 			return false;
 		}).isPresent();
+	}
+
+	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		return pvgBoh.getCanonicalReference(ctx);
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		return pvgBoh.getRelativeReference(ctx);
 	}
 
 	public static boolean isImmediateTimingProperty(final Object bo) {
@@ -110,7 +123,7 @@ public class TimingPropertyValueHandler extends AadlBusinessObjectHandler {
 
 		// Use default property handler if the BO isn't a connection or connection reference.
 		if(!(parentBo instanceof Connection || parentBo instanceof ConnectionReference)) {
-			return fallbackBoh.getGraphicalConfiguration(ctx);
+			return pvgBoh.getGraphicalConfiguration(ctx);
 		}
 
 		final NamedValue namedValue = (NamedValue)pvg.getFirstValueBasedOnCompletelyProcessedAssociation().getValue();
@@ -136,6 +149,6 @@ public class TimingPropertyValueHandler extends AadlBusinessObjectHandler {
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return fallbackBoh.getName(ctx);
+		return pvgBoh.getName(ctx);
 	}
 }

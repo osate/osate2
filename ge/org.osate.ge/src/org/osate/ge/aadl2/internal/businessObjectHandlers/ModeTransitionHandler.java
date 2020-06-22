@@ -27,16 +27,20 @@ import java.util.Optional;
 
 import org.osate.aadl2.ModeTransition;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessObjectHandlers.CanDeleteContext;
 import org.osate.ge.businessObjectHandlers.CanRenameContext;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
@@ -48,6 +52,31 @@ public class ModeTransitionHandler extends AadlBusinessObjectHandler {
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(ModeTransition.class).isPresent();
+	}
+
+	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		final ModeTransition mt = ctx.getBusinessObject(ModeTransition.class).get();
+		final String name = mt.getName();
+		if (name == null) {
+			return AadlReferenceUtil.getCanonicalReferenceForUnnamedModeTransition(mt);
+		} else {
+			return new CanonicalBusinessObjectReference(DeclarativeReferenceType.MODE_TRANSITION_NAMED.getId(),
+					ctx.getReferenceBuilder().getCanonicalReference(mt.eContainer())
+					.encode(),
+					AadlReferenceUtil.getNameForSerialization(mt));
+		}
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		final ModeTransition mt = ctx.getBusinessObject(ModeTransition.class).get();
+		final String name = mt.getName();
+		if (name == null) {
+			return AadlReferenceUtil.getUnnamedModeTransitionRelativeReference(mt);
+		} else {
+			return AadlReferenceUtil.buildSimpleRelativeReference(DeclarativeReferenceType.MODE_TRANSITION_NAMED.getId(), mt);
+		}
 	}
 
 	@Override

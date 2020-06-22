@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -21,37 +21,32 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.ba;
+package org.osate.ge.referenceHandling;
 
-import javax.inject.Named;
+import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 
-import org.osate.ba.aadlba.BehaviorState;
-import org.osate.ge.di.BuildRelativeReference;
-import org.osate.ge.di.Names;
+/**
+ * References are provided by {@link BusinessObjectHandler} to reference a business object. Implementations of this interface
+ * are responsible for resolving and providing labels for such references.
+ *
+ * It is strongly recommended that all references provided {@link BusinessObjectHandler} implementations have an registered implementation
+ * to provide labels for relative references to avoid exposing raw references to the user interface. Implementation of other methods are necessary
+ * only for a subset of business objects. See method documentation for details
+ *
+ * @since 2.0
+ */
+public interface ReferenceHandler {
+	// Recommended for all. Can define a fallback behavior? Describe.
+	// getLabel(relative)
 
-public class BaReferenceHandler {
-	private final static String BA_REFERENCE_PREFIX = "ba.";
-	private final static String TYPE_STATE = BA_REFERENCE_PREFIX + "state";
-	
-	@BuildRelativeReference
-	public String[] getRelativeReference(final @Named(Names.BUSINESS_OBJECT) Object bo) {
-		if(bo instanceof BehaviorState) {
-			return new String[] {TYPE_STATE, ((BehaviorState)bo).getFullName()};				
-		}
-		
-		return null;
-	}
-	
-	// TODO: Support canonical references as needed
-	/*
-	@BuildReference
-	public String[] getReference(final @Named(Names.BUSINESS_OBJECT) Object bo, final ReferenceBuilderService refBuilder) {
-		return null;
-	}
-	
-	@ResolveReference
-	public Object getReferencedObject(final @Named(Names.REFERENCE) String[] ref, final ReferenceResolutionService refService) {
-		return null;
-	}
-	*/
+	// Required for contexts
+	// getLabel(canonical)
+
+	// Required for contexts..
+	// resolve(CanonicalReference)
+	// TODO; Context
+	// TODO; Reference
+	// TODO; ReferenceREsolutioNService
+	// TODO: Proeject
+
 }

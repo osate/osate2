@@ -95,7 +95,7 @@ public class FeatureHandler extends AadlBusinessObjectHandler {
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
 		final Object bo = ctx.getBusinessObject();
 		if (bo instanceof Feature) {
-			return getFeatureRelativeReference(((Feature) bo).getName());
+			return AadlReferenceUtil.getFeatureRelativeReference(((Feature) bo).getName());
 		} else if (bo instanceof InternalFeature) {
 			return AadlReferenceUtil.buildSimpleRelativeReference(DeclarativeReferenceType.INTERNAL_FEATURE
 					.getId(),
@@ -230,9 +230,5 @@ public class FeatureHandler extends AadlBusinessObjectHandler {
 	@Override
 	public boolean canRename(final CanRenameContext ctx) {
 		return true;
-	}
-
-	private static RelativeBusinessObjectReference getFeatureRelativeReference(final String name) {
-		return AadlReferenceUtil.buildSimpleRelativeReference(DeclarativeReferenceType.FEATURE.getId(), name);
 	}
 }

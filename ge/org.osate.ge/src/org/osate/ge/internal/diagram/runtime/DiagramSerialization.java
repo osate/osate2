@@ -46,6 +46,7 @@ import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.DiagramType;
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.aadl2.internal.businessObjectHandlers.AadlReferenceUtil;
 import org.osate.ge.aadl2.internal.diagramTypes.CustomDiagramType;
 import org.osate.ge.aadl2.internal.diagramTypes.PackageDiagramType;
 import org.osate.ge.aadl2.internal.diagramTypes.StructureDiagramType;
@@ -55,12 +56,12 @@ import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.internal.businessObjectHandlers.InternalReferenceUtil;
 import org.osate.ge.internal.diagram.runtime.filtering.ContentFilterProvider;
 import org.osate.ge.internal.diagram.runtime.types.UnrecognizedDiagramType;
 import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
-import org.osate.ge.internal.services.impl.GraphicalEditorModelReferenceBuilder;
 
 /**
  * Class to help read and write the native diagram format used by the editor.
@@ -191,14 +192,14 @@ public class DiagramSerialization {
 			return;
 		}
 
-		// Older versions of property vlaue groups use legacy ids.
+		// Older versions of property value groups use legacy ids.
 		final Iterator<Object> it = EcoreUtil.getAllProperContents(diagram, true);
 		while (it.hasNext()) {
 			final Object o = it.next();
 			if (o instanceof org.osate.ge.diagram.RelativeBusinessObjectReference) {
 				org.osate.ge.diagram.RelativeBusinessObjectReference ref = (org.osate.ge.diagram.RelativeBusinessObjectReference) o;
 				if (ref.getSeg().size() == 3 && Objects.equals(ref.getSeg().get(0),
-						GraphicalEditorModelReferenceBuilder.TYPE_PROPERTY_VALUE_GROUP)) {
+						AadlReferenceUtil.PROPERTY_VALUE_GROUP_KEY)) {
 					final int idSegmentIndex = 2;
 					final UUID referencedUuid = legacyIdToUuidMap.get(Long.parseLong(ref.getSeg().get(idSegmentIndex)));
 
@@ -246,7 +247,7 @@ public class DiagramSerialization {
 		}
 
 		final RelativeBusinessObjectReference relReference = new RelativeBusinessObjectReference(refSegs);
-		final Object bo = GraphicalEditorModelReferenceBuilder.createEmbeddedObject(relReference,
+		final Object bo = InternalReferenceUtil.createEmbeddedObject(relReference,
 				mmChild.getBoData());
 
 		// Set the ID

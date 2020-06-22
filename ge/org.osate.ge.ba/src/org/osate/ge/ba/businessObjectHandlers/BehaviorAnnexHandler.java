@@ -26,16 +26,34 @@ package org.osate.ge.ba.businessObjectHandlers;
 import java.util.Optional;
 
 import org.osate.ba.aadlba.BehaviorAnnex;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
-import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
 
+/**
+ * Business object handler for {@link BehaviorAnnex}. This handler only exists to prevent the annex from being added by the AADL
+ * business object provider. Since the object isn't contributed at this time, the other methods are not necessary.
+ *
+ */
 public class BehaviorAnnexHandler implements BusinessObjectHandler {
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(BehaviorAnnex.class).isPresent();
+	}
+
+	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		throw new RuntimeException("Not supported");
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		throw new RuntimeException("Not supported");
 	}
 
 	@Override

@@ -258,7 +258,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 
 	/**
 	 * Searches the child of a specified diagram node for elements with a matching canonical business object reference.
-	 * Returns the associated pictogram elmeents. Returns up to limit entries.
+	 * Returns the associated pictogram elements. Returns up to limit entries.
 	 * @return whether the limit has been reached
 	 */
 	private boolean getPictogramElements(final CanonicalBusinessObjectReference searchRef, final DiagramNode dn,

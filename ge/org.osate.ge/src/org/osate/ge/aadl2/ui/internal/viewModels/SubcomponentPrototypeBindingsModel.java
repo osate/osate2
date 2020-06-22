@@ -33,7 +33,6 @@ import java.util.stream.Stream;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.resource.IEObjectDescription;
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AccessSpecification;
 import org.osate.aadl2.ComponentCategory;

@@ -27,9 +27,12 @@ import java.util.Optional;
 
 import javax.inject.Named;
 
+import org.osate.aadl2.AadlPackage;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.CanDeleteContext;
 import org.osate.ge.businessObjectHandlers.CustomDeleteContext;
@@ -38,6 +41,7 @@ import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.GetNameForDiagramContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
 import org.osate.ge.di.Names;
 import org.osate.ge.errormodel.model.ErrorTypeExtension;
 import org.osate.ge.errormodel.model.ErrorTypeLibrary;
@@ -61,7 +65,24 @@ public class ErrorTypeExtensionHandler implements BusinessObjectHandler, CustomD
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(ErrorTypeExtension.class).isPresent();
+		return ctx.getBusinessObject(ErrorTypeExtension.class).filter(
+				ete -> ete.getSubtype().getElementRoot() instanceof AadlPackage
+						&& ete.getSupertype().getElementRoot() instanceof AadlPackage)
+				.isPresent();
+	}
+
+	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		final ErrorTypeExtension ete = ctx.getBusinessObject(ErrorTypeExtension.class).get();
+		return new CanonicalBusinessObjectReference(ErrorModelReferenceUtil.TYPE_ERROR_TYPE_EXT,
+				ctx.getReferenceBuilder().getCanonicalReference(ete.getSupertype()).encode(),
+				ctx.getReferenceBuilder().getCanonicalReference(ete.getSubtype()).encode());
+
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_ERROR_TYPE_EXT);
 	}
 
 	@Override

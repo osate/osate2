@@ -25,17 +25,36 @@ package org.osate.ge.errormodel.businessObjectHandlers;
 
 import java.util.Optional;
 
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
-import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
+import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 
+/**
+ * Business object handler for {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause}.
+ * This handler only exists to prevent the annex from being added by the AADL business object provider.
+ *  Since the object isn't contributed at this time, the other methods are not necessary.
+ *
+ */
 public class ErrorModelSubclauseHandler implements BusinessObjectHandler {
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(ErrorModelSubclause.class).isPresent();
+	}
+
+	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		throw new RuntimeException("Not supported");
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		throw new RuntimeException("Not supported");
 	}
 
 	@Override

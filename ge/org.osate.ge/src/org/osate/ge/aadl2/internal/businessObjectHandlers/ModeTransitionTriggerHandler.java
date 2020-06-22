@@ -29,17 +29,21 @@ import javax.inject.Named;
 
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
+import org.osate.ge.businessObjectHandlers.ReferenceContext;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -59,6 +63,25 @@ public class ModeTransitionTriggerHandler extends AadlBusinessObjectHandler {
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(ModeTransitionTrigger.class).isPresent();
+	}
+
+	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		final ModeTransitionTrigger mtt = ctx.getBusinessObject(ModeTransitionTrigger.class).get();
+		return new CanonicalBusinessObjectReference(DeclarativeReferenceType.MODE_TRANSITION_TRIGGER.getId(),
+				ctx.getReferenceBuilder().getCanonicalReference(mtt
+						.eContainer())
+				.encode(),
+				AadlReferenceUtil.getNameForSerialization(mtt.getContext()),
+				AadlReferenceUtil.getNameForSerialization(mtt.getTriggerPort()));
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		final ModeTransitionTrigger mtt = ctx.getBusinessObject(ModeTransitionTrigger.class).get();
+		return new RelativeBusinessObjectReference(DeclarativeReferenceType.MODE_TRANSITION_TRIGGER.getId(),
+				AadlReferenceUtil.getNameForSerialization(mtt.getContext()),
+				AadlReferenceUtil.getNameForSerialization(mtt.getTriggerPort()));
 	}
 
 	@Override
@@ -90,12 +113,12 @@ public class ModeTransitionTriggerHandler extends AadlBusinessObjectHandler {
 		return (contextName.length() == 0 ? "" : (contextName + ".")) + portName;
 	}
 
-	// Source - the mode transition
+// Source - the mode transition
 	private BusinessObjectContext getSource(final BusinessObjectContext boc) {
 		return boc.getParent();
 	}
 
-	// Destination - trigger feature
+// Destination - trigger feature
 	private BusinessObjectContext getDestination(final BusinessObjectContext boc,
 			final QueryService queryService) {
 		return queryService.getFirstResult(dstQuery, boc);

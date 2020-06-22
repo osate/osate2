@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -41,15 +41,8 @@ import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
-import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instance.ConnectionReference;
-import org.osate.aadl2.instance.FeatureInstance;
-import org.osate.aadl2.instance.FlowSpecificationInstance;
-import org.osate.aadl2.instance.InstanceObject;
-import org.osate.aadl2.instance.ModeInstance;
-import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.ge.aadl2.internal.businessObjectHandlers.AadlReferenceUtil;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ResolveCanonicalReference;
 import org.osate.ge.internal.services.ProjectProvider;
@@ -106,48 +99,9 @@ public class InstanceReferenceResolver {
 	 */
 	private class SystemInstanceInfo {
 		public final SystemInstance systemInstance;
-		private final Map<String, InstanceObject> idToElementMap = new HashMap<String, InstanceObject>();
 
 		public SystemInstanceInfo(final SystemInstance systemInstance) {
 			this.systemInstance = systemInstance;
-
-			// Add component instances
-			for(final ComponentInstance ci : systemInstance.getAllComponentInstances()) {
-				idToElementMap.put(ci.getInstanceObjectPath().toLowerCase(), ci);
-
-				for(final FeatureInstance featureInstance : ci.getFeatureInstances()) {
-					addFeatureInstance(featureInstance);
-				}
-			}
-
-			for(final ConnectionInstance ci : systemInstance.getAllConnectionInstances()) {
-				for(final ConnectionReference cr : ci.getConnectionReferences()) {
-					idToElementMap.put(InstanceReferenceBuilder.buildConnectionReferenceId(cr), cr);
-				}
-			}
-
-			for(final FlowSpecificationInstance fsi : systemInstance.getFlowSpecifications()) {
-				idToElementMap.put(fsi.getInstanceObjectPath().toLowerCase(), fsi);
-			}
-
-			for (final ModeInstance mi : systemInstance.getModeInstances()) {
-				idToElementMap.put(mi.getInstanceObjectPath().toLowerCase(), mi);
-			}
-
-			for (final ModeTransitionInstance mti : systemInstance.getModeTransitionInstances()) {
-				idToElementMap.put(mti.getInstanceObjectPath().toLowerCase(), mti);
-			}
-		}
-
-		private void addFeatureInstance(final FeatureInstance fi) {
-			idToElementMap.put(fi.getInstanceObjectPath().toLowerCase(), fi);
-			for(final FeatureInstance child : fi.getFeatureInstances()) {
-				addFeatureInstance(child);
-			}
-		}
-
-		public InstanceObject getInstanceObject(final String id) {
-			return idToElementMap.get(id);
 		}
 	}
 
@@ -177,7 +131,7 @@ public class InstanceReferenceResolver {
 			return null;
 		}
 
-		if(!InstanceReferenceBuilder.ID.equals(refSegs[0])) {
+		if (!AadlReferenceUtil.INSTANCE_ID.equals(refSegs[0])) {
 			return null;
 		}
 
@@ -185,17 +139,8 @@ public class InstanceReferenceResolver {
 		final String systemInstanceKey = refSegs[2];
 		final SystemInstanceInfo siInfo = getSystemInstanceInfo(systemInstanceKey);
 		if(siInfo != null) {
-			if(type.equals(InstanceReferenceBuilder.SYSTEM_INSTANCE_KEY)) {
+			if (type.equals(AadlReferenceUtil.SYSTEM_INSTANCE_KEY)) {
 				return siInfo.systemInstance;
-			} else if(refSegs.length >= 4) {
-				if (type.equals(InstanceReferenceBuilder.COMPONENT_INSTANCE_KEY)
-						|| type.equals(InstanceReferenceBuilder.FEATURE_INSTANCE_KEY)
-						|| type.equals(InstanceReferenceBuilder.CONNECTION_REFERENCE_KEY)
-						|| type.equals(InstanceReferenceBuilder.FLOW_SPECIFICATION_INSTANCE_KEY)
-						|| type.equals(InstanceReferenceBuilder.MODE_INSTANCE_KEY)
-						|| type.equals(InstanceReferenceBuilder.MODE_TRANSITION_INSTANCE_KEY)) {
-					return siInfo.getInstanceObject(refSegs[3]);
-				}
 			}
 		}
 

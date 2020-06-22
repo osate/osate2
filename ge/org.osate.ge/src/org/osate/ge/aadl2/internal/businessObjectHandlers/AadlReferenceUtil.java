@@ -28,7 +28,10 @@ import java.util.Objects;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
+import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.RelativeBusinessObjectReference;
@@ -49,6 +52,8 @@ public class AadlReferenceUtil {
 	public final static String FLOW_SPECIFICATION_INSTANCE_KEY = "flow_specification_instance";
 	public final static String MODE_INSTANCE_KEY = "mode_instance";
 	public final static String MODE_TRANSITION_INSTANCE_KEY = "mode_transition_instance";
+	public final static String TAG_KEY = "tag";
+	public final static String PROPERTY_VALUE_GROUP_KEY = "pvg";
 
 	public static RelativeBusinessObjectReference buildSimpleRelativeReference(
 			final String type,
@@ -61,18 +66,18 @@ public class AadlReferenceUtil {
 		return new RelativeBusinessObjectReference(type, name);
 	}
 
+	public static RelativeBusinessObjectReference buildSimpleRelativeReference(final String type,
+			final NamedElement bo) {
+		Objects.requireNonNull(bo, "bo must not be null");
+		return buildSimpleRelativeReference(type, bo.getName());
+	}
+
 	public static String getSystemInstanceKey(final InstanceObject io) {
 		final Bundle bundle = FrameworkUtil.getBundle(AadlReferenceUtil.class);
 		final SystemInstanceLoadingService sil = Objects.requireNonNull(EclipseContextFactory
 				.getServiceContext(bundle.getBundleContext()).get(SystemInstanceLoadingService.class),
 				"unable to get system instance loading service");
 		return sil.getKey(io.getSystemInstance());
-	}
-
-	public static RelativeBusinessObjectReference buildSimpleRelativeReference(final String type,
-			final NamedElement bo) {
-		Objects.requireNonNull(bo, "bo must not be null");
-		return buildSimpleRelativeReference(type, bo.getName());
 	}
 
 	public static boolean isSystemInstanceReference(final CanonicalBusinessObjectReference ref) {
@@ -104,14 +109,80 @@ public class AadlReferenceUtil {
 	}
 
 	public static CanonicalBusinessObjectReference getCanonicalReferenceForPackage(final String qualifiedName) {
-		return new CanonicalBusinessObjectReference(buildPackageReferenceSegments(qualifiedName));
+		return new CanonicalBusinessObjectReference(DeclarativeReferenceType.PACKAGE.getId(), qualifiedName);
 	}
 
 	public static RelativeBusinessObjectReference getRelativeReferenceForPackage(final String qualifiedName) {
-		return new RelativeBusinessObjectReference(buildPackageReferenceSegments(qualifiedName));
+		return new RelativeBusinessObjectReference(DeclarativeReferenceType.PACKAGE.getId(), qualifiedName);
 	}
 
-	private static String[] buildPackageReferenceSegments(final String qualifiedName) {
-		return new String[] { DeclarativeReferenceType.PACKAGE.getId(), qualifiedName };
+	public static CanonicalBusinessObjectReference getCanonicalReferenceForUnnamedModeTransition(
+			final ModeTransition mt) {
+		final List<ModeTransitionTrigger> triggers = mt.getOwnedTriggers();
+		final String[] segments = new String[5 + (triggers.size() * 2)];
+		int index = 0;
+		segments[index++] = DeclarativeReferenceType.MODE_TRANSITION_UNNAMED.getId();
+		segments[index++] = mt.getContainingClassifier().getQualifiedName();
+		segments[index++] = getNameForSerialization(mt);
+		segments[index++] = getNameForSerialization(mt.getSource());
+		segments[index++] = getNameForSerialization(mt.getDestination());
+		for (final ModeTransitionTrigger trigger : triggers) {
+			segments[index++] = getNameForSerialization(trigger.getContext());
+			segments[index++] = getNameForSerialization(trigger.getTriggerPort());
+		}
+
+		return new CanonicalBusinessObjectReference(segments);
+	}
+
+	public static RelativeBusinessObjectReference getUnnamedModeTransitionRelativeReference(final ModeTransition mt) {
+		final List<ModeTransitionTrigger> triggers = mt.getOwnedTriggers();
+		final String[] key = new String[4 + (triggers.size() * 2)];
+		int index = 0;
+		key[index++] = DeclarativeReferenceType.MODE_TRANSITION_UNNAMED.getId();
+		key[index++] = getNameForSerialization(mt);
+		key[index++] = getNameForSerialization(mt.getSource());
+		key[index++] = getNameForSerialization(mt.getDestination());
+		for (final ModeTransitionTrigger trigger : triggers) {
+			key[index++] = getNameForSerialization(trigger.getContext());
+			key[index++] = getNameForSerialization(trigger.getTriggerPort());
+		}
+
+		return new RelativeBusinessObjectReference(key);
+	}
+
+	/**
+	 * Returns a string that is not null to represent a named element's name. If name is null, converts it to a non-null value.
+	 * @param ne is the named element for which to return the serializable name.
+	 * @return the string representing the name.
+	 */
+	public static String getNameForSerialization(final NamedElement ne) {
+		return (ne == null || ne.getName() == null) ? "<null>" : ne.getName();
+	}
+
+	public static RelativeBusinessObjectReference getConnectionRelativeReference(final String name) {
+		return AadlReferenceUtil.buildSimpleRelativeReference(DeclarativeReferenceType.CONNECTION.getId(), name);
+	}
+
+	public static RelativeBusinessObjectReference getSubcomponentRelativeReference(final String name) {
+		return AadlReferenceUtil.buildSimpleRelativeReference(DeclarativeReferenceType.SUBCOMPONENT.getId(), name);
+	}
+
+	public static RelativeBusinessObjectReference getFlowSpecificationRelativeReference(final String name) {
+		return AadlReferenceUtil.buildSimpleRelativeReference(DeclarativeReferenceType.FLOW_SPECIFICATION.getId(),
+				name);
+	}
+
+	public static RelativeBusinessObjectReference getClassifierRelativeReference(final String name) {
+		return AadlReferenceUtil.buildSimpleRelativeReference(DeclarativeReferenceType.CLASSIFIER.getId(), name);
+	}
+
+	public static RelativeBusinessObjectReference getFeatureRelativeReference(final String name) {
+		return AadlReferenceUtil.buildSimpleRelativeReference(DeclarativeReferenceType.FEATURE.getId(), name);
+	}
+
+	public static String buildConnectionReferenceId(final ConnectionReference cr) {
+		return (cr.getConnection() == null ? "<null>" : cr.getConnection().getFullName()) + " : "
+				+ cr.getSource().getInstanceObjectPath().toLowerCase() + " -> "
+				+ cr.getDestination().getInstanceObjectPath().toLowerCase();
 	}
 }
