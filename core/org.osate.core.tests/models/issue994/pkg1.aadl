@@ -2,8 +2,8 @@ package pkg1
 public
 	thread t1
 		features
-			p1: in event data port;
-			p2: out event data port;
+			p1: in data port;
+			p2: out data port;
 		flows
 			f1: flow path p1 -> p2;
 			f2: flow path p1 -> p2;

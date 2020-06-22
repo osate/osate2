@@ -15,11 +15,11 @@ public
 	
 	system A
 		features
-			f_none: in out event data port;
-			f_d: in out event data port D;
-			f_di: in out event data port D.i;
-			f_dj: in out event data port D.j;
-			f_x: in out event data port X;
+			f_none: in out data port;
+			f_d: in out data port D;
+			f_di: in out data port D.i;
+			f_dj: in out data port D.j;
+			f_x: in out data port X;
 	end A;
 	
 	system top
