@@ -29,8 +29,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -82,7 +80,6 @@ import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.internal.command.DefaultExecutionInfo;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior;
@@ -224,17 +221,25 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 					final Point delta = ctxs.stream().map(ctx -> new Point(ctx.getDeltaX(), ctx.getDeltaY())).findAny()
 							.orElse(null);
 					if (delta != null) {
-						final List<Shape> shapes = ctxs.stream().map(ctx -> ctx.getShape())
-								.collect(Collectors.toList());
-
-						// Selected elements and their descendants
-						final Stream<DiagramElement> movedElements = shapes.stream()
-								.map(shape -> graphitiAgeDiagram.getDiagramElement(shape));
-
 						graphitiAgeDiagram.modify(gefCommand.getLabel(), m -> {
 							super.execute(gefCommand);
-							DiagramElementLayoutUtil.shiftRelatedConnectionBendpoints(getAgeDiagram(), movedElements,
-									new org.osate.ge.graphics.Point(delta.x, delta.y), m);
+
+							// Shift connection bendpoints and flow indicator positions
+							DiagramElementLayoutUtil.shiftRelatedConnections(
+									ctxs.stream().map(ctx -> ctx.getShape()).map(shape -> graphitiAgeDiagram
+											.getDiagramElement(
+													shape)),
+									new org.osate.ge.graphics.Point(delta.x, delta.y), m, true, true, true);
+
+							// Reset the positions of associated flow anchors. Flow anchors will be set after child shape positions are updated
+							// by the GraphitiAgeDiagram
+							DiagramElementLayoutUtil.resetFlowIndicatorsWithStartElementsPositions(m,
+									ctxs.stream().filter(ctx -> {
+										final Object daChanged = ctx.getProperty(AgeMoveShapeFeature.DOCK_AREA_CHANGED);
+										return daChanged == null || daChanged == Boolean.TRUE;
+									}).map(ctx -> ctx.getShape())
+									.map(shape -> graphitiAgeDiagram.getDiagramElement(shape))
+									.flatMap(DiagramElement::getAllDiagramNodes));
 						});
 
 						return;

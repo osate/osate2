@@ -214,7 +214,7 @@ end aadlmodel;</code></pre>
 <img src="images/OSATEUserGuide/AadlSearchResults1.png" alt="AADL Search Results" /><figcaption>AADL Search Results</figcaption>
 </figure>
 <p>There are two classifiers <code>FIND_ME</code> and <code>FIND_ME.impl</code> that contain the string <code>find</code>, and seven references to those classifiers. Double-clicking on the results opens an editor to the site of the declaration/reference.</p>
-<p>These view below shows the result of searching for property declaratiosn in the workspace that contain the string <code>time</code>. Here we see that declarations are found in property sets contributed by plug-ins.</p>
+<p>These view below shows the result of searching for property declarations in the workspace that contain the string <code>time</code>. Here we see that declarations are found in property sets contributed by plug-ins.</p>
 <figure>
 <img src="images/OSATEUserGuide/AadlSearchResults2.png" alt="AADL Search Results" /><figcaption>AADL Search Results</figcaption>
 </figure>
@@ -243,7 +243,7 @@ end aadlmodel;</code></pre>
 <li>Select <code>Instantiate</code> from the context menu. <img src="images/OSATEUserGuide/Instantiate.png" alt="Context Menu" /></li>
 <li>OSATE displays a dialog box to show the results of the operation: <img src="images/OSATEUserGuide/InstantiationResults.png" alt="Context Menu" /> Here we see the status “OK” for the model built from component classifier <code>aadlmodel::MySystem.i</code>.</li>
 </ol>
-<p>The result dialog is more interesting when many classifiers are selected for instantiation. Each instantiation is invoked as separate Eclipse task, and (assuming the instantiation runs long enough) is visible in the <code>Progress</code> view. The result dialog is displayed when all the instantiation tasks have completed. It gives the result of each instantiation:</p>
+<p>The result dialog is more interesting when many classifiers are selected for instantiation. Each instantiation is invoked as a separate Eclipse task, and (assuming the instantiation runs long enough) is visible in the <code>Progress</code> view. The result dialog is displayed when all the instantiation tasks have completed. It gives the result of each instantiation:</p>
 <ul>
 <li><strong>OK.</strong> The classifier was instantiated successfully.</li>
 <li><strong>Cancelled.</strong> The user cancelled the instantiation from the <code>Progress</code> view or progress dialog.<br />
@@ -518,7 +518,7 @@ The wizard dialog should look like the image below, except with your local pathn
 <p>The above screenshot also shows the expanded structure of the record values for properties <code>Car_Name</code> and <code>Position</code>.</p>
 </blockquote>
 <h4 id="contained-property-values">Contained Property Values</h4>
-<p>Contained property values are those defined in a <code>properties</code> subclause and are applied to a nested model element using the <code>appies to</code> clause. In general, the property can be applied to an element nested several layers down in the containment hierarchy, e.g., to a sub-sub-subcomponent. <em>The <code>AADL Property Values</code> view only displays contained property values for the immediate children of a classifier.</em> To view the property values resulting from all contained property associations in a model, a system instance model must be created. The instantiation evaluates the applicable contained property associations and copies the resulting values as local associations into the instance model.</p>
+<p>Contained property values are those defined in a <code>properties</code> subclause and are applied to a nested model element using the <code>applies to</code> clause. In general, the property can be applied to an element nested several layers down in the containment hierarchy, e.g., to a sub-sub-subcomponent. <em>The <code>AADL Property Values</code> view only displays contained property values for the immediate children of a classifier.</em> To view the property values resulting from all contained property associations in a model, a system instance model must be created. The instantiation evaluates the applicable contained property associations and copies the resulting values as local associations into the instance model.</p>
 <p>The view distinguishes between a <strong>local contained</strong> and <strong>shared local contained</strong> property association:</p>
 <ul>
 <li>A <strong>local contained</strong> property value is one that is applied to a single element.</li>
@@ -599,7 +599,7 @@ The wizard dialog should look like the image below, except with your local pathn
 <p>This action opens the property association that provides the displayed property value in the AADL text editor. This action is enabled for properties that are <strong>local</strong>, <strong>local contained</strong>, or <strong>inherited</strong>. If the action is executed on an <strong>inherited</strong> property, then the view will be updated as well such that the selected property is shown as a <strong>local</strong> property.</p>
 <p>This action is especially useful in an instance model to find out which contained property association in the declarative model is used to provide an instance property value.</p>
 <h4 id="create-local-property-association">Create Local Property Association</h4>
-<p>This action is enabled for <strong>inherited</strong>, <strong>default</strong>, and <strong>undefined</strong> properties. Executing this action will creates a new <strong>local</strong> value for the selected property and begins the editing process. The new property association is inserted in curly braces with the current model element in the AADL text editor.</p>
+<p>This action is enabled for <strong>inherited</strong>, <strong>default</strong>, and <strong>undefined</strong> properties. Executing this action will create a new <strong>local</strong> value for the selected property and begins the editing process. The new property association is inserted in curly braces with the current model element in the AADL text editor.</p>
 <h4 id="create-local-contained-property-association">Create Local Contained Property Association</h4>
 <p>This action is enabled for <strong>inherited</strong>, <strong>default</strong>, and <strong>undefined</strong> properties. Executing this action creates a new <strong>local contained</strong> value for the selected property and begins the editing process.</p>
 <h4 id="make-local">Make Local</h4>

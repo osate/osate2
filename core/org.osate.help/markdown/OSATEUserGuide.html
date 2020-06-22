@@ -590,7 +590,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <p>There are two classifiers <code>FIND_ME</code> and <code>FIND_ME.impl</code> that contain the string <code>find</code>, and seven references to those classifiers.  Double-clicking on the results opens an editor to the site of the declaration/reference.</p>
 
-<p>These view below shows the result of searching for property declaratiosn in the workspace that contain the string <code>time</code>.  Here we see that declarations are found in property sets contributed by plug-ins.</p>
+<p>These view below shows the result of searching for property declarations in the workspace that contain the string <code>time</code>.  Here we see that declarations are found in property sets contributed by plug-ins.</p>
 
 <p><img src="images/OSATEUserGuide/AadlSearchResults2.png" alt="AADL Search Results"></p>
 
@@ -639,7 +639,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <p>Here we see the status &quot;OK&quot; for the model built from component classifier <code>aadlmodel::MySystem.i</code>.</p>
 
-<p>The result dialog is more interesting when many classifiers are selected for instantiation.  Each instantiation is invoked as separate Eclipse task, and (assuming the instantiation runs long enough) is visible in the <code>Progress</code> view.  The result dialog is displayed when all the instantiation tasks have completed.  It gives the result of each instantiation:</p>
+<p>The result dialog is more interesting when many classifiers are selected for instantiation.  Each instantiation is invoked as a separate Eclipse task, and (assuming the instantiation runs long enough) is visible in the <code>Progress</code> view.  The result dialog is displayed when all the instantiation tasks have completed.  It gives the result of each instantiation:</p>
 
 <ul>
 <li><strong>OK.</strong> The classifier was instantiated successfully.</li>
@@ -1023,7 +1023,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <h4 id="toc_51">Contained Property Values</h4>
 
-<p>Contained property values are those defined in a <code>properties</code> subclause and are applied to a nested model element using the <code>appies to</code> clause. In general, the property can be applied to an element nested several layers down in the containment hierarchy, e.g., to a sub-sub-subcomponent. <em>The <code>AADL Property Values</code> view only displays contained property values for the immediate children of a classifier.</em>   To view the property values resulting from all contained property associations in a model, a system instance model must be created. The instantiation evaluates the applicable contained property associations and copies the resulting values as local associations into the instance model.</p>
+<p>Contained property values are those defined in a <code>properties</code> subclause and are applied to a nested model element using the <code>applies to</code> clause. In general, the property can be applied to an element nested several layers down in the containment hierarchy, e.g., to a sub-sub-subcomponent. <em>The <code>AADL Property Values</code> view only displays contained property values for the immediate children of a classifier.</em>   To view the property values resulting from all contained property associations in a model, a system instance model must be created. The instantiation evaluates the applicable contained property associations and copies the resulting values as local associations into the instance model.</p>
 
 <p>The view distinguishes between a <strong>local contained</strong> and <strong>shared local contained</strong> property association:</p>
 
@@ -1135,7 +1135,7 @@ view&#39;s menu opens a dialog which allows you to choose which property sets sh
 
 <h4 id="toc_60">Create Local Property Association</h4>
 
-<p>This action is enabled for <strong>inherited</strong>, <strong>default</strong>, and <strong>undefined</strong> properties.  Executing this action will creates a new <strong>local</strong> value for the selected property and begins the editing process. The new property association is inserted in curly braces with the current model element in the AADL text editor.</p>
+<p>This action is enabled for <strong>inherited</strong>, <strong>default</strong>, and <strong>undefined</strong> properties.  Executing this action will create a new <strong>local</strong> value for the selected property and begins the editing process. The new property association is inserted in curly braces with the current model element in the AADL text editor.</p>
 
 <h4 id="toc_61">Create Local Contained Property Association</h4>
 

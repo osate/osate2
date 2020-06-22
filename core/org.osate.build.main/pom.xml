@@ -50,9 +50,6 @@
 		<eclipse.repo.url>http://download.eclipse.org/releases/2019-12</eclipse.repo.url>
 		<xtext-testing.repo.url>https://dl.bintray.com/itemis/generic/xtext-testing/updates/0.2</xtext-testing.repo.url>
 
-		<!-- Used in pull request build -->
-		<ocarina.repo.url>http://osate-build.sei.cmu.edu/p2/ocarina</ocarina.repo.url>
-
 		<spotbugs.configdir>${project.parent.parent.basedir}/core/org.osate.build.main/src/main/resources/spotbugs</spotbugs.configdir>
 		<jgit.dirtyWorkingTree>warning</jgit.dirtyWorkingTree>
 	</properties>
@@ -83,14 +80,6 @@
 		<url>http://github.com/osate/osate2/tree/master</url>
 	</scm>
 	<!-- End metadata for maven central, see https://central.sonatype.org/pages/requirements.html -->
-
-	<repositories>
-		<repository>
-			<id>ocarina.repo</id>
-			<url>${ocarina.repo.url}</url>
-			<layout>p2</layout>
-		</repository>
-	</repositories>
 
 	<profiles>
 		<profile>

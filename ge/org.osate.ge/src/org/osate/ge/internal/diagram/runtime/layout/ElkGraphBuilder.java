@@ -53,7 +53,6 @@ import org.eclipse.elk.graph.ElkGraphElement;
 import org.eclipse.elk.graph.ElkLabel;
 import org.eclipse.elk.graph.ElkNode;
 import org.eclipse.elk.graph.ElkPort;
-import org.eclipse.elk.graph.properties.IPropertyHolder;
 import org.eclipse.elk.graph.util.ElkGraphUtil;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.ge.DockingPosition;
@@ -68,6 +67,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.DockArea;
 import org.osate.ge.internal.diagram.runtime.styling.StyleProvider;
+import org.osate.ge.internal.util.DiagramElementUtil;
 
 class ElkGraphBuilder {
 	// Filter for diagram elements for which ELK ports will be created.
@@ -634,20 +634,50 @@ class ElkGraphBuilder {
 	private void createElkGraphElementsForConnections(final DiagramNode dn, final LayoutMapping mapping) {
 		for (final DiagramElement de : dn.getDiagramElements()) {
 			if (de.getGraphic() instanceof AgeConnection) {
+				final AgeConnection connection = (AgeConnection) de.getGraphic();
+
+				// Flow indicators are represented by a node in the container which has a port and an edge connecting that port to the starting element
 				final ElkConnectableShape edgeStart = getConnectableShape(de.getStartElement(), mapping);
-				final ElkConnectableShape edgeEnd = getConnectableShape(de.getEndElement(), mapping);
+				ElkConnectableShape edgeEnd = null;
+				if (connection.isFlowIndicator) {
+					// Find the first undocked ancestor for the flow indicator
+					final DiagramElement undockedContainer = DiagramElementUtil
+							.getUndockedDiagramElement(de.getParent());
+					if (undockedContainer == null) {
+						// Ignore the flow indicator if unable to find a containing element which isn't docked.
+						continue;
+					}
+
+					// Find the ELK shape for the ancestor
+					final ElkConnectableShape endContainer = getConnectableShape(undockedContainer, mapping);
+					if (!(endContainer instanceof ElkNode)) {
+						// Ignore the flow indicator if the container isn't a node.
+						continue;
+					}
+
+					// Create the node for the end of the flow indicator
+					final ElkNode endNode = ElkGraphUtil.createNode((ElkNode) endContainer);
+					endContainer.setDimensions(0, 0);
+					endNode.setProperty(CoreOptions.NODE_SIZE_CONSTRAINTS, EnumSet.noneOf(SizeConstraint.class));
+					endNode.setProperty(CoreOptions.NODE_SIZE_OPTIONS, EnumSet.noneOf(SizeOptions.class));
+
+					// Create port
+					final ElkPort endPort = ElkGraphUtil.createPort(endNode);
+					endPort.setProperty(CoreOptions.PORT_SIDE, PortSide.WEST);
+					endPort.setX(0);
+					endPort.setY(0);
+					endPort.setWidth(0);
+					endPort.setHeight(0);
+					edgeEnd = endPort;
+				} else {
+					edgeEnd = getConnectableShape(de.getEndElement(), mapping);
+				}
+
 				if (edgeStart != null && edgeEnd != null) {
 					final ElkConnectableShape start = edgeStart;
 					final ElkConnectableShape end = edgeEnd;
 
 					boolean insideSelfLoopsYo = true;
-					boolean isSelfLoop = false;
-
-					if (start instanceof ElkPort && end instanceof ElkPort) {
-						if (start.eContainer() == end.eContainer()) {
-							isSelfLoop = true;
-						}
-					}
 
 					// If the start and end of the edge is the same element, route the edge outside of the element.
 					// An example of this sort of edge is a steady state state transition in the EMV2
@@ -655,16 +685,8 @@ class ElkGraphBuilder {
 						insideSelfLoopsYo = false;
 					}
 
-					// As of ELK 0.6.1 an 2020-04-06, an exception will be thrown when using fixed position port and inside self loops.
-					// https://github.com/eclipse/elk/issues/548
-					// Disable layout of such edges
-					if (isSelfLoop && insideSelfLoopsYo && start.eContainer() instanceof IPropertyHolder
-							&& ((IPropertyHolder) start.eContainer())
-							.getProperty(CoreOptions.PORT_CONSTRAINTS) == PortConstraints.FIXED_POS) {
-						continue;
-					}
-
 					final ElkEdge newEdge = ElkGraphUtil.createSimpleEdge(start, end);
+
 					// Ensure the edge has at least one section. Fixes NPE that can occur when laying out connections
 					// with the same source and destination port.
 					ElkGraphUtil.createEdgeSection(newEdge);
@@ -673,6 +695,12 @@ class ElkGraphBuilder {
 					mapping.getGraphMap().put(newEdge, de);
 
 					createElkLabels(de, newEdge, mapping);
+
+					// Create a dummy label. Ensures the edge is at least a minimal size and improves visibility when it is routed
+					// along with other edges
+					if (connection.isFlowIndicator && newEdge.getLabels().isEmpty()) {
+						createElkLabel(newEdge, "<Spacing>", new Dimension(10, 10));
+					}
 				}
 			}
 

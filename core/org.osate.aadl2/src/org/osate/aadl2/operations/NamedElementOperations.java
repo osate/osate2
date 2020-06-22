@@ -23,17 +23,11 @@
  */
 package org.osate.aadl2.operations;
 
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
 import org.osate.aadl2.PackageSection;
-import org.osate.aadl2.Property;
-import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertySet;
-import org.osate.aadl2.properties.PropertyNotPresentException;
-import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -104,29 +98,5 @@ public class NamedElementOperations extends ElementOperations {
 		}
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @deprecated Will be removed in 2.7.
-	 * @generated NOT
-	 */
-	@Deprecated
-	public static EList<PropertyExpression> getPropertyValues(NamedElement namedElement, String propertySetName,
-			String propertyName) {
-		final EList<PropertyExpression> result = new BasicEList<PropertyExpression>();
-		final Property property = Aadl2Util.lookupPropertyDefinition(namedElement, propertySetName, propertyName);
-
-		try {
-			if (property.isList()) {
-				result.addAll(namedElement.getPropertyValueList(property));
-			} else {
-				result.add(namedElement.getSimplePropertyValue(property));
-			}
-		} catch (final PropertyNotPresentException p_ex) {
-			// We simply return an empty list when there is no property associations
-		}
-
-		return result;
-	}
 
 } // NamedElementOperations

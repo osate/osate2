@@ -1,7 +1,7 @@
 package org.osate.pluginsupport.properties;
 
 /**
- * @since 3.1
+ * @since 4.0
  */
 public interface GeneratedUnits {
 	double getFactorToBase();

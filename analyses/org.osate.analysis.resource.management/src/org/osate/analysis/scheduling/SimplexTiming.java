@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -156,11 +156,12 @@ public class SimplexTiming {
 				System.out.println(processInstance.getPeriod() + "\t" + processInstance.getDeadline() + "\t"
 						+ processInstance.getExecutionTime() + "\t" + processInstance.getPhaseOffset() + "\t"
 						+ processInstance.getPriority() + "\t" + processInstance.getARCID());
-				if (period == -1)
+				if (period == -1) {
 					period = processInstance.getPeriod();
-				else {
-					if (period != processInstance.getPeriod())
+				} else {
+					if (period != processInstance.getPeriod()) {
 						System.err.println(" period discrepency detected in the ARC with id: " + curARC.getARCID());
+					}
 				}
 			}
 			System.out.println("....totally, number of Processes inside is: " + counter + "...." + "\n");
@@ -263,8 +264,9 @@ public class SimplexTiming {
 							if (java.lang.Math.abs(w2 - w1) < 1.0) {
 								w1 = w2;
 								break;
-							} else
+							} else {
 								w1 = w2;
+							}
 						}
 
 						System.out.println("\t\t\t\t the result of W1 finally is: " + w1);
@@ -276,10 +278,11 @@ public class SimplexTiming {
 					maxResponseTime = findMaxOrMinInList(ARCResponseArray, true);
 					ARCResponseArray.removeItems();
 					processInstance.setMaxResponseTime(maxResponseTime);
-					if (maxResponseTime <= processInstance.getDeadline())
+					if (maxResponseTime <= processInstance.getDeadline()) {
 						processInstance.setSchedulability(true);
-					else
+					} else {
 						processInstance.setSchedulability(false);
+					}
 
 					((ARCForArray) arrayInstance.elementAt(i)).setProcess(j, processInstance);
 
@@ -303,8 +306,9 @@ public class SimplexTiming {
 							+ (processInstance.getSchedulability() ? "" : "not ") + "schedulable"
 							+ " with response time (- offset): "
 							+ (processInstance.getMaxResponseTime() - processInstance.getPhaseOffset()));
-					if (processInstance.getSchedulability() == false)
+					if (processInstance.getSchedulability() == false) {
 						label = 0;
+					}
 				}
 			}
 		} else {
@@ -327,25 +331,28 @@ public class SimplexTiming {
 		for (i = 0; i < numberOfProcesses; i++) {
 			process = element.getProcess(i);
 			if ((Auxillary.compareNotMySelf(process, processInstance) == false)
-					|| (process.getPriority() > processInstance.getPriority()))
+					|| (process.getPriority() > processInstance.getPriority())) {
 				tempPhase.addElement(new Double(Auxillary.phaseConversion(process, processInstance)));
-			else
+			} else {
 				tempPhase.addElement(new Double(Global.NEGATIVE_MAX));
+			}
 		}
 
 		for (i = 0; i < numberOfProcesses; i++) {
 			for (j = i + 1; j < numberOfProcesses; j++) {
 				double t1 = ((Double) tempPhase.elementAt(i)).doubleValue();
 				double t2 = ((Double) tempPhase.elementAt(j)).doubleValue();
-				if ((java.lang.Math.abs(t1 - t2) < 0.5) && (!(t1 < Global.NEGATIVE_MAX / 2)))
+				if ((java.lang.Math.abs(t1 - t2) < 0.5) && (!(t1 < Global.NEGATIVE_MAX / 2))) {
 					tempPhase.setElementAt(new Double(Global.NEGATIVE_MAX), j);
+				}
 			}
 		}
 
 		for (i = 0; i < numberOfProcesses; i++) {
 			phase = ((Double) tempPhase.elementAt(i)).doubleValue();
-			if (!(phase < Global.NEGATIVE_MAX / 2))
+			if (!(phase < Global.NEGATIVE_MAX / 2)) {
 				phaseArray.addItemInArray(phase);
+			}
 		}
 
 		tempPhase.removeAllElements();
@@ -362,15 +369,17 @@ public class SimplexTiming {
 			maxOrMin = Global.NEGATIVE_MAX;
 			for (i = 0; i < array.getNumberOfItemsInArray(); i++) {
 				element = array.getItemInArray(i);
-				if (element > maxOrMin)
+				if (element > maxOrMin) {
 					maxOrMin = element;
+				}
 			}
 		} else {
 			maxOrMin = Global.POSITIVE_MAX;
 			for (i = 0; i < array.getNumberOfItemsInArray(); i++) {
 				element = array.getItemInArray(i);
-				if (element < maxOrMin)
+				if (element < maxOrMin) {
 					maxOrMin = element;
+				}
 			}
 		}
 
@@ -389,8 +398,9 @@ public class SimplexTiming {
 		DoubleArray returnArray = new DoubleArray();
 
 		lowRange = -windowOffsetWithinMySelf;
-		if (lowRange < 0)
+		if (lowRange < 0) {
 			lowRange = 0;
+		}
 		highRange = process.getDeadline() - windowOffsetWithinMySelf;
 
 		returnArray.addItemInArray(highRange);
@@ -406,17 +416,21 @@ public class SimplexTiming {
 					}
 					// ------------------------------------------------------
 					System.out.println("the number of possible phases is:  " + phaseArray.getNumberOfItemsInArray());
-					for (z = 0; z < phaseArray.getNumberOfItemsInArray(); z++)
+					for (z = 0; z < phaseArray.getNumberOfItemsInArray(); z++) {
 						System.out.println("::: " + phaseArray.getItemInArray(z) + "::");
+					}
 					counterLimit = (int) java.lang.Math
-							.ceil((process.getDeadline() + process.getPeriod()) / processInstance.getPeriod()) + 1;
+							.ceil(((double) (process.getDeadline() + process.getPeriod()))
+									/ processInstance.getPeriod())
+							+ 1;
 					// --------------------------------------------------------
-					for (k = 0; i < counterLimit; k++) {
+					for (k = 0; k < counterLimit; k++) {
 						for (l = 0; l < phaseArray.getNumberOfItemsInArray(); l++) {
 							tentativePoint = k * processInstance.getPeriod() - phaseArray.getItemInArray(l)
 									+ Auxillary.phaseConversion(processInstance, process);
-							if ((tentativePoint > lowRange) && (tentativePoint <= highRange))
+							if ((tentativePoint > lowRange) && (tentativePoint <= highRange)) {
 								returnArray.addItemInArray(tentativePoint);
+							}
 						}
 					}
 					phaseArray.removeItems();
@@ -424,8 +438,9 @@ public class SimplexTiming {
 			}
 		}
 
-		for (k = 0; k < returnArray.getNumberOfItemsInArray(); k++)
+		for (k = 0; k < returnArray.getNumberOfItemsInArray(); k++) {
 			System.out.println("  " + returnArray.getItemInArray(k));
+		}
 		System.out.println(" come back to the caller from giveMeSList");
 
 		return returnArray;
@@ -455,8 +470,9 @@ public class SimplexTiming {
 			numberOfProcesses = processList.size();
 			ARCElement = new ARCForArray(numberOfProcesses);
 
-			for (j = 0; j < processList.size(); j++)
+			for (j = 0; j < processList.size(); j++) {
 				ARCElement.addProcess(j, (RuntimeProcess) processList.elementAt(j));
+			}
 			arrayInstance.addElement(ARCElement);
 		}
 
@@ -589,8 +605,9 @@ public class SimplexTiming {
 		DoubleArray newDifferenceArray = null;
 
 		timePoints = giveMeSList(arrayInstance, numberOfARCs, process, phase);
-		if (timePoints.getNumberOfItemsInArray() == 0)
+		if (timePoints.getNumberOfItemsInArray() == 0) {
 			return;
+		}
 		System.out.println(" number of points in array " + timePoints.getNumberOfItemsInArray());
 
 		for (i = 0; i < timePoints.getNumberOfItemsInArray(); i++) {
@@ -618,8 +635,9 @@ public class SimplexTiming {
 				ARCElement = (ARCForArray) arrayInstance.elementAt(i);
 				DoubleArray t = (DoubleArray) phasePossibleArray.elementAt(i);
 				if (t.getNumberOfItemsInArray() > 0) {
-					for (j = 0; j < t.getNumberOfItemsInArray(); j++)
+					for (j = 0; j < t.getNumberOfItemsInArray(); j++) {
 						System.out.print(t.getItemInArray(j));
+					}
 					System.out.print("\n");
 				}
 			}
@@ -706,9 +724,11 @@ public class SimplexTiming {
 					}
 				} // end of for (i=0;i< numberOfARCs; i++)...
 
-				for (i = 0; i < numberOfARCs; i++)
-					if (((DoubleArray) phaseDesiredArray.elementAt(i)).getNumberOfItemsInArray() > 0)
+				for (i = 0; i < numberOfARCs; i++) {
+					if (((DoubleArray) phaseDesiredArray.elementAt(i)).getNumberOfItemsInArray() > 0) {
 						((DoubleArray) phaseDesiredArray.elementAt(i)).removeItems();
+					}
+				}
 			} // end of all the time points....
 
 			timePoints.removeItems();

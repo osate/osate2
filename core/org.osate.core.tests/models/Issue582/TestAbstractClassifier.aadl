@@ -1,0 +1,70 @@
+-- There are no errors or warnings on these connections because the standard
+-- does not required classifier checks on "feature connections"!
+package TestAbstractClassifier
+public
+	Data D
+	end D;
+	
+	system SrcSys
+		features
+			f0: out feature;
+			
+			f_type: out feature D;
+			f_notype: out feature;
+	end SrcSys;
+	
+	system SrcSysType extends SrcSys
+		features
+			f0: refined to out feature D;
+	end SrcSysType;
+	
+	system DestSys
+		features
+			f0: in feature;
+			
+			f_type: in feature D;
+			f_notype: in feature;
+	end DestSys;
+	
+	system DestSysType extends DestSys
+		features
+			f0: refined to in feature D;
+	end DestSysType;
+	
+	system Top
+	end Top;
+	
+	system implementation Top.notype_to_notype
+		subcomponents
+			srcSys: system SrcSys;
+			destSys: system DestSys;
+		connections
+			c0: feature srcSys.f0 -> destSys.f0;  -- (no type) -> (no type)
+			
+			type_to_type: feature srcSys.f_type -> destSys.f_type;
+			type_to_notype: feature srcSys.f_type -> destSys.f_notype;
+			notype_to_type: feature srcSys.f_notype -> destSys.f_type;
+			notype_to_notype: feature srcSys.f_notype -> destSys.f_notype;
+		properties
+			Classifier_Substitution_Rule => Type_Extension;
+	end Top.notype_to_notype;
+	
+	system implementation Top.type_to_type extends Top.notype_to_notype
+		-- now we have have c0 as type -> type
+		subcomponents
+			srcSys: refined to system SrcSysType;
+			destSys: refined to system DestSysType;
+	end Top.type_to_type;
+	
+	system implementation Top.type_to_notype extends Top.notype_to_notype
+		-- now we have have c0 as type -> (no type)
+		subcomponents
+			srcSys: refined to system SrcSysType;
+	end Top.type_to_notype;
+	
+	system implementation Top.notype_to_type extends Top.notype_to_notype
+		-- now we have have c0 as (no type) -> type
+		subcomponents
+			destSys: refined to system DestSysType;
+	end Top.notype_to_type;
+end TestAbstractClassifier;
