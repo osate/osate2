@@ -3423,9 +3423,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 		for (FeatureType featureType : typesOfInheritedFeatures) {
-			if (typeCategory != null && !acceptableFeatureTypes.contains(featureType)) {
+			if (!acceptableFeatureTypes.contains(featureType)) {
 
-				String changeFrom = typeCategory.getName();
+				String changeFrom = typeCategory != null ? typeCategory.getName()
+						: "TYPE CATEGORY NOT CORRECTLY SPECIFIED";
 				String offset = "" + findKeywordOffset(componentType, changeFrom);
 				error("A " + changeFrom + " type cannot extend an abstract type that contains "
 						+ featureType.getNameWithIndefiniteArticle() + '.', componentType.getOwnedExtension(), null,
@@ -3485,9 +3486,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 		for (ComponentCategory subcomponentCategory : categoriesOfInheritedSubcomponents) {
-			if (implementationCategory != null && !acceptableSubcomponentCategories.contains(subcomponentCategory)) {
+			if (!acceptableSubcomponentCategories.contains(subcomponentCategory)) {
 				error(componentImplementation.getOwnedExtension(),
-						"A " + implementationCategory.getName()
+						"A " + implementationCategory != null ? implementationCategory.getName()
+								: "IMPLEMENTATION CATEGORY NOT CORRECTLY SPECIFIED"
 								+ " implementation cannot extend an abstract implementation that contains a "
 								+ subcomponentCategory.getName() + " subcomponent.");
 			}
