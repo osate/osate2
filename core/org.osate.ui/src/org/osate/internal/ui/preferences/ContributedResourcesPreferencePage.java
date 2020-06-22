@@ -61,11 +61,12 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -103,28 +104,32 @@ public final class ContributedResourcesPreferencePage extends FieldEditorPrefere
 	public Control createContents(final Composite parent) {
 		final IPreferenceStore prefs = getPreferenceStore();
 
-		final Composite composite = new Composite(parent, SWT.NULL);
-		final RowLayout topLayout = new RowLayout(SWT.VERTICAL);
-		topLayout.fill = true;
-		composite.setLayout(topLayout);
+		final SashForm sashForm = new SashForm(parent, SWT.VERTICAL);
 
-		final Group contributedResourcesGroup = new Group(composite, SWT.SHADOW_ETCHED_IN);
+		final Group contributedResourcesGroup = new Group(sashForm, SWT.SHADOW_ETCHED_IN);
+		contributedResourcesGroup.setLayout(new GridLayout(1, true));
+
 		contributedResourcesGroup.setText("Select Plug-in Contributed Resources to Use");
+		final ScrolledComposite scroller = new ScrolledComposite(contributedResourcesGroup, SWT.V_SCROLL);
+		scroller.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, true, true));
 
+		final Composite editorFields = new Composite(scroller, SWT.NONE);
 		for (final URI uri : PluginSupportUtil.getContributedAadl()) {
 			final String preferenceNameForURI = PredeclaredProperties.getIsVisiblePreferenceNameForURI(uri);
 			originalValues.put(preferenceNameForURI, prefs.getBoolean(preferenceNameForURI));
 			final BooleanFieldEditor booleanEditor = new BooleanFieldEditor(
-					preferenceNameForURI, uriToLabel(uri), contributedResourcesGroup);
+					preferenceNameForURI, uriToLabel(uri), editorFields);
 			fields.put(uri, booleanEditor);
 			addField(booleanEditor);
 		}
+		editorFields.setSize(editorFields.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		scroller.setContent(editorFields);
 
 		final List<URI> wc = PredeclaredProperties.getVisibleWorkspaceContributedResources();
 		originalWorkspaceContributions = wc;
 		workspaceContributions = new ArrayList<>(wc); // needs to be mutable
 
-		final Group workpaceContributionsGroup = new Group(composite, SWT.SHADOW_ETCHED_IN);
+		final Group workpaceContributionsGroup = new Group(sashForm, SWT.SHADOW_ETCHED_IN);
 		workpaceContributionsGroup.setLayout(new GridLayout(2, true));
 		workpaceContributionsGroup.setText("Select Resources in the Workspace to Contribute");
 
@@ -177,10 +182,11 @@ public final class ContributedResourcesPreferencePage extends FieldEditorPrefere
 		workspaceList.setInput(workspaceContributions);
 
 		// Set up the field editors
+		sashForm.setWeights(new int[] { 3, 1 });
 		initialize();
 		checkState();
 
-		return composite;
+		return sashForm;
 	}
 
 	private static String uriToLabel(final URI uri) {
