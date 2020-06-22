@@ -2,8 +2,8 @@ package test
 public 
     thread th
         features
-            ip: in event data port;
-            op: out event data port;
+            ip: in data port;
+            op: out data port;
             
             d1: requires data access;
             d2: requires data access;

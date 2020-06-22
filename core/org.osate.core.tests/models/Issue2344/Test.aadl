@@ -24,11 +24,11 @@ public
 		
 	system B
 		features
-			f_none: in event data port;
-			f_d: in event data port D;
-			f_di: in event data port D.i;
-			f_dj: in event data port D.j;
-			f_x: in event data port X;
+			f_none: in data port;
+			f_d: in data port D;
+			f_di: in data port D.i;
+			f_dj: in data port D.j;
+			f_x: in data port X;
 	end B;
 	
 	system top
