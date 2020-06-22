@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Workspace Plug-in
 Bundle-SymbolicName: org.osate.workspace;singleton:=true
-Bundle-Version: 3.0.0.qualifier
+Bundle-Version: 4.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.osate.workspace.WorkspacePlugin
 Bundle-Vendor: CMU-SEI
