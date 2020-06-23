@@ -8,6 +8,9 @@ import java.util.function.Function;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.preference.IPreferenceStore;
 
+/**
+ * @since 4.0
+ */
 public final class PredeclaredProperties {
 	private static final String IS_VISIBLE_PREFIX = "contributed.resource.isVisible.";
 	public static final String NUMBER_OF_WORKSPACE_CONTRIBUTIONS = "contributed.resource.numWorkspace";
