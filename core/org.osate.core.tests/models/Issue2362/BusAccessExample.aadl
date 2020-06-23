@@ -1,0 +1,53 @@
+package BusAccessExample
+public
+    
+    bus Cable                                   
+    end Cable;
+    
+    bus implementation Cable.Impl
+        properties
+            Transmission_Time => [Fixed => 0ns .. 0ns; PerByte => 1us .. 1us;];
+    end Cable.Impl;
+    
+    processor Proc
+        features
+            b0: requires bus access Cable;
+    end Proc;
+    
+    processor implementation Proc.Impl
+        properties
+            Priority_Range => 1 .. 32;
+    end Proc.Impl;
+
+    process App
+    end App;
+
+    process implementation App.Impl
+    end App.Impl;
+    
+    system ABC
+    end ABC;
+    
+    system implementation ABC.error
+        subcomponents
+            proc: processor Proc.Impl;
+            sysbus: bus Cable.Impl;
+            app: process App.Impl;
+        connections
+            con1: bus access proc.b0 <-> sysbus;
+        properties
+            Actual_Processor_Binding => (reference (proc)) applies to app;
+    end ABC.error;
+
+    system implementation ABC.noError
+        subcomponents
+            proc: processor Proc.Impl;
+            sysbus: bus Cable.Impl;
+            app: process App.Impl;
+        connections
+            con1: bus access sysbus -> proc.b0;
+        properties
+            Actual_Processor_Binding => (reference (proc)) applies to app;
+    end ABC.noError;
+
+end BusAccessExample;
