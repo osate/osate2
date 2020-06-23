@@ -49,7 +49,7 @@ import org.eclipse.ui.navigator.ICommonContentExtensionSite;
 import org.eclipse.ui.navigator.ICommonLabelProvider;
 import org.eclipse.ui.navigator.IExtensionStateModel;
 import org.osate.ge.DiagramType;
-import org.osate.ge.aadl2.internal.diagramTypes.DiagramTypeProvider;
+import org.osate.ge.internal.DiagramTypeProvider;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.DiagramService.DiagramReference;
 import org.osate.ge.internal.services.ExtensionRegistryService;

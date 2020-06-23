@@ -26,7 +26,8 @@ censes only apply to the Third Party Software and not any other portion of this 
 <plugin>
    <extension-point id="org.osate.ge.tooltips" name="Tooltips" schema="schema/org.osate.ge.tooltips.exsd"/>
    <extension-point id="org.osate.ge.images" name="Images" schema="schema/org.osate.ge.images.exsd"/>
-   <extension-point id="org.osate.ge.references" name="Reference Handling" schema="schema/org.osate.ge.references.exsd"/>
+   <extension-point id="org.osate.ge.referenceLabelProviders" name="Reference Labels" schema="schema/org.osate.ge.referenceLabelProviders.exsd"/>
+   <extension-point id="org.osate.ge.referenceResolvers" name="Reference Resolvers" schema="schema/org.osate.ge.referenceResolvers.exsd"/>
    <extension-point id="org.osate.ge.businessObjectHandlers" name="Business Object Handlers" schema="schema/org.osate.ge.businessObjectHandlers.exsd"/>
    <extension-point id="org.osate.ge.businessObjectProviders" name="Business Object Providers" schema="schema/org.osate.ge.businessObjectProviders.exsd"/>
    <extension-point id="org.osate.ge.contentFilters" name="Content Filters" schema="schema/org.osate.ge.contentFilters.exsd"/>
@@ -1712,20 +1713,11 @@ censes only apply to the Third Party Software and not any other portion of this 
     </extension>
     <extension
           point="org.osate.ge.references">
-       <referenceBuilder
-             class="org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder">
-       </referenceBuilder>
-       <referenceResolver
-             class="org.osate.ge.internal.services.impl.InstanceReferenceResolver">
-       </referenceResolver>
-       <referenceBuilder
-             class="org.osate.ge.internal.services.impl.GraphicalEditorModelReferenceBuilder">
-       </referenceBuilder>
        <referenceLabelProvider
-             class="org.osate.ge.internal.services.impl.DeclarativeReferenceLabelProvider">
+             class="org.osate.ge.aadl2.internal.DeclarativeReferenceLabelProvider">
        </referenceLabelProvider>
        <referenceLabelProvider
-             class="org.osate.ge.internal.services.impl.InstanceReferenceLabelProvider">
+             class="org.osate.ge.aadl2.internal.InstanceReferenceLabelProvider">
        </referenceLabelProvider>
     </extension>
     <extension
@@ -2287,29 +2279,37 @@ censes only apply to the Third Party Software and not any other portion of this 
         <contributor class="org.osate.ge.aadl2.ui.internal.palette.AadlPaletteContributor" />
     </extension>
 	<extension point="org.osate.ge.businessObjectHandlers">
-	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.ClassifierHandler" />
-	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.GeneralizatonHandler" />
-	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.PackageHandler" />
-	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.PackageProxyHandler" />
-	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.ConnectionReferenceHandler" />
-	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.AnnexHandler" />
-	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.ComponentInstanceHandler" />
-	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.FlowSpecificationInstanceHandler" />
-	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.FeatureInstanceHandler" />
-	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.FeatureHandler" />
-	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.ModeHandler" />
-	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.ModeInstanceHandler" />
-	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.ModeTransitionHandler" />
-	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.ModeTransitionInstanceHandler" />
-	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.ModeTransitionTriggerHandler" />
-	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.SubprogramCallSequenceHandler" />
-	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.SubprogramCallHandler" />
-	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.SubprogramCallOrderHandler" />
-	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.SubcomponentHandler" />
-	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.ConnectionHandler" />
-	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.FlowSpecificationHandler" />
-	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.TagHandler" />
-	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.PropertyValueGroupHandler" />
-	   <handler class="org.osate.ge.aadl2.internal.businessObjectHandlers.TimingPropertyValueHandler" priority="1" />
+	   <handler class="org.osate.ge.aadl2.internal.ClassifierHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.GeneralizatonHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.PackageHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.PackageProxyHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.ConnectionReferenceHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.AnnexHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.ComponentInstanceHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.FlowSpecificationInstanceHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.FeatureInstanceHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.FeatureHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.ModeHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.ModeInstanceHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.ModeTransitionHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.ModeTransitionInstanceHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.ModeTransitionTriggerHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.SubprogramCallSequenceHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.SubprogramCallHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.SubprogramCallOrderHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.SubcomponentHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.ConnectionHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.FlowSpecificationHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.TagHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.PropertyValueGroupHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.TimingPropertyValueHandler" priority="1" />
+	</extension>
+	<extension point="org.osate.ge.referenceLabelProviders">
+	   <provider class="org.osate.ge.aadl2.internal.DeclarativeReferenceLabelProvider" />
+	   <provider class="org.osate.ge.aadl2.internal.InstanceReferenceLabelProvider" />
+	</extension>
+	<extension point="org.osate.ge.referenceResolvers">
+	   <factory class="org.osate.ge.aadl2.internal.DeclarativeReferenceResolver$Factory" />
+	   <factory class="org.osate.ge.aadl2.internal.InstanceReferenceResolver$Factory" />
 	</extension>
 </plugin>

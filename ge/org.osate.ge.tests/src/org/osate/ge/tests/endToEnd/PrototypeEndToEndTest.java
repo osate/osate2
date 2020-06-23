@@ -23,7 +23,7 @@
  */
 package org.osate.ge.tests.endToEnd;
 
-import static org.osate.ge.aadl2.internal.businessObjectHandlers.AadlReferenceUtil.*;
+import static org.osate.ge.aadl2.internal.AadlReferenceUtil.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGePrototypeTestCommands.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGeTestCommands.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGeTestUtil.*;
