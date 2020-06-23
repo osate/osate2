@@ -37,6 +37,8 @@ import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
+import org.osate.aadl2.Access;
+import org.osate.aadl2.AccessType;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.ComponentImplementation;
@@ -56,6 +58,7 @@ import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.ModeTransitionInstance;
+import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
@@ -327,30 +330,125 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	private void checkEndPointClassifiers(final ComponentInstance ci) {
 		final List<ConnectionInstance> connis = ci.getConnectionInstances();
 		for (final ConnectionInstance conni : connis) {
-			final ConnectionInstanceEnd srcEnd = conni.getSource();
-			final ConnectionInstanceEnd destEnd = conni.getDestination();
-			if (!(srcEnd instanceof ModeTransitionInstance) && !(destEnd instanceof ModeTransitionInstance)) {
-				final boolean sourceIsSubcomponent = srcEnd instanceof ComponentInstance;
-				final boolean destIsSubcomponent = destEnd instanceof ComponentInstance;
-				final Classifier srcClassifier = getConnectionEndClassifier(srcEnd);
-				final Classifier destClassifier = getConnectionEndClassifier(destEnd);
-				if (srcClassifier == null && destClassifier != null) {
-					if (!isAbstractFeature(srcEnd)) {
-						warning(conni,
-								"Expected " + (sourceIsSubcomponent ? "subcomponent \'" : "feature \'")
-										+ srcEnd.getComponentInstancePath() + "' to have classifier '"
-										+ destClassifier.getQualifiedName() + '\'');
-					}
-				} else if (srcClassifier != null && destClassifier == null) {
-					if (!isAbstractFeature(destEnd)) {
-						warning(conni,
-								"Expected " + (destIsSubcomponent ? "subcomponent \'" : "feature \'")
-										+ destEnd.getComponentInstancePath() + "' to have classifier '"
-										+ srcClassifier.getQualifiedName() + '\'');
-					}
+			if (conni.getKind() == ConnectionKind.ACCESS_CONNECTION) {
+				checkAccessConnectionClassifiers(conni);
+			} else {
+				checkConnectionClassifiers(conni);
+			}
+		}
+	}
+
+	/** Is <code>a</code> an ancestor (or equal to) <code>b</code>? */
+	private static boolean isAncestorOf(final ComponentInstance a, final ComponentInstance b) {
+		if (a == b) {
+			return true;
+		} else if (b instanceof SystemInstance) {
+			return false;
+		} else {
+			return isAncestorOf(a, b.getContainingComponentInstance());
+		}
+	}
+
+	private void checkAccessConnectionClassifiers(final ConnectionInstance conni) {
+		final ConnectionInstanceEnd srcEnd = conni.getSource();
+		final ConnectionInstanceEnd destEnd = conni.getDestination();
+		final boolean sourceIsSubcomponent = srcEnd instanceof ComponentInstance;
+		final boolean destIsSubcomponent = destEnd instanceof ComponentInstance;
+
+		/*
+		 * Here we need to figure out which end of the connection is providing the
+		 * shared component.
+		 */
+		final ConnectionInstanceEnd requiresEnd;
+		final ConnectionInstanceEnd providesEnd;
+		if (sourceIsSubcomponent) {
+			providesEnd = srcEnd;
+			requiresEnd = destEnd;
+		} else if (destIsSubcomponent) {
+			providesEnd = destEnd;
+			requiresEnd = srcEnd;
+		} else {
+			// Both cannot be components -- If we get here, both are FeatureInstances
+			final FeatureInstance srcFeature = (FeatureInstance) srcEnd;
+			final FeatureInstance destFeature = (FeatureInstance) destEnd;
+			final boolean sourceIsProvides = ((Access) srcFeature.getFeature()).getKind() == AccessType.PROVIDES;
+			final boolean destIsProvides = ((Access) (destFeature).getFeature()).getKind() == AccessType.PROVIDES;
+			if (sourceIsProvides && !destIsProvides) {
+				providesEnd = srcEnd;
+				requiresEnd = destEnd;
+			} else if (!sourceIsProvides && destIsProvides) {
+				providesEnd = destEnd;
+				requiresEnd = srcEnd;
+			} else {
+				final ConnectionInstanceEnd outerEnd;
+				final ConnectionInstanceEnd innerEnd;
+				if (isAncestorOf(srcFeature.getComponentInstance(), destFeature.getComponentInstance())) {
+					outerEnd = srcEnd;
+					innerEnd = destEnd;
 				} else {
-					checkEndPointClassifierMatching(conni, srcEnd, destEnd, srcClassifier, destClassifier);
+					outerEnd = destEnd;
+					innerEnd = srcEnd;
 				}
+				// Remember, both features have the same access type
+				if (sourceIsProvides) {
+					providesEnd = innerEnd;
+					requiresEnd = outerEnd;
+				} else {
+					providesEnd = outerEnd;
+					requiresEnd = innerEnd;
+				}
+			}
+		}
+
+		/* Now we can check the classifier compatibility */
+		final Classifier providesClassifier = getConnectionEndClassifier(providesEnd);
+		final Classifier requiresClassifier = getConnectionEndClassifier(requiresEnd);
+		final boolean providesIsSubcomponent = providesEnd instanceof ComponentInstance;
+		final boolean requiresIsSubcomponent = requiresEnd instanceof ComponentInstance;
+
+		if (providesClassifier == null && requiresClassifier != null) {
+			if (!isAbstractFeature(providesEnd)) {
+				warning(conni,
+						"Expected " + (providesIsSubcomponent ? "subcomponent \'" : "feature \'")
+								+ providesEnd.getComponentInstancePath() + "' to have classifier '"
+								+ requiresClassifier.getQualifiedName() + '\'');
+			}
+		} else if (providesClassifier != null && requiresClassifier == null) {
+			if (!isAbstractFeature(requiresEnd)) {
+				warning(conni,
+						"Expected " + (requiresIsSubcomponent ? "subcomponent \'" : "feature \'")
+								+ requiresEnd.getComponentInstancePath() + "' to have classifier '"
+								+ providesClassifier.getQualifiedName() + '\'');
+			}
+		} else {
+			checkEndPointClassifierMatching(conni, providesEnd, requiresEnd, providesClassifier, requiresClassifier);
+		}
+	}
+
+	private void checkConnectionClassifiers(final ConnectionInstance conni) {
+		final ConnectionInstanceEnd srcEnd = conni.getSource();
+		final ConnectionInstanceEnd destEnd = conni.getDestination();
+		if (!(srcEnd instanceof ModeTransitionInstance) && !(destEnd instanceof ModeTransitionInstance)) {
+			final boolean sourceIsSubcomponent = srcEnd instanceof ComponentInstance;
+			final boolean destIsSubcomponent = destEnd instanceof ComponentInstance;
+			final Classifier srcClassifier = getConnectionEndClassifier(srcEnd);
+			final Classifier destClassifier = getConnectionEndClassifier(destEnd);
+			if (srcClassifier == null && destClassifier != null) {
+				if (!isAbstractFeature(srcEnd)) {
+					warning(conni,
+							"Expected " + (sourceIsSubcomponent ? "subcomponent \'" : "feature \'")
+									+ srcEnd.getComponentInstancePath() + "' to have classifier '"
+									+ destClassifier.getQualifiedName() + '\'');
+				}
+			} else if (srcClassifier != null && destClassifier == null) {
+				if (!isAbstractFeature(destEnd)) {
+					warning(conni,
+							"Expected " + (destIsSubcomponent ? "subcomponent \'" : "feature \'")
+									+ destEnd.getComponentInstancePath() + "' to have classifier '"
+									+ srcClassifier.getQualifiedName() + '\'');
+				}
+			} else {
+				checkEndPointClassifierMatching(conni, srcEnd, destEnd, srcClassifier, destClassifier);
 			}
 		}
 	}

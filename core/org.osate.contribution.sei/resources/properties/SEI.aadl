@@ -61,11 +61,11 @@ property set SEI is
   -- devices may have need for execution of instructions to handle their drivers
   MIPSBudget: aadlreal  units SEI::Processor_Speed_Units applies to (thread, thread group, process, system, device, virtual processor);
   -- RAM capacity of a platform component
-  RAMCapacity: aadlreal  units Size_Units applies to (memory, system);
+  RAMCapacity: aadlreal  units Size_Units applies to (memory, system, processor, virtual processor, abstract);
   -- RAM budget of an application component.  Devices may have RAM need
   RAMBudget: aadlreal  units Size_Units applies to (thread, thread group, process, system, device);
   -- ROM capacity (a ROM memory component is recognized by the name of the component classifier including "ROM" in its name
-  ROMCapacity: aadlreal  units Size_Units applies to (memory, system);
+  ROMCapacity: aadlreal  units Size_Units applies to (memory, system, processor, virtual processor, abstract);
   -- ROM budget by an application component
   ROMBudget: aadlreal  units Size_Units applies to (thread, thread group, process, system, device);
   -- capacity of a power source
