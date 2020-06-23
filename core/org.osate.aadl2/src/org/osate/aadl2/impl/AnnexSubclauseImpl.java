@@ -48,42 +48,11 @@ public abstract class AnnexSubclauseImpl extends ModalElementImpl implements Ann
 	}
 
 	/**
-	 * @deprecated Will be removed in 2.7.
-	 */
-	@Deprecated
-	public boolean bypassUnparser() {
-		return bypassUnparser;
-	}
-
-	/**
-	 * @deprecated Will be removed in 2.7.
-	 */
-	@Deprecated
-	public void bypassUnparser(boolean b) {
-		bypassUnparser = b;
-	}
-
-	/**
-	 * @deprecated Will be removed in 2.7.
-	 */
-	@Deprecated
-	public String getAnnexContent() {
-		return annexContent;
-	}
-
-	/**
-	 * @deprecated Will be removed in 2.7.
-	 */
-	@Deprecated
-	public void setAnnexContent(String s) {
-		annexContent = s;
-	}
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getAnnexSubclause();
 	}
