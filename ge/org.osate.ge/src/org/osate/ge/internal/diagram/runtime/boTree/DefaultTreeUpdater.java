@@ -170,7 +170,8 @@ public class DefaultTreeUpdater implements TreeUpdater {
 			// Require the use of the business object specified in the diagram along with any other business objects which are already in the diagram.
 			final RelativeBusinessObjectReference relativeReference = refService.getRelativeReference(contextBo);
 			if (relativeReference == null) {
-				throw new RuntimeException("Unable to build relative reference for context business object");
+				throw new RuntimeException(
+						"Unable to build relative reference for context business object: " + contextBo);
 			}
 
 			boMap = new HashMap<>();

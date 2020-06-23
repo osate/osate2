@@ -46,7 +46,7 @@ import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.DiagramType;
 import org.osate.ge.RelativeBusinessObjectReference;
-import org.osate.ge.aadl2.internal.businessObjectHandlers.AadlReferenceUtil;
+import org.osate.ge.aadl2.internal.AadlReferenceUtil;
 import org.osate.ge.aadl2.internal.diagramTypes.CustomDiagramType;
 import org.osate.ge.aadl2.internal.diagramTypes.PackageDiagramType;
 import org.osate.ge.aadl2.internal.diagramTypes.StructureDiagramType;

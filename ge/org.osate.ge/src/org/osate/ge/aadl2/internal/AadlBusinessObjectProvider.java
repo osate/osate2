@@ -74,8 +74,6 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.BusinessObjectProviderContext;
-import org.osate.ge.aadl2.internal.businessObjectHandlers.AadlReferenceUtil;
-import org.osate.ge.aadl2.internal.businessObjectHandlers.ModeTransitionTriggerHandler;
 import org.osate.ge.aadl2.internal.model.SubprogramCallOrder;
 import org.osate.ge.aadl2.internal.model.Tag;
 import org.osate.ge.internal.model.BusinessObjectProxy;
