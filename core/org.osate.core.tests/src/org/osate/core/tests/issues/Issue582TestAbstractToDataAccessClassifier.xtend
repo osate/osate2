@@ -82,12 +82,6 @@ class Issue582TestAbstractToDataAccessClassifier extends XtextTest {
 					it.assertError(testFileResult.issues, issueCollection, "Source and destination of access connections between sibling components cannot both be 'requires'.")
 				]
 
-				ownedAccessConnections.findFirst[name == "c12"] => [
-					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'p_notype' to have classifier 'TestAbstractToDataAccessClassifier::D'")
-				]
-				ownedAccessConnections.findFirst[name == "c21"] => [
-					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'p_notype' to have classifier 'TestAbstractToDataAccessClassifier::D'")
-				]
 				ownedAccessConnections.findFirst[name == "c23"] => [
 					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'p_notype' to have classifier 'TestAbstractToDataAccessClassifier::D'")
 				]
@@ -98,13 +92,7 @@ class Issue582TestAbstractToDataAccessClassifier extends XtextTest {
 				ownedAccessConnections.findFirst[name == "c14"] => [
 					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'r_notype' to have classifier 'TestAbstractToDataAccessClassifier::D'")
 				]
-				ownedAccessConnections.findFirst[name == "c34"] => [
-					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'r_notype' to have classifier 'TestAbstractToDataAccessClassifier::D'")
-				]
 				ownedAccessConnections.findFirst[name == "c41"] => [
-					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'r_notype' to have classifier 'TestAbstractToDataAccessClassifier::D'")
-				]
-				ownedAccessConnections.findFirst[name == "c43"] => [
 					it.assertWarning(testFileResult.issues, issueCollection, "Expected feature 'r_notype' to have classifier 'TestAbstractToDataAccessClassifier::D'")
 				]
 			]			
