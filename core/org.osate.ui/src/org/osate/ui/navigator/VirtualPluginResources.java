@@ -30,6 +30,9 @@ import org.eclipse.emf.common.util.URI;
 import org.osate.pluginsupport.PredeclaredProperties;
 
 public final class VirtualPluginResources {
+	/**
+	 * @since 4.0
+	 */
 	public enum Kind {
 		PLUG_IN("Plug-in Contributions") {
 			@Override
@@ -60,15 +63,24 @@ public final class VirtualPluginResources {
 	private final Kind kind;
 	private final IProject project;
 
+	/**
+	 * @since 4.0
+	 */
 	public VirtualPluginResources(final Kind kind, final IProject project) {
 		this.kind = kind;
 		this.project = project;
 	}
 
+	/**
+	 * @since 4.0
+	 */
 	public Kind getKind() {
 		return kind;
 	}
 
+	/**
+	 * @since 4.0
+	 */
 	public String getLabel() {
 		return kind.getLabel();
 	}
