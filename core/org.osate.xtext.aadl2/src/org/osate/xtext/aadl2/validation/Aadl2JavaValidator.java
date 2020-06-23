@@ -423,6 +423,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				checkFeatureGroupConnectionDirection(connection);
 			}
 			checkFeatureGroupConnectionClassifiers(connection);
+		} else if (connection.getAllLastSource() instanceof PortConnectionEnd
+				&& connection.getAllLastDestination() instanceof PortConnectionEnd) {
+			if (connection.getRefined() == null) {
+				typeCheckPortConnectionEnd(connection.getSource());
+				typeCheckPortConnectionEnd(connection.getDestination());
+				checkConnectionDirection(connection);
+			}
+			checkPortConnectionClassifiers(connection);
 		} else if (connection.getRefined() == null) {
 			typeCheckFeatureConnectionEnd(connection.getSource());
 			typeCheckFeatureConnectionEnd(connection.getDestination());
@@ -5270,7 +5278,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * property constant. A virtual bus or bus must support the conversion from
 	 * the source data classifier to the destination classifier."
 	 */
-	private void checkPortConnectionClassifiers(PortConnection connection) {
+	private void checkPortConnectionClassifiers(Connection connection) {
 		ConnectionEnd source = connection.getAllLastSource();
 		ConnectionEnd destination = connection.getAllLastDestination();
 		if ((source instanceof DataAccess || source instanceof DataSubcomponent || source instanceof DataPort
