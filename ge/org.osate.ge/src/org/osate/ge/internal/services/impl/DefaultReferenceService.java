@@ -25,9 +25,11 @@ package org.osate.ge.internal.services.impl;
 
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.WeakHashMap;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
@@ -177,7 +179,7 @@ public class DefaultReferenceService implements ReferenceService {
 			}
 		}
 
-		return null;
+		return getFallbackLabel(ref.getSegments());
 	}
 
 	@Override
@@ -192,6 +194,15 @@ public class DefaultReferenceService implements ReferenceService {
 			}
 		}
 
-		return null;
+		return getFallbackLabel(ref.getSegments());
+	}
+
+	/**
+	 * Returns a label created by joining the specified segments. Intended for use when a label provider is not available.
+	 * @param segments the segments to join
+	 * @return the label.
+	 */
+	private final String getFallbackLabel(final List<String> segments) {
+		return segments.stream().collect(Collectors.joining(" "));
 	}
 }

@@ -226,7 +226,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 							DiagramElementLayoutUtil.shiftRelatedConnections(
 									ctxs.stream().map(ctx -> ctx.getShape())
 									.map(shape -> graphitiAgeDiagram.getDiagramElement(
-													shape)),
+											shape)),
 									new org.osate.ge.graphics.Point(delta.x, delta.y), m, true, true, true);
 
 							// Reset the positions of associated flow anchors. Flow anchors will be set after child shape positions are updated
@@ -1189,9 +1189,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 						final String refContextLabel = dtp.getProjectReferenceService()
 								.getLabel(ageDiagram.getConfiguration().getContextBoReference(), project);
 
-						throw new InitializationException("Unable to resolve context: " + (refContextLabel == null
-								? ageDiagram.getConfiguration().getContextBoReference().toString()
-										: refContextLabel));
+						throw new InitializationException("Unable to resolve context: " + refContextLabel);
 					}
 
 					fp.getDiagramUpdater().updateDiagram(ageDiagram);

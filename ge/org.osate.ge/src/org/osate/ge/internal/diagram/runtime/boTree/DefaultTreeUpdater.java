@@ -164,7 +164,7 @@ public class DefaultTreeUpdater implements TreeUpdater {
 				final String contextLabel = refService.getLabel(configuration.getContextBoReference(),
 						projectProvider.getProject());
 				throw new RuntimeException("Unable to find context business object: "
-						+ (contextLabel == null ? configuration.getContextBoReference() : contextLabel));
+						+ contextLabel);
 			}
 
 			// Require the use of the business object specified in the diagram along with any other business objects which are already in the diagram.

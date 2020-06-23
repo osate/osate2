@@ -23,12 +23,12 @@
  */
 package org.osate.ge;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.osate.ge.internal.services.impl.ReferenceEncoder;
+
+import com.google.common.collect.ImmutableList;
 
 /**
  * Immutable data type for canonical references to a business object.
@@ -37,7 +37,8 @@ import org.osate.ge.internal.services.impl.ReferenceEncoder;
  *
  */
 public class CanonicalBusinessObjectReference {
-	private List<String> segments;
+	private ImmutableList<String> segments;
+	private ImmutableList<String> lcSegments; // Lowercase segments. Used for comparison.
 
 	/**
 	 * Creates an instance from an array of segments. Segments are case insensitive. Throws an exception is optional or if the segments
@@ -56,21 +57,17 @@ public class CanonicalBusinessObjectReference {
 			}
 		}
 
-		// Copy segments into a new list and covert all segments to lower case
-		final List<String> segmentCopy = new ArrayList<>(segments.length);
-		for (int i = 0; i < segments.length; i++) {
-			segmentCopy.add(segments[i].toLowerCase());
-		}
-
-		// Store an unmodifiable list of segments
-		this.segments = Collections.unmodifiableList(segmentCopy);
+		// Store segments and lower case segments in separate lists. The lowercase segments are used for comparison while the other list is used to preserve
+		// case for serialization.
+		this.segments = ImmutableList.copyOf(segments);
+		this.lcSegments = this.segments.stream().map(String::toLowerCase).collect(ImmutableList.toImmutableList());
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((segments == null) ? 0 : segments.hashCode());
+		result = prime * result + ((lcSegments == null) ? 0 : lcSegments.hashCode());
 		return result;
 	}
 
@@ -87,11 +84,7 @@ public class CanonicalBusinessObjectReference {
 		}
 
 		final CanonicalBusinessObjectReference other = (CanonicalBusinessObjectReference)obj;
-		if (segments == null) {
-			if (other.segments != null) {
-				return false;
-			}
-		} else if (!segments.equals(other.segments)) {
+		if (!lcSegments.equals(other.lcSegments)) {
 			return false;
 		}
 		return true;
@@ -103,19 +96,11 @@ public class CanonicalBusinessObjectReference {
 	}
 
 	/**
-	 * Returns an unmodifiable list containing the segments. All segments will be lowercase.
+	 * Returns an unmodifiable list containing the segments.
 	 * @return
 	 */
 	public List<String> getSegments() {
 		return segments;
-	}
-
-	/**
-	 * Returns an array of segments. All segments will be lowercase.
-	 * @return
-	 */
-	public String[] toSegmentArray() {
-		return segments.toArray(new String[segments.size()]);
 	}
 
 	public String encode() {

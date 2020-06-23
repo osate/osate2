@@ -21,25 +21,35 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.services;
+package org.osate.ge.tests.unit;
 
-import org.eclipse.core.resources.IProject;
+import static org.junit.Assert.*;
+
+import org.junit.Test;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.RelativeBusinessObjectReference;
 
-public interface ReferenceLabelService {
-	/**
-	 * Returns a label for a canonical reference.
-	 * @param ref is the reference for which to return the label. Must not be null.
-	 * @return the label for the canonical reference. Must not return null.
-	 */
-	String getLabel(CanonicalBusinessObjectReference ref, IProject project);
+public class ReferencesTest {
+	@Test
+	public void testCanonicalReferenceComparison() {
+		final CanonicalBusinessObjectReference r1 = new CanonicalBusinessObjectReference("A", "B");
+		final CanonicalBusinessObjectReference r2 = new CanonicalBusinessObjectReference("A", "B");
+		final CanonicalBusinessObjectReference r3 = new CanonicalBusinessObjectReference("A", "b");
+		final CanonicalBusinessObjectReference r4 = new CanonicalBusinessObjectReference("A", "B2");
+		assertEquals("Identical reference should be equal.", r1, r2);
+		assertEquals("References should be case insensitive.", r1, r3);
+		assertNotEquals("References with different segments should not be equal.", r1, r4);
+	}
 
-	/**
-	 * Returns a label for a relative reference.
-	 * @param ref is the reference for which to return the label. Must not be null.
-	 * @return the label for the relative reference. Must not return null.
-	 */
-	String getLabel(RelativeBusinessObjectReference ref);
-
+	@Test
+	public void testRelativeReferenceComparison() {
+		final RelativeBusinessObjectReference r1 = new RelativeBusinessObjectReference("A", "B");
+		final RelativeBusinessObjectReference r2 = new RelativeBusinessObjectReference("A", "B");
+		final RelativeBusinessObjectReference r3 = new RelativeBusinessObjectReference("A", "b");
+		final RelativeBusinessObjectReference r4 = new RelativeBusinessObjectReference("A", "B2");
+		assertEquals("Identical reference should be equal.", r1, r2);
+		assertEquals("References should be case insensitive.", r1, r3);
+		assertNotEquals("References with different segments should not be equal.", r1, r4);
+		assertEquals("compareTo should return 0 for equal references.", 0, r1.compareTo(r3));
+	}
 }

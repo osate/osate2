@@ -171,8 +171,7 @@ public class RestoreMissingDiagramElementsHandler extends AbstractHandler {
 
 					@Override
 					public String getMissingReferenceLabel(final DiagramUpdater.GhostedElement element) {
-						final String label = referenceService.getLabel(element.getRelativeReference());
-						return label == null ? element.getRelativeReference().toString() : label;
+						return referenceService.getLabel(element.getRelativeReference());
 					}
 
 					@Override
