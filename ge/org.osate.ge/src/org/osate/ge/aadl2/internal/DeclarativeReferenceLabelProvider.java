@@ -59,6 +59,8 @@ public class DeclarativeReferenceLabelProvider implements ReferenceLabelProvider
 
 		// Try to determine the proper case fore the label.
 		// Project should only be non-null for canonical references
+		// This is needed because versions of the OSATE graphical editor in OSATE 2.7.1 and earlier do not preserve the case of references.
+		// Eventually this can be removed as long as references in diagrams are updated to reflect the actual names after loading.
 		if (project != null && segs.size() == 2) {
 			final String name = segs.get(1);
 			final String actualName;
