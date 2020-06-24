@@ -138,14 +138,6 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 		return result;
 	}
 
-	/**
-	 * @deprecated Use {@link #invoke(ComponentInstance)} instead. Will be removed in 2.7.
-	 */
-	@Deprecated
-	public final double getWeight(ComponentInstance ci) {
-		return ResultUtil.getReal(calcWeight(ci, true), 0);
-	}
-
 	private static Result calcWeight(ComponentInstance ci, boolean needWeight) {
 		Result result = ResultFactory.eINSTANCE.createResult();
 		result.setModelElement(ci);
