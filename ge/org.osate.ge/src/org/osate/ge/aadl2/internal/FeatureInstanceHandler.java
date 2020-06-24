@@ -50,7 +50,7 @@ public class FeatureInstanceHandler extends AadlBusinessObjectHandler {
 		final FeatureInstance bo = ctx.getBusinessObject(FeatureInstance.class).get();
 		return new CanonicalBusinessObjectReference(AadlReferenceUtil.INSTANCE_ID,
 				AadlReferenceUtil.FEATURE_INSTANCE_KEY, AadlReferenceUtil.getSystemInstanceKey(bo),
-				bo.getInstanceObjectPath().toLowerCase());
+				bo.getInstanceObjectPath());
 	}
 
 	@Override

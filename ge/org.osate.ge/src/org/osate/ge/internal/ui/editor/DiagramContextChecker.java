@@ -202,7 +202,8 @@ public class DiagramContextChecker {
 		}
 
 		final ElementSelectionDialog dlg = new ElementSelectionDialog(null, "Missing Diagram Context",
-				"Unable to find diagram context \"" + refService.getLabel(missingContextRef, project)
+				"Unable to find diagram context \"" + refService.getLabel(
+						missingContextRef)
 				+ "\".\nIf the model element has been renamed, select the new name for the model element.",
 				options);
 		dlg.setFilter(searchPrefix);

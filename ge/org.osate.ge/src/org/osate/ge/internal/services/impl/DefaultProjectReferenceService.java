@@ -124,8 +124,8 @@ public class DefaultProjectReferenceService implements ProjectReferenceService, 
 	}
 
 	@Override
-	public String getLabel(final CanonicalBusinessObjectReference ref, final IProject project) {
-		return referenceLabelService.getLabel(ref, project);
+	public String getLabel(final CanonicalBusinessObjectReference ref) {
+		return referenceLabelService.getLabel(ref);
 	}
 
 	@Override

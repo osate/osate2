@@ -35,6 +35,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.DockingPosition;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.RelativeBusinessObjectReference;
@@ -43,6 +44,7 @@ import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.internal.AgeConnection;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
+import org.osate.ge.internal.diagram.runtime.DiagramConfigurationBuilder;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
@@ -55,6 +57,8 @@ import org.osate.ge.internal.diagram.runtime.boTree.TreeUpdater;
 import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.AgeAction;
+import org.osate.ge.services.ReferenceBuilderService;
+import org.osate.ge.services.ReferenceResolutionService;
 
 /**
  * Updates the diagram's elements based on the diagram configuration.
@@ -64,6 +68,8 @@ public class DiagramUpdater {
 	private final TreeUpdater boTreeExpander;
 	private final DiagramElementInformationProvider infoProvider;
 	private final ActionExecutor actionExecutor;
+	private final ReferenceResolutionService referenceResolver;
+	private final ReferenceBuilderService referenceBuilder;
 
 	private final Map<DiagramNode, Map<RelativeBusinessObjectReference, DiagramElement>> containerToRelativeReferenceToGhostMap = new HashMap<>();
 
@@ -71,10 +77,13 @@ public class DiagramUpdater {
 	private final Map<DiagramNode, Map<RelativeBusinessObjectReference, FutureElementInfo>> futureElementInfoMap = new HashMap<>();
 
 	public DiagramUpdater(final TreeUpdater boTreeExpander,
-			final DiagramElementInformationProvider infoProvider, final ActionExecutor actionExecutor) {
+			final DiagramElementInformationProvider infoProvider, final ActionExecutor actionExecutor,
+			final ReferenceResolutionService referenceResolver, final ReferenceBuilderService referenceBuilder) {
 		this.boTreeExpander = Objects.requireNonNull(boTreeExpander, "boTreeExpander must not be null");
 		this.infoProvider = Objects.requireNonNull(infoProvider, "infoProvider must not be null"); // Adjust message after rename
 		this.actionExecutor = Objects.requireNonNull(actionExecutor, "actionExecutor must not be null");
+		this.referenceResolver = Objects.requireNonNull(referenceResolver, "referenceResolver must not be null");
+		this.referenceBuilder = Objects.requireNonNull(referenceBuilder, "referenceBuilder must not be null");
 	}
 
 	/**
@@ -112,6 +121,8 @@ public class DiagramUpdater {
 		final List<DiagramElement> connectionElements = new LinkedList<>();
 
 		diagram.modify("Update Diagram", m -> {
+			refreshDiagramContextReference(m, diagram);
+
 			// Update the structure. By doing this in a separate pass, updateElements() will have access to the complete diagram structure.
 			// However, connections will later be purged from the diagram if they do not refer to valid elements.
 			updateStructure(m, diagram, tree.getChildren());
@@ -122,6 +133,29 @@ public class DiagramUpdater {
 
 		// Remove all entries from the future elements map regardless of whether they were created or not. This ensures that unused positions aren't retained indefinitely
 		futureElementInfoMap.clear();
+	}
+
+	/**
+	 * Rebuilds the diagram context's reference and updated the diagram context accordingly. This ensures the diagram is updated with the correct
+	 * case.
+	 * @param m
+	 * @param diagram
+	 */
+	private void refreshDiagramContextReference(final DiagramModification m, final AgeDiagram diagram) {
+		final CanonicalBusinessObjectReference diagramContextRef = diagram.getConfiguration().getContextBoReference();
+		if (diagramContextRef != null) {
+			final Object contextBo = referenceResolver.resolve(diagram.getConfiguration().getContextBoReference());
+			if (contextBo != null) {
+				final CanonicalBusinessObjectReference newDiagramContextRef = referenceBuilder
+						.getCanonicalReference(contextBo);
+
+				// If the new reference isn't equal to the old reference, then something isn't correct. Don't use the new reference.
+				if (Objects.equals(diagramContextRef, newDiagramContextRef)) {
+					m.setDiagramConfiguration(new DiagramConfigurationBuilder(diagram.getConfiguration())
+							.setContextBoReference(newDiagramContextRef).build());
+				}
+			}
+		}
 	}
 
 	/**
@@ -151,13 +185,15 @@ public class DiagramUpdater {
 							n.getId());
 				} else {
 					element = removedGhost;
-					m.updateBusinessObjectWithSameRelativeReference(element, n.getBusinessObject());
+					m.updateBusinessObject(element, n.getBusinessObject(), n.getRelativeReference());
 				}
 
 				m.addElement(element);
 			} else {
-				// Update the business object. Although the reference matches. The business object may be new.
-				m.updateBusinessObjectWithSameRelativeReference(element, n.getBusinessObject());
+				// Update the business object and relative reference. Although the reference matches. The business object may be new and the
+				// relative reference may have case differences.
+				m.updateBusinessObject(element, n.getBusinessObject(),
+						n.getRelativeReference());
 			}
 
 			// Set the business object handler if it is null

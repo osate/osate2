@@ -167,11 +167,10 @@ public class DefaultReferenceService implements ReferenceService {
 	}
 
 	@Override
-	public String getLabel(final CanonicalBusinessObjectReference ref, final IProject project) {
+	public String getLabel(final CanonicalBusinessObjectReference ref) {
 		Objects.requireNonNull(ref, "ref must not be null");
-		Objects.requireNonNull(project, "project must not be null");
 
-		final GetCanonicalReferenceLabelContext ctx = new GetCanonicalReferenceLabelContext(ref, project);
+		final GetCanonicalReferenceLabelContext ctx = new GetCanonicalReferenceLabelContext(ref);
 		for (final ReferenceLabelProvider provider : labelProviderRegistry.getProviders()) {
 			final Optional<String> label = provider.getCanonicalReferenceLabel(ctx);
 			if (label.isPresent()) {

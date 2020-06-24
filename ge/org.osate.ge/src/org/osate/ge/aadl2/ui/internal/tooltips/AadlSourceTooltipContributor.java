@@ -44,25 +44,21 @@ public class AadlSourceTooltipContributor implements TooltipContributor {
 	@Override
 	public void addTooltipContents(final TooltipContributorContext ctx) {
 		ctx.getBusinessObjectContext().getBusinessObject(EObject.class).ifPresent(bo -> {
-			final boolean showSource = bo instanceof Feature ||
-					bo instanceof InternalFeature ||
-					bo instanceof ProcessorFeature ||
-					bo instanceof Feature ||
-					bo instanceof Connection ||
-					bo instanceof FlowSpecification ||
-					bo instanceof Subcomponent ||
-					bo instanceof SubprogramCall || bo instanceof ModeTransition || bo instanceof ModeTransitionTrigger;
-			if(!showSource) {
+			final boolean showSource = bo instanceof Feature || bo instanceof InternalFeature
+					|| bo instanceof ProcessorFeature || bo instanceof Connection || bo instanceof FlowSpecification
+					|| bo instanceof Subcomponent || bo instanceof SubprogramCall || bo instanceof ModeTransition
+					|| bo instanceof ModeTransitionTrigger;
+			if (!showSource) {
 				return;
 			}
 
 			final INode n = NodeModelUtils.getNode(bo);
-			if(n == null) {
+			if (n == null) {
 				return;
 			}
 
 			final String txt = NodeModelUtils.getTokenText(n);
-			if(txt == null) {
+			if (txt == null) {
 				return;
 			}
 

@@ -28,6 +28,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -87,7 +88,8 @@ public class AadlFeatureUtil {
 
 	public static NamedElement createFeature(final Classifier featureOwner, final EClass featureClass) {
 		try {
-			return (NamedElement)getFeatureCreateMethod(featureOwner, featureClass).invoke(featureOwner);
+			return (NamedElement) Objects.requireNonNull(getFeatureCreateMethod(featureOwner, featureClass),
+					"Unable to get feature create method for " + featureClass.getName()).invoke(featureOwner);
 		} catch (final Exception e) {
 			throw new RuntimeException(e);
 		}

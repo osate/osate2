@@ -25,6 +25,7 @@ package org.osate.ge;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import org.osate.ge.internal.services.impl.ReferenceEncoder;
 
@@ -60,7 +61,8 @@ public class CanonicalBusinessObjectReference {
 		// Store segments and lower case segments in separate lists. The lowercase segments are used for comparison while the other list is used to preserve
 		// case for serialization.
 		this.segments = ImmutableList.copyOf(segments);
-		this.lcSegments = this.segments.stream().map(String::toLowerCase).collect(ImmutableList.toImmutableList());
+		this.lcSegments = this.segments.stream().map(s -> s.toLowerCase(Locale.ROOT))
+				.collect(ImmutableList.toImmutableList());
 	}
 
 	@Override

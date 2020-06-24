@@ -28,6 +28,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
@@ -57,7 +58,8 @@ public class AadlConnectionUtil {
 
 	public static org.osate.aadl2.Connection createConnection(final ComponentImplementation ci, final EClass connectionClass) {
 		try {
-			return (org.osate.aadl2.Connection)getConnectionCreateMethod(ci, connectionClass).invoke(ci);
+			return (org.osate.aadl2.Connection) Objects.requireNonNull(getConnectionCreateMethod(ci, connectionClass),
+					"Unable to get connection creationg method for " + connectionClass.getName()).invoke(ci);
 		} catch (final Exception e) {
 			throw new RuntimeException(e);
 		}
