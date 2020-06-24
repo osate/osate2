@@ -274,11 +274,11 @@ PrototypeBindingsModel<PrototypeBindingsModelNode, Object, PrototypeBindingType,
 			filterEClasses = componentCategoryToPrototypeFilterTypeEClasses(category);
 			prototypeFilter = ComponentPrototype.class;
 		} else if (bo instanceof FeatureGroupPrototype) {
-			filterEClasses = Stream.of(AgeAadlUtil.getAadl2Factory().getAadl2Package().getFeatureGroupType());
+			filterEClasses = Stream.of(Aadl2Package.eINSTANCE.getFeatureGroupType());
 			prototypeFilter = FeatureGroupPrototype.class;
 		} else if (bo instanceof FeaturePrototype && type instanceof AccessSpecificationBindingType
 				|| type instanceof PortSpecificationBindingType) {
-			filterEClasses = Stream.of(AgeAadlUtil.getAadl2Factory().getAadl2Package().getComponentClassifier());
+			filterEClasses = Stream.of(Aadl2Package.eINSTANCE.getComponentClassifier());
 			prototypeFilter = null;
 		} else if (bo instanceof FeaturePrototype && type instanceof FeatureReferenceBindingType) {
 			filterEClasses = Stream.empty();
@@ -758,7 +758,7 @@ PrototypeBindingsModel<PrototypeBindingsModelNode, Object, PrototypeBindingType,
 
 	// Returns a stream containing EClass instances to use to filter component prototype classifier options
 	private static Stream<EClass> componentCategoryToPrototypeFilterTypeEClasses(final ComponentCategory category) {
-		final Aadl2Package p = AgeAadlUtil.getAadl2Factory().getAadl2Package();
+		final Aadl2Package p = Aadl2Package.eINSTANCE;
 
 		switch (category) {
 		case ABSTRACT:

@@ -135,7 +135,7 @@ public class PasteAction extends ActionStackAction {
 		});
 
 		// Update selection to match created diagram elements
-		editor.selectDiagramElements(newDiagramElements.toArray(new DiagramElement[newDiagramElements.size()]));
+		editor.setDiagramElementsForSelection(newDiagramElements.toArray(new DiagramElement[newDiagramElements.size()]));
 	}
 
 	/**

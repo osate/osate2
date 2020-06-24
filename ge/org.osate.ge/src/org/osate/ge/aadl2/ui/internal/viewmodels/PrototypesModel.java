@@ -64,7 +64,6 @@ import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.internal.util.AadlImportsUtil;
 import org.osate.ge.aadl2.internal.util.AadlPrototypeUtil;
-import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.aadl2.ui.internal.viewmodels.PrototypesModel.EditablePrototype;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.swt.BaseObservableModel;
@@ -135,8 +134,7 @@ implements PrototypesEditorModel<EditablePrototype, NamedElementOrDescription> {
 		}
 	}
 
-	public PrototypesModel(final Renamer renamer,
-			final BusinessObjectSelection bos) {
+	public PrototypesModel(final Renamer renamer, final BusinessObjectSelection bos) {
 		this.renamer = Objects.requireNonNull(renamer, "renamer must not be null");
 		setBusinessObjectSelection(bos);
 	}
@@ -154,12 +152,10 @@ implements PrototypesEditorModel<EditablePrototype, NamedElementOrDescription> {
 	@Override
 	public void addPrototype() {
 		bos.modify("Add Prototype", boc -> boc.getBusinessObject() instanceof Classifier,
-				boc -> (Classifier) boc.getBusinessObject(),
-				(c, boc) -> {
+				boc -> (Classifier) boc.getBusinessObject(), (c, boc) -> {
 					// Create a new prototype
 					final ComponentPrototype cp = (ComponentPrototype) c
-									.createOwnedPrototype(
-											AgeAadlUtil.getAadl2Factory().getAadl2Package().getDataPrototype());
+									.createOwnedPrototype(Aadl2Package.eINSTANCE.getDataPrototype());
 
 					// Assign a name
 					final String newName = AadlNamingUtil.buildUniqueIdentifier(c, "new_prototype");
@@ -228,7 +224,6 @@ implements PrototypesEditorModel<EditablePrototype, NamedElementOrDescription> {
 			return prototypeToRename;
 		}
 	}
-
 
 	@Override
 	public void setPrototypeName(EditablePrototype prototype, String value) {
@@ -374,9 +369,9 @@ implements PrototypesEditorModel<EditablePrototype, NamedElementOrDescription> {
 		final Prototype p = prototype.prototype;
 		final EClass filterEClass;
 		if (p instanceof ComponentPrototype || p instanceof FeaturePrototype) {
-			filterEClass = AgeAadlUtil.getAadl2Factory().getAadl2Package().getComponentClassifier();
+			filterEClass = Aadl2Package.eINSTANCE.getComponentClassifier();
 		} else if (p instanceof FeatureGroupPrototype) {
-			filterEClass = AgeAadlUtil.getAadl2Factory().getAadl2Package().getFeatureGroupType();
+			filterEClass = Aadl2Package.eINSTANCE.getFeatureGroupType();
 		} else {
 			filterEClass = null;
 		}
@@ -530,7 +525,8 @@ implements PrototypesEditorModel<EditablePrototype, NamedElementOrDescription> {
 		// If a prototype was previously selected, update the selection based on the previously selected prototype's same classifier BOC and name.
 		if (this.selectedPrototype != null) {
 			selectedPrototype = prototypes.stream().filter(p -> {
-				return p.classifierBoc == selectedPrototype.classifierBoc && p.name.equalsIgnoreCase(this.selectedPrototype.name);
+				return p.classifierBoc == selectedPrototype.classifierBoc
+						&& p.name.equalsIgnoreCase(this.selectedPrototype.name);
 			}).findAny().orElse(null);
 		}
 
@@ -544,14 +540,16 @@ implements PrototypesEditorModel<EditablePrototype, NamedElementOrDescription> {
 
 	void modifyOwningClassifier(final String label, final EditablePrototype editablePrototype,
 			final Consumer<Classifier> modifier) {
-		bos.modify(label, boc -> boc == editablePrototype.classifierBoc, boc -> editablePrototype.prototype.getContainingClassifier(),
-				(c, boc) -> modifier.accept(c));
+		bos.modify(label, boc -> boc == editablePrototype.classifierBoc,
+				boc -> editablePrototype.prototype.getContainingClassifier(), (c, boc) -> modifier.accept(c));
 	}
 
-	void modifyPrototype(final String label, final EditablePrototype editablePrototype, final Consumer<Prototype> modifier) {
-		modifyOwningClassifier(label, editablePrototype, c -> getPrototypeByName(c, editablePrototype.name).ifPresent(p -> {
-			modifier.accept(p);
-		}));
+	void modifyPrototype(final String label, final EditablePrototype editablePrototype,
+			final Consumer<Prototype> modifier) {
+		modifyOwningClassifier(label, editablePrototype,
+				c -> getPrototypeByName(c, editablePrototype.name).ifPresent(p -> {
+					modifier.accept(p);
+				}));
 	}
 
 	/**
@@ -610,7 +608,7 @@ implements PrototypesEditorModel<EditablePrototype, NamedElementOrDescription> {
 	}
 
 	private static EClass prototypeTypeToEClass(final PrototypeType type) {
-		final Aadl2Package pkg = AgeAadlUtil.getAadl2Factory().getAadl2Package();
+		final Aadl2Package pkg = Aadl2Package.eINSTANCE;
 
 		switch (type) {
 		case ABSTRACT:

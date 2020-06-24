@@ -194,7 +194,7 @@ public class AadlClassifierUtil {
 	}
 
 	public static EClass componentCategoryToClassifierEClass(final ComponentCategory category) {
-		final Aadl2Package p = AgeAadlUtil.getAadl2Factory().getAadl2Package();
+		final Aadl2Package p = Aadl2Package.eINSTANCE;
 
 		switch (category) {
 		case SYSTEM:
@@ -253,11 +253,10 @@ public class AadlClassifierUtil {
 		final EClass classifierClass = componentCategoryToClassifierEClass(componentCategory);
 		final Set<IEObjectDescription> objectDescriptions = new HashSet<IEObjectDescription>();
 		for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(project,
-				AgeAadlUtil.getAadl2Factory().getAadl2Package().getComponentClassifier())) {
+				Aadl2Package.eINSTANCE.getComponentClassifier())) {
 			// Add objects that have are either types or implementations of the same category as the classifier type
-			if (classifierClass.isSuperTypeOf(desc.getEClass()) && (includeImplementations || !AgeAadlUtil
-					.getAadl2Factory()
-					.getAadl2Package().getComponentImplementation().isSuperTypeOf(desc.getEClass()))) {
+			if (classifierClass.isSuperTypeOf(desc.getEClass()) && (includeImplementations
+					|| !Aadl2Package.eINSTANCE.getComponentImplementation().isSuperTypeOf(desc.getEClass()))) {
 				objectDescriptions.add(desc);
 			}
 		}

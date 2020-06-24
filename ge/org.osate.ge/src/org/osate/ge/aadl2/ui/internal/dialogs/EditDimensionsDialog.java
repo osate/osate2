@@ -157,7 +157,7 @@ public class EditDimensionsDialog extends TitleAreaDialog {
 		addBtn.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				final Aadl2Package pkg = AgeAadlUtil.getAadl2Factory().getAadl2Package();
+				final Aadl2Package pkg = Aadl2Package.eINSTANCE;
 				final ArrayDimension newDim = (ArrayDimension)pkg.getEFactoryInstance().create(pkg.getArrayDimension());
 				dimensions.add(newDim);
 				dimensionListViewer.refresh();
@@ -392,7 +392,7 @@ public class EditDimensionsDialog extends TitleAreaDialog {
 			final XtextResourceSet rs = new XtextResourceSet();
 			final List<PropertyConstant> results = new ArrayList<PropertyConstant>();
 			for (final IEObjectDescription objDesc : ScopedEMFIndexRetrieval.getAllEObjectsByType(projectContext,
-					AgeAadlUtil.getAadl2Factory().getAadl2Package().getPropertyConstant())) {
+					Aadl2Package.eINSTANCE.getPropertyConstant())) {
 				final PropertyConstant propConst = (PropertyConstant)rs.getEObject(EcoreUtil.getURI(objDesc.getEObjectOrProxy()), true);
 				if(propConst != null && propConst.getPropertyType() instanceof AadlInteger) {
 					results.add(propConst);

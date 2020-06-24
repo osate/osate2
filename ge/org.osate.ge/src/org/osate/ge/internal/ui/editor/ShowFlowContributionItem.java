@@ -131,7 +131,7 @@ public class ShowFlowContributionItem extends ControlContribution {
 					final Object component = getContainerComponent(selectedFlow.getContainer().getBusinessObject());
 					ensureFlowSegmentsExist(component, selectedFlow.getFlowSegment(), containerNode);
 
-					final AgeDiagram diagram = editor.getAgeDiagram();
+					final AgeDiagram diagram = editor.getDiagram();
 					final ActionService actionService = Objects.requireNonNull(
 							Adapters.adapt(editor, ActionService.class), "Unable to retrieve action service");
 					final GraphitiService graphitiService = Objects.requireNonNull(
@@ -235,8 +235,8 @@ public class ShowFlowContributionItem extends ControlContribution {
 
 			private BusinessObjectNode getBoTree(final TreeUpdater boTreeExpander) {
 				BusinessObjectNode boTree = DiagramToBusinessObjectTreeConverter
-						.createBusinessObjectNode(editor.getAgeDiagram());
-				return boTreeExpander.expandTree(editor.getAgeDiagram().getConfiguration(), boTree);
+						.createBusinessObjectNode(editor.getDiagram());
+				return boTreeExpander.expandTree(editor.getDiagram().getConfiguration(), boTree);
 			}
 
 			private FlowSegmentReference createFlowSegmentReference(final Object bo,

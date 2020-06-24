@@ -38,7 +38,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
@@ -57,7 +56,6 @@ import org.osate.ge.businessobjecthandling.RawDeleteContext;
 import org.osate.ge.businessobjecthandling.RawDeleter;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.AadlModificationService.Modification;
@@ -81,12 +79,6 @@ public class DeleteHandler extends AbstractHandler {
 	private boolean calculateEnabled(final Object evaluationContext) {
 		final IEditorPart activeEditor = AgeHandlerUtil.getActiveEditorFromContext(evaluationContext);
 		if (!(activeEditor instanceof AgeDiagramEditor)) {
-			return false;
-		}
-
-		final AgeDiagramEditor ageEditor = (AgeDiagramEditor) activeEditor;
-		final GraphitiAgeDiagram graphitiAgeDiagram = ageEditor.getGraphitiAgeDiagram();
-		if (graphitiAgeDiagram == null) {
 			return false;
 		}
 
@@ -170,7 +162,7 @@ public class DeleteHandler extends AbstractHandler {
 			return null;
 		}
 
-		final boolean boIsContext = anyBoIsDiagramContext(selectedDiagramElements, ageEditor.getAgeDiagram(),
+		final boolean boIsContext = anyBoIsDiagramContext(selectedDiagramElements, ageEditor.getDiagram(),
 				refBuilder);
 
 		ageEditor.getActionExecutor().execute("Delete", ExecutionMode.NORMAL, () -> {
@@ -251,8 +243,7 @@ public class DeleteHandler extends AbstractHandler {
 			// Close the editor if the context was deleted
 			Display.getDefault().syncExec(() -> ageEditor.close());
 		} else {
-			// Clear selection
-			ageEditor.selectPictogramElements(new PictogramElement[0]);
+			ageEditor.clearSelection();
 		}
 
 		return null;

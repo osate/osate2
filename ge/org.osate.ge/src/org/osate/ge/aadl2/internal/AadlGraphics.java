@@ -35,7 +35,6 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.PortCategory;
-import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
@@ -118,7 +117,7 @@ public class AadlGraphics {
 		final FeatureGraphicBuilder builder = FeatureGraphicBuilder.create();
 
 		// Configure the feature type
-		final Aadl2Package aadl2Pkg = AgeAadlUtil.getAadl2Factory().getAadl2Package();
+		final Aadl2Package aadl2Pkg = Aadl2Package.eINSTANCE;
 		if(featureClass == aadl2Pkg.getAbstractFeature()) {
 			builder.abstractFeature();
 		} else if(featureClass == aadl2Pkg.getEventPort()) {
@@ -165,7 +164,7 @@ public class AadlGraphics {
 	}
 
 	public static String getFeatureAnnotation(final EClass featureClass) {
-		final Aadl2Package aadl2Pkg = AgeAadlUtil.getAadl2Factory().getAadl2Package();
+		final Aadl2Package aadl2Pkg = Aadl2Package.eINSTANCE;
 		if (aadl2Pkg.getProcessorFeature().isSuperTypeOf(featureClass)) {
 			return "<processor>";
 		} else if (aadl2Pkg.getInternalFeature().isSuperTypeOf(featureClass)) {

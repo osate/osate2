@@ -41,7 +41,6 @@ import org.osate.ge.StringUtil;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.internal.util.AadlClassifierUtil;
-import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.aadl2.internal.util.classifiers.ClassifierCreationHelper;
 import org.osate.ge.aadl2.internal.util.classifiers.ClassifierOperation;
 import org.osate.ge.aadl2.internal.util.classifiers.ClassifierOperationExecutor;
@@ -236,7 +235,7 @@ public class CreateClassifierPaletteCommand extends BasePaletteCommand implement
 		boolean containerIsValidBaseClassifier = false;
 		if (componentImplementation) {
 			for (final EClass superType : classifierEClass.getESuperTypes()) {
-				if (!AgeAadlUtil.getAadl2Factory().getAadl2Package().getComponentImplementation()
+				if (!Aadl2Package.eINSTANCE.getComponentImplementation()
 						.isSuperTypeOf(superType)) {
 					if (superType.isSuperTypeOf(containerType)) {
 						containerIsValidBaseClassifier = true;
@@ -247,7 +246,7 @@ public class CreateClassifierPaletteCommand extends BasePaletteCommand implement
 		} else {
 			containerIsValidBaseClassifier = classifierEClass.isSuperTypeOf(
 					containerType)
-					|| AgeAadlUtil.getAadl2Factory().getAadl2Package().getAbstractType().isSuperTypeOf(containerType);
+					|| Aadl2Package.eINSTANCE.getAbstractType().isSuperTypeOf(containerType);
 		}
 
 		return containerIsValidBaseClassifier;

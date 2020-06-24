@@ -95,7 +95,7 @@ public class ShowElementsInModeHandler extends AbstractHandler {
 			enableInModeNodes(bopHelper, boTree, selectedMode);
 		}
 
-		final AgeDiagram diagram = editor.getAgeDiagram();
+		final AgeDiagram diagram = editor.getDiagram();
 		final DiagramUpdater diagramUpdater = featureProvider.getDiagramUpdater();
 		final GraphitiService graphitiService = Objects.requireNonNull(Adapters.adapt(editor, GraphitiService.class),
 				"Unable to retrieve graphiti service");
@@ -253,8 +253,8 @@ public class ShowElementsInModeHandler extends AbstractHandler {
 
 	private static BusinessObjectNode getBoTree(final AgeDiagramEditor editor, final TreeUpdater boTreeExpander) {
 		final BusinessObjectNode boTree = DiagramToBusinessObjectTreeConverter
-				.createBusinessObjectNode(editor.getAgeDiagram());
-		return boTreeExpander.expandTree(editor.getAgeDiagram().getConfiguration(), boTree);
+				.createBusinessObjectNode(editor.getDiagram());
+		return boTreeExpander.expandTree(editor.getDiagram().getConfiguration(), boTree);
 	}
 
 	private RelativeBusinessObjectReference getRelativeBusinessObjectReference(final Object bo) {

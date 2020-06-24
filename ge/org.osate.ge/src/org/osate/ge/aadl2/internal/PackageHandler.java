@@ -29,12 +29,12 @@ import java.util.Optional;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.xtext.resource.IEObjectDescription;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
-import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
@@ -111,7 +111,7 @@ public class PackageHandler extends AadlBusinessObjectHandler implements RawDele
 			// Compare names with other packages
 			final IProject project = ProjectUtil.getProjectForBoOrThrow(pkg);
 			for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(project,
-					AgeAadlUtil.getAadl2Factory().getAadl2Package().getAadlPackage())) {
+					Aadl2Package.eINSTANCE.getAadlPackage())) {
 				if (newName.equalsIgnoreCase(desc.getQualifiedName().toString("::"))) {
 					return "The specified name conflicts with an existing package.";
 				}

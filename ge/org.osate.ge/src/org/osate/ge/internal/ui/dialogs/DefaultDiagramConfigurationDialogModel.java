@@ -33,6 +33,7 @@ import java.util.Objects;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.IEObjectDescription;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.CanonicalBusinessObjectReference;
@@ -40,7 +41,6 @@ import org.osate.ge.ContentFilter;
 import org.osate.ge.DiagramType;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.StringUtil;
-import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.diagram.runtime.filtering.Filtering;
 import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.services.ExtensionRegistryService;
@@ -112,7 +112,7 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 		// Retrieve properties from the EMF Index
 		final Map<String, Collection<String>> result = new HashMap<>();
 		for (final IEObjectDescription propDesc : ScopedEMFIndexRetrieval.getAllEObjectsByType(
-				projectProvider.getProject(), AgeAadlUtil.getAadl2Factory().getAadl2Package().getProperty())) {
+				projectProvider.getProject(), Aadl2Package.eINSTANCE.getProperty())) {
 			final QualifiedName qn = propDesc.getQualifiedName();
 			if(qn.getSegmentCount() == 2) { // Qualified property names should only have two segments.
 				final String propertySetName = qn.getFirstSegment();

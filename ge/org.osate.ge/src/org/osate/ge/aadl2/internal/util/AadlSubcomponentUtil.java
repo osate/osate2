@@ -79,7 +79,7 @@ public class AadlSubcomponentUtil {
 	 */
 	private static Map<EClass, String> createSubcomponentTypeToMethodMap() {
 		final LinkedHashMap<EClass, String> map = new LinkedHashMap<EClass, String>();
-		final Aadl2Package p = AgeAadlUtil.getAadl2Factory().getAadl2Package();
+		final Aadl2Package p = Aadl2Package.eINSTANCE;
 		map.put(p.getAbstractSubcomponent(), "createOwnedAbstractSubcomponent");
 		map.put(p.getBusSubcomponent(), "createOwnedBusSubcomponent");
 		map.put(p.getDataSubcomponent(), "createOwnedDataSubcomponent");
@@ -247,33 +247,33 @@ public class AadlSubcomponentUtil {
 			((SystemSubcomponent) sc).setSystemSubcomponentType((SystemSubcomponentType) selectedSubcomponentType);
 		} else if (sc instanceof AbstractSubcomponent) {
 			((AbstractSubcomponent) sc)
-					.setAbstractSubcomponentType((AbstractSubcomponentType) selectedSubcomponentType);
+			.setAbstractSubcomponentType((AbstractSubcomponentType) selectedSubcomponentType);
 		} else if (sc instanceof ThreadGroupSubcomponent) {
 			((ThreadGroupSubcomponent) sc)
-					.setThreadGroupSubcomponentType((ThreadGroupSubcomponentType) selectedSubcomponentType);
+			.setThreadGroupSubcomponentType((ThreadGroupSubcomponentType) selectedSubcomponentType);
 		} else if (sc instanceof ThreadSubcomponent) {
 			((ThreadSubcomponent) sc).setThreadSubcomponentType((ThreadSubcomponentType) selectedSubcomponentType);
 		} else if (sc instanceof SubprogramSubcomponent) {
 			((SubprogramSubcomponent) sc)
-					.setSubprogramSubcomponentType((SubprogramSubcomponentType) selectedSubcomponentType);
+			.setSubprogramSubcomponentType((SubprogramSubcomponentType) selectedSubcomponentType);
 		} else if (sc instanceof SubprogramGroupSubcomponent) {
 			((SubprogramGroupSubcomponent) sc)
-					.setSubprogramGroupSubcomponentType((SubprogramGroupSubcomponentType) selectedSubcomponentType);
+			.setSubprogramGroupSubcomponentType((SubprogramGroupSubcomponentType) selectedSubcomponentType);
 		} else if (sc instanceof DataSubcomponent) {
 			((DataSubcomponent) sc).setDataSubcomponentType((DataSubcomponentType) selectedSubcomponentType);
 		} else if (sc instanceof VirtualBusSubcomponent) {
 			((VirtualBusSubcomponent) sc)
-					.setVirtualBusSubcomponentType((VirtualBusSubcomponentType) selectedSubcomponentType);
+			.setVirtualBusSubcomponentType((VirtualBusSubcomponentType) selectedSubcomponentType);
 		} else if (sc instanceof VirtualProcessorSubcomponent) {
 			((VirtualProcessorSubcomponent) sc)
-					.setVirtualProcessorSubcomponentType((VirtualProcessorSubcomponentType) selectedSubcomponentType);
+			.setVirtualProcessorSubcomponentType((VirtualProcessorSubcomponentType) selectedSubcomponentType);
 		} else if (sc instanceof BusSubcomponent) {
 			((BusSubcomponent) sc).setBusSubcomponentType((BusSubcomponentType) selectedSubcomponentType);
 		} else if (sc instanceof ProcessSubcomponent) {
 			((ProcessSubcomponent) sc).setProcessSubcomponentType((ProcessSubcomponentType) selectedSubcomponentType);
 		} else if (sc instanceof ProcessorSubcomponent) {
 			((ProcessorSubcomponent) sc)
-					.setProcessorSubcomponentType((ProcessorSubcomponentType) selectedSubcomponentType);
+			.setProcessorSubcomponentType((ProcessorSubcomponentType) selectedSubcomponentType);
 		} else if (sc instanceof DeviceSubcomponent) {
 			((DeviceSubcomponent) sc).setDeviceSubcomponentType((DeviceSubcomponentType) selectedSubcomponentType);
 		} else if (sc instanceof MemorySubcomponent) {

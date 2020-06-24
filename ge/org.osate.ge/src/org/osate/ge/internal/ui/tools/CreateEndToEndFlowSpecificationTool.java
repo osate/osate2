@@ -69,7 +69,6 @@ import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
-import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.services.AadlModificationService;
@@ -259,7 +258,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 
 	private class CreateFlowsToolsDialog extends TitleAreaDialog {
 		private final UiService uiService;
-		private final Aadl2Package pkg = AgeAadlUtil.getAadl2Factory().getAadl2Package();
+		private final Aadl2Package pkg = Aadl2Package.eINSTANCE;
 		private final EndToEndFlow eTEFlow = (EndToEndFlow) pkg.getEFactoryInstance().create(pkg.getEndToEndFlow());
 		private final List<String> segmentList = new ArrayList<String>();
 		private final List<String> modeList = new ArrayList<String>();

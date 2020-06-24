@@ -50,6 +50,7 @@ import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.util.Strings;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
@@ -57,7 +58,6 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.aadl2.internal.util.AadlImportsUtil;
-import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.aadl2.ui.internal.dialogs.ElementSelectionDialog;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
@@ -240,19 +240,19 @@ public class SetExtendedClassifierPropertySection extends AbstractPropertySectio
 
 			// Ensure that abstract classifiers are in the list
 			if (classifier instanceof ComponentType) {
-				if (classifier.eClass() != AgeAadlUtil.getAadl2Factory().getAadl2Package().getAbstractType()) {
+				if (classifier.eClass() != Aadl2Package.eINSTANCE.getAbstractType()) {
 					for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(
-							classifier.eResource(), AgeAadlUtil.getAadl2Factory().getAadl2Package().getAbstractType())) {
+							classifier.eResource(), Aadl2Package.eINSTANCE.getAbstractType())) {
 						if (!name.equalsIgnoreCase(desc.getName().toString("::"))) {
 							objectDescriptions.add(desc);
 						}
 					}
 				}
 			} else if (classifier instanceof ComponentImplementation) {
-				if (classifier.eClass() != AgeAadlUtil.getAadl2Factory().getAadl2Package().getAbstractImplementation()) {
+				if (classifier.eClass() != Aadl2Package.eINSTANCE.getAbstractImplementation()) {
 					for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(
 							classifier.eResource(),
-							AgeAadlUtil.getAadl2Factory().getAadl2Package().getAbstractImplementation())) {
+							Aadl2Package.eINSTANCE.getAbstractImplementation())) {
 						if (!name.equalsIgnoreCase(desc.getName().toString("::"))) {
 							objectDescriptions.add(desc);
 						}

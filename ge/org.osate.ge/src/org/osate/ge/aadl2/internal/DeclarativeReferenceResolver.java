@@ -38,12 +38,12 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.PackageSection;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.StringUtil;
-import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.services.AadlResourceService;
 import org.osate.ge.internal.services.AadlResourceService.AadlPackageReference;
 import org.osate.ge.internal.services.ModelChangeNotifier;
@@ -76,7 +76,7 @@ public class DeclarativeReferenceResolver implements ReferenceResolver {
 
 	// Cache for items that should not change unless models have changed.
 	private static class DeclarativeCache {
-		private static final EClass aadlPackageEClass = AgeAadlUtil.getAadl2Factory().getAadl2Package()
+		private static final EClass aadlPackageEClass = Aadl2Package.eINSTANCE
 				.getAadlPackage();
 		private final IProject project;
 

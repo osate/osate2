@@ -57,7 +57,7 @@ public class AadlFeatureUtil {
 	private static Map<EClass, String> createFeatureTypeToCreateMethodMap() {
 		final LinkedHashMap<EClass, String> map = new LinkedHashMap<EClass, String>();
 
-		final Aadl2Package p = AgeAadlUtil.getAadl2Factory().getAadl2Package();
+		final Aadl2Package p = Aadl2Package.eINSTANCE;
 
 		// Regular Features
 		map.put(p.getAbstractFeature(), "createOwnedAbstractFeature");
@@ -123,7 +123,7 @@ public class AadlFeatureUtil {
 	}
 
 	private static boolean isProcessorFeatureType(final EClass t) {
-		final Aadl2Package p = AgeAadlUtil.getAadl2Factory().getAadl2Package();
+		final Aadl2Package p = Aadl2Package.eINSTANCE;
 		return p.getProcessorFeature().isSuperTypeOf(t);
 	}
 

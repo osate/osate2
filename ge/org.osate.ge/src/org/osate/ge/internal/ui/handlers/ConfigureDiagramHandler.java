@@ -71,7 +71,7 @@ public class ConfigureDiagramHandler extends AbstractHandler {
 		final AgeFeatureProvider featureProvider = (AgeFeatureProvider) diagramEditor.getDiagramTypeProvider()
 				.getFeatureProvider();
 		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements();
-		final AgeDiagram diagram = diagramEditor.getAgeDiagram();
+		final AgeDiagram diagram = diagramEditor.getDiagram();
 		if (diagram == null) {
 			throw new RuntimeException("Unable to get diagram");
 		}
