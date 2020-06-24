@@ -84,19 +84,18 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 	private final List<BusinessObjectContext> userSelections = new ArrayList<>();
 
 	@Override
-	public void activate(final ActivateContext ctx) {
-		ctx.getSelectedBoc().ifPresent(selectedBoc -> {
-			final AadlModificationService aadlModService = ctx.getAadlModificatonService();
-			final UiService uiService = ctx.getUiService();
-			final ColoringService coloringService = ctx.getColoringService();
+	public void activated(final ActivatedEvent ctx) {
+		final UiService uiService = ctx.getUiService();
+		try {
+			ctx.getSelectedBoc().ifPresent(selectedBoc -> {
+				final AadlModificationService aadlModService = ctx.getAadlModificatonService();
+				final ColoringService coloringService = ctx.getColoringService();
 
-			try {
 				// Check for existing errors or warnings
 				final Set<Diagnostic> diagnostics = ToolUtil.getAllReferencedPackageDiagnostics(selectedBoc);
 				if (!diagnostics.isEmpty()) {
-					Display.getDefault()
-					.asyncExec(() -> new FlowDialogUtil.ErrorDialog("The Create End-To-End",
-							diagnostics).open());
+					Display.getDefault().asyncExec(
+							() -> new FlowDialogUtil.ErrorDialog("The Create End-To-End", diagnostics).open());
 				} else {
 					coloring = coloringService.adjustColors(); // Create a coloring object that will allow adjustment of pictogram
 					final Display display = Display.getCurrent();
@@ -119,14 +118,15 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 						});
 					}
 				}
-			} finally {
-				uiService.deactivateActiveTool();
-			}
-		});
+
+			});
+		} finally {
+			uiService.deactivateActiveTool();
+		}
 	}
 
 	@Override
-	public void deactivate(final DeactivateContext ctx) {
+	public void deactivated(final DeactivatedEvent ctx) {
 		// Dispose of the coloring object
 		if (coloring != null) {
 			coloring.dispose();
@@ -142,7 +142,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 	}
 
 	@Override
-	public void selectionChanged(SelectionChangedContext ctx) {
+	public void selectionChanged(SelectionChangedEvent ctx) {
 		update(ctx.getSelectedBocs().toArray(new BusinessObjectContext[ctx.getSelectedBocs().size()]), false);
 	}
 
@@ -212,8 +212,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 	private String getDialogMessage() {
 		String msg = "";
 		if (!userSelections.isEmpty()) {
-			final Object bo = userSelections.get(userSelections.size() - 1)
-					.getBusinessObject();
+			final Object bo = userSelections.get(userSelections.size() - 1).getBusinessObject();
 			if (bo instanceof FlowSpecification || bo instanceof org.osate.aadl2.Connection) {
 				if (bo instanceof FlowSpecification) {
 					final FlowSpecification fs = (FlowSpecification) bo;
@@ -238,8 +237,6 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 
 		return msg;
 	}
-
-
 
 	/**
 	 * @param selectedEle - current element
@@ -268,7 +265,6 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 		private final List<String> modeList = new ArrayList<String>();
 		private final String invalidErrorMessage = "Invalid End-To-End Flow.  ";
 
-
 		private EndToEndFlow flow;
 		private Button undoButton;
 		private Composite flowSegmentComposite;
@@ -276,8 +272,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 		private StyledText flowSegmentLabel;
 		private Text newETEFlowName;
 
-		public CreateFlowsToolsDialog(final Shell parentShell,
-				final UiService uiService) {
+		public CreateFlowsToolsDialog(final Shell parentShell, final UiService uiService) {
 			super(parentShell);
 			setHelpAvailable(true);
 			this.uiService = Objects.requireNonNull(uiService, "ui service must not be null");
@@ -408,8 +403,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 			return findOwnerComponentImplementation(userSelections.get(0).getParent());
 		}
 
-		private Optional<ComponentImplementation> findOwnerComponentImplementation(
-				final BusinessObjectContext boc) {
+		private Optional<ComponentImplementation> findOwnerComponentImplementation(final BusinessObjectContext boc) {
 			BusinessObjectContext tmp = boc.getParent();
 			while (tmp != null) {
 				if (tmp.getBusinessObject() instanceof ComponentImplementation) {
@@ -575,8 +569,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 				public void widgetSelected(SelectionEvent e) {
 					int prevBocsSize = userSelections.size();
 					if (prevBocsSize > 0) {
-						final BusinessObjectContext removedBoc = userSelections
-								.get(prevBocsSize - 1);
+						final BusinessObjectContext removedBoc = userSelections.get(prevBocsSize - 1);
 						userSelections.remove(prevBocsSize - 1);
 						if (removedBoc instanceof DiagramElement) {
 							coloring.setForeground((DiagramElement) removedBoc, null);

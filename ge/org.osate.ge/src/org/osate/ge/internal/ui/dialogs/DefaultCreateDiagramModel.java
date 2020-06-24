@@ -31,9 +31,9 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ge.DiagramType;
-import org.osate.ge.aadl2.internal.diagramTypes.CustomDiagramType;
-import org.osate.ge.aadl2.internal.diagramTypes.PackageDiagramType;
-import org.osate.ge.aadl2.internal.diagramTypes.StructureDiagramType;
+import org.osate.ge.aadl2.internal.diagramtypes.CustomDiagramType;
+import org.osate.ge.aadl2.internal.diagramtypes.PackageDiagramType;
+import org.osate.ge.aadl2.internal.diagramtypes.StructureDiagramType;
 import org.osate.ge.internal.DiagramTypeProvider;
 
 import com.google.common.collect.ImmutableCollection;

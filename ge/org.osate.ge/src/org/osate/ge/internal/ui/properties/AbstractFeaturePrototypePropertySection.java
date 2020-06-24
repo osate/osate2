@@ -35,7 +35,7 @@ import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.ge.BusinessObjectSelection;
-import org.osate.ge.aadl2.ui.internal.viewModels.AbstractFeaturePrototypeModel;
+import org.osate.ge.aadl2.ui.internal.viewmodels.AbstractFeaturePrototypeModel;
 import org.osate.ge.internal.selection.AgeBusinessObjectSelection;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.swt.selectors.FilteringListSelectorField;

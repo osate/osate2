@@ -29,12 +29,12 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.RelativeBusinessObjectReference;
-import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
-import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
-import org.osate.ge.businessObjectHandlers.GetIconIdContext;
-import org.osate.ge.businessObjectHandlers.GetNameContext;
-import org.osate.ge.businessObjectHandlers.IsApplicableContext;
-import org.osate.ge.businessObjectHandlers.ReferenceContext;
+import org.osate.ge.businessobjecthandlers.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessobjecthandlers.GetIconIdContext;
+import org.osate.ge.businessobjecthandlers.GetNameContext;
+import org.osate.ge.businessobjecthandlers.IsApplicableContext;
+import org.osate.ge.businessobjecthandlers.ReferenceContext;
 import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.util.AgeAadlUtil;
 

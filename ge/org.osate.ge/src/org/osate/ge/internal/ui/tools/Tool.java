@@ -23,17 +23,30 @@
  */
 package org.osate.ge.internal.ui.tools;
 
+import org.osate.ge.internal.services.UiService;
+
 /**
  * Tools are objects that allow the user to perform a specific action using the editor. Only a single tool may be active at a time and
  * tools should have their own user interface to provide feedback to the user.
  *
  */
 public interface Tool {
-	// TODO; Document
+	/**
+	 * Called when the tool has been activated. This tool is required to deactivate itself using {@link UiService#deactivateActiveTool()} when
+	 * it is finished.
+	 * @param event is the details of the activated event. Provides services useful for handling the event.
+	 */
+	void activated(ActivatedEvent event);
 
-	void activate(ActivateContext ctx);
+	/**
+	 * Called when the tool had been deactivated.
+	 * @param event is the details of the deactivation event.
+	 */
+	void deactivated(DeactivatedEvent event);
 
-	void deactivate(DeactivateContext ctx);
-
-	void selectionChanged(SelectionChangedContext ctx);
+	/**
+	 * Called to notify the tool that that the selection has changed.
+	 * @param event is the details of the selection change.
+	 */
+	void selectionChanged(SelectionChangedEvent event);
 }

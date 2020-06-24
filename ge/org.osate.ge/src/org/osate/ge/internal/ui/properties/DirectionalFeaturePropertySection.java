@@ -38,7 +38,7 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
 import org.osate.ge.BusinessObjectSelection;
-import org.osate.ge.aadl2.ui.internal.viewModels.FeatureDirectionModel;
+import org.osate.ge.aadl2.ui.internal.viewmodels.FeatureDirectionModel;
 import org.osate.ge.internal.selection.AgeBusinessObjectSelection;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.swt.selectors.RadioSelector;

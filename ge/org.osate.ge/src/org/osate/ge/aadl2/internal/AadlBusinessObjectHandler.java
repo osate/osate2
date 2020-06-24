@@ -4,9 +4,9 @@ import java.util.Optional;
 
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.NamedElement;
-import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
-import org.osate.ge.businessObjectHandlers.GetIconIdContext;
-import org.osate.ge.businessObjectHandlers.RenameContext;
+import org.osate.ge.businessobjecthandlers.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandlers.GetIconIdContext;
+import org.osate.ge.businessobjecthandlers.RenameContext;
 
 public abstract class AadlBusinessObjectHandler implements BusinessObjectHandler {
 	/**
@@ -20,7 +20,7 @@ public abstract class AadlBusinessObjectHandler implements BusinessObjectHandler
 
 	/**
 	 * Implementation which used {@link AadlNamingUtil} to check name validity. Handlers must override if this is not the desired behavior.
-	 * {@link #canRename(org.osate.ge.businessObjectHandlers.CanRenameContext)} must also be implemented.
+	 * {@link #canRename(org.osate.ge.businessobjecthandlers.CanRenameContext)} must also be implemented.
 	 */
 	@Override
 	public Optional<String> validateName(final RenameContext ctx) {
