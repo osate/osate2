@@ -37,10 +37,6 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
-import org.osate.ge.fx.palette.Palette;
-import org.osate.ge.fx.palette.TestPaletteGroup;
-import org.osate.ge.fx.palette.TestPaletteItem;
-import org.osate.ge.fx.palette.TestPaletteModel;
 import org.osate.ge.gef.AgeModule;
 import org.osate.ge.gef.ui.AgeUiModule;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
@@ -59,6 +55,10 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import palette.Palette;
+import palette.TestPaletteGroup;
+import palette.TestPaletteItem;
+import palette.TestPaletteModel;
 
 // TODO: Implement selection notification..
 // TODO: Rename to AgeDiagramEditor to match name of existing editor?
@@ -117,10 +117,12 @@ public class AgeEditor extends AbstractFXEditor {
 	protected void hookViewers() {
 		// TODO: Replace this with widget derived from DemoApplication
 		final String TITLE_STYLE = "-fx-background-color: linear-gradient(rgb(255,255,255), rgb(237,237,237));";
-		final String COLLAPSE_BUTTON_ACTIVATED = "-fx-background-color: linear-gradient(rgb(255,255,255), rgb(237,237,237));"
+		final private String COLLAPSE_BUTTON_ACTIVATED = "-fx-background-color: linear-gradient(rgb(255,255,255), rgb(237,237,237));"
 				+ "-fx-border-style: dotted; -fx-border-color: black;";
-		final String COLLAPSE_BUTTON_IDLE = "-fx-background-color: linear-gradient(rgb(255,255,255), rgb(237,237,237));"
+		final private String COLLAPSE_BUTTON_IDLE = "-fx-background-color: linear-gradient(rgb(255,255,255), rgb(237,237,237));"
 				+ "-fx-border-style: dotted; -fx-border-color: black;";
+		final private String COLLAPSE_BUTTON_CLOSED = "ge/icons/collapsedIcon";
+		final private String COLLAPSE_BUTTON_OPEN = "ge/icons/openedIcon";
 
 		final SplitPane sp = new SplitPane();
 		final VBox paletteContainer = new VBox();
@@ -136,31 +138,7 @@ public class AgeEditor extends AbstractFXEditor {
 		collapseButton.setMaxSize(30, 30);
 		collapseButton.setMinSize(30, 30);
 		collapseButton.setOnAction(e -> {
-
-			if (collapseButton.isSelected()) {
-				scrollPane.setManaged(false);
-				scrollPane.setVisible(false);
-				paletteTitle.setManaged(false);
-				paletteTitle.setVisible(false);
-				sp.setDividerPositions(1.0);
-				collapseButton.setStyle(COLLAPSE_BUTTON_ACTIVATED);
-				collapseButton.setGraphic("ge/Icons/CollapsedIcon");
-				collapseButton.setMinWidth(10);
-				collapseButton.setMaxWidth(10);
-			}
-
-			else {
-				scrollPane.setManaged(true);
-				scrollPane.setVisible(true);
-				paletteTitle.setManaged(true);
-				paletteTitle.setVisible(true);
-				sp.setDividerPositions(1.0 - (paletteContainer.getPrefWidth() / sp.getWidth()));
-				collapseButton.setStyle(COLLAPSE_BUTTON_IDLE);
-				collapseButton.setGraphic("ge/Icons/OpenedIcon");
-				collapseButton.setMaxSize(30, 30);
-				collapseButton.setMinSize(30, 30);
-			}
-
+			updateCollapsed();
 		});
 
 		final Palette<TestPaletteGroup, TestPaletteItem> palette = new Palette<>(new TestPaletteModel());
@@ -188,6 +166,30 @@ public class AgeEditor extends AbstractFXEditor {
 		sp.setDividerPositions(1.0 - (paletteContainer.getPrefWidth() / sp.getWidth()));
 		sp.layout();
 		SplitPane.setResizableWithParent(palette, false);
+	}
+
+	public void updateCollapse() {
+		if (collapseButton.isSelected()) {
+			scrollPane.setManaged(false);
+			scrollPane.setVisible(false);
+			paletteTitle.setManaged(false);
+			paletteTitle.setVisible(false);
+			sp.setDividerPositions(1.0);
+			collapseButton.setStyle(COLLAPSE_BUTTON_ACTIVATED);
+			collapseButton.setGraphic(COLLAPSE_BUTTON_CLOSED);
+			collapseButton.setMinWidth(10);
+			collapseButton.setMaxWidth(10);
+		} else {
+			scrollPane.setManaged(true);
+			scrollPane.setVisible(true);
+			paletteTitle.setManaged(true);
+			paletteTitle.setVisible(true);
+			sp.setDividerPositions(1.0 - (paletteContainer.getPrefWidth() / sp.getWidth()));
+			collapseButton.setStyle(COLLAPSE_BUTTON_IDLE);
+			collapseButton.setGraphic(COLLAPSE_BUTTON_OPEN);
+			collapseButton.setMaxSize(30, 30);
+			collapseButton.setMinSize(30, 30);
+		}
 	}
 
 	@Override
