@@ -25,8 +25,8 @@ package org.osate.ge.aadl2.ui.internal.tooltips;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
+import org.osate.ge.aadl2.internal.aadlproperties.PropertyValueFormatter;
 import org.osate.ge.aadl2.internal.model.PropertyValueGroup;
-import org.osate.ge.internal.aadlproperties.PropertyValueFormatter;
 import org.osate.ge.ui.TooltipContributor;
 import org.osate.ge.ui.TooltipContributorContext;
 

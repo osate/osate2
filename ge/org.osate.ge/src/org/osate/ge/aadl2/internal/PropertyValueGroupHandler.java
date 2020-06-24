@@ -30,6 +30,7 @@ import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.aadl2.internal.aadlproperties.PropertyValueFormatter;
 import org.osate.ge.aadl2.internal.model.PropertyValueGroup;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
@@ -43,7 +44,6 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.LabelBuilder;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.internal.aadlproperties.PropertyValueFormatter;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.util.BusinessObjectContextUtil;
 

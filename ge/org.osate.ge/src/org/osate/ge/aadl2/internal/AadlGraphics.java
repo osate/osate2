@@ -35,6 +35,7 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.PortCategory;
+import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
@@ -55,7 +56,6 @@ import org.osate.ge.graphics.internal.ModeGraphicBuilder;
 import org.osate.ge.graphics.internal.OrthogonalLineBuilder;
 import org.osate.ge.graphics.internal.ParallelogramBuilder;
 import org.osate.ge.graphics.internal.ProcessorGraphicBuilder;
-import org.osate.ge.internal.util.AgeAadlUtil;
 
 /**
  * Helper class for retrieving the appropriate graphic for an AADL element

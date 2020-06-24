@@ -30,7 +30,7 @@ import java.util.stream.Stream;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Prototype;
 import org.osate.ge.BusinessObjectSelection;
-import org.osate.ge.internal.util.AadlPrototypeUtil;
+import org.osate.ge.aadl2.internal.util.AadlPrototypeUtil;
 import org.osate.ge.swt.classifiers.PrototypeBindingsModel;
 
 /**

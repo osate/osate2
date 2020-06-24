@@ -76,12 +76,12 @@ import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.BusinessObjectProviderContext;
 import org.osate.ge.aadl2.internal.model.SubprogramCallOrder;
 import org.osate.ge.aadl2.internal.model.Tag;
+import org.osate.ge.aadl2.internal.util.AadlFeatureUtil;
+import org.osate.ge.aadl2.internal.util.AadlSubcomponentUtil;
+import org.osate.ge.aadl2.internal.util.AadlSubprogramCallUtil;
+import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.services.ExtensionRegistryService;
-import org.osate.ge.internal.util.AadlFeatureUtil;
-import org.osate.ge.internal.util.AadlSubcomponentUtil;
-import org.osate.ge.internal.util.AadlSubprogramCallUtil;
-import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 
 public class AadlBusinessObjectProvider implements BusinessObjectProvider {

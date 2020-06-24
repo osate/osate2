@@ -53,8 +53,8 @@ import org.osate.aadl2.ThreadType;
 import org.osate.aadl2.VirtualProcessorType;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
+import org.osate.ge.aadl2.internal.util.AadlFeatureUtil;
 import org.osate.ge.aadl2.ui.internal.AadlUiUtil;
-import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 

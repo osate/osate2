@@ -51,6 +51,10 @@ import org.osate.ge.DockingPosition;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.aadl2.internal.util.AadlArrayUtil;
+import org.osate.ge.aadl2.internal.util.AadlFeatureUtil;
+import org.osate.ge.aadl2.internal.util.AadlInheritanceUtil;
+import org.osate.ge.aadl2.internal.util.AadlPrototypeUtil;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
@@ -61,10 +65,6 @@ import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.graphics.internal.FeatureGraphic;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
-import org.osate.ge.internal.util.AadlArrayUtil;
-import org.osate.ge.internal.util.AadlFeatureUtil;
-import org.osate.ge.internal.util.AadlInheritanceUtil;
-import org.osate.ge.internal.util.AadlPrototypeUtil;
 
 public class FeatureHandler extends AadlBusinessObjectHandler {
 	@Override

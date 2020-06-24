@@ -50,8 +50,8 @@ import org.osate.aadl2.SubprogramGroupSubcomponent;
 import org.osate.aadl2.SubprogramPrototype;
 import org.osate.aadl2.SubprogramProxy;
 import org.osate.aadl2.SubprogramSubcomponent;
-import org.osate.ge.internal.util.AadlFeatureUtil;
-import org.osate.ge.internal.util.AgeAadlUtil;
+import org.osate.ge.aadl2.internal.util.AadlFeatureUtil;
+import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 
 /**

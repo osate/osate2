@@ -66,6 +66,9 @@ import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.aadl2.internal.util.AadlClassifierUtil;
+import org.osate.ge.aadl2.internal.util.AadlInstanceObjectUtil;
+import org.osate.ge.aadl2.internal.util.AadlFlowSpecificationUtil.FlowSegmentReference;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.runtime.botree.Completeness;
@@ -80,9 +83,6 @@ import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.ui.editor.FlowContributionItem.FlowSegmentState;
 import org.osate.ge.internal.ui.editor.FlowContributionItem.HighlightableFlowInfo;
-import org.osate.ge.internal.util.AadlClassifierUtil;
-import org.osate.ge.internal.util.AadlFlowSpecificationUtil.FlowSegmentReference;
-import org.osate.ge.internal.util.AadlInstanceObjectUtil;
 
 import com.google.common.base.Predicates;
 
