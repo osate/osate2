@@ -124,6 +124,10 @@ class RecordTypeTest {
 					return factorToBase;
 				}
 				
+				public double getFactorTo(Time target) {
+					return factorToBase / target.factorToBase;
+				}
+				
 				@Override
 				public String toString() {
 					return originalName;
@@ -160,6 +164,10 @@ class RecordTypeTest {
 				@Override
 				public double getFactorToBase() {
 					return factorToBase;
+				}
+				
+				public double getFactorTo(IntegerOwnedUnits target) {
+					return factorToBase / target.factorToBase;
 				}
 				
 				@Override
@@ -910,6 +918,10 @@ class RecordTypeTest {
 						return factorToBase;
 					}
 					
+					public double getFactorTo(OwnedUnits_FieldType target) {
+						return factorToBase / target.factorToBase;
+					}
+					
 					@Override
 					public String toString() {
 						return originalName;
@@ -1346,6 +1358,10 @@ class RecordTypeTest {
 					@Override
 					public double getFactorToBase() {
 						return factorToBase;
+					}
+					
+					public double getFactorTo(Field_FieldType target) {
+						return factorToBase / target.factorToBase;
 					}
 					
 					@Override

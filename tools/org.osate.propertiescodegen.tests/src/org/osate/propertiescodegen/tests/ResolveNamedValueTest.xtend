@@ -259,6 +259,10 @@ class ResolveNamedValueTest {
 					return factorToBase;
 				}
 				
+				public double getFactorTo(Length target) {
+					return factorToBase / target.factorToBase;
+				}
+				
 				@Override
 				public String toString() {
 					return originalName;
