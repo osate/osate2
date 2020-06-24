@@ -1714,11 +1714,11 @@ censes only apply to the Third Party Software and not any other portion of this 
     <extension
           point="org.osate.ge.businessObjectHandlers">
 		<handler
-             class="org.osate.ge.internal.businessObjectHandlers.NoteHandler"
+             class="org.osate.ge.internal.businessobjecthandlers.NoteHandler"
              priority="1">
        </handler>
        <handler
-             class="org.osate.ge.internal.businessObjectHandlers.NoteReferenceHandler"
+             class="org.osate.ge.internal.businessobjecthandlers.NoteReferenceHandler"
              priority="1">
        </handler>
     </extension>
@@ -1984,100 +1984,100 @@ censes only apply to the Third Party Software and not any other portion of this 
    <extension
          point="org.osate.ge.contentFilters">
       <contentFilter
-            class="org.osate.ge.aadl2.internal.contentFilters.GeneralizationFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.GeneralizationFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.aadl2.internal.contentFilters.SubcomponentTypeFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.SubcomponentTypeFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.aadl2.internal.contentFilters.SubprogramCallOrderFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.SubprogramCallOrderFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.aadl2.internal.contentFilters.CalledSubprogramFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.CalledSubprogramFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.aadl2.internal.contentFilters.FeatureFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.FeatureFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.aadl2.internal.contentFilters.ModeTransitionTriggerNameFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.ModeTransitionTriggerNameFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.aadl2.internal.contentFilters.ModeTransitionFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.ModeTransitionFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.aadl2.internal.contentFilters.ModeFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.ModeFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.aadl2.internal.contentFilters.FlowSpecificationFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.FlowSpecificationFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.aadl2.internal.contentFilters.ClassifierFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.ClassifierFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.aadl2.internal.contentFilters.ConnectionFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.ConnectionFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.aadl2.internal.contentFilters.SubcomponentFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.SubcomponentFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.aadl2.internal.contentFilters.SubprogramCallFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.SubprogramCallFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.aadl2.internal.contentFilters.SubprogramCallSequenceFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.SubprogramCallSequenceFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.aadl2.internal.contentFilters.ProcessorFeatureFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.ProcessorFeatureFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.aadl2.internal.contentFilters.InternalFeatureFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.InternalFeatureFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.aadl2.internal.contentFilters.FeatureCategoryFilterFactory">
+            class="org.osate.ge.aadl2.internal.contentfilters.FeatureCategoryFilterFactory">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.aadl2.internal.contentFilters.FlowSpecificationKindFilterFactory">
+            class="org.osate.ge.aadl2.internal.contentfilters.FlowSpecificationKindFilterFactory">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.aadl2.internal.contentFilters.AccessConnectionFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.AccessConnectionFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.aadl2.internal.contentFilters.FeatureConnectionFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.FeatureConnectionFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.aadl2.internal.contentFilters.FeatureGroupConnectionFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.FeatureGroupConnectionFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.aadl2.internal.contentFilters.ParameterConnectionFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.ParameterConnectionFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.aadl2.internal.contentFilters.PortConnectionFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.PortConnectionFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.aadl2.internal.contentFilters.FeatureGroupTypeFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.FeatureGroupTypeFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.aadl2.internal.contentFilters.ComponentCategoryFilterFactory">
+            class="org.osate.ge.aadl2.internal.contentfilters.ComponentCategoryFilterFactory">
       </contentFilter>
       <fundamentalContentFilter
-            class="org.osate.ge.aadl2.internal.contentFilters.FundamentalTagFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.FundamentalTagFilter">
       </fundamentalContentFilter>
    </extension>
    <extension
          point="org.osate.ge.diagramTypes">
       <diagramType
-            class="org.osate.ge.aadl2.internal.diagramTypes.CustomDiagramType">
+            class="org.osate.ge.aadl2.internal.diagramtypes.CustomDiagramType">
       </diagramType>
       <diagramType
-            class="org.osate.ge.aadl2.internal.diagramTypes.PackageDiagramType">
+            class="org.osate.ge.aadl2.internal.diagramtypes.PackageDiagramType">
       </diagramType>
       <diagramType
-            class="org.osate.ge.aadl2.internal.diagramTypes.StructureDiagramType">
+            class="org.osate.ge.aadl2.internal.diagramtypes.StructureDiagramType">
       </diagramType>
       <diagramType
-            class="org.osate.ge.aadl2.internal.diagramTypes.ModeDiagramType">
+            class="org.osate.ge.aadl2.internal.diagramtypes.ModeDiagramType">
       </diagramType>
       <diagramType
-            class="org.osate.ge.aadl2.internal.diagramTypes.ProcessorBindingDiagramType">
+            class="org.osate.ge.aadl2.internal.diagramtypes.ProcessorBindingDiagramType">
       </diagramType>
    </extension>
    <extension

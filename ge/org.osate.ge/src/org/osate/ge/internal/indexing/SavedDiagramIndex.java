@@ -49,7 +49,7 @@ import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.RelativeBusinessObjectReference;
-import org.osate.ge.aadl2.internal.diagramTypes.CustomDiagramType;
+import org.osate.ge.aadl2.internal.diagramtypes.CustomDiagramType;
 import org.osate.ge.diagram.DiagramElement;
 import org.osate.ge.diagram.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.DiagramSerialization;

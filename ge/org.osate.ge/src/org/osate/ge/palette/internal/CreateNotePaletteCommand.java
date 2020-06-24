@@ -34,8 +34,8 @@ import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
-import org.osate.ge.palette.TargetedPaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
+import org.osate.ge.palette.TargetedPaletteCommand;
 
 public class CreateNotePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 
@@ -50,8 +50,9 @@ public class CreateNotePaletteCommand extends BasePaletteCommand implements Targ
 		}
 
 		final DiagramNode targetNode = (DiagramNode) ctx.getTarget();
-		if (targetNode.getBusinessObject() instanceof Note
-				|| DiagramNodePredicates.isDiagramOrUndockedShape(targetNode)) {
+		if (targetNode
+				.getBusinessObject() instanceof Note
+				|| !DiagramNodePredicates.isDiagramOrUndockedShape(targetNode)) {
 			return Optional.empty();
 		}
 

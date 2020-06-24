@@ -24,7 +24,7 @@
 package org.osate.ge.internal.diagram.runtime.updating;
 
 import org.osate.ge.GraphicalConfiguration;
-import org.osate.ge.internal.businessObjectHandlers.BusinessObjectHandlerProvider;
+import org.osate.ge.internal.businessobjecthandlers.BusinessObjectHandlerProvider;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 
 /**

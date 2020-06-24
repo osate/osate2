@@ -79,13 +79,13 @@ public class CreateFlowImplementationTool implements Tool {
 	private CreateFlowImplementationDialog dlg;
 
 	@Override
-	public void activate(final ActivateContext ctx) {
-		ctx.getSelectedBoc().ifPresent(selectedBoc -> {
-			final AadlModificationService aadlModService = ctx.getAadlModificatonService();
-			final UiService uiService = ctx.getUiService();
-			final ColoringService coloringService = ctx.getColoringService();
+	public void activated(final ActivatedEvent ctx) {
+		final UiService uiService = ctx.getUiService();
+		try {
+			ctx.getSelectedBoc().ifPresent(selectedBoc -> {
+				final AadlModificationService aadlModService = ctx.getAadlModificatonService();
+				final ColoringService coloringService = ctx.getColoringService();
 
-			try {
 				// Check for existing errors or warnings
 				final Set<Diagnostic> diagnostics = ToolUtil.getAllReferencedPackageDiagnostics(selectedBoc);
 				if (!diagnostics.isEmpty()) {
@@ -113,10 +113,11 @@ public class CreateFlowImplementationTool implements Tool {
 						});
 					}
 				}
-			} finally {
-				uiService.deactivateActiveTool();
-			}
-		});
+
+			});
+		} finally {
+			uiService.deactivateActiveTool();
+		}
 	}
 
 	/**
@@ -138,7 +139,7 @@ public class CreateFlowImplementationTool implements Tool {
 	}
 
 	@Override
-	public void deactivate(final DeactivateContext ctx) {
+	public void deactivated(final DeactivatedEvent ctx) {
 		// Dispose of the coloring object
 		if (coloring != null) {
 			coloring.dispose();
@@ -153,7 +154,7 @@ public class CreateFlowImplementationTool implements Tool {
 	}
 
 	@Override
-	public void selectionChanged(SelectionChangedContext ctx) {
+	public void selectionChanged(SelectionChangedEvent ctx) {
 		update(ctx.getSelectedBocs().toArray(new BusinessObjectContext[ctx.getSelectedBocs().size()]), false);
 	}
 

@@ -28,8 +28,7 @@ import java.util.stream.Stream;
 import org.osate.aadl2.NamedElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 
-// TODO; Should be internal once all referencing is converted to new system
-public class ErrorModelReferenceUtil {
+class ErrorModelReferenceUtil {
 	private ErrorModelReferenceUtil() {
 	}
 

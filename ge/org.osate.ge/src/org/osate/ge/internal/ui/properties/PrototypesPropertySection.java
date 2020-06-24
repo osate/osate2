@@ -41,7 +41,7 @@ import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.aadl2.Classifier;
 import org.osate.ge.BusinessObjectSelection;
-import org.osate.ge.aadl2.ui.internal.viewModels.PrototypesModel;
+import org.osate.ge.aadl2.ui.internal.viewmodels.PrototypesModel;
 import org.osate.ge.internal.selection.AgeBusinessObjectSelection;
 import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.ActionService;

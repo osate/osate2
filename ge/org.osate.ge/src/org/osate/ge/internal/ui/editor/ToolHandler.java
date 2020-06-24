@@ -31,9 +31,9 @@ import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.UiService;
-import org.osate.ge.internal.ui.tools.ActivateContext;
-import org.osate.ge.internal.ui.tools.DeactivateContext;
-import org.osate.ge.internal.ui.tools.SelectionChangedContext;
+import org.osate.ge.internal.ui.tools.ActivatedEvent;
+import org.osate.ge.internal.ui.tools.DeactivatedEvent;
+import org.osate.ge.internal.ui.tools.SelectionChangedEvent;
 import org.osate.ge.internal.ui.tools.Tool;
 
 import com.google.common.collect.ImmutableList;
@@ -45,7 +45,7 @@ import com.google.common.collect.ImmutableList;
 public class ToolHandler {
 	private final DefaultPaletteBehavior paletteBehavior;
 	private Tool activeTool = null;
-	private ImmutableList<BusinessObjectContext> bocs = ImmutableList.of();
+	private ImmutableList<BusinessObjectContext> selectedBocs = ImmutableList.of();
 	private final AgeDiagram diagram;
 	private final AadlModificationService aadlModService;
 	private final UiService uiService;
@@ -77,7 +77,7 @@ public class ToolHandler {
 
 		activeTool = tool;
 		paletteBehavior.refreshPalette();
-		activeTool.activate(new ActivateContext(bocs, diagram, aadlModService, uiService, coloringService));
+		activeTool.activated(new ActivatedEvent(selectedBocs, diagram, aadlModService, uiService, coloringService));
 	}
 
 	public void deactivateActiveTool() {
@@ -87,26 +87,26 @@ public class ToolHandler {
 	}
 
 	public void deactivate(final Tool tool) {
-		tool.deactivate(new DeactivateContext());
+		tool.deactivated(new DeactivatedEvent());
 		activeTool = null;
 		paletteBehavior.refreshPalette();
 	}
 
-	public void setSelectedElements(final ImmutableList<BusinessObjectContext> newBocs) {
+	public void setSelectedElements(final ImmutableList<BusinessObjectContext> newSelectedBocs) {
 		// Ignore the selection if nothing has changed
-		if (Objects.equals(this.bocs, newBocs)) {
+		if (Objects.equals(this.selectedBocs, newSelectedBocs)) {
 			return;
 		}
 
-		this.bocs = newBocs;
+		this.selectedBocs = newSelectedBocs;
 
-		if (bocs.isEmpty()) {
+		if (selectedBocs.isEmpty()) {
 			return;
 		}
 
 		// Notify the active tool
 		if(activeTool != null) {
-			activeTool.selectionChanged(new SelectionChangedContext(bocs));
+			activeTool.selectionChanged(new SelectionChangedEvent(selectedBocs));
 		}
 	}
 }

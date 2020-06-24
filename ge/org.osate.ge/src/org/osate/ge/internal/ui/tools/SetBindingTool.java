@@ -88,7 +88,7 @@ public class SetBindingTool implements Tool {
 	private SetBindingWindow currentWindow = null;
 
 	@Override
-	public void activate(final ActivateContext ctx) {
+	public void activated(final ActivatedEvent ctx) {
 		final BusinessObjectContext[] selectedBocs = ctx.getSelectedBocs().toArray(new BusinessObjectContext[ctx.getSelectedBocs().size()]);
 		final AgeDiagram diagram = ctx.getDiagram();
 		final AadlModificationService aadlModService = ctx.getAadlModificatonService();
@@ -124,7 +124,7 @@ public class SetBindingTool implements Tool {
 	}
 
 	@Override
-	public void selectionChanged(SelectionChangedContext ctx) {
+	public void selectionChanged(SelectionChangedEvent ctx) {
 		if (currentWindow != null && currentWindow.getShell() != null && !currentWindow.getShell().isDisposed()) {
 			currentWindow.setTargetBusinessObjectContexts(
 					ctx.getSelectedBocs().toArray(new BusinessObjectContext[ctx.getSelectedBocs().size()]));
@@ -132,7 +132,7 @@ public class SetBindingTool implements Tool {
 	}
 
 	@Override
-	public void deactivate(final DeactivateContext ctx) {
+	public void deactivated(final DeactivatedEvent ctx) {
 		if(currentWindow != null) {
 			currentWindow.cancel();
 			currentWindow = null;

@@ -26,12 +26,12 @@ package org.osate.ge.internal.diagram.runtime.updating;
 import java.util.Objects;
 
 import org.osate.ge.GraphicalConfiguration;
-import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
-import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
-import org.osate.ge.businessObjectHandlers.GetNameContext;
-import org.osate.ge.businessObjectHandlers.GetNameForDiagramContext;
+import org.osate.ge.businessobjecthandlers.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandlers.GetGraphicalConfigurationContext;
+import org.osate.ge.businessobjecthandlers.GetNameContext;
+import org.osate.ge.businessobjecthandlers.GetNameForDiagramContext;
 import org.osate.ge.internal.AgeDiagramProvider;
-import org.osate.ge.internal.businessObjectHandlers.BusinessObjectHandlerProvider;
+import org.osate.ge.internal.businessobjecthandlers.BusinessObjectHandlerProvider;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ProjectReferenceService;

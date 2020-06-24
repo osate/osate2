@@ -33,10 +33,10 @@ censes only apply to the Third Party Software and not any other portion of this 
    <extension
          point="org.osate.ge.businessObjectHandlers">
       <handler
-            class="org.osate.ge.ba.businessObjectHandlers.BehaviorAnnexHandler">
+            class="org.osate.ge.ba.businessobjecthandlers.BehaviorAnnexHandler">
       </handler>
       <handler
-            class="org.osate.ge.ba.businessObjectHandlers.BaStateHandler">
+            class="org.osate.ge.ba.businessobjecthandlers.BaStateHandler">
       </handler>
    </extension>
    <extension point="org.osate.ge.paletteContributors">
