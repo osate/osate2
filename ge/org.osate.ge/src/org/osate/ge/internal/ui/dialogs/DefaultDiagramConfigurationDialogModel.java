@@ -41,7 +41,7 @@ import org.osate.ge.DiagramType;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.filtering.Filtering;
 import org.osate.ge.internal.model.BusinessObjectProxy;
-import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.ui.util.UiUtil;
@@ -55,13 +55,13 @@ import com.google.common.collect.ImmutableSet;
 
 public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurationDialog.Model {
 	private final ProjectReferenceService referenceService;
-	private final ExtensionService extService;
+	private final ExtensionRegistryService extService;
 	private final ProjectProvider projectProvider;
 	private final DiagramType diagramType;
 	private final BusinessObjectProviderHelper bopHelper;
 
 	public DefaultDiagramConfigurationDialogModel(final ProjectReferenceService referenceService,
-			final ExtensionService extService,
+			final ExtensionRegistryService extService,
 			final ProjectProvider projectProvider,
 			final DiagramType diagramType) {
 		this.referenceService = Objects.requireNonNull(referenceService, "referenceService must not be null");

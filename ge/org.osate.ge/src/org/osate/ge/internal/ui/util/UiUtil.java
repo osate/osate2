@@ -47,7 +47,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.graphiti.AgeDiagramTypeProvider;
 import org.osate.ge.internal.model.BusinessObjectProxy;
-import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.util.DiagramElementUtil;
 import org.osate.ge.util.StringUtil;
@@ -118,7 +118,7 @@ public class UiUtil {
 	 * @param bocHelper
 	 * @return
 	 */
-	public static String getDescription(final BusinessObjectContext boc, final ExtensionService extService) {
+	public static String getDescription(final BusinessObjectContext boc, final ExtensionRegistryService extService) {
 		// Build a prefix based on the business object type
 		final Object bo = boc.getBusinessObject();
 		final String prefix;

@@ -78,7 +78,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.model.BusinessObjectProxy;
-import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.ui.util.ContextHelpUtil;
@@ -95,7 +95,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	private final AgeDiagramEditor editor;
 	private final ProjectProvider projectProvider;
 	private final ProjectReferenceService referenceService;
-	private final ExtensionService extService;
+	private final ExtensionRegistryService extRegistry;
 	private final BusinessObjectProviderHelper bopHelper;
 	private final Action linkWithEditorAction = new ToggleLinkWithEditorAction();
 	private final Action showHiddenElementsAction = new ToggleShowHiddenElementsAction();
@@ -106,15 +106,15 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	private boolean synchronizingSelection = false;
 
 	public AgeContentOutlinePage(final AgeDiagramEditor editor, final ProjectProvider projectProvider,
-			final ExtensionService extService,
+			final ExtensionRegistryService extRegistry,
 			final ProjectReferenceService referenceService) {
 		this.editor = Objects.requireNonNull(editor, "editor must not be null");
 		preferences.addPreferenceChangeListener(preferenceChangeListener);
 
 		this.projectProvider = Objects.requireNonNull(projectProvider, "projectProvider must not be null");
 		this.referenceService = Objects.requireNonNull(referenceService, "referenceService must not be null");
-		this.extService = Objects.requireNonNull(extService, "extService must not be null");
-		this.bopHelper = new BusinessObjectProviderHelper(extService);
+		this.extRegistry = Objects.requireNonNull(extRegistry, "extRegistry must not be null");
+		this.bopHelper = new BusinessObjectProviderHelper(extRegistry);
 	}
 
 	@Override
@@ -276,7 +276,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 					return true;
 				}
 
-				final BusinessObjectHandler boh = extService.getApplicableBusinessObjectHandler(bo);
+				final BusinessObjectHandler boh = extRegistry.getApplicableBusinessObjectHandler(bo);
 				return boh != null && !Strings.isNullOrEmpty(boh.getName(new GetNameContext(bo)));
 			}
 
@@ -345,7 +345,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 			public String getText(final Object element) {
 				if (element instanceof BusinessObjectContext) {
 					final BusinessObjectContext boc = (BusinessObjectContext) element;
-					return UiUtil.getDescription(boc, extService);
+					return UiUtil.getDescription(boc, extRegistry);
 				}
 
 				return super.getText(element);
@@ -359,7 +359,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 				} else if (element instanceof BusinessObjectContext) {
 					final BusinessObjectContext boc = (BusinessObjectContext) element;
 					final Object bo = boc.getBusinessObject();
-					return UiUtil.getImage(extService, bo).orElse(null);
+					return UiUtil.getImage(extRegistry, bo).orElse(null);
 				}
 
 				return null;

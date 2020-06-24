@@ -45,7 +45,7 @@ import org.osate.ge.internal.graphiti.AgeFeatureProvider;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ActionService;
-import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.ui.dialogs.DefaultDiagramConfigurationDialogModel;
 import org.osate.ge.internal.ui.dialogs.DiagramConfigurationDialog;
@@ -81,8 +81,8 @@ public class ConfigureDiagramHandler extends AbstractHandler {
 		final DiagramUpdater diagramUpdater = featureProvider.getDiagramUpdater();
 		final GraphitiService graphitiService = Objects.requireNonNull(
 				Adapters.adapt(diagramEditor, GraphitiService.class), "Unable to retrieve graphiti service");
-		final ExtensionService extService = Objects.requireNonNull(
-				Adapters.adapt(diagramEditor, ExtensionService.class), "Unable to retrieve extension service");
+		final ExtensionRegistryService extService = Objects.requireNonNull(
+				Adapters.adapt(diagramEditor, ExtensionRegistryService.class), "Unable to retrieve extension service");
 		final ProjectReferenceService referenceService = Objects.requireNonNull(
 				Adapters.adapt(diagramEditor, ProjectReferenceService.class), "Unable to retrieve reference service");
 		final ActionService actionService = Objects.requireNonNull(Adapters.adapt(diagramEditor, ActionService.class),

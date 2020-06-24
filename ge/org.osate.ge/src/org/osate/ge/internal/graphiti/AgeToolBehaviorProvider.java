@@ -94,19 +94,19 @@ import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ActionService.ActionGroup;
-import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.ui.editor.AgeDiagramBehavior;
 import org.osate.ge.palette.PaletteCategory;
 
 public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	private final IEclipseContext context;
-	private final ExtensionService extensionService;
+	private final ExtensionRegistryService extensionService;
 	private final ActionService actionService;
 	private final AgeDoubleClickFeature defaultDoubleClickFeature;
 	private final Deque<ActionGroup> actionGroupStack = new LinkedList<>();
 
 	@Inject
-	public AgeToolBehaviorProvider(final GraphitiService graphiti, final ExtensionService extensionService,
+	public AgeToolBehaviorProvider(final GraphitiService graphiti, final ExtensionRegistryService extensionService,
 			final ActionService actionService, final IEclipseContext context) {
 		super(graphiti.getDiagramTypeProvider());
 		this.extensionService = extensionService;

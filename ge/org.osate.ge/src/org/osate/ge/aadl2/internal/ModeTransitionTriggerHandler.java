@@ -25,8 +25,6 @@ package org.osate.ge.aadl2.internal;
 
 import java.util.Optional;
 
-import javax.inject.Named;
-
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.CanonicalBusinessObjectReference;
@@ -37,7 +35,6 @@ import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.businessObjectHandlers.ReferenceContext;
-import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
@@ -102,7 +99,7 @@ public class ModeTransitionTriggerHandler extends AadlBusinessObjectHandler {
 				.map(this::getName).orElse("");
 	}
 
-	public String getName(final @Named(Names.BUSINESS_OBJECT) ModeTransitionTrigger mtt) {
+	public String getName(final ModeTransitionTrigger mtt) {
 		final String portName = Strings
 				.nullToEmpty(mtt.getTriggerPort() == null ? null : mtt.getTriggerPort().getName());
 		if (Strings.isNullOrEmpty(portName)) {

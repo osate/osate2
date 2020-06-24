@@ -63,7 +63,7 @@ import org.osate.ge.internal.aadlproperties.ReferenceValueWithContext;
 import org.osate.ge.internal.diagram.runtime.DiagramConfiguration;
 import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.model.EmbeddedBusinessObject;
-import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
@@ -86,12 +86,12 @@ import com.google.common.collect.Multimap;
  */
 public class DefaultTreeUpdater implements TreeUpdater {
 	private final ProjectProvider projectProvider;
-	private final ExtensionService extService;
+	private final ExtensionRegistryService extService;
 	private final ProjectReferenceService refService;
 	private final QueryService queryService;
 	private final DefaultBusinessObjectNodeFactory nodeFactory;
 
-	public DefaultTreeUpdater(final ProjectProvider projectProvider, final ExtensionService extService,
+	public DefaultTreeUpdater(final ProjectProvider projectProvider, final ExtensionRegistryService extService,
 			final ProjectReferenceService refService, final QueryService queryService,
 			final DefaultBusinessObjectNodeFactory nodeFactory) {
 		this.projectProvider = Objects.requireNonNull(projectProvider, "projectProvider must not be null");

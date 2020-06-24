@@ -66,7 +66,7 @@ import org.osate.ge.internal.diagram.runtime.AgeDiagramUtil;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.services.DiagramService;
-import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.impl.SimpleServiceContextFunction;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
@@ -119,7 +119,7 @@ public class DefaultGraphicalEditorService implements GraphicalEditorService {
 			return Optional.empty();
 		}
 
-		final ExtensionService extService = editorPart.getAdapter(ExtensionService.class);
+		final ExtensionRegistryService extService = editorPart.getAdapter(ExtensionRegistryService.class);
 		final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider = editorPart
 				.getAdapter(GraphitiAgeDiagramProvider.class);
 		final ProjectReferenceService referenceService = editorPart

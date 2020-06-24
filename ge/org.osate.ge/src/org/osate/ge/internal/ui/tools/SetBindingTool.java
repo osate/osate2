@@ -30,8 +30,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import javax.inject.Named;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -69,11 +67,6 @@ import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.ReferenceType;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.di.Activate;
-import org.osate.ge.di.Names;
-import org.osate.ge.internal.AgeDiagramProvider;
-import org.osate.ge.internal.di.Deactivate;
-import org.osate.ge.internal.di.SelectionChanged;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramConfigurationBuilder;
 import org.osate.ge.internal.services.AadlModificationService;
@@ -90,15 +83,16 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
  * The Set Binding Action presents a non-modal dialog to the user that allows create a property association for a standard AADL binding property.
  * Assumes that all selected elements are descendants of the same component implementation
  */
-public class SetBindingTool {
+public class SetBindingTool implements Tool {
 	public static final String setBindingIdentifier = "org.osate.ge.SetBinding";
 	private SetBindingWindow currentWindow = null;
 
-	@Activate
-	public void activate(@Named(Names.BUSINESS_OBJECT_CONTEXTS) final BusinessObjectContext[] selectedBocs,
-			final AgeDiagramProvider diagramProvider,
-			final AadlModificationService aadlModService,
-			final UiService uiService) {
+	@Override
+	public void activate(final ActivateContext ctx) {
+		final BusinessObjectContext[] selectedBocs = ctx.getSelectedBocs().toArray(new BusinessObjectContext[ctx.getSelectedBocs().size()]);
+		final AgeDiagram diagram = ctx.getDiagram();
+		final AadlModificationService aadlModService = ctx.getAadlModificatonService();
+		final UiService uiService = ctx.getUiService();
 		try {
 			final BusinessObjectContext componentImplementationBoc = ToolUtil
 					.findComponentImplementationBoc(selectedBocs[0]);
@@ -109,7 +103,6 @@ public class SetBindingTool {
 						selectedBocs);
 				if(currentWindow.open() == Window.OK) {
 					// Ensure the diagram is configured to show the specified binding property
-					final AgeDiagram diagram = diagramProvider.getAgeDiagram();
 					if (!diagram.getConfiguration().getEnabledAadlPropertyNames()
 							.contains(currentWindow.getSelectedProperty().getQualifiedName().toLowerCase())) {
 						diagram.modify("Configure Diagram", m -> {
@@ -130,15 +123,16 @@ public class SetBindingTool {
 		}
 	}
 
-	@SelectionChanged
-	public void onSelectionChanged(@Named(Names.BUSINESS_OBJECT_CONTEXTS) final BusinessObjectContext[] selectedBocs) {
+	@Override
+	public void selectionChanged(SelectionChangedContext ctx) {
 		if (currentWindow != null && currentWindow.getShell() != null && !currentWindow.getShell().isDisposed()) {
-			currentWindow.setTargetBusinessObjectContexts(selectedBocs);
+			currentWindow.setTargetBusinessObjectContexts(
+					ctx.getSelectedBocs().toArray(new BusinessObjectContext[ctx.getSelectedBocs().size()]));
 		}
 	}
 
-	@Deactivate
-	public void deactivate(final UiService uiService) {
+	@Override
+	public void deactivate(final DeactivateContext ctx) {
 		if(currentWindow != null) {
 			currentWindow.cancel();
 			currentWindow = null;

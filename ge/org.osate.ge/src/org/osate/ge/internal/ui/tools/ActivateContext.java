@@ -21,92 +21,70 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.ui.editor;
+package org.osate.ge.internal.ui.tools;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
-import org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.UiService;
-import org.osate.ge.internal.ui.tools.ActivateContext;
-import org.osate.ge.internal.ui.tools.DeactivateContext;
-import org.osate.ge.internal.ui.tools.SelectionChangedContext;
-import org.osate.ge.internal.ui.tools.Tool;
 
 import com.google.common.collect.ImmutableList;
 
 /**
- * Handles invoking tools and tracking the current tool.
+ * Context for activating tools
  *
+ * @noinstantiate This class is not intended to be instantiated by clients.
+ * @noextend This class is not intended to be subclassed by clients.
  */
-public class ToolHandler {
-	private final DefaultPaletteBehavior paletteBehavior;
-	private Tool activeTool = null;
-	private ImmutableList<BusinessObjectContext> bocs = ImmutableList.of();
+public final class ActivateContext {
+	private final List<BusinessObjectContext> selectedBocs;
 	private final AgeDiagram diagram;
 	private final AadlModificationService aadlModService;
 	private final UiService uiService;
 	private final ColoringService coloringService;
 
-	public ToolHandler(final DefaultPaletteBehavior paletteBehavior,
-			final AgeDiagram diagram,
+	// TODO: Document
+	/**
+	 * Creates a new instance.
+	 * @noreference This constructor is not intended to be referenced by clients.
+	 */
+	public ActivateContext(final ImmutableList<BusinessObjectContext> selectedBocs, final AgeDiagram diagram,
 			final AadlModificationService aadlModService, final UiService uiService,
 			final ColoringService coloringService) {
-
-		this.paletteBehavior = paletteBehavior;
+		this.selectedBocs = Objects.requireNonNull(selectedBocs, "selectedBocs must not be null");
 		this.diagram = Objects.requireNonNull(diagram, "diagram must not be null");
 		this.aadlModService = Objects.requireNonNull(aadlModService, "aadlModService must not be null");
 		this.uiService = Objects.requireNonNull(uiService, "uiService must not be null");
 		this.coloringService = Objects.requireNonNull(coloringService, "coloringService must not be null");
 	}
 
-	public boolean isToolActive() {
-		return activeTool != null;
+	public List<BusinessObjectContext> getSelectedBocs() {
+		return selectedBocs;
 	}
 
-	public void activate(final Tool tool) {
-		Objects.requireNonNull(tool, "tool must not be null");
-
-		// Deactivate the current tool
-		if (activeTool != null) {
-			deactivateActiveTool();
-		}
-
-		activeTool = tool;
-		paletteBehavior.refreshPalette();
-		activeTool.activate(new ActivateContext(bocs, diagram, aadlModService, uiService, coloringService));
+	// TODO; Document return value only if single object is selected
+	public Optional<BusinessObjectContext> getSelectedBoc() {
+		return selectedBocs.size() == 1 ? Optional.of(selectedBocs.get(0)) : Optional.empty();
 	}
 
-	public void deactivateActiveTool() {
-		if(activeTool != null) {
-			deactivate(activeTool);
-		}
+	public AgeDiagram getDiagram() {
+		return diagram;
 	}
 
-	public void deactivate(final Tool tool) {
-		tool.deactivate(new DeactivateContext());
-		activeTool = null;
-		paletteBehavior.refreshPalette();
+	public AadlModificationService getAadlModificatonService() {
+		return aadlModService;
 	}
 
-	public void setSelectedElements(final ImmutableList<BusinessObjectContext> newBocs) {
-		// Ignore the selection if nothing has changed
-		if (Objects.equals(this.bocs, newBocs)) {
-			return;
-		}
+	public UiService getUiService() {
+		return uiService;
+	}
 
-		this.bocs = newBocs;
-
-		if (bocs.isEmpty()) {
-			return;
-		}
-
-		// Notify the active tool
-		if(activeTool != null) {
-			activeTool.selectionChanged(new SelectionChangedContext(bocs));
-		}
+	public ColoringService getColoringService() {
+		return coloringService;
 	}
 }

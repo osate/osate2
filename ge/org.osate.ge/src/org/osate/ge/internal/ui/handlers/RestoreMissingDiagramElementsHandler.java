@@ -49,7 +49,7 @@ import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.AgeFeatureProvider;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ActionService;
-import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.ui.dialogs.RestoreMissingDiagramElementsDialog;
@@ -81,8 +81,8 @@ public class RestoreMissingDiagramElementsHandler extends AbstractHandler {
 				.requireNonNull(diagramEditor.getAdapter(ProjectProvider.class), "Unable to retrieve project provider");
 		final DiagramUpdater diagramUpdater = Objects.requireNonNull(featureProvider.getDiagramUpdater(),
 				"Unable to retrieve diagram updater");
-		final ExtensionService extService = (ExtensionService) Objects.requireNonNull(
-				diagramEditor.getAdapter(ExtensionService.class), "Unable to retrieve extension service");
+		final ExtensionRegistryService extService = (ExtensionRegistryService) Objects.requireNonNull(
+				diagramEditor.getAdapter(ExtensionRegistryService.class), "Unable to retrieve extension service");
 
 		final AgeDiagram diagram = diagramEditor.getAgeDiagram();
 
