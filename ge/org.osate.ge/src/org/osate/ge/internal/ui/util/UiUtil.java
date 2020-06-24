@@ -124,8 +124,6 @@ public class UiUtil {
 		final String prefix;
 		if (bo instanceof EObject) {
 			prefix = StringUtil.camelCaseToUser(((EObject) bo).eClass().getName()) + " ";
-		} else if (bo instanceof BusinessObjectProxy) {
-			prefix = StringUtil.camelCaseToUser(((BusinessObjectProxy) bo).getEClass().getName()) + " ";
 		} else {
 			prefix = "";
 		}
@@ -142,13 +140,13 @@ public class UiUtil {
 				baseName = boh.getName(new GetNameContext(bo));
 			}
 		}
-		
+
 		if (Strings.isNullOrEmpty(baseName)) {
 			final String typeName = StringUtil.camelCaseToUser(
 					bo instanceof EObject ? ((EObject) bo).eClass().getName() : bo.getClass().getName());
 			return "<Unnamed " + typeName + ">";
-		} 
-		
+		}
+
 		return prefix + baseName;
 	}
 

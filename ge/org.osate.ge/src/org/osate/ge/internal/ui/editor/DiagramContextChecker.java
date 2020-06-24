@@ -42,11 +42,11 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.window.Window;
 import org.eclipse.xtext.resource.IEObjectDescription;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.AadlReferenceUtil;
-import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.aadl2.ui.internal.dialogs.ElementSelectionDialog;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramConfigurationBuilder;
@@ -165,13 +165,13 @@ public class DiagramContextChecker {
 		if (isPackageRef || isClassifierRef) {
 			// Find all packages
 			final Collection<IEObjectDescription> packageDescriptions = ScopedEMFIndexRetrieval
-					.getAllEObjectsByType(project, AgeAadlUtil.getAadl2Factory().getAadl2Package().getAadlPackage());
+					.getAllEObjectsByType(project, Aadl2Package.eINSTANCE.getAadlPackage());
 
 			if (isPackageRef) {
 				options = packageDescriptions;
 			} else if (isClassifierRef) {
 				options = ScopedEMFIndexRetrieval.getAllEObjectsByType(project,
-						AgeAadlUtil.getAadl2Factory().getAadl2Package().getClassifier());
+						Aadl2Package.eINSTANCE.getClassifier());
 
 				// Check if the package portion of the qualified name is a valid package.
 				// If so, use it as the initial filter

@@ -36,6 +36,7 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.resource.IEObjectDescription;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
@@ -159,13 +160,16 @@ public class AadlBusinessObjectProvider implements BusinessObjectProvider {
 		Stream.Builder<Object> packages = null;
 
 		for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(project,
-				AgeAadlUtil.getAadl2Factory().getAadl2Package().getAadlPackage())) {
+				Aadl2Package.eINSTANCE.getAadlPackage())) {
 			if (packages == null) {
 				packages = Stream.builder();
 			}
 
 			final String pkgQualifiedName = desc.getQualifiedName().toString("::");
-			packages.add(new BusinessObjectProxy(pkgQualifiedName, desc.getEClass(),
+			packages.add(new BusinessObjectProxy(
+					"Aadl Package "
+					+ pkgQualifiedName,
+					PackageProxyHandler.PROXY_TYPE_ID,
 					AadlReferenceUtil.getCanonicalReferenceForPackage(
 							pkgQualifiedName),
 					AadlReferenceUtil.getRelativeReferenceForPackage(pkgQualifiedName)));

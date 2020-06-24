@@ -65,7 +65,6 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.ge.BusinessObjectSelection;
-import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.aadl2.ui.internal.dialogs.EditDimensionsDialog.EditDimensionDialog;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil.DragAndDropElement;
@@ -236,7 +235,7 @@ public class SetDimensionsPropertySection extends AbstractPropertySection {
 					selectedIndex = tableViewer.getTable().getSelectionIndex();
 					final ArrayDimension readonlyDim = getSelectedDimension();
 					if (readonlyDim != null) {
-						final Aadl2Package pkg = AgeAadlUtil.getAadl2Factory().getAadl2Package();
+						final Aadl2Package pkg = Aadl2Package.eINSTANCE;
 						final ArrayDimension dim = createArrayDimensionDuplicate(pkg, readonlyDim);
 						selectedBos.boStream(ArrayableElement.class).findAny().ifPresent(ele -> {
 							if (modifiedArrayDimension(dim, SelectionUtil.getProjectOrThrow(ele.eResource()))) {
@@ -252,7 +251,7 @@ public class SetDimensionsPropertySection extends AbstractPropertySection {
 			private final SelectionAdapter addDimensionSelectionListener = new SelectionAdapter() {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
-					final Aadl2Package pkg = AgeAadlUtil.getAadl2Factory().getAadl2Package();
+					final Aadl2Package pkg = Aadl2Package.eINSTANCE;
 					final ArrayDimension dim = (ArrayDimension) pkg.getEFactoryInstance().create(pkg.getArrayDimension());
 					selectedBos.boStream(ArrayableElement.class).findAny().ifPresent(ele -> {
 						if (modifiedArrayDimension(dim, SelectionUtil.getProjectOrThrow(ele.eResource()))) {

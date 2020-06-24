@@ -124,7 +124,7 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 	private static Map<EClass, FeatureClassifierMetadata> featureTypeToMetadataMap = new HashMap<EClass, FeatureClassifierMetadata>();
 
 	static {
-		final Aadl2Package p = AgeAadlUtil.getAadl2Factory().getAadl2Package();
+		final Aadl2Package p = Aadl2Package.eINSTANCE;
 		featureTypeToMetadataMap.put(p.getBusAccess(), new FeatureClassifierMetadata(
 				p.getBusFeatureClassifier(), BusFeatureClassifier.class, "setBusFeatureClassifier",
 				ImmutableList.of(ComponentCategory.BUS, ComponentCategory.VIRTUAL_BUS)));
@@ -307,9 +307,7 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 			};
 
 			// Show the dialog to determine the operation
-			final boolean isFeatureGroup = metadata.classifierEClass == AgeAadlUtil.getAadl2Factory()
-					.getAadl2Package()
-					.getFeatureType();
+			final boolean isFeatureGroup = metadata.classifierEClass == Aadl2Package.eINSTANCE.getFeatureType();
 
 			final ClassifierOperationDialog.ArgumentBuilder argBuilder = new ClassifierOperationDialog.ArgumentBuilder(
 					model,

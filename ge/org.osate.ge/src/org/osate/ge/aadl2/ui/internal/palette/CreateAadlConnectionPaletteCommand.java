@@ -199,7 +199,7 @@ public class CreateAadlConnectionPaletteCommand extends BasePaletteCommand imple
 	 */
 	private Class<?> getConnectionEndType(final EClass connectionType) {
 		final Class<?> connectionEndType;
-		final Aadl2Package p = AgeAadlUtil.getAadl2Factory().getAadl2Package();
+		final Aadl2Package p = Aadl2Package.eINSTANCE;
 		if (connectionType == p.getAccessConnection()) {
 			connectionEndType = AccessConnectionEnd.class;
 		} else if (connectionType == p.getFeatureConnection()) {
@@ -259,7 +259,7 @@ public class CreateAadlConnectionPaletteCommand extends BasePaletteCommand imple
 
 		final Object firstBo = pathObjects[0];
 		final boolean allowNested = !disableNesting
-				&& connectionType == AgeAadlUtil.getAadl2Factory().getAadl2Package().getFeatureConnection();
+				&& connectionType == Aadl2Package.eINSTANCE.getFeatureConnection();
 
 		// If nesting is not allowed, then the number of objects must be at most 2.
 		if (!allowNested && pathObjects.length > 2) {

@@ -75,7 +75,7 @@ public class DefaultSelectSubprogramDialogModel implements SelectSubprogramDialo
 		// data unique type reference
 		// subprogram group unique type reference
 		// abstract unique type reference
-		final Aadl2Package aadl2Package = AgeAadlUtil.getAadl2Factory().getAadl2Package();
+		final Aadl2Package aadl2Package = Aadl2Package.eINSTANCE;
 		for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(bi.eResource(),
 				aadl2Package.getComponentClassifier())) {
 			// Add objects that have care either types or implementations of the same category as the classifier type
@@ -168,7 +168,7 @@ public class DefaultSelectSubprogramDialogModel implements SelectSubprogramDialo
 			}
 		} else if(context == nullContext) { // Null Context
 			// Subprogram classifier reference
-			final Aadl2Package aadl2Package = AgeAadlUtil.getAadl2Factory().getAadl2Package();
+			final Aadl2Package aadl2Package = Aadl2Package.eINSTANCE;
 			for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(bi.eResource(),
 					aadl2Package.getComponentClassifier())) {
 				// Add objects that have care either types or implementations of the same category as the classifier type

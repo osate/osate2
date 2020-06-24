@@ -72,7 +72,7 @@ public class ShowElementHandler extends AbstractHandler {
 				.getFeatureProvider();
 		final List<BusinessObjectContext> bocsToAdd = AgeHandlerUtil.getSelectedBusinessObjectContexts().stream()
 				.filter(boc -> !(boc instanceof DiagramNode)).collect(Collectors.toList());
-		final AgeDiagram diagram = diagramEditor.getAgeDiagram();
+		final AgeDiagram diagram = diagramEditor.getDiagram();
 		if (diagram == null) {
 			throw new RuntimeException("Unable to get diagram");
 		}

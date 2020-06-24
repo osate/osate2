@@ -117,7 +117,7 @@ public class DiagramElementLayoutUtil {
 
 		final AgeDiagramEditor ageDiagramEditor = ((AgeDiagramEditor) editor);
 		final LayoutInfoProvider layoutInfoProvider = Adapters.adapt(ageDiagramEditor, LayoutInfoProvider.class);
-		layout(label, ageDiagramEditor.getAgeDiagram(), diagramNodes, layoutInfoProvider, options);
+		layout(label, ageDiagramEditor.getDiagram(), diagramNodes, layoutInfoProvider, options);
 	}
 
 	public static void layout(final String label, final AgeDiagram diagram, final LayoutInfoProvider layoutInfoProvider,

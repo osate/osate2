@@ -50,6 +50,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.xtext.util.Strings;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ArrayRange;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
@@ -369,14 +370,13 @@ public class SetBindingTool implements Tool {
 
 					// Create owned values
 					final ModalPropertyValue pv = newPa.createOwnedValue();
-					final ListValue lv = (ListValue) pv.createOwnedValue(AgeAadlUtil.getAadl2Factory()
-							.getAadl2Package()
+					final ListValue lv = (ListValue) pv.createOwnedValue(Aadl2Package.eINSTANCE
 							.getListValue());
 
 					for (final BusinessObjectContext targetBoc : currentWindow.getTargetBocs()) {
 						// Ignore diagram selections
 						final ReferenceValue rv = (ReferenceValue) lv.createOwnedListElement(
-								AgeAadlUtil.getAadl2Factory().getAadl2Package().getReferenceValue());
+								Aadl2Package.eINSTANCE.getReferenceValue());
 						setContainedNamedElementPath(rv, ciBoc, targetBoc);
 					}
 

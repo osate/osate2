@@ -25,7 +25,6 @@ package org.osate.ge.internal.model;
 
 import java.util.Objects;
 
-import org.eclipse.emf.ecore.EClass;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
@@ -41,15 +40,16 @@ import org.osate.ge.internal.services.ProjectReferenceService;
  * */
 public class BusinessObjectProxy {
 	private final String name;
-	private final EClass eClass;
+	private final String typeId;
 	private final CanonicalBusinessObjectReference canonicalReference;
 	private final RelativeBusinessObjectReference relativeReference;
 
-	public BusinessObjectProxy(final String name, final EClass eClass,
+	public BusinessObjectProxy(final String name,
+			final String typeId,
 			final CanonicalBusinessObjectReference canonicalReference,
 			final RelativeBusinessObjectReference relativeReference) {
 		this.name = Objects.requireNonNull(name, "name must not be null");
-		this.eClass = Objects.requireNonNull(eClass, "eClass must not be null");
+		this.typeId = Objects.requireNonNull(typeId, "typeId must not be null");
 		this.canonicalReference = Objects.requireNonNull(canonicalReference, "canonicalReference must not be null");
 		this.relativeReference = Objects.requireNonNull(relativeReference, "relativeReference must not be null");
 	}
@@ -58,8 +58,8 @@ public class BusinessObjectProxy {
 		return name;
 	}
 
-	public final EClass getEClass() {
-		return eClass;
+	public final String getTypeId() {
+		return typeId;
 	}
 
 	public final CanonicalBusinessObjectReference getCanonicalReference() {

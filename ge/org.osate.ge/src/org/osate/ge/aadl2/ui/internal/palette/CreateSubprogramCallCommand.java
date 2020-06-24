@@ -27,6 +27,7 @@ import java.util.Optional;
 
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.CallContext;
 import org.osate.aadl2.CalledSubprogram;
@@ -37,7 +38,6 @@ import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.internal.model.SubprogramCallOrder;
 import org.osate.ge.aadl2.internal.util.AadlImportsUtil;
-import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.aadl2.ui.internal.dialogs.DefaultSelectSubprogramDialogModel;
 import org.osate.ge.aadl2.ui.internal.dialogs.SelectSubprogramDialog;
 import org.osate.ge.operations.Operation;
@@ -51,7 +51,7 @@ public class CreateSubprogramCallCommand extends BasePaletteCommand implements T
 
 	public CreateSubprogramCallCommand() {
 		super("Subprogram Call", AadlPaletteCategories.SUBPROGRAM_CALLS,
-				AadlImages.getImage(AgeAadlUtil.getAadl2Factory().getAadl2Package().getSubprogramCall()));
+				AadlImages.getImage(Aadl2Package.eINSTANCE.getSubprogramCall()));
 	}
 
 	@Override

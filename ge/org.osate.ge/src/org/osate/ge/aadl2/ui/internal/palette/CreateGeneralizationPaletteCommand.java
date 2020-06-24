@@ -25,6 +25,7 @@ package org.osate.ge.aadl2.ui.internal.palette;
 
 import java.util.Optional;
 
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractImplementation;
 import org.osate.aadl2.AbstractType;
@@ -38,7 +39,6 @@ import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.TypeExtension;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.util.AadlImportsUtil;
-import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResult;
 import org.osate.ge.operations.StepResultBuilder;
@@ -51,7 +51,7 @@ public class CreateGeneralizationPaletteCommand extends BasePaletteCommand imple
 
 	public CreateGeneralizationPaletteCommand() {
 		super("Extension", AadlPaletteCategories.CLASSIFIERS,
-				AadlImages.getImage(AgeAadlUtil.getAadl2Factory().getAadl2Package().getGeneralization()));
+				AadlImages.getImage(Aadl2Package.eINSTANCE.getGeneralization()));
 
 	}
 

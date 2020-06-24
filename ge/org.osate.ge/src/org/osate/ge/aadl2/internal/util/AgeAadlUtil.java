@@ -36,6 +36,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.ComponentImplementation;
@@ -151,7 +152,8 @@ public class AgeAadlUtil {
 
 	public static Set<IEObjectDescription> getEditablePackages(final IProject project) {
 		return ScopedEMFIndexRetrieval
-				.getAllEObjectsByType(project, AgeAadlUtil.getAadl2Factory().getAadl2Package()
+				.getAllEObjectsByType(project,
+						Aadl2Package.eINSTANCE
 						.getAadlPackage())
 				.stream().filter(od -> od.getEObjectURI() != null && !od.getEObjectURI().isPlatformPlugin())
 				.collect(Collectors.toSet());

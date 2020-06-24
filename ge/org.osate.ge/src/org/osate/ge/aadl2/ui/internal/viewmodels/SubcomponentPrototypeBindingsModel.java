@@ -50,7 +50,6 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.aadl2.internal.util.AadlSubcomponentUtil;
-import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.swt.classifiers.PrototypeBindingsModel;
 
@@ -59,8 +58,7 @@ import com.google.common.base.Strings;
 /**
  * {@link PrototypeBindingsModel} implementation for editing the classifier and prototype bindings of a subcomponent.
  */
-public class SubcomponentPrototypeBindingsModel
-extends BusinessObjectSelectionPrototypeBindingsModel {
+public class SubcomponentPrototypeBindingsModel extends BusinessObjectSelectionPrototypeBindingsModel {
 	public SubcomponentPrototypeBindingsModel(BusinessObjectSelection bos) {
 		super(bos);
 	}
@@ -169,8 +167,7 @@ extends BusinessObjectSelectionPrototypeBindingsModel {
 
 		// Get the actual object.
 		final NamedElementOrDescription classifier = getClassifier(null);
-		EObject classifierValue = classifier == null ? null
-				: classifier.getResolvedValue(getResourceSet());
+		EObject classifierValue = classifier == null ? null : classifier.getResolvedValue(getResourceSet());
 
 		if (classifierValue != null && !(classifierValue instanceof SubcomponentType)) {
 			throw new RuntimeException("Unexpected value: " + classifierValue);
@@ -226,7 +223,7 @@ extends BusinessObjectSelectionPrototypeBindingsModel {
 	}
 
 	private EClass componentCategoryToSubcomponentTypeEClass(final ComponentCategory category) {
-		final Aadl2Package p = AgeAadlUtil.getAadl2Factory().getAadl2Package();
+		final Aadl2Package p = Aadl2Package.eINSTANCE;
 
 		switch (category) {
 		case SYSTEM:

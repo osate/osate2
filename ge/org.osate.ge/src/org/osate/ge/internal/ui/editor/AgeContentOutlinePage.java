@@ -38,7 +38,6 @@ import org.eclipse.core.runtime.preferences.IEclipsePreferences.IPreferenceChang
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.ui.actions.ActionRegistry;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IStatusLineManager;
@@ -76,7 +75,6 @@ import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
-import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ProjectProvider;
@@ -190,8 +188,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 			public Object[] getElements(final Object inputElement) {
 				if(inputElement instanceof AgeDiagramEditor) {
 					final AgeDiagramEditor editor = (AgeDiagramEditor)inputElement;
-					final GraphitiAgeDiagram graphitiAgeDiagram = editor.getGraphitiAgeDiagram();
-					return getChildren(graphitiAgeDiagram.getAgeDiagram());
+					return getChildren(editor.getDiagram());
 				}
 
 				return new BusinessObjectContext[0];
@@ -437,10 +434,10 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 			try {
 				synchronizingSelection = true;
 				final TreeViewer treeViewer = getTreeViewer();
-				final Set<DiagramNode> outlineNodes = getCurrentlySelectedDiagramNodes();
+				final Set<DiagramElement> outlineNodes = getCurrentlySelectedDiagramElements();
 				if(treeViewer != null &&
 						treeViewer.getContentProvider() != null &&
-						!outlineNodes.equals(getSelectedDiagramNodesFromEditor())) {
+						!outlineNodes.equals(editor.getSelectedDiagramElements())) {
 					treeViewer.setSelection(buildDiagramNodeTreeSelectionFromEditor());
 				}
 			} finally {
@@ -450,12 +447,13 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	}
 
 	private TreeSelection buildDiagramNodeTreeSelectionFromEditor() {
-		final Set<DiagramNode> selectedDiagramNodes = getSelectedDiagramNodesFromEditor();
-		if(selectedDiagramNodes == null) {
+		final Set<DiagramElement> selectedDiagramElements = editor.getSelectedDiagramElements();
+		if (selectedDiagramElements == null) {
 			return TreeSelection.EMPTY;
 		}
 
-		final TreePath[] treePaths = selectedDiagramNodes.stream().map((dn) -> new TreePath(new Object[] { dn } )).toArray(TreePath[]::new);
+		final TreePath[] treePaths = selectedDiagramElements.stream().map((dn) -> new TreePath(new Object[] { dn }))
+				.toArray(TreePath[]::new);
 		return new TreeSelection(treePaths);
 	}
 
@@ -464,22 +462,21 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 			if(!synchronizingSelection && linkWithEditorAction.isChecked() && !getSelection().isEmpty()) {
 				// Select TreeItems on editor
 				synchronizingSelection = true;
-				selectEditorPictogramElements();
+				selectEditorDiagramElements();
 			}
 		} finally {
 			synchronizingSelection = false;
 		}
 	}
 
-	private void selectEditorPictogramElements() {
+	private void selectEditorDiagramElements() {
 		// Compare using diagram nodes to allow selecting labels when link with editor is enabled
-		final Set<DiagramNode> outlineNodes = getCurrentlySelectedDiagramNodes();
-		final Set<DiagramNode> editorNodes = getSelectedDiagramNodesFromEditor();
+		final Set<DiagramElement> outlineElements = getCurrentlySelectedDiagramElements();
+		final Set<DiagramElement> editorElements = editor.getSelectedDiagramElements();
 		if(getTreeViewer() != null &&
 				getTreeViewer().getContentProvider() != null &&
-				!outlineNodes.equals(editorNodes)) {
-			// Select pictogram elements
-			editor.selectPictogramElements(getCurrentlySelectedPictogramElements());
+				!outlineElements.equals(editorElements)) {
+			editor.selectDiagramElements(outlineElements);
 		}
 	}
 
@@ -536,60 +533,19 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		return preferences.getBoolean(PREFERENCE_SHOW_HIDDEN_ELEMENTS, true);
 	}
 
-	private PictogramElement[] getCurrentlySelectedPictogramElements() {
-		final List<PictogramElement> pes = new ArrayList<>();
-		final GraphitiAgeDiagram graphitiAgeDiagram = editor.getGraphitiAgeDiagram();
-		for (final DiagramNode selectedDiagramNode : getCurrentlySelectedDiagramNodes()) {
-			final PictogramElement pe = graphitiAgeDiagram.getPictogramElement(selectedDiagramNode);
-			if (pe != null) {
-				pes.add(pe);
-			}
-		}
-
-		return pes.toArray(new PictogramElement[pes.size()]);
-	}
-
-
-	// Sets are used in the following methods to allow correct comparison between editor and outline selection. The editor may have multiple pictogram
-	// elements for the same diagram node.
-
 	/**
-	 * Will never return null. Will remove anything selected in the tree that isn't a DiagramNode
+	 * Will never return null. Will remove anything selected in the tree that isn't a DiagramElement
 	 * @return
 	 */
-	private Set<DiagramNode> getCurrentlySelectedDiagramNodes() {
+	private Set<DiagramElement> getCurrentlySelectedDiagramElements() {
 		final Object[] outlineSelection = ((IStructuredSelection)getSelection()).toArray();
-		final Set<DiagramNode> diagramNodes = new HashSet<>();
+		final Set<DiagramElement> diagramElements = new HashSet<>();
 		for (final Object selectedBusinessObjectContext : outlineSelection) {
-			if (selectedBusinessObjectContext instanceof DiagramNode) {
-				diagramNodes.add((DiagramNode) selectedBusinessObjectContext);
+			if (selectedBusinessObjectContext instanceof DiagramElement) {
+				diagramElements.add((DiagramElement) selectedBusinessObjectContext);
 			}
 		}
 
-		return diagramNodes;
-	}
-
-	/**
-	 * Will return null if it is unable to determine the diagram nodes for all the selected pictogram elements.
-	 * @return
-	 */
-	private Set<DiagramNode> getSelectedDiagramNodesFromEditor() {
-		final PictogramElement[] selectedPes = editor.getSelectedPictogramElements();
-		final Set<DiagramNode> selectedDiagramNodes = new HashSet<>();
-		final GraphitiAgeDiagram graphitiAgeDiagram = editor.getGraphitiAgeDiagram();
-		for(final PictogramElement selectedPe : selectedPes) {
-			if(selectedPe == null) {
-				return null;
-			}
-
-			final DiagramNode diagramNode = graphitiAgeDiagram.getClosestDiagramElement(selectedPe);
-			if(diagramNode == null) {
-				return null;
-			}
-
-			selectedDiagramNodes.add(diagramNode);
-		}
-
-		return selectedDiagramNodes;
+		return diagramElements;
 	}
 }

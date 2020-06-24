@@ -84,7 +84,7 @@ public class RestoreMissingDiagramElementsHandler extends AbstractHandler {
 		final ExtensionRegistryService extService = (ExtensionRegistryService) Objects.requireNonNull(
 				diagramEditor.getAdapter(ExtensionRegistryService.class), "Unable to retrieve extension service");
 
-		final AgeDiagram diagram = diagramEditor.getAgeDiagram();
+		final AgeDiagram diagram = diagramEditor.getDiagram();
 
 		final IEclipseContext serviceContext = EclipseContextFactory
 				.getServiceContext(FrameworkUtil.getBundle(getClass()).getBundleContext());

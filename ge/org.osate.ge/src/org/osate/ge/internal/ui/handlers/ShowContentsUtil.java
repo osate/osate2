@@ -69,7 +69,7 @@ class ShowContentsUtil {
 		final ActionService actionService = Objects.requireNonNull(Adapters.adapt(diagramEditor, ActionService.class),
 				"Unable to retrieve action service");
 		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements();
-		final AgeDiagram diagram = diagramEditor.getAgeDiagram();
+		final AgeDiagram diagram = diagramEditor.getDiagram();
 		if (diagram == null) {
 			throw new RuntimeException("Unable to retrieve diagram");
 		}

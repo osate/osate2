@@ -65,7 +65,6 @@ import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.services.AadlModificationService;
@@ -165,7 +164,7 @@ public class CreateFlowImplementationTool implements Tool {
 	private static class CreateFlowImplementationDialog extends TitleAreaDialog {
 		private final UiService uiService;
 		private final ColoringService.Coloring coloring;
-		private final Aadl2Package pkg = AgeAadlUtil.getAadl2Factory().getAadl2Package();
+		private final Aadl2Package pkg = Aadl2Package.eINSTANCE;
 		private TableViewer errorTableViewer;
 		private Composite flowComposite;
 		private StyledText flowLabel;

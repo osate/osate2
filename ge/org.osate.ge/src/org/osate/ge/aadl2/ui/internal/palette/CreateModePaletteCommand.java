@@ -29,6 +29,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -37,7 +38,6 @@ import org.osate.aadl2.Mode;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
-import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.aadl2.ui.internal.AadlUiUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
@@ -49,7 +49,7 @@ public class CreateModePaletteCommand extends BasePaletteCommand implements Targ
 
 	public CreateModePaletteCommand() {
 		super("Mode", AadlPaletteCategories.MODES,
-				AadlImages.getImage(AgeAadlUtil.getAadl2Factory().getAadl2Package().getMode()));
+				AadlImages.getImage(Aadl2Package.eINSTANCE.getMode()));
 
 	}
 
@@ -76,14 +76,14 @@ public class CreateModePaletteCommand extends BasePaletteCommand implements Targ
 							&& ((Subcomponent) targetBo).getClassifier() instanceof ComponentImplementation))
 					&& potentialOwners.size() > 0 && !(potentialOwners.get(0) instanceof ComponentImplementation);
 
-			final ComponentClassifier selectedClassifier = AadlUiUtil
-					.getBusinessObjectToModify(potentialOwners,
-					forcePrompt);
-			if (selectedClassifier == null) {
-				return Optional.empty();
-			}
+					final ComponentClassifier selectedClassifier = AadlUiUtil
+							.getBusinessObjectToModify(potentialOwners,
+									forcePrompt);
+					if (selectedClassifier == null) {
+						return Optional.empty();
+					}
 
-			return Optional.of(selectedClassifier);
+					return Optional.of(selectedClassifier);
 		}, cc -> {
 			final String newModeName = AadlNamingUtil.buildUniqueIdentifier(cc, "new_mode");
 

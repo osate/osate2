@@ -23,13 +23,13 @@
  */
 package org.osate.ge.aadl2.internal;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import org.osate.aadl2.Aadl2Package;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.RelativeBusinessObjectReference;
-import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetIconIdContext;
@@ -43,11 +43,12 @@ import org.osate.ge.internal.model.BusinessObjectProxy;
  * proxies are resolved before use so other functions do not provide functionality.
  */
 public class PackageProxyHandler implements BusinessObjectHandler {
+	public static final String PROXY_TYPE_ID = "aadl2.package";
+
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(BusinessObjectProxy.class)
-				.filter(p -> p.getEClass() == AgeAadlUtil.getAadl2Factory().getAadl2Package().getAadlPackage())
-				.isPresent();
+				.filter(p -> Objects.equals(p.getTypeId(), PROXY_TYPE_ID)).isPresent();
 	}
 
 	@Override
@@ -67,7 +68,7 @@ public class PackageProxyHandler implements BusinessObjectHandler {
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(BusinessObjectProxy.class).map(p -> "Package Proxy " + p.getName()).orElse("");
+		return ctx.getBusinessObject(BusinessObjectProxy.class).map(p -> p.getName()).orElse("");
 	}
 
 	@Override

@@ -42,7 +42,7 @@ public class AadlConnectionUtil {
 	 */
 	private static Map<EClass,String> createConnectionTypeToMethodMap() {
 		final LinkedHashMap<EClass, String> map = new LinkedHashMap<EClass, String>();
-		final Aadl2Package p = AgeAadlUtil.getAadl2Factory().getAadl2Package();
+		final Aadl2Package p = Aadl2Package.eINSTANCE;
 		map.put(p.getAccessConnection(), "createOwnedAccessConnection");
 		map.put(p.getFeatureConnection(), "createOwnedFeatureConnection");
 		map.put(p.getFeatureGroupConnection(), "createOwnedFeatureGroupConnection");

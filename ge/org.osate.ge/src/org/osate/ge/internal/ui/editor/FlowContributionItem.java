@@ -157,7 +157,7 @@ public class FlowContributionItem extends ComboContributionItem {
 				return;
 			}
 
-			final AgeDiagram diagram = editor.getAgeDiagram();
+			final AgeDiagram diagram = editor.getDiagram();
 			if (diagram != null) {
 				final QueryService queryService = ContributionHelper.getQueryService(editor);
 				if (queryService != null) {
