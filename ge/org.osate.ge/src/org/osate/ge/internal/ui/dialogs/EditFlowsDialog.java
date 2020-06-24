@@ -81,10 +81,10 @@ import org.osate.aadl2.ModalPath;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
+import org.osate.ge.StringUtil;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.AadlPrototypeUtil;
-import org.osate.ge.util.StringUtil;
 
 /**
  * Dialog for editing flow implementations and end to end flows.

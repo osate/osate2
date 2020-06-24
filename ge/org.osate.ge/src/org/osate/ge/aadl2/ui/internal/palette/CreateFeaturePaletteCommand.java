@@ -35,6 +35,7 @@ import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.DockingPosition;
+import org.osate.ge.StringUtil;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.ui.AadlOperationBuilder;
@@ -44,7 +45,6 @@ import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.TargetedPaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
-import org.osate.ge.util.StringUtil;
 
 public class CreateFeaturePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	private final EClass featureType;

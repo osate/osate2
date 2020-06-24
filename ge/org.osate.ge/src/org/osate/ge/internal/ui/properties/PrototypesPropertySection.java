@@ -51,7 +51,7 @@ import org.osate.ge.internal.ui.LtkRenameAction;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.swt.prototypes.PrototypesEditor;
-import org.osate.ge.ui.properties.PropertySectionUtil;
+import org.osate.ge.ui.PropertySectionUtil;
 
 /**
  * Property section for editing prototypes.

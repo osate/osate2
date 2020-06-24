@@ -50,7 +50,7 @@ import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.swt.util.SwtTestUtil;
-import org.osate.ge.ui.properties.PropertySectionUtil;
+import org.osate.ge.ui.PropertySectionUtil;
 
 public class SetFeatureGroupInversePropertySection extends AbstractPropertySection {
 	public static class Filter implements IFilter {

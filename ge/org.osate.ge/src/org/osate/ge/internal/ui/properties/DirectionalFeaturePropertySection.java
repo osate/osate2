@@ -42,7 +42,7 @@ import org.osate.ge.aadl2.ui.internal.viewmodels.FeatureDirectionModel;
 import org.osate.ge.internal.selection.AgeBusinessObjectSelection;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.swt.selectors.RadioSelector;
-import org.osate.ge.ui.properties.PropertySectionUtil;
+import org.osate.ge.ui.PropertySectionUtil;
 
 public class DirectionalFeaturePropertySection extends AbstractPropertySection {
 	public static class Filter implements IFilter {

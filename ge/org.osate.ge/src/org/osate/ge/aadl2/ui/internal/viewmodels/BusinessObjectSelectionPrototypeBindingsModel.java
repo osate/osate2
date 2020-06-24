@@ -71,6 +71,7 @@ import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.ge.BusinessObjectSelection;
+import org.osate.ge.StringUtil;
 import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.AadlPrototypeUtil;
@@ -78,7 +79,6 @@ import org.osate.ge.internal.util.ProjectUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.swt.BaseObservableModel;
 import org.osate.ge.swt.classifiers.PrototypeBindingsModel;
-import org.osate.ge.util.StringUtil;
 
 import com.google.common.base.Strings;
 

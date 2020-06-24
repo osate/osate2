@@ -33,12 +33,12 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.PackageSection;
+import org.osate.ge.StringUtil;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.internal.util.classifiers.ClassifierCreationHelper;
 import org.osate.ge.internal.util.classifiers.ClassifierOperation;
 import org.osate.ge.internal.util.classifiers.ClassifierOperationPart;
 import org.osate.ge.internal.util.classifiers.ClassifierOperationPartType;
-import org.osate.ge.util.StringUtil;
 
 public class DefaultCreateSelectClassifierDialogModel implements ClassifierOperationDialog.Model {
 	private final ClassifierCreationHelper classifierCreationHelper;

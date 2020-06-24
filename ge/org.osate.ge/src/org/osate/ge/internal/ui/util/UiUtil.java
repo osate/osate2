@@ -38,9 +38,10 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.businessobjecthandlers.BusinessObjectHandler;
-import org.osate.ge.businessobjecthandlers.GetIconIdContext;
-import org.osate.ge.businessobjecthandlers.GetNameContext;
+import org.osate.ge.StringUtil;
+import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.GetIconIdContext;
+import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.internal.businessobjecthandlers.BusinessObjectHandlerProvider;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
@@ -50,7 +51,6 @@ import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.util.DiagramElementUtil;
-import org.osate.ge.util.StringUtil;
 
 import com.google.common.base.Strings;
 

@@ -61,7 +61,7 @@ import org.osate.ge.internal.ui.util.InternalPropertySectionUtil.DragAndDropElem
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil.DragAndDropSupport;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil.ExecuteOrderChange;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil.UpDownButtonSelectionAdapter;
-import org.osate.ge.ui.properties.PropertySectionUtil;
+import org.osate.ge.ui.PropertySectionUtil;
 
 public class SetSubprogramCallSequenceOrderPropertySection extends AbstractPropertySection {
 	public static class Filter implements IFilter {

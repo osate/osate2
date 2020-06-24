@@ -26,11 +26,11 @@ package org.osate.ge.aadl2.internal;
 import java.util.List;
 import java.util.Optional;
 
+import org.osate.ge.StringUtil;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 import org.osate.ge.referencehandling.GetCanonicalReferenceLabelContext;
 import org.osate.ge.referencehandling.GetRelativeReferenceLabelContext;
 import org.osate.ge.referencehandling.ReferenceLabelProvider;
-import org.osate.ge.util.StringUtil;
 
 import com.google.common.base.CaseFormat;
 

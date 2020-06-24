@@ -42,7 +42,7 @@ import org.osate.ge.aadl2.ui.internal.viewmodels.BusinessObjectSelectionPrototyp
 import org.osate.ge.aadl2.ui.internal.viewmodels.ClassifierPrototypeBindingsModel;
 import org.osate.ge.internal.selection.AgeBusinessObjectSelection;
 import org.osate.ge.swt.classifiers.PrototypeBindingsField;
-import org.osate.ge.ui.properties.PropertySectionUtil;
+import org.osate.ge.ui.PropertySectionUtil;
 
 /**
  * Property section for editing prototypes for classifiers.

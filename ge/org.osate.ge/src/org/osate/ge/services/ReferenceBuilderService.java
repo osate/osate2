@@ -31,7 +31,6 @@ import org.osate.ge.RelativeBusinessObjectReference;
  * @noextend
  * @noimplement
  * @see ReferenceResolutionService
- * @see org.osate.ge.di.BuildCanonicalReference
  */
 public interface ReferenceBuilderService {
 	/**

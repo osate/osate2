@@ -33,9 +33,9 @@ import org.eclipse.xtext.ui.refactoring.IRenameRefactoringProvider;
 import org.eclipse.xtext.ui.refactoring.ui.IRenameElementContext;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.NamedElement;
-import org.osate.ge.businessobjecthandlers.BusinessObjectHandler;
-import org.osate.ge.businessobjecthandlers.CustomRenamer;
-import org.osate.ge.businessobjecthandlers.RenameContext;
+import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.CustomRenamer;
+import org.osate.ge.businessobjecthandling.RenameContext;
 
 /**
  * Helper functions related to the renaming aspect of Business Object Handlers.

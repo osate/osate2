@@ -58,7 +58,7 @@ Export-Package: org.osate.ge,
  org.osate.ge.aadl2,
  org.osate.ge.aadl2.internal;x-friends:="org.osate.ge.tests",
  org.osate.ge.aadl2.internal.diagramtypes;x-friends:="org.osate.ge.tests",
- org.osate.ge.businessobjecthandlers,
+ org.osate.ge.businessobjecthandling,
  org.osate.ge.graphics,
  org.osate.ge.graphics.internal;x-friends:="org.osate.ge.tests",
  org.osate.ge.internal.diagram.runtime;x-friends:="org.osate.ge.tests",
@@ -82,9 +82,7 @@ Export-Package: org.osate.ge,
  org.osate.ge.query,
  org.osate.ge.referencehandling,
  org.osate.ge.services,
- org.osate.ge.ui,
- org.osate.ge.ui.properties,
- org.osate.ge.util
+ org.osate.ge.ui
 Bundle-ClassPath: .
 Automatic-Module-Name: org.osate.ge
 Bundle-Vendor: The University of Alabama in Huntsville

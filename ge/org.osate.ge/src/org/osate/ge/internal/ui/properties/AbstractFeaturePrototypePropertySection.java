@@ -40,7 +40,7 @@ import org.osate.ge.internal.selection.AgeBusinessObjectSelection;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.swt.selectors.FilteringListSelectorField;
 import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
-import org.osate.ge.ui.properties.PropertySectionUtil;
+import org.osate.ge.ui.PropertySectionUtil;
 
 /**
  * Property section for setting the feature prototype for abstract features.
