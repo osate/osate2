@@ -115,7 +115,7 @@ import org.osate.ge.internal.graphiti.features.UpdateDiagramFeature;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ActionService;
-import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.services.SystemInstanceLoadingService;
@@ -126,7 +126,7 @@ import org.osate.ge.services.QueryService;
 public class AgeFeatureProvider extends DefaultFeatureProvider {
 	private IEclipseContext eclipseContext;
 	private ReferenceService referenceService;
-	private ExtensionService extService;
+	private ExtensionRegistryService extService;
 	private AadlModificationService aadlModService;
 	private GraphitiService graphitiService;
 	private ProjectReferenceService referenceResolver;
@@ -152,7 +152,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		this.eclipseContext.set(IFeatureProvider.class, this);
 		this.referenceService = Objects.requireNonNull(eclipseContext.get(ReferenceService.class),
 				"unable to retrieve reference service service");
-		this.extService = Objects.requireNonNull(eclipseContext.get(ExtensionService.class),
+		this.extService = Objects.requireNonNull(eclipseContext.get(ExtensionRegistryService.class),
 				"unable to retrieve extension service");
 		this.aadlModService = Objects.requireNonNull(eclipseContext.get(AadlModificationService.class),
 				"unable to retrieve AADL modification service");

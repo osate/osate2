@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -21,19 +21,19 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.services;
-
-import org.eclipse.e4.core.contexts.IEclipseContext;
+package org.osate.ge.internal.ui.tools;
 
 /**
- * Service with provides useful functionality for interacting with extensions.
+ * Tools are objects that allow the user to perform a specific action using the editor. Only a single tool may be active at a time and
+ * tools should have their own user interface to provide feedback to the user.
  *
  */
-public interface ExtensionService extends ExtensionRegistryService {
-	/**
-	 * Creates a context which contains the base set of services passed to all extensions. 
-	 * Note: The context should be disposed when it is no longer needed.
-	 * @return
-	 */
-	IEclipseContext createChildContext();
+public interface Tool {
+	// TODO; Document
+
+	void activate(ActivateContext ctx);
+
+	void deactivate(DeactivateContext ctx);
+
+	void selectionChanged(SelectionChangedContext ctx);
 }

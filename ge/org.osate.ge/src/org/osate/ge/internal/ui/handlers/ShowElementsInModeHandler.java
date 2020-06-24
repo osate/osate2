@@ -59,7 +59,7 @@ import org.osate.ge.internal.graphiti.AgeFeatureProvider;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ActionService;
-import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.util.AadlInstanceObjectUtil;
@@ -81,7 +81,7 @@ public class ShowElementsInModeHandler extends AbstractHandler {
 		final AgeDiagramEditor editor = getAgeDiagramEditor(event);
 		referenceService = Objects.requireNonNull(Adapters.adapt(editor, ProjectReferenceService.class),
 				"Unable to retrieve reference service");
-		final ExtensionService extService = Objects.requireNonNull(Adapters.adapt(editor, ExtensionService.class),
+		final ExtensionRegistryService extService = Objects.requireNonNull(Adapters.adapt(editor, ExtensionRegistryService.class),
 				"Unable to retrieve extension service");
 		final BusinessObjectProviderHelper bopHelper = new BusinessObjectProviderHelper(extService);
 		final AgeFeatureProvider featureProvider = (AgeFeatureProvider) editor.getDiagramTypeProvider()

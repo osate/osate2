@@ -30,8 +30,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
-import javax.inject.Named;
-
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -71,11 +69,7 @@ import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
-import org.osate.ge.di.Activate;
-import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Color;
-import org.osate.ge.internal.di.Deactivate;
-import org.osate.ge.internal.di.SelectionChanged;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ColoringService;
@@ -84,51 +78,55 @@ import org.osate.ge.internal.ui.util.ContextHelpUtil;
 import org.osate.ge.internal.ui.util.DialogPlacementHelper;
 import org.osate.ge.internal.util.AgeAadlUtil;
 
-public class CreateEndToEndFlowSpecificationTool {
+public class CreateEndToEndFlowSpecificationTool implements Tool {
 	private ColoringService.Coloring coloring = null;
 	private CreateFlowsToolsDialog dlg;
 	private final List<BusinessObjectContext> userSelections = new ArrayList<>();
 
-	@Activate
-	public void activate(@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext selectedBoc,
-			final AadlModificationService aadlModService, final UiService uiService,
-			final ColoringService coloringService) {
-		try {
-			// Check for existing errors or warnings
-			final Set<Diagnostic> diagnostics = ToolUtil.getAllReferencedPackageDiagnostics(selectedBoc);
-			if (!diagnostics.isEmpty()) {
-				Display.getDefault()
-				.asyncExec(() -> new FlowDialogUtil.ErrorDialog("The Create End-To-End",
-						diagnostics).open());
-			} else {
-				coloring = coloringService.adjustColors(); // Create a coloring object that will allow adjustment of pictogram
-				final Display display = Display.getCurrent();
-				dlg = new CreateFlowsToolsDialog(display.getActiveShell(), uiService);
-				// Create and update based on current selection
-				dlg.create();
-				update(new BusinessObjectContext[] { selectedBoc }, true);
-				if (dlg.open() == Window.CANCEL) {
-					return;
-				}
+	@Override
+	public void activate(final ActivateContext ctx) {
+		ctx.getSelectedBoc().ifPresent(selectedBoc -> {
+			final AadlModificationService aadlModService = ctx.getAadlModificatonService();
+			final UiService uiService = ctx.getUiService();
+			final ColoringService coloringService = ctx.getColoringService();
 
-				if (dlg != null) {
-					dlg.getFlow().ifPresent(eteFlow -> {
-						dlg.getOwnerComponentImplementation().ifPresent(ownerCi -> {
-							aadlModService.modify(ownerCi, ci -> {
-								ci.getOwnedEndToEndFlows().add(eteFlow);
-								ci.setNoFlows(false);
+			try {
+				// Check for existing errors or warnings
+				final Set<Diagnostic> diagnostics = ToolUtil.getAllReferencedPackageDiagnostics(selectedBoc);
+				if (!diagnostics.isEmpty()) {
+					Display.getDefault()
+					.asyncExec(() -> new FlowDialogUtil.ErrorDialog("The Create End-To-End",
+							diagnostics).open());
+				} else {
+					coloring = coloringService.adjustColors(); // Create a coloring object that will allow adjustment of pictogram
+					final Display display = Display.getCurrent();
+					dlg = new CreateFlowsToolsDialog(display.getActiveShell(), uiService);
+					// Create and update based on current selection
+					dlg.create();
+					update(new BusinessObjectContext[] { selectedBoc }, true);
+					if (dlg.open() == Window.CANCEL) {
+						return;
+					}
+
+					if (dlg != null) {
+						dlg.getFlow().ifPresent(eteFlow -> {
+							dlg.getOwnerComponentImplementation().ifPresent(ownerCi -> {
+								aadlModService.modify(ownerCi, ci -> {
+									ci.getOwnedEndToEndFlows().add(eteFlow);
+									ci.setNoFlows(false);
+								});
 							});
 						});
-					});
+					}
 				}
+			} finally {
+				uiService.deactivateActiveTool();
 			}
-		} finally {
-			uiService.deactivateActiveTool();
-		}
+		});
 	}
 
-	@Deactivate
-	public void deactivate() {
+	@Override
+	public void deactivate(final DeactivateContext ctx) {
 		// Dispose of the coloring object
 		if (coloring != null) {
 			coloring.dispose();
@@ -143,9 +141,9 @@ public class CreateEndToEndFlowSpecificationTool {
 		this.userSelections.clear();
 	}
 
-	@SelectionChanged
-	public void onSelectionChanged(final @Named(Names.BUSINESS_OBJECT_CONTEXTS) BusinessObjectContext[] selectedBocs) {
-		update(selectedBocs, false);
+	@Override
+	public void selectionChanged(SelectionChangedContext ctx) {
+		update(ctx.getSelectedBocs().toArray(new BusinessObjectContext[ctx.getSelectedBocs().size()]), false);
 	}
 
 	/**

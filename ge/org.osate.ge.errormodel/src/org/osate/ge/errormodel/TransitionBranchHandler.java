@@ -25,8 +25,6 @@ package org.osate.ge.errormodel;
 
 import java.util.Optional;
 
-import javax.inject.Named;
-
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.AadlPackage;
 import org.osate.ge.BusinessObjectContext;
@@ -40,7 +38,6 @@ import org.osate.ge.businessObjectHandlers.GetGraphicalConfigurationContext;
 import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.businessObjectHandlers.ReferenceContext;
-import org.osate.ge.di.Names;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.query.StandaloneQuery;
@@ -113,7 +110,7 @@ public class TransitionBranchHandler implements BusinessObjectHandler {
 
 	// TODO: Need to allow this case. Perhaps an operation would be ideal?
 	// @DeleteRaw
-	public void delete(final @Named(Names.BUSINESS_OBJECT) TransitionBranch branchReadonly,
+	public void delete(final TransitionBranch branchReadonly,
 			final AadlModificationService modService) {
 		modService.modify(branchReadonly, (branch) -> {
 			final ErrorBehaviorTransition transition = (ErrorBehaviorTransition) branch.eContainer();

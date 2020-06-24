@@ -42,14 +42,11 @@ import org.osate.ge.internal.graphiti.services.impl.DefaultColoringService;
 import org.osate.ge.internal.graphiti.services.impl.DefaultGraphitiService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.EditorProvider;
-import org.osate.ge.internal.services.ExtensionRegistryService;
-import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.services.SystemInstanceLoadingService;
 import org.osate.ge.internal.services.UiService;
-import org.osate.ge.internal.services.impl.DefaultExtensionService;
 import org.osate.ge.internal.services.impl.DefaultUiService;
 import org.osate.ge.internal.services.impl.ProjectReferenceServiceProxy;
 import org.osate.ge.internal.ui.editor.AgeDiagramBehavior;
@@ -82,7 +79,6 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider implemen
 
 		// Create objects for the context
 		final ReferenceService globalReferenceService = Objects.requireNonNull(context.get(ReferenceService.class), "Unable to retrieve global reference service");
-		final ExtensionService extensionService = new DefaultExtensionService(Objects.requireNonNull(context.get(ExtensionRegistryService.class), "Unable to retrieve ExtensionRegistryService"), context);
 
 		final DefaultGraphitiService graphitiService = new DefaultGraphitiService(this, fp);
 		final UiService uiService = new DefaultUiService(graphitiService);
@@ -93,7 +89,6 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider implemen
 		// Populate the context.
 		// This context is used by extensions so it should only contain objects which are part of the graphical editor's API or which
 		// are in internal package. It should not include Graphiti objects.
-		context.set(ExtensionService.class, extensionService);
 		context.set(UiService.class, uiService);
 		context.set(ProjectReferenceService.class, projectReferenceService);
 		context.set(ColoringService.class, coloringService);

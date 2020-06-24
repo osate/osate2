@@ -25,8 +25,6 @@ package org.osate.ge.errormodel;
 
 import java.util.Optional;
 
-import javax.inject.Named;
-
 import org.osate.aadl2.AadlPackage;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.CanonicalBusinessObjectReference;
@@ -42,7 +40,6 @@ import org.osate.ge.businessObjectHandlers.GetNameContext;
 import org.osate.ge.businessObjectHandlers.GetNameForDiagramContext;
 import org.osate.ge.businessObjectHandlers.IsApplicableContext;
 import org.osate.ge.businessObjectHandlers.ReferenceContext;
-import org.osate.ge.di.Names;
 import org.osate.ge.errormodel.model.ErrorTypeExtension;
 import org.osate.ge.errormodel.model.ErrorTypeLibrary;
 import org.osate.ge.graphics.ArrowBuilder;
@@ -129,7 +126,7 @@ public class ErrorTypeExtensionHandler implements BusinessObjectHandler, CustomD
 		}).orElse("");
 	}
 
-	private BusinessObjectContext getDestination(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
+	private BusinessObjectContext getDestination(final BusinessObjectContext boc,
 			final QueryService queryService) {
 		final BusinessObjectContext packageParent = boc.getAncestor(4);
 		if (packageParent == null) {

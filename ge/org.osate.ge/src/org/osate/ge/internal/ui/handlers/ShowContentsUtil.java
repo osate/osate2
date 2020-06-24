@@ -41,7 +41,7 @@ import org.osate.ge.internal.diagram.runtime.updating.FutureElementInfo;
 import org.osate.ge.internal.graphiti.AgeFeatureProvider;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ActionService;
-import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 import org.osate.ge.services.ReferenceBuilderService;
@@ -61,8 +61,8 @@ class ShowContentsUtil {
 
 		final AgeDiagramEditor diagramEditor = (AgeDiagramEditor) activeEditor;
 
-		final ExtensionService extService = Objects.requireNonNull(
-				Adapters.adapt(diagramEditor, ExtensionService.class), "Unable to retrieve extension service");
+		final ExtensionRegistryService extService = Objects.requireNonNull(
+				Adapters.adapt(diagramEditor, ExtensionRegistryService.class), "Unable to retrieve extension service");
 		final AgeFeatureProvider featureProvider = Objects.requireNonNull(
 				(AgeFeatureProvider) diagramEditor.getDiagramTypeProvider().getFeatureProvider(),
 				"Unable to retrieve feature provider");
@@ -101,7 +101,7 @@ class ShowContentsUtil {
 	 * @return whether children were added to the diagram.
 	 */
 	private static boolean addChildrenDuringNextUpdate(final List<DiagramElement> diagramElements,
-			final DiagramUpdater diagramUpdater, final ExtensionService extService,
+			final DiagramUpdater diagramUpdater, final ExtensionRegistryService extService,
 			final ReferenceBuilderService referenceBuilder, final BiFunction<DiagramElement, Object, Boolean> filter) {
 		boolean childrenAdded = false;
 		final BusinessObjectProviderHelper bopHelper = new BusinessObjectProviderHelper(extService);

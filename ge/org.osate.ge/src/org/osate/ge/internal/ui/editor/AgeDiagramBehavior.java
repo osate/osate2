@@ -136,6 +136,7 @@ import org.osate.ge.internal.graphiti.diagram.ColoringProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.graphiti.features.AgeActionCustomFeature;
 import org.osate.ge.internal.graphiti.features.AgeMoveShapeFeature;
+import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ActionService;
@@ -143,9 +144,9 @@ import org.osate.ge.internal.services.ActionService.ActionStackChangeListener;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ExtensionRegistryService;
-import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.ModelChangeNotifier.ChangeListener;
+import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.ui.editor.actions.CopyAction;
 import org.osate.ge.internal.ui.editor.actions.PasteAction;
 import org.osate.ge.internal.ui.editor.actions.RedoAction;
@@ -380,7 +381,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 		final AgeDiagramEditor editor = (AgeDiagramEditor) this.getParentPart();
 		if (editor != null) {
-			final ExtensionService extService = (ExtensionService) getAdapter(ExtensionService.class);
+			final ExtensionRegistryService extService = (ExtensionRegistryService) getAdapter(ExtensionRegistryService.class);
 
 			// Register mouse listeners to handle tooltips
 			class ToolTipHandler implements MouseMoveListener, MouseTrackListener, IPartListener {
@@ -523,7 +524,6 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 				}
 
 			}
-			;
 
 			// Instantiate tooltip handler and register listeners
 			final ToolTipHandler toolTipHandler = new ToolTipHandler();
@@ -532,7 +532,8 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			editor.getSite().getWorkbenchWindow().getPartService().addPartListener(toolTipHandler);
 
 			// Register an action for each tool
-			toolHandler = new ToolHandler(extService, getPaletteBehavior());
+			toolHandler = new ToolHandler(getPaletteBehavior(), getAgeDiagram(), (AadlModificationService)getAdapter(AadlModificationService.class),
+					(UiService) getAdapter(UiService.class), (ColoringService) getAdapter(ColoringService.class));
 
 			editor.getSite().getWorkbenchWindow().getSelectionService()
 			.addPostSelectionListener(toolPostSelectionListener);
@@ -553,7 +554,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		return actionExecutor;
 	}
 
-	public void activateTool(final Object tool) {
+	public void activateTool(final org.osate.ge.internal.ui.tools.Tool tool) {
 		toolHandler.activate(tool);
 	}
 
@@ -599,10 +600,6 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			super.disposeAfterGefDispose();
 
 			getActionService().removeChangeListener(actionStackChangeListener);
-
-			if (toolHandler != null) {
-				toolHandler.dispose();
-			}
 		} finally {
 			if (graphitiAgeDiagram != null) {
 				graphitiAgeDiagram.close();
