@@ -92,6 +92,7 @@ public class AgeEditor extends AbstractFXEditor {
 	public void createPartControl(final Composite parent) {
 		super.createPartControl(parent);
 
+
 		// Create SWT Menu for testing purposes. In reality it would be registered to accept contributions
 		final FXCanvas canvas = getCanvas();
 		final Menu testMenu = new Menu(canvas);
