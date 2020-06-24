@@ -461,6 +461,10 @@ class RangeTest {
 					return factorToBase;
 				}
 				
+				public double getFactorTo(Time target) {
+					return factorToBase / target.factorToBase;
+				}
+				
 				@Override
 				public String toString() {
 					return originalName;
@@ -496,6 +500,10 @@ class RangeTest {
 				@Override
 				public double getFactorToBase() {
 					return factorToBase;
+				}
+				
+				public double getFactorTo(IntegerOwnedUnits target) {
+					return factorToBase / target.factorToBase;
 				}
 				
 				@Override
@@ -535,6 +543,10 @@ class RangeTest {
 					return factorToBase;
 				}
 				
+				public double getFactorTo(List1IntegerOwnedUnits target) {
+					return factorToBase / target.factorToBase;
+				}
+				
 				@Override
 				public String toString() {
 					return originalName;
@@ -572,6 +584,10 @@ class RangeTest {
 					return factorToBase;
 				}
 				
+				public double getFactorTo(RealOwnedUnits target) {
+					return factorToBase / target.factorToBase;
+				}
+				
 				@Override
 				public String toString() {
 					return originalName;
@@ -607,6 +623,10 @@ class RangeTest {
 				@Override
 				public double getFactorToBase() {
 					return factorToBase;
+				}
+				
+				public double getFactorTo(List1RealOwnedUnits target) {
+					return factorToBase / target.factorToBase;
 				}
 				
 				@Override
@@ -1036,6 +1056,10 @@ class RangeTest {
 						return factorToBase;
 					}
 					
+					public double getFactorTo(IntegerOwnedUnits_FieldType target) {
+						return factorToBase / target.factorToBase;
+					}
+					
 					@Override
 					public String toString() {
 						return originalName;
@@ -1062,6 +1086,10 @@ class RangeTest {
 					@Override
 					public double getFactorToBase() {
 						return factorToBase;
+					}
+					
+					public double getFactorTo(List1IntegerOwnedUnits_FieldType target) {
+						return factorToBase / target.factorToBase;
 					}
 					
 					@Override
@@ -1092,6 +1120,10 @@ class RangeTest {
 						return factorToBase;
 					}
 					
+					public double getFactorTo(RealOwnedUnits_FieldType target) {
+						return factorToBase / target.factorToBase;
+					}
+					
 					@Override
 					public String toString() {
 						return originalName;
@@ -1118,6 +1150,10 @@ class RangeTest {
 					@Override
 					public double getFactorToBase() {
 						return factorToBase;
+					}
+					
+					public double getFactorTo(List1RealOwnedUnits_FieldType target) {
+						return factorToBase / target.factorToBase;
 					}
 					
 					@Override

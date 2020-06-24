@@ -239,6 +239,10 @@ class RealWithUnitsTest {
 					return factorToBase;
 				}
 				
+				public double getFactorTo(Time target) {
+					return factorToBase / target.factorToBase;
+				}
+				
 				@Override
 				public String toString() {
 					return originalName;
@@ -276,6 +280,10 @@ class RealWithUnitsTest {
 					return factorToBase;
 				}
 				
+				public double getFactorTo(Owned target) {
+					return factorToBase / target.factorToBase;
+				}
+				
 				@Override
 				public String toString() {
 					return originalName;
@@ -311,6 +319,10 @@ class RealWithUnitsTest {
 				@Override
 				public double getFactorToBase() {
 					return factorToBase;
+				}
+				
+				public double getFactorTo(List1Owned target) {
+					return factorToBase / target.factorToBase;
 				}
 				
 				@Override
@@ -522,6 +534,10 @@ class RealWithUnitsTest {
 						return factorToBase;
 					}
 					
+					public double getFactorTo(Owned_FieldType target) {
+						return factorToBase / target.factorToBase;
+					}
+					
 					@Override
 					public String toString() {
 						return originalName;
@@ -548,6 +564,10 @@ class RealWithUnitsTest {
 					@Override
 					public double getFactorToBase() {
 						return factorToBase;
+					}
+					
+					public double getFactorTo(List1Owned_FieldType target) {
+						return factorToBase / target.factorToBase;
 					}
 					
 					@Override

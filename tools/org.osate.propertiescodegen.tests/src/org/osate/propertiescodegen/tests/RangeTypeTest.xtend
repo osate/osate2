@@ -84,6 +84,10 @@ class RangeTypeTest {
 					return factorToBase;
 				}
 				
+				public double getFactorTo(Time target) {
+					return factorToBase / target.factorToBase;
+				}
+				
 				@Override
 				public String toString() {
 					return originalName;
@@ -120,6 +124,10 @@ class RangeTypeTest {
 				@Override
 				public double getFactorToBase() {
 					return factorToBase;
+				}
+				
+				public double getFactorTo(IntegerOwnedUnits target) {
+					return factorToBase / target.factorToBase;
 				}
 				
 				@Override
@@ -159,6 +167,10 @@ class RangeTypeTest {
 					return factorToBase;
 				}
 				
+				public double getFactorTo(RangeOfIntegerOwnedUnits target) {
+					return factorToBase / target.factorToBase;
+				}
+				
 				@Override
 				public String toString() {
 					return originalName;
@@ -195,6 +207,10 @@ class RangeTypeTest {
 				@Override
 				public double getFactorToBase() {
 					return factorToBase;
+				}
+				
+				public double getFactorTo(RangeOfRealOwnedUnits target) {
+					return factorToBase / target.factorToBase;
 				}
 				
 				@Override

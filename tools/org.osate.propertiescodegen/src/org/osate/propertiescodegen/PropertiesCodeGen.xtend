@@ -421,6 +421,10 @@ class PropertiesCodeGen {
 					return factorToBase;
 				}
 				
+				public double getFactorTo(«typeName» target) {
+					return factorToBase / target.factorToBase;
+				}
+				
 				@Override
 				public String toString() {
 					return originalName;
