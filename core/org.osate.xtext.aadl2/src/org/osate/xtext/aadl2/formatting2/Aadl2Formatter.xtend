@@ -28,6 +28,7 @@ import com.google.inject.Inject
 import com.google.inject.ProvisionException
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.emf.transaction.RecordingCommand
 import org.eclipse.emf.transaction.TransactionalEditingDomain
 import org.eclipse.xtend2.lib.StringConcatenation
@@ -2706,7 +2707,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 				val fakeURI = URI.createURI("__synthetic." + annexExtension)
 				val fakeResource = resourceFactory.createResource(fakeURI) as XtextResource
 				performModification(annex, [
-					fakeResource.contents += annexObject
+					fakeResource.contents += EcoreUtil.copy(annexObject)
 					fakeResource.parseResult = annexParseResult
 				])
 
