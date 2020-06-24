@@ -30,7 +30,6 @@ import org.osate.ge.CanonicalBusinessObjectReference;
  * @noextend
  * @noimplement
  * @see ReferenceBuilderService
- * @see org.osate.ge.di.ResolveCanonicalReference
  */
 public interface ReferenceResolutionService {
 	/**

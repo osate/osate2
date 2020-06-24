@@ -100,7 +100,7 @@ import org.osate.ge.internal.util.classifiers.ClassifierOperation;
 import org.osate.ge.internal.util.classifiers.ClassifierOperationExecutor;
 import org.osate.ge.internal.util.classifiers.ClassifierOperationPartType;
 import org.osate.ge.operations.Operation;
-import org.osate.ge.ui.properties.PropertySectionUtil;
+import org.osate.ge.ui.PropertySectionUtil;
 import org.osgi.framework.FrameworkUtil;
 
 import com.google.common.collect.ImmutableList;

@@ -25,7 +25,7 @@ package org.osate.ge.referencehandling;
 
 import java.util.Optional;
 
-import org.osate.ge.businessobjecthandlers.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 
 /**
  * Implementations of this interface are responsible for providing labels for references provided by {@link BusinessObjectHandler}.

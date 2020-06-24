@@ -23,7 +23,7 @@
  */
 package org.osate.ge.internal.businessobjecthandlers;
 
-import org.osate.ge.businessobjecthandlers.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 
 public interface BusinessObjectHandlerProvider {
 	public BusinessObjectHandler getApplicableBusinessObjectHandler(final Object bo);

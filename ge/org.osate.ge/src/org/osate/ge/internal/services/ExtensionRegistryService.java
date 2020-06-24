@@ -56,7 +56,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.osate.ge.BusinessObjectProvider;
-import org.osate.ge.businessobjecthandlers.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.internal.DiagramTypeProvider;
 import org.osate.ge.internal.businessobjecthandlers.BusinessObjectHandlerProvider;
 import org.osate.ge.internal.diagram.runtime.filtering.ContentFilterProvider;

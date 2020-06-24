@@ -83,6 +83,7 @@ import org.eclipse.ui.model.BaseWorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
+import org.osate.ge.StringUtil;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.graphics.internal.AgeConnection;
@@ -96,7 +97,6 @@ import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.swt.util.SwtTestUtil;
-import org.osate.ge.util.StringUtil;
 
 import com.google.common.collect.Lists;
 

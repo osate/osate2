@@ -28,11 +28,11 @@ import java.util.Optional;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.RelativeBusinessObjectReference;
-import org.osate.ge.businessobjecthandlers.BusinessObjectHandler;
-import org.osate.ge.businessobjecthandlers.GetGraphicalConfigurationContext;
-import org.osate.ge.businessobjecthandlers.GetNameContext;
-import org.osate.ge.businessobjecthandlers.IsApplicableContext;
-import org.osate.ge.businessobjecthandlers.ReferenceContext;
+import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
+import org.osate.ge.businessobjecthandling.GetNameContext;
+import org.osate.ge.businessobjecthandling.IsApplicableContext;
+import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 
 /**

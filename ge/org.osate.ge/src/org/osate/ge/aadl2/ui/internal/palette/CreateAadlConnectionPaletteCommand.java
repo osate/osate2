@@ -50,6 +50,7 @@ import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.StringUtil;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.ui.AadlOperationBuilder;
@@ -62,7 +63,6 @@ import org.osate.ge.palette.CanStartConnectionContext;
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.palette.GetCreateConnectionOperationContext;
 import org.osate.ge.services.QueryService;
-import org.osate.ge.util.StringUtil;
 
 public class CreateAadlConnectionPaletteCommand extends BasePaletteCommand implements CreateConnectionPaletteCommand {
 	private final EClass connectionType;

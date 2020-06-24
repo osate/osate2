@@ -61,7 +61,7 @@ import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
-import org.osate.ge.ui.properties.PropertySectionUtil;
+import org.osate.ge.ui.PropertySectionUtil;
 
 import com.google.common.base.Objects;
 

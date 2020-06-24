@@ -39,6 +39,7 @@ import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.ContentFilter;
 import org.osate.ge.DiagramType;
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.StringUtil;
 import org.osate.ge.internal.diagram.runtime.filtering.Filtering;
 import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.services.ExtensionRegistryService;
@@ -49,7 +50,6 @@ import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 import org.osate.ge.internal.util.DiagramTypeUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
-import org.osate.ge.util.StringUtil;
 
 import com.google.common.collect.ImmutableSet;
 

@@ -73,7 +73,7 @@ import org.osate.ge.internal.ui.util.InternalPropertySectionUtil.ExecuteOrderCha
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil.UpDownButtonSelectionAdapter;
 import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osate.ge.internal.util.AgeAadlUtil;
-import org.osate.ge.ui.properties.PropertySectionUtil;
+import org.osate.ge.ui.PropertySectionUtil;
 
 public class SetDimensionsPropertySection extends AbstractPropertySection {
 	public static class Filter implements IFilter {

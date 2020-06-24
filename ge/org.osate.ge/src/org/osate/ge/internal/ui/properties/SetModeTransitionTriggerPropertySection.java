@@ -59,7 +59,7 @@ import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.ui.dialogs.ModeTransitionTriggerSelectionDialog;
 import org.osate.ge.internal.ui.dialogs.ModeTransitionTriggerSelectionDialog.ModeTransitionTriggerInfo;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
-import org.osate.ge.ui.properties.PropertySectionUtil;
+import org.osate.ge.ui.PropertySectionUtil;
 
 import com.google.common.collect.Streams;
 

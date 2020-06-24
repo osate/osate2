@@ -42,6 +42,7 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.PackageSection;
 import org.osate.ge.CanonicalBusinessObjectReference;
+import org.osate.ge.StringUtil;
 import org.osate.ge.internal.services.AadlResourceService;
 import org.osate.ge.internal.services.AadlResourceService.AadlPackageReference;
 import org.osate.ge.internal.services.ModelChangeNotifier;
@@ -53,7 +54,6 @@ import org.osate.ge.referencehandling.CreateReferenceResolverFactoryContext;
 import org.osate.ge.referencehandling.ReferenceResolver;
 import org.osate.ge.referencehandling.ReferenceResolverFactory;
 import org.osate.ge.referencehandling.ResolveContext;
-import org.osate.ge.util.StringUtil;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 

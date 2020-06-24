@@ -28,6 +28,7 @@ import java.util.Optional;
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Subcomponent;
+import org.osate.ge.StringUtil;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.ui.AadlOperationBuilder;
@@ -37,7 +38,6 @@ import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.TargetedPaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
-import org.osate.ge.util.StringUtil;
 
 public class CreateSubcomponentPaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	private final EClass subcomponentType;

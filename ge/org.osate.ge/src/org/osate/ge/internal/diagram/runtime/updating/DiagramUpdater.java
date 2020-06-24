@@ -40,7 +40,7 @@ import org.osate.ge.DockingPosition;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.model.PropertyValueGroup;
-import org.osate.ge.businessobjecthandlers.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.internal.AgeConnection;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;

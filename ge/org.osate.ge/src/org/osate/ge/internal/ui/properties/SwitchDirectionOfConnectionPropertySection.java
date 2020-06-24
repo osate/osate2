@@ -49,7 +49,7 @@ import org.osate.aadl2.ParameterConnection;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.internal.util.AgeAadlUtil;
-import org.osate.ge.ui.properties.PropertySectionUtil;
+import org.osate.ge.ui.PropertySectionUtil;
 
 public class SwitchDirectionOfConnectionPropertySection extends AbstractPropertySection {
 	public static class Filter implements IFilter {

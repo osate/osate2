@@ -32,10 +32,10 @@ import org.osate.ge.DockingPosition;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
-import org.osate.ge.businessobjecthandlers.GetGraphicalConfigurationContext;
-import org.osate.ge.businessobjecthandlers.GetNameContext;
-import org.osate.ge.businessobjecthandlers.IsApplicableContext;
-import org.osate.ge.businessobjecthandlers.ReferenceContext;
+import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
+import org.osate.ge.businessobjecthandling.GetNameContext;
+import org.osate.ge.businessobjecthandling.IsApplicableContext;
+import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.graphics.internal.FeatureGraphic;
 

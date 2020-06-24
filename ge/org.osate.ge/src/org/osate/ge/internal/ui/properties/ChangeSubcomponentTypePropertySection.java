@@ -47,11 +47,11 @@ import org.osate.aadl2.AbstractSubcomponent;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectSelection;
+import org.osate.ge.StringUtil;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.internal.util.AadlSubcomponentUtil;
 import org.osate.ge.internal.util.AgeEmfUtil;
-import org.osate.ge.ui.properties.PropertySectionUtil;
-import org.osate.ge.util.StringUtil;
+import org.osate.ge.ui.PropertySectionUtil;
 
 public class ChangeSubcomponentTypePropertySection extends AbstractPropertySection {
 	public static class Filter implements IFilter {

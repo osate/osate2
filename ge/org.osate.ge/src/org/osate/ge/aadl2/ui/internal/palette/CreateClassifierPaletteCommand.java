@@ -37,6 +37,7 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.StringUtil;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.ui.internal.AadlUiUtil;
@@ -57,7 +58,6 @@ import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.palette.TargetedPaletteCommand;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
-import org.osate.ge.util.StringUtil;
 
 import com.google.common.collect.ImmutableList;
 
