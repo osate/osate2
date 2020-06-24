@@ -27,7 +27,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-import org.osate.ge.internal.aadlproperties.PropertyResult;
+import org.osate.ge.aadl2.internal.aadlproperties.PropertyResult;
 
 import com.google.common.collect.ImmutableList;
 

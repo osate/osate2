@@ -35,7 +35,7 @@ import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.FeaturePrototype;
 import org.osate.ge.BusinessObjectSelection;
-import org.osate.ge.internal.util.AadlPrototypeUtil;
+import org.osate.ge.aadl2.internal.util.AadlPrototypeUtil;
 import org.osate.ge.swt.BaseObservableModel;
 import org.osate.ge.swt.selectors.SelectorModel;
 

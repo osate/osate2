@@ -29,6 +29,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetIconIdContext;
@@ -36,7 +37,6 @@ import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.internal.model.BusinessObjectProxy;
-import org.osate.ge.internal.util.AgeAadlUtil;
 
 /**
  * Business object handler for {@link BusinessObjectProxy} which reference AADL packages. Used to allow providing an icon. In most cases,

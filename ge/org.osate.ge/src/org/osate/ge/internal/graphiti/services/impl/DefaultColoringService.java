@@ -57,17 +57,17 @@ import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.aadl2.internal.util.AadlClassifierUtil;
+import org.osate.ge.aadl2.internal.util.AadlFlowSpecificationUtil;
+import org.osate.ge.aadl2.internal.util.AadlInstanceObjectUtil;
+import org.osate.ge.aadl2.internal.util.AadlModalElementUtil;
+import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
+import org.osate.ge.aadl2.internal.util.AadlFlowSpecificationUtil.FlowSegmentReference;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.ColoringService;
-import org.osate.ge.internal.util.AadlClassifierUtil;
-import org.osate.ge.internal.util.AadlFlowSpecificationUtil;
-import org.osate.ge.internal.util.AadlFlowSpecificationUtil.FlowSegmentReference;
-import org.osate.ge.internal.util.AgeAadlUtil;
-import org.osate.ge.internal.util.AadlInstanceObjectUtil;
-import org.osate.ge.internal.util.AadlModalElementUtil;
 
 import com.google.common.base.Predicates;
 

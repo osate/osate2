@@ -24,8 +24,8 @@
 package org.osate.ge;
 
 import org.osate.ge.aadl2.internal.Styles;
+import org.osate.ge.aadl2.internal.util.AadlInheritanceUtil;
 import org.osate.ge.graphics.Style;
-import org.osate.ge.internal.util.AadlInheritanceUtil;
 
 /**
  *

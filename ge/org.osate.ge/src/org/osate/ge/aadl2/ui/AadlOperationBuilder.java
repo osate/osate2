@@ -37,7 +37,7 @@ import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
-import org.osate.ge.internal.util.EditingUtil;
+import org.osate.ge.aadl2.internal.util.EditingUtil;
 import org.osate.ge.operations.OperationBuilder;
 import org.osate.ge.operations.StepResult;
 
