@@ -25,6 +25,7 @@ package org.osate.ge.aadl2.internal;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -102,7 +103,7 @@ public class DeclarativeReferenceResolver implements ReferenceResolver {
 		}
 
 		public AadlPackage getAadlPackage(final String packageName) {
-			final String lowerCasePackageName = packageName.toLowerCase();
+			final String lowerCasePackageName = packageName.toLowerCase(Locale.ROOT);
 			AadlPackageReference pkgRef = packageNameToPackageMap.get(lowerCasePackageName);
 			final AadlPackage pkg;
 			if (pkgRef == null) {

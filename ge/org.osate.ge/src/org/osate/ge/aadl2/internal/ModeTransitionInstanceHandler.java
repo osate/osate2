@@ -66,7 +66,7 @@ public class ModeTransitionInstanceHandler extends AadlBusinessObjectHandler {
 		final ModeTransitionInstance bo = ctx.getBusinessObject(ModeTransitionInstance.class).get();
 		return new CanonicalBusinessObjectReference(AadlReferenceUtil.INSTANCE_ID,
 				AadlReferenceUtil.MODE_TRANSITION_INSTANCE_KEY, AadlReferenceUtil.getSystemInstanceKey(bo),
-				bo.getInstanceObjectPath().toLowerCase());
+				bo.getInstanceObjectPath());
 	}
 
 	@Override

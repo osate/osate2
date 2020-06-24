@@ -182,7 +182,6 @@ public class AadlReferenceUtil {
 
 	public static String buildConnectionReferenceId(final ConnectionReference cr) {
 		return (cr.getConnection() == null ? "<null>" : cr.getConnection().getFullName()) + " : "
-				+ cr.getSource().getInstanceObjectPath().toLowerCase() + " -> "
-				+ cr.getDestination().getInstanceObjectPath().toLowerCase();
+				+ cr.getSource().getInstanceObjectPath() + " -> " + cr.getDestination().getInstanceObjectPath();
 	}
 }

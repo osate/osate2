@@ -74,7 +74,7 @@ public class FlowSpecificationInstanceHandler extends AadlBusinessObjectHandler 
 		final FlowSpecificationInstance bo = ctx.getBusinessObject(FlowSpecificationInstance.class).get();
 		return new CanonicalBusinessObjectReference(AadlReferenceUtil.INSTANCE_ID,
 				AadlReferenceUtil.FLOW_SPECIFICATION_INSTANCE_KEY, AadlReferenceUtil.getSystemInstanceKey(bo),
-				bo.getInstanceObjectPath().toLowerCase());
+				bo.getInstanceObjectPath());
 	}
 
 	@Override

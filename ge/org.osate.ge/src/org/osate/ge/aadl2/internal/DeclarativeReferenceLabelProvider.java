@@ -26,12 +26,7 @@ package org.osate.ge.aadl2.internal;
 import java.util.List;
 import java.util.Optional;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
-import org.osate.ge.internal.util.AgeAadlUtil;
-import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.referencehandling.GetCanonicalReferenceLabelContext;
 import org.osate.ge.referencehandling.GetRelativeReferenceLabelContext;
 import org.osate.ge.referencehandling.ReferenceLabelProvider;
@@ -42,43 +37,20 @@ import com.google.common.base.CaseFormat;
 public class DeclarativeReferenceLabelProvider implements ReferenceLabelProvider {
 	@Override
 	public Optional<String> getCanonicalReferenceLabel(final GetCanonicalReferenceLabelContext ctx) {
-		return getLabel(ctx.getReference().getSegments(), ctx.getProject());
+		return getLabel(ctx.getReference().getSegments());
 	}
 
 	@Override
 	public Optional<String> getRelativeReferenceLabel(final GetRelativeReferenceLabelContext ctx) {
-		return getLabel(ctx.getReference().getSegments(), null);
+		return getLabel(ctx.getReference().getSegments());
 	}
 
-	private static Optional<String> getLabel(final List<String> segs, final IProject project) {
+	private static Optional<String> getLabel(final List<String> segs) {
 		if (segs.size() != 1 && segs.size() != 2) {
 			return Optional.empty();
 		}
 
 		final String tag = segs.get(0);
-
-		// Try to determine the proper case fore the label.
-		// Project should only be non-null for canonical references
-		// This is needed because versions of the OSATE graphical editor in OSATE 2.7.1 and earlier do not preserve the case of references.
-		// Eventually this can be removed as long as references in diagrams are updated to reflect the actual names after loading.
-		if (project != null && segs.size() == 2) {
-			final String name = segs.get(1);
-			final String actualName;
-			if (DeclarativeReferenceType.CLASSIFIER.getId().equals(tag)) {
-				actualName = getActualName(name, project,
-						AgeAadlUtil.getAadl2Factory().getAadl2Package().getComponentClassifier());
-			} else if (DeclarativeReferenceType.PACKAGE.getId().equals(tag)) {
-				actualName = getActualName(name, project,
-						AgeAadlUtil.getAadl2Factory().getAadl2Package().getAadlPackage());
-			} else {
-				actualName = null;
-			}
-
-			if (actualName != null) {
-				return Optional.of(getFormattedTag(tag) + " " + actualName);
-			}
-		}
-
 		if (!DeclarativeReferenceType.isId(tag)) {
 			return Optional.empty();
 		}
@@ -93,23 +65,5 @@ public class DeclarativeReferenceLabelProvider implements ReferenceLabelProvider
 
 	private static final String getFormattedTag(final String tag) {
 		return StringUtil.camelCaseToUser(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, tag));
-	}
-
-	/**
-	 * Returns the name of of the specified element with the appropriate case if it could be found. Otherwise, returns the specified name.
-	 * @param name
-	 * @param project
-	 * @param eClass
-	 * @return
-	 */
-	private static final String getActualName(final String name, final IProject project, final EClass eClass) {
-		for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(project, eClass)) {
-			final String tmpName = desc.getQualifiedName().toString("::");
-			if (name.equalsIgnoreCase(tmpName)) {
-				return tmpName;
-			}
-		}
-
-		return name;
 	}
 }

@@ -76,11 +76,11 @@ public class PropertyValueGroupHandler extends AadlBusinessObjectHandler {
 		if (pvg.getReferenceId() == null) {
 			return new RelativeBusinessObjectReference(
 					AadlReferenceUtil.PROPERTY_VALUE_GROUP_KEY,
-					propertyName.toLowerCase());
+					propertyName);
 		} else {
 			return new RelativeBusinessObjectReference(
 					AadlReferenceUtil.PROPERTY_VALUE_GROUP_KEY,
-					propertyName.toLowerCase(), pvg.getReferenceId().toString());
+					propertyName, pvg.getReferenceId().toString());
 		}
 	}
 

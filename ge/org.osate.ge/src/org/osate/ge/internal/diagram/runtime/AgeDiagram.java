@@ -222,11 +222,18 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		public void setDiagramConfiguration(final DiagramConfiguration config) {
 			Objects.requireNonNull(config, "config must not be null");
 
-			if (!getConfiguration().equals(config)) {
+			final boolean valuesAreEqual = getConfiguration().equals(config);
+
+			if (!valuesAreEqual) {
 				storeFieldChange(null, ModifiableField.DIAGRAM_CONFIGURATION, AgeDiagram.this.diagramConfiguration,
 						config);
-				AgeDiagram.this.diagramConfiguration = config;
+			}
 
+			// The reference is changed even if the configuration is logically equal. The case of the context reference may have changed that
+			// requires an update or indicator but needs to stored so that it will be serialized during the next save.
+			AgeDiagram.this.diagramConfiguration = config;
+
+			if (!valuesAreEqual) {
 				// Notify listeners. Diagram configuration doesn't get the usual update event. It gets a special one for diagram configuration.
 				final DiagramConfigurationChangedEvent event = new DiagramConfigurationChangedEvent();
 				for (final DiagramModificationListener ml : modificationListeners) {
@@ -251,12 +258,19 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 			Objects.requireNonNull(e, "e must not be null");
 			Objects.requireNonNull(relativeReference, "relativeReference must not be null");
 
-			if (!Objects.equals(relativeReference, e.getRelativeReference())) {
-				final boolean wasRemoved = e.getModifiableContainer().getModifiableDiagramElements().remove(e);
+			final boolean valuesAreEqual = Objects.equals(relativeReference, e.getRelativeReference());
+			boolean wasRemoved = false;
+			if (!valuesAreEqual) {
+				wasRemoved = e.getModifiableContainer().getModifiableDiagramElements().remove(e);
 
 				storeFieldChange(e, ModifiableField.RELATIVE_REFERENCE, e.getRelativeReference(), relativeReference);
-				e.setRelativeReference(relativeReference);
+			}
 
+			// The relative reference is updated even when the objects are equal so that the case of the relative reference will be preserved.
+			// However, it will not be recorded as a change.
+			e.setRelativeReference(relativeReference);
+
+			if (!valuesAreEqual) {
 				if (wasRemoved) {
 					e.getModifiableContainer().getModifiableDiagramElements().add(e);
 				}
@@ -671,8 +685,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		@Override
 		public boolean affectsChangeNumber() {
 			if (field == ModifiableField.COMPLETENESS || field == ModifiableField.USER_INTERFACE_NAME
-					|| field == ModifiableField.LABEL_NAME
-					|| field == ModifiableField.GRAPHICAL_CONFIGURATION) {
+					|| field == ModifiableField.LABEL_NAME || field == ModifiableField.GRAPHICAL_CONFIGURATION) {
 				return false;
 			}
 

@@ -49,9 +49,9 @@ import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.ge.BusinessObjectSelection;
+import org.osate.ge.internal.util.AadlSubcomponentUtil;
 import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
-import org.osate.ge.internal.util.SubcomponentUtil;
 import org.osate.ge.swt.classifiers.PrototypeBindingsModel;
 
 import com.google.common.base.Strings;
@@ -179,7 +179,7 @@ extends BusinessObjectSelectionPrototypeBindingsModel {
 		final SubcomponentType newSubcomponentType = (SubcomponentType) classifierValue;
 		getBusinessObjectSelection().modify(Subcomponent.class, sc -> {
 			// Set subcomponent type
-			SubcomponentUtil.setClassifier(sc, newSubcomponentType);
+			AadlSubcomponentUtil.setClassifier(sc, newSubcomponentType);
 
 			// Update prototype bindings
 			sc.getOwnedPrototypeBindings().clear();

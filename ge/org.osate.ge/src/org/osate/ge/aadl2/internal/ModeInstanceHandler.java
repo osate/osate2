@@ -50,7 +50,7 @@ public class ModeInstanceHandler extends AadlBusinessObjectHandler {
 		final ModeInstance bo = ctx.getBusinessObject(ModeInstance.class).get();
 		return new CanonicalBusinessObjectReference(AadlReferenceUtil.INSTANCE_ID,
 				AadlReferenceUtil.MODE_INSTANCE_KEY, AadlReferenceUtil.getSystemInstanceKey(bo),
-				bo.getInstanceObjectPath().toLowerCase());
+				bo.getInstanceObjectPath());
 	}
 
 	@Override

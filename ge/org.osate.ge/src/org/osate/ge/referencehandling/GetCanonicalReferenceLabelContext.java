@@ -25,7 +25,6 @@ package org.osate.ge.referencehandling;
 
 import java.util.Objects;
 
-import org.eclipse.core.resources.IProject;
 import org.osate.ge.CanonicalBusinessObjectReference;
 
 /**
@@ -37,17 +36,14 @@ import org.osate.ge.CanonicalBusinessObjectReference;
  */
 public final class GetCanonicalReferenceLabelContext {
 	private final CanonicalBusinessObjectReference reference;
-	private final IProject project;
 
 	/**
 	 * Creates a new instance.
 	 * @param reference is the reference for which the label is being retrieved.
-	 * @param project is the project which defines the scope for the resolver.
 	 * @noreference This constructor is not intended to be referenced by clients.
 	 */
-	public GetCanonicalReferenceLabelContext(final CanonicalBusinessObjectReference reference, final IProject project) {
+	public GetCanonicalReferenceLabelContext(final CanonicalBusinessObjectReference reference) {
 		this.reference = Objects.requireNonNull(reference, "reference must not be null");
-		this.project = Objects.requireNonNull(project, "project must not be null");
 	}
 
 	/**
@@ -56,14 +52,5 @@ public final class GetCanonicalReferenceLabelContext {
 	 */
 	public CanonicalBusinessObjectReference getReference() {
 		return this.reference;
-	}
-
-	/**
-	 * Returns the project ot use for the resolver.
-	 * @return the project which defines the scope of the resolver.
-	 * @noreference This method is not intended to be referenced by clients.
-	 */
-	public IProject getProject() {
-		return project;
 	}
 }

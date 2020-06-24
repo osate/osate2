@@ -180,7 +180,8 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 				nodeFactory);
 		deInfoProvider = new DefaultDiagramElementGraphicalConfigurationProvider(referenceResolver, queryService,
 				graphitiService, extService);
-		diagramUpdater = new DiagramUpdater(boTreeExpander, deInfoProvider, actionService);
+		diagramUpdater = new DiagramUpdater(boTreeExpander, deInfoProvider, actionService, referenceResolver,
+				referenceResolver);
 		final SystemInstanceLoadingService systemInstanceLoader = Objects.requireNonNull(
 				eclipseContext.get(SystemInstanceLoadingService.class),
 				"unable to retrieve system instance loading service");

@@ -48,8 +48,8 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
+import org.osate.ge.internal.util.AadlSubcomponentUtil;
 import org.osate.ge.internal.util.AgeEmfUtil;
-import org.osate.ge.internal.util.SubcomponentUtil;
 import org.osate.ge.ui.properties.PropertySectionUtil;
 import org.osate.ge.util.StringUtil;
 
@@ -91,7 +91,7 @@ public class ChangeSubcomponentTypePropertySection extends AbstractPropertySecti
 
 					// Copy structural feature values to the replacement object.
 					AgeEmfUtil.transferStructuralFeatureValues(sc,
-							SubcomponentUtil.createSubcomponent(ci, scTypeElement.getType()));
+							AadlSubcomponentUtil.createSubcomponent(ci, scTypeElement.getType()));
 
 					// Remove the old object
 					EcoreUtil.remove(sc);
@@ -125,7 +125,8 @@ public class ChangeSubcomponentTypePropertySection extends AbstractPropertySecti
 
 		// Get comboviewer selected value and populate available type options for comboviewer
 		selectedScType = InternalPropertySectionUtil.getTypeOptionsInformation(selectedSubcomponenents,
-				SubcomponentUtil.getSubcomponentTypes(), (sc, type) -> isCompatibleSubcomponentType(sc, type),
+				AadlSubcomponentUtil.getSubcomponentTypes(),
+				(sc, type) -> isCompatibleSubcomponentType(sc, type),
 				addSubcomponentTypeElement);
 
 		comboViewer.setInput(subcomponentTypeOptions);
@@ -140,7 +141,8 @@ public class ChangeSubcomponentTypePropertySection extends AbstractPropertySecti
 
 	private static boolean isCompatibleSubcomponentType(final Subcomponent sc, final EClass subcomponentType) {
 		final ComponentImplementation ci = sc.getContainingComponentImpl();
-		return (SubcomponentUtil.canContainSubcomponentType(ci, subcomponentType)
+		return (AadlSubcomponentUtil.canContainSubcomponentType(ci,
+				subcomponentType)
 				&& (sc.getRefined() == null || sc.getRefined() instanceof AbstractSubcomponent))
 				|| subcomponentType == sc.eClass();
 	}

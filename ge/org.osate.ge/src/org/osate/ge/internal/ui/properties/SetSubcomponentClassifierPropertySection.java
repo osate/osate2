@@ -66,9 +66,9 @@ import org.osate.ge.internal.ui.dialogs.ClassifierOperationDialog;
 import org.osate.ge.internal.ui.dialogs.DefaultCreateSelectClassifierDialogModel;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.internal.util.AadlClassifierUtil;
+import org.osate.ge.internal.util.AadlSubcomponentUtil;
 import org.osate.ge.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.EditingUtil;
-import org.osate.ge.internal.util.SubcomponentUtil;
 import org.osate.ge.internal.util.classifiers.ClassifierOperation;
 import org.osate.ge.internal.util.classifiers.ClassifierOperationExecutor;
 import org.osate.ge.internal.util.classifiers.ClassifierOperationPartType;
@@ -202,7 +202,7 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 						final EObject resolvedClassifier = EditingUtil
 								.resolveWithLiveResourceSetIfProject((EObject) classifier, project);
 
-						SubcomponentUtil.setClassifier(scToModify, (ComponentClassifier) resolvedClassifier);
+						AadlSubcomponentUtil.setClassifier(scToModify, (ComponentClassifier) resolvedClassifier);
 					});
 				});
 

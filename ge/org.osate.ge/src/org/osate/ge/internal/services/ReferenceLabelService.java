@@ -23,7 +23,6 @@
  */
 package org.osate.ge.internal.services;
 
-import org.eclipse.core.resources.IProject;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.RelativeBusinessObjectReference;
 
@@ -33,7 +32,7 @@ public interface ReferenceLabelService {
 	 * @param ref is the reference for which to return the label. Must not be null.
 	 * @return the label for the canonical reference. Must not return null.
 	 */
-	String getLabel(CanonicalBusinessObjectReference ref, IProject project);
+	String getLabel(CanonicalBusinessObjectReference ref);
 
 	/**
 	 * Returns a label for a relative reference.

@@ -111,7 +111,7 @@ org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider
 				if (dg.getContextReference() == null) {
 					return "<No Context>";
 				} else {
-					return referenceLabelService.getLabel(dg.getContextReference(), dg.getProject());
+					return referenceLabelService.getLabel(dg.getContextReference());
 				}
 			} else if (dg.getDiagramTypeId() != null) {
 				final Optional<DiagramType> dtOpt = dtProvider.getDiagramTypeById(dg.getDiagramTypeId());
@@ -154,8 +154,7 @@ org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider
 							if (diagramRef.getContextReference() == null) {
 								contextLabel = "<No Context>";
 							} else {
-								contextLabel = referenceLabelService.getLabel(diagramRef.getContextReference(),
-										project);
+								contextLabel = referenceLabelService.getLabel(diagramRef.getContextReference());
 							}
 							annotations.add(contextLabel);
 						}

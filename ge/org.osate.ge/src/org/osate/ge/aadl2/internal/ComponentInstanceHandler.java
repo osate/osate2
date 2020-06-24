@@ -54,7 +54,7 @@ public class ComponentInstanceHandler extends AadlBusinessObjectHandler {
 					AadlReferenceUtil.INSTANCE_ID,
 					AadlReferenceUtil.COMPONENT_INSTANCE_KEY,
 					systemInstanceKey,
-					bo.getInstanceObjectPath().toLowerCase());
+					bo.getInstanceObjectPath());
 		}
 	}
 

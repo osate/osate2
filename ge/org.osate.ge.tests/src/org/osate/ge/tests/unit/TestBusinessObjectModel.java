@@ -25,9 +25,11 @@ package org.osate.ge.tests.unit;
 
 import java.util.UUID;
 
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.DockingPosition;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessObjectHandlers.BusinessObjectHandler;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
@@ -38,8 +40,11 @@ import org.osate.ge.internal.diagram.runtime.boTree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
 import org.osate.ge.internal.diagram.runtime.boTree.TreeUpdater;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramElementInformationProvider;
+import org.osate.ge.services.ReferenceBuilderService;
+import org.osate.ge.services.ReferenceResolutionService;
 
-public class TestBusinessObjectModel implements DiagramElementInformationProvider, TreeUpdater {
+public class TestBusinessObjectModel
+		implements DiagramElementInformationProvider, TreeUpdater, ReferenceResolutionService, ReferenceBuilderService {
 	public TestBusinessObject model;
 
 	@Override
@@ -108,5 +113,20 @@ public class TestBusinessObjectModel implements DiagramElementInformationProvide
 	@Override
 	public BusinessObjectHandler getApplicableBusinessObjectHandler(final Object bo) {
 		return new StubBusinessObjectHandler();
+	}
+
+	@Override
+	public CanonicalBusinessObjectReference getCanonicalReference(final Object bo) {
+		return ((TestBusinessObject) bo).getCanonicalReference();
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final Object bo) {
+		return ((TestBusinessObject) bo).getRelativeReference();
+	}
+
+	@Override
+	public Object resolve(final CanonicalBusinessObjectReference reference) {
+		return model.find(reference);
 	}
 }

@@ -1712,15 +1712,6 @@ censes only apply to the Third Party Software and not any other portion of this 
        </image>
     </extension>
     <extension
-          point="org.osate.ge.references">
-       <referenceLabelProvider
-             class="org.osate.ge.aadl2.internal.DeclarativeReferenceLabelProvider">
-       </referenceLabelProvider>
-       <referenceLabelProvider
-             class="org.osate.ge.aadl2.internal.InstanceReferenceLabelProvider">
-       </referenceLabelProvider>
-    </extension>
-    <extension
           point="org.osate.ge.businessObjectHandlers">
 		<handler
              class="org.osate.ge.internal.businessObjectHandlers.NoteHandler"
