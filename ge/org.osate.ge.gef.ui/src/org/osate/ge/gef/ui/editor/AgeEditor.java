@@ -66,7 +66,6 @@ public class AgeEditor extends AbstractFXEditor {
 	public AgeEditor() {
 		super(Guice.createInjector(Modules.override(new AgeModule()).with(new AgeUiModule())));
 	}
-
 	@Override
 	public void init(final IEditorSite site, final IEditorInput input) throws PartInitException {
 		super.init(site, input);
