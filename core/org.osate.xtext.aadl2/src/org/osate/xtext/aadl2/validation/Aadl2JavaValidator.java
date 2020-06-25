@@ -5347,6 +5347,21 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	}
 
+	private boolean testAccessClassifierMatchRule(Connection connection, ConnectionEnd source,
+			Classifier sourceClassifier, ConnectionEnd destination, Classifier destinationClassifier) {
+		if (sourceClassifier != destinationClassifier) {
+			if (sourceClassifier instanceof ComponentImplementation && destinationClassifier instanceof ComponentType) {
+				if (!destinationClassifier.equals(((ComponentImplementation) sourceClassifier).getType())) {
+					error(connection, "The types of '" + source.getName() + "' and '" + destination.getName()
+							+ "' do not match.");
+				}
+			} else {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	private boolean testClassifierMatchRule(Connection connection, ConnectionEnd source, Classifier sourceClassifier,
 			ConnectionEnd destination, Classifier destinationClassifier) {
 		if (sourceClassifier != destinationClassifier) {
@@ -6306,6 +6321,53 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 	}
 
+	private static boolean isSubcomponentProvider(final ConnectionEnd end) {
+		return end instanceof Subcomponent;
+	}
+
+	private static boolean isCorrectKind(final Context context, final Access access,
+			final AccessType expectedKind) {
+		final AccessType accessKind = access.getKind();
+		if (context instanceof FeatureGroup) {
+			final FeatureGroup fg = (FeatureGroup) context;
+			if (fg.isInverse()) {
+				return accessKind.getInverseType() == expectedKind;
+			} else {
+				final FeatureGroupType fgt = fg.getFeatureGroupType();
+				final FeatureGroupType inverseFGT = fgt.getInverse();
+				if (inverseFGT != null && access.getContainingClassifier().equals(inverseFGT)) {
+					return accessKind.getInverseType() == expectedKind;
+				}
+			}
+		}
+		return accessKind == expectedKind;
+	}
+
+	private static boolean isContainerFeature(final ConnectionEnd end, final Context context, final AccessType kind) {
+		return (context == null || context instanceof FeatureGroup) && end instanceof Access
+				&& isCorrectKind(context, (Access) end, kind);
+	}
+
+//	private static boolean isContainerFeature(final ConnectionEnd end, final Context context, final AccessType kind) {
+//		return (context == null || context instanceof FeatureGroup) && end instanceof Access
+//				&& ((Access) end).getKind() == kind;
+//	}
+
+	private static boolean isSubcomponentFeature(final ConnectionEnd end, final Context context,
+			final AccessType kind) {
+		return context instanceof Subcomponent && end instanceof Access && ((Access) end).getKind() == kind;
+	}
+
+	private static boolean isOutgoingAccessConnection(final ConnectionEnd conSrc, final Context srcContext,
+			final ConnectionEnd conDest, final Context destContext) {
+        // ("sub" or "sub.p") and ("sub.r" or "p") OR ("r" and "sub.r")
+		return (isSubcomponentProvider(conSrc) || isSubcomponentFeature(conSrc,srcContext, AccessType.PROVIDES))
+				&& (isSubcomponentFeature(conDest, destContext, AccessType.REQUIRES)
+						|| isContainerFeature(conDest, destContext, AccessType.PROVIDES))
+				|| isContainerFeature(conSrc, srcContext, AccessType.REQUIRES)
+						&& isSubcomponentFeature(conDest, destContext, AccessType.REQUIRES);
+	}
+
 	/**
 	 * Checks legality rule L9 for section 9.4 (Access Connections) "For access
 	 * connections the classifier of the provider access must match to the
@@ -6314,35 +6376,47 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * the same (see Section 9.1)."
 	 */
 	private void checkAccessConnectionClassifiers(AccessConnection connection) {
-		ConnectionEnd source = connection.getAllLastSource();
-		ConnectionEnd destination = connection.getAllLastDestination();
-		if (source instanceof AccessConnectionEnd && destination instanceof AccessConnectionEnd) {
+		/*
+		 * Bug 2362: Source and destination with respect to the classifier type is determined by
+		 * direction of travel away from the provider and towards the requirer.
+		 */
+		final ConnectionEnd conSrc = connection.getAllLastSource();
+		final ConnectionEnd conDest = connection.getAllLastDestination();
+		if (conSrc instanceof AccessConnectionEnd && conDest instanceof AccessConnectionEnd) {
+			ConnectionEnd source;
+			ConnectionEnd destination;
+
+			if (isOutgoingAccessConnection(conSrc, connection.getAllSourceContext(), conDest,
+					connection.getAllDestinationContext())) {
+				source = conSrc;
+				destination = conDest;
+			} else if (isOutgoingAccessConnection(conDest, connection.getAllDestinationContext(), conSrc,
+					connection.getAllSourceContext())) {
+				source = conDest;
+				destination = conSrc;
+			} else {
+				// shouldn't ever get here -- set up a null pointer exception
+				source = null;
+				destination = null;
+			}
+
 			Classifier sourceClassifier = null;
 			Classifier destinationClassifier = null;
 			// for type extension
-			boolean invert = false;
-			AccessType srckind = null;
-			AccessType dstkind = null;
-			Context srcCxt = null;
-			Context dstCxt = null;
 			boolean sourceIsSubcomponent = false;
 			boolean destIsSubcomponent = false;
+
 			if (source instanceof Access) {
 				sourceClassifier = ((Access) source).getAllClassifier();
-				srckind = ((Access) source).getKind();
-				srcCxt = connection.getAllSourceContext();
 			} else if (source instanceof Subcomponent) {
 				sourceClassifier = ((Subcomponent) source).getAllClassifier();
-				invert = true;
 				sourceIsSubcomponent = true;
 			} else if (source instanceof SubprogramProxy) {
 				sourceClassifier = ((SubprogramProxy) source).getSubprogramClassifier();
 				sourceIsSubcomponent = true;
 			}
 			if (destination instanceof Access) {
-				dstkind = ((Access) destination).getKind();
 				destinationClassifier = ((Access) destination).getAllClassifier();
-				dstCxt = connection.getAllDestinationContext();
 			} else if (destination instanceof Subcomponent) {
 				destinationClassifier = ((Subcomponent) destination).getAllClassifier();
 				destIsSubcomponent = true;
@@ -6365,13 +6439,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			} else if (sourceClassifier != null && destinationClassifier != null) {
 				String classifierMatchingRuleValue = GetProperties.getClassifierMatchingRuleProperty(connection);
 				if (classifierMatchingRuleValue.equalsIgnoreCase(ModelingProperties.CLASSIFIER_MATCH)) {
-					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
+					if (!testAccessClassifierMatchRule(connection, source, sourceClassifier,
+							destination,
 							destinationClassifier)) {
 						error(connection, '\'' + source.getName() + "' and '" + destination.getName()
 								+ "' have incompatible classifiers.");
 					}
 				} else if (classifierMatchingRuleValue.equalsIgnoreCase(ModelingProperties.EQUIVALENCE)) {
-					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
+					if (!testAccessClassifierMatchRule(connection, source, sourceClassifier,
+							destination,
 							destinationClassifier)
 							&& !classifiersFoundInSupportedClassifierEquivalenceMatchesProperty(connection,
 									sourceClassifier, destinationClassifier)) {
@@ -6382,7 +6458,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 								+ AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES + "'.");
 					}
 				} else if (classifierMatchingRuleValue.equalsIgnoreCase(ModelingProperties.SUBSET)) {
-					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
+					if (!testAccessClassifierMatchRule(connection, source, sourceClassifier,
+							destination,
 							destinationClassifier)
 							&& !classifiersFoundInSupportedClassifierSubsetMatchesProperty(connection, sourceClassifier,
 									destinationClassifier)) {
@@ -6393,7 +6470,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 								+ AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES + "'.");
 					}
 				} else if (classifierMatchingRuleValue.equalsIgnoreCase(ModelingProperties.CONVERSION)) {
-					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
+					if (!testAccessClassifierMatchRule(connection, source, sourceClassifier,
+							destination,
 							destinationClassifier)
 							&& !classifiersFoundInSupportedTypeConversionsProperty(connection, sourceClassifier,
 									destinationClassifier)) {
@@ -6654,7 +6732,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkPropertyDefinition(final Property pn) {
 		// Check the type correctness of the default value, if any
-		typeCheckPropertyValues(pn.getPropertyType(), pn.getDefaultValue(), pn.getDefaultValue(), pn.getQualifiedName());
+		typeCheckPropertyValues(pn.getPropertyType(), pn.getDefaultValue(), pn.getDefaultValue(), pn.getQualifiedName(),
+				0);
 		checkAppliesTo(pn);
 	}
 
@@ -6681,7 +6760,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		 * cannot check that a int or real is within range.
 		 */
 		typeCheckPropertyValues(pc.getPropertyType(), pc.getConstantValue(), pc.getConstantValue(),
-				pc.getQualifiedName());
+				pc.getQualifiedName(), 0);
 	}
 
 	//

@@ -54,7 +54,7 @@ public
 	-- Now, declare process that model partition address space
 	process IOP
 		features
-			sensorin: in data port SensorData;
+			sensorin: in event data port SensorData;
 			senseout: out data port SensorData;
 			controlin: in data port actuatecmd;
 			actuatorout: out data port actuatecmd;

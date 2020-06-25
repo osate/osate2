@@ -1,0 +1,87 @@
+package TestDataPortClassifierMatching
+public
+	Data D
+	end D;
+	
+	Data X
+	end X;
+	
+	system SrcSys
+		features
+			f0: out data port;
+			
+			f_type: out data port D;
+			f_x: out data port X;
+	end SrcSys;
+	
+	system SrcSys_D extends SrcSys
+		features
+			f0: refined to out data port D;
+	end SrcSys_D;
+	
+	system SrcSys_X extends SrcSys
+		features
+			f0: refined to out data port X;
+	end SrcSys_X;
+	
+	system DestSys
+		features
+			f0: in data port;
+			
+			f_type: in data port D;
+			f_x: in data port X;
+	end DestSys;
+	
+	system DestSys_D extends DestSys
+		features
+			f0: refined to in data port D;
+	end DestSys_D;
+	
+	system DestSys_X extends DestSys
+		features
+			f0: refined to in data port X;
+	end DestSys_X;
+	
+	system Top
+	end Top;
+	
+	system implementation Top.notype_to_notype
+		subcomponents
+			srcSys: system SrcSys;
+			destSys: system DestSys;
+		connections
+			c0: port srcSys.f0 -> destSys.f0;  -- (no type) -> (no type)
+			
+			d_to_d: port srcSys.f_type -> destSys.f_type; -- type -> type
+			d_to_x: port srcSys.f_type -> destSys.f_x; -- type to (no type)
+			x_to_d: port srcSys.f_x -> destSys.f_type; -- (no type) -> type
+			x_to_x: port srcSys.f_x -> destSys.f_x; -- (no type) -> (no type)
+		properties
+			Classifier_Substitution_Rule => Type_Extension;
+			Classifier_Matching_Rule => Classifier_Match;
+	end Top.notype_to_notype;
+	
+	system implementation Top.d_to_d extends Top.notype_to_notype
+		subcomponents
+			srcSys: refined to system SrcSys_D;
+			destSys: refined to system DestSys_D;
+	end Top.d_to_d;
+	
+	system implementation Top.d_to_x extends Top.notype_to_notype
+		subcomponents
+			srcSys: refined to system SrcSys_D;
+			destSys: refined to system DestSys_X;
+	end Top.d_to_x;
+	
+	system implementation Top.x_to_d extends Top.notype_to_notype
+		subcomponents
+			srcSys: refined to system SrcSys_X;
+			destSys: refined to system DestSys_D;
+	end Top.x_to_d;
+	
+	system implementation Top.x_to_x extends Top.notype_to_notype
+		subcomponents
+			srcSys: refined to system SrcSys_X;
+			destSys: refined to system DestSys_X;
+	end Top.x_to_x;
+end TestDataPortClassifierMatching;
