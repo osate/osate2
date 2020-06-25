@@ -28,7 +28,6 @@ import com.google.inject.Inject
 import com.google.inject.ProvisionException
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.emf.transaction.RecordingCommand
 import org.eclipse.emf.transaction.TransactionalEditingDomain
 import org.eclipse.xtend2.lib.StringConcatenation
@@ -56,6 +55,7 @@ import org.osate.aadl2.AbstractType
 import org.osate.aadl2.AccessConnection
 import org.osate.aadl2.AccessSpecification
 import org.osate.aadl2.AnnexLibrary
+import org.osate.aadl2.AnnexSubclause
 import org.osate.aadl2.ArrayDimension
 import org.osate.aadl2.BasicProperty
 import org.osate.aadl2.BehavioredImplementation
@@ -2696,6 +2696,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 		val annexParser = annexRegistry.getAnnexParser(annexName)
 		val trimmedText = sourceTextRegion.text.substring(3, sourceTextRegion.length - 3)
 		val annexObject = parseAnnexObject.apply(annexParser, trimmedText)
+		val oldContainer = annexObject.eContainer
 		val annexParseResult = AnnexParseUtil.getParseResult(annexObject)
 		if (annexParseResult !== null) {
 			// Get the injector for the annex.
@@ -2707,44 +2708,55 @@ class Aadl2Formatter extends PropertiesFormatter {
 				val fakeURI = URI.createURI("__synthetic." + annexExtension)
 				val fakeResource = resourceFactory.createResource(fakeURI) as XtextResource
 				performModification(annex, [
-					fakeResource.contents += EcoreUtil.copy(annexObject)
+					// this takes the annex object out of its current container
+					fakeResource.contents += annexObject
 					fakeResource.parseResult = annexParseResult
 				])
 
-				// Setup the formatting request.
-				val request = annexInjector.getInstance(FormatterRequest)
-				val accessBuilder = annexInjector.getProvider(TextRegionAccessBuilder).get
-				request.textRegionAccess = accessBuilder.forNodeModel(fakeResource).create
+				try {
+					// Setup the formatting request.
+					val request = annexInjector.getInstance(FormatterRequest)
+					val accessBuilder = annexInjector.getProvider(TextRegionAccessBuilder).get
+					request.textRegionAccess = accessBuilder.forNodeModel(fakeResource).create
 
-				// Format the annex text.
-				val annexFormatter = annexInjector.getInstance(IFormatter2);
-				if (annexFormatter !== null) {
-					val replacements = annexFormatter.format(request)
-					val formatted = request.textRegionAccess.rewriter.renderToString(replacements)
+					// Format the annex text.
+					val annexFormatter = annexInjector.getInstance(IFormatter2);
+					if (annexFormatter !== null) {
+						val replacements = annexFormatter.format(request)
+						val formatted = request.textRegionAccess.rewriter.renderToString(replacements)
 
-					/*
-					 * Insert the formatted text into the core document
-					 * See https://www.eclipse.org/forums/index.php/t/1093069/
-					 */
-					document.addReplacer(new AbstractTextReplacer(document, sourceTextRegion) {
-						override createReplacements(ITextReplacerContext context) {
-							val annexIndentation = context.getIndentationString(indentationLevel + 1)
+						/*
+						 * Insert the formatted text into the core document
+						 * See https://www.eclipse.org/forums/index.php/t/1093069/
+						 */
+						document.addReplacer(new AbstractTextReplacer(document, sourceTextRegion) {
+							override createReplacements(ITextReplacerContext context) {
+								val annexIndentation = context.getIndentationString(indentationLevel + 1)
 
-							val indented = new StringConcatenation
-							indented.append(formatted, annexIndentation)
+								val indented = new StringConcatenation
+								indented.append(formatted, annexIndentation)
 
-							val newText = '''
-							{**
-							«annexIndentation»«indented»
-							«context.getIndentationString(indentationLevel)»**}'''
+								val newText = '''
+								{**
+								«annexIndentation»«indented»
+								«context.getIndentationString(indentationLevel)»**}'''
 
-							if (newText != sourceTextRegion.text) {
-								context.addReplacement(region.replaceWith(newText))
+								if (newText != sourceTextRegion.text) {
+									context.addReplacement(region.replaceWith(newText))
+								}
+
+								context
 							}
-
-							context
-						}
-					})
+						})
+					}
+				} finally {
+					// put the annex object back where it came from
+					switch (oldContainer) {
+						DefaultAnnexLibrary:
+							performModification(oldContainer, [oldContainer.parsedAnnexLibrary = annexObject as AnnexLibrary])
+						DefaultAnnexSubclause:
+							performModification(oldContainer, [oldContainer.parsedAnnexSubclause = annexObject as AnnexSubclause])
+					}
 				}
 			}
 		}
