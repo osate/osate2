@@ -43,7 +43,7 @@ import org.osate.aadl2.instantiation.InstantiateModel
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
-class Issue582TestAbstractDirection extends XtextTest {
+class Issue582AbstractDirectionTest extends XtextTest {
 	@Inject
 	TestHelper<AadlPackage> testHelper
 	
