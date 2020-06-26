@@ -129,6 +129,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * {@link Property} objects.
 	 */
 	private static ThreadLocal<LinkedList<Property>> lookupStack = new ThreadLocal<LinkedList<Property>>() {
+		@Override
 		protected LinkedList<Property> initialValue() {
 			return new LinkedList<Property>();
 		}
@@ -148,6 +149,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getNamedElement();
 	}
@@ -232,6 +234,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION:
@@ -245,6 +248,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_ELEMENT__NAME:
@@ -262,6 +266,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -281,6 +286,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_ELEMENT__NAME:
@@ -298,6 +304,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_ELEMENT__NAME:
@@ -316,6 +323,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();
@@ -673,21 +681,8 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		return pa;
 	}
 
-	/*
-	 * DB: Added for OCL to call this method instead of reimplementing the property lookup algo.
-	 * (non-Javadoc)
-	 *
-	 * @see org.osate.aadl2.NamedElement#getPropertyValues(org.osate.aadl2.Property, java.lang.String)
-	 */
-	/**
-	 * @deprecated Will be removed in 2.7.
-	 */
-	@Deprecated
-	public EList<PropertyExpression> getPropertyValues(final String propertySetName, final String propertyName)
-			throws InvalidModelException, IllegalArgumentException, PropertyIsModalException, IllegalStateException,
-			PropertyDoesNotApplyToHolderException {
-		return NamedElementOperations.getPropertyValues(this, propertySetName, propertyName);
-	}
+
+	@Override
 	public boolean equals(Object arg0) {
 		/*
 		 * if (arg0 instanceof DataPortImpl)
