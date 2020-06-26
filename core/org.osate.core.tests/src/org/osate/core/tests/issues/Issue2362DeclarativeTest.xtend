@@ -42,7 +42,7 @@ import org.eclipse.xtext.validation.Issue
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
-class Issue2362Declarative extends XtextTest {
+class Issue2362DeclarativeTest extends XtextTest {
 	@Inject
 	TestHelper<AadlPackage> testHelper
 	
