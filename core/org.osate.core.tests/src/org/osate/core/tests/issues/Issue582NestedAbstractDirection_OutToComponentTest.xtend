@@ -43,7 +43,7 @@ import org.osate.aadl2.instantiation.InstantiateModel
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
-class Issue582TestNestedAbstractDirection_InToComponent extends XtextTest {
+class Issue582NestedAbstractDirection_OutToComponentTest extends XtextTest {
 	@Inject
 	TestHelper<AadlPackage> testHelper
 	
@@ -52,38 +52,34 @@ class Issue582TestNestedAbstractDirection_InToComponent extends XtextTest {
 
 	@Test
 	def void testAllExplicit() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.allExplicit"] as SystemImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 10)
+		assertTrue(messages.size == 6)
 		
-		assertNotNull(messages.findFirst[where == instance && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.destSys.blank_feature to Top_allExplicit_Instance.srcSys.blank_to_out_feature has no valid direction. Connection instance not created."])
-		assertNotNull(messages.findFirst[where == instance && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.destSys.blank_feature to Top_allExplicit_Instance.srcSys.in_to_out_feature has no valid direction. Connection instance not created."])
-		assertNotNull(messages.findFirst[where == instance && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.destSys.blank_feature to Top_allExplicit_Instance.srcSys.out_to_out_feature has no valid direction. Connection instance not created."])
-		assertNotNull(messages.findFirst[where == instance && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.destSys.out_feature to Top_allExplicit_Instance.srcSys.blank_to_out_feature has no valid direction. Connection instance not created."])
-		assertNotNull(messages.findFirst[where == instance && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.destSys.out_feature to Top_allExplicit_Instance.srcSys.in_to_out_feature has no valid direction. Connection instance not created."])
-		assertNotNull(messages.findFirst[where == instance && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.destSys.out_feature to Top_allExplicit_Instance.srcSys.out_to_out_feature has no valid direction. Connection instance not created."])
+		assertNotNull(messages.findFirst[where == instance && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.srcSys.s.blank_feature to Top_allExplicit_Instance.destSys.out_feature has no valid direction. Connection instance not created."])
+		assertNotNull(messages.findFirst[where == instance && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.srcSys.s.blank_feature to Top_allExplicit_Instance.destSys.out_feature has no valid direction. Connection instance not created."])
+		assertNotNull(messages.findFirst[where == instance && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.srcSys.s.out_feature to Top_allExplicit_Instance.destSys.out_feature has no valid direction. Connection instance not created."])
+		assertNotNull(messages.findFirst[where == instance && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.srcSys.s.out_feature to Top_allExplicit_Instance.destSys.out_feature has no valid direction. Connection instance not created."])
 		
 		val srcSys = instance.componentInstances.findFirst[name == "srcSys"]
-		assertNotNull(messages.findFirst[where == srcSys && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.destSys.blank_feature to Top_allExplicit_Instance.srcSys.s.out_feature has no valid direction. Connection instance not created."])
-		assertNotNull(messages.findFirst[where == srcSys && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.destSys.blank_feature to Top_allExplicit_Instance.srcSys.s.out_feature has no valid direction. Connection instance not created."])
-		assertNotNull(messages.findFirst[where == srcSys && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.destSys.out_feature to Top_allExplicit_Instance.srcSys.s.out_feature has no valid direction. Connection instance not created."])
-		assertNotNull(messages.findFirst[where == srcSys && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.destSys.out_feature to Top_allExplicit_Instance.srcSys.s.out_feature has no valid direction. Connection instance not created."])
+		assertNotNull(messages.findFirst[where == srcSys && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.srcSys.s.blank_feature to Top_allExplicit_Instance.srcSys.blank_to_in_feature has no valid direction. Connection instance not created."])
+		assertNotNull(messages.findFirst[where == srcSys && kind == QueuingAnalysisErrorReporter.ERROR && message == "Connection from Top_allExplicit_Instance.srcSys.s.out_feature to Top_allExplicit_Instance.srcSys.out_to_in_feature has no valid direction. Connection instance not created."])
 
 		assertEquals(8, instance.connectionInstances.size)
 	}
 
 	@Test
 	def void test_blank_to_blank_to_blank() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.blank_to_blank_to_blank"] as SystemImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNotNull(instance.connectionInstances.findFirst[name == "destSys.f0 -> srcSys.s.f0"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertTrue(messages.size == 0)
@@ -91,12 +87,12 @@ class Issue582TestNestedAbstractDirection_InToComponent extends XtextTest {
 
 	@Test
 	def void test_blank_to_blank_to_in() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.blank_to_blank_to_in"] as SystemImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "destSys.f0 -> srcSys.s.f0"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertTrue(messages.size == 0)
@@ -104,38 +100,46 @@ class Issue582TestNestedAbstractDirection_InToComponent extends XtextTest {
 
 	@Test
 	def void test_blank_to_blank_to_out() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.blank_to_blank_to_out"] as SystemImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNotNull(instance.connectionInstances.findFirst[name == "destSys.f0 -> srcSys.s.f0"])
+		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 0)
+		assertTrue(messages.size == 1)
+		messages.get(0) => [
+			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
+			assertEquals("Connection from Top_blank_to_blank_to_out_Instance.srcSys.s.f0 to Top_blank_to_blank_to_out_Instance.destSys.f0 has no valid direction. Connection instance not created.", message)
+		]
 	}
 
 	@Test
 	def void test_blank_to_in_to_blank() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.blank_to_in_to_blank"] as SystemImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNotNull(instance.connectionInstances.findFirst[name == "destSys.f0 -> srcSys.s.f0"])
+		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 0)
+		assertTrue(messages.size == 1)
+		messages.get(0) => [
+			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
+			assertEquals("Connection from Top_blank_to_in_to_blank_Instance.srcSys.s.f0 to Top_blank_to_in_to_blank_Instance.srcSys.f0 has no valid direction. Connection instance not created.", message)
+		]
 	}
 
 	@Test
 	def void test_blank_to_in_to_in() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.blank_to_in_to_in"] as SystemImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "destSys.f0 -> srcSys.s.f0"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertTrue(messages.size == 0)
@@ -143,45 +147,42 @@ class Issue582TestNestedAbstractDirection_InToComponent extends XtextTest {
 
 	@Test
 	def void test_blank_to_in_to_out() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.blank_to_in_to_out"] as SystemImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "destSys.f0 -> srcSys.s.f0"])
-
-		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals("Connection from Top_blank_to_in_to_out_Instance.destSys.f0 to Top_blank_to_in_to_out_Instance.srcSys.f0 has no valid direction. Connection instance not created.", message)
-		]
-	}
-
-	@Test
-	def void test_blank_to_out_to_blank() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
-		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.blank_to_out_to_blank"] as SystemImplementation
-		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
-		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
-		
-		assertNull(instance.connectionInstances.findFirst[name == "destSys.f0 -> srcSys.s.f0"])
+		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertTrue(messages.size == 1)
 		messages.get(0) => [
 			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals("Connection from Top_blank_to_out_to_blank_Instance.destSys.f0 to Top_blank_to_out_to_blank_Instance.srcSys.f0 has no valid direction. Connection instance not created.", message)
+			assertEquals("Connection from Top_blank_to_in_to_out_Instance.srcSys.s.f0 to Top_blank_to_in_to_out_Instance.destSys.f0 has no valid direction. Connection instance not created.", message)
 		]
 	}
 
 	@Test
+	def void test_blank_to_out_to_blank() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
+		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.blank_to_out_to_blank"] as SystemImplementation
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
+		
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
+
+		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
+		assertTrue(messages.size == 0)
+	}
+
+	@Test
 	def void test_blank_to_out_to_in() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.blank_to_out_to_in"] as SystemImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "destSys.f0 -> srcSys.s.f0"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertTrue(messages.size == 0)
@@ -189,29 +190,29 @@ class Issue582TestNestedAbstractDirection_InToComponent extends XtextTest {
 
 	@Test
 	def void test_blank_to_out_to_out() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.blank_to_out_to_out"] as SystemImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "destSys.f0 -> srcSys.s.f0"])
+		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertTrue(messages.size == 1)
 		messages.get(0) => [
 			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals("Connection from Top_blank_to_out_to_out_Instance.destSys.f0 to Top_blank_to_out_to_out_Instance.srcSys.f0 has no valid direction. Connection instance not created.", message)
+			assertEquals("Connection from Top_blank_to_out_to_out_Instance.srcSys.s.f0 to Top_blank_to_out_to_out_Instance.destSys.f0 has no valid direction. Connection instance not created.", message)
 		]
 	}
 
 	@Test
 	def void test_in_to_blank_to_blank() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.in_to_blank_to_blank"] as SystemImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNotNull(instance.connectionInstances.findFirst[name == "destSys.f0 -> srcSys.s.f0"])
+		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertTrue(messages.size == 0)
@@ -219,12 +220,12 @@ class Issue582TestNestedAbstractDirection_InToComponent extends XtextTest {
 
 	@Test
 	def void test_in_to_blank_to_in() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.in_to_blank_to_in"] as SystemImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "destSys.f0 -> srcSys.s.f0"])
+		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertTrue(messages.size == 0)
@@ -232,12 +233,12 @@ class Issue582TestNestedAbstractDirection_InToComponent extends XtextTest {
 
 	@Test
 	def void test_in_to_blank_to_out() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.in_to_blank_to_out"] as SystemImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNotNull(instance.connectionInstances.findFirst[name == "destSys.f0 -> srcSys.s.f0"])
+		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertTrue(messages.size == 0)
@@ -245,29 +246,25 @@ class Issue582TestNestedAbstractDirection_InToComponent extends XtextTest {
 
 	@Test
 	def void test_in_to_in_to_blank() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.in_to_in_to_blank"] as SystemImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "destSys.f0 -> srcSys.s.f0"])
+		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
-		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals("Connection from Top_in_to_in_to_blank_Instance.destSys.f0 to Top_in_to_in_to_blank_Instance.srcSys.f0 has no valid direction. Connection instance not created.", message)
-		]
+		assertTrue(messages.size == 0)
 	}
 	
 	@Test
 	def void test_in_to_in_to_in() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.in_to_in_to_in"] as SystemImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "destSys.f0 -> srcSys.s.f0"])
+		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertTrue(messages.size == 0)
@@ -275,46 +272,38 @@ class Issue582TestNestedAbstractDirection_InToComponent extends XtextTest {
 
 	@Test
 	def void test_in_to_in_to_out() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.in_to_in_to_out"] as SystemImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "destSys.f0 -> srcSys.s.f0"])
+		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
-		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals("Connection from Top_in_to_in_to_out_Instance.destSys.f0 to Top_in_to_in_to_out_Instance.srcSys.f0 has no valid direction. Connection instance not created.", message)
-		]
+		assertTrue(messages.size == 0)
 	}
 
 	@Test
 	def void test_in_to_out_to_blank() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.in_to_out_to_blank"] as SystemImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "destSys.f0 -> srcSys.s.f0"])
+		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
-		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals("Connection from Top_in_to_out_to_blank_Instance.destSys.f0 to Top_in_to_out_to_blank_Instance.srcSys.f0 has no valid direction. Connection instance not created.", message)
-		]
+		assertTrue(messages.size == 0)
 	}
 
 	@Test
 	def void test_in_to_out_to_in() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.in_to_out_to_in"] as SystemImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "destSys.f0 -> srcSys.s.f0"])
+		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertTrue(messages.size == 0)
@@ -322,46 +311,38 @@ class Issue582TestNestedAbstractDirection_InToComponent extends XtextTest {
 
 	@Test
 	def void test_in_to_out_to_out() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.in_to_out_to_out"] as SystemImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "destSys.f0 -> srcSys.s.f0"])
+		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
-		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals("Connection from Top_in_to_out_to_out_Instance.destSys.f0 to Top_in_to_out_to_out_Instance.srcSys.f0 has no valid direction. Connection instance not created.", message)
-		]
+		assertTrue(messages.size == 0)
 	}
 
 	@Test
 	def void test_out_to_blank_to_blank() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.out_to_blank_to_blank"] as SystemImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "destSys.f0 -> srcSys.s.f0"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
-		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals("Connection from Top_out_to_blank_to_blank_Instance.destSys.f0 to Top_out_to_blank_to_blank_Instance.srcSys.s.f0 has no valid direction. Connection instance not created.", message)
-		]
+		assertTrue(messages.size == 0)
 	}
 
 	@Test
 	def void test_out_to_blank_to_in() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.out_to_blank_to_in"] as SystemImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "destSys.f0 -> srcSys.s.f0"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertTrue(messages.size == 0)
@@ -369,93 +350,93 @@ class Issue582TestNestedAbstractDirection_InToComponent extends XtextTest {
 
 	@Test
 	def void test_out_to_blank_to_out() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.out_to_blank_to_out"] as SystemImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "destSys.f0 -> srcSys.s.f0"])
+		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertTrue(messages.size == 1)
 		messages.get(0) => [
 			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals("Connection from Top_out_to_blank_to_out_Instance.destSys.f0 to Top_out_to_blank_to_out_Instance.srcSys.s.f0 has no valid direction. Connection instance not created.", message)
+			assertEquals("Connection from Top_out_to_blank_to_out_Instance.srcSys.s.f0 to Top_out_to_blank_to_out_Instance.destSys.f0 has no valid direction. Connection instance not created.", message)
 		]
 	}
 
 	@Test
 	def void test_out_to_in_to_blank() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.out_to_in_to_blank"] as SystemImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "destSys.f0 -> srcSys.s.f0"])
+		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertTrue(messages.size == 1)
 		messages.get(0) => [
 			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals("Connection from Top_out_to_in_to_blank_Instance.destSys.f0 to Top_out_to_in_to_blank_Instance.srcSys.s.f0 has no valid direction. Connection instance not created.", message)
+			assertEquals("Connection from Top_out_to_in_to_blank_Instance.srcSys.s.f0 to Top_out_to_in_to_blank_Instance.srcSys.f0 has no valid direction. Connection instance not created.", message)
 		]
 	}
 
 	@Test
 	def void test_out_to_in_to_in() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.out_to_in_to_in"] as SystemImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "destSys.f0 -> srcSys.s.f0"])
+		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
+
+		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
+		assertTrue(messages.size == 1)
+		messages.get(0) => [
+			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
+			assertEquals("Connection from Top_out_to_in_to_in_Instance.srcSys.s.f0 to Top_out_to_in_to_in_Instance.srcSys.f0 has no valid direction. Connection instance not created.", message)
+		]
+	}
+
+	@Test
+	def void test_out_to_in_to_out() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
+		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.out_to_in_to_out"] as SystemImplementation
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
+		
+		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
+
+		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
+		assertTrue(messages.size == 1)
+		messages.get(0) => [
+			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
+			assertEquals("Connection from Top_out_to_in_to_out_Instance.srcSys.s.f0 to Top_out_to_in_to_out_Instance.srcSys.f0 has no valid direction. Connection instance not created.", message)
+		]
+	}
+
+	@Test
+	def void test_out_to_out_to_blank() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
+		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.out_to_out_to_blank"] as SystemImplementation
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
+		
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertTrue(messages.size == 0)
 	}
 
 	@Test
-	def void test_out_to_in_to_out() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
-		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.out_to_in_to_out"] as SystemImplementation
-		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
-		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
-		
-		assertNull(instance.connectionInstances.findFirst[name == "destSys.f0 -> srcSys.s.f0"])
-
-		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
-		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals("Connection from Top_out_to_in_to_out_Instance.destSys.f0 to Top_out_to_in_to_out_Instance.srcSys.s.f0 has no valid direction. Connection instance not created.", message)
-		]
-	}
-
-	@Test
-	def void test_out_to_out_to_blank() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
-		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.out_to_out_to_blank"] as SystemImplementation
-		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
-		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
-		
-		assertNull(instance.connectionInstances.findFirst[name == "destSys.f0 -> srcSys.s.f0"])
-
-		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
-		assertTrue(messages.size == 1)
-		messages.get(0) => [
-			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals("Connection from Top_out_to_out_to_blank_Instance.destSys.f0 to Top_out_to_out_to_blank_Instance.srcSys.f0 has no valid direction. Connection instance not created.", message)
-		]
-	}
-
-	@Test
 	def void test_out_to_out_to_in() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.out_to_out_to_in"] as SystemImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "destSys.f0 -> srcSys.s.f0"])
+		assertNotNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertTrue(messages.size == 0)
@@ -463,18 +444,18 @@ class Issue582TestNestedAbstractDirection_InToComponent extends XtextTest {
 
 	@Test
 	def void test_out_to_out_to_out() {
-		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_InToComponent.aadl")
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNestedAbstractDirection_OutOfComponent.aadl")
 		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == "Top.out_to_out_to_out"] as SystemImplementation
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
 		
-		assertNull(instance.connectionInstances.findFirst[name == "destSys.f0 -> srcSys.s.f0"])
+		assertNull(instance.connectionInstances.findFirst[name == "srcSys.s.f0 -> destSys.f0"])
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		assertTrue(messages.size == 1)
 		messages.get(0) => [
 			QueuingAnalysisErrorReporter.ERROR.assertEquals(kind)
-			assertEquals("Connection from Top_out_to_out_to_out_Instance.destSys.f0 to Top_out_to_out_to_out_Instance.srcSys.f0 has no valid direction. Connection instance not created.", message)
+			assertEquals("Connection from Top_out_to_out_to_out_Instance.srcSys.s.f0 to Top_out_to_out_to_out_Instance.destSys.f0 has no valid direction. Connection instance not created.", message)
 		]
 	}
 
