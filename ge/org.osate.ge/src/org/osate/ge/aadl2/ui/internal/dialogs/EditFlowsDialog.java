@@ -84,7 +84,6 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.ge.StringUtil;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.internal.util.AadlPrototypeUtil;
-import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 
 /**
  * Dialog for editing flow implementations and end to end flows.

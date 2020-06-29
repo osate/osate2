@@ -46,6 +46,7 @@ import org.osate.ge.operations.StepResult;
  * Supports filtering.
  *
  * The target business object is not necessarily the object meant to be modified. For example, if the target object is a subcomponent or feature group, the referenced classifier may be edited.
+ * @since 2.0
  */
 public class AadlOperationBuilder<BusinessObjectType> {
 	private final Class<BusinessObjectType> elementType;

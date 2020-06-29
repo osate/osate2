@@ -70,7 +70,7 @@ public class RenameUtil {
 	public static void performNonLtkRename(final Object bo, final BusinessObjectHandler boHandler,
 			final String name) {
 		final CustomRenamer renamer = (CustomRenamer) boHandler;
-		renamer.rename(new RenameContext(boHandler, name));
+		renamer.rename(new RenameContext(bo, name));
 	}
 
 	public static ProcessorBasedRefactoring getRenameRefactoring(final Object bo) {

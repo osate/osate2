@@ -55,7 +55,6 @@ package org.osate.ge.services;
 import java.util.Objects;
 import java.util.Optional;
 
-import org.eclipse.gef.EditPart;
 import org.osate.ge.GraphicalEditor;
 
 /**
@@ -73,19 +72,20 @@ public interface GraphicalEditorService {
 	GraphicalEditor openBusinessObject(Object bo);
 
 	/**
-	 * Returns an optional with information about the specified edit parts.
-	 * For example, an implementation may support performing operations on GEF EditPart objects.
-	 * @param editPart is the object for which to return information.
-	 * @return information retrieved from the specified edit part.
+	 * Returns an optional with information about a graphical editor selection.
+	 * @param object is the object for which to return information. For the Graphiti based graphical editor EditPart instances should be supported.
+	 * This object is usually retrieved from the global selection.
+	 * @return information retrieved from the specified object. If the details could not be determined or is not of the appropriate type,
+	 * and empty optional will be returned.
 	 * @since 2.0
 	 */
-	Optional<EditPartDetails> getEditPartDetails(EditPart editPart);
+	Optional<ObjectDetails> getObjectDetails(Object object);
 
 	/**
-	 * Used to return details restrived from an edit part.
+	 * Used to return details of a selected object.
 	 * @since 2.0
 	 */
-	class EditPartDetails {
+	class ObjectDetails {
 		private final Object diagramBo;
 		private final Object bo;
 
@@ -93,7 +93,7 @@ public interface GraphicalEditorService {
 		 * Creates a new instance
 		 * @noreference This method is not intended to be referenced by clients.
 		 */
-		public EditPartDetails(final Object diagramBo, final Object bo) {
+		public ObjectDetails(final Object diagramBo, final Object bo) {
 			this.diagramBo = diagramBo;
 			this.bo = Objects.requireNonNull(bo, "bo must not be null");
 		}

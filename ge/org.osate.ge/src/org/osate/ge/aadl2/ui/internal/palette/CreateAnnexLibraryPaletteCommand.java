@@ -62,7 +62,7 @@ public class CreateAnnexLibraryPaletteCommand extends BasePaletteCommand impleme
 			final DefaultAnnexLibrary annexLibrary = (DefaultAnnexLibrary) args.getBusinessObject()
 					.getPublicSection()
 					.createOwnedAnnexLibrary(getDefaultAnnexLibrary());
-			annexLibrary.setSourceText("{** **}");
+			annexLibrary.setSourceText("{** \n**}");
 			annexLibrary.setName(args.getExtra());
 
 			return StepResultBuilder.create().showNewBusinessObject(ctx.getTarget(), annexLibrary).build();

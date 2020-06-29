@@ -34,7 +34,7 @@ public interface BusinessObjectProvider {
 	/**
 	 * Provides child business objects based for a given context.
 	 * @param ctx a context which contains a reference to the business object context for which to return children.
-	 * @return a stream containing child business objects.
+	 * @return a stream containing child business objects. Must not return null.
 	 */
 	Stream<?> getChildBusinessObjects(BusinessObjectProviderContext ctx);
 }

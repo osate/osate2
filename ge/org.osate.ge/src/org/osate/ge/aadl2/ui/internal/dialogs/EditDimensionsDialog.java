@@ -64,7 +64,6 @@ import org.osate.aadl2.ArraySize;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
-import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 
 public class EditDimensionsDialog extends TitleAreaDialog {
