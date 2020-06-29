@@ -38,12 +38,12 @@ public class BaBusinessObjectProvider implements BusinessObjectProvider {
 		if (bo instanceof Classifier) {
 			final BehaviorAnnex ba = BaUtil.getBehaviorAnnex((Classifier) bo);
 			if (ba == null) {
-				return null;
+				return Stream.empty();
 			}
 
 			return ba.getStates().stream();
 		}
 
-		return null;
+		return Stream.empty();
 	}
 }

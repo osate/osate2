@@ -44,7 +44,7 @@ public class ErrorModelBusinessObjectProvider implements BusinessObjectProvider 
 		if (bo instanceof AadlPackage) {
 			final ErrorModelLibrary lib = ErrorModelGeUtil.getErrorModelLibrary((AadlPackage) bo);
 			if (lib == null) {
-				return null;
+				return Stream.empty();
 			}
 
 			return Stream.concat(Stream.of(new ErrorTypeLibrary(lib)), lib.getBehaviors().stream());
@@ -68,6 +68,6 @@ public class ErrorModelBusinessObjectProvider implements BusinessObjectProvider 
 			}
 		}
 
-		return null;
+		return Stream.empty();
 	}
 }

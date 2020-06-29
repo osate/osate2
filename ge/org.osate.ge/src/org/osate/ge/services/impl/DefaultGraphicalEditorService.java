@@ -92,10 +92,12 @@ public class DefaultGraphicalEditorService implements GraphicalEditorService {
 	}
 
 	@Override
-	public Optional<EditPartDetails> getEditPartDetails(EditPart editPart) {
-		if (editPart == null) {
+	public Optional<ObjectDetails> getObjectDetails(Object selectedObject) {
+		if (!(selectedObject instanceof EditPart)) {
 			return Optional.empty();
 		}
+
+		final EditPart editPart = (EditPart) selectedObject;
 
 		if (!(editPart.getModel() instanceof PictogramElement)) {
 			return Optional.empty();
@@ -143,6 +145,6 @@ public class DefaultGraphicalEditorService implements GraphicalEditorService {
 
 		// Use the diagram configuration to determine the diagram business object.
 		final Object diagramBo = AgeDiagramUtil.getConfigurationContextBusinessObject(graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getAgeDiagram(), referenceService);
-		return Optional.of(new EditPartDetails(diagramBo, bo));
+		return Optional.of(new ObjectDetails(diagramBo, bo));
 	}
 }

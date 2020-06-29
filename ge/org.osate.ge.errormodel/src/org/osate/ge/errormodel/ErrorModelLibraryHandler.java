@@ -38,7 +38,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 /**
  * Business object handler for {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary}.
  * This handler only exists to prevent the annex from being added by the AADL business object provider.
- *  Since the object isn't contributed at this time, the other methods are not necessary.
+ * Since the object isn't contributed at this time, the other methods are not necessary.
  *
  */
 public class ErrorModelLibraryHandler implements BusinessObjectHandler {

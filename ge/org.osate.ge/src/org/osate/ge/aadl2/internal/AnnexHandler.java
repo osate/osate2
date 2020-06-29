@@ -209,8 +209,9 @@ public class AnnexHandler extends AadlBusinessObjectHandler {
 		final EList<Classifier> classifiers = cl.getSelfPlusAllExtended();
 		if (cl instanceof ComponentImplementation) {
 			ComponentType ct = ((ComponentImplementation) cl).getType();
-			final EList<Classifier> tclassifiers = ct.getSelfPlusAllExtended();
-			classifiers.addAll(tclassifiers);
+			if (ct != null) {
+				classifiers.addAll(ct.getSelfPlusAllExtended());
+			}
 		}
 
 		int index = 0;

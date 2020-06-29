@@ -122,7 +122,7 @@ public class AadlBusinessObjectProvider implements BusinessObjectProvider {
 			return getChildren((Classifier) bo, true, ctx.getExtensionRegistry());
 		} else if(bo instanceof FeatureGroup) {
 			final FeatureGroupType fgt = AadlFeatureUtil.getFeatureGroupType(ctx.getBusinessObjectContext(), (FeatureGroup) bo);
-			return fgt == null ? null : AadlFeatureUtil.getAllFeatures(fgt).stream();
+			return fgt == null ? Stream.empty() : AadlFeatureUtil.getAllFeatures(fgt).stream();
 		} else if(bo instanceof Subcomponent) {
 			return getChildren((Subcomponent) bo, ctx.getBusinessObjectContext(), ctx.getExtensionRegistry());
 		} else if(bo instanceof SubprogramCall) {
@@ -149,7 +149,7 @@ public class AadlBusinessObjectProvider implements BusinessObjectProvider {
 			}
 		}
 
-		return null;
+		return Stream.empty();
 	}
 
 	/**
@@ -168,11 +168,11 @@ public class AadlBusinessObjectProvider implements BusinessObjectProvider {
 			final String pkgQualifiedName = desc.getQualifiedName().toString("::");
 			packages.add(new BusinessObjectProxy(
 					"Aadl Package "
-					+ pkgQualifiedName,
-					PackageProxyHandler.PROXY_TYPE_ID,
-					AadlReferenceUtil.getCanonicalReferenceForPackage(
-							pkgQualifiedName),
-					AadlReferenceUtil.getRelativeReferenceForPackage(pkgQualifiedName)));
+							+ pkgQualifiedName,
+							PackageProxyHandler.PROXY_TYPE_ID,
+							AadlReferenceUtil.getCanonicalReferenceForPackage(
+									pkgQualifiedName),
+							AadlReferenceUtil.getRelativeReferenceForPackage(pkgQualifiedName)));
 		}
 
 		return packages == null ? null : packages.build();

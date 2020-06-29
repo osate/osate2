@@ -29,7 +29,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.BusinessObjectProviderContext;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 
@@ -51,15 +50,10 @@ public class BusinessObjectProviderHelper {
 	 */
 	public Collection<Object> getChildBusinessObjects(final BusinessObjectContext boc) {
 		// Use business object providers to determine the children
-		Stream<Object> allChildren = Stream.empty();
 		final BusinessObjectProviderContext ctx = new BusinessObjectProviderContext(boc, extRegistry);
-		for (final BusinessObjectProvider bop : extRegistry.getBusinessObjectProviders()) {
-			final Stream<?> childBos = bop.getChildBusinessObjects(ctx);
-			if (childBos != null) {
-				allChildren = Stream.concat(allChildren, childBos);
-			}
-		}
-
+		final Stream<Object> allChildren = extRegistry.getBusinessObjectProviders()
+				.stream()
+				.flatMap(bop -> bop.getChildBusinessObjects(ctx));
 		return allChildren.distinct().collect(Collectors.toList());
 	}
 }
