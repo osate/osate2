@@ -8,12 +8,12 @@ public
 
 	system implementation PulseOx_Forwarding_System.imp
 		subcomponents
-				-- Physiological inputs
+			-- Physiological inputs
 			pulseOx: device PulseOx_Interface::ICEpoInterface.imp;
-					-- App logic
+			-- App logic
 			appLogic: process PulseOx_Forwarding_Logic::PulseOx_Logic_Process.imp;
 			appDisplay: process PulseOx_Forwarding_Display::PulseOx_Display_Process.imp;
-					-- The humans
+			-- The humans
 			patient: abstract PulseOx_Forwarding_Patient::PulseOx_Forwarding_Patient;
 			clinician: abstract PulseOx_Forwarding_Clinician::PulseOx_Forwarding_Clinician;
 		connections
@@ -30,51 +30,51 @@ public
 			
 			properties
 				MAP_Error_Properties::Fundamentals => [
-							AccidentLevels => ([
-													Name => "DeathOrInjury";
-													Description => "A human is killed or seriously injured.";
-													Explanations => ("First Explanation", "Second Explanation",
-																"Third Explanation");
-													Accidents => ([
-																			Name => "PatientHarmed";
-																			Description => "Patient is killed or seriously injured.";
-																			Explanations => ("First Explanation",
-																						"Second Explanation", "Third Explanation");
-																			Hazards => ([
-																									Name => "BadInfoDisplayed";
-																									Description => "Incorrect information is sent to the display.";
-																									HazardousFactor => "SpO2 Information";
-																									SystemElement => reference (appLogic);
-																									EnvironmentElement => reference (patient);
-																									Constraints => ([
-																															Name => "ShowGoodInfo";
-																															Description => "The app must accurately inform the display of the status of the patient's vital signs.";
-																															ErrorType => reference (MissedAlarm);
-																															Explanations => (
-																																		"First Explanation",
-																																		"Second Explanation",
-																																		"Third Explanation");
-																														]);
-																								], [
-																									Name => "InfoLate";
-																									Description => "Information that is out of date is sent to the display.";
-																									HazardousFactor => "SpO2 Information";
-																									SystemElement => reference (appLogic);
-																									EnvironmentElement => reference (patient);
-																									Constraints => ([
-																															Name => "ShowInfoOnTime";
-																															Description => "The app must inform the display of the status of the patient's vital signs in a timely manner.";
-																															ErrorType => reference (LateAlarm);
-																															Explanations => (
-																																		"First Explanation",
-																																		"Second Explanation",
-																																		"Third Explanation");
-																														]);
-																								]);
-																		]);
+					AccidentLevels => ([
+							Name => "DeathOrInjury";
+							Description => "A human is killed or seriously injured.";
+							Explanations => ("First Explanation", "Second Explanation",
+								"Third Explanation");
+							Accidents => ([
+									Name => "PatientHarmed";
+									Description => "Patient is killed or seriously injured.";
+									Explanations => ("First Explanation",
+										"Second Explanation", "Third Explanation");
+									Hazards => ([
+											Name => "BadInfoDisplayed";
+											Description => "Incorrect information is sent to the display.";
+											HazardousFactor => "SpO2 Information";
+											SystemElement => reference (appLogic);
+											EnvironmentElement => reference (patient);
+											Constraints => ([
+													Name => "ShowGoodInfo";
+													Description => "The app must accurately inform the display of the status of the patient's vital signs.";
+													ErrorType => reference (MissedAlarm);
+													Explanations => (
+														"First Explanation",
+														"Second Explanation",
+														"Third Explanation");
 												]);
-							Explanations => ("First Explanation", "Second Explanation", "Third Explanation");
-						];
+										], [
+											Name => "InfoLate";
+											Description => "Information that is out of date is sent to the display.";
+											HazardousFactor => "SpO2 Information";
+											SystemElement => reference (appLogic);
+											EnvironmentElement => reference (patient);
+											Constraints => ([
+													Name => "ShowInfoOnTime";
+													Description => "The app must inform the display of the status of the patient's vital signs in a timely manner.";
+													ErrorType => reference (LateAlarm);
+													Explanations => (
+														"First Explanation",
+														"Second Explanation",
+														"Third Explanation");
+												]);
+										]);
+								]);
+						]);
+					Explanations => ("First Explanation", "Second Explanation", "Third Explanation");
+				];
 		**};
 	end PulseOx_Forwarding_System.imp;
 end PulseOx_Forwarding_System;

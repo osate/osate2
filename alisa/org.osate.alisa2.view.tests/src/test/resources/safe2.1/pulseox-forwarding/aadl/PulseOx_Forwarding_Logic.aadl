@@ -5,7 +5,7 @@ with PulseOx_Forwarding_Types, MAP_Properties, MAP_Error_Properties, PulseOx_For
 
 	process PulseOx_Logic_Process
 	features
-		LogicSpO2 : in data port PulseOx_Forwarding_Types::SpO2;
+		LogicSpO2 : in data port PulseOx_Forwarding_Types::SpO2; -- How do I model a error flow with a data port?
 		LogicDerivedAlarm : out event port
 		{MAP_Properties::Output_Rate => 200 ms .. 400 ms;};
 	properties
@@ -28,24 +28,20 @@ with PulseOx_Forwarding_Types, MAP_Properties, MAP_Error_Properties, PulseOx_For
 		{MAP_Error_Properties::Process_Variable => true;};
 	connections
 		outgoing_alarm : port CheckSpO2Thread.Alarm -> LogicDerivedAlarm;
---	annex EMV2 {**
---			use types MAP_Errors, PulseOx_Forwarding_Errors;
---			use behavior PulseOx_Forwarding_Errors::PulseOxStatus;
---			
---			error propagations
---			flows
---				-- Error path examples
---				HighSpO2LeadsToMissedAlarm: error path LogicSpO2 {SpO2ValueHigh} -> LogicDerivedAlarm {MissedAlarm};
---				LowSpO2DoesNothing: error sink LogicSpO2 {SpO2ValueLow};
---				LateSpO2DoesNothing: error sink LogicSpO2 {LateSpO2};
---				EarlySpO2DoesNothing: error sink LogicSpO2 {EarlySpO2};
---				BogusAlarmsArePossible: error source LogicDerivedAlarm {BogusAlarm} when {Deterioration};
---					-- Nonsensical error paths here as examples of more complex behaviors: 
---				MultipleInputs: error path LogicSpO2 {SpO2ValueHigh, SpO2ValueLow} -> LogicDerivedAlarm {MissedAlarm};
---				MultipleOutputs: error path LogicSpO2 {SpO2ValueHigh} -> LogicDerivedAlarm {MissedAlarm, BogusAlarm};
---				MtoN: error path LogicSpO2 {SpO2ValueLow, SpO2ValueHigh} -> LogicDerivedAlarm {BogusAlarm, MissedAlarm};
---			end propagations;
---			
+	annex EMV2 {**
+			use types MAP_Errors, PulseOx_Forwarding_Errors;
+			use behavior PulseOx_Forwarding_Errors::PulseOxStatus;
+			
+			error propagations
+			flows
+				-- Error path examples
+				HighSpO2LeadsToMissedAlarm: error path LogicSpO2 {SpO2ValueHigh} -> LogicDerivedAlarm {MissedAlarm};
+				LowSpO2CausesBogusAlarm: error path LogicSpO2 {SpO2ValueLow} -> LogicDerivedAlarm {BogusAlarm};
+				LateSpO2DoesNothing: error sink LogicSpO2 {LateSpO2};
+				EarlySpO2DoesNothing: error sink LogicSpO2 {EarlySpO2};
+				BogusAlarmsArePossible: error source LogicDerivedAlarm {BogusAlarm} when {Deterioration};
+			end propagations;
+			
 ----			component error behavior
 ----			events
 ----				-- Detectable external problems

@@ -1,22 +1,24 @@
 package PulseOx_Interface
 public
 	with ErrorLibrary, MAP_Errors, PulseOx_Forwarding_Errors;
-with PulseOx_Forwarding_Types, PulseOx_Forwarding_Properties, MAP_Properties;
+	with PulseOx_Forwarding_Types, PulseOx_Forwarding_Properties, MAP_Properties;
+
 	device ICEpoInterface
-	features
-		POInSpO2 : in event data port PulseOx_Forwarding_Types::SpO2;
-		SensorInput : in feature;
-		POOutSpO2 : out event data port PulseOx_Forwarding_Types::SpO2
-  		{MAP_Properties::Exchange_Name => "spo2_per";};
-	properties
-		MAP_Properties::Component_Type => sensor;
-	annex EMV2 {**
+		features
+			POInSpO2: in event data port PulseOx_Forwarding_Types::SpO2;
+			SensorInput: in feature;
+			POOutSpO2: out event data port PulseOx_Forwarding_Types::SpO2 {
+				MAP_Properties::Exchange_Name => "spo2_per";};
+		properties
+			MAP_Properties::Component_Type => sensor;
+		annex EMV2 {**
 			use types PulseOx_Forwarding_Errors, MAP_Errors;
 			
 			error propagations
-				POOutSpO2: out propagation {SpO2ValueHigh};
-			flows
-				SpO2TooHighFlowSource: error source POOutSpO2 {SpO2ValueHigh} when {Deterioration};
+				POOutSpO2: out propagation {SpO2ValueHigh, LateSpO2};
+				flows
+					SpO2TooHighFlowSource: error source POOutSpO2 {SpO2ValueHigh} when {Deterioration};
+					SpO2LatedFlowSource: error source POOutSpO2 {LateSpO2} when {Deterioration};
 			end propagations;
 		**};
 	end ICEpoInterface;
