@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: SMACCM Stubs
 Bundle-SymbolicName: org.osate.smaccm.stubs
-Bundle-Version: 1.0.2.qualifier
+Bundle-Version: 1.0.3.qualifier
 Bundle-Vendor: CMU/SEI
 Automatic-Module-Name: org.osate.smaccm.stubs
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
@@ -14,5 +14,5 @@ Export-Package: com.rockwellcollins.atc.resolute,
  com.rockwellcollins.atc.resolute.resolute,
  com.rockwellcollins.atc.resolute.validation
 Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.13.0,4.0.0)",
- org.osate.aadl2;bundle-version="[3.0.0,4.0.0)",
+ org.osate.aadl2;bundle-version="[4.0.0,5.0.0)",
  org.eclipse.emf.ecore;bundle-version="[2.20.0,3.0.0)"

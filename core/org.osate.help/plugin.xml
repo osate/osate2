@@ -49,6 +49,9 @@ censes only apply to the Third Party Software and not any other portion of this 
       <toc
             file="javadoccontents.xml">
       </toc>
+      <toc
+      		file="help/toc_instantiation.xml">
+      </toc>
    </extension>
 
 </plugin>

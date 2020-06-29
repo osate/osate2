@@ -1,0 +1,206 @@
+package TestAbstractToDataAccessClassifier
+public
+	Data D
+	end D;
+	
+	--
+	
+	system DataProvider_untyped
+		features
+			f0: feature;
+			
+			p_type: provides data access D;
+			p_notype: provides data access;
+
+			r_type: requires data access D;
+			r_notype: requires data access;
+	end DataProvider_untyped;
+	
+	system DataProvider_provides_untyped extends DataProvider_untyped
+		features
+			f0: refined to provides data access;
+	end DataProvider_provides_untyped;
+	
+	system DataProvider_requires_untyped extends DataProvider_untyped
+		features
+			f0: refined to requires data access;
+	end DataProvider_requires_untyped;
+	
+	system DataProvider_provides_typed extends DataProvider_provides_untyped
+		features
+			f0: refined to provides data access D;
+	end DataProvider_provides_typed;
+	
+	system DataProvider_requires_typed extends DataProvider_requires_untyped
+		features
+			f0: refined to requires data access D;
+	end DataProvider_requires_typed;
+	
+	--
+	
+	system DataConsumer_untyped
+		features
+			f0: feature;
+			
+			p_type: provides data access D;
+			p_notype: provides data access;
+
+			r_type: requires data access D;
+			r_notype: requires data access;
+	end DataConsumer_untyped;
+	
+	system DataConsumer_provides_untyped extends DataConsumer_untyped
+		features
+			f0: refined to provides data access;
+	end DataConsumer_provides_untyped;
+	
+	system DataConsumer_requires_untyped extends DataConsumer_untyped
+		features
+			f0: refined to requires data access;
+	end DataConsumer_requires_untyped;
+	
+	system DataConsumer_provides_typed extends DataConsumer_provides_untyped
+		features
+			f0: refined to provides data access D;
+	end DataConsumer_provides_typed;
+	
+	system DataConsumer_requires_typed extends DataConsumer_requires_untyped
+		features
+			f0: refined to requires data access D;
+	end DataConsumer_requires_typed;
+
+	--
+		
+	system Top
+	end Top;
+		
+	system implementation Top.allExplicit
+		subcomponents
+			srcSys: system DataProvider_untyped;
+			destSys: system DataConsumer_untyped;
+		connections
+			c11: data access srcSys.p_type -> destSys.p_type;
+			c12: data access srcSys.p_type -> destSys.p_notype;
+			c13: data access srcSys.p_type -> destSys.r_type;
+			c14: data access srcSys.p_type -> destSys.r_notype;
+			
+			c21: data access srcSys.p_notype -> destSys.p_type;
+			c22: data access srcSys.p_notype -> destSys.p_notype;
+			c23: data access srcSys.p_notype -> destSys.r_type;
+			c24: data access srcSys.p_notype -> destSys.r_notype;
+			
+			c31: data access srcSys.r_type -> destSys.p_type;
+			c32: data access srcSys.r_type -> destSys.p_notype;
+			c33: data access srcSys.r_type -> destSys.r_type;
+			c34: data access srcSys.r_type -> destSys.r_notype;
+			
+			c41: data access srcSys.r_notype -> destSys.p_type;
+			c42: data access srcSys.r_notype -> destSys.p_notype;
+			c43: data access srcSys.r_notype -> destSys.r_type;
+			c44: data access srcSys.r_notype -> destSys.r_notype;
+		properties
+			Classifier_Substitution_Rule => Type_Extension;
+	end Top.allExplicit;
+	
+	system implementation Top.notype_to_notype
+		subcomponents
+			srcSys: system DataProvider_untyped;
+			destSys: system DataConsumer_untyped;
+		connections
+			c0: feature srcSys.f0 -> destSys.f0;  -- (no type) -> (no type)
+		properties
+			Classifier_Substitution_Rule => Type_Extension;
+	end Top.notype_to_notype;
+
+
+	system implementation Top.provides_nt_to_provides_nt extends Top.notype_to_notype -- c22
+		subcomponents
+			srcSys: refined to system DataProvider_provides_untyped;
+			destSys: refined to system DataConsumer_provides_untyped;
+	end Top.provides_nt_to_provides_nt;
+	
+	system implementation Top.provides_nt_to_provides_t extends Top.provides_nt_to_provides_nt -- c21
+		subcomponents
+			destSys: refined to system DataConsumer_provides_typed;
+	end Top.provides_nt_to_provides_t;
+	
+	system implementation Top.provides_t_to_provides_nt extends Top.provides_nt_to_provides_nt -- c12
+		subcomponents
+			srcSys: refined to system DataProvider_provides_typed;
+	end Top.provides_t_to_provides_nt;
+	
+	system implementation Top.provides_t_to_provides_t extends Top.provides_nt_to_provides_nt -- c11
+		subcomponents
+			srcSys: refined to system DataProvider_provides_typed;
+			destSys: refined to system DataConsumer_provides_typed;
+	end Top.provides_t_to_provides_t;
+	
+	
+	system implementation Top.provides_nt_to_requires_nt extends Top.notype_to_notype -- c24
+		subcomponents
+			srcSys: refined to system DataProvider_provides_untyped;
+			destSys: refined to system DataConsumer_requires_untyped;
+	end Top.provides_nt_to_requires_nt;
+
+	system implementation Top.provides_nt_to_requires_t extends Top.provides_nt_to_requires_nt -- c23
+		subcomponents
+			destSys: refined to system DataConsumer_requires_typed;
+	end Top.provides_nt_to_requires_t;
+
+	system implementation Top.provides_t_to_requires_nt extends Top.provides_nt_to_requires_nt -- c14
+		subcomponents
+			srcSys: refined to system DataProvider_provides_typed;
+	end Top.provides_t_to_requires_nt;
+
+	system implementation Top.provides_t_to_requires_t extends Top.provides_nt_to_requires_nt -- c13
+		subcomponents
+			srcSys: refined to system DataProvider_provides_typed;
+			destSys: refined to system DataConsumer_requires_typed;
+	end Top.provides_t_to_requires_t;
+
+
+	system implementation Top.requires_nt_to_provides_nt extends Top.notype_to_notype -- c42
+		subcomponents
+			srcSys: refined to system DataProvider_requires_untyped;
+			destSys: refined to system DataConsumer_provides_untyped;
+	end Top.requires_nt_to_provides_nt;
+
+	system implementation Top.requires_nt_to_provides_t extends Top.requires_nt_to_provides_nt -- c41
+		subcomponents
+			destSys: refined to system DataConsumer_provides_typed;
+	end Top.requires_nt_to_provides_t;
+
+	system implementation Top.requires_t_to_provides_nt extends Top.requires_nt_to_provides_nt -- c32
+		subcomponents
+			srcSys: refined to system DataProvider_requires_typed;
+	end Top.requires_t_to_provides_nt;
+
+	system implementation Top.requires_t_to_provides_t extends Top.requires_nt_to_provides_nt -- r31
+		subcomponents
+			srcSys: refined to system DataProvider_requires_typed;
+			destSys: refined to system DataConsumer_provides_typed;
+	end Top.requires_t_to_provides_t;
+
+	
+	system implementation Top.requires_nt_to_requires_nt extends Top.notype_to_notype -- c44
+		subcomponents
+			srcSys: refined to system DataProvider_requires_untyped;
+			destSys: refined to system DataConsumer_requires_untyped;
+	end Top.requires_nt_to_requires_nt;
+	
+	system implementation Top.requires_nt_to_requires_t extends Top.requires_nt_to_requires_nt -- c43
+		subcomponents
+			destSys: refined to system DataConsumer_requires_typed;
+	end Top.requires_nt_to_requires_t;
+	
+	system implementation Top.requires_t_to_requires_nt extends Top.requires_nt_to_requires_nt -- c34
+		subcomponents
+			srcSys: refined to system DataProvider_requires_typed;
+	end Top.requires_t_to_requires_nt;
+	
+	system implementation Top.requires_t_to_requires_t extends Top.requires_nt_to_requires_nt -- c33
+		subcomponents
+			srcSys: refined to system DataProvider_requires_typed;
+			destSys: refined to system DataConsumer_requires_typed;
+	end Top.requires_t_to_requires_t;
+end TestAbstractToDataAccessClassifier;

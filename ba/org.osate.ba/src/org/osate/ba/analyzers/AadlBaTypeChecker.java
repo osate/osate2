@@ -1,13 +1,13 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
- * This program is free software: you can redistribute it and/or modify 
+ *
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the Eclipse Public License as published by Eclipse,
  * either version 2.0 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful,
@@ -15,7 +15,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Eclipse Public License for more details.
  * You should have received a copy of the Eclipse Public License
- * along with this program.  If not, see 
+ * along with this program.  If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
 
@@ -97,10 +97,10 @@ import org.osate.utils.Aadl2Utils ;
 
 /**
  * AADL Behavior annex feature's type and data representation checker.
- * 
+ *
  * Data type checking is delegated to the given DataTypeChecker implementation
  * (Dependency Injection).
- * 
+ *
  */
 public class AadlBaTypeChecker
 {
@@ -116,9 +116,9 @@ public class AadlBaTypeChecker
   private static final String STRING_PARAMETER_SEPARATOR = ", " ;
 
   private final DataTypeChecker _dataChecker ;
-  
+
   private final static AadlBaFactory _fact = AadlBaFactory.eINSTANCE ;
-  
+
   private AadlBaHyperlink _hl = new DefaultAadlBaHyperlink() ;
 
   /**
@@ -142,25 +142,25 @@ public class AadlBaTypeChecker
   {
     _hl = hl ;
   }
-  
+
   /**
    * Checks the type of the objects referenced during the name resolution phase.
    * Reports any error.
-   * 
+   *
    * @return {@code true} if all the objects have the excepted types.
    * {@code false} otherwise.
    */
   public boolean checkTypes()
   {
-    return  behaviorVariableCheck() &  behaviorTransitionCheck(); 
+    return  behaviorVariableCheck() &  behaviorTransitionCheck();
   }
 
   /**
-   * Document: AADL Behavior Annex draft 
-   * Version : 0.94 
+   * Document: AADL Behavior Annex draft
+   * Version : 0.94
    * Type : Semantic rule
    * Section : D.3 Behavior Specification
-   * Object : Check semantic rule D.3.(28) 
+   * Object : Check semantic rule D.3.(28)
    * Keys : local variables explicitly typed valid data component classifier
    */
   private boolean behaviorVariableCheck()
@@ -172,37 +172,37 @@ public class AadlBaTypeChecker
     for(BehaviorVariable bv : _ba.getVariables())
     {
       uccr = (QualifiedNamedElement) bv.getDataClassifier() ;
-      
-      DataClassifier dc = (DataClassifier) 
+
+      DataClassifier dc = (DataClassifier)
            uniqueNamedElementReferenceResolver(uccr,
                                                       TypeCheckRule.DATA_UCCR) ;
-      
+
       _hl.addToHyperlinking(uccr.getAadlBaLocationReference(),
                             dc) ;
-      
+
       result &= dc != null ;
       bv.setDataClassifier(dc) ;
-      
+
       for(PropertyAssociation pa : bv.getOwnedPropertyAssociations())
       {
         Property p = (Property) uniqueNamedElementReferenceResolver((QualifiedNamedElement)pa.getProperty(),
                                                                            TypeCheckRule.PROPERTY);
         pa.setProperty(p);
       }
-      
+
       ListIterator<ArrayDimension> it = bv.getArrayDimensions().listIterator() ;
-      
+
       while(it.hasNext())
       {
         ArrayDimension tmp = it.next() ;
         DeclarativeArrayDimension dad = (DeclarativeArrayDimension) tmp ;
-        
+
         ivc = dad.getDimension()  ;
         ivc = integerValueConstantCheck(ivc) ;
         result &= ivc != null ;
 
         // The returned value may be different from the tested value
-        // because of semantic ambiguity resolution in 
+        // because of semantic ambiguity resolution in
         // integervalueConstantCheck method. So replace if needed.
         if(ivc !=null)
         {
@@ -213,7 +213,7 @@ public class AadlBaTypeChecker
 
     return result ;
   }
-  
+
   private String unparseQualifiedNamedElement(QualifiedNamedElement qne)
   {
     StringBuilder sb = new StringBuilder();
@@ -222,19 +222,19 @@ public class AadlBaTypeChecker
       sb.append(qne.getBaNamespace().getId()) ;
       sb.append("::") ;
     }
-    
+
     sb.append(qne.getBaName().getId()) ;
-    
+
     return sb.toString() ;
   }
-  
+
   private Element uniqueNamedElementReferenceResolver(QualifiedNamedElement qne,
                                                       TypeCheckRule rule)
   {
     String unparsed = unparseQualifiedNamedElement(qne) ;
-    
+
     boolean succeed = typeCheck(qne, unparsed,rule, true) != null ;
-    
+
     if(succeed)
     {
       return qne.getOsateRef() ;
@@ -244,7 +244,7 @@ public class AadlBaTypeChecker
       return null ;
     }
   }
-  
+
   private ArrayDimension integerValueConstantToArrayDimension(
                                                        IntegerValueConstant ivc)
   {
@@ -253,7 +253,7 @@ public class AadlBaTypeChecker
     result.setSize(size) ;
     result.setLocationReference(ivc.getLocationReference()) ;
     size.setLocationReference(ivc.getLocationReference()) ;
-    
+
     if(ivc instanceof BehaviorIntegerLiteral)
     {
       size.setSize(((BehaviorIntegerLiteral)ivc).getValue()) ;
@@ -263,7 +263,7 @@ public class AadlBaTypeChecker
       PropertyExpression pe = null ;
       PropertyConstant pc = ((BehaviorPropertyConstant) ivc).getProperty() ;
       pe = pc.getConstantValue() ;
-      
+
       if(pe instanceof NumberValue)
       {
         double value = ((NumberValue)pe).getScaledValue() ;
@@ -281,7 +281,7 @@ public class AadlBaTypeChecker
       PropertyNameHolder last = pr.getProperties().
                                               get(pr.getProperties().size()-1) ;
       Element el = last.getProperty().getElement() ;
-      
+
       if(el instanceof NumberValue)
       {
         double value = ((NumberValue)el).getScaledValue() ;
@@ -301,7 +301,7 @@ public class AadlBaTypeChecker
         System.err.println(errorMsg) ;
         throw new UnsupportedOperationException(errorMsg) ;
     }
-    
+
     return result ;
   }
 
@@ -309,7 +309,7 @@ public class AadlBaTypeChecker
   // semantic ambiguities. On error, reports error and returns null.
   private IntegerValueConstant integerValueConstantCheck(IntegerValueConstant ivc)
   {
-    ValueAndTypeHolder holder = valueConstantCheck((ValueConstant)ivc);
+    ValueAndTypeHolder holder = valueConstantCheck(ivc);
 
     if (typeCheck(ivc, null, holder, DataRepresentation.INTEGER))
     {
@@ -342,7 +342,7 @@ public class AadlBaTypeChecker
   // semantic ambiguities. On error, reports error and returns null.
   private IntegerValueVariable integerValueVariableCheck(IntegerValueVariable ivv)
   {
-    ValueAndTypeHolder holder = valueVariableCheck((ValueVariable)ivv);
+    ValueAndTypeHolder holder = valueVariableCheck(ivv);
 
     if(typeCheck(ivv, null, holder, DataRepresentation.INTEGER))
     {
@@ -357,7 +357,7 @@ public class AadlBaTypeChecker
   private boolean behaviorTransitionCheck()
   {
     boolean result = true ;
-    
+
     for(BehaviorTransition trans : _ba.getTransitions())
     {
       BehaviorCondition cond = trans.getCondition() ;
@@ -379,11 +379,11 @@ public class AadlBaTypeChecker
       {
         result &= behaviorActionBlockCheck(trans.getActionBlock()) ;
       }
-    } 
-        
+    }
+
     return result ;
   }
-  
+
   private boolean modeSwitchTriggerLogicalExpressionCheck(
                                                           ModeSwitchTriggerLogicalExpression dtle)
   {
@@ -414,13 +414,13 @@ public class AadlBaTypeChecker
 
     return result ;
   }
-  
+
   /**
-   * Document: AADL Behavior Annex draft 
-   * Version : 0.94 
+   * Document: AADL Behavior Annex draft
+   * Version : 0.94
    * Type : Naming rule
    * Section : D.4 Thread Dispatch Behavior Specification
-   * Object : Check naming rules D.4.(N1), D.4.(N2) 
+   * Object : Check naming rules D.4.(N1), D.4.(N2)
    * Keys : frozen port, subprogram access feature, dispatch trigger condition
    */
   private boolean dispatchConditionCheck(DispatchCondition cond)
@@ -450,15 +450,15 @@ public class AadlBaTypeChecker
     if(cond.isSetFrozenPorts())
     {
       PortHolder portHolder = null ;
-      
+
       ListIterator<ActualPortHolder> it = cond.getFrozenPorts().listIterator() ;
-      
+
       while(it.hasNext())
       {
         Reference ref = (Reference) it.next() ;
-        
-        portHolder = frozenPortCheck(ref) ; 
-        
+
+        portHolder = frozenPortCheck(ref) ;
+
         if (portHolder != null)
         {
           it.set((ActualPortHolder) portHolder) ;
@@ -466,10 +466,10 @@ public class AadlBaTypeChecker
         else
         {
           result = false ;
-        } 
+        }
       }
     }
-    
+
     return result ;
   }
 
@@ -479,15 +479,15 @@ public class AadlBaTypeChecker
 
     TypeCheckRule stopOnThisRule = TypeCheckRule.FROZEN_PORT ;
     TypeCheckRule checkRules = stopOnThisRule ;
-    
+
     List<ElementHolder> resolvedRef = refResolver(ref, null,
                                                   stopOnThisRule, checkRules) ;
-    
+
     if(resolvedRef != null)
     {
       result = (PortHolder) resolvedRef.get(0) ;
     }
-    
+
     return result ;
   }
 
@@ -497,7 +497,7 @@ public class AadlBaTypeChecker
 //    {
 //      DeclarativeUtils.setEcontainer(_ba, el) ;
 //    }
-    
+
     _errManager.error(el, msg);
   }
 
@@ -507,7 +507,7 @@ public class AadlBaTypeChecker
   {
     String message = "type error for \'" + name + "\', \'" + expectedTypes +
           "\' expected, found \'" + typeFound + "\'.";
-    
+
     reportError(el, message) ;
   }
 
@@ -524,7 +524,7 @@ public class AadlBaTypeChecker
       return unparser.getOutput() ;
     }
   }
-  
+
   private String unparseReference(Reference ref)
   {
     return ref.getIds().get(ref.getIds().size() -1).getId() ;
@@ -541,18 +541,18 @@ public class AadlBaTypeChecker
           (DispatchTriggerLogicalExpression) dtc ;
 
       // dispatch trigger logical expression.
-      // Resolves ambiguity between a single dispatch trigger and subprogram 
+      // Resolves ambiguity between a single dispatch trigger and subprogram
       // access.
       if(dtle.getDispatchConjunctions().size() == 1)
       {
         DispatchConjunction dc = dtle.getDispatchConjunctions().get(0) ;
-        
+
         List<DispatchTrigger> dispatchTriggers = dc.getDispatchTriggers() ;
-        
+
         if(dispatchTriggers.size() == 1)
         {
           Reference ref = (Reference) dispatchTriggers.get(0) ;
-          
+
           ElementHolder el = dispatchTriggerResolver(ref,
                                      TypeCheckRule.DISPATCH_TRIGGER_CONDITION) ;
           if(el != null)
@@ -588,7 +588,7 @@ public class AadlBaTypeChecker
       if(dtc instanceof CompletionRelativeTimeout)
       {
         CompletionRelativeTimeout tmp = _fact.createCompletionRelativeTimeout();
-        
+
         if(behaviorTimeCheck((DeclarativeTime) dtc, tmp))
         {
           return tmp ;
@@ -605,7 +605,7 @@ public class AadlBaTypeChecker
       }
     }
   }
-  
+
   private ElementHolder dispatchTriggerResolver(Reference ref,
                                                 TypeCheckRule rule)
   {
@@ -622,7 +622,7 @@ public class AadlBaTypeChecker
       return null ;
     }
   }
-  
+
   private boolean behaviorTimeCheck(DeclarativeTime dbt,
                                     BehaviorTime result)
   {
@@ -638,7 +638,7 @@ public class AadlBaTypeChecker
       result.setUnit((UnitLiteral) unitId.getOsateRef()) ;
       result.setLocationReference(dbt.getLocationReference());
     }
-    
+
     return tmp != null ;
   }
 
@@ -646,19 +646,19 @@ public class AadlBaTypeChecker
                                           DispatchTriggerLogicalExpression dtle)
   {
     boolean result = true ;
-    
+
     ElementHolder elHolder = null ;
 
     for(DispatchConjunction dc : dtle.getDispatchConjunctions())
     {
       ListIterator<DispatchTrigger> it = dc.getDispatchTriggers().listIterator();
-      
+
       while(it.hasNext())
       {
         Reference e  = (Reference) it.next() ;
-        
+
         elHolder = dispatchTriggerResolver(e, TypeCheckRule.DISPATCH_TRIGGER) ;
-        
+
         if(elHolder != null)
         {
           it.set((DispatchTrigger) elHolder) ;
@@ -692,9 +692,9 @@ public class AadlBaTypeChecker
   // This method checks the given object and returns a value expression
   // resolved from semantic ambiguities and its data representation. On error,
   // reports error and returns null.
-  /** 
+  /**
    * Document: AADL Behavior Annex draft
-   * Version : 0.94 
+   * Version : 0.94
    * Type : Legality rule
    * Section : D.7 Behavior Expression Language
    * Object : Check legality rules D.7.(L3), partially D.7.(L6)
@@ -721,7 +721,7 @@ public class AadlBaTypeChecker
       }
     }
 
-    // If the relation checking are successful, checks operators definition 
+    // If the relation checking are successful, checks operators definition
     // and evaluates top level value variable type representation.
     if(isTopLevelTypePossible)
     {
@@ -731,7 +731,7 @@ public class AadlBaTypeChecker
         {
           typea[i] = _dataChecker.checkDefinition(ve, opl.get(i-1), typea[i-1],
               typea[i]) ;
-          // Error case : the current operator is not defined.  
+          // Error case : the current operator is not defined.
           if (typea[i] == null)
           {
             return null ;
@@ -754,12 +754,12 @@ public class AadlBaTypeChecker
 
   // Returns the top-level relation data representation or null on error.
   // Reports any error.
-  /** 
+  /**
    * Document: AADL Behavior Annex draft
-   * Version : 0.94 
+   * Version : 0.94
    * Type : Legality rule
    * Section : D.7 Behavior Expression Language
-   * Object : Check legality rule D.7.(L4) 
+   * Object : Check legality rule D.7.(L4)
    * Keys : operand relational operators supports comparison
    */
   private TypeHolder relationCheck(Relation r)
@@ -769,7 +769,7 @@ public class AadlBaTypeChecker
 
     if(r.isSetRelationalOperator())
     {
-      th2 = simpleExpressionCheck(r.getSecondExpression()) ; 
+      th2 = simpleExpressionCheck(r.getSecondExpression()) ;
     }
     else
     {
@@ -789,12 +789,12 @@ public class AadlBaTypeChecker
 
   // Returns the top-level simple expression type representation or null on
   // error. Reports any error.
-  /** 
+  /**
    * Document: AADL Behavior Annex draft
-   * Version : 0.94 
+   * Version : 0.94
    * Type : Legality rule
    * Section : D.7 Behavior Expression Language
-   * Object : Check legality rule D.7.(L5) 
+   * Object : Check legality rule D.7.(L5)
    * Keys : adding other numeric operators support numeric operations
    */
   private TypeHolder simpleExpressionCheck(SimpleExpression se)
@@ -826,7 +826,7 @@ public class AadlBaTypeChecker
         typea[0] = _dataChecker.checkDefinition(se,
             se.getUnaryAddingOperator(),
             typea[0]) ;
-        // Error case : the unary adding operator is not defined.  
+        // Error case : the unary adding operator is not defined.
         if (typea[0] == null)
         {
           return null ;
@@ -840,7 +840,7 @@ public class AadlBaTypeChecker
           typea[i] = _dataChecker.checkDefinition(se,opl.get(i-1), typea[i-1],
               typea[i]) ;
 
-          // Error case : the current operator is not defined.  
+          // Error case : the current operator is not defined.
           if (typea[i] == null)
           {
             return null ;
@@ -849,7 +849,7 @@ public class AadlBaTypeChecker
 
         return typea[typea.length - 1] ;
       }
-      else // As there isn't any operator set, top level type is the unique 
+      else // As there isn't any operator set, top level type is the unique
         // term's one.
       {
         return typea[0] ;
@@ -863,12 +863,12 @@ public class AadlBaTypeChecker
 
   // Returns the top-level term type representation or null on error.
   // Reports any error.
-  /** 
+  /**
    * Document: AADL Behavior Annex draft
-   * Version : 0.94 
+   * Version : 0.94
    * Type : Legality rule
    * Section : D.7 Behavior Expression Language
-   * Object : Check legality rule D.7.(L5) 
+   * Object : Check legality rule D.7.(L5)
    * Keys : multiplying other numeric operators support numeric operations
    */
   private TypeHolder termCheck(Term t)
@@ -901,7 +901,7 @@ public class AadlBaTypeChecker
         {
           typea[i] = _dataChecker.checkDefinition(t, opl.get(i-1), typea[i-1],
               typea[i]) ;
-          // Error case : the current operator is not defined.  
+          // Error case : the current operator is not defined.
           if (typea[i] == null)
           {
             return null ;
@@ -910,7 +910,7 @@ public class AadlBaTypeChecker
 
         return typea[typea.length - 1] ;
       }
-      else // As there isn't any operator set, top level type is the unique 
+      else // As there isn't any operator set, top level type is the unique
         // factor's one.
       {
         return typea[0] ;
@@ -924,12 +924,12 @@ public class AadlBaTypeChecker
 
   // Returns the top-level factor type representation or null on error.
   // Reports any error.
-  /** 
+  /**
    * Document: AADL Behavior Annex draft
-   * Version : 0.94 
+   * Version : 0.94
    * Type : Legality rule
-   * Section : D.7 Behavior Expression Language 
-   * Object : Check legality rule D.7.(L5) 
+   * Section : D.7 Behavior Expression Language
+   * Object : Check legality rule D.7.(L5)
    * Keys : other numeric operators support numeric operations
    */
   private TypeHolder factorCheck(Factor f)
@@ -941,7 +941,7 @@ public class AadlBaTypeChecker
 
     if(sdValue != null)
     {
-      // Checks second value even if the first value checking has failed. 
+      // Checks second value even if the first value checking has failed.
       vth2 = valueCheck(sdValue) ;
     }
 
@@ -960,13 +960,13 @@ public class AadlBaTypeChecker
         Enumerator op ;
 
         op =  (
-                (f.isSetUnaryBooleanOperator()) ? 
-                  f.getUnaryBooleanOperator() : 
+                (f.isSetUnaryBooleanOperator()) ?
+                  f.getUnaryBooleanOperator() :
                   f.getUnaryNumericOperator()) ;
 
         return _dataChecker.checkDefinition(f, op, vth1.typeHolder) ;
       }
-      else 
+      else
       {
         if(f.isSetBinaryNumericOperator())
         {
@@ -1021,7 +1021,7 @@ public class AadlBaTypeChecker
       }
     }
   }
-  
+
   // This method checks the given object and returns a value variable
   // resolved from semantic ambiguities and its data representation. On error,
   // reports error and returns null.
@@ -1032,12 +1032,12 @@ public class AadlBaTypeChecker
     ActualPortHolder port ;
     TypeCheckRule stopRule ;
     TypeCheckRule[] checkRules ;
-    
+
     if(v instanceof Reference)
     {
       port = null ;
       stopRule = TypeCheckRule.VV_STOP_RULE ;
-      
+
       checkRules = new TypeCheckRule[]
                    {
                      TypeCheckRule.VV_COMPONENT_REFERENCE_FIRST_NAME,
@@ -1048,7 +1048,7 @@ public class AadlBaTypeChecker
     {
       NamedValue nv = (NamedValue) v ;
       v = nv.getReference() ;
-              
+
       if(nv.isCount())
       {
         port = _fact.createPortCountValue() ;
@@ -1064,22 +1064,22 @@ public class AadlBaTypeChecker
         port = _fact.createPortFreshValue() ;
         stopRule = TypeCheckRule.PORT_FRESH_VALUE ;
       }
-      
+
       port.setLocationReference(v.getLocationReference()) ;
       checkRules = new TypeCheckRule[] {stopRule} ;
     }
-    
+
     ehl = refResolver((Reference) v, port, stopRule, checkRules) ;
     if(ehl != null)
     {
       tmpResult = referenceToValueVariable(ehl) ;
-      
+
       if(tmpResult instanceof PortFreshValue)
       {
         PortFreshValue pfv = (PortFreshValue) tmpResult ;
         AadlBaVisitors.putFreshPort(_ba, pfv.getPort()) ;
       }
-      
+
       return this.getValueAndTypeHolder(tmpResult, v) ;
     }
     else
@@ -1087,13 +1087,13 @@ public class AadlBaTypeChecker
       return null ;
     }
   }
-  
+
   // Null proof.
   @SuppressWarnings("all")
   private ValueVariable referenceToValueVariable(List<ElementHolder> resolvedRef)
   {
     ValueVariable result = null ;
-    
+
     if(resolvedRef != null)
     {
       if(resolvedRef.size() > 1)
@@ -1108,10 +1108,10 @@ public class AadlBaTypeChecker
         result = (ValueVariable) resolvedRef.get(0) ;
       }
     }
-    
+
     return result ;
   }
-  
+
   private ValueAndTypeHolder getValueAndTypeHolder(Value v, Element errorRef)
   {
     try
@@ -1126,19 +1126,19 @@ public class AadlBaTypeChecker
       return null ;
     }
   }
-  
+
   // Checks group rules by default.
   // Special attention is provided for Value or Target that are not
   // data component references (ex: PortHolder): if stopOnThisRule is found
   // and extra information exists (ex: port.port which syntactically correct but
   // semantically wrong), it will report extraneous information error.
-  // If given port is not null, elementHolderResolver will try to set it 
-  // (optimize reinstanciation when using design pattern decoration, for 
+  // If given port is not null, elementHolderResolver will try to set it
+  // (optimize reinstanciation when using design pattern decoration, for
   // PortActions and PortValues).
   // Also, IterativeVariable and BehaviorVariable instances can't have any
   // group information. It will report extraneous information error if
   // groups are provided.
-  // This method can't detect if there is not enought information (currently 
+  // This method can't detect if there is not enought information (currently
   // just for required_data_access_name.provided_subprogram_access_name case).
   private List<ElementHolder> refResolver(Reference ref, ActualPortHolder port,
                                           TypeCheckRule stopOnThisRule,
@@ -1153,18 +1153,18 @@ public class AadlBaTypeChecker
     TypeCheckRule currentRule = checkRules[currentIndexRule] ;
     TypeCheckRule lastRule = checkRules[checkRules.length -1] ;
     boolean hasToContinue = true ;
-    
+
     ArrayList<GroupHolder> grpl = new ArrayList<GroupHolder>
                                                          (ref.getIds().size()) ;
-    
+
     ListIterator<ArrayableIdentifier> it = ref.getIds().listIterator() ;
-    
+
     while(it.hasNext())
     {
       ArrayableIdentifier id = it.next() ;
-      
+
       currentResult = typeCheck(id, id.getId(), TypeCheckRule.GROUPS, false) ;
-      
+
       // The current id represents a group, so store it in the groups stack.
       if(currentResult != null)
       {
@@ -1175,18 +1175,18 @@ public class AadlBaTypeChecker
            // use the last given rule for the extra ids.
       {
         currentResult = typeCheck(id, id.getId(), currentRule, true) ;
-        
+
         if(currentResult != null)
         {
           currentElementholder = elementHolderResolver(id, currentResult, port);
           result.add(currentElementholder) ;
-          
+
           if(currentElementholder instanceof GroupableElement)
           {
             if(false == grpl.isEmpty())
             {
               GroupableElement ge = (GroupableElement) currentElementholder ;
-              
+
               // Flush GroupHolder List.
               if(false == grpl.isEmpty())
               {
@@ -1198,18 +1198,18 @@ public class AadlBaTypeChecker
           else if(false == grpl.isEmpty())
           {
             // Reports error of a not GroupableHolder that have group information.
-            String msg = id.getId() + " can't have group information." ; 
+            String msg = id.getId() + " can't have group information." ;
             reportError(id, msg) ;
             return null ;
           }
-          
+
           // Tests if a type that stop the checking is found.
-          hasToContinue = stopOnThisRule.testTypeCheckRule(currentResult) 
-                                                                       == null ; 
+          hasToContinue = stopOnThisRule.testTypeCheckRule(currentResult)
+                                                                       == null ;
           if(it.hasNext())
           {
             currentIndexRule++ ;
-            
+
             // Extra information (it passes the name resolved),
             // has been given whereas the stop type is reached.
             // So report error.
@@ -1220,13 +1220,13 @@ public class AadlBaTypeChecker
               reportError(id, msg) ;
               return null ;
             }
-            else // Stop type is not reached or is null that means there is 
+            else // Stop type is not reached or is null that means there is
                  // not id number limit.
             {
               // If the number of ids is greater than the number of given
               // rules: use the last rule for the extra ids. Only for data
               // component reference.
-              currentRule = (currentIndexRule < checkRules.length) ? 
+              currentRule = (currentIndexRule < checkRules.length) ?
                                                 checkRules[currentIndexRule] :
                                                 lastRule ;
             }
@@ -1238,20 +1238,20 @@ public class AadlBaTypeChecker
           return null ;
         }
       }
-      
+
       // Checks array indexes.
       if(id.isSetArrayIndexes())
       {
         if(currentElementholder instanceof IndexableElement)
         {
-          IndexableElement currentIndexableElement = (IndexableElement) 
+          IndexableElement currentIndexableElement = (IndexableElement)
                                                           currentElementholder ;
-          
+
           boolean isConsistent = true ;
-          
+
           List<IntegerValue> resolvedValues = new ArrayList<IntegerValue>
                                                     (id.getArrayIndexes().size());
-          
+
           for(IntegerValue iv : id.getArrayIndexes())
           {
             // Reports any error.
@@ -1265,7 +1265,7 @@ public class AadlBaTypeChecker
               isConsistent = false ;
             }
           }
-          
+
           // Avoid collection concurrency modification between id's integer values
           // and currentIndexableElement's one.
           if(isConsistent)
@@ -1292,7 +1292,7 @@ public class AadlBaTypeChecker
     }
     return result ;
   }
-  
+
   // It doesn't perform any check.
   // It just builds an element holder according to the given type.
   // If port is not null, it will set the given port.
@@ -1301,11 +1301,11 @@ public class AadlBaTypeChecker
                                               ActualPortHolder port)
   {
     ElementHolder result = null ;
-    
+
     if(type instanceof FeatureType)
     {
       FeatureType t = (FeatureType) type ;
-      
+
       switch(t)
       {
         case IN_DATA_PORT:
@@ -1323,10 +1323,10 @@ public class AadlBaTypeChecker
             port.setPort((Port)id.getOsateRef()) ;
             result = port ;
           }
-          
+
           break ;
         }
-        
+
         case IN_EVENT_DATA_PORT:
         case OUT_EVENT_DATA_PORT:
         case IN_OUT_EVENT_DATA_PORT:
@@ -1342,10 +1342,10 @@ public class AadlBaTypeChecker
             port.setPort((Port)id.getOsateRef()) ;
             result = port ;
           }
-          
+
           break ;
         }
-        
+
         case IN_EVENT_PORT:
         case OUT_EVENT_PORT:
         case IN_OUT_EVENT_PORT:
@@ -1361,10 +1361,10 @@ public class AadlBaTypeChecker
             port.setPort((Port)id.getOsateRef()) ;
             result = port ;
           }
-          
+
           break ;
         }
-        
+
         case REQUIRES_DATA_ACCESS:
         case PROVIDES_DATA_ACCESS:
         {
@@ -1373,7 +1373,7 @@ public class AadlBaTypeChecker
           result = tmp ;
           break ;
         }
-        
+
         case DATA_SUBCOMPONENT:
         {
           DataSubcomponentHolder tmp = _fact.createDataSubcomponentHolder() ;
@@ -1381,33 +1381,33 @@ public class AadlBaTypeChecker
           result = tmp ;
           break ;
         }
-        
+
         case CLASSIFIER_VALUE:
         {
           ClassifierValue cv = (ClassifierValue) id.getOsateRef() ;
           DataClassifier dc = (DataClassifier) cv.getClassifier() ;
-          
-          
+
+
           StructUnionElement sue = _fact.createStructUnionElement() ;
           sue.setLocationReference(Aadl2Utils.getLocationReference(dc)) ;
           sue.setDataClassifier(dc) ;
           sue.setName(id.getId()) ;
-          
+
           StructUnionElementHolder sueHolder = _fact.
                                               createStructUnionElementHolder() ;
           sueHolder.setStructUnionElement(sue) ;
-          
+
           // Set econtainer as ElementHolder::element is not containment.
           InternalEObject parent = (InternalEObject) sueHolder ;
           InternalEObject child = (InternalEObject) sue ;
-          
+
           child.eBasicSetContainer(parent,
                                    AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__STRUCT_UNION_ELEMENT,
                                    null) ;
           result = sueHolder ;
           break ;
         }
-        
+
         case IN_PARAMETER:
         case OUT_PARAMETER:
         case IN_OUT_PARAMETER:
@@ -1417,7 +1417,7 @@ public class AadlBaTypeChecker
           result = tmp ;
           break ;
         }
-        
+
         case SUBPROGRAM_CLASSIFIER:
         case SUBPROGRAM_SUBCOMPONENT:
         {
@@ -1426,7 +1426,7 @@ public class AadlBaTypeChecker
           result = tmp ;
           break ;
         }
-        
+
         case REQUIRES_SUBPROGRAM_ACCESS:
         case PROVIDES_SUBPROGRAM_ACCESS:
         {
@@ -1435,7 +1435,7 @@ public class AadlBaTypeChecker
           result = tmp ;
           break ;
         }
-        
+
         case FEATURE_GROUP:
         case SUBPROGRAM_GROUP:
         case THREAD_GROUP:
@@ -1447,7 +1447,7 @@ public class AadlBaTypeChecker
           result = tmp ;
           break ;
         }
-        
+
         case SUBPROGRAM_PROTOTYPE:
         {
           Element el = id.getOsateRef() ;
@@ -1463,11 +1463,11 @@ public class AadlBaTypeChecker
             Prototype p = (Prototype) el ;
             tmp.setPrototype(p) ;
           }
-          
+
           result = tmp ;
           break ;
         }
-        
+
         case IN_DATA_PORT_PROTOTYPE:
         case OUT_DATA_PORT_PROTOTYPE:
         case IN_OUT_DATA_PORT_PROTOTYPE:
@@ -1491,11 +1491,11 @@ public class AadlBaTypeChecker
             Prototype p = (Prototype) el ;
             tmp.setPrototype(p) ;
           }
-          
+
           result = tmp ;
           break ;
         }
-        
+
         case REQUIRES_DATA_ACCESS_PROTOTYPE:
         case PROVIDES_DATA_ACCESS_PROTOTYPE:
         {
@@ -1512,13 +1512,13 @@ public class AadlBaTypeChecker
             Prototype p = (Prototype) el ;
             tmp.setPrototype(p) ;
           }
-          
+
           result = tmp ;
           break ;
         }
-        
+
         case FEATURE_GROUP_PROTOTYPE:
-        case FEATURE_GROUP_PROTOTYPE_BINDING:  
+        case FEATURE_GROUP_PROTOTYPE_BINDING:
         case SUBPROGRAM_GROUP_PROTOTYPE:
         case THREAD_GROUP_PROTOTYPE:
         case REQUIRES_SUBPROGRAM_GROUP_ACCESS_PROTOTYPE:
@@ -1540,7 +1540,7 @@ public class AadlBaTypeChecker
           result = tmp ;
           break ;
         }
-        
+
         case IN_FEATURE_PROTOTYPE:
         case OUT_FEATURE_PROTOTYPE:
         case IN_OUT_FEATURE_PROTOTYPE:
@@ -1558,14 +1558,14 @@ public class AadlBaTypeChecker
             Prototype p = (Prototype) el ;
             tmp.setPrototype(p) ;
           }
-          
+
           result = tmp ;
           break ;
         }
-        
+
         default:
         {
-          String errorMsg = "type: " + type.toString() + 
+          String errorMsg = "type: " + type.toString() +
                 " is not supported yet." ;
             System.err.println(errorMsg) ;
             throw new UnsupportedOperationException(errorMsg) ;
@@ -1575,7 +1575,7 @@ public class AadlBaTypeChecker
     else
     {
       BehaviorFeatureType t = (BehaviorFeatureType) type ;
-      
+
       switch(t)
       {
         case BEHAVIOR_VARIABLE:
@@ -1585,7 +1585,7 @@ public class AadlBaTypeChecker
           result = tmp ;
           break ;
         }
-        
+
         case ITERATIVE_VARIABLE:
         {
           IterativeVariableHolder ivh = _fact.createIterativeVariableHolder() ;
@@ -1593,37 +1593,37 @@ public class AadlBaTypeChecker
           result = ivh ;
           break ;
         }
-      
+
         default:
         {
-          String errorMsg = "type: " + type.toString() + 
+          String errorMsg = "type: " + type.toString() +
                 " is not supported yet." ;
             System.err.println(errorMsg) ;
             throw new UnsupportedOperationException(errorMsg) ;
         }
       }
     }
-    
+
     result.setLocationReference(id.getLocationReference()) ;
-    
-    _hl.addToHyperlinking(id.getAadlBaLocationReference(), result) ;    
-    
+
+    _hl.addToHyperlinking(id.getAadlBaLocationReference(), result) ;
+
     return result ;
   }
 
   private void reportDimensionException(DimensionException de)
   {
     StringBuilder msg = new StringBuilder();
-    
+
     if(de._element instanceof BehaviorElement)
     {
       msg.append('"') ;
       msg.append(this.unparseNameElement((BehaviorElement) de._element)) ;
       msg.append("\" ") ;
     }
-    
+
     msg.append(de.getMessage());
-    
+
     _errManager.error(de._element, msg.toString()) ;
   }
 
@@ -1634,7 +1634,7 @@ public class AadlBaTypeChecker
  {
    ValueAndTypeHolder result = null ;
    ValueConstant tmpResult = null ;
-   
+
    if(v instanceof DeclarativePropertyReference)
    {
      tmpResult = propertyReferenceResolver((DeclarativePropertyReference) v) ;
@@ -1648,19 +1648,19 @@ public class AadlBaTypeChecker
    {
      result = getValueAndTypeHolder(tmpResult, v) ;
    }
-   
+
    return result ;
  }
-  
+
   private ValueConstant propertyReferenceResolver(DeclarativePropertyReference
                                                   ref)
   {
     ValueConstant result = null ;
-    
+
     if(ref.isPropertySet())
     {
       DeclarativePropertyName firstName = ref.getPropertyNames().get(0) ;
-      
+
       // Property constant from a property set.
       if(firstName.getOsateRef() instanceof PropertyConstant)
       {
@@ -1678,7 +1678,7 @@ public class AadlBaTypeChecker
         PropertySetPropertyReference tmp = _fact.
                                           createPropertySetPropertyReference() ;
         propertyNameListResolver(ref.getPropertyNames(), tmp.getProperties()) ;
-        
+
         if(ref.getQualifiedName() != null)
         {
           tmp.setPropertySet((PropertySet) ref.getQualifiedName().
@@ -1687,7 +1687,7 @@ public class AadlBaTypeChecker
         result = tmp ;
       }
     }
-    else if(ref.getQualifiedName() != null) // [qualified] classifier case. 
+    else if(ref.getQualifiedName() != null) // [qualified] classifier case.
     {
       ClassifierPropertyReference tmp = _fact.createClassifierPropertyReference();
       tmp.setClassifier((Classifier) ref.getQualifiedName().getOsateRef());
@@ -1698,12 +1698,12 @@ public class AadlBaTypeChecker
     {
       ClassifierFeaturePropertyReference tmp = _fact.
                                     createClassifierFeaturePropertyReference() ;
-      
+
       classifierFeatureResolver(tmp, ref.getReference()) ;
       propertyNameListResolver(ref.getPropertyNames(), tmp.getProperties()) ;
       result = tmp ;
     }
-    
+
     result.setLocationReference(ref.getLocationReference());
     return result ;
   }
@@ -1716,15 +1716,15 @@ public class AadlBaTypeChecker
     EList<IntegerValue> indexes = null ;
     LocationReference loc = null ;
     Element global, primary ;
-    
+
     for(DeclarativePropertyName dpn : dpns)
     {
       pnh = _fact.createPropertyNameHolder() ;
       pnh.setLocationReference(dpn.getLocationReference());
-      
+
       global = dpn.getOsateRef() ;
       primary = dpn.getPropertyName().getOsateRef() ;
-      
+
       if(primary != global) // Item list case.
       {
         loc = dpn.getPropertyName().getLocationReference() ;
@@ -1734,11 +1734,11 @@ public class AadlBaTypeChecker
       {
         loc = dpn.getLocationReference() ;
         peh = propertyElementHolderResolver(global, loc);
-        
+
       }
-      
+
       indexes = peh.getArrayIndexes() ;
-      
+
       if(dpn.getField() != null)
       {
         pnh.setField(dpn.getField());
@@ -1754,23 +1754,23 @@ public class AadlBaTypeChecker
           }
         }
       }
-      
+
       pnh.setProperty(peh);
       result.add(pnh) ;
     }
   }
-  
+
   private PropertyElementHolder propertyElementHolderResolver(Element el,
                                                               LocationReference loc)
   {
     PropertyElementHolder result = null ;
-    
+
     if(el instanceof BasicProperty)
     {
       BasicProperty bp = (BasicProperty) el ;
       BasicPropertyHolder tmp = _fact.createBasicPropertyHolder() ;
       tmp.setBasicProperty(bp) ;
-      result = tmp ; 
+      result = tmp ;
     }
     else if(el  instanceof PropertyAssociation)
     {
@@ -1802,16 +1802,16 @@ public class AadlBaTypeChecker
     }
     else
     {
-      String errorMsg = "type: " + el.getClass().getSimpleName() + 
+      String errorMsg = "type: " + el.getClass().getSimpleName() +
             " is not supported yet." ;
         System.err.println(errorMsg) ;
         throw new UnsupportedOperationException(errorMsg) ;
     }
-    
+
     result.setLocationReference(loc);
     return result ;
   }
-  
+
   private void classifierFeatureResolver(ClassifierFeaturePropertyReference result,
                                          Reference ref)
   {
@@ -1837,7 +1837,7 @@ public class AadlBaTypeChecker
     return result ;
   }
 
-  private boolean behaviorActionsCheck(BehaviorActions bActs, Object 
+  private boolean behaviorActionsCheck(BehaviorActions bActs, Object
                                                                 parentContainer)
   {
     if(bActs instanceof BehaviorAction)
@@ -1850,7 +1850,7 @@ public class AadlBaTypeChecker
 
       ListIterator<BehaviorAction> it = ((BehaviorActionCollection)bActs).
                                             getActions().listIterator() ;
-      while(it.hasNext()) 
+      while(it.hasNext())
       {
         BehaviorAction bAct = it.next() ;
         result &= behaviorActionCheck(bAct, it) ;
@@ -1860,7 +1860,7 @@ public class AadlBaTypeChecker
     }
   }
 
-  private boolean behaviorActionCheck(BehaviorAction bAct, Object 
+  private boolean behaviorActionCheck(BehaviorAction bAct, Object
                                                              parentContainer)
   {
     if(bAct instanceof BehaviorActionBlock)
@@ -1912,23 +1912,23 @@ public class AadlBaTypeChecker
     return result ;
   }
 
-  
+
   /**
-   * Document: AADL Behavior Annex draft 
-   * Version : 0.94 
+   * Document: AADL Behavior Annex draft
+   * Version : 0.94
    * Type : Legality rule
    * Section : D.6 Behavior Action Language
-   * Object : Check legality rule D.6.(L2) 
+   * Object : Check legality rule D.6.(L2)
    * Keys : for forall iterative variable not valid assignment target
-   * 
+   *
     */
   private boolean forOrForAllStatementCheck(ForOrForAllStatement stat)
   {
     IterativeVariable itVar = stat.getIterativeVariable() ;
     boolean result = iterativeVariableCheck(itVar) ;
-    
+
     result &= behaviorActionsCheck(stat.getBehaviorActions(), stat) ;
-    
+
     ElementValues tmp = elementValuesCheck(stat.getIteratedValues());
     result &= tmp != null ;
 
@@ -1952,9 +1952,9 @@ public class AadlBaTypeChecker
         TypeHolder t1, t2 ;
         try
         {
-          t1 = AadlBaUtils.getTypeHolder((Value) ir.getLowerIntegerValue(),
+          t1 = AadlBaUtils.getTypeHolder(ir.getLowerIntegerValue(),
                                          _baParentContainer);
-          t2 = AadlBaUtils.getTypeHolder((Value) ir.getUpperIntegerValue(),
+          t2 = AadlBaUtils.getTypeHolder(ir.getUpperIntegerValue(),
                                          _baParentContainer);
         }
         catch (DimensionException de)
@@ -1972,14 +1972,14 @@ public class AadlBaTypeChecker
       {
         try
         {
-           eleType = AadlBaUtils.getTypeHolder((Value) tmp) ;
+           eleType = AadlBaUtils.getTypeHolder(tmp) ;
         }
         catch (DimensionException de)
         {
           reportDimensionException(de) ;
           return false ;
         }
-         
+
         if(tmp instanceof EventDataPortHolder)
         {
           // Event ports are one dimension events queue.
@@ -1987,7 +1987,7 @@ public class AadlBaTypeChecker
           eleType.dimension = 1 ;
         }
       }
-      
+
       try
       {
          uccrType = AadlBaUtils.getTypeHolder(itVar);
@@ -1997,23 +1997,23 @@ public class AadlBaTypeChecker
         reportDimensionException(de) ;
         return false ;
       }
-      
-      // iterative variable's UCCR syntax cannot express array 
+
+      // iterative variable's UCCR syntax cannot express array
       // ([] are not allowed). Also, this implementation of AADL behavior
       // annex, doesn't allow the use of iterative variable's types which are
       // declared as array (data model annex).
       if(uccrType.dimension > 0)
       {
-         StringBuilder message = new StringBuilder( 
-            "the for/forall iterative variable's type cannot be an array.") ; 
-               
-         message.append(" Found \'");      
-         message.append(uccrType.toString()); 
+         StringBuilder message = new StringBuilder(
+            "the for/forall iterative variable's type cannot be an array.") ;
+
+         message.append(" Found \'");
+         message.append(uccrType.toString());
             message.append("\'.") ;
          reportError(tmp, message.toString()) ;
          result = false ;
       }
-      
+
       if(_dataChecker.conformsTo(eleType, uccrType, false))
       {
          result=true;
@@ -2029,11 +2029,11 @@ public class AadlBaTypeChecker
          sb.append("\".");
          reportError(stat, sb.toString()) ;
       }
-      
+
       // Checks data component reference arrayness and reports any error.
       if(eleType.dimension == 0)
       {
-         String message = "\'" + unparseNameElement(tmp) + 
+         String message = "\'" + unparseNameElement(tmp) +
                "\' is not an array" ;
          reportError(tmp, message) ;
          result = false ;
@@ -2041,19 +2041,19 @@ public class AadlBaTypeChecker
     }
     return result ;
   }
-  
+
   private boolean iterativeVariableCheck(IterativeVariable itVar)
   {
-    QualifiedNamedElement qne = (QualifiedNamedElement) 
+    QualifiedNamedElement qne = (QualifiedNamedElement)
                                                      itVar.getDataClassifier() ;
-    
-    // The statement's unique component reference reference has to be   
+
+    // The statement's unique component reference reference has to be
     // data classifier.
     Classifier dataClassifier = (Classifier) uniqueNamedElementReferenceResolver(qne,
                                                       TypeCheckRule.DATA_UCCR) ;
-    
+
     itVar.setDataClassifier((DataClassifier) dataClassifier) ;
-    
+
     return dataClassifier != null ;
   }
 
@@ -2080,17 +2080,17 @@ public class AadlBaTypeChecker
       TypeCheckRule[] checkRules  = new TypeCheckRule[]
             {TypeCheckRule.ELEMENT_VALUES,
              TypeCheckRule.DATA_COMPONENT_REFERENCE_OTHER_NAMES} ;
-      
+
       List<ElementHolder> ehl = refResolver((Reference) ev, null, stopRule,
                                             checkRules) ;
-      
+
       // Can reuse this method as PortHolder and DataComponentVariable are also
       // ElementValues.
       return (ElementValues) referenceToValueVariable(ehl) ;
     }
   }
 
-  // Checks the given integer range and checks the consistency between 
+  // Checks the given integer range and checks the consistency between
   // the integer values.
   private boolean integerRangeCheck(IntegerRange ir)
   {
@@ -2119,12 +2119,12 @@ public class AadlBaTypeChecker
     if(result)
     {
       TypeHolder t1, t2 ;
-      
+
       try
       {
-        t1 = AadlBaUtils.getTypeHolder((Value) ir.getLowerIntegerValue(),
+        t1 = AadlBaUtils.getTypeHolder(ir.getLowerIntegerValue(),
                                        _baParentContainer) ;
-        t2 = AadlBaUtils.getTypeHolder((Value) ir.getUpperIntegerValue(),
+        t2 = AadlBaUtils.getTypeHolder(ir.getUpperIntegerValue(),
                                        _baParentContainer) ;
       }
       catch (DimensionException de)
@@ -2132,7 +2132,7 @@ public class AadlBaTypeChecker
             reportDimensionException(de) ;
             return false ;
          }
-      
+
       if(! _dataChecker.conformsTo(t1, t2, true))
       {
         result = false ;
@@ -2148,15 +2148,15 @@ public class AadlBaTypeChecker
   {
     boolean result ;
     ValueAndTypeHolder holder = null ;
-    
+
     ValueExpression ve = stat.getLogicalValueExpression() ;
     holder = valueExpressionCheck(ve) ;
     result = typeCheck(ve, null, holder, DataRepresentation.BOOLEAN) ;
-    
+
     result &= behaviorActionsCheck(stat.getBehaviorActions(), stat);
-    
+
     ElseStatement elseStat = stat.getElseStatement() ;
-    
+
     if(elseStat != null)
     {
       // Elif case.
@@ -2172,7 +2172,7 @@ public class AadlBaTypeChecker
 
     return result ;
   }
-  
+
   @SuppressWarnings("all")
   private boolean basicActionCheck(BasicAction ba, Object parentContainer)
   {
@@ -2187,7 +2187,7 @@ public class AadlBaTypeChecker
         CommunicationAction resolvedCommAct =
                             communicationActionCheck((CommunicationAction) ba) ;
         boolean result = resolvedCommAct != null ;
-        
+
         // The returned communication action may be different from the
         // tested one because of semantic ambiguity resolution in
         // communicationActionCheck method. So replace if needed.
@@ -2195,13 +2195,13 @@ public class AadlBaTypeChecker
         {
           // [DEBUG]
           boolean hasBeenReplaced = false ;
-          
+
           if(parentContainer instanceof ListIterator<?>)
           {
             ((ListIterator) parentContainer).set(resolvedCommAct) ;
             hasBeenReplaced = true ;
           }
-          else if(parentContainer instanceof ElseStatement) 
+          else if(parentContainer instanceof ElseStatement)
           {
              // And also IfStatement.
             ((ElseStatement)parentContainer).setBehaviorActions(resolvedCommAct);
@@ -2217,13 +2217,13 @@ public class AadlBaTypeChecker
             ((BehaviorActionBlock)parentContainer).setContent(resolvedCommAct);
             hasBeenReplaced = true ;
           }
-          
+
           if (! hasBeenReplaced)
           {
-            String msg = "The resolved communication action: " +  
-                  unparseNameElement(resolvedCommAct) + 
+            String msg = "The resolved communication action: " +
+                  unparseNameElement(resolvedCommAct) +
                   " hasn't been set" ;
-            
+
             System.err.println(msg) ;
             throw new RuntimeException(msg);
           }
@@ -2241,7 +2241,7 @@ public class AadlBaTypeChecker
   private boolean timedActionCheck(TimedAction ta)
   {
     BehaviorTime resolvedTime = _fact.createBehaviorTime() ;
-    
+
     boolean result = behaviorTimeCheck((DeclarativeTime) ta.getLowerTime(),
                                        resolvedTime);
     ta.setLowerTime(resolvedTime) ;
@@ -2253,17 +2253,17 @@ public class AadlBaTypeChecker
                                   resolvedTime);
       ta.setUpperTime(resolvedTime) ;
     }
-    
+
     if(ta.isSetProcessorClassifier())
     {
       List<ProcessorClassifier> qnes = new ArrayList<ProcessorClassifier>
-                                          (ta.getProcessorClassifier().size()) ; 
+                                          (ta.getProcessorClassifier().size()) ;
       qnes.addAll(ta.getProcessorClassifier())       ;
       ta.unsetProcessorClassifier();
-      
+
       QualifiedNamedElement qne ;
       Classifier tmp ;
-      
+
       for(int i = 0 ; i < qnes.size() ; i++)
       {
         qne = (QualifiedNamedElement) qnes.get(i) ;
@@ -2272,7 +2272,7 @@ public class AadlBaTypeChecker
         if(tmp != null)
         {
           try
-          { 
+          {
             ta.getProcessorClassifier().add((ProcessorClassifier) tmp) ;
           }
           catch(IllegalArgumentException e)
@@ -2287,7 +2287,7 @@ public class AadlBaTypeChecker
         }
       }
     }
-    
+
     return result ;
   }
 
@@ -2296,10 +2296,10 @@ public class AadlBaTypeChecker
     Target tarTmp = null ;
     boolean tarCheckResult = true ;
     TypeCheckRule stopOnThisRule = TypeCheckRule.IN_PORT ;
-    TypeCheckRule checkRule = TypeCheckRule.PORT_DEQUEUE_VALUE ; 
+    TypeCheckRule checkRule = TypeCheckRule.PORT_DEQUEUE_VALUE ;
     List<ElementHolder> resolvedRef = refResolver(comAct.getReference(), null,
                                                   stopOnThisRule, checkRule) ;
-    
+
     if(comAct.getTarget() != null)
     {
       tarTmp = targetCheck(comAct.getTarget(), stopOnThisRule) ;
@@ -2308,7 +2308,7 @@ public class AadlBaTypeChecker
         tarCheckResult = false ;
       }
     }
-    
+
     if(resolvedRef != null)
     {
       if(tarCheckResult)
@@ -2316,16 +2316,16 @@ public class AadlBaTypeChecker
         PortHolder portHolder = (PortHolder) resolvedRef.get(0) ;
         PortDequeueAction result = _fact.createPortDequeueAction() ;
         result.setPort((ActualPortHolder) portHolder) ;
-        
+
         // Port dequeue action may not have any target.
         if(tarTmp != null)
         {
           result.setTarget(tarTmp) ;
-          
-          // Matches the target's data type with the input port's one 
+
+          // Matches the target's data type with the input port's one
           // when port dequeue action.
           TypeHolder tarType, portType ;
-          
+
           try
           {
               portType = AadlBaUtils.getTypeHolder(portHolder,
@@ -2338,7 +2338,7 @@ public class AadlBaTypeChecker
             reportDimensionException(de) ;
             return null  ;
           }
-          
+
           if (false == _dataChecker.conformsTo(portType, tarType, true))
           {
             reportTypeError(comAct, "port dequeue action",
@@ -2347,9 +2347,9 @@ public class AadlBaTypeChecker
             return null ;
           }
         }
-        
+
         result.setLocationReference(comAct.getLocationReference()) ;
-        
+
         return result ;
       }
       else
@@ -2362,13 +2362,13 @@ public class AadlBaTypeChecker
       return null ;
     }
   }
-  
-  
+
+
   private CommunicationAction qualifiedSubprogramClassifierCallOrPortSendActionActionResolver
                                                              (CommAction comAct)
   {
     QualifiedNamedElement qne = comAct.getQualifiedName() ;
-    
+
     if(qne.getOsateRef() instanceof EventPort)
     {
       EventPortHolder tmp  = _fact.createEventPortHolder() ;
@@ -2399,22 +2399,22 @@ public class AadlBaTypeChecker
     }
     return null;
   }
-  
+
   // This method checks the given object and returns a communication action
   // resolved from semantic ambiguities. On error, reports error and returns
   // null.
   /**
-   * Document: AADL Behavior Annex draft 
-   * Version : 0.94 
+   * Document: AADL Behavior Annex draft
+   * Version : 0.94
    * Type : Legality rule
    * Section : D.6 Behavior Action Language
-   * Object : Check legality rule D.6.(L6) 
+   * Object : Check legality rule D.6.(L6)
    * Keys : dequeue value port target
    */
   private CommunicationAction communicationActionCheck(CommunicationAction ca)
   {
     CommAction comAct = (CommAction) ca ;
-    
+
     // Subprogram qualified classifier call.
     if(isSubprogramClassifierCallOrPortSendAction(comAct))
     {
@@ -2440,19 +2440,23 @@ public class AadlBaTypeChecker
       return subprogramCallActionAndPortSendActionResolver(comAct) ;
     }
   }
-  
+
   private boolean isSubprogramClassifierCallOrPortSendAction(CommAction comAct)
   {
     QualifiedNamedElement qne = comAct.getQualifiedName() ;
-    
+
     if(qne == null)
+    {
       return false;
+    }
 
     if(qne.getOsateRef() instanceof EventPort
         || qne.getOsateRef() instanceof EventDataPort
         || qne.getOsateRef() instanceof SubprogramAccess
         || qne.getOsateRef() instanceof SubprogramSubcomponent)
+    {
       return true;
+    }
     return false;
   }
 
@@ -2463,8 +2467,8 @@ public class AadlBaTypeChecker
   {
     if(comAct.getQualifiedName()!=null)
     {
-      TypeCheckRule rule = TypeCheckRule.SUBPROGRAM_UCCR ; 
-      Subprogram sub = (Subprogram) 
+      TypeCheckRule rule = TypeCheckRule.SUBPROGRAM_UCCR ;
+      Subprogram sub = (Subprogram)
           uniqueNamedElementReferenceResolver(comAct.getQualifiedName(), rule) ;
       if(sub != null)
       {
@@ -2473,9 +2477,9 @@ public class AadlBaTypeChecker
 
         // Checks and resolves parameter labels.
         // Event if the subprogram call action doesn't have any parameter labels,
-        // the subprogram type may have and vice versa: 
-        // subprogramParameterListCheck is also design for these cases. 
-        // It also binds the subprogram type found to the subprogram call action. 
+        // the subprogram type may have and vice versa:
+        // subprogramParameterListCheck is also design for these cases.
+        // It also binds the subprogram type found to the subprogram call action.
         if(subprogType != null)
         {
           if (subprogramParameterListCheck(comAct, comAct.getParameters(),
@@ -2513,7 +2517,7 @@ public class AadlBaTypeChecker
           ActualPortHolder portHolder = (ActualPortHolder) resolvedRef.get(0) ;
           return portSendActionResolver(portHolder, comAct) ;
         }
-        else // Subprogram call action case. 
+        else // Subprogram call action case.
         {
           return subprogramCallActionResolver(resolvedRef, comAct) ;
         }
@@ -2528,12 +2532,12 @@ public class AadlBaTypeChecker
   {
     // Gets subprogram type.
     Classifier subprogType = subprogramTypeCheck(comAct) ;
-    
+
     // Checks and resolves parameter labels.
     // Event if the subprogram call action doesn't have any parameter labels,
-    // the subprogram type may have and vice versa : 
-    // subprogramParameterListCheck is also design for these cases. 
-    // It also binds the subprogram type found to the subprogram call action. 
+    // the subprogram type may have and vice versa :
+    // subprogramParameterListCheck is also design for these cases.
+    // It also binds the subprogram type found to the subprogram call action.
     if(subprogType != null)
     {
       if (subprogramParameterListCheck(comAct, comAct.getParameters(),
@@ -2541,25 +2545,25 @@ public class AadlBaTypeChecker
       {
         SubprogramCallAction result = _fact.createSubprogramCallAction() ;
         result.getParameterLabels().addAll(comAct.getParameters()) ;
-        
+
         ElementHolder firstHolder = resolvedRef.get(0) ;
         ElementHolder secondHolder = null ;
-        
+
         if(resolvedRef.size() == 2)
         {
           secondHolder = resolvedRef.get(1) ;
         }
-        
-        if(firstHolder instanceof SubprogramHolderProxy) 
+
+        if(firstHolder instanceof SubprogramHolderProxy)
         {
           // RefResolver can't detect that error. So do it.
           if(resolvedRef.size() != 2)
           {
-            String msg = "missing subprogram access for : " + 
+            String msg = "missing subprogram access for : " +
               firstHolder.getElement().getName() ;
-            
+
             reportError(firstHolder, msg) ;
-            
+
             return null ;
           }
           else
@@ -2572,9 +2576,9 @@ public class AadlBaTypeChecker
         {
           result.setSubprogram((CalledSubprogramHolder) firstHolder) ;
         }
-        
+
         result.setLocationReference(comAct.getLocationReference()) ;
-        
+
         return result ;
       }
       else
@@ -2592,11 +2596,11 @@ public class AadlBaTypeChecker
                                                      CommAction comAct)
   {
     PortSendAction portSendActionResult = _fact.createPortSendAction() ;
-    
+
     if(comAct.isSetParameters())
     {
       List<ParameterLabel> pll = comAct.getParameters() ;
-      
+
       if(pll.size() == 1)
       {
         ValueExpression ve = (ValueExpression) pll.get(0) ;
@@ -2606,11 +2610,11 @@ public class AadlBaTypeChecker
         if(tmp != null)
         {
           portSendActionResult.setPort(portHolder) ;
-          
-          // Matches the value expression top level data type 
+
+          // Matches the value expression top level data type
           // with the port data type.
           TypeHolder portType ;
-          
+
           try
           {
              portType = AadlBaUtils.getTypeHolder(portHolder, _baParentContainer) ;
@@ -2620,7 +2624,7 @@ public class AadlBaTypeChecker
              reportDimensionException(de) ;
              return null ;
           }
-              
+
           if(! _dataChecker.conformsTo(portType,
               tmp.typeHolder, true))
           {
@@ -2631,7 +2635,7 @@ public class AadlBaTypeChecker
           }
           else
           {
-            ValueExpression veTmp = (ValueExpression) 
+            ValueExpression veTmp = (ValueExpression)
                 tmp.value ;
             portSendActionResult.setValueExpression(veTmp) ;
           }
@@ -2647,10 +2651,12 @@ public class AadlBaTypeChecker
       }
     }
     else
+    {
       portSendActionResult.setPort(portHolder);
-    
+    }
+
     portSendActionResult.setLocationReference(comAct.getLocationReference());
-    
+
     return portSendActionResult ;
   }
 
@@ -2658,7 +2664,7 @@ public class AadlBaTypeChecker
   {
     DataAccessHolder dah = null ;
     SharedDataAction result = null ;
-    
+
     if(comAct.getReference() != null)
     {
       TypeCheckRule checkRules = TypeCheckRule.SHARED_DATA_ACTION ;
@@ -2675,19 +2681,33 @@ public class AadlBaTypeChecker
         return null ;
       }
     }
-    
+
     if(comAct.isLock())
     {
       result = _fact.createLockAction() ;
+      if(comAct.getQualifiedName().getOsateRef() != null && comAct
+                                                                  .getQualifiedName()
+                                                                  .getOsateRef() instanceof DataAccess)
+      {
+        dah = _fact.createDataAccessHolder() ;
+        dah.setElement((DataAccess) comAct.getQualifiedName().getOsateRef()) ;
+      }
+
     }
     else
     {
       result = _fact.createUnlockAction() ;
+      if(comAct.getQualifiedName() != null && comAct
+                                                    .getQualifiedName() instanceof DataAccess)
+      {
+        dah = _fact.createDataAccessHolder() ;
+        dah.setElement((DataAccess) comAct.getQualifiedName().getOsateRef()) ;
+      }
     }
-    
+
     result.setDataAccess(dah) ;
     result.setLocationReference(comAct.getLocationReference()) ;
-    
+
     return result ;
   }
 
@@ -2695,9 +2715,9 @@ public class AadlBaTypeChecker
   {
     TypeCheckRule checkRules = TypeCheckRule.IN_PORT ;
     TypeCheckRule stopOnThisRule = TypeCheckRule.PORT_FREEZE_ACTION ;
-    
+
     PortFreezeAction pfa = _fact.createPortFreezeAction() ;
-    
+
     List<ElementHolder> resolvedRef = refResolver(comAct.getReference(), pfa,
                                           stopOnThisRule, checkRules) ;
     if(resolvedRef != null)
@@ -2714,7 +2734,7 @@ public class AadlBaTypeChecker
   private Classifier getSubprogramType(CalledSubprogram sc)
   {
     Classifier result = null ;
-    
+
     if(sc instanceof SubprogramImplementation)
     {
       result = ((SubprogramImplementation) sc).getType() ;
@@ -2741,8 +2761,8 @@ public class AadlBaTypeChecker
   // On error, reports error and returns null.
   private Classifier subprogramTypeCheck(CommAction comAct)
   {
-    Element el = null ; 
-    
+    Element el = null ;
+
     if(comAct.getReference() != null)
     {
       el = comAct.getReference().getOsateRef() ;
@@ -2751,10 +2771,10 @@ public class AadlBaTypeChecker
     {
       el = comAct.getQualifiedName().getOsateRef() ;
     }
-    
+
     Classifier result = null ;
     String errorMsg = null ;
-    
+
     if(el instanceof ComponentPrototype)
     {
       ComponentPrototype cp = (ComponentPrototype) el ;
@@ -2762,10 +2782,10 @@ public class AadlBaTypeChecker
       if(cp instanceof SubprogramPrototype)
       {
         ComponentClassifier cc = cp.getConstrainingClassifier() ;
-        
+
         if (cc != null && cc instanceof SubprogramType)
         {
-          result = (SubprogramType) cc ;
+          result = cc ;
         }
         else
         {
@@ -2779,7 +2799,7 @@ public class AadlBaTypeChecker
         result = null ;
       }
     }
-    else if(el instanceof CalledSubprogram) // Always after ComponentPrototype 
+    else if(el instanceof CalledSubprogram) // Always after ComponentPrototype
     {                                       // case.
       result = getSubprogramType((CalledSubprogram) el) ;
     }
@@ -2813,22 +2833,22 @@ public class AadlBaTypeChecker
       String subprogramName = unparseReference(comAct.getReference()) ;
       reportError(comAct, '\'' + subprogramName + '\'' + errorMsg) ;
     }
-    
+
     return result ;
   }
 
-  // This method checks the given parameter labels and matches them against the 
+  // This method checks the given parameter labels and matches them against the
   // subprogram parameters. It resolves target/value expression semantic
   // ambiguities. On error, reports error and returns false.
   // Event if the subprogram call action doesn't have any parameter labels,
   // the subprogram type may have and vice versa : subprogramParameterListCheck
   /// is also design for these cases.
   /**
-   * Document: AADL Behavior Annex draft 
-   * Version : 0.94 
+   * Document: AADL Behavior Annex draft
+   * Version : 0.94
    * Type : Legality rule
    * Section : D.6 Behavior Action Language
-   * Object : Check legality rule D.6.(L5) 
+   * Object : Check legality rule D.6.(L5)
    * Keys : parameter list match signature subprogram call
    */
   private boolean subprogramParameterListCheck(CommAction comAct,
@@ -2836,10 +2856,10 @@ public class AadlBaTypeChecker
                                                Classifier subprogType)
   {
     // Fetches sorted subprogram feature list.
-    
+
     List<Feature> tmp = Aadl2Utils.orderFeatures(subprogType) ;
     List<Feature> subprogFeat = new ArrayList<Feature>(tmp.size()) ;
-    
+
     for(Feature feat : tmp)
     {
       if(feat instanceof DataAccess || feat instanceof Parameter)
@@ -2847,7 +2867,7 @@ public class AadlBaTypeChecker
         subprogFeat.add(feat) ;
       }
     }
-    
+
     // Matching the parameter labels with the subprogram signature.
     // Resolves ambiguity between target and value expression:
     // value expression are for in parameter, target are for out parameter.
@@ -2856,7 +2876,7 @@ public class AadlBaTypeChecker
     if(callParams.size() != subprogFeat.size())
     {
       String subprogramName = null ;
-      
+
       if(comAct.getReference() != null)
       {
         subprogramName = unparseReference(comAct.getReference()) ;
@@ -2865,8 +2885,8 @@ public class AadlBaTypeChecker
       {
         subprogramName = unparseQualifiedNamedElement(comAct.getQualifiedName());
       }
-      
-      reportError(comAct, "Invalid number of argument(s) for the subprogram " + 
+
+      reportError(comAct, "Invalid number of argument(s) for the subprogram " +
           subprogramName) ;
       return false ;
     }
@@ -2891,7 +2911,7 @@ public class AadlBaTypeChecker
     (subprogFeat.size()) ;
 
     // As AADL standard doesn't allow subprogram overloading (two subprogram
-    // classifier names can't be the same), parameter labels checking is 
+    // classifier names can't be the same), parameter labels checking is
     // driven by the subprogram signature.
     for(Feature feat : subprogFeat)
     {
@@ -2907,11 +2927,11 @@ public class AadlBaTypeChecker
         currentDirRight = Aadl2Utils.getDataAccessRight(data) ;
         expectedDirRight.add(currentDirRight) ;
       }
-      
+
       valueExp = (ValueExpression) it.next() ;
-      
+
       Classifier klass = AadlBaUtils.getClassifier(feat,_baParentContainer);
-      
+
       // ValueExpression case.
       if(currentDirRight == DirectionType.IN ||
          currentDirRight == Aadl2Utils.DataAccessRight.read_only)
@@ -2929,7 +2949,7 @@ public class AadlBaTypeChecker
             reportDimensionException(de) ;
             return false ;
           }
-          
+
           t2 = vth.typeHolder ;
           expectedTypes.add(t1) ;
           typesFound.add(t2) ;
@@ -2967,17 +2987,17 @@ public class AadlBaTypeChecker
                    reportDimensionException(de) ;
                    return false ;
                 }
-            
+
             expectedTypes.add(t1) ;
             typesFound.add(t2) ;
-            
+
             Enum<?> dirRightFound = AadlBaUtils.getDirectionType(tar) ;
-            
+
             if(dirRightFound == null)
             {
               dirRightFound = AadlBaUtils.getDataAccessRight(tar) ;
             }
-            
+
             dirRightsFound.add(dirRightFound) ;
 
             if(! _dataChecker.conformsTo(t1, t2, true))
@@ -3003,19 +3023,19 @@ public class AadlBaTypeChecker
           // Due to target/value expression semantic ambiguity, the parsing
           // phase may have introduced a semantic errors :
 
-          // If v == null :               
+          // If v == null :
           // The parameter label has
           // to be a value expression with a single value when the expected
           // subprogram parameter is IN_OUT or OUT.
 
-          // If v is not instanceof Target but ValueExpression or Value 
+          // If v is not instanceof Target but ValueExpression or Value
           // like :
           //       _ IntegerConstant or ValueConstant
           //       _ PortFreshValue
           //       _ PortCountValue
           //       _ PortDequeueValue
           // It resolves the type in order to format the warning message:
-          
+
           vth = valueExpressionCheck(valueExp) ;
 
           if(vth != null)
@@ -3029,17 +3049,17 @@ public class AadlBaTypeChecker
               reportDimensionException(de) ;
               return false ;
             }
-            
+
             t2 = vth.typeHolder ;
             expectedTypes.add(t1) ;
             typesFound.add(t2) ;
             dirRightsFound.add(DirectionType.IN);
-            
+
             StringBuilder msg = new StringBuilder() ;
             msg.append('\'');
             msg.append(unparseNameElement(valueExp)) ;
             msg.append("\': is an read only value and it is used as a writable value");
-            
+
             // Reports a warning.
             reportWarning(valueExp, msg.toString());
           }
@@ -3061,7 +3081,7 @@ public class AadlBaTypeChecker
     if(! isconsistent && hasCheckingPassed)
     {
       String subprogramName = null ;
-      
+
       if(comAct.getReference() != null)
       {
         subprogramName = unparseReference(comAct.getReference()) ;
@@ -3070,7 +3090,7 @@ public class AadlBaTypeChecker
       {
         subprogramName = unparseQualifiedNamedElement(comAct.getQualifiedName());
       }
-      
+
       reportSubprogParamMatchingError(comAct, subprogramName, expectedTypes,
           expectedDirRight, typesFound,
           dirRightsFound) ;
@@ -3139,11 +3159,11 @@ public class AadlBaTypeChecker
   }
 
   /**
-   * Document: AADL Behavior Annex draft 
-   * Version : 0.94 
+   * Document: AADL Behavior Annex draft
+   * Version : 0.94
    * Type : Legality rule
    * Section : D.6 Behavior Action Language
-   * Object : Check legality rule D.6.(L1) 
+   * Object : Check legality rule D.6.(L1)
    * Keys : assignment action value expression target match type consistency
    */
   private boolean assignmentActionCheck(AssignmentAction aa)
@@ -3165,10 +3185,10 @@ public class AadlBaTypeChecker
     }
 
     ValueExpression ve = aa.getValueExpression() ;
-    
+
     if(ve != null && (false == ve instanceof Any))
     {
-      ValueAndTypeHolder vth = 
+      ValueAndTypeHolder vth =
           valueExpressionCheck(aa.getValueExpression()) ;
       if (vth != null)
       {
@@ -3191,9 +3211,9 @@ public class AadlBaTypeChecker
            reportDimensionException(de) ;
               return false ;
         }
-        
+
         result = _dataChecker.conformsTo(tarType, expType, true) ;
-        
+
         if(! result)
         {
           reportTypeError(vth.value, "assignment",
@@ -3214,18 +3234,18 @@ public class AadlBaTypeChecker
           {
             TypeCheckRule.TARGET_COMPONENT_REFERENCE_FIRST_NAME,
             TypeCheckRule.DATA_COMPONENT_REFERENCE_OTHER_NAMES
-          } ; 
-    
+          } ;
+
     List<ElementHolder> resolvedRef = refResolver((Reference) tar, null,
                                                   stopOnThisRule, checkRules) ;
-    
+
     return (Target) referenceToValueVariable(resolvedRef) ;
   }
-  
+
   // Compares the given expected data representation to the ValueAndTypeHolder
   // one. Returns true is the data representation are the same.
   // Otherwise returns false and reports error.
-  // If the given ValueAndTypeHolder object is null, it returns false without 
+  // If the given ValueAndTypeHolder object is null, it returns false without
   // reporting any error (error reporting has already been done ?).
   // If the given name is null, the method will unparse the given element.
   private boolean typeCheck(BehaviorElement e, String name,
@@ -3254,7 +3274,7 @@ public class AadlBaTypeChecker
 
   /**
    * Return the element binded to the given declarative behavior element.
-   * 
+   *
    * @param el the given declarative behavior element
    * @return the binded element
    */
@@ -3269,11 +3289,11 @@ public class AadlBaTypeChecker
 
     return result ;
   }
-  
+
   /**
    * Returns the feature type of the element binded to the given behavior
    * annex element.
-   * 
+   *
    * @param el the given behavior annex element
    * @return the feature type of the binded element
    */
@@ -3295,11 +3315,11 @@ public class AadlBaTypeChecker
 
     return result ;
   }
-  
+
   /**
    * Checks the type of the reference binded to the given declarative behavior
    * element within the given rule's expected types. Returns the
-   * matching feature type or {@code null} otherwise. Reports any error if 
+   * matching feature type or {@code null} otherwise. Reports any error if
    * hasToReport is {@code true}.
    *
    * @param dbe the declarative behavior element to be checked
@@ -3359,17 +3379,17 @@ public class AadlBaTypeChecker
         return other ;
       }
     },
-    
+
     NOTHING ("no type", new Enum[] {})
     {
       @Override
       public Enum<?> test(DeclarativeBehaviorElement dbe,
                           ComponentClassifier baParentContainer)
       {
-        return null ;  
+        return null ;
       }
     },
-    
+
     IN_EVENT_PORT("in event port", new Enum[]
           {FeatureType.IN_EVENT_PORT,
            FeatureType.IN_OUT_EVENT_PORT}),
@@ -3425,12 +3445,12 @@ public class AadlBaTypeChecker
             FeatureType.IN_OUT_EVENT_PORT_PROTOTYPE,
             FeatureType.OUT_EVENT_DATA_PORT_PROTOTYPE,
             FeatureType.IN_OUT_EVENT_DATA_PORT_PROTOTYPE}),
-    
+
     FEATURE_PROTOTYPE("feature prototype", new Enum[]
            {FeatureType.IN_FEATURE_PROTOTYPE,
             FeatureType.OUT_FEATURE_PROTOTYPE,
-            FeatureType.IN_OUT_FEATURE_PROTOTYPE}), 
-           
+            FeatureType.IN_OUT_FEATURE_PROTOTYPE}),
+
     IN_PARAMETER("in parameter", new Enum[]
           {FeatureType.IN_PARAMETER,
            FeatureType.IN_OUT_PARAMETER}),
@@ -3447,7 +3467,7 @@ public class AadlBaTypeChecker
     DATA_ACCESS("data access", new Enum[]
           {FeatureType.REQUIRES_DATA_ACCESS,
            FeatureType.PROVIDES_DATA_ACCESS}),
-    
+
     DATA_ACCESS_PROTOTYPE("data access prototype", new Enum[]
           {FeatureType.REQUIRES_DATA_ACCESS_PROTOTYPE,
            FeatureType.PROVIDES_DATA_ACCESS_PROTOTYPE}),
@@ -3458,7 +3478,7 @@ public class AadlBaTypeChecker
     DISPATCH_TRIGGER("dispatch trigger", new Enum[]
           {TypeCheckRule.IN_EVENT_PORT,
            TypeCheckRule.IN_EVENT_DATA_PORT}),
-    
+
     MODE_SWITCH_TRIGGER("mode switch trigger", new Enum[]
         {TypeCheckRule.IN_EVENT_PORT,
          TypeCheckRule.IN_EVENT_DATA_PORT}),
@@ -3505,7 +3525,7 @@ public class AadlBaTypeChecker
 
     PORT_COUNT_VALUE("port count value", new Enum[]
           {TypeCheckRule.PORT}),
-          
+
     PORT_FRESH_VALUE("port fresh value", new Enum[]
           {TypeCheckRule.PORT}),
 
@@ -3555,7 +3575,7 @@ public class AadlBaTypeChecker
 
     SUBPROGRAM_UCCR("subprogram unique component classifier reference", new Enum[]
           {FeatureType.SUBPROGRAM_CLASSIFIER}),
-    
+
     GROUPS ("group (prototype)", new Enum[]
           {FeatureType.FEATURE_GROUP,
            FeatureType.REQUIRES_SUBPROGRAM_GROUP_ACCESS,
@@ -3568,24 +3588,24 @@ public class AadlBaTypeChecker
            FeatureType.FEATURE_GROUP_PROTOTYPE_BINDING,
            FeatureType.REQUIRES_SUBPROGRAM_GROUP_ACCESS_PROTOTYPE,
            FeatureType.PROVIDES_SUBPROGRAM_GROUP_ACCESS_PROTOTYPE}),
-    
+
     TARGET_STOP_RULE ("target stop rule", new Enum[]
           {TypeCheckRule.OUT_PORT,
            TypeCheckRule.OUT_PORT_PROTOTYPE
           }),
-          
+
     VV_STOP_RULE ("value variable stop rule", new Enum[]
           {TypeCheckRule.IN_PORT,
            TypeCheckRule.IN_PORT_PROTOTYPE
           }),
-          
-          
+
+
     PROCESSOR_RULE("processor unique component classifier reference", new Enum[]
           {FeatureType.PROCESSOR_CLASSIFIER}),
-    
+
     ASSIGNMENT_TARGET("assignment left hand side", new Enum[]
         {TypeCheckRule.TARGET_STOP_RULE}) ;
-    
+
     String _literal ;
     Enum<?>[] _acceptableTypes ;
 
@@ -3599,9 +3619,9 @@ public class AadlBaTypeChecker
      * Returns the expected feature type names separated by the given type
      * separator string.
      * <BR><BR>
-     * Note : this method is not recursive. 
-     * 
-     * @param typeSeparator the given type separator string 
+     * Note : this method is not recursive.
+     *
+     * @param typeSeparator the given type separator string
      * @return the the expected feature type names separated by the given type
      * separator string.
      */
@@ -3625,7 +3645,7 @@ public class AadlBaTypeChecker
      * Returns the rule's matching FeatureType or BehaviorAnnexFeatureType
      * enumeration of the given DeclarativeBehaviorElement object. If there is
      * no matching, it returns {@code null}. This test is recursive.
-     * 
+     *
      * @param dbe the given DeclarativeBehaviorElement object
      * @param baParentContainer behavior parent component
      * @return the rule's matching feature type or {@code null}
@@ -3639,20 +3659,20 @@ public class AadlBaTypeChecker
       // to the resolved feature prototype.
       if(testedEnum.equals(FeatureType.FEATURE_PROTOTYPE_BINDING))
       {
-        FeaturePrototypeBinding fpb = (FeaturePrototypeBinding) 
+        FeaturePrototypeBinding fpb = (FeaturePrototypeBinding)
               AadlBaTypeChecker.getBindedElement(dbe) ;
         testedEnum = AadlBaUtils.getFeatPrototypeType(fpb) ;
       }
-      
+
       // Resolves component prototype binding in order to compare the rule
       // to the resolved component prototype.
       if(testedEnum.equals(FeatureType.COMPONENT_PROTOTYPE_BINDING))
       {
-        ComponentPrototypeBinding cpb = (ComponentPrototypeBinding) 
+        ComponentPrototypeBinding cpb = (ComponentPrototypeBinding)
               AadlBaTypeChecker.getBindedElement(dbe) ;
         testedEnum = AadlBaUtils.getCompPrototypeType(cpb) ;
       }
-      
+
       return testTypeCheckRule(testedEnum) ;
     }
 
@@ -3660,7 +3680,7 @@ public class AadlBaTypeChecker
     {
       return testTypeCheckRule(this, other) ;
     }
-    
+
     private static Enum<?> testTypeCheckRule(TypeCheckRule tcr, Enum<?> other)
     {
       for(Enum<?> e : tcr._acceptableTypes)
@@ -3668,7 +3688,7 @@ public class AadlBaTypeChecker
         if (e instanceof TypeCheckRule)
         {
           Enum<?> result = testTypeCheckRule((TypeCheckRule)e, other) ;
-          
+
           if (result != null)
           {
             return result ;
@@ -3711,5 +3731,5 @@ public class AadlBaTypeChecker
     {
       throw new UnsupportedOperationException() ;
     }
-  }   
+  }
 }
