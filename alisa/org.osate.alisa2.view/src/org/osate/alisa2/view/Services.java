@@ -55,8 +55,6 @@ public class Services {
 	 * @return The set of neighbors for the given component.
 	 */
 	public static Collection<EObject> getAllNeighbors(EObject self) {
-//		return (Stream.concat(getSuccessorNeighbors(self).stream(), getPredecessorNeighbors(self).stream()))
-//				.collect(Collectors.toSet());
 		return Stream.of(getSuccessorNeighbors(self).stream(), getPredecessorNeighbors(self).stream(),
 				getOneHopNeighbors(self).stream()).flatMap(Function.identity()).collect(Collectors.toSet());
 	}
@@ -77,6 +75,7 @@ public class Services {
 			ret.addAll(getPredecessorNeighbors(pred));
 		}
 		ret.remove(self); // Filter out the object if there's a loop
+
 		return ret;
 	}
 

@@ -300,15 +300,15 @@ public class AwasManager {
 			name = SymbolTableHelper.uri2IdString(uri);
 		} else if (SymbolTableHelper.uri2TypeString(uri).equals(SymbolTableHelper.CONNECTION_TYPE())) {
 			ConnectionDecl connDecl = st.componentTable(st.system()).connection(uri);
-
 			StringBuilder sb = new StringBuilder();
 			PrettyPrinter pp = new PrettyPrinter(sb);
-			pp.print(connDecl, 0); // format "spo2_to_logic_POOutSpO2_LogicSpO2 : pulseOx.POOutSpO2 -> appLogic.LogicSpO2\n"
+			pp.print(connDecl, 0); // format: "spo2_to_logic_POOutSpO2_LogicSpO2 : pulseOx.POOutSpO2 -> appLogic.LogicSpO2\n"
 			name = sb.toString().substring(sb.toString().indexOf(": ") + 2).trim();
 		}
 
 		if (!children.containsKey(name)) {
 			System.err.println("AWASManager.java: unknown element name (" + name + ") derived from uri: " + uri);
+			SymbolTableHelper.findComponentUri(SymbolTableHelper.getUriFromString(st, "appLogic.CheckSpO2Thread.Alarm").get(), st);
 		}
 		return children.get(name);
 	}
