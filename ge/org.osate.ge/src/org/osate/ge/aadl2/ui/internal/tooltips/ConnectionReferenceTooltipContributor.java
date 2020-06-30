@@ -24,6 +24,7 @@
 package org.osate.ge.aadl2.ui.internal.tooltips;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -40,6 +41,7 @@ public class ConnectionReferenceTooltipContributor implements TooltipContributor
 
 			final String conType = cr.getConnection().eClass().getName().toLowerCase().replace("connection", "");
 			final Label lbl = new Label(ctx.getTooltip(), SWT.NONE);
+			lbl.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_INFO_FOREGROUND));
 			lbl.setText(cr.getName() + ": " + conType + " " + srcStr + " -> " + dstStr);
 		});
 	}

@@ -24,6 +24,7 @@
 package org.osate.ge.aadl2.ui.internal.tooltips;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.osate.ge.aadl2.internal.aadlproperties.PropertyValueFormatter;
 import org.osate.ge.aadl2.internal.model.PropertyValueGroup;
@@ -37,6 +38,7 @@ public class PropertyValueTooltipContributor implements TooltipContributor {
 			final String txt = PropertyValueFormatter.getUserString(ctx.getBusinessObjectContext(), false, false, true,
 					true, true);
 			final Label lbl = new Label(ctx.getTooltip(), SWT.NONE);
+			lbl.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_INFO_FOREGROUND));
 			lbl.setText(txt);
 		});
 	}

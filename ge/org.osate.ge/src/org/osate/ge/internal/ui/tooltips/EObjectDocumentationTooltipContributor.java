@@ -25,6 +25,7 @@ package org.osate.ge.internal.ui.tooltips;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.osate.ge.internal.util.EObjectDocumentationUtil;
 import org.osate.ge.ui.TooltipContributor;
@@ -41,6 +42,7 @@ public class EObjectDocumentationTooltipContributor implements TooltipContributo
 
 			// Create a widget for the tooltip
 			final Label lbl = new Label(ctx.getTooltip(), SWT.WRAP);
+			lbl.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_INFO_FOREGROUND));
 			lbl.setText(doc);
 		});
 	}

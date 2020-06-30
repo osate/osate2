@@ -25,6 +25,7 @@ package org.osate.ge.aadl2.ui.internal.tooltips;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
@@ -63,6 +64,7 @@ public class AadlSourceTooltipContributor implements TooltipContributor {
 			}
 
 			final Label lbl = new Label(ctx.getTooltip(), SWT.NONE);
+			lbl.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_INFO_FOREGROUND));
 			lbl.setText(txt);
 		});
 	}
