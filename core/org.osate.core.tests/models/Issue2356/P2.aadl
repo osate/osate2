@@ -1,0 +1,68 @@
+package P2
+public
+    
+    system S
+    end S;
+    
+    system implementation S.no_modes_bad
+        subcomponents
+            a1: abstract A;
+            a2: abstract A;
+            b: abstract B;
+        connections
+            c1: port a1.aout -> b.bin;
+            c2: feature a2.aout -> b.bin;
+    end S.no_modes_bad;
+    
+    
+    system implementation S.no_modes_good
+        subcomponents
+            a1: abstract A;
+            a2: abstract A;
+            b: abstract B;
+    	connections
+    		-- There will be an error on this connection, but it is misleading.  The connection is good in S.no_modes_good, 
+    	    -- but made to be bad in S.extends_bad
+            c1: port a1.aout -> b.bin;
+    end S.no_modes_good;
+
+
+	-- Makes the connection c1: above a potential duplicate
+    system implementation S.extends_bad extends S.no_modes_good
+        connections
+            c2: port a2.aout -> b.bin;
+    end S.extends_bad;
+
+
+
+	system SS
+		modes
+			m1: initial mode;
+			m2: mode;
+			m3: mode;
+	end SS;
+	
+    system implementation SS.simple_modes_bad
+        subcomponents
+            a1: abstract A;
+            a2: abstract A;
+            b: abstract B;
+        connections
+            c1: port a1.aout -> b.bin in modes (m1, m2);
+            c2: feature a2.aout -> b.bin in modes (m2, m3);
+    end SS.simple_modes_bad;
+
+    
+    abstract A
+        features
+            aout: out data port;
+    end A;
+    
+    abstract B
+        features
+            bin: in data port;
+    end B;
+end P2;
+
+
+

@@ -12,7 +12,7 @@
 
 	<groupId>org.osate</groupId>
 	<artifactId>org.osate.importer</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.0.2-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
 
 </project>
