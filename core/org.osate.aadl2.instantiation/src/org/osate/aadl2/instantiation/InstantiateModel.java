@@ -452,7 +452,9 @@ public class InstantiateModel {
 			throw new InterruptedException();
 		}
 
-		new ValidateConnectionsSwitch(monitor, errManager, classifierCache).processPreOrderAll(root);
+		final ValidateConnectionsSwitch vcs = new ValidateConnectionsSwitch(monitor, errManager, classifierCache);
+		vcs.processPreOrderAll(root);
+		vcs.postProcess();
 		if (monitor.isCanceled()) {
 			throw new InterruptedException();
 		}
@@ -800,7 +802,7 @@ public class InstantiateModel {
 		if (ic == null) {
 			cc = null;
 		} else {
-			cc = (ComponentClassifier) ic.classifier;
+			cc = (ComponentClassifier) ic.getClassifier();
 		}
 		if (cc == null) {
 			errManager.warning(newInstance, "Instantiated subcomponent doesn't have a component classifier");
@@ -930,7 +932,7 @@ public class InstantiateModel {
 	 * Add feature instances to component instance
 	 */
 	protected void instantiateFeatures(final ComponentInstance ci) throws InterruptedException {
-		for (final Feature feature : getInstantiatedClassifier(ci).classifier.getAllFeatures()) {
+		for (final Feature feature : getInstantiatedClassifier(ci).getClassifier().getAllFeatures()) {
 			if (monitor.isCanceled()) {
 				throw new InterruptedException();
 			}
@@ -1084,16 +1086,16 @@ public class InstantiateModel {
 			inverse ^= fg.isInverse();
 
 			InstantiatedClassifier ic = getInstantiatedClassifier(fi);
-			if (ic.classifier == null) {
+			if (ic.getClassifier() == null) {
 				errManager.error(fi, "Could not resolve feature group type of feature group prototype "
 						+ fi.getInstanceObjectPath());
 				return;
-			} else if (ic.bindings != null && ic.bindings.isEmpty()) {
+			} else if (ic.getBindings() != null && ic.getBindings().isEmpty()) {
 				// prototype has not been bound yet
 				errManager.warning(fi, "Feature group prototype  of " + fi.getInstanceObjectPath()
 						+ " is not bound yet to feature group type");
 			}
-			FeatureGroupType fgt = (FeatureGroupType) ic.classifier;
+			FeatureGroupType fgt = (FeatureGroupType) ic.getClassifier();
 
 			List<Feature> localFeatures = fgt.getOwnedFeatures();
 			final FeatureGroupType inverseFgt = fgt.getInverse();
@@ -2054,10 +2056,10 @@ public class InstantiateModel {
 			if (elem instanceof ComponentInstance) {
 				InstantiatedClassifier ic = getInstantiatedClassifier((ComponentInstance) elem);
 				if (ic != null) {
-					if (ic.classifier.equals(root.getComponentImplementation())) {
-						addUsedProperties(root, ic.classifier, result, false);
+					if (ic.getClassifier().equals(root.getComponentImplementation())) {
+						addUsedProperties(root, ic.getClassifier(), result, false);
 					} else {
-						addUsedProperties(root, ic.classifier, result);
+						addUsedProperties(root, ic.getClassifier(), result);
 					}
 				}
 			} else if (elem instanceof FeatureInstance) {

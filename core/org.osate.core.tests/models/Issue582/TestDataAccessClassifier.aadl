@@ -1,0 +1,97 @@
+package TestDataAccessClassifier
+public
+	Data D
+	end D;
+	
+	system DataProvider
+		features
+			f0: provides data access;
+			
+			f_type: provides data access D;
+			f_notype: provides data access;
+	end DataProvider;
+	
+	system DataProvider1 extends DataProvider
+		features
+			f0: refined to provides data access D;
+	end DataProvider1;
+	
+	system DataConsumer
+		features
+			f0: requires data access;
+			
+			f_type: requires data access D;
+			f_notype: requires data access;
+	end DataConsumer;
+	
+	system DataConsumer1 extends DataConsumer
+		features
+			f0: refined to requires data access D;
+	end DataConsumer1;
+	
+	system Top
+	end Top;
+	
+	system implementation Top.allExplicit
+		subcomponents
+			srcSys: system DataProvider;
+			destSys: system DataConsumer;
+			
+			myData: data;
+			
+			myDataType: data D;
+			myDataNoType: data;
+		connections
+			c0: data access srcSys.f0 -> destSys.f0;  -- (no type) -> (no type)
+			c1: data access myData -> destSys.f0;
+			
+			type_to_type1: data access srcSys.f_type -> destSys.f_type; -- type -> type
+			type_to_notype1: data access srcSys.f_type -> destSys.f_notype; -- type to (no type)
+			notype_to_type1: data access srcSys.f_notype -> destSys.f_type; -- (no type) -> type
+			notype_to_notype1: data access srcSys.f_notype -> destSys.f_notype; -- (no type) -> (no type)
+			
+			type_to_type2: data access myDataType -> destSys.f_type; -- type -> type
+			type_to_notype2: data access myDataType -> destSys.f_notype; -- type to (no type)
+			notype_to_type2: data access myDataNoType -> destSys.f_type; -- (no type) -> type
+			notype_to_notype2: data access myDataNoType -> destSys.f_notype; -- (no type) -> (no type)			
+		properties
+			Classifier_Substitution_Rule => Type_Extension;
+	end Top.allExplicit;
+	
+	system implementation Top.notype_to_notype
+		subcomponents
+			srcSys: system DataProvider;
+			destSys: system DataConsumer;
+			
+			myData: data;
+			
+			myDataType: data D;
+			myDataNoType: data;
+		connections
+			c0: data access srcSys.f0 -> destSys.f0;  -- (no type) -> (no type)
+			c1: data access myData -> destSys.f0;
+		properties
+			Classifier_Substitution_Rule => Type_Extension;
+	end Top.notype_to_notype;
+	
+	system implementation Top.type_to_type extends Top.notype_to_notype
+		-- now we have have c0 as type -> type
+		subcomponents
+			srcSys: refined to system DataProvider1;
+			destSys: refined to system DataConsumer1;
+			myData: refined to data D;
+	end Top.type_to_type;
+	
+	system implementation Top.type_to_notype extends Top.notype_to_notype
+		-- now we have have c0 as type -> (no type)
+		subcomponents
+			srcSys: refined to system DataProvider1;
+			myData: refined to data D;
+	end Top.type_to_notype;
+	
+	system implementation Top.notype_to_type extends Top.notype_to_notype
+		-- now we have have c0 as (no type) -> type
+		subcomponents
+			destSys: refined to system DataConsumer1;
+	end Top.notype_to_type;
+end TestDataAccessClassifier;
