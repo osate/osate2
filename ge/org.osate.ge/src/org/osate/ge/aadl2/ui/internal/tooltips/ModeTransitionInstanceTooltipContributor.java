@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.ge.ui.TooltipContributor;
@@ -43,6 +44,7 @@ public class ModeTransitionInstanceTooltipContributor implements TooltipContribu
 			final String modeTransitionTriggers = " -[" + String.join(",", triggerPortNames) + "]-> ";
 
 			final Label lbl = new Label(ctx.getTooltip(), SWT.NONE);
+			lbl.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_INFO_FOREGROUND));
 			lbl.setText(mti.getName() + ": " + mti.getSource().getName() + modeTransitionTriggers
 					+ mti.getDestination().getName());
 		});

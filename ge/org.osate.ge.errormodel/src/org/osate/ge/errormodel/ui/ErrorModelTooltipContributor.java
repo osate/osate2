@@ -26,6 +26,7 @@ package org.osate.ge.errormodel.ui;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
@@ -69,6 +70,7 @@ public class ErrorModelTooltipContributor implements TooltipContributor {
 		}
 
 		final Label lbl = new Label(parent, SWT.NONE);
+		lbl.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_INFO_FOREGROUND));
 		lbl.setText(txt);
 	}
 

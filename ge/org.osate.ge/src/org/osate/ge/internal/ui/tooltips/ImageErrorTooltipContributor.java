@@ -25,6 +25,7 @@ package org.osate.ge.internal.ui.tooltips;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.graphics.Style;
@@ -44,6 +45,7 @@ public class ImageErrorTooltipContributor  implements TooltipContributor {
 				final IPath imagePath = style.getImagePath();
 				if (ImageHelper.findImage(imagePath) == null) {
 					final Label lbl = new Label(ctx.getTooltip(), SWT.NONE);
+					lbl.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_INFO_FOREGROUND));
 					lbl.setText("Unable to load image: " + imagePath.toPortableString());
 				}
 			}

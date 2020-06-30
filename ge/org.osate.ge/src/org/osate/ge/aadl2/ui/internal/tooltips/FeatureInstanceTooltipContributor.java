@@ -24,6 +24,7 @@
 package org.osate.ge.aadl2.ui.internal.tooltips;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
@@ -80,6 +81,7 @@ public class FeatureInstanceTooltipContributor implements TooltipContributor {
 
 				// Create the styled text describing the feature
 				final Label lbl = new Label(ctx.getTooltip(), SWT.NONE);
+				lbl.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_INFO_FOREGROUND));
 				lbl.setText(tooltipContents.toString());
 			}
 		});
