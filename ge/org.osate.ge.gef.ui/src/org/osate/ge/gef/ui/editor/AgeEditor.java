@@ -55,10 +55,6 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import palette.Palette;
-import palette.TestPaletteGroup;
-import palette.TestPaletteItem;
-import palette.TestPaletteModel;
 
 // TODO: Implement selection notification..
 // TODO: Rename to AgeDiagramEditor to match name of existing editor?
