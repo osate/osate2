@@ -346,6 +346,7 @@ class RealWithUnitsTest {
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
 			import org.osate.aadl2.UnitLiteral;
+			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			import org.osate.pluginsupport.properties.GeneratedUnits;
 			import org.osate.pluginsupport.properties.RealWithUnits;
@@ -362,63 +363,105 @@ class RealWithUnitsTest {
 				
 				public RecordProperty(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					this.owned = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("owned"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return new RealWithUnits<>(resolved, Owned_FieldType.class);
-							})
-							.findAny();
-					this.sameFile = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("same_file"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return new RealWithUnits<>(resolved, Time.class);
-							})
-							.findAny();
-					this.otherFile = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("other_file"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return new RealWithUnits<>(resolved, Mass.class);
-							})
-							.findAny();
-					this.list1Owned = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("list_1_owned"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
-									PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
-									return new RealWithUnits<>(resolved1, List1Owned_FieldType.class);
-								}).collect(Collectors.toList());
-							})
-							.findAny();
-					this.list1SameFile = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("list_1_same_file"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
-									PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
-									return new RealWithUnits<>(resolved1, Time.class);
-								}).collect(Collectors.toList());
-							})
-							.findAny();
-					this.list1OtherFile = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("list_1_other_file"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
-									PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
-									return new RealWithUnits<>(resolved1, Mass.class);
-								}).collect(Collectors.toList());
-							})
-							.findAny();
+					
+					Optional<RealWithUnits<Owned_FieldType>> owned_local;
+					try {
+						owned_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("owned"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return new RealWithUnits<>(resolved, Owned_FieldType.class);
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						owned_local = Optional.empty();
+					}
+					this.owned = owned_local;
+					
+					Optional<RealWithUnits<Time>> sameFile_local;
+					try {
+						sameFile_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("same_file"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return new RealWithUnits<>(resolved, Time.class);
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						sameFile_local = Optional.empty();
+					}
+					this.sameFile = sameFile_local;
+					
+					Optional<RealWithUnits<Mass>> otherFile_local;
+					try {
+						otherFile_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("other_file"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return new RealWithUnits<>(resolved, Mass.class);
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						otherFile_local = Optional.empty();
+					}
+					this.otherFile = otherFile_local;
+					
+					Optional<List<RealWithUnits<List1Owned_FieldType>>> list1Owned_local;
+					try {
+						list1Owned_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("list_1_owned"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+										PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+										return new RealWithUnits<>(resolved1, List1Owned_FieldType.class);
+									}).collect(Collectors.toList());
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						list1Owned_local = Optional.empty();
+					}
+					this.list1Owned = list1Owned_local;
+					
+					Optional<List<RealWithUnits<Time>>> list1SameFile_local;
+					try {
+						list1SameFile_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("list_1_same_file"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+										PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+										return new RealWithUnits<>(resolved1, Time.class);
+									}).collect(Collectors.toList());
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						list1SameFile_local = Optional.empty();
+					}
+					this.list1SameFile = list1SameFile_local;
+					
+					Optional<List<RealWithUnits<Mass>>> list1OtherFile_local;
+					try {
+						list1OtherFile_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("list_1_other_file"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+										PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+										return new RealWithUnits<>(resolved1, Mass.class);
+									}).collect(Collectors.toList());
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						list1OtherFile_local = Optional.empty();
+					}
+					this.list1OtherFile = list1OtherFile_local;
 				}
 				
 				public Optional<RealWithUnits<Owned_FieldType>> getOwned() {

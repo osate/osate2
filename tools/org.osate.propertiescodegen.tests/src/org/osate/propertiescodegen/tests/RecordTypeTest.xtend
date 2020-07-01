@@ -229,6 +229,7 @@ class RecordTypeTest {
 			import org.osate.aadl2.UnitLiteral;
 			import org.osate.aadl2.instance.InstanceObject;
 			import org.osate.aadl2.instance.InstanceReferenceValue;
+			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			import org.osate.pluginsupport.properties.GeneratedUnits;
 			import org.osate.pluginsupport.properties.IntegerRange;
@@ -276,246 +277,456 @@ class RecordTypeTest {
 				
 				public RecordType1(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					this.ownedBoolean = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("owned_boolean"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return ((BooleanLiteral) resolved).getValue();
-							})
-							.findAny();
-					this.ownedString = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("owned_string"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return ((StringLiteral) resolved).getValue();
-							})
-							.findAny();
-					this.ownedClassifier = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("owned_classifier"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return ((ClassifierValue) resolved).getClassifier();
-							})
-							.findAny();
-					this.ownedEnumeration = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("owned_enumeration"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return OwnedEnumeration_FieldType.valueOf(resolved);
-							})
-							.findAny();
-					this.ownedUnits = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("owned_units"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return OwnedUnits_FieldType.valueOf(resolved);
-							})
-							.findAny();
-					this.ownedIntegerNoUnits = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("owned_integer_no_units"))
-							.mapToLong(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return ((IntegerLiteral) resolved).getValue();
-							})
-							.findAny();
-					this.ownedRealNoUnits = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("owned_real_no_units"))
-							.mapToDouble(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return ((RealLiteral) resolved).getValue();
-							})
-							.findAny();
-					this.ownedNumberWithUnitsNoImport = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("owned_number_with_units_no_import"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return new IntegerWithUnits<>(resolved, Time.class);
-							})
-							.findAny();
-					this.ownedNumberWithUnitsWithImport = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("owned_number_with_units_with_import"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return new IntegerWithUnits<>(resolved, Mass.class);
-							})
-							.findAny();
-					this.ownedRangeNoImport = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("owned_range_no_import"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return new IntegerRangeWithUnits<>(resolved, Mass.class, lookupContext);
-							})
-							.findAny();
-					this.ownedRangeImportNumber = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("owned_range_import_number"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return new RealRangeWithUnits<>(resolved, Mass.class, lookupContext);
-							})
-							.findAny();
-					this.ownedRangeImportUnits = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("owned_range_import_units"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return new IntegerRangeWithUnits<>(resolved, Mass.class, lookupContext);
-							})
-							.findAny();
-					this.ownedRecord = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("owned_record"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return new OwnedRecord_FieldType(resolved, lookupContext);
-							})
-							.findAny();
-					this.ownedReference = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("owned_reference"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return ((InstanceReferenceValue) resolved).getReferencedInstanceObject();
-							})
-							.findAny();
-					this.referencedBoolean = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("referenced_boolean"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return ((BooleanLiteral) resolved).getValue();
-							})
-							.findAny();
-					this.referencedString = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("referenced_string"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return ((StringLiteral) resolved).getValue();
-							})
-							.findAny();
-					this.referencedClassifier = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("referenced_classifier"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return ((ClassifierValue) resolved).getClassifier();
-							})
-							.findAny();
-					this.referencedEnumerationNoImport = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("referenced_enumeration_no_import"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return EnumType1.valueOf(resolved);
-							})
-							.findAny();
-					this.referencedEnumerationWithImport = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("referenced_enumeration_with_import"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return Color.valueOf(resolved);
-							})
-							.findAny();
-					this.referencedUnitsNoImport = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("referenced_units_no_import"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return Time.valueOf(resolved);
-							})
-							.findAny();
-					this.referencedUnitsWithImport = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("referenced_units_with_import"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return Mass.valueOf(resolved);
-							})
-							.findAny();
-					this.referencedIntegerNoUnits = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("referenced_integer_no_units"))
-							.mapToLong(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return ((IntegerLiteral) resolved).getValue();
-							})
-							.findAny();
-					this.referencedRealNoUnits = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("referenced_real_no_units"))
-							.mapToDouble(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return ((RealLiteral) resolved).getValue();
-							})
-							.findAny();
-					this.referencedNumberWithUnitsNoImport = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("referenced_number_with_units_no_import"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return new IntegerWithUnits<>(resolved, IntegerOwnedUnits.class);
-							})
-							.findAny();
-					this.referencedNumberWithUnitsWithImport = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("referenced_number_with_units_with_import"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return new RealWithUnits<>(resolved, Mass.class);
-							})
-							.findAny();
-					this.referencedRangeNoImport = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("referenced_range_no_import"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return new IntegerRange(resolved, lookupContext);
-							})
-							.findAny();
-					this.referencedRangeWithImport = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("referenced_range_with_import"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return new RealRange(resolved, lookupContext);
-							})
-							.findAny();
-					this.referencedRecordNoImport = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("referenced_record_no_import"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return new RecordOfBoolean(resolved, lookupContext);
-							})
-							.findAny();
-					this.referencedRecordWithImport = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("referenced_record_with_import"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return new BasicRecord(resolved, lookupContext);
-							})
-							.findAny();
-					this.referencedReference = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("referenced_reference"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return ((InstanceReferenceValue) resolved).getReferencedInstanceObject();
-							})
-							.findAny();
+					
+					Optional<Boolean> ownedBoolean_local;
+					try {
+						ownedBoolean_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("owned_boolean"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((BooleanLiteral) resolved).getValue();
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						ownedBoolean_local = Optional.empty();
+					}
+					this.ownedBoolean = ownedBoolean_local;
+					
+					Optional<String> ownedString_local;
+					try {
+						ownedString_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("owned_string"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((StringLiteral) resolved).getValue();
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						ownedString_local = Optional.empty();
+					}
+					this.ownedString = ownedString_local;
+					
+					Optional<Classifier> ownedClassifier_local;
+					try {
+						ownedClassifier_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("owned_classifier"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((ClassifierValue) resolved).getClassifier();
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						ownedClassifier_local = Optional.empty();
+					}
+					this.ownedClassifier = ownedClassifier_local;
+					
+					Optional<OwnedEnumeration_FieldType> ownedEnumeration_local;
+					try {
+						ownedEnumeration_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("owned_enumeration"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return OwnedEnumeration_FieldType.valueOf(resolved);
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						ownedEnumeration_local = Optional.empty();
+					}
+					this.ownedEnumeration = ownedEnumeration_local;
+					
+					Optional<OwnedUnits_FieldType> ownedUnits_local;
+					try {
+						ownedUnits_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("owned_units"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return OwnedUnits_FieldType.valueOf(resolved);
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						ownedUnits_local = Optional.empty();
+					}
+					this.ownedUnits = ownedUnits_local;
+					
+					OptionalLong ownedIntegerNoUnits_local;
+					try {
+						ownedIntegerNoUnits_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("owned_integer_no_units"))
+								.mapToLong(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((IntegerLiteral) resolved).getValue();
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						ownedIntegerNoUnits_local = OptionalLong.empty();
+					}
+					this.ownedIntegerNoUnits = ownedIntegerNoUnits_local;
+					
+					OptionalDouble ownedRealNoUnits_local;
+					try {
+						ownedRealNoUnits_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("owned_real_no_units"))
+								.mapToDouble(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((RealLiteral) resolved).getValue();
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						ownedRealNoUnits_local = OptionalDouble.empty();
+					}
+					this.ownedRealNoUnits = ownedRealNoUnits_local;
+					
+					Optional<IntegerWithUnits<Time>> ownedNumberWithUnitsNoImport_local;
+					try {
+						ownedNumberWithUnitsNoImport_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("owned_number_with_units_no_import"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return new IntegerWithUnits<>(resolved, Time.class);
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						ownedNumberWithUnitsNoImport_local = Optional.empty();
+					}
+					this.ownedNumberWithUnitsNoImport = ownedNumberWithUnitsNoImport_local;
+					
+					Optional<IntegerWithUnits<Mass>> ownedNumberWithUnitsWithImport_local;
+					try {
+						ownedNumberWithUnitsWithImport_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("owned_number_with_units_with_import"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return new IntegerWithUnits<>(resolved, Mass.class);
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						ownedNumberWithUnitsWithImport_local = Optional.empty();
+					}
+					this.ownedNumberWithUnitsWithImport = ownedNumberWithUnitsWithImport_local;
+					
+					Optional<IntegerRangeWithUnits<Mass>> ownedRangeNoImport_local;
+					try {
+						ownedRangeNoImport_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("owned_range_no_import"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return new IntegerRangeWithUnits<>(resolved, Mass.class, lookupContext);
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						ownedRangeNoImport_local = Optional.empty();
+					}
+					this.ownedRangeNoImport = ownedRangeNoImport_local;
+					
+					Optional<RealRangeWithUnits<Mass>> ownedRangeImportNumber_local;
+					try {
+						ownedRangeImportNumber_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("owned_range_import_number"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return new RealRangeWithUnits<>(resolved, Mass.class, lookupContext);
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						ownedRangeImportNumber_local = Optional.empty();
+					}
+					this.ownedRangeImportNumber = ownedRangeImportNumber_local;
+					
+					Optional<IntegerRangeWithUnits<Mass>> ownedRangeImportUnits_local;
+					try {
+						ownedRangeImportUnits_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("owned_range_import_units"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return new IntegerRangeWithUnits<>(resolved, Mass.class, lookupContext);
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						ownedRangeImportUnits_local = Optional.empty();
+					}
+					this.ownedRangeImportUnits = ownedRangeImportUnits_local;
+					
+					Optional<OwnedRecord_FieldType> ownedRecord_local;
+					try {
+						ownedRecord_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("owned_record"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return new OwnedRecord_FieldType(resolved, lookupContext);
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						ownedRecord_local = Optional.empty();
+					}
+					this.ownedRecord = ownedRecord_local;
+					
+					Optional<InstanceObject> ownedReference_local;
+					try {
+						ownedReference_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("owned_reference"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((InstanceReferenceValue) resolved).getReferencedInstanceObject();
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						ownedReference_local = Optional.empty();
+					}
+					this.ownedReference = ownedReference_local;
+					
+					Optional<Boolean> referencedBoolean_local;
+					try {
+						referencedBoolean_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("referenced_boolean"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((BooleanLiteral) resolved).getValue();
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						referencedBoolean_local = Optional.empty();
+					}
+					this.referencedBoolean = referencedBoolean_local;
+					
+					Optional<String> referencedString_local;
+					try {
+						referencedString_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("referenced_string"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((StringLiteral) resolved).getValue();
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						referencedString_local = Optional.empty();
+					}
+					this.referencedString = referencedString_local;
+					
+					Optional<Classifier> referencedClassifier_local;
+					try {
+						referencedClassifier_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("referenced_classifier"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((ClassifierValue) resolved).getClassifier();
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						referencedClassifier_local = Optional.empty();
+					}
+					this.referencedClassifier = referencedClassifier_local;
+					
+					Optional<EnumType1> referencedEnumerationNoImport_local;
+					try {
+						referencedEnumerationNoImport_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("referenced_enumeration_no_import"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return EnumType1.valueOf(resolved);
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						referencedEnumerationNoImport_local = Optional.empty();
+					}
+					this.referencedEnumerationNoImport = referencedEnumerationNoImport_local;
+					
+					Optional<Color> referencedEnumerationWithImport_local;
+					try {
+						referencedEnumerationWithImport_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("referenced_enumeration_with_import"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return Color.valueOf(resolved);
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						referencedEnumerationWithImport_local = Optional.empty();
+					}
+					this.referencedEnumerationWithImport = referencedEnumerationWithImport_local;
+					
+					Optional<Time> referencedUnitsNoImport_local;
+					try {
+						referencedUnitsNoImport_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("referenced_units_no_import"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return Time.valueOf(resolved);
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						referencedUnitsNoImport_local = Optional.empty();
+					}
+					this.referencedUnitsNoImport = referencedUnitsNoImport_local;
+					
+					Optional<Mass> referencedUnitsWithImport_local;
+					try {
+						referencedUnitsWithImport_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("referenced_units_with_import"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return Mass.valueOf(resolved);
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						referencedUnitsWithImport_local = Optional.empty();
+					}
+					this.referencedUnitsWithImport = referencedUnitsWithImport_local;
+					
+					OptionalLong referencedIntegerNoUnits_local;
+					try {
+						referencedIntegerNoUnits_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("referenced_integer_no_units"))
+								.mapToLong(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((IntegerLiteral) resolved).getValue();
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						referencedIntegerNoUnits_local = OptionalLong.empty();
+					}
+					this.referencedIntegerNoUnits = referencedIntegerNoUnits_local;
+					
+					OptionalDouble referencedRealNoUnits_local;
+					try {
+						referencedRealNoUnits_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("referenced_real_no_units"))
+								.mapToDouble(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((RealLiteral) resolved).getValue();
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						referencedRealNoUnits_local = OptionalDouble.empty();
+					}
+					this.referencedRealNoUnits = referencedRealNoUnits_local;
+					
+					Optional<IntegerWithUnits<IntegerOwnedUnits>> referencedNumberWithUnitsNoImport_local;
+					try {
+						referencedNumberWithUnitsNoImport_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("referenced_number_with_units_no_import"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return new IntegerWithUnits<>(resolved, IntegerOwnedUnits.class);
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						referencedNumberWithUnitsNoImport_local = Optional.empty();
+					}
+					this.referencedNumberWithUnitsNoImport = referencedNumberWithUnitsNoImport_local;
+					
+					Optional<RealWithUnits<Mass>> referencedNumberWithUnitsWithImport_local;
+					try {
+						referencedNumberWithUnitsWithImport_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("referenced_number_with_units_with_import"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return new RealWithUnits<>(resolved, Mass.class);
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						referencedNumberWithUnitsWithImport_local = Optional.empty();
+					}
+					this.referencedNumberWithUnitsWithImport = referencedNumberWithUnitsWithImport_local;
+					
+					Optional<IntegerRange> referencedRangeNoImport_local;
+					try {
+						referencedRangeNoImport_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("referenced_range_no_import"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return new IntegerRange(resolved, lookupContext);
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						referencedRangeNoImport_local = Optional.empty();
+					}
+					this.referencedRangeNoImport = referencedRangeNoImport_local;
+					
+					Optional<RealRange> referencedRangeWithImport_local;
+					try {
+						referencedRangeWithImport_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("referenced_range_with_import"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return new RealRange(resolved, lookupContext);
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						referencedRangeWithImport_local = Optional.empty();
+					}
+					this.referencedRangeWithImport = referencedRangeWithImport_local;
+					
+					Optional<RecordOfBoolean> referencedRecordNoImport_local;
+					try {
+						referencedRecordNoImport_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("referenced_record_no_import"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return new RecordOfBoolean(resolved, lookupContext);
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						referencedRecordNoImport_local = Optional.empty();
+					}
+					this.referencedRecordNoImport = referencedRecordNoImport_local;
+					
+					Optional<BasicRecord> referencedRecordWithImport_local;
+					try {
+						referencedRecordWithImport_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("referenced_record_with_import"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return new BasicRecord(resolved, lookupContext);
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						referencedRecordWithImport_local = Optional.empty();
+					}
+					this.referencedRecordWithImport = referencedRecordWithImport_local;
+					
+					Optional<InstanceObject> referencedReference_local;
+					try {
+						referencedReference_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("referenced_reference"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((InstanceReferenceValue) resolved).getReferencedInstanceObject();
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						referencedReference_local = Optional.empty();
+					}
+					this.referencedReference = referencedReference_local;
 				}
 				
 				public Optional<Boolean> getOwnedBoolean() {
@@ -934,22 +1145,36 @@ class RecordTypeTest {
 					
 					public OwnedRecord_FieldType(PropertyExpression propertyExpression, NamedElement lookupContext) {
 						RecordValue recordValue = (RecordValue) propertyExpression;
-						this.stringField = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("string_field"))
-								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-									return ((StringLiteral) resolved).getValue();
-								})
-								.findAny();
-						this.integerField = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("integer_field"))
-								.mapToLong(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-									return ((IntegerLiteral) resolved).getValue();
-								})
-								.findAny();
+						
+						Optional<String> stringField_local;
+						try {
+							stringField_local = recordValue.getOwnedFieldValues()
+									.stream()
+									.filter(field -> field.getProperty().getName().equals("string_field"))
+									.map(field -> {
+										PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+										return ((StringLiteral) resolved).getValue();
+									})
+									.findAny();
+						} catch (PropertyNotPresentException e) {
+							stringField_local = Optional.empty();
+						}
+						this.stringField = stringField_local;
+						
+						OptionalLong integerField_local;
+						try {
+							integerField_local = recordValue.getOwnedFieldValues()
+									.stream()
+									.filter(field -> field.getProperty().getName().equals("integer_field"))
+									.mapToLong(field -> {
+										PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+										return ((IntegerLiteral) resolved).getValue();
+									})
+									.findAny();
+						} catch (PropertyNotPresentException e) {
+							integerField_local = OptionalLong.empty();
+						}
+						this.integerField = integerField_local;
 					}
 					
 					public Optional<String> getStringField() {
@@ -1011,6 +1236,7 @@ class RecordTypeTest {
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
+			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class RecordOfBoolean {
@@ -1018,14 +1244,21 @@ class RecordTypeTest {
 				
 				public RecordOfBoolean(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					this.field = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("field"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return ((BooleanLiteral) resolved).getValue();
-							})
-							.findAny();
+					
+					Optional<Boolean> field_local;
+					try {
+						field_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("field"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((BooleanLiteral) resolved).getValue();
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						field_local = Optional.empty();
+					}
+					this.field = field_local;
 				}
 				
 				public Optional<Boolean> getField() {
@@ -1073,6 +1306,7 @@ class RecordTypeTest {
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
 			import org.osate.aadl2.StringLiteral;
+			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class RecordOfString {
@@ -1080,14 +1314,21 @@ class RecordTypeTest {
 				
 				public RecordOfString(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					this.field = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("field"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return ((StringLiteral) resolved).getValue();
-							})
-							.findAny();
+					
+					Optional<String> field_local;
+					try {
+						field_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("field"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((StringLiteral) resolved).getValue();
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						field_local = Optional.empty();
+					}
+					this.field = field_local;
 				}
 				
 				public Optional<String> getField() {
@@ -1136,6 +1377,7 @@ class RecordTypeTest {
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
+			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class RecordOfClassifier {
@@ -1143,14 +1385,21 @@ class RecordTypeTest {
 				
 				public RecordOfClassifier(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					this.field = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("field"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return ((ClassifierValue) resolved).getClassifier();
-							})
-							.findAny();
+					
+					Optional<Classifier> field_local;
+					try {
+						field_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("field"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((ClassifierValue) resolved).getClassifier();
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						field_local = Optional.empty();
+					}
+					this.field = field_local;
 				}
 				
 				public Optional<Classifier> getField() {
@@ -1200,6 +1449,7 @@ class RecordTypeTest {
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
+			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class RecordOfEnum {
@@ -1207,14 +1457,21 @@ class RecordTypeTest {
 				
 				public RecordOfEnum(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					this.field = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("field"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return Field_FieldType.valueOf(resolved);
-							})
-							.findAny();
+					
+					Optional<Field_FieldType> field_local;
+					try {
+						field_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("field"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return Field_FieldType.valueOf(resolved);
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						field_local = Optional.empty();
+					}
+					this.field = field_local;
 				}
 				
 				public Optional<Field_FieldType> getField() {
@@ -1286,6 +1543,7 @@ class RecordTypeTest {
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
 			import org.osate.aadl2.UnitLiteral;
+			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			import org.osate.pluginsupport.properties.GeneratedUnits;
 			
@@ -1294,14 +1552,21 @@ class RecordTypeTest {
 				
 				public RecordOfUnits(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					this.field = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("field"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return Field_FieldType.valueOf(resolved);
-							})
-							.findAny();
+					
+					Optional<Field_FieldType> field_local;
+					try {
+						field_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("field"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return Field_FieldType.valueOf(resolved);
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						field_local = Optional.empty();
+					}
+					this.field = field_local;
 				}
 				
 				public Optional<Field_FieldType> getField() {
@@ -1381,6 +1646,7 @@ class RecordTypeTest {
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
+			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class RecordOfInteger {
@@ -1388,14 +1654,21 @@ class RecordTypeTest {
 				
 				public RecordOfInteger(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					this.field = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("field"))
-							.mapToLong(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return ((IntegerLiteral) resolved).getValue();
-							})
-							.findAny();
+					
+					OptionalLong field_local;
+					try {
+						field_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("field"))
+								.mapToLong(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((IntegerLiteral) resolved).getValue();
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						field_local = OptionalLong.empty();
+					}
+					this.field = field_local;
 				}
 				
 				public OptionalLong getField() {
@@ -1443,6 +1716,7 @@ class RecordTypeTest {
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RealLiteral;
 			import org.osate.aadl2.RecordValue;
+			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class RecordOfReal {
@@ -1450,14 +1724,21 @@ class RecordTypeTest {
 				
 				public RecordOfReal(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					this.field = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("field"))
-							.mapToDouble(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return ((RealLiteral) resolved).getValue();
-							})
-							.findAny();
+					
+					OptionalDouble field_local;
+					try {
+						field_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("field"))
+								.mapToDouble(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((RealLiteral) resolved).getValue();
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						field_local = OptionalDouble.empty();
+					}
+					this.field = field_local;
 				}
 				
 				public OptionalDouble getField() {
@@ -1506,6 +1787,7 @@ class RecordTypeTest {
 			import org.osate.aadl2.RecordValue;
 			import org.osate.aadl2.instance.InstanceObject;
 			import org.osate.aadl2.instance.InstanceReferenceValue;
+			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class RecordOfReference {
@@ -1513,14 +1795,21 @@ class RecordTypeTest {
 				
 				public RecordOfReference(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					this.field = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("field"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return ((InstanceReferenceValue) resolved).getReferencedInstanceObject();
-							})
-							.findAny();
+					
+					Optional<InstanceObject> field_local;
+					try {
+						field_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("field"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((InstanceReferenceValue) resolved).getReferencedInstanceObject();
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						field_local = Optional.empty();
+					}
+					this.field = field_local;
 				}
 				
 				public Optional<InstanceObject> getField() {
@@ -1569,6 +1858,7 @@ class RecordTypeTest {
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
+			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class NestedRecord {
@@ -1576,14 +1866,21 @@ class RecordTypeTest {
 				
 				public NestedRecord(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					this.field1 = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("field1"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return new Field1_FieldType(resolved, lookupContext);
-							})
-							.findAny();
+					
+					Optional<Field1_FieldType> field1_local;
+					try {
+						field1_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("field1"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return new Field1_FieldType(resolved, lookupContext);
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						field1_local = Optional.empty();
+					}
+					this.field1 = field1_local;
 				}
 				
 				public Optional<Field1_FieldType> getField1() {
@@ -1625,14 +1922,21 @@ class RecordTypeTest {
 					
 					public Field1_FieldType(PropertyExpression propertyExpression, NamedElement lookupContext) {
 						RecordValue recordValue = (RecordValue) propertyExpression;
-						this.field2 = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("field2"))
-								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-									return new Field2_FieldType(resolved, lookupContext);
-								})
-								.findAny();
+						
+						Optional<Field2_FieldType> field2_local;
+						try {
+							field2_local = recordValue.getOwnedFieldValues()
+									.stream()
+									.filter(field -> field.getProperty().getName().equals("field2"))
+									.map(field -> {
+										PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+										return new Field2_FieldType(resolved, lookupContext);
+									})
+									.findAny();
+						} catch (PropertyNotPresentException e) {
+							field2_local = Optional.empty();
+						}
+						this.field2 = field2_local;
 					}
 					
 					public Optional<Field2_FieldType> getField2() {
@@ -1674,14 +1978,21 @@ class RecordTypeTest {
 						
 						public Field2_FieldType(PropertyExpression propertyExpression, NamedElement lookupContext) {
 							RecordValue recordValue = (RecordValue) propertyExpression;
-							this.field3 = recordValue.getOwnedFieldValues()
-									.stream()
-									.filter(field -> field.getProperty().getName().equals("field3"))
-									.map(field -> {
-										PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-										return new Field3_FieldType(resolved, lookupContext);
-									})
-									.findAny();
+							
+							Optional<Field3_FieldType> field3_local;
+							try {
+								field3_local = recordValue.getOwnedFieldValues()
+										.stream()
+										.filter(field -> field.getProperty().getName().equals("field3"))
+										.map(field -> {
+											PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+											return new Field3_FieldType(resolved, lookupContext);
+										})
+										.findAny();
+							} catch (PropertyNotPresentException e) {
+								field3_local = Optional.empty();
+							}
+							this.field3 = field3_local;
 						}
 						
 						public Optional<Field3_FieldType> getField3() {
@@ -1723,14 +2034,21 @@ class RecordTypeTest {
 							
 							public Field3_FieldType(PropertyExpression propertyExpression, NamedElement lookupContext) {
 								RecordValue recordValue = (RecordValue) propertyExpression;
-								this.innerField = recordValue.getOwnedFieldValues()
-										.stream()
-										.filter(field -> field.getProperty().getName().equals("inner_field"))
-										.mapToLong(field -> {
-											PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-											return ((IntegerLiteral) resolved).getValue();
-										})
-										.findAny();
+								
+								OptionalLong innerField_local;
+								try {
+									innerField_local = recordValue.getOwnedFieldValues()
+											.stream()
+											.filter(field -> field.getProperty().getName().equals("inner_field"))
+											.mapToLong(field -> {
+												PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+												return ((IntegerLiteral) resolved).getValue();
+											})
+											.findAny();
+								} catch (PropertyNotPresentException e) {
+									innerField_local = OptionalLong.empty();
+								}
+								this.innerField = innerField_local;
 							}
 							
 							public OptionalLong getInnerField() {

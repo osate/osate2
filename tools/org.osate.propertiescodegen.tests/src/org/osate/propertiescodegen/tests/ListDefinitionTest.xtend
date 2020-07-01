@@ -915,6 +915,7 @@ class ListDefinitionTest {
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
+			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class RecordOfBoolean {
@@ -922,14 +923,21 @@ class ListDefinitionTest {
 				
 				public RecordOfBoolean(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					this.field = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("field"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return ((BooleanLiteral) resolved).getValue();
-							})
-							.findAny();
+					
+					Optional<Boolean> field_local;
+					try {
+						field_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("field"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((BooleanLiteral) resolved).getValue();
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						field_local = Optional.empty();
+					}
+					this.field = field_local;
 				}
 				
 				public Optional<Boolean> getField() {
@@ -1054,6 +1062,7 @@ class ListDefinitionTest {
 			import org.osate.aadl2.RealLiteral;
 			import org.osate.aadl2.RecordValue;
 			import org.osate.aadl2.StringLiteral;
+			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class List1OwnedRecord {
@@ -1063,30 +1072,51 @@ class ListDefinitionTest {
 				
 				public List1OwnedRecord(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					this.booleanField = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("boolean_field"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return ((BooleanLiteral) resolved).getValue();
-							})
-							.findAny();
-					this.stringField = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("string_field"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return ((StringLiteral) resolved).getValue();
-							})
-							.findAny();
-					this.recordField = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("record_field"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return new RecordField_FieldType(resolved, lookupContext);
-							})
-							.findAny();
+					
+					Optional<Boolean> booleanField_local;
+					try {
+						booleanField_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("boolean_field"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((BooleanLiteral) resolved).getValue();
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						booleanField_local = Optional.empty();
+					}
+					this.booleanField = booleanField_local;
+					
+					Optional<String> stringField_local;
+					try {
+						stringField_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("string_field"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((StringLiteral) resolved).getValue();
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						stringField_local = Optional.empty();
+					}
+					this.stringField = stringField_local;
+					
+					Optional<RecordField_FieldType> recordField_local;
+					try {
+						recordField_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("record_field"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return new RecordField_FieldType(resolved, lookupContext);
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						recordField_local = Optional.empty();
+					}
+					this.recordField = recordField_local;
 				}
 				
 				public Optional<Boolean> getBooleanField() {
@@ -1153,22 +1183,36 @@ class ListDefinitionTest {
 					
 					public RecordField_FieldType(PropertyExpression propertyExpression, NamedElement lookupContext) {
 						RecordValue recordValue = (RecordValue) propertyExpression;
-						this.integerField = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("integer_field"))
-								.mapToLong(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-									return ((IntegerLiteral) resolved).getValue();
-								})
-								.findAny();
-						this.realField = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("real_field"))
-								.mapToDouble(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-									return ((RealLiteral) resolved).getValue();
-								})
-								.findAny();
+						
+						OptionalLong integerField_local;
+						try {
+							integerField_local = recordValue.getOwnedFieldValues()
+									.stream()
+									.filter(field -> field.getProperty().getName().equals("integer_field"))
+									.mapToLong(field -> {
+										PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+										return ((IntegerLiteral) resolved).getValue();
+									})
+									.findAny();
+						} catch (PropertyNotPresentException e) {
+							integerField_local = OptionalLong.empty();
+						}
+						this.integerField = integerField_local;
+						
+						OptionalDouble realField_local;
+						try {
+							realField_local = recordValue.getOwnedFieldValues()
+									.stream()
+									.filter(field -> field.getProperty().getName().equals("real_field"))
+									.mapToDouble(field -> {
+										PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+										return ((RealLiteral) resolved).getValue();
+									})
+									.findAny();
+						} catch (PropertyNotPresentException e) {
+							realField_local = OptionalDouble.empty();
+						}
+						this.realField = realField_local;
 					}
 					
 					public OptionalLong getIntegerField() {

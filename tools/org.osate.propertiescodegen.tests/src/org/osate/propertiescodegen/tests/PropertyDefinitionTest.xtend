@@ -392,6 +392,7 @@ class PropertyDefinitionTest {
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
+			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class RecordDefinition {
@@ -399,14 +400,21 @@ class PropertyDefinitionTest {
 				
 				public RecordDefinition(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
-					this.field = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("field"))
-							.map(field -> {
-								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-								return ((BooleanLiteral) resolved).getValue();
-							})
-							.findAny();
+					
+					Optional<Boolean> field_local;
+					try {
+						field_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("field"))
+								.map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									return ((BooleanLiteral) resolved).getValue();
+								})
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						field_local = Optional.empty();
+					}
+					this.field = field_local;
 				}
 				
 				public Optional<Boolean> getField() {

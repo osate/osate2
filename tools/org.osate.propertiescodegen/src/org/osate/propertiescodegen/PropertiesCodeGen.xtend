@@ -122,14 +122,9 @@ class PropertiesCodeGen {
 	
 	def private String generatePropertyGetter(Property property) {
 		val type = property.propertyType
-		val optionalType = switch type {
-			AadlInteger case type.unitsType === null: "OptionalLong"
-			AadlReal case type.unitsType === null: "OptionalDouble"
-			default: "Optional"
-		}
+		val baseOptionalType = getBaseOptionalType(type)
 		
 		imports += #{
-			"java.util." + optionalType,
 			"org.osate.aadl2.Aadl2Package",
 			"org.osate.aadl2.NamedElement",
 			"org.osate.aadl2.Property",
@@ -140,15 +135,15 @@ class PropertiesCodeGen {
 		}
 		
 		'''
-			public static «getOptionalType(type)» get«property.name.toCamelCase»(NamedElement lookupContext) {
+			public static «getGenericOptionalType(type)» get«property.name.toCamelCase»(NamedElement lookupContext) {
 				String name = "«propertySet.name»::«property.name»";
 				Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				try {
 					PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
 					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
-					return «optionalType».of(«getValueExtractor(type, "resolved", 1)»);
+					return «baseOptionalType».of(«getValueExtractor(type, "resolved", 1)»);
 				} catch (PropertyNotPresentException e) {
-					return «optionalType».empty();
+					return «baseOptionalType».empty();
 				}
 			}
 			
@@ -160,7 +155,24 @@ class PropertiesCodeGen {
 		'''
 	}
 	
-	def private String getOptionalType(PropertyType type) {
+	def private String getBaseOptionalType(PropertyType type) {
+		switch type {
+			AadlInteger case type.unitsType === null: {
+				imports += "java.util.OptionalLong"
+				"OptionalLong"
+			}
+			AadlReal case type.unitsType === null: {
+				imports += "java.util.OptionalDouble"
+				"OptionalDouble"
+			}
+			default: {
+				imports += "java.util.Optional"
+				"Optional"
+			}
+		}
+	}
+	
+	def private String getGenericOptionalType(PropertyType type) {
 		switch type {
 			AadlInteger case type.unitsType === null: {
 				imports += "java.util.OptionalLong"
@@ -438,27 +450,36 @@ class PropertiesCodeGen {
 			"java.util.Objects",
 			"org.osate.aadl2.NamedElement",
 			"org.osate.aadl2.PropertyExpression",
-			"org.osate.aadl2.RecordValue"
+			"org.osate.aadl2.RecordValue",
+			"org.osate.aadl2.properties.PropertyNotPresentException"
 		}
 		'''
 			public«IF !topLevel» static«ENDIF» class «typeName» {
 				«FOR field : recordType.ownedFields»
-				private final «getOptionalType(field.propertyType)» «field.name.toCamelCase.toFirstLower»;
+				private final «getGenericOptionalType(field.propertyType)» «field.name.toCamelCase.toFirstLower»;
 				«ENDFOR»
 				
 				public «typeName»(PropertyExpression propertyExpression, NamedElement lookupContext) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					«FOR field : recordType.ownedFields»
-					this.«field.name.toCamelCase.toFirstLower» = recordValue.getOwnedFieldValues()
-							.stream()
-							.filter(field -> field.getProperty().getName().equals("«field.name»"))
-							«getFieldValueExtractor(field)»
-							.findAny();
+					
+					«val fieldName = field.name.toCamelCase.toFirstLower»
+					«getGenericOptionalType(field.propertyType)» «fieldName»_local;
+					try {
+						«fieldName»_local = recordValue.getOwnedFieldValues()
+								.stream()
+								.filter(field -> field.getProperty().getName().equals("«field.name»"))
+								«getFieldValueExtractor(field)»
+								.findAny();
+					} catch (PropertyNotPresentException e) {
+						«fieldName»_local = «getBaseOptionalType(field.propertyType)».empty();
+					}
+					this.«fieldName» = «fieldName»_local;
 					«ENDFOR»
 				}
 				«FOR field : recordType.ownedFields»
 				
-				public «getOptionalType(field.propertyType)» get«field.name.toCamelCase»() {
+				public «getGenericOptionalType(field.propertyType)» get«field.name.toCamelCase»() {
 					return «field.name.toCamelCase.toFirstLower»;
 				}
 				«ENDFOR»
