@@ -55,8 +55,8 @@ public class Services {
 	 * @return The set of neighbors for the given component.
 	 */
 	public static Collection<EObject> getAllNeighbors(EObject self) {
-		return Stream.of(getSuccessorNeighbors(self).stream(), getPredecessorNeighbors(self).stream(),
-				getOneHopNeighbors(self).stream()).flatMap(Function.identity()).collect(Collectors.toSet());
+		return Stream.of(getSuccessorNeighbors(self).stream(), getPredecessorNeighbors(self).stream())
+				.flatMap(Function.identity()).collect(Collectors.toSet());
 	}
 
 	/**
@@ -68,13 +68,17 @@ public class Services {
 	 */
 	public static Collection<EObject> getOneHopNeighbors(EObject self) {
 		Set<EObject> ret = new HashSet<>();
-		for (EObject succ : getSuccessorNeighbors(self)) {
+		final Collection<EObject> successorNeighbors = getSuccessorNeighbors(self);
+		final Collection<EObject> predecessorNeighbors = getPredecessorNeighbors(self);
+		for (EObject succ : successorNeighbors) {
 			ret.addAll(getSuccessorNeighbors(succ));
 		}
-		for (EObject pred : getPredecessorNeighbors(self)) {
+		for (EObject pred : predecessorNeighbors) {
 			ret.addAll(getPredecessorNeighbors(pred));
 		}
 		ret.remove(self); // Filter out the object if there's a loop
+		ret.removeAll(successorNeighbors); // And filter out any immediate neighbors that,
+		ret.removeAll(predecessorNeighbors); // due to weird layouts, are also 1-hop neighbors
 
 		return ret;
 	}
@@ -94,10 +98,12 @@ public class Services {
 	 * Get all the "Predecessors" of the specified component, where predecessor is defined as another
 	 * component that sends messages directly (ie, without any intermediaries) to this one
 	 *
+	 * Note that this is private since it is not called by the sirius view
+	 *
 	 * @param self The component to get the neighbors of
 	 * @return The set of predecessors to the given component.
 	 */
-	public static Collection<EObject> getPredecessorNeighbors(EObject self) {
+	private static Collection<EObject> getPredecessorNeighbors(EObject self) {
 		return AwasManager.getInstance().getPredecessorNeighbors((ComponentInstance) self);
 	}
 
@@ -310,8 +316,25 @@ public class Services {
 	 * @param self The component or connection to check
 	 * @return True if the parameter is part of the user's focus, false otherwise
 	 */
+	@Deprecated
 	public static boolean isFocused(EObject self) {
 		return FocusManager.getInstance().isFocused(self);
+	}
+
+	public static boolean isOnlyForwardFocused(EObject self) {
+		return FocusManager.getInstance().isOnlyForwardFocused(self);
+	}
+
+	public static boolean isOnlyBackwardFocused(EObject self) {
+		return FocusManager.getInstance().isOnlyBackwardFocused(self);
+	}
+
+	public static boolean isDoublyFocused(EObject self) {
+		return FocusManager.getInstance().isDoublyFocused(self);
+	}
+
+	public static boolean isFundamentalFocused(EObject self) {
+		return FocusManager.getInstance().isFundamentalFocused(self);
 	}
 
 	/**

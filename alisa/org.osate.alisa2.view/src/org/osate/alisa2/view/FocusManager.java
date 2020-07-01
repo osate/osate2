@@ -33,7 +33,10 @@ public class FocusManager {
 	/**
 	 * The set of elements included as part of the user's focus
 	 */
-	private Set<EObject> focusSet = new HashSet<>();
+	// Use hash sets since we mostly do lookups (less, but still sometimes: inserts & clears)
+	private Set<EObject> forwardFocusSet = new HashSet<>();
+	private Set<EObject> backwardFocusSet = new HashSet<>();
+	private Set<Fundamental> fundamentalFocusSet = new HashSet<>();
 
 	/**
 	 * Private constructor to enforce singleton pattern. Note that we also
@@ -55,8 +58,25 @@ public class FocusManager {
 		return focus;
 	}
 
+	@Deprecated
 	public boolean isFocused(EObject element) {
-		return focusSet.contains(element);
+		return false;
+	}
+
+	public boolean isOnlyForwardFocused(EObject element) {
+		return forwardFocusSet.contains(element) && (!backwardFocusSet.contains(element));
+	}
+
+	public boolean isOnlyBackwardFocused(EObject element) {
+		return (!forwardFocusSet.contains(element)) && backwardFocusSet.contains(element);
+	}
+
+	public boolean isDoublyFocused(EObject element) {
+		return forwardFocusSet.contains(element) && backwardFocusSet.contains(element);
+	}
+
+	public boolean isFundamentalFocused(EObject element) {
+		return fundamentalFocusSet.contains(element);
 	}
 
 	public void setFocus(EObject newFocus) {
@@ -90,12 +110,12 @@ public class FocusManager {
 	}
 
 	private void handleFocusedComponent(ComponentInstance newFocus) {
-		focusSet.addAll(AwasManager.getInstance().backwardReach(newFocus));
-		focusSet.addAll(AwasManager.getInstance().forwardReach(newFocus));
+		backwardFocusSet.addAll(AwasManager.getInstance().backwardReach(newFocus));
+		forwardFocusSet.addAll(AwasManager.getInstance().forwardReach(newFocus));
 	}
 
 	private void handleFocusedFundamental(Fundamental newFocus) {
-		focusSet.add(newFocus);
+		fundamentalFocusSet.add(newFocus);
 		if (newFocus instanceof AccidentLevel) {
 			for (Accident a : ((AccidentLevel) newFocus).getAccident()) {
 				handleFocusedFundamental(a);
@@ -119,13 +139,12 @@ public class FocusManager {
 	}
 
 	private void handleFocusedErrorType(ErrorType et, FeatureInstance feature) {
-		// slicing stuff -- add components from forward and backward slice
-		focusSet.addAll(AwasManager.getInstance().backwardReach(et, feature));
-		focusSet.addAll(AwasManager.getInstance().forwardReach(et, feature));
-		focusSet.size();
+		backwardFocusSet.addAll(AwasManager.getInstance().backwardReach(et, feature));
+		forwardFocusSet.addAll(AwasManager.getInstance().forwardReach(et, feature));
 	}
 
 	public void clearFocus() {
-		focusSet.clear();
+		forwardFocusSet.clear();
+		backwardFocusSet.clear();
 	}
 }
