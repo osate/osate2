@@ -4,8 +4,9 @@ public
 	with MAP_Properties;
 	abstract PulseOx_Forwarding_Clinician
 		features
+			ClinGetAdvice : in feature;
 			ClinViewSpO2 : in feature;
-			ClinTreatment: out feature;
+			ClinTreatment : out feature;
 		properties
 			MAP_Properties::Component_Type => controller;
 	end PulseOx_Forwarding_Clinician;

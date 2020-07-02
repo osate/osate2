@@ -39,15 +39,26 @@
       </ownedValue>
       <propertyAssociation href="../PulseOx_Forwarding_Clinician.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedPropertyAssociation.0"/>
     </ownedPropertyAssociation>
-    <featureInstance name="ClinViewSpO2" category="abstractFeature">
+    <featureInstance name="ClinGetAdvice" category="abstractFeature">
       <feature xsi:type="aadl2:AbstractFeature" href="../PulseOx_Forwarding_Clinician.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedAbstractFeature.0"/>
     </featureInstance>
-    <featureInstance name="ClinTreatment" category="abstractFeature" direction="out">
+    <featureInstance name="ClinViewSpO2" category="abstractFeature">
       <feature xsi:type="aadl2:AbstractFeature" href="../PulseOx_Forwarding_Clinician.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedAbstractFeature.1"/>
+    </featureInstance>
+    <featureInstance name="ClinTreatment" category="abstractFeature" direction="out">
+      <feature xsi:type="aadl2:AbstractFeature" href="../PulseOx_Forwarding_Clinician.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedAbstractFeature.2"/>
     </featureInstance>
     <subcomponent xsi:type="aadl2:AbstractSubcomponent" href="../PulseOx_Forwarding_System.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedAbstractSubcomponent.1"/>
     <index>0</index>
     <classifier xsi:type="aadl2:AbstractType" href="../PulseOx_Forwarding_Clinician.aadl#PulseOx_Forwarding_Clinician.PulseOx_Forwarding_Clinician"/>
+  </componentInstance>
+  <componentInstance name="doctor">
+    <featureInstance name="DocGiveAdvice" category="abstractFeature" direction="out">
+      <feature xsi:type="aadl2:AbstractFeature" href="../PulseOx_Forwarding_Doctor.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedAbstractFeature.0"/>
+    </featureInstance>
+    <subcomponent xsi:type="aadl2:AbstractSubcomponent" href="../PulseOx_Forwarding_System.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedAbstractSubcomponent.2"/>
+    <index>0</index>
+    <classifier xsi:type="aadl2:AbstractType" href="../PulseOx_Forwarding_Doctor.aadl#PulseOx_Forwarding_Doctor.PulseOx_Forwarding_Doctor"/>
   </componentInstance>
   <componentInstance name="pulseOx" category="device">
     <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
@@ -130,6 +141,40 @@
     <subcomponent xsi:type="aadl2:DeviceSubcomponent" href="../PulseOx_Forwarding_System.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedDeviceSubcomponent.0"/>
     <index>0</index>
     <classifier xsi:type="aadl2:DeviceImplementation" href="../PulseOx_Interface.aadl#PulseOx_Interface.ICEpoInterface.imp"/>
+  </componentInstance>
+  <componentInstance name="electronicHealthRecord" category="device">
+    <featureInstance name="ehrSpO2" category="eventDataPort">
+      <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+        <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Data_Representation"/>
+        <ownedValue>
+          <ownedValue xsi:type="aadl2:NamedValue">
+            <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.4/@ownedPropertyType/@ownedLiteral.4"/>
+          </ownedValue>
+        </ownedValue>
+        <propertyAssociation href="../PulseOx_Forwarding_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedPropertyAssociation.0"/>
+      </ownedPropertyAssociation>
+      <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+        <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Real_Range"/>
+        <ownedValue>
+          <ownedValue xsi:type="aadl2:RangeValue">
+            <minimum xsi:type="aadl2:RealLiteral"/>
+            <maximum xsi:type="aadl2:RealLiteral" value="100.0"/>
+          </ownedValue>
+        </ownedValue>
+        <propertyAssociation href="../PulseOx_Forwarding_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedPropertyAssociation.1"/>
+      </ownedPropertyAssociation>
+      <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+        <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Measurement_Unit"/>
+        <ownedValue>
+          <ownedValue xsi:type="aadl2:StringLiteral" value="Percent"/>
+        </ownedValue>
+        <propertyAssociation href="../PulseOx_Forwarding_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedPropertyAssociation.2"/>
+      </ownedPropertyAssociation>
+      <feature xsi:type="aadl2:EventDataPort" href="../PulseOx_Forwarding_EHR.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedEventDataPort.0"/>
+    </featureInstance>
+    <subcomponent xsi:type="aadl2:DeviceSubcomponent" href="../PulseOx_Forwarding_System.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedDeviceSubcomponent.1"/>
+    <index>0</index>
+    <classifier xsi:type="aadl2:DeviceImplementation" href="../PulseOx_Forwarding_EHR.aadl#PulseOx_Forwarding_EHR.PulseOx_Forwarding_EHR.imp"/>
   </componentInstance>
   <componentInstance name="appLogic" category="process">
     <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
@@ -382,22 +427,27 @@
     <index>0</index>
     <classifier xsi:type="aadl2:ProcessImplementation" href="../PulseOx_Forwarding_Display.aadl#PulseOx_Forwarding_Display.PulseOx_Display_Process.imp"/>
   </componentInstance>
-  <connectionInstance name="patient.PatientFingerclip -> pulseOx.SensorInput" complete="true" destination="//@componentInstance.2/@featureInstance.0" source="//@componentInstance.0/@featureInstance.0">
-    <connectionReference context="/" source="//@componentInstance.0/@featureInstance.0" destination="//@componentInstance.2/@featureInstance.0">
+  <connectionInstance name="patient.PatientFingerclip -> pulseOx.SensorInput" complete="true" destination="//@componentInstance.3/@featureInstance.0" source="//@componentInstance.0/@featureInstance.0">
+    <connectionReference context="/" source="//@componentInstance.0/@featureInstance.0" destination="//@componentInstance.3/@featureInstance.0">
+      <connection xsi:type="aadl2:FeatureConnection" href="../PulseOx_Forwarding_System.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureConnection.3"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="clinician.ClinTreatment -> patient.PatientTreatment" complete="true" destination="//@componentInstance.0/@featureInstance.1" source="//@componentInstance.1/@featureInstance.2">
+    <connectionReference context="/" source="//@componentInstance.1/@featureInstance.2" destination="//@componentInstance.0/@featureInstance.1">
       <connection xsi:type="aadl2:FeatureConnection" href="../PulseOx_Forwarding_System.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureConnection.2"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="clinician.ClinTreatment -> patient.PatientTreatment" complete="true" destination="//@componentInstance.0/@featureInstance.1" source="//@componentInstance.1/@featureInstance.1">
-    <connectionReference context="/" source="//@componentInstance.1/@featureInstance.1" destination="//@componentInstance.0/@featureInstance.1">
+  <connectionInstance name="doctor.DocGiveAdvice -> clinician.ClinGetAdvice" complete="true" destination="//@componentInstance.1/@featureInstance.0" source="//@componentInstance.2/@featureInstance.0">
+    <connectionReference context="/" source="//@componentInstance.2/@featureInstance.0" destination="//@componentInstance.1/@featureInstance.0">
       <connection xsi:type="aadl2:FeatureConnection" href="../PulseOx_Forwarding_System.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureConnection.1"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="pulseOx.POOutSpO2 -> appLogic.LogicSpO2" complete="true" kind="portConnection" destination="//@componentInstance.3/@featureInstance.0" source="//@componentInstance.2/@featureInstance.2">
-    <connectionReference context="/" source="//@componentInstance.2/@featureInstance.2" destination="//@componentInstance.3/@featureInstance.0">
+  <connectionInstance name="pulseOx.POOutSpO2 -> appLogic.LogicSpO2" complete="true" kind="portConnection" destination="//@componentInstance.5/@featureInstance.0" source="//@componentInstance.3/@featureInstance.2">
+    <connectionReference context="/" source="//@componentInstance.3/@featureInstance.2" destination="//@componentInstance.5/@featureInstance.0">
       <connection xsi:type="aadl2:PortConnection" href="../PulseOx_Forwarding_System.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.0"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="pulseOx.POOutSpO2 -> appDisplay.UpdateSpO2Thread.SpO2" complete="true" kind="portConnection" destination="//@componentInstance.4/@componentInstance.0/@featureInstance.0" source="//@componentInstance.2/@featureInstance.2">
+  <connectionInstance name="pulseOx.POOutSpO2 -> appDisplay.UpdateSpO2Thread.SpO2" complete="true" kind="portConnection" destination="//@componentInstance.6/@componentInstance.0/@featureInstance.0" source="//@componentInstance.3/@featureInstance.2">
     <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
       <property href="../MAP_Properties.aadl#MAP_Properties.Channel_Delay"/>
       <ownedValue>
@@ -407,26 +457,31 @@
       </ownedValue>
       <propertyAssociation href="../PulseOx_Forwarding_System.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.1/@ownedPropertyAssociation.0"/>
     </ownedPropertyAssociation>
-    <connectionReference context="/" source="//@componentInstance.2/@featureInstance.2" destination="//@componentInstance.4/@featureInstance.1">
+    <connectionReference context="/" source="//@componentInstance.3/@featureInstance.2" destination="//@componentInstance.6/@featureInstance.1">
       <connection xsi:type="aadl2:PortConnection" href="../PulseOx_Forwarding_System.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.1"/>
     </connectionReference>
-    <connectionReference context="//@componentInstance.4" source="//@componentInstance.4/@featureInstance.1" destination="//@componentInstance.4/@componentInstance.0/@featureInstance.0">
+    <connectionReference context="//@componentInstance.6" source="//@componentInstance.6/@featureInstance.1" destination="//@componentInstance.6/@componentInstance.0/@featureInstance.0">
       <connection xsi:type="aadl2:PortConnection" href="../PulseOx_Forwarding_Display.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.0"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="appLogic.CheckSpO2Thread.Alarm -> appDisplay.HandleAlarmThread.Alarm" complete="true" kind="portConnection" destination="//@componentInstance.4/@componentInstance.1/@featureInstance.0" source="//@componentInstance.3/@componentInstance.1/@featureInstance.0">
-    <connectionReference context="//@componentInstance.3" source="//@componentInstance.3/@componentInstance.1/@featureInstance.0" destination="//@componentInstance.3/@featureInstance.1">
-      <connection xsi:type="aadl2:PortConnection" href="../PulseOx_Forwarding_Logic.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.0"/>
-    </connectionReference>
-    <connectionReference context="/" source="//@componentInstance.3/@featureInstance.1" destination="//@componentInstance.4/@featureInstance.2">
+  <connectionInstance name="pulseOx.POOutSpO2 -> electronicHealthRecord.ehrSpO2" complete="true" kind="portConnection" destination="//@componentInstance.4/@featureInstance.0" source="//@componentInstance.3/@featureInstance.2">
+    <connectionReference context="/" source="//@componentInstance.3/@featureInstance.2" destination="//@componentInstance.4/@featureInstance.0">
       <connection xsi:type="aadl2:PortConnection" href="../PulseOx_Forwarding_System.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.2"/>
     </connectionReference>
-    <connectionReference context="//@componentInstance.4" source="//@componentInstance.4/@featureInstance.2" destination="//@componentInstance.4/@componentInstance.1/@featureInstance.0">
+  </connectionInstance>
+  <connectionInstance name="appLogic.CheckSpO2Thread.Alarm -> appDisplay.HandleAlarmThread.Alarm" complete="true" kind="portConnection" destination="//@componentInstance.6/@componentInstance.1/@featureInstance.0" source="//@componentInstance.5/@componentInstance.1/@featureInstance.0">
+    <connectionReference context="//@componentInstance.5" source="//@componentInstance.5/@componentInstance.1/@featureInstance.0" destination="//@componentInstance.5/@featureInstance.1">
+      <connection xsi:type="aadl2:PortConnection" href="../PulseOx_Forwarding_Logic.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.0"/>
+    </connectionReference>
+    <connectionReference context="/" source="//@componentInstance.5/@featureInstance.1" destination="//@componentInstance.6/@featureInstance.2">
+      <connection xsi:type="aadl2:PortConnection" href="../PulseOx_Forwarding_System.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.3"/>
+    </connectionReference>
+    <connectionReference context="//@componentInstance.6" source="//@componentInstance.6/@featureInstance.2" destination="//@componentInstance.6/@componentInstance.1/@featureInstance.0">
       <connection xsi:type="aadl2:PortConnection" href="../PulseOx_Forwarding_Display.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.1"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="appDisplay.DispShowSpO2 -> clinician.ClinViewSpO2" complete="true" destination="//@componentInstance.1/@featureInstance.0" source="//@componentInstance.4/@featureInstance.0">
-    <connectionReference context="/" source="//@componentInstance.4/@featureInstance.0" destination="//@componentInstance.1/@featureInstance.0">
+  <connectionInstance name="appDisplay.DispShowSpO2 -> clinician.ClinViewSpO2" complete="true" destination="//@componentInstance.1/@featureInstance.1" source="//@componentInstance.6/@featureInstance.0">
+    <connectionReference context="/" source="//@componentInstance.6/@featureInstance.0" destination="//@componentInstance.1/@featureInstance.1">
       <connection xsi:type="aadl2:FeatureConnection" href="../PulseOx_Forwarding_System.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureConnection.0"/>
     </connectionReference>
   </connectionInstance>

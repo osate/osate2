@@ -1,26 +1,30 @@
 package PulseOx_Forwarding_System
 public
 	with ErrorLibrary, MAP_Errors, PulseOx_Forwarding_Errors;
-	with PulseOx_Interface, PulseOx_Forwarding_Logic, PulseOx_Forwarding_Display, PulseOx_Forwarding_Properties, MAP_Properties, MAP_Error_Properties, PulseOx_Forwarding_Patient, PulseOx_Forwarding_Clinician;
+	with PulseOx_Interface, PulseOx_Forwarding_Logic, PulseOx_Forwarding_Display, PulseOx_Forwarding_Properties, MAP_Properties, MAP_Error_Properties, PulseOx_Forwarding_Patient, PulseOx_Forwarding_Clinician, PulseOx_Forwarding_EHR, PulseOx_Forwarding_Doctor;
 
 	system PulseOx_Forwarding_System
 	end PulseOx_Forwarding_System;
 
 	system implementation PulseOx_Forwarding_System.imp
 		subcomponents
-			-- Physiological inputs
+			-- Devices
 			pulseOx: device PulseOx_Interface::ICEpoInterface.imp;
+			electronicHealthRecord : device PulseOx_Forwarding_EHR::PulseOx_Forwarding_EHR.imp;
 			-- App logic
 			appLogic: process PulseOx_Forwarding_Logic::PulseOx_Logic_Process.imp;
 			appDisplay: process PulseOx_Forwarding_Display::PulseOx_Display_Process.imp;
 			-- The humans
 			patient: abstract PulseOx_Forwarding_Patient::PulseOx_Forwarding_Patient;
 			clinician: abstract PulseOx_Forwarding_Clinician::PulseOx_Forwarding_Clinician;
+			doctor: abstract PulseOx_Forwarding_Doctor::PulseOx_Forwarding_Doctor;
 		connections
 			spo2_to_logic: port pulseOx.POOutSpO2 -> appLogic.LogicSpO2;
 			spo2_to_display: port pulseOx.POOutSpO2 -> appDisplay.DispSpO2 {MAP_Properties::Channel_Delay => 150ms;};
+			spo2_to_ehr : port pulseOx.POOutSpO2 -> electronicHealthRecord.ehrSpO2;
 			alarm_to_display: port appLogic.LogicDerivedAlarm -> appDisplay.DispDerivedAlarm;
 			ViewSpO2: feature appDisplay.DispShowSpO2 -> clinician.ClinViewSpO2;
+			GiveAdvice : feature doctor.DocGiveAdvice -> clinician.ClinGetAdvice;
 			AdministerTreatment: feature clinician.ClinTreatment -> patient.PatientTreatment;
 			Sense: feature patient.PatientFingerclip -> pulseOx.SensorInput;
 		properties

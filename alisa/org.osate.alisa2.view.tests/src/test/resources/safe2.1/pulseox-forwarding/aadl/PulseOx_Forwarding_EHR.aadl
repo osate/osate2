@@ -1,0 +1,15 @@
+package PulseOx_Forwarding_EHR
+public
+	
+	with PulseOx_Forwarding_Types;
+	
+	device PulseOx_Forwarding_EHR
+		features
+			ehrSpO2 : in event data port PulseOx_Forwarding_Types::SpO2;
+	end PulseOx_Forwarding_EHR;
+	
+	device implementation PulseOx_Forwarding_EHR.imp
+		
+	end PulseOx_Forwarding_EHR.imp;
+		
+end PulseOx_Forwarding_EHR;

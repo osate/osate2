@@ -1,0 +1,11 @@
+package PulseOx_Forwarding_Doctor
+public
+	abstract PulseOx_Forwarding_Doctor
+		features
+			DocGiveAdvice : out feature;
+	end PulseOx_Forwarding_Doctor;
+	
+	abstract implementation PulseOx_Forwarding_Doctor.imp
+		
+	end PulseOx_Forwarding_Doctor.imp;
+end PulseOx_Forwarding_Doctor;
