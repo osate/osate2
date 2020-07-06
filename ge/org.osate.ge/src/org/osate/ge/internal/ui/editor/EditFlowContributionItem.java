@@ -2,12 +2,14 @@ package org.osate.ge.internal.ui.editor;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Queue;
+import java.util.Set;
 import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -51,8 +53,8 @@ import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
@@ -81,9 +83,11 @@ import org.osate.ge.internal.util.ProxyUtil;
 import com.google.common.base.Predicates;
 
 public class EditFlowContributionItem extends ControlContribution {
+	final Set<BusinessObjectNode> segmentNodes = new HashSet<>();
 	private AgeDiagramEditor editor = null;
 	private Button editFlowBtn;
 	private HighlightableFlowInfo selectedFlow;
+
 
 	protected EditFlowContributionItem(final String id) {
 		super(id);
@@ -136,7 +140,8 @@ public class EditFlowContributionItem extends ControlContribution {
 										EndToEndFlow.class,
 										ci.eResource().getResourceSet());
 						getEndToEndFlow(resolvedEndToEndFlow, ci).ifPresent(endToEndFlow -> {
-							ensureFlowSegmentsExist(ci, endToEndFlow, containerNode);
+							ensureFlowSegmentsExist(endToEndFlow, containerNode);
+							ensureInModeOrTransitionsExist(endToEndFlow, containerNode);
 							uiService.activateTool(
 									new CreateEndToEndFlowSpecificationTool(editor,
 											new HighlightableFlowInfo(
@@ -151,7 +156,8 @@ public class EditFlowContributionItem extends ControlContribution {
 								.getFlowSegment(),
 								FlowSpecification.class, ci.eResource().getResourceSet());
 						getFlowImplementation(ci, fs).ifPresent(fi -> {
-							ensureFlow(ci, fi, containerNode);
+							ensureFlow(fi, containerNode);
+							ensureInModeFeatures(fi, containerNode);
 							uiService.activateTool(new CreateFlowImplementationTool(editor, new HighlightableFlowInfo(
 									new FlowSegmentReference(fi, containerNode), selectedFlow.getState()), segmentNodes));
 						});
@@ -163,8 +169,6 @@ public class EditFlowContributionItem extends ControlContribution {
 
 			private Optional<EndToEndFlow> getEndToEndFlow(final EndToEndFlow resolvedEndToEndFlow,
 					final ComponentImplementation ci) {
-				System.err.println(resolvedEndToEndFlow + " resolved");
-
 				for (final EndToEndFlow et : ci.getAllEndToEndFlows()) {
 					if (((NamedElement) AadlHelper.getRootRefinedElement(et)).getName().equalsIgnoreCase(
 							((NamedElement) AadlHelper.getRootRefinedElement(resolvedEndToEndFlow)).getName())) {
@@ -175,9 +179,7 @@ public class EditFlowContributionItem extends ControlContribution {
 				return Optional.empty();
 			}
 
-			final List<BusinessObjectNode> segmentNodes = new ArrayList<>();
-
-			private void ensureFlow(Object component, FlowImplementation fi, BusinessObjectNode containerNode) {
+			private void ensureFlow(FlowImplementation fi, BusinessObjectNode containerNode) {
 				final RelativeBusinessObjectReference childRef = getRelativeBusinessObjectReference(
 						fi.getSpecification());
 				BusinessObjectNode child = containerNode.getChild(childRef);
@@ -236,6 +238,19 @@ public class EditFlowContributionItem extends ControlContribution {
 						.collect(Collectors.toList()));
 			}
 
+			private void ensureInModeFeatures(FlowImplementation fi, BusinessObjectNode containerNode) {
+				fi.getInModeOrTransitions().forEach(modeFeature -> {
+					final RelativeBusinessObjectReference ref = getRelativeBusinessObjectReference(modeFeature);
+					BusinessObjectNode child = containerNode.getChild(ref);
+					if (child == null) {
+						child = createNode(containerNode, ref, modeFeature);
+					}
+
+					segmentNodes.add(child);
+				});
+
+			}
+
 			private Optional<FlowImplementation> getFlowImplementation(final ComponentImplementation ci,
 					final FlowSpecification flowSpec) {
 				final List<FlowImplementation> impls = ci.getAllFlowImplementations().stream()
@@ -263,21 +278,27 @@ public class EditFlowContributionItem extends ControlContribution {
 				return (ComponentImplementation) container;
 			}
 
-			private void ensureFlowSegmentsExist(final Object component, final NamedElement flow,
+			private void ensureFlowSegmentsExist(
+					final NamedElement flow,
 					final BusinessObjectNode containerNode) {
-				if (component instanceof ComponentImplementation) {
-					final EndToEndFlow eteFlow = (EndToEndFlow) flow;
-					final FlowSegmentReference flowSegmentRef = createFlowSegmentReference(
-							eteFlow,
-							containerNode);
-					enableFlowSegments(findFlowSegments(flowSegmentRef));
-				} else if (component instanceof ComponentInstance) {
-					// ETE Flows only
-					final EndToEndFlowInstance eteFlowInstance = (EndToEndFlowInstance) flow;
-					final FlowSegmentReference flowSegmentRef = createFlowSegmentReference(eteFlowInstance,
-							containerNode);
-					enableFlowSegments(findFlowSegments(flowSegmentRef));
-				}
+				final EndToEndFlow eteFlow = (EndToEndFlow) flow;
+				final FlowSegmentReference flowSegmentRef = createFlowSegmentReference(
+						eteFlow,
+						containerNode);
+				enableFlowSegments(findFlowSegments(flowSegmentRef));
+			}
+
+			private void ensureInModeOrTransitionsExist(EndToEndFlow flow, BusinessObjectNode containerNode) {
+				final EndToEndFlow endToEndFlow = (EndToEndFlow) flow;
+				endToEndFlow.getInModeOrTransitions().forEach(modeFeature -> {
+					final RelativeBusinessObjectReference ref = getRelativeBusinessObjectReference(modeFeature);
+					BusinessObjectNode child = containerNode.getChild(ref);
+					if (child == null) {
+						child = createNode(containerNode, ref, modeFeature);
+					}
+
+					segmentNodes.add(child);
+				});
 			}
 
 			private List<FlowSegmentReference> findFlowSegments(final FlowSegmentReference flowElementRef) {
@@ -717,7 +738,16 @@ public class EditFlowContributionItem extends ControlContribution {
 
 	private void updateButton() {
 		if (editFlowBtn != null && !editFlowBtn.isDisposed()) {
-			editFlowBtn.setEnabled(selectedFlow == null ? false : selectedFlow.getFlowSegment() != null);
+			editFlowBtn.setEnabled(selectedFlow == null ? false
+					: (selectedFlow.getFlowSegment() != null && !isRefined(selectedFlow.getFlowSegment())));
 		}
+	}
+
+	private boolean isRefined(final NamedElement flowSegment) {
+		if (flowSegment instanceof RefinableElement) {
+			return ((RefinableElement) flowSegment).getRefinedElement() != null;
+		}
+
+		return false;
 	}
 }

@@ -1,5 +1,7 @@
 package org.osate.ge.internal.ui.tools;
 
+import java.util.List;
+
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.Diagnostic;
@@ -11,11 +13,13 @@ import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -24,7 +28,9 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.Activator;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
 
 public class FlowDialogUtil {
 	private FlowDialogUtil() {
@@ -181,5 +187,42 @@ public class FlowDialogUtil {
 		flowSegmentLabel.setMargins(5, 5, 5, 5);
 		flowSegmentLabel.setLayoutData(GridDataFactory.fillDefaults().grab(true, true).create());
 		return flowSegmentLabel;
+	}
+
+	static void createInModeText(final Composite parent) {
+		final StyledText inModesText = new StyledText(parent, SWT.NONE);
+		inModesText.setText("in modes ");
+		inModesText.setStyleRange(
+				new StyleRange(0, 8, Display.getCurrent().getSystemColor(SWT.COLOR_DARK_RED), null, SWT.BOLD));
+		inModesText.setBackground(parent.getBackground());
+	}
+
+	static void createArrowText(final Composite parent) {
+		final StyledText arrow = new StyledText(parent, SWT.NONE);
+		arrow.setLayoutData(new RowData());
+		arrow.setText("->");
+		arrow.setBackground(parent.getBackground());
+	}
+
+	static class SegmentData {
+		private final BusinessObjectContext boc;
+		private final List<DiagramElement> ownedSegments;
+
+		public SegmentData(final BusinessObjectContext boc) {
+			this(boc, null);
+		}
+
+		public SegmentData(final BusinessObjectContext boc, final List<DiagramElement> ownedSegments) {
+			this.boc = boc;
+			this.ownedSegments = ownedSegments;
+		}
+
+		public BusinessObjectContext getBoc() {
+			return boc;
+		}
+
+		public List<DiagramElement> getOwnedSegments() {
+			return ownedSegments;
+		}
 	}
 }

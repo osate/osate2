@@ -2,10 +2,10 @@ package org.osate.ge.internal.ui.tools;
 
 import java.util.Collections;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Queue;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.osate.aadl2.Element;
@@ -36,7 +36,8 @@ public class FlowUtil {
 		return getAncestorDiagramElement(ancestor, localAncestors).orElse(defaultValue);
 	}
 
-	static Map<NamedElement, BusinessObjectContext> getSegmentToBocMap(final List<BusinessObjectNode> nodes,
+	static Map<NamedElement, BusinessObjectContext> getSegmentToBocMap(
+			final Set<BusinessObjectNode> nodes,
 			final BusinessObjectContext ancestor) {
 		return nodes.stream()
 				.collect(Collectors.toMap(
@@ -59,5 +60,9 @@ public class FlowUtil {
 		}
 
 		return Optional.of(ancestorBoc);
+	}
+
+	static String getRefinedName(final NamedElement ne) {
+		return AadlHelper.getRootRefinedElement(ne).getName();
 	}
 }
