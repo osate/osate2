@@ -58,11 +58,11 @@ class Issue1366Test extends XtextTest {
 			publicSection.ownedClassifiers.findFirst[name == "a"] => [
 				ownedPropertyAssociations.get(0).ownedValues.get(0).ownedValue => [
 					assertError(testFileResult.issues, issueCollection,
-						"Assigning Record value to property 'PS1::def1' of type 'ListType'")
+						"Property value of type PS1::type1; expected type list of PS1::type1")
 				]
 				ownedPropertyAssociations.get(1).ownedValues.get(0).ownedValue => [
 					assertError(testFileResult.issues, issueCollection,
-						"Assigning incorrect Classifier value to property 'PS1::def2' of type 'RecordType'")
+						"Property value is not of expected type PS1::type1")
 				]
 				ownedPropertyAssociations.get(2).ownedValues.get(0).ownedValue => [
 					assertError(testFileResult.issues, issueCollection, "Number value is missing a unit")

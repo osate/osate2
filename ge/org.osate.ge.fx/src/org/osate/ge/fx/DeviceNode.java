@@ -33,7 +33,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.VLineTo;
 
-public class DeviceNode extends Region implements HasBackgroundColor, HasOutlineColor, HasLineWidth {
+public class DeviceNode extends Region implements Styleable {
 	// TODO: Cleanup. Use collection? Can set property on nodes?
 	private final Rectangle outline = new Rectangle();
 	private final Path path = new Path(); // TODO: Rename

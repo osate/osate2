@@ -1,0 +1,79 @@
+package TestConnections
+public
+	with SEI;
+
+	-- Some basics
+	
+	data D8
+		properties
+			Data_Size => 8 Bytes;
+	end D8;
+	
+	data D16
+		properties
+			Data_Size => 16 Bytes;
+	end D16;
+	
+	data D24
+		properties
+			Data_Size => 24 Bytes;
+	end D24;
+
+	-- bus
+	
+	bus B
+		properties
+			SEI::BandWidthBudget => 64.0 KBytesps;
+			SEI::BandwidthCapacity => 96.0 KBytesps;
+	end B;
+
+
+	-- communicating components
+	
+	system S1
+		features
+			out1: out data port D8;
+			out2: out data port D16;
+			out3: out data port D24;
+	end S1;
+
+	system S2
+		features
+			in1: in data port D8;
+			in2: in data port D16;
+			in3: in data port D24;
+	end S2;
+
+	-- assembled system
+	
+	system top
+	end top;
+	
+	system implementation top.i
+		subcomponents
+			sub1: system s1;
+			sub2: system s2;
+			theBus: bus B;
+		connections
+			-- No budget
+			conn1: port sub1.out1 -> sub2.in1;
+			conn2: port sub1.out2 -> sub2.in2 {
+				-- budget is too small
+				SEI::BandWidthBudget => 8.0 KBytesps;
+			};
+			conn3: port sub1.out3 -> sub2.in3 {
+				-- budget is okay
+				SEI::BandWidthBudget => 32.0 KBytesps;
+			};
+		properties
+			-- Bind the connections
+			Actual_Connection_Binding => (reference (theBus)) applies to conn1;		
+			Actual_Connection_Binding => (reference (theBus)) applies to conn2;
+			Actual_Connection_Binding => (reference (theBus)) applies to conn3;		
+			
+			-- Communication rates
+			Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub1.out1;
+			Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub1.out2;
+			Communication_Properties::Output_Rate => [Value_Range => 800.0 .. 1000.0; Rate_Unit => PerSecond;] applies to sub1.out3;
+	end top.i;
+end TestConnections;

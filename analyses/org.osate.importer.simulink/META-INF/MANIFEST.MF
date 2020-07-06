@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Architecture importer for Simulink
 Bundle-SymbolicName: org.osate.importer.simulink;singleton:=true
-Bundle-Version: 1.0.2.qualifier
+Bundle-Version: 1.0.3.qualifier
 Bundle-Activator: org.osate.importer.simulink.Activator
 Bundle-Vendor: CMU-SEI
 Bundle-Localization: plugin
@@ -11,7 +11,7 @@ Require-Bundle: org.eclipse.ui;bundle-version="[3.115.0,4.0.0)",
  org.eclipse.emf.ecore;bundle-version="[2.7.0,3.0.0)",
  org.eclipse.jface.text;bundle-version="[3.7.2,4.0.0)",
  org.osate.importer;bundle-version="[1.0.0,2.0.0)",
- org.osate.ui;bundle-version="[3.0.0,4.0.0)"
+ org.osate.ui;bundle-version="[4.0.0,5.0.0)"
 Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.core.resources,
  org.eclipse.core.runtime;version="[3.5.0,4.0.0)",
@@ -32,7 +32,6 @@ Import-Package: org.eclipse.core.resources,
  org.osate.contribution.sei.names,
  org.osate.pluginsupport,
  org.osate.ui,
- org.osate.ui.actions,
  org.osate.ui.dialogs,
  org.osate.workspace,
  org.osate.xtext.aadl2;bundle-version="1.0.0",

@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -110,10 +110,11 @@ public class SubprogramAccessImpl extends AccessImpl implements SubprogramAccess
 			InternalEObject oldSubprogramFeatureClassifier = (InternalEObject) subprogramFeatureClassifier;
 			subprogramFeatureClassifier = (SubprogramSubcomponentType) eResolveProxy(oldSubprogramFeatureClassifier);
 			if (subprogramFeatureClassifier != oldSubprogramFeatureClassifier) {
-				if (eNotificationRequired())
+				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.SUBPROGRAM_ACCESS__SUBPROGRAM_FEATURE_CLASSIFIER,
 							oldSubprogramFeatureClassifier, subprogramFeatureClassifier));
+				}
 			}
 		}
 		return subprogramFeatureClassifier;
@@ -136,10 +137,11 @@ public class SubprogramAccessImpl extends AccessImpl implements SubprogramAccess
 	public void setSubprogramFeatureClassifier(SubprogramSubcomponentType newSubprogramFeatureClassifier) {
 		SubprogramSubcomponentType oldSubprogramFeatureClassifier = subprogramFeatureClassifier;
 		subprogramFeatureClassifier = newSubprogramFeatureClassifier;
-		if (eNotificationRequired())
+		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.SUBPROGRAM_ACCESS__SUBPROGRAM_FEATURE_CLASSIFIER, oldSubprogramFeatureClassifier,
 					subprogramFeatureClassifier));
+		}
 	}
 
 	/**
@@ -150,8 +152,9 @@ public class SubprogramAccessImpl extends AccessImpl implements SubprogramAccess
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_ACCESS__SUBPROGRAM_FEATURE_CLASSIFIER:
-			if (resolve)
+			if (resolve) {
 				return getSubprogramFeatureClassifier();
+			}
 			return basicGetSubprogramFeatureClassifier();
 		}
 		return super.eGet(featureID, resolve, coreType);

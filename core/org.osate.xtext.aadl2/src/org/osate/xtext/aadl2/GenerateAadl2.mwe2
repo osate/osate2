@@ -28,7 +28,7 @@ import org.eclipse.xtext.generator.*
 import org.eclipse.xtext.ui.generator.*
 
 var grammarURI = "classpath:/org/osate/xtext/aadl2/Aadl2.xtext"
-var file.extensions = "aadl,aadl2"
+var file.extensions = "aadl"
 var projectName = "org.osate.xtext.aadl2"
 var runtimeProject = "../${projectName}"
 var fileHeader = 

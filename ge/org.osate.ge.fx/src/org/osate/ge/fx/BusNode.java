@@ -26,7 +26,7 @@ package org.osate.ge.fx;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 
-public class BusNode extends Region implements HasBackgroundColor, HasOutlineColor, HasLineWidth {
+public class BusNode extends Region implements Styleable {
 	private final javafx.scene.shape.Polygon poly = new javafx.scene.shape.Polygon();
 
 	public BusNode() {

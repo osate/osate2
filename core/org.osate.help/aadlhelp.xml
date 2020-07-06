@@ -43,7 +43,9 @@ censes only apply to the Third Party Software and not any other portion of this 
 		<anchor id="_modelUnitDependencyVisualizationView"/>
 	</topic>
 	<topic label="Model Analyses">
+    	<anchor id="_instantiation"/>
     	<anchor id="_latency"/>
+    	<anchor id="_busload"/>
    		<anchor id="_scheduling"/>
 		<anchor id="_codegen_checker"/>
 		<anchor id="_check_binding_constraints"/>

@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.Stack;
 
@@ -122,6 +123,9 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 		@Override
 		public Element next() {
+			if (!hasNext()) {
+				throw new NoSuchElementException();
+			}
 			return eteSegments != null ? eteSegments.get(index++) : flowSegments.get(index++);
 		}
 
@@ -529,7 +533,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 						final FlowSpecification flowSpec = (FlowSpecification) leaf;
 						error(etei.getContainingComponentInstance(), "Cannot create end to end flow '" + etei.getName()
 								+ "' because there are no semantic connections that connect to the start of the flow '"
-								+ flowSpec.getName() + "' at feature '" + flowSpec.getInEnd().getFeature().getName()
+								+ flowSpec.getName() + "' at feature '" + flowSpec.getAllInEnd().getFeature().getName()
 								+ "'");
 					} else {
 						final FlowImplementation ff = flowFilter == null ? nextFlowImpl : flowFilter;
@@ -640,8 +644,9 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		 * until we find one that connects to the flow because as wee the connection instance may "punch through" the
 		 * subcomponent.
 		 */
-		final Context flowCxt = fspec.getInEnd().getContext();
-		final Feature flowIn = fspec.getInEnd().getFeature();
+		final FlowEnd inEnd = fspec.getAllInEnd();
+		final Context flowCxt = inEnd.getContext();
+		final Feature flowIn = inEnd.getFeature();
 		final List<Feature> flowInRefined = flowIn.getAllFeatureRefinements();
 		final EList<ConnectionReference> connRefs = conni.getConnectionReferences();
 		int idx = connRefs.size() - 1;

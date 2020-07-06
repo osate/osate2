@@ -28,7 +28,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 
 // TODO: Rename
-public class EllipseNode extends Region implements HasBackgroundColor, HasOutlineColor, HasLineWidth {
+public class EllipseNode extends Region implements Styleable {
 	private final javafx.scene.shape.Ellipse ellipse = new Ellipse();
 
 	public EllipseNode() {

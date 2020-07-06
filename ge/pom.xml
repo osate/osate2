@@ -30,13 +30,13 @@ censes only apply to the Third Party Software and not any other portion of this 
 	<parent>
 		<groupId>org.osate</groupId>
 		<artifactId>osate2.parent</artifactId>
-		<version>2.7.1-SNAPSHOT</version>
+		<version>2.8.0-SNAPSHOT</version>
 	</parent>
 
 	<groupId>org.osate</groupId>
 	<artifactId>ge.parent</artifactId>
 	<packaging>pom</packaging>
-	<version>2.7.1-SNAPSHOT</version>
+	<version>2.8.0-SNAPSHOT</version>
 
 	<modules>
 		<module>org.osate.ge</module>
@@ -44,6 +44,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 		<module>org.osate.ge.graphics.fx</module>
 		<module>org.osate.ge.gef</module>
 		<module>org.osate.ge.gef.ui</module>
+		<module>org.osate.ge.swt</module>
 		<module>org.osate.ge.diagram</module>
 		<module>org.osate.ge.doc</module>
 		<module>org.osate.ge.feature</module>

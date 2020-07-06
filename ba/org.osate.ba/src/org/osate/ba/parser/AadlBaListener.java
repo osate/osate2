@@ -222,6 +222,16 @@ public interface AadlBaListener extends ParseTreeListener {
 	 */
 	void exitExecute_condition(@NotNull AadlBaParser.Execute_conditionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AadlBaParser#string_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void enterString_property_value(@NotNull AadlBaParser.String_property_valueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AadlBaParser#string_property_value}.
+	 * @param ctx the parse tree
+	 */
+	void exitString_property_value(@NotNull AadlBaParser.String_property_valueContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AadlBaParser#mode_switch_trigger_conjunction}.
 	 * @param ctx the parse tree
 	 */

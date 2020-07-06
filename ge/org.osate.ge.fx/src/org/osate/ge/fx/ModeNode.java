@@ -36,7 +36,7 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 
-public class ModeNode extends Region implements HasBackgroundColor, HasOutlineColor, HasLineWidth {
+public class ModeNode extends Region implements Styleable {
 	private final static double initialModeEllipseRadius = 5;
 	private final static double spacingBetweenInitialModeEllipseAndMode = 10;
 	private final static double initialModeAreaHeight = 2.0 * initialModeEllipseRadius

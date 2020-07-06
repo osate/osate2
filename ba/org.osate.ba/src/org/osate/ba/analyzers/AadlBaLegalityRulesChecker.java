@@ -1,13 +1,13 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
- * This program is free software: you can redistribute it and/or modify 
+ *
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the Eclipse Public License as published by Eclipse,
  * either version 2.0 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful,
@@ -15,7 +15,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Eclipse Public License for more details.
  * You should have received a copy of the Eclipse Public License
- * along with this program.  If not, see 
+ * along with this program.  If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
 
@@ -23,16 +23,13 @@ package org.osate.ba.analyzers ;
 
 import java.util.ArrayList ;
 import java.util.Comparator ;
-import java.util.HashMap ;
 import java.util.HashSet ;
 import java.util.List ;
 import java.util.Map ;
 import java.util.Set ;
+import java.util.WeakHashMap ;
 
 import org.eclipse.emf.common.util.EList ;
-import org.eclipse.emf.ecore.EObject ;
-import org.eclipse.emf.ecore.EReference ;
-import org.osate.aadl2.Aadl2Package ;
 import org.osate.aadl2.ComponentCategory ;
 import org.osate.aadl2.ComponentClassifier ;
 import org.osate.aadl2.DeviceClassifier ;
@@ -42,8 +39,6 @@ import org.osate.aadl2.MetaclassReference ;
 import org.osate.aadl2.NamedValue ;
 import org.osate.aadl2.PackageSection ;
 import org.osate.aadl2.Property ;
-import org.osate.aadl2.PropertyOwner ;
-import org.osate.aadl2.PropertySet ;
 import org.osate.aadl2.SubprogramClassifier ;
 import org.osate.aadl2.ThreadClassifier ;
 import org.osate.aadl2.VirtualProcessorClassifier ;
@@ -87,13 +82,13 @@ public class AadlBaLegalityRulesChecker
   private BehaviorAnnex _ba ;
   private ComponentClassifier _baParentContainer ;
   private AnalysisErrorReporterManager _errManager ;
-  private final static String LIST_SEPARATOR =", " ; 
+  private final static String LIST_SEPARATOR =", " ;
 
   private Map<BehaviorState, BehaviorTransition> _alreadyFoundCompletionRelativeTimeoutConditionCatchTransition =
-        new HashMap<BehaviorState, BehaviorTransition>();
+                                                                                                                new WeakHashMap<BehaviorState, BehaviorTransition>() ;
   private Map<BehaviorState, BehaviorTransition> _alreadyFoundDispatchRelativeTimeoutTransition =
-        new HashMap<BehaviorState, BehaviorTransition>();
-  private List<BehaviorTransition> _alreadyReportedErroneousTransition = 
+                                                                                                new WeakHashMap<BehaviorState, BehaviorTransition>() ;
+  private List<BehaviorTransition> _alreadyReportedErroneousTransition =
         new ArrayList<BehaviorTransition>();
   public AadlBaLegalityRulesChecker(BehaviorAnnex ba,
                                     AnalysisErrorReporterManager errManager)
@@ -104,11 +99,11 @@ public class AadlBaLegalityRulesChecker
   }
 
   /**
-   * Document: AADL Behavior Annex draft 
-   * Version : 0.94 
+   * Document: AADL Behavior Annex draft
+   * Version : 0.94
    * Type : Legality rule
-   * Section : D.3 Behavior Specification 
-   * Object : Check legality rules D.3.(L1), D.3.(L2) 
+   * Section : D.3 Behavior Specification
+   * Object : Check legality rules D.3.(L1), D.3.(L2)
    * Keys : subprogram components initial complete final states
    */
   public boolean D_3_L1_And_L2_Check (EList<BehaviorState> initialStates,
@@ -134,7 +129,7 @@ public class AadlBaLegalityRulesChecker
         if(initialStates.size() == 0)
         {
           result = false ;
-          this.reportLegalityError(_ba, 
+          this.reportLegalityError(_ba,
                                    _baParentContainer.getQualifiedName() + " has no initial" +
                 "state : Behavior Annex D.3.(L1) legality rule failed") ;
         }
@@ -163,7 +158,7 @@ public class AadlBaLegalityRulesChecker
         if(finalStates.size() == 0)
         {
           result = false ;
-          this.reportLegalityError(_ba, 
+          this.reportLegalityError(_ba,
                                    _baParentContainer.getQualifiedName() + " has no final " +
                 "state : Behavior Annex D.3.(L1) legality rule failed") ;
         }
@@ -174,11 +169,11 @@ public class AadlBaLegalityRulesChecker
   }
 
   /**
-   * Document: AADL Behavior Annex draft 
-   * Version : 0.94 
+   * Document: AADL Behavior Annex draft
+   * Version : 0.94
    * Type : Legality rule
-   * Section : D.3 Behavior Specification 
-   * Object : Check legality rule D.3.(L3) 
+   * Section : D.3 Behavior Specification
+   * Object : Check legality rule D.3.(L3)
    * Keys : threads, suspendable devices initial complete states
    */
   public boolean D_3_L3_Check (EList<BehaviorState> initialStates,
@@ -213,7 +208,7 @@ public class AadlBaLegalityRulesChecker
       if(completeStates.size() == 0)
       {
         result = false ;
-        this.reportLegalityError(_ba, _baParentContainer.getQualifiedName() + 
+        this.reportLegalityError(_ba, _baParentContainer.getQualifiedName() +
                                  " has no complete state : " +
               "Behavior Annex D.3.(L3) legality rule failed") ;
       }
@@ -223,11 +218,11 @@ public class AadlBaLegalityRulesChecker
   }
 
   /**
-   * Document: AADL Behavior Annex draft 
-   * Version : 0.94 
+   * Document: AADL Behavior Annex draft
+   * Version : 0.94
    * Type : Legality rule
-   * Section : D.3 Behavior Specification 
-   * Object : Check legality rule D.3.(L4) 
+   * Section : D.3 Behavior Specification
+   * Object : Check legality rule D.3.(L4)
    * Keys : threads, components initialization finalization entrypoints initial
    * final states
    */
@@ -258,7 +253,7 @@ public class AadlBaLegalityRulesChecker
                                       INITIALIZE_ENTRYPOINT_PROPERTY_NAME);
       }
 
-      ArrayList<Class<? extends org.osate.aadl2.Element>> klassl = 
+      ArrayList<Class<? extends org.osate.aadl2.Element>> klassl =
          new ArrayList<Class<? extends org.osate.aadl2.Element>>() ;
 
       Class<? extends org.osate.aadl2.Element> klass ;
@@ -270,7 +265,7 @@ public class AadlBaLegalityRulesChecker
 
       if (ne != null)
       {
-    	  EList<PropertyOwner> pol = ((Property) ne).getAppliesTos() ; 
+    	  EList<PropertyOwner> pol = ((Property) ne).getAppliesTos() ;
     	  // For each component that the initialize entrypoint property is applied
           // to, gets the component's name and transform into the corresponding
           // class name and populates the class list.
@@ -294,7 +289,7 @@ public class AadlBaLegalityRulesChecker
 
              try
              {
-                klass = (Class<? extends org.osate.aadl2.Element>) 
+                klass = (Class<? extends org.osate.aadl2.Element>)
                             Class.forName(klassName.toString()) ;
 
                 klassl.add(klass);
@@ -313,7 +308,7 @@ public class AadlBaLegalityRulesChecker
           for(Class<? extends org.osate.aadl2.Element> tmp : klassl)
           {
              if(tmp.isAssignableFrom(_baParentContainer.getClass()))
-             {  
+             {
                 String reportElements = null ;
 
                 if(initialStates.size() > 1)
@@ -340,12 +335,12 @@ public class AadlBaLegalityRulesChecker
                 {
                    result = false ;
                    this.reportLegalityWarning(_ba,
-                      _baParentContainer.getQualifiedName() + 
+                      _baParentContainer.getQualifiedName() +
                          " has no final state : Behavior Annex D.3.(L4)"+
                             " legality rules warning") ;
                 }
 
-                return result ; 
+                return result ;
              }
           }
       }
@@ -376,7 +371,7 @@ public class AadlBaLegalityRulesChecker
           {
              result = false ;
              this.reportLegalityWarning(_ba,
-                _baParentContainer.getQualifiedName() + 
+                _baParentContainer.getQualifiedName() +
                    " has no final state : Behavior Annex D.3.(L4)"+
                       " legality rules failed") ;
           }
@@ -388,10 +383,10 @@ public class AadlBaLegalityRulesChecker
   }
 
   /**
-   * Document: AADL Behavior Annex draft 
-   * Version : 0.94 
+   * Document: AADL Behavior Annex draft
+   * Version : 0.94
    * Type : Legality rule
-   * Section : D.3 Behavior Specification 
+   * Section : D.3 Behavior Specification
    * Object : Check legality rule D.3.(L5)
    * Keys : subprogram dispatch condition transition
    */
@@ -401,8 +396,8 @@ public class AadlBaLegalityRulesChecker
     // Only accept dispatch conditions on components for which a Dispatch_Protocl can be associated
     PackageSection[] contextsTab =AadlBaVisitors.getBaPackageSections(_ba);
     PropertiesLinkingService pls = Aadl2Visitors.getPropertiesLinkingService(contextsTab[0]) ;
-    
-    Property dispatchProtocolProperty = pls.findPropertyDefinition(_baParentContainer, 
+
+    Property dispatchProtocolProperty = pls.findPropertyDefinition(_baParentContainer,
                                                                    AadlBaVisitors.DISPATCH_PROTOCOL_PROPERTY_NAME);
     if(dispatchProtocolProperty!=null)
     {
@@ -428,20 +423,20 @@ public class AadlBaLegalityRulesChecker
     else if(canBeDispatched==false)
     {
       this.reportLegalityError(dc, cc.getName()+" components cannot contain" +
-          " a dispatch condition in any of their transitions: they cannot be dispatched " + 
+          " a dispatch condition in any of their transitions: they cannot be dispatched " +
           "(extension of Behavior Annex D.3.(L5) legality rule)") ;
 
       return false ;
     }
     return true;
-    
+
   }
 
   /**
-   * Document: AADL Behavior Annex draft 
-   * Version : 0.94 
+   * Document: AADL Behavior Annex draft
+   * Version : 0.94
    * Type : Legality rule
-   * Section : D.3 Behavior Specification 
+   * Section : D.3 Behavior Specification
    * Object : Check legality rule D.3.(L6)
    * Keys : transition complete state dispatch condition
    */
@@ -464,13 +459,13 @@ public class AadlBaLegalityRulesChecker
     {
       return true ;
     }
-  }   
+  }
 
   /**
-   * Document: AADL Behavior Annex draft 
-   * Version : 0.94 
+   * Document: AADL Behavior Annex draft
+   * Version : 0.94
    * Type : Legality rule
-   * Section : D.3 Behavior Specification 
+   * Section : D.3 Behavior Specification
    * Object : Check legality rule D.3.(L7)
    * Keys : transition complete state dispatch condition
    */
@@ -480,7 +475,7 @@ public class AadlBaLegalityRulesChecker
     BehaviorState tmp = (BehaviorState) transSrcStateIdentifier.getBaRef() ;
 
     // D.3.(L7) error case.
-    if(tmp.isComplete() && (! (bt.getCondition() 
+    if(tmp.isComplete() && (! (bt.getCondition()
           instanceof DispatchCondition)) && (tmp.getBindedMode()==null ))
     {
       this.reportLegalityError(transSrcStateIdentifier, "Transitions out " +
@@ -489,14 +484,16 @@ public class AadlBaLegalityRulesChecker
       return false ;
     }
     else
+    {
       return true ;
+    }
   }
 
   /**
-   * Document: AADL Behavior Annex draft 
-   * Version : 0.94 
+   * Document: AADL Behavior Annex draft
+   * Version : 0.94
    * Type : Legality rule
-   * Section : D.3 Behavior Specification 
+   * Section : D.3 Behavior Specification
    * Object : Check legality rule D.3.(L8)
    * Keys : transition out final state
    */
@@ -513,12 +510,14 @@ public class AadlBaLegalityRulesChecker
       return false ;
     }
     else
+    {
       return true ;
+    }
   }
 
   /**
-   * Document: AADL Behavior Annex draft 
-   * Version : 0.94 
+   * Document: AADL Behavior Annex draft
+   * Version : 0.94
    * Type : Legality rule and Semantic rule
    * Section : D.4 Thread Dispatch Behavior Specification
    * Object : Check legality rule D.4.(L1) and semantic rule D.4.(5)
@@ -528,7 +527,7 @@ public class AadlBaLegalityRulesChecker
   public boolean D_4_L1_Check(DispatchRelativeTimeout tc,
                               DeclarativeBehaviorTransition bt)
   {
-    List<Identifier> sourceState = bt.getSrcStates()  ; 
+    List<Identifier> sourceState = bt.getSrcStates()  ;
 
     if(sourceState.size() == 1)
     {
@@ -545,14 +544,14 @@ public class AadlBaLegalityRulesChecker
                                                  ThreadProperties.DISPATCH_PROTOCOL) ;
         if(vl.size() > 0)
         {
-          org.osate.aadl2.PropertyExpression value = 
+          org.osate.aadl2.PropertyExpression value =
                 vl.get(vl.size()-1) ;
 
           if(value instanceof NamedValue &&
                 ((NamedValue) value).getNamedValue()
-                instanceof EnumerationLiteral) 
+                instanceof EnumerationLiteral)
           {
-            EnumerationLiteral el = (EnumerationLiteral) 
+            EnumerationLiteral el = (EnumerationLiteral)
                   ((NamedValue) value).getNamedValue() ;
 
             String literal = el.getName() ;
@@ -578,7 +577,7 @@ public class AadlBaLegalityRulesChecker
                       " thread with a period property properly set: " +
                       " Behavior Annex D.4.(5) semantic rule failed") ;
 
-                // Early exit to skip the next error reporting. 
+                // Early exit to skip the next error reporting.
                 return false ;
               }
             }
@@ -605,7 +604,7 @@ public class AadlBaLegalityRulesChecker
     }
     else // Error case : It must be declared in only one transition of the source state.
     {
-      // If transition source states list is > 1, report errors for the 
+      // If transition source states list is > 1, report errors for the
       // furthers timeout catch.
       this.reportLegalityError(tc, "The dispatch relative timeout and catch"+
             " statement must be declared in only one transition: " +
@@ -616,8 +615,8 @@ public class AadlBaLegalityRulesChecker
   }
 
   /**
-   * Document: AADL Behavior Annex draft 
-   * Version : 0.94 
+   * Document: AADL Behavior Annex draft
+   * Version : 0.94
    * Type : Legality rule
    * Section : D.4 Thread Dispatch Behavior Specification
    * Object : Check legality rule D.4.(L2)
@@ -644,14 +643,14 @@ public class AadlBaLegalityRulesChecker
                                                  ThreadProperties.DISPATCH_PROTOCOL) ;
         if(vl.size() > 0)
         {
-          org.osate.aadl2.PropertyExpression value = 
+          org.osate.aadl2.PropertyExpression value =
                 vl.get(vl.size()-1) ;
 
           if(value instanceof NamedValue &&
                 ((NamedValue) value).getNamedValue()
-                instanceof EnumerationLiteral) 
+                instanceof EnumerationLiteral)
           {
-            EnumerationLiteral el = (EnumerationLiteral) 
+            EnumerationLiteral el = (EnumerationLiteral)
                   ((NamedValue) value).getNamedValue() ;
 
             String literal = el.getName() ;
@@ -666,15 +665,17 @@ public class AadlBaLegalityRulesChecker
               Long timeoutConstantValue = null;
               IntegerValue iv = crtcac.getIntegerValue();
               if(iv instanceof IntegerLiteral)
+              {
                 timeoutConstantValue = ((IntegerLiteral) iv).getValue();
+              }
               boolean timeoutIsConstant = timeoutConstantValue!=null;
               // Check that timeout is lower than period,
               // otherwise it is inconsistent.
-              if(hasPeriod 
+              if(hasPeriod
                     && timeoutIsConstant
                     && period<timeoutConstantValue)
               {
-                this.reportLegalityError(crtcac, "The completion relative timeout" + 
+                this.reportLegalityError(crtcac, "The completion relative timeout" +
                       " condition and catch statement must have a value greater or" +
                       " equal to the Period of the thread it is defined in (otherwise)" +
                       " timeout condition can never occur") ;
@@ -688,20 +689,20 @@ public class AadlBaLegalityRulesChecker
       else // Error case : it must be declared in an outgoing transition of
         // a complete state.
       {
-        this.reportLegalityError(crtcac, "The completion relative timeout" + 
-              " condition and catch statement must be declared in an " + 
+        this.reportLegalityError(crtcac, "The completion relative timeout" +
+              " condition and catch statement must be declared in an " +
               "outgoing transition of a complete state: Behavior Annex" +
               " D.4.(L2) legality rule failed") ;
       }
     }
     else // Error case : it must be declared in at most one transition.
     {
-      // If transition source states list is > 1, report errors for the 
+      // If transition source states list is > 1, report errors for the
       // furthers completion timeout catch.
       if(false==_alreadyReportedErroneousTransition.contains(bt))
       {
-        this.reportLegalityError(crtcac, "The completion relative timeout " + 
-              "condition and catch statement must be declared in only one " + 
+        this.reportLegalityError(crtcac, "The completion relative timeout " +
+              "condition and catch statement must be declared in only one " +
               "transition: Behavior Annex D.4.(L2) legality rule failed") ;
         _alreadyReportedErroneousTransition.add(bt);
       }
@@ -715,7 +716,7 @@ public class AadlBaLegalityRulesChecker
    * Version : 0.94
    * Type    : Legality rule
    * Section : D.6 Behavior Action Language
-   * Object  : Check legality rules D.6.(L3), D.6.(L4) 
+   * Object  : Check legality rules D.6.(L3), D.6.(L4)
    * Keys    : local variable port variable assigned action set
    */
   public boolean D_6_L3_And_L4_Check(BehaviorActionBlock bab)
@@ -733,7 +734,7 @@ public class AadlBaLegalityRulesChecker
                                       lActionSetTar,
                                       lDuplicates) ;
     String localVariableErrorMsg = "The same local variable must not be " +
-          "assigned to in different actions of an action set" + 
+          "assigned to in different actions of an action set" +
           ": Behavior Annex D.6.(L3) legality rules failed" ;
     String portErrorMsg = "The same port variable must not be assigned to " +
           "in different actions of an action set: "+
@@ -750,10 +751,10 @@ public class AadlBaLegalityRulesChecker
       }
       else // Port case.
       {
-        tmp = portErrorMsg ; 
+        tmp = portErrorMsg ;
       }
 
-      reportLegalityError(tar, tmp); 
+      reportLegalityError(tar, tmp);
     }
 
     return lDuplicates.isEmpty() ;
@@ -762,13 +763,13 @@ public class AadlBaLegalityRulesChecker
   /**
    * Recursively builds a list of assigned target contained
    * in a given BehaviorActions tree and checks for duplicated targets every time
-   * it meet a Behavior Action Set node. It populates the given set with 
+   * it meet a Behavior Action Set node. It populates the given set with
    * duplicated targets.<BR><BR>
-   * 
+   *
    * A special attention is given to report legality rules D.6.(L3) and (L4)
    * failures : in order to help the user to correct his errors, the duplicates
-   * list contains all instances of duplicated assigned targets. 
-   * 
+   * list contains all instances of duplicated assigned targets.
+   *
    * @param beActions The given BehaviorActions tree.
    * @param lActionSetDcr The list of assigned targets
    * @param lDuplicates The set of duplicated assigned targets.
@@ -842,7 +843,7 @@ public class AadlBaLegalityRulesChecker
       return ;
     }
 
-    // ***** Processing containers: 
+    // ***** Processing containers:
 
     // List of BehaviorAction objects contained in the given BehaviorActions
     // tree.
@@ -886,7 +887,7 @@ public class AadlBaLegalityRulesChecker
     List<Target> lCurrent = null ;
     List<Target> lOther = null ;
 
-    // Optimization flag to avoid adding the same target to the duplicates 
+    // Optimization flag to avoid adding the same target to the duplicates
     // set.
     boolean hasToAdd = true ;
 
@@ -925,7 +926,7 @@ public class AadlBaLegalityRulesChecker
       }
     }
 
-    // Add all assigned targets in the recursively transmitted list for any 
+    // Add all assigned targets in the recursively transmitted list for any
     // higher level action set checking.
     for (List<Target> l : llActionSetTar)
     {
@@ -940,7 +941,7 @@ public class AadlBaLegalityRulesChecker
    * Section : D.6 Behavior Action Language
    * Object  : Check legality rule D.6.(L8)
    * Keys    : timed actions, max min time values
-   * 
+   *
    * At static analysis phase, D.6.(L8) can only be
    * checked with behavior time objects that contain IntegerLiteral objects.
    * Otherwise (with IntegerValueVariable objects), this checker returns
@@ -949,7 +950,7 @@ public class AadlBaLegalityRulesChecker
   public boolean D_6_L8_Check(TimedAction timedAct)
   {
     BehaviorTime btMin = timedAct.getLowerTime();
-    BehaviorTime btMax = timedAct.getUpperTime();     
+    BehaviorTime btMax = timedAct.getUpperTime();
 
     if (btMax != null)
     {
@@ -966,7 +967,7 @@ public class AadlBaLegalityRulesChecker
         // On exception, D_6_L8_Check returns true and don't report error as
         // the rule can only be checked at runtime when behavior time objects
         // contain IntegerValueVariable objects.
-        compResult = 0 ;            
+        compResult = 0 ;
       }
 
       // Error case : max time value is strictly lesser than min time value.

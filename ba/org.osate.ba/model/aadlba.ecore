@@ -134,6 +134,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPropertyAssociations"
         upperBound="-1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//PropertyAssociation"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedValueConstant" eType="#//ValueConstant"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorVariableHolder" eSuperTypes="#//DataHolder #//IndexableElement #//Target #//ElementValues #//SubprogramHolderProxy #//ClassifierFeatureHolder">
     <eOperations name="setVariable" lowerBound="1">
@@ -682,17 +684,8 @@
         lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//DataClassifier"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StructUnionElementHolder" eSuperTypes="#//DataHolder #//IndexableElement #//Target #//ElementValues">
-    <eOperations name="setStructUnionElement" lowerBound="1">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="element = structUnionElement ;"/>
-      </eAnnotations>
-      <eParameters name="structUnionElement" lowerBound="1" eType="#//StructUnionElement"/>
-    </eOperations>
-    <eOperations name="getStructUnionElement" lowerBound="1" eType="#//StructUnionElement">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return (StructUnionElement) element;"/>
-      </eAnnotations>
-    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="structUnionElement" lowerBound="1"
+        eType="#//StructUnionElement" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubcomponentHolder" eSuperTypes="#//ClassifierFeatureHolder #//IndexableElement #//GroupableElement">
     <eOperations name="setSubcomponent" lowerBound="1">

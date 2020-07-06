@@ -7168,15 +7168,20 @@ ruleErrorDetection returns [EObject current=null]
     }
 (
 (
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getErrorDetectionRule());
+		{ 
+	        newCompositeNode(grammarAccess.getErrorDetectionAccess().getDetectionReportingPortReportingPortReferenceParserRuleCall_5_0()); 
+	    }
+		lv_detectionReportingPort_8_0=ruleReportingPortReference		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getErrorDetectionRule());
 	        }
-        }
-	otherlv_8=RULE_ID
-	{
-		newLeafNode(otherlv_8, grammarAccess.getErrorDetectionAccess().getDetectionReportingPortTriggerPortCrossReference_5_0()); 
-	}
+       		set(
+       			$current, 
+       			"detectionReportingPort",
+        		lv_detectionReportingPort_8_0, 
+        		"org.osate.xtext.aadl2.errormodel.ErrorModel.ReportingPortReference");
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
 )
@@ -7218,6 +7223,64 @@ ruleErrorDetection returns [EObject current=null]
     	newLeafNode(otherlv_13, grammarAccess.getErrorDetectionAccess().getSemicolonKeyword_8());
     }
 )
+;
+
+
+
+
+
+// Entry rule entryRuleReportingPortReference
+entryRuleReportingPortReference returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getReportingPortReferenceRule()); }
+	 iv_ruleReportingPortReference=ruleReportingPortReference 
+	 { $current=$iv_ruleReportingPortReference.current; } 
+	 EOF 
+;
+
+// Rule ReportingPortReference
+ruleReportingPortReference returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getReportingPortReferenceRule());
+	        }
+        }
+	otherlv_0=RULE_ID
+	{
+		newLeafNode(otherlv_0, grammarAccess.getReportingPortReferenceAccess().getElementNamedElementCrossReference_0_0()); 
+	}
+
+)
+)((
+    {
+        $current = forceCreateModelElementAndSet(
+            grammarAccess.getReportingPortReferenceAccess().getReportingPortReferencePreviousAction_1_0(),
+            $current);
+    }
+)
+	otherlv_2=FullStop
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getReportingPortReferenceAccess().getFullStopKeyword_1_1());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getReportingPortReferenceRule());
+	        }
+        }
+	otherlv_3=RULE_ID
+	{
+		newLeafNode(otherlv_3, grammarAccess.getReportingPortReferenceAccess().getElementNamedElementCrossReference_1_2_0()); 
+	}
+
+)
+))*)
 ;
 
 

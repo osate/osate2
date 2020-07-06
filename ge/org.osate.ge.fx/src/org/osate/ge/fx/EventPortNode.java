@@ -26,7 +26,7 @@ package org.osate.ge.fx;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 
-public class EventPortNode extends Region implements HasOutlineColor, HasLineWidth {
+public class EventPortNode extends Region implements Styleable {
 	private final javafx.scene.shape.Polyline poly = new javafx.scene.shape.Polyline();
 
 	public EventPortNode() {

@@ -53,6 +53,7 @@ import org.osate.ge.internal.util.AadlFlowSpecificationUtil.FlowSegmentReference
 import org.osate.ge.internal.util.AadlInstanceObjectUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
+import org.osate.ge.swt.util.SwtTestUtil;
 
 import com.google.common.base.Predicates;
 
@@ -130,14 +131,11 @@ public class FlowContributionItem extends ComboContributionItem {
 			public String getText(final Object element) {
 				@SuppressWarnings("unchecked")
 				final Map.Entry<String, HighlightableFlowInfo> entry = (Entry<String, HighlightableFlowInfo>) element;
-				final HighlightableFlowInfo highlightableFlow = entry.getValue();
-
-				// Add suffix to represent segments missing from diagram
-				return entry.getKey() + highlightableFlow.getState().suffix;
+				return entry.getKey();
 			}
 		});
 
-		comboViewer.getCombo().setData(UiUtil.AUTOMATED_SWTBOT_TESTING_KEY, highlightFlow);
+		SwtTestUtil.setTestingId(comboViewer.getCombo(), highlightFlow);
 		refresh(); // Populate the combo box
 		return control;
 	}
@@ -164,8 +162,7 @@ public class FlowContributionItem extends ComboContributionItem {
 				final QueryService queryService = ContributionHelper.getQueryService(editor);
 				if (queryService != null) {
 					// Determine which flows have elements contained in the diagram and whether the flow is partial.
-					queryService.getResults(flowContainerQuery, diagram).stream()
-					.flatMap(flowContainerQueryable -> {
+					queryService.getResults(flowContainerQuery, diagram).stream().flatMap(flowContainerQueryable -> {
 						if (flowContainerQueryable.getBusinessObject() instanceof ComponentInstance) {
 							return AadlInstanceObjectUtil.getComponentInstance(flowContainerQueryable)
 									.map(ci -> createFlowSegmentReferences(flowContainerQueryable, ci))
@@ -201,11 +198,9 @@ public class FlowContributionItem extends ComboContributionItem {
 
 	private static Stream<FlowSegmentReference> createFlowSegmentReferences(final Queryable flowContainerBoc,
 			final ComponentInstance ci) {
-		return ci.getEndToEndFlows().stream()
-				.filter(f -> f != null).distinct()
-				.map(flow -> {
-					return AadlFlowSpecificationUtil.createFlowSegmentReference(flow, flowContainerBoc);
-				});
+		return ci.getEndToEndFlows().stream().filter(f -> f != null).distinct().map(flow -> {
+			return AadlFlowSpecificationUtil.createFlowSegmentReference(flow, flowContainerBoc);
+		});
 	}
 
 	private static Stream<FlowSegmentReference> createFlowSegmentReferences(final Queryable flowContainerBoc,
@@ -290,7 +285,11 @@ public class FlowContributionItem extends ComboContributionItem {
 
 	public static class HighlightableFlowInfo {
 		private final FlowSegmentReference highlightableFlowElement;
-		private final FlowSegmentState state;
+		private FlowSegmentState state;
+
+		public HighlightableFlowInfo(final FlowSegmentReference highlightableFlowElement) {
+			this(highlightableFlowElement, null);
+		}
 
 		public HighlightableFlowInfo(final FlowSegmentReference highlightableFlowElement,
 				final FlowSegmentState state) {
@@ -299,6 +298,9 @@ public class FlowContributionItem extends ComboContributionItem {
 		}
 
 		public FlowSegmentState getState() {
+			if (state == null) {
+				this.state = getSegmentState(highlightableFlowElement);
+			}
 			return state;
 		}
 
@@ -307,8 +309,7 @@ public class FlowContributionItem extends ComboContributionItem {
 		}
 
 		public static HighlightableFlowInfo create(final FlowSegmentReference fsr) {
-			final FlowSegmentState state = getSegmentState(fsr);
-			return new HighlightableFlowInfo(fsr, state);
+			return new HighlightableFlowInfo(fsr);
 		}
 
 		public NamedElement getFlowSegment() {
@@ -317,11 +318,6 @@ public class FlowContributionItem extends ComboContributionItem {
 	}
 
 	public static enum FlowSegmentState {
-		EMPTY(" (E)"), PARTIAL(" (P)"), COMPLETE("");
-
-		public final String suffix;
-		private FlowSegmentState(final String suffix) {
-			this.suffix = suffix;
-		}
+		EMPTY, PARTIAL, COMPLETE
 	}
 }

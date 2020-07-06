@@ -33,12 +33,6 @@ import org.osate.ge.fx.DeviceNode;
 import org.osate.ge.fx.EllipseNode;
 import org.osate.ge.fx.FeatureGroupTypeNode;
 import org.osate.ge.fx.FolderNode;
-import org.osate.ge.fx.HasBackgroundColor;
-import org.osate.ge.fx.HasFontColor;
-import org.osate.ge.fx.HasFontFont;
-import org.osate.ge.fx.HasImage;
-import org.osate.ge.fx.HasLineWidth;
-import org.osate.ge.fx.HasOutlineColor;
 import org.osate.ge.fx.LabelNode;
 import org.osate.ge.fx.MemoryNode;
 import org.osate.ge.fx.ModeNode;
@@ -47,6 +41,7 @@ import org.osate.ge.fx.PolygonNode;
 import org.osate.ge.fx.PolylineNode;
 import org.osate.ge.fx.ProcessorNode;
 import org.osate.ge.fx.RectangleNode;
+import org.osate.ge.fx.Styleable;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.internal.BusGraphic;
@@ -69,6 +64,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 // TODO: Rename.. Stop using Age prefix?
+// TODO: Need to require instantiation? Something will need an ImageManager. Should be shared at the application level.
 public class AgeToFx {
 	private static final Map<Class<? extends Graphic>, Function<? extends Graphic, Node>> creatorMap;
 
@@ -78,6 +74,7 @@ public class AgeToFx {
 		mapBuilder.put(c, creator);
 	}
 
+	// TODO: Review. Ensure that all graphics and appropriate fields are supported.
 	static {
 		final ImmutableMap.Builder<Class<? extends Graphic>, Function<? extends Graphic, Node>> mapBuilder = new ImmutableMap.Builder<>();
 		addCreator(mapBuilder, Rectangle.class, rg -> new RectangleNode(rg.rounded));
@@ -133,47 +130,30 @@ public class AgeToFx {
 	// Shape Nodes. Including those with annotations.
 	// Diagram Element Nodes. However, it should not affect children. Just parts that are inherent.
 	// Connections
-	public static void applyStyle(final Node node, final Style style) {
+	// Apply's an OSATE graphical editor style to a node
+	public static void applyStyle(final Styleable node, final Style style) {
 		if (!style.isComplete()) {
 			throw new RuntimeException("Specified style must be complete");
 		}
 
-		if (node instanceof HasBackgroundColor) {
-			((HasBackgroundColor) node).setBackgroundColor(ageToFxColor(style.getBackgroundColor()));
-		}
+		node.setBackgroundColor(ageToFxColor(style.getBackgroundColor()));
+		node.setOutlineColor(ageToFxColor(style.getOutlineColor()));
+		node.setFontColor(ageToFxColor(style.getFontColor()));
 
-		if (node instanceof HasOutlineColor) {
-			((HasOutlineColor) node).setOutlineColor(ageToFxColor(style.getOutlineColor()));
-		}
+		// TODO: Avoid creating fonts repeatedly?
+		final Font font = new Font("Arial", style.getFontSize());
+		node.setFont(font);
 
-		if (node instanceof HasFontColor) {
-			((HasFontColor) node).setFontColor(ageToFxColor(style.getFontColor()));
-		}
+		node.setLineWidth(style.getLineWidth());
 
-		// TODO: Should be has font?
-		if (node instanceof HasFontFont) {
-			final Font font = new Font("Arial", style.getFontSize());
-			((HasFontFont) node).setFont(font);
-		}
+		// TODO: Implement
+		// style.getShowAsImage()
+		// node.setImage(image);
 
-		if (node instanceof HasLineWidth) {
-			((HasLineWidth) node).setLineWidth(style.getLineWidth());
-		}
-
-		if (node instanceof HasImage) {
-			// TODO: Convert image to an image node..
-			// TODO: Need to support caching
-			if(style.getShowAsImage()) {
-
-			}
-
-			// TODO
-			// ((HasImage) node).setImage(style.getLineWidth());
-		}
-
-		// TODO: Line DashOffset
-		// TODO: Label Position
-		// s.getStrokeDashArray().setAll(20.0, 20.0); // TODO: Need to handle line style
+		// setLabelPosition(Pos value)
+		// setStrokeDashOffset(double value)
+		// setStrokeDashArray(double... values)
+		// void setLineWidth(final double value)
 	}
 
 	private static Color ageToFxColor(final org.osate.ge.graphics.Color color) {

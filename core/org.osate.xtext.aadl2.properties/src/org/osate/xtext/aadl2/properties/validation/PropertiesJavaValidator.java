@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -212,13 +212,19 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 								Aadl2Package.eINSTANCE.getArrayRange_LowerBound(), ARRAY_LOWER_BOUND_IS_ZERO);
 					}
 					// If the upper is zero, then we have an index. Otherwise, we have a range.
-					if (providedRange.getUpperBound() != 0
-							&& providedRange.getLowerBound() > providedRange.getUpperBound()) {
-						error("Range lower bound is greater than upper bound", providedRange, null,
-								ARRAY_RANGE_UPPER_LESS_THAN_LOWER);
+					if (providedRange.getUpperBound() != 0) {
+						if (providedRange.getLowerBound() > providedRange.getUpperBound()) {
+							error("Range lower bound is greater than upper bound", providedRange, null,
+									ARRAY_RANGE_UPPER_LESS_THAN_LOWER);
+						}
+						if (EcoreUtil2.getContainerOfType(pathElement, ReferenceValue.class) != null) {
+							warning(providedRange, "Array ranges in reference values are not property instantiated");
+						}
 					}
 					ArrayDimension requiredDimension = requiredDimensions.get(i);
-					if (requiredDimension.getSize() != null) {
+					if (requiredDimension.getSize() == null) {
+						error(providedRange, "'" + name + "' does not have an array size");
+					} else {
 						ArraySizeProperty sizeProperty = requiredDimension.getSize().getSizeProperty();
 						OptionalLong size = OptionalLong.empty();
 						/*
@@ -642,7 +648,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		EList<ModalPropertyValue> pvl = pa.getOwnedValues();
 		for (ModalPropertyValue modalPropertyValue : pvl) {
 			typeCheckPropertyValues(pt, modalPropertyValue.getOwnedValue(), modalPropertyValue.getOwnedValue(),
-					pdef.getQualifiedName());
+					pdef.getQualifiedName(), 0);
 		}
 		checkAssociationAppliesTo(pa);
 		checkInBinding(pa);
@@ -800,9 +806,11 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	 *            PropertyType or unresolved proxy or null
 	 * @param pv:
 	 *            PropertyExpression or null
+	 * @since 2.0
 	 */
-	protected void typeCheckPropertyValues(PropertyType pt, PropertyExpression pv, Element holder, String defName) {
-		typeCheckPropertyValues(pt, pv, "", holder, defName);
+	protected void typeCheckPropertyValues(PropertyType pt, PropertyExpression pv, Element holder, String defName,
+			int depth) {
+		typeCheckPropertyValues(pt, pv, "", holder, defName, depth);
 	}
 
 	/**
@@ -814,13 +822,19 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	 *            PropertyExpression or null
 	 * @param prefix:
 	 *            String prefix to error message used for lists
+	 * @since 2.0
 	 */
 	protected void typeCheckPropertyValues(PropertyType pt, PropertyExpression pv, String prefix, Element holder,
-			String defName) {
+			String defName, int depth) {
 
 		if (Aadl2Util.isNull(pt) || pv == null || holder == null) {
 			return;
 		}
+		if (depth > 50) {
+			error(holder, "Cyclic value discovered for '" + defName + "'");
+			return;
+		}
+		depth++;
 		String msg = " to property '" + defName + "' of type '" + pt.eClass().getName() + "'";
 		if (!prefix.isEmpty() && !prefix.startsWith(" ")) {
 			prefix = prefix + " ";
@@ -828,7 +842,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		if (pv instanceof ListValue) {
 			if (pt instanceof ListType) {
 				typeMatchListElements(((ListType) pt).getElementType(), ((ListValue) pv).getOwnedListElements(), holder,
-						defName);
+						defName, depth);
 			} else {
 				error(holder, prefix + "Assigning a list of values" + msg);
 			}
@@ -869,11 +883,11 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 				error(holder, prefix + "Assigning Range value" + msg);
 			} else {
 				typeCheckPropertyValues(((RangeType) pt).getNumberType(), ((RangeValue) pv).getMinimumValue(), holder,
-						defName);
+						defName, depth);
 				typeCheckPropertyValues(((RangeType) pt).getNumberType(), ((RangeValue) pv).getMaximumValue(), holder,
-						defName);
+						defName, depth);
 				typeCheckPropertyValues(((RangeType) pt).getNumberType(), ((RangeValue) pv).getDeltaValue(), holder,
-						defName);
+						defName, depth);
 			}
 		} else if (pv instanceof ClassifierValue) {
 			if (!(pt instanceof ClassifierType)) {
@@ -896,7 +910,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			if (!(pt instanceof RecordType)) {
 				error(holder, prefix + "Assigning Record value" + msg);
 			} else {
-				typeMatchRecordFields(((RecordValue) pv).getOwnedFieldValues(), holder, defName);
+				typeMatchRecordFields(((RecordValue) pv).getOwnedFieldValues(), holder, defName, depth);
 			}
 		} else if (pv instanceof ReferenceValue) {
 			if (!(pt instanceof ReferenceType)) {
@@ -921,11 +935,48 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		} else if (pv instanceof NamedValue) {
 			AbstractNamedValue nv = ((NamedValue) pv).getNamedValue();
 			if (nv instanceof PropertyConstant) {
-				typeCheckPropertyValues(pt, ((PropertyConstant) nv).getConstantValue(), holder, defName);
+				final PropertyConstant propertyConstant = (PropertyConstant) nv;
+				final PropertyType pct = propertyConstant.getPropertyType();
+				if (!Aadl2Util.isNull(pct) && !Aadl2Util.arePropertyTypesEqual(pt, pct)) {
+					final String expected = getTypeName(pt);
+					final String actual = getTypeName(pct);
+					if (actual != null) {
+						if (expected != null) {
+							error(holder, "Property value of type " + actual + "; expected type " + expected);
+						} else {
+							error(holder, "Propery value of type " + actual + " does not match expected type");
+						}
+					} else {
+						if (expected != null) {
+							error(holder, "Property value is not of expected type " + expected);
+						} else {
+							error(holder, "Propery value is not of expected type");
+						}
+					}
+				} else {
+					// Issue 2222: is this still really necessary?
+					typeCheckPropertyValues(pt, propertyConstant.getConstantValue(), holder, defName, depth);
+				}
 			} else if (nv instanceof Property) {
 				PropertyType pvt = ((Property) nv).getPropertyType();
-				if (!Aadl2Util.isNull(pvt) && pvt.eClass() != pt.eClass()) {
-					error(holder, "Assigning property of incorrect type" + msg);
+				if (!Aadl2Util.isNull(pvt)) {
+					if (pvt.eClass() != pt.eClass() || !Aadl2Util.arePropertyTypesEqual(pt, pvt)) {
+						final String expected = getTypeName(pt);
+						final String actual = getTypeName(pvt);
+						if (actual != null) {
+							if (expected != null) {
+								error(holder, "Property value of type " + actual + "; expected type " + expected);
+							} else {
+								error(holder, "Propery value of type " + actual + " does not match expected type");
+							}
+						} else {
+							if (expected != null) {
+								error(holder, "Property value is not of expected type " + expected);
+							} else {
+								error(holder, "Propery value is not of expected type");
+							}
+						}
+					}
 				}
 			} else {
 				error(holder, "Enum/Unit literal validation should have happened before");
@@ -933,17 +984,25 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		}
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	protected void typeMatchListElements(PropertyType pt, EList<PropertyExpression> pel, Element holder,
-			String defName) {
+			String defName, int depth) {
 		for (PropertyExpression propertyExpression : pel) {
-			typeCheckPropertyValues(pt, propertyExpression, "list element", holder, defName);
+			typeCheckPropertyValues(pt, propertyExpression, "list element", propertyExpression, defName, depth);
 		}
 	}
 
-	protected void typeMatchRecordFields(EList<BasicPropertyAssociation> rfl, Element holder, String defName) {
+	/**
+	 * @since 2.0
+	 */
+	protected void typeMatchRecordFields(EList<BasicPropertyAssociation> rfl, Element holder, String defName,
+			int depth) {
 		for (BasicPropertyAssociation field : rfl) {
 			if (field.getProperty() != null) {
-				typeCheckPropertyValues(field.getProperty().getPropertyType(), field.getValue(), holder, defName);
+				typeCheckPropertyValues(field.getProperty().getPropertyType(), field.getValue(), field.getValue(),
+						defName, depth);
 			}
 		}
 	}
@@ -991,7 +1050,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			return true;
 		}
 	}
-	
+
 	private void checkInRange(NumberType type, NumberValue value) {
 		NumericRange range = type.getRange();
 		if (range != null) {
@@ -1117,4 +1176,26 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		info(message, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, null);
 	}
 
+	/**
+	 * Get the name of the type, if it has a user-declared name, otherwise returns {@code null}.  The
+	 * only special handing is of list types, where if the ultimate element type of the list has a name,
+	 * then all the "list of" prefixes are attached.  Otherwise if the ultimate element type has no name
+	 * the result is still {@code null}.
+	 */
+	private String getTypeName(final PropertyType pt) {
+		if (pt instanceof ListType) {
+			final String elementTypeName = getTypeName(((ListType) pt).getElementType());
+			if (elementTypeName != null) {
+				return "list of " + elementTypeName;
+			} else {
+				return null;
+			}
+		} else {
+			if (pt.hasName()) {
+				return ((PropertySet) pt.eContainer()).getName() + "::" + pt.getName();
+			} else {
+				return null;
+			}
+		}
+	}
 }

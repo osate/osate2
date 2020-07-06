@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -67,10 +67,11 @@ import org.eclipse.xtext.util.Strings;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AbstractFeature;
+import org.osate.aadl2.AbstractFeatureClassifier;
 import org.osate.aadl2.BusFeatureClassifier;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.DataSubcomponentType;
 import org.osate.aadl2.Feature;
@@ -94,6 +95,7 @@ import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.internal.util.AadlClassifierUtil;
 import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.AadlImportsUtil;
+import org.osate.ge.internal.util.AadlPrototypeUtil;
 import org.osate.ge.internal.util.EditingUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.internal.util.classifiers.ClassifierOperation;
@@ -139,7 +141,7 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 						SubprogramGroupSubcomponentType.class, "setSubprogramGroupFeatureClassifier",
 						ImmutableList.of(ComponentCategory.SUBPROGRAM_GROUP)));
 		featureTypeToMetadataMap.put(p.getAbstractFeature(), new FeatureClassifierMetadata(
-				p.getFeatureClassifier(), FeatureClassifier.class, "setAbstractFeatureClassifier",
+				p.getAbstractFeatureClassifier(), AbstractFeatureClassifier.class, "setAbstractFeatureClassifier",
 				ImmutableList.of(ComponentCategory.ABSTRACT, ComponentCategory.DATA, ComponentCategory.BUS,
 						ComponentCategory.VIRTUAL_BUS, ComponentCategory.SUBPROGRAM,
 						ComponentCategory.SUBPROGRAM_GROUP)));
@@ -418,13 +420,11 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 		}
 
 		// Add any prototypes that are of the appropriate type
-		if (feature.getContainingClassifier() instanceof ComponentClassifier) {
-			for (final Prototype p : ((ComponentClassifier) feature.getContainingClassifier()).getAllPrototypes()) {
-				if (setterInfo.classifierEClass.isInstance(p)) {
-					featureClassifiers.add(p);
-				}
+		AadlPrototypeUtil.getAllPrototypes(feature.getContainingClassifier()).forEachOrdered(p -> {
+			if (setterInfo.classifierEClass.isInstance(p)) {
+				featureClassifiers.add(p);
 			}
-		}
+		});
 
 		return featureClassifiers;
 	}
@@ -440,6 +440,11 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 				if (selectedClassifierPkg != null && pkg != selectedClassifierPkg) {
 					AadlImportsUtil.addImportIfNeeded(section, selectedClassifierPkg);
 				}
+			}
+
+			// If the feature is an abstract feature, need to reset the feature prototype. Only a prototype or a classifier may be set.
+			if (feature instanceof AbstractFeature) {
+				((AbstractFeature) feature).setFeaturePrototype(null);
 			}
 		}
 
