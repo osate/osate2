@@ -90,7 +90,6 @@ censes only apply to the Third Party Software and not any other portion of this 
          unpack="false"/>
 
    <plugin
-<<<<<<< HEAD
          id="org.osate.ge.fx"
          download-size="0"
          install-size="0"
