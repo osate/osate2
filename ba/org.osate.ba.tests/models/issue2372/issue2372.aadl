@@ -1,0 +1,25 @@
+package test_lock_actions
+public
+	
+	thread th
+		features
+			d: requires data access dt;
+		annex behavior_specification {**
+			states
+				s1: initial complete final state;
+			transitions
+				s1 -[on dispatch]-> s1
+					{
+						computation(1 ms..2ms);
+						d!<;
+						computation(0 ms..2ms);
+						d!>;
+						computation(3ms..4ms)
+					};
+		**};
+	end th;
+
+	data dt	
+	end dt;
+	
+end test_lock_actions;

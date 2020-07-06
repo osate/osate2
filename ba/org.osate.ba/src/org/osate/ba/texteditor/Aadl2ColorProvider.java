@@ -33,7 +33,8 @@
  */
 package org.osate.ba.texteditor;
 
-import java.util.HashMap;
+import java.util.Map ;
+import java.util.WeakHashMap ;
 
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
@@ -47,15 +48,17 @@ public class Aadl2ColorProvider
 	public static final RGB STRING = new RGB(0, 128, 0);
 	public static final RGB SIGN = new RGB(0, 0, 128);
 	public static final RGB DEFAULT = new RGB(0, 0, 0);
-	
-	private final HashMap<RGB, Color> colorTable = new HashMap<RGB, Color>();
-	
+
+  private final Map<RGB, Color> colorTable = new WeakHashMap<RGB, Color>() ;
+
 	public void dispose()
 	{
 		for (Color color : colorTable.values())
-			color.dispose();
+    {
+      color.dispose();
+    }
 	}
-	
+
 	public Color getColor(RGB rgb)
 	{
 		Color color = colorTable.get(rgb);
