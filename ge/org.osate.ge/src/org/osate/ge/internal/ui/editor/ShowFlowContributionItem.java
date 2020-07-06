@@ -50,6 +50,7 @@ import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlow;
+import org.osate.aadl2.EndToEndFlowElement;
 import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FlowElement;
@@ -160,19 +161,23 @@ public class ShowFlowContributionItem extends ControlContribution {
 											(BusinessObjectNode) flowElementRef.container)))
 							.orElse(Stream.empty()).collect(Collectors.toList());
 				} else if (flowElementRef.flowSegmentElement instanceof EndToEndFlow) {
-					return AadlClassifierUtil.getComponentImplementation(flowElementRef.container.getBusinessObject())
+					final EndToEndFlow endToEndFlow = (EndToEndFlow) flowElementRef.flowSegmentElement;
+					final BusinessObjectNode containerNode = (BusinessObjectNode) flowElementRef.container;
+					return AadlClassifierUtil.getComponentImplementation(containerNode
+							.getBusinessObject())
 							.map(ci -> ci.getAllEndToEndFlows().stream()
-									.filter(ete -> ete == flowElementRef.flowSegmentElement)
+									.filter(ownedEndToEndFlow -> ownedEndToEndFlow == endToEndFlow)
 									.flatMap(ete -> ete.getAllFlowSegments().stream().flatMap(flowSegment -> {
-										if (flowSegment.getFlowElement() instanceof EndToEndFlow) {
-											final EndToEndFlow endToEndFlow = (EndToEndFlow) flowSegment
-													.getFlowElement();
-											return endToEndFlow.getAllFlowSegments().stream();
+										final EndToEndFlowElement endToEndFlowElement = flowSegment.getFlowElement();
+										if (endToEndFlowElement instanceof EndToEndFlow) {
+											// Find segments of a segment that is an end to end flow
+											return ((EndToEndFlow) endToEndFlowElement)
+																	.getAllFlowSegments().stream();
 										}
 										return Stream.of(flowSegment);
 									}))
-									.map(eteFlowSegment -> createFlowSegmentReference(eteFlowSegment,
-											(BusinessObjectNode) flowElementRef.container)))
+									.map(endToEndFlowSegment -> createFlowSegmentReference(endToEndFlowSegment,
+											containerNode)))
 							.orElse(Stream.empty()).collect(Collectors.toList());
 				} else if (flowElementRef.flowSegmentElement instanceof EndToEndFlowInstance) {
 					return AadlInstanceObjectUtil.getComponentInstance(flowElementRef.container.getBusinessObject())
