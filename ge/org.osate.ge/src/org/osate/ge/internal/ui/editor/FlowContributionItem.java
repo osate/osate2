@@ -130,7 +130,7 @@ public class FlowContributionItem extends ComboContributionItem {
 				final Map.Entry<String, HighlightableFlowInfo> entry = (Map.Entry<String, HighlightableFlowInfo>) firstSelection;
 				showFlowContributionItem.updateShowFlowItem(entry.getValue());
 				editFlowContributionItem.updateEditFlowItem(entry.getValue());
-				deleteFlowContributionItem.updateEditFlowItem(entry.getValue());
+				deleteFlowContributionItem.updateDeleteFlowItem(entry.getValue());
 			}
 		});
 
@@ -200,6 +200,8 @@ public class FlowContributionItem extends ComboContributionItem {
 			}
 
 			showFlowContributionItem.updateShowFlowItem(selectedValue.getValue());
+			editFlowContributionItem.updateEditFlowItem(selectedValue.getValue());
+			deleteFlowContributionItem.updateDeleteFlowItem(selectedValue.getValue());
 			comboViewer.setSelection(new StructuredSelection(selectedValue));
 		}
 	}
