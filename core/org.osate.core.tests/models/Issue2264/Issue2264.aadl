@@ -1,0 +1,24 @@
+package Issue2264
+public
+	
+	system S
+	end S;
+	
+	system implementation S.i
+		subcomponents
+			a1: abstract A;
+			a2: abstract A;
+			b: bus;
+		connections
+			c: port a1.o -> a2.i;
+		properties
+			Actual_Connection_Binding => (reference(b));
+	end S.i;
+	
+	abstract A
+		features
+			i: in event data port;
+			o: out event data port;
+	end A;
+	
+end Issue2264;

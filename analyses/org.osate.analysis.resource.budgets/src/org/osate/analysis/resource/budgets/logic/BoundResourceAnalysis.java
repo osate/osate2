@@ -25,9 +25,11 @@ package org.osate.analysis.resource.budgets.logic;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
@@ -198,19 +200,33 @@ public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 		}
 	}
 
+	private static boolean canHaveMemory(Element e) {
+		if (e instanceof ComponentInstance) {
+			final ComponentInstance ci = (ComponentInstance) e;
+			final ComponentCategory cc = ci.getCategory();
+			// memory, system, processor, virtual processor, abstract
+			return cc == ComponentCategory.MEMORY || cc == ComponentCategory.SYSTEM || cc == ComponentCategory.PROCESSOR
+					|| cc == ComponentCategory.VIRTUAL_PROCESSOR || cc == ComponentCategory.ABSTRACT;
+		} else {
+			return false;
+		}
+	}
+
 	private void checkMemoryLoads(SystemInstance si, final SystemOperationMode som) {
 		count = 0;
 		ForAllElement countme = new ForAllElement() {
 			@Override
 			protected void process(Element obj) {
-				if (GetProperties.getROMCapacityInKB((InstanceObject) obj, 0.0) > 0.0
-						|| GetProperties.getRAMCapacityInKB((InstanceObject) obj, 0.0) > 0.0
-						|| GetProperties.getMemorySizeInKB((InstanceObject) obj) > 0.0) {
-					count = count + 1;
+				if (canHaveMemory(obj)) {
+					if (GetProperties.getROMCapacityInKB((InstanceObject) obj, 0.0) > 0.0
+							|| GetProperties.getRAMCapacityInKB((InstanceObject) obj, 0.0) > 0.0
+							|| GetProperties.getMemorySizeInKB((InstanceObject) obj) > 0.0) {
+						count = count + 1;
+					}
 				}
 			}
 		};
-		countme.processPreOrderComponentInstance(si, ComponentCategory.MEMORY);
+		countme.processPreOrderComponentInstance(si);
 		if (count > 0) {
 			errManager.infoSummaryReportOnly(si, null,
 					"\nMemory Summary Report: " + Aadl2Util.getPrintableSOMName(som));
@@ -221,10 +237,12 @@ public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 		ForAllElement mal = new ForAllElement() {
 			@Override
 			protected void process(Element obj) {
-				checkMemoryLoad((ComponentInstance) obj, som);
+				if (canHaveMemory(obj)) {
+					checkMemoryLoad((ComponentInstance) obj, som);
+				}
 			}
 		};
-		mal.processPreOrderComponentInstance(si, ComponentCategory.MEMORY);
+		mal.processPreOrderComponentInstance(si);
 	}
 
 	/**
@@ -235,7 +253,7 @@ public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 	 */
 	private void checkMemoryLoad(ComponentInstance curMemory, final SystemOperationMode som) {
 		UnitLiteral kbliteral = GetProperties.getKBUnitLiteral(curMemory);
-		EList<ComponentInstance> boundComponents = InstanceModelUtil.getBoundSWComponents(curMemory);
+		EList<ComponentInstance> boundComponents = getMemoryBindings(curMemory);
 		double MemoryCapacity = GetProperties.getMemorySize(curMemory, kbliteral);
 		double ROMCapacity = GetProperties.getROMCapacityInKB(curMemory, 0.0);
 		double RAMCapacity = GetProperties.getRAMCapacityInKB(curMemory, 0.0);
@@ -364,5 +382,42 @@ public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 			 */
 			return 0.0;
 		}
+	}
+
+	/*
+	 * Issue 2169: This is copied from InstanceModelUtil.getBoundSWComponents, but we had
+	 * to specialize it because now processor/virtual processors are treated as things
+	 * that have memory and the original method gets the wrong things from the processors.
+	 *
+	 * associatedObject is of category memory, system, processor, virtual processor, abstract
+	 */
+	private static EList<ComponentInstance> getMemoryBindings(final ComponentInstance associatedObject) {
+		EList<Element> boundComponents = null;
+
+		final SystemInstance root = associatedObject.getSystemInstance();
+		final ComponentCategory cc = associatedObject.getCategory();
+		if (cc == ComponentCategory.MEMORY || cc == ComponentCategory.SYSTEM || cc == ComponentCategory.PROCESSOR
+				|| cc == ComponentCategory.VIRTUAL_PROCESSOR || cc == ComponentCategory.ABSTRACT) {
+			boundComponents = new ForAllElement() {
+				@Override
+				protected boolean suchThat(Element obj) {
+					List<ComponentInstance> boundMemoryList = GetProperties
+							.getActualMemoryBinding((ComponentInstance) obj);
+					if (boundMemoryList.isEmpty()) {
+						return false;
+					}
+					return boundMemoryList.contains(associatedObject);
+				}
+				// process bottom up so we can check whether children had budgets
+			}.processPostOrderComponentInstance(root);
+		} else {
+			return new BasicEList<ComponentInstance>();
+		}
+
+		EList<ComponentInstance> topobjects = new BasicEList<ComponentInstance>();
+		for (Object componentInstance : boundComponents) {
+			InstanceModelUtil.addAsRoot(topobjects, (ComponentInstance) componentInstance);
+		}
+		return topobjects;
 	}
 }

@@ -2136,6 +2136,10 @@ public class EMV2Util {
 		return ep.getDirection().getLiteral() + "-" + getPropagationName(ep);
 	}
 
+	/**
+	 * @deprecated Unused. Will be removed in 2.8.1
+	 */
+	@Deprecated
 	public static String getPrintNameWithoutType(EMV2Path ep) {
 		if (ep == null) {
 			return "";
@@ -2145,12 +2149,10 @@ public class EMV2Util {
 			return "";
 		}
 		ContainmentPathElement cpe = ep.getContainmentPath();
-		String prefix;
 		if (cpe == null) {
-			prefix = "";
-		} else {
-			prefix = "^" + cpe.getNamedElement().getName();
+			return getPathNameWithoutType(epe);
 		}
+		String prefix = "^" + cpe.getNamedElement().getName();
 		while (cpe.getPath() != null) {
 			cpe = cpe.getPath();
 			prefix = prefix + "." + cpe.getNamedElement().getName();

@@ -54,6 +54,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.instantiation.RootMissingException;
 import org.osate.core.AadlNature;
+import org.osate.core.OsateCorePlugin;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.dialogs.InstantiationResultsDialog;
 import org.osate.workspace.WorkspacePlugin;
@@ -248,14 +249,18 @@ public final class ReinstantiationHandler extends AbstractMultiJobHandler {
 			try {
 				instantiationJobs.join(0L, null);
 
-				/* Get the results and display them */
-				PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
-					final InstantiationResultsDialog<?> d = new InstantiationResultsDialog<IFile>(
-							PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Reinstantiation",
-							"Instance Model", modelFile -> modelFile.getFullPath().toString(), results);
-					d.open();
-				});
-
+				/* User can suppress the dialog if all the results are successful */
+				if (OsateCorePlugin.getDefault().getAlwaysShowInstantiationResults()
+						|| !Result.allSuccessful(results.values())) {
+					/* Get the results and display them */
+					PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
+						final InstantiationResultsDialog<?> d = new InstantiationResultsDialog<IFile>(
+								PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Reinstantiation",
+								"Instance Model", modelFile -> modelFile.getFullPath().toString(), results,
+								OsateCorePlugin.getDefault().getPreferenceStore());
+						d.open();
+					});
+				}
 			} catch (final InterruptedException | OperationCanceledException e) {
 				/*
 				 * InterruptedException thrown if we are somehow cancelled. Not sure if

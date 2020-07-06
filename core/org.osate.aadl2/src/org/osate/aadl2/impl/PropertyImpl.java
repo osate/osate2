@@ -49,7 +49,6 @@ import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertyOwner;
 import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.properties.EvaluatedProperty;
@@ -531,13 +530,8 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 		 * during instantiation doesn't catch contained property values that may
 		 * be attached to an ancestor instance and that might be inherited by
 		 * this instance.
-		 *
-		 * However, we avoid to call it for connection reference because in that
-		 * case, for a connection reference, we call that method on the contained
-		 * ConnectionInstance that returns the value of the potential other
-		 * contained references.
 		 */
-		if (isInherit() && (!(io instanceof ConnectionReference))) {
+		if (isInherit()) {
 			io = (InstanceObject) io.eContainer();
 			if (io != null) {
 				getPropertyValueInternal(new EvaluationContext(io, ctx.getClassifierCache()), paa);
@@ -561,7 +555,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 				return;
 			}
 			InstantiatedClassifier ic = ctx.getClassifierCache().get(io);
-			Classifier cl = (ic == null) ? null : ic.classifier;
+			Classifier cl = (ic == null) ? null : ic.getClassifier();
 			// OsateDebug.osateDebug("compDecls" + compDecl);
 
 			if (compDecl instanceof Subcomponent) {
