@@ -24,4 +24,5 @@ censes only apply to the Third Party Software and not any other portion of this 
 -->
 <site>
    <bundle id="org.osate.analysis.security"/>
+   <bundle id="org.osate.analysis.security.ui"/>
 </site>

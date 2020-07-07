@@ -10,7 +10,8 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>..</module>
+		<module>../../org.osate.analysis.security</module>
+		<module>../../org.osate.analysis.security.ui</module>
 		<module>../p2.repository</module>
 	</modules>
 </project>
