@@ -370,7 +370,7 @@ public class CreateFlowImplementationTool {
 			if (multipleElementsSelected) {
 				error = "Multiple elements selected.  Select a single element. ";
 			} else if (!segmentSelections.isEmpty() && !isValid) {
-				error = "Invalid Flow Implemenation.  ";
+				error = "Invalid Flow Implementation.  ";
 			}
 
 			if (error == null) {
@@ -428,6 +428,7 @@ public class CreateFlowImplementationTool {
 		}
 
 		/**
+		 * Add qualified element to build flow implementation
 		 * @param boc - the business object context for the selected element
 		 * @param isInit - whether the boc is the initial selection when tool is activated
 		 */
@@ -439,7 +440,7 @@ public class CreateFlowImplementationTool {
 					if (bo instanceof ModeFeature) {
 						addModeSelection(boc, Color.MAGENTA.brighter());
 					} else if (flowImpl.getSpecification() == null && bo instanceof FlowSpecification) {
-						addSegmentSelection(new SegmentData(boc), Color.ORANGE.darker());
+						addSegmentSelection(new SegmentData(boc), segmentSelections.size(), Color.ORANGE.darker());
 					} else {
 						final FlowSpecification fs = flowImpl.getSpecification();
 						if (fs != null) {
@@ -448,11 +449,13 @@ public class CreateFlowImplementationTool {
 									if (flowImpl.getInEnd() == null) {
 										addSegmentSelection(new SegmentData(boc), 1, Color.MAGENTA.darker());
 									} else if (flowImpl.getOutEnd() == null) {
-										addSegmentSelection(new SegmentData(boc), Color.MAGENTA.darker());
+										addSegmentSelection(new SegmentData(boc), segmentSelections.size(),
+												Color.MAGENTA.darker());
 									}
 								} else if (bo instanceof Connection || bo instanceof FlowElement) {
 									if (flowImpl.getOutEnd() == null) {
-										addSegmentSelection(new SegmentData(boc), Color.MAGENTA.darker());
+										addSegmentSelection(new SegmentData(boc), segmentSelections.size(),
+												Color.MAGENTA.darker());
 									} else {
 										addSegmentSelection(new SegmentData(boc), segmentSelections.size() - 1,
 												Color.MAGENTA.darker());
@@ -464,14 +467,17 @@ public class CreateFlowImplementationTool {
 										addSegmentSelection(new SegmentData(boc), 1, Color.MAGENTA.darker());
 									}
 								} else if (bo instanceof Connection || bo instanceof FlowElement) {
-									addSegmentSelection(new SegmentData(boc), Color.MAGENTA.darker());
+									addSegmentSelection(new SegmentData(boc), segmentSelections.size(),
+											Color.MAGENTA.darker());
 								}
 							} else {
 								if (bo instanceof Feature && flowImpl.getOutEnd() == null) {
-									addSegmentSelection(new SegmentData(boc), Color.MAGENTA.darker());
+									addSegmentSelection(new SegmentData(boc), segmentSelections.size(),
+											Color.MAGENTA.darker());
 								} else if (bo instanceof Connection || bo instanceof FlowElement) {
 									if (flowImpl.getOutEnd() == null) {
-										addSegmentSelection(new SegmentData(boc), Color.MAGENTA.darker());
+										addSegmentSelection(new SegmentData(boc), segmentSelections.size(),
+												Color.MAGENTA.darker());
 									} else {
 										addSegmentSelection(new SegmentData(boc), segmentSelections.size() - 1,
 												Color.MAGENTA.darker());
@@ -492,17 +498,23 @@ public class CreateFlowImplementationTool {
 			updateDialog();
 		}
 
-		private void addSegmentSelection(final SegmentData segmentData, int index, final Color color) {
+		private void addSegmentSelection(final SegmentData segmentData, final int index, final Color color) {
+//			if(index.isPresent()) {
+//				segmentSelections.add(index.get(), segmentData);
+//			} else {
+//				segmentSelections.add(segmentData);
+//			}
 			segmentSelections.add(index, segmentData);
+
 			setColor(segmentData.getBoc(), color);
 			updateDialog();
 		}
 
-		private void addSegmentSelection(final SegmentData segmentData, final Color color) {
-			segmentSelections.add(segmentData);
-			setColor(segmentData.getBoc(), color);
-			updateDialog();
-		}
+//		private void addSegmentSelection(final SegmentData segmentData, final Color color) {
+//			segmentSelections.add(segmentData);
+//			setColor(segmentData.getBoc(), color);
+//			updateDialog();
+//		}
 
 		private void updateDialog() {
 			setErrorMessage(null);
@@ -674,7 +686,7 @@ public class CreateFlowImplementationTool {
 					editMenu.setLocation(Display.getCurrent().map(createFlowImplDlg.flowComposite,
 							null,
 							new Point(location.x, location.y + segmentBtn.getSize().y)));
-					// Can only replace flow spec
+					// Can only replace flow spec or in/out end features
 					if (getFirstSelection().filter(selection -> selection == segmentData.getBoc()).isPresent()) {
 						insertBeforeMenuItem.setEnabled(false);
 						insertAfterMenuItem.setEnabled(false);
@@ -699,7 +711,7 @@ public class CreateFlowImplementationTool {
 		}
 
 		private MenuItem createInsertSegmentButton(Menu newMenu, final String text, SegmentData segmentData,
-				boolean after) {
+				boolean isInsertAfter) {
 			final MenuItem insertMenuItem = new MenuItem(newMenu, SWT.PUSH);
 			insertMenuItem.setText(text);
 			insertMenuItem.addSelectionListener(new SelectionAdapter() {
@@ -707,7 +719,7 @@ public class CreateFlowImplementationTool {
 				public void widgetSelected(final SelectionEvent e) {
 					elementSelectionDlg = new SelectSegmentOrModeFeatureDialog(createFlowImplDlg.getShell(),
 							segmentData.getBoc(), "Select Element to Insert");
-					createFlowImplDlg.setSegment(segmentData, after);
+					createFlowImplDlg.setSegment(segmentData, isInsertAfter);
 				}
 			});
 
@@ -788,7 +800,8 @@ public class CreateFlowImplementationTool {
 			});
 		}
 
-		private void createInsertModeFeatureMenuItem(Menu menu, String text, BusinessObjectContext boc, boolean after) {
+		private void createInsertModeFeatureMenuItem(Menu menu, String text, BusinessObjectContext boc,
+				boolean isInsertAfter) {
 			final MenuItem insertMenuItem = new MenuItem(menu, SWT.PUSH);
 			insertMenuItem.setText(text);
 			insertMenuItem.addSelectionListener(new SelectionAdapter() {
@@ -796,20 +809,20 @@ public class CreateFlowImplementationTool {
 				public void widgetSelected(final SelectionEvent e) {
 					elementSelectionDlg = new SelectSegmentOrModeFeatureDialog(createFlowImplDlg.getShell(), boc,
 							"Select Element to Insert");
-					createFlowImplDlg.setSegment(boc, after);
+					createFlowImplDlg.setSegment(boc, isInsertAfter);
 				}
 			});
 		}
 
 		private void setSegment(
 				final SegmentData segmentData,
-				final boolean after) {
-			setSegment(Optional.empty(), segmentData, after);
+				final boolean isInsertAfter) {
+			setSegment(Optional.empty(), segmentData, isInsertAfter);
 		}
 
 		private void setSegment(
 				final Optional<Runnable> opRunnable,
-				final SegmentData segmentData, final boolean after) {
+				final SegmentData segmentData, final boolean isInsertAfter) {
 			try {
 				createFlowImplDlg.getShell().setVisible(false);
 				if (elementSelectionDlg.open() == Window.OK && elementSelectionDlg != null && createFlowImplDlg != null) {
@@ -817,7 +830,7 @@ public class CreateFlowImplementationTool {
 					if (optBoc.isPresent()) {
 						final BusinessObjectContext selectedBoc = optBoc.get();
 						int insertIndex = segmentSelections.indexOf(segmentData);
-						if (after) {
+						if (isInsertAfter) {
 							insertIndex++;
 						}
 
@@ -891,13 +904,13 @@ public class CreateFlowImplementationTool {
 
 		private void setSegment(
 				final BusinessObjectContext boc,
-				final boolean after) {
-			setSegment(Optional.empty(), boc, after);
+				final boolean isInsertAfter) {
+			setSegment(Optional.empty(), boc, isInsertAfter);
 		}
 
 		private void setSegment(
 				final Optional<Runnable> consumer,
-				final BusinessObjectContext boc, final boolean after) {
+				final BusinessObjectContext boc, final boolean isInsertAfter) {
 			try {
 				createFlowImplDlg.getShell().setVisible(false);
 				if (elementSelectionDlg.open() == Window.OK && elementSelectionDlg != null && createFlowImplDlg != null) {
@@ -905,7 +918,7 @@ public class CreateFlowImplementationTool {
 					if (optBoc.isPresent()) {
 						final BusinessObjectContext selectedBoc = optBoc.get();
 						int insertIndex = modeFeatureSelections.indexOf(boc);
-						if (after) {
+						if (isInsertAfter) {
 							insertIndex++;
 						}
 						modeFeatureSelections.add(insertIndex, selectedBoc);
@@ -952,12 +965,18 @@ public class CreateFlowImplementationTool {
 				super.create();
 				setTitle(title);
 				setMessage("Select element from diagram or outline view.");
-				getButton(IDialogConstants.OK_ID).setEnabled(false);
+				final Button okBtn = getButton(IDialogConstants.OK_ID);
 
 				final List<BusinessObjectContext> bocs = AgeHandlerUtil.getSelectedBusinessObjectContexts();
 				if (bocs.size() == 1 && bocs.get(0).getBusinessObject() instanceof NamedElement) {
-					selectionLabel.setText(FlowUtil.getRefinedName((NamedElement) bocs.get(0).getBusinessObject()));
+					final NamedElement selectedElement = (NamedElement) bocs.get(0).getBusinessObject();
+					okBtn.setEnabled(isQualifiedType.apply(selectedElement));
+					selectionLabel.setText(FlowUtil.getRefinedName(selectedElement));
 					setErrorMessage(null);
+				} else {
+					okBtn.setEnabled(false);
+					setErrorMessage("Invalid selection.\n " + getMessage());
+					selectionLabel.setText("<Invalid>");
 				}
 			}
 
