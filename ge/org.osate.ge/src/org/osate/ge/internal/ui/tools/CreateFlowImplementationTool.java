@@ -498,23 +498,18 @@ public class CreateFlowImplementationTool {
 			updateDialog();
 		}
 
+		/**
+		 * Add the segment to the list of segments
+		 * @param segmentData the segment to add
+		 * @param index the index to insert the segment into the segment list
+		 * @param color the color to set the diagram element
+		 */
 		private void addSegmentSelection(final SegmentData segmentData, final int index, final Color color) {
-//			if(index.isPresent()) {
-//				segmentSelections.add(index.get(), segmentData);
-//			} else {
-//				segmentSelections.add(segmentData);
-//			}
 			segmentSelections.add(index, segmentData);
 
 			setColor(segmentData.getBoc(), color);
 			updateDialog();
 		}
-
-//		private void addSegmentSelection(final SegmentData segmentData, final Color color) {
-//			segmentSelections.add(segmentData);
-//			setColor(segmentData.getBoc(), color);
-//			updateDialog();
-//		}
 
 		private void updateDialog() {
 			setErrorMessage(null);
