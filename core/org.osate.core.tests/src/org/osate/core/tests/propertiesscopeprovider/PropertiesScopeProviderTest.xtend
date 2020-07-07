@@ -2751,7 +2751,7 @@ class PropertiesScopeProviderTest extends XtextTest {
 					prototypes
 						aproto1: refined to abstract;
 					features
-						fg1: refined to feature group {
+						fg1: refined to feature group fgt2 {
 							ps::ref1 => reference(af4) applies to af4;
 							ps::ref2 => reference(fg7.af6) applies to fg7.af6;
 							ps::ref3 => reference(fg8.af6) applies to fg8.af6;
@@ -2763,14 +2763,14 @@ class PropertiesScopeProviderTest extends XtextTest {
 							ps::ref3 => reference(fg8.af6) applies to fg8.af6;
 							ps::ref4 => reference(fg9.af6) applies to fg9.af6;
 						};
-						dp1: refined to in data port;
+						dp1: refined to in data port a3.i1;
 					flows
 						fpath1: refined to flow path;
 					end a2;
 					
 					abstract implementation a2.i1 extends a1.i1 (aproto1 => abstract a3.i1)
 					subcomponents
-						asub1: refined to abstract {
+						asub1: refined to abstract a3.i1 {
 							ps::ref1 => reference(af3) applies to af3;
 							ps::ref2 => reference(asub4.af5) applies to asub4.af5;
 							ps::ref3 => reference(asub5.af5) applies to asub5.af5;
@@ -2782,7 +2782,7 @@ class PropertiesScopeProviderTest extends XtextTest {
 							ps::ref3 => reference(asub5.af5) applies to asub5.af5;
 							ps::ref4 => reference(asub6.af5) applies to asub6.af5;
 						};
-						asub3: refined to abstract {ps::ref1 => reference(asub7.af5) applies to asub7.af5;};
+						asub3: refined to abstract a3.i1 {ps::ref1 => reference(asub7.af5) applies to asub7.af5;};
 					calls
 						sequence2: {
 							call2: subprogram subp1.i1;
@@ -2910,7 +2910,7 @@ class PropertiesScopeProviderTest extends XtextTest {
 					
 					abstract a1 extends a1Base (fgproto6 => feature group fgt1, aproto6 => abstract a2.i)
 					features
-						fg1: refined to feature group {ps::ref1 => reference(fg2.fg3.fg4.fg5.fg6) applies to fg2.fg3.fg4.fg5.fg6;};
+						fg1: refined to feature group fgt1 {ps::ref1 => reference(fg2.fg3.fg4.fg5.fg6) applies to fg2.fg3.fg4.fg5.fg6;};
 						fg7: refined to feature group {ps::ref1 => reference(fg8.fg9.fg10.fg11.fg12) applies to fg8.fg9.fg10.fg11.fg12;};
 						fg13: refined to feature group {ps::ref1 => reference(fg14.fg15.fg16.fg17.fg18) applies to fg14.fg15.fg16.fg17.fg18;};
 					properties
@@ -2929,10 +2929,10 @@ class PropertiesScopeProviderTest extends XtextTest {
 					
 					abstract implementation a1.i extends a1.iBase
 					subcomponents
-						asub1: refined to abstract {ps::ref1 => reference(asub2.asub3.asub4.asub5.asub6) applies to asub2.asub3.asub4.asub5.asub6;};
+						asub1: refined to abstract a2.i {ps::ref1 => reference(asub2.asub3.asub4.asub5.asub6) applies to asub2.asub3.asub4.asub5.asub6;};
 						asub7: refined to abstract {ps::ref1 => reference(asub8.asub9.asub10.asub11.asub12) applies to asub8.asub9.asub10.asub11.asub12;};
 						asub13: refined to abstract {ps::ref1 => reference(asub14.asub15.asub16.asub17.asub18) applies to asub14.asub15.asub16.asub17.asub18;};
-						asub19: refined to abstract {ps::ref1 => reference(asub20.asub21.asub22.asub23.asub24) applies to asub20.asub21.asub22.asub23.asub24;};
+						asub19: refined to abstract a2.i {ps::ref1 => reference(asub20.asub21.asub22.asub23.asub24) applies to asub20.asub21.asub22.asub23.asub24;};
 					properties
 						ps::ref4 => reference(fg1.fg2.fg3.fg4.fg5.fg6) applies to fg1.fg2.fg3.fg4.fg5.fg6;
 						ps::ref5 => reference(fg7.fg8.fg9.fg10.fg11.fg12) applies to fg7.fg8.fg9.fg10.fg11.fg12;

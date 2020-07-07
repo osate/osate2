@@ -28,7 +28,6 @@ public class AnchorNames {
 	private AnchorNames() {
 	}
 
-	public static final String FLOW_SPECIFICATION = "fs";
 	public static final String INTERIOR_ANCHOR = "int";
 	public static final String EXTERIOR_ANCHOR = "ext";
 }
