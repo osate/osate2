@@ -166,7 +166,6 @@ public class CreateEndToEndFlowSpecificationTool {
 					.get(AadlHelper.getRootRefinedElement(flowSegment.getFlowElement()));
 			final List<DiagramElement> highlightableSegments = new ArrayList<>();
 			if (boc.getBusinessObject() instanceof EndToEndFlow && ancestor instanceof DiagramElement) {
-
 				findSegments((EndToEndFlow) AadlHelper.getRootRefinedElement((NamedElement) boc
 						.getBusinessObject()),
 						ancestor,
@@ -251,7 +250,7 @@ public class CreateEndToEndFlowSpecificationTool {
 					update();
 				}
 
-				if (createFlowDialog.open() != Window.OK && createFlowDialog != null) {
+				if (createFlowDialog.open() == Window.OK && createFlowDialog != null) {
 					createFlowDialog.getFlow().ifPresent(endToEndFlow -> {
 						if (createFlowDialog.flowSegmentToEdit != null) {
 							// Editing end to end flow
