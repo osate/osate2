@@ -23,7 +23,6 @@
  */
 package org.osate.ge.gef.ui.editor;
 
-import java.awt.Composite;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -34,9 +33,16 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
+import org.osate.ge.fx.palette.Palette;
+import org.osate.ge.fx.palette.TestPaletteGroup;
+import org.osate.ge.fx.palette.TestPaletteItem;
+import org.osate.ge.fx.palette.TestPaletteModel;
 import org.osate.ge.gef.AgeModule;
 import org.osate.ge.gef.ui.AgeUiModule;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
@@ -53,6 +59,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -109,50 +117,52 @@ public class AgeEditor extends AbstractFXEditor {
 		});
 	}
 
+	final String TITLE_STYLE = "-fx-background-color: linear-gradient(rgb(255,255,255), rgb(237,237,237));";
+	final String COLLAPSE_BUTTON_ACTIVATED = "-fx-background-color: linear-gradient(rgb(255,255,255), rgb(237,237,237));"
+			+ "-fx-border-style: dotted; -fx-border-color: black;";
+	final String COLLAPSE_BUTTON_IDLE = "-fx-background-color: linear-gradient(rgb(255,255,255), rgb(237,237,237));"
+			+ "-fx-border-style: dotted; -fx-border-color: black;";
+	final ImageView COLLAPSE_BUTTON_CLOSED = new ImageView(new Image("icons/collapsedIcon.svg"));
+	final ImageView COLLAPSE_BUTTON_OPEN = new ImageView(new Image("icons/openedIcon.svg"));
+	final SplitPane sp = new SplitPane();
+	final VBox paletteContainer = new VBox();
+	final AnchorPane titleContainer = new AnchorPane();
+	final ScrollPane scrollPane = new ScrollPane();
+	final Label paletteTitle = new Label("Palette");
+	final ToggleButton collapseButton = new ToggleButton();
+
 	@Override
 	protected void hookViewers() {
 		// TODO: Replace this with widget derived from DemoApplication
-		final String TITLE_STYLE = "-fx-background-color: linear-gradient(rgb(255,255,255), rgb(237,237,237));";
-		final private String COLLAPSE_BUTTON_ACTIVATED = "-fx-background-color: linear-gradient(rgb(255,255,255), rgb(237,237,237));"
-				+ "-fx-border-style: dotted; -fx-border-color: black;";
-		final private String COLLAPSE_BUTTON_IDLE = "-fx-background-color: linear-gradient(rgb(255,255,255), rgb(237,237,237));"
-				+ "-fx-border-style: dotted; -fx-border-color: black;";
-		final private String COLLAPSE_BUTTON_CLOSED = "ge/icons/collapsedIcon";
-		final private String COLLAPSE_BUTTON_OPEN = "ge/icons/openedIcon";
 
-		final SplitPane sp = new SplitPane();
-		final VBox paletteContainer = new VBox();
-		final AnchorPane titleContainer = new AnchorPane();
-		final ScrollPane scrollPane = new ScrollPane();
-		titleContainer.setStyle(TITLE_STYLE);
-		final Label paletteTitle = new Label("Palette");
-		paletteTitle.setStyle(TITLE_STYLE);
-		paletteTitle.setPadding(new Insets(5, 0, 5, 0));
-		final ToggleButton collapseButton = new ToggleButton();
-		collapseButton.setPadding(new Insets(10, 0, 10, 0));
-		collapseButton.setStyle(COLLAPSE_BUTTON_IDLE);
-		collapseButton.setMaxSize(30, 30);
-		collapseButton.setMinSize(30, 30);
-		collapseButton.setOnAction(e -> {
-			updateCollapsed();
-		});
+	titleContainer.setStyle(TITLE_STYLE);
+	paletteTitle.setStyle(TITLE_STYLE);
 
-		final Palette<TestPaletteGroup, TestPaletteItem> palette = new Palette<>(new TestPaletteModel());
+	paletteTitle.setPadding(new Insets(5, 0, 5, 0));
+	collapseButton.setPadding(new Insets(10, 0, 10, 0));
+	collapseButton.setStyle(COLLAPSE_BUTTON_IDLE);
+	collapseButton.setMaxSize(30, 30);
+	collapseButton.setMinSize(30, 30);
+	collapseButton.setOnAction(e -> {
+		updateCollapse();
+	});
 
-		// TODO: Use a color picker to determine background gradient of current palette.
+	final Palette<TestPaletteGroup, TestPaletteItem> palette = new Palette<>(new TestPaletteModel());
 
-		scrollPane.setContent(palette);
-		scrollPane.setFitToHeight(true);
-		scrollPane.setFitToWidth(true);
-		scrollPane.maxWidthProperty().bind(paletteContainer.maxWidthProperty());
-		scrollPane.prefWidthProperty().bind(paletteContainer.prefWidthProperty());
-		paletteContainer.setPrefWidth(250);
-		paletteContainer.setMaxWidth(500);
+	// TODO: Use a color picker to determine background gradient of current palette.
 
-		titleContainer.getChildren().addAll(paletteTitle, collapseButton);
-		AnchorPane.setRightAnchor(collapseButton, 5.0);
-		AnchorPane.setLeftAnchor(paletteTitle, 5.0);
-		paletteContainer.getChildren().addAll(titleContainer, scrollPane);
+	scrollPane.setContent(palette);
+	scrollPane.setFitToHeight(true);
+	scrollPane.setFitToWidth(true);
+	scrollPane.maxWidthProperty().bind(paletteContainer.maxWidthProperty());
+	scrollPane.prefWidthProperty().bind(paletteContainer.prefWidthProperty());
+	paletteContainer.setPrefWidth(250);
+	paletteContainer.setMaxWidth(500);
+
+	titleContainer.getChildren().addAll(paletteTitle, collapseButton);
+	AnchorPane.setRightAnchor(collapseButton, 5.0);
+	AnchorPane.setLeftAnchor(paletteTitle, 5.0);
+	paletteContainer.getChildren().addAll(titleContainer, scrollPane);
 
 		sp.getItems().addAll(getContentViewer().getCanvas(), paletteContainer);
 

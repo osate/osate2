@@ -5,7 +5,7 @@ Bundle-Name: OSATE Graphical Editor Graphics JavaFX
 Bundle-SymbolicName: org.osate.ge.graphics.fx
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Require-Bundle: org.osate.ge;bundle-version="[1.1.0,2.0.0)",
+Require-Bundle: org.osate.ge;bundle-version="[1.2.0,2.0.0)",
  org.osate.ge.fx;bundle-version="[1.0.0,2.0.0)",
  com.google.guava;bundle-version="[21.0.0,22.0.0)"
 Bundle-Vendor: The University of Alabama in Huntsville
