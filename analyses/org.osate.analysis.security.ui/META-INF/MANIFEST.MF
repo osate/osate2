@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Ui
+Bundle-SymbolicName: org.osate.analysis.security.ui;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.osate.analysis.security.ui.Activator
+Require-Bundle: org.osate.aadl2,
+ org.osate.aadl2.modelsupport,
+ org.osate.ui,
+ org.osate.analysis.security;bundle-version="1.0.0",
+ org.osate.results
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Automatic-Module-Name: org.osate.analysis.security.ui
+Bundle-ActivationPolicy: lazy
+Export-Package: org.osate.analysis.security.ui.handlers
