@@ -262,13 +262,15 @@ public class CreateFlowImplementationTool {
 					&& !createFlowImplDlg.elementSelectionDlg.getShell().isDisposed()
 					&& createFlowImplDlg.elementSelectionDlg.getShell().isVisible()) {
 				// Handle selection for editing flow segments and mode features
+				final CreateFlowImplementationDialog.SelectSegmentOrModeFeatureDialog elementSelectionDlg = createFlowImplDlg.elementSelectionDlg;
 				if (selectedBocs.length > 1) {
-					createFlowImplDlg.elementSelectionDlg.setErrorMessage("Multiple elements are selected. ");
-					createFlowImplDlg.elementSelectionDlg.setSelection(null);
+					elementSelectionDlg
+					.setErrorMessage("Multiple elements are selected. " + elementSelectionDlg.getMessage());
+					elementSelectionDlg.setSelection(null);
 				} else if (selectedBocs.length == 1) {
 					final BusinessObjectContext selectedBoc = selectedBocs[0];
-					createFlowImplDlg.elementSelectionDlg.setErrorMessage(null);
-					createFlowImplDlg.elementSelectionDlg.setSelection(selectedBoc);
+					elementSelectionDlg.setErrorMessage(null);
+					elementSelectionDlg.setSelection(selectedBoc);
 				}
 			}
 		}
@@ -420,9 +422,8 @@ public class CreateFlowImplementationTool {
 				}
 			});
 
-			for (final BusinessObjectContext tmpModeFeature : modeFeatureSelections) {
-				flowImpl.getInModeOrTransitions().add((ModeFeature) tmpModeFeature.getBusinessObject());
-			}
+			modeFeatureSelections.forEach(modeFeatureBoc -> flowImpl.getInModeOrTransitions()
+					.add((ModeFeature) modeFeatureBoc.getBusinessObject()));
 
 			return flowImpl;
 		}
@@ -444,44 +445,38 @@ public class CreateFlowImplementationTool {
 					} else {
 						final FlowSpecification fs = flowImpl.getSpecification();
 						if (fs != null) {
+							final int size = segmentSelections.size();
 							if (fs.getKind() == FlowKind.PATH) {
 								if (bo instanceof Feature) {
 									if (flowImpl.getInEnd() == null) {
 										addSegmentSelection(new SegmentData(boc), 1, Color.MAGENTA.darker());
 									} else if (flowImpl.getOutEnd() == null) {
-										addSegmentSelection(new SegmentData(boc), segmentSelections.size(),
+										addSegmentSelection(new SegmentData(boc),
+												size,
 												Color.MAGENTA.darker());
 									}
-								} else if (bo instanceof Connection || bo instanceof FlowElement) {
-									if (flowImpl.getOutEnd() == null) {
-										addSegmentSelection(new SegmentData(boc), segmentSelections.size(),
-												Color.MAGENTA.darker());
-									} else {
-										addSegmentSelection(new SegmentData(boc), segmentSelections.size() - 1,
-												Color.MAGENTA.darker());
-									}
+								} else if (bo instanceof FlowElement) {
+									int insertIndex = flowImpl.getOutEnd() == null ? size : (size - 1);
+									addSegmentSelection(new SegmentData(boc), insertIndex, Color.MAGENTA.darker());
 								}
 							} else if (fs.getKind() == FlowKind.SINK) {
 								if (bo instanceof Feature) {
 									if (flowImpl.getInEnd() == null) {
 										addSegmentSelection(new SegmentData(boc), 1, Color.MAGENTA.darker());
 									}
-								} else if (bo instanceof Connection || bo instanceof FlowElement) {
-									addSegmentSelection(new SegmentData(boc), segmentSelections.size(),
+								} else if (bo instanceof FlowElement) {
+									addSegmentSelection(new SegmentData(boc),
+											size,
 											Color.MAGENTA.darker());
 								}
 							} else {
 								if (bo instanceof Feature && flowImpl.getOutEnd() == null) {
-									addSegmentSelection(new SegmentData(boc), segmentSelections.size(),
+									addSegmentSelection(new SegmentData(boc),
+											size,
 											Color.MAGENTA.darker());
-								} else if (bo instanceof Connection || bo instanceof FlowElement) {
-									if (flowImpl.getOutEnd() == null) {
-										addSegmentSelection(new SegmentData(boc), segmentSelections.size(),
-												Color.MAGENTA.darker());
-									} else {
-										addSegmentSelection(new SegmentData(boc), segmentSelections.size() - 1,
-												Color.MAGENTA.darker());
-									}
+								} else if (bo instanceof FlowElement) {
+									final int insertIndex = flowImpl.getOutEnd() == null ? size : (size - 1);
+									addSegmentSelection(new SegmentData(boc), insertIndex, Color.MAGENTA.darker());
 								}
 							}
 						}
@@ -992,8 +987,7 @@ public class CreateFlowImplementationTool {
 
 			private void updateDialog(final BusinessObjectContext boc) {
 				final Object bo = boc.getBusinessObject();
-				final boolean isEnabled = !modeFeatureSelections.contains(
-						boc)
+				final boolean isEnabled = !modeFeatureSelections.contains(boc)
 						&& isQualifiedType.apply(boc.getBusinessObject());
 				final Button okBtn = getButton(IDialogConstants.OK_ID);
 				if (okBtn != null) {

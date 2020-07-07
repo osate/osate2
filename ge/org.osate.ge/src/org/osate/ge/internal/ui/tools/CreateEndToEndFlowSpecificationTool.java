@@ -367,7 +367,7 @@ public class CreateEndToEndFlowSpecificationTool {
 		});
 
 		modeFeatureSelections
-		.forEach(boc -> endToEndFlow.getInModeOrTransitions().add((ModeFeature) boc.getBusinessObject()));
+		.forEach(modeFeatureBoc -> endToEndFlow.getInModeOrTransitions().add((ModeFeature) modeFeatureBoc.getBusinessObject()));
 
 		return endToEndFlow;
 	}
@@ -431,15 +431,16 @@ public class CreateEndToEndFlowSpecificationTool {
 					&& createFlowDialog.elementSelectionDlg.getShell() != null
 					&& !createFlowDialog.elementSelectionDlg.getShell().isDisposed()
 					&& createFlowDialog.elementSelectionDlg.getShell().isVisible()) {
+				final CreateFlowsToolsDialog.ElementSelectionDialog elementSelectionDlg = createFlowDialog.elementSelectionDlg;
 				// Selecting an element for editing end to end flows
 				if (selectedBocs.length > 1) {
-					createFlowDialog.elementSelectionDlg.setErrorMessage(
-							"Multiple elements are selected.\n " + createFlowDialog.elementSelectionDlg.getMessage());
-					createFlowDialog.elementSelectionDlg.setSelection(null);
+					elementSelectionDlg
+					.setErrorMessage("Multiple elements are selected.\n " + elementSelectionDlg.getMessage());
+					elementSelectionDlg.setSelection(null);
 				} else if (selectedBocs.length == 1) {
-					createFlowDialog.elementSelectionDlg.setErrorMessage(null);
+					elementSelectionDlg.setErrorMessage(null);
 					final BusinessObjectContext selectedBoc = selectedBocs[0];
-					createFlowDialog.elementSelectionDlg.setSelection(selectedBoc);
+					elementSelectionDlg.setSelection(selectedBoc);
 				}
 			}
 		}
@@ -1181,264 +1182,267 @@ public class CreateEndToEndFlowSpecificationTool {
 		private String getValidFlowErrorMessage() {
 			return invalidErrorMessage;
 		}
-	}
-
-	private class ElementSelectionDialog extends TitleAreaDialog {
-		private final String title;
-		protected Object selection;
-		protected final Class<?> qualifiedType;
-		protected final String dialogMessage;
 
 
-		public ElementSelectionDialog(final Shell parentShell, final String title, final Class<?> type,
-				final String dialogMessage) {
-			super(parentShell);
-			this.title = title;
-			this.dialogMessage = dialogMessage;
-			this.qualifiedType = type;
-			setShellStyle(SWT.CLOSE | SWT.PRIMARY_MODAL | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
-		}
+		private class ElementSelectionDialog extends TitleAreaDialog {
+			private final String title;
+			protected Object selection;
+			protected final Class<?> qualifiedType;
+			protected final String dialogMessage;
 
-		@Override
-		public void create() {
-			super.create();
-			setTitle(title);
-		}
+			public ElementSelectionDialog(final Shell parentShell, final String title, final Class<?> type,
+					final String dialogMessage) {
+				super(parentShell);
+				this.title = title;
+				this.dialogMessage = dialogMessage;
+				this.qualifiedType = type;
+				setShellStyle(SWT.CLOSE | SWT.PRIMARY_MODAL | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
+			}
 
-		public Object getSelection() {
-			return selection;
-		}
+			@Override
+			public void create() {
+				super.create();
+				setTitle(title);
+			}
 
-		public void setSelection(final BusinessObjectContext selection) {
-			this.selection = selection;
-		}
-	}
+			public Object getSelection() {
+				return selection;
+			}
 
-	private class SelectSegmentOrModeFeatureDialog extends ElementSelectionDialog {
-		private Label selectionLabel;
-
-		public SelectSegmentOrModeFeatureDialog(final Shell parentShell,
-				final Class<?> qualifiedType,
-				final String title) {
-			super(parentShell, title, qualifiedType, "Select element from diagram or outline view.");
-			setShellStyle(SWT.CLOSE | SWT.PRIMARY_MODAL | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
-		}
-
-		@Override
-		public void create() {
-			super.create();
-			setMessage(dialogMessage);
-			final Button okBtn = getButton(IDialogConstants.OK_ID);
-
-			final List<BusinessObjectContext> bocs = AgeHandlerUtil.getSelectedBusinessObjectContexts();
-			if (bocs.size() == 1 && bocs.get(0).getBusinessObject() instanceof NamedElement) {
-				final NamedElement selectedElement = (NamedElement) bocs.get(0).getBusinessObject();
-				okBtn.setEnabled(qualifiedType.isInstance(selectedElement));
-				selectionLabel.setText(FlowUtil.getRefinedName(selectedElement));
-				setErrorMessage(null);
-			} else {
-				okBtn.setEnabled(false);
-				setErrorMessage("Invalid selection.\n " + dialogMessage);
-				selectionLabel.setText("<Invalid>");
+			public void setSelection(final BusinessObjectContext selection) {
+				this.selection = selection;
 			}
 		}
 
-		@Override
-		protected void configureShell(final Shell newShell) {
-			super.configureShell(newShell);
-			newShell.setText("Element Selection");
-			newShell.setLocation(DialogPlacementHelper
-					.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
-			newShell.setSize(400, 200);
-			newShell.setMinimumSize(400, 200);
-		}
+		/**
+		 * Dialog for selecting end to end flow segments from diagram or outline
+		 */
+		private class SelectSegmentOrModeFeatureDialog extends ElementSelectionDialog {
+			private Label selectionLabel;
 
-		@Override
-		public void setSelection(final BusinessObjectContext selection) {
-			super.setSelection(selection);
-			updateDialog(selection);
-			getShell().layout(true, true);
-		}
-
-		private void updateDialog(final BusinessObjectContext boc) {
-			final Object bo = boc.getBusinessObject();
-			final Button okBtn = getButton(IDialogConstants.OK_ID);
-			if (okBtn != null) {
-				final boolean isEnabled = !modeFeatureSelections.contains(boc) && qualifiedType.isInstance(bo);
-				okBtn.setEnabled(isEnabled);
+			public SelectSegmentOrModeFeatureDialog(final Shell parentShell, final Class<?> qualifiedType,
+					final String title) {
+				super(parentShell, title, qualifiedType, "Select element from diagram or outline view.");
+				setShellStyle(SWT.CLOSE | SWT.PRIMARY_MODAL | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
 			}
 
-			if (bo instanceof NamedElement) {
-				selectionLabel.setText(FlowUtil.getRefinedName((NamedElement) bo));
-				setErrorMessage(null);
-			} else {
-				setErrorMessage("Invalid selection.\n " + dialogMessage);
-				selectionLabel.setText("<Invalid>");
+			@Override
+			public void create() {
+				super.create();
+				setMessage(dialogMessage);
+				final Button okBtn = getButton(IDialogConstants.OK_ID);
+
+				final List<BusinessObjectContext> bocs = AgeHandlerUtil.getSelectedBusinessObjectContexts();
+				if (bocs.size() == 1 && bocs.get(0).getBusinessObject() instanceof NamedElement) {
+					final NamedElement selectedElement = (NamedElement) bocs.get(0).getBusinessObject();
+					okBtn.setEnabled(qualifiedType.isInstance(selectedElement));
+					selectionLabel.setText(FlowUtil.getRefinedName(selectedElement));
+					setErrorMessage(null);
+				} else {
+					okBtn.setEnabled(false);
+					setErrorMessage("Invalid selection.\n " + dialogMessage);
+					selectionLabel.setText("<Invalid>");
+				}
+			}
+
+			@Override
+			protected void configureShell(final Shell newShell) {
+				super.configureShell(newShell);
+				newShell.setText("Element Selection");
+				newShell.setLocation(DialogPlacementHelper
+						.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
+				newShell.setSize(400, 200);
+				newShell.setMinimumSize(400, 200);
+			}
+
+			@Override
+			public void setSelection(final BusinessObjectContext selection) {
+				super.setSelection(selection);
+				updateDialog(selection);
+				getShell().layout(true, true);
+			}
+
+			private void updateDialog(final BusinessObjectContext boc) {
+				final Object bo = boc.getBusinessObject();
+				final Button okBtn = getButton(IDialogConstants.OK_ID);
+				if (okBtn != null) {
+					final boolean isEnabled = !modeFeatureSelections.contains(boc) && qualifiedType.isInstance(bo);
+					okBtn.setEnabled(isEnabled);
+				}
+
+				if (bo instanceof NamedElement) {
+					selectionLabel.setText(FlowUtil.getRefinedName((NamedElement) bo));
+					setErrorMessage(null);
+				} else {
+					setErrorMessage("Invalid selection.\n " + dialogMessage);
+					selectionLabel.setText("<Invalid>");
+				}
+			}
+
+			@Override
+			protected Control createDialogArea(final Composite parent) {
+				final Composite composite = new Composite(parent, SWT.NONE);
+				final GridLayout layout = new GridLayout();
+				layout.marginHeight = 0;
+				layout.marginWidth = 0;
+				layout.verticalSpacing = 0;
+				layout.horizontalSpacing = 5;
+				layout.numColumns = 2;
+				layout.marginLeft = 10;
+				layout.marginTop = 8;
+				composite.setLayout(layout);
+
+				composite.setLayoutData(GridDataFactory.fillDefaults().grab(true, true).create());
+				composite.setFont(parent.getFont());
+
+				final Label label = new Label(composite, SWT.NONE);
+				label.setText("Selected Element: ");
+				label.setLayoutData(
+						GridDataFactory.fillDefaults().grab(false, true).align(SWT.CENTER, SWT.CENTER).create());
+
+				selectionLabel = new Label(composite, SWT.NONE);
+				final List<BusinessObjectContext> bocs = AgeHandlerUtil.getSelectedBusinessObjectContexts();
+				if (bocs.size() == 1 && bocs.get(0).getBusinessObject() instanceof NamedElement) {
+					final String text = AadlHelper.getRootRefinedElement((NamedElement) bocs.get(0).getBusinessObject())
+							.getName();
+					selectionLabel.setText(text);
+				} else {
+					selectionLabel.setText("<Invalid>");
+				}
+
+				selectionLabel.setLayoutData(
+						GridDataFactory.fillDefaults().grab(false, true).align(SWT.CENTER, SWT.CENTER).create());
+
+				return composite;
 			}
 		}
 
-		@Override
-		protected Control createDialogArea(final Composite parent) {
-			final Composite composite = new Composite(parent, SWT.NONE);
-			final GridLayout layout = new GridLayout();
-			layout.marginHeight = 0;
-			layout.marginWidth = 0;
-			layout.verticalSpacing = 0;
-			layout.horizontalSpacing = 5;
-			layout.numColumns = 2;
-			layout.marginLeft = 10;
-			layout.marginTop = 8;
-			composite.setLayout(layout);
+		/**
+		 * Dialog for selecting end to end flows as segments
+		 */
+		private class SelectEndToEndFlowDialog extends ElementSelectionDialog {
+			private ComboViewer comboViewer;
+			private final String none = "<None>";
 
-			composite.setLayoutData(GridDataFactory.fillDefaults().grab(true, true).create());
-			composite.setFont(parent.getFont());
-
-			final Label label = new Label(composite, SWT.NONE);
-			label.setText("Selected Element: ");
-			label.setLayoutData(
-					GridDataFactory.fillDefaults().grab(false, true).align(SWT.CENTER, SWT.CENTER).create());
-
-			selectionLabel = new Label(composite, SWT.NONE);
-			final List<BusinessObjectContext> bocs = AgeHandlerUtil.getSelectedBusinessObjectContexts();
-			if (bocs.size() == 1 && bocs.get(0).getBusinessObject() instanceof NamedElement) {
-				final String text = AadlHelper.getRootRefinedElement((NamedElement) bocs.get(0).getBusinessObject())
-						.getName();
-				selectionLabel.setText(text);
-			} else {
-				selectionLabel.setText("<Invalid>");
+			public SelectEndToEndFlowDialog(final Shell parentShell, final Class<?> type, final String title) {
+				super(parentShell, title, type, "Select an end to end flow container to populate the drop-down.");
+				setShellStyle(SWT.CLOSE | SWT.PRIMARY_MODAL | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
 			}
 
-			selectionLabel.setLayoutData(
-					GridDataFactory.fillDefaults().grab(false, true).align(SWT.CENTER, SWT.CENTER).create());
-
-			return composite;
-		}
-	}
-
-	/**
-	 * Dialog for selecting end to end flows as segments
-	 */
-	private class SelectEndToEndFlowDialog extends ElementSelectionDialog {
-		private ComboViewer comboViewer;
-		private final String none = "<None>";
-
-		public SelectEndToEndFlowDialog(final Shell parentShell, final Class<?> type, final String title) {
-			super(parentShell, title, type, "Select an end to end flow container to populate the drop-down.");
-			setShellStyle(SWT.CLOSE | SWT.PRIMARY_MODAL | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
-		}
-
-		@Override
-		public void create() {
-			super.create();
-			setMessage(dialogMessage);
-			getButton(IDialogConstants.OK_ID).setEnabled(false);
-		}
-
-		@Override
-		protected void configureShell(final Shell newShell) {
-			super.configureShell(newShell);
-			newShell.setText("Element Selection");
-			newShell.setLocation(DialogPlacementHelper
-					.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
-			newShell.setSize(400, 200);
-			newShell.setMinimumSize(400, 200);
-		}
-
-		@Override
-		public void setSelection(final BusinessObjectContext selection) {
-			comboViewer.setInput(getOwnedEndToEndFlows(getComponentImplementation(selection)));
-			comboViewer.setSelection(new StructuredSelection(none));
-			updateDialog(selection.getBusinessObject());
-			this.selection = selection;
-			getShell().layout(true, true);
-		}
-
-		private void updateDialog(final Object bo) {
-			final boolean isInstance = qualifiedType.isInstance(bo) || bo instanceof EndToEndFlow;
-			final Button okBtn = getButton(IDialogConstants.OK_ID);
-			if (okBtn != null) {
-				okBtn.setEnabled(isInstance);
+			@Override
+			public void create() {
+				super.create();
+				setMessage(dialogMessage);
+				getButton(IDialogConstants.OK_ID).setEnabled(false);
 			}
 
-			setMessage(dialogMessage + (isInstance ? "\nSelected: " + FlowUtil.getRefinedName((NamedElement) bo) : ""));
-		}
-
-		// Get component implementation from selection
-		private Optional<ComponentImplementation> getComponentImplementation(final Object bo) {
-			if (bo instanceof BusinessObjectContext) {
-				return getComponentImplementation(((BusinessObjectContext) bo).getBusinessObject());
-			} else if (bo instanceof ComponentImplementation) {
-				return Optional.of((ComponentImplementation) bo);
-			} else if (bo instanceof Subcomponent) {
-				return Optional.ofNullable(((Subcomponent) bo).getComponentImplementation());
+			@Override
+			protected void configureShell(final Shell newShell) {
+				super.configureShell(newShell);
+				newShell.setText("Element Selection");
+				newShell.setLocation(DialogPlacementHelper
+						.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
+				newShell.setSize(400, 200);
+				newShell.setMinimumSize(400, 200);
 			}
 
-			return Optional.empty();
-		}
+			@Override
+			public void setSelection(final BusinessObjectContext selection) {
+				comboViewer.setInput(getOwnedEndToEndFlows(getComponentImplementation(selection)));
+				comboViewer.setSelection(new StructuredSelection(none));
+				updateDialog(selection.getBusinessObject());
+				this.selection = selection;
+				getShell().layout(true, true);
+			}
 
-		@Override
-		protected Control createDialogArea(final Composite parent) {
-			final Composite composite = new Composite(parent, SWT.NONE);
-			final GridLayout layout = new GridLayout();
-			layout.marginHeight = 0;
-			layout.marginWidth = 0;
-			layout.verticalSpacing = 0;
-			layout.horizontalSpacing = 5;
-			layout.numColumns = 2;
-			layout.marginLeft = 10;
-			layout.marginTop = 8;
-			composite.setLayout(layout);
+			private void updateDialog(final Object bo) {
+				final boolean isInstance = qualifiedType.isInstance(bo) || bo instanceof EndToEndFlow;
+				final Button okBtn = getButton(IDialogConstants.OK_ID);
+				if (okBtn != null) {
+					okBtn.setEnabled(isInstance);
+				}
 
-			composite.setLayoutData(GridDataFactory.fillDefaults().grab(true, true).create());
-			composite.setFont(parent.getFont());
+				setMessage(dialogMessage
+						+ (isInstance ? "\nSelected: " + FlowUtil.getRefinedName((NamedElement) bo) : ""));
+			}
 
-			final Label label = new Label(composite, SWT.NONE);
-			label.setText("End to End Flow: ");
-			label.setLayoutData(
-					GridDataFactory.fillDefaults().grab(false, true).align(SWT.CENTER, SWT.CENTER).create());
+			// Get component implementation from selection
+			private Optional<ComponentImplementation> getComponentImplementation(final Object bo) {
+				if (bo instanceof BusinessObjectContext) {
+					return getComponentImplementation(((BusinessObjectContext) bo).getBusinessObject());
+				} else if (bo instanceof ComponentImplementation) {
+					return Optional.of((ComponentImplementation) bo);
+				} else if (bo instanceof Subcomponent) {
+					return Optional.ofNullable(((Subcomponent) bo).getComponentImplementation());
+				}
 
-			comboViewer = new ComboViewer(composite, SWT.READ_ONLY);
-			comboViewer.getCombo().setLayoutData(
-					GridDataFactory.fillDefaults().grab(true, true).align(SWT.CENTER, SWT.CENTER).create());
+				return Optional.empty();
+			}
 
-			comboViewer.setContentProvider(ArrayContentProvider.getInstance());
-			comboViewer.setLabelProvider(new LabelProvider() {
-				@Override
-				public String getText(final Object element) {
-					if (element instanceof String) {
-						return (String) element;
+			@Override
+			protected Control createDialogArea(final Composite parent) {
+				final Composite composite = new Composite(parent, SWT.NONE);
+				final GridLayout layout = new GridLayout();
+				layout.marginHeight = 0;
+				layout.marginWidth = 0;
+				layout.verticalSpacing = 0;
+				layout.horizontalSpacing = 5;
+				layout.numColumns = 2;
+				layout.marginLeft = 10;
+				layout.marginTop = 8;
+				composite.setLayout(layout);
+
+				composite.setLayoutData(GridDataFactory.fillDefaults().grab(true, true).create());
+				composite.setFont(parent.getFont());
+
+				final Label label = new Label(composite, SWT.NONE);
+				label.setText("End to End Flow: ");
+				label.setLayoutData(
+						GridDataFactory.fillDefaults().grab(false, true).align(SWT.CENTER, SWT.CENTER).create());
+
+				comboViewer = new ComboViewer(composite, SWT.READ_ONLY);
+				comboViewer.getCombo().setLayoutData(
+						GridDataFactory.fillDefaults().grab(true, true).align(SWT.CENTER, SWT.CENTER).create());
+
+				comboViewer.setContentProvider(ArrayContentProvider.getInstance());
+				comboViewer.setLabelProvider(new LabelProvider() {
+					@Override
+					public String getText(final Object element) {
+						if (element instanceof String) {
+							return (String) element;
+						}
+
+						return FlowUtil.getRefinedName((NamedElement) element);
 					}
+				});
 
-					return FlowUtil.getRefinedName((NamedElement) element);
+				comboViewer.addSelectionChangedListener(event -> {
+					final Object selectedElement = event.getStructuredSelection().getFirstElement();
+					if (selection != selectedElement) {
+						updateDialog(selectedElement);
+						selection = selectedElement;
+					}
+				});
+
+				final List<BusinessObjectContext> selectedBocs = AgeHandlerUtil.getSelectedBusinessObjectContexts();
+				if (selectedBocs.size() == 1) {
+					comboViewer.setInput(getOwnedEndToEndFlows(getComponentImplementation(selectedBocs.get(0))));
 				}
-			});
 
-			comboViewer.addSelectionChangedListener(event -> {
-				final Object selectedElement = event.getStructuredSelection().getFirstElement();
-				if (selection != selectedElement) {
-					updateDialog(selectedElement);
-					selection = selectedElement;
-				}
-			});
+				comboViewer.setSelection(new StructuredSelection(none));
 
-			final List<BusinessObjectContext> selectedBocs = AgeHandlerUtil.getSelectedBusinessObjectContexts();
-			if (selectedBocs.size() == 1) {
-				comboViewer.setInput(getOwnedEndToEndFlows(getComponentImplementation(selectedBocs.get(0))));
+				return composite;
 			}
 
-			comboViewer.setSelection(new StructuredSelection(none));
-
-			return composite;
-		}
-
-		private List<Object> getOwnedEndToEndFlows(final Optional<ComponentImplementation> optCi) {
-			final List<Object> input = new ArrayList<>();
-			input.add("<None>");
-			final List<EndToEndFlow> eTEFlows = optCi
-					.map(ci -> ci.getAllEndToEndFlows().stream().collect(Collectors.toList()))
-					.orElse(new ArrayList<>());
-			input.addAll(eTEFlows);
-			return input;
+			private List<Object> getOwnedEndToEndFlows(final Optional<ComponentImplementation> optCi) {
+				final List<Object> input = new ArrayList<>();
+				input.add("<None>");
+				final List<EndToEndFlow> eTEFlows = optCi
+						.map(ci -> ci.getAllEndToEndFlows().stream().collect(Collectors.toList()))
+						.orElse(new ArrayList<>());
+				input.addAll(eTEFlows);
+				return input;
+			}
 		}
 	}
 }
