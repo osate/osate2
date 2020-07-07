@@ -34,6 +34,7 @@ import java.util.stream.Stream;
 
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.jface.action.ControlContribution;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -59,6 +60,7 @@ import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModalPath;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.RefinableElement;
+import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.boTree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
@@ -81,6 +83,7 @@ import org.osate.ge.internal.util.ProxyUtil;
 import com.google.common.base.Predicates;
 
 public class EditFlowContributionItem extends ControlContribution {
+	private final static ImageDescriptor editIcon = Activator.getImageDescriptor("icons/flow_edit.png");
 	private final Set<BusinessObjectNode> segmentNodes = new HashSet<>();
 	private AgeDiagramEditor editor = null;
 	private Button editFlowBtn;
@@ -98,7 +101,8 @@ public class EditFlowContributionItem extends ControlContribution {
 	@Override
 	protected Control createControl(final Composite parent) {
 		editFlowBtn = new Button(parent, SWT.PUSH);
-		editFlowBtn.setText("Edit");
+		editFlowBtn.setImage(editIcon.createImage());
+		editFlowBtn.setToolTipText("Edit...");
 		updateButton();
 		editFlowBtn.addSelectionListener(new SelectionAdapter() {
 			private ProjectReferenceService referenceService;
@@ -172,6 +176,7 @@ public class EditFlowContributionItem extends ControlContribution {
 					}
 				});
 			}
+
 
 			private void ensureFlowImplSegmentsExist(final FlowImplementation fi,
 					final BusinessObjectNode containerNode) {

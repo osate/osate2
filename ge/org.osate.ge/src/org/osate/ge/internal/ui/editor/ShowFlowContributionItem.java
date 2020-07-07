@@ -37,6 +37,7 @@ import java.util.stream.Stream;
 
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.jface.action.ControlContribution;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -65,6 +66,7 @@ import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.boTree.BusinessObjectNode;
@@ -92,6 +94,7 @@ import com.google.common.base.Predicates;
  * and adds them to the diagram if necessary.
  */
 public class ShowFlowContributionItem extends ControlContribution {
+	private final static ImageDescriptor showIcon = Activator.getImageDescriptor("icons/show_flow.png");
 	private AgeDiagramEditor editor = null;
 	private Button showFlowBtn;
 	private HighlightableFlowInfo selectedFlow;
@@ -108,7 +111,8 @@ public class ShowFlowContributionItem extends ControlContribution {
 	@Override
 	protected Control createControl(final Composite parent) {
 		showFlowBtn = new Button(parent, SWT.PUSH);
-		showFlowBtn.setText("Show");
+		showFlowBtn.setImage(showIcon.createImage());
+		showFlowBtn.setToolTipText("Show");
 		updateButton();
 		showFlowBtn.addSelectionListener(new SelectionAdapter() {
 			private ProjectReferenceService referenceService;
@@ -172,7 +176,7 @@ public class ShowFlowContributionItem extends ControlContribution {
 										if (endToEndFlowElement instanceof EndToEndFlow) {
 											// Find segments of a segment that is an end to end flow
 											return ((EndToEndFlow) endToEndFlowElement)
-																	.getAllFlowSegments().stream();
+													.getAllFlowSegments().stream();
 										}
 										return Stream.of(flowSegment);
 									}))

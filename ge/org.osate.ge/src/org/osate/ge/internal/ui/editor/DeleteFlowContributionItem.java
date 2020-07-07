@@ -34,11 +34,14 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.FlowImplementation;
@@ -51,6 +54,8 @@ import org.osate.ge.internal.ui.editor.FlowContributionItemUtil.FlowImplementati
 import org.osate.ge.internal.util.ProxyUtil;
 
 public class DeleteFlowContributionItem extends ControlContribution {
+	private final static Image deleteImage = PlatformUI.getWorkbench().getSharedImages()
+			.getImage(ISharedImages.IMG_TOOL_DELETE);
 	private AgeDiagramEditor editor = null;
 	private Button deleteFlowBtn;
 	private HighlightableFlowInfo selectedFlow;
@@ -59,10 +64,13 @@ public class DeleteFlowContributionItem extends ControlContribution {
 		super(id);
 	}
 
+
 	@Override
 	protected Control createControl(final Composite parent) {
 		deleteFlowBtn = new Button(parent, SWT.PUSH);
-		deleteFlowBtn.setText("Delete");
+		deleteFlowBtn.setImage(deleteImage);
+		deleteFlowBtn.setToolTipText("Delete");
+
 		updateButton();
 		deleteFlowBtn.addSelectionListener(new SelectionAdapter() {
 			@Override
