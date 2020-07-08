@@ -99,13 +99,12 @@ public class DefaultColoringService implements ColoringService {
 
 		@Override
 		public void setForeground(final DiagramElement de, final Color color) {
-			if (color == null) {
-				foregroundColors.remove(de);
-
-				// Refresh Coloring
-				refreshColoring(Collections.singleton(de));
-			} else if (!color.equals(foregroundColors.get(de))) {
-				foregroundColors.put(de, color);
+			if (!Objects.equals(color, foregroundColors.get(de))) {
+				if (color == null) {
+					foregroundColors.remove(de);
+				} else if (!color.equals(foregroundColors.get(de))) {
+					foregroundColors.put(de, color);
+				}
 
 				// Refresh Coloring
 				refreshColoring(Collections.singleton(de));
