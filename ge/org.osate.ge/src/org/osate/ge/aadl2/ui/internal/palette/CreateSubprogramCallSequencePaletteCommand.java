@@ -60,7 +60,7 @@ public class CreateSubprogramCallSequencePaletteCommand extends BasePaletteComma
 		final BusinessObjectContext targetBoc = ctx.getTarget();
 		final Object targetBo = targetBoc.getBusinessObject();
 
-		if (getClassifierOpBuilder().canBuildOperation(targetBo)) {
+		if (!getClassifierOpBuilder().canBuildOperation(targetBo)) {
 			return Optional.empty();
 		}
 
