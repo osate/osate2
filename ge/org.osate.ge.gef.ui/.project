@@ -61,16 +61,4 @@
 		<nature>org.eclipse.oomph.version.VersionNature</nature>
 		<nature>org.eclipse.pde.api.tools.apiAnalysisNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/org/osate/ge/gef/ui/editor/icons/collapsedIcon.svg</name>
-			<type>1</type>
-			<location>C:/Users/btm0023/osate2_2020-03-master/git/osate2/ge/icons/collapsedIcon.svg</location>
-		</link>
-		<link>
-			<name>src/org/osate/ge/gef/ui/editor/icons/openedIcon.svg</name>
-			<type>1</type>
-			<location>C:/Users/btm0023/osate2_2020-03-master/git/osate2/ge/icons/openedIcon.svg</location>
-		</link>
-	</linkedResources>
 </projectDescription>
