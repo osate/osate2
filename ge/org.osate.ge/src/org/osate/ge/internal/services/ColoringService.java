@@ -46,8 +46,6 @@ public interface ColoringService {
 		 */
 		void setForeground(DiagramElement de, Color color);
 
-		Color getForeground(DiagramElement de);
-
 		void clear();
 	}
 

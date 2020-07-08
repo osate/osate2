@@ -29,6 +29,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Queue;
 import java.util.Set;
@@ -36,6 +37,7 @@ import java.util.function.Function;
 
 import javax.inject.Named;
 
+import org.eclipse.core.runtime.Adapters;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -87,7 +89,6 @@ import org.osate.ge.internal.diagram.runtime.boTree.BusinessObjectNode;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.AadlModificationService.Modification;
 import org.osate.ge.internal.services.ColoringService;
-import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.editor.FlowContributionItem.HighlightableFlowInfo;
@@ -116,9 +117,11 @@ public class CreateFlowImplementationTool {
 		final BusinessObjectContext ancestor = FlowUtil.getAncestorDiagramElement(editor.getAgeDiagram(), ancestors)
 				.orElseThrow(() -> new RuntimeException("Cannot find container: " + container.getBusinessObject()));
 
+		final UiService uiService = Objects.requireNonNull(Adapters.adapt(editor, UiService.class),
+				"ui service must not be null");
 		final Display display = Display.getCurrent();
 		createFlowImplDlg = new CreateFlowImplementationDialog(display.getActiveShell(),
-				selectedFlow);
+				selectedFlow, uiService);
 
 		// Convert BusinessObjectNodes to a map of NamedElement to BusinessObjectContexts
 		// used for referencing elements on the diagram and outline
@@ -152,15 +155,16 @@ public class CreateFlowImplementationTool {
 
 	public CreateFlowImplementationTool(final AgeDiagramEditor editor) {
 		final Display display = Display.getCurrent();
+		final UiService uiService = Objects.requireNonNull(Adapters.adapt(editor, UiService.class),
+				"ui service must not be null");
 		createFlowImplDlg = new CreateFlowImplementationDialog(display.getActiveShell(),
-				null);
+				null, uiService);
 	}
 
 	@Activate
 	public void activate(@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext selectedBoc,
-			final AadlModificationService aadlModService, final UiService uiService,
-			final NamingService namingService,
-			final ColoringService coloringService) {
+			final AadlModificationService aadlModService, final ColoringService coloringService,
+			final UiService uiService) {
 		try {
 			// Check for existing errors or warnings
 			final Set<Diagnostic> diagnostics = ToolUtil.getAllReferencedPackageDiagnostics(selectedBoc);
@@ -231,9 +235,7 @@ public class CreateFlowImplementationTool {
 	private void setColor(final Object o, final Color color) {
 		if (o instanceof DiagramElement) {
 			final DiagramElement de = (DiagramElement) o;
-			if (color == null || !color.equals(coloring.getForeground(de))) {
-				coloring.setForeground(de, color);
-			}
+			coloring.setForeground(de, color);
 		} else if (o instanceof SegmentData) {
 			final SegmentData segmentData = (SegmentData) o;
 			final BusinessObjectContext boc = segmentData.getBoc();
@@ -316,6 +318,7 @@ public class CreateFlowImplementationTool {
 	private class CreateFlowImplementationDialog extends TitleAreaDialog {
 		private final Aadl2Package pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
 		private final HighlightableFlowInfo flowSegmentToEdit;
+		private final UiService uiService;
 		private TableViewer errorTableViewer;
 		private Composite flowComposite;
 		private FlowImplementation flowImpl;
@@ -325,9 +328,11 @@ public class CreateFlowImplementationTool {
 		private boolean multipleElementsSelected = false;
 		private boolean isValid = true;
 
-		CreateFlowImplementationDialog(final Shell parentShell, final HighlightableFlowInfo flowSegmentToEdit) {
+		CreateFlowImplementationDialog(final Shell parentShell, final HighlightableFlowInfo flowSegmentToEdit,
+				final UiService uiService) {
 			super(parentShell);
 			this.flowSegmentToEdit = flowSegmentToEdit;
+			this.uiService = uiService;
 			this.setHelpAvailable(true);
 			setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
 		}
@@ -344,7 +349,7 @@ public class CreateFlowImplementationTool {
 			String msg = "";
 			final FlowSpecification fs = flowImpl.getSpecification();
 			if (fs == null) {
-				msg = "Select the starting flow specification.";
+				msg = "Select the flow specification to implement.";
 			} else if (isValid) {
 				msg = "Continue selecting flow segments or select the OK button to create the flow implementation.";
 			} else {
@@ -511,7 +516,6 @@ public class CreateFlowImplementationTool {
 		 */
 		private void addSegmentSelection(final SegmentData segmentData, final int index, final Color color) {
 			segmentSelections.add(index, segmentData);
-
 			setColor(segmentData.getBoc(), color);
 			updateDialog();
 		}
@@ -672,6 +676,7 @@ public class CreateFlowImplementationTool {
 				public void widgetSelected(final SelectionEvent e) {
 					segmentSelections.remove(segmentData);
 					setColor(segmentData, null);
+					uiService.clearSelection();
 					createFlowImplDlg.updateWidgets();
 				}
 			});

@@ -79,9 +79,7 @@ public class DeleteFlowContributionItem extends ControlContribution {
 					final AadlModificationService aadlModificationService = Objects.requireNonNull(
 							(AadlModificationService) editor.getAdapter(AadlModificationService.class),
 							"Unable to retrieve modification service");
-					final NamedElement ne = getFlowToRemove();
-					// Delete
-					aadlModificationService.modify(ne, EcoreUtil::remove);
+					getFlowToRemove().ifPresent(ne -> aadlModificationService.modify(ne, EcoreUtil::remove));
 				}
 			}
 
@@ -89,7 +87,7 @@ public class DeleteFlowContributionItem extends ControlContribution {
 			 * Get the flow to modify/remove
 			 * @return the flow to modify/remove
 			 */
-			private NamedElement getFlowToRemove() {
+			private Optional<NamedElement> getFlowToRemove() {
 				final NamedElement selectedFlowSegment = selectedFlow.getFlowSegment();
 				final Queryable container = selectedFlow.getContainer();
 				final ComponentImplementation componentImpl = FlowContributionItemUtil
@@ -99,23 +97,21 @@ public class DeleteFlowContributionItem extends ControlContribution {
 							.resolveOrNull(
 									selectedFlowSegment.getContainingComponentImpl(), ComponentImplementation.class,
 									componentImpl.eResource().getResourceSet());
-					return ProxyUtil.resolveOrNull(selectedFlowSegment, EndToEndFlow.class,
-							endToEndFlowContainer.eResource().getResourceSet());
+					return Optional.of(ProxyUtil.resolveOrNull(selectedFlowSegment, EndToEndFlow.class,
+							endToEndFlowContainer.eResource().getResourceSet()));
 				} else if (selectedFlowSegment instanceof FlowSpecification) {
 					final FlowSpecification flowSpecification = ProxyUtil.resolveOrNull(selectedFlowSegment,
 							FlowSpecification.class, componentImpl.eResource().getResourceSet());
 					// If there are multiple flow implementations for the flow spec, choose desired one.
 					final List<FlowImplementation> flowImpls = componentImpl.getOwnedFlowImplementations().stream()
 							.filter(fi -> fi.getSpecification() == flowSpecification).collect(Collectors.toList());
-					return getFlowImplementation(flowImpls).orElseThrow(() -> new RuntimeException(
-							"Cannot find flow implementation for flow specification: "
-									+ FlowContributionItemUtil.getName(flowSpecification)));
+					return getFlowImplementation(flowImpls);
 				} else {
 					throw new RuntimeException("Unexpected flow type: " + selectedFlow.getFlowSegment());
 				}
 			}
 
-			private Optional<FlowImplementation> getFlowImplementation(final List<FlowImplementation> flowImpls) {
+			private Optional<NamedElement> getFlowImplementation(final List<FlowImplementation> flowImpls) {
 				if (flowImpls.size() == 1) {
 					return Optional.of(flowImpls.get(0));
 				} else {

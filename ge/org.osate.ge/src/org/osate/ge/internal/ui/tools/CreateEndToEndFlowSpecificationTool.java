@@ -142,9 +142,10 @@ public class CreateEndToEndFlowSpecificationTool {
 
 		final Display display = Display.getCurrent();
 		final NamingService namingService = Adapters.adapt(editor, NamingService.class);
+		final UiService uiService = Adapters.adapt(editor, UiService.class);
 		createFlowDialog = new CreateFlowsToolsDialog(display.getActiveShell(),
 				selectedFlow,
-				namingService);
+				namingService, uiService);
 		createFlowDialog.setEndToEndFlowName(selectedFlow.getFlowSegment().getName());
 
 		// Convert BusinessObjectNodes to a map of NamedElement to BusinessObjectContexts
@@ -208,7 +209,8 @@ public class CreateEndToEndFlowSpecificationTool {
 
 		final Display display = Display.getCurrent();
 		final NamingService namingService = Adapters.adapt(editor, NamingService.class);
-		createFlowDialog = new CreateFlowsToolsDialog(display.getActiveShell(), null, namingService);
+		final UiService uiService = Adapters.adapt(editor, UiService.class);
+		createFlowDialog = new CreateFlowsToolsDialog(display.getActiveShell(), null, namingService, uiService);
 	}
 
 	@Activate
@@ -441,9 +443,7 @@ public class CreateEndToEndFlowSpecificationTool {
 	private void setColor(final Object o, final Color color) {
 		if (o instanceof DiagramElement) {
 			final DiagramElement de = (DiagramElement) o;
-			if (color == null || !color.equals(coloring.getForeground(de))) {
-				coloring.setForeground(de, color);
-			}
+			coloring.setForeground(de, color);
 		} else if (o instanceof SegmentData) {
 			final SegmentData segmentData = (SegmentData) o;
 			final BusinessObjectContext boc = segmentData.getBoc();
@@ -477,6 +477,7 @@ public class CreateEndToEndFlowSpecificationTool {
 
 	private class CreateFlowsToolsDialog extends TitleAreaDialog {
 		private final NamingService namingService;
+		private final UiService uiService;
 		private final Aadl2Package pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
 		private final String invalidErrorMessage = "Invalid End-To-End Flow.  ";
 		private final HighlightableFlowInfo flowSegmentToEdit;
@@ -490,11 +491,12 @@ public class CreateEndToEndFlowSpecificationTool {
 		private ElementSelectionDialog elementSelectionDlg;
 
 		public CreateFlowsToolsDialog(final Shell parentShell, final HighlightableFlowInfo selectedFlow,
-				final NamingService namingService) {
+				final NamingService namingService, final UiService uiService) {
 			super(parentShell);
 			setHelpAvailable(true);
 			this.flowSegmentToEdit = selectedFlow;
 			this.namingService = Objects.requireNonNull(namingService, "naming service must not be null");
+			this.uiService = Objects.requireNonNull(uiService, "ui service must not be null");
 			setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
 		}
 
@@ -645,7 +647,7 @@ public class CreateEndToEndFlowSpecificationTool {
 			if (segmentSelections.isEmpty()) {
 				// Button to start with ETEFlow segment
 				final Button emptySegmentsButton = new Button(flowComposite, SWT.PUSH);
-				emptySegmentsButton.setText("Select End to End Flow");
+				emptySegmentsButton.setText("Insert End to End Flow");
 				emptySegmentsButton.addSelectionListener(new SelectionAdapter() {
 					@Override
 					public void widgetSelected(final SelectionEvent e) {
@@ -746,6 +748,7 @@ public class CreateEndToEndFlowSpecificationTool {
 			createRemoveButton(editMenu, () -> {
 				segmentSelections.remove(flowSegment);
 				setColor(flowSegment, null);
+				uiService.clearSelection();
 			});
 
 			segmentButton.addSelectionListener(new SelectionAdapter() {

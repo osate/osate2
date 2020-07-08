@@ -101,17 +101,15 @@ public class DefaultColoringService implements ColoringService {
 		public void setForeground(final DiagramElement de, final Color color) {
 			if (color == null) {
 				foregroundColors.remove(de);
-			} else {
+
+				// Refresh Coloring
+				refreshColoring(Collections.singleton(de));
+			} else if (!color.equals(foregroundColors.get(de))) {
 				foregroundColors.put(de, color);
+
+				// Refresh Coloring
+				refreshColoring(Collections.singleton(de));
 			}
-
-			// Refresh Coloring
-			refreshColoring(Collections.singleton(de));
-		}
-
-		@Override
-		public Color getForeground(final DiagramElement de) {
-			return foregroundColors.get(de);
 		}
 
 		@Override

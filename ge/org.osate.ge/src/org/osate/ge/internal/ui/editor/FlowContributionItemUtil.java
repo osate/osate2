@@ -54,6 +54,8 @@ import org.osate.ge.internal.ui.tools.FlowDialogUtil;
 import org.osate.ge.internal.util.AadlHelper;
 
 public class FlowContributionItemUtil {
+	private FlowContributionItemUtil() {
+	}
 	/**
 	 * Allows a specific flow implementation to be selected
 	 * when a flow specification has multiple flow implementations
@@ -102,7 +104,15 @@ public class FlowContributionItemUtil {
 				@Override
 				public String getText(final Object element) {
 					final FlowImplementation fi = (FlowImplementation) element;
-					return getName(fi);
+					final StringBuilder sb = new StringBuilder(getName(fi.getSpecification()));
+					// Add index label
+					if (input.size() > 1) {
+						final int index = input.indexOf(fi) + 1;
+						sb.append(" #");
+						sb.append(index);
+					}
+
+					return sb.toString();
 				}
 			});
 
