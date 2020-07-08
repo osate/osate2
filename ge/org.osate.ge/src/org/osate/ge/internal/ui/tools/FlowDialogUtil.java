@@ -29,6 +29,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.layout.RowLayoutFactory;
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.CellLabelProvider;
@@ -36,13 +37,16 @@ import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowData;
+import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -251,5 +255,27 @@ public class FlowDialogUtil {
 		public List<DiagramElement> getOwnedSegments() {
 			return ownedSegments;
 		}
+	}
+
+	public static Composite createFlowComposite(final Composite parent) {
+		final ScrolledComposite scrollComposite = new ScrolledComposite(parent, SWT.V_SCROLL | SWT.BORDER);
+		final Composite flowComposite = new Composite(scrollComposite, SWT.NONE);
+		final RowLayout flowCompLayout = RowLayoutFactory.fillDefaults().type(SWT.HORIZONTAL).create();
+		flowCompLayout.center = true;
+		flowComposite.setLayout(flowCompLayout);
+
+		scrollComposite.setAlwaysShowScrollBars(false);
+		scrollComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
+		scrollComposite.setContent(flowComposite);
+		scrollComposite.setExpandVertical(true);
+		scrollComposite.setExpandHorizontal(true);
+
+		flowComposite.addPaintListener(e -> {
+			// Compute size to show vertical scroll
+			final Rectangle r = scrollComposite.getClientArea();
+			scrollComposite.setMinSize(flowComposite.computeSize(r.width, SWT.DEFAULT));
+		});
+
+		return flowComposite;
 	}
 }

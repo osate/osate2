@@ -46,7 +46,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.layout.GridDataFactory;
-import org.eclipse.jface.layout.RowLayoutFactory;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -54,15 +53,11 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.ScrolledComposite;
-import org.eclipse.swt.events.ControlAdapter;
-import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowData;
@@ -237,10 +232,8 @@ public class CreateEndToEndFlowSpecificationTool {
 					final Iterator<SegmentData> segmentIt = segmentSelections
 							.iterator();
 					while (segmentIt.hasNext()) {
-						final SegmentData entry = segmentIt.next();
-						final BusinessObjectContext boc = entry.getBoc();
-						setColor(boc, Color.MAGENTA.darker());
-						entry.getOwnedSegments().forEach(de -> setColor(de, Color.MAGENTA.darker()));
+						final SegmentData segmentData = segmentIt.next();
+						setColor(segmentData, Color.MAGENTA.darker());
 					}
 
 					for (Iterator<BusinessObjectContext> modeFeatureIt = modeFeatureSelections.iterator(); modeFeatureIt
@@ -445,9 +438,26 @@ public class CreateEndToEndFlowSpecificationTool {
 		}
 	}
 
-	private void setColor(final BusinessObjectContext boc, final Color color) {
-		if (boc instanceof DiagramElement) {
-			coloring.setForeground((DiagramElement) boc, color);
+	private void setColor(final Object o, final Color color) {
+		if (o instanceof DiagramElement) {
+			final DiagramElement de = (DiagramElement) o;
+			if (color == null || !color.equals(coloring.getForeground(de))) {
+				coloring.setForeground(de, color);
+			}
+		} else if (o instanceof SegmentData) {
+			final SegmentData segmentData = (SegmentData) o;
+			final BusinessObjectContext boc = segmentData.getBoc();
+			// Do not remove color from duplicate segments
+			if (color == null) {
+				for (final SegmentData sd : segmentSelections) {
+					if (sd.getBoc() == boc) {
+						return;
+					}
+				}
+			}
+
+			setColor(boc, color);
+			segmentData.getOwnedSegments().forEach(de -> setColor(de, color));
 		}
 	}
 
@@ -689,8 +699,6 @@ public class CreateEndToEndFlowSpecificationTool {
 
 		private Button createSegmentButton(final Composite parent, final String text,
 				final SegmentData flowSegment) {
-			final BusinessObjectContext boc = flowSegment.getBoc();
-			final List<DiagramElement> ownedSegments = flowSegment.getOwnedSegments();
 			final Button segmentButton = new Button(parent, SWT.FLAT);
 			segmentButton.setText(text);
 			segmentButton.setEnabled(true);
@@ -704,12 +712,8 @@ public class CreateEndToEndFlowSpecificationTool {
 			cascadeItem.setMenu(subMenu);
 
 			Runnable replace = () -> createFlowDialog.addSegment(Optional.of(() -> {
-				ownedSegments.forEach(de -> setColor(de, null));
 				segmentSelections.remove(flowSegment);
-
-				if (boc instanceof DiagramElement) {
-					setColor(boc, null);
-				}
+				setColor(flowSegment, null);
 			}), flowSegment, false);
 
 			createElementButton(subMenu, "Element", EndToEndFlowElement.class, replace);
@@ -741,8 +745,7 @@ public class CreateEndToEndFlowSpecificationTool {
 
 			createRemoveButton(editMenu, () -> {
 				segmentSelections.remove(flowSegment);
-				ownedSegments.forEach(de -> setColor(de, null));
-				setColor(boc, null);
+				setColor(flowSegment, null);
 			});
 
 			segmentButton.addSelectionListener(new SelectionAdapter() {
@@ -843,7 +846,6 @@ public class CreateEndToEndFlowSpecificationTool {
 			createRemoveButton(menu, () -> {
 				modeFeatureSelections.remove(boc);
 				setColor(boc, null);
-
 			});
 
 			segmentButton.setMenu(menu);
@@ -917,33 +919,11 @@ public class CreateEndToEndFlowSpecificationTool {
 		protected Control createDialogArea(final Composite parent) {
 			final Composite area = FlowDialogUtil.createFlowArea(parent, SWT.NONE);
 			final Composite parentComposite = FlowDialogUtil.createFlowArea(area, SWT.BORDER);
-			createScrolledComposite(parentComposite);
+			flowComposite = FlowDialogUtil.createFlowComposite(parentComposite);
+
 			createButtonComposite(parentComposite);
 			errorTableViewer = FlowDialogUtil.createErrorTableViewer(new Composite(area, SWT.NONE));
 			return flowComposite;
-		}
-
-		private void createScrolledComposite(final Composite parent) {
-			final ScrolledComposite scrollComposite = new ScrolledComposite(
-					parent,
-					SWT.V_SCROLL | SWT.BORDER);
-
-			scrollComposite.setAlwaysShowScrollBars(true);
-			scrollComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
-			flowComposite = new Composite(scrollComposite, SWT.NONE);
-			final RowLayout flowCompLayout = RowLayoutFactory.fillDefaults().type(SWT.HORIZONTAL).create();
-			flowCompLayout.center = true;
-			flowComposite.setLayout(flowCompLayout);
-			scrollComposite.setContent(flowComposite);
-			scrollComposite.setExpandVertical(true);
-			scrollComposite.setExpandHorizontal(true);
-			scrollComposite.addControlListener(new ControlAdapter() {
-				@Override
-				public void controlResized(final ControlEvent e) {
-					final Rectangle r = scrollComposite.getClientArea();
-					scrollComposite.setMinSize(flowComposite.computeSize(r.width, SWT.DEFAULT));
-				}
-			});
 		}
 
 		private void createButtonComposite(final Composite parent) {
@@ -1040,10 +1020,10 @@ public class CreateEndToEndFlowSpecificationTool {
 					if (isInsertAfter) {
 						insertIndex++;
 					}
-					segmentSelections.add(insertIndex,
-							new SegmentData(selectedBoc, highlightableSegments));
-					setColor(selectedBoc, Color.MAGENTA.darker());
-					highlightableSegments.forEach(de -> setColor(de, Color.MAGENTA.darker()));
+
+					final SegmentData segmentDataToAdd = new SegmentData(selectedBoc, highlightableSegments);
+					segmentSelections.add(insertIndex, segmentDataToAdd);
+					setColor(segmentDataToAdd, Color.MAGENTA.darker());
 
 					opRunnable.ifPresent(runnable -> runnable.run());
 				}

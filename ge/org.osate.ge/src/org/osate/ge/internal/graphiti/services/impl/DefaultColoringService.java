@@ -110,6 +110,11 @@ public class DefaultColoringService implements ColoringService {
 		}
 
 		@Override
+		public Color getForeground(final DiagramElement de) {
+			return foregroundColors.get(de);
+		}
+
+		@Override
 		public void clear() {
 			final List<DiagramElement> elements = new ArrayList<>(foregroundColors.keySet());
 			for (final DiagramElement de : elements) {

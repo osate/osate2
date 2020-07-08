@@ -41,23 +41,17 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.layout.GridDataFactory;
-import org.eclipse.jface.layout.RowLayoutFactory;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;
-import org.eclipse.swt.events.ControlAdapter;
-import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowData;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -234,9 +228,25 @@ public class CreateFlowImplementationTool {
 		}
 	}
 
-	private void setColor(final BusinessObjectContext boc, final Color color) {
-		if (boc instanceof DiagramElement) {
-			coloring.setForeground((DiagramElement) boc, color);
+	private void setColor(final Object o, final Color color) {
+		if (o instanceof DiagramElement) {
+			final DiagramElement de = (DiagramElement) o;
+			if (color == null || !color.equals(coloring.getForeground(de))) {
+				coloring.setForeground(de, color);
+			}
+		} else if (o instanceof SegmentData) {
+			final SegmentData segmentData = (SegmentData) o;
+			final BusinessObjectContext boc = segmentData.getBoc();
+			// Do not remove color from duplicate segments
+			if (color == null) {
+				for (final SegmentData sd : segmentSelections) {
+					if (sd.getBoc() == boc) {
+						return;
+					}
+				}
+			}
+
+			setColor(boc, color);
 		}
 	}
 
@@ -661,10 +671,7 @@ public class CreateFlowImplementationTool {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
 					segmentSelections.remove(segmentData);
-					if (segmentData.getBoc() instanceof DiagramElement) {
-						coloring.setForeground((DiagramElement) segmentData.getBoc(), null);
-					}
-
+					setColor(segmentData, null);
 					createFlowImplDlg.updateWidgets();
 				}
 			});
@@ -726,10 +733,7 @@ public class CreateFlowImplementationTool {
 							segmentData.getBoc(), "Select Replacement Element");
 					createFlowImplDlg.setSegment(Optional.of(() -> {
 						segmentSelections.remove(segmentData);
-						System.err.println(segmentData.getBoc().getBusinessObject() + " getBoc");
-						if (segmentData.getBoc() instanceof DiagramElement) {
-							coloring.setForeground((DiagramElement) segmentData.getBoc(), null);
-						}
+						setColor(segmentData, null);
 					}), segmentData, false);
 				}
 			});
@@ -835,12 +839,13 @@ public class CreateFlowImplementationTool {
 								// Move in/out features based on replacement kind
 								if (flowKind == FlowKind.SINK) {
 									if (replacementFlowKind == FlowKind.SOURCE && flowImpl.getInEnd() != null) {
-										// Find first feature and make it last element in
-										move(1, segmentSelections.size());
+										// Move in feature to out feature
+										moveFeature(1, segmentSelections.size());
 									}
 								} else if (flowKind == FlowKind.SOURCE) {
 									if (flowImpl.getOutEnd() != null) {
-										move(segmentSelections.size() - 1, 1);
+										// Move out feature to in feature
+										moveFeature(segmentSelections.size() - 1, 1);
 									}
 								} else { // Path
 									if (replacementFlowKind == FlowKind.SINK) {
@@ -886,7 +891,7 @@ public class CreateFlowImplementationTool {
 			segmentSelections.remove(featureToRemove);
 		}
 
-		private void move(final int movingFrom, final int movingTo) {
+		private void moveFeature(final int movingFrom, final int movingTo) {
 			final SegmentData bocToMove = segmentSelections.get(movingFrom);
 			segmentSelections.remove(bocToMove);
 			segmentSelections.add(movingTo, bocToMove);
@@ -1077,30 +1082,9 @@ public class CreateFlowImplementationTool {
 		@Override
 		protected Control createDialogArea(final Composite parent) {
 			final Composite area = FlowDialogUtil.createFlowArea(parent, SWT.NONE);
-			createScrolledComposite(area);
+			flowComposite = FlowDialogUtil.createFlowComposite(area);
 			errorTableViewer = FlowDialogUtil.createErrorTableViewer(new Composite(area, SWT.NONE));
 			return flowComposite;
-		}
-
-		private void createScrolledComposite(final Composite parent) {
-			final ScrolledComposite scrollComposite = new ScrolledComposite(parent, SWT.V_SCROLL | SWT.BORDER);
-			flowComposite = new Composite(scrollComposite, SWT.NONE);
-			final RowLayout flowCompLayout = RowLayoutFactory.fillDefaults().type(SWT.HORIZONTAL).create();
-			flowCompLayout.center = true;
-			flowComposite.setLayout(flowCompLayout);
-
-			scrollComposite.setAlwaysShowScrollBars(true);
-			scrollComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
-			scrollComposite.setContent(flowComposite);
-			scrollComposite.setExpandVertical(true);
-			scrollComposite.setExpandHorizontal(true);
-			scrollComposite.addControlListener(new ControlAdapter() {
-				@Override
-				public void controlResized(final ControlEvent e) {
-					final Rectangle r = scrollComposite.getClientArea();
-					scrollComposite.setMinSize(flowComposite.computeSize(r.width, SWT.DEFAULT));
-				}
-			});
 		}
 
 		@Override
