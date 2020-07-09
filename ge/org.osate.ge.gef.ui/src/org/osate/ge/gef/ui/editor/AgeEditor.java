@@ -117,27 +117,37 @@ public class AgeEditor extends AbstractFXEditor {
 		});
 	}
 
-	final String TITLE_STYLE = "-fx-background-color: linear-gradient(rgb(255,255,255), rgb(237,237,237));";
-	final String COLLAPSE_BUTTON_ACTIVATED = "-fx-background-color: linear-gradient(rgb(255,255,255), rgb(237,237,237));"
-			+ "-fx-border-style: dotted; -fx-border-color: black;";
-	final String COLLAPSE_BUTTON_IDLE = "-fx-background-color: linear-gradient(rgb(255,255,255), rgb(237,237,237));"
-			+ "-fx-border-style: dotted; -fx-border-color: black;";
-	final ImageView COLLAPSE_BUTTON_CLOSED = new ImageView(new Image("icons/collapsedIcon.svg"));
-	final ImageView COLLAPSE_BUTTON_OPEN = new ImageView(new Image("icons/openedIcon.svg"));
-	final SplitPane sp = new SplitPane();
 	final VBox paletteContainer = new VBox();
 	final AnchorPane titleContainer = new AnchorPane();
-	final ScrollPane scrollPane = new ScrollPane();
-	final Label paletteTitle = new Label("Palette");
-	final ToggleButton collapseButton = new ToggleButton();
+	private ScrollPane scrollPane;
+	private Label paletteTitle;
+	private ToggleButton collapseButton;
+	private SplitPane sp;
+	private ImageView COLLAPSE_BUTTON_CLOSED;
+	private ImageView COLLAPSE_BUTTON_OPEN;
+	private String COLLAPSE_BUTTON_ACTIVATED;
+	private String COLLAPSE_BUTTON_IDLE;
 
 	@Override
 	protected void hookViewers() {
 		// TODO: Replace this with widget derived from DemoApplication
 
+		final String TITLE_STYLE = "-fx-background-color: linear-gradient(rgb(255,255,255), rgb(237,237,237));";
+		this.COLLAPSE_BUTTON_ACTIVATED = "-fx-background-color: linear-gradient(rgb(255,255,255), rgb(237,237,237));"
+				+ "-fx-border-style: dotted; -fx-border-color: black;";
+		this.COLLAPSE_BUTTON_IDLE = "-fx-background-color: linear-gradient(rgb(255,255,255), rgb(237,237,237));"
+				+ "-fx-border-style: dotted; -fx-border-color: black;";
+
 	titleContainer.setStyle(TITLE_STYLE);
 	paletteTitle.setStyle(TITLE_STYLE);
 
+	this.sp = new SplitPane();
+	final Scene scene = new Scene(sp);
+
+	this.COLLAPSE_BUTTON_CLOSED = new ImageView(new Image("icons/collapsedIcon.svg"));
+	this.COLLAPSE_BUTTON_OPEN = new ImageView(new Image("icons/openedIcon.svg"));
+
+	paletteTitle.setText("Palette");
 	paletteTitle.setPadding(new Insets(5, 0, 5, 0));
 	collapseButton.setPadding(new Insets(10, 0, 10, 0));
 	collapseButton.setStyle(COLLAPSE_BUTTON_IDLE);
@@ -167,7 +177,8 @@ public class AgeEditor extends AbstractFXEditor {
 		sp.getItems().addAll(getContentViewer().getCanvas(), paletteContainer);
 
 		// Set the scene
-		getCanvas().setScene(new Scene(sp));
+		getCanvas().setScene(scene);
+		collapseButton.setGraphic(COLLAPSE_BUTTON_OPEN);
 
 		sp.setDividerPositions(1.0 - (paletteContainer.getPrefWidth() / sp.getWidth()));
 		sp.layout();
