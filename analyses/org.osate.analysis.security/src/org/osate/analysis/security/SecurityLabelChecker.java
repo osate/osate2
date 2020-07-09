@@ -8,6 +8,9 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.instance.AnnexInstance;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionInstanceEnd;
+import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
@@ -54,7 +57,6 @@ public class SecurityLabelChecker {
 		 */
 		@Override
 		public Boolean caseComponentInstance(ComponentInstance ci) {
-
 			if (isTrusted(ci)) {
 				return DONE;
 			}
@@ -69,19 +71,38 @@ public class SecurityLabelChecker {
 		 */
 		@Override
 		public Boolean caseFeatureInstance(FeatureInstance fi) {
-
 			if (isTrusted(fi.getContainingComponentInstance())) {
 				return DONE;
 			}
-
 			checkValidContainment(fi);
 			return DONE;
 		}
 
+		/**
+		 * Check connection instance for security policy compliance:
+		 * Data flow from source and destination label must conform to policy.
+		 */
 		@Override
-		public Boolean caseConnectionInstance(org.osate.aadl2.instance.ConnectionInstance object) {
-			return DONE;
-		};
+		public Boolean caseConnectionInstance(final ConnectionInstance conni) {
+			ConnectionInstanceEnd src = conni.getSource();
+			ConnectionInstanceEnd dst = conni.getDestination();
+
+			checkSameLabel(conni, src, dst);
+			return Boolean.TRUE;
+		}
+
+		/**
+		 * Check connection reference for security policy compliance:
+		 * Data flow from source and destination label must be identical
+		 */
+		@Override
+		public Boolean caseConnectionReference(ConnectionReference cref) {
+			ConnectionInstanceEnd src = cref.getSource();
+			ConnectionInstanceEnd dst = cref.getDestination();
+
+			checkSameLabel(cref, src, dst);
+			return PRUNE;
+		}
 
 		@Override
 		public Boolean caseEndToEndFlowInstance(org.osate.aadl2.instance.EndToEndFlowInstance object) {
@@ -104,27 +125,6 @@ public class SecurityLabelChecker {
 		}
 
 //		/**
-//		 * Check connection instance for security policy compliance:
-//		 * Data flow from source and destination label must conform to policy.
-//		 */
-//		@Override
-//		public Boolean caseConnectionInstance(final ConnectionInstance conni) {
-//
-//			if (isTrusted(conni.getContainingComponentInstance())) {
-//				return Boolean.TRUE;
-//			}
-//
-//			// TODO: what about other connection kinds?
-//			if (conni.getKind().equals(ConnectionKind.PORT_CONNECTION)) {
-//				NamedElement src = conni.getSource();
-//				NamedElement dst = conni.getDestination();
-//
-//				return checkValidFlow(conni, src, dst);
-//			}
-//			return Boolean.TRUE;
-//		}
-//
-//		/**
 //		 * Check flow specification for security policy compliance:
 //		 * Data flow from source and destination label must conform to policy.
 //		 */
@@ -139,27 +139,6 @@ public class SecurityLabelChecker {
 //			NamedElement dst = fsi.getDestination();
 //
 //			return checkValidFlow(fsi, src, dst);
-//		}
-//
-//		/**
-//		 * Check connection reference for security policy compliance:
-//		 * Data flow from source and destination label must conform to policy.
-//		 */
-//		@Override
-//		public Boolean caseConnectionReference(ConnectionReference cref) {
-//			ConnectionInstance conni = (ConnectionInstance) cref.getOwner();
-//
-//			if (isTrusted(conni.getContainingComponentInstance())) {
-//				return Boolean.TRUE;
-//			}
-//			// TODO: handle other connection kinds
-//			if (conni.getKind().equals(ConnectionKind.PORT_CONNECTION)) {
-//				NamedElement src = cref.getSource();
-//				NamedElement dst = cref.getDestination();
-//
-//				checkValidFlow(cref, src, dst);
-//			}
-//			return Boolean.TRUE;
 //		}
 //
 	};
@@ -200,6 +179,31 @@ public class SecurityLabelChecker {
 				} else {
 					String msg = "Missing security label: should be " + omin.toString();
 					result.getDiagnostics().add(ResultUtil.createWarningDiagnostic(msg, io));
+				}
+			});
+		}
+	}
+
+	private void checkSameLabel(InstanceObject conn, ConnectionInstanceEnd src, ConnectionInstanceEnd dst) {
+		Optional<SecurityLabel> srcLabel = LabelUtil.getLabel(src);
+		Optional<SecurityLabel> dstLabel = LabelUtil.getLabel(dst);
+
+		if (!srcLabel.isPresent() && !dstLabel.isPresent()) {
+			String msg = "Missing security labels on connection ends";
+			result.getDiagnostics().add(ResultUtil.createInfoDiagnostic(msg, conn));
+		} else {
+			srcLabel.ifPresent(sl -> {
+				if (dstLabel.isPresent()) {
+					SecurityLabel dl = dstLabel.get();
+
+					if (!sl.equals(dl)) {
+						String msg = "Source security label " + sl.toString() + " does not match destination "
+								+ dl.toString();
+						result.getDiagnostics().add(ResultUtil.createErrorDiagnostic(msg, conn));
+					}
+				} else {
+					String msg = "Missing security label on destination end: should be " + sl.toString();
+					result.getDiagnostics().add(ResultUtil.createWarningDiagnostic(msg, conn));
 				}
 			});
 		}
