@@ -16,8 +16,8 @@
 		<feature name="org.eclipse.platform" version="4.15.0"/>
 		<feature name="org.eclipse.graphiti.export.feature" version="0.16.1"/>
 		<feature name="org.eclipse.sirius.runtime.ide.ui" version="6.3.0"/>
-		<feature name="org.eclipse.elk.feature" version="0.6.1"/>
-		<feature name="org.eclipse.elk.algorithms.feature" version="0.6.1"/>
+		<feature name="org.eclipse.elk.feature" version="0.7.0"/>
+		<feature name="org.eclipse.elk.algorithms.feature" version="0.7.0"/>
 		<feature name="org.eclipse.ease.feature" version="0.7.0"/>
 		<feature name="org.eclipse.ease.lang.python.py4j.feature" version="0.7.0"/>
 		<feature name="org.eclipse.ease.lang.scriptarchive.feature" version="0.7.0"/>
@@ -136,20 +136,20 @@
 		<plugin name="org.eclipse.egit" version="5.7.0"/>
 		<plugin name="org.eclipse.egit.doc" version="5.7.0"/>
 	</feature>
-	<feature name="org.eclipse.elk.algorithms.feature" version="0.6.1">
-		<plugin name="org.eclipse.elk.alg.common" version="0.6.1"/>
-		<plugin name="org.eclipse.elk.alg.disco" version="0.6.1"/>
-		<plugin name="org.eclipse.elk.alg.layered" version="0.6.1"/>
-		<plugin name="org.eclipse.elk.alg.mrtree" version="0.6.1"/>
-		<plugin name="org.eclipse.elk.alg.rectpacking" version="0.6.1"/>
-		<plugin name="org.eclipse.elk.alg.force" version="0.6.1"/>
-		<plugin name="org.eclipse.elk.alg.radial" version="0.6.1"/>
-		<plugin name="org.eclipse.elk.alg.spore" version="0.6.1"/>
+	<feature name="org.eclipse.elk.algorithms.feature" version="0.7.0">
+		<plugin name="org.eclipse.elk.alg.common" version="0.7.0"/>
+		<plugin name="org.eclipse.elk.alg.disco" version="0.7.0"/>
+		<plugin name="org.eclipse.elk.alg.layered" version="0.7.0"/>
+		<plugin name="org.eclipse.elk.alg.mrtree" version="0.7.0"/>
+		<plugin name="org.eclipse.elk.alg.rectpacking" version="0.7.0"/>
+		<plugin name="org.eclipse.elk.alg.force" version="0.7.0"/>
+		<plugin name="org.eclipse.elk.alg.radial" version="0.7.0"/>
+		<plugin name="org.eclipse.elk.alg.spore" version="0.7.0"/>
 	</feature>
-	<feature name="org.eclipse.elk.feature" version="0.6.1">
-		<plugin name="org.eclipse.elk.core" version="0.6.1"/>
-		<plugin name="org.eclipse.elk.core.service" version="0.6.1"/>
-		<plugin name="org.eclipse.elk.graph" version="0.6.1"/>
+	<feature name="org.eclipse.elk.feature" version="0.7.0">
+		<plugin name="org.eclipse.elk.core" version="0.7.0"/>
+		<plugin name="org.eclipse.elk.core.service" version="0.7.0"/>
+		<plugin name="org.eclipse.elk.graph" version="0.7.0"/>
 	</feature>
 	<feature name="org.eclipse.equinox.executable" version="3.8.700">
 		<plugin name="org.eclipse.equinox.launcher" version="1.5.700"/>
@@ -640,17 +640,17 @@
 	<plugin name="org.eclipse.egit.core" version="5.7.0"/>
 	<plugin name="org.eclipse.egit.doc" version="5.7.0"/>
 	<plugin name="org.eclipse.egit.ui" version="5.7.0"/>
-	<plugin name="org.eclipse.elk.alg.common" version="0.6.1"/>
-	<plugin name="org.eclipse.elk.alg.disco" version="0.6.1"/>
-	<plugin name="org.eclipse.elk.alg.force" version="0.6.1"/>
-	<plugin name="org.eclipse.elk.alg.layered" version="0.6.1"/>
-	<plugin name="org.eclipse.elk.alg.mrtree" version="0.6.1"/>
-	<plugin name="org.eclipse.elk.alg.radial" version="0.6.1"/>
-	<plugin name="org.eclipse.elk.alg.rectpacking" version="0.6.1"/>
-	<plugin name="org.eclipse.elk.alg.spore" version="0.6.1"/>
-	<plugin name="org.eclipse.elk.core" version="0.6.1"/>
-	<plugin name="org.eclipse.elk.core.service" version="0.6.1"/>
-	<plugin name="org.eclipse.elk.graph" version="0.6.1"/>
+	<plugin name="org.eclipse.elk.alg.common" version="0.7.0"/>
+	<plugin name="org.eclipse.elk.alg.disco" version="0.7.0"/>
+	<plugin name="org.eclipse.elk.alg.force" version="0.7.0"/>
+	<plugin name="org.eclipse.elk.alg.layered" version="0.7.0"/>
+	<plugin name="org.eclipse.elk.alg.mrtree" version="0.7.0"/>
+	<plugin name="org.eclipse.elk.alg.radial" version="0.7.0"/>
+	<plugin name="org.eclipse.elk.alg.rectpacking" version="0.7.0"/>
+	<plugin name="org.eclipse.elk.alg.spore" version="0.7.0"/>
+	<plugin name="org.eclipse.elk.core" version="0.7.0"/>
+	<plugin name="org.eclipse.elk.core.service" version="0.7.0"/>
+	<plugin name="org.eclipse.elk.graph" version="0.7.0"/>
 	<plugin name="org.eclipse.equinox.app" version="1.4.400"/>
 	<plugin name="org.eclipse.equinox.bidi" version="1.2.300"/>
 	<plugin name="org.eclipse.equinox.common" version="3.11.0"/>
