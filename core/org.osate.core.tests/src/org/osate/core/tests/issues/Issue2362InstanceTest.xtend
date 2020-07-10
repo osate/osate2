@@ -45,7 +45,7 @@ import static extension org.junit.Assert.*
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
-class Issue2362Instance {
+class Issue2362InstanceTest {
 	val static FILE_LOCATION = "org.osate.core.tests/models/Issue2362/DeclarativeTests.aadl"
 	
 	@Inject

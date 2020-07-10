@@ -41,7 +41,7 @@ import static extension org.junit.Assert.*
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
-class Issue2356Instance {
+class Issue2356InstanceTest {
 	val static PROJECT_LOCATION = "org.osate.core.tests/models/Issue2356/"
 	
 	@Inject

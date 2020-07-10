@@ -43,7 +43,7 @@ import org.osate.aadl2.instantiation.InstantiateModel
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
-class Issue582TestAbstractToDataAccessClassifier extends XtextTest {
+class Issue582AbstractToDataAccessClassifierTest extends XtextTest {
 	@Inject
 	TestHelper<AadlPackage> testHelper
 	
