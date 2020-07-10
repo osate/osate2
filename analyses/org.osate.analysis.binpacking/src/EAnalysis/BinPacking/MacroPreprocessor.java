@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -47,8 +47,7 @@ public class MacroPreprocessor {
 
 	public void loadMacros(File file) {
 		Vector v = new Vector();
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader(file));
+		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 			String line;
 
 			while ((line = reader.readLine()) != null) {
@@ -62,12 +61,14 @@ public class MacroPreprocessor {
 							&& (define == null || macroName == null || macroSubstitution == null)) {
 						token = tokenizer.nextToken();
 						if (define == null) {
-							if (token.indexOf("@define") != -1)
+							if (token.indexOf("@define") != -1) {
 								define = token;
-						} else if (macroName == null)
+							}
+						} else if (macroName == null) {
 							macroName = token;
-						else
+						} else {
 							macroSubstitution = token;
+						}
 					}
 					v.add(new MacroEntry(macroName, macroSubstitution));
 				}
@@ -84,10 +85,10 @@ public class MacroPreprocessor {
 	}
 
 	public void substituteMacrosInFile(File file) {
-		try {
+		PrintWriter writer = null;
+		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 			File temp = File.createTempFile("TMP", "MPP");
-			PrintWriter writer = new PrintWriter(new FileOutputStream(temp));
-			BufferedReader reader = new BufferedReader(new FileReader(file));
+			writer = new PrintWriter(new FileOutputStream(temp));
 			String line;
 			while ((line = reader.readLine()) != null) {
 				for (int i = 0; i < macros.length; i++) {
@@ -109,13 +110,13 @@ public class MacroPreprocessor {
 				}
 				writer.println(line);
 			}
-			writer.close();
-			reader.close();
 			String fname = file.getAbsolutePath();
 			file.renameTo(new File("tmp.old"));
 			temp.renameTo(new File(fname));
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			writer.close();
 		}
 	}
 
