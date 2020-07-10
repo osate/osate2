@@ -78,13 +78,10 @@ public class AadlProjectCreator {
 	}
 
 	public static void createAadlFunctions(String outputFile, Model genericModel) {
-
 		try (FileWriter fstream = new FileWriter(outputFile); BufferedWriter out = new BufferedWriter(fstream)) {
 
 			out.write("package " + genericModel.getName() + "::imported::functions\n");
-
 			out.write("public\n");
-
 			out.write("with SEI;\n");
 			out.write("with ARINC653;\n");
 
@@ -106,9 +103,6 @@ public class AadlProjectCreator {
 
 			out.write("end " + genericModel.getName() + "::imported::functions;\n");
 
-			out.close();
-			fstream.close();
-
 		} catch (Exception e) {
 			OsateDebug.osateDebug("Error: " + e.getMessage());
 			e.printStackTrace();
@@ -117,21 +111,14 @@ public class AadlProjectCreator {
 	}
 
 	public static void createAadlRuntime(String outputFile, Model genericModel) {
-		FileWriter fstream;
-		BufferedWriter out;
-		int tmp;
 		boolean connectionPreamble;
 		boolean subComponentsPreambleWritten;
 		StateMachine sm;
 		StateFlowInstance sfi;
 		connectionPreamble = false;
 		subComponentsPreambleWritten = false;
-		try {
-			fstream = new FileWriter(outputFile);
-			out = new BufferedWriter(fstream);
-
+		try (FileWriter fstream = new FileWriter(outputFile); BufferedWriter out = new BufferedWriter(fstream)) {
 			out.write("package " + genericModel.getName() + "::imported::runtime\n");
-
 			out.write("public\n");
 			out.write("with " + genericModel.getName() + "::imported::functions;\n");
 			out.write("with SEI;\n");
@@ -469,9 +456,6 @@ public class AadlProjectCreator {
 			out.write("end mainsystem.i; \n");
 
 			out.write("end " + genericModel.getName() + "::imported::runtime; \n");
-
-			out.close();
-			fstream.close();
 
 		} catch (Exception e) {
 			System.err.println("Error: " + e.getMessage());
