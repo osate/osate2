@@ -42,6 +42,7 @@ class PaletteGroup<G, I> extends Region {
 			if (groupButton.isSelected() == true) {
 				scrollPane.setManaged(true);
 				scrollPane.setVisible(true);
+				scrollPane.setMaxHeight(buttonBox.getHeight());
 				groupButton.setStyle(SELECTED_GROUP_STYLE);
 			} else {
 				scrollPane.setVisible(false);
@@ -74,7 +75,6 @@ class PaletteGroup<G, I> extends Region {
 		scrollPane.setManaged(false);
 		scrollPane.setVisible(false);
 		scrollPane.setFitToWidth(true);
-		scrollPane.setMaxHeight(buttonBox.getHeight() / 2);
 		this.getChildren().add(buttonBox);
 
 	}
@@ -84,7 +84,7 @@ class PaletteGroup<G, I> extends Region {
 		final double width = this.getWidth();
 		final double height = this.getHeight();
 
-		buttonBox.resize(width, height);
+		buttonBox.resize(width, height * 8);
 		groupButton.setPrefWidth(width);
 	}
 

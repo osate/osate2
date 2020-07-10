@@ -120,13 +120,13 @@ public class AgeEditor extends AbstractFXEditor {
 	final VBox paletteContainer = new VBox();
 	final AnchorPane titleContainer = new AnchorPane();
 	private ScrollPane scrollPane;
-	private Label paletteTitle;
 	private ToggleButton collapseButton;
 	private SplitPane sp;
 	private ImageView COLLAPSE_BUTTON_CLOSED;
 	private ImageView COLLAPSE_BUTTON_OPEN;
 	private String COLLAPSE_BUTTON_ACTIVATED;
 	private String COLLAPSE_BUTTON_IDLE;
+	private Label paletteTitle;
 
 	@Override
 	protected void hookViewers() {
@@ -139,7 +139,10 @@ public class AgeEditor extends AbstractFXEditor {
 				+ "-fx-border-style: dotted; -fx-border-color: black;";
 
 	titleContainer.setStyle(TITLE_STYLE);
-	paletteTitle.setStyle(TITLE_STYLE);
+	this.paletteTitle = new Label("Palette");
+	this.paletteTitle.setStyle(TITLE_STYLE);
+	this.collapseButton = new ToggleButton();
+	this.scrollPane = new ScrollPane();
 
 	this.sp = new SplitPane();
 	final Scene scene = new Scene(sp);
@@ -147,7 +150,6 @@ public class AgeEditor extends AbstractFXEditor {
 	this.COLLAPSE_BUTTON_CLOSED = new ImageView(new Image("icons/collapsedIcon.svg"));
 	this.COLLAPSE_BUTTON_OPEN = new ImageView(new Image("icons/openedIcon.svg"));
 
-	paletteTitle.setText("Palette");
 	paletteTitle.setPadding(new Insets(5, 0, 5, 0));
 	collapseButton.setPadding(new Insets(10, 0, 10, 0));
 	collapseButton.setStyle(COLLAPSE_BUTTON_IDLE);
