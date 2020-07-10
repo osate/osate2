@@ -384,22 +384,28 @@ public class CreateEndToEndFlowSpecificationTool {
 					String error = null;
 					if (!modeFeatureSelections.contains(selectedBoc) && createFlowDialog.addSelectedElement(selectedBoc)) {
 						// Insert flow segments before first mode feature
+						final Color color;
 						if (selectedBoc.getBusinessObject() instanceof ModeFeature) {
 							modeFeatureSelections.add(selectedBoc);
-							setColor(selectedBoc, Color.MAGENTA.brighter());
+							color = Color.MAGENTA.brighter();
 						} else {
 							segmentSelections.add(new SegmentData(selectedBoc, new ArrayList<>()));
-							setColor(selectedBoc, Color.MAGENTA.darker());
+							if (segmentSelections.size() == 1) {
+								// Set default name on first selection if one does not exist
+								createFlowDialog.getOwnerComponentImplementation().ifPresent(ci -> {
+									createFlowDialog.setTitle("Creating End To End Flow in: " + ci.getQualifiedName());
+									if (createFlowDialog.endToEndFlowName.isEmpty()) {
+										createFlowDialog.setEndToEndFlowName(ci);
+									}
+								});
+
+								color = Color.ORANGE.darker();
+							} else {
+								color = Color.MAGENTA.darker();
+							}
 						}
-						// Set default name on first selection if one does not exist
-						if (segmentSelections.size() == 1) {
-							createFlowDialog.getOwnerComponentImplementation().ifPresent(ci -> {
-								createFlowDialog.setTitle("Creating End To End Flow in: " + ci.getQualifiedName());
-								if (createFlowDialog.endToEndFlowName.isEmpty()) {
-									createFlowDialog.setEndToEndFlowName(ci);
-								}
-							});
-						}
+
+						setColor(selectedBoc, color);
 					} else if (!isInit) {
 						error = "Invalid element selected.  ";
 					}
@@ -748,6 +754,12 @@ public class CreateEndToEndFlowSpecificationTool {
 			createRemoveButton(editMenu, () -> {
 				segmentSelections.remove(flowSegment);
 				setColor(flowSegment, null);
+				if (!segmentSelections.isEmpty()) {
+					// Update color for first segment
+					final SegmentData newStartSegment = segmentSelections.get(0);
+					setColor(newStartSegment, Color.ORANGE.darker());
+				}
+
 				uiService.clearSelection();
 			});
 
@@ -962,7 +974,7 @@ public class CreateEndToEndFlowSpecificationTool {
 					findSegments(selectedETEFlow, ancestor, highlightableSegments);
 
 					segmentSelections.add(new SegmentData(selectedBoc, highlightableSegments));
-					highlightableSegments.forEach(de -> setColor(de, Color.MAGENTA.darker()));
+					highlightableSegments.forEach(de -> setColor(de, Color.ORANGE.darker()));
 
 					updateSegments();
 
@@ -1026,9 +1038,18 @@ public class CreateEndToEndFlowSpecificationTool {
 
 					final SegmentData segmentDataToAdd = new SegmentData(selectedBoc, highlightableSegments);
 					segmentSelections.add(insertIndex, segmentDataToAdd);
-					setColor(segmentDataToAdd, Color.MAGENTA.darker());
 
 					opRunnable.ifPresent(runnable -> runnable.run());
+					
+					// Update new and existing segment colors based on index
+					final Color newSegmentColor = segmentSelections.indexOf(segmentDataToAdd) == 0
+							? Color.ORANGE.darker()
+									: Color.MAGENTA.darker();
+							setColor(segmentDataToAdd, newSegmentColor);
+
+							final Color updateSegmentColor = segmentSelections.indexOf(segmentData) == 0 ? Color.ORANGE.darker()
+									: Color.MAGENTA.darker();
+							setColor(segmentDataToAdd, updateSegmentColor);
 				}
 
 				updateSegments();

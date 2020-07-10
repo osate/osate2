@@ -2335,13 +2335,6 @@ censes only apply to the Third Party Software and not any other portion of this 
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
          <propertySection
-               afterSection="org.osate.ge.ui.properties.setDimensionsPropertySection"
-               class="org.osate.ge.internal.ui.properties.EditFlowsPropertySection"
-               filter="org.osate.ge.internal.ui.properties.EditFlowsPropertySection$Filter"
-               id="org.osate.ge.ui.properties.editFlowsPropertySection"
-               tab="org.osate.ge.ui.properties.tabs.aadl">
-         </propertySection>
-         <propertySection
                afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
                class="org.osate.ge.internal.ui.properties.SetSubprogramCallSequenceOrderPropertySection"
                filter="org.osate.ge.internal.ui.properties.SetSubprogramCallSequenceOrderPropertySection$Filter"
