@@ -669,7 +669,7 @@
       <repository
           url="http://download.eclipse.org/efxclipse/updates-released/3.6.0/site"/>
       <repository
-          url="http://download.eclipse.org/elk/updates/releases/0.6.1"/>
+          url="http://osate-build.sei.cmu.edu/p2/elk-nightly/"/>
       <description>Additional features for the graphical editor</description>
     </setupTask>
   </setupTask>
@@ -795,7 +795,7 @@
         <repository
             url="http://download.eclipse.org/ease/release/0.7.0"/>
         <repository
-            url="http://download.eclipse.org/elk/updates/releases/0.6.1"/>
+            url="http://osate-build.sei.cmu.edu/p2/elk-nightly/"/>
         <repository
             url="http://download.eclipse.org/xsemantics/milestones/1.19"/>
         <repository
@@ -875,16 +875,16 @@
     <description>The dynamic working sets for ${scope.project.label}</description>
   </setupTask>
   <setupTask
+      xsi:type="pde:APIBaselineTask"
+      id="api.baseline"
+      name="OSATE-API"
+      version="2.8.0"
+      remoteURI="https://osate-build.sei.cmu.edu/download/osate/stable/2.8.0-vfinal/osate.repository-2.8.0.vfinal.zip"/>
+  <setupTask
       xsi:type="launching:LaunchTask"
       launcher="Generate Help">
     <description>Call maven to generate HTML from markdown help text</description>
   </setupTask>
-  <setupTask
-      xsi:type="pde:APIBaselineTask"
-      id="api.baseline"
-      name="OSATE-API"
-      version="2.7.1"
-      remoteURI="https://osate-build.sei.cmu.edu/download/osate/stable/2.7.1-vfinal/osate.repository-2.7.1.vfinal.zip"/>
   <stream name="master"
       label="master">
     <setupTask

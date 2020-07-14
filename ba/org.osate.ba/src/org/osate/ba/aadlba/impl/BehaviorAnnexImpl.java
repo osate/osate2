@@ -20,8 +20,8 @@
 package org.osate.ba.aadlba.impl;
 
 import java.util.Collection ;
-import java.util.HashMap ;
 import java.util.Map ;
+import java.util.WeakHashMap ;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain ;
@@ -170,7 +170,10 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
   @Override
   public void unsetVariables()
   {
-    if (variables != null) ((InternalEList.Unsettable<?>)variables).unset();
+    if (variables != null)
+    {
+      ((InternalEList.Unsettable<?>)variables).unset();
+    }
   }
 
   /**
@@ -207,7 +210,10 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
   @Override
   public void unsetStates()
   {
-    if (states != null) ((InternalEList.Unsettable<?>)states).unset();
+    if (states != null)
+    {
+      ((InternalEList.Unsettable<?>)states).unset();
+    }
   }
 
   /**
@@ -244,7 +250,10 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
   @Override
   public void unsetTransitions()
   {
-    if (transitions != null) ((InternalEList.Unsettable<?>)transitions).unset();
+    if (transitions != null)
+    {
+      ((InternalEList.Unsettable<?>)transitions).unset();
+    }
   }
 
   /**
@@ -303,7 +312,9 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
       if (initialState != oldInitialState)
       {
         if (eNotificationRequired())
+        {
           eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_ANNEX__INITIAL_STATE, oldInitialState, initialState));
+        }
       }
     }
     return initialState;
@@ -330,7 +341,9 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
     BehaviorState oldInitialState = initialState;
     initialState = newInitialState;
     if (eNotificationRequired())
+    {
       eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_ANNEX__INITIAL_STATE, oldInitialState, initialState));
+    }
   }
 
   /**
@@ -378,7 +391,10 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
       case AadlBaPackage.BEHAVIOR_ANNEX__CONDITIONS:
         return getConditions();
       case AadlBaPackage.BEHAVIOR_ANNEX__INITIAL_STATE:
-        if (resolve) return getInitialState();
+        if (resolve)
+        {
+          return getInitialState();
+        }
         return basicGetInitialState();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -490,16 +506,17 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
    * @generated NOT
    */
   
-  private Map<AadlBaLocationReference, Element> _links = new HashMap
+  private Map<AadlBaLocationReference, Element> _links = new WeakHashMap
           <AadlBaLocationReference, Element>() ;
   
+  @Override
   public Map<AadlBaLocationReference, Element> getLinks()
   {
     return _links;
   }
   
   private Map<BehaviorAnnex, AadlBaHighlighter> _annexHighlighters = 
-       new HashMap<BehaviorAnnex, AadlBaHighlighter>();
+       new WeakHashMap<BehaviorAnnex, AadlBaHighlighter>();
  
   public Map<BehaviorAnnex, AadlBaHighlighter> getHighlighters()
   {
