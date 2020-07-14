@@ -533,7 +533,7 @@
     <repository
         url="http://download.eclipse.org/releases/${eclipse.target.platform}"/>
     <repository
-        url="http://download.eclipse.org/sirius/updates/releases/6.3.0/2019-06"/>
+        url="http://download.eclipse.org/sirius/updates/releases/6.3.1/2019-06"/>
   </setupTask>
   <setupTask
       xsi:type="setup.p2:P2Task"
@@ -838,7 +838,7 @@
         <repository
             url="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.20.0"/>
         <repository
-            url="http://download.eclipse.org/sirius/updates/releases/6.3.0/2019-06"/>
+            url="http://download.eclipse.org/sirius/updates/releases/6.3.1/2019-06"/>
         <repository
             url="http://download.eclipse.org/ease/release/0.7.0"/>
         <repository
@@ -938,8 +938,8 @@
       label="master">
     <setupTask
         xsi:type="setup:EclipseIniTask"
-        option="-Doomph.redirection.osate2_2020-03"
-        value="=https://raw.githubusercontent.com/osate/osate2/master/setup/osate2_2020-03.setup->${git.clone.osate2.location|uri}/setup/osate2_2020-03.setup"
+        option="-Doomph.redirection.osate2_2020-06"
+        value="=https://raw.githubusercontent.com/osate/osate2/master/setup/osate2_2020-06.setup->${git.clone.osate2.location|uri}/setup/osate2_2020-06.setup"
         vm="true">
       <description>
         Set an Oomph redirection system property to redirect the logical location of this setup to its physical location in the Git clone.
