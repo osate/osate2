@@ -570,10 +570,10 @@ In some cases a connection between diagram elements will be represented by a dot
 - An AADL property reference value for which the referenced model element is hidden.
 
 ## Highlighting Flow Implementations and End-to-End Flow Specifications
-Selecting a Flow Implementation or End-to-End Flow specification from the flow drop-down in the toolbar will highlight the flow.  Flow Implementations and End-to-End Flows that have no segments and missing segments are marked with an empty tag (E) or a partial tag (P), respectively.
+Selecting a Flow Implementation or End-to-End Flow specification from the flow drop-down in the toolbar will highlight the flow.
 
 ## Showing Flow Implementation and End-to-End Flow Specification Segments
-Selecting the "Show" button on the toolbar shows the missing flow segments of the currently selected flow drop-down Flow Implementation or End-to-End Flow when it is marked empty (E) or partial (P).
+Selecting the "Show" button on the toolbar shows the missing flow segments of the currently selected flow drop-down Flow Implementation or End-to-End Flow when the the flow contains segments which are missing from the diagram.
 
 ## Highlighting In Mode Elements
 Selecting a Mode or Mode Transition from the mode drop-down in the toolbar will highlight the in mode elements in the diagram.
@@ -685,9 +685,7 @@ When the *Layout Features Based on Direction* preference is enabled, the graphic
 ## Known Layout Issues and Limitations
 * Connections between multiple levels of the diagram hierarchy are not automatically routed and must be routed manually. Such connections usually represent property values such as bindings.
 * Mode transition triggers are not routed. The recommended workaround is to show the mode transition triggers as text labels.
-* Flow source and sinks are not consider when laying out the diagram.
 * The automatic layout for flow path may produce unexpected routing and label placement for the flow path. To workaround this issue, it is recommended to disable labels for flow paths.	
-* Flow paths other than those which include a feature on the left side and a feature on the right side of the container will not layout correctly. To workaround this issue, it is recommended to adjust the location of the features.
 
 # Annotations and Documentation
 The following sections describe the graphical editors support for annotations and AADL documentation.

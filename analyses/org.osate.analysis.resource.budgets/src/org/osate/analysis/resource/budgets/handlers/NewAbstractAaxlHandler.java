@@ -287,7 +287,7 @@ abstract class NewAbstractAaxlHandler extends AbstractHandler {
 			} else if (rsrc instanceof IFile) {
 				final IFile file = (IFile) rsrc;
 				final String ext = file.getFileExtension();
-				if (ext.equals(WorkspacePlugin.INSTANCE_FILE_EXT)) {
+				if (ext != null && ext.equals(WorkspacePlugin.INSTANCE_FILE_EXT)) {
 					instanceFiles.add(file);
 				}
 			} else if (rsrc instanceof IContainer) {

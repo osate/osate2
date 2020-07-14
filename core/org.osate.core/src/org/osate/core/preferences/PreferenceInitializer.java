@@ -48,6 +48,8 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
 		store.setDefault(OsateCorePlugin.EXPAND_DEFAULT_FLAG, false);
 		store.setDefault(OsateCorePlugin.MAX_SOM, OsateCorePlugin.MAX_SOM_DEFAULT);
+		store.setDefault(OsateCorePlugin.ALWAYS_SHOW_INSTANTIATION_RESULTS,
+				OsateCorePlugin.ALWAYS_SHOW_INSTANTIATION_RESULTS_DEFAULT);
 		store.setDefault(OsateCorePlugin.AUTO_REINSTANTIATE, true);
 		store.setDefault(OsateCorePlugin.AUTO_INDENT, true);
 		store.setDefault(OsateCorePlugin.AUTO_COMPLETE, true);

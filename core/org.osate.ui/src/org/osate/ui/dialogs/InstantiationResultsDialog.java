@@ -1,21 +1,31 @@
 package org.osate.ui.dialogs;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.preference.IPersistentPreferenceStore;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
+import org.osate.core.OsateCorePlugin;
 import org.osate.ui.handlers.AbstractMultiJobHandler.Result;
 
 /* TODO: I don't like that this class depends on AbstractMultiJobHandler.Result.  The dialog sholdn't have
@@ -31,14 +41,22 @@ public final class InstantiationResultsDialog<T> extends Dialog {
 	private final String labelName;
 	private final Model<T> model;
 
+	private final IPreferenceStore prefs;
+	private boolean hideInFutureOriginal;
+	private boolean hideInFuture;
+
+	/**
+	 * @since 4.0
+	 */
 	public InstantiationResultsDialog(final Shell shell, final String actionName, final String labelName,
-			final Function<T, String> labelProvider, final Map<T, Result> results) {
+			final Function<T, String> labelProvider, final Map<T, Result> results, final IPreferenceStore prefs) {
 		super(shell);
 		setShellStyle(getShellStyle() | SWT.RESIZE);
 
 		this.actionName = actionName;
 		this.labelName = labelName;
-		model = new Model<T>(actionName, labelProvider, results);
+		this.model = new Model<T>(actionName, labelProvider, results);
+		this.prefs = prefs;
 	}
 
 	private static String toFirstUpperCase(final String input) {
@@ -224,7 +242,49 @@ public final class InstantiationResultsDialog<T> extends Dialog {
 		viewer.setContentProvider(new ModelContentProvider());
 		viewer.setInput(model);
 
+		hideInFutureOriginal = !prefs.getBoolean(OsateCorePlugin.ALWAYS_SHOW_INSTANTIATION_RESULTS);
+		hideInFuture = hideInFutureOriginal;
+		final Button hide = new Button(composite, SWT.CHECK);
+		hide.setSelection(hideInFuture);
+		hide.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
+		hide.setText("Don't show this dialog when successful");
+		hide.setToolTipText("Check this button to only show this dialog when an instantiation "
+				+ "is cancelled or fails.  Use the \"OSATE > Instantiation\" preference pane to bring it back.");
+		hide.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(final SelectionEvent event) {
+				hideInFuture = hide.getSelection();
+			}
+		});
+
 		return composite;
+	}
+
+	@Override
+	protected void okPressed() {
+		boolean doSave = true;
+		if (hideInFuture && !hideInFutureOriginal) {
+			// User just toggled the "don't show option"
+			doSave = MessageDialog.openQuestion(getShell(), "Confirm change",
+					"This results dialog will be hidden in the future.  You can restore it by going to the \"OSATE > Instantiation\" preference pane.  Do you wish to make this change?");
+		}
+
+		if (doSave) {
+			prefs.setValue(OsateCorePlugin.ALWAYS_SHOW_INSTANTIATION_RESULTS, !hideInFuture);
+			final Job saveJob = Job.create("Save prefences", monitor -> {
+				try {
+					((IPersistentPreferenceStore) prefs).save();
+				} catch (final IOException e) {
+					Display.getDefault().asyncExec(() -> {
+						MessageDialog.openError(getShell(), "Error",
+								"There was a problem saving the preferences: " + e.getMessage());
+					});
+				}
+			});
+			saveJob.schedule();
+		}
+
+		super.okPressed();
 	}
 
 	private static final class ModelContentProvider implements IStructuredContentProvider {

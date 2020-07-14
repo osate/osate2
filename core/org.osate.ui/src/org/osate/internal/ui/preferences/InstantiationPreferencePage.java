@@ -95,11 +95,16 @@ public class InstantiationPreferencePage extends FieldEditorPreferencePage imple
 	 */
 	@Override
 	public void createFieldEditors() {
-		IntegerFieldEditor f = new IntegerFieldEditor(OsateCorePlugin.MAX_SOM,
+		final IntegerFieldEditor maxField = new IntegerFieldEditor(OsateCorePlugin.MAX_SOM,
 				"Maximum number of system operation modes to generate",
 				getFieldEditorParent());
-		f.setValidRange(1, Integer.MAX_VALUE);
-		addField(f);
+		maxField.setValidRange(1, Integer.MAX_VALUE);
+		addField(maxField);
+
+		final BooleanFieldEditor alwaysShowField = new BooleanFieldEditor(
+				OsateCorePlugin.ALWAYS_SHOW_INSTANTIATION_RESULTS,
+				"Always show instantiation results dialog, even when successful", getFieldEditorParent());
+		addField(alwaysShowField);
 
 		final BooleanFieldEditor alwaysShowAadlDialog = new BooleanFieldEditor(
 				OsateCorePlugin.ALWAYS_SHOW_INSTANTIATION_AADL_DIALOG,

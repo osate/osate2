@@ -124,7 +124,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 
 		EList<ModalPropertyValue> pvl = pa.getOwnedValues();
 		for (ModalPropertyValue modalPropertyValue : pvl) {
-			typeCheckPropertyValues(pt, modalPropertyValue.getOwnedValue(), pa, pdef.getQualifiedName());
+			typeCheckPropertyValues(pt, modalPropertyValue.getOwnedValue(), pa, pdef.getQualifiedName(), 0);
 		}
 		checkAssociationAppliesTo(pa);
 	}
@@ -1346,9 +1346,9 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 						for (ErrorPropagation allepin : epsin) {
 							if (!EMV2TypeSetUtil.contains(allepout.getTypeSet(), allepin.getTypeSet())) {
 								error(ef,
-										"Incoming error propagation " + EMV2Util.getPrintName(epin)
+										"Incoming error propagation " + EMV2Util.getPrintName(allepin)
 												+ " constraint is not contained in type set of outgoing propagation "
-												+ EMV2Util.getPrintName(epout));
+												+ EMV2Util.getPrintName(allepout));
 							}
 						}
 					}

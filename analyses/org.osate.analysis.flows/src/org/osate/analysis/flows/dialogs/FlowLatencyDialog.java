@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -172,8 +173,8 @@ public final class FlowLatencyDialog extends TitleAreaDialog {
 		if (latencyPrefs instanceof IPersistentPreferenceStore) {
 			final Button save = new Button(prefButtons, SWT.PUSH);
 			save.setText("Save as Defaults");
-			save.setToolTipText("Make the above settings the defaults as in the" + System.lineSeparator()
-					+ "OSATE > Analysis > Flow Latency preference pane.");
+			save.setToolTipText("Make the above settings the defaults as in the "
+					+ "\"OSATE > Analysis > Flow Latency\" preference pane.");
 			save.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(final SelectionEvent event) {
@@ -231,16 +232,23 @@ public final class FlowLatencyDialog extends TitleAreaDialog {
 		for (int i = 0; i < LAST_USED_PREF_IDS.length; i++) {
 			latencyPrefs.setValue(LAST_USED_PREF_IDS[i], localValues.get(LAST_USED_PREF_IDS[i]));
 		}
-		// Save the show dialog pref
-		latencyPrefs.setValue(Constants.DONT_SHOW_DIALOG, dontShowDialog);
-		savePreferences();
+		// Save the show dialog pref -- maybe
+		// Note, we can only go from false to true here becuse if don't show was true, the dialog wouldn't have been shown
+		if (dontShowDialog) {
+			if (MessageDialog.openQuestion(getShell(), "Confirm change",
+					"This options dialog will be hidden in the future.  You can restore it by going "
+							+ "to the \"OSATE > Analysis > Flow Latency\" preference pane.  Do you wish to make this change?")) {
+				latencyPrefs.setValue(Constants.DONT_SHOW_DIALOG, dontShowDialog);
+			}
+		}
 
+		savePreferences();
 		super.okPressed();
 	}
 
 	private void savePreferences() {
 		if (latencyPrefs.needsSaving()) {
-			final Job saveJob = Job.create("Save latency prefencees", monitor -> {
+			final Job saveJob = Job.create("Save latency prefences", monitor -> {
 				try {
 					((IPersistentPreferenceStore) latencyPrefs).save();
 				} catch (final IOException e) {

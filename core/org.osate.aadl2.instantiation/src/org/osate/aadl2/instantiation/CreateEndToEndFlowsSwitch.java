@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.Stack;
 
@@ -122,6 +123,9 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 		@Override
 		public Element next() {
+			if (!hasNext()) {
+				throw new NoSuchElementException();
+			}
 			return eteSegments != null ? eteSegments.get(index++) : flowSegments.get(index++);
 		}
 
