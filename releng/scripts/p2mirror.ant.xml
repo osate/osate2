@@ -34,7 +34,10 @@ Run with
     
     <target name="create-mirror">
 
-    	<p2.mirror source="http://download.eclipse.org/releases/2020-06">
+    	<p2.mirror>
+            <source>
+                <repository location="http://download.eclipse.org/releases/2020-06"/>
+            </source>
             <destination location="${target.dir}/releases/2020-06"/>
             <iu id="org.eclipse.e4.rcp.feature.group"/>
             <iu id="org.eclipse.egit.feature.group"/>
@@ -66,6 +69,15 @@ Run with
             <iu id="org.eclipse.xpand"/>
             <iu id="org.eclipse.xtend"/>
             <iu id="org.eclipse.xtend.typesystem.emf"/>
+        </p2.mirror>
+        
+    	<p2.mirror>
+            <source>
+                <repository location="http://download.eclipse.org/releases/2019-12"/>
+            </source>
+            <destination location="${target.dir}/releases/2020-06"/>
+            <iu id="org.eclipse.xtext.xbase.junit"/>
+            <slicingoptions includeNonGreedy="false" includeOptional="false" latestVersionOnly="true"/>
         </p2.mirror>
         
         <p2.mirror source="http://download.eclipse.org/birt/update-site/2018-09-interim">
@@ -110,7 +122,10 @@ Run with
             <iu id="org.apache.commons.io" version="2.2.0.v201405211200"/>
         </p2.mirror>
         
-        <p2.mirror source="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.20.0">
+        <p2.mirror>
+            <source>
+                <repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.20.0"/>
+            </source>
             <destination location="${target.dir}/modeling/tmf/xtext/updates/releases/2.20.0"/>
             <iu id="org.eclipse.xtext.generator"/>
             <iu id="org.eclipse.xtext.redist.feature.group"/>
