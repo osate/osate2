@@ -71,7 +71,7 @@ import org.osate.ge.internal.ui.util.InternalPropertySectionUtil.DragAndDropElem
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil.DragAndDropSupport;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil.ExecuteOrderChange;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil.UpDownButtonSelectionAdapter;
-import org.osate.ge.internal.ui.util.SelectionUtil;
+import org.osate.ge.internal.util.ProjectUtil;
 import org.osate.ge.ui.PropertySectionUtil;
 
 public class SetDimensionsPropertySection extends AbstractPropertySection {
@@ -238,7 +238,7 @@ public class SetDimensionsPropertySection extends AbstractPropertySection {
 						final Aadl2Package pkg = Aadl2Package.eINSTANCE;
 						final ArrayDimension dim = createArrayDimensionDuplicate(pkg, readonlyDim);
 						selectedBos.boStream(ArrayableElement.class).findAny().ifPresent(ele -> {
-							if (modifiedArrayDimension(dim, SelectionUtil.getProjectOrThrow(ele.eResource()))) {
+							if (modifiedArrayDimension(dim, ProjectUtil.getProjectOrThrow(ele.eResource()))) {
 								selectedBos.modify(ArrayableElement.class, ae -> {
 									ae.getArrayDimensions().set(selectedIndex, createArrayDimensionDuplicate(pkg, dim));
 								});
@@ -254,7 +254,7 @@ public class SetDimensionsPropertySection extends AbstractPropertySection {
 					final Aadl2Package pkg = Aadl2Package.eINSTANCE;
 					final ArrayDimension dim = (ArrayDimension) pkg.getEFactoryInstance().create(pkg.getArrayDimension());
 					selectedBos.boStream(ArrayableElement.class).findAny().ifPresent(ele -> {
-						if (modifiedArrayDimension(dim, SelectionUtil.getProjectOrThrow(ele.eResource()))) {
+						if (modifiedArrayDimension(dim, ProjectUtil.getProjectOrThrow(ele.eResource()))) {
 							selectedBos.modify(ArrayableElement.class, ae -> {
 								ae.getArrayDimensions().add(createArrayDimensionDuplicate(pkg, dim));
 							});

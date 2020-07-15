@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -39,7 +39,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.xtext.ui.resource.XtextLiveScopeResourceSetProvider;
 import org.osate.ge.EmfContainerProvider;
-import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
 import com.google.inject.Injector;
@@ -73,21 +72,36 @@ public class ProjectUtil {
 		return relevantProjects;
 	}
 
-	public static IProject getProject(final URI elementUri) {
-		final IPath projectPath = new Path(elementUri.toPlatformString(true)).uptoSegment(1);
+	public static IProject getProjectOrNull(final URI elementUri) {
+		return getProject(elementUri).orElse(null);
+	}
+
+	public static Optional<IProject> getProject(final URI resourceUri) {
+		final IPath projectPath = new Path(resourceUri.toPlatformString(true)).uptoSegment(1);
 		final IResource projectResource = ResourcesPlugin.getWorkspace().getRoot().findMember(projectPath);
-		if (!(projectResource instanceof IProject)) {
-			return null;
+		if (projectResource instanceof IProject) {
+			return Optional.of((IProject) projectResource);
 		}
-		return (IProject) projectResource;
+
+		return Optional.empty();
+	}
+
+	public static IProject getProjectOrThrow(final Resource resource) {
+		return getProjectOrThrow(resource.getURI());
+	}
+
+	public static IProject getProjectOrThrow(final URI resourceUri) {
+		return getProject(resourceUri)
+				.orElseThrow(() -> new RuntimeException("Unable to receive project. URI: " + resourceUri));
 	}
 
 	public static IProject getProjectForBoOrThrow(final Object bo) {
-		return getResource(bo).flatMap(r -> Optional.ofNullable(r.getURI())).flatMap(SelectionUtil::getProject).orElseThrow(() -> new RuntimeException("Unable to get project for business object: " + bo));
+		return getResource(bo).flatMap(r -> Optional.ofNullable(r.getURI())).flatMap(ProjectUtil::getProject)
+				.orElseThrow(() -> new RuntimeException("Unable to get project for business object: " + bo));
 	}
 
 	public static Optional<IProject> getProjectForBo(final Object bo) {
-		return getResource(bo).flatMap(r -> Optional.ofNullable(r.getURI())).flatMap(SelectionUtil::getProject);
+		return getResource(bo).flatMap(r -> Optional.ofNullable(r.getURI())).flatMap(ProjectUtil::getProject);
 	}
 
 	private static Optional<Resource> getResource(final Object bo) {

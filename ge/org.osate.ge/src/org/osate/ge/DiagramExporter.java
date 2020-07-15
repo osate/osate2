@@ -83,7 +83,7 @@ public class DiagramExporter {
 		// Image container bounds
 		final ContainerBounds containerBounds = new ContainerBounds();
 		final URI uri = URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
-		final IProject project = ProjectUtil.getProject(uri);
+		final IProject project = ProjectUtil.getProjectOrNull(uri);
 
 		// Create diagram
 		final org.osate.ge.diagram.Diagram mmDiagram = DiagramSerialization.readMetaModelDiagram(uri);
