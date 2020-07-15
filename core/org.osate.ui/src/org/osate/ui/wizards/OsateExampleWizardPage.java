@@ -130,15 +130,12 @@ public class OsateExampleWizardPage extends WizardPage {
 
 	@Override
 	public void performHelp() {
-//		super.setHelpAvailable(true);
 		PlatformUI.getWorkbench().getHelpSystem().setHelp(getShell(), "org.osate.ui.help_dialog");
 	}
 
 	@Override
 	public void createControl(Composite parent) {
 		try {
-			// PlatformUI.getWorkbench().getHelpSystem().displayHelp("org.osate.ui.help_dialog");
-
 			Composite panelChoice = new Composite(parent, SWT.NONE);
 
 			FillLayout fillLayout = new FillLayout();
@@ -212,10 +209,9 @@ public class OsateExampleWizardPage extends WizardPage {
 							PluginInfo project = new PluginInfo(
 									org.eclipse.core.runtime.FileLocator
 											.toFileURL(bundle.getEntry(configElems[j].getAttribute(ATT_EXAMPLEURI))),
-									org.eclipse.core.runtime.FileLocator.toFileURL(bundle.getEntry("/"
-											+ configElems[j].getAttribute(ATT_EXAMPLEURI) + "/"
-											+ configElems[j].getAttribute(
-													ATT_READMEURI))),
+									org.eclipse.core.runtime.FileLocator.toFileURL(
+											bundle.getEntry(combine(configElems[j].getAttribute(ATT_EXAMPLEURI),
+													configElems[j].getAttribute(ATT_READMEURI)))),
 									configElems[j].getAttribute(ATT_NAME), configElems[j].getAttribute(ATT_CATEGORY));
 
 							if (project != null && project.name != null && project.exampleURI != null) {
@@ -320,5 +316,11 @@ public class OsateExampleWizardPage extends WizardPage {
 		treeComposite.setLayout(treeLayout);
 
 		return new TreeViewer(tree);
+	}
+
+	public static String combine(String path1, String path2) {
+		File file1 = new File(path1);
+		File file2 = new File(file1, path2);
+		return file2.getPath();
 	}
 }
