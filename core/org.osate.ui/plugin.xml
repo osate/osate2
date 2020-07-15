@@ -25,32 +25,6 @@ censes only apply to the Third Party Software and not any other portion of this 
 <?eclipse version="3.0"?>
 <plugin>
    <extension-point id="example" name="Examples" schema="schema/example.exsd"/>
-	<extension point="org.osate.ui.example">
-	 	<example
-	 			exampleURI="examples/ARINC653"
-	            readmeURI="readme.html"
-	            category="Basic Examples"
-	        	name="ARINC653">
-	        		<project path="test1"/>
-	        		<project path="test2"/>
-	        	</example>
-	    <example
-	    		exampleURI="examples/aircraft-example"
-	            readmeURI="readme.html"
-	            category="Basic Examples"
-	        	name="aircraft example">
-	        		<project path="test1"/>
-	        		<project path="test2"/>
-	        	</example>
-		<example
-	      		exampleURI="examples/ARP4761"
-	            readmeURI="readme.html"
-	            category="Flow Analysis Examples"
-	        	name="ARP4761">
-	        		<project path="test1"/>
-	        		<project path="test2"/>
-	        	</example>
-	</extension>
 
    <extension
          point="org.eclipse.ui.preferencePages">
