@@ -26,19 +26,12 @@ package org.osate.ge.internal.ui.util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Adapters;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
@@ -285,24 +278,5 @@ public class SelectionUtil {
 
 					return targetElement;
 				});
-	}
-
-	public static IProject getProjectOrThrow(final Resource resource) {
-		return getProjectOrThrow(resource.getURI());
-	}
-
-	public static IProject getProjectOrThrow(final URI resourceUri) {
-		return getProject(resourceUri).orElseThrow(() -> new RuntimeException(
-				"Unable to receive project. URI: " + resourceUri));
-	}
-
-	public static Optional<IProject> getProject(final URI resourceUri) {
-		final IPath projectPath = new Path(resourceUri.toPlatformString(true)).uptoSegment(1);
-		final IResource projectResource = ResourcesPlugin.getWorkspace().getRoot().findMember(projectPath);
-		if(projectResource instanceof IProject) {
-			return Optional.of((IProject) projectResource);
-		}
-
-		return Optional.empty();
 	}
 }

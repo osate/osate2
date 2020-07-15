@@ -156,7 +156,7 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature {
 		if (RenameUtil.supportsNonLtkRename(handler)) {
 			final CanonicalBusinessObjectReference canonicalRef = referenceBuilderService
 					.getCanonicalReference(bo);
-			final IProject project = ProjectUtil.getProject(EcoreUtil.getURI(bo));
+			final IProject project = ProjectUtil.getProjectOrNull(EcoreUtil.getURI(bo));
 			final ReferenceCollection references;
 			if (canonicalRef == null || project == null) {
 				references = null;

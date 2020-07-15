@@ -139,7 +139,7 @@ public class AgeRenameParticipant extends RenameParticipant {
 		// Get the provider for the refactoring resource set
 		final RefactoringResourceSetProvider refactoringResourceSetProvider = xtextResource.getResourceServiceProvider()
 				.get(RefactoringResourceSetProvider.class);
-		project = ProjectUtil.getProject(targetElementUri);
+		project = ProjectUtil.getProjectOrNull(targetElementUri);
 		if (project == null) {
 			return false;
 		}
