@@ -43,18 +43,13 @@ public class OsateExampleWizard extends BasicNewResourceWizard {
 	public void addPages() {
 		super.addPages();
 		mainPage = new OsateExampleWizardPage("wizardOsateExamplePage"); //$NON-NLS-1$
-		mainPage.setTitle("Aadl Project"); //$NON-NLS-1$
-		mainPage.setDescription("Create a new Aadl project resource."); //$NON-NLS-1$
+		mainPage.setTitle("Import AADL Example Project"); //$NON-NLS-1$
+		mainPage.setDescription("Import an Example Project into your workspace."); //$NON-NLS-1$
 		addPage(mainPage);
-		// PlatformUI.getWorkbench().getHelpSystem().setHelp(getShell(), "org.osate.ui.help_dialog");
-//		PlatformUI.getWorkbench().getHelpSystem().displayHelp("org.osate.ui.help_dialog");
 	}
 
 	@Override
 	public boolean performFinish() {
-//		final HelpDialog d = new HelpDialog(getShell());
-//		Display.getDefault().syncExec(() -> d.open());
-
 		if (mainPage != null) {
 			PluginInfo selected = mainPage.getSelectedProject();
 			if (selected != null) {
