@@ -461,7 +461,7 @@ Clicking a segment or in mode element in the tool dialog allows for inserting, r
 
 ![](../images/FlowToolEdit.png)
 
-Selecting a qualified element on the diagram or *Outline* view will add the element to the flow's segments or in modes.
+Selecting an appropriate element on the diagram or *Outline* view will add the element to the flow's segments or in modes.
 
 ### Deleting
 Flow implementations and end-to-end flows can be deleted by selecting a flow from the flow drop-down in the toolbar and selecting the *Delete* button ![](../images/FlowToolbarDelete.png).
