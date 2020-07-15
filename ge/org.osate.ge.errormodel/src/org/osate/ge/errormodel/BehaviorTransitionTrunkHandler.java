@@ -105,8 +105,6 @@ public class BehaviorTransitionTrunkHandler implements BusinessObjectHandler, Cu
 
 	@Override
 	public void delete(final CustomDeleteContext ctx) {
-		ctx.getContainerBusinessObject(ErrorBehaviorTransition.class).ifPresent(transition -> {
-			EcoreUtil.delete(transition);
-		});
+		ctx.getContainerBusinessObject(ErrorBehaviorTransition.class).ifPresent(EcoreUtil::delete);
 	}
 }

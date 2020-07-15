@@ -242,7 +242,8 @@ public class CreateAadlConnectionPaletteCommand extends BasePaletteCommand imple
 				break;
 			} else if (tmp.getBusinessObject() instanceof Subcomponent) {
 				if (pathIncludesSubcomponent) {
-					break;
+					// If two subcomponents are encountered then the element is nested and is inaccessible.
+					return null;
 				}
 
 				pathIncludesSubcomponent = true;

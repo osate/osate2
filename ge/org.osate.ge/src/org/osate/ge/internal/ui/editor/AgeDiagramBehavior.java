@@ -738,7 +738,6 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	protected void unregisterDiagramResourceSetListener() {
 		// Do not call super method. This diagram behavior has a custom diagram change listener.
 		if (diagramChangeListener != null) {
-			// diagramChangeListener.stopListening();
 			final TransactionalEditingDomain editingDomain = getEditingDomain();
 			if (editingDomain != null) {
 				editingDomain.removeResourceSetListener(diagramChangeListener);
