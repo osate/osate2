@@ -1,31 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <extension point="org.eclipse.ui.newWizards">     
-    <category
-        id="org.osate.examples.category"
-        name="OSATE Examples"
-        parentCategory="org.eclipse.ui.Examples">
-    </category>
-    
-    <wizard category="org.eclipse.ui.Examples/org.osate.examples.category"
-            class="org.eclipse.emf.common.ui.wizard.ExampleInstallerWizard"
-            icon="icons/aadl.gif"
-            id="org.osate.examples.EMV2Examples"
-            name="EMV2 Examples"
-            project="true">
-      <description>A collection of EMV2 examples</description>
-    </wizard>        
-   </extension>
-   
-  <extension point="org.eclipse.emf.common.ui.examples">
-  	<example wizardID="org.osate.examples.EMV2Examples">
-      <projectDescriptor name="ARP4761"
-                         contentURI="examples/ARP4761/"
-                         description="ARP4761 example"/>
-      <projectDescriptor name="Stepper motor"
-                         contentURI="examples/StepperMotor/"
-                         description="Stepper Motor example"/>
-  	</example>
-  </extension>
+  	<extension point="org.osate.ui.example">
+	 	<example
+	 			exampleURI="examples/resource-budget"
+	            readmeURI="doc/html/readme.html"
+	            category="Basic Examples"
+	        	name="Resource Budget">
+	        		<project path=""/>
+	        	</example>
+	    <example
+	    		exampleURI="examples/speed-regulation"
+	            readmeURI="doc/html/readme.html"
+	            category="Basic Examples"
+	        	name="speed regulation">
+	        		<project path=""/>
+	        	</example>
+		<example
+	      		exampleURI="examples/arp4761"
+	            readmeURI="doc/html/readme.html"
+	            category="Flow Analysis Examples"
+	        	name="ARP4761">
+	        		<project path=""/>
+	        	</example>
+	</extension>
 </plugin>
