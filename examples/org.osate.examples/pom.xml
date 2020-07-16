@@ -18,6 +18,8 @@
 	
 	<modules>
 		<module>examples\arp4761</module>
+		<module>examples\resource-budget</module>
+		<module>examples\speed-regulation</module>
 	</modules>
 	
 </project>
