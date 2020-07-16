@@ -36,7 +36,7 @@ import org.osate.ui.OsateUiPlugin;
 import org.osgi.framework.Bundle;
 
 /**
- * @since 4.0
+ * @since 5.0
  */
 public class OsateExampleWizardPage extends WizardPage {
 	public OsateExampleWizardPage(String pageName) {

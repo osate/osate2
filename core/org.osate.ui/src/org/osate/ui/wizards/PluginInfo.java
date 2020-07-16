@@ -10,7 +10,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
 
 /**
- * @since 4.0
+ * @since 5.0
  */
 public class PluginInfo {
 	public PluginInfo() {
