@@ -49,6 +49,7 @@ class RealNoUnitsTest {
 			
 			import org.osate.aadl2.Aadl2Package;
 			import org.osate.aadl2.ListValue;
+			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.Property;
 			import org.osate.aadl2.PropertyExpression;
@@ -59,11 +60,19 @@ class RealNoUnitsTest {
 			
 			public class RealNoUnitsTest {
 				public static OptionalDouble getOwnedReal(NamedElement lookupContext) {
+					return getOwnedReal(lookupContext, Optional.empty());
+				}
+				
+				public static OptionalDouble getOwnedReal(NamedElement lookupContext, Mode mode) {
+					return getOwnedReal(lookupContext, Optional.of(mode));
+				}
+				
+				public static OptionalDouble getOwnedReal(NamedElement lookupContext, Optional<Mode> mode) {
 					String name = "real_no_units_test::owned_real";
 					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
-						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return OptionalDouble.of(((RealLiteral) resolved).getValue());
 					} catch (PropertyNotPresentException e) {
 						return OptionalDouble.empty();
@@ -77,11 +86,19 @@ class RealNoUnitsTest {
 				}
 				
 				public static OptionalDouble getReferencedRealLocal(NamedElement lookupContext) {
+					return getReferencedRealLocal(lookupContext, Optional.empty());
+				}
+				
+				public static OptionalDouble getReferencedRealLocal(NamedElement lookupContext, Mode mode) {
+					return getReferencedRealLocal(lookupContext, Optional.of(mode));
+				}
+				
+				public static OptionalDouble getReferencedRealLocal(NamedElement lookupContext, Optional<Mode> mode) {
 					String name = "real_no_units_test::referenced_real_local";
 					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
-						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return OptionalDouble.of(((RealLiteral) resolved).getValue());
 					} catch (PropertyNotPresentException e) {
 						return OptionalDouble.empty();
@@ -95,11 +112,19 @@ class RealNoUnitsTest {
 				}
 				
 				public static OptionalDouble getReferencedRealOther(NamedElement lookupContext) {
+					return getReferencedRealOther(lookupContext, Optional.empty());
+				}
+				
+				public static OptionalDouble getReferencedRealOther(NamedElement lookupContext, Mode mode) {
+					return getReferencedRealOther(lookupContext, Optional.of(mode));
+				}
+				
+				public static OptionalDouble getReferencedRealOther(NamedElement lookupContext, Optional<Mode> mode) {
 					String name = "real_no_units_test::referenced_real_other";
 					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
-						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return OptionalDouble.of(((RealLiteral) resolved).getValue());
 					} catch (PropertyNotPresentException e) {
 						return OptionalDouble.empty();
@@ -113,13 +138,21 @@ class RealNoUnitsTest {
 				}
 				
 				public static Optional<List<Double>> getList1Real(NamedElement lookupContext) {
+					return getList1Real(lookupContext, Optional.empty());
+				}
+				
+				public static Optional<List<Double>> getList1Real(NamedElement lookupContext, Mode mode) {
+					return getList1Real(lookupContext, Optional.of(mode));
+				}
+				
+				public static Optional<List<Double>> getList1Real(NamedElement lookupContext, Optional<Mode> mode) {
 					String name = "real_no_units_test::list_1_real";
 					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
-						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
-							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 							return ((RealLiteral) resolved1).getValue();
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
@@ -134,21 +167,29 @@ class RealNoUnitsTest {
 				}
 				
 				public static Optional<List<List<List<List<List<Double>>>>>> getList5Real(NamedElement lookupContext) {
+					return getList5Real(lookupContext, Optional.empty());
+				}
+				
+				public static Optional<List<List<List<List<List<Double>>>>>> getList5Real(NamedElement lookupContext, Mode mode) {
+					return getList5Real(lookupContext, Optional.of(mode));
+				}
+				
+				public static Optional<List<List<List<List<List<Double>>>>>> getList5Real(NamedElement lookupContext, Optional<Mode> mode) {
 					String name = "real_no_units_test::list_5_real";
 					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
-						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
-							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 							return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
-								PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2, lookupContext);
+								PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2, lookupContext, mode);
 								return ((ListValue) resolved2).getOwnedListElements().stream().map(element3 -> {
-									PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3, lookupContext);
+									PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3, lookupContext, mode);
 									return ((ListValue) resolved3).getOwnedListElements().stream().map(element4 -> {
-										PropertyExpression resolved4 = CodeGenUtil.resolveNamedValue(element4, lookupContext);
+										PropertyExpression resolved4 = CodeGenUtil.resolveNamedValue(element4, lookupContext, mode);
 										return ((ListValue) resolved4).getOwnedListElements().stream().map(element5 -> {
-											PropertyExpression resolved5 = CodeGenUtil.resolveNamedValue(element5, lookupContext);
+											PropertyExpression resolved5 = CodeGenUtil.resolveNamedValue(element5, lookupContext, mode);
 											return ((RealLiteral) resolved5).getValue();
 										}).collect(Collectors.toList());
 									}).collect(Collectors.toList());

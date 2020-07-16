@@ -48,6 +48,7 @@ class StringTest {
 			
 			import org.osate.aadl2.Aadl2Package;
 			import org.osate.aadl2.ListValue;
+			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.Property;
 			import org.osate.aadl2.PropertyExpression;
@@ -58,11 +59,19 @@ class StringTest {
 			
 			public class StringTest {
 				public static Optional<String> getOwnedString(NamedElement lookupContext) {
+					return getOwnedString(lookupContext, Optional.empty());
+				}
+				
+				public static Optional<String> getOwnedString(NamedElement lookupContext, Mode mode) {
+					return getOwnedString(lookupContext, Optional.of(mode));
+				}
+				
+				public static Optional<String> getOwnedString(NamedElement lookupContext, Optional<Mode> mode) {
 					String name = "string_test::owned_string";
 					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
-						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return Optional.of(((StringLiteral) resolved).getValue());
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
@@ -76,11 +85,19 @@ class StringTest {
 				}
 				
 				public static Optional<String> getReferencedStringLocal(NamedElement lookupContext) {
+					return getReferencedStringLocal(lookupContext, Optional.empty());
+				}
+				
+				public static Optional<String> getReferencedStringLocal(NamedElement lookupContext, Mode mode) {
+					return getReferencedStringLocal(lookupContext, Optional.of(mode));
+				}
+				
+				public static Optional<String> getReferencedStringLocal(NamedElement lookupContext, Optional<Mode> mode) {
 					String name = "string_test::referenced_string_local";
 					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
-						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return Optional.of(((StringLiteral) resolved).getValue());
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
@@ -94,11 +111,19 @@ class StringTest {
 				}
 				
 				public static Optional<String> getReferencedStringOther(NamedElement lookupContext) {
+					return getReferencedStringOther(lookupContext, Optional.empty());
+				}
+				
+				public static Optional<String> getReferencedStringOther(NamedElement lookupContext, Mode mode) {
+					return getReferencedStringOther(lookupContext, Optional.of(mode));
+				}
+				
+				public static Optional<String> getReferencedStringOther(NamedElement lookupContext, Optional<Mode> mode) {
 					String name = "string_test::referenced_string_other";
 					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
-						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return Optional.of(((StringLiteral) resolved).getValue());
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
@@ -112,13 +137,21 @@ class StringTest {
 				}
 				
 				public static Optional<List<String>> getList1String(NamedElement lookupContext) {
+					return getList1String(lookupContext, Optional.empty());
+				}
+				
+				public static Optional<List<String>> getList1String(NamedElement lookupContext, Mode mode) {
+					return getList1String(lookupContext, Optional.of(mode));
+				}
+				
+				public static Optional<List<String>> getList1String(NamedElement lookupContext, Optional<Mode> mode) {
 					String name = "string_test::list_1_string";
 					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
-						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
-							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 							return ((StringLiteral) resolved1).getValue();
 						}).collect(Collectors.toList()));
 					} catch (PropertyNotPresentException e) {
@@ -133,21 +166,29 @@ class StringTest {
 				}
 				
 				public static Optional<List<List<List<List<List<String>>>>>> getList5String(NamedElement lookupContext) {
+					return getList5String(lookupContext, Optional.empty());
+				}
+				
+				public static Optional<List<List<List<List<List<String>>>>>> getList5String(NamedElement lookupContext, Mode mode) {
+					return getList5String(lookupContext, Optional.of(mode));
+				}
+				
+				public static Optional<List<List<List<List<List<String>>>>>> getList5String(NamedElement lookupContext, Optional<Mode> mode) {
 					String name = "string_test::list_5_string";
 					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
-						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
-							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 							return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
-								PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2, lookupContext);
+								PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2, lookupContext, mode);
 								return ((ListValue) resolved2).getOwnedListElements().stream().map(element3 -> {
-									PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3, lookupContext);
+									PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3, lookupContext, mode);
 									return ((ListValue) resolved3).getOwnedListElements().stream().map(element4 -> {
-										PropertyExpression resolved4 = CodeGenUtil.resolveNamedValue(element4, lookupContext);
+										PropertyExpression resolved4 = CodeGenUtil.resolveNamedValue(element4, lookupContext, mode);
 										return ((ListValue) resolved4).getOwnedListElements().stream().map(element5 -> {
-											PropertyExpression resolved5 = CodeGenUtil.resolveNamedValue(element5, lookupContext);
+											PropertyExpression resolved5 = CodeGenUtil.resolveNamedValue(element5, lookupContext, mode);
 											return ((StringLiteral) resolved5).getValue();
 										}).collect(Collectors.toList());
 									}).collect(Collectors.toList());
