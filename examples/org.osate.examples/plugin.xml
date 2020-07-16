@@ -3,25 +3,25 @@
 <plugin>
   	<extension point="org.osate.ui.example">
 	 	<example
-	 			exampleURI="examples/resource-budget"
+	 			exampleURI="/examples/resource-budget"
 	            readmeURI="doc/html/readme.html"
 	            category="Basic Examples"
 	        	name="Resource Budget">
 	        		<project path=""/>
-	        	</example>
+	    </example>
 	    <example
-	    		exampleURI="examples/speed-regulation"
+	    		exampleURI="/examples/speed-regulation"
 	            readmeURI="doc/html/readme.html"
 	            category="Basic Examples"
-	        	name="speed regulation">
+	        	name="Speed Regulation">
 	        		<project path=""/>
-	        	</example>
+	    </example>
 		<example
-	      		exampleURI="examples/arp4761"
+	      		exampleURI="/examples/arp4761"
 	            readmeURI="doc/html/readme.html"
 	            category="Flow Analysis Examples"
 	        	name="ARP4761">
 	        		<project path=""/>
-	        	</example>
+	    </example>
 	</extension>
 </plugin>

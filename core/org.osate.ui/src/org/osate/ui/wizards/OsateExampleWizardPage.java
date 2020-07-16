@@ -49,6 +49,7 @@ public class OsateExampleWizardPage extends WizardPage {
 		setDescription("Examples Wizard");
 	}
 
+	private static final String PLUGIN_ID = "org.osate.examples";
 	private static final String ATT_NODE = "example";
 	private static final String ATT_NAME = "name";
 	private static final String ATT_EXAMPLEURI = "exampleURI";
@@ -204,7 +205,7 @@ public class OsateExampleWizardPage extends WizardPage {
 
 					if (configElems != null) {
 						for (int j = 0; j < configElems.length; j++) {
-							Bundle bundle = Platform.getBundle(OsateUiPlugin.PLUGIN_ID);
+							Bundle bundle = Platform.getBundle(PLUGIN_ID);
 
 							PluginInfo project = new PluginInfo(
 									org.eclipse.core.runtime.FileLocator
