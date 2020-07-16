@@ -203,9 +203,9 @@ public class OsateExampleWizardPage extends WizardPage {
 				for (int i = 0; i < exts.length; i++) {
 					IConfigurationElement[] configElems = exts[i].getConfigurationElements();
 
-					if (configElems != null) {
+					if (configElems != null && exts[i].getContributor() != null) {
+						Bundle bundle = Platform.getBundle(exts[i].getContributor().getName());
 						for (int j = 0; j < configElems.length; j++) {
-							Bundle bundle = Platform.getBundle(PLUGIN_ID);
 
 							PluginInfo project = new PluginInfo(
 									org.eclipse.core.runtime.FileLocator
