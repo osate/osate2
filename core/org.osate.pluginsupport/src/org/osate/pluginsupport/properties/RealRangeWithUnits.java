@@ -5,6 +5,7 @@ import static org.osate.pluginsupport.properties.CodeGenUtil.resolveNamedValue;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RangeValue;
@@ -17,11 +18,12 @@ public class RealRangeWithUnits<U extends Enum<U> & GeneratedUnits> {
 	private final RealWithUnits<U> maximum;
 	private final Optional<RealWithUnits<U>> delta;
 
-	public RealRangeWithUnits(PropertyExpression propertyExpression, Class<U> unitsType, NamedElement lookupContext) {
+	public RealRangeWithUnits(PropertyExpression propertyExpression, Class<U> unitsType, NamedElement lookupContext,
+			Optional<Mode> mode) {
 		RangeValue rangeValue = (RangeValue) propertyExpression;
-		minimum = new RealWithUnits<>(resolveNamedValue(rangeValue.getMinimum(), lookupContext), unitsType);
-		maximum = new RealWithUnits<>(resolveNamedValue(rangeValue.getMaximum(), lookupContext), unitsType);
-		delta = Optional.ofNullable(resolveNamedValue(rangeValue.getDelta(), lookupContext))
+		minimum = new RealWithUnits<>(resolveNamedValue(rangeValue.getMinimum(), lookupContext, mode), unitsType);
+		maximum = new RealWithUnits<>(resolveNamedValue(rangeValue.getMaximum(), lookupContext, mode), unitsType);
+		delta = Optional.ofNullable(resolveNamedValue(rangeValue.getDelta(), lookupContext, mode))
 				.map(it -> new RealWithUnits<>(it, unitsType));
 	}
 

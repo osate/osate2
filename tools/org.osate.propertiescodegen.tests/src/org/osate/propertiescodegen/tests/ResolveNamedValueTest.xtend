@@ -63,6 +63,7 @@ class ResolveNamedValueTest {
 			import org.osate.aadl2.Aadl2Package;
 			import org.osate.aadl2.IntegerLiteral;
 			import org.osate.aadl2.ListValue;
+			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.Property;
 			import org.osate.aadl2.PropertyExpression;
@@ -76,11 +77,19 @@ class ResolveNamedValueTest {
 			
 			public class ResolveNamedValueTest {
 				public static OptionalLong getIntDef1(NamedElement lookupContext) {
+					return getIntDef1(lookupContext, Optional.empty());
+				}
+				
+				public static OptionalLong getIntDef1(NamedElement lookupContext, Mode mode) {
+					return getIntDef1(lookupContext, Optional.of(mode));
+				}
+				
+				public static OptionalLong getIntDef1(NamedElement lookupContext, Optional<Mode> mode) {
 					String name = "resolve_named_value_test::int_def_1";
 					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
-						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return OptionalLong.of(((IntegerLiteral) resolved).getValue());
 					} catch (PropertyNotPresentException e) {
 						return OptionalLong.empty();
@@ -94,11 +103,19 @@ class ResolveNamedValueTest {
 				}
 				
 				public static OptionalLong getIntDef2(NamedElement lookupContext) {
+					return getIntDef2(lookupContext, Optional.empty());
+				}
+				
+				public static OptionalLong getIntDef2(NamedElement lookupContext, Mode mode) {
+					return getIntDef2(lookupContext, Optional.of(mode));
+				}
+				
+				public static OptionalLong getIntDef2(NamedElement lookupContext, Optional<Mode> mode) {
 					String name = "resolve_named_value_test::int_def_2";
 					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
-						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return OptionalLong.of(((IntegerLiteral) resolved).getValue());
 					} catch (PropertyNotPresentException e) {
 						return OptionalLong.empty();
@@ -112,17 +129,25 @@ class ResolveNamedValueTest {
 				}
 				
 				public static Optional<List<List<List<Long>>>> getList3IntDef(NamedElement lookupContext) {
+					return getList3IntDef(lookupContext, Optional.empty());
+				}
+				
+				public static Optional<List<List<List<Long>>>> getList3IntDef(NamedElement lookupContext, Mode mode) {
+					return getList3IntDef(lookupContext, Optional.of(mode));
+				}
+				
+				public static Optional<List<List<List<Long>>>> getList3IntDef(NamedElement lookupContext, Optional<Mode> mode) {
 					String name = "resolve_named_value_test::list_3_int_def";
 					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
-						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 						return Optional.of(((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
-							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+							PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 							return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
-								PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2, lookupContext);
+								PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2, lookupContext, mode);
 								return ((ListValue) resolved2).getOwnedListElements().stream().map(element3 -> {
-									PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3, lookupContext);
+									PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3, lookupContext, mode);
 									return ((IntegerLiteral) resolved3).getValue();
 								}).collect(Collectors.toList());
 							}).collect(Collectors.toList());
@@ -139,12 +164,20 @@ class ResolveNamedValueTest {
 				}
 				
 				public static Optional<IntegerRange> getIntRangeNoUnitsDef(NamedElement lookupContext) {
+					return getIntRangeNoUnitsDef(lookupContext, Optional.empty());
+				}
+				
+				public static Optional<IntegerRange> getIntRangeNoUnitsDef(NamedElement lookupContext, Mode mode) {
+					return getIntRangeNoUnitsDef(lookupContext, Optional.of(mode));
+				}
+				
+				public static Optional<IntegerRange> getIntRangeNoUnitsDef(NamedElement lookupContext, Optional<Mode> mode) {
 					String name = "resolve_named_value_test::int_range_no_units_def";
 					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
-						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
-						return Optional.of(new IntegerRange(resolved, lookupContext));
+						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+						return Optional.of(new IntegerRange(resolved, lookupContext, mode));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -157,12 +190,20 @@ class ResolveNamedValueTest {
 				}
 				
 				public static Optional<IntegerRangeWithUnits<Length>> getIntRangeWithUnitsDef(NamedElement lookupContext) {
+					return getIntRangeWithUnitsDef(lookupContext, Optional.empty());
+				}
+				
+				public static Optional<IntegerRangeWithUnits<Length>> getIntRangeWithUnitsDef(NamedElement lookupContext, Mode mode) {
+					return getIntRangeWithUnitsDef(lookupContext, Optional.of(mode));
+				}
+				
+				public static Optional<IntegerRangeWithUnits<Length>> getIntRangeWithUnitsDef(NamedElement lookupContext, Optional<Mode> mode) {
 					String name = "resolve_named_value_test::int_range_with_units_def";
 					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
-						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
-						return Optional.of(new IntegerRangeWithUnits<>(resolved, Length.class, lookupContext));
+						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+						return Optional.of(new IntegerRangeWithUnits<>(resolved, Length.class, lookupContext, mode));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -175,12 +216,20 @@ class ResolveNamedValueTest {
 				}
 				
 				public static Optional<RealRange> getRealRangeNoUnitsDef(NamedElement lookupContext) {
+					return getRealRangeNoUnitsDef(lookupContext, Optional.empty());
+				}
+				
+				public static Optional<RealRange> getRealRangeNoUnitsDef(NamedElement lookupContext, Mode mode) {
+					return getRealRangeNoUnitsDef(lookupContext, Optional.of(mode));
+				}
+				
+				public static Optional<RealRange> getRealRangeNoUnitsDef(NamedElement lookupContext, Optional<Mode> mode) {
 					String name = "resolve_named_value_test::real_range_no_units_def";
 					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
-						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
-						return Optional.of(new RealRange(resolved, lookupContext));
+						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+						return Optional.of(new RealRange(resolved, lookupContext, mode));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -193,12 +242,20 @@ class ResolveNamedValueTest {
 				}
 				
 				public static Optional<RealRangeWithUnits<Length>> getRealRangeWithUnitsDef(NamedElement lookupContext) {
+					return getRealRangeWithUnitsDef(lookupContext, Optional.empty());
+				}
+				
+				public static Optional<RealRangeWithUnits<Length>> getRealRangeWithUnitsDef(NamedElement lookupContext, Mode mode) {
+					return getRealRangeWithUnitsDef(lookupContext, Optional.of(mode));
+				}
+				
+				public static Optional<RealRangeWithUnits<Length>> getRealRangeWithUnitsDef(NamedElement lookupContext, Optional<Mode> mode) {
 					String name = "resolve_named_value_test::real_range_with_units_def";
 					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
-						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
-						return Optional.of(new RealRangeWithUnits<>(resolved, Length.class, lookupContext));
+						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+						return Optional.of(new RealRangeWithUnits<>(resolved, Length.class, lookupContext, mode));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -211,12 +268,20 @@ class ResolveNamedValueTest {
 				}
 				
 				public static Optional<RecordDef> getRecordDef(NamedElement lookupContext) {
+					return getRecordDef(lookupContext, Optional.empty());
+				}
+				
+				public static Optional<RecordDef> getRecordDef(NamedElement lookupContext, Mode mode) {
+					return getRecordDef(lookupContext, Optional.of(mode));
+				}
+				
+				public static Optional<RecordDef> getRecordDef(NamedElement lookupContext, Optional<Mode> mode) {
 					String name = "resolve_named_value_test::record_def";
 					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					try {
-						PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
-						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
-						return Optional.of(new RecordDef(resolved, lookupContext));
+						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+						return Optional.of(new RecordDef(resolved, lookupContext, mode));
 					} catch (PropertyNotPresentException e) {
 						return Optional.empty();
 					}
@@ -282,6 +347,7 @@ class ResolveNamedValueTest {
 			import org.osate.aadl2.BooleanLiteral;
 			import org.osate.aadl2.IntegerLiteral;
 			import org.osate.aadl2.ListValue;
+			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RealLiteral;
@@ -295,7 +361,7 @@ class ResolveNamedValueTest {
 				private final OptionalDouble realField;
 				private final Optional<List<List<List<Long>>>> list3IntField;
 				
-				public RecordDef(PropertyExpression propertyExpression, NamedElement lookupContext) {
+				public RecordDef(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					
 					Optional<Boolean> boolField_local;
@@ -304,7 +370,7 @@ class ResolveNamedValueTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("bool_field"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return ((BooleanLiteral) resolved).getValue();
 								})
 								.findAny();
@@ -319,7 +385,7 @@ class ResolveNamedValueTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("int_field"))
 								.mapToLong(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return ((IntegerLiteral) resolved).getValue();
 								})
 								.findAny();
@@ -334,7 +400,7 @@ class ResolveNamedValueTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("real_field"))
 								.mapToDouble(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return ((RealLiteral) resolved).getValue();
 								})
 								.findAny();
@@ -349,13 +415,13 @@ class ResolveNamedValueTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("list_3_int_field"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
-										PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext);
+										PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 										return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
-											PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2, lookupContext);
+											PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2, lookupContext, mode);
 											return ((ListValue) resolved2).getOwnedListElements().stream().map(element3 -> {
-												PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3, lookupContext);
+												PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3, lookupContext, mode);
 												return ((IntegerLiteral) resolved3).getValue();
 											}).collect(Collectors.toList());
 										}).collect(Collectors.toList());

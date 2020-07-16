@@ -3,9 +3,11 @@ package org.osate.pluginsupport.properties;
 import static org.osate.pluginsupport.properties.CodeGenUtil.resolveNamedValue;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.OptionalLong;
 
 import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RangeValue;
@@ -18,14 +20,14 @@ public class IntegerRange {
 	private final long maximum;
 	private final OptionalLong delta;
 
-	public IntegerRange(PropertyExpression propertyExpression, NamedElement lookupContext) {
+	public IntegerRange(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
 		RangeValue rangeValue = (RangeValue) propertyExpression;
-		minimum = ((IntegerLiteral) resolveNamedValue(rangeValue.getMinimum(), lookupContext)).getValue();
-		maximum = ((IntegerLiteral) resolveNamedValue(rangeValue.getMaximum(), lookupContext)).getValue();
+		minimum = ((IntegerLiteral) resolveNamedValue(rangeValue.getMinimum(), lookupContext, mode)).getValue();
+		maximum = ((IntegerLiteral) resolveNamedValue(rangeValue.getMaximum(), lookupContext, mode)).getValue();
 		if (rangeValue.getDelta() == null) {
 			delta = OptionalLong.empty();
 		} else {
-			PropertyExpression resolvedDelta = resolveNamedValue(rangeValue.getDelta(), lookupContext);
+			PropertyExpression resolvedDelta = resolveNamedValue(rangeValue.getDelta(), lookupContext, mode);
 			delta = OptionalLong.of(((IntegerLiteral) resolvedDelta).getValue());
 		}
 	}

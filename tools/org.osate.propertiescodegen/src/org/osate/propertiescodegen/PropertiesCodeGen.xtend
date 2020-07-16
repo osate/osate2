@@ -125,7 +125,9 @@ class PropertiesCodeGen {
 		val baseOptionalType = getBaseOptionalType(type)
 		
 		imports += #{
+			"java.util.Optional",
 			"org.osate.aadl2.Aadl2Package",
+			"org.osate.aadl2.Mode",
 			"org.osate.aadl2.NamedElement",
 			"org.osate.aadl2.Property",
 			"org.osate.aadl2.PropertyExpression",
@@ -134,20 +136,31 @@ class PropertiesCodeGen {
 			"org.osate.pluginsupport.properties.CodeGenUtil"
 		}
 		
+		val returnType = getGenericOptionalType(type)
+		val methodName = "get" + property.name.toCamelCase
+		
 		'''
-			public static «getGenericOptionalType(type)» get«property.name.toCamelCase»(NamedElement lookupContext) {
+			public static «returnType» «methodName»(NamedElement lookupContext) {
+				return «methodName»(lookupContext, Optional.empty());
+			}
+			
+			public static «returnType» «methodName»(NamedElement lookupContext, Mode mode) {
+				return «methodName»(lookupContext, Optional.of(mode));
+			}
+			
+			public static «returnType» «methodName»(NamedElement lookupContext, Optional<Mode> mode) {
 				String name = "«propertySet.name»::«property.name»";
 				Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				try {
-					PropertyExpression propertyExpression = lookupContext.getNonModalPropertyValue(property);
-					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(propertyExpression, lookupContext);
+					PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
 					return «baseOptionalType».of(«getValueExtractor(type, "resolved", 1)»);
 				} catch (PropertyNotPresentException e) {
 					return «baseOptionalType».empty();
 				}
 			}
 			
-			public static PropertyExpression get«property.name.toCamelCase»_EObject(NamedElement lookupContext) {
+			public static PropertyExpression «methodName»_EObject(NamedElement lookupContext) {
 				String name = "«propertySet.name»::«property.name»";
 				Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				return lookupContext.getNonModalPropertyValue(property);
@@ -291,7 +304,7 @@ class PropertiesCodeGen {
 				val resolvedName = "resolved" + listDepth
 				'''
 					((ListValue) «parameterName»).getOwnedListElements().stream().map(«nextParameterName» -> {
-						PropertyExpression «resolvedName» = CodeGenUtil.resolveNamedValue(«nextParameterName», lookupContext);
+						PropertyExpression «resolvedName» = CodeGenUtil.resolveNamedValue(«nextParameterName», lookupContext, mode);
 						return «getValueExtractor(type.elementType, resolvedName, listDepth + 1)»;
 					}).collect(Collectors.toList())'''
 			}
@@ -328,25 +341,25 @@ class PropertiesCodeGen {
 				switch numberType : type.numberType {
 					AadlInteger case numberType.unitsType === null: {
 						imports += "org.osate.pluginsupport.properties.IntegerRange"
-						'''new IntegerRange(«parameterName», lookupContext)'''
+						'''new IntegerRange(«parameterName», lookupContext, mode)'''
 					}
 					AadlInteger: {
 						imports += "org.osate.pluginsupport.properties.IntegerRangeWithUnits"
 						val unitsName = getUnitsJavaName(numberType.unitsType)
-						'''new IntegerRangeWithUnits<>(«parameterName», «unitsName».class, lookupContext)'''
+						'''new IntegerRangeWithUnits<>(«parameterName», «unitsName».class, lookupContext, mode)'''
 					}
 					AadlReal case numberType.unitsType === null: {
 						imports += "org.osate.pluginsupport.properties.RealRange"
-						'''new RealRange(«parameterName», lookupContext)'''
+						'''new RealRange(«parameterName», lookupContext, mode)'''
 					}
 					AadlReal: {
 						imports += "org.osate.pluginsupport.properties.RealRangeWithUnits"
 						val unitsName = getUnitsJavaName(numberType.unitsType)
-						'''new RealRangeWithUnits<>(«parameterName», «unitsName».class, lookupContext)'''
+						'''new RealRangeWithUnits<>(«parameterName», «unitsName».class, lookupContext, mode)'''
 					}
 				}
 			}
-			RecordType: '''new «getJavaName(type)»(«parameterName», lookupContext)'''
+			RecordType: '''new «getJavaName(type)»(«parameterName», lookupContext, mode)'''
 			ReferenceType: {
 				imports += "org.osate.aadl2.instance.InstanceReferenceValue"
 				'''((InstanceReferenceValue) «parameterName»).getReferencedInstanceObject()'''
@@ -448,6 +461,8 @@ class PropertiesCodeGen {
 	def private String generateRecord(String typeName, RecordType recordType, boolean topLevel) {
 		imports += #{
 			"java.util.Objects",
+			"java.util.Optional",
+			"org.osate.aadl2.Mode",
 			"org.osate.aadl2.NamedElement",
 			"org.osate.aadl2.PropertyExpression",
 			"org.osate.aadl2.RecordValue",
@@ -459,7 +474,7 @@ class PropertiesCodeGen {
 				private final «getGenericOptionalType(field.propertyType)» «field.name.toCamelCase.toFirstLower»;
 				«ENDFOR»
 				
-				public «typeName»(PropertyExpression propertyExpression, NamedElement lookupContext) {
+				public «typeName»(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					«FOR field : recordType.ownedFields»
 					
@@ -551,7 +566,7 @@ class PropertiesCodeGen {
 		}
 		'''
 			.«mapMethod»(field -> {
-				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 				return «getValueExtractor(propertyType, "resolved", 1)»;
 			})
 		'''

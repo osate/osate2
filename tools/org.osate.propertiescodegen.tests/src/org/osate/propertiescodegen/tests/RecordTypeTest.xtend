@@ -220,6 +220,7 @@ class RecordTypeTest {
 			import org.osate.aadl2.ClassifierValue;
 			import org.osate.aadl2.EnumerationLiteral;
 			import org.osate.aadl2.IntegerLiteral;
+			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
@@ -275,7 +276,7 @@ class RecordTypeTest {
 				private final Optional<BasicRecord> referencedRecordWithImport;
 				private final Optional<InstanceObject> referencedReference;
 				
-				public RecordType1(PropertyExpression propertyExpression, NamedElement lookupContext) {
+				public RecordType1(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					
 					Optional<Boolean> ownedBoolean_local;
@@ -284,7 +285,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("owned_boolean"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return ((BooleanLiteral) resolved).getValue();
 								})
 								.findAny();
@@ -299,7 +300,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("owned_string"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return ((StringLiteral) resolved).getValue();
 								})
 								.findAny();
@@ -314,7 +315,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("owned_classifier"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return ((ClassifierValue) resolved).getClassifier();
 								})
 								.findAny();
@@ -329,7 +330,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("owned_enumeration"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return OwnedEnumeration_FieldType.valueOf(resolved);
 								})
 								.findAny();
@@ -344,7 +345,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("owned_units"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return OwnedUnits_FieldType.valueOf(resolved);
 								})
 								.findAny();
@@ -359,7 +360,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("owned_integer_no_units"))
 								.mapToLong(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return ((IntegerLiteral) resolved).getValue();
 								})
 								.findAny();
@@ -374,7 +375,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("owned_real_no_units"))
 								.mapToDouble(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return ((RealLiteral) resolved).getValue();
 								})
 								.findAny();
@@ -389,7 +390,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("owned_number_with_units_no_import"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return new IntegerWithUnits<>(resolved, Time.class);
 								})
 								.findAny();
@@ -404,7 +405,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("owned_number_with_units_with_import"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return new IntegerWithUnits<>(resolved, Mass.class);
 								})
 								.findAny();
@@ -419,8 +420,8 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("owned_range_no_import"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-									return new IntegerRangeWithUnits<>(resolved, Mass.class, lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+									return new IntegerRangeWithUnits<>(resolved, Mass.class, lookupContext, mode);
 								})
 								.findAny();
 					} catch (PropertyNotPresentException e) {
@@ -434,8 +435,8 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("owned_range_import_number"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-									return new RealRangeWithUnits<>(resolved, Mass.class, lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+									return new RealRangeWithUnits<>(resolved, Mass.class, lookupContext, mode);
 								})
 								.findAny();
 					} catch (PropertyNotPresentException e) {
@@ -449,8 +450,8 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("owned_range_import_units"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-									return new IntegerRangeWithUnits<>(resolved, Mass.class, lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+									return new IntegerRangeWithUnits<>(resolved, Mass.class, lookupContext, mode);
 								})
 								.findAny();
 					} catch (PropertyNotPresentException e) {
@@ -464,8 +465,8 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("owned_record"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-									return new OwnedRecord_FieldType(resolved, lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+									return new OwnedRecord_FieldType(resolved, lookupContext, mode);
 								})
 								.findAny();
 					} catch (PropertyNotPresentException e) {
@@ -479,7 +480,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("owned_reference"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return ((InstanceReferenceValue) resolved).getReferencedInstanceObject();
 								})
 								.findAny();
@@ -494,7 +495,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("referenced_boolean"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return ((BooleanLiteral) resolved).getValue();
 								})
 								.findAny();
@@ -509,7 +510,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("referenced_string"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return ((StringLiteral) resolved).getValue();
 								})
 								.findAny();
@@ -524,7 +525,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("referenced_classifier"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return ((ClassifierValue) resolved).getClassifier();
 								})
 								.findAny();
@@ -539,7 +540,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("referenced_enumeration_no_import"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return EnumType1.valueOf(resolved);
 								})
 								.findAny();
@@ -554,7 +555,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("referenced_enumeration_with_import"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return Color.valueOf(resolved);
 								})
 								.findAny();
@@ -569,7 +570,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("referenced_units_no_import"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return Time.valueOf(resolved);
 								})
 								.findAny();
@@ -584,7 +585,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("referenced_units_with_import"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return Mass.valueOf(resolved);
 								})
 								.findAny();
@@ -599,7 +600,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("referenced_integer_no_units"))
 								.mapToLong(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return ((IntegerLiteral) resolved).getValue();
 								})
 								.findAny();
@@ -614,7 +615,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("referenced_real_no_units"))
 								.mapToDouble(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return ((RealLiteral) resolved).getValue();
 								})
 								.findAny();
@@ -629,7 +630,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("referenced_number_with_units_no_import"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return new IntegerWithUnits<>(resolved, IntegerOwnedUnits.class);
 								})
 								.findAny();
@@ -644,7 +645,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("referenced_number_with_units_with_import"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return new RealWithUnits<>(resolved, Mass.class);
 								})
 								.findAny();
@@ -659,8 +660,8 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("referenced_range_no_import"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-									return new IntegerRange(resolved, lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+									return new IntegerRange(resolved, lookupContext, mode);
 								})
 								.findAny();
 					} catch (PropertyNotPresentException e) {
@@ -674,8 +675,8 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("referenced_range_with_import"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-									return new RealRange(resolved, lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+									return new RealRange(resolved, lookupContext, mode);
 								})
 								.findAny();
 					} catch (PropertyNotPresentException e) {
@@ -689,8 +690,8 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("referenced_record_no_import"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-									return new RecordOfBoolean(resolved, lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+									return new RecordOfBoolean(resolved, lookupContext, mode);
 								})
 								.findAny();
 					} catch (PropertyNotPresentException e) {
@@ -704,8 +705,8 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("referenced_record_with_import"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-									return new BasicRecord(resolved, lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+									return new BasicRecord(resolved, lookupContext, mode);
 								})
 								.findAny();
 					} catch (PropertyNotPresentException e) {
@@ -719,7 +720,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("referenced_reference"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return ((InstanceReferenceValue) resolved).getReferencedInstanceObject();
 								})
 								.findAny();
@@ -1143,7 +1144,7 @@ class RecordTypeTest {
 					private final Optional<String> stringField;
 					private final OptionalLong integerField;
 					
-					public OwnedRecord_FieldType(PropertyExpression propertyExpression, NamedElement lookupContext) {
+					public OwnedRecord_FieldType(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
 						RecordValue recordValue = (RecordValue) propertyExpression;
 						
 						Optional<String> stringField_local;
@@ -1152,7 +1153,7 @@ class RecordTypeTest {
 									.stream()
 									.filter(field -> field.getProperty().getName().equals("string_field"))
 									.map(field -> {
-										PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+										PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 										return ((StringLiteral) resolved).getValue();
 									})
 									.findAny();
@@ -1167,7 +1168,7 @@ class RecordTypeTest {
 									.stream()
 									.filter(field -> field.getProperty().getName().equals("integer_field"))
 									.mapToLong(field -> {
-										PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+										PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 										return ((IntegerLiteral) resolved).getValue();
 									})
 									.findAny();
@@ -1233,6 +1234,7 @@ class RecordTypeTest {
 			import java.util.Optional;
 			
 			import org.osate.aadl2.BooleanLiteral;
+			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
@@ -1242,7 +1244,7 @@ class RecordTypeTest {
 			public class RecordOfBoolean {
 				private final Optional<Boolean> field;
 				
-				public RecordOfBoolean(PropertyExpression propertyExpression, NamedElement lookupContext) {
+				public RecordOfBoolean(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					
 					Optional<Boolean> field_local;
@@ -1251,7 +1253,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("field"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return ((BooleanLiteral) resolved).getValue();
 								})
 								.findAny();
@@ -1302,6 +1304,7 @@ class RecordTypeTest {
 			import java.util.Objects;
 			import java.util.Optional;
 			
+			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
@@ -1312,7 +1315,7 @@ class RecordTypeTest {
 			public class RecordOfString {
 				private final Optional<String> field;
 				
-				public RecordOfString(PropertyExpression propertyExpression, NamedElement lookupContext) {
+				public RecordOfString(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					
 					Optional<String> field_local;
@@ -1321,7 +1324,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("field"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return ((StringLiteral) resolved).getValue();
 								})
 								.findAny();
@@ -1374,6 +1377,7 @@ class RecordTypeTest {
 			
 			import org.osate.aadl2.Classifier;
 			import org.osate.aadl2.ClassifierValue;
+			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
@@ -1383,7 +1387,7 @@ class RecordTypeTest {
 			public class RecordOfClassifier {
 				private final Optional<Classifier> field;
 				
-				public RecordOfClassifier(PropertyExpression propertyExpression, NamedElement lookupContext) {
+				public RecordOfClassifier(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					
 					Optional<Classifier> field_local;
@@ -1392,7 +1396,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("field"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return ((ClassifierValue) resolved).getClassifier();
 								})
 								.findAny();
@@ -1445,6 +1449,7 @@ class RecordTypeTest {
 			
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.EnumerationLiteral;
+			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
@@ -1455,7 +1460,7 @@ class RecordTypeTest {
 			public class RecordOfEnum {
 				private final Optional<Field_FieldType> field;
 				
-				public RecordOfEnum(PropertyExpression propertyExpression, NamedElement lookupContext) {
+				public RecordOfEnum(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					
 					Optional<Field_FieldType> field_local;
@@ -1464,7 +1469,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("field"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return Field_FieldType.valueOf(resolved);
 								})
 								.findAny();
@@ -1538,6 +1543,7 @@ class RecordTypeTest {
 			import java.util.Optional;
 			
 			import org.osate.aadl2.AbstractNamedValue;
+			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
@@ -1550,7 +1556,7 @@ class RecordTypeTest {
 			public class RecordOfUnits {
 				private final Optional<Field_FieldType> field;
 				
-				public RecordOfUnits(PropertyExpression propertyExpression, NamedElement lookupContext) {
+				public RecordOfUnits(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					
 					Optional<Field_FieldType> field_local;
@@ -1559,7 +1565,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("field"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return Field_FieldType.valueOf(resolved);
 								})
 								.findAny();
@@ -1640,9 +1646,11 @@ class RecordTypeTest {
 			package ps1;
 			
 			import java.util.Objects;
+			import java.util.Optional;
 			import java.util.OptionalLong;
 			
 			import org.osate.aadl2.IntegerLiteral;
+			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
@@ -1652,7 +1660,7 @@ class RecordTypeTest {
 			public class RecordOfInteger {
 				private final OptionalLong field;
 				
-				public RecordOfInteger(PropertyExpression propertyExpression, NamedElement lookupContext) {
+				public RecordOfInteger(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					
 					OptionalLong field_local;
@@ -1661,7 +1669,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("field"))
 								.mapToLong(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return ((IntegerLiteral) resolved).getValue();
 								})
 								.findAny();
@@ -1710,8 +1718,10 @@ class RecordTypeTest {
 			package ps1;
 			
 			import java.util.Objects;
+			import java.util.Optional;
 			import java.util.OptionalDouble;
 			
+			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RealLiteral;
@@ -1722,7 +1732,7 @@ class RecordTypeTest {
 			public class RecordOfReal {
 				private final OptionalDouble field;
 				
-				public RecordOfReal(PropertyExpression propertyExpression, NamedElement lookupContext) {
+				public RecordOfReal(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					
 					OptionalDouble field_local;
@@ -1731,7 +1741,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("field"))
 								.mapToDouble(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return ((RealLiteral) resolved).getValue();
 								})
 								.findAny();
@@ -1782,6 +1792,7 @@ class RecordTypeTest {
 			import java.util.Objects;
 			import java.util.Optional;
 			
+			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
@@ -1793,7 +1804,7 @@ class RecordTypeTest {
 			public class RecordOfReference {
 				private final Optional<InstanceObject> field;
 				
-				public RecordOfReference(PropertyExpression propertyExpression, NamedElement lookupContext) {
+				public RecordOfReference(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					
 					Optional<InstanceObject> field_local;
@@ -1802,7 +1813,7 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("field"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 									return ((InstanceReferenceValue) resolved).getReferencedInstanceObject();
 								})
 								.findAny();
@@ -1855,6 +1866,7 @@ class RecordTypeTest {
 			import java.util.OptionalLong;
 			
 			import org.osate.aadl2.IntegerLiteral;
+			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.RecordValue;
@@ -1864,7 +1876,7 @@ class RecordTypeTest {
 			public class NestedRecord {
 				private final Optional<Field1_FieldType> field1;
 				
-				public NestedRecord(PropertyExpression propertyExpression, NamedElement lookupContext) {
+				public NestedRecord(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
 					
 					Optional<Field1_FieldType> field1_local;
@@ -1873,8 +1885,8 @@ class RecordTypeTest {
 								.stream()
 								.filter(field -> field.getProperty().getName().equals("field1"))
 								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-									return new Field1_FieldType(resolved, lookupContext);
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+									return new Field1_FieldType(resolved, lookupContext, mode);
 								})
 								.findAny();
 					} catch (PropertyNotPresentException e) {
@@ -1920,7 +1932,7 @@ class RecordTypeTest {
 				public static class Field1_FieldType {
 					private final Optional<Field2_FieldType> field2;
 					
-					public Field1_FieldType(PropertyExpression propertyExpression, NamedElement lookupContext) {
+					public Field1_FieldType(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
 						RecordValue recordValue = (RecordValue) propertyExpression;
 						
 						Optional<Field2_FieldType> field2_local;
@@ -1929,8 +1941,8 @@ class RecordTypeTest {
 									.stream()
 									.filter(field -> field.getProperty().getName().equals("field2"))
 									.map(field -> {
-										PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-										return new Field2_FieldType(resolved, lookupContext);
+										PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+										return new Field2_FieldType(resolved, lookupContext, mode);
 									})
 									.findAny();
 						} catch (PropertyNotPresentException e) {
@@ -1976,7 +1988,7 @@ class RecordTypeTest {
 					public static class Field2_FieldType {
 						private final Optional<Field3_FieldType> field3;
 						
-						public Field2_FieldType(PropertyExpression propertyExpression, NamedElement lookupContext) {
+						public Field2_FieldType(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
 							RecordValue recordValue = (RecordValue) propertyExpression;
 							
 							Optional<Field3_FieldType> field3_local;
@@ -1985,8 +1997,8 @@ class RecordTypeTest {
 										.stream()
 										.filter(field -> field.getProperty().getName().equals("field3"))
 										.map(field -> {
-											PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
-											return new Field3_FieldType(resolved, lookupContext);
+											PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+											return new Field3_FieldType(resolved, lookupContext, mode);
 										})
 										.findAny();
 							} catch (PropertyNotPresentException e) {
@@ -2032,7 +2044,7 @@ class RecordTypeTest {
 						public static class Field3_FieldType {
 							private final OptionalLong innerField;
 							
-							public Field3_FieldType(PropertyExpression propertyExpression, NamedElement lookupContext) {
+							public Field3_FieldType(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
 								RecordValue recordValue = (RecordValue) propertyExpression;
 								
 								OptionalLong innerField_local;
@@ -2041,7 +2053,7 @@ class RecordTypeTest {
 											.stream()
 											.filter(field -> field.getProperty().getName().equals("inner_field"))
 											.mapToLong(field -> {
-												PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext);
+												PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 												return ((IntegerLiteral) resolved).getValue();
 											})
 											.findAny();

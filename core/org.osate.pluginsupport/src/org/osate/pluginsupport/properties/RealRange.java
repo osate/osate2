@@ -3,8 +3,10 @@ package org.osate.pluginsupport.properties;
 import static org.osate.pluginsupport.properties.CodeGenUtil.resolveNamedValue;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.OptionalDouble;
 
+import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RangeValue;
@@ -18,14 +20,14 @@ public class RealRange {
 	private final double maximum;
 	private final OptionalDouble delta;
 
-	public RealRange(PropertyExpression propertyExpression, NamedElement lookupContext) {
+	public RealRange(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
 		RangeValue rangeValue = (RangeValue) propertyExpression;
-		minimum = ((RealLiteral) resolveNamedValue(rangeValue.getMinimum(), lookupContext)).getValue();
-		maximum = ((RealLiteral) resolveNamedValue(rangeValue.getMaximum(), lookupContext)).getValue();
+		minimum = ((RealLiteral) resolveNamedValue(rangeValue.getMinimum(), lookupContext, mode)).getValue();
+		maximum = ((RealLiteral) resolveNamedValue(rangeValue.getMaximum(), lookupContext, mode)).getValue();
 		if (rangeValue.getDelta() == null) {
 			delta = OptionalDouble.empty();
 		} else {
-			PropertyExpression resolvedDelta = resolveNamedValue(rangeValue.getDelta(), lookupContext);
+			PropertyExpression resolvedDelta = resolveNamedValue(rangeValue.getDelta(), lookupContext, mode);
 			delta = OptionalDouble.of(((RealLiteral) resolvedDelta).getValue());
 		}
 	}

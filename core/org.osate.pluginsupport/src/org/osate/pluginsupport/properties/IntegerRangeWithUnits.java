@@ -5,6 +5,7 @@ import static org.osate.pluginsupport.properties.CodeGenUtil.resolveNamedValue;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RangeValue;
@@ -18,11 +19,11 @@ public class IntegerRangeWithUnits<U extends Enum<U> & GeneratedUnits> {
 	private final Optional<IntegerWithUnits<U>> delta;
 
 	public IntegerRangeWithUnits(PropertyExpression propertyExpression, Class<U> unitsType,
-			NamedElement lookupContext) {
+			NamedElement lookupContext, Optional<Mode> mode) {
 		RangeValue rangeValue = (RangeValue) propertyExpression;
-		minimum = new IntegerWithUnits<>(resolveNamedValue(rangeValue.getMinimum(), lookupContext), unitsType);
-		maximum = new IntegerWithUnits<>(resolveNamedValue(rangeValue.getMaximum(), lookupContext), unitsType);
-		delta = Optional.ofNullable(resolveNamedValue(rangeValue.getDelta(), lookupContext))
+		minimum = new IntegerWithUnits<>(resolveNamedValue(rangeValue.getMinimum(), lookupContext, mode), unitsType);
+		maximum = new IntegerWithUnits<>(resolveNamedValue(rangeValue.getMaximum(), lookupContext, mode), unitsType);
+		delta = Optional.ofNullable(resolveNamedValue(rangeValue.getDelta(), lookupContext, mode))
 				.map(it -> new IntegerWithUnits<>(it, unitsType));
 	}
 
