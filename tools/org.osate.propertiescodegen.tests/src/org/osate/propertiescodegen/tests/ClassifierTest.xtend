@@ -40,7 +40,7 @@ class ClassifierTest {
 			end classifier_test;
 		'''
 		val classifierTestClass = '''
-			package classifier_test;
+			package classifiertest;
 			
 			import java.util.List;
 			import java.util.Optional;

@@ -40,7 +40,7 @@ class StringTest {
 			end string_test;
 		'''
 		val stringTestClass = '''
-			package string_test;
+			package stringtest;
 			
 			import java.util.List;
 			import java.util.Optional;

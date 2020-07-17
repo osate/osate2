@@ -45,7 +45,7 @@ class ReferenceTest {
 			end reference_test;
 		'''
 		val referenceTestClass = '''
-			package reference_test;
+			package referencetest;
 			
 			import java.util.List;
 			import java.util.Optional;

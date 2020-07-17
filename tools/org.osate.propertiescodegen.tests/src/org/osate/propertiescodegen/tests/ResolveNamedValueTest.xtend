@@ -53,7 +53,7 @@ class ResolveNamedValueTest {
 			end resolve_named_value_test;
 		'''
 		val resolveNamedValueTestClass = '''
-			package resolve_named_value_test;
+			package resolvenamedvaluetest;
 			
 			import java.util.List;
 			import java.util.Optional;
@@ -295,7 +295,7 @@ class ResolveNamedValueTest {
 			}
 		'''
 		val length = '''
-			package resolve_named_value_test;
+			package resolvenamedvaluetest;
 			
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
@@ -335,7 +335,7 @@ class ResolveNamedValueTest {
 			}
 		'''
 		val recordDef = '''
-			package resolve_named_value_test;
+			package resolvenamedvaluetest;
 			
 			import java.util.List;
 			import java.util.Objects;

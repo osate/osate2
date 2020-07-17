@@ -26,7 +26,7 @@ class PropertiesCodeGenTest {
 			end enum_test;
 		'''
 		val javaClass = '''
-			package enum_test;
+			package enumtest;
 			
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.EnumerationLiteral;
@@ -69,7 +69,7 @@ class PropertiesCodeGenTest {
 			end units_test;
 		'''
 		val javaClass = '''
-			package units_test;
+			package unitstest;
 			
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;

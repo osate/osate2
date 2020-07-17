@@ -51,7 +51,7 @@ class RealWithUnitsTest {
 			end real_with_units_test;
 		'''
 		val realWithUnitsTestClass = '''
-			package real_with_units_test;
+			package realwithunitstest;
 			
 			import java.util.List;
 			import java.util.Optional;
@@ -68,7 +68,7 @@ class RealWithUnitsTest {
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			import org.osate.pluginsupport.properties.RealWithUnits;
 			
-			import other_ps.Mass;
+			import otherps.Mass;
 			
 			public class RealWithUnitsTest {
 				public static Optional<RealWithUnits<Owned>> getOwned(NamedElement lookupContext) {
@@ -264,7 +264,7 @@ class RealWithUnitsTest {
 			}
 		'''
 		val time = '''
-			package real_with_units_test;
+			package realwithunitstest;
 			
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
@@ -307,7 +307,7 @@ class RealWithUnitsTest {
 			}
 		'''
 		val owned = '''
-			package real_with_units_test;
+			package realwithunitstest;
 			
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
@@ -348,7 +348,7 @@ class RealWithUnitsTest {
 			}
 		'''
 		val list1Owned = '''
-			package real_with_units_test;
+			package realwithunitstest;
 			
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
@@ -389,7 +389,7 @@ class RealWithUnitsTest {
 			}
 		'''
 		val recordProperty = '''
-			package real_with_units_test;
+			package realwithunitstest;
 			
 			import java.util.List;
 			import java.util.Objects;
@@ -409,7 +409,7 @@ class RealWithUnitsTest {
 			import org.osate.pluginsupport.properties.GeneratedUnits;
 			import org.osate.pluginsupport.properties.RealWithUnits;
 			
-			import other_ps.Mass;
+			import otherps.Mass;
 			
 			public class RecordProperty {
 				private final Optional<RealWithUnits<Owned_FieldType>> owned;

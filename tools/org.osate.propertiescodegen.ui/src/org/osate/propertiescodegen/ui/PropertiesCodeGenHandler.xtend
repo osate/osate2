@@ -49,7 +49,7 @@ class PropertiesCodeGenHandler extends AbstractHandler {
 		val javaFiles = PropertiesCodeGen.generateJava(propertySet)
 		val WorkspaceModifyOperation operation = [ monitor |
 			val subMonitor = SubMonitor.convert(monitor, "Generating Java Property Getters", javaFiles.size * 2 + 1)
-			val folderPath = project.fullPath.append("src-gen/" + propertySet.name.toLowerCase)
+			val folderPath = project.fullPath.append("src-gen/" + propertySet.name.toLowerCase.replace("_", ""))
 			val folder = new ContainerGenerator(folderPath).generateContainer(subMonitor.split(1))
 			subMonitor.workRemaining = folder.members.size + javaFiles.size
 			folder.members.forEach[it.delete(false, subMonitor.split(1))]

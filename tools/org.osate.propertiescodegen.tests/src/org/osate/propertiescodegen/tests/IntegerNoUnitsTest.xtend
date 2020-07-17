@@ -40,7 +40,7 @@ class IntegerNoUnitsTest {
 			end integer_no_units_test;
 		'''
 		val integerNoUnitsTestClass = '''
-			package integer_no_units_test;
+			package integernounitstest;
 			
 			import java.util.List;
 			import java.util.Optional;

@@ -51,7 +51,7 @@ class IntegerWithUnitsTest {
 			end integer_with_units_test;
 		'''
 		val integerWithUnitsTestClass = '''
-			package integer_with_units_test;
+			package integerwithunitstest;
 			
 			import java.util.List;
 			import java.util.Optional;
@@ -68,7 +68,7 @@ class IntegerWithUnitsTest {
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			import org.osate.pluginsupport.properties.IntegerWithUnits;
 			
-			import other_ps.Mass;
+			import otherps.Mass;
 			
 			public class IntegerWithUnitsTest {
 				public static Optional<IntegerWithUnits<Owned>> getOwned(NamedElement lookupContext) {
@@ -264,7 +264,7 @@ class IntegerWithUnitsTest {
 			}
 		'''
 		val time = '''
-			package integer_with_units_test;
+			package integerwithunitstest;
 			
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
@@ -307,7 +307,7 @@ class IntegerWithUnitsTest {
 			}
 		'''
 		val owned = '''
-			package integer_with_units_test;
+			package integerwithunitstest;
 			
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
@@ -348,7 +348,7 @@ class IntegerWithUnitsTest {
 			}
 		'''
 		val list1Owned = '''
-			package integer_with_units_test;
+			package integerwithunitstest;
 			
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
@@ -389,7 +389,7 @@ class IntegerWithUnitsTest {
 			}
 		'''
 		val recordProperty = '''
-			package integer_with_units_test;
+			package integerwithunitstest;
 			
 			import java.util.List;
 			import java.util.Objects;
@@ -409,7 +409,7 @@ class IntegerWithUnitsTest {
 			import org.osate.pluginsupport.properties.GeneratedUnits;
 			import org.osate.pluginsupport.properties.IntegerWithUnits;
 			
-			import other_ps.Mass;
+			import otherps.Mass;
 			
 			public class RecordProperty {
 				private final Optional<IntegerWithUnits<Owned_FieldType>> owned;
