@@ -106,7 +106,7 @@ class PropertiesCodeGen {
 		val propertyGetters = new ArrayList(propertySet.ownedProperties.map[generator.generatePropertyGetter(it)])
 		val className = propertySet.name.toCamelCase
 		val contents = '''
-			package «propertySet.name.toLowerCase»;
+			package «propertySet.name.toLowerCase.replace("_", "")»;
 			«generator.generateImports»
 			
 			public class «className» {
@@ -252,7 +252,7 @@ class PropertiesCodeGen {
 				val name = type.name.toCamelCase
 				val typePropertySet = type.getContainerOfType(PropertySet)
 				if (typePropertySet != propertySet) {
-					imports += typePropertySet.name.toLowerCase + "." + name
+					imports += typePropertySet.name.toLowerCase.replace("_", "") + "." + name
 				}
 				name
 			}
@@ -282,7 +282,7 @@ class PropertiesCodeGen {
 			PropertyType: {
 				val unitsPropertySet = namedElement.getContainerOfType(PropertySet)
 				if (unitsPropertySet != propertySet) {
-					imports += unitsPropertySet.name.toLowerCase + "."+ namedElement.name.toCamelCase
+					imports += unitsPropertySet.name.toLowerCase.replace("_", "") + "." + namedElement.name.toCamelCase
 				}
 				namedElement.name.toCamelCase
 			}
@@ -375,7 +375,7 @@ class PropertiesCodeGen {
 		val generator = new PropertiesCodeGen(propertySet)
 		val generatedJavaType = generatorMethod.apply(generator)
 		val contents = '''
-			package «propertySet.name.toLowerCase»;
+			package «propertySet.name.toLowerCase.replace("_", "")»;
 			«generator.generateImports»
 			
 			«generatedJavaType»

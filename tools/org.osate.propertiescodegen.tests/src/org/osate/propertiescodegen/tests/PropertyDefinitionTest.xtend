@@ -20,6 +20,11 @@ class PropertyDefinitionTest {
 	
 	@Test
 	def void testPropertyDefinition() {
+		val enumTest = '''
+			property set enum_test is
+				language_type: type enumeration (english, french, german, spanish);
+			end enum_test;
+		'''
 		val ps2 = '''
 			property set ps2 is
 				mass: type units (g, kg => g * 1000);
@@ -28,6 +33,7 @@ class PropertyDefinitionTest {
 		'''
 		val ps1 = '''
 			property set ps1 is
+				with enum_test;
 				with ps2;
 				
 				boolean_type_1: type aadlboolean;
@@ -46,6 +52,7 @@ class PropertyDefinitionTest {
 				
 				definition_with_referenced_type_local: ps1::boolean_type_1 applies to (all);
 				definition_with_referenced_type_other_file: ps2::color applies to (all);
+				definition_with_underscore_import: enum_test::language_type applies to (all);
 			end ps1;
 		'''
 		val ps1Class = '''
@@ -74,6 +81,7 @@ class PropertyDefinitionTest {
 			import org.osate.pluginsupport.properties.IntegerRange;
 			import org.osate.pluginsupport.properties.IntegerWithUnits;
 			
+			import enumtest.LanguageType;
 			import ps2.Color;
 			import ps2.Mass;
 			
@@ -415,6 +423,32 @@ class PropertyDefinitionTest {
 					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 					return lookupContext.getNonModalPropertyValue(property);
 				}
+				
+				public static Optional<LanguageType> getDefinitionWithUnderscoreImport(NamedElement lookupContext) {
+					return getDefinitionWithUnderscoreImport(lookupContext, Optional.empty());
+				}
+				
+				public static Optional<LanguageType> getDefinitionWithUnderscoreImport(NamedElement lookupContext, Mode mode) {
+					return getDefinitionWithUnderscoreImport(lookupContext, Optional.of(mode));
+				}
+				
+				public static Optional<LanguageType> getDefinitionWithUnderscoreImport(NamedElement lookupContext, Optional<Mode> mode) {
+					String name = "ps1::definition_with_underscore_import";
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					try {
+						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+						return Optional.of(LanguageType.valueOf(resolved));
+					} catch (PropertyNotPresentException e) {
+						return Optional.empty();
+					}
+				}
+				
+				public static PropertyExpression getDefinitionWithUnderscoreImport_EObject(NamedElement lookupContext) {
+					String name = "ps1::definition_with_underscore_import";
+					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					return lookupContext.getNonModalPropertyValue(property);
+				}
 			}
 		'''
 		val unitsDefinition = '''
@@ -558,7 +592,7 @@ class PropertyDefinitionTest {
 				}
 			}
 		'''
-		val results = PropertiesCodeGen.generateJava(testHelper.parseString(ps1, ps2))
+		val results = PropertiesCodeGen.generateJava(testHelper.parseString(ps1, enumTest, ps2))
 		assertEquals(4, results.size)
 		
 		assertEquals("Ps1.java", results.get(0).fileName)
@@ -592,7 +626,7 @@ class PropertyDefinitionTest {
 			end single_definition_ps;
 		'''
 		val singleDefinitionPsClass = '''
-			package single_definition_ps;
+			package singledefinitionps;
 			
 			import java.util.Optional;
 			

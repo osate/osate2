@@ -40,7 +40,7 @@ class RealNoUnitsTest {
 			end real_no_units_test;
 		'''
 		val realNoUnitsTestClass = '''
-			package real_no_units_test;
+			package realnounitstest;
 			
 			import java.util.List;
 			import java.util.Optional;

@@ -61,7 +61,7 @@ class ModalTest {
 			end modal_test;
 		'''
 		val modalTestClass = '''
-			package modal_test;
+			package modaltest;
 			
 			import java.util.List;
 			import java.util.Optional;
@@ -723,7 +723,7 @@ class ModalTest {
 			}
 		'''
 		val recordDef1 = '''
-			package modal_test;
+			package modaltest;
 			
 			import java.util.List;
 			import java.util.Objects;

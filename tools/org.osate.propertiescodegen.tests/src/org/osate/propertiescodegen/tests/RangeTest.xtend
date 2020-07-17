@@ -75,7 +75,7 @@ class RangeTest {
 			end range_test;
 		'''
 		val rangeTestClass = '''
-			package range_test;
+			package rangetest;
 			
 			import java.util.List;
 			import java.util.Optional;
@@ -95,7 +95,7 @@ class RangeTest {
 			import org.osate.pluginsupport.properties.RealRange;
 			import org.osate.pluginsupport.properties.RealRangeWithUnits;
 			
-			import other_ps.Mass;
+			import otherps.Mass;
 			
 			public class RangeTest {
 				public static Optional<IntegerRange> getIntegerNoUnits(NamedElement lookupContext) {
@@ -566,7 +566,7 @@ class RangeTest {
 			}
 		'''
 		val time = '''
-			package range_test;
+			package rangetest;
 			
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
@@ -609,7 +609,7 @@ class RangeTest {
 			}
 		'''
 		val integerOwnedUnits = '''
-			package range_test;
+			package rangetest;
 			
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
@@ -650,7 +650,7 @@ class RangeTest {
 			}
 		'''
 		val list1IntegerOwnedUnits = '''
-			package range_test;
+			package rangetest;
 			
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
@@ -691,7 +691,7 @@ class RangeTest {
 			}
 		'''
 		val realOwnedUnits = '''
-			package range_test;
+			package rangetest;
 			
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
@@ -732,7 +732,7 @@ class RangeTest {
 			}
 		'''
 		val list1RealOwnedUnits = '''
-			package range_test;
+			package rangetest;
 			
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
@@ -773,7 +773,7 @@ class RangeTest {
 			}
 		'''
 		val recordProperty = '''
-			package range_test;
+			package rangetest;
 			
 			import java.util.List;
 			import java.util.Objects;
@@ -796,7 +796,7 @@ class RangeTest {
 			import org.osate.pluginsupport.properties.RealRange;
 			import org.osate.pluginsupport.properties.RealRangeWithUnits;
 			
-			import other_ps.Mass;
+			import otherps.Mass;
 			
 			public class RecordProperty {
 				private final Optional<IntegerRange> integerNoUnits;

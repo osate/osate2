@@ -40,7 +40,7 @@ class BooleanTest {
 			end boolean_test;
 		'''
 		val booleanTestClass = '''
-			package boolean_test;
+			package booleantest;
 			
 			import java.util.List;
 			import java.util.Optional;
