@@ -1,6 +1,8 @@
 package org.osate.ui.wizards;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -11,6 +13,7 @@ import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.InvalidRegistryObjectException;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.layout.TreeColumnLayout;
@@ -162,11 +165,12 @@ public class OsateExampleWizardPage extends WizardPage {
 							try {
 								File f = new File(selectedProject.readmeURI.getPath());
 								browser.setUrl(f.toURL().toString());
-							} catch (Exception e) {
+							} catch (IllegalArgumentException e) {
 								browser.setUrl("<p>Failed to load readme</p>");
-								IStatus status = new Status(IStatus.ERROR, OsateUiPlugin.PLUGIN_ID, e.getMessage(), e);
-								StatusManager manager = StatusManager.getManager();
-								manager.handle(status, StatusManager.LOG | StatusManager.SHOW);
+								catchError(e, e.getMessage(), true);
+							} catch (MalformedURLException e) {
+								browser.setUrl("<p>Failed to load readme</p>");
+								catchError(e, e.getMessage(), true);
 							}
 						}
 					}
@@ -184,52 +188,52 @@ public class OsateExampleWizardPage extends WizardPage {
 			setControl(panelChoice);
 
 		} catch (Exception e) {
-			IStatus status = new Status(IStatus.ERROR, OsateUiPlugin.PLUGIN_ID, e.getMessage(), e);
-			StatusManager manager = StatusManager.getManager();
-			manager.handle(status, StatusManager.LOG | StatusManager.SHOW);
+			catchError(e, e.getMessage(), true);
 		}
 	}
 
-	public List<PluginInfo> loadExamplesFromPlugin() throws Exception {
+	public List<PluginInfo> loadExamplesFromPlugin() throws IOException, NullPointerException {
 		List<PluginInfo> result = new ArrayList<PluginInfo>();
 
 		final IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
-		if (extensionRegistry != null) {
-			IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint(OsateUiPlugin.PLUGIN_ID, ATT_NODE);
 
-			if (extensionPoint != null) {
-				IExtension[] exts = extensionPoint.getExtensions();
+		IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint(OsateUiPlugin.PLUGIN_ID, ATT_NODE);
+		IExtension[] exts = extensionPoint.getExtensions();
 
-				for (int i = 0; i < exts.length; i++) {
-					IConfigurationElement[] configElems = exts[i].getConfigurationElements();
+		for (int i = 0; i < exts.length; i++) {
+			try {
+				IConfigurationElement[] configElems = exts[i].getConfigurationElements();
 
-					if (configElems != null && exts[i].getContributor() != null) {
-						Bundle bundle = Platform.getBundle(exts[i].getContributor().getName());
-						for (int j = 0; j < configElems.length; j++) {
+				if (configElems != null) {
+					Bundle bundle = Platform.getBundle(exts[i].getContributor().getName());
+					for (int j = 0; j < configElems.length; j++) {
 
-							PluginInfo project = new PluginInfo(
-									org.eclipse.core.runtime.FileLocator
-											.toFileURL(bundle.getEntry(configElems[j].getAttribute(ATT_EXAMPLEURI))),
-									org.eclipse.core.runtime.FileLocator.toFileURL(
-											bundle.getEntry(combine(configElems[j].getAttribute(ATT_EXAMPLEURI),
-													configElems[j].getAttribute(ATT_READMEURI)))),
-									configElems[j].getAttribute(ATT_NAME), configElems[j].getAttribute(ATT_CATEGORY));
+						PluginInfo project = new PluginInfo(
+								org.eclipse.core.runtime.FileLocator
+										.toFileURL(bundle.getEntry(configElems[j].getAttribute(ATT_EXAMPLEURI))),
+								org.eclipse.core.runtime.FileLocator
+										.toFileURL(bundle.getEntry(combine(configElems[j].getAttribute(ATT_EXAMPLEURI),
+												configElems[j].getAttribute(ATT_READMEURI)))),
+								configElems[j].getAttribute(ATT_NAME), configElems[j].getAttribute(ATT_CATEGORY));
 
-							if (project != null && project.name != null && project.exampleURI != null) {
-								project.exampleS = configElems[j].getAttribute(ATT_EXAMPLEURI);
+						if (project != null && project.name != null && project.exampleURI != null) {
+							project.exampleS = configElems[j].getAttribute(ATT_EXAMPLEURI);
 
-								// list of projects
-								IConfigurationElement[] projectElems = configElems[j].getChildren();
-								if (projectElems != null) {
-									for (int k = 0; k < projectElems.length; k++) {
-										project.addProjectPath(projectElems[k].getAttribute(ATT_PROJECTPATH));
-									}
+							// list of projects
+							IConfigurationElement[] projectElems = configElems[j].getChildren();
+							if (projectElems != null) {
+								for (int k = 0; k < projectElems.length; k++) {
+									project.addProjectPath(projectElems[k].getAttribute(ATT_PROJECTPATH));
 								}
-								result.add(project);
 							}
+							result.add(project);
 						}
 					}
 				}
+			} catch (NullPointerException e) {
+				catchError(e, e.getMessage(), true);
+			} catch (InvalidRegistryObjectException e) {
+				catchError(e, e.getMessage(), true);
 			}
 		}
 
@@ -239,23 +243,15 @@ public class OsateExampleWizardPage extends WizardPage {
 	/**
 	 * @since 4.0
 	 */
-	protected PluginInfo loadExamples(String examplesPath) throws Exception {
+	protected PluginInfo loadExamples(String examplesPath) throws IOException, NullPointerException {
 		PluginInfo result = new PluginInfo();
 
 		List<PluginInfo> projectInfo = loadExamplesFromPlugin();
-		if (projectInfo == null) {
-			return result;
-		}
 
 		for (PluginInfo p : projectInfo) {
 			File file = null;
 
 			if (Platform.isRunning()) {
-				Bundle bundle = Platform.getBundle(OsateUiPlugin.PLUGIN_ID);
-				if (bundle == null) {
-					throw new Exception("plugin: " + OsateUiPlugin.PLUGIN_ID + " is not found");
-				}
-
 				if (p.exampleURI == null) {
 					continue;
 				}
@@ -264,7 +260,7 @@ public class OsateExampleWizardPage extends WizardPage {
 			}
 
 			if (file == null) {
-				continue;
+				continue; // if example files are not found, there is no point in showing it as an option to import
 			}
 
 			// check if node with this category exists
@@ -323,5 +319,11 @@ public class OsateExampleWizardPage extends WizardPage {
 		File file1 = new File(path1);
 		File file2 = new File(file1, path2);
 		return file2.getPath();
+	}
+
+	protected void catchError(Exception e, String message, Boolean logOnly) {
+		IStatus status = new Status(IStatus.ERROR, OsateUiPlugin.PLUGIN_ID, message, e);
+		StatusManager manager = StatusManager.getManager();
+		manager.handle(status, logOnly ? StatusManager.LOG : StatusManager.SHOW | StatusManager.LOG);
 	}
 }
