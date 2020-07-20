@@ -146,5 +146,6 @@ public class FocusManager {
 	public void clearFocus() {
 		forwardFocusSet.clear();
 		backwardFocusSet.clear();
+		fundamentalFocusSet.clear();
 	}
 }

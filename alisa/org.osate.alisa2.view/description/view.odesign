@@ -254,7 +254,7 @@
           <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
           <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
         </defaultStyle>
-        <conditionalStyles predicateExpression="service:isFocused()">
+        <conditionalStyles predicateExpression="service:isFundamentalFocused()">
           <style>
             <labelFormat>bold</labelFormat>
             <labelFormat>italic</labelFormat>
@@ -267,7 +267,7 @@
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
           </defaultStyle>
-          <conditionalStyles predicateExpression="service:isFocused()">
+          <conditionalStyles predicateExpression="service:isFundamentalFocused()">
             <style>
               <labelFormat>bold</labelFormat>
               <labelFormat>italic</labelFormat>
@@ -280,7 +280,7 @@
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
             </defaultStyle>
-            <conditionalStyles predicateExpression="service:isFocused()">
+            <conditionalStyles predicateExpression="service:isFundamentalFocused()">
               <style>
                 <labelFormat>bold</labelFormat>
                 <labelFormat>italic</labelFormat>
@@ -293,7 +293,7 @@
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
                 <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
               </defaultStyle>
-              <conditionalStyles predicateExpression="service:isFocused()">
+              <conditionalStyles predicateExpression="service:isFundamentalFocused()">
                 <style>
                   <labelFormat>bold</labelFormat>
                   <labelFormat>italic</labelFormat>

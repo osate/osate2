@@ -189,6 +189,7 @@ public class AwasManager {
 	 */
 	private Collection<EObject> reach(ErrorType et, FeatureInstance feature, boolean isForward) {
 		// Get the parent since the supplied parameters are elements of the graph we want to analyze
+		// TODO: Add null check since features without parents can be passed in if, eg, the aaxl model is updated but the safe2 model isn't
 		ComponentInstance parent = feature.getContainingComponentInstance().getContainingComponentInstance();
 		initTableAndGraph(parent);
 		AWASCacheTriple gtc = graphTableCache.get(parent);

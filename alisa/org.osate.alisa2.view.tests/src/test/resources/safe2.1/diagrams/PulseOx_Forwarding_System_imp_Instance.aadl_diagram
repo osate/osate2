@@ -1,5 +1,269 @@
 <?xml version="1.0" encoding="ASCII"?>
 <diagram:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diagram="http://osate.org/diagram" formatVersion="7">
+  <element uuid="340a3fca-9634-4959-84e7-15bfe0244103" manual="true">
+    <element uuid="5aa0b2dc-5467-45f7-9552-aba874787b42" manual="true">
+      <element uuid="7b4c6fa0-5d7f-404e-92b9-4b2b1460ae8b" manual="true" dockArea="left">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>dispderivedalarm</seg>
+        </bo>
+        <position y="10.0"/>
+      </element>
+      <element uuid="471b79f9-62b2-4057-a5c9-b8d31b43fbd3" manual="true" dockArea="right">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>dispshowspo2</seg>
+        </bo>
+        <position x="279.0" y="35.0"/>
+      </element>
+      <element uuid="aea711a7-7fbf-4fc5-814d-a2127be074eb" manual="true" dockArea="left">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>dispspo2</seg>
+        </bo>
+        <position y="60.0"/>
+      </element>
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>component_instance</seg>
+        <seg>appdisplay</seg>
+      </bo>
+      <position x="796.0" y="198.0"/>
+      <size width="394.0" height="110.0"/>
+    </element>
+    <element uuid="820618b6-2f6b-45fb-a0cb-421dc72013dc" manual="true">
+      <element uuid="5c8b06d3-bd83-419b-8468-58a48e1dfb0f" manual="true" dockArea="right">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>logicderivedalarm</seg>
+        </bo>
+        <position x="258.0" y="10.0"/>
+      </element>
+      <element uuid="ffe1b69d-858c-44a8-b096-c2652273fd97" manual="true" dockArea="left">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>logicspo2</seg>
+        </bo>
+        <position y="10.0"/>
+      </element>
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>component_instance</seg>
+        <seg>applogic</seg>
+      </bo>
+      <position x="388.0" y="188.0"/>
+      <size width="398.0" height="60.0"/>
+    </element>
+    <element uuid="032c965b-696c-4ba0-81c7-51f2327fd984" manual="true">
+      <element uuid="14fe7a51-7cfe-47fe-beb8-23d9a247d089" manual="true" dockArea="left">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>clingetadvice</seg>
+        </bo>
+        <position y="10.0"/>
+      </element>
+      <element uuid="31271c8b-dc94-47b2-afb8-8f2b655ff99f" manual="true" dockArea="right">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>clintreatment</seg>
+        </bo>
+        <position x="217.0" y="35.0"/>
+      </element>
+      <element uuid="3586ad44-c79a-4fb2-9710-572b29a758c2" manual="true" dockArea="left">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>clinviewspo2</seg>
+        </bo>
+        <position y="60.0"/>
+      </element>
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>component_instance</seg>
+        <seg>clinician</seg>
+      </bo>
+      <position x="426.0" y="48.0"/>
+      <size width="322.0" height="110.0"/>
+    </element>
+    <element uuid="e479f877-5b8b-40da-9d7a-9ab575d26956" manual="true">
+      <element uuid="1ea129c3-7c1c-4366-aa5f-c73dffb3d1e7" manual="true" dockArea="right">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>docgiveadvice</seg>
+        </bo>
+        <position x="210.0" y="10.0"/>
+      </element>
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>component_instance</seg>
+        <seg>doctor</seg>
+      </bo>
+      <position x="28.0" y="63.0"/>
+      <size width="324.0" height="60.0"/>
+    </element>
+    <element uuid="388d9c08-af1d-4c2d-afd3-809fc2174810" manual="true">
+      <element uuid="0856cbfe-71e6-496e-b6b4-24895f2aa9ca" manual="true" dockArea="left">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>ehrspo2</seg>
+        </bo>
+        <position y="10.0"/>
+      </element>
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>component_instance</seg>
+        <seg>electronichealthrecord</seg>
+      </bo>
+      <position x="388.0" y="268.0"/>
+      <size width="354.0" height="60.0"/>
+    </element>
+    <element uuid="9adeb61a-274c-40a6-9df5-138dc0d78967" manual="true">
+      <element uuid="63827f6f-04de-44a7-9bde-ea95f240b0f3" manual="true" dockArea="left">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>patientfingerclip</seg>
+        </bo>
+        <position y="60.0"/>
+      </element>
+      <element uuid="1bcc51d8-57c2-4a6e-8d0a-6b47bafc214c" manual="true" dockArea="left">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>patienttreatment</seg>
+        </bo>
+        <position y="10.0"/>
+      </element>
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>component_instance</seg>
+        <seg>patient</seg>
+      </bo>
+      <position x="828.0" y="38.0"/>
+      <size width="350.0" height="110.0"/>
+    </element>
+    <element uuid="52a7bfa8-87a5-43a1-b0b1-6b321e29ed84" manual="true">
+      <element uuid="6fbaea5e-c08f-4225-ba63-070d5fba096e" manual="true" dockArea="left">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>poinspo2</seg>
+        </bo>
+        <position y="35.0"/>
+      </element>
+      <element uuid="d8d1267e-159c-440e-ae5c-9384a3360864" manual="true" dockArea="right">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>pooutspo2</seg>
+        </bo>
+        <position x="201.0" y="10.0"/>
+      </element>
+      <element uuid="9ccef96a-ceeb-40d8-aa64-38a297f70d91" manual="true" dockArea="right">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>sensorinput</seg>
+        </bo>
+        <position x="201.0" y="60.0"/>
+      </element>
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>component_instance</seg>
+        <seg>pulseox</seg>
+      </bo>
+      <position x="15.0" y="172.0"/>
+      <size width="295.0" height="110.0"/>
+    </element>
+    <element uuid="2f21319a-9c76-472a-809c-16a957220ad6" manual="true">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>connection_reference</seg>
+        <seg>administertreatment : pulseox_forwarding_system_imp_instance.clinician.clintreatment -> pulseox_forwarding_system_imp_instance.patient.patienttreatment</seg>
+      </bo>
+    </element>
+    <element uuid="e0f4debf-920a-40e1-903e-67f5ab35d1f2" manual="true">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>connection_reference</seg>
+        <seg>alarm_to_display : pulseox_forwarding_system_imp_instance.applogic.logicderivedalarm -> pulseox_forwarding_system_imp_instance.appdisplay.dispderivedalarm</seg>
+      </bo>
+    </element>
+    <element uuid="0c287052-6c8c-498d-8a9b-fa61dc26f417" manual="true">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>connection_reference</seg>
+        <seg>giveadvice : pulseox_forwarding_system_imp_instance.doctor.docgiveadvice -> pulseox_forwarding_system_imp_instance.clinician.clingetadvice</seg>
+      </bo>
+    </element>
+    <element uuid="11852bda-0078-48d3-8f95-59c3d6dea8a2" manual="true">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>connection_reference</seg>
+        <seg>sense : pulseox_forwarding_system_imp_instance.patient.patientfingerclip -> pulseox_forwarding_system_imp_instance.pulseox.sensorinput</seg>
+      </bo>
+      <bendpoints>
+        <point x="724.0" y="191.0"/>
+        <point x="362.0" y="191.0"/>
+      </bendpoints>
+    </element>
+    <element uuid="e00994af-aa81-41ee-a045-8b424d227d33" manual="true">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>connection_reference</seg>
+        <seg>spo2_to_display : pulseox_forwarding_system_imp_instance.pulseox.pooutspo2 -> pulseox_forwarding_system_imp_instance.appdisplay.dispspo2</seg>
+      </bo>
+      <bendpoints>
+        <point x="342.0" y="272.0"/>
+        <point x="760.0" y="276.0"/>
+      </bendpoints>
+    </element>
+    <element uuid="c3c450d8-c02a-4087-8c57-1985c78cc4b8" manual="true">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>connection_reference</seg>
+        <seg>spo2_to_ehr : pulseox_forwarding_system_imp_instance.pulseox.pooutspo2 -> pulseox_forwarding_system_imp_instance.electronichealthrecord.ehrspo2</seg>
+      </bo>
+      <bendpoints>
+        <point x="342.0" y="307.0"/>
+      </bendpoints>
+    </element>
+    <element uuid="31bba398-4f53-440b-a391-d95a9e5c6542" manual="true">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>connection_reference</seg>
+        <seg>spo2_to_logic : pulseox_forwarding_system_imp_instance.pulseox.pooutspo2 -> pulseox_forwarding_system_imp_instance.applogic.logicspo2</seg>
+      </bo>
+    </element>
+    <element uuid="88f8e51c-9866-4fe9-ace9-972af45ea40a" manual="true">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>connection_reference</seg>
+        <seg>viewspo2 : pulseox_forwarding_system_imp_instance.appdisplay.dispshowspo2 -> pulseox_forwarding_system_imp_instance.clinician.clinviewspo2</seg>
+      </bo>
+      <bendpoints>
+        <point x="1219.0" y="197.0"/>
+        <point x="1219.0" y="182.0"/>
+        <point x="391.0" y="182.0"/>
+      </bendpoints>
+    </element>
+    <bo>
+      <seg>org.osate.ge.diagrams.instance</seg>
+      <seg>system_instance</seg>
+      <seg>/safe2.1/pulseox-forwarding/aadl/instances/pulseox_forwarding_system_pulseox_forwarding_system_imp_instance.aaxl2</seg>
+    </bo>
+    <position x="12.0" y="12.0"/>
+    <size width="1219.0" height="339.0"/>
+  </element>
   <config type="structure" connectionPrimaryLabelsVisible="false">
     <enabledAadlProperties/>
     <context>
