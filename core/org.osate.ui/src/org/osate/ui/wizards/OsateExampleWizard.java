@@ -63,9 +63,7 @@ public class OsateExampleWizard extends BasicNewResourceWizard {
 							selected.projectPath.forEach(s -> {
 								try {
 									importFiles(new File(file_r_URL.getPath(), s));
-								} catch (InvocationTargetException e) {
-									catchError(e, e.getMessage(), false);
-								} catch (InterruptedException e) {
+								} catch (InvocationTargetException | InterruptedException e) {
 									catchError(e, e.getMessage(), false);
 								}
 							});

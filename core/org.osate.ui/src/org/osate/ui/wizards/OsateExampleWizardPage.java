@@ -165,11 +165,9 @@ public class OsateExampleWizardPage extends WizardPage {
 							try {
 								File f = new File(selectedProject.readmeURI.getPath());
 								browser.setUrl(f.toURL().toString());
-							} catch (IllegalArgumentException e) {
-								browser.setUrl("<p>Failed to load readme</p>");
-								catchError(e, e.getMessage(), true);
-							} catch (MalformedURLException e) {
-								browser.setUrl("<p>Failed to load readme</p>");
+							} catch (IllegalArgumentException | MalformedURLException e) {
+								browser.setText("<p>Failed to load readme</p>");
+								setErrorMessage("Failed to load readme");
 								catchError(e, e.getMessage(), true);
 							}
 						}
@@ -192,7 +190,7 @@ public class OsateExampleWizardPage extends WizardPage {
 		}
 	}
 
-	public List<PluginInfo> loadExamplesFromPlugin() throws IOException, NullPointerException {
+	public List<PluginInfo> loadExamplesFromPlugin() {
 		List<PluginInfo> result = new ArrayList<PluginInfo>();
 
 		final IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
@@ -230,9 +228,7 @@ public class OsateExampleWizardPage extends WizardPage {
 						}
 					}
 				}
-			} catch (NullPointerException e) {
-				catchError(e, e.getMessage(), true);
-			} catch (InvalidRegistryObjectException e) {
+			} catch (NullPointerException | InvalidRegistryObjectException | IOException e) {
 				catchError(e, e.getMessage(), true);
 			}
 		}
@@ -243,41 +239,44 @@ public class OsateExampleWizardPage extends WizardPage {
 	/**
 	 * @since 4.0
 	 */
-	protected PluginInfo loadExamples(String examplesPath) throws IOException, NullPointerException {
+	protected PluginInfo loadExamples(String examplesPath) {
 		PluginInfo result = new PluginInfo();
 
 		List<PluginInfo> projectInfo = loadExamplesFromPlugin();
 
 		for (PluginInfo p : projectInfo) {
-			File file = null;
+			try {
+				File file = null;
 
-			if (Platform.isRunning()) {
-				if (p.exampleURI == null) {
-					continue;
+				if (Platform.isRunning()) {
+					if (p.exampleURI == null) {
+						continue;
+					}
+
+					file = new File(FileLocator.toFileURL(p.exampleURI).getFile());
 				}
 
-				file = new File(FileLocator.toFileURL(p.exampleURI).getFile());
-			}
-
-			if (file == null) {
-				continue; // if example files are not found, there is no point in showing it as an option to import
-			}
-
-			// check if node with this category exists
-			List<PluginInfo> existingCategories = result.getNode();
-			Object[] currentNodeCategory = existingCategories.stream()
-					.filter(x -> x.category != null && p.category != null && x.category.compareToIgnoreCase(
-							p.category) == 0)
-					.toArray();
-			if (currentNodeCategory != null && currentNodeCategory.length > 0) {
-				for (int j = 0; j < currentNodeCategory.length; j++) {
-					((PluginInfo) currentNodeCategory[j]).addNode(p);
+				if (file == null) {
+					continue; // if example files are not found, there is no point in showing it as an option to import
 				}
-			} else {
-				// add category node to root -> add the project under category
-				PluginInfo cNode = new PluginInfo(null, null, p.category, p.category);
-				cNode.addNode(p);
-				result.addNode(cNode);
+
+				// check if node with this category exists
+				List<PluginInfo> existingCategories = result.getNode();
+				Object[] currentNodeCategory = existingCategories.stream().filter(x -> x.category != null
+						&& p.category != null && x.category.compareToIgnoreCase(p.category) == 0).toArray();
+				if (currentNodeCategory != null && currentNodeCategory.length > 0) {
+					for (int j = 0; j < currentNodeCategory.length; j++) {
+						((PluginInfo) currentNodeCategory[j]).addNode(p);
+					}
+				} else {
+					// add category node to root -> add the project under category
+					PluginInfo cNode = new PluginInfo(null, null, p.category, p.category);
+					cNode.addNode(p);
+					result.addNode(cNode);
+				}
+			}
+			catch (IOException e) {
+				catchError(e, e.getMessage(), true);
 			}
 		}
 
@@ -325,5 +324,18 @@ public class OsateExampleWizardPage extends WizardPage {
 		IStatus status = new Status(IStatus.ERROR, OsateUiPlugin.PLUGIN_ID, message, e);
 		StatusManager manager = StatusManager.getManager();
 		manager.handle(status, logOnly ? StatusManager.LOG : StatusManager.SHOW | StatusManager.LOG);
+	}
+
+	/**
+	 * The <code>WizardPage</code> implementation of this method
+	 * declared on <code>DialogPage</code> updates the container
+	 * if this is the current page.
+	 */
+	@Override
+	public void setErrorMessage(String newMessage) {
+		super.setErrorMessage(newMessage);
+		if (isCurrentPage()) {
+			getContainer().updateMessage();
+		}
 	}
 }
