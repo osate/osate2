@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.ui.editor;
+package org.osate.ge.aadl2.ui.internal.editor;
 
 import java.util.AbstractMap;
 import java.util.Map;
@@ -46,10 +46,13 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.internal.util.AadlClassifierUtil;
 import org.osate.ge.aadl2.internal.util.AadlFlowSpecificationUtil;
-import org.osate.ge.aadl2.internal.util.AadlInstanceObjectUtil;
 import org.osate.ge.aadl2.internal.util.AadlFlowSpecificationUtil.FlowSegmentReference;
+import org.osate.ge.aadl2.internal.util.AadlInstanceObjectUtil;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
+import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.editor.ComboContributionItem;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
@@ -68,10 +71,16 @@ public class FlowContributionItem extends ComboContributionItem {
 							|| fa.getBusinessObject() instanceof ComponentInstance));
 	private AgeDiagramEditor editor = null;
 	private final ShowFlowContributionItem showFlowContributionItem;
+	private final EditFlowContributionItem editFlowContributionItem;
+	private final DeleteFlowContributionItem deleteFlowContributionItem;
 
-	public FlowContributionItem(final String id, final ShowFlowContributionItem showFlowImplElements) {
+	public FlowContributionItem(final String id, final ShowFlowContributionItem showFlowImplElements,
+			final EditFlowContributionItem editFlowContributionItem,
+			final DeleteFlowContributionItem deleteFlowContributionItem) {
 		super(id);
 		this.showFlowContributionItem = showFlowImplElements;
+		this.editFlowContributionItem = editFlowContributionItem;
+		this.deleteFlowContributionItem = deleteFlowContributionItem;
 	}
 
 	@Override
@@ -123,6 +132,8 @@ public class FlowContributionItem extends ComboContributionItem {
 				@SuppressWarnings("unchecked")
 				final Map.Entry<String, HighlightableFlowInfo> entry = (Map.Entry<String, HighlightableFlowInfo>) firstSelection;
 				showFlowContributionItem.updateShowFlowItem(entry.getValue());
+				editFlowContributionItem.updateEditFlowItem(entry.getValue());
+				deleteFlowContributionItem.updateDeleteFlowItem(entry.getValue());
 			}
 		});
 
@@ -192,6 +203,8 @@ public class FlowContributionItem extends ComboContributionItem {
 			}
 
 			showFlowContributionItem.updateShowFlowItem(selectedValue.getValue());
+			editFlowContributionItem.updateEditFlowItem(selectedValue.getValue());
+			deleteFlowContributionItem.updateDeleteFlowItem(selectedValue.getValue());
 			comboViewer.setSelection(new StructuredSelection(selectedValue));
 		}
 	}
@@ -295,6 +308,12 @@ public class FlowContributionItem extends ComboContributionItem {
 				final FlowSegmentState state) {
 			this.highlightableFlowElement = highlightableFlowElement;
 			this.state = state;
+
+			if (highlightableFlowElement != null
+					&& !(this.highlightableFlowElement.container instanceof DiagramElement)) {
+				throw new RuntimeException(
+						"Flow element container is not a diagram element: " + this.highlightableFlowElement.container);
+			}
 		}
 
 		public FlowSegmentState getState() {
@@ -308,12 +327,20 @@ public class FlowContributionItem extends ComboContributionItem {
 			return highlightableFlowElement.container;
 		}
 
+		/**
+		 * The container's type is checked in the constructor.
+		 * @return the diagram element which contains the flow.
+		 */
+		public DiagramElement getDiagramElementContainer() {
+			return (DiagramElement) getContainer();
+		}
+
 		public static HighlightableFlowInfo create(final FlowSegmentReference fsr) {
 			return new HighlightableFlowInfo(fsr);
 		}
 
 		public NamedElement getFlowSegment() {
-			return highlightableFlowElement.flowSegmentElement;
+			return highlightableFlowElement == null ? null : highlightableFlowElement.flowSegmentElement;
 		}
 	}
 

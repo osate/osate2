@@ -40,9 +40,9 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem;
 import org.osate.ge.aadl2.ui.internal.properties.AbstractFeaturePrototypePropertySection;
 import org.osate.ge.aadl2.ui.internal.properties.SetSubcomponentClassifierPropertySection;
-import org.osate.ge.internal.ui.editor.FlowContributionItem;
 import org.osate.ge.swt.classifiers.PrototypeBindingsField;
 
 import com.google.common.collect.ImmutableList;

@@ -453,8 +453,18 @@ Prototypes can be edited by selecting a classifier and using the *AADL* tab of t
 Classifier prototype bindings can be edited using the *AADL* tab of the *Properties* view (See @sec:properties_view). Subcomponent prototype bindings can be edited when selecting the component classifier.
 
 
-## Editing Flow Implementations and End-to-End Flows
-Flow implementations and end-to-end flow can be edited using the flow editor.  The flow editor can be accessed by double-clicking a component implementation, selecting the *AADL* tab in the *Properties* view, and selecting *Edit...* from the *Flows* section.
+## Flow Implementations and End-to-End Flows
+### Editing
+Flow implementations and end-to-end flows can be edited by using the flow tools.  To open the flow tools for editing, start by selecting a flow from the flow drop-down in the toolbar and selecting the *Edit...* button ![](../images/FlowToolbarEdit.png).
+
+Clicking a segment or in mode element in the tool dialog allows for inserting, replacing, and removing segments.
+
+![](../images/FlowToolEdit.png)
+
+Selecting an appropriate element on the diagram or *Outline* view will add the element to the flow's segments or in modes.
+
+### Deleting
+Flow implementations and end-to-end flows can be deleted by selecting a flow from the flow drop-down in the toolbar and selecting the *Delete* button ![](../images/FlowToolbarDelete.png).
 
 ## Refining Model Elements
 Appropriate elements can be refined by using the *AADL* tab of the *Properties* view (See @sec:properties_view), and using the *Refined* section option.
