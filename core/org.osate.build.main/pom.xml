@@ -47,7 +47,7 @@
 		<sonar.scm.exclusions.disabled>true</sonar.scm.exclusions.disabled>
 
 		<!-- The following are for use in poms for test plugins -->
-		<eclipse.repo.url>http://download.eclipse.org/releases/2019-12</eclipse.repo.url>
+		<eclipse.repo.url>http://download.eclipse.org/releases/2020-06</eclipse.repo.url>
 		<xtext-testing.repo.url>https://dl.bintray.com/itemis/generic/xtext-testing/updates/0.2</xtext-testing.repo.url>
 
 		<spotbugs.configdir>${project.parent.parent.basedir}/core/org.osate.build.main/src/main/resources/spotbugs</spotbugs.configdir>
