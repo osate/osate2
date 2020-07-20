@@ -35,6 +35,7 @@ import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.util.AadlArrayUtil;
 import org.osate.ge.aadl2.internal.util.AadlInheritanceUtil;
 import org.osate.ge.aadl2.internal.util.AadlSubcomponentUtil;
+import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
@@ -56,14 +57,15 @@ public class SubcomponentHandler extends AadlBusinessObjectHandler {
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
 		return new CanonicalBusinessObjectReference(
 				DeclarativeReferenceType.SUBCOMPONENT
-						.getId(),
+				.getId(),
 				ctx.getBusinessObject(Subcomponent.class).get().getQualifiedName());
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
 		return AadlReferenceUtil
-				.getSubcomponentRelativeReference(ctx.getBusinessObject(Subcomponent.class).get().getName());
+				.getSubcomponentRelativeReference(
+						AgeAadlUtil.getRootName(ctx.getBusinessObject(Subcomponent.class).get()));
 	}
 
 	@Override
