@@ -40,8 +40,8 @@ import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.AgeAction;
 import org.osate.ge.palette.CanStartConnectionContext;
-import org.osate.ge.palette.GetCreateConnectionOperationContext;
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
+import org.osate.ge.palette.GetCreateConnectionOperationContext;
 import org.osate.ge.services.QueryService;
 import org.osate.ge.services.ReferenceBuilderService;
 

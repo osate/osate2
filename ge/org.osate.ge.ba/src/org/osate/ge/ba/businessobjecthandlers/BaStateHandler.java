@@ -50,8 +50,8 @@ public class BaStateHandler implements BusinessObjectHandler {
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		// This should be implemented for full behavior annex support.
-		return null;
+		return new CanonicalBusinessObjectReference(TYPE_STATE,
+				ctx.getBusinessObject(BehaviorState.class).get().getQualifiedName());
 	}
 
 	@Override
