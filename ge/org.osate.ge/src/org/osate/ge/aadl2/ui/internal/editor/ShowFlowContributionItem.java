@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.ui.editor;
+package org.osate.ge.aadl2.ui.internal.editor;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -37,6 +37,7 @@ import java.util.stream.Stream;
 
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.jface.action.ControlContribution;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -50,6 +51,7 @@ import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlow;
+import org.osate.aadl2.EndToEndFlowElement;
 import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FlowElement;
@@ -67,8 +69,11 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.util.AadlClassifierUtil;
-import org.osate.ge.aadl2.internal.util.AadlInstanceObjectUtil;
 import org.osate.ge.aadl2.internal.util.AadlFlowSpecificationUtil.FlowSegmentReference;
+import org.osate.ge.aadl2.internal.util.AadlInstanceObjectUtil;
+import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem.FlowSegmentState;
+import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem.HighlightableFlowInfo;
+import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.runtime.botree.Completeness;
@@ -81,8 +86,7 @@ import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ProjectReferenceService;
-import org.osate.ge.internal.ui.editor.FlowContributionItem.FlowSegmentState;
-import org.osate.ge.internal.ui.editor.FlowContributionItem.HighlightableFlowInfo;
+import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
 import com.google.common.base.Predicates;
 
@@ -91,11 +95,12 @@ import com.google.common.base.Predicates;
  * and adds them to the diagram if necessary.
  */
 public class ShowFlowContributionItem extends ControlContribution {
+	private final static ImageDescriptor showIcon = Activator.getImageDescriptor("icons/show_flow.png");
 	private AgeDiagramEditor editor = null;
 	private Button showFlowBtn;
 	private HighlightableFlowInfo selectedFlow;
 
-	protected ShowFlowContributionItem(final String id) {
+	public ShowFlowContributionItem(final String id) {
 		super(id);
 	}
 
@@ -107,7 +112,8 @@ public class ShowFlowContributionItem extends ControlContribution {
 	@Override
 	protected Control createControl(final Composite parent) {
 		showFlowBtn = new Button(parent, SWT.PUSH);
-		showFlowBtn.setText("Show");
+		showFlowBtn.setImage(showIcon.createImage());
+		showFlowBtn.setToolTipText("Show");
 		updateButton();
 		showFlowBtn.addSelectionListener(new SelectionAdapter() {
 			private ProjectReferenceService referenceService;
@@ -127,7 +133,7 @@ public class ShowFlowContributionItem extends ControlContribution {
 							.findAny().map(BusinessObjectNode.class::cast)
 							.orElseThrow(() -> new RuntimeException(
 									"Cannot find container for highlightable flow: "
-											+ selectedFlow.getFlowSegment()));
+											+ selectedFlow.getFlowSegment().getName()));
 					final Object component = getContainerComponent(selectedFlow.getContainer().getBusinessObject());
 					ensureFlowSegmentsExist(component, selectedFlow.getFlowSegment(), containerNode);
 
@@ -160,12 +166,23 @@ public class ShowFlowContributionItem extends ControlContribution {
 											(BusinessObjectNode) flowElementRef.container)))
 							.orElse(Stream.empty()).collect(Collectors.toList());
 				} else if (flowElementRef.flowSegmentElement instanceof EndToEndFlow) {
-					return AadlClassifierUtil.getComponentImplementation(flowElementRef.container.getBusinessObject())
+					final EndToEndFlow endToEndFlow = (EndToEndFlow) flowElementRef.flowSegmentElement;
+					final BusinessObjectNode containerNode = (BusinessObjectNode) flowElementRef.container;
+					return AadlClassifierUtil.getComponentImplementation(containerNode
+							.getBusinessObject())
 							.map(ci -> ci.getAllEndToEndFlows().stream()
-									.filter(ete -> ete == flowElementRef.flowSegmentElement)
-									.flatMap(ete -> ete.getAllFlowSegments().stream())
-									.map(eteFlowSegment -> createFlowSegmentReference(eteFlowSegment,
-											(BusinessObjectNode) flowElementRef.container)))
+									.filter(ownedEndToEndFlow -> ownedEndToEndFlow == endToEndFlow)
+									.flatMap(ete -> ete.getAllFlowSegments().stream().flatMap(flowSegment -> {
+										final EndToEndFlowElement endToEndFlowElement = flowSegment.getFlowElement();
+										if (endToEndFlowElement instanceof EndToEndFlow) {
+											// Find segments of a segment that is an end to end flow
+											return ((EndToEndFlow) endToEndFlowElement)
+													.getAllFlowSegments().stream();
+										}
+										return Stream.of(flowSegment);
+									}))
+									.map(endToEndFlowSegment -> createFlowSegmentReference(endToEndFlowSegment,
+											containerNode)))
 							.orElse(Stream.empty()).collect(Collectors.toList());
 				} else if (flowElementRef.flowSegmentElement instanceof EndToEndFlowInstance) {
 					return AadlInstanceObjectUtil.getComponentInstance(flowElementRef.container.getBusinessObject())
