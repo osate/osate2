@@ -28,12 +28,15 @@ import java.util.Optional;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
+import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
+import org.osate.ge.graphics.EllipseBuilder;
+import org.osate.ge.graphics.Graphic;
 
 /**
  * Business object handler for {@link BehaviorAnnex}. This handler only exists to prevent the annex from being added by the AADL
@@ -41,6 +44,9 @@ import org.osate.ge.businessobjecthandling.ReferenceContext;
  *
  */
 public class BehaviorAnnexHandler implements BusinessObjectHandler {
+	private static final String TYPE_BA = "ba";
+	private static final Graphic graphic = EllipseBuilder.create().build();
+
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(BehaviorAnnex.class).isPresent();
@@ -48,22 +54,22 @@ public class BehaviorAnnexHandler implements BusinessObjectHandler {
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		throw new RuntimeException("Not supported");
+		return new CanonicalBusinessObjectReference(TYPE_BA);
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		throw new RuntimeException("Not supported");
+		return new RelativeBusinessObjectReference(TYPE_BA);
 	}
 
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
-		return Optional.empty();
+		return Optional.of(GraphicalConfigurationBuilder.create().graphic(graphic).build());
 	}
 
 	@Override
 	public String getName(final GetNameContext ctx) {
 		// Hide this element from the user interface
-		return "";
+		return "Behavior AnnexAA";
 	}
 }

@@ -128,6 +128,16 @@ public class GraphicalAnnexUtil {
 		return parsedSubclause;
 	}
 
+	public static AnnexSubclause createParsedAnnexSubclause(final Classifier c, final String annexName,
+			final EClass parsedType) {
+		// Must create new annex
+		DefaultAnnexSubclause defaultSubclause = c.createOwnedAnnexSubclause();
+		defaultSubclause.setName(annexName);
+		defaultSubclause.setSourceText("{** **}");
+
+		return defaultSubclause.createParsedAnnexSubclause(parsedType);
+	}
+
 	public static AnnexSubclause getFirstParsedAnnexSubclause(final Classifier c, final String annexName,
 			final EClass parsedType) {
 		DefaultAnnexSubclause defaultSubclause = getFirstDefaultAnnexSubclause(c, annexName);

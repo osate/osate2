@@ -29,8 +29,8 @@ import java.util.stream.Stream;
 
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.palette.PaletteCategory;
-import org.osate.ge.palette.PaletteContributor;
 import org.osate.ge.palette.PaletteCommandProviderContext;
+import org.osate.ge.palette.PaletteContributor;
 import org.osate.ge.palette.TargetedPaletteCommand;
 
 public class BaPaletteContributor implements PaletteContributor {
@@ -43,6 +43,7 @@ public class BaPaletteContributor implements PaletteContributor {
 	public Stream<TargetedPaletteCommand> getTargetedCommands(final PaletteCommandProviderContext ctx) {
 		final List<TargetedPaletteCommand> commands = new ArrayList<>();
 
+		commands.add(new CreateBehaviorAnnexPaletteCommand());
 		commands.add(new CreateStatePaletteCommand());
 
 		return commands.stream();
@@ -52,6 +53,7 @@ public class BaPaletteContributor implements PaletteContributor {
 	public Stream<CreateConnectionPaletteCommand> getCreateConnectionCommands(
 			final PaletteCommandProviderContext ctx) {
 		final List<CreateConnectionPaletteCommand> commands = new ArrayList<>();
+		commands.add(new CreateTransitionPaletteCommand());
 
 		return commands.stream();
 	}
