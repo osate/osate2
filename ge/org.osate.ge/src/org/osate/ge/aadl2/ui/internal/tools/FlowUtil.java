@@ -36,7 +36,6 @@ import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
 
 public class FlowUtil {
 	private FlowUtil() {
@@ -60,7 +59,7 @@ public class FlowUtil {
 	}
 
 	static Map<NamedElement, BusinessObjectContext> getSegmentToBocMap(
-			final Set<BusinessObjectNode> nodes,
+			final Set<? extends BusinessObjectContext> nodes,
 			final BusinessObjectContext ancestor) {
 		return nodes.stream()
 				.collect(Collectors.toMap(

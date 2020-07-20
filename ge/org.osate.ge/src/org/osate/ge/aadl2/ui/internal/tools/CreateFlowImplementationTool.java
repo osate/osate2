@@ -104,7 +104,7 @@ public class CreateFlowImplementationTool implements Tool {
 	private CreateFlowImplementationDialog createFlowImplDlg;
 
 	public CreateFlowImplementationTool(final AgeDiagramEditor editor, final HighlightableFlowInfo selectedFlow,
-			final Set<BusinessObjectNode> segmentNodes) {
+			final Set<? extends BusinessObjectContext> segmentNodes) {
 		// Flow impl to edit
 		final FlowImplementation flowImpl = (FlowImplementation) selectedFlow.getFlowSegment();
 		final BusinessObjectNode container = (BusinessObjectNode) selectedFlow.getContainer();

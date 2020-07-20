@@ -234,9 +234,9 @@ public class FlowDialogUtil {
 	/**
 	 * Represents flow segments and in mode feature elements for editing flows
 	 */
-	static class SegmentData {
+	public static class SegmentData {
 		private final BusinessObjectContext boc;
-		// Highlightable elements owned by the segment
+		// Highlightable elements owned by the segment. Used to highlight contents when boc is an end to end flow.
 		private final List<DiagramElement> ownedSegments;
 
 		public SegmentData(final BusinessObjectContext boc) {
