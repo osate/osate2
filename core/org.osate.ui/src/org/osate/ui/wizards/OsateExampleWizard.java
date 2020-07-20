@@ -1,6 +1,7 @@
 package org.osate.ui.wizards;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 
 import org.eclipse.core.resources.IProject;
@@ -62,18 +63,15 @@ public class OsateExampleWizard extends BasicNewResourceWizard {
 							selected.projectPath.forEach(s -> {
 								try {
 									importFiles(new File(file_r_URL.getPath(), s));
-								} catch (Exception e) {
-									IStatus status = new Status(IStatus.ERROR, OsateUiPlugin.PLUGIN_ID, e.getMessage(),
-											e);
-									StatusManager manager = StatusManager.getManager();
-									manager.handle(status, StatusManager.LOG);
+								} catch (InvocationTargetException e) {
+									catchError(e, e.getMessage(), false);
+								} catch (InterruptedException e) {
+									catchError(e, e.getMessage(), false);
 								}
 							});
 						}
 					} catch (Exception e) {
-						IStatus status = new Status(IStatus.ERROR, OsateUiPlugin.PLUGIN_ID, e.getMessage(), e);
-						StatusManager manager = StatusManager.getManager();
-						manager.handle(status, StatusManager.LOG | StatusManager.SHOW);
+						catchError(e, "Unexpected error occurred. Please try again", false);
 					}
 				}
 			}
@@ -82,12 +80,18 @@ public class OsateExampleWizard extends BasicNewResourceWizard {
 		return true;
 	}
 
-	protected void importFiles(File projectPath) throws Exception {
+	protected void importFiles(File projectPath) throws InvocationTargetException, InterruptedException {
 		ImportOperation importOperation = new ImportOperation(new Path(Path.ROOT + projectPath.getName()),
 				projectPath,
 				FileSystemStructureProvider.INSTANCE, OVERWRITE_ALL_QUERY);
 		importOperation.setCreateContainerStructure(false);
 		importOperation.run(null);
+	}
+
+	protected void catchError(Exception e, String message, Boolean logOnly) {
+		IStatus status = new Status(IStatus.ERROR, OsateUiPlugin.PLUGIN_ID, message, e);
+		StatusManager manager = StatusManager.getManager();
+		manager.handle(status, logOnly ? StatusManager.LOG : StatusManager.SHOW | StatusManager.LOG);
 	}
 
 	protected static final IOverwriteQuery OVERWRITE_ALL_QUERY = pathString -> IOverwriteQuery.ALL;
