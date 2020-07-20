@@ -23,6 +23,7 @@
  */
 package org.osate.ge.aadl2.ui.internal.tools;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
@@ -240,7 +241,7 @@ public class FlowDialogUtil {
 		private final List<DiagramElement> ownedSegments;
 
 		public SegmentData(final BusinessObjectContext boc) {
-			this(boc, null);
+			this(boc, Collections.emptyList());
 		}
 
 		public SegmentData(final BusinessObjectContext boc, final List<DiagramElement> ownedSegments) {
