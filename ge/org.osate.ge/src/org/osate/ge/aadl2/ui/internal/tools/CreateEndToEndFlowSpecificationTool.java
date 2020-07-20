@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Queue;
@@ -79,7 +78,6 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.EndToEndFlowElement;
 import org.osate.aadl2.EndToEndFlowSegment;
-import org.osate.aadl2.FlowElement;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModeFeature;
@@ -89,7 +87,7 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
-import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem.HighlightableFlowInfo;
+import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItemUtil;
 import org.osate.ge.aadl2.ui.internal.tools.FlowDialogUtil.SegmentData;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
@@ -97,6 +95,7 @@ import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.runtime.botree.Completeness;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ColoringService;
+import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
@@ -118,86 +117,26 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 	// In mode feature selections
 	private final ArrayList<BusinessObjectContext> modeFeatureSelections = new ArrayList<>();
 
-	public CreateEndToEndFlowSpecificationTool(final AgeDiagramEditor editor,
-			final HighlightableFlowInfo selectedFlow, final Set<BusinessObjectNode> segmentNodes) {
+	public CreateEndToEndFlowSpecificationTool(final AgeDiagramEditor editor, final DiagramElement container,
+			final EndToEndFlow endToEndFlow) {
 		this.editor = editor;
-
-		// End to end flow being edited
-		final EndToEndFlow endToEndFlow = (EndToEndFlow) selectedFlow.getFlowSegment();
-		final BusinessObjectNode container = (BusinessObjectNode) selectedFlow.getContainer();
-
-		// Find ancestors of the end to end flow container
-		final Queue<Element> ancestors = FlowUtil.getAncestors(container, Optional.empty());
-		// Find the diagram element of the container
-		final BusinessObjectContext ancestor = FlowUtil
-				.getAncestorDiagramElement(
-						editor
-						.getDiagram(),
-						ancestors)
-				.orElseThrow(() -> new RuntimeException(
-						"Cannot find container: " + container.getBusinessObject()));
+		final ReferenceService referenceService = Objects.requireNonNull(Adapters.adapt(editor, ReferenceService.class),
+				"unable to retrieve reference service");
 
 		final Display display = Display.getCurrent();
 		final UiService uiService = Adapters.adapt(editor, UiService.class);
-		createFlowDialog = new CreateFlowsToolsDialog(display.getActiveShell(),
-				selectedFlow,
-				uiService);
-		createFlowDialog.setEndToEndFlowName(selectedFlow.getFlowSegment().getName());
-
-		// Convert BusinessObjectNodes to a map of NamedElement to BusinessObjectContexts
-		// used for referencing elements on the diagram and outline
-		final Map<NamedElement, BusinessObjectContext> segmentToBoc = FlowUtil.getSegmentToBocMap(segmentNodes,
-				ancestor);
+		createFlowDialog = new CreateFlowsToolsDialog(display.getActiveShell(), container, endToEndFlow, uiService);
+		createFlowDialog.setEndToEndFlowName(endToEndFlow.getName());
 
 		// Find segments in order
+		endToEndFlow.getAllFlowSegments().stream().map(
+				flowSegment -> FlowContributionItemUtil.createSegmentData(referenceService, container, flowSegment))
+		.forEachOrdered(segmentSelections::add);
+
 		endToEndFlow
-		.getAllFlowSegments()
-		.stream()
-		.map(flowSegment -> {
-			final BusinessObjectContext boc = segmentToBoc
-					.get(AgeAadlUtil.getRootRefinedElement(flowSegment.getFlowElement()));
-			final List<DiagramElement> highlightableSegments = new ArrayList<>();
-			if (boc.getBusinessObject() instanceof EndToEndFlow && ancestor instanceof DiagramElement) {
-				findSegments((EndToEndFlow) AgeAadlUtil.getRootRefinedElement((NamedElement) boc
-						.getBusinessObject()),
-						ancestor,
-						highlightableSegments);
-			}
-			return new SegmentData(boc, highlightableSegments);
-		}).forEach(segmentSelections::add);
-
-		endToEndFlow.getInModeOrTransitions().stream()
-		.map(modeFeature -> segmentToBoc.get(modeFeature))
-		.forEach(modeFeatureSelections::add);
-	}
-
-	// Find EndToEndFlowSegment's highlightable segments
-	private void findSegments(
-			final EndToEndFlow eTEFlow,
-			final BusinessObjectContext ancestor,
-			final List<DiagramElement> highlightableSegments) {
-		final DiagramElement parentDe = (DiagramElement) ancestor;
-		for (final EndToEndFlowSegment segment : eTEFlow.getOwnedEndToEndFlowSegments().stream()
-				.filter(eTEFlowSegment -> eTEFlowSegment.getFlowElement() != eTEFlow).collect(Collectors.toList())) {
-			if (segment.getFlowElement() instanceof EndToEndFlow) {
-				findSegments((EndToEndFlow) AgeAadlUtil.getRootRefinedElement(segment.getFlowElement()), ancestor, highlightableSegments);
-			}
-
-			BusinessObjectContext context = parentDe;
-			if (segment.getContext() != null) {
-				context = parentDe.getChildren().stream()
-						.filter(child -> child.getBusinessObject() == segment.getContext()).findAny().orElse(null);
-				if (context == null) {
-					continue;
-				}
-			}
-
-			if (segment.getFlowElement() instanceof FlowElement) {
-				context.getChildren().stream().filter(child -> child.getBusinessObject() == segment.getFlowElement())
-				.map(DiagramElement.class::cast).findAny()
-				.ifPresent(highlightableSegments::add);
-			}
-		}
+		.getInModeOrTransitions().stream().map(modeFeature -> FlowContributionItemUtil
+				.findOrCreateBusinessObjectContext(referenceService, container, modeFeature))
+		.forEachOrdered(modeFeatureSelections::add);
 	}
 
 	public CreateEndToEndFlowSpecificationTool(final AgeDiagramEditor editor) {
@@ -205,7 +144,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 
 		final Display display = Display.getCurrent();
 		final UiService uiService = Adapters.adapt(editor, UiService.class);
-		createFlowDialog = new CreateFlowsToolsDialog(display.getActiveShell(), null, uiService);
+		createFlowDialog = new CreateFlowsToolsDialog(display.getActiveShell(), null, null, uiService);
 	}
 
 	@Override
@@ -219,9 +158,8 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 				// Check for existing errors or warnings
 				final Set<Diagnostic> diagnostics = ToolUtil.getAllReferencedPackageDiagnostics(selectedBoc);
 				if (!diagnostics.isEmpty()) {
-					Display.getDefault()
-					.asyncExec(() -> new FlowDialogUtil.ErrorDialog("The Create End-To-End",
-							diagnostics).open());
+					Display.getDefault().asyncExec(
+							() -> new FlowDialogUtil.ErrorDialog("The Create End-To-End", diagnostics).open());
 				} else {
 					coloring = coloringService.adjustColors(); // Create a coloring object that will allow adjustment of pictogram
 					// Create and update based on current selection
@@ -229,14 +167,14 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 					if (segmentSelections.isEmpty() && modeFeatureSelections.isEmpty()) {
 						update(Collections.singletonList(selectedBoc), true);
 					} else {
-						final Iterator<SegmentData> segmentIt = segmentSelections
-								.iterator();
+						final Iterator<SegmentData> segmentIt = segmentSelections.iterator();
 						while (segmentIt.hasNext()) {
 							final SegmentData segmentData = segmentIt.next();
 							setColor(segmentData, Color.MAGENTA.darker());
 						}
 
-						for (Iterator<BusinessObjectContext> modeFeatureIt = modeFeatureSelections.iterator(); modeFeatureIt
+						for (Iterator<BusinessObjectContext> modeFeatureIt = modeFeatureSelections
+								.iterator(); modeFeatureIt
 								.hasNext(); setColor(modeFeatureIt.next(), Color.MAGENTA.brighter())) {
 						}
 
@@ -245,16 +183,16 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 
 					if (createFlowDialog.open() == Window.OK && createFlowDialog != null) {
 						createFlowDialog.getFlow().ifPresent(endToEndFlow -> {
-							if (createFlowDialog.flowSegmentToEdit != null) {
+							if (createFlowDialog.eteFlowToEdit != null) {
 								// Editing end to end flow
-								final EndToEndFlow endToEndFlowToEdit = (EndToEndFlow) createFlowDialog.flowSegmentToEdit
-										.getFlowSegment();
+								final EndToEndFlow endToEndFlowToEdit = (EndToEndFlow) createFlowDialog.eteFlowToEdit;
 								aadlModService.modify(endToEndFlowToEdit, eTEFlowToEdit -> {
 									eTEFlowToEdit.getAllFlowSegments().clear();
 									eTEFlowToEdit.getAllFlowSegments().addAll(endToEndFlow.getAllFlowSegments());
 									eTEFlowToEdit.setName(endToEndFlow.getName());
 									eTEFlowToEdit.getInModeOrTransitions().clear();
-									eTEFlowToEdit.getInModeOrTransitions().addAll(endToEndFlow.getInModeOrTransitions());
+									eTEFlowToEdit.getInModeOrTransitions()
+									.addAll(endToEndFlow.getInModeOrTransitions());
 								});
 							} else {
 								// Creating end to end flow
@@ -307,12 +245,10 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 	public void update() {
 		if (createFlowDialog != null) {
 			if (createFlowDialog.getShell() != null && !createFlowDialog.getShell().isDisposed()
-					&& createFlowDialog.flowComposite != null
-					&& !createFlowDialog.flowComposite.isDisposed()) {
+					&& createFlowDialog.flowComposite != null && !createFlowDialog.flowComposite.isDisposed()) {
 				// Set the name field to the flow being edited
 				if (createFlowDialog.newETEFlowName.getText().isEmpty()) {
-					createFlowDialog.setFlowNameText(
-							FlowUtil.getRefinedName(createFlowDialog.flowSegmentToEdit.getFlowSegment()));
+					createFlowDialog.setFlowNameText(FlowUtil.getRefinedName(createFlowDialog.eteFlowToEdit));
 				}
 
 				final EndToEndFlow endToEndFlow = createEndToEndFlow();
@@ -357,8 +293,8 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 			endToEndFlow.getOwnedEndToEndFlowSegments().add(eTEFlowSegment);
 		});
 
-		modeFeatureSelections
-		.forEach(modeFeatureBoc -> endToEndFlow.getInModeOrTransitions().add((ModeFeature) modeFeatureBoc.getBusinessObject()));
+		modeFeatureSelections.forEach(modeFeatureBoc -> endToEndFlow.getInModeOrTransitions()
+				.add((ModeFeature) modeFeatureBoc.getBusinessObject()));
 
 		return endToEndFlow;
 	}
@@ -374,12 +310,14 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 					&& createFlowDialog.elementSelectionDlg == null) {
 				// If the selection is qualified, add it
 				if (selectedBocs.size() > 1) {
-					createFlowDialog.setErrorMessage("Multiple elements selected. Select a single element. " + " " + getDialogMessage());
+					createFlowDialog.setErrorMessage(
+							"Multiple elements selected. Select a single element. " + " " + getDialogMessage());
 				} else if (selectedBocs.size() == 1) {
 					// Get the selected boc
 					final BusinessObjectContext selectedBoc = (BusinessObjectContext) selectedBocs.get(0);
 					String error = null;
-					if (!modeFeatureSelections.contains(selectedBoc) && createFlowDialog.addSelectedElement(selectedBoc)) {
+					if (!modeFeatureSelections.contains(selectedBoc)
+							&& createFlowDialog.addSelectedElement(selectedBoc)) {
 						// Insert flow segments before first mode feature
 						final Color color;
 						if (selectedBoc.getBusinessObject() instanceof ModeFeature) {
@@ -482,8 +420,8 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 		private final UiService uiService;
 		private final Aadl2Package pkg = Aadl2Package.eINSTANCE;
 		private final String invalidErrorMessage = "Invalid End-To-End Flow.  ";
-		private final HighlightableFlowInfo flowSegmentToEdit;
-
+		private DiagramElement eteFlowToEditContainer;
+		private final EndToEndFlow eteFlowToEdit;
 		private String endToEndFlowName = "";
 		private EndToEndFlow flow;
 		private Composite flowComposite;
@@ -492,10 +430,13 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 
 		private ElementSelectionDialog elementSelectionDlg;
 
-		public CreateFlowsToolsDialog(final Shell parentShell, final HighlightableFlowInfo selectedFlow, final UiService uiService) {
+		public CreateFlowsToolsDialog(final Shell parentShell, final DiagramElement eteFlowToEditContainer,
+				final EndToEndFlow eteFlowToEdit,
+				final UiService uiService) {
 			super(parentShell);
 			setHelpAvailable(true);
-			this.flowSegmentToEdit = selectedFlow;
+			this.eteFlowToEditContainer = eteFlowToEditContainer;
+			this.eteFlowToEdit = eteFlowToEdit;
 			this.uiService = Objects.requireNonNull(uiService, "ui service must not be null");
 			setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
 		}
@@ -540,9 +481,9 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 
 		// Returns the component implementation that will own the end to end flow
 		private Optional<ComponentImplementation> getOwnerComponentImplementation() {
-			if (flowSegmentToEdit != null) {
+			if (eteFlowToEditContainer != null) {
 				// Get owner from end to end flow being edited
-				return findOwnerComponentImplementation(flowSegmentToEdit.getContainer());
+				return findOwnerComponentImplementation(eteFlowToEditContainer);
 			}
 
 			if (segmentSelections.size() == 0) {
@@ -560,8 +501,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 			return findOwnerComponentImplementation(bo instanceof Subcomponent ? parent : parent.getParent());
 		}
 
-		private Optional<ComponentImplementation> findOwnerComponentImplementation(
-				final BusinessObjectContext boc) {
+		private Optional<ComponentImplementation> findOwnerComponentImplementation(final BusinessObjectContext boc) {
 			BusinessObjectContext tmp = boc;
 			while (tmp != null) {
 				if (tmp.getBusinessObject() instanceof ComponentImplementation) {
@@ -601,11 +541,10 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 				// Make modification with test resource
 				ComponentImplementation objectToModify = (ComponentImplementation) resourceSet
 						.getEObject(EcoreUtil.getURI(ci), true);
-				if (flowSegmentToEdit != null) {
+				if (eteFlowToEdit != null) {
 					final EndToEndFlow endToEndFlowToEdit = getFlowToEdit(objectToModify);
-					objectToModify = (ComponentImplementation) resourceSet.getEObject(
-							EcoreUtil.getURI(flowSegmentToEdit.getFlowSegment().getContainingComponentImpl()),
-							true);
+					objectToModify = (ComponentImplementation) resourceSet
+							.getEObject(EcoreUtil.getURI(eteFlowToEdit.getContainingComponentImpl()), true);
 
 					endToEndFlowToEdit.getAllFlowSegments().clear();
 					endToEndFlowToEdit.getAllFlowSegments().addAll(endToEndFlow.getAllFlowSegments());
@@ -623,7 +562,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 
 		// Get flow to edit from resource set
 		private EndToEndFlow getFlowToEdit(final ComponentImplementation objectToModify) {
-			final String name = FlowUtil.getRefinedName(flowSegmentToEdit.getFlowSegment());
+			final String name = FlowUtil.getRefinedName(eteFlowToEdit);
 			for (final EndToEndFlow flow : objectToModify.getAllEndToEndFlows()) {
 				if (FlowUtil.getRefinedName(flow).equalsIgnoreCase(name)) {
 					return flow;
@@ -651,19 +590,17 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 				emptySegmentsButton.addSelectionListener(new SelectionAdapter() {
 					@Override
 					public void widgetSelected(final SelectionEvent e) {
-						elementSelectionDlg = new SelectEndToEndFlowDialog(createFlowDialog.getShell(), EndToEndFlow.class,
-								"Select End to End Flow");
+						elementSelectionDlg = new SelectEndToEndFlowDialog(createFlowDialog.getShell(),
+								EndToEndFlow.class, "Select End to End Flow");
 						createFlowDialog.addSegment(() -> emptySegmentsButton.dispose());
 					}
 				});
 			} else {
-				final Iterator<SegmentData> segmentsIt = segmentSelections
-						.iterator();
+				final Iterator<SegmentData> segmentsIt = segmentSelections.iterator();
 				while (segmentsIt.hasNext()) {
 					final SegmentData flowSegment = segmentsIt.next();
 					createSegmentButton(flowComposite,
-							AgeAadlUtil
-							.getRootRefinedElement((NamedElement) flowSegment.getBoc().getBusinessObject())
+							AgeAadlUtil.getRootRefinedElement((NamedElement) flowSegment.getBoc().getBusinessObject())
 							.getName(),
 							flowSegment);
 
@@ -699,8 +636,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 			}
 		}
 
-		private Button createSegmentButton(final Composite parent, final String text,
-				final SegmentData flowSegment) {
+		private Button createSegmentButton(final Composite parent, final String text, final SegmentData flowSegment) {
 			final Button segmentButton = new Button(parent, SWT.FLAT);
 			segmentButton.setText(text);
 			segmentButton.setEnabled(true);
@@ -871,7 +807,6 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 			return segmentButton;
 		}
 
-
 		/**
 		 * Determines if the selected element is valid to be added to End to End Flow
 		 * @param selectedEle - selected element
@@ -965,7 +900,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 					if (createFlowDialog.newETEFlowName.getText().isEmpty()) {
 						createFlowDialog.setEndToEndFlowName((Namespace) selectedCi.getBusinessObject());
 					}
-					findSegments(selectedETEFlow, ancestor, highlightableSegments);
+					FlowContributionItemUtil.findSegmentDiagramElements(selectedETEFlow, ancestor, highlightableSegments);
 
 					segmentSelections.add(new SegmentData(selectedBoc, highlightableSegments));
 					highlightableSegments.forEach(de -> setColor(de, Color.ORANGE.darker()));
@@ -994,13 +929,11 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 			addSegment(Optional.empty(), segmentData, isInsertAfter);
 		}
 
-		private void addInModeFeature(final BusinessObjectContext boc,
-				final boolean isInsertAfter) {
+		private void addInModeFeature(final BusinessObjectContext boc, final boolean isInsertAfter) {
 			addInModeFeature(Optional.empty(), boc, isInsertAfter);
 		}
 
-		private void addSegment(final Optional<Runnable> opRunnable,
-				final SegmentData segmentData,
+		private void addSegment(final Optional<Runnable> opRunnable, final SegmentData segmentData,
 				final boolean isInsertAfter) {
 			createFlowDialog.getShell().setVisible(false);
 			if (elementSelectionDlg.open() == Window.OK && elementSelectionDlg != null) {
@@ -1009,8 +942,8 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 					final BusinessObjectContext selectedBoc = optBoc.get();
 					final List<DiagramElement> highlightableSegments = new ArrayList<>();
 					if (selectedBoc.getBusinessObject() instanceof EndToEndFlow) {
-						final BusinessObjectContext selectedCi = AgeHandlerUtil
-								.getSelectedBusinessObjectContexts().get(0);
+						final BusinessObjectContext selectedCi = AgeHandlerUtil.getSelectedBusinessObjectContexts()
+								.get(0);
 						// Find ancestors of the end to end flow container
 						final Queue<Element> ancestors = FlowUtil.getAncestors(selectedCi, Optional.empty());
 						// Find the diagram element of the container
@@ -1018,11 +951,10 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 								.getAncestorDiagramElement(editor.getDiagram(), ancestors)
 								.orElseThrow(() -> new RuntimeException(
 										"Cannot find container: " + selectedCi.getBusinessObject()));
-						findSegments((EndToEndFlow) AgeAadlUtil
-								.getRootRefinedElement(
-										(NamedElement) selectedBoc.getBusinessObject()),
-								ancestor,
-								highlightableSegments);
+						FlowContributionItemUtil.findSegmentDiagramElements(
+								(EndToEndFlow) AgeAadlUtil
+								.getRootRefinedElement((NamedElement) selectedBoc.getBusinessObject()),
+								ancestor, highlightableSegments);
 					}
 
 					int insertIndex = segmentSelections.indexOf(segmentData);
@@ -1106,8 +1038,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 				return Optional.of((BusinessObjectContext) elementSelectionDlg.getSelection());
 			} else if (elementSelectionDlg.getSelection() instanceof EndToEndFlow) {
 				return Optional.of(new BusinessObjectNode(null, UUID.randomUUID(), null,
-						elementSelectionDlg.getSelection(),
-						Completeness.UNKNOWN, false));
+						elementSelectionDlg.getSelection(), Completeness.UNKNOWN, false));
 			}
 
 			return Optional.empty();
@@ -1299,8 +1230,8 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 				selectionLabel = new Label(composite, SWT.NONE);
 				final List<BusinessObjectContext> bocs = AgeHandlerUtil.getSelectedBusinessObjectContexts();
 				if (bocs.size() == 1 && bocs.get(0).getBusinessObject() instanceof NamedElement) {
-					final String text = AgeAadlUtil.getRootRefinedElement((NamedElement) bocs.get(0).getBusinessObject())
-							.getName();
+					final String text = AgeAadlUtil
+							.getRootRefinedElement((NamedElement) bocs.get(0).getBusinessObject()).getName();
 					selectionLabel.setText(text);
 				} else {
 					selectionLabel.setText("<Invalid>");

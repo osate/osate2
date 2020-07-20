@@ -28,10 +28,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Queue;
 import java.util.Set;
 import java.util.function.Function;
 
@@ -65,7 +63,6 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.DataAccess;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FlowElement;
 import org.osate.aadl2.FlowEnd;
@@ -77,15 +74,14 @@ import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
-import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem.HighlightableFlowInfo;
+import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItemUtil;
 import org.osate.ge.aadl2.ui.internal.tools.FlowDialogUtil.SegmentData;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.AadlModificationService.Modification;
 import org.osate.ge.internal.services.ColoringService;
+import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
@@ -103,61 +99,45 @@ public class CreateFlowImplementationTool implements Tool {
 	private ColoringService.Coloring coloring = null;
 	private CreateFlowImplementationDialog createFlowImplDlg;
 
-	public CreateFlowImplementationTool(final AgeDiagramEditor editor, final HighlightableFlowInfo selectedFlow,
-			final Set<? extends BusinessObjectContext> segmentNodes) {
-		// Flow impl to edit
-		final FlowImplementation flowImpl = (FlowImplementation) selectedFlow.getFlowSegment();
-		final BusinessObjectNode container = (BusinessObjectNode) selectedFlow.getContainer();
-
-		// Find ancestors of the end to end flow container
-		final Queue<Element> ancestors = FlowUtil.getAncestors(container, Optional.empty());
-
-		// Find container on diagram
-		final BusinessObjectContext ancestor = FlowUtil.getAncestorDiagramElement(editor.getDiagram(), ancestors)
-				.orElseThrow(() -> new RuntimeException("Cannot find container: " + container.getBusinessObject()));
-
+	public CreateFlowImplementationTool(final AgeDiagramEditor editor, final DiagramElement container,
+			final FlowImplementation flowImpl) {
 		final UiService uiService = Objects.requireNonNull(Adapters.adapt(editor, UiService.class),
 				"ui service must not be null");
+		final ReferenceService referenceService = Objects.requireNonNull(Adapters.adapt(editor, ReferenceService.class),
+				"unable to retrieve reference service");
 		final Display display = Display.getCurrent();
-		createFlowImplDlg = new CreateFlowImplementationDialog(display.getActiveShell(),
-				selectedFlow, uiService);
-
-		// Convert BusinessObjectNodes to a map of NamedElement to BusinessObjectContexts
-		// used for referencing elements on the diagram and outline
-		final Map<NamedElement, BusinessObjectContext> segmentToBoc = FlowUtil.getSegmentToBocMap(segmentNodes,
-				ancestor);
+		createFlowImplDlg = new CreateFlowImplementationDialog(display.getActiveShell(), flowImpl, uiService);
 
 		// Populate segments
 		final FlowSpecification flowSpec = flowImpl.getSpecification();
-		final BusinessObjectContext boc = segmentToBoc.get(flowSpec);
-		segmentSelections.add(new SegmentData(boc));
+		segmentSelections.add(new SegmentData(
+				FlowContributionItemUtil.findOrCreateBusinessObjectContext(referenceService, container, flowSpec)));
 
 		final FlowEnd inEnd = flowImpl.getInEnd();
 		if (inEnd != null) {
-			final BusinessObjectContext inEndFeature = segmentToBoc.get(inEnd.getFeature());
-			segmentSelections.add(new SegmentData(inEndFeature));
+			segmentSelections.add(FlowContributionItemUtil.createSegmentData(referenceService, container, inEnd));
 		}
 
-		flowImpl.getOwnedFlowSegments().stream().map(seg -> AgeAadlUtil.getRootRefinedElement(seg.getFlowElement()))
-		.map(flowSegment -> new SegmentData(segmentToBoc.get(flowSegment))).forEach(segmentSelections::add);
+		flowImpl.getOwnedFlowSegments().stream().map(
+				flowSegment -> FlowContributionItemUtil.createSegmentData(referenceService, container, flowSegment))
+		.forEachOrdered(segmentSelections::add);
 
 		final FlowEnd outEnd = flowImpl.getOutEnd();
 		if (outEnd != null) {
-			final BusinessObjectContext outEndFeature = segmentToBoc.get(outEnd.getFeature());
-			segmentSelections.add(new SegmentData(outEndFeature));
+			segmentSelections.add(FlowContributionItemUtil.createSegmentData(referenceService, container, outEnd));
 		}
 
 		// Populate in mode features
 		flowImpl.getInModeOrTransitions().stream()
-		.forEach(modeFeature -> modeFeatureSelections.add(segmentToBoc.get(modeFeature)));
+				.forEachOrdered(modeFeature -> modeFeatureSelections.add(FlowContributionItemUtil
+				.findOrCreateBusinessObjectContext(referenceService, container, modeFeature)));
 	}
 
 	public CreateFlowImplementationTool(final AgeDiagramEditor editor) {
 		final Display display = Display.getCurrent();
 		final UiService uiService = Objects.requireNonNull(Adapters.adapt(editor, UiService.class),
 				"ui service must not be null");
-		createFlowImplDlg = new CreateFlowImplementationDialog(display.getActiveShell(),
-				null, uiService);
+		createFlowImplDlg = new CreateFlowImplementationDialog(display.getActiveShell(), null, uiService);
 	}
 
 	@Override
@@ -192,7 +172,8 @@ public class CreateFlowImplementationTool implements Tool {
 						}
 
 						// Set color for in mode and mode transitions
-						for (Iterator<BusinessObjectContext> modeFeatureIt = modeFeatureSelections.iterator(); modeFeatureIt
+						for (Iterator<BusinessObjectContext> modeFeatureIt = modeFeatureSelections
+								.iterator(); modeFeatureIt
 								.hasNext(); setColor(modeFeatureIt.next(), Color.MAGENTA.brighter())) {
 						}
 					}
@@ -205,10 +186,9 @@ public class CreateFlowImplementationTool implements Tool {
 						.ifPresent(ownerCi -> {
 							// Modifications to perform
 							final List<AadlModificationService.Modification<? extends NamedElement, ? extends NamedElement>> modifications = new ArrayList<>();
-							if (createFlowImplDlg.flowSegmentToEdit != null) {
+							if (createFlowImplDlg.flowImplToEdit != null) {
 								// Editing existing flow impl
-								final FlowImplementation flowImplToEdit = (FlowImplementation) createFlowImplDlg.flowSegmentToEdit
-										.getFlowSegment();
+								final FlowImplementation flowImplToEdit = createFlowImplDlg.flowImplToEdit;
 
 								// Copy owned property associations from old flow impl to new flow impl and remove old flow impl
 								modifications.add(Modification.create(flowImplToEdit, fi -> {
@@ -273,8 +253,7 @@ public class CreateFlowImplementationTool implements Tool {
 					createFlowImplDlg.addSelectedElement(selectedBocs.get(0), isInit);
 				}
 			} else if (createFlowImplDlg.elementSelectionDlg != null
-					&& createFlowImplDlg.elementSelectionDlg
-					.getShell() != null
+					&& createFlowImplDlg.elementSelectionDlg.getShell() != null
 					&& !createFlowImplDlg.elementSelectionDlg.getShell().isDisposed()
 					&& createFlowImplDlg.elementSelectionDlg.getShell().isVisible()) {
 				// Handle selection for editing flow segments and mode features
@@ -321,7 +300,7 @@ public class CreateFlowImplementationTool implements Tool {
 
 	private class CreateFlowImplementationDialog extends TitleAreaDialog {
 		private final Aadl2Package pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
-		private final HighlightableFlowInfo flowSegmentToEdit;
+		private final FlowImplementation flowImplToEdit;
 		private final UiService uiService;
 		private TableViewer errorTableViewer;
 		private Composite flowComposite;
@@ -332,10 +311,10 @@ public class CreateFlowImplementationTool implements Tool {
 		private boolean multipleElementsSelected = false;
 		private boolean isValid = true;
 
-		CreateFlowImplementationDialog(final Shell parentShell, final HighlightableFlowInfo flowSegmentToEdit,
+		CreateFlowImplementationDialog(final Shell parentShell, final FlowImplementation flowImplToEdit,
 				final UiService uiService) {
 			super(parentShell);
-			this.flowSegmentToEdit = flowSegmentToEdit;
+			this.flowImplToEdit = flowImplToEdit;
 			this.uiService = uiService;
 			this.setHelpAvailable(true);
 			setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
@@ -470,9 +449,7 @@ public class CreateFlowImplementationTool implements Tool {
 									if (flowImpl.getInEnd() == null) {
 										addSegmentSelection(new SegmentData(boc), 1, Color.MAGENTA.darker());
 									} else if (flowImpl.getOutEnd() == null) {
-										addSegmentSelection(new SegmentData(boc),
-												size,
-												Color.MAGENTA.darker());
+										addSegmentSelection(new SegmentData(boc), size, Color.MAGENTA.darker());
 									}
 								} else if (bo instanceof FlowElement) {
 									int insertIndex = flowImpl.getOutEnd() == null ? size : (size - 1);
@@ -484,15 +461,11 @@ public class CreateFlowImplementationTool implements Tool {
 										addSegmentSelection(new SegmentData(boc), 1, Color.MAGENTA.darker());
 									}
 								} else if (bo instanceof FlowElement) {
-									addSegmentSelection(new SegmentData(boc),
-											size,
-											Color.MAGENTA.darker());
+									addSegmentSelection(new SegmentData(boc), size, Color.MAGENTA.darker());
 								}
 							} else {
 								if (bo instanceof Feature && flowImpl.getOutEnd() == null) {
-									addSegmentSelection(new SegmentData(boc),
-											size,
-											Color.MAGENTA.darker());
+									addSegmentSelection(new SegmentData(boc), size, Color.MAGENTA.darker());
 								} else if (bo instanceof FlowElement) {
 									final int insertIndex = flowImpl.getOutEnd() == null ? size : (size - 1);
 									addSegmentSelection(new SegmentData(boc), insertIndex, Color.MAGENTA.darker());
@@ -529,7 +502,6 @@ public class CreateFlowImplementationTool implements Tool {
 			// Update the UI
 			updateWidgets();
 		}
-
 
 		private boolean isFlowImplValid(final FlowImplementation fi) {
 			if (fi.getSpecification() == null) {
@@ -604,7 +576,7 @@ public class CreateFlowImplementationTool implements Tool {
 			if (segmentIt.hasNext()) {
 				SegmentData segmentData = segmentIt.next();
 				BusinessObjectContext boc = segmentData.getBoc();
-				if (flowSegmentToEdit != null) {
+				if (flowImplToEdit != null) {
 					createFlowSpecLabel((NamedElement) boc.getBusinessObject());
 				} else {
 					createSegmentButton(FlowUtil.getRefinedName((NamedElement) boc.getBusinessObject()), segmentData);
@@ -614,6 +586,7 @@ public class CreateFlowImplementationTool implements Tool {
 				while (segmentIt.hasNext()) {
 					segmentData = segmentIt.next();
 					boc = segmentData.getBoc();
+					
 					createSegmentButton(FlowUtil.getRefinedName((NamedElement) boc.getBusinessObject()), segmentData);
 					if (segmentIt.hasNext()) {
 						// If segment is not last, add an arrow
@@ -627,8 +600,7 @@ public class CreateFlowImplementationTool implements Tool {
 				final Iterator<BusinessObjectContext> modeFeatureIt = modeFeatureSelections.iterator();
 				final BusinessObjectContext boc = modeFeatureIt.next();
 
-				createModeFeatureButton("(" + ((NamedElement) boc.getBusinessObject())
-						.getName()
+				createModeFeatureButton("(" + ((NamedElement) boc.getBusinessObject()).getName()
 						+ (modeFeatureIt.hasNext() ? "," : ")"), boc);
 
 				while (modeFeatureIt.hasNext()) {
@@ -689,8 +661,7 @@ public class CreateFlowImplementationTool implements Tool {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
 					final Point location = segmentBtn.getLocation();
-					editMenu.setLocation(Display.getCurrent().map(createFlowImplDlg.flowComposite,
-							null,
+					editMenu.setLocation(Display.getCurrent().map(createFlowImplDlg.flowComposite, null,
 							new Point(location.x, location.y + segmentBtn.getSize().y)));
 					// Can only replace flow spec or in/out end features
 					if (getFirstSelection().filter(selection -> selection == segmentData.getBoc()).isPresent()) {
@@ -794,9 +765,7 @@ public class CreateFlowImplementationTool implements Tool {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
 					final Point location = createModeFeatureBtn.getLocation();
-					menu.setLocation(Display.getCurrent().map(
-							createFlowImplDlg.flowComposite,
-							null,
+					menu.setLocation(Display.getCurrent().map(createFlowImplDlg.flowComposite, null,
 							new Point(location.x, location.y + createModeFeatureBtn.getSize().y)));
 					menu.setVisible(true);
 				};
@@ -817,18 +786,16 @@ public class CreateFlowImplementationTool implements Tool {
 			});
 		}
 
-		private void setSegment(
-				final SegmentData segmentData,
-				final boolean isInsertAfter) {
+		private void setSegment(final SegmentData segmentData, final boolean isInsertAfter) {
 			setSegment(Optional.empty(), segmentData, isInsertAfter);
 		}
 
-		private void setSegment(
-				final Optional<Runnable> opRunnable,
-				final SegmentData segmentData, final boolean isInsertAfter) {
+		private void setSegment(final Optional<Runnable> opRunnable, final SegmentData segmentData,
+				final boolean isInsertAfter) {
 			try {
 				createFlowImplDlg.getShell().setVisible(false);
-				if (elementSelectionDlg.open() == Window.OK && elementSelectionDlg != null && createFlowImplDlg != null) {
+				if (elementSelectionDlg.open() == Window.OK && elementSelectionDlg != null
+						&& createFlowImplDlg != null) {
 					final Optional<BusinessObjectContext> optBoc = getReplacementBoc();
 					if (optBoc.isPresent()) {
 						final BusinessObjectContext selectedBoc = optBoc.get();
@@ -906,18 +873,16 @@ public class CreateFlowImplementationTool implements Tool {
 			segmentSelections.add(movingTo, bocToMove);
 		}
 
-		private void setSegment(
-				final BusinessObjectContext boc,
-				final boolean isInsertAfter) {
+		private void setSegment(final BusinessObjectContext boc, final boolean isInsertAfter) {
 			setSegment(Optional.empty(), boc, isInsertAfter);
 		}
 
-		private void setSegment(
-				final Optional<Runnable> consumer,
-				final BusinessObjectContext boc, final boolean isInsertAfter) {
+		private void setSegment(final Optional<Runnable> consumer, final BusinessObjectContext boc,
+				final boolean isInsertAfter) {
 			try {
 				createFlowImplDlg.getShell().setVisible(false);
-				if (elementSelectionDlg.open() == Window.OK && elementSelectionDlg != null && createFlowImplDlg != null) {
+				if (elementSelectionDlg.open() == Window.OK && elementSelectionDlg != null
+						&& createFlowImplDlg != null) {
 					final Optional<BusinessObjectContext> optBoc = getReplacementBoc();
 					if (optBoc.isPresent()) {
 						final BusinessObjectContext selectedBoc = optBoc.get();

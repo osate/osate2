@@ -46,9 +46,10 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.internal.util.AadlClassifierUtil;
 import org.osate.ge.aadl2.internal.util.AadlFlowSpecificationUtil;
-import org.osate.ge.aadl2.internal.util.AadlInstanceObjectUtil;
 import org.osate.ge.aadl2.internal.util.AadlFlowSpecificationUtil.FlowSegmentReference;
+import org.osate.ge.aadl2.internal.util.AadlInstanceObjectUtil;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.editor.ComboContributionItem;
@@ -307,6 +308,12 @@ public class FlowContributionItem extends ComboContributionItem {
 				final FlowSegmentState state) {
 			this.highlightableFlowElement = highlightableFlowElement;
 			this.state = state;
+
+			if (highlightableFlowElement != null
+					&& !(this.highlightableFlowElement.container instanceof DiagramElement)) {
+				throw new RuntimeException(
+						"Flow element container is not a diagram element: " + this.highlightableFlowElement.container);
+			}
 		}
 
 		public FlowSegmentState getState() {
@@ -318,6 +325,14 @@ public class FlowContributionItem extends ComboContributionItem {
 
 		public BusinessObjectContext getContainer() {
 			return highlightableFlowElement.container;
+		}
+
+		/**
+		 * The container's type is checked in the constructor.
+		 * @return the diagram element which contains the flow.
+		 */
+		public DiagramElement getDiagramElementContainer() {
+			return (DiagramElement) getContainer();
 		}
 
 		public static HighlightableFlowInfo create(final FlowSegmentReference fsr) {
