@@ -68,10 +68,16 @@ public class FlowContributionItem extends ComboContributionItem {
 							|| fa.getBusinessObject() instanceof ComponentInstance));
 	private AgeDiagramEditor editor = null;
 	private final ShowFlowContributionItem showFlowContributionItem;
+	private final EditFlowContributionItem editFlowContributionItem;
+	private final DeleteFlowContributionItem deleteFlowContributionItem;
 
-	public FlowContributionItem(final String id, final ShowFlowContributionItem showFlowImplElements) {
+	public FlowContributionItem(final String id, final ShowFlowContributionItem showFlowImplElements,
+			final EditFlowContributionItem editFlowContributionItem,
+			final DeleteFlowContributionItem deleteFlowContributionItem) {
 		super(id);
 		this.showFlowContributionItem = showFlowImplElements;
+		this.editFlowContributionItem = editFlowContributionItem;
+		this.deleteFlowContributionItem = deleteFlowContributionItem;
 	}
 
 	@Override
@@ -123,6 +129,8 @@ public class FlowContributionItem extends ComboContributionItem {
 				@SuppressWarnings("unchecked")
 				final Map.Entry<String, HighlightableFlowInfo> entry = (Map.Entry<String, HighlightableFlowInfo>) firstSelection;
 				showFlowContributionItem.updateShowFlowItem(entry.getValue());
+				editFlowContributionItem.updateEditFlowItem(entry.getValue());
+				deleteFlowContributionItem.updateDeleteFlowItem(entry.getValue());
 			}
 		});
 
@@ -192,6 +200,8 @@ public class FlowContributionItem extends ComboContributionItem {
 			}
 
 			showFlowContributionItem.updateShowFlowItem(selectedValue.getValue());
+			editFlowContributionItem.updateEditFlowItem(selectedValue.getValue());
+			deleteFlowContributionItem.updateDeleteFlowItem(selectedValue.getValue());
 			comboViewer.setSelection(new StructuredSelection(selectedValue));
 		}
 	}
@@ -313,7 +323,7 @@ public class FlowContributionItem extends ComboContributionItem {
 		}
 
 		public NamedElement getFlowSegment() {
-			return highlightableFlowElement.flowSegmentElement;
+			return highlightableFlowElement == null ? null : highlightableFlowElement.flowSegmentElement;
 		}
 	}
 
