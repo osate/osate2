@@ -27,8 +27,10 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 import org.osate.aadl2.EndToEndFlow;
+import org.osate.aadl2.EndToEndFlowElement;
 import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.FlowElement;
+import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.NamedElement;
@@ -80,14 +82,21 @@ public class AadlFlowSpecificationUtil {
 			// Check if flow specification has flow implementation(s)
 			return AadlClassifierUtil.getComponentImplementation(flowElementRef.container.getBusinessObject())
 					.map(ci -> ci.getAllFlowImplementations().stream()
-							.filter(cfi -> flowElementRef.flowSegmentElement == cfi.getSpecification())
-							.flatMap(cfi -> cfi.getOwnedFlowSegments().stream())
+							.filter(cfi -> AadlHelper.getRootRefinedElement(
+									flowElementRef.flowSegmentElement) == AadlHelper.getRootRefinedElement(
+											cfi.getSpecification()))
+							.flatMap(cfi -> cfi.getOwnedFlowSegments().stream().filter(flowSegment -> flowSegment
+									.getFlowElement() != cfi
+									.getSpecification()))
 							.map(flowSegment -> createFlowSegmentReference(flowSegment, flowElementRef.container)))
 					.orElse(Stream.empty());
 		} else if (flowElementRef.flowSegmentElement instanceof EndToEndFlow) {
 			return AadlClassifierUtil.getComponentImplementation(flowElementRef.container.getBusinessObject())
-					.map(ci -> ci.getAllEndToEndFlows().stream().filter(ete -> ete == flowElementRef.flowSegmentElement)
-							.flatMap(ete -> ete.getAllFlowSegments().stream())
+					.map(ci -> ci.getAllEndToEndFlows().stream()
+							.filter(ete -> AadlHelper.getRootRefinedElement(ete) == AadlHelper
+							.getRootRefinedElement(flowElementRef.flowSegmentElement))
+							.flatMap(ete -> getAllEteFlowSegments(
+									ete))
 							.map(eteFlowSegment -> createFlowSegmentReference(eteFlowSegment,
 									flowElementRef.container)))
 					.orElse(Stream.empty());
@@ -108,9 +117,27 @@ public class AadlFlowSpecificationUtil {
 										});
 							}))
 					.orElse(Stream.empty());
+		} else if (flowElementRef.flowSegmentElement instanceof FlowImplementation) {
+			final FlowImplementation fi = (FlowImplementation) flowElementRef.flowSegmentElement;
+			return fi.getOwnedFlowSegments().stream().map(
+					flowSegment -> createFlowSegmentReference(flowSegment, flowElementRef.container));
 		} else {
 			return Stream.empty();
 		}
+	}
+
+	// Flatten end to end flow segments that are end to end flows and remove cyclic end to end flow segments
+	private static Stream<EndToEndFlowSegment> getAllEteFlowSegments(final EndToEndFlow eTEFlow) {
+		return eTEFlow.getAllFlowSegments().stream()
+				.filter(eTEFlowSegment -> eTEFlowSegment.getFlowElement() != eTEFlow)
+				.flatMap(eTEFlowSegment -> {
+					final EndToEndFlowElement eTEFlowElement = eTEFlowSegment.getFlowElement();
+					if (eTEFlowElement instanceof EndToEndFlow) {
+						return getAllEteFlowSegments((EndToEndFlow) eTEFlowElement);
+					}
+
+					return Stream.of(eTEFlowSegment);
+				});
 	}
 
 	public static FlowSegmentReference createFlowSegmentReference(final Object bo, final Queryable container) {
@@ -157,6 +184,9 @@ public class AadlFlowSpecificationUtil {
 						.findAny().map(q -> new FlowSegmentReference(io, q.getParent()))
 						.orElse(null);
 			}
+		} else if (bo instanceof FlowImplementation) {
+			final FlowImplementation fi = (FlowImplementation) bo;
+			return new FlowSegmentReference(fi, container);
 		} else if (bo instanceof NamedElement) {
 			return new FlowSegmentReference((NamedElement) bo, container);
 		} else {
