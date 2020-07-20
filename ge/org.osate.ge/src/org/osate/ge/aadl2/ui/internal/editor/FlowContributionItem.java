@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.ui.editor;
+package org.osate.ge.aadl2.ui.internal.editor;
 
 import java.util.AbstractMap;
 import java.util.Map;
@@ -50,6 +50,8 @@ import org.osate.ge.aadl2.internal.util.AadlInstanceObjectUtil;
 import org.osate.ge.aadl2.internal.util.AadlFlowSpecificationUtil.FlowSegmentReference;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
+import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.editor.ComboContributionItem;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;

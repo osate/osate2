@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.ui.editor;
+package org.osate.ge.aadl2.ui.internal.editor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +51,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
-import org.osate.ge.internal.ui.tools.FlowDialogUtil;
+import org.osate.ge.aadl2.ui.internal.tools.FlowDialogUtil;
 
 public class FlowContributionItemUtil {
 	private FlowContributionItemUtil() {

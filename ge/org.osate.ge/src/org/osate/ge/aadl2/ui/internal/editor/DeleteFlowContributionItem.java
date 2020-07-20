@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.ui.editor;
+package org.osate.ge.aadl2.ui.internal.editor;
 
 import java.util.List;
 import java.util.Objects;
@@ -48,9 +48,10 @@ import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem.HighlightableFlowInfo;
+import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItemUtil.FlowImplementationSelectionDialog;
 import org.osate.ge.internal.services.AadlModificationService;
-import org.osate.ge.internal.ui.editor.FlowContributionItem.HighlightableFlowInfo;
-import org.osate.ge.internal.ui.editor.FlowContributionItemUtil.FlowImplementationSelectionDialog;
+import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.util.ProxyUtil;
 
 public class DeleteFlowContributionItem extends ControlContribution {
@@ -60,10 +61,9 @@ public class DeleteFlowContributionItem extends ControlContribution {
 	private Button deleteFlowBtn;
 	private HighlightableFlowInfo selectedFlow;
 
-	protected DeleteFlowContributionItem(final String id) {
+	public DeleteFlowContributionItem(final String id) {
 		super(id);
 	}
-
 
 	@Override
 	protected Control createControl(final Composite parent) {
