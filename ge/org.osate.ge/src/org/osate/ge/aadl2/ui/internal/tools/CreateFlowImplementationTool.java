@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.ui.tools;
+package org.osate.ge.aadl2.ui.internal.tools;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
@@ -78,6 +78,8 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
+import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem.HighlightableFlowInfo;
+import org.osate.ge.aadl2.ui.internal.tools.FlowDialogUtil.SegmentData;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
@@ -86,9 +88,12 @@ import org.osate.ge.internal.services.AadlModificationService.Modification;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
-import org.osate.ge.internal.ui.editor.FlowContributionItem.HighlightableFlowInfo;
 import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
-import org.osate.ge.internal.ui.tools.FlowDialogUtil.SegmentData;
+import org.osate.ge.internal.ui.tools.ActivatedEvent;
+import org.osate.ge.internal.ui.tools.DeactivatedEvent;
+import org.osate.ge.internal.ui.tools.SelectionChangedEvent;
+import org.osate.ge.internal.ui.tools.Tool;
+import org.osate.ge.internal.ui.tools.ToolUtil;
 import org.osate.ge.internal.ui.util.ContextHelpUtil;
 import org.osate.ge.internal.ui.util.DialogPlacementHelper;
 
@@ -174,7 +179,7 @@ public class CreateFlowImplementationTool implements Tool {
 					// Create and update based on current selection
 					createFlowImplDlg.create();
 					if (segmentSelections.isEmpty() && modeFeatureSelections.isEmpty()) {
-						update(new BusinessObjectContext[] { selectedBoc }, true);
+						update(Collections.singletonList(selectedBoc), true);
 					} else {
 						final Iterator<SegmentData> segmentIt = segmentSelections.iterator();
 						if (segmentIt.hasNext()) {
@@ -256,16 +261,16 @@ public class CreateFlowImplementationTool implements Tool {
 	 * @param selectedBocs - the selected bocs
 	 * @param isInit - whether the selected bocs are the inital selection when the tool was activated
 	 */
-	private void update(final BusinessObjectContext[] selectedBocs, final boolean isInit) {
+	private void update(final List<BusinessObjectContext> selectedBocs, final boolean isInit) {
 		if (createFlowImplDlg != null) {
 			if (createFlowImplDlg.getShell() != null && !createFlowImplDlg.getShell().isDisposed()
 					&& createFlowImplDlg.elementSelectionDlg == null) {
 				// Handle selection for creating flow segments and mode features
-				if (selectedBocs.length > 1) {
+				if (selectedBocs.size() > 1) {
 					createFlowImplDlg.setMultipleElementsSelected(true, isInit);
-				} else if (selectedBocs.length == 1) {
+				} else if (selectedBocs.size() == 1) {
 					createFlowImplDlg.setMultipleElementsSelected(false, isInit);
-					createFlowImplDlg.addSelectedElement(selectedBocs[0], isInit);
+					createFlowImplDlg.addSelectedElement(selectedBocs.get(0), isInit);
 				}
 			} else if (createFlowImplDlg.elementSelectionDlg != null
 					&& createFlowImplDlg.elementSelectionDlg
@@ -274,12 +279,12 @@ public class CreateFlowImplementationTool implements Tool {
 					&& createFlowImplDlg.elementSelectionDlg.getShell().isVisible()) {
 				// Handle selection for editing flow segments and mode features
 				final CreateFlowImplementationDialog.SelectSegmentOrModeFeatureDialog elementSelectionDlg = createFlowImplDlg.elementSelectionDlg;
-				if (selectedBocs.length > 1) {
+				if (selectedBocs.size() > 1) {
 					elementSelectionDlg
 					.setErrorMessage("Multiple elements are selected. " + elementSelectionDlg.getMessage());
 					elementSelectionDlg.setSelection(null);
-				} else if (selectedBocs.length == 1) {
-					final BusinessObjectContext selectedBoc = selectedBocs[0];
+				} else if (selectedBocs.size() == 1) {
+					final BusinessObjectContext selectedBoc = selectedBocs.get(0);
 					elementSelectionDlg.setErrorMessage(null);
 					elementSelectionDlg.setSelection(selectedBoc);
 				}
@@ -311,7 +316,7 @@ public class CreateFlowImplementationTool implements Tool {
 
 	@Override
 	public void selectionChanged(SelectionChangedEvent ctx) {
-		update(ctx.getSelectedBocs().toArray(new BusinessObjectContext[ctx.getSelectedBocs().size()]), false);
+		update(ctx.getSelectedBocs(), false);
 	}
 
 	private class CreateFlowImplementationDialog extends TitleAreaDialog {

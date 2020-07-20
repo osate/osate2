@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.ui.editor;
+package org.osate.ge.aadl2.ui.internal.editor;
 
 import java.util.HashSet;
 import java.util.List;
@@ -65,6 +65,11 @@ import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.util.AadlClassifierUtil;
 import org.osate.ge.aadl2.internal.util.AadlFlowSpecificationUtil.FlowSegmentReference;
 import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
+import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem.FlowSegmentState;
+import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem.HighlightableFlowInfo;
+import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItemUtil.FlowImplementationSelectionDialog;
+import org.osate.ge.aadl2.ui.internal.tools.CreateEndToEndFlowSpecificationTool;
+import org.osate.ge.aadl2.ui.internal.tools.CreateFlowImplementationTool;
 import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.runtime.botree.Completeness;
@@ -73,11 +78,7 @@ import org.osate.ge.internal.diagram.runtime.botree.TreeUpdater;
 import org.osate.ge.internal.graphiti.AgeFeatureProvider;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.UiService;
-import org.osate.ge.internal.ui.editor.FlowContributionItem.FlowSegmentState;
-import org.osate.ge.internal.ui.editor.FlowContributionItem.HighlightableFlowInfo;
-import org.osate.ge.internal.ui.editor.FlowContributionItemUtil.FlowImplementationSelectionDialog;
-import org.osate.ge.internal.ui.tools.CreateEndToEndFlowSpecificationTool;
-import org.osate.ge.internal.ui.tools.CreateFlowImplementationTool;
+import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.util.ProxyUtil;
 
 import com.google.common.base.Predicates;
@@ -89,7 +90,7 @@ public class EditFlowContributionItem extends ControlContribution {
 	private Button editFlowBtn;
 	private HighlightableFlowInfo selectedHighlightableFlow;
 
-	protected EditFlowContributionItem(final String id) {
+	public EditFlowContributionItem(final String id) {
 		super(id);
 	}
 
@@ -176,7 +177,6 @@ public class EditFlowContributionItem extends ControlContribution {
 					}
 				});
 			}
-
 
 			private void ensureFlowImplSegmentsExist(final FlowImplementation fi,
 					final BusinessObjectNode containerNode) {

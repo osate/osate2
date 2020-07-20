@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.ui.editor;
+package org.osate.ge.aadl2.ui.internal.editor;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -71,6 +71,8 @@ import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.util.AadlClassifierUtil;
 import org.osate.ge.aadl2.internal.util.AadlFlowSpecificationUtil.FlowSegmentReference;
 import org.osate.ge.aadl2.internal.util.AadlInstanceObjectUtil;
+import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem.FlowSegmentState;
+import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem.HighlightableFlowInfo;
 import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
@@ -84,8 +86,7 @@ import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ProjectReferenceService;
-import org.osate.ge.internal.ui.editor.FlowContributionItem.FlowSegmentState;
-import org.osate.ge.internal.ui.editor.FlowContributionItem.HighlightableFlowInfo;
+import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
 import com.google.common.base.Predicates;
 
@@ -99,7 +100,7 @@ public class ShowFlowContributionItem extends ControlContribution {
 	private Button showFlowBtn;
 	private HighlightableFlowInfo selectedFlow;
 
-	protected ShowFlowContributionItem(final String id) {
+	public ShowFlowContributionItem(final String id) {
 		super(id);
 	}
 

@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.ui.tools;
+package org.osate.ge.aadl2.ui.internal.tools;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -75,6 +75,11 @@ import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.AadlModificationService.Modification;
 import org.osate.ge.internal.services.AadlModificationService.SimpleModifier;
 import org.osate.ge.internal.services.UiService;
+import org.osate.ge.internal.ui.tools.ActivatedEvent;
+import org.osate.ge.internal.ui.tools.DeactivatedEvent;
+import org.osate.ge.internal.ui.tools.SelectionChangedEvent;
+import org.osate.ge.internal.ui.tools.Tool;
+import org.osate.ge.internal.ui.tools.ToolUtil;
 import org.osate.ge.internal.ui.util.ContextHelpUtil;
 import org.osate.ge.swt.util.SwtTestUtil;
 import org.osate.xtext.aadl2.properties.util.DeploymentProperties;

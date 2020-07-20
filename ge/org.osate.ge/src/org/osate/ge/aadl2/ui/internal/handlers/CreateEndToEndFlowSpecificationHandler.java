@@ -21,14 +21,15 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.ui.handlers;
+package org.osate.ge.aadl2.ui.internal.handlers;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.osate.ge.aadl2.ui.internal.tools.CreateEndToEndFlowSpecificationTool;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
-import org.osate.ge.internal.ui.tools.CreateEndToEndFlowSpecificationTool;
+import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
 
 public class CreateEndToEndFlowSpecificationHandler extends AbstractHandler {
 	@Override

@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.ui.tools;
+package org.osate.ge.aadl2.ui.internal.tools;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -89,6 +89,8 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
+import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem.HighlightableFlowInfo;
+import org.osate.ge.aadl2.ui.internal.tools.FlowDialogUtil.SegmentData;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
@@ -97,9 +99,12 @@ import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
-import org.osate.ge.internal.ui.editor.FlowContributionItem.HighlightableFlowInfo;
 import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
-import org.osate.ge.internal.ui.tools.FlowDialogUtil.SegmentData;
+import org.osate.ge.internal.ui.tools.ActivatedEvent;
+import org.osate.ge.internal.ui.tools.DeactivatedEvent;
+import org.osate.ge.internal.ui.tools.SelectionChangedEvent;
+import org.osate.ge.internal.ui.tools.Tool;
+import org.osate.ge.internal.ui.tools.ToolUtil;
 import org.osate.ge.internal.ui.util.ContextHelpUtil;
 import org.osate.ge.internal.ui.util.DialogPlacementHelper;
 
@@ -127,7 +132,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 		final BusinessObjectContext ancestor = FlowUtil
 				.getAncestorDiagramElement(
 						editor
-								.getDiagram(),
+						.getDiagram(),
 						ancestors)
 				.orElseThrow(() -> new RuntimeException(
 						"Cannot find container: " + container.getBusinessObject()));
@@ -222,7 +227,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 					// Create and update based on current selection
 					createFlowDialog.create();
 					if (segmentSelections.isEmpty() && modeFeatureSelections.isEmpty()) {
-						update(new BusinessObjectContext[] { selectedBoc }, true);
+						update(Collections.singletonList(selectedBoc), true);
 					} else {
 						final Iterator<SegmentData> segmentIt = segmentSelections
 								.iterator();
@@ -293,7 +298,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 
 	@Override
 	public void selectionChanged(SelectionChangedEvent ctx) {
-		update(ctx.getSelectedBocs().toArray(new BusinessObjectContext[ctx.getSelectedBocs().size()]), false);
+		update(ctx.getSelectedBocs(), false);
 	}
 
 	/**
@@ -361,18 +366,18 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 	/**
 	 * Update the diagram and tool dialog
 	 * @param selectedBocs - the selected bocs
-	 * @param isInit - whether the selected bocs are the inital selection when the tool was activated
+	 * @param isInit - whether the selected bocs are the initial selection when the tool was activated
 	 */
-	private void update(final BusinessObjectContext[] selectedBocs, final boolean isInit) {
+	private void update(final List<BusinessObjectContext> selectedBocs, final boolean isInit) {
 		if (createFlowDialog != null) {
 			if (createFlowDialog.getShell() != null && !createFlowDialog.getShell().isDisposed()
 					&& createFlowDialog.elementSelectionDlg == null) {
 				// If the selection is qualified, add it
-				if (selectedBocs.length > 1) {
+				if (selectedBocs.size() > 1) {
 					createFlowDialog.setErrorMessage("Multiple elements selected. Select a single element. " + " " + getDialogMessage());
-				} else if (selectedBocs.length == 1) {
+				} else if (selectedBocs.size() == 1) {
 					// Get the selected boc
-					final BusinessObjectContext selectedBoc = (BusinessObjectContext) selectedBocs[0];
+					final BusinessObjectContext selectedBoc = (BusinessObjectContext) selectedBocs.get(0);
 					String error = null;
 					if (!modeFeatureSelections.contains(selectedBoc) && createFlowDialog.addSelectedElement(selectedBoc)) {
 						// Insert flow segments before first mode feature
@@ -425,13 +430,13 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 					&& createFlowDialog.elementSelectionDlg.getShell().isVisible()) {
 				final CreateFlowsToolsDialog.ElementSelectionDialog elementSelectionDlg = createFlowDialog.elementSelectionDlg;
 				// Selecting an element for editing end to end flows
-				if (selectedBocs.length > 1) {
+				if (selectedBocs.size() > 1) {
 					elementSelectionDlg
 					.setErrorMessage("Multiple elements are selected.\n " + elementSelectionDlg.getMessage());
 					elementSelectionDlg.setSelection(null);
-				} else if (selectedBocs.length == 1) {
+				} else if (selectedBocs.size() == 1) {
 					elementSelectionDlg.setErrorMessage(null);
-					final BusinessObjectContext selectedBoc = selectedBocs[0];
+					final BusinessObjectContext selectedBoc = selectedBocs.get(0);
 					elementSelectionDlg.setSelection(selectedBoc);
 				}
 			}
