@@ -37,12 +37,12 @@ public class BaBusinessObjectProvider implements BusinessObjectProvider {
 	public Stream<?> getChildBusinessObjects(final BusinessObjectProviderContext ctx) {
 		final Object bo = ctx.getBusinessObjectContext().getBusinessObject();
 		if (bo instanceof Classifier) {
-			final BehaviorAnnex ba = BaUtil.getBehaviorAnnex((Classifier) bo);
-			if (ba == null) {
-				return Stream.empty();
-			}
-
-			return ba.getStates().stream();
+			// TODO get BA? can be multiple?
+			final Stream<BehaviorAnnex> bas = BaUtil.getBehaviorAnnexes((Classifier) bo);
+			System.err.println(BaUtil.getBehaviorAnnexes((Classifier) bo).count() + " count");
+			return bas;
+		} else if (bo instanceof BehaviorAnnex) {
+			return ((BehaviorAnnex) bo).getStates().stream();
 		}
 
 		return Stream.empty();

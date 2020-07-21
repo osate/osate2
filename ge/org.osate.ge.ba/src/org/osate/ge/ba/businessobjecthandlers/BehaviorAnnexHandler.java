@@ -69,7 +69,8 @@ public class BehaviorAnnexHandler implements BusinessObjectHandler {
 
 	@Override
 	public String getName(final GetNameContext ctx) {
+		// TODO all BA's have same name? Yes, but label could be "BA for Impl"...
 		// Hide this element from the user interface
-		return "Behavior AnnexAA";
+		return "BA";
 	}
 }
