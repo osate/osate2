@@ -23,6 +23,9 @@
  */
 package org.osate.ge.aadl2;
 
+import java.util.stream.Stream;
+import java.util.stream.Stream.Builder;
+
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
@@ -31,6 +34,8 @@ import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
+
+import com.google.common.base.Predicates;
 
 /**
  *
@@ -172,5 +177,24 @@ public class GraphicalAnnexUtil {
 		// If unable to get the parsed annex subclause, throw an exception. Should not mistake this case for simply not having the annex subclause.
 		throw new RuntimeException(
 				"Annex subclause found but unable to retrieve parsed annex subclause of type: " + parsedType.getName());
+	}
+
+	public static Stream<AnnexSubclause> getAllParsedAnnexSubclauses(final Classifier c, final String annexName,
+			final EClass behaviorAnnex) {
+		return getAllDefaultAnnexSubclause(c, annexName)
+				.map(defaultSubclause -> getParsedAnnexSubclause(defaultSubclause, behaviorAnnex))
+				.filter(Predicates.notNull());
+	}
+
+	private static Stream<DefaultAnnexSubclause> getAllDefaultAnnexSubclause(final Classifier c,
+			final String annexName) {
+		final Builder<DefaultAnnexSubclause> builder = Stream.builder();
+		for (final AnnexSubclause subclause : c.getOwnedAnnexSubclauses()) {
+			if (subclause.getName().equals(annexName) && subclause instanceof DefaultAnnexSubclause) {
+				builder.add((DefaultAnnexSubclause) subclause);
+			}
+		}
+
+		return builder.build();
 	}
 }

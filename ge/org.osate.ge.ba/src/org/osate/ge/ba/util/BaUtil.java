@@ -23,6 +23,8 @@
  */
 package org.osate.ge.ba.util;
 
+import java.util.stream.Stream;
+
 import org.osate.aadl2.Classifier;
 import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.BehaviorAnnex;
@@ -44,5 +46,10 @@ public class BaUtil {
 	public static BehaviorAnnex createBehaviorAnnex(final Classifier c) {
 		return (BehaviorAnnex) GraphicalAnnexUtil.createParsedAnnexSubclause(c, ANNEX_NAME,
 				AadlBaPackage.eINSTANCE.getBehaviorAnnex());
+	}
+
+	public static Stream<BehaviorAnnex> getBehaviorAnnexes(final Classifier c) {
+		return GraphicalAnnexUtil.getAllParsedAnnexSubclauses(c, ANNEX_NAME, AadlBaPackage.eINSTANCE.getBehaviorAnnex())
+				.map(BehaviorAnnex.class::cast);
 	}
 }
