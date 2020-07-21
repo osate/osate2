@@ -27,13 +27,13 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.DockArea;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
-import org.osate.ge.internal.query.Queryable;
 
 
 class AlignmentHelper {
@@ -102,7 +102,7 @@ class AlignmentHelper {
 	private void shiftCollidingPorts(final DiagramModification m,
 			final DiagramElement de, final double newLocation) {
 		// Check for colliding ports
-		for (final Queryable q : de.getParent().getChildren()) {
+		for (final BusinessObjectContext q : de.getParent().getChildren()) {
 			if (q instanceof DiagramElement && ((DiagramElement) q).getDockArea() == de.getDockArea()) {
 				final DiagramElement dockedChild = (DiagramElement) q;
 
@@ -121,7 +121,7 @@ class AlignmentHelper {
 	// Shift eligible children
 	private void shiftChildren(final DiagramModification m,
 			final DiagramElement parentDe, final double childOffset) {
-		for (final Queryable q : parentDe.getChildren()) {
+		for (final BusinessObjectContext q : parentDe.getChildren()) {
 			if (q instanceof DiagramElement && axis.isValidDockArea().apply(((DiagramElement) q).getDockArea())) {
 				final DiagramElement childDe = (DiagramElement) q;
 				DiagramElementLayoutUtil.moveElement(m, childDe, axis.getShiftPostion(childDe, childOffset),
@@ -181,7 +181,7 @@ class AlignmentHelper {
 	}
 
 	static boolean isAncestorSelected(final DiagramElement de, final List<DiagramElement> selectedElements) {
-		Queryable parent = de.getParent();
+		BusinessObjectContext parent = de.getParent();
 
 		while (parent != null) {
 			if (selectedElements.contains(parent)) {

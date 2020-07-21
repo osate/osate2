@@ -26,7 +26,7 @@ package org.osate.ge.ba.util;
 import org.osate.aadl2.Classifier;
 import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.BehaviorAnnex;
-import org.osate.ge.GraphicalAnnexUtil;
+import org.osate.ge.aadl2.GraphicalAnnexUtil;
 
 public class BaUtil {
 	private static final String ANNEX_NAME = "behavior_specification";

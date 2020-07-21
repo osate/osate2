@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -64,15 +64,15 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.ge.aadl2.internal.model.SubprogramCallOrder;
 import org.osate.ge.diagram.AadlPropertiesSet;
 import org.osate.ge.diagram.DiagramConfiguration;
 import org.osate.ge.diagram.Dimension;
 import org.osate.ge.internal.diagram.runtime.DockArea;
 import org.osate.ge.internal.graphiti.diagram.PropertyUtil;
-import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.ReferenceService;
-import org.osate.ge.internal.ui.util.SelectionUtil;
+import org.osate.ge.internal.util.ProjectUtil;
 import org.osate.ge.services.ReferenceBuilderService;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
@@ -115,12 +115,12 @@ public class LegacyGraphitiDiagramConverter {
 	}
 
 	public void convertLegacyDiagram(final Diagram legacyDiagram, final URI uri) {
-		final org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference contextBoRef = LegacyDiagramUtil.getLegacyReference(legacyDiagram);
+		final org.osate.ge.CanonicalBusinessObjectReference contextBoRef = LegacyDiagramUtil.getLegacyReference(legacyDiagram);
 		if(contextBoRef == null) {
 			throw new RuntimeException("Unable to get context business object reference from legacy diagram.");
 		}
 
-		final IProject project = SelectionUtil.getProjectOrThrow(legacyDiagram.eResource());
+		final IProject project = ProjectUtil.getProjectOrThrow(legacyDiagram.eResource());
 
 		// Create objects for the context
 		final Bundle bundle = FrameworkUtil.getBundle(getClass());
@@ -138,7 +138,7 @@ public class LegacyGraphitiDiagramConverter {
 
 			// Special handling for package diagrams
 			if(contextBo instanceof AadlPackage) {
-				final org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference contextRelRef = referenceService.getRelativeReference(contextBo);
+				final org.osate.ge.RelativeBusinessObjectReference contextRelRef = referenceService.getRelativeReference(contextBo);
 				if(contextRelRef == null) {
 					throw new RuntimeException("Unable to retrieve relative reference for context business object");
 				}
@@ -181,7 +181,7 @@ public class LegacyGraphitiDiagramConverter {
 				}
 
 				// Get canonical reference
-				final org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference canonicalRef = LegacyDiagramUtil.getLegacyReference(c);
+				final org.osate.ge.CanonicalBusinessObjectReference canonicalRef = LegacyDiagramUtil.getLegacyReference(c);
 				if(canonicalRef == null) {
 					// Skip
 					continue;
@@ -193,7 +193,7 @@ public class LegacyGraphitiDiagramConverter {
 					continue;
 				}
 
-				final org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference relRef = referenceService.getRelativeReference(bo);
+				final org.osate.ge.RelativeBusinessObjectReference relRef = referenceService.getRelativeReference(bo);
 				if(relRef == null) {
 					// Skip
 					continue;
@@ -331,11 +331,11 @@ public class LegacyGraphitiDiagramConverter {
 			}
 		} else if(bo instanceof ConnectionReference) {
 			EObject tmpNode = srcElement.eContainer();
-			final org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference crRelativeRef = refBuilder.getRelativeReference(bo);
+			final org.osate.ge.RelativeBusinessObjectReference crRelativeRef = refBuilder.getRelativeReference(bo);
 			if(crRelativeRef != null) {
 				while(tmpNode instanceof org.osate.ge.diagram.DiagramElement) {
 					final Object tmpBo = diagramElementToBoMap.get(tmpNode);
-					final org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference ancestorRelativeRef = tmpBo == null ? null : refBuilder.getRelativeReference(tmpBo);
+					final org.osate.ge.RelativeBusinessObjectReference ancestorRelativeRef = tmpBo == null ? null : refBuilder.getRelativeReference(tmpBo);
 					if(crRelativeRef.equals(ancestorRelativeRef)) {
 						return (org.osate.ge.diagram.DiagramElement)tmpNode;
 					}
@@ -373,7 +373,7 @@ public class LegacyGraphitiDiagramConverter {
 			}
 
 			// Get canonical reference
-			final org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference canonicalRef = LegacyDiagramUtil.getLegacyReference(child);
+			final org.osate.ge.CanonicalBusinessObjectReference canonicalRef = LegacyDiagramUtil.getLegacyReference(child);
 			if(canonicalRef == null) {
 				// Ignore shapes for which a reference cannot be retrieved.
 				continue;
@@ -385,7 +385,7 @@ public class LegacyGraphitiDiagramConverter {
 				continue;
 			}
 
-			final org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference relRef = referenceService.getRelativeReference(bo);
+			final org.osate.ge.RelativeBusinessObjectReference relRef = referenceService.getRelativeReference(bo);
 			if(relRef == null) {
 				// Ignore if a relative reference can't be built.
 				continue;

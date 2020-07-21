@@ -29,9 +29,9 @@ import java.util.Set;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.DiagramType;
-import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
 import com.google.common.collect.ImmutableSet;

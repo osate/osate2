@@ -61,7 +61,8 @@ public class AgeBusinessObjectSelection implements BusinessObjectSelection {
 	 * @param bocs
 	 * @param modificationService may be null if bocs is empty
 	 */
-	public AgeBusinessObjectSelection(final Collection<? extends BusinessObjectContext> bocs,
+	public AgeBusinessObjectSelection(
+			final Collection<? extends BusinessObjectContext> bocs,
 			final AadlModificationService modificationService) {
 		this.bocs = ImmutableList.copyOf(bocs);
 		this.modificationService = bocs.isEmpty() ? null
@@ -87,7 +88,8 @@ public class AgeBusinessObjectSelection implements BusinessObjectSelection {
 			return;
 		}
 
-		final ImmutableList<Modification<BusinessObjectContext, T>> modifications = bocs.stream().filter(bocFilter)
+		final ImmutableList<Modification<BusinessObjectContext, T>> modifications = bocs.stream().filter(
+				bocFilter)
 				.map(boc -> Modification.create(boc, bocToBoToModifyMapper, (boc2, liveBoToModify) -> {
 					modifier.accept(liveBoToModify, boc2);
 				})).collect(ImmutableList.toImmutableList());
