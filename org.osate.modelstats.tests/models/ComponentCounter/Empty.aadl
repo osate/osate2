@@ -1,0 +1,8 @@
+package Empty
+public
+	system s
+	end s;
+	
+	system implementation s.impl
+	end s.impl;
+end Empty;

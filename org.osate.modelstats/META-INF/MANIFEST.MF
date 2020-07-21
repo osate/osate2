@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Componentcounter
+Bundle-SymbolicName: org.osate.modelstats
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.osate.modelstats.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ org.osate.aadl2
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Automatic-Module-Name: org.osate.componentcounter
+Bundle-ActivationPolicy: lazy
+Export-Package: org.osate.modelstats
