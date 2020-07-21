@@ -130,8 +130,6 @@ import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
 import org.osate.ge.internal.graphiti.AgeDiagramTypeProvider;
 import org.osate.ge.internal.graphiti.AgeFeatureProvider;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
-import org.osate.ge.internal.graphiti.LegacyDiagramUtil;
-import org.osate.ge.internal.graphiti.LegacyGraphitiDiagramConverter;
 import org.osate.ge.internal.graphiti.diagram.ColoringProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.graphiti.features.AgeActionCustomFeature;
@@ -142,7 +140,6 @@ import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ActionService.ActionStackChangeListener;
 import org.osate.ge.internal.services.ColoringService;
-import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.ModelChangeNotifier.ChangeListener;
@@ -923,45 +920,6 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		project = (IProject) projectResource;
 	}
 
-// Prompts the user to convert the file if the input is a legacy(Graphiti) file.
-	private void handleLegacyDiagramConversion(final IDiagramEditorInput input) {
-		if (input != null) {
-			final IResource resource = ResourcesPlugin.getWorkspace().getRoot().findMember(getPath(input.getUri()));
-			if (!(resource instanceof IFile)) {
-				throw new RuntimeException("Unable to retrieve file for resource.");
-			}
-
-			if (LegacyDiagramUtil.isLegacy((IFile) resource)) {
-				// Only prompt for converting if the workbench window is already visible.
-				// The primary purpose is to be prevent confusion by not prompting for conversion on the first load of the workspace after upgrading.
-				if (isWorkbenchVisible()) {
-					// The file is a legacy file
-					// Prompt user as to whether to convert the file
-					if (MessageDialog.openQuestion(null, "Conversion Required",
-							"This diagram file uses a legacy file format which is not supported by this version of OSATE.\nDo you wish to convert the file to the latest format?\n\nConverted files will not be compatible with older versions of OSATE.\nThe original file will be removed after conversion.")) {
-						final URI convertedDiagramUri = new LegacyGraphitiDiagramConverter()
-								.convertLegacyDiagram(input.getUri());
-						input.updateUri(convertedDiagramUri);
-
-						// If the resource was converted, delete the old resource
-						try {
-							resource.delete(true, null);
-						} catch (CoreException e) {
-							throw new RuntimeException(e);
-						}
-					} else {
-						setEditorInitializationError(
-								"Unable to load diagram. This diagram file is stored in a legacy format. The diagram must be converted before it can be edited with this version of the OSATE Graphical Editor.");
-						return;
-					}
-				} else {
-					// Close the editor if the window isn't open. This usually occurs when eclipse is loading with legacy diagrams opened.
-					closeDiagramContainer();
-				}
-			}
-		}
-	}
-
 	private static boolean isWorkbenchVisible() {
 		return PlatformUI.getWorkbench() != null && PlatformUI.getWorkbench().getActiveWorkbenchWindow() != null
 				&& PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell() != null
@@ -974,8 +932,6 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 	@Override
 	public void setInput(final IDiagramEditorInput input) {
-		handleLegacyDiagramConversion(input);
-
 		// Abort if initialization failed
 		if (initializationFailed()) {
 			return;
@@ -1113,11 +1069,6 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 
 					// Save the file
 					DiagramSerialization.write(getProject(), ageDiagram, getInput().getUri());
-
-					// Clear legacy persistent properties
-					final DiagramService diagramService = Objects.requireNonNull(
-							(DiagramService) getAdapter(DiagramService.class), "unable to retrieve diagram service");
-					diagramService.clearLegacyPersistentProperties(resource);
 
 					// Clear Ghosts
 					final AgeFeatureProvider fp = (AgeFeatureProvider) getDiagramTypeProvider().getFeatureProvider();
