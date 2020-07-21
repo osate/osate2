@@ -964,8 +964,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 								.orElseThrow(() -> new RuntimeException(
 										"Cannot find container: " + selectedCi.getBusinessObject()));
 						FlowContributionItemUtil.findSegmentDiagramElements(
-								(EndToEndFlow) AgeAadlUtil
-								.getRootRefinedElement((NamedElement) selectedBoc.getBusinessObject()),
+								(EndToEndFlow) selectedBoc.getBusinessObject(),
 								ancestor, highlightableSegments);
 					}
 
