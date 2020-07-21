@@ -35,6 +35,7 @@ import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.services.SystemInstanceLoadingService;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 import org.osgi.framework.Bundle;
@@ -69,7 +70,7 @@ public class AadlReferenceUtil {
 	public static RelativeBusinessObjectReference buildSimpleRelativeReference(final String type,
 			final NamedElement bo) {
 		Objects.requireNonNull(bo, "bo must not be null");
-		return buildSimpleRelativeReference(type, bo.getName());
+		return buildSimpleRelativeReference(type, AgeAadlUtil.getRootName(bo));
 	}
 
 	public static String getSystemInstanceKey(final InstanceObject io) {
@@ -156,7 +157,8 @@ public class AadlReferenceUtil {
 	 * @return the string representing the name.
 	 */
 	public static String getNameForSerialization(final NamedElement ne) {
-		return (ne == null || ne.getName() == null) ? "<null>" : ne.getName();
+		final String name = AgeAadlUtil.getRootName(ne);
+		return name == null ? "<null>" : name;
 	}
 
 	public static RelativeBusinessObjectReference getConnectionRelativeReference(final String name) {

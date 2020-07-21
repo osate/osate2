@@ -288,7 +288,6 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 				final Context context = ToolUtil.findContext(boc);
 				eTEFlowSegment.setContext(context);
 			}
-
 			eTEFlowSegment.setFlowElement(eTEFlowElement);
 			endToEndFlow.getOwnedEndToEndFlowSegments().add(eTEFlowSegment);
 		});
@@ -498,7 +497,13 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 			}
 
 			final BusinessObjectContext parent = firstSelection.getParent();
-			return findOwnerComponentImplementation(bo instanceof Subcomponent ? parent : parent.getParent());
+			// If parent of selection is subcomponent, get component impl from parent
+			if (parent.getBusinessObject() instanceof Subcomponent) {
+				return findOwnerComponentImplementation(parent.getParent());
+			}
+
+			// Return first component implementation found
+			return findOwnerComponentImplementation(parent);
 		}
 
 		private Optional<ComponentImplementation> findOwnerComponentImplementation(final BusinessObjectContext boc) {
@@ -522,7 +527,11 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 			final Set<Diagnostic> diagnostics;
 			final Optional<ComponentImplementation> optCi = getOwnerComponentImplementation();
 			if (!optCi.isPresent()) {
-				diagnostics = Collections.emptySet();
+				if (!segmentSelections.isEmpty()) {
+					return false;
+				} else {
+					diagnostics = Collections.emptySet();
+				}
 			} else {
 				final ComponentImplementation ci = optCi.get();
 				diagnostics = ToolUtil.getModificationDiagnostics(ci, modifyObject(endToEndFlow, ci));
@@ -818,12 +827,15 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 			}
 
 			// First selection qualifications
-			if ((segmentSelections.isEmpty()
-					&& (selectedEle instanceof FlowSpecification || (selectedEle instanceof Subcomponent)))) {
-				return isValidFirstElement(selectedEle, context);
-			} else {
-				return selectedEle instanceof EndToEndFlowElement;
+			if (segmentSelections.isEmpty()) {
+				if (selectedEle instanceof FlowSpecification || selectedEle instanceof Subcomponent) {
+					return isValidFirstElement(selectedEle, context);
+				}
+
+				return false;
 			}
+
+			return selectedEle instanceof EndToEndFlowElement;
 		}
 
 		/**
@@ -952,8 +964,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 								.orElseThrow(() -> new RuntimeException(
 										"Cannot find container: " + selectedCi.getBusinessObject()));
 						FlowContributionItemUtil.findSegmentDiagramElements(
-								(EndToEndFlow) AgeAadlUtil
-								.getRootRefinedElement((NamedElement) selectedBoc.getBusinessObject()),
+								(EndToEndFlow) selectedBoc.getBusinessObject(),
 								ancestor, highlightableSegments);
 					}
 
