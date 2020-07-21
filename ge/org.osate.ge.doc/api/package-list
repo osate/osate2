@@ -1,0 +1,11 @@
+org.osate.ge
+org.osate.ge.aadl2
+org.osate.ge.aadl2.ui
+org.osate.ge.businessobjecthandling
+org.osate.ge.graphics
+org.osate.ge.operations
+org.osate.ge.palette
+org.osate.ge.query
+org.osate.ge.referencehandling
+org.osate.ge.services
+org.osate.ge.ui

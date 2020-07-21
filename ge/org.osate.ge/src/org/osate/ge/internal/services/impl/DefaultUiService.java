@@ -27,6 +27,7 @@ import java.util.Objects;
 
 import org.osate.ge.internal.services.EditorProvider;
 import org.osate.ge.internal.services.UiService;
+import org.osate.ge.internal.ui.tools.Tool;
 
 public class DefaultUiService implements UiService {
 	private final EditorProvider editorProvider;
@@ -36,7 +37,7 @@ public class DefaultUiService implements UiService {
 	}
 
 	@Override
-	public void activateTool(final Object tool) {
+	public void activateTool(final Tool tool) {
 		editorProvider.getEditor().activateTool(tool);
 	}
 

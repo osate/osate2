@@ -23,6 +23,7 @@
  */
 package org.osate.ge.internal.diagram.runtime;
 
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.DockingPosition;
 import org.osate.ge.internal.services.ProjectReferenceService;
 
