@@ -130,6 +130,16 @@ public class AgeAadlUtil {
 	}
 
 	/**
+	 * Gets the name of the root refine element. In cases of proxies, this may provide a name in cases where simply calling getName() will not.
+	 * @param ne is the named element for which to return a name.
+	 * @return the name. Returns ull if specified element is null.
+	 */
+	public static String getRootName(NamedElement ne) {
+		ne = getRootRefinedElement(ne);
+		return ne == null ? null : ne.getName();
+	}
+
+	/**
 	 * Gets an array of business objects which describes the logical diagram element path from the container to the business object
 	 * @param container
 	 * @param bo

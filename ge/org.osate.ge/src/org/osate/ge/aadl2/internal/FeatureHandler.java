@@ -55,6 +55,7 @@ import org.osate.ge.aadl2.internal.util.AadlArrayUtil;
 import org.osate.ge.aadl2.internal.util.AadlFeatureUtil;
 import org.osate.ge.aadl2.internal.util.AadlInheritanceUtil;
 import org.osate.ge.aadl2.internal.util.AadlPrototypeUtil;
+import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
@@ -95,7 +96,7 @@ public class FeatureHandler extends AadlBusinessObjectHandler {
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
 		final Object bo = ctx.getBusinessObject();
 		if (bo instanceof Feature) {
-			return AadlReferenceUtil.getFeatureRelativeReference(((Feature) bo).getName());
+			return AadlReferenceUtil.getFeatureRelativeReference(AgeAadlUtil.getRootName((Feature) bo));
 		} else if (bo instanceof InternalFeature) {
 			return AadlReferenceUtil.buildSimpleRelativeReference(DeclarativeReferenceType.INTERNAL_FEATURE
 					.getId(),
