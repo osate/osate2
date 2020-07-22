@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: OSATE Graphical Editor
 Bundle-SymbolicName: org.osate.ge;singleton:=true
-Bundle-Version: 1.2.0.qualifier
+Bundle-Version: 2.0.0.qualifier
 Bundle-Activator: org.osate.ge.internal.Activator
 Require-Bundle: org.eclipse.ui;bundle-version="[3.115.0,4.0.0)",
  org.eclipse.core.runtime;bundle-version="[3.17.0,4.0.0)",
@@ -51,17 +51,22 @@ Service-Component: components/DefaultExtensionRegistryService.xml,
  components/DefaultAadlResourceService.xml,
  components/DefaultGraphicalEditorService.xml,
  components/DefaultModelChangeNotifier.xml,
- components/DefaultNamingService.xml,
  components/DefaultAadlModificationService.xml,
  components/DefaultActionService.xml,
  components/DefaultClipboardService.xml
 Export-Package: org.osate.ge,
- org.osate.ge.di,
+ org.osate.ge.aadl2,
+ org.osate.ge.aadl2.internal;x-friends:="org.osate.ge.tests",
+ org.osate.ge.aadl2.internal.diagramtypes;x-friends:="org.osate.ge.tests",
+ org.osate.ge.aadl2.ui,
+ org.osate.ge.aadl2.ui.internal.dialogs;x-friends:="org.osate.ge.errormodel",
+ org.osate.ge.aadl2.ui.internal.editor;x-friends:="org.osate.ge.tests",
+ org.osate.ge.aadl2.ui.internal.properties;x-friends:="org.osate.ge.tests",
+ org.osate.ge.businessobjecthandling,
  org.osate.ge.graphics,
  org.osate.ge.graphics.internal;x-friends:="org.osate.ge.tests",
- org.osate.ge.internal.di;x-friends:="org.osate.ge.errormodel",
  org.osate.ge.internal.diagram.runtime;x-friends:="org.osate.ge.tests",
- org.osate.ge.internal.diagram.runtime.boTree;x-friends:="org.osate.ge.tests",
+ org.osate.ge.internal.diagram.runtime.botree;x-friends:="org.osate.ge.tests",
  org.osate.ge.internal.diagram.runtime.types,
  org.osate.ge.internal.diagram.runtime.updating;x-friends:="org.osate.ge.tests",
  org.osate.ge.internal.graphiti;x-friends:="org.osate.ge.tests",
@@ -77,9 +82,11 @@ Export-Package: org.osate.ge,
  org.osate.ge.internal.ui.util;x-friends:="org.osate.ge.tests,org.osate.ge.errormodel",
  org.osate.ge.internal.util;x-friends:="org.osate.ge.tests",
  org.osate.ge.operations,
+ org.osate.ge.palette,
  org.osate.ge.query,
+ org.osate.ge.referencehandling,
  org.osate.ge.services,
- org.osate.ge.ui.properties
+ org.osate.ge.ui
 Bundle-ClassPath: .
 Automatic-Module-Name: org.osate.ge
 Bundle-Vendor: The University of Alabama in Huntsville

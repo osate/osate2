@@ -60,7 +60,7 @@ import org.eclipse.elk.graph.ElkPort;
 import org.eclipse.elk.graph.ElkShape;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.statushandlers.StatusManager;
-import org.osate.aadl2.modelsupport.Activator;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.DockingPosition;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Graphic;
@@ -70,6 +70,7 @@ import org.osate.ge.graphics.internal.AgeConnection;
 import org.osate.ge.graphics.internal.AgeShape;
 import org.osate.ge.graphics.internal.Label;
 import org.osate.ge.graphics.internal.ModeGraphic;
+import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.AgeDiagramUtil;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
@@ -80,7 +81,6 @@ import org.osate.ge.internal.diagram.runtime.DiagramNodePredicates;
 import org.osate.ge.internal.diagram.runtime.DockArea;
 import org.osate.ge.internal.diagram.runtime.styling.StyleCalculator;
 import org.osate.ge.internal.diagram.runtime.styling.StyleProvider;
-import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.util.DiagramElementUtil;
 
@@ -117,7 +117,7 @@ public class DiagramElementLayoutUtil {
 
 		final AgeDiagramEditor ageDiagramEditor = ((AgeDiagramEditor) editor);
 		final LayoutInfoProvider layoutInfoProvider = Adapters.adapt(ageDiagramEditor, LayoutInfoProvider.class);
-		layout(label, ageDiagramEditor.getAgeDiagram(), diagramNodes, layoutInfoProvider, options);
+		layout(label, ageDiagramEditor.getDiagram(), diagramNodes, layoutInfoProvider, options);
 	}
 
 	public static void layout(final String label, final AgeDiagram diagram, final LayoutInfoProvider layoutInfoProvider,
@@ -229,7 +229,7 @@ public class DiagramElementLayoutUtil {
 			// degrade performance but allow the user to keep working and should ensure things stay in a valid state.
 			// It would be best for other parts of the code to handle exceptions properly to avoid entering into an invalid state but this is the best
 			// workaround.
-			final Status status = new Status(IStatus.ERROR, Activator.getPluginId(), "A layout error occured.", ex);
+			final Status status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, "A layout error occured.", ex);
 			StatusManager.getManager().handle(status, StatusManager.SHOW | StatusManager.LOG);
 		}
 	}
@@ -283,7 +283,7 @@ public class DiagramElementLayoutUtil {
 						} else if (de.getDockArea() != DockArea.GROUP && de.getParent() instanceof DiagramElement) {
 							final DiagramElement parent = (DiagramElement) de.getParent();
 							final DockingPosition defaultDockingPosition = de
-									.getGraphicalConfiguration().defaultDockingPosition;
+									.getGraphicalConfiguration().getDefaultDockingPosition();
 							final DockArea defaultDockArea = defaultDockingPosition.getDefaultDockArea();
 
 							if (parent.hasSize()) {
@@ -380,7 +380,7 @@ public class DiagramElementLayoutUtil {
 				} else if (alwaysLayoutContainer) {
 					// Only layout the connection if its bendpoints have not been set regardless of whether it has any bendpoints.
 					if (child.getStartElement() != null && child.getEndElement() != null && !child.isBendpointsSet()) {
-						final Optional<Queryable> ancestor = Queryable.getFirstCommonAncestor(
+						final Optional<BusinessObjectContext> ancestor = BusinessObjectContext.getFirstCommonAncestor(
 								child.getStartElement().getContainer(), child.getEndElement().getContainer());
 						if (ancestor.isPresent()) {
 							results.add((DiagramNode) ancestor.get());
@@ -1070,10 +1070,10 @@ public class DiagramElementLayoutUtil {
 	public static void shiftRelatedConnections(final Stream<DiagramElement> movedElements,
 			final org.osate.ge.graphics.Point delta, final DiagramModification m, boolean shiftBendpoints,
 			boolean shiftFlowIndicatorPositions, final boolean checkDescendants) {
-		final Set<Queryable> movedElementsSet = movedElements.collect(Collectors.toSet());
+		final Set<BusinessObjectContext> movedElementsSet = movedElements.collect(Collectors.toSet());
 
 		// Build a set containing the moved elements and all of their descendant which are represented as shapes
-		final Set<Queryable> diagramElements = checkDescendants ? movedElementsSet.stream()
+		final Set<BusinessObjectContext> diagramElements = checkDescendants ? movedElementsSet.stream()
 				.flatMap(de -> Stream.concat(Stream.of(de), de.getAllDescendants())).collect(Collectors.toSet())
 				: movedElementsSet;
 				final Stream<DiagramElement> connections = m.getDiagram().getAllDiagramNodes()

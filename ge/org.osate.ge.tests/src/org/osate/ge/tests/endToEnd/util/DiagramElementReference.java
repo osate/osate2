@@ -25,9 +25,9 @@ package org.osate.ge.tests.endToEnd.util;
 
 import java.util.stream.Collectors;
 
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 
 import com.google.common.collect.ImmutableList;
 

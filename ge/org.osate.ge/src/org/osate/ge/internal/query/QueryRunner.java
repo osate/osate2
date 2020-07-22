@@ -27,6 +27,8 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
 import java.util.Objects;
+
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.services.ReferenceService;
 
 public class QueryRunner {
@@ -42,8 +44,8 @@ public class QueryRunner {
 	 * @param arg
 	 * @return
 	 */
-	public final Queryable getFirstResult(final DefaultQuery query, final Object arg) {
-		final List<Queryable> results = getResults(query, arg);
+	public final BusinessObjectContext getFirstResult(final DefaultQuery query, final Object arg) {
+		final List<BusinessObjectContext> results = getResults(query, arg);
 		if(results.size() == 0) {
 			return null;
 		}
@@ -51,7 +53,7 @@ public class QueryRunner {
 		return results.get(0);
 	}
 	
-	public final List<Queryable> getResults(final DefaultQuery query, final Object arg) {
+	public final List<BusinessObjectContext> getResults(final DefaultQuery query, final Object arg) {
 		Objects.requireNonNull(query, "query must not be null");
 		
 		final Deque<DefaultQuery> queryStack = new ArrayDeque<>();

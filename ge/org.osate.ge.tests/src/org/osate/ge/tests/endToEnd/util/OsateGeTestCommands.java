@@ -24,7 +24,7 @@
 package org.osate.ge.tests.endToEnd.util;
 
 import static org.junit.Assert.*;
-import static org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder.*;
+import static org.osate.ge.aadl2.internal.AadlReferenceUtil.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGeTestUtil.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGeTestUtil.setTextField;
 import static org.osate.ge.tests.endToEnd.util.UiTestUtil.*;
@@ -39,10 +39,10 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
-import org.osate.ge.internal.ui.editor.FlowContributionItem;
-import org.osate.ge.internal.ui.properties.AbstractFeaturePrototypePropertySection;
-import org.osate.ge.internal.ui.properties.SetSubcomponentClassifierPropertySection;
+import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem;
+import org.osate.ge.aadl2.ui.internal.properties.AbstractFeaturePrototypePropertySection;
+import org.osate.ge.aadl2.ui.internal.properties.SetSubcomponentClassifierPropertySection;
 import org.osate.ge.swt.classifiers.PrototypeBindingsField;
 
 import com.google.common.collect.ImmutableList;
