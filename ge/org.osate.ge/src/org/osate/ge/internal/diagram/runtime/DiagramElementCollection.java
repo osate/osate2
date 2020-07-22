@@ -30,6 +30,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.osate.ge.RelativeBusinessObjectReference;
+
 /**
  * A collection of diagram elements. A diagram element may only be added to the collection once.
  *

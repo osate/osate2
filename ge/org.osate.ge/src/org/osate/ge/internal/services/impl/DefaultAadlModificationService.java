@@ -214,7 +214,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 						final IXtextDocument doc = getXtextDocument(modResult);
 						final String newOriginalTextContents;
 						if (doc == null) {
-							final IProject projectResource = ProjectUtil.getProject(modResult.resourceUri);
+							final IProject projectResource = ProjectUtil.getProjectOrNull(modResult.resourceUri);
 							if (projectResource instanceof IProject) {
 								projectsToBuild.add((IProject) projectResource);
 							}

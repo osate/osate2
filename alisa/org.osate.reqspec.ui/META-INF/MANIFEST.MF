@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.osate.reqspec.ui
 Bundle-Vendor: SEI
-Bundle-Version: 1.0.3.qualifier
+Bundle-Version: 1.0.5.qualifier
 Bundle-SymbolicName: org.osate.reqspec.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.osate.reqspec;bundle-version="[2.0.0,3.0.0)",

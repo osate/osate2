@@ -46,10 +46,8 @@ import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
-import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupConnection;
 import org.osate.aadl2.FeatureGroupType;
@@ -190,14 +188,15 @@ class ConnectionInfo {
 		// XXX: the argument below, "this.src", may not be correct, but I'm not really sure what is the correct thing
 		final ConnectionInstanceEnd resolvedDst = resolveFeatureInstance(this.src, dstFi);
 		if (resolvedSrc instanceof FeatureInstance) {
-			final Feature srcF = ((FeatureInstance) resolvedSrc).getFeature();
 			if (resolvedDst instanceof FeatureInstance) {
-				final Feature dstF = ((FeatureInstance) resolvedDst).getFeature();
-				if (srcF instanceof DataAccess && dstF instanceof DataAccess) {
+				final FeatureInstance resolvedSrcFI = (FeatureInstance) resolvedSrc;
+				final FeatureInstance resolvedDstFI = (FeatureInstance) resolvedDst;
+				if (resolvedSrcFI.getCategory() == FeatureCategory.DATA_ACCESS
+						&& resolvedDstFI.getCategory() == FeatureCategory.DATA_ACCESS) {
 					if (goingUp || goingDown) {
-						valid &= ((DataAccess) srcF).getKind() == ((DataAccess) dstF).getKind();
+						valid &= resolvedSrcFI.getDirection() == resolvedDstFI.getDirection();
 					} else {
-						valid &= ((DataAccess) srcF).getKind().getInverseType() == ((DataAccess) dstF).getKind();
+						valid &= resolvedSrcFI.getDirection().getInverseDirection() == resolvedDstFI.getDirection();
 					}
 				}
 			}
