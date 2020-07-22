@@ -25,11 +25,13 @@ package org.osate.ge.internal.diagram.runtime;
 
 import java.util.List;
 
+import org.osate.ge.GraphicalConfiguration;
+import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
-import org.osate.ge.graphics.internal.AgeGraphicalConfiguration;
-import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
+import org.osate.ge.internal.diagram.runtime.botree.Completeness;
 
 /**
  * Interface provided to Modifier objects to allow making changes to an AgeDiagram.
@@ -63,13 +65,14 @@ public interface DiagramModification {
 	 * @param e
 	 * @param boh is the business object handler
 	 */
-	void setBusinessObjectHandler(final DiagramElement e, final Object boh);
+	void setBusinessObjectHandler(final DiagramElement e, final BusinessObjectHandler boh);
 
 	void setCompleteness(final DiagramElement e, final Completeness value);
 	void setLabelName(final DiagramElement e, final String value);
 
 	void setUserInterfaceName(final DiagramElement e, final String value);
-	void setGraphicalConfiguration(final DiagramElement e, final AgeGraphicalConfiguration value);
+
+	void setGraphicalConfiguration(final DiagramElement e, final GraphicalConfiguration value);
 
 	/**
 	 * Sets the position. This method does not update connection bendpoints, dock areas, or flow indicators. It is usually recommended

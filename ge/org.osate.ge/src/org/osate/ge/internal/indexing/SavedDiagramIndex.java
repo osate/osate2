@@ -47,13 +47,12 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.CanonicalBusinessObjectReference;
+import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.aadl2.internal.diagramtypes.CustomDiagramType;
 import org.osate.ge.diagram.DiagramElement;
 import org.osate.ge.diagram.DiagramNode;
-import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.DiagramSerialization;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
-import org.osate.ge.internal.diagram.runtime.types.CustomDiagramType;
-import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
@@ -456,7 +455,7 @@ public class SavedDiagramIndex {
 		}
 
 		@Override
-		public Collection<? extends Queryable> getChildren() {
+		public Collection<? extends BusinessObjectContext> getChildren() {
 			// This should not be called since business object providers are not given access to the business object context's children
 			throw new RuntimeException("Not supported");
 		}

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.osate.xtext.aadl2.errormodel.ui
 Bundle-Vendor: CMU/SEI
-Bundle-Version: 4.0.0.qualifier
+Bundle-Version: 4.0.2.qualifier
 Bundle-SymbolicName: org.osate.xtext.aadl2.errormodel.ui; singleton:=true
 Require-Bundle: org.osate.xtext.aadl2.errormodel;bundle-version="[4.0.0,5.0.0)";visibility:=reexport,
  org.eclipse.xtext.ui;bundle-version="[2.20.0,3.0.0)",

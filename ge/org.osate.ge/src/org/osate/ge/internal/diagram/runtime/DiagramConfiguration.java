@@ -28,6 +28,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.DiagramType;
 
 /**

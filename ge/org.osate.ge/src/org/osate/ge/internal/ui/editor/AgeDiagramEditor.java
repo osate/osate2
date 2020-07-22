@@ -52,7 +52,10 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
  *******************************************************************************/
 package org.osate.ge.internal.ui.editor;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.emf.common.util.URI;
@@ -68,10 +71,12 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.ActionService;
-import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ProjectReferenceService;
+import org.osate.ge.internal.ui.tools.Tool;
 
+import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableList;
 
 public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
@@ -124,9 +129,19 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 	 * Selects the diagram elements after the next refresh.
 	 * @param diagramElements
 	 */
-	public void selectDiagramElements(final DiagramElement[] diagramElements) {
+	public void setDiagramElementsForSelection(final DiagramElement[] diagramElements) {
 		((AgeDiagramBehavior) getDiagramBehavior())
 		.setDiagramElementsForSelection(ImmutableList.copyOf(diagramElements));
+	}
+
+	public void selectDiagramElements(final Collection<DiagramElement> diagramElements) {
+		final PictogramElement[] pictogramElements = diagramElements.stream()
+				.map(
+						de -> getGraphitiAgeDiagram()
+						.getPictogramElement(de))
+				.filter(Predicates.notNull()).toArray(PictogramElement[]::new);
+
+		getDiagramBehavior().getDiagramContainer().selectPictogramElements(pictogramElements);
 	}
 
 	@Override
@@ -149,7 +164,7 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 		if(IContentOutlinePage.class.equals(required)) {
 			if(outlinePage == null) {
 				outlinePage = new AgeContentOutlinePage(this, Adapters.adapt(this, ProjectProvider.class),
-						Adapters.adapt(this, ExtensionService.class),
+						Adapters.adapt(this, ExtensionRegistryService.class),
 						Adapters.adapt(this, ProjectReferenceService.class));
 			}
 			return outlinePage;
@@ -185,11 +200,11 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 		return ((AgeDiagramBehavior)getDiagramBehavior()).getGraphitiAgeDiagram();
 	}
 
-	public AgeDiagram getAgeDiagram() {
+	public AgeDiagram getDiagram() {
 		return ((AgeDiagramBehavior)getDiagramBehavior()).getAgeDiagram();
 	}
 
-	public void activateTool(final Object tool) {
+	public void activateTool(final Tool tool) {
 		((AgeDiagramBehavior) getDiagramBehavior()).activateTool(tool);
 	}
 
@@ -211,5 +226,29 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 
 	public boolean isEditable() {
 		return ((AgeDiagramBehavior) getDiagramBehavior()).isEditable();
+	}
+
+	/**
+	 * Will return null if it is unable to determine the diagram elements for all the selected pictogram elements.
+	 * @return
+	 */
+	public Set<DiagramElement> getSelectedDiagramElements() {
+		final PictogramElement[] selectedPes = getSelectedPictogramElements();
+		final Set<DiagramElement> selectedDiagramElements = new HashSet<>();
+		final GraphitiAgeDiagram graphitiAgeDiagram = getGraphitiAgeDiagram();
+		for (final PictogramElement selectedPe : selectedPes) {
+			if (selectedPe == null) {
+				return null;
+			}
+
+			final DiagramElement diagramElement = graphitiAgeDiagram.getClosestDiagramElement(selectedPe);
+			if (diagramElement == null) {
+				return null;
+			}
+
+			selectedDiagramElements.add(diagramElement);
+		}
+
+		return selectedDiagramElements;
 	}
 }

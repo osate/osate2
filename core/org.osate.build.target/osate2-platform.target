@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.8"?>
-<target includeMode="feature" name="osate2-platform" sequenceNumber="21">
+<target includeMode="feature" name="osate2-platform" sequenceNumber="22">
   <locations>
     <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
       <unit id="org.eclipse.egit.feature.group" version="0.0.0"/>
@@ -22,7 +22,7 @@
       <unit id="org.eclipse.uml2.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.zest.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.xtend" version="0.0.0"/>
-      <repository location="http://download.eclipse.org/releases/2020-03"/>
+      <repository location="http://download.eclipse.org/releases/2020-06"/>
     </location>
     <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
       <unit id="org.eclipse.birt.chart.engine.extension" version="0.0.0"/>
