@@ -13,7 +13,7 @@ import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 
 /**
- * @since 4.0
+ * @since 4.1
  */
 public class CodeGenUtil {
 	public static PropertyExpression resolveNamedValue(PropertyExpression propertyExpression,

@@ -58,14 +58,14 @@ public final class AadlFileTypePropertyTester extends PropertyTester {
 	}
 
 	/**
-	 * @since 4.0
+	 * @since 5.0
 	 */
 	public enum AadlFileType {
 		PACKAGE, PROPERTY_SET, UNKNOWN
 	}
 
 	/**
-	 * @since 4.0
+	 * @since 5.0
 	 */
 	public static AadlFileType getAadlFileType(IStorage storage) {
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(storage.getContents()))) {
