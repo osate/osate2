@@ -28,28 +28,31 @@ import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage
 class PropertiesCodeGenHandler extends AbstractHandler {
 	override execute(ExecutionEvent event) throws ExecutionException {
 		switch selection : HandlerUtil.getCurrentStructuredSelection(event).firstElement {
-			ContributedAadlStorage:
-				generate(selection.uri, selection.project, event)
+			ContributedAadlStorage: generate(selection.uri, selection.project, event)
 			IFile: {
 				val markers = selection.findMarkers(null, true, IResource.DEPTH_ONE)
 				if (!markers.exists[it.getAttribute(IMarker.SEVERITY) == IMarker.SEVERITY_ERROR]) {
 					generate(OsateResourceUtil.toResourceURI(selection), selection.project, event)
 				} else {
-					MessageDialog.openError(HandlerUtil.getActiveShell(event),
-						"Errors in Property Set", '''Cannot generate Java property getters for "«selection.name»" because it has errors.''')
+					MessageDialog.openError(
+						HandlerUtil.getActiveShell(event),
+						"Errors in Property Set",
+						'''Cannot generate Java property getters for "«selection.name»" because it has errors.'''
+					)
 				}
 			}
 		}
 		null
 	}
-
+	
 	def private static void generate(URI propertySetURI, IProject project, ExecutionEvent event) {
 		val resource = new ResourceSetImpl().getResource(propertySetURI, true)
 		val propertySet = resource.contents.head as PropertySet
-		val javaFiles = PropertiesCodeGen.generateJava(propertySet)
+		val generatedPackage = PropertiesCodeGen.generateJava(propertySet)
+		val javaFiles = generatedPackage.classes
 		val WorkspaceModifyOperation operation = [ monitor |
 			val subMonitor = SubMonitor.convert(monitor, "Generating Java Property Getters", javaFiles.size * 2 + 1)
-			val folderPath = project.fullPath.append("src-gen/" + propertySet.name.toLowerCase.replace("_", ""))
+			val folderPath = project.fullPath.append(generatedPackage.packagePath)
 			val folder = new ContainerGenerator(folderPath).generateContainer(subMonitor.split(1))
 			subMonitor.workRemaining = folder.members.size + javaFiles.size
 			folder.members.forEach[it.delete(false, subMonitor.split(1))]

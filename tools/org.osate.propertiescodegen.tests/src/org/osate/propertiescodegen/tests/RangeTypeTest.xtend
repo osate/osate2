@@ -220,18 +220,19 @@ class RangeTypeTest {
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(ps1, ps2))
-		assertEquals(4, results.size)
+		assertEquals("src-gen/ps1", results.packagePath)
+		assertEquals(4, results.classes.size)
 		
-		assertEquals("Time.java", results.get(0).fileName)
-		assertEquals(time.toString, results.get(0).contents)
+		assertEquals("Time.java", results.classes.get(0).fileName)
+		assertEquals(time.toString, results.classes.get(0).contents)
 		
-		assertEquals("IntegerOwnedUnits.java", results.get(1).fileName)
-		assertEquals(integerOwnedUnits.toString, results.get(1).contents)
+		assertEquals("IntegerOwnedUnits.java", results.classes.get(1).fileName)
+		assertEquals(integerOwnedUnits.toString, results.classes.get(1).contents)
 		
-		assertEquals("RangeOfIntegerOwnedUnits.java", results.get(2).fileName)
-		assertEquals(rangeOfIntegerOwnedUnits.toString, results.get(2).contents)
+		assertEquals("RangeOfIntegerOwnedUnits.java", results.classes.get(2).fileName)
+		assertEquals(rangeOfIntegerOwnedUnits.toString, results.classes.get(2).contents)
 		
-		assertEquals("RangeOfRealOwnedUnits.java", results.get(3).fileName)
-		assertEquals(rangeOfRealOwnedUnits.toString, results.get(3).contents)
+		assertEquals("RangeOfRealOwnedUnits.java", results.classes.get(3).fileName)
+		assertEquals(rangeOfRealOwnedUnits.toString, results.classes.get(3).contents)
 	}
 }

@@ -209,9 +209,10 @@ class RealNoUnitsTest {
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(realNoUnitsTest, otherPs))
-		assertEquals(1, results.size)
+		assertEquals("src-gen/realnounitstest", results.packagePath)
+		assertEquals(1, results.classes.size)
 		
-		assertEquals("RealNoUnitsTest.java", results.head.fileName)
-		assertEquals(realNoUnitsTestClass.toString, results.head.contents)
+		assertEquals("RealNoUnitsTest.java", results.classes.head.fileName)
+		assertEquals(realNoUnitsTestClass.toString, results.classes.head.contents)
 	}
 }

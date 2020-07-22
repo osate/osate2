@@ -56,9 +56,11 @@ class PropertiesCodeGenTest {
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(propertySet))
-		assertEquals(1, results.size)
-		assertEquals("EnumType1.java", results.head.fileName)
-		assertEquals(javaClass.toString, results.head.contents)
+		assertEquals("src-gen/enumtest", results.packagePath)
+		assertEquals(1, results.classes.size)
+		
+		assertEquals("EnumType1.java", results.classes.head.fileName)
+		assertEquals(javaClass.toString, results.classes.head.contents)
 	}
 	
 	@Test
@@ -113,9 +115,11 @@ class PropertiesCodeGenTest {
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(propertySet))
-		assertEquals(1, results.size)
-		assertEquals("UnitsType1.java", results.head.fileName)
-		assertEquals(javaClass.toString, results.head.contents)
+		assertEquals("src-gen/unitstest", results.packagePath)
+		assertEquals(1, results.classes.size)
+		
+		assertEquals("UnitsType1.java", results.classes.head.fileName)
+		assertEquals(javaClass.toString, results.classes.head.contents)
 	}
 	
 	@Test
@@ -223,13 +227,14 @@ class PropertiesCodeGenTest {
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(ps1, ps2))
-		assertEquals(2, results.size)
+		assertEquals("src-gen/ps1", results.packagePath)
+		assertEquals(2, results.classes.size)
 		
-		assertEquals("Time.java", results.get(0).fileName)
-		assertEquals(time.toString, results.get(0).contents)
+		assertEquals("Time.java", results.classes.get(0).fileName)
+		assertEquals(time.toString, results.classes.get(0).contents)
 		
-		assertEquals("IntegerOwnedUnits.java", results.get(1).fileName)
-		assertEquals(integerOwnedUnits.toString, results.get(1).contents)
+		assertEquals("IntegerOwnedUnits.java", results.classes.get(1).fileName)
+		assertEquals(integerOwnedUnits.toString, results.classes.get(1).contents)
 	}
 	
 	@Test
@@ -337,12 +342,13 @@ class PropertiesCodeGenTest {
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(ps1, ps2))
-		assertEquals(2, results.size)
+		assertEquals("src-gen/ps1", results.packagePath)
+		assertEquals(2, results.classes.size)
 		
-		assertEquals("Time.java", results.get(0).fileName)
-		assertEquals(time.toString, results.get(0).contents)
+		assertEquals("Time.java", results.classes.get(0).fileName)
+		assertEquals(time.toString, results.classes.get(0).contents)
 		
-		assertEquals("RealOwnedUnits.java", results.get(1).fileName)
-		assertEquals(realOwnedUnits.toString, results.get(1).contents)
+		assertEquals("RealOwnedUnits.java", results.classes.get(1).fileName)
+		assertEquals(realOwnedUnits.toString, results.classes.get(1).contents)
 	}
 }

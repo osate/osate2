@@ -895,12 +895,13 @@ class ModalTest {
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(modalTest))
-		assertEquals(2, results.size)
+		assertEquals("src-gen/modaltest", results.packagePath)
+		assertEquals(2, results.classes.size)
 		
-		assertEquals("ModalTest.java", results.get(0).fileName)
-		assertEquals(modalTestClass.toString, results.get(0).contents)
+		assertEquals("ModalTest.java", results.classes.get(0).fileName)
+		assertEquals(modalTestClass.toString, results.classes.get(0).contents)
 		
-		assertEquals("RecordDef1.java", results.get(1).fileName)
-		assertEquals(recordDef1.toString, results.get(1).contents)
+		assertEquals("RecordDef1.java", results.classes.get(1).fileName)
+		assertEquals(recordDef1.toString, results.classes.get(1).contents)
 	}
 }

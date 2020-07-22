@@ -209,9 +209,10 @@ class ClassifierTest {
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(classifierTest, otherPs))
-		assertEquals(1, results.size)
+		assertEquals("src-gen/classifiertest", results.packagePath)
+		assertEquals(1, results.classes.size)
 		
-		assertEquals("ClassifierTest.java", results.head.fileName)
-		assertEquals(classifierTestClass.toString, results.head.contents)
+		assertEquals("ClassifierTest.java", results.classes.head.fileName)
+		assertEquals(classifierTestClass.toString, results.classes.head.contents)
 	}
 }

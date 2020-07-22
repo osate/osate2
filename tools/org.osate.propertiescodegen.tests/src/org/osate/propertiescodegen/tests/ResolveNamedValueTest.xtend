@@ -509,15 +509,16 @@ class ResolveNamedValueTest {
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(resolveNamedValueTest))
-		assertEquals(3, results.size)
+		assertEquals("src-gen/resolvenamedvaluetest", results.packagePath)
+		assertEquals(3, results.classes.size)
 		
-		assertEquals("ResolveNamedValueTest.java", results.get(0).fileName)
-		assertEquals(resolveNamedValueTestClass.toString, results.get(0).contents)
+		assertEquals("ResolveNamedValueTest.java", results.classes.get(0).fileName)
+		assertEquals(resolveNamedValueTestClass.toString, results.classes.get(0).contents)
 		
-		assertEquals("Length.java", results.get(1).fileName)
-		assertEquals(length.toString, results.get(1).contents)
+		assertEquals("Length.java", results.classes.get(1).fileName)
+		assertEquals(length.toString, results.classes.get(1).contents)
 		
-		assertEquals("RecordDef.java", results.get(2).fileName)
-		assertEquals(recordDef.toString, results.get(2).contents)
+		assertEquals("RecordDef.java", results.classes.get(2).fileName)
+		assertEquals(recordDef.toString, results.classes.get(2).contents)
 	}
 }

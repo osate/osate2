@@ -3,7 +3,7 @@ package org.osate.propertiescodegen
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
-class GeneratedJava {
+class GeneratedClass {
 	val String fileName
 	val String contents
 }

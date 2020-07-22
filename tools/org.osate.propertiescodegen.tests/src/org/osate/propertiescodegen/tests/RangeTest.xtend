@@ -1415,27 +1415,28 @@ class RangeTest {
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(rangeTest, otherPs))
-		assertEquals(7, results.size)
+		assertEquals("src-gen/rangetest", results.packagePath)
+		assertEquals(7, results.classes.size)
 		
-		assertEquals("RangeTest.java", results.get(0).fileName)
-		assertEquals(rangeTestClass.toString, results.get(0).contents)
+		assertEquals("RangeTest.java", results.classes.get(0).fileName)
+		assertEquals(rangeTestClass.toString, results.classes.get(0).contents)
 		
-		assertEquals("Time.java", results.get(1).fileName)
-		assertEquals(time.toString, results.get(1).contents)
+		assertEquals("Time.java", results.classes.get(1).fileName)
+		assertEquals(time.toString, results.classes.get(1).contents)
 		
-		assertEquals("IntegerOwnedUnits.java", results.get(2).fileName)
-		assertEquals(integerOwnedUnits.toString, results.get(2).contents)
+		assertEquals("IntegerOwnedUnits.java", results.classes.get(2).fileName)
+		assertEquals(integerOwnedUnits.toString, results.classes.get(2).contents)
 		
-		assertEquals("List1IntegerOwnedUnits.java", results.get(3).fileName)
-		assertEquals(list1IntegerOwnedUnits.toString, results.get(3).contents)
+		assertEquals("List1IntegerOwnedUnits.java", results.classes.get(3).fileName)
+		assertEquals(list1IntegerOwnedUnits.toString, results.classes.get(3).contents)
 		
-		assertEquals("RealOwnedUnits.java", results.get(4).fileName)
-		assertEquals(realOwnedUnits.toString, results.get(4).contents)
+		assertEquals("RealOwnedUnits.java", results.classes.get(4).fileName)
+		assertEquals(realOwnedUnits.toString, results.classes.get(4).contents)
 		
-		assertEquals("List1RealOwnedUnits.java", results.get(5).fileName)
-		assertEquals(list1RealOwnedUnits.toString, results.get(5).contents)
+		assertEquals("List1RealOwnedUnits.java", results.classes.get(5).fileName)
+		assertEquals(list1RealOwnedUnits.toString, results.classes.get(5).contents)
 		
-		assertEquals("RecordProperty.java", results.get(6).fileName)
-		assertEquals(recordProperty.toString, results.get(6).contents)
+		assertEquals("RecordProperty.java", results.classes.get(6).fileName)
+		assertEquals(recordProperty.toString, results.classes.get(6).contents)
 	}
 }

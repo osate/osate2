@@ -679,21 +679,22 @@ class RealWithUnitsTest {
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(realWithUnitsTest, otherPs))
-		assertEquals(5, results.size)
+		assertEquals("src-gen/realwithunitstest", results.packagePath)
+		assertEquals(5, results.classes.size)
 		
-		assertEquals("RealWithUnitsTest.java", results.get(0).fileName)
-		assertEquals(realWithUnitsTestClass.toString, results.get(0).contents)
+		assertEquals("RealWithUnitsTest.java", results.classes.get(0).fileName)
+		assertEquals(realWithUnitsTestClass.toString, results.classes.get(0).contents)
 		
-		assertEquals("Time.java", results.get(1).fileName)
-		assertEquals(time.toString, results.get(1).contents)
+		assertEquals("Time.java", results.classes.get(1).fileName)
+		assertEquals(time.toString, results.classes.get(1).contents)
 		
-		assertEquals("Owned.java", results.get(2).fileName)
-		assertEquals(owned.toString, results.get(2).contents)
+		assertEquals("Owned.java", results.classes.get(2).fileName)
+		assertEquals(owned.toString, results.classes.get(2).contents)
 		
-		assertEquals("List1Owned.java", results.get(3).fileName)
-		assertEquals(list1Owned.toString, results.get(3).contents)
+		assertEquals("List1Owned.java", results.classes.get(3).fileName)
+		assertEquals(list1Owned.toString, results.classes.get(3).contents)
 		
-		assertEquals("RecordProperty.java", results.get(4).fileName)
-		assertEquals(recordProperty.toString, results.get(4).contents)
+		assertEquals("RecordProperty.java", results.classes.get(4).fileName)
+		assertEquals(recordProperty.toString, results.classes.get(4).contents)
 	}
 }

@@ -208,9 +208,10 @@ class StringTest {
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(stringTest, otherPs))
-		assertEquals(1, results.size)
+		assertEquals("src-gen/stringtest", results.packagePath)
+		assertEquals(1, results.classes.size)
 		
-		assertEquals("StringTest.java", results.head.fileName)
-		assertEquals(stringTestClass.toString, results.head.contents)
+		assertEquals("StringTest.java", results.classes.head.fileName)
+		assertEquals(stringTestClass.toString, results.classes.head.contents)
 	}
 }
