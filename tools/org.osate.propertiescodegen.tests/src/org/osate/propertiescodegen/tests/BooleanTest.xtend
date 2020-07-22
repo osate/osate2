@@ -208,9 +208,10 @@ class BooleanTest {
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(booleanTest, otherPs))
-		assertEquals(1, results.size)
+		assertEquals("src-gen/booleantest", results.packagePath)
+		assertEquals(1, results.classes.size)
 		
-		assertEquals("BooleanTest.java", results.head.fileName)
-		assertEquals(booleanTestClass.toString, results.head.contents)
+		assertEquals("BooleanTest.java", results.classes.head.fileName)
+		assertEquals(booleanTestClass.toString, results.classes.head.contents)
 	}
 }

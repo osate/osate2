@@ -1,7 +1,6 @@
 package org.osate.propertiescodegen
 
 import java.util.ArrayList
-import java.util.List
 import java.util.Set
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
 import org.osate.aadl2.AadlBoolean
@@ -32,7 +31,9 @@ class PropertiesCodeGen {
 	val PropertySet propertySet
 	val Set<String> imports = newHashSet
 	
-	def static List<GeneratedJava> generateJava(PropertySet propertySet) {
+	def static GeneratedPackage generateJava(PropertySet propertySet) {
+		val packagePath = "src-gen/" + propertySet.name.toLowerCase.replace("_", "")
+		
 		val propertySetFile = if (propertySet.ownedProperties.empty) {
 			emptyList
 		} else {
@@ -68,7 +69,7 @@ class PropertiesCodeGen {
 			}
 		].filterNull.toList;
 		
-		(propertySetFile + typeFiles).toList
+		new GeneratedPackage(packagePath, (propertySetFile + typeFiles).toList)
 	}
 	
 	def private String generateImports() {
@@ -97,7 +98,7 @@ class PropertiesCodeGen {
 		'''
 	}
 	
-	def private static GeneratedJava generateFile(PropertySet propertySet) {
+	def private static GeneratedClass generateFile(PropertySet propertySet) {
 		val generator = new PropertiesCodeGen(propertySet)
 		/*
 		 * Place the property getters into a new ArrayList for eager evaluation. This is important so that
@@ -117,7 +118,7 @@ class PropertiesCodeGen {
 				«ENDFOR»
 			}
 		'''
-		new GeneratedJava(className + ".java", contents)
+		new GeneratedClass(className + ".java", contents)
 	}
 	
 	def private String generatePropertyGetter(Property property) {
@@ -367,7 +368,7 @@ class PropertiesCodeGen {
 		}
 	}
 	
-	def private static GeneratedJava generateFile(
+	def private static GeneratedClass generateFile(
 		PropertySet propertySet,
 		String typeName,
 		(PropertiesCodeGen)=>String generatorMethod
@@ -380,7 +381,7 @@ class PropertiesCodeGen {
 			
 			«generatedJavaType»
 		'''
-		new GeneratedJava(typeName + ".java", contents)
+		new GeneratedClass(typeName + ".java", contents)
 	}
 	
 	def private String generateEnumeration(String typeName, EnumerationType enumType) {

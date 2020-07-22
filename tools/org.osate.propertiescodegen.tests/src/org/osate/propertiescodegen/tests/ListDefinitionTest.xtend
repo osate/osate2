@@ -1529,33 +1529,34 @@ class ListDefinitionTest {
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(ps1, ps2))
-		assertEquals(9, results.size)
+		assertEquals("src-gen/ps1", results.packagePath)
+		assertEquals(9, results.classes.size)
 		
-		assertEquals("Ps1.java", results.get(0).fileName)
-		assertEquals(ps1Class.toString, results.get(0).contents)
+		assertEquals("Ps1.java", results.classes.get(0).fileName)
+		assertEquals(ps1Class.toString, results.classes.get(0).contents)
 		
-		assertEquals("Time.java", results.get(1).fileName)
-		assertEquals(time.toString, results.get(1).contents)
+		assertEquals("Time.java", results.classes.get(1).fileName)
+		assertEquals(time.toString, results.classes.get(1).contents)
 		
-		assertEquals("IntegerOwnedUnits.java", results.get(2).fileName)
-		assertEquals(integerOwnedUnits.toString, results.get(2).contents)
+		assertEquals("IntegerOwnedUnits.java", results.classes.get(2).fileName)
+		assertEquals(integerOwnedUnits.toString, results.classes.get(2).contents)
 		
-		assertEquals("EnumType1.java", results.get(3).fileName)
-		assertEquals(enumType1.toString, results.get(3).contents)
+		assertEquals("EnumType1.java", results.classes.get(3).fileName)
+		assertEquals(enumType1.toString, results.classes.get(3).contents)
 		
-		assertEquals("RecordOfBoolean.java", results.get(4).fileName)
-		assertEquals(recordOfBoolean.toString, results.get(4).contents)
+		assertEquals("RecordOfBoolean.java", results.classes.get(4).fileName)
+		assertEquals(recordOfBoolean.toString, results.classes.get(4).contents)
 		
-		assertEquals("List1OwnedEnum.java", results.get(5).fileName)
-		assertEquals(list1OwnedEnum.toString, results.get(5).contents)
+		assertEquals("List1OwnedEnum.java", results.classes.get(5).fileName)
+		assertEquals(list1OwnedEnum.toString, results.classes.get(5).contents)
 		
-		assertEquals("List1OwnedUnits.java", results.get(6).fileName)
-		assertEquals(list1OwnedUnits.toString, results.get(6).contents)
+		assertEquals("List1OwnedUnits.java", results.classes.get(6).fileName)
+		assertEquals(list1OwnedUnits.toString, results.classes.get(6).contents)
 		
-		assertEquals("List1OwnedRecord.java", results.get(7).fileName)
-		assertEquals(list1OwnedRecord.toString, results.get(7).contents)
+		assertEquals("List1OwnedRecord.java", results.classes.get(7).fileName)
+		assertEquals(list1OwnedRecord.toString, results.classes.get(7).contents)
 		
-		assertEquals("List3OwnedEnum.java", results.get(8).fileName)
-		assertEquals(list3OwnedEnum.toString, results.get(8).contents)
+		assertEquals("List3OwnedEnum.java", results.classes.get(8).fileName)
+		assertEquals(list3OwnedEnum.toString, results.classes.get(8).contents)
 	}
 }

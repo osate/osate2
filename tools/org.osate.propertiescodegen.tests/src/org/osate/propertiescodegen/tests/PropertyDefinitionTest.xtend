@@ -593,19 +593,20 @@ class PropertyDefinitionTest {
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(ps1, enumTest, ps2))
-		assertEquals(4, results.size)
+		assertEquals("src-gen/ps1", results.packagePath)
+		assertEquals(4, results.classes.size)
 		
-		assertEquals("Ps1.java", results.get(0).fileName)
-		assertEquals(ps1Class.toString, results.get(0).contents)
+		assertEquals("Ps1.java", results.classes.get(0).fileName)
+		assertEquals(ps1Class.toString, results.classes.get(0).contents)
 		
-		assertEquals("UnitsDefinition.java", results.get(1).fileName)
-		assertEquals(unitsDefinition.toString, results.get(1).contents)
+		assertEquals("UnitsDefinition.java", results.classes.get(1).fileName)
+		assertEquals(unitsDefinition.toString, results.classes.get(1).contents)
 		
-		assertEquals("EnumDefinition.java", results.get(2).fileName)
-		assertEquals(enumDefinition.toString, results.get(2).contents)
+		assertEquals("EnumDefinition.java", results.classes.get(2).fileName)
+		assertEquals(enumDefinition.toString, results.classes.get(2).contents)
 		
-		assertEquals("RecordDefinition.java", results.get(3).fileName)
-		assertEquals(recordDefinition.toString, results.get(3).contents)
+		assertEquals("RecordDefinition.java", results.classes.get(3).fileName)
+		assertEquals(recordDefinition.toString, results.classes.get(3).contents)
 	}
 	
 	@Test
@@ -615,7 +616,8 @@ class PropertyDefinitionTest {
 			end empty_ps;
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(emptyPs))
-		assertEquals(0, results.size)
+		assertEquals("src-gen/emptyps", results.packagePath)
+		assertEquals(0, results.classes.size)
 	}
 	
 	@Test
@@ -669,9 +671,10 @@ class PropertyDefinitionTest {
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(singleDefinitionPs))
-		assertEquals(1, results.size)
+		assertEquals("src-gen/singledefinitionps", results.packagePath)
+		assertEquals(1, results.classes.size)
 		
-		assertEquals("SingleDefinitionPs.java", results.head.fileName)
-		assertEquals(singleDefinitionPsClass.toString, results.head.contents)
+		assertEquals("SingleDefinitionPs.java", results.classes.head.fileName)
+		assertEquals(singleDefinitionPsClass.toString, results.classes.head.contents)
 	}
 }

@@ -214,9 +214,10 @@ class ReferenceTest {
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(referenceTest, otherPs))
-		assertEquals(1, results.size)
+		assertEquals("src-gen/referencetest", results.packagePath)
+		assertEquals(1, results.classes.size)
 		
-		assertEquals("ReferenceTest.java", results.head.fileName)
-		assertEquals(referenceTestClass.toString, results.head.contents)
+		assertEquals("ReferenceTest.java", results.classes.head.fileName)
+		assertEquals(referenceTestClass.toString, results.classes.head.contents)
 	}
 }
