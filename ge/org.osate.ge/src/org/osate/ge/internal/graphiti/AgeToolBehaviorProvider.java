@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -94,19 +94,19 @@ import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ActionService.ActionGroup;
-import org.osate.ge.internal.services.ExtensionRegistryService.Category;
-import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.ui.editor.AgeDiagramBehavior;
+import org.osate.ge.palette.PaletteCategory;
 
 public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	private final IEclipseContext context;
-	private final ExtensionService extensionService;
+	private final ExtensionRegistryService extensionService;
 	private final ActionService actionService;
 	private final AgeDoubleClickFeature defaultDoubleClickFeature;
 	private final Deque<ActionGroup> actionGroupStack = new LinkedList<>();
 
 	@Inject
-	public AgeToolBehaviorProvider(final GraphitiService graphiti, final ExtensionService extensionService,
+	public AgeToolBehaviorProvider(final GraphitiService graphiti, final ExtensionRegistryService extensionService,
 			final ActionService actionService, final IEclipseContext context) {
 		super(graphiti.getDiagramTypeProvider());
 		this.extensionService = extensionService;
@@ -188,8 +188,8 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 			private final ArrayList<PaletteCompartmentEntry> compartments = createCompartmentEntries();
 			private ArrayList<PaletteCompartmentEntry> createCompartmentEntries() {
 				final ArrayList<PaletteCompartmentEntry> compartmentEntries= new ArrayList<PaletteCompartmentEntry>();
-				for(final Category category : extensionService.getCategories()) {
-					final PaletteCompartmentEntry newEntry = new PaletteCompartmentEntry(category.getName(), null);
+				for (final PaletteCategory category : extensionService.getCategories()) {
+					final PaletteCompartmentEntry newEntry = new PaletteCompartmentEntry(category.getLabel(), null);
 					newEntry.setInitiallyOpen(false);
 					compartmentEntries.add(newEntry);
 				}
@@ -203,10 +203,10 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 			 * @param feature the feature that holds which category to which the tool should be added.
 			 */
 			public void addToolEntry(final IToolEntry toolEntry, final IFeature feature) {
-				final Category category = getCategory(feature);
+				final PaletteCategory category = getCategory(feature);
 				if(category != null) {
 					for(final PaletteCompartmentEntry compartmentEntry : compartments) {
-						if(compartmentEntry.getLabel().equals(category.getName())) {
+						if(compartmentEntry.getLabel().equals(category.getLabel())) {
 							compartmentEntry.addToolEntry(toolEntry);
 						}
 					}
@@ -221,7 +221,7 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 			 * @param feature
 			 * @return the category to which the toolEntry will be added
 			 */
-			private Category getCategory(final IFeature feature) {
+			private PaletteCategory getCategory(final IFeature feature) {
 				if(feature instanceof Categorized) {
 					return getCategoryById(((Categorized)feature).getCategory());
 				} else {
@@ -234,9 +234,9 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 			 * @param id is the compartment/category id
 			 * @return the Category
 			 */
-			private Category getCategoryById(final String id) {
-				final List<Category> categories = extensionService.getCategories();
-				for(final Category category : categories) {
+			private PaletteCategory getCategoryById(final String id) {
+				final List<PaletteCategory> categories = extensionService.getCategories();
+				for (final PaletteCategory category : categories) {
 					if(category.getId().equals(id)) {
 						return category;
 					}

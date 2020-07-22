@@ -83,6 +83,7 @@ import org.eclipse.ui.model.BaseWorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
+import org.osate.ge.StringUtil;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.graphics.internal.AgeConnection;
@@ -95,7 +96,6 @@ import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.internal.ui.util.UiUtil;
-import org.osate.ge.internal.util.StringUtil;
 import org.osate.ge.swt.util.SwtTestUtil;
 
 import com.google.common.collect.Lists;
@@ -342,7 +342,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		final Button outlineButton = outlinePaintListener.getButton();
 		outlineButton.setEnabled(enableOutlineOption);
 
-		final Style defaultStyle = StyleBuilder.create(diagramElement.getGraphicalConfiguration().style, Style.DEFAULT)
+		final Style defaultStyle = StyleBuilder.create(diagramElement.getGraphicalConfiguration().getStyle(), Style.DEFAULT)
 				.build();
 		backgroundPaintListener.setDefaultColor(toRGB(defaultStyle.getBackgroundColor()));
 		fontColorPaintListener.setDefaultColor(toRGB(defaultStyle.getFontColor()));

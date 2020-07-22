@@ -196,12 +196,12 @@ public class LayoutUtil {
 	 */
 	public static void layout(final Diagram graphitiDiagram, final DiagramModification mod,
 			final DiagramElement element, final ContainerShape shape, final NodePictogramBiMap diagramNodeProvider) {
-		final LabelPosition horizontalLabelPositionFromStyle = element.getGraphicalConfiguration().style
+		final LabelPosition horizontalLabelPositionFromStyle = element.getGraphicalConfiguration().getStyle()
 				.getHorizontalLabelPosition() == null ? Style.DEFAULT.getHorizontalLabelPosition()
-						: element.getGraphicalConfiguration().style.getHorizontalLabelPosition();
-				final LabelPosition verticalLabelPositionFromStyle = element.getGraphicalConfiguration().style
+						: element.getGraphicalConfiguration().getStyle().getHorizontalLabelPosition();
+				final LabelPosition verticalLabelPositionFromStyle = element.getGraphicalConfiguration().getStyle()
 						.getVerticalLabelPosition() == null ? Style.DEFAULT.getVerticalLabelPosition()
-								: element.getGraphicalConfiguration().style.getVerticalLabelPosition();
+								: element.getGraphicalConfiguration().getStyle().getVerticalLabelPosition();
 
 						final GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
 						shapeGa.setStyle(null); // Remove reference to Graphiti style.
@@ -320,7 +320,7 @@ public class LayoutUtil {
 						// Adjust the size of the graphics algorithm based on the rotation implied by the dock area
 						if (shapeDockArea == DockArea.TOP || shapeDockArea == DockArea.BOTTOM) {
 							innerGa = AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(graphitiDiagram, shapeGa, gr, lm.innerHeight,
-									lm.innerWidth, true, element.getGraphicalConfiguration().style);
+									lm.innerWidth, true, element.getGraphicalConfiguration().getStyle());
 						} else {
 							// Check if diagram element is an image figure
 							if (DiagramElementPredicates.supportsImage(element)
@@ -337,7 +337,7 @@ public class LayoutUtil {
 								PropertyUtil.setImage(innerGa, imagePath.toPortableString());
 							} else {
 								innerGa = AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(graphitiDiagram, shapeGa, gr, lm.innerWidth,
-										lm.innerHeight, true, element.getGraphicalConfiguration().style);
+										lm.innerHeight, true, element.getGraphicalConfiguration().getStyle());
 							}
 						}
 

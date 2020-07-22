@@ -26,7 +26,9 @@ package org.osate.ge.internal.query;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.osate.ge.BusinessObjectContext;
+
 public class QueryResult {
-	public final List<Queryable> result = new ArrayList<Queryable>();
+	public final List<BusinessObjectContext> result = new ArrayList<BusinessObjectContext>();
 	public boolean done = false;
 }

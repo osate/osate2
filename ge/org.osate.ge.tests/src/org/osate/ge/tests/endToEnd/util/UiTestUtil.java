@@ -75,9 +75,9 @@ import org.eclipse.ui.PlatformUI;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
 import com.google.common.collect.ImmutableList;
@@ -864,7 +864,7 @@ public class UiTestUtil {
 	public static Optional<DiagramElement> getDiagramElement(final DiagramReference diagram,
 			final DiagramElementReference element) {
 		final AgeDiagramEditor editor = getDiagramEditor(diagram);
-		final AgeDiagram ageDiagram = editor.getAgeDiagram();
+		final AgeDiagram ageDiagram = editor.getDiagram();
 		ImmutableList<RelativeBusinessObjectReference> refs = element.pathToElement;
 		DiagramElement de = ageDiagram.getByRelativeReference(refs.get(0));
 		for (int i = 1; i < refs.size() && de != null; i++) {

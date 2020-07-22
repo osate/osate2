@@ -26,6 +26,7 @@ package org.osate.ge.internal.query;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
 import org.osate.ge.internal.services.ReferenceService;
 
 public class QueryExecutionState {
