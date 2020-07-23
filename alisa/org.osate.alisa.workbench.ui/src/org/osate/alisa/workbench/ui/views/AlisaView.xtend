@@ -758,27 +758,20 @@ class AlisaView extends ViewPart {
 			project
 		val assureURI = URI.createPlatformResourceURI('''«assureProject.fullPath»/assure/«assuranceCase.name».xassure''',
 			false)
-		val assuranceCaseResultHolder = new AtomicReference
-		val domain = TransactionalEditingDomain.Registry.INSTANCE.getEditingDomain("org.osate.aadl2.ModelEditingDomain")
-		domain.commandStack.execute(new RecordingCommand(domain) {
-			override protected doExecute() {
-				val assuranceCaseResult = assureConstructor.generateFullAssuranceCase(assuranceCase)
-				didGenerateAssure = true
-				assuranceCaseResult.resetToTBD(filter)
-				assuranceCaseResult.recomputeAllCounts(filter)
-				val resource = resourceSetForProcessing.getResource(assureURI, false) ?:
-					resourceSetForProcessing.createResource(assureURI)
-				resource.contents.clear
-				resource.contents += assuranceCaseResult
-				try {
-					resource.save(null)
-				} catch (IOException e) {
-					// Do nothing.
-				}
-				assuranceCaseResultHolder.set(assuranceCaseResult)
-			}
-		})
-		assuranceCaseResultHolder.get
+		val assuranceCaseResult = assureConstructor.generateFullAssuranceCase(assuranceCase)
+		didGenerateAssure = true
+		assuranceCaseResult.resetToTBD(filter)
+		assuranceCaseResult.recomputeAllCounts(filter)
+		val resource = resourceSetForProcessing.getResource(assureURI, false) ?:
+			resourceSetForProcessing.createResource(assureURI)
+		resource.contents.clear
+		resource.contents += assuranceCaseResult
+		try {
+			resource.save(null)
+		} catch (IOException e) {
+			// Do nothing.
+		}
+		assuranceCaseResult
 	}
 
 	def package void update(URI verificationResultURI) {
