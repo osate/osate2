@@ -38,12 +38,13 @@ public class BaBusinessObjectProvider implements BusinessObjectProvider {
 		final Object bo = ctx.getBusinessObjectContext().getBusinessObject();
 		if (bo instanceof Classifier) {
 			// TODO get BA? can be multiple?
-			final Stream<BehaviorAnnex> bas = BaUtil.getBehaviorAnnexes((Classifier) bo);
-			System.err.println(BaUtil.getBehaviorAnnexes((Classifier) bo).count() + " count");
+			final Stream<?> bas = BaUtil.getBehaviorAnnexes((Classifier) bo);
 			return bas;
 		} else if (bo instanceof BehaviorAnnex) {
 			return ((BehaviorAnnex) bo).getStates().stream();
 		}
+
+		System.err.println("AAA");
 
 		return Stream.empty();
 	}

@@ -25,12 +25,18 @@ package org.osate.ge.ba.businessobjecthandlers;
 
 import java.util.Optional;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.aadl2.Classifier;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.aadl2.internal.AadlReferenceUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.CanDeleteContext;
+import org.osate.ge.businessobjecthandling.CustomDeleteContext;
+import org.osate.ge.businessobjecthandling.CustomDeleter;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
@@ -43,7 +49,7 @@ import org.osate.ge.graphics.Graphic;
  * business object provider. Since the object isn't contributed at this time, the other methods are not necessary.
  *
  */
-public class BehaviorAnnexHandler implements BusinessObjectHandler {
+public class BehaviorAnnexHandler implements BusinessObjectHandler, CustomDeleter {
 	private static final String TYPE_BA = "ba";
 	private static final Graphic graphic = EllipseBuilder.create().build();
 
@@ -54,13 +60,31 @@ public class BehaviorAnnexHandler implements BusinessObjectHandler {
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		return new CanonicalBusinessObjectReference(TYPE_BA);
+		final BehaviorAnnex ba = ctx.getBusinessObject(BehaviorAnnex.class).get();
+		// TODO can BA be part of component?
+		// TODO owner is DefaultSubclause
+		final Classifier classifier = ba.getContainingClassifier();
+		int index = classifier.getOwnedAnnexSubclauses().indexOf(ba.getOwner());
+		return new CanonicalBusinessObjectReference(TYPE_BA,
+				ctx.getBusinessObject(BehaviorAnnex.class).get().getQualifiedName() + index);
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		return new RelativeBusinessObjectReference(TYPE_BA);
+		final BehaviorAnnex ba = ctx.getBusinessObject(BehaviorAnnex.class).get();
+		// TODO can BA be part of component?
+		// TODO owner is DefaultSubclause
+		final Classifier classifier = ba.getContainingClassifier();
+		int index = classifier.getOwnedAnnexSubclauses().indexOf(ba.getOwner());
+		return AadlReferenceUtil.buildSimpleRelativeReference(TYPE_BA,
+				ctx.getBusinessObject(BehaviorAnnex.class).get());
+		/*
+		 * return AadlReferenceUtil
+		 * .buildSimpleRelativeReference(DeclarativeReferenceType.MODE.getId(),
+		 * ctx.getBusinessObject(Mode.class).get());
+		 */
 	}
+
 
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
@@ -68,9 +92,40 @@ public class BehaviorAnnexHandler implements BusinessObjectHandler {
 	}
 
 	@Override
+	public boolean canDelete(final CanDeleteContext ctx) {
+		return true;
+	}
+
+	@Override
 	public String getName(final GetNameContext ctx) {
 		// TODO all BA's have same name? Yes, but label could be "BA for Impl"...
-		// Hide this element from the user interface
-		return "BA";
+		final BehaviorAnnex ba = ctx.getBusinessObject(BehaviorAnnex.class).get();
+		System.err.println(ba + " ba");
+		final Classifier classifier = ba.getContainingClassifier();
+		System.err.println(ba.getOwner() + " owner");
+		System.err.println(classifier + " classfi");
+		if (classifier != null) {
+			int index = classifier.getOwnedAnnexSubclauses().indexOf(ba.getOwner());
+			return "BA " + Integer.toString(index);
+		}
+
+		System.err.println(ba + " removing ba");
+
+		return "";
+	}
+
+	@Override
+	public void delete(final CustomDeleteContext ctx) {
+		System.err.println("DELTING");
+		System.err.println(ctx.getReadonlyBoToDelete(BehaviorAnnex.class) + " readonoly");
+		ctx.getReadonlyBoToDelete(BehaviorAnnex.class)
+				.ifPresent(ba -> System.err.println(ba.getOwner() + " getOwneAAr"));
+		System.err.println(ctx.getContainerBusinessObject(BehaviorAnnex.class) + " container");
+		ctx.getContainerBusinessObject(BehaviorAnnex.class).ifPresent(das -> {
+			das.getOwnedElements().forEach(e -> System.err.println(e + " EEE"));
+			System.err.println(das.getOwner() + " getOwner");
+			EcoreUtil.delete(das.getOwner());
+			EcoreUtil.delete(das);
+		});
 	}
 }
