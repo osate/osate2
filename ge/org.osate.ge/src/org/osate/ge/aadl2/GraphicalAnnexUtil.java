@@ -174,7 +174,8 @@ public class GraphicalAnnexUtil {
 			return null;
 		}
 
-		System.err.println(defaultSubclause + " defaultSubclause");
+		// TODO
+		System.err.println("Should be throwing exception?");
 
 		return null;
 

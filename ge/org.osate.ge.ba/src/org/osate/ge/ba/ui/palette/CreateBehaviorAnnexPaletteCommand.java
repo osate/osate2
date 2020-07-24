@@ -25,6 +25,7 @@ public class CreateBehaviorAnnexPaletteCommand extends BasePaletteCommand implem
 		return ctx.getTarget().getBusinessObject(Classifier.class)
 				.map(c -> Operation.createSimple(ctx.getTarget(), Classifier.class, modifyBo -> {
 					final BehaviorAnnex ba = BaUtil.createBehaviorAnnex(modifyBo);
+					ba.setName("behavior_specification");
 
 					// Create the state
 					final BehaviorState newState = (BehaviorState) EcoreUtil

@@ -46,14 +46,14 @@ public class BaTransitionHandler implements BusinessObjectHandler {
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		// This should be implemented for full behavior annex support.
-		return null;
+		return new CanonicalBusinessObjectReference(TYPE_TRANSITION,
+				ctx.getBusinessObject(BehaviorTransition.class).get().getQualifiedName());
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
 		return new RelativeBusinessObjectReference(TYPE_TRANSITION,
-				ctx.getBusinessObject(BehaviorTransition.class).get().getFullName());
+				ctx.getBusinessObject(BehaviorTransition.class).get().getQualifiedName());
 	}
 
 	@Override

@@ -190,8 +190,6 @@ public class DeleteHandler extends AbstractHandler {
 						selectedDiagramElements.get(0));
 				if (modInfo != null) {
 					aadlModificationService.modify(modInfo.staleBoToModify, (boToModify) -> {
-						System.err.println(boToModify + " boToModify");
-						System.err.println(modInfo.staleBoToModify + " stale");
 						modInfo.remover.accept(boToModify);
 					});
 				}
@@ -279,12 +277,11 @@ public class DeleteHandler extends AbstractHandler {
 		final Object boHandler = de.getBusinessObjectHandler();
 		if (bo instanceof EObject) {
 			final EObject boEObj = (EObject) bo;
-			System.err.println(boHandler + " boHandler");
 			if (boHandler instanceof CustomDeleter) {
+				final EObject container = boEObj.eContainer();
 				final CustomDeleter deleter = (CustomDeleter) boHandler;
-				System.err.println("CUSTOM DELETER");
-				return new BusinessObjectRemoval(boEObj, (boToModify) -> {
-					deleter.delete(new CustomDeleteContext(boToModify, boEObj));
+				return new BusinessObjectRemoval(container, (boToModify) -> {
+					deleter.delete(new CustomDeleteContext(boToModify, bo));
 				});
 			} else {
 				return new BusinessObjectRemoval(boEObj, (boToModify) -> {
