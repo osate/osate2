@@ -5,6 +5,8 @@ import static org.osate.pluginsupport.properties.CodeGenUtil.resolveNamedValue;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PropertyExpression;
@@ -17,6 +19,20 @@ public class RealRangeWithUnits<U extends Enum<U> & GeneratedUnits<U>> {
 	private final RealWithUnits<U> minimum;
 	private final RealWithUnits<U> maximum;
 	private final Optional<RealWithUnits<U>> delta;
+	
+	public RealRangeWithUnits(RealWithUnits<U> minimum, RealWithUnits<U> maximum) {
+		this(minimum, maximum, Optional.empty());
+	}
+	
+	public RealRangeWithUnits(RealWithUnits<U> minimum, RealWithUnits<U> maximum, RealWithUnits<U> delta) {
+		this(minimum, maximum, Optional.of(delta));
+	}
+	
+	public RealRangeWithUnits(RealWithUnits<U> minimum, RealWithUnits<U> maximum, Optional<RealWithUnits<U>> delta) {
+		this.minimum = minimum;
+		this.maximum = maximum;
+		this.delta = delta;
+	}
 
 	public RealRangeWithUnits(PropertyExpression propertyExpression, Class<U> unitsType, NamedElement lookupContext,
 			Optional<Mode> mode) {
@@ -37,6 +53,14 @@ public class RealRangeWithUnits<U extends Enum<U> & GeneratedUnits<U>> {
 
 	public Optional<RealWithUnits<U>> getDelta() {
 		return delta;
+	}
+	
+	public RangeValue toPropertyExpression(ResourceSet resourceSet) {
+		RangeValue rangeValue = Aadl2Factory.eINSTANCE.createRangeValue();
+		rangeValue.setMinimum(minimum.toPropertyExpression(resourceSet));
+		rangeValue.setMaximum(maximum.toPropertyExpression(resourceSet));
+		delta.ifPresent(delta -> rangeValue.setDelta(delta.toPropertyExpression(resourceSet)));
+		return rangeValue;
 	}
 
 	@Override
