@@ -32,19 +32,15 @@ import org.osate.ge.BusinessObjectProviderContext;
 import org.osate.ge.ba.util.BaUtil;
 
 public class BaBusinessObjectProvider implements BusinessObjectProvider {
-	// TODO Show behavior specs
 	@Override
 	public Stream<?> getChildBusinessObjects(final BusinessObjectProviderContext ctx) {
 		final Object bo = ctx.getBusinessObjectContext().getBusinessObject();
 		if (bo instanceof Classifier) {
-			// TODO get BA? can be multiple?
 			final Stream<?> bas = BaUtil.getBehaviorAnnexes((Classifier) bo);
 			return bas;
 		} else if (bo instanceof BehaviorAnnex) {
 			return ((BehaviorAnnex) bo).getStates().stream();
 		}
-
-		System.err.println("AAA");
 
 		return Stream.empty();
 	}

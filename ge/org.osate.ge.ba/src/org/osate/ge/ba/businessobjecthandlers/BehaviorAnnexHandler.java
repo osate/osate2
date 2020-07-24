@@ -27,6 +27,7 @@ import java.util.Optional;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
@@ -64,6 +65,7 @@ public class BehaviorAnnexHandler implements BusinessObjectHandler, CustomDelete
 		// TODO can BA be part of component?
 		// TODO owner is DefaultSubclause
 		final Classifier classifier = ba.getContainingClassifier();
+		System.err.println(ctx.getBusinessObject() + " getBusinessObject");
 		int index = classifier.getOwnedAnnexSubclauses().indexOf(ba.getOwner());
 		return new CanonicalBusinessObjectReference(TYPE_BA,
 				ctx.getBusinessObject(BehaviorAnnex.class).get().getQualifiedName() + index);
@@ -75,14 +77,14 @@ public class BehaviorAnnexHandler implements BusinessObjectHandler, CustomDelete
 		// TODO can BA be part of component?
 		// TODO owner is DefaultSubclause
 		final Classifier classifier = ba.getContainingClassifier();
+		if (classifier != null) {
 		int index = classifier.getOwnedAnnexSubclauses().indexOf(ba.getOwner());
 		return AadlReferenceUtil.buildSimpleRelativeReference(TYPE_BA,
-				ctx.getBusinessObject(BehaviorAnnex.class).get());
-		/*
-		 * return AadlReferenceUtil
-		 * .buildSimpleRelativeReference(DeclarativeReferenceType.MODE.getId(),
-		 * ctx.getBusinessObject(Mode.class).get());
-		 */
+				ctx.getBusinessObject(BehaviorAnnex.class).get().getQualifiedName() + index);
+	}
+
+	return AadlReferenceUtil.buildSimpleRelativeReference(TYPE_BA,
+			ba.getQualifiedName());
 	}
 
 
@@ -100,31 +102,18 @@ public class BehaviorAnnexHandler implements BusinessObjectHandler, CustomDelete
 	public String getName(final GetNameContext ctx) {
 		// TODO all BA's have same name? Yes, but label could be "BA for Impl"...
 		final BehaviorAnnex ba = ctx.getBusinessObject(BehaviorAnnex.class).get();
-		System.err.println(ba + " ba");
 		final Classifier classifier = ba.getContainingClassifier();
-		System.err.println(ba.getOwner() + " owner");
-		System.err.println(classifier + " classfi");
 		if (classifier != null) {
 			int index = classifier.getOwnedAnnexSubclauses().indexOf(ba.getOwner());
 			return "BA " + Integer.toString(index);
 		}
-
-		System.err.println(ba + " removing ba");
 
 		return "";
 	}
 
 	@Override
 	public void delete(final CustomDeleteContext ctx) {
-		System.err.println("DELTING");
-		System.err.println(ctx.getReadonlyBoToDelete(BehaviorAnnex.class) + " readonoly");
-		ctx.getReadonlyBoToDelete(BehaviorAnnex.class)
-				.ifPresent(ba -> System.err.println(ba.getOwner() + " getOwneAAr"));
-		System.err.println(ctx.getContainerBusinessObject(BehaviorAnnex.class) + " container");
-		ctx.getContainerBusinessObject(BehaviorAnnex.class).ifPresent(das -> {
-			das.getOwnedElements().forEach(e -> System.err.println(e + " EEE"));
-			System.err.println(das.getOwner() + " getOwner");
-			EcoreUtil.delete(das.getOwner());
+		ctx.getContainerBusinessObject(DefaultAnnexSubclause.class).ifPresent(das -> {
 			EcoreUtil.delete(das);
 		});
 	}

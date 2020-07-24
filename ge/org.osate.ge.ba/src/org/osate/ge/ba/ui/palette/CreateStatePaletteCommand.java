@@ -26,14 +26,11 @@ package org.osate.ge.ba.ui.palette;
 import java.util.Optional;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.osate.aadl2.Classifier;
 import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ge.ba.util.BaNamingUtil;
-import org.osate.ge.ba.util.BaUtil;
 import org.osate.ge.operations.Operation;
-import org.osate.ge.operations.StepResult;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
@@ -46,38 +43,27 @@ public class CreateStatePaletteCommand extends BasePaletteCommand implements Tar
 
 	@Override
 	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
-		return ctx.getTarget().getBusinessObject(Classifier.class).map(c -> {
-			return Operation.createWithBuilder(b -> {
-				b.supply(() -> {
-					final BehaviorAnnex ba = BaUtil.getBehaviorAnnex(c);
-					return StepResult.forValue(ba == null ? c : ba);
-				}).modifyPreviousResult(modifyBo -> {
-					final BehaviorAnnex ba;
-					if (modifyBo instanceof Classifier) {
-						ba = BaUtil.getOrCreateBehaviorAnnex((Classifier) modifyBo);
-					} else if (modifyBo instanceof BehaviorAnnex) {
-						ba = (BehaviorAnnex) modifyBo;
-					} else {
-						throw new RuntimeException("Modify business object is not of expected type. BO: " + modifyBo);
-					}
+		return ctx.getTarget().getBusinessObject(BehaviorAnnex.class)
+				.map(ba -> Operation.createSimple(ctx.getTarget(), BehaviorAnnex.class, modifyBo -> {
+					modifyBo.setName("behavior_specification");
 
 					// Create the state
 					final BehaviorState newState = (BehaviorState) EcoreUtil
 							.create(AadlBaPackage.eINSTANCE.getBehaviorState());
-					final String newName = BaNamingUtil.buildUniqueIdentifier(ba, "new_state");
+					final String newName = BaNamingUtil.buildUniqueIdentifier(modifyBo, "new_state");
 					newState.setName(newName);
 
 					// Set as initial state if the behavior annex does not have an initial state.
-					if (ba.getInitialState() == null) {
+					if (modifyBo.getInitialState() == null) {
 						newState.setInitial(true);
 					}
 
-					// Add the new state to the behavior annex
-					ba.getStates().add(newState);
+					// newState.setFinal(true);
 
-					return StepResultBuilder.create().showNewBusinessObject(ctx.getTarget(), newState).build();
-				});
-			});
-		});
+					// Add the new state to the behavior annex
+					modifyBo.getStates().add(newState);
+
+					return StepResultBuilder.create().showNewBusinessObject(ctx.getTarget(), modifyBo).build();
+				})).orElse(Optional.empty());
 	}
 }
