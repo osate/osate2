@@ -13,7 +13,7 @@ import org.osate.aadl2.RangeValue;
 /**
  * @since 4.1
  */
-public class RealRangeWithUnits<U extends Enum<U> & GeneratedUnits> {
+public class RealRangeWithUnits<U extends Enum<U> & GeneratedUnits<U>> {
 	private final RealWithUnits<U> minimum;
 	private final RealWithUnits<U> maximum;
 	private final Optional<RealWithUnits<U>> delta;
