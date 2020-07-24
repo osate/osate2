@@ -1,5 +1,7 @@
 package org.osate.pluginsupport.properties;
 
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.PropertyExpression;
 
@@ -9,6 +11,11 @@ import org.osate.aadl2.PropertyExpression;
 public class IntegerWithUnits<U extends Enum<U> & GeneratedUnits<U>> implements Comparable<IntegerWithUnits<U>> {
 	private final long value;
 	private final U unit;
+	
+	public IntegerWithUnits(long value, U unit) {
+		this.value = value;
+		this.unit = unit;
+	}
 
 	public IntegerWithUnits(PropertyExpression propertyExpression, Class<U> unitsType) {
 		IntegerLiteral numberValue = (IntegerLiteral) propertyExpression;
@@ -26,6 +33,13 @@ public class IntegerWithUnits<U extends Enum<U> & GeneratedUnits<U>> implements 
 
 	public double getValue(U targetUnit) {
 		return value * unit.getFactorToBase() / targetUnit.getFactorToBase();
+	}
+	
+	public IntegerLiteral toPropertyExpression(ResourceSet resourceSet) {
+		IntegerLiteral numberValue = Aadl2Factory.eINSTANCE.createIntegerLiteral();
+		numberValue.setValue(value);
+		numberValue.setUnit(unit.toUnitLiteral(resourceSet));
+		return numberValue;
 	}
 
 	@Override
