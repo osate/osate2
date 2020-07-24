@@ -266,24 +266,29 @@ class RealWithUnitsTest {
 		val time = '''
 			package realwithunitstest;
 			
+			import org.eclipse.emf.common.util.URI;
+			import org.eclipse.emf.ecore.resource.ResourceSet;
+			import org.osate.aadl2.Aadl2Factory;
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
 			import org.osate.pluginsupport.properties.GeneratedUnits;
 			
-			public enum Time implements GeneratedUnits {
-				SEC(1.0, "sec"),
-				MIN(60.0, "min"),
-				HR(3600.0, "hr"),
-				DAY(86400.0, "day");
+			public enum Time implements GeneratedUnits<Time> {
+				SEC(1.0, "sec", "__synthetic1.aadl#/0/@ownedPropertyType.0/@ownedLiteral.0"),
+				MIN(60.0, "min", "__synthetic1.aadl#/0/@ownedPropertyType.0/@ownedLiteral.1"),
+				HR(3600.0, "hr", "__synthetic1.aadl#/0/@ownedPropertyType.0/@ownedLiteral.2"),
+				DAY(86400.0, "day", "__synthetic1.aadl#/0/@ownedPropertyType.0/@ownedLiteral.3");
 				
 				private final double factorToBase;
 				private final String originalName;
+				private final URI uri;
 				
-				private Time(double factorToBase, String originalName) {
+				private Time(double factorToBase, String originalName, String uri) {
 					this.factorToBase = factorToBase;
 					this.originalName = originalName;
+					this.uri = URI.createURI(uri);
 				}
 				
 				public static Time valueOf(PropertyExpression propertyExpression) {
@@ -296,8 +301,25 @@ class RealWithUnitsTest {
 					return factorToBase;
 				}
 				
+				@Override
 				public double getFactorTo(Time target) {
 					return factorToBase / target.factorToBase;
+				}
+				
+				@Override
+				public UnitLiteral toUnitLiteral(ResourceSet resourceSet) {
+					UnitLiteral literal = (UnitLiteral) resourceSet.getEObject(uri, true);
+					if (literal == null) {
+						throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
+					}
+					return literal;
+				}
+				
+				@Override
+				public NamedValue toPropertyExpression(ResourceSet resourceSet) {
+					NamedValue value = Aadl2Factory.eINSTANCE.createNamedValue();
+					value.setNamedValue(toUnitLiteral(resourceSet));
+					return value;
 				}
 				
 				@Override
@@ -309,22 +331,27 @@ class RealWithUnitsTest {
 		val owned = '''
 			package realwithunitstest;
 			
+			import org.eclipse.emf.common.util.URI;
+			import org.eclipse.emf.ecore.resource.ResourceSet;
+			import org.osate.aadl2.Aadl2Factory;
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
 			import org.osate.pluginsupport.properties.GeneratedUnits;
 			
-			public enum Owned implements GeneratedUnits {
-				B(1.0, "B"),
-				KIB(1024.0, "KiB");
+			public enum Owned implements GeneratedUnits<Owned> {
+				B(1.0, "B", "__synthetic1.aadl#/0/@ownedProperty.0/@ownedPropertyType/@ownedUnitsType/@ownedLiteral.0"),
+				KIB(1024.0, "KiB", "__synthetic1.aadl#/0/@ownedProperty.0/@ownedPropertyType/@ownedUnitsType/@ownedLiteral.1");
 				
 				private final double factorToBase;
 				private final String originalName;
+				private final URI uri;
 				
-				private Owned(double factorToBase, String originalName) {
+				private Owned(double factorToBase, String originalName, String uri) {
 					this.factorToBase = factorToBase;
 					this.originalName = originalName;
+					this.uri = URI.createURI(uri);
 				}
 				
 				public static Owned valueOf(PropertyExpression propertyExpression) {
@@ -337,8 +364,25 @@ class RealWithUnitsTest {
 					return factorToBase;
 				}
 				
+				@Override
 				public double getFactorTo(Owned target) {
 					return factorToBase / target.factorToBase;
+				}
+				
+				@Override
+				public UnitLiteral toUnitLiteral(ResourceSet resourceSet) {
+					UnitLiteral literal = (UnitLiteral) resourceSet.getEObject(uri, true);
+					if (literal == null) {
+						throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
+					}
+					return literal;
+				}
+				
+				@Override
+				public NamedValue toPropertyExpression(ResourceSet resourceSet) {
+					NamedValue value = Aadl2Factory.eINSTANCE.createNamedValue();
+					value.setNamedValue(toUnitLiteral(resourceSet));
+					return value;
 				}
 				
 				@Override
@@ -350,22 +394,27 @@ class RealWithUnitsTest {
 		val list1Owned = '''
 			package realwithunitstest;
 			
+			import org.eclipse.emf.common.util.URI;
+			import org.eclipse.emf.ecore.resource.ResourceSet;
+			import org.osate.aadl2.Aadl2Factory;
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
 			import org.osate.pluginsupport.properties.GeneratedUnits;
 			
-			public enum List1Owned implements GeneratedUnits {
-				MG(1.0, "mg"),
-				G(1000.0, "g");
+			public enum List1Owned implements GeneratedUnits<List1Owned> {
+				MG(1.0, "mg", "__synthetic1.aadl#/0/@ownedProperty.3/@ownedPropertyType/@ownedElementType/@ownedUnitsType/@ownedLiteral.0"),
+				G(1000.0, "g", "__synthetic1.aadl#/0/@ownedProperty.3/@ownedPropertyType/@ownedElementType/@ownedUnitsType/@ownedLiteral.1");
 				
 				private final double factorToBase;
 				private final String originalName;
+				private final URI uri;
 				
-				private List1Owned(double factorToBase, String originalName) {
+				private List1Owned(double factorToBase, String originalName, String uri) {
 					this.factorToBase = factorToBase;
 					this.originalName = originalName;
+					this.uri = URI.createURI(uri);
 				}
 				
 				public static List1Owned valueOf(PropertyExpression propertyExpression) {
@@ -378,8 +427,25 @@ class RealWithUnitsTest {
 					return factorToBase;
 				}
 				
+				@Override
 				public double getFactorTo(List1Owned target) {
 					return factorToBase / target.factorToBase;
+				}
+				
+				@Override
+				public UnitLiteral toUnitLiteral(ResourceSet resourceSet) {
+					UnitLiteral literal = (UnitLiteral) resourceSet.getEObject(uri, true);
+					if (literal == null) {
+						throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
+					}
+					return literal;
+				}
+				
+				@Override
+				public NamedValue toPropertyExpression(ResourceSet resourceSet) {
+					NamedValue value = Aadl2Factory.eINSTANCE.createNamedValue();
+					value.setNamedValue(toUnitLiteral(resourceSet));
+					return value;
 				}
 				
 				@Override
@@ -396,6 +462,9 @@ class RealWithUnitsTest {
 			import java.util.Optional;
 			import java.util.stream.Collectors;
 			
+			import org.eclipse.emf.common.util.URI;
+			import org.eclipse.emf.ecore.resource.ResourceSet;
+			import org.osate.aadl2.Aadl2Factory;
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.ListValue;
 			import org.osate.aadl2.Mode;
@@ -613,16 +682,18 @@ class RealWithUnitsTest {
 					return builder.toString();
 				}
 				
-				public enum Owned_FieldType implements GeneratedUnits {
-					HOUR(1.0, "hour"),
-					DAY(24.0, "day");
+				public enum Owned_FieldType implements GeneratedUnits<Owned_FieldType> {
+					HOUR(1.0, "hour", "__synthetic1.aadl#/0/@ownedProperty.6/@ownedPropertyType/@ownedField.0/@ownedPropertyType/@ownedUnitsType/@ownedLiteral.0"),
+					DAY(24.0, "day", "__synthetic1.aadl#/0/@ownedProperty.6/@ownedPropertyType/@ownedField.0/@ownedPropertyType/@ownedUnitsType/@ownedLiteral.1");
 					
 					private final double factorToBase;
 					private final String originalName;
+					private final URI uri;
 					
-					private Owned_FieldType(double factorToBase, String originalName) {
+					private Owned_FieldType(double factorToBase, String originalName, String uri) {
 						this.factorToBase = factorToBase;
 						this.originalName = originalName;
+						this.uri = URI.createURI(uri);
 					}
 					
 					public static Owned_FieldType valueOf(PropertyExpression propertyExpression) {
@@ -635,8 +706,25 @@ class RealWithUnitsTest {
 						return factorToBase;
 					}
 					
+					@Override
 					public double getFactorTo(Owned_FieldType target) {
 						return factorToBase / target.factorToBase;
+					}
+					
+					@Override
+					public UnitLiteral toUnitLiteral(ResourceSet resourceSet) {
+						UnitLiteral literal = (UnitLiteral) resourceSet.getEObject(uri, true);
+						if (literal == null) {
+							throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
+						}
+						return literal;
+					}
+					
+					@Override
+					public NamedValue toPropertyExpression(ResourceSet resourceSet) {
+						NamedValue value = Aadl2Factory.eINSTANCE.createNamedValue();
+						value.setNamedValue(toUnitLiteral(resourceSet));
+						return value;
 					}
 					
 					@Override
@@ -645,16 +733,18 @@ class RealWithUnitsTest {
 					}
 				}
 				
-				public enum List1Owned_FieldType implements GeneratedUnits {
-					ML(1.0, "ml"),
-					L(1000.0, "l");
+				public enum List1Owned_FieldType implements GeneratedUnits<List1Owned_FieldType> {
+					ML(1.0, "ml", "__synthetic1.aadl#/0/@ownedProperty.6/@ownedPropertyType/@ownedField.3/@ownedPropertyType/@ownedElementType/@ownedUnitsType/@ownedLiteral.0"),
+					L(1000.0, "l", "__synthetic1.aadl#/0/@ownedProperty.6/@ownedPropertyType/@ownedField.3/@ownedPropertyType/@ownedElementType/@ownedUnitsType/@ownedLiteral.1");
 					
 					private final double factorToBase;
 					private final String originalName;
+					private final URI uri;
 					
-					private List1Owned_FieldType(double factorToBase, String originalName) {
+					private List1Owned_FieldType(double factorToBase, String originalName, String uri) {
 						this.factorToBase = factorToBase;
 						this.originalName = originalName;
+						this.uri = URI.createURI(uri);
 					}
 					
 					public static List1Owned_FieldType valueOf(PropertyExpression propertyExpression) {
@@ -667,8 +757,25 @@ class RealWithUnitsTest {
 						return factorToBase;
 					}
 					
+					@Override
 					public double getFactorTo(List1Owned_FieldType target) {
 						return factorToBase / target.factorToBase;
+					}
+					
+					@Override
+					public UnitLiteral toUnitLiteral(ResourceSet resourceSet) {
+						UnitLiteral literal = (UnitLiteral) resourceSet.getEObject(uri, true);
+						if (literal == null) {
+							throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
+						}
+						return literal;
+					}
+					
+					@Override
+					public NamedValue toPropertyExpression(ResourceSet resourceSet) {
+						NamedValue value = Aadl2Factory.eINSTANCE.createNamedValue();
+						value.setNamedValue(toUnitLiteral(resourceSet));
+						return value;
 					}
 					
 					@Override

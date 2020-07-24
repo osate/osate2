@@ -297,21 +297,26 @@ class ResolveNamedValueTest {
 		val length = '''
 			package resolvenamedvaluetest;
 			
+			import org.eclipse.emf.common.util.URI;
+			import org.eclipse.emf.ecore.resource.ResourceSet;
+			import org.osate.aadl2.Aadl2Factory;
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
 			import org.osate.pluginsupport.properties.GeneratedUnits;
 			
-			public enum Length implements GeneratedUnits {
-				M(1.0, "m");
+			public enum Length implements GeneratedUnits<Length> {
+				M(1.0, "m", "__synthetic0.aadl#/0/@ownedPropertyType.0/@ownedLiteral.0");
 				
 				private final double factorToBase;
 				private final String originalName;
+				private final URI uri;
 				
-				private Length(double factorToBase, String originalName) {
+				private Length(double factorToBase, String originalName, String uri) {
 					this.factorToBase = factorToBase;
 					this.originalName = originalName;
+					this.uri = URI.createURI(uri);
 				}
 				
 				public static Length valueOf(PropertyExpression propertyExpression) {
@@ -324,8 +329,25 @@ class ResolveNamedValueTest {
 					return factorToBase;
 				}
 				
+				@Override
 				public double getFactorTo(Length target) {
 					return factorToBase / target.factorToBase;
+				}
+				
+				@Override
+				public UnitLiteral toUnitLiteral(ResourceSet resourceSet) {
+					UnitLiteral literal = (UnitLiteral) resourceSet.getEObject(uri, true);
+					if (literal == null) {
+						throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
+					}
+					return literal;
+				}
+				
+				@Override
+				public NamedValue toPropertyExpression(ResourceSet resourceSet) {
+					NamedValue value = Aadl2Factory.eINSTANCE.createNamedValue();
+					value.setNamedValue(toUnitLiteral(resourceSet));
+					return value;
 				}
 				
 				@Override
