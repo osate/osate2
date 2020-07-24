@@ -437,6 +437,9 @@ class PropertiesCodeGen {
 	
 	def private String generateUnits(String typeName, UnitsType unitsType) {
 		imports += #{
+			"org.eclipse.emf.common.util.URI",
+			"org.eclipse.emf.ecore.resource.ResourceSet",
+			"org.osate.aadl2.Aadl2Factory",
 			"org.osate.aadl2.AbstractNamedValue",
 			"org.osate.aadl2.NamedValue",
 			"org.osate.aadl2.PropertyExpression",
@@ -444,17 +447,19 @@ class PropertiesCodeGen {
 			"org.osate.pluginsupport.properties.GeneratedUnits"
 		}
 		val literals = unitsType.ownedLiterals.filter(UnitLiteral).sortBy[it.absoluteFactor]
-		val literalsString = literals.join(",\n")['''«it.name.toUpperCase»(«it.absoluteFactor», "«it.name»")''']
+		val literalsString = literals.join(",\n")['''«it.name.toUpperCase»(«it.absoluteFactor», "«it.name»", "«it.URI»")''']
 		'''
-			public enum «typeName» implements GeneratedUnits {
+			public enum «typeName» implements GeneratedUnits<«typeName»> {
 				«literalsString»;
 				
 				private final double factorToBase;
 				private final String originalName;
+				private final URI uri;
 				
-				private «typeName»(double factorToBase, String originalName) {
+				private «typeName»(double factorToBase, String originalName, String uri) {
 					this.factorToBase = factorToBase;
 					this.originalName = originalName;
+					this.uri = URI.createURI(uri);
 				}
 				
 				public static «typeName» valueOf(PropertyExpression propertyExpression) {
@@ -467,8 +472,25 @@ class PropertiesCodeGen {
 					return factorToBase;
 				}
 				
+				@Override
 				public double getFactorTo(«typeName» target) {
 					return factorToBase / target.factorToBase;
+				}
+				
+				@Override
+				public UnitLiteral toUnitLiteral(ResourceSet resourceSet) {
+					UnitLiteral literal = (UnitLiteral) resourceSet.getEObject(uri, true);
+					if (literal == null) {
+						throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
+					}
+					return literal;
+				}
+				
+				@Override
+				public NamedValue toPropertyExpression(ResourceSet resourceSet) {
+					NamedValue value = Aadl2Factory.eINSTANCE.createNamedValue();
+					value.setNamedValue(toUnitLiteral(resourceSet));
+					return value;
 				}
 				
 				@Override

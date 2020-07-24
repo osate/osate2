@@ -454,22 +454,27 @@ class PropertyDefinitionTest {
 		val unitsDefinition = '''
 			package ps1;
 			
+			import org.eclipse.emf.common.util.URI;
+			import org.eclipse.emf.ecore.resource.ResourceSet;
+			import org.osate.aadl2.Aadl2Factory;
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.UnitLiteral;
 			import org.osate.pluginsupport.properties.GeneratedUnits;
 			
-			public enum UnitsDefinition implements GeneratedUnits {
-				M(1.0, "m"),
-				KM(1000.0, "km");
+			public enum UnitsDefinition implements GeneratedUnits<UnitsDefinition> {
+				M(1.0, "m", "__synthetic2.aadl#/0/@ownedProperty.3/@ownedPropertyType/@ownedLiteral.0"),
+				KM(1000.0, "km", "__synthetic2.aadl#/0/@ownedProperty.3/@ownedPropertyType/@ownedLiteral.1");
 				
 				private final double factorToBase;
 				private final String originalName;
+				private final URI uri;
 				
-				private UnitsDefinition(double factorToBase, String originalName) {
+				private UnitsDefinition(double factorToBase, String originalName, String uri) {
 					this.factorToBase = factorToBase;
 					this.originalName = originalName;
+					this.uri = URI.createURI(uri);
 				}
 				
 				public static UnitsDefinition valueOf(PropertyExpression propertyExpression) {
@@ -482,8 +487,25 @@ class PropertyDefinitionTest {
 					return factorToBase;
 				}
 				
+				@Override
 				public double getFactorTo(UnitsDefinition target) {
 					return factorToBase / target.factorToBase;
+				}
+				
+				@Override
+				public UnitLiteral toUnitLiteral(ResourceSet resourceSet) {
+					UnitLiteral literal = (UnitLiteral) resourceSet.getEObject(uri, true);
+					if (literal == null) {
+						throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
+					}
+					return literal;
+				}
+				
+				@Override
+				public NamedValue toPropertyExpression(ResourceSet resourceSet) {
+					NamedValue value = Aadl2Factory.eINSTANCE.createNamedValue();
+					value.setNamedValue(toUnitLiteral(resourceSet));
+					return value;
 				}
 				
 				@Override
