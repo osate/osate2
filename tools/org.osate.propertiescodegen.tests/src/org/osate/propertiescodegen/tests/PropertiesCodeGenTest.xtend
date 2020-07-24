@@ -28,25 +28,44 @@ class PropertiesCodeGenTest {
 		val javaClass = '''
 			package enumtest;
 			
+			import org.eclipse.emf.common.util.URI;
+			import org.eclipse.emf.ecore.resource.ResourceSet;
+			import org.osate.aadl2.Aadl2Factory;
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.EnumerationLiteral;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			
 			public enum EnumType1 {
-				ONE("one"),
-				TWO("two"),
-				THREE("three");
+				ONE("one", "__synthetic0.aadl#/0/@ownedPropertyType.0/@ownedLiteral.0"),
+				TWO("two", "__synthetic0.aadl#/0/@ownedPropertyType.0/@ownedLiteral.1"),
+				THREE("three", "__synthetic0.aadl#/0/@ownedPropertyType.0/@ownedLiteral.2");
 				
 				private final String originalName;
+				private final URI uri;
 				
-				private EnumType1(String originalName) {
+				private EnumType1(String originalName, String uri) {
 					this.originalName = originalName;
+					this.uri = URI.createURI(uri);
 				}
 				
 				public static EnumType1 valueOf(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 					return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
+				}
+				
+				public EnumerationLiteral toEnumerationLiteral(ResourceSet resourceSet) {
+					EnumerationLiteral literal = (EnumerationLiteral) resourceSet.getEObject(uri, true);
+					if (literal == null) {
+						throw new RuntimeException("Could not resolve EnumerationLiteral '" + originalName + "'.");
+					}
+					return literal;
+				}
+				
+				public NamedValue toPropertyExpression(ResourceSet resourceSet) {
+					NamedValue value = Aadl2Factory.eINSTANCE.createNamedValue();
+					value.setNamedValue(toEnumerationLiteral(resourceSet));
+					return value;
 				}
 				
 				@Override

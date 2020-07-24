@@ -495,24 +495,43 @@ class PropertyDefinitionTest {
 		val enumDefinition = '''
 			package ps1;
 			
+			import org.eclipse.emf.common.util.URI;
+			import org.eclipse.emf.ecore.resource.ResourceSet;
+			import org.osate.aadl2.Aadl2Factory;
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.EnumerationLiteral;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
 			
 			public enum EnumDefinition {
-				WASHINGTON("washington"),
-				LINCOLN("lincoln");
+				WASHINGTON("washington", "__synthetic2.aadl#/0/@ownedProperty.4/@ownedPropertyType/@ownedLiteral.0"),
+				LINCOLN("lincoln", "__synthetic2.aadl#/0/@ownedProperty.4/@ownedPropertyType/@ownedLiteral.1");
 				
 				private final String originalName;
+				private final URI uri;
 				
-				private EnumDefinition(String originalName) {
+				private EnumDefinition(String originalName, String uri) {
 					this.originalName = originalName;
+					this.uri = URI.createURI(uri);
 				}
 				
 				public static EnumDefinition valueOf(PropertyExpression propertyExpression) {
 					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
 					return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
+				}
+				
+				public EnumerationLiteral toEnumerationLiteral(ResourceSet resourceSet) {
+					EnumerationLiteral literal = (EnumerationLiteral) resourceSet.getEObject(uri, true);
+					if (literal == null) {
+						throw new RuntimeException("Could not resolve EnumerationLiteral '" + originalName + "'.");
+					}
+					return literal;
+				}
+				
+				public NamedValue toPropertyExpression(ResourceSet resourceSet) {
+					NamedValue value = Aadl2Factory.eINSTANCE.createNamedValue();
+					value.setNamedValue(toEnumerationLiteral(resourceSet));
+					return value;
 				}
 				
 				@Override
