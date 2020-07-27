@@ -45,13 +45,13 @@ import org.osate.ge.services.ReferenceResolutionService;
 
 public class TestBusinessObjectModel
 		implements DiagramElementInformationProvider, TreeUpdater, ReferenceResolutionService, ReferenceBuilderService {
-	public TestBusinessObject model;
+	private TestBusinessObject model;
 
 	@Override
 	public BusinessObjectNode expandTree(DiagramConfiguration configuration, BusinessObjectNode tree) {
 		final BusinessObjectNode newTree = new BusinessObjectNode(null, UUID.randomUUID(), null, null,
 				Completeness.UNKNOWN, true);
-		createNodes(newTree, model.children);
+		createNodes(newTree, getModel().children);
 		return newTree;
 	}
 
@@ -88,7 +88,7 @@ public class TestBusinessObjectModel
 
 	private Graphic getGraphic(final DiagramElement element) {
 		final TestBusinessObject testBo = (TestBusinessObject)element.getBusinessObject();
-		if(testBo.isConnection) {
+		if(testBo.isConnection()) {
 			return ConnectionBuilder.create().build();
 		} else {
 			return RectangleBuilder.create().build();
@@ -97,17 +97,17 @@ public class TestBusinessObjectModel
 
 	private DockingPosition getDefaultDockingPosition(final DiagramElement element) {
 		final TestBusinessObject testBo = (TestBusinessObject)element.getBusinessObject();
-		return testBo.defaultDockingPosition;
+		return testBo.getDefaultDockingPosition();
 	}
 
 	private DiagramElement getConnectionStart(final DiagramElement e) {
 		final TestBusinessObject bo = (TestBusinessObject)e.getBusinessObject();
-		return bo.connectionStartReference == null ? null : e.getContainer().getByRelativeReference(bo.connectionStartReference);
+		return bo.getConnectionStartReference() == null ? null : e.getContainer().getByRelativeReference(bo.getConnectionStartReference());
 	}
 
 	private DiagramElement getConnectionEnd(final DiagramElement e) {
 		final TestBusinessObject bo = (TestBusinessObject)e.getBusinessObject();
-		return bo.connectionEndReference == null ? null : e.getContainer().getByRelativeReference(bo.connectionEndReference);
+		return bo.getConnectionEndReference() == null ? null : e.getContainer().getByRelativeReference(bo.getConnectionEndReference());
 	}
 
 	@Override
@@ -127,6 +127,14 @@ public class TestBusinessObjectModel
 
 	@Override
 	public Object resolve(final CanonicalBusinessObjectReference reference) {
-		return model.find(reference);
+		return getModel().find(reference);
+	}
+
+	public TestBusinessObject getModel() {
+		return model;
+	}
+
+	public void setModel(TestBusinessObject model) {
+		this.model = model;
 	}
 }
