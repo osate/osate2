@@ -62,7 +62,7 @@ public class FirstQuery extends DefaultQuery {
 		
 		if(maximumNumberOfResults <= currentCount) {
 			// Mark query as done. 
-			result.done = true;
+			result.setDone(true);
 		}
 	}
 }
