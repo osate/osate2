@@ -76,7 +76,7 @@ public class DescendantsByBusinessObjectRelativeReferencesQuery extends DefaultQ
 		findMatchingDescendants(remainingQueries, ctx, state, result, boRefs, bestMatch, 0);
 
 		// Return a partial match if a result has not been processed and a partial match was found
-		if(!result.done &&
+		if(!result.isDone() &&
 				allowPartialMatch() &&
 				bestMatch.depth >= minSegments &&
 				bestMatch.depth < boRefs.length) {
@@ -113,7 +113,7 @@ public class DescendantsByBusinessObjectRelativeReferencesQuery extends DefaultQ
 							currentDepth + 1);
 				}
 
-				if (result.done) {
+				if (result.isDone()) {
 					return;
 				}
 			}

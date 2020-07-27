@@ -62,7 +62,7 @@ class CommonAncestorsQuery extends DefaultQuery {
 				q2Result.get(0).getParent());
 		if (commonAncestor.isPresent()) {
 			// Process common ancestors
-			for (BusinessObjectContext tmp = commonAncestor.get(); tmp != null && !result.done; tmp = tmp.getParent()) {
+			for (BusinessObjectContext tmp = commonAncestor.get(); tmp != null && !result.isDone(); tmp = tmp.getParent()) {
 				processResultValue(remainingQueries, tmp, state, result);
 			}
 		}
