@@ -24,6 +24,7 @@
 package org.osate.ge.aadl2.internal;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -143,9 +144,11 @@ public class DeclarativeReferenceResolver implements ReferenceResolver {
 			final String[] pkgNameSegs = packageName.split("::");
 			final QualifiedName packageQualifiedName = QualifiedName.create(pkgNameSegs);
 			for (final IResourceDescription resDesc : resourceDescriptions) {
-				for (IEObjectDescription eod : resDesc.getExportedObjects(aadlPackageEClass, packageQualifiedName,
-						true)) {
-					return aadlResourceService.getPackageReference(eod.getEObjectURI());
+				// If there are multiple objects, only check the first one.
+				final Iterator<IEObjectDescription> it = resDesc
+						.getExportedObjects(aadlPackageEClass, packageQualifiedName, true).iterator();
+				if (it.hasNext()) {
+					return aadlResourceService.getPackageReference(it.next().getEObjectURI());
 				}
 			}
 

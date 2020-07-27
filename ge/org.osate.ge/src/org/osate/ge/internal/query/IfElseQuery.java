@@ -74,7 +74,7 @@ class IfElseQuery extends DefaultQuery {
 			for(final BusinessObjectContext container : containers) {
 				processResultValue(remainingQueries, container, state, result);
 				
-				if(result.done) {
+				if(result.isDone()) {
 					return;
 				}
 			}
