@@ -60,6 +60,7 @@ import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.ModalPath;
 import org.osate.aadl2.Mode;
@@ -109,7 +110,7 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 			composite.dispose();
 		}
 
-		final Set<ModalElement> mes = selectedBos.boStream(ModalElement.class).map(a -> a).collect(Collectors.toSet());
+		final Set<ModalElement> mes = selectedBos.boStream(ModalElement.class).collect(Collectors.toSet());
 		// Selected Modal Elements and if element is derived
 		final Set<URI> urisOfElementsWhichRequireModes = new HashSet<>();
 
@@ -185,10 +186,6 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 							}
 						}
 					}
-				} else if(modalElement instanceof AnnexSubclause) {
-					final AnnexSubclause annexSubclause = (AnnexSubclause) modalElement;
-					annexSubclause.getInModes().forEach(m -> System.err.println(m + " MMM"));
-
 				} else if (modalElement instanceof ModalPath) {
 					final ModalPath modalPath = (ModalPath) modalElement;
 
@@ -461,71 +458,66 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 
 				// Modify selected modal elements
 				final boolean modeBtnIsSelected = modeBtn.getSelection();
-				selectedBos.modify(NamedElement.class, ne -> {
-					final ModeFeature modeFeature = (ModeFeature) EcoreUtil.resolve(mf, ne.eResource());
-					if (ne instanceof Subcomponent && modeFeature instanceof Mode) {
-						final Subcomponent sc = (Subcomponent) ne;
-						// Remove mode binding always
-						for (final ModeBinding mb : sc.getOwnedModeBindings()) {
-							if (modeFeature.getName().equalsIgnoreCase(mb.getParentMode().getName())) {
-								sc.getOwnedModeBindings().remove(mb);
-								break;
+				selectedBos.modify("Set In Modes", boc -> boc.getBusinessObject(NamedElement.class).isPresent(),
+						boc -> {
+							final NamedElement bo = boc.getBusinessObject(NamedElement.class).get();
+							if (bo instanceof AnnexSubclause && bo.eContainer() instanceof DefaultAnnexSubclause) {
+								return (NamedElement) bo.eContainer();
 							}
-						}
+							return bo;
+						}, (ne, boc) -> {
+							// selectedBos.modify(NamedElement.class, ne -> {
+							final ModeFeature modeFeature = (ModeFeature) EcoreUtil.resolve(mf, ne.eResource());
+							if (ne instanceof Subcomponent && modeFeature instanceof Mode) {
+								final Subcomponent sc = (Subcomponent) ne;
+								// Remove mode binding always
+								for (final ModeBinding mb : sc.getOwnedModeBindings()) {
+									if (modeFeature.getName().equalsIgnoreCase(mb.getParentMode().getName())) {
+										sc.getOwnedModeBindings().remove(mb);
+										break;
+									}
+								}
 
-						// Add mode binding on button selection
-						if (modeBtnIsSelected) {
-							final ModeBinding newModeBinding = sc.createOwnedModeBinding();
-							newModeBinding.setParentMode((Mode) modeFeature);
-							final boolean isDerived = urisOfElementsWhichRequireModes.contains(EcoreUtil.getURI(ne));
-							// If modal element is derived, set derived mode
-							if (isDerived) {
-								final Object selection = ((StructuredSelection) derivedModeFld.getSelection())
-										.getFirstElement();
-								final ModeFeature childMode = selection instanceof ModeFeature ? (ModeFeature) selection
-										: null;
-								newModeBinding.setDerivedMode((Mode) childMode);
-							}
-						}
-					} else if (ne instanceof AnnexSubclause) {
-						final AnnexSubclause annexSubclause = (AnnexSubclause) ne;
-						if (modeBtnIsSelected) {
-							System.err.println("isSelected");
-							annexSubclause.getInModes().add((Mode) modeFeature);
-						} else {
-							for (final ModeFeature mf : annexSubclause.getInModes()) {
-								if (modeFeature.getName().equalsIgnoreCase(mf.getName())) {
-									annexSubclause.getAllInModes().remove(modeFeature);
-									break;
+								// Add mode binding on button selection
+								if (modeBtnIsSelected) {
+									final ModeBinding newModeBinding = sc.createOwnedModeBinding();
+									newModeBinding.setParentMode((Mode) modeFeature);
+									final boolean isDerived = urisOfElementsWhichRequireModes.contains(EcoreUtil.getURI(ne));
+									// If modal element is derived, set derived mode
+									if (isDerived) {
+										final Object selection = ((StructuredSelection) derivedModeFld.getSelection())
+												.getFirstElement();
+										final ModeFeature childMode = selection instanceof ModeFeature ? (ModeFeature) selection
+												: null;
+										newModeBinding.setDerivedMode((Mode) childMode);
+									}
+								}
+							} else if (ne instanceof ModalPath) {
+								final ModalPath mp = (ModalPath) ne;
+								if (modeBtnIsSelected) {
+									mp.getInModeOrTransitions().add(modeFeature);
+								} else {
+									for (final ModeFeature mf : mp.getInModeOrTransitions()) {
+										if (modeFeature.getName().equalsIgnoreCase(mf.getName())) {
+											mp.getInModeOrTransitions().remove(mf);
+											break;
+										}
+									}
+								}
+							} else if (ne instanceof ModalElement && modeFeature instanceof Mode) {
+								final ModalElement modalElement = (ModalElement) ne;
+								if (modeBtnIsSelected) {
+									modalElement.getAllInModes().add((Mode) modeFeature);
+								} else {
+									for (final ModeFeature mf : modalElement.getInModes()) {
+										if (modeFeature.getName().equalsIgnoreCase(mf.getName())) {
+											modalElement.getAllInModes().remove(mf);
+											break;
+										}
+									}
 								}
 							}
-						}
-					} else if (ne instanceof ModalPath) {
-						final ModalPath mp = (ModalPath) ne;
-						if (modeBtnIsSelected) {
-							mp.getInModeOrTransitions().add(modeFeature);
-						} else {
-							for (final ModeFeature mf : mp.getInModeOrTransitions()) {
-								if (modeFeature.getName().equalsIgnoreCase(mf.getName())) {
-									mp.getInModeOrTransitions().remove(mf);
-									break;
-								}
-							}
-						}
-					} else if (ne instanceof ModalElement && modeFeature instanceof Mode) {
-						final ModalElement modalElement = (ModalElement) ne;
-						if (modeBtnIsSelected) {
-							modalElement.getAllInModes().add((Mode) modeFeature);
-						} else {
-							for (final ModeFeature mf : modalElement.getInModes()) {
-								if (modeFeature.getName().equalsIgnoreCase(mf.getName())) {
-									modalElement.getAllInModes().remove(mf);
-									break;
-								}
-							}
-						}
-					}
-				});
+						});
 			}
 		};
 
