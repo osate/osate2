@@ -31,7 +31,7 @@ import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ge.aadl2.GraphicalAnnexUtil;
 
 public class BaUtil {
-	private static final String ANNEX_NAME = "behavior_specification";
+	public static final String ANNEX_NAME = "behavior_specification";
 
 	public static BehaviorAnnex getOrCreateBehaviorAnnex(final Classifier c) {
 		return (BehaviorAnnex) GraphicalAnnexUtil.getOrCreateParsedAnnexSubclause(c, ANNEX_NAME,

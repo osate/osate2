@@ -26,14 +26,14 @@ package org.osate.ge.ba.businessobjecthandlers;
 import java.util.Optional;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
-import org.osate.ge.aadl2.internal.AadlReferenceUtil;
+import org.osate.ge.aadl2.AnnexHandler;
+import org.osate.ge.ba.util.BaUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.CustomDeleteContext;
@@ -51,6 +51,7 @@ import org.osate.ge.graphics.Graphic;
  *
  */
 public class BehaviorAnnexHandler implements BusinessObjectHandler, CustomDeleter {
+	final AnnexHandler annexHandler = new AnnexHandler();
 	private static final String TYPE_BA = "ba";
 	private static final Graphic graphic = EllipseBuilder.create().build();
 
@@ -61,32 +62,13 @@ public class BehaviorAnnexHandler implements BusinessObjectHandler, CustomDelete
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		final BehaviorAnnex ba = ctx.getBusinessObject(BehaviorAnnex.class).get();
-		// TODO can BA be part of component?
-		// TODO owner is DefaultSubclause
-		final Classifier classifier = ba.getContainingClassifier();
-		System.err.println(ctx.getBusinessObject() + " getBusinessObject");
-		int index = classifier.getOwnedAnnexSubclauses().indexOf(ba.getOwner());
-		return new CanonicalBusinessObjectReference(TYPE_BA,
-				ctx.getBusinessObject(BehaviorAnnex.class).get().getQualifiedName() + index);
+		return annexHandler.getCanonicalReference(ctx);
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		final BehaviorAnnex ba = ctx.getBusinessObject(BehaviorAnnex.class).get();
-		// TODO can BA be part of component?
-		// TODO owner is DefaultSubclause
-		final Classifier classifier = ba.getContainingClassifier();
-		if (classifier != null) {
-		int index = classifier.getOwnedAnnexSubclauses().indexOf(ba.getOwner());
-		return AadlReferenceUtil.buildSimpleRelativeReference(TYPE_BA,
-				ctx.getBusinessObject(BehaviorAnnex.class).get().getQualifiedName() + index);
+		return annexHandler.getRelativeReference(ctx);
 	}
-
-	return AadlReferenceUtil.buildSimpleRelativeReference(TYPE_BA,
-			ba.getQualifiedName());
-	}
-
 
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
@@ -100,15 +82,7 @@ public class BehaviorAnnexHandler implements BusinessObjectHandler, CustomDelete
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		// TODO all BA's have same name? Yes, but label could be "BA for Impl"...
-		final BehaviorAnnex ba = ctx.getBusinessObject(BehaviorAnnex.class).get();
-		final Classifier classifier = ba.getContainingClassifier();
-		if (classifier != null) {
-			int index = classifier.getOwnedAnnexSubclauses().indexOf(ba.getOwner());
-			return "BA " + Integer.toString(index);
-		}
-
-		return "";
+		return BaUtil.ANNEX_NAME;
 	}
 
 	@Override
