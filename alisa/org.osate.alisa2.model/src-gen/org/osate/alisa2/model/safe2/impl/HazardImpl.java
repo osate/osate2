@@ -24,6 +24,7 @@ import org.osate.alisa2.model.safe2.Accident;
 import org.osate.alisa2.model.safe2.Constraint;
 import org.osate.alisa2.model.safe2.Hazard;
 import org.osate.alisa2.model.safe2.Safe2Package;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 /**
@@ -43,6 +44,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
  *   <li>{@link org.osate.alisa2.model.safe2.impl.HazardImpl#getSystemElement <em>System Element</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.impl.HazardImpl#getHazardousFactor <em>Hazardous Factor</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.impl.HazardImpl#getErrorType <em>Error Type</em>}</li>
+ *   <li>{@link org.osate.alisa2.model.safe2.impl.HazardImpl#getSystemState <em>System State</em>}</li>
  * </ul>
  *
  * @generated
@@ -157,6 +159,16 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * @ordered
 	 */
 	protected ErrorType errorType;
+
+	/**
+	 * The cached value of the '{@link #getSystemState() <em>System State</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSystemState()
+	 * @generated
+	 * @ordered
+	 */
+	protected ErrorBehaviorState systemState;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -440,6 +452,46 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public ErrorBehaviorState getSystemState() {
+		if (systemState != null && systemState.eIsProxy()) {
+			InternalEObject oldSystemState = (InternalEObject)systemState;
+			systemState = (ErrorBehaviorState)eResolveProxy(oldSystemState);
+			if (systemState != oldSystemState) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Safe2Package.HAZARD__SYSTEM_STATE, oldSystemState, systemState));
+			}
+		}
+		return systemState;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ErrorBehaviorState basicGetSystemState() {
+		return systemState;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setSystemState(ErrorBehaviorState newSystemState) {
+		ErrorBehaviorState oldSystemState = systemState;
+		systemState = newSystemState;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Safe2Package.HAZARD__SYSTEM_STATE, oldSystemState, systemState));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -513,6 +565,9 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 			case Safe2Package.HAZARD__ERROR_TYPE:
 				if (resolve) return getErrorType();
 				return basicGetErrorType();
+			case Safe2Package.HAZARD__SYSTEM_STATE:
+				if (resolve) return getSystemState();
+				return basicGetSystemState();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -555,6 +610,9 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 			case Safe2Package.HAZARD__ERROR_TYPE:
 				setErrorType((ErrorType)newValue);
 				return;
+			case Safe2Package.HAZARD__SYSTEM_STATE:
+				setSystemState((ErrorBehaviorState)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -594,6 +652,9 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 			case Safe2Package.HAZARD__ERROR_TYPE:
 				setErrorType((ErrorType)null);
 				return;
+			case Safe2Package.HAZARD__SYSTEM_STATE:
+				setSystemState((ErrorBehaviorState)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -624,6 +685,8 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 				return HAZARDOUS_FACTOR_EDEFAULT == null ? hazardousFactor != null : !HAZARDOUS_FACTOR_EDEFAULT.equals(hazardousFactor);
 			case Safe2Package.HAZARD__ERROR_TYPE:
 				return errorType != null;
+			case Safe2Package.HAZARD__SYSTEM_STATE:
+				return systemState != null;
 		}
 		return super.eIsSet(featureID);
 	}
