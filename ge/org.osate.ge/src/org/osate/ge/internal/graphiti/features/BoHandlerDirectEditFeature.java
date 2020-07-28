@@ -37,8 +37,10 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature;
+import org.osate.aadl2.NamedElement;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.aadl2.internal.util.RenameUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
@@ -227,7 +229,10 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature {
 				return null;
 			}
 
-			final Object bo = de.getBusinessObject();
+			Object bo = de.getBusinessObject();
+			if (bo instanceof NamedElement) {
+				bo = AgeAadlUtil.getRootRefinedElement((NamedElement) bo);
+			}
 			return bo instanceof EObject ? (EObject) bo : null;
 		}
 	}
