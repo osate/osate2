@@ -58,9 +58,9 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.aadl2.internal.util.AadlImportsUtil;
+import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 import org.osate.ge.aadl2.ui.internal.dialogs.ElementSelectionDialog;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
-import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.ui.PropertySectionUtil;
 
 import com.google.common.base.Objects;
@@ -86,7 +86,7 @@ public class SetExtendedClassifierPropertySection extends AbstractPropertySectio
 		FormData fd;
 
 		final Composite container = getWidgetFactory().createFlatFormComposite(parent);
-		InternalPropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Extends:");
+		PropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Extends:");
 
 		extendedClassifier = getWidgetFactory().createLabel(container, new String());
 		fd = new FormData();
@@ -231,7 +231,7 @@ public class SetExtendedClassifierPropertySection extends AbstractPropertySectio
 
 		// Populate the list with valid classifier descriptions
 		if (name != null) {
-			for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(classifier.eResource(),
+			for (final IEObjectDescription desc : AadlModelAccessUtil.getAllEObjectsByType(classifier.eResource(),
 					classifier.eClass())) {
 				if (!name.equalsIgnoreCase(desc.getName().toString("::"))) {
 					objectDescriptions.add(desc);
@@ -241,7 +241,7 @@ public class SetExtendedClassifierPropertySection extends AbstractPropertySectio
 			// Ensure that abstract classifiers are in the list
 			if (classifier instanceof ComponentType) {
 				if (classifier.eClass() != Aadl2Package.eINSTANCE.getAbstractType()) {
-					for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(
+					for (final IEObjectDescription desc : AadlModelAccessUtil.getAllEObjectsByType(
 							classifier.eResource(), Aadl2Package.eINSTANCE.getAbstractType())) {
 						if (!name.equalsIgnoreCase(desc.getName().toString("::"))) {
 							objectDescriptions.add(desc);
@@ -250,7 +250,7 @@ public class SetExtendedClassifierPropertySection extends AbstractPropertySectio
 				}
 			} else if (classifier instanceof ComponentImplementation) {
 				if (classifier.eClass() != Aadl2Package.eINSTANCE.getAbstractImplementation()) {
-					for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(
+					for (final IEObjectDescription desc : AadlModelAccessUtil.getAllEObjectsByType(
 							classifier.eResource(),
 							Aadl2Package.eINSTANCE.getAbstractImplementation())) {
 						if (!name.equalsIgnoreCase(desc.getName().toString("::"))) {

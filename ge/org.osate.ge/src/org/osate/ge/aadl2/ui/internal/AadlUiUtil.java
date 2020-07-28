@@ -28,7 +28,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -43,7 +42,6 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.resource.IEObjectDescription;
-import org.eclipse.xtext.ui.resource.XtextLiveScopeResourceSetProvider;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
@@ -57,38 +55,17 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.aadl2.internal.util.AadlClassifierUtil;
+import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 import org.osate.ge.aadl2.ui.internal.dialogs.ElementSelectionDialog;
-import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.operations.OperationBuilder;
 import org.osate.ge.operations.StepResult;
-import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
-
-import com.google.inject.Injector;
 
 public class AadlUiUtil {
 	private AadlUiUtil() {
 	}
 
-	/**
-	 * Returns a live resource set based on the project or throws an exception if one cannot be returned.
-	 * @param project
-	 * @return
-	 */
-	public static ResourceSet getLiveResourceSet(final IProject project) {
-		final Injector injector = Objects.requireNonNull(
-				Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2),
-				"Unable to retrieve injector");
-		final XtextLiveScopeResourceSetProvider liveResourceSetProvider = Objects.requireNonNull(
-				injector.getInstance(XtextLiveScopeResourceSetProvider.class),
-				"Unable to retrieve live scope resource set provider");
-
-		return Objects.requireNonNull(liveResourceSetProvider.get(project), "Unable to get live resource set");
-	}
-
 	public static Set<IEObjectDescription> getEditablePackages(final IProject project) {
-		return ScopedEMFIndexRetrieval
-				.getAllEObjectsByType(project, Aadl2Package.eINSTANCE.getAadlPackage())
-				.stream()
+		return AadlModelAccessUtil.getAllEObjectsByType(project, Aadl2Package.eINSTANCE.getAadlPackage()).stream()
 				.filter(od -> od.getEObjectURI() != null && !od.getEObjectURI().isPlatformPlugin())
 				.collect(Collectors.toSet());
 	}
@@ -107,9 +84,8 @@ public class AadlUiUtil {
 			final ComponentCategory componentCategory, boolean includeImplementations) {
 		final EClass classifierClass = AadlClassifierUtil.componentCategoryToClassifierEClass(componentCategory);
 		final Set<IEObjectDescription> objectDescriptions = new HashSet<IEObjectDescription>();
-		for (final IEObjectDescription desc : ScopedEMFIndexRetrieval
-				.getAllEObjectsByType(project,
-						Aadl2Package.eINSTANCE.getComponentClassifier())) {
+		for (final IEObjectDescription desc : AadlModelAccessUtil.getAllEObjectsByType(project,
+				Aadl2Package.eINSTANCE.getComponentClassifier())) {
 			// Add objects that have are either types or implementations of the same category as the classifier type
 			if (classifierClass.isSuperTypeOf(desc.getEClass()) && (includeImplementations
 					|| !Aadl2Package.eINSTANCE.getComponentImplementation().isSuperTypeOf(desc.getEClass()))) {
@@ -342,7 +318,7 @@ public class AadlUiUtil {
 	 */
 	public static EObject resolveWithLiveResourceSetIfProject(final EObject obj, final IProject project) {
 		if (obj.eIsProxy()) {
-			final ResourceSet liveResourceSet = AadlUiUtil.getLiveResourceSet(project);
+			final ResourceSet liveResourceSet = AadlModelAccessUtil.getLiveResourceSet(project);
 			return EcoreUtil.resolve(obj, liveResourceSet);
 		} else {
 			return obj;

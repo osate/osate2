@@ -83,7 +83,7 @@ public class AccessPropertySection extends AbstractPropertySection {
 				AccessType.REQUIRES,
 				accessSelectionListener, "Requires", SWT.RADIO);
 
-		InternalPropertySectionUtil.createSectionLabel(composite, getWidgetFactory(), "Access Type:");
+		PropertySectionUtil.createSectionLabel(composite, getWidgetFactory(), "Access Type:");
 		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 

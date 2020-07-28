@@ -132,13 +132,16 @@ public class OsateGeTestUtil {
 	 * @param parentElement the parent of the new element
 	 * @param paletteItem the type of element to create
 	 * @param referenceAfterCreate the default name of the created element
+	 * @param postExecPaletteItem runnable to call after the palette item is executed
 	 */
 	public static void createShapeElement(final DiagramReference diagram, final DiagramElementReference parentElement,
-			final String paletteItem, final RelativeBusinessObjectReference referenceAfterCreate) {
+			final String paletteItem, final RelativeBusinessObjectReference referenceAfterCreate,
+			final Runnable postExecPaletteItem) {
 		openDiagramEditor(diagram);
 
-		activatePaletteItem(diagram, paletteItem);
+		selectPaletteItem(diagram, paletteItem);
 		clickDiagramElement(diagram, parentElement);
+		postExecPaletteItem.run();
 		activateSelectionTool(diagram);
 
 		// Wait for element to be created
@@ -159,7 +162,7 @@ public class OsateGeTestUtil {
 			final RelativeBusinessObjectReference referenceAfterCreate) {
 		openDiagramEditor(diagram);
 
-		activatePaletteItem(diagram, paletteItem);
+		selectPaletteItem(diagram, paletteItem);
 		clickDiagramElement(diagram, parentElement.join(featureRef));
 		activateSelectionTool(diagram);
 
@@ -181,7 +184,7 @@ public class OsateGeTestUtil {
 			final DiagramElementReference referenceAfterCreate) {
 		openDiagramEditor(diagram);
 
-		activatePaletteItem(diagram, paletteItem);
+		selectPaletteItem(diagram, paletteItem);
 		clickDiagramElement(diagram, src);
 		clickDiagramElement(diagram, dest);
 		activateSelectionTool(diagram);
@@ -288,6 +291,14 @@ public class OsateGeTestUtil {
 	public static void waitUntilListWithIdItemExists(final String id,
 			final String text) {
 		waitUntil(() -> doesItemExistsInListWithId(id, text), "Expected list item '" + text + "' does not exist.");
+	}
+
+	/**
+	 * Waits until a list with items exist
+	 */
+	public static void waitUntilListWithIdItemsExists(final String id, final String... texts) {
+		waitUntil(() -> itemsMatchInListWithId(id, texts),
+				"List items do not matchin expected value: '" + Arrays.toString(texts) + "'.");
 	}
 
 	/**

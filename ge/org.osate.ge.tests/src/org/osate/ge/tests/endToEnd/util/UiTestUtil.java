@@ -52,6 +52,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swtbot.eclipse.finder.finders.WorkbenchContentsFinder;
+import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
@@ -72,6 +73,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -370,12 +372,20 @@ public class UiTestUtil {
 				bot.table(tableIndex).getTableItem(rowIndex).getText());
 	}
 
+	public static void selectListWithIdItems(final String id, final String... texts) {
+		bot.listWithId(id).select(texts);
+	}
+
 	public static void selectListWithIdItem(final String id, final String text) {
-		bot.listWithId(id).select(text);
+		selectListWithIdItems(id, text);
+	}
+
+	public static void selectListItems(final int listIndex, final String... texts) {
+		bot.list(listIndex).select(texts);
 	}
 
 	public static void selectListItem(final int listIndex, final String text) {
-		bot.list(listIndex).select(text);
+		selectListItems(listIndex, text);
 	}
 
 	public static void doubleClickListItem(final int listIndex, final String text) {
@@ -398,10 +408,16 @@ public class UiTestUtil {
 
 	/**
 	 * Returns whether an item with the specified text is contained in the list with the specified ID.
-	 * Throws an exception if it is unable to find the tree.
 	 */
 	public static boolean doesItemExistsInListWithId(final String id, final String text) {
 		return Arrays.asList(bot.listWithId(id).getItems()).contains(text);
+	}
+
+	/**
+	 * Returns whether the text of the items in the list with a specified ID matches a specified value.
+	 */
+	public static boolean itemsMatchInListWithId(final String id, final String[] texts) {
+		return Arrays.deepEquals(bot.listWithId(id).getItems(), texts);
 	}
 
 	/**
@@ -525,10 +541,18 @@ public class UiTestUtil {
 	}
 
 	/**
-	 * Saves and closes the specified editor
+	 * Saves and closes the specified diagram editor
 	 */
 	public static void saveAndCloseDiagramEditor(final DiagramReference diagram) {
 		getDiagramEditorBot(diagram).saveAndClose();
+	}
+
+	/**
+	 * Saves and closes the specified editor
+	 */
+	public static void saveAndCloseTextEditorByTitle(final String inputName) {
+		final IEditorReference editor = getEditorReference(XtextEditor.class, inputName);
+		new SWTBotEditor(editor, bot).saveAndClose();
 	}
 
 	/**
@@ -579,11 +603,11 @@ public class UiTestUtil {
 	}
 
 	/**
-	 * Activates the palette item
+	 * Selects an item from the command
 	 * @param editor the editor
 	 * @param itemText the text for the palette item
 	 */
-	public static void activatePaletteItem(final DiagramReference diagram, final String itemText) {
+	public static void selectPaletteItem(final DiagramReference diagram, final String itemText) {
 		getDiagramEditorBot(diagram).activateTool(itemText);
 	}
 
