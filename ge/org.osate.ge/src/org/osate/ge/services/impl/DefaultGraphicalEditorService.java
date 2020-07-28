@@ -112,7 +112,7 @@ public class DefaultGraphicalEditorService implements GraphicalEditorService {
 		// Get services
 		final EditDomain editDomain = editPart.getViewer().getEditDomain();
 		if (!(editDomain instanceof DefaultEditDomain)) {
-			return null;
+			return Optional.empty();
 		}
 
 		final DefaultEditDomain defaultEditDomain = (DefaultEditDomain) editDomain;
