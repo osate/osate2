@@ -2,6 +2,7 @@ package org.osate.ge.ba.businessobjecthandlers;
 
 import java.util.Optional;
 
+import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.CanonicalBusinessObjectReference;
@@ -23,7 +24,7 @@ import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
 public class BaTransitionHandler implements BusinessObjectHandler {
-	private final static String TYPE_TRANSITION = "ba.transition";
+	private final static String TYPE_TRANSITION = "ba_transition";
 
 	private static final Graphic transitionGraphic = ConnectionBuilder.create()
 			.destinationTerminator(ArrowBuilder.create().small().build()).build();
@@ -46,14 +47,19 @@ public class BaTransitionHandler implements BusinessObjectHandler {
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		return new CanonicalBusinessObjectReference(TYPE_TRANSITION,
-				ctx.getBusinessObject(BehaviorTransition.class).get().getQualifiedName());
+		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).get();
+		final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorTransition.getOwner();
+		final int index = behaviorAnnex.getTransitions().indexOf(behaviorTransition);
+		return new CanonicalBusinessObjectReference(TYPE_TRANSITION, behaviorAnnex.getQualifiedName(),
+				Integer.toString(index));
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		return new RelativeBusinessObjectReference(TYPE_TRANSITION,
-				ctx.getBusinessObject(BehaviorTransition.class).get().getQualifiedName());
+		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).get();
+		final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorTransition.getOwner();
+		final int index = behaviorAnnex.getTransitions().indexOf(behaviorTransition);
+		return new RelativeBusinessObjectReference(TYPE_TRANSITION, behaviorAnnex.getName(), Integer.toString(index));
 	}
 
 	@Override
@@ -75,6 +81,6 @@ public class BaTransitionHandler implements BusinessObjectHandler {
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(BehaviorTransition.class).map(transition -> transition.getFullName()).orElse("");
+		return ctx.getBusinessObject(BehaviorTransition.class).map(transition -> "").orElse("");
 	}
 }

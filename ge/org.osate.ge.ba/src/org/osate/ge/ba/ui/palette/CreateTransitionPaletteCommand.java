@@ -2,6 +2,7 @@ package org.osate.ge.ba.ui.palette;
 
 import java.util.Optional;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.BehaviorAnnex;
@@ -31,6 +32,7 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 		 * return ctx.getSource().getBusinessObject(Mode.class).isPresent()
 		 * && getPotentialOwnersByMode(ctx.getSource(), ctx.getQueryService()).size() > 0;
 		 */
+		// TODO any other conditions for starting?
 		return ctx.getSource().getBusinessObject(BehaviorState.class).isPresent();
 	}
 
@@ -40,38 +42,52 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 			return Optional.empty();
 		}
 
-		final BusinessObjectContext container = getOwnerBoc(ctx.getSource(), ctx.getQueryService());
-		if (container == null) {
+		final BusinessObjectContext srcContainer = getOwnerBoc(ctx.getSource(), ctx.getQueryService());
+		if (srcContainer == null) {
 			return Optional.empty();
 		}
 
-		final Optional<BehaviorAnnex> baOpt = container.getBusinessObject(BehaviorAnnex.class);
-		if (baOpt.isPresent()) {
-
-			// return Optional.of(Operation.createSimple(container, BehaviorAnnex.class, baToModify -> {
-			// return StepResultBuilder.create().showNewBusinessObject(ctx.getTarget(), baTransition).build();
-			// }));
+		final BusinessObjectContext dstContainer = getOwnerBoc(ctx.getDestination(), ctx.getQueryService());
+		if (dstContainer != srcContainer) {
+			return Optional.empty();
 		}
 
-		return container.getBusinessObject(BehaviorAnnex.class)
-				.map(ba -> Operation.createSimple(container, BehaviorAnnex.class, boToModify -> {
-					final BehaviorState srcState = ctx.getSource().getBusinessObject(BehaviorState.class).get();
-					final BehaviorState dstState = ctx.getDestination().getBusinessObject(BehaviorState.class).get();
+		final BehaviorState srcState = ctx.getSource().getBusinessObject(BehaviorState.class).get();
+		final BehaviorState dstState = ctx.getDestination().getBusinessObject(BehaviorState.class).get();
+		if (srcState == dstState) {
+			return Optional.empty();
+		}
+
+		// TODO as a rule, if it serializes do not set things myself, vs just errors like with states, look at setting initial/final
+		// if it serializes do not set myself
+
+		// TODO find same name for src and dest as a test, look into how behavior annex extends and stuff to see if this can break
+		return srcContainer.getBusinessObject(BehaviorAnnex.class)
+				.map(ba -> Operation.createSimple(srcContainer, BehaviorAnnex.class, boToModify -> {
 					final BehaviorTransition baTransition = (BehaviorTransition) EcoreUtil
 							.create(AadlBaPackage.eINSTANCE.getBehaviorTransition());
 
-					baTransition.setSourceState(srcState);
-					baTransition.setDestinationState(dstState);
-					// boToModify.getTransitions().add(baTransition);
+					final EList<BehaviorState> behaviorStates = boToModify.getStates();
+					final String srcName = srcState.getName();
+					final String dstName = dstState.getName();
 
-					return StepResultBuilder.create().showNewBusinessObject(container, baTransition).build();
+					// Set source and destination for transition
+					for (final BehaviorState behaviorState : behaviorStates) {
+						Optional.ofNullable(behaviorState.getName()).ifPresent(name -> {
+							if (name.equalsIgnoreCase(srcName)) { // Source
+								baTransition.setSourceState(behaviorState);
+							} else if (name.equalsIgnoreCase(dstName)) { // Destination
+								baTransition.setDestinationState(behaviorState);
+							}
+						});
+					}
+
+					// Add new transition
+					boToModify.getTransitions().add(baTransition);
+
+					// Show
+					return StepResultBuilder.create().showNewBusinessObject(srcContainer, baTransition).build();
 				})).orElse(Optional.empty());
-
-
-		// Optional.of(Operation.createSimple(container, containerBoType, modifier);
-		// Optional.of(Operation.createWithBuilder(b -> b.c));
-
-		// return Optional.empty();
 	}
 
 	private static BusinessObjectContext getOwnerBoc(final BusinessObjectContext modeBoc,

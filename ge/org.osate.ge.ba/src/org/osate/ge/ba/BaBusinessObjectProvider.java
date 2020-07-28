@@ -39,7 +39,8 @@ public class BaBusinessObjectProvider implements BusinessObjectProvider {
 			final Stream<?> bas = BaUtil.getBehaviorAnnexes((Classifier) bo);
 			return bas;
 		} else if (bo instanceof BehaviorAnnex) {
-			return ((BehaviorAnnex) bo).getStates().stream();
+			final BehaviorAnnex ba = (BehaviorAnnex) bo;
+			return Stream.concat(ba.getTransitions().stream(), ba.getStates().stream());
 		}
 
 		return Stream.empty();
