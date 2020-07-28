@@ -39,6 +39,7 @@ import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.CanonicalBusinessObjectReference;
+import org.osate.ge.ProjectUtil;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.aadl2.internal.util.RenameUtil;
@@ -56,7 +57,6 @@ import org.osate.ge.internal.services.DiagramService.ReferenceCollection;
 import org.osate.ge.internal.services.DiagramService.UpdatedReferenceValueProvider;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.ui.LtkRenameAction;
-import org.osate.ge.internal.util.ProjectUtil;
 import org.osate.ge.services.ReferenceBuilderService;
 
 // Direct Editing Feature implementation that uses Xtext/LTK refactoring to rename an element.

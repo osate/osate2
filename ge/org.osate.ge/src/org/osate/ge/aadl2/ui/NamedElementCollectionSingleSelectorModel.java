@@ -21,51 +21,31 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.graphics.internal;
+package org.osate.ge.aadl2.ui;
 
-import org.osate.ge.graphics.ConnectionTerminator;
-import org.osate.ge.graphics.Graphic;
+import java.util.Collection;
 
-public class FlowIndicatorBuilder {
-	private AgeConnectionTerminator srcTerminator = null;
-	private AgeConnectionTerminator dstTerminator = null;
+import org.osate.aadl2.NamedElement;
+import org.osate.ge.swt.selectors.CollectionSingleSelectorModel;
+import org.osate.ge.swt.selectors.SingleSelectorModel;
 
-	private FlowIndicatorBuilder() {}
+import com.google.common.base.Strings;
 
+/**
+ * Implementation of {@link SingleSelectorModel} which allows selecting a named element from a collection.
+ * @since 2.0
+ */
+public class NamedElementCollectionSingleSelectorModel<T extends NamedElement> extends CollectionSingleSelectorModel<T> {
 	/**
-	 * Creates a flow indicator builder.
-	 * @return a flow indicator builder
+	 * Creates a new instance
+	 * @param elements the collection of named elements. The collection will be copied by the model. Changes to the collection will not be reflected by the model.
 	 */
-	public static FlowIndicatorBuilder create() {
-		return new FlowIndicatorBuilder();
+	public NamedElementCollectionSingleSelectorModel(final Collection<T> elements) {
+		super(elements);
 	}
 
-	/**
-	 * Configures the flow indicator builder to create an indicator with the specified terminator at the source end of the indicator.
-	 * @param value the source terminator to use when creating the indicator
-	 * @return this builder to allow method chaining.
-	 */
-	public FlowIndicatorBuilder sourceTerminator(final ConnectionTerminator value) {
-		this.srcTerminator = (AgeConnectionTerminator)value;
-		return this;
-	}
-
-	/**
-	 * Configures the flow indicator builder to create an indicator with the specified terminator at the destination end of the indicator.
-	 * @param value the destination terminator to use when creating the connection
-	 * @return this builder to allow method chaining.
-	 */
-	public FlowIndicatorBuilder destinationTerminator(final ConnectionTerminator value) {
-		this.dstTerminator = (AgeConnectionTerminator)value;
-		return this;
-	}
-
-	/**
-	 * Creates a flow indicator based on the current state of the builder. Flow indicator graphics are only supported when a source element
-	 * which has a dock area is specified.
-	 * @return the newly created graphic
-	 */
-	public Graphic build() {
-		return AgeConnection.createFlowIndicator(srcTerminator, dstTerminator);
+	@Override
+	public String getLabel(T element) {
+		return Strings.nullToEmpty(element.getQualifiedName());
 	}
 }

@@ -59,6 +59,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ListDialog;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.DiagramType;
+import org.osate.ge.ProjectUtil;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
@@ -81,7 +82,6 @@ import org.osate.ge.internal.ui.util.EditorUtil;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 import org.osate.ge.internal.util.Log;
 import org.osate.ge.internal.util.NonUndoableToolCommand;
-import org.osate.ge.internal.util.ProjectUtil;
 
 import com.google.common.collect.ImmutableSet;
 

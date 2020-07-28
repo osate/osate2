@@ -38,6 +38,7 @@ import org.osate.ge.swt.ObservableModel;
  * @param <D> is the type of the direction options.
  * @param <T> is the type of the type options.
  * @param <C> is the type of the classifiers.
+ * @since 1.1
  */
 public interface PrototypeBindingsModel<N, D, T, C> extends ObservableModel {
 	/**

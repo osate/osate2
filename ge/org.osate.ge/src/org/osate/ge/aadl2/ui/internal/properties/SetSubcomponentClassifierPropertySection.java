@@ -60,21 +60,21 @@ import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.aadl2.internal.util.AadlClassifierUtil;
 import org.osate.ge.aadl2.internal.util.AadlSubcomponentUtil;
 import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
-import org.osate.ge.aadl2.internal.util.EditingUtil;
 import org.osate.ge.aadl2.internal.util.classifiers.ClassifierOperation;
 import org.osate.ge.aadl2.internal.util.classifiers.ClassifierOperationExecutor;
 import org.osate.ge.aadl2.internal.util.classifiers.ClassifierOperationPartType;
+import org.osate.ge.aadl2.ui.internal.AadlUiUtil;
 import org.osate.ge.aadl2.ui.internal.dialogs.ClassifierOperationDialog;
 import org.osate.ge.aadl2.ui.internal.dialogs.DefaultCreateSelectClassifierDialogModel;
 import org.osate.ge.aadl2.ui.internal.viewmodels.BusinessObjectSelectionPrototypeBindingsModel;
 import org.osate.ge.aadl2.ui.internal.viewmodels.SubcomponentPrototypeBindingsModel;
 import org.osate.ge.internal.operations.OperationExecutor;
-import org.osate.ge.internal.selection.AgeBusinessObjectSelection;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.swt.classifiers.ClassifierWithBindingsField;
 import org.osate.ge.ui.PropertySectionUtil;
+import org.osate.ge.ui.UiBusinessObjectSelection;
 import org.osgi.framework.FrameworkUtil;
 
 import com.google.common.collect.ImmutableList;
@@ -94,7 +94,7 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 
 	private BusinessObjectSelection selectedBos;
 	private final BusinessObjectSelectionPrototypeBindingsModel model = new SubcomponentPrototypeBindingsModel(
-			new AgeBusinessObjectSelection());
+			new UiBusinessObjectSelection());
 	private ClassifierWithBindingsField<?, ?, ?, ?> currentClassifier;
 	private Button createBtn;
 
@@ -103,7 +103,7 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 		super.createControls(parent, aTabbedPropertySheetPage);
 
 		final Composite container = getWidgetFactory().createFlatFormComposite(parent);
-		InternalPropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Classifier:");
+		PropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Classifier:");
 
 		final Composite fieldComposite = getWidgetFactory().createComposite(container);
 		fieldComposite.setLayout(
@@ -199,7 +199,7 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 							throw new RuntimeException("Expected ComponentClassifier.");
 						}
 
-						final EObject resolvedClassifier = EditingUtil
+						final EObject resolvedClassifier = AadlUiUtil
 								.resolveWithLiveResourceSetIfProject((EObject) classifier, project);
 
 						AadlSubcomponentUtil.setClassifier(scToModify, (ComponentClassifier) resolvedClassifier);
@@ -225,8 +225,7 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 		final List<Subcomponent> scs = selectedBos.boStream(Subcomponent.class).collect(Collectors.toList());
 		createBtn.setEnabled(!scs.isEmpty() && scs.stream().allMatch(sc -> sc.getCategory() == scs.get(0).getCategory())
 				&& scs.stream().allMatch(sc -> sc.eResource() != null)
-				&& EditingUtil.allHaveSameValidResourceSet(scs)
+				&& AadlUiUtil.allHaveSameValidResourceSet(scs)
 				&& AgeAadlUtil.getCommonProject(scs).isPresent());
 	}
-
 }

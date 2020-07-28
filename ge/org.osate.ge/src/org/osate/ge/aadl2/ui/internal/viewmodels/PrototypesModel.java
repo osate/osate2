@@ -64,8 +64,8 @@ import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.internal.util.AadlImportsUtil;
 import org.osate.ge.aadl2.internal.util.AadlPrototypeUtil;
+import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 import org.osate.ge.aadl2.ui.internal.viewmodels.PrototypesModel.EditablePrototype;
-import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.swt.BaseObservableModel;
 import org.osate.ge.swt.prototypes.PrototypeDirection;
 import org.osate.ge.swt.prototypes.PrototypeType;
@@ -132,6 +132,27 @@ implements PrototypesEditorModel<EditablePrototype, NamedElementOrDescription> {
 			this.name = Objects.requireNonNull(name, "name must not be null");
 			this.prototype = Objects.requireNonNull(prototype, "prototype must not be null");
 		}
+
+		//
+		// hashCode and equals are needed to preserve selection when new instances are created.
+		//
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(classifierBoc, name);
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj) {
+				return true;
+			}
+			if (!(obj instanceof EditablePrototype)) {
+				return false;
+			}
+			EditablePrototype other = (EditablePrototype) obj;
+			return Objects.equals(classifierBoc, other.classifierBoc) && Objects.equals(name, other.name);
+		}
 	}
 
 	public PrototypesModel(final Renamer renamer, final BusinessObjectSelection bos) {
@@ -155,7 +176,7 @@ implements PrototypesEditorModel<EditablePrototype, NamedElementOrDescription> {
 				boc -> (Classifier) boc.getBusinessObject(), (c, boc) -> {
 					// Create a new prototype
 					final ComponentPrototype cp = (ComponentPrototype) c
-									.createOwnedPrototype(Aadl2Package.eINSTANCE.getDataPrototype());
+							.createOwnedPrototype(Aadl2Package.eINSTANCE.getDataPrototype());
 
 					// Assign a name
 					final String newName = AadlNamingUtil.buildUniqueIdentifier(c, "new_prototype");
@@ -382,7 +403,7 @@ implements PrototypesEditorModel<EditablePrototype, NamedElementOrDescription> {
 		// Concatenate all classifiers that match the supported EClass
 		if (filterEClass != null) {
 			options = Stream.concat(options,
-					ScopedEMFIndexRetrieval.getAllEObjectsByType(prototype.prototype.eResource(), filterEClass).stream()
+					AadlModelAccessUtil.getAllEObjectsByType(prototype.prototype.eResource(), filterEClass).stream()
 					.map(NamedElementOrDescription::new));
 		}
 

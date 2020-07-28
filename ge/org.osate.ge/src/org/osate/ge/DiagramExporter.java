@@ -67,7 +67,6 @@ import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.impl.SimpleActionExecutor;
 import org.osate.ge.internal.ui.editor.AgeDiagramBehavior;
-import org.osate.ge.internal.util.ProjectUtil;
 import org.osgi.framework.FrameworkUtil;
 
 /**

@@ -26,17 +26,14 @@ package org.osate.ge.errormodel.ui.palette;
 import java.util.Optional;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.osate.aadl2.AadlPackage;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
 import org.osate.ge.operations.Operation;
-import org.osate.ge.operations.StepResult;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
-import org.osate.ge.palette.TargetedPaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
+import org.osate.ge.palette.TargetedPaletteCommand;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 
 public class CreateStateMachinePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
@@ -46,41 +43,17 @@ public class CreateStateMachinePaletteCommand extends BasePaletteCommand impleme
 
 	@Override
 	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
-		final AadlPackage pkgReadonly = ctx.getTarget().getBusinessObject(AadlPackage.class).orElse(null);
-		if (pkgReadonly == null) {
-			return Optional.empty();
-		}
+		return ErrorModelGeUtil.createErrorModelLibraryModifyOperation(ctx.getTarget(), lib -> {
+			// Create the ErrorBehaviorStateMachine
+			final ErrorBehaviorStateMachine newBehavior = (ErrorBehaviorStateMachine) EcoreUtil
+					.create(ErrorModelPackage.eINSTANCE.getErrorBehaviorStateMachine());
+			final String newName = ErrorModelNamingUtil.buildUniqueIdentifier(lib, "new_state_machine");
+			newBehavior.setName(newName);
 
-		return Optional.of(Operation.createWithBuilder(createOp -> {
-			createOp.supply(() -> {
-				final ErrorModelLibrary errorModelLibrary = ErrorModelGeUtil.getErrorModelLibrary(pkgReadonly);
-				final Object boToModify = errorModelLibrary == null ? pkgReadonly : errorModelLibrary;
-				return StepResult.forValue(boToModify);
-			}).modifyPreviousResult(modifyBo -> {
-				// Create the annex if doesn't exist. It is important for the target to be the annex library if it does exist. Otherwise modification will fail
-				// in some
-				// cases such as when an Xtext document is open.
-				final ErrorModelLibrary errorModelLibrary;
-				if (modifyBo instanceof AadlPackage) {
-					errorModelLibrary = ErrorModelGeUtil.getOrCreateErrorModelLibrary((AadlPackage) modifyBo);
-				} else if (modifyBo instanceof ErrorModelLibrary) {
-					errorModelLibrary = (ErrorModelLibrary) modifyBo;
-				} else {
-					throw new RuntimeException("Modify business object is not of expected type. BO: " + modifyBo);
-				}
+			// Add the new type to the error model library
+			lib.getBehaviors().add(newBehavior);
 
-				// Create the ErrorBehaviorStateMachine
-				final ErrorBehaviorStateMachine newBehavior = (ErrorBehaviorStateMachine) EcoreUtil
-						.create(ErrorModelPackage.eINSTANCE.getErrorBehaviorStateMachine());
-				final String newName = ErrorModelNamingUtil.buildUniqueIdentifier(errorModelLibrary,
-						"new_state_machine");
-				newBehavior.setName(newName);
-
-				// Add the new type to the error model library
-				errorModelLibrary.getBehaviors().add(newBehavior);
-
-				return StepResultBuilder.create().showNewBusinessObject(ctx.getTarget(), newBehavior).build();
-			});
-		}));
+			return StepResultBuilder.create().showNewBusinessObject(ctx.getTarget(), newBehavior).build();
+		});
 	}
 }
