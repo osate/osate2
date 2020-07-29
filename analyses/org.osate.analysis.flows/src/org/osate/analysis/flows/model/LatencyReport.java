@@ -29,7 +29,7 @@ import java.util.List;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.analysis.flows.FlowLatencyUtil;
+import org.osate.analysis.flows.internal.utils.FlowLatencyUtil;
 import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.analysis.flows.reporting.model.Report.ReportType;
 import org.osate.result.Result;

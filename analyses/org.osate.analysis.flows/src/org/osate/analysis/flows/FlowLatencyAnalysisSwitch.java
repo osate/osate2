@@ -54,6 +54,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
+import org.osate.analysis.flows.internal.utils.FlowLatencyUtil;
 import org.osate.analysis.flows.model.LatencyCSVReport;
 import org.osate.analysis.flows.model.LatencyContributor;
 import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMethod;

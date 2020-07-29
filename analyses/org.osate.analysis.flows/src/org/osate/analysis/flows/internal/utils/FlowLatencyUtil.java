@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.analysis.flows;
+package org.osate.analysis.flows.internal.utils;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -61,7 +61,11 @@ import org.osate.xtext.aadl2.properties.util.ARINC653ScheduleWindow;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
-public class FlowLatencyUtil {
+public final class FlowLatencyUtil {
+	private FlowLatencyUtil() {
+		// not instantiatable
+	}
+
 	//XXX: [Code Coverage] Dead code.
 	public static String getEndToEndFlowString(EndToEndFlowInstance etef) {
 		StringBuffer ret;
