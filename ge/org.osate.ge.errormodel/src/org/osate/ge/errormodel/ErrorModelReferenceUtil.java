@@ -83,4 +83,27 @@ public class ErrorModelReferenceUtil {
 	public static RelativeBusinessObjectReference getRelativeReferenceForErrorTypeExtension() {
 		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_ERROR_TYPE_EXT);
 	}
+
+	public static RelativeBusinessObjectReference getRelativeReferenceForStateMachine(final String name) {
+		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_STATE_MACHINE, name);
+	}
+
+	public static RelativeBusinessObjectReference getRelativeReferenceForState(final String name) {
+		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_STATE, name);
+	}
+
+	public static RelativeBusinessObjectReference getRelativeReferenceForEvent(final String name) {
+		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_EVENT, name);
+	}
+
+	public static RelativeBusinessObjectReference getRelativeReferenceForNamedTransition(final String name) {
+		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_TRANSITION, name);
+	}
+
+	public static RelativeBusinessObjectReference getRelativeReferenceForTransitionBranch(
+			final String serializableTargetName, final int index) {
+		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_TRANSITION_BRANCH,
+				serializableTargetName,
+				Integer.toString(index));
+	}
 }

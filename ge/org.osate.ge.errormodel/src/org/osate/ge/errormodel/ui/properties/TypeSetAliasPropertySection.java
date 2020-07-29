@@ -43,7 +43,7 @@ import org.osate.ge.ui.UiBusinessObjectSelection;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
 public class TypeSetAliasPropertySection extends AbstractPropertySection {
-	private static String WIDGET_ID_PREFIX = "org.osate.ge.errormodel.ui.properties.typeSetAlias.";
+	private static final String WIDGET_ID_PREFIX = "org.osate.ge.errormodel.ui.properties.typeSetAlias.";
 	public static final String WIDGET_ID_ALIASED_TYPE_SET_LABEL = WIDGET_ID_PREFIX + "aliasedTypeSet.Label";
 	public static final String WIDGET_ID_ALIASED_TYPE_SET_CHOOSE_BUTTON = WIDGET_ID_PREFIX + "aliasedTypeSet.Choose";
 

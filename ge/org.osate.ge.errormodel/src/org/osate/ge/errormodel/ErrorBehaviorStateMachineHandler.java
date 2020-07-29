@@ -63,7 +63,7 @@ public class ErrorBehaviorStateMachineHandler implements BusinessObjectHandler {
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_STATE_MACHINE,
+		return ErrorModelReferenceUtil.getRelativeReferenceForStateMachine(
 				ctx.getBusinessObject(ErrorBehaviorStateMachine.class).get().getName());
 	}
 

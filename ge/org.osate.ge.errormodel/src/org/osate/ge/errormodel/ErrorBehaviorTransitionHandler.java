@@ -37,6 +37,7 @@ import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
+import org.osate.ge.businessobjecthandling.GetNameForDiagramContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.businessobjecthandling.RenameContext;
@@ -100,7 +101,7 @@ public class ErrorBehaviorTransitionHandler implements BusinessObjectHandler {
 		if (name == null) {
 			return buildAnonymousBehaviorTransitionRelativeReference(t);
 		} else {
-			return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_TRANSITION, name);
+			return ErrorModelReferenceUtil.getRelativeReferenceForNamedTransition(name);
 		}
 	}
 
@@ -136,7 +137,12 @@ public class ErrorBehaviorTransitionHandler implements BusinessObjectHandler {
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(ErrorBehaviorTransition.class).map(bo -> {
+		return ctx.getBusinessObject(ErrorBehaviorTransition.class).map(bo -> bo.getName()).orElse("");
+	}
+
+	@Override
+	public String getNameForDiagram(final GetNameForDiagramContext ctx) {
+		return ctx.getBusinessObjectContext().getBusinessObject(ErrorBehaviorTransition.class).map(bo -> {
 			final String name = bo.getName() == null ? "" : bo.getName() + ": ";
 			return name + getText(bo.getCondition()).map(t -> "-[" + t + "]").orElse("");
 		}).orElse("");

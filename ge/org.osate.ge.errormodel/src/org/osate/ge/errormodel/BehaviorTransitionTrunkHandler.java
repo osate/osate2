@@ -37,6 +37,7 @@ import org.osate.ge.businessobjecthandling.CustomDeleteContext;
 import org.osate.ge.businessobjecthandling.CustomDeleter;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
+import org.osate.ge.businessobjecthandling.GetNameForDiagramContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.errormodel.model.BehaviorTransitionTrunk;
@@ -101,6 +102,11 @@ public class BehaviorTransitionTrunkHandler implements BusinessObjectHandler, Cu
 
 	@Override
 	public String getName(final GetNameContext ctx) {
+		return "Trunk";
+	}
+
+	@Override
+	public String getNameForDiagram(final GetNameForDiagramContext ctx) {
 		return "";
 	}
 

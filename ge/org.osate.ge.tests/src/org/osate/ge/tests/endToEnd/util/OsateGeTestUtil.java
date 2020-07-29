@@ -78,7 +78,7 @@ public class OsateGeTestUtil {
 
 	public static void setTextField(final int index, final String value, final String expectedOriginalValue) {
 		assertTextFieldText("Original value is not the expected value", index, expectedOriginalValue);
-		org.osate.ge.tests.endToEnd.util.UiTestUtil.setTextField(index, value);
+		org.osate.ge.tests.endToEnd.util.UiTestUtil.setTextFieldText(index, value);
 	}
 
 	/**
@@ -178,15 +178,17 @@ public class OsateGeTestUtil {
 	 * @param dest the destination of the connection
 	 * @param paletteItem the type of connection to be created
 	 * @param referenceAfterCreate the reference of the created connection
+	 * @param postExecPaletteItem runnable to call after the palette item is executed
 	 */
 	public static void createConnectionElement(final DiagramReference diagram, final DiagramElementReference src,
 			final DiagramElementReference dest, final String paletteItem,
-			final DiagramElementReference referenceAfterCreate) {
+			final DiagramElementReference referenceAfterCreate, final Runnable postExecPaletteItem) {
 		openDiagramEditor(diagram);
 
 		selectPaletteItem(diagram, paletteItem);
 		clickDiagramElement(diagram, src);
 		clickDiagramElement(diagram, dest);
+		postExecPaletteItem.run();
 		activateSelectionTool(diagram);
 
 		// Wait for element to be created
@@ -327,8 +329,8 @@ public class OsateGeTestUtil {
 	 * Waits until the text contained in a Label with the specified ID matches the specified value.
 	 */
 	public static void waitUntilLabelWithIdTextMatches(final String id, final String value) {
-		waitUntil(() -> Objects.deepEquals(getTextForlabelWithId(id), value),
-				"Label text of '" + id + "' is not '" + value + "'. Label Value '" + getTextForlabelWithId(id) + "'");
+		waitUntil(() -> Objects.deepEquals(getTextForLabelWithId(id), value),
+				"Label text of '" + id + "' is not '" + value + "'. Label Value '" + getTextForLabelWithId(id) + "'");
 	}
 
 	/**
@@ -337,5 +339,13 @@ public class OsateGeTestUtil {
 	public static void waitUntilCLabelWithIdTextMatches(final String id, final String value) {
 		waitUntil(() -> Objects.deepEquals(getTextForClabelWithId(id), value),
 				"Label text of '" + id + "' is not '" + value + "'. Label Value '" + getTextForClabelWithId(id) + "'");
+	}
+
+	/**
+	 * Waits until the text contained in a text field with the specified index matches the specified value.
+	 */
+	public static void waitUntilTextFieldWithIdTextMatches(final String id, final String value) {
+		waitUntil(() -> Objects.deepEquals(getTextForTextFieldWithId(id), value), "Text field text of text field'"
+				+ id + "' is not '" + value + "'. Text Value '" + getTextForTextFieldWithId(id) + "'");
 	}
 }

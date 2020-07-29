@@ -33,14 +33,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BooleanSupplier;
+import java.util.stream.Collectors;
 
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.requests.DirectEditRequest;
@@ -76,7 +79,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
-import org.hamcrest.Matcher;
+import org.hamcrest.core.IsAnything;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
@@ -193,9 +196,27 @@ public class UiTestUtil {
 	 * @param index
 	 * @param value
 	 */
-	public static void setTextField(final int index, final String value) {
+	public static void setTextFieldText(final int index, final String value) {
 		bot.text(index).setText(value);
 		assertTextFieldText("New value not valid", index, value);
+	}
+
+	/**
+	 * Asserts that the text field with the specified ID has the specified value.
+	 */
+	public static void assertTextFieldWithIdText(final String message, final String id, final String expectedValue) {
+		final SWTBotText text = bot.textWithId(id);
+		assertEquals(message, expectedValue, text.getText());
+	}
+
+	/**
+	 * Sets the text for the text with the specified ID.
+	 * @param id is the text field's id
+	 * @param value is the new value
+	 */
+	public static void setTextFieldWithIdText(final String id, final String value) {
+		bot.textWithId(id).setText(value);
+		assertTextFieldWithIdText("New value not valid", id, value);
 	}
 
 	/**
@@ -395,7 +416,7 @@ public class UiTestUtil {
 	/**
 	 * Returns whether the text for a Label with the specified id
 	 */
-	public static String getTextForlabelWithId(final String id) {
+	public static String getTextForLabelWithId(final String id) {
 		return bot.labelWithId(id).getText();
 	}
 
@@ -404,6 +425,13 @@ public class UiTestUtil {
 	 */
 	public static String getTextForClabelWithId(final String id) {
 		return bot.clabelWithId(id).getText();
+	}
+
+	/**
+	 * Returns the text for the text field with the specified id
+	 */
+	public static String getTextForTextFieldWithId(final String id) {
+		return bot.textWithId(id).getText();
 	}
 
 	/**
@@ -534,6 +562,13 @@ public class UiTestUtil {
 	}
 
 	/**
+	 * Focus the specified editor
+	 */
+	public static void focusDiagramEditor(final DiagramReference diagram) {
+		getDiagramEditorBot(diagram).setFocus();
+	}
+
+	/**
 	 * Saves the specified editor
 	 */
 	public static void saveDiagramEditor(final DiagramReference diagram) {
@@ -581,7 +616,7 @@ public class UiTestUtil {
 	/**
 	 * Returns a bot for the focused widget
 	 */
-	private static AbstractSWTBot<?> getFocusedWidget() {
+	public static AbstractSWTBot<?> getFocusedWidget() {
 		final Control focused = bot.getFocusedWidget();
 		assertTrue("Focused widget is null", focused != null);
 		return new AbstractSWTBotControl<Control>(focused);
@@ -630,7 +665,7 @@ public class UiTestUtil {
 		final AgeDiagramEditor editor = getDiagramEditor(diagram);
 
 		final DiagramElement de = getDiagramElement(diagram, element)
-				.orElseThrow(() -> new RuntimeException("Cannot find relative reference for '" + element + "'."));
+				.orElseThrow(() -> new RuntimeException("Cannot find diagram element for '" + element + "'."));
 
 		// Get the edit part
 		final PictogramElement pe = editor.getGraphitiAgeDiagram().getPictogramElement(de);
@@ -644,7 +679,6 @@ public class UiTestUtil {
 
 		scrollToEditPart(editorRef, editPart);
 
-		// Click element
 		editorBot.click(botEditParts.get(0));
 	}
 
@@ -690,19 +724,29 @@ public class UiTestUtil {
 
 	private static List<SWTBotGefEditPart> findEditParts(final SWTBotGefEditor editor,
 			final List<EditPart> editPartsToFind) {
-		final Matcher<EditPart> matcher = new BaseMatcher<EditPart>() {
-			@Override
-			public boolean matches(final Object editPart) {
-				return editPartsToFind.contains(editPart);
-			}
+		final Set<SWTBotGefEditPart> foundEditParts = new HashSet<>();
 
-			@Override
-			public void describeTo(final Description description) {
-				description.appendText("Find edit parts");
-			}
-		};
+		// Connection edit parts are not returned by this method.
+		final List<SWTBotGefEditPart> shapeEditParts = editor.editParts(new IsAnything<>());
 
-		return editor.editParts(matcher);
+		// Make a list of any connection edit parts for which we are looking.
+		final List<EditPart> connectionEditPartsToFind = editPartsToFind.stream()
+				.filter(ConnectionEditPart.class::isInstance).collect(Collectors.toList());
+
+		for (final SWTBotGefEditPart aPart : shapeEditParts) {
+			if (editPartsToFind.contains(aPart.part())) {
+				foundEditParts.add(aPart);
+			} else if(!connectionEditPartsToFind.isEmpty()) {
+				// Look in the source and target connections for the connection edit parts because they
+				// are not returned by the editor's editPart() method
+				aPart.sourceConnections().stream().filter(p -> connectionEditPartsToFind.contains(p.part()))
+						.forEachOrdered(foundEditParts::add);
+				aPart.targetConnections().stream().filter(p -> connectionEditPartsToFind.contains(p.part()))
+						.forEachOrdered(foundEditParts::add);
+			}
+		}
+
+		return new ArrayList<>(foundEditParts);
 	}
 
 	/**

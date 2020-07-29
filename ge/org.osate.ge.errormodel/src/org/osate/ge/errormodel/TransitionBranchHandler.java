@@ -80,10 +80,9 @@ public class TransitionBranchHandler implements BusinessObjectHandler, CustomDel
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_TRANSITION_BRANCH,
-				ErrorModelReferenceUtil.getTargetNameForSerialization(ctx.getBusinessObject(TransitionBranch.class)
-						.get()),
-				Integer.toString(getTransitionBranchIndex(ctx.getBusinessObject(TransitionBranch.class).get())));
+		final TransitionBranch b= ctx.getBusinessObject(TransitionBranch.class).get();
+		return ErrorModelReferenceUtil.getRelativeReferenceForTransitionBranch(
+				ErrorModelReferenceUtil.getTargetNameForSerialization(b), getTransitionBranchIndex(b));
 	}
 
 	@Override
@@ -166,6 +165,6 @@ public class TransitionBranchHandler implements BusinessObjectHandler, CustomDel
 		final ErrorBehaviorTransition t = (ErrorBehaviorTransition) b.eContainer();
 		return ErrorModelReferenceUtil.getIndex(
 				b,
-				t.getDestinationBranches().stream().filter(tmpBranch -> tmpBranch.getTarget() == t.getTarget()));
+				t.getDestinationBranches().stream().filter(tmpBranch -> tmpBranch.getTarget() == b.getTarget()));
 	}
 }

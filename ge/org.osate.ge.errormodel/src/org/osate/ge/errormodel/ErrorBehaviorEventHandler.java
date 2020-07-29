@@ -69,8 +69,8 @@ public class ErrorBehaviorEventHandler implements BusinessObjectHandler {
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_EVENT,
-				ctx.getBusinessObject(ErrorBehaviorEvent.class).get().getName());
+		return ErrorModelReferenceUtil
+				.getRelativeReferenceForEvent(ctx.getBusinessObject(ErrorBehaviorEvent.class).get().getName());
 	}
 
 	@Override

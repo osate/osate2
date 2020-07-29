@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -35,7 +35,6 @@ import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbenchPart;
@@ -43,6 +42,7 @@ import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.ge.BusinessObjectSelection;
+import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.ui.PropertySectionUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
@@ -51,6 +51,11 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import com.google.common.base.Objects;
 
 public class TransitionBranchPropertySection extends AbstractPropertySection {
+	/**
+	 * Testing ID for the value text field
+	 */
+	public static final String WIDGET_ID_VALUE = "org.osate.ge.errormodel.ui.properties.transitionBranch.value";
+
 	public static class Filter implements IFilter {
 		@Override
 		public boolean select(final Object toTest) {
@@ -62,7 +67,6 @@ public class TransitionBranchPropertySection extends AbstractPropertySection {
 
 	private BusinessObjectSelection selectedBos;
 	private Text valueField;
-	private Button saveBtn;
 
 	@Override
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
@@ -72,21 +76,13 @@ public class TransitionBranchPropertySection extends AbstractPropertySection {
 		PropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Value:");
 
 		valueField = getWidgetFactory().createText(container, "", SWT.SINGLE);
+		SwtUtil.setTestingId(valueField, WIDGET_ID_VALUE);
 
 		FormData fd = new FormData();
 		fd.width = 150;
 		fd.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
 		fd.top = new FormAttachment(0, ITabbedPropertyConstants.VSPACE);
 		valueField.setLayoutData(fd);
-
-		// Create the button that will update the diagram. This button won't actually do anything because the BOs are updated when the focus is lost.
-		// However, it is useful to have it so that the user can easily see the result of the change without without having to change property tabs/selection.
-		saveBtn = getWidgetFactory().createButton(container, "Save", SWT.PUSH);
-
-		fd = new FormData();
-		fd.left = new FormAttachment(valueField, ITabbedPropertyConstants.HSPACE);
-		fd.top = new FormAttachment(valueField, 0, SWT.CENTER);
-		saveBtn.setLayoutData(fd);
 
 		valueField.addFocusListener(new FocusAdapter() {
 			@Override
@@ -138,7 +134,6 @@ public class TransitionBranchPropertySection extends AbstractPropertySection {
 		}
 
 		valueField.setEnabled(editable);
-		saveBtn.setEnabled(editable);
 	}
 
 	private static boolean hasRealValueOrNull(final TransitionBranch branch) {
