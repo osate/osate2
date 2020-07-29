@@ -65,13 +65,13 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.ge.BusinessObjectSelection;
+import org.osate.ge.ProjectUtil;
 import org.osate.ge.aadl2.ui.internal.dialogs.EditDimensionsDialog.EditDimensionDialog;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil.DragAndDropElement;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil.DragAndDropSupport;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil.ExecuteOrderChange;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil.UpDownButtonSelectionAdapter;
-import org.osate.ge.internal.util.ProjectUtil;
 import org.osate.ge.ui.PropertySectionUtil;
 
 public class SetDimensionsPropertySection extends AbstractPropertySection {
@@ -179,7 +179,7 @@ public class SetDimensionsPropertySection extends AbstractPropertySection {
 		fd.width = btnWidth;
 		downBtn.setLayoutData(fd);
 
-		InternalPropertySectionUtil.createSectionLabel(composite, getWidgetFactory(), "Dimensions:");
+		PropertySectionUtil.createSectionLabel(composite, getWidgetFactory(), "Dimensions:");
 		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 

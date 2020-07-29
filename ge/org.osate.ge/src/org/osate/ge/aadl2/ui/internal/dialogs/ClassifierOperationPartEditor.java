@@ -60,7 +60,7 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.ge.StringUtil;
 import org.osate.ge.aadl2.internal.util.classifiers.ClassifierOperationPart;
 import org.osate.ge.aadl2.internal.util.classifiers.ClassifierOperationPartType;
-import org.osate.ge.swt.util.SwtTestUtil;
+import org.osate.ge.swt.SwtUtil;
 
 import com.google.common.base.CaseFormat;
 import com.google.common.collect.ImmutableList;
@@ -395,6 +395,6 @@ class ClassifierOperationPartEditor extends Composite {
 	}
 
 	public void setIdentifierFieldTestingId(final String id) {
-		SwtTestUtil.setTestingId(identifierField, id);
+		SwtUtil.setTestingId(identifierField, id);
 	}
 }

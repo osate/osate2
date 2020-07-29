@@ -64,8 +64,8 @@ public class ErrorTypeHandler implements BusinessObjectHandler {
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_ERROR_TYPE,
-				ctx.getBusinessObject(ErrorType.class).get().getName());
+		return ErrorModelReferenceUtil
+				.getRelativeReferenceForErrorType(ctx.getBusinessObject(ErrorType.class).get().getName());
 	}
 
 	@Override
@@ -76,6 +76,7 @@ public class ErrorTypeHandler implements BusinessObjectHandler {
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		return Optional.of(GraphicalConfigurationBuilder.create().graphic(graphic)
+				.annotation("<Error Type>")
 				.style(ErrorModelGeUtil.topCenteredLabelStyle).build());
 	}
 

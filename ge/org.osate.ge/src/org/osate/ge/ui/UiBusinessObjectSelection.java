@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.selection;
+package org.osate.ge.ui;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -48,11 +48,19 @@ import org.osate.ge.operations.StepResultBuilder;
 
 import com.google.common.collect.ImmutableList;
 
-public class AgeBusinessObjectSelection implements BusinessObjectSelection {
+/**
+ * Implementation of {@link BusinessObjectSelection} which uses the action executor of the active editor to perform modifications
+ * if it is available. Otherwise it uses the {@link ActionService} service registered with the workbench.
+ * @since 2.0
+ */
+public class UiBusinessObjectSelection implements BusinessObjectSelection {
 	private final ImmutableList<BusinessObjectContext> bocs;
 	private final AadlModificationService modificationService;
 
-	public AgeBusinessObjectSelection() {
+	/**
+	 * Create a new instance which represents an empty selection.
+	 */
+	public UiBusinessObjectSelection() {
 		this(Collections.emptyList(), null);
 	}
 
@@ -60,8 +68,9 @@ public class AgeBusinessObjectSelection implements BusinessObjectSelection {
 	 *
 	 * @param bocs
 	 * @param modificationService may be null if bocs is empty
+	 * @noreference This constructor is not intended to be referenced by clients.
 	 */
-	public AgeBusinessObjectSelection(
+	public UiBusinessObjectSelection(
 			final Collection<? extends BusinessObjectContext> bocs,
 			final AadlModificationService modificationService) {
 		this.bocs = ImmutableList.copyOf(bocs);
@@ -120,7 +129,6 @@ public class AgeBusinessObjectSelection implements BusinessObjectSelection {
 			});
 		});
 	}
-
 
 	/**
 	 * Gets the action executor that should be used to modify the model.

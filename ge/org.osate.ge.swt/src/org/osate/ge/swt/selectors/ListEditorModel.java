@@ -25,9 +25,10 @@ package org.osate.ge.swt.selectors;
 
 /**
  * View Model used by {@link ListEditor}
+ * @since 1.1
  *
  */
-public interface ListEditorModel<T> extends SelectorModel<T> {
+public interface ListEditorModel<T> extends SingleSelectorModel<T> {
 	/**
 	 * Returns whether an element is allowed to be added to the list.
 	 * @return whether an element is allowed be added.

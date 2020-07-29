@@ -35,8 +35,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.osate.ge.swt.ChangeEvent;
-import org.osate.ge.swt.internal.InternalUtil;
-import org.osate.ge.swt.util.SwtTestUtil;
+import org.osate.ge.swt.SwtUtil;
 
 /**
  * A component which allows viewing and editing bindings for a node provided by a {@link PrototypeBindingsModel}.
@@ -45,6 +44,7 @@ import org.osate.ge.swt.util.SwtTestUtil;
  * @param <D> is the type of the direction options.
  * @param <T> is the type of the type options.
  * @param <C> is the type of the classifiers.
+ * @since 1.1
  */
 public final class PrototypeBindingsField<N, D, T, C> extends Composite {
 	private static final String WIDGET_ID_PREFIX = "org.osate.ge.swt.classifiers.prototypeBindingsField.";
@@ -68,20 +68,20 @@ public final class PrototypeBindingsField<N, D, T, C> extends Composite {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
 		this.node = initNode;
-		InternalUtil.setColorsToMatchParent(this);
+		SwtUtil.setColorsToMatchParent(this);
 
 		this.setLayout(GridLayoutFactory.fillDefaults().numColumns(2).create());
 
 		this.bindingsLbl = new CLabel(this, SWT.BORDER);
-		SwtTestUtil.setTestingId(this.bindingsLbl, WIDGET_ID_SELECTED_LABEL);
+		SwtUtil.setTestingId(this.bindingsLbl, WIDGET_ID_SELECTED_LABEL);
 		this.bindingsLbl
 				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER)
 						.minSize(200, SWT.DEFAULT)
 						.create());
-		InternalUtil.setColorsToMatchParent(this.bindingsLbl);
+		SwtUtil.setColorsToMatchParent(this.bindingsLbl);
 
 		this.editBtn = new Button(this, SWT.FLAT);
-		SwtTestUtil.setTestingId(this.editBtn, WIDGET_ID_EDIT_BUTTON);
+		SwtUtil.setTestingId(this.editBtn, WIDGET_ID_EDIT_BUTTON);
 		this.editBtn
 				.setLayoutData(GridDataFactory.swtDefaults().grab(false, false).align(SWT.CENTER, SWT.CENTER).create());
 		this.editBtn.setText("Edit...");
@@ -91,7 +91,7 @@ public final class PrototypeBindingsField<N, D, T, C> extends Composite {
 				PrototypeBindingsEditorDialog.open(getShell(), "Edit Prototype Bindings", model, node);
 			}
 		});
-		InternalUtil.setColorsToMatchParent(this.editBtn);
+		SwtUtil.setColorsToMatchParent(this.editBtn);
 
 		model.changed().addListener(changeListener);
 
@@ -114,7 +114,7 @@ public final class PrototypeBindingsField<N, D, T, C> extends Composite {
 	}
 
 	public static void main(String[] args) {
-		InternalUtil.run(shell -> {
+		SwtUtil.run(shell -> {
 			new PrototypeBindingsField<>(shell, new TestPrototypeBindingsModel(), null);
 		});
 	}

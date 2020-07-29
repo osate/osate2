@@ -27,8 +27,10 @@ import java.util.Objects;
 
 /**
  * Abstract decorator for {@link FilteringSelectorModel}
+ * @since 1.1
  */
-public abstract class FilteringListSelectorModelDecorator<T> extends SelectorModelDecorator<T>
+public abstract class FilteringListSelectorModelDecorator<T>
+		extends SelectorModelDecorator<T>
 		implements FilteringSelectorModel<T> {
 	private final FilteringSelectorModel<T> inner;
 
@@ -36,7 +38,7 @@ public abstract class FilteringListSelectorModelDecorator<T> extends SelectorMod
 	 * Creates a new instance
 	 * @param inner the model to decorate.
 	 */
-	public FilteringListSelectorModelDecorator(FilteringSelectorModel<T> inner) {
+	public FilteringListSelectorModelDecorator(final FilteringSelectorModel<T> inner) {
 		super(inner);
 		this.inner = Objects.requireNonNull(inner, "inner must not be null");
 	}
