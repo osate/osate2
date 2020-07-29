@@ -103,7 +103,7 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 		super.createControls(parent, aTabbedPropertySheetPage);
 
 		final Composite container = getWidgetFactory().createFlatFormComposite(parent);
-		InternalPropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Classifier:");
+		PropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Classifier:");
 
 		final Composite fieldComposite = getWidgetFactory().createComposite(container);
 		fieldComposite.setLayout(

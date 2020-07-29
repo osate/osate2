@@ -196,7 +196,7 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 
 		final Composite composite = getWidgetFactory().createFlatFormComposite(parent);
 		final Composite container = getWidgetFactory().createComposite(composite);
-		final Label sectionLabel = InternalPropertySectionUtil.createSectionLabel(composite, getWidgetFactory(),
+		final Label sectionLabel = PropertySectionUtil.createSectionLabel(composite, getWidgetFactory(),
 				"Classifier:");
 
 		container.setLayout(new FormLayout());

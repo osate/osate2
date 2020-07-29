@@ -25,8 +25,6 @@ package org.osate.ge.ba.businessobjecthandlers;
 
 import java.util.Optional;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
@@ -36,8 +34,6 @@ import org.osate.ge.aadl2.AnnexHandler;
 import org.osate.ge.ba.util.BaUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
-import org.osate.ge.businessobjecthandling.CustomDeleteContext;
-import org.osate.ge.businessobjecthandling.CustomDeleter;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
@@ -50,9 +46,8 @@ import org.osate.ge.graphics.Graphic;
  * business object provider. Since the object isn't contributed at this time, the other methods are not necessary.
  *
  */
-public class BehaviorAnnexHandler implements BusinessObjectHandler, CustomDeleter {
+public class BehaviorAnnexHandler implements BusinessObjectHandler {
 	final AnnexHandler annexHandler = new AnnexHandler();
-	private static final String TYPE_BA = "ba";
 	private static final Graphic graphic = EllipseBuilder.create().build();
 
 	@Override
@@ -83,12 +78,5 @@ public class BehaviorAnnexHandler implements BusinessObjectHandler, CustomDelete
 	@Override
 	public String getName(final GetNameContext ctx) {
 		return BaUtil.ANNEX_NAME;
-	}
-
-	@Override
-	public void delete(final CustomDeleteContext ctx) {
-		ctx.getContainerBusinessObject(DefaultAnnexSubclause.class).ifPresent(das -> {
-			EcoreUtil.delete(das);
-		});
 	}
 }

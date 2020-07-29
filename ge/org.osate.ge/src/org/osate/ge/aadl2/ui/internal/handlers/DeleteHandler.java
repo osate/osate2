@@ -45,6 +45,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.EmfContainerProvider;
@@ -183,7 +184,7 @@ public class DeleteHandler extends AbstractHandler {
 							"Deleting multiple elements when deleting an element inside of an annex is not supported");
 				}
 
-				// Handle annex specially because we need to modify the annex itself instead of the root of the model.
+				// Handle annex specifically because we need to modify the annex itself instead of the root of the model.
 				// Only a single annex element can be modified at a time because modifying annex elements as part of a
 				// group is not supported.
 				final BusinessObjectRemoval modInfo = createBusinessObjectRemovalOrRemoveDiagramElement(
@@ -276,18 +277,17 @@ public class DeleteHandler extends AbstractHandler {
 
 		final Object boHandler = de.getBusinessObjectHandler();
 		if (bo instanceof EObject) {
-			final EObject boEObj = (EObject) bo;
+			final EObject boEObj = getBoToModify((EObject) bo);
 			if (boHandler instanceof CustomDeleter) {
-				final EObject container = boEObj.eContainer();
+				final EObject ownerBo = boEObj.eContainer();
 				final CustomDeleter deleter = (CustomDeleter) boHandler;
-				return new BusinessObjectRemoval(container, (boToModify) -> {
-					deleter.delete(new CustomDeleteContext(boToModify, bo));
-				});
-			} else {
-				return new BusinessObjectRemoval(boEObj, (boToModify) -> {
-					EcoreUtil.remove(boToModify);
+				return new BusinessObjectRemoval(ownerBo, boToModify -> {
+					deleter.delete(new CustomDeleteContext(boToModify, boEObj));
 				});
 			}
+			return new BusinessObjectRemoval(boEObj, (boToModify) -> {
+				EcoreUtil.remove(boToModify);
+			});
 		} else if (bo instanceof EmfContainerProvider) {
 			if(!(boHandler instanceof CustomDeleter)) {
 				throw new RuntimeException("Business object handler '" + boHandler + "' for "
@@ -299,7 +299,7 @@ public class DeleteHandler extends AbstractHandler {
 			final EObject ownerBo = ((EmfContainerProvider) bo).getEmfContainer();
 
 			return new BusinessObjectRemoval(ownerBo, (boToModify) -> {
-				deleter.delete(new CustomDeleteContext(ownerBo, bo));
+				deleter.delete(new CustomDeleteContext(boToModify, bo));
 			});
 		} else if (bo instanceof EmbeddedBusinessObject) {
 			// For embedded business objects, there isn't a model from which to remove the business object.
@@ -311,6 +311,14 @@ public class DeleteHandler extends AbstractHandler {
 			// canDelete() should have returned false in this case
 			throw new RuntimeException("Unhandled case: " + bo);
 		}
+	}
+
+	private static EObject getBoToModify(final EObject boEObj) {
+		if (boEObj instanceof AnnexSubclause && boEObj.eContainer() instanceof DefaultAnnexSubclause) {
+			return boEObj.eContainer();
+		}
+
+		return boEObj;
 	}
 
 	private static boolean confirmDelete(final List<DiagramElement> diagramElements) {
@@ -352,7 +360,12 @@ public class DeleteHandler extends AbstractHandler {
 	}
 
 	private static boolean anyIsInAnnex(final List<DiagramElement> diagramElements) {
-		return diagramElements.stream().map(DiagramElement::getBusinessObject).anyMatch(DeleteHandler::isInAnnex);
+		return diagramElements.stream().map(DiagramElement::getBusinessObject).map(bo -> {
+			if (bo instanceof AnnexSubclause && ((AnnexSubclause) bo).eContainer() instanceof DefaultAnnexSubclause) {
+				return ((AnnexSubclause) bo).eContainer();
+			}
+			return bo;
+		}).anyMatch(DeleteHandler::isInAnnex);
 	}
 
 	private static boolean anyRequiresRawDelete(final List<DiagramElement> diagramElements) {

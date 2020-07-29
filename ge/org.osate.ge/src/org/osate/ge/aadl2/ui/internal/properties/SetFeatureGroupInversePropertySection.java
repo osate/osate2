@@ -87,7 +87,7 @@ public class SetFeatureGroupInversePropertySection extends AbstractPropertySecti
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
 		super.createControls(parent, aTabbedPropertySheetPage);
 		final Composite container = getWidgetFactory().createFlatFormComposite(parent);
-		final Label sectionLabel = InternalPropertySectionUtil.createSectionLabel(container, getWidgetFactory(),
+		final Label sectionLabel = PropertySectionUtil.createSectionLabel(container, getWidgetFactory(),
 				"Inverse:");
 
 		inverseBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), container, SWT.NONE,

@@ -30,6 +30,23 @@ censes only apply to the Third Party Software and not any other portion of this 
             class="org.osate.ge.ba.BaBusinessObjectProvider">
       </provider>
    </extension>
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
+	<propertySections contributorId="org.osate.ge.editor.AgeDiagramEditor">
+		<propertySection
+			class="org.osate.ge.ba.properties.SetBehaviorStateInitialPropertySection"
+			filter="org.osate.ge.ba.properties.SetBehaviorStateInitialPropertySection$Filter"
+			id="org.osate.ge.ba.properties.setBehaviorStateInitialPropertySection"
+			tab="org.osate.ge.ui.properties.tabs.aadl">
+     </propertySection>
+     <propertySection
+			class="org.osate.ge.ba.properties.SetBehaviorStateFinalPropertySection"
+			filter="org.osate.ge.ba.properties.SetBehaviorStateFinalPropertySection$Filter"
+			id="org.osate.ge.ba.properties.setBehaviorStateFinalPropertySection"
+			tab="org.osate.ge.ui.properties.tabs.aadl">
+     </propertySection>
+     </propertySections>
+     </extension>
+   
    <extension
          point="org.osate.ge.businessObjectHandlers">
       <handler

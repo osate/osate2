@@ -2,6 +2,7 @@ package org.osate.ge.ba.businessobjecthandlers;
 
 import java.util.Optional;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ge.BusinessObjectContext;
@@ -9,8 +10,11 @@ import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.ba.model.BehaviorAnnexTransition;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
+import org.osate.ge.businessobjecthandling.CustomDeleteContext;
+import org.osate.ge.businessobjecthandling.CustomDeleter;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
@@ -23,21 +27,22 @@ import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
-public class BaTransitionHandler implements BusinessObjectHandler {
+public class BaTransitionHandler implements BusinessObjectHandler, CustomDeleter {
 	private final static String TYPE_TRANSITION = "ba_transition";
 
 	private static final Graphic transitionGraphic = ConnectionBuilder.create()
 			.destinationTerminator(ArrowBuilder.create().small().build()).build();
 
-	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children()
-			.filterByBusinessObjectRelativeReference((BehaviorTransition bt) -> bt.getSourceState()));
-	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children()
-			.filterByBusinessObjectRelativeReference((BehaviorTransition bt) -> bt.getDestinationState()));
-
+	private static final StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children()
+			.filterByBusinessObjectRelativeReference(
+					(BehaviorAnnexTransition bt) -> bt.getSource()));
+	private static final StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children()
+			.filterByBusinessObjectRelativeReference(
+					(BehaviorAnnexTransition bt) -> bt.getDestination()));
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(BehaviorTransition.class).isPresent();
+		return ctx.getBusinessObject(BehaviorAnnexTransition.class).isPresent();
 	}
 
 	@Override
@@ -47,7 +52,8 @@ public class BaTransitionHandler implements BusinessObjectHandler {
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).get();
+		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorAnnexTransition.class)
+				.map(BehaviorAnnexTransition::getTransition).get();
 		final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorTransition.getOwner();
 		final int index = behaviorAnnex.getTransitions().indexOf(behaviorTransition);
 		return new CanonicalBusinessObjectReference(TYPE_TRANSITION, behaviorAnnex.getQualifiedName(),
@@ -56,7 +62,8 @@ public class BaTransitionHandler implements BusinessObjectHandler {
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).get();
+		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorAnnexTransition.class)
+				.map(BehaviorAnnexTransition::getTransition).get();
 		final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorTransition.getOwner();
 		final int index = behaviorAnnex.getTransitions().indexOf(behaviorTransition);
 		return new RelativeBusinessObjectReference(TYPE_TRANSITION, behaviorAnnex.getName(), Integer.toString(index));
@@ -81,6 +88,20 @@ public class BaTransitionHandler implements BusinessObjectHandler {
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(BehaviorTransition.class).map(transition -> "").orElse("");
+		// TODO fix naming
+		return "Behavior Transition";
+//		return ctx.getBusinessObject(BehaviorAnnexTransition.class).map(BehaviorAnnexTransition::getTransition)
+//				.map(transition -> "").orElse("");
+	}
+
+	@Override
+	public void delete(final CustomDeleteContext ctx) {
+		final BehaviorTransition behaviorTransitionToModify = ctx.getContainerBusinessObject(BehaviorTransition.class)
+				.get();
+		final BehaviorAnnex behaviorAnnexToModify = (BehaviorAnnex) behaviorTransitionToModify.getOwner();
+		EcoreUtil.remove(behaviorTransitionToModify);
+		if (behaviorAnnexToModify.getTransitions().size() == 0) {
+			behaviorAnnexToModify.unsetTransitions();
+		}
 	}
 }
