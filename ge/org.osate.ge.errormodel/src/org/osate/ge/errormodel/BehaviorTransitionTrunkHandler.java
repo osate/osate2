@@ -46,6 +46,7 @@ import org.osate.ge.services.QueryService;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 
 /**
+ * Business object handler for {@link BehaviorTransitionTrunk}
  * @see ErrorBehaviorTransitionHandler for details about how transitions are represented.
  */
 public class BehaviorTransitionTrunkHandler implements BusinessObjectHandler, CustomDeleter
