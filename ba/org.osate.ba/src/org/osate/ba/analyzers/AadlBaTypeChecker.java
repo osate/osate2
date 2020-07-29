@@ -91,7 +91,7 @@ import org.osate.ba.unparser.AadlBaUnparser ;
 import org.osate.ba.utils.AadlBaUtils ;
 import org.osate.ba.utils.AadlBaVisitors ;
 import org.osate.ba.utils.DimensionException ;
-import org.osate.utils.Aadl2Utils ;
+import org.osate.utils.internal.Aadl2Utils ;
 
 
 

@@ -1,13 +1,13 @@
 /**
  * AADL-Utils
- * 
+ *
  * Copyright © 2012 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
- * This program is free software: you can redistribute it and/or modify 
+ *
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the Eclipse Public License as published by Eclipse,
  * either version 2.0 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful,
@@ -15,20 +15,21 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Eclipse Public License for more details.
  * You should have received a copy of the Eclipse Public License
- * along with this program.  If not, see 
+ * along with this program.  If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
 
-package org.osate.utils ;
+package org.osate.utils.internal ;
 
 /**
- * A collection of time unit conversion methods. 
+ * A collection of time unit conversion methods.
+ * @since 2.0
  */
 public class UnitConversion
 {
-  
+
   /**
-   * Returns the given value expressed in the given time unit in milliseconds. 
+   * Returns the given value expressed in the given time unit in milliseconds.
    * <BR><BR>
    * time unit format supported:<BR><BR>
    * _ hr for hour<BR>
@@ -38,7 +39,7 @@ public class UnitConversion
    * _ us for microsecond<BR>
    * _ ns for nanosecond<BR>
    * _ ps for picosecond<BR>
-   * 
+   *
    * @param value the given value
    * @param sourceUnit the given time unit
    * @return the value in milliseconds

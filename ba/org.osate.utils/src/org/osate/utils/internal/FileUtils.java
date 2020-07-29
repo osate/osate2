@@ -19,7 +19,7 @@
  * https://www.eclipse.org/legal/epl-2.0/
  */
 
-package org.osate.utils;
+package org.osate.utils.internal;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -36,6 +36,9 @@ import org.osate.workspace.WorkspacePlugin;
 
 import com.google.common.io.Files;
 
+/**
+ * @since 2.0
+ */
 public class FileUtils {
 	/**
 	 * Provides filter for AADL files (either .aadl or .aadl2).

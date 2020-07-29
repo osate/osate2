@@ -2,14 +2,14 @@ package org.osate.ba.wizards;
 
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright © 2013 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
- * This program is free software: you can redistribute it and/or modify 
+ *
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the Eclipse Public License as published by Eclipse,
  * either version 2.0 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful,
@@ -17,7 +17,7 @@ package org.osate.ba.wizards;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Eclipse Public License for more details.
  * You should have received a copy of the Eclipse Public License
- * along with this program.  If not, see 
+ * along with this program.  If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
 
@@ -55,8 +55,8 @@ import org.eclipse.swt.widgets.TreeColumn ;
 import org.osate.ba.utils.AadlBaNames ;
 import org.osate.ui.wizards.AadlProjectWizard ;
 import org.osate.ui.wizards.AadlWizardReferencePage ;
-import org.osate.utils.Aadl2Utils ;
-import org.osate.utils.FileUtils.AadlFileFilter ;
+import org.osate.utils.internal.Aadl2Utils ;
+import org.osate.utils.internal.FileUtils.AadlFileFilter ;
 
 public abstract class AadlBaAbstractWizard extends AadlProjectWizard
 {
@@ -67,7 +67,7 @@ public abstract class AadlBaAbstractWizard extends AadlProjectWizard
   protected static String _NAME_SEPARATOR = "_" ;
   protected static List<String> _EXCLUDED_DIRECTORIES = new ArrayList<String>();
 
-  protected Map<String, List<Integer>> _SelectedExamplesTreeContent = 
+  protected Map<String, List<Integer>> _SelectedExamplesTreeContent =
       new WeakHashMap<String, List<Integer>>() ;
 
   protected List<File> _files = new ArrayList<File>() ;
@@ -104,7 +104,7 @@ public abstract class AadlBaAbstractWizard extends AadlProjectWizard
       for(String[] entry : items)
       {
         _ALREADY_SELECTED.put(computeCategory(entry[0]), new File(rootExamplePath +
-                                                                  File.separator + entry[0] + 
+                                                                  File.separator + entry[0] +
                                                                   File.separator + entry[1])) ;
       }
     }
@@ -116,7 +116,7 @@ public abstract class AadlBaAbstractWizard extends AadlProjectWizard
 
     public class TreeContentProvider implements ITreeContentProvider
     {
-      Map<String, List<Integer>> _treeContent ; 
+      Map<String, List<Integer>> _treeContent ;
 
       @Override
       public void dispose()
@@ -197,7 +197,7 @@ public abstract class AadlBaAbstractWizard extends AadlProjectWizard
       @Override
       public Image getImage(Object element)
       {
-        if(element instanceof Integer)        
+        if(element instanceof Integer)
         {
           return _fileImg ;
         }
@@ -255,7 +255,7 @@ public abstract class AadlBaAbstractWizard extends AadlProjectWizard
       // Creates examples choice panel.
 
       Composite inheritePanel = (Composite) super.getControl() ;
-      Composite panelChoice = new Composite(inheritePanel, SWT.NULL); 
+      Composite panelChoice = new Composite(inheritePanel, SWT.NULL);
 
       GridLayout layout = new GridLayout();
       layout.numColumns = 2 ;
@@ -287,7 +287,7 @@ public abstract class AadlBaAbstractWizard extends AadlProjectWizard
       Image categoryImg = null ;
 
       try
-      { 
+      {
         Display disp = panelChoice.getDisplay() ;
 
         imgRemove = getImage(disp, _REMOVE_IMG_FILE_PATH) ;
@@ -309,7 +309,7 @@ public abstract class AadlBaAbstractWizard extends AadlProjectWizard
       {
         Map<String, List<Integer>> examples = loadExamples(_EXAMPLE_ROOT_PATH) ;
         initAlreadySelectedItem(examples, _SelectedExamplesTreeContent) ;
-        initTreeViewer(selectionTree, _SelectedExamplesTreeContent) ; 
+        initTreeViewer(selectionTree, _SelectedExamplesTreeContent) ;
         initTreeViewer(pickTree, examples) ;
       }
       catch(Exception e)
@@ -388,7 +388,7 @@ public abstract class AadlBaAbstractWizard extends AadlProjectWizard
       {
         Integer index = (Integer) selectedNode ;
         cat = _fileMapping.get(index) ;
-        List<Integer> fromFileIndexes = fromModel.get(cat) ; 
+        List<Integer> fromFileIndexes = fromModel.get(cat) ;
         List<Integer> toFileIndexes = toModel.get(cat) ;
 
         if(toFileIndexes == null)
@@ -413,7 +413,7 @@ public abstract class AadlBaAbstractWizard extends AadlProjectWizard
       viewer.setInput(treeContent) ;
     }
 
-    protected Map<String, List<Integer>> loadExamples(String examplesPath) 
+    protected Map<String, List<Integer>> loadExamples(String examplesPath)
         throws Exception
         {
       File rootPath = Aadl2Utils.getPluginFile(AadlBaNames.PLUGIN_ID,
@@ -509,7 +509,7 @@ public abstract class AadlBaAbstractWizard extends AadlProjectWizard
   {
     return super.performFinish() ;
   }
- 
+
   protected void reportError(String title, Exception e)
   {
     MultiStatus details = new MultiStatus(AadlBaNames.PLUGIN_ID,

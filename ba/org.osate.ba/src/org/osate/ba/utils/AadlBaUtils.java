@@ -1,13 +1,13 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
- * This program is free software: you can redistribute it and/or modify 
+ *
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the Eclipse Public License as published by Eclipse,
  * either version 2.0 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful,
@@ -15,13 +15,12 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Eclipse Public License for more details.
  * You should have received a copy of the Eclipse Public License
- * along with this program.  If not, see 
+ * along with this program.  If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
 
 package org.osate.ba.utils;
 
-import java.lang.System ;
 import java.util.Comparator ;
 import java.util.List ;
 import java.util.ListIterator ;
@@ -29,16 +28,124 @@ import java.util.ListIterator ;
 import javax.naming.OperationNotSupportedException ;
 
 import org.eclipse.emf.common.util.EList ;
-import org.osate.aadl2.* ;
+import org.osate.aadl2.Aadl2Package ;
+import org.osate.aadl2.AadlBoolean ;
+import org.osate.aadl2.AadlInteger ;
+import org.osate.aadl2.AadlReal ;
+import org.osate.aadl2.AadlString ;
+import org.osate.aadl2.Abstract ;
+import org.osate.aadl2.AbstractFeature ;
+import org.osate.aadl2.AccessSpecification ;
+import org.osate.aadl2.AccessType ;
+import org.osate.aadl2.ArrayDimension ;
+import org.osate.aadl2.ArrayableElement ;
+import org.osate.aadl2.BasicProperty ;
+import org.osate.aadl2.BusAccess ;
+import org.osate.aadl2.Classifier ;
+import org.osate.aadl2.ClassifierValue ;
+import org.osate.aadl2.ComponentClassifier ;
+import org.osate.aadl2.ComponentPrototype ;
+import org.osate.aadl2.ComponentPrototypeActual ;
+import org.osate.aadl2.ComponentPrototypeBinding ;
+import org.osate.aadl2.ComponentType ;
+import org.osate.aadl2.DataAccess ;
+import org.osate.aadl2.DataClassifier ;
+import org.osate.aadl2.DataPort ;
+import org.osate.aadl2.DataPrototype ;
+import org.osate.aadl2.DataSubcomponent ;
+import org.osate.aadl2.DataSubcomponentType ;
+import org.osate.aadl2.DirectedFeature ;
+import org.osate.aadl2.DirectionType ;
+import org.osate.aadl2.Element ;
+import org.osate.aadl2.EnumerationLiteral ;
+import org.osate.aadl2.EnumerationType ;
+import org.osate.aadl2.EventDataPort ;
+import org.osate.aadl2.EventPort ;
+import org.osate.aadl2.Feature ;
+import org.osate.aadl2.FeatureGroup ;
+import org.osate.aadl2.FeatureGroupPrototype ;
+import org.osate.aadl2.FeatureGroupPrototypeActual ;
+import org.osate.aadl2.FeatureGroupPrototypeBinding ;
+import org.osate.aadl2.FeatureGroupType ;
+import org.osate.aadl2.FeaturePrototype ;
+import org.osate.aadl2.FeaturePrototypeActual ;
+import org.osate.aadl2.FeaturePrototypeBinding ;
+import org.osate.aadl2.IntegerLiteral ;
+import org.osate.aadl2.ListValue ;
+import org.osate.aadl2.ModalPropertyValue ;
+import org.osate.aadl2.ModeTransitionTrigger ;
+import org.osate.aadl2.NamedElement ;
+import org.osate.aadl2.NamedValue ;
+import org.osate.aadl2.Parameter ;
+import org.osate.aadl2.PortCategory ;
+import org.osate.aadl2.PortSpecification ;
+import org.osate.aadl2.ProcessClassifier ;
+import org.osate.aadl2.ProcessorClassifier ;
+import org.osate.aadl2.PropertyAssociation ;
+import org.osate.aadl2.PropertyExpression ;
+import org.osate.aadl2.PropertyType ;
+import org.osate.aadl2.Prototype ;
+import org.osate.aadl2.PrototypeBinding ;
+import org.osate.aadl2.StringLiteral ;
+import org.osate.aadl2.Subcomponent ;
+import org.osate.aadl2.SubprogramAccess ;
+import org.osate.aadl2.SubprogramClassifier ;
+import org.osate.aadl2.SubprogramGroup ;
+import org.osate.aadl2.SubprogramGroupAccess ;
+import org.osate.aadl2.SubprogramGroupSubcomponent ;
+import org.osate.aadl2.SubprogramSubcomponent ;
+import org.osate.aadl2.SystemSubcomponent ;
 import org.osate.aadl2.ThreadGroup ;
-import org.osate.ba.aadlba.* ;
+import org.osate.aadl2.UnitLiteral ;
+import org.osate.ba.aadlba.BehaviorBooleanLiteral ;
+import org.osate.ba.aadlba.BehaviorElement ;
+import org.osate.ba.aadlba.BehaviorFeatureType ;
+import org.osate.ba.aadlba.BehaviorIntegerLiteral ;
+import org.osate.ba.aadlba.BehaviorNamedElement ;
+import org.osate.ba.aadlba.BehaviorPropertyConstant ;
+import org.osate.ba.aadlba.BehaviorRealLiteral ;
+import org.osate.ba.aadlba.BehaviorState ;
+import org.osate.ba.aadlba.BehaviorStringLiteral ;
+import org.osate.ba.aadlba.BehaviorTime ;
+import org.osate.ba.aadlba.BehaviorTransition ;
+import org.osate.ba.aadlba.BehaviorVariable ;
+import org.osate.ba.aadlba.BehaviorVariableHolder ;
+import org.osate.ba.aadlba.ClassifierPropertyReference ;
+import org.osate.ba.aadlba.DataAccessHolder ;
+import org.osate.ba.aadlba.DataAccessPrototypeHolder ;
+import org.osate.ba.aadlba.DataComponentReference ;
+import org.osate.ba.aadlba.DataHolder ;
+import org.osate.ba.aadlba.DataRepresentation ;
+import org.osate.ba.aadlba.ElementHolder ;
+import org.osate.ba.aadlba.Factor ;
+import org.osate.ba.aadlba.FeaturePrototypeHolder ;
 import org.osate.ba.aadlba.FeatureType ;
+import org.osate.ba.aadlba.ForOrForAllStatement ;
+import org.osate.ba.aadlba.IndexableElement ;
+import org.osate.ba.aadlba.IntegerValue ;
+import org.osate.ba.aadlba.IterativeVariable ;
+import org.osate.ba.aadlba.Otherwise ;
+import org.osate.ba.aadlba.PortCountValue ;
+import org.osate.ba.aadlba.PortFreshValue ;
+import org.osate.ba.aadlba.PropertyElementHolder ;
+import org.osate.ba.aadlba.PropertyNameHolder ;
+import org.osate.ba.aadlba.PropertyReference ;
+import org.osate.ba.aadlba.PrototypeHolder ;
+import org.osate.ba.aadlba.Relation ;
+import org.osate.ba.aadlba.SimpleExpression ;
+import org.osate.ba.aadlba.StructUnionElement ;
+import org.osate.ba.aadlba.Target ;
+import org.osate.ba.aadlba.Term ;
+import org.osate.ba.aadlba.Value ;
+import org.osate.ba.aadlba.ValueConstant ;
+import org.osate.ba.aadlba.ValueExpression ;
+import org.osate.ba.aadlba.ValueVariable ;
 import org.osate.ba.analyzers.TypeHolder ;
-import org.osate.utils.Aadl2Utils ;
-import org.osate.utils.Aadl2Visitors ;
-import org.osate.utils.PropertyUtils ;
-import org.osate.utils.Aadl2Utils.DataAccessRight ;
-import org.osate.utils.names.DataModelProperties ;
+import org.osate.utils.internal.Aadl2Utils ;
+import org.osate.utils.internal.Aadl2Utils.DataAccessRight ;
+import org.osate.utils.internal.Aadl2Visitors ;
+import org.osate.utils.internal.PropertyUtils ;
+import org.osate.utils.internal.names.DataModelProperties ;
 
 /**
  * A collection of static utils methods.
@@ -61,21 +168,21 @@ public class AadlBaUtils {
   public static DataRepresentation getDataRepresentation(DataClassifier c)
   {
     DataRepresentation result = null ;
-    
+
     if(c == null)
     {
       result = DataRepresentation.UNKNOWN ;
     }
     else
     {
-      
-      EList<PropertyExpression> l = 
+
+      EList<PropertyExpression> l =
             PropertyUtils.findPropertyExpression(c,
               DataModelProperties.DATA_REPRESENTATION) ;
       if(l.size() > 0)
       {
-        // Fetches the last enumeration value from the inheritance stack of 
-        // properties. 
+        // Fetches the last enumeration value from the inheritance stack of
+        // properties.
         NamedValue nv = (NamedValue) l.get(l.size() - 1) ;
         String tmp = ((EnumerationLiteral) nv.getNamedValue()).getName() ;
         result = DataRepresentation.getByName(tmp) ;
@@ -97,7 +204,7 @@ public class AadlBaUtils {
   /**
    * Returns the data representation of the given BehaviorVariable object
    * or DataRepresentation.UNKNOWN if Data_Model::Data_Representation
-   * property is not set or if the BehaviorVariable object represents a 
+   * property is not set or if the BehaviorVariable object represents a
    * data structure.
    *
    * @param bv the given BehaviorVariable object
@@ -122,22 +229,32 @@ public class AadlBaUtils {
    * <BR>_ Enumeration
    * <BR><BR>
    * @param type the given PropertyType object.
-   * @return the data representation associated to the given PropertyType 
+   * @return the data representation associated to the given PropertyType
    * object
    * @exception UnsupportedOperationException for the unsupported types
    */
   public static DataRepresentation getDataRepresentation(PropertyType type)
   {
     if(type instanceof AadlInteger)
+    {
       return DataRepresentation.INTEGER ;
+    }
     else if(type instanceof AadlReal)
+    {
       return DataRepresentation.FLOAT ;
+    }
     else if (type instanceof AadlString)
+    {
       return DataRepresentation.STRING ;
+    }
     else if(type instanceof AadlBoolean)
+    {
       return DataRepresentation.BOOLEAN ;
+    }
     else if(type instanceof EnumerationType)
+    {
       return DataRepresentation.ENUM ;
+    }
     else
     {
       // Not implemented:
@@ -150,14 +267,14 @@ public class AadlBaUtils {
       throw new UnsupportedOperationException(errorMsg) ;
     }
   }
-  
+
   /**
    * Returns the data representation associated to the given PropertyAssociation
    * object.
    * <BR><BR>
    * Note : {@link #getDataRepresentation(PropertyExpression)} to see restrictions.
    * @param pa the given PropertyAssociation object.
-   * @return the data representation associated to the given PropertyAssociation 
+   * @return the data representation associated to the given PropertyAssociation
    * object
    * @exception UnsupportedOperationException for the unsupported types
    */
@@ -166,7 +283,7 @@ public class AadlBaUtils {
     ModalPropertyValue mpv = pa.getOwnedValues().get(pa.getOwnedValues().size()-1);
     return getDataRepresentation(mpv.getOwnedValue());
   }
-  
+
   /**
    * Returns the data representation associated to the given PropertyExpression
    * object.
@@ -178,7 +295,7 @@ public class AadlBaUtils {
    * <BR>_ String literal
    * <BR><BR>
    * @param pe the given PropertyExpression object.
-   * @return the data representation associated to the given PropertyExpression 
+   * @return the data representation associated to the given PropertyExpression
    * object
    * @exception UnsupportedOperationException for the unsupported types
    */
@@ -191,7 +308,7 @@ public class AadlBaUtils {
       case Aadl2Package.INTEGER_LITERAL: return DataRepresentation.INTEGER ;
       case Aadl2Package.REAL_LITERAL: return DataRepresentation.FLOAT ;
       case Aadl2Package.STRING_LITERAL: return DataRepresentation.STRING ;
-      
+
       default:
       {
         // Not implemented:
@@ -204,14 +321,14 @@ public class AadlBaUtils {
       }
     }
   }
-  
+
   /**
    * Returns the data representation associated to the given
    * BehaviorPropertyConstant object <BR><BR>
-   * Note : {@link #getDataRepresentation(PropertyType)} to see restrictions. 
-   * <BR><BR> 
+   * Note : {@link #getDataRepresentation(PropertyType)} to see restrictions.
+   * <BR><BR>
    * @param pc the given BehaviorPropertyConstant object
-   * @return the data representation associated to the given 
+   * @return the data representation associated to the given
    * BehaviorPropertyConstant object
    * @exception UnsupportedOperationException for the unsupported types
    */
@@ -224,8 +341,8 @@ public class AadlBaUtils {
   /**
    * Returns the data representation associated to the given PropertyReference
    * object <BR><BR>
-   * Note : {@link #getDataRepresentation(PropertyType)} and 
-   * {@link #getDataRepresentation(PropertyExpression)} to see restrictions. 
+   * Note : {@link #getDataRepresentation(PropertyType)} and
+   * {@link #getDataRepresentation(PropertyExpression)} to see restrictions.
    * <BR><BR>
    * @param pv the given PropertyReference object
    * @return the data representation associated to the given
@@ -237,7 +354,7 @@ public class AadlBaUtils {
     EList<PropertyNameHolder> holders = pr.getProperties() ;
     PropertyNameHolder last = holders.get(holders.size()-1);
     Element el = last.getProperty().getElement() ;
-    
+
     if(el instanceof PropertyType || el instanceof BasicProperty)
     {
       return getDataRepresentation(((BasicProperty) el).getPropertyType()) ;
@@ -262,7 +379,7 @@ public class AadlBaUtils {
       throw new UnsupportedOperationException(errorMsg) ;
     }
   }
-  
+
   /**
    * Returns the PropertyType object associated to the given PropertyElementHolder
    * given object.
@@ -272,9 +389,9 @@ public class AadlBaUtils {
   public static PropertyType getPropertyType(PropertyElementHolder holder)
   {
     PropertyType result = null ;
-    
+
     Element el = holder.getElement() ;
-    
+
     if(el instanceof PropertyType)
     {
       result = (PropertyType) el ;
@@ -302,8 +419,8 @@ public class AadlBaUtils {
   /**
    * Returns the data representation associated to the given ValueConstant
    * object <BR><BR>
-   * Note : {@link #getDataRepresentation(PropertyType)} 
-   *                        to see restrictions on property constant and value. 
+   * Note : {@link #getDataRepresentation(PropertyType)}
+   *                        to see restrictions on property constant and value.
    * <BR><BR>
    * @param v the given ValueConstant object
    * @return the data representation associated to the given ValueConstant
@@ -316,7 +433,7 @@ public class AadlBaUtils {
     {
       return getDataRepresentation((BehaviorPropertyConstant) v)  ;
     }
-    else if (v instanceof PropertyReference) 
+    else if (v instanceof PropertyReference)
     {
       return getDataRepresentation((PropertyReference) v)  ;
     }
@@ -336,9 +453,9 @@ public class AadlBaUtils {
     {
       return DataRepresentation.BOOLEAN ;
     }
-    else // Behavior enumeration literal case. 
+    else // Behavior enumeration literal case.
     {
-      return DataRepresentation.ENUM ;  
+      return DataRepresentation.ENUM ;
     }
   }
 
@@ -365,13 +482,13 @@ public class AadlBaUtils {
     {
       // Either ElementHolder or DataComponentReference object.
       Element el = null ;
-        
+
       if(v instanceof ElementHolder)
       {
         if(v instanceof PrototypeHolder)
         {
           PrototypeHolder ph = (PrototypeHolder) v ;
-           
+
           if (ph.getPrototypeBinding() != null)
           {
             el = ph.getPrototypeBinding() ;
@@ -389,11 +506,11 @@ public class AadlBaUtils {
       else // DataComponentReference case.
       {
         DataComponentReference dcr = (DataComponentReference) v ;
-          
+
         DataHolder lastElement = dcr.getData().get(dcr.getData().size()-1) ;
         el = lastElement.getElement() ;
       }
-      
+
       if(el instanceof Abstract)
       {
         return DataRepresentation.UNKNOWN ;
@@ -401,11 +518,15 @@ public class AadlBaUtils {
       else if(el instanceof Feature)
       {
         Classifier c = ((Feature) el).getClassifier() ;
-        
+
         if(c instanceof DataClassifier)
+        {
           return getDataRepresentation((DataClassifier) c) ;
-        else // Abstract type or anything else.
+        }
+        else
+        {
           return DataRepresentation.UNKNOWN ;
+        }
       }
       else if(el instanceof DataSubcomponent)
       {
@@ -414,16 +535,16 @@ public class AadlBaUtils {
       }
       else if(el instanceof BehaviorVariable)
       {
-        // Behavior case.      
+        // Behavior case.
         return getDataRepresentation((BehaviorVariable)el) ;
       }
       else
       {
         // Prototype cases.
         Classifier klass ;
-        ComponentClassifier baParentComponent = 
+        ComponentClassifier baParentComponent =
               (ComponentClassifier) v.getContainingClassifier() ;
-          
+
         klass = AadlBaUtils.getClassifier(el, baParentComponent) ;
         return getDataRepresentation((DataClassifier) klass) ;
       }
@@ -436,8 +557,8 @@ public class AadlBaUtils {
    * property is not set or if the Value object represents a data
    * structure.
    * <BR><BR>
-   * Note : {@link #getDataRepresentation(PropertyType)} 
-   *                        to see restrictions on property constant and value. 
+   * Note : {@link #getDataRepresentation(PropertyType)}
+   *                        to see restrictions on property constant and value.
    * <BR><BR>
    * @param v the given Value object
    * @return the data representation associated to the given Value object or
@@ -447,17 +568,22 @@ public class AadlBaUtils {
   public static DataRepresentation getDataRepresentation(Value v)
   {
     if(v instanceof ValueVariable)
+    {
       return getDataRepresentation((ValueVariable) v) ;
-    else return getDataRepresentation((ValueConstant) v) ;
+    }
+    else
+    {
+      return getDataRepresentation((ValueConstant) v) ;
+    }
   }
 
   /**
    * Constructs a string base on the name of the given behavior states list,
    * separated by the given separator symbol.
-   * 
+   *
    * @param bsl the given behavior states list
    * @param separator the name separator symbol
-   * @return the string build on the given behavior state's names and given 
+   * @return the string build on the given behavior state's names and given
    * separator
    */
   public static String identifierListToString(EList<BehaviorState> bsl,
@@ -474,10 +600,10 @@ public class AadlBaUtils {
 
     return Aadl2Utils.concatenateString(separator, ls) ;
   }
-  
+
   /**
    * Returns the given Element object's classifier.
-   * If the Element object is a prototype, it will try to resolve it as 
+   * If the Element object is a prototype, it will try to resolve it as
    * follow: returns the data prototype binded classifier at first withing the
    * element's parent container otherwise the constraining classifier.
    * It returns {@code null} if the prototype is not defined.
@@ -492,8 +618,8 @@ public class AadlBaUtils {
    * <BR>_ClassifierValue (struct or union data subcomponent)
    * <BR><BR>
    * If the given Element object is not one of those types, an
-   * UnsupportedOperationException is thrown. 
-   * 
+   * UnsupportedOperationException is thrown.
+   *
    * @param el the given Element object
    * @param parentContainer the element's parent component.
    * @return the given element's classifier or {@code null} if the prototype is
@@ -509,11 +635,11 @@ public class AadlBaUtils {
     if(el instanceof Feature)
     {
       Feature f = (Feature) el ;
-      
+
       if(el instanceof FeatureGroup)
       {
         org.osate.aadl2.FeatureType ft = ((FeatureGroup)el).getFeatureType() ;
-        
+
         if (ft != null)
         {
           if(ft instanceof FeatureGroupType)
@@ -535,16 +661,15 @@ public class AadlBaUtils {
         // Feature without classifier returns null.
         if(result == null && f.getPrototype() != null)
         {
-          result = prototypeResolver((ComponentPrototype)
-                                                f.getPrototype(),
+          result = prototypeResolver(f.getPrototype(),
                                                 parentContainer) ;
         }
       }
     }
-    else if(el instanceof Subcomponent) 
+    else if(el instanceof Subcomponent)
     {
       Subcomponent sub = (Subcomponent) el ;
-      
+
       if(el instanceof SubprogramGroupSubcomponent)
       {
         result = ((SubprogramGroupSubcomponent)el).getClassifier() ;
@@ -553,7 +678,7 @@ public class AadlBaUtils {
       {
         // Subcomponent case.
         result = sub.getClassifier();
-        
+
         // Resolves data prototype.
         // Subcomponent without classifier returns null.
         if(result == null && sub.getPrototype() != null)
@@ -563,14 +688,14 @@ public class AadlBaUtils {
         }
       }
     }
-    else if(el instanceof BehaviorVariable) 
+    else if(el instanceof BehaviorVariable)
     {
       // Local variable case (BehaviorVariable).
       BehaviorVariable bv = (BehaviorVariable) el ;
       result = bv.getDataClassifier() ;
     }
     else if(el instanceof IterativeVariable)
-    {       
+    {
       // Iterative variable case.
       result = ((IterativeVariable) el).getDataClassifier() ;
     }
@@ -608,8 +733,8 @@ public class AadlBaUtils {
   /**
    * Resolves the given prototype by returning the binded classifier
    * or if there is no binded classifier, the constraining classifier.
-   * It returns {@code null} if the given prototype is not defined. 
-   * 
+   * It returns {@code null} if the given prototype is not defined.
+   *
    * @param prototype the given prototype
    * @param parentContainer the element's parent component
    * @return the binded classifier at first then the constraining classifier or
@@ -633,7 +758,7 @@ public class AadlBaUtils {
     {
       // If there is no prototype binding found, returns the constraining
       // classifier from the prototype declaration (it may be null).
-            
+
       if(prototype instanceof ComponentPrototype)
       {
         result = ((ComponentPrototype) prototype).getConstrainingClassifier() ;
@@ -662,15 +787,15 @@ public class AadlBaUtils {
 
   /**
    * Resolves the given prototype binding by returning the binded classifier
-   * It returns {@code null} if the given prototype binding is not defined. 
-   * 
+   * It returns {@code null} if the given prototype binding is not defined.
+   *
    * @param pb the given prototype binding
    * @return the binded classifier or {@code null}
    */
   public static Classifier prototypeBindingResolver(PrototypeBinding pb)
   {
     Classifier result = null ;
-    
+
     if(pb instanceof ComponentPrototypeBinding)
     {
       ComponentPrototypeBinding cpb ;
@@ -679,7 +804,7 @@ public class AadlBaUtils {
       // Takes the last binding.
       ComponentPrototypeActual cpa = cpb.getActuals().
           get(cpb.getActuals().size() -1) ;
-      
+
       result = (Classifier) cpa.getSubcomponentType() ;
     }
     else if (pb instanceof FeaturePrototypeBinding)
@@ -687,10 +812,10 @@ public class AadlBaUtils {
       FeaturePrototypeBinding fpb ;
       fpb = (FeaturePrototypeBinding) pb ;
       FeaturePrototypeActual fpa = fpb.getActual() ;
-      
+
       if (fpa instanceof AccessSpecification)
       {
-        result = ((AccessSpecification) fpa).getClassifier() ; 
+        result = ((AccessSpecification) fpa).getClassifier() ;
       }
       else if(fpa instanceof PortSpecification)
       {
@@ -699,7 +824,7 @@ public class AadlBaUtils {
       else
       {
         // Reports error.
-        String errorMsg = "prototypeBindingResolver : " + 
+        String errorMsg = "prototypeBindingResolver : " +
             fpa.getClass().getSimpleName()+
             " is not supported yet." ;
 
@@ -715,43 +840,43 @@ public class AadlBaUtils {
     else
     {
       // Reports error.
-      String errorMsg = "prototypeBindingResolver : " + 
+      String errorMsg = "prototypeBindingResolver : " +
           pb.getClass().getSimpleName()+
           " is not supported yet." ;
 
       System.err.println(errorMsg);
       throw new UnsupportedOperationException(errorMsg) ;
     }
-    
+
     return result ;
   }
 
   /**
-   * Returns the DataClassifier of the element binded to the given 
-   * Value object. A target instance can be given to this method as 
+   * Returns the DataClassifier of the element binded to the given
+   * Value object. A target instance can be given to this method as
    * Target instance can be cast into ValueVariable reference.
    * <BR><BR>
    *  Notes: <BR><BR>
-   *  <BR>_ ValueVariable : {@link #getClassifier(Element, Classifier)} 
+   *  <BR>_ ValueVariable : {@link #getClassifier(Element, Classifier)}
    *                                 to see the restrictions.
    *  <BR>_ ValueConstant : Property constant and property reference are not supported:
    *  returns {@code null}.
    *  <BR><BR>
-   * 
+   *
    * @param v the given Value object
    * @return the binded component's DataClassifier object or {@code null} for
    * the ValueConstant objects
-   * @exception UnsupportedOperationException for unsupported binded 
+   * @exception UnsupportedOperationException for unsupported binded
    * object types.
    */
   public static DataClassifier getDataClassifier(Value v)
   {
     return getDataClassifier(v, null) ;
   }
-  
+
   /**
-   * Returns the DataClassifier object associated to the given Target object.  
-   * 
+   * Returns the DataClassifier object associated to the given Target object.
+   *
    * @param t the given Target object
    * @return the DataClassifier object
    * @exception UnsupportedOperationException for unsupported cases
@@ -760,11 +885,11 @@ public class AadlBaUtils {
   {
     return getDataClassifier(t, null);
   }
-  
-  
+
+
   /**
    * Returns the DataClassifier object associated to the given List of PrototypeBinging objects.
-   * 
+   *
    * @param prototypeBindings the list of PrototypeBinging object
    * @param dp the DataPrototype searched for in prototypeBindings
    * @return the DataClassifier object (null if not found)
@@ -778,15 +903,17 @@ public class AadlBaUtils {
         ComponentPrototypeBinding cpb = (ComponentPrototypeBinding) pb;
         ComponentPrototypeActual cpa = cpb.getActuals().get(cpb.getActuals().size()-1);
         if(cpa.getSubcomponentType() instanceof DataClassifier)
+        {
           return (DataClassifier) cpa.getSubcomponentType();
+        }
       }
     }
     return null;
   }
-  
+
   /**
    * Returns the DataClassifier object associated to the given Target object.
-   * 
+   *
    * @param t the given Target object
    * @param parentContainer the object that contains the element binded to the
    * given Target Object (and not the Target container)
@@ -796,7 +923,7 @@ public class AadlBaUtils {
   public static DataClassifier getDataClassifier(Target t, NamedElement parentContainer)
   {
     NamedElement result ;
-    
+
     if (t instanceof DataHolder)
     {
       result = ((DataHolder) t).getElement();
@@ -805,21 +932,21 @@ public class AadlBaUtils {
     {
       DataComponentReference r = (DataComponentReference) t;
       DataHolder h = r.getData().get(r.getData().size() - 1);
-      result = ((DataHolder) h).getElement();
+      result = h.getElement();
     }
     else
     {
       throw new UnsupportedOperationException('\'' +
         t.getClass().getSimpleName() + "\' is not yet supported") ;
     }
-    
+
     if(result instanceof DataClassifier)
     {
       return (DataClassifier) result ;
     }
     else if(result instanceof DataSubcomponent)
     {
-      DataSubcomponentType dst = ((DataSubcomponent) result).getDataSubcomponentType(); 
+      DataSubcomponentType dst = ((DataSubcomponent) result).getDataSubcomponentType();
       if(dst instanceof DataPrototype)
       {
         DataPrototype dp = (DataPrototype) dst;
@@ -830,7 +957,9 @@ public class AadlBaUtils {
         }
       }
       else if(dst instanceof DataClassifier)
+      {
         return (DataClassifier) dst;
+      }
     }
     else if (result instanceof BehaviorVariable)
     {
@@ -841,7 +970,9 @@ public class AadlBaUtils {
     {
       DataAccess da = (DataAccess) result;
       if(da.getDataFeatureClassifier() instanceof DataClassifier)
+      {
         return (DataClassifier) da.getDataFeatureClassifier();
+      }
       else if(da.getDataFeatureClassifier() instanceof Prototype)
       {
         return (DataClassifier) getClassifier(da.getDataFeatureClassifier(), (Classifier) parentContainer);
@@ -851,7 +982,9 @@ public class AadlBaUtils {
     {
       Parameter p = (Parameter) result;
       if(p.getDataFeatureClassifier() instanceof DataClassifier)
+      {
         return (DataClassifier) p.getDataFeatureClassifier();
+      }
       else if(p.getDataFeatureClassifier() instanceof Prototype)
       {
         return (DataClassifier) getClassifier(p.getDataFeatureClassifier(), (Classifier) parentContainer);
@@ -864,11 +997,11 @@ public class AadlBaUtils {
     // Prototype case
     return null;
   }
-  
-  
+
+
   /**
    * Returns the DataClassifier object associated to prototype binding in a DataComponentReference
-   * 
+   *
    * @param r the DataComponentRefenrence object from which the binding will be resolved
    * @param dp the DataPrototpye object that enables to identify the targeted prototype binding
    * @param parentContainer the object that contains the element binded to the
@@ -947,35 +1080,35 @@ public class AadlBaUtils {
   }
 
   /**
-   * Returns the DataClassifier of the element binded to the given 
-   * Value object. A target instance can be given to this method as 
+   * Returns the DataClassifier of the element binded to the given
+   * Value object. A target instance can be given to this method as
    * Target instance can be cast into ValueVariable reference.
    * <BR><BR>
    *  Notes: <BR><BR>
-   *  <BR>_ ValueVariable : {@link #getClassifier(Element, Classifier)} 
+   *  <BR>_ ValueVariable : {@link #getClassifier(Element, Classifier)}
    *                                 to see the restrictions.
    *  <BR>_ ValueConstant : Property constant and property reference are not supported:
    *  returns {@code null}.
    *  <BR><BR>
-   * 
+   *
    * @param v the given Value object
    * @param parentContainer only for AADLBA declarative objects which have no
    * parent set, yet
    * @return the binded component's DataClassifier object or {@code null} for
    * the ValueConstant objects and for the Abstract components objects.
-   * @exception UnsupportedOperationException for unsupported binded 
+   * @exception UnsupportedOperationException for unsupported binded
    * object types.
    */
   public static DataClassifier getDataClassifier(Value v, ComponentClassifier
                                                                 parentContainer)
   {
     Classifier result = null ;
-    
+
     if(v instanceof ValueVariable)
     {
       // Either ElementHolder or DataComponentReference object.
       Element el = null ;
-      
+
       if(v instanceof ElementHolder)
       {
         el = ((ElementHolder)v).getElement() ;
@@ -983,23 +1116,23 @@ public class AadlBaUtils {
       else // DataComponentReference case.
       {
         DataComponentReference dcr = (DataComponentReference) v ;
-        
+
         DataHolder lastElement = dcr.getData().get(dcr.getData().size()-1) ;
         el = lastElement.getElement() ;
       }
-      
+
       if(parentContainer == null)
       {
         parentContainer = (ComponentClassifier) v.getContainingClassifier() ;
       }
-      
+
       result = getClassifier(el, parentContainer) ;
     }
     else // Property constant and property reference are not supported.
     {
       result = null ;
     }
-    
+
     if(result instanceof DataClassifier)
     {
       return (DataClassifier) result ;
@@ -1022,8 +1155,8 @@ public class AadlBaUtils {
    * Returns the TypeHolder (data representation and component's DataClassifier
    * if any) of the given Value object.
    * <BR><BR>
-   * Notes: {@link #getDataRepresentation(PropertyType)} and 
-   *        {@link #getDataClassifier(Value)} to see restrictions. 
+   * Notes: {@link #getDataRepresentation(PropertyType)} and
+   *        {@link #getDataClassifier(Value)} to see restrictions.
    * <BR><BR>
    * @param v the given Value object
    * @param parentContainer only for AADLBA declarative objects which have no
@@ -1045,7 +1178,7 @@ public class AadlBaUtils {
     }
 
     // Port count value and port fresh value are, respectively, universal
-    // integer and universal boolean. So their data classifier field must be 
+    // integer and universal boolean. So their data classifier field must be
     // null.
     if(v instanceof ValueVariable &&
        (! (v instanceof PortCountValue || v instanceof PortFreshValue))
@@ -1062,7 +1195,7 @@ public class AadlBaUtils {
   /**
    * Returns the TypeHolder (data representation and component's DataClassifier
    * if any) of the given IterativeVariable object.
-   * 
+   *
    * @param uccr the given IterativeVariable object.
    * @return the type holder of the given IterativeVariable
    * object.
@@ -1076,7 +1209,7 @@ public class AadlBaUtils {
 
     return result ;
   }
-  
+
   /**
    * Returns the TypeHolder (data representation and component's DataClassifier
    * if any) of the given Element object.
@@ -1087,19 +1220,19 @@ public class AadlBaUtils {
    * <BR>_ Target
    * <BR>_ Value
    * <BR><BR>
-   * 
+   *
    * @param el the given Element object.
    * @return the type holder of the given Element object
    * @exception UnsupportedOperationException for the unsupported types
    * or Element instances.
-   * @exception DimensionException in any case of array dimension overflow. 
+   * @exception DimensionException in any case of array dimension overflow.
    */
   public static TypeHolder getTypeHolder(Element el)
                                                       throws DimensionException
   {
     return getTypeHolder(el, null) ;
   }
-                                    
+
   /**
    * Returns the TypeHolder (data representation and component's DataClassifier
    * if any) of the given Element object.
@@ -1110,7 +1243,7 @@ public class AadlBaUtils {
    * <BR>_ Target
    * <BR>_ Value
    * <BR><BR>
-   * 
+   *
    * @param el the given Element object.
    * @param parentContainer only for AADLBA declarative objects which have no
    * parent set, yet
@@ -1118,22 +1251,22 @@ public class AadlBaUtils {
    * is null, it returns the default type holder object.
    * @exception UnsupportedOperationException for the unsupported types
    * or Element instances.
-   * @exception DimensionException in any case of array dimension overflow. 
+   * @exception DimensionException in any case of array dimension overflow.
    */
   public static TypeHolder getTypeHolder(Element el,
                                          ComponentClassifier parentContainer)
                                                       throws DimensionException
   {
     TypeHolder result = null ;
-    
+
     if (el instanceof IterativeVariable)
     {
       IterativeVariable iv = (IterativeVariable) el ;
-      
+
       result = getTypeHolder(iv) ;
-      
+
       processArrayDataRepresentation(el, result, 0) ;
-      
+
       return result ;
     }
     else if (el instanceof DataClassifier)
@@ -1147,19 +1280,19 @@ public class AadlBaUtils {
       return result = getTypeHolder((ValueConstant) el, parentContainer) ;
     }
     else if(el instanceof Target || el instanceof ValueVariable )
-    {  
+    {
       result = getTypeHolder((Value) el, parentContainer) ;
 
-      // The declared variable dimension: the number of [] in the element 
+      // The declared variable dimension: the number of [] in the element
       // declaration.
       int declaredDim = 0 ;
 
       // The expression dimension: the number of [] in the expression.
-      // Only targets and values can express dimension. 
+      // Only targets and values can express dimension.
       int exprDim = 0 ;
 
       boolean hasToProcessDataRepresentation = false ;
-      
+
       // Flag in order to process data representation if declared dimension
       // is zero and if the given element is an element values of a
       // for/forall statement.
@@ -1167,35 +1300,35 @@ public class AadlBaUtils {
       {
          hasToProcessDataRepresentation = true ;
       }
-      
+
       // Either ElementHolder or DataComponentReference object.
       Element bindedEl = null ;
       ElementHolder elHolder = null ;
-      
+
       if(el instanceof ElementHolder)
       {
-        elHolder = (ElementHolder) el ; 
+        elHolder = (ElementHolder) el ;
         bindedEl = elHolder.getElement() ;
       }
       else // DataComponentReference case.
       {
         DataComponentReference dcr = (DataComponentReference) el ;
-        
+
         elHolder = dcr.getData().get(dcr.getData().size()-1) ;
       }
-      
+
       bindedEl = elHolder.getElement() ;
-      
+
       if(elHolder instanceof IndexableElement)
       {
         IndexableElement ie = (IndexableElement) elHolder ;
-        
+
         if(ie.isSetArrayIndexes())
         {
           exprDim = ie.getArrayIndexes().size() ;
         }
       }
-      
+
       // Set up the declared, expression dimension and dimension sizes.
       if(bindedEl instanceof ArrayableElement)
       {
@@ -1203,7 +1336,7 @@ public class AadlBaUtils {
 
         if(false == ae.getArrayDimensions().isEmpty())
         {
-          EList<ArrayDimension> adl = ae.getArrayDimensions() ; 
+          EList<ArrayDimension> adl = ae.getArrayDimensions() ;
 
           declaredDim = adl.size() ;
 
@@ -1218,7 +1351,7 @@ public class AadlBaUtils {
           }
         }
       }
-      
+
       // The given type is not expressed as an array in AADL standard core
       // way.
       // Let's evaluate the array behavior of the given type in the Data
@@ -1237,20 +1370,20 @@ public class AadlBaUtils {
         else
         {
           // The given type is expressed as an array in AADL standard
-          // core way. We don't evaluate array behavior expressed in 
+          // core way. We don't evaluate array behavior expressed in
           // the Data Model Annex standard as we don't want to mix up
           // the two standards.
           String msg = "mixs up AADL standard array and data model array" ;
           throw new DimensionException(el, msg, true) ;
         }
       }
-      
+
       return result ;
     }
     else if (el == null || el instanceof Abstract)
     {
       // returns the default type holder for untyped prototypes.
-      return new TypeHolder() ; 
+      return new TypeHolder() ;
     }
     else
     {
@@ -1261,9 +1394,9 @@ public class AadlBaUtils {
       throw new UnsupportedOperationException(errorMsg) ;
     }
   }
-  
+
   // Evaluates the array behavior of the given type in the Data Model Annex
-  // standard way. Set up dimension and dimension sizes of the given  
+  // standard way. Set up dimension and dimension sizes of the given
   // TypeHolder object.
   // The given expression dimension is used as an dimension offset.
   private static void processArrayDataRepresentation(Element el,
@@ -1274,12 +1407,12 @@ public class AadlBaUtils {
     // Treats only type declared as an array. Otherwise returns.
     if(type.dataRep == DataRepresentation.ARRAY)
     {
-      // Fetches the array element data type.             
+      // Fetches the array element data type.
       ClassifierValue cv = AadlBaUtils.getBaseType(type.klass) ;
 
       if(cv != null && cv.getClassifier() instanceof DataClassifier)
       {
-        DataClassifier dc = (DataClassifier) cv.getClassifier() ; 
+        DataClassifier dc = (DataClassifier) cv.getClassifier() ;
         type.klass = dc ;
         type.dataRep = AadlBaUtils.getDataRepresentation(dc) ;
       }
@@ -1287,8 +1420,8 @@ public class AadlBaUtils {
       {
         type.klass = null ;
       }
-      
-      EList<PropertyExpression> pel = 
+
+      EList<PropertyExpression> pel =
                                  PropertyUtils.findPropertyExpression(type.klass,
                                                 DataModelProperties.DIMENSION) ;
       int declareDimBT = 0 ;
@@ -1298,13 +1431,13 @@ public class AadlBaUtils {
       {
          // pel has only one element, according to AADL core standard.
          PropertyExpression pe = pel.get(pel.size() - 1);
-         
+
          if(pe instanceof ListValue)
          {
            ListValue lv = (ListValue) pe;
            EList<PropertyExpression> lve = lv.getOwnedListElements() ;
            declareDimBT= lve.size() ;
-               
+
           if(declareDimBT >= exprDim)
           {
             declareDimSizeBT = new long[declareDimBT - exprDim] ;
@@ -1322,16 +1455,16 @@ public class AadlBaUtils {
           {
             String msg = "must be an array but is resolved as " +
                            type.klass.getQualifiedName() ;
-            
+
             throw new DimensionException(el, msg, false) ;
           }
         }
       }
-      else 
+      else
       {
         // Returning -1 and null means that the expression is declared as an
-        // array but the dimension property is not set.  
-        
+        // array but the dimension property is not set.
+
         type.dimension = -1 ;
         type.dimension_sizes = null ;
         return ;
@@ -1344,12 +1477,12 @@ public class AadlBaUtils {
       return ;
     }
   }
-  
+
   /**
    * Compare a given name to a given list of behavior named
    * elements. The matching is base on behavior named element's name
    * (case insensitive).
-   * 
+   *
    * @param name the given name
    * @param lbne the given list of behavior named elements
    * @return the first behavior named element form the given list which has the
@@ -1369,23 +1502,23 @@ public class AadlBaUtils {
 
     return null ;
   }
-  
+
   /**
-   * Compare the given Target objects.<BR><BR> 
-   * 
-   * This comparator is base on name and not on object's hash number, meaning 
-   * that two different Target instances with the same name are 
+   * Compare the given Target objects.<BR><BR>
+   *
+   * This comparator is base on name and not on object's hash number, meaning
+   * that two different Target instances with the same name are
    * considered as equals.
-   * 
+   *
    * This comparator doesn't support array indexes comparison, meaning that two
    * target instances with the same name and different array indexes
    * are considered as equals.
    * <BR><BR>
-   * 
+   *
    * @param tar0 the first name
    * @param tar1 the second name
    * @return {@code true} if the given Target objects are the same.
-   * Otherwise returns {@code false}  
+   * Otherwise returns {@code false}
    */
   public static boolean isSameTarget(Target tar0, Target tar1)
   {
@@ -1404,19 +1537,19 @@ public class AadlBaUtils {
       {
         EList<DataHolder> dhl0 = ((DataComponentReference) tar0).getData() ;
         EList<DataHolder> dhl1 = ((DataComponentReference) tar1).getData() ;
-        
+
         if(dhl0.size() == dhl1.size())
         {
           ListIterator<DataHolder> it1 = dhl1.listIterator() ;
           DataHolder dh1 = null ;
           boolean result = true ;
-          
+
           for(DataHolder dh0 : dhl0)
           {
             dh1 = it1.next() ;
             result &= isSameElementHolder(dh0, dh1) ;
           }
-          
+
           return result ;
         }
         else
@@ -1426,79 +1559,75 @@ public class AadlBaUtils {
       }
     }
   }
-  
+
   private static boolean isSameElementHolder(ElementHolder eh0,
                                              ElementHolder eh1)
   {
     String name0 = eh0.getElement().getName() ;
     String name1 = eh1.getElement().getName() ;
-    
+
     return name0.equalsIgnoreCase(name1) ;
   }
 
   /**
    * Create a behavior time comparator.<BR><BR>
-   * 
+   *
    * This comparator supports time units (from AADL property set Time_Units)
    * comparison. For example, comparing 60 sec and 1 min returns 0.<BR><BR>
-   * 
+   *
    * It only supports behavior time objects with integer constant literal.
-   * Otherwise it throws a ClassCastException. 
-   * 
+   * Otherwise it throws a ClassCastException.
+   *
    * @return a behavior time comparator
-   * @throws UnsupportedOperationException if behavior time objects are not 
+   * @throws UnsupportedOperationException if behavior time objects are not
    * integer constant literal
    */
   public static Comparator<BehaviorTime> createBehaviorTimeComparator()
   {
-    return new Comparator<BehaviorTime>()
-    {
-      public int compare(BehaviorTime behT1, BehaviorTime behT2)
+    return (behT1, behT2) -> {
+      IntegerValue iv1 = behT1.getIntegerValue() ;
+      IntegerValue iv2 = behT2.getIntegerValue() ;
+
+      if(iv1 instanceof BehaviorIntegerLiteral &&
+          iv2 instanceof BehaviorIntegerLiteral)
       {
-        IntegerValue iv1 = behT1.getIntegerValue() ;
-        IntegerValue iv2 = behT2.getIntegerValue() ;
+        double d1 = new Long(((BehaviorIntegerLiteral)iv1).getValue())
+        .doubleValue() ;
+        double d2 = new Long(((BehaviorIntegerLiteral)iv2).getValue())
+        .doubleValue() ;
 
-        if(iv1 instanceof BehaviorIntegerLiteral &&
-            iv2 instanceof BehaviorIntegerLiteral)
+        UnitLiteral unit1 = behT1.getUnit() ;
+        UnitLiteral unit2 = behT2.getUnit() ;
+
+        double relativeFact = unit1.getAbsoluteFactor(unit2) ;
+
+        // Convert to the smallest time unit. In order to keep
+        // the highest precision.
+        if (relativeFact < 1)
         {
-          double d1 = new Long(((BehaviorIntegerLiteral)iv1).getValue())
-          .doubleValue() ;
-          double d2 = new Long(((BehaviorIntegerLiteral)iv2).getValue())
-          .doubleValue() ;
-
-          UnitLiteral unit1 = (UnitLiteral) behT1.getUnit() ;
-          UnitLiteral unit2 = (UnitLiteral) behT2.getUnit() ;
-
-          double relativeFact = unit1.getAbsoluteFactor(unit2) ; 
-
-          // Convert to the smallest time unit. In order to keep 
-          // the highest precision.
-          if (relativeFact < 1)
-          {
-            d2 *= unit2.getAbsoluteFactor(unit1) ; 
-          }
-          else
-          {
-            d1 *= relativeFact ;
-          }
-
-          return (d1<d2 ? -1 : (d1==d2 ? 0 : 1));
+          d2 *= unit2.getAbsoluteFactor(unit1) ;
         }
         else
         {
-          throw new UnsupportedOperationException("Can only compare " + 
-              "BehaviorTime with IntegerLiteral at line " +
-              behT1.getLocationReference().getLine() + ".") ;
+          d1 *= relativeFact ;
         }
+
+        return (d1<d2 ? -1 : (d1==d2 ? 0 : 1));
+      }
+      else
+      {
+        throw new UnsupportedOperationException("Can only compare " +
+            "BehaviorTime with IntegerLiteral at line " +
+            behT1.getLocationReference().getLine() + ".") ;
       }
     } ;
   }
 
   /**
    * Analyze the given AADL Osate element and return its enumeration type.
-   * 
-   * It's an improved version of Osate2 org.osate.parser.AadlSemanticCheckSwitch#getFeatureType 
-   *  
+   *
+   * It's an improved version of Osate2 org.osate.parser.AadlSemanticCheckSwitch#getFeatureType
+   *
    * @param el the given AADL Osate element
    * @return the given AADL Osate element's type
    * @exception UnsupportedOperationException for the unsupported types
@@ -1575,7 +1704,9 @@ public class AadlBaUtils {
       }
     }
     else if (el instanceof FeatureGroup)
+    {
       return FeatureType.FEATURE_GROUP;
+    }
     else if (el instanceof DataAccess)
     {
       switch (((DataAccess)el).getKind())
@@ -1617,10 +1748,9 @@ public class AadlBaUtils {
       }
     }
     else if (el instanceof AbstractFeature)
+    {
       return FeatureType.ABSTRACT_FEATURE;
-
-    // **** BEGIN IMPROVEMENT ************************************************
-    
+    }
     else if (el instanceof Parameter)
     {
       switch(((Parameter) el).getDirection())
@@ -1671,19 +1801,27 @@ public class AadlBaUtils {
       {
         return FeatureType.FEATURE_GROUP_PROTOTYPE_BINDING ;
       }
-      else // FeaturePrototypeBinding case. 
+      else // FeaturePrototypeBinding case.
       {
         return FeatureType.FEATURE_PROTOTYPE_BINDING ;
       }
     }
     else if (el instanceof org.osate.aadl2.PropertyConstant)
+    {
       return FeatureType.PROPERTY_CONSTANT ;
+    }
     else if (el instanceof org.osate.aadl2.Property)
+    {
       return FeatureType.PROPERTY_VALUE ;
+    }
     else if (el instanceof ClassifierValue)
+    {
       return FeatureType.CLASSIFIER_VALUE ;
+    }
     else if (el instanceof SubprogramGroup)
+    {
       return FeatureType.SUBPROGRAM_GROUP ;
+    }
     else if (el instanceof SubprogramGroupAccess)
     {
       switch (((SubprogramGroupAccess)el).getKind())
@@ -1693,22 +1831,29 @@ public class AadlBaUtils {
       }
     }
     else if (el instanceof ThreadGroup )
+    {
       return FeatureType.THREAD_GROUP ;
+    }
     else if (el instanceof SystemSubcomponent)
+    {
       return FeatureType.SYSTEM_SUBCOMPONENT ;
-            
-            
-    // ALWAYS PUT THE FOLLOWING TESTS AT THE END OF THE METHOD :
-    // these classifiers are high level classifiers.
-
+    }
     else if (el instanceof SubprogramSubcomponent)
+    {
       return FeatureType.SUBPROGRAM_SUBCOMPONENT ;
+    }
     else if (el instanceof SubprogramClassifier)
+    {
       return FeatureType.SUBPROGRAM_CLASSIFIER ;
+    }
     else if (el instanceof DataSubcomponent)
+    {
       return FeatureType.DATA_SUBCOMPONENT ;
+    }
     else if (el instanceof DataClassifier)
+    {
       return FeatureType.DATA_CLASSIFIER ;
+    }
     else if (el instanceof ProcessorClassifier)
     {
       return FeatureType.PROCESSOR_CLASSIFIER ;
@@ -1718,7 +1863,7 @@ public class AadlBaUtils {
       return FeatureType.PROCESS_CLASSIFIER ;
     }
 
-    String errorMsg = "getFeatureType : " + el.getClass().getSimpleName()+ 
+    String errorMsg = "getFeatureType : " + el.getClass().getSimpleName()+
         " is not supported yet at line " +
         Aadl2Utils.getLocationReference(el).getLine() +
         "." ;
@@ -1728,7 +1873,7 @@ public class AadlBaUtils {
 
   /**
    * Analyze the given behavior annex feature and returns its type.
-   * 
+   *
    * @param el the given behavior annex feature
    * @return the given behavior annex feature's type
    * @exception UnsupportedOperationException for the unsupported types
@@ -1737,11 +1882,15 @@ public class AadlBaUtils {
                                                              BehaviorElement el)
   {
     if(el instanceof org.osate.ba.aadlba.BehaviorVariable)
+    {
       return BehaviorFeatureType.BEHAVIOR_VARIABLE ;
+    }
     else if (el instanceof IterativeVariable)
+    {
       return BehaviorFeatureType.ITERATIVE_VARIABLE ;
+    }
 
-    String errorMsg = "feature : " + el.getClass().getSimpleName()+ 
+    String errorMsg = "feature : " + el.getClass().getSimpleName()+
         " is not supported yet." ;
     System.err.println(errorMsg) ;
     throw new UnsupportedOperationException(errorMsg) ;
@@ -1750,7 +1899,7 @@ public class AadlBaUtils {
   /**
    * If the given value expression is composed of an single value, it returns
    * this value otherwise {@code null}. Recursive method.
-   * 
+   *
    * @param ve the given value expression
    * @return the value or {@code null}
    */
@@ -1760,7 +1909,7 @@ public class AadlBaUtils {
     SimpleExpression firstSE = firstRelation.getFirstExpression() ;
     Term firstTerm = firstSE.getTerms().get(0) ;
     Factor firstFactor = firstTerm.getFactors().get(0) ;
-    Value firstValue = firstFactor.getFirstValue() ; 
+    Value firstValue = firstFactor.getFirstValue() ;
 
     if(ve.getRelations().size() == 1)
     {
@@ -1793,7 +1942,7 @@ public class AadlBaUtils {
   /**
    * Translates the given ComponentPrototypeBinding object into a FeatureType
    * enumeration.
-   * 
+   *
    * @param cpb the given ComponentPrototypeBinding
    * @return the translation in FeatureType object
    * @exception UnsupportedOperationException for the unsupported types
@@ -1812,22 +1961,22 @@ public class AadlBaUtils {
         return FeatureType.THREAD_PROTOTYPE ;
       case THREAD_GROUP:
         return FeatureType.THREAD_GROUP_PROTOTYPE ;
-      
+
       default :
       {
         // Reports error.
-        String errorMsg = "getCompPrototypeType : " + 
+        String errorMsg = "getCompPrototypeType : " +
               cpa.getCategory() + " is not supported yet." ;
         System.err.println(errorMsg);
         throw new UnsupportedOperationException(errorMsg) ;
       }
     }
   }
-  
+
   /**
    * Translates the given FeaturePrototypeBinding object into a FeatureType
    * enumeration.
-   * 
+   *
    * @param fpb the given FeaturePrototypeBinding
    * @return the translation in FeatureType object
    * @exception UnsupportedOperationException for the unsupported types
@@ -1864,7 +2013,7 @@ public class AadlBaUtils {
 
       case SUBPROGRAM_GROUP :
       {
-        return  (isRequired) ? 
+        return  (isRequired) ?
           FeatureType.REQUIRES_SUBPROGRAM_GROUP_ACCESS_PROTOTYPE :
           FeatureType.PROVIDES_SUBPROGRAM_GROUP_ACCESS_PROTOTYPE ;
       }
@@ -1879,27 +2028,27 @@ public class AadlBaUtils {
       {
         switch (ps.getDirection())
         {
-        case IN : return  FeatureType.IN_DATA_PORT_PROTOTYPE ; 
-        case OUT : return  FeatureType.OUT_DATA_PORT_PROTOTYPE ; 
-        case IN_OUT : return  FeatureType.IN_OUT_DATA_PORT_PROTOTYPE ; 
+        case IN : return  FeatureType.IN_DATA_PORT_PROTOTYPE ;
+        case OUT : return  FeatureType.OUT_DATA_PORT_PROTOTYPE ;
+        case IN_OUT : return  FeatureType.IN_OUT_DATA_PORT_PROTOTYPE ;
         }
       }
       else if (ps.getCategory() == PortCategory.EVENT)
       {
         switch (ps.getDirection())
         {
-        case IN : return  FeatureType.IN_EVENT_PORT_PROTOTYPE ; 
-        case OUT : return  FeatureType.OUT_EVENT_PORT_PROTOTYPE ; 
-        case IN_OUT : return  FeatureType.IN_OUT_EVENT_PORT_PROTOTYPE ; 
+        case IN : return  FeatureType.IN_EVENT_PORT_PROTOTYPE ;
+        case OUT : return  FeatureType.OUT_EVENT_PORT_PROTOTYPE ;
+        case IN_OUT : return  FeatureType.IN_OUT_EVENT_PORT_PROTOTYPE ;
         }
       }
       else
       {
         switch (ps.getDirection())
         {
-        case IN : return  FeatureType.IN_EVENT_DATA_PORT_PROTOTYPE ; 
-        case OUT : return  FeatureType.OUT_EVENT_DATA_PORT_PROTOTYPE ; 
-        case IN_OUT : return  FeatureType.IN_OUT_EVENT_DATA_PORT_PROTOTYPE ; 
+        case IN : return  FeatureType.IN_EVENT_DATA_PORT_PROTOTYPE ;
+        case OUT : return  FeatureType.OUT_EVENT_DATA_PORT_PROTOTYPE ;
+        case IN_OUT : return  FeatureType.IN_OUT_EVENT_DATA_PORT_PROTOTYPE ;
         }
       }
     }
@@ -1910,7 +2059,7 @@ public class AadlBaUtils {
     else
     {
       // Reports error.
-      String errorMsg = "getFeatPrototypeType : " + 
+      String errorMsg = "getFeatPrototypeType : " +
           fpa.getClass().getSimpleName() + " is not supported yet." ;
       System.err.println(errorMsg);
       throw new UnsupportedOperationException(errorMsg) ;
@@ -1931,12 +2080,12 @@ public class AadlBaUtils {
   }
 
   /**
-   * Returns the direction type of the given Element or {@code null} if the 
-   * given Element is not an instance of DirectedFeature excepted 
+   * Returns the direction type of the given Element or {@code null} if the
+   * given Element is not an instance of DirectedFeature excepted
    * DataSubcomponent.<BR><BR>
-   * 
+   *
    * Note: DataSubcomponent returns DirectionType.IN_OUT <BR><BR>
-   * 
+   *
    * @param el the given Element
    * @return the direction type or {@code null}
    */
@@ -1959,17 +2108,17 @@ public class AadlBaUtils {
   /**
    * Returns the last value of the base type property of the given component or
    * {@code null} if the base type property is not set.
-   * 
+   *
    * @param component the given component
    * @return the last value of the base type property or {@code null}
    */
-  public static ClassifierValue getBaseType(Classifier component) 
+  public static ClassifierValue getBaseType(Classifier component)
   {
     PropertyExpression pe ;
     EList<PropertyExpression> le ;
     Element el ;
 
-    EList<PropertyExpression> lpe = 
+    EList<PropertyExpression> lpe =
                                 PropertyUtils.findPropertyExpression(component,
                                                 DataModelProperties.BASE_TYPE) ;
     if(lpe != null && (! lpe.isEmpty()))
@@ -2002,8 +2151,8 @@ public class AadlBaUtils {
   }
 
   /**
-   * Returns the direction type of the object binded to the given Target or 
-   * {@code null} if the binded object is not an instance of : <BR><BlockQuote> 
+   * Returns the direction type of the object binded to the given Target or
+   * {@code null} if the binded object is not an instance of : <BR><BlockQuote>
    * _ DirectedFeature.<BR>
    * _ Data subcomponent.<BR>
    * _ Local variable.<BR></BlockQuote>
@@ -2012,20 +2161,20 @@ public class AadlBaUtils {
    * Notes:<BR><BR>
    * _  Behavior variable always returns DirectionType.IN_OUT as
    *    behavior variable is a valid Target and ValueVariable.
-   * <BR><BR>   
+   * <BR><BR>
    * _ Iterative variable always returns DirectionType.IN as iterative variables
    *   is a valid value variable but not a target.
    * <BR><BR>
    * _ Data subcomponent always returns DirectionType.IN_OUT as
    *   data subcomponent is valid Target and ValueVariable.
-   * 
+   *
    * <BR><BR>
    * @param tar the given Target
    * @return the direction type or {@code null}
    */
   public static DirectionType getDirectionType(Target tar)
   {
-    if(tar instanceof IterativeVariable)   
+    if(tar instanceof IterativeVariable)
     {
       return DirectionType.IN ;
     }
@@ -2037,38 +2186,38 @@ public class AadlBaUtils {
     {
       return getDirectionType(((ElementHolder)tar).getElement()) ;
     }
-    else // Data component reference. 
+    else // Data component reference.
     {
       EList<DataHolder> dhl = ((DataComponentReference)tar).getData() ;
-      
+
       return getDirectionType(dhl.get(dhl.size() -1).getElement()) ;
     }
   }
-  
+
   /**
    * If the given Target object is a DataAccessHolder object or a
    * DataComponentReference object which the last element is a DataAccessHolder
    * object, it returns the data access right or "unknown" if the default
    * data access right is not set.
-   * 
-   * @see org.osate.utils.Aadl2Utils#getAccessRight
+   *
+   * @see org.osate.utils.internal.Aadl2Utils#getAccessRight
    * @param tar the given Target object
    * @return the data access right or "unknown"
    */
   public static String getAccessRight(Target tar)
   {
     ElementHolder el = null ;
-    
+
     if(tar instanceof ElementHolder) // The other ElementHolders.
     {
       el = (ElementHolder) tar ;
     }
-    else // Data component reference. 
+    else // Data component reference.
     {
       EList<DataHolder> dhl = ((DataComponentReference)tar).getData() ;
       el = dhl.get(dhl.size() -1) ;
     }
-    
+
     if (el instanceof DataAccessHolder          ||
         el instanceof DataAccessPrototypeHolder ||
         el instanceof FeaturePrototypeHolder)
@@ -2080,26 +2229,27 @@ public class AadlBaUtils {
       return "unknown" ;
     }
   }
-  
+
   /**
    * Same as {@link #getAccessRight(Target)}, if the given Target object is a
    * DataAccessHolder object or a DataComponentReference object which the last
    * element is a DataAccessHolder object, it returns the DataAccessRight enum
-   * reference or {@link org.osate.utils.Aadl2Utils.DataAccessRight#unknown} if the default data access
+   * reference or {@link org.osate.utils.internal.Aadl2Utils.DataAccessRight#unknown} if the default data access
    * right is not set.
-   * 
-   * @see org.osate.utils.Aadl2Utils#getAccessRight
+   *
+   * @see org.osate.utils.internal.Aadl2Utils#getAccessRight
    * @param tar the given Target object
-   * @return the data access right or {@link org.osate.utils.Aadl2Utils.DataAccessRight#unknown}
+   * @return the data access right or {@link org.osate.utils.internal.Aadl2Utils.DataAccessRight#unknown}
+   * @since 5.0
    */
   public static DataAccessRight getDataAccessRight(Target tar)
   {
     return DataAccessRight.getDataAccessRight(getAccessRight(tar)) ;
-  }  
+  }
 
   /**
    * Returns the name of the given ModeTransitionTrigger object.
-   * 
+   *
    * @param mtt the given ModeTransitionTrigger object
    * @return a name
    */
@@ -2107,34 +2257,34 @@ public class AadlBaUtils {
   {
     return mtt.getTriggerPort().getName() ;
   }
-  
+
   /**
-   * Compares behavior transition priorities. 
-   * 
+   * Compares behavior transition priorities.
+   *
    * Returns {@code true} if bt1 priority is > bt2 or bt2 has otherwise execution
-   * condition and bt1 hasn't. Otherwise returns {@code false}. 
-   * 
+   * condition and bt1 hasn't. Otherwise returns {@code false}.
+   *
    * @param bt1 a behavior transition
    * @param bt2 an other behavior transition
    * @return  {@code true} if bt1 priority is > bt2 or bt2 has otherwise execution
-   * condition and bt1 hasn't. Otherwise {@code false}. 
+   * condition and bt1 hasn't. Otherwise {@code false}.
    */
   public static boolean compareBehaviorTransitionPriority(BehaviorTransition bt1,
                                                          BehaviorTransition bt2)
   {
     boolean o1 = bt1.getCondition() instanceof Otherwise ;
     boolean o2 = bt2.getCondition() instanceof Otherwise ;
-    
-    long p1 = (bt1.getPriority() >= 0) ? 
+
+    long p1 = (bt1.getPriority() >= 0) ?
                                         (bt1.getPriority()) :
                                         (AadlBaVisitors.DEFAULT_TRANSITION_PRIORITY) ;
-    
-    long p2 = (bt2.getPriority() >= 0) ? 
+
+    long p2 = (bt2.getPriority() >= 0) ?
                                         (bt2.getPriority()) :
                                         (AadlBaVisitors.DEFAULT_TRANSITION_PRIORITY) ;
-            
+
     boolean p = p1 > p2 ;
-    
+
     if (o1 || o2)
     {
       if(o1 && o2)
@@ -2151,14 +2301,14 @@ public class AadlBaUtils {
       return p ;
     }
   }
-  
+
   /**
    * If the given PropertyReference object represents a string literal from
    * a property string list declared in a classifier (property Enumerators), it
    * returns the Classifier object and the StringLiteral object
    * (see DataModelEnumLiteral). Otherwise, it throws an
    * OperationNotSupportedException.
-   * 
+   *
    * @see DataModelEnumLiteral
    * @param ref the given PropertyReference object
    * @return a DataModelEnumLiteral object
@@ -2168,37 +2318,37 @@ public class AadlBaUtils {
                                            throws OperationNotSupportedException
   {
     DataModelEnumLiteral result = new DataModelEnumLiteral() ;
-    
+
     if(ref instanceof ClassifierPropertyReference)
     {
       ClassifierPropertyReference cpr = (ClassifierPropertyReference) ref ;
       result.classifier = cpr.getClassifier() ;
-      
+
       EList<PropertyNameHolder> properties = cpr.getProperties() ;
-      
+
       if(properties.size() == 2)
       {
-        // The first property name is supposed to be a property association 
-        // Enumerators. Don't need to check it. 
-        
+        // The first property name is supposed to be a property association
+        // Enumerators. Don't need to check it.
+
         result.stringLiteral = extractStringLiteral(properties.get(1)) ;
       }
       else
       {
         throw new OperationNotSupportedException("this property reference not supported") ;
       }
-      
+
     }
     else
     {
       throw new OperationNotSupportedException(ref.getClass().getSimpleName() +
                                                " not supported") ;
     }
-    
+
     return result ;
   }
-  
-  // If the given PropertyNameHolder object only contains a StringLiteral, 
+
+  // If the given PropertyNameHolder object only contains a StringLiteral,
   // it returns it. Otherwise it throws an OperationNotSupportedException.
   private static StringLiteral extractStringLiteral(PropertyNameHolder pnh)
                                            throws OperationNotSupportedException
@@ -2210,14 +2360,14 @@ public class AadlBaUtils {
     else
     {
       Element el = pnh.getProperty().getElement() ;
-      
+
       if(el instanceof StringLiteral)
       {
         return (StringLiteral) el ;
       }
       else
       {
-        throw new UnsupportedOperationException(el.getClass().getSimpleName() 
+        throw new UnsupportedOperationException(el.getClass().getSimpleName()
                                                 + " not supported") ;
       }
     }
