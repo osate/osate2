@@ -21,38 +21,27 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.analysis.resource.budgets.busload.model;
+package org.osate.analysis.resource.budgets.internal.busload.model;
 
-import org.osate.aadl2.instance.ConnectionInstance;
+import java.util.List;
 
 /**
  * @since 3.0
  */
-public final class Connection extends AnalysisElement {
-	/** The connection instance represented. */
-	private final ConnectionInstance connInstance;
-
-	public Connection(final ConnectionInstance connInstance) {
-		super("connection");
-		this.connInstance = connInstance;
+abstract class ModelElement {
+	public final void visit(final Visitor visitor) {
+		visitSelfPrefix(visitor);
+		visitChildren(visitor);
+		visitSelfPostfix(visitor);
 	}
 
-	public final ConnectionInstance getConnectionInstance() {
-		return connInstance;
+	final <E extends ModelElement> void visit(final List<E> list, final Visitor visitor) {
+		list.forEach(e -> e.visit(visitor));
 	}
 
-	@Override
-	void visitChildren(final Visitor visitor) {
-		// no children
-	}
+	abstract void visitSelfPrefix(Visitor visitor);
 
-	@Override
-	void visitSelfPrefix(final Visitor visitor) {
-		visitor.visitConnection(this);
-	}
+	abstract void visitChildren(Visitor visitor);
 
-	@Override
-	void visitSelfPostfix(final Visitor visitor) {
-		// leaf node, already visited with prefix
-	}
+	abstract void visitSelfPostfix(Visitor visitor);
 }
