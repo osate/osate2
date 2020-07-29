@@ -45,12 +45,12 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.PackageSection;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.StringUtil;
+import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 import org.osate.ge.internal.services.AadlResourceService;
 import org.osate.ge.internal.services.AadlResourceService.AadlPackageReference;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.ModelChangeNotifier.ChangeListener;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
-import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.referencehandling.CreateReferenceResolverFactoryContext;
 import org.osate.ge.referencehandling.ReferenceResolver;
 import org.osate.ge.referencehandling.ReferenceResolverFactory;
@@ -158,7 +158,7 @@ public class DeclarativeReferenceResolver implements ReferenceResolver {
 		private Set<IResourceDescription> getCachedResourceDescriptions() {
 			if (resourceDescriptions == null) {
 				// Find resources that should be looked in
-				resourceDescriptions = ScopedEMFIndexRetrieval.calculateVisibleResourceDescriptions(
+				resourceDescriptions = AadlModelAccessUtil.calculateVisibleResourceDescriptions(
 						project)
 						.collect(Collectors.toSet());
 			}

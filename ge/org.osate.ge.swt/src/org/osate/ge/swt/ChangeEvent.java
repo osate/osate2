@@ -25,6 +25,7 @@ package org.osate.ge.swt;
 
 /**
  * Stores additional data provided with change events.
+ * @since 1.1
  *
  */
 public final class ChangeEvent {

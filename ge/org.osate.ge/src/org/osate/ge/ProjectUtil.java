@@ -21,9 +21,8 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.util;
+package org.osate.ge;
 
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -36,16 +35,14 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.xtext.ui.resource.XtextLiveScopeResourceSetProvider;
-import org.osate.ge.EmfContainerProvider;
-import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
-import com.google.inject.Injector;
-
+/**
+ * Utility functions related to {@link IProject}
+ * @since 2.0
+ */
 public class ProjectUtil {
 	/**
-	 * Get affects projects. At this point, this function returns projects which directly or indirectly reference the project containing the model element.
+	 * Get affected projects. At this point, this function returns projects which directly or indirectly reference the project containing the model element.
 	 * @param project
 	 * @param relevantProjects
 	 * @return relevantProjects
@@ -72,12 +69,22 @@ public class ProjectUtil {
 		return relevantProjects;
 	}
 
-	public static IProject getProjectOrNull(final URI elementUri) {
-		return getProject(elementUri).orElse(null);
+	/**
+	 * Retrieves the project that contains the resource.
+	 * @param resource is the EMF resource for which to return the project.
+	 * @return the project. Throws an exception if unable to retrieve the project.
+	 */
+	public static IProject getProjectOrThrow(final Resource resource) {
+		return getProjectOrThrow(resource.getURI());
 	}
 
-	public static Optional<IProject> getProject(final URI resourceUri) {
-		final IPath projectPath = new Path(resourceUri.toPlatformString(true)).uptoSegment(1);
+	/**
+	 * Retrieves the project based on an EMF URI.
+	 * @param uri is the URI for the EMF element for which to return the project.
+	 * @return an optional containing a project based on the URI. The optional will be empty if the project cannot be retrieved.
+	 */
+	public static Optional<IProject> getProject(final URI uri) {
+		final IPath projectPath = new Path(uri.toPlatformString(true)).uptoSegment(1);
 		final IResource projectResource = ResourcesPlugin.getWorkspace().getRoot().findMember(projectPath);
 		if (projectResource instanceof IProject) {
 			return Optional.of((IProject) projectResource);
@@ -86,20 +93,40 @@ public class ProjectUtil {
 		return Optional.empty();
 	}
 
-	public static IProject getProjectOrThrow(final Resource resource) {
-		return getProjectOrThrow(resource.getURI());
+	/**
+	 * Retrieves the project based on an EMF URI.
+	 * @param uri is the URI for the EMF element for which to return the project.
+	 * @return the project. Returns null if the project cannot be returned.
+	 */
+	public static IProject getProjectOrNull(final URI elementUri) {
+		return getProject(elementUri).orElse(null);
 	}
 
-	public static IProject getProjectOrThrow(final URI resourceUri) {
-		return getProject(resourceUri)
-				.orElseThrow(() -> new RuntimeException("Unable to receive project. URI: " + resourceUri));
+	/**
+	 * Retrieves the project based on a EMF URI.
+	 * @param uri is the URI for the EMF element for which to return the project.
+	 * @return the project. Throws an exception if unable to retrieve the project.
+	 */
+	public static IProject getProjectOrThrow(final URI uri) {
+		return getProject(uri)
+				.orElseThrow(() -> new RuntimeException("Unable to receive project. URI: " + uri));
 	}
 
+	/**
+	 * Retrieves the project that contains the resource in which the business object is contained.
+	 * @param bo is the business for which to retrieve the project.
+	 * @return the project. Throws an exception if unable to retrieve the project.
+	 */
 	public static IProject getProjectForBoOrThrow(final Object bo) {
-		return getResource(bo).flatMap(r -> Optional.ofNullable(r.getURI())).flatMap(ProjectUtil::getProject)
+		return getProjectForBo(bo)
 				.orElseThrow(() -> new RuntimeException("Unable to get project for business object: " + bo));
 	}
 
+	/**
+	 * Retrieves the project that contains the resource in which the business object is contained.
+	 * @param bo is the business for which to retrieve the project.
+	 * @return an optional describing the project. An empty optional is returned if the project cannot be trieved.
+	 */
 	public static Optional<IProject> getProjectForBo(final Object bo) {
 		return getResource(bo).flatMap(r -> Optional.ofNullable(r.getURI())).flatMap(ProjectUtil::getProject);
 	}
@@ -122,21 +149,5 @@ public class ProjectUtil {
 		}
 
 		return Optional.ofNullable(eObject.eResource());
-	}
-
-	/**
-	 * Returns a live resource set based on the project or throws an exception if one cannot be returned.
-	 * @param project
-	 * @return
-	 */
-	public static ResourceSet getLiveResourceSet(IProject project) {
-		final Injector injector = Objects.requireNonNull(
-				Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2),
-				"Unable to retrieve injector");
-		final XtextLiveScopeResourceSetProvider liveResourceSetProvider = Objects.requireNonNull(
-				injector.getInstance(XtextLiveScopeResourceSetProvider.class),
-				"Unable to retrieve live scope resource set provider");
-
-		return Objects.requireNonNull(liveResourceSetProvider.get(project), "Unable to get live resource set");
 	}
 }

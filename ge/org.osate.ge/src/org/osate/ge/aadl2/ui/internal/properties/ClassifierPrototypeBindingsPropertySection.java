@@ -40,8 +40,8 @@ import org.osate.aadl2.Classifier;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.aadl2.ui.internal.viewmodels.BusinessObjectSelectionPrototypeBindingsModel;
 import org.osate.ge.aadl2.ui.internal.viewmodels.ClassifierPrototypeBindingsModel;
-import org.osate.ge.internal.selection.AgeBusinessObjectSelection;
 import org.osate.ge.swt.classifiers.PrototypeBindingsField;
+import org.osate.ge.ui.UiBusinessObjectSelection;
 import org.osate.ge.ui.PropertySectionUtil;
 
 /**
@@ -60,7 +60,7 @@ public class ClassifierPrototypeBindingsPropertySection extends AbstractProperty
 
 	private BusinessObjectSelection selectedBos;
 	private final BusinessObjectSelectionPrototypeBindingsModel model = new ClassifierPrototypeBindingsModel(
-			new AgeBusinessObjectSelection());
+			new UiBusinessObjectSelection());
 
 	@Override
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {

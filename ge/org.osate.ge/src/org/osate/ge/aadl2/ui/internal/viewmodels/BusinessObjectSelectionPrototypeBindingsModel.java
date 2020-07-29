@@ -75,8 +75,7 @@ import org.osate.ge.StringUtil;
 import org.osate.ge.aadl2.internal.util.AadlImportsUtil;
 import org.osate.ge.aadl2.internal.util.AadlPrototypeUtil;
 import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
-import org.osate.ge.internal.util.ProjectUtil;
-import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
+import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 import org.osate.ge.swt.BaseObservableModel;
 import org.osate.ge.swt.classifiers.PrototypeBindingsModel;
 
@@ -294,7 +293,7 @@ PrototypeBindingsModel<PrototypeBindingsModelNode, Object, PrototypeBindingType,
 				: Stream.empty();
 
 		// Concatenate all classifiers that match the supported EClass
-		options = Stream.concat(options, filterEClasses.flatMap(eclass -> ScopedEMFIndexRetrieval
+		options = Stream.concat(options, filterEClasses.flatMap(eclass -> AadlModelAccessUtil
 				.getAllEObjectsByType(project, eclass).stream().map(NamedElementOrDescription::new)));
 
 		// Show appropriate prototypes
@@ -322,8 +321,10 @@ PrototypeBindingsModel<PrototypeBindingsModelNode, Object, PrototypeBindingType,
 
 	@Override
 	public final void setClassifier(final PrototypeBindingsModelNode node, final NamedElementOrDescription value) {
-		setNodeDataClassifier(node, value);
-		triggerChangeEvent();
+		if (!Objects.equals(value, getClassifier(node))) {
+			setNodeDataClassifier(node, value);
+			triggerChangeEvent();
+		}
 	}
 
 	/**
@@ -342,7 +343,7 @@ PrototypeBindingsModel<PrototypeBindingsModelNode, Object, PrototypeBindingType,
 		this.bos = Objects.requireNonNull(value, "value must not be null");
 		this.project = AgeAadlUtil.getCommonProject(this.bos.boStream(Element.class).collect(Collectors.toList()))
 				.orElse(null);
-		this.resourceSet = project == null ? null : ProjectUtil.getLiveResourceSet(project);
+		this.resourceSet = project == null ? null : AadlModelAccessUtil.getLiveResourceSet(project);
 
 		// Clear data
 		multipleValues = false;
@@ -615,7 +616,8 @@ PrototypeBindingsModel<PrototypeBindingsModelNode, Object, PrototypeBindingType,
 		AadlPrototypeUtil.getAllPrototypes(classifier).forEachOrdered(p -> {
 			final PrototypeBindingsModelNode child = new PrototypeBindingsModelNode(parent, p);
 			final PrototypeBindingsModelNodeData cd = data(child);
-			final EObject childClassifier = cd.classifier == null ? null : cd.classifier.getResolvedValue(getResourceSet());
+			final EObject childClassifier = cd.classifier == null ? null
+					: cd.classifier.getResolvedValue(getResourceSet());
 
 			if (p instanceof ComponentPrototype) {
 				// Ignore classifiers which are not of the appropriate type. They could be carry overs from children which no longer exist

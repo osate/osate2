@@ -35,23 +35,23 @@ import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.osate.ge.swt.ChangeEvent;
-import org.osate.ge.swt.internal.InternalUtil;
-import org.osate.ge.swt.util.SwtTestUtil;
+import org.osate.ge.swt.SwtUtil;
 
 /**
- * Wrapper around JFace's {@link org.eclipse.jface.viewers.ComboViewer} which uses a {@link SelectorModel}
+ * Wrapper around JFace's {@link org.eclipse.jface.viewers.ComboViewer} which uses a {@link SingleSelectorModel}
  *
  * Sorts items provided by model.
+ * @since 1.1
  */
 public final class ComboSelector<T> extends Composite {
-	private final NullRemovingSelectorModel wrappedModel;
+	private final NullRemovingSingleSelectorModel wrappedModel;
 	private final org.eclipse.jface.viewers.ComboViewer comboViewer;
 	private final Consumer<ChangeEvent> changeListener = e -> refresh();
 
-	public ComboSelector(final Composite parent, final SelectorModel<T> model) {
+	public ComboSelector(final Composite parent, final SingleSelectorModel<T> model) {
 		super(parent, SWT.NONE);
-		this.wrappedModel = new NullRemovingSelectorModel(Objects.requireNonNull(model, "model must not be null"));
-		InternalUtil.setColorsToMatchParent(this);
+		this.wrappedModel = new NullRemovingSingleSelectorModel(Objects.requireNonNull(model, "model must not be null"));
+		SwtUtil.setColorsToMatchParent(this);
 		this.setLayout(GridLayoutFactory.fillDefaults().numColumns(1).create());
 
 		this.comboViewer = new org.eclipse.jface.viewers.ComboViewer(this);
@@ -91,7 +91,7 @@ public final class ComboSelector<T> extends Composite {
 	 * @param value is the identifier used to identify the combo box during testing.
 	 */
 	public void setComboTestingId(final String value) {
-		SwtTestUtil.setTestingId(comboViewer.getControl(), value);
+		SwtUtil.setTestingId(comboViewer.getControl(), value);
 	}
 
 	private void refresh() {
@@ -117,7 +117,7 @@ public final class ComboSelector<T> extends Composite {
 	}
 
 	public static void main(String[] args) {
-		InternalUtil.run(shell -> {
+		SwtUtil.run(shell -> {
 			new ComboSelector<>(shell, new TestListEditorModel());
 		});
 	}

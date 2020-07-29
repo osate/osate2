@@ -27,6 +27,7 @@ import java.util.function.Consumer;
 
 /**
  * Interface for registering a function to be called when an event is triggered.
+ * @since 1.1
  *
  */
 public interface EventSource<T> {
