@@ -53,7 +53,7 @@ public class CountComponentsUI extends Dialog {
 
 		// how component column is created
 		TreeViewerColumn componentNameColumn = new TreeViewerColumn(viewer, SWT.NONE);
-		componentNameColumn.getColumn().setWidth(300);
+		componentNameColumn.getColumn().setWidth(convertWidthInCharsToPixels(25));
 		componentNameColumn.getColumn().setResizable(true);
 		componentNameColumn.getColumn().setText("Model Elements");
 		componentNameColumn.setLabelProvider(new ColumnLabelProvider() {
@@ -71,7 +71,7 @@ public class CountComponentsUI extends Dialog {
 
 		// how count column is created
 		TreeViewerColumn countNameColumn = new TreeViewerColumn(viewer, SWT.NONE);
-		countNameColumn.getColumn().setWidth(200);
+		countNameColumn.getColumn().setWidth(convertWidthInCharsToPixels(15));
 		countNameColumn.getColumn().setResizable(true);
 		countNameColumn.getColumn().setText("Counts");
 		countNameColumn.setLabelProvider(new ColumnLabelProvider() {
