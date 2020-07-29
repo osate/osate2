@@ -21,27 +21,25 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.analysis.resource.budgets.busload.model;
+package org.osate.analysis.resource.budgets.internal.busload.model;
 
-import java.util.List;
+import org.osate.aadl2.instance.ComponentInstance;
 
 /**
  * @since 3.0
  */
-abstract class ModelElement {
-	public final void visit(final Visitor visitor) {
-		visitSelfPrefix(visitor);
-		visitChildren(visitor);
-		visitSelfPostfix(visitor);
+public final class Bus extends BusOrVirtualBus {
+	public Bus(final ComponentInstance busInstance) {
+		super("bus", busInstance);
 	}
 
-	final <E extends ModelElement> void visit(final List<E> list, final Visitor visitor) {
-		list.forEach(e -> e.visit(visitor));
+	@Override
+	void visitSelfPrefix(final Visitor visitor) {
+		visitor.visitBusPrefix(this);
 	}
 
-	abstract void visitSelfPrefix(Visitor visitor);
-
-	abstract void visitChildren(Visitor visitor);
-
-	abstract void visitSelfPostfix(Visitor visitor);
+	@Override
+	void visitSelfPostfix(final Visitor visitor) {
+		visitor.visitBusPostfix(this);
+	}
 }

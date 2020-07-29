@@ -21,25 +21,47 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.analysis.resource.budgets.busload.model;
-
-import org.osate.aadl2.instance.ComponentInstance;
+package org.osate.analysis.resource.budgets.internal.busload.model;
 
 /**
  * @since 3.0
  */
-public final class VirtualBus extends BusOrVirtualBus {
-	public VirtualBus(final ComponentInstance busInstance) {
-		super("virtual bus", busInstance);
+public interface Visitor {
+	public default void visitModelPrefix(BusLoadModel model) {
 	}
 
-	@Override
-	void visitSelfPrefix(final Visitor visitor) {
-		visitor.visitVirtualBusPrefix(this);
+	public default void visitModelPostfix(BusLoadModel model) {
 	}
 
-	@Override
-	void visitSelfPostfix(final Visitor visitor) {
-		visitor.visitVirtualBusPostfix(this);
+	public default void visitBusOrVirtualBusPrefix(BusOrVirtualBus bus) {
+	}
+
+	public default void visitBusOrVirtualBusPostfix(BusOrVirtualBus bus) {
+	}
+
+	public default void visitBusPrefix(final Bus bus) {
+		visitBusOrVirtualBusPrefix(bus);
+	}
+
+	public default void visitBusPostfix(final Bus bus) {
+		visitBusOrVirtualBusPostfix(bus);
+	}
+
+	public default void visitVirtualBusPrefix(final VirtualBus virtualBus) {
+		visitBusOrVirtualBusPrefix(virtualBus);
+	}
+
+	public default void visitVirtualBusPostfix(final VirtualBus virtualBus) {
+		visitBusOrVirtualBusPostfix(virtualBus);
+	}
+
+	public default void visitBroadcastPrefix(final Broadcast broadcast) {
+	}
+
+	public default void visitBroadcastPostfix(final Broadcast broadcast) {
+	}
+
+	// N.B. Leaf node
+	public default void visitConnection(Connection connection) {
 	}
 }

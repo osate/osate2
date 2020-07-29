@@ -21,41 +21,38 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.analysis.resource.budgets.busload.model;
+package org.osate.analysis.resource.budgets.internal.busload.model;
+
+import org.osate.aadl2.instance.ConnectionInstance;
 
 /**
  * @since 3.0
  */
-abstract class AnalysisElement extends ModelElement {
-	private String label;
+public final class Connection extends AnalysisElement {
+	/** The connection instance represented. */
+	private final ConnectionInstance connInstance;
 
-	/** Actual data requirements in KB/s. */
-	private double actual;
-
-	/** Budgeted data requirements in KB/s. */
-	private double budget;
-
-	AnalysisElement(final String label) {
-		this.label = label;
+	public Connection(final ConnectionInstance connInstance) {
+		super("connection");
+		this.connInstance = connInstance;
 	}
 
-	public String getLabel() {
-		return label;
+	public final ConnectionInstance getConnectionInstance() {
+		return connInstance;
 	}
 
-	public final double getActual() {
-		return actual;
+	@Override
+	void visitChildren(final Visitor visitor) {
+		// no children
 	}
 
-	public final void setActual(final double actual) {
-		this.actual = actual;
+	@Override
+	void visitSelfPrefix(final Visitor visitor) {
+		visitor.visitConnection(this);
 	}
 
-	public final double getBudget() {
-		return budget;
-	}
-
-	public final void setBudget(final double budget) {
-		this.budget = budget;
+	@Override
+	void visitSelfPostfix(final Visitor visitor) {
+		// leaf node, already visited with prefix
 	}
 }
