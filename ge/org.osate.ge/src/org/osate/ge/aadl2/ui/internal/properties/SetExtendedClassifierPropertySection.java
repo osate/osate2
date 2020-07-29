@@ -86,7 +86,7 @@ public class SetExtendedClassifierPropertySection extends AbstractPropertySectio
 		FormData fd;
 
 		final Composite container = getWidgetFactory().createFlatFormComposite(parent);
-		InternalPropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Extends:");
+		PropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Extends:");
 
 		extendedClassifier = getWidgetFactory().createLabel(container, new String());
 		fd = new FormData();

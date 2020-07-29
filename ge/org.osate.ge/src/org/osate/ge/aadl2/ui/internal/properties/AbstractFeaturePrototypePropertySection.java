@@ -66,7 +66,7 @@ public class AbstractFeaturePrototypePropertySection extends AbstractPropertySec
 		FormData fd;
 
 		final Composite container = getWidgetFactory().createFlatFormComposite(parent);
-		InternalPropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Prototype:");
+		PropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Prototype:");
 
 		currentPrototype = new FilteringListSelectorField<>(container, "Select Feature Prototype", new LabelFilteringListSelectorModel<>(model));
 		currentPrototype.setChooseButtonTestingId(WIDGET_ID_CHOOSE_BUTTON);

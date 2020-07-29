@@ -169,13 +169,15 @@ public class GraphicalAnnexUtil {
 		if (parsedType.isInstance(parsedAnnexSubclause)) {
 			return parsedAnnexSubclause;
 		}
+
 		final String trimmedSrc = defaultSubclause.getSourceText().trim();
+		System.err.println(trimmedSrc + " trimmeds");
 		if ("{****}".equals(trimmedSrc) || "{** **}".equals(trimmedSrc)) {
 			return null;
 		}
 
 		// TODO
-		System.err.println("Should be throwing exception?");
+		System.err.println(parsedAnnexSubclause + " parsed Should be throwing exception?");
 
 		return null;
 

@@ -179,7 +179,7 @@ public class SetDimensionsPropertySection extends AbstractPropertySection {
 		fd.width = btnWidth;
 		downBtn.setLayoutData(fd);
 
-		InternalPropertySectionUtil.createSectionLabel(composite, getWidgetFactory(), "Dimensions:");
+		PropertySectionUtil.createSectionLabel(composite, getWidgetFactory(), "Dimensions:");
 		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 

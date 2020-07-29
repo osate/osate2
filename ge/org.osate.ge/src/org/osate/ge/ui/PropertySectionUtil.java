@@ -30,6 +30,14 @@ import org.eclipse.core.runtime.Adapters;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
+import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.operations.OperationExecutor;
 import org.osate.ge.internal.services.AadlModificationService;
@@ -72,5 +80,30 @@ public class PropertySectionUtil {
 		final IEclipseContext context = EclipseContextFactory.getServiceContext(bundle.getBundleContext());
 		return Objects.requireNonNull(context.getActive(AadlModificationService.class),
 				"Unable to retrieve AADL modification service");
+	}
+
+	/**
+	 * Creates a label intended to be used as the section label. Returned label will have a {@link FormData} layout data set to align to the left.
+	 * @param container is the container for the label.
+	 * @param widgetFactory the widget factory used to create the label
+	 * @param lblTxt is the text for the label
+	 * @return is the created label.
+	 */
+	public static Label createSectionLabel(final Composite container,
+			final TabbedPropertySheetWidgetFactory widgetFactory, final String lblTxt) {
+		final Label label = widgetFactory.createLabel(container, lblTxt);
+		final FormData fd = new FormData();
+		fd.left = new FormAttachment(0, 0);
+		fd.top = new FormAttachment(0, ITabbedPropertyConstants.VSPACE);
+		label.setLayoutData(fd);
+		return label;
+	}
+
+	public static Button createButton(final TabbedPropertySheetWidgetFactory widgetFactory, final Composite composite,
+			final Object data, final SelectionListener listener, final String txt, final int type) {
+		final Button btn = widgetFactory.createButton(composite, txt, type);
+		btn.setData(data);
+		btn.addSelectionListener(listener);
+		return btn;
 	}
 }

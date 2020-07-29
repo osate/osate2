@@ -23,12 +23,17 @@
  */
 package org.osate.ge.ba;
 
+import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.osate.aadl2.Classifier;
 import org.osate.ba.aadlba.BehaviorAnnex;
+import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.BusinessObjectProviderContext;
+import org.osate.ge.ba.model.BehaviorAnnexState;
+import org.osate.ge.ba.model.BehaviorAnnexTransition;
 import org.osate.ge.ba.util.BaUtil;
 
 public class BaBusinessObjectProvider implements BusinessObjectProvider {
@@ -40,7 +45,14 @@ public class BaBusinessObjectProvider implements BusinessObjectProvider {
 			return bas;
 		} else if (bo instanceof BehaviorAnnex) {
 			final BehaviorAnnex ba = (BehaviorAnnex) bo;
-			return Stream.concat(ba.getTransitions().stream(), ba.getStates().stream());
+			final Map<BehaviorState, BehaviorAnnexState> behaviorStateToBehaviorAnnexState = ba.getStates().stream()
+					.collect(Collectors.toMap(behaviorState -> behaviorState, bs -> new BehaviorAnnexState(bs)));
+
+			return Stream.concat(
+					ba.getTransitions().stream()
+							.map(behaviorTransition -> new BehaviorAnnexTransition(behaviorTransition, behaviorStateToBehaviorAnnexState.get(behaviorTransition.getSourceState()),
+									behaviorStateToBehaviorAnnexState.get(behaviorTransition.getDestinationState()))),
+					behaviorStateToBehaviorAnnexState.values().stream());
 		}
 
 		return Stream.empty();

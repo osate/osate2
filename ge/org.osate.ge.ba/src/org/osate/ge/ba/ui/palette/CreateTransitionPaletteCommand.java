@@ -9,6 +9,8 @@ import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.ba.model.BehaviorAnnexState;
+import org.osate.ge.ba.model.BehaviorAnnexTransition;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
@@ -33,12 +35,12 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 		 * && getPotentialOwnersByMode(ctx.getSource(), ctx.getQueryService()).size() > 0;
 		 */
 		// TODO any other conditions for starting?
-		return ctx.getSource().getBusinessObject(BehaviorState.class).isPresent();
+		return ctx.getSource().getBusinessObject(BehaviorAnnexState.class).isPresent();
 	}
 
 	@Override
 	public Optional<Operation> getOperation(final GetCreateConnectionOperationContext ctx) {
-		if (!ctx.getDestination().getBusinessObject(BehaviorState.class).isPresent()) {
+		if (!ctx.getDestination().getBusinessObject(BehaviorAnnexState.class).isPresent()) {
 			return Optional.empty();
 		}
 
@@ -52,8 +54,13 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 			return Optional.empty();
 		}
 
-		final BehaviorState srcState = ctx.getSource().getBusinessObject(BehaviorState.class).get();
-		final BehaviorState dstState = ctx.getDestination().getBusinessObject(BehaviorState.class).get();
+//		final BehaviorState srcState = ctx.getSource().getBusinessObject(BehaviorAnnexState.class)
+//				.map(BehaviorAnnexState::getState).get();
+//		final BehaviorState dstState = ctx.getDestination().getBusinessObject(BehaviorAnnexState.class)
+//				.map(BehaviorAnnexState::getState).get();
+
+		final BehaviorAnnexState srcState = ctx.getSource().getBusinessObject(BehaviorAnnexState.class).get();
+		final BehaviorAnnexState dstState = ctx.getDestination().getBusinessObject(BehaviorAnnexState.class).get();
 		if (srcState == dstState) {
 			return Optional.empty();
 		}
@@ -68,8 +75,9 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 							.create(AadlBaPackage.eINSTANCE.getBehaviorTransition());
 
 					final EList<BehaviorState> behaviorStates = boToModify.getStates();
-					final String srcName = srcState.getName();
-					final String dstName = dstState.getName();
+
+					final String srcName = srcState.getState().getName();
+					final String dstName = dstState.getState().getName();
 
 					// Set source and destination for transition
 					for (final BehaviorState behaviorState : behaviorStates) {
@@ -86,7 +94,10 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 					boToModify.getTransitions().add(baTransition);
 
 					// Show
-					return StepResultBuilder.create().showNewBusinessObject(srcContainer, baTransition).build();
+					return StepResultBuilder.create()
+							.showNewBusinessObject(srcContainer,
+									new BehaviorAnnexTransition(baTransition, srcState, dstState))
+							.build();
 				})).orElse(Optional.empty());
 	}
 

@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
+import org.osate.ge.ba.model.BehaviorAnnexState;
 import org.osate.ge.ba.util.BaNamingUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
@@ -44,26 +45,29 @@ public class CreateStatePaletteCommand extends BasePaletteCommand implements Tar
 	@Override
 	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
 		return ctx.getTarget().getBusinessObject(BehaviorAnnex.class)
-				.map(ba -> Operation.createSimple(ctx.getTarget(), BehaviorAnnex.class, modifyBo -> {
-					modifyBo.setName("behavior_specification");
-
+				.map(ba -> Operation.createSimple(ctx.getTarget(), BehaviorAnnex.class, baToModify -> {
 					// Create the state
 					final BehaviorState newState = (BehaviorState) EcoreUtil
 							.create(AadlBaPackage.eINSTANCE.getBehaviorState());
-					final String newName = BaNamingUtil.buildUniqueIdentifier(modifyBo, "new_state");
+					final String newName = BaNamingUtil.buildUniqueIdentifier(baToModify, "new_state");
 					newState.setName(newName);
 
 					// Set as initial state if the behavior annex does not have an initial state.
-					if (modifyBo.getInitialState() == null) {
+					if (baToModify.getInitialState() == null) {
 						newState.setInitial(true);
 					}
 
-					// newState.setFinal(true);
+					// TODO set final because if you don't, no other states are able to be added to it
+					// Must have a final state or the error that is created does not let any more states be added
+					if (!baToModify.getStates().stream().filter(BehaviorState::isFinal).findAny().isPresent()) {
+						newState.setFinal(true);
+					}
 
 					// Add the new state to the behavior annex
-					modifyBo.getStates().add(newState);
+					baToModify.getStates().add(newState);
 
-					return StepResultBuilder.create().showNewBusinessObject(ctx.getTarget(), modifyBo).build();
+					return StepResultBuilder.create()
+							.showNewBusinessObject(ctx.getTarget(), new BehaviorAnnexState(newState)).build();
 				})).orElse(Optional.empty());
 	}
 }
