@@ -21,25 +21,25 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.analysis.resource.budgets.busload.model;
+package org.osate.analysis.resource.budgets.internal.busload.model;
 
 import org.osate.aadl2.instance.ComponentInstance;
 
 /**
  * @since 3.0
  */
-public final class Bus extends BusOrVirtualBus {
-	public Bus(final ComponentInstance busInstance) {
-		super("bus", busInstance);
+public final class VirtualBus extends BusOrVirtualBus {
+	public VirtualBus(final ComponentInstance busInstance) {
+		super("virtual bus", busInstance);
 	}
 
 	@Override
 	void visitSelfPrefix(final Visitor visitor) {
-		visitor.visitBusPrefix(this);
+		visitor.visitVirtualBusPrefix(this);
 	}
 
 	@Override
 	void visitSelfPostfix(final Visitor visitor) {
-		visitor.visitBusPostfix(this);
+		visitor.visitVirtualBusPostfix(this);
 	}
 }
