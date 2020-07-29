@@ -1,13 +1,13 @@
 /**
  * AADL-Utils
- * 
+ *
  * Copyright © 2012 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
- * This program is free software: you can redistribute it and/or modify 
+ *
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the Eclipse Public License as published by Eclipse,
  * either version 2.0 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful,
@@ -15,22 +15,23 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Eclipse Public License for more details.
  * You should have received a copy of the Eclipse Public License
- * along with this program.  If not, see 
+ * along with this program.  If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
 
-package org.osate.utils ;
+package org.osate.utils.internal ;
 
 import java.math.BigDecimal ;
 
 /**
  * BigDecimal framework front end for arithmetic operations on float values.
+ * @since 2.0
  */
 public class FloatUtil
 {
   /**
    * Sums the given float values.
-   * 
+   *
    * @param values the given values
    * @return the sum
    */
@@ -46,10 +47,10 @@ public class FloatUtil
 
     return res.floatValue() ;
   }
-  
+
   /**
    * Subtracts the given left float value by the given right float value.
-   * 
+   *
    * @param left the left float value
    * @param right the right float value
    * @return the subtraction result
@@ -61,10 +62,10 @@ public class FloatUtil
     BigDecimal iRight = new BigDecimal(right + "") ;
     return iLeft.subtract(iRight).floatValue() ;
   }
-  
+
   /**
    * Divides the given left float value by the given right float value.
-   * 
+   *
    * @param left the left float value
    * @param right the right float value
    * @return the division result
@@ -84,12 +85,12 @@ public class FloatUtil
       return iLeft.divide(iRight, BigDecimal.ROUND_HALF_DOWN).floatValue() ;
     }
   }
-  
+
   /**
-   * Divides the given left float value by the given right float value and 
+   * Divides the given left float value by the given right float value and
    * returns the smallest integer value of division result that is not less than
    * the result.
-   * 
+   *
    * @param left the left float value
    * @param right the right float value
    * @return the smallest integer value of division result that is not less than
@@ -112,7 +113,7 @@ public class FloatUtil
 
   /**
    * Multiplies the given left float value by the given right float value.
-   * 
+   *
    * @param left the left float value
    * @param right the right float value
    * @return the multiplication result

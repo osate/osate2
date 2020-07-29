@@ -1,13 +1,13 @@
 /**
  * AADL-Utils
- * 
+ *
  * Copyright © 2012 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
- * This program is free software: you can redistribute it and/or modify 
+ *
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the Eclipse Public License as published by Eclipse,
  * either version 2.0 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful,
@@ -15,11 +15,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Eclipse Public License for more details.
  * You should have received a copy of the Eclipse Public License
- * along with this program.  If not, see 
+ * along with this program.  If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
 
-package org.osate.utils;
+package org.osate.utils.internal;
 
 import java.util.ArrayList ;
 import java.util.List ;
@@ -29,7 +29,6 @@ import org.eclipse.emf.common.util.EList ;
 import org.eclipse.emf.ecore.EObject ;
 import org.osate.aadl2.Aadl2Factory ;
 import org.osate.aadl2.Aadl2Package ;
-import org.osate.aadl2.AadlInteger ;
 import org.osate.aadl2.AbstractNamedValue ;
 import org.osate.aadl2.BasicProperty ;
 import org.osate.aadl2.BasicPropertyAssociation ;
@@ -63,14 +62,13 @@ import org.osate.aadl2.Subcomponent ;
 import org.osate.aadl2.UnitLiteral ;
 import org.osate.aadl2.instance.ComponentInstance ;
 import org.osate.aadl2.instance.InstanceReferenceValue ;
-import org.osate.xtext.aadl2.properties.util.AadlProject ;
-import org.osate.xtext.aadl2.properties.util.GetProperties ;
 
 /**
  * Toolbox to extract property values from AADL components instances.
+ * @since 2.0
  */
 public class PropertyUtils {
-  
+
   /**
    * Returns the latest definition of the property association that matches to
    * the given propertyName for the given named element. Otherwise it returns
@@ -89,10 +87,10 @@ public class PropertyUtils {
    * 4. If the named element is a component implementation, first look within
    *    it and its ancestors then its component type (and the component type
    *    's ancestors).
-   * <br>   
+   * <br>
    * 5. If the named element is a component type, find the property association
-   *    within it and its ancestors. 
-   * 
+   *    within it and its ancestors.
+   *
    * @param propertyName a given property name
    * @param owner a given named element
    * @return the latest definition of the property association that matches
@@ -101,7 +99,7 @@ public class PropertyUtils {
   public static PropertyAssociation findPropertyAssociation(String propertyName,
                                                  NamedElement owner)
   {
-    // 1. Look within the owner.    
+    // 1. Look within the owner.
     for (PropertyAssociation pa : owner.getOwnedPropertyAssociations())
     {
       // Sometime property doesn't have name.
@@ -117,19 +115,19 @@ public class PropertyUtils {
     }
 
     PropertyAssociation result = null ;
-    
+
     // 2. Look within parent containers if they defined an property that applies
     // the given property.
 
     result = isInAppliesTo(owner, propertyName) ;
-    
+
     if(result == null)
     {
       List<PropertyAssociation> pas = new ArrayList<PropertyAssociation>() ;
-      
-      // 3. If the named element is a component instance, look within 
+
+      // 3. If the named element is a component instance, look within
       // its associated component implementation.
-      
+
       if (owner instanceof ComponentInstance)
       {
         ComponentInstance inst = (ComponentInstance) owner;
@@ -139,25 +137,25 @@ public class PropertyUtils {
           owner = ci ;
         }
       }
-      
+
       // 4. If the named element is a component implementation, look within it.
-      //    and its interface. 
-      
+      //    and its interface.
+
       if(owner instanceof ComponentImplementation)
       {
         ComponentImplementation ci = (ComponentImplementation) owner ;
         pas.addAll(ci.getAllPropertyAssociations()) ;
         owner = ci.getType() ;
       }
-      
-      // 5. If the named element is a component type, look within it. 
-      
+
+      // 5. If the named element is a component type, look within it.
+
       if(owner instanceof ComponentType)
       {
         ComponentType type = (ComponentType) owner;
         pas.addAll(type.getAllPropertyAssociations()) ;
       }
-      
+
       if(false == pas.isEmpty())
       {
         // The first property association found represents the latest definition
@@ -174,27 +172,27 @@ public class PropertyUtils {
         }
       }
     }
-    
+
     return result ;
   }
-  
+
   private static PropertyAssociation isInAppliesTo(NamedElement owner,
                                                    String propertyName)
   {
     EObject parent = owner.eContainer() ;
     String ownerName = owner.getName() ;
-    
+
     while(parent != null)
     {
       if(parent instanceof NamedElement)
       {
         EList<PropertyAssociation> pas = ((NamedElement)parent).
                                                 getOwnedPropertyAssociations() ;
-        
+
         for(PropertyAssociation pa: pas)
         {
           String propName = pa.getProperty().getName() ;
-          
+
           if(propName != null && propName.equalsIgnoreCase(propertyName))
           {
             for (ContainedNamedElement cne: pa.getAppliesTos())
@@ -210,18 +208,18 @@ public class PropertyUtils {
           }
         }
       }
-      
+
       parent = parent.eContainer() ;
     }
-    
+
     return null ;
   }
-  
+
   /**
    * Extract integer value from a specified property. Convert it
-   * to a given unit. 
+   * to a given unit.
    * May return null
-   * 
+   *
    * @param i
    *            component instance.
    * @param propertyName
@@ -261,11 +259,11 @@ public class PropertyUtils {
 
 	    return null ;
 	  }
-  
-  
+
+
   /**
    * Extract integer value from a specified property. May return null
-   * 
+   *
    * @param i
    *            component instance.
    * @param propertyName
@@ -297,9 +295,9 @@ public class PropertyUtils {
 
   /**
    *    * TODO: DOC ME !
-   * 
+   *
    * May return null
-   * 
+   *
    * @param i
    * @param propertyName
    * @return
@@ -327,32 +325,32 @@ public class PropertyUtils {
 
     return null ;
   }
-  
+
   public static List<RecordValue> getListRecordValue(NamedElement ne,
                                                      String propertyName)
   {
     List<RecordValue> result = null ;
-    
+
     ListValue lv = getListValue(ne, propertyName) ;
-    
+
     if(lv != null)
     {
       EList<PropertyExpression> pes = lv.getOwnedListElements() ;
-      
+
       if(pes.size() != 0 && pes.get(0) instanceof RecordValue)
       {
         result = new ArrayList<RecordValue>(pes.size()) ;
-        
+
         for (PropertyExpression pe : pes)
         {
           result.add((RecordValue) pe) ;
         }
       }
     }
-    
+
     return result ;
   }
-  
+
   public static ListValue getListValue(NamedElement ne,
                                        String propertyName)
   {
@@ -378,13 +376,13 @@ public class PropertyUtils {
          }
        }
      }
-     
+
      return null ;
   }
-                                               
+
   /**
    * Extract float value from a specified property. May return null.
-   * 
+   *
    * @param i
    *            component instance.
    * @param propertyName
@@ -424,16 +422,17 @@ public class PropertyUtils {
     if(i instanceof RefinableElement)
     {
       RefinableElement re = (RefinableElement) i;
-      if(re.getRefinedElement()!=null)
-      return getFloatValue(re.getRefinedElement(), propertyName, unit);
+      if(re.getRefinedElement()!=null) {
+		return getFloatValue(re.getRefinedElement(), propertyName, unit);
+	}
     }
-    
+
     return null ;
   }
 
   /**
    * Extract float value from a specified property. May return null.
-   * 
+   *
    * @param i
    *            component instance.
    * @param propertyName
@@ -466,16 +465,17 @@ public class PropertyUtils {
     if(i instanceof RefinableElement)
     {
       RefinableElement re = (RefinableElement) i;
-      if(re.getRefinedElement()!=null)
-      return getFloatValue(re.getRefinedElement(), propertyName);
+      if(re.getRefinedElement()!=null) {
+		return getFloatValue(re.getRefinedElement(), propertyName);
+	}
     }
-    
+
     return null ;
   }
 
   /**
    * Extract boolean value from a specified property. May return null.
-   * 
+   *
    * @param i
    *            component instance.
    * @param propertyName
@@ -508,7 +508,7 @@ public class PropertyUtils {
 
   /**
    * Extract String value from a specified property. May return null.
-   * 
+   *
    * @param i
    *            component instance.
    * @param propertyName
@@ -541,7 +541,7 @@ public class PropertyUtils {
 
   /**
    * Extract String list value from a specified property. May return null.
-   * 
+   *
    * @param i
    *            component instance.
    * @param propertyName
@@ -593,7 +593,7 @@ public class PropertyUtils {
 
   /**
    * Extract enumeration value from a specified property. May return null.
-   * 
+   *
    * @param i
    *            component instance.
    * @param propertyName
@@ -632,15 +632,16 @@ public class PropertyUtils {
     if(i instanceof RefinableElement)
     {
       RefinableElement re = (RefinableElement) i;
-      if(re.getRefinedElement()!=null)
-      return getEnumValue(re.getRefinedElement(), propertyName);
+      if(re.getRefinedElement()!=null) {
+		return getEnumValue(re.getRefinedElement(), propertyName);
+	}
     }
     return null ;
   }
 
   /**
    * Extract range value from a specified property. May return null.
-   * 
+   *
    * @param i
    *            component instance.
    * @param propertyName
@@ -672,7 +673,7 @@ public class PropertyUtils {
 
   /**
    * Extract minimum range value from a specified property. May return null.
-   * 
+   *
    * @param i
    *            component instance.
    * @param propertyName
@@ -708,7 +709,7 @@ public class PropertyUtils {
 
   /**
    * Extract maximum range value from a specified property. May return null.
-   * 
+   *
    * @param i
    *            component instance.
    * @param propertyName
@@ -744,7 +745,7 @@ public class PropertyUtils {
 
   /**
    * Extract maximum range value from a specified property.
-   * 
+   *
    * @param i
    *            component instance.
    * @param propertyName
@@ -764,12 +765,12 @@ public class PropertyUtils {
       return defaultValue ;
     }
   }
-  
+
   /**
    * TODO: DOC ME !
-   * 
+   *
    * May return null.
-   * 
+   *
    * @param propertyName
    * @param owner
    * @return
@@ -788,12 +789,12 @@ public class PropertyUtils {
       return null ;
     }
   }
-  
+
   /**
    * TODO: DOC ME !
-   * 
+   *
    * May return null.
-   * 
+   *
    * @param propertyName
    * @param owner
    * @return
@@ -812,9 +813,9 @@ public class PropertyUtils {
 
   /**
    * TODO: DOC ME !
-   * 
+   *
    * May return null.
-   * 
+   *
    * @param owner
    * @param propertyName
    * @return
@@ -875,7 +876,7 @@ public class PropertyUtils {
 
     return false;
   }
-  
+
   // May return null.
   private static UnitLiteral getUnit(PropertyAssociation pa)
   {
@@ -893,13 +894,13 @@ public class PropertyUtils {
       return null ;
     }
   }
-  
+
   /**
    * TODO: DOC ME !
-   * 
+   *
    * May return null.
-   * 
-   * 
+   *
+   *
    * @param object
    * @param propertyName
    * @return
@@ -943,11 +944,11 @@ public class PropertyUtils {
 
     return res ;
   }
-  
+
   /**
    * May return an empty list.
-   * 
-   * 
+   *
+   *
    * @param object
    * @param propertyName
    * @return
@@ -957,12 +958,12 @@ public class PropertyUtils {
   {
     List<Subcomponent> res = new ArrayList<Subcomponent>() ;
     PropertyAssociation pa = findPropertyAssociation(propertyName, object) ;
-    if (pa == null)
-      return null ;
-    else {
+    if (pa == null) {
+		return null ;
+	} else {
       Property p = pa.getProperty();
 
-      if (p.getName().equalsIgnoreCase(propertyName)) 
+      if (p.getName().equalsIgnoreCase(propertyName))
       {
         List<ModalPropertyValue> values = pa.getOwnedValues();
 
@@ -972,7 +973,7 @@ public class PropertyUtils {
 
           if (expr instanceof ListValue) {
             ListValue lv = (ListValue) expr;
-            
+
             for(PropertyExpression pe : lv.getOwnedListElements())
             {
               if(pe instanceof ReferenceValue)
@@ -991,14 +992,14 @@ public class PropertyUtils {
       return res;
     }
   }
-  
+
   /**
-   * 
+   *
    * TODO: DOC ME !
-   * 
+   *
    * May return null.
-   * 
-   * 
+   *
+   *
    * @param object
    * @param propertyName
    * @return
@@ -1009,9 +1010,9 @@ public class PropertyUtils {
     List<Long> res = new ArrayList<Long>();
     PropertyAssociation pa = findPropertyAssociation(propertyName, object);
 
-    if (pa == null)
-      return null ;
-    else {
+    if (pa == null) {
+		return null ;
+	} else {
       Property p = pa.getProperty();
 
       if (p.getName().equalsIgnoreCase(propertyName)) {
@@ -1040,7 +1041,7 @@ public class PropertyUtils {
       RefinableElement re = (RefinableElement) object;
       if(re.getRefinedElement()!=null)
       {
-        List<Long> l = getIntListValue((ProcessorSubcomponent)re.getRefinedElement(),
+        List<Long> l = getIntListValue(re.getRefinedElement(),
                                    propertyName) ;
         if(l != null)
         {
@@ -1053,8 +1054,8 @@ public class PropertyUtils {
 
   /**
    * May return an empty list.
-   * 
-   * 
+   *
+   *
    * @param object
    * @param propertyName
    * @return
@@ -1093,7 +1094,7 @@ public class PropertyUtils {
     // try on a refined NamedElement
     if(object instanceof RefinableElement)
     {
-      RefinableElement re = (RefinableElement) object;
+      RefinableElement re = object;
       if(re.getRefinedElement()!=null)
       {
         List<Subcomponent> l = getSubcomponentList((ProcessorSubcomponent)re.getRefinedElement(),
@@ -1106,12 +1107,12 @@ public class PropertyUtils {
     }
     return res;
   }
-  
+
    /**
    * Returns the list of property expressions (PropertyExpression) associated
    * to a given property name {@link #findPropertyAssociation(String, NamedElement)}.
    * The list may be empty.
-   * 
+   *
    * @see #findPropertyAssociation(String, NamedElement)
    * @param ne the given named element
    * @param propertyName the given property
@@ -1121,7 +1122,7 @@ public class PropertyUtils {
                                                             String propertyName)
   {
     PropertyAssociation pa = findPropertyAssociation(propertyName, ne) ;
-    
+
     if(pa != null)
     {
       return getPropertyExpression(pa) ;
@@ -1131,11 +1132,11 @@ public class PropertyUtils {
       return new BasicEList<PropertyExpression>(0) ;
     }
   }
-  
+
   /**
-   * Returns the list of PropertyExpression objects binded to the 
+   * Returns the list of PropertyExpression objects binded to the
    * given PropertyAssociation. The list may be empty.
-   * 
+   *
    * @param pa the given property association
    * @return the list of property expressions. The list may be empty
    */
@@ -1148,7 +1149,7 @@ public class PropertyUtils {
 
     lmpv = pa.getOwnedValues() ;
 
-    for(ModalPropertyValue mpv : lmpv)  
+    for(ModalPropertyValue mpv : lmpv)
     {
       result.add(mpv.getOwnedValue());
     }
@@ -1159,13 +1160,13 @@ public class PropertyUtils {
    * Returns the first property expression or abstract named element (
    * EnumerationLiteral, Property, PropertyConstant, UnitLiteral) that matches
    * to the given String object within the given ProperyExpression object.
-   * If the property expression doesn't exist, it returns {@code null}. 
-   * 
+   * If the property expression doesn't exist, it returns {@code null}.
+   *
    * @param pe the given ProperyExpression object
    * @param toBeMatched the given String object
    * @return the first matching property expression or abstract named element.
    * otherwise return {@code null}
-   * 
+   *
    * @throws UnsupportedOperationException for other property values than:
    *   _ StringLiteral
    *   _ ListValue (recursion supported)
@@ -1180,7 +1181,7 @@ public class PropertyUtils {
   {
     Element tmp = null ;
     int id = pe.eClass().getClassifierID() ;
-    
+
     switch(id)
     {
       case Aadl2Package.STRING_LITERAL:
@@ -1190,28 +1191,28 @@ public class PropertyUtils {
         {
           return sl ;
         }
-        
+
         return null ;
       }
-      
+
       case Aadl2Package.LIST_VALUE:
       {
         ListValue lv = (ListValue) pe ;
-        
+
         EList<PropertyExpression> pel = lv.getOwnedListElements() ;
         for(PropertyExpression ownedPe : pel)
         {
           tmp = getValue(ownedPe, toBeMatched) ;
-          
+
           if(tmp != null)
           {
             return tmp ;
           }
         }
-        
+
         return null ;
       }
-      
+
       case Aadl2Package.RECORD_VALUE:
       {
         RecordValue rv = (RecordValue) pe ;
@@ -1222,10 +1223,10 @@ public class PropertyUtils {
             return bpa.getValue() ;
           }
         }
-        
+
         return null ;
       }
-      
+
       case Aadl2Package.CLASSIFIER_VALUE:
       {
         ClassifierValue cv = (ClassifierValue) pe ;
@@ -1238,7 +1239,7 @@ public class PropertyUtils {
           return null ;
         }
       }
-      
+
       case Aadl2Package.REFERENCE_VALUE:
       {
         InstanceReferenceValue irv = (InstanceReferenceValue) pe ;
@@ -1252,7 +1253,7 @@ public class PropertyUtils {
           return null ;
         }
       }
-      
+
       case Aadl2Package.COMPUTED_VALUE:
       {
         ComputedValue cv = (ComputedValue) pe ;
@@ -1265,7 +1266,7 @@ public class PropertyUtils {
           return null ;
         }
       }
-      
+
       case Aadl2Package.NAMED_VALUE:
       {
         NamedValue nv = (NamedValue) pe ;
@@ -1274,7 +1275,7 @@ public class PropertyUtils {
         {
           NamedElement ne = (NamedElement) anv ;
           String name = ((NamedElement)anv).getName() ;
-          
+
           // Consider as a final node.
           if(name.equalsIgnoreCase(toBeMatched))
           {
@@ -1296,10 +1297,10 @@ public class PropertyUtils {
           System.err.println(msg) ;
           throw new UnsupportedOperationException(msg) ;
         }
-        
+
         return null ;
       }
-      
+
       default:
       {
         String msg = pe.getClass().getSimpleName() + " is not supported" ;
@@ -1308,11 +1309,11 @@ public class PropertyUtils {
       }
     }
   }
-  
+
   /**
    * Returns the BasicProperty (Property or RecordField) object that the given
    * PropertyExpression object belongs.
-   * 
+   *
    * @param pe the given PropertyExpression object
    * @return the BasicProperty object that contains the given PropertyExpression object
    */
@@ -1320,7 +1321,7 @@ public class PropertyUtils {
   {
     EObject tmp = pe.eContainer() ;
     int classId = tmp.eClass().getClassifierID() ;
-    
+
     while(false == (Aadl2Package.BASIC_PROPERTY_ASSOCIATION == classId ||
                     Aadl2Package.PROPERTY_ASSOCIATION == classId ||
                     Aadl2Package.PROPERTY == classId))
@@ -1328,7 +1329,7 @@ public class PropertyUtils {
       tmp = tmp.eContainer() ;
       classId = tmp.eClass().getClassifierID() ;
     }
-    
+
     if(Aadl2Package.PROPERTY_ASSOCIATION == classId)
     {
       return ((PropertyAssociation)tmp).getProperty() ;
