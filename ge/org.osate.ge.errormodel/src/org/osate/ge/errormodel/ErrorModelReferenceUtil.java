@@ -26,9 +26,10 @@ package org.osate.ge.errormodel;
 import java.util.stream.Stream;
 
 import org.osate.aadl2.NamedElement;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 
-class ErrorModelReferenceUtil {
+public class ErrorModelReferenceUtil {
 	private ErrorModelReferenceUtil() {
 	}
 
@@ -44,6 +45,7 @@ class ErrorModelReferenceUtil {
 	public final static String TYPE_ERROR_TYPE_LIBRARY = EMV2_REFERENCE_PREFIX + "error_type_library";
 	public final static String TYPE_ERROR_TYPE = EMV2_REFERENCE_PREFIX + "error_type";
 	public final static String TYPE_ERROR_TYPE_EXT = EMV2_REFERENCE_PREFIX + "error_type_extension";
+	public final static String TYPE_TYPE_SET = EMV2_REFERENCE_PREFIX + "error_type_set";
 	public final static String IS_STEADY = "<steady>"; // Used to identify the transition or branch as steady state.
 
 	public static String getNameForSerialization(final NamedElement ne) {
@@ -68,5 +70,17 @@ class ErrorModelReferenceUtil {
 		} else {
 			return getNameForSerialization(b.getTarget());
 		}
+	}
+
+	public static RelativeBusinessObjectReference getRelativeReferenceForErrorType(final String name) {
+		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_ERROR_TYPE, name);
+	}
+
+	public static RelativeBusinessObjectReference getRelativeReferenceForTypeSet(final String name) {
+		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_TYPE_SET, name);
+	}
+
+	public static RelativeBusinessObjectReference getRelativeReferenceForErrorTypeExtension() {
+		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_ERROR_TYPE_EXT);
 	}
 }

@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.util;
+package org.osate.ge.aadl2.ui;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -48,12 +48,18 @@ import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.eclipse.xtext.ui.resource.LiveScopeResourceSetInitializer;
+import org.eclipse.xtext.ui.resource.XtextLiveScopeResourceSetProvider;
+import org.osate.ge.ProjectUtil;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
 import com.google.common.collect.Streams;
 import com.google.inject.Injector;
 
-public class ScopedEMFIndexRetrieval {
+/**
+ * Utility class for accessing AADL declarative model model elements while respecting project references and the live Xtext resource set.
+ * @since 2.0
+ */
+public class AadlModelAccessUtil {
 	/**
 	 * Gets a collection containing all EObjects of a specified type which may be directly referenced from the project containing the specified resource.
 	 */
@@ -79,8 +85,14 @@ public class ScopedEMFIndexRetrieval {
 		return false;
 	}
 
+	/**
+	 * Returns the resource descriptions from all containers visible from the specified project.
+	 * @param project the project for which to get the visible resource descriptions
+	 * @return a steam of resource descriptions accessible from the project.
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
 	public static Stream<IResourceDescription> calculateVisibleResourceDescriptions(final IProject project) {
-		final ResourceSet liveResourceSet = ProjectUtil.getLiveResourceSet(project);
+		final ResourceSet liveResourceSet = getLiveResourceSet(project);
 
 		final Injector injector = Objects.requireNonNull(
 				Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2),
@@ -102,6 +114,12 @@ public class ScopedEMFIndexRetrieval {
 				.flatMap(container -> Streams.stream(container.getResourceDescriptions()));
 	}
 
+	/**
+	 * Returns all the resource descriptions in the specified projects.
+	 * @param projects the projects for which the return the resource descriptions.
+	 * @return the set of resource descriptions.
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
 	public static Set<IResourceDescription> calculateResourceDescriptions(final Set<IProject> projects) {
 		final Set<IResourceDescription> resourceDescriptions = new HashSet<IResourceDescription>();
 		Injector injector = IResourceServiceProvider.Registry.INSTANCE
@@ -132,5 +150,21 @@ public class ScopedEMFIndexRetrieval {
 		return calculateResourceDescriptions(Collections.singleton(project)).stream()
 				.flatMap(rd -> StreamSupport.stream(rd.getExportedObjectsByType(type).spliterator(), false))
 				.collect(Collectors.toList());
+	}
+
+	/**
+	 * Returns a live resource set based on the project or throws an exception if one cannot be returned.
+	 * @param project
+	 * @return the live resource set for the project.
+	 */
+	public static ResourceSet getLiveResourceSet(final IProject project) {
+		final Injector injector = Objects.requireNonNull(
+				Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2),
+				"Unable to retrieve injector");
+		final XtextLiveScopeResourceSetProvider liveResourceSetProvider = Objects.requireNonNull(
+				injector.getInstance(XtextLiveScopeResourceSetProvider.class),
+				"Unable to retrieve live scope resource set provider");
+
+		return Objects.requireNonNull(liveResourceSetProvider.get(project), "Unable to get live resource set");
 	}
 }

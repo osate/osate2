@@ -88,17 +88,17 @@ import org.osate.ge.aadl2.internal.util.AadlClassifierUtil;
 import org.osate.ge.aadl2.internal.util.AadlImportsUtil;
 import org.osate.ge.aadl2.internal.util.AadlPrototypeUtil;
 import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
-import org.osate.ge.aadl2.internal.util.EditingUtil;
 import org.osate.ge.aadl2.internal.util.classifiers.ClassifierOperation;
 import org.osate.ge.aadl2.internal.util.classifiers.ClassifierOperationExecutor;
 import org.osate.ge.aadl2.internal.util.classifiers.ClassifierOperationPartType;
+import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
+import org.osate.ge.aadl2.ui.internal.AadlUiUtil;
 import org.osate.ge.aadl2.ui.internal.dialogs.ClassifierOperationDialog;
 import org.osate.ge.aadl2.ui.internal.dialogs.DefaultCreateSelectClassifierDialogModel;
 import org.osate.ge.aadl2.ui.internal.dialogs.ElementSelectionDialog;
 import org.osate.ge.internal.operations.OperationExecutor;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
-import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.ui.PropertySectionUtil;
 import org.osgi.framework.FrameworkUtil;
@@ -196,7 +196,7 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 
 		final Composite composite = getWidgetFactory().createFlatFormComposite(parent);
 		final Composite container = getWidgetFactory().createComposite(composite);
-		final Label sectionLabel = InternalPropertySectionUtil.createSectionLabel(composite, getWidgetFactory(),
+		final Label sectionLabel = PropertySectionUtil.createSectionLabel(composite, getWidgetFactory(),
 				"Classifier:");
 
 		container.setLayout(new FormLayout());
@@ -329,7 +329,7 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 
 					// Modify the subcomponents based on the result of the classifier operation
 					selectedBos.modifyWithOperation(opBuilder, Feature.class, (featureToModify, classifier) -> {
-						final EObject resolvedClassifier = EditingUtil
+						final EObject resolvedClassifier = AadlUiUtil
 								.resolveWithLiveResourceSetIfProject((EObject) classifier, project);
 
 						setFeatureClassifier(featureToModify, resolvedClassifier);
@@ -355,7 +355,7 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 
 		createBtn.setEnabled(
 				!features.isEmpty() && features.stream().allMatch(f -> f.eClass() == features.get(0).eClass())
-				&& EditingUtil.allHaveSameValidResourceSet(features)
+						&& AadlUiUtil.allHaveSameValidResourceSet(features)
 				&& AgeAadlUtil.getCommonProject(features).isPresent());
 	}
 
@@ -409,7 +409,7 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 
 		final FeatureClassifierMetadata setterInfo = featureTypeToMetadataMap.get(feature.eClass());
 		// Populate the list with valid classifier descriptions
-		for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(feature.eResource(),
+		for (final IEObjectDescription desc : AadlModelAccessUtil.getAllEObjectsByType(feature.eResource(),
 				setterInfo.classifierEClass)) {
 			featureClassifiers.add(desc);
 		}

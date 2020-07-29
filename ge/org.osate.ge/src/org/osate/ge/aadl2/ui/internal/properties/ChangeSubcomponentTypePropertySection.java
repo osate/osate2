@@ -75,7 +75,7 @@ public class ChangeSubcomponentTypePropertySection extends AbstractPropertySecti
 		comboViewer = InternalPropertySectionUtil.createComboViewer(container, STANDARD_LABEL_WIDTH,
 				scTypeSelectionListener, subcompTypeLabelProvider);
 		comboViewer.setComparator(new ViewerComparator());
-		InternalPropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Type:");
+		PropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Type:");
 		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 

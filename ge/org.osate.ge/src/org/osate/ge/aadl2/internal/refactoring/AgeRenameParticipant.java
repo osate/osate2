@@ -73,11 +73,11 @@ import org.osate.aadl2.ComponentTypeRename;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.Realization;
 import org.osate.ge.CanonicalBusinessObjectReference;
+import org.osate.ge.ProjectUtil;
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ReferenceService;
-import org.osate.ge.internal.util.ProjectUtil;
-import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
@@ -284,7 +284,7 @@ public class AgeRenameParticipant extends RenameParticipant {
 	// Builds a mapping between EObject URIs and the URIs of EObjects that it affects based on the EMF Index.
 	private static final Map<URI, Set<URI>> buildExternalReferenceMap(final Set<IProject> projects) {
 		final Map<URI, Set<URI>> externalReferencesMap = new HashMap<>();
-		for (final IResourceDescription resourceDescription : ScopedEMFIndexRetrieval
+		for (final IResourceDescription resourceDescription : AadlModelAccessUtil
 				.calculateResourceDescriptions(projects)) {
 			for (final IReferenceDescription refDescription : resourceDescription.getReferenceDescriptions()) {
 				final EReference ref = refDescription.getEReference();

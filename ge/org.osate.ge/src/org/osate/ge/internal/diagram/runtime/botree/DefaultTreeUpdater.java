@@ -60,6 +60,7 @@ import org.osate.ge.aadl2.internal.aadlproperties.PropertyValueUtil;
 import org.osate.ge.aadl2.internal.aadlproperties.ReferenceValueWithContext;
 import org.osate.ge.aadl2.internal.model.AgePropertyValue;
 import org.osate.ge.aadl2.internal.model.PropertyValueGroup;
+import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 import org.osate.ge.internal.diagram.runtime.DiagramConfiguration;
 import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.model.EmbeddedBusinessObject;
@@ -69,7 +70,6 @@ import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 import org.osate.ge.internal.util.ContentFilterUtil;
 import org.osate.ge.internal.util.DiagramTypeUtil;
-import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.services.QueryService;
 
 import com.google.common.collect.HashMultimap;
@@ -202,7 +202,7 @@ public class DefaultTreeUpdater implements TreeUpdater {
 	private Set<Property> getPropertiesByLowercasePropertyNames(final Set<String> lcPropertyNames) {
 		final ResourceSet resourceSet = new ResourceSetImpl();
 		final Set<Property> properties = new HashSet<>();
-		for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(projectProvider.getProject(),
+		for (final IEObjectDescription desc : AadlModelAccessUtil.getAllEObjectsByType(projectProvider.getProject(),
 				Aadl2Package.eINSTANCE.getProperty())) {
 			final String lowercasePropertyName = desc.getName().toString("::").toLowerCase();
 			if (lcPropertyNames.contains(lowercasePropertyName)) {
