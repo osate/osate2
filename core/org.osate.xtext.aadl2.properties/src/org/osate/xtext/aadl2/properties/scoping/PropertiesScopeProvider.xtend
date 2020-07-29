@@ -62,8 +62,8 @@ import org.osate.aadl2.parsesupport.AObject
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.getBasePropertyType
-import static extension org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil.resolveComponentPrototype
-import static extension org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil.resolveFeatureGroupPrototype
+import static extension org.osate.aadl2.modelsupport.internal.prototypes.ResolvePrototypeUtil.resolveComponentPrototype
+import static extension org.osate.aadl2.modelsupport.internal.prototypes.ResolvePrototypeUtil.resolveFeatureGroupPrototype
 
 /**
  * This class contains custom scoping description.
