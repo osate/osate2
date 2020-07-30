@@ -42,15 +42,16 @@ import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
-import org.osate.ge.graphics.EllipseBuilder;
-import org.osate.ge.graphics.Graphic;
+import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.graphics.internal.FolderGraphicBuilder;
 
 /**
  * Business Object Handler for {@link BehaviorState}
  */
 public class BaStateHandler implements BusinessObjectHandler, CustomDeleter {
 	private final static String TYPE_STATE = "ba.state";
-	private static final Graphic graphic = EllipseBuilder.create().build();
+	private static final GraphicalConfiguration graphicalConfig = GraphicalConfigurationBuilder.create()
+			.graphic(FolderGraphicBuilder.create().build()).style(StyleBuilder.create().labelsCenter().build()).build();
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
@@ -67,10 +68,10 @@ public class BaStateHandler implements BusinessObjectHandler, CustomDeleter {
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		return new CanonicalBusinessObjectReference(TYPE_STATE,
-				ctx.getBusinessObject(BehaviorAnnexState.class).map(BehaviorAnnexState::getState).get()
-						.getQualifiedName());
+		return new CanonicalBusinessObjectReference(TYPE_STATE, ctx.getBusinessObject(BehaviorAnnexState.class)
+				.map(BehaviorAnnexState::getState).get().getQualifiedName());
 	}
+
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
@@ -80,7 +81,7 @@ public class BaStateHandler implements BusinessObjectHandler, CustomDeleter {
 
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
-		return Optional.of(GraphicalConfigurationBuilder.create().graphic(graphic).build());
+		return Optional.of(graphicalConfig);
 	}
 
 	@Override

@@ -37,7 +37,7 @@ import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
-import org.osate.ge.aadl2.internal.util.EditingUtil;
+import org.osate.ge.aadl2.ui.internal.AadlUiUtil;
 import org.osate.ge.operations.OperationBuilder;
 import org.osate.ge.operations.StepResult;
 
@@ -140,19 +140,19 @@ public class AadlOperationBuilder<BusinessObjectType> {
 	 */
 	@SuppressWarnings("unchecked")
 	public boolean canBuildOperation(final Object bo) {
-		if (EditingUtil.matches(bo, elementType, filter)) {
+		if (AadlUiUtil.matches(bo, elementType, filter)) {
 			return true;
 		}
 
 		// Return true for subcomponents / feature groups which do not have a classifier assigned so that the operation can show an explanation.
 		if (showErrorForSubcomponentWithoutClassifier) {
-			if (EditingUtil.isSubcomponentWithoutClassifier(bo)) {
+			if (AadlUiUtil.isSubcomponentWithoutClassifier(bo)) {
 				return true;
 			}
 		}
 
 		if (showErrorForFeatureGroupWithoutClassifier) {
-			if (EditingUtil.isSubcomponentOrFeatureGroupWithoutClassifier(bo)) {
+			if (AadlUiUtil.isSubcomponentOrFeatureGroupWithoutClassifier(bo)) {
 				return true;
 			}
 		}
@@ -161,7 +161,7 @@ public class AadlOperationBuilder<BusinessObjectType> {
 				|| (showErrorForFeatureGroupWithoutClassifier && bo instanceof FeatureGroup)
 				|| bo instanceof Classifier) {
 			// Check number of potential classifiers to edit.
-			return EditingUtil.getPotentialClassifiersForEditing(bo, (Class<Classifier>) elementType,
+			return AadlUiUtil.getPotentialClassifiersForEditing(bo, (Class<Classifier>) elementType,
 					(Predicate<Classifier>) filter).size() > 0;
 		}
 
@@ -177,7 +177,7 @@ public class AadlOperationBuilder<BusinessObjectType> {
 	public OperationBuilder<BusinessObjectType> buildOperation(final OperationBuilder<?> operation,
 			final Object targetBo) {
 		return operation.supply(() -> {
-			final boolean boMatches = EditingUtil.matches(targetBo, elementType, filter);
+			final boolean boMatches = AadlUiUtil.matches(targetBo, elementType, filter);
 
 			final List<BusinessObjectType> potentialBusinessObjects = new ArrayList<>();
 
@@ -189,13 +189,13 @@ public class AadlOperationBuilder<BusinessObjectType> {
 			}
 
 			if (potentialBusinessObjects.size() == 0 || includeAllWhenBoIsMatch) {
-				potentialBusinessObjects.addAll(EditingUtil.getPotentialClassifiersForEditing(targetBo, elementType,
+				potentialBusinessObjects.addAll(AadlUiUtil.getPotentialClassifiersForEditing(targetBo, elementType,
 						filter, includeAllWhenBoIsMatch));
 			}
 
 			// Determine which classifier should own the new element
 			if (potentialBusinessObjects.size() > 0) {
-				final BusinessObjectType selectedBo = (BusinessObjectType) EditingUtil
+				final BusinessObjectType selectedBo = (BusinessObjectType) AadlUiUtil
 						.getBusinessObjectToModify(potentialBusinessObjects);
 				if (selectedBo == null) {
 					return StepResult.abort();
@@ -204,7 +204,7 @@ public class AadlOperationBuilder<BusinessObjectType> {
 				return StepResult.forValue(selectedBo);
 			} else {
 				if ((showErrorForSubcomponentWithoutClassifier || showErrorForFeatureGroupWithoutClassifier)
-						&& EditingUtil.showMessageIfSubcomponentOrFeatureGroupWithoutClassifier(targetBo,
+						&& AadlUiUtil.showMessageIfSubcomponentOrFeatureGroupWithoutClassifier(targetBo,
 								"Set a " + allowedClassifierDescription + ".")) {
 					if (!boMatches) {
 						return StepResult.abort();

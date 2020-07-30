@@ -238,7 +238,17 @@ public class ShowFlowContributionItem extends ControlContribution {
 
 			private void enableFlowSegments(final List<FlowSegmentReference> highlightableFlowElements) {
 				highlightableFlowElements.stream().filter(Predicates.notNull())
-				.forEach(fs -> enableFlowSegments(findFlowSegments(fs)));
+				.forEach(highlightableFlowElement -> {
+					final NamedElement flowSegmentElement = highlightableFlowElement.flowSegmentElement;
+					final BusinessObjectContext flowSegmentContainer = highlightableFlowElement.container;
+					// Find segments for flow and remove cycles
+					final List<FlowSegmentReference> flowSegmentReferences = findFlowSegments(
+							highlightableFlowElement).stream().filter(
+									flowSegmentReference -> flowSegmentReference.flowSegmentElement != flowSegmentElement
+									&& flowSegmentReference.container != flowSegmentContainer)
+							.collect(Collectors.toList());
+					enableFlowSegments(flowSegmentReferences);
+				});
 			}
 
 			private Object getContainerComponent(final Object container) {
@@ -269,13 +279,17 @@ public class ShowFlowContributionItem extends ControlContribution {
 					}
 				} else if (bo instanceof EndToEndFlowSegment) {
 					final EndToEndFlowSegment flowSegment = (EndToEndFlowSegment) bo;
-					final FlowElement flowElement = (FlowElement) flowSegment.getFlowElement();
-					if (flowSegment.getContext() == null) {
-						return createFlowSegmentReference(flowElement, container);
-					} else {
-						final BusinessObjectNode contextNode = ensureEnabledChild(flowSegment.getContext(), container);
-						return createFlowSegmentReference(flowElement, contextNode);
+					if (flowSegment.getFlowElement() instanceof FlowElement) {
+						final FlowElement flowElement = (FlowElement) flowSegment.getFlowElement();
+						if (flowSegment.getContext() == null) {
+							return createFlowSegmentReference(flowElement, container);
+						} else {
+							final BusinessObjectNode contextNode = ensureEnabledChild(flowSegment.getContext(), container);
+							return createFlowSegmentReference(flowElement, contextNode);
+						}
 					}
+
+					return createFlowSegmentReference(flowSegment.getFlowElement(), container);
 				} else if (bo instanceof InstanceObject) {
 					final InstanceObject io = (InstanceObject) bo;
 					if (bo instanceof EndToEndFlowInstance) {

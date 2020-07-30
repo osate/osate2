@@ -45,7 +45,7 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.internal.util.AadlClassifierUtil;
 import org.osate.ge.aadl2.internal.util.AadlImportsUtil;
 import org.osate.ge.aadl2.internal.util.AadlNameUtil;
-import org.osate.ge.internal.util.ProjectUtil;
+import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 import org.osate.ge.operations.OperationBuilder;
 import org.osate.ge.operations.StepResultBuilder;
 
@@ -190,7 +190,7 @@ public class ClassifierOperationExecutor {
 
 		// Resolve the base classifier using a new resource set. Using the ClassifierCreationHelper to resolve the base classifier does not
 		// work if the classifier was just created.
-		final ResourceSet liveResourceSet = ProjectUtil.getLiveResourceSet(project);
+		final ResourceSet liveResourceSet = AadlModelAccessUtil.getLiveResourceSet(project);
 
 		final Classifier resolvedClassifier = (Classifier) EcoreUtil.resolve(c, liveResourceSet);
 		if (resolvedClassifier == null) {

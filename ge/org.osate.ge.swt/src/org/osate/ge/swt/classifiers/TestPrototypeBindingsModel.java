@@ -36,6 +36,7 @@ import org.osate.ge.swt.BaseObservableModel;
 /**
  * Test implementation of the {@link PrototypeBindingsModel} model.
  * The root node represents a subcomponent and will not have options for the direction or type.
+ * @noreference This class is not intended to be referenced by clients.
  */
 public class TestPrototypeBindingsModel extends BaseObservableModel
 		implements PrototypeBindingsModel<String, String, String, String> {

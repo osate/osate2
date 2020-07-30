@@ -43,7 +43,7 @@ public class CreateStatePaletteCommand extends BasePaletteCommand implements Tar
 	}
 
 	@Override
-	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
+	public Optional<Operation> getOperation(GetTargetedOperationContext ctx) {
 		return ctx.getTarget().getBusinessObject(BehaviorAnnex.class)
 				.map(ba -> Operation.createSimple(ctx.getTarget(), BehaviorAnnex.class, baToModify -> {
 					// Create the state

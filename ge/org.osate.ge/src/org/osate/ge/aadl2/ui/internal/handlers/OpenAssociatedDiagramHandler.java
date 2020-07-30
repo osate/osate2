@@ -37,11 +37,11 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.ProjectUtil;
 import org.osate.ge.aadl2.internal.util.AadlSubcomponentUtil;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
-import org.osate.ge.internal.util.ProjectUtil;
 
 public class OpenAssociatedDiagramHandler extends AbstractHandler {
 	@Override

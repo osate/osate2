@@ -96,7 +96,7 @@ import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.internal.ui.util.UiUtil;
-import org.osate.ge.swt.util.SwtTestUtil;
+import org.osate.ge.swt.SwtUtil;
 
 import com.google.common.collect.Lists;
 
@@ -140,7 +140,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		fd.top = new FormAttachment(primaryLabelVisibleLabel, 0, SWT.TOP);
 		fd.left = new FormAttachment(primaryLabelVisibleLabel, 10);
 		primaryLabelVisibleViewer.getCombo().setLayoutData(fd);
-		SwtTestUtil.setTestingId(primaryLabelVisibleViewer.getControl(), primaryLabelVisibilityCombo);
+		SwtUtil.setTestingId(primaryLabelVisibleViewer.getControl(), primaryLabelVisibilityCombo);
 
 		fontSizeLabel = createLabel(parent, "Font Size:");
 		fd = new FormData();
@@ -153,7 +153,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		fd.top = new FormAttachment(fontSizeLabel, 0, SWT.TOP);
 		fd.left = new FormAttachment(primaryLabelVisibleViewer.getControl(), 0, SWT.LEFT);
 		fontSizeComboViewer.getCombo().setLayoutData(fd);
-		SwtTestUtil.setTestingId(fontSizeComboViewer.getControl(), fontSizeCombo);
+		SwtUtil.setTestingId(fontSizeComboViewer.getControl(), fontSizeCombo);
 
 		lineWidthLabel = createLabel(parent, "Line Width:");
 		fd = new FormData();
@@ -166,7 +166,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		fd.top = new FormAttachment(lineWidthLabel, 0, SWT.TOP);
 		fd.left = new FormAttachment(primaryLabelVisibleViewer.getControl(), 0, SWT.LEFT);
 		lineWidthComboViewer.getCombo().setLayoutData(fd);
-		SwtTestUtil.setTestingId(lineWidthComboViewer.getControl(), lineWidthCombo);
+		SwtUtil.setTestingId(lineWidthComboViewer.getControl(), lineWidthCombo);
 	}
 
 	private void createButtonSection(final Composite parent) {
@@ -419,7 +419,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		final Button button = new Button(parent, SWT.PUSH);
 		button.setImage(imageDescriptor.createImage());
 		button.setToolTipText(toolTipText);
-		SwtTestUtil.setTestingId(button, id);
+		SwtUtil.setTestingId(button, id);
 
 		return button;
 	}
@@ -467,7 +467,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		private Button createColorButton(final Composite parent, final ImageDescriptor imgDescriptor) {
 			final Button btn = new Button(parent, SWT.PUSH);
 			btn.setImage(imgDescriptor.createImage());
-			SwtTestUtil.setTestingId(btn, presetColorId);
+			SwtUtil.setTestingId(btn, presetColorId);
 			btn.addDisposeListener(e -> {
 				btn.getImage().dispose();
 			});

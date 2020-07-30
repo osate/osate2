@@ -1,4 +1,4 @@
-package org.osate.ge.swt.internal;
+package org.osate.ge.swt;
 
 import java.util.function.Consumer;
 
@@ -7,13 +7,16 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Widget;
 
 /**
- * Contains static utility functions.
- *
- */
-public class InternalUtil {
-	private InternalUtil() {
+ * Contains static utility functions including.
+ * @since 1.1
+  */
+public class SwtUtil {
+	static String AUTOMATED_SWTBOT_TESTING_KEY = "org.eclipse.swtbot.widget.key";
+
+	private SwtUtil() {
 	}
 
 	/**
@@ -69,5 +72,24 @@ public class InternalUtil {
 	public static void setColorsToMatchParent(final Control c) {
 		c.setBackground(c.getParent().getBackground());
 		c.setForeground(c.getParent().getForeground());
+	}
+
+	/**
+	 * Assigns an identifier to a widget to allow identification during automated testing.
+	 * @param widget is the widget for which to test the id.
+	 * @param value is the id to assign.
+	 */
+	public static void setTestingId(final Widget widget, final String value) {
+		widget.setData(SwtUtil.AUTOMATED_SWTBOT_TESTING_KEY, value);
+	}
+
+	/**
+	 * Returns the value of the id assigned to the widget for allow identification during automated testing
+	 * @param widget is the widget for which to return the id.
+	 * @return the id for the widget or null if one has not been assigned.
+	 */
+	public static String getTestingId(final Widget widget) {
+		final Object value = widget.getData(SwtUtil.AUTOMATED_SWTBOT_TESTING_KEY);
+		return value == null ? null : value.toString();
 	}
 }

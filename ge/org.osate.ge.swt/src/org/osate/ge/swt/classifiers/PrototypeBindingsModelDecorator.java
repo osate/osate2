@@ -31,6 +31,7 @@ import org.osate.ge.swt.EventSource;
 
 /**
  * Abstract decorator for {@link PrototypeBindingsModel}
+ * @since 1.1
  */
 public abstract class PrototypeBindingsModelDecorator<N, D, T, C> implements PrototypeBindingsModel<N, D, T, C> {
 	private final PrototypeBindingsModel<N, D, T, C> inner;
