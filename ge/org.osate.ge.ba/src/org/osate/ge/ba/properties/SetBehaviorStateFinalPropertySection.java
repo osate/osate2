@@ -43,10 +43,9 @@ public class SetBehaviorStateFinalPropertySection extends AbstractPropertySectio
 					boc -> boc.getBusinessObject(BehaviorAnnexState.class)
 							.map(behaviorAnnexState -> behaviorAnnexState.getEmfContainer() instanceof BehaviorAnnex)
 							.isPresent(),
-					boc -> {
-						return boc.getBusinessObject(BehaviorAnnexState.class).map(BehaviorAnnexState::getState)
-								.orElseThrow(() -> new RuntimeException("Cannot get behavior state"));
-					}, (behaviorState, boc) -> {
+					boc -> boc.getBusinessObject(BehaviorAnnexState.class).map(BehaviorAnnexState::getState)
+							.orElseThrow(() -> new RuntimeException("Cannot get behavior state")),
+					(behaviorState, boc) -> {
 						final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorState.eContainer();
 						// Clear final states
 						for (final BehaviorState state : behaviorAnnex.getStates()) {
@@ -55,6 +54,7 @@ public class SetBehaviorStateFinalPropertySection extends AbstractPropertySectio
 
 						// Set final state
 						behaviorState.setFinal(btn.getSelection());
+						btn.setEnabled(false);
 					});
 		}
 	};
@@ -72,8 +72,6 @@ public class SetBehaviorStateFinalPropertySection extends AbstractPropertySectio
 		fd.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
 		fd.top = new FormAttachment(sectionLabel, 0, SWT.CENTER);
 		setFinalStateBtn.setLayoutData(fd);
-
-		// InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 
 	@Override
@@ -86,10 +84,23 @@ public class SetBehaviorStateFinalPropertySection extends AbstractPropertySectio
 	public void refresh() {
 		final Set<BehaviorState> behaviorStates = selectedBos.boStream(BehaviorAnnexState.class)
 				.map(BehaviorAnnexState::getState).collect(Collectors.toSet());
-		// Only allow editing 1 element // TODO do we only support single selection?
-		final boolean isEnabled = behaviorStates.size() == 1;
-		setFinalStateBtn.setEnabled(isEnabled);
-		// Set initial selection
-		setFinalStateBtn.setSelection(isEnabled && behaviorStates.iterator().next().isFinal());
+		// Only allow editing 1 element
+		final boolean isSingleSelection = behaviorStates.size() == 1;
+		final BehaviorState selectedState = behaviorStates.iterator().next();
+		final boolean isFinalState = selectedState.isFinal();
+		// Set button enabled and selection state
+		if (isSingleSelection) {
+			// Do not allow to set final if any transitions are leaving state, this would break diagram
+			final BehaviorAnnex ownedBehaviorAnnex = (BehaviorAnnex) selectedState.eContainer();
+			final boolean isEnabled = !ownedBehaviorAnnex.getTransitions().stream()
+					.filter(bt -> bt.getSourceState() == selectedState).findAny().isPresent();
+			setFinalStateBtn.setSelection(isEnabled && isFinalState);
+			setFinalStateBtn.setEnabled(isEnabled && !isFinalState);
+		} else {
+			// Set selection state for first selection
+			setFinalStateBtn.setSelection(isFinalState);
+			// Always disabled for multiple selection
+			setFinalStateBtn.setEnabled(false);
+		}
 	}
 }

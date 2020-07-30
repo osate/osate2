@@ -75,9 +75,6 @@ public class SetBehaviorStateInitialPropertySection extends AbstractPropertySect
 		fd.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
 		fd.top = new FormAttachment(sectionLabel, 0, SWT.CENTER);
 		setInitialStateBtn.setLayoutData(fd);
-
-
-		// InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 
 	@Override
@@ -90,10 +87,18 @@ public class SetBehaviorStateInitialPropertySection extends AbstractPropertySect
 	public void refresh() {
 		final Set<BehaviorState> behaviorStates = selectedBos.boStream(BehaviorAnnexState.class)
 				.map(BehaviorAnnexState::getState).collect(Collectors.toSet());
-		// Only allow editing 1 element // TODO do we only support single selection?
-		final boolean isEnabled = behaviorStates.size() == 1;
-		setInitialStateBtn.setEnabled(isEnabled);
-		// Set initial selection
-		setInitialStateBtn.setSelection(isEnabled && behaviorStates.iterator().next().isInitial());
+		// Only allow editing 1 element
+		final boolean isSingleSelection = behaviorStates.size() == 1;
+		// Set button enabled and selection state
+		final boolean isInitialState = behaviorStates.iterator().next().isInitial();
+		if (isSingleSelection) {
+			setInitialStateBtn.setEnabled(!isInitialState);
+			setInitialStateBtn.setSelection(isInitialState);
+		} else {
+			// Set selection state for first selection
+			setInitialStateBtn.setEnabled(isInitialState);
+			// Always disabled for multiple selection
+			setInitialStateBtn.setSelection(false);
+		}
 	}
 }
