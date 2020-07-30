@@ -81,7 +81,7 @@ import org.osate.ge.internal.ui.tools.SelectionChangedEvent;
 import org.osate.ge.internal.ui.tools.Tool;
 import org.osate.ge.internal.ui.tools.ToolUtil;
 import org.osate.ge.internal.ui.util.ContextHelpUtil;
-import org.osate.ge.swt.util.SwtTestUtil;
+import org.osate.ge.swt.SwtUtil;
 import org.osate.xtext.aadl2.properties.util.DeploymentProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
@@ -220,7 +220,7 @@ public class SetBindingTool implements Tool {
 			// Create combo box for selection type
 			bindingPropertyCombo = new ComboViewer(container, SWT.DROP_DOWN | SWT.READ_ONLY);
 			bindingPropertyCombo.getControl().setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
-			SwtTestUtil.setTestingId(bindingPropertyCombo.getControl(), setBindingIdentifier);
+			SwtUtil.setTestingId(bindingPropertyCombo.getControl(), setBindingIdentifier);
 			bindingPropertyCombo.setContentProvider(new ArrayContentProvider());
 			bindingPropertyCombo.setLabelProvider(propertyLabelProvider);
 			bindingPropertyCombo.setInput(bindingProperties);

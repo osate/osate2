@@ -37,7 +37,7 @@ import org.osate.aadl2.FeaturePrototype;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.aadl2.internal.util.AadlPrototypeUtil;
 import org.osate.ge.swt.BaseObservableModel;
-import org.osate.ge.swt.selectors.SelectorModel;
+import org.osate.ge.swt.selectors.SingleSelectorModel;
 
 import com.google.common.base.Strings;
 
@@ -45,7 +45,7 @@ import com.google.common.base.Strings;
  * View model for setting the feature prototype for abstract features.
  */
 public class AbstractFeaturePrototypeModel extends BaseObservableModel
-implements SelectorModel<Set<FeaturePrototype>> {
+implements SingleSelectorModel<Set<FeaturePrototype>> {
 	private BusinessObjectSelection bos;
 
 	public AbstractFeaturePrototypeModel(final BusinessObjectSelection bos) {
@@ -122,5 +122,4 @@ implements SelectorModel<Set<FeaturePrototype>> {
 		this.bos = Objects.requireNonNull(value, "value must not be null");
 		triggerChangeEvent();
 	}
-
 }

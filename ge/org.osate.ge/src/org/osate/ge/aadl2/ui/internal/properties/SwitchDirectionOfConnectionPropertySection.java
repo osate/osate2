@@ -115,14 +115,14 @@ public class SwitchDirectionOfConnectionPropertySection extends AbstractProperty
 		final Composite directionContainer = InternalPropertySectionUtil.createRowLayoutComposite(getWidgetFactory(),
 				composite,
 				STANDARD_LABEL_WIDTH);
-		bidirectionalBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), directionContainer, true,
+		bidirectionalBtn = PropertySectionUtil.createButton(getWidgetFactory(), directionContainer, true,
 				directionSelectionListener,
 				"Bidirectional", SWT.RADIO);
-		unidirectionalBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), directionContainer, false,
+		unidirectionalBtn = PropertySectionUtil.createButton(getWidgetFactory(), directionContainer, false,
 				directionSelectionListener,
 				"Unidirectional", SWT.RADIO);
 
-		switchDirectionBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), composite, null,
+		switchDirectionBtn = PropertySectionUtil.createButton(getWidgetFactory(), composite, null,
 				switchDirectionListener, "Switch Direction", SWT.PUSH);
 		final FormData ld = new FormData();
 		ld.left = new FormAttachment(directionContainer, ITabbedPropertyConstants.HSPACE);

@@ -52,7 +52,7 @@ import org.osate.aadl2.SubprogramProxy;
 import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.ge.aadl2.internal.util.AadlFeatureUtil;
 import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
-import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
+import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 
 /**
  * This is a default implementation of the model used for the SelectSubprogramDialog.
@@ -76,7 +76,7 @@ public class DefaultSelectSubprogramDialogModel implements SelectSubprogramDialo
 		// subprogram group unique type reference
 		// abstract unique type reference
 		final Aadl2Package aadl2Package = Aadl2Package.eINSTANCE;
-		for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(bi.eResource(),
+		for (final IEObjectDescription desc : AadlModelAccessUtil.getAllEObjectsByType(bi.eResource(),
 				aadl2Package.getComponentClassifier())) {
 			// Add objects that have care either types or implementations of the same category as the classifier type
 			final EClass classifierEClass = desc.getEClass();
@@ -169,7 +169,7 @@ public class DefaultSelectSubprogramDialogModel implements SelectSubprogramDialo
 		} else if(context == nullContext) { // Null Context
 			// Subprogram classifier reference
 			final Aadl2Package aadl2Package = Aadl2Package.eINSTANCE;
-			for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(bi.eResource(),
+			for (final IEObjectDescription desc : AadlModelAccessUtil.getAllEObjectsByType(bi.eResource(),
 					aadl2Package.getComponentClassifier())) {
 				// Add objects that have care either types or implementations of the same category as the classifier type
 				final EClass classifierEClass = desc.getEClass();

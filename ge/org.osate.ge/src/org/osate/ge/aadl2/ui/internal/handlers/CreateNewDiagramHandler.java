@@ -36,11 +36,11 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.ProjectUtil;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
 import org.osate.ge.internal.ui.util.EditorUtil;
-import org.osate.ge.internal.util.ProjectUtil;
 
 public class CreateNewDiagramHandler extends AbstractHandler {
 	@Override

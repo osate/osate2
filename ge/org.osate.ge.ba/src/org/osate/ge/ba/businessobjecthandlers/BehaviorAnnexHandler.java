@@ -38,8 +38,8 @@ import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
-import org.osate.ge.graphics.EllipseBuilder;
-import org.osate.ge.graphics.Graphic;
+import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.graphics.internal.FolderGraphicBuilder;
 
 /**
  * Business object handler for {@link BehaviorAnnex}. This handler only exists to prevent the annex from being added by the AADL
@@ -48,8 +48,8 @@ import org.osate.ge.graphics.Graphic;
  */
 public class BehaviorAnnexHandler implements BusinessObjectHandler {
 	final AnnexHandler annexHandler = new AnnexHandler();
-	private static final Graphic graphic = EllipseBuilder.create().build();
-
+	private static final GraphicalConfiguration graphicalConfig = GraphicalConfigurationBuilder.create()
+			.graphic(FolderGraphicBuilder.create().build()).style(StyleBuilder.create().labelsCenter().build()).build();
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(BehaviorAnnex.class).isPresent();
@@ -67,7 +67,7 @@ public class BehaviorAnnexHandler implements BusinessObjectHandler {
 
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
-		return Optional.of(GraphicalConfigurationBuilder.create().graphic(graphic).build());
+		return Optional.of(graphicalConfig);
 	}
 
 	@Override

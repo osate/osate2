@@ -41,7 +41,6 @@ import org.osate.ge.businessobjecthandling.GetNameForDiagramContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.errormodel.model.ErrorTypeExtension;
-import org.osate.ge.errormodel.model.ErrorTypeLibrary;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
@@ -56,8 +55,10 @@ public class ErrorTypeExtensionHandler implements BusinessObjectHandler, CustomD
 	private static final Graphic connectionGraphic = ConnectionBuilder.create()
 			.destinationTerminator(ArrowBuilder.create().open().build()).build();
 
-	private static StandaloneQuery dstDifferentPackageQuery = StandaloneQuery
-			.create((rootQuery) -> rootQuery.ancestor(4).descendantsByBusinessObjectsRelativeReference(
+	// Only works if the package is displayed in the diagram.
+	private static StandaloneQuery dstQuery = StandaloneQuery
+			.create((rootQuery) -> rootQuery.ancestor(3)
+					.descendantsByBusinessObjectsRelativeReference(
 					ete -> getBusinessObjectPath(((ErrorTypeExtension) ete).getSupertype())));
 
 	@Override
@@ -79,7 +80,7 @@ public class ErrorTypeExtensionHandler implements BusinessObjectHandler, CustomD
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_ERROR_TYPE_EXT);
+		return ErrorModelReferenceUtil.getRelativeReferenceForErrorTypeExtension();
 	}
 
 	@Override
@@ -128,12 +129,12 @@ public class ErrorTypeExtensionHandler implements BusinessObjectHandler, CustomD
 
 	private BusinessObjectContext getDestination(final BusinessObjectContext boc,
 			final QueryService queryService) {
-		final BusinessObjectContext packageParent = boc.getAncestor(4);
+		final BusinessObjectContext packageParent = boc.getAncestor(3);
 		if (packageParent == null) {
-			// Not supported. Will need to be supported if error type libraries are supported as a diagram context
+			// Not supported. Package was not contained in the diagram.
 			return null;
 		} else {
-			return queryService.getFirstResult(dstDifferentPackageQuery, boc);
+			return queryService.getFirstResult(dstQuery, boc);
 		}
 	}
 
@@ -149,6 +150,6 @@ public class ErrorTypeExtensionHandler implements BusinessObjectHandler, CustomD
 			return null;
 		}
 
-		return new Object[] { et.getElementRoot(), new ErrorTypeLibrary((ErrorModelLibrary) et.eContainer()), et };
+		return new Object[] { et.getElementRoot(), et };
 	}
 }

@@ -21,8 +21,32 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
+package org.osate.ge.errormodel.filters;
 
-/**
- * Provides classes which are shared between packages but are not meant to be used outside this plugin.
- */
-package org.osate.ge.swt.internal;
+import org.osate.aadl2.AadlPackage;
+import org.osate.ge.ContentFilter;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
+
+public class TypeSetFilter implements ContentFilter {
+	public static final String ID = "emv2.typeSets";
+
+	@Override
+	public String getId() {
+		return ID;
+	}
+
+	@Override
+	public String getName() {
+		return "Error Type Sets";
+	}
+
+	@Override
+	public boolean isApplicable(final Object bo) {
+		return bo instanceof AadlPackage;
+	}
+
+	@Override
+	public boolean test(Object bo) {
+		return bo instanceof TypeSet;
+	}
+}

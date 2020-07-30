@@ -1,9 +1,10 @@
 package org.osate.ge.businessobjecthandling;
 
+import org.eclipse.emf.ecore.EObject;
+
 /**
  * Interface which should be implemented by {@link BusinessObjectHandler} implementations to perform a custom delete operation.
- * This interface is only supported for business objects which implement {@link org.osate.ge.EmfContainerProvider}.
- * The only supported use is to allow deletion of business objects which do not implement {@link org.eclipse.emf.ecore.EObject}
+ * This interface is only supported for business objects which implement {@link org.osate.ge.EmfContainerProvider} or {@link EObject}.
  *
  * @since 2.0
  */

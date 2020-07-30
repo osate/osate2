@@ -42,7 +42,7 @@ public class CreateTypeExtensionPaletteCommand extends BasePaletteCommand implem
 
 	@Override
 	public boolean canStartConnection(final CanStartConnectionContext ctx) {
-		return ctx.getSource().getBusinessObject(ErrorType.class).isPresent();
+		return ctx.getSource().getBusinessObject(ErrorType.class).filter(t -> t.getAliasedType() == null).isPresent();
 	}
 
 	@Override

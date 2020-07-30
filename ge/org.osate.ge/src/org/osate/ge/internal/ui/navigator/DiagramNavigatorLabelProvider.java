@@ -121,7 +121,7 @@ org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider
 				throw new RuntimeException("Unexpected case. Diagram type and context reference are both null");
 			}
 		} else if (element instanceof IFile) {
-			return Files.getNameWithoutExtension(diagramService.getName(((IFile) element)));
+			return Files.getNameWithoutExtension(((IFile) element).getName());
 		}
 
 		return super.getText(element);

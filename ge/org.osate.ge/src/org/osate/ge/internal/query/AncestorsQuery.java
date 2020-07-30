@@ -36,7 +36,7 @@ class AncestorsQuery extends DefaultQuery {
 	void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx, final QueryExecutionState state, final QueryResult result) {
 		BusinessObjectContext e = ctx;
 
-		while(e != null && !result.done) {		
+		while(e != null && !result.isDone()) {		
 			e = e.getParent();
 			if(e != null) {
 				processResultValue(remainingQueries, e, state, result);

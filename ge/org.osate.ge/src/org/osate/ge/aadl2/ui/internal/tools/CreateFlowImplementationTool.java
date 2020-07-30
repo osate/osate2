@@ -62,6 +62,7 @@ import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
+import org.osate.aadl2.Context;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FlowElement;
@@ -74,7 +75,7 @@ import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItemUtil;
+import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.aadl2.ui.internal.tools.FlowDialogUtil.SegmentData;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
@@ -111,26 +112,27 @@ public class CreateFlowImplementationTool implements Tool {
 		// Populate segments
 		final FlowSpecification flowSpec = flowImpl.getSpecification();
 		segmentSelections.add(new SegmentData(
-				FlowContributionItemUtil.findOrCreateBusinessObjectContext(referenceService, container, flowSpec)));
+				FlowToolUtil.findOrCreateBusinessObjectContext(referenceService, container, flowSpec)));
 
 		final FlowEnd inEnd = flowImpl.getInEnd();
 		if (inEnd != null) {
-			segmentSelections.add(FlowContributionItemUtil.createSegmentData(referenceService, container, inEnd));
+			segmentSelections.add(FlowToolUtil.createSegmentData(referenceService, container, inEnd));
 		}
 
 		flowImpl.getOwnedFlowSegments().stream().map(
-				flowSegment -> FlowContributionItemUtil.createSegmentData(referenceService, container, flowSegment))
+				flowSegment -> FlowToolUtil.createSegmentData(referenceService, container, flowSegment))
 		.forEachOrdered(segmentSelections::add);
 
 		final FlowEnd outEnd = flowImpl.getOutEnd();
 		if (outEnd != null) {
-			segmentSelections.add(FlowContributionItemUtil.createSegmentData(referenceService, container, outEnd));
+			segmentSelections.add(FlowToolUtil.createSegmentData(referenceService, container, outEnd));
 		}
 
 		// Populate in mode features
 		flowImpl.getInModeOrTransitions().stream()
-				.forEachOrdered(modeFeature -> modeFeatureSelections.add(FlowContributionItemUtil
-				.findOrCreateBusinessObjectContext(referenceService, container, modeFeature)));
+		.forEachOrdered(modeFeature -> modeFeatureSelections
+				.add(FlowToolUtil
+						.findOrCreateBusinessObjectContext(referenceService, container, modeFeature)));
 	}
 
 	public CreateFlowImplementationTool(final AgeDiagramEditor editor) {
@@ -579,15 +581,24 @@ public class CreateFlowImplementationTool implements Tool {
 				if (flowImplToEdit != null) {
 					createFlowSpecLabel((NamedElement) boc.getBusinessObject());
 				} else {
-					createSegmentButton(FlowUtil.getRefinedName((NamedElement) boc.getBusinessObject()), segmentData);
+					createSegmentButton(AgeAadlUtil.getRootName((NamedElement) boc.getBusinessObject()), segmentData);
 					createFlowText();
 				}
 
 				while (segmentIt.hasNext()) {
 					segmentData = segmentIt.next();
 					boc = segmentData.getBoc();
-					
-					createSegmentButton(FlowUtil.getRefinedName((NamedElement) boc.getBusinessObject()), segmentData);
+
+					final StringBuilder segmentNameBuilder = new StringBuilder();
+					final Context context = ToolUtil.findContext(boc);
+					if (context != null) {
+						segmentNameBuilder.append(AgeAadlUtil.getRootName(context));
+						segmentNameBuilder.append(".");
+					}
+
+					segmentNameBuilder.append(AgeAadlUtil.getRootName((NamedElement) boc.getBusinessObject()));
+
+					createSegmentButton(segmentNameBuilder.toString(), segmentData);
 					if (segmentIt.hasNext()) {
 						// If segment is not last, add an arrow
 						FlowDialogUtil.createArrowText(flowComposite);
@@ -619,7 +630,7 @@ public class CreateFlowImplementationTool implements Tool {
 			final StyledText flowSpecLabel = new StyledText(flowComposite, SWT.NONE);
 			flowSpecLabel.setBackground(flowComposite.getBackground());
 			flowSpecLabel.setLayoutData(new RowData());
-			final String flowSpecName = FlowUtil.getRefinedName(ne);
+			final String flowSpecName = AgeAadlUtil.getRootName(ne);
 			flowSpecLabel.setText(flowSpecName + " :  flow");
 			flowSpecLabel.setStyleRange(new StyleRange(flowSpecName.length() + 4, 4,
 					Display.getCurrent().getSystemColor(SWT.COLOR_DARK_RED), null, SWT.BOLD));
@@ -940,7 +951,7 @@ public class CreateFlowImplementationTool implements Tool {
 				if (bocs.size() == 1 && bocs.get(0).getBusinessObject() instanceof NamedElement) {
 					final NamedElement selectedElement = (NamedElement) bocs.get(0).getBusinessObject();
 					okBtn.setEnabled(isQualifiedType.apply(selectedElement));
-					selectionLabel.setText(FlowUtil.getRefinedName(selectedElement));
+					selectionLabel.setText(AgeAadlUtil.getRootName(selectedElement));
 					setErrorMessage(null);
 				} else {
 					okBtn.setEnabled(false);
@@ -974,7 +985,7 @@ public class CreateFlowImplementationTool implements Tool {
 				}
 
 				if (bo instanceof NamedElement) {
-					selectionLabel.setText(FlowUtil.getRefinedName((NamedElement) bo));
+					selectionLabel.setText(AgeAadlUtil.getRootName((NamedElement) bo));
 					setErrorMessage(null);
 				}
 			}
@@ -1003,7 +1014,7 @@ public class CreateFlowImplementationTool implements Tool {
 				selectionLabel = new Label(composite, SWT.NONE);
 				final List<BusinessObjectContext> bocs = AgeHandlerUtil.getSelectedBusinessObjectContexts();
 				if (bocs.size() == 1 && bocs.get(0).getBusinessObject() instanceof NamedElement) {
-					selectionLabel.setText(FlowUtil.getRefinedName((NamedElement) bocs.get(0).getBusinessObject()));
+					selectionLabel.setText(AgeAadlUtil.getRootName((NamedElement) bocs.get(0).getBusinessObject()));
 				} else {
 					selectionLabel.setText("<Invalid>");
 				}

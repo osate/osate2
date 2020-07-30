@@ -54,7 +54,6 @@ public class BaPaletteContributor implements PaletteContributor {
 			final PaletteCommandProviderContext ctx) {
 		final List<CreateConnectionPaletteCommand> commands = new ArrayList<>();
 		commands.add(new CreateTransitionPaletteCommand());
-
 		return commands.stream();
 	}
 }

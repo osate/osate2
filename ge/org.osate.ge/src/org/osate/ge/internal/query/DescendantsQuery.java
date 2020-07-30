@@ -36,12 +36,12 @@ class DescendantsQuery extends DefaultQuery {
 	void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx, final QueryExecutionState state, final QueryResult result) {
 		for(final BusinessObjectContext child : ctx.getChildren()) {
 			processResultValue(remainingQueries, child, state, result);
-			if(result.done) {
+			if(result.isDone()) {
 				return;
 			}
 			
 			run(remainingQueries, child, state, result);			
-			if(result.done) {
+			if(result.isDone()) {
 				return;
 			}
 		}

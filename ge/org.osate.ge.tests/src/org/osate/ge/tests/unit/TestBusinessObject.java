@@ -34,10 +34,10 @@ import org.osate.ge.graphics.Point;
 public class TestBusinessObject {
 	public final int value;
 	public final TestBusinessObject[] children;
-	public boolean isConnection = false;
-	public RelativeBusinessObjectReference connectionStartReference; // Reference to sibling which is the start of the connection
-	public RelativeBusinessObjectReference connectionEndReference; // Reference to sibling which is the end of the connection
-	public DockingPosition defaultDockingPosition = DockingPosition.NOT_DOCKABLE;
+	private boolean isConnection = false;
+	private RelativeBusinessObjectReference connectionStartReference; // Reference to sibling which is the start of the connection
+	private RelativeBusinessObjectReference connectionEndReference; // Reference to sibling which is the end of the connection
+	private DockingPosition defaultDockingPosition = DockingPosition.NOT_DOCKABLE;
 
 	/**
 	 * Creates an instance
@@ -70,12 +70,13 @@ public class TestBusinessObject {
 
 	public Point getTestPosition() {
 		return new Point(value, children.length);
+
 	}
 
 	public void makeConnection(final TestBusinessObject startSiblingBo, final TestBusinessObject endSiblingBo) {
-		this.isConnection = true;
-		connectionStartReference = startSiblingBo == null ? null : startSiblingBo.getRelativeReference();
-		connectionEndReference = endSiblingBo == null ? null : endSiblingBo.getRelativeReference();
+		this.setConnection(true);
+		setConnectionStartReference(startSiblingBo == null ? null : startSiblingBo.getRelativeReference());
+		setConnectionEndReference(endSiblingBo == null ? null : endSiblingBo.getRelativeReference());
 	}
 
 	@Override
@@ -105,5 +106,37 @@ public class TestBusinessObject {
 
 	public static TestBusinessObject newBO(final TestBusinessObject... args) {
 		return new TestBusinessObject(args);
+	}
+
+	public boolean isConnection() {
+		return isConnection;
+	}
+
+	public void setConnection(boolean isConnection) {
+		this.isConnection = isConnection;
+	}
+
+	public RelativeBusinessObjectReference getConnectionStartReference() {
+		return connectionStartReference;
+	}
+
+	public void setConnectionStartReference(RelativeBusinessObjectReference connectionStartReference) {
+		this.connectionStartReference = connectionStartReference;
+	}
+
+	public RelativeBusinessObjectReference getConnectionEndReference() {
+		return connectionEndReference;
+	}
+
+	public void setConnectionEndReference(RelativeBusinessObjectReference connectionEndReference) {
+		this.connectionEndReference = connectionEndReference;
+	}
+
+	public DockingPosition getDefaultDockingPosition() {
+		return defaultDockingPosition;
+	}
+
+	public void setDefaultDockingPosition(DockingPosition defaultDockingPosition) {
+		this.defaultDockingPosition = defaultDockingPosition;
 	}
 }

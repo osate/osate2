@@ -34,7 +34,9 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.ProjectUtil;
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
@@ -46,8 +48,6 @@ import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.businessobjecthandling.RenameContext;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.internal.FolderGraphicBuilder;
-import org.osate.ge.internal.util.ProjectUtil;
-import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 
 public class PackageHandler extends AadlBusinessObjectHandler implements RawDeleter {
 	private final Graphic graphic = FolderGraphicBuilder.create().build();
@@ -110,7 +110,7 @@ public class PackageHandler extends AadlBusinessObjectHandler implements RawDele
 			}
 			// Compare names with other packages
 			final IProject project = ProjectUtil.getProjectForBoOrThrow(pkg);
-			for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(project,
+			for (final IEObjectDescription desc : AadlModelAccessUtil.getAllEObjectsByType(project,
 					Aadl2Package.eINSTANCE.getAadlPackage())) {
 				if (newName.equalsIgnoreCase(desc.getQualifiedName().toString("::"))) {
 					return "The specified name conflicts with an existing package.";

@@ -49,7 +49,7 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.aadl2.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
-import org.osate.ge.swt.util.SwtTestUtil;
+import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.ui.PropertySectionUtil;
 
 public class SetFeatureGroupInversePropertySection extends AbstractPropertySection {
@@ -90,12 +90,12 @@ public class SetFeatureGroupInversePropertySection extends AbstractPropertySecti
 		final Label sectionLabel = PropertySectionUtil.createSectionLabel(container, getWidgetFactory(),
 				"Inverse:");
 
-		inverseBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), container, SWT.NONE,
+		inverseBtn = PropertySectionUtil.createButton(getWidgetFactory(), container, SWT.NONE,
 				inverseSelectionListener,
 				"", SWT.CHECK);
 
 		// Set data used for automated testing
-		SwtTestUtil.setTestingId(inverseBtn, setFeatureGroupInverseUniqueId);
+		SwtUtil.setTestingId(inverseBtn, setFeatureGroupInverseUniqueId);
 
 		final FormData fd = new FormData();
 		fd.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);

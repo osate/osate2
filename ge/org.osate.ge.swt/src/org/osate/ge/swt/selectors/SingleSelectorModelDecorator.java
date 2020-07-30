@@ -21,36 +21,54 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.swt.util;
+package org.osate.ge.swt.selectors;
 
-import org.eclipse.swt.widgets.Widget;
+import java.util.Objects;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
+
+import org.osate.ge.swt.BaseObservableModel;
+import org.osate.ge.swt.ChangeEvent;
 
 /**
- * Contains functions for putting together tests to interactively test single components outside the Eclipse workbench.
- *
+ * Abstract decorator for {@link SingleSelectorModel}
+ * @since 1.1
  */
-public final class SwtTestUtil {
-	private static String AUTOMATED_SWTBOT_TESTING_KEY = "org.eclipse.swtbot.widget.key";
-
-	private SwtTestUtil() {
-	}
+public class SingleSelectorModelDecorator<T> extends BaseObservableModel implements SingleSelectorModel<T> {
+	private final SingleSelectorModel<T> inner;
+	private final Consumer<ChangeEvent> changeListener = e -> triggerChangeEvent();
 
 	/**
-	 * Assigns an identifier to a widget to allow identification during automated testing.
-	 * @param widget is the widget for which to test the id.
-	 * @param value is the id to assign.
+	 * Creates a new instance
+	 * @param inner the model to decorate.
 	 */
-	public static void setTestingId(final Widget widget, final String value) {
-		widget.setData(AUTOMATED_SWTBOT_TESTING_KEY, value);
+	public SingleSelectorModelDecorator(final SingleSelectorModel<T> inner) {
+		this.inner = Objects.requireNonNull(inner);
+		this.inner.changed().addListener(changeListener);
 	}
 
-	/**
-	 * Returns the value of the id assigned to the widget for allow identification during automated testing
-	 * @param widget is the widget for which to return the id.
-	 * @return the id for the widget or null if one has not been assigned.
-	 */
-	public static String getTestingId(final Widget widget) {
-		final Object value = widget.getData(AUTOMATED_SWTBOT_TESTING_KEY);
-		return value == null ? null : value.toString();
+	@Override
+	public boolean isEnabled() {
+		return inner.isEnabled();
+	}
+
+	@Override
+	public Stream<T> getElements() {
+		return inner.getElements();
+	}
+
+	@Override
+	public T getSelectedElement() {
+		return inner.getSelectedElement();
+	}
+
+	@Override
+	public void setSelectedElement(T element) {
+		inner.setSelectedElement(element);
+	}
+
+	@Override
+	public String getLabel(final T element) {
+		return inner.getLabel(element);
 	}
 }

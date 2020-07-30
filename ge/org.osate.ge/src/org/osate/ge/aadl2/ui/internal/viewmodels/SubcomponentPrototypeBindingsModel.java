@@ -50,7 +50,7 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.aadl2.internal.util.AadlSubcomponentUtil;
-import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
+import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 import org.osate.ge.swt.classifiers.PrototypeBindingsModel;
 
 import com.google.common.base.Strings;
@@ -206,7 +206,7 @@ public class SubcomponentPrototypeBindingsModel extends BusinessObjectSelectionP
 
 			// Populate the list with valid classifier descriptions
 			final EClass subcomponentTypeClass = componentCategoryToSubcomponentTypeEClass(sc.getCategory());
-			for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(sc.eResource(),
+			for (final IEObjectDescription desc : AadlModelAccessUtil.getAllEObjectsByType(sc.eResource(),
 					subcomponentTypeClass)) {
 				subcomponentTypes.add(new NamedElementOrDescription(desc));
 			}
