@@ -35,7 +35,9 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 		 * && getPotentialOwnersByMode(ctx.getSource(), ctx.getQueryService()).size() > 0;
 		 */
 		// TODO any other conditions for starting?
-		return ctx.getSource().getBusinessObject(BehaviorAnnexState.class).isPresent();
+		// Cannot start a connection in a state that is final
+		return ctx.getSource().getBusinessObject(BehaviorAnnexState.class)
+				.map(behaviorAnnexState -> !behaviorAnnexState.getState().isFinal()).orElse(false);
 	}
 
 	@Override
@@ -53,11 +55,6 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 		if (dstContainer != srcContainer) {
 			return Optional.empty();
 		}
-
-//		final BehaviorState srcState = ctx.getSource().getBusinessObject(BehaviorAnnexState.class)
-//				.map(BehaviorAnnexState::getState).get();
-//		final BehaviorState dstState = ctx.getDestination().getBusinessObject(BehaviorAnnexState.class)
-//				.map(BehaviorAnnexState::getState).get();
 
 		final BehaviorAnnexState srcState = ctx.getSource().getBusinessObject(BehaviorAnnexState.class).get();
 		final BehaviorAnnexState dstState = ctx.getDestination().getBusinessObject(BehaviorAnnexState.class).get();
