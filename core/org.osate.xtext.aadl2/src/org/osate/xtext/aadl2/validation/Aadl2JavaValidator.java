@@ -6581,7 +6581,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	// TODO: Finish this method
 	private void checkFlowImplementationDirection(FlowImplementation flow) {
 		FlowEnd inEnd = flow.getInEnd();
-		if (inEnd != null && flow.getKind() == FlowKind.SINK) {
+		if (inEnd != null) {
 			Feature inFeature = inEnd.getFeature();
 			Context inCxt = inEnd.getContext();
 			FeatureGroup fg = inCxt instanceof FeatureGroup ? (FeatureGroup) inCxt : null;
@@ -6596,7 +6596,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			checkIncomingFeatureDirection(inFeature, flow, inverseBoolean, true);
 		}
 		FlowEnd outEnd = flow.getOutEnd();
-		if (outEnd != null && flow.getKind() == FlowKind.SOURCE) {
+		if (outEnd != null) {
 			Feature outFeature = outEnd.getFeature();
 			Context outCxt = outEnd.getContext();
 			FeatureGroup fg = outCxt instanceof FeatureGroup ? (FeatureGroup) outCxt : null;
@@ -6693,11 +6693,21 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			if (inverseOf) {
 				fDirection = fDirection.getInverseDirection();
 			}
-			if (!fDirection.incoming()) {
+			if (flow.getKind() == FlowKind.PATH) {
+				fDirection = fDirection.getInverseDirection();
+			}
+			if (!fDirection.incoming() && flow.getKind() != FlowKind.PATH) {
 				if (report) {
 					error(flow.getInEnd(), '\''
 							+ (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.' : "")
 							+ inFeature.getName() + "' must be an in or in out feature.");
+				}
+				return false;
+			} else if (!fDirection.incoming() && flow.getKind() == FlowKind.PATH) {
+				if (report) {
+					error(flow.getInEnd(), '\''
+							+ (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.' : "")
+							+ inFeature.getName() + "' must be an out or in out feature.");
 				}
 				return false;
 			} else {
@@ -6843,13 +6853,23 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			if (inverseOf) {
 				fDirection = fDirection.getInverseDirection();
 			}
-
-			if (!fDirection.outgoing()) {
+			if (flow.getKind() == FlowKind.PATH) {
+				fDirection = fDirection.getInverseDirection();
+			}
+			if (!fDirection.outgoing() && flow.getKind() != FlowKind.PATH) {
 				if (report) {
 					error(flow.getOutEnd(),
 							'\'' + (flow.getOutEnd().getContext() != null
 									? flow.getOutEnd().getContext().getName() + '.'
 									: "") + outFeature.getName() + "' must be an out or in out feature.");
+				}
+				return false;
+			} else if (!fDirection.outgoing() && flow.getKind() == FlowKind.PATH) {
+				if (report) {
+					error(flow.getOutEnd(),
+							'\'' + (flow.getOutEnd().getContext() != null
+									? flow.getOutEnd().getContext().getName() + '.'
+									: "") + outFeature.getName() + "' must be an in or in out feature.");
 				}
 				return false;
 			} else {
