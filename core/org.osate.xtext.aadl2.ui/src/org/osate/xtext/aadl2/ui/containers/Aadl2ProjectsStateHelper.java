@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.xtext.ui.containers.WorkspaceProjectsStateHelper;
 import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
-import org.osate.pluginsupport.PluginSupportUtil;
+import org.osate.pluginsupport.internal.utils.PluginSupportUtil;
 
 import com.google.inject.Singleton;
 

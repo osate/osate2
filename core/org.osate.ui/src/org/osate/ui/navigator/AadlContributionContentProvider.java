@@ -34,7 +34,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.osate.core.AadlNature;
-import org.osate.pluginsupport.PluginSupportUtil;
+import org.osate.pluginsupport.internal.utils.PluginSupportUtil;
 import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
 public class AadlContributionContentProvider extends WorkbenchContentProvider {

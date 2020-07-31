@@ -27,7 +27,7 @@ import org.eclipse.core.resources.IStorage
 import org.eclipse.emf.common.util.URI
 import org.eclipse.xtext.ui.resource.Storage2UriMapperImpl
 import org.eclipse.xtext.util.Tuples
-import org.osate.pluginsupport.PluginSupportUtil
+import org.osate.pluginsupport.internal.utils.PluginSupportUtil
 
 class Aadl2Storage2UriMapper extends Storage2UriMapperImpl {
 	val CONTRIBUTED_AADL = PluginSupportUtil.contributedAadl.toInvertedMap[new ContributedAadlStorage(null, it)]
