@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.pluginsupport;
+package org.osate.pluginsupport.internal.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -49,6 +49,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.ui.statushandlers.StatusManager;
+import org.osate.pluginsupport.PluginSupportPlugin;
 import org.osgi.framework.Bundle;
 
 /**
@@ -56,8 +57,13 @@ import org.osgi.framework.Bundle;
  *
  * @author lwrage
  * @version $Id: PluginSupportUtil.java,v 1.2 2007-06-04 17:03:01 lwrage Exp $
+ * @since 5.0
  */
-public class PluginSupportUtil {
+public final class PluginSupportUtil {
+	private PluginSupportUtil() {
+		// no instances please
+	}
+
 	private static List<URI> getContributedAadl(final Function<IConfigurationElement, URI> makeUri) {
 		ArrayList<URI> result = new ArrayList<URI>();
 		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();

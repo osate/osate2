@@ -73,7 +73,7 @@ import org.osate.assure.util.AssureUtilExtension
 import org.osate.assure.util.ResoluteInterface
 import org.osate.assure.util.ResoluteUtil
 import org.osate.categories.categories.CategoryFilter
-import org.osate.pluginsupport.ExecuteJavaUtil
+import org.osate.pluginsupport.internal.utils.ExecuteJavaUtil
 import org.osate.reqspec.reqSpec.ValuePredicate
 import org.osate.result.AnalysisResult
 import org.osate.result.BooleanValue
