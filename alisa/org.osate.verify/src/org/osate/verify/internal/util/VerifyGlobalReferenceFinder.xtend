@@ -22,7 +22,7 @@
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 
-package org.osate.verify.util
+package org.osate.verify.internal.util
 
 import com.google.inject.ImplementedBy
 import org.eclipse.emf.ecore.EObject
@@ -36,7 +36,10 @@ import org.osate.verify.verify.VerifyPackage
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 
-@ImplementedBy(VerifyGlobalReferenceFinder)
+/**
+ * @since 3.0
+ */
+ @ImplementedBy(VerifyGlobalReferenceFinder)
 interface IVerifyGlobalReferenceFinder {
 	/**
 	 * do not use this methods to construction of scopes as they are operating on references
@@ -55,7 +58,10 @@ interface IVerifyGlobalReferenceFinder {
 	
 }
 
-class VerifyGlobalReferenceFinder implements IVerifyGlobalReferenceFinder{
+/**
+ * @since 3.0
+ */
+ class VerifyGlobalReferenceFinder implements IVerifyGlobalReferenceFinder{
 		
 		override Iterable<VerificationPlan> getVerificationPlans(ComponentClassifier cc, EObject context){
 			return	Aadl2GlobalScopeUtil.getAll(context, VerifyPackage.Literals.VERIFICATION_PLAN).filter[svp|val reqs = svp.requirementSet; reqs instanceof SystemRequirementSet && cc.isSameorExtends((reqs as SystemRequirementSet).target)]

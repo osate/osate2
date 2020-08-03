@@ -22,7 +22,7 @@
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 
-package org.osate.verify.util
+package org.osate.verify.internal.util
 
 import com.google.common.collect.HashMultimap
 import java.util.HashMap
@@ -45,6 +45,7 @@ import static org.osate.categories.util.CategoriesUtil.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
 
+/** @since 3.0.0  */
 class VerifyUtilExtension {
 
 	static val HashMultimap <String,String> hasRunRecord = HashMultimap.create//Collections.synchronizedMap(newHashMap)

@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.verify.util
+package org.osate.verify.internal.util
 
 import java.util.ArrayList
 import java.util.List
@@ -57,7 +57,10 @@ import org.osate.verify.verify.JavaMethod
 import org.osate.verify.verify.JavaParameter
 import org.osate.verify.verify.VerificationMethod
 
-class VerifyJavaUtil {
+/**
+ * @since 3.0
+ */
+ class VerifyJavaUtil {
 
 		// invoke Java method by first converting the actual parameters of a verification activity to a basic Java format for reflective call
 		static def List<Object> getActualJavaObjects(JavaMethod vm, InstanceObject target, List<PropertyExpression> parameters) {

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.osate.verify
 Bundle-Vendor: SEI
-Bundle-Version: 2.0.4.qualifier
+Bundle-Version: 3.0.0.qualifier
 Bundle-SymbolicName: org.osate.verify; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)";visibility:=reexport,
@@ -49,7 +49,7 @@ Export-Package: org.osate.verify,
  org.osate.verify.scoping,
  org.osate.verify.serializer,
  org.osate.verify.services,
- org.osate.verify.util,
+ org.osate.verify.internal.util,
  org.osate.verify.validation,
  org.osate.verify.verify,
  org.osate.verify.verify.impl,

@@ -110,7 +110,7 @@ import org.osate.result.Result
 import org.osate.result.ResultType
 import org.osate.result.StringValue
 import org.osate.result.Value
-import org.osate.verify.util.VerifyUtilExtension
+import org.osate.verify.internal.util.VerifyUtilExtension
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.assure.util.AssureUtilExtension.*

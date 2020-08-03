@@ -85,8 +85,8 @@ import org.osate.result.Result
 import org.osate.result.ResultFactory
 import org.osate.result.ResultType
 import org.osate.result.StringValue
-import org.osate.verify.util.VerificationMethodDispatchers
-import org.osate.verify.util.VerifyJavaUtil
+import org.osate.verify.internal.util.VerificationMethodDispatchers
+import org.osate.verify.internal.util.VerifyJavaUtil
 import org.osate.verify.verify.AgreeMethod
 import org.osate.verify.verify.FormalParameter
 import org.osate.verify.verify.JUnit4Method
@@ -102,7 +102,7 @@ import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.result.util.ResultUtil.*
-import static extension org.osate.verify.util.VerifyUtilExtension.*
+import static extension org.osate.verify.internal.util.VerifyUtilExtension.*
 import org.osate.aadl2.instance.EndToEndFlowInstance
 
 @ImplementedBy(AssureProcessor)
