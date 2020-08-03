@@ -730,6 +730,11 @@ class ModalTest {
 			import java.util.Optional;
 			import java.util.stream.Collectors;
 			
+			import org.eclipse.emf.common.util.URI;
+			import org.eclipse.emf.ecore.resource.ResourceSet;
+			import org.osate.aadl2.Aadl2Factory;
+			import org.osate.aadl2.BasicProperty;
+			import org.osate.aadl2.BasicPropertyAssociation;
 			import org.osate.aadl2.ListValue;
 			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
@@ -740,10 +745,27 @@ class ModalTest {
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class RecordDef1 {
+				private static final URI FIELD_1__URI = URI.createURI("__synthetic0.aadl#/0/@ownedProperty.23/@ownedPropertyType/@ownedField.0");
+				private static final URI FIELD_2__URI = URI.createURI("__synthetic0.aadl#/0/@ownedProperty.23/@ownedPropertyType/@ownedField.1");
+				private static final URI LIST_FIELD_1__URI = URI.createURI("__synthetic0.aadl#/0/@ownedProperty.23/@ownedPropertyType/@ownedField.2");
+				private static final URI LIST_FIELD_2__URI = URI.createURI("__synthetic0.aadl#/0/@ownedProperty.23/@ownedPropertyType/@ownedField.3");
+				
 				private final Optional<String> field1;
 				private final Optional<String> field2;
 				private final Optional<List<String>> listField1;
 				private final Optional<List<List<String>>> listField2;
+				
+				public RecordDef1(
+						Optional<String> field1,
+						Optional<String> field2,
+						Optional<List<String>> listField1,
+						Optional<List<List<String>>> listField2
+				) {
+					this.field1 = field1;
+					this.field2 = field2;
+					this.listField1 = listField1;
+					this.listField2 = listField2;
+				}
 				
 				public RecordDef1(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
@@ -832,6 +854,60 @@ class ModalTest {
 				
 				public Optional<List<List<String>>> getListField2() {
 					return listField2;
+				}
+				
+				public RecordValue toPropertyExpression(ResourceSet resourceSet) {
+					if (!field1.isPresent()
+							&& !field2.isPresent()
+							&& !listField1.isPresent()
+							&& !listField2.isPresent()
+					) {
+						throw new IllegalStateException("Record must have at least one field set.");
+					}
+					RecordValue recordValue = Aadl2Factory.eINSTANCE.createRecordValue();
+					field1.ifPresent(field -> {
+						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
+						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(FIELD_1__URI, true);
+						if (basicProperty == null) {
+							throw new RuntimeException("Could not resolve BasicProperty 'field_1'.");
+						}
+						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field));
+					});
+					field2.ifPresent(field -> {
+						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
+						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(FIELD_2__URI, true);
+						if (basicProperty == null) {
+							throw new RuntimeException("Could not resolve BasicProperty 'field_2'.");
+						}
+						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field));
+					});
+					listField1.ifPresent(field -> {
+						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
+						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(LIST_FIELD_1__URI, true);
+						if (basicProperty == null) {
+							throw new RuntimeException("Could not resolve BasicProperty 'list_field_1'.");
+						}
+						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field, element1 -> {
+							return CodeGenUtil.toPropertyExpression(element1);
+						}));
+					});
+					listField2.ifPresent(field -> {
+						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
+						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(LIST_FIELD_2__URI, true);
+						if (basicProperty == null) {
+							throw new RuntimeException("Could not resolve BasicProperty 'list_field_2'.");
+						}
+						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field, element1 -> {
+							return CodeGenUtil.toPropertyExpression(element1, element2 -> {
+								return CodeGenUtil.toPropertyExpression(element2);
+							});
+						}));
+					});
+					return recordValue;
 				}
 				
 				@Override

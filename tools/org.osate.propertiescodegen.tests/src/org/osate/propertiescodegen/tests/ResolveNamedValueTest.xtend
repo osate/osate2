@@ -366,6 +366,11 @@ class ResolveNamedValueTest {
 			import java.util.OptionalLong;
 			import java.util.stream.Collectors;
 			
+			import org.eclipse.emf.common.util.URI;
+			import org.eclipse.emf.ecore.resource.ResourceSet;
+			import org.osate.aadl2.Aadl2Factory;
+			import org.osate.aadl2.BasicProperty;
+			import org.osate.aadl2.BasicPropertyAssociation;
 			import org.osate.aadl2.BooleanLiteral;
 			import org.osate.aadl2.IntegerLiteral;
 			import org.osate.aadl2.ListValue;
@@ -378,10 +383,27 @@ class ResolveNamedValueTest {
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class RecordDef {
+				private static final URI BOOL_FIELD__URI = URI.createURI("__synthetic0.aadl#/0/@ownedProperty.7/@ownedPropertyType/@ownedField.0");
+				private static final URI INT_FIELD__URI = URI.createURI("__synthetic0.aadl#/0/@ownedProperty.7/@ownedPropertyType/@ownedField.1");
+				private static final URI REAL_FIELD__URI = URI.createURI("__synthetic0.aadl#/0/@ownedProperty.7/@ownedPropertyType/@ownedField.2");
+				private static final URI LIST_3_INT_FIELD__URI = URI.createURI("__synthetic0.aadl#/0/@ownedProperty.7/@ownedPropertyType/@ownedField.3");
+				
 				private final Optional<Boolean> boolField;
 				private final OptionalLong intField;
 				private final OptionalDouble realField;
 				private final Optional<List<List<List<Long>>>> list3IntField;
+				
+				public RecordDef(
+						Optional<Boolean> boolField,
+						OptionalLong intField,
+						OptionalDouble realField,
+						Optional<List<List<List<Long>>>> list3IntField
+				) {
+					this.boolField = boolField;
+					this.intField = intField;
+					this.realField = realField;
+					this.list3IntField = list3IntField;
+				}
 				
 				public RecordDef(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
@@ -470,6 +492,60 @@ class ResolveNamedValueTest {
 				
 				public Optional<List<List<List<Long>>>> getList3IntField() {
 					return list3IntField;
+				}
+				
+				public RecordValue toPropertyExpression(ResourceSet resourceSet) {
+					if (!boolField.isPresent()
+							&& !intField.isPresent()
+							&& !realField.isPresent()
+							&& !list3IntField.isPresent()
+					) {
+						throw new IllegalStateException("Record must have at least one field set.");
+					}
+					RecordValue recordValue = Aadl2Factory.eINSTANCE.createRecordValue();
+					boolField.ifPresent(field -> {
+						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
+						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(BOOL_FIELD__URI, true);
+						if (basicProperty == null) {
+							throw new RuntimeException("Could not resolve BasicProperty 'bool_field'.");
+						}
+						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field));
+					});
+					intField.ifPresent(field -> {
+						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
+						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(INT_FIELD__URI, true);
+						if (basicProperty == null) {
+							throw new RuntimeException("Could not resolve BasicProperty 'int_field'.");
+						}
+						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field));
+					});
+					realField.ifPresent(field -> {
+						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
+						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(REAL_FIELD__URI, true);
+						if (basicProperty == null) {
+							throw new RuntimeException("Could not resolve BasicProperty 'real_field'.");
+						}
+						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field));
+					});
+					list3IntField.ifPresent(field -> {
+						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
+						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(LIST_3_INT_FIELD__URI, true);
+						if (basicProperty == null) {
+							throw new RuntimeException("Could not resolve BasicProperty 'list_3_int_field'.");
+						}
+						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field, element1 -> {
+							return CodeGenUtil.toPropertyExpression(element1, element2 -> {
+								return CodeGenUtil.toPropertyExpression(element2, element3 -> {
+									return CodeGenUtil.toPropertyExpression(element3);
+								});
+							});
+						}));
+					});
+					return recordValue;
 				}
 				
 				@Override

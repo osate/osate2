@@ -466,6 +466,8 @@ class IntegerWithUnitsTest {
 			import org.eclipse.emf.ecore.resource.ResourceSet;
 			import org.osate.aadl2.Aadl2Factory;
 			import org.osate.aadl2.AbstractNamedValue;
+			import org.osate.aadl2.BasicProperty;
+			import org.osate.aadl2.BasicPropertyAssociation;
 			import org.osate.aadl2.ListValue;
 			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
@@ -481,12 +483,35 @@ class IntegerWithUnitsTest {
 			import otherps.Mass;
 			
 			public class RecordProperty {
+				private static final URI OWNED__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.6/@ownedPropertyType/@ownedField.0");
+				private static final URI SAME_FILE__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.6/@ownedPropertyType/@ownedField.1");
+				private static final URI OTHER_FILE__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.6/@ownedPropertyType/@ownedField.2");
+				private static final URI LIST_1_OWNED__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.6/@ownedPropertyType/@ownedField.3");
+				private static final URI LIST_1_SAME_FILE__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.6/@ownedPropertyType/@ownedField.4");
+				private static final URI LIST_1_OTHER_FILE__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.6/@ownedPropertyType/@ownedField.5");
+				
 				private final Optional<IntegerWithUnits<Owned_FieldType>> owned;
 				private final Optional<IntegerWithUnits<Time>> sameFile;
 				private final Optional<IntegerWithUnits<Mass>> otherFile;
 				private final Optional<List<IntegerWithUnits<List1Owned_FieldType>>> list1Owned;
 				private final Optional<List<IntegerWithUnits<Time>>> list1SameFile;
 				private final Optional<List<IntegerWithUnits<Mass>>> list1OtherFile;
+				
+				public RecordProperty(
+						Optional<IntegerWithUnits<Owned_FieldType>> owned,
+						Optional<IntegerWithUnits<Time>> sameFile,
+						Optional<IntegerWithUnits<Mass>> otherFile,
+						Optional<List<IntegerWithUnits<List1Owned_FieldType>>> list1Owned,
+						Optional<List<IntegerWithUnits<Time>>> list1SameFile,
+						Optional<List<IntegerWithUnits<Mass>>> list1OtherFile
+				) {
+					this.owned = owned;
+					this.sameFile = sameFile;
+					this.otherFile = otherFile;
+					this.list1Owned = list1Owned;
+					this.list1SameFile = list1SameFile;
+					this.list1OtherFile = list1OtherFile;
+				}
 				
 				public RecordProperty(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
@@ -613,6 +638,80 @@ class IntegerWithUnitsTest {
 				
 				public Optional<List<IntegerWithUnits<Mass>>> getList1OtherFile() {
 					return list1OtherFile;
+				}
+				
+				public RecordValue toPropertyExpression(ResourceSet resourceSet) {
+					if (!owned.isPresent()
+							&& !sameFile.isPresent()
+							&& !otherFile.isPresent()
+							&& !list1Owned.isPresent()
+							&& !list1SameFile.isPresent()
+							&& !list1OtherFile.isPresent()
+					) {
+						throw new IllegalStateException("Record must have at least one field set.");
+					}
+					RecordValue recordValue = Aadl2Factory.eINSTANCE.createRecordValue();
+					owned.ifPresent(field -> {
+						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
+						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(OWNED__URI, true);
+						if (basicProperty == null) {
+							throw new RuntimeException("Could not resolve BasicProperty 'owned'.");
+						}
+						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setOwnedValue(field.toPropertyExpression(resourceSet));
+					});
+					sameFile.ifPresent(field -> {
+						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
+						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(SAME_FILE__URI, true);
+						if (basicProperty == null) {
+							throw new RuntimeException("Could not resolve BasicProperty 'same_file'.");
+						}
+						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setOwnedValue(field.toPropertyExpression(resourceSet));
+					});
+					otherFile.ifPresent(field -> {
+						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
+						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(OTHER_FILE__URI, true);
+						if (basicProperty == null) {
+							throw new RuntimeException("Could not resolve BasicProperty 'other_file'.");
+						}
+						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setOwnedValue(field.toPropertyExpression(resourceSet));
+					});
+					list1Owned.ifPresent(field -> {
+						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
+						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(LIST_1_OWNED__URI, true);
+						if (basicProperty == null) {
+							throw new RuntimeException("Could not resolve BasicProperty 'list_1_owned'.");
+						}
+						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field, element1 -> {
+							return element1.toPropertyExpression(resourceSet);
+						}));
+					});
+					list1SameFile.ifPresent(field -> {
+						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
+						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(LIST_1_SAME_FILE__URI, true);
+						if (basicProperty == null) {
+							throw new RuntimeException("Could not resolve BasicProperty 'list_1_same_file'.");
+						}
+						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field, element1 -> {
+							return element1.toPropertyExpression(resourceSet);
+						}));
+					});
+					list1OtherFile.ifPresent(field -> {
+						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
+						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(LIST_1_OTHER_FILE__URI, true);
+						if (basicProperty == null) {
+							throw new RuntimeException("Could not resolve BasicProperty 'list_1_other_file'.");
+						}
+						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field, element1 -> {
+							return element1.toPropertyExpression(resourceSet);
+						}));
+					});
+					return recordValue;
 				}
 				
 				@Override

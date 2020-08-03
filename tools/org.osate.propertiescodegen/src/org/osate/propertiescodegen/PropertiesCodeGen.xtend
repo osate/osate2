@@ -505,6 +505,11 @@ class PropertiesCodeGen {
 		imports += #{
 			"java.util.Objects",
 			"java.util.Optional",
+			"org.eclipse.emf.common.util.URI",
+			"org.eclipse.emf.ecore.resource.ResourceSet",
+			"org.osate.aadl2.Aadl2Factory",
+			"org.osate.aadl2.BasicProperty",
+			"org.osate.aadl2.BasicPropertyAssociation",
 			"org.osate.aadl2.Mode",
 			"org.osate.aadl2.NamedElement",
 			"org.osate.aadl2.PropertyExpression",
@@ -514,8 +519,27 @@ class PropertiesCodeGen {
 		'''
 			public«IF !topLevel» static«ENDIF» class «typeName» {
 				«FOR field : recordType.ownedFields»
+				private static final URI «field.name.toUpperCase»__URI = URI.createURI("«field.URI»");
+				«ENDFOR»
+				
+				«FOR field : recordType.ownedFields»
 				private final «getGenericOptionalType(field.propertyType)» «field.name.toCamelCase.toFirstLower»;
 				«ENDFOR»
+				
+				«IF recordType.ownedFields.size == 1»
+				«val field = recordType.ownedFields.head»
+				public «typeName»(«getGenericOptionalType(field.propertyType)» «field.name.toCamelCase.toFirstLower») {
+				«ELSE»
+				«val fields = recordType.ownedFields»
+				public «typeName»(
+						«fields.join(",\n")[getGenericOptionalType(it.propertyType) + " " + it.name.toCamelCase.toFirstLower]»
+				) {
+				«ENDIF»
+					«FOR field : recordType.ownedFields»
+					«val fieldName = field.name.toCamelCase.toFirstLower»
+					this.«fieldName» = «fieldName»;
+					«ENDFOR»
+				}
 				
 				public «typeName»(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
@@ -541,6 +565,33 @@ class PropertiesCodeGen {
 					return «field.name.toCamelCase.toFirstLower»;
 				}
 				«ENDFOR»
+				
+				public RecordValue toPropertyExpression(ResourceSet resourceSet) {
+					«IF recordType.ownedFields.size == 1»
+					if (!«recordType.ownedFields.head.name.toCamelCase.toFirstLower».isPresent()) {
+					«ELSE»
+					if (!«recordType.ownedFields.head.name.toCamelCase.toFirstLower».isPresent()
+							«FOR field : recordType.ownedFields.tail»
+							&& !«field.name.toCamelCase.toFirstLower».isPresent()
+							«ENDFOR»
+					) {
+					«ENDIF»
+						throw new IllegalStateException("Record must have at least one field set.");
+					}
+					RecordValue recordValue = Aadl2Factory.eINSTANCE.createRecordValue();
+					«FOR field : recordType.ownedFields»
+					«field.name.toCamelCase.toFirstLower».ifPresent(field -> {
+						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
+						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(«field.name.toUpperCase»__URI, true);
+						if (basicProperty == null) {
+							throw new RuntimeException("Could not resolve BasicProperty '«field.name»'.");
+						}
+						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setOwnedValue(«getValueCreator(field.propertyType, "field", 1)»);
+					});
+					«ENDFOR»
+					return recordValue;
+				}
 				
 				@Override
 				public int hashCode() {
@@ -613,6 +664,32 @@ class PropertiesCodeGen {
 				return «getValueExtractor(propertyType, "resolved", 1)»;
 			})
 		'''
+	}
+	
+	def private String getValueCreator(PropertyType type, String parameterName, int listDepth) {
+		switch type {
+			ListType: {
+				imports += "org.osate.pluginsupport.properties.CodeGenUtil"
+				val nextParameterName = "element" + listDepth
+				'''
+					CodeGenUtil.toPropertyExpression(«parameterName», «nextParameterName» -> {
+						return «getValueCreator(type.elementType, nextParameterName, listDepth + 1)»;
+					})'''
+			}
+			AadlBoolean,
+			AadlString,
+			ClassifierType,
+			NumberType case type.unitsType === null,
+			ReferenceType: {
+				imports += "org.osate.pluginsupport.properties.CodeGenUtil"
+				'''CodeGenUtil.toPropertyExpression(«parameterName»)'''
+			}
+			RangeType case type.numberType.unitsType === null: parameterName + ".toPropertyExpression()"
+			EnumerationType,
+			NumberType,
+			RangeType,
+			RecordType: parameterName + ".toPropertyExpression(resourceSet)"
+		}
 	}
 	
 	def private static String getStringPrefix(PropertyType type) {

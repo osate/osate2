@@ -568,6 +568,11 @@ class PropertyDefinitionTest {
 			import java.util.Objects;
 			import java.util.Optional;
 			
+			import org.eclipse.emf.common.util.URI;
+			import org.eclipse.emf.ecore.resource.ResourceSet;
+			import org.osate.aadl2.Aadl2Factory;
+			import org.osate.aadl2.BasicProperty;
+			import org.osate.aadl2.BasicPropertyAssociation;
 			import org.osate.aadl2.BooleanLiteral;
 			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
@@ -577,7 +582,13 @@ class PropertyDefinitionTest {
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class RecordDefinition {
+				private static final URI FIELD__URI = URI.createURI("__synthetic2.aadl#/0/@ownedProperty.9/@ownedPropertyType/@ownedField.0");
+				
 				private final Optional<Boolean> field;
+				
+				public RecordDefinition(Optional<Boolean> field) {
+					this.field = field;
+				}
 				
 				public RecordDefinition(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
 					RecordValue recordValue = (RecordValue) propertyExpression;
@@ -600,6 +611,23 @@ class PropertyDefinitionTest {
 				
 				public Optional<Boolean> getField() {
 					return field;
+				}
+				
+				public RecordValue toPropertyExpression(ResourceSet resourceSet) {
+					if (!field.isPresent()) {
+						throw new IllegalStateException("Record must have at least one field set.");
+					}
+					RecordValue recordValue = Aadl2Factory.eINSTANCE.createRecordValue();
+					field.ifPresent(field -> {
+						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
+						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(FIELD__URI, true);
+						if (basicProperty == null) {
+							throw new RuntimeException("Could not resolve BasicProperty 'field'.");
+						}
+						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field));
+					});
+					return recordValue;
 				}
 				
 				@Override
