@@ -9,5 +9,19 @@
 	        	name="ARP4761">
 	        		<project path=""/>
 	    </example>
+	    	 	<example
+	 			exampleURI="/examples/resource-budget"
+	            readmeURI="doc/html/readme.html"
+	            category="Basic Examples"
+	        	name="Resource Budget">
+	        		<project path=""/>
+	    </example>
+	    <example
+	    		exampleURI="/examples/speed-regulation"
+	            readmeURI="doc/html/readme.html"
+	            category="Basic Examples"
+	        	name="Speed Regulation">
+	        		<project path=""/>
+	    </example>
 	</extension>
 </plugin>
