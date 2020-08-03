@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.EObject
 import org.osate.verify.verify.VerificationActivity
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
-import static extension org.osate.verify.util.VerifyUtilExtension.*
+import static extension org.osate.verify.internal.util.VerifyUtilExtension.*
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.verify.verify.Claim
 import org.osate.verify.verify.VerificationMethod

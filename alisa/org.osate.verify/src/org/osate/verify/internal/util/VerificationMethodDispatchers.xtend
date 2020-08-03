@@ -22,7 +22,7 @@
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 
-package org.osate.verify.util
+package org.osate.verify.internal.util
 
 import java.util.List
 import org.osate.aadl2.BooleanLiteral
@@ -32,7 +32,10 @@ import org.osate.verify.verify.PluginMethod
 
 import static extension org.osate.verify.analysisplugins.AnalysisPluginInterface.*
 
-class VerificationMethodDispatchers {
+/**
+ * @since 3.0
+ */
+ class VerificationMethodDispatchers {
 
 	public static val eInstance = new VerificationMethodDispatchers
 
