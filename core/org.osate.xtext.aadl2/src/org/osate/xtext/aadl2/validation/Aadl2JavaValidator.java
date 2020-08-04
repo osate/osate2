@@ -6578,7 +6578,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 	}
 
-	// TODO: Finish this method
 	private void checkFlowImplementationDirection(FlowImplementation flow) {
 		FlowEnd inEnd = flow.getInEnd();
 		if (inEnd != null) {
