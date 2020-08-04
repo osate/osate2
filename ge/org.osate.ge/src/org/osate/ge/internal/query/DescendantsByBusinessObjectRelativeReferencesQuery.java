@@ -26,7 +26,8 @@ package org.osate.ge.internal.query;
 import java.util.Deque;
 import java.util.Objects;
 
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
+import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.query.Supplier;
 
@@ -36,7 +37,7 @@ public class DescendantsByBusinessObjectRelativeReferencesQuery extends DefaultQ
 	private final int minSegments;
 
 	private static class Match {
-		Queryable value;
+		BusinessObjectContext value;
 		int depth = -1;
 	}
 
@@ -55,7 +56,7 @@ public class DescendantsByBusinessObjectRelativeReferencesQuery extends DefaultQ
 	}
 
 	@Override
-	void run(final Deque<DefaultQuery> remainingQueries, final Queryable ctx, final QueryExecutionState state, final QueryResult result) {
+	void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx, final QueryExecutionState state, final QueryResult result) {
 		// Look in the cache for the reference and build a new reference string if it is not found
 		RelativeBusinessObjectReference[] boRefs = (RelativeBusinessObjectReference[])state.cache.get(this);
 		if(boRefs == null) {
@@ -75,7 +76,7 @@ public class DescendantsByBusinessObjectRelativeReferencesQuery extends DefaultQ
 		findMatchingDescendants(remainingQueries, ctx, state, result, boRefs, bestMatch, 0);
 
 		// Return a partial match if a result has not been processed and a partial match was found
-		if(!result.done &&
+		if(!result.isDone() &&
 				allowPartialMatch() &&
 				bestMatch.depth >= minSegments &&
 				bestMatch.depth < boRefs.length) {
@@ -88,7 +89,7 @@ public class DescendantsByBusinessObjectRelativeReferencesQuery extends DefaultQ
 	}
 
 	void findMatchingDescendants(final Deque<DefaultQuery> remainingQueries,
-			final Queryable container,
+			final BusinessObjectContext container,
 			final QueryExecutionState state,
 			final QueryResult result,
 			final RelativeBusinessObjectReference[] boRefs,
@@ -103,7 +104,7 @@ public class DescendantsByBusinessObjectRelativeReferencesQuery extends DefaultQ
 			processResultValue(remainingQueries, container, state, result);
 		} else {
 			final RelativeBusinessObjectReference boRef = boRefs[currentDepth];
-			for(final Queryable child : container.getChildren()) {
+			for(final BusinessObjectContext child : container.getChildren()) {
 				// Check the business object reference
 				final RelativeBusinessObjectReference childRef = InternalQueryUtil.getRelativeReference(child,
 						state.refBuilder);
@@ -112,7 +113,7 @@ public class DescendantsByBusinessObjectRelativeReferencesQuery extends DefaultQ
 							currentDepth + 1);
 				}
 
-				if (result.done) {
+				if (result.isDone()) {
 					return;
 				}
 			}

@@ -26,6 +26,8 @@ package org.osate.ge.internal.query;
 import java.util.Deque;
 import java.util.List;
 import java.util.Objects;
+
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.query.Query;
 import org.osate.ge.query.Supplier;
 
@@ -34,7 +36,7 @@ class IfElseQuery extends DefaultQuery {
 	private final DefaultQuery trueQuery;
 	private final DefaultQuery falseQuery;
 	private final RootQuery innerRootQuery = new RootQuery(() -> this.innerRootValue);
-	private Queryable innerRootValue;
+	private BusinessObjectContext innerRootValue;
 	
 	public IfElseQuery(final DefaultQuery prev, 
 			final Supplier<ConditionArguments, Boolean> cond, 
@@ -49,7 +51,7 @@ class IfElseQuery extends DefaultQuery {
 	}
 
 	@Override
-	void run(final Deque<DefaultQuery> remainingQueries, final Queryable ctx, final QueryExecutionState state, final QueryResult result) {
+	void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx, final QueryExecutionState state, final QueryResult result) {
 		try {
 			this.innerRootValue = ctx;
 
@@ -68,11 +70,11 @@ class IfElseQuery extends DefaultQuery {
 			// Process the results of the inner query.
 			// NOTE: Ideally this would be lazily evaluated instead of retrieving all the results. However, in the current use cases, only one result will be 
 			// returned by the inner query.
-			final List<Queryable> containers = state.queryRunner.getResults(innerQuery, state.arg);
-			for(final Queryable container : containers) {
+			final List<BusinessObjectContext> containers = state.queryRunner.getResults(innerQuery, state.arg);
+			for(final BusinessObjectContext container : containers) {
 				processResultValue(remainingQueries, container, state, result);
 				
-				if(result.done) {
+				if(result.isDone()) {
 					return;
 				}
 			}

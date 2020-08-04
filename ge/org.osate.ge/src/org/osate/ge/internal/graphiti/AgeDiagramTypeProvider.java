@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -35,22 +35,21 @@ import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.resource.ResourceManager;
 import org.osate.ge.internal.AgeDiagramProvider;
+import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.graphiti.services.impl.DefaultColoringService;
 import org.osate.ge.internal.graphiti.services.impl.DefaultGraphitiService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.EditorProvider;
-import org.osate.ge.internal.services.ExtensionRegistryService;
-import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.services.SystemInstanceLoadingService;
 import org.osate.ge.internal.services.UiService;
-import org.osate.ge.internal.services.impl.DefaultExtensionService;
 import org.osate.ge.internal.services.impl.DefaultUiService;
 import org.osate.ge.internal.services.impl.ProjectReferenceServiceProxy;
+import org.osate.ge.internal.ui.editor.AgeDiagramBehavior;
 import org.osate.ge.services.QueryService;
 import org.osate.ge.services.ReferenceResolutionService;
 import org.osate.ge.services.impl.DefaultQueryService;
@@ -58,7 +57,7 @@ import org.osate.ge.services.impl.DefaultReferenceResolutionService;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
-public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
+public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider implements AgeDiagramProvider {
 	public static final String id = "org.osate.ge.aadlDiagramTypeProvider";
 	private final IEclipseContext context;
 	private final AgeGraphicsAlgorithmRendererFactory graphicsAlgorithmRendererFactory = new AgeGraphicsAlgorithmRendererFactory();
@@ -80,7 +79,6 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 
 		// Create objects for the context
 		final ReferenceService globalReferenceService = Objects.requireNonNull(context.get(ReferenceService.class), "Unable to retrieve global reference service");
-		final ExtensionService extensionService = new DefaultExtensionService(Objects.requireNonNull(context.get(ExtensionRegistryService.class), "Unable to retrieve ExtensionRegistryService"), context);
 
 		final DefaultGraphitiService graphitiService = new DefaultGraphitiService(this, fp);
 		final UiService uiService = new DefaultUiService(graphitiService);
@@ -91,7 +89,6 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		// Populate the context.
 		// This context is used by extensions so it should only contain objects which are part of the graphical editor's API or which
 		// are in internal package. It should not include Graphiti objects.
-		context.set(ExtensionService.class, extensionService);
 		context.set(UiService.class, uiService);
 		context.set(ProjectReferenceService.class, projectReferenceService);
 		context.set(ColoringService.class, coloringService);
@@ -162,5 +159,10 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 
 	public static ResourceManager getResources() {
 		return JFaceResources.getResources();
+	}
+
+	@Override
+	public AgeDiagram getAgeDiagram() {
+		return ((AgeDiagramBehavior) getDiagramBehavior()).getAgeDiagram();
 	}
 }
