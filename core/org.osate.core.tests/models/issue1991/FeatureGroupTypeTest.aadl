@@ -1,0 +1,43 @@
+package FeatureGroupTypeTest
+public
+	feature group FG
+		features
+			outPort: out event port;
+			inPort: in event port;
+	end FG;
+	
+	feature group FG_inv inverse of FG
+	end FG_inv;
+	
+	thread T
+		features
+			fg: feature group FG;
+			fg_inv: feature group FG_inv;
+		flows
+			fsrc1: flow source fg;
+    		fsrc2: flow source fg_inv;
+
+    		fsnk1: flow sink fg;
+    		fsnk2: flow sink fg_inv;
+
+    		fpath1: flow path fg -> fg_inv;
+    		fpath2: flow path fg_inv -> fg;
+    		fpath3: flow path fg -> fg_inv;
+    		fpath4: flow path fg_inv -> fg;
+	end T;
+	
+	thread implementation T.impl
+		flows
+			fsrc1: flow source fg.inPort;
+    		fsrc2: flow source fg_inv.outPort; 
+    		
+    		fsnk1: flow sink fg.outPort;
+    		fsnk2: flow sink fg_inv.inPort; 
+    		
+			fpath1: flow path fg.outPort -> fg_inv.outPort;
+			fpath2: flow path fg_inv.inPort -> fg.inPort;
+			fpath3: flow path fg.inPort -> fg_inv.inPort;
+    		fpath4: flow path fg_inv.outPort -> fg.outPort;
+	end T.impl;
+	
+end FeatureGroupTypeTest;
