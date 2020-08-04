@@ -27,19 +27,21 @@ import java.util.Deque;
 import java.util.Objects;
 import java.util.function.Supplier;
 
+import org.osate.ge.BusinessObjectContext;
+
 public class RootQuery extends DefaultQuery {
-	private final Supplier<Queryable> supplier;
+	private final Supplier<BusinessObjectContext> supplier;
 	
-	public RootQuery(final Supplier<Queryable> supplier) {
+	public RootQuery(final Supplier<BusinessObjectContext> supplier) {
 		super(null);
 		this.supplier = Objects.requireNonNull(supplier, "supplier must not be null");
 	}
 
 	@Override
-	void run(final Deque<DefaultQuery> remainingQueries, final Queryable ctx, final QueryExecutionState state, final QueryResult result) {		
-		final Queryable suppliedObject = supplier.get();
+	void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx, final QueryExecutionState state, final QueryResult result) {		
+		final BusinessObjectContext suppliedObject = supplier.get();
 		if(suppliedObject == null) {
-			result.done = true;
+			result.setDone(true);
 			return;
 		}
 
