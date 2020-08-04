@@ -33,10 +33,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.EventSource;
-import org.osate.ge.swt.internal.InternalUtil;
+import org.osate.ge.swt.SwtUtil;
 
 /**
  * A selector which combines a text field for user specified filtering with a {@link ListSelector}
+ * @since 1.1
  *
  */
 public final class FilteringListSelector<T> extends Composite implements SelectionDoubleClickedEventGenerator {
@@ -48,7 +49,7 @@ public final class FilteringListSelector<T> extends Composite implements Selecti
 	public FilteringListSelector(final Composite parent, final FilteringSelectorModel<T> model) {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
-		InternalUtil.setColorsToMatchParent(this);
+		SwtUtil.setColorsToMatchParent(this);
 		this.setLayout(GridLayoutFactory.fillDefaults().numColumns(1).create());
 
 		// Field field to specify filter
@@ -78,7 +79,7 @@ public final class FilteringListSelector<T> extends Composite implements Selecti
 	}
 
 	public static void main(String[] args) {
-		InternalUtil.run(shell -> {
+		SwtUtil.run(shell -> {
 			new FilteringListSelector<>(shell, new LabelFilteringListSelectorModel<>(new TestListEditorModel()));
 		});
 	}

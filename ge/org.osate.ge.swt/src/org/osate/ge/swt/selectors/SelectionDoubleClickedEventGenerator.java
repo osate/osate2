@@ -27,6 +27,7 @@ import org.osate.ge.swt.EventSource;
 
 /**
  * Interface for selectors which generate selection double clicked events.
+ * @since 1.1
  *
  */
 public interface SelectionDoubleClickedEventGenerator {

@@ -34,9 +34,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.EventSource;
-import org.osate.ge.swt.internal.InternalUtil;
+import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.swt.selectors.ComboSelector;
-import org.osate.ge.swt.selectors.SelectorModel;
+import org.osate.ge.swt.selectors.SingleSelectorModel;
 
 /**
  * View for editing prototype bindings. Also intended to be used for selecting the type for subcomponent types. Fields for which options are not available are hidden.
@@ -45,6 +45,7 @@ import org.osate.ge.swt.selectors.SelectorModel;
  * @param <D> is the type of the direction options.
  * @param <T> is the type of the type options.
  * @param <C> is the type of the classifiers.
+ * @since 1.1
  */
 public class PrototypeBindingActualEditor<N, D, T, C> extends Composite {
 	private final PrototypeBindingsModel<N, D, T, C> model;
@@ -59,10 +60,10 @@ public class PrototypeBindingActualEditor<N, D, T, C> extends Composite {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
 		this.node = node;
-		InternalUtil.setColorsToMatchParent(this);
+		SwtUtil.setColorsToMatchParent(this);
 
 		// Type
-		typeSelector = new ComboSelector<T>(this, new SelectorModel<T>() {
+		typeSelector = new ComboSelector<T>(this, new SingleSelectorModel<T>() {
 			@Override
 			public EventSource<ChangeEvent> changed() {
 				return model.changed();
@@ -93,7 +94,7 @@ public class PrototypeBindingActualEditor<N, D, T, C> extends Composite {
 				.setLayoutData(GridDataFactory.swtDefaults().grab(false, false).align(SWT.FILL, SWT.CENTER).create());
 
 		// Direction
-		directionSelector = new ComboSelector<D>(this, new SelectorModel<D>() {
+		directionSelector = new ComboSelector<D>(this, new SingleSelectorModel<D>() {
 			@Override
 			public EventSource<ChangeEvent> changed() {
 				return model.changed();
@@ -134,8 +135,8 @@ public class PrototypeBindingActualEditor<N, D, T, C> extends Composite {
 
 	private void refresh() {
 		if (!this.isDisposed()) {
-			InternalUtil.setVisibilityAndExclusion(typeSelector, model.getTypeOptions(node).limit(1).count() != 0);
-			InternalUtil.setVisibilityAndExclusion(directionSelector,
+			SwtUtil.setVisibilityAndExclusion(typeSelector, model.getTypeOptions(node).limit(1).count() != 0);
+			SwtUtil.setVisibilityAndExclusion(directionSelector,
 					model.getDirectionOptions(node).limit(1).count() != 0);
 
 			this.setLayout(GridLayoutFactory.swtDefaults().numColumns(oneIfVisible(directionSelector)
@@ -160,7 +161,7 @@ public class PrototypeBindingActualEditor<N, D, T, C> extends Composite {
 	}
 
 	public static void main(String[] args) {
-		InternalUtil.run(shell -> {
+		SwtUtil.run(shell -> {
 			new PrototypeBindingActualEditor<>(shell, new TestPrototypeBindingsModel(), null);
 		});
 	}

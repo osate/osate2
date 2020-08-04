@@ -32,6 +32,11 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchActionConstants;
+import org.osate.ge.aadl2.ui.internal.editor.DeleteFlowContributionItem;
+import org.osate.ge.aadl2.ui.internal.editor.EditFlowContributionItem;
+import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem;
+import org.osate.ge.aadl2.ui.internal.editor.ModeContributionItem;
+import org.osate.ge.aadl2.ui.internal.editor.ShowFlowContributionItem;
 
 public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor {
 	final ModeContributionItem selectedModeItem;

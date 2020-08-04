@@ -28,7 +28,7 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IProject;
-import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.services.DiagramService.DiagramReference;
 
 public class DiagramGroup {

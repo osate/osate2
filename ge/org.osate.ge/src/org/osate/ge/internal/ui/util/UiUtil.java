@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -24,8 +24,12 @@
 package org.osate.ge.internal.ui.util;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.graphiti.ui.services.GraphitiUi;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IWorkbench;
@@ -33,18 +37,22 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.StringUtil;
+import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.GetIconIdContext;
+import org.osate.ge.businessobjecthandling.GetNameContext;
+import org.osate.ge.internal.businessobjecthandlers.BusinessObjectHandlerProvider;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
+import org.osate.ge.internal.graphiti.AgeDiagramTypeProvider;
 import org.osate.ge.internal.model.BusinessObjectProxy;
-import org.osate.ge.internal.model.Tag;
-import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
-import org.osate.ge.internal.util.BusinessObjectContextHelper;
 import org.osate.ge.internal.util.DiagramElementUtil;
-import org.osate.ge.internal.util.StringUtil;
+
+import com.google.common.base.Strings;
 
 public class UiUtil {
 	public static IWorkbenchWindow getActiveWorkbenchWindow() {
@@ -110,17 +118,12 @@ public class UiUtil {
 	 * @param bocHelper
 	 * @return
 	 */
-	public static String getDescription(final BusinessObjectContext boc, final ExtensionService extService,
-			final BusinessObjectContextHelper bocHelper) {
+	public static String getDescription(final BusinessObjectContext boc, final ExtensionRegistryService extService) {
 		// Build a prefix based on the business object type
 		final Object bo = boc.getBusinessObject();
 		final String prefix;
 		if (bo instanceof EObject) {
 			prefix = StringUtil.camelCaseToUser(((EObject) bo).eClass().getName()) + " ";
-		} else if (bo instanceof BusinessObjectProxy) {
-			prefix = StringUtil.camelCaseToUser(((BusinessObjectProxy) bo).getEClass().getName()) + " ";
-		} else if (bo instanceof Tag) {
-			prefix = "Misc ";
 		} else {
 			prefix = "";
 		}
@@ -130,26 +133,18 @@ public class UiUtil {
 		if(bo instanceof BusinessObjectProxy) {
 			baseName = ((BusinessObjectProxy) bo).getName();
 		} else {
-			final Object boh = extService.getApplicableBusinessObjectHandler(bo);
+			final BusinessObjectHandler boh = extService.getApplicableBusinessObjectHandler(bo);
 			if (boh == null) {
 				baseName = null;
 			} else {
-				baseName = bocHelper.getNameForUserInterface(boc, boh);
+				baseName = boh.getName(new GetNameContext(bo));
 			}
 		}
 
-		if (baseName == null) {
-			if (bo instanceof NamedElement) {
-				baseName = ((NamedElement) bo).getName();
-			}
-
-			if (baseName == null) {
-				final String typeName = StringUtil.camelCaseToUser(
-						bo instanceof EObject ? ((EObject) bo).eClass().getName() : bo.getClass().getName());
-				return "<Unnamed " + typeName + ">";
-			} else {
-				return baseName;
-			}
+		if (Strings.isNullOrEmpty(baseName)) {
+			final String typeName = StringUtil.camelCaseToUser(
+					bo instanceof EObject ? ((EObject) bo).eClass().getName() : bo.getClass().getName());
+			return "<Unnamed " + typeName + ">";
 		}
 
 		return prefix + baseName;
@@ -164,7 +159,7 @@ public class UiUtil {
 		if (dn instanceof DiagramElement) {
 			final String parentPath = getPathLabel(dn.getParent());
 			final String name = ((DiagramElement) dn).getLabelName();
-			if (name.isEmpty()) {
+			if (name == null || name.isEmpty()) {
 				return parentPath;
 			} else if (parentPath.isEmpty()) {
 				return name;
@@ -174,5 +169,24 @@ public class UiUtil {
 		} else {
 			return "";
 		}
+	}
+
+	public static Optional<Image> getImage(final BusinessObjectHandlerProvider bohProvider, final Object bo) {
+		return getImage(bohProvider.getApplicableBusinessObjectHandler(bo), bo);
+	}
+
+	public static Optional<Image> getImage(final BusinessObjectHandler boh, final Object bo) {
+		if (boh == null) {
+			return Optional.empty();
+		}
+
+		return boh.getIconId(new GetIconIdContext(bo)).map(imageId -> {
+			return GraphitiUi.getImageService().getImageForId(AgeDiagramTypeProvider.id, imageId);
+		}).filter(img -> {
+			final ImageData imageData = img.getImageData();
+
+			// If the icon is below a certain size, assume it is the default icon that is used when the image can't be loaded and ignore it.
+			return imageData != null && imageData.width >= 10;
+		});
 	}
 }
