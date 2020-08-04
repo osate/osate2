@@ -53,13 +53,12 @@ public class OsateExampleWizardPage extends WizardPage {
 	}
 
 	private static final String PLUGIN_ID = "org.osate.examples";
-	private static final String ATT_NODE = "example";
+	private static final String ATT_NODE = "examples";
 	private static final String ATT_NAME = "name";
 	private static final String ATT_EXAMPLEURI = "exampleURI";
 	private static final String ATT_READMEURI = "readmeURI";
 	private static final String ATT_CATEGORY = "category";
 	private static final String ATT_PROJECTPATH = "path";
-	private static final String EXAMPLE_ROOT_PATH = "examples";
 	protected Browser browser;
 	protected PluginInfo selectedProject;
 
@@ -149,7 +148,7 @@ public class OsateExampleWizardPage extends WizardPage {
 
 			SashForm sashForm = new SashForm(panelChoice, SWT.HORIZONTAL);
 
-			PluginInfo root = loadExamples(EXAMPLE_ROOT_PATH);
+			PluginInfo root = loadExamples();
 			final TreeViewer pickTree = createTree(sashForm);
 			pickTree.setLabelProvider(new FileLabelProvider(null, null));
 			pickTree.setContentProvider(new TreeContentProvider());
@@ -239,7 +238,7 @@ public class OsateExampleWizardPage extends WizardPage {
 	/**
 	 * @since 4.0
 	 */
-	protected PluginInfo loadExamples(String examplesPath) {
+	protected PluginInfo loadExamples() {
 		PluginInfo result = new PluginInfo();
 
 		List<PluginInfo> projectInfo = loadExamplesFromPlugin();

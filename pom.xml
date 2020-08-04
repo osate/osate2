@@ -24,7 +24,7 @@
 		<module>alisa</module>
 		<module>ge</module>
 		<module>ba</module>
-		<module>examples/org.osate.examples</module>
+		<module>examples</module>
 	</modules>
 
 	<profiles>

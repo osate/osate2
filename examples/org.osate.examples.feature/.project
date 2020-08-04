@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>org.osate.examples.feature</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.pde.FeatureBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.oomph.version.VersionBuilder</name>
+			<arguments>
+				<dictionary>
+					<key>check.maven.pom</key>
+					<value>true</value>
+				</dictionary>
+				<dictionary>
+					<key>ignore.feature.content.changes</key>
+					<value>true</value>
+				</dictionary>
+				<dictionary>
+					<key>release.path</key>
+					<value>/releng/version-management/release.xml</value>
+				</dictionary>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.pde.FeatureNature</nature>
+		<nature>org.eclipse.oomph.version.VersionNature</nature>
+	</natures>
+</projectDescription>

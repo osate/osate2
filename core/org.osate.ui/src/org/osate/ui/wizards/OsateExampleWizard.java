@@ -23,6 +23,7 @@ import org.osgi.framework.Bundle;
  * @since 5.0
  */
 public class OsateExampleWizard extends BasicNewResourceWizard {
+
 	public OsateExampleWizard() {
 		super();
 		IDialogSettings workbenchSettings = OsateUiPlugin.getDefault().getDialogSettings();
