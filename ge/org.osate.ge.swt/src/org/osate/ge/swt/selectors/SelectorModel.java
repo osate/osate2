@@ -28,9 +28,10 @@ import java.util.stream.Stream;
 import org.osate.ge.swt.ObservableModel;
 
 /**
- * View model for various selector views contained in this package.
+ * View model for various selector views which support selecting multiple elements contained in this package.
  *
  * @param <T> is the type of element provided by the model.
+ * @since 1.1
  */
 public interface SelectorModel<T> extends ObservableModel {
 	/**
@@ -48,16 +49,16 @@ public interface SelectorModel<T> extends ObservableModel {
 	Stream<T> getElements();
 
 	/**
-	 * Returns the currently selected element
-	 * @return is the object for the selected element.
+	 * Returns the currently selected elements
+	 * @return is the currently selected element or an empty stream if no elements are selected.
 	 */
-	T getSelectedElement();
+	Stream<T> getSelectedElements();
 
 	/**
 	 * Sets the currently selected element
-	 * @param value is the newly selected element.
+	 * @param value is the newly selected elements.
 	 */
-	void setSelectedElement(T value);
+	void setSelectedElements(Stream<T> value);
 
 	/**
 	 * Returns the label for the specified element.
@@ -65,4 +66,11 @@ public interface SelectorModel<T> extends ObservableModel {
 	 * @return is the label for the specified element.
 	 */
 	String getLabel(T element);
+
+	/**
+	 * Returns whether the model supports multiple selected elements. If multiple selections are not supported, the behavior of setting multiple selected
+	 * elements is implementation defined.
+	 * @return whether multiple selected elements are supported.
+	 */
+	boolean supportsMultiSelect();
 }

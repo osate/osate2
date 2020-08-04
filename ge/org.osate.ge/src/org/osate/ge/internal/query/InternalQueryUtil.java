@@ -23,16 +23,17 @@
  */
 package org.osate.ge.internal.query;
 
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
+import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.services.ReferenceBuilderService;
 
 interface InternalQueryUtil {
-	public static RelativeBusinessObjectReference getRelativeReference(final Queryable q,
+	public static RelativeBusinessObjectReference getRelativeReference(final BusinessObjectContext boc,
 			final ReferenceBuilderService refBuilder) {
-		if (q instanceof RelativeReferenceProvider) {
-			return ((RelativeReferenceProvider) q).getRelativeReference();
+		if (boc instanceof RelativeReferenceProvider) {
+			return ((RelativeReferenceProvider) boc).getRelativeReference();
 		}
 
-		return refBuilder.getRelativeReference(q.getBusinessObject());
+		return refBuilder.getRelativeReference(boc.getBusinessObject());
 	}
 }

@@ -28,6 +28,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.osate.ge.BusinessObjectContext;
+
 class CommonAncestorsQuery extends DefaultQuery {
 	private final DefaultQuery q1;
 	private final DefaultQuery q2;
@@ -39,9 +41,9 @@ class CommonAncestorsQuery extends DefaultQuery {
 	}
 
 	@Override
-	void run(final Deque<DefaultQuery> remainingQueries, final Queryable ctx, final QueryExecutionState state, final QueryResult result) {
-		final List<Queryable> q1Result = state.queryRunner.getResults(q1, state.arg);
-		final List<Queryable> q2Result = state.queryRunner.getResults(q2, state.arg);
+	void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx, final QueryExecutionState state, final QueryResult result) {
+		final List<BusinessObjectContext> q1Result = state.queryRunner.getResults(q1, state.arg);
+		final List<BusinessObjectContext> q2Result = state.queryRunner.getResults(q2, state.arg);
 
 		// Check sizes
 		if(q1Result.size() == 0 || q2Result.size() == 0) {
@@ -56,11 +58,11 @@ class CommonAncestorsQuery extends DefaultQuery {
 			throw new RuntimeException("q2 returns more than one element");
 		}
 
-		final Optional<Queryable> commonAncestor = Queryable.getFirstCommonAncestor(q1Result.get(0).getParent(),
+		final Optional<BusinessObjectContext> commonAncestor = BusinessObjectContext.getFirstCommonAncestor(q1Result.get(0).getParent(),
 				q2Result.get(0).getParent());
 		if (commonAncestor.isPresent()) {
 			// Process common ancestors
-			for (Queryable tmp = commonAncestor.get(); tmp != null && !result.done; tmp = tmp.getParent()) {
+			for (BusinessObjectContext tmp = commonAncestor.get(); tmp != null && !result.isDone(); tmp = tmp.getParent()) {
 				processResultValue(remainingQueries, tmp, state, result);
 			}
 		}

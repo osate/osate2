@@ -33,11 +33,17 @@ import java.util.stream.Stream;
  * Case-insensitive. Supports * and ? wildcards. Implicitly adds "*" to start and end of filter.
  *
  * @param <T> is the type of element provided by the model.
+ * @since 1.1
  */
-public class LabelFilteringListSelectorModel<T> extends SelectorModelDecorator<T>
+public class LabelFilteringListSelectorModel<T>
+		extends SelectorModelDecorator<T>
 		implements FilteringSelectorModel<T> {
 	private String filter;
 	private Pattern regex;
+
+	public LabelFilteringListSelectorModel(final SingleSelectorModel<T> inner) {
+		this(new SingleSelectorModelToSelectorModelAdapter<>(inner));
+	}
 
 	public LabelFilteringListSelectorModel(final SelectorModel<T> inner) {
 		super(inner);

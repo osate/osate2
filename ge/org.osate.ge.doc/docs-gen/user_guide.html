@@ -52,7 +52,10 @@
 <li><a href="#arrays"><span class="toc-section-number">4.6</span> Arrays</a></li>
 <li><a href="#sec:bindings"><span class="toc-section-number">4.7</span> Bindings</a></li>
 <li><a href="#prototypes"><span class="toc-section-number">4.8</span> Prototypes</a></li>
-<li><a href="#editing-flow-implementations-and-end-to-end-flows"><span class="toc-section-number">4.9</span> Editing Flow Implementations and End-to-End Flows</a></li>
+<li><a href="#flow-implementations-and-end-to-end-flows"><span class="toc-section-number">4.9</span> Flow Implementations and End-to-End Flows</a><ul>
+<li><a href="#editing"><span class="toc-section-number">4.9.1</span> Editing</a></li>
+<li><a href="#deleting-1"><span class="toc-section-number">4.9.2</span> Deleting</a></li>
+</ul></li>
 <li><a href="#refining-model-elements"><span class="toc-section-number">4.10</span> Refining Model Elements</a></li>
 <li><a href="#sec:edit_in_modes"><span class="toc-section-number">4.11</span> Specifying Modes in which Elements are Active</a></li>
 <li><a href="#editing-subprogram-call-sequences"><span class="toc-section-number">4.12</span> Editing Subprogram Call Sequences</a></li>
@@ -615,8 +618,14 @@ Create a system type and implementation named “ControlSystem” and “Control
 <h2 id="prototypes"><span class="header-section-number">4.8</span> Prototypes</h2>
 <p>Prototypes can be edited by selecting a classifier and using the <em>AADL</em> tab of the <em>Properties</em> view (See section <a href="#sec:properties_view">4.1</a>).</p>
 <p>Classifier prototype bindings can be edited using the <em>AADL</em> tab of the <em>Properties</em> view (See section <a href="#sec:properties_view">4.1</a>). Subcomponent prototype bindings can be edited when selecting the component classifier.</p>
-<h2 id="editing-flow-implementations-and-end-to-end-flows"><span class="header-section-number">4.9</span> Editing Flow Implementations and End-to-End Flows</h2>
-<p>Flow implementations and end-to-end flow can be edited using the flow editor. The flow editor can be accessed by double-clicking a component implementation, selecting the <em>AADL</em> tab in the <em>Properties</em> view, and selecting <em>Edit…</em> from the <em>Flows</em> section.</p>
+<h2 id="flow-implementations-and-end-to-end-flows"><span class="header-section-number">4.9</span> Flow Implementations and End-to-End Flows</h2>
+<h3 id="editing"><span class="header-section-number">4.9.1</span> Editing</h3>
+<p>Flow implementations and end-to-end flows can be edited by using the flow tools. To open the flow tools for editing, start by selecting a flow from the flow drop-down in the toolbar and selecting the <em>Edit…</em> button <img src="../images/FlowToolbarEdit.png" />.</p>
+<p>Clicking a segment or in mode element in the tool dialog allows for inserting, replacing, and removing segments.</p>
+<p><img src="../images/FlowToolEdit.png" /></p>
+<p>Selecting an appropriate element on the diagram or <em>Outline</em> view will add the element to the flow’s segments or in modes.</p>
+<h3 id="deleting-1"><span class="header-section-number">4.9.2</span> Deleting</h3>
+<p>Flow implementations and end-to-end flows can be deleted by selecting a flow from the flow drop-down in the toolbar and selecting the <em>Delete</em> button <img src="../images/FlowToolbarDelete.png" />.</p>
 <h2 id="refining-model-elements"><span class="header-section-number">4.10</span> Refining Model Elements</h2>
 <p>Appropriate elements can be refined by using the <em>AADL</em> tab of the <em>Properties</em> view (See section <a href="#sec:properties_view">4.1</a>), and using the <em>Refined</em> section option.</p>
 <h2 id="sec:edit_in_modes"><span class="header-section-number">4.11</span> Specifying Modes in which Elements are Active</h2>

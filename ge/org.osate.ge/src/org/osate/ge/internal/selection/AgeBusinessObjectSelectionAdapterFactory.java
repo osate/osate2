@@ -35,6 +35,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
+import org.osate.ge.ui.UiBusinessObjectSelection;
 import org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
@@ -54,7 +55,7 @@ public class AgeBusinessObjectSelectionAdapterFactory implements IAdapterFactory
 			}
 
 			return adapterType
-					.cast(new AgeBusinessObjectSelection(SelectionUtil.getSelectedBusinessObjectContexts(selection),
+					.cast(new UiBusinessObjectSelection(SelectionUtil.getSelectedBusinessObjectContexts(selection),
 							modificationService));
 		} else if (IAadlPropertySource.class.equals(adapterType) && adaptableObject instanceof IStructuredSelection) {
 			final IStructuredSelection ss = (IStructuredSelection) adaptableObject;

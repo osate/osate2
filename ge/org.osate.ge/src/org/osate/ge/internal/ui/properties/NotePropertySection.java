@@ -51,7 +51,7 @@ import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.internal.util.DiagramElementUtil;
-import org.osate.ge.ui.properties.PropertySectionUtil;
+import org.osate.ge.ui.PropertySectionUtil;
 
 public class NotePropertySection extends AbstractPropertySection {
 	public static class Filter implements IFilter {
