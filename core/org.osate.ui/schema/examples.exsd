@@ -3,7 +3,7 @@
 <schema targetNamespace="org.osate.ui" xmlns="http://www.w3.org/2001/XMLSchema">
    <annotation>
       <appInfo>
-         <meta.schema plugin="org.osate.ui" id="example" name="OSATE Example"/>
+         <meta.schema plugin="org.osate.ui" id="examples" name="OSATE Example"/>
       </appInfo>
       <documentation>
          &lt;p&gt;This extension point is used to describe examples to be added to the workspace.  Each example is defined by the wizard that creates it and the list of projects to be created in the workspace.&lt;/p&gt;
@@ -49,7 +49,7 @@
 
    <element name="example">
       <complexType>
-        <sequence>
+         <sequence>
             <element ref="project" minOccurs="1" maxOccurs="unbounded"/>
          </sequence>
          <attribute name="name" type="string" use="required">
@@ -78,15 +78,12 @@
                <documentation>
                   An optional attribute to hold an html readme file path with description of the project.
                </documentation>
-               <appInfo>
-                  <meta.attribute translatable="true"/>
-               </appInfo>
             </annotation>
          </attribute>
       </complexType>
    </element>
 
-  <element name="project">
+   <element name="project">
       <complexType>
          <attribute name="path" type="string" use="required">
             <annotation>
@@ -98,32 +95,12 @@
       </complexType>
    </element>
 
-
-   <element name="fileToOpen">
-      <complexType>
-         <attribute name="location" type="string" use="required">
-            <annotation>
-               <documentation>
-                  A workspace path of a file that will be presented to the user after the example is installed.
-               </documentation>
-            </annotation>
-         </attribute>
-         <attribute name="editorID" type="string">
-            <annotation>
-               <documentation>
-                  An optional attribute to indicate the editor that should be used to open the file.  If this attribute is not used or if the editor is not available, the default editor for the resource will be used.
-               </documentation>
-            </annotation>
-         </attribute>
-      </complexType>
-   </element>
-
    <annotation>
       <appInfo>
          <meta.section type="since"/>
       </appInfo>
       <documentation>
-         2.8.0
+         2.9.0
       </documentation>
    </annotation>
 
@@ -154,10 +131,10 @@
 
    <annotation>
       <appInfo>
-         <meta.section type="apiInfo"/>
+         <meta.section type="apiinfo"/>
       </appInfo>
       <documentation>
-         The value of the &lt;tt&gt;wizardID&lt;/tt&gt; attribute must be the ID of a registered  &lt;tt&gt;org.eclipse.ui.INewWizard&lt;/tt&gt;.
+         none
       </documentation>
    </annotation>
 
@@ -166,7 +143,7 @@
          <meta.section type="implementation"/>
       </appInfo>
       <documentation>
-         EMF provides one implementation of this extension point that install the EMF EXTLibrary example.
+         none
       </documentation>
    </annotation>
 
@@ -175,9 +152,8 @@
          <meta.section type="copyright"/>
       </appInfo>
       <documentation>
-         Copyright (c) 2006 IBM Corporation and others.&lt;br&gt;
-All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse Public License v2.0 which accompanies this distribution, and is available at &lt;a 
-href=&quot;http://www.eclipse.org/legal/epl-v20.html&quot;&gt;http://www.eclipse.org/legal/epl-v20.html&lt;/a&gt;
+         Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+All Rights Reserved.
       </documentation>
    </annotation>
 
