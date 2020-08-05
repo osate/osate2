@@ -2,7 +2,6 @@ package org.osate.ui.wizards;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -163,8 +162,12 @@ public class OsateExampleWizardPage extends WizardPage {
 						if (selectedProject.readmeURI != null) {
 							try {
 								File f = new File(selectedProject.readmeURI.getPath());
-								browser.setUrl(f.toURL().toString());
-							} catch (IllegalArgumentException | MalformedURLException e) {
+								if (f.exists()) {
+									browser.setUrl(f.toURL().toString());
+								} else {
+									throw new IOException("Readme file not found");
+								}
+							} catch (IllegalArgumentException | IOException e) {
 								browser.setText("<p>Failed to load readme</p>");
 								setErrorMessage("Failed to load readme");
 								catchError(e, e.getMessage(), true);
@@ -211,7 +214,8 @@ public class OsateExampleWizardPage extends WizardPage {
 								org.eclipse.core.runtime.FileLocator
 										.toFileURL(bundle.getEntry(combine(configElems[j].getAttribute(ATT_EXAMPLEURI),
 												configElems[j].getAttribute(ATT_READMEURI)))),
-								configElems[j].getAttribute(ATT_NAME), configElems[j].getAttribute(ATT_CATEGORY));
+								configElems[j].getAttribute(ATT_NAME), configElems[j].getAttribute(ATT_CATEGORY),
+								exts[i].getContributor().getName());
 
 						if (project != null && project.name != null && project.exampleURI != null) {
 							project.exampleS = configElems[j].getAttribute(ATT_EXAMPLEURI);
@@ -269,7 +273,7 @@ public class OsateExampleWizardPage extends WizardPage {
 					}
 				} else {
 					// add category node to root -> add the project under category
-					PluginInfo cNode = new PluginInfo(null, null, p.category, p.category);
+					PluginInfo cNode = new PluginInfo(null, null, p.category, p.category, null);
 					cNode.addNode(p);
 					result.addNode(cNode);
 				}

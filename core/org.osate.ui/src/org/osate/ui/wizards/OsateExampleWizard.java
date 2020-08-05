@@ -1,8 +1,8 @@
 package org.osate.ui.wizards;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.net.URL;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
@@ -17,7 +17,6 @@ import org.eclipse.ui.wizards.datatransfer.FileSystemStructureProvider;
 import org.eclipse.ui.wizards.datatransfer.ImportOperation;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
 import org.osate.ui.OsateUiPlugin;
-import org.osgi.framework.Bundle;
 
 /**
  * @since 5.0
@@ -57,18 +56,15 @@ public class OsateExampleWizard extends BasicNewResourceWizard {
 			if (selected != null) {
 				if (selected.exampleS != null && selected.projectPath != null) {
 					try {
-						Bundle bundle = Platform.getBundle(OsateUiPlugin.PLUGIN_ID);
-						URL file_r_URL = org.eclipse.core.runtime.FileLocator
-								.toFileURL(bundle.getEntry(selected.exampleS));
-						if (file_r_URL != null) {
-							selected.projectPath.forEach(s -> {
-								try {
-									importFiles(new File(file_r_URL.getPath(), s));
-								} catch (InvocationTargetException | InterruptedException e) {
-									catchError(e, e.getMessage(), false);
-								}
-							});
-						}
+						selected.projectPath.forEach(s -> {
+							try {
+								importFiles(new File(org.eclipse.core.runtime.FileLocator
+										.toFileURL(Platform.getBundle(selected.bundle).getEntry(selected.exampleS))
+										.getPath(), s));
+							} catch (InvocationTargetException | InterruptedException | IOException e) {
+								catchError(e, e.getMessage(), false);
+							}
+						});
 					} catch (Exception e) {
 						catchError(e, "Unexpected error occurred. Please try again", false);
 					}
