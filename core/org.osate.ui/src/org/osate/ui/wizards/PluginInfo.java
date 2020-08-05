@@ -16,11 +16,12 @@ public class PluginInfo {
 	public PluginInfo() {
 	}
 
-	public PluginInfo(URL exampleURI, URL readmeURI, String name, String category) {
+	public PluginInfo(URL exampleURI, URL readmeURI, String name, String category, String bundle) {
 		this.exampleURI = exampleURI;
 		this.readmeURI = readmeURI;
 		this.name = name;
 		this.category = category;
+		this.bundle = bundle;
 	}
 
 	public PluginInfo(String name) {
@@ -32,6 +33,7 @@ public class PluginInfo {
 	public URL readmeURI;
 	public String name;
 	public String category;
+	public String bundle;
 	public List<String> projectPath;
 	protected List<PluginInfo> nodes = new ArrayList<>();
 	protected PluginInfo parent;
