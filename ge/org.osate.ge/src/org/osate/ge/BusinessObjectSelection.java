@@ -33,8 +33,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.ge.operations.OperationBuilder;
 
 /**
- *
- * @noimplement
+ * Interface for accessing a set of selected business objects.
  */
 public interface BusinessObjectSelection {
 	/**
@@ -72,7 +71,7 @@ public interface BusinessObjectSelection {
 	 * @param bocFilter is the filter for business object contexts. Only business object contexts which pass the filter are modified.
 	 * @param bocToBoToModifyMapper is a function which returns the object which should be modified based on a business object context.
 	 * @param modifier is a function which is passed the object to be modified and the business object context.
-	 * @since 1.2
+	 * @since 2.0
 	 */
 	<T extends EObject> void modify(String label, Predicate<BusinessObjectContext> bocFilter,
 			Function<BusinessObjectContext, T> bocToBoToModifyMapper,
@@ -94,7 +93,7 @@ public interface BusinessObjectSelection {
 	 * @param c is the type of object being modified.
 	 * @param bocFilter is the filter for business object contexts. Only called for business object contexts which are instances of the specified class. Only business object contexts which pass the filter are modified.
 	 * @param modifier is the consumer which modified the passed in business object.
-	 * @since 1.2
+	 * @since 2.0
 	 */
 	<T extends EObject> void modify(String label, Class<T> c, Predicate<BusinessObjectContext> bocFilter,
 			Consumer<T> modifier);

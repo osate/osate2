@@ -25,10 +25,14 @@ package org.osate.aadl2.instantiation;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -40,6 +44,7 @@ import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.DataImplementation;
+import org.osate.aadl2.DataPort;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
@@ -54,6 +59,7 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
@@ -63,13 +69,14 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.ModelingProperties;
 
 class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
-
-	Map<InstanceObject, InstantiatedClassifier> classifierCache;
+	private final Map<InstanceObject, InstantiatedClassifier> classifierCache;
+	private final Map<FeatureInstance, Set<ConnectionInstance>> inDataPortConnectionsMap;
 
 	public ValidateConnectionsSwitch(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
 			Map<InstanceObject, InstantiatedClassifier> classifierCache) {
 		super(monitor, errManager);
 		this.classifierCache = classifierCache;
+		inDataPortConnectionsMap = new HashMap<>();
 	}
 
 	@Override
@@ -88,9 +95,13 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		};
 	}
 
+	public void postProcess() {
+		flagInDataPortsWIthMultipleConnections();
+	}
+
 	private void validateConnections(ComponentInstance ci) {
 		removeShortAccessConnections(ci);
-
+		recordInDataPortConnections(ci);
 		checkEndPointClassifiers(ci);
 		// more
 	}
@@ -232,6 +243,88 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Save all the connection instances that end at a data port.
+	 */
+	private void recordInDataPortConnections(final ComponentInstance ci) {
+		final List<ConnectionInstance> connis = ci.getConnectionInstances();
+		for (final ConnectionInstance conni : connis) {
+			final ConnectionInstanceEnd cie = conni.getDestination();
+			if (cie instanceof FeatureInstance) {
+				final FeatureInstance fi = (FeatureInstance) cie;
+				if (fi.getFeature() instanceof DataPort) {
+					addToHashedSet(inDataPortConnectionsMap, fi, conni);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Go through the data port features and complain if any of them are a destination for more
+	 * than one connection per mode.
+	 */
+	private void flagInDataPortsWIthMultipleConnections() {
+		for (final Entry<FeatureInstance, Set<ConnectionInstance>> entry : inDataPortConnectionsMap.entrySet()) {
+			final FeatureInstance dataPortFI = entry.getKey();
+			final Set<ConnectionInstance> incomingConnections = entry.getValue();
+
+			// If there is more than 1 incoming connection, report an error (maybe)
+			if (incomingConnections.size() > 1) {
+				// This is made more complicated by modes... There can be at most connection per mode
+				final Set<ConnectionInstance> allModes = new HashSet<>();
+				final Map<SystemOperationMode, Set<ConnectionInstance>> modeToConnection = new HashMap<>();
+				for (final ConnectionInstance ci : incomingConnections) {
+					final List<SystemOperationMode> inModes = ci.getInSystemOperationModes();
+					if (inModes != null && !inModes.isEmpty()) {
+						for (final SystemOperationMode som : inModes) {
+							addToHashedSet(modeToConnection, som, ci);
+						}
+					} else {
+						allModes.add(ci);
+					}
+				}
+
+				// Look for problems
+
+				// are all the connections modeless?
+				if (modeToConnection.isEmpty()) {
+					if (allModes.size() > 1) {
+						error(dataPortFI, "More than one connection instance ends at data port");
+						for (final ConnectionInstance ci : allModes) {
+							error(ci, "More than one connection instance ends at data port "
+									+ dataPortFI.getInstanceObjectPath());
+						}
+					}
+				} else {
+					for (final Entry<SystemOperationMode, Set<ConnectionInstance>> mToC : modeToConnection.entrySet()) {
+						final Set<ConnectionInstance> conns = mToC.getValue();
+						conns.addAll(allModes);
+						if (conns.size() > 1) {
+							final String somName = mToC.getKey().getName();
+							error(dataPortFI, "More than one connection instance ends at data port in system operation mode "
+									+ somName);
+							for (final ConnectionInstance ci : conns) {
+								error(ci,
+										"More than one connection instance ends at data port "
+										+ dataPortFI.getInstanceObjectPath() + " in system operation mode "
+										+ somName);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private static <K, V> void addToHashedSet(final Map<K, Set<V>> map, final K key, final V value) {
+		Set<V> set = map.get(key);
+		if (set == null) {
+			set = new HashSet<>();
+			map.put(key, set);
+		}
+		set.add(value);
 	}
 
 	private void checkEndPointClassifiers(final ComponentInstance ci) {

@@ -23,6 +23,7 @@
  */
 package org.osate.ge.internal.query;
 
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.query.FilterArguments;
 
 /**
@@ -31,9 +32,9 @@ import org.osate.ge.query.FilterArguments;
  */
 public class ExpressionArguments implements ConditionArguments, FilterArguments {
 	private QueryExecutionState state;
-	private Queryable container;
+	private BusinessObjectContext container;
 
-	void update(final QueryExecutionState state, final Queryable container) {
+	void update(final QueryExecutionState state, final BusinessObjectContext container) {
 		this.state = state;
 		this.container = container;
 	}		

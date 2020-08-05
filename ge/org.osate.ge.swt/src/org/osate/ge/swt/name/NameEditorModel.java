@@ -27,6 +27,7 @@ import org.osate.ge.swt.ObservableModel;
 
 /**
  * View Model interface for {@link NameEditor}
+ * @since 1.1
  *
  */
 public interface NameEditorModel extends ObservableModel {

@@ -35,10 +35,11 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.osate.ge.swt.ChangeEvent;
-import org.osate.ge.swt.internal.InternalUtil;
+import org.osate.ge.swt.SwtUtil;
 
 /**
  * View for displaying a name and allowing it to be edited using the {@link NameEditorDialog}
+ * @since 1.1
  *
  */
 public final class NameEditor extends Composite {
@@ -50,7 +51,7 @@ public final class NameEditor extends Composite {
 	public NameEditor(final Composite parent, final NameEditorModel model) {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
-		InternalUtil.setColorsToMatchParent(this);
+		SwtUtil.setColorsToMatchParent(this);
 		this.setLayout(GridLayoutFactory.fillDefaults().numColumns(2).create());
 
 		this.nameLbl = new CLabel(this, SWT.BORDER);
@@ -87,7 +88,7 @@ public final class NameEditor extends Composite {
 	}
 
 	public static void main(String[] args) {
-		InternalUtil.run(shell -> {
+		SwtUtil.run(shell -> {
 			new NameEditor(shell, new TestNameEditorModel());
 		});
 	}

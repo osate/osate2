@@ -27,6 +27,7 @@ import java.util.Objects;
 
 /**
  * Enumeration for valid prototype feature directions
+ * @since 1.1
  *
  */
 public enum PrototypeDirection {

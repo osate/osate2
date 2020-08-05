@@ -47,7 +47,7 @@ public class SelectAllConnectionsHandler extends AbstractHandler {
 		final AgeDiagramEditor ageEditor = (AgeDiagramEditor) activeEditor;
 		final GraphitiAgeDiagram gad = ageEditor.getGraphitiAgeDiagram();
 
-		final PictogramElement[] connectionPictogramElements = ageEditor.getAgeDiagram().getAllDiagramNodes().filter(dn -> dn instanceof DiagramElement)
+		final PictogramElement[] connectionPictogramElements = ageEditor.getDiagram().getAllDiagramNodes().filter(dn -> dn instanceof DiagramElement)
 				.map(DiagramElement.class::cast).filter(DiagramElementPredicates::isConnection)
 				.map(gad::getPictogramElement).filter(Predicates.notNull()).toArray(PictogramElement[]::new);
 

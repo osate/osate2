@@ -440,7 +440,7 @@ class ElkGraphBuilder {
 			}
 		}
 
-		final DockingPosition defaultDockingPosition = de.getGraphicalConfiguration().defaultDockingPosition;
+		final DockingPosition defaultDockingPosition = de.getGraphicalConfiguration().getDefaultDockingPosition();
 		return PortSideUtil.getPortSideForNonGroupDockArea(
 				(defaultDockingPosition == DockingPosition.ANY && de.getDockArea() != null) ? de.getDockArea()
 						: defaultDockingPosition.getDefaultDockArea());
@@ -507,8 +507,8 @@ class ElkGraphBuilder {
 		}
 
 		// Create label for annotations which are part of the graphic configuration. These are only supported by non-connections.
-		if (!isConnection && parentElement.getGraphicalConfiguration().annotation != null) {
-			createElkLabel(parentLayoutElement, parentElement.getGraphicalConfiguration().annotation,
+		if (!isConnection && parentElement.getGraphicalConfiguration().getAnnotation() != null) {
+			createElkLabel(parentLayoutElement, parentElement.getGraphicalConfiguration().getAnnotation(),
 					layoutInfoProvider.getAnnotationLabelSize(parentElement));
 		}
 
