@@ -25,6 +25,7 @@ package org.osate.ge.swt;
 
 /**
  * An interface used by View Models which notify views of changes.
+ * @since 1.1
  *
  */
 public interface ObservableModel {

@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -133,6 +133,29 @@ public class OperationExecutor {
 			@SuppressWarnings("unchecked")
 			final ModelModificationStep<?, ?, PrevResultUserType, ResultUserType> ms = (ModelModificationStep<?, ?, PrevResultUserType, ResultUserType>) step;
 			stepResultSupplier = prepareToExecuteModification(ms, prevResultSupplier, executionState);
+		} else if (step instanceof SuboperationStep) {
+			stepResultSupplier = new Supplier<StepResult<ResultUserType>>() {
+				@Override
+				public StepResult<ResultUserType> get() {
+					@SuppressWarnings("unchecked")
+					final SuboperationStep<PrevResultUserType> ss = (SuboperationStep<PrevResultUserType>) step;
+					final StepResult<PrevResultUserType> prevResult = prevResultSupplier.get();
+					executionState.pendingStepConsumers.remove(this);
+
+					if (executionState.aborted) {
+						return StepResult.abort();
+					} else {
+						Operation suboperation = ss.getOperationProvider()
+								.apply(prevResult.getUserValue());
+						execute(suboperation, results -> executionState.allResults.addAll(results));
+					}
+
+					return StepResult.forValue(null);
+				}
+			};
+
+			// Suboperation steps should never have a next step so they must be added ot the pending step consumers.
+			executionState.pendingStepConsumers.add(stepResultSupplier);
 		} else if (step instanceof MapStep) {
 			stepResultSupplier = new Supplier<StepResult<ResultUserType>>() {
 				private boolean resultIsValid = false;
@@ -143,13 +166,13 @@ public class OperationExecutor {
 					if (!resultIsValid) {
 						@SuppressWarnings("unchecked")
 						final MapStep<PrevResultUserType, ResultUserType> ts = (MapStep<PrevResultUserType, ResultUserType>) step;
-						final DefaultStepResult<PrevResultUserType> prevResult = (DefaultStepResult<PrevResultUserType>) prevResultSupplier
+						final StepResult<PrevResultUserType> prevResult = prevResultSupplier
 								.get();
 						if (executionState.aborted) {
 							result = StepResult.abort();
 						} else {
 							result = ts.getMapper().apply(prevResult.getUserValue());
-							if (((DefaultStepResult<ResultUserType>) result).aborted()) {
+							if (result.aborted()) {
 								executionState.aborted = true;
 							}
 						}
@@ -187,12 +210,13 @@ public class OperationExecutor {
 			final Supplier<StepResult<PrevResultUserType>> prevResultSupplier,
 			final ExecutionState executionState) {
 		class ModificationStepModifier implements AadlModificationService.Modifier<TagType, BusinessObjectType> {
-			DefaultStepResult<ResultUserType> result;
+			StepResult<ResultUserType> result;
 
 			@Override
 			public void modify(final TagType tag, final BusinessObjectType boToModify) {
-				result = (DefaultStepResult<ResultUserType>)modificationStep.getModifier().modify(tag, boToModify,
-						((DefaultStepResult<PrevResultUserType>) prevResultSupplier.get()).getUserValue());
+				result = modificationStep.getModifier().modify(tag,
+						boToModify,
+						prevResultSupplier.get().getUserValue());
 				if (result != null) {
 					executionState.allResults.add(result);
 					if (result.aborted()) {
@@ -207,7 +231,7 @@ public class OperationExecutor {
 		final AadlModificationService.Modification<TagType, BusinessObjectType> modification = AadlModificationService.Modification
 				.create(modificationStep.getTag(),
 						(tag) -> {
-							final DefaultStepResult<PrevResultUserType> prevResult = (DefaultStepResult<PrevResultUserType>) prevResultSupplier
+							final StepResult<PrevResultUserType> prevResult = prevResultSupplier
 									.get();
 							return executionState.aborted ? null
 									: modificationStep.getBusinessObjectProvider().getBusinessObject(tag,

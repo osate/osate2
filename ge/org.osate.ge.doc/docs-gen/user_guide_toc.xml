@@ -51,7 +51,11 @@
 		</topic>
 		<topic label="Prototypes" href="docs-gen/user_guide.html#prototypes">
 		</topic>
-		<topic label="Editing Flow Implementations and End-to-End Flows" href="docs-gen/user_guide.html#editing-flow-implementations-and-end-to-end-flows">
+		<topic label="Flow Implementations and End-to-End Flows" href="docs-gen/user_guide.html#flow-implementations-and-end-to-end-flows">
+			<topic label="Editing" href="docs-gen/user_guide.html#editing">
+			</topic>
+			<topic label="Deleting" href="docs-gen/user_guide.html#deleting-1">
+			</topic>
 		</topic>
 		<topic label="Refining Model Elements" href="docs-gen/user_guide.html#refining-model-elements">
 		</topic>

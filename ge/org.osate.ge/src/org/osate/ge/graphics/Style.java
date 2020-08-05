@@ -23,6 +23,8 @@
  */
 package org.osate.ge.graphics;
 
+import java.util.Objects;
+
 import org.eclipse.core.runtime.IPath;
 
 public class Style {
@@ -61,7 +63,7 @@ public class Style {
 		this.verticalLabelPosition = verticalLabelPosition;
 		this.primaryLabelVisible = primaryLabelVisible;
 
-		if (showAsImage == Boolean.TRUE && image == null) {
+		if (Objects.equals(showAsImage, Boolean.TRUE) && image == null) {
 			throw new RuntimeException("showAsImage must be false if image is not set.");
 		}
 	}

@@ -23,12 +23,12 @@
  */
 package org.osate.ge.internal.ui.editor.actions;
 
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramElementCopyUtil;
 import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.services.ReferenceBuilderService;

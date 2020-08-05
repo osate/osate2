@@ -23,13 +23,6 @@
  */
 package org.osate.ge.internal.ui.util;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.function.BiFunction;
-import java.util.function.Consumer;
-
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.jface.layout.RowLayoutFactory;
 import org.eclipse.jface.util.LocalSelectionTransfer;
 import org.eclipse.jface.viewers.ArrayContentProvider;
@@ -56,12 +49,10 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
-import org.osate.aadl2.NamedElement;
 
 public class InternalPropertySectionUtil {
 	public static ComboViewer createComboViewer(final Composite container, final int lblWidth,
@@ -82,17 +73,6 @@ public class InternalPropertySectionUtil {
 
 	public static void setPropertiesHelp(final Control control) {
 		ContextHelpUtil.setHelp(control, ContextHelpUtil.PROPERTIES_VIEW);
-	}
-
-	// Create property section label
-	public static Label createSectionLabel(final Composite container,
-			final TabbedPropertySheetWidgetFactory widgetFactory, final String lblTxt) {
-		final Label label = widgetFactory.createLabel(container, lblTxt);
-		final FormData fd = new FormData();
-		fd.left = new FormAttachment(0, 0);
-		fd.top = new FormAttachment(0, ITabbedPropertyConstants.VSPACE);
-		label.setLayoutData(fd);
-		return label;
 	}
 
 	public static Button createButton(final TabbedPropertySheetWidgetFactory widgetFactory, final Composite composite,
@@ -120,40 +100,6 @@ public class InternalPropertySectionUtil {
 		tableViewerColumn.getColumn().setText(colHeader);
 		tableViewerColumn.setLabelProvider(cellLabelProvider);
 		return tableViewerColumn;
-	}
-
-
-	// Returns initial value for type options and populates type options
-	public static <T extends NamedElement> EClass getTypeOptionsInformation(final Set<T> selectedElements,
-			final Collection<EClass> allTypes, final BiFunction<T, EClass, Boolean> isValidTypeOption,
-			final Consumer<EClass> addTypeOption) {
-		EClass selectedType = null;
-		for (final EClass type : allTypes) {
-			final Iterator<T> it = selectedElements.iterator();
-			T ne = it.next();
-			// Initial combo selected value
-			selectedType = ne.eClass();
-
-			// Only add eligible types to the combo
-			boolean addEClass = isValidTypeOption.apply(ne, type);
-			if (addEClass) {
-				// Check the rest of selected elements if necessary
-				while (addEClass && it.hasNext()) {
-					ne = it.next();
-					// Check if all selected elements are the same EClass
-					if (selectedType != ne.eClass()) {
-						selectedType = null;
-					}
-					addEClass = isValidTypeOption.apply(ne, type);
-				}
-
-				if (addEClass) {
-					addTypeOption.accept(type);
-				}
-			}
-		}
-
-		return selectedType;
 	}
 
 	public static class DragAndDropSupport {

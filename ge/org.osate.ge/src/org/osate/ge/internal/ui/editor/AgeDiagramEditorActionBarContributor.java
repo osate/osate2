@@ -32,18 +32,27 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchActionConstants;
+import org.osate.ge.aadl2.ui.internal.editor.DeleteFlowContributionItem;
+import org.osate.ge.aadl2.ui.internal.editor.EditFlowContributionItem;
+import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem;
+import org.osate.ge.aadl2.ui.internal.editor.ModeContributionItem;
+import org.osate.ge.aadl2.ui.internal.editor.ShowFlowContributionItem;
 
 public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.ui.editor.DiagramEditorActionBarContributor {
 	final ModeContributionItem selectedModeItem;
 	final FlowContributionItem selectedFlowItem;
 	final ShowFlowContributionItem showFlowImplElements;
+	final EditFlowContributionItem editFlowItem;
+	final DeleteFlowContributionItem deleteFlowItem;
 	DummyContributionItem dummyItem;
 
 	public AgeDiagramEditorActionBarContributor() {
 		selectedModeItem = new ModeContributionItem("org.osate.ge.ui.editor.items.selected_mode");
 		showFlowImplElements = new ShowFlowContributionItem("org.osate.ge.ui.editor.items.show_flow_elements");
+		editFlowItem = new EditFlowContributionItem("org.osate.ge.ui.editor.items.edit_flow");
+		deleteFlowItem = new DeleteFlowContributionItem("org.osate.ge.ui.editor.items.delete_flow");
 		selectedFlowItem = new FlowContributionItem("org.osate.ge.ui.editor.items.selected_flow",
-				showFlowImplElements);
+				showFlowImplElements, editFlowItem, deleteFlowItem);
 		dummyItem = new DummyContributionItem("org.osate.ge.ui.editor.items.dummy");
 	}
 
@@ -57,6 +66,8 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		selectedModeItem.setActiveEditor(null);
 		selectedFlowItem.setActiveEditor(null);
 		showFlowImplElements.setActiveEditor(null);
+		editFlowItem.setActiveEditor(null);
+		deleteFlowItem.setActiveEditor(null);
 		super.dispose();
 	}
 
@@ -76,6 +87,8 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		tbm.add(new Separator());
 		tbm.add(selectedFlowItem);
 		tbm.add(showFlowImplElements);
+		tbm.add(editFlowItem);
+		tbm.add(deleteFlowItem);
 		tbm.add(new Separator());
 		tbm.add(dummyItem);
 	}
@@ -124,6 +137,8 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		selectedModeItem.setActiveEditor(editor);
 		selectedFlowItem.setActiveEditor(editor);
 		showFlowImplElements.setActiveEditor(editor);
+		editFlowItem.setActiveEditor(editor);
+		deleteFlowItem.setActiveEditor(editor);
 	}
 
 }

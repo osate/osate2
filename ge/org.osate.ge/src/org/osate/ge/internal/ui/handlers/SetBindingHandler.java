@@ -26,7 +26,7 @@ package org.osate.ge.internal.ui.handlers;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.osate.ge.internal.ui.tools.SetBindingTool;
+import org.osate.ge.aadl2.ui.internal.tools.SetBindingTool;
 
 public class SetBindingHandler extends AbstractHandler {
 	@Override

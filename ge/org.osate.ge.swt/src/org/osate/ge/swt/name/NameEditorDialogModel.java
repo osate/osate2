@@ -25,6 +25,7 @@ package org.osate.ge.swt.name;
 
 /**
  * View Model interface for {@link NameEditorDialog}
+ * @since 1.1
  *
  */
 public interface NameEditorDialogModel {
