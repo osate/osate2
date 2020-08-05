@@ -140,12 +140,10 @@ public class FileUtils {
 		}
 	}
 
-	public static void copyIntoFile(File inFile, String string2write) {
+	public static void copyIntoFile(File inFile, String string2write) throws IOException {
 		try (BufferedWriter out = new BufferedWriter(new FileWriter(inFile))) {
 			out.write(string2write);
 			out.newLine();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 

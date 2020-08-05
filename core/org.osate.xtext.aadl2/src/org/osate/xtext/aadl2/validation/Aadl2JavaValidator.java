@@ -3143,12 +3143,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 			}
 		} else if (componentType.isDerivedModes()) {
-			INode requiresModesNode = getRequiresModesNode(componentType);
 			if (componentType.getExtended() != null && componentType.getExtended().getAllModes().stream()
-					.anyMatch(extendedMode -> !extendedMode.isDerived()) && requiresModesNode != null) {
+					.anyMatch(extendedMode -> !extendedMode.isDerived())) {
 				// Section 4.3 (L6): Only modes permitted when inheriting modes.
-				getMessageAcceptor().acceptError("Must be modes because modes are inherited.", componentType,
+				INode requiresModesNode = getRequiresModesNode(componentType);
+				if (requiresModesNode != null) { // requiresModesNode != null always evaluates to true. This is only for SonarCloud.
+					getMessageAcceptor().acceptError("Must be modes because modes are inherited.", componentType,
 						requiresModesNode.getOffset(), requiresModesNode.getLength(), null);
+				}
 			} else {
 				// Section 12 (L2): Requires modes can't be initial.
 				for (Mode mode : componentType.getOwnedModes()) {
@@ -3217,7 +3219,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		if (!isAncestor) {
 			error(implementationExtension, '\'' + typeOfParent.getQualifiedName() + "' is not an ancestor of '"
-					+ typeOfChild != null ? typeOfChild.getQualifiedName() : "TYPE OF CHILD NOT FOUND" + "'.");
+					+ typeOfChild.getQualifiedName() + "'.");
 		}
 	}
 
@@ -3410,6 +3412,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			typeCategory = ComponentCategory.DEVICE;
 		} else if (componentType instanceof SystemType) {
 			typeCategory = ComponentCategory.SYSTEM;
+		} else {
+			throw new AssertionError("Unrecognized Category Type");
 		}
 		Set<FeatureType> acceptableFeatureTypes = acceptableFeaturesForTypes.get(typeCategory);
 		HashSet<FeatureType> typesOfInheritedFeatures = new HashSet<FeatureType>();
@@ -3425,8 +3429,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		for (FeatureType featureType : typesOfInheritedFeatures) {
 			if (!acceptableFeatureTypes.contains(featureType)) {
 
-				String changeFrom = typeCategory != null ? typeCategory.getName()
-						: "TYPE CATEGORY NOT CORRECTLY SPECIFIED";
+				String changeFrom = typeCategory.getName();
 				String offset = "" + findKeywordOffset(componentType, changeFrom);
 				error("A " + changeFrom + " type cannot extend an abstract type that contains "
 						+ featureType.getNameWithIndefiniteArticle() + '.', componentType.getOwnedExtension(), null,
@@ -3472,6 +3475,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			implementationCategory = ComponentCategory.DEVICE;
 		} else if (componentImplementation instanceof SystemImplementation) {
 			implementationCategory = ComponentCategory.SYSTEM;
+		}else {
+			throw new AssertionError("Unrecognized Category Type");
 		}
 		Set<ComponentCategory> acceptableSubcomponentCategories = acceptableSubcomponentCategoriesForImplementations
 				.get(implementationCategory);
@@ -3488,8 +3493,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		for (ComponentCategory subcomponentCategory : categoriesOfInheritedSubcomponents) {
 			if (!acceptableSubcomponentCategories.contains(subcomponentCategory)) {
 				error(componentImplementation.getOwnedExtension(),
-						"A " + implementationCategory != null ? implementationCategory.getName()
-								: "IMPLEMENTATION CATEGORY NOT CORRECTLY SPECIFIED"
+						"A " + implementationCategory.getName()
 								+ " implementation cannot extend an abstract implementation that contains a "
 								+ subcomponentCategory.getName() + " subcomponent.");
 			}
@@ -6285,8 +6289,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		// Test for L6: connection between subcomponent and access feature
 		else if (source instanceof Subcomponent && destination instanceof Access
-				&& (dstContext == null || dstContext instanceof FeatureGroup) && destinationType != null) {
-			if (!destinationType.equals(AccessType.PROVIDES)) {
+				&& (dstContext == null || dstContext instanceof FeatureGroup)) {
+			if (!(destinationType == AccessType.PROVIDES)) {
 				error('\'' + destination.getName()
 						+ "' must be a provides access feature for a connection from an accessed subcomponent.",
 						connection, Aadl2Package.eINSTANCE.getConnection_Destination());
@@ -6304,8 +6308,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		// Test for L7: connection between subcomponent and access feature of
 		// subcomponent
 		else if (source instanceof Subcomponent && destination instanceof Access
-				&& dstContext instanceof Subcomponent && destinationType != null) {
-			if (!destinationType.equals(AccessType.REQUIRES)) {
+				&& dstContext instanceof Subcomponent) {
+			if (!(destinationType == AccessType.REQUIRES)) {
 				error('\'' + destination.getName()
 						+ "' must be a requires access feature for a connection from an accessed subcomponent.",
 						connection, Aadl2Package.eINSTANCE.getConnection_Destination());

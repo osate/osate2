@@ -1243,8 +1243,7 @@ public class BinPackerTester {
 		for (int i = 0; i < numberOfSites; i++) {
 			long numberOfDucts;
 			Site[] site = new Site[numberOfClones];
-			for (int j = 0; j < numberOfClones; j++)
-			 {
+			for (int j = 0; j < numberOfClones; j++) {
 				site[j] = sites[j][i]; // sites[0][i];
 			}
 
