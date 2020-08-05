@@ -23,8 +23,12 @@
  */
 package org.osate.ge.swt.selectors;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -37,13 +41,13 @@ import org.eclipse.swt.widgets.Composite;
 import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.DefaultEventSource;
 import org.osate.ge.swt.EventSource;
-import org.osate.ge.swt.internal.InternalUtil;
-import org.osate.ge.swt.util.SwtTestUtil;
+import org.osate.ge.swt.SwtUtil;
 
 /**
- * Wrapper around JFace's {@link org.eclipse.jface.viewers.ListViewer} which uses a {@link SelectorModel}
+ * Wrapper around JFace's {@link org.eclipse.jface.viewers.ListViewer} which uses a {@link SingleSelectorModel}
  *
  * Allows selecting a single element. Sorts items provided by model.
+ * @since 1.1
  */
 public final class ListSelector<T> extends Composite implements SelectionDoubleClickedEventGenerator {
 	private final SelectorModel<Object> wrappedModel;
@@ -56,14 +60,15 @@ public final class ListSelector<T> extends Composite implements SelectionDoubleC
 	 * @param parent the container to which to add the widget.
 	 * @param model the view model for the widget.
 	 */
+	@SuppressWarnings("unchecked")
 	public ListSelector(final Composite parent, final SelectorModel<T> model) {
 		super(parent, SWT.NONE);
 		this.wrappedModel = new NullRemovingSelectorModel(Objects.requireNonNull(model, "model must not be null"));
-		InternalUtil.setColorsToMatchParent(this);
+		SwtUtil.setColorsToMatchParent(this);
 		this.setLayout(GridLayoutFactory.fillDefaults().numColumns(1).create());
 
 		this.listViewer = new org.eclipse.jface.viewers.ListViewer(this,
-				SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
+				(model.supportsMultiSelect() ? SWT.MULTI : SWT.SINGLE) | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
 		this.listViewer.getControl().setLayoutData(
 				GridDataFactory.swtDefaults().span(2, 1).grab(true, true).align(SWT.FILL, SWT.FILL).create());
 		this.listViewer.setComparator(new ViewerComparator());
@@ -78,11 +83,7 @@ public final class ListSelector<T> extends Composite implements SelectionDoubleC
 		});
 
 		this.listViewer.addSelectionChangedListener(event -> {
-			@SuppressWarnings("unchecked")
-			final T newSelection = (T) this.listViewer.getStructuredSelection().getFirstElement();
-			if (newSelection != null && !Objects.equals(newSelection, wrappedModel.getSelectedElement())) {
-				wrappedModel.setSelectedElement(newSelection);
-			}
+			wrappedModel.setSelectedElements(this.listViewer.getStructuredSelection().toList().stream());
 		});
 
 		this.listViewer.addDoubleClickListener(
@@ -102,7 +103,7 @@ public final class ListSelector<T> extends Composite implements SelectionDoubleC
 	 * @param value is the testing ID
 	 */
 	public void setListTestingId(final String value) {
-		SwtTestUtil.setTestingId(this.listViewer.getControl(), value);
+		SwtUtil.setTestingId(this.listViewer.getControl(), value);
 	}
 
 	private void refresh() {
@@ -111,11 +112,11 @@ public final class ListSelector<T> extends Composite implements SelectionDoubleC
 
 			// Avoid attempting to select an element that is not in the selector. Will result in a stack overflow while trying to synchronize the selection with
 			// the model.
-			final Object selectedElement = wrappedModel.getSelectedElement();
-			final boolean selectionAvailable = this.wrappedModel.getElements()
-					.anyMatch(e -> Objects.equals(e, selectedElement));
-			this.listViewer.setSelection(
-					selectionAvailable ? new StructuredSelection(wrappedModel.getSelectedElement()) : null);
+			final Collection<Object> all = wrappedModel.getElements().collect(Collectors.toList());
+			final Set<Object> selected = wrappedModel.getSelectedElements().collect(Collectors.toCollection(() -> new HashSet<Object>()));
+			selected.retainAll(all);
+
+			this.listViewer.setSelection(selected.isEmpty() ? null : new StructuredSelection(selected.toArray()));
 
 			setEnabled(wrappedModel.isEnabled());
 		}
@@ -128,8 +129,9 @@ public final class ListSelector<T> extends Composite implements SelectionDoubleC
 	}
 
 	public static void main(String[] args) {
-		InternalUtil.run(shell -> {
-			new ListSelector<>(shell, new TestListEditorModel());
+		SwtUtil.run(shell -> {
+			new ListSelector<>(shell,
+					new TestSelectorModel());
 		});
 	}
 

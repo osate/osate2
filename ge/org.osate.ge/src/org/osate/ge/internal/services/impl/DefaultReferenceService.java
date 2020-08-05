@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -25,50 +25,42 @@ package org.osate.ge.internal.services.impl;
 
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.WeakHashMap;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExtension;
-import org.eclipse.core.runtime.IExtensionPoint;
-import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.e4.core.contexts.ContextInjectionFactory;
-import org.eclipse.e4.core.contexts.EclipseContextFactory;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.osate.ge.di.BuildCanonicalReference;
-import org.osate.ge.di.BuildRelativeReference;
-import org.osate.ge.di.Names;
-import org.osate.ge.internal.di.GetCanonicalReferenceLabel;
-import org.osate.ge.internal.di.GetRelativeReferenceLabel;
-import org.osate.ge.internal.di.InternalNames;
-import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
-import org.osate.ge.internal.services.ModelChangeNotifier;
+import org.eclipse.ui.statushandlers.StatusManager;
+import org.osate.ge.CanonicalBusinessObjectReference;
+import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.ReferenceContext;
+import org.osate.ge.internal.Activator;
+import org.osate.ge.internal.businessobjecthandlers.BusinessObjectHandlerProvider;
+import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.ReferenceService;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
+import org.osate.ge.referencehandling.GetCanonicalReferenceLabelContext;
+import org.osate.ge.referencehandling.GetRelativeReferenceLabelContext;
+import org.osate.ge.referencehandling.ReferenceLabelProvider;
+import org.osate.ge.referencehandling.internal.ReferenceLabelProviderRegistry;
 
 public class DefaultReferenceService implements ReferenceService {
-	public static final String REFERENCES_EXTENSION_POINT_ID = "org.osate.ge.references";
-	private static final String REFERENCE_BUILDER_ELEMENT_NAME = "referenceBuilder";
-	private static final String REFERENCE_LABEL_PROVIDER_ELEMENT_NAME = "referenceLabelProvider";
-
 	private final static ReferenceQueue<ProjectReferenceService> serviceReferenceQueue = new ReferenceQueue<>();
 
 	// Start a thread which will monitor the service reference queue and call the dispose method of the reference.
 	static {
 		final Thread referenceDisposalThread = new Thread(() -> {
-			while(!Thread.currentThread().isInterrupted()) {
+			while (!Thread.currentThread().isInterrupted()) {
 				ProjectReferenceServiceReference ref;
 				try {
-					while((ref = (ProjectReferenceServiceReference)serviceReferenceQueue.remove()) != null) {
+					while ((ref = (ProjectReferenceServiceReference) serviceReferenceQueue.remove()) != null) {
 						ref.dispose();
 					}
 				} catch (InterruptedException e) {
@@ -80,195 +72,94 @@ public class DefaultReferenceService implements ReferenceService {
 		referenceDisposalThread.start();
 	}
 
-	// A weak reference that holds the IEclipesContext used by the referenced service.
 	private static class ProjectReferenceServiceReference extends WeakReference<DefaultProjectReferenceService> {
-		private final IEclipseContext ctx;
+		private final Runnable cleanup;
 
 		public ProjectReferenceServiceReference(final DefaultProjectReferenceService service,
-				final ReferenceQueue<? super ProjectReferenceService> queue,
-				final IEclipseContext ctx) {
+				final ReferenceQueue<? super ProjectReferenceService> queue) {
 			super(service, queue);
-			this.ctx = Objects.requireNonNull(ctx, "ctx must not be null");
+			this.cleanup = service.getCleanupRunnable();
 		}
 
 		public void dispose() {
-			// Dispose of the context
-			ctx.dispose();
+			cleanup.run();
 		}
 	}
 
 	public static class ContextFunction extends SimpleServiceContextFunction<ReferenceService> {
 		@Override
 		public ReferenceService createService(final IEclipseContext context) {
-			return new DefaultReferenceService(context.get(ModelChangeNotifier.class));
-		}
-
-		@Override
-		protected void deactivate() {
-			// Dispose the service if it is valid
-			final ReferenceService service = getService();
-			if(service instanceof DefaultReferenceService) {
-				((DefaultReferenceService)service).dispose();
-			}
-
-			super.deactivate();
+			return new DefaultReferenceService(context.get(ExtensionRegistryService.class));
 		}
 	}
 
-	private List<Object> referenceBuilders = null;
-	private List<Object> referenceLabelProviders = null;
-	private final IEclipseContext argCtx = EclipseContextFactory.create(); // Used for method arguments
-	private final IEclipseContext serviceContext;
+	private final ReferenceLabelProviderRegistry labelProviderRegistry;
 	private final WeakHashMap<IProject, ProjectReferenceServiceReference> projectToProjectReferenceService = new WeakHashMap<>();
-	private final ModelChangeNotifier modelChangeNotifier;
+	private final BusinessObjectHandlerProvider bohProvider;
 
-	private ModelChangeNotifier.ChangeListener modelChangeListener = new ModelChangeNotifier.ChangeListener() {
-		@Override
-		public void modelChanged(final boolean modelWasLocked) {
-			// Notify project reference services of the model change
-			for(final ProjectReferenceServiceReference ref : projectToProjectReferenceService.values()) {
-				final DefaultProjectReferenceService projectReferenceService = ref.get();
-				if(projectReferenceService != null) {
-					projectReferenceService.onModelChanged();
-				}
-			}
-		}
-	};
+	public DefaultReferenceService(
+			final BusinessObjectHandlerProvider bohProvider) {
+		this.labelProviderRegistry = new ReferenceLabelProviderRegistry(Platform.getExtensionRegistry());
+		this.bohProvider = Objects.requireNonNull(bohProvider, "bohProvider must not be null");
 
-	public DefaultReferenceService(final ModelChangeNotifier modelChangeNotifier) {
-		this.modelChangeNotifier = Objects.requireNonNull(modelChangeNotifier, "modelChangeNotifier must not be null");
-		referenceBuilders = instantiateReferenceBuilders();
-		referenceLabelProviders = instantiateReferenceLabelProviders();
-
-		final Bundle bundle = FrameworkUtil.getBundle(getClass());
-		serviceContext = EclipseContextFactory.getServiceContext(bundle.getBundleContext());
-
-		// Start listening to model changes
-		modelChangeNotifier.addChangeListener(modelChangeListener);
-	}
-
-	public void dispose() {
-		// Stop listening to model changes
-		modelChangeNotifier.removeChangeListener(modelChangeListener);
-
-		argCtx.dispose();
-	}
-
-	private static List<Object> instantiateReferenceBuilders() {
-		final List<Object> referenceBuilders = new ArrayList<>();
-
-		final IExtensionRegistry registry = Platform.getExtensionRegistry();
-		final IExtensionPoint point = Objects.requireNonNull(registry.getExtensionPoint(DefaultReferenceService.REFERENCES_EXTENSION_POINT_ID), "unable to retrieve references extension point");
-		for(final IExtension extension : point.getExtensions()) {
-			for(final IConfigurationElement ce : extension.getConfigurationElements()) {
-				if(ce.getName().equals(REFERENCE_BUILDER_ELEMENT_NAME)) {
-					try {
-						final Object ext = ce.createExecutableExtension("class");
-						referenceBuilders.add(ext);
-					} catch(final CoreException ex) {
-						throw new RuntimeException(ex);
-					}
-				}
-			}
-		}
-
-		return Collections.unmodifiableList(referenceBuilders);
-	}
-
-	private static List<Object> instantiateReferenceLabelProviders() {
-		final List<Object> referenceBuilders = new ArrayList<>();
-
-		final IExtensionRegistry registry = Platform.getExtensionRegistry();
-		final IExtensionPoint point = Objects.requireNonNull(
-				registry.getExtensionPoint(DefaultReferenceService.REFERENCES_EXTENSION_POINT_ID),
-				"unable to retrieve references extension point");
-		for (final IExtension extension : point.getExtensions()) {
-			for (final IConfigurationElement ce : extension.getConfigurationElements()) {
-				if (ce.getName().equals(REFERENCE_LABEL_PROVIDER_ELEMENT_NAME)) {
-					try {
-						final Object ext = ce.createExecutableExtension("class");
-						referenceBuilders.add(ext);
-					} catch (final CoreException ex) {
-						throw new RuntimeException(ex);
-					}
-				}
-			}
-		}
-
-		return Collections.unmodifiableList(referenceBuilders);
 	}
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final Object bo) {
 		Objects.requireNonNull(bo, "bo must not be null");
-		try {
-			// Set context fields
-			argCtx.set(Names.BUSINESS_OBJECT, bo);
-			for(final Object refBuilder : referenceBuilders) {
-				final String[] ref = (String[])ContextInjectionFactory.invoke(refBuilder, BuildCanonicalReference.class, serviceContext, argCtx, null);
-				if(ref != null) {
-					// Return null if any segment is null.
-					// This is done to prevent the reference builder from having to check all fields such as qualified name for null values.
-					for(final String seg : ref) {
-						if(seg == null) {
-							return null;
-						}
-					}
 
-					return new CanonicalBusinessObjectReference(ref);
-				}
-			}
-		} finally {
-			// Remove entries from context
-			argCtx.remove(Names.BUSINESS_OBJECT);
+		final BusinessObjectHandler boh = bohProvider.getApplicableBusinessObjectHandler(bo);
+		if (boh == null) {
+			return null;
 		}
 
-		return null;
+		try {
+			return boh.getCanonicalReference(new ReferenceContext(bo, this));
+		} catch (RuntimeException ex) {
+			StatusManager.getManager().handle(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+							"Error retrieving canonical reference for " + bo.getClass().getCanonicalName()
+							+ ".",
+							ex),
+					StatusManager.LOG | StatusManager.SHOW);
+			return null;
+		}
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final Object bo) {
 		Objects.requireNonNull(bo, "bo must not be null");
-		try {
-			// Set context fields
-			argCtx.set(Names.BUSINESS_OBJECT, bo);
-			for(final Object refBuilder : referenceBuilders) {
-				final Object rawRef = ContextInjectionFactory.invoke(refBuilder,
-						BuildRelativeReference.class, serviceContext, argCtx, null);
-				if (rawRef != null) {
-					if (rawRef instanceof RelativeBusinessObjectReference) {
-						return (RelativeBusinessObjectReference) rawRef;
-					} else if (rawRef instanceof String[]) {
-						return RelativeBusinessObjectReference.fromNullableSegments((String[]) rawRef);
-					} else {
-						throw new RuntimeException(
-								"Invalid value: '" + rawRef + "' returned by relative reference builder");
-					}
-				}
-			}
-		} finally {
-			// Remove entries from context
-			argCtx.remove(Names.BUSINESS_OBJECT);
+
+		final BusinessObjectHandler boh = bohProvider.getApplicableBusinessObjectHandler(bo);
+		if (boh == null) {
+			return null;
 		}
 
-		return null;
+		try {
+			return Objects.requireNonNull(boh.getRelativeReference(new ReferenceContext(bo, this)),
+					() -> "Business object handlers must not return a null relative reference. Null reference returned by '"
+							+ boh.getClass().getCanonicalName() + "'");
+		} catch (RuntimeException ex) {
+			StatusManager.getManager().handle(
+					new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+							"Error retrieving relative reference for " + bo.getClass().getCanonicalName() + ".",
+							ex),
+					StatusManager.LOG | StatusManager.SHOW);
+			return null;
+		}
 	}
 
 	@Override
 	public ProjectReferenceService getProjectReferenceService(final IProject project) {
 		ProjectReferenceServiceReference serviceRef = projectToProjectReferenceService.get(project);
 		DefaultProjectReferenceService result = serviceRef == null ? null : serviceRef.get();
-		if(result == null) {
-			// Create a new context
-			final Bundle bundle = FrameworkUtil.getBundle(getClass());
-			final IEclipseContext ctx = EclipseContextFactory.getServiceContext(bundle.getBundleContext())
-					.createChild(); // Will be disposed when ProjectReferenceServiceReference is disposed.
-
+		if (result == null) {
 			// Create the reference service
-			result = new DefaultProjectReferenceService(this, this, project, ctx);
+			result = new DefaultProjectReferenceService(this, this, project);
 
 			// Create the reference
-			final ProjectReferenceServiceReference newServiceRef = new ProjectReferenceServiceReference(result, serviceReferenceQueue, ctx);
+			final ProjectReferenceServiceReference newServiceRef = new ProjectReferenceServiceReference(result,
+					serviceReferenceQueue);
 			projectToProjectReferenceService.put(project, newServiceRef);
 		}
 
@@ -276,49 +167,41 @@ public class DefaultReferenceService implements ReferenceService {
 	}
 
 	@Override
-	public String getLabel(final CanonicalBusinessObjectReference ref, final IProject project) {
+	public String getLabel(final CanonicalBusinessObjectReference ref) {
 		Objects.requireNonNull(ref, "ref must not be null");
-		Objects.requireNonNull(project, "project must not be null");
 
-		try {
-			// Set context fields
-			argCtx.set(InternalNames.REFERENCE, ref);
-			argCtx.set(InternalNames.PROJECT, project);
-			for (final Object refLabelProvider : referenceLabelProviders) {
-				final String label = (String) ContextInjectionFactory.invoke(refLabelProvider,
-						GetCanonicalReferenceLabel.class,
-						serviceContext, argCtx, null);
-				if (label != null) {
-					return label;
-				}
+		final GetCanonicalReferenceLabelContext ctx = new GetCanonicalReferenceLabelContext(ref);
+		for (final ReferenceLabelProvider provider : labelProviderRegistry.getProviders()) {
+			final Optional<String> label = provider.getCanonicalReferenceLabel(ctx);
+			if (label.isPresent()) {
+				return label.get();
 			}
-		} finally {
-			// Remove entries from context
-			argCtx.remove(InternalNames.PROJECT);
-			argCtx.remove(InternalNames.REFERENCE);
 		}
 
-		return null;
+		return getFallbackLabel(ref.getSegments());
 	}
 
 	@Override
 	public String getLabel(final RelativeBusinessObjectReference ref) {
 		Objects.requireNonNull(ref, "ref must not be null");
-		try {
-			// Set context fields
-			argCtx.set(InternalNames.REFERENCE, ref);
-			for (final Object refLabelProvider : referenceLabelProviders) {
-				final String label = (String) ContextInjectionFactory.invoke(refLabelProvider,
-						GetRelativeReferenceLabel.class, serviceContext, argCtx, null);
-				if (label != null) {
-					return label;
-				}
+
+		final GetRelativeReferenceLabelContext ctx = new GetRelativeReferenceLabelContext(ref);
+		for (final ReferenceLabelProvider provider : labelProviderRegistry.getProviders()) {
+			final Optional<String> label = provider.getRelativeReferenceLabel(ctx);
+			if (label.isPresent()) {
+				return label.get();
 			}
-		} finally {
-			// Remove entries from context
-			argCtx.remove(InternalNames.REFERENCE);
 		}
 
-		return null;
+		return getFallbackLabel(ref.getSegments());
+	}
+
+	/**
+	 * Returns a label created by joining the specified segments. Intended for use when a label provider is not available.
+	 * @param segments the segments to join
+	 * @return the label.
+	 */
+	private final String getFallbackLabel(final List<String> segments) {
+		return segments.stream().collect(Collectors.joining(" "));
 	}
 }

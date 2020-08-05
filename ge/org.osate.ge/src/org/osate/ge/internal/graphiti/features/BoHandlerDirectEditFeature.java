@@ -32,19 +32,21 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.e4.core.contexts.ContextInjectionFactory;
-import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature;
-import org.osate.ge.di.CanRename;
-import org.osate.ge.di.Names;
-import org.osate.ge.di.Rename;
-import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
+import org.osate.aadl2.NamedElement;
+import org.osate.ge.CanonicalBusinessObjectReference;
+import org.osate.ge.ProjectUtil;
+import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
+import org.osate.ge.aadl2.internal.util.RenameUtil;
+import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.CanRenameContext;
+import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.graphiti.ShapeNames;
 import org.osate.ge.internal.graphiti.diagram.PropertyUtil;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
@@ -53,12 +55,8 @@ import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.DiagramService.ReferenceCollection;
 import org.osate.ge.internal.services.DiagramService.UpdatedReferenceValueProvider;
-import org.osate.ge.internal.ui.LtkRenameAction;
-import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ModelChangeNotifier;
-import org.osate.ge.internal.util.AnnotationUtil;
-import org.osate.ge.internal.util.ProjectUtil;
-import org.osate.ge.internal.util.RenameUtil;
+import org.osate.ge.internal.ui.LtkRenameAction;
 import org.osate.ge.services.ReferenceBuilderService;
 
 // Direct Editing Feature implementation that uses Xtext/LTK refactoring to rename an element.
@@ -69,7 +67,6 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature {
 	public static final String PROPERTY_REQUIRE_PRIMARY_LABEL = "org.osate.ge.require_primary_label";
 
 	private final GraphitiService graphitiService;
-	private final ExtensionService extService;
 	private final AadlModificationService aadlModService;
 	private final DiagramService diagramService;
 	private final ReferenceBuilderService referenceBuilderService;
@@ -78,12 +75,11 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature {
 	@Inject
 	public BoHandlerDirectEditFeature(final IFeatureProvider fp,
 			final GraphitiService graphitiService,
-			final ExtensionService extService, final AadlModificationService aadlModService,
+			final AadlModificationService aadlModService,
 			final DiagramService diagramService, final ReferenceBuilderService referenceBuilderService,
 			final ModelChangeNotifier modelChangeNotifier) {
 		super(fp);
 		this.graphitiService = Objects.requireNonNull(graphitiService, "graphitiService must not be null");
-		this.extService = Objects.requireNonNull(extService, "extService must not be null");
 		this.aadlModService = Objects.requireNonNull(aadlModService, "aadlModService must not be null");
 		this.diagramService = Objects.requireNonNull(diagramService, "diagramService must not be null");
 		this.referenceBuilderService = Objects.requireNonNull(referenceBuilderService,
@@ -105,34 +101,21 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature {
 			return false;
 		}
 
-		final Object handler = de.getBusinessObjectHandler();
-		if (!RenameUtil.hasValidateNameMethod(handler)) {
+		final BusinessObjectHandler handler = de.getBusinessObjectHandler();
+		if (!handler.canRename(new CanRenameContext(bo))) {
 			return false;
 		}
 
-		if (!AnnotationUtil.hasMethodWithAnnotation(Rename.class, handler)
+		if (!RenameUtil.supportsNonLtkRename(handler)
 				&& RenameUtil.getRenameRefactoring(bo) == null) {
 			return false;
 		}
 
-		// Ensure that the specified pictogram elmenet is a primary label unless the context contains a property specifying otherwise.
+		// Ensure that the specified pictogram element is a primary label unless the context contains a property specifying otherwise.
 		if (!Boolean.FALSE.equals(context.getProperty(PROPERTY_REQUIRE_PRIMARY_LABEL))) {
 			if (!ShapeNames.primaryLabelShapeName.equals(PropertyUtil.getName(context.getPictogramElement()))) {
 				return false;
 			}
-		}
-
-		final IEclipseContext childCtx = extService.createChildContext();
-		boolean canRename = true;
-		try {
-			childCtx.set(Names.BUSINESS_OBJECT, bo);
-			childCtx.set(Names.BUSINESS_OBJECT_CONTEXT, de);
-			canRename = (boolean)ContextInjectionFactory.invoke(handler, CanRename.class, childCtx, true);
-			if(!canRename) {
-				return false;
-			}
-		} finally {
-			childCtx.dispose();
 		}
 
 		return true;
@@ -155,29 +138,27 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature {
 			return "Unable to get diagram element.";
 		}
 
-		return RenameUtil.checkNewNameValidity(de.getBusinessObject(), de.getBusinessObjectHandler(), value,
-				graphitiService.getProject(), extService);
+		return RenameUtil.checkNewNameValidity(de.getBusinessObject(), de.getBusinessObjectHandler(), value);
 	}
 
 	@Override
 	public String getInitialValue(final IDirectEditingContext context) {
 		final DiagramElement de = graphitiService.getGraphitiAgeDiagram().getClosestDiagramElement(context.getPictogramElement());
-		return RenameUtil.getCurrentEditingName(de.getBusinessObject(), de.getBusinessObjectHandler(),
-				extService, de.getLabelName());
+		return de.getBusinessObjectHandler().getNameForRenaming(new GetNameContext(de.getBusinessObject()));
 	}
 
 	@Override
 	public void setValue(final String value, final IDirectEditingContext context) {
 		final DiagramElement de = graphitiService.getGraphitiAgeDiagram().getClosestDiagramElement(context.getPictogramElement());
 		final EObject bo = (EObject) de.getBusinessObject();
-		final Object handler = de.getBusinessObjectHandler();
+		final BusinessObjectHandler handler = de.getBusinessObjectHandler();
 		final String initialValue = getInitialValue(context);
 
 		// If the business object handler provides a Rename method, then use it to rename the element instead of using LTK refactoring.
 		if (RenameUtil.supportsNonLtkRename(handler)) {
 			final CanonicalBusinessObjectReference canonicalRef = referenceBuilderService
 					.getCanonicalReference(bo);
-			final IProject project = ProjectUtil.getProject(EcoreUtil.getURI(bo));
+			final IProject project = ProjectUtil.getProjectOrNull(EcoreUtil.getURI(bo));
 			final ReferenceCollection references;
 			if (canonicalRef == null || project == null) {
 				references = null;
@@ -188,7 +169,7 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature {
 			}
 
 			aadlModService.modify(bo, (boToModify) -> {
-				RenameUtil.performNonLtkRename(boToModify, handler, value, extService);
+				RenameUtil.performNonLtkRename(boToModify, handler, value);
 
 				// Update diagram references. This is done in the modify block because the project is build and the diagram is updated before the modify()
 				// function returns.
@@ -248,7 +229,10 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature {
 				return null;
 			}
 
-			final Object bo = de.getBusinessObject();
+			Object bo = de.getBusinessObject();
+			if (bo instanceof NamedElement) {
+				bo = AgeAadlUtil.getRootRefinedElement((NamedElement) bo);
+			}
 			return bo instanceof EObject ? (EObject) bo : null;
 		}
 	}

@@ -24,8 +24,6 @@
 package org.osate.ge.graphics.internal;
 
 import org.osate.ge.graphics.ConnectionTerminator;
-import org.osate.ge.graphics.internal.AgeConnectionTerminator;
-import org.osate.ge.graphics.internal.ConnectionTerminatorType;
 
 /**
  * Builder for creating arrow connection terminators. 

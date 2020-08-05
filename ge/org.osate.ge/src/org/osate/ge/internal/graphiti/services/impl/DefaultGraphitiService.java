@@ -33,6 +33,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.graphiti.AgeDiagramTypeProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.AgeAction;
@@ -40,10 +41,10 @@ import org.osate.ge.internal.ui.editor.AgeDiagramBehavior;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
 public class DefaultGraphitiService implements GraphitiService {
-	private final IDiagramTypeProvider dtp;
+	private final AgeDiagramTypeProvider dtp;
 	private final IFeatureProvider fp;
 
-	public DefaultGraphitiService(final IDiagramTypeProvider dtp, final IFeatureProvider fp) {
+	public DefaultGraphitiService(final AgeDiagramTypeProvider dtp, final IFeatureProvider fp) {
 		this.dtp = Objects.requireNonNull(dtp, "dtp must not be null");
 		this.fp = Objects.requireNonNull(fp, "fp must not be null");
 	}
@@ -80,7 +81,7 @@ public class DefaultGraphitiService implements GraphitiService {
 
 	@Override
 	public AgeDiagram getAgeDiagram() {
-		return ((AgeDiagramBehavior)dtp.getDiagramBehavior()).getAgeDiagram();
+		return dtp.getAgeDiagram();
 	}
 
 	@Override

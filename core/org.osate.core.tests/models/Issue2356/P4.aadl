@@ -1,0 +1,41 @@
+package P4
+public
+	system a
+		features
+			aout: out data port;
+	end a;
+	
+    abstract B
+        features
+            bin: in data port;
+    end B;
+	
+	system m
+		features
+			min: in data port;
+	end m;
+	
+    system implementation m.i
+    	subcomponents
+    		a: system a;
+    		b: system b;
+    	connections
+    		c1: port min -> b.bin;
+    		c2: port a.aout -> b.bin;
+    end m.i;
+ 
+    system S
+    end S;
+    
+    system implementation S.i
+    	subcomponents
+    		a: system a;
+            m: system m.i;
+        connections
+            c1: port a.aout -> m.min;
+	end S.i;
+   
+end P4;
+
+
+

@@ -32,8 +32,9 @@ import org.osate.ge.swt.ChangeEvent;
 
 /**
  * Abstract decorator for {@link SelectorModel}
+ * @since 1.1
  */
-public abstract class SelectorModelDecorator<T> extends BaseObservableModel implements SelectorModel<T> {
+public class SelectorModelDecorator<T> extends BaseObservableModel implements SelectorModel<T> {
 	private final SelectorModel<T> inner;
 	private final Consumer<ChangeEvent> changeListener = e -> triggerChangeEvent();
 
@@ -57,17 +58,22 @@ public abstract class SelectorModelDecorator<T> extends BaseObservableModel impl
 	}
 
 	@Override
-	public T getSelectedElement() {
-		return inner.getSelectedElement();
+	public Stream<T> getSelectedElements() {
+		return inner.getSelectedElements();
 	}
 
 	@Override
-	public void setSelectedElement(T element) {
-		inner.setSelectedElement(element);
+	public void setSelectedElements(final Stream<T> value) {
+		inner.setSelectedElements(value);
 	}
 
 	@Override
 	public String getLabel(final T element) {
 		return inner.getLabel(element);
+	}
+
+	@Override
+	public boolean supportsMultiSelect() {
+		return inner.supportsMultiSelect();
 	}
 }

@@ -23,7 +23,7 @@
  */
 package org.osate.ge.tests.endToEnd;
 
-import static org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder.*;
+import static org.osate.ge.aadl2.internal.AadlReferenceUtil.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGePrototypeTestCommands.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGeTestCommands.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGeTestUtil.*;
@@ -31,7 +31,7 @@ import static org.osate.ge.tests.endToEnd.util.UiTestUtil.*;
 
 import org.eclipse.swt.widgets.Shell;
 import org.junit.Test;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.tests.endToEnd.util.DiagramElementReference;
 import org.osate.ge.tests.endToEnd.util.DiagramReference;
 
@@ -61,7 +61,7 @@ public class PrototypeEndToEndTest {
 		createNewPackageWithPackageDiagram(PROTOTYPE_TEST, INTERFACES);
 		final DiagramReference diagram = defaultDiagram(PROTOTYPE_TEST, INTERFACES);
 		final DiagramElementReference pkgElement = packageElement(INTERFACES);
-		final RelativeBusinessObjectReference pkg = getPackageRelativeReference(INTERFACES);
+		final RelativeBusinessObjectReference pkg = getRelativeReferenceForPackage(INTERFACES);
 
 		createElementAndLayout(diagram, pkgElement, "Feature Group Type",
 				getClassifierRelativeReference("new_classifier"), "subsystem_interface");
@@ -102,7 +102,7 @@ public class PrototypeEndToEndTest {
 	private void createSubsystemTypes() {
 		final DiagramReference diagram = defaultDiagram(PROTOTYPE_TEST, PROTOTYPE_TEST);
 		final DiagramElementReference pkgElement = packageElement(PROTOTYPE_TEST);
-		final RelativeBusinessObjectReference pkg = getPackageRelativeReference(PROTOTYPE_TEST);
+		final RelativeBusinessObjectReference pkg = getRelativeReferenceForPackage(PROTOTYPE_TEST);
 
 		// Create subsystem system type
 		createElementAndLayout(diagram, pkgElement, "System Type", getClassifierRelativeReference("new_classifier"),
@@ -136,7 +136,7 @@ public class PrototypeEndToEndTest {
 	private void createTestSystem() {
 		final DiagramReference diagram = defaultDiagram(PROTOTYPE_TEST, PROTOTYPE_TEST);
 		final DiagramElementReference pkgElement = packageElement(PROTOTYPE_TEST);
-		final RelativeBusinessObjectReference pkg = getPackageRelativeReference(PROTOTYPE_TEST);
+		final RelativeBusinessObjectReference pkg = getRelativeReferenceForPackage(PROTOTYPE_TEST);
 
 		// Create system system implementation
 		createImplementationWithNewType(diagram, pkgElement, "System Implementation", "impl", "test_system");
@@ -203,7 +203,7 @@ public class PrototypeEndToEndTest {
 	private void createAndEditPrototypes() {
 		final DiagramReference diagram = defaultDiagram(PROTOTYPE_TEST, PROTOTYPE_TEST);
 		final DiagramElementReference pkgElement = packageElement(PROTOTYPE_TEST);
-		final RelativeBusinessObjectReference pkg = getPackageRelativeReference(PROTOTYPE_TEST);
+		final RelativeBusinessObjectReference pkg = getRelativeReferenceForPackage(PROTOTYPE_TEST);
 
 		// Create system which will have prototypes
 		createElementAndLayout(diagram, pkgElement, "System Type", getClassifierRelativeReference("new_classifier"),
@@ -335,7 +335,8 @@ public class PrototypeEndToEndTest {
 	private void updateTopExtFeatureBinding(final String type, final String direction, final String classifier,
 			final boolean cancel, final String expectedNewLabelText) {
 		final DiagramReference diagram = defaultDiagram(PROTOTYPE_TEST, PROTOTYPE_TEST);
-		final DiagramElementReference topExt = element(getPackageRelativeReference(PROTOTYPE_TEST),
+		final DiagramElementReference topExt = element(
+				getRelativeReferenceForPackage(PROTOTYPE_TEST),
 				getClassifierRelativeReference("top_ext"));
 
 		setClassifierPrototypeBindingsFromPropertiesView(diagram, () -> {

@@ -23,19 +23,20 @@
  */
 package org.osate.ge.internal.ui.editor;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
-import org.eclipse.e4.core.contexts.ContextInjectionFactory;
-import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.di.Activate;
-import org.osate.ge.di.Names;
-import org.osate.ge.internal.di.Deactivate;
-import org.osate.ge.internal.di.SelectionChanged;
-import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.diagram.runtime.AgeDiagram;
+import org.osate.ge.internal.services.AadlModificationService;
+import org.osate.ge.internal.services.ColoringService;
+import org.osate.ge.internal.services.UiService;
+import org.osate.ge.internal.ui.tools.ActivatedEvent;
+import org.osate.ge.internal.ui.tools.DeactivatedEvent;
+import org.osate.ge.internal.ui.tools.SelectionChangedEvent;
+import org.osate.ge.internal.ui.tools.Tool;
+
+import com.google.common.collect.ImmutableList;
 
 /**
  * Handles invoking tools and tracking the current tool.
@@ -43,28 +44,30 @@ import org.osate.ge.internal.services.ExtensionService;
  */
 public class ToolHandler {
 	private final DefaultPaletteBehavior paletteBehavior;
-	private final IEclipseContext context;
-	private Object activeTool = null;
-	private BusinessObjectContext[] bocs = null;
+	private Tool activeTool = null;
+	private ImmutableList<BusinessObjectContext> selectedBocs = ImmutableList.of();
+	private final AgeDiagram diagram;
+	private final AadlModificationService aadlModService;
+	private final UiService uiService;
+	private final ColoringService coloringService;
 
-	public ToolHandler(final ExtensionService extensionService,
-			final DefaultPaletteBehavior paletteBehavior) {
+	public ToolHandler(final DefaultPaletteBehavior paletteBehavior,
+			final AgeDiagram diagram,
+			final AadlModificationService aadlModService, final UiService uiService,
+			final ColoringService coloringService) {
 
 		this.paletteBehavior = paletteBehavior;
-		this.context = Objects.requireNonNull(extensionService, "extensionService must not be null")
-				.createChildContext();
-	}
-
-	public void dispose() {
-		this.context.dispose();
-		bocs = null;
+		this.diagram = Objects.requireNonNull(diagram, "diagram must not be null");
+		this.aadlModService = Objects.requireNonNull(aadlModService, "aadlModService must not be null");
+		this.uiService = Objects.requireNonNull(uiService, "uiService must not be null");
+		this.coloringService = Objects.requireNonNull(coloringService, "coloringService must not be null");
 	}
 
 	public boolean isToolActive() {
 		return activeTool != null;
 	}
 
-	public void activate(final Object tool) {
+	public void activate(final Tool tool) {
 		Objects.requireNonNull(tool, "tool must not be null");
 
 		// Deactivate the current tool
@@ -74,13 +77,7 @@ public class ToolHandler {
 
 		activeTool = tool;
 		paletteBehavior.refreshPalette();
-
-		try {
-			populateContext();
-			ContextInjectionFactory.invoke(activeTool, Activate.class, context);
-		} finally {
-			resetContext();
-		}
+		activeTool.activated(new ActivatedEvent(selectedBocs, diagram, aadlModService, uiService, coloringService));
 	}
 
 	public void deactivateActiveTool() {
@@ -89,56 +86,27 @@ public class ToolHandler {
 		}
 	}
 
-	public void deactivate(final Object tool) {
-		try {
-			populateContext();
-			ContextInjectionFactory.invoke(tool, Deactivate.class, context);
-		} finally {
-			resetContext();
-		}
-
+	public void deactivate(final Tool tool) {
+		tool.deactivated(new DeactivatedEvent());
 		activeTool = null;
 		paletteBehavior.refreshPalette();
 	}
 
-	public void setSelectedElements(final List<BusinessObjectContext> bocs) {
-		final BusinessObjectContext[] newBocs = bocs.toArray(new BusinessObjectContext[bocs.size()]);
-
+	public void setSelectedElements(final ImmutableList<BusinessObjectContext> newSelectedBocs) {
 		// Ignore the selection if nothing has changed
-		if (Arrays.equals(this.bocs, newBocs)) {
+		if (Objects.equals(this.selectedBocs, newSelectedBocs)) {
 			return;
 		}
 
-		this.bocs = newBocs;
+		this.selectedBocs = newSelectedBocs;
 
-		if (bocs.isEmpty()) {
+		if (selectedBocs.isEmpty()) {
 			return;
 		}
 
 		// Notify the active tool
 		if(activeTool != null) {
-			try {
-				populateContext();
-				ContextInjectionFactory.invoke(activeTool, SelectionChanged.class, context, null);
-			}
-			finally {
-				resetContext();
-			}
+			activeTool.selectionChanged(new SelectionChangedEvent(selectedBocs));
 		}
-	}
-
-	private void populateContext() {
-		if(bocs != null) {
-			// Update the context
-			if(bocs.length == 1) {
-				context.set(Names.BUSINESS_OBJECT_CONTEXT, bocs[0]);
-			}
-			context.set(Names.BUSINESS_OBJECT_CONTEXTS, bocs);
-		}
-	}
-
-	private void resetContext() {
-		context.remove(Names.BUSINESS_OBJECT_CONTEXT);
-		context.remove(Names.BUSINESS_OBJECT_CONTEXTS);
 	}
 }
