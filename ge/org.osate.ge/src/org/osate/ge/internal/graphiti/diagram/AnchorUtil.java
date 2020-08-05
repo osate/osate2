@@ -362,7 +362,7 @@ class AnchorUtil {
 	private static double getDistance(java.awt.Point start, java.awt.Point end) {
 		int xDist = end.x - start.x;
 		int yDist = end.y - start.y;
-		double ret = Math.sqrt((xDist * xDist) + (yDist * yDist));
+		double ret = Math.sqrt((xDist * xDist) + (double) (yDist * yDist));
 		return ret;
 	}
 

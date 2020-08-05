@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -55,39 +55,39 @@ package org.osate.ge.internal.services;
 import java.util.Collection;
 import java.util.List;
 
-import org.osate.ge.internal.businessObjectHandlers.BusinessObjectHandlerProvider;
+import org.osate.ge.BusinessObjectProvider;
+import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
+import org.osate.ge.internal.DiagramTypeProvider;
+import org.osate.ge.internal.businessobjecthandlers.BusinessObjectHandlerProvider;
 import org.osate.ge.internal.diagram.runtime.filtering.ContentFilterProvider;
-import org.osate.ge.internal.diagram.runtime.types.DiagramTypeProvider;
+import org.osate.ge.palette.PaletteCategory;
+import org.osate.ge.palette.PaletteContributor;
+import org.osate.ge.ui.TooltipContributor;
 
 public interface ExtensionRegistryService
-		extends BusinessObjectHandlerProvider, ContentFilterProvider, DiagramTypeProvider {
+extends BusinessObjectHandlerProvider, ContentFilterProvider, DiagramTypeProvider {
 	/**
 	 * Business object handlers are extension which provide
 	 */
-	Collection<Object> getBusinessObjectHandlers();
-
-	@Override
-	Object getApplicableBusinessObjectHandler(Object bo);
+	List<BusinessObjectHandler> getBusinessObjectHandlers();
 
 	/**
 	 * @return an ordered collection of tooltip contributors.
 	 * The following annotations are used with tooltip contributors:
 	 * Activate - Required
 	 */
-	Collection<Object> getTooltipContributors();
+	List<TooltipContributor> getTooltipContributors();
 
 	/**
 	 * Returns a list of registered categories for the palette.
 	 */
-	List<Category> getCategories();
+	List<PaletteCategory> getCategories();
 
-	Collection<Object> getBusinessObjectProviders();
+	Collection<BusinessObjectProvider> getBusinessObjectProviders();
 
 	/**
-	 * Interface for palette categories
+	 * Returns a collection containing palette command providers
+	 * @return an unmodifiable collection of palette command providers.
 	 */
-	public static interface Category {
-		String getId();
-		String getName();
-	}
+	Collection<PaletteContributor> getPaletteContributors();
 }

@@ -26,7 +26,8 @@ package org.osate.ge.internal.query;
 import java.util.Deque;
 import java.util.Objects;
 
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
+import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.query.Supplier;
 
 class FilterByBusinessObjectRelativeReferenceQuery extends DefaultQuery {
@@ -40,7 +41,7 @@ class FilterByBusinessObjectRelativeReferenceQuery extends DefaultQuery {
 	}
 
 	@Override
-	void run(final Deque<DefaultQuery> remainingQueries, final Queryable ctx, final QueryExecutionState state, final QueryResult result) {
+	void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx, final QueryExecutionState state, final QueryResult result) {
 		// Look in the cache for the reference and build a new reference string if it is not found
 		RelativeBusinessObjectReference boRef = (RelativeBusinessObjectReference)state.cache.get(this);
 		if(boRef == null) {

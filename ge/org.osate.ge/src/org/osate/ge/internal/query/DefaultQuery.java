@@ -25,8 +25,10 @@ package org.osate.ge.internal.query;
 
 import java.util.Deque;
 import java.util.function.Predicate;
-import org.osate.ge.query.Query;
+
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.query.FilterArguments;
+import org.osate.ge.query.Query;
 import org.osate.ge.query.Supplier;
 
 public abstract class DefaultQuery implements Query {
@@ -40,9 +42,9 @@ public abstract class DefaultQuery implements Query {
 		return prev;
 	}
 	
-	abstract void run(final Deque<DefaultQuery> remainingQueries, final Queryable ctx, final QueryExecutionState state, final QueryResult result);
+	abstract void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx, final QueryExecutionState state, final QueryResult result);
 	
-	protected void processResultValue(final Deque<DefaultQuery> remainingQueries, final Queryable value, final QueryExecutionState state, final QueryResult result) {
+	protected void processResultValue(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext value, final QueryExecutionState state, final QueryResult result) {
 		if(remainingQueries.size() == 0) {
 			result.result.add(value);
 			return;

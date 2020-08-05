@@ -44,13 +44,14 @@ class NullRemovingSelectorModel extends SelectorModelDecorator<Object> {
 	}
 
 	@Override
-	public Object getSelectedElement() {
-		return nullToObject(super.getSelectedElement());
+	public Stream<Object> getSelectedElements() {
+		return super.getSelectedElements().map(NullRemovingSelectorModel::nullToObject);
 	}
 
 	@Override
-	public void setSelectedElement(final Object element) {
-		super.setSelectedElement(objectToNull(element));
+	public void setSelectedElements(final Stream<Object> value) {
+		super.setSelectedElements(
+				value.map(NullRemovingSelectorModel::objectToNull));
 	}
 
 	@Override

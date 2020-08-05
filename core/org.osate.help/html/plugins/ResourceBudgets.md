@@ -37,7 +37,7 @@ The first resource budget analysis does not assume allocation of resources. It s
 
 The **Resource Budget Analysis** is invoked on an instance model through a toolbar command, or through the *Analysis* menu and the *Architecture* submenu, or through the green spreadsheet icon in the toolbar.
 
-The analysis adds up the memory capacity expressed in terms of **Memory_Size**, **SEI::RAMCapacity**, **SEI::ROMCapacity**. A memory component may have only the **Memory_Size**, only **SEI::RAMCapacity** and/or **SEI::ROMCapacity**, or all three. 
+The analysis adds up the memory capacity expressed in terms of **Memory_Size**, **SEI::RAMCapacity**, **SEI::ROMCapacity**. A memory component may have only the **Memory_Size**, only **SEI::RAMCapacity** and/or **SEI::ROMCapacity**, or all three.   The following classifier types may be associated with the memory capacity properties: `memory`, `system`, `processor`, `virtual processor`, and `abstract`.  
 The analysis also adds up the memory budgets expressed as **SEI::RAMBudget**, **SEI::ROMBudget**, and actual memory demand expressed by **Data_Size**, **Code_Size**, **Heap_Size**, and **Stack_Size**.
 
 The results are reported in the *reports/ResourceBudgets* folder. 

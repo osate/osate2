@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -32,7 +32,6 @@ import java.util.TreeSet;
 import org.osate.aadl2.NamedElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 
 public class ErrorModelNamingUtil {
 	private final static Set<String> reservedWords; // Set which compares entries base on a case-insensitive comparison
@@ -41,13 +40,12 @@ public class ErrorModelNamingUtil {
 		reservedWords.addAll(Arrays.asList(new String[] { "true", "false", "error" }));
 	}
 
-	public static String buildUniqueIdentifier(final ErrorModelLibrary lib, final String baseIdentifier) {
-		final Set<String> existingIdentifiers = buildNameSet(lib);
-		return buildUniqueIdentifier(existingIdentifiers, baseIdentifier);
+	// All methods are static
+	private ErrorModelNamingUtil() {
 	}
 
-	public static String buildUniqueIdentifier(final ErrorModelSubclause sc, final String baseIdentifier) {
-		final Set<String> existingIdentifiers = buildNameSet(sc);
+	public static String buildUniqueIdentifier(final ErrorModelLibrary lib, final String baseIdentifier) {
+		final Set<String> existingIdentifiers = buildNameSet(lib);
 		return buildUniqueIdentifier(existingIdentifiers, baseIdentifier);
 	}
 
@@ -117,21 +115,6 @@ public class ErrorModelNamingUtil {
 		addToNameSet(names, lib.getTransformations());
 		addToNameSet(names, lib.getTypes());
 		addToNameSet(names, lib.getTypesets());
-		return names;
-	}
-
-	private static Set<String> buildNameSet(final ErrorModelSubclause sc) {
-		final Set<String> names = new HashSet<String>();
-		addToNameSet(names, sc.getConnectionErrorSources());
-		addToNameSet(names, sc.getErrorDetections());
-		addToNameSet(names, sc.getEvents());
-		addToNameSet(names, sc.getFlows());
-		addToNameSet(names, sc.getOutgoingPropagationConditions());
-		addToNameSet(names, sc.getPaths());
-		addToNameSet(names, sc.getPoints());
-		addToNameSet(names, sc.getPropagations());
-		addToNameSet(names, sc.getStates());
-		addToNameSet(names, sc.getTransitions());
 		return names;
 	}
 
