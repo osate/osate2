@@ -36,10 +36,10 @@ import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
-import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.swt.SwtUtil;
@@ -54,7 +54,7 @@ public class TransitionBranchPropertySection extends AbstractPropertySection {
 	/**
 	 * Testing ID for the value text field
 	 */
-	public static final String WIDGET_ID_VALUE = "org.osate.ge.errormodel.ui.properties.transitionBranch.value";
+	public static final String WIDGET_ID_PROBABILITY = "org.osate.ge.errormodel.ui.properties.transitionBranch.probability";
 
 	public static class Filter implements IFilter {
 		@Override
@@ -73,15 +73,15 @@ public class TransitionBranchPropertySection extends AbstractPropertySection {
 		super.createControls(parent, aTabbedPropertySheetPage);
 		final Composite container = getWidgetFactory().createFlatFormComposite(parent);
 
-		PropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Value:");
+		final Label label = PropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Probability:");
 
 		valueField = getWidgetFactory().createText(container, "", SWT.SINGLE);
-		SwtUtil.setTestingId(valueField, WIDGET_ID_VALUE);
+		SwtUtil.setTestingId(valueField, WIDGET_ID_PROBABILITY);
 
 		FormData fd = new FormData();
 		fd.width = 150;
 		fd.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
-		fd.top = new FormAttachment(0, ITabbedPropertyConstants.VSPACE);
+		fd.top = new FormAttachment(label, 0, SWT.CENTER);
 		valueField.setLayoutData(fd);
 
 		valueField.addFocusListener(new FocusAdapter() {

@@ -317,13 +317,13 @@ public class ErrorModelTest {
 			openAadlPropertiesTab(otherDiagram,
 					element(otherPkgRef, esm1Ref, ErrorModelReferenceUtil.getRelativeReferenceForNamedTransition("t1"),
 							ErrorModelReferenceUtil.getRelativeReferenceForTransitionBranch("s2", 0)));
-			setTextFieldWithIdText(TransitionBranchPropertySection.WIDGET_ID_VALUE, "0.3");
+			setTextFieldWithIdText(TransitionBranchPropertySection.WIDGET_ID_PROBABILITY, "0.3");
 			focusDiagramEditor(otherDiagram); // Value is saved when focus changes
 
 			openAadlPropertiesTab(otherDiagram,
 					element(otherPkgRef, esm1Ref, ErrorModelReferenceUtil.getRelativeReferenceForNamedTransition("t1"),
 							ErrorModelReferenceUtil.getRelativeReferenceForTransitionBranch("s3", 0)));
-			setTextFieldWithIdText(TransitionBranchPropertySection.WIDGET_ID_VALUE, "0.7");
+			setTextFieldWithIdText(TransitionBranchPropertySection.WIDGET_ID_PROBABILITY, "0.7");
 			focusDiagramEditor(otherDiagram); // Value is saved when focus changes
 
 			// Select another element
@@ -333,12 +333,12 @@ public class ErrorModelTest {
 			openAadlPropertiesTab(otherDiagram,
 					element(otherPkgRef, esm1Ref, ErrorModelReferenceUtil.getRelativeReferenceForNamedTransition("t1"),
 							ErrorModelReferenceUtil.getRelativeReferenceForTransitionBranch("s2", 0)));
-			waitUntilTextFieldWithIdTextMatches(TransitionBranchPropertySection.WIDGET_ID_VALUE, "0.3");
+			waitUntilTextFieldWithIdTextMatches(TransitionBranchPropertySection.WIDGET_ID_PROBABILITY, "0.3");
 
 			openAadlPropertiesTab(otherDiagram,
 					element(otherPkgRef, esm1Ref, ErrorModelReferenceUtil.getRelativeReferenceForNamedTransition("t1"),
 							ErrorModelReferenceUtil.getRelativeReferenceForTransitionBranch("s3", 0)));
-			waitUntilTextFieldWithIdTextMatches(TransitionBranchPropertySection.WIDGET_ID_VALUE, "0.7");
+			waitUntilTextFieldWithIdTextMatches(TransitionBranchPropertySection.WIDGET_ID_PROBABILITY, "0.7");
 		}
 
 		// TODO: Remove when text editor is no longer opened as part of test.
