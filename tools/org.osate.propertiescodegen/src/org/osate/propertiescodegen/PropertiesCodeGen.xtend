@@ -3,6 +3,7 @@ package org.osate.propertiescodegen
 import java.util.ArrayList
 import java.util.Set
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.osate.aadl2.AadlBoolean
 import org.osate.aadl2.AadlInteger
 import org.osate.aadl2.AadlReal
@@ -29,16 +30,20 @@ import static extension org.osate.aadl2.modelsupport.util.AadlUtil.getBaseProper
 
 @FinalFieldsConstructor
 class PropertiesCodeGen {
-	val PropertySet propertySet
+	//This is needed because Xtend does not have character literals.
+	val static char DASH = '-'
+	
+	val String propertySetName
+	val String packageName
 	val Set<String> imports = newHashSet
 	
 	def static GeneratedPackage generateJava(PropertySet propertySet) {
-		val packagePath = "src-gen/" + propertySet.name.toLowerCase.replace("_", "")
+		val packageName = getPackageName(propertySet)
 		
 		val propertySetFile = if (propertySet.ownedProperties.empty) {
 			emptyList
 		} else {
-			#[generateFile(propertySet)]
+			#[generateFile(propertySet, packageName)]
 		}
 		
 		val typeFiles = propertySet.eContents.filter(NamedElement).map[namedElement |
@@ -64,13 +69,29 @@ class PropertiesCodeGen {
 				default: null
 			}
 			if (generatorMethod !== null) {
-				generateFile(propertySet, name, generatorMethod)
+				generateFile(propertySet.name, packageName, name, generatorMethod)
 			} else {
 				null
 			}
 		].filterNull.toList;
 		
-		new GeneratedPackage(packagePath, (propertySetFile + typeFiles).toList)
+		new GeneratedPackage("src-gen/" + packageName, (propertySetFile + typeFiles).toList)
+	}
+	
+	def private static String getPackageName(PropertySet propertySet) {
+		var String packageName = null
+		val previousNode = NodeModelUtils.getNode(propertySet).leafNodes.filter[!it.hidden].head.previousSibling
+		if (previousNode !== null) {
+			val commentLine = previousNode.text.trim
+			val firstNonComment = (0 ..< commentLine.length).findFirst[commentLine.charAt(it) != DASH]
+			if (firstNonComment !== null) {
+				val trimmed = commentLine.substring(firstNonComment).trim
+				if (trimmed.startsWith("@codegen-package ")) {
+					packageName = trimmed.substring(17).trim
+				}
+			}
+		}
+		packageName ?: propertySet.name.toLowerCase.replace("_", "")
 	}
 	
 	def private String generateImports() {
@@ -99,8 +120,8 @@ class PropertiesCodeGen {
 		'''
 	}
 	
-	def private static GeneratedClass generateFile(PropertySet propertySet) {
-		val generator = new PropertiesCodeGen(propertySet)
+	def private static GeneratedClass generateFile(PropertySet propertySet, String packageName) {
+		val generator = new PropertiesCodeGen(propertySet.name, packageName)
 		/*
 		 * Place the property getters into a new ArrayList for eager evaluation. This is important so that
 		 * generator.imports will be filled when calling generator.generateImports.
@@ -108,7 +129,7 @@ class PropertiesCodeGen {
 		val propertyGetters = new ArrayList(propertySet.ownedProperties.map[generator.generatePropertyGetter(it)])
 		val className = propertySet.name.toCamelCase
 		val contents = '''
-			package «propertySet.name.toLowerCase.replace("_", "")»;
+			package «packageName»;
 			«generator.generateImports»
 			
 			public class «className» {
@@ -151,7 +172,7 @@ class PropertiesCodeGen {
 			}
 			
 			public static «returnType» «methodName»(NamedElement lookupContext, Optional<Mode> mode) {
-				String name = "«propertySet.name»::«property.name»";
+				String name = "«propertySetName»::«property.name»";
 				Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				try {
 					PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
@@ -163,7 +184,7 @@ class PropertiesCodeGen {
 			}
 			
 			public static PropertyExpression «methodName»_EObject(NamedElement lookupContext) {
-				String name = "«propertySet.name»::«property.name»";
+				String name = "«propertySetName»::«property.name»";
 				Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				return lookupContext.getNonModalPropertyValue(property);
 			}
@@ -252,9 +273,9 @@ class PropertiesCodeGen {
 			}
 			case type.name !== null: {
 				val name = type.name.toCamelCase
-				val typePropertySet = type.getContainerOfType(PropertySet)
-				if (typePropertySet != propertySet) {
-					imports += typePropertySet.name.toLowerCase.replace("_", "") + "." + name
+				val packageToImport = getPackageName(type.getContainerOfType(PropertySet))
+				if (packageToImport != packageName) {
+					imports += packageToImport + "." + name
 				}
 				name
 			}
@@ -277,19 +298,20 @@ class PropertiesCodeGen {
 		 * 5. The UnitsType could be indirectly in a BasicProperty (record field) which must have a name.
 		 */
 		var NamedElement namedElement = type
-		while (namedElement !== null && namedElement.name === null) {
+		while (namedElement.name === null) {
 			namedElement = namedElement.eContainer.getContainerOfType(NamedElement)
 		}
+		val name = namedElement.name.toCamelCase
 		switch namedElement {
 			PropertyType: {
-				val unitsPropertySet = namedElement.getContainerOfType(PropertySet)
-				if (unitsPropertySet != propertySet) {
-					imports += unitsPropertySet.name.toLowerCase.replace("_", "") + "." + namedElement.name.toCamelCase
+				val packageToImport = getPackageName(namedElement.getContainerOfType(PropertySet))
+				if (packageToImport != packageName) {
+					imports += packageToImport + "." + name
 				}
-				namedElement.name.toCamelCase
+				name
 			}
-			Property: namedElement.name.toCamelCase
-			BasicProperty: namedElement.name.toCamelCase + "_FieldType"
+			Property: name
+			BasicProperty: name + "_FieldType"
 		}
 	}
 	
@@ -370,14 +392,15 @@ class PropertiesCodeGen {
 	}
 	
 	def private static GeneratedClass generateFile(
-		PropertySet propertySet,
+		String propertySetName,
+		String packageName,
 		String typeName,
 		(PropertiesCodeGen)=>String generatorMethod
 	) {
-		val generator = new PropertiesCodeGen(propertySet)
+		val generator = new PropertiesCodeGen(propertySetName, packageName)
 		val generatedJavaType = generatorMethod.apply(generator)
 		val contents = '''
-			package «propertySet.name.toLowerCase.replace("_", "")»;
+			package «packageName»;
 			«generator.generateImports»
 			
 			«generatedJavaType»
