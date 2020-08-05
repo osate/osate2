@@ -49,7 +49,7 @@ public final class GraphicalConfiguration {
 	/**
 	 * @noreference This constructor is not intended to be referenced by clients.
 	 */
-	public GraphicalConfiguration(
+	GraphicalConfiguration(
 			final Graphic graphic,
 			final DockingPosition defaultDockingPosition,
 			final DiagramElement connectionSource, final DiagramElement connectionDestination, final Style style,
