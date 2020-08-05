@@ -85,38 +85,37 @@ public class MacroPreprocessor {
 	}
 
 	public void substituteMacrosInFile(File file) {
-		PrintWriter writer = null;
-		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+		try {
 			File temp = File.createTempFile("TMP", "MPP");
-			writer = new PrintWriter(new FileOutputStream(temp));
-			String line;
-			while ((line = reader.readLine()) != null) {
-				for (int i = 0; i < macros.length; i++) {
-					System.out.println("\t Testing macro[name(" + macros[i].macroName + ") substitition("
-							+ macros[i].macroSubstitution + ")]");
-					int start = 0;
-					int searchStart = 0;
-					String newLine;
-					while ((searchStart < line.length())
-							&& (start = line.indexOf(macros[i].macroName, searchStart)) != -1) {
-						newLine = line.substring(searchStart, start - 1);
-						newLine += macros[i].macroSubstitution;
-						searchStart = newLine.length() - 1;
-						newLine += line.substring(start, line.length() - 1);
-						line = newLine;
-						System.out.println("searchStart(" + searchStart + ")");
+			try (BufferedReader reader = new BufferedReader(new FileReader(file));
+					PrintWriter writer = new PrintWriter(new FileOutputStream(temp))) {
+				String line;
+				while ((line = reader.readLine()) != null) {
+					for (int i = 0; i < macros.length; i++) {
+						System.out.println("\t Testing macro[name(" + macros[i].macroName + ") substitition("
+								+ macros[i].macroSubstitution + ")]");
+						int start = 0;
+						int searchStart = 0;
+						String newLine;
+						while ((searchStart < line.length())
+								&& (start = line.indexOf(macros[i].macroName, searchStart)) != -1) {
+							newLine = line.substring(searchStart, start - 1);
+							newLine += macros[i].macroSubstitution;
+							searchStart = newLine.length() - 1;
+							newLine += line.substring(start, line.length() - 1);
+							line = newLine;
+							System.out.println("searchStart(" + searchStart + ")");
+						}
+						System.out.println("new Line(" + line + ")");
 					}
-					System.out.println("new Line(" + line + ")");
+					writer.println(line);
 				}
-				writer.println(line);
 			}
 			String fname = file.getAbsolutePath();
 			file.renameTo(new File("tmp.old"));
 			temp.renameTo(new File(fname));
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			writer.close();
 		}
 	}
 

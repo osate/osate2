@@ -864,11 +864,17 @@ public class GetProperties {
 	}
 
 	public static double fromMStoSec(NamedElement ne, double value) {
-		return getMSUnitLiteral(ne) != null ? convertToScale(value, getMSUnitLiteral(ne), getSecUnitLiteral(ne)) : -1;
+		if(getMSUnitLiteral(ne) == null) {
+			throw new NullPointerException("Unit literal could not be found");
+		}
+		return convertToScale(value, getMSUnitLiteral(ne), getSecUnitLiteral(ne));
 	}
 
 	public static double fromUStoSec(NamedElement ne, double value) {
-		return getUSUnitLiteral(ne) != null ? convertToScale(value, getUSUnitLiteral(ne), getSecUnitLiteral(ne)) : -1;
+		if (getUSUnitLiteral(ne) == null) {
+			throw new NullPointerException("Unit literal could not be found");
+		}
+		return convertToScale(value, getUSUnitLiteral(ne), getSecUnitLiteral(ne));
 	}
 
 	/**
