@@ -51,6 +51,10 @@ import com.google.common.collect.ImmutableList;
  * High level commands for testing the OSATE Graphical editor.
  */
 public class OsateGeTestCommands {
+	private static final String[] MENU_SHOW_CONTENTS_ALL = new String[] { "Show Contents", "All" };
+	private static final String[] MENU_HIDE_CONTENTS_ALL = new String[] { "Hide Contents", "All" };
+	private static final String[] MENU_FILE_NEW_AADL_PROJECT = new String[] { "File", "New", "AADL Project" };
+
 	// All methods are static
 	private OsateGeTestCommands() {
 	}
@@ -75,7 +79,7 @@ public class OsateGeTestCommands {
 	public static void createAadlProject(final String name) {
 		assertOsateShellIsActive();
 		assertAadlNavigatorIsVisible();
-		clickMenu(Menus.FILE_NEW_AADL_PROJECT);
+		clickMenu(MENU_FILE_NEW_AADL_PROJECT);
 
 		// Configure new project
 		waitForWindowWithTitle("New");
@@ -95,7 +99,7 @@ public class OsateGeTestCommands {
 	public static void createAadlProjectWithReferencedProjects(final String name, final String... projectsToReference) {
 		assertOsateShellIsActive();
 		assertAadlNavigatorIsVisible();
-		clickMenu(Menus.FILE_NEW_AADL_PROJECT);
+		clickMenu(MENU_FILE_NEW_AADL_PROJECT);
 
 		// Configure new project
 		waitForWindowWithTitle("New");
@@ -438,11 +442,18 @@ public class OsateGeTestCommands {
 	}
 
 	/**
-	 * Show contents of element using the context menu.
+	 * Show contents of element using the context menu and layout the diagram.
 	 */
 	public static void showContentsAndLayout(final DiagramReference diagram, final DiagramElementReference element) {
-		// Show contents
-		clickContextMenuOfDiagramElement(diagram, element, Menus.SHOW_CONTENTS_ALL);
+		clickContextMenuOfDiagramElement(diagram, element, MENU_SHOW_CONTENTS_ALL);
+		layoutDiagram(diagram, element);
+	}
+
+	/**
+	 * Hide contents of element using the context menu and layout the diagram.
+	 */
+	public static void hideContentsAndLayout(final DiagramReference diagram, final DiagramElementReference element) {
+		clickContextMenuOfDiagramElement(diagram, element, MENU_HIDE_CONTENTS_ALL);
 		layoutDiagram(diagram, element);
 	}
 

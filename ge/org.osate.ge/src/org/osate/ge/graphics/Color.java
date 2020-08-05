@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -25,8 +25,8 @@ package org.osate.ge.graphics;
 
 // Components are in range 0-255
 public class Color {
-	private final static double colorScaling = 0.7; // Used for scaling colors with darker() and brighter()
-	private final double minBrighterColor = 3.0;
+	private static final double COLOR_SCALING = 0.7; // Used for scaling colors with darker() and brighter()
+	private static final double MIN_BRIGHTER_COLOR = 3.0;
 
 	public static final Color BLACK = new Color(0, 0, 0);
 	public static final Color WHITE = new Color(255, 255, 255);
@@ -61,13 +61,13 @@ public class Color {
 	}
 
 	public final Color darker() {
-		return new Color((int) (red * colorScaling), (int) (green * colorScaling), (int) (blue * colorScaling));
+		return new Color((int) (red * COLOR_SCALING), (int) (green * COLOR_SCALING), (int) (blue * COLOR_SCALING));
 	}
 
 	public final Color brighter() {
-		return new Color((int) Math.max(Math.min(red / colorScaling, 255.0), minBrighterColor),
-				(int) Math.max(Math.min(green / colorScaling, 255.0), minBrighterColor),
-				(int) Math.max(Math.min(blue / colorScaling, 255.0), minBrighterColor));
+		return new Color((int) Math.max(Math.min(red / COLOR_SCALING, 255.0), MIN_BRIGHTER_COLOR),
+				(int) Math.max(Math.min(green / COLOR_SCALING, 255.0), MIN_BRIGHTER_COLOR),
+				(int) Math.max(Math.min(blue / COLOR_SCALING, 255.0), MIN_BRIGHTER_COLOR));
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class Color {
 		result = prime * result + blue;
 		result = prime * result + green;
 		long temp;
-		temp = Double.doubleToLongBits(minBrighterColor);
+		temp = Double.doubleToLongBits(MIN_BRIGHTER_COLOR);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + red;
 		return result;
@@ -101,7 +101,7 @@ public class Color {
 		if (green != other.green) {
 			return false;
 		}
-		if (Double.doubleToLongBits(minBrighterColor) != Double.doubleToLongBits(other.minBrighterColor)) {
+		if (Double.doubleToLongBits(MIN_BRIGHTER_COLOR) != Double.doubleToLongBits(Color.MIN_BRIGHTER_COLOR)) {
 			return false;
 		}
 		if (red != other.red) {
