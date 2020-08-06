@@ -46,7 +46,6 @@ public class BusinessObjectAndExtra<B, E> {
 		return Objects.hash(bo, extra);
 	}
 
-	@SuppressWarnings("rawtypes")
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -55,7 +54,7 @@ public class BusinessObjectAndExtra<B, E> {
 		if (!(obj instanceof BusinessObjectAndExtra)) {
 			return false;
 		}
-		BusinessObjectAndExtra other = (BusinessObjectAndExtra) obj;
+		BusinessObjectAndExtra<?, ?> other = (BusinessObjectAndExtra<?, ?>) obj;
 		return Objects.equals(bo, other.bo) && Objects.equals(extra, other.extra);
 	}
 
