@@ -22,6 +22,7 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
@@ -152,6 +153,7 @@ public class OsateExampleWizardPage extends WizardPage {
 			pickTree.setLabelProvider(new FileLabelProvider(null, null));
 			pickTree.setContentProvider(new TreeContentProvider());
 			pickTree.setInput(root);
+			pickTree.setComparator(new ViewerComparator());
 
 			pickTree.addSelectionChangedListener(event -> {
 				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
