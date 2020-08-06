@@ -1130,14 +1130,13 @@ class ListDefinitionTest {
 			package ps1;
 			
 			import org.eclipse.emf.common.util.URI;
-			import org.eclipse.emf.ecore.resource.ResourceSet;
-			import org.osate.aadl2.Aadl2Factory;
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.EnumerationLiteral;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
+			import org.osate.pluginsupport.properties.GeneratedEnumeration;
 			
-			public enum EnumType1 {
+			public enum EnumType1 implements GeneratedEnumeration {
 				ONE("one", "__synthetic1.aadl#/0/@ownedPropertyType.2/@ownedLiteral.0"),
 				TWO("two", "__synthetic1.aadl#/0/@ownedPropertyType.2/@ownedLiteral.1"),
 				THREE("three", "__synthetic1.aadl#/0/@ownedPropertyType.2/@ownedLiteral.2");
@@ -1155,22 +1154,9 @@ class ListDefinitionTest {
 					return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
-				public EnumerationLiteral toEnumerationLiteral(ResourceSet resourceSet) {
-					EnumerationLiteral literal = (EnumerationLiteral) resourceSet.getEObject(uri, true);
-					if (literal == null) {
-						throw new RuntimeException("Could not resolve EnumerationLiteral '" + originalName + "'.");
-					}
-					String name = literal.getName();
-					if (!name.equals(originalName)) {
-						throw new RuntimeException("Expected EnumerationLiteral '" + originalName + "', but found '" + name + "'.");
-					}
-					return literal;
-				}
-				
-				public NamedValue toPropertyExpression(ResourceSet resourceSet) {
-					NamedValue value = Aadl2Factory.eINSTANCE.createNamedValue();
-					value.setNamedValue(toEnumerationLiteral(resourceSet));
-					return value;
+				@Override
+				public URI getURI() {
+					return uri;
 				}
 				
 				@Override
@@ -1286,14 +1272,13 @@ class ListDefinitionTest {
 			package ps1;
 			
 			import org.eclipse.emf.common.util.URI;
-			import org.eclipse.emf.ecore.resource.ResourceSet;
-			import org.osate.aadl2.Aadl2Factory;
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.EnumerationLiteral;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
+			import org.osate.pluginsupport.properties.GeneratedEnumeration;
 			
-			public enum List1OwnedEnum {
+			public enum List1OwnedEnum implements GeneratedEnumeration {
 				MERCURY("mercury", "__synthetic1.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedElementType/@ownedLiteral.0"),
 				VENUS("venus", "__synthetic1.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedElementType/@ownedLiteral.1"),
 				EARTH("earth", "__synthetic1.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedElementType/@ownedLiteral.2"),
@@ -1312,22 +1297,9 @@ class ListDefinitionTest {
 					return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
-				public EnumerationLiteral toEnumerationLiteral(ResourceSet resourceSet) {
-					EnumerationLiteral literal = (EnumerationLiteral) resourceSet.getEObject(uri, true);
-					if (literal == null) {
-						throw new RuntimeException("Could not resolve EnumerationLiteral '" + originalName + "'.");
-					}
-					String name = literal.getName();
-					if (!name.equals(originalName)) {
-						throw new RuntimeException("Expected EnumerationLiteral '" + originalName + "', but found '" + name + "'.");
-					}
-					return literal;
-				}
-				
-				public NamedValue toPropertyExpression(ResourceSet resourceSet) {
-					NamedValue value = Aadl2Factory.eINSTANCE.createNamedValue();
-					value.setNamedValue(toEnumerationLiteral(resourceSet));
-					return value;
+				@Override
+				public URI getURI() {
+					return uri;
 				}
 				
 				@Override
@@ -1724,14 +1696,13 @@ class ListDefinitionTest {
 			package ps1;
 			
 			import org.eclipse.emf.common.util.URI;
-			import org.eclipse.emf.ecore.resource.ResourceSet;
-			import org.osate.aadl2.Aadl2Factory;
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.EnumerationLiteral;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
+			import org.osate.pluginsupport.properties.GeneratedEnumeration;
 			
-			public enum List3OwnedEnum {
+			public enum List3OwnedEnum implements GeneratedEnumeration {
 				NORTH_AMERICA("north_america", "__synthetic1.aadl#/0/@ownedProperty.25/@ownedPropertyType/@ownedElementType/@ownedElementType/@ownedElementType/@ownedLiteral.0"),
 				SOUTH_AMERICA("south_america", "__synthetic1.aadl#/0/@ownedProperty.25/@ownedPropertyType/@ownedElementType/@ownedElementType/@ownedElementType/@ownedLiteral.1");
 				
@@ -1748,22 +1719,9 @@ class ListDefinitionTest {
 					return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
-				public EnumerationLiteral toEnumerationLiteral(ResourceSet resourceSet) {
-					EnumerationLiteral literal = (EnumerationLiteral) resourceSet.getEObject(uri, true);
-					if (literal == null) {
-						throw new RuntimeException("Could not resolve EnumerationLiteral '" + originalName + "'.");
-					}
-					String name = literal.getName();
-					if (!name.equals(originalName)) {
-						throw new RuntimeException("Expected EnumerationLiteral '" + originalName + "', but found '" + name + "'.");
-					}
-					return literal;
-				}
-				
-				public NamedValue toPropertyExpression(ResourceSet resourceSet) {
-					NamedValue value = Aadl2Factory.eINSTANCE.createNamedValue();
-					value.setNamedValue(toEnumerationLiteral(resourceSet));
-					return value;
+				@Override
+				public URI getURI() {
+					return uri;
 				}
 				
 				@Override

@@ -29,14 +29,13 @@ class PropertiesCodeGenTest {
 			package enumtest;
 			
 			import org.eclipse.emf.common.util.URI;
-			import org.eclipse.emf.ecore.resource.ResourceSet;
-			import org.osate.aadl2.Aadl2Factory;
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.EnumerationLiteral;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
+			import org.osate.pluginsupport.properties.GeneratedEnumeration;
 			
-			public enum EnumType1 {
+			public enum EnumType1 implements GeneratedEnumeration {
 				ONE("one", "__synthetic0.aadl#/0/@ownedPropertyType.0/@ownedLiteral.0"),
 				TWO("two", "__synthetic0.aadl#/0/@ownedPropertyType.0/@ownedLiteral.1"),
 				THREE("three", "__synthetic0.aadl#/0/@ownedPropertyType.0/@ownedLiteral.2");
@@ -54,22 +53,9 @@ class PropertiesCodeGenTest {
 					return valueOf(((EnumerationLiteral) abstractNamedValue).getName().toUpperCase());
 				}
 				
-				public EnumerationLiteral toEnumerationLiteral(ResourceSet resourceSet) {
-					EnumerationLiteral literal = (EnumerationLiteral) resourceSet.getEObject(uri, true);
-					if (literal == null) {
-						throw new RuntimeException("Could not resolve EnumerationLiteral '" + originalName + "'.");
-					}
-					String name = literal.getName();
-					if (!name.equals(originalName)) {
-						throw new RuntimeException("Expected EnumerationLiteral '" + originalName + "', but found '" + name + "'.");
-					}
-					return literal;
-				}
-				
-				public NamedValue toPropertyExpression(ResourceSet resourceSet) {
-					NamedValue value = Aadl2Factory.eINSTANCE.createNamedValue();
-					value.setNamedValue(toEnumerationLiteral(resourceSet));
-					return value;
+				@Override
+				public URI getURI() {
+					return uri;
 				}
 				
 				@Override
