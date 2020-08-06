@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: %pluginName
+Bundle-Name: Fault Tree Design
 Bundle-SymbolicName: org.osate.aadl2.errormodel.faulttree.design;singleton:=true
 Bundle-Version: 1.1.2.qualifier
 Bundle-Activator: org.osate.aadl2.errormodel.faulttree.design.Activator
@@ -12,5 +12,5 @@ Require-Bundle: org.eclipse.ui;bundle-version="[3.115.0,4.0.0)",
  org.osate.aadl2.errormodel.faulttree;bundle-version="[4.0.0,5.0.0)"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Bundle-Vendor: %providerName
+Bundle-Vendor: CMU/SEI
 Automatic-Module-Name: org.osate.aadl2.errormodel.faulttree.design
