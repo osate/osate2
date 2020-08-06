@@ -59,6 +59,10 @@ class PropertiesCodeGenTest {
 					if (literal == null) {
 						throw new RuntimeException("Could not resolve EnumerationLiteral '" + originalName + "'.");
 					}
+					String name = literal.getName();
+					if (!name.equals(originalName)) {
+						throw new RuntimeException("Expected EnumerationLiteral '" + originalName + "', but found '" + name + "'.");
+					}
 					return literal;
 				}
 				
@@ -138,6 +142,10 @@ class PropertiesCodeGenTest {
 					UnitLiteral literal = (UnitLiteral) resourceSet.getEObject(uri, true);
 					if (literal == null) {
 						throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
+					}
+					String name = literal.getName();
+					if (!name.equals(originalName)) {
+						throw new RuntimeException("Expected UnitLiteral '" + originalName + "', but found '" + name + "'.");
 					}
 					return literal;
 				}
@@ -231,6 +239,10 @@ class PropertiesCodeGenTest {
 					if (literal == null) {
 						throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
 					}
+					String name = literal.getName();
+					if (!name.equals(originalName)) {
+						throw new RuntimeException("Expected UnitLiteral '" + originalName + "', but found '" + name + "'.");
+					}
 					return literal;
 				}
 				
@@ -294,6 +306,10 @@ class PropertiesCodeGenTest {
 					UnitLiteral literal = (UnitLiteral) resourceSet.getEObject(uri, true);
 					if (literal == null) {
 						throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
+					}
+					String name = literal.getName();
+					if (!name.equals(originalName)) {
+						throw new RuntimeException("Expected UnitLiteral '" + originalName + "', but found '" + name + "'.");
 					}
 					return literal;
 				}
@@ -390,6 +406,10 @@ class PropertiesCodeGenTest {
 					if (literal == null) {
 						throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
 					}
+					String name = literal.getName();
+					if (!name.equals(originalName)) {
+						throw new RuntimeException("Expected UnitLiteral '" + originalName + "', but found '" + name + "'.");
+					}
 					return literal;
 				}
 				
@@ -453,6 +473,10 @@ class PropertiesCodeGenTest {
 					UnitLiteral literal = (UnitLiteral) resourceSet.getEObject(uri, true);
 					if (literal == null) {
 						throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
+					}
+					String name = literal.getName();
+					if (!name.equals(originalName)) {
+						throw new RuntimeException("Expected UnitLiteral '" + originalName + "', but found '" + name + "'.");
 					}
 					return literal;
 				}

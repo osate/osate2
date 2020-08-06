@@ -441,6 +441,10 @@ class PropertiesCodeGen {
 					if (literal == null) {
 						throw new RuntimeException("Could not resolve EnumerationLiteral '" + originalName + "'.");
 					}
+					String name = literal.getName();
+					if (!name.equals(originalName)) {
+						throw new RuntimeException("Expected EnumerationLiteral '" + originalName + "', but found '" + name + "'.");
+					}
 					return literal;
 				}
 				
@@ -505,6 +509,10 @@ class PropertiesCodeGen {
 					UnitLiteral literal = (UnitLiteral) resourceSet.getEObject(uri, true);
 					if (literal == null) {
 						throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
+					}
+					String name = literal.getName();
+					if (!name.equals(originalName)) {
+						throw new RuntimeException("Expected UnitLiteral '" + originalName + "', but found '" + name + "'.");
 					}
 					return literal;
 				}
@@ -608,6 +616,10 @@ class PropertiesCodeGen {
 						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(«field.name.toUpperCase»__URI, true);
 						if (basicProperty == null) {
 							throw new RuntimeException("Could not resolve BasicProperty '«field.name»'.");
+						}
+						String name = basicProperty.getName();
+						if (!"«field.name»".equalsIgnoreCase(name)) {
+							throw new RuntimeException("Expected BasicProperty '«field.name»', but found '" + name + "'.");
 						}
 						fieldAssociation.setProperty(basicProperty);
 						fieldAssociation.setOwnedValue(«getValueCreator(field.propertyType, "field", 1)»);

@@ -140,6 +140,10 @@ class CodegenPackageTest {
 					if (literal == null) {
 						throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
 					}
+					String name = literal.getName();
+					if (!name.equals(originalName)) {
+						throw new RuntimeException("Expected UnitLiteral '" + originalName + "', but found '" + name + "'.");
+					}
 					return literal;
 				}
 				
@@ -217,6 +221,10 @@ class CodegenPackageTest {
 						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(BOOL__URI, true);
 						if (basicProperty == null) {
 							throw new RuntimeException("Could not resolve BasicProperty 'bool'.");
+						}
+						String name = basicProperty.getName();
+						if (!"bool".equalsIgnoreCase(name)) {
+							throw new RuntimeException("Expected BasicProperty 'bool', but found '" + name + "'.");
 						}
 						fieldAssociation.setProperty(basicProperty);
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field));

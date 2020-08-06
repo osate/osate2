@@ -312,6 +312,10 @@ class IntegerWithUnitsTest {
 					if (literal == null) {
 						throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
 					}
+					String name = literal.getName();
+					if (!name.equals(originalName)) {
+						throw new RuntimeException("Expected UnitLiteral '" + originalName + "', but found '" + name + "'.");
+					}
 					return literal;
 				}
 				
@@ -375,6 +379,10 @@ class IntegerWithUnitsTest {
 					if (literal == null) {
 						throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
 					}
+					String name = literal.getName();
+					if (!name.equals(originalName)) {
+						throw new RuntimeException("Expected UnitLiteral '" + originalName + "', but found '" + name + "'.");
+					}
 					return literal;
 				}
 				
@@ -437,6 +445,10 @@ class IntegerWithUnitsTest {
 					UnitLiteral literal = (UnitLiteral) resourceSet.getEObject(uri, true);
 					if (literal == null) {
 						throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
+					}
+					String name = literal.getName();
+					if (!name.equals(originalName)) {
+						throw new RuntimeException("Expected UnitLiteral '" + originalName + "', but found '" + name + "'.");
 					}
 					return literal;
 				}
@@ -657,6 +669,10 @@ class IntegerWithUnitsTest {
 						if (basicProperty == null) {
 							throw new RuntimeException("Could not resolve BasicProperty 'owned'.");
 						}
+						String name = basicProperty.getName();
+						if (!"owned".equalsIgnoreCase(name)) {
+							throw new RuntimeException("Expected BasicProperty 'owned', but found '" + name + "'.");
+						}
 						fieldAssociation.setProperty(basicProperty);
 						fieldAssociation.setOwnedValue(field.toPropertyExpression(resourceSet));
 					});
@@ -665,6 +681,10 @@ class IntegerWithUnitsTest {
 						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(SAME_FILE__URI, true);
 						if (basicProperty == null) {
 							throw new RuntimeException("Could not resolve BasicProperty 'same_file'.");
+						}
+						String name = basicProperty.getName();
+						if (!"same_file".equalsIgnoreCase(name)) {
+							throw new RuntimeException("Expected BasicProperty 'same_file', but found '" + name + "'.");
 						}
 						fieldAssociation.setProperty(basicProperty);
 						fieldAssociation.setOwnedValue(field.toPropertyExpression(resourceSet));
@@ -675,6 +695,10 @@ class IntegerWithUnitsTest {
 						if (basicProperty == null) {
 							throw new RuntimeException("Could not resolve BasicProperty 'other_file'.");
 						}
+						String name = basicProperty.getName();
+						if (!"other_file".equalsIgnoreCase(name)) {
+							throw new RuntimeException("Expected BasicProperty 'other_file', but found '" + name + "'.");
+						}
 						fieldAssociation.setProperty(basicProperty);
 						fieldAssociation.setOwnedValue(field.toPropertyExpression(resourceSet));
 					});
@@ -683,6 +707,10 @@ class IntegerWithUnitsTest {
 						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(LIST_1_OWNED__URI, true);
 						if (basicProperty == null) {
 							throw new RuntimeException("Could not resolve BasicProperty 'list_1_owned'.");
+						}
+						String name = basicProperty.getName();
+						if (!"list_1_owned".equalsIgnoreCase(name)) {
+							throw new RuntimeException("Expected BasicProperty 'list_1_owned', but found '" + name + "'.");
 						}
 						fieldAssociation.setProperty(basicProperty);
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field, element1 -> {
@@ -695,6 +723,10 @@ class IntegerWithUnitsTest {
 						if (basicProperty == null) {
 							throw new RuntimeException("Could not resolve BasicProperty 'list_1_same_file'.");
 						}
+						String name = basicProperty.getName();
+						if (!"list_1_same_file".equalsIgnoreCase(name)) {
+							throw new RuntimeException("Expected BasicProperty 'list_1_same_file', but found '" + name + "'.");
+						}
 						fieldAssociation.setProperty(basicProperty);
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field, element1 -> {
 							return element1.toPropertyExpression(resourceSet);
@@ -705,6 +737,10 @@ class IntegerWithUnitsTest {
 						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(LIST_1_OTHER_FILE__URI, true);
 						if (basicProperty == null) {
 							throw new RuntimeException("Could not resolve BasicProperty 'list_1_other_file'.");
+						}
+						String name = basicProperty.getName();
+						if (!"list_1_other_file".equalsIgnoreCase(name)) {
+							throw new RuntimeException("Expected BasicProperty 'list_1_other_file', but found '" + name + "'.");
 						}
 						fieldAssociation.setProperty(basicProperty);
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field, element1 -> {
@@ -816,6 +852,10 @@ class IntegerWithUnitsTest {
 						if (literal == null) {
 							throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
 						}
+						String name = literal.getName();
+						if (!name.equals(originalName)) {
+							throw new RuntimeException("Expected UnitLiteral '" + originalName + "', but found '" + name + "'.");
+						}
 						return literal;
 					}
 					
@@ -866,6 +906,10 @@ class IntegerWithUnitsTest {
 						UnitLiteral literal = (UnitLiteral) resourceSet.getEObject(uri, true);
 						if (literal == null) {
 							throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
+						}
+						String name = literal.getName();
+						if (!name.equals(originalName)) {
+							throw new RuntimeException("Expected UnitLiteral '" + originalName + "', but found '" + name + "'.");
 						}
 						return literal;
 					}

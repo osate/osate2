@@ -340,6 +340,10 @@ class ResolveNamedValueTest {
 					if (literal == null) {
 						throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
 					}
+					String name = literal.getName();
+					if (!name.equals(originalName)) {
+						throw new RuntimeException("Expected UnitLiteral '" + originalName + "', but found '" + name + "'.");
+					}
 					return literal;
 				}
 				
@@ -509,6 +513,10 @@ class ResolveNamedValueTest {
 						if (basicProperty == null) {
 							throw new RuntimeException("Could not resolve BasicProperty 'bool_field'.");
 						}
+						String name = basicProperty.getName();
+						if (!"bool_field".equalsIgnoreCase(name)) {
+							throw new RuntimeException("Expected BasicProperty 'bool_field', but found '" + name + "'.");
+						}
 						fieldAssociation.setProperty(basicProperty);
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field));
 					});
@@ -517,6 +525,10 @@ class ResolveNamedValueTest {
 						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(INT_FIELD__URI, true);
 						if (basicProperty == null) {
 							throw new RuntimeException("Could not resolve BasicProperty 'int_field'.");
+						}
+						String name = basicProperty.getName();
+						if (!"int_field".equalsIgnoreCase(name)) {
+							throw new RuntimeException("Expected BasicProperty 'int_field', but found '" + name + "'.");
 						}
 						fieldAssociation.setProperty(basicProperty);
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field));
@@ -527,6 +539,10 @@ class ResolveNamedValueTest {
 						if (basicProperty == null) {
 							throw new RuntimeException("Could not resolve BasicProperty 'real_field'.");
 						}
+						String name = basicProperty.getName();
+						if (!"real_field".equalsIgnoreCase(name)) {
+							throw new RuntimeException("Expected BasicProperty 'real_field', but found '" + name + "'.");
+						}
 						fieldAssociation.setProperty(basicProperty);
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field));
 					});
@@ -535,6 +551,10 @@ class ResolveNamedValueTest {
 						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(LIST_3_INT_FIELD__URI, true);
 						if (basicProperty == null) {
 							throw new RuntimeException("Could not resolve BasicProperty 'list_3_int_field'.");
+						}
+						String name = basicProperty.getName();
+						if (!"list_3_int_field".equalsIgnoreCase(name)) {
+							throw new RuntimeException("Expected BasicProperty 'list_3_int_field', but found '" + name + "'.");
 						}
 						fieldAssociation.setProperty(basicProperty);
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field, element1 -> {
