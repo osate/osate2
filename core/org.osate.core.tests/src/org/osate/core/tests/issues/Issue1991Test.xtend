@@ -41,7 +41,7 @@ import org.osate.aadl2.ThreadImplementation
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
-class Issue1991 extends XtextTest {
+class Issue1991Test extends XtextTest {
 
 	@Inject
 	TestHelper<AadlPackage> testHelper
