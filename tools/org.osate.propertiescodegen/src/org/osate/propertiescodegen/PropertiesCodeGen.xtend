@@ -465,8 +465,6 @@ class PropertiesCodeGen {
 	def private String generateUnits(String typeName, UnitsType unitsType) {
 		imports += #{
 			"org.eclipse.emf.common.util.URI",
-			"org.eclipse.emf.ecore.resource.ResourceSet",
-			"org.osate.aadl2.Aadl2Factory",
 			"org.osate.aadl2.AbstractNamedValue",
 			"org.osate.aadl2.NamedValue",
 			"org.osate.aadl2.PropertyExpression",
@@ -505,23 +503,8 @@ class PropertiesCodeGen {
 				}
 				
 				@Override
-				public UnitLiteral toUnitLiteral(ResourceSet resourceSet) {
-					UnitLiteral literal = (UnitLiteral) resourceSet.getEObject(uri, true);
-					if (literal == null) {
-						throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
-					}
-					String name = literal.getName();
-					if (!name.equals(originalName)) {
-						throw new RuntimeException("Expected UnitLiteral '" + originalName + "', but found '" + name + "'.");
-					}
-					return literal;
-				}
-				
-				@Override
-				public NamedValue toPropertyExpression(ResourceSet resourceSet) {
-					NamedValue value = Aadl2Factory.eINSTANCE.createNamedValue();
-					value.setNamedValue(toUnitLiteral(resourceSet));
-					return value;
+				public URI getURI() {
+					return uri;
 				}
 				
 				@Override

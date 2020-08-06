@@ -97,8 +97,6 @@ class PropertiesCodeGenTest {
 			package unitstest;
 			
 			import org.eclipse.emf.common.util.URI;
-			import org.eclipse.emf.ecore.resource.ResourceSet;
-			import org.osate.aadl2.Aadl2Factory;
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
@@ -138,23 +136,8 @@ class PropertiesCodeGenTest {
 				}
 				
 				@Override
-				public UnitLiteral toUnitLiteral(ResourceSet resourceSet) {
-					UnitLiteral literal = (UnitLiteral) resourceSet.getEObject(uri, true);
-					if (literal == null) {
-						throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
-					}
-					String name = literal.getName();
-					if (!name.equals(originalName)) {
-						throw new RuntimeException("Expected UnitLiteral '" + originalName + "', but found '" + name + "'.");
-					}
-					return literal;
-				}
-				
-				@Override
-				public NamedValue toPropertyExpression(ResourceSet resourceSet) {
-					NamedValue value = Aadl2Factory.eINSTANCE.createNamedValue();
-					value.setNamedValue(toUnitLiteral(resourceSet));
-					return value;
+				public URI getURI() {
+					return uri;
 				}
 				
 				@Override
@@ -194,8 +177,6 @@ class PropertiesCodeGenTest {
 			package ps1;
 			
 			import org.eclipse.emf.common.util.URI;
-			import org.eclipse.emf.ecore.resource.ResourceSet;
-			import org.osate.aadl2.Aadl2Factory;
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
@@ -234,23 +215,8 @@ class PropertiesCodeGenTest {
 				}
 				
 				@Override
-				public UnitLiteral toUnitLiteral(ResourceSet resourceSet) {
-					UnitLiteral literal = (UnitLiteral) resourceSet.getEObject(uri, true);
-					if (literal == null) {
-						throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
-					}
-					String name = literal.getName();
-					if (!name.equals(originalName)) {
-						throw new RuntimeException("Expected UnitLiteral '" + originalName + "', but found '" + name + "'.");
-					}
-					return literal;
-				}
-				
-				@Override
-				public NamedValue toPropertyExpression(ResourceSet resourceSet) {
-					NamedValue value = Aadl2Factory.eINSTANCE.createNamedValue();
-					value.setNamedValue(toUnitLiteral(resourceSet));
-					return value;
+				public URI getURI() {
+					return uri;
 				}
 				
 				@Override
@@ -263,8 +229,6 @@ class PropertiesCodeGenTest {
 			package ps1;
 			
 			import org.eclipse.emf.common.util.URI;
-			import org.eclipse.emf.ecore.resource.ResourceSet;
-			import org.osate.aadl2.Aadl2Factory;
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
@@ -302,23 +266,8 @@ class PropertiesCodeGenTest {
 				}
 				
 				@Override
-				public UnitLiteral toUnitLiteral(ResourceSet resourceSet) {
-					UnitLiteral literal = (UnitLiteral) resourceSet.getEObject(uri, true);
-					if (literal == null) {
-						throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
-					}
-					String name = literal.getName();
-					if (!name.equals(originalName)) {
-						throw new RuntimeException("Expected UnitLiteral '" + originalName + "', but found '" + name + "'.");
-					}
-					return literal;
-				}
-				
-				@Override
-				public NamedValue toPropertyExpression(ResourceSet resourceSet) {
-					NamedValue value = Aadl2Factory.eINSTANCE.createNamedValue();
-					value.setNamedValue(toUnitLiteral(resourceSet));
-					return value;
+				public URI getURI() {
+					return uri;
 				}
 				
 				@Override
@@ -361,8 +310,6 @@ class PropertiesCodeGenTest {
 			package ps1;
 			
 			import org.eclipse.emf.common.util.URI;
-			import org.eclipse.emf.ecore.resource.ResourceSet;
-			import org.osate.aadl2.Aadl2Factory;
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
@@ -401,23 +348,8 @@ class PropertiesCodeGenTest {
 				}
 				
 				@Override
-				public UnitLiteral toUnitLiteral(ResourceSet resourceSet) {
-					UnitLiteral literal = (UnitLiteral) resourceSet.getEObject(uri, true);
-					if (literal == null) {
-						throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
-					}
-					String name = literal.getName();
-					if (!name.equals(originalName)) {
-						throw new RuntimeException("Expected UnitLiteral '" + originalName + "', but found '" + name + "'.");
-					}
-					return literal;
-				}
-				
-				@Override
-				public NamedValue toPropertyExpression(ResourceSet resourceSet) {
-					NamedValue value = Aadl2Factory.eINSTANCE.createNamedValue();
-					value.setNamedValue(toUnitLiteral(resourceSet));
-					return value;
+				public URI getURI() {
+					return uri;
 				}
 				
 				@Override
@@ -430,8 +362,6 @@ class PropertiesCodeGenTest {
 			package ps1;
 			
 			import org.eclipse.emf.common.util.URI;
-			import org.eclipse.emf.ecore.resource.ResourceSet;
-			import org.osate.aadl2.Aadl2Factory;
 			import org.osate.aadl2.AbstractNamedValue;
 			import org.osate.aadl2.NamedValue;
 			import org.osate.aadl2.PropertyExpression;
@@ -469,23 +399,8 @@ class PropertiesCodeGenTest {
 				}
 				
 				@Override
-				public UnitLiteral toUnitLiteral(ResourceSet resourceSet) {
-					UnitLiteral literal = (UnitLiteral) resourceSet.getEObject(uri, true);
-					if (literal == null) {
-						throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
-					}
-					String name = literal.getName();
-					if (!name.equals(originalName)) {
-						throw new RuntimeException("Expected UnitLiteral '" + originalName + "', but found '" + name + "'.");
-					}
-					return literal;
-				}
-				
-				@Override
-				public NamedValue toPropertyExpression(ResourceSet resourceSet) {
-					NamedValue value = Aadl2Factory.eINSTANCE.createNamedValue();
-					value.setNamedValue(toUnitLiteral(resourceSet));
-					return value;
+				public URI getURI() {
+					return uri;
 				}
 				
 				@Override
