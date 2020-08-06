@@ -467,9 +467,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkFlowConnectionEnds(flow);
 		checkFlowSegmentModes(flow);
 		checkSubcomponentFlows(flow);
+		checkEmptyFlowImplementation(flow);
 		checkFlowImplementationDirection(flow);
 		// checkFlowPathElements(flow);
-		checkEmptyFlowImplementation(flow);
+
 	}
 
 	@Check(CheckType.FAST)
