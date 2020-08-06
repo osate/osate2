@@ -1072,6 +1072,10 @@ class ListDefinitionTest {
 					if (literal == null) {
 						throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
 					}
+					String name = literal.getName();
+					if (!name.equals(originalName)) {
+						throw new RuntimeException("Expected UnitLiteral '" + originalName + "', but found '" + name + "'.");
+					}
 					return literal;
 				}
 				
@@ -1136,6 +1140,10 @@ class ListDefinitionTest {
 					if (literal == null) {
 						throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
 					}
+					String name = literal.getName();
+					if (!name.equals(originalName)) {
+						throw new RuntimeException("Expected UnitLiteral '" + originalName + "', but found '" + name + "'.");
+					}
 					return literal;
 				}
 				
@@ -1185,6 +1193,10 @@ class ListDefinitionTest {
 					EnumerationLiteral literal = (EnumerationLiteral) resourceSet.getEObject(uri, true);
 					if (literal == null) {
 						throw new RuntimeException("Could not resolve EnumerationLiteral '" + originalName + "'.");
+					}
+					String name = literal.getName();
+					if (!name.equals(originalName)) {
+						throw new RuntimeException("Expected EnumerationLiteral '" + originalName + "', but found '" + name + "'.");
 					}
 					return literal;
 				}
@@ -1263,6 +1275,10 @@ class ListDefinitionTest {
 						if (basicProperty == null) {
 							throw new RuntimeException("Could not resolve BasicProperty 'field'.");
 						}
+						String name = basicProperty.getName();
+						if (!"field".equalsIgnoreCase(name)) {
+							throw new RuntimeException("Expected BasicProperty 'field', but found '" + name + "'.");
+						}
 						fieldAssociation.setProperty(basicProperty);
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field));
 					});
@@ -1335,6 +1351,10 @@ class ListDefinitionTest {
 					if (literal == null) {
 						throw new RuntimeException("Could not resolve EnumerationLiteral '" + originalName + "'.");
 					}
+					String name = literal.getName();
+					if (!name.equals(originalName)) {
+						throw new RuntimeException("Expected EnumerationLiteral '" + originalName + "', but found '" + name + "'.");
+					}
 					return literal;
 				}
 				
@@ -1396,6 +1416,10 @@ class ListDefinitionTest {
 					UnitLiteral literal = (UnitLiteral) resourceSet.getEObject(uri, true);
 					if (literal == null) {
 						throw new RuntimeException("Could not resolve UnitLiteral '" + originalName + "'.");
+					}
+					String name = literal.getName();
+					if (!name.equals(originalName)) {
+						throw new RuntimeException("Expected UnitLiteral '" + originalName + "', but found '" + name + "'.");
 					}
 					return literal;
 				}
@@ -1531,6 +1555,10 @@ class ListDefinitionTest {
 						if (basicProperty == null) {
 							throw new RuntimeException("Could not resolve BasicProperty 'boolean_field'.");
 						}
+						String name = basicProperty.getName();
+						if (!"boolean_field".equalsIgnoreCase(name)) {
+							throw new RuntimeException("Expected BasicProperty 'boolean_field', but found '" + name + "'.");
+						}
 						fieldAssociation.setProperty(basicProperty);
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field));
 					});
@@ -1540,6 +1568,10 @@ class ListDefinitionTest {
 						if (basicProperty == null) {
 							throw new RuntimeException("Could not resolve BasicProperty 'string_field'.");
 						}
+						String name = basicProperty.getName();
+						if (!"string_field".equalsIgnoreCase(name)) {
+							throw new RuntimeException("Expected BasicProperty 'string_field', but found '" + name + "'.");
+						}
 						fieldAssociation.setProperty(basicProperty);
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field));
 					});
@@ -1548,6 +1580,10 @@ class ListDefinitionTest {
 						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(RECORD_FIELD__URI, true);
 						if (basicProperty == null) {
 							throw new RuntimeException("Could not resolve BasicProperty 'record_field'.");
+						}
+						String name = basicProperty.getName();
+						if (!"record_field".equalsIgnoreCase(name)) {
+							throw new RuntimeException("Expected BasicProperty 'record_field', but found '" + name + "'.");
 						}
 						fieldAssociation.setProperty(basicProperty);
 						fieldAssociation.setOwnedValue(field.toPropertyExpression(resourceSet));
@@ -1671,6 +1707,10 @@ class ListDefinitionTest {
 							if (basicProperty == null) {
 								throw new RuntimeException("Could not resolve BasicProperty 'integer_field'.");
 							}
+							String name = basicProperty.getName();
+							if (!"integer_field".equalsIgnoreCase(name)) {
+								throw new RuntimeException("Expected BasicProperty 'integer_field', but found '" + name + "'.");
+							}
 							fieldAssociation.setProperty(basicProperty);
 							fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field));
 						});
@@ -1679,6 +1719,10 @@ class ListDefinitionTest {
 							BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(REAL_FIELD__URI, true);
 							if (basicProperty == null) {
 								throw new RuntimeException("Could not resolve BasicProperty 'real_field'.");
+							}
+							String name = basicProperty.getName();
+							if (!"real_field".equalsIgnoreCase(name)) {
+								throw new RuntimeException("Expected BasicProperty 'real_field', but found '" + name + "'.");
 							}
 							fieldAssociation.setProperty(basicProperty);
 							fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field));
@@ -1759,6 +1803,10 @@ class ListDefinitionTest {
 					EnumerationLiteral literal = (EnumerationLiteral) resourceSet.getEObject(uri, true);
 					if (literal == null) {
 						throw new RuntimeException("Could not resolve EnumerationLiteral '" + originalName + "'.");
+					}
+					String name = literal.getName();
+					if (!name.equals(originalName)) {
+						throw new RuntimeException("Expected EnumerationLiteral '" + originalName + "', but found '" + name + "'.");
 					}
 					return literal;
 				}

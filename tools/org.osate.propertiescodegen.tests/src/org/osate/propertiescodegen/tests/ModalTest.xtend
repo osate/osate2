@@ -871,6 +871,10 @@ class ModalTest {
 						if (basicProperty == null) {
 							throw new RuntimeException("Could not resolve BasicProperty 'field_1'.");
 						}
+						String name = basicProperty.getName();
+						if (!"field_1".equalsIgnoreCase(name)) {
+							throw new RuntimeException("Expected BasicProperty 'field_1', but found '" + name + "'.");
+						}
 						fieldAssociation.setProperty(basicProperty);
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field));
 					});
@@ -880,6 +884,10 @@ class ModalTest {
 						if (basicProperty == null) {
 							throw new RuntimeException("Could not resolve BasicProperty 'field_2'.");
 						}
+						String name = basicProperty.getName();
+						if (!"field_2".equalsIgnoreCase(name)) {
+							throw new RuntimeException("Expected BasicProperty 'field_2', but found '" + name + "'.");
+						}
 						fieldAssociation.setProperty(basicProperty);
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field));
 					});
@@ -888,6 +896,10 @@ class ModalTest {
 						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(LIST_FIELD_1__URI, true);
 						if (basicProperty == null) {
 							throw new RuntimeException("Could not resolve BasicProperty 'list_field_1'.");
+						}
+						String name = basicProperty.getName();
+						if (!"list_field_1".equalsIgnoreCase(name)) {
+							throw new RuntimeException("Expected BasicProperty 'list_field_1', but found '" + name + "'.");
 						}
 						fieldAssociation.setProperty(basicProperty);
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field, element1 -> {
@@ -899,6 +911,10 @@ class ModalTest {
 						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(LIST_FIELD_2__URI, true);
 						if (basicProperty == null) {
 							throw new RuntimeException("Could not resolve BasicProperty 'list_field_2'.");
+						}
+						String name = basicProperty.getName();
+						if (!"list_field_2".equalsIgnoreCase(name)) {
+							throw new RuntimeException("Expected BasicProperty 'list_field_2', but found '" + name + "'.");
 						}
 						fieldAssociation.setProperty(basicProperty);
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field, element1 -> {
