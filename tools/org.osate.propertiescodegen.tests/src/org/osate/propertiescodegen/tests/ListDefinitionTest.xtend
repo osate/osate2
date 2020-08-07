@@ -1174,7 +1174,6 @@ class ListDefinitionTest {
 			import org.eclipse.emf.common.util.URI;
 			import org.eclipse.emf.ecore.resource.ResourceSet;
 			import org.osate.aadl2.Aadl2Factory;
-			import org.osate.aadl2.BasicProperty;
 			import org.osate.aadl2.BasicPropertyAssociation;
 			import org.osate.aadl2.BooleanLiteral;
 			import org.osate.aadl2.Mode;
@@ -1183,9 +1182,11 @@ class ListDefinitionTest {
 			import org.osate.aadl2.RecordValue;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
+			import org.osate.pluginsupport.properties.GeneratedRecord;
 			
-			public class RecordOfBoolean {
-				private static final URI FIELD__URI = URI.createURI("__synthetic1.aadl#/0/@ownedPropertyType.4/@ownedField.0");
+			public class RecordOfBoolean extends GeneratedRecord {
+				public static final String FIELD__NAME = "field";
+				public static final URI FIELD__URI = URI.createURI("__synthetic1.aadl#/0/@ownedPropertyType.4/@ownedField.0");
 				
 				private final Optional<Boolean> field;
 				
@@ -1198,14 +1199,10 @@ class ListDefinitionTest {
 					
 					Optional<Boolean> field_local;
 					try {
-						field_local = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("field"))
-								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-									return ((BooleanLiteral) resolved).getValue();
-								})
-								.findAny();
+						field_local = findFieldValue(recordValue, FIELD__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return ((BooleanLiteral) resolved).getValue();
+						});
 					} catch (PropertyNotPresentException e) {
 						field_local = Optional.empty();
 					}
@@ -1216,6 +1213,7 @@ class ListDefinitionTest {
 					return field;
 				}
 				
+				@Override
 				public RecordValue toPropertyExpression(ResourceSet resourceSet) {
 					if (!field.isPresent()) {
 						throw new IllegalStateException("Record must have at least one field set.");
@@ -1223,15 +1221,7 @@ class ListDefinitionTest {
 					RecordValue recordValue = Aadl2Factory.eINSTANCE.createRecordValue();
 					field.ifPresent(field -> {
 						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(FIELD__URI, true);
-						if (basicProperty == null) {
-							throw new RuntimeException("Could not resolve BasicProperty 'field'.");
-						}
-						String name = basicProperty.getName();
-						if (!"field".equalsIgnoreCase(name)) {
-							throw new RuntimeException("Expected BasicProperty 'field', but found '" + name + "'.");
-						}
-						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setProperty(loadField(resourceSet, FIELD__URI, FIELD__NAME));
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field));
 					});
 					return recordValue;
@@ -1259,7 +1249,8 @@ class ListDefinitionTest {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
 					this.field.ifPresent(field -> {
-						builder.append("field => ");
+						builder.append(FIELD__NAME);
+						builder.append(" => ");
 						builder.append(field);
 						builder.append(';');
 					});
@@ -1369,7 +1360,6 @@ class ListDefinitionTest {
 			import org.eclipse.emf.common.util.URI;
 			import org.eclipse.emf.ecore.resource.ResourceSet;
 			import org.osate.aadl2.Aadl2Factory;
-			import org.osate.aadl2.BasicProperty;
 			import org.osate.aadl2.BasicPropertyAssociation;
 			import org.osate.aadl2.BooleanLiteral;
 			import org.osate.aadl2.IntegerLiteral;
@@ -1381,11 +1371,15 @@ class ListDefinitionTest {
 			import org.osate.aadl2.StringLiteral;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
+			import org.osate.pluginsupport.properties.GeneratedRecord;
 			
-			public class List1OwnedRecord {
-				private static final URI BOOLEAN_FIELD__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.14/@ownedPropertyType/@ownedElementType/@ownedField.0");
-				private static final URI STRING_FIELD__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.14/@ownedPropertyType/@ownedElementType/@ownedField.1");
-				private static final URI RECORD_FIELD__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.14/@ownedPropertyType/@ownedElementType/@ownedField.2");
+			public class List1OwnedRecord extends GeneratedRecord {
+				public static final String BOOLEAN_FIELD__NAME = "boolean_field";
+				public static final String STRING_FIELD__NAME = "string_field";
+				public static final String RECORD_FIELD__NAME = "record_field";
+				public static final URI BOOLEAN_FIELD__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.14/@ownedPropertyType/@ownedElementType/@ownedField.0");
+				public static final URI STRING_FIELD__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.14/@ownedPropertyType/@ownedElementType/@ownedField.1");
+				public static final URI RECORD_FIELD__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.14/@ownedPropertyType/@ownedElementType/@ownedField.2");
 				
 				private final Optional<Boolean> booleanField;
 				private final Optional<String> stringField;
@@ -1406,14 +1400,10 @@ class ListDefinitionTest {
 					
 					Optional<Boolean> booleanField_local;
 					try {
-						booleanField_local = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("boolean_field"))
-								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-									return ((BooleanLiteral) resolved).getValue();
-								})
-								.findAny();
+						booleanField_local = findFieldValue(recordValue, BOOLEAN_FIELD__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return ((BooleanLiteral) resolved).getValue();
+						});
 					} catch (PropertyNotPresentException e) {
 						booleanField_local = Optional.empty();
 					}
@@ -1421,14 +1411,10 @@ class ListDefinitionTest {
 					
 					Optional<String> stringField_local;
 					try {
-						stringField_local = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("string_field"))
-								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-									return ((StringLiteral) resolved).getValue();
-								})
-								.findAny();
+						stringField_local = findFieldValue(recordValue, STRING_FIELD__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return ((StringLiteral) resolved).getValue();
+						});
 					} catch (PropertyNotPresentException e) {
 						stringField_local = Optional.empty();
 					}
@@ -1436,14 +1422,10 @@ class ListDefinitionTest {
 					
 					Optional<RecordField_FieldType> recordField_local;
 					try {
-						recordField_local = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("record_field"))
-								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-									return new RecordField_FieldType(resolved, lookupContext, mode);
-								})
-								.findAny();
+						recordField_local = findFieldValue(recordValue, RECORD_FIELD__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return new RecordField_FieldType(resolved, lookupContext, mode);
+						});
 					} catch (PropertyNotPresentException e) {
 						recordField_local = Optional.empty();
 					}
@@ -1462,6 +1444,7 @@ class ListDefinitionTest {
 					return recordField;
 				}
 				
+				@Override
 				public RecordValue toPropertyExpression(ResourceSet resourceSet) {
 					if (!booleanField.isPresent()
 							&& !stringField.isPresent()
@@ -1472,41 +1455,17 @@ class ListDefinitionTest {
 					RecordValue recordValue = Aadl2Factory.eINSTANCE.createRecordValue();
 					booleanField.ifPresent(field -> {
 						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(BOOLEAN_FIELD__URI, true);
-						if (basicProperty == null) {
-							throw new RuntimeException("Could not resolve BasicProperty 'boolean_field'.");
-						}
-						String name = basicProperty.getName();
-						if (!"boolean_field".equalsIgnoreCase(name)) {
-							throw new RuntimeException("Expected BasicProperty 'boolean_field', but found '" + name + "'.");
-						}
-						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setProperty(loadField(resourceSet, BOOLEAN_FIELD__URI, BOOLEAN_FIELD__NAME));
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field));
 					});
 					stringField.ifPresent(field -> {
 						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(STRING_FIELD__URI, true);
-						if (basicProperty == null) {
-							throw new RuntimeException("Could not resolve BasicProperty 'string_field'.");
-						}
-						String name = basicProperty.getName();
-						if (!"string_field".equalsIgnoreCase(name)) {
-							throw new RuntimeException("Expected BasicProperty 'string_field', but found '" + name + "'.");
-						}
-						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setProperty(loadField(resourceSet, STRING_FIELD__URI, STRING_FIELD__NAME));
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field));
 					});
 					recordField.ifPresent(field -> {
 						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(RECORD_FIELD__URI, true);
-						if (basicProperty == null) {
-							throw new RuntimeException("Could not resolve BasicProperty 'record_field'.");
-						}
-						String name = basicProperty.getName();
-						if (!"record_field".equalsIgnoreCase(name)) {
-							throw new RuntimeException("Expected BasicProperty 'record_field', but found '" + name + "'.");
-						}
-						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setProperty(loadField(resourceSet, RECORD_FIELD__URI, RECORD_FIELD__NAME));
 						fieldAssociation.setOwnedValue(field.toPropertyExpression(resourceSet));
 					});
 					return recordValue;
@@ -1540,17 +1499,20 @@ class ListDefinitionTest {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
 					this.booleanField.ifPresent(field -> {
-						builder.append("boolean_field => ");
+						builder.append(BOOLEAN_FIELD__NAME);
+						builder.append(" => ");
 						builder.append(field);
 						builder.append(';');
 					});
 					this.stringField.ifPresent(field -> {
-						builder.append("string_field => \"");
+						builder.append(STRING_FIELD__NAME);
+						builder.append(" => \"");
 						builder.append(field);
 						builder.append("\";");
 					});
 					this.recordField.ifPresent(field -> {
-						builder.append("record_field => ");
+						builder.append(RECORD_FIELD__NAME);
+						builder.append(" => ");
 						builder.append(field);
 						builder.append(';');
 					});
@@ -1558,9 +1520,11 @@ class ListDefinitionTest {
 					return builder.toString();
 				}
 				
-				public static class RecordField_FieldType {
-					private static final URI INTEGER_FIELD__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.14/@ownedPropertyType/@ownedElementType/@ownedField.2/@ownedPropertyType/@ownedField.0");
-					private static final URI REAL_FIELD__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.14/@ownedPropertyType/@ownedElementType/@ownedField.2/@ownedPropertyType/@ownedField.1");
+				public static class RecordField_FieldType extends GeneratedRecord {
+					public static final String INTEGER_FIELD__NAME = "integer_field";
+					public static final String REAL_FIELD__NAME = "real_field";
+					public static final URI INTEGER_FIELD__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.14/@ownedPropertyType/@ownedElementType/@ownedField.2/@ownedPropertyType/@ownedField.0");
+					public static final URI REAL_FIELD__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.14/@ownedPropertyType/@ownedElementType/@ownedField.2/@ownedPropertyType/@ownedField.1");
 					
 					private final OptionalLong integerField;
 					private final OptionalDouble realField;
@@ -1578,14 +1542,10 @@ class ListDefinitionTest {
 						
 						OptionalLong integerField_local;
 						try {
-							integerField_local = recordValue.getOwnedFieldValues()
-									.stream()
-									.filter(field -> field.getProperty().getName().equals("integer_field"))
-									.mapToLong(field -> {
-										PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-										return ((IntegerLiteral) resolved).getValue();
-									})
-									.findAny();
+							integerField_local = findFieldValue(recordValue, INTEGER_FIELD__NAME).map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+								return ((IntegerLiteral) resolved).getValue();
+							}).map(OptionalLong::of).orElse(OptionalLong.empty());
 						} catch (PropertyNotPresentException e) {
 							integerField_local = OptionalLong.empty();
 						}
@@ -1593,14 +1553,10 @@ class ListDefinitionTest {
 						
 						OptionalDouble realField_local;
 						try {
-							realField_local = recordValue.getOwnedFieldValues()
-									.stream()
-									.filter(field -> field.getProperty().getName().equals("real_field"))
-									.mapToDouble(field -> {
-										PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-										return ((RealLiteral) resolved).getValue();
-									})
-									.findAny();
+							realField_local = findFieldValue(recordValue, REAL_FIELD__NAME).map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+								return ((RealLiteral) resolved).getValue();
+							}).map(OptionalDouble::of).orElse(OptionalDouble.empty());
 						} catch (PropertyNotPresentException e) {
 							realField_local = OptionalDouble.empty();
 						}
@@ -1615,6 +1571,7 @@ class ListDefinitionTest {
 						return realField;
 					}
 					
+					@Override
 					public RecordValue toPropertyExpression(ResourceSet resourceSet) {
 						if (!integerField.isPresent()
 								&& !realField.isPresent()
@@ -1624,28 +1581,12 @@ class ListDefinitionTest {
 						RecordValue recordValue = Aadl2Factory.eINSTANCE.createRecordValue();
 						integerField.ifPresent(field -> {
 							BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-							BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(INTEGER_FIELD__URI, true);
-							if (basicProperty == null) {
-								throw new RuntimeException("Could not resolve BasicProperty 'integer_field'.");
-							}
-							String name = basicProperty.getName();
-							if (!"integer_field".equalsIgnoreCase(name)) {
-								throw new RuntimeException("Expected BasicProperty 'integer_field', but found '" + name + "'.");
-							}
-							fieldAssociation.setProperty(basicProperty);
+							fieldAssociation.setProperty(loadField(resourceSet, INTEGER_FIELD__URI, INTEGER_FIELD__NAME));
 							fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field));
 						});
 						realField.ifPresent(field -> {
 							BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-							BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(REAL_FIELD__URI, true);
-							if (basicProperty == null) {
-								throw new RuntimeException("Could not resolve BasicProperty 'real_field'.");
-							}
-							String name = basicProperty.getName();
-							if (!"real_field".equalsIgnoreCase(name)) {
-								throw new RuntimeException("Expected BasicProperty 'real_field', but found '" + name + "'.");
-							}
-							fieldAssociation.setProperty(basicProperty);
+							fieldAssociation.setProperty(loadField(resourceSet, REAL_FIELD__URI, REAL_FIELD__NAME));
 							fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field));
 						});
 						return recordValue;
@@ -1677,12 +1618,14 @@ class ListDefinitionTest {
 						StringBuilder builder = new StringBuilder();
 						builder.append('[');
 						this.integerField.ifPresent(field -> {
-							builder.append("integer_field => ");
+							builder.append(INTEGER_FIELD__NAME);
+							builder.append(" => ");
 							builder.append(field);
 							builder.append(';');
 						});
 						this.realField.ifPresent(field -> {
-							builder.append("real_field => ");
+							builder.append(REAL_FIELD__NAME);
+							builder.append(" => ");
 							builder.append(field);
 							builder.append(';');
 						});

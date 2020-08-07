@@ -829,7 +829,6 @@ class RangeTest {
 			import org.eclipse.emf.ecore.resource.ResourceSet;
 			import org.osate.aadl2.Aadl2Factory;
 			import org.osate.aadl2.AbstractNamedValue;
-			import org.osate.aadl2.BasicProperty;
 			import org.osate.aadl2.BasicPropertyAssociation;
 			import org.osate.aadl2.ListValue;
 			import org.osate.aadl2.Mode;
@@ -840,6 +839,7 @@ class RangeTest {
 			import org.osate.aadl2.UnitLiteral;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
+			import org.osate.pluginsupport.properties.GeneratedRecord;
 			import org.osate.pluginsupport.properties.GeneratedUnits;
 			import org.osate.pluginsupport.properties.IntegerRange;
 			import org.osate.pluginsupport.properties.IntegerRangeWithUnits;
@@ -848,23 +848,39 @@ class RangeTest {
 			
 			import otherps.Mass;
 			
-			public class RecordProperty {
-				private static final URI INTEGER_NO_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.0");
-				private static final URI INTEGER_OWNED_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.1");
-				private static final URI INTEGER_SAME_FILE_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.2");
-				private static final URI INTEGER_OTHER_FILE_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.3");
-				private static final URI LIST_1_INTEGER_NO_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.4");
-				private static final URI LIST_1_INTEGER_OWNED_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.5");
-				private static final URI LIST_1_INTEGER_SAME_FILE_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.6");
-				private static final URI LIST_1_INTEGER_OTHER_FILE_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.7");
-				private static final URI REAL_NO_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.8");
-				private static final URI REAL_OWNED_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.9");
-				private static final URI REAL_SAME_FILE_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.10");
-				private static final URI REAL_OTHER_FILE_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.11");
-				private static final URI LIST_1_REAL_NO_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.12");
-				private static final URI LIST_1_REAL_OWNED_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.13");
-				private static final URI LIST_1_REAL_SAME_FILE_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.14");
-				private static final URI LIST_1_REAL_OTHER_FILE_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.15");
+			public class RecordProperty extends GeneratedRecord {
+				public static final String INTEGER_NO_UNITS__NAME = "integer_no_units";
+				public static final String INTEGER_OWNED_UNITS__NAME = "integer_owned_units";
+				public static final String INTEGER_SAME_FILE_UNITS__NAME = "integer_same_file_units";
+				public static final String INTEGER_OTHER_FILE_UNITS__NAME = "integer_other_file_units";
+				public static final String LIST_1_INTEGER_NO_UNITS__NAME = "list_1_integer_no_units";
+				public static final String LIST_1_INTEGER_OWNED_UNITS__NAME = "list_1_integer_owned_units";
+				public static final String LIST_1_INTEGER_SAME_FILE_UNITS__NAME = "list_1_integer_same_file_units";
+				public static final String LIST_1_INTEGER_OTHER_FILE_UNITS__NAME = "list_1_integer_other_file_units";
+				public static final String REAL_NO_UNITS__NAME = "real_no_units";
+				public static final String REAL_OWNED_UNITS__NAME = "real_owned_units";
+				public static final String REAL_SAME_FILE_UNITS__NAME = "real_same_file_units";
+				public static final String REAL_OTHER_FILE_UNITS__NAME = "real_other_file_units";
+				public static final String LIST_1_REAL_NO_UNITS__NAME = "list_1_real_no_units";
+				public static final String LIST_1_REAL_OWNED_UNITS__NAME = "list_1_real_owned_units";
+				public static final String LIST_1_REAL_SAME_FILE_UNITS__NAME = "list_1_real_same_file_units";
+				public static final String LIST_1_REAL_OTHER_FILE_UNITS__NAME = "list_1_real_other_file_units";
+				public static final URI INTEGER_NO_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.0");
+				public static final URI INTEGER_OWNED_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.1");
+				public static final URI INTEGER_SAME_FILE_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.2");
+				public static final URI INTEGER_OTHER_FILE_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.3");
+				public static final URI LIST_1_INTEGER_NO_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.4");
+				public static final URI LIST_1_INTEGER_OWNED_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.5");
+				public static final URI LIST_1_INTEGER_SAME_FILE_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.6");
+				public static final URI LIST_1_INTEGER_OTHER_FILE_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.7");
+				public static final URI REAL_NO_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.8");
+				public static final URI REAL_OWNED_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.9");
+				public static final URI REAL_SAME_FILE_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.10");
+				public static final URI REAL_OTHER_FILE_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.11");
+				public static final URI LIST_1_REAL_NO_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.12");
+				public static final URI LIST_1_REAL_OWNED_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.13");
+				public static final URI LIST_1_REAL_SAME_FILE_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.14");
+				public static final URI LIST_1_REAL_OTHER_FILE_UNITS__URI = URI.createURI("__synthetic1.aadl#/0/@ownedProperty.16/@ownedPropertyType/@ownedField.15");
 				
 				private final Optional<IntegerRange> integerNoUnits;
 				private final Optional<IntegerRangeWithUnits<IntegerOwnedUnits_FieldType>> integerOwnedUnits;
@@ -924,14 +940,10 @@ class RangeTest {
 					
 					Optional<IntegerRange> integerNoUnits_local;
 					try {
-						integerNoUnits_local = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("integer_no_units"))
-								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-									return new IntegerRange(resolved, lookupContext, mode);
-								})
-								.findAny();
+						integerNoUnits_local = findFieldValue(recordValue, INTEGER_NO_UNITS__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return new IntegerRange(resolved, lookupContext, mode);
+						});
 					} catch (PropertyNotPresentException e) {
 						integerNoUnits_local = Optional.empty();
 					}
@@ -939,14 +951,10 @@ class RangeTest {
 					
 					Optional<IntegerRangeWithUnits<IntegerOwnedUnits_FieldType>> integerOwnedUnits_local;
 					try {
-						integerOwnedUnits_local = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("integer_owned_units"))
-								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-									return new IntegerRangeWithUnits<>(resolved, IntegerOwnedUnits_FieldType.class, lookupContext, mode);
-								})
-								.findAny();
+						integerOwnedUnits_local = findFieldValue(recordValue, INTEGER_OWNED_UNITS__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return new IntegerRangeWithUnits<>(resolved, IntegerOwnedUnits_FieldType.class, lookupContext, mode);
+						});
 					} catch (PropertyNotPresentException e) {
 						integerOwnedUnits_local = Optional.empty();
 					}
@@ -954,14 +962,10 @@ class RangeTest {
 					
 					Optional<IntegerRangeWithUnits<Time>> integerSameFileUnits_local;
 					try {
-						integerSameFileUnits_local = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("integer_same_file_units"))
-								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-									return new IntegerRangeWithUnits<>(resolved, Time.class, lookupContext, mode);
-								})
-								.findAny();
+						integerSameFileUnits_local = findFieldValue(recordValue, INTEGER_SAME_FILE_UNITS__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return new IntegerRangeWithUnits<>(resolved, Time.class, lookupContext, mode);
+						});
 					} catch (PropertyNotPresentException e) {
 						integerSameFileUnits_local = Optional.empty();
 					}
@@ -969,14 +973,10 @@ class RangeTest {
 					
 					Optional<IntegerRangeWithUnits<Mass>> integerOtherFileUnits_local;
 					try {
-						integerOtherFileUnits_local = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("integer_other_file_units"))
-								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-									return new IntegerRangeWithUnits<>(resolved, Mass.class, lookupContext, mode);
-								})
-								.findAny();
+						integerOtherFileUnits_local = findFieldValue(recordValue, INTEGER_OTHER_FILE_UNITS__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return new IntegerRangeWithUnits<>(resolved, Mass.class, lookupContext, mode);
+						});
 					} catch (PropertyNotPresentException e) {
 						integerOtherFileUnits_local = Optional.empty();
 					}
@@ -984,17 +984,13 @@ class RangeTest {
 					
 					Optional<List<IntegerRange>> list1IntegerNoUnits_local;
 					try {
-						list1IntegerNoUnits_local = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("list_1_integer_no_units"))
-								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-									return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
-										PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
-										return new IntegerRange(resolved1, lookupContext, mode);
-									}).collect(Collectors.toList());
-								})
-								.findAny();
+						list1IntegerNoUnits_local = findFieldValue(recordValue, LIST_1_INTEGER_NO_UNITS__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
+								return new IntegerRange(resolved1, lookupContext, mode);
+							}).collect(Collectors.toList());
+						});
 					} catch (PropertyNotPresentException e) {
 						list1IntegerNoUnits_local = Optional.empty();
 					}
@@ -1002,17 +998,13 @@ class RangeTest {
 					
 					Optional<List<IntegerRangeWithUnits<List1IntegerOwnedUnits_FieldType>>> list1IntegerOwnedUnits_local;
 					try {
-						list1IntegerOwnedUnits_local = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("list_1_integer_owned_units"))
-								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-									return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
-										PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
-										return new IntegerRangeWithUnits<>(resolved1, List1IntegerOwnedUnits_FieldType.class, lookupContext, mode);
-									}).collect(Collectors.toList());
-								})
-								.findAny();
+						list1IntegerOwnedUnits_local = findFieldValue(recordValue, LIST_1_INTEGER_OWNED_UNITS__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
+								return new IntegerRangeWithUnits<>(resolved1, List1IntegerOwnedUnits_FieldType.class, lookupContext, mode);
+							}).collect(Collectors.toList());
+						});
 					} catch (PropertyNotPresentException e) {
 						list1IntegerOwnedUnits_local = Optional.empty();
 					}
@@ -1020,17 +1012,13 @@ class RangeTest {
 					
 					Optional<List<IntegerRangeWithUnits<Time>>> list1IntegerSameFileUnits_local;
 					try {
-						list1IntegerSameFileUnits_local = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("list_1_integer_same_file_units"))
-								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-									return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
-										PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
-										return new IntegerRangeWithUnits<>(resolved1, Time.class, lookupContext, mode);
-									}).collect(Collectors.toList());
-								})
-								.findAny();
+						list1IntegerSameFileUnits_local = findFieldValue(recordValue, LIST_1_INTEGER_SAME_FILE_UNITS__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
+								return new IntegerRangeWithUnits<>(resolved1, Time.class, lookupContext, mode);
+							}).collect(Collectors.toList());
+						});
 					} catch (PropertyNotPresentException e) {
 						list1IntegerSameFileUnits_local = Optional.empty();
 					}
@@ -1038,17 +1026,13 @@ class RangeTest {
 					
 					Optional<List<IntegerRangeWithUnits<Mass>>> list1IntegerOtherFileUnits_local;
 					try {
-						list1IntegerOtherFileUnits_local = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("list_1_integer_other_file_units"))
-								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-									return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
-										PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
-										return new IntegerRangeWithUnits<>(resolved1, Mass.class, lookupContext, mode);
-									}).collect(Collectors.toList());
-								})
-								.findAny();
+						list1IntegerOtherFileUnits_local = findFieldValue(recordValue, LIST_1_INTEGER_OTHER_FILE_UNITS__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
+								return new IntegerRangeWithUnits<>(resolved1, Mass.class, lookupContext, mode);
+							}).collect(Collectors.toList());
+						});
 					} catch (PropertyNotPresentException e) {
 						list1IntegerOtherFileUnits_local = Optional.empty();
 					}
@@ -1056,14 +1040,10 @@ class RangeTest {
 					
 					Optional<RealRange> realNoUnits_local;
 					try {
-						realNoUnits_local = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("real_no_units"))
-								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-									return new RealRange(resolved, lookupContext, mode);
-								})
-								.findAny();
+						realNoUnits_local = findFieldValue(recordValue, REAL_NO_UNITS__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return new RealRange(resolved, lookupContext, mode);
+						});
 					} catch (PropertyNotPresentException e) {
 						realNoUnits_local = Optional.empty();
 					}
@@ -1071,14 +1051,10 @@ class RangeTest {
 					
 					Optional<RealRangeWithUnits<RealOwnedUnits_FieldType>> realOwnedUnits_local;
 					try {
-						realOwnedUnits_local = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("real_owned_units"))
-								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-									return new RealRangeWithUnits<>(resolved, RealOwnedUnits_FieldType.class, lookupContext, mode);
-								})
-								.findAny();
+						realOwnedUnits_local = findFieldValue(recordValue, REAL_OWNED_UNITS__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return new RealRangeWithUnits<>(resolved, RealOwnedUnits_FieldType.class, lookupContext, mode);
+						});
 					} catch (PropertyNotPresentException e) {
 						realOwnedUnits_local = Optional.empty();
 					}
@@ -1086,14 +1062,10 @@ class RangeTest {
 					
 					Optional<RealRangeWithUnits<Time>> realSameFileUnits_local;
 					try {
-						realSameFileUnits_local = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("real_same_file_units"))
-								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-									return new RealRangeWithUnits<>(resolved, Time.class, lookupContext, mode);
-								})
-								.findAny();
+						realSameFileUnits_local = findFieldValue(recordValue, REAL_SAME_FILE_UNITS__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return new RealRangeWithUnits<>(resolved, Time.class, lookupContext, mode);
+						});
 					} catch (PropertyNotPresentException e) {
 						realSameFileUnits_local = Optional.empty();
 					}
@@ -1101,14 +1073,10 @@ class RangeTest {
 					
 					Optional<RealRangeWithUnits<Mass>> realOtherFileUnits_local;
 					try {
-						realOtherFileUnits_local = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("real_other_file_units"))
-								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-									return new RealRangeWithUnits<>(resolved, Mass.class, lookupContext, mode);
-								})
-								.findAny();
+						realOtherFileUnits_local = findFieldValue(recordValue, REAL_OTHER_FILE_UNITS__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return new RealRangeWithUnits<>(resolved, Mass.class, lookupContext, mode);
+						});
 					} catch (PropertyNotPresentException e) {
 						realOtherFileUnits_local = Optional.empty();
 					}
@@ -1116,17 +1084,13 @@ class RangeTest {
 					
 					Optional<List<RealRange>> list1RealNoUnits_local;
 					try {
-						list1RealNoUnits_local = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("list_1_real_no_units"))
-								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-									return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
-										PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
-										return new RealRange(resolved1, lookupContext, mode);
-									}).collect(Collectors.toList());
-								})
-								.findAny();
+						list1RealNoUnits_local = findFieldValue(recordValue, LIST_1_REAL_NO_UNITS__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
+								return new RealRange(resolved1, lookupContext, mode);
+							}).collect(Collectors.toList());
+						});
 					} catch (PropertyNotPresentException e) {
 						list1RealNoUnits_local = Optional.empty();
 					}
@@ -1134,17 +1098,13 @@ class RangeTest {
 					
 					Optional<List<RealRangeWithUnits<List1RealOwnedUnits_FieldType>>> list1RealOwnedUnits_local;
 					try {
-						list1RealOwnedUnits_local = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("list_1_real_owned_units"))
-								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-									return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
-										PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
-										return new RealRangeWithUnits<>(resolved1, List1RealOwnedUnits_FieldType.class, lookupContext, mode);
-									}).collect(Collectors.toList());
-								})
-								.findAny();
+						list1RealOwnedUnits_local = findFieldValue(recordValue, LIST_1_REAL_OWNED_UNITS__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
+								return new RealRangeWithUnits<>(resolved1, List1RealOwnedUnits_FieldType.class, lookupContext, mode);
+							}).collect(Collectors.toList());
+						});
 					} catch (PropertyNotPresentException e) {
 						list1RealOwnedUnits_local = Optional.empty();
 					}
@@ -1152,17 +1112,13 @@ class RangeTest {
 					
 					Optional<List<RealRangeWithUnits<Time>>> list1RealSameFileUnits_local;
 					try {
-						list1RealSameFileUnits_local = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("list_1_real_same_file_units"))
-								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-									return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
-										PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
-										return new RealRangeWithUnits<>(resolved1, Time.class, lookupContext, mode);
-									}).collect(Collectors.toList());
-								})
-								.findAny();
+						list1RealSameFileUnits_local = findFieldValue(recordValue, LIST_1_REAL_SAME_FILE_UNITS__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
+								return new RealRangeWithUnits<>(resolved1, Time.class, lookupContext, mode);
+							}).collect(Collectors.toList());
+						});
 					} catch (PropertyNotPresentException e) {
 						list1RealSameFileUnits_local = Optional.empty();
 					}
@@ -1170,17 +1126,13 @@ class RangeTest {
 					
 					Optional<List<RealRangeWithUnits<Mass>>> list1RealOtherFileUnits_local;
 					try {
-						list1RealOtherFileUnits_local = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("list_1_real_other_file_units"))
-								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-									return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
-										PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
-										return new RealRangeWithUnits<>(resolved1, Mass.class, lookupContext, mode);
-									}).collect(Collectors.toList());
-								})
-								.findAny();
+						list1RealOtherFileUnits_local = findFieldValue(recordValue, LIST_1_REAL_OTHER_FILE_UNITS__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
+								return new RealRangeWithUnits<>(resolved1, Mass.class, lookupContext, mode);
+							}).collect(Collectors.toList());
+						});
 					} catch (PropertyNotPresentException e) {
 						list1RealOtherFileUnits_local = Optional.empty();
 					}
@@ -1251,6 +1203,7 @@ class RangeTest {
 					return list1RealOtherFileUnits;
 				}
 				
+				@Override
 				public RecordValue toPropertyExpression(ResourceSet resourceSet) {
 					if (!integerNoUnits.isPresent()
 							&& !integerOwnedUnits.isPresent()
@@ -1274,224 +1227,96 @@ class RangeTest {
 					RecordValue recordValue = Aadl2Factory.eINSTANCE.createRecordValue();
 					integerNoUnits.ifPresent(field -> {
 						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(INTEGER_NO_UNITS__URI, true);
-						if (basicProperty == null) {
-							throw new RuntimeException("Could not resolve BasicProperty 'integer_no_units'.");
-						}
-						String name = basicProperty.getName();
-						if (!"integer_no_units".equalsIgnoreCase(name)) {
-							throw new RuntimeException("Expected BasicProperty 'integer_no_units', but found '" + name + "'.");
-						}
-						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setProperty(loadField(resourceSet, INTEGER_NO_UNITS__URI, INTEGER_NO_UNITS__NAME));
 						fieldAssociation.setOwnedValue(field.toPropertyExpression());
 					});
 					integerOwnedUnits.ifPresent(field -> {
 						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(INTEGER_OWNED_UNITS__URI, true);
-						if (basicProperty == null) {
-							throw new RuntimeException("Could not resolve BasicProperty 'integer_owned_units'.");
-						}
-						String name = basicProperty.getName();
-						if (!"integer_owned_units".equalsIgnoreCase(name)) {
-							throw new RuntimeException("Expected BasicProperty 'integer_owned_units', but found '" + name + "'.");
-						}
-						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setProperty(loadField(resourceSet, INTEGER_OWNED_UNITS__URI, INTEGER_OWNED_UNITS__NAME));
 						fieldAssociation.setOwnedValue(field.toPropertyExpression(resourceSet));
 					});
 					integerSameFileUnits.ifPresent(field -> {
 						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(INTEGER_SAME_FILE_UNITS__URI, true);
-						if (basicProperty == null) {
-							throw new RuntimeException("Could not resolve BasicProperty 'integer_same_file_units'.");
-						}
-						String name = basicProperty.getName();
-						if (!"integer_same_file_units".equalsIgnoreCase(name)) {
-							throw new RuntimeException("Expected BasicProperty 'integer_same_file_units', but found '" + name + "'.");
-						}
-						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setProperty(loadField(resourceSet, INTEGER_SAME_FILE_UNITS__URI, INTEGER_SAME_FILE_UNITS__NAME));
 						fieldAssociation.setOwnedValue(field.toPropertyExpression(resourceSet));
 					});
 					integerOtherFileUnits.ifPresent(field -> {
 						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(INTEGER_OTHER_FILE_UNITS__URI, true);
-						if (basicProperty == null) {
-							throw new RuntimeException("Could not resolve BasicProperty 'integer_other_file_units'.");
-						}
-						String name = basicProperty.getName();
-						if (!"integer_other_file_units".equalsIgnoreCase(name)) {
-							throw new RuntimeException("Expected BasicProperty 'integer_other_file_units', but found '" + name + "'.");
-						}
-						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setProperty(loadField(resourceSet, INTEGER_OTHER_FILE_UNITS__URI, INTEGER_OTHER_FILE_UNITS__NAME));
 						fieldAssociation.setOwnedValue(field.toPropertyExpression(resourceSet));
 					});
 					list1IntegerNoUnits.ifPresent(field -> {
 						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(LIST_1_INTEGER_NO_UNITS__URI, true);
-						if (basicProperty == null) {
-							throw new RuntimeException("Could not resolve BasicProperty 'list_1_integer_no_units'.");
-						}
-						String name = basicProperty.getName();
-						if (!"list_1_integer_no_units".equalsIgnoreCase(name)) {
-							throw new RuntimeException("Expected BasicProperty 'list_1_integer_no_units', but found '" + name + "'.");
-						}
-						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setProperty(loadField(resourceSet, LIST_1_INTEGER_NO_UNITS__URI, LIST_1_INTEGER_NO_UNITS__NAME));
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field, element1 -> {
 							return element1.toPropertyExpression();
 						}));
 					});
 					list1IntegerOwnedUnits.ifPresent(field -> {
 						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(LIST_1_INTEGER_OWNED_UNITS__URI, true);
-						if (basicProperty == null) {
-							throw new RuntimeException("Could not resolve BasicProperty 'list_1_integer_owned_units'.");
-						}
-						String name = basicProperty.getName();
-						if (!"list_1_integer_owned_units".equalsIgnoreCase(name)) {
-							throw new RuntimeException("Expected BasicProperty 'list_1_integer_owned_units', but found '" + name + "'.");
-						}
-						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setProperty(loadField(resourceSet, LIST_1_INTEGER_OWNED_UNITS__URI, LIST_1_INTEGER_OWNED_UNITS__NAME));
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field, element1 -> {
 							return element1.toPropertyExpression(resourceSet);
 						}));
 					});
 					list1IntegerSameFileUnits.ifPresent(field -> {
 						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(LIST_1_INTEGER_SAME_FILE_UNITS__URI, true);
-						if (basicProperty == null) {
-							throw new RuntimeException("Could not resolve BasicProperty 'list_1_integer_same_file_units'.");
-						}
-						String name = basicProperty.getName();
-						if (!"list_1_integer_same_file_units".equalsIgnoreCase(name)) {
-							throw new RuntimeException("Expected BasicProperty 'list_1_integer_same_file_units', but found '" + name + "'.");
-						}
-						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setProperty(loadField(resourceSet, LIST_1_INTEGER_SAME_FILE_UNITS__URI, LIST_1_INTEGER_SAME_FILE_UNITS__NAME));
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field, element1 -> {
 							return element1.toPropertyExpression(resourceSet);
 						}));
 					});
 					list1IntegerOtherFileUnits.ifPresent(field -> {
 						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(LIST_1_INTEGER_OTHER_FILE_UNITS__URI, true);
-						if (basicProperty == null) {
-							throw new RuntimeException("Could not resolve BasicProperty 'list_1_integer_other_file_units'.");
-						}
-						String name = basicProperty.getName();
-						if (!"list_1_integer_other_file_units".equalsIgnoreCase(name)) {
-							throw new RuntimeException("Expected BasicProperty 'list_1_integer_other_file_units', but found '" + name + "'.");
-						}
-						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setProperty(loadField(resourceSet, LIST_1_INTEGER_OTHER_FILE_UNITS__URI, LIST_1_INTEGER_OTHER_FILE_UNITS__NAME));
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field, element1 -> {
 							return element1.toPropertyExpression(resourceSet);
 						}));
 					});
 					realNoUnits.ifPresent(field -> {
 						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(REAL_NO_UNITS__URI, true);
-						if (basicProperty == null) {
-							throw new RuntimeException("Could not resolve BasicProperty 'real_no_units'.");
-						}
-						String name = basicProperty.getName();
-						if (!"real_no_units".equalsIgnoreCase(name)) {
-							throw new RuntimeException("Expected BasicProperty 'real_no_units', but found '" + name + "'.");
-						}
-						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setProperty(loadField(resourceSet, REAL_NO_UNITS__URI, REAL_NO_UNITS__NAME));
 						fieldAssociation.setOwnedValue(field.toPropertyExpression());
 					});
 					realOwnedUnits.ifPresent(field -> {
 						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(REAL_OWNED_UNITS__URI, true);
-						if (basicProperty == null) {
-							throw new RuntimeException("Could not resolve BasicProperty 'real_owned_units'.");
-						}
-						String name = basicProperty.getName();
-						if (!"real_owned_units".equalsIgnoreCase(name)) {
-							throw new RuntimeException("Expected BasicProperty 'real_owned_units', but found '" + name + "'.");
-						}
-						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setProperty(loadField(resourceSet, REAL_OWNED_UNITS__URI, REAL_OWNED_UNITS__NAME));
 						fieldAssociation.setOwnedValue(field.toPropertyExpression(resourceSet));
 					});
 					realSameFileUnits.ifPresent(field -> {
 						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(REAL_SAME_FILE_UNITS__URI, true);
-						if (basicProperty == null) {
-							throw new RuntimeException("Could not resolve BasicProperty 'real_same_file_units'.");
-						}
-						String name = basicProperty.getName();
-						if (!"real_same_file_units".equalsIgnoreCase(name)) {
-							throw new RuntimeException("Expected BasicProperty 'real_same_file_units', but found '" + name + "'.");
-						}
-						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setProperty(loadField(resourceSet, REAL_SAME_FILE_UNITS__URI, REAL_SAME_FILE_UNITS__NAME));
 						fieldAssociation.setOwnedValue(field.toPropertyExpression(resourceSet));
 					});
 					realOtherFileUnits.ifPresent(field -> {
 						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(REAL_OTHER_FILE_UNITS__URI, true);
-						if (basicProperty == null) {
-							throw new RuntimeException("Could not resolve BasicProperty 'real_other_file_units'.");
-						}
-						String name = basicProperty.getName();
-						if (!"real_other_file_units".equalsIgnoreCase(name)) {
-							throw new RuntimeException("Expected BasicProperty 'real_other_file_units', but found '" + name + "'.");
-						}
-						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setProperty(loadField(resourceSet, REAL_OTHER_FILE_UNITS__URI, REAL_OTHER_FILE_UNITS__NAME));
 						fieldAssociation.setOwnedValue(field.toPropertyExpression(resourceSet));
 					});
 					list1RealNoUnits.ifPresent(field -> {
 						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(LIST_1_REAL_NO_UNITS__URI, true);
-						if (basicProperty == null) {
-							throw new RuntimeException("Could not resolve BasicProperty 'list_1_real_no_units'.");
-						}
-						String name = basicProperty.getName();
-						if (!"list_1_real_no_units".equalsIgnoreCase(name)) {
-							throw new RuntimeException("Expected BasicProperty 'list_1_real_no_units', but found '" + name + "'.");
-						}
-						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setProperty(loadField(resourceSet, LIST_1_REAL_NO_UNITS__URI, LIST_1_REAL_NO_UNITS__NAME));
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field, element1 -> {
 							return element1.toPropertyExpression();
 						}));
 					});
 					list1RealOwnedUnits.ifPresent(field -> {
 						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(LIST_1_REAL_OWNED_UNITS__URI, true);
-						if (basicProperty == null) {
-							throw new RuntimeException("Could not resolve BasicProperty 'list_1_real_owned_units'.");
-						}
-						String name = basicProperty.getName();
-						if (!"list_1_real_owned_units".equalsIgnoreCase(name)) {
-							throw new RuntimeException("Expected BasicProperty 'list_1_real_owned_units', but found '" + name + "'.");
-						}
-						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setProperty(loadField(resourceSet, LIST_1_REAL_OWNED_UNITS__URI, LIST_1_REAL_OWNED_UNITS__NAME));
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field, element1 -> {
 							return element1.toPropertyExpression(resourceSet);
 						}));
 					});
 					list1RealSameFileUnits.ifPresent(field -> {
 						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(LIST_1_REAL_SAME_FILE_UNITS__URI, true);
-						if (basicProperty == null) {
-							throw new RuntimeException("Could not resolve BasicProperty 'list_1_real_same_file_units'.");
-						}
-						String name = basicProperty.getName();
-						if (!"list_1_real_same_file_units".equalsIgnoreCase(name)) {
-							throw new RuntimeException("Expected BasicProperty 'list_1_real_same_file_units', but found '" + name + "'.");
-						}
-						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setProperty(loadField(resourceSet, LIST_1_REAL_SAME_FILE_UNITS__URI, LIST_1_REAL_SAME_FILE_UNITS__NAME));
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field, element1 -> {
 							return element1.toPropertyExpression(resourceSet);
 						}));
 					});
 					list1RealOtherFileUnits.ifPresent(field -> {
 						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(LIST_1_REAL_OTHER_FILE_UNITS__URI, true);
-						if (basicProperty == null) {
-							throw new RuntimeException("Could not resolve BasicProperty 'list_1_real_other_file_units'.");
-						}
-						String name = basicProperty.getName();
-						if (!"list_1_real_other_file_units".equalsIgnoreCase(name)) {
-							throw new RuntimeException("Expected BasicProperty 'list_1_real_other_file_units', but found '" + name + "'.");
-						}
-						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setProperty(loadField(resourceSet, LIST_1_REAL_OTHER_FILE_UNITS__URI, LIST_1_REAL_OTHER_FILE_UNITS__NAME));
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field, element1 -> {
 							return element1.toPropertyExpression(resourceSet);
 						}));
@@ -1553,82 +1378,98 @@ class RangeTest {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
 					this.integerNoUnits.ifPresent(field -> {
-						builder.append("integer_no_units => ");
+						builder.append(INTEGER_NO_UNITS__NAME);
+						builder.append(" => ");
 						builder.append(field);
 						builder.append(';');
 					});
 					this.integerOwnedUnits.ifPresent(field -> {
-						builder.append("integer_owned_units => ");
+						builder.append(INTEGER_OWNED_UNITS__NAME);
+						builder.append(" => ");
 						builder.append(field);
 						builder.append(';');
 					});
 					this.integerSameFileUnits.ifPresent(field -> {
-						builder.append("integer_same_file_units => ");
+						builder.append(INTEGER_SAME_FILE_UNITS__NAME);
+						builder.append(" => ");
 						builder.append(field);
 						builder.append(';');
 					});
 					this.integerOtherFileUnits.ifPresent(field -> {
-						builder.append("integer_other_file_units => ");
+						builder.append(INTEGER_OTHER_FILE_UNITS__NAME);
+						builder.append(" => ");
 						builder.append(field);
 						builder.append(';');
 					});
 					this.list1IntegerNoUnits.ifPresent(field -> {
-						builder.append("list_1_integer_no_units => ");
+						builder.append(LIST_1_INTEGER_NO_UNITS__NAME);
+						builder.append(" => ");
 						builder.append(field.stream().map(Object::toString).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
 					this.list1IntegerOwnedUnits.ifPresent(field -> {
-						builder.append("list_1_integer_owned_units => ");
+						builder.append(LIST_1_INTEGER_OWNED_UNITS__NAME);
+						builder.append(" => ");
 						builder.append(field.stream().map(Object::toString).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
 					this.list1IntegerSameFileUnits.ifPresent(field -> {
-						builder.append("list_1_integer_same_file_units => ");
+						builder.append(LIST_1_INTEGER_SAME_FILE_UNITS__NAME);
+						builder.append(" => ");
 						builder.append(field.stream().map(Object::toString).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
 					this.list1IntegerOtherFileUnits.ifPresent(field -> {
-						builder.append("list_1_integer_other_file_units => ");
+						builder.append(LIST_1_INTEGER_OTHER_FILE_UNITS__NAME);
+						builder.append(" => ");
 						builder.append(field.stream().map(Object::toString).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
 					this.realNoUnits.ifPresent(field -> {
-						builder.append("real_no_units => ");
+						builder.append(REAL_NO_UNITS__NAME);
+						builder.append(" => ");
 						builder.append(field);
 						builder.append(';');
 					});
 					this.realOwnedUnits.ifPresent(field -> {
-						builder.append("real_owned_units => ");
+						builder.append(REAL_OWNED_UNITS__NAME);
+						builder.append(" => ");
 						builder.append(field);
 						builder.append(';');
 					});
 					this.realSameFileUnits.ifPresent(field -> {
-						builder.append("real_same_file_units => ");
+						builder.append(REAL_SAME_FILE_UNITS__NAME);
+						builder.append(" => ");
 						builder.append(field);
 						builder.append(';');
 					});
 					this.realOtherFileUnits.ifPresent(field -> {
-						builder.append("real_other_file_units => ");
+						builder.append(REAL_OTHER_FILE_UNITS__NAME);
+						builder.append(" => ");
 						builder.append(field);
 						builder.append(';');
 					});
 					this.list1RealNoUnits.ifPresent(field -> {
-						builder.append("list_1_real_no_units => ");
+						builder.append(LIST_1_REAL_NO_UNITS__NAME);
+						builder.append(" => ");
 						builder.append(field.stream().map(Object::toString).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
 					this.list1RealOwnedUnits.ifPresent(field -> {
-						builder.append("list_1_real_owned_units => ");
+						builder.append(LIST_1_REAL_OWNED_UNITS__NAME);
+						builder.append(" => ");
 						builder.append(field.stream().map(Object::toString).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
 					this.list1RealSameFileUnits.ifPresent(field -> {
-						builder.append("list_1_real_same_file_units => ");
+						builder.append(LIST_1_REAL_SAME_FILE_UNITS__NAME);
+						builder.append(" => ");
 						builder.append(field.stream().map(Object::toString).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
 					this.list1RealOtherFileUnits.ifPresent(field -> {
-						builder.append("list_1_real_other_file_units => ");
+						builder.append(LIST_1_REAL_OTHER_FILE_UNITS__NAME);
+						builder.append(" => ");
 						builder.append(field.stream().map(Object::toString).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});

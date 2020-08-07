@@ -733,7 +733,6 @@ class ModalTest {
 			import org.eclipse.emf.common.util.URI;
 			import org.eclipse.emf.ecore.resource.ResourceSet;
 			import org.osate.aadl2.Aadl2Factory;
-			import org.osate.aadl2.BasicProperty;
 			import org.osate.aadl2.BasicPropertyAssociation;
 			import org.osate.aadl2.ListValue;
 			import org.osate.aadl2.Mode;
@@ -743,12 +742,17 @@ class ModalTest {
 			import org.osate.aadl2.StringLiteral;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
+			import org.osate.pluginsupport.properties.GeneratedRecord;
 			
-			public class RecordDef1 {
-				private static final URI FIELD_1__URI = URI.createURI("__synthetic0.aadl#/0/@ownedProperty.23/@ownedPropertyType/@ownedField.0");
-				private static final URI FIELD_2__URI = URI.createURI("__synthetic0.aadl#/0/@ownedProperty.23/@ownedPropertyType/@ownedField.1");
-				private static final URI LIST_FIELD_1__URI = URI.createURI("__synthetic0.aadl#/0/@ownedProperty.23/@ownedPropertyType/@ownedField.2");
-				private static final URI LIST_FIELD_2__URI = URI.createURI("__synthetic0.aadl#/0/@ownedProperty.23/@ownedPropertyType/@ownedField.3");
+			public class RecordDef1 extends GeneratedRecord {
+				public static final String FIELD_1__NAME = "field_1";
+				public static final String FIELD_2__NAME = "field_2";
+				public static final String LIST_FIELD_1__NAME = "list_field_1";
+				public static final String LIST_FIELD_2__NAME = "list_field_2";
+				public static final URI FIELD_1__URI = URI.createURI("__synthetic0.aadl#/0/@ownedProperty.23/@ownedPropertyType/@ownedField.0");
+				public static final URI FIELD_2__URI = URI.createURI("__synthetic0.aadl#/0/@ownedProperty.23/@ownedPropertyType/@ownedField.1");
+				public static final URI LIST_FIELD_1__URI = URI.createURI("__synthetic0.aadl#/0/@ownedProperty.23/@ownedPropertyType/@ownedField.2");
+				public static final URI LIST_FIELD_2__URI = URI.createURI("__synthetic0.aadl#/0/@ownedProperty.23/@ownedPropertyType/@ownedField.3");
 				
 				private final Optional<String> field1;
 				private final Optional<String> field2;
@@ -772,14 +776,10 @@ class ModalTest {
 					
 					Optional<String> field1_local;
 					try {
-						field1_local = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("field_1"))
-								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-									return ((StringLiteral) resolved).getValue();
-								})
-								.findAny();
+						field1_local = findFieldValue(recordValue, FIELD_1__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return ((StringLiteral) resolved).getValue();
+						});
 					} catch (PropertyNotPresentException e) {
 						field1_local = Optional.empty();
 					}
@@ -787,14 +787,10 @@ class ModalTest {
 					
 					Optional<String> field2_local;
 					try {
-						field2_local = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("field_2"))
-								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-									return ((StringLiteral) resolved).getValue();
-								})
-								.findAny();
+						field2_local = findFieldValue(recordValue, FIELD_2__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return ((StringLiteral) resolved).getValue();
+						});
 					} catch (PropertyNotPresentException e) {
 						field2_local = Optional.empty();
 					}
@@ -802,17 +798,13 @@ class ModalTest {
 					
 					Optional<List<String>> listField1_local;
 					try {
-						listField1_local = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("list_field_1"))
-								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-									return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
-										PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
-										return ((StringLiteral) resolved1).getValue();
-									}).collect(Collectors.toList());
-								})
-								.findAny();
+						listField1_local = findFieldValue(recordValue, LIST_FIELD_1__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
+								return ((StringLiteral) resolved1).getValue();
+							}).collect(Collectors.toList());
+						});
 					} catch (PropertyNotPresentException e) {
 						listField1_local = Optional.empty();
 					}
@@ -820,20 +812,16 @@ class ModalTest {
 					
 					Optional<List<List<String>>> listField2_local;
 					try {
-						listField2_local = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("list_field_2"))
-								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-									return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
-										PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
-										return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
-											PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2, lookupContext, mode);
-											return ((StringLiteral) resolved2).getValue();
-										}).collect(Collectors.toList());
-									}).collect(Collectors.toList());
-								})
-								.findAny();
+						listField2_local = findFieldValue(recordValue, LIST_FIELD_2__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
+								return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
+									PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2, lookupContext, mode);
+									return ((StringLiteral) resolved2).getValue();
+								}).collect(Collectors.toList());
+							}).collect(Collectors.toList());
+						});
 					} catch (PropertyNotPresentException e) {
 						listField2_local = Optional.empty();
 					}
@@ -856,6 +844,7 @@ class ModalTest {
 					return listField2;
 				}
 				
+				@Override
 				public RecordValue toPropertyExpression(ResourceSet resourceSet) {
 					if (!field1.isPresent()
 							&& !field2.isPresent()
@@ -867,56 +856,24 @@ class ModalTest {
 					RecordValue recordValue = Aadl2Factory.eINSTANCE.createRecordValue();
 					field1.ifPresent(field -> {
 						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(FIELD_1__URI, true);
-						if (basicProperty == null) {
-							throw new RuntimeException("Could not resolve BasicProperty 'field_1'.");
-						}
-						String name = basicProperty.getName();
-						if (!"field_1".equalsIgnoreCase(name)) {
-							throw new RuntimeException("Expected BasicProperty 'field_1', but found '" + name + "'.");
-						}
-						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setProperty(loadField(resourceSet, FIELD_1__URI, FIELD_1__NAME));
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field));
 					});
 					field2.ifPresent(field -> {
 						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(FIELD_2__URI, true);
-						if (basicProperty == null) {
-							throw new RuntimeException("Could not resolve BasicProperty 'field_2'.");
-						}
-						String name = basicProperty.getName();
-						if (!"field_2".equalsIgnoreCase(name)) {
-							throw new RuntimeException("Expected BasicProperty 'field_2', but found '" + name + "'.");
-						}
-						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setProperty(loadField(resourceSet, FIELD_2__URI, FIELD_2__NAME));
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field));
 					});
 					listField1.ifPresent(field -> {
 						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(LIST_FIELD_1__URI, true);
-						if (basicProperty == null) {
-							throw new RuntimeException("Could not resolve BasicProperty 'list_field_1'.");
-						}
-						String name = basicProperty.getName();
-						if (!"list_field_1".equalsIgnoreCase(name)) {
-							throw new RuntimeException("Expected BasicProperty 'list_field_1', but found '" + name + "'.");
-						}
-						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setProperty(loadField(resourceSet, LIST_FIELD_1__URI, LIST_FIELD_1__NAME));
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field, element1 -> {
 							return CodeGenUtil.toPropertyExpression(element1);
 						}));
 					});
 					listField2.ifPresent(field -> {
 						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(LIST_FIELD_2__URI, true);
-						if (basicProperty == null) {
-							throw new RuntimeException("Could not resolve BasicProperty 'list_field_2'.");
-						}
-						String name = basicProperty.getName();
-						if (!"list_field_2".equalsIgnoreCase(name)) {
-							throw new RuntimeException("Expected BasicProperty 'list_field_2', but found '" + name + "'.");
-						}
-						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setProperty(loadField(resourceSet, LIST_FIELD_2__URI, LIST_FIELD_2__NAME));
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field, element1 -> {
 							return CodeGenUtil.toPropertyExpression(element1, element2 -> {
 								return CodeGenUtil.toPropertyExpression(element2);
@@ -956,24 +913,28 @@ class ModalTest {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
 					this.field1.ifPresent(field -> {
-						builder.append("field_1 => \"");
+						builder.append(FIELD_1__NAME);
+						builder.append(" => \"");
 						builder.append(field);
 						builder.append("\";");
 					});
 					this.field2.ifPresent(field -> {
-						builder.append("field_2 => \"");
+						builder.append(FIELD_2__NAME);
+						builder.append(" => \"");
 						builder.append(field);
 						builder.append("\";");
 					});
 					this.listField1.ifPresent(field -> {
-						builder.append("list_field_1 => ");
+						builder.append(LIST_FIELD_1__NAME);
+						builder.append(" => ");
 						builder.append(field.stream().map(element1 -> {
 							return '\"' + element1 + '\"';
 						}).collect(Collectors.joining(", ", "(", ")")));
 						builder.append(';');
 					});
 					this.listField2.ifPresent(field -> {
-						builder.append("list_field_2 => ");
+						builder.append(LIST_FIELD_2__NAME);
+						builder.append(" => ");
 						builder.append(field.stream().map(element1 -> {
 							return element1.stream().map(element2 -> {
 								return '\"' + element2 + '\"';
