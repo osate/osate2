@@ -5,7 +5,7 @@ Bundle-SymbolicName: org.osate.analysis.binpacking;singleton:=true
 Bundle-Version: 2.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.osate.analysis.binpacking.BinpackingPlugin
-Bundle-Vendor: CMU-SEI
+Bundle-Vendor: CMU/SEI
 Bundle-Localization: plugin
 Export-Package: EAnalysis.BinPacking,
  org.osate.analysis.binpacking,

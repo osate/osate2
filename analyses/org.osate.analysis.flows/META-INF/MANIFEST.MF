@@ -4,7 +4,7 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: org.osate.analysis.flows;singleton:=true
 Bundle-Version: 4.0.0.qualifier
 Bundle-Activator: org.osate.analysis.flows.FlowanalysisPlugin
-Bundle-Vendor: CMU-SEI
+Bundle-Vendor: CMU/SEI
 Bundle-Localization: plugin
 Bundle-ClassPath: ., lib/jxl.jar
 Export-Package: org.osate.analysis.flows,
