@@ -6,7 +6,7 @@ Bundle-Version: 3.0.0.qualifier
 Bundle-ClassPath: .,
  etc/antlr.jar
 Bundle-Activator: org.osate.core.OsateCorePlugin
-Bundle-Vendor: CMU-SEI
+Bundle-Vendor: CMU/SEI
 Bundle-Localization: plugin
 Export-Package:  antlr,
  antlr.actions.java,
