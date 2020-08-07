@@ -508,18 +508,22 @@ class PropertiesCodeGen {
 			"org.eclipse.emf.common.util.URI",
 			"org.eclipse.emf.ecore.resource.ResourceSet",
 			"org.osate.aadl2.Aadl2Factory",
-			"org.osate.aadl2.BasicProperty",
 			"org.osate.aadl2.BasicPropertyAssociation",
 			"org.osate.aadl2.Mode",
 			"org.osate.aadl2.NamedElement",
 			"org.osate.aadl2.PropertyExpression",
 			"org.osate.aadl2.RecordValue",
-			"org.osate.aadl2.properties.PropertyNotPresentException"
+			"org.osate.aadl2.properties.PropertyNotPresentException",
+			"org.osate.pluginsupport.properties.CodeGenUtil",
+			"org.osate.pluginsupport.properties.GeneratedRecord"
 		}
 		'''
-			public«IF !topLevel» static«ENDIF» class «typeName» {
+			public«IF !topLevel» static«ENDIF» class «typeName» extends GeneratedRecord {
 				«FOR field : recordType.ownedFields»
-				private static final URI «field.name.toUpperCase»__URI = URI.createURI("«field.URI»");
+				public static final String «field.name.toUpperCase»__NAME = "«field.name»";
+				«ENDFOR»
+				«FOR field : recordType.ownedFields»
+				public static final URI «field.name.toUpperCase»__URI = URI.createURI("«field.URI»");
 				«ENDFOR»
 				
 				«FOR field : recordType.ownedFields»
@@ -546,15 +550,21 @@ class PropertiesCodeGen {
 					«FOR field : recordType.ownedFields»
 					
 					«val fieldName = field.name.toCamelCase.toFirstLower»
-					«getGenericOptionalType(field.propertyType)» «fieldName»_local;
+					«val fieldType = field.propertyType»
+					«getGenericOptionalType(fieldType)» «fieldName»_local;
 					try {
-						«fieldName»_local = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("«field.name»"))
-								«getFieldValueExtractor(field)»
-								.findAny();
+						«fieldName»_local = findFieldValue(recordValue, «field.name.toUpperCase»__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return «getValueExtractor(fieldType, "resolved", 1)»;
+						«IF fieldType instanceof AadlInteger && (fieldType as AadlInteger).unitsType === null»
+						}).map(OptionalLong::of).orElse(OptionalLong.empty());
+						«ELSEIF fieldType instanceof AadlReal && (fieldType as AadlReal).unitsType === null»
+						}).map(OptionalDouble::of).orElse(OptionalDouble.empty());
+						«ELSE»
+						});
+						«ENDIF»
 					} catch (PropertyNotPresentException e) {
-						«fieldName»_local = «getBaseOptionalType(field.propertyType)».empty();
+						«fieldName»_local = «getBaseOptionalType(fieldType)».empty();
 					}
 					this.«fieldName» = «fieldName»_local;
 					«ENDFOR»
@@ -566,6 +576,7 @@ class PropertiesCodeGen {
 				}
 				«ENDFOR»
 				
+				@Override
 				public RecordValue toPropertyExpression(ResourceSet resourceSet) {
 					«IF recordType.ownedFields.size == 1»
 					if (!«recordType.ownedFields.head.name.toCamelCase.toFirstLower».isPresent()) {
@@ -580,17 +591,10 @@ class PropertiesCodeGen {
 					}
 					RecordValue recordValue = Aadl2Factory.eINSTANCE.createRecordValue();
 					«FOR field : recordType.ownedFields»
+					«val capitalized = field.name.toUpperCase»
 					«field.name.toCamelCase.toFirstLower».ifPresent(field -> {
 						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(«field.name.toUpperCase»__URI, true);
-						if (basicProperty == null) {
-							throw new RuntimeException("Could not resolve BasicProperty '«field.name»'.");
-						}
-						String name = basicProperty.getName();
-						if (!"«field.name»".equalsIgnoreCase(name)) {
-							throw new RuntimeException("Expected BasicProperty '«field.name»', but found '" + name + "'.");
-						}
-						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setProperty(loadField(resourceSet, «capitalized»__URI, «capitalized»__NAME));
 						fieldAssociation.setOwnedValue(«getValueCreator(field.propertyType, "field", 1)»);
 					});
 					«ENDFOR»
@@ -638,7 +642,8 @@ class PropertiesCodeGen {
 					builder.append('[');
 					«FOR field : recordType.ownedFields»
 					this.«field.name.toCamelCase.toFirstLower».ifPresent(field -> {
-						builder.append("«field.name» => «getStringPrefix(field.propertyType)»");
+						builder.append(«field.name.toUpperCase»__NAME);
+						builder.append(" => «getStringPrefix(field.propertyType)»");
 						builder.append(«getStringBody(field.propertyType)»);
 						builder.append(«getStringPostfix(field.propertyType)»);
 					});
@@ -651,22 +656,6 @@ class PropertiesCodeGen {
 				«fieldType»
 				«ENDFOR»
 			}
-		'''
-	}
-	
-	def private String getFieldValueExtractor(BasicProperty field) {
-		imports += #{"org.osate.aadl2.PropertyExpression", "org.osate.pluginsupport.properties.CodeGenUtil"}
-		val propertyType = field.propertyType
-		val mapMethod = switch propertyType {
-			AadlInteger case propertyType.unitsType === null: "mapToLong"
-			AadlReal case propertyType.unitsType === null: "mapToDouble"
-			default: "map"
-		}
-		'''
-			.«mapMethod»(field -> {
-				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-				return «getValueExtractor(propertyType, "resolved", 1)»;
-			})
 		'''
 	}
 	

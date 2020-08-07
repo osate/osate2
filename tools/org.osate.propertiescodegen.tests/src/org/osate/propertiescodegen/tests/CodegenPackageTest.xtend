@@ -152,7 +152,6 @@ class CodegenPackageTest {
 			import org.eclipse.emf.common.util.URI;
 			import org.eclipse.emf.ecore.resource.ResourceSet;
 			import org.osate.aadl2.Aadl2Factory;
-			import org.osate.aadl2.BasicProperty;
 			import org.osate.aadl2.BasicPropertyAssociation;
 			import org.osate.aadl2.BooleanLiteral;
 			import org.osate.aadl2.Mode;
@@ -161,9 +160,11 @@ class CodegenPackageTest {
 			import org.osate.aadl2.RecordValue;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
+			import org.osate.pluginsupport.properties.GeneratedRecord;
 			
-			public class RecordType {
-				private static final URI BOOL__URI = URI.createURI("__synthetic0.aadl#/0/@ownedPropertyType.1/@ownedField.0");
+			public class RecordType extends GeneratedRecord {
+				public static final String BOOL__NAME = "bool";
+				public static final URI BOOL__URI = URI.createURI("__synthetic0.aadl#/0/@ownedPropertyType.1/@ownedField.0");
 				
 				private final Optional<Boolean> bool;
 				
@@ -176,14 +177,10 @@ class CodegenPackageTest {
 					
 					Optional<Boolean> bool_local;
 					try {
-						bool_local = recordValue.getOwnedFieldValues()
-								.stream()
-								.filter(field -> field.getProperty().getName().equals("bool"))
-								.map(field -> {
-									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
-									return ((BooleanLiteral) resolved).getValue();
-								})
-								.findAny();
+						bool_local = findFieldValue(recordValue, BOOL__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return ((BooleanLiteral) resolved).getValue();
+						});
 					} catch (PropertyNotPresentException e) {
 						bool_local = Optional.empty();
 					}
@@ -194,6 +191,7 @@ class CodegenPackageTest {
 					return bool;
 				}
 				
+				@Override
 				public RecordValue toPropertyExpression(ResourceSet resourceSet) {
 					if (!bool.isPresent()) {
 						throw new IllegalStateException("Record must have at least one field set.");
@@ -201,15 +199,7 @@ class CodegenPackageTest {
 					RecordValue recordValue = Aadl2Factory.eINSTANCE.createRecordValue();
 					bool.ifPresent(field -> {
 						BasicPropertyAssociation fieldAssociation = recordValue.createOwnedFieldValue();
-						BasicProperty basicProperty = (BasicProperty) resourceSet.getEObject(BOOL__URI, true);
-						if (basicProperty == null) {
-							throw new RuntimeException("Could not resolve BasicProperty 'bool'.");
-						}
-						String name = basicProperty.getName();
-						if (!"bool".equalsIgnoreCase(name)) {
-							throw new RuntimeException("Expected BasicProperty 'bool', but found '" + name + "'.");
-						}
-						fieldAssociation.setProperty(basicProperty);
+						fieldAssociation.setProperty(loadField(resourceSet, BOOL__URI, BOOL__NAME));
 						fieldAssociation.setOwnedValue(CodeGenUtil.toPropertyExpression(field));
 					});
 					return recordValue;
@@ -237,7 +227,8 @@ class CodegenPackageTest {
 					StringBuilder builder = new StringBuilder();
 					builder.append('[');
 					this.bool.ifPresent(field -> {
-						builder.append("bool => ");
+						builder.append(BOOL__NAME);
+						builder.append(" => ");
 						builder.append(field);
 						builder.append(';');
 					});
