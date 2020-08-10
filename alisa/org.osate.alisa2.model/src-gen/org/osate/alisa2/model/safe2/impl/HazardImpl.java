@@ -45,6 +45,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
  *   <li>{@link org.osate.alisa2.model.safe2.impl.HazardImpl#getHazardousFactor <em>Hazardous Factor</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.impl.HazardImpl#getErrorType <em>Error Type</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.impl.HazardImpl#getSystemState <em>System State</em>}</li>
+ *   <li>{@link org.osate.alisa2.model.safe2.impl.HazardImpl#getEnvironmentState <em>Environment State</em>}</li>
  * </ul>
  *
  * @generated
@@ -169,6 +170,16 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * @ordered
 	 */
 	protected ErrorBehaviorState systemState;
+
+	/**
+	 * The cached value of the '{@link #getEnvironmentState() <em>Environment State</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEnvironmentState()
+	 * @generated
+	 * @ordered
+	 */
+	protected ErrorBehaviorState environmentState;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -492,6 +503,46 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public ErrorBehaviorState getEnvironmentState() {
+		if (environmentState != null && environmentState.eIsProxy()) {
+			InternalEObject oldEnvironmentState = (InternalEObject)environmentState;
+			environmentState = (ErrorBehaviorState)eResolveProxy(oldEnvironmentState);
+			if (environmentState != oldEnvironmentState) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Safe2Package.HAZARD__ENVIRONMENT_STATE, oldEnvironmentState, environmentState));
+			}
+		}
+		return environmentState;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ErrorBehaviorState basicGetEnvironmentState() {
+		return environmentState;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setEnvironmentState(ErrorBehaviorState newEnvironmentState) {
+		ErrorBehaviorState oldEnvironmentState = environmentState;
+		environmentState = newEnvironmentState;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Safe2Package.HAZARD__ENVIRONMENT_STATE, oldEnvironmentState, environmentState));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -568,6 +619,9 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 			case Safe2Package.HAZARD__SYSTEM_STATE:
 				if (resolve) return getSystemState();
 				return basicGetSystemState();
+			case Safe2Package.HAZARD__ENVIRONMENT_STATE:
+				if (resolve) return getEnvironmentState();
+				return basicGetEnvironmentState();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -613,6 +667,9 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 			case Safe2Package.HAZARD__SYSTEM_STATE:
 				setSystemState((ErrorBehaviorState)newValue);
 				return;
+			case Safe2Package.HAZARD__ENVIRONMENT_STATE:
+				setEnvironmentState((ErrorBehaviorState)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -655,6 +712,9 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 			case Safe2Package.HAZARD__SYSTEM_STATE:
 				setSystemState((ErrorBehaviorState)null);
 				return;
+			case Safe2Package.HAZARD__ENVIRONMENT_STATE:
+				setEnvironmentState((ErrorBehaviorState)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -687,6 +747,8 @@ public class HazardImpl extends MinimalEObjectImpl.Container implements Hazard {
 				return errorType != null;
 			case Safe2Package.HAZARD__SYSTEM_STATE:
 				return systemState != null;
+			case Safe2Package.HAZARD__ENVIRONMENT_STATE:
+				return environmentState != null;
 		}
 		return super.eIsSet(featureID);
 	}

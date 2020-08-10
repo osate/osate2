@@ -23,7 +23,8 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference safe2.ecore#//Hazard/systemElement"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute safe2.ecore#//Hazard/hazardousFactor"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference safe2.ecore#//Hazard/errorType"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference safe2.ecore#//Hazard/SystemState"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference safe2.ecore#//Hazard/systemState"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference safe2.ecore#//Hazard/environmentState"/>
     </genClasses>
     <genClasses ecoreClass="safe2.ecore#//AccidentLevel">
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference safe2.ecore#//AccidentLevel/accident"/>
