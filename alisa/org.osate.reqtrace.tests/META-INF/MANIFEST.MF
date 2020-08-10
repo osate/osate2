@@ -34,4 +34,5 @@ Require-Bundle: org.eclipse.ui,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.osate.reqtrace.tests
+Bundle-Vendor: CMU/SEI
 
