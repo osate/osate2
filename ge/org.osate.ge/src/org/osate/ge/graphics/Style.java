@@ -29,7 +29,7 @@ import org.eclipse.core.runtime.IPath;
 
 public class Style {
 	public static final Style EMPTY = StyleBuilder.create().build();
-	public final static Style DEFAULT = StyleBuilder.create().backgroundColor(Color.WHITE).foregroundColor(Color.BLACK)
+	public static final Style DEFAULT = StyleBuilder.create().backgroundColor(Color.WHITE).foregroundColor(Color.BLACK)
 			.fontSize(10.0).lineWidth(2.0)
 			.lineStyle(LineStyle.SOLID).labelsHorizontalPosition(LabelPosition.GRAPHIC_BEGINNING)
 			.primaryLabelVisible(true)
