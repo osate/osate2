@@ -25,13 +25,10 @@ package org.osate.ui.internal.instantiate;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -66,7 +63,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
-import org.eclipse.ui.ide.IDE;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.label.AbstractLabelProvider;
 import org.eclipse.xtext.ui.resource.XtextResourceSetProvider;
@@ -80,7 +76,6 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.modelsupport.EObjectURIWrapper;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.core.AadlNature;
 import org.osate.core.OsateCorePlugin;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.UiUtil;
@@ -91,69 +86,38 @@ import com.google.inject.Inject;
 /**
  * @since 3.0
  */
-public final class InstantiationEngine {
-	private final List<?> selectionAsList;
-
+public final class InstantiationEngine2 extends AbstractInstantiationEngine<ComponentImplementation> {
 	// XXX: Revisit the dialog box in getComponentImplsFromSelection
 
-	// XXX: Don't need this for reinstantiate
 	@Inject
 	private XtextResourceSetProvider resourceSetProvider;
 
-	public InstantiationEngine(final List<?> selectionAsList) {
+	public InstantiationEngine2(final List<?> selectionAsList) {
+		super(selectionAsList);
 		Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2).injectMembers(this);
-
-		this.selectionAsList = selectionAsList;
 	}
 
-	/**
-	 * Instantiate models based on the selected items.  Blocks the current job/thread until it is finished, so this should
-	 * not be called from the ui thread.
-	 *
-	 * XXX: Needs to return ok or cancel status
-	 *
-	 * XXX: Needs to return the list of successfully instantiated models
-	 *
-	 * XXX: Say something about the abstract methods here
-	 */
-	public List<SystemInstance> instantiate() {
-		final Set<ComponentImplementation> selectedCompImplsSet = getComponentImplsFromSelection(selectionAsList);
-		final int size = selectedCompImplsSet.size();
-
-		boolean cancelled = false;
-
-		if (size > 0) {
-			/*
-			 * This map is shared by all the jobs to build the set of results. It is created here,
-			 * given to all the jobs, and then used to build te final method result.
-			 */
-			final Map<ComponentImplementation, InternalJobResult> results = new ConcurrentHashMap<>(size);
-
-			final List<ComponentImplementation> selectedCompImpls = new ArrayList<>(size);
-			final List<IFile> outputFiles = new ArrayList<>(size);
-			final Set<IFolder> outputFolders = new HashSet<>();
-
-			final IResourceRuleFactory factory = ResourcesPlugin.getWorkspace().getRuleFactory();
+	@Override
+	protected PrereqHelper getPrereqHelper(final int size, final IResourceRuleFactory ruleFactory) {
+		return new PrereqHelper() {
+			private final List<ComponentImplementation> selectedCompImpls = new ArrayList<>(size);
+			private final List<IFile> outputFiles = new ArrayList<>(size);
+			private final Set<IFolder> outputFolders = new HashSet<>();
 			ISchedulingRule prereqRule = null;
 
-			for (final ComponentImplementation impl : selectedCompImplsSet) {
-				selectedCompImpls.add(impl);
-				final IFile outputFile = OsateResourceUtil.toIFile(InstantiateModel.getInstanceModelURI(impl));
+			@Override
+			public void handleInput(final ComponentImplementation input) {
+				selectedCompImpls.add(input);
+				final IFile outputFile = OsateResourceUtil.toIFile(InstantiateModel.getInstanceModelURI(input));
 				outputFiles.add(outputFile);
-				final IFolder outputFolder = (IFolder) outputFile.getParent(); // N.B. We KNOW there is an "Instances" folder above the .aaxl file
+				// N.B. We KNOW there is an "Instances" folder above the .aaxl file
+				final IFolder outputFolder = (IFolder) outputFile.getParent();
 				outputFolders.add(outputFolder);
-				prereqRule = MultiRule.combine(prereqRule, factory.createRule(outputFolder));
-				/*
-				 * Init each result as cancelled because if the job is cancelled before it starts, it will never
-				 * add a new result record to the map. This way those jobs that never run are accounted for.
-				 */
-				results.put(impl, InternalJobResult.NOT_EXECUTED);
+				prereqRule = MultiRule.combine(prereqRule, ruleFactory.createRule(outputFolder));
 			}
 
-			/* Make sure the resources are saved if they are open in an editor */
-			if (!saveDirtyEditors()) {
-				cancelled = true;
-			} else {
+			@Override
+			public boolean performPrereqs() {
 				/*
 				 * Make sure all the output folders exists before hand. Could add the folder creation rules to the
 				 * jobs below, but they would limit the parallelism too much. So we create them atomically here first,
@@ -178,62 +142,31 @@ public final class InstantiationEngine {
 								"Exception starting model instantiation, see the error log: " + e.getMessage());
 					});
 				}
-
-				if (!prereqFailed) {
-					final JobGroup jobGroup = new JobGroup("Instantiation", 0, 0);
-					final Job myJobs[] = new Job[size];
-					for (int i = 0; i < size; i++) {
-						final IFile outputFile = outputFiles.get(i);
-						final Job job = new InstantiationJob(selectedCompImpls.get(i), outputFile, results);
-						/*
-						 * NB. According to <https://www.eclipse.org/articles/Article-Concurrency/jobs-api.html> locking
-						 * is only needed for modification, not for reading from resources. This seems sketchy to me
-						 * but I'm going to go with it. Readers are supposed to written defensively, to expect that
-						 * things might go wonky.
-						 *
-						 * We create and possibly remove the aaxl file in the case of errors.
-						 */
-						job.setRule(MultiRule.combine(factory.createRule(outputFile), factory.deleteRule(outputFile)));
-						job.setUser(true);
-						job.setJobGroup(jobGroup);
-						myJobs[i] = job;
-					}
-
-					final Job resultJob = new ResultJob(jobGroup, results);
-					resultJob.setRule(null); // doesn't use resources
-					resultJob.setUser(false); // background helper job, don't let the user see it
-					resultJob.setSystem(true); // background helper job, don't let the user see it
-					resultJob.schedule();
-
-					// now launch the main jobs
-					for (final Job job : myJobs) {
-						job.schedule();
-					}
-
-					// Wait for the whole thing to complete
-					try {
-						resultJob.join();
-					} catch (final InterruptedException e) {
-						cancelled = true;
-					}
-				}
+				return !prereqFailed;
 			}
 
-			if (cancelled) {
-				return Collections.emptyList();
-			} else {
-				final List<SystemInstance> successfullyInstantiated = new ArrayList<>(size);
-				for (final InternalJobResult ijr : results.values()) {
-					if (ijr.systemInstance != null) {
-						successfullyInstantiated.add(ijr.systemInstance);
-					}
-				}
-				return Collections.unmodifiableList(successfullyInstantiated);
+			@Override
+			public Job getJob(final int i, final Map<ComponentImplementation, InternalJobResult> results) {
+				final IFile outputFile = outputFiles.get(i);
+				final Job job = new InstantiationJob(selectedCompImpls.get(i), outputFile, results);
+				/*
+				 * NB. According to <https://www.eclipse.org/articles/Article-Concurrency/jobs-api.html> locking
+				 * is only needed for modification, not for reading from resources. This seems sketchy to me
+				 * but I'm going to go with it. Readers are supposed to written defensively, to expect that
+				 * things might go wonky.
+				 *
+				 * We create and possibly remove the aaxl file in the case of errors.
+				 */
+				job.setRule(MultiRule.combine(ruleFactory.createRule(outputFile), ruleFactory.deleteRule(outputFile)));
+				return job;
 			}
-		}
+		};
+	}
 
-		// Nothing was selected, so we didn't do anything
-		return Collections.emptyList();
+	@Override
+	protected Job getResultJob(final JobGroup instantiationJobs,
+			final Map<ComponentImplementation, InternalJobResult> results) {
+		return new ResultJob(instantiationJobs, results);
 	}
 
 	private static final class InstantiationJob extends WorkspaceJob {
@@ -348,7 +281,8 @@ public final class InstantiationEngine {
 		}
 	}
 
-	private Set<ComponentImplementation> getComponentImplsFromSelection(final List<?> selectionAsList) {
+	@Override
+	protected Set<ComponentImplementation> getInputsFromSelection(final List<?> selectionAsList) {
 		final Set<ComponentImplementation> ciSet = new HashSet<>();
 		final List<ComponentImplementation> fromAadl = new ArrayList<>();
 
@@ -496,27 +430,5 @@ public final class InstantiationEngine {
 				ciList.add((ComponentImplementation) c);
 			}
 		}
-	}
-
-	/**
-	 * Ask to save all the dirty editors that belong to open AADL projects.
-	 * @return {@code true} If the action should continue; {@code false} if the user
-	 * selected the cancel option in the save dialog.
-	 */
-	protected boolean saveDirtyEditors() {
-		/* Find all the open AADL projects */
-		final IProject[] allProjects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
-		final List<IProject> openAADLProjects = new ArrayList<>(allProjects.length);
-		for (final IProject project : allProjects) {
-			if (project.isOpen() && AadlNature.hasNature(project)) {
-				openAADLProjects.add(project);
-			}
-		}
-
-		final AtomicBoolean result = new AtomicBoolean();
-		PlatformUI.getWorkbench().getDisplay().syncExec(() -> {
-			result.set(IDE.saveAllEditors(openAADLProjects.toArray(new IProject[openAADLProjects.size()]), true));
-		});
-		return result.get();
 	}
 }
