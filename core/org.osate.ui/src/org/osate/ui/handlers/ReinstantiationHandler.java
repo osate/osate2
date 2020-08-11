@@ -24,40 +24,16 @@
 package org.osate.ui.handlers;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResourceRuleFactory;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.resources.WorkspaceJob;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.core.runtime.jobs.JobGroup;
-import org.eclipse.core.runtime.jobs.MultiRule;
-import org.eclipse.ui.IWorkingSet;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.instantiation.InstantiateModel;
-import org.osate.aadl2.instantiation.RootMissingException;
-import org.osate.core.AadlNature;
-import org.osate.core.OsateCorePlugin;
-import org.osate.ui.OsateUiPlugin;
-import org.osate.ui.dialogs.InstantiationResultsDialog;
-import org.osate.workspace.WorkspacePlugin;
+import org.osate.ui.internal.instantiate.ReinstantiationEngine;
 
 /**
  * @since 3.0
@@ -93,208 +69,224 @@ public final class ReinstantiationHandler extends AbstractMultiJobHandler {
 
 		@Override
 		protected IStatus run(final IProgressMonitor monitor) {
-			final List<IFile> aaxlFiles = findAllInstanceFiles(selectionAsList);
-			final int size = aaxlFiles.size();
-
-			/*
-			 * This map is shared by all the jobs to build the set of results. It is created here,
-			 * given to all the jobs, and then forgotten.
-			 */
-			final Map<IFile, Result> results = new ConcurrentHashMap<>(size);
-
-			for (final IFile modelFile : aaxlFiles) {
-				/*
-				 * Init each result as cancelled because if the job is cancelled before it starts, it will never
-				 * add a new result record to the map. This way those jobs that never run are accounted for.
-				 */
-				results.put(modelFile, Result.NOT_EXECUTED);
-			}
-
-			/* Make sure the aadl files are saved if they are open in an editor */
-			if (!saveDirtyEditors()) {
-				return Status.CANCEL_STATUS;
-			}
-
-			final IResourceRuleFactory factory = ResourcesPlugin.getWorkspace().getRuleFactory();
-			final JobGroup jobGroup = new JobGroup("Reinstantiation", 0, 0);
-			final Job myJobs[] = new Job[size];
-			for (int i = 0; i < size; i++) {
-				final IFile aaxlFile = aaxlFiles.get(i);
-				final Job job = new ReinstantiationJob(aaxlFile, results);
-				/*
-				 * NB. According to <https://www.eclipse.org/articles/Article-Concurrency/jobs-api.html> locking
-				 * is only needed for modification, not for reading from resources. This seems sketchy to me
-				 * but I'm going to go with it. Readers are supposed to written defensively, to expect that
-				 * things might go wonky.
-				 *
-				 * We create and possibly remove the aaxl file in the case of errors.
-				 */
-				job.setRule(MultiRule.combine(factory.modifyRule(aaxlFile), factory.deleteRule(aaxlFile)));
-				job.setUser(true);
-				job.setJobGroup(jobGroup);
-				myJobs[i] = job;
-			}
-
-			final Job resultJob = new ResultJob(jobGroup, results);
-			resultJob.setRule(null); // doesn't use resources
-			resultJob.setUser(false); // background helper job, don't let the user see it
-			resultJob.setSystem(true); // background helper job, don't let the user see it
-			resultJob.schedule();
-
-			// now launch the main jobs
-			for (final Job job : myJobs) {
-				job.schedule();
-			}
-
+			final ReinstantiationEngine engine = new ReinstantiationEngine(selectionAsList);
+			engine.instantiate();
 			return Status.OK_STATUS;
 		}
 	}
 
-	private static List<IFile> findAllInstanceFiles(final Collection<?> rsrcs) {
-		final List<IFile> instanceFiles = new ArrayList<>();
-		findAllInstanceFiles(rsrcs.toArray(new Object[rsrcs.size()]), instanceFiles);
-		// remove duplicates
-		return instanceFiles.stream().distinct().collect(Collectors.toList());
-	}
-
-	private static void findAllInstanceFiles(final Object[] rsrcs, final List<IFile> instanceFiles) {
-		for (final Object rsrc : rsrcs) {
-			if (rsrc instanceof IWorkingSet) {
-				findAllInstanceFiles(((IWorkingSet) rsrc).getElements(), instanceFiles);
-			} else if (rsrc instanceof IFile) {
-				final IFile file = (IFile) rsrc;
-				final String ext = file.getFileExtension();
-				if (ext.equals(WorkspacePlugin.INSTANCE_FILE_EXT)) {
-					instanceFiles.add(file);
-				}
-			} else if (rsrc instanceof IContainer) {
-				final IContainer container = (IContainer) rsrc;
-				if (container instanceof IProject) {
-					final IProject project = (IProject) container;
-					if (!project.isOpen() || !AadlNature.hasNature(project)) {
-						// Project is closed or is not an AADL project, so ignore it
-						continue;
-					}
-				}
-
-				if (!container.getName().startsWith(".")) {
-					try {
-						findAllInstanceFiles(container.members(), instanceFiles);
-					} catch (CoreException e) {
-						WorkspacePlugin.log(e);
-					}
-				}
-			}
-		}
-	}
-
-	private final class ReinstantiationJob extends WorkspaceJob {
-		private final IFile modelFile;
-		private final Map<IFile, Result> results;
-
-		public ReinstantiationJob(final IFile modelFile, final Map<IFile, Result> results) {
-			super("Reinstantiate " + modelFile.getName());
-			this.modelFile = modelFile;
-			this.results = results;
-		}
-
-		@Override
-		public IStatus runInWorkspace(final IProgressMonitor monitor) {
-			final SubMonitor subMonitor = SubMonitor.convert(monitor, 1);
-
-			/*
-			 * Error handling in buildIntanceModel is complicated and probably should not be handled the
-			 * way it is, but I don't want to fix that right now, so we are going to capture all the information
-			 * we can from it and display it to the user at the end of the operation.
-			 */
-			boolean successful = false;
-			String errorMessage = null;
-			Exception exception = null;
-			boolean cancelled = false;
-
-			boolean delete = false;
-			try {
-				final SystemInstance instance = InstantiateModel.rebuildInstanceModelFile(modelFile,
-						subMonitor.split(1));
-				successful = instance != null;
-				errorMessage = InstantiateModel.getErrorMessage();
-				delete = !successful;
-			} catch (final InterruptedException | OperationCanceledException e) {
-				// Instantiation was canceled by the user.
-				cancelled = true;
-				delete = true;
-			} catch (final RootMissingException e) {
-				successful = false;
-				errorMessage = "Root component implementation declaration no longer exists; instance model removed";
-				delete = true;
-			} catch (final Exception e) {
-				OsateUiPlugin.log(e);
-				successful = false;
-				exception = e;
-				delete = true;
-			}
-
-			if (delete) {
-				// Remove the partially instantiated resource
-				try {
-					if (modelFile.exists()) {
-						modelFile.delete(0, null);
-					}
-				} catch (final CoreException ce) {
-					System.out.println();
-					// eat it
-				}
-			}
-
-			final Result result = new Result(successful, cancelled, errorMessage, exception);
-			results.put(modelFile, result);
-
-			return cancelled ? Status.CANCEL_STATUS : Status.OK_STATUS;
-		}
-	}
-
-	private static final class ResultJob extends Job {
-		private final JobGroup instantiationJobs;
-		private final Map<IFile, Result> results;
-
-		public ResultJob(final JobGroup intantiationJob, final Map<IFile, Result> results) {
-			super("Instantiation Result Job (hidden)");
-			this.instantiationJobs = intantiationJob;
-			this.results = results;
-		}
-
-		@Override
-		public IStatus run(final IProgressMonitor monitor) {
-			// Wait for the instantiation jobs to finish
-			boolean cancelled = false;
-			try {
-				instantiationJobs.join(0L, null);
-
-				/* User can suppress the dialog if all the results are successful */
-				if (OsateCorePlugin.getDefault().getAlwaysShowInstantiationResults()
-						|| !Result.allSuccessful(results.values())) {
-					/* Get the results and display them */
-					PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
-						final InstantiationResultsDialog<?> d = new InstantiationResultsDialog<IFile>(
-								PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Reinstantiation",
-								"Instance Model", modelFile -> modelFile.getFullPath().toString(), results,
-								OsateCorePlugin.getDefault().getPreferenceStore());
-						d.open();
-					});
-				}
-			} catch (final InterruptedException | OperationCanceledException e) {
-				/*
-				 * InterruptedException thrown if we are somehow cancelled. Not sure if
-				 * or how this can happen, but if it does, just give up.
-				 *
-				 * OperationCancelledException is thrown if the progress monitor given
-				 * to join() is cancelled, but we didn't give it one, so it should
-				 * never occur.
-				 */
-				cancelled = true;
-			}
-
-			return cancelled ? Status.CANCEL_STATUS : Status.OK_STATUS;
-		}
-	}
+//	private final class KickoffJob extends Job {
+//		private final List<?> selectionAsList;
+//
+//		public KickoffJob(final List<?> selectionAsList) {
+//			super("Reinstantiation Handler (hidden)");
+//			this.selectionAsList = selectionAsList;
+//		}
+//
+//		@Override
+//		protected IStatus run(final IProgressMonitor monitor) {
+//			final List<IFile> aaxlFiles = findAllInstanceFiles(selectionAsList);
+//			final int size = aaxlFiles.size();
+//
+//			/*
+//			 * This map is shared by all the jobs to build the set of results. It is created here,
+//			 * given to all the jobs, and then forgotten.
+//			 */
+//			final Map<IFile, Result> results = new ConcurrentHashMap<>(size);
+//
+//			for (final IFile modelFile : aaxlFiles) {
+//				/*
+//				 * Init each result as cancelled because if the job is cancelled before it starts, it will never
+//				 * add a new result record to the map. This way those jobs that never run are accounted for.
+//				 */
+//				results.put(modelFile, Result.NOT_EXECUTED);
+//			}
+//
+//			/* Make sure the aadl files are saved if they are open in an editor */
+//			if (!saveDirtyEditors()) {
+//				return Status.CANCEL_STATUS;
+//			}
+//
+//			final IResourceRuleFactory factory = ResourcesPlugin.getWorkspace().getRuleFactory();
+//			final JobGroup jobGroup = new JobGroup("Reinstantiation", 0, 0);
+//			final Job myJobs[] = new Job[size];
+//			for (int i = 0; i < size; i++) {
+//				final IFile aaxlFile = aaxlFiles.get(i);
+//				final Job job = new ReinstantiationJob(aaxlFile, results);
+//				/*
+//				 * NB. According to <https://www.eclipse.org/articles/Article-Concurrency/jobs-api.html> locking
+//				 * is only needed for modification, not for reading from resources. This seems sketchy to me
+//				 * but I'm going to go with it. Readers are supposed to written defensively, to expect that
+//				 * things might go wonky.
+//				 *
+//				 * We create and possibly remove the aaxl file in the case of errors.
+//				 */
+//				job.setRule(MultiRule.combine(factory.modifyRule(aaxlFile), factory.deleteRule(aaxlFile)));
+//				job.setUser(true);
+//				job.setJobGroup(jobGroup);
+//				myJobs[i] = job;
+//			}
+//
+//			final Job resultJob = new ResultJob(jobGroup, results);
+//			resultJob.setRule(null); // doesn't use resources
+//			resultJob.setUser(false); // background helper job, don't let the user see it
+//			resultJob.setSystem(true); // background helper job, don't let the user see it
+//			resultJob.schedule();
+//
+//			// now launch the main jobs
+//			for (final Job job : myJobs) {
+//				job.schedule();
+//			}
+//
+//			return Status.OK_STATUS;
+//		}
+//	}
+//
+//	private static List<IFile> findAllInstanceFiles(final Collection<?> rsrcs) {
+//		final List<IFile> instanceFiles = new ArrayList<>();
+//		findAllInstanceFiles(rsrcs.toArray(new Object[rsrcs.size()]), instanceFiles);
+//		// remove duplicates
+//		return instanceFiles.stream().distinct().collect(Collectors.toList());
+//	}
+//
+//	private static void findAllInstanceFiles(final Object[] rsrcs, final List<IFile> instanceFiles) {
+//		for (final Object rsrc : rsrcs) {
+//			if (rsrc instanceof IWorkingSet) {
+//				findAllInstanceFiles(((IWorkingSet) rsrc).getElements(), instanceFiles);
+//			} else if (rsrc instanceof IFile) {
+//				final IFile file = (IFile) rsrc;
+//				final String ext = file.getFileExtension();
+//				if (ext.equals(WorkspacePlugin.INSTANCE_FILE_EXT)) {
+//					instanceFiles.add(file);
+//				}
+//			} else if (rsrc instanceof IContainer) {
+//				final IContainer container = (IContainer) rsrc;
+//				if (container instanceof IProject) {
+//					final IProject project = (IProject) container;
+//					if (!project.isOpen() || !AadlNature.hasNature(project)) {
+//						// Project is closed or is not an AADL project, so ignore it
+//						continue;
+//					}
+//				}
+//
+//				if (!container.getName().startsWith(".")) {
+//					try {
+//						findAllInstanceFiles(container.members(), instanceFiles);
+//					} catch (CoreException e) {
+//						WorkspacePlugin.log(e);
+//					}
+//				}
+//			}
+//		}
+//	}
+//
+//	private final class ReinstantiationJob extends WorkspaceJob {
+//		private final IFile modelFile;
+//		private final Map<IFile, Result> results;
+//
+//		public ReinstantiationJob(final IFile modelFile, final Map<IFile, Result> results) {
+//			super("Reinstantiate " + modelFile.getName());
+//			this.modelFile = modelFile;
+//			this.results = results;
+//		}
+//
+//		@Override
+//		public IStatus runInWorkspace(final IProgressMonitor monitor) {
+//			final SubMonitor subMonitor = SubMonitor.convert(monitor, 1);
+//
+//			/*
+//			 * Error handling in buildIntanceModel is complicated and probably should not be handled the
+//			 * way it is, but I don't want to fix that right now, so we are going to capture all the information
+//			 * we can from it and display it to the user at the end of the operation.
+//			 */
+//			boolean successful = false;
+//			String errorMessage = null;
+//			Exception exception = null;
+//			boolean cancelled = false;
+//
+//			boolean delete = false;
+//			try {
+//				final SystemInstance instance = InstantiateModel.rebuildInstanceModelFile(modelFile,
+//						subMonitor.split(1));
+//				successful = instance != null;
+//				errorMessage = InstantiateModel.getErrorMessage();
+//				delete = !successful;
+//			} catch (final InterruptedException | OperationCanceledException e) {
+//				// Instantiation was canceled by the user.
+//				cancelled = true;
+//				delete = true;
+//			} catch (final RootMissingException e) {
+//				successful = false;
+//				errorMessage = "Root component implementation declaration no longer exists; instance model removed";
+//				delete = true;
+//			} catch (final Exception e) {
+//				OsateUiPlugin.log(e);
+//				successful = false;
+//				exception = e;
+//				delete = true;
+//			}
+//
+//			if (delete) {
+//				// Remove the partially instantiated resource
+//				try {
+//					if (modelFile.exists()) {
+//						modelFile.delete(0, null);
+//					}
+//				} catch (final CoreException ce) {
+//					System.out.println();
+//					// eat it
+//				}
+//			}
+//
+//			final Result result = new Result(successful, cancelled, errorMessage, exception);
+//			results.put(modelFile, result);
+//
+//			return cancelled ? Status.CANCEL_STATUS : Status.OK_STATUS;
+//		}
+//	}
+//
+//	private static final class ResultJob extends Job {
+//		private final JobGroup instantiationJobs;
+//		private final Map<IFile, Result> results;
+//
+//		public ResultJob(final JobGroup intantiationJob, final Map<IFile, Result> results) {
+//			super("Instantiation Result Job (hidden)");
+//			this.instantiationJobs = intantiationJob;
+//			this.results = results;
+//		}
+//
+//		@Override
+//		public IStatus run(final IProgressMonitor monitor) {
+//			// Wait for the instantiation jobs to finish
+//			boolean cancelled = false;
+//			try {
+//				instantiationJobs.join(0L, null);
+//
+//				/* User can suppress the dialog if all the results are successful */
+//				if (OsateCorePlugin.getDefault().getAlwaysShowInstantiationResults()
+//						|| !Result.allSuccessful(results.values())) {
+//					/* Get the results and display them */
+//					PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
+//						final InstantiationResultsDialog<?> d = new InstantiationResultsDialog<IFile>(
+//								PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Reinstantiation",
+//								"Instance Model", modelFile -> modelFile.getFullPath().toString(), results,
+//								OsateCorePlugin.getDefault().getPreferenceStore());
+//						d.open();
+//					});
+//				}
+//			} catch (final InterruptedException | OperationCanceledException e) {
+//				/*
+//				 * InterruptedException thrown if we are somehow cancelled. Not sure if
+//				 * or how this can happen, but if it does, just give up.
+//				 *
+//				 * OperationCancelledException is thrown if the progress monitor given
+//				 * to join() is cancelled, but we didn't give it one, so it should
+//				 * never occur.
+//				 */
+//				cancelled = true;
+//			}
+//
+//			return cancelled ? Status.CANCEL_STATUS : Status.OK_STATUS;
+//		}
+//	}
 }
