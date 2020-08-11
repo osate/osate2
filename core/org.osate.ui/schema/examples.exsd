@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
 <schema targetNamespace="org.osate.ui" xmlns="http://www.w3.org/2001/XMLSchema">
-   <annotation>
+<annotation>
       <appInfo>
          <meta.schema plugin="org.osate.ui" id="examples" name="OSATE Example"/>
       </appInfo>
@@ -62,7 +62,7 @@
          <attribute name="category" type="string" use="required">
             <annotation>
                <documentation>
-                  The name of the project category that will be displayed to user along with projects.
+                  The name of the project category that will be displayed to user along with projects (used as a grouping)
                </documentation>
             </annotation>
          </attribute>
@@ -76,7 +76,7 @@
          <attribute name="readmeURI" type="string">
             <annotation>
                <documentation>
-                  An optional attribute to hold an html readme file path with description of the project.
+                  An attribute to hold an html readme file path with description of the project. ReadmeURI should be relative to exampleURI path.
                </documentation>
             </annotation>
          </attribute>
@@ -84,11 +84,16 @@
    </element>
 
    <element name="project">
+      <annotation>
+         <documentation>
+            Combination of exampleURI and project path is used a path of the project(s) to import into the workspace. Project path should be relative to exampleURI directory. If project path is left blank,  files under exampleURI path will be imported.
+         </documentation>
+      </annotation>
       <complexType>
          <attribute name="path" type="string" use="required">
             <annotation>
                <documentation>
-                  The path to the project that will be created in the workspace.
+                  Combination of exampleURI and project path is used a path of the project(s) to import into the workspace. Project path should be relative to exampleURI directory. If project path is left blank,  files under exampleURI path will be imported.
                </documentation>
             </annotation>
          </attribute>
@@ -109,23 +114,32 @@
          <meta.section type="examples"/>
       </appInfo>
       <documentation>
-         &lt;pre&gt;
-  &lt;extension point=&quot;org.osate.ui.examples&quot; &gt;
-    &lt;example
-      id=&quot;com.mycompany.example.XYZ&quot; 
-      wizardID=&quot;com.mycompany.example.XYZNewWizard&quot;&gt;
-      &lt;fileToOpen location=&quot;xyz1/readme.html&quot;/&gt;
-      &lt;projectDescriptor
-        name=&quot;p1&quot;
-        contentURI=&quot;platform:/plugin/com.mycompany.example/XYZ1.zip&quot;
-        description=&quot;%_UI_XYZ1_desc&quot;/&gt;
-      &lt;projectDescriptor
-        name=&quot;p2&quot;
-        contentURI=&quot;platform:/plugin/com.mycompany.example/XYZ2/&quot;
-        description=&quot;%_UI_XYZ2_desc&quot;/&gt;
-    &lt;/example&gt;
-  &lt;/extension&gt;
-&lt;/pre&gt;
+         &lt;plugin&gt;
+   &lt;extension point=&quot;org.osate.ui.examples&quot;&gt;
+      &lt;example
+            exampleURI=&quot;/examples/arp4761&quot;
+            readmeURI=&quot;doc/html/readme.html&quot;
+            category=&quot;Flow Analysis Examples&quot;
+            name=&quot;ARP4761&quot;&gt;
+         &lt;project path=&quot;Project1&quot;/&gt;
+         &lt;project path=&quot;Project2&quot;/&gt;
+      &lt;/example&gt;
+      &lt;example
+            exampleURI=&quot;/examples/resource-budget&quot;
+            readmeURI=&quot;doc/html/readme.html&quot;
+            category=&quot;Basic Examples&quot;
+            name=&quot;Resource Budget&quot;&gt;
+         &lt;project path=&quot;&quot;/&gt;
+      &lt;/example&gt;
+      &lt;example
+            exampleURI=&quot;/examples/speed-regulation&quot;
+            readmeURI=&quot;test1/doc/html/readme.html&quot;
+            category=&quot;Basic Examples&quot;
+            name=&quot;Speed Regulation&quot;&gt;
+         &lt;project path=&quot;&quot;/&gt;
+      &lt;/example&gt;
+   &lt;/extension&gt;
+&lt;/plugin&gt;
       </documentation>
    </annotation>
 
