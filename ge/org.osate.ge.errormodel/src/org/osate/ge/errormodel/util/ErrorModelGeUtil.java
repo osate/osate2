@@ -27,8 +27,10 @@ import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.Classifier;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.GraphicalAnnexUtil;
 import org.osate.ge.graphics.ArrowBuilder;
@@ -41,6 +43,7 @@ import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResult;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 public class ErrorModelGeUtil {
@@ -48,13 +51,18 @@ public class ErrorModelGeUtil {
 	}
 
 	private static ErrorModelLibrary getOrCreateErrorModelLibrary(final AadlPackage pkg) {
-		return (ErrorModelLibrary) GraphicalAnnexUtil.getOrCreateParsedAnnexLibrary(pkg, EMV2Util.ErrorModelAnnexName,
-				ErrorModelPackage.eINSTANCE.getErrorModelLibrary());
+		return GraphicalAnnexUtil.getOrCreateParsedAnnexLibrary(pkg, EMV2Util.ErrorModelAnnexName,
+				ErrorModelPackage.eINSTANCE.getErrorModelLibrary(), ErrorModelLibrary.class);
 	}
 
 	public static Optional<ErrorModelLibrary> getErrorModelLibrary(final AadlPackage pkg) {
-		return Optional.ofNullable((ErrorModelLibrary) GraphicalAnnexUtil.getFirstParsedAnnexLibrary(pkg,
-				EMV2Util.ErrorModelAnnexName, ErrorModelPackage.eINSTANCE.getErrorModelLibrary()));
+		return GraphicalAnnexUtil.getFirstParsedAnnexLibrary(pkg, EMV2Util.ErrorModelAnnexName,
+				ErrorModelLibrary.class);
+	}
+
+	public static Stream<ErrorModelSubclause> getAllErrorModelSubclauses(final Classifier classifier) {
+		return GraphicalAnnexUtil.getAllParsedAnnexSubclauses(classifier, EMV2Util.ErrorModelAnnexName,
+				ErrorModelSubclause.class);
 	}
 
 	public static final Style topCenteredLabelStyle = StyleBuilder.create().labelsTop().labelsHorizontalCenter()
