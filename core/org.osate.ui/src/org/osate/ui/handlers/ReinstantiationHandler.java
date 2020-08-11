@@ -107,7 +107,7 @@ public final class ReinstantiationHandler extends AbstractMultiJobHandler {
 				 * Init each result as cancelled because if the job is cancelled before it starts, it will never
 				 * add a new result record to the map. This way those jobs that never run are accounted for.
 				 */
-				results.put(modelFile, new Result(false, true, null, null));
+				results.put(modelFile, Result.NOT_EXECUTED);
 			}
 
 			/* Make sure the aadl files are saved if they are open in an editor */

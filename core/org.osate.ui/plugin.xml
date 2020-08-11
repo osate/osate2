@@ -41,7 +41,7 @@ censes only apply to the Third Party Software and not any other portion of this 
       		id="org.osate.ui.preferences.OsateInstantiationPage"
       		category="org.osate.internal.ui.preferences.OsatePreferencePage"
       		name="Instantiation"
-      		class="org.osate.internal.ui.preferences.InstantiationPreferencePage">
+      		class="org.osate.ui.internal.preferences.InstantiationPreferencePage">
       </page>
    </extension>
    
@@ -59,7 +59,7 @@ censes only apply to the Third Party Software and not any other portion of this 
          </enabledWhen>
       </page>
       <page
-            class="org.osate.internal.ui.properties.InstantiationPropertyPage"
+            class="org.osate.ui.internal.properties.InstantiationPropertyPage"
             category="org.osate.ui.properties.OSATE"
             id="org.osate.internal.ui.properties.InstantiationPropertyPage"
             name="Instantiation">

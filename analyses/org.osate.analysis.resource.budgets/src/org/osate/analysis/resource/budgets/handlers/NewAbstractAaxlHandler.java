@@ -273,7 +273,7 @@ abstract class NewAbstractAaxlHandler extends AbstractHandler {
 	 * @param A collection of Eclipse {@link IResource} objects and {@link IWorkingSet} objects.
 	 * @return A list of {@link IFile} objects that refer to AADL instance model files.
 	 */
-	public static List<IFile> findAllInstanceFiles(final Collection<Object> rsrcs) {
+	private static List<IFile> findAllInstanceFiles(final Collection<Object> rsrcs) {
 		final List<IFile> instanceFiles = new ArrayList<>();
 		findAllInstanceFiles(rsrcs.toArray(new Object[rsrcs.size()]), instanceFiles);
 		// remove duplicates
