@@ -1,47 +1,37 @@
 package org.osate.alisa2.view;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.EcoreUtil2;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.impl.AadlPackageImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
-import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
+import org.sireum.aadl.osate.awas.util.AwasUtil;
 import org.sireum.aadl.osate.util.Util;
 import org.sireum.awas.AADLBridge.AadlHandler;
-import org.sireum.awas.ast.ConnectionDecl;
 import org.sireum.awas.ast.Model;
-import org.sireum.awas.ast.PrettyPrinter;
 import org.sireum.awas.awasfacade.AwasGraphImpl;
 import org.sireum.awas.flow.FlowEdge;
 import org.sireum.awas.flow.FlowGraph;
 import org.sireum.awas.flow.FlowNode;
 import org.sireum.awas.flow.NodeType;
-import org.sireum.awas.symbol.Resource;
 import org.sireum.awas.symbol.SymbolTable;
 import org.sireum.awas.symbol.SymbolTableHelper;
 import org.sireum.awas.util.JavaConverters;
 import org.sireum.hamr.ir.Aadl;
 import org.sireum.util.ConsoleTagReporter;
-
-import com.google.common.collect.Sets;
-
-import scala.collection.mutable.StringBuilder;
 
 /**
  * Singleton that provides access to AWAS related functionality. We use a
@@ -237,7 +227,7 @@ public class AwasManager {
 //		String parentURI = SymbolTableHelper
 //				.getUriFromString(graphTableCache.get(parent).table, parent.getInstanceObjectPath()).get();
 		String portURI = SymbolTableHelper.getPortUri(graphTableCache.get(parent).table, self.getSource().getComponentInstancePath()).get();
-		FlowNode flowNode = FlowNode.getNode(Resource.getParentUri(portURI).get()).get();
+		FlowNode flowNode = FlowNode.getNode(org.sireum.awas.symbol.Resource.getParentUri(portURI).get()).get();
 		Set<String> propSet = JavaConverters.toJavaSet(flowNode.getPropagation(portURI));
 		// Check the symbol table -- first entry (compSymbolTableMap) should have everything in the component
 		Collection<EObject> ret = urisToInstEObjs(parent, propSet);
@@ -250,76 +240,28 @@ public class AwasManager {
 	 * of the given component
 	 *
 	 * @param parent The component that should contain the components pointed to by the given URIs.
-	 * @param uris URIs to components or ports (both will resolve to components)
+	 * @param uriSet URIs to components or ports (both will resolve to components)
 	 * @return The instance model objects corresponding to the given URIs
 	 */
-	private Collection<EObject> urisToInstEObjs(ComponentInstance parent, Collection<String> uris) {
-		Map<String, EObject> children = new HashMap<>();
+	private Set<EObject> urisToInstEObjs(ComponentInstance parent, Set<String> uriSet) {
 
-		// Rather than iterate through the list of children each time, we cache them temporarily
-		Map<String, EObject> childElements = parent.getChildren().stream().filter(e -> e instanceof NamedElement)
-				.collect(Collectors.toMap(e -> ((NamedElement) e).getName(), Function.identity()));
-		children.putAll(childElements);
+		Set<String> uris = Collections.unmodifiableSet(uriSet);
+		SymbolTable st = graphTableCache.get(parent).table;
+		Resource resource = parent.eResource();
+		Set<EObject> haris = AwasUtil.awasUri2EObject(uris, st, resource);
 
-		// Also cache error type names --> root error types, since we need those too
-		// Adapted from org.osate.xtext.aadl2.errormodel.util.EMV2Util.findErrorTypeSet(Element, String)
-		for (ErrorModelSubclause currSubclause : EMV2Util.getAllContainingClassifierEMV2Subclauses(parent)) {
-			for (ErrorModelLibrary currLibrary : currSubclause.getUseTypes()) {
-				for (ErrorType currType : currLibrary.getTypes()) {
-					children.put(currType.getName(), currType);
-				}
-			}
-		}
+		haris = haris.stream().map(e -> (e instanceof ConnectionReference ? e.eContainer() : e))
+				.collect(Collectors.toSet());
 
-		return uris.stream().map(u -> uriToInstEObj(children, u, graphTableCache.get(parent).table))
-				.filter(Objects::nonNull).collect(Collectors.toSet());
-	}
-
-	/**
-	 * Convert a single AWAS URI to its instance model representation, assuming that representation
-	 * is in the supplied list.
-	 *
-	 * @param children The set of instance objects that may contain the objects the URI identifies
-	 * @param uri The URI of the instance object we want
-	 * @param st The symboltable associated with the containing component. Used to map ports to their
-	 * containing components
-	 * @return The instance object associated with the given URI, or null if it can't be found
-	 */
-	private EObject uriToInstEObj(Map<String, EObject> children, String uri, SymbolTable st) {
-
-		// If we're given the URI of a port (virtual or not) we grab the associated component
-		final Set<String> portTypeNames = Sets.newHashSet(SymbolTableHelper.PORT_OUT_VIRTUAL_TYPE(), SymbolTableHelper
-				.PORT_IN_VIRTUAL_TYPE(), SymbolTableHelper.PORT_OUT_TYPE(), SymbolTableHelper.PORT_IN_TYPE());
-		if (portTypeNames.contains(SymbolTableHelper.uri2TypeString(uri))) {
-			uri = JavaConverters.toJavaList(SymbolTableHelper.getAllAncestors(uri, st)).get(1);
-		}
-
-		String name = "UNSET NAME";
-
-		if (SymbolTableHelper.uri2TypeString(uri).equals(SymbolTableHelper.COMPONENT_TYPE())
-				|| SymbolTableHelper.uri2TypeString(uri).equals(SymbolTableHelper.ERROR_TYPE())) {
-			name = SymbolTableHelper.uri2IdString(uri);
-		} else if (SymbolTableHelper.uri2TypeString(uri).equals(SymbolTableHelper.CONNECTION_TYPE())) {
-			ConnectionDecl connDecl = st.componentTable(st.system()).connection(uri);
-			StringBuilder sb = new StringBuilder();
-			PrettyPrinter pp = new PrettyPrinter(sb);
-			pp.print(connDecl, 0); // format: "spo2_to_logic_POOutSpO2_LogicSpO2 : pulseOx.POOutSpO2 -> appLogic.LogicSpO2\n"
-			name = sb.toString().substring(sb.toString().indexOf(": ") + 2).trim();
-		}
-
-		if (!children.containsKey(name)) {
-			System.err.println("AWASManager.java: unknown element name (" + name + ") derived from uri: " + uri);
-			SymbolTableHelper.findComponentUri(SymbolTableHelper.getUriFromString(st, "appLogic.CheckSpO2Thread.Alarm").get(), st);
-		}
-		return children.get(name);
+		return haris;
 	}
 
 	public Collection<EObject> getAllConnections(ComponentInstance self) {
 		initTableAndGraph(self);
 		SymbolTable st = graphTableCache.get(self).table;
 		String componentUri = SymbolTableHelper.getUriFromString(st, self.getInstanceObjectPath()).get();
-		List<String> connectionUris = JavaConverters
-				.toJavaList(st.componentTable(componentUri).connections().toSeq());
+		Set<String> connectionUris = JavaConverters
+				.toJavaSet(st.componentTable(componentUri).connections().toSet());
 		Collection<EObject> ret = urisToInstEObjs(self, connectionUris);
 		return ret;
 	}
