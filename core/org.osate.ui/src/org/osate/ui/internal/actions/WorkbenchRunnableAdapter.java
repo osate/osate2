@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.internal.ui.actions;
+package org.osate.ui.internal.actions;
 
 import java.lang.reflect.InvocationTargetException;
 

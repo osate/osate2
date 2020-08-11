@@ -153,7 +153,7 @@ public final class InstantiationHandler extends AbstractMultiJobHandler {
 					 * Init each result as cancelled because if the job is cancelled before it starts, it will never
 					 * add a new result record to the map. This way those jobs that never run are accounted for.
 					 */
-					results.put(impl, new Result(false, true, null, null));
+					results.put(impl, Result.NOT_EXECUTED);
 				}
 
 				/* Make sure the resources are saved if they are open in an editor */

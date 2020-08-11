@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.internal.ui.properties;
+package org.osate.ui.internal.properties;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -48,8 +48,8 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.PropertyPage;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.core.OsateCorePlugin;
-import org.osate.internal.ui.preferences.InstantiationPreferencePage;
 import org.osate.ui.OsateUiPlugin;
+import org.osate.ui.internal.preferences.InstantiationPreferencePage;
 import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 
