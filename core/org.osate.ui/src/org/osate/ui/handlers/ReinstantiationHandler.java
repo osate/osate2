@@ -69,67 +69,88 @@ public final class ReinstantiationHandler extends AbstractMultiJobHandler {
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		/* Get all the selected resources and search them for instance model files */
+		// Get a COPY of the selection for thread safety
 		@SuppressWarnings("unchecked")
-		final List<Object> selectionAsList = HandlerUtil.getCurrentStructuredSelection(event).toList();
-		final List<IFile> aaxlFiles = findAllInstanceFiles(selectionAsList);
-		final int size = aaxlFiles.size();
+		final List<?> selectionAsList = new ArrayList<>(HandlerUtil.getCurrentStructuredSelection(event).toList());
 
-		/*
-		 * This map is shared by all the jobs to build the set of results. It is created here,
-		 * given to all the jobs, and then forgotten.
-		 */
-		final Map<IFile, Result> results = new ConcurrentHashMap<>(size);
-
-		for (final IFile modelFile : aaxlFiles) {
-			/*
-			 * Init each result as cancelled because if the job is cancelled before it starts, it will never
-			 * add a new result record to the map. This way those jobs that never run are accounted for.
-			 */
-			results.put(modelFile, new Result(false, true, null, null));
-		}
-
-		/* Make sure the aadl files are saved if they are open in an editor */
-		if (!saveDirtyEditors()) {
-			return Status.CANCEL_STATUS;
-		}
-
-		final IResourceRuleFactory factory = ResourcesPlugin.getWorkspace().getRuleFactory();
-		final JobGroup jobGroup = new JobGroup("Reinstantiation", 0, 0);
-		final Job myJobs[] = new Job[size];
-		for (int i = 0; i < size; i++) {
-			final IFile aaxlFile = aaxlFiles.get(i);
-			final Job job = new ReinstantiationJob(aaxlFile, results);
-			/*
-			 * NB. According to <https://www.eclipse.org/articles/Article-Concurrency/jobs-api.html> locking
-			 * is only needed for modification, not for reading from resources. This seems sketchy to me
-			 * but I'm going to go with it. Readers are supposed to written defensively, to expect that
-			 * things might go wonky.
-			 *
-			 * We create and possibly remove the aaxl file in the case of errors.
-			 */
-			job.setRule(MultiRule.combine(factory.modifyRule(aaxlFile), factory.deleteRule(aaxlFile)));
-			job.setUser(true);
-			job.setJobGroup(jobGroup);
-			myJobs[i] = job;
-		}
-
-		final Job resultJob = new ResultJob(jobGroup, results);
-		resultJob.setRule(null); // doesn't use resources
-		resultJob.setUser(false); // background helper job, don't let the user see it
-		resultJob.setSystem(true); // background helper job, don't let the user see it
-		resultJob.schedule();
-
-		// now launch the main jobs
-		for (final Job job : myJobs) {
-			job.schedule();
-		}
+		final Job job = new KickoffJob(selectionAsList);
+		job.setRule(null); // doesn't use resources
+		job.setUser(false); // background helper job, don't let the user see it
+		job.setSystem(true); // background helper job, don't let the user see it
+		job.schedule();
 
 		// Supposed to always return null
 		return null;
 	}
 
-	private static List<IFile> findAllInstanceFiles(final Collection<Object> rsrcs) {
+	private final class KickoffJob extends Job {
+		private final List<?> selectionAsList;
+
+		public KickoffJob(final List<?> selectionAsList) {
+			super("Reinstantiation Handler (hidden)");
+			this.selectionAsList = selectionAsList;
+		}
+
+		@Override
+		protected IStatus run(final IProgressMonitor monitor) {
+			final List<IFile> aaxlFiles = findAllInstanceFiles(selectionAsList);
+			final int size = aaxlFiles.size();
+
+			/*
+			 * This map is shared by all the jobs to build the set of results. It is created here,
+			 * given to all the jobs, and then forgotten.
+			 */
+			final Map<IFile, Result> results = new ConcurrentHashMap<>(size);
+
+			for (final IFile modelFile : aaxlFiles) {
+				/*
+				 * Init each result as cancelled because if the job is cancelled before it starts, it will never
+				 * add a new result record to the map. This way those jobs that never run are accounted for.
+				 */
+				results.put(modelFile, new Result(false, true, null, null));
+			}
+
+			/* Make sure the aadl files are saved if they are open in an editor */
+			if (!saveDirtyEditors()) {
+				return Status.CANCEL_STATUS;
+			}
+
+			final IResourceRuleFactory factory = ResourcesPlugin.getWorkspace().getRuleFactory();
+			final JobGroup jobGroup = new JobGroup("Reinstantiation", 0, 0);
+			final Job myJobs[] = new Job[size];
+			for (int i = 0; i < size; i++) {
+				final IFile aaxlFile = aaxlFiles.get(i);
+				final Job job = new ReinstantiationJob(aaxlFile, results);
+				/*
+				 * NB. According to <https://www.eclipse.org/articles/Article-Concurrency/jobs-api.html> locking
+				 * is only needed for modification, not for reading from resources. This seems sketchy to me
+				 * but I'm going to go with it. Readers are supposed to written defensively, to expect that
+				 * things might go wonky.
+				 *
+				 * We create and possibly remove the aaxl file in the case of errors.
+				 */
+				job.setRule(MultiRule.combine(factory.modifyRule(aaxlFile), factory.deleteRule(aaxlFile)));
+				job.setUser(true);
+				job.setJobGroup(jobGroup);
+				myJobs[i] = job;
+			}
+
+			final Job resultJob = new ResultJob(jobGroup, results);
+			resultJob.setRule(null); // doesn't use resources
+			resultJob.setUser(false); // background helper job, don't let the user see it
+			resultJob.setSystem(true); // background helper job, don't let the user see it
+			resultJob.schedule();
+
+			// now launch the main jobs
+			for (final Job job : myJobs) {
+				job.schedule();
+			}
+
+			return Status.OK_STATUS;
+		}
+	}
+
+	private static List<IFile> findAllInstanceFiles(final Collection<?> rsrcs) {
 		final List<IFile> instanceFiles = new ArrayList<>();
 		findAllInstanceFiles(rsrcs.toArray(new Object[rsrcs.size()]), instanceFiles);
 		// remove duplicates
