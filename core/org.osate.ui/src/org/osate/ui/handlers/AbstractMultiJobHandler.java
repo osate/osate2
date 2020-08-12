@@ -21,6 +21,7 @@ import org.osate.core.AadlNature;
  * Really the only thing in here right now is the class used for storing job results.
  * @since 3.0
  */
+@Deprecated
 public abstract class AbstractMultiJobHandler extends AbstractHandler {
 
 	/**
