@@ -34,7 +34,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.osate.ui.internal.instantiate.InstantiationEngine2;
+import org.osate.ui.internal.instantiate.InstantiationEngine;
 
 /**
  * @since 3.0
@@ -69,7 +69,7 @@ public final class InstantiationHandler extends AbstractHandler {
 
 		@Override
 		protected IStatus run(final IProgressMonitor monitor) {
-			final InstantiationEngine2 engine = new InstantiationEngine2(selectionAsList);
+			final InstantiationEngine engine = new InstantiationEngine(selectionAsList);
 			engine.instantiate();
 			return Status.OK_STATUS;
 		}

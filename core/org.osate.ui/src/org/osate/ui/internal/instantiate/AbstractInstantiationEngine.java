@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Function;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -50,6 +51,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.instantiation.RootMissingException;
 import org.osate.core.AadlNature;
+import org.osate.core.OsateCorePlugin;
 import org.osate.ui.OsateUiPlugin;
 
 /**
@@ -110,7 +112,7 @@ abstract class AbstractInstantiationEngine<T> {
 						myJobs[i] = job;
 					}
 
-					final Job resultJob = getResultJob(jobGroup, results);
+					final Job resultJob = new ResultJob(jobGroup, results);
 					resultJob.setRule(null); // doesn't use resources
 					resultJob.setUser(false); // background helper job, don't let the user see it
 					resultJob.setSystem(true); // background helper job, don't let the user see it
@@ -159,9 +161,6 @@ abstract class AbstractInstantiationEngine<T> {
 	}
 
 	protected abstract PrereqHelper getPrereqHelper(int size, IResourceRuleFactory ruleFactory);
-
-	protected abstract Job getResultJob(JobGroup instantiationJobs, Map<T, InternalJobResult> results);
-
 
 	protected abstract class AbstractInstantiationJob extends WorkspaceJob {
 		private final Map<T, InternalJobResult> results;
@@ -236,53 +235,58 @@ abstract class AbstractInstantiationEngine<T> {
 		protected abstract T getInput();
 	}
 
-//	private static final class ResultJob extends Job {
-//		private final JobGroup instantiationJobs;
-//		private final Map<ComponentImplementation, InternalJobResult> results;
-//
-//		public ResultJob(final JobGroup intantiationJob,
-//				final Map<ComponentImplementation, InternalJobResult> results) {
-//			super("Instantiation Result Job (hidden)");
-//			this.instantiationJobs = intantiationJob;
-//			this.results = results;
-//		}
-//
-//		@Override
-//		public IStatus run(final IProgressMonitor monitor) {
-//			// Wait for the instantiation jobs to finish
-//			boolean cancelled = false;
-//			try {
-//				instantiationJobs.join(0L, null);
-//
-//				/* User can suppress the dialog if all the results are successful */
-//				if (OsateCorePlugin.getDefault().getAlwaysShowInstantiationResults()
-//						|| !InternalJobResult.allSuccessful(results.values())) {
-//					/* Get the results and display them */
-//					PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
-//						final InstantiationResultsDialog<?> d = new InstantiationResultsDialog<ComponentImplementation>(
-//								PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Instantiation",
-//								"Component Implementation", compImpl -> compImpl.getQualifiedName(), results,
-//								OsateCorePlugin.getDefault().getPreferenceStore());
-//						d.open();
-//					});
-//				}
-//			} catch (final InterruptedException | OperationCanceledException e) {
-//				/*
-//				 * InterruptedException thrown if we are somehow cancelled. Not sure if
-//				 * or how this can happen, but if it does, just give up.
-//				 *
-//				 * OperationCancelledException is thrown if the progress monitor given
-//				 * to join() is cancelled, but we didn't give it one, so it should
-//				 * never occur.
-//				 */
-//				cancelled = true;
-//			}
-//
-//			return cancelled ? Status.CANCEL_STATUS : Status.OK_STATUS;
-//		}
-//	}
+	private final class ResultJob extends Job {
+		private final JobGroup instantiationJobs;
+		private final Map<T, InternalJobResult> results;
+
+		public ResultJob(final JobGroup intantiationJob, final Map<T, InternalJobResult> results) {
+			super("Instantiation Result Job (hidden)");
+			this.instantiationJobs = intantiationJob;
+			this.results = results;
+		}
+
+		@Override
+		public IStatus run(final IProgressMonitor monitor) {
+			// Wait for the instantiation jobs to finish
+			boolean cancelled = false;
+			try {
+				instantiationJobs.join(0L, null);
+
+				/* User can suppress the dialog if all the results are successful */
+				if (OsateCorePlugin.getDefault().getAlwaysShowInstantiationResults()
+						|| !InternalJobResult.allSuccessful(results.values())) {
+					/* Get the results and display them */
+					PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
+						final InstantiationResultsDialog<?> d = new InstantiationResultsDialog<T>(
+								PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), getResultActionName(),
+								getResultLabelName(), getResultLabelProvider(), results,
+								OsateCorePlugin.getDefault().getPreferenceStore());
+						d.open();
+					});
+				}
+			} catch (final InterruptedException | OperationCanceledException e) {
+				/*
+				 * InterruptedException thrown if we are somehow cancelled. Not sure if
+				 * or how this can happen, but if it does, just give up.
+				 *
+				 * OperationCancelledException is thrown if the progress monitor given
+				 * to join() is cancelled, but we didn't give it one, so it should
+				 * never occur.
+				 */
+				cancelled = true;
+			}
+
+			return cancelled ? Status.CANCEL_STATUS : Status.OK_STATUS;
+		}
+	}
 
 	protected abstract Set<T> getInputsFromSelection(List<?> selectionAsList);
+
+	protected abstract String getResultActionName();
+
+	protected abstract String getResultLabelName();
+
+	protected abstract Function<T, String> getResultLabelProvider();
 
 	/**
 	 * Ask to save all the dirty editors that belong to open AADL projects.
