@@ -36,13 +36,11 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResourceRuleFactory;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobGroup;
@@ -74,6 +72,7 @@ import org.osate.aadl2.SubprogramImplementation;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
+import org.osate.aadl2.instantiation.RootMissingException;
 import org.osate.aadl2.modelsupport.EObjectURIWrapper;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.core.OsateCorePlugin;
@@ -146,9 +145,9 @@ public final class InstantiationEngine2 extends AbstractInstantiationEngine<Comp
 			}
 
 			@Override
-			public Job getJob(final int i, final Map<ComponentImplementation, InternalJobResult> results) {
+			public InstantiationJob getJob(final int i, final Map<ComponentImplementation, InternalJobResult> results) {
 				final IFile outputFile = outputFiles.get(i);
-				final Job job = new InstantiationJob(selectedCompImpls.get(i), outputFile, results);
+				final InstantiationJob job = new InstantiationJob(selectedCompImpls.get(i), outputFile, results);
 				/*
 				 * NB. According to <https://www.eclipse.org/articles/Article-Concurrency/jobs-api.html> locking
 				 * is only needed for modification, not for reading from resources. This seems sketchy to me
@@ -169,69 +168,31 @@ public final class InstantiationEngine2 extends AbstractInstantiationEngine<Comp
 		return new ResultJob(instantiationJobs, results);
 	}
 
-	private static final class InstantiationJob extends WorkspaceJob {
+	private final class InstantiationJob extends AbstractInstantiationJob {
 		private final ComponentImplementation compImpl;
 		private final IFile outputFile;
 
-		private final Map<ComponentImplementation, InternalJobResult> results;
-
 		public InstantiationJob(final ComponentImplementation compImpl, final IFile outputFile,
 				final Map<ComponentImplementation, InternalJobResult> results) {
-			super("Instantiate " + compImpl.getQualifiedName());
+			super("Instantiate " + compImpl.getQualifiedName(), results);
 			this.compImpl = compImpl;
 			this.outputFile = outputFile;
-			this.results = results;
 		}
 
 		@Override
-		public IStatus runInWorkspace(final IProgressMonitor monitor) {
-			final SubMonitor subMonitor = SubMonitor.convert(monitor, 1);
+		protected SystemInstance buildSystemInstance(final IProgressMonitor monitor)
+				throws InterruptedException, OperationCanceledException, RootMissingException, Exception {
+			return InstantiateModel.buildInstanceModelFile(compImpl, monitor);
+		}
 
-			/*
-			 * Error handling in buildIntanceModel is complicated and probably should not be handled the
-			 * way it is, but I don't want to fix that right now, so we are going to capture all the information
-			 * we can from it and display it to the user at the end of the operation.
-			 */
-			boolean successful = false;
-			String errorMessage = null;
-			Exception exception = null;
-			boolean cancelled = false;
-			SystemInstance systemInstance = null;
+		@Override
+		protected IFile getOutputFile() {
+			return outputFile;
+		}
 
-			boolean delete = false;
-			try {
-				systemInstance = InstantiateModel.buildInstanceModelFile(compImpl, subMonitor.split(1));
-				successful = systemInstance != null;
-				errorMessage = InstantiateModel.getErrorMessage();
-				delete = !successful;
-			} catch (final InterruptedException | OperationCanceledException e) {
-				// Instantiation was canceled by the user.
-				cancelled = true;
-				systemInstance = null;
-				delete = true;
-			} catch (final Exception e) {
-				OsateUiPlugin.log(e);
-				successful = false;
-				exception = e;
-				systemInstance = null;
-				delete = true;
-			}
-
-			if (delete) {
-				// Remove the partially instantiated resource
-				try {
-					if (outputFile.exists()) {
-						outputFile.delete(0, null);
-					}
-				} catch (final CoreException ce) {
-					// eat it
-				}
-			}
-
-			final InternalJobResult result = new InternalJobResult(successful, cancelled, errorMessage, exception,
-					systemInstance);
-			results.put(compImpl, result);
-			return cancelled ? Status.CANCEL_STATUS : Status.OK_STATUS;
+		@Override
+		protected ComponentImplementation getInput() {
+			return compImpl;
 		}
 	}
 
