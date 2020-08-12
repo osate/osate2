@@ -55,10 +55,14 @@ class PropertiesCodeGenHandler extends AbstractHandler {
 			val folderPath = project.fullPath.append(generatedPackage.packagePath)
 			val folder = new ContainerGenerator(folderPath).generateContainer(subMonitor.split(1))
 			subMonitor.workRemaining = folder.members.size + javaFiles.size
-			folder.members.forEach[it.delete(false, subMonitor.split(1))]
 			javaFiles.forEach [ javaFile |
 				val stream = new ByteArrayInputStream(javaFile.contents.bytes)
-				folder.getFile(new Path(javaFile.fileName)).create(stream, false, subMonitor.split(1))
+				val file = folder.getFile(new Path(javaFile.fileName))
+				if (file.exists) {
+					file.setContents(stream, false, true, subMonitor.split(1))
+				} else {
+					file.create(stream, false, subMonitor.split(1))
+				}
 			]
 		]
 		try {
