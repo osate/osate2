@@ -85,8 +85,6 @@ import com.google.inject.Inject;
  * @since 3.0
  */
 public final class InstantiationEngine extends AbstractInstantiationEngine<ComponentImplementation> {
-	// XXX: Revisit the dialog box in getComponentImplsFromSelection
-
 	@Inject
 	private XtextResourceSetProvider resourceSetProvider;
 
