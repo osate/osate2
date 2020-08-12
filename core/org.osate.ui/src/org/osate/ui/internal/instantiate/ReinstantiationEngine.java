@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IContainer;
@@ -35,19 +36,13 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResourceRuleFactory;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.OperationCanceledException;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.core.runtime.jobs.JobGroup;
 import org.eclipse.core.runtime.jobs.MultiRule;
 import org.eclipse.ui.IWorkingSet;
-import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.instantiation.RootMissingException;
 import org.osate.core.AadlNature;
-import org.osate.core.OsateCorePlugin;
 import org.osate.workspace.WorkspacePlugin;
 
 /**
@@ -90,11 +85,6 @@ public final class ReinstantiationEngine extends AbstractInstantiationEngine<IFi
 				return job;
 			}
 		};
-	}
-
-	@Override
-	protected Job getResultJob(final JobGroup instantiationJobs, final Map<IFile, InternalJobResult> results) {
-		return new ResultJob(instantiationJobs, results);
 	}
 
 	@Override
@@ -161,48 +151,18 @@ public final class ReinstantiationEngine extends AbstractInstantiationEngine<IFi
 		}
 	}
 
-	private static final class ResultJob extends Job {
-		private final JobGroup instantiationJobs;
-		private final Map<IFile, InternalJobResult> results;
+	@Override
+	protected String getResultActionName() {
+		return "Reinstantiation";
+	}
 
-		public ResultJob(final JobGroup intantiationJob, final Map<IFile, InternalJobResult> results) {
-			super("Instantiation Result Job (hidden)");
-			this.instantiationJobs = intantiationJob;
-			this.results = results;
-		}
+	@Override
+	protected String getResultLabelName() {
+		return "Instance Model";
+	}
 
-		@Override
-		public IStatus run(final IProgressMonitor monitor) {
-			// Wait for the instantiation jobs to finish
-			boolean cancelled = false;
-			try {
-				instantiationJobs.join(0L, null);
-
-				/* User can suppress the dialog if all the results are successful */
-				if (OsateCorePlugin.getDefault().getAlwaysShowInstantiationResults()
-						|| !InternalJobResult.allSuccessful(results.values())) {
-					/* Get the results and display them */
-					PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
-						final InstantiationResultsDialog<?> d = new InstantiationResultsDialog<IFile>(
-								PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Reinstantiation",
-								"Instance Model", modelFile -> modelFile.getFullPath().toString(), results,
-								OsateCorePlugin.getDefault().getPreferenceStore());
-						d.open();
-					});
-				}
-			} catch (final InterruptedException | OperationCanceledException e) {
-				/*
-				 * InterruptedException thrown if we are somehow cancelled. Not sure if
-				 * or how this can happen, but if it does, just give up.
-				 *
-				 * OperationCancelledException is thrown if the progress monitor given
-				 * to join() is cancelled, but we didn't give it one, so it should
-				 * never occur.
-				 */
-				cancelled = true;
-			}
-
-			return cancelled ? Status.CANCEL_STATUS : Status.OK_STATUS;
-		}
+	@Override
+	protected Function<IFile, String> getResultLabelProvider() {
+		return modelFile -> modelFile.getFullPath().toString();
 	}
 }
