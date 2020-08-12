@@ -238,7 +238,7 @@ class CodegenPackageTest {
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(CODEGEN_PACKAGE_BASE))
-		assertEquals("src-gen/org.osate.properties.codegenpackage", results.packagePath)
+		assertEquals("src-gen/org/osate/properties/codegenpackage", results.packagePath)
 		assertEquals(3, results.classes.size)
 		
 		assertEquals("CodegenPackageBase.java", results.classes.get(0).fileName)
@@ -323,7 +323,7 @@ class CodegenPackageTest {
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(CODEGEN_PACKAGE_SAME, CODEGEN_PACKAGE_BASE))
-		assertEquals("src-gen/org.osate.properties.codegenpackage", results.packagePath)
+		assertEquals("src-gen/org/osate/properties/codegenpackage", results.packagePath)
 		assertEquals(1, results.classes.size)
 		
 		assertEquals("CodegenPackageSame.java", results.classes.head.fileName)
@@ -404,7 +404,7 @@ class CodegenPackageTest {
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(CODEGEN_PACKAGE_OTHER, CODEGEN_PACKAGE_BASE))
-		assertEquals("src-gen/org.osate.properties.codegenpackage.other", results.packagePath)
+		assertEquals("src-gen/org/osate/properties/codegenpackage/other", results.packagePath)
 		assertEquals(1, results.classes.size)
 		
 		assertEquals("CodegenPackageOther.java", results.classes.head.fileName)

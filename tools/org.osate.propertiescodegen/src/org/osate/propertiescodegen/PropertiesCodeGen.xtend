@@ -54,7 +54,7 @@ class PropertiesCodeGen {
 			}
 		].filterNull.toList;
 		
-		new GeneratedPackage("src-gen/" + packageName, (propertySetFile + typeFiles).toList)
+		new GeneratedPackage("src-gen/" + packageName.replace(".", "/"), (propertySetFile + typeFiles).toList)
 	}
 	
 	def private static GeneratedClass generateFile(PropertySet propertySet, String packageName) {
