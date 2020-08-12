@@ -47,6 +47,7 @@ import org.osate.ui.dialogs.ProjectSelectionDialog;
 
 /**
  * This class represents the OSATE > Instantiation workspace preferences.
+ * @since 5.0
  */
 
 public class InstantiationPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
