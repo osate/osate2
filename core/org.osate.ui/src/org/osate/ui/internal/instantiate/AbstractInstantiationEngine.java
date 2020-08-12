@@ -68,10 +68,6 @@ abstract class AbstractInstantiationEngine<T> {
 	 * Instantiate models based on the selected items.  Blocks the current job/thread until it is finished, so this should
 	 * not be called from the ui thread.
 	 *
-	 * XXX: Needs to return ok or cancel status
-	 *
-	 * XXX: Needs to return the list of successfully instantiated models
-	 *
 	 * XXX: Say something about the abstract methods here
 	 */
 	public final List<SystemInstance> instantiate() {
@@ -149,11 +145,21 @@ abstract class AbstractInstantiationEngine<T> {
 		return Collections.emptyList();
 	}
 
+	/**
+	 * This a class so that it can have persistent state.  {@link #handleInput(Object)} can build up state that is
+	 * used by the other two methods.  This is meant to determine what needs to be set up in the workspace before the
+	 * instantiation can actually run.  Generally, this is expected to be determining what output folders need to exist.
+	 * These would be computed for each input item on a call to {@link #handleInput(Object), and then actually created
+	 * on a call to {@link #performPrereqs()}.  Finally {@link #getJob(int, Map)} is called for each of the input files,
+	 * in the same order as {@link #handleInput(Object)} was called.  It is expected to return a job that can
+	 * perform the instantiation and to set the rules on the job based on the prerequisites that have been accumulating.
+	 */
 	protected abstract class PrereqHelper {
 		public abstract void handleInput(final T input);
 
 		/**
-		 * @return {@code true} if prerequisites succeeded.
+		 * @return {@code true} if prerequisites succeeded.  Returns {@code false} if they failed,
+		 * in which case the instantiation process is over.
 		 */
 		public abstract boolean performPrereqs();
 
