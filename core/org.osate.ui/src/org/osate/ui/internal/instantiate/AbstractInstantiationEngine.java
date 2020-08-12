@@ -31,15 +31,26 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResourceRuleFactory;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.resources.WorkspaceJob;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobGroup;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instantiation.InstantiateModel;
+import org.osate.aadl2.instantiation.RootMissingException;
 import org.osate.core.AadlNature;
+import org.osate.ui.OsateUiPlugin;
 
 /**
  * @since 3.0
@@ -144,7 +155,7 @@ abstract class AbstractInstantiationEngine<T> {
 		 */
 		public abstract boolean performPrereqs();
 
-		public abstract Job getJob(int i, Map<T, InternalJobResult> results);
+		public abstract AbstractInstantiationJob getJob(int i, Map<T, InternalJobResult> results);
 	}
 
 	protected abstract PrereqHelper getPrereqHelper(int size, IResourceRuleFactory ruleFactory);
@@ -152,71 +163,78 @@ abstract class AbstractInstantiationEngine<T> {
 	protected abstract Job getResultJob(JobGroup instantiationJobs, Map<T, InternalJobResult> results);
 
 
-//	private static final class InstantiationJob extends WorkspaceJob {
-//		private final ComponentImplementation compImpl;
-//		private final IFile outputFile;
-//
-//		private final Map<ComponentImplementation, InternalJobResult> results;
-//
-//		public InstantiationJob(final ComponentImplementation compImpl, final IFile outputFile,
-//				final Map<ComponentImplementation, InternalJobResult> results) {
-//			super("Instantiate " + compImpl.getQualifiedName());
-//			this.compImpl = compImpl;
-//			this.outputFile = outputFile;
-//			this.results = results;
-//		}
-//
-//		@Override
-//		public IStatus runInWorkspace(final IProgressMonitor monitor) {
-//			final SubMonitor subMonitor = SubMonitor.convert(monitor, 1);
-//
-//			/*
-//			 * Error handling in buildIntanceModel is complicated and probably should not be handled the
-//			 * way it is, but I don't want to fix that right now, so we are going to capture all the information
-//			 * we can from it and display it to the user at the end of the operation.
-//			 */
-//			boolean successful = false;
-//			String errorMessage = null;
-//			Exception exception = null;
-//			boolean cancelled = false;
-//			SystemInstance systemInstance = null;
-//
-//			boolean delete = false;
-//			try {
-//				systemInstance = InstantiateModel.buildInstanceModelFile(compImpl, subMonitor.split(1));
-//				successful = systemInstance != null;
-//				errorMessage = InstantiateModel.getErrorMessage();
-//				delete = !successful;
-//			} catch (final InterruptedException | OperationCanceledException e) {
-//				// Instantiation was canceled by the user.
-//				cancelled = true;
-//				systemInstance = null;
-//				delete = true;
-//			} catch (final Exception e) {
-//				OsateUiPlugin.log(e);
-//				successful = false;
-//				exception = e;
-//				systemInstance = null;
-//				delete = true;
-//			}
-//
-//			if (delete) {
-//				// Remove the partially instantiated resource
-//				try {
-//					if (outputFile.exists()) {
-//						outputFile.delete(0, null);
-//					}
-//				} catch (final CoreException ce) {
-//					// eat it
-//				}
-//			}
-//
-//			final InternalJobResult result = new InternalJobResult(successful, cancelled, errorMessage, exception,
-//					systemInstance);
-//			results.put(compImpl, result);
-//			return cancelled ? Status.CANCEL_STATUS : Status.OK_STATUS;
-//		}
-//	}
+	protected abstract class AbstractInstantiationJob extends WorkspaceJob {
+		private final Map<T, InternalJobResult> results;
+
+		protected AbstractInstantiationJob(final String name, final Map<T, InternalJobResult> results) {
+			super(name);
+			this.results = results;
+		}
+
+		@Override
+		public final IStatus runInWorkspace(final IProgressMonitor monitor) {
+			final SubMonitor subMonitor = SubMonitor.convert(monitor, 1);
+
+			/*
+			 * Error handling in buildIntanceModel is complicated and probably should not be handled the
+			 * way it is, but I don't want to fix that right now, so we are going to capture all the information
+			 * we can from it and display it to the user at the end of the operation.
+			 */
+			boolean successful = false;
+			String errorMessage = null;
+			Exception exception = null;
+			boolean cancelled = false;
+			SystemInstance systemInstance = null;
+
+			boolean delete = false;
+			try {
+				systemInstance = buildSystemInstance(subMonitor.split(1));
+				successful = systemInstance != null;
+				errorMessage = InstantiateModel.getErrorMessage();
+				delete = !successful;
+			} catch (final InterruptedException | OperationCanceledException e) {
+				// Instantiation was canceled by the user.
+				cancelled = true;
+				systemInstance = null;
+				delete = true;
+			} catch (final RootMissingException e) {
+				successful = false;
+				errorMessage = "Root component implementation declaration no longer exists; instance model removed";
+				systemInstance = null;
+				delete = true;
+			} catch (final Exception e) {
+				OsateUiPlugin.log(e);
+				successful = false;
+				exception = e;
+				systemInstance = null;
+				delete = true;
+			}
+
+			if (delete) {
+				// Remove the partially instantiated resource
+				try {
+					final IFile outputFile = getOutputFile();
+					if (outputFile.exists()) {
+						outputFile.delete(0, null);
+					}
+				} catch (final CoreException ce) {
+					// eat it
+				}
+			}
+
+			final InternalJobResult result = new InternalJobResult(successful, cancelled, errorMessage, exception,
+					systemInstance);
+			results.put(getInput(), result);
+			return cancelled ? Status.CANCEL_STATUS : Status.OK_STATUS;
+		}
+
+		protected abstract SystemInstance buildSystemInstance(IProgressMonitor monitor)
+				throws InterruptedException, OperationCanceledException, RootMissingException, Exception;
+
+		protected abstract IFile getOutputFile();
+
+		protected abstract T getInput();
+	}
 
 //	private static final class ResultJob extends Job {
 //		private final JobGroup instantiationJobs;
