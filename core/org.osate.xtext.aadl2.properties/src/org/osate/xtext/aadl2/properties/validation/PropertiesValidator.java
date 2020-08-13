@@ -106,7 +106,7 @@ import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.aadl2.util.Aadl2Util;
 
-public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
+public class PropertiesValidator extends AbstractPropertiesValidator {
 
 	public static final String INVALID_ASSIGNMENT = "edu.cmu.sei.invalid.assignment";
 	public static final String MISSING_WITH = "org.osate.xtext.aadl2.properties.missing_with";

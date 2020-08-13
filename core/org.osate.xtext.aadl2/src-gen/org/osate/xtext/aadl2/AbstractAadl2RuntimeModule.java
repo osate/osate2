@@ -129,8 +129,8 @@ public abstract class AbstractAadl2RuntimeModule extends org.eclipse.xtext.servi
 	}
 
 	// contributed by org.eclipse.xtext.generator.validation.JavaValidatorFragment
-	@org.eclipse.xtext.service.SingletonBinding(eager=true)	public Class<? extends org.osate.xtext.aadl2.validation.Aadl2JavaValidator> bindAadl2JavaValidator() {
-		return org.osate.xtext.aadl2.validation.Aadl2JavaValidator.class;
+	@org.eclipse.xtext.service.SingletonBinding(eager=true)	public Class<? extends org.osate.xtext.aadl2.validation.Aadl2Validator> bindAadl2JavaValidator() {
+		return org.osate.xtext.aadl2.validation.Aadl2Validator.class;
 	}
 
 	// contributed by org.eclipse.xtext.generator.scoping.AbstractScopingFragment

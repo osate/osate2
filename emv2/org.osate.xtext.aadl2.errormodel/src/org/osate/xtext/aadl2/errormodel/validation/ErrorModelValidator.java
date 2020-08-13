@@ -96,7 +96,7 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
-public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
+public class ErrorModelValidator extends AbstractErrorModelValidator {
 
 	@Override
 	protected boolean isResponsible(Map<Object, Object> context, EObject eObject) {

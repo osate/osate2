@@ -124,8 +124,8 @@ public abstract class AbstractPropertiesRuntimeModule extends org.eclipse.xtext.
 	}
 
 	// contributed by org.eclipse.xtext.generator.validation.JavaValidatorFragment
-	@org.eclipse.xtext.service.SingletonBinding(eager=true)	public Class<? extends org.osate.xtext.aadl2.properties.validation.PropertiesJavaValidator> bindPropertiesJavaValidator() {
-		return org.osate.xtext.aadl2.properties.validation.PropertiesJavaValidator.class;
+	@org.eclipse.xtext.service.SingletonBinding(eager=true)	public Class<? extends org.osate.xtext.aadl2.properties.validation.PropertiesValidator> bindPropertiesJavaValidator() {
+		return org.osate.xtext.aadl2.properties.validation.PropertiesValidator.class;
 	}
 
 	// contributed by org.eclipse.xtext.generator.scoping.AbstractScopingFragment
