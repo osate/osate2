@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.xtext.validation.ComposedChecks;
 
 @ComposedChecks(validators= {org.eclipse.xtext.validation.NamesAreUniqueValidator.class})
-public class AbstractAadl2JavaValidator extends org.osate.xtext.aadl2.properties.validation.PropertiesJavaValidator {
+public class AbstractAadl2Validator extends org.osate.xtext.aadl2.properties.validation.PropertiesValidator {
 
 	@Override
 	protected List<EPackage> getEPackages() {

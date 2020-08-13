@@ -28,7 +28,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EPackage;
 
-public class AbstractErrorModelJavaValidator extends org.osate.xtext.aadl2.properties.validation.PropertiesJavaValidator {
+public class AbstractErrorModelValidator extends org.osate.xtext.aadl2.properties.validation.PropertiesValidator {
 
 	@Override
 	protected List<EPackage> getEPackages() {

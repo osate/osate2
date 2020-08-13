@@ -124,8 +124,8 @@ public abstract class AbstractErrorModelRuntimeModule extends org.eclipse.xtext.
 	}
 
 	// contributed by org.eclipse.xtext.generator.validation.JavaValidatorFragment
-	@org.eclipse.xtext.service.SingletonBinding(eager=true)	public Class<? extends org.osate.xtext.aadl2.errormodel.validation.ErrorModelJavaValidator> bindErrorModelJavaValidator() {
-		return org.osate.xtext.aadl2.errormodel.validation.ErrorModelJavaValidator.class;
+	@org.eclipse.xtext.service.SingletonBinding(eager=true)	public Class<? extends org.osate.xtext.aadl2.errormodel.validation.ErrorModelValidator> bindErrorModelJavaValidator() {
+		return org.osate.xtext.aadl2.errormodel.validation.ErrorModelValidator.class;
 	}
 
 	// contributed by org.eclipse.xtext.generator.scoping.AbstractScopingFragment
