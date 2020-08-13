@@ -21,36 +21,32 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.swt.util;
+package org.osate.ge.errormodel.filters;
 
-import org.eclipse.swt.widgets.Widget;
+import org.osate.aadl2.AadlPackage;
+import org.osate.ge.ContentFilter;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
-/**
- * Contains functions for putting together tests to interactively test single components outside the Eclipse workbench.
- *
- */
-public final class SwtTestUtil {
-	private static String AUTOMATED_SWTBOT_TESTING_KEY = "org.eclipse.swtbot.widget.key";
+public class TypeSetFilter implements ContentFilter {
+	public static final String ID = "emv2.typeSets";
 
-	private SwtTestUtil() {
+	@Override
+	public String getId() {
+		return ID;
 	}
 
-	/**
-	 * Assigns an identifier to a widget to allow identification during automated testing.
-	 * @param widget is the widget for which to test the id.
-	 * @param value is the id to assign.
-	 */
-	public static void setTestingId(final Widget widget, final String value) {
-		widget.setData(AUTOMATED_SWTBOT_TESTING_KEY, value);
+	@Override
+	public String getName() {
+		return "Error Type Sets";
 	}
 
-	/**
-	 * Returns the value of the id assigned to the widget for allow identification during automated testing
-	 * @param widget is the widget for which to return the id.
-	 * @return the id for the widget or null if one has not been assigned.
-	 */
-	public static String getTestingId(final Widget widget) {
-		final Object value = widget.getData(AUTOMATED_SWTBOT_TESTING_KEY);
-		return value == null ? null : value.toString();
+	@Override
+	public boolean isApplicable(final Object bo) {
+		return bo instanceof AadlPackage;
+	}
+
+	@Override
+	public boolean test(Object bo) {
+		return bo instanceof TypeSet;
 	}
 }

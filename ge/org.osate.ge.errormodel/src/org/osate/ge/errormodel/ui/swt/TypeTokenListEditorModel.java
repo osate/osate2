@@ -21,8 +21,58 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
+package org.osate.ge.errormodel.ui.swt;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.osate.ge.swt.ObservableModel;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 
 /**
- * Provides classes which are shared between packages but are not meant to be used outside this plugin.
+ * Model for the {@link TypeTokenListEditorDialog}
+ *
  */
-package org.osate.ge.swt.internal;
+public interface TypeTokenListEditorModel extends ObservableModel {
+	/**
+	 * Stream of tokens being edited. The returned tokens must not be modified.
+	 * @return a stream containing tokens.
+	 */
+	Stream<TypeToken> getTypeTokens();
+
+	/**
+	 * Called to update the type tokens.
+	 * @param value the new type tokens.
+	 */
+	void setTypeTokens(List<TypeToken> value);
+
+	/**
+	 * Returns all the {@link ErrorTypes} that are available for use.
+	 * @return the error types.
+	 */
+	Stream<ErrorTypes> getErrorTypes();
+
+	/**
+	 * Validates a potential new list of type tokens. Provides an error when validation fails.
+	 * @param value the list of tokens to validate.
+	 * @return must not return null. In the case of no error, a blank string should be returned.
+	 */
+	String validate(List<TypeToken> value);
+
+	/**
+	 * Provides a label for an error type.
+	 * @param value the name of the error types.
+	 * @return a label for the error type. must not return null.
+	 */
+	String getErrorTypeLabel(ErrorTypes value);
+
+	default String getTypeTokenLabel(TypeToken value) {
+		return value.getType().stream().map(this::getErrorTypeLabel).collect(Collectors.joining(" * "));
+	}
+
+	default String getTypeTokensLabel() {
+		return getTypeTokens().map(this::getTypeTokenLabel).collect(Collectors.joining(", "));
+	}
+}

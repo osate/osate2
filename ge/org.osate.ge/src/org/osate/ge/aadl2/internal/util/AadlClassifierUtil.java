@@ -38,7 +38,7 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
+import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 
 public class AadlClassifierUtil {
 	/**
@@ -252,7 +252,7 @@ public class AadlClassifierUtil {
 			final ComponentCategory componentCategory, boolean includeImplementations) {
 		final EClass classifierClass = componentCategoryToClassifierEClass(componentCategory);
 		final Set<IEObjectDescription> objectDescriptions = new HashSet<IEObjectDescription>();
-		for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(project,
+		for (final IEObjectDescription desc : AadlModelAccessUtil.getAllEObjectsByType(project,
 				Aadl2Package.eINSTANCE.getComponentClassifier())) {
 			// Add objects that have are either types or implementations of the same category as the classifier type
 			if (classifierClass.isSuperTypeOf(desc.getEClass()) && (includeImplementations

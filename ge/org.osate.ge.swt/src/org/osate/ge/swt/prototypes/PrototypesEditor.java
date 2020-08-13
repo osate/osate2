@@ -33,13 +33,14 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.EventSource;
-import org.osate.ge.swt.internal.InternalUtil;
+import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.swt.selectors.ListEditor;
 import org.osate.ge.swt.selectors.ListEditorModel;
 
 /**
  * View for editing a list of prototypes and their details.
  * Combination of {@link org.osate.ge.swt.selectors.ListEditor} and {@link PrototypeEditor}.
+ * @since 1.1
  *
  */
 public final class PrototypesEditor<T, C> extends Composite {
@@ -52,7 +53,7 @@ public final class PrototypesEditor<T, C> extends Composite {
 	public PrototypesEditor(final Composite parent, final PrototypesEditorModel<T, C> model) {
 		super(parent, SWT.NONE);
 		Objects.requireNonNull(model, "model must not be null");
-		InternalUtil.setColorsToMatchParent(this);
+		SwtUtil.setColorsToMatchParent(this);
 
 		this.setLayout(GridLayoutFactory.swtDefaults().numColumns(3).create());
 		this.listView = new ListEditor<>(this, new ListEditorModel<T>() {
@@ -214,7 +215,7 @@ public final class PrototypesEditor<T, C> extends Composite {
 	}
 
 	public static void main(String[] args) {
-		InternalUtil.run(shell -> {
+		SwtUtil.run(shell -> {
 			new PrototypesEditor<>(shell, new TestPrototypesEditorModel());
 		});
 	}

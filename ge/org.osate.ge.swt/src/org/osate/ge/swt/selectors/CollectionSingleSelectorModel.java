@@ -21,8 +21,46 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
+package org.osate.ge.swt.selectors;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Objects;
+import java.util.stream.Stream;
+
+import org.osate.ge.swt.BaseObservableModel;
 
 /**
- * Provides utility classes.
+ * Abstract implementation of {@link SingleSelectorModel} which provides elements from a collection.
+ * @since 1.1
  */
-package org.osate.ge.swt.util;
+public abstract class CollectionSingleSelectorModel<T> extends BaseObservableModel implements SingleSelectorModel<T> {
+	private T selectedElement;
+	private final Collection<T> elements;
+
+	/**
+	 * Creates a new instance
+	 * @param elements the collection of elements. The collection will be copied by the model. Changes to the collection will not be reflected by the model.
+	 */
+	public CollectionSingleSelectorModel(final Collection<T> elements) {
+		this.elements = new ArrayList<>(Objects.requireNonNull(elements, "elements must not be null"));
+	}
+
+	@Override
+	public final Stream<T> getElements() {
+		return elements.stream();
+	}
+
+	@Override
+	public final T getSelectedElement() {
+		return selectedElement;
+	}
+
+	@Override
+	public final void setSelectedElement(final T value) {
+		if (!Objects.equals(selectedElement, value)) {
+			this.selectedElement = value;
+			triggerChangeEvent();
+		}
+	}
+}

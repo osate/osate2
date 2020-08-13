@@ -64,7 +64,7 @@ import org.osate.aadl2.ArraySize;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
-import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
+import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 
 public class EditDimensionsDialog extends TitleAreaDialog {
 	private final IProject projectContext; // Project for determining what may be referenced.
@@ -390,7 +390,7 @@ public class EditDimensionsDialog extends TitleAreaDialog {
 		private List<PropertyConstant> getValidPropertyConstants() {
 			final XtextResourceSet rs = new XtextResourceSet();
 			final List<PropertyConstant> results = new ArrayList<PropertyConstant>();
-			for (final IEObjectDescription objDesc : ScopedEMFIndexRetrieval.getAllEObjectsByType(projectContext,
+			for (final IEObjectDescription objDesc : AadlModelAccessUtil.getAllEObjectsByType(projectContext,
 					Aadl2Package.eINSTANCE.getPropertyConstant())) {
 				final PropertyConstant propConst = (PropertyConstant)rs.getEObject(EcoreUtil.getURI(objDesc.getEObjectOrProxy()), true);
 				if(propConst != null && propConst.getPropertyType() instanceof AadlInteger) {

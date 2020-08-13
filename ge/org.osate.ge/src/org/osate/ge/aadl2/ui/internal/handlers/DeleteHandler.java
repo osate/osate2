@@ -277,9 +277,18 @@ public class DeleteHandler extends AbstractHandler {
 		final Object boHandler = de.getBusinessObjectHandler();
 		if (bo instanceof EObject) {
 			final EObject boEObj = (EObject) bo;
-			return new BusinessObjectRemoval(boEObj, (boToModify) -> {
-				EcoreUtil.remove(boToModify);
-			});
+
+			if (boHandler instanceof CustomDeleter) {
+				final CustomDeleter deleter = (CustomDeleter) boHandler;
+				final EObject ownerBo = boEObj.eContainer();
+				return new BusinessObjectRemoval(ownerBo, (boToModify) -> {
+					deleter.delete(new CustomDeleteContext(boToModify, bo));
+				});
+			} else {
+				return new BusinessObjectRemoval(boEObj, (boToModify) -> {
+					EcoreUtil.remove(boToModify);
+				});
+			}
 		} else if (bo instanceof EmfContainerProvider) {
 			if(!(boHandler instanceof CustomDeleter)) {
 				throw new RuntimeException("Business object handler '" + boHandler + "' for "
@@ -291,7 +300,7 @@ public class DeleteHandler extends AbstractHandler {
 			final EObject ownerBo = ((EmfContainerProvider) bo).getEmfContainer();
 
 			return new BusinessObjectRemoval(ownerBo, (boToModify) -> {
-				deleter.delete(new CustomDeleteContext(ownerBo, bo));
+				deleter.delete(new CustomDeleteContext(boToModify, bo));
 			});
 		} else if (bo instanceof EmbeddedBusinessObject) {
 			// For embedded business objects, there isn't a model from which to remove the business object.

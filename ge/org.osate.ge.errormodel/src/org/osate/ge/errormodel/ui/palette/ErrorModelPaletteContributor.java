@@ -29,8 +29,8 @@ import java.util.stream.Stream;
 
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.palette.PaletteCategory;
-import org.osate.ge.palette.PaletteContributor;
 import org.osate.ge.palette.PaletteCommandProviderContext;
+import org.osate.ge.palette.PaletteContributor;
 import org.osate.ge.palette.TargetedPaletteCommand;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 
@@ -44,8 +44,10 @@ public class ErrorModelPaletteContributor implements PaletteContributor {
 	public Stream<TargetedPaletteCommand> getTargetedCommands(final PaletteCommandProviderContext ctx) {
 		final List<TargetedPaletteCommand> commands = new ArrayList<>();
 
-		commands.add(new CreateTypeLibraryPaletteCommand());
 		commands.add(new CreateTypePaletteCommand());
+		commands.add(new CreateTypeAliasPaletteCommand());
+		commands.add(new CreateTypeSetPaletteCommand());
+		commands.add(new CreateTypeSetAliasPaletteCommand());
 		commands.add(new CreateStateMachinePaletteCommand());
 		commands.add(new CreateEventPaletteCommand(ErrorModelPackage.eINSTANCE.getErrorEvent()));
 		commands.add(new CreateEventPaletteCommand(ErrorModelPackage.eINSTANCE.getRepairEvent()));

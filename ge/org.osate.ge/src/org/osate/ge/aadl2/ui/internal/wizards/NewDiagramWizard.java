@@ -67,15 +67,14 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Element;
 import org.osate.ge.DiagramType;
+import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 import org.osate.ge.aadl2.ui.internal.dialogs.ElementLabelProvider;
 import org.osate.ge.internal.DiagramTypeProvider;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.ui.dialogs.CreateDiagramComposite;
 import org.osate.ge.internal.ui.dialogs.DefaultCreateDiagramModel;
 import org.osate.ge.internal.ui.util.EditorUtil;
-import org.osate.ge.internal.util.ProjectUtil;
 import org.osate.ge.internal.util.ProxyUtil;
-import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osgi.framework.FrameworkUtil;
 
 public class NewDiagramWizard extends Wizard implements INewWizard {
@@ -268,7 +267,7 @@ public class NewDiagramWizard extends Wizard implements INewWizard {
 			}
 
 			// Get a live resource set and use it to load the actual context business object.
-			final ResourceSet liveResourceSet = ProjectUtil.getLiveResourceSet(project);
+			final ResourceSet liveResourceSet = AadlModelAccessUtil.getLiveResourceSet(project);
 
 			return ProxyUtil.resolveOrNull(contextDescription, Element.class, liveResourceSet);
 		}
@@ -299,7 +298,7 @@ public class NewDiagramWizard extends Wizard implements INewWizard {
 				if (contextEclass == null || project == null) {
 					contextViewer.setInput(Collections.emptyList());
 				} else {
-					contextViewer.setInput(ScopedEMFIndexRetrieval.getContainedEObjectsByType(project, contextEclass));
+					contextViewer.setInput(AadlModelAccessUtil.getContainedEObjectsByType(project, contextEclass));
 				}
 			}
 		}

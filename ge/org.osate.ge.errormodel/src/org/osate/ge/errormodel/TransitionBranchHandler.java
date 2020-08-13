@@ -34,12 +34,13 @@ import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
+import org.osate.ge.businessobjecthandling.CustomDeleteContext;
+import org.osate.ge.businessobjecthandling.CustomDeleter;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
-import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
@@ -49,7 +50,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 /**
  * @see ErrorBehaviorTransitionHandler for details about how transitions are represented.
  */
-public class TransitionBranchHandler implements BusinessObjectHandler {
+public class TransitionBranchHandler implements BusinessObjectHandler, CustomDeleter {
 	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.ancestor(2).children()
 			.filterByBusinessObjectRelativeReference(b -> ((TransitionBranch) b).eContainer()));
 	private static StandaloneQuery dstQuery = StandaloneQuery
@@ -108,12 +109,14 @@ public class TransitionBranchHandler implements BusinessObjectHandler {
 		return queryService.getFirstResult(dstQuery, boc);
 	}
 
-	// TODO: Need to allow this case. Perhaps an operation would be ideal?
-	// @DeleteRaw
-	public void delete(final TransitionBranch branchReadonly,
-			final AadlModificationService modService) {
-		modService.modify(branchReadonly, (branch) -> {
-			final ErrorBehaviorTransition transition = (ErrorBehaviorTransition) branch.eContainer();
+	@Override
+	public void delete(final CustomDeleteContext ctx) {
+		final ErrorBehaviorTransition transition = ctx.getContainerBusinessObject(ErrorBehaviorTransition.class).get();
+
+		// Find branch by URI.
+		final TransitionBranch branch = (TransitionBranch) transition.eResource().getResourceSet()
+				.getEObject(EcoreUtil.getURI(ctx.getReadonlyBoToDelete(TransitionBranch.class).get()), true);
+		if (branch != null) {
 			EcoreUtil.remove(branch);
 
 			if (transition.getDestinationBranches().size() == 1) {
@@ -127,7 +130,7 @@ public class TransitionBranchHandler implements BusinessObjectHandler {
 
 				transition.getDestinationBranches().clear();
 			}
-		});
+		}
 	}
 
 	@Override

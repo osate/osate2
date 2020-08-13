@@ -37,7 +37,7 @@ class ChildrenQuery extends DefaultQuery {
 		for(final BusinessObjectContext child : ctx.getChildren()) {
 			processResultValue(remainingQueries, child, state, result);
 			
-			if(result.done) {
+			if(result.isDone()) {
 				return;
 			}
 		}
