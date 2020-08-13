@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Widget;
 import org.hamcrest.CustomMatcher;
-import org.osate.ge.swt.util.SwtTestUtil;
+import org.osate.ge.swt.SwtUtil;
 
 // Print all available widgets. Used for debugging.
 public class PrintWidgetMatcher extends CustomMatcher<Widget> {
@@ -41,10 +41,10 @@ public class PrintWidgetMatcher extends CustomMatcher<Widget> {
 		System.err.println("Item: " + item);
 		if (item instanceof Combo) {
 			final Combo combo = (Combo) item;
-			System.err.println("Combo: " + combo + " ID: " + SwtTestUtil.getTestingId(combo));
+			System.err.println("Combo: " + combo + " ID: " + SwtUtil.getTestingId(combo));
 		} else if (item instanceof Button) {
 			final Button button = (Button) item;
-			System.err.println("Button: " + button + " ID: " + SwtTestUtil.getTestingId(button));
+			System.err.println("Button: " + button + " ID: " + SwtUtil.getTestingId(button));
 		}
 		return true;
 	}

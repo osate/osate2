@@ -30,11 +30,9 @@ import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.BusinessObjectProviderContext;
 import org.osate.ge.errormodel.model.BehaviorTransitionTrunk;
 import org.osate.ge.errormodel.model.ErrorTypeExtension;
-import org.osate.ge.errormodel.model.ErrorTypeLibrary;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 public class ErrorModelBusinessObjectProvider implements BusinessObjectProvider {
@@ -42,28 +40,24 @@ public class ErrorModelBusinessObjectProvider implements BusinessObjectProvider 
 	public Stream<?> getChildBusinessObjects(final BusinessObjectProviderContext ctx) {
 		final Object bo = ctx.getBusinessObjectContext().getBusinessObject();
 		if (bo instanceof AadlPackage) {
-			final ErrorModelLibrary lib = ErrorModelGeUtil.getErrorModelLibrary((AadlPackage) bo);
-			if (lib == null) {
-				return Stream.empty();
-			}
-
-			return Stream.concat(Stream.of(new ErrorTypeLibrary(lib)), lib.getBehaviors().stream());
-		} else if (bo instanceof ErrorTypeLibrary) {
-			final ErrorTypeLibrary etl = (ErrorTypeLibrary) bo;
-			return etl.getErrorModelLibrary().getTypes().stream();
-		} else if(bo instanceof ErrorBehaviorStateMachine) {
-			final ErrorBehaviorStateMachine stateMachine = (ErrorBehaviorStateMachine)bo;
-			return Stream.concat(Stream.concat(stateMachine.getEvents().stream(),
-					stateMachine.getStates().stream()),
+			return ErrorModelGeUtil.getErrorModelLibrary((AadlPackage) bo)
+					.map(lib -> Stream.concat(Stream.concat(lib.getTypes().stream(),
+							lib.getTypesets().stream()),
+							lib.getBehaviors().stream()))
+					.orElseGet(() -> Stream.empty());
+		} else if (bo instanceof ErrorBehaviorStateMachine) {
+			final ErrorBehaviorStateMachine stateMachine = (ErrorBehaviorStateMachine) bo;
+			return Stream.concat(Stream.concat(stateMachine.getEvents().stream(), stateMachine.getStates()
+					.stream()),
 					stateMachine.getTransitions().stream());
 		} else if (bo instanceof ErrorBehaviorTransition) {
 			// See ErrorBehaviorTransitionHandler for details regarding how the business objects related to error behavior transitions are represented.
 			final ErrorBehaviorTransition t = (ErrorBehaviorTransition) bo;
 			return t.getDestinationBranches().isEmpty() ? Stream.empty()
 					: Stream.concat(Stream.of(new BehaviorTransitionTrunk(t)), t.getDestinationBranches().stream());
-		} else if(bo instanceof ErrorType) {
-			final ErrorType errorType = (ErrorType)bo;
-			if(errorType.getSuperType() != null) {
+		} else if (bo instanceof ErrorType) {
+			final ErrorType errorType = (ErrorType) bo;
+			if (errorType.getSuperType() != null) {
 				return Stream.of(new ErrorTypeExtension(errorType.getSuperType(), errorType));
 			}
 		}

@@ -35,8 +35,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.osate.ge.swt.ChangeEvent;
-import org.osate.ge.swt.internal.InternalUtil;
-import org.osate.ge.swt.util.SwtTestUtil;
+import org.osate.ge.swt.SwtUtil;
 
 /**
  * A component which allows selecting a classifier and bindings for a node provided by a {@link PrototypeBindingsModel}.
@@ -45,6 +44,7 @@ import org.osate.ge.swt.util.SwtTestUtil;
  * @param <D> is the type of the direction options.
  * @param <T> is the type of the type options.
  * @param <C> is the type of the classifiers.
+ * @since 1.1
  */
 public final class ClassifierWithBindingsField<N, D, T, C> extends Composite {
 	private final PrototypeBindingsModel<N, D, T, C> model;
@@ -64,7 +64,7 @@ public final class ClassifierWithBindingsField<N, D, T, C> extends Composite {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
 		this.node = initNode;
-		InternalUtil.setColorsToMatchParent(this);
+		SwtUtil.setColorsToMatchParent(this);
 
 		this.setLayout(GridLayoutFactory.fillDefaults().numColumns(2).create());
 
@@ -73,7 +73,7 @@ public final class ClassifierWithBindingsField<N, D, T, C> extends Composite {
 				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER)
 						.minSize(200, SWT.DEFAULT)
 						.create());
-		InternalUtil.setColorsToMatchParent(this.selectedLbl);
+		SwtUtil.setColorsToMatchParent(this.selectedLbl);
 
 		this.chooseBtn = new Button(this, SWT.FLAT);
 		this.chooseBtn
@@ -85,7 +85,7 @@ public final class ClassifierWithBindingsField<N, D, T, C> extends Composite {
 				ClassifierWithBindingsDialog.open(getShell(), "Select Classifier and Prototype Bindings", model, node);
 			}
 		});
-		InternalUtil.setColorsToMatchParent(this.chooseBtn);
+		SwtUtil.setColorsToMatchParent(this.chooseBtn);
 
 		model.changed().addListener(changeListener);
 
@@ -105,7 +105,7 @@ public final class ClassifierWithBindingsField<N, D, T, C> extends Composite {
 	 * @param value is the testing ID
 	 */
 	public void setLabelTestingId(final String value) {
-		SwtTestUtil.setTestingId(selectedLbl, value);
+		SwtUtil.setTestingId(selectedLbl, value);
 	}
 
 	/**
@@ -113,7 +113,7 @@ public final class ClassifierWithBindingsField<N, D, T, C> extends Composite {
 	 * @param value is the testing ID
 	 */
 	public void setChooseButtonTestingId(final String value) {
-		SwtTestUtil.setTestingId(chooseBtn, value);
+		SwtUtil.setTestingId(chooseBtn, value);
 	}
 
 	private void refresh() {
@@ -124,7 +124,7 @@ public final class ClassifierWithBindingsField<N, D, T, C> extends Composite {
 	}
 
 	public static void main(String[] args) {
-		InternalUtil.run(shell -> {
+		SwtUtil.run(shell -> {
 			new ClassifierWithBindingsField<>(shell, new TestPrototypeBindingsModel(), null);
 		});
 	}

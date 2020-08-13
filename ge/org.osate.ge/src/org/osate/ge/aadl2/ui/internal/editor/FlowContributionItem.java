@@ -56,7 +56,7 @@ import org.osate.ge.internal.ui.editor.ComboContributionItem;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
-import org.osate.ge.swt.util.SwtTestUtil;
+import org.osate.ge.swt.SwtUtil;
 
 import com.google.common.base.Predicates;
 
@@ -146,7 +146,7 @@ public class FlowContributionItem extends ComboContributionItem {
 			}
 		});
 
-		SwtTestUtil.setTestingId(comboViewer.getCombo(), highlightFlow);
+		SwtUtil.setTestingId(comboViewer.getCombo(), highlightFlow);
 		refresh(); // Populate the combo box
 		return control;
 	}

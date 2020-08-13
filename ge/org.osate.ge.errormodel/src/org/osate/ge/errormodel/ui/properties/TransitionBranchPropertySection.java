@@ -43,7 +43,6 @@ import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.ge.BusinessObjectSelection;
-import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.ui.PropertySectionUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
@@ -70,7 +69,7 @@ public class TransitionBranchPropertySection extends AbstractPropertySection {
 		super.createControls(parent, aTabbedPropertySheetPage);
 		final Composite container = getWidgetFactory().createFlatFormComposite(parent);
 
-		InternalPropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Value:");
+		PropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Value:");
 
 		valueField = getWidgetFactory().createText(container, "", SWT.SINGLE);
 

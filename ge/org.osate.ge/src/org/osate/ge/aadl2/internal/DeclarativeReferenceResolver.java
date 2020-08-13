@@ -24,6 +24,7 @@
 package org.osate.ge.aadl2.internal;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -44,12 +45,12 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.PackageSection;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.StringUtil;
+import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 import org.osate.ge.internal.services.AadlResourceService;
 import org.osate.ge.internal.services.AadlResourceService.AadlPackageReference;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.ModelChangeNotifier.ChangeListener;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
-import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.referencehandling.CreateReferenceResolverFactoryContext;
 import org.osate.ge.referencehandling.ReferenceResolver;
 import org.osate.ge.referencehandling.ReferenceResolverFactory;
@@ -143,9 +144,11 @@ public class DeclarativeReferenceResolver implements ReferenceResolver {
 			final String[] pkgNameSegs = packageName.split("::");
 			final QualifiedName packageQualifiedName = QualifiedName.create(pkgNameSegs);
 			for (final IResourceDescription resDesc : resourceDescriptions) {
-				for (IEObjectDescription eod : resDesc.getExportedObjects(aadlPackageEClass, packageQualifiedName,
-						true)) {
-					return aadlResourceService.getPackageReference(eod.getEObjectURI());
+				// If there are multiple objects, only check the first one.
+				final Iterator<IEObjectDescription> it = resDesc
+						.getExportedObjects(aadlPackageEClass, packageQualifiedName, true).iterator();
+				if (it.hasNext()) {
+					return aadlResourceService.getPackageReference(it.next().getEObjectURI());
 				}
 			}
 
@@ -155,7 +158,7 @@ public class DeclarativeReferenceResolver implements ReferenceResolver {
 		private Set<IResourceDescription> getCachedResourceDescriptions() {
 			if (resourceDescriptions == null) {
 				// Find resources that should be looked in
-				resourceDescriptions = ScopedEMFIndexRetrieval.calculateVisibleResourceDescriptions(
+				resourceDescriptions = AadlModelAccessUtil.calculateVisibleResourceDescriptions(
 						project)
 						.collect(Collectors.toSet());
 			}

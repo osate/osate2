@@ -34,14 +34,14 @@ import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.swt.BaseObservableModel;
-import org.osate.ge.swt.selectors.SelectorModel;
+import org.osate.ge.swt.selectors.SingleSelectorModel;
 
 /**
  * Model implementation which is driven by a business object selection
  *
  */
 public class FeatureDirectionModel extends BaseObservableModel
-implements SelectorModel<DirectionType> {
+implements SingleSelectorModel<DirectionType> {
 	private BusinessObjectSelection bos;
 	private DirectionType direction = null;
 	private boolean enabled = false;

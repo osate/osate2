@@ -46,8 +46,8 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.SubprogramCallSequence;
-import org.osate.ge.internal.util.ProjectUtil;
-import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
+import org.osate.ge.ProjectUtil;
+import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
 /**
@@ -161,7 +161,7 @@ public class AgeAadlUtil {
 	}
 
 	public static Set<IEObjectDescription> getEditablePackages(final IProject project) {
-		return ScopedEMFIndexRetrieval
+		return AadlModelAccessUtil
 				.getAllEObjectsByType(project,
 						Aadl2Package.eINSTANCE
 						.getAadlPackage())

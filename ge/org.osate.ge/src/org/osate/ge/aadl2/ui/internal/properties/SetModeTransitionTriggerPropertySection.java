@@ -122,7 +122,7 @@ public class SetModeTransitionTriggerPropertySection extends AbstractPropertySec
 		fd.top = new FormAttachment(tableComposite, 0, SWT.CENTER);
 		chooseBtn.setLayoutData(fd);
 
-		InternalPropertySectionUtil.createSectionLabel(composite,
+		PropertySectionUtil.createSectionLabel(composite,
 				getWidgetFactory(), "Triggers:");
 		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}

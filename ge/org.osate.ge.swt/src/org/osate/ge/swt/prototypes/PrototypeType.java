@@ -27,6 +27,7 @@ import java.util.Objects;
 
 /**
  * Enumeration of types of prototype. Concatenation of the various types of component classifiers with a feature and feature group
+ * @since 1.1
  *
  */
 public enum PrototypeType {

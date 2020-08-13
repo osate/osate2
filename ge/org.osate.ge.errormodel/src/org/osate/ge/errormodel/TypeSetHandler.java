@@ -31,44 +31,70 @@ import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.CanDeleteContext;
+import org.osate.ge.businessobjecthandling.CanRenameContext;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
-import org.osate.ge.errormodel.model.ErrorTypeLibrary;
+import org.osate.ge.businessobjecthandling.RenameContext;
+import org.osate.ge.errormodel.util.ErrorModelGeUtil;
+import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
-public class ErrorTypeLibraryHandler implements BusinessObjectHandler {
+public class TypeSetHandler implements BusinessObjectHandler {
 	private static final Graphic graphic = RectangleBuilder.create().build();
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(ErrorTypeLibrary.class)
-				.filter(bo -> bo.getErrorModelLibrary().getElementRoot() instanceof AadlPackage).isPresent();
+		return ctx.getBusinessObject(TypeSet.class).map(bo -> bo.getElementRoot() instanceof AadlPackage).isPresent();
 	}
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		final AadlPackage pkg = (AadlPackage) ctx.getBusinessObject(ErrorTypeLibrary.class).get()
-				.getErrorModelLibrary()
-				.getElementRoot();
-		return new CanonicalBusinessObjectReference(ErrorModelReferenceUtil.TYPE_ERROR_TYPE_LIBRARY,
-				ctx.getReferenceBuilder().getCanonicalReference(pkg).encode());
+		final TypeSet bo = ctx.getBusinessObject(TypeSet.class).get();
+		return new CanonicalBusinessObjectReference(
+				ErrorModelReferenceUtil.TYPE_TYPE_SET,
+				ctx.getReferenceBuilder().getCanonicalReference(bo.getElementRoot()).encode(),
+				bo.getName());
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_ERROR_TYPE_LIBRARY);
+		return ErrorModelReferenceUtil
+				.getRelativeReferenceForTypeSet(ctx.getBusinessObject(TypeSet.class).get().getName());
+	}
+
+	@Override
+	public boolean canDelete(final CanDeleteContext ctx) {
+		return true;
 	}
 
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
-		return Optional.of(GraphicalConfigurationBuilder.create().graphic(graphic).build());
+		return Optional.of(GraphicalConfigurationBuilder.create().graphic(graphic)
+				.annotation("<Type Set>")
+				.style(ErrorModelGeUtil.topCenteredLabelStyle).build());
 	}
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return "Error Type Library";
+		return ctx.getBusinessObject(TypeSet.class).map(bo -> bo.getName()).orElse("");
+	}
+
+	@Override
+	public boolean canRename(final CanRenameContext ctx) {
+		return true;
+	}
+
+	@Override
+	public Optional<String> validateName(final RenameContext ctx) {
+		return ctx.getBusinessObject(TypeSet.class).map(ts -> {
+			final ErrorModelLibrary errorModelLibrary = (ErrorModelLibrary) ts.eContainer();
+			return ErrorModelNamingUtil.validateName(errorModelLibrary, ts.getName(), ctx.getNewName());
+		});
 	}
 }

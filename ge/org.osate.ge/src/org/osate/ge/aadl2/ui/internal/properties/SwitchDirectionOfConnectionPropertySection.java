@@ -129,7 +129,7 @@ public class SwitchDirectionOfConnectionPropertySection extends AbstractProperty
 		ld.top = new FormAttachment(directionContainer, 0, SWT.CENTER);
 		switchDirectionBtn.setLayoutData(ld);
 
-		InternalPropertySectionUtil.createSectionLabel(composite, getWidgetFactory(),
+		PropertySectionUtil.createSectionLabel(composite, getWidgetFactory(),
 				"Direction:");
 		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}

@@ -56,12 +56,12 @@ public class StubBusinessObjectHandler implements BusinessObjectHandler {
 
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(GetGraphicalConfigurationContext ctx) {
-		return null;
+		return Optional.empty();
 	}
 
 	@Override
 	public String getName(GetNameContext ctx) {
 		return null;
 	}
+}
 
-};

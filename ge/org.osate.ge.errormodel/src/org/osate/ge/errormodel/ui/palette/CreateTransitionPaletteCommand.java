@@ -28,10 +28,9 @@ import java.util.Optional;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.aadl2.ui.internal.dialogs.ElementSelectionDialog;
+import org.osate.ge.aadl2.ui.NamedElementCollectionSingleSelectorModel;
 import org.osate.ge.errormodel.model.BehaviorTransitionTrunk;
 import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
 import org.osate.ge.operations.Operation;
@@ -41,6 +40,8 @@ import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.CanStartConnectionContext;
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.palette.GetCreateConnectionOperationContext;
+import org.osate.ge.swt.selectors.FilteringSelectorDialog;
+import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
 import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement;
@@ -92,16 +93,15 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 							final ErrorBehaviorState srcState = (ErrorBehaviorState) stateMachine.eResource()
 									.getResourceSet().getEObject(srcStateUri, true);
 
-							final ElementSelectionDialog selectEventDialog = new ElementSelectionDialog(
-									Display.getCurrent().getActiveShell(), "Select Event", "Select event",
+							final NamedElementCollectionSingleSelectorModel<ErrorBehaviorEvent> model = new NamedElementCollectionSingleSelectorModel<>(
 									stateMachine.getEvents());
-
-							if (selectEventDialog.open() == Window.CANCEL) {
+							if (!FilteringSelectorDialog.open(Display.getCurrent().getActiveShell(), "Select Event",
+									new LabelFilteringListSelectorModel<>(
+											model))) {
 								return null;
 							}
 
-							final ErrorBehaviorEvent event = (ErrorBehaviorEvent) selectEventDialog
-									.getFirstSelectedElement();
+							final ErrorBehaviorEvent event = model.getSelectedElement();
 							// Create the transition
 							final ErrorBehaviorTransition newTransition = (ErrorBehaviorTransition) EcoreUtil
 									.create(ErrorModelPackage.eINSTANCE.getErrorBehaviorTransition());
@@ -137,7 +137,6 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 
 							return StepResultBuilder.create().showNewBusinessObject(srcBoc.getParent(), newTransition)
 									.build();
-
 						});
 			});
 		} else if (srcBo instanceof ErrorBehaviorTransition || srcBo instanceof BehaviorTransitionTrunk

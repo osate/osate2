@@ -45,7 +45,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
-import org.osate.ge.swt.util.SwtTestUtil;
+import org.osate.ge.swt.SwtUtil;
 
 import com.google.common.collect.ImmutableCollection;
 
@@ -108,7 +108,7 @@ public class CreateDiagramComposite<DiagramType> extends Composite {
 		nameLabel.setText("Name");
 
 		nameField = new Text(this, SWT.SINGLE | SWT.BORDER);
-		SwtTestUtil.setTestingId(nameField, WIDGET_ID_NAME);
+		SwtUtil.setTestingId(nameField, WIDGET_ID_NAME);
 		nameField.setLayoutData(GridDataFactory.fillDefaults().grab(true, false).create());
 		nameField.addModifyListener(e -> {
 			if (CreateDiagramComposite.this.model != null) {
@@ -140,7 +140,7 @@ public class CreateDiagramComposite<DiagramType> extends Composite {
 		typeLabel.setText("Type:");
 
 		typeField = new ComboViewer(this);
-		SwtTestUtil.setTestingId(typeField.getCombo(), WIDGET_ID_TYPE);
+		SwtUtil.setTestingId(typeField.getCombo(), WIDGET_ID_TYPE);
 		typeField.getCombo().setLayoutData(GridDataFactory.fillDefaults().grab(true, false).create());
 		typeField.setComparator(new ViewerComparator());
 		typeField.setContentProvider(new ArrayContentProvider());

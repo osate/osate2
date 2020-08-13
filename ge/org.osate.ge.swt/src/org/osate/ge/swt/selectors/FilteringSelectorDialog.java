@@ -23,23 +23,31 @@
  */
 package org.osate.ge.swt.selectors;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
-import org.osate.ge.swt.internal.InternalUtil;
+import org.osate.ge.swt.ChangeEvent;
+import org.osate.ge.swt.SwtUtil;
 
 /**
  * Dialog for selecting from a filtering selector. Selected element is set when dialog is closed.
  *
  * If the dialog's contents supports {@link SelectionDoubleClickedEventGenerator}, the dialog will be confirmed when the event is generated.
+ * @since 1.1
  */
 public final class FilteringSelectorDialog {
 	private FilteringSelectorDialog() {
@@ -52,11 +60,14 @@ public final class FilteringSelectorDialog {
 	 * @param parent is the parent shell or null if the dialog should be a top-level window.
 	 * @param title is the title of the dialog's shell.
 	 * @param model is the view model for the dialog.
+	 * @param multi whether to allow multiple selections
+	 * @return true if OK was selected and the selected elements was updated.
 	 *
 	 * @see #open(Shell, String, FilteringSelectorModel, BiFunction)
 	 */
-	public static <T> void open(final Shell parent, final String title, final FilteringSelectorModel<T> model) {
-		open(parent, title, model,
+	public static <T> boolean open(final Shell parent, final String title, final FilteringSelectorModel<T> model) {
+		return open(parent, title,
+				model,
 				(container, dialogModel) -> new FilteringListSelector<>(container, dialogModel));
 
 	}
@@ -70,8 +81,10 @@ public final class FilteringSelectorDialog {
 	 * @param title is the title of the dialog's shell.
 	 * @param model is the view model for the dialog.
 	 * @param controlCreator is a function that creates the control using the supplied container and model.
+	 * @return true if OK was selected and the selected elements was updated.
 	 */
-	public static <T> void open(final Shell parent, final String title, final FilteringSelectorModel<T> model,
+	public static <T> boolean open(final Shell parent, final String title,
+			final FilteringSelectorModel<T> model,
 			final BiFunction<Composite, FilteringSelectorModel<T>, Control> controlCreator) {
 		Objects.requireNonNull(title, "title must not be null");
 		Objects.requireNonNull(model, "model must not be null");
@@ -83,7 +96,10 @@ public final class FilteringSelectorDialog {
 
 		// Update the underlying selection if the dialog is confirmed.
 		if (dlg.open() == Window.OK && dialogModel.dialogSelectionIsValid) {
-			model.setSelectedElement(dialogModel.dialogSelection);
+			model.setSelectedElements(dialogModel.dialogSelection.stream());
+			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -91,6 +107,7 @@ public final class FilteringSelectorDialog {
 		private final String title;
 		private final FilteringSelectorModel<T> model;
 		private final BiFunction<Composite, FilteringSelectorModel<T>, Control> controlCreator;
+		private final Consumer<ChangeEvent> changeListener = e -> refresh();
 		private final Consumer<SelectionDoubleClickedEvent> selectionDoubleClickedListener = e -> okPressed();
 
 		public InnerDialog(final Shell parent, final String title,
@@ -101,6 +118,7 @@ public final class FilteringSelectorDialog {
 			this.model = model;
 			this.controlCreator = controlCreator;
 			setShellStyle(getShellStyle() | SWT.RESIZE);
+			model.changed().addListener(changeListener);
 		}
 
 		@Override
@@ -128,6 +146,20 @@ public final class FilteringSelectorDialog {
 			super.configureShell(shell);
 			shell.setText(title);
 		}
+
+		@Override
+		protected void createButtonsForButtonBar(Composite parent) {
+			super.createButtonsForButtonBar(parent);
+			refresh();
+		}
+
+		private void refresh() {
+			final Button okBtn = getButton(IDialogConstants.OK_ID);
+
+			if (okBtn != null) {
+				okBtn.setEnabled(model.getSelectedElements().iterator().hasNext());
+			}
+		}
 	}
 
 	/**
@@ -143,21 +175,22 @@ public final class FilteringSelectorDialog {
 		/**
 		 * Element selected via the dialog. Should be ignored if {@link #dialogSelectionIsValid} is null
 		 */
-		T dialogSelection = null;
+		List<T> dialogSelection = Collections.emptyList();
 
 		public FilteringListSelectorDialogModel(final FilteringSelectorModel<T> inner) {
 			super(inner);
 		}
 
 		@Override
-		public T getSelectedElement() {
-			return dialogSelectionIsValid ? dialogSelection : super.getSelectedElement();
+		public Stream<T> getSelectedElements() {
+			return dialogSelectionIsValid ? dialogSelection.stream() : super.getSelectedElements();
 		}
 
 		@Override
-		public void setSelectedElement(final T element) {
-			if (!dialogSelectionIsValid || !Objects.equals(dialogSelection, element)) {
-				dialogSelection = element;
+		public void setSelectedElements(final Stream<T> elements) {
+			final List<T> newDialogSelection = elements.collect(Collectors.toList());
+			if (!dialogSelectionIsValid || !Objects.equals(dialogSelection, newDialogSelection)) {
+				dialogSelection = newDialogSelection;
 				dialogSelectionIsValid = true;
 				triggerChangeEvent();
 			}
@@ -165,9 +198,10 @@ public final class FilteringSelectorDialog {
 	}
 
 	public static void main(String[] args) {
-		InternalUtil.runDialog(() -> {
-			FilteringSelectorDialog.open(null, "Select an Item",
-					new LabelFilteringListSelectorModel<>(new TestListEditorModel()));
+		SwtUtil.runDialog(() -> {
+			FilteringSelectorDialog.open(null,
+					"Select Items",
+					new LabelFilteringListSelectorModel<>(new TestSelectorModel()));
 		});
 	}
 }
