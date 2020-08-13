@@ -6290,7 +6290,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		// Test for L6: connection between subcomponent and access feature
 		else if (source instanceof Subcomponent && destination instanceof Access
 				&& (dstContext == null || dstContext instanceof FeatureGroup)) {
-			if (!(destinationType == AccessType.PROVIDES)) {
+			if (destinationType != AccessType.PROVIDES) {
 				error('\'' + destination.getName()
 						+ "' must be a provides access feature for a connection from an accessed subcomponent.",
 						connection, Aadl2Package.eINSTANCE.getConnection_Destination());
@@ -6309,7 +6309,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		// subcomponent
 		else if (source instanceof Subcomponent && destination instanceof Access
 				&& dstContext instanceof Subcomponent) {
-			if (!(destinationType == AccessType.REQUIRES)) {
+			if (destinationType != AccessType.REQUIRES) {
 				error('\'' + destination.getName()
 						+ "' must be a requires access feature for a connection from an accessed subcomponent.",
 						connection, Aadl2Package.eINSTANCE.getConnection_Destination());
