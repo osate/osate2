@@ -125,6 +125,32 @@ censes only apply to the Third Party Software and not any other portion of this 
                                   value="org.osate.core.instanceModelFile">
                             </test>
                          </adapt>
+                         
+                         <!-- Instantiatable ComponentImplementation -->
+                         <adapt
+                               type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                            <and>
+                               <test
+                                     property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                     value="ComponentImplementation"
+                                     forcePluginActivation="true">
+                               </test>
+                               <not>
+                                  <test
+                                        property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                        value="SubprogramImplementation"
+                                        forcePluginActivation="true">
+                                  </test>
+                               </not>
+                               <not>
+                                  <test
+                                        property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                        value="SubprogramGroupImplementation"
+                                        forcePluginActivation="true">
+                                  </test>
+                               </not>
+                            </and>
+                         </adapt>
                       </or>
                    </iterate>
                 </and>
@@ -308,6 +334,32 @@ censes only apply to the Third Party Software and not any other portion of this 
                                </not>
                             </and>
                          </adapt>
+                         
+                         <!-- For the Outline View -->
+                         <adapt
+                               type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
+                            <and>
+                               <test
+                                     property="org.osate.ui.superType"
+                                     value="ComponentImplementation"
+                                     forcePluginActivation="true">
+                               </test>
+                               <not>
+                                  <test
+                                        property="org.osate.ui.superType"
+                                        value="SubprogramImplementation"
+                                        forcePluginActivation="true">
+                                  </test>
+                               </not>
+                               <not>
+                                  <test
+                                        property="org.osate.ui.superType"
+                                        value="SubprogramGroupImplementation"
+                                        forcePluginActivation="true">
+                                  </test>
+                               </not>
+                            </and>
+                         </adapt>
                       </or>
                    </iterate>
                 </and>
@@ -351,6 +403,21 @@ censes only apply to the Third Party Software and not any other portion of this 
                commandId="org.osate.analysis.resource.budgets.notBoundResourceAnalysis">
          </command>
       </menuContribution>
+      <menuContribution
+             locationURI="popup:org.osate.ui.analysesOutlinePopup?after=additions">
+         <menu id="org.osate.analysis.resource.budgets.outlineBudgetMenu" label="Budget">
+            <separator
+                  name="core">
+            </separator>
+            <command
+                  commandId="org.osate.analysis.resource.budgets.BusLoadAnalysis">
+            </command>
+            <separator
+                  name="third_party">
+            </separator>
+         </menu>
+      </menuContribution>
+     
       <menuContribution
             locationURI="toolbar:org.osate.ui.budgetToolbar?after=core">
          <command

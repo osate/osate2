@@ -57,6 +57,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.core.AadlNature;
+import org.osate.ui.internal.instantiate.InstantiationEngine;
 import org.osate.workspace.WorkspacePlugin;
 
 /**
@@ -120,8 +121,20 @@ abstract class NewAbstractAaxlHandler extends AbstractHandler {
 
 		@Override
 		protected IStatus run(final IProgressMonitor monitor) {
-			// Get all the Aaxl files from the selection
-			final List<IFile> aaxlFiles = findAllInstanceFiles(selectionAsList);
+			/* Find the aaxl files and the component implementations from the UI selection */
+			final Set<IFile> aaxlFiles = new HashSet<>();
+			final Set<Object> forEngine = new HashSet<>();
+			findAllInstanceFilesAndComponentImpls(selectionAsList, aaxlFiles, forEngine);
+
+			/*
+			 * Instantiate the component implementations and add those that were successful to the
+			 * set of aaxl files.
+			 */
+			if (!forEngine.isEmpty()) {
+				final InstantiationEngine engine = new InstantiationEngine(forEngine);
+				final List<IFile> newAaxlFiles = engine.instantiate();
+				aaxlFiles.addAll(newAaxlFiles);
+			}
 			final int size = aaxlFiles.size();
 
 			/*
@@ -307,6 +320,55 @@ abstract class NewAbstractAaxlHandler extends AbstractHandler {
 						WorkspacePlugin.log(e);
 					}
 				}
+			}
+		}
+	}
+
+	/**
+	 * Given a collection of resources, find all the resources that are instance model ({@code .aaxl})
+	 * files.  If a resource is an AADL project, working set, or folder then the contents are recursively searched.
+	 * Duplicates are handled: if a resource is encountered more than once it only appears once in
+	 * the returned list.  Hidden folders (those that start with {@code .}) are ignored.
+	 *
+	 * @param A collection of Eclipse {@link IResource} objects and {@link IWorkingSet} objects.
+	 * @return A list of {@link IFile} objects that refer to AADL instance model files.
+	 */
+	private static void findAllInstanceFilesAndComponentImpls(final Collection<Object> rsrcs,
+			final Set<IFile> instanceFiles, final Set<Object> forEngine) {
+		findAllInstanceFilesAndComponentImpls(rsrcs.toArray(new Object[rsrcs.size()]), instanceFiles, forEngine);
+	}
+
+	private static void findAllInstanceFilesAndComponentImpls(final Object[] rsrcs, final Set<IFile> instanceFiles,
+			final Set<Object> forEngine) {
+		for (final Object rsrc : rsrcs) {
+			if (rsrc instanceof IWorkingSet) {
+				findAllInstanceFilesAndComponentImpls(((IWorkingSet) rsrc).getElements(), instanceFiles, forEngine);
+			} else if (rsrc instanceof IFile) {
+				final IFile file = (IFile) rsrc;
+				final String ext = file.getFileExtension();
+				if (ext != null && ext.equals(WorkspacePlugin.INSTANCE_FILE_EXT)) {
+					instanceFiles.add(file);
+				}
+			} else if (rsrc instanceof IContainer) {
+				final IContainer container = (IContainer) rsrc;
+				if (container instanceof IProject) {
+					final IProject project = (IProject) container;
+					if (!project.isOpen() || !AadlNature.hasNature(project)) {
+						// Project is closed or is not an AADL project, so ignore it
+						continue;
+					}
+				}
+
+				if (!container.getName().startsWith(".")) {
+					try {
+						findAllInstanceFilesAndComponentImpls(container.members(), instanceFiles, forEngine);
+					} catch (final CoreException e) {
+						WorkspacePlugin.log(e);
+					}
+				}
+			} else {
+				// pass through to the instantiation engine
+				forEngine.add(rsrc);
 			}
 		}
 	}

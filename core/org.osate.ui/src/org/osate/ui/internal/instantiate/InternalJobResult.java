@@ -2,7 +2,7 @@ package org.osate.ui.internal.instantiate;
 
 import java.util.Collection;
 
-import org.osate.aadl2.instance.SystemInstance;
+import org.eclipse.core.resources.IFile;
 
 /**
  * Records the state of one of the instantiation jobs, i.e, was it successful, was it cancelled, did it have
@@ -34,15 +34,15 @@ final class InternalJobResult {
 	public final boolean cancelled;
 	public final String errorMessage;
 	public final Exception exception;
-	public final SystemInstance systemInstance;
+	public final IFile aaxlFile;
 
 	public InternalJobResult(final boolean successful, final boolean cancelled, final String errorMessage,
-			final Exception exception, final SystemInstance systemInstance) {
+			final Exception exception, final IFile aaxlFile) {
 		this.successful = successful;
 		this.cancelled = cancelled;
 		this.errorMessage = errorMessage;
 		this.exception = exception;
-		this.systemInstance = systemInstance;
+		this.aaxlFile = aaxlFile;
 	}
 
 	/**

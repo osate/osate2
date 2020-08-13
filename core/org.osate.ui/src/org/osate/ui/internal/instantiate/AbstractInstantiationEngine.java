@@ -24,6 +24,7 @@
 package org.osate.ui.internal.instantiate;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -58,9 +59,9 @@ import org.osate.ui.OsateUiPlugin;
  * @since 3.0
  */
 abstract class AbstractInstantiationEngine<T> {
-	protected final List<?> selectionAsList;
+	protected final Collection<?> selectionAsList;
 
-	public AbstractInstantiationEngine(final List<?> selectionAsList) {
+	public AbstractInstantiationEngine(final Collection<?> selectionAsList) {
 		this.selectionAsList = selectionAsList;
 	}
 
@@ -70,7 +71,7 @@ abstract class AbstractInstantiationEngine<T> {
 	 *
 	 * XXX: Say something about the abstract methods here
 	 */
-	public final List<SystemInstance> instantiate() {
+	public final List<IFile> instantiate() {
 		final Set<T> inputs = getInputsFromSelection(selectionAsList);
 		final int size = inputs.size();
 
@@ -131,10 +132,10 @@ abstract class AbstractInstantiationEngine<T> {
 			if (cancelled) {
 				return Collections.emptyList();
 			} else {
-				final List<SystemInstance> successfullyInstantiated = new ArrayList<>(size);
+				final List<IFile> successfullyInstantiated = new ArrayList<>(size);
 				for (final InternalJobResult ijr : results.values()) {
-					if (ijr.systemInstance != null) {
-						successfullyInstantiated.add(ijr.systemInstance);
+					if (ijr.aaxlFile != null) {
+						successfullyInstantiated.add(ijr.aaxlFile);
 					}
 				}
 				return Collections.unmodifiableList(successfullyInstantiated);
@@ -189,36 +190,32 @@ abstract class AbstractInstantiationEngine<T> {
 			String errorMessage = null;
 			Exception exception = null;
 			boolean cancelled = false;
-			SystemInstance systemInstance = null;
 
 			boolean delete = false;
 			try {
-				systemInstance = buildSystemInstance(subMonitor.split(1));
+				final SystemInstance systemInstance = buildSystemInstance(subMonitor.split(1));
 				successful = systemInstance != null;
 				errorMessage = InstantiateModel.getErrorMessage();
 				delete = !successful;
 			} catch (final InterruptedException | OperationCanceledException e) {
 				// Instantiation was canceled by the user.
 				cancelled = true;
-				systemInstance = null;
 				delete = true;
 			} catch (final RootMissingException e) {
 				successful = false;
 				errorMessage = "Root component implementation declaration no longer exists; instance model removed";
-				systemInstance = null;
 				delete = true;
 			} catch (final Exception e) {
 				OsateUiPlugin.log(e);
 				successful = false;
 				exception = e;
-				systemInstance = null;
 				delete = true;
 			}
 
+			final IFile outputFile = getOutputFile();
 			if (delete) {
 				// Remove the partially instantiated resource
 				try {
-					final IFile outputFile = getOutputFile();
 					if (outputFile.exists()) {
 						outputFile.delete(0, null);
 					}
@@ -228,7 +225,7 @@ abstract class AbstractInstantiationEngine<T> {
 			}
 
 			final InternalJobResult result = new InternalJobResult(successful, cancelled, errorMessage, exception,
-					systemInstance);
+					successful ? outputFile : null);
 			results.put(getInput(), result);
 			return cancelled ? Status.CANCEL_STATUS : Status.OK_STATUS;
 		}
@@ -286,7 +283,7 @@ abstract class AbstractInstantiationEngine<T> {
 		}
 	}
 
-	protected abstract Set<T> getInputsFromSelection(List<?> selectionAsList);
+	protected abstract Set<T> getInputsFromSelection(Collection<?> selectionAsList);
 
 	protected abstract String getResultActionName();
 
