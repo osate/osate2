@@ -21,29 +21,22 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.properties.ui;
+package org.osate.xtext.aadl2.properties.ide;
 
+import com.google.inject.Guice;
 import com.google.inject.Injector;
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory;
-import org.osate.xtext.aadl2.properties.ui.internal.PropertiesActivator;
-import org.osgi.framework.Bundle;
+import org.eclipse.xtext.util.Modules2;
+import org.osate.xtext.aadl2.properties.PropertiesRuntimeModule;
+import org.osate.xtext.aadl2.properties.PropertiesStandaloneSetup;
 
 /**
- * This class was generated. Customizations should only happen in a newly
- * introduced subclass. 
+ * Initialization support for running Xtext languages as language servers.
  */
-public class PropertiesExecutableExtensionFactory extends AbstractGuiceAwareExecutableExtensionFactory {
+public class PropertiesIdeSetup extends PropertiesStandaloneSetup {
 
 	@Override
-	protected Bundle getBundle() {
-		return Platform.getBundle(PropertiesActivator.PLUGIN_ID);
+	public Injector createInjector() {
+		return Guice.createInjector(Modules2.mixin(new PropertiesRuntimeModule(), new PropertiesIdeModule()));
 	}
 	
-	@Override
-	protected Injector getInjector() {
-		PropertiesActivator activator = PropertiesActivator.getInstance();
-		return activator != null ? activator.getInjector(PropertiesActivator.ORG_OSATE_XTEXT_AADL2_PROPERTIES_PROPERTIES) : null;
-	}
-
 }

@@ -21,29 +21,34 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.properties.ui;
+package org.osate.xtext.aadl2.properties.ide.contentassist.antlr;
 
-import com.google.inject.Injector;
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory;
-import org.osate.xtext.aadl2.properties.ui.internal.PropertiesActivator;
-import org.osgi.framework.Bundle;
+import java.util.Collection;
+import java.util.Collections;
+import org.eclipse.xtext.AbstractRule;
+import org.eclipse.xtext.ide.editor.contentassist.antlr.FollowElement;
+import org.eclipse.xtext.ide.editor.contentassist.antlr.internal.AbstractInternalContentAssistParser;
+import org.eclipse.xtext.ide.editor.partialEditing.IPartialEditingContentAssistParser;
+import org.eclipse.xtext.util.PolymorphicDispatcher;
 
-/**
- * This class was generated. Customizations should only happen in a newly
- * introduced subclass. 
- */
-public class PropertiesExecutableExtensionFactory extends AbstractGuiceAwareExecutableExtensionFactory {
+public class PartialPropertiesContentAssistParser extends PropertiesParser implements IPartialEditingContentAssistParser {
+
+	private AbstractRule rule;
 
 	@Override
-	protected Bundle getBundle() {
-		return Platform.getBundle(PropertiesActivator.PLUGIN_ID);
+	public void initializeFor(AbstractRule rule) {
+		this.rule = rule;
 	}
-	
+
 	@Override
-	protected Injector getInjector() {
-		PropertiesActivator activator = PropertiesActivator.getInstance();
-		return activator != null ? activator.getInjector(PropertiesActivator.ORG_OSATE_XTEXT_AADL2_PROPERTIES_PROPERTIES) : null;
+	protected Collection<FollowElement> getFollowElements(AbstractInternalContentAssistParser parser) {
+		if (rule == null || rule.eIsProxy())
+			return Collections.emptyList();
+		String methodName = "entryRule" + rule.getName();
+		PolymorphicDispatcher<Collection<FollowElement>> dispatcher = 
+			new PolymorphicDispatcher<Collection<FollowElement>>(methodName, 0, 0, Collections.singletonList(parser));
+		dispatcher.invoke();
+		return parser.getFollowElements();
 	}
 
 }
