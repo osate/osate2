@@ -22,21 +22,21 @@
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 package org.osate.xtext.aadl2.properties.validation;
- 
+
 import java.util.ArrayList;
 import java.util.List;
-
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.xtext.validation.AbstractDeclarativeValidator;
 import org.eclipse.xtext.validation.ComposedChecks;
+import org.eclipse.xtext.validation.NamesAreUniqueValidator;
 
-@ComposedChecks(validators= {org.eclipse.xtext.validation.NamesAreUniqueValidator.class})
-public class AbstractPropertiesValidator extends org.eclipse.xtext.validation.AbstractDeclarativeValidator {
-
+@ComposedChecks(validators = {NamesAreUniqueValidator.class})
+public abstract class AbstractPropertiesValidator extends AbstractDeclarativeValidator {
+	
 	@Override
 	protected List<EPackage> getEPackages() {
-	    List<EPackage> result = new ArrayList<EPackage>();
-	    result.add(EPackage.Registry.INSTANCE.getEPackage("http://aadl.info/AADL/2.0"));
+		List<EPackage> result = new ArrayList<EPackage>();
+		result.add(EPackage.Registry.INSTANCE.getEPackage("http://aadl.info/AADL/2.0"));
 		return result;
 	}
-
 }
