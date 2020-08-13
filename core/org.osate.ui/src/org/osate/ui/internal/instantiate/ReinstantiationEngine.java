@@ -24,6 +24,7 @@
 package org.osate.ui.internal.instantiate;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -88,7 +89,7 @@ public final class ReinstantiationEngine extends AbstractInstantiationEngine<IFi
 	}
 
 	@Override
-	protected Set<IFile> getInputsFromSelection(final List<?> selectionAsList) {
+	protected Set<IFile> getInputsFromSelection(final Collection<?> selectionAsList) {
 		final List<IFile> instanceFiles = new ArrayList<>();
 		findAllInstanceFiles(selectionAsList.toArray(new Object[selectionAsList.size()]), instanceFiles);
 		// remove duplicates

@@ -25,6 +25,7 @@ package org.osate.ui.internal.instantiate;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -88,7 +89,7 @@ public final class InstantiationEngine extends AbstractInstantiationEngine<Compo
 	@Inject
 	private XtextResourceSetProvider resourceSetProvider;
 
-	public InstantiationEngine(final List<?> selectionAsList) {
+	public InstantiationEngine(final Collection<?> selectionAsList) {
 		super(selectionAsList);
 		Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2).injectMembers(this);
 	}
@@ -203,7 +204,7 @@ public final class InstantiationEngine extends AbstractInstantiationEngine<Compo
 	}
 
 	@Override
-	protected Set<ComponentImplementation> getInputsFromSelection(final List<?> selectionAsList) {
+	protected Set<ComponentImplementation> getInputsFromSelection(final Collection<?> selectionAsList) {
 		final Set<ComponentImplementation> ciSet = new HashSet<>();
 		final List<ComponentImplementation> fromAadl = new ArrayList<>();
 
