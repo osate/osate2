@@ -1,0 +1,38 @@
+package Issue2355
+public
+	
+	system S
+	end S;
+	
+	system implementation S.i
+		subcomponents
+			a: abstract A;
+			b: abstract B;
+		connections
+			c11: feature a.aout -> b.bin;
+			c12: feature a.aout -> b.bin2;
+			c21: feature a.ap <-> b.bin;
+			c22: feature a.ap <-> b.bin2;
+			c31: feature a.ap <-> b.br;
+	end S.i;
+	
+	abstract A
+		features
+			aout: out data port D1;
+			ap: provides data access D1;
+	end A; 
+	
+	abstract B
+		features
+			bin: in data port D2;
+			bin2: in data port D1;
+			br: requires data access D2;
+	end B;
+
+	data D1
+	end D1;
+	
+	data D2
+	end D2;
+	
+end Issue2355;
