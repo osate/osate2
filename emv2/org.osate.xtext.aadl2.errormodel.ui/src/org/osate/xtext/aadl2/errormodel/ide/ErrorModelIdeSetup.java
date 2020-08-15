@@ -21,55 +21,22 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.errormodel.errorModel.util;
+package org.osate.xtext.aadl2.errormodel.ide;
 
-import java.util.Map;
-
-import org.eclipse.emf.ecore.EPackage;
-
-import org.eclipse.emf.ecore.resource.Resource;
-
-import org.eclipse.emf.ecore.xmi.util.XMLProcessor;
-
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import org.eclipse.xtext.util.Modules2;
+import org.osate.xtext.aadl2.errormodel.ErrorModelRuntimeModule;
+import org.osate.xtext.aadl2.errormodel.ErrorModelStandaloneSetup;
 
 /**
- * This class contains helper methods to serialize and deserialize XML documents
- * <!-- begin-user-doc -->
- * <!-- end-user-doc -->
- * @generated
+ * Initialization support for running Xtext languages as language servers.
  */
-public class ErrorModelXMLProcessor extends XMLProcessor
-{
+public class ErrorModelIdeSetup extends ErrorModelStandaloneSetup {
 
-  /**
-   * Public constructor to instantiate the helper.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ErrorModelXMLProcessor()
-  {
-    super((EPackage.Registry.INSTANCE));
-    ErrorModelPackage.eINSTANCE.eClass();
-  }
-  
-  /**
-   * Register for "*" and "xml" file extensions the ErrorModelResourceFactoryImpl factory.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected Map<String, Resource.Factory> getRegistrations()
-  {
-    if (registrations == null)
-    {
-      super.getRegistrations();
-      registrations.put(XML_EXTENSION, new ErrorModelResourceFactoryImpl());
-      registrations.put(STAR_EXTENSION, new ErrorModelResourceFactoryImpl());
-    }
-    return registrations;
-  }
-
-} //ErrorModelXMLProcessor
+	@Override
+	public Injector createInjector() {
+		return Guice.createInjector(Modules2.mixin(new ErrorModelRuntimeModule(), new ErrorModelIdeModule()));
+	}
+	
+}

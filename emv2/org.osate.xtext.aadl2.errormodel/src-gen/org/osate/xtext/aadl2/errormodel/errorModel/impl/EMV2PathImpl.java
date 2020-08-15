@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -101,6 +102,7 @@ public class EMV2PathImpl extends ElementImpl implements EMV2Path
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ContainmentPathElement getContainmentPath()
   {
     return containmentPath;
@@ -128,6 +130,7 @@ public class EMV2PathImpl extends ElementImpl implements EMV2Path
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setContainmentPath(ContainmentPathElement newContainmentPath)
   {
     if (newContainmentPath != containmentPath)
@@ -149,6 +152,7 @@ public class EMV2PathImpl extends ElementImpl implements EMV2Path
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EMV2PathElement getEmv2Target()
   {
     return emv2Target;
@@ -176,6 +180,7 @@ public class EMV2PathImpl extends ElementImpl implements EMV2Path
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setEmv2Target(EMV2PathElement newEmv2Target)
   {
     if (newEmv2Target != emv2Target)

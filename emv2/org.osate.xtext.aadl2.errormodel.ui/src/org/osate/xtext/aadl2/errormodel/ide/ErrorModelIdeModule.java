@@ -21,45 +21,11 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.errormodel.errorModel.util;
+package org.osate.xtext.aadl2.errormodel.ide;
 
-import org.eclipse.emf.common.util.URI;
-
-import org.eclipse.emf.ecore.resource.Resource;
-
-import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Resource Factory</b> associated with the package.
- * <!-- end-user-doc -->
- * @see org.osate.xtext.aadl2.errormodel.errorModel.util.ErrorModelResourceImpl
- * @generated
+ * Use this class to register ide components.
  */
-public class ErrorModelResourceFactoryImpl extends ResourceFactoryImpl
-{
-  /**
-   * Creates an instance of the resource factory.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ErrorModelResourceFactoryImpl()
-  {
-    super();
-  }
-
-  /**
-   * Creates an instance of the resource.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Resource createResource(URI uri)
-  {
-    Resource result = new ErrorModelResourceImpl(uri);
-    return result;
-  }
-
-} //ErrorModelResourceFactoryImpl
+public class ErrorModelIdeModule extends AbstractErrorModelIdeModule {
+}

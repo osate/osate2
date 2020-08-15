@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -121,6 +122,7 @@ public class EMV2PropertyAssociationImpl extends ElementImpl implements EMV2Prop
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Property getProperty()
   {
     if (property != null && ((EObject)property).eIsProxy())
@@ -151,6 +153,7 @@ public class EMV2PropertyAssociationImpl extends ElementImpl implements EMV2Prop
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setProperty(Property newProperty)
   {
     Property oldProperty = property;
@@ -164,6 +167,7 @@ public class EMV2PropertyAssociationImpl extends ElementImpl implements EMV2Prop
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ModalPropertyValue> getOwnedValues()
   {
     if (ownedValues == null)
@@ -178,6 +182,7 @@ public class EMV2PropertyAssociationImpl extends ElementImpl implements EMV2Prop
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<EMV2Path> getEmv2Path()
   {
     if (emv2Path == null)

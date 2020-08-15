@@ -1,4 +1,3 @@
-
 /**
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
@@ -24,17 +23,13 @@
  */
 lexer grammar InternalErrorModelLexer;
 
-
 @header {
-package org.osate.xtext.aadl2.errormodel.ui.contentassist.antlr.lexer;
+package org.osate.xtext.aadl2.errormodel.ide.contentassist.antlr.lexer;
 
 // Hack: Use our own Lexer superclass by means of import. 
 // Currently there is no other way to specify the superclass for the lexer.
-import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer;
+import org.eclipse.xtext.ide.editor.contentassist.antlr.internal.Lexer;
 }
-
-
-
 
 Transformations : ('T'|'t')('R'|'r')('A'|'a')('N'|'n')('S'|'s')('F'|'f')('O'|'o')('R'|'r')('M'|'m')('A'|'a')('T'|'t')('I'|'i')('O'|'o')('N'|'n')('S'|'s');
 
@@ -222,8 +217,6 @@ LeftCurlyBracket : '{';
 
 RightCurlyBracket : '}';
 
-
-
 RULE_SL_COMMENT : '--' ~(('\n'|'\r'))* ('\r'? '\n')?;
 
 RULE_INTEGER_LIT : ('0'..'9')+;
@@ -245,6 +238,3 @@ RULE_STRING : ('"' ('\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|'\''|'\\')|~(('\\'|'"')))*
 RULE_ID : ('a'..'z'|'A'..'Z') ('_'? ('a'..'z'|'A'..'Z'|'0'..'9'))*;
 
 RULE_WS : (' '|'\t'|'\r'|'\n')+;
-
-
-
