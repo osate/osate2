@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -106,6 +107,7 @@ public class ErrorSinkImpl extends ErrorFlowImpl implements ErrorSink
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorPropagation getIncoming()
   {
     if (incoming != null && incoming.eIsProxy())
@@ -136,6 +138,7 @@ public class ErrorSinkImpl extends ErrorFlowImpl implements ErrorSink
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setIncoming(ErrorPropagation newIncoming)
   {
     ErrorPropagation oldIncoming = incoming;
@@ -149,6 +152,7 @@ public class ErrorSinkImpl extends ErrorFlowImpl implements ErrorSink
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isAllIncoming()
   {
     return allIncoming;
@@ -159,6 +163,7 @@ public class ErrorSinkImpl extends ErrorFlowImpl implements ErrorSink
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setAllIncoming(boolean newAllIncoming)
   {
     boolean oldAllIncoming = allIncoming;

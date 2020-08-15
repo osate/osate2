@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -131,6 +132,7 @@ public class BranchValueImpl extends ElementImpl implements BranchValue
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getRealvalue()
   {
     return realvalue;
@@ -141,6 +143,7 @@ public class BranchValueImpl extends ElementImpl implements BranchValue
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setRealvalue(String newRealvalue)
   {
     String oldRealvalue = realvalue;
@@ -154,6 +157,7 @@ public class BranchValueImpl extends ElementImpl implements BranchValue
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Property getSymboliclabel()
   {
     if (symboliclabel != null && ((EObject)symboliclabel).eIsProxy())
@@ -184,6 +188,7 @@ public class BranchValueImpl extends ElementImpl implements BranchValue
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setSymboliclabel(Property newSymboliclabel)
   {
     Property oldSymboliclabel = symboliclabel;
@@ -197,6 +202,7 @@ public class BranchValueImpl extends ElementImpl implements BranchValue
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isOthers()
   {
     return others;
@@ -207,6 +213,7 @@ public class BranchValueImpl extends ElementImpl implements BranchValue
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setOthers(boolean newOthers)
   {
     boolean oldOthers = others;

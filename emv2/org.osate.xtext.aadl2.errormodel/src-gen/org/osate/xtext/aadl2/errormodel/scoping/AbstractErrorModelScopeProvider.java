@@ -21,31 +21,9 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.errormodel.errorModel.util;
+package org.osate.xtext.aadl2.errormodel.scoping;
 
-import org.eclipse.emf.common.util.URI;
+import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider;
 
-import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
-
-/**
- * <!-- begin-user-doc -->
- * The <b>Resource </b> associated with the package.
- * <!-- end-user-doc -->
- * @see org.osate.xtext.aadl2.errormodel.errorModel.util.ErrorModelResourceFactoryImpl
- * @generated
- */
-public class ErrorModelResourceImpl extends XMLResourceImpl
-{
-  /**
-   * Creates an instance of the resource.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param uri the URI of the new resource.
-   * @generated
-   */
-  public ErrorModelResourceImpl(URI uri)
-  {
-    super(uri);
-  }
-
-} //ErrorModelResourceImpl
+public abstract class AbstractErrorModelScopeProvider extends PropertiesScopeProvider {
+}

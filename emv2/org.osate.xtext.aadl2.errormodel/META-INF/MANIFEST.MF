@@ -43,7 +43,8 @@ Export-Package: org.osate.xtext.aadl2.errormodel,
  org.osate.xtext.aadl2.errormodel.services,
  org.osate.xtext.aadl2.errormodel.util,
  org.osate.xtext.aadl2.errormodel.validation,
- org.osate.xtext.aadl2.errormodel.valueconversion
+ org.osate.xtext.aadl2.errormodel.valueconversion,
+ org.osate.xtext.aadl2.errormodel.formatting2
 Import-Package: org.apache.log4j;version="[1.2.0,2.0.0)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: org.osate.xtext.aadl2.errormodel
