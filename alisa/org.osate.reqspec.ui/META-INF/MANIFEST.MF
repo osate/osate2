@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.osate.reqspec.ui
+Bundle-Name: Requirement Specification UI
 Bundle-Vendor: CMU/SEI
 Bundle-Version: 1.0.5.qualifier
 Bundle-SymbolicName: org.osate.reqspec.ui; singleton:=true

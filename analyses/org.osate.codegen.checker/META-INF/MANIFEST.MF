@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.osate.codegen.checker
+Bundle-Name: Codegen Checker
 Bundle-SymbolicName: org.osate.codegen.checker;singleton:=true
 Bundle-Version: 1.0.3.qualifier
 Bundle-Activator: org.osate.codegen.checker.Activator
