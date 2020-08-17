@@ -21,17 +21,22 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.alisa.common;
+package org.osate.alisa.common.ide;
 
-import org.eclipse.xtext.testing.IInjectorProvider;
-
+import com.google.inject.Guice;
 import com.google.inject.Injector;
+import org.eclipse.xtext.util.Modules2;
+import org.osate.alisa.common.CommonRuntimeModule;
+import org.osate.alisa.common.CommonStandaloneSetup;
 
-public class CommonUiInjectorProvider implements IInjectorProvider {
+/**
+ * Initialization support for running Xtext languages as language servers.
+ */
+public class CommonIdeSetup extends CommonStandaloneSetup {
 
 	@Override
-	public Injector getInjector() {
-		return org.osate.alisa.common.ui.internal.CommonActivator.getInstance().getInjector("org.osate.alisa.common.Common");
+	public Injector createInjector() {
+		return Guice.createInjector(Modules2.mixin(new CommonRuntimeModule(), new CommonIdeModule()));
 	}
-
+	
 }

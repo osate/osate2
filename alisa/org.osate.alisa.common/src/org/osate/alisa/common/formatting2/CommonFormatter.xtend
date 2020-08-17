@@ -21,65 +21,31 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.alisa.common;
+package org.osate.alisa.common.formatting2
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import org.eclipse.xtext.testing.GlobalRegistries;
-import org.eclipse.xtext.testing.GlobalRegistries.GlobalStateMemento;
-import org.eclipse.xtext.testing.IInjectorProvider;
-import org.eclipse.xtext.testing.IRegistryConfigurator;
+import com.google.inject.Inject
+import org.eclipse.xtext.formatting2.AbstractFormatter2
+import org.eclipse.xtext.formatting2.IFormattableDocument
+import org.osate.alisa.common.common.Description
+import org.osate.alisa.common.common.DescriptionElement
+import org.osate.alisa.common.services.CommonGrammarAccess
 
-public class CommonInjectorProvider implements IInjectorProvider, IRegistryConfigurator {
+class CommonFormatter extends AbstractFormatter2 {
+	
+	@Inject extension CommonGrammarAccess
 
-	protected GlobalStateMemento stateBeforeInjectorCreation;
-	protected GlobalStateMemento stateAfterInjectorCreation;
-	protected Injector injector;
-
-	static {
-		GlobalRegistries.initializeDefaults();
-	}
-
-	@Override
-	public Injector getInjector()
-	{
-		if (injector == null) {
-			stateBeforeInjectorCreation = GlobalRegistries.makeCopyOfGlobalState();
-			this.injector = internalCreateInjector();
-			stateAfterInjectorCreation = GlobalRegistries.makeCopyOfGlobalState();
+	def dispatch void format(Description description, extension IFormattableDocument document) {
+		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
+		for (descriptionElement : description.description) {
+			descriptionElement.format
 		}
-		return injector;
 	}
 
-	protected Injector internalCreateInjector() {
-		return new CommonStandaloneSetup() {
-			@Override
-			public Injector createInjector() {
-				return Guice.createInjector(createRuntimeModule());
-			}
-		}.createInjectorAndDoEMFRegistration();
+	def dispatch void format(DescriptionElement descriptionElement, extension IFormattableDocument document) {
+		// TODO: format HiddenRegions around keywords, attributes, cross references, etc. 
+		descriptionElement.image.format
+		descriptionElement.showValue.format
 	}
-
-	protected CommonRuntimeModule createRuntimeModule() {
-		// make it work also with Maven/Tycho and OSGI
-		// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=493672
-		return new CommonRuntimeModule() {
-			@Override
-			public ClassLoader bindClassLoaderToInstance() {
-				return CommonInjectorProvider.class
-						.getClassLoader();
-			}
-		};
-	}
-
-	@Override
-	public void restoreRegistry() {
-		stateBeforeInjectorCreation.restoreGlobalState();
-	}
-
-	@Override
-	public void setupRegistry() {
-		getInjector();
-		stateAfterInjectorCreation.restoreGlobalState();
-	}
+	
+	// TODO: implement for Rationale, ValDeclaration, ComputeDeclaration, AUnitExpression, ABinaryOperation, AUnaryOperation, AFunctionCall, ARange, AConditional, APropertyReference, AModelReference
 }
