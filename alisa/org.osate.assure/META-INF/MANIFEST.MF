@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.osate.assure
+Bundle-Name: Alisa Assurance
 Bundle-Vendor: CMU/SEI
 Bundle-Version: 3.0.3.qualifier
 Bundle-SymbolicName: org.osate.assure; singleton:=true

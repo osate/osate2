@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.osate.categories
+Bundle-Name: Alisa Categories
 Bundle-Vendor: CMU/SEI
 Bundle-Version: 2.0.4.qualifier
 Bundle-SymbolicName: org.osate.categories; singleton:=true
