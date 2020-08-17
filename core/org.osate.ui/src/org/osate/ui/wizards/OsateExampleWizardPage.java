@@ -179,11 +179,18 @@ public class OsateExampleWizardPage extends WizardPage {
 			pickTree.setComparator(new ViewerComparator());
 
 			pickTree.addSelectionChangedListener(event -> {
+				browser.setText("<p>Loading readme</p>");
 				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
 				for (final Iterator<?> iter = selection.iterator(); iter.hasNext();) {
 					final Object object = iter.next();
 					if (object instanceof PluginInfo) {
 						selectedProject = (PluginInfo) object;
+
+						// do not show error message if user clicked on category
+						if (selectedProject.category.equalsIgnoreCase(selectedProject.name)) {
+							browser.setText("<p>Please select a project</p>");
+							return;
+						}
 						if (selectedProject.readmeURI != null) {
 							try {
 								File f = new File(selectedProject.readmeURI.getPath());
@@ -197,6 +204,10 @@ public class OsateExampleWizardPage extends WizardPage {
 								setErrorMessage("Failed to load readme");
 								catchError(e, e.getMessage(), true);
 							}
+						} else {
+							browser.setText("<p>Failed to load readme</p>");
+							setErrorMessage("Failed to load readme");
+							catchError(new IOException(), "Readme file not found or missing", true);
 						}
 					}
 				}
