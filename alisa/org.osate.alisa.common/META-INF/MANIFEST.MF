@@ -33,8 +33,7 @@ Export-Package: org.osate.alisa.common,
  org.osate.alisa.common.common,
  org.osate.alisa.common.common.impl,
  org.osate.alisa.common.common.util,
- org.osate.alisa.common.formatting,
- org.osate.alisa.common.generator,
+ org.osate.alisa.common.formatting2,
  org.osate.alisa.common.naming,
  org.osate.alisa.common.parser.antlr,
  org.osate.alisa.common.parser.antlr.internal,
@@ -45,6 +44,7 @@ Export-Package: org.osate.alisa.common,
  org.osate.alisa.common.typing.validation,
  org.osate.alisa.common.util,
  org.osate.alisa.common.validation,
- org.osate.alisa.common.valueconversion
+ org.osate.alisa.common.valueconversion,
+ org.osate.alisa.common.formatting2
 Automatic-Module-Name: org.osate.alisa.common
  
