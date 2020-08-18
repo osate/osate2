@@ -48,6 +48,7 @@ import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.eclipse.xtext.ui.resource.LiveScopeResourceSetInitializer;
+import org.osate.ge.ProjectUtil;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
 import com.google.common.collect.Streams;

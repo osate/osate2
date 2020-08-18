@@ -53,7 +53,7 @@ import org.osate.ge.aadl2.internal.util.AadlNameUtil;
 import org.osate.ge.aadl2.internal.util.RenameUtil;
 import org.osate.ge.aadl2.internal.util.classifiers.ClassifierCreationHelper;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
-import org.osate.ge.businessobjecthandling.CanPasteContext;
+import org.osate.ge.businessobjecthandling.PasteContext;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
 import org.osate.ge.businessobjecthandling.CustomPaster;
 import org.osate.ge.businessobjecthandling.GetNameContext;
@@ -196,7 +196,7 @@ public class PasteAction extends ActionStackAction {
 					if (boHandler instanceof CustomPaster) {
 						// Make paste modifications for bo
 						((CustomPaster) boHandler).makePasteModifications(
-								new CanPasteContext(dstDiagramNode,
+								new PasteContext(dstDiagramNode,
 										copiedDiagramElement.getDiagramElement()));
 					}
 				} else {

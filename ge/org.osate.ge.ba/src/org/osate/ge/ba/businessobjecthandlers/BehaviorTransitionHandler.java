@@ -36,7 +36,7 @@ import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.ba.util.BehaviorAnnexGEUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
-import org.osate.ge.businessobjecthandling.CanPasteContext;
+import org.osate.ge.businessobjecthandling.PasteContext;
 import org.osate.ge.businessobjecthandling.CustomDeleteContext;
 import org.osate.ge.businessobjecthandling.CustomDeleter;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;

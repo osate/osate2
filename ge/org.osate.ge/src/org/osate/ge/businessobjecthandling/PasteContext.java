@@ -8,11 +8,11 @@ import org.osate.ge.BusinessObjectContext;
 /**
  * @since 2.0
  */
-public class CanPasteContext {
+public class PasteContext {
 	private final BusinessObjectContext dstDiagramNode;
 	private final BusinessObjectContext copiedDiagramElement;
 
-	public CanPasteContext(final BusinessObjectContext dstDiagramNode,
+	public PasteContext(final BusinessObjectContext dstDiagramNode,
 			final BusinessObjectContext copiedDiagramElement) {
 		this.dstDiagramNode = Objects.requireNonNull(dstDiagramNode, "destination boc cannot be null");
 		this.copiedDiagramElement = Objects.requireNonNull(copiedDiagramElement, "copied boc cannot be null");
