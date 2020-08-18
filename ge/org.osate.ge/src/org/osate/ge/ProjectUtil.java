@@ -23,6 +23,7 @@
  */
 package org.osate.ge;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -35,6 +36,11 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.xtext.ui.resource.XtextLiveScopeResourceSetProvider;
+import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
+
+import com.google.inject.Injector;
 
 /**
  * Utility functions related to {@link IProject}
@@ -149,5 +155,21 @@ public class ProjectUtil {
 		}
 
 		return Optional.ofNullable(eObject.eResource());
+	}
+
+	/**
+	 * Returns a live resource set based on the project or throws an exception if one cannot be returned.
+	 * @param project
+	 * @return
+	 */
+	public static ResourceSet getLiveResourceSet(IProject project) {
+		final Injector injector = Objects.requireNonNull(
+				Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2),
+				"Unable to retrieve injector");
+		final XtextLiveScopeResourceSetProvider liveResourceSetProvider = Objects.requireNonNull(
+				injector.getInstance(XtextLiveScopeResourceSetProvider.class),
+				"Unable to retrieve live scope resource set provider");
+
+		return Objects.requireNonNull(liveResourceSetProvider.get(project), "Unable to get live resource set");
 	}
 }

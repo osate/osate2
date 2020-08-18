@@ -37,7 +37,7 @@ import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
-import org.osate.ge.businessobjecthandling.CanPasteContext;
+import org.osate.ge.businessobjecthandling.PasteContext;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
 import org.osate.ge.businessobjecthandling.CustomDeleteContext;
 import org.osate.ge.businessobjecthandling.CustomDeleter;
@@ -122,7 +122,7 @@ public class BehaviorStateHandler implements BusinessObjectHandler, CustomDelete
 	}
 
 	@Override
-	public void makePasteModifications(final CanPasteContext ctx) {
+	public void makePasteModifications(final PasteContext ctx) {
 		ctx.getBusinessObject(BehaviorState.class).ifPresent(behaviorState -> {
 			ctx.getDestinationBusinessObject(BehaviorAnnex.class).ifPresent(behaviorAnnex -> {
 				final Classifier containingClassifier = behaviorAnnex.getContainingClassifier();
