@@ -112,7 +112,6 @@ Workflow {
 			fragment = validation.ValidatorFragment2 {}
 			fragment = scoping.ImportNamespacesScopingFragment2 {
 				generateXtendStub = true
-				ignoreCase = true
 			}
 			fragment = exporting.QualifiedNamesFragment2 {}
 			fragment = builder.BuilderIntegrationFragment2 {}
