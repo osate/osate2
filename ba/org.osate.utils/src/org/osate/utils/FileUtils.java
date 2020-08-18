@@ -32,7 +32,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.osate.workspace.WorkspacePlugin;
+import org.osate.aadl2.modelsupport.FileNameConstants;
 
 import com.google.common.io.Files;
 
@@ -49,7 +49,7 @@ public class FileUtils {
 
 			String extension = fileName.substring(i + 1, fileName.length());
 
-			return WorkspacePlugin.SOURCE_FILE_EXT.equalsIgnoreCase(extension);
+			return FileNameConstants.SOURCE_FILE_EXT.equalsIgnoreCase(extension);
 		}
 	}
 
