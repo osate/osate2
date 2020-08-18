@@ -46,6 +46,7 @@ public class ErrorModelReferenceUtil {
 	public final static String TYPE_ERROR_TYPE = EMV2_REFERENCE_PREFIX + "error_type";
 	public final static String TYPE_ERROR_TYPE_EXT = EMV2_REFERENCE_PREFIX + "error_type_extension";
 	public final static String TYPE_TYPE_SET = EMV2_REFERENCE_PREFIX + "error_type_set";
+	public final static String TYPE_PROPAGATION_POINT = EMV2_REFERENCE_PREFIX + "propagation_point";
 	public final static String IS_STEADY = "<steady>"; // Used to identify the transition or branch as steady state.
 
 	public static String getNameForSerialization(final NamedElement ne) {
@@ -105,5 +106,9 @@ public class ErrorModelReferenceUtil {
 		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_TRANSITION_BRANCH,
 				serializableTargetName,
 				Integer.toString(index));
+	}
+
+	public static RelativeBusinessObjectReference getRelativeReferenceForPropagationPoint(final String name) {
+		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_PROPAGATION_POINT, name);
 	}
 }

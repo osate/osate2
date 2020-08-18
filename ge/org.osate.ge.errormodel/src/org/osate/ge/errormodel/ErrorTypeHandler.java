@@ -50,7 +50,8 @@ public class ErrorTypeHandler implements BusinessObjectHandler {
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(ErrorType.class).map(bo -> bo.getElementRoot() instanceof AadlPackage).isPresent();
+		return ctx.getBusinessObject(ErrorType.class).filter(bo -> bo.getElementRoot() instanceof AadlPackage)
+				.isPresent();
 	}
 
 	@Override

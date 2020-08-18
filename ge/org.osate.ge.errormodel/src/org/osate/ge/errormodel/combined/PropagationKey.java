@@ -21,22 +21,40 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.aadl2;
+package org.osate.ge.errormodel.combined;
+
+import java.util.Objects;
+
+import org.osate.aadl2.DirectionType;
 
 /**
- * Exception thrown to indicate that there was an unhandled problem with the underlying AADL model. In general, the graphical editor
- * will attempt to gracefully handle unexpected values in the AADL model. However, this exception is thrown when the graphical editor
- * does not handle the unexpected value.
- * @since 2.0
+ * Simple immutable class representing a combination of a direction and an indicator regarding whether the propagation object
+ * is a containment or a propagation. A propagation point can have only 1 propagation per key.
  *
  */
-public class AadlModelException extends RuntimeException {
-	/**
-	 * Serializable version number for class
-	 */
-	private static final long serialVersionUID = 4833667000981390562L;
+final class PropagationKey {
+	public final DirectionType direction;
+	public final boolean isContainment;
 
-	public AadlModelException(final String message) {
-		super(message);
+	public PropagationKey(final DirectionType direction, final boolean isContainment) {
+		this.direction = direction;
+		this.isContainment = isContainment;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(direction, isContainment);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof PropagationKey)) {
+			return false;
+		}
+		PropagationKey other = (PropagationKey) obj;
+		return direction == other.direction && isContainment == other.isContainment;
 	}
 }

@@ -50,7 +50,8 @@ public class TypeSetHandler implements BusinessObjectHandler {
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(TypeSet.class).map(bo -> bo.getElementRoot() instanceof AadlPackage).isPresent();
+		return ctx.getBusinessObject(TypeSet.class).filter(bo -> bo.getElementRoot() instanceof AadlPackage)
+				.isPresent();
 	}
 
 	@Override

@@ -23,32 +23,45 @@
  */
 package org.osate.ge.errormodel;
 
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.WeakHashMap;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.Subcomponent;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.BusinessObjectProviderContext;
+import org.osate.ge.errormodel.combined.CombinedErrorModelSubclause;
+import org.osate.ge.errormodel.combined.ReadonlyPropagationNode;
 import org.osate.ge.errormodel.model.BehaviorTransitionTrunk;
 import org.osate.ge.errormodel.model.ErrorTypeExtension;
+import org.osate.ge.errormodel.model.KeywordPropagationPoint;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 
 public class ErrorModelBusinessObjectProvider implements BusinessObjectProvider {
+	private WeakHashMap<Classifier, CombinedErrorModelSubclause> classifierCache = new WeakHashMap<>();
+
 	@Override
 	public Stream<?> getChildBusinessObjects(final BusinessObjectProviderContext ctx) {
 		final Object bo = ctx.getBusinessObjectContext().getBusinessObject();
 		if (bo instanceof AadlPackage) {
 			return ErrorModelGeUtil.getErrorModelLibrary((AadlPackage) bo)
-					.map(lib -> Stream.concat(Stream.concat(lib.getTypes().stream(),
-							lib.getTypesets().stream()),
+					.map(lib -> Stream.concat(Stream.concat(lib.getTypes().stream(), lib.getTypesets().stream()),
 							lib.getBehaviors().stream()))
 					.orElseGet(() -> Stream.empty());
 		} else if (bo instanceof ErrorBehaviorStateMachine) {
 			final ErrorBehaviorStateMachine stateMachine = (ErrorBehaviorStateMachine) bo;
-			return Stream.concat(Stream.concat(stateMachine.getEvents().stream(), stateMachine.getStates()
-					.stream()),
+			return Stream.concat(Stream.concat(stateMachine.getEvents().stream(), stateMachine.getStates().stream()),
 					stateMachine.getTransitions().stream());
 		} else if (bo instanceof ErrorBehaviorTransition) {
 			// See ErrorBehaviorTransitionHandler for details regarding how the business objects related to error behavior transitions are represented.
@@ -60,8 +73,93 @@ public class ErrorModelBusinessObjectProvider implements BusinessObjectProvider 
 			if (errorType.getSuperType() != null) {
 				return Stream.of(new ErrorTypeExtension(errorType.getSuperType(), errorType));
 			}
+		} else if (bo instanceof Classifier || bo instanceof Subcomponent) {
+			// Anytime the children of a classifier or subcomponent is requested, process of error model subclauses
+			// in the element or extended elements and cache the result.
+			// Ideally, we would only do this if the classifier has changed but it would require a reliable means to
+			// determine if a classifier or any classifiers it extends has changed. If extended classifiers are in another
+			// package, the classifier be the same instance.
+			// The object is cached so it is available when calling the business object provider on children.
+			final CombinedErrorModelSubclause cacheEntry = createClassifierCacheEntry(ctx.getBusinessObjectContext());
+			return Stream.of(cacheEntry.getPoints(), cacheEntry.getPaths(), cacheEntry.getFlows(),
+					Arrays.stream(KeywordPropagationPoint.values()))
+					.flatMap(Function.identity());
+		} else if (bo instanceof Feature) {
+			// Propagation(and containment) objects
+			final CombinedErrorModelSubclause cacheEntry = getClassifierCacheEntry(ctx.getBusinessObjectContext());
+			return getPropagationNodeForFeaturePath(cacheEntry, ctx.getBusinessObjectContext()).map(ReadonlyPropagationNode::getPropagations)
+					.orElse(Stream.empty());
+		} else if (bo instanceof PropagationPoint) {
+			final PropagationPoint pp = (PropagationPoint) bo;
+
+			// Propagation(and containment) objects
+			final CombinedErrorModelSubclause cacheEntry = getClassifierCacheEntry(
+					ctx.getBusinessObjectContext());
+			return cacheEntry.getPropagations().getChild(pp.getName()).map(ReadonlyPropagationNode::getPropagations)
+					.orElse(Stream.empty());
+		} else if (bo instanceof KeywordPropagationPoint) {
+			final KeywordPropagationPoint kw = (KeywordPropagationPoint) bo;
+			final CombinedErrorModelSubclause cacheEntry = getClassifierCacheEntry(
+					ctx.getBusinessObjectContext());
+
+			// Propagation(and containment) objects
+			return cacheEntry.getPropagations().getChild(kw.getKey()).map(ReadonlyPropagationNode::getPropagations)
+					.orElse(Stream.empty());
 		}
 
 		return Stream.empty();
+	}
+
+	private Optional<ReadonlyPropagationNode> getPropagationNodeForFeaturePath(final CombinedErrorModelSubclause cacheEntry,
+			final BusinessObjectContext featureBoc) {
+		final BusinessObjectContext parent = featureBoc.getParent();
+		final Object parentBo = parent.getBusinessObject();
+
+		final ReadonlyPropagationNode parentNode = parentBo instanceof Feature ? getPropagationNodeForFeaturePath(cacheEntry, parent).orElse(null)
+				: cacheEntry.getPropagations();
+		return parentNode == null ? Optional.empty()
+				: parentNode.getChild(featureBoc.getBusinessObject(Feature.class).get().getName());
+	}
+
+
+	/**
+	 * Returns the combined error model subclause for the first subcomponent/classifier found when walking up the
+	 * business object context tree.
+	 * @param boc the business object context to get the combined subclause for
+	 * @return the combined subclause
+	 */
+	private CombinedErrorModelSubclause getClassifierCacheEntry(final BusinessObjectContext boc) {
+		return getClassifier(boc).map(
+				classifier -> classifierCache.get(classifier))
+				.orElse(CombinedErrorModelSubclause.EMPTY);
+	}
+
+	/**
+	 * Creates and caches the combined error model subclause for the first subcomponent/classifier found when walking up
+	 * the business object context tree.
+	 * @param boc the business object context to create the combined subclause for
+	 * @return the new combined subclause
+	 */
+	private CombinedErrorModelSubclause createClassifierCacheEntry(final BusinessObjectContext boc) {
+		return getClassifier(boc).map(classifier -> {
+			final CombinedErrorModelSubclause newCacheEntry = CombinedErrorModelSubclause.create(classifier);
+			classifierCache.put(classifier, newCacheEntry);
+			return newCacheEntry;
+		}).orElse(CombinedErrorModelSubclause.EMPTY);
+	}
+
+	private static Optional<Classifier> getClassifier(BusinessObjectContext boc) {
+		while (boc != null) {
+			final Object bo = boc.getBusinessObject();
+			if (bo instanceof Classifier) {
+				return Optional.of((Classifier) bo);
+			} else if (bo instanceof Subcomponent) {
+				final ComponentClassifier cc = ((Subcomponent) bo).getAllClassifier();
+				return Optional.ofNullable(cc);
+			}
+			boc = boc.getParent();
+		}
+
+		return Optional.empty();
 	}
 }

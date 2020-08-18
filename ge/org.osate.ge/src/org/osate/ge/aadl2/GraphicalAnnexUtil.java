@@ -106,8 +106,7 @@ public class GraphicalAnnexUtil {
 	public static <T> Optional<T> getFirstParsedAnnexLibrary(final AadlPackage pkg, final String annexName,
 			final Class<T> parsedType) {
 		return getFirstDefaultAnnexLibrary(pkg, annexName)
-				.map(defaultLib -> getParsedAnnexLibrary(defaultLib, parsedType))
-				.filter(parsedLib -> parsedType.isInstance(parsedLib)).map(parsedLib -> parsedType.cast(parsedLib));
+				.flatMap(defaultLib -> getParsedAnnexLibrary(defaultLib, parsedType));
 	}
 
 	/**

@@ -21,22 +21,19 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.aadl2;
+package org.osate.ge.errormodel.combined;
+
+import java.util.Optional;
+import java.util.stream.Stream;
+
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 
 /**
- * Exception thrown to indicate that there was an unhandled problem with the underlying AADL model. In general, the graphical editor
- * will attempt to gracefully handle unexpected values in the AADL model. However, this exception is thrown when the graphical editor
- * does not handle the unexpected value.
- * @since 2.0
+ * Readonly interface to a {@link PropagationNode}.
  *
  */
-public class AadlModelException extends RuntimeException {
-	/**
-	 * Serializable version number for class
-	 */
-	private static final long serialVersionUID = 4833667000981390562L;
+public interface ReadonlyPropagationNode {
+	Optional<ReadonlyPropagationNode> getChild(final String kindOrElementName);
 
-	public AadlModelException(final String message) {
-		super(message);
-	}
+	Stream<ErrorPropagation> getPropagations();
 }

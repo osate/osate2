@@ -78,7 +78,7 @@ public class ErrorBehaviorTransitionHandler implements BusinessObjectHandler {
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(ErrorBehaviorTransition.class)
-				.map(bo -> bo.getElementRoot() instanceof AadlPackage).isPresent();
+				.filter(bo -> bo.getElementRoot() instanceof AadlPackage).isPresent();
 	}
 
 	@Override

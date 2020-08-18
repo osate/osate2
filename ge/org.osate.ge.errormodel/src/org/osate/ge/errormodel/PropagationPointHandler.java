@@ -23,10 +23,13 @@
  */
 package org.osate.ge.errormodel;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
-import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.Classifier;
 import org.osate.ge.CanonicalBusinessObjectReference;
+import org.osate.ge.DockingPosition;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
@@ -40,31 +43,33 @@ import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.businessobjecthandling.RenameContext;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
+import org.osate.ge.graphics.Dimension;
+import org.osate.ge.graphics.EllipseBuilder;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.graphics.RectangleBuilder;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
+import org.osate.ge.graphics.StyleBuilder;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 
-public class ErrorBehaviorStateMachineHandler implements BusinessObjectHandler {
-	private static final Graphic graphic = RectangleBuilder.create().rounded().build();
+public class PropagationPointHandler implements BusinessObjectHandler {
+	private static final Graphic graphic = EllipseBuilder.create().fixedSize(new Dimension(16, 16)).build();
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(ErrorBehaviorStateMachine.class)
-				.filter(bo -> bo.getElementRoot() instanceof AadlPackage).isPresent();
+		return ctx.getBusinessObject(PropagationPoint.class).filter(bo -> bo.getContainingClassifier() != null)
+				.isPresent();
 	}
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		final ErrorBehaviorStateMachine sm = ctx.getBusinessObject(ErrorBehaviorStateMachine.class).get();
-		return new CanonicalBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_STATE_MACHINE,
-				ctx.getReferenceBuilder().getCanonicalReference(sm.getElementRoot()).encode(), sm.getName());
+		final PropagationPoint bo = ctx.getBusinessObject(PropagationPoint.class).get();
+		return new CanonicalBusinessObjectReference(ErrorModelReferenceUtil.TYPE_PROPAGATION_POINT,
+				ctx.getReferenceBuilder().getCanonicalReference(bo.getContainingClassifier()).encode(), bo.getName());
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		return ErrorModelReferenceUtil.getRelativeReferenceForStateMachine(
-				ctx.getBusinessObject(ErrorBehaviorStateMachine.class).get().getName());
+		return ErrorModelReferenceUtil
+				.getRelativeReferenceForPropagationPoint(ctx.getBusinessObject(PropagationPoint.class).get().getName());
 	}
 
 	@Override
@@ -74,13 +79,14 @@ public class ErrorBehaviorStateMachineHandler implements BusinessObjectHandler {
 
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
-		return Optional.of(GraphicalConfigurationBuilder.create().graphic(graphic)
-				.annotation("<Error Behavior State Machine>").style(ErrorModelGeUtil.topCenteredLabelStyle).build());
+		return Optional
+				.of(GraphicalConfigurationBuilder.create().graphic(graphic).defaultDockingPosition(DockingPosition.ANY)
+						.style(StyleBuilder.create().labelsAboveTop().labelsLeft().build()).build());
 	}
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(ErrorBehaviorStateMachine.class).map(bo -> bo.getName()).orElse("");
+		return ctx.getBusinessObject(PropagationPoint.class).map(bo -> bo.getName()).orElse("");
 	}
 
 	@Override
@@ -90,9 +96,16 @@ public class ErrorBehaviorStateMachineHandler implements BusinessObjectHandler {
 
 	@Override
 	public Optional<String> validateName(final RenameContext ctx) {
-		return ctx.getBusinessObject(ErrorBehaviorStateMachine.class).map(stateMachine -> {
-			final ErrorModelLibrary errorModelLibrary = (ErrorModelLibrary) stateMachine.eContainer();
-			return ErrorModelNamingUtil.validateName(errorModelLibrary, stateMachine.getName(), ctx.getNewName());
+		return ctx.getBusinessObject(PropagationPoint.class).map(pp -> {
+			final ErrorModelSubclause containingSubclause = (ErrorModelSubclause) pp.eContainer();
+			final Set<String> names = new HashSet<String>();
+			final Classifier classifier = containingSubclause.getContainingClassifier();
+			ErrorModelNamingUtil.addToNameSet(names, classifier.getMembers());
+			ErrorModelGeUtil.getAllErrorModelSubclauses(classifier).forEachOrdered(subclause -> {
+				ErrorModelNamingUtil.addToNameSet(names, subclause.getPoints());
+			});
+
+			return ErrorModelNamingUtil.validateName(names, pp.getName(), ctx.getNewName());
 		});
 	}
 }

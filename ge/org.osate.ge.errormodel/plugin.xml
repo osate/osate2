@@ -62,6 +62,9 @@ censes only apply to the Third Party Software and not any other portion of this 
 	  <handler
             class="org.osate.ge.errormodel.TypeSetHandler">
       </handler>
+	  <handler
+            class="org.osate.ge.errormodel.PropagationPointHandler">
+      </handler>
    </extension>
    <extension point="org.osate.ge.paletteContributors">
       <contributor class="org.osate.ge.errormodel.ui.palette.ErrorModelPaletteContributor" />
@@ -97,6 +100,9 @@ censes only apply to the Third Party Software and not any other portion of this 
       </contentFilter>
       <contentFilter
             class="org.osate.ge.errormodel.filters.TypeSetFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.errormodel.filters.PropagationPointFilter">
       </contentFilter>
       <fundamentalContentFilter
             class="org.osate.ge.errormodel.filters.FundamentalErrorBusinessObjectFilter">

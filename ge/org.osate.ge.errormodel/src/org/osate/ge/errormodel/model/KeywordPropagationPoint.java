@@ -21,22 +21,30 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.aadl2;
+package org.osate.ge.errormodel.model;
 
 /**
- * Exception thrown to indicate that there was an unhandled problem with the underlying AADL model. In general, the graphical editor
- * will attempt to gracefully handle unexpected values in the AADL model. However, this exception is thrown when the graphical editor
- * does not handle the unexpected value.
- * @since 2.0
+ * Enumeration for keywords that refer to predefined propagation points.
  *
  */
-public class AadlModelException extends RuntimeException {
+public enum KeywordPropagationPoint {
 	/**
-	 * Serializable version number for class
+	 * All is not a propagation point exactly but is used for flow declarations
 	 */
-	private static final long serialVersionUID = 4833667000981390562L;
+	ALL("all"), ACCESS("access"), PROCESSOR("processor"), MEMORY("memory"), CONNECTION("connection"), BINDING(
+			"binding"), BINDINGS("bindings");
 
-	public AadlModelException(final String message) {
-		super(message);
+	private final String key;
+
+	/**
+	 * Create a new instance
+	 * @param key must match the kind string used for propagations for this type.
+	 */
+	KeywordPropagationPoint(final String key) {
+		this.key = key;
+	}
+
+	public String getKey() {
+		return key;
 	}
 }

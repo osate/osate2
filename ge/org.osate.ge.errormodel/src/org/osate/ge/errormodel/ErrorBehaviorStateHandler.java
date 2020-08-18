@@ -50,7 +50,7 @@ public class ErrorBehaviorStateHandler implements BusinessObjectHandler {
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(ErrorBehaviorState.class).map(bo -> bo.getElementRoot() instanceof AadlPackage)
+		return ctx.getBusinessObject(ErrorBehaviorState.class).filter(bo -> bo.getElementRoot() instanceof AadlPackage)
 				.isPresent();
 	}
 
