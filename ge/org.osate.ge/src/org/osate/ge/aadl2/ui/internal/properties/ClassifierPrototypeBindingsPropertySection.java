@@ -41,8 +41,8 @@ import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.aadl2.ui.internal.viewmodels.BusinessObjectSelectionPrototypeBindingsModel;
 import org.osate.ge.aadl2.ui.internal.viewmodels.ClassifierPrototypeBindingsModel;
 import org.osate.ge.swt.classifiers.PrototypeBindingsField;
-import org.osate.ge.ui.PropertySectionUtil;
 import org.osate.ge.ui.UiBusinessObjectSelection;
+import org.osate.ge.ui.PropertySectionUtil;
 
 /**
  * Property section for editing prototypes for classifiers.
