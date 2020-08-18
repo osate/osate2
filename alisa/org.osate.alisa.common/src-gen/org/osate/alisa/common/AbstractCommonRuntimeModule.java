@@ -188,7 +188,7 @@ public abstract class AbstractCommonRuntimeModule extends DefaultRuntimeModule {
 	
 	// contributed by org.eclipse.xtext.xtext.generator.scoping.ImportNamespacesScopingFragment2
 	public void configureIgnoreCaseLinking(Binder binder) {
-		binder.bindConstant().annotatedWith(IgnoreCaseLinking.class).to(true);
+		binder.bindConstant().annotatedWith(IgnoreCaseLinking.class).to(false);
 	}
 	
 	// contributed by org.eclipse.xtext.xtext.generator.exporting.QualifiedNamesFragment2
