@@ -1,0 +1,27 @@
+package issue2401
+public
+	system test
+	end test;
+
+	subprogram My_Subprogram
+		features
+			my_par: out parameter My_Datatype;
+	end My_Subprogram;
+
+	system implementation test.impl
+		subcomponents
+			sub: data My_Datatyp; --syntax error causing the editor to crash
+		annex behavior_specification {**
+         states
+            init_state : initial state;
+            final_state : final state;
+          transitions
+            dispatchTransition : init_state -[]-> init_state {
+              My_Subprogram ! (sub)
+            };
+        **};
+	end test.impl;
+
+	data My_Datatype
+	end My_Datatype;
+end issue2401;
