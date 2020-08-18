@@ -43,7 +43,6 @@ import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.ResourceSet
-import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.emf.transaction.RecordingCommand
 import org.eclipse.emf.transaction.TransactionalEditingDomain
 import org.eclipse.jface.action.Action
@@ -101,7 +100,6 @@ import org.osate.categories.categories.CategoryFilter
 import org.osate.result.AnalysisResult
 import org.osate.result.BooleanValue
 import org.osate.result.Diagnostic
-import org.osate.result.DiagnosticType
 import org.osate.result.EObjectValue
 import org.osate.result.IntegerValue
 import org.osate.result.ObjectValue

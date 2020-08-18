@@ -25,13 +25,14 @@ Require-Bundle: org.osate.verify;bundle-version="[2.0.0,3.0.0)";visibility:=reex
  org.osate.aadl2.modelsupport;bundle-version="[4.0.0,5.0.0)",
  org.osate.xtext.aadl2.ui;bundle-version="[4.0.0,5.0.0)",
  org.osate.ui;bundle-version="[4.0.0,5.0.0)",
- org.osate.assure;bundle-version="[3.0.0,4.0.0)"
+ org.osate.assure;bundle-version="[3.0.0,4.0.0)",
+ org.eclipse.xtend.lib;bundle-version="[2.20.0,3.0.0)";resolution:=optional
 Import-Package: org.apache.log4j;version="[1.2.0,2.0.0)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.osate.verify.ui.quickfix,
  org.osate.verify.ui.contentassist,
- org.osate.verify.ui.contentassist.antlr,
  org.osate.verify.ui.internal,
- org.osate.verify.ui.contentassist.antlr.internal
+ org.osate.verify.ide.contentassist.antlr,
+ org.osate.verify.ide.contentassist.antlr.internal
 Bundle-Activator: org.osate.verify.ui.internal.VerifyActivator
 Automatic-Module-Name: org.osate.verify.ui

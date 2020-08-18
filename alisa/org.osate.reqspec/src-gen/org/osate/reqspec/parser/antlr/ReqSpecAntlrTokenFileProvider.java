@@ -27,10 +27,10 @@ import java.io.InputStream;
 import org.eclipse.xtext.parser.antlr.IAntlrTokenFileProvider;
 
 public class ReqSpecAntlrTokenFileProvider implements IAntlrTokenFileProvider {
-	
+
 	@Override
 	public InputStream getAntlrTokenFile() {
 		ClassLoader classLoader = getClass().getClassLoader();
-    	return classLoader.getResourceAsStream("org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.tokens");
+		return classLoader.getResourceAsStream("org/osate/reqspec/parser/antlr/internal/InternalReqSpec.tokens");
 	}
 }

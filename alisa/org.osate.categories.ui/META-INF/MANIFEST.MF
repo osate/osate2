@@ -22,8 +22,8 @@ Import-Package: org.apache.log4j;version="[1.2.0,2.0.0)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.osate.categories.ui.quickfix,
  org.osate.categories.ui.contentassist,
- org.osate.categories.ui.contentassist.antlr,
  org.osate.categories.ui.internal,
- org.osate.categories.ui.contentassist.antlr.internal
+ org.osate.categories.ide.contentassist.antlr.internal,
+ org.osate.categories.ide.contentassist.antlr
 Bundle-Activator: org.osate.categories.ui.internal.CategoriesActivator
 Automatic-Module-Name: org.osate.categories.ui
