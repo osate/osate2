@@ -21,46 +21,46 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.ba.ui.palette;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
+package org.osate.ge.ba.diagram.diagramType;
 
 import org.osate.ba.aadlba.BehaviorAnnex;
-import org.osate.ge.palette.CreateConnectionPaletteCommand;
-import org.osate.ge.palette.PaletteCategory;
-import org.osate.ge.palette.PaletteCommandProviderContext;
-import org.osate.ge.palette.PaletteContributor;
-import org.osate.ge.palette.TargetedPaletteCommand;
+import org.osate.ge.DiagramType;
+import org.osate.ge.ba.diagram.contentFilters.BehaviorStateFilter;
+import org.osate.ge.ba.diagram.contentFilters.BehaviorTransitionFilter;
+import org.osate.ge.ba.diagram.contentFilters.BehaviorVariableFilter;
 
-public class BaPaletteContributor implements PaletteContributor {
-	public static final String BEHAVIOR_ANNEX = "org.osate.ge.ba.categories.ba";
+import com.google.common.collect.ImmutableCollection;
+import com.google.common.collect.ImmutableSet;
+
+public class BehaviorAnnexDiagramType implements DiagramType {
+	public final static String ID = "behavior_annex";
 
 	@Override
-	public Stream<PaletteCategory> getCategories() {
-		return Stream.of(new PaletteCategory(BEHAVIOR_ANNEX, "Behavior Annex"));
+	public String getId() {
+		return ID;
 	}
 
 	@Override
-	public Stream<TargetedPaletteCommand> getTargetedCommands(final PaletteCommandProviderContext ctx) {
-		final List<TargetedPaletteCommand> commands = new ArrayList<>();
-		// Do not show BehaviorAnnex palette option when diagram bo is BehaviorAnnex
-		if (!(ctx.getDiagramBusinessObject() instanceof BehaviorAnnex)) {
-			commands.add(new CreateSpecificationPaletteCommand());
+	public String getName() {
+		return "Behavior Annex";
+	}
+
+	@Override
+	public boolean isApplicableToContext(final Object contextBo) {
+		return contextBo instanceof BehaviorAnnex;
+	}
+
+	@Override
+	public ImmutableSet<String> getDefaultContentFilters(final Object bo) {
+		if (bo instanceof BehaviorAnnex) {
+			return ImmutableSet.of(BehaviorTransitionFilter.ID, BehaviorStateFilter.ID, BehaviorVariableFilter.ID);
 		}
 
-		commands.add(new CreateStatePaletteCommand());
-		commands.add(new CreateVariablePaletteCommand());
-
-		return commands.stream();
+		return ImmutableSet.of();
 	}
 
 	@Override
-	public Stream<CreateConnectionPaletteCommand> getCreateConnectionCommands(
-			final PaletteCommandProviderContext ctx) {
-		final List<CreateConnectionPaletteCommand> commands = new ArrayList<>();
-		commands.add(new CreateTransitionPaletteCommand());
-		return commands.stream();
+	public ImmutableCollection<String> getDefaultAadlPropertyNames() {
+		return ImmutableSet.of();
 	}
 }

@@ -21,40 +21,32 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.ba;
+package org.osate.ge.ba.diagram.contentFilters;
 
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import org.osate.aadl2.Classifier;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
-import org.osate.ge.BusinessObjectProvider;
-import org.osate.ge.BusinessObjectProviderContext;
-import org.osate.ge.ba.model.BehaviorAnnexState;
-import org.osate.ge.ba.model.BehaviorAnnexTransition;
-import org.osate.ge.ba.util.BaUtil;
+import org.osate.ge.ContentFilter;
 
-public class BaBusinessObjectProvider implements BusinessObjectProvider {
+public class BehaviorStateFilter implements ContentFilter {
+	public static final String ID = "behaviorStates";
+
 	@Override
-	public Stream<?> getChildBusinessObjects(final BusinessObjectProviderContext ctx) {
-		final Object bo = ctx.getBusinessObjectContext().getBusinessObject();
-		if (bo instanceof Classifier) {
-			final Stream<?> bas = BaUtil.getBehaviorAnnexes((Classifier) bo);
-			return bas;
-		} else if (bo instanceof BehaviorAnnex) {
-			final BehaviorAnnex ba = (BehaviorAnnex) bo;
-			final Map<BehaviorState, BehaviorAnnexState> behaviorStateToBehaviorAnnexState = ba.getStates().stream()
-					.collect(Collectors.toMap(behaviorState -> behaviorState, bs -> new BehaviorAnnexState(bs)));
+	public String getId() {
+		return ID;
+	}
 
-			return Stream.concat(
-					ba.getTransitions().stream()
-							.map(behaviorTransition -> new BehaviorAnnexTransition(behaviorTransition, behaviorStateToBehaviorAnnexState.get(behaviorTransition.getSourceState()),
-									behaviorStateToBehaviorAnnexState.get(behaviorTransition.getDestinationState()))),
-					behaviorStateToBehaviorAnnexState.values().stream());
-		}
+	@Override
+	public String getName() {
+		return "Behavior States";
+	}
 
-		return Stream.empty();
+	@Override
+	public boolean isApplicable(final Object bo) {
+		return bo instanceof BehaviorAnnex;
+	}
+
+	@Override
+	public boolean test(final Object bo) {
+		return bo instanceof BehaviorState;
 	}
 }

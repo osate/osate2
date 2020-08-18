@@ -27,56 +27,71 @@ import java.util.Optional;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.ba.aadlba.BehaviorAnnex;
-import org.osate.ba.aadlba.BehaviorState;
+import org.osate.ba.aadlba.BehaviorVariable;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
-import org.osate.ge.StringUtil;
-import org.osate.ge.ba.model.BehaviorAnnexState;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
+import org.osate.ge.businessobjecthandling.CanRenameContext;
 import org.osate.ge.businessobjecthandling.CustomDeleteContext;
 import org.osate.ge.businessobjecthandling.CustomDeleter;
+import org.osate.ge.businessobjecthandling.CustomRenamer;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
+import org.osate.ge.businessobjecthandling.RenameContext;
+import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.graphics.internal.FolderGraphicBuilder;
 
-/**
- * Business Object Handler for {@link BehaviorState}
- */
-public class BaStateHandler implements BusinessObjectHandler, CustomDeleter {
-	private final static String TYPE_STATE = "ba.state";
+public class BehaviorVariableHandler implements BusinessObjectHandler, CustomDeleter, CustomRenamer {
+	private final static String TYPE_VARIABLE = "ba_variable";
 	private static final GraphicalConfiguration graphicalConfig = GraphicalConfigurationBuilder.create()
-			.graphic(FolderGraphicBuilder.create().build()).style(StyleBuilder.create().labelsCenter().build()).build();
+			.graphic(RectangleBuilder.create().build()).style(StyleBuilder.create().labelsCenter().build()).build();
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(BehaviorAnnexState.class).isPresent();
+		return ctx.getBusinessObject(BehaviorVariable.class).isPresent();
+	}
+
+	@Override
+	public boolean canRename(final CanRenameContext ctx) {
+		return true;
+	}
+
+	@Override
+	public void rename(final RenameContext ctx) {
+		final BehaviorVariable behaviorVariable = ctx.getBusinessObject(BehaviorVariable.class).get();
+		behaviorVariable.setName(ctx.getNewName());
 	}
 
 	@Override
 	public boolean canDelete(final CanDeleteContext ctx) {
-		// TODO discuss with philip at a later time
-		// Do no allow deleting final state, unless it is the only state, causes errors
-		return ctx.getBusinessObject(BehaviorAnnexState.class).map(BehaviorAnnexState::getState)
-				.map(bs -> !bs.isFinal() || ((BehaviorAnnex) bs.getOwner()).getStates().size() == 1).orElse(true);
+		return true;
+	}
+
+	@Override
+	public void delete(final CustomDeleteContext ctx) {
+		final BehaviorVariable behaviorVariableToModify = ctx.getContainerBusinessObject(BehaviorVariable.class).get();
+		final BehaviorAnnex behaviorAnnexToModify = (BehaviorAnnex) behaviorVariableToModify.eContainer();
+		EcoreUtil.remove(behaviorVariableToModify);
+		if (behaviorAnnexToModify.getVariables().isEmpty()) {
+			behaviorAnnexToModify.unsetVariables();
+		}
 	}
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		return new CanonicalBusinessObjectReference(TYPE_STATE, ctx.getBusinessObject(BehaviorAnnexState.class)
-				.map(BehaviorAnnexState::getState).get().getQualifiedName());
+		return new CanonicalBusinessObjectReference(TYPE_VARIABLE,
+				ctx.getBusinessObject(BehaviorVariable.class).get().getQualifiedName());
 	}
-
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		return new RelativeBusinessObjectReference(TYPE_STATE,
-				ctx.getBusinessObject(BehaviorAnnexState.class).map(BehaviorAnnexState::getState).get().getFullName());
+		return new RelativeBusinessObjectReference(TYPE_VARIABLE,
+				ctx.getBusinessObject(BehaviorVariable.class).get().getFullName());
 	}
 
 	@Override
@@ -86,22 +101,11 @@ public class BaStateHandler implements BusinessObjectHandler, CustomDeleter {
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(BehaviorAnnexState.class).map(BehaviorAnnexState::getState)
-				.map(behaviorState -> {
-					final StringBuilder builder = new StringBuilder(
-							StringUtil.camelCaseToUser(behaviorState.eClass().getName()));
-					builder.append(" ");
-					return builder.append(behaviorState.getFullName()).toString();
-				}).orElse("");
+		return ctx.getBusinessObject(BehaviorVariable.class).map(BehaviorVariable::getFullName).orElse("");
 	}
 
 	@Override
-	public void delete(final CustomDeleteContext ctx) {
-		final BehaviorState behaviorStateToModify = ctx.getContainerBusinessObject(BehaviorState.class).get();
-		final BehaviorAnnex behaviorAnnexToModify = (BehaviorAnnex) behaviorStateToModify.getOwner();
-		EcoreUtil.remove(behaviorStateToModify);
-		if (behaviorAnnexToModify.getStates().size() == 0) {
-			behaviorAnnexToModify.unsetStates();
-		}
+	public Optional<String> validateName(final RenameContext ctx) {
+		return AadlNamingUtil.checkNameValidity(ctx);
 	}
 }

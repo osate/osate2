@@ -21,46 +21,11 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.ba.ui.palette;
+package org.osate.ge.ba;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
-
-import org.osate.ba.aadlba.BehaviorAnnex;
-import org.osate.ge.palette.CreateConnectionPaletteCommand;
-import org.osate.ge.palette.PaletteCategory;
-import org.osate.ge.palette.PaletteCommandProviderContext;
-import org.osate.ge.palette.PaletteContributor;
-import org.osate.ge.palette.TargetedPaletteCommand;
-
-public class BaPaletteContributor implements PaletteContributor {
-	public static final String BEHAVIOR_ANNEX = "org.osate.ge.ba.categories.ba";
-
-	@Override
-	public Stream<PaletteCategory> getCategories() {
-		return Stream.of(new PaletteCategory(BEHAVIOR_ANNEX, "Behavior Annex"));
-	}
-
-	@Override
-	public Stream<TargetedPaletteCommand> getTargetedCommands(final PaletteCommandProviderContext ctx) {
-		final List<TargetedPaletteCommand> commands = new ArrayList<>();
-		// Do not show BehaviorAnnex palette option when diagram bo is BehaviorAnnex
-		if (!(ctx.getDiagramBusinessObject() instanceof BehaviorAnnex)) {
-			commands.add(new CreateSpecificationPaletteCommand());
-		}
-
-		commands.add(new CreateStatePaletteCommand());
-		commands.add(new CreateVariablePaletteCommand());
-
-		return commands.stream();
-	}
-
-	@Override
-	public Stream<CreateConnectionPaletteCommand> getCreateConnectionCommands(
-			final PaletteCommandProviderContext ctx) {
-		final List<CreateConnectionPaletteCommand> commands = new ArrayList<>();
-		commands.add(new CreateTransitionPaletteCommand());
-		return commands.stream();
-	}
+public class BehaviorAnnexReferenceUtil {
+	// TODO if this is the only thing in here, combine to one variable ba.behavior_spec and move to different file?
+	// TODO could move to BAUtil or vice versa
+	public final static String BA_REFERENCE_PREFIX = "ba.";
+	public final static String BEHAVIOR_SPECIFICATION_TYPE = BA_REFERENCE_PREFIX + "behavior_specification";
 }

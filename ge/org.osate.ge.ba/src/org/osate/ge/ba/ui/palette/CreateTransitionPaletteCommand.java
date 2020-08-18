@@ -1,3 +1,26 @@
+/**
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * All Rights Reserved.
+ *
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ *
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ *
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ */
 package org.osate.ge.ba.ui.palette;
 
 import java.util.Optional;
@@ -9,8 +32,6 @@ import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.ba.model.BehaviorAnnexState;
-import org.osate.ge.ba.model.BehaviorAnnexTransition;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
@@ -25,7 +46,7 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 			.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof BehaviorAnnex).first());
 
 	public CreateTransitionPaletteCommand() {
-		super("Transition", BaPaletteCategories.BEHAVIOR_ANNEX, null);
+		super("Transition", BaPaletteContributor.BEHAVIOR_ANNEX, null);
 	}
 
 	@Override
@@ -36,13 +57,13 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 		 */
 		// TODO any other conditions for starting?
 		// Cannot start a connection in a state that is final
-		return ctx.getSource().getBusinessObject(BehaviorAnnexState.class)
-				.map(behaviorAnnexState -> !behaviorAnnexState.getState().isFinal()).orElse(false);
+		return ctx.getSource().getBusinessObject(BehaviorState.class).map(behaviorState -> !behaviorState.isFinal())
+				.orElse(false);
 	}
 
 	@Override
 	public Optional<Operation> getOperation(final GetCreateConnectionOperationContext ctx) {
-		if (!ctx.getDestination().getBusinessObject(BehaviorAnnexState.class).isPresent()) {
+		if (!ctx.getDestination().getBusinessObject(BehaviorState.class).isPresent()) {
 			return Optional.empty();
 		}
 
@@ -56,8 +77,8 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 			return Optional.empty();
 		}
 
-		final BehaviorAnnexState srcState = ctx.getSource().getBusinessObject(BehaviorAnnexState.class).get();
-		final BehaviorAnnexState dstState = ctx.getDestination().getBusinessObject(BehaviorAnnexState.class).get();
+		final BehaviorState srcState = ctx.getSource().getBusinessObject(BehaviorState.class).get();
+		final BehaviorState dstState = ctx.getDestination().getBusinessObject(BehaviorState.class).get();
 		if (srcState == dstState) {
 			return Optional.empty();
 		}
@@ -73,8 +94,8 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 
 					final EList<BehaviorState> behaviorStates = boToModify.getStates();
 
-					final String srcName = srcState.getState().getName();
-					final String dstName = dstState.getState().getName();
+					final String srcName = srcState.getName();
+					final String dstName = dstState.getName();
 
 					// Set source and destination for transition
 					for (final BehaviorState behaviorState : behaviorStates) {
@@ -91,10 +112,7 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 					boToModify.getTransitions().add(baTransition);
 
 					// Show
-					return StepResultBuilder.create()
-							.showNewBusinessObject(srcContainer,
-									new BehaviorAnnexTransition(baTransition, srcState, dstState))
-							.build();
+					return StepResultBuilder.create().showNewBusinessObject(srcContainer, baTransition).build();
 				})).orElse(Optional.empty());
 	}
 

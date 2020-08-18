@@ -21,46 +21,48 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.ba.ui.palette;
+package org.osate.ge;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
+import java.util.Objects;
 
-import org.osate.ba.aadlba.BehaviorAnnex;
-import org.osate.ge.palette.CreateConnectionPaletteCommand;
-import org.osate.ge.palette.PaletteCategory;
-import org.osate.ge.palette.PaletteCommandProviderContext;
-import org.osate.ge.palette.PaletteContributor;
-import org.osate.ge.palette.TargetedPaletteCommand;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.Adapters;
+import org.eclipse.ui.IEditorPart;
+import org.osate.ge.internal.services.DiagramService;
+import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.util.EditorUtil;
 
-public class BaPaletteContributor implements PaletteContributor {
-	public static final String BEHAVIOR_ANNEX = "org.osate.ge.ba.categories.ba";
+/**
+ * @since 2.0
+ */
+public class DiagramCreationUtil {
+	public static void createDiagram(final IEditorPart activeEditor, final String fileName,
+			final DiagramType diagramType, final Object bo) {
+		final DiagramService diagramService = Objects.requireNonNull(Adapters.adapt(activeEditor, DiagramService.class),
+				"Unable to retrieve diagram service");
+		final IProject project = ProjectUtil.getProjectForBoOrThrow(bo);
+		final IFile file = createDiagramFile(project, fileName);
+		diagramService.createDiagram(file, diagramType, bo);
 
-	@Override
-	public Stream<PaletteCategory> getCategories() {
-		return Stream.of(new PaletteCategory(BEHAVIOR_ANNEX, "Behavior Annex"));
+		if (file != null) {
+			EditorUtil.openEditor(file, false);
+		}
 	}
 
-	@Override
-	public Stream<TargetedPaletteCommand> getTargetedCommands(final PaletteCommandProviderContext ctx) {
-		final List<TargetedPaletteCommand> commands = new ArrayList<>();
-		// Do not show BehaviorAnnex palette option when diagram bo is BehaviorAnnex
-		if (!(ctx.getDiagramBusinessObject() instanceof BehaviorAnnex)) {
-			commands.add(new CreateSpecificationPaletteCommand());
+	/**
+	 * Creates a diagram file in the diagrams directory of a project
+	 * @param project the project that will contain the diagram
+	 * @param name the name of the diagram file
+	 * @return null if project is null.
+	 */
+	public static IFile createDiagramFile(final IProject project, final String name) {
+		if (project == null) {
+			return null;
 		}
 
-		commands.add(new CreateStatePaletteCommand());
-		commands.add(new CreateVariablePaletteCommand());
-
-		return commands.stream();
-	}
-
-	@Override
-	public Stream<CreateConnectionPaletteCommand> getCreateConnectionCommands(
-			final PaletteCommandProviderContext ctx) {
-		final List<CreateConnectionPaletteCommand> commands = new ArrayList<>();
-		commands.add(new CreateTransitionPaletteCommand());
-		return commands.stream();
+		final IFolder diagramFolder = project.getFolder("diagrams/");
+		return diagramFolder.getFile(name + AgeDiagramEditor.EXTENSION);
 	}
 }
