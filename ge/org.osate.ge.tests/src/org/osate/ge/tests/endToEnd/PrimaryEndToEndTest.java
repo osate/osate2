@@ -32,7 +32,6 @@ import org.junit.Test;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.tests.endToEnd.util.DiagramElementReference;
 import org.osate.ge.tests.endToEnd.util.DiagramReference;
-import org.osate.ge.tests.endToEnd.util.Menus;
 
 /**
  * This class is the primary end to end test. It creates a complete model and exercises a large part of the graphical editor.
@@ -1153,11 +1152,7 @@ public class PrimaryEndToEndTest {
 	 */
 	private void additionalTests() {
 		final DiagramReference diagram = defaultDiagram(HARDWARE, HARDWARE);
-
-		// Hide Contents
-		clickContextMenuOfDiagramElement(diagram, packageElement(HARDWARE), Menus.HIDE_CONTENTS_ALL);
-
-		// Show contents
-		clickContextMenuOfDiagramElement(diagram, packageElement(HARDWARE), Menus.SHOW_CONTENTS_ALL);
+		hideContentsAndLayout(diagram, packageElement(HARDWARE));
+		showContentsAndLayout(diagram, packageElement(HARDWARE));
 	}
 }
