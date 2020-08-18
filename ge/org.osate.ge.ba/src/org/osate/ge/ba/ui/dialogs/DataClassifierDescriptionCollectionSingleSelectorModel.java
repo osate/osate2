@@ -21,46 +21,23 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.ba.ui.palette;
+package org.osate.ge.ba.ui.dialogs;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
+import java.util.Collection;
 
-import org.osate.ba.aadlba.BehaviorAnnex;
-import org.osate.ge.palette.CreateConnectionPaletteCommand;
-import org.osate.ge.palette.PaletteCategory;
-import org.osate.ge.palette.PaletteCommandProviderContext;
-import org.osate.ge.palette.PaletteContributor;
-import org.osate.ge.palette.TargetedPaletteCommand;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.osate.ge.ba.util.BaNamingUtil;
+import org.osate.ge.swt.selectors.CollectionSingleSelectorModel;
 
-public class BaPaletteContributor implements PaletteContributor {
-	public static final String BEHAVIOR_ANNEX = "org.osate.ge.ba.categories.ba";
+public class DataClassifierDescriptionCollectionSingleSelectorModel
+		extends CollectionSingleSelectorModel<IEObjectDescription> {
 
-	@Override
-	public Stream<PaletteCategory> getCategories() {
-		return Stream.of(new PaletteCategory(BEHAVIOR_ANNEX, "Behavior Annex"));
+	public DataClassifierDescriptionCollectionSingleSelectorModel(final Collection<IEObjectDescription> elements) {
+		super(elements);
 	}
 
 	@Override
-	public Stream<TargetedPaletteCommand> getTargetedCommands(final PaletteCommandProviderContext ctx) {
-		final List<TargetedPaletteCommand> commands = new ArrayList<>();
-		// Do not show BehaviorAnnex palette option when diagram bo is BehaviorAnnex
-		if (!(ctx.getDiagramBusinessObject() instanceof BehaviorAnnex)) {
-			commands.add(new CreateSpecificationPaletteCommand());
-		}
-
-		commands.add(new CreateStatePaletteCommand());
-		commands.add(new CreateVariablePaletteCommand());
-
-		return commands.stream();
-	}
-
-	@Override
-	public Stream<CreateConnectionPaletteCommand> getCreateConnectionCommands(
-			final PaletteCommandProviderContext ctx) {
-		final List<CreateConnectionPaletteCommand> commands = new ArrayList<>();
-		commands.add(new CreateTransitionPaletteCommand());
-		return commands.stream();
+	public String getLabel(final IEObjectDescription element) {
+		return BaNamingUtil.getQualifiedName(element);
 	}
 }

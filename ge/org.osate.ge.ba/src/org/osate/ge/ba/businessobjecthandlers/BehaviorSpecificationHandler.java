@@ -23,9 +23,16 @@
  */
 package org.osate.ge.ba.businessobjecthandlers;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.DefaultAnnexSubclause;
+import org.osate.aadl2.Mode;
 import org.osate.ba.aadlba.BehaviorAnnex;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
@@ -36,20 +43,22 @@ import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
+import org.osate.ge.businessobjecthandling.GetNameForDiagramContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
+import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.graphics.internal.FolderGraphicBuilder;
 
 /**
  * Business object handler for {@link BehaviorAnnex}. This handler only exists to prevent the annex from being added by the AADL
  * business object provider. Since the object isn't contributed at this time, the other methods are not necessary.
- *
  */
-public class BehaviorAnnexHandler implements BusinessObjectHandler {
+public class BehaviorSpecificationHandler implements BusinessObjectHandler {
 	final AnnexHandler annexHandler = new AnnexHandler();
 	private static final GraphicalConfiguration graphicalConfig = GraphicalConfigurationBuilder.create()
-			.graphic(FolderGraphicBuilder.create().build()).style(StyleBuilder.create().labelsCenter().build()).build();
+			.graphic(RectangleBuilder.create().build())
+			.style(StyleBuilder.create().labelsHorizontalCenter().labelsTop().build()).build();
+
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(BehaviorAnnex.class).isPresent();
@@ -78,5 +87,45 @@ public class BehaviorAnnexHandler implements BusinessObjectHandler {
 	@Override
 	public String getName(final GetNameContext ctx) {
 		return BaUtil.ANNEX_NAME;
+	}
+
+	@Override
+	public String getNameForDiagram(final GetNameForDiagramContext ctx) {
+		final BusinessObjectContext boc = Objects.requireNonNull(ctx.getBusinessObjectContext(),
+				"Context cannot be null");
+		return boc.getBusinessObject(BehaviorAnnex.class).map(behaviorAnnex -> {
+			final DefaultAnnexSubclause annexSubclause = (DefaultAnnexSubclause) behaviorAnnex.getOwner();
+			final Classifier classifier = Objects.requireNonNull(annexSubclause.getContainingClassifier(),
+					"Classifier cannot be null");
+
+			final StringBuilder builder = new StringBuilder();
+			final Object diagramRootBo = getDiagramRootBusinessObject(boc);
+			builder.append("behavior");
+			if (diagramRootBo instanceof BehaviorAnnex) {
+				builder.append(" in classifier ");
+				builder.append(classifier.getName());
+			}
+
+			appendInModes(behaviorAnnex, builder);
+			return builder.toString();
+		}).orElse(BaUtil.ANNEX_NAME);
+	}
+
+	private static void appendInModes(final BehaviorAnnex behaviorAnnex, final StringBuilder builder) {
+		final List<String> inModes = behaviorAnnex.getAllInModes().stream().map(Mode::getName)
+				.collect(Collectors.toList());
+		if (!inModes.isEmpty()) {
+			builder.append(" in modes (");
+			builder.append(String.join(", ", inModes));
+			builder.append(")");
+		}
+	}
+
+	private static Object getDiagramRootBusinessObject(BusinessObjectContext tmp) {
+		while (tmp.getParent() != null && tmp.getParent().getBusinessObject() != null) {
+			tmp = tmp.getParent();
+		}
+
+		return Objects.requireNonNull(tmp.getBusinessObject(), "Diagram root object cannot be null");
 	}
 }

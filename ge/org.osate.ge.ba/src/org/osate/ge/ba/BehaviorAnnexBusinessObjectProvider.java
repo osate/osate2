@@ -21,8 +21,28 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.ba.ui.palette;
+package org.osate.ge.ba;
 
-public class BaPaletteCategories {
-	public static final String BEHAVIOR_ANNEX = "org.osate.ge.ba.categories.ba";
+import java.util.stream.Stream;
+
+import org.osate.aadl2.Classifier;
+import org.osate.ba.aadlba.BehaviorAnnex;
+import org.osate.ge.BusinessObjectProvider;
+import org.osate.ge.BusinessObjectProviderContext;
+import org.osate.ge.ba.util.BaUtil;
+
+public class BehaviorAnnexBusinessObjectProvider implements BusinessObjectProvider {
+	@Override
+	public Stream<?> getChildBusinessObjects(final BusinessObjectProviderContext ctx) {
+		final Object bo = ctx.getBusinessObjectContext().getBusinessObject();
+		if (bo instanceof Classifier) {
+			return BaUtil.getBehaviorAnnexes((Classifier) bo);
+		} else if (bo instanceof BehaviorAnnex) {
+			final BehaviorAnnex ba = (BehaviorAnnex) bo;
+			return Stream.concat(Stream.concat(ba.getTransitions().stream(), ba.getStates().stream()),
+					ba.getVariables().stream());
+		}
+
+		return Stream.empty();
+	}
 }

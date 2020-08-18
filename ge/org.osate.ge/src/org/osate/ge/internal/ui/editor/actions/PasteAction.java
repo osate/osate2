@@ -53,7 +53,9 @@ import org.osate.ge.aadl2.internal.util.AadlNameUtil;
 import org.osate.ge.aadl2.internal.util.RenameUtil;
 import org.osate.ge.aadl2.internal.util.classifiers.ClassifierCreationHelper;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.CanPasteContext;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
+import org.osate.ge.businessobjecthandling.CustomPaster;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
@@ -188,6 +190,15 @@ public class PasteAction extends ActionStackAction {
 					ensurePackagesAreImported(copiedEObject);
 
 					newRelativeRef = refBuilder.getRelativeReference(copiedEObject);
+
+					final BusinessObjectHandler boHandler = copiedDiagramElement.getDiagramElement()
+							.getBusinessObjectHandler();
+					if (boHandler instanceof CustomPaster) {
+						// Make paste modifications for bo
+						((CustomPaster) boHandler).makePasteModifications(
+								new CanPasteContext(dstDiagramNode,
+										copiedDiagramElement.getDiagramElement()));
+					}
 				} else {
 					throw new RuntimeException("Unsupported case:  " + boFromCopiedDiagramElement);
 				}
@@ -355,7 +366,8 @@ public class PasteAction extends ActionStackAction {
 	}
 
 	private static void setName(final Object bo, final BusinessObjectHandler handler, final String newName) {
-		if (bo instanceof NamedElement) {
+		// TODO revisit this
+		if (bo instanceof NamedElement && !RenameUtil.supportsNonLtkRename(handler)) {
 			((NamedElement) bo).setName(newName);
 		} else {
 			RenameUtil.performNonLtkRename(bo, handler, newName);
