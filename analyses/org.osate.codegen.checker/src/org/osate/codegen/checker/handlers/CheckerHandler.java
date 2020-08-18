@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -84,7 +84,8 @@ public class CheckerHandler extends AbstractHandler {
 			checkInstance.perform(si);
 			return (checkInstance.getErrors());
 		} catch (InstantiationException | IllegalAccessException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
+			// static final Logger logger = Logger.("ff");
 		}
 
 		return null;
@@ -136,7 +137,8 @@ public class CheckerHandler extends AbstractHandler {
 			try {
 				selectedSystemInstance = InstantiateModel.buildInstanceModelFile((SystemImplementation) selectedObject);
 			} catch (Exception e) {
-				e.printStackTrace();
+				MessageDialog.openError(window.getShell(), e.getMessage(), e.getStackTrace().toString());
+				// e.printStackTrace();
 				selectedSystemInstance = null;
 			}
 		}
@@ -156,6 +158,7 @@ public class CheckerHandler extends AbstractHandler {
 		/**
 		 * For now, we print the errors.
 		 */
+		String msg = new String();
 		for (ErrorReport e : errors) {
 			try {
 				IMarker marker = getIResource(e.getComponent().eResource()).createMarker(MARKER_TYPE);
@@ -163,11 +166,13 @@ public class CheckerHandler extends AbstractHandler {
 				marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR);
 //				marker.setAttribute(IMarker.LINE_NUMBER, lineNumber);
 			} catch (CoreException exception) {
-				exception.printStackTrace();
+				msg += exception.getMessage() + " " + exception.getStackTrace() + "\\r\\n";
 			}
 		}
 
-		if (errors.isEmpty()) {
+		if (!msg.isEmpty()) {
+			MessageDialog.openError(window.getShell(), msg, "1");
+		} else if (errors.isEmpty()) {
 			MessageDialog.openInformation(window.getShell(), "Code Generation Checker", "No problems found");
 		} else {
 			MessageDialog.openError(window.getShell(), "Code Generation Checker", errors.size() + " problem(s) found");
