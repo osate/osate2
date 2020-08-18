@@ -22,7 +22,6 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)";visibility:=re
 Import-Package: org.apache.log4j;version="[1.2.0,2.0.0)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.osate.organization,
- org.osate.organization.formatting,
  org.osate.organization.generator,
  org.osate.organization.organization,
  org.osate.organization.organization.impl,
@@ -34,6 +33,5 @@ Export-Package: org.osate.organization,
  org.osate.organization.services,
  org.osate.organization.util,
  org.osate.organization.validation,
- org.osate.organization.parser.antlr.lexer
+ org.osate.organization.formatting2
 Automatic-Module-Name: org.osate.organization
-

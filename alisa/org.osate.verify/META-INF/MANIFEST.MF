@@ -42,8 +42,6 @@ Import-Package: com.rockwellcollins.atc.resolute.resolute;resolution:=optional,
  org.apache.log4j;version="[1.2.0,2.0.0)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.osate.verify,
- org.osate.verify.formatting,
- org.osate.verify.generator,
  org.osate.verify.parser.antlr,
  org.osate.verify.parser.antlr.internal,
  org.osate.verify.scoping,
@@ -53,5 +51,6 @@ Export-Package: org.osate.verify,
  org.osate.verify.validation,
  org.osate.verify.verify,
  org.osate.verify.verify.impl,
- org.osate.verify.verify.util
+ org.osate.verify.verify.util,
+ org.osate.verify.formatting2
 Automatic-Module-Name: org.osate.verify

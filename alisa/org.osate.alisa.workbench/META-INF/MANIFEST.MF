@@ -34,7 +34,6 @@ Export-Package: org.osate.alisa.workbench,
  org.osate.alisa.workbench.alisa,
  org.osate.alisa.workbench.alisa.impl,
  org.osate.alisa.workbench.alisa.util,
- org.osate.alisa.workbench.formatting,
  org.osate.alisa.workbench.generator,
  org.osate.alisa.workbench.parser.antlr,
  org.osate.alisa.workbench.parser.antlr.internal,
@@ -42,6 +41,6 @@ Export-Package: org.osate.alisa.workbench,
  org.osate.alisa.workbench.serializer,
  org.osate.alisa.workbench.services,
  org.osate.alisa.workbench.util,
- org.osate.alisa.workbench.validation
+ org.osate.alisa.workbench.validation,
+ org.osate.alisa.workbench.formatting2
 Automatic-Module-Name: org.osate.alisa.workbench
-

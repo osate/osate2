@@ -27,10 +27,9 @@ package org.osate.categories.tests
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.runner.RunWith
-import org.osate.categories.CategoriesInjectorProvider
 
-@RunWith(typeof(XtextRunner))
-	@InjectWith(typeof(CategoriesInjectorProvider))
+@RunWith(XtextRunner)
+	@InjectWith(CategoriesInjectorProvider)
 	
 
 class CategoriesTests {
