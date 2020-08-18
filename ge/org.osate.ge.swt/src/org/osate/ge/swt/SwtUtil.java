@@ -14,7 +14,7 @@ import org.eclipse.swt.widgets.Widget;
  * @since 1.1
   */
 public class SwtUtil {
-	static String AUTOMATED_SWTBOT_TESTING_KEY = "org.eclipse.swtbot.widget.key";
+	private static final String AUTOMATED_SWTBOT_TESTING_KEY = "org.eclipse.swtbot.widget.key";
 
 	private SwtUtil() {
 	}
