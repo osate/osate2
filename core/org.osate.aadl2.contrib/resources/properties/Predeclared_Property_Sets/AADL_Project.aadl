@@ -2,6 +2,7 @@
 --SAE Aerospace Standard AS5506B
 --Appendix A: Predeclared Property Sets
 
+-- @codegen-package org.osate.aadl2.contrib.aadlproject
 property set AADL_Project is
 
 --- The <b>Supported_Active_Thread_Handling_Protocols</b> property enumeration type specifies the set of possible
