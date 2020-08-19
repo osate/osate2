@@ -30,6 +30,9 @@ import org.osate.alisa.workbench.alisa.AssuranceCase
 import org.osate.alisa.workbench.alisa.AssurancePlan
 import org.osate.alisa.workbench.services.AlisaGrammarAccess
 
+/**
+ * @since 3.0
+ */
 class AlisaFormatter extends CommonFormatter {
 	
 	@Inject extension AlisaGrammarAccess

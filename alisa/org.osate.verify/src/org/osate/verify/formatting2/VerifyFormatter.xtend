@@ -30,6 +30,9 @@ import org.osate.verify.services.VerifyGrammarAccess
 import org.osate.verify.verify.Verification
 import org.osate.verify.verify.VerificationPlan
 
+/**
+ * @since 3.0
+ */
 class VerifyFormatter extends CommonFormatter {
 	
 	@Inject extension VerifyGrammarAccess

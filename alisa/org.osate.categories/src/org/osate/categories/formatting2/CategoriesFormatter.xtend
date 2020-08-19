@@ -30,6 +30,9 @@ import org.osate.categories.categories.Categories
 import org.osate.categories.categories.CategoriesDefinitions
 import org.osate.categories.services.CategoriesGrammarAccess
 
+/**
+ * @since 3.0
+ */
 class CategoriesFormatter extends AbstractFormatter2 {
 	
 	@Inject extension CategoriesGrammarAccess

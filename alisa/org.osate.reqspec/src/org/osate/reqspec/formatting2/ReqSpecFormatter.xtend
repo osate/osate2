@@ -30,6 +30,10 @@ import org.osate.reqspec.reqSpec.GlobalConstants
 import org.osate.reqspec.reqSpec.ReqSpec
 import org.osate.reqspec.services.ReqSpecGrammarAccess
 
+/** 
+ * @since 3.0
+ */
+
 class ReqSpecFormatter extends CommonFormatter {
 	
 	@Inject extension ReqSpecGrammarAccess

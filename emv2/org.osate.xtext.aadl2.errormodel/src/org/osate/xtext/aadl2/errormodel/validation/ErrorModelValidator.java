@@ -96,6 +96,9 @@ import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
+/**
+ * @since 5.0
+ */
 public class ErrorModelValidator extends AbstractErrorModelValidator {
 
 	@Override
