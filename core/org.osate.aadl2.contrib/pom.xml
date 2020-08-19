@@ -11,8 +11,8 @@
 	</parent>
 
 	<groupId>org.osate</groupId>
-	<artifactId>org.osate.workspace</artifactId>
-	<version>4.0.1-SNAPSHOT</version>
+	<artifactId>org.osate.aadl2.contrib</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
 
 </project>
