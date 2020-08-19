@@ -106,6 +106,9 @@ import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.aadl2.util.Aadl2Util;
 
+/**
+ * @since 3.0
+ */
 public class PropertiesValidator extends AbstractPropertiesValidator {
 
 	public static final String INVALID_ASSIGNMENT = "edu.cmu.sei.invalid.assignment";

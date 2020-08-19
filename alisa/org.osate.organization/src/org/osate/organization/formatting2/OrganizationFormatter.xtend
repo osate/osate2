@@ -29,6 +29,9 @@ import org.eclipse.xtext.formatting2.IFormattableDocument
 import org.osate.organization.organization.Organization
 import org.osate.organization.services.OrganizationGrammarAccess
 
+/**
+ * @since 3.0
+ */
 class OrganizationFormatter extends AbstractFormatter2 {
 	
 	@Inject extension OrganizationGrammarAccess

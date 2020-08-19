@@ -30,6 +30,9 @@ import org.osate.alisa.common.common.Description
 import org.osate.alisa.common.common.DescriptionElement
 import org.osate.alisa.common.services.CommonGrammarAccess
 
+/**
+ * @since 3.0
+ */
 class CommonFormatter extends AbstractFormatter2 {
 	
 	@Inject extension CommonGrammarAccess
