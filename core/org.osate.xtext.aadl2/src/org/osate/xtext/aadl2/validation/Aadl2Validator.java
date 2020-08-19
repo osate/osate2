@@ -3146,12 +3146,14 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 				}
 			}
 		} else if (componentType.isDerivedModes()) {
-			INode requiresModesNode = getRequiresModesNode(componentType);
 			if (componentType.getExtended() != null && componentType.getExtended().getAllModes().stream()
 					.anyMatch(extendedMode -> !extendedMode.isDerived())) {
 				// Section 4.3 (L6): Only modes permitted when inheriting modes.
-				getMessageAcceptor().acceptError("Must be modes because modes are inherited.", componentType,
+				INode requiresModesNode = getRequiresModesNode(componentType);
+				if (requiresModesNode != null) { // requiresModesNode != null always evaluates to true. This is only for SonarCloud.
+					getMessageAcceptor().acceptError("Must be modes because modes are inherited.", componentType,
 						requiresModesNode.getOffset(), requiresModesNode.getLength(), null);
+				}
 			} else {
 				// Section 12 (L2): Requires modes can't be initial.
 				for (Mode mode : componentType.getOwnedModes()) {
@@ -3413,6 +3415,8 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 			typeCategory = ComponentCategory.DEVICE;
 		} else if (componentType instanceof SystemType) {
 			typeCategory = ComponentCategory.SYSTEM;
+		} else {
+			throw new AssertionError("Unrecognized Category Type");
 		}
 		Set<FeatureType> acceptableFeatureTypes = acceptableFeaturesForTypes.get(typeCategory);
 		HashSet<FeatureType> typesOfInheritedFeatures = new HashSet<FeatureType>();
@@ -3474,6 +3478,8 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 			implementationCategory = ComponentCategory.DEVICE;
 		} else if (componentImplementation instanceof SystemImplementation) {
 			implementationCategory = ComponentCategory.SYSTEM;
+		} else {
+			throw new AssertionError("Unrecognized Category Type");
 		}
 		Set<ComponentCategory> acceptableSubcomponentCategories = acceptableSubcomponentCategoriesForImplementations
 				.get(implementationCategory);
@@ -6262,7 +6268,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 
 		// Test for L5: connection between access features of sibling components
 		if (srcContext instanceof Subcomponent && dstContext instanceof Subcomponent && source instanceof Access
-				&& destination instanceof Access) {
+				&& destination instanceof Access && destinationType != null) {
 			if (sourceType.equals(AccessType.PROVIDES) && destinationType.equals(AccessType.PROVIDES)) {
 				error(connection,
 						"Source and destination of access connections between sibling components cannot both be 'provides'.");
@@ -6287,7 +6293,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		// Test for L6: connection between subcomponent and access feature
 		else if (source instanceof Subcomponent && destination instanceof Access
 				&& (dstContext == null || dstContext instanceof FeatureGroup)) {
-			if (!destinationType.equals(AccessType.PROVIDES)) {
+			if (destinationType != AccessType.PROVIDES) {
 				error('\'' + destination.getName()
 						+ "' must be a provides access feature for a connection from an accessed subcomponent.",
 						connection, Aadl2Package.eINSTANCE.getConnection_Destination());
@@ -6306,7 +6312,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		// subcomponent
 		else if (source instanceof Subcomponent && destination instanceof Access
 				&& dstContext instanceof Subcomponent) {
-			if (!destinationType.equals(AccessType.REQUIRES)) {
+			if (destinationType != AccessType.REQUIRES) {
 				error('\'' + destination.getName()
 						+ "' must be a requires access feature for a connection from an accessed subcomponent.",
 						connection, Aadl2Package.eINSTANCE.getConnection_Destination());
@@ -6507,7 +6513,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 					Aadl2Package.eINSTANCE.getFlowEnd_Context());
 		} else if (!(flowFeature instanceof DataAccess) && !(flowFeature instanceof AbstractFeature)
 				&& !(flowFeature instanceof FeatureGroup) && !(flowFeature instanceof Parameter)
-				&& !(flowFeature instanceof Port) && !(flowFeature instanceof Parameter)) {
+				&& !(flowFeature instanceof Port)) {
 			error('\'' + (flowEndContext != null ? flowEndContext.getName() + '.' : "") + flowFeature.getName()
 					+ "' must be a port, parameter, data access, feature group, or abstract feature.", flowEnd,
 					Aadl2Package.eINSTANCE.getFlowEnd_Feature());
