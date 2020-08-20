@@ -2,6 +2,7 @@
 --SAE Aerospace Standard AS5506B
 --Appendix A: Predeclared Property Sets
 
+-- @codegen-package org.osate.aadl2.contrib.thread
 property set Thread_Properties is
 
 --- The <b>Dispatch_Protocol</b> property specifies the dispatch behavior for a thread.<p>

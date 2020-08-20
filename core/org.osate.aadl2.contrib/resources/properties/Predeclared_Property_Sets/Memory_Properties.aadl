@@ -2,6 +2,7 @@
 --SAE Aerospace Standard AS5506B
 --Appendix A: Predeclared Property Sets
 
+-- @codegen-package org.osate.aadl2.contrib.memory
 property set Memory_Properties is
 
 ---The <b>Access_Right</b> property specifies the form of access that is permitted for a component.  If associated with

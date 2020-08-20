@@ -2,6 +2,7 @@
 --SAE Aerospace Standard AS5506B
 --Appendix A: Predeclared Property Sets
 
+-- @codegen-package org.osate.aadl2.contrib.deployment
 property set Deployment_Properties is
 
 --- The <b>Allowed_Processor_Binding_Class</b> property specifies a set of virtual processor, processor and system 

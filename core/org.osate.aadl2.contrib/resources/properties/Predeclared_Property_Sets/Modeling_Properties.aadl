@@ -2,6 +2,7 @@
 --SAE Aerospace Standard AS5506B
 --Appendix A: Predeclared Property Sets
 
+-- @codegen-package org.osate.aadl2.contrib.modeling
 property set Modeling_Properties is
 
 --- The <b>Acceptable_Array_Size</b> property specifies acceptable values for the array size in each dimension.  This
