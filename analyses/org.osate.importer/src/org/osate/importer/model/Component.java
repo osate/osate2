@@ -385,7 +385,7 @@ public class Component implements Comparable {
 		result = new ArrayList<Component>();
 
 		for (Connection ec : connections) {
-			if ((ec.getSource().getName() == this.getName()) && (!result.contains(ec.getDestination()))) {
+			if ((ec.getSource().getName().equals(this.getName())) && (!result.contains(ec.getDestination()))) {
 				result.add(ec.getDestination());
 			}
 		}
@@ -399,8 +399,8 @@ public class Component implements Comparable {
 
 	public void addConnection(Connection ec) {
 		for (Connection c : connections) {
-			if ((c.getSource().getName() == ec.getSource().getName())
-					&& (c.getDestination().getName() == ec.getDestination().getName())) {
+			if ((c.getSource().getName().equals(ec.getSource().getName()))
+					&& (c.getDestination().getName().equals(ec.getDestination().getName()))) {
 				OsateDebug.osateDebug("[Component] not adding the connection");
 				return;
 			}
