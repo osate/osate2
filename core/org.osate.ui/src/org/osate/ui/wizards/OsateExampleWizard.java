@@ -46,7 +46,6 @@ import org.osate.ui.OsateUiPlugin;
  * @since 5.0
  */
 public class OsateExampleWizard extends BasicNewResourceWizard {
-
 	public OsateExampleWizard() {
 		super();
 		IDialogSettings workbenchSettings = OsateUiPlugin.getDefault().getDialogSettings();
@@ -54,6 +53,7 @@ public class OsateExampleWizard extends BasicNewResourceWizard {
 		if (section == null) {
 			section = workbenchSettings.addNewSection("BasicNewProjectResourceWizard");//$NON-NLS-1$
 		}
+
 		setDialogSettings(section);
 	}
 
@@ -69,7 +69,7 @@ public class OsateExampleWizard extends BasicNewResourceWizard {
 		super.addPages();
 		mainPage = new OsateExampleWizardPage("wizardOsateExamplePage"); //$NON-NLS-1$
 		mainPage.setTitle("Import AADL Example Project"); //$NON-NLS-1$
-		mainPage.setDescription("Import an Example Project into your workspace."); //$NON-NLS-1$
+		mainPage.setDescription("Import an example project into your workspace."); //$NON-NLS-1$
 		addPage(mainPage);
 	}
 
