@@ -52,8 +52,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
@@ -164,12 +164,16 @@ public class OsateExampleWizardPage extends WizardPage {
 		try {
 			Composite panelChoice = new Composite(parent, SWT.NONE);
 
-			FillLayout fillLayout = new FillLayout();
-			fillLayout.marginHeight = 5;
-			fillLayout.marginWidth = 5;
-			panelChoice.setLayout(fillLayout);
+			GridLayout layout = new GridLayout();
+			layout.marginHeight = 5;
+			layout.marginWidth = 5;
+			panelChoice.setLayout(layout);
 
 			SashForm sashForm = new SashForm(panelChoice, SWT.HORIZONTAL);
+			GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
+			sashForm.setLayoutData(gd);
+			initializeDialogUnits(sashForm);
+			getShell().setSize(convertWidthInCharsToPixels(150), getShell().getSize().y);
 
 			PluginInfo root = loadExamples();
 			final TreeViewer pickTree = createTree(sashForm);
@@ -180,6 +184,12 @@ public class OsateExampleWizardPage extends WizardPage {
 
 			pickTree.addSelectionChangedListener(event -> {
 				browser.setText("<p>Loading readme</p>");
+				// reset an error message
+				super.setErrorMessage(null);
+				if (isCurrentPage()) {
+					getContainer().updateMessage();
+				}
+
 				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
 				for (final Iterator<?> iter = selection.iterator(); iter.hasNext();) {
 					final Object object = iter.next();
@@ -202,12 +212,12 @@ public class OsateExampleWizardPage extends WizardPage {
 							} catch (IllegalArgumentException | IOException e) {
 								browser.setText("<p>Failed to load readme</p>");
 								setErrorMessage("Failed to load readme");
-								catchError(e, e.getMessage(), true);
+								catchError(e, e.getMessage());
 							}
 						} else {
 							browser.setText("<p>Failed to load readme</p>");
 							setErrorMessage("Failed to load readme");
-							catchError(new IOException(), "Readme file not found or missing", true);
+							catchError(new IOException(), "Readme file not found or missing");
 						}
 					}
 				}
@@ -215,16 +225,19 @@ public class OsateExampleWizardPage extends WizardPage {
 
 			browser = new Browser(sashForm, SWT.NONE);
 			GridData layoutData = new GridData(GridData.FILL_BOTH);
+			// layoutData.widthHint = 20 * getShell().getMonitor().getBounds().width;
+			// layoutData.widthHint = getShell().computeSize(20 * SWT.DEFAULT, SWT.DEFAULT).x;
+			// layoutData.widthHint = convertWidthInCharsToPixels(500);
 			layoutData.verticalSpan = 100;
 			browser.setLayoutData(layoutData);
 			browser.setText(
-					"<p>Expand the category on the left and select an example project to import. If project has a description available, it will be shown here once the project is selected</p>");
+					"<p>Expand the category on the left and select an example project to import. If the project has a description available, it will be shown here once the project is selected</p>");
 
 			sashForm.setWeights(new int[] { 1, 4 });
-			setControl(panelChoice);
 
+			setControl(panelChoice);
 		} catch (Exception e) {
-			catchError(e, e.getMessage(), true);
+			catchError(e, e.getMessage());
 		}
 	}
 
@@ -268,7 +281,7 @@ public class OsateExampleWizardPage extends WizardPage {
 					}
 				}
 			} catch (NullPointerException | InvalidRegistryObjectException | IOException e) {
-				catchError(e, e.getMessage(), true);
+				catchError(e, e.getMessage());
 			}
 		}
 
@@ -315,7 +328,7 @@ public class OsateExampleWizardPage extends WizardPage {
 				}
 			}
 			catch (IOException e) {
-				catchError(e, e.getMessage(), true);
+				catchError(e, e.getMessage());
 			}
 		}
 
@@ -359,10 +372,10 @@ public class OsateExampleWizardPage extends WizardPage {
 		return file2.getPath();
 	}
 
-	protected void catchError(Exception e, String message, Boolean logOnly) {
+	protected void catchError(Exception e, String message) {
 		IStatus status = new Status(IStatus.ERROR, OsateUiPlugin.PLUGIN_ID, message, e);
 		StatusManager manager = StatusManager.getManager();
-		manager.handle(status, logOnly ? StatusManager.LOG : StatusManager.SHOW | StatusManager.LOG);
+		manager.handle(status, StatusManager.LOG);
 	}
 
 	/**
