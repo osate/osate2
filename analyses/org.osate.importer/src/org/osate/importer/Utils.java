@@ -33,12 +33,15 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeSelection;
 import org.eclipse.jface.viewers.TreePath;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.importer.properties.InspectProperty;
@@ -100,9 +103,9 @@ public class Utils {
 			try {
 				ip.refreshLocal(IResource.DEPTH_INFINITE, monitor);
 			} catch (CoreException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-
+				IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e);
+				StatusManager manager = StatusManager.getManager();
+				manager.handle(status, StatusManager.LOG);
 			}
 		}
 	}

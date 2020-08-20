@@ -35,16 +35,20 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
+import org.osate.codegen.checker.Activator;
 import org.osate.codegen.checker.checks.AbstractCheck;
 import org.osate.codegen.checker.checks.DataCheck;
 import org.osate.codegen.checker.checks.MemoryCheck;
@@ -84,12 +88,12 @@ public class CheckerHandler extends AbstractHandler {
 			checkInstance.perform(si);
 			return (checkInstance.getErrors());
 		} catch (InstantiationException | IllegalAccessException e) {
-			// e.printStackTrace();
-			// static final Logger logger = Logger.("ff");
+			IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e);
+			StatusManager manager = StatusManager.getManager();
+			manager.handle(status, StatusManager.LOG);
 		}
 
 		return null;
-
 	}
 
 	/**
@@ -138,7 +142,9 @@ public class CheckerHandler extends AbstractHandler {
 				selectedSystemInstance = InstantiateModel.buildInstanceModelFile((SystemImplementation) selectedObject);
 			} catch (Exception e) {
 				MessageDialog.openError(window.getShell(), e.getMessage(), e.getStackTrace().toString());
-				// e.printStackTrace();
+				IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e);
+				StatusManager manager = StatusManager.getManager();
+				manager.handle(status, StatusManager.LOG);
 				selectedSystemInstance = null;
 			}
 		}
@@ -167,6 +173,9 @@ public class CheckerHandler extends AbstractHandler {
 //				marker.setAttribute(IMarker.LINE_NUMBER, lineNumber);
 			} catch (CoreException exception) {
 				msg += exception.getMessage() + " " + exception.getStackTrace() + "\\r\\n";
+				IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, exception.getMessage(), exception);
+				StatusManager manager = StatusManager.getManager();
+				manager.handle(status, StatusManager.LOG);
 			}
 		}
 
