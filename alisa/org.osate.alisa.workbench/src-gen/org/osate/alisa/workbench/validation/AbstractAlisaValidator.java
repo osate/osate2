@@ -27,16 +27,18 @@ import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.xtext.validation.ComposedChecks;
+import org.eclipse.xtext.validation.NamesAreUniqueValidator;
+import org.osate.alisa.common.validation.CommonValidator;
 
-@ComposedChecks(validators= {org.eclipse.xtext.validation.NamesAreUniqueValidator.class})
-public class AbstractAlisaValidator extends org.osate.alisa.common.validation.CommonValidator {
-
+@ComposedChecks(validators = {NamesAreUniqueValidator.class})
+public abstract class AbstractAlisaValidator extends CommonValidator {
+	
 	@Override
 	protected List<EPackage> getEPackages() {
-	    List<EPackage> result = new ArrayList<EPackage>(super.getEPackages());
-	    result.add(org.osate.alisa.workbench.alisa.AlisaPackage.eINSTANCE);
-	    result.add(EPackage.Registry.INSTANCE.getEPackage("http://www.osate.org/categories/Categories"));
-	    result.add(EPackage.Registry.INSTANCE.getEPackage("http://aadl.info/AADL/2.0"));
+		List<EPackage> result = new ArrayList<EPackage>(super.getEPackages());
+		result.add(org.osate.alisa.workbench.alisa.AlisaPackage.eINSTANCE);
+		result.add(EPackage.Registry.INSTANCE.getEPackage("http://www.osate.org/categories/Categories"));
+		result.add(EPackage.Registry.INSTANCE.getEPackage("http://aadl.info/AADL/2.0"));
 		return result;
 	}
 }

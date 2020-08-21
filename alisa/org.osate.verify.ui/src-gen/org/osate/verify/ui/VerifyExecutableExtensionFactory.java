@@ -23,12 +23,11 @@
  */
 package org.osate.verify.ui;
 
-import org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory;
-import org.osgi.framework.Bundle;
-
 import com.google.inject.Injector;
-
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory;
 import org.osate.verify.ui.internal.VerifyActivator;
+import org.osgi.framework.Bundle;
 
 /**
  * This class was generated. Customizations should only happen in a newly
@@ -38,12 +37,13 @@ public class VerifyExecutableExtensionFactory extends AbstractGuiceAwareExecutab
 
 	@Override
 	protected Bundle getBundle() {
-		return VerifyActivator.getInstance().getBundle();
+		return Platform.getBundle(VerifyActivator.PLUGIN_ID);
 	}
 	
 	@Override
 	protected Injector getInjector() {
-		return VerifyActivator.getInstance().getInjector(VerifyActivator.ORG_OSATE_VERIFY_VERIFY);
+		VerifyActivator activator = VerifyActivator.getInstance();
+		return activator != null ? activator.getInjector(VerifyActivator.ORG_OSATE_VERIFY_VERIFY) : null;
 	}
-	
+
 }
