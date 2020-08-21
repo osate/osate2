@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setup:Configuration
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:setup="http://www.eclipse.org/oomph/setup/1.0"
+    label="OSATE Development Environment">
+  <installation
+      name="osate.development.environment.installation"
+      label="OSATE Development Environment Installation">
+    <productVersion
+        href="index:/org.eclipse.setup#//@productCatalogs[name='org.eclipse.products']/@products[name='epp.package.java']/@versions[name='2020-06']"/>
+    <description>The OSATE development environment installation provides the full development environment for working with OSATE.</description>
+  </installation>
+  <workspace
+      name="my.workspace"
+      label="My Workspace">
+    <stream
+        href="https://raw.githubusercontent.com/osate/osate2/master/setup/osate2_2020-06.setup#//@streams[name='master']"/>
+    <description>The My workspace provides cool stuff.</description>
+  </workspace>
+  <description>The My configuration provides cool stuff.</description>
+</setup:Configuration>
