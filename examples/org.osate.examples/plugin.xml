@@ -27,21 +27,21 @@ censes only apply to the Third Party Software and not any other portion of this 
    <extension point="org.osate.ui.examples">
       <example
             exampleURI="/examples/arp4761"
-            readmeURI="doc/html/readme.html"
+            readmeURI="doc/html/README.html"
             category="Flow Analysis Examples"
             name="ARP4761">
          <project path=""/>
       </example>
       <example
             exampleURI="/examples/resource-budget"
-            readmeURI="doc/html/readme.html"
+            readmeURI="doc/html/README.html"
             category="Basic Examples"
             name="Resource Budget">
          <project path=""/>
       </example>
       <example
             exampleURI="/examples/speed-regulation"
-            readmeURI="doc/html/readme.html"
+            readmeURI="doc/html/README.html"
             category="Basic Examples"
             name="Speed Regulation">
          <project path=""/>
