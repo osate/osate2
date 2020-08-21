@@ -47,7 +47,7 @@ import org.osate.core.AadlNature;
 import org.osate.workspace.WorkspacePlugin;
 
 /**
- * @since 3.0
+ * @since 5.0
  */
 public final class ReinstantiationEngine extends AbstractInstantiationEngine<IFile> {
 	public ReinstantiationEngine(final List<?> selectionAsList) {
