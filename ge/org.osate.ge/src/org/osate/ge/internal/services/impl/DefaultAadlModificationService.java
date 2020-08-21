@@ -78,6 +78,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexUnparserRegistry;
+import org.osate.ge.ProjectUtil;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.ActionService;
@@ -85,7 +86,6 @@ import org.osate.ge.internal.services.AgeAction;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.ModelChangeNotifier.Lock;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
-import org.osate.ge.internal.util.ProjectUtil;
 
 import com.google.common.collect.Lists;
 import com.google.common.io.CharStreams;
@@ -214,7 +214,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 						final IXtextDocument doc = getXtextDocument(modResult);
 						final String newOriginalTextContents;
 						if (doc == null) {
-							final IProject projectResource = ProjectUtil.getProject(modResult.resourceUri);
+							final IProject projectResource = ProjectUtil.getProjectOrNull(modResult.resourceUri);
 							if (projectResource instanceof IProject) {
 								projectsToBuild.add((IProject) projectResource);
 							}

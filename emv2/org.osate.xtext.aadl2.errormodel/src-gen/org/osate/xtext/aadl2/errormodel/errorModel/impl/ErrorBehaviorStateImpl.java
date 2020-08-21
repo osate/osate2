@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -109,6 +110,7 @@ public class ErrorBehaviorStateImpl extends NamedElementImpl implements ErrorBeh
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isIntial()
   {
     return intial;
@@ -119,6 +121,7 @@ public class ErrorBehaviorStateImpl extends NamedElementImpl implements ErrorBeh
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setIntial(boolean newIntial)
   {
     boolean oldIntial = intial;
@@ -132,6 +135,7 @@ public class ErrorBehaviorStateImpl extends NamedElementImpl implements ErrorBeh
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeSet getTypeSet()
   {
     return typeSet;
@@ -159,6 +163,7 @@ public class ErrorBehaviorStateImpl extends NamedElementImpl implements ErrorBeh
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTypeSet(TypeSet newTypeSet)
   {
     if (newTypeSet != typeSet)

@@ -35,20 +35,21 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.osate.ge.swt.ChangeEvent;
-import org.osate.ge.swt.internal.InternalUtil;
+import org.osate.ge.swt.SwtUtil;
 
 /**
- * Set of radio buttons which uses a {@link SelectorModel}
+ * Set of radio buttons which uses a {@link SingleSelectorModel}
+ * @since 1.1
  *
  */
 public final class RadioSelector<T> extends Composite {
-	private final SelectorModel<T> model;
+	private final SingleSelectorModel<T> model;
 	private final Consumer<ChangeEvent> changeListener = e -> refresh();
 
-	public RadioSelector(final Composite parent, final SelectorModel<T> model) {
+	public RadioSelector(final Composite parent, final SingleSelectorModel<T> model) {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
-		InternalUtil.setColorsToMatchParent(this);
+		SwtUtil.setColorsToMatchParent(this);
 		this.setLayout(RowLayoutFactory.fillDefaults().wrap(false).create());
 
 		model.changed().addListener(changeListener);
@@ -66,7 +67,7 @@ public final class RadioSelector<T> extends Composite {
 			// Create new buttons
 			model.getElements().forEachOrdered(element -> {
 				final Button btn = new Button(this, SWT.RADIO);
-				InternalUtil.setColorsToMatchParent(btn);
+				SwtUtil.setColorsToMatchParent(btn);
 				btn.setText(model.getLabel(element));
 				btn.setData(element);
 				btn.setSelection(element == value);
@@ -100,7 +101,7 @@ public final class RadioSelector<T> extends Composite {
 	};
 
 	public static void main(String[] args) {
-		InternalUtil.run(shell -> {
+		SwtUtil.run(shell -> {
 			new RadioSelector<>(shell, new TestListEditorModel());
 		});
 	}

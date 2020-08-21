@@ -27,10 +27,10 @@ import java.io.InputStream;
 import org.eclipse.xtext.parser.antlr.IAntlrTokenFileProvider;
 
 public class AlisaAntlrTokenFileProvider implements IAntlrTokenFileProvider {
-	
+
 	@Override
 	public InputStream getAntlrTokenFile() {
 		ClassLoader classLoader = getClass().getClassLoader();
-    	return classLoader.getResourceAsStream("org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.tokens");
+		return classLoader.getResourceAsStream("org/osate/alisa/workbench/parser/antlr/internal/InternalAlisa.tokens");
 	}
 }

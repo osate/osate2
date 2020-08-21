@@ -27,6 +27,7 @@ import java.util.Objects;
 
 /**
  * {@link NameEditorDialogModel} implementation that delegates to a {@link NameEditorModel}
+ * @since 1.1
  *
  */
 public final class NameEditorRenameDialogModel implements NameEditorDialogModel {

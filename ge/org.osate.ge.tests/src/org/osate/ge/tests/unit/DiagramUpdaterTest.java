@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -23,29 +23,22 @@
  */
 package org.osate.ge.tests.unit;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.CoreMatchers.sameInstance;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.osate.ge.tests.unit.TestBusinessObject.newBO;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
+import static org.osate.ge.tests.unit.TestBusinessObject.*;
 
 import java.util.Collection;
 import java.util.EnumSet;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.osate.ge.DockingPosition;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.graphics.internal.AgeConnection;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.DockArea;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.services.impl.SimpleActionExecutor;
 
@@ -56,7 +49,7 @@ public class DiagramUpdaterTest {
 
 	@Before
 	public void beforeTest() {
-		testModel.model = newBO(
+		testModel.setModel(newBO(
 				newBO(
 						newBO(2),
 						newBO(4),
@@ -69,10 +62,10 @@ public class DiagramUpdaterTest {
 				newBO(
 						newBO(12)
 						)
-				);
+				));
 
 		diagram = new AgeDiagram();
-		diagramUpdater = new DiagramUpdater(testModel, testModel, new SimpleActionExecutor());
+		diagramUpdater = new DiagramUpdater(testModel, testModel, new SimpleActionExecutor(), testModel, testModel);
 	}
 
 	// Test that the diagram elements are created as expected
@@ -80,7 +73,7 @@ public class DiagramUpdaterTest {
 	public void testDiagramElementCreation() {
 		diagramUpdater.updateDiagram(diagram);
 		assignPositions(diagram.getDiagramElements());
-		checkElements(diagram.getDiagramElements(), testModel.model);
+		checkElements(diagram.getDiagramElements(), testModel.getModel());
 	}
 
 	// Test that when update is called multiple times, elements are not duplicated
@@ -90,7 +83,7 @@ public class DiagramUpdaterTest {
 		assignPositions(diagram.getDiagramElements());
 
 		diagramUpdater.updateDiagram(diagram);
-		checkElements(diagram.getDiagramElements(), testModel.model);
+		checkElements(diagram.getDiagramElements(), testModel.getModel());
 	}
 
 	// Test that when all objects are removed from the model, all elements are removed from the diagram.
@@ -99,7 +92,7 @@ public class DiagramUpdaterTest {
 		diagramUpdater.updateDiagram(diagram);
 		assignPositions(diagram.getDiagramElements());
 
-		testModel.model = newBO();
+		testModel.setModel(newBO());
 		diagramUpdater.updateDiagram(diagram);
 		assertThat(diagram.getDiagramElements().size(), is(equalTo(0)));
 	}
@@ -109,11 +102,11 @@ public class DiagramUpdaterTest {
 	public void testDiagramElementPartialRemoval() {
 		diagramUpdater.updateDiagram(diagram);
 		assignPositions(diagram.getDiagramElements());
-		checkElements(diagram.getDiagramElements(), testModel.model);
-		testModel.model = newBO(testModel.model.children[0].children);
+		checkElements(diagram.getDiagramElements(), testModel.getModel());
+		testModel.setModel(newBO(testModel.getModel().children[0].children));
 		diagramUpdater.updateDiagram(diagram);
 		assignPositions(diagram.getDiagramElements());
-		checkElements(diagram.getDiagramElements(), testModel.model);
+		checkElements(diagram.getDiagramElements(), testModel.getModel());
 	}
 
 	// Test that when a business object is replace by a new one with the same reference.
@@ -121,8 +114,8 @@ public class DiagramUpdaterTest {
 	public void testDiagramElementUpdateBusinessObject() {
 		diagramUpdater.updateDiagram(diagram);
 		assignPositions(diagram.getDiagramElements());
-		checkElements(diagram.getDiagramElements(), testModel.model);
-		final TestBusinessObject owner = testModel.model.children[1];
+		checkElements(diagram.getDiagramElements(), testModel.getModel());
+		final TestBusinessObject owner = testModel.getModel().children[1];
 		final TestBusinessObject newBusinessObject = newBO(owner.children[0].value); // Create a copy with the same value. It is assumed that this element does not container children
 		owner.children[0] = newBusinessObject;
 		diagramUpdater.updateDiagram(diagram);
@@ -131,7 +124,7 @@ public class DiagramUpdaterTest {
 				getByRelativeReference(newBusinessObject.getRelativeReference());
 		assertThat(element.getBusinessObject(), is(sameInstance(newBusinessObject)));
 
-		checkElements(diagram.getDiagramElements(), testModel.model);
+		checkElements(diagram.getDiagramElements(), testModel.getModel());
 	}
 
 	// Test that when a business object is replaced by a new one with a different reference that the diagram elements are updated appropriately
@@ -139,8 +132,8 @@ public class DiagramUpdaterTest {
 	public void testDiagramElementReplaceBusinessObjectWithNew() {
 		diagramUpdater.updateDiagram(diagram);
 		assignPositions(diagram.getDiagramElements());
-		checkElements(diagram.getDiagramElements(), testModel.model);
-		final TestBusinessObject owner = testModel.model.children[1];
+		checkElements(diagram.getDiagramElements(), testModel.getModel());
+		final TestBusinessObject owner = testModel.getModel().children[1];
 		final TestBusinessObject newBusinessObject = newBO(42);
 		owner.children[0] = newBusinessObject;
 		diagramUpdater.updateDiagram(diagram);
@@ -156,7 +149,7 @@ public class DiagramUpdaterTest {
 				getByRelativeReference(newBusinessObject.getRelativeReference());
 		diagram.modify("Set Position", m -> m.setPosition(e, newBusinessObject.getTestPosition()));
 
-		checkElements(diagram.getDiagramElements(), testModel.model);
+		checkElements(diagram.getDiagramElements(), testModel.getModel());
 	}
 
 	// Test that when a business object is ghosted and re-added, that the position is restored.
@@ -164,10 +157,10 @@ public class DiagramUpdaterTest {
 	public void testDiagramElementGhostingAndReadd() {
 		diagramUpdater.updateDiagram(diagram);
 		assignPositions(diagram.getDiagramElements());
-		checkElements(diagram.getDiagramElements(), testModel.model);
+		checkElements(diagram.getDiagramElements(), testModel.getModel());
 
 		// Remove a business object from the tree and update the diagram. This will remove the element from the diagram
-		final TestBusinessObject owner = testModel.model.children[0];
+		final TestBusinessObject owner = testModel.getModel().children[0];
 		final TestBusinessObject oldBusinessObject = owner.children[0];
 		final TestBusinessObject newBusinessObject = newBO(42);
 		owner.children[0] = newBusinessObject;
@@ -176,29 +169,29 @@ public class DiagramUpdaterTest {
 		// Re-add the business object to the tree and update the diagram. Verify that the element is re-added and the position is restored.
 		owner.children[0] = oldBusinessObject;
 		diagramUpdater.updateDiagram(diagram);
-		checkElements(diagram.getDiagramElements(), testModel.model);
+		checkElements(diagram.getDiagramElements(), testModel.getModel());
 	}
 
 	// Test that element docking are works as expected
 	@Test
 	public void testDockArea() {
 		// Assign a Docking Position to an Element
-		final TestBusinessObject testBoParent = testModel.model.children[0];
+		final TestBusinessObject testBoParent = testModel.getModel().children[0];
 		final TestBusinessObject testBo = testBoParent.children[2];
-		testBo.defaultDockingPosition = DockingPosition.LEFT;
+		testBo.setDefaultDockingPosition(DockingPosition.LEFT);
 
 		// Update the diagram and assign positions
 		diagramUpdater.updateDiagram(diagram);
 		assignPositions(diagram.getDiagramElements());
 
 		// Check that the contents of test diagram element have the appropriate docking area
-		checkElements(diagram.getDiagramElements(), testModel.model);
+		checkElements(diagram.getDiagramElements(), testModel.getModel());
 
 		// Check that Changing the Docking Area and updating the diagram does not reset the docking area.
 		final DiagramElement dockableDiagramElement = diagram.getByRelativeReference(testBoParent.getRelativeReference()).
 				getByRelativeReference(testBo.getRelativeReference());
 		assertThat(dockableDiagramElement.getDockArea(),
-				is(equalTo(testBo.defaultDockingPosition.getDefaultDockArea())));
+				is(equalTo(testBo.getDefaultDockingPosition().getDefaultDockArea())));
 		final DockArea newDockArea = DockingPosition.RIGHT.getDefaultDockArea();
 
 		diagram.modify("Set Dock Area", m -> m.setDockArea(dockableDiagramElement, newDockArea));
@@ -208,20 +201,17 @@ public class DiagramUpdaterTest {
 
 	}
 
-	@Rule
-	public ExpectedException thrown = ExpectedException.none();
-
 	@Test
 	public void testConnectionEndPointsAreSet() {
-		testModel.model = newBO(
+		testModel.setModel(newBO(
 				newBO(1), // Connection
 				newBO(2),
 				newBO(4)
-				);
-		testModel.model.children[0].makeConnection(testModel.model.children[1], testModel.model.children[2]);
+				));
+		testModel.getModel().children[0].makeConnection(testModel.getModel().children[1], testModel.getModel().children[2]);
 		diagramUpdater.updateDiagram(diagram);
 
-		final DiagramElement testConnectionDiagramElement = diagram.getByRelativeReference(testModel.model.children[0].getRelativeReference());
+		final DiagramElement testConnectionDiagramElement = diagram.getByRelativeReference(testModel.getModel().children[0].getRelativeReference());
 		assertThat(testConnectionDiagramElement, notNullValue());
 		assertThat(testConnectionDiagramElement.getGraphic(), instanceOf(AgeConnection.class));
 		assertThat(testConnectionDiagramElement.getStartElement(), notNullValue());
@@ -230,47 +220,47 @@ public class DiagramUpdaterTest {
 
 	@Test
 	public void testConnectionWithoutStartElementIsRemoved() {
-		testModel.model = newBO(
+		testModel.setModel(newBO(
 				newBO(1), // Connection
 				newBO(2),
 				newBO(4)
-				);
+				));
 
-		testModel.model.children[0].makeConnection(null, testModel.model.children[2]);
+		testModel.getModel().children[0].makeConnection(null, testModel.getModel().children[2]);
 		diagramUpdater.updateDiagram(diagram);
 
-		final DiagramElement testDiagramElement = diagram.getByRelativeReference(testModel.model.children[0].getRelativeReference());
+		final DiagramElement testDiagramElement = diagram.getByRelativeReference(testModel.getModel().children[0].getRelativeReference());
 		assertThat(testDiagramElement, nullValue());
 	}
 
 	@Test
 	public void testConnectionWithoutEndElementIsRemoved() {
-		testModel.model = newBO(
+		testModel.setModel(newBO(
 				newBO(1), // Connection
 				newBO(2),
 				newBO(4)
-				);
+				));
 
-		testModel.model.children[0].makeConnection(testModel.model.children[1], null);
+		testModel.getModel().children[0].makeConnection(testModel.getModel().children[1], null);
 		diagramUpdater.updateDiagram(diagram);
 
-		final DiagramElement testDiagramElement = diagram.getByRelativeReference(testModel.model.children[0].getRelativeReference());
+		final DiagramElement testDiagramElement = diagram.getByRelativeReference(testModel.getModel().children[0].getRelativeReference());
 		assertThat(testDiagramElement, nullValue());
 	}
 
 	@Test
 	public void testConnectionWhichReferencesInvalidConnectonIsRemoved() {
-		testModel.model = newBO(
+		testModel.setModel(newBO(
 				newBO(1), // Connection
 				newBO(2),
 				newBO(3) // Invalid Connection
-				);
+				));
 
-		testModel.model.children[0].makeConnection(testModel.model.children[1], testModel.model.children[2]);
-		testModel.model.children[2].makeConnection(null, null); // Invalid connection
+		testModel.getModel().children[0].makeConnection(testModel.getModel().children[1], testModel.getModel().children[2]);
+		testModel.getModel().children[2].makeConnection(null, null); // Invalid connection
 		diagramUpdater.updateDiagram(diagram);
 
-		final DiagramElement testDiagramElement = diagram.getByRelativeReference(testModel.model.children[0].getRelativeReference());
+		final DiagramElement testDiagramElement = diagram.getByRelativeReference(testModel.getModel().children[0].getRelativeReference());
 		assertThat(testDiagramElement, nullValue());
 	}
 
@@ -338,11 +328,11 @@ public class DiagramUpdaterTest {
 
 	public static DockArea getExpectedDockArea(final TestBusinessObject bo, final DockArea parentDockArea) {
 		// Return the dock area based on the default docking position if the parent isn't docked. Otherwise, ensure that the dock area is set to GROUP.
-		final DockArea boDockArea = bo.defaultDockingPosition.getDefaultDockArea();
+		final DockArea boDockArea = bo.getDefaultDockingPosition().getDefaultDockArea();
 		if(boDockArea == null) {
 			return null;
 		} else if(parentDockArea == null) {
-			return bo.defaultDockingPosition.getDefaultDockArea();
+			return bo.getDefaultDockingPosition().getDefaultDockArea();
 		} else {
 			return DockArea.GROUP;
 		}

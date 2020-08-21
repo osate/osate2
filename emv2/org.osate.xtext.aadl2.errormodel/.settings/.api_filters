@@ -1,5 +1,901 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.xtext.aadl2.errormodel" version="2">
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/AbstractErrorModelRuntimeModule.java" type="org.osate.xtext.aadl2.errormodel.AbstractErrorModelRuntimeModule">
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="bindErrorModelValidator()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="bindIKeywordSerializer()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.java" type="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser">
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_1"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_10"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_100"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_101"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_102"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_103"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_104"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_105"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_106"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_107"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_108"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_109"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_11"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_110"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_111"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_112"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_113"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_114"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_115"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_116"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_117"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_118"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_119"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_12"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_120"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_121"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_122"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_123"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_124"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_125"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_126"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_127"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_128"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_129"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_13"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_130"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_131"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_132"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_133"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_134"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_135"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_136"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_137"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_138"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_139"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_14"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_140"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_141"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_142"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_143"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_144"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_145"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_146"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_147"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_15"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_16"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_17"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_18"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_19"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_2"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_20"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_21"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_22"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_23"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_24"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_25"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_26"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_27"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_28"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_29"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_3"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_30"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_31"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_32"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_33"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_34"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_35"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_36"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_37"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_38"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_39"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_4"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_40"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_41"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_42"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_43"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_44"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_45"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_46"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_47"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_48"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_49"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_5"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_50"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_51"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_52"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_53"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_54"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_55"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_56"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_57"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_58"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_59"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_6"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_60"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_61"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_62"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_63"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_64"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_65"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_66"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_67"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_68"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_69"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_7"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_70"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_71"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_72"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_73"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_74"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_75"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_76"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_77"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_78"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_79"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_8"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_80"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_81"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_82"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_83"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_84"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_85"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_86"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_87"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_88"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_89"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_9"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_90"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_91"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_92"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_93"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_94"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_95"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_96"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_97"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_98"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.parser.antlr.internal.InternalErrorModelParser"/>
+                <message_argument value="FOLLOW_99"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src-gen/org/osate/xtext/aadl2/errormodel/serializer/AbstractErrorModelSyntacticSequencer.java" type="org.osate.xtext.aadl2.errormodel.serializer.AbstractErrorModelSyntacticSequencer">
         <filter id="576720909">
             <message_arguments>
@@ -250,6 +1146,13 @@
                 <message_argument value="ISynTransition"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="emitUnassignedTokens(EObject, ISyntacticSequencerPDAProviderISynTransition, INode, INode)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/validation/AbstractErrorModelValidator.java" type="org.osate.xtext.aadl2.errormodel.validation.AbstractErrorModelValidator">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.validation.AbstractErrorModelValidator"/>
             </message_arguments>
         </filter>
     </resource>

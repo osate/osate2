@@ -25,6 +25,8 @@ package org.osate.ge.internal.diagram.runtime;
 
 import java.util.UUID;
 
+import org.osate.ge.RelativeBusinessObjectReference;
+
 public class DiagramElementCopyUtil {
 	public interface CopyHelper {
 		Object getBusinessObject(final DiagramElement elementBeingCopied);

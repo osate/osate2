@@ -52,7 +52,7 @@ import org.osate.xtext.aadl2.properties.util.AadlProject
 import org.osate.xtext.aadl2.properties.util.CommunicationProperties
 import org.osate.xtext.aadl2.properties.util.GetProperties
 import org.osate.xtext.aadl2.properties.util.MemoryProperties
-import org.osate.xtext.aadl2.properties.validation.PropertiesJavaValidator
+import org.osate.xtext.aadl2.properties.validation.PropertiesValidator
 
 class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	/**
@@ -63,7 +63,7 @@ class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	 * issue.getData()[1]: The URI String of the referenced AadlPackage or PropertySet.
 	 * issue.getData()[2]: The URI String of the Namespace where the with statement should be inserted.
 	 */
-	@Fix(PropertiesJavaValidator.MISSING_WITH)
+	@Fix(PropertiesValidator.MISSING_WITH)
 	def void fixMissingWith(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Add '" + issue.getData.get(0) + "' to the with clauses", null, null,
 			new ISemanticModification() {
@@ -87,7 +87,7 @@ class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	/**
 	 * QuickFix for swapping Upper and Lower bounds in a range value when the upper is less than the lower
 	 */
-	@Fix(PropertiesJavaValidator.UPPER_LESS_THAN_LOWER)
+	@Fix(PropertiesValidator.UPPER_LESS_THAN_LOWER)
 	def void fixUpperLessThanLower(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Switch upper and lower bounds of the range", null, null, new ISemanticModification() {
 			override void apply(EObject element, IModificationContext context) throws Exception {
@@ -102,7 +102,7 @@ class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	/**
 	 * QuickFix for swapping Upper and Lower bounds in an array index range value when the upper is less than the lower
 	 */
-	@Fix(PropertiesJavaValidator.ARRAY_RANGE_UPPER_LESS_THAN_LOWER)
+	@Fix(PropertiesValidator.ARRAY_RANGE_UPPER_LESS_THAN_LOWER)
 	def void fixArrayRangeUpperLessThanLower(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Switch upper and lower bounds of the range", null, null, new ISemanticModification() {
 			override void apply(EObject element, IModificationContext context) throws Exception {
@@ -119,7 +119,7 @@ class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	 * 
 	 * issue.getData(0) = maximum dimension value;
 	 */
-	@Fix(PropertiesJavaValidator.ARRAY_RANGE_UPPER_GREATER_THAN_MAXIMUM)
+	@Fix(PropertiesValidator.ARRAY_RANGE_UPPER_GREATER_THAN_MAXIMUM)
 	def void fixArrayRangeUpperGreaterThanMaximum(Issue issue, IssueResolutionAcceptor acceptor) {
 		val maxAllowed = Long.valueOf(issue.data.head);
 		acceptor.accept(issue,
@@ -136,7 +136,7 @@ class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	 * 
 	 * issue.getData(0) = maximum dimension value;
 	 */
-	@Fix(PropertiesJavaValidator.ARRAY_INDEX_GREATER_THAN_MAXIMUM)
+	@Fix(PropertiesValidator.ARRAY_INDEX_GREATER_THAN_MAXIMUM)
 	def void fixArrayIndexGreaterThanMaximum(Issue issue, IssueResolutionAcceptor acceptor) {
 		val maxAllowed = Long.valueOf(issue.data.head);
 		acceptor.accept(issue, "Change index of array to maximum defined by type's dimension (" + maxAllowed + ")",
@@ -150,7 +150,7 @@ class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	/**
 	 * QuickFix for changing Lower bound in an array index range from 1 to 0
 	 */
-	@Fix(PropertiesJavaValidator.ARRAY_LOWER_BOUND_IS_ZERO)
+	@Fix(PropertiesValidator.ARRAY_LOWER_BOUND_IS_ZERO)
 	def void fixArrayRangeLowerBoundIsZero(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Change '0' to '1'", null, null, new ISemanticModification() {
 			override void apply(EObject element, IModificationContext context) throws Exception {
@@ -162,7 +162,7 @@ class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	/**
 	 * QuickFix for making a negative delta positive
 	 */
-	@Fix(PropertiesJavaValidator.DELTA_NEGATIVE)
+	@Fix(PropertiesValidator.DELTA_NEGATIVE)
 	def void fixNegativeDelta(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Make delta value positive", null, null, new ISemanticModification() {
 			override void apply(EObject element, IModificationContext context) throws Exception {
@@ -179,7 +179,7 @@ class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	 * 
 	 * 	 * issue.getData() unitTypeNames
 	 */
-	@Fix(PropertiesJavaValidator.MISSING_NUMBERVALUE_UNITS)
+	@Fix(PropertiesValidator.MISSING_NUMBERVALUE_UNITS)
 	def void fixMissingUnits(Issue issue, IssueResolutionAcceptor acceptor) {
 
 		val iter = issue.data.iterator
@@ -206,7 +206,7 @@ class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	/**
 	 * QuickFix for changing deprecate Byte_Count to Memory_Size
 	 */
-	@Fix(PropertiesJavaValidator.BYTE_COUNT_DEPRECATED)
+	@Fix(PropertiesValidator.BYTE_COUNT_DEPRECATED)
 	def void fixDeprecatedByteCount(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(
 			issue,
@@ -234,7 +234,7 @@ class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	/**
 	 * QuickFix for changing deprecate Data_Volume to Data_Rate
 	 */
-	@Fix(PropertiesJavaValidator.DATA_VOLUME_DEPRECATED)
+	@Fix(PropertiesValidator.DATA_VOLUME_DEPRECATED)
 	def void fixDeprecatedDataVolume(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(
 			issue,
@@ -262,7 +262,7 @@ class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	/**
 	 * QuickFix for changing deprecate SEI::Data_Rate to Data_Rate
 	 */
-	@Fix(PropertiesJavaValidator.SEI_DATA_RATE_DEPRECATED)
+	@Fix(PropertiesValidator.SEI_DATA_RATE_DEPRECATED)
 	def void fixDeprecatedSEIDataRate(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(
 			issue,
@@ -288,7 +288,7 @@ class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	/**
 	 * QuickFix for changing deprecate Source_Code_Size to Code_Size
 	 */
-	@Fix(PropertiesJavaValidator.SOURCE_CODE_SIZE_DEPRECATED)
+	@Fix(PropertiesValidator.SOURCE_CODE_SIZE_DEPRECATED)
 	def void fixDeprecatedSourceCodeSize(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(
 			issue,
@@ -307,7 +307,7 @@ class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	/**
 	 * QuickFix for changing deprecate Source_Data_Size to Data_Size
 	 */
-	@Fix(PropertiesJavaValidator.SOURCE_DATA_SIZE_DEPRECATED)
+	@Fix(PropertiesValidator.SOURCE_DATA_SIZE_DEPRECATED)
 	def void fixDeprecatedSourceDataSize(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(
 			issue,
@@ -326,7 +326,7 @@ class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	/**
 	 * QuickFix for changing deprecate Source_Heap_Size to Heap_Size
 	 */
-	@Fix(PropertiesJavaValidator.SOURCE_HEAP_SIZE_DEPRECATED)
+	@Fix(PropertiesValidator.SOURCE_HEAP_SIZE_DEPRECATED)
 	def void fixDeprecatedSourceHeapSize(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(
 			issue,
@@ -345,7 +345,7 @@ class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	/**
 	 * QuickFix for changing deprecate Source_Stack_Size to Stack_Size
 	 */
-	@Fix(PropertiesJavaValidator.SOURCE_STACK_SIZE_DEPRECATED)
+	@Fix(PropertiesValidator.SOURCE_STACK_SIZE_DEPRECATED)
 	def void fixDeprecatedSourceStackSize(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(
 			issue,

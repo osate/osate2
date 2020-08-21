@@ -25,12 +25,12 @@ package org.osate.ge.services.impl;
 
 import java.util.Objects;
 
-import org.osate.ge.services.ReferenceBuilderService;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
+import org.osate.ge.CanonicalBusinessObjectReference;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.services.impl.SimpleServiceContextFunction;
+import org.osate.ge.services.ReferenceBuilderService;
 
 public class DefaultReferenceBuilderService implements ReferenceBuilderService {
 	private final ReferenceService internalService;

@@ -23,12 +23,11 @@
  */
 package org.osate.categories.ui;
 
-import org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory;
-import org.osgi.framework.Bundle;
-
 import com.google.inject.Injector;
-
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory;
 import org.osate.categories.ui.internal.CategoriesActivator;
+import org.osgi.framework.Bundle;
 
 /**
  * This class was generated. Customizations should only happen in a newly
@@ -38,12 +37,13 @@ public class CategoriesExecutableExtensionFactory extends AbstractGuiceAwareExec
 
 	@Override
 	protected Bundle getBundle() {
-		return CategoriesActivator.getInstance().getBundle();
+		return Platform.getBundle(CategoriesActivator.PLUGIN_ID);
 	}
 	
 	@Override
 	protected Injector getInjector() {
-		return CategoriesActivator.getInstance().getInjector(CategoriesActivator.ORG_OSATE_CATEGORIES_CATEGORIES);
+		CategoriesActivator activator = CategoriesActivator.getInstance();
+		return activator != null ? activator.getInjector(CategoriesActivator.ORG_OSATE_CATEGORIES_CATEGORIES) : null;
 	}
-	
+
 }
