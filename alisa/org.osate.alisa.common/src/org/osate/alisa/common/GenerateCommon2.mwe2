@@ -68,17 +68,13 @@ Workflow {
 		directory = "${runtimeProject}.ui/src-gen"
 	}
 
-	component = DirectoryCleaner {
-		directory = "${runtimeProject}.tests/src-gen"
-	}
-
 	component = XtextGenerator {
 		configuration = {
 			project = StandardProjectConfig {
 				baseName = projectName
 				rootPath = ".."
 				runtimeTest = {
-					enabled = true
+					enabled = false
 				}
 				genericIde = {
 					name = "${projectName}.ui"
