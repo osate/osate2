@@ -32,13 +32,12 @@ import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.osate.organization.OrganizationInjectorProvider
 import org.osate.organization.organization.Organization
 import org.osate.organization.organization.OrganizationPackage
 import org.osate.organization.validation.OrganizationValidator
 
-@RunWith(typeof(XtextRunner))
-	@InjectWith(typeof(OrganizationInjectorProvider))
+@RunWith(XtextRunner)
+	@InjectWith(OrganizationInjectorProvider)
 
 class StakeholderTest {
 	@Inject extension ParseHelper<Organization>

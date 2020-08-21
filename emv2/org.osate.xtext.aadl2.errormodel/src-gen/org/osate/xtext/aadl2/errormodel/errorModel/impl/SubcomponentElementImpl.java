@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -89,6 +90,7 @@ public class SubcomponentElementImpl extends ElementImpl implements Subcomponent
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public Subcomponent getSubcomponent()
   {
     if (subcomponent != null && ((EObject)subcomponent).eIsProxy())
@@ -119,6 +121,7 @@ public class SubcomponentElementImpl extends ElementImpl implements Subcomponent
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setSubcomponent(Subcomponent newSubcomponent)
   {
     Subcomponent oldSubcomponent = subcomponent;

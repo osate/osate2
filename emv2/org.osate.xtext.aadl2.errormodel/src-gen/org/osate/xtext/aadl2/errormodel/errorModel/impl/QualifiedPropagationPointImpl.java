@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -113,6 +114,7 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public SubcomponentElement getSubcomponent()
   {
     return subcomponent;
@@ -140,6 +142,7 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setSubcomponent(SubcomponentElement newSubcomponent)
   {
     if (newSubcomponent != subcomponent)
@@ -161,6 +164,7 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public QualifiedPropagationPoint getNext()
   {
     return next;
@@ -188,6 +192,7 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setNext(QualifiedPropagationPoint newNext)
   {
     if (newNext != next)
@@ -209,6 +214,7 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public NamedElement getPropagationPoint()
   {
     if (propagationPoint != null && ((EObject)propagationPoint).eIsProxy())
@@ -239,6 +245,7 @@ public class QualifiedPropagationPointImpl extends ElementImpl implements Qualif
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setPropagationPoint(NamedElement newPropagationPoint)
   {
     NamedElement oldPropagationPoint = propagationPoint;
