@@ -26,6 +26,7 @@ package org.osate.ge.internal.ui.util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.Adapters;
@@ -125,24 +126,42 @@ public class SelectionUtil {
 	 * @param activeEditor
 	 * @return
 	 */
-	public static Object getDiagramContext(final ISelection selection, final IEditorPart activeEditor) {
+	public static Object getDiagramContext(final ISelection selection, final IEditorPart activeEditor,
+			final Function<Object, Element> findDiagramContextForSelectedObject) {
 		Object contextBo = null;
 		if (activeEditor instanceof XtextEditor) {
 			final EObject selectedObject = getEObjectFromSelection((XtextEditor) activeEditor, selection);
-			contextBo = findDiagramContextForSelectedObject(selectedObject);
+			contextBo = findDiagramContextForSelectedObject
+					.apply(selectedObject);/* findDiagramContextForSelectedObject(selectedObject); */
 		}
 
 		if (contextBo == null && selection instanceof IStructuredSelection) {
 			final IStructuredSelection ss = (IStructuredSelection) selection;
 			if (ss.size() == 1) {
-				contextBo = findDiagramContextForSelectedObject(ss.getFirstElement());
+				contextBo = findDiagramContextForSelectedObject.apply(ss.getFirstElement());
 			}
 		}
 
 		return contextBo;
 	}
+//	public static Object getDiagramContext(final ISelection selection, final IEditorPart activeEditor) {
+//		Object contextBo = null;
+//		if (activeEditor instanceof XtextEditor) {
+//			final EObject selectedObject = getEObjectFromSelection((XtextEditor) activeEditor, selection);
+//			contextBo = findDiagramContextForSelectedObject(selectedObject);
+//		}
+//
+//		if (contextBo == null && selection instanceof IStructuredSelection) {
+//			final IStructuredSelection ss = (IStructuredSelection) selection;
+//			if (ss.size() == 1) {
+//				contextBo = findDiagramContextForSelectedObject(ss.getFirstElement());
+//			}
+//		}
+//
+//		return contextBo;
+//	}
 
-	private static Element findDiagramContextForSelectedObject(final Object selectedObject) {
+	public static Element findDiagramContextForSelectedObject(final Object selectedObject) {
 		if (selectedObject instanceof IFile) {
 			final String ext = ((IFile) selectedObject).getFileExtension();
 			if (WorkspacePlugin.SOURCE_FILE_EXT.equalsIgnoreCase(ext)

@@ -37,15 +37,14 @@ import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
-import org.osate.ge.businessobjecthandling.PasteContext;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
 import org.osate.ge.businessobjecthandling.CustomDeleteContext;
 import org.osate.ge.businessobjecthandling.CustomDeleter;
-import org.osate.ge.businessobjecthandling.CustomPaster;
 import org.osate.ge.businessobjecthandling.CustomRenamer;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
+import org.osate.ge.businessobjecthandling.PasteContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.businessobjecthandling.RenameContext;
 import org.osate.ge.graphics.EllipseBuilder;
@@ -54,7 +53,7 @@ import org.osate.ge.graphics.StyleBuilder;
 /**
  * Business Object Handler for {@link BehaviorState}
  */
-public class BehaviorStateHandler implements BusinessObjectHandler, CustomDeleter, CustomRenamer, CustomPaster {
+public class BehaviorStateHandler implements BusinessObjectHandler, CustomDeleter, CustomRenamer {
 	private final static String TYPE_STATE = "ba_state";
 	private static final GraphicalConfiguration graphicalConfig = GraphicalConfigurationBuilder.create()
 			.graphic(EllipseBuilder.create().build()).style(StyleBuilder.create().labelsCenter().build()).build();
@@ -122,7 +121,7 @@ public class BehaviorStateHandler implements BusinessObjectHandler, CustomDelete
 	}
 
 	@Override
-	public void makePasteModifications(final PasteContext ctx) {
+	public void afterPaste(final PasteContext ctx) {
 		ctx.getBusinessObject(BehaviorState.class).ifPresent(behaviorState -> {
 			ctx.getDestinationBusinessObject(BehaviorAnnex.class).ifPresent(behaviorAnnex -> {
 				final Classifier containingClassifier = behaviorAnnex.getContainingClassifier();

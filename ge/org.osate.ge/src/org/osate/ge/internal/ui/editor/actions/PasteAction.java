@@ -53,10 +53,9 @@ import org.osate.ge.aadl2.internal.util.AadlNameUtil;
 import org.osate.ge.aadl2.internal.util.RenameUtil;
 import org.osate.ge.aadl2.internal.util.classifiers.ClassifierCreationHelper;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
-import org.osate.ge.businessobjecthandling.PasteContext;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
-import org.osate.ge.businessobjecthandling.CustomPaster;
 import org.osate.ge.businessobjecthandling.GetNameContext;
+import org.osate.ge.businessobjecthandling.PasteContext;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
@@ -191,17 +190,21 @@ public class PasteAction extends ActionStackAction {
 
 					newRelativeRef = refBuilder.getRelativeReference(copiedEObject);
 
-					final BusinessObjectHandler boHandler = copiedDiagramElement.getDiagramElement()
-							.getBusinessObjectHandler();
-					if (boHandler instanceof CustomPaster) {
-						// Make paste modifications for bo
-						((CustomPaster) boHandler).makePasteModifications(
-								new PasteContext(dstDiagramNode,
-										copiedDiagramElement.getDiagramElement()));
-					}
+					copiedDiagramElement.getDiagramElement()
+					.getBusinessObjectHandler().afterPaste(new PasteContext(dstDiagramNode, copiedEObject));
+
+//					final BusinessObjectHandler boHandler = copiedDiagramElement.getDiagramElement()
+//							.getBusinessObjectHandler();
+//					if (boHandler instanceof CustomPaster) {
+//						// Make paste modifications for bo
+//						((CustomPaster) boHandler).makePasteModifications(
+//								new PasteContext(dstDiagramNode,
+//										copiedEObject));
+					// }
 				} else {
 					throw new RuntimeException("Unsupported case:  " + boFromCopiedDiagramElement);
 				}
+
 
 				newDiagramElement = CopyAndPasteUtil.copyDiagramElement(copiedDiagramElement.getDiagramElement(),
 						dstDiagramNode, newRelativeRef, refBuilder);
@@ -451,7 +454,7 @@ public class PasteAction extends ActionStackAction {
 			final boolean allElementsAreCompatible = copiedDiagramElements.stream().allMatch(
 					copiedDiagramElement -> !(copiedDiagramElement.getCopiedBusinessObject() instanceof EObject)
 					|| getCompatibleStructuralFeature(copiedDiagramElement.getContainingFeature(),
-							dstBoEClass) != null);
+									dstBoEClass) != null);
 
 			if (allElementsAreCompatible) {
 				break;

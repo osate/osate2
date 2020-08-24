@@ -34,7 +34,8 @@ public class BehaviorAnnexGEUtil {
 	private BehaviorAnnexGEUtil() {
 	}
 
-	public static final Style transitionConnectionStyle = StyleBuilder.create().backgroundColor(Color.BLACK).build();
+	public static final Style transitionConnectionStyle = StyleBuilder.create().backgroundColor(Color.BLACK)
+			.labelsAboveTop().labelsLeft().build();
 	public static final Graphic transitionConnectionGraphic = ConnectionBuilder.create()
 			.destinationTerminator(ArrowBuilder.create().small().filled().build()).build();
 }
