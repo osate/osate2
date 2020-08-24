@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Propertiescodegen
+Bundle-Name: Properties Code Generator
 Bundle-SymbolicName: org.osate.propertiescodegen
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.osate.propertiescodegen.Activator
@@ -16,3 +16,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: org.osate.propertiescodegen
 Bundle-ActivationPolicy: lazy
 Export-Package: org.osate.propertiescodegen
+Bundle-Vendor: CMU/SEI
