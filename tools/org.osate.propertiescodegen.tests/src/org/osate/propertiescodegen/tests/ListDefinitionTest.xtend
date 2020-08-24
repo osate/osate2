@@ -115,6 +115,38 @@ class ListDefinitionTest {
 			import ps2.Mass;
 			
 			public class Ps1 {
+				public static final String PS1__NAME = "ps1";
+				
+				public static final String LIST_1_BOOLEAN__NAME = "list_1_boolean";
+				public static final String LIST_2_BOOLEAN__NAME = "list_2_boolean";
+				public static final String LIST_3_BOOLEAN__NAME = "list_3_boolean";
+				public static final String LIST_4_BOOLEAN__NAME = "list_4_boolean";
+				public static final String LIST_5_BOOLEAN__NAME = "list_5_boolean";
+				public static final String LIST_1_STRING__NAME = "list_1_string";
+				public static final String LIST_1_CLASSIFIER__NAME = "list_1_classifier";
+				public static final String LIST_1_INTEGER_NO_UNITS__NAME = "list_1_integer_no_units";
+				public static final String LIST_1_REAL_NO_UNITS__NAME = "list_1_real_no_units";
+				public static final String LIST_1_REFERENCE__NAME = "list_1_reference";
+				public static final String LIST_1_OWNED_ENUM__NAME = "list_1_owned_enum";
+				public static final String LIST_1_OWNED_UNITS__NAME = "list_1_owned_units";
+				public static final String LIST_1_OWNED_INTEGER_WITH_UNITS__NAME = "list_1_owned_integer_with_units";
+				public static final String LIST_1_OWNED_RANGE__NAME = "list_1_owned_range";
+				public static final String LIST_1_OWNED_RECORD__NAME = "list_1_owned_record";
+				public static final String LIST_1_REFERENCED_ENUM_NO_IMPORT__NAME = "list_1_referenced_enum_no_import";
+				public static final String LIST_1_REFERENCED_ENUM_WITH_IMPORT__NAME = "list_1_referenced_enum_with_import";
+				public static final String LIST_1_REFERENCED_UNITS_NO_IMPORT__NAME = "list_1_referenced_units_no_import";
+				public static final String LIST_1_REFERENCED_UNITS_WITH_IMPORT__NAME = "list_1_referenced_units_with_import";
+				public static final String LIST_1_REFERENCED_NUMBER_WITH_UNITS_NO_IMPORT__NAME = "list_1_referenced_number_with_units_no_import";
+				public static final String LIST_1_REFERENCED_NUMBER_WITH_UNITS_WITH_IMPORT__NAME = "list_1_referenced_number_with_units_with_import";
+				public static final String LIST_1_REFERENCED_RANGE_NO_IMPORT__NAME = "list_1_referenced_range_no_import";
+				public static final String LIST_1_REFERENCED_RANGE_WITH_IMPORT__NAME = "list_1_referenced_range_with_import";
+				public static final String LIST_1_REFERENCED_RECORD_NO_IMPORT__NAME = "list_1_referenced_record_no_import";
+				public static final String LIST_1_REFERENCED_RECORD_WITH_IMPORT__NAME = "list_1_referenced_record_with_import";
+				public static final String LIST_3_OWNED_ENUM__NAME = "list_3_owned_enum";
+				public static final String LIST_5_OWNED_RANGE__NAME = "list_5_owned_range";
+				public static final String LIST_3_REFERENCED_ENUM_NO_IMPORT__NAME = "list_3_referenced_enum_no_import";
+				public static final String LIST_5_REFERENCED_RANGE_WITH_IMPORT__NAME = "list_5_referenced_range_with_import";
+				
 				public static Optional<List<Boolean>> getList1Boolean(NamedElement lookupContext) {
 					return getList1Boolean(lookupContext, Optional.empty());
 				}

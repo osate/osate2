@@ -98,6 +98,26 @@ class RangeTest {
 			import otherps.Mass;
 			
 			public class RangeTest {
+				public static final String RANGE_TEST__NAME = "range_test";
+				
+				public static final String INTEGER_NO_UNITS__NAME = "integer_no_units";
+				public static final String INTEGER_OWNED_UNITS__NAME = "integer_owned_units";
+				public static final String INTEGER_SAME_FILE_UNITS__NAME = "integer_same_file_units";
+				public static final String INTEGER_OTHER_FILE_UNITS__NAME = "integer_other_file_units";
+				public static final String LIST_1_INTEGER_NO_UNITS__NAME = "list_1_integer_no_units";
+				public static final String LIST_1_INTEGER_OWNED_UNITS__NAME = "list_1_integer_owned_units";
+				public static final String LIST_1_INTEGER_SAME_FILE_UNITS__NAME = "list_1_integer_same_file_units";
+				public static final String LIST_1_INTEGER_OTHER_FILE_UNITS__NAME = "list_1_integer_other_file_units";
+				public static final String REAL_NO_UNITS__NAME = "real_no_units";
+				public static final String REAL_OWNED_UNITS__NAME = "real_owned_units";
+				public static final String REAL_SAME_FILE_UNITS__NAME = "real_same_file_units";
+				public static final String REAL_OTHER_FILE_UNITS__NAME = "real_other_file_units";
+				public static final String LIST_1_REAL_NO_UNITS__NAME = "list_1_real_no_units";
+				public static final String LIST_1_REAL_OWNED_UNITS__NAME = "list_1_real_owned_units";
+				public static final String LIST_1_REAL_SAME_FILE_UNITS__NAME = "list_1_real_same_file_units";
+				public static final String LIST_1_REAL_OTHER_FILE_UNITS__NAME = "list_1_real_other_file_units";
+				public static final String RECORD_PROPERTY__NAME = "record_property";
+				
 				public static Optional<IntegerRange> getIntegerNoUnits(NamedElement lookupContext) {
 					return getIntegerNoUnits(lookupContext, Optional.empty());
 				}

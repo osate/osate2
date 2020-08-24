@@ -76,6 +76,17 @@ class ResolveNamedValueTest {
 			import org.osate.pluginsupport.properties.RealRangeWithUnits;
 			
 			public class ResolveNamedValueTest {
+				public static final String RESOLVE_NAMED_VALUE_TEST__NAME = "resolve_named_value_test";
+				
+				public static final String INT_DEF_1__NAME = "int_def_1";
+				public static final String INT_DEF_2__NAME = "int_def_2";
+				public static final String LIST_3_INT_DEF__NAME = "list_3_int_def";
+				public static final String INT_RANGE_NO_UNITS_DEF__NAME = "int_range_no_units_def";
+				public static final String INT_RANGE_WITH_UNITS_DEF__NAME = "int_range_with_units_def";
+				public static final String REAL_RANGE_NO_UNITS_DEF__NAME = "real_range_no_units_def";
+				public static final String REAL_RANGE_WITH_UNITS_DEF__NAME = "real_range_with_units_def";
+				public static final String RECORD_DEF__NAME = "record_def";
+				
 				public static OptionalLong getIntDef1(NamedElement lookupContext) {
 					return getIntDef1(lookupContext, Optional.empty());
 				}

@@ -59,6 +59,14 @@ class RealNoUnitsTest {
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class RealNoUnitsTest {
+				public static final String REAL_NO_UNITS_TEST__NAME = "real_no_units_test";
+				
+				public static final String OWNED_REAL__NAME = "owned_real";
+				public static final String REFERENCED_REAL_LOCAL__NAME = "referenced_real_local";
+				public static final String REFERENCED_REAL_OTHER__NAME = "referenced_real_other";
+				public static final String LIST_1_REAL__NAME = "list_1_real";
+				public static final String LIST_5_REAL__NAME = "list_5_real";
+				
 				public static OptionalDouble getOwnedReal(NamedElement lookupContext) {
 					return getOwnedReal(lookupContext, Optional.empty());
 				}

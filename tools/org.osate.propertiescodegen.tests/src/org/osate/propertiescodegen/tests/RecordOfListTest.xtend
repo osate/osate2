@@ -89,6 +89,13 @@ class RecordOfListTest {
 				);
 			end ps1;
 		'''
+		val ps1Class = '''
+			package ps1;
+			
+			public class Ps1 {
+				public static final String PS1__NAME = "ps1";
+			}
+		'''
 		val time = '''
 			package ps1;
 			
@@ -2436,42 +2443,45 @@ class RecordOfListTest {
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(ps1, ps2))
 		assertEquals("src-gen/ps1", results.packagePath)
-		assertEquals(12, results.classes.size)
+		assertEquals(13, results.classes.size)
 		
-		assertEquals("Time.java", results.classes.get(0).fileName)
-		assertEquals(time.toString, results.classes.get(0).contents)
+		assertEquals("Ps1.java", results.classes.get(0).fileName)
+		assertEquals(ps1Class.toString, results.classes.get(0).contents)
 		
-		assertEquals("IntegerOwnedUnits.java", results.classes.get(1).fileName)
-		assertEquals(integerOwnedUnits.toString, results.classes.get(1).contents)
+		assertEquals("Time.java", results.classes.get(1).fileName)
+		assertEquals(time.toString, results.classes.get(1).contents)
 		
-		assertEquals("EnumType1.java", results.classes.get(2).fileName)
-		assertEquals(enumType1.toString, results.classes.get(2).contents)
+		assertEquals("IntegerOwnedUnits.java", results.classes.get(2).fileName)
+		assertEquals(integerOwnedUnits.toString, results.classes.get(2).contents)
 		
-		assertEquals("RecordOfBoolean.java", results.classes.get(3).fileName)
-		assertEquals(recordOfBoolean.toString, results.classes.get(3).contents)
+		assertEquals("EnumType1.java", results.classes.get(3).fileName)
+		assertEquals(enumType1.toString, results.classes.get(3).contents)
 		
-		assertEquals("RecordOfListOfBoolean.java", results.classes.get(4).fileName)
-		assertEquals(recordOfListOfBoolean.toString, results.classes.get(4).contents)
+		assertEquals("RecordOfBoolean.java", results.classes.get(4).fileName)
+		assertEquals(recordOfBoolean.toString, results.classes.get(4).contents)
 		
-		assertEquals("RecordOfListOfString.java", results.classes.get(5).fileName)
-		assertEquals(recordOfListOfString.toString, results.classes.get(5).contents)
+		assertEquals("RecordOfListOfBoolean.java", results.classes.get(5).fileName)
+		assertEquals(recordOfListOfBoolean.toString, results.classes.get(5).contents)
 		
-		assertEquals("RecordOfListOfClassifier.java", results.classes.get(6).fileName)
-		assertEquals(recordOfListOfClassifier.toString, results.classes.get(6).contents)
+		assertEquals("RecordOfListOfString.java", results.classes.get(6).fileName)
+		assertEquals(recordOfListOfString.toString, results.classes.get(6).contents)
 		
-		assertEquals("RecordOfListOfIntegerNoUnits.java", results.classes.get(7).fileName)
-		assertEquals(recordOfListOfIntegerNoUnits.toString, results.classes.get(7).contents)
+		assertEquals("RecordOfListOfClassifier.java", results.classes.get(7).fileName)
+		assertEquals(recordOfListOfClassifier.toString, results.classes.get(7).contents)
 		
-		assertEquals("RecordOfListOfRealNoUnits.java", results.classes.get(8).fileName)
-		assertEquals(recordOfListOfRealNoUnits.toString, results.classes.get(8).contents)
+		assertEquals("RecordOfListOfIntegerNoUnits.java", results.classes.get(8).fileName)
+		assertEquals(recordOfListOfIntegerNoUnits.toString, results.classes.get(8).contents)
 		
-		assertEquals("RecordOfListOfReference.java", results.classes.get(9).fileName)
-		assertEquals(recordOfListOfReference.toString, results.classes.get(9).contents)
+		assertEquals("RecordOfListOfRealNoUnits.java", results.classes.get(9).fileName)
+		assertEquals(recordOfListOfRealNoUnits.toString, results.classes.get(9).contents)
 		
-		assertEquals("RecordOfListOfOwnedTypes.java", results.classes.get(10).fileName)
-		assertEquals(recordOfListOfOwnedTypes.toString, results.classes.get(10).contents)
+		assertEquals("RecordOfListOfReference.java", results.classes.get(10).fileName)
+		assertEquals(recordOfListOfReference.toString, results.classes.get(10).contents)
 		
-		assertEquals("RecordOfListOfReferencedTypes.java", results.classes.get(11).fileName)
-		assertEquals(recordOfListOfReferencedTypes.toString, results.classes.get(11).contents)
+		assertEquals("RecordOfListOfOwnedTypes.java", results.classes.get(11).fileName)
+		assertEquals(recordOfListOfOwnedTypes.toString, results.classes.get(11).contents)
+		
+		assertEquals("RecordOfListOfReferencedTypes.java", results.classes.get(12).fileName)
+		assertEquals(recordOfListOfReferencedTypes.toString, results.classes.get(12).contents)
 	}
 }

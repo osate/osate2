@@ -86,6 +86,23 @@ class PropertyDefinitionTest {
 			import ps2.Mass;
 			
 			public class Ps1 {
+				public static final String PS1__NAME = "ps1";
+				
+				public static final String BOOLEAN_DEFINITION__NAME = "boolean_definition";
+				public static final String STRING_DEFINITION__NAME = "string_definition";
+				public static final String CLASSIFIER_DEFINITION__NAME = "classifier_definition";
+				public static final String UNITS_DEFINITION__NAME = "units_definition";
+				public static final String ENUM_DEFINITION__NAME = "enum_definition";
+				public static final String INTEGER_DEFINITION_NO_UNITS__NAME = "integer_definition_no_units";
+				public static final String INTEGER_DEFINITION_WITH_UNITS__NAME = "integer_definition_with_units";
+				public static final String REAL_DEFINITION_NO_UNITS__NAME = "real_definition_no_units";
+				public static final String RANGE_DEFINITION__NAME = "range_definition";
+				public static final String RECORD_DEFINITION__NAME = "record_definition";
+				public static final String REFERENCE_DEFINITION__NAME = "reference_definition";
+				public static final String DEFINITION_WITH_REFERENCED_TYPE_LOCAL__NAME = "definition_with_referenced_type_local";
+				public static final String DEFINITION_WITH_REFERENCED_TYPE_OTHER_FILE__NAME = "definition_with_referenced_type_other_file";
+				public static final String DEFINITION_WITH_UNDERSCORE_IMPORT__NAME = "definition_with_underscore_import";
+				
 				public static Optional<Boolean> getBooleanDefinition(NamedElement lookupContext) {
 					return getBooleanDefinition(lookupContext, Optional.empty());
 				}
@@ -656,9 +673,19 @@ class PropertyDefinitionTest {
 			property set empty_ps is
 			end empty_ps;
 		'''
+		val emptyPsClass = '''
+			package emptyps;
+			
+			public class EmptyPs {
+				public static final String EMPTY_PS__NAME = "empty_ps";
+			}
+		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(emptyPs))
 		assertEquals("src-gen/emptyps", results.packagePath)
-		assertEquals(0, results.classes.size)
+		assertEquals(1, results.classes.size)
+		
+		assertEquals("EmptyPs.java", results.classes.head.fileName)
+		assertEquals(emptyPsClass.toString, results.classes.head.contents)
 	}
 	
 	@Test
@@ -684,6 +711,10 @@ class PropertyDefinitionTest {
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class SingleDefinitionPs {
+				public static final String SINGLE_DEFINITION_PS__NAME = "single_definition_ps";
+				
+				public static final String SOLE_DEFINITION__NAME = "sole_definition";
+				
 				public static Optional<Boolean> getSoleDefinition(NamedElement lookupContext) {
 					return getSoleDefinition(lookupContext, Optional.empty());
 				}

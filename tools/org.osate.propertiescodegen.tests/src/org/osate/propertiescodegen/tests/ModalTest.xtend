@@ -79,6 +79,33 @@ class ModalTest {
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class ModalTest {
+				public static final String MODAL_TEST__NAME = "modal_test";
+				
+				public static final String STRING_DEF_1__NAME = "string_def_1";
+				public static final String STRING_DEF_2__NAME = "string_def_2";
+				public static final String STRING_DEF_3__NAME = "string_def_3";
+				public static final String STRING_DEF_4__NAME = "string_def_4";
+				public static final String STRING_DEF_5__NAME = "string_def_5";
+				public static final String STRING_DEF_6__NAME = "string_def_6";
+				public static final String STRING_DEF_7__NAME = "string_def_7";
+				public static final String STRING_DEF_8__NAME = "string_def_8";
+				public static final String STRING_DEF_9__NAME = "string_def_9";
+				public static final String STRING_DEF_10__NAME = "string_def_10";
+				public static final String STRING_DEF_11__NAME = "string_def_11";
+				public static final String STRING_DEF_12__NAME = "string_def_12";
+				public static final String STRING_DEF_13__NAME = "string_def_13";
+				public static final String STRING_DEF_14__NAME = "string_def_14";
+				public static final String STRING_DEF_15__NAME = "string_def_15";
+				public static final String STRING_DEF_16__NAME = "string_def_16";
+				public static final String STRING_DEF_17__NAME = "string_def_17";
+				public static final String STRING_DEF_18__NAME = "string_def_18";
+				public static final String STRING_DEF_19__NAME = "string_def_19";
+				public static final String STRING_LIST_DEF_1__NAME = "string_list_def_1";
+				public static final String STRING_LIST_DEF_2__NAME = "string_list_def_2";
+				public static final String STRING_LIST_DEF_3__NAME = "string_list_def_3";
+				public static final String STRING_LIST_DEF_4__NAME = "string_list_def_4";
+				public static final String RECORD_DEF_1__NAME = "record_def_1";
+				
 				public static Optional<String> getStringDef1(NamedElement lookupContext) {
 					return getStringDef1(lookupContext, Optional.empty());
 				}

@@ -20,12 +20,19 @@ class PropertiesCodeGenTest {
 	
 	@Test
 	def void testEnumType() {
-		val propertySet = '''
+		val enumTest = '''
 			property set enum_test is
 				enum_type_1: type enumeration (one, two, three);
 			end enum_test;
 		'''
-		val javaClass = '''
+		val enumTestClass = '''
+			package enumtest;
+			
+			public class EnumTest {
+				public static final String ENUM_TEST__NAME = "enum_test";
+			}
+		'''
+		val enumType1 = '''
 			package enumtest;
 			
 			import org.eclipse.emf.common.util.URI;
@@ -64,22 +71,32 @@ class PropertiesCodeGenTest {
 				}
 			}
 		'''
-		val results = PropertiesCodeGen.generateJava(testHelper.parseString(propertySet))
+		val results = PropertiesCodeGen.generateJava(testHelper.parseString(enumTest))
 		assertEquals("src-gen/enumtest", results.packagePath)
-		assertEquals(1, results.classes.size)
+		assertEquals(2, results.classes.size)
 		
-		assertEquals("EnumType1.java", results.classes.head.fileName)
-		assertEquals(javaClass.toString, results.classes.head.contents)
+		assertEquals("EnumTest.java", results.classes.get(0).fileName)
+		assertEquals(enumTestClass.toString, results.classes.get(0).contents)
+		
+		assertEquals("EnumType1.java", results.classes.get(1).fileName)
+		assertEquals(enumType1.toString, results.classes.get(1).contents)
 	}
 	
 	@Test
 	def void testUnitsType() {
-		val propertySet = '''
+		val unitsTest = '''
 			property set units_test is
 				units_type_1: type units (mm, cm => mm * 10, m => cm * 100, inch => cm * 2.54, ft => inch * 12);
 			end units_test;
 		'''
-		val javaClass = '''
+		val unitsTestClass = '''
+			package unitstest;
+			
+			public class UnitsTest {
+				public static final String UNITS_TEST__NAME = "units_test";
+			}
+		'''
+		val unitsType1 = '''
 			package unitstest;
 			
 			import org.eclipse.emf.common.util.URI;
@@ -132,12 +149,15 @@ class PropertiesCodeGenTest {
 				}
 			}
 		'''
-		val results = PropertiesCodeGen.generateJava(testHelper.parseString(propertySet))
+		val results = PropertiesCodeGen.generateJava(testHelper.parseString(unitsTest))
 		assertEquals("src-gen/unitstest", results.packagePath)
-		assertEquals(1, results.classes.size)
+		assertEquals(2, results.classes.size)
 		
-		assertEquals("UnitsType1.java", results.classes.head.fileName)
-		assertEquals(javaClass.toString, results.classes.head.contents)
+		assertEquals("UnitsTest.java", results.classes.get(0).fileName)
+		assertEquals(unitsTestClass.toString, results.classes.get(0).contents)
+		
+		assertEquals("UnitsType1.java", results.classes.get(1).fileName)
+		assertEquals(unitsType1.toString, results.classes.get(1).contents)
 	}
 	
 	@Test
@@ -158,6 +178,13 @@ class PropertiesCodeGenTest {
 				integer_referenced_units_local: type aadlinteger units ps1::time;
 				integer_referenced_units_other_file: type aadlinteger units ps2::mass;
 			end ps1;
+		'''
+		val ps1Class = '''
+			package ps1;
+			
+			public class Ps1 {
+				public static final String PS1__NAME = "ps1";
+			}
 		'''
 		val time = '''
 			package ps1;
@@ -264,13 +291,16 @@ class PropertiesCodeGenTest {
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(ps1, ps2))
 		assertEquals("src-gen/ps1", results.packagePath)
-		assertEquals(2, results.classes.size)
+		assertEquals(3, results.classes.size)
 		
-		assertEquals("Time.java", results.classes.get(0).fileName)
-		assertEquals(time.toString, results.classes.get(0).contents)
+		assertEquals("Ps1.java", results.classes.get(0).fileName)
+		assertEquals(ps1Class.toString, results.classes.get(0).contents)
 		
-		assertEquals("IntegerOwnedUnits.java", results.classes.get(1).fileName)
-		assertEquals(integerOwnedUnits.toString, results.classes.get(1).contents)
+		assertEquals("Time.java", results.classes.get(1).fileName)
+		assertEquals(time.toString, results.classes.get(1).contents)
+		
+		assertEquals("IntegerOwnedUnits.java", results.classes.get(2).fileName)
+		assertEquals(integerOwnedUnits.toString, results.classes.get(2).contents)
 	}
 	
 	@Test
@@ -291,6 +321,13 @@ class PropertiesCodeGenTest {
 				real_referenced_units_local: type aadlreal units ps1::time;
 				real_referenced_units_other_file: type aadlreal units ps2::mass;
 			end ps1;
+		'''
+		val ps1Class = '''
+			package ps1;
+			
+			public class Ps1 {
+				public static final String PS1__NAME = "ps1";
+			}
 		'''
 		val time = '''
 			package ps1;
@@ -397,12 +434,15 @@ class PropertiesCodeGenTest {
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(ps1, ps2))
 		assertEquals("src-gen/ps1", results.packagePath)
-		assertEquals(2, results.classes.size)
+		assertEquals(3, results.classes.size)
 		
-		assertEquals("Time.java", results.classes.get(0).fileName)
-		assertEquals(time.toString, results.classes.get(0).contents)
+		assertEquals("Ps1.java", results.classes.get(0).fileName)
+		assertEquals(ps1Class.toString, results.classes.get(0).contents)
 		
-		assertEquals("RealOwnedUnits.java", results.classes.get(1).fileName)
-		assertEquals(realOwnedUnits.toString, results.classes.get(1).contents)
+		assertEquals("Time.java", results.classes.get(1).fileName)
+		assertEquals(time.toString, results.classes.get(1).contents)
+		
+		assertEquals("RealOwnedUnits.java", results.classes.get(2).fileName)
+		assertEquals(realOwnedUnits.toString, results.classes.get(2).contents)
 	}
 }

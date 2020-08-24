@@ -65,6 +65,10 @@ class CodegenPackageTest {
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class CodegenPackageBase {
+				public static final String CODEGEN_PACKAGE_BASE__NAME = "codegen_package_base";
+				
+				public static final String RECORD_DEF__NAME = "record_def";
+				
 				public static Optional<RecordType> getRecordDef(NamedElement lookupContext) {
 					return getRecordDef(lookupContext, Optional.empty());
 				}
@@ -269,6 +273,11 @@ class CodegenPackageTest {
 			import org.osate.pluginsupport.properties.IntegerWithUnits;
 			
 			public class CodegenPackageSame {
+				public static final String CODEGEN_PACKAGE_SAME__NAME = "codegen_package_same";
+				
+				public static final String RECORD_DEF__NAME = "record_def";
+				public static final String INT_DEF__NAME = "int_def";
+				
 				public static Optional<RecordType> getRecordDef(NamedElement lookupContext) {
 					return getRecordDef(lookupContext, Optional.empty());
 				}
@@ -350,6 +359,11 @@ class CodegenPackageTest {
 			import org.osate.properties.codegenpackage.Speed;
 			
 			public class CodegenPackageOther {
+				public static final String CODEGEN_PACKAGE_OTHER__NAME = "codegen_package_other";
+				
+				public static final String RECORD_DEF__NAME = "record_def";
+				public static final String INT_DEF__NAME = "int_def";
+				
 				public static Optional<RecordType> getRecordDef(NamedElement lookupContext) {
 					return getRecordDef(lookupContext, Optional.empty());
 				}

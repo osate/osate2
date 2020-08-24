@@ -59,6 +59,14 @@ class ClassifierTest {
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class ClassifierTest {
+				public static final String CLASSIFIER_TEST__NAME = "classifier_test";
+				
+				public static final String OWNED_CLASSIFIER__NAME = "owned_classifier";
+				public static final String REFERENCED_CLASSIFIER_LOCAL__NAME = "referenced_classifier_local";
+				public static final String REFERENCED_CLASSIFIER_OTHER__NAME = "referenced_classifier_other";
+				public static final String LIST_1_CLASSIFIER__NAME = "list_1_classifier";
+				public static final String LIST_5_CLASSIFIER__NAME = "list_5_classifier";
+				
 				public static Optional<Classifier> getOwnedClassifier(NamedElement lookupContext) {
 					return getOwnedClassifier(lookupContext, Optional.empty());
 				}

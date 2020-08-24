@@ -59,6 +59,14 @@ class IntegerNoUnitsTest {
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
 			public class IntegerNoUnitsTest {
+				public static final String INTEGER_NO_UNITS_TEST__NAME = "integer_no_units_test";
+				
+				public static final String OWNED_INTEGER__NAME = "owned_integer";
+				public static final String REFERENCED_INTEGER_LOCAL__NAME = "referenced_integer_local";
+				public static final String REFERENCED_INTEGER_OTHER__NAME = "referenced_integer_other";
+				public static final String LIST_1_INTEGER__NAME = "list_1_integer";
+				public static final String LIST_5_INTEGER__NAME = "list_5_integer";
+				
 				public static OptionalLong getOwnedInteger(NamedElement lookupContext) {
 					return getOwnedInteger(lookupContext, Optional.empty());
 				}
