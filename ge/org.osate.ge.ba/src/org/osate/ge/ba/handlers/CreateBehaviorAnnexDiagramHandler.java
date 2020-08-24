@@ -25,60 +25,67 @@ package org.osate.ge.ba.handlers;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DefaultAnnexSubclause;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.DiagramCreationUtil;
-import org.osate.ge.ProjectUtil;
 import org.osate.ge.ba.diagram.diagramType.BehaviorAnnexDiagramType;
 import org.osate.ge.ba.util.SelectionUtil;
 
 public class CreateBehaviorAnnexDiagramHandler extends AbstractHandler {
+	final Function<Object, Element> findDiagramContextForSelectedObject = (element) -> {
+		if ((element instanceof DefaultAnnexSubclause || element instanceof BehaviorAnnex)
+				&& "behavior_specification".equalsIgnoreCase(((NamedElement) element).getName())) {
+			return (DefaultAnnexSubclause) element;
+		}
+
+		return null;
+	};
+
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		final IEditorPart activeEditor = HandlerUtil.getActiveEditor(event);
-		// Get diagram and selected BOCs
-		final List<BusinessObjectContext> selectedBusinessObjectContexts = SelectionUtil
-				.getSelectedBusinessObjectContexts();
-		if (selectedBusinessObjectContexts.isEmpty()) {
-			throw new RuntimeException("No element selected");
-		}
-
-		final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) selectedBusinessObjectContexts.get(0).getBusinessObject();
-		final Classifier classifier = Objects.requireNonNull(behaviorAnnex.getContainingClassifier(),
+		final Element annexSubclause = Objects.requireNonNull(
+				BehaviorAnnexHandlerUtil.getAnnexSubclause(activeEditor),
+				"AnnexSubclause cannot be null");
+		final Classifier classifier = Objects.requireNonNull(annexSubclause.getContainingClassifier(),
 				"Classifier cannot be null");
-		final DefaultAnnexSubclause annexSubclause = (DefaultAnnexSubclause) behaviorAnnex.getOwner();
 
-
-		final StringBuilder fileName = new StringBuilder(classifier.getQualifiedName().replaceAll("::|:|\\.", "_"));
-		fileName.append("_");
-		fileName.append(classifier.getOwnedAnnexSubclauses().indexOf(annexSubclause));
-
-		DiagramCreationUtil.createDiagram(activeEditor, fileName.toString(), new BehaviorAnnexDiagramType(),
-				behaviorAnnex);
+		DiagramCreationUtil.createDiagram(activeEditor,
+				BehaviorAnnexHandlerUtil.getFileName(classifier, annexSubclause),
+				new BehaviorAnnexDiagramType(),
+				annexSubclause);
 
 		return null;
 	}
 
-
 	@Override
 	public void setEnabled(final Object evaluationContext) {
-		boolean enabled = false;
-		final List<BusinessObjectContext> selectedBusinessObjectContexts = SelectionUtil
-				.getSelectedBusinessObjectContexts();
-		if (selectedBusinessObjectContexts.size() == 1) {
-			final Object bo = selectedBusinessObjectContexts.get(0).getBusinessObject();
-			enabled = bo instanceof BehaviorAnnex
-					&& ProjectUtil.getProjectForBo(bo).isPresent();
+		System.err.println("set enableBd");
+		final IEditorPart activeEditor = SelectionUtil.getActiveEditorFromContext(evaluationContext);
+		final Object diagramContext;
+		if (activeEditor instanceof XtextEditor) {
+			diagramContext = SelectionUtil.getDiagramContext(SelectionUtil.getCurrentSelection(),
+					SelectionUtil.getActiveEditorFromContext(evaluationContext), findDiagramContextForSelectedObject);
+		} else {
+			final List<BusinessObjectContext> selectedBusinessObjectContexts = SelectionUtil
+					.getSelectedBusinessObjectContexts();
+			diagramContext = selectedBusinessObjectContexts.size() == 1
+					? selectedBusinessObjectContexts.get(0).getBusinessObject()
+					: null;
 		}
 
-		setBaseEnabled(enabled);
+		setBaseEnabled(diagramContext instanceof DefaultAnnexSubclause || diagramContext instanceof BehaviorAnnex);
 	}
 }

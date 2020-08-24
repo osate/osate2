@@ -23,13 +23,13 @@
  */
 package org.osate.ge;
 
-import java.util.Objects;
+import java.util.Optional;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.Adapters;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.PlatformUI;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.util.EditorUtil;
@@ -40,8 +40,8 @@ import org.osate.ge.internal.ui.util.EditorUtil;
 public class DiagramCreationUtil {
 	public static void createDiagram(final IEditorPart activeEditor, final String fileName,
 			final DiagramType diagramType, final Object bo) {
-		final DiagramService diagramService = Objects.requireNonNull(Adapters.adapt(activeEditor, DiagramService.class),
-				"Unable to retrieve diagram service");
+		final DiagramService diagramService = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+				.getService(DiagramService.class);
 		final IProject project = ProjectUtil.getProjectForBoOrThrow(bo);
 		final IFile file = createDiagramFile(project, fileName);
 		diagramService.createDiagram(file, diagramType, bo);
@@ -50,6 +50,22 @@ public class DiagramCreationUtil {
 			EditorUtil.openEditor(file, false);
 		}
 	}
+
+	public static void openOrCreateDiagram(final Object contextBo, final boolean promptForCreate,
+			final boolean promptForConfigureAfterCreate, final DiagramType diagramType, final String fileName) {
+		final DiagramService diagramService = PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow().getService(DiagramService.class);
+
+		diagramService.openOrCreateDiagramForBusinessObject(contextBo, promptForCreate, promptForConfigureAfterCreate,
+				() -> {
+					final IProject project = ProjectUtil.getProjectForBoOrThrow(contextBo);
+					final IFile diagramFile = createDiagramFile(project, fileName);
+					diagramService.createDiagram(diagramFile, diagramType, contextBo);
+					return Optional.ofNullable(diagramFile);
+				});
+		return;
+	}
+
 
 	/**
 	 * Creates a diagram file in the diagrams directory of a project

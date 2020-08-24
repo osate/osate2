@@ -69,8 +69,12 @@ censes only apply to the Third Party Software and not any other portion of this 
      </extension>
    <extension point="org.eclipse.ui.commands">
    	   <command
-            id="org.osate.ge.ba.diagram"
-            name="Create BA Diagram">
+            id="org.osate.ge.ba.diagram.open"
+            name="Open Behavior Annex Diagram">
+      </command>
+      <command
+            id="org.osate.ge.ba.diagram.create"
+            name="Create Behavior Annex Diagram">
       </command>
     </extension>
    <extension
@@ -95,24 +99,54 @@ censes only apply to the Third Party Software and not any other portion of this 
        point="org.eclipse.ui.handlers">
        <handler
           class="org.osate.ge.ba.handlers.CreateBehaviorAnnexDiagramHandler"
-          commandId="org.osate.ge.ba.diagram">
+          commandId="org.osate.ge.ba.diagram.create">
+    </handler>
+    <handler
+          class="org.osate.ge.ba.handlers.OpenBehaviorAnnexDiagramHandler"
+          commandId="org.osate.ge.ba.diagram.open">
     </handler>
     </extension>
       <extension
          point="org.eclipse.ui.menus">
+         <menuContribution allPopups="false" locationURI="popup:#TextEditorContext?after=additions">
+			<command commandId="org.osate.ge.ba.diagram.open" style="push">
+			         <visibleWhen checkEnabled="false">
+               <reference
+                     definitionId="org.osate.xtext.aadl2.Aadl2.Editor.opened">
+               </reference>
+         </visibleWhen>
+			</command>
+			<command commandId="org.osate.ge.ba.diagram.create" style="push">
+			         <visibleWhen checkEnabled="false">
+               <reference
+                     definitionId="org.osate.xtext.aadl2.Aadl2.Editor.opened">
+               </reference>
+         </visibleWhen>
+			</command>
+		</menuContribution>
    <menuContribution
        allPopups="false"
        locationURI="popup:org.osate.ge.editor.AgeDiagramEditor">
     <command
-          commandId="org.osate.ge.ba.diagram"
-          label="Baaa..."
+          commandId="org.osate.ge.ba.diagram.create"
+          label="Ba Create"
           style="push">
        <visibleWhen
              checkEnabled="true">
        </visibleWhen>
-          
+    </command>
+    <command
+          commandId="org.osate.ge.ba.diagram.open"
+          label="Ba Open"
+          style="push">
+       <visibleWhen
+             checkEnabled="true">
+       </visibleWhen>
     </command>
    </menuContribution>
+   <menuContribution allPopups="false" locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=osate_begin">
+		<command commandId="org.osate.ge.ba.diagram.open" style="push"/>
+	</menuContribution>
    </extension>
    <extension point="org.osate.ge.referenceResolvers">
 	   <factory class="org.osate.ge.ba.BehaviorAnnexReferenceResolver$Factory"/>

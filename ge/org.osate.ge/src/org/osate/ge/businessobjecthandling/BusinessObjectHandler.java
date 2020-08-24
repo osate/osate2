@@ -152,4 +152,15 @@ public interface BusinessObjectHandler {
 	default boolean canDelete(final CanDeleteContext ctx) {
 		return false;
 	}
+
+	default boolean canCopy() {
+		return true;
+	}
+
+	/**
+	 * TODO: make documentation and include "Only called for eobjects rn"
+	 * @param ctx
+	 */
+	default void afterPaste(final PasteContext ctx) {
+	}
 }
