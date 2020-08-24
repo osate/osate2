@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.osate.alisa.common
-Bundle-Vendor: SEI
+Bundle-Name: Alisa Common
+Bundle-Vendor: CMU/SEI
 Bundle-Version: 3.0.0.qualifier
 Bundle-SymbolicName: org.osate.alisa.common; singleton:=true
 Bundle-ActivationPolicy: lazy

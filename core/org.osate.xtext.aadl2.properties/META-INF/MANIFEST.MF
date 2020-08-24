@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.osate.xtext.aadl2.properties
-Bundle-Vendor: CMU-SEI
+Bundle-Name: Aadl2 Xtext Properties
+Bundle-Vendor: CMU/SEI
 Bundle-Version: 3.0.0.qualifier
 Bundle-SymbolicName: org.osate.xtext.aadl2.properties;singleton:=true
 Require-Bundle:  org.osate.aadl2;bundle-version="[4.0.0,5.0.0)",

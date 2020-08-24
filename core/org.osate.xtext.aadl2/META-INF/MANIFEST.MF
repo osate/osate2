@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.osate.xtext.aadl2
-Bundle-Vendor: CMU-SEI
+Bundle-Name: Aadl2 Xtext
+Bundle-Vendor: CMU/SEI
 Bundle-Version: 5.0.0.qualifier
 Bundle-SymbolicName: org.osate.xtext.aadl2;singleton:=true
 Bundle-ActivationPolicy: lazy

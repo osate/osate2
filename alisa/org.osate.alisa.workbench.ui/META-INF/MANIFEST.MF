@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.osate.alisa.workbench.ui
-Bundle-Vendor: SEI
+Bundle-Name: Alisa Workbench UI
+Bundle-Vendor: CMU/SEI
 Bundle-Version: 3.0.0.qualifier
 Bundle-SymbolicName: org.osate.alisa.workbench.ui; singleton:=true
 Bundle-ActivationPolicy: lazy

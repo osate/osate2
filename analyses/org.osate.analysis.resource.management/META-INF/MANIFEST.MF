@@ -5,7 +5,7 @@ Bundle-SymbolicName: org.osate.analysis.resource.management;singleton:=true
 Bundle-Version: 3.0.1.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.osate.analysis.resource.management.ResourcemanagementPlugin
-Bundle-Vendor: CMU-SEI
+Bundle-Vendor: CMU/SEI
 Bundle-Localization: plugin
 Export-Package: org.osate.analysis.resource.management,
  org.osate.analysis.resource.management.handlers,

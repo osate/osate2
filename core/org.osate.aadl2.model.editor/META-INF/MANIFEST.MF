@@ -4,7 +4,7 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: org.osate.aadl2.model.editor;singleton:=true
 Bundle-Version: 4.0.1.qualifier
 Bundle-Activator: org.osate.aadl2.presentation.Aadl2EditorPlugin$Implementation
-Bundle-Vendor: CMU-SEI
+Bundle-Vendor: CMU/SEI
 Bundle-Localization: plugin
 Export-Package: org.osate.aadl2.presentation
 Require-Bundle: org.osate.aadl2.edit;bundle-version="[4.0.0,5.0.0)";visibility:=reexport,

@@ -2,10 +2,10 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.osate.ba.edit;singleton:=true
-Bundle-Version: 4.0.0.qualifier
+Bundle-Version: 4.0.1.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.osate.ba.aadlba.provider.AadlbaEditPlugin$Implementation
-Bundle-Vendor: %providerName
+Bundle-Vendor: TELECOM ParisTech
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.osate.ba.aadlba.provider
