@@ -19,11 +19,19 @@ package class PropertyGettersGenerator extends AbstractPropertyGenerator {
 		val propertyGetters = propertySet.ownedProperties.map[generatePropertyGetter(it)]
 		'''
 			public class «className» {
+				public static final String «propertySet.name.toUpperCase»__NAME = "«propertySet.name»";
+				«IF !propertySet.ownedProperties.empty»
+				
+				«FOR property : propertySet.ownedProperties»
+				public static final String «property.name.toUpperCase»__NAME = "«property.name»";
+				«ENDFOR»
+				
 				«propertyGetters.head»
 				«FOR getter : propertyGetters.tail»
 				
 				«getter»
 				«ENDFOR»
+				«ENDIF»
 			}
 		'''
 	}

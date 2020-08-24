@@ -51,6 +51,13 @@ class RangeTypeTest {
 				range_of_referenced_number_other_file: type range of ps2::mass_type;
 			end ps1;
 		'''
+		val ps1Class = '''
+			package ps1;
+			
+			public class Ps1 {
+				public static final String PS1__NAME = "ps1";
+			}
+		'''
 		val time = '''
 			package ps1;
 			
@@ -257,18 +264,21 @@ class RangeTypeTest {
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(ps1, ps2))
 		assertEquals("src-gen/ps1", results.packagePath)
-		assertEquals(4, results.classes.size)
+		assertEquals(5, results.classes.size)
 		
-		assertEquals("Time.java", results.classes.get(0).fileName)
-		assertEquals(time.toString, results.classes.get(0).contents)
+		assertEquals("Ps1.java", results.classes.get(0).fileName)
+		assertEquals(ps1Class.toString, results.classes.get(0).contents)
 		
-		assertEquals("IntegerOwnedUnits.java", results.classes.get(1).fileName)
-		assertEquals(integerOwnedUnits.toString, results.classes.get(1).contents)
+		assertEquals("Time.java", results.classes.get(1).fileName)
+		assertEquals(time.toString, results.classes.get(1).contents)
 		
-		assertEquals("RangeOfIntegerOwnedUnits.java", results.classes.get(2).fileName)
-		assertEquals(rangeOfIntegerOwnedUnits.toString, results.classes.get(2).contents)
+		assertEquals("IntegerOwnedUnits.java", results.classes.get(2).fileName)
+		assertEquals(integerOwnedUnits.toString, results.classes.get(2).contents)
 		
-		assertEquals("RangeOfRealOwnedUnits.java", results.classes.get(3).fileName)
-		assertEquals(rangeOfRealOwnedUnits.toString, results.classes.get(3).contents)
+		assertEquals("RangeOfIntegerOwnedUnits.java", results.classes.get(3).fileName)
+		assertEquals(rangeOfIntegerOwnedUnits.toString, results.classes.get(3).contents)
+		
+		assertEquals("RangeOfRealOwnedUnits.java", results.classes.get(4).fileName)
+		assertEquals(rangeOfRealOwnedUnits.toString, results.classes.get(4).contents)
 	}
 }

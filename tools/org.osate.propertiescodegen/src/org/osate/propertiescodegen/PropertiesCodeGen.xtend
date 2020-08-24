@@ -21,11 +21,7 @@ class PropertiesCodeGen {
 	def static GeneratedPackage generateJava(PropertySet propertySet) {
 		val packageName = getPackageName(propertySet)
 		
-		val propertySetFile = if (propertySet.ownedProperties.empty) {
-			emptyList
-		} else {
-			#[generateFile(propertySet, packageName)]
-		}
+		val propertySetFile = generateFile(propertySet, packageName)
 		
 		val typeFiles = propertySet.eContents.filter(NamedElement).map[namedElement |
 			val name = namedElement.name.toCamelCase
@@ -54,7 +50,7 @@ class PropertiesCodeGen {
 			}
 		].filterNull.toList;
 		
-		new GeneratedPackage("src-gen/" + packageName.replace(".", "/"), (propertySetFile + typeFiles).toList)
+		new GeneratedPackage("src-gen/" + packageName.replace(".", "/"), (#[propertySetFile] + typeFiles).toList)
 	}
 	
 	def private static GeneratedClass generateFile(PropertySet propertySet, String packageName) {

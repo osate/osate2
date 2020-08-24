@@ -91,6 +91,13 @@ class RecordTypeTest {
 				nested_record: type record(field1: record (field2: record (field3: record (inner_field: aadlinteger;););););
 			end ps1;
 		'''
+		val ps1Class = '''
+			package ps1;
+			
+			public class Ps1 {
+				public static final String PS1__NAME = "ps1";
+			}
+		'''
 		val time = '''
 			package ps1;
 			
@@ -2680,45 +2687,48 @@ class RecordTypeTest {
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(ps1, ps2))
 		assertEquals("src-gen/ps1", results.packagePath)
-		assertEquals(13, results.classes.size)
+		assertEquals(14, results.classes.size)
 		
-		assertEquals("Time.java", results.classes.get(0).fileName)
-		assertEquals(time.toString, results.classes.get(0).contents)
+		assertEquals("Ps1.java", results.classes.get(0).fileName)
+		assertEquals(ps1Class.toString, results.classes.get(0).contents)
 		
-		assertEquals("IntegerOwnedUnits.java", results.classes.get(1).fileName)
-		assertEquals(integerOwnedUnits.toString, results.classes.get(1).contents)
+		assertEquals("Time.java", results.classes.get(1).fileName)
+		assertEquals(time.toString, results.classes.get(1).contents)
 		
-		assertEquals("EnumType1.java", results.classes.get(2).fileName)
-		assertEquals(enumType1.toString, results.classes.get(2).contents)
+		assertEquals("IntegerOwnedUnits.java", results.classes.get(2).fileName)
+		assertEquals(integerOwnedUnits.toString, results.classes.get(2).contents)
 		
-		assertEquals("RecordType1.java", results.classes.get(3).fileName)
-		assertEquals(recordType1.toString, results.classes.get(3).contents)
+		assertEquals("EnumType1.java", results.classes.get(3).fileName)
+		assertEquals(enumType1.toString, results.classes.get(3).contents)
 		
-		assertEquals("RecordOfBoolean.java", results.classes.get(4).fileName)
-		assertEquals(recordOfBoolean.toString, results.classes.get(4).contents)
+		assertEquals("RecordType1.java", results.classes.get(4).fileName)
+		assertEquals(recordType1.toString, results.classes.get(4).contents)
 		
-		assertEquals("RecordOfString.java", results.classes.get(5).fileName)
-		assertEquals(recordOfString.toString, results.classes.get(5).contents)
+		assertEquals("RecordOfBoolean.java", results.classes.get(5).fileName)
+		assertEquals(recordOfBoolean.toString, results.classes.get(5).contents)
 		
-		assertEquals("RecordOfClassifier.java", results.classes.get(6).fileName)
-		assertEquals(recordOfClassifier.toString, results.classes.get(6).contents)
+		assertEquals("RecordOfString.java", results.classes.get(6).fileName)
+		assertEquals(recordOfString.toString, results.classes.get(6).contents)
 		
-		assertEquals("RecordOfEnum.java", results.classes.get(7).fileName)
-		assertEquals(recordOfEnum.toString, results.classes.get(7).contents)
+		assertEquals("RecordOfClassifier.java", results.classes.get(7).fileName)
+		assertEquals(recordOfClassifier.toString, results.classes.get(7).contents)
 		
-		assertEquals("RecordOfUnits.java", results.classes.get(8).fileName)
-		assertEquals(recordOfUnits.toString, results.classes.get(8).contents)
+		assertEquals("RecordOfEnum.java", results.classes.get(8).fileName)
+		assertEquals(recordOfEnum.toString, results.classes.get(8).contents)
 		
-		assertEquals("RecordOfInteger.java", results.classes.get(9).fileName)
-		assertEquals(recordOfInteger.toString, results.classes.get(9).contents)
+		assertEquals("RecordOfUnits.java", results.classes.get(9).fileName)
+		assertEquals(recordOfUnits.toString, results.classes.get(9).contents)
 		
-		assertEquals("RecordOfReal.java", results.classes.get(10).fileName)
-		assertEquals(recordOfReal.toString, results.classes.get(10).contents)
+		assertEquals("RecordOfInteger.java", results.classes.get(10).fileName)
+		assertEquals(recordOfInteger.toString, results.classes.get(10).contents)
 		
-		assertEquals("RecordOfReference.java", results.classes.get(11).fileName)
-		assertEquals(recordOfReference.toString, results.classes.get(11).contents)
+		assertEquals("RecordOfReal.java", results.classes.get(11).fileName)
+		assertEquals(recordOfReal.toString, results.classes.get(11).contents)
 		
-		assertEquals("NestedRecord.java", results.classes.get(12).fileName)
-		assertEquals(nestedRecord.toString, results.classes.get(12).contents)
+		assertEquals("RecordOfReference.java", results.classes.get(12).fileName)
+		assertEquals(recordOfReference.toString, results.classes.get(12).contents)
+		
+		assertEquals("NestedRecord.java", results.classes.get(13).fileName)
+		assertEquals(nestedRecord.toString, results.classes.get(13).contents)
 	}
 }
