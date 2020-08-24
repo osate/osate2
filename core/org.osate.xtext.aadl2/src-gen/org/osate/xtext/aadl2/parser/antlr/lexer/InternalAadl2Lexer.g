@@ -1,4 +1,3 @@
-
 /**
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
@@ -24,7 +23,6 @@
  */
 lexer grammar InternalAadl2Lexer;
 
-
 @header {
 package org.osate.xtext.aadl2.parser.antlr.lexer;
 
@@ -32,9 +30,6 @@ package org.osate.xtext.aadl2.parser.antlr.lexer;
 // Currently there is no other way to specify the superclass for the lexer.
 import org.eclipse.xtext.parser.antlr.Lexer;
 }
-
-
-
 
 Implementation : ('I'|'i')('M'|'m')('P'|'p')('L'|'l')('E'|'e')('M'|'m')('E'|'e')('N'|'n')('T'|'t')('A'|'a')('T'|'t')('I'|'i')('O'|'o')('N'|'n');
 
@@ -230,8 +225,6 @@ LeftCurlyBracket : '{';
 
 RightCurlyBracket : '}';
 
-
-
 RULE_ANNEXTEXT : '{**' ( options {greedy=false;} : . )*'**}';
 
 RULE_SL_COMMENT : '--' ~(('\n'|'\r'))* ('\r'? '\n')?;
@@ -255,6 +248,3 @@ RULE_STRING : ('"' ('\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|'\''|'\\')|~(('\\'|'"')))*
 RULE_ID : ('a'..'z'|'A'..'Z') ('_'? ('a'..'z'|'A'..'Z'|'0'..'9'))*;
 
 RULE_WS : (' '|'\t'|'\r'|'\n')+;
-
-
-

@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -128,6 +129,7 @@ public class IfConditionImpl extends MinimalEObjectImpl.Container implements IfC
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getDescription()
   {
     return description;
@@ -138,6 +140,7 @@ public class IfConditionImpl extends MinimalEObjectImpl.Container implements IfC
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDescription(String newDescription)
   {
     String oldDescription = description;
@@ -151,6 +154,7 @@ public class IfConditionImpl extends MinimalEObjectImpl.Container implements IfC
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EObject getResoluteFunction()
   {
     if (resoluteFunction != null && resoluteFunction.eIsProxy())
@@ -181,6 +185,7 @@ public class IfConditionImpl extends MinimalEObjectImpl.Container implements IfC
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setResoluteFunction(EObject newResoluteFunction)
   {
     EObject oldResoluteFunction = resoluteFunction;
@@ -194,6 +199,7 @@ public class IfConditionImpl extends MinimalEObjectImpl.Container implements IfC
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getJavaMethod()
   {
     return javaMethod;
@@ -204,6 +210,7 @@ public class IfConditionImpl extends MinimalEObjectImpl.Container implements IfC
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setJavaMethod(String newJavaMethod)
   {
     String oldJavaMethod = javaMethod;

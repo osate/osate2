@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -95,6 +96,7 @@ public class ErrorTypeImpl extends ErrorTypesImpl implements ErrorType
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorType getSuperType()
   {
     if (superType != null && superType.eIsProxy())
@@ -125,6 +127,7 @@ public class ErrorTypeImpl extends ErrorTypesImpl implements ErrorType
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setSuperType(ErrorType newSuperType)
   {
     ErrorType oldSuperType = superType;
@@ -138,6 +141,7 @@ public class ErrorTypeImpl extends ErrorTypesImpl implements ErrorType
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorType getAliasedType()
   {
     if (aliasedType != null && aliasedType.eIsProxy())
@@ -168,6 +172,7 @@ public class ErrorTypeImpl extends ErrorTypesImpl implements ErrorType
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setAliasedType(ErrorType newAliasedType)
   {
     ErrorType oldAliasedType = aliasedType;

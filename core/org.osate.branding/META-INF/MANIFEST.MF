@@ -2,10 +2,10 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.osate.branding; singleton:=true
-Bundle-Version: 1.0.1.qualifier
+Bundle-Version: 1.0.2.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.osate.branding.AadlPlugin
-Bundle-Vendor: CMU-SEI
+Bundle-Vendor: CMU/SEI
 Bundle-Localization: plugin
 Export-Package: org.osate.branding
 Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.17.0,4.0.0)",

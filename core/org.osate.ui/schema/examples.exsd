@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.osate.ui" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appInfo>
+         <meta.schema plugin="org.osate.ui" id="examples" name="OSATE Example"/>
+      </appInfo>
+      <documentation>
+         &lt;p&gt;This extension point is used to describe examples to be added to the workspace.  Each example is defined by the wizard that creates it and the list of projects to be created in the workspace.&lt;/p&gt;
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element />
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="example" minOccurs="1" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  A fully qualified identifier of the target extension point.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  An optional identifier of the example.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  An optional name of the extension instance.
+               </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="example">
+      <complexType>
+         <sequence>
+            <element ref="project" minOccurs="1" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="name" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The name of the project that will be created in the workspace.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="category" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The name of the project category that will be displayed to user along with projects (used as a grouping)
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="exampleURI" type="string">
+            <annotation>
+               <documentation>
+                  The location of the content of the project. This should be either an absolute URI or a plug-in-relative path identifying an archive file or a directory. In the latter case, the location must end with a /.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="readmeURI" type="string">
+            <annotation>
+               <documentation>
+                  An attribute to hold an html readme file path with description of the project. ReadmeURI should be relative to exampleURI path.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="project">
+      <annotation>
+         <documentation>
+            Combination of exampleURI and project path is used a path of the project(s) to import into the workspace. Project path should be relative to exampleURI directory. If project path is left blank,  files under exampleURI path will be imported.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="path" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Combination of exampleURI and project path is used a path of the project(s) to import into the workspace. Project path should be relative to exampleURI directory. If project path is left blank,  files under exampleURI path will be imported.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="since"/>
+      </appInfo>
+      <documentation>
+         2.9.0
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="examples"/>
+      </appInfo>
+      <documentation>
+         &lt;plugin&gt;
+   &lt;extension point=&quot;org.osate.ui.examples&quot;&gt;
+      &lt;example
+            exampleURI=&quot;/examples/arp4761&quot;
+            readmeURI=&quot;doc/html/readme.html&quot;
+            category=&quot;Flow Analysis Examples&quot;
+            name=&quot;ARP4761&quot;&gt;
+         &lt;project path=&quot;Project1&quot;/&gt;
+         &lt;project path=&quot;Project2&quot;/&gt;
+      &lt;/example&gt;
+      &lt;example
+            exampleURI=&quot;/examples/resource-budget&quot;
+            readmeURI=&quot;doc/html/readme.html&quot;
+            category=&quot;Basic Examples&quot;
+            name=&quot;Resource Budget&quot;&gt;
+         &lt;project path=&quot;&quot;/&gt;
+      &lt;/example&gt;
+      &lt;example
+            exampleURI=&quot;/examples/speed-regulation&quot;
+            readmeURI=&quot;test1/doc/html/readme.html&quot;
+            category=&quot;Basic Examples&quot;
+            name=&quot;Speed Regulation&quot;&gt;
+         &lt;project path=&quot;&quot;/&gt;
+      &lt;/example&gt;
+   &lt;/extension&gt;
+&lt;/plugin&gt;
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="apiinfo"/>
+      </appInfo>
+      <documentation>
+         none
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="implementation"/>
+      </appInfo>
+      <documentation>
+         none
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="copyright"/>
+      </appInfo>
+      <documentation>
+         Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+All Rights Reserved.
+      </documentation>
+   </annotation>
+
+</schema>
