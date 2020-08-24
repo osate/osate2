@@ -1,6 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Contrib
+Bundle-Vendor: CMU/SEI
 Bundle-SymbolicName: org.osate.aadl2.errormodel.contrib;singleton:=true
 Bundle-Version: 1.0.4.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

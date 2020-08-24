@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.osate.organization.ui
-Bundle-Vendor: SEI
+Bundle-Name: Organization UI Plug-in
+Bundle-Vendor: CMU/SEI
 Bundle-Version: 3.0.0.qualifier
 Bundle-SymbolicName: org.osate.organization.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
