@@ -65,7 +65,7 @@ import org.osate.aadl2.PropertySet
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.UnitLiteral
 import org.osate.xtext.aadl2.properties.ui.quickfix.PropertiesQuickfixProvider
-import org.osate.xtext.aadl2.validation.Aadl2JavaValidator
+import org.osate.xtext.aadl2.validation.Aadl2Validator
 
 class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	@Inject
@@ -79,7 +79,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	 * issue.getData()[1]: The ending identifier of the classifier or model unit.
 	 * issue.getData()[2]: The offset of the ending identifier within the Xtext document.
 	 */
-	@Fix(Aadl2JavaValidator.MISMATCHED_BEGINNING_AND_ENDING_IDENTIFIERS)
+	@Fix(Aadl2Validator.MISMATCHED_BEGINNING_AND_ENDING_IDENTIFIERS)
 	def void fixMismatchedBeginningAndEndingIdentifiers(Issue issue, IssueResolutionAcceptor acceptor) {
 		val String beginningName = issue.getData().get(0);
 		val String endingName = issue.getData().get(1);
@@ -105,7 +105,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	 * issue.getData()[1]: The offset of the ":".
 	 * issue.getData()[2]: replacement value.
 	 */
-	@Fix(Aadl2JavaValidator.DUPLICATE_COMPONENT_TYPE_NAME)
+	@Fix(Aadl2Validator.DUPLICATE_COMPONENT_TYPE_NAME)
 	def void fixDuplicateComponentType(Issue issue, IssueResolutionAcceptor acceptor) {
 		val String componentTypeName = issue.getData().get(0);
 		val int offset = Integer.parseInt(issue.getData().get(1));
@@ -122,7 +122,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	 * QuickFix for duplicate literal in an enumeration
 	 * issue.getData()[0]: The name of the EnumerationLiteral.
 	 */
-	@Fix(Aadl2JavaValidator.DUPLICATE_LITERAL_IN_ENUMERATION)
+	@Fix(Aadl2Validator.DUPLICATE_LITERAL_IN_ENUMERATION)
 	def void fixDuplicateLiteralInEnumeration(Issue issue, IssueResolutionAcceptor acceptor) {
 		val String dupeLiteralName = issue.getData().get(0);
 		acceptor.accept(issue, "Remove duplicate literal '" + dupeLiteralName + "'", null, null,
@@ -140,7 +140,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	 * issue.getData(0) UnitLiteral.baseUnit.name
 	 * issue.getData(1) ... issue.getData(n): Alternating strings of the UnitLiteral names and URI.
 	 */
-	@Fix(Aadl2JavaValidator.UNIT_LITERAL_OUT_OF_ORDER)
+	@Fix(Aadl2Validator.UNIT_LITERAL_OUT_OF_ORDER)
 	def void fixUnitLiteralOutOfOrder(Issue issue, IssueResolutionAcceptor acceptor) {
 		val baseUnitName = issue.data.head
 		val iter = issue.data.iterator
@@ -173,7 +173,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	 * issue.getData(5) ... issue.getData(n): Alternating strings of proposed replacement mode names and URI.
 	 *  
 	 */
-	@Fix(Aadl2JavaValidator.MODE_NOT_DEFINED_IN_CONTAINER)
+	@Fix(Aadl2Validator.MODE_NOT_DEFINED_IN_CONTAINER)
 	def void fixModeNotDefinedInContainer(Issue issue, IssueResolutionAcceptor acceptor) {
 		val modeName = issue.data.head		
 		val undefinedModeURI =  issue.data.get(1)
@@ -227,7 +227,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	 * issue.getData(0) offSet
 	 * issue.getData(1) connectionEndURI
 	 */
-	@Fix(Aadl2JavaValidator.SELF_NOT_ALLOWED)
+	@Fix(Aadl2Validator.SELF_NOT_ALLOWED)
 	def void fixSelfNotAllowed(Issue issue, IssueResolutionAcceptor acceptor) {
 		val offSet = Integer.parseInt(issue.getData().head)
 		val alternateConnectionEndType = issue.data.get(1)
@@ -250,7 +250,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	 * issue.getData(0) offSet
 	 * issue.getData(1) connectionEndURI
 	 */
-	@Fix(Aadl2JavaValidator.PROCESSOR_NOT_ALLOWED)
+	@Fix(Aadl2Validator.PROCESSOR_NOT_ALLOWED)
 	def void fixProcessorNotAllowed(Issue issue, IssueResolutionAcceptor acceptor) {
 		val offSet = Integer.parseInt(issue.getData().head)
 		val alternateConnectionEndType = issue.data.get(1)
@@ -274,7 +274,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	 * issue.getData(1) flow spec name
 	 * issue,getData(2) offSet
 	 */
-	@Fix(Aadl2JavaValidator.INCONSISTENT_FLOW_KIND)
+	@Fix(Aadl2Validator.INCONSISTENT_FLOW_KIND)
 	def void fixInconsistentFlowKind(Issue issue, IssueResolutionAcceptor acceptor) {
 		val flowImplKindName = issue.data.head
 		val flowSpecKindName = issue.data.get(1)
@@ -295,7 +295,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	 * issue,getData(2) featureOffSet
 	 * issue,getData(3) contextOffset
 	 */
-	@Fix(Aadl2JavaValidator.OUT_FLOW_FEATURE_IDENTIFIER_NOT_SPEC)
+	@Fix(Aadl2Validator.OUT_FLOW_FEATURE_IDENTIFIER_NOT_SPEC)
 	def void fixOutFlowIdentifierNotSpec(Issue issue, IssueResolutionAcceptor acceptor) {
 		val outImplName = issue.data.head
 		val specName = issue.data.get(1)
@@ -321,7 +321,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	 * issue,getData(2) featureOffSet
 	 * issue,getData(3) contextOffset
 	 */
-	@Fix(Aadl2JavaValidator.IN_FLOW_FEATURE_IDENTIFIER_NOT_SPEC)
+	@Fix(Aadl2Validator.IN_FLOW_FEATURE_IDENTIFIER_NOT_SPEC)
 	def void fixInFlowIdentifierNotSpec(Issue issue, IssueResolutionAcceptor acceptor) {
 		val inImplName = issue.data.head
 		val specName = issue.data.get(1)
@@ -343,7 +343,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	 * issue,getData(2) subcomponentName
 	 * issue,getData(3) subcomponentURI
 	 */
-	@Fix(Aadl2JavaValidator.SUBCOMPONENT_NOT_IN_FLOW_MODE)
+	@Fix(Aadl2Validator.SUBCOMPONENT_NOT_IN_FLOW_MODE)
 	def void fixSubcomponentNotInFlowMode(Issue issue, IssueResolutionAcceptor acceptor) {
 		val flowModeName = issue.data.head		
 		val flowModeURI =  issue.data.get(1)
@@ -377,7 +377,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	 * issue,getData(2) connectionName
 	 * issue,getData(3) connectionURI
 	 */
-	@Fix(Aadl2JavaValidator.CONNECTION_NOT_IN_FLOW_MODE)
+	@Fix(Aadl2Validator.CONNECTION_NOT_IN_FLOW_MODE)
 	def void fixConnectionNotInFlowMode(Issue issue, IssueResolutionAcceptor acceptor) {
 		val flowModeName = issue.data.head		
 		val flowModeURI =  issue.data.get(1)
@@ -410,7 +410,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	 * issue,getData(2) neededModeName
 	 * issue,getData(3) neededModeURI
 	 */
-	@Fix(Aadl2JavaValidator.END_TO_END_FLOW_SEGMENT_NOT_IN_MODE)
+	@Fix(Aadl2Validator.END_TO_END_FLOW_SEGMENT_NOT_IN_MODE)
 	def void fixEndToEndFlowSegmentNotInMode(Issue issue, IssueResolutionAcceptor acceptor) {
 		val targetName = issue.data.head		
 		val targetURI =  issue.data.get(1)
@@ -448,7 +448,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	 * issue.getData(1) changeTo
 	 * issue,getData(2) offSet
 	 */
-	@Fix(Aadl2JavaValidator.GENERIC_TEXT_REPLACEMENT)
+	@Fix(Aadl2Validator.GENERIC_TEXT_REPLACEMENT)
 	def void fixByGenericTextReplacement(Issue issue, IssueResolutionAcceptor acceptor) {
 		val changeFrom = issue.data.head
 		val changeTo = issue.data.get(1)
@@ -466,7 +466,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	 * issue.getData(0) arraySize
 	 * issue.getData(1) referenceListSize
 	 */
-	@Fix(Aadl2JavaValidator.ARRAY_SIZE_NOT_EQUAL_REFERENCE_LIST_SIZE)
+	@Fix(Aadl2Validator.ARRAY_SIZE_NOT_EQUAL_REFERENCE_LIST_SIZE)
 	def void fixArraySizeNotEqualRefernceListSize(Issue issue, IssueResolutionAcceptor acceptor) {
 		val arraySize = Integer.parseInt(issue.data.head)		
 		val referenceListSize =  Integer.parseInt(issue.data.get(1))
@@ -484,7 +484,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	/**
 	 * QuickFix for Prototype must be an array because the refined prototype is an array
 	 */
-	@Fix(Aadl2JavaValidator.PROTOTYPE_NOT_ARRAY)
+	@Fix(Aadl2Validator.PROTOTYPE_NOT_ARRAY)
 	def void fixPrototypeMusBeAnArray(Issue issue, IssueResolutionAcceptor acceptor) {
 
 		acceptor.accept(issue, "Change prototype to an array", null, null,
@@ -501,7 +501,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	 * issue.getData(0) = actualDirection.toString();
 	 * issue.getData(1) = formalDirection.toString();
 	 */
-	@Fix(Aadl2JavaValidator.PROTOTYPE_BINDING_DIRECTION_NOT_CONSISTENT_WITH_FORMAL)
+	@Fix(Aadl2Validator.PROTOTYPE_BINDING_DIRECTION_NOT_CONSISTENT_WITH_FORMAL)
 	def void fixPrototypeBindingDirection(Issue issue, IssueResolutionAcceptor acceptor) {
 		val changeFrom = issue.data.head
 		val changeTo = issue.data.get(1)
@@ -532,7 +532,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	 * issue.getData(0) = changeFrom
 	 * issue.getData(1) = changeTo;
 	 */
-	@Fix(Aadl2JavaValidator.INCOMPATIBLE_DIRECTION_FOR_PROTOTYPE_REFINEMENT)
+	@Fix(Aadl2Validator.INCOMPATIBLE_DIRECTION_FOR_PROTOTYPE_REFINEMENT)
 	def void fixIncompatibleDirectionForPrototypeRefinement(Issue issue, IssueResolutionAcceptor acceptor) {
 		val changeFrom = issue.data.head
 		val changeTo = issue.data.get(1)
@@ -553,7 +553,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	 * issue.getData(0) = changeFrom
 	 * issue.getData(1) = changeTo;
 	 */
-	@Fix(Aadl2JavaValidator.INCOMPATIBLE_FEATURE_DIRECTION_IN_REFINEMENT)
+	@Fix(Aadl2Validator.INCOMPATIBLE_FEATURE_DIRECTION_IN_REFINEMENT)
 	def void fixIncompatibleFeatureDirectionInRefinement(Issue issue, IssueResolutionAcceptor acceptor) {
 		val changeFrom = issue.data.head
 		val changeTo = issue.data.get(1)
@@ -575,7 +575,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	 * issue.getData(0) = changeFrom
 	 * issue.getData(1) = changeTo;
 	 */
-	@Fix(Aadl2JavaValidator.ABSTRACT_FEATURE_DIRECTION_DOES_NOT_MATCH_PROTOTYPE)
+	@Fix(Aadl2Validator.ABSTRACT_FEATURE_DIRECTION_DOES_NOT_MATCH_PROTOTYPE)
 	def void fixAbstractFeatureDirectionDoesNotMatchPrototype(Issue issue, IssueResolutionAcceptor acceptor) {
 		val changeFrom = issue.data.head
 		val changeTo = issue.data.get(1)
@@ -595,7 +595,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	 * QuickFix for incompatible feature direction in refinement
 	 * issue.getData(0) = changeFrom
 	 */
-	@Fix(Aadl2JavaValidator.ABSTRACT_FEATURE_DIRECTION_NOT_IN_PROTOTYPE)
+	@Fix(Aadl2Validator.ABSTRACT_FEATURE_DIRECTION_NOT_IN_PROTOTYPE)
 	def void fixAbstractFeatureDirectionNotInPrototype(Issue issue, IssueResolutionAcceptor acceptor) {
 		val changeFrom = issue.data.head
 	
@@ -613,7 +613,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	 * QuickFix for added direction in abstract feature refinement
 	 * issue.getData(0) = changeFrom
 	 */
-	@Fix(Aadl2JavaValidator.ADDED_DIRECTION_IN_ABSTRACT_FEATURE_REFINEMENT)
+	@Fix(Aadl2Validator.ADDED_DIRECTION_IN_ABSTRACT_FEATURE_REFINEMENT)
 	def void fixAddedDirectionInAbstractFeatureRefinement(Issue issue, IssueResolutionAcceptor acceptor) {
 		val changeFrom = issue.data.head
 	
@@ -632,7 +632,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	 * QuickFix for added prototype or classifier in abstract feature refinement
 	 * issue.getData(0) = changeFrom
 	 */
-	@Fix(Aadl2JavaValidator.ADDED_PROTOTYPE_OR_CLASSIFIER_IN_ABSTRACT_FEATURE_REFINEMENT)
+	@Fix(Aadl2Validator.ADDED_PROTOTYPE_OR_CLASSIFIER_IN_ABSTRACT_FEATURE_REFINEMENT)
 	def void fixAddedPrototypeOrClassifierInAbstractFeatureRefinement(Issue issue, IssueResolutionAcceptor acceptor) {
 		val changeFrom = issue.data.head
 		acceptor.accept(issue, "Remove '" + changeFrom + "'", null, null,
@@ -648,7 +648,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	/**
 	 * QuickFix for chained inverse feature group types
 	 */
-	@Fix(Aadl2JavaValidator.CHAINED_INVERSE_FEATURE_GROUP_TYPES)
+	@Fix(Aadl2Validator.CHAINED_INVERSE_FEATURE_GROUP_TYPES)
 	def void fixChainedInverseFeatureGroupTypes(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Remove inverse", null, null,
 			new ISemanticModification() {
@@ -663,7 +663,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	/**
 	 * QuickFix for extending inverse feature group types
 	 */
-	@Fix(Aadl2JavaValidator.EXTENDED_INVERSE_FEATURE_GROUP_TYPE)
+	@Fix(Aadl2Validator.EXTENDED_INVERSE_FEATURE_GROUP_TYPE)
 	def void fixExtendedInverseFeatureGroupTypes(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Remove extends", null, null,
 			new ISemanticModification() {
@@ -679,7 +679,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	/**
 	 * QuickFix for extending inverse feature group types
 	 */
-	@Fix(Aadl2JavaValidator.INVERSE_IN_FEATURE_GROUP_TYPE_EXTENSION)
+	@Fix(Aadl2Validator.INVERSE_IN_FEATURE_GROUP_TYPE_EXTENSION)
 	def void fixInverseInFeatureGroupTypeExtension(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Remove extends", null, null,
 			new ISemanticModification() {
@@ -704,7 +704,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	/**
 	 * QuickFix for inverse in feature group
 	 */
-	@Fix(Aadl2JavaValidator.INVERSE_IN_FEATURE_GROUP)
+	@Fix(Aadl2Validator.INVERSE_IN_FEATURE_GROUP)
 	def void fixInverseInFeatureGroup(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Remove inverse", null, null,
 			new ISemanticModification() {
@@ -721,7 +721,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	 * issue.getData(0) = valid direction if any or empty String
 	 * issue.getData(1) = current direction
 	 */
-	@Fix(Aadl2JavaValidator.DIRECTION_NOT_SAME_AS_FEATURE_GROUP_MEMBERS)
+	@Fix(Aadl2Validator.DIRECTION_NOT_SAME_AS_FEATURE_GROUP_MEMBERS)
 	def void fixDirectionNotTheSameAsFeatureGroupMembers(Issue issue, IssueResolutionAcceptor acceptor) {
 		val validDirection = issue.data.head
 		val currentDirection = issue.data.get(1)
@@ -764,7 +764,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	 * issue.getData.get(0) changeFrom
 	 * issue.getData.get(1) changeTo
 	 */
-	@Fix(Aadl2JavaValidator.REVERSE_ACCESS_KIND)
+	@Fix(Aadl2Validator.REVERSE_ACCESS_KIND)
 	def void fixReverseAccessKind(Issue issue, IssueResolutionAcceptor acceptor) {
 		val changeFrom = issue.data.head
 		val changeTo = issue.data.get(1)
@@ -784,7 +784,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	 * issue.getData.get(2) keyword before the range
 	 * issue.getData.get(3) offSet of keyword before the range
 	 */
-	@Fix(Aadl2JavaValidator.NUMERIC_RANGE_UPPER_LESS_THAN_LOWER)
+	@Fix(Aadl2Validator.NUMERIC_RANGE_UPPER_LESS_THAN_LOWER)
 	def void fixNumericRangeUpperLessThanLower(Issue issue, IssueResolutionAcceptor acceptor) {
 		val lowerURI = issue.data.head
 		val upperURI = issue.data.get(1)
@@ -817,7 +817,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	/**
 	 * QuickFix by making a connection bidirectional
 	 */
-	@Fix(Aadl2JavaValidator.MAKE_CONNECTION_BIDIRECTIONAL)
+	@Fix(Aadl2Validator.MAKE_CONNECTION_BIDIRECTIONAL)
 	def void fixMakeConnectionBiderctional(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Make connection bidirectional", null, null,
 			new ISemanticModification() {
@@ -836,7 +836,7 @@ class Aadl2QuickfixProvider extends PropertiesQuickfixProvider {
 	 * issue.getData()[0]: The name of the package or property set
 	 * issue.getData()[1]: The URI String of the referenced AadlPackage or PropertySet.
 	 */
-	@Fix(Aadl2JavaValidator.WITH_NOT_USED)
+	@Fix(Aadl2Validator.WITH_NOT_USED)
 	def void fixWithNotUsed(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Remove '" + issue.getData.get(0) + "' from the with clause", null, null,
 				new ISemanticModification() {

@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -153,6 +154,7 @@ public class ErrorBehaviorStateMachineImpl extends NamedElementImpl implements E
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ErrorModelLibrary> getUseTypes()
   {
     if (useTypes == null)
@@ -167,6 +169,7 @@ public class ErrorBehaviorStateMachineImpl extends NamedElementImpl implements E
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<TypeTransformationSet> getUseTransformation()
   {
     if (useTransformation == null)
@@ -181,6 +184,7 @@ public class ErrorBehaviorStateMachineImpl extends NamedElementImpl implements E
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ErrorBehaviorEvent> getEvents()
   {
     if (events == null)
@@ -195,6 +199,7 @@ public class ErrorBehaviorStateMachineImpl extends NamedElementImpl implements E
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ErrorBehaviorState> getStates()
   {
     if (states == null)
@@ -209,6 +214,7 @@ public class ErrorBehaviorStateMachineImpl extends NamedElementImpl implements E
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ErrorBehaviorTransition> getTransitions()
   {
     if (transitions == null)
@@ -223,6 +229,7 @@ public class ErrorBehaviorStateMachineImpl extends NamedElementImpl implements E
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<EMV2PropertyAssociation> getProperties()
   {
     if (properties == null)

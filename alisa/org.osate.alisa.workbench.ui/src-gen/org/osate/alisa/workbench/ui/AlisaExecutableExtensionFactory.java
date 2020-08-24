@@ -23,12 +23,11 @@
  */
 package org.osate.alisa.workbench.ui;
 
-import org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory;
-import org.osgi.framework.Bundle;
-
 import com.google.inject.Injector;
-
-import org.osate.alisa.workbench.ui.internal.AlisaActivator;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory;
+import org.osate.alisa.workbench.ui.internal.WorkbenchActivator;
+import org.osgi.framework.Bundle;
 
 /**
  * This class was generated. Customizations should only happen in a newly
@@ -38,12 +37,13 @@ public class AlisaExecutableExtensionFactory extends AbstractGuiceAwareExecutabl
 
 	@Override
 	protected Bundle getBundle() {
-		return AlisaActivator.getInstance().getBundle();
+		return Platform.getBundle(WorkbenchActivator.PLUGIN_ID);
 	}
 	
 	@Override
 	protected Injector getInjector() {
-		return AlisaActivator.getInstance().getInjector(AlisaActivator.ORG_OSATE_ALISA_WORKBENCH_ALISA);
+		WorkbenchActivator activator = WorkbenchActivator.getInstance();
+		return activator != null ? activator.getInjector(WorkbenchActivator.ORG_OSATE_ALISA_WORKBENCH_ALISA) : null;
 	}
-	
+
 }
