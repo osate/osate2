@@ -501,6 +501,155 @@ censes only apply to the Third Party Software and not any other portion of this 
              </adapt>
           </or>
        </definition>
+
+       <!-- open AADL project or any closed project -->
+       <definition id="org.osate.ui.definition.private.isAADLProject">
+          <and>
+             <instanceof value="org.eclipse.core.resources.IProject" />
+             <or>
+                <test
+                    property="org.eclipse.core.resources.projectNature"
+                    value="org.osate.core.aadlnature" />
+                <not>
+                   <test property="org.eclipse.core.resources.open" />
+                </not>
+             </or>
+          </and>
+       </definition>
+
+       <!-- folder in an AADL project -->
+       <definition id="org.osate.ui.definition.private.isAADLFolder">
+          <and>
+             <instanceof value="org.eclipse.core.resources.IFolder" />
+             <test
+                   property="org.eclipse.core.resources.projectNature"
+                   value="org.osate.core.aadlnature" />
+             </and>
+       </definition>
+
+       <!-- Instance model file -->
+       <definition id="org.osate.ui.definition.private.isAAXLFile">
+          <adapt
+                type="org.eclipse.core.resources.IFile">
+             <test
+                   property="org.eclipse.core.resources.contentTypeId"
+                   value="org.osate.core.instanceModelFile">
+             </test>
+          </adapt>
+       </definition>
+
+       <!-- Instantiatable ComponentImplementation as an EObjectURIWrapper (navigator view) -->
+       <definition id="org.osate.ui.definition.private.isInstantiatableEObjectURIWrapper">
+          <adapt
+                type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+             <and>
+                <test
+                      property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                      value="ComponentImplementation"
+                      forcePluginActivation="true">
+                </test>
+                <not>
+                   <test
+                         property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                         value="SubprogramImplementation"
+                         forcePluginActivation="true">
+                   </test>
+                </not>
+                <not>
+                   <test
+                         property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                         value="SubprogramGroupImplementation"
+                         forcePluginActivation="true">
+                    </test>
+                 </not>
+              </and>
+           </adapt>
+       </definition>
+
+       <!-- Instantiatable ComponentImplementation as an EObjectURIWrapper (outline view) -->
+       <definition id="org.osate.ui.definition.private.isInstantiatableEObjectNode">
+          <adapt
+                type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
+             <and>
+                <test
+                      property="org.osate.ui.superType"
+                      value="ComponentImplementation"
+                      forcePluginActivation="true">
+                </test>
+                <not>
+                   <test
+                         property="org.osate.ui.superType"
+                         value="SubprogramImplementation"
+                         forcePluginActivation="true">
+                   </test>
+                </not>
+                <not>
+                   <test
+                         property="org.osate.ui.superType"
+                         value="SubprogramGroupImplementation"
+                         forcePluginActivation="true">
+                   </test>
+                </not>
+             </and>
+          </adapt>
+       </definition>
+       
+       <!-- For visibleWhen: Be visible when there are 1 or more selected objects and AT LEAST ONE of them
+            is a working set, AADL Project, folder in an AADL Project, an AAXL file, or an instantiatable
+            component implementation. -->
+       <definition id="org.osate.ui.definition.public.instanceAnalysisCommandVisibility">
+          <with
+                variable="selection">
+             <and>
+                <count
+                      value="+">
+                </count>
+                <iterate
+                      ifEmpty="false"
+                      operator="or">
+                   <or>
+                      <!-- Working set -->
+                      <instanceof value="org.eclipse.ui.IWorkingSet" />
+                         
+                      <reference definitionId="org.osate.ui.definition.private.isAADLProject"/>
+                      <reference definitionId="org.osate.ui.definition.private.isAADLFolder"/>
+                      <reference definitionId="org.osate.ui.definition.private.isAAXLFile"/>
+                      <reference definitionId="org.osate.ui.definition.private.isInstantiatableEObjectURIWrapper"/>
+                      <reference definitionId="org.osate.ui.definition.private.isInstantiatableEObjectNode"/>
+                   </or>
+                </iterate>
+             </and>
+          </with>
+       </definition> 
+
+       
+       <!-- For enabledWhen: Be enabled when there are 1 or more selected objects and ALL OF THEM are one of
+            working set, AADL Project, folder in an AADL Project, an AAXL file, or an instantiatable
+            component implementation. -->
+       <definition id="org.osate.ui.definition.public.instanceAnalysisCommandEnabled">
+          <with
+                variable="selection">
+             <and>
+                <count
+                      value="+">
+                </count>
+                <iterate
+                      ifEmpty="false"
+                      operator="and">
+                   <or>
+                      <!-- Working set -->
+                      <instanceof value="org.eclipse.ui.IWorkingSet" />
+                         
+                      <reference definitionId="org.osate.ui.definition.private.isAADLProject"/>
+                      <reference definitionId="org.osate.ui.definition.private.isAADLFolder"/>
+                      <reference definitionId="org.osate.ui.definition.private.isAAXLFile"/>
+                      <reference definitionId="org.osate.ui.definition.private.isInstantiatableEObjectURIWrapper"/>
+                      <reference definitionId="org.osate.ui.definition.private.isInstantiatableEObjectNode"/>
+                   </or>
+                </iterate>
+             </and>
+          </with>
+       </definition> 
     </extension>
     <extension
           point="org.eclipse.ui.menus">

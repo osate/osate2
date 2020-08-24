@@ -82,80 +82,6 @@ censes only apply to the Third Party Software and not any other portion of this 
             categoryId="org.osate.analysis.resource.budgets.category"
             id="org.osate.analysis.resource.budgets.BusLoadAnalysis"
             name="Analyze Bus Load">
-          <visibleWhen>
-             <with
-                   variable="selection">
-                <and>
-                   <count
-                         value="+">
-                   </count>
-                   <iterate
-                         ifEmpty="false"
-                         operator="or">
-                      <or>
-                         <!-- Working set -->
-                            <instanceof value="org.eclipse.ui.IWorkingSet" />
-							 
-                         <!-- open AADL project or any closed project -->
-                         <and>
-                            <instanceof value="org.eclipse.core.resources.IProject" />
-                            <or>
-                                <test
-                                    property="org.eclipse.core.resources.projectNature"
-   	                                value="org.osate.core.aadlnature" />
-                                <not>
-                                    <test property="org.eclipse.core.resources.open" />
-   	                            </not>
-                            </or>
-                         </and>
-	                         
-                         <!-- folder in an AADL project -->
-                         <and>
-                            <instanceof value="org.eclipse.core.resources.IFolder" />
-                            <test
-                                property="org.eclipse.core.resources.projectNature"
-                                value="org.osate.core.aadlnature" />
-                         </and>
-                         
-                         <!-- Instance model file -->
-                         <adapt
-                                type="org.eclipse.core.resources.IFile">
-                            <test
-                                  property="org.eclipse.core.resources.contentTypeId"
-                                  value="org.osate.core.instanceModelFile">
-                            </test>
-                         </adapt>
-                         
-                         <!-- Instantiatable ComponentImplementation -->
-                         <adapt
-                               type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
-                            <and>
-                               <test
-                                     property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                     value="ComponentImplementation"
-                                     forcePluginActivation="true">
-                               </test>
-                               <not>
-                                  <test
-                                        property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                        value="SubprogramImplementation"
-                                        forcePluginActivation="true">
-                                  </test>
-                               </not>
-                               <not>
-                                  <test
-                                        property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                        value="SubprogramGroupImplementation"
-                                        forcePluginActivation="true">
-                                  </test>
-                               </not>
-                            </and>
-                         </adapt>
-                      </or>
-                   </iterate>
-                </and>
-             </with>
-          </visibleWhen>
       </command>
    </extension>
    <extension
@@ -265,106 +191,9 @@ censes only apply to the Third Party Software and not any other portion of this 
       <handler
             class="org.osate.analysis.resource.budgets.handlers.NewBusLoadAnalysisHandler"
             commandId="org.osate.analysis.resource.budgets.BusLoadAnalysis">
-          <enabledWhen>
-             <with
-                   variable="selection">
-                <and>
-                   <count
-                         value="+">
-                   </count>
-                   <iterate
-                         ifEmpty="false"
-                         operator="and">
-                      <or>
-                         <!-- Working Set -->
-                         <instanceof value="org.eclipse.ui.IWorkingSet" />
-                         
-                         <!-- open AADL project -->
-                         <and>
-                            <instanceof value="org.eclipse.core.resources.IProject" />
-                            <or>
-                                <test
-                                    property="org.eclipse.core.resources.projectNature"
-	                                value="org.osate.core.aadlnature" />
-                                 <not>
-                                     <test property="org.eclipse.core.resources.open" />
-	                             </not>
-                            </or>
-                         </and>
-                         
-                         <!-- folder in an AADL project -->
-                         <and>
-                            <instanceof value="org.eclipse.core.resources.IFolder" />
-                            <test
-                                property="org.eclipse.core.resources.projectNature"
-                                value="org.osate.core.aadlnature" />
-                         </and>
-                         
-                         <!-- Instance model file -->
-                         <adapt
-                                type="org.eclipse.core.resources.IFile">
-                            <test
-                                  property="org.eclipse.core.resources.contentTypeId"
-                                  value="org.osate.core.instanceModelFile">
-                            </test>
-                         </adapt>
-
-                         <!-- For the AADL Navigator View -->
-                         <adapt
-                               type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
-                            <and>
-                               <test
-                                     property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                     value="ComponentImplementation"
-                                     forcePluginActivation="true">
-                               </test>
-                               <not>
-                                  <test
-                                        property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                        value="SubprogramImplementation"
-                                        forcePluginActivation="true">
-                                  </test>
-                               </not>
-                               <not>
-                                  <test
-                                        property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                        value="SubprogramGroupImplementation"
-                                        forcePluginActivation="true">
-                                  </test>
-                               </not>
-                            </and>
-                         </adapt>
-                         
-                         <!-- For the Outline View -->
-                         <adapt
-                               type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
-                            <and>
-                               <test
-                                     property="org.osate.ui.superType"
-                                     value="ComponentImplementation"
-                                     forcePluginActivation="true">
-                               </test>
-                               <not>
-                                  <test
-                                        property="org.osate.ui.superType"
-                                        value="SubprogramImplementation"
-                                        forcePluginActivation="true">
-                                  </test>
-                               </not>
-                               <not>
-                                  <test
-                                        property="org.osate.ui.superType"
-                                        value="SubprogramGroupImplementation"
-                                        forcePluginActivation="true">
-                                  </test>
-                               </not>
-                            </and>
-                         </adapt>
-                      </or>
-                   </iterate>
-                </and>
-             </with>
-          </enabledWhen>
+         <enabledWhen>
+            <reference definitionId="org.osate.ui.definition.public.instanceAnalysisCommandEnabled" />
+         </enabledWhen>
       </handler>
    </extension>
    <extension
@@ -411,6 +240,9 @@ censes only apply to the Third Party Software and not any other portion of this 
             </separator>
             <command
                   commandId="org.osate.analysis.resource.budgets.BusLoadAnalysis">
+               <visibleWhen>
+                  <reference definitionId="org.osate.ui.definition.public.instanceAnalysisCommandVisibility"/>
+               </visibleWhen>
             </command>
             <separator
                   name="third_party">
@@ -493,8 +325,8 @@ censes only apply to the Third Party Software and not any other portion of this 
             locationURI="popup:org.osate.ui.budgetNavigatorPopup?after=core">
          <command
                commandId="org.osate.analysis.resource.budgets.BusLoadAnalysis">
-            <visibleWhen
-                  checkEnabled="true">
+            <visibleWhen>
+               <reference definitionId="org.osate.ui.definition.public.instanceAnalysisCommandVisibility"/>
             </visibleWhen>
          </command>
          <command
