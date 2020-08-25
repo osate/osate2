@@ -16,3 +16,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: org.osate.ba.tests
 Bundle-ActivationPolicy: lazy
 Export-Package: org.osate.ba.tests
+Bundle-Vendor: TELECOM ParisTech

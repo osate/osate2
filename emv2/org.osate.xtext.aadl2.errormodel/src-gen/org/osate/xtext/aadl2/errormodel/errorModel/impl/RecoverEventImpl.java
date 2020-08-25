@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -105,6 +106,7 @@ public class RecoverEventImpl extends ErrorBehaviorEventImpl implements RecoverE
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<NamedElement> getEventInitiator()
   {
     if (eventInitiator == null)
@@ -119,6 +121,7 @@ public class RecoverEventImpl extends ErrorBehaviorEventImpl implements RecoverE
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public IfCondition getCondition()
   {
     return condition;
@@ -146,6 +149,7 @@ public class RecoverEventImpl extends ErrorBehaviorEventImpl implements RecoverE
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setCondition(IfCondition newCondition)
   {
     if (newCondition != condition)

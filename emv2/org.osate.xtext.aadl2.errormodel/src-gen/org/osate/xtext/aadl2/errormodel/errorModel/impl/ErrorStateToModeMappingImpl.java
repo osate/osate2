@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -119,6 +120,7 @@ public class ErrorStateToModeMappingImpl extends ElementImpl implements ErrorSta
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorBehaviorState getErrorState()
   {
     if (errorState != null && errorState.eIsProxy())
@@ -149,6 +151,7 @@ public class ErrorStateToModeMappingImpl extends ElementImpl implements ErrorSta
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setErrorState(ErrorBehaviorState newErrorState)
   {
     ErrorBehaviorState oldErrorState = errorState;
@@ -162,6 +165,7 @@ public class ErrorStateToModeMappingImpl extends ElementImpl implements ErrorSta
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeSet getTypeToken()
   {
     return typeToken;
@@ -189,6 +193,7 @@ public class ErrorStateToModeMappingImpl extends ElementImpl implements ErrorSta
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTypeToken(TypeSet newTypeToken)
   {
     if (newTypeToken != typeToken)
@@ -210,6 +215,7 @@ public class ErrorStateToModeMappingImpl extends ElementImpl implements ErrorSta
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Mode> getMappedModes()
   {
     if (mappedModes == null)

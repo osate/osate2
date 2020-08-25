@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -131,6 +132,7 @@ public class TypeTransformationImpl extends ElementImpl implements TypeTransform
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeSet getSource()
   {
     return source;
@@ -158,6 +160,7 @@ public class TypeTransformationImpl extends ElementImpl implements TypeTransform
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setSource(TypeSet newSource)
   {
     if (newSource != source)
@@ -179,6 +182,7 @@ public class TypeTransformationImpl extends ElementImpl implements TypeTransform
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isAllSources()
   {
     return allSources;
@@ -189,6 +193,7 @@ public class TypeTransformationImpl extends ElementImpl implements TypeTransform
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setAllSources(boolean newAllSources)
   {
     boolean oldAllSources = allSources;
@@ -202,6 +207,7 @@ public class TypeTransformationImpl extends ElementImpl implements TypeTransform
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeSet getContributor()
   {
     return contributor;
@@ -229,6 +235,7 @@ public class TypeTransformationImpl extends ElementImpl implements TypeTransform
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setContributor(TypeSet newContributor)
   {
     if (newContributor != contributor)
@@ -250,6 +257,7 @@ public class TypeTransformationImpl extends ElementImpl implements TypeTransform
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeSet getTarget()
   {
     return target;
@@ -277,6 +285,7 @@ public class TypeTransformationImpl extends ElementImpl implements TypeTransform
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTarget(TypeSet newTarget)
   {
     if (newTarget != target)
