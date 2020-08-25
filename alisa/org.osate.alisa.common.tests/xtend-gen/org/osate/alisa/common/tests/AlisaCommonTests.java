@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -21,30 +21,8 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.reqspec.ui;
+package org.osate.alisa.common.tests;
 
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory;
-import org.osate.reqspec.ui.internal.ReqspecActivator;
-import org.osgi.framework.Bundle;
-
-import com.google.inject.Injector;
-
-/**
- * This class was generated. Customizations should only happen in a newly
- * introduced subclass. 
- */
-public class ReqSpecExecutableExtensionFactory extends AbstractGuiceAwareExecutableExtensionFactory {
-
-	@Override
-	protected Bundle getBundle() {
-		return Platform.getBundle(ReqspecActivator.PLUGIN_ID);
-	}
-	
-	@Override
-	protected Injector getInjector() {
-		ReqspecActivator activator = ReqspecActivator.getInstance();
-		return activator != null ? activator.getInjector(ReqspecActivator.ORG_OSATE_REQSPEC_REQSPEC) : null;
-	}
-
+@SuppressWarnings("all")
+public class AlisaCommonTests {
 }

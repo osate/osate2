@@ -45,7 +45,7 @@ import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
-import org.osate.ge.ProjectUtil;
+import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 import org.osate.ge.aadl2.ui.internal.dialogs.ElementSelectionDialog;
 import org.osate.ge.operations.OperationBuilder;
 import org.osate.ge.operations.StepResult;
@@ -275,7 +275,7 @@ public class EditingUtil {
 	 */
 	public static EObject resolveWithLiveResourceSetIfProject(final EObject obj, final IProject project) {
 		if (obj.eIsProxy()) {
-			final ResourceSet liveResourceSet = ProjectUtil.getLiveResourceSet(project);
+			final ResourceSet liveResourceSet = AadlModelAccessUtil.getLiveResourceSet(project);
 			return EcoreUtil.resolve(obj, liveResourceSet);
 		} else {
 			return obj;
