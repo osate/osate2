@@ -23,22 +23,22 @@
  */
 package org.osate.xtext.aadl2.errormodel;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.ISetup;
+import org.eclipse.xtext.resource.IResourceFactory;
+import org.eclipse.xtext.resource.IResourceServiceProvider;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
+import org.osate.xtext.aadl2.properties.PropertiesStandaloneSetup;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-
-/**
- * Generated from StandaloneSetup.xpt!
- */
 @SuppressWarnings("all")
 public class ErrorModelStandaloneSetupGenerated implements ISetup {
 
 	@Override
 	public Injector createInjectorAndDoEMFRegistration() {
-		org.osate.xtext.aadl2.properties.PropertiesStandaloneSetup.doSetup();
+		PropertiesStandaloneSetup.doSetup();
 
 		Injector injector = createInjector();
 		register(injector);
@@ -46,23 +46,19 @@ public class ErrorModelStandaloneSetupGenerated implements ISetup {
 	}
 	
 	public Injector createInjector() {
-		return Guice.createInjector(new org.osate.xtext.aadl2.errormodel.ErrorModelRuntimeModule());
+		return Guice.createInjector(new ErrorModelRuntimeModule());
 	}
 	
 	public void register(Injector injector) {
-	if (!EPackage.Registry.INSTANCE.containsKey("http://www.aadl.info/EMV2")) {
-		EPackage.Registry.INSTANCE.put("http://www.aadl.info/EMV2", org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage.eINSTANCE);
-	}
-
-		org.eclipse.xtext.resource.IResourceFactory resourceFactory = injector.getInstance(org.eclipse.xtext.resource.IResourceFactory.class);
-		org.eclipse.xtext.resource.IResourceServiceProvider serviceProvider = injector.getInstance(org.eclipse.xtext.resource.IResourceServiceProvider.class);
-		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("emv2", resourceFactory);
-		org.eclipse.xtext.resource.IResourceServiceProvider.Registry.INSTANCE.getExtensionToFactoryMap().put("emv2", serviceProvider);
-		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("emv2lib", resourceFactory);
-		org.eclipse.xtext.resource.IResourceServiceProvider.Registry.INSTANCE.getExtensionToFactoryMap().put("emv2lib", serviceProvider);
+		if (!EPackage.Registry.INSTANCE.containsKey("http://www.aadl.info/EMV2")) {
+			EPackage.Registry.INSTANCE.put("http://www.aadl.info/EMV2", ErrorModelPackage.eINSTANCE);
+		}
+		IResourceFactory resourceFactory = injector.getInstance(IResourceFactory.class);
+		IResourceServiceProvider serviceProvider = injector.getInstance(IResourceServiceProvider.class);
 		
-
-
-
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("emv2", resourceFactory);
+		IResourceServiceProvider.Registry.INSTANCE.getExtensionToFactoryMap().put("emv2", serviceProvider);
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("emv2lib", resourceFactory);
+		IResourceServiceProvider.Registry.INSTANCE.getExtensionToFactoryMap().put("emv2lib", serviceProvider);
 	}
 }

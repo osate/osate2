@@ -28,7 +28,7 @@ import java.io.StringReader
 import java.util.Map
 import org.eclipse.xtext.parser.IParser
 import org.osate.reqspec.services.ReqSpecGrammarAccess
-import org.osate.reqspec.ui.internal.ReqSpecActivator
+import org.osate.reqspec.ui.internal.ReqspecActivator
 import org.osate.ui.wizards.AbstractNewFileWizard
 
 class StakeholderGoalsFileWizard extends AbstractNewFileWizard {
@@ -39,7 +39,7 @@ class StakeholderGoalsFileWizard extends AbstractNewFileWizard {
 	@Inject ReqSpecGrammarAccess grammarAccess
 	
 	new() {
-		super("Stakeholder Goals", "goals", 1, ReqSpecActivator.instance.log, "org.osate.reqspec.ui")
+		super("Stakeholder Goals", "goals", 1, ReqspecActivator.instance.log, "org.osate.reqspec.ui")
 		addField(STAKEHOLDER_GOALS_LABEL, [fieldValue | fieldValue.matches("\\S+") &&
 			!parser.parse(grammarAccess.qualifiedNameRule, new StringReader(fieldValue)).hasSyntaxErrors
 		])
