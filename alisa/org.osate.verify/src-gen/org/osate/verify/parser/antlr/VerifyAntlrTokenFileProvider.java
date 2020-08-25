@@ -27,10 +27,10 @@ import java.io.InputStream;
 import org.eclipse.xtext.parser.antlr.IAntlrTokenFileProvider;
 
 public class VerifyAntlrTokenFileProvider implements IAntlrTokenFileProvider {
-	
+
 	@Override
 	public InputStream getAntlrTokenFile() {
 		ClassLoader classLoader = getClass().getClassLoader();
-    	return classLoader.getResourceAsStream("org/osate/verify/parser/antlr/internal/InternalVerify.tokens");
+		return classLoader.getResourceAsStream("org/osate/verify/parser/antlr/internal/InternalVerify.tokens");
 	}
 }

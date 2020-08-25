@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -86,6 +87,7 @@ public class SConditionElementImpl extends ConditionElementImpl implements SCond
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public QualifiedErrorBehaviorState getQualifiedState()
   {
     return qualifiedState;
@@ -113,6 +115,7 @@ public class SConditionElementImpl extends ConditionElementImpl implements SCond
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setQualifiedState(QualifiedErrorBehaviorState newQualifiedState)
   {
     if (newQualifiedState != qualifiedState)

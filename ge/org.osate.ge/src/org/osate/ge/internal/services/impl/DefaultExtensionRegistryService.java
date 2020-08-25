@@ -67,6 +67,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.emf.ecore.EObject;
 import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.ContentFilter;
 import org.osate.ge.DiagramType;
@@ -158,6 +159,13 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	public BusinessObjectHandler getApplicableBusinessObjectHandler(final Object bo) {
 		if (bo == null) {
 			return null;
+		}
+
+		// Don't return a handler for an EObject proxy
+		if (bo instanceof EObject) {
+			if (((EObject) bo).eIsProxy()) {
+				return null;
+			}
 		}
 
 		final IsApplicableContext ctx = new IsApplicableContext(bo);

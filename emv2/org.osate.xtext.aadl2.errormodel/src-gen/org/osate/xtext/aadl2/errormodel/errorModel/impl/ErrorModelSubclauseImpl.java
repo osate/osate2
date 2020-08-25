@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -298,6 +299,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ErrorModelLibrary> getUseTypes()
   {
     if (useTypes == null)
@@ -312,6 +314,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeMappingSet getTypeEquivalence()
   {
     if (typeEquivalence != null && typeEquivalence.eIsProxy())
@@ -342,6 +345,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTypeEquivalence(TypeMappingSet newTypeEquivalence)
   {
     TypeMappingSet oldTypeEquivalence = typeEquivalence;
@@ -355,6 +359,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeMappingSet getTypeMappingSet()
   {
     if (typeMappingSet != null && typeMappingSet.eIsProxy())
@@ -385,6 +390,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTypeMappingSet(TypeMappingSet newTypeMappingSet)
   {
     TypeMappingSet oldTypeMappingSet = typeMappingSet;
@@ -398,6 +404,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorBehaviorStateMachine getUseBehavior()
   {
     if (useBehavior != null && useBehavior.eIsProxy())
@@ -428,6 +435,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setUseBehavior(ErrorBehaviorStateMachine newUseBehavior)
   {
     ErrorBehaviorStateMachine oldUseBehavior = useBehavior;
@@ -441,6 +449,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ErrorPropagation> getPropagations()
   {
     if (propagations == null)
@@ -455,6 +464,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ErrorFlow> getFlows()
   {
     if (flows == null)
@@ -469,6 +479,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeTransformationSet getUseTransformation()
   {
     if (useTransformation != null && useTransformation.eIsProxy())
@@ -499,6 +510,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setUseTransformation(TypeTransformationSet newUseTransformation)
   {
     TypeTransformationSet oldUseTransformation = useTransformation;
@@ -512,6 +524,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ErrorBehaviorEvent> getEvents()
   {
     if (events == null)
@@ -526,6 +539,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ErrorBehaviorTransition> getTransitions()
   {
     if (transitions == null)
@@ -540,6 +554,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<OutgoingPropagationCondition> getOutgoingPropagationConditions()
   {
     if (outgoingPropagationConditions == null)
@@ -554,6 +569,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ErrorDetection> getErrorDetections()
   {
     if (errorDetections == null)
@@ -568,6 +584,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ErrorStateToModeMapping> getErrorStateToModeMappings()
   {
     if (errorStateToModeMappings == null)
@@ -582,6 +599,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<CompositeState> getStates()
   {
     if (states == null)
@@ -596,6 +614,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeTransformationSet getTypeTransformationSet()
   {
     if (typeTransformationSet != null && typeTransformationSet.eIsProxy())
@@ -626,6 +645,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTypeTransformationSet(TypeTransformationSet newTypeTransformationSet)
   {
     TypeTransformationSet oldTypeTransformationSet = typeTransformationSet;
@@ -639,6 +659,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ErrorSource> getConnectionErrorSources()
   {
     if (connectionErrorSources == null)
@@ -653,6 +674,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<PropagationPoint> getPoints()
   {
     if (points == null)
@@ -667,6 +689,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<PropagationPath> getPaths()
   {
     if (paths == null)
@@ -681,6 +704,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<EMV2PropertyAssociation> getProperties()
   {
     if (properties == null)

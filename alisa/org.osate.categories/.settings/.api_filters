@@ -1,5 +1,166 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.categories" version="2">
+    <resource path="src-gen/org/osate/categories/AbstractCategoriesRuntimeModule.java" type="org.osate.categories.AbstractCategoriesRuntimeModule">
+        <filter comment="Xtext generated code" id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.categories.AbstractCategoriesRuntimeModule"/>
+                <message_argument value="bindIGenerator()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="bindIFormatter2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="configureFormatterPreferences(Binder)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesLexer.java" type="org.osate.categories.parser.antlr.internal.InternalCategoriesLexer">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.categories.parser.antlr.internal.InternalCategoriesLexer"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.java" type="org.osate.categories.parser.antlr.internal.InternalCategoriesParser">
+        <filter comment="Xtext generated code" id="336658481">
+            <message_arguments>
+                <message_argument value="org.osate.categories.parser.antlr.internal.InternalCategoriesParser"/>
+                <message_argument value="T__11"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="336658481">
+            <message_arguments>
+                <message_argument value="org.osate.categories.parser.antlr.internal.InternalCategoriesParser"/>
+                <message_argument value="T__12"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="336658481">
+            <message_arguments>
+                <message_argument value="org.osate.categories.parser.antlr.internal.InternalCategoriesParser"/>
+                <message_argument value="T__13"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="336658481">
+            <message_arguments>
+                <message_argument value="org.osate.categories.parser.antlr.internal.InternalCategoriesParser"/>
+                <message_argument value="T__14"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="336658481">
+            <message_arguments>
+                <message_argument value="org.osate.categories.parser.antlr.internal.InternalCategoriesParser"/>
+                <message_argument value="T__15"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.categories.parser.antlr.internal.InternalCategoriesParser"/>
+                <message_argument value="Any"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.categories.parser.antlr.internal.InternalCategoriesParser"/>
+                <message_argument value="Filter"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.categories.parser.antlr.internal.InternalCategoriesParser"/>
+                <message_argument value="FullStop"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.categories.parser.antlr.internal.InternalCategoriesParser"/>
+                <message_argument value="LeftSquareBracket"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338755678">
+            <message_arguments>
+                <message_argument value="org.osate.categories.parser.antlr.internal.InternalCategoriesParser"/>
+                <message_argument value="RightSquareBracket"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.categories.parser.antlr.internal.InternalCategoriesParser"/>
+                <message_argument value="RULE_ANY_OTHER"/>
+                <message_argument value="15"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.categories.parser.antlr.internal.InternalCategoriesParser"/>
+                <message_argument value="RULE_ID"/>
+                <message_argument value="9"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.categories.parser.antlr.internal.InternalCategoriesParser"/>
+                <message_argument value="RULE_INT"/>
+                <message_argument value="10"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.categories.parser.antlr.internal.InternalCategoriesParser"/>
+                <message_argument value="RULE_ML_COMMENT"/>
+                <message_argument value="12"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.categories.parser.antlr.internal.InternalCategoriesParser"/>
+                <message_argument value="RULE_SL_COMMENT"/>
+                <message_argument value="13"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.categories.parser.antlr.internal.InternalCategoriesParser"/>
+                <message_argument value="RULE_STRING"/>
+                <message_argument value="11"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="388194388">
+            <message_arguments>
+                <message_argument value="org.osate.categories.parser.antlr.internal.InternalCategoriesParser"/>
+                <message_argument value="RULE_WS"/>
+                <message_argument value="14"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="T__11"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="T__12"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="T__13"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="T__14"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="T__15"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src-gen/org/osate/categories/serializer/CategoriesSemanticSequencer.java" type="org.osate.categories.serializer.CategoriesSemanticSequencer">
         <filter comment="xtext" id="576720909">
             <message_arguments>
@@ -20,6 +181,13 @@
                 <message_argument value="ISynTransition"/>
                 <message_argument value="CategoriesSyntacticSequencer"/>
                 <message_argument value="emitUnassignedTokens(EObject, ISyntacticSequencerPDAProviderISynTransition, INode, INode)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/categories/validation/AbstractCategoriesValidator.java" type="org.osate.categories.validation.AbstractCategoriesValidator">
+        <filter comment="Xtext generated code" id="337764418">
+            <message_arguments>
+                <message_argument value="org.osate.categories.validation.AbstractCategoriesValidator"/>
             </message_arguments>
         </filter>
     </resource>
