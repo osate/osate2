@@ -17,6 +17,29 @@ import org.osate.pluginsupport.properties.IntegerRangeWithUnits;
 import org.osate.pluginsupport.properties.IntegerWithUnits;
 
 public class MemoryProperties {
+	public static final String MEMORY_PROPERTIES__NAME = "Memory_Properties";
+	
+	public static final String ACCESS_RIGHT__NAME = "Access_Right";
+	public static final String ACCESS_TIME__NAME = "Access_Time";
+	public static final String ALLOWED_MESSAGE_SIZE__NAME = "Allowed_Message_Size";
+	public static final String ASSIGN_TIME__NAME = "Assign_Time";
+	public static final String BASE_ADDRESS__NAME = "Base_Address";
+	public static final String DEVICE_REGISTER_ADDRESS__NAME = "Device_Register_Address";
+	public static final String READ_TIME__NAME = "Read_Time";
+	public static final String CODE_SIZE__NAME = "Code_Size";
+	public static final String DATA_SIZE__NAME = "Data_Size";
+	public static final String HEAP_SIZE__NAME = "Heap_Size";
+	public static final String STACK_SIZE__NAME = "Stack_Size";
+	public static final String SOURCE_CODE_SIZE__NAME = "Source_Code_Size";
+	public static final String SOURCE_DATA_SIZE__NAME = "Source_Data_Size";
+	public static final String SOURCE_HEAP_SIZE__NAME = "Source_Heap_Size";
+	public static final String SOURCE_STACK_SIZE__NAME = "Source_Stack_Size";
+	public static final String BYTE_COUNT__NAME = "Byte_Count";
+	public static final String MEMORY_SIZE__NAME = "Memory_Size";
+	public static final String WORD_SIZE__NAME = "Word_Size";
+	public static final String WORD_SPACE__NAME = "Word_Space";
+	public static final String WRITE_TIME__NAME = "Write_Time";
+	
 	public static Optional<AccessRights> getAccessRight(NamedElement lookupContext) {
 		return getAccessRight(lookupContext, Optional.empty());
 	}

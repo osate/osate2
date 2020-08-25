@@ -22,6 +22,35 @@ import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.pluginsupport.properties.CodeGenUtil;
 
 public class ProgrammingProperties {
+	public static final String PROGRAMMING_PROPERTIES__NAME = "Programming_Properties";
+	
+	public static final String ACTIVATE_ENTRYPOINT__NAME = "Activate_Entrypoint";
+	public static final String ACTIVATE_ENTRYPOINT_CALL_SEQUENCE__NAME = "Activate_Entrypoint_Call_Sequence";
+	public static final String ACTIVATE_ENTRYPOINT_SOURCE_TEXT__NAME = "Activate_Entrypoint_Source_Text";
+	public static final String COMPUTE_ENTRYPOINT__NAME = "Compute_Entrypoint";
+	public static final String COMPUTE_ENTRYPOINT_CALL_SEQUENCE__NAME = "Compute_Entrypoint_Call_Sequence";
+	public static final String COMPUTE_ENTRYPOINT_SOURCE_TEXT__NAME = "Compute_Entrypoint_Source_Text";
+	public static final String DEACTIVATE_ENTRYPOINT__NAME = "Deactivate_Entrypoint";
+	public static final String DEACTIVATE_ENTRYPOINT_CALL_SEQUENCE__NAME = "Deactivate_Entrypoint_Call_Sequence";
+	public static final String DEACTIVATE_ENTRYPOINT_SOURCE_TEXT__NAME = "Deactivate_Entrypoint_Source_Text";
+	public static final String FINALIZE_ENTRYPOINT__NAME = "Finalize_Entrypoint";
+	public static final String FINALIZE_ENTRYPOINT_CALL_SEQUENCE__NAME = "Finalize_Entrypoint_Call_Sequence";
+	public static final String FINALIZE_ENTRYPOINT_SOURCE_TEXT__NAME = "Finalize_Entrypoint_Source_Text";
+	public static final String INITIALIZE_ENTRYPOINT__NAME = "Initialize_Entrypoint";
+	public static final String INITIALIZE_ENTRYPOINT_CALL_SEQUENCE__NAME = "Initialize_Entrypoint_Call_Sequence";
+	public static final String INITIALIZE_ENTRYPOINT_SOURCE_TEXT__NAME = "Initialize_Entrypoint_Source_Text";
+	public static final String RECOVER_ENTRYPOINT__NAME = "Recover_Entrypoint";
+	public static final String RECOVER_ENTRYPOINT_CALL_SEQUENCE__NAME = "Recover_Entrypoint_Call_Sequence";
+	public static final String RECOVER_ENTRYPOINT_SOURCE_TEXT__NAME = "Recover_Entrypoint_Source_Text";
+	public static final String SOURCE_LANGUAGE__NAME = "Source_Language";
+	public static final String SOURCE_NAME__NAME = "Source_Name";
+	public static final String SOURCE_TEXT__NAME = "Source_Text";
+	public static final String SUPPORTED_SOURCE_LANGUAGE__NAME = "Supported_Source_Language";
+	public static final String TYPE_SOURCE_NAME__NAME = "Type_Source_Name";
+	public static final String HARDWARE_DESCRIPTION_SOURCE_TEXT__NAME = "Hardware_Description_Source_Text";
+	public static final String HARDWARE_SOURCE_LANGUAGE__NAME = "Hardware_Source_Language";
+	public static final String DEVICE_DRIVER__NAME = "Device_Driver";
+	
 	public static Optional<Classifier> getActivateEntrypoint(NamedElement lookupContext) {
 		return getActivateEntrypoint(lookupContext, Optional.empty());
 	}

@@ -23,6 +23,28 @@ import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.pluginsupport.properties.CodeGenUtil;
 
 public class ThreadProperties {
+	public static final String THREAD_PROPERTIES__NAME = "Thread_Properties";
+	
+	public static final String DISPATCH_PROTOCOL__NAME = "Dispatch_Protocol";
+	public static final String DISPATCH_TRIGGER__NAME = "Dispatch_Trigger";
+	public static final String DISPATCH_ABLE__NAME = "Dispatch_Able";
+	public static final String POSIX_SCHEDULING_POLICY__NAME = "POSIX_Scheduling_Policy";
+	public static final String PRIORITY__NAME = "Priority";
+	public static final String CRITICALITY__NAME = "Criticality";
+	public static final String TIME_SLOT__NAME = "Time_Slot";
+	public static final String CONCURRENCY_CONTROL_PROTOCOL__NAME = "Concurrency_Control_Protocol";
+	public static final String URGENCY__NAME = "Urgency";
+	public static final String DEQUEUE_PROTOCOL__NAME = "Dequeue_Protocol";
+	public static final String DEQUEUED_ITEMS__NAME = "Dequeued_Items";
+	public static final String MODE_TRANSITION_RESPONSE__NAME = "Mode_Transition_Response";
+	public static final String RESUMPTION_POLICY__NAME = "Resumption_Policy";
+	public static final String ACTIVE_THREAD_HANDLING_PROTOCOL__NAME = "Active_Thread_Handling_Protocol";
+	public static final String ACTIVE_THREAD_QUEUE_HANDLING_PROTOCOL__NAME = "Active_Thread_Queue_Handling_Protocol";
+	public static final String DEACTIVATION_POLICY__NAME = "Deactivation_Policy";
+	public static final String RUNTIME_PROTECTION__NAME = "Runtime_Protection";
+	public static final String SUBPROGRAM_CALL_TYPE__NAME = "Subprogram_Call_Type";
+	public static final String SYNCHRONIZED_COMPONENT__NAME = "Synchronized_Component";
+	
 	public static Optional<SupportedDispatchProtocols> getDispatchProtocol(NamedElement lookupContext) {
 		return getDispatchProtocol(lookupContext, Optional.empty());
 	}

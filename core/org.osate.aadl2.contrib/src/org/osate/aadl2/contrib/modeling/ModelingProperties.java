@@ -18,6 +18,14 @@ import org.osate.pluginsupport.properties.CodeGenUtil;
 import org.osate.pluginsupport.properties.IntegerRange;
 
 public class ModelingProperties {
+	public static final String MODELING_PROPERTIES__NAME = "Modeling_Properties";
+	
+	public static final String ACCEPTABLE_ARRAY_SIZE__NAME = "Acceptable_Array_Size";
+	public static final String CLASSIFIER_MATCHING_RULE__NAME = "Classifier_Matching_Rule";
+	public static final String CLASSIFIER_SUBSTITUTION_RULE__NAME = "Classifier_Substitution_Rule";
+	public static final String IMPLEMENTED_AS__NAME = "Implemented_As";
+	public static final String PROTOTYPE_SUBSTITUTION_RULE__NAME = "Prototype_Substitution_Rule";
+	
 	public static Optional<List<IntegerRange>> getAcceptableArraySize(NamedElement lookupContext) {
 		return getAcceptableArraySize(lookupContext, Optional.empty());
 	}
