@@ -12,22 +12,15 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
 import org.osate.ge.businessobjecthandling.RenameContext;
 
-public class AadlNamingUtil {
+public class BehaviorAnnexNamingUtil {
 	private final static Set<String> reservedWords; // Set which compares entries base on a case-insensitive comparison
 	static {
 		reservedWords = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
-		reservedWords.addAll(Arrays.asList(new String[] { "aadlboolean", "aadlinteger", "aadlreal", "aadlstring",
-				"abstract", "access", "all", "and", "annex", "applies", "binding", "bus", "calls", "classifier",
-				"compute", "connections", "constant", "data", "delta", "device", "end", "enumeration", "event",
-				"extends", "false", "feature", "features", "flow", "flows", "group", "implementation", "in", "inherit",
-				"initial", "inverse", "is", "list", "memory", "mode", "modes", "none", "not", "of", "or", "out",
-				"package", "parameter", "path", "port", "private", "process", "processor", "properties", "property",
-				"prototypes", "provides", "public", "range", "record", "reference", "refined", "renames", "requires",
-				"self", "set", "sink", "source", "subcomponents", "subprogram", "system", "thread", "to", "true",
-				"type", "units", "virtual", "with" }));
+		reservedWords.addAll(
+				Arrays.asList(new String[] { "initial", "final", "state", "states", "transitions", "variables" }));
 	}
 
-	private AadlNamingUtil() {
+	private BehaviorAnnexNamingUtil() {
 	}
 
 	/**
@@ -117,19 +110,14 @@ public class AadlNamingUtil {
 			return Optional.empty();
 		}
 
-		if (!AadlNamingUtil.isValidIdentifier(newName)) {
+		if (!BehaviorAnnexNamingUtil.isValidIdentifier(newName)) {
 			return Optional.of("The specified name is not a valid AADL identifier");
 		}
 
 		// Check for conflicts in the owning behavior annex
 		final Element owner = ne.getOwner();
-		if (AadlNamingUtil.isNameInUseInOwner(owner, newName)) {
+		if (BehaviorAnnexNamingUtil.isNameInUseInOwner(owner, newName)) {
 			return Optional.of("The specified name conflicts with an existing member of the behavior annex.");
-		}
-
-		// Check for name conflicts in namespace
-		if (AadlNamingUtil.isNameInUse(owner.getContainingClassifier().getNamespace(), newName)) {
-			return Optional.of("The specified name conflicts with an existing member of the namespace.");
 		}
 
 		return Optional.empty();

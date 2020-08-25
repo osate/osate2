@@ -59,12 +59,6 @@ censes only apply to the Third Party Software and not any other portion of this 
 			id="org.osate.ge.ba.properties.setBehaviorStateFinalPropertySection"
 			tab="org.osate.ge.ui.properties.tabs.aadl">
      </propertySection>
-     <propertySection
-			class="org.osate.ge.ba.properties.SetBATransitionActionBlockAndConditionPropertySection"
-			filter="org.osate.ge.ba.properties.SetBATransitionActionBlockAndConditionPropertySection$Filter"
-			id="org.osate.ge.ba.properties.setBATransitionActionBlockAndConditionPropertySection"
-			tab="org.osate.ge.ui.properties.tabs.aadl">
-     </propertySection>
      </propertySections>
      </extension>
    <extension point="org.eclipse.ui.commands">
@@ -129,7 +123,7 @@ censes only apply to the Third Party Software and not any other portion of this 
        locationURI="popup:org.osate.ge.editor.AgeDiagramEditor">
     <command
           commandId="org.osate.ge.ba.diagram.create"
-          label="Ba Create"
+          label="Create Behavior Annex Diagram"
           style="push">
        <visibleWhen
              checkEnabled="true">
@@ -137,7 +131,7 @@ censes only apply to the Third Party Software and not any other portion of this 
     </command>
     <command
           commandId="org.osate.ge.ba.diagram.open"
-          label="Ba Open"
+          label="Open Behavior Annex Diagram"
           style="push">
        <visibleWhen
              checkEnabled="true">

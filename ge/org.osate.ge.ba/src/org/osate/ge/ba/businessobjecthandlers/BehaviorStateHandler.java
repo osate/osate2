@@ -95,7 +95,6 @@ public class BehaviorStateHandler implements BusinessObjectHandler, CustomDelete
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		// TODO this makes "Behavior State" show up on diagram
 		return ctx.getBusinessObject(BehaviorState.class).map(BehaviorState::getName).orElse("");
 	}
 
@@ -117,7 +116,7 @@ public class BehaviorStateHandler implements BusinessObjectHandler, CustomDelete
 
 	@Override
 	public Optional<String> validateName(final RenameContext ctx) {
-		return AadlNamingUtil.checkNameValidity(ctx);
+		return BehaviorAnnexNamingUtil.checkNameValidity(ctx);
 	}
 
 	@Override

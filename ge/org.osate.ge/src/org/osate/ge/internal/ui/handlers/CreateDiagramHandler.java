@@ -54,8 +54,6 @@ public class CreateDiagramHandler extends AbstractHandler {
 							(element) -> SelectionUtil.findDiagramContextForSelectedObject(element)),
 					"Unable to determine context business object");
 
-			System.err.println(contextBo + " contextBo");
-
 			final DiagramService diagramService = (DiagramService) PlatformUI.getWorkbench().getActiveWorkbenchWindow()
 					.getService(DiagramService.class);
 			final IFile diagramFile = diagramService.createDiagram(contextBo);
