@@ -27,15 +27,17 @@ import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.xtext.validation.ComposedChecks;
+import org.eclipse.xtext.validation.NamesAreUniqueValidator;
+import org.osate.alisa.common.validation.CommonValidator;
 
-@ComposedChecks(validators= {org.eclipse.xtext.validation.NamesAreUniqueValidator.class})
-public class AbstractReqSpecValidator extends org.osate.alisa.common.validation.CommonValidator {
-
+@ComposedChecks(validators = {NamesAreUniqueValidator.class})
+public abstract class AbstractReqSpecValidator extends CommonValidator {
+	
 	@Override
 	protected List<EPackage> getEPackages() {
-	    List<EPackage> result = new ArrayList<EPackage>(super.getEPackages());
-	    result.add(org.osate.reqspec.reqSpec.ReqSpecPackage.eINSTANCE);
-	    result.add(EPackage.Registry.INSTANCE.getEPackage("http://aadl.info/AADL/2.0"));
+		List<EPackage> result = new ArrayList<EPackage>(super.getEPackages());
+		result.add(org.osate.reqspec.reqSpec.ReqSpecPackage.eINSTANCE);
+		result.add(EPackage.Registry.INSTANCE.getEPackage("http://aadl.info/AADL/2.0"));
 		return result;
 	}
 }

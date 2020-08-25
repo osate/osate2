@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -113,6 +114,7 @@ public class TypeTokenImpl extends ElementImpl implements TypeToken
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ErrorTypes> getType()
   {
     if (type == null)
@@ -127,6 +129,7 @@ public class TypeTokenImpl extends ElementImpl implements TypeToken
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isNoError()
   {
     return noError;
@@ -137,6 +140,7 @@ public class TypeTokenImpl extends ElementImpl implements TypeToken
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setNoError(boolean newNoError)
   {
     boolean oldNoError = noError;

@@ -32,7 +32,7 @@ import org.osate.alisa.common.typing.CommonInterpreter
 import org.osate.alisa.common.typing.CommonStringRepresentation
 import org.osate.alisa.common.typing.CommonTypeSystem
 
-public class CommonEObjectHoverProvider extends DefaultEObjectHoverProvider {
+class CommonEObjectHoverProvider extends DefaultEObjectHoverProvider {
 
 	@Inject
 	var CommonTypeSystem cts;
@@ -43,7 +43,7 @@ public class CommonEObjectHoverProvider extends DefaultEObjectHoverProvider {
 	@Inject
 	var CommonStringRepresentation csr;
 
-	override def getFirstLine(EObject o) {
+	override getFirstLine(EObject o) {
 		val result = cts.type(o);
 
 		if (result.failed()) {

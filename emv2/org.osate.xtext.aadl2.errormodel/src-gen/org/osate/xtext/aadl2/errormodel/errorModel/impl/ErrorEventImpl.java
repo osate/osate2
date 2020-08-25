@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -98,6 +99,7 @@ public class ErrorEventImpl extends ErrorBehaviorEventImpl implements ErrorEvent
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeSet getTypeSet()
   {
     return typeSet;
@@ -125,6 +127,7 @@ public class ErrorEventImpl extends ErrorBehaviorEventImpl implements ErrorEvent
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTypeSet(TypeSet newTypeSet)
   {
     if (newTypeSet != typeSet)
@@ -146,6 +149,7 @@ public class ErrorEventImpl extends ErrorBehaviorEventImpl implements ErrorEvent
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public IfCondition getEventcondition()
   {
     return eventcondition;
@@ -173,6 +177,7 @@ public class ErrorEventImpl extends ErrorBehaviorEventImpl implements ErrorEvent
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setEventcondition(IfCondition newEventcondition)
   {
     if (newEventcondition != eventcondition)
