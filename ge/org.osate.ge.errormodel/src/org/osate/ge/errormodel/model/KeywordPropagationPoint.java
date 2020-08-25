@@ -23,28 +23,36 @@
  */
 package org.osate.ge.errormodel.model;
 
+import java.util.Objects;
+
+import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.Classifier;
+import org.osate.ge.EmfContainerProvider;
+
 /**
- * Enumeration for keywords that refer to predefined propagation points.
+ * A model object that represents a {@link KeywordPropagationPointType} in the context of a containing classifier.
  *
  */
-public enum KeywordPropagationPoint {
-	/**
-	 * All is not a propagation point exactly but is used for flow declarations
-	 */
-	ALL("all"), ACCESS("access"), PROCESSOR("processor"), MEMORY("memory"), CONNECTION("connection"), BINDING(
-			"binding"), BINDINGS("bindings");
+public class KeywordPropagationPoint implements EmfContainerProvider {
+	private final Classifier classifier;
 
-	private final String key;
+	private final KeywordPropagationPointType type;
 
-	/**
-	 * Create a new instance
-	 * @param key must match the kind string used for propagations for this type.
-	 */
-	KeywordPropagationPoint(final String key) {
-		this.key = key;
+	public KeywordPropagationPoint(final Classifier classifier, final KeywordPropagationPointType type) {
+		this.type = Objects.requireNonNull(type, "type must not be null");
+		this.classifier = Objects.requireNonNull(classifier, "clasifier must not be null");
 	}
 
-	public String getKey() {
-		return key;
+	@Override
+	public EObject getEmfContainer() {
+		return getClassifier();
+	}
+
+	public final Classifier getClassifier() {
+		return classifier;
+	}
+
+	public final KeywordPropagationPointType getType() {
+		return type;
 	}
 }

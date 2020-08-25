@@ -21,21 +21,34 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.query;
+package org.osate.ge.errormodel.filters;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.Subcomponent;
+import org.osate.ge.ContentFilter;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 
-import org.osate.ge.BusinessObjectContext;
+public class PropagationPathFilter implements ContentFilter {
+	public static final String ID = "emv2.propagationPaths";
 
-public class QueryResult {
-	public final List<BusinessObjectContext> result = new ArrayList<BusinessObjectContext>();
-	private boolean done = false;
-
-	public boolean isDone() {
-		return done;
+	@Override
+	public String getId() {
+		return ID;
 	}
-	public void setDone(boolean done) {
-		this.done = done;
+
+	@Override
+	public String getName() {
+		return "Error Propagation Path";
+	}
+
+	@Override
+	public boolean isApplicable(final Object bo) {
+		return (bo instanceof Classifier || bo instanceof Subcomponent)
+				&& ErrorModelFilterUtil.hasApplicableErrorModelSubclause(bo);
+	}
+
+	@Override
+	public boolean test(Object bo) {
+		return bo instanceof PropagationPath;
 	}
 }

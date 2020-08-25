@@ -33,7 +33,7 @@ class AncestorsQuery extends DefaultQuery {
 	}
 	
 	@Override
-	void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx, final QueryExecutionState state, final QueryResult result) {
+	void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx, final QueryExecutionState state, final QueryResults result) {
 		BusinessObjectContext e = ctx;
 
 		while(e != null && !result.isDone()) {		

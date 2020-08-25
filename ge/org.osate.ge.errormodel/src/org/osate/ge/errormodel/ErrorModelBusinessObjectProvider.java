@@ -42,6 +42,7 @@ import org.osate.ge.errormodel.combined.ReadonlyPropagationNode;
 import org.osate.ge.errormodel.model.BehaviorTransitionTrunk;
 import org.osate.ge.errormodel.model.ErrorTypeExtension;
 import org.osate.ge.errormodel.model.KeywordPropagationPoint;
+import org.osate.ge.errormodel.model.KeywordPropagationPointType;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
@@ -80,47 +81,53 @@ public class ErrorModelBusinessObjectProvider implements BusinessObjectProvider 
 			// determine if a classifier or any classifiers it extends has changed. If extended classifiers are in another
 			// package, the classifier be the same instance.
 			// The object is cached so it is available when calling the business object provider on children.
-			final CombinedErrorModelSubclause cacheEntry = createClassifierCacheEntry(ctx.getBusinessObjectContext());
-			return Stream.of(cacheEntry.getPoints(), cacheEntry.getPaths(), cacheEntry.getFlows(),
-					Arrays.stream(KeywordPropagationPoint.values()))
-					.flatMap(Function.identity());
+			final Classifier classifier = getClassifier(ctx.getBusinessObjectContext()).orElse(null);
+			if (classifier != null) {
+				final CombinedErrorModelSubclause cacheEntry = CombinedErrorModelSubclause.create(classifier);
+				classifierCache.put(classifier, cacheEntry);
+				if (cacheEntry.subclauseExists()) {
+					return Stream
+							.of(cacheEntry.getPoints(), cacheEntry.getPaths(), cacheEntry.getFlows(),
+									Arrays.stream(KeywordPropagationPointType.values())
+											.map(t -> new KeywordPropagationPoint(classifier, t)))
+							.flatMap(Function.identity());
+				}
+			}
 		} else if (bo instanceof Feature) {
 			// Propagation(and containment) objects
 			final CombinedErrorModelSubclause cacheEntry = getClassifierCacheEntry(ctx.getBusinessObjectContext());
-			return getPropagationNodeForFeaturePath(cacheEntry, ctx.getBusinessObjectContext()).map(ReadonlyPropagationNode::getPropagations)
-					.orElse(Stream.empty());
+			return getPropagationNodeForFeaturePath(cacheEntry, ctx.getBusinessObjectContext())
+					.map(ReadonlyPropagationNode::getPropagations).orElse(Stream.empty());
 		} else if (bo instanceof PropagationPoint) {
 			final PropagationPoint pp = (PropagationPoint) bo;
 
 			// Propagation(and containment) objects
-			final CombinedErrorModelSubclause cacheEntry = getClassifierCacheEntry(
-					ctx.getBusinessObjectContext());
+			final CombinedErrorModelSubclause cacheEntry = getClassifierCacheEntry(ctx.getBusinessObjectContext());
 			return cacheEntry.getPropagations().getChild(pp.getName()).map(ReadonlyPropagationNode::getPropagations)
 					.orElse(Stream.empty());
 		} else if (bo instanceof KeywordPropagationPoint) {
 			final KeywordPropagationPoint kw = (KeywordPropagationPoint) bo;
-			final CombinedErrorModelSubclause cacheEntry = getClassifierCacheEntry(
-					ctx.getBusinessObjectContext());
+			final CombinedErrorModelSubclause cacheEntry = getClassifierCacheEntry(ctx.getBusinessObjectContext());
 
 			// Propagation(and containment) objects
-			return cacheEntry.getPropagations().getChild(kw.getKey()).map(ReadonlyPropagationNode::getPropagations)
-					.orElse(Stream.empty());
+			return cacheEntry.getPropagations().getChild(kw.getType().getName())
+					.map(ReadonlyPropagationNode::getPropagations).orElse(Stream.empty());
 		}
 
 		return Stream.empty();
 	}
 
-	private Optional<ReadonlyPropagationNode> getPropagationNodeForFeaturePath(final CombinedErrorModelSubclause cacheEntry,
-			final BusinessObjectContext featureBoc) {
+	private Optional<ReadonlyPropagationNode> getPropagationNodeForFeaturePath(
+			final CombinedErrorModelSubclause cacheEntry, final BusinessObjectContext featureBoc) {
 		final BusinessObjectContext parent = featureBoc.getParent();
 		final Object parentBo = parent.getBusinessObject();
 
-		final ReadonlyPropagationNode parentNode = parentBo instanceof Feature ? getPropagationNodeForFeaturePath(cacheEntry, parent).orElse(null)
+		final ReadonlyPropagationNode parentNode = parentBo instanceof Feature
+				? getPropagationNodeForFeaturePath(cacheEntry, parent).orElse(null)
 				: cacheEntry.getPropagations();
 		return parentNode == null ? Optional.empty()
 				: parentNode.getChild(featureBoc.getBusinessObject(Feature.class).get().getName());
 	}
-
 
 	/**
 	 * Returns the combined error model subclause for the first subcomponent/classifier found when walking up the
@@ -129,23 +136,8 @@ public class ErrorModelBusinessObjectProvider implements BusinessObjectProvider 
 	 * @return the combined subclause
 	 */
 	private CombinedErrorModelSubclause getClassifierCacheEntry(final BusinessObjectContext boc) {
-		return getClassifier(boc).map(
-				classifier -> classifierCache.get(classifier))
+		return getClassifier(boc).map(classifier -> classifierCache.get(classifier))
 				.orElse(CombinedErrorModelSubclause.EMPTY);
-	}
-
-	/**
-	 * Creates and caches the combined error model subclause for the first subcomponent/classifier found when walking up
-	 * the business object context tree.
-	 * @param boc the business object context to create the combined subclause for
-	 * @return the new combined subclause
-	 */
-	private CombinedErrorModelSubclause createClassifierCacheEntry(final BusinessObjectContext boc) {
-		return getClassifier(boc).map(classifier -> {
-			final CombinedErrorModelSubclause newCacheEntry = CombinedErrorModelSubclause.create(classifier);
-			classifierCache.put(classifier, newCacheEntry);
-			return newCacheEntry;
-		}).orElse(CombinedErrorModelSubclause.EMPTY);
 	}
 
 	private static Optional<Classifier> getClassifier(BusinessObjectContext boc) {

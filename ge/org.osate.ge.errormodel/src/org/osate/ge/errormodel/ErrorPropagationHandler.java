@@ -23,60 +23,81 @@
  */
 package org.osate.ge.errormodel;
 
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
+import java.util.stream.Collectors;
 
-import org.osate.aadl2.Classifier;
 import org.osate.ge.CanonicalBusinessObjectReference;
-import org.osate.ge.DockingPosition;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.GraphicalExtensionUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
-import org.osate.ge.businessobjecthandling.CanDeleteContext;
-import org.osate.ge.businessobjecthandling.CanRenameContext;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
+import org.osate.ge.businessobjecthandling.GetNameForDiagramContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
-import org.osate.ge.businessobjecthandling.RenameContext;
-import org.osate.ge.errormodel.util.ErrorModelGeUtil;
-import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
-import org.osate.ge.graphics.Dimension;
-import org.osate.ge.graphics.EllipseBuilder;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.graphics.LabelBuilder;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
-import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
-public class PropagationPointHandler implements BusinessObjectHandler {
-	private static final Graphic graphic = EllipseBuilder.create().fixedSize(new Dimension(16, 16)).build();
+import com.google.common.base.Strings;
+
+public class ErrorPropagationHandler implements BusinessObjectHandler {
+	private static final Graphic graphic = LabelBuilder.create().build();
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(PropagationPoint.class).filter(bo -> bo.getContainingClassifier() != null)
+		return ctx.getBusinessObject(ErrorPropagation.class).filter(bo -> bo.getContainingClassifier() != null)
 				.isPresent();
 	}
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		final PropagationPoint bo = ctx.getBusinessObject(PropagationPoint.class).get();
-		return new CanonicalBusinessObjectReference(ErrorModelReferenceUtil.TYPE_PROPAGATION_POINT,
-				ctx.getReferenceBuilder().getCanonicalReference(bo.getContainingClassifier()).encode(), bo.getName());
+		final ErrorPropagation bo = ctx.getBusinessObject(ErrorPropagation.class).get();
+
+		// Determine exact number of segments
+		int numberOfSegments = 4;
+		if (bo.getKind() == null) {
+			for (FeatureorPPReference t = bo.getFeatureorPPRef(); t != null; t = t.getNext()) {
+				numberOfSegments++;
+			}
+		} else {
+			numberOfSegments++;
+		}
+
+		// Build segments
+		final String[] segments = new String[numberOfSegments];
+		int segmentIndex = 0;
+		segments[segmentIndex++] = ErrorModelReferenceUtil.TYPE_PROPAGATION;
+		segments[segmentIndex++] = ctx.getReferenceBuilder().getCanonicalReference(bo.getContainingClassifier())
+				.encode();
+
+		if (bo.getKind() == null) {
+			for (FeatureorPPReference t = bo.getFeatureorPPRef(); t != null; t = t.getNext()) {
+				final String name = t.getFeatureorPP() == null ? null : t.getFeatureorPP().getName();
+				segments[segmentIndex++] = Strings.isNullOrEmpty(name) ? "?" : name;
+			}
+		} else {
+			segments[segmentIndex++] = bo.getKind();
+		}
+
+		segments[segmentIndex++] = Boolean.toString(bo.isNot());
+		segments[segmentIndex++] = bo.getDirection() == null ? "<null>" : bo.getDirection().getLiteral();
+
+		// Create reference
+		return new CanonicalBusinessObjectReference(segments);
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		return ErrorModelReferenceUtil
-				.getRelativeReferenceForPropagationPoint(ctx.getBusinessObject(PropagationPoint.class).get().getName());
-	}
-
-	@Override
-	public boolean canDelete(final CanDeleteContext ctx) {
-		return true;
+		final ErrorPropagation bo = ctx.getBusinessObject(ErrorPropagation.class).get();
+		return ErrorModelReferenceUtil.getRelativeReferenceForPropagation(bo.isNot(),
+				bo.getDirection());
 	}
 
 	@Override
@@ -84,35 +105,35 @@ public class PropagationPointHandler implements BusinessObjectHandler {
 		// Determine style
 		final StyleBuilder sb = StyleBuilder.create(GraphicalExtensionUtil.isInherited(ctx.getBusinessObjectContext())
 				? GraphicalExtensionUtil.STYLE_INHERITED_ELEMENT
-				: Style.EMPTY).labelsAboveTop().labelsLeft();
+				: Style.EMPTY);
 
 		return Optional
-				.of(GraphicalConfigurationBuilder.create().graphic(graphic).style(sb.build())
-						.defaultDockingPosition(DockingPosition.ANY).build());
+				.of(GraphicalConfigurationBuilder.create().graphic(graphic).style(sb.build()).decoration().build());
 	}
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(PropagationPoint.class).map(bo -> bo.getName()).orElse("");
+		return ctx.getBusinessObject(ErrorPropagation.class)
+				.map(bo -> (bo.isNot() ? "not " : "") + (bo.getDirection() == null ? "" : bo.getDirection()))
+				.orElse("");
 	}
 
 	@Override
-	public boolean canRename(final CanRenameContext ctx) {
-		return true;
+	public String getNameForDiagram(final GetNameForDiagramContext ctx) {
+		return ctx.getBusinessObjectContext().getBusinessObject(ErrorPropagation.class)
+				.map(bo -> (bo.getDirection() == null ? "" : bo.getDirection())
+						+ (bo.isNot() ? " not propgation " : " propagation ")
+						+ getLabelForTypeSet(bo.getTypeSet()))
+				.orElse("");
 	}
 
-	@Override
-	public Optional<String> validateName(final RenameContext ctx) {
-		return ctx.getBusinessObject(PropagationPoint.class).map(pp -> {
-			final ErrorModelSubclause containingSubclause = (ErrorModelSubclause) pp.eContainer();
-			final Set<String> names = new HashSet<String>();
-			final Classifier classifier = containingSubclause.getContainingClassifier();
-			ErrorModelNamingUtil.addToNameSet(names, classifier.getMembers());
-			ErrorModelGeUtil.getAllErrorModelSubclauses(classifier).forEachOrdered(subclause -> {
-				ErrorModelNamingUtil.addToNameSet(names, subclause.getPoints());
-			});
+	private static String getLabelForTypeSet(final TypeSet ts) {
+		if (ts == null || ts.getTypeTokens() == null) {
+			return "{}";
+		}
 
-			return ErrorModelNamingUtil.validateName(names, pp.getName(), ctx.getNewName());
-		});
+		return "{" + ts.getTypeTokens().stream().flatMap(t -> t.getType().stream())
+				.map(t -> (t == null || t.getName() == null) ? "?" : t.getName())
+				.collect(Collectors.joining(",")) + "}";
 	}
 }

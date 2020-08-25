@@ -23,11 +23,9 @@
  */
 package org.osate.ge.errormodel;
 
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
-import org.osate.aadl2.Classifier;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.DockingPosition;
 import org.osate.ge.GraphicalConfiguration;
@@ -35,84 +33,101 @@ import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.GraphicalExtensionUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
-import org.osate.ge.businessobjecthandling.CanDeleteContext;
-import org.osate.ge.businessobjecthandling.CanRenameContext;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
-import org.osate.ge.businessobjecthandling.RenameContext;
-import org.osate.ge.errormodel.util.ErrorModelGeUtil;
-import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
-import org.osate.ge.graphics.Dimension;
-import org.osate.ge.graphics.EllipseBuilder;
+import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
-import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
+import org.osate.ge.query.QueryResult;
+import org.osate.ge.query.StandaloneQuery;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
+import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 
-public class PropagationPointHandler implements BusinessObjectHandler {
-	private static final Graphic graphic = EllipseBuilder.create().fixedSize(new Dimension(16, 16)).build();
+public class PropagationPathHandler implements BusinessObjectHandler {
+	private static final Graphic graphic = ConnectionBuilder.create().build();
+
+	// Assumes root is the containing classifier
+	private static StandaloneQuery propagationPointQuery = StandaloneQuery
+			.create((rootQuery) -> rootQuery.descendantsByBusinessObjectsRelativeReference(
+					(QualifiedPropagationPoint p) -> getBusinessObjectPath(p), 1).first());
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(PropagationPoint.class).filter(bo -> bo.getContainingClassifier() != null)
+		return ctx.getBusinessObject(PropagationPath.class).filter(bo -> bo.getContainingClassifier() != null)
 				.isPresent();
 	}
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		final PropagationPoint bo = ctx.getBusinessObject(PropagationPoint.class).get();
-		return new CanonicalBusinessObjectReference(ErrorModelReferenceUtil.TYPE_PROPAGATION_POINT,
+		final PropagationPath bo = ctx.getBusinessObject(PropagationPath.class).get();
+		return new CanonicalBusinessObjectReference(ErrorModelReferenceUtil.TYPE_PROPAGATION_PATH,
 				ctx.getReferenceBuilder().getCanonicalReference(bo.getContainingClassifier()).encode(), bo.getName());
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
 		return ErrorModelReferenceUtil
-				.getRelativeReferenceForPropagationPoint(ctx.getBusinessObject(PropagationPoint.class).get().getName());
-	}
-
-	@Override
-	public boolean canDelete(final CanDeleteContext ctx) {
-		return true;
+				.getRelativeReferenceForPropagationPath(ctx.getBusinessObject(PropagationPath.class).get().getName());
 	}
 
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
+		final PropagationPath bo = ctx.getBusinessObjectContext().getBusinessObject(PropagationPath.class).get();
+		final BusinessObjectContext classifierBoc = ctx.getBusinessObjectContext().getParent();
+		if (classifierBoc == null) {
+			return Optional.empty();
+		}
+
+		// Determine source and destination of the connection
+		final QueryResult src = ctx.getQueryService().getFirstResult(propagationPointQuery, classifierBoc, bo.getSource()).orElse(null);
+		final QueryResult dst = ctx.getQueryService().getFirstResult(propagationPointQuery, classifierBoc, bo.getTarget()).orElse(null);
+
 		// Determine style
 		final StyleBuilder sb = StyleBuilder.create(GraphicalExtensionUtil.isInherited(ctx.getBusinessObjectContext())
 				? GraphicalExtensionUtil.STYLE_INHERITED_ELEMENT
-				: Style.EMPTY).labelsAboveTop().labelsLeft();
+				: Style.EMPTY).lineWidth(2.0);
 
-		return Optional
-				.of(GraphicalConfigurationBuilder.create().graphic(graphic).style(sb.build())
-						.defaultDockingPosition(DockingPosition.ANY).build());
+		final boolean partial = (src != null && src.isPartial()) || (dst != null && dst.isPartial());
+		if (partial) {
+			sb.dotted();
+		}
+
+		return Optional.of(GraphicalConfigurationBuilder.create().graphic(graphic).style(sb.build())
+				.defaultDockingPosition(DockingPosition.ANY).source(src == null ? null : src.getBusinessObjectContext())
+				.destination(dst == null ? null : dst.getBusinessObjectContext()).build());
 	}
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(PropagationPoint.class).map(bo -> bo.getName()).orElse("");
+		return ctx.getBusinessObject(PropagationPath.class).map(bo -> bo.getName()).orElse("");
 	}
 
-	@Override
-	public boolean canRename(final CanRenameContext ctx) {
-		return true;
-	}
+	private static Object[] getBusinessObjectPath(final QualifiedPropagationPoint p) {
+		if (p == null) {
+			return null;
+		}
 
-	@Override
-	public Optional<String> validateName(final RenameContext ctx) {
-		return ctx.getBusinessObject(PropagationPoint.class).map(pp -> {
-			final ErrorModelSubclause containingSubclause = (ErrorModelSubclause) pp.eContainer();
-			final Set<String> names = new HashSet<String>();
-			final Classifier classifier = containingSubclause.getContainingClassifier();
-			ErrorModelNamingUtil.addToNameSet(names, classifier.getMembers());
-			ErrorModelGeUtil.getAllErrorModelSubclauses(classifier).forEachOrdered(subclause -> {
-				ErrorModelNamingUtil.addToNameSet(names, subclause.getPoints());
-			});
+		// Determine the needed size for the array
+		int count = 0;
+		for (QualifiedPropagationPoint t = p; t != null; t = t.getNext()) {
+			if ((t.getSubcomponent() == null || t.getSubcomponent().getSubcomponent() == null)
+					&& t.getPropagationPoint() == null) {
+				return null;
+			}
+			count++;
+		}
 
-			return ErrorModelNamingUtil.validateName(names, pp.getName(), ctx.getNewName());
-		});
+		// Populate the array with the path
+		final Object[] path = new Object[count];
+		int index = 0;
+		for (QualifiedPropagationPoint t = p; t != null; t = t.getNext()) {
+			path[index++] = t.getSubcomponent() == null ? t.getPropagationPoint()
+					: t.getSubcomponent().getSubcomponent();
+		}
+
+		return path;
 	}
 }

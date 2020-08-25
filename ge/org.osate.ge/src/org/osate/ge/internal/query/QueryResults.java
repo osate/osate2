@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -23,28 +23,23 @@
  */
 package org.osate.ge.internal.query;
 
-import java.util.Deque;
-import java.util.Objects;
-import java.util.function.Supplier;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.query.QueryResult;
 
-public class RootQuery extends DefaultQuery {
-	private final Supplier<BusinessObjectContext> supplier;
-	
-	public RootQuery(final Supplier<BusinessObjectContext> supplier) {
-		super(null);
-		this.supplier = Objects.requireNonNull(supplier, "supplier must not be null");
+/**
+ * Stores the results of the query while the query is being executed.
+ *
+ */
+public class QueryResults {
+	public final List<QueryResult> results = new ArrayList<QueryResult>();
+	private boolean done = false;
+
+	public boolean isDone() {
+		return done;
 	}
-
-	@Override
-	void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx, final QueryExecutionState state, final QueryResults result) {		
-		final BusinessObjectContext suppliedObject = supplier.get();
-		if(suppliedObject == null) {
-			result.setDone(true);
-			return;
-		}
-
-		processResultValue(remainingQueries, suppliedObject, state, result);
+	public void setDone(boolean done) {
+		this.done = done;
 	}
 }

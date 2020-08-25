@@ -23,32 +23,66 @@
  */
 package org.osate.ge.errormodel.filters;
 
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.Subcomponent;
-import org.osate.ge.ContentFilter;
-import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
+import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 
-public class PropagationPointFilter implements ContentFilter {
-	public static final String ID = "emv2.propagationPoints";
-
-	@Override
-	public String getId() {
-		return ID;
+public class ErrorModelFilterUtil {
+	private ErrorModelFilterUtil() {
 	}
 
-	@Override
-	public String getName() {
-		return "Error Propagation Points";
+	/**
+	 * Returns true if the business object is a package with an EMV library
+	 * @param bo the bo to check
+	 * @return whether an EMV2 library was found
+	 */
+	public static boolean isPackageWithErrorModelLibrary(final Object bo) {
+		if (!(bo instanceof AadlPackage)) {
+			return false;
+		}
+
+		return ErrorModelGeUtil.getErrorModelLibrary((AadlPackage) bo).isPresent();
 	}
 
-	@Override
-	public boolean isApplicable(final Object bo) {
-		return (bo instanceof Classifier || bo instanceof Subcomponent)
-				&& ErrorModelFilterUtil.hasApplicableErrorModelSubclause(bo);
-	}
+	/**
+	 * Returns true if the specified business object's containing classifier, extensions, or implemented types includes an EMV2 subclause.
+	 * If the business object is subcomponent, the subcomponent's classifier is checked.
+	 * @param bo the bo to check
+	 * @return whether an EMV2 subclause was found
+	 */
+	public static boolean hasApplicableErrorModelSubclause(final Object bo) {
+		final Classifier classifier;
+		if (bo instanceof Subcomponent) {
+			classifier = ((Subcomponent) bo).getAllClassifier();
+		} else if (bo instanceof Element) {
+			classifier = ((Element) bo).getContainingClassifier();
+		} else {
+			classifier = null;
+		}
 
-	@Override
-	public boolean test(Object bo) {
-		return bo instanceof PropagationPoint;
+		if (classifier == null) {
+			return false;
+		}
+
+		if (classifier.getSelfPlusAllExtended().stream().flatMap(ErrorModelGeUtil::getAllErrorModelSubclauses).findAny()
+				.isPresent()) {
+			return true;
+		}
+
+		if (classifier instanceof ComponentImplementation) {
+			final ComponentType ct = ((ComponentImplementation) classifier).getType();
+			if (ct != null) {
+				if (ct.getSelfPlusAllExtended().stream().flatMap(ErrorModelGeUtil::getAllErrorModelSubclauses).findAny()
+						.isPresent()) {
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 }

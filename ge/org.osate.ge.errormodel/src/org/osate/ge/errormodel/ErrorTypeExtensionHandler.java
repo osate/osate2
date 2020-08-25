@@ -134,7 +134,7 @@ public class ErrorTypeExtensionHandler implements BusinessObjectHandler, CustomD
 			// Not supported. Package was not contained in the diagram.
 			return null;
 		} else {
-			return queryService.getFirstResult(dstQuery, boc);
+			return queryService.getFirstBusinessObjectContextOrNull(dstQuery, boc);
 		}
 	}
 

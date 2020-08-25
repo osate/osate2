@@ -29,7 +29,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
@@ -48,22 +51,33 @@ public class CombinedErrorModelSubclause {
 	/**
 	 * Instance that doesn't contain any values. Useful to avoid needing to handle null values.
 	 */
-	public static final CombinedErrorModelSubclause EMPTY = new CombinedErrorModelSubclause(Collections.emptyMap(),
+	public static final CombinedErrorModelSubclause EMPTY = new CombinedErrorModelSubclause(false,
+			Collections.emptyMap(),
 			Collections.emptyMap(), Collections.emptyMap(),
 			new PropagationNode());
 
+	private final boolean subclauseFound;
 	private final Map<String, PropagationPoint> points;
 	private final Map<String, PropagationPath> paths;
 	private final Map<String, ErrorFlow> flows;
 	private final ReadonlyPropagationNode propagations;
 
-	public CombinedErrorModelSubclause(final Map<String, PropagationPoint> points,
+	public CombinedErrorModelSubclause(final boolean subclauseFound, final Map<String, PropagationPoint> points,
 			final Map<String, PropagationPath> paths,
 			final Map<String, ErrorFlow> flows, final ReadonlyPropagationNode propagations) {
+		this.subclauseFound = subclauseFound;
 		this.points = Collections.unmodifiableMap(points);
 		this.paths = Collections.unmodifiableMap(paths);
 		this.flows = Collections.unmodifiableMap(flows);
 		this.propagations = propagations;
+	}
+
+	/**
+	 * Returns whether at least one error model subclause was found.
+	 * @return true if at least one applicable error model subclause was found
+	 */
+	public final boolean subclauseExists() {
+		return subclauseFound;
 	}
 
 	public final Stream<PropagationPoint> getPoints() {
@@ -88,8 +102,18 @@ public class CombinedErrorModelSubclause {
 		final Map<String, ErrorFlow> flows = new HashMap<>();
 		final PropagationNode propagations = new PropagationNode();
 
-		for (final Classifier tmpClassifier : Lists.reverse(classifier.getSelfPlusAllExtended())) {
+		final EList<Classifier> classifiers = classifier.getSelfPlusAllExtended();
+		if (classifier instanceof ComponentImplementation) {
+			final ComponentType ct = ((ComponentImplementation) classifier).getType();
+			if (ct != null) {
+				classifiers.addAll(ct.getSelfPlusAllExtended());
+			}
+		}
+
+		final boolean subclauseFound[] = { false };
+		for (final Classifier tmpClassifier : Lists.reverse(classifiers)) {
 			ErrorModelGeUtil.getAllErrorModelSubclauses(tmpClassifier).forEachOrdered(subclause -> {
+				subclauseFound[0] = true;
 				addAllToMap(subclause.getPoints(), points);
 				addAllToMap(subclause.getPaths(), paths);
 				addAllToMap(subclause.getFlows(), flows);
@@ -101,7 +125,8 @@ public class CombinedErrorModelSubclause {
 			});
 		}
 
-		return new CombinedErrorModelSubclause(points, paths, flows, propagations);
+
+		return new CombinedErrorModelSubclause(subclauseFound[0], points, paths, flows, propagations);
 	}
 
 	/**

@@ -25,6 +25,7 @@ package org.osate.ge.errormodel;
 
 import java.util.stream.Stream;
 
+import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
@@ -47,6 +48,10 @@ public class ErrorModelReferenceUtil {
 	public final static String TYPE_ERROR_TYPE_EXT = EMV2_REFERENCE_PREFIX + "error_type_extension";
 	public final static String TYPE_TYPE_SET = EMV2_REFERENCE_PREFIX + "error_type_set";
 	public final static String TYPE_PROPAGATION_POINT = EMV2_REFERENCE_PREFIX + "propagation_point";
+	public final static String TYPE_KEYWORD_PROPAGATION_POINT = EMV2_REFERENCE_PREFIX + "keyword_propagation_point";
+	public final static String TYPE_PROPAGATION = EMV2_REFERENCE_PREFIX + "propagation";
+	public final static String TYPE_PROPAGATION_PATH = EMV2_REFERENCE_PREFIX + "propagation_path";
+	public final static String TYPE_ERROR_FLOW = EMV2_REFERENCE_PREFIX + "error_flow";
 	public final static String IS_STEADY = "<steady>"; // Used to identify the transition or branch as steady state.
 
 	public static String getNameForSerialization(final NamedElement ne) {
@@ -110,5 +115,23 @@ public class ErrorModelReferenceUtil {
 
 	public static RelativeBusinessObjectReference getRelativeReferenceForPropagationPoint(final String name) {
 		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_PROPAGATION_POINT, name);
+	}
+
+	public static RelativeBusinessObjectReference getRelativeReferenceForKeywordPropagationPoint(final String name) {
+		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_KEYWORD_PROPAGATION_POINT, name);
+	}
+
+	public static RelativeBusinessObjectReference getRelativeReferenceForPropagation(final boolean isContainment,
+			final DirectionType direction) {
+		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_PROPAGATION,
+				Boolean.toString(isContainment), direction == null ? "<null>" : direction.getLiteral());
+	}
+
+	public static RelativeBusinessObjectReference getRelativeReferenceForPropagationPath(final String name) {
+		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_PROPAGATION_PATH, name);
+	}
+
+	public static RelativeBusinessObjectReference getRelativeReferenceForErrorFlow(final String name) {
+		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_ERROR_FLOW, name);
 	}
 }
