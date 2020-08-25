@@ -574,7 +574,7 @@ censes only apply to the Third Party Software and not any other portion of this 
            </adapt>
        </definition>
 
-       <!-- Instantiatable ComponentImplementation as an EObjectURIWrapper (outline view) -->
+       <!-- Instantiatable ComponentImplementation as an EObjectURIWrapper (aadl outline view) -->
        <definition id="org.osate.ui.definition.private.isInstantiatableEObjectNode">
           <adapt
                 type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
@@ -601,6 +601,16 @@ censes only apply to the Third Party Software and not any other portion of this 
              </and>
           </adapt>
        </definition>
+
+       <!-- A SystemInstance (instance editor and instance outline view) -->
+       <definition id="org.osate.ui.definition.private.isSystemInstance">
+          <instanceof value="org.osate.aadl2.instance.SystemInstance" />
+       </definition>
+
+       <!-- An Eclipse working set (aadl navigator) -->
+       <definition id="org.osate.ui.definition.private.isWorkingSet">
+          <instanceof value="org.eclipse.ui.IWorkingSet" />
+       </definition>
        
        <!-- For visibleWhen: Be visible when there are 1 or more selected objects and AT LEAST ONE of them
             is a working set, AADL Project, folder in an AADL Project, an AAXL file, or an instantiatable
@@ -616,14 +626,13 @@ censes only apply to the Third Party Software and not any other portion of this 
                       ifEmpty="false"
                       operator="or">
                    <or>
-                      <!-- Working set -->
-                      <instanceof value="org.eclipse.ui.IWorkingSet" />
-                         
+                      <reference definitionId="org.osate.ui.definition.private.isWorkingSet"/>
                       <reference definitionId="org.osate.ui.definition.private.isAADLProject"/>
                       <reference definitionId="org.osate.ui.definition.private.isAADLFolder"/>
                       <reference definitionId="org.osate.ui.definition.private.isAAXLFile"/>
                       <reference definitionId="org.osate.ui.definition.private.isInstantiatableEObjectURIWrapper"/>
                       <reference definitionId="org.osate.ui.definition.private.isInstantiatableEObjectNode"/>
+                      <reference definitionId="org.osate.ui.definition.private.isSystemInstance"/>
                    </or>
                 </iterate>
              </and>
@@ -645,14 +654,13 @@ censes only apply to the Third Party Software and not any other portion of this 
                       ifEmpty="false"
                       operator="and">
                    <or>
-                      <!-- Working set -->
-                      <instanceof value="org.eclipse.ui.IWorkingSet" />
-                         
+                      <reference definitionId="org.osate.ui.definition.private.isWorkingSet"/>
                       <reference definitionId="org.osate.ui.definition.private.isAADLProject"/>
                       <reference definitionId="org.osate.ui.definition.private.isAADLFolder"/>
                       <reference definitionId="org.osate.ui.definition.private.isAAXLFile"/>
                       <reference definitionId="org.osate.ui.definition.private.isInstantiatableEObjectURIWrapper"/>
                       <reference definitionId="org.osate.ui.definition.private.isInstantiatableEObjectNode"/>
+                      <reference definitionId="org.osate.ui.definition.private.isSystemInstance"/>
                    </or>
                 </iterate>
              </and>
@@ -687,12 +695,29 @@ censes only apply to the Third Party Software and not any other portion of this 
 	                         value="+">
 	                   </count>
 	                   <iterate operator="or">
-	                      <instanceof value="org.osate.aadl2.instance.SystemInstance"/>
+	                      <reference definitionId="org.osate.ui.definition.private.isSystemInstance"/>
 	                   </iterate>
 	                </and>
 	             </with>
 	          </visibleWhen>
           </command>
+          <menu
+                id="org.osate.ui.analysesInstanceOutlinePopup"
+                label="Analyses">
+             <menu
+                   id="org.osate.ui.semanticChecksInstanceOutlinePopup"
+                   label="Semantic Checks">
+                <separator
+                      name="code_generation">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <separator
+                   name="third_party">
+             </separator>
+          </menu>
        </menuContribution>
    
        <menuContribution
@@ -800,8 +825,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 	                         ifEmpty="false"
 	                         operator="or">
 	                      <or>
-	                         <!-- Working set -->
-                             <instanceof value="org.eclipse.ui.IWorkingSet" />
+                             <reference definitionId="org.osate.ui.definition.private.isWorkingSet"/>
    	                         <reference definitionId="org.osate.ui.definition.private.isAADLProject" />
   	                         <reference definitionId="org.osate.ui.definition.private.isAADLFolder" />
   	                         <reference definitionId="org.osate.ui.definition.private.isAAXLFile" />
@@ -1414,12 +1438,11 @@ censes only apply to the Third Party Software and not any other portion of this 
                          ifEmpty="false"
                          operator="and">
                       <or>
-                         <!-- Working set -->
-                         <instanceof value="org.eclipse.ui.IWorkingSet" />
+                         <reference definitionId="org.osate.ui.definition.private.isWorkingSet"/>
                          <reference definitionId="org.osate.ui.definition.private.isAADLProject" />
                          <reference definitionId="org.osate.ui.definition.private.isAADLFolder" />
                          <reference definitionId="org.osate.ui.definition.private.isAAXLFile" />
-                         <instanceof value="org.osate.aadl2.instance.SystemInstance"/>
+	                     <reference definitionId="org.osate.ui.definition.private.isSystemInstance"/>
                       </or>
                    </iterate>
                 </and>
