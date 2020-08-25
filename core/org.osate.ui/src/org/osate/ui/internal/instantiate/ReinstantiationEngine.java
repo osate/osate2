@@ -43,6 +43,7 @@ import org.eclipse.ui.IWorkingSet;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.instantiation.RootMissingException;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.core.AadlNature;
 import org.osate.workspace.WorkspacePlugin;
 
@@ -100,6 +101,9 @@ public final class ReinstantiationEngine extends AbstractInstantiationEngine<IFi
 		for (final Object rsrc : rsrcs) {
 			if (rsrc instanceof IWorkingSet) {
 				findAllInstanceFiles(((IWorkingSet) rsrc).getElements(), instanceFiles);
+			} else if (rsrc instanceof SystemInstance) {
+				final IFile file = OsateResourceUtil.toIFile((((SystemInstance) rsrc).eResource()).getURI());
+				instanceFiles.add(file);
 			} else if (rsrc instanceof IFile) {
 				final IFile file = (IFile) rsrc;
 				final String ext = file.getFileExtension();
