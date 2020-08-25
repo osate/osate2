@@ -28,6 +28,41 @@ import org.osate.pluginsupport.properties.IntegerRange;
 import org.osate.pluginsupport.properties.IntegerRangeWithUnits;
 
 public class DeploymentProperties {
+	public static final String DEPLOYMENT_PROPERTIES__NAME = "Deployment_Properties";
+	
+	public static final String ALLOWED_PROCESSOR_BINDING_CLASS__NAME = "Allowed_Processor_Binding_Class";
+	public static final String ALLOWED_PROCESSOR_BINDING__NAME = "Allowed_Processor_Binding";
+	public static final String ACTUAL_PROCESSOR_BINDING__NAME = "Actual_Processor_Binding";
+	public static final String ALLOWED_MEMORY_BINDING_CLASS__NAME = "Allowed_Memory_Binding_Class";
+	public static final String ALLOWED_MEMORY_BINDING__NAME = "Allowed_Memory_Binding";
+	public static final String ACTUAL_MEMORY_BINDING__NAME = "Actual_Memory_Binding";
+	public static final String ALLOWED_CONNECTION_BINDING_CLASS__NAME = "Allowed_Connection_Binding_Class";
+	public static final String ALLOWED_CONNECTION_BINDING__NAME = "Allowed_Connection_Binding";
+	public static final String ACTUAL_CONNECTION_BINDING__NAME = "Actual_Connection_Binding";
+	public static final String ACTUAL_FUNCTION_BINDING__NAME = "Actual_Function_Binding";
+	public static final String ALLOWED_SUBPROGRAM_CALL__NAME = "Allowed_Subprogram_Call";
+	public static final String ACTUAL_SUBPROGRAM_CALL__NAME = "Actual_Subprogram_Call";
+	public static final String ALLOWED_SUBPROGRAM_CALL_BINDING__NAME = "Allowed_Subprogram_Call_Binding";
+	public static final String ACTUAL_SUBPROGRAM_CALL_BINDING__NAME = "Actual_Subprogram_Call_Binding";
+	public static final String PROVIDED_VIRTUAL_BUS_CLASS__NAME = "Provided_Virtual_Bus_Class";
+	public static final String REQUIRED_VIRTUAL_BUS_CLASS__NAME = "Required_Virtual_Bus_Class";
+	public static final String PROVIDED_CONNECTION_QUALITY_OF_SERVICE__NAME = "Provided_Connection_Quality_Of_Service";
+	public static final String REQUIRED_CONNECTION_QUALITY_OF_SERVICE__NAME = "Required_Connection_Quality_Of_Service";
+	public static final String NOT_COLLOCATED__NAME = "Not_Collocated";
+	public static final String COLLOCATED__NAME = "Collocated";
+	public static final String ALLOWED_CONNECTION_TYPE__NAME = "Allowed_Connection_Type";
+	public static final String ALLOWED_DISPATCH_PROTOCOL__NAME = "Allowed_Dispatch_Protocol";
+	public static final String ALLOWED_PERIOD__NAME = "Allowed_Period";
+	public static final String ALLOWED_PHYSICAL_ACCESS_CLASS__NAME = "Allowed_Physical_Access_Class";
+	public static final String ALLOWED_PHYSICAL_ACCESS__NAME = "Allowed_Physical_Access";
+	public static final String MEMORY_PROTOCOL__NAME = "Memory_Protocol";
+	public static final String RUNTIME_PROTECTION_SUPPORT__NAME = "Runtime_Protection_Support";
+	public static final String SCHEDULING_PROTOCOL__NAME = "Scheduling_Protocol";
+	public static final String PREEMPTIVE_SCHEDULER__NAME = "Preemptive_Scheduler";
+	public static final String THREAD_LIMIT__NAME = "Thread_Limit";
+	public static final String PRIORITY_MAP__NAME = "Priority_Map";
+	public static final String PRIORITY_RANGE__NAME = "Priority_Range";
+	
 	public static Optional<List<Classifier>> getAllowedProcessorBindingClass(NamedElement lookupContext) {
 		return getAllowedProcessorBindingClass(lookupContext, Optional.empty());
 	}

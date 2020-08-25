@@ -21,6 +21,43 @@ import org.osate.pluginsupport.properties.IntegerWithUnits;
 import org.osate.pluginsupport.properties.RealWithUnits;
 
 public class TimingProperties {
+	public static final String TIMING_PROPERTIES__NAME = "Timing_Properties";
+	
+	public static final String ACTIVATE_DEADLINE__NAME = "Activate_Deadline";
+	public static final String ACTIVATE_EXECUTION_TIME__NAME = "Activate_Execution_Time";
+	public static final String COMPUTE_DEADLINE__NAME = "Compute_Deadline";
+	public static final String COMPUTE_EXECUTION_TIME__NAME = "Compute_Execution_Time";
+	public static final String CLIENT_SUBPROGRAM_EXECUTION_TIME__NAME = "Client_Subprogram_Execution_Time";
+	public static final String DEACTIVATE_DEADLINE__NAME = "Deactivate_Deadline";
+	public static final String DEACTIVATE_EXECUTION_TIME__NAME = "Deactivate_Execution_Time";
+	public static final String DEADLINE__NAME = "Deadline";
+	public static final String FIRST_DISPATCH_TIME__NAME = "First_Dispatch_Time";
+	public static final String DISPATCH_JITTER__NAME = "Dispatch_Jitter";
+	public static final String DISPATCH_OFFSET__NAME = "Dispatch_Offset";
+	public static final String EXECUTION_TIME__NAME = "Execution_Time";
+	public static final String FINALIZE_DEADLINE__NAME = "Finalize_Deadline";
+	public static final String FINALIZE_EXECUTION_TIME__NAME = "Finalize_Execution_Time";
+	public static final String INITIALIZE_DEADLINE__NAME = "Initialize_Deadline";
+	public static final String INITIALIZE_EXECUTION_TIME__NAME = "Initialize_Execution_Time";
+	public static final String LOAD_DEADLINE__NAME = "Load_Deadline";
+	public static final String LOAD_TIME__NAME = "Load_Time";
+	public static final String PROCESSOR_CAPACITY__NAME = "Processor_Capacity";
+	public static final String PERIOD__NAME = "Period";
+	public static final String RECOVER_DEADLINE__NAME = "Recover_Deadline";
+	public static final String RECOVER_EXECUTION_TIME__NAME = "Recover_Execution_Time";
+	public static final String REFERENCE_TIME__NAME = "Reference_Time";
+	public static final String STARTUP_DEADLINE__NAME = "Startup_Deadline";
+	public static final String STARTUP_EXECUTION_TIME__NAME = "Startup_Execution_Time";
+	public static final String CLOCK_JITTER__NAME = "Clock_Jitter";
+	public static final String CLOCK_PERIOD__NAME = "Clock_Period";
+	public static final String CLOCK_PERIOD_RANGE__NAME = "Clock_Period_Range";
+	public static final String PROCESS_SWAP_EXECUTION_TIME__NAME = "Process_Swap_Execution_Time";
+	public static final String REFERENCE_PROCESSOR__NAME = "Reference_Processor";
+	public static final String SCHEDULER_QUANTUM__NAME = "Scheduler_Quantum";
+	public static final String THREAD_SWAP_EXECUTION_TIME__NAME = "Thread_Swap_Execution_Time";
+	public static final String FRAME_PERIOD__NAME = "Frame_Period";
+	public static final String SLOT_TIME__NAME = "Slot_Time";
+	
 	public static Optional<IntegerWithUnits<TimeUnits>> getActivateDeadline(NamedElement lookupContext) {
 		return getActivateDeadline(lookupContext, Optional.empty());
 	}

@@ -24,6 +24,27 @@ import org.osate.pluginsupport.properties.IntegerRangeWithUnits;
 import org.osate.pluginsupport.properties.IntegerWithUnits;
 
 public class CommunicationProperties {
+	public static final String COMMUNICATION_PROPERTIES__NAME = "Communication_Properties";
+	
+	public static final String FAN_OUT_POLICY__NAME = "Fan_Out_Policy";
+	public static final String CONNECTION_PATTERN__NAME = "Connection_Pattern";
+	public static final String CONNECTION_SET__NAME = "Connection_Set";
+	public static final String OVERFLOW_HANDLING_PROTOCOL__NAME = "Overflow_Handling_Protocol";
+	public static final String QUEUE_PROCESSING_PROTOCOL__NAME = "Queue_Processing_Protocol";
+	public static final String QUEUE_SIZE__NAME = "Queue_Size";
+	public static final String REQUIRED_CONNECTION__NAME = "Required_Connection";
+	public static final String TIMING__NAME = "Timing";
+	public static final String TRANSMISSION_TYPE__NAME = "Transmission_Type";
+	public static final String INPUT_RATE__NAME = "Input_Rate";
+	public static final String INPUT_TIME__NAME = "Input_Time";
+	public static final String OUTPUT_RATE__NAME = "Output_Rate";
+	public static final String OUTPUT_TIME__NAME = "Output_Time";
+	public static final String SUBPROGRAM_CALL_RATE__NAME = "Subprogram_Call_Rate";
+	public static final String TRANSMISSION_TIME__NAME = "Transmission_Time";
+	public static final String ACTUAL_LATENCY__NAME = "Actual_Latency";
+	public static final String LATENCY__NAME = "Latency";
+	public static final String DATA_RATE__NAME = "Data_Rate";
+	
 	public static Optional<FanOutPolicy> getFanOutPolicy(NamedElement lookupContext) {
 		return getFanOutPolicy(lookupContext, Optional.empty());
 	}
