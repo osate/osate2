@@ -169,21 +169,14 @@ public class GraphicalAnnexUtil {
 		if (parsedType.isInstance(parsedAnnexSubclause)) {
 			return parsedAnnexSubclause;
 		}
-
 		final String trimmedSrc = defaultSubclause.getSourceText().trim();
-		// System.err.println(trimmedSrc + " trimmeds");
 		if ("{****}".equals(trimmedSrc) || "{** **}".equals(trimmedSrc)) {
 			return null;
 		}
 
-		// TODO
-		// System.err.println(parsedAnnexSubclause + " parsed Should be throwing exception?");
-
-		return null;
-
 		// If unable to get the parsed annex subclause, throw an exception. Should not mistake this case for simply not having the annex subclause.
-		// throw new RuntimeException(
-		// "Annex subclause found but unable to retrieve parsed annex subclause of type: " + parsedType.getName());
+		throw new RuntimeException(
+				"Annex subclause found but unable to retrieve parsed annex subclause of type: " + parsedType.getName());
 	}
 
 	public static Stream<AnnexSubclause> getAllParsedAnnexSubclauses(final Classifier c, final String annexName,

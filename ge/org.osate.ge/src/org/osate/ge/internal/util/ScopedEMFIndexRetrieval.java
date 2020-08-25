@@ -49,6 +49,7 @@ import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.eclipse.xtext.ui.resource.LiveScopeResourceSetInitializer;
 import org.osate.ge.ProjectUtil;
+import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
 import com.google.common.collect.Streams;
@@ -81,7 +82,7 @@ public class ScopedEMFIndexRetrieval {
 	}
 
 	public static Stream<IResourceDescription> calculateVisibleResourceDescriptions(final IProject project) {
-		final ResourceSet liveResourceSet = ProjectUtil.getLiveResourceSet(project);
+		final ResourceSet liveResourceSet = AadlModelAccessUtil.getLiveResourceSet(project);
 
 		final Injector injector = Objects.requireNonNull(
 				Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2),

@@ -43,7 +43,6 @@ class ConstantsFileWizard extends AbstractNewFileWizard {
 			!parser.parse(grammarAccess.qualifiedNameRule, new StringReader(fieldValue)).hasSyntaxErrors
 		])
 	}
-	
 	override fileContents(Map<String, String> fieldValues) {
 		'''
 			constants «fieldValues.get(CONSTANTS_LABEL)» [

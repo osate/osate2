@@ -153,13 +153,24 @@ public interface BusinessObjectHandler {
 		return false;
 	}
 
+	/**
+	 * Returns true if the business object specified in the context can be copied.
+	 * Copyable business objects must match one of the following criteria:
+	 * <ul>
+	 * <li>It must be an instance of {@link org.eclipse.emf.ecore.EObject}.</li>
+	 * <li>It must be an instance of {@link org.osate.ge.internal.model.EmbeddedBusinessObject}}</li>
+	 * </ul>
+	 * @return whether the business object can be deleted.
+	 */
 	default boolean canCopy() {
 		return true;
 	}
 
 	/**
-	 * TODO: make documentation and include "Only called for eobjects rn"
-	 * @param ctx
+	 * Runs after a paste is executed to make any modifications to the newly
+	 * pasted business object specified in the context if the business object is an instance
+	 * of {@link org.eclipse.emf.ecore.EObject}.
+	 * @param ctx the context for the paste
 	 */
 	default void afterPaste(final PasteContext ctx) {
 	}
