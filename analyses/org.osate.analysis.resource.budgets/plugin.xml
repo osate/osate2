@@ -249,6 +249,23 @@ censes only apply to the Third Party Software and not any other portion of this 
             </separator>
          </menu>
       </menuContribution>
+      <menuContribution
+             locationURI="popup:org.osate.ui.analysesInstanceOutlinePopup?after=additions">
+         <menu id="org.osate.analysis.resource.budgets.instanceOutlineBudgetMenu" label="Budget">
+            <separator
+                  name="core">
+            </separator>
+            <command
+                  commandId="org.osate.analysis.resource.budgets.BusLoadAnalysis">
+               <visibleWhen>
+                  <reference definitionId="org.osate.ui.definition.public.instanceAnalysisCommandVisibility"/>
+               </visibleWhen>
+            </command>
+            <separator
+                  name="third_party">
+            </separator>
+         </menu>
+      </menuContribution>
      
       <menuContribution
             locationURI="toolbar:org.osate.ui.budgetToolbar?after=core">
