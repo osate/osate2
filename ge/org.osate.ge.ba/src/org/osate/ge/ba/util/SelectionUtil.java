@@ -23,7 +23,8 @@
  */
 package org.osate.ge.ba.util;
 
-import java.util.function.Function;
+import java.util.List;
+import java.util.Optional;
 
 import org.eclipse.core.expressions.IEvaluationContext;
 import org.eclipse.core.runtime.Adapters;
@@ -44,7 +45,13 @@ import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
+import org.osate.ba.aadlba.BehaviorAnnex;
+import org.osate.ba.aadlba.BehaviorState;
+import org.osate.ba.aadlba.BehaviorTransition;
+import org.osate.ba.aadlba.BehaviorVariable;
 import org.osate.ge.BusinessObjectContext;
 
 import com.google.common.collect.ImmutableList;
@@ -106,23 +113,44 @@ public class SelectionUtil {
 	 * @param activeEditor
 	 * @return
 	 */
-	public static Object getDiagramContext(final ISelection selection, final IEditorPart activeEditor,
-			final Function<Object, Element> findDiagramContextForSelectedObject) {
-		Object contextBo = null;
+	public static Optional<DefaultAnnexSubclause> getDiagramContext(final ISelection selection,
+			final IEditorPart activeEditor) {
+		DefaultAnnexSubclause contextBo = null;
 		if (activeEditor instanceof XtextEditor) {
-		final EObject selectedObject = getEObjectFromSelection((XtextEditor) activeEditor, selection);
-			contextBo = findDiagramContextForSelectedObject
-					.apply(selectedObject);/* findDiagramContextForSelectedObject(selectedObject); */
+			final EObject selectedObject = getEObjectFromSelection((XtextEditor) activeEditor, selection);
+			contextBo = findDiagramContextForSelectedObject(selectedObject);
 		}
 
-		if (contextBo == null && selection instanceof IStructuredSelection) {
-			final IStructuredSelection ss = (IStructuredSelection) selection;
-			if (ss.size() == 1) {
-				contextBo = findDiagramContextForSelectedObject.apply(ss.getFirstElement());
+		if (selection instanceof IStructuredSelection) {
+			final List<BusinessObjectContext> selectedBusinessObjectContexts = getSelectedBusinessObjectContexts();
+			if (selectedBusinessObjectContexts.size() == 1) {
+				contextBo = findDiagramContextForSelectedObject(
+						selectedBusinessObjectContexts.get(0).getBusinessObject());
 			}
 		}
 
-		return contextBo;
+		return Optional.ofNullable(contextBo);
+	}
+
+	private static DefaultAnnexSubclause findDiagramContextForSelectedObject(final Object element) {
+		if (element instanceof BehaviorState || element instanceof BehaviorTransition
+				|| element instanceof BehaviorVariable) {
+			return findDiagramContextForSelectedObject(((Element) element).getOwner());
+		}
+
+		// Get default annex subclause as context
+		if (element instanceof BehaviorAnnex) {
+			return ((BehaviorAnnex) element).getOwner() instanceof DefaultAnnexSubclause
+					? (DefaultAnnexSubclause) ((BehaviorAnnex) element).getOwner()
+					: null;
+		}
+
+		if (element instanceof DefaultAnnexSubclause
+				&& BaUtil.ANNEX_NAME.equalsIgnoreCase(((NamedElement) element).getName())) {
+			return (DefaultAnnexSubclause) element;
+		}
+
+		return null;
 	}
 
 	private static EObject getEObjectFromSelection(XtextEditor editor, final ISelection selection) {

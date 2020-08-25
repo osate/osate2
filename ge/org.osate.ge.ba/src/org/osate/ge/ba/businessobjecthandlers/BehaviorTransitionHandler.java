@@ -36,16 +36,19 @@ import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.ba.util.BehaviorAnnexGEUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
+import org.osate.ge.businessobjecthandling.CanRenameContext;
 import org.osate.ge.businessobjecthandling.CustomDeleteContext;
 import org.osate.ge.businessobjecthandling.CustomDeleter;
+import org.osate.ge.businessobjecthandling.CustomRenamer;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
+import org.osate.ge.businessobjecthandling.RenameContext;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
-public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomDeleter {
+public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomDeleter, CustomRenamer {
 	private final static String TYPE_TRANSITION = "ba_transition";
 
 	private static final StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children()
@@ -67,7 +70,11 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 	public boolean canCopy() {
 		return false;
 	}
-	// TODO rename
+
+	@Override
+	public boolean canRename(final CanRenameContext ctx) {
+		return true;
+	}
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
@@ -107,7 +114,18 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 	@Override
 	public String getName(final GetNameContext ctx) {
 		return ctx.getBusinessObject(BehaviorTransition.class).map(BehaviorTransition::getName)
-				.orElse("Behavior Transition");
+				.orElse("<Unnamed>");
+	}
+
+	@Override
+	public Optional<String> validateName(final RenameContext ctx) {
+		// Allow removing name of transition
+		final String newName = ctx.getNewName();
+		if (newName.isEmpty()) {
+			return Optional.empty();
+		}
+
+		return BehaviorAnnexNamingUtil.checkNameValidity(ctx);
 	}
 
 	@Override
@@ -119,5 +137,13 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 		if (behaviorAnnexToModify.getTransitions().isEmpty()) {
 			behaviorAnnexToModify.unsetTransitions();
 		}
+	}
+
+	@Override
+	public void rename(final RenameContext ctx) {
+		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).get();
+		final String newName = ctx.getNewName();
+		// Transition names can be null, but not an empty string
+		behaviorTransition.setName(newName.isEmpty() ? null : newName);
 	}
 }

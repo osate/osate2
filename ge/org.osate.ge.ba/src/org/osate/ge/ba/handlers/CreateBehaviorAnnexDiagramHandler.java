@@ -23,69 +23,110 @@
  */
 package org.osate.ge.ba.handlers;
 
-import java.util.List;
 import java.util.Objects;
-import java.util.function.Function;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.aadl2.Element;
-import org.osate.aadl2.NamedElement;
-import org.osate.ba.aadlba.BehaviorAnnex;
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.DiagramCreationUtil;
+import org.osate.ge.ProjectUtil;
 import org.osate.ge.ba.diagram.diagramType.BehaviorAnnexDiagramType;
+import org.osate.ge.ba.util.BehaviorAnnexHandlerUtil;
 import org.osate.ge.ba.util.SelectionUtil;
+import org.osate.ge.swt.name.DiagramNameDialog;
+import org.osate.ge.swt.name.NameEditorDialogModel;
 
 public class CreateBehaviorAnnexDiagramHandler extends AbstractHandler {
-	final Function<Object, Element> findDiagramContextForSelectedObject = (element) -> {
-		if ((element instanceof DefaultAnnexSubclause || element instanceof BehaviorAnnex)
-				&& "behavior_specification".equalsIgnoreCase(((NamedElement) element).getName())) {
-			return (DefaultAnnexSubclause) element;
-		}
-
-		return null;
-	};
-
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		final IEditorPart activeEditor = HandlerUtil.getActiveEditor(event);
-		final Element annexSubclause = Objects.requireNonNull(
-				BehaviorAnnexHandlerUtil.getAnnexSubclause(activeEditor),
-				"AnnexSubclause cannot be null");
-		final Classifier classifier = Objects.requireNonNull(annexSubclause.getContainingClassifier(),
+		SelectionUtil.getDiagramContext(SelectionUtil.getCurrentSelection(), activeEditor);
+		final DefaultAnnexSubclause diagramContext = BehaviorAnnexHandlerUtil
+				.getBehaviorAnnexDiagramContext(activeEditor)
+				.orElseThrow(() -> new RuntimeException("diagram context cannot be null"));
+		final Classifier classifier = Objects.requireNonNull(diagramContext.getContainingClassifier(),
 				"Classifier cannot be null");
 
-		DiagramCreationUtil.createDiagram(activeEditor,
-				BehaviorAnnexHandlerUtil.getFileName(classifier, annexSubclause),
-				new BehaviorAnnexDiagramType(),
-				annexSubclause);
+		final NameEditorDialogModel model = getDialogModel(activeEditor, classifier, diagramContext);
+		DiagramNameDialog.open(Display.getCurrent().getActiveShell(), model);
 
 		return null;
+	}
+
+	private static NameEditorDialogModel getDialogModel(final IEditorPart activeEditor, final Classifier classifier,
+			final DefaultAnnexSubclause diagramContext) {
+		final IProject project = ProjectUtil.getProjectForBoOrThrow(classifier);
+		final String initialFilename = getFileName(project, classifier, diagramContext);
+		return createNameDialogModel(initialFilename, project, activeEditor, diagramContext);
+	}
+
+	private static NameEditorDialogModel createNameDialogModel(final String initialFilename, final IProject project,
+			final IEditorPart activeEditor, final Object diagramContext) {
+		return new NameEditorDialogModel() {
+			@Override
+			public String validateName(final String name) {
+				// Invalid name if filename already exists
+				final IFile tmpFile = DiagramCreationUtil.createDiagramFile(project, name);
+				if (tmpFile.exists()) {
+					return "File " + name + " already exists";
+				}
+
+				return null;
+			}
+
+			@Override
+			public void setName(final String filename) {
+				// Create new diagram
+				DiagramCreationUtil.createDiagram(activeEditor, filename, new BehaviorAnnexDiagramType(), diagramContext);
+			}
+
+			@Override
+			public String getName() {
+				return initialFilename;
+			}
+		};
+	}
+
+	private static String getFileName(final IProject project, final Classifier classifier,
+			final DefaultAnnexSubclause diagramContext) {
+		final String baseName = BehaviorAnnexHandlerUtil.getFileName(classifier, diagramContext);
+		int nameCount = 1;
+		String name;
+		IFile tmpFile;
+		do {
+			final String suffix = nameCount == 1 ? "" : "(" + nameCount + ")";
+			name = baseName + suffix;
+			tmpFile = DiagramCreationUtil.createDiagramFile(project, name);
+			nameCount++;
+		} while (tmpFile != null && tmpFile.exists());
+
+		return name;
 	}
 
 	@Override
 	public void setEnabled(final Object evaluationContext) {
 		System.err.println("set enableBd");
 		final IEditorPart activeEditor = SelectionUtil.getActiveEditorFromContext(evaluationContext);
-		final Object diagramContext;
-		if (activeEditor instanceof XtextEditor) {
-			diagramContext = SelectionUtil.getDiagramContext(SelectionUtil.getCurrentSelection(),
-					SelectionUtil.getActiveEditorFromContext(evaluationContext), findDiagramContextForSelectedObject);
-		} else {
-			final List<BusinessObjectContext> selectedBusinessObjectContexts = SelectionUtil
-					.getSelectedBusinessObjectContexts();
-			diagramContext = selectedBusinessObjectContexts.size() == 1
-					? selectedBusinessObjectContexts.get(0).getBusinessObject()
-					: null;
-		}
+		// final Object diagramContext = BehaviorAnnexHandlerUtil.getDiagramContext(activeEditor).orElse(null);
+//		if (activeEditor instanceof XtextEditor) {
+//			diagramContext = SelectionUtil.getDiagramContext(SelectionUtil.getCurrentSelection(),
+//					SelectionUtil.getActiveEditorFromContext(evaluationContext), findDiagramContextForSelectedObject);
+//		} else {
+//			final List<BusinessObjectContext> selectedBusinessObjectContexts = SelectionUtil
+//					.getSelectedBusinessObjectContexts();
+//			diagramContext = selectedBusinessObjectContexts.size() == 1
+//					? selectedBusinessObjectContexts.get(0).getBusinessObject()
+//					: null;
+//		}
 
-		setBaseEnabled(diagramContext instanceof DefaultAnnexSubclause || diagramContext instanceof BehaviorAnnex);
+		setBaseEnabled(
+				BehaviorAnnexHandlerUtil.getBehaviorAnnexDiagramContext(activeEditor).isPresent());
 	}
 }

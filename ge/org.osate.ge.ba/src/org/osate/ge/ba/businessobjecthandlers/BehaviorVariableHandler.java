@@ -106,6 +106,6 @@ public class BehaviorVariableHandler implements BusinessObjectHandler, CustomDel
 
 	@Override
 	public Optional<String> validateName(final RenameContext ctx) {
-		return AadlNamingUtil.checkNameValidity(ctx);
+		return BehaviorAnnexNamingUtil.checkNameValidity(ctx);
 	}
 }

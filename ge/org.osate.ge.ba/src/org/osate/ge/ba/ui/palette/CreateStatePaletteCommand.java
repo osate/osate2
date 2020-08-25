@@ -30,6 +30,7 @@ import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ge.ba.util.BaNamingUtil;
+import org.osate.ge.ba.util.BehaviorAnnexHandlerUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
@@ -56,9 +57,7 @@ public class CreateStatePaletteCommand extends BasePaletteCommand implements Tar
 						newState.setInitial(true);
 					}
 
-					// TODO set final because if you don't, no other states are able to be added to it
-					// Must have a final state or the error that is created does not let any more states be added
-					if (!baToModify.getStates().stream().filter(BehaviorState::isFinal).findAny().isPresent()) {
+					if (BehaviorAnnexHandlerUtil.requiresFinalState(ba)) {
 						newState.setFinal(true);
 					}
 

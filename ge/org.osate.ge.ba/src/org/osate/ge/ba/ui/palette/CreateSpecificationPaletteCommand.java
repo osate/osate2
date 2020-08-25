@@ -32,6 +32,7 @@ import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ge.ba.util.BaNamingUtil;
 import org.osate.ge.ba.util.BaUtil;
+import org.osate.ge.ba.util.BehaviorAnnexHandlerUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
@@ -56,9 +57,13 @@ public class CreateSpecificationPaletteCommand extends BasePaletteCommand implem
 					final String newName = BaNamingUtil.buildUniqueIdentifier(ba, "new_state");
 					newState.setName(newName);
 
-					// Set state to initial and final
+					// Set state to initial
 					newState.setInitial(true);
-					newState.setFinal(true);
+
+					if (BehaviorAnnexHandlerUtil.requiresFinalState(ba)) {
+						// Must have a final state or the error that is created does not let any more states be added
+						newState.setFinal(true);
+					}
 
 					// Add the new state to the behavior annex
 					ba.getStates().add(newState);
