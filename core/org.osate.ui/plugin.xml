@@ -781,36 +781,9 @@ censes only apply to the Third Party Software and not any other portion of this 
 	                      <or>
 	                         <!-- Working set -->
                              <instanceof value="org.eclipse.ui.IWorkingSet" />
-							 
-	                         <!-- open AADL project or any closed project -->
-	                         <and>
-	                            <instanceof value="org.eclipse.core.resources.IProject" />
-	                            <or>
-	                                <test
-	                                    property="org.eclipse.core.resources.projectNature"
-    	                                value="org.osate.core.aadlnature" />
-	                                <not>
-	                                    <test property="org.eclipse.core.resources.open" />
-    	                            </not>
-	                            </or>
-	                         </and>
-	                         
-	                         <!-- folder in an AADL project -->
-	                         <and>
-	                            <instanceof value="org.eclipse.core.resources.IFolder" />
-	                            <test
-	                                property="org.eclipse.core.resources.projectNature"
-	                                value="org.osate.core.aadlnature" />
-	                         </and>
-	                         
-	                         <!-- Instance model file -->
-	                         <adapt
-	                                type="org.eclipse.core.resources.IFile">
-	                            <test
-	                                  property="org.eclipse.core.resources.contentTypeId"
-	                                  value="org.osate.core.instanceModelFile">
-	                            </test>
-	                         </adapt>
+   	                         <reference definitionId="org.osate.ui.definition.private.isAADLProject" />
+  	                         <reference definitionId="org.osate.ui.definition.private.isAADLFolder" />
+  	                         <reference definitionId="org.osate.ui.definition.private.isAAXLFile" />
 	                      </or>
 	                   </iterate>
 	                </and>
@@ -1420,38 +1393,11 @@ censes only apply to the Third Party Software and not any other portion of this 
                          ifEmpty="false"
                          operator="and">
                       <or>
-                         <!-- Working Set -->
+                         <!-- Working set -->
                          <instanceof value="org.eclipse.ui.IWorkingSet" />
-                         
-                         <!-- open AADL project -->
-                         <and>
-                            <instanceof value="org.eclipse.core.resources.IProject" />
-                            <or>
-                                <test
-                                    property="org.eclipse.core.resources.projectNature"
-	                                value="org.osate.core.aadlnature" />
-                                 <not>
-                                     <test property="org.eclipse.core.resources.open" />
-	                             </not>
-                            </or>
-                         </and>
-                         
-                         <!-- folder in an AADL project -->
-                         <and>
-                            <instanceof value="org.eclipse.core.resources.IFolder" />
-                            <test
-                                property="org.eclipse.core.resources.projectNature"
-                                value="org.osate.core.aadlnature" />
-                         </and>
-                         
-                         <!-- Instance model file -->
-                         <adapt
-                                type="org.eclipse.core.resources.IFile">
-                            <test
-                                  property="org.eclipse.core.resources.contentTypeId"
-                                  value="org.osate.core.instanceModelFile">
-                            </test>
-                         </adapt>
+                         <reference definitionId="org.osate.ui.definition.private.isAADLProject" />
+                         <reference definitionId="org.osate.ui.definition.private.isAADLFolder" />
+                         <reference definitionId="org.osate.ui.definition.private.isAAXLFile" />
                       </or>
                    </iterate>
                 </and>
