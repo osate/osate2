@@ -23,12 +23,11 @@
  */
 package org.osate.reqspec.ui;
 
+import com.google.inject.Injector;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory;
 import org.osate.reqspec.ui.internal.ReqspecActivator;
 import org.osgi.framework.Bundle;
-
-import com.google.inject.Injector;
 
 /**
  * This class was generated. Customizations should only happen in a newly
