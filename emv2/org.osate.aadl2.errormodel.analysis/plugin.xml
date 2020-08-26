@@ -127,6 +127,17 @@ censes only apply to the Third Party Software and not any other portion of this 
       </image>
    </extension>
    <extension
+         point="org.eclipse.core.expressions.definitions">
+      <definition id="org.osate.ui.definition.public.inAadlPerspective">
+         <with
+               variable="activeWorkbenchWindow.activePerspective">
+            <equals
+                  value="org.osate.ui.perspective.AadlPerspective">
+            </equals>
+         </with>
+      </definition>
+   </extension>
+   <extension
          point="org.eclipse.ui.menus">
       <menuContribution
             locationURI="menu:org.osate.ui.safetyMenu?after=core">
@@ -151,12 +162,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
+               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
             </visibleWhen>
          </command>
          <command
@@ -168,12 +174,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
+               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
             </visibleWhen>
          </command>
          <command
@@ -185,12 +186,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
+               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
             </visibleWhen>
          </command>
       </menuContribution>
