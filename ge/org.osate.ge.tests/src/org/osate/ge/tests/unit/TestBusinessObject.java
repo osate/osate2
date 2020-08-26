@@ -70,7 +70,6 @@ public class TestBusinessObject {
 
 	public Point getTestPosition() {
 		return new Point(value, children.length);
-
 	}
 
 	public void makeConnection(final TestBusinessObject startSiblingBo, final TestBusinessObject endSiblingBo) {

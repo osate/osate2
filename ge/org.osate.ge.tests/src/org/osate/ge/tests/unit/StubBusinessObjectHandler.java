@@ -64,3 +64,4 @@ public class StubBusinessObjectHandler implements BusinessObjectHandler {
 		return null;
 	}
 }
+
