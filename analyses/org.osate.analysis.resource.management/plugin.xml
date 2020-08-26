@@ -137,12 +137,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
+               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
             </visibleWhen>
          </command>
          <command
@@ -154,12 +149,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
+               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
             </visibleWhen>
          </command>
          <command
@@ -171,12 +161,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
+               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
             </visibleWhen>
          </command>
       </menuContribution>

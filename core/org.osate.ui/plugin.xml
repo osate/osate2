@@ -680,6 +680,16 @@ censes only apply to the Third Party Software and not any other portion of this 
              </and>
           </with>
        </definition> 
+       
+       <!-- For enabledWhen: Be enabled when we are in the AADL Perspective -->
+       <definition id="org.osate.ui.definition.public.inAadlPerspective">
+          <with
+                variable="activeWorkbenchWindow.activePerspective">
+             <equals
+                   value="org.osate.ui.perspective.AadlPerspective">
+             </equals>
+          </with>
+       </definition>
 
       <!-- LEGACY: should become obsolete when we update all the command handlers -->
       <definition id="org.osate.ui.definition.private.isInstanceFileOrComponentInstanceSelected">
@@ -1063,12 +1073,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 label="OSATE">
              <visibleWhen
                    checkEnabled="false">
-                <with
-                      variable="activeWorkbenchWindow.activePerspective">
-                   <equals
-                         value="org.osate.ui.perspective.AadlPerspective">
-                   </equals>
-                </with>
+               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
              </visibleWhen>
              <menu
                    id="org.osate.ui.openWorkflowMenu"
@@ -1128,12 +1133,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 label="Analyses">
              <visibleWhen
                    checkEnabled="false">
-                <with
-                      variable="activeWorkbenchWindow.activePerspective">
-                   <equals
-                         value="org.osate.ui.perspective.AadlPerspective">
-                   </equals>
-                </with>
+               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
              </visibleWhen>
              <menu
                    id="org.osate.ui.budgetMenu"
@@ -1226,12 +1226,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 label="OSATE Wizards">
              <visibleWhen
                    checkEnabled="false">
-                <with
-                      variable="activeWorkbenchWindow.activePerspective">
-                   <equals
-                         value="org.osate.ui.perspective.AadlPerspective">
-                   </equals>
-                </with>
+                <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
              </visibleWhen>
              <command
                    commandId="org.osate.ui.wizards.aadlProjectWizard"
@@ -1242,12 +1237,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 -->
                 <visibleWhen
                       checkEnabled="false">
-                   <with
-                         variable="activeWorkbenchWindow.activePerspective">
-                      <equals
-                            value="org.osate.ui.perspective.AadlPerspective">
-                      </equals>
-                   </with>
+                   <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
                 </visibleWhen>
              </command>
              <command
@@ -1259,12 +1249,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 -->
                 <visibleWhen
                       checkEnabled="false">
-                   <with
-                         variable="activeWorkbenchWindow.activePerspective">
-                      <equals
-                            value="org.osate.ui.perspective.AadlPerspective">
-                      </equals>
-                   </with>
+                   <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
                 </visibleWhen>
              </command>
              <command
@@ -1276,12 +1261,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 -->
                 <visibleWhen
                       checkEnabled="false">
-                   <with
-                         variable="activeWorkbenchWindow.activePerspective">
-                      <equals
-                            value="org.osate.ui.perspective.AadlPerspective">
-                      </equals>
-                   </with>
+                   <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
                 </visibleWhen>
              </command>
              <separator
@@ -1293,12 +1273,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 label="Budget">
             <visibleWhen
                   checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
+               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
             </visibleWhen>
             <separator
                   name="core">
@@ -1312,12 +1287,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 label="Semantic Checks">
             <visibleWhen
                   checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
+               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
             </visibleWhen>
             <separator
                   name="core">
@@ -1335,12 +1305,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 label="Timing">
             <visibleWhen
                   checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
+               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
             </visibleWhen>
             <separator
                   name="core">
@@ -1354,12 +1319,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 label="Safety">
             <visibleWhen
                   checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
+               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
             </visibleWhen>
             <separator
                   name="core">
