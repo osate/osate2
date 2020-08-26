@@ -24,36 +24,37 @@
 package org.osate.xtext.aadl2.parser.antlr;
 
 import com.google.inject.Inject;
-
+import org.eclipse.xtext.parser.antlr.AbstractAntlrParser;
 import org.eclipse.xtext.parser.antlr.XtextTokenStream;
+import org.osate.xtext.aadl2.parser.antlr.internal.InternalAadl2Parser;
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess;
 
-public class Aadl2Parser extends org.eclipse.xtext.parser.antlr.AbstractAntlrParser {
-	
+public class Aadl2Parser extends AbstractAntlrParser {
+
 	@Inject
 	private Aadl2GrammarAccess grammarAccess;
-	
+
 	@Override
 	protected void setInitialHiddenTokens(XtextTokenStream tokenStream) {
 		tokenStream.setInitialHiddenTokens("RULE_WS", "RULE_SL_COMMENT");
 	}
 	
+
 	@Override
-	protected org.osate.xtext.aadl2.parser.antlr.internal.InternalAadl2Parser createParser(XtextTokenStream stream) {
-		return new org.osate.xtext.aadl2.parser.antlr.internal.InternalAadl2Parser(stream, getGrammarAccess());
+	protected InternalAadl2Parser createParser(XtextTokenStream stream) {
+		return new InternalAadl2Parser(stream, getGrammarAccess());
 	}
-	
+
 	@Override 
 	protected String getDefaultRuleName() {
 		return "Model";
 	}
-	
+
 	public Aadl2GrammarAccess getGrammarAccess() {
 		return this.grammarAccess;
 	}
-	
+
 	public void setGrammarAccess(Aadl2GrammarAccess grammarAccess) {
 		this.grammarAccess = grammarAccess;
 	}
-	
 }

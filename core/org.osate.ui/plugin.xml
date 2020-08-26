@@ -24,6 +24,8 @@ censes only apply to the Third Party Software and not any other portion of this 
 -->
 <?eclipse version="3.0"?>
 <plugin>
+   <extension-point id="examples" name="OSATE Examples" schema="schema/examples.exsd"/>
+
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
@@ -112,6 +114,22 @@ censes only apply to the Third Party Software and not any other portion of this 
             project="true">
          <description>
             %_UI_AadlProjectWizard_description
+         </description>
+         <selection
+               class="org.eclipse.core.resources.IResource">
+         </selection>
+      </wizard>
+      <wizard
+            id="org.osate.ui.wizards.OsateExampleWizardID"
+            name="%_UI_OsateExampleWizard_label"
+            icon="icons/new_aadl_project.gif"
+            category="org.osate.Wizard.category.ID"
+            class="org.osate.ui.wizards.OsateExampleWizard"
+            preferredPerspectives="org.osate.ui.perspective.AadlPerspective"
+            finalPerspective="org.osate.ui.perspective.AadlPerspective"
+            project="true">
+         <description>
+            %_UI_OsateExampleWizard_description
          </description>
          <selection
                class="org.eclipse.core.resources.IResource">
@@ -475,7 +493,7 @@ censes only apply to the Third Party Software and not any other portion of this 
         point="org.eclipse.ui.newWizards">
      <wizard
            category="org.eclipse.ui.Examples/org.osate.Wizard.category.examples"
-           class="org.osate.ui.wizards.AadlExamplesWizard"
+           class="org.osate.ui.wizards.OsateExampleWizard"
            icon="icons/aadl.gif"
            id="org.osate.wizard.examples"
            name="AADL Examples"
@@ -1549,5 +1567,12 @@ censes only apply to the Third Party Software and not any other portion of this 
             file="toc_modelUnitVisualization.xml"
             primary="true">
       </toc>
+        <toc
+            file="toc_importWizard.xml"
+            primary="true">
+      </toc>
    </extension>
+   <extension point="org.eclipse.help.contexts">
+      <contexts file="help/importWizard.xml" />
+   </extension>   
 </plugin>

@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -134,6 +135,7 @@ public class EMV2PathElementImpl extends ElementImpl implements EMV2PathElement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getEmv2PropagationKind()
   {
     return emv2PropagationKind;
@@ -144,6 +146,7 @@ public class EMV2PathElementImpl extends ElementImpl implements EMV2PathElement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setEmv2PropagationKind(String newEmv2PropagationKind)
   {
     String oldEmv2PropagationKind = emv2PropagationKind;
@@ -157,6 +160,7 @@ public class EMV2PathElementImpl extends ElementImpl implements EMV2PathElement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorTypes getErrorType()
   {
     if (errorType != null && errorType.eIsProxy())
@@ -187,6 +191,7 @@ public class EMV2PathElementImpl extends ElementImpl implements EMV2PathElement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setErrorType(ErrorTypes newErrorType)
   {
     ErrorTypes oldErrorType = errorType;
@@ -200,6 +205,7 @@ public class EMV2PathElementImpl extends ElementImpl implements EMV2PathElement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public NamedElement getNamedElement()
   {
     if (namedElement != null && ((EObject)namedElement).eIsProxy())
@@ -230,6 +236,7 @@ public class EMV2PathElementImpl extends ElementImpl implements EMV2PathElement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setNamedElement(NamedElement newNamedElement)
   {
     NamedElement oldNamedElement = namedElement;
@@ -243,6 +250,7 @@ public class EMV2PathElementImpl extends ElementImpl implements EMV2PathElement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EMV2PathElement getPath()
   {
     return path;
@@ -270,6 +278,7 @@ public class EMV2PathElementImpl extends ElementImpl implements EMV2PathElement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setPath(EMV2PathElement newPath)
   {
     if (newPath != path)

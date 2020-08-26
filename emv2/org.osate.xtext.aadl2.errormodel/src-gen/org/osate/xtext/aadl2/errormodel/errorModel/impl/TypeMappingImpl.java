@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -99,6 +100,7 @@ public class TypeMappingImpl extends ElementImpl implements TypeMapping
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeSet getSource()
   {
     return source;
@@ -126,6 +128,7 @@ public class TypeMappingImpl extends ElementImpl implements TypeMapping
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setSource(TypeSet newSource)
   {
     if (newSource != source)
@@ -147,6 +150,7 @@ public class TypeMappingImpl extends ElementImpl implements TypeMapping
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeSet getTarget()
   {
     return target;
@@ -174,6 +178,7 @@ public class TypeMappingImpl extends ElementImpl implements TypeMapping
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTarget(TypeSet newTarget)
   {
     if (newTarget != target)

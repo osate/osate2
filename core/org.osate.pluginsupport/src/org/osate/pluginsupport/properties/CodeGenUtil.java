@@ -26,7 +26,7 @@ import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 
 /**
- * @since 4.1
+ * @since 5.0
  */
 public final class CodeGenUtil {
 	private CodeGenUtil() {

@@ -9,7 +9,7 @@ import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.UnitLiteral;
 
 /**
- * @since 4.1
+ * @since 5.0
  */
 public interface GeneratedUnits<U> {
 	double getFactorToBase();

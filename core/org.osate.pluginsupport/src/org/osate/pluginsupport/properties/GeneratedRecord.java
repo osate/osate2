@@ -10,7 +10,7 @@ import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.RecordValue;
 
 /**
- * @since 4.1
+ * @since 5.0
  */
 public abstract class GeneratedRecord {
 	public abstract RecordValue toPropertyExpression(ResourceSet resourceSet);
