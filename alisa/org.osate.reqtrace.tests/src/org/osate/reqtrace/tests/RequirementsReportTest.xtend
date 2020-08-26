@@ -28,7 +28,6 @@ import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
-import org.osate.alisa.workbench.AlisaUiInjectorProvider
 import org.osate.testsupport.BIRTTest
 
 @RunWith(XtextRunner)

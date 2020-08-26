@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Tests
+Bundle-Name: Error Model Tests
 Bundle-SymbolicName: org.osate.aadl2.errormodel.tests
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.osate.aadl2.errormodel.tests.Activator
@@ -32,4 +32,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: org.osate.aadl2.errormodel.tests
 Automatic-Module-Name: org.osate.aadl2.errormodel.tests
+Bundle-Vendor: CMU/SEI
 

@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -165,6 +166,7 @@ public class ErrorPropagationImpl extends NamedElementImpl implements ErrorPropa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getKind()
   {
     return kind;
@@ -175,6 +177,7 @@ public class ErrorPropagationImpl extends NamedElementImpl implements ErrorPropa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setKind(String newKind)
   {
     String oldKind = kind;
@@ -188,6 +191,7 @@ public class ErrorPropagationImpl extends NamedElementImpl implements ErrorPropa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public FeatureorPPReference getFeatureorPPRef()
   {
     return featureorPPRef;
@@ -215,6 +219,7 @@ public class ErrorPropagationImpl extends NamedElementImpl implements ErrorPropa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setFeatureorPPRef(FeatureorPPReference newFeatureorPPRef)
   {
     if (newFeatureorPPRef != featureorPPRef)
@@ -236,6 +241,7 @@ public class ErrorPropagationImpl extends NamedElementImpl implements ErrorPropa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isNot()
   {
     return not;
@@ -246,6 +252,7 @@ public class ErrorPropagationImpl extends NamedElementImpl implements ErrorPropa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setNot(boolean newNot)
   {
     boolean oldNot = not;
@@ -259,6 +266,7 @@ public class ErrorPropagationImpl extends NamedElementImpl implements ErrorPropa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public DirectionType getDirection()
   {
     return direction;
@@ -269,6 +277,7 @@ public class ErrorPropagationImpl extends NamedElementImpl implements ErrorPropa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDirection(DirectionType newDirection)
   {
     DirectionType oldDirection = direction;
@@ -282,6 +291,7 @@ public class ErrorPropagationImpl extends NamedElementImpl implements ErrorPropa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeSet getTypeSet()
   {
     return typeSet;
@@ -309,6 +319,7 @@ public class ErrorPropagationImpl extends NamedElementImpl implements ErrorPropa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTypeSet(TypeSet newTypeSet)
   {
     if (newTypeSet != typeSet)

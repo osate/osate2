@@ -6,7 +6,7 @@ import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.PropertyExpression;
 
 /**
- * @since 4.1
+ * @since 5.0
  */
 public class IntegerWithUnits<U extends Enum<U> & GeneratedUnits<U>> implements Comparable<IntegerWithUnits<U>> {
 	private final long value;

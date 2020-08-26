@@ -6,7 +6,7 @@ import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RealLiteral;
 
 /**
- * @since 4.1
+ * @since 5.0
  */
 public class RealWithUnits<U extends Enum<U> & GeneratedUnits<U>> implements Comparable<RealWithUnits<U>> {
 	private final double value;

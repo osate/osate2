@@ -14,7 +14,7 @@ import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RealLiteral;
 
 /**
- * @since 4.1
+ * @since 5.0
  */
 public class RealRange {
 	private final double minimum;
