@@ -99,9 +99,20 @@ public class PropertySectionUtil {
 		return label;
 	}
 
-	public static Button createButton(final TabbedPropertySheetWidgetFactory widgetFactory, final Composite composite,
+	/**
+	 * Creates a button with the specified data, selection listener, text, and type
+	 * intended to be created on a {@link org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage}.
+	 * @param widgetFactory the widget factory used to create the label
+	 * @param container is the container for the label.
+	 * @param data is the data for the button
+	 * @param listener is the selection listener for the button
+	 * @param txt is the text for the button
+	 * @param type is the type of button
+	 * @return is the created button
+	 */
+	public static Button createButton(final TabbedPropertySheetWidgetFactory widgetFactory, final Composite container,
 			final Object data, final SelectionListener listener, final String txt, final int type) {
-		final Button btn = widgetFactory.createButton(composite, txt, type);
+		final Button btn = widgetFactory.createButton(container, txt, type);
 		btn.setData(data);
 		btn.addSelectionListener(listener);
 		return btn;
