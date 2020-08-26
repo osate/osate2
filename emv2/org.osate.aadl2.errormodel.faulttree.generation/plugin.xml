@@ -51,34 +51,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             class="org.osate.aadl2.errormodel.faulttree.handler.FTAHandler" 
             commandId="org.osate.aadl2.errormodel.analysis.fta">
          <enabledWhen>
-            <or>
-               <reference
-                     definitionId="org.osate.core.isInstanceFileSelected">
-               </reference>
-               <with
-                     variable="selection">
-                  <and>
-                     <count
-                           value="1">
-                     </count>
-                     <iterate>
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.ComponentInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
-                              <test
-                                    property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                    value="ComponentInstance"
-                                    forcePluginActivation="true">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </and>
-               </with>
-            </or>
+            <reference definitionId="org.osate.ui.definition.private.isInstanceFileOrComponentInstanceSelected"/>
          </enabledWhen>
       </handler>
      </extension>  
