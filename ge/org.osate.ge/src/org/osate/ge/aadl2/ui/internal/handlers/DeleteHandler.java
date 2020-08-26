@@ -281,9 +281,8 @@ public class DeleteHandler extends AbstractHandler {
 
 			if (boHandler instanceof CustomDeleter) {
 				final CustomDeleter deleter = (CustomDeleter) boHandler;
-				return new BusinessObjectRemoval(boEObj, boToModify -> {
-					deleter.delete(new CustomDeleteContext(boToModify, bo));
-				});
+				return new BusinessObjectRemoval(boEObj,
+						boToModify -> deleter.delete(new CustomDeleteContext(boToModify, bo)));
 			}
 
 			// Get container for AnnexSubclause to be modified
@@ -291,9 +290,7 @@ public class DeleteHandler extends AbstractHandler {
 				boEObj = ((EObject) bo).eContainer();
 			}
 
-			return new BusinessObjectRemoval(boEObj, (boToModify) -> {
-				EcoreUtil.remove(boToModify);
-			});
+			return new BusinessObjectRemoval(boEObj, (boToModify) -> EcoreUtil.remove(boToModify));
 		} else if (bo instanceof EmfContainerProvider) {
 			if(!(boHandler instanceof CustomDeleter)) {
 				throw new RuntimeException("Business object handler '" + boHandler + "' for "

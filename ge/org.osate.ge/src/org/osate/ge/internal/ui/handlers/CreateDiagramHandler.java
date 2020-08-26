@@ -50,8 +50,7 @@ public class CreateDiagramHandler extends AbstractHandler {
 
 			// Determine the context BO
 			final Object contextBo = Objects.requireNonNull(SelectionUtil
-					.getDiagramContext(AgeHandlerUtil.getCurrentSelection(), HandlerUtil.getActiveEditor(event),
-							(element) -> SelectionUtil.findDiagramContextForSelectedObject(element)),
+					.getDiagramContext(AgeHandlerUtil.getCurrentSelection(), HandlerUtil.getActiveEditor(event)),
 					"Unable to determine context business object");
 
 			final DiagramService diagramService = (DiagramService) PlatformUI.getWorkbench().getActiveWorkbenchWindow()
@@ -76,8 +75,7 @@ public class CreateDiagramHandler extends AbstractHandler {
 	public void setEnabled(final Object evaluationContext) {
 		final Object contextBo = SelectionUtil.getDiagramContext(
 				AgeHandlerUtil.getCurrentSelection(),
-				AgeHandlerUtil.getActiveEditorFromContext(evaluationContext),
-				(element) -> SelectionUtil.findDiagramContextForSelectedObject(element));
+				AgeHandlerUtil.getActiveEditorFromContext(evaluationContext));
 		setBaseEnabled(contextBo != null);
 	}
 }
