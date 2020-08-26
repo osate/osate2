@@ -192,15 +192,6 @@ public class PasteAction extends ActionStackAction {
 
 					copiedDiagramElement.getDiagramElement()
 					.getBusinessObjectHandler().afterPaste(new PasteContext(dstDiagramNode, copiedEObject));
-
-//					final BusinessObjectHandler boHandler = copiedDiagramElement.getDiagramElement()
-//							.getBusinessObjectHandler();
-//					if (boHandler instanceof CustomPaster) {
-//						// Make paste modifications for bo
-//						((CustomPaster) boHandler).makePasteModifications(
-//								new PasteContext(dstDiagramNode,
-//										copiedEObject));
-					// }
 				} else {
 					throw new RuntimeException("Unsupported case:  " + boFromCopiedDiagramElement);
 				}
@@ -369,7 +360,6 @@ public class PasteAction extends ActionStackAction {
 	}
 
 	private static void setName(final Object bo, final BusinessObjectHandler handler, final String newName) {
-		// TODO revisit this
 		if (bo instanceof NamedElement && !RenameUtil.supportsNonLtkRename(handler)) {
 			((NamedElement) bo).setName(newName);
 		} else {
@@ -453,7 +443,7 @@ public class PasteAction extends ActionStackAction {
 			final EClass dstBoEClass = dstBo.eClass();
 			final boolean allElementsAreCompatible = copiedDiagramElements.stream().allMatch(
 					copiedDiagramElement -> !(copiedDiagramElement.getCopiedBusinessObject() instanceof EObject)
-					|| getCompatibleStructuralFeature(copiedDiagramElement.getContainingFeature(),
+							|| getCompatibleStructuralFeature(copiedDiagramElement.getContainingFeature(),
 									dstBoEClass) != null);
 
 			if (allElementsAreCompatible) {
