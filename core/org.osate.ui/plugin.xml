@@ -574,7 +574,7 @@ censes only apply to the Third Party Software and not any other portion of this 
            </adapt>
        </definition>
 
-       <!-- Instantiatable ComponentImplementation as an EObjectURIWrapper (aadl outline view) -->
+       <!-- Instantiatable ComponentImplementation as an EObjectNode (aadl outline view) -->
        <definition id="org.osate.ui.definition.private.isInstantiatableEObjectNode">
           <adapt
                 type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
@@ -612,6 +612,21 @@ censes only apply to the Third Party Software and not any other portion of this 
           <instanceof value="org.eclipse.ui.IWorkingSet" />
        </definition>
        
+       <!-- A working set or open project -->
+       <definition id="org.osate.ui.definition.private.isWorkingSetOrOpenProject">
+          <or>
+             <adapt
+                   type="org.eclipse.ui.IWorkingSet">
+             </adapt>
+             <adapt
+                   type="org.eclipse.core.resources.IProject">
+                <test
+                      property="org.eclipse.core.resources.open">
+                </test>
+             </adapt>
+          </or>
+       </definition>
+       
        <!-- For visibleWhen: Be visible when there are 1 or more selected objects and AT LEAST ONE of them
             is a working set, AADL Project, folder in an AADL Project, an AAXL file, or an instantiatable
             component implementation. -->
@@ -639,7 +654,6 @@ censes only apply to the Third Party Software and not any other portion of this 
           </with>
        </definition> 
 
-       
        <!-- For enabledWhen: Be enabled when there are 1 or more selected objects and ALL OF THEM are one of
             working set, AADL Project, folder in an AADL Project, an AAXL file, or an instantiatable
             component implementation. -->
@@ -666,6 +680,70 @@ censes only apply to the Third Party Software and not any other portion of this 
              </and>
           </with>
        </definition> 
+
+      <!-- LEGACY: should become obsolete when we update all the command handlers -->
+      <definition id="org.osate.ui.definition.private.isInstanceFileOrComponentInstanceSelected">
+         <or>
+            <reference
+                  definitionId="org.osate.core.isInstanceFileSelected">
+            </reference>
+            <with
+                  variable="selection">
+               <and>
+                  <count
+                        value="1">
+                  </count>
+                  <iterate>
+                     <or>
+                        <instanceof
+                              value="org.osate.aadl2.instance.ComponentInstance">
+                        </instanceof>
+                        <adapt
+                              type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                           <test
+                                 property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                 value="ComponentInstance"
+                                 forcePluginActivation="true">
+                           </test>
+                        </adapt>
+                     </or>
+                  </iterate>
+               </and>
+            </with>
+         </or>
+      </definition>
+
+      <!-- LEGACY: should become obsolete when we update all the command handlers -->
+      <definition id="org.osate.ui.definition.private.isInstanceFileOrSystemInstanceSelected">
+         <or>
+            <reference
+                  definitionId="org.osate.core.isInstanceFileSelected">
+            </reference>
+            <with
+                  variable="selection">
+               <and>
+                  <count
+                        value="1">
+                  </count>
+                  <iterate>
+                     <or>
+                        <instanceof
+                              value="org.osate.aadl2.instance.SystemInstance">
+                        </instanceof>
+                        <adapt
+                              type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                           <test
+                                 property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                 value="SystemInstance"
+                                 forcePluginActivation="true">
+                           </test>
+                        </adapt>
+                     </or>
+                  </iterate>
+               </and>
+            </with>
+         </or>
+      </definition>
     </extension>
     <extension
           point="org.eclipse.ui.menus">
@@ -1476,17 +1554,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                          value="1">
                    </count>
                    <iterate>
-                      <or>
-                         <adapt
-                               type="org.eclipse.ui.IWorkingSet">
-                         </adapt>
-                         <adapt
-                               type="org.eclipse.core.resources.IProject">
-                            <test
-                                  property="org.eclipse.core.resources.open">
-                            </test>
-                         </adapt>
-                      </or>
+                      <reference definitionId="org.osate.ui.definition.private.isWorkingSetOrOpenProject"/>
                    </iterate>
                 </and>
              </with>
@@ -1503,17 +1571,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                          value="1">
                    </count>
                    <iterate>
-                      <or>
-                         <adapt
-                               type="org.eclipse.ui.IWorkingSet">
-                         </adapt>
-                         <adapt
-                               type="org.eclipse.core.resources.IProject">
-                            <test
-                                  property="org.eclipse.core.resources.open">
-                            </test>
-                         </adapt>
-                      </or>
+                      <reference definitionId="org.osate.ui.definition.private.isWorkingSetOrOpenProject"/>
                    </iterate>
                 </and>
              </with>

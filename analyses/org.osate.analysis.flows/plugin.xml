@@ -67,34 +67,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             class="org.osate.analysis.flows.handlers.CheckFlowLatency"
             commandId="org.osate.analysis.flows.checkFlowLatency">
          <enabledWhen>
-            <or>
-               <reference
-                     definitionId="org.osate.core.isInstanceFileSelected">
-               </reference>
-               <with
-                     variable="selection">
-                  <and>
-                     <count
-                           value="1">
-                     </count>
-                     <iterate>
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
-                              <test
-                                    property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                    value="SystemInstance"
-                                    forcePluginActivation="true">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </and>
-               </with>
-            </or>
+            <reference definitionId="org.osate.ui.definition.private.isInstanceFileOrSystemInstanceSelected"/>
          </enabledWhen>
       </handler>
    </extension>

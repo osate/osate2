@@ -152,10 +152,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 <and>
                    <count value="+" />
                    <iterate>
-                      <and>
-                         <instanceof value="org.eclipse.core.resources.IFile" />
-                         <test property="org.osate.ui.aadlPackage" forcePluginActivation="true" />
-                      </and>
+                      <reference definitionId="org.osate.ui.definition.private.isAADLFile"/>
                    </iterate>
                 </and>
              </with>
@@ -165,170 +162,35 @@ censes only apply to the Third Party Software and not any other portion of this 
             class="org.osate.analysis.architecture.handlers.CheckConnectionBindingConsistency"
             commandId="org.osate.analysis.architecture.checkConnectionBindingConsistency">
          <enabledWhen>
-            <or>
-               <reference
-                     definitionId="org.osate.core.isInstanceFileSelected">
-               </reference>
-               <with
-                     variable="selection">
-                  <and>
-                     <count
-                           value="1">
-                     </count>
-                     <iterate>
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
-                              <test
-                                    property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                    value="SystemInstance"
-                                    forcePluginActivation="true">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </and>
-               </with>
-            </or>
+            <reference definitionId="org.osate.ui.definition.private.isInstanceFileOrSystemInstanceSelected"/>
          </enabledWhen>
       </handler>
       <handler
             class="org.osate.analysis.architecture.handlers.DoPortConnectionConsistency"
             commandId="org.osate.analysis.architecture.portConnectionConsistency">
          <enabledWhen>
-            <or>
-               <reference
-                     definitionId="org.osate.core.isInstanceFileSelected">
-               </reference>
-               <with
-                     variable="selection">
-                  <and>
-                     <count
-                           value="1">
-                     </count>
-                     <iterate>
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
-                              <test
-                                    property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                    value="SystemInstance"
-                                    forcePluginActivation="true">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </and>
-               </with>
-            </or>
+            <reference definitionId="org.osate.ui.definition.private.isInstanceFileOrSystemInstanceSelected"/>
          </enabledWhen>
       </handler>
       <handler
             class="org.osate.analysis.architecture.handlers.CheckA429PortConnectionConsistency"
             commandId="org.osate.analysis.architecture.checkA429PortConnectionConsistency">
          <enabledWhen>
-            <or>
-               <reference
-                     definitionId="org.osate.core.isInstanceFileSelected">
-               </reference>
-               <with
-                     variable="selection">
-                  <and>
-                     <count
-                           value="1">
-                     </count>
-                     <iterate>
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
-                              <test
-                                    property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                    value="SystemInstance"
-                                    forcePluginActivation="true">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </and>
-               </with>
-            </or>
+            <reference definitionId="org.osate.ui.definition.private.isInstanceFileOrSystemInstanceSelected"/>
          </enabledWhen>
       </handler>
       <handler
             class="org.osate.analysis.architecture.handlers.DoPropertyTotals"
             commandId="org.osate.analysis.architecture.propertyTotals">
          <enabledWhen>
-            <or>
-               <reference
-                     definitionId="org.osate.core.isInstanceFileSelected">
-               </reference>
-               <with
-                     variable="selection">
-                  <and>
-                     <count
-                           value="1">
-                     </count>
-                     <iterate>
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
-                              <test
-                                    property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                    value="SystemInstance"
-                                    forcePluginActivation="true">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </and>
-               </with>
-            </or>
+            <reference definitionId="org.osate.ui.definition.private.isInstanceFileOrSystemInstanceSelected"/>
          </enabledWhen>
       </handler>
       <handler
             class="org.osate.analysis.architecture.handlers.CheckBindingConstraints"
             commandId="org.osate.analysis.architecture.checkBindingConstraints">
          <enabledWhen>
-            <or>
-               <reference
-                     definitionId="org.osate.core.isInstanceFileSelected">
-               </reference>
-               <with
-                     variable="selection">
-                  <and>
-                     <count
-                           value="1">
-                     </count>
-                     <iterate>
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
-                              <test
-                                    property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                    value="SystemInstance"
-                                    forcePluginActivation="true">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </and>
-               </with>
-            </or>
+            <reference definitionId="org.osate.ui.definition.private.isInstanceFileOrSystemInstanceSelected"/>
          </enabledWhen>
       </handler>
    </extension>
