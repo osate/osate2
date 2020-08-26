@@ -203,7 +203,6 @@ public class DefaultDiagramService implements DiagramService {
 	@Override
 	public AgeDiagramEditor openOrCreateDiagramForBusinessObject(final Object bo, final boolean promptForCreate,
 			final boolean promptForConfigureAfterCreate, final Supplier<Optional<IFile>> createDiagramFile) {
-		System.err.println(bo + " bo");
 		// Look for an existing diagram
 		final List<DiagramReference> diagramRefs = findDiagramsByContextBusinessObject(bo).stream()
 				.filter(dr -> dr.isValid()).collect(Collectors.toList());
