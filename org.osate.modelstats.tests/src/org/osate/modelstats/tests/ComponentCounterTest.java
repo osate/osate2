@@ -21,7 +21,7 @@ import com.google.inject.Inject;
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
 public class ComponentCounterTest {
-	private final String path = "org.osate.componentcounter.tests/models/ComponentCounter/";
+	private final String path = "org.osate.modelstats.tests/models/ComponentCounter/";
 
 	@Inject
 	private TestHelper<AadlPackage> testHelper;
