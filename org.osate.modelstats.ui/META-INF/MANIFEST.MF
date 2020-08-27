@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Ui
+Bundle-Name: Model Statistics UI
 Bundle-SymbolicName: org.osate.modelstats.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.osate.modelstats.ui.Activator
@@ -15,3 +15,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: org.osate.componentcounter.ui
 Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.xtext.xbase.lib
+Bundle-Vendor: CMU/SEI
