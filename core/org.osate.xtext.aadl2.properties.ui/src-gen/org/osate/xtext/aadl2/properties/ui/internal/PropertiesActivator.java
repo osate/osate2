@@ -23,26 +23,26 @@
  */
 package org.osate.xtext.aadl2.properties.ui.internal;
 
+import com.google.common.collect.Maps;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import java.util.Collections;
 import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.ui.shared.SharedStateModule;
 import org.eclipse.xtext.util.Modules2;
+import org.osate.xtext.aadl2.properties.PropertiesRuntimeModule;
+import org.osate.xtext.aadl2.properties.ui.PropertiesUiModule;
 import org.osgi.framework.BundleContext;
-
-import com.google.common.collect.Maps;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.Module;
 
 /**
  * This class was generated. Customizations should only happen in a newly
  * introduced subclass. 
  */
 public class PropertiesActivator extends AbstractUIPlugin {
-	
+
+	public static final String PLUGIN_ID = "org.osate.xtext.aadl2.properties.ui";
 	public static final String ORG_OSATE_XTEXT_AADL2_PROPERTIES_PROPERTIES = "org.osate.xtext.aadl2.properties.Properties";
 	
 	private static final Logger logger = Logger.getLogger(PropertiesActivator.class);
@@ -80,10 +80,10 @@ public class PropertiesActivator extends AbstractUIPlugin {
 	
 	protected Injector createInjector(String language) {
 		try {
-			Module runtimeModule = getRuntimeModule(language);
-			Module sharedStateModule = getSharedStateModule();
-			Module uiModule = getUiModule(language);
-			Module mergedModule = Modules2.mixin(runtimeModule, sharedStateModule, uiModule);
+			com.google.inject.Module runtimeModule = getRuntimeModule(language);
+			com.google.inject.Module sharedStateModule = getSharedStateModule();
+			com.google.inject.Module uiModule = getUiModule(language);
+			com.google.inject.Module mergedModule = Modules2.mixin(runtimeModule, sharedStateModule, uiModule);
 			return Guice.createInjector(mergedModule);
 		} catch (Exception e) {
 			logger.error("Failed to create injector for " + language);
@@ -91,25 +91,24 @@ public class PropertiesActivator extends AbstractUIPlugin {
 			throw new RuntimeException("Failed to create injector for " + language, e);
 		}
 	}
-
-	protected Module getRuntimeModule(String grammar) {
+	
+	protected com.google.inject.Module getRuntimeModule(String grammar) {
 		if (ORG_OSATE_XTEXT_AADL2_PROPERTIES_PROPERTIES.equals(grammar)) {
-			return new org.osate.xtext.aadl2.properties.PropertiesRuntimeModule();
+			return new PropertiesRuntimeModule();
 		}
-		
 		throw new IllegalArgumentException(grammar);
 	}
 	
-	protected Module getUiModule(String grammar) {
+	protected com.google.inject.Module getUiModule(String grammar) {
 		if (ORG_OSATE_XTEXT_AADL2_PROPERTIES_PROPERTIES.equals(grammar)) {
-			return new org.osate.xtext.aadl2.properties.ui.PropertiesUiModule(this);
+			return new PropertiesUiModule(this);
 		}
-		
 		throw new IllegalArgumentException(grammar);
 	}
 	
-	protected Module getSharedStateModule() {
+	protected com.google.inject.Module getSharedStateModule() {
 		return new SharedStateModule();
 	}
+	
 	
 }

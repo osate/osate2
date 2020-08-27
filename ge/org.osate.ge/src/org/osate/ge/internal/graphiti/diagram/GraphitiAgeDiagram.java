@@ -100,7 +100,7 @@ import org.osate.ge.internal.diagram.runtime.ElementAddedEvent;
 import org.osate.ge.internal.diagram.runtime.ElementRemovedEvent;
 import org.osate.ge.internal.diagram.runtime.ElementUpdatedEvent;
 import org.osate.ge.internal.diagram.runtime.ModificationsCompletedEvent;
-import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
+import org.osate.ge.internal.diagram.runtime.botree.Completeness;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
 import org.osate.ge.internal.diagram.runtime.styling.StyleCalculator;
@@ -355,7 +355,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable, La
 		Objects.requireNonNull(pe, "pe must not be null");
 
 		// Set whether the pictogram element is active based if the graphic is a decoration
-		if (de.getGraphicalConfiguration().isDecoration) {
+		if (de.getGraphicalConfiguration().isDecoration()) {
 			pe.setActive(!(containerPe instanceof Connection) || g instanceof Label);
 
 			if (containerPe instanceof Connection) {
@@ -470,7 +470,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable, La
 			final GraphicsAlgorithm ga = connection.getGraphicsAlgorithm();
 			ga.setStyle(null);
 			ga.setLineStyle(
-					AgeGraphitiGraphicsUtil.toGraphitiLineStyle(de.getGraphicalConfiguration().style.getLineStyle()));
+					AgeGraphitiGraphicsUtil.toGraphitiLineStyle(de.getGraphicalConfiguration().getStyle().getLineStyle()));
 			ga.setLineWidth(2);
 			ga.setForeground(Graphiti.getGaService().manageColor(graphitiDiagram, IColorConstant.BLACK));
 			setBendpointsFromDiagramElement(de, pe);
@@ -495,7 +495,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable, La
 			// Create Labels
 			if (primaryLabelStr != null) {
 				final Shape labelShape;
-				if (de.getGraphicalConfiguration().primaryLabelIsMultiline) {
+				if (de.getGraphicalConfiguration().isPrimaryLabelIsMultiline()) {
 					final int labelWidth = de.hasSize()
 							? Math.max((int) de.getWidth() - wrappingLabelPadding, wrappingLabelMinWidth)
 									: defaultWrappingLabelWidth;
@@ -509,7 +509,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable, La
 				labelShape.setActive(false);
 			}
 
-			final String annotation = de.getGraphicalConfiguration().annotation;
+			final String annotation = de.getGraphicalConfiguration().getAnnotation();
 			if (annotation != null) {
 				final Shape annotationShape = labelHelper.createLabelShape(graphitiDiagram, (ContainerShape) pe,
 						ShapeNames.annotationShapeName, annotation, fontSize);

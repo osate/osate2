@@ -55,7 +55,7 @@
                   The name of the tooltip contributor class. The class must be a public class with a zero argument constructor. It should have a method tagged with the ContributeTooltipContent annotation.
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java"/>
+                  <meta.attribute kind="java" basedOn=":org.osate.ge.ui.TooltipContributor"/>
                </appinfo>
             </annotation>
          </attribute>

@@ -76,7 +76,7 @@ class VerifyQuickfixProvider extends DefaultQuickfixProvider {
 	 * 
 	 */
 	@Fix(VerifyValidator.MISSING_CLAIM_FOR_REQ)
-	def public void fixMissingClaimForRequirement(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixMissingClaimForRequirement(Issue issue, IssueResolutionAcceptor acceptor) {
 		val reqName = issue.getData().head
 		val reqURI = issue.getData().get(1)
 
@@ -101,7 +101,7 @@ class VerifyQuickfixProvider extends DefaultQuickfixProvider {
 	 * 
 	 */
 	@Fix(VerifyValidator.MISSING_CLAIM_FOR_MULTIPLE_REQ)
-	def public void fixMissingClaimForMultipleRequirements(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixMissingClaimForMultipleRequirements(Issue issue, IssueResolutionAcceptor acceptor) {
 
 		acceptor.accept(issue, "Add a claim for each missing requirement", null, null,
 				new ISemanticModification() {
@@ -126,7 +126,7 @@ class VerifyQuickfixProvider extends DefaultQuickfixProvider {
 	 * 
 	 */
 	@Fix(VerifyValidator.MISSING_REQUIREMENTS_FOR_MULTIPLE_CLAIMS)
-	def public void fixOrganizeClaimsMissingRequirements(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixOrganizeClaimsMissingRequirements(Issue issue, IssueResolutionAcceptor acceptor) {
 
 		acceptor.accept(issue, "Add claims for missing requirements", null, null,
 				new ISemanticModification() {
@@ -152,7 +152,7 @@ class VerifyQuickfixProvider extends DefaultQuickfixProvider {
 	 * 
 	 */
 	@Fix(VerifyValidator.ILLEGAL_OBJECT_FOR_FILETYPE)
-	def public void fixIllegalObjectForFileTypeInVerify(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixIllegalObjectForFileTypeInVerify(Issue issue, IssueResolutionAcceptor acceptor) {
 		val elementType = issue.getData().head
 		val verificationURI = issue.getData().get(1)
 
@@ -177,7 +177,7 @@ class VerifyQuickfixProvider extends DefaultQuickfixProvider {
 	 * 
 	 */
 	@Fix(VerifyValidator.MULTIPLE_CLAIMS_WITH_DUPLICATE_REQUIREMENTS)
-	def public void mergeMultipleClaimsWithDuplicateRequirements(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void mergeMultipleClaimsWithDuplicateRequirements(Issue issue, IssueResolutionAcceptor acceptor) {
 		val vpURI = issue.data.head
 		val reqName = issue.data.get(1)
 		val duplicateClaimUris = issue.data.drop(2)
@@ -206,12 +206,12 @@ class VerifyQuickfixProvider extends DefaultQuickfixProvider {
 	 * 
 	 */
 	@Fix(VerifyValidator.METHOD_PARMS_DO_NOT_MATCH_RESOLUTE_DEFINITION)
-	def public void fixMethodParmsDoNotMatchResoluteDefinition(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixMethodParmsDoNotMatchResoluteDefinition(Issue issue, IssueResolutionAcceptor acceptor) {
 		val oldVMText = issue.getData().head
 		val newVMText = issue.getData().get(1)
 
 		acceptor.accept(issue, "Change method parameters to match Resolute method parameters", null, null, new IModification() {
-			override public void apply(IModificationContext context) throws Exception {
+			override void apply(IModificationContext context) throws Exception {
 				val docText = context.xtextDocument.get
 				val vmIndex = docText.indexOf(oldVMText)
 				val newDocText = docText.substring(0, vmIndex) + newVMText + docText.substring(vmIndex + oldVMText.length)

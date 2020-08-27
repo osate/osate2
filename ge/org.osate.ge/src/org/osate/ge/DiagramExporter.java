@@ -67,7 +67,6 @@ import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.impl.SimpleActionExecutor;
 import org.osate.ge.internal.ui.editor.AgeDiagramBehavior;
-import org.osate.ge.internal.util.ProjectUtil;
 import org.osgi.framework.FrameworkUtil;
 
 /**
@@ -83,18 +82,17 @@ public class DiagramExporter {
 		// Image container bounds
 		final ContainerBounds containerBounds = new ContainerBounds();
 		final URI uri = URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
-		final IProject project = ProjectUtil.getProject(uri);
+		final IProject project = ProjectUtil.getProjectOrNull(uri);
 
 		// Create diagram
 		final org.osate.ge.diagram.Diagram mmDiagram = DiagramSerialization.readMetaModelDiagram(uri);
 
 		final TransactionalEditingDomain editingDomain = TransactionalEditingDomain.Factory.INSTANCE
 				.createEditingDomain();
-		final DummyDiagramBehavior dummyDiagramBehavior = new DummyDiagramBehavior(editingDomain, project);
-		final DummyDiagramTypeProvider dummyDiagramTypeProvider = new DummyDiagramTypeProvider(dummyDiagramBehavior);
-
 		final AgeDiagram ageDiagram = DiagramSerialization.createAgeDiagram(project, mmDiagram,
-				getExtensionRegistryService(dummyDiagramTypeProvider.getClass()));
+				getExtensionRegistryService());
+		final DummyDiagramBehavior dummyDiagramBehavior = new DummyDiagramBehavior(editingDomain, project, ageDiagram);
+		final DummyDiagramTypeProvider dummyDiagramTypeProvider = new DummyDiagramTypeProvider(dummyDiagramBehavior);
 
 		// Create an empty Graphiti diagram
 		final org.eclipse.graphiti.mm.pictograms.Diagram diagram = Graphiti.getPeService()
@@ -170,7 +168,6 @@ public class DiagramExporter {
 	 * @param outputFile  the file the image will be written to
 	 */
 	public static void exportDiagramAsPng(final IFile diagramFile, final File outputFile) throws IOException {
-
 		final org.eclipse.graphiti.mm.pictograms.Diagram diagram = readDiagram(diagramFile);
 		// Export to image
 		exportDiagramToImage(diagram, outputFile);
@@ -203,9 +200,11 @@ public class DiagramExporter {
 		exportDiagramToImage(diagram, outputStream);
 	}
 
-	private static ExtensionRegistryService getExtensionRegistryService(final Class<?> clazz) {
+	private static ExtensionRegistryService getExtensionRegistryService() {
 		return Objects.requireNonNull(
-				EclipseContextFactory.getServiceContext(FrameworkUtil.getBundle(clazz).getBundleContext())
+				EclipseContextFactory.getServiceContext(FrameworkUtil.getBundle(
+						DiagramExporter.class)
+						.getBundleContext())
 				.get(ExtensionRegistryService.class),
 				"Unable to retrieve extension registry");
 	}
@@ -346,11 +345,14 @@ public class DiagramExporter {
 	private static class DummyDiagramBehavior extends AgeDiagramBehavior {
 		private final TransactionalEditingDomain editingDomain;
 		private final IProject project;
+		private final AgeDiagram diagram;
 
-		public DummyDiagramBehavior(final TransactionalEditingDomain editingDomain, final IProject project) {
+		public DummyDiagramBehavior(final TransactionalEditingDomain editingDomain, final IProject project,
+				final AgeDiagram diagram) {
 			super(null);
 			this.editingDomain = editingDomain;
 			this.project = project;
+			this.diagram = diagram;
 		}
 
 		@Override
@@ -361,6 +363,11 @@ public class DiagramExporter {
 		@Override
 		public TransactionalEditingDomain getEditingDomain() {
 			return editingDomain;
+		}
+
+		@Override
+		public AgeDiagram getAgeDiagram() {
+			return diagram;
 		}
 	}
 }

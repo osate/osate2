@@ -25,6 +25,7 @@ package org.osate.ge.swt.selectors;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 import org.osate.ge.swt.BaseObservableModel;
@@ -62,7 +63,7 @@ final class TestListEditorModel extends BaseObservableModel
 
 	@Override
 	public void setSelectedElement(String value) {
-		if (selectedElement != value) {
+		if (!Objects.equals(selectedElement, value)) {
 			this.selectedElement = value;
 			triggerChangeEvent();
 		}

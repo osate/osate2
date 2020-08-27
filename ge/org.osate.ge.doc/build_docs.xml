@@ -44,7 +44,7 @@ censes only apply to the Third Party Software and not any other portion of this 
   	-->
   </target>
 
-  <target name="build-help" depends="clean, build_docs_eclipse">
+  <target name="build-help" depends="clean, build_docs_eclipse, build_api_docs">
   </target>
 		
 	<target name="build_docs_eclipse" description="Build Eclipse Help Documentation">
@@ -103,10 +103,8 @@ censes only apply to the Third Party Software and not any other portion of this 
 		</exec>
 	</target>
 	
-	<!--
-	Currently disabled. Must be built manually by adding classpath and then building. Newer versions of javadoc require access to dependencies in order to generate documentation.
     <target name="build_api_docs">
-        <javadoc access="public" additionalparam="-notimestamp -tag 'noimplement:a:No Implement:' -tag 'noextend:a:No Extend:' -tag 'noreference:a:No Reference:' -tag 'noinstantiate:a:No Instantiate:' -tag 'nooverride:a:No Override:' -tag 'category:a:Category:'" author="true"
+        <javadoc access="public" additionalparam="-notimestamp -Xdoclint:none -tag 'noimplement:a:No Implement:' -tag 'noextend:a:No Extend:' -tag 'noreference:a:No Reference:' -tag 'noinstantiate:a:No Instantiate:' -tag 'nooverride:a:No Override:'" author="true"
         	destdir="api" 
         	doctitle="OSATE Graphical Editor API Reference" 
         	nodeprecated="false" 
@@ -114,7 +112,7 @@ censes only apply to the Third Party Software and not any other portion of this 
         	noindex="false" 
         	nonavbar="false" 
         	notree="false" 
-        	packagenames="org.osate.ge,org.osate.ge.query,org.osate.ge.services,org.osate.ge.graphics,org.osate.ge.di" 
+        	packagenames="org.osate.ge,org.osate.ge.aadl2,org.osate.ge.aadl2.ui,org.osate.ge.businessobjecthandling,org.osate.ge.graphics,org.osate.ge.operations,org.osate.ge.palette,org.osate.ge.query,org.osate.ge.referencehandling,org.osate.ge.services,org.osate.ge.ui" 
         	source="1.8"         	 
         	sourcepath="..\org.osate.ge\src;..\org.osate.ge.diagram\src" 
         	splitindex="true" 
@@ -122,5 +120,4 @@ censes only apply to the Third Party Software and not any other portion of this 
         	version="true"                
         />
     </target>
-    -->
 </project> 

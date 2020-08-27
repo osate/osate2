@@ -24,6 +24,7 @@
 		<module>alisa</module>
 		<module>ge</module>
 		<module>ba</module>
+		<module>examples</module>
 	</modules>
 
 	<profiles>
