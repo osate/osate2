@@ -25,21 +25,23 @@ package org.osate.ge.internal.query;
 
 import java.util.Deque;
 
+import org.osate.ge.BusinessObjectContext;
+
 class DescendantsQuery extends DefaultQuery {
 	public DescendantsQuery(final DefaultQuery prev) {
 		super(prev);
 	}
 	
 	@Override
-	void run(final Deque<DefaultQuery> remainingQueries, final Queryable ctx, final QueryExecutionState state, final QueryResult result) {
-		for(final Queryable child : ctx.getChildren()) {
+	void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx, final QueryExecutionState state, final QueryResult result) {
+		for(final BusinessObjectContext child : ctx.getChildren()) {
 			processResultValue(remainingQueries, child, state, result);
-			if(result.done) {
+			if(result.isDone()) {
 				return;
 			}
 			
 			run(remainingQueries, child, state, result);			
-			if(result.done) {
+			if(result.isDone()) {
 				return;
 			}
 		}

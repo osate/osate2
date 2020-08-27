@@ -45,6 +45,7 @@
       <feature id="org.osate.ba.feature" installMode="root"/>
       <feature id="org.osate.utils.feature" installMode="root"/>
       <feature id="org.osate.alisa.workbench.sdk" installMode="root"/>
+      <feature id="org.osate.examples.feature" installMode="root"/>
       <feature id="org.osate.dependencies.birt"/>
       <feature id="org.eclipse.xsemantics.runtime.feature"/>
       <feature id="org.eclipse.egit"/>

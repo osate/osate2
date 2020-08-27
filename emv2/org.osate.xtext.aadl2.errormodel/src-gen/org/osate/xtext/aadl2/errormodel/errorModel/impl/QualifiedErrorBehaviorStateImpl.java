@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -111,6 +112,7 @@ public class QualifiedErrorBehaviorStateImpl extends ElementImpl implements Qual
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public SubcomponentElement getSubcomponent()
   {
     return subcomponent;
@@ -138,6 +140,7 @@ public class QualifiedErrorBehaviorStateImpl extends ElementImpl implements Qual
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setSubcomponent(SubcomponentElement newSubcomponent)
   {
     if (newSubcomponent != subcomponent)
@@ -159,6 +162,7 @@ public class QualifiedErrorBehaviorStateImpl extends ElementImpl implements Qual
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public QualifiedErrorBehaviorState getNext()
   {
     return next;
@@ -186,6 +190,7 @@ public class QualifiedErrorBehaviorStateImpl extends ElementImpl implements Qual
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setNext(QualifiedErrorBehaviorState newNext)
   {
     if (newNext != next)
@@ -207,6 +212,7 @@ public class QualifiedErrorBehaviorStateImpl extends ElementImpl implements Qual
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorBehaviorState getState()
   {
     if (state != null && state.eIsProxy())
@@ -237,6 +243,7 @@ public class QualifiedErrorBehaviorStateImpl extends ElementImpl implements Qual
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setState(ErrorBehaviorState newState)
   {
     ErrorBehaviorState oldState = state;

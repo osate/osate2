@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -34,7 +34,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IFile;
@@ -44,13 +43,11 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.ui.editor.IDiagramEditorInput;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
@@ -60,16 +57,17 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ListDialog;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.DiagramType;
+import org.osate.ge.ProjectUtil;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
-import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.DiagramConfigurationBuilder;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.DiagramSerialization;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.types.UnrecognizedDiagramType;
 import org.osate.ge.internal.indexing.SavedDiagramIndex;
 import org.osate.ge.internal.indexing.SavedDiagramIndexInvalidator;
@@ -84,17 +82,10 @@ import org.osate.ge.internal.ui.util.EditorUtil;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 import org.osate.ge.internal.util.Log;
 import org.osate.ge.internal.util.NonUndoableToolCommand;
-import org.osate.ge.internal.util.ProjectUtil;
 
 import com.google.common.collect.ImmutableSet;
 
 public class DefaultDiagramService implements DiagramService {
-	private static final QualifiedName LEGACY_PROPERTY_NAME_MODIFICATION_TIMESTAMP = new QualifiedName("org.osate.ge",
-			"diagram_name_modification_stamp");
-	private static final QualifiedName LEGACY_PROPERTY_DIAGRAM_NAME = new QualifiedName("org.osate.ge", "diagram_name");
-	private static final Pattern uuidFilenamePattern = Pattern
-			.compile("[0-9a-f]{4,}-[0-9a-f]{2,}-[0-9a-f]{2,}-[0-9a-f]{2,}-[0-9a-f]{6,}\\.aadl_diagram");
-
 	private final ReferenceService referenceService;
 	private final ExtensionRegistryService extRegistry;
 
@@ -177,8 +168,6 @@ public class DefaultDiagramService implements DiagramService {
 	}
 
 	public void dispose() {
-		bopHelper.close();
-
 		final IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		workspace.removeResourceChangeListener(indexUpdater);
 	}
@@ -251,7 +240,7 @@ public class DefaultDiagramService implements DiagramService {
 	private DiagramReference promptForDiagram(final List<DiagramReference> diagramRefs) {
 		// Sort the diagram references
 		final InternalDiagramReference[] sortedDiagramRefs = diagramRefs.stream()
-				.sorted((r1, r2) -> getName(r1.getFile()).compareToIgnoreCase(getName(r2.getFile())))
+				.sorted((r1, r2) -> r1.getFile().getName().compareToIgnoreCase(r2.getFile().getName()))
 				.toArray(InternalDiagramReference[]::new);
 
 		// Prompt user to select a single dialog reference
@@ -267,7 +256,7 @@ public class DefaultDiagramService implements DiagramService {
 					final InternalDiagramReference diagramRef = (InternalDiagramReference) element;
 					final String diagramTypeName = extRegistry.getDiagramTypeById(diagramRef.getDiagramTypeId())
 							.orElseGet(() -> new UnrecognizedDiagramType(diagramRef.getDiagramTypeId())).getName();
-					return getName(diagramRef.getFile()) + " (" + diagramTypeName + ")";
+					return diagramRef.getFile().getName() + " (" + diagramTypeName + ")";
 				}
 
 				return super.getText(element);
@@ -361,76 +350,6 @@ public class DefaultDiagramService implements DiagramService {
 		return fileToEditorMap;
 	}
 
-	@Override
-	public String getName(final IFile diagramFile) {
-		String name = null;
-		if (diagramFile.exists()) {
-			// Handle legacy diagram files which have names based on UUIDs
-			if (uuidFilenamePattern.matcher(diagramFile.getName()).matches()) {
-				// Attempt to use the name from the persistent property
-				try {
-					// Check modification time stamp
-					final String modStampPropValue = diagramFile
-							.getPersistentProperty(LEGACY_PROPERTY_NAME_MODIFICATION_TIMESTAMP);
-					if (modStampPropValue != null
-							&& modStampPropValue.equals(Long.toString(diagramFile.getModificationStamp()))) {
-						name = diagramFile.getPersistentProperty(LEGACY_PROPERTY_DIAGRAM_NAME);
-					}
-				} catch (CoreException e) {
-					e.printStackTrace();
-				}
-
-				if (name == null) {
-					final ResourceSet resourceSet = new ResourceSetImpl();
-					// Load the EMF Resource
-					final URI uri = URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
-					try {
-						final Resource resource = resourceSet.getResource(uri, true);
-						if (resource.getContents().size() > 0 && resource.getContents().get(0) instanceof Diagram) {
-							final Diagram diagram = (Diagram) resource.getContents().get(0);
-							name = diagram.getName() + " (Legacy)";
-						}
-					} catch (final RuntimeException e) {
-						// Ignore. Print to stderr
-						e.printStackTrace();
-					}
-
-					// Use the diagram file's name if the name could not be determined for any reason
-					if (name == null) {
-						name = diagramFile.getName();
-					}
-
-					// Update persistent properties.
-					try {
-						diagramFile.setPersistentProperty(LEGACY_PROPERTY_DIAGRAM_NAME, name);
-						diagramFile.setPersistentProperty(LEGACY_PROPERTY_NAME_MODIFICATION_TIMESTAMP,
-								Long.toString(diagramFile.getModificationStamp()));
-					} catch (CoreException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-
-			// Default to the diagram's filename
-			if (name == null) {
-				name = diagramFile.getName();
-			}
-		}
-
-		return name;
-	}
-
-	@Override
-	public void clearLegacyPersistentProperties(final IResource fileResource) {
-		// Clear the persistent properties
-		try {
-			fileResource.setPersistentProperty(LEGACY_PROPERTY_DIAGRAM_NAME, null);
-			fileResource.setPersistentProperty(LEGACY_PROPERTY_NAME_MODIFICATION_TIMESTAMP, null);
-		} catch (final CoreException e) {
-			// Ignore exceptions
-		}
-	}
-
 	class InternalReferencesToUpdate implements ReferenceCollection {
 		// Mapping from internal diagram references to a mapping from original diagram reference to lists of references to update
 		// Key should be an IFile or and AgeDiagramEditor
@@ -483,8 +402,8 @@ public class DefaultDiagramService implements DiagramService {
 							final Resource diagramResource = rs.createResource(diagramUri);
 							try {
 								diagramResource.load(Collections.emptyMap());
-								if (diagramResource.getContents().size() == 1
-										&& diagramResource.getContents().get(0) instanceof org.osate.ge.diagram.Diagram) {
+								if (diagramResource.getContents().size() == 1 && diagramResource.getContents()
+										.get(0) instanceof org.osate.ge.diagram.Diagram) {
 									updateReferences(updatedReferenceValues, originalCanonicalRefToReferenceMap,
 											diagramResource, null);
 								}
@@ -520,7 +439,7 @@ public class DefaultDiagramService implements DiagramService {
 					if (key instanceof AgeDiagramEditor) {
 						final AgeDiagramEditor editor = (AgeDiagramEditor) key;
 						final IDiagramEditorInput input = editor.getDiagramEditorInput();
-						if(input != null) {
+						if (input != null) {
 							final IResource diagramResource = ResourcesPlugin.getWorkspace().getRoot()
 									.getFile(new Path(input.getUri().toPlatformString(true)));
 							if (diagramResource instanceof IFile) {

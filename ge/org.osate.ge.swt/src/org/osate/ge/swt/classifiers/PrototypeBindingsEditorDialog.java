@@ -38,11 +38,12 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.osate.ge.swt.ChangeEvent;
-import org.osate.ge.swt.internal.InternalUtil;
+import org.osate.ge.swt.SwtUtil;
 
 /**
  * Dialog for editing prototype bindings. Values are set while the dialog is open and then reverted if the dialog is closed without pressing the OK button.
  * This behavior is important because options displayed by the dialog may change based on current values.
+ * @since 1.1
  *
  */
 public class PrototypeBindingsEditorDialog {
@@ -159,7 +160,7 @@ public class PrototypeBindingsEditorDialog {
 	}
 
 	public static void main(String[] args) {
-		InternalUtil.runDialog(() -> {
+		SwtUtil.runDialog(() -> {
 			PrototypeBindingsEditorDialog.open(null, "Select Classifier and Bindings",
 					new TestPrototypeBindingsModel(), null);
 		});

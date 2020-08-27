@@ -735,7 +735,8 @@
       <requirement
           name="de.itemis.xtext.antlr.sdk.feature.group"/>
       <requirement
-          name="org.eclipse.xtext.testing"/>
+          name="org.eclipse.xtext.testing"
+          versionRange="[2.20.0,2.21.0)"/>
       <requirement
           name="com.itemis.xtext.testing.feature.feature.group"/>
       <requirement
@@ -872,6 +873,15 @@
         <operand
             xsi:type="predicates:LocationPredicate"
             pattern="${git.clone.osate2.location|path}/core/.*"/>
+      </predicate>
+    </workingSet>
+    <workingSet
+        name="examples">
+      <predicate
+          xsi:type="predicates:AndPredicate">
+        <operand
+            xsi:type="predicates:LocationPredicate"
+            pattern="${git.clone.osate2.location|path}/examples/.*"/>
       </predicate>
     </workingSet>
     <workingSet
