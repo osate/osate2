@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.alisa.common" version="2">
     <resource path="src-gen/org/osate/alisa/common/AbstractCommonRuntimeModule.java" type="org.osate.alisa.common.AbstractCommonRuntimeModule">
-        <filter comment="Xtext generated code" id="338792546">
-            <message_arguments>
-                <message_argument value="org.osate.alisa.common.AbstractCommonRuntimeModule"/>
-                <message_argument value="bindAbstractCommonValidator()"/>
-            </message_arguments>
-        </filter>
-        <filter comment="Xtext generated code" id="338792546">
-            <message_arguments>
-                <message_argument value="org.osate.alisa.common.AbstractCommonRuntimeModule"/>
-                <message_argument value="bindIGenerator()"/>
-            </message_arguments>
-        </filter>
         <filter comment="Xtext generated code" id="1143996420">
             <message_arguments>
                 <message_argument value="bindCommonValidator()"/>
@@ -26,6 +14,13 @@
         <filter comment="Xtext generated code" id="1143996420">
             <message_arguments>
                 <message_argument value="configureFormatterPreferences(Binder)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/alisa/common/scoping/AbstractCommonScopeProvider.java" type="org.osate.alisa.common.scoping.AbstractCommonScopeProvider">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.alisa.common.scoping.AbstractCommonScopeProvider"/>
             </message_arguments>
         </filter>
     </resource>
@@ -77,13 +72,6 @@
                 <message_argument value="ISynTransition"/>
                 <message_argument value="CommonSyntacticSequencer"/>
                 <message_argument value="emitUnassignedTokens(EObject, ISyntacticSequencerPDAProviderISynTransition, INode, INode)"/>
-            </message_arguments>
-        </filter>
-    </resource>
-    <resource path="src-gen/org/osate/alisa/common/validation/AbstractCommonValidator.java" type="org.osate.alisa.common.validation.AbstractCommonValidator">
-        <filter comment="Xtext generated code" id="337764418">
-            <message_arguments>
-                <message_argument value="org.osate.alisa.common.validation.AbstractCommonValidator"/>
             </message_arguments>
         </filter>
     </resource>
