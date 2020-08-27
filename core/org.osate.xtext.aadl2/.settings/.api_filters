@@ -24,6 +24,13 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/scoping/AbstractAadl2ScopeProvider.java" type="org.osate.xtext.aadl2.scoping.AbstractAadl2ScopeProvider">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.AbstractAadl2ScopeProvider"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src-gen/org/osate/xtext/aadl2/serializer/AbstractAadl2SyntacticSequencer.java" type="org.osate.xtext.aadl2.serializer.AbstractAadl2SyntacticSequencer">
         <filter comment="xtext" id="576720909">
             <message_arguments>

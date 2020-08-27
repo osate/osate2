@@ -28,20 +28,7 @@
             </message_arguments>
         </filter>
     </resource>
-    <resource path="src-gen/org/osate/alisa/common/ui/contentassist/AbstractCommonProposalProvider.java" type="org.osate.alisa.common.ui.contentassist.AbstractCommonProposalProvider">
-        <filter comment="Xtext generated code" id="337764418">
-            <message_arguments>
-                <message_argument value="org.osate.alisa.common.ui.contentassist.AbstractCommonProposalProvider"/>
-            </message_arguments>
-        </filter>
-    </resource>
     <resource path="src-gen/org/osate/alisa/common/ui/internal/CommonActivator.java" type="org.osate.alisa.common.ui.internal.CommonActivator">
-        <filter comment="Xtext generated code" id="336658481">
-            <message_arguments>
-                <message_argument value="org.osate.alisa.common.ui.internal.CommonActivator"/>
-                <message_argument value="PLUGIN_ID"/>
-            </message_arguments>
-        </filter>
         <filter comment="Xtext generated code" id="1143996420">
             <message_arguments>
                 <message_argument value="PLUGIN_ID"/>

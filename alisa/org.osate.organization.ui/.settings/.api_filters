@@ -28,20 +28,7 @@
             </message_arguments>
         </filter>
     </resource>
-    <resource path="src-gen/org/osate/organization/ui/contentassist/AbstractOrganizationProposalProvider.java" type="org.osate.organization.ui.contentassist.AbstractOrganizationProposalProvider">
-        <filter comment="Xtext generated code" id="337764418">
-            <message_arguments>
-                <message_argument value="org.osate.organization.ui.contentassist.AbstractOrganizationProposalProvider"/>
-            </message_arguments>
-        </filter>
-    </resource>
     <resource path="src-gen/org/osate/organization/ui/internal/OrganizationActivator.java" type="org.osate.organization.ui.internal.OrganizationActivator">
-        <filter comment="Xtext generated code" id="336658481">
-            <message_arguments>
-                <message_argument value="org.osate.organization.ui.internal.OrganizationActivator"/>
-                <message_argument value="PLUGIN_ID"/>
-            </message_arguments>
-        </filter>
         <filter comment="Xtext generated code" id="1143996420">
             <message_arguments>
                 <message_argument value="PLUGIN_ID"/>
