@@ -29,30 +29,6 @@
         </filter>
     </resource>
     <resource path="src-gen/org/osate/alisa/workbench/ui/AbstractAlisaUiModule.java" type="org.osate.alisa.workbench.ui.AbstractAlisaUiModule">
-        <filter comment="Xtext generated code" id="338792546">
-            <message_arguments>
-                <message_argument value="org.osate.alisa.workbench.ui.AbstractAlisaUiModule"/>
-                <message_argument value="bindIPartialContentAssistParser()"/>
-            </message_arguments>
-        </filter>
-        <filter comment="Xtext generated code" id="338792546">
-            <message_arguments>
-                <message_argument value="org.osate.alisa.workbench.ui.AbstractAlisaUiModule"/>
-                <message_argument value="bindIWorkspaceRootToInstance()"/>
-            </message_arguments>
-        </filter>
-        <filter comment="Xtext generated code" id="338792546">
-            <message_arguments>
-                <message_argument value="org.osate.alisa.workbench.ui.AbstractAlisaUiModule"/>
-                <message_argument value="bindIXtextBuilderParticipant()"/>
-            </message_arguments>
-        </filter>
-        <filter comment="Xtext generated code" id="338792546">
-            <message_arguments>
-                <message_argument value="org.osate.alisa.workbench.ui.AbstractAlisaUiModule"/>
-                <message_argument value="configureBuilderPreferenceStoreInitializer(Binder)"/>
-            </message_arguments>
-        </filter>
         <filter comment="Xtext generated code" id="1143996420">
             <message_arguments>
                 <message_argument value="bindIPartialEditingContentAssistContextFactory()"/>
