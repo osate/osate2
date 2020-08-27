@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -195,6 +196,7 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorBehaviorState getSource()
   {
     if (source != null && source.eIsProxy())
@@ -225,6 +227,7 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setSource(ErrorBehaviorState newSource)
   {
     ErrorBehaviorState oldSource = source;
@@ -238,6 +241,7 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeSet getTypeTokenConstraint()
   {
     return typeTokenConstraint;
@@ -265,6 +269,7 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTypeTokenConstraint(TypeSet newTypeTokenConstraint)
   {
     if (newTypeTokenConstraint != typeTokenConstraint)
@@ -286,6 +291,7 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isAllStates()
   {
     return allStates;
@@ -296,6 +302,7 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setAllStates(boolean newAllStates)
   {
     boolean oldAllStates = allStates;
@@ -309,6 +316,7 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ConditionExpression getCondition()
   {
     return condition;
@@ -336,6 +344,7 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setCondition(ConditionExpression newCondition)
   {
     if (newCondition != condition)
@@ -357,6 +366,7 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorBehaviorState getTarget()
   {
     if (target != null && target.eIsProxy())
@@ -387,6 +397,7 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTarget(ErrorBehaviorState newTarget)
   {
     ErrorBehaviorState oldTarget = target;
@@ -400,6 +411,7 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeSet getTargetToken()
   {
     return targetToken;
@@ -427,6 +439,7 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTargetToken(TypeSet newTargetToken)
   {
     if (newTargetToken != targetToken)
@@ -448,6 +461,7 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSteadyState()
   {
     return steadyState;
@@ -458,6 +472,7 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setSteadyState(boolean newSteadyState)
   {
     boolean oldSteadyState = steadyState;
@@ -471,6 +486,7 @@ public class ErrorBehaviorTransitionImpl extends NamedElementImpl implements Err
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<TransitionBranch> getDestinationBranches()
   {
     if (destinationBranches == null)

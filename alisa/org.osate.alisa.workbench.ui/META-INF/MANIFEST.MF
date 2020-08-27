@@ -1,11 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.osate.alisa.workbench.ui
-Bundle-Vendor: SEI
-Bundle-Version: 2.0.2.qualifier
+Bundle-Name: Alisa Workbench UI
+Bundle-Vendor: CMU/SEI
+Bundle-Version: 3.0.0.qualifier
 Bundle-SymbolicName: org.osate.alisa.workbench.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.osate.alisa.workbench;bundle-version="[2.0.0,3.0.0)";visibility:=reexport,
+Require-Bundle: org.osate.alisa.workbench;bundle-version="[3.0.0,4.0.0)";visibility:=reexport,
  org.eclipse.xtext.ui;bundle-version="[2.20.0,3.0.0)",
  org.eclipse.ui.editors;bundle-version="[3.5.0,4.0.0)",
  org.eclipse.ui.ide;bundle-version="[3.5.0,4.0.0)",
@@ -19,25 +19,26 @@ Require-Bundle: org.osate.alisa.workbench;bundle-version="[2.0.0,3.0.0)";visibil
  org.eclipse.core.resources;bundle-version="[3.13.0,4.0.0)",
  org.osate.aadl2;bundle-version="[4.0.0,5.0.0)",
  org.osate.aadl2.instantiation;bundle-version="[1.1.0,2.0.0)",
- org.osate.ui;bundle-version="[4.0.0,5.0.0)",
+ org.osate.ui;bundle-version="[5.0.0,6.0.0)",
  org.osate.assure;bundle-version="[3.0.0,4.0.0)",
  org.eclipse.jdt.debug.ui;bundle-version="[3.10.0,4.0.0)",
- org.osate.alisa.common.ui;bundle-version="[2.0.0,3.0.0)",
- org.osate.verify;bundle-version="[2.0.0,3.0.0)",
+ org.osate.alisa.common.ui;bundle-version="[3.0.0,4.0.0)",
+ org.osate.verify;bundle-version="[3.0.0,4.0.0)",
  org.eclipse.xtext.xbase.lib;bundle-version="[2.20.0,3.0.0)",
- org.osate.categories;bundle-version="[2.0.0,3.0.0)",
+ org.osate.categories;bundle-version="[3.0.0,4.0.0)",
  org.osate.results;bundle-version="[2.0.0,3.0.0)",
- org.eclipse.emf.transaction;bundle-version="[1.9.0,2.0.0)"
+ org.eclipse.emf.transaction;bundle-version="[1.9.0,2.0.0)",
+ org.eclipse.xtend.lib;bundle-version="[2.20.0,3.0.0)";resolution:=optional
 Import-Package: org.apache.commons.lang;version="[2.6.0,3.0.0)",
  org.apache.log4j;version="[1.2.0,2.0.0)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.osate.alisa.workbench.ui,
  org.osate.alisa.workbench.ui.contentassist,
- org.osate.alisa.workbench.ui.contentassist.antlr,
- org.osate.alisa.workbench.ui.contentassist.antlr.internal;x-internal:=true,
  org.osate.alisa.workbench.ui.internal;x-internal:=true,
  org.osate.alisa.workbench.ui.labeling,
  org.osate.alisa.workbench.ui.outline,
- org.osate.alisa.workbench.ui.quickfix
-Bundle-Activator: org.osate.alisa.workbench.ui.internal.AlisaActivator
+ org.osate.alisa.workbench.ui.quickfix,
+ org.osate.alisa.workbench.ide.contentassist.antlr,
+ org.osate.alisa.workbench.ide.contentassist.antlr.internal
+Bundle-Activator: org.osate.alisa.workbench.ui.internal.WorkbenchActivator
 Automatic-Module-Name: org.osate.alisa.workbench.ui

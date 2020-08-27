@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -100,6 +101,7 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EMV2Path getQualifiedErrorPropagationReference()
   {
     return qualifiedErrorPropagationReference;
@@ -127,6 +129,7 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setQualifiedErrorPropagationReference(EMV2Path newQualifiedErrorPropagationReference)
   {
     if (newQualifiedErrorPropagationReference != qualifiedErrorPropagationReference)
@@ -148,6 +151,7 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeSet getConstraint()
   {
     return constraint;
@@ -175,6 +179,7 @@ public class ConditionElementImpl extends ElementImpl implements ConditionElemen
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setConstraint(TypeSet newConstraint)
   {
     if (newConstraint != constraint)

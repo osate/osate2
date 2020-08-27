@@ -191,6 +191,9 @@ import org.osate.annexsupport.AnnexUtil
 import org.osate.xtext.aadl2.properties.formatting2.PropertiesFormatter
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess
 
+/**
+ * @since 5.0
+ */
 @SuppressWarnings("all")
 class Aadl2Formatter extends PropertiesFormatter {
 	@Inject extension Aadl2GrammarAccess

@@ -23,8 +23,6 @@
  */
 package org.osate.ge;
 
-import org.osate.ge.internal.diagram.runtime.filtering.ContentFilterProvider;
-
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableSet;
 
@@ -76,25 +74,5 @@ public interface DiagramType {
 	 */
 	default boolean getDefaultConnectionPrimaryLabelsVisible() {
 		return false;
-	}
-
-	/**
-	 * Returns whether the diagram type is one that should be provided to the user as an option when creating a diagram.
-	 * @return
-	 */
-	default boolean isUserCreatable() {
-		return true;
-	}
-
-	/**
-	 *
-	 * @noreference
-	 */
-	public default ImmutableSet<ContentFilter> getApplicableDefaultContentFilters(final Object bo,
-			final ContentFilterProvider contentFilterProvider) {
-		return getDefaultContentFilters(bo).stream()
-				.map(id -> contentFilterProvider.getContentFilterById(id).orElse(null))
-				.filter(cf -> cf != null && cf.isApplicable(bo))
-				.collect(ImmutableSet.toImmutableSet());
 	}
 }

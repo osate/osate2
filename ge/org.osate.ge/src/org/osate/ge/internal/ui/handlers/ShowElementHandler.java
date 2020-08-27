@@ -36,13 +36,13 @@ import org.eclipse.core.runtime.Adapters;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
-import org.osate.ge.internal.diagram.runtime.boTree.BusinessObjectNode;
-import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
-import org.osate.ge.internal.diagram.runtime.boTree.DiagramToBusinessObjectTreeConverter;
+import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
+import org.osate.ge.internal.diagram.runtime.botree.Completeness;
+import org.osate.ge.internal.diagram.runtime.botree.DiagramToBusinessObjectTreeConverter;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.AgeFeatureProvider;
@@ -72,7 +72,7 @@ public class ShowElementHandler extends AbstractHandler {
 				.getFeatureProvider();
 		final List<BusinessObjectContext> bocsToAdd = AgeHandlerUtil.getSelectedBusinessObjectContexts().stream()
 				.filter(boc -> !(boc instanceof DiagramNode)).collect(Collectors.toList());
-		final AgeDiagram diagram = diagramEditor.getAgeDiagram();
+		final AgeDiagram diagram = diagramEditor.getDiagram();
 		if (diagram == null) {
 			throw new RuntimeException("Unable to get diagram");
 		}

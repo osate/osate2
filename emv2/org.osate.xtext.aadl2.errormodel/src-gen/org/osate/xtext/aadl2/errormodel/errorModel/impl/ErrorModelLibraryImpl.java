@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -175,6 +176,7 @@ public class ErrorModelLibraryImpl extends AnnexLibraryImpl implements ErrorMode
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ErrorModelLibrary> getUseTypes()
   {
     if (useTypes == null)
@@ -189,6 +191,7 @@ public class ErrorModelLibraryImpl extends AnnexLibraryImpl implements ErrorMode
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ErrorModelLibrary> getExtends()
   {
     if (extends_ == null)
@@ -203,6 +206,7 @@ public class ErrorModelLibraryImpl extends AnnexLibraryImpl implements ErrorMode
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ErrorType> getTypes()
   {
     if (types == null)
@@ -217,6 +221,7 @@ public class ErrorModelLibraryImpl extends AnnexLibraryImpl implements ErrorMode
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<TypeSet> getTypesets()
   {
     if (typesets == null)
@@ -231,6 +236,7 @@ public class ErrorModelLibraryImpl extends AnnexLibraryImpl implements ErrorMode
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<EMV2PropertyAssociation> getProperties()
   {
     if (properties == null)
@@ -245,6 +251,7 @@ public class ErrorModelLibraryImpl extends AnnexLibraryImpl implements ErrorMode
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ErrorBehaviorStateMachine> getBehaviors()
   {
     if (behaviors == null)
@@ -259,6 +266,7 @@ public class ErrorModelLibraryImpl extends AnnexLibraryImpl implements ErrorMode
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<TypeMappingSet> getMappings()
   {
     if (mappings == null)
@@ -273,6 +281,7 @@ public class ErrorModelLibraryImpl extends AnnexLibraryImpl implements ErrorMode
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<TypeTransformationSet> getTransformations()
   {
     if (transformations == null)

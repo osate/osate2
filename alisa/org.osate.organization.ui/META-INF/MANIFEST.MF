@@ -1,11 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.osate.organization.ui
-Bundle-Vendor: SEI
-Bundle-Version: 2.0.2.qualifier
+Bundle-Name: Organization UI Plug-in
+Bundle-Vendor: CMU/SEI
+Bundle-Version: 3.0.0.qualifier
 Bundle-SymbolicName: org.osate.organization.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.osate.organization;bundle-version="[2.0.0,3.0.0)";visibility:=reexport,
+Require-Bundle: org.osate.organization;bundle-version="[3.0.0,4.0.0)";visibility:=reexport,
  org.eclipse.xtext.ui;bundle-version="[2.20.0,3.0.0)",
  org.eclipse.ui.editors;bundle-version="[3.5.0,4.0.0)",
  org.eclipse.ui.ide;bundle-version="[3.5.0,4.0.0)",
@@ -16,12 +16,14 @@ Require-Bundle: org.osate.organization;bundle-version="[2.0.0,3.0.0)";visibility
  org.eclipse.xtext.ui.codetemplates.ui;bundle-version="[2.20.0,3.0.0)",
  org.eclipse.compare;bundle-version="[3.7.0,4.0.0)",
  org.eclipse.xtext.xbase.lib;bundle-version="[2.20.0,3.0.0)",
- org.osate.ui;bundle-version="[4.0.0,5.0.0)"
+ org.osate.ui;bundle-version="[5.0.0,6.0.0)",
+ org.eclipse.xtend.lib;bundle-version="[2.20.0,3.0.0)";resolution:=optional
 Import-Package: org.apache.log4j;version="[1.2.0,2.0.0)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.osate.organization.ui.contentassist,
- org.osate.organization.ui.contentassist.antlr,
  org.osate.organization.ui.internal,
- org.osate.organization.ui.quickfix
+ org.osate.organization.ui.quickfix,
+ org.osate.organization.ide.contentassist.antlr.internal,
+ org.osate.organization.ide.contentassist.antlr
 Bundle-Activator: org.osate.organization.ui.internal.OrganizationActivator
 Automatic-Module-Name: org.osate.organization.ui

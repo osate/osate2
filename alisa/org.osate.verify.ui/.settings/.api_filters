@@ -1,10 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.verify.ui" version="2">
-    <resource path="src-gen/org/osate/verify/ui/contentassist/antlr/PartialVerifyContentAssistParser.java" type="org.osate.verify.ui.contentassist.antlr.PartialVerifyContentAssistParser">
-        <filter comment="xtext" id="576725006">
+    <resource path="src-gen/org/osate/verify/ide/contentassist/antlr/PartialVerifyContentAssistParser.java" type="org.osate.verify.ide.contentassist.antlr.PartialVerifyContentAssistParser">
+        <filter comment="Xtext generated code" id="1110441988">
             <message_arguments>
-                <message_argument value="IPartialContentAssistParser"/>
-                <message_argument value="PartialVerifyContentAssistParser"/>
+                <message_argument value="org.osate.verify.ide.contentassist.antlr.PartialVerifyContentAssistParser"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/verify/ide/contentassist/antlr/VerifyParser.java" type="org.osate.verify.ide.contentassist.antlr.VerifyParser">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.verify.ide.contentassist.antlr.VerifyParser"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/verify/ide/contentassist/antlr/internal/InternalVerifyLexer.java" type="org.osate.verify.ide.contentassist.antlr.internal.InternalVerifyLexer">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.verify.ide.contentassist.antlr.internal.InternalVerifyLexer"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/verify/ide/contentassist/antlr/internal/InternalVerifyParser.java" type="org.osate.verify.ide.contentassist.antlr.internal.InternalVerifyParser">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.verify.ide.contentassist.antlr.internal.InternalVerifyParser"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/verify/ui/internal/VerifyActivator.java" type="org.osate.verify.ui.internal.VerifyActivator">
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="PLUGIN_ID"/>
             </message_arguments>
         </filter>
     </resource>

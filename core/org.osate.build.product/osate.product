@@ -45,6 +45,7 @@
       <feature id="org.osate.ba.feature" installMode="root"/>
       <feature id="org.osate.utils.feature" installMode="root"/>
       <feature id="org.osate.alisa.workbench.sdk" installMode="root"/>
+      <feature id="org.osate.examples.feature" installMode="root"/>
       <feature id="org.osate.dependencies.birt"/>
       <feature id="org.eclipse.xsemantics.runtime.feature"/>
       <feature id="org.eclipse.egit"/>
@@ -76,8 +77,8 @@
 
    <repositories>
       <repository location="http://osate-build.sei.cmu.edu/download/osate/testing/updates/" enabled="true" />
-      <repository location="http://download.eclipse.org/eclipse/updates/4.15" enabled="true" />
-      <repository location="http://download.eclipse.org/releases/2020-03" enabled="true" />
+      <repository location="http://download.eclipse.org/eclipse/updates/4.16" enabled="true" />
+      <repository location="http://download.eclipse.org/releases/2020-06" enabled="true" />
    </repositories>
 
 </product>

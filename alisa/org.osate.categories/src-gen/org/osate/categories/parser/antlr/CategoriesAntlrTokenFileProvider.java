@@ -27,10 +27,10 @@ import java.io.InputStream;
 import org.eclipse.xtext.parser.antlr.IAntlrTokenFileProvider;
 
 public class CategoriesAntlrTokenFileProvider implements IAntlrTokenFileProvider {
-	
+
 	@Override
 	public InputStream getAntlrTokenFile() {
 		ClassLoader classLoader = getClass().getClassLoader();
-    	return classLoader.getResourceAsStream("org/osate/categories/parser/antlr/internal/InternalCategoriesParser.tokens");
+		return classLoader.getResourceAsStream("org/osate/categories/parser/antlr/internal/InternalCategories.tokens");
 	}
 }

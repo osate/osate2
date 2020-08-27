@@ -1,10 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.alisa.common.ui" version="2">
-    <resource path="src-gen/org/osate/alisa/common/ui/contentassist/antlr/PartialCommonContentAssistParser.java" type="org.osate.alisa.common.ui.contentassist.antlr.PartialCommonContentAssistParser">
-        <filter comment="xtext" id="576725006">
+    <resource path="src-gen/org/osate/alisa/common/ide/contentassist/antlr/CommonParser.java" type="org.osate.alisa.common.ide.contentassist.antlr.CommonParser">
+        <filter comment="Xtext generated code" id="1110441988">
             <message_arguments>
-                <message_argument value="IPartialContentAssistParser"/>
-                <message_argument value="PartialCommonContentAssistParser"/>
+                <message_argument value="org.osate.alisa.common.ide.contentassist.antlr.CommonParser"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/alisa/common/ide/contentassist/antlr/PartialCommonContentAssistParser.java" type="org.osate.alisa.common.ide.contentassist.antlr.PartialCommonContentAssistParser">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.alisa.common.ide.contentassist.antlr.PartialCommonContentAssistParser"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/alisa/common/ide/contentassist/antlr/internal/InternalCommonLexer.java" type="org.osate.alisa.common.ide.contentassist.antlr.internal.InternalCommonLexer">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.alisa.common.ide.contentassist.antlr.internal.InternalCommonLexer"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/alisa/common/ide/contentassist/antlr/internal/InternalCommonParser.java" type="org.osate.alisa.common.ide.contentassist.antlr.internal.InternalCommonParser">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.alisa.common.ide.contentassist.antlr.internal.InternalCommonParser"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/alisa/common/ui/internal/CommonActivator.java" type="org.osate.alisa.common.ui.internal.CommonActivator">
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="PLUGIN_ID"/>
             </message_arguments>
         </filter>
     </resource>

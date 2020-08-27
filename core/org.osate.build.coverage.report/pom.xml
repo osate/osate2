@@ -36,21 +36,21 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.xtext.aadl2.errormodel</artifactId>
-			<version>4.0.0-SNAPSHOT</version>
+			<version>5.0.0-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.aadl2.errormodel.faulttree</artifactId>
-			<version>4.0.0-SNAPSHOT</version>
+			<version>5.0.0-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.xtext.aadl2.errormodel.ui</artifactId>
-			<version>4.0.0-SNAPSHOT</version>
+			<version>5.0.0-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
@@ -64,35 +64,35 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.aadl2.errormodel.analysis</artifactId>
-			<version>1.1.2-SNAPSHOT</version>
+			<version>1.1.3-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.aadl2.errormodel.contrib</artifactId>
-			<version>1.0.3-SNAPSHOT</version>
+			<version>1.0.4-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.aadl2.errormodel.propagationgraph</artifactId>
-			<version>4.0.0-SNAPSHOT</version>
+			<version>5.0.0-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.aadl2.errormodel.faulttree.design</artifactId>
-			<version>1.1.2-SNAPSHOT</version>
+			<version>1.1.3-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.aadl2.errormodel.faulttree.edit</artifactId>
-			<version>4.0.0-SNAPSHOT</version>
+			<version>5.0.0-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
@@ -106,56 +106,56 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.aadl2.errormodel.faulttree.generation</artifactId>
-			<version>1.0.3-SNAPSHOT</version>
+			<version>1.0.4-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.analysis.flows</artifactId>
-			<version>4.0.0-SNAPSHOT</version>
+			<version>4.0.1-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.codegen.checker</artifactId>
-			<version>1.0.3-SNAPSHOT</version>
+			<version>1.0.4-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.importer</artifactId>
-			<version>1.0.2-SNAPSHOT</version>
-			<optional>true</optional>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.osate</groupId>
-			<artifactId>org.osate.analysis.binpacking</artifactId>
-			<version>2.0.0-SNAPSHOT</version>
-			<optional>true</optional>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.osate</groupId>
-			<artifactId>org.osate.importer.simulink</artifactId>
 			<version>1.0.3-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
+			<artifactId>org.osate.analysis.binpacking</artifactId>
+			<version>2.0.1-SNAPSHOT</version>
+			<optional>true</optional>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osate</groupId>
+			<artifactId>org.osate.importer.simulink</artifactId>
+			<version>1.0.4-SNAPSHOT</version>
+			<optional>true</optional>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osate</groupId>
 			<artifactId>org.osate.analysis.resource.management</artifactId>
-			<version>3.0.0-SNAPSHOT</version>
+			<version>3.0.1-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.analysis.resource.budgets</artifactId>
-			<version>4.0.0-SNAPSHOT</version>
+			<version>4.0.1-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
@@ -169,7 +169,7 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.analysis.architecture</artifactId>
-			<version>2.0.0-SNAPSHOT</version>
+			<version>2.0.1-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
@@ -190,28 +190,28 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.aadl2.edit</artifactId>
-			<version>4.0.0-SNAPSHOT</version>
+			<version>4.0.1-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.aadl2.instance.ui</artifactId>
-			<version>1.0.3-SNAPSHOT</version>
+			<version>1.0.5-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.results</artifactId>
-			<version>2.0.0-SNAPSHOT</version>
+			<version>2.0.1-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.mylyn.aadl.ui</artifactId>
-			<version>1.0.3-SNAPSHOT</version>
+			<version>1.0.4-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
@@ -225,7 +225,7 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.aadl2.model.editor</artifactId>
-			<version>4.0.0-SNAPSHOT</version>
+			<version>4.0.1-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
@@ -246,105 +246,105 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.annexsupport</artifactId>
-			<version>2.1.0-SNAPSHOT</version>
+			<version>2.1.1-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.core</artifactId>
-			<version>3.0.0-SNAPSHOT</version>
+			<version>3.0.1-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.workspace</artifactId>
-			<version>4.0.0-SNAPSHOT</version>
+			<version>4.0.1-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.xtext.aadl2.properties.ui</artifactId>
-			<version>3.0.0-SNAPSHOT</version>
+			<version>4.0.0-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.aadl2</artifactId>
-			<version>4.0.0-SNAPSHOT</version>
+			<version>4.0.1-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.ui</artifactId>
-			<version>4.0.0-SNAPSHOT</version>
+			<version>5.0.0-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.aadl2.instantiation</artifactId>
-			<version>1.1.1-SNAPSHOT</version>
+			<version>1.1.2-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.branding</artifactId>
-			<version>1.0.1-SNAPSHOT</version>
+			<version>1.0.2-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.aadl2.instance.textual</artifactId>
-			<version>2.0.2-SNAPSHOT</version>
+			<version>2.0.4-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.contribution.sei</artifactId>
-			<version>1.1.1-SNAPSHOT</version>
+			<version>1.1.2-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.aadl2.instance.textual.ui</artifactId>
-			<version>2.0.2-SNAPSHOT</version>
+			<version>2.0.4-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.xtext.aadl2.properties</artifactId>
-			<version>2.0.0-SNAPSHOT</version>
+			<version>3.0.0-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.pluginsupport</artifactId>
-			<version>4.0.0-SNAPSHOT</version>
+			<version>5.0.0-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.aadl2.modelsupport</artifactId>
-			<version>4.0.0-SNAPSHOT</version>
+			<version>4.0.1-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.xtext.aadl2.ui</artifactId>
-			<version>4.0.0-SNAPSHOT</version>
+			<version>5.0.0-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
@@ -358,14 +358,14 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.xtext.aadl2</artifactId>
-			<version>4.0.0-SNAPSHOT</version>
+			<version>5.0.0-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.ge</artifactId>
-			<version>1.2.0-SNAPSHOT</version>
+			<version>2.0.0-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
@@ -373,6 +373,13 @@
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.ge.diagram</artifactId>
 			<version>2.0.1-SNAPSHOT</version>
+			<optional>true</optional>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osate</groupId>
+			<artifactId>org.osate.ge.swt</artifactId>
+			<version>1.1.0-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
@@ -386,63 +393,63 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.ge.doc</artifactId>
-			<version>1.0.3-SNAPSHOT</version>
+			<version>1.0.4-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.categories</artifactId>
-			<version>2.0.2-SNAPSHOT</version>
+			<version>3.0.0-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.alisa.common.ui</artifactId>
-			<version>2.0.2-SNAPSHOT</version>
+			<version>3.0.0-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.alisa.common</artifactId>
-			<version>2.0.2-SNAPSHOT</version>
+			<version>3.0.0-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.reqtrace</artifactId>
-			<version>1.0.3-SNAPSHOT</version>
+			<version>1.0.5-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.categories.ui</artifactId>
-			<version>2.0.2-SNAPSHOT</version>
+			<version>3.0.0-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.organization.ui</artifactId>
-			<version>2.0.2-SNAPSHOT</version>
+			<version>3.0.0-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.reqspec.ui</artifactId>
-			<version>1.0.3-SNAPSHOT</version>
+			<version>3.0.0-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.alisa.contribution</artifactId>
-			<version>1.0.3-SNAPSHOT</version>
+			<version>1.0.4-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
@@ -456,28 +463,28 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.verify.ui</artifactId>
-			<version>2.0.2-SNAPSHOT</version>
+			<version>3.0.0-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.reqspec</artifactId>
-			<version>2.0.2-SNAPSHOT</version>
+			<version>3.0.0-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.alisa.workbench</artifactId>
-			<version>2.0.2-SNAPSHOT</version>
+			<version>3.0.0-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.assure</artifactId>
-			<version>3.0.1-SNAPSHOT</version>
+			<version>3.0.3-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
@@ -505,28 +512,28 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.verify</artifactId>
-			<version>2.0.2-SNAPSHOT</version>
+			<version>3.0.0-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.organization</artifactId>
-			<version>2.0.2-SNAPSHOT</version>
+			<version>3.0.0-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.alisa.workbench.ui</artifactId>
-			<version>2.0.2-SNAPSHOT</version>
+			<version>3.0.0-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.ba</artifactId>
-			<version>4.0.0-SNAPSHOT</version>
+			<version>4.0.1-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
@@ -540,21 +547,21 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.utils</artifactId>
-			<version>1.1.0-SNAPSHOT</version>
+			<version>1.1.1-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.ba.edit</artifactId>
-			<version>4.0.0-SNAPSHOT</version>
+			<version>4.0.1-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.ba.contrib</artifactId>
-			<version>1.0.3-SNAPSHOT</version>
+			<version>1.0.4-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
