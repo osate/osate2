@@ -5,7 +5,7 @@
          point="org.eclipse.ui.commands">
       <command
             id="org.osate.modelstats.ui.countcomponents"
-            name="Count Components">
+            name="Model Statistics">
       </command>
    </extension>
    <extension
