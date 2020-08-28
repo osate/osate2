@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -107,6 +108,7 @@ public class EMV2RootImpl extends NamedElementImpl implements EMV2Root
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorModelLibrary getLibrary()
   {
     return library;
@@ -134,6 +136,7 @@ public class EMV2RootImpl extends NamedElementImpl implements EMV2Root
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setLibrary(ErrorModelLibrary newLibrary)
   {
     if (newLibrary != library)
@@ -155,6 +158,7 @@ public class EMV2RootImpl extends NamedElementImpl implements EMV2Root
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ErrorModelSubclause> getSubclauses()
   {
     if (subclauses == null)

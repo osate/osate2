@@ -69,13 +69,14 @@ public class FileImport {
 	}
 
 	public static Document loadXMLZip(String inputFile) {
-
 		InputStream in;
-		ZipFile zipFile;
 
-		zipFile = null;
+		if (!inputFile.contains(".slx")) {
+			OsateDebug.osateDebug("[FileImport] Not a Simulink model");
+			return null;
+		}
 
-		try {
+		try (ZipFile zipFile = new ZipFile(inputFile)) {
 //			OsateDebug.osateDebug("[FileImport] Try to load " + inputFile);
 			/*
 			 * In fact, the simulink model (slx file) is a zip file
@@ -83,13 +84,7 @@ public class FileImport {
 			 * the file that contains all interesting information
 			 * (blockdiagram.xml).
 			 */
-			if (inputFile.contains(".slx")) {
-				zipFile = new ZipFile(inputFile);
-				in = zipFile.getInputStream(zipFile.getEntry(SIMULINK_ENTRYFILE));
-			} else {
-				OsateDebug.osateDebug("[FileImport] Not a Simulink model");
-				return null;
-			}
+			in = zipFile.getInputStream(zipFile.getEntry(SIMULINK_ENTRYFILE));
 
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			dbFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");

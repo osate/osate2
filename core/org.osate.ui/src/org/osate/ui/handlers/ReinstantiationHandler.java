@@ -53,11 +53,11 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.instantiation.RootMissingException;
+import org.osate.aadl2.modelsupport.FileNameConstants;
 import org.osate.core.AadlNature;
 import org.osate.core.OsateCorePlugin;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.dialogs.InstantiationResultsDialog;
-import org.osate.workspace.WorkspacePlugin;
 
 /**
  * @since 3.0
@@ -143,7 +143,7 @@ public final class ReinstantiationHandler extends AbstractMultiJobHandler {
 			} else if (rsrc instanceof IFile) {
 				final IFile file = (IFile) rsrc;
 				final String ext = file.getFileExtension();
-				if (ext.equals(WorkspacePlugin.INSTANCE_FILE_EXT)) {
+				if (ext.equals(FileNameConstants.INSTANCE_FILE_EXT)) {
 					instanceFiles.add(file);
 				}
 			} else if (rsrc instanceof IContainer) {
@@ -160,7 +160,7 @@ public final class ReinstantiationHandler extends AbstractMultiJobHandler {
 					try {
 						findAllInstanceFiles(container.members(), instanceFiles);
 					} catch (CoreException e) {
-						WorkspacePlugin.log(e);
+						OsateUiPlugin.log(e);
 					}
 				}
 			}
