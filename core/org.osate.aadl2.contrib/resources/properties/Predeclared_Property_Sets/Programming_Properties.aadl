@@ -1,0 +1,281 @@
+--AADL2
+--SAE Aerospace Standard AS5506B
+--Appendix A: Predeclared Property Sets
+
+-- @codegen-package org.osate.aadl2.contrib.programming
+property set Programming_Properties is
+
+--- The <b>Activate_Entrypoint</b> property specifies the name of a subprogram classifier.  This classifier represents
+--- a subprogram in the source text that will execute when a thread or device are activated as part of a mode switch.<p>  
+--- The subprogram in the source text must be visible in and callable from the outermost program scope, as defined by
+--- the scope and visibility rules of the applicable implementation language.  The source language annex of this
+--- standard defines acceptable parameter and result signatures for the entry point subprogram.
+
+	Activate_Entrypoint: classifier (subprogram classifier)
+		applies to (thread, device, processor, virtual processor);
+		
+--- The <b>Activate_Entrypoint_Call</b>_Sequence property specifies the name of a subprogram call sequence.  This call
+-- sequence will execute after a thread has been dispatched.  If the property is specified for a provided subprogram,
+-- event port, or event data port feature, then this entrypoint is chosen when the corresponding call, event, or event
+--- data arrives instead of the compute entrypoint specified for the containing thread.<p>
+--- The named call sequence must exist in the source text as parameterless function, which performs the calls and 
+--- passes the appropriate port and parameter values as actual parameters.  This function may be generated from AADL
+--- This function must be visible in and callable from the outermost program scope, as defined by the scope and
+--- visibility rules of the applicable implementation language.  The source language annex of this standard defines
+--- acceptable parameter and result signatures for the entry point subprogram.
+
+	Activate_Entrypoint_Call_Sequence: reference (subprogram call sequence)
+		applies to (thread, device);
+
+--- The <b>Activate_Entrypoint_Source_Text</b> property specifies the name of a source text code sequence that will
+--- execute when a thread is activated.<p>  
+--- The named code sequence in the source text must be visible in and callable from the outermost program scope, as
+--- defined by the scope and visibility rules of the applicable source language.  The source language annex of this
+--- standard defines acceptable parameter and result signatures for the entrypoint subprogram.
+	
+	Activate_Entrypoint_Source_Text: aadlstring
+		applies to (thread, device, virtual processor, processor);
+	
+---The <b>Compute_Entrypoint</b> property specifies the name of a subprogram classifier.  This classifier represents
+---  a subprogram in the source text that will execute after a thread has been dispatched.  If the property is
+--- specified for a provided subprogram, event port, or event data port feature, then this entrypoint is chosen when
+--- the corresponding call, event, or event data arrives instead of the compute entrypoint specified for the containing
+--- thread.<p>
+--- The subprogram in the source text must be visible in and callable from the outermost program scope, as defined by
+-- the scope and visibility rules of the applicable implementation language.  The source language annex of this
+--- standard defines acceptable parameter and result signatures for the entry point subprogram.
+
+	Compute_Entrypoint: classifier (subprogram classifier)
+		applies to (thread, device, subprogram access, event port, event data port);
+
+--- The <b>Compute_Entrypoint_Call_Sequence</b> property specifies the name of a subprogram call sequence.  This call
+--- sequence will execute after a thread has been dispatched.  If the property is specified for a provided subprogram,
+--- event port, or event data port feature, then this entrypoint is chosen when the corresponding call, event, or event
+--- data arrives instead of the compute entrypoint specified for the containing thread.<p>
+--- The named call sequence must exist in the source text as parameterless function, which performs the calls and
+--- passes the appropriate port and parameter values as actual parameters.  This function may be generated from
+--- AADL. This function must be visible in and callable from the outermost program scope, as defined by the scope
+--- and visibility rules of the applicable implementation language.  The source language annex of this standard defines
+--- acceptable parameter and result signatures for the entry point subprogram.
+	
+	Compute_Entrypoint_Call_Sequence: reference (subprogram call sequence)
+		applies to (thread, device, subprogram access, event port, event data port);
+
+--- The <b>Compute_Entrypoint_Source_Text</b> property specifies the name of a source text code sequence that will
+--- execute after a thread has been dispatched.  If the property is specified for a provided subprogram, event port, or
+--- event data port feature, then this entrypoint is chosen when the corresponding call, event, or event data arrives
+--- instead of the compute entrypoint specified for the containing thread.<p>
+--- The named code sequence in the source text must be visible in and callable from the outermost program scope, as
+--- defined by the scope and visibility rules of the applicable implementation language.  The source language annex of
+--- this standard defines acceptable parameter and result signatures for the entry point subprogram.
+
+	Compute_Entrypoint_Source_Text: aadlstring
+		applies to (thread, device, subprogram access, event port, event data port);
+
+--- The <b>Deactivate_Entrypoint</b> property specifies the name of a subprogram classifier.  This classifier
+--- represents a subprogram in the source text that will execute when a thread is deactivated as part of a mode
+--- switch.<p>  
+--- The subprogram in the source text must be visible in and callable from the outermost program scope, as defined
+--- by the scope and visibility rules of the applicable implementation language.  The source language annex of this 
+--- standard defines acceptable parameter and result signatures for the entry point subprogram.
+	
+	Deactivate_Entrypoint: classifier (subprogram classifier)
+		applies to (thread, device);
+		
+--- The <b>Deactivate_Entrypoint_Call_Sequence</b> property specifies the name of a subprogram call sequence.  This
+--- call sequence will execute when a thread is deactivated as part of a mode switch.<p>  
+--- The named call sequence must exist in the source text as parameterless function, which performs the calls and
+--- passes the appropriate port and parameter values as actual parameters.  This function may be generated from AADL.
+--- This function must be visible in and callable from the outermost program scope, as defined by the scope and
+--- visibility rules of the applicable implementation language.  The source language annex of this standard defines
+--- acceptable parameter and result signatures for the entry point subprogram.
+	
+	Deactivate_Entrypoint_Call_Sequence: reference (subprogram call sequence)
+		applies to (thread, device);
+		
+--- The <b>Deactivate_Entrypoint_Source_Text</b> property specifies the name of a source text code sequence that will
+--- execute when a thread is deactivated.<p>  
+--- The named code sequence in the source text must be visible in and callable from the outermost program scope, as
+--- defined by the scope and visibility rules of the applicable implementation language.  The source language annex of
+--- this standard defines acceptable parameter and result signatures for the entry point subprogram
+
+	Deactivate_Entrypoint_Source_Text: aadlstring
+		applies to (thread);
+		
+--- The <b>Finalize_Entrypoint</b> property specifies the name of a subprogram classifier.  This classifier represents
+--- a subprogram in the source text that will execute when a thread is finalized.<p>  
+--- The subprogram in the source text must be visible in and callable from the outermost program scope, as defined by
+--- the scope and visibility rules of the applicable implementation language.  The source language annex of this
+---  standard defines acceptable parameter and result signatures for the entry point subprogram.
+	
+	Finalize_Entrypoint: classifier (subprogram classifier)
+		applies to (thread, device);
+		
+--- The <b>Finalize_Entrypoint_Call_Sequence</b> property specifies the name of a subprogram call sequence.  This call
+--- sequence will execute when a thread is finalized.<p>  
+--- The named call sequence must exist in the source text as parameterless function, which performs the calls and
+--- passes the appropriate port and parameter values as actual parameters.  This function may be generated from AADL.
+--- This function must be visible in and callable from the outermost program scope, as defined by the scope and
+--- visibility rules of the applicable implementation language.  The source language annex of this standard defines
+--- acceptable parameter and result signatures for the entry point subprogram
+	
+	Finalize_Entrypoint_Call_Sequence: reference (subprogram call sequence)
+		applies to (thread, device);
+	
+---The <b>Finalize_Entrypoint_Source_Text</b> property specifies the name of a source text code sequence that will
+--- execute when a thread is finalized.<p>  
+--- The named code sequence in the source text must be visible in and callable from the outermost program scope, as
+--- defined by the scope and visibility rules of the applicable implementation language.  The source language annex of
+--- this standard defines acceptable parameter and result signatures for the entrypoint subprogram.
+	
+	Finalize_Entrypoint_Source_Text: aadlstring
+		applies to (thread, device);
+
+---	The <b>Initialize_Entrypoint</b> property specifies the name of a subprogram classifier.  This classifier 
+--- represents a subprogram in the source text that will execute when a thread is initialized.<p>  
+--- The subprogram in the source text must be visible in and callable from the outermost program scope, as defined by
+--- the scope and visibility rules of the applicable implementation language.  The source language annex of this
+--- standard defines acceptable parameter and result signatures for the entry point subprogram.
+
+	Initialize_Entrypoint: classifier (subprogram classifier)
+		applies to (thread, device);
+		
+--- The <b>Initialize_Entrypoint_Call_Sequence</b> property specifies the name of a subprogram call sequence.  This
+--- call sequence will execute when a thread is initialized.<p>  
+--- The named call sequence must exist in the source text as parameterless function, which performs the calls and
+--- passes the appropriate port and parameter values as actual parameters.  This function may be generated from AADL.
+--- This function must be visible in and callable from the outermost program scope, as defined by the scope and 
+--- visibility rules of the applicable implementation language.  The source language annex of this standard defines
+--- acceptable parameter and result signatures for the entry point subprogram.
+
+	Initialize_Entrypoint_Call_Sequence: reference (subprogram call sequence)
+		applies to (thread, device);
+		
+--- The <b>Initialize_Entrypoint_Source_Text</b> property specifies the name of a source text code sequence that will
+--- execute when a thread is to be initialized.<p>  
+--- The named code sequence in the source text must be visible in and callable from the outermost program scope, as
+--- defined by the scope and visibility rules of the applicable implementation language.  The source language annex
+--- of this standard defines acceptable parameter and result signatures for the entrypoint subprogram.
+	
+	Initialize_Entrypoint_Source_Text: aadlstring
+		applies to (thread, device);
+	
+--- The <b>Recover_Entrypoint</b> property specifies the name of a subprogram classifier.  This classifier represents
+--- a subprogram in the source text that will execute when a thread is in recovery.<p>  
+--- The subprogram in the source text must be visible in and callable from the outermost program scope, as defined by
+--- the scope and visibility rules of the applicable implementation language.  The source language annex of this
+--- standard defines acceptable parameter and result signatures for the entry point subprogram.
+	
+	Recover_Entrypoint: classifier (subprogram classifier)
+		applies to (thread, device);
+
+--- The <b>Recover_Entrypoint_Call_Sequence</b> property specifies the name of a subprogram call sequence.  This call
+--- sequence will execute when a thread is in recovery.<p>  
+--- The named call sequence must exist in the source text as parameterless function, which performs the calls and
+--- passes the appropriate port and parameter values as actual parameters.  This function may be generated from AADL.
+--- This function must be visible in and callable from the outermost program scope, as defined by the scope and
+--- visibility rules of the applicable implementation language.  The source language annex of this standard defines
+--- acceptable parameter and result signatures for the entry point subprogram.
+
+	Recover_Entrypoint_Call_Sequence: reference (subprogram call sequence)
+		applies to (thread, device);
+
+--- The <b>Recovery_Entrypoint_Source_Text</b> property specifies the name of a source text code sequence that will execute when
+--- a thread is recovering from a fault.<p>  
+--- The named code sequence in the source text must be visible in and callable from the outermost program scope, as defined by the
+--- scope and visibility rules of the applicable implementation language.  The source language annex of this standard defines acceptable
+--- parameter and result signatures for the entrypoint subprogram.
+
+	Recover_Entrypoint_Source_Text: aadlstring
+		applies to (thread, device);
+
+--- The <b>Source_Language</b> property specifies an applicable programming language.<p> 
+--- The property type is enumeration.  The standard enumeration literals are Ada, C, and Simulink� for software
+--- categories.  Other enumeration literals are permitted.<p>  
+---There is no default value for the source language property.<p>  
+---Where a source language is specified for a component, the source text associated with that component must comply
+--- with the applicable programming language standard.  Where a source language is not specified, a method of
+--- processing may infer a source language from the syntax of the source text pathname.  A method of processing may 
+---establish a default value for the source language property.<p>
+--- Where a source language property is specified for a component, any specified source language and any specified 
+---source text for the complete set of software subcomponents of that component must comply with the applicable
+--- language standard.<p>
+--- Multiple source languages, and source text written in those languages, are compliant with a specified source
+--- language if the applicable language standard permits mixing source text units of those languages within the same
+--- program.<p>
+--- A method of processing may accept data produced by processing a source text file, for example an object file
+--- produced by compiling source text may be considered compliant with the applicable language standard.  A method of
+--- processing may accept non-standard source languages.  A method of processing may restrict itself to specific source
+--- languages, either standard or non-standard.<p>
+--- The source language associated with processor or virtual processor indicates the source language of any software
+--- that implements virtual processor or processor functionality.
+	
+	Source_Language: inherit list of Supported_Source_Languages
+		applies to (subprogram, data, thread, thread group, process, system, bus, device, 
+		processor, virtual processor, virtual bus);
+
+--- The <b>Source_Name</b> property specifies a source declaration or source name within the associated source text
+--- that corresponds to a feature defining identifier.<p>  
+--- The default value is defined in the source language annex of this standard
+
+	Source_Name: aadlstring
+		applies to (data, port, subprogram, parameter, virtual bus, virtual processor);
+
+--- Each string is interpreted as a POSIX pathname and must satisfy the syntax and semantics for path names as defined
+--- in the POSIX standard.  Extensions to the standard POSIX pathname syntax and semantics are permitted.  For example,
+--- environment variables and regular expressions are permitted.  Special characters may be used to assist in
+--- configuration management and version control.<p>
+--- If the first character of a pathname is . (dot) then the path is relative to the directory in which the file
+--- containing the AADL specification text is stored.  Otherwise, the method of processing may define the default
+--- directory used to locate the file designated by a pathname.<p>
+--- There is no standard default value for the source text property.<p>
+--- The combined source text contained in all files named in the associated expression must form one or more separately
+--- compileable units as defined in the applicable source language standard.
+
+	Source_Text: inherit list of aadlstring
+		applies to (data, port, subprogram, thread, thread group, process, system, virtual bus, virtual processor,
+			memory, bus, device, processor, parameter, feature group, aadl package);
+
+
+--- The <b>Supported_Source_Language</b> property specifies the source language(s) supported by a processor.<p>  
+--- The source language of every software component that may be accessed by any thread bound to a processor must
+--- appear in the list of allowed source languages for that processor.<p>
+--- If an allowed source language list is not specified, then there are no restrictions on the source. 
+	
+	Supported_Source_Language: list of Supported_Source_Languages
+		applies to (processor, virtual processor, system);
+		
+--- The <b>Type_Source_Name</b> property specifies a source declaration or source name within the associated source
+--- text that corresponds to a feature defining identifier.<p>  
+--- The default value is defined in the source language annex of this standard.
+		
+	Type_Source_Name: aadlstring
+		applies to (data, port, subprogram);
+
+
+--- The <b>Hardware_Description_Source_Text</b> property specifies a list of files that contain source text of a
+--- hardware description in a hardware description language.<p>  
+--- Each string is interpreted as a POSIX pathname and must satisfy the syntax and semantics for path names as defined
+--- in the POSIX standard. Extensions to the standard POSIX pathname syntax and semantics are permitted.  For example,
+--- environment variables and regular expressions are permitted.  Special characters may be used to assist in
+--- configuration management and version control.<p>
+--- If the first character of a pathname is . (dot) then the path is relative to the directory in which the file
+--- containing the AADL specification text is stored.  Otherwise, the method of processing may define the default
+--- directory used to locate the file designated by a pathname.
+	
+	Hardware_Description_Source_Text: inherit list of aadlstring	
+		applies to (memory, bus, device, processor, system);
+		
+--- The <b>Hardware_Source_Language</b> property specifies an applicable hardware description language.<p> 
+--- The hardware description source text associated with a hardware component is written in a hardware description
+--- language.  
+		
+	Hardware_Source_Language: Supported_Hardware_Source_Languages
+		applies to (memory, bus, device, processor, system);
+		
+--- The <b>Device_Driver</b> property specifies a reference to an abstract component implementation that contains an
+--- instance of a driver subprogram or an instance of an (ISR) thread. 
+		
+	Device_Driver: classifier (abstract implementation)
+		applies to (device);
+end Programming_Properties;
