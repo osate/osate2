@@ -43,7 +43,7 @@ import org.osgi.service.prefs.BackingStoreException;
 public class PredeclaredProperties {
 	public static final String AADL_PROJECT = "AADL_Project.aadl";
 	private static final String AADL_PROJECT_KEY = "aadl.project.properties";
-	public static final String AADL_PROJECT_DEFAULT = "platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/"
+	public static final String AADL_PROJECT_DEFAULT = "platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/"
 			+ AADL_PROJECT;
 
 	private final static Logger log = Logger.getLogger(PredeclaredProperties.class);
