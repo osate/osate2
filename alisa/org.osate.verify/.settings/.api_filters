@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.verify" version="2">
     <resource path="src-gen/org/osate/verify/AbstractVerifyRuntimeModule.java" type="org.osate.verify.AbstractVerifyRuntimeModule">
-        <filter comment="Xtext generated code" id="338792546">
-            <message_arguments>
-                <message_argument value="org.osate.verify.AbstractVerifyRuntimeModule"/>
-                <message_argument value="bindIGenerator()"/>
-            </message_arguments>
-        </filter>
         <filter comment="Xtext generated code" id="1143996420">
             <message_arguments>
                 <message_argument value="bindIFormatter2()"/>
@@ -15,6 +9,13 @@
         <filter comment="Xtext generated code" id="1143996420">
             <message_arguments>
                 <message_argument value="configureFormatterPreferences(Binder)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/verify/scoping/AbstractVerifyScopeProvider.java" type="org.osate.verify.scoping.AbstractVerifyScopeProvider">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.verify.scoping.AbstractVerifyScopeProvider"/>
             </message_arguments>
         </filter>
     </resource>
@@ -254,13 +255,6 @@
                 <message_argument value="ISynTransition"/>
                 <message_argument value="VerifySyntacticSequencer"/>
                 <message_argument value="emitUnassignedTokens(EObject, ISyntacticSequencerPDAProviderISynTransition, INode, INode)"/>
-            </message_arguments>
-        </filter>
-    </resource>
-    <resource path="src-gen/org/osate/verify/validation/AbstractVerifyValidator.java" type="org.osate.verify.validation.AbstractVerifyValidator">
-        <filter comment="Xtext generated code" id="337764418">
-            <message_arguments>
-                <message_argument value="org.osate.verify.validation.AbstractVerifyValidator"/>
             </message_arguments>
         </filter>
     </resource>

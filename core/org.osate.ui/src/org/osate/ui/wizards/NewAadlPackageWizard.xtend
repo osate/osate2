@@ -24,34 +24,34 @@
 package org.osate.ui.wizards
 
 import java.util.Map
-import org.osate.workspace.WorkspacePlugin
-import org.eclipse.swt.widgets.Composite
-import org.eclipse.swt.widgets.Label
-import org.eclipse.swt.layout.GridData
+import org.eclipse.core.resources.IFile
+import org.eclipse.core.resources.IncrementalProjectBuilder
+import org.eclipse.core.runtime.CoreException
+import org.eclipse.core.runtime.IStatus
+import org.eclipse.core.runtime.NullProgressMonitor
+import org.eclipse.core.runtime.Status
+import org.eclipse.emf.common.util.URI
+import org.eclipse.jface.dialogs.ErrorDialog
 import org.eclipse.swt.SWT
+import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.widgets.Button
-import org.eclipse.core.resources.IFile
-import org.eclipse.emf.common.util.URI
-import org.eclipse.core.runtime.CoreException
-import org.eclipse.jface.dialogs.ErrorDialog
-import org.eclipse.core.resources.IncrementalProjectBuilder
-import org.eclipse.core.runtime.IStatus
-import org.osate.aadl2.modelsupport.Activator
-import org.eclipse.ui.statushandlers.StatusManager
-import org.osate.ge.internal.services.DiagramService
+import org.eclipse.swt.widgets.Composite
+import org.eclipse.swt.widgets.Label
 import org.eclipse.ui.PlatformUI
-import org.eclipse.core.runtime.Status
-import org.eclipse.core.runtime.NullProgressMonitor
-import org.osate.aadl2.NamedElement
+import org.eclipse.ui.statushandlers.StatusManager
 import org.eclipse.xtext.resource.XtextResourceSet
+import org.osate.aadl2.NamedElement
+import org.osate.aadl2.modelsupport.Activator
+import org.osate.aadl2.modelsupport.FileNameConstants
+import org.osate.ge.internal.services.DiagramService
 import org.osate.xtext.aadl2.ui.util.Aadl2NameValidators
 
 final class NewAadlPackageWizard extends AbstractNewModelUnitWizard {
 	val static PACKAGE_LABEL = "AADL package name"
 	
-	private Button textButton;
-	private Button graphicalButton;
+	Button textButton;
+	Button graphicalButton;
 	
 	new() {
 		super("AADL Package", "AADL package")
@@ -131,8 +131,8 @@ final class NewAadlPackageWizard extends AbstractNewModelUnitWizard {
 	}
 	
 	override protected getFileName(String enteredName) {
-		super.getFileName(enteredName).replaceAll(WorkspacePlugin.AADL_PACKAGE_SEPARATOR,
-			WorkspacePlugin.FILE_PACKAGE_SEPARATOR
+		super.getFileName(enteredName).replaceAll(FileNameConstants.AADL_PACKAGE_SEPARATOR,
+			FileNameConstants.FILE_PACKAGE_SEPARATOR
 		)
 	}
 }
