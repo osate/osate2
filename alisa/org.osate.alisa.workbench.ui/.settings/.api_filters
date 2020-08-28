@@ -1,19 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.alisa.workbench.ui" version="2">
-    <resource path="src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/AlisaParser.java" type="org.osate.alisa.workbench.ui.contentassist.antlr.AlisaParser">
-        <filter id="643842064">
+    <resource path="src-gen/org/osate/alisa/workbench/ide/contentassist/antlr/AlisaParser.java" type="org.osate.alisa.workbench.ide.contentassist.antlr.AlisaParser">
+        <filter comment="Xtext generated code" id="1110441988">
             <message_arguments>
-                <message_argument value="InternalAlisaParser"/>
-                <message_argument value="AlisaParser"/>
-                <message_argument value="createParser()"/>
+                <message_argument value="org.osate.alisa.workbench.ide.contentassist.antlr.AlisaParser"/>
             </message_arguments>
         </filter>
     </resource>
-    <resource path="src-gen/org/osate/alisa/workbench/ui/contentassist/antlr/PartialAlisaContentAssistParser.java" type="org.osate.alisa.workbench.ui.contentassist.antlr.PartialAlisaContentAssistParser">
-        <filter comment="xtext" id="576725006">
+    <resource path="src-gen/org/osate/alisa/workbench/ide/contentassist/antlr/PartialAlisaContentAssistParser.java" type="org.osate.alisa.workbench.ide.contentassist.antlr.PartialAlisaContentAssistParser">
+        <filter comment="Xtext generated code" id="1110441988">
             <message_arguments>
-                <message_argument value="IPartialContentAssistParser"/>
-                <message_argument value="PartialAlisaContentAssistParser"/>
+                <message_argument value="org.osate.alisa.workbench.ide.contentassist.antlr.PartialAlisaContentAssistParser"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/alisa/workbench/ide/contentassist/antlr/internal/InternalAlisaLexer.java" type="org.osate.alisa.workbench.ide.contentassist.antlr.internal.InternalAlisaLexer">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.alisa.workbench.ide.contentassist.antlr.internal.InternalAlisaLexer"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/alisa/workbench/ide/contentassist/antlr/internal/InternalAlisaParser.java" type="org.osate.alisa.workbench.ide.contentassist.antlr.internal.InternalAlisaParser">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.alisa.workbench.ide.contentassist.antlr.internal.InternalAlisaParser"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/alisa/workbench/ui/AbstractAlisaUiModule.java" type="org.osate.alisa.workbench.ui.AbstractAlisaUiModule">
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="bindIPartialEditingContentAssistContextFactory()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="bindIPartialEditingContentAssistParser()"/>
             </message_arguments>
         </filter>
     </resource>

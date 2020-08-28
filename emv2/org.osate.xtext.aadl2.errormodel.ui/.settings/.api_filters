@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.xtext.aadl2.errormodel.ui" version="2">
-    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/ui/contentassist/antlr/ErrorModelParser.java" type="org.osate.xtext.aadl2.errormodel.ui.contentassist.antlr.ErrorModelParser">
-        <filter comment="xtext" id="643842064">
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/ide/contentassist/antlr/ErrorModelParser.java" type="org.osate.xtext.aadl2.errormodel.ide.contentassist.antlr.ErrorModelParser">
+        <filter comment="Xtext generated code" id="1110441988">
             <message_arguments>
-                <message_argument value="InternalErrorModelParser"/>
-                <message_argument value="ErrorModelParser"/>
-                <message_argument value="createParser()"/>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.ide.contentassist.antlr.ErrorModelParser"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/ide/contentassist/antlr/internal/InternalErrorModelParser.java" type="org.osate.xtext.aadl2.errormodel.ide.contentassist.antlr.internal.InternalErrorModelParser">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.ide.contentassist.antlr.internal.InternalErrorModelParser"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/ide/contentassist/antlr/lexer/InternalErrorModelLexer.java" type="org.osate.xtext.aadl2.errormodel.ide.contentassist.antlr.lexer.InternalErrorModelLexer">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.ide.contentassist.antlr.lexer.InternalErrorModelLexer"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/ui/internal/ErrormodelActivator.java" type="org.osate.xtext.aadl2.errormodel.ui.internal.ErrormodelActivator">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.ui.internal.ErrormodelActivator"/>
             </message_arguments>
         </filter>
     </resource>

@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -104,6 +105,7 @@ public class TypeSetImpl extends ErrorTypesImpl implements TypeSet
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<TypeToken> getTypeTokens()
   {
     if (typeTokens == null)
@@ -118,6 +120,7 @@ public class TypeSetImpl extends ErrorTypesImpl implements TypeSet
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeSet getAliasedType()
   {
     if (aliasedType != null && aliasedType.eIsProxy())
@@ -148,6 +151,7 @@ public class TypeSetImpl extends ErrorTypesImpl implements TypeSet
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setAliasedType(TypeSet newAliasedType)
   {
     TypeSet oldAliasedType = aliasedType;

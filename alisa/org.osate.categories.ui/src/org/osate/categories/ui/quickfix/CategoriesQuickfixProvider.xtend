@@ -52,14 +52,14 @@ class CategoriesQuickfixProvider extends DefaultQuickfixProvider {//org.osate.al
 	 * 
 	 */
 	@Fix(CategoriesValidator.DUPLICATE_CATEGORY)
-	def public void fixDuplicateCategory(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixDuplicateCategory(Issue issue, IssueResolutionAcceptor acceptor) {
 		val catType = issue.data.head
 		val offset = Integer.parseInt(issue.data.get(1))
 		val length = Integer.parseInt(issue.data.get(2))
 
 		acceptor.accept(issue, "Remove this duplicate " + catType, null, null, 
 			new IModification() {
-				override public void apply(IModificationContext context) throws Exception {
+				override void apply(IModificationContext context) throws Exception {
 					context.getXtextDocument().replace(offset, length, "");
 			}
 		});

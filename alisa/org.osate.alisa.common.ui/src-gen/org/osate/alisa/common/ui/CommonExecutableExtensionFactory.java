@@ -23,12 +23,11 @@
  */
 package org.osate.alisa.common.ui;
 
-import org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory;
-import org.osgi.framework.Bundle;
-
 import com.google.inject.Injector;
-
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory;
 import org.osate.alisa.common.ui.internal.CommonActivator;
+import org.osgi.framework.Bundle;
 
 /**
  * This class was generated. Customizations should only happen in a newly
@@ -38,12 +37,13 @@ public class CommonExecutableExtensionFactory extends AbstractGuiceAwareExecutab
 
 	@Override
 	protected Bundle getBundle() {
-		return CommonActivator.getInstance().getBundle();
+		return Platform.getBundle(CommonActivator.PLUGIN_ID);
 	}
 	
 	@Override
 	protected Injector getInjector() {
-		return CommonActivator.getInstance().getInjector(CommonActivator.ORG_OSATE_ALISA_COMMON_COMMON);
+		CommonActivator activator = CommonActivator.getInstance();
+		return activator != null ? activator.getInjector(CommonActivator.ORG_OSATE_ALISA_COMMON_COMMON) : null;
 	}
-	
+
 }

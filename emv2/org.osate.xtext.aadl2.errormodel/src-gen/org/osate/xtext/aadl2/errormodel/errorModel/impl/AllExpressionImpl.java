@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -114,6 +115,7 @@ public class AllExpressionImpl extends ConditionExpressionImpl implements AllExp
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public long getCount()
   {
     return count;
@@ -124,6 +126,7 @@ public class AllExpressionImpl extends ConditionExpressionImpl implements AllExp
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setCount(long newCount)
   {
     long oldCount = count;
@@ -137,6 +140,7 @@ public class AllExpressionImpl extends ConditionExpressionImpl implements AllExp
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ConditionElement> getOperands()
   {
     if (operands == null)
