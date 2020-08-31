@@ -56,10 +56,11 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.Activator;
+import org.osate.aadl2.modelsupport.FileNameConstants;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.analysis.resource.budgets.ResourceBudgetPlugin;
 import org.osate.core.AadlNature;
 import org.osate.ui.internal.instantiate.InstantiationEngine;
-import org.osate.workspace.WorkspacePlugin;
 
 /**
  * Working replacement for {@link #AaxlReadOnlyHandlerAsJob}.  Not at all "ready for prime-time", which
@@ -301,7 +302,7 @@ abstract class NewAbstractAaxlHandler extends AbstractHandler {
 			} else if (rsrc instanceof IFile) {
 				final IFile file = (IFile) rsrc;
 				final String ext = file.getFileExtension();
-				if (ext != null && ext.equals(WorkspacePlugin.INSTANCE_FILE_EXT)) {
+				if (ext != null && ext.equals(FileNameConstants.INSTANCE_FILE_EXT)) {
 					instanceFiles.add(file);
 				}
 			} else if (rsrc instanceof SystemInstance) {
@@ -320,7 +321,7 @@ abstract class NewAbstractAaxlHandler extends AbstractHandler {
 					try {
 						findAllInstanceFilesAndComponentImpls(container.members(), instanceFiles, forEngine);
 					} catch (final CoreException e) {
-						WorkspacePlugin.log(e);
+						ResourceBudgetPlugin.getDefault().getLog().error(e.getMessage(), e);
 					}
 				}
 			} else {
@@ -341,7 +342,7 @@ abstract class NewAbstractAaxlHandler extends AbstractHandler {
 			try {
 				folder.create(true, true, null);
 			} catch (final CoreException e) {
-				WorkspacePlugin.log(e);
+				ResourceBudgetPlugin.getDefault().getLog().error(e.getMessage(), e);
 			}
 		}
 	}

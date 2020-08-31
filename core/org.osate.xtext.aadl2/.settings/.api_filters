@@ -1,5 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.xtext.aadl2" version="2">
+    <resource path="src-gen/org/osate/xtext/aadl2/AbstractAadl2RuntimeModule.java" type="org.osate.xtext.aadl2.AbstractAadl2RuntimeModule">
+        <filter comment="Xtext generated code" id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.AbstractAadl2RuntimeModule"/>
+                <message_argument value="bindAadl2JavaValidator()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.AbstractAadl2RuntimeModule"/>
+                <message_argument value="bindITaskTagProvider()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="bindAadl2Validator()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="bindIKeywordSerializer()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/scoping/AbstractAadl2ScopeProvider.java" type="org.osate.xtext.aadl2.scoping.AbstractAadl2ScopeProvider">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.scoping.AbstractAadl2ScopeProvider"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src-gen/org/osate/xtext/aadl2/serializer/AbstractAadl2SyntacticSequencer.java" type="org.osate.xtext.aadl2.serializer.AbstractAadl2SyntacticSequencer">
         <filter comment="xtext" id="576720909">
             <message_arguments>
@@ -26,6 +57,13 @@
                 <message_argument value="ISynTransition"/>
                 <message_argument value="AbstractAadl2SyntacticSequencer"/>
                 <message_argument value="emitUnassignedTokens(EObject, ISyntacticSequencerPDAProviderISynTransition, INode, INode)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/validation/AbstractAadl2Validator.java" type="org.osate.xtext.aadl2.validation.AbstractAadl2Validator">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.validation.AbstractAadl2Validator"/>
             </message_arguments>
         </filter>
     </resource>

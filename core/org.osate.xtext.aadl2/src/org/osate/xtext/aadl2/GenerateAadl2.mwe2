@@ -24,11 +24,9 @@
 module org.osate.xtext.aadl2.Aadl2
 
 import org.eclipse.emf.mwe.utils.*
-import org.eclipse.xtext.generator.*
-import org.eclipse.xtext.ui.generator.*
+import org.eclipse.xtext.xtext.generator.*
+import org.eclipse.xtext.xtext.generator.model.project.*
 
-var grammarURI = "classpath:/org/osate/xtext/aadl2/Aadl2.xtext"
-var file.extensions = "aadl"
 var projectName = "org.osate.xtext.aadl2"
 var runtimeProject = "../${projectName}"
 var fileHeader = 
@@ -128,105 +126,82 @@ Workflow {
 		directory = "org.osate.core.tests/src-gen"
 	}
 
-	component = Generator auto-inject {
-		pathRtProject = runtimeProject
-		pathUiProject = "${runtimeProject}.ui"
-		projectNameRt = projectName
-		projectNameUi = "${projectName}.ui"
-		language = auto-inject {
-			uri = grammarURI
-			fileExtensions = file.extensions
-
-			// Java API to access grammar elements (required by several other fragments)
-			fragment = grammarAccess.GrammarAccessFragment {}
-
-			// Serializer 2.0
-			fragment = serializer.SerializerFragment {
+	component = XtextGenerator {
+		configuration = {
+			project = StandardProjectConfig {
+				baseName = projectName
+				rootPath = ".."
+				runtimeTest = {
+					enabled = false
+				}
+				genericIde = {
+					name = "${projectName}.ui"
+				}
+				eclipsePlugin = {
+					enabled = true
+				}
+				eclipsePluginTest = {
+					enabled = false
+				}
+				createEclipseMetaData = true
+			}
+			code = {
+				preferXtendStubs = false
+				encoding = "UTF-8"
+				lineDelimiter = "\n"
+				fileHeader = fileHeader
+			}
+		}
+		language = XtextGeneratorLanguage {
+			name = "org.osate.xtext.aadl2.Aadl2"
+			fileExtensions = "aadl"
+			fragment = grammarAccess.GrammarAccessFragment2 {}
+			//fragment = ecore.EMFGeneratorFragment2 {}
+			fragment = serializer.SerializerFragment2 {
 				generateXtendStub = true
 			}
-
-			// a custom ResourceFactory for use with EMF 
-			fragment = resourceFactory.ResourceFactoryFragment {
-				fileExtensions = file.extensions
-			}
-
-			// the Antlr parser
-			fragment = parser.antlr.ex.rt.AntlrGeneratorFragment {
+			fragment = resourceFactory.ResourceFactoryFragment2 {}
+			fragment = parser.antlr.XtextAntlrGeneratorFragment2 {
 				options = {
-					ignoreCase = true
-					//					backtrack = true
 					classSplitting = true
+					ignoreCase = true
 				}
 			}
-
-			// the Ecore2Xtext specific terminal converter
-			fragment = ecore2xtext.Ecore2XtextValueConverterServiceFragment {}
-
-			// java-based API for validation 
-			fragment = validation.JavaValidatorFragment {
-				// composedCheck = "org.eclipse.xtext.validation.ImportUriValidator"
-				composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"// complains about public section having a duplicate name of pacakge.
-				//	registerForImportedPackages = true
+			fragment = ecore2xtext.Ecore2XtextValueConverterServiceFragment2 {}
+			fragment = validation.ValidatorFragment2 {			
+				composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
 			}
-
-			// scoping and exporting API 
-			fragment = scoping.ImportNamespacesScopingFragment {
-				generateStub = false
+			fragment = scoping.ImportNamespacesScopingFragment2 {
+				generateXtendStub = true
 				ignoreCase = true
 			}
-			fragment = exporting.QualifiedNamesFragment {}
-
-			fragment = builder.BuilderIntegrationFragment {}
-
-			// formatter API 
-			fragment = formatting2.Formatter2Fragment {}
-
-			// labeling API 
-			fragment = labeling.LabelProviderFragment {}
-
-			// outline API 
-			fragment = outline.OutlineTreeProviderFragment {}
-			fragment = outline.QuickOutlineFragment {}
-			// quickfix API 
-			fragment = quickfix.QuickfixProviderFragment auto-inject {
+			fragment = exporting.QualifiedNamesFragment2 {}
+			fragment = builder.BuilderIntegrationFragment2 {}
+			//fragment = generator.GeneratorFragment2 {}
+			fragment = formatting.Formatter2Fragment2 {
 				generateXtendStub = true
 			}
-
-			// java-based API for content assistance 
-			fragment = contentAssist.ContentAssistFragment {}
-
-			// generates a more lightweight Antlr parser and lexer tailored for content assist  
-			fragment = parser.antlr.ex.ca.ContentAssistParserGeneratorFragment {
-				options = {
-					ignoreCase = true
-					classSplitting = true
-				}
+			fragment = ui.labeling.LabelProviderFragment2 {}
+			fragment = ui.outline.QuickOutlineFragment2 {}
+			fragment = ui.outline.OutlineTreeProviderFragment2 {}
+			fragment = ui.quickfix.QuickfixProviderFragment2 {
+				generateXtendStub = true
 			}
-
-			// generates junit test support classes into Generator#pathTestProject
-			//			fragment = junit.Junit4Fragment {
-			//			}
-
-			// project wizard (optional) 
-			// fragment = projectWizard.SimpleProjectWizardFragment {
-			// 		generatorProjectName = "${projectName}.generator" 
-			//		modelFileExtension = file.extensions
-			// }
-
-			//			fragment = types.TypesGeneratorFragment {}
-			// generates the required bindings only if the grammar inherits from Xbase
-			//			fragment = xbase.XbaseGeneratorFragment {}
-
-			// provides a preference page for template proposals
-			fragment = tasks.TaskTagPreferencePageFragment {}
-
-			// provides a preference page for task tags
-			fragment = templates.CodetemplatesGeneratorFragment {}
-
-			// rename refactoring  
-			fragment = refactoring.RefactorElementNameFragment {}
-			//			// Code generator
-			//			fragment = generator.GeneratorFragment {}
+			fragment = ui.contentAssist.ContentAssistFragment2 {
+				generateXtendStub = true
+			}
+			//fragment = junit.JunitFragment {}
+			fragment = ui.refactoring.RefactorElementNameFragment2 {}
+			//fragment = types.TypesGeneratorFragment2 {}
+			//fragment = xbase.XtypeGeneratorFragment2 {}
+			//fragment = xbase.XbaseGeneratorFragment2 {}
+			fragment = ui.templates.CodetemplatesGeneratorFragment2 {}
+			fragment = ui.compare.CompareFragment2 {}
+			//fragment = web.WebIntegrationFragment {
+			//	framework = "Ace"
+			//}
+			//fragment = ui.projectWizard.TemplateProjectWizardFragment {}
+			//fragment = ui.fileWizard.TemplateFileWizardFragment {}
 		}
 	}
 }

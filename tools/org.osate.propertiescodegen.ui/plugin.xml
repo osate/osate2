@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="org.osate.propertiescodegen.ui.codegen"
+            name="Generate Java Property Getters">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.osate.propertiescodegen.ui.PropertiesCodeGenHandler"
+            commandId="org.osate.propertiescodegen.ui.codegen">
+         <enabledWhen>
+            <with
+                  variable="selection">
+               <and>
+                  <count
+                        value="1">
+                  </count>
+                  <iterate>
+                     <or>
+                        <adapt
+                              type="org.eclipse.core.resources.IFile">
+                           <test
+                                 forcePluginActivation="true"
+                                 property="org.osate.ui.aadlPropertySet">
+                           </test>
+                        </adapt>
+                        <adapt
+                              type="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage">
+                           <test
+                                 forcePluginActivation="true"
+                                 property="org.osate.ui.aadlPropertySet">
+                           </test>
+                        </adapt>
+                     </or>
+                  </iterate>
+               </and>
+            </with>
+         </enabledWhen>
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.osate.ui.navigator.AadlNavigator?after=osate_begin">
+         <command
+               commandId="org.osate.propertiescodegen.ui.codegen"
+               style="push">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+
+</plugin>

@@ -66,6 +66,7 @@ public final class ReinstantiationHandler extends AbstractHandler {
 		public KickoffJob(final List<?> selectionAsList) {
 			super("Reinstantiation Handler (hidden)");
 			this.selectionAsList = selectionAsList;
+
 		}
 
 		@Override

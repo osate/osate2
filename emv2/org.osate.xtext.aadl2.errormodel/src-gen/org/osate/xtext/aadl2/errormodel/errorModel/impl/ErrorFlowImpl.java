@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -100,6 +101,7 @@ public class ErrorFlowImpl extends NamedElementImpl implements ErrorFlow
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeSet getTypeTokenConstraint()
   {
     return typeTokenConstraint;
@@ -127,6 +129,7 @@ public class ErrorFlowImpl extends NamedElementImpl implements ErrorFlow
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTypeTokenConstraint(TypeSet newTypeTokenConstraint)
   {
     if (newTypeTokenConstraint != typeTokenConstraint)
@@ -148,6 +151,7 @@ public class ErrorFlowImpl extends NamedElementImpl implements ErrorFlow
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public IfCondition getFlowcondition()
   {
     return flowcondition;
@@ -175,6 +179,7 @@ public class ErrorFlowImpl extends NamedElementImpl implements ErrorFlow
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setFlowcondition(IfCondition newFlowcondition)
   {
     if (newFlowcondition != flowcondition)
