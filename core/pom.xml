@@ -17,6 +17,7 @@
 
 	<modules>
 		<module>org.osate.aadl2</module>
+		<module>org.osate.aadl2.contrib</module>
 		<module>org.osate.aadl2.edit</module>
 		<module>org.osate.aadl2.instance.textual</module>
 		<module>org.osate.aadl2.instance.textual.ui</module>

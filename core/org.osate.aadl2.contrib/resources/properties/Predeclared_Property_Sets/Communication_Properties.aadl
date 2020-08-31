@@ -1,0 +1,174 @@
+--AADL2
+--SAE Aerospace Standard AS5506B
+--Appendix A: Predeclared Property Sets
+
+-- @codegen-package org.osate.aadl2.contrib.communication
+property set Communication_Properties is
+
+---The <b>Fan_Out_Policy</b> property specifies how the output is distributed to multiple recipients of a port with
+--- multiple outgoing connections.  <b>Broadcast</b> sends to all recipients, <b>RoundRobin</b> to one recipient at a
+--- time in order, <b>Selective</b> sends to one recipient based on data content, and <b>OnDemand</b> to the next 
+--- recipient waiting on a port for dispatch.<p>
+--- Note that <b>Broadcast, RoundRobin, and Selective</b> pass on data and events without queuing it, while
+--- <b>OnDemand</b> requires a queue that is serviced by the recipients. 
+
+	Fan_Out_Policy: enumeration (Broadcast, RoundRobin, Selective, OnDemand)
+		applies to (feature);
+		
+---The <b>Connection_Pattern</b> property specifies how an individual connection between arrays of ports looks like.
+--- If the property is not set the <b>One_to_One pattern</b> applies.  The outer list has an element for each array
+--- dimension. The inner list specifies one or more patterns for that dimension
+	
+	Connection_Pattern: list of list of Supported_Connection_Patterns
+		applies to (connection);
+		
+--- The <b>Connection_Set</b> property specifies a list of specific source element and destination element of a
+--- semantic connection by their array indices.    		
+	
+	Connection_Set: list of Connection_Pair
+		applies to (connection);
+	
+	Connection_Pair: type record (
+		src: list of aadlinteger;
+		dst: list of aadlinteger;);
+		
+--- The <b>Overflow_Handling_Protocol</b> property specifies the runtime behavior of a thread when an event arrives and
+--- the queue is full. <b>DropOldest</b> removes the oldest event from the queue and adds the new arrival.
+--- <b>DropNewest</b> ignores the newly arrived event. <b>Error</b> causes the thread�s error recovery to be invoked. 
+--- The default value is <b>DropOldest</b>.
+	
+	Overflow_Handling_Protocol: enumeration (DropOldest, DropNewest, Error) => DropOldest
+		applies to (event port, event data port, subprogram access);
+		
+---The <b>Queue_Processing_Protocol</b> property specifies the protocol for processing elements in the queue.
+	
+	Queue_Processing_Protocol: Supported_Queue_Processing_Protocols => FIFO
+		applies to (event port, event data port, subprogram access);
+	
+--- The <b>Queue_Size</b> property specifies the size of the queue for an event, event data port, of a subprogram
+--- access feature,.  In the case of a subprogram access it represents the queue for remote subprogram calls.
+	
+	Queue_Size: aadlinteger 0 .. Max_Queue_Size => 1
+		applies to (event port, event data port, subprogram access);
+	
+--- The <b>Required_Connection</b> property specifies whether the port or subprogram requires a connection.  If the
+--- value of this property is false, then it is assumed that the component can function without this port or 
+--- subprogram access feature being connected.<p>
+--- The default value is that a connection is required.
+	
+	Required_Connection: aadlboolean 
+		applies to (feature);
+	
+--- The <b>Timing</b> property specifies the timing of port connections.  By default the interaction is <b>sampled</b>,
+--- i.e., the receiving component samples at dispatch or during execution.
+	
+	Timing: enumeration (sampled, immediate, delayed) => sampled
+		applies to (port connection);	
+	
+--- The <b>Transmission_Type</b> property specifies whether the transmission across a data port connection is initiated
+--- by the sender (<b>push</b>) or by the receiver (<b>pull</b>).  By default the transmission is initiated by the sender.
+--- A pull transmission type results in data being transmitted at the rate of the receiver.  In the case of event data
+---  port or event ports,  a <b>pull</b> transmission type results in events or event data queued with the sender to be
+--- transmitted upon receiver request.<p>
+--- When associated with a connection the property represents the transmission type the connection expects.  When
+--- associated with a port the property represents the transmission type expected by the port.  When associated with a
+--- bus or virtual bus the property represents the transmission type that is provided by the bus or protocol.
+
+	Transmission_Type: enumeration (push, pull)
+		applies to (feature, connection, bus, virtual bus);
+		
+--- The <b>Input_Rate</b> property specifies the number of inputs per dispatch or per second of data, events, event
+--- data, or subprogram calls. If no <b>Input_Rate</b> is specified the default is one input per thread dispatch.<p>
+--- If no distribution function is specified it is assumed to be <b>Fixed</b>.
+
+	Input_Rate: Rate_Spec => [Value_Range => 1.0 .. 1.0; Rate_Unit => PerDispatch; Rate_Distribution => Fixed;]
+		applies to (feature);
+
+--- The <b>Input_Time</b> property specifies the amount of execution time that can pass after dispatch before the input
+--- is frozen on a given port.  The property value is a pair of <b>Time</b> a time range <b>Offset</b>. The default 
+--- input time is <b>Dispatch</b> with zero  <b>Offset</b>. A typical property value is a time offset in terms of
+--- <b>Start</b>.
+	
+	Input_Time: list of IO_Time_Spec => ([Time => Dispatch; Offset => 0 ns .. 0 ns;])
+		applies to (feature);
+		
+---The <b>IO_Time_Spec</b> property specifies the amount of execution time <b>Offset</b> relative to a Time at which
+--- input or output occurs. The value consists of a reference point and time range pair.
+	
+	IO_Time_Spec: type record (
+		Offset: Time_Range;
+		Time: IO_Reference_Time;
+	);
+	
+--- The <b>IO_Reference_Time</b> property specifies the time reference point to be used for specifying when input or
+---  output is available.  The reference points are dispatch time (typically with zero time offset), start time (zero 
+--- or more time), completion time (amount of execution time until completion), and deadline (typically with zero time
+--- offset). <b>NoIO</b> indicates that no I/O occurs. Dynamic indicates that, if I/O occurs, the time can be anytime
+--- during execution without specifying a specific offset relative to start or completion time.
+	
+	IO_Reference_Time: type enumeration (Dispatch, Start, Completion, Deadline, NoIO, Dynamic);
+
+--- The <b>Output_Rate</b> property specifies the number of outputs per dispatch or per second of data, events, event
+--- data, or initiations of subprogram calls.  The default is one output per thread dispatch and the default
+---  distribution is <b>Fixed</b>.
+	
+	Output_Rate: Rate_Spec => [Value_Range => 1.0 .. 1.0; Rate_Unit => PerDispatch; Rate_Distribution => Fixed;]
+		applies to (feature);
+		
+--- The <b>Output_Time</b> property specifies the amount of execution time until completion at which output becomes
+--- available. The property value is a pair of <b>Time</b> and <b>Offset</b>. The default <b>Output_Time</b> is
+--- <b>Completion</b> with zero  <b>Offset</b>. For data ports with a delayed connection the default output time is
+---  <b>Deadline</b>.
+	
+	Output_Time: list of IO_Time_Spec => ([Time => Completion; Offset => 0 ns .. 0 ns;])
+		applies to (feature);
+
+--- The <b>Rate_Spec</b> property specifies the number of input or output occurrences per <b>Rate_Unit</b>, i.e., per
+--- dispatch or per second. The default <b>Rate_Distribution</b> is <b>Fixed</b>.  
+	
+	Rate_Spec: type record (
+		Value_Range: range of aadlreal;
+		Rate_Unit: enumeration (PerSecond, PerDispatch);
+		Rate_Distribution: Supported_Distributions;
+	);
+	
+--- The <b>Subprogram_Call_Rate</b> property specifies the number of subprogram calls per dispatch or per second.  The
+--- default is one call per thread dispatch and the default distribution is <b>Fixed</b>.	
+
+	Subprogram_Call_Rate: Rate_Spec => [Value_Range => 1.0 .. 1.0; Rate_Unit => PerDispatch; Rate_Distribution => Fixed;]
+		applies to (subprogram access);
+
+--- The <b>Transmission_Time</b> property specifies the parameters for a linear model for the time interval between the
+--- start and end of a transmission of a sequence of N bytes onto a bus.  The transmission time is the time between the
+--- transmission of the first bit of the message onto the bus and the transmission of the last bit of the message onto
+--- the bus.  This time excludes arbitration, queuing, or any other times that are a function of how bus contention and
+--- scheduling are performed for a bus.<p> 
+--- The associated expressions must evaluate to a record of two ranges of nonnegative numbers.<p>
+--- The time required to transmit a message of N Bytes over the bus is <b>Fixed + N * PerByte</b>, where <b>Fixed</b> 
+--- is any number that falls in the range of the <b>Fixed</b> record field  and <b>PerByte</b> is any number that falls
+--- in the range of the <b>PerByte</b> record field.  
+
+	Transmission_Time: record (
+			Fixed: Time_Range;
+			PerByte: Time_Range;)
+		applies to (bus,system,device,processor,memory,virtual bus, virtual processor);
+		
+--- The <b>Actual_Latency</b> property specifies the actual latency as determined by the implementation of the 
+--- end-to-end flow through semantic connections.  Its numeric value must be positive.<p>  
+--- The property type is <b>Time_Range</b>.  The standard units are ns (nanoseconds), us (microseconds), ms
+--- (milliseconds), sec (seconds), min (minutes) and hr (hours).  
+
+	Actual_Latency: Time_Range
+		applies to (flow, connection, virtual bus, bus, processor, virtual processor, device, system, feature, memory);
+
+--- The <b>Latency</b> property specifies the minimum and maximum amount of elapsed time allowed between the time the
+--- data or events enter the connection or flow and the time it exits.  Its numeric value must be positive.<p>
+--- The property type is <b>Time</b>.  The standard units are ns (nanoseconds), us (microseconds), ms (milliseconds),
+--- sec (seconds), min (minutes) and hr (hours).
+	
+	Latency: Time_Range
+		applies to (flow, connection, virtual bus, bus, processor, virtual processor, device, system, feature, memory);
+		
+	Data_Rate : aadlinteger units Data_Rate_Units applies to (feature, connection, bus, virtual bus, system, processor, virtual processor, memory, device);
+
+end Communication_Properties;

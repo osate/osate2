@@ -1,0 +1,302 @@
+--AADL2
+--SAE Aerospace Standard AS5506B
+--Appendix A: Predeclared Property Sets
+
+-- @codegen-package org.osate.aadl2.contrib.timing
+property set Timing_Properties is
+
+--- <b>Activate_Deadline</b> specifies the maximum amount of time allowed for the execution of a thread�s activation
+-- sequence.  The numeric value of time must be positive.<p>
+--- The property type is <b>Time</b>.  The standard units are ps (picoseconds), ns (nanoseconds), us (microseconds),
+--- ms (milliseconds), sec (seconds), min (minutes) and hr (hours).  
+	
+	Activate_Deadline: Time
+		applies to (thread);
+		
+--- <b>Activate_Execution_Time</b> specifies the minimum and maximum execution time, in the absence of runtime errors,
+--- that a thread will use to execute its activation sequence, i.e., when a thread becomes active as part of a mode
+---  switch.  The specified execution time includes all time required to execute any service calls that are executed
+--- by a thread, but excludes any time spent by another thread executing remote procedure calls in response to a remote
+--- subprogram call made by this thread.
+	
+	Activate_Execution_Time: Time_Range
+		applies to (thread);
+		
+---The <b>Compute_Deadline</b> specifies the maximum amount of time allowed for the execution of a thread�s compute
+--- sequence.  If the property is specified for a subprogram, event port, or event data port feature, then this compute
+--- execution time applies to the dispatched thread when the corresponding call, event, or event data arrives.   When
+--- specified for a subprogram access feature, the <b>Compute_Deadline</b> applies to the thread executing the remote
+--- procedure call in response to the remote subprogram call.  The <b>Compute_Deadline</b> specified for a feature must
+--- not exceed the <b>Compute_Deadline</b> of the associated thread. The numeric value of time must be positive.<p>  
+--- The values specified for this property for a thread are bounds on the values specified for specific features.<p>
+--- The <b>Deadline</b> property places a limit on <b>Compute_Deadline</b> and <b/>Recover_Deadline: Compute_Deadline +
+--- Recover_Deadline <= Deadline.</b><p>
+--- The property type is <b>Time</b>.  The standard units are ps (picoseconds), ns (nanoseconds), us (microseconds), ms 
+--- (milliseconds), sec (seconds), min (minutes) and hr (hours). 
+
+	Compute_Deadline: Time
+		applies to (thread, device, subprogram, subprogram access, event port, event data port);
+		
+--- The <b>Compute_Execution_Time</b> property specifies the amount of time that a thread will execute after a thread
+--- has been dispatched, before that thread begins waiting for another dispatch.  If the property is specified for a
+--- subprogram, event port, or event data port feature, then this compute execution time applies to the dispatched
+--- thread when the corresponding call, event, or event data initiates a dispatch.  When specified for a subprogram
+--- (access) feature, it applies to the thread executing the remote procedure call in response to a remote subprogram
+--- call. The <b>Compute_Execution_Time</b> specified for a feature must not exceed the <b>Compute_Execution_Time</b> 
+--- of the associated thread.<p>
+--- The range expression specifies a minimum and maximum execution time in the absence of runtime errors.  The
+--- specified execution time includes all time required to execute any service calls that are executed by a thread, but
+--- excludes any time spent by another thread executing remote procedure calls in response to a remote subprogram call
+--- made by the thread.<p>
+--- The values specified for this property for a thread are bounds on the <b>Compute_Execution_Time</b> values 
+---specified for ports or subprogram access that dispatch execution.
+
+	Compute_Execution_Time: Time_Range
+		applies to (thread, device, subprogram, event port, event data port);
+		
+--- The <b>Client_Subprogram_Execution_Time</b> property specifies the length of time it takes to execute the client
+--- portion of a remote subprogram call.<p>
+--- The property type is <b>Time_Range</b>.  The standard units are ns (nanoseconds), us (microseconds), ms
+--- (milliseconds), sec (seconds), min (minutes) and hr (hours).  The numeric value must be a positive number.  
+
+	Client_Subprogram_Execution_Time: Time_Range
+		applies to (subprogram);
+		
+--- The <b>Deactivate_Deadline</b> property specifies the maximum amount of time allowed for the execution of a
+--- thread�s deactivation sequence.  The numeric value of time must be positive.<p>
+--- The property type is <b>Time</b>.  The standard units are ps (picoseconds), ns (nanoseconds), us (microseconds),
+--- ms (milliseconds), sec (seconds), min (minutes) and hr (hours).  
+
+	Deactivate_Deadline: Time
+		applies to (thread);
+		
+--- The <b>Deactivate_Execution_Time</b> property specifies the amount of time that a thread will execute its
+--- deactivation sequence, i.e., when the thread is deactivated as part of a mode switch.<p> 
+--- The range expression specifies a minimum and maximum execution time in the absence of runtime errors.  The
+--- specified execution time includes all time required to execute any service calls that are executed by a thread, but
+--- excludes any time spent by another thread executing remote procedure calls in response to a remote subprogram call
+--- made by this thread.
+
+	Deactivate_Execution_Time: Time_Range
+		applies to (thread);
+
+---	The <b>Deadline</b> property specifies the maximum amount of time allowed between a thread dispatch and the time
+--- that thread begins waiting for another dispatch.  Its numeric value must be positive.<p>
+--- The <b>Deadline</b> property places a limit on <b>Compute_Deadline</b> and <b>Recover_Deadline</b>:
+--- <b>Compute_Deadline</b> + <b>Recover_Deadline<b> <= <b>Deadline</b><p>
+--- The Deadline property may not be specified for threads with background dispatch protocol.
+	
+	Deadline: inherit Time => Period
+		applies to (thread, thread group, process, system, device, virtual processor);	
+
+--- This property specifies the time of the first dispatch request.
+
+	First_Dispatch_Time: inherit Time
+		applies to (thread, thread group);
+		
+--- The <b>Dispatch_Jitter</b> property specifies a maximum bound on the lateness of a thread dispatching. In the case
+---  of a periodic thread for instance, the thread is supposed to be dispatched according to a fixed delay called the
+---  period. However, for many reasons, a periodic thread dispatching event can be delayed. The <b>Dispatch_Jitter</b>
+--- property can be used to specify such a delay. The <b>Dispatch_Jitter</b> property can be specified on any thread
+--- which can be dispatched several times (e.g.,. <b>Periodic</b>, <b>Sporadic</b>).
+	
+	Dispatch_Jitter: inherit Time
+		applies to (thread, thread group);
+		
+--- The <b>Dispatch_Offset</b> property specifies a dispatch time offset for a thread.  The offset indicates the amount
+--- of clock time by which the dispatch of a thread is offset relative to its period.  This property applies only to
+--- periodic threads.
+	
+	Dispatch_Offset: inherit Time
+		applies to (thread);
+		
+--- The <b>Execution_Time</> property specifies the amount of execution time allocated to a virtual processor by the 
+---processor it is bound to.  This is the amount of execution time the virtual processor can make available to threads
+--- or virtual processors it schedules. It is the equivalent of the <b>compute_execution_time</b> for a thread.
+	
+	Execution_Time: Time
+		applies to (virtual processor);
+		
+---The <b>Finalize_Deadline</b> property specifies the maximum amount of time allowed for the execution of a thread�s
+--- finalization sequence.  The numeric value of time must be positive.<p>
+---The property type is <b>Time</b>.  The standard units are ps (picoseconds), ns (nanoseconds), us (microseconds),
+--- ms (milliseconds), sec (seconds), min (minutes) and hr (hours).
+
+
+	Finalize_Deadline: Time
+		applies to (thread);
+		
+---The <b>Finalize_Execution_Time</b> property specifies the amount of time that a thread will execute its
+---  finalization sequence. <p> 
+--- The range expression specifies a minimum and maximum execution time in the absence of runtime errors.  The
+--- specified execution time includes all time required to execute any service calls that are executed by a thread, but
+--- excludes any time spent by another thread executing remote procedure calls in response to a remote subprogram call
+--- made by this thread.
+	
+	Finalize_Execution_Time: Time_Range
+		applies to (thread);
+		
+---The <b>Initialize_Deadline</b>; property specifies the maximum amount of time allowed between the time a thread
+--- executes its initialization sequence and the time that thread begins waiting for a dispatch.  The numeric value of
+--- time must be positive.<p>
+--- The property type is <b>Time</b>.  The standard units are ps (picoseconds), ns (nanoseconds), us (microseconds), ms
+--- (milliseconds), sec (seconds), min (minutes) and hr (hours). 
+
+	Initialize_Deadline: Time
+		applies to (thread);
+		
+--- The <b>Initialize_Execution_Time</b> property specifies the amount of time that a thread will execute its
+---  initialization sequence.<p>  
+--- The range expression specifies a minimum and maximum execution time in the absence of runtime errors.  The
+--- specified execution time includes all time required to execute any service calls that are executed by a thread, but
+--- excludes any time spent by another thread executing remote procedure calls in response to a remote subprogram call
+--- made by this thread.
+	
+	Initialize_Execution_Time: Time_Range
+		applies to (thread);
+		
+--- The <b>Load_Deadline</b> property specifies the maximum amount of elapsed time allowed between the time the process
+--- begins and completes loading.  Its numeric value must be positive.<p>
+---The property type is <b>Time</b>.  The standard units are ns (nanoseconds), us (microseconds), ms (milliseconds),
+--- sec (seconds), min (minutes) and hr (hours).
+
+	Load_Deadline: Time
+		applies to (process, system);
+
+
+--- The <b>Load_Time</b> property specifies the amount of execution time that it will take to load the binary image
+--- associated with a process.  The numeric value of time must be positive.<p>
+--- When applied to a system, the property specifies the amount of time it takes to load the binary image of data
+--- components declared within the system implementation and shared across processes (and their address spaces).<p>
+--- The range expression specifies a minimum and maximum load time in the absence of runtime errors.
+	
+	Load_Time: Time_Range
+		applies to (process, system);
+
+--- This property specifies the capacity/speed of a processor in terms of instructions per time unit. The ratio of 
+--- processor capacity between processors is used to determine a scaling factor for adjusting execution times to
+--- specific processors
+
+		
+	Processor_Capacity: aadlreal units Processor_Speed_Units 
+	        applies to (processor, virtual processor, system);
+	        
+--- The <b>Period</b> property specifies the time interval between successive dispatches of a thread whose scheduling
+---  protocol is periodic, or the minimum interval between successive dispatches of a thread whose scheduling protocol
+--- is sporadic.<p>  
+--- The property type is <b>Time</b>.  The standard units are ns (nanoseconds), us (microseconds), ms (milliseconds),
+--- sec (seconds), min (minutes) and hr (hours).  The numeric value must be a single positive number.<p>  
+--- A <b>Period</b> property association is only allowed if the thread scheduling protocol is either periodic or
+--- sporadic, timed or hybrid.
+	
+	Period: inherit Time
+		applies to (thread, thread group, process, system, device, virtual processor, virtual bus, bus);
+		
+--- <b>Recover�_Deadline</b> specifies the maximum amount of time allowed between the time when a detected error occurs
+--- and the time a thread begins waiting for another dispatch.  Its numeric value must be positive.<p>
+--- The <b>Recover_Deadline</b> property may not be specified for threads with background dispatch protocol.<p>
+--- The <b>Recover_Deadline</b> must not be greater than the specified period for the thread, if any.<p> 
+--- The <b>Deadline</b> property places a limit on <b>Compute_Deadline</b> and <b>Recover_Deadline:
+--- Compute_Deadline + Recover_Deadline <= Deadline</b>.<p>
+--- The property type is <b>Time</b>.  The standard units are ps (picoseconds), ns (nanoseconds), us (microseconds),
+--- ms (milliseconds), sec (seconds), min (minutes) and hr (hours).  
+	
+	Recover_Deadline: Time
+		applies to (thread);
+	
+--- The <b>Recover_Execution_Time</b> property specifies the amount of time that a thread will execute after an error
+--- has occurred, before it begins waiting for another dispatch.<p> 
+--- The range expression specifies a minimum and maximum execution time in the absence of runtime errors.  The
+--- specified execution time includes all time required to execute any service calls that are executed by a thread, but
+---  excludes any time spent by another thread executing remote procedure calls in response to a remote subprogram call
+--- made by this thread.
+
+	Recover_Execution_Time: Time_Range
+		applies to (thread);
+		
+		
+		
+	Reference_Time: inherit reference (device, processor, bus, system, abstract) 
+	        applies to (device, processor, bus, system, memory, virtual bus, virtual processor);
+	        
+--- The <b>Startup_Deadline</b> property specifies the deadline for processor, virtual processor, process, and system
+--- initialization.<p>  
+--- The property type is <b.Time</b>.  The standard units are ps (picoseconds), ns (nanoseconds), us (microseconds), ms
+--- (milliseconds), sec (seconds), min (minutes) and hr (hours).  The numeric value must be a single positive number.  
+
+	Startup_Deadline: Time
+		applies to (processor, virtual processor, process, system);
+		
+---The <b>Startup_Execution_Time</b> property specifies the execution time for initialization of a virtual processor or
+--- process.  Initialization time for threads is accounted for through its initialize entry point.<p>  
+--- The property type is <b>Time</b>.  The standard units are ps (picoseconds), ns (nanoseconds), us (microseconds), ms
+--- (milliseconds), sec (seconds), min (minutes) and hr (hours).  The numeric value must be a single positive number.  
+
+	Startup_Execution_Time: Time_Range
+		applies to (virtual processor, processor, process, system);
+
+
+---The <b>Clock_Jitter property</b> specifies a time unit value that gives the maximum time between the start of clock
+--- interrupt handling on any two processors in a multi-processor system.<p>
+--- The property type is <b>Time</b>.  The standard units are ns (nanoseconds), us (microseconds), ms (milliseconds),
+--- sec (seconds), min (minutes) and hr (hours).  The numeric value must be a positive number.  
+	
+	Clock_Jitter: Time
+		applies to (processor, device, system);
+	
+--- The <b>Clock_Period</b> property specifies a time unit value that gives the time interval between two clock
+--- interrupts.<p>
+--- The property type is <b>Time</b>.  The standard units are ns (nanoseconds), us (microseconds), ms (milliseconds),
+--- sec (seconds), min (minutes) and hr (hours).  The numeric value must be a positive number.  
+	
+	Clock_Period: Time
+		applies to (processor, device, system);
+	
+--- The <b>Clock_Period_Range</b> property specifies a time range value that represents the minimum and maximum
+--- value assignable to the <b>Clock_Period</b> property.
+	
+	Clock_Period_Range: Time_Range
+		applies to (processor, device, system);
+	
+--- The <b>Process_Swap_Execution_Time</b> property specifies the amount of execution time necessary to perform a
+--- context swap between two threads contained in different processes.<p>
+
+--- The range expression specifies a minimum and maximum swap time in the absence of runtime errors.
+	
+	Process_Swap_Execution_Time: Time_Range
+		applies to (processor, virtual processor, system);
+
+--- The <b>Reference_Processor</b> property specifies the processor based on which the execution time is specified.
+--- When code is bound to a different processor type, the >b>Processor_Capacity</b> of that processor is used to
+--- determine the execution, unless a binding specific execution time value is associated.  
+
+	Reference_Processor: inherit classifier (processor)
+		applies to (subprogram, subprogram group, thread, thread group, process, device, system);
+
+--- This property specifies the quantum of a given processor. The quantum is a maximum bound on the time a thread can
+--- hold the processor without being preempted. A quantum is typically used in time sharing scheduling and in 
+--- POSIX 1003.1b scheduling (with the SCHED_RR policy). The quantum can be used with any user-defined schedulers. If
+--- the quantum is not specified for a given processor, the quantum has a positive infinitesimal value.
+	
+	Scheduler_Quantum: inherit Time
+		applies to (processor);
+		
+--- The <b>Thread_Swap_Execution_Time</b> property specifies the amount of execution time necessary for performing a
+--- context swap between two threads contained in the same process.<p>
+---The range expression specifies a minimum and maximum swap time in the absence of runtime errors.
+
+	Thread_Swap_Execution_Time: Time_Range
+		applies to (processor, system, virtual processor);
+
+---The <b>Frame_Period</b> property specifies the time period of a major frame in a static scheduling protocol, such as
+--- a cyclic executive.
+	
+	Frame_Period: Time
+		applies to (processor, virtual processor);
+	
+---The <b>Slot_Time</b> property specifies the time period of a slot in major frame in a static scheduling protocol,
+--- such as a cyclic executive, if the protocol uses fixed slot times.
+	
+	Slot_Time: Time
+		applies to (processor, virtual processor);
+end Timing_Properties;

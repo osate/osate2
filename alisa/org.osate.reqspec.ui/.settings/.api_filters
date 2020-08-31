@@ -28,13 +28,6 @@
             </message_arguments>
         </filter>
     </resource>
-    <resource path="src-gen/org/osate/reqspec/ui/contentassist/AbstractReqSpecProposalProvider.java" type="org.osate.reqspec.ui.contentassist.AbstractReqSpecProposalProvider">
-        <filter comment="Xtext generated code" id="337764418">
-            <message_arguments>
-                <message_argument value="org.osate.reqspec.ui.contentassist.AbstractReqSpecProposalProvider"/>
-            </message_arguments>
-        </filter>
-    </resource>
     <resource path="src-gen/org/osate/reqspec/ui/internal/ReqspecActivator.java" type="org.osate.reqspec.ui.internal.ReqspecActivator">
         <filter comment="Xtext generated code" id="1110441988">
             <message_arguments>
