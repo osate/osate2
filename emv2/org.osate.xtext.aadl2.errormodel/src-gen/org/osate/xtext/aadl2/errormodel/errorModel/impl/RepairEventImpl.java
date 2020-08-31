@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -87,6 +88,7 @@ public class RepairEventImpl extends ErrorBehaviorEventImpl implements RepairEve
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<NamedElement> getEventInitiator()
   {
     if (eventInitiator == null)

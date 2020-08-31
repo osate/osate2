@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -105,6 +106,7 @@ public class TypeTransformationSetImpl extends NamedElementImpl implements TypeT
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ErrorModelLibrary> getUseTypes()
   {
     if (useTypes == null)
@@ -119,6 +121,7 @@ public class TypeTransformationSetImpl extends NamedElementImpl implements TypeT
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<TypeTransformation> getTransformation()
   {
     if (transformation == null)

@@ -71,6 +71,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet
 import org.osate.xtext.aadl2.errormodel.services.ErrorModelGrammarAccess
 import org.osate.xtext.aadl2.properties.formatting2.PropertiesFormatter
 
+/**
+ * @since 5.0
+ */
 class ErrorModelFormatter extends PropertiesFormatter {
 	@Inject extension ErrorModelGrammarAccess
 

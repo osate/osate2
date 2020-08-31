@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.xtext.aadl2.errormodel" version="2">
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/AbstractErrorModelRuntimeModule.java" type="org.osate.xtext.aadl2.errormodel.AbstractErrorModelRuntimeModule">
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="bindErrorModelValidator()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="bindIKeywordSerializer()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/scoping/AbstractErrorModelScopeProvider.java" type="org.osate.xtext.aadl2.errormodel.scoping.AbstractErrorModelScopeProvider">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.scoping.AbstractErrorModelScopeProvider"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src-gen/org/osate/xtext/aadl2/errormodel/serializer/AbstractErrorModelSyntacticSequencer.java" type="org.osate.xtext.aadl2.errormodel.serializer.AbstractErrorModelSyntacticSequencer">
         <filter id="576720909">
             <message_arguments>
@@ -250,6 +269,13 @@
                 <message_argument value="ISynTransition"/>
                 <message_argument value="AbstractErrorModelSyntacticSequencer"/>
                 <message_argument value="emitUnassignedTokens(EObject, ISyntacticSequencerPDAProviderISynTransition, INode, INode)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/errormodel/validation/AbstractErrorModelValidator.java" type="org.osate.xtext.aadl2.errormodel.validation.AbstractErrorModelValidator">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.errormodel.validation.AbstractErrorModelValidator"/>
             </message_arguments>
         </filter>
     </resource>

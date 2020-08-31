@@ -43,9 +43,10 @@ import org.eclipse.ui.IWorkingSet;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.instantiation.RootMissingException;
+import org.osate.aadl2.modelsupport.FileNameConstants;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.core.AadlNature;
-import org.osate.workspace.WorkspacePlugin;
+import org.osate.ui.OsateUiPlugin;
 
 /**
  * @since 5.0
@@ -107,7 +108,7 @@ public final class ReinstantiationEngine extends AbstractInstantiationEngine<IFi
 			} else if (rsrc instanceof IFile) {
 				final IFile file = (IFile) rsrc;
 				final String ext = file.getFileExtension();
-				if (ext.equals(WorkspacePlugin.INSTANCE_FILE_EXT)) {
+				if (ext.equals(FileNameConstants.INSTANCE_FILE_EXT)) {
 					instanceFiles.add(file);
 				}
 			} else if (rsrc instanceof IContainer) {
@@ -124,7 +125,7 @@ public final class ReinstantiationEngine extends AbstractInstantiationEngine<IFi
 					try {
 						findAllInstanceFiles(container.members(), instanceFiles);
 					} catch (CoreException e) {
-						WorkspacePlugin.log(e);
+						OsateUiPlugin.log(e);
 					}
 				}
 			}

@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -133,6 +134,7 @@ public class CompositeStateImpl extends NamedElementImpl implements CompositeSta
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ConditionExpression getCondition()
   {
     return condition;
@@ -160,6 +162,7 @@ public class CompositeStateImpl extends NamedElementImpl implements CompositeSta
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setCondition(ConditionExpression newCondition)
   {
     if (newCondition != condition)
@@ -181,6 +184,7 @@ public class CompositeStateImpl extends NamedElementImpl implements CompositeSta
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isOthers()
   {
     return others;
@@ -191,6 +195,7 @@ public class CompositeStateImpl extends NamedElementImpl implements CompositeSta
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setOthers(boolean newOthers)
   {
     boolean oldOthers = others;
@@ -204,6 +209,7 @@ public class CompositeStateImpl extends NamedElementImpl implements CompositeSta
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorBehaviorState getState()
   {
     if (state != null && state.eIsProxy())
@@ -234,6 +240,7 @@ public class CompositeStateImpl extends NamedElementImpl implements CompositeSta
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setState(ErrorBehaviorState newState)
   {
     ErrorBehaviorState oldState = state;
@@ -247,6 +254,7 @@ public class CompositeStateImpl extends NamedElementImpl implements CompositeSta
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeSet getTypedToken()
   {
     return typedToken;
@@ -274,6 +282,7 @@ public class CompositeStateImpl extends NamedElementImpl implements CompositeSta
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTypedToken(TypeSet newTypedToken)
   {
     if (newTypedToken != typedToken)

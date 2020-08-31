@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -131,6 +132,7 @@ public class ErrorCodeValueImpl extends ElementImpl implements ErrorCodeValue
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getIntValue()
   {
     return intValue;
@@ -141,6 +143,7 @@ public class ErrorCodeValueImpl extends ElementImpl implements ErrorCodeValue
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setIntValue(String newIntValue)
   {
     String oldIntValue = intValue;
@@ -154,6 +157,7 @@ public class ErrorCodeValueImpl extends ElementImpl implements ErrorCodeValue
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropertyConstant getConstant()
   {
     if (constant != null && ((EObject)constant).eIsProxy())
@@ -184,6 +188,7 @@ public class ErrorCodeValueImpl extends ElementImpl implements ErrorCodeValue
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setConstant(PropertyConstant newConstant)
   {
     PropertyConstant oldConstant = constant;
@@ -197,6 +202,7 @@ public class ErrorCodeValueImpl extends ElementImpl implements ErrorCodeValue
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getEnumLiteral()
   {
     return enumLiteral;
@@ -207,6 +213,7 @@ public class ErrorCodeValueImpl extends ElementImpl implements ErrorCodeValue
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setEnumLiteral(String newEnumLiteral)
   {
     String oldEnumLiteral = enumLiteral;
