@@ -36,8 +36,8 @@ import org.osate.ge.palette.TargetedPaletteCommand;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
-public class CreateTypePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
-	public CreateTypePaletteCommand() {
+public class CreateErrorTypePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
+	public CreateErrorTypePaletteCommand() {
 		super("Error Type", ErrorModelPaletteCategories.ERROR_MODEL, null);
 	}
 

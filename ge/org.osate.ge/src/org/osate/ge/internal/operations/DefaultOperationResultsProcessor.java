@@ -75,6 +75,7 @@ public class DefaultOperationResultsProcessor implements OperationExecutor.Resul
 
 	@Override
 	public void processResults(final List<StepResult<?>> results) {
+		System.err.println("A"); // TODO
 		// Combine the container to BO to show multi-maps from all the results.
 		final Multimap<DiagramNode, Object> containerToBoMap = ArrayListMultimap.create();
 		for (final StepResult<?> result : results) {
@@ -95,6 +96,7 @@ public class DefaultOperationResultsProcessor implements OperationExecutor.Resul
 			final Object newBo = containerToBoEntry.getValue();
 
 			final RelativeBusinessObjectReference newRef = refBuilder.getRelativeReference(newBo);
+			System.err.println("B : " + containerToBoMap.size() + " : " + newRef + " : " + newBo);
 			if (newRef != null) {
 				// Don't set the position if multiple items are being added.
 				// Don't set the position if the incremental layout mode is set to diagram.
@@ -108,6 +110,7 @@ public class DefaultOperationResultsProcessor implements OperationExecutor.Resul
 					position = null;
 				}
 
+				System.err.println("TEST: " + newRef + " ; " + position);
 				// If the BO being added is an embedded business object, it must be provided to the diagram updater.
 				final EmbeddedBusinessObject embeddedBo = (newBo instanceof EmbeddedBusinessObject)
 						? (EmbeddedBusinessObject) newBo

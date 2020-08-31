@@ -23,49 +23,36 @@
  */
 package org.osate.ge.errormodel.ui.palette;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
+import java.util.Optional;
 
-import org.osate.ge.palette.CreateConnectionPaletteCommand;
-import org.osate.ge.palette.PaletteCategory;
-import org.osate.ge.palette.PaletteCommandProviderContext;
-import org.osate.ge.palette.PaletteContributor;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.ge.errormodel.util.ErrorModelGeUtil;
+import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
+import org.osate.ge.operations.Operation;
+import org.osate.ge.operations.StepResultBuilder;
+import org.osate.ge.palette.BasePaletteCommand;
+import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.palette.TargetedPaletteCommand;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 
-public class ErrorModelPaletteContributor implements PaletteContributor {
-	@Override
-	public Stream<PaletteCategory> getCategories() {
-		return Stream.of(new PaletteCategory(ErrorModelPaletteCategories.ERROR_MODEL, "Error Model"));
+public class CreatePropagationPointPaleteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
+	public CreatePropagationPointPaleteCommand() {
+		super("Propagation Point", ErrorModelPaletteCategories.ERROR_MODEL, null);
 	}
 
 	@Override
-	public Stream<TargetedPaletteCommand> getTargetedCommands(final PaletteCommandProviderContext ctx) {
-		final List<TargetedPaletteCommand> commands = new ArrayList<>();
+	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
+		return ErrorModelGeUtil.createErrorModelSubclauseModifyOperation(ctx.getTarget(), (subclause) -> {
+			final PropagationPoint newPoint = (PropagationPoint) EcoreUtil
+					.create(ErrorModelPackage.eINSTANCE.getPropagationPoint());
+			final String newName = ErrorModelNamingUtil.buildUniqueIdentifier(subclause.getContainingClassifier(),
+					"new_propagation_point");
+			newPoint.setName(newName);
+			subclause.getPoints().add(newPoint);
 
-		commands.add(new CreateErrorTypePaletteCommand());
-		commands.add(new CreateEventPaletteCommand(ErrorModelPackage.eINSTANCE.getErrorEvent()));
-		commands.add(new CreatePropagationPointPaleteCommand());
-		commands.add(new CreateEventPaletteCommand(ErrorModelPackage.eINSTANCE.getRepairEvent()));
-		commands.add(new CreateEventPaletteCommand(ErrorModelPackage.eINSTANCE.getRecoverEvent()));
-		commands.add(new CreateStatePaletteCommand());
-		commands.add(new CreateStateMachinePaletteCommand());
-		commands.add(new CreateTypeAliasPaletteCommand());
-		commands.add(new CreateTypeSetPaletteCommand());
-		commands.add(new CreateTypeSetAliasPaletteCommand());
+			return StepResultBuilder.create().showNewBusinessObject(ctx.getTarget(), newPoint).build();
+		});
 
-		return commands.stream();
-	}
-
-	@Override
-	public Stream<CreateConnectionPaletteCommand> getCreateConnectionCommands(
-			final PaletteCommandProviderContext ctx) {
-		final List<CreateConnectionPaletteCommand> commands = new ArrayList<>();
-
-		commands.add(new CreateTransitionPaletteCommand());
-		commands.add(new CreateTypeExtensionPaletteCommand());
-
-		return commands.stream();
 	}
 }

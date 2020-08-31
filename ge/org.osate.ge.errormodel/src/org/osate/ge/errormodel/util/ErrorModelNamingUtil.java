@@ -29,9 +29,13 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
+
+import com.google.common.base.Strings;
 
 public class ErrorModelNamingUtil {
 	private final static Set<String> reservedWords; // Set which compares entries base on a case-insensitive comparison
@@ -54,6 +58,11 @@ public class ErrorModelNamingUtil {
 		return buildUniqueIdentifier(existingIdentifiers, baseIdentifier);
 	}
 
+	public static String buildUniqueIdentifier(final Classifier c, final String baseIdentifier) {
+		final Set<String> existingIdentifiers = buildNameSet(c);
+		return buildUniqueIdentifier(existingIdentifiers, baseIdentifier);
+	}
+
 	/**
 	 * Returns null if validation succeeds. Otherwise, returns a reason the name is not valid.
 	 * @param lib
@@ -70,17 +79,17 @@ public class ErrorModelNamingUtil {
 	}
 
 	public static String validateName(final Set<String> existingNames, final String oldName, final String newName) {
-    	if(newName.equalsIgnoreCase(oldName)) {
-    		// Name is unchanged
-    		return null;
-    	}
+		if (newName.equalsIgnoreCase(oldName)) {
+			// Name is unchanged
+			return null;
+		}
 
 		final Set<String> existingIdentifiers = existingNames;
-		if(existingIdentifiers.contains(newName.toLowerCase())) {
+		if (existingIdentifiers.contains(newName.toLowerCase())) {
 			return "The specified name conflicts with an existing element.";
 		}
 
-		if(!newName.matches("[a-zA-Z]([_]?[a-zA-Z0-9])*")) {
+		if (!newName.matches("[a-zA-Z]([_]?[a-zA-Z0-9])*")) {
 			return "The specified name is not a valid identifier";
 		}
 
@@ -97,15 +106,42 @@ public class ErrorModelNamingUtil {
 		boolean done = false;
 		int num = 1;
 		do {
-			if(existingIdentifiers.contains(newIdentifier.toLowerCase())) {
+			if (existingIdentifiers.contains(newIdentifier.toLowerCase())) {
 				num++;
 				newIdentifier = baseIdentifier + num;
 			} else {
 				done = true;
 			}
-		} while(!done);
+		} while (!done);
 
 		return newIdentifier;
+	}
+
+	private static Set<String> buildNameSet(final Classifier classifier) {
+		final Set<String> names = new HashSet<String>();
+
+		ErrorModelGeUtil.getAllErrorModelSubclauses(classifier).forEachOrdered(subclause -> {
+			addToNameSet(names, subclause.getErrorDetections());
+			addToNameSet(names, subclause.getEvents());
+			addToNameSet(names, subclause.getFlows());
+			addToNameSet(names, subclause.getPaths());
+			addToNameSet(names, subclause.getPoints());
+			addToNameSet(names, subclause.getStates());
+		});
+
+		for (final Classifier tmp : classifier.getSelfPlusAllExtended()) {
+			if (tmp == null) {
+				continue;
+			}
+
+			for (final Element e : tmp.getOwnedElements()) {
+				if (e instanceof NamedElement) {
+					names.add(Strings.nullToEmpty(((NamedElement) e).getName()).toLowerCase());
+				}
+			}
+		}
+
+		return names;
 	}
 
 	private static Set<String> buildNameSet(final ErrorModelLibrary lib) {
@@ -127,8 +163,8 @@ public class ErrorModelNamingUtil {
 	}
 
 	public static void addToNameSet(final Set<String> names, final Collection<? extends NamedElement> elements) {
-		for(final NamedElement el : elements) {
-			if(el.getName() != null) {
+		for (final NamedElement el : elements) {
+			if (el.getName() != null) {
 				names.add(el.getName().toLowerCase());
 			}
 		}

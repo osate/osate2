@@ -31,6 +31,7 @@ import java.util.stream.Stream;
 
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.GraphicalAnnexUtil;
 import org.osate.ge.graphics.ArrowBuilder;
@@ -58,6 +59,16 @@ public class ErrorModelGeUtil {
 	public static Optional<ErrorModelLibrary> getErrorModelLibrary(final AadlPackage pkg) {
 		return GraphicalAnnexUtil.getFirstParsedAnnexLibrary(pkg, EMV2Util.ErrorModelAnnexName,
 				ErrorModelLibrary.class);
+	}
+
+	private static ErrorModelSubclause getOrCreateErrorModelSubclause(final Classifier classifier) {
+		return GraphicalAnnexUtil.getOrCreateParsedAnnexSubclause(classifier, EMV2Util.ErrorModelAnnexName,
+				ErrorModelPackage.eINSTANCE.getErrorModelSubclause(), ErrorModelSubclause.class);
+	}
+
+	public static Optional<ErrorModelSubclause> getFirstErrorModelSubclause(final Classifier classifier) {
+		return GraphicalAnnexUtil.getFirstParsedAnnexSubclause(classifier, EMV2Util.ErrorModelAnnexName,
+				ErrorModelSubclause.class);
 	}
 
 	public static Stream<ErrorModelSubclause> getAllErrorModelSubclauses(final Classifier classifier) {
@@ -127,5 +138,76 @@ public class ErrorModelGeUtil {
 			final Function<ErrorModelLibrary, StepResult<ResultUserType>> modifier) {
 		return createErrorModelLibraryPromptAndModifyOperation(packageBoc, () -> Optional.of(true),
 				(lib, promptResult) -> modifier.apply(lib));
+	}
+
+	/**
+	 * Creates an operation which allows prompt the user and then modifies the first error model subclause of a classifier or subcomponent.
+	 * If the specified {@link BusinessObjectContext} doesn't contain an appropriate business object, an empty optional is returned.
+	 * If a error model subclause doesn't exist in the classifier, it is created.
+	 * @param <ResultUserType>
+	 * @param boc the business object being modified. Must be the business object context for a classifier or subcomponent.
+	 * @param prompter is a function that will return results of prompting the user. If it returns an empty optional,
+	 * 	the modification portion of the operation will not be executed.
+	 * @param modifier a function that is executed to perform the model operation.
+	 * @return an optional describing the operation. If the business object context does not have a classifier or subcomponent
+	 * as a business object, an empty optional will be returned.
+	 */
+	public static <PromptResult> Optional<Operation> createErrorModelSubclausePromptAndModifyOperation(
+			final BusinessObjectContext boc, final Supplier<Optional<PromptResult>> prompter,
+			BiFunction<ErrorModelSubclause, PromptResult, StepResult<?>> modifier) {
+		final Object readonlyBo = boc.getBusinessObject();
+		final Classifier readonlyClassifier;
+		if (readonlyBo instanceof Classifier) {
+			readonlyClassifier = (Classifier) readonlyBo;
+		} else if (readonlyBo instanceof Subcomponent) {
+			readonlyClassifier = ((Subcomponent) readonlyBo).getAllClassifier();
+		} else {
+			readonlyClassifier = null;
+		}
+
+		if (readonlyClassifier == null) {
+			return Optional.empty();
+		}
+
+		return Optional.of(Operation.createWithBuilder(b -> {
+			b.supply(() -> prompter.get().map(v -> StepResult.forValue(v)).orElseGet(() -> StepResult.abort()))
+					.modifyModel(null, (tag, promptResult) -> {
+						// Select the object to modify. If an error model subclause exists, modify it. Otherwise, modify the classifier.
+						final Optional<ErrorModelSubclause> readonlySubclause = getFirstErrorModelSubclause(
+								readonlyClassifier);
+						if (readonlySubclause.isPresent()) {
+							return readonlySubclause.filter(subclause -> subclause.getContainingClassifier() != null)
+									.orElse(null);
+						} else {
+							return readonlyClassifier;
+						}
+					}, (tag, boToModify, promptResult) -> {
+						// Get or create the error model subclause as needed
+						final ErrorModelSubclause subclause;
+						if (boToModify instanceof Classifier) {
+							subclause = getOrCreateErrorModelSubclause((Classifier) boToModify);
+						} else {
+							subclause = (ErrorModelSubclause) boToModify;
+						}
+
+						// Perform the modification
+						return modifier.apply(subclause, promptResult);
+					});
+		}));
+	}
+
+	/**
+	 * Creates an operation to modify the first error model subclause of a classifier or subcomponent.
+	 * If the specified {@link BusinessObjectContext} doesn't contain an appropriate business object, an empty optional is returned.
+	 * If a error model subclause doesn't exist in the classifier, it is created.
+	 * @param <ResultUserType>
+	 * @param boc the business object being modified. Must be the business object context for a classifier or subcomponent.
+	 * @param modifier is the function that will modify the error model subclause
+	 * @return an optional containing the operation.
+	 */
+	public static <ResultUserType> Optional<Operation> createErrorModelSubclauseModifyOperation(
+			final BusinessObjectContext boc, final Function<ErrorModelSubclause, StepResult<ResultUserType>> modifier) {
+		return createErrorModelSubclausePromptAndModifyOperation(boc, () -> Optional.of(true),
+				(subclause, promptResult) -> modifier.apply(subclause));
 	}
 }

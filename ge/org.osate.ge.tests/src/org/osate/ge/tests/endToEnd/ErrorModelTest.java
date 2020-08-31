@@ -44,6 +44,7 @@ import org.osate.ge.tests.endToEnd.util.DiagramReference;
  */
 public class ErrorModelTest {
 	private static final String EMV2_TEST = "emv2_test";
+	private static final String ERROR_FLOW_TEST = "error_flow_test";
 	private static final String OTHER = "other";
 
 	@Test
@@ -344,5 +345,36 @@ public class ErrorModelTest {
 		// TODO: Remove when text editor is no longer opened as part of test.
 		saveAndCloseTextEditorByTitle(OTHER + ".aadl");
 		saveAndCloseTextEditorByTitle(EMV2_TEST + ".aadl");
+	}
+
+	@Test
+	public void testErrorFlows() {
+		prepareForTesting();
+		createAadlProject(ERROR_FLOW_TEST);
+
+		// Create a package
+		createNewPackageWithPackageDiagram(ERROR_FLOW_TEST, ERROR_FLOW_TEST);
+		final DiagramReference diagram = defaultDiagram(ERROR_FLOW_TEST, ERROR_FLOW_TEST);
+		final DiagramElementReference pkgElement = packageElement(ERROR_FLOW_TEST);
+		final RelativeBusinessObjectReference pkg = getRelativeReferenceForPackage(ERROR_FLOW_TEST);
+
+		// Open text editor
+		// TODO: Remove this once things work without text editor open
+		doubleClickInAadlNavigator(ERROR_FLOW_TEST, ERROR_FLOW_TEST + ".aadl");
+
+		// Create system system implementation
+		createImplementationWithNewType(diagram, pkgElement, "System Implementation", "impl", "test_system");
+
+		// Create and rename propagation point
+		createElementAndLayout(diagram, element(pkg, getClassifierRelativeReference("test_system.impl")),
+				"Propagation Point",
+				ErrorModelReferenceUtil.getRelativeReferenceForPropagationPoint("new_propgation_point"), "pp1");
+
+		// Create another propagation point and delete it.
+		createElementAndLayout(diagram, element(pkg, getClassifierRelativeReference("test_system.impl")),
+				"Propagation Point",
+				ErrorModelReferenceUtil.getRelativeReferenceForPropagationPoint("new_propgation_point"), "pp2");
+
+		// TODO: Delete
 	}
 }
