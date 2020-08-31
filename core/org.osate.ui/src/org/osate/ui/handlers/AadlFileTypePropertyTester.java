@@ -29,6 +29,7 @@ import java.io.InputStreamReader;
 
 import org.eclipse.core.expressions.PropertyTester;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IStorage;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -43,26 +44,52 @@ public final class AadlFileTypePropertyTester extends PropertyTester {
 		if (receiver instanceof IFile && (testAadlPackage || testAadlPropertySet)) {
 			final IFile file = (IFile) receiver;
 			if ("aadl".equalsIgnoreCase(file.getFileExtension()) && file.exists()) {
-				try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getContents()))) {
-					for (String line = reader.readLine(); line != null; line = reader.readLine()) {
-						int i = 0;
-						while (i < line.length() && Character.isWhitespace(line.charAt(i))) {
-							i++;
-						}
-						if (i < line.length() && !line.startsWith("--", i)) {
-							String lowered = line.toLowerCase();
-							return testAadlPackage && lowered.startsWith("package", i)
-									|| testAadlPropertySet && lowered.startsWith("property", i);
-						}
-					}
-				} catch (IOException e) {
-					IStatus status = new Status(IStatus.ERROR, OsateUiPlugin.PLUGIN_ID, e.getMessage(), e);
-					StatusManager.getManager().handle(status);
-				} catch (CoreException e) {
-					StatusManager.getManager().handle(e, OsateUiPlugin.PLUGIN_ID);
+				switch (getAadlFileType(file)) {
+				case PACKAGE:
+					return testAadlPackage;
+				case PROPERTY_SET:
+					return testAadlPropertySet;
+				case UNKNOWN:
+					return false;
 				}
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * @since 5.0
+	 */
+	public enum AadlFileType {
+		PACKAGE, PROPERTY_SET, UNKNOWN
+	}
+
+	/**
+	 * @since 5.0
+	 */
+	public static AadlFileType getAadlFileType(IStorage storage) {
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(storage.getContents()))) {
+			for (String line = reader.readLine(); line != null; line = reader.readLine()) {
+				int i = 0;
+				while (i < line.length() && Character.isWhitespace(line.charAt(i))) {
+					i++;
+				}
+				if (i < line.length() && !line.startsWith("--", i)) {
+					String lowered = line.toLowerCase();
+					if (lowered.startsWith("package", i)) {
+						return AadlFileType.PACKAGE;
+					} else if (lowered.startsWith("property", i)) {
+						return AadlFileType.PROPERTY_SET;
+					} else {
+						return AadlFileType.UNKNOWN;
+					}
+				}
+			}
+		} catch (IOException e) {
+			StatusManager.getManager().handle(new Status(IStatus.ERROR, OsateUiPlugin.PLUGIN_ID, e.getMessage(), e));
+		} catch (CoreException e) {
+			StatusManager.getManager().handle(e, OsateUiPlugin.PLUGIN_ID);
+		}
+		return AadlFileType.UNKNOWN;
 	}
 }

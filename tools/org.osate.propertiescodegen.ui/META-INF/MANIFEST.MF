@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Properties Code Generator UI
+Bundle-SymbolicName: org.osate.propertiescodegen.ui;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.osate.propertiescodegen.ui.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ com.google.guava,
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.xtend.lib,
+ org.eclipse.xtend.lib.macro,
+ org.eclipse.core.resources;bundle-version="3.13.500",
+ org.osate.aadl2.modelsupport;bundle-version="1.0.0",
+ org.osate.aadl2;bundle-version="1.0.0",
+ org.osate.propertiescodegen;bundle-version="1.0.0",
+ org.eclipse.ui.ide;bundle-version="3.16.0",
+ org.osate.xtext.aadl2.ui;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Automatic-Module-Name: org.osate.propertiescodegen.ui
+Bundle-ActivationPolicy: lazy
+Export-Package: org.osate.propertiescodegen.ui
+Bundle-Vendor: CMU/SEI

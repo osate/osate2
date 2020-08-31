@@ -530,6 +530,15 @@ public class AadlBaUtils {
       }
       else if(el instanceof DataSubcomponent)
       {
+        final DataSubcomponent subcompo = (DataSubcomponent) el ;
+        final Classifier classifier = subcompo.getClassifier() ;
+
+        // fixes 2401: Avoid crashing the editor when subcomponent is not resolved
+        if(classifier == null || classifier.eIsProxy())
+        {
+          return DataRepresentation.UNKNOWN ;
+        }
+
         return getDataRepresentation((DataClassifier)((DataSubcomponent)
                   el).getClassifier());
       }
@@ -2200,7 +2209,11 @@ public class AadlBaUtils {
    * object, it returns the data access right or "unknown" if the default
    * data access right is not set.
    *
+<<<<<<< HEAD
    * @see org.osate.utils.internal.Aadl2Utils#getAccessRight
+=======
+   * @see org.osate.utils.Aadl2Utils#getAccessRight
+>>>>>>> refs/heads/master
    * @param tar the given Target object
    * @return the data access right or "unknown"
    */
@@ -2237,7 +2250,11 @@ public class AadlBaUtils {
    * reference or {@link org.osate.utils.internal.Aadl2Utils.DataAccessRight#unknown} if the default data access
    * right is not set.
    *
+<<<<<<< HEAD
    * @see org.osate.utils.internal.Aadl2Utils#getAccessRight
+=======
+   * @see org.osate.utils.Aadl2Utils#getAccessRight
+>>>>>>> refs/heads/master
    * @param tar the given Target object
    * @return the data access right or {@link org.osate.utils.internal.Aadl2Utils.DataAccessRight#unknown}
    * @since 5.0

@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -78,17 +78,10 @@ public class AadlProjectCreator {
 	}
 
 	public static void createAadlFunctions(String outputFile, Model genericModel) {
-		FileWriter fstream;
-		BufferedWriter out;
-
-		try {
-			fstream = new FileWriter(outputFile);
-			out = new BufferedWriter(fstream);
+		try (FileWriter fstream = new FileWriter(outputFile); BufferedWriter out = new BufferedWriter(fstream)) {
 
 			out.write("package " + genericModel.getName() + "::imported::functions\n");
-
 			out.write("public\n");
-
 			out.write("with SEI;\n");
 			out.write("with ARINC653;\n");
 
@@ -110,9 +103,6 @@ public class AadlProjectCreator {
 
 			out.write("end " + genericModel.getName() + "::imported::functions;\n");
 
-			out.close();
-			fstream.close();
-
 		} catch (Exception e) {
 			OsateDebug.osateDebug("Error: " + e.getMessage());
 			e.printStackTrace();
@@ -121,21 +111,14 @@ public class AadlProjectCreator {
 	}
 
 	public static void createAadlRuntime(String outputFile, Model genericModel) {
-		FileWriter fstream;
-		BufferedWriter out;
-		int tmp;
 		boolean connectionPreamble;
 		boolean subComponentsPreambleWritten;
 		StateMachine sm;
 		StateFlowInstance sfi;
 		connectionPreamble = false;
 		subComponentsPreambleWritten = false;
-		try {
-			fstream = new FileWriter(outputFile);
-			out = new BufferedWriter(fstream);
-
+		try (FileWriter fstream = new FileWriter(outputFile); BufferedWriter out = new BufferedWriter(fstream)) {
 			out.write("package " + genericModel.getName() + "::imported::runtime\n");
-
 			out.write("public\n");
 			out.write("with " + genericModel.getName() + "::imported::functions;\n");
 			out.write("with SEI;\n");
@@ -258,7 +241,7 @@ public class AadlProjectCreator {
 
 				/**
 				 * Add all the subcomponents of the current component.
-				 * We consider subcomponents are sub-entities that have 
+				 * We consider subcomponents are sub-entities that have
 				 * the type "block".
 				 */
 				if (e.hasSubcomponents()) {
@@ -315,12 +298,12 @@ public class AadlProjectCreator {
 					}
 				}
 
-//				
+//
 //				for (Component subco : e.getSubcomponents(ComponentType.EXTERNAL_OUTPORT))
 //				{
 //					for (Connection conn : genericModel.getConnections())
 //					{
-//						if (conn.getDestination() == subco) 
+//						if (conn.getDestination() == subco)
 //						{
 //							if (!connectionPreamble)
 //							{
@@ -342,7 +325,7 @@ public class AadlProjectCreator {
 					 * Let's call the other subprogram that contains
 					 * the sub state machines. Then, if these
 					 * state machines share data, we need to
-					 * add data components and connect them. 
+					 * add data components and connect them.
 					 */
 
 					if (sm.hasNestedStateMachines()) {
@@ -356,7 +339,7 @@ public class AadlProjectCreator {
 					}
 
 					/**
-					 * 
+					 *
 					 * Connect the data components shared among the different subprograms
 					 * using data access connections.
 					 */
@@ -473,9 +456,6 @@ public class AadlProjectCreator {
 			out.write("end mainsystem.i; \n");
 
 			out.write("end " + genericModel.getName() + "::imported::runtime; \n");
-
-			out.close();
-			fstream.close();
 
 		} catch (Exception e) {
 			System.err.println("Error: " + e.getMessage());

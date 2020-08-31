@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Standard Property Set Contributions
+Bundle-SymbolicName: org.osate.aadl2.contrib;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.osate.aadl2.contrib.Activator
+Bundle-Vendor: CMU/SEI
+Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.18.0,4.0.0)",
+ org.osate.aadl2;bundle-version="[4.0.0,5.0.0)",
+ org.osate.aadl2.modelsupport;bundle-version="[5.0.0,6.0.0)",
+ org.osate.pluginsupport;bundle-version="[5.0.0,6.0.0)"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Automatic-Module-Name: org.osate.aadl2.contrib
+Bundle-ActivationPolicy: lazy
+Export-Package: org.osate.aadl2.contrib,
+ org.osate.aadl2.contrib.aadlproject,
+ org.osate.aadl2.contrib.communication,
+ org.osate.aadl2.contrib.deployment,
+ org.osate.aadl2.contrib.memory,
+ org.osate.aadl2.contrib.modeling,
+ org.osate.aadl2.contrib.programming,
+ org.osate.aadl2.contrib.thread,
+ org.osate.aadl2.contrib.timing

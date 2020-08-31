@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.alisa.workbench" version="2">
+    <resource path="src-gen/org/osate/alisa/workbench/AbstractAlisaRuntimeModule.java" type="org.osate.alisa.workbench.AbstractAlisaRuntimeModule">
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="bindIFormatter2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="configureFormatterPreferences(Binder)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/alisa/workbench/scoping/AbstractAlisaScopeProvider.java" type="org.osate.alisa.workbench.scoping.AbstractAlisaScopeProvider">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.alisa.workbench.scoping.AbstractAlisaScopeProvider"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src-gen/org/osate/alisa/workbench/serializer/AlisaSyntacticSequencer.java" type="org.osate.alisa.workbench.serializer.AlisaSyntacticSequencer">
         <filter comment="xtext" id="576720909">
             <message_arguments>

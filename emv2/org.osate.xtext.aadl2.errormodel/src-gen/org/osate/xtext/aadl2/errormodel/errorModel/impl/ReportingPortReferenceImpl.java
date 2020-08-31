@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -100,6 +101,7 @@ public class ReportingPortReferenceImpl extends MinimalEObjectImpl.Container imp
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public NamedElement getElement()
   {
     if (element != null && ((EObject)element).eIsProxy())
@@ -130,6 +132,7 @@ public class ReportingPortReferenceImpl extends MinimalEObjectImpl.Container imp
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setElement(NamedElement newElement)
   {
     NamedElement oldElement = element;
@@ -143,6 +146,7 @@ public class ReportingPortReferenceImpl extends MinimalEObjectImpl.Container imp
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ReportingPortReference getPrevious()
   {
     return previous;
@@ -170,6 +174,7 @@ public class ReportingPortReferenceImpl extends MinimalEObjectImpl.Container imp
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setPrevious(ReportingPortReference newPrevious)
   {
     if (newPrevious != previous)
