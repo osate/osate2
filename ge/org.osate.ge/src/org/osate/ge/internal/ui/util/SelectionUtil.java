@@ -52,13 +52,13 @@ import org.osate.aadl2.Generalization;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.EObjectURIWrapper;
+import org.osate.aadl2.modelsupport.FileNameConstants;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.ui.navigator.DiagramGroup;
-import org.osate.workspace.WorkspacePlugin;
 
 import com.google.common.collect.ImmutableList;
 public class SelectionUtil {
@@ -145,8 +145,8 @@ public class SelectionUtil {
 	private static Element findDiagramContextForSelectedObject(final Object selectedObject) {
 		if (selectedObject instanceof IFile) {
 			final String ext = ((IFile) selectedObject).getFileExtension();
-			if (WorkspacePlugin.SOURCE_FILE_EXT.equalsIgnoreCase(ext)
-					|| WorkspacePlugin.INSTANCE_FILE_EXT.equalsIgnoreCase(ext)) {
+			if (FileNameConstants.SOURCE_FILE_EXT.equalsIgnoreCase(ext)
+					|| FileNameConstants.INSTANCE_FILE_EXT.equalsIgnoreCase(ext)) {
 				URI uri = OsateResourceUtil.toResourceURI((IFile) selectedObject);
 				final EList<EObject> contents = new ResourceSetImpl().getResource(uri, true).getContents();
 				if (contents != null && !contents.isEmpty()) {

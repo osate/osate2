@@ -1,0 +1,156 @@
+--AADL2
+--SAE Aerospace Standard AS5506B
+--Appendix A: Predeclared Property Sets
+
+-- @codegen-package org.osate.aadl2.contrib.memory
+property set Memory_Properties is
+
+---The <b>Access_Right</b> property specifies the form of access that is permitted for a component.  If associated with
+--- a requires access clause it specifies the intended access to the component being accessed.  If associated with a
+--- provides access clause it specifies the type of access that is permitted to the component for which access is
+--- provided.  This access may be direct through read and write access or indirect through subprograms provided with
+--- the data type.  The provided access <b>Access_Right</b> must not exceed the access right specified for the
+--- component itself.  The required access <b>Access_Right</b> must not exceed the access right specified by the
+--- provides access or the component itself.
+	
+	Access_Right: Access_Rights => read_write
+		applies to (data, bus, data access, bus access);
+		
+--- The <b>Access_Rights</b> property type specifies the literals used to indicate the form of access that is permitted
+--- for a component. 
+	
+	Access_Rights: type enumeration (read_only, write_only, read_write, by_method);
+	
+--- The <b>Access_Rights</b> property type specifies the literals used to indicate the form of access that is permitted
+--- for a component. 
+	
+	Access_Time: record (
+		First: IO_Time_Spec;
+		Last: IO_Time_Spec;)
+		=> [First => [Time => Start; Offset => 0 ns .. 0 ns;];
+			Last => [Time => Completion; Offset => 0 ns .. 0 ns;];]
+		applies to (data access, data);
+		
+--- The <b>Allowed_Message_Size</b> property specifies the allowed range of sizes for a block of data that can be
+--- transmitted by the bus hardware in a single transmission (in the absence of packetization).<p>
+--- The expression defines the range of data message sizes, excluding any header or packetization overheads added due
+--- to bus protocols, that can be sent in a single transmission over a bus.  Messages whose sizes fall below this range
+--- will be padded. Messages whose sizes fall above this range must be broken into two or more separately transmitted
+--- packets.
+	
+	Allowed_Message_Size: Size_Range
+		applies to (bus);
+
+--- The <b>Assign_Time</b> property specifies a time unit value used in a linear estimation of the execution time
+--- required to move a block of bytes on a particular processor. The time required is (<b>Number_of_Bytes * PerByte)
+--- + Fixed</b>
+
+	Assign_Time: record (
+		Fixed: Time_Range;
+		PerByte: Time_Range;)
+		applies to (processor);
+		
+---The <b>Base_Address</b> property specifies the address of the first word in the memory.  The addresses used to 
+--- access successive words of memory are <b>Base_Address</b>, <b>Base_Address + Word_Space</b>,
+--- �<b>Base_Address + (Word_Count-1) * Word_Space</b>.<p>
+--- In the case of a memory component it indicates what its starting address is.  In the case of a data component, data
+--- access, or port it indicates what its starting address is in the memory it is bound to.  
+
+	
+	Base_Address: aadlinteger 0 .. Max_Base_Address
+		applies to (memory, data, data access, port);
+		
+---The <b>Device_Register_Address</b> property specifies the address of a device register that is represented by a port
+--- associated with a device.  This property is optional.  Device ports may be represented by a source text variable as
+--- part of the device driver software.
+	
+	Device_Register_Address: aadlinteger
+		applies to (port, feature group);
+	
+--- The <b>Read_Time</b> property specifies a time unit value used in a linear estimation of the execution time
+--- required to read a block of bytes from memory. The time required is (<b>Number_of_Bytes * PerByte) + Fixed</b>
+	
+	Read_Time: record (
+		Fixed: Time_Range;
+		PerByte: Time_Range;)
+		applies to (memory);
+
+---The <b>Code_Size</b> property specifies the size of the static code and read-only data that results when the
+-- associated source text is compiled, linked, bound and loaded in the final system.<p>  
+--- The property type is <b>Size</b>.  The standard units are bits, Bytes (bytes), KByte (kilobytes), MByte (megabytes)
+-- and GByte (gigabytes).  
+
+	Code_Size: Size
+		applies to (data, thread, thread group, process, system, subprogram, processor, virtual processor, virtual bus, device);
+
+--- The <b>Data_Size</b> property specifies the size of the readable and writeable data that results when the
+--- associated source text is compiled, linked, bound and loaded in the final system.  In the case of data types, it
+--- specifies the maximum size required to hold a value of an instance of the data type.<p> 
+--- The property type is <b>Size</b>.  The standard units are bits, Bytes (bytes), KByte (kilobytes), MByte (megabytes)
+--- and GByte (gigabytes). 
+
+	Data_Size: Size
+		applies to (data, feature, subprogram, thread, thread group, process, system, processor, virtual processor, virtual bus, bus, device);
+		
+--- The <b>Heap_Size</b> property specifies the maximum heap size requirements of a thread or subprogram.<p>
+--- The property type is </b>Size</b>.  The standard units are bits, Bytes (bytes), KByte (kilobytes), MByte
+--- (megabytes) and GByte (gigabytes). 
+	
+	Heap_Size: Size
+		applies to (thread, subprogram,thread group, process, system, processor, virtual processor, device);
+
+--- The <b>Stack_Size</b> property specifies the maximum size of the stack used by a processor executive, a device
+---  driver, a thread or a subprogram during execution.<p>
+--- The property type is <b>Size</b>.  The standard units are bits, Bytes (bytes), KByte (kilobytes), MByte (megabytes)
+--- and GByte (gigabytes). 
+
+	Stack_Size: Size
+		applies to (thread, subprogram, processor, virtual processor, device);
+
+--- The <b>Byte_Count</b> property specifies the number of bytes in the memory. Note: Deprecated. Please use 
+---<b>Memory_Size</b>.
+
+	Source_Code_Size: Size
+		applies to (data, thread, thread group, process, system, subprogram, processor, virtual processor, device);
+		
+--- The <b>Memory_Size</b> property specifies the size of the memory.
+	
+	Source_Data_Size: Size
+		applies to (data, feature, subprogram, thread, thread group, process, system, processor, virtual processor, device);
+		
+	
+	Source_Heap_Size: Size
+		applies to (thread, subprogram);
+	
+	Source_Stack_Size: Size
+		applies to (thread, subprogram, processor, virtual processor, device);
+	
+	Byte_Count: aadlinteger 0 .. Max_Byte_Count
+		applies to (memory); -- Deprecated. use memory_size
+	
+	Memory_Size: Size
+		applies to (memory, system, processor, virtual processor);
+		
+--- The <b>Word_Size</b> property specifies the size of the smallest independently readable and writeable unit of
+-- storage in the memory.<p> 
+---The property type is <b>Size</b>.  The standard units are bits, Bytes (bytes), KByte (kilobyte), MByte (megabyte)
+--- and GByte (gigabyte). 
+
+	Word_Size: Size => 8 bits
+		applies to (memory);
+		
+--- The <b>Word_Space</b> specifies the interval between successive addresses used for successive words of memory.  A
+--- value greater than 1 means the addresses used to access words are not contiguous integers.<p>  
+--- The default value is 1.
+	
+	Word_Space: aadlinteger 1 .. Max_Word_Space => 1
+		applies to (memory);
+	
+--- The <b>Write_Time</b> property specifies a time unit value used in a linear estimation of the execution time
+--- required to write a block of bytes to memory. The time required is (<b>Number_of_Bytes * PerByte) + Fixed</b>
+	
+	Write_Time: record (
+		Fixed: Time_Range;
+		PerByte: Time_Range;)
+		applies to (memory);
+end Memory_Properties;
