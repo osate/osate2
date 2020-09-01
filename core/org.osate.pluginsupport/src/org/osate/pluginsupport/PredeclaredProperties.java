@@ -9,7 +9,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
- * @since 4.0
+ * @since 4.1
  */
 public final class PredeclaredProperties {
 	private static final String IS_VISIBLE_PREFIX = "contributed.resource.isVisible.";
