@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -26,11 +26,14 @@ package org.osate.xtext.aadl2.properties.linking;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
@@ -116,6 +119,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	}
 
 	private static PSNode psNode = new PSNode();
+	private final String PLUGIN_ID = "org.osate.xtext.aadl2";
 
 	public EObject getIndexedObject(EObject context, EReference reference, String crossRefString) {
 		psNode.setText(crossRefString);
@@ -131,7 +135,9 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				}
 			}
 		} catch (Exception e) {
-			// e.printStackTrace();
+			IStatus status = new Status(IStatus.ERROR, PLUGIN_ID, e.getMessage(), e);
+			StatusManager manager = StatusManager.getManager();
+			manager.handle(status, StatusManager.LOG);
 		}
 		return res;
 		// XXX phf: lookup in global index without regard to project dependencies
@@ -840,13 +846,13 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	 */
 	/*
 	 * TODO: Check for circular dependencies with prototypes. Example:
-	 * 
+	 *
 	 * abstract a prototypes p1: subprogram group; p2: subprogram group; end a;
-	 * 
+	 *
 	 * abstract implementation a.i ( p1 => p2, p2 => p1) subcomponents sub:
 	 * subprogram group p1; calls sequence1: { call1: subprogram
 	 * sub.access_feature_1; end a.i;
-	 * 
+	 *
 	 * This will cause a stack overflow!
 	 */
 	public static ComponentClassifier findClassifierForComponentPrototype(Classifier containingClassifier,
