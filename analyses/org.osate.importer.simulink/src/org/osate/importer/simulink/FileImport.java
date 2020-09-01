@@ -33,6 +33,9 @@ import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.model.Model;
 import org.w3c.dom.Document;
@@ -97,8 +100,10 @@ public class FileImport {
 			in.close();
 			return doc;
 		} catch (Exception e) {
-//			OsateDebug.osateDebug("[FileImport] Exception in loadXMLZip()");
-//			e.printStackTrace();
+			IStatus status = new Status(IStatus.ERROR, org.osate.importer.simulink.Activator.PLUGIN_ID, e.getMessage(),
+					e);
+			StatusManager manager = StatusManager.getManager();
+			manager.handle(status, StatusManager.LOG);
 		}
 		return null;
 	}
@@ -210,7 +215,10 @@ public class FileImport {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			IStatus status = new Status(IStatus.ERROR, org.osate.importer.simulink.Activator.PLUGIN_ID, e.getMessage(),
+					e);
+			StatusManager manager = StatusManager.getManager();
+			manager.handle(status, StatusManager.LOG);
 		}
 		return producedModel;
 	}
