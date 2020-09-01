@@ -40,6 +40,7 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.operations.OperationExecutor;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.operations.Operation;
+import org.osate.ge.services.ReferenceBuilderService;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
@@ -67,18 +68,17 @@ public class PropertySectionUtil {
 	 */
 	public static void execute(final Operation operation) {
 		if (operation != null) {
-			final OperationExecutor operationExecutor = new OperationExecutor(getAadlModificationService());
+			final Bundle bundle = FrameworkUtil.getBundle(PropertySectionUtil.class);
+			final IEclipseContext context = EclipseContextFactory.getServiceContext(bundle.getBundleContext());
+			final AadlModificationService aadlModService = Objects.requireNonNull(
+					context.getActive(AadlModificationService.class), "Unable to retrieve AADL modification service");
+			final ReferenceBuilderService referenceBuilder = Objects.requireNonNull(
+					context.getActive(ReferenceBuilderService.class), "Unable to retrieve reference builder service");
+			final OperationExecutor operationExecutor = new OperationExecutor(aadlModService, referenceBuilder);
 			operationExecutor.execute(operation, (results) -> {
 			});
 		}
 	};
-
-	private static AadlModificationService getAadlModificationService() {
-		final Bundle bundle = FrameworkUtil.getBundle(PropertySectionUtil.class);
-		final IEclipseContext context = EclipseContextFactory.getServiceContext(bundle.getBundleContext());
-		return Objects.requireNonNull(context.getActive(AadlModificationService.class),
-				"Unable to retrieve AADL modification service");
-	}
 
 	/**
 	 * Creates a label intended to be used as the section label. Returned label will have a {@link FormData} layout data set to align to the left.
