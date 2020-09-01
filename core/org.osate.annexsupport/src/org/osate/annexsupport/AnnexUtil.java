@@ -353,7 +353,7 @@ public class AnnexUtil {
 	public static AnnexSubclause getActualAnnexSubclause(PropertySet root, EClass eClass) {
 		for (AnnexSubclause annexSubclause : root.getOwnedAnnexSubclauses()) {
 			AnnexSubclause actualAnnexSubclause = (AnnexSubclause) getParsedAnnex(annexSubclause);
-			if (actualAnnexSubclause.eClass().equals(eClass)) {
+			if (actualAnnexSubclause != null && actualAnnexSubclause.eClass().equals(eClass)) {
 				return actualAnnexSubclause;
 			}
 		}

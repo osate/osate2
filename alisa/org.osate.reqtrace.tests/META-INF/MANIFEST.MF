@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Tests
+Bundle-Name: Requirements Traceability Tests
 Bundle-SymbolicName: org.osate.reqtrace.tests
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.osate.reqtrace.tests.Activator
@@ -12,7 +12,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.xtend.lib.macro,
  org.junit,
  com.itemis.xtext.testing;bundle-version="0.2.0",
- org.osate.alisa.workbench.tests;bundle-version="1.0.0",
+ org.osate.alisa.workbench.ui;bundle-version="1.0.0",
  org.eclipse.birt.core;bundle-version="4.5.0",
  org.eclipse.birt.report.engine;bundle-version="4.5.0",
  org.eclipse.xtext.util,
@@ -34,4 +34,5 @@ Require-Bundle: org.eclipse.ui,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.osate.reqtrace.tests
+Bundle-Vendor: CMU/SEI
 

@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -154,6 +155,7 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public NamedElement getSourceModelElement()
   {
     if (sourceModelElement != null && ((EObject)sourceModelElement).eIsProxy())
@@ -184,6 +186,7 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setSourceModelElement(NamedElement newSourceModelElement)
   {
     NamedElement oldSourceModelElement = sourceModelElement;
@@ -197,6 +200,7 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isAll()
   {
     return all;
@@ -207,6 +211,7 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setAll(boolean newAll)
   {
     boolean oldAll = all;
@@ -220,6 +225,7 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorBehaviorState getFailureModeReference()
   {
     if (failureModeReference != null && failureModeReference.eIsProxy())
@@ -250,6 +256,7 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setFailureModeReference(ErrorBehaviorState newFailureModeReference)
   {
     ErrorBehaviorState oldFailureModeReference = failureModeReference;
@@ -263,6 +270,7 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeSet getFailureModeType()
   {
     return failureModeType;
@@ -290,6 +298,7 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setFailureModeType(TypeSet newFailureModeType)
   {
     if (newFailureModeType != failureModeType)
@@ -311,6 +320,7 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getFailureModeDescription()
   {
     return failureModeDescription;
@@ -321,6 +331,7 @@ public class ErrorSourceImpl extends ErrorFlowImpl implements ErrorSource
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setFailureModeDescription(String newFailureModeDescription)
   {
     String oldFailureModeDescription = failureModeDescription;

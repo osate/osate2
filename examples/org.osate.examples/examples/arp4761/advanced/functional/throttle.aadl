@@ -1,0 +1,18 @@
+package functional::Throttle
+public
+
+	system DecelerateThrottle
+		annex EMV2 {**
+			use types WBSFunctionalErrorLib;
+			use behavior WBSFunctionalErrorLib::Twostate;
+			
+			component error behavior
+				events
+					Failure: error event {WBErrorSet};
+				transitions
+					t1: Operational -[Failure]-> Failed;
+			end component;
+		**};
+	end DecelerateThrottle;
+
+end functional::Throttle;

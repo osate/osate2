@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -101,6 +102,7 @@ public class FeatureorPPReferenceImpl extends ElementImpl implements FeatureorPP
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public NamedElement getFeatureorPP()
   {
     if (featureorPP != null && ((EObject)featureorPP).eIsProxy())
@@ -131,6 +133,7 @@ public class FeatureorPPReferenceImpl extends ElementImpl implements FeatureorPP
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setFeatureorPP(NamedElement newFeatureorPP)
   {
     NamedElement oldFeatureorPP = featureorPP;
@@ -144,6 +147,7 @@ public class FeatureorPPReferenceImpl extends ElementImpl implements FeatureorPP
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public FeatureorPPReference getNext()
   {
     return next;
@@ -171,6 +175,7 @@ public class FeatureorPPReferenceImpl extends ElementImpl implements FeatureorPP
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setNext(FeatureorPPReference newNext)
   {
     if (newNext != next)

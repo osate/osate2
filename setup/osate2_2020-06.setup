@@ -876,6 +876,15 @@
       </predicate>
     </workingSet>
     <workingSet
+        name="examples">
+      <predicate
+          xsi:type="predicates:AndPredicate">
+        <operand
+            xsi:type="predicates:LocationPredicate"
+            pattern="${git.clone.osate2.location|path}/examples/.*"/>
+      </predicate>
+    </workingSet>
+    <workingSet
         name="ge">
       <predicate
           xsi:type="predicates:AndPredicate">
@@ -918,6 +927,15 @@
         <operand
             xsi:type="predicates:LocationPredicate"
             pattern="${git.clone.osate2.location|path}/ba/.*"/>
+      </predicate>
+    </workingSet>
+    <workingSet
+        name="tools">
+      <predicate
+          xsi:type="predicates:AndPredicate">
+        <operand
+            xsi:type="predicates:LocationPredicate"
+            pattern="${git.clone.osate2.location|path}/tools/.*"/>
       </predicate>
     </workingSet>
     <description>The dynamic working sets for ${scope.project.label}</description>

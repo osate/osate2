@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -163,6 +164,7 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorPropagation getIncoming()
   {
     if (incoming != null && incoming.eIsProxy())
@@ -193,6 +195,7 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setIncoming(ErrorPropagation newIncoming)
   {
     ErrorPropagation oldIncoming = incoming;
@@ -206,6 +209,7 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isAllIncoming()
   {
     return allIncoming;
@@ -216,6 +220,7 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setAllIncoming(boolean newAllIncoming)
   {
     boolean oldAllIncoming = allIncoming;
@@ -229,6 +234,7 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorPropagation getOutgoing()
   {
     if (outgoing != null && outgoing.eIsProxy())
@@ -259,6 +265,7 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setOutgoing(ErrorPropagation newOutgoing)
   {
     ErrorPropagation oldOutgoing = outgoing;
@@ -272,6 +279,7 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isAllOutgoing()
   {
     return allOutgoing;
@@ -282,6 +290,7 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setAllOutgoing(boolean newAllOutgoing)
   {
     boolean oldAllOutgoing = allOutgoing;
@@ -295,6 +304,7 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeSet getTargetToken()
   {
     return targetToken;
@@ -322,6 +332,7 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTargetToken(TypeSet newTargetToken)
   {
     if (newTargetToken != targetToken)
@@ -343,6 +354,7 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeMappingSet getTypeMappingSet()
   {
     if (typeMappingSet != null && typeMappingSet.eIsProxy())
@@ -373,6 +385,7 @@ public class ErrorPathImpl extends ErrorFlowImpl implements ErrorPath
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTypeMappingSet(TypeMappingSet newTypeMappingSet)
   {
     TypeMappingSet oldTypeMappingSet = typeMappingSet;

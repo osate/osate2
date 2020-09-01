@@ -72,6 +72,7 @@ import org.osate.ge.internal.operations.OperationExecutor;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.operations.Operation;
+import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.ge.swt.classifiers.ClassifierWithBindingsField;
 import org.osate.ge.ui.PropertySectionUtil;
 import org.osate.ge.ui.UiBusinessObjectSelection;
@@ -145,6 +146,8 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 					.getServiceContext(FrameworkUtil.getBundle(getClass()).getBundleContext());
 			final AadlModificationService aadlModService = Objects.requireNonNull(
 					context.getActive(AadlModificationService.class), "Unable to retrieve AADL modification service");
+			final ReferenceBuilderService referenceBuilder = Objects.requireNonNull(
+					context.getActive(ReferenceBuilderService.class), "Unable to retrieve reference builder service");
 
 			// Determine project to use
 			final IProject project = AgeAadlUtil.getCommonProject(scs)
@@ -207,7 +210,7 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 				});
 
 				// Execute the operation
-				new OperationExecutor(aadlModService).execute(op);
+				new OperationExecutor(aadlModService, referenceBuilder).execute(op);
 			}
 		}
 	};
