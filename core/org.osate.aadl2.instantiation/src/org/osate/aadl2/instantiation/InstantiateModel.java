@@ -114,6 +114,7 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.modelsupport.AadlConstants;
+import org.osate.aadl2.modelsupport.FileNameConstants;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.modeltraversal.TraverseWorkspace;
@@ -122,7 +123,6 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.core.OsateCorePlugin;
-import org.osate.workspace.WorkspacePlugin;
 import org.osgi.service.prefs.Preferences;
 
 /**
@@ -406,7 +406,7 @@ public class InstantiateModel {
 			throws InterruptedException {
 		SystemInstance root = InstanceFactory.eINSTANCE.createSystemInstance();
 		final String instanceName = ci.getTypeName() + "_" + ci.getImplementationName()
-				+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX;
+				+ FileNameConstants.INSTANCE_MODEL_POSTFIX;
 
 		root.setComponentImplementation(ci);
 		root.setName(instanceName);
@@ -502,10 +502,10 @@ public class InstantiateModel {
 		String last = modeluri.lastSegment();
 		String filename = last.substring(0, last.indexOf('.'));
 		URI path = modeluri.trimSegments(1);
-		URI instanceURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR)
+		URI instanceURI = path.appendSegment(FileNameConstants.AADL_INSTANCES_DIR)
 				.appendSegment(filename + "_" + ci.getTypeName() + "_" + ci.getImplementationName()
-						+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX);
-		instanceURI = instanceURI.appendFileExtension(WorkspacePlugin.INSTANCE_FILE_EXT);
+						+ FileNameConstants.INSTANCE_MODEL_POSTFIX);
+		instanceURI = instanceURI.appendFileExtension(FileNameConstants.INSTANCE_FILE_EXT);
 		return instanceURI;
 	}
 

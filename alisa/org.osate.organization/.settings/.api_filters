@@ -1,5 +1,98 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.organization" version="2">
+    <resource path="src-gen/org/osate/organization/AbstractOrganizationRuntimeModule.java" type="org.osate.organization.AbstractOrganizationRuntimeModule">
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="bindIFormatter2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="configureFormatterPreferences(Binder)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationLexer.java" type="org.osate.organization.parser.antlr.internal.InternalOrganizationLexer">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.organization.parser.antlr.internal.InternalOrganizationLexer"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.java" type="org.osate.organization.parser.antlr.internal.InternalOrganizationParser">
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="T__11"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="T__12"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="T__13"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="T__14"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="T__15"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="T__16"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="T__17"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="T__18"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="T__19"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="T__20"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="T__21"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="T__22"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="T__23"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/organization/scoping/AbstractOrganizationScopeProvider.java" type="org.osate.organization.scoping.AbstractOrganizationScopeProvider">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.organization.scoping.AbstractOrganizationScopeProvider"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src-gen/org/osate/organization/serializer/OrganizationSemanticSequencer.java" type="org.osate.organization.serializer.OrganizationSemanticSequencer">
         <filter comment="xtext" id="576720909">
             <message_arguments>

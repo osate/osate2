@@ -74,11 +74,11 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.dialogs.ResourceSelectionDialog;
+import org.osate.aadl2.modelsupport.FileNameConstants;
 import org.osate.pluginsupport.PluginSupportPlugin;
 import org.osate.pluginsupport.PluginSupportUtil;
 import org.osate.pluginsupport.PredeclaredProperties;
 import org.osate.ui.OsateUiPlugin;
-import org.osate.workspace.WorkspacePlugin;
 
 /**
  * This class represents the OSATE > Instantiation workspace preferences.
@@ -281,7 +281,7 @@ public final class ContributedResourcesPreferencePage extends FieldEditorPrefere
 			for (final Object o : selectedResources) {
 				if (o instanceof IFile) {
 					final IFile f = (IFile) o;
-					if (f.getFileExtension().equals(WorkspacePlugin.SOURCE_FILE_EXT)) {
+					if (f.getFileExtension().equals(FileNameConstants.SOURCE_FILE_EXT)) {
 						final URI newURI = URI.createPlatformResourceURI(f.getFullPath().toString(), false);
 						selectedAadl.add(newURI);
 					} else {

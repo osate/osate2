@@ -28,8 +28,9 @@ import java.util.List;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.util.URI;
 import org.osate.pluginsupport.PredeclaredProperties;
+import org.osate.xtext.aadl2.ui.resource.ProjectMember;
 
-public final class VirtualPluginResources {
+public final class VirtualPluginResources implements ProjectMember {
 	/**
 	 * @since 5.0
 	 */
@@ -89,4 +90,8 @@ public final class VirtualPluginResources {
 		return project;
 	}
 
+	@Override
+	public IProject getProject() {
+		return project;
+	}
 }
