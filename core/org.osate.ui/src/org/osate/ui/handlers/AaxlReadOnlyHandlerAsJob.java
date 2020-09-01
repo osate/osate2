@@ -28,7 +28,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.aadl2.Element;
 import org.osate.ui.OsateUiPlugin;
 
@@ -116,7 +115,7 @@ public abstract class AaxlReadOnlyHandlerAsJob extends AbstractAaxlHandler {
 				actionBody(monitor, root);
 			} catch (Exception e) {
 				IStatus status = new Status(IStatus.ERROR, OsateUiPlugin.PLUGIN_ID, e.getMessage(), e);
-				StatusManager.getManager().handle(status);
+				OsateUiPlugin.logErrorStatus("Internal error", status);
 			}
 			return Status.OK_STATUS;
 		}
