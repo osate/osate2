@@ -172,7 +172,7 @@ public class CheckerHandler extends AbstractHandler {
 				marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR);
 //				marker.setAttribute(IMarker.LINE_NUMBER, lineNumber);
 			} catch (CoreException exception) {
-				msg += exception.getMessage() + " " + exception.getStackTrace() + "\\r\\n";
+				msg += exception.getMessage() + System.lineSeparator();
 				IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, exception.getMessage(), exception);
 				StatusManager manager = StatusManager.getManager();
 				manager.handle(status, StatusManager.LOG);

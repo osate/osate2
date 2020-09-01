@@ -105,7 +105,6 @@ import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
-import org.osate.xtext.aadl2.Activator;
 import org.osate.xtext.aadl2.properties.util.PSNode;
 
 import com.google.inject.Inject;
