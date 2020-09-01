@@ -207,6 +207,17 @@ public class OsateGeTestUtil {
 	}
 
 	/**
+	 * Waits until the diagram element is removed
+	 */
+	public static void waitForDiagramElementRemoval(final DiagramReference diagram,
+			final DiagramElementReference element) {
+		waitUntil(() -> {
+			assertDiagramEditorActive(diagram);
+			return !getDiagramElement(diagram, element).isPresent();
+		}, "Expected removed element '" + element + "' exist.");
+	}
+
+	/**
 	 * Creates a diagram element reference from derived from relative references.
 	 */
 	public static DiagramElementReference element(final RelativeBusinessObjectReference... pathToElement) {

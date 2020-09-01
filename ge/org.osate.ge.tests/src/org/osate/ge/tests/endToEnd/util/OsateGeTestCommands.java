@@ -26,9 +26,7 @@ package org.osate.ge.tests.endToEnd.util;
 import static org.junit.Assert.*;
 import static org.osate.ge.aadl2.internal.AadlReferenceUtil.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGeTestUtil.*;
-import static org.osate.ge.tests.endToEnd.util.OsateGeTestUtil.setTextField;
 import static org.osate.ge.tests.endToEnd.util.UiTestUtil.*;
-import static org.osate.ge.tests.endToEnd.util.UiTestUtil.setTextFieldText;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -701,6 +699,20 @@ public class OsateGeTestCommands {
 		// Assert that the element has been renamed
 		waitForDiagramElementToExist(diagram,
 				parent.join(new RelativeBusinessObjectReference(element.getSegments().get(0), newName)));
+	}
+
+	/**
+	 * Delete an element using the diagram context menu.
+	 * @param element is the element to delete
+	 */
+	public static void deleteElement(final DiagramReference diagram,
+			final DiagramElementReference element) {
+		clickContextMenuOfDiagramElement(diagram, element, "Delete");
+		waitForWindowWithTitle("Confirm Delete");
+		clickButton("Yes");
+
+		// Assert that the element has been renamed
+		waitForDiagramElementRemoval(diagram, element);
 	}
 
 	/**

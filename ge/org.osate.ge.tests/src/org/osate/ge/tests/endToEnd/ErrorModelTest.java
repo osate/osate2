@@ -48,7 +48,7 @@ public class ErrorModelTest {
 	private static final String OTHER = "other";
 
 	@Test
-	public void testErrorModel() {
+	public void testErrorModelLibrary() {
 		prepareForTesting();
 		createAadlProject(EMV2_TEST);
 
@@ -356,7 +356,7 @@ public class ErrorModelTest {
 		createNewPackageWithPackageDiagram(ERROR_FLOW_TEST, ERROR_FLOW_TEST);
 		final DiagramReference diagram = defaultDiagram(ERROR_FLOW_TEST, ERROR_FLOW_TEST);
 		final DiagramElementReference pkgElement = packageElement(ERROR_FLOW_TEST);
-		final RelativeBusinessObjectReference pkg = getRelativeReferenceForPackage(ERROR_FLOW_TEST);
+		final RelativeBusinessObjectReference pkgRef = getRelativeReferenceForPackage(ERROR_FLOW_TEST);
 
 		// Open text editor
 		// TODO: Remove this once things work without text editor open
@@ -364,17 +364,18 @@ public class ErrorModelTest {
 
 		// Create system system implementation
 		createImplementationWithNewType(diagram, pkgElement, "System Implementation", "impl", "test_system");
+		final DiagramElementReference sysImplElement = element(pkgRef, getClassifierRelativeReference("test_system.impl"));
 
 		// Create and rename propagation point
-		createElementAndLayout(diagram, element(pkg, getClassifierRelativeReference("test_system.impl")),
+		createElementAndLayout(diagram, sysImplElement,
 				"Propagation Point",
-				ErrorModelReferenceUtil.getRelativeReferenceForPropagationPoint("new_propgation_point"), "pp1");
+				ErrorModelReferenceUtil.getRelativeReferenceForPropagationPoint("new_propagation_point"), "pp1");
 
 		// Create another propagation point and delete it.
-		createElementAndLayout(diagram, element(pkg, getClassifierRelativeReference("test_system.impl")),
+		createElementAndLayout(diagram, sysImplElement,
 				"Propagation Point",
-				ErrorModelReferenceUtil.getRelativeReferenceForPropagationPoint("new_propgation_point"), "pp2");
-
-		// TODO: Delete
+				ErrorModelReferenceUtil.getRelativeReferenceForPropagationPoint("new_propagation_point"), "pp2");
+		deleteElement(diagram,
+				sysImplElement.join(ErrorModelReferenceUtil.getRelativeReferenceForPropagationPoint("pp2")));
 	}
 }
