@@ -119,6 +119,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	}
 
 	private static PSNode psNode = new PSNode();
+	private final String PLUGIN_ID = "org.osate.xtext.aadl2";
 
 	public EObject getIndexedObject(EObject context, EReference reference, String crossRefString) {
 		psNode.setText(crossRefString);
@@ -133,8 +134,8 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 					return null;
 				}
 			}
-		} catch (Exception e) {	
-			IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e);
+		} catch (Exception e) {
+			IStatus status = new Status(IStatus.ERROR, PLUGIN_ID, e.getMessage(), e);
 			StatusManager manager = StatusManager.getManager();
 			manager.handle(status, StatusManager.LOG);
 		}
