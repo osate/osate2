@@ -30,7 +30,6 @@ import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ge.ba.util.BaNamingUtil;
-import org.osate.ge.ba.util.BehaviorAnnexHandlerUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
@@ -51,15 +50,6 @@ public class CreateStatePaletteCommand extends BasePaletteCommand implements Tar
 							.create(AadlBaPackage.eINSTANCE.getBehaviorState());
 					final String newName = BaNamingUtil.buildUniqueIdentifier(baToModify, "new_state");
 					newState.setName(newName);
-
-					// Set as initial state if the behavior annex does not have an initial state.
-					if (baToModify.getInitialState() == null) {
-						newState.setInitial(true);
-					}
-
-					if (BehaviorAnnexHandlerUtil.requiresFinalState(ba)) {
-						newState.setFinal(true);
-					}
 
 					// Add the new state to the behavior annex
 					baToModify.getStates().add(newState);

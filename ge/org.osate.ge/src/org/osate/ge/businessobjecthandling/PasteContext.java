@@ -27,18 +27,14 @@ import java.util.Objects;
 import java.util.Optional;
 
 import org.eclipse.emf.ecore.EObject;
-import org.osate.ge.BusinessObjectContext;
 
 /**
  * @since 2.0
  */
 public class PasteContext {
-	private final BusinessObjectContext destBoc;
 	private final EObject copiedEObject;
 
-	public PasteContext(final BusinessObjectContext destBoc,
-			final EObject copiedEObject) {
-		this.destBoc = Objects.requireNonNull(destBoc, "destBoc cannot be null");
+	public PasteContext(final EObject copiedEObject) {
 		this.copiedEObject = Objects.requireNonNull(copiedEObject, "copiedEObject cannot be null");
 	}
 
@@ -48,9 +44,5 @@ public class PasteContext {
 		}
 
 		return Optional.of(boType.cast(copiedEObject));
-	}
-
-	public <T> Optional<T> getDestinationBusinessObject(final Class<T> boType) {
-		return destBoc.getBusinessObject(boType);
 	}
 }
