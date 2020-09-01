@@ -83,7 +83,7 @@ public class BehaviorAnnexReferenceResolver implements ReferenceResolver {
 		return Optional.empty();
 	}
 
-	private Optional<Object> getBehaviorAnnexByQualifiedName(final Classifier classifier,
+	public static Optional<Object> getBehaviorAnnexByQualifiedName(final Classifier classifier,
 			final String annexSubclauseName,
 			final Long index) {
 		return classifier.getSelfPlusAllExtended().stream().sequential()

@@ -27,12 +27,13 @@ import java.util.Optional;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.Subprogram;
 import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ge.ba.util.BaNamingUtil;
 import org.osate.ge.ba.util.BaUtil;
-import org.osate.ge.ba.util.BehaviorAnnexHandlerUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
@@ -46,7 +47,7 @@ public class CreateSpecificationPaletteCommand extends BasePaletteCommand implem
 
 	@Override
 	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
-		return ctx.getTarget().getBusinessObject(Classifier.class)
+		return ctx.getTarget().getBusinessObject(ComponentClassifier.class)
 				.map(c -> Operation.createSimple(ctx.getTarget(), Classifier.class, modifyBo -> {
 					// Create behavior annex
 					final BehaviorAnnex ba = BaUtil.createBehaviorAnnex(modifyBo);
@@ -58,10 +59,12 @@ public class CreateSpecificationPaletteCommand extends BasePaletteCommand implem
 					newState.setName(newName);
 
 					// Set state to initial
+					// Note: all classifiers require an initial state, if this
+					// is not set, diagram elements disappear from diagram
 					newState.setInitial(true);
 
-					if (BehaviorAnnexHandlerUtil.requiresFinalState(ba)) {
-						// Must have a final state or the error that is created does not let any more states be added
+					// Determine if behavior annex must have a final state
+					if (modifyBo instanceof Subprogram) {
 						newState.setFinal(true);
 					}
 

@@ -189,9 +189,8 @@ public class PasteAction extends ActionStackAction {
 					ensurePackagesAreImported(copiedEObject);
 
 					newRelativeRef = refBuilder.getRelativeReference(copiedEObject);
-
 					copiedDiagramElement.getDiagramElement()
-					.getBusinessObjectHandler().afterPaste(new PasteContext(dstDiagramNode, copiedEObject));
+							.getBusinessObjectHandler().afterPaste(new PasteContext(copiedEObject));
 				} else {
 					throw new RuntimeException("Unsupported case:  " + boFromCopiedDiagramElement);
 				}
@@ -443,8 +442,8 @@ public class PasteAction extends ActionStackAction {
 			final EClass dstBoEClass = dstBo.eClass();
 			final boolean allElementsAreCompatible = copiedDiagramElements.stream().allMatch(
 					copiedDiagramElement -> !(copiedDiagramElement.getCopiedBusinessObject() instanceof EObject)
-							|| getCompatibleStructuralFeature(copiedDiagramElement.getContainingFeature(),
-									dstBoEClass) != null);
+					|| getCompatibleStructuralFeature(copiedDiagramElement.getContainingFeature(),
+							dstBoEClass) != null);
 
 			if (allElementsAreCompatible) {
 				break;

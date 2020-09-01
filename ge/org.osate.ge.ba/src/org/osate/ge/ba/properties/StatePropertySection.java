@@ -23,8 +23,8 @@
  */
 package org.osate.ge.ba.properties;
 
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.jface.viewers.IFilter;
@@ -32,7 +32,6 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.widgets.Button;
@@ -43,10 +42,11 @@ import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.ui.PropertySectionUtil;
 
-public class SetBehaviorStateInitialPropertySection extends AbstractPropertySection {
+class StatePropertySection extends AbstractPropertySection {
 	public static class Filter implements IFilter {
 		@Override
 		public boolean select(final Object toTest) {
@@ -54,44 +54,29 @@ public class SetBehaviorStateInitialPropertySection extends AbstractPropertySect
 		}
 	}
 
+	private final String labelText;
+	private final String modifyLabel;
+	private final Function<SelectionEvent, BiConsumer<BehaviorState, BusinessObjectContext>> consumer;
 	private BusinessObjectSelection selectedBos;
-	private Button setInitialStateBtn;
+	private Button statePropertyBtn;
 
-	private final SelectionListener initialStateListener = new SelectionAdapter() {
-		@Override
-		public void widgetSelected(final SelectionEvent e) {
-			final Button btn = (Button) e.widget;
-			// TODO is this filter necessary? could use a more simple selectedBos.modify,
-			selectedBos.modify("Set Initial State",
-					boc -> boc.getBusinessObject(BehaviorState.class)
-							.map(behaviorState -> behaviorState.eContainer() instanceof BehaviorAnnex).isPresent(),
-					boc -> boc.getBusinessObject(BehaviorState.class).get(), (behaviorState, boc) -> {
-						final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorState.eContainer();
-						// Clear initial states
-						for (final BehaviorState state : behaviorAnnex.getStates()) {
-							state.setInitial(false);
-						}
+	public StatePropertySection(final String labelText, final String modifyLabel,
+			final Function<SelectionEvent, BiConsumer<BehaviorState, BusinessObjectContext>> consumer) {
+		this.labelText = labelText;
+		this.modifyLabel = modifyLabel;
+		this.consumer = consumer;
+	}
 
-						// Set initial state
-						behaviorState.setInitial(btn.getSelection());
-					});
-		}
-	};
+	public void setSelectedBos(BusinessObjectSelection selectedBos) {
+		this.selectedBos = selectedBos;
+	}
 
-	@Override
-	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
-		super.createControls(parent, aTabbedPropertySheetPage);
+	public BusinessObjectSelection getSelectedBos() {
+		return selectedBos;
+	}
 
-		final Composite composite = getWidgetFactory().createFlatFormComposite(parent);
-		final Label sectionLabel = PropertySectionUtil.createSectionLabel(composite, getWidgetFactory(),
-				"Initial:");
-		setInitialStateBtn = PropertySectionUtil.createButton(getWidgetFactory(), composite, SWT.NONE,
-				initialStateListener, "", SWT.CHECK);
-
-		final FormData fd = new FormData();
-		fd.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
-		fd.top = new FormAttachment(sectionLabel, 0, SWT.CENTER);
-		setInitialStateBtn.setLayoutData(fd);
+	public Button getStateButton() {
+		return statePropertyBtn;
 	}
 
 	@Override
@@ -101,20 +86,23 @@ public class SetBehaviorStateInitialPropertySection extends AbstractPropertySect
 	}
 
 	@Override
-	public void refresh() {
-		final Set<BehaviorState> behaviorStates = selectedBos.boStream(BehaviorState.class).collect(Collectors.toSet());
-		// Only allow editing 1 element
-		final boolean isSingleSelection = behaviorStates.size() == 1;
-		// Set button enabled and selection state
-		final boolean isInitialState = behaviorStates.iterator().next().isInitial();
-		if (isSingleSelection) {
-			setInitialStateBtn.setEnabled(!isInitialState);
-			setInitialStateBtn.setSelection(isInitialState);
-		} else {
-			// Set selection state for first selection
-			setInitialStateBtn.setEnabled(isInitialState);
-			// Always disabled for multiple selection
-			setInitialStateBtn.setSelection(false);
-		}
+	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
+		super.createControls(parent, aTabbedPropertySheetPage);
+		final Composite composite = getWidgetFactory().createFlatFormComposite(parent);
+		final Label sectionLabel = PropertySectionUtil.createSectionLabel(composite, getWidgetFactory(), labelText);
+		statePropertyBtn = PropertySectionUtil.createButton(getWidgetFactory(), composite, SWT.NONE,
+				new SelectionAdapter() {
+					@Override
+					public void widgetSelected(final SelectionEvent e) {
+						selectedBos.modify(modifyLabel, boc -> boc.getBusinessObject(BehaviorState.class)
+								.map(behaviorState -> behaviorState.eContainer() instanceof BehaviorAnnex).isPresent(),
+								boc -> boc.getBusinessObject(BehaviorState.class).get(), consumer.apply(e));
+					}
+				}, "", SWT.CHECK);
+
+		final FormData fd = new FormData();
+		fd.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
+		fd.top = new FormAttachment(sectionLabel, 0, SWT.CENTER);
+		statePropertyBtn.setLayoutData(fd);
 	}
 }

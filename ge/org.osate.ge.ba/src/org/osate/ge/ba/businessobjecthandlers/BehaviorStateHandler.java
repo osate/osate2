@@ -23,12 +23,12 @@
  */
 package org.osate.ge.ba.businessobjecthandlers;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.osate.aadl2.AbstractImplementation;
-import org.osate.aadl2.AbstractType;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.Subprogram;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ge.CanonicalBusinessObjectReference;
@@ -122,21 +122,18 @@ public class BehaviorStateHandler implements BusinessObjectHandler, CustomDelete
 	@Override
 	public void afterPaste(final PasteContext ctx) {
 		ctx.getBusinessObject(BehaviorState.class).ifPresent(behaviorState -> {
-			ctx.getDestinationBusinessObject(BehaviorAnnex.class).ifPresent(behaviorAnnex -> {
-				final Classifier containingClassifier = behaviorAnnex.getContainingClassifier();
-				// Abstract can have multiple initials and finals
-				if (!(containingClassifier instanceof AbstractType
-						&& containingClassifier instanceof AbstractImplementation)) {
-					// Make sure there is only one final and one initial state
-					if (behaviorAnnex.getInitialState() != null) {
-						behaviorState.setInitial(false);
-					}
+			final BehaviorAnnex behaviorAnnex = Objects.requireNonNull((BehaviorAnnex) behaviorState.getOwner(),
+					"behavior annex cannot be null");
+			final Classifier containingClassifier = Objects.requireNonNull(behaviorAnnex.getContainingClassifier(),
+					"containing classifier cannot be null");
 
-					if (behaviorAnnex.getStates().stream().filter(bs -> bs.isFinal()).findAny().isPresent()) {
-						behaviorState.setFinal(false);
-					}
-				}
-			});
+			// Abstract and system can have multiple initials and finals
+			// Always will have an initial, determine if multiple are allowed
+			if (containingClassifier instanceof Subprogram) {
+				// Make sure there is only one final and one initial state
+				behaviorState.setInitial(false);
+				behaviorState.setFinal(false);
+			}
 		});
 	}
 }

@@ -27,11 +27,14 @@ import java.util.Optional;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.aadl2.Classifier;
 import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ba.aadlba.BehaviorTransition;
+import org.osate.ba.aadlba.DispatchCondition;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.ba.util.BehaviorAnnexHandlerUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
@@ -51,13 +54,12 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 
 	@Override
 	public boolean canStartConnection(final CanStartConnectionContext ctx) {
-		/*
-		 * return ctx.getSource().getBusinessObject(Mode.class).isPresent()
-		 * && getPotentialOwnersByMode(ctx.getSource(), ctx.getQueryService()).size() > 0;
-		 */
-		// TODO any other conditions for starting?
-		// Cannot start a connection in a state that is final
-		return ctx.getSource().getBusinessObject(BehaviorState.class).map(behaviorState -> !behaviorState.isFinal())
+		// Cannot start a connection in a state that is final, or is complete and does not allow dispatch conditions
+		return ctx.getSource().getBusinessObject(BehaviorState.class).map(behaviorState -> {
+			final Classifier classifier = behaviorState.getContainingClassifier();
+			return !behaviorState.isFinal()
+					&& (!behaviorState.isComplete() || BehaviorAnnexHandlerUtil.allowsOnDispatchConditions(classifier));
+		})
 				.orElse(false);
 	}
 
@@ -83,10 +85,6 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 			return Optional.empty();
 		}
 
-		// TODO as a rule, if it serializes do not set things myself, vs just errors like with states, look at setting initial/final
-		// if it serializes do not set myself
-
-		// TODO find same name for src and dest as a test, look into how behavior annex extends and stuff to see if this can break
 		return srcContainer.getBusinessObject(BehaviorAnnex.class)
 				.map(ba -> Operation.createSimple(srcContainer, BehaviorAnnex.class, boToModify -> {
 					final BehaviorTransition baTransition = (BehaviorTransition) EcoreUtil
@@ -106,6 +104,13 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 								baTransition.setDestinationState(behaviorState);
 							}
 						});
+					}
+
+					// Source states that are complete require dispatch conditions
+					if (srcState.isComplete()) {
+						final DispatchCondition dispatchCondition = (DispatchCondition) EcoreUtil
+								.create(AadlBaPackage.eINSTANCE.getDispatchCondition());
+						baTransition.setCondition(dispatchCondition);
 					}
 
 					// Add new transition
