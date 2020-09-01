@@ -97,6 +97,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getRangeValue();
 	}
@@ -303,6 +304,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.RANGE_VALUE__MINIMUM:
@@ -320,6 +322,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.RANGE_VALUE__MINIMUM:
@@ -337,6 +340,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.RANGE_VALUE__MINIMUM:
@@ -357,6 +361,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.RANGE_VALUE__MINIMUM:
@@ -377,6 +382,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.RANGE_VALUE__MINIMUM:
@@ -388,6 +394,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 		}
 		return super.eIsSet(featureID);
 	}
+	@Override
 	public final EvaluatedProperty evaluate(EvaluationContext ctx, int depth) throws InvalidModelException {
 		/*
 		 * The min, max, and delta attributes can refer to PropertyReferences to
@@ -448,11 +455,8 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 			}
 			return new EvaluatedProperty(newVal);
 		} catch (NullPointerException e) {
-			e.printStackTrace();
 			throw new InvalidModelException(ctx.getInstanceObject(), "Incomplete range value");
 		} catch (ClassCastException e) {
-			e.printStackTrace();
-
 			throw new InvalidModelException(ctx.getInstanceObject(), "Incomplete range value");
 		}
 	}
@@ -499,6 +503,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 		}
 		return null;
 	}
+	@Override
 	public boolean sameAs(PropertyExpression pe) {
 		if (this == pe) {
 			return true;
@@ -531,6 +536,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 		}
 		return true;
 	}
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();
