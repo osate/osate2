@@ -82,7 +82,7 @@ import org.osate.workspace.WorkspacePlugin;
 
 /**
  * This class represents the OSATE > Instantiation workspace preferences.
- * @since 4.0
+ * @since 5.0
  */
 public final class ContributedResourcesPreferencePage extends FieldEditorPreferencePage
 		implements IWorkbenchPreferencePage {
