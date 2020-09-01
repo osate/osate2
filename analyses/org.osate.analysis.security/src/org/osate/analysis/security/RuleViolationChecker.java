@@ -1,12 +1,12 @@
 package org.osate.analysis.security;
 
-import static security_type_specifications.EncryptionSpecificationType.AlgorithmName_FieldType.AES;
-import static security_type_specifications.EncryptionSpecificationType.AlgorithmName_FieldType.BLOWFISH;
-import static security_type_specifications.EncryptionSpecificationType.AlgorithmName_FieldType.DES;
-import static security_type_specifications.EncryptionSpecificationType.AlgorithmName_FieldType.ECC;
-import static security_type_specifications.EncryptionSpecificationType.AlgorithmName_FieldType.RSA;
-import static security_type_specifications.EncryptionSpecificationType.AlgorithmName_FieldType.TRIPLEDES;
-import static security_type_specifications.EncryptionSpecificationType.AlgorithmName_FieldType.TWOFISH;
+import static org.osate.properties.security.types.EncryptionSpecificationType.AlgorithmName_FieldType.AES;
+import static org.osate.properties.security.types.EncryptionSpecificationType.AlgorithmName_FieldType.BLOWFISH;
+import static org.osate.properties.security.types.EncryptionSpecificationType.AlgorithmName_FieldType.DES;
+import static org.osate.properties.security.types.EncryptionSpecificationType.AlgorithmName_FieldType.ECC;
+import static org.osate.properties.security.types.EncryptionSpecificationType.AlgorithmName_FieldType.RSA;
+import static org.osate.properties.security.types.EncryptionSpecificationType.AlgorithmName_FieldType.TRIPLEDES;
+import static org.osate.properties.security.types.EncryptionSpecificationType.AlgorithmName_FieldType.TWOFISH;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -21,19 +21,18 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RecordValue;
+import org.osate.aadl2.contrib.aadlproject.SizeUnits;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitch;
-
-import aadl_project.Size;
-import aadl_project.SizeUnits;
-import security_enforcement_properties.SecurityEnforcementProperties;
-import security_type_specifications.EncryptionSpecificationType;
-import security_type_specifications.EncryptionSpecificationType.AlgorithmName_FieldType;
-import security_type_specifications.EncryptionSpecificationType.EncryptionMode_FieldType;
-import security_type_specifications.EncryptionSpecificationType.Padding_FieldType;
-import security_type_specifications.SecuritySpecificationType;
+import org.osate.pluginsupport.properties.IntegerWithUnits;
+import org.osate.properties.security.Security;
+import org.osate.properties.security.types.EncryptionSpecificationType;
+import org.osate.properties.security.types.EncryptionSpecificationType.AlgorithmName_FieldType;
+import org.osate.properties.security.types.EncryptionSpecificationType.EncryptionMode_FieldType;
+import org.osate.properties.security.types.EncryptionSpecificationType.Padding_FieldType;
+import org.osate.properties.security.types.SecuritySpecificationType;
 
 public class RuleViolationChecker extends AadlProcessingSwitch {
 
@@ -70,11 +69,10 @@ public class RuleViolationChecker extends AadlProcessingSwitch {
 			}
 
 			private void checkEncryptionSpecification(InstanceObject io) {
-				Optional<List<SecuritySpecificationType>> p = SecurityEnforcementProperties
-						.getDataSecuritySpecification(io);
+				Optional<List<SecuritySpecificationType>> p = Security.getDataSecuritySpecification(io);
 
 				p.ifPresent(specs -> {
-					ListValue lv = (ListValue) SecurityEnforcementProperties.getDataSecuritySpecification_EObject(io);
+					ListValue lv = (ListValue) Security.getDataSecuritySpecification_EObject(io);
 					Iterator<PropertyExpression> records = lv.getOwnedListElements().iterator();
 
 					specs.stream().forEach(spec -> {
@@ -116,13 +114,13 @@ public class RuleViolationChecker extends AadlProcessingSwitch {
 						}
 						if (!padding.isPresent()) {
 							error(encRV, "Encryption algorithm " + a.name() + " requires block cipher padding");
-						} else if (padding.get() != Padding_FieldType.BLOCK_CIPHER) {
+						} else if (padding.get() != Padding_FieldType.FIXED) {
 							error(encRV, "Encryption algorithm " + a.name() + " requires block cipher padding");
 						}
 						if (!key.isPresent()) {
 							error(encRV, "Encryption algorithm " + a.name() + " requires a key classifier");
 						} else {
-							Optional<Size> size = SecurityEnforcementProperties.getKeyLength(key.get());
+							Optional<IntegerWithUnits<SizeUnits>> size = Security.getKeyLength(key.get());
 
 							if (!size.isPresent()) {
 								error(keyEObject.get(), "Key is missing the Key_Length property");
@@ -138,7 +136,7 @@ public class RuleViolationChecker extends AadlProcessingSwitch {
 						}
 						if (!padding.isPresent()) {
 							error(encRV, "Encryption algorithm " + a.name() + " requires padding to be set");
-						} else if (padding.get() == Padding_FieldType.BLOCK_CIPHER) {
+						} else if (padding.get() == Padding_FieldType.FIXED) {
 							warning(paddingEObject.get(), "Block cipher padding is not secure for " + a.name());
 						}
 						if (!key.isPresent()) {
@@ -179,13 +177,15 @@ public class RuleViolationChecker extends AadlProcessingSwitch {
 					validKey = Arrays.asList(TWOFISH_LENGTHS).contains(len);
 					break;
 				case RSA:
-					validKey = Arrays.asList(TWOFISH_LENGTHS).contains(len);
+					validKey = Arrays.asList(RSA_LENGTHS).contains(len);
 					break;
 				case ECC:
 					validKey = len >= 256;
 					break;
 				case OTP:
 					break;
+				default:
+					validKey = false;
 				}
 				if (!validKey) {
 					error(propertyExpression, "" + len + " is not a valid key length for " + a.name());

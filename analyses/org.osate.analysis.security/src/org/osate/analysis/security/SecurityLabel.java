@@ -24,9 +24,9 @@ public class SecurityLabel {
 
 	public static final SecurityLabel MIN = new SecurityLabel(1, Collections.emptySet());
 
-	public static final String LEVEL_PROPERTY_NAME = "Security_Classification_Properties::Security_Level";
+	public static final String LEVEL_PROPERTY_NAME = "Security::Level";
 
-	public static final String CATEGORY_PROPERTY_NAME = "Security_Classification_Properties::Security_Level_Caveats";
+	public static final String CATEGORY_PROPERTY_NAME = "Security::Level_Caveats";
 
 	private static Property levelProperty = null;
 

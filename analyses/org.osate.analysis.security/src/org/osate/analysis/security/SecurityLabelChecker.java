@@ -10,7 +10,6 @@ import org.osate.aadl2.instance.AnnexInstance;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
-import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
@@ -88,21 +87,21 @@ public class SecurityLabelChecker {
 			ConnectionInstanceEnd dst = conni.getDestination();
 
 			checkSameLabel(conni, src, dst);
-			return Boolean.TRUE;
+			return PRUNE;
 		}
 
 		/**
 		 * Check connection reference for security policy compliance:
 		 * Data flow from source and destination label must be identical
 		 */
-		@Override
-		public Boolean caseConnectionReference(ConnectionReference cref) {
-			ConnectionInstanceEnd src = cref.getSource();
-			ConnectionInstanceEnd dst = cref.getDestination();
-
-			checkSameLabel(cref, src, dst);
-			return PRUNE;
-		}
+//		@Override
+//		public Boolean caseConnectionReference(ConnectionReference cref) {
+//			ConnectionInstanceEnd src = cref.getSource();
+//			ConnectionInstanceEnd dst = cref.getDestination();
+//
+//			checkSameLabel(cref, src, dst);
+//			return PRUNE;
+//		}
 
 		@Override
 		public Boolean caseEndToEndFlowInstance(org.osate.aadl2.instance.EndToEndFlowInstance object) {
