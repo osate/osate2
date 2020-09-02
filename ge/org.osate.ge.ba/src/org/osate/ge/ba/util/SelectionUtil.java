@@ -36,6 +36,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ISources;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.xtext.nodemodel.ILeafNode;
@@ -55,6 +56,7 @@ import org.osate.ba.aadlba.BehaviorVariable;
 import org.osate.ge.BusinessObjectContext;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableList.Builder;
 
 public class SelectionUtil {
 	private static EObjectAtOffsetHelper eObjectAtOffsetHelper = new EObjectAtOffsetHelper();
@@ -77,6 +79,24 @@ public class SelectionUtil {
 		return wb.getActiveWorkbenchWindow();
 	}
 
+	public static IWorkbenchPage getActivePage() {
+		final IWorkbenchWindow window = getActiveWorkbenchWindow();
+		if (window == null) {
+			return null;
+		}
+
+		return window.getActivePage();
+	}
+
+	public static Optional<IEditorPart> getActiveEditor() {
+		final IWorkbenchPage page = getActivePage();
+		if (page == null) {
+			return Optional.empty();
+		}
+
+		return Optional.ofNullable(page.getActiveEditor());
+	}
+
 	public static IEditorPart getActiveEditorFromContext(final Object evaluationContext) {
 		if (!(evaluationContext instanceof IEvaluationContext)) {
 			return null;
@@ -88,7 +108,41 @@ public class SelectionUtil {
 	}
 
 	public static ImmutableList<BusinessObjectContext> getSelectedBusinessObjectContexts() {
-		final ISelection selection = getCurrentSelection();
+		return getSelectedBusinessObjectContexts(getCurrentSelection(), false);
+	}
+
+	public static ImmutableList<BusinessObjectContext> getSelectedBusinessObjectContexts(final ISelection selection,
+			final boolean ignoreInvalidType) {
+		return getAdaptedSelection(selection, BusinessObjectContext.class, ignoreInvalidType);
+	}
+
+	/**
+	 *
+	 * @param ignoreInvalidType if true then the selection will skip over instances that cannot be adapted. If false, an empty list will be returned in such cases.
+	 */
+	private static <T> ImmutableList<T> getAdaptedSelection(final ISelection selection, final Class<T> adapter,
+			final boolean ignoreInvalidType) {
+		if (!(selection instanceof IStructuredSelection)) {
+			return ImmutableList.of();
+		}
+
+		final IStructuredSelection ss = (IStructuredSelection) selection;
+		final Builder<T> results = ImmutableList.builder();
+		for (final Object sel : ss.toList()) {
+			final T o = Adapters.adapt(sel, adapter);
+			if (o == null) {
+				if (!ignoreInvalidType) {
+					return ImmutableList.of();
+				}
+			} else {
+				results.add(o);
+			}
+		}
+
+		return results.build();
+	}
+
+	public static ImmutableList<BusinessObjectContext> getSelectedBusinessObjectContexts(final ISelection selection) {
 		if (!(selection instanceof IStructuredSelection)) {
 			return ImmutableList.of();
 		}
@@ -153,7 +207,7 @@ public class SelectionUtil {
 		return null;
 	}
 
-	private static EObject getEObjectFromSelection(XtextEditor editor, final ISelection selection) {
+	private static EObject getEObjectFromSelection(final XtextEditor editor, final ISelection selection) {
 		// Check the selection before accessing the document
 		if (selection instanceof IStructuredSelection) {
 			final IStructuredSelection ss = (IStructuredSelection) selection;

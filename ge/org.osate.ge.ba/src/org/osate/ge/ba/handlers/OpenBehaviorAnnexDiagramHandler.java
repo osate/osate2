@@ -30,7 +30,6 @@ public class OpenBehaviorAnnexDiagramHandler extends AbstractHandler {
 
 	@Override
 	public void setEnabled(final Object evaluationContext) {
-		System.err.println("open");
 		setBaseEnabled(BehaviorAnnexHandlerUtil
 				.getBehaviorAnnexDiagramContext(SelectionUtil.getActiveEditorFromContext(evaluationContext)).isPresent());
 	}
