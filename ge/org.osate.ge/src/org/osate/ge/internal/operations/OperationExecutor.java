@@ -30,27 +30,40 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 import org.eclipse.emf.ecore.EObject;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResult;
 import org.osate.ge.operations.StepResultBuilder;
+import org.osate.ge.services.ReferenceBuilderService;
 
 public class OperationExecutor {
 	private final AadlModificationService modificationService;
+	private final ReferenceBuilderService referenceBuilder;
 
 	public static interface ResultsProcessor {
-		void processResults(final List<StepResult<?>> results);
+		void processResults(final OperationResults results);
 	}
 
-	public OperationExecutor(final AadlModificationService modificationService) {
+	public OperationExecutor(final AadlModificationService modificationService,
+			final ReferenceBuilderService referenceBuilder) {
 		this.modificationService = Objects.requireNonNull(modificationService, "modificationService must not be null");
+		this.referenceBuilder = Objects.requireNonNull(referenceBuilder, "referenceBuidler must nto be null");
 	}
 
-	private static class ExecutionState {
+	private class ExecutionState {
 		final LinkedHashSet<Supplier<? extends StepResult<?>>> pendingStepConsumers = new LinkedHashSet<>();
 		final List<AadlModificationService.Modification<?, ?>> modifications = new ArrayList<>();
-		final List<StepResult<?>> allResults = new ArrayList<>(); // Will only contain non-null results
+		final OperationResults results = new OperationResults();
 		boolean aborted = false;
+
+		private void addStepResult(final StepResult<?> stepResult) {
+			stepResult.getContainerToBoToShowMap().entries().stream().forEachOrdered(e -> {
+				final Object bo = e.getValue();
+				final RelativeBusinessObjectReference ref = referenceBuilder.getRelativeReference(bo);
+				results.getContainerToBoToShowDetailsMap().put(e.getKey(), new OperationResults.BusinessObjectToShowDetails(bo, ref));
+			});
+		}
 	}
 
 	/**
@@ -72,11 +85,11 @@ public class OperationExecutor {
 		prepareToExecute((Step<?>) op, () -> StepResultBuilder.create().build(), executionState);
 
 		if (executionState.modifications.isEmpty()) {
-			finishExecution(resultsProcessor, executionState.pendingStepConsumers, executionState.allResults);
+			finishExecution(resultsProcessor, executionState.pendingStepConsumers, executionState.results);
 		} else {
 			modificationService.modify(executionState.modifications, allSuccessful -> {
 				if (allSuccessful) {
-					finishExecution(resultsProcessor, executionState.pendingStepConsumers, executionState.allResults);
+					finishExecution(resultsProcessor, executionState.pendingStepConsumers, executionState.results);
 				}
 			});
 		}
@@ -99,14 +112,14 @@ public class OperationExecutor {
 	 * @param allResults
 	 */
 	private void finishExecution(final ResultsProcessor resultsProcessor,
-			LinkedHashSet<Supplier<? extends StepResult<?>>> pendingStepConsumers,
-			final List<StepResult<?>> allResults) {
+			final LinkedHashSet<Supplier<? extends StepResult<?>>> pendingStepConsumers,
+			final OperationResults results) {
 		// Evaluate steps which have not been evaluated.
 		while (!pendingStepConsumers.isEmpty()) {
 			pendingStepConsumers.iterator().next().get();
 		}
 
-		resultsProcessor.processResults(allResults);
+		resultsProcessor.processResults(results);
 	}
 
 	/**
@@ -147,7 +160,10 @@ public class OperationExecutor {
 					} else {
 						Operation suboperation = ss.getOperationProvider()
 								.apply(prevResult.getUserValue());
-						execute(suboperation, results -> executionState.allResults.addAll(results));
+						execute(suboperation, results -> {
+							executionState.results.getContainerToBoToShowDetailsMap()
+							.putAll(results.getContainerToBoToShowDetailsMap());
+						});
 					}
 
 					return StepResult.forValue(null);
@@ -182,7 +198,7 @@ public class OperationExecutor {
 						executionState.pendingStepConsumers.remove(this);
 
 						if (result != null) {
-							executionState.allResults.add(result);
+							executionState.addStepResult(result);
 						}
 					}
 
@@ -218,7 +234,7 @@ public class OperationExecutor {
 						boToModify,
 						prevResultSupplier.get().getUserValue());
 				if (result != null) {
-					executionState.allResults.add(result);
+					executionState.addStepResult(result);
 					if (result.aborted()) {
 						executionState.aborted = true;
 					}
