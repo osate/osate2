@@ -33,6 +33,8 @@ import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.GraphicalExtensionUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.CanDeleteContext;
+import org.osate.ge.businessobjecthandling.CanRenameContext;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
@@ -74,6 +76,11 @@ public class PropagationPathHandler implements BusinessObjectHandler {
 	}
 
 	@Override
+	public boolean canDelete(final CanDeleteContext ctx) {
+		return true;
+	}
+
+	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		final PropagationPath bo = ctx.getBusinessObjectContext().getBusinessObject(PropagationPath.class).get();
 		final BusinessObjectContext classifierBoc = ctx.getBusinessObjectContext().getParent();
@@ -103,6 +110,11 @@ public class PropagationPathHandler implements BusinessObjectHandler {
 	@Override
 	public String getName(final GetNameContext ctx) {
 		return ctx.getBusinessObject(PropagationPath.class).map(bo -> bo.getName()).orElse("");
+	}
+
+	@Override
+	public boolean canRename(final CanRenameContext ctx) {
+		return true;
 	}
 
 	private static Object[] getBusinessObjectPath(final QualifiedPropagationPoint p) {

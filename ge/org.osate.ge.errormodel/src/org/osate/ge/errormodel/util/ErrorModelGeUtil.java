@@ -23,17 +23,22 @@
  */
 package org.osate.ge.errormodel.util;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.aadl2.AadlGraphicalEditorException;
 import org.osate.ge.aadl2.GraphicalAnnexUtil;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.Color;
@@ -247,5 +252,30 @@ public class ErrorModelGeUtil {
 		}
 
 		return Optional.empty();
+	}
+
+	/**
+	 * Creates a list containing the URIs of named elements between the specified root(exclusive) the specified boc(inclusive).
+	 * @param boc the business object context to which to return the path.
+	 * @param root the root of the path.
+	 * @param result the list to populate. Must not be null.
+	 * @return the result.
+	 */
+	public static List<URI> createQualifiedPropagationPointPath(final BusinessObjectContext boc,
+			final BusinessObjectContext root, List<URI> result) {
+		if (boc.getParent() != root) {
+			result = createQualifiedPropagationPointPath(boc.getParent(), root, result);
+		}
+
+		if (result != null) {
+			final Object targetBo = boc.getBusinessObject();
+			if (targetBo instanceof NamedElement) {
+				result.add(EcoreUtil.getURI((NamedElement) targetBo));
+			} else {
+				throw new AadlGraphicalEditorException("Unexpected business object: " + targetBo);
+			}
+		}
+
+		return result;
 	}
 }

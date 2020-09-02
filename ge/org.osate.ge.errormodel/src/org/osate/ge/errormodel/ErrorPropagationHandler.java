@@ -111,7 +111,7 @@ public class ErrorPropagationHandler implements BusinessObjectHandler {
 		// Determine style
 		final StyleBuilder sb = StyleBuilder.create(GraphicalExtensionUtil.isInherited(ctx.getBusinessObjectContext())
 				? GraphicalExtensionUtil.STYLE_INHERITED_ELEMENT
-				: Style.EMPTY);
+				: Style.EMPTY).fontSize(8.0);
 
 		return Optional
 				.of(GraphicalConfigurationBuilder.create().graphic(graphic).style(sb.build()).decoration().build());

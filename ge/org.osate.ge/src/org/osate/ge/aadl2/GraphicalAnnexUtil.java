@@ -145,7 +145,7 @@ public class GraphicalAnnexUtil {
 			if (isEmptyAnnexSource(defaultLib.getSourceText())) {
 				return Optional.empty();
 			} else {
-				throw new AadlModelException("Parsed annex library is null but source text is not empty");
+				throw new AadlGraphicalEditorException("Parsed annex library is null but source text is not empty");
 			}
 		}
 
@@ -243,7 +243,7 @@ public class GraphicalAnnexUtil {
 			if (isEmptyAnnexSource(defaultSubclause.getSourceText())) {
 				return Optional.empty();
 			} else {
-				throw new AadlModelException("Parsed annex subclause is null but source text is not empty");
+				throw new AadlGraphicalEditorException("Parsed annex subclause is null but source text is not empty");
 			}
 		}
 

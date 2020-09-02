@@ -489,8 +489,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable, La
 						: (de.getLabelName() + completenessSuffix);
 
 		if (pe instanceof ContainerShape) {
-			final double fontSize = de.getStyle().getFontSize() == null ? Style.DEFAULT.getFontSize()
-					: de.getStyle().getFontSize();
+			final double fontSize = finalStyle.getFontSize();
 
 			// Create Labels
 			if (primaryLabelStr != null) {

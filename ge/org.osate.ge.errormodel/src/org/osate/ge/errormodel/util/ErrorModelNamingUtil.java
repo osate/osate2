@@ -60,7 +60,8 @@ public class ErrorModelNamingUtil {
 
 	public static String buildUniqueIdentifier(final Classifier c, final String baseIdentifier) {
 		final Set<String> existingIdentifiers = buildNameSet(c);
-		return buildUniqueIdentifier(existingIdentifiers, baseIdentifier);
+		final String prefix = c.getName() == null ? "" : c.getName().replace('.', '_') + "_";
+		return buildUniqueIdentifier(existingIdentifiers, prefix + baseIdentifier);
 	}
 
 	/**

@@ -29,6 +29,7 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Subcomponent;
+import org.osate.ge.errormodel.model.KeywordPropagationPoint;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 
 public class ErrorModelFilterUtil {
@@ -60,6 +61,8 @@ public class ErrorModelFilterUtil {
 			classifier = ((Subcomponent) bo).getAllClassifier();
 		} else if (bo instanceof Element) {
 			classifier = ((Element) bo).getContainingClassifier();
+		} else if(bo instanceof KeywordPropagationPoint) {
+			classifier = ((KeywordPropagationPoint) bo).getClassifier();
 		} else {
 			classifier = null;
 		}

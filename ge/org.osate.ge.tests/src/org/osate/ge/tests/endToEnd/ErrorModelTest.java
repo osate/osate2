@@ -343,9 +343,6 @@ public class ErrorModelTest {
 							ErrorModelReferenceUtil.getRelativeReferenceForTransitionBranch("s3", 0)));
 			waitUntilTextFieldWithIdTextMatches(TransitionBranchPropertySection.WIDGET_ID_PROBABILITY, "0.7");
 		}
-
-		saveAndCloseTextEditorByTitle(OTHER + ".aadl");
-		saveAndCloseTextEditorByTitle(EMV2_TEST + ".aadl");
 	}
 
 	@Test
@@ -362,23 +359,52 @@ public class ErrorModelTest {
 		// Open text editor
 		doubleClickInAadlNavigator(ERROR_FLOW_TEST, ERROR_FLOW_TEST + ".aadl");
 
-		// Create system system implementation
+		//
+		// Create system implementation to use as the subsystem
+		//
+		createImplementationWithNewType(diagram, pkgElement, "System Implementation", "impl", "subsystem");
+		final DiagramElementReference subsystemRef = element(pkgRef,
+				getClassifierRelativeReference("subsystem.impl"));
+
+		// Create and rename propagation point
+		createElementAndLayout(diagram, subsystemRef, "Propagation Point",
+				ErrorModelReferenceUtil
+						.getRelativeReferenceForPropagationPoint("subsystem_impl_new_propagation_point"),
+				"ss_pp1");
+
+		//
+		// Create top level system implementation
+		//
 		createImplementationWithNewType(diagram, pkgElement, "System Implementation", "impl", "test_system");
 		final DiagramElementReference sysImplElement = element(pkgRef, getClassifierRelativeReference("test_system.impl"));
 
 		//
+		// Create subsystem
+		//
+		createElementAndLayout(diagram, sysImplElement, "System Subcomponent",
+				getSubcomponentRelativeReference("test_system_impl_new_subcomponent"), "sc1");
+		final DiagramElementReference sc1Ref = sysImplElement.join(getSubcomponentRelativeReference("sc1"));
+		setSubcomponentClassifierFromPropertiesView(diagram, ERROR_FLOW_TEST + "::subsystem.impl", sc1Ref);
+		showContentsAndLayout(diagram, sc1Ref);
+		final DiagramElementReference sc1Pp1Ref = sc1Ref
+				.join(ErrorModelReferenceUtil.getRelativeReferenceForPropagationPoint("ss_pp1"));
+
+		//
 		// Propagation Points
 		//
-
 		// Create and rename propagation point
 		createElementAndLayout(diagram, sysImplElement,
 				"Propagation Point",
-				ErrorModelReferenceUtil.getRelativeReferenceForPropagationPoint("new_propagation_point"), "pp1");
+				ErrorModelReferenceUtil
+						.getRelativeReferenceForPropagationPoint("test_system_impl_new_propagation_point"),
+				"pp1");
 
 		// Create another propagation point and delete it.
 		createElementAndLayout(diagram, sysImplElement,
 				"Propagation Point",
-				ErrorModelReferenceUtil.getRelativeReferenceForPropagationPoint("new_propagation_point"), "pp2");
+				ErrorModelReferenceUtil
+						.getRelativeReferenceForPropagationPoint("test_system_impl_new_propagation_point"),
+				"pp2");
 		deleteElement(diagram,
 				sysImplElement.join(ErrorModelReferenceUtil.getRelativeReferenceForPropagationPoint("pp2")));
 
@@ -456,9 +482,31 @@ public class ErrorModelTest {
 		openAadlPropertiesTab(diagram, i1PropagationRef, pp1PropagationRef);
 		addTypeToSelectedPropgationTypeSet();
 
+
+		layoutDiagram(diagram, sysImplElement);
+
+		//
+		// Propagation Path
+		//
+		createConnectionAndLayout(diagram,
+				o1Ref,
+				sc1Pp1Ref,
+				"Propagation Path",
+				sysImplElement,
+				ErrorModelReferenceUtil.getRelativeReferenceForPropagationPath(
+						"test_system_impl_new_propagation_path"),
+				"test_propagation_path1");
+
+		deleteElement(diagram, sysImplElement
+				.join(ErrorModelReferenceUtil.getRelativeReferenceForPropagationPath("test_propagation_path1")));
+
+		//
 		// Delete a propagation
+		//
 		deleteElement(diagram,
 				o1Ref.join(ErrorModelReferenceUtil.getRelativeReferenceForPropagation(false, DirectionType.OUT)));
+
+		saveAndCloseTextEditorByTitle(ERROR_FLOW_TEST + ".aadl");
 	}
 
 	/**
@@ -500,5 +548,4 @@ public class ErrorModelTest {
 		waitUntilCLabelWithIdTextMatches(ErrorPropagationPropertySection.WIDGET_ID_TYPE_TOKENS_LABEL,
 				"ErrorLibrary::AboveRange, ErrorLibrary::BelowRange");
 	}
-
 }

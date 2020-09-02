@@ -24,25 +24,23 @@
 package org.osate.ge.errormodel.ui.palette;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Feature;
-import org.osate.aadl2.FeatureGroup;
-import org.osate.aadl2.FeatureGroupPrototype;
-import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.StringUtil;
-import org.osate.ge.aadl2.AadlModelException;
+import org.osate.ge.aadl2.AadlGraphicalEditorException;
 import org.osate.ge.errormodel.combined.CombinedErrorModelSubclause;
 import org.osate.ge.errormodel.combined.PropagationNode;
 import org.osate.ge.errormodel.model.KeywordPropagationPoint;
@@ -79,9 +77,11 @@ public class CreateErrorPropagationPaletteCommand extends BasePaletteCommand imp
 		if (bo instanceof Feature) {
 			return createPropgationCreationOperation(ctx.getTarget(), (newPropagation, subclause) -> {
 				// Find the feature in the context of the EMV subclause. This is needed for reliable serialization.
-				final List<String> namePath = getFeatureNamePath(ctx.getTarget(), new ArrayList<>());
-				final Classifier classifier = subclause.getContainingClassifier();
-				newPropagation.setFeatureorPPRef(buildFeatureReference(classifier, namePath));
+				final List<URI> path = ErrorModelGeUtil.createQualifiedPropagationPointPath(ctx.getTarget(),
+						ErrorModelGeUtil.getClassifierSourceBoc(ctx.getTarget()).get(),
+						new ArrayList<>());
+
+				newPropagation.setFeatureorPPRef(buildFeatureReference(subclause.eResource().getResourceSet(), path));
 			});
 		} else if (bo instanceof KeywordPropagationPoint) {
 			final KeywordPropagationPoint kw = (KeywordPropagationPoint) bo;
@@ -98,7 +98,7 @@ public class CreateErrorPropagationPaletteCommand extends BasePaletteCommand imp
 						.create(subclause.getContainingClassifier());
 				final String boName = ((PropagationPoint) bo).getName();
 				final PropagationPoint pp = combined.getPoints().filter(p -> Objects.equal(p.getName(), boName))
-						.findAny().orElseThrow(() -> new AadlModelException("Unable to find propagation point"));
+						.findAny().orElseThrow(() -> new AadlGraphicalEditorException("Unable to find propagation point"));
 				final FeatureorPPReference ppRef = (FeatureorPPReference) EcoreUtil
 						.create(ErrorModelPackage.eINSTANCE.getFeatureorPPReference());
 				ppRef.setFeatureorPP(pp);
@@ -127,42 +127,22 @@ public class CreateErrorPropagationPaletteCommand extends BasePaletteCommand imp
 	}
 
 	/**
-	 * Builds a list of names of features which corresponds to the path to the feature from the containing classifier/subcomponent.
-	 * @param featureBoc the feature whose name will be the last one in the list.
-	 * @param result the resulting list. Must not be null.
-	 * @return the resulting list.
-	 */
-	private List<String> getFeatureNamePath(final BusinessObjectContext featureBoc, List<String> result) {
-		final BusinessObjectContext parent = featureBoc.getParent();
-		if (parent != null && parent.getBusinessObject() instanceof Feature) {
-			getFeatureNamePath(parent, result);
-		}
-
-		final Feature feature = featureBoc.getBusinessObject(Feature.class).get();
-		final String name = feature.getName();
-		if (name == null) {
-			throw new AadlModelException("Unable to get name for feature: " + feature);
-		}
-		result.add(name);
-		return result;
-	}
-
-	/**
 	 * Builds a {@link FeatureorPPReference} based on a name path. Throws an exception if unable to find any of the
 	 * referenced features.
 	 */
-	private FeatureorPPReference buildFeatureReference(final Classifier classifier, final List<String> namePath) {
+	private FeatureorPPReference buildFeatureReference(final ResourceSet resourceSet, final List<URI> path) {
 		FeatureorPPReference topPpRef = null;
 		FeatureorPPReference lastPpRef = null;
 
-		NamedElement searchContainer = classifier;
-		for (final String tmpName : namePath) {
-			final Feature tmpFeature = findChildFeature(searchContainer, tmpName);
-			searchContainer = tmpFeature;
+		for (final URI pathSegmentUri : path) {
+			final EObject pathSegment = resourceSet.getEObject(pathSegmentUri, true);
+			if (!(pathSegment instanceof Feature)) {
+				throw new AadlGraphicalEditorException("Unexpected path segment: " + pathSegment);
+			}
 
 			final FeatureorPPReference ppRef = (FeatureorPPReference) EcoreUtil
 					.create(ErrorModelPackage.eINSTANCE.getFeatureorPPReference());
-			ppRef.setFeatureorPP(tmpFeature);
+			ppRef.setFeatureorPP((Feature) pathSegment);
 
 			if (lastPpRef == null) {
 				topPpRef = ppRef;
@@ -177,38 +157,6 @@ public class CreateErrorPropagationPaletteCommand extends BasePaletteCommand imp
 	}
 
 	/**
-	 * Returns the child feature for the specified container. Throws an exception if the feature could not be found.
-	 * @param container a classifier or feature group
-	 * @param name the name to find
-	 * @return the feature
-	 */
-	private Feature findChildFeature(final NamedElement container, final String name) {
-		List<Feature> childFeatures = Collections.emptyList();
-		if (container instanceof Classifier) {
-			childFeatures = ((Classifier) container).getAllFeatures();
-		} else if (container instanceof FeatureGroup) {
-			final FeatureGroup fg = ((FeatureGroup) container);
-			final FeatureGroupType fgt = fg.getAllFeatureGroupType();
-			if (fgt != null) {
-				childFeatures = fgt.getAllFeatures();
-			} else {
-				final FeatureGroupPrototype fgp = fg.getFeatureGroupPrototype();
-				if (fgp != null && fgp.getConstrainingFeatureGroupType() != null) {
-					childFeatures = fgp.getConstrainingFeatureGroupType().getAllFeatures();
-				}
-			}
-		}
-
-		for (final Feature tmpFeature : childFeatures) {
-			if (name.equalsIgnoreCase(tmpFeature.getName())) {
-				return tmpFeature;
-			}
-		}
-
-		throw new AadlModelException("Unable to find feature with name '" + name + "'");
-	}
-
-	/**
 	 * Creates an operation for creating a propagation for the target.
 	 * @param target is the target of the propagation. It should be the context which will be the parent of the propagation
 	 * @param init function called to finish initializing the propagation. It must set the kind or the feature or PP reference.
@@ -219,7 +167,7 @@ public class CreateErrorPropagationPaletteCommand extends BasePaletteCommand imp
 		return ErrorModelGeUtil.getClassifierSourceBoc(target).flatMap(container -> {
 			final AadlPackage pkg = container.getBusinessObject(NamedElement.class).map(ne -> ne.getElementRoot())
 					.map(root -> root instanceof AadlPackage ? ((AadlPackage) root) : null)
-					.orElseThrow(() -> new AadlModelException("Unable to find model"));
+					.orElseThrow(() -> new AadlGraphicalEditorException("Unable to find model"));
 
 			return ErrorModelGeUtil.createErrorModelSubclausePromptAndModifyOperation(container, () -> {
 				if (propagationAlreadyExists(target)) {
