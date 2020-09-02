@@ -24,7 +24,6 @@
 package org.osate.ge.ba.diagram.diagramType;
 
 import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ge.DiagramType;
 import org.osate.ge.ba.diagram.contentFilters.BehaviorStateFilter;
 import org.osate.ge.ba.diagram.contentFilters.BehaviorTransitionFilter;
@@ -49,14 +48,14 @@ public class BehaviorAnnexDiagramType implements DiagramType {
 
 	@Override
 	public boolean isApplicableToContext(final Object contextBo) {
-		System.err.println("isaplicablecontext");
 		return contextBo instanceof DefaultAnnexSubclause
 				&& BaUtil.ANNEX_NAME.equalsIgnoreCase(((DefaultAnnexSubclause) contextBo).getName());
 	}
 
 	@Override
 	public ImmutableSet<String> getDefaultContentFilters(final Object bo) {
-		if (bo instanceof BehaviorAnnex) {
+		if (bo instanceof DefaultAnnexSubclause
+				&& BaUtil.ANNEX_NAME.equalsIgnoreCase(((DefaultAnnexSubclause) bo).getName())) {
 			return ImmutableSet.of(BehaviorTransitionFilter.ID, BehaviorStateFilter.ID, BehaviorVariableFilter.ID);
 		}
 

@@ -112,20 +112,7 @@ public class CreateBehaviorAnnexDiagramHandler extends AbstractHandler {
 
 	@Override
 	public void setEnabled(final Object evaluationContext) {
-		System.err.println("set enableBd");
 		final IEditorPart activeEditor = SelectionUtil.getActiveEditorFromContext(evaluationContext);
-		// final Object diagramContext = BehaviorAnnexHandlerUtil.getDiagramContext(activeEditor).orElse(null);
-//		if (activeEditor instanceof XtextEditor) {
-//			diagramContext = SelectionUtil.getDiagramContext(SelectionUtil.getCurrentSelection(),
-//					SelectionUtil.getActiveEditorFromContext(evaluationContext), findDiagramContextForSelectedObject);
-//		} else {
-//			final List<BusinessObjectContext> selectedBusinessObjectContexts = SelectionUtil
-//					.getSelectedBusinessObjectContexts();
-//			diagramContext = selectedBusinessObjectContexts.size() == 1
-//					? selectedBusinessObjectContexts.get(0).getBusinessObject()
-//					: null;
-//		}
-
 		setBaseEnabled(
 				BehaviorAnnexHandlerUtil.getBehaviorAnnexDiagramContext(activeEditor).isPresent());
 	}
