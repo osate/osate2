@@ -28,16 +28,20 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.NamedElement;
+import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.errormodel.model.KeywordPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 
 /**
  * Class for storing propagations in a tree. The key for each node is the name of the feature or propagation point or the "kind"
  * of the propagation.
  *
  */
-class PropagationNode implements ReadonlyPropagationNode {
+public class PropagationNode implements ReadonlyPropagationNode {
 	final Map<String, PropagationNode> children = new HashMap<>();
 	final Map<PropagationKey, ErrorPropagation> propagations = new HashMap<>();
 
@@ -94,5 +98,39 @@ class PropagationNode implements ReadonlyPropagationNode {
 	@Override
 	public Stream<ErrorPropagation> getPropagations() {
 		return propagations.values().stream();
+	}
+
+	@Override
+	public Stream<ErrorPropagation> getPropagationsForBusinessObjectContext(final BusinessObjectContext boc) {
+		final Object bo = boc.getBusinessObject();
+		if (bo instanceof Feature) {
+			return getDescendantForFeaturePath(boc).map(ReadonlyPropagationNode::getPropagations)
+					.orElse(Stream.empty());
+		} else if (bo instanceof KeywordPropagationPoint) {
+			final KeywordPropagationPoint kw = (KeywordPropagationPoint) bo;
+			return getChild(kw.getType().getKind()).map(ReadonlyPropagationNode::getPropagations)
+					.orElse(Stream.empty());
+		} else if (bo instanceof PropagationPoint) {
+			final PropagationPoint pp = (PropagationPoint) bo;
+			return getChild(pp.getName()).map(ReadonlyPropagationNode::getPropagations).orElse(Stream.empty());
+		} else {
+			return Stream.empty();
+		}
+	}
+
+	/**
+	 * Finds the descendant containing propagations associated with a specified feature
+	 * @param featureBoc the business object context of the feature for which to find the propagation node
+	 * @return or empty if a propagation node for the feature was not found.
+	 */
+	private Optional<ReadonlyPropagationNode> getDescendantForFeaturePath(
+			final BusinessObjectContext featureBoc) {
+		final BusinessObjectContext parent = featureBoc.getParent();
+		final Object parentBo = parent.getBusinessObject();
+		final ReadonlyPropagationNode tmpNode = parentBo instanceof Feature
+				? getDescendantForFeaturePath(parent).orElse(null)
+				: this;
+		return tmpNode == null ? Optional.empty()
+				: tmpNode.getChild(featureBoc.getBusinessObject(Feature.class).get().getName());
 	}
 }

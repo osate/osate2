@@ -37,13 +37,13 @@ import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.errormodel.ui.swt.TypeTokenListField;
-import org.osate.ge.errormodel.ui.viewmodels.TypeSetTypeTokensModel;
+import org.osate.ge.errormodel.ui.viewmodels.ErrorPropagatonTypeSetModel;
 import org.osate.ge.ui.PropertySectionUtil;
 import org.osate.ge.ui.UiBusinessObjectSelection;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 
-public class TypeSetPropertySection extends AbstractPropertySection {
-	private static final String WIDGET_ID_PREFIX = "org.osate.ge.errormodel.ui.properties.typeSet.";
+public class ErrorPropagationPropertySection extends AbstractPropertySection {
+	private static final String WIDGET_ID_PREFIX = "org.osate.ge.errormodel.ui.properties.errorPropagation.";
 	public static final String WIDGET_ID_TYPE_TOKENS_LABEL = WIDGET_ID_PREFIX + "typeTokens.label";
 	public static final String WIDGET_ID_TYPE_TOKENS_CHOOSE_BUTTON = WIDGET_ID_PREFIX + "typeTokens.choose";
 
@@ -51,28 +51,27 @@ public class TypeSetPropertySection extends AbstractPropertySection {
 		@Override
 		public boolean select(final Object toTest) {
 			return PropertySectionUtil.isBoCompatible(toTest, bo -> {
-				// Include all type sets which are not aliases.
-				return bo instanceof TypeSet && ((TypeSet) bo).getAliasedType() == null;
+				return bo instanceof ErrorPropagation;
 			});
 		}
 	}
 
 	private BusinessObjectSelection selectedBos;
-	private final TypeSetTypeTokensModel model = new TypeSetTypeTokensModel(
+	private final ErrorPropagatonTypeSetModel typeSetTokensModel = new ErrorPropagatonTypeSetModel(
 			new UiBusinessObjectSelection());
-	private TypeTokenListField typeTokens;
+	private TypeTokenListField typeSetTokens;
 
 	@Override
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
 		super.createControls(parent, aTabbedPropertySheetPage);
 
 		final Composite container = getWidgetFactory().createFlatFormComposite(parent);
-		final Label label = PropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Types:");
+		final Label label = PropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Type Set:");
 
-		typeTokens = new TypeTokenListField(container, model);
-		typeTokens.setLabelTestingId(WIDGET_ID_TYPE_TOKENS_LABEL);
-		typeTokens.setChooseButtonTestingId(WIDGET_ID_TYPE_TOKENS_CHOOSE_BUTTON);
-		typeTokens
+		typeSetTokens = new TypeTokenListField(container, typeSetTokensModel);
+		typeSetTokens.setLabelTestingId(WIDGET_ID_TYPE_TOKENS_LABEL);
+		typeSetTokens.setChooseButtonTestingId(WIDGET_ID_TYPE_TOKENS_CHOOSE_BUTTON);
+		typeSetTokens
 		.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER).create());
 
 		{
@@ -81,7 +80,7 @@ public class TypeSetPropertySection extends AbstractPropertySection {
 			fd.right = new FormAttachment(100, 0);
 			fd.top = new FormAttachment(label, 0, SWT.CENTER);
 			fd.width = 200;
-			typeTokens.setLayoutData(fd);
+			typeSetTokens.setLayoutData(fd);
 		}
 	}
 
@@ -93,6 +92,6 @@ public class TypeSetPropertySection extends AbstractPropertySection {
 
 	@Override
 	public void refresh() {
-		model.setBusinessObjectSelection(selectedBos);
+		typeSetTokensModel.setBusinessObjectSelection(selectedBos);
 	}
 }

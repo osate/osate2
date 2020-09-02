@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.osate.aadl2.DirectionType;
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.palette.PaletteCategory;
 import org.osate.ge.palette.PaletteCommandProviderContext;
@@ -44,6 +45,10 @@ public class ErrorModelPaletteContributor implements PaletteContributor {
 	public Stream<TargetedPaletteCommand> getTargetedCommands(final PaletteCommandProviderContext ctx) {
 		final List<TargetedPaletteCommand> commands = new ArrayList<>();
 
+		commands.add(new CreateErrorPropagationPaletteCommand(DirectionType.IN, true));
+		commands.add(new CreateErrorPropagationPaletteCommand(DirectionType.IN, false));
+		commands.add(new CreateErrorPropagationPaletteCommand(DirectionType.OUT, true));
+		commands.add(new CreateErrorPropagationPaletteCommand(DirectionType.OUT, false));
 		commands.add(new CreateErrorTypePaletteCommand());
 		commands.add(new CreateEventPaletteCommand(ErrorModelPackage.eINSTANCE.getErrorEvent()));
 		commands.add(new CreatePropagationPointPaleteCommand());

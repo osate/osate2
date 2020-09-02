@@ -21,27 +21,45 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.errormodel.combined;
+package org.osate.ge.errormodel.ui;
 
+import java.util.Collections;
 import java.util.Optional;
-import java.util.stream.Stream;
 
-import org.osate.ge.BusinessObjectContext;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.swt.widgets.Display;
+import org.osate.aadl2.AadlPackage;
+import org.osate.ge.ProjectUtil;
+import org.osate.ge.errormodel.ui.swt.TypeTokenListEditorDialog;
+import org.osate.ge.errormodel.ui.viewmodels.BasicTypeTokenListEditorModel;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
 /**
- * Readonly interface to a {@link PropagationNode}.
+ * Utility function for implementing the error model graphical editor user interface
  *
  */
-public interface ReadonlyPropagationNode {
-	Optional<ReadonlyPropagationNode> getChild(final String kindOrElementName);
-
-	Stream<ErrorPropagation> getPropagations();
+public class ErrorModelUiUtil {
+	private ErrorModelUiUtil() {
+	}
 
 	/**
-	 * Returns a stream of error propagations associated with the target business object context.
-	 * @param boc the business object context of a feature, propagation point or keyword propagation point
-	 * @return a stream containing propagations
+	 * Prompts for type tokens and returns a type set.
+	 * @param pkg the package to use to determine the project.
+	 * @return the type set containing the selected type tokens
 	 */
-	Stream<ErrorPropagation> getPropagationsForBusinessObjectContext(final BusinessObjectContext boc);
+	public static final Optional<TypeSet> promptForTypeSet(final AadlPackage pkg) {
+		final IProject project = ProjectUtil.getProjectForBoOrThrow(pkg);
+		final BasicTypeTokenListEditorModel model = new BasicTypeTokenListEditorModel(project,
+				Collections.emptyList());
+		if (TypeTokenListEditorDialog.open(Display.getDefault().getActiveShell(), "Select Type Tokens",
+				model)) {
+			final TypeSet newTypeSet = (TypeSet) EcoreUtil.create(ErrorModelPackage.eINSTANCE.getTypeSet());
+			newTypeSet.getTypeTokens().addAll(model.getTypeTokenList());
+			return Optional.of(newTypeSet);
+		} else {
+			return Optional.empty();
+		}
+	}
 }

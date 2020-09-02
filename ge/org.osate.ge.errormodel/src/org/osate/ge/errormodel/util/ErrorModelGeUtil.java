@@ -31,6 +31,7 @@ import java.util.stream.Stream;
 
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.GraphicalAnnexUtil;
@@ -209,5 +210,42 @@ public class ErrorModelGeUtil {
 			final BusinessObjectContext boc, final Function<ErrorModelSubclause, StepResult<ResultUserType>> modifier) {
 		return createErrorModelSubclausePromptAndModifyOperation(boc, () -> Optional.of(true),
 				(subclause, promptResult) -> modifier.apply(subclause));
+	}
+
+	/**
+	 * Walks up the business object context tree and returns the classifier for the first classifier or subcomponent.
+	 * @param boc the first business object context to check
+	 * @return the classifier
+	 */
+	public static Optional<Classifier> getClassifier(BusinessObjectContext boc) {
+		return getClassifierSourceBoc(boc).map(t -> {
+			final Object bo = t.getBusinessObject();
+			if (bo instanceof Classifier) {
+				return (Classifier) bo;
+			} else if (bo instanceof Subcomponent) {
+				final ComponentClassifier cc = ((Subcomponent) bo).getAllClassifier();
+				return cc;
+			} else {
+				return null;
+			}
+		});
+	}
+
+	/**
+	 * Walks up the business object context tree and returns the first business object context which references a classifier
+	 * or subcomponent.
+	 * @param boc the first business object context to check
+	 * @return the classifier
+	 */
+	public static Optional<BusinessObjectContext> getClassifierSourceBoc(BusinessObjectContext boc) {
+		while (boc != null) {
+			final Object bo = boc.getBusinessObject();
+			if (bo instanceof Classifier || bo instanceof Subcomponent) {
+				return Optional.of(boc);
+			}
+			boc = boc.getParent();
+		}
+
+		return Optional.empty();
 	}
 }

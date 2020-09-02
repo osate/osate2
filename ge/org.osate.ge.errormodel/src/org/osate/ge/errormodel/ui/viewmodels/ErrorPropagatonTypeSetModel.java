@@ -21,27 +21,43 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.errormodel.combined;
 
-import java.util.Optional;
-import java.util.stream.Stream;
+package org.osate.ge.errormodel.ui.viewmodels;
 
-import org.osate.ge.BusinessObjectContext;
+import java.util.Objects;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
+
+import org.osate.ge.BusinessObjectSelection;
+import org.osate.ge.errormodel.ui.swt.TypeTokenListEditorModel;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
 /**
- * Readonly interface to a {@link PropagationNode}.
+ * {@link TypeTokenListEditorModel} implementation which edits the type set of {@link ErrorPropagation} instances provided by
+ * {@link BusinessObjectSelection}
  *
  */
-public interface ReadonlyPropagationNode {
-	Optional<ReadonlyPropagationNode> getChild(final String kindOrElementName);
-
-	Stream<ErrorPropagation> getPropagations();
+public class ErrorPropagatonTypeSetModel extends BaseTypeSetTypeTokensModel implements TypeTokenListEditorModel {
+	private BusinessObjectSelection bos;
 
 	/**
-	 * Returns a stream of error propagations associated with the target business object context.
-	 * @param boc the business object context of a feature, propagation point or keyword propagation point
-	 * @return a stream containing propagations
+	 * Creates a new instance
+	 * @param bos the initial business object selection
 	 */
-	Stream<ErrorPropagation> getPropagationsForBusinessObjectContext(final BusinessObjectContext boc);
+	public ErrorPropagatonTypeSetModel(final BusinessObjectSelection bos) {
+		setBusinessObjectSelection(bos);
+	}
+
+	public final void setBusinessObjectSelection(final BusinessObjectSelection value) {
+		this.bos = Objects.requireNonNull(value, "value must not be null");
+		setTypeSets(bos.boStream(ErrorPropagation.class).map(p -> p.getTypeSet()).collect(Collectors.toList()));
+	}
+
+	@Override
+	protected void modifyTypeSets(final Consumer<TypeSet> modifier) {
+		bos.modify(ErrorPropagation.class, p -> {
+			modifier.accept(p.getTypeSet());
+		});
+	}
 }

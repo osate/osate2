@@ -32,6 +32,7 @@ import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.GraphicalExtensionUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.GetNameForDiagramContext;
@@ -101,6 +102,11 @@ public class ErrorPropagationHandler implements BusinessObjectHandler {
 	}
 
 	@Override
+	public boolean canDelete(final CanDeleteContext ctx) {
+		return true;
+	}
+
+	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		// Determine style
 		final StyleBuilder sb = StyleBuilder.create(GraphicalExtensionUtil.isInherited(ctx.getBusinessObjectContext())
@@ -121,9 +127,8 @@ public class ErrorPropagationHandler implements BusinessObjectHandler {
 	@Override
 	public String getNameForDiagram(final GetNameForDiagramContext ctx) {
 		return ctx.getBusinessObjectContext().getBusinessObject(ErrorPropagation.class)
-				.map(bo -> (bo.getDirection() == null ? "" : bo.getDirection())
-						+ (bo.isNot() ? " not propgation " : " propagation ")
-						+ getLabelForTypeSet(bo.getTypeSet()))
+				.map(bo -> (bo.isNot() ? " not " : "") + (bo.getDirection() == null ? "" : (bo.getDirection() + " "))
+						+ "propagation " + getLabelForTypeSet(bo.getTypeSet()))
 				.orElse("");
 	}
 
@@ -133,7 +138,7 @@ public class ErrorPropagationHandler implements BusinessObjectHandler {
 		}
 
 		return "{" + ts.getTypeTokens().stream().flatMap(t -> t.getType().stream())
-				.map(t -> (t == null || t.getName() == null) ? "?" : t.getName())
-				.collect(Collectors.joining(",")) + "}";
+				.map(t -> (t == null || t.getName() == null) ? "?" : t.getName()).collect(Collectors.joining(","))
+				+ "}";
 	}
 }

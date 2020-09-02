@@ -29,9 +29,12 @@ import static org.osate.ge.tests.endToEnd.util.OsateGeTestUtil.*;
 import static org.osate.ge.tests.endToEnd.util.UiTestUtil.*;
 
 import org.junit.Test;
+import org.osate.aadl2.DirectionType;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.errormodel.ErrorModelReferenceUtil;
+import org.osate.ge.errormodel.model.KeywordPropagationPointType;
 import org.osate.ge.errormodel.ui.properties.ErrorModelLibraryPropertySection;
+import org.osate.ge.errormodel.ui.properties.ErrorPropagationPropertySection;
 import org.osate.ge.errormodel.ui.properties.ErrorTypeAliasPropertySection;
 import org.osate.ge.errormodel.ui.properties.TransitionBranchPropertySection;
 import org.osate.ge.errormodel.ui.properties.TypeSetAliasPropertySection;
@@ -60,7 +63,6 @@ public class ErrorModelTest {
 		final DiagramElementReference pkgElement = packageElement(EMV2_TEST);
 
 		// Open text editor
-		// TODO: Remove this once things work without text editor open
 		doubleClickInAadlNavigator(EMV2_TEST, EMV2_TEST + ".aadl");
 
 		// Create several error types
@@ -342,7 +344,6 @@ public class ErrorModelTest {
 			waitUntilTextFieldWithIdTextMatches(TransitionBranchPropertySection.WIDGET_ID_PROBABILITY, "0.7");
 		}
 
-		// TODO: Remove when text editor is no longer opened as part of test.
 		saveAndCloseTextEditorByTitle(OTHER + ".aadl");
 		saveAndCloseTextEditorByTitle(EMV2_TEST + ".aadl");
 	}
@@ -359,12 +360,15 @@ public class ErrorModelTest {
 		final RelativeBusinessObjectReference pkgRef = getRelativeReferenceForPackage(ERROR_FLOW_TEST);
 
 		// Open text editor
-		// TODO: Remove this once things work without text editor open
 		doubleClickInAadlNavigator(ERROR_FLOW_TEST, ERROR_FLOW_TEST + ".aadl");
 
 		// Create system system implementation
 		createImplementationWithNewType(diagram, pkgElement, "System Implementation", "impl", "test_system");
 		final DiagramElementReference sysImplElement = element(pkgRef, getClassifierRelativeReference("test_system.impl"));
+
+		//
+		// Propagation Points
+		//
 
 		// Create and rename propagation point
 		createElementAndLayout(diagram, sysImplElement,
@@ -377,5 +381,124 @@ public class ErrorModelTest {
 				ErrorModelReferenceUtil.getRelativeReferenceForPropagationPoint("new_propagation_point"), "pp2");
 		deleteElement(diagram,
 				sysImplElement.join(ErrorModelReferenceUtil.getRelativeReferenceForPropagationPoint("pp2")));
+
+		//
+		// Feature Group Type
+		//
+		createElementAndLayout(diagram, pkgElement, "Feature Group Type",
+				getClassifierRelativeReference("new_classifier"), "test_fgt");
+		createElementAndLayout(diagram, pkgElement.join(getClassifierRelativeReference("test_fgt")),
+				"Data Port", getFeatureRelativeReference("test_fgt_new_feature"), "i1");
+
+		//
+		// Propagations
+		//
+		createElementAndLayout(diagram, sysImplElement, "Data Port",
+				getFeatureRelativeReference("test_system_new_feature"), "o1");
+		createElementAndLayout(diagram, sysImplElement, "Feature Group",
+				getFeatureRelativeReference("test_system_new_feature"), "fg1");
+		final DiagramElementReference fg1Element = sysImplElement.join(getFeatureRelativeReference("fg1"));
+		setExtendedOrFeatureClassifierFromPropertiesView(diagram, ERROR_FLOW_TEST + "::test_fgt",
+				fg1Element);
+
+		// Show elements
+		clickContextMenuOfDiagramElement(diagram, sysImplElement, "Show Contents", "Error Propagation Point Keywords");
+		showContentsAndLayout(diagram, fg1Element);
+
+		// Create propagation for port
+		final DiagramElementReference o1Ref = sysImplElement.join(getFeatureRelativeReference("o1"));
+		createShapeElement(diagram, o1Ref, "Out Error Propagation",
+				ErrorModelReferenceUtil.getRelativeReferenceForPropagation(false, DirectionType.OUT),
+				ErrorModelTest::selectSingleErrorType);
+		final DiagramElementReference o1PropagationRef = o1Ref
+				.join(ErrorModelReferenceUtil.getRelativeReferenceForPropagation(false, DirectionType.OUT));
+
+		// Create propagation for feature group port
+		final DiagramElementReference i1Ref = fg1Element.join(getFeatureRelativeReference("i1"));
+		createShapeElement(diagram,
+				i1Ref,
+				"In Error Propagation",
+				ErrorModelReferenceUtil.getRelativeReferenceForPropagation(false, DirectionType.IN),
+				ErrorModelTest::selectSingleErrorType);
+		final DiagramElementReference i1PropagationRef = i1Ref.join(ErrorModelReferenceUtil.getRelativeReferenceForPropagation(false, DirectionType.IN));
+
+		// Create propagation for propagation point
+		final DiagramElementReference pp1Ref = sysImplElement
+				.join(ErrorModelReferenceUtil.getRelativeReferenceForPropagationPoint("pp1"));
+		createShapeElement(diagram,
+				pp1Ref,
+				"Out Error Containment",
+				ErrorModelReferenceUtil.getRelativeReferenceForPropagation(true, DirectionType.OUT),
+				ErrorModelTest::selectSingleErrorType);
+		final DiagramElementReference pp1PropagationRef = pp1Ref
+				.join(ErrorModelReferenceUtil.getRelativeReferenceForPropagation(true, DirectionType.OUT));
+
+		// Create propagation for keyword propagation
+		createShapeElement(diagram,
+				sysImplElement.join(ErrorModelReferenceUtil.getRelativeReferenceForKeywordPropagationPoint(
+						KeywordPropagationPointType.BINDINGS.getKind())),
+				"In Error Containment",
+				ErrorModelReferenceUtil.getRelativeReferenceForPropagation(true, DirectionType.IN),
+				ErrorModelTest::selectSingleErrorType);
+
+		// Verify error propagation type set is correct and can be set using the property section
+		{
+			openAadlPropertiesTab(diagram, o1PropagationRef);
+			addTypeToSelectedPropgationTypeSet();
+		}
+
+		// Select two not-identical type sets and confirm label
+		openAadlPropertiesTab(diagram, o1PropagationRef, pp1PropagationRef);
+		waitUntilCLabelWithIdTextMatches(ErrorPropagationPropertySection.WIDGET_ID_TYPE_TOKENS_LABEL,
+				"<Multiple Type Sets Selected>");
+
+		// Select two other propagations with identical type sets and change
+		openAadlPropertiesTab(diagram, i1PropagationRef, pp1PropagationRef);
+		addTypeToSelectedPropgationTypeSet();
+
+		// Delete a propagation
+		deleteElement(diagram,
+				o1Ref.join(ErrorModelReferenceUtil.getRelativeReferenceForPropagation(false, DirectionType.OUT)));
 	}
+
+	/**
+	 * Helper function for tests that require selecting an error type from the "Select Type Tokens" dialog.
+	 */
+	private static void selectSingleErrorType() {
+		waitForWindowWithTitle("Select Type Tokens");
+
+		// Add types
+		clickButton("Add Error Type(s)");
+		waitForWindowWithTitle("Add Types");
+		selectListItems(0, "ErrorLibrary::AboveRange");
+		clickButton("OK");
+
+		clickButton("OK");
+	}
+
+	/**
+	 * Helper function for tests that require adding an error type to a type set.
+	 * Assumes that a single error type has already been set using {@link #selectSingleErrorType()}
+	 */
+	private static void addTypeToSelectedPropgationTypeSet() {
+		// Check label to ensure that the types match the expected value
+		waitUntilCLabelWithIdTextMatches(ErrorPropagationPropertySection.WIDGET_ID_TYPE_TOKENS_LABEL,
+				"ErrorLibrary::AboveRange");
+
+		clickButtonWithId(ErrorPropagationPropertySection.WIDGET_ID_TYPE_TOKENS_CHOOSE_BUTTON);
+		waitForWindowWithTitle("Edit Type Set");
+
+		// Add types
+		clickButton("Add Error Type(s)");
+		waitForWindowWithTitle("Add Types");
+		selectListItems(0, "ErrorLibrary::BelowRange");
+		clickButton("OK");
+
+		clickButton("OK");
+
+		// Check the label to ensure it reflects the changes
+		waitUntilCLabelWithIdTextMatches(ErrorPropagationPropertySection.WIDGET_ID_TYPE_TOKENS_LABEL,
+				"ErrorLibrary::AboveRange, ErrorLibrary::BelowRange");
+	}
+
 }

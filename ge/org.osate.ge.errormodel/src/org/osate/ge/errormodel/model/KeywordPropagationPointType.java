@@ -36,28 +36,28 @@ public enum KeywordPropagationPointType {
 	ALL("all"), ACCESS("access"), PROCESSOR("processor"), MEMORY("memory"), CONNECTION("connection"), BINDING(
 			"binding"), BINDINGS("bindings");
 
-	private final String name;
+	private final String kind;
 
 	/**
 	 * Create a new instance
-	 * @param name must match the kind string used for propagations for this type.
+	 * @param kind must match the kind string used for propagations for this type.
 	 */
-	KeywordPropagationPointType(final String name) {
-		this.name = name;
+	KeywordPropagationPointType(final String kind) {
+		this.kind = kind;
 	}
 
-	public String getName() {
-		return name;
+	public String getKind() {
+		return kind;
 	}
 
 	/**
 	 * Gets an instance based on the name which matches the "kind" used in the EMV2 model
-	 * @param name the name to look for
+	 * @param kind the name to look for
 	 * @return the matching instance
 	 */
-	public static KeywordPropagationPointType getByName(final String name) {
+	public static KeywordPropagationPointType getByKind(final String kind) {
 		for (final KeywordPropagationPointType k : KeywordPropagationPointType.values()) {
-			if (Objects.equal(name, k.name)) {
+			if (Objects.equal(kind, k.kind)) {
 				return k;
 			}
 		}

@@ -24,9 +24,6 @@ censes only apply to the Third Party Software and not any other portion of this 
 -->
 <?eclipse version="3.4"?>
 <plugin>
-	<extension point="org.osate.ge.referenceResolvers">
-	   <factory class="org.osate.ge.errormodel.ErrorModelReferenceResolver$Factory" />
-	</extension>
    <extension
          point="org.osate.ge.businessObjectHandlers">
       <handler
@@ -158,6 +155,13 @@ censes only apply to the Third Party Software and not any other portion of this 
                class="org.osate.ge.errormodel.ui.properties.TypeSetPropertySection"
                filter="org.osate.ge.errormodel.ui.properties.TypeSetPropertySection$Filter"
                id="org.osate.ge.errormodel.propertySections.typeSet"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>
+         <propertySection
+		       afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
+               class="org.osate.ge.errormodel.ui.properties.ErrorPropagationPropertySection"
+               filter="org.osate.ge.errormodel.ui.properties.ErrorPropagationPropertySection$Filter"
+               id="org.osate.ge.errormodel.propertySections.errorPropagation"
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
          <propertySection

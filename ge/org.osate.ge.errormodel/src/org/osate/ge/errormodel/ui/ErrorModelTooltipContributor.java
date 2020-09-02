@@ -36,7 +36,13 @@ import org.osate.ge.ui.TooltipContributorContext;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
 public class ErrorModelTooltipContributor implements TooltipContributor {
 	@Override
@@ -53,8 +59,11 @@ public class ErrorModelTooltipContributor implements TooltipContributor {
 	}
 
 	private void createLabel(final Composite parent, final EObject bo) {
-		final boolean showSource = bo instanceof ErrorBehaviorTransition || bo instanceof TransitionBranch
-				|| bo instanceof ErrorBehaviorEvent || bo instanceof ErrorBehaviorState;
+		final boolean showSource = bo instanceof ErrorType || bo instanceof TypeSet
+				|| bo instanceof ErrorBehaviorTransition || bo instanceof TransitionBranch
+				|| bo instanceof ErrorBehaviorEvent || bo instanceof ErrorBehaviorState
+				|| bo instanceof ErrorPropagation || bo instanceof PropagationPoint || bo instanceof ErrorFlow
+				|| bo instanceof PropagationPath;
 		if (!showSource) {
 			return;
 		}

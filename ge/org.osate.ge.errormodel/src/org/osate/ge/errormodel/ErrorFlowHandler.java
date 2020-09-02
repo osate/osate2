@@ -164,7 +164,7 @@ public class ErrorFlowHandler implements BusinessObjectHandler {
 	private static Optional<ErrorFlowEnd> getPropagationFlowEnd(final QueryService queryService,
 			final BusinessObjectContext container, final ErrorPropagation p) {
 		if (p.getKind() != null) {
-			return getKeywordFlowEnd(container, KeywordPropagationPointType.getByName(p.getKind()));
+			return getKeywordFlowEnd(container, KeywordPropagationPointType.getByKind(p.getKind()));
 		}
 
 		return queryService.getFirstResult(propagationQuery, container, p)

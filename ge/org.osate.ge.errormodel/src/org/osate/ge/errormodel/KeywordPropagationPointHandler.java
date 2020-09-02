@@ -56,13 +56,13 @@ public class KeywordPropagationPointHandler implements BusinessObjectHandler {
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
 		final KeywordPropagationPoint bo = ctx.getBusinessObject(KeywordPropagationPoint.class).get();
 		return new CanonicalBusinessObjectReference(ErrorModelReferenceUtil.TYPE_KEYWORD_PROPAGATION_POINT,
-				ctx.getReferenceBuilder().getCanonicalReference(bo.getClassifier()).encode(), bo.getType().getName());
+				ctx.getReferenceBuilder().getCanonicalReference(bo.getClassifier()).encode(), bo.getType().getKind());
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
 		return ErrorModelReferenceUtil.getRelativeReferenceForKeywordPropagationPoint(
-				ctx.getBusinessObject(KeywordPropagationPoint.class).get().getType().getName());
+				ctx.getBusinessObject(KeywordPropagationPoint.class).get().getType().getKind());
 	}
 
 	@Override
@@ -74,7 +74,7 @@ public class KeywordPropagationPointHandler implements BusinessObjectHandler {
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return "<" + ctx.getBusinessObject(KeywordPropagationPoint.class).get().getType().getName()
+		return "<" + ctx.getBusinessObject(KeywordPropagationPoint.class).get().getType().getKind()
 				+ ">";
 	}
 }
