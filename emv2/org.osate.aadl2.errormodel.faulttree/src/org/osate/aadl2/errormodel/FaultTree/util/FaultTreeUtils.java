@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -419,14 +419,19 @@ public class FaultTreeUtils {
 	 * @param context
 	 * @return
 	 */
+	// to do pass param num of digits to display
 	public static String getProbability(EObject context) {
 		Event ev = (Event) context;
 		String specProb = "";
+		String precisionPref = "." + FaultTreeModel.getPrecision() + "f";
+
 		if (ev.getComputedProbability() != null && ev.getComputedProbability().compareTo(BigZero) != 0
 				&& ev.getAssignedProbability() != null && ev.getAssignedProbability().compareTo(BigZero) != 0) {
-			specProb = String.format(" (Spec %1$.1e)", ev.getAssignedProbability());
+			// specProb = String.format(" (Spec %1$.1e)", ev.getAssignedProbability());
+			specProb = String.format(" (Spec %1$" + precisionPref + ")", ev.getAssignedProbability());
 		}
-		return String.format("%1$.1e%2$s", ev.getProbability(), specProb) + getScale(context);
+		// return String.format("%1$.1e%2$s", ev.getProbability(), specProb) + getScale(context);
+		return String.format("%1$" + precisionPref + "%2$s", ev.getProbability(), specProb) + getScale(context);
 	}
 
 	/**
@@ -541,10 +546,12 @@ public class FaultTreeUtils {
 			}
 
 			if (hazardDescription == null) {
-				return String.format("%1$s%4$s\nOccurrence probability %2$s%3$s", labeltext, getProbability(ev),
+				return String.format("%1$s%4$s\nOccurrence probability %2$s%3$s", labeltext,
+						getProbability(ev),
 						problabel, msg);
 			} else {
-				return String.format("%1$s\n%3$s%5$s\nOccurrence probability %2$s%4$s", labeltext, getProbability(ev),
+				return String.format("%1$s\n%3$s%5$s\nOccurrence probability %2$s%4$s", labeltext,
+						getProbability(ev),
 						"Hazard: " + hazardDescription, problabel, msg);
 			}
 		}
