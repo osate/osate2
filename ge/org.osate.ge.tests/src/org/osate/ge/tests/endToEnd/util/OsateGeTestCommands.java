@@ -345,13 +345,6 @@ public class OsateGeTestCommands {
 		layoutDiagram(diagram, parentElement);
 	}
 
-	public static void createElementAndLayout(final DiagramReference diagram,
-			final DiagramElementReference parentElement, final String paletteItemLabel,
-			final RelativeBusinessObjectReference newReferenceAfterCreate, final Runnable postExecPaletteItem) {
-		createShapeElement(diagram, parentElement, paletteItemLabel, newReferenceAfterCreate, postExecPaletteItem);
-		layoutDiagram(diagram, parentElement);
-	}
-
 	/**
 	 * Creates a flow specification using the palette tool.
 	 * Preconditions: OSATE shell is active.  Specified parent element exists.
