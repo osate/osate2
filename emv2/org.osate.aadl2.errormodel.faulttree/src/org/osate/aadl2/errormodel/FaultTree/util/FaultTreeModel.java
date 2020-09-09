@@ -29,4 +29,9 @@ public class FaultTreeModel {
 		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
 		return store.getInt(PREF_PRECISION);
 	}
+
+	public static final void setPrecision(int value) {
+		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
+		store.setValue(PREF_PRECISION, value);
+	}
 }
