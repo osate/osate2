@@ -34,6 +34,7 @@ import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ge.ba.util.BaNamingUtil;
 import org.osate.ge.ba.util.BaUtil;
+import org.osate.ge.ba.util.BehaviorAnnexHandlerUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
@@ -58,14 +59,18 @@ public class CreateSpecificationPaletteCommand extends BasePaletteCommand implem
 					final String newName = BaNamingUtil.buildUniqueIdentifier(ba, "new_state");
 					newState.setName(newName);
 
-					// Set state to initial
-					// Note: all classifiers require an initial state, if this
-					// is not set, diagram elements disappear from diagram
-					newState.setInitial(true);
+					if (BehaviorAnnexHandlerUtil.requireSingleInitialState(modifyBo)) {
+						// Set state to initial
+						newState.setInitial(true);
+					}
 
 					// Determine if behavior annex must have a final state
 					if (modifyBo instanceof Subprogram) {
 						newState.setFinal(true);
+					}
+
+					if (BehaviorAnnexHandlerUtil.requiresCompleteState(modifyBo)) {
+						newState.setComplete(true);
 					}
 
 					// Add the new state to the behavior annex

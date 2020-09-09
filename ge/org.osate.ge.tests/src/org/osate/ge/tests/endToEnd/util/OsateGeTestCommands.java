@@ -43,6 +43,7 @@ import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem;
 import org.osate.ge.aadl2.ui.internal.properties.AbstractFeaturePrototypePropertySection;
 import org.osate.ge.aadl2.ui.internal.properties.SetSubcomponentClassifierPropertySection;
+import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
 import org.osate.ge.swt.classifiers.PrototypeBindingsField;
 
 import com.google.common.collect.ImmutableList;
@@ -254,6 +255,30 @@ public class OsateGeTestCommands {
 	}
 
 	/**
+	 * Creates a behavior variable and sets the data classifier.
+	 * @param parentSpec the behavior annex specification of the new behavior variable
+	 * @param dataClassifier the data classifier to set for the behavior variable
+	 * @param newVariableName the new name for the behavior variable
+	 */
+	public static void createBehaviorVariable(final DiagramReference diagram,
+			final DiagramElementReference parentSpec, final String dataClassifier, final String newVariableName) {
+		openDiagramEditor(diagram);
+
+		selectPaletteItem(diagram, "Variable");
+		clickDiagramElement(diagram, parentSpec);
+
+		waitForWindowWithTitle("Set the Variable's Data Classifier");
+		doubleClickListItem(0, dataClassifier);
+		waitForDiagramElementToExist(diagram,
+				parentSpec.join(BehaviorAnnexReferenceUtil.getVariableRelativeReference(newVariableName)));
+
+		renameElementDirectEdit(diagram, parentSpec, BehaviorAnnexReferenceUtil.getVariableRelativeReference(newVariableName),
+				"ba_variable");
+
+		layoutDiagram(diagram, parentSpec);
+	}
+
+	/**
 	 * Sets an elements classifier by creating a new type using the Properties view.
 	 * @param element the element to set classifier
 	 * @param packageName the package of new type
@@ -302,6 +327,13 @@ public class OsateGeTestCommands {
 		});
 	}
 
+	public static void createElementAndLayout(final DiagramReference diagram,
+			final DiagramElementReference parentElement, final String paletteItemLabel,
+			final RelativeBusinessObjectReference newReferenceAfterCreate) {
+		createElementAndLayout(diagram, parentElement, paletteItemLabel, newReferenceAfterCreate, () -> {
+		});
+	}
+
 	/**
 	 * Creates a diagram element using a palette tool which will be represented as a shape.
 	 * Preconditions: OSATE shell is active. Specified parent element exists.
@@ -322,6 +354,13 @@ public class OsateGeTestCommands {
 		layoutDiagram(diagram, parentElement);
 	}
 
+	public static void createElementAndLayout(final DiagramReference diagram,
+			final DiagramElementReference parentElement, final String paletteItemLabel,
+			final RelativeBusinessObjectReference newReferenceAfterCreate, final Runnable postExecPaletteItem) {
+		createShapeElement(diagram, parentElement, paletteItemLabel, newReferenceAfterCreate, postExecPaletteItem);
+		layoutDiagram(diagram, parentElement);
+	}
+
 	/**
 	 * Creates a flow specification using the palette tool.
 	 * Preconditions: OSATE shell is active.  Specified parent element exists.
@@ -339,6 +378,21 @@ public class OsateGeTestCommands {
 			final RelativeBusinessObjectReference newReferenceAfterCreate, final String finalName) {
 		createFlowSpecificationElement(diagram, parentElement, toolType, featureRef, newReferenceAfterCreate);
 		renameElementFromOutlineView(diagram, parentElement, newReferenceAfterCreate, finalName);
+	}
+
+	public static void createBehaviorAnnexWithStateRename(final DiagramReference diagram,
+			final RelativeBusinessObjectReference pkgRef, final String classifierName,
+			final RelativeBusinessObjectReference behaviorSpecification, final String newStateName) {
+		final RelativeBusinessObjectReference classifierRef = getClassifierRelativeReference(classifierName);
+
+		// Create specification
+		createShapeElement(diagram, element(pkgRef, classifierRef), "Specification", behaviorSpecification);
+		// Show contents of specification
+		showContentsAndLayout(diagram, new DiagramElementReference(pkgRef, classifierRef, behaviorSpecification));
+		// Rename initial state
+		renameElementDirectEdit(diagram, element(pkgRef, classifierRef, behaviorSpecification),
+				BehaviorAnnexReferenceUtil.getStateRelativeReference(classifierName.replace(".", "_") + "_new_state"),
+				newStateName);
 	}
 
 	/**
@@ -664,6 +718,7 @@ public class OsateGeTestCommands {
 		clickContextMenuOfFocused("Layout", "Layout Diagram");
 	}
 
+
 	/**
 	 * Renames an element using the diagram context menu. NOTE: This function currently assumes that the relative reference
 	 * is composed of exactly two elements and the second element is the name.
@@ -708,13 +763,8 @@ public class OsateGeTestCommands {
 	public static void renameElementFromOutlineView(final DiagramReference diagram,
 			final DiagramElementReference parent, final RelativeBusinessObjectReference element,
 			final String newName) {
-		final ImmutableList<RelativeBusinessObjectReference> pathToElement = parent.join(element).pathToElement;
-		final String[] outlineTreeItems = new String[pathToElement.size()];
-		for (int i = 0; i < pathToElement.size(); i++) {
-			outlineTreeItems[i] = pathToElement.get(i).getSegments().get(1);
-		}
 
-		clickContextMenuOfOutlineViewItem(outlineTreeItems, new String[] { "Rename..." });
+		clickContextMenuOfOutlineViewItem(parent.join(element).toOutlineTreeItemPath(), new String[] { "Rename..." });
 		waitForWindowWithTitle("Rename");
 		setTextField(0, newName);
 		clickButton("OK");

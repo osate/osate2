@@ -49,7 +49,7 @@ public class SetStateInitialPropertySection extends StatePropertySection {
 			return (behaviorState, boc) -> {
 				final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorState.eContainer();
 				final Classifier classifier = behaviorAnnex.getContainingClassifier();
-				if (isInitial && BehaviorAnnexHandlerUtil.allowOnlySingleInitialState(classifier)) {
+				if (isInitial && BehaviorAnnexHandlerUtil.requireSingleInitialState(classifier)) {
 					// Clear initial states
 					behaviorAnnex.getStates().forEach(state -> state.setInitial(false));
 				}
@@ -77,7 +77,7 @@ public class SetStateInitialPropertySection extends StatePropertySection {
 				// Removing initial state
 				final Classifier classifier = selectedState.getContainingClassifier();
 				// Cannot remove if classifier requires only one initial state
-				setInitialStateBtn.setEnabled(!BehaviorAnnexHandlerUtil.allowOnlySingleInitialState(classifier));
+				setInitialStateBtn.setEnabled(!BehaviorAnnexHandlerUtil.requireSingleInitialState(classifier));
 			} else {
 				// Setting initial state
 				setInitialStateBtn.setEnabled(true);

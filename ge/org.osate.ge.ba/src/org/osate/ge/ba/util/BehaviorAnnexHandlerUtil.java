@@ -39,6 +39,7 @@ import org.osate.aadl2.VirtualProcessor;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ba.aadlba.BehaviorTransition;
+import org.osate.ge.aadl2.AnnexHandler;
 
 public class BehaviorAnnexHandlerUtil {
 	private BehaviorAnnexHandlerUtil() {
@@ -60,7 +61,7 @@ public class BehaviorAnnexHandlerUtil {
 	public static String getFileName(final Classifier classifier, final DefaultAnnexSubclause annexSubclause) {
 		final StringBuilder fileName = new StringBuilder(classifier.getQualifiedName().replaceAll("::|:|\\.", "_"));
 		fileName.append("_behavior_");
-		return fileName.append(classifier.getOwnedAnnexSubclauses().indexOf(annexSubclause)).toString();
+		return fileName.append(AnnexHandler.getAnnexSubclauseIndex(annexSubclause, true)).toString();
 	}
 
 	/**
@@ -80,7 +81,7 @@ public class BehaviorAnnexHandlerUtil {
 	/**
 	 * Determines if the classifier only allows a single initial BehaviorState
 	 */
-	public static boolean allowOnlySingleInitialState(final Classifier classifier) {
+	public static boolean requireSingleInitialState(final Classifier classifier) {
 		return classifier instanceof Device || classifier instanceof Thread || classifier instanceof Subprogram
 				|| classifier instanceof VirtualProcessor;
 	}

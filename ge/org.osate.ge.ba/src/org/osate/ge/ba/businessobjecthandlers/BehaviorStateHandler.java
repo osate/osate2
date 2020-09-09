@@ -35,6 +35,7 @@ import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
@@ -54,7 +55,6 @@ import org.osate.ge.graphics.StyleBuilder;
  * Business Object Handler for {@link BehaviorState}
  */
 public class BehaviorStateHandler implements BusinessObjectHandler, CustomDeleter, CustomRenamer {
-	private final static String TYPE_STATE = "ba_state";
 	private static final GraphicalConfiguration graphicalConfig = GraphicalConfigurationBuilder.create()
 			.graphic(EllipseBuilder.create().build()).style(StyleBuilder.create().labelsCenter().build()).build();
 
@@ -78,13 +78,13 @@ public class BehaviorStateHandler implements BusinessObjectHandler, CustomDelete
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		return new CanonicalBusinessObjectReference(TYPE_STATE,
+		return new CanonicalBusinessObjectReference(BehaviorAnnexReferenceUtil.STATE_TYPE,
 				ctx.getBusinessObject(BehaviorState.class).get().getName());
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		return new RelativeBusinessObjectReference(TYPE_STATE,
+		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.STATE_TYPE,
 				ctx.getBusinessObject(BehaviorState.class).get().getName());
 	}
 
