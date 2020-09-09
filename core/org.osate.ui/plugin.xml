@@ -1525,7 +1525,7 @@ censes only apply to the Third Party Software and not any other portion of this 
              class="org.osate.ui.handlers.ContributedAadlStoragePropertyTester"
              id="org.osate.ui.ContributedAadlStoragePropertyTester"
              namespace="org.osate.ui"
-             properties="name"
+             properties="name,aadlPropertySet"
              type="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage">
        </propertyTester>
        

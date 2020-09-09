@@ -28,20 +28,7 @@
             </message_arguments>
         </filter>
     </resource>
-    <resource path="src-gen/org/osate/categories/ui/contentassist/AbstractCategoriesProposalProvider.java" type="org.osate.categories.ui.contentassist.AbstractCategoriesProposalProvider">
-        <filter comment="Xtext generated code" id="337764418">
-            <message_arguments>
-                <message_argument value="org.osate.categories.ui.contentassist.AbstractCategoriesProposalProvider"/>
-            </message_arguments>
-        </filter>
-    </resource>
     <resource path="src-gen/org/osate/categories/ui/internal/CategoriesActivator.java" type="org.osate.categories.ui.internal.CategoriesActivator">
-        <filter comment="Xtext generated code" id="336658481">
-            <message_arguments>
-                <message_argument value="org.osate.categories.ui.internal.CategoriesActivator"/>
-                <message_argument value="PLUGIN_ID"/>
-            </message_arguments>
-        </filter>
         <filter comment="Xtext generated code" id="1143996420">
             <message_arguments>
                 <message_argument value="PLUGIN_ID"/>

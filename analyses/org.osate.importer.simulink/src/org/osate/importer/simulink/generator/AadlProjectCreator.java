@@ -30,6 +30,9 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.model.Component;
 import org.osate.importer.model.Component.ComponentType;
@@ -105,7 +108,10 @@ public class AadlProjectCreator {
 
 		} catch (Exception e) {
 			OsateDebug.osateDebug("Error: " + e.getMessage());
-			e.printStackTrace();
+			IStatus status = new Status(IStatus.ERROR, org.osate.importer.simulink.Activator.PLUGIN_ID, e.getMessage(),
+					e);
+			StatusManager manager = StatusManager.getManager();
+			manager.handle(status, StatusManager.LOG);
 		}
 
 	}
@@ -459,7 +465,10 @@ public class AadlProjectCreator {
 
 		} catch (Exception e) {
 			System.err.println("Error: " + e.getMessage());
-			e.printStackTrace();
+			IStatus status = new Status(IStatus.ERROR, org.osate.importer.simulink.Activator.PLUGIN_ID, e.getMessage(),
+					e);
+			StatusManager manager = StatusManager.getManager();
+			manager.handle(status, StatusManager.LOG);
 		}
 
 	}
