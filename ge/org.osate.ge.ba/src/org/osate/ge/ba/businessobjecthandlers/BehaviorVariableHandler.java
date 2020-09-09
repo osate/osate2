@@ -32,6 +32,7 @@ import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
@@ -47,7 +48,6 @@ import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.ge.graphics.StyleBuilder;
 
 public class BehaviorVariableHandler implements BusinessObjectHandler, CustomDeleter, CustomRenamer {
-	private final static String TYPE_VARIABLE = "ba_variable";
 	private static final GraphicalConfiguration graphicalConfig = GraphicalConfigurationBuilder.create()
 			.graphic(RectangleBuilder.create().build()).style(StyleBuilder.create().labelsCenter().build()).build();
 
@@ -84,13 +84,13 @@ public class BehaviorVariableHandler implements BusinessObjectHandler, CustomDel
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		return new CanonicalBusinessObjectReference(TYPE_VARIABLE,
+		return new CanonicalBusinessObjectReference(BehaviorAnnexReferenceUtil.VARIABLE_TYPE,
 				ctx.getBusinessObject(BehaviorVariable.class).get().getQualifiedName());
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		return new RelativeBusinessObjectReference(TYPE_VARIABLE,
+		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.VARIABLE_TYPE,
 				ctx.getBusinessObject(BehaviorVariable.class).get().getFullName());
 	}
 

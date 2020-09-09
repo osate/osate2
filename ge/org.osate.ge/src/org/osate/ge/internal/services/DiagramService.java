@@ -94,7 +94,7 @@ public interface DiagramService {
 	 */
 	default AgeDiagramEditor openOrCreateDiagramForBusinessObject(final Object bo, final boolean promptForCreate,
 			final boolean promptForConfigureAfterCreate) {
-		return openOrCreateDiagramForBusinessObject(bo, true, false, () -> {
+		return openOrCreateDiagramForBusinessObject(bo, promptForCreate, promptForConfigureAfterCreate, () -> {
 			final IFile diagramFile = createDiagram(bo);
 			return Optional.ofNullable(diagramFile);
 		});

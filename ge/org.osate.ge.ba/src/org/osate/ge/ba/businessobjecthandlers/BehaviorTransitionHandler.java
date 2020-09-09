@@ -33,6 +33,7 @@ import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
 import org.osate.ge.ba.util.BehaviorAnnexGEUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
@@ -49,8 +50,6 @@ import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
 public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomDeleter, CustomRenamer {
-	private final static String TYPE_TRANSITION = "ba_transition";
-
 	private static final StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children()
 			.filterByBusinessObjectRelativeReference((BehaviorTransition bt) -> bt.getSourceState()));
 	private static final StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children()
@@ -81,7 +80,7 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).get();
 		final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorTransition.eContainer();
 		final int index = behaviorAnnex.getTransitions().indexOf(behaviorTransition);
-		return new CanonicalBusinessObjectReference(TYPE_TRANSITION, behaviorAnnex.getQualifiedName(),
+		return new CanonicalBusinessObjectReference(BehaviorAnnexReferenceUtil.TRANSITION_TYPE,
 				Integer.toString(index));
 	}
 
@@ -90,7 +89,7 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).get();
 		final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorTransition.eContainer();
 		final int index = behaviorAnnex.getTransitions().indexOf(behaviorTransition);
-		return new RelativeBusinessObjectReference(TYPE_TRANSITION, behaviorAnnex.getName(), Integer.toString(index));
+		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.TRANSITION_TYPE, Integer.toString(index));
 	}
 
 	@Override

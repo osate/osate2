@@ -22,7 +22,7 @@ public class OpenBehaviorAnnexDiagramHandler extends AbstractHandler {
 				.orElseThrow(() -> new RuntimeException("AnnexSubclause cannot be null"));
 		final Classifier classifier = Objects.requireNonNull(annexSubclause.getContainingClassifier(),
 				"Classifier cannot be null");
-		final String fileName = getFileName(classifier, annexSubclause);
+		final String fileName = BehaviorAnnexHandlerUtil.getFileName(classifier, annexSubclause);
 		DiagramCreationUtil.openOrCreateDiagram(annexSubclause, true, false, new BehaviorAnnexDiagramType(),
 				fileName);
 		return null;
@@ -32,11 +32,5 @@ public class OpenBehaviorAnnexDiagramHandler extends AbstractHandler {
 	public void setEnabled(final Object evaluationContext) {
 		setBaseEnabled(BehaviorAnnexHandlerUtil
 				.getBehaviorAnnexDiagramContext(SelectionUtil.getActiveEditorFromContext(evaluationContext)).isPresent());
-	}
-
-	private static String getFileName(final Classifier classifier, final DefaultAnnexSubclause annexSubclause) {
-		final StringBuilder fileName = new StringBuilder(classifier.getQualifiedName().replaceAll("::|:|\\.", "_"));
-		fileName.append("_behavior_");
-		return fileName.append(classifier.getOwnedAnnexSubclauses().indexOf(annexSubclause)).toString();
 	}
 }

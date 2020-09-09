@@ -23,12 +23,11 @@
  */
 package org.osate.ge.ba.diagram.diagramType;
 
-import org.osate.aadl2.DefaultAnnexSubclause;
+import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ge.DiagramType;
 import org.osate.ge.ba.diagram.contentFilters.BehaviorStateFilter;
 import org.osate.ge.ba.diagram.contentFilters.BehaviorTransitionFilter;
 import org.osate.ge.ba.diagram.contentFilters.BehaviorVariableFilter;
-import org.osate.ge.ba.util.BaUtil;
 
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableSet;
@@ -48,14 +47,12 @@ public class BehaviorAnnexDiagramType implements DiagramType {
 
 	@Override
 	public boolean isApplicableToContext(final Object contextBo) {
-		return contextBo instanceof DefaultAnnexSubclause
-				&& BaUtil.ANNEX_NAME.equalsIgnoreCase(((DefaultAnnexSubclause) contextBo).getName());
+		return contextBo instanceof BehaviorAnnex;
 	}
 
 	@Override
 	public ImmutableSet<String> getDefaultContentFilters(final Object bo) {
-		if (bo instanceof DefaultAnnexSubclause
-				&& BaUtil.ANNEX_NAME.equalsIgnoreCase(((DefaultAnnexSubclause) bo).getName())) {
+		if (bo instanceof BehaviorAnnex) {
 			return ImmutableSet.of(BehaviorTransitionFilter.ID, BehaviorStateFilter.ID, BehaviorVariableFilter.ID);
 		}
 

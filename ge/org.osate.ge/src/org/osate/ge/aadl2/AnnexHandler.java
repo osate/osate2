@@ -104,9 +104,8 @@ public class AnnexHandler extends AadlBusinessObjectHandler {
 		if (bo instanceof AnnexLibrary) {
 			final AnnexLibrary annexLibrary = (AnnexLibrary) bo;
 			final int index = getAnnexLibraryIndex(annexLibrary);
-			return new RelativeBusinessObjectReference(DeclarativeReferenceType.ANNEX_LIBRARY.getId(),
-					annexLibrary.getName(), Integer.toString(index));
-
+			return getRelativeBusinessObjectReference(DeclarativeReferenceType.ANNEX_LIBRARY.getId(),
+					annexLibrary.getName(), index);
 		} else if (bo instanceof AnnexSubclause) {
 			final AnnexSubclause annexSubclause = (AnnexSubclause) bo;
 			if (annexSubclause.getContainingClassifier() == null) {
@@ -114,11 +113,16 @@ public class AnnexHandler extends AadlBusinessObjectHandler {
 			}
 
 			final int index = getAnnexSubclauseIndex(annexSubclause, true);
-			return new RelativeBusinessObjectReference(DeclarativeReferenceType.ANNEX_SUBCLAUSE.getId(),
-					annexSubclause.getName(), Integer.toString(index));
+			return getRelativeBusinessObjectReference(DeclarativeReferenceType.ANNEX_SUBCLAUSE.getId(),
+					annexSubclause.getName(), index);
 		}
 
 		throw new RuntimeException("Unexpected business object " + bo);
+	}
+
+	public static RelativeBusinessObjectReference getRelativeBusinessObjectReference(final String id, final String name,
+			final int index) {
+		return new RelativeBusinessObjectReference(id, name, Integer.toString(index));
 	}
 
 	@Override

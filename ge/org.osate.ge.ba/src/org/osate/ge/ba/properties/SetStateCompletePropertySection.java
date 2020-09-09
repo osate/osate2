@@ -46,14 +46,14 @@ public class SetStateCompletePropertySection extends StatePropertySection {
 		@Override
 		public boolean select(final Object toTest) {
 			return PropertySectionUtil.isBoCompatible(toTest, bo -> {
-				if (bo instanceof BehaviorState) {
-					final BehaviorState behaviorState = (BehaviorState) bo;
-					final Classifier classifier = behaviorState.getContainingClassifier();
-					// Subprograms cannot have complete states
-					return !(classifier instanceof Subprogram);
-				}
+//				if (bo instanceof BehaviorState) {
+//					final BehaviorState behaviorState = (BehaviorState) bo;
+//					final Classifier classifier = behaviorState.getContainingClassifier();
+//					// Subprograms cannot have complete states
+//					return !(classifier instanceof Subprogram);
+//				}
 
-				return false;
+				return bo instanceof BehaviorState;
 			});
 		}
 	}
@@ -107,7 +107,10 @@ public class SetStateCompletePropertySection extends StatePropertySection {
 		setCompleteStateBtn.setSelection(isCompleteState);
 		if (isSingleSelection) {
 			final Classifier classifier = selectedState.getContainingClassifier();
-			if (isCompleteState) {
+			if (classifier instanceof Subprogram) {
+				// Subprograms do not allow complete states
+				setCompleteStateBtn.setEnabled(false);
+			} else if (isCompleteState) {
 				// Would be removing a complete state if selected
 				// Check if any transitions have
 				setCompleteStateBtn.setEnabled(BehaviorAnnexHandlerUtil.requiresCompleteState(classifier)

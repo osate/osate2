@@ -23,9 +23,33 @@
  */
 package org.osate.ge.ba;
 
+import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.aadl2.AnnexHandler;
+import org.osate.ge.ba.util.BaUtil;
+
 public class BehaviorAnnexReferenceUtil {
 	// TODO if this is the only thing in here, combine to one variable ba.behavior_spec and move to different file?
 	// TODO could move to BAUtil or vice versa
-	public final static String BA_REFERENCE_PREFIX = "ba.";
-	public final static String BEHAVIOR_SPECIFICATION_TYPE = BA_REFERENCE_PREFIX + "behavior_specification";
+	public static final String ANNEX_SUBCLAUSE = "annex_subclause";
+	private static final String BA_REFERENCE_PREFIX = "ba.";
+	public static final String STATE_TYPE = BA_REFERENCE_PREFIX + "behavior_state";
+	public static final String TRANSITION_TYPE = BA_REFERENCE_PREFIX + "behavior_transition";
+	public static final String VARIABLE_TYPE = BA_REFERENCE_PREFIX + "behavior_variable";
+	// public final static String BEHAVIOR_SPECIFICATION_TYPE = "behavior_specification";
+
+	public static RelativeBusinessObjectReference getSpecificationRelativeReference(final int index) {
+		return AnnexHandler.getRelativeBusinessObjectReference(ANNEX_SUBCLAUSE, BaUtil.ANNEX_NAME, index);
+	}
+
+	public static RelativeBusinessObjectReference getStateRelativeReference(final String name) {
+		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.STATE_TYPE, name);
+	}
+
+	public static RelativeBusinessObjectReference getTransitionRelativeReference(final int index) {
+		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.TRANSITION_TYPE, String.valueOf(index));
+	}
+
+	public static RelativeBusinessObjectReference getVariableRelativeReference(final String name) {
+		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.VARIABLE_TYPE, name);
+	}
 }
