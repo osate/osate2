@@ -46,8 +46,6 @@ import org.osate.ge.aadl2.ui.internal.properties.SetSubcomponentClassifierProper
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
 import org.osate.ge.swt.classifiers.PrototypeBindingsField;
 
-import com.google.common.collect.ImmutableList;
-
 /**
  * High level commands for testing the OSATE Graphical editor.
  */
@@ -327,13 +325,6 @@ public class OsateGeTestCommands {
 		});
 	}
 
-	public static void createElementAndLayout(final DiagramReference diagram,
-			final DiagramElementReference parentElement, final String paletteItemLabel,
-			final RelativeBusinessObjectReference newReferenceAfterCreate) {
-		createElementAndLayout(diagram, parentElement, paletteItemLabel, newReferenceAfterCreate, () -> {
-		});
-	}
-
 	/**
 	 * Creates a diagram element using a palette tool which will be represented as a shape.
 	 * Preconditions: OSATE shell is active. Specified parent element exists.
@@ -431,13 +422,7 @@ public class OsateGeTestCommands {
 
 	private static void clickElements(final DiagramElementReference[] elements) {
 		for (final DiagramElementReference flowSegment : elements) {
-			final ImmutableList<RelativeBusinessObjectReference> pathToElement = flowSegment.pathToElement;
-			final String[] outlineTreeItems = new String[pathToElement.size()];
-			for (int i = 0; i < pathToElement.size(); i++) {
-				outlineTreeItems[i] = pathToElement.get(i).getSegments().get(1);
-			}
-
-			clickElementInOutlineView(outlineTreeItems);
+			clickElementInOutlineView(flowSegment.toOutlineTreeItemPath());
 		}
 	}
 
