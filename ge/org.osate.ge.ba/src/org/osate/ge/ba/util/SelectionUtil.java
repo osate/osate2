@@ -54,6 +54,7 @@ import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ba.aadlba.BehaviorVariable;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableList.Builder;
@@ -200,7 +201,7 @@ public class SelectionUtil {
 		}
 
 		if (element instanceof DefaultAnnexSubclause
-				&& BaUtil.ANNEX_NAME.equalsIgnoreCase(((NamedElement) element).getName())) {
+				&& BehaviorAnnexReferenceUtil.ANNEX_NAME.equalsIgnoreCase(((NamedElement) element).getName())) {
 			return (DefaultAnnexSubclause) element;
 		}
 

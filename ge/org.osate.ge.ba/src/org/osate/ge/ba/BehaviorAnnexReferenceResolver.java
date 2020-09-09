@@ -29,7 +29,6 @@ import java.util.Optional;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.ge.CanonicalBusinessObjectReference;
-import org.osate.ge.ba.util.BaUtil;
 import org.osate.ge.referencehandling.CreateReferenceResolverFactoryContext;
 import org.osate.ge.referencehandling.ReferenceResolver;
 import org.osate.ge.referencehandling.ReferenceResolverFactory;
@@ -69,7 +68,7 @@ public class BehaviorAnnexReferenceResolver implements ReferenceResolver {
 
 		// Check that the ref is for BA Specification
 		final String name = ref.get(2);
-		if (!BaUtil.ANNEX_NAME.equalsIgnoreCase(name)) {
+		if (!BehaviorAnnexReferenceUtil.ANNEX_NAME.equalsIgnoreCase(name)) {
 			return Optional.empty();
 		}
 

@@ -32,8 +32,9 @@ import org.osate.aadl2.Subprogram;
 import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
+import org.osate.ge.aadl2.GraphicalAnnexUtil;
+import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
 import org.osate.ge.ba.util.BaNamingUtil;
-import org.osate.ge.ba.util.BaUtil;
 import org.osate.ge.ba.util.BehaviorAnnexHandlerUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
@@ -51,7 +52,7 @@ public class CreateSpecificationPaletteCommand extends BasePaletteCommand implem
 		return ctx.getTarget().getBusinessObject(ComponentClassifier.class)
 				.map(c -> Operation.createSimple(ctx.getTarget(), Classifier.class, modifyBo -> {
 					// Create behavior annex
-					final BehaviorAnnex ba = BaUtil.createBehaviorAnnex(modifyBo);
+					final BehaviorAnnex ba = createBehaviorAnnex(modifyBo);
 
 					// Create the state
 					final BehaviorState newState = (BehaviorState) EcoreUtil
@@ -79,5 +80,10 @@ public class CreateSpecificationPaletteCommand extends BasePaletteCommand implem
 					// Show new specification
 					return StepResultBuilder.create().showNewBusinessObject(ctx.getTarget(), ba.getOwner()).build();
 				})).orElse(Optional.empty());
+	}
+
+	public static BehaviorAnnex createBehaviorAnnex(final Classifier c) {
+		return (BehaviorAnnex) GraphicalAnnexUtil.createParsedAnnexSubclause(c, BehaviorAnnexReferenceUtil.ANNEX_NAME,
+				AadlBaPackage.eINSTANCE.getBehaviorAnnex());
 	}
 }

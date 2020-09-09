@@ -26,17 +26,18 @@ package org.osate.ge.ba;
 import java.util.stream.Stream;
 
 import org.osate.aadl2.Classifier;
+import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.BusinessObjectProviderContext;
-import org.osate.ge.ba.util.BaUtil;
+import org.osate.ge.aadl2.GraphicalAnnexUtil;
 
 public class BehaviorAnnexBusinessObjectProvider implements BusinessObjectProvider {
 	@Override
 	public Stream<?> getChildBusinessObjects(final BusinessObjectProviderContext ctx) {
 		final Object bo = ctx.getBusinessObjectContext().getBusinessObject();
 		if (bo instanceof Classifier) {
-			return BaUtil.getBehaviorAnnexes((Classifier) bo);
+			return getBehaviorAnnexes((Classifier) bo);
 		} else if (bo instanceof BehaviorAnnex) {
 			final BehaviorAnnex ba = (BehaviorAnnex) bo;
 			return Stream.concat(Stream.concat(ba.getTransitions().stream(), ba.getStates().stream()),
@@ -44,5 +45,10 @@ public class BehaviorAnnexBusinessObjectProvider implements BusinessObjectProvid
 		}
 
 		return Stream.empty();
+	}
+
+	private static Stream<BehaviorAnnex> getBehaviorAnnexes(final Classifier c) {
+		return GraphicalAnnexUtil.getAllParsedAnnexSubclauses(c, BehaviorAnnexReferenceUtil.ANNEX_NAME,
+				AadlBaPackage.eINSTANCE.getBehaviorAnnex()).map(BehaviorAnnex.class::cast);
 	}
 }

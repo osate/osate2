@@ -34,7 +34,6 @@ import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
-import org.osate.ge.ba.util.BehaviorAnnexGEUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
@@ -46,6 +45,12 @@ import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.businessobjecthandling.RenameContext;
+import org.osate.ge.graphics.ArrowBuilder;
+import org.osate.ge.graphics.Color;
+import org.osate.ge.graphics.ConnectionBuilder;
+import org.osate.ge.graphics.Graphic;
+import org.osate.ge.graphics.Style;
+import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -54,6 +59,11 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 			.filterByBusinessObjectRelativeReference((BehaviorTransition bt) -> bt.getSourceState()));
 	private static final StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children()
 			.filterByBusinessObjectRelativeReference((BehaviorTransition bt) -> bt.getDestinationState()));
+
+	public static final Graphic transitionConnectionGraphic = ConnectionBuilder.create()
+			.destinationTerminator(ArrowBuilder.create().small().filled().build()).build();
+	public static final Style transitionConnectionStyle = StyleBuilder.create().backgroundColor(Color.BLACK)
+			.labelsAboveTop().labelsLeft().build();
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
@@ -97,8 +107,8 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
 		final QueryService queryService = ctx.getQueryService();
 		return Optional
-				.of(GraphicalConfigurationBuilder.create().graphic(BehaviorAnnexGEUtil.transitionConnectionGraphic)
-						.style(BehaviorAnnexGEUtil.transitionConnectionStyle).source(getSource(boc, queryService))
+				.of(GraphicalConfigurationBuilder.create().graphic(transitionConnectionGraphic)
+						.style(transitionConnectionStyle).source(getSource(boc, queryService))
 						.destination(getDestination(boc, queryService)).build());
 	}
 

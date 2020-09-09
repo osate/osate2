@@ -1476,7 +1476,7 @@ censes only apply to the Third Party Software and not any other portion of this 
            class="org.osate.ge.internal.expressions.SelectionPropertyTester"
            id="org.osate.ge.expressions.selectionPropertyTester"
            namespace="org.osate.ge"
-           properties="allAreDiagramElementsWithSameParent,singleNamedElementInComponentImplementation,namedElementsInSameComponentImplementation,isBehaviorAnnex"
+           properties="allAreDiagramElementsWithSameParent,singleNamedElementInComponentImplementation,namedElementsInSameComponentImplementation"
            type="org.eclipse.jface.viewers.ISelection">
      </propertyTester>
   </extension>

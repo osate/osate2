@@ -38,7 +38,7 @@ import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.AnnexHandler;
-import org.osate.ge.ba.util.BaUtil;
+import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
@@ -86,7 +86,7 @@ public class BehaviorSpecificationHandler implements BusinessObjectHandler {
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return BaUtil.ANNEX_NAME;
+		return BehaviorAnnexReferenceUtil.ANNEX_NAME;
 	}
 
 	@Override
@@ -108,7 +108,7 @@ public class BehaviorSpecificationHandler implements BusinessObjectHandler {
 
 			appendInModes(behaviorAnnex, builder);
 			return builder.toString();
-		}).orElse(BaUtil.ANNEX_NAME);
+		}).orElse(BehaviorAnnexReferenceUtil.ANNEX_NAME);
 	}
 
 	private static void appendInModes(final BehaviorAnnex behaviorAnnex, final StringBuilder builder) {
