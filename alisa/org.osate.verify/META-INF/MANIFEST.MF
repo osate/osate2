@@ -35,7 +35,7 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)";visibility:=re
  org.osate.results;bundle-version="[2.0.0,3.0.0)",
  org.osate.organization;bundle-version="[3.0.0,4.0.0)",
  org.eclipse.jface;bundle-version="[3.13.2,4.0.0)",
- org.osate.aadl2.modelsupport;bundle-version="[4.0.0,5.0.0)",
+ org.osate.aadl2.modelsupport;bundle-version="[5.0.0,6.0.0)",
  org.osate.pluginsupport;bundle-version="[5.0.0,6.0.0)",
  org.osate.ui;bundle-version="[5.0.0,6.0.0)"
 Import-Package: com.rockwellcollins.atc.resolute.resolute;resolution:=optional,

@@ -22,7 +22,7 @@ Require-Bundle: org.osate.verify;bundle-version="[3.0.0,4.0.0)";visibility:=reex
  org.osate.reqspec;bundle-version="[3.0.0,4.0.0)",
  org.eclipse.xtext.xbase.lib;bundle-version="[2.20.0,3.0.0)",
  org.osate.categories;bundle-version="[3.0.0,4.0.0)",
- org.osate.aadl2.modelsupport;bundle-version="[4.0.0,5.0.0)",
+ org.osate.aadl2.modelsupport;bundle-version="[5.0.0,6.0.0)",
  org.osate.xtext.aadl2.ui;bundle-version="[5.0.0,6.0.0)",
  org.osate.ui;bundle-version="[5.0.0,6.0.0)",
  org.osate.assure;bundle-version="[3.0.0,4.0.0)",
