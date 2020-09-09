@@ -30,6 +30,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.osate.aadl2.errormodel.FaultTree.util.FaultTreeModel;
 import org.osate.core.OsateCorePlugin;
 
 /**
@@ -39,6 +40,7 @@ import org.osate.core.OsateCorePlugin;
 public class FaultTreePreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 	private static final String ID = "org.osate.internal.ui.properties.FaultTreePreferencePage";
 	public static final String PRECISION = "precision";
+	private IntegerFieldEditor precisionField;
 
 	public FaultTreePreferencePage() {
 		super(GRID);
@@ -56,14 +58,21 @@ public class FaultTreePreferencePage extends FieldEditorPreferencePage implement
 	 */
 	@Override
 	public void createFieldEditors() {
-		final IntegerFieldEditor precisionField = new IntegerFieldEditor(PRECISION,
+		precisionField = new IntegerFieldEditor(PRECISION,
 				"Probability precision",
 				getFieldEditorParent());
 		precisionField.setValidRange(1, Integer.MAX_VALUE);
+		precisionField.setStringValue(Integer.toString(FaultTreeModel.getPrecision()));
 		addField(precisionField);
 	}
 
 	@Override
 	public void init(final IWorkbench workbench) {
+	}
+
+	@Override
+	public boolean performOk() {
+		FaultTreeModel.setPrecision(precisionField.getIntValue());
+		return true;
 	}
 }

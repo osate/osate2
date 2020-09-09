@@ -424,7 +424,7 @@ public class FaultTreeUtils {
 		Event ev = (Event) context;
 		String specProb = "";
 		String precisionPref = "." + FaultTreeModel.getPrecision() + "f";
-
+		System.out.println("probability setting here is " + precisionPref);
 		if (ev.getComputedProbability() != null && ev.getComputedProbability().compareTo(BigZero) != 0
 				&& ev.getAssignedProbability() != null && ev.getAssignedProbability().compareTo(BigZero) != 0) {
 			// specProb = String.format(" (Spec %1$.1e)", ev.getAssignedProbability());
