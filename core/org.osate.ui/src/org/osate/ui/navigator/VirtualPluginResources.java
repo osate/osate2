@@ -23,11 +23,7 @@
  */
 package org.osate.ui.navigator;
 
-import java.util.List;
-
 import org.eclipse.core.resources.IProject;
-import org.eclipse.emf.common.util.URI;
-import org.osate.pluginsupport.PredeclaredProperties;
 import org.osate.xtext.aadl2.ui.resource.ProjectMember;
 
 public final class VirtualPluginResources implements ProjectMember {
@@ -54,12 +50,5 @@ public final class VirtualPluginResources implements ProjectMember {
 	@Override
 	public IProject getProject() {
 		return project;
-	}
-
-	/**
-	 * @since 5.0
-	 */
-	public List<URI> getRawContributions() {
-		return PredeclaredProperties.getEffectiveContributedResources();
 	}
 }

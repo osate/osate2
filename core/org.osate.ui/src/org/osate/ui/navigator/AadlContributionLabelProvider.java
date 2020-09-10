@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -27,11 +27,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.navigator.IDescriptionProvider;
+import org.osate.pluginsupport.PredeclaredProperties;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
@@ -73,16 +75,32 @@ public class AadlContributionLabelProvider extends LabelProvider implements IDes
 			List<String> directoryPath = ((ContributedDirectory) element).getPath();
 			description = "Plug-in Contributions/" + String.join("/", directoryPath);
 		} else if (element instanceof ContributedAadlStorage) {
-			String[] segments = ((ContributedAadlStorage) element).getUri().segments();
-			int i = 2;
-			while (segments[i].startsWith("resource") || segments[i].startsWith("package")
-					|| segments[i].startsWith("propert")) {
-				i++;
+			final URI uri = ((ContributedAadlStorage) element).getUri();
+			final URI overrides = PredeclaredProperties.getOverriddingResources().get(uri);
+			description = uriToNavigatorPath(uri);
+			if (overrides != null) {
+				description = description + " (" + uriToWorkspacePath(uri) + " overrides "
+						+ uriToWorkspacePath(overrides) + ")";
 			}
-			description = "Plug-in Contributions/"
-					+ Arrays.asList(segments).stream().skip(i).collect(Collectors.joining("/"));
 		}
 		return description;
 	}
 
+	private static String uriToLabel(final URI uri, int startSegment) {
+		final String[] segments = uri.segments();
+		int i = startSegment;
+		while (segments[i].startsWith("resource") || segments[i].startsWith("package")
+				|| segments[i].startsWith("propert")) {
+			i++;
+		}
+		return Arrays.asList(segments).stream().skip(i).collect(Collectors.joining("/"));
+	}
+
+	private static String uriToNavigatorPath(final URI uri) {
+		return "Plug-in Contributions/" + uriToLabel(uri, 2);
+	}
+
+	private static String uriToWorkspacePath(final URI uri) {
+		return uriToLabel(uri, 0);
+	}
 }
