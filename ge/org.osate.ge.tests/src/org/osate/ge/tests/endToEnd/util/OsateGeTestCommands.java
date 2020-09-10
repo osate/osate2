@@ -369,7 +369,7 @@ public class OsateGeTestCommands {
 			final RelativeBusinessObjectReference behaviorSpecification, final String newStateName) {
 		final RelativeBusinessObjectReference classifierRef = getClassifierRelativeReference(classifierName);
 
-		// Create specification
+		// Create Behavior Annex specification
 		createShapeElement(diagram, element(pkgRef, classifierRef), "Specification", behaviorSpecification);
 		// Show contents of specification
 		showContentsAndLayout(diagram, new DiagramElementReference(pkgRef, classifierRef, behaviorSpecification));
