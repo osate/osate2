@@ -200,6 +200,14 @@ public class OsateGeTestUtil {
 	}
 
 	/**
+	 * Returns whether the specified element exists
+	 */
+	public static boolean elementExists(final DiagramReference diagram, final DiagramElementReference element) {
+		assertDiagramEditorActive(diagram);
+		return getDiagramElement(diagram, element).isPresent();
+	}
+
+	/**
 	 * Waits until the diagram element exists
 	 */
 	public static void waitForDiagramElementToExist(final DiagramReference diagram,
