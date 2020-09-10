@@ -104,47 +104,40 @@ public class SetStateCompletePropertySection extends StatePropertySection {
 		// Set button enabled and selection state
 		final boolean isCompleteState = selectedState.isComplete();
 		final Button setCompleteStateBtn = getStateButton();
+
+		// Set selection based on selected state(s)
 		setCompleteStateBtn.setSelection(isCompleteState);
+
 		if (isSingleSelection) {
 			final Classifier classifier = selectedState.getContainingClassifier();
 			if (classifier instanceof Subprogram) {
 				// Subprograms do not allow complete states
 				setCompleteStateBtn.setEnabled(false);
 			} else if (isCompleteState) {
-				// Would be removing a complete state if selected
-				// Check if any transitions have
-				setCompleteStateBtn.setEnabled(BehaviorAnnexHandlerUtil.requiresCompleteState(classifier)
-						? allowRemoveCompleteness(classifier, selectedState)
-						: true);
-
-				final boolean allowRemovingCompleteness;
+				// Removing complete state
+				// If classifier requires complete state, check if this complete state can be removed.
+				boolean allowRemovingCompleteness = true;
 				if (BehaviorAnnexHandlerUtil.requiresCompleteState(classifier)) {
 					// Check if completeness can be removed
 					allowRemovingCompleteness = allowRemoveCompleteness(classifier, selectedState);
-				} else {
-					// Does not require a complete state, can be removed
-					allowRemovingCompleteness = true;
 				}
 
 				setCompleteStateBtn.setEnabled(allowRemovingCompleteness);
 			} else {
-				// Would be making a complete state if selected
-				// Check if classifier allows complete state?
-				// All allow a complete state
 				// Check if state is a source, if dispatch is not allowed, cannot make state complete
 				// If already a source, cannot make complete if dispatch is not allowed
 				final Optional<BehaviorTransition> transition = BehaviorAnnexHandlerUtil
 						.getTransitionsForSourceState(selectedState).findAny();
+				boolean allowAddingCompleteness = true;
 				if (transition.isPresent()) {
-					setCompleteStateBtn.setEnabled(BehaviorAnnexHandlerUtil.allowsOnDispatchConditions(classifier));
-				} else {
-					setCompleteStateBtn.setEnabled(true);
+					allowAddingCompleteness = BehaviorAnnexHandlerUtil.allowsOnDispatchConditions(classifier);
 				}
+
+				setCompleteStateBtn.setEnabled(allowAddingCompleteness);
 			}
 		} else {
 			// Set selection state for first selection
 			// Always disabled for multiple selection
-			// setCompleteStateBtn.setSelection(false);
 			setCompleteStateBtn.setEnabled(false);
 		}
 	}
@@ -155,6 +148,4 @@ public class SetStateCompletePropertySection extends StatePropertySection {
 		final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorState.getOwner();
 		return behaviorAnnex.getStates().stream().filter(BehaviorState::isComplete).count() > 1;
 	}
-
-
 }

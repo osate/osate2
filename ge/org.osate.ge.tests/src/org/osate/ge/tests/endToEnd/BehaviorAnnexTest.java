@@ -111,7 +111,7 @@ public class BehaviorAnnexTest {
 			final BiFunction<DiagramElementReference, String, DiagramReference> openDiagram,
 			final boolean requiresInitialState,
 			final boolean allowsOnDispatchCondition) {
-		createBehaviorAnnexWithStateRename(diagram, pkgRef, classifierName, behaviorSpecification, srcStateName);
+		createBehaviorAnnexWithState(diagram, pkgRef, classifierName, behaviorSpecification, srcStateName);
 
 		final RelativeBusinessObjectReference classifierRef = getClassifierRelativeReference(classifierName);
 		final DiagramElementReference specificationDiagramRef = new DiagramElementReference(pkgRef, classifierRef,

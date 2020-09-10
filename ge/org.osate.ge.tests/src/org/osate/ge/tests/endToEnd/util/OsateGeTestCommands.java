@@ -364,19 +364,39 @@ public class OsateGeTestCommands {
 		renameElementFromOutlineView(diagram, parentElement, newReferenceAfterCreate, finalName);
 	}
 
-	public static void createBehaviorAnnexWithStateRename(final DiagramReference diagram,
+	/**
+	 * Creates a behavior annex and a state using the palette tool.
+	 * Preconditions: OSATE shell is active.  Specified classifier element exists.
+	 * Postconditions: A new behavior annex with a state has been created.  The state will be renamed to the specified name.
+	 * @param diagram is the diagram in which to create the behavior annex and behavior state
+	 * @param pkgRef is the package reference in which the classifier belongs to
+	 * @param classifierName is the name of the parent classifier for the behavior specification
+	 * @param behaviorSpecification is the relative reference to the new behavior specification
+	 * @param newStateName is the name to which the behavior state should be renamed to
+	 */
+	public static void createBehaviorAnnexWithState(final DiagramReference diagram,
 			final RelativeBusinessObjectReference pkgRef, final String classifierName,
 			final RelativeBusinessObjectReference behaviorSpecification, final String newStateName) {
 		final RelativeBusinessObjectReference classifierRef = getClassifierRelativeReference(classifierName);
 
 		// Create Behavior Annex specification
 		createShapeElement(diagram, element(pkgRef, classifierRef), "Specification", behaviorSpecification);
+
+		final DiagramElementReference behaviorSpecDiagramRef = element(pkgRef, classifierRef, behaviorSpecification);
+
 		// Show contents of specification
-		showContentsAndLayout(diagram, new DiagramElementReference(pkgRef, classifierRef, behaviorSpecification));
+		showContentsAndLayout(diagram, behaviorSpecDiagramRef);
+
+		final RelativeBusinessObjectReference newStateRef = BehaviorAnnexReferenceUtil
+				.getStateRelativeReference(classifierName.replace(".", "_") + "_new_state");
+		final DiagramElementReference newStateDiagramRef = behaviorSpecDiagramRef.join(newStateRef);
+		if (!elementExists(diagram, newStateDiagramRef)) {
+			// Create state if needed
+			createShapeElement(diagram, behaviorSpecDiagramRef, "State", newStateRef);
+		}
+
 		// Rename initial state
-		renameElementDirectEdit(diagram, element(pkgRef, classifierRef, behaviorSpecification),
-				BehaviorAnnexReferenceUtil.getStateRelativeReference(classifierName.replace(".", "_") + "_new_state"),
-				newStateName);
+		renameElementDirectEdit(diagram, behaviorSpecDiagramRef, newStateRef, newStateName);
 	}
 
 	/**
