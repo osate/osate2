@@ -36,13 +36,13 @@ package org.osate.internal.ui.preferences;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -50,19 +50,17 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.preference.BooleanFieldEditor;
-import org.eclipse.jface.preference.FieldEditor;
-import org.eclipse.jface.preference.FieldEditorPreferencePage;
-import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.jface.util.PropertyChangeEvent;
+import org.eclipse.jface.preference.PreferencePage;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.ListViewer;
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.SashForm;
-import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -71,10 +69,12 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-import org.eclipse.ui.dialogs.ResourceSelectionDialog;
-import org.osate.aadl2.modelsupport.FileNameConstants;
+import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
+import org.eclipse.ui.model.WorkbenchContentProvider;
+import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.osate.pluginsupport.PluginSupportPlugin;
 import org.osate.pluginsupport.PluginSupportUtil;
 import org.osate.pluginsupport.PredeclaredProperties;
@@ -84,18 +84,18 @@ import org.osate.ui.OsateUiPlugin;
  * This class represents the OSATE > Instantiation workspace preferences.
  * @since 5.0
  */
-public final class ContributedResourcesPreferencePage extends FieldEditorPreferencePage
+public final class ContributedResourcesPreferencePage extends PreferencePage
 		implements IWorkbenchPreferencePage {
-	private final Map<String, Boolean> originalValues = new HashMap<>();
-	private List<URI> originalWorkspaceContributions;
+	private Map<URI, URI> originalOverriddenAadl;
+	private final Map<URI, URI> overriddenAadl = new HashMap<>();
 
-	private Map<URI, BooleanFieldEditor> fields = new HashMap<>();
-	private List<URI> workspaceContributions;
-
-	private ListViewer workspaceList;
+	private Button overrideButton;
+	private Button restoreButton;
+	private ListViewer contributedList;
+	private Label uriLabel;
 
 	public ContributedResourcesPreferencePage() {
-		super(GRID);
+		super("Contributed Resources");
 	}
 
 	/**
@@ -103,103 +103,112 @@ public final class ContributedResourcesPreferencePage extends FieldEditorPrefere
 	 */
 	@Override
 	public Control createContents(final Composite parent) {
-		final IPreferenceStore prefs = getPreferenceStore();
+		// Save original settings, and initialize the local copy
+		originalOverriddenAadl = PredeclaredProperties.getOverriddenResources();
+		overriddenAadl.putAll(originalOverriddenAadl);
 
-		final SashForm sashForm = new SashForm(parent, SWT.VERTICAL);
+		final Composite composite = new Composite(parent, SWT.NONE);
+		composite.setLayout(new GridLayout(2, true));
 
-		final Group contributedResourcesGroup = new Group(sashForm, SWT.SHADOW_ETCHED_IN);
-		contributedResourcesGroup.setLayout(new GridLayout(1, true));
-
-		contributedResourcesGroup.setText("Select Plug-in Contributed Resources to Use");
-		final ScrolledComposite scroller = new ScrolledComposite(contributedResourcesGroup, SWT.V_SCROLL);
-		scroller.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, true, true));
-
-		final Composite editorFields = new Composite(scroller, SWT.NONE);
-		for (final URI uri : PluginSupportUtil.getContributedAadl()) {
-			final String preferenceNameForURI = PredeclaredProperties.getIsVisiblePreferenceNameForURI(uri);
-			originalValues.put(preferenceNameForURI, prefs.getBoolean(preferenceNameForURI));
-			final BooleanFieldEditor booleanEditor = new BooleanFieldEditor(
-					preferenceNameForURI, uriToLabel(uri), editorFields);
-			fields.put(uri, booleanEditor);
-			addField(booleanEditor);
-		}
-		editorFields.setSize(editorFields.computeSize(SWT.DEFAULT, SWT.DEFAULT));
-		scroller.setContent(editorFields);
-
-		final List<URI> wc = PredeclaredProperties.getVisibleWorkspaceContributedResources();
-		originalWorkspaceContributions = wc;
-		workspaceContributions = new ArrayList<>(wc); // needs to be mutable
-
-		final Group workpaceContributionsGroup = new Group(sashForm, SWT.SHADOW_ETCHED_IN);
-		workpaceContributionsGroup.setLayout(new GridLayout(2, true));
-		workpaceContributionsGroup.setText("Select Resources in the Workspace to Contribute");
-
-		final Button addButton = new Button(workpaceContributionsGroup, SWT.PUSH);
-		addButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, false, false));
-		addButton.setText("Add");
-		addButton.setToolTipText("Add 1 or more workspace resources to the global list of" + System.lineSeparator()
-				+ "contributed resources.");
-		addButton.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(final SelectionEvent e) {
-				addWorkspaceContributedResources();
-				checkState();
-			}
-		});
-
-		final Button removeButton = new Button(workpaceContributionsGroup, SWT.PUSH);
-		removeButton.setLayoutData(new GridData(SWT.LEFT, SWT.FILL, false, false));
-		removeButton.setText("Remove");
-		removeButton.setEnabled(false);
-		removeButton.setToolTipText("Remove the selected resources from the global" + System.lineSeparator()
-				+ "list of contributed resources.");
-		removeButton.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(final SelectionEvent e) {
-				workspaceContributions.removeAll(((IStructuredSelection) workspaceList.getSelection()).toList());
-				workspaceList.refresh();
-				// Update the error state by checking if duplicates were removed
-				checkState();
-			}
-		});
-
-		workspaceList = new ListViewer(workpaceContributionsGroup); // , SWT.BORDER | SWT.MULTI);
-		workspaceList.getList().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
-		workspaceList.getList().setToolTipText("Hello");
-		workspaceList.addSelectionChangedListener(event -> removeButton.setEnabled(!event.getSelection().isEmpty()));
-		workspaceList.setContentProvider((IStructuredContentProvider) inputElement -> {
+		final List<URI> contributedAadl = PluginSupportUtil.getContributedAadl();
+		contributedList = new ListViewer(composite, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
+		contributedList.getList().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
+		contributedList.setContentProvider((IStructuredContentProvider) inputElement -> {
 			if (inputElement == null) {
 				return new String[0];
 			} else {
 				return ((List<?>) inputElement).toArray();
 			}
 		});
-		workspaceList.setLabelProvider(new LabelProvider() {
+		contributedList.setLabelProvider(new LabelProvider() {
 			@Override
 			public String getText(final Object element) {
 				return uriToLabel((URI) element);
 			}
 		});
-		workspaceList.setInput(workspaceContributions);
+		contributedList.addSelectionChangedListener(event -> {
+			final ISelection selection = event.getSelection();
+			if (selection.isEmpty()) {
+				restoreButton.setEnabled(false);
+				uriLabel.setText("");
+			} else {
+				final URI uri = getURIFromSelection(selection);
+				final boolean overridden = overriddenAadl.containsKey(uri);
+				restoreButton.setEnabled(overridden);
+				uriLabel.setText(uriToReadable(overridden ? overriddenAadl.get(uri) : uri));
+			}
+		});
+		contributedList.setInput(contributedAadl);
 
-		// Set up the field editors
-		sashForm.setWeights(new int[] { 3, 1 });
-		initialize();
-		checkState();
+		overrideButton = new Button(composite, SWT.PUSH);
+		overrideButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, false, false));
+		overrideButton.setText("Override");
+		overrideButton.setToolTipText("Override the URI of the contributed resource with a URI from the workspace.");
+		overrideButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(final SelectionEvent e) {
+				final URI uri = getURIFromSelection(contributedList.getSelection());
+				if (uri != null) {
+					final URI newURI = getWorkspaceContributedResource(uri.lastSegment());
+					overriddenAadl.put(uri, newURI);
+					restoreButton.setEnabled(true);
+					contributedList.refresh();
+					uriLabel.setText(uriToReadable(newURI));
+				}
+			}
+		});
 
-		return sashForm;
+		restoreButton = new Button(composite, SWT.PUSH);
+		restoreButton.setLayoutData(new GridData(SWT.LEFT, SWT.FILL, false, false));
+		restoreButton.setText("Restore");
+		restoreButton.setToolTipText("Restore contributed resource to its plugin-specified URI.");
+		restoreButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(final SelectionEvent e) {
+				final URI uri = getURIFromSelection(contributedList.getSelection());
+				if (uri != null) {
+					overriddenAadl.remove(uri);
+					restoreButton.setEnabled(false);
+					contributedList.refresh();
+					uriLabel.setText(uriToReadable(uri));
+				}
+			}
+		});
+
+		final Group labelGroup = new Group(composite, SWT.SHADOW_ETCHED_IN);
+		labelGroup.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
+		labelGroup.setLayout(new GridLayout(1, true));
+
+		labelGroup.setText("Contributed URI");
+		uriLabel = new Label(labelGroup, SWT.NONE);
+		uriLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		uriLabel.setText("Label!");
+
+
+		// Initialize the list selection and the label text
+		if (contributedAadl.isEmpty()) {
+			uriLabel.setText("");
+		} else {
+			contributedList.setSelection(new StructuredSelection(contributedAadl.get(0)));
+		}
+
+		return composite;
 	}
 
-	private static String uriToLabel(final URI uri) {
+	private static URI getURIFromSelection(final ISelection selection) {
+		return (URI) ((IStructuredSelection) selection).getFirstElement();
+	}
+
+	private static String uriToReadable(final URI uri) {
 		final String uriAsString = uri.toString();
 		final int firstSlash = uriAsString.indexOf('/');
 		final int secondSlash = uriAsString.indexOf('/', firstSlash + 1);
 		return uriAsString.substring(secondSlash + 1);
 	}
 
-	@Override
-	public void createFieldEditors() {
-		// do nothing, we aren't used here
+	private String uriToLabel(final URI uri) {
+		final String suffix = overriddenAadl.containsKey(uri) ? " [Overridden]" : "";
+		return uriToReadable(uri) + suffix;
 	}
 
 	@Override
@@ -212,24 +221,14 @@ public final class ContributedResourcesPreferencePage extends FieldEditorPrefere
 		final boolean ok = super.performOk();
 
 		/* Check if the preferences changed. Don't want to rebuild the workspace if they didn't */
-		final IPreferenceStore prefs = getPreferenceStore();
-		boolean changed = false;
-		for (final Map.Entry<String, Boolean> elt : originalValues.entrySet()) {
-			if (prefs.getBoolean(elt.getKey()) != elt.getValue()) {
-				changed = true;
-				break;
-			}
-		}
-		if (!originalWorkspaceContributions.equals(workspaceContributions)) {
-			PredeclaredProperties.setWorkspaceContributions(workspaceContributions);
-			changed = true;
-		}
+		final boolean changed = !originalOverriddenAadl.equals(overriddenAadl);
 
-		// build the workspace
 		if (changed) {
+			PredeclaredProperties.setOverriddenResources(overriddenAadl);
+
 			/*
 			 * Rebuilding or cleaning the workspace doesn't seem to get the job done. It leaves
-			 * dangling links and other strangeness in the workspace. The most effectively thing
+			 * dangling links and other strangeness in the workspace. The most effective thing
 			 * to do seems to be closing and reopening projects. Have no idea why.
 			 *
 			 * NB. THis CANNOT be a WorkspaceJob because that will cause various events to be suppressed or
@@ -268,105 +267,43 @@ public final class ContributedResourcesPreferencePage extends FieldEditorPrefere
 		return ok;
 	}
 
-	private void addWorkspaceContributedResources() {
-		final ResourceSelectionDialog dialog = new ResourceSelectionDialog(getShell(),
-				ResourcesPlugin.getWorkspace().getRoot(),
-				"Select AADL property sets to be treated as contributed resources.");
-		dialog.open();
-		final Object[] selectedResources = dialog.getResult();
-		if (selectedResources != null) {
-			/* Filter out non-AADL files */
-			final List<URI> selectedAadl = new ArrayList<>();
-			boolean filteredOut = false;
-			for (final Object o : selectedResources) {
-				if (o instanceof IFile) {
-					final IFile f = (IFile) o;
-					if (f.getFileExtension().equals(FileNameConstants.SOURCE_FILE_EXT)) {
-						final URI newURI = URI.createPlatformResourceURI(f.getFullPath().toString(), false);
-						selectedAadl.add(newURI);
-					} else {
-						filteredOut = true;
-					}
+	private URI getWorkspaceContributedResource(final String fileName) {
+		final ElementTreeSelectionDialog dialog = new ElementTreeSelectionDialog(getShell(),
+				new WorkbenchLabelProvider(), new WorkbenchContentProvider());
+		dialog.setInput(ResourcesPlugin.getWorkspace().getRoot());
+		dialog.setAllowMultiple(false); // only singleton selections
+		dialog.addFilter(new ViewerFilter() {
+			@Override
+			public boolean select(final Viewer viewer, final Object parentElement, final Object element) {
+				if (element instanceof IFolder) {
+					// Don't show hidden folders
+					return !((IFolder) element).getName().startsWith(".");
+				} else if (element instanceof IFile) {
+					// Only show files whose name equals the given file name.
+					return ((IFile) element).getName().equals(fileName);
 				} else {
-					filteredOut = true;
+					return true;
 				}
 			}
-			if (!selectedAadl.isEmpty()) {
-				workspaceContributions.addAll(selectedAadl);
-				workspaceList.refresh();
-			}
-			;
-
-			if (filteredOut) {
-				MessageDialog.openInformation(getShell(), "Invalid Resources Ignored",
-						"Selected resources that are not AADL files have been ignored.");
-			}
-		}
-	}
-
-	@Override
-	protected void checkState() {
-		super.checkState();
-		boolean isValid = isValid();
-
-		/*
-		 * Check for duplicate package/property set names among the VISIBLE contributions.
-		 * This is important because we want to be able to make a plug-in contribution invisible,
-		 * and replace it with a workspace contribution.
-		 */
-		final Set<String> names = new HashSet<>();
-		String duplicateName = null;
-		for (final Map.Entry<URI, BooleanFieldEditor> elt : fields.entrySet()) {
-			if (elt.getValue().getBooleanValue()) {
-				final String currentName = elt.getKey().lastSegment();
-				if (!names.add(currentName)) {
-					duplicateName = currentName;
-					break;
-				}
-			}
-		}
-		for (final URI currentURI : workspaceContributions) {
-			final String currentName = currentURI.lastSegment();
-			if (!names.add(currentName)) {
-				duplicateName = currentName;
-				break;
-			}
-		}
-
-		if (duplicateName != null) {
-			setErrorMessage("Resource \"" + duplicateName + "\" contributed more than once.");
-			// State is definitely invalid no matter what the super call says
-			isValid = false;
-		} else {
+		});
+		dialog.setValidator(selection -> {
 			/*
-			 * We didn't add any new errors, but may be invalid due to the super call, so leave isInvalid alone.
-			 * But we may need to clear out the error message.
+			 * Must a be singleton selection of an IFile whose file name is
+			 * the given filename.
 			 */
-			if (isValid) {
-				setErrorMessage(null);
+			if (selection.length == 1 && selection[0] instanceof IFile &&
+					((IFile) selection[0]).getName().equals(fileName)) {
+				return new Status(IStatus.OK, OsateUiPlugin.PLUGIN_ID, "");
+			} else {
+				return new Status(IStatus.ERROR, OsateUiPlugin.PLUGIN_ID,
+						"Must select a file named '" + fileName + "'.");
 			}
+		});
+
+		if (dialog.open() == Window.OK) {
+			return URI.createPlatformResourceURI(((IResource) dialog.getFirstResult()).getFullPath().toString(), false);
+		} else {
+			return null;
 		}
-
-		setValid(isValid);
 	}
-
-	@Override
-	public void performDefaults() {
-		// Set workspace contributions to default
-		workspaceContributions.clear();
-		workspaceContributions.addAll(PredeclaredProperties.getDefaultWorkspaceContributions());
-		workspaceList.refresh();
-
-		// Super call handles the boolean preferences and calls checkState()
-		super.performDefaults();
-	}
-
-	@Override
-	public void propertyChange(PropertyChangeEvent event) {
-        if (event.getProperty().equals(FieldEditor.VALUE)) {
-			checkState();
-        }
-
-		super.propertyChange(event);
-    }
 }
