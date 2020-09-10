@@ -15,7 +15,7 @@ class PropertiesToBeBuiltComputerContribution implements IToBeBuiltComputerContr
 	}
 	
 	override updateProject(ToBeBuilt toBeBuilt, IProject project, IProgressMonitor monitor) throws CoreException {
-		toBeBuilt.toBeUpdated += PredeclaredProperties.visibleContributedResources
+		toBeBuilt.toBeUpdated += PredeclaredProperties.effectiveContributedResources
 	}
 	
 	override removeStorage(ToBeBuilt toBeBuilt, IStorage storage, IProgressMonitor monitor) {

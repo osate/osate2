@@ -31,59 +31,20 @@ import org.osate.pluginsupport.PredeclaredProperties;
 import org.osate.xtext.aadl2.ui.resource.ProjectMember;
 
 public final class VirtualPluginResources implements ProjectMember {
-	/**
-	 * @since 5.0
-	 */
-	public enum Kind {
-		PLUG_IN("Plug-in Contributions") {
-			@Override
-			public List<URI> getRawContributions() {
-				return PredeclaredProperties.getVisiblePluginContributedResources();
-			}
-		},
-		WORKSPACE("Workspace Contributions") {
-			@Override
-			public List<URI> getRawContributions() {
-				return PredeclaredProperties.getVisibleWorkspaceContributedResources();
-			}
-		};
-
-		private final String label;
-
-		private Kind(final String label) {
-			this.label = label;
-		}
-
-		public String getLabel() {
-			return label;
-		}
-
-		public abstract List<URI> getRawContributions();
-	}
-
-	private final Kind kind;
 	private final IProject project;
 
 	/**
 	 * @since 5.0
 	 */
-	public VirtualPluginResources(final Kind kind, final IProject project) {
-		this.kind = kind;
+	public VirtualPluginResources(final IProject project) {
 		this.project = project;
 	}
 
 	/**
 	 * @since 5.0
 	 */
-	public Kind getKind() {
-		return kind;
-	}
-
-	/**
-	 * @since 5.0
-	 */
 	public String getLabel() {
-		return kind.getLabel();
+		return "Plug-in Contributions";
 	}
 
 	public IProject getParent() {
@@ -93,5 +54,12 @@ public final class VirtualPluginResources implements ProjectMember {
 	@Override
 	public IProject getProject() {
 		return project;
+	}
+
+	/**
+	 * @since 5.0
+	 */
+	public List<URI> getRawContributions() {
+		return PredeclaredProperties.getEffectiveContributedResources();
 	}
 }

@@ -34,10 +34,8 @@
 package org.osate.pluginsupport.preferences;
 
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.osate.pluginsupport.PluginSupportPlugin;
-import org.osate.pluginsupport.PluginSupportUtil;
 import org.osate.pluginsupport.PredeclaredProperties;
 
 /**
@@ -46,13 +44,6 @@ import org.osate.pluginsupport.PredeclaredProperties;
  *          Exp $
  */
 public class PreferenceInitializer extends AbstractPreferenceInitializer {
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @seeorg.eclipse.core.runtime.preferences.AbstractPreferenceInitializer#
-	 * initializeDefaultPreferences()
-	 */
 	@Override
 	public void initializeDefaultPreferences() {
 		/**
@@ -60,9 +51,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		 */
 		IPreferenceStore store = PluginSupportPlugin.getDefault().getPreferenceStore();
 
-		for (final URI resourceURI : PluginSupportUtil.getContributedAadl()) {
-			store.setDefault(PredeclaredProperties.getIsVisiblePreferenceNameForURI(resourceURI), true);
-		}
-		store.setDefault(PredeclaredProperties.NUMBER_OF_WORKSPACE_CONTRIBUTIONS, 0);
+		/* By default, none of the contributed resources are overridden by the workspace. */
+		store.setDefault(PredeclaredProperties.NUMBER_OF_WORKSPACE_OVERRIDES, 0);
 	}
 }

@@ -2,8 +2,9 @@ package org.osate.pluginsupport;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
-import java.util.function.Function;
+import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -12,33 +13,31 @@ import org.eclipse.jface.preference.IPreferenceStore;
  * @since 5.0
  */
 public final class PredeclaredProperties {
-	private static final String IS_VISIBLE_PREFIX = "contributed.resource.isVisible.";
-	public static final String NUMBER_OF_WORKSPACE_CONTRIBUTIONS = "contributed.resource.numWorkspace";
-	private static final String WORKSPACE_CONTRIBUTION_PREFIX = "contributed.resource.workspaceURI.";
+	public static final String NUMBER_OF_WORKSPACE_OVERRIDES = "contributed.resource.numOverrides";
+	private static final String WORKSPACE_OVERRIDE_KEY_PREFIX = "contributed.resource.override.key.";
+	private static final String WORKSPACE_OVERRIDE_VALUE_PREFIX = "contributed.resource.override.value.";
 
 	private static final IPreferenceStore preferenceStore = PluginSupportPlugin.getDefault().getPreferenceStore();
 
 	/*
-	 * We make this thread-safe because the preferences are changed the UI thread (most likely) and the
+	 * We make this thread-safe because the preferences are changed in the UI thread (most likely) and the
 	 * state is read from builder threads. We don't expect the preferences to be changed while the builder is
 	 * running???
 	 */
 	private static volatile boolean isChanged = false;
-	private static volatile List<URI> visiblePluginResources;
-	private static volatile List<URI> visibleWorkspaceResources;
-	private static volatile List<URI> visibleContributedResources;
-	private static volatile boolean hasWorkspaceContributions;
+	private static volatile List<URI> contributedResources;
+	private static volatile Map<URI, URI> overriddenResources;
+	private static volatile List<URI> effectiveContributedResources;
 
 	static {
 		// Init the cached list of contributions
-		buildVisibleContributedResources();
-		hasWorkspaceContributions = preferenceStore.getInt(NUMBER_OF_WORKSPACE_CONTRIBUTIONS) > 0;
+		buildContributedResources();
 
 		// Add a listener so we know when to update the cached list of contributions
 		preferenceStore.addPropertyChangeListener(e -> {
 			final String propName = e.getProperty();
-			if (propName.startsWith(IS_VISIBLE_PREFIX) || propName.startsWith(WORKSPACE_CONTRIBUTION_PREFIX)
-					|| propName.equals(NUMBER_OF_WORKSPACE_CONTRIBUTIONS)) {
+			if (propName.startsWith(NUMBER_OF_WORKSPACE_OVERRIDES) || propName.startsWith(WORKSPACE_OVERRIDE_KEY_PREFIX)
+					|| propName.equals(WORKSPACE_OVERRIDE_VALUE_PREFIX)) {
 				isChanged = true;
 			}
 		});
@@ -48,91 +47,69 @@ public final class PredeclaredProperties {
 		return preferenceStore;
 	}
 
-	public static String getIsVisiblePreferenceNameForURI(final URI resourceURI) {
-		return IS_VISIBLE_PREFIX + resourceURI.toString();
-	}
+	private static synchronized void buildContributedResources() {
+		final List<URI> contributed = PluginSupportUtil.getContributedAadl();
 
-	private static void buildVisibleContributedResources() {
-		final List<URI> plugin = new ArrayList<>();
-		final List<URI> workspace;
-		final List<URI> allVisible = new ArrayList<>();
-		for (final URI pluginURI : PluginSupportUtil.getContributedAadl()) {
-			if (preferenceStore.getBoolean(getIsVisiblePreferenceNameForURI(pluginURI))) {
-				plugin.add(pluginURI);
-				allVisible.add(pluginURI);
-			}
+		final Map<URI, URI> replaced = new HashMap<>();
+		final int num = preferenceStore.getInt(NUMBER_OF_WORKSPACE_OVERRIDES);
+		for (int i = 0; i < num; i++) {
+			final URI key = URI.createURI(preferenceStore.getString(WORKSPACE_OVERRIDE_KEY_PREFIX + i));
+			final URI value = URI.createURI(preferenceStore.getString(WORKSPACE_OVERRIDE_VALUE_PREFIX + i));
+			replaced.put(key, value);
 		}
-		workspace = getWorkspaceContributions();
-		allVisible.addAll(workspace);
 
-		visiblePluginResources = Collections.unmodifiableList(plugin);
-		visibleWorkspaceResources = Collections.unmodifiableList(workspace);
-		visibleContributedResources = Collections.unmodifiableList(allVisible);
+		final List<URI> effective = new ArrayList<>(contributed.size());
+		for (final URI key : contributed) {
+			final URI value = replaced.get(key);
+			effective.add(value == null ? key : value);
+		}
+
+		contributedResources = Collections.unmodifiableList(contributed);
+		overriddenResources = Collections.unmodifiableMap(replaced);
+		effectiveContributedResources = Collections.unmodifiableList(effective);
 	}
 
 	private static void updateCachedState() {
 		if (isChanged) {
-			buildVisibleContributedResources();
-			hasWorkspaceContributions = preferenceStore.getInt(NUMBER_OF_WORKSPACE_CONTRIBUTIONS) > 0;
+			buildContributedResources();
 			isChanged = false;
 		}
 	}
 
-	public static List<URI> getVisiblePluginContributedResources() {
+	public static List<URI> getContributedResources() {
 		updateCachedState();
-		return visiblePluginResources;
+		return contributedResources;
 	}
 
-	public static List<URI> getVisibleWorkspaceContributedResources() {
+	public static Map<URI, URI> getOverriddenResources() {
 		updateCachedState();
-		return visibleWorkspaceResources;
+		return overriddenResources;
 	}
 
-	public static List<URI> getVisibleContributedResources() {
+	public static List<URI> getEffectiveContributedResources() {
 		updateCachedState();
-		return visibleContributedResources;
+		return effectiveContributedResources;
 	}
 
-	public static boolean hasWorkspaceContributions() {
-		updateCachedState();
-		return hasWorkspaceContributions;
-	}
+	/**
+	 * Update the overridden contributed resources in the the stored properties.
+	 */
+	public static synchronized void setOverriddenResources(final Map<URI, URI> replaced) {
+		final int size = replaced.size();
+		preferenceStore.setValue(NUMBER_OF_WORKSPACE_OVERRIDES, size);
+		int i = 0;
+		for (Map.Entry<URI, URI> entry : replaced.entrySet()) {
+			final String keyName = WORKSPACE_OVERRIDE_KEY_PREFIX + i;
+			preferenceStore.setValue(keyName, entry.getKey().toString());
 
-	public static void setWorkspaceContributions(final List<URI> workspaceContributions) {
-		final int size = workspaceContributions.size();
-		preferenceStore.setValue(NUMBER_OF_WORKSPACE_CONTRIBUTIONS, size);
-		for (int i = 0; i < size; i++) {
-			String name = WORKSPACE_CONTRIBUTION_PREFIX + (i + 1);
-			String string = workspaceContributions.get(i).toString();
-			preferenceStore.setValue(name, string);
+			final String valueName = WORKSPACE_OVERRIDE_VALUE_PREFIX + i;
+			preferenceStore.setValue(valueName, entry.getValue().toString());
 		}
-	}
-
-	private static List<URI> getWorkspaceContributions(final Function<String, Integer> getSize,
-			final Function<String, String> getURIString) {
-		final int size = getSize.apply(NUMBER_OF_WORKSPACE_CONTRIBUTIONS);
-		if (size > 0) {
-			final List<URI> workspaceContributions = new ArrayList<>(size);
-			for (int i = 1; i <= size; i++) {
-				workspaceContributions.add(URI.createURI(getURIString.apply(WORKSPACE_CONTRIBUTION_PREFIX + i)));
-			}
-			return workspaceContributions;
-		} else {
-			return Collections.emptyList();
-		}
-	}
-
-	private static List<URI> getWorkspaceContributions() {
-		return getWorkspaceContributions(preferenceStore::getInt, preferenceStore::getString);
-	}
-
-	public static List<URI> getDefaultWorkspaceContributions() {
-		return getWorkspaceContributions(preferenceStore::getDefaultInt, preferenceStore::getDefaultString);
 	}
 
 	public static boolean hasSameNameAsVisibleContributedResource(final URI testMe) {
 		final String fileName = testMe.lastSegment();
-		for (final URI uri : getVisibleContributedResources()) {
+		for (final URI uri : getContributedResources()) {
 			if (uri.lastSegment().equalsIgnoreCase(fileName)) {
 				return true;
 			}
