@@ -54,36 +54,85 @@ public class CreateSpecificationPaletteCommand extends BasePaletteCommand implem
 					// Create behavior annex
 					final BehaviorAnnex ba = createBehaviorAnnex(modifyBo);
 
-					// Create the state
-					final BehaviorState newState = (BehaviorState) EcoreUtil
-							.create(AadlBaPackage.eINSTANCE.getBehaviorState());
-					final String newName = BaNamingUtil.buildUniqueIdentifier(ba, "new_state");
-					newState.setName(newName);
+					// Builder for state if needed
+					final StateBuilder stateBuilder = new StateBuilder(ba);
 
+					// Determine if behavior annex must have initial state
 					if (BehaviorAnnexHandlerUtil.requireSingleInitialState(modifyBo)) {
 						// Set state to initial
-						newState.setInitial(true);
+						stateBuilder.setInitial();
 					}
 
 					// Determine if behavior annex must have a final state
 					if (modifyBo instanceof Subprogram) {
-						newState.setFinal(true);
+						stateBuilder.setFinal();
 					}
 
+					// Determine if behavior annex must have a complete state
 					if (BehaviorAnnexHandlerUtil.requiresCompleteState(modifyBo)) {
-						newState.setComplete(true);
+						stateBuilder.setComplete();
 					}
 
-					// Add the new state to the behavior annex
-					ba.getStates().add(newState);
+					// Create state if required
+					if (stateBuilder.isStateRequired()) {
+						// Add the new state to the behavior annex
+						ba.getStates().add(stateBuilder.build());
+					}
 
 					// Show new specification
 					return StepResultBuilder.create().showNewBusinessObject(ctx.getTarget(), ba.getOwner()).build();
 				})).orElse(Optional.empty());
 	}
 
-	public static BehaviorAnnex createBehaviorAnnex(final Classifier c) {
+	private static BehaviorAnnex createBehaviorAnnex(final Classifier c) {
 		return (BehaviorAnnex) GraphicalAnnexUtil.createParsedAnnexSubclause(c, BehaviorAnnexReferenceUtil.ANNEX_NAME,
 				AadlBaPackage.eINSTANCE.getBehaviorAnnex());
+	}
+
+	/**
+	 * Builder to create a state for behavior annexes with the required properties
+	 */
+	private class StateBuilder {
+		private final BehaviorAnnex ba;
+		boolean isInitial = false;
+		boolean isFinal = false;
+		boolean isComplete = false;
+
+		public StateBuilder(final BehaviorAnnex ba) {
+			this.ba = ba;
+		}
+
+		public boolean isStateRequired() {
+			return isInitial || isFinal || isComplete;
+		}
+
+		public void setInitial() {
+			isInitial = true;
+		}
+
+		public void setFinal() {
+			isFinal = true;
+		}
+
+		public void setComplete() {
+			isComplete = true;
+		}
+
+		public BehaviorState build() {
+			// Create behavior state
+			final BehaviorState behaviorState = (BehaviorState) EcoreUtil
+					.create(AadlBaPackage.eINSTANCE.getBehaviorState());
+
+			// Set properties required
+			behaviorState.setInitial(isInitial);
+			behaviorState.setFinal(isFinal);
+			behaviorState.setComplete(isComplete);
+
+			// Set state name
+			final String newName = BaNamingUtil.buildUniqueIdentifier(ba, "new_state");
+			behaviorState.setName(newName);
+
+			return behaviorState;
+		}
 	}
 }
