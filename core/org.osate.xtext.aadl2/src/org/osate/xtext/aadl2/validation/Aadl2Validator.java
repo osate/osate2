@@ -1902,37 +1902,44 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		return result;
 	}
 
+	@SuppressWarnings("incomplete-switch")
 	private void checkFlowPathElements(FlowImplementation flowImpl) {
-		if (flowImpl.getKind() != FlowKind.PATH) {
-			return;
-		}
-		// error(flowImpl, "Here");
-		// cycles through all owned flow segments
+		FlowKind kind = flowImpl.getKind();
+
 		for (int i = 0; i < flowImpl.getOwnedFlowSegments().size(); i++) {
-		// FlowSegment segment = (FlowSegment) flowImpl.getOwnedElements().get(i);
-			// error(flowImpl, "Here");
-//			if (i != 0 && i < flowImpl.getOwnedElements().size() - 1) { // if the element isn't first of last
-//				switch (((FlowSpecification) segment.getFlowElement()).getKind()) {
-//				case SOURCE:
-//					error(segment, "Illegal reference to '" + segment.getContext().getName() + '.'
-//							+ segment.getFlowElement().getName()
-//							+ "'.  Cannot refer to a flow source except for the first segment of an end-to-end flow.");
-//				case SINK:
-//					error(segment, "Illegal reference to '" + segment.getContext().getName() + '.'
-//							+ segment.getFlowElement().getName()
-//							+ "'.  Cannot refer to a flow sink except for the last segment of an end-to-end flow.");
-//				case PATH:
-//					error(segment, "Illegal reference to '" + segment.getContext().getName() + '.'
-//							+ segment.getFlowElement().getName()
-//							+ "'.  Cannot refer to a flow sink except for the last segment of an end-to-end flow.");
-//					break;
-//				default:
-//					error(segment, "Illegal reference to '" + segment.getContext().getName() + '.'
-//							+ segment.getFlowElement().getName()
-//							+ "'.  Cannot refer to a flow sink except for the last segment of an end-to-end flow.");
-//					break;
-//				}
-//			}
+			FlowSegment segment = flowImpl.getOwnedFlowSegments().get(i);
+			if (segment.getContext() instanceof Subcomponent && !segment.getContext().eIsProxy()
+					&& segment.getFlowElement() instanceof FlowSpecification && !segment.getFlowElement().eIsProxy()) {
+				if (kind == FlowKind.PATH) {
+					switch (((FlowSpecification) segment.getFlowElement()).getKind()) {
+					case SOURCE:
+						error(segment, "Illegal reference to '" + segment.getContext().getName() + '.'
+								+ segment.getFlowElement().getName()
+								+ "'.  Cannot refer to a flow source except for the first segment of a flow implementation.");
+						break;
+					case SINK:
+						error(segment, "Illegal reference to '" + segment.getContext().getName() + '.'
+								+ segment.getFlowElement().getName()
+								+ "'.  Cannot refer to a flow sink except for the last segment of a flow implementation.");
+						break;
+					}
+				} else {
+					if (i != 0 && i != flowImpl.getOwnedFlowSegments().size() - 1) {
+						switch (((FlowSpecification) segment.getFlowElement()).getKind()) {
+						case SOURCE:
+							error(segment, "Illegal reference to '" + segment.getContext().getName() + '.'
+									+ segment.getFlowElement().getName()
+									+ "'.  Cannot refer to a flow source except for the first segment of a source specification.");
+							break;
+						case SINK:
+							error(segment, "Illegal reference to '" + segment.getContext().getName() + '.'
+									+ segment.getFlowElement().getName()
+									+ "'.  Cannot refer to a flow sink except for the last segment of a sink specification.");
+							break;
+						}
+					}
+				}
+			}
 		}
 	}
 
