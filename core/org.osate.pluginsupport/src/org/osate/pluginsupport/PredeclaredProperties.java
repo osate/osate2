@@ -27,6 +27,9 @@ public final class PredeclaredProperties {
 	private static volatile boolean isChanged = false;
 	private static volatile List<URI> contributedResources;
 	private static volatile Map<URI, URI> overriddenResources;
+
+	/** Inverse of the above */
+	private static volatile Map<URI, URI> overriddingResources;
 	private static volatile List<URI> effectiveContributedResources;
 
 	static {
@@ -51,11 +54,13 @@ public final class PredeclaredProperties {
 		final List<URI> contributed = PluginSupportUtil.getContributedAadl();
 
 		final Map<URI, URI> replaced = new HashMap<>();
+		final Map<URI, URI> replaces = new HashMap<>();
 		final int num = preferenceStore.getInt(NUMBER_OF_WORKSPACE_OVERRIDES);
 		for (int i = 0; i < num; i++) {
 			final URI key = URI.createURI(preferenceStore.getString(WORKSPACE_OVERRIDE_KEY_PREFIX + i));
 			final URI value = URI.createURI(preferenceStore.getString(WORKSPACE_OVERRIDE_VALUE_PREFIX + i));
 			replaced.put(key, value);
+			replaces.put(value, key);
 		}
 
 		final List<URI> effective = new ArrayList<>(contributed.size());
@@ -66,6 +71,7 @@ public final class PredeclaredProperties {
 
 		contributedResources = Collections.unmodifiableList(contributed);
 		overriddenResources = Collections.unmodifiableMap(replaced);
+		overriddingResources = Collections.unmodifiableMap(replaces);
 		effectiveContributedResources = Collections.unmodifiableList(effective);
 	}
 
@@ -84,6 +90,11 @@ public final class PredeclaredProperties {
 	public static Map<URI, URI> getOverriddenResources() {
 		updateCachedState();
 		return overriddenResources;
+	}
+
+	public static Map<URI, URI> getOverriddingResources() {
+		updateCachedState();
+		return overriddingResources;
 	}
 
 	public static List<URI> getEffectiveContributedResources() {

@@ -71,7 +71,7 @@ public class AadlContributionContentProvider extends WorkbenchContentProvider {
 			}
 			return new Object[0];
 		} else if (element instanceof VirtualPluginResources) {
-			return ((VirtualPluginResources) element).getRawContributions().stream().map(uri -> {
+			return PredeclaredProperties.getEffectiveContributedResources().stream().map(uri -> {
 				OptionalInt firstSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri);
 				if (!firstSignificantIndex.isPresent() || firstSignificantIndex.getAsInt() == uri.segmentCount() - 1) {
 					return new ContributedAadlStorage((VirtualPluginResources) element, uri);
