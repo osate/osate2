@@ -67,17 +67,16 @@ public class SetStateFinalPropertySection extends StatePropertySection {
 		setFinalStateBtn.setSelection(isFinalState);
 		if (isSingleSelection) {
 			if (isFinalState) {
-				// Does classifier require final state? only subprograms
-				// Test for setting state to not final
+				// Determine if final can be removed from state
 				final Classifier classifier = selectedState.getContainingClassifier();
+				// Subprograms require single final state
 				setFinalStateBtn.setEnabled(!(classifier instanceof Subprogram));
 			} else {
-				// Test for setting state to final
+				// Determine if final can be set for state
 				// If behavior state is a source of a transition, it cannot be final
 				final boolean isSourceState = BehaviorAnnexHandlerUtil.getTransitionsForSourceState(selectedState)
 						.findAny().isPresent();
 				setFinalStateBtn.setEnabled(!isSourceState);
-
 			}
 		} else {
 			// Always disabled for multiple selection

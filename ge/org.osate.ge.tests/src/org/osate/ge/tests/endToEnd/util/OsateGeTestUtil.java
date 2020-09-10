@@ -126,6 +126,13 @@ public class OsateGeTestUtil {
 		clickContextMenuOfFocused(texts);
 	}
 
+	/**
+	 * Create a shape element the on the specified diagram within the referenced element.
+	 * @param diagram diagram the element will be created on
+	 * @param parentElement the parent of the new element
+	 * @param paletteItem the type of element to create
+	 * @param referenceAfterCreate the default name of the created element
+	 */
 	public static void createShapeElement(final DiagramReference diagram, final DiagramElementReference parentElement,
 			final String paletteItem, final RelativeBusinessObjectReference referenceAfterCreate) {
 		createShapeElement(diagram, parentElement, paletteItem, referenceAfterCreate, () -> {
