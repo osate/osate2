@@ -39,24 +39,6 @@ public class BehaviorAnnexNamingUtil {
 		return buildUniqueIdentifier(existingIdentifiers, prefix + baseIdentifier);
 	}
 
-	public static String validateName(final Set<String> existingNames, final String oldName, final String newName) {
-		if (newName.equalsIgnoreCase(oldName)) {
-			// Name is unchanged
-			return null;
-		}
-
-		final Set<String> existingIdentifiers = existingNames;
-		if (existingIdentifiers.contains(newName.toLowerCase())) {
-			return "The specified name conflicts with an existing element.";
-		}
-
-		if (!newName.matches("[a-zA-Z]([_]?[a-zA-Z0-9])*")) {
-			return "The specified name is not a valid identifier";
-		}
-
-		return null;
-	}
-
 	private static String buildUniqueIdentifier(final Set<String> existingIdentifiers, final String baseIdentifier) {
 		// Resolve naming conflicts
 		String newIdentifier = baseIdentifier;
@@ -82,7 +64,7 @@ public class BehaviorAnnexNamingUtil {
 		return names;
 	}
 
-	public static void addToNameSet(final Set<String> names, final Collection<? extends NamedElement> elements) {
+	private static void addToNameSet(final Set<String> names, final Collection<? extends NamedElement> elements) {
 		for (final NamedElement el : elements) {
 			if (el.getName() != null) {
 				names.add(el.getName().toLowerCase());
