@@ -49,7 +49,7 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 			.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof BehaviorAnnex).first());
 
 	public CreateTransitionPaletteCommand() {
-		super("Transition", BaPaletteContributor.BEHAVIOR_ANNEX, null);
+		super("Transition", BehaviorAnnexPaletteContributor.BEHAVIOR_ANNEX, null);
 	}
 
 	@Override

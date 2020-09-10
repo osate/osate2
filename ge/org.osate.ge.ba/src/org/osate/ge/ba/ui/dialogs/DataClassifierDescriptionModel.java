@@ -26,18 +26,18 @@ package org.osate.ge.ba.ui.dialogs;
 import java.util.Collection;
 
 import org.eclipse.xtext.resource.IEObjectDescription;
-import org.osate.ge.ba.util.BaNamingUtil;
+import org.osate.ge.ba.util.BehaviorAnnexNamingUtil;
 import org.osate.ge.swt.selectors.CollectionSingleSelectorModel;
 
-public class DataClassifierDescriptionCollectionSingleSelectorModel
+public class DataClassifierDescriptionModel
 		extends CollectionSingleSelectorModel<IEObjectDescription> {
 
-	public DataClassifierDescriptionCollectionSingleSelectorModel(final Collection<IEObjectDescription> elements) {
+	public DataClassifierDescriptionModel(final Collection<IEObjectDescription> elements) {
 		super(elements);
 	}
 
 	@Override
 	public String getLabel(final IEObjectDescription element) {
-		return BaNamingUtil.getQualifiedName(element);
+		return BehaviorAnnexNamingUtil.getQualifiedName(element);
 	}
 }

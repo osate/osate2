@@ -57,9 +57,8 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableList.Builder;
 
-public class SelectionUtil {
+public class BehaviorAnnexSelectionUtil {
 	private static EObjectAtOffsetHelper eObjectAtOffsetHelper = new EObjectAtOffsetHelper();
 
 	public static ISelection getCurrentSelection() {
@@ -71,7 +70,7 @@ public class SelectionUtil {
 		return win.getSelectionService().getSelection();
 	}
 
-	public static IWorkbenchWindow getActiveWorkbenchWindow() {
+	private static IWorkbenchWindow getActiveWorkbenchWindow() {
 		final IWorkbench wb = PlatformUI.getWorkbench();
 		if (wb == null) {
 			return null;
@@ -80,7 +79,7 @@ public class SelectionUtil {
 		return wb.getActiveWorkbenchWindow();
 	}
 
-	public static IWorkbenchPage getActivePage() {
+	private static IWorkbenchPage getActivePage() {
 		final IWorkbenchWindow window = getActiveWorkbenchWindow();
 		if (window == null) {
 			return null;
@@ -108,42 +107,7 @@ public class SelectionUtil {
 		return editorObj instanceof IEditorPart ? (IEditorPart) editorObj : null;
 	}
 
-	public static ImmutableList<BusinessObjectContext> getSelectedBusinessObjectContexts() {
-		return getSelectedBusinessObjectContexts(getCurrentSelection(), false);
-	}
-
-	public static ImmutableList<BusinessObjectContext> getSelectedBusinessObjectContexts(final ISelection selection,
-			final boolean ignoreInvalidType) {
-		return getAdaptedSelection(selection, BusinessObjectContext.class, ignoreInvalidType);
-	}
-
-	/**
-	 *
-	 * @param ignoreInvalidType if true then the selection will skip over instances that cannot be adapted. If false, an empty list will be returned in such cases.
-	 */
-	private static <T> ImmutableList<T> getAdaptedSelection(final ISelection selection, final Class<T> adapter,
-			final boolean ignoreInvalidType) {
-		if (!(selection instanceof IStructuredSelection)) {
-			return ImmutableList.of();
-		}
-
-		final IStructuredSelection ss = (IStructuredSelection) selection;
-		final Builder<T> results = ImmutableList.builder();
-		for (final Object sel : ss.toList()) {
-			final T o = Adapters.adapt(sel, adapter);
-			if (o == null) {
-				if (!ignoreInvalidType) {
-					return ImmutableList.of();
-				}
-			} else {
-				results.add(o);
-			}
-		}
-
-		return results.build();
-	}
-
-	public static ImmutableList<BusinessObjectContext> getSelectedBusinessObjectContexts(final ISelection selection) {
+	private static ImmutableList<BusinessObjectContext> getSelectedBusinessObjectContexts(final ISelection selection) {
 		if (!(selection instanceof IStructuredSelection)) {
 			return ImmutableList.of();
 		}
@@ -177,7 +141,8 @@ public class SelectionUtil {
 		}
 
 		if (selection instanceof IStructuredSelection) {
-			final List<BusinessObjectContext> selectedBusinessObjectContexts = getSelectedBusinessObjectContexts();
+			final List<BusinessObjectContext> selectedBusinessObjectContexts = getSelectedBusinessObjectContexts(
+					selection);
 			if (selectedBusinessObjectContexts.size() == 1) {
 				contextBo = findDiagramContextForSelectedObject(
 						selectedBusinessObjectContexts.get(0).getBusinessObject());

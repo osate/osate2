@@ -34,7 +34,7 @@ import org.osate.ge.palette.PaletteCommandProviderContext;
 import org.osate.ge.palette.PaletteContributor;
 import org.osate.ge.palette.TargetedPaletteCommand;
 
-public class BaPaletteContributor implements PaletteContributor {
+public class BehaviorAnnexPaletteContributor implements PaletteContributor {
 	public static final String BEHAVIOR_ANNEX = "org.osate.ge.ba.categories.ba";
 
 	@Override

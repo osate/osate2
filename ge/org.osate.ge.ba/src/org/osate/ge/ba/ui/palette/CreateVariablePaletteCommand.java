@@ -41,8 +41,8 @@ import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorVariable;
 import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
-import org.osate.ge.ba.ui.dialogs.DataClassifierDescriptionCollectionSingleSelectorModel;
-import org.osate.ge.ba.util.BaNamingUtil;
+import org.osate.ge.ba.ui.dialogs.DataClassifierDescriptionModel;
+import org.osate.ge.ba.util.BehaviorAnnexNamingUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.OperationBuilder;
 import org.osate.ge.operations.StepResult;
@@ -55,7 +55,7 @@ import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
 
 public class CreateVariablePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	public CreateVariablePaletteCommand() {
-		super("Variable", BaPaletteContributor.BEHAVIOR_ANNEX, null);
+		super("Variable", BehaviorAnnexPaletteContributor.BEHAVIOR_ANNEX, null);
 	}
 
 	static class VariableOperation {
@@ -95,7 +95,7 @@ public class CreateVariablePaletteCommand extends BasePaletteCommand implements 
 				final BehaviorAnnex behaviorAnnex) {
 			final Resource resource = behaviorAnnex.eResource();
 
-			final DataClassifierDescriptionCollectionSingleSelectorModel model = new DataClassifierDescriptionCollectionSingleSelectorModel(
+			final DataClassifierDescriptionModel model = new DataClassifierDescriptionModel(
 					AadlModelAccessUtil.getAllEObjectsByType(resource, Aadl2Package.eINSTANCE.getDataClassifier()));
 			if (!FilteringSelectorDialog.open(Display.getCurrent().getActiveShell(),
 					"Set the Variable's Data Classifier",
@@ -148,7 +148,7 @@ public class CreateVariablePaletteCommand extends BasePaletteCommand implements 
 									(tag, behaviorAnnexToModify, prevResult) -> {
 								final BehaviorVariable newVariable = (BehaviorVariable) EcoreUtil
 										.create(AadlBaPackage.eINSTANCE.getBehaviorVariable());
-								final String newName = BaNamingUtil.buildUniqueIdentifier(behaviorAnnexToModify, "new_variable");
+								final String newName = BehaviorAnnexNamingUtil.buildUniqueIdentifier(behaviorAnnexToModify, "new_variable");
 								newVariable.setName(newName);
 										newVariable.setDataClassifier(prevResult.getDataClassifier());
 

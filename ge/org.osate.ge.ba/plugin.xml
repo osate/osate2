@@ -103,7 +103,7 @@ censes only apply to the Third Party Software and not any other portion of this 
       </handler>
    </extension>
    <extension point="org.osate.ge.paletteContributors">
-      <contributor class="org.osate.ge.ba.ui.palette.BaPaletteContributor" />
+      <contributor class="org.osate.ge.ba.ui.palette.BehaviorAnnexPaletteContributor" />
    </extension>
    <extension
        point="org.eclipse.ui.handlers">

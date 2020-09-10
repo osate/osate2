@@ -50,15 +50,15 @@ public class BehaviorAnnexHandlerUtil {
 	 * Will return empty if the selected element is not a behavior diagram element
 	 */
 	public static Optional<DefaultAnnexSubclause> getBehaviorAnnexDiagramContext(final IEditorPart activeEditor) {
-		final ISelection selection = Objects.requireNonNull(SelectionUtil.getCurrentSelection(),
+		final ISelection selection = Objects.requireNonNull(BehaviorAnnexSelectionUtil.getCurrentSelection(),
 				"ISelection cannot be null");
-		return SelectionUtil.getDiagramContext(selection, activeEditor);
+		return BehaviorAnnexSelectionUtil.getDiagramContext(selection, activeEditor);
 	}
 
 	/**
 	 * Creates the file name for the behavior annex diagram
 	 */
-	public static String getFileName(final Classifier classifier, final DefaultAnnexSubclause annexSubclause) {
+	public static String getFilename(final Classifier classifier, final DefaultAnnexSubclause annexSubclause) {
 		final StringBuilder fileName = new StringBuilder(classifier.getQualifiedName().replaceAll("::|:|\\.", "_"));
 		fileName.append("_behavior_");
 		return fileName.append(AnnexHandler.getAnnexSubclauseIndex(annexSubclause, true)).toString();

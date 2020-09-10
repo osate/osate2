@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
-import org.osate.ge.ba.util.BaNamingUtil;
+import org.osate.ge.ba.util.BehaviorAnnexNamingUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
@@ -38,7 +38,7 @@ import org.osate.ge.palette.TargetedPaletteCommand;
 
 public class CreateStatePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	public CreateStatePaletteCommand() {
-		super("State", BaPaletteContributor.BEHAVIOR_ANNEX, null);
+		super("State", BehaviorAnnexPaletteContributor.BEHAVIOR_ANNEX, null);
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class CreateStatePaletteCommand extends BasePaletteCommand implements Tar
 					// Create the state
 					final BehaviorState newState = (BehaviorState) EcoreUtil
 							.create(AadlBaPackage.eINSTANCE.getBehaviorState());
-					final String newName = BaNamingUtil.buildUniqueIdentifier(baToModify, "new_state");
+					final String newName = BehaviorAnnexNamingUtil.buildUniqueIdentifier(baToModify, "new_state");
 					newState.setName(newName);
 
 					// Add the new state to the behavior annex
