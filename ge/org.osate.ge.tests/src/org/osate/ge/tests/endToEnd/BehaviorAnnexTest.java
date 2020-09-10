@@ -58,6 +58,7 @@ public class BehaviorAnnexTest {
 		// Open text editor
 		doubleClickInAadlNavigator(BA_TEST, BA_TEST + ".aadl");
 
+		// Test classifiers
 		createAndTestBehaviorSpecificationForClassifier("Abstract", diagram, pkgElement, pkgRef, false, true);
 		createAndTestBehaviorSpecificationForClassifier("Bus", diagram, pkgElement, pkgRef, false, false);
 		createAndTestBehaviorSpecificationForClassifier("Data", diagram, pkgElement, pkgRef, false, false);
@@ -74,6 +75,17 @@ public class BehaviorAnnexTest {
 		createAndTestBehaviorSpecificationForClassifier("Virtual Processor", diagram, pkgElement, pkgRef, true, false);
 	}
 
+	/*
+	 * - Create a type
+	 * - Create BA in classifier type
+	 * - Create source Behavior State
+	 * - Execute Open -> Behavior Annex Diagram
+	 * - Create destination Behavior State
+	 * - Create behavior variable
+	 * - Create a behavior transition between source and destination
+	 * - Test state and transition properties for classifier
+	 * - Repeat for impl, but execute Open -> New Diagram...
+	 */
 	private void createAndTestBehaviorSpecificationForClassifier(final String classifier,
 			final DiagramReference diagram,
 			final DiagramElementReference pkgElement, final RelativeBusinessObjectReference pkgRef, final boolean requiresInitialState,
@@ -99,6 +111,7 @@ public class BehaviorAnnexTest {
 		// Use Open -> New Diagram... command to create new Behavior Annex diagram
 		final BiFunction<DiagramElementReference, String, DiagramReference> openNewDiagramCommand = (ref,
 				newStatePrefix) -> openNewDiagramFromReference(ref, newStatePrefix, 1);
+
 		// Run tests for impl
 		createAndTestBehaviorSpecification(BehaviorAnnexReferenceUtil.getSpecificationRelativeReference(1),
 				classifierName + ".impl", diagram, pkgRef, srcStateName, openNewDiagramCommand, requiresInitialState,
@@ -121,8 +134,15 @@ public class BehaviorAnnexTest {
 		final String newStatePrefix = classifierName.replace(".", "_");
 		final DiagramReference baDiagram = openDiagram.apply(src, newStatePrefix);
 
-		createBehaviorStateAndVariable(baDiagram, new DiagramElementReference(behaviorSpecification), newStatePrefix,
-				"dest_state");
+		// New specification reference for BA diagram
+		final DiagramElementReference baDiagramSpecRef = new DiagramElementReference(behaviorSpecification);
+
+		// Create destination state
+		createElementAndLayout(baDiagram, baDiagramSpecRef, "State",
+				BehaviorAnnexReferenceUtil.getStateRelativeReference(newStatePrefix + "_new_state"), "dest_state");
+
+		// Create variable
+		createBehaviorVariable(baDiagram, baDiagramSpecRef, "Base_Types::Character", newStatePrefix + "_new_variable");
 
 		final DiagramElementReference dest = new DiagramElementReference(behaviorSpecification)
 				.join(BehaviorAnnexReferenceUtil.getStateRelativeReference("dest_state"));
@@ -132,15 +152,34 @@ public class BehaviorAnnexTest {
 				dest, baDiagram, behaviorSpecification, requiresInitialState, allowsOnDispatchCondition);
 	}
 
-	private void createBehaviorStateAndVariable(final DiagramReference diagram,
-			final DiagramElementReference behaviorSpecification, final String prefix,
-			final String newStateName) {
-		// Create 2nd state
-		createElementAndLayout(diagram, behaviorSpecification, "State",
-				BehaviorAnnexReferenceUtil.getStateRelativeReference(prefix + "_new_state"), newStateName);
+	private void testBehaviorSpecification(final DiagramElementReference src, final DiagramElementReference dest,
+			final DiagramReference diagram, final RelativeBusinessObjectReference behaviorSpecification,
+			final boolean requiresInitialState, final boolean allowsOnDispatch) {
+		clickCheckboxInPropertiesView(diagram, "AADL", 1, dest);
 
-		// Create variable
-		createBehaviorVariable(diagram, behaviorSpecification, "Base_Types::Character", prefix + "_new_variable");
+		assertTrue(isCheckboxInPropertiesViewChecked(diagram, "AADL", 2, src) == requiresInitialState);
+		final boolean isComplete = isCheckboxInPropertiesViewChecked(diagram, "AADL", 0, src);
+		if (isComplete && !allowsOnDispatch) {
+			// Swap complete states from src to destination for classifiers
+			// that require complete states and do not allow dispatch conditions
+			clickCheckboxInPropertiesView(diagram, "AADL", 0, dest);
+			clickCheckboxInPropertiesView(diagram, "AADL", 0, src);
+		}
+
+		// Create a transition between the states
+		createConnectionElement(diagram, src, dest, "Transition",
+				element(behaviorSpecification, BehaviorAnnexReferenceUtil.getTransitionRelativeReference(0)));
+
+		// Cannot set source to final
+		assertTrue(!isCheckboxInPropertiesViewEnabled(diagram, "AADL", 1, src));
+
+		// Assert if source states cannot be set to complete or already complete
+		assertTrue(isComplete || isCheckboxInPropertiesViewEnabled(diagram, "AADL", 0, src) == allowsOnDispatch);
+
+		if (!isComplete && allowsOnDispatch) {
+			// Set completeness
+			clickCheckboxInPropertiesView(diagram, "AADL", 0, src);
+		}
 	}
 
 	// Open Behavior Annex diagram
@@ -172,38 +211,6 @@ public class BehaviorAnnexTest {
 		waitForDiagramActive(baDiagram);
 
 		return baDiagram;
-	}
-
-	private void testBehaviorSpecification(final DiagramElementReference src, final DiagramElementReference dest,
-			final DiagramReference diagram,
-			final RelativeBusinessObjectReference behaviorSpecification, final boolean requiresInitialState,
-			final boolean allowsOnDispatch) {
-		clickCheckboxInPropertiesView(diagram, "AADL", 1, dest);
-
-		assertTrue(isCheckboxInPropertiesViewChecked(diagram, "AADL", 2, src) == requiresInitialState);
-		final boolean isComplete = isCheckboxInPropertiesViewChecked(diagram, "AADL", 0, src);
-		if (isComplete && !allowsOnDispatch) {
-			// Swap complete states from src to destination for classifiers
-			// that require complete states and do not allow dispatch conditions
-			clickCheckboxInPropertiesView(diagram, "AADL", 0, dest);
-			clickCheckboxInPropertiesView(diagram, "AADL", 0, src);
-		}
-
-		// Create a transition between the states
-		createConnectionElement(diagram, src, dest, "Transition",
-				element(behaviorSpecification,
-				BehaviorAnnexReferenceUtil.getTransitionRelativeReference(0)));
-
-		// Cannot set source to final
-		assertTrue(!isCheckboxInPropertiesViewEnabled(diagram, "AADL", 1, src));
-
-		// Assert if source states cannot be set to complete or already complete
-		assertTrue(isComplete || isCheckboxInPropertiesViewEnabled(diagram, "AADL", 0, src) == allowsOnDispatch);
-
-		if (!isComplete && allowsOnDispatch) {
-			// Set completeness
-			clickCheckboxInPropertiesView(diagram, "AADL", 0, src);
-		}
 	}
 
 	private static String getName(final String name) {
