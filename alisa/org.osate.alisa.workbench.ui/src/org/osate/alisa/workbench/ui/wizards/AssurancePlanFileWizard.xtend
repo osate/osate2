@@ -28,7 +28,7 @@ import java.io.StringReader
 import java.util.Map
 import org.eclipse.xtext.parser.IParser
 import org.osate.alisa.workbench.services.AlisaGrammarAccess
-import org.osate.alisa.workbench.ui.internal.AlisaActivator
+import org.osate.alisa.workbench.ui.internal.WorkbenchActivator
 import org.osate.ui.wizards.AbstractNewFileWizard
 
 class AssurancePlanFileWizard extends AbstractNewFileWizard {
@@ -40,7 +40,7 @@ class AssurancePlanFileWizard extends AbstractNewFileWizard {
 	@Inject AlisaGrammarAccess grammarAccess
 	
 	new() {
-		super("Assurance Plan", "alisa", 3, AlisaActivator.instance.log, "org.osate.alisa.workbench.ui")
+		super("Assurance Plan", "alisa", 3, WorkbenchActivator.instance.log, "org.osate.alisa.workbench.ui")
 		addField(CASE_LABEL, [fieldValue | fieldValue.matches("\\S+") &&
 			!parser.parse(grammarAccess.qualifiedNameRule, new StringReader(fieldValue)).hasSyntaxErrors
 		])

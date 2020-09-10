@@ -1,0 +1,39 @@
+--AADL2
+--SAE Aerospace Standard AS5506B
+--Appendix A: Predeclared Property Sets
+
+-- @codegen-package org.osate.aadl2.contrib.modeling
+property set Modeling_Properties is
+
+--- The <b>Acceptable_Array_Size</b> property specifies acceptable values for the array size in each dimension.  This
+--- property can be used to impose a constraint on the array dimension size if it has not been specified to be refined separately.
+
+	Acceptable_Array_Size: list of Array_Size_Range
+		applies to (subcomponent, feature);	
+	Array_Size_Range : type range of aadlinteger;
+	
+	---The <b>Classifier_Matching_Rule</b> property specifies acceptable matches of classifiers between the source and
+	--- the destination of a connection. The semantics of each of the rules are defined in sections 9.1 and 9.5
+	
+	Classifier_Matching_Rule: inherit enumeration (Classifier_Match, Equivalence, Subset, Conversion)
+		applies to (connection, component implementation);
+
+---The <b>Classifier_Substitution_Rule</b> property specifies acceptable substitutions of classifiers in a refined to
+--- declaration.
+	
+	Classifier_Substitution_Rule: inherit enumeration (Classifier_Match, Type_Extension, Signature_Match)
+		applies to (classifier, subcomponent, feature);
+		
+--- The <b>Implemented_As</b> property specifies a system implementation that describes how the internals of a
+--- execution platform component are realized.  This allows systems to be modeled as a layered architecture using the
+--- execution platform as a layering abstraction (see Section 14).
+	
+	Implemented_As: classifier (system implementation, abstract implementation)
+		applies to (memory, bus, virtual bus, device, virtual processor, processor, system);
+		
+--- The <b>Prototype_Substitution_Rule</b> property specifies acceptable classifiers supplied as actual in a prototype
+--- binding.	
+	
+	Prototype_Substitution_Rule: inherit enumeration (Classifier_Match, Type_Extension, Signature_Match)
+		applies to (prototype, classifier);
+end Modeling_Properties;

@@ -1,0 +1,42 @@
+package issue2423
+public
+	
+	abstract E
+		features
+			odp: out data port;
+		flows
+			src: flow source odp;
+	end E;
+	
+	abstract implementation E.i
+	end E.i;
+	
+	abstract C
+		features
+			cfg: feature group FG;
+		flows
+			snk: flow sink cfg.idp {
+				Latency => 1ms .. 1ms;
+			};
+	end C;
+	
+	feature group FG
+		features
+			idp: in data port;
+	end FG;
+
+	system top
+	end top;
+
+	system implementation top.i
+		subcomponents
+			e: abstract E;
+			c: abstract C;
+		connections
+			c1: feature e.odp -> c.cfg.idp;
+		flows
+			ete: end to end flow e.src -> c1 -> c.snk;
+	end top.i;
+	
+end issue2423;
+

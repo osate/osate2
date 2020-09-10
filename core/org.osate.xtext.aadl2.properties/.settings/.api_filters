@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.xtext.aadl2.properties" version="2">
+    <resource path="src-gen/org/osate/xtext/aadl2/properties/AbstractPropertiesRuntimeModule.java" type="org.osate.xtext.aadl2.properties.AbstractPropertiesRuntimeModule">
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="bindIKeywordSerializer()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="bindPropertiesValidator()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/properties/scoping/AbstractPropertiesScopeProvider.java" type="org.osate.xtext.aadl2.properties.scoping.AbstractPropertiesScopeProvider">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.scoping.AbstractPropertiesScopeProvider"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src-gen/org/osate/xtext/aadl2/properties/serializer/AbstractPropertiesSemanticSequencer.java" type="org.osate.xtext.aadl2.properties.serializer.AbstractPropertiesSemanticSequencer">
         <filter comment="xtext" id="576720909">
             <message_arguments>
@@ -20,6 +39,13 @@
                 <message_argument value="ISynTransition"/>
                 <message_argument value="AbstractPropertiesSyntacticSequencer"/>
                 <message_argument value="emitUnassignedTokens(EObject, ISyntacticSequencerPDAProviderISynTransition, INode, INode)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/properties/validation/AbstractPropertiesValidator.java" type="org.osate.xtext.aadl2.properties.validation.AbstractPropertiesValidator">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.validation.AbstractPropertiesValidator"/>
             </message_arguments>
         </filter>
     </resource>

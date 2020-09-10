@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -177,6 +178,7 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorBehaviorState getState()
   {
     if (state != null && state.eIsProxy())
@@ -207,6 +209,7 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setState(ErrorBehaviorState newState)
   {
     ErrorBehaviorState oldState = state;
@@ -220,6 +223,7 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeSet getTypeTokenConstraint()
   {
     return typeTokenConstraint;
@@ -247,6 +251,7 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTypeTokenConstraint(TypeSet newTypeTokenConstraint)
   {
     if (newTypeTokenConstraint != typeTokenConstraint)
@@ -268,6 +273,7 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isAllStates()
   {
     return allStates;
@@ -278,6 +284,7 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setAllStates(boolean newAllStates)
   {
     boolean oldAllStates = allStates;
@@ -291,6 +298,7 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ConditionExpression getCondition()
   {
     return condition;
@@ -318,6 +326,7 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setCondition(ConditionExpression newCondition)
   {
     if (newCondition != condition)
@@ -339,6 +348,7 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorPropagation getOutgoing()
   {
     if (outgoing != null && outgoing.eIsProxy())
@@ -369,6 +379,7 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setOutgoing(ErrorPropagation newOutgoing)
   {
     ErrorPropagation oldOutgoing = outgoing;
@@ -382,6 +393,7 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isAllPropagations()
   {
     return allPropagations;
@@ -392,6 +404,7 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setAllPropagations(boolean newAllPropagations)
   {
     boolean oldAllPropagations = allPropagations;
@@ -405,6 +418,7 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeSet getTypeToken()
   {
     return typeToken;
@@ -432,6 +446,7 @@ public class OutgoingPropagationConditionImpl extends NamedElementImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTypeToken(TypeSet newTypeToken)
   {
     if (newTypeToken != typeToken)

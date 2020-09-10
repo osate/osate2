@@ -23,21 +23,29 @@
  */
 package org.osate.alisa.workbench.services;
 
-import com.google.inject.Singleton;
 import com.google.inject.Inject;
-
+import com.google.inject.Singleton;
 import java.util.List;
-
-import org.eclipse.xtext.*;
-import org.eclipse.xtext.service.GrammarProvider;
-import org.eclipse.xtext.service.AbstractElementFinder.*;
-
-import org.osate.alisa.common.services.CommonGrammarAccess;
+import org.eclipse.xtext.Action;
+import org.eclipse.xtext.Alternatives;
+import org.eclipse.xtext.Assignment;
+import org.eclipse.xtext.CrossReference;
+import org.eclipse.xtext.EnumRule;
+import org.eclipse.xtext.Grammar;
+import org.eclipse.xtext.GrammarUtil;
+import org.eclipse.xtext.Group;
+import org.eclipse.xtext.Keyword;
+import org.eclipse.xtext.ParserRule;
+import org.eclipse.xtext.RuleCall;
+import org.eclipse.xtext.TerminalRule;
+import org.eclipse.xtext.UnorderedGroup;
 import org.eclipse.xtext.common.services.TerminalsGrammarAccess;
+import org.eclipse.xtext.service.AbstractElementFinder.AbstractGrammarElementFinder;
+import org.eclipse.xtext.service.GrammarProvider;
+import org.osate.alisa.common.services.CommonGrammarAccess;
 
 @Singleton
 public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
-	
 	
 	public class AssuranceCaseElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.alisa.workbench.Alisa.AssuranceCase");
@@ -72,72 +80,71 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		//	tasks+=AssuranceTask*
 		//	']';
 		@Override public ParserRule getRule() { return rule; }
-
+		
 		//'assurance' 'case' name=QualifiedName (':' title=STRING)? 'for' system=[aadl2::ComponentType|AadlClassifierReference]
 		//'[' description=Description? assurancePlans+=AssurancePlan+ tasks+=AssuranceTask* ']'
 		public Group getGroup() { return cGroup; }
-
+		
 		//'assurance'
 		public Keyword getAssuranceKeyword_0() { return cAssuranceKeyword_0; }
-
+		
 		//'case'
 		public Keyword getCaseKeyword_1() { return cCaseKeyword_1; }
-
+		
 		//name=QualifiedName
 		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
-
+		
 		//QualifiedName
 		public RuleCall getNameQualifiedNameParserRuleCall_2_0() { return cNameQualifiedNameParserRuleCall_2_0; }
-
+		
 		//(':' title=STRING)?
 		public Group getGroup_3() { return cGroup_3; }
-
+		
 		//':'
 		public Keyword getColonKeyword_3_0() { return cColonKeyword_3_0; }
-
+		
 		//title=STRING
 		public Assignment getTitleAssignment_3_1() { return cTitleAssignment_3_1; }
-
+		
 		//STRING
 		public RuleCall getTitleSTRINGTerminalRuleCall_3_1_0() { return cTitleSTRINGTerminalRuleCall_3_1_0; }
-
+		
 		//'for'
 		public Keyword getForKeyword_4() { return cForKeyword_4; }
-
+		
 		//system=[aadl2::ComponentType|AadlClassifierReference]
 		public Assignment getSystemAssignment_5() { return cSystemAssignment_5; }
-
+		
 		//[aadl2::ComponentType|AadlClassifierReference]
 		public CrossReference getSystemComponentTypeCrossReference_5_0() { return cSystemComponentTypeCrossReference_5_0; }
-
+		
 		//AadlClassifierReference
 		public RuleCall getSystemComponentTypeAadlClassifierReferenceParserRuleCall_5_0_1() { return cSystemComponentTypeAadlClassifierReferenceParserRuleCall_5_0_1; }
-
+		
 		//'['
 		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
-
+		
 		//description=Description?
 		public Assignment getDescriptionAssignment_7() { return cDescriptionAssignment_7; }
-
+		
 		//Description
 		public RuleCall getDescriptionDescriptionParserRuleCall_7_0() { return cDescriptionDescriptionParserRuleCall_7_0; }
-
+		
 		//assurancePlans+=AssurancePlan+
 		public Assignment getAssurancePlansAssignment_8() { return cAssurancePlansAssignment_8; }
-
+		
 		//AssurancePlan
 		public RuleCall getAssurancePlansAssurancePlanParserRuleCall_8_0() { return cAssurancePlansAssurancePlanParserRuleCall_8_0; }
-
+		
 		//tasks+=AssuranceTask*
 		public Assignment getTasksAssignment_9() { return cTasksAssignment_9; }
-
+		
 		//AssuranceTask
 		public RuleCall getTasksAssuranceTaskParserRuleCall_9_0() { return cTasksAssuranceTaskParserRuleCall_9_0; }
-
+		
 		//']'
 		public Keyword getRightSquareBracketKeyword_10() { return cRightSquareBracketKeyword_10; }
 	}
-
 	public class AssurancePlanElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.alisa.workbench.Alisa.AssurancePlan");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -202,168 +209,167 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		//	& ('assume' 'subsystem' (assumeSubsystems+=[aadl2::Subcomponent]+ | assumeAll?='all'))?
 		//	& ('issues' issues+=STRING+)?) ']';
 		@Override public ParserRule getRule() { return rule; }
-
+		
 		//'assurance' 'plan' name=ID (':' title=STRING)? 'for' target=[aadl2::ComponentImplementation|AadlClassifierReference] '['
 		//(description=Description? & ('assure' assure+=[Verify::VerificationPlan|QualifiedName]+)? & ('assure' 'global'
 		//assureGlobal+=[Verify::VerificationPlan|QualifiedName]+)? & ('assure' 'subsystem'
 		//(assureSubsystems+=[aadl2::Subcomponent]+ | assureAll?='all'))? & ('assume' 'subsystem'
 		//(assumeSubsystems+=[aadl2::Subcomponent]+ | assumeAll?='all'))? & ('issues' issues+=STRING+)?) ']'
 		public Group getGroup() { return cGroup; }
-
+		
 		//'assurance'
 		public Keyword getAssuranceKeyword_0() { return cAssuranceKeyword_0; }
-
+		
 		//'plan'
 		public Keyword getPlanKeyword_1() { return cPlanKeyword_1; }
-
+		
 		//name=ID
 		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
-
+		
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
-
+		
 		//(':' title=STRING)?
 		public Group getGroup_3() { return cGroup_3; }
-
+		
 		//':'
 		public Keyword getColonKeyword_3_0() { return cColonKeyword_3_0; }
-
+		
 		//title=STRING
 		public Assignment getTitleAssignment_3_1() { return cTitleAssignment_3_1; }
-
+		
 		//STRING
 		public RuleCall getTitleSTRINGTerminalRuleCall_3_1_0() { return cTitleSTRINGTerminalRuleCall_3_1_0; }
-
+		
 		//'for'
 		public Keyword getForKeyword_4() { return cForKeyword_4; }
-
+		
 		//target=[aadl2::ComponentImplementation|AadlClassifierReference]
 		public Assignment getTargetAssignment_5() { return cTargetAssignment_5; }
-
+		
 		//[aadl2::ComponentImplementation|AadlClassifierReference]
 		public CrossReference getTargetComponentImplementationCrossReference_5_0() { return cTargetComponentImplementationCrossReference_5_0; }
-
+		
 		//AadlClassifierReference
 		public RuleCall getTargetComponentImplementationAadlClassifierReferenceParserRuleCall_5_0_1() { return cTargetComponentImplementationAadlClassifierReferenceParserRuleCall_5_0_1; }
-
+		
 		//'['
 		public Keyword getLeftSquareBracketKeyword_6() { return cLeftSquareBracketKeyword_6; }
-
+		
 		//(description=Description? & ('assure' assure+=[Verify::VerificationPlan|QualifiedName]+)? & ('assure' 'global'
 		//assureGlobal+=[Verify::VerificationPlan|QualifiedName]+)? & ('assure' 'subsystem'
 		//(assureSubsystems+=[aadl2::Subcomponent]+ | assureAll?='all'))? & ('assume' 'subsystem'
 		//(assumeSubsystems+=[aadl2::Subcomponent]+ | assumeAll?='all'))? & ('issues' issues+=STRING+)?)
 		public UnorderedGroup getUnorderedGroup_7() { return cUnorderedGroup_7; }
-
+		
 		//description=Description?
 		public Assignment getDescriptionAssignment_7_0() { return cDescriptionAssignment_7_0; }
-
+		
 		//Description
 		public RuleCall getDescriptionDescriptionParserRuleCall_7_0_0() { return cDescriptionDescriptionParserRuleCall_7_0_0; }
-
+		
 		//('assure' assure+=[Verify::VerificationPlan|QualifiedName]+)?
 		public Group getGroup_7_1() { return cGroup_7_1; }
-
+		
 		//'assure'
 		public Keyword getAssureKeyword_7_1_0() { return cAssureKeyword_7_1_0; }
-
+		
 		//assure+=[Verify::VerificationPlan|QualifiedName]+
 		public Assignment getAssureAssignment_7_1_1() { return cAssureAssignment_7_1_1; }
-
+		
 		//[Verify::VerificationPlan|QualifiedName]
 		public CrossReference getAssureVerificationPlanCrossReference_7_1_1_0() { return cAssureVerificationPlanCrossReference_7_1_1_0; }
-
+		
 		//QualifiedName
 		public RuleCall getAssureVerificationPlanQualifiedNameParserRuleCall_7_1_1_0_1() { return cAssureVerificationPlanQualifiedNameParserRuleCall_7_1_1_0_1; }
-
+		
 		//('assure' 'global' assureGlobal+=[Verify::VerificationPlan|QualifiedName]+)?
 		public Group getGroup_7_2() { return cGroup_7_2; }
-
+		
 		//'assure'
 		public Keyword getAssureKeyword_7_2_0() { return cAssureKeyword_7_2_0; }
-
+		
 		//'global'
 		public Keyword getGlobalKeyword_7_2_1() { return cGlobalKeyword_7_2_1; }
-
+		
 		//assureGlobal+=[Verify::VerificationPlan|QualifiedName]+
 		public Assignment getAssureGlobalAssignment_7_2_2() { return cAssureGlobalAssignment_7_2_2; }
-
+		
 		//[Verify::VerificationPlan|QualifiedName]
 		public CrossReference getAssureGlobalVerificationPlanCrossReference_7_2_2_0() { return cAssureGlobalVerificationPlanCrossReference_7_2_2_0; }
-
+		
 		//QualifiedName
 		public RuleCall getAssureGlobalVerificationPlanQualifiedNameParserRuleCall_7_2_2_0_1() { return cAssureGlobalVerificationPlanQualifiedNameParserRuleCall_7_2_2_0_1; }
-
+		
 		//('assure' 'subsystem' (assureSubsystems+=[aadl2::Subcomponent]+ | assureAll?='all'))?
 		public Group getGroup_7_3() { return cGroup_7_3; }
-
+		
 		//'assure'
 		public Keyword getAssureKeyword_7_3_0() { return cAssureKeyword_7_3_0; }
-
+		
 		//'subsystem'
 		public Keyword getSubsystemKeyword_7_3_1() { return cSubsystemKeyword_7_3_1; }
-
+		
 		//(assureSubsystems+=[aadl2::Subcomponent]+ | assureAll?='all')
 		public Alternatives getAlternatives_7_3_2() { return cAlternatives_7_3_2; }
-
+		
 		//assureSubsystems+=[aadl2::Subcomponent]+
 		public Assignment getAssureSubsystemsAssignment_7_3_2_0() { return cAssureSubsystemsAssignment_7_3_2_0; }
-
+		
 		//[aadl2::Subcomponent]
 		public CrossReference getAssureSubsystemsSubcomponentCrossReference_7_3_2_0_0() { return cAssureSubsystemsSubcomponentCrossReference_7_3_2_0_0; }
-
+		
 		//ID
 		public RuleCall getAssureSubsystemsSubcomponentIDTerminalRuleCall_7_3_2_0_0_1() { return cAssureSubsystemsSubcomponentIDTerminalRuleCall_7_3_2_0_0_1; }
-
+		
 		//assureAll?='all'
 		public Assignment getAssureAllAssignment_7_3_2_1() { return cAssureAllAssignment_7_3_2_1; }
-
+		
 		//'all'
 		public Keyword getAssureAllAllKeyword_7_3_2_1_0() { return cAssureAllAllKeyword_7_3_2_1_0; }
-
+		
 		//('assume' 'subsystem' (assumeSubsystems+=[aadl2::Subcomponent]+ | assumeAll?='all'))?
 		public Group getGroup_7_4() { return cGroup_7_4; }
-
+		
 		//'assume'
 		public Keyword getAssumeKeyword_7_4_0() { return cAssumeKeyword_7_4_0; }
-
+		
 		//'subsystem'
 		public Keyword getSubsystemKeyword_7_4_1() { return cSubsystemKeyword_7_4_1; }
-
+		
 		//(assumeSubsystems+=[aadl2::Subcomponent]+ | assumeAll?='all')
 		public Alternatives getAlternatives_7_4_2() { return cAlternatives_7_4_2; }
-
+		
 		//assumeSubsystems+=[aadl2::Subcomponent]+
 		public Assignment getAssumeSubsystemsAssignment_7_4_2_0() { return cAssumeSubsystemsAssignment_7_4_2_0; }
-
+		
 		//[aadl2::Subcomponent]
 		public CrossReference getAssumeSubsystemsSubcomponentCrossReference_7_4_2_0_0() { return cAssumeSubsystemsSubcomponentCrossReference_7_4_2_0_0; }
-
+		
 		//ID
 		public RuleCall getAssumeSubsystemsSubcomponentIDTerminalRuleCall_7_4_2_0_0_1() { return cAssumeSubsystemsSubcomponentIDTerminalRuleCall_7_4_2_0_0_1; }
-
+		
 		//assumeAll?='all'
 		public Assignment getAssumeAllAssignment_7_4_2_1() { return cAssumeAllAssignment_7_4_2_1; }
-
+		
 		//'all'
 		public Keyword getAssumeAllAllKeyword_7_4_2_1_0() { return cAssumeAllAllKeyword_7_4_2_1_0; }
-
+		
 		//('issues' issues+=STRING+)?
 		public Group getGroup_7_5() { return cGroup_7_5; }
-
+		
 		//'issues'
 		public Keyword getIssuesKeyword_7_5_0() { return cIssuesKeyword_7_5_0; }
-
+		
 		//issues+=STRING+
 		public Assignment getIssuesAssignment_7_5_1() { return cIssuesAssignment_7_5_1; }
-
+		
 		//STRING
 		public RuleCall getIssuesSTRINGTerminalRuleCall_7_5_1_0() { return cIssuesSTRINGTerminalRuleCall_7_5_1_0; }
-
+		
 		//']'
 		public Keyword getRightSquareBracketKeyword_8() { return cRightSquareBracketKeyword_8; }
 	}
-
 	public class AssuranceTaskElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.alisa.workbench.Alisa.AssuranceTask");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -399,84 +405,84 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		//	& ('category' category+=[categories::Category|QualifiedName]+ anyCategory?='any'?)?
 		//	& ('issues' issues+=STRING+)?) ']';
 		@Override public ParserRule getRule() { return rule; }
-
+		
 		//{AssuranceTask} 'assurance' 'task' name=ID (':' title=STRING)? '[' (description=Description? & ('category'
 		//category+=[categories::Category|QualifiedName]+ anyCategory?='any'?)? & ('issues' issues+=STRING+)?) ']'
 		public Group getGroup() { return cGroup; }
-
+		
 		//{AssuranceTask}
 		public Action getAssuranceTaskAction_0() { return cAssuranceTaskAction_0; }
-
+		
 		//'assurance'
 		public Keyword getAssuranceKeyword_1() { return cAssuranceKeyword_1; }
-
+		
 		//'task'
 		public Keyword getTaskKeyword_2() { return cTaskKeyword_2; }
-
+		
 		//name=ID
 		public Assignment getNameAssignment_3() { return cNameAssignment_3; }
-
+		
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_3_0() { return cNameIDTerminalRuleCall_3_0; }
-
+		
 		//(':' title=STRING)?
 		public Group getGroup_4() { return cGroup_4; }
-
+		
 		//':'
 		public Keyword getColonKeyword_4_0() { return cColonKeyword_4_0; }
-
+		
 		//title=STRING
 		public Assignment getTitleAssignment_4_1() { return cTitleAssignment_4_1; }
-
+		
 		//STRING
 		public RuleCall getTitleSTRINGTerminalRuleCall_4_1_0() { return cTitleSTRINGTerminalRuleCall_4_1_0; }
-
+		
 		//'['
 		public Keyword getLeftSquareBracketKeyword_5() { return cLeftSquareBracketKeyword_5; }
-
+		
 		//(description=Description? & ('category' category+=[categories::Category|QualifiedName]+ anyCategory?='any'?)? &
 		//('issues' issues+=STRING+)?)
 		public UnorderedGroup getUnorderedGroup_6() { return cUnorderedGroup_6; }
-
+		
 		//description=Description?
 		public Assignment getDescriptionAssignment_6_0() { return cDescriptionAssignment_6_0; }
-
+		
 		//Description
 		public RuleCall getDescriptionDescriptionParserRuleCall_6_0_0() { return cDescriptionDescriptionParserRuleCall_6_0_0; }
-
+		
 		//('category' category+=[categories::Category|QualifiedName]+ anyCategory?='any'?)?
 		public Group getGroup_6_1() { return cGroup_6_1; }
-
+		
 		//'category'
 		public Keyword getCategoryKeyword_6_1_0() { return cCategoryKeyword_6_1_0; }
-
+		
 		//category+=[categories::Category|QualifiedName]+
 		public Assignment getCategoryAssignment_6_1_1() { return cCategoryAssignment_6_1_1; }
-
+		
 		//[categories::Category|QualifiedName]
 		public CrossReference getCategoryCategoryCrossReference_6_1_1_0() { return cCategoryCategoryCrossReference_6_1_1_0; }
-
+		
 		//QualifiedName
 		public RuleCall getCategoryCategoryQualifiedNameParserRuleCall_6_1_1_0_1() { return cCategoryCategoryQualifiedNameParserRuleCall_6_1_1_0_1; }
-
+		
 		//anyCategory?='any'?
 		public Assignment getAnyCategoryAssignment_6_1_2() { return cAnyCategoryAssignment_6_1_2; }
-
+		
 		//'any'
 		public Keyword getAnyCategoryAnyKeyword_6_1_2_0() { return cAnyCategoryAnyKeyword_6_1_2_0; }
-
+		
 		//('issues' issues+=STRING+)?
 		public Group getGroup_6_2() { return cGroup_6_2; }
-
+		
 		//'issues'
 		public Keyword getIssuesKeyword_6_2_0() { return cIssuesKeyword_6_2_0; }
-
+		
 		//issues+=STRING+
 		public Assignment getIssuesAssignment_6_2_1() { return cIssuesAssignment_6_2_1; }
-
+		
 		//STRING
 		public RuleCall getIssuesSTRINGTerminalRuleCall_6_2_1_0() { return cIssuesSTRINGTerminalRuleCall_6_2_1_0; }
-
+		
 		//']'
 		public Keyword getRightSquareBracketKeyword_7() { return cRightSquareBracketKeyword_7; }
 	}
@@ -487,15 +493,15 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	private final AssuranceTaskElements pAssuranceTask;
 	
 	private final Grammar grammar;
-
+	
 	private final CommonGrammarAccess gaCommon;
-
+	
 	private final TerminalsGrammarAccess gaTerminals;
 
 	@Inject
 	public AlisaGrammarAccess(GrammarProvider grammarProvider,
-		CommonGrammarAccess gaCommon,
-		TerminalsGrammarAccess gaTerminals) {
+			CommonGrammarAccess gaCommon,
+			TerminalsGrammarAccess gaTerminals) {
 		this.grammar = internalFindGrammar(grammarProvider);
 		this.gaCommon = gaCommon;
 		this.gaTerminals = gaTerminals;
@@ -525,11 +531,11 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		return grammar;
 	}
 	
-
+	
 	public CommonGrammarAccess getCommonGrammarAccess() {
 		return gaCommon;
 	}
-
+	
 	public TerminalsGrammarAccess getTerminalsGrammarAccess() {
 		return gaTerminals;
 	}
@@ -550,7 +556,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getAssuranceCaseRule() {
 		return getAssuranceCaseAccess().getRule();
 	}
-
+	
 	//AssurancePlan:
 	//	'assurance' 'plan' name=ID (':' title=STRING)?
 	//	'for' target=[aadl2::ComponentImplementation|AadlClassifierReference]
@@ -567,7 +573,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getAssurancePlanRule() {
 		return getAssurancePlanAccess().getRule();
 	}
-
+	
 	//AssuranceTask categories::CategoryFilter:
 	//	{AssuranceTask} 'assurance' 'task' name=ID (':' title=STRING)?
 	//	'[' (description=Description?
@@ -580,7 +586,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getAssuranceTaskRule() {
 		return getAssuranceTaskAccess().getRule();
 	}
-
+	
 	//Description:
 	//	'description' description+=DescriptionElement+;
 	public CommonGrammarAccess.DescriptionElements getDescriptionAccess() {
@@ -590,7 +596,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getDescriptionRule() {
 		return getDescriptionAccess().getRule();
 	}
-
+	
 	//DescriptionElement:
 	//	text=STRING | => thisTarget?='this' | => image=ImageReference | showValue=ShowValue;
 	public CommonGrammarAccess.DescriptionElementElements getDescriptionElementAccess() {
@@ -600,7 +606,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getDescriptionElementRule() {
 		return getDescriptionElementAccess().getRule();
 	}
-
+	
 	//Rationale:
 	//	'rationale' description+=DescriptionElement+;
 	public CommonGrammarAccess.RationaleElements getRationaleAccess() {
@@ -610,7 +616,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getRationaleRule() {
 		return getRationaleAccess().getRule();
 	}
-
+	
 	//Uncertainty:
 	//	{Uncertainty} 'uncertainty'
 	//	'[' (('volatility' volatility=INT)?
@@ -624,7 +630,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getUncertaintyRule() {
 		return getUncertaintyAccess().getRule();
 	}
-
+	
 	//TypeRef aadl2::PropertyType:
 	//	{aadl2::AadlBoolean} 'boolean'
 	//	| {aadl2::AadlInteger} 'integer' ('units' referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])?
@@ -639,7 +645,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getTypeRefRule() {
 		return getTypeRefAccess().getRule();
 	}
-
+	
 	//PropertyRef aadl2::PropertyType:
 	//	{PropertyRef} ref=[aadl2::Property|AADLPROPERTYREFERENCE];
 	public CommonGrammarAccess.PropertyRefElements getPropertyRefAccess() {
@@ -649,7 +655,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getPropertyRefRule() {
 		return getPropertyRefAccess().getRule();
 	}
-
+	
 	//ValDeclaration AVariableDeclaration:
 	//	{ValDeclaration} 'val' name=ID (':' (type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef | 'typeof'
 	//	type=PropertyRef) ']'))? '=' value=AExpression;
@@ -660,7 +666,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getValDeclarationRule() {
 		return getValDeclarationAccess().getRule();
 	}
-
+	
 	//ComputeDeclaration AVariableDeclaration:
 	//	{ComputeDeclaration}
 	//	'compute' name=ID ':' (type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef | 'typeof'
@@ -672,7 +678,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getComputeDeclarationRule() {
 		return getComputeDeclarationAccess().getRule();
 	}
-
+	
 	//// Reference to property, property constant, or model element.
 	//AModelOrPropertyReference AExpression:
 	//	AModelReference (=> ({APropertyReference.modelElementReference=current} '#')
@@ -685,7 +691,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getAModelOrPropertyReferenceRule() {
 		return getAModelOrPropertyReferenceAccess().getRule();
 	}
-
+	
 	//AModelReference:
 	//	modelElement=[aadl2::NamedElement|ThisKeyword] ({AModelReference.prev=current} '.'
 	//	modelElement=[aadl2::NamedElement])*;
@@ -696,7 +702,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getAModelReferenceRule() {
 		return getAModelReferenceAccess().getRule();
 	}
-
+	
 	//APropertyReference:
 	//	{APropertyReference} '#' property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE];
 	public CommonGrammarAccess.APropertyReferenceElements getAPropertyReferenceAccess() {
@@ -706,7 +712,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getAPropertyReferenceRule() {
 		return getAPropertyReferenceAccess().getRule();
 	}
-
+	
 	//AVariableReference AExpression:
 	//	{AVariableReference} variable=[AVariableDeclaration];
 	public CommonGrammarAccess.AVariableReferenceElements getAVariableReferenceAccess() {
@@ -716,7 +722,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getAVariableReferenceRule() {
 		return getAVariableReferenceAccess().getRule();
 	}
-
+	
 	//ShowValue AUnitExpression:
 	//	expression=AVariableReference ((convert?='%' | drop?='in') unit=[aadl2::UnitLiteral])?;
 	public CommonGrammarAccess.ShowValueElements getShowValueAccess() {
@@ -726,7 +732,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getShowValueRule() {
 		return getShowValueAccess().getRule();
 	}
-
+	
 	//ImageReference:
 	//	'img' imgfile=IMGREF;
 	public CommonGrammarAccess.ImageReferenceElements getImageReferenceAccess() {
@@ -736,7 +742,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getImageReferenceRule() {
 		return getImageReferenceAccess().getRule();
 	}
-
+	
 	//IMGREF:
 	//	(ID '/')* ID '.' ID;
 	public CommonGrammarAccess.IMGREFElements getIMGREFAccess() {
@@ -746,7 +752,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getIMGREFRule() {
 		return getIMGREFAccess().getRule();
 	}
-
+	
 	//enum Operation:
 	//	OR='or' | ALT_OR='||'
 	//	| AND='and' | ALT_AND='&&'
@@ -762,7 +768,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public EnumRule getOperationRule() {
 		return getOperationAccess().getRule();
 	}
-
+	
 	//AExpression aadl2::PropertyExpression:
 	//	AOrExpression;
 	public CommonGrammarAccess.AExpressionElements getAExpressionAccess() {
@@ -772,7 +778,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getAExpressionRule() {
 		return getAExpressionAccess().getRule();
 	}
-
+	
 	//AOrExpression aadl2::PropertyExpression:
 	//	AAndExpression (=> ({ABinaryOperation.left=current} operator=OpOr) right=AAndExpression)*;
 	public CommonGrammarAccess.AOrExpressionElements getAOrExpressionAccess() {
@@ -782,7 +788,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getAOrExpressionRule() {
 		return getAOrExpressionAccess().getRule();
 	}
-
+	
 	//OpOr Operation:
 	//	'or' | '||';
 	public CommonGrammarAccess.OpOrElements getOpOrAccess() {
@@ -792,7 +798,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getOpOrRule() {
 		return getOpOrAccess().getRule();
 	}
-
+	
 	//AAndExpression aadl2::PropertyExpression:
 	//	AEqualityExpression (=> ({ABinaryOperation.left=current} operator=OpAnd) right=AEqualityExpression)*;
 	public CommonGrammarAccess.AAndExpressionElements getAAndExpressionAccess() {
@@ -802,7 +808,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getAAndExpressionRule() {
 		return getAAndExpressionAccess().getRule();
 	}
-
+	
 	//OpAnd Operation:
 	//	'and' | '&&';
 	public CommonGrammarAccess.OpAndElements getOpAndAccess() {
@@ -812,7 +818,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getOpAndRule() {
 		return getOpAndAccess().getRule();
 	}
-
+	
 	//AEqualityExpression aadl2::PropertyExpression:
 	//	ARelationalExpression (=> ({ABinaryOperation.left=current} operator=OpEquality) right=ARelationalExpression)*;
 	public CommonGrammarAccess.AEqualityExpressionElements getAEqualityExpressionAccess() {
@@ -822,7 +828,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getAEqualityExpressionRule() {
 		return getAEqualityExpressionAccess().getRule();
 	}
-
+	
 	//OpEquality Operation:
 	//	'==' | '!=';
 	public CommonGrammarAccess.OpEqualityElements getOpEqualityAccess() {
@@ -832,7 +838,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getOpEqualityRule() {
 		return getOpEqualityAccess().getRule();
 	}
-
+	
 	//ARelationalExpression aadl2::PropertyExpression:
 	//	AAdditiveExpression (=> ({ABinaryOperation.left=current} operator=OpCompare) right=AAdditiveExpression)*;
 	public CommonGrammarAccess.ARelationalExpressionElements getARelationalExpressionAccess() {
@@ -842,7 +848,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getARelationalExpressionRule() {
 		return getARelationalExpressionAccess().getRule();
 	}
-
+	
 	//OpCompare Operation:
 	//	'>=' | '<=' | '>' | '<' | '><';
 	public CommonGrammarAccess.OpCompareElements getOpCompareAccess() {
@@ -852,7 +858,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getOpCompareRule() {
 		return getOpCompareAccess().getRule();
 	}
-
+	
 	////AOtherOperatorExpression returns aadl2::PropertyExpression:
 	////	AAdditiveExpression (=>({ABinaryOperation.leftOperand=current} feature=OpOther)
 	////	rightOperand=AAdditiveExpression)*;
@@ -876,7 +882,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getAAdditiveExpressionRule() {
 		return getAAdditiveExpressionAccess().getRule();
 	}
-
+	
 	//OpAdd Operation:
 	//	'+' | '-';
 	public CommonGrammarAccess.OpAddElements getOpAddAccess() {
@@ -886,7 +892,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getOpAddRule() {
 		return getOpAddAccess().getRule();
 	}
-
+	
 	//AMultiplicativeExpression aadl2::PropertyExpression:
 	//	AUnaryOperation (=> ({ABinaryOperation.left=current} operator=OpMulti) right=AUnaryOperation)*;
 	public CommonGrammarAccess.AMultiplicativeExpressionElements getAMultiplicativeExpressionAccess() {
@@ -896,7 +902,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getAMultiplicativeExpressionRule() {
 		return getAMultiplicativeExpressionAccess().getRule();
 	}
-
+	
 	//OpMulti Operation:
 	//	'*' | '/' | 'div' | 'mod';
 	public CommonGrammarAccess.OpMultiElements getOpMultiAccess() {
@@ -906,7 +912,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getOpMultiRule() {
 		return getOpMultiAccess().getRule();
 	}
-
+	
 	//AUnaryOperation aadl2::PropertyExpression:
 	//	{AUnaryOperation} => operator=OpUnary operand=AUnaryOperation | AUnitExpression;
 	public CommonGrammarAccess.AUnaryOperationElements getAUnaryOperationAccess() {
@@ -916,7 +922,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getAUnaryOperationRule() {
 		return getAUnaryOperationAccess().getRule();
 	}
-
+	
 	//OpUnary Operation:
 	//	"not" | "-" | "+";
 	public CommonGrammarAccess.OpUnaryElements getOpUnaryAccess() {
@@ -926,7 +932,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getOpUnaryRule() {
 		return getOpUnaryAccess().getRule();
 	}
-
+	
 	//AUnitExpression aadl2::PropertyExpression:
 	//	APrimaryExpression ({AUnitExpression.expression=current} (convert?='%' | drop?='in')? unit=[aadl2::UnitLiteral])?;
 	public CommonGrammarAccess.AUnitExpressionElements getAUnitExpressionAccess() {
@@ -936,7 +942,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getAUnitExpressionRule() {
 		return getAUnitExpressionAccess().getRule();
 	}
-
+	
 	//APrimaryExpression aadl2::PropertyExpression:
 	//	ALiteral | AVariableReference | AModelOrPropertyReference | AFunctionCall | ARangeExpression | AIfExpression
 	//	| AParenthesizedExpression;
@@ -947,7 +953,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getAPrimaryExpressionRule() {
 		return getAPrimaryExpressionAccess().getRule();
 	}
-
+	
 	//AFunctionCall aadl2::PropertyExpression:
 	//	{AFunctionCall} function=QualifiedName '(' (arguments+=AExpression (',' arguments+=AExpression)*)? ')';
 	public CommonGrammarAccess.AFunctionCallElements getAFunctionCallAccess() {
@@ -957,7 +963,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getAFunctionCallRule() {
 		return getAFunctionCallAccess().getRule();
 	}
-
+	
 	//ARangeExpression aadl2::PropertyExpression:
 	//	{ARange} '[' minimum=AExpression '..' maximum=AExpression (=> 'delta' delta=AExpression)? ']';
 	public CommonGrammarAccess.ARangeExpressionElements getARangeExpressionAccess() {
@@ -967,7 +973,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getARangeExpressionRule() {
 		return getARangeExpressionAccess().getRule();
 	}
-
+	
 	//AIfExpression aadl2::PropertyExpression:
 	//	{AConditional} 'if' if=AExpression 'then' then=AExpression ('else' else=AExpression)? 'endif';
 	public CommonGrammarAccess.AIfExpressionElements getAIfExpressionAccess() {
@@ -977,7 +983,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getAIfExpressionRule() {
 		return getAIfExpressionAccess().getRule();
 	}
-
+	
 	//ALiteral aadl2::PropertyExpression:
 	//	ABooleanLiteral | ARealTerm | AIntegerTerm | StringTerm;
 	public CommonGrammarAccess.ALiteralElements getALiteralAccess() {
@@ -987,7 +993,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getALiteralRule() {
 		return getALiteralAccess().getRule();
 	}
-
+	
 	//AIntegerTerm aadl2::IntegerLiteral:
 	//	value=AInt;
 	public CommonGrammarAccess.AIntegerTermElements getAIntegerTermAccess() {
@@ -997,7 +1003,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getAIntegerTermRule() {
 		return getAIntegerTermAccess().getRule();
 	}
-
+	
 	//AInt aadl2::Integer:
 	//	INT;
 	public CommonGrammarAccess.AIntElements getAIntAccess() {
@@ -1007,7 +1013,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getAIntRule() {
 		return getAIntAccess().getRule();
 	}
-
+	
 	//ARealTerm aadl2::RealLiteral:
 	//	value=AReal;
 	public CommonGrammarAccess.ARealTermElements getARealTermAccess() {
@@ -1017,7 +1023,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getARealTermRule() {
 		return getARealTermAccess().getRule();
 	}
-
+	
 	//AReal aadl2::Real:
 	//	REAL_LIT;
 	public CommonGrammarAccess.ARealElements getARealAccess() {
@@ -1027,7 +1033,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getARealRule() {
 		return getARealAccess().getRule();
 	}
-
+	
 	////ASetTerm returns aadl2::PropertyExpression:
 	////	{ASetLiteral}  '{' (elements+=AExpression (',' elements+=AExpression )*)? '}'
 	////;
@@ -1044,7 +1050,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getABooleanLiteralRule() {
 		return getABooleanLiteralAccess().getRule();
 	}
-
+	
 	//StringTerm aadl2::StringLiteral:
 	//	value=NoQuoteString;
 	public CommonGrammarAccess.StringTermElements getStringTermAccess() {
@@ -1054,7 +1060,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getStringTermRule() {
 		return getStringTermAccess().getRule();
 	}
-
+	
 	//NoQuoteString:
 	//	STRING;
 	public CommonGrammarAccess.NoQuoteStringElements getNoQuoteStringAccess() {
@@ -1064,7 +1070,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getNoQuoteStringRule() {
 		return getNoQuoteStringAccess().getRule();
 	}
-
+	
 	//AParenthesizedExpression aadl2::PropertyExpression:
 	//	'(' AExpression ')';
 	public CommonGrammarAccess.AParenthesizedExpressionElements getAParenthesizedExpressionAccess() {
@@ -1074,7 +1080,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getAParenthesizedExpressionRule() {
 		return getAParenthesizedExpressionAccess().getRule();
 	}
-
+	
 	//ComponentCategory aadl2::ComponentCategory:
 	//	'abstract' | 'bus' | 'data'
 	//	| 'device' | 'memory' | 'process' | 'processor' | 'subprogram'
@@ -1087,7 +1093,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getComponentCategoryRule() {
 		return getComponentCategoryAccess().getRule();
 	}
-
+	
 	//enum TargetType:
 	//	COMPONENT='component' | FEATURE='feature' | CONNECTION='connection' | FLOW='flow' | MODE='mode' | ELEMENT='element' |
 	//	ROOT='root';
@@ -1098,43 +1104,43 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public EnumRule getTargetTypeRule() {
 		return getTargetTypeAccess().getRule();
 	}
-
+	
 	//terminal fragment EXPONENT:
 	//	('e' | 'E') ('+' | '-')? DIGIT+;
 	public TerminalRule getEXPONENTRule() {
 		return gaCommon.getEXPONENTRule();
-	} 
-
+	}
+	
 	//terminal fragment INT_EXPONENT:
 	//	('e' | 'E') '+'? DIGIT+;
 	public TerminalRule getINT_EXPONENTRule() {
 		return gaCommon.getINT_EXPONENTRule();
-	} 
-
+	}
+	
 	//terminal REAL_LIT:
 	//	DIGIT+ ('_' DIGIT+)* ('.' DIGIT+ ('_' DIGIT+)* EXPONENT?);
 	public TerminalRule getREAL_LITRule() {
 		return gaCommon.getREAL_LITRule();
-	} 
-
+	}
+	
 	//terminal fragment DIGIT:
 	//	'0'..'9';
 	public TerminalRule getDIGITRule() {
 		return gaCommon.getDIGITRule();
-	} 
-
+	}
+	
 	//terminal fragment EXTENDED_DIGIT:
 	//	'0'..'9' | 'a'..'f' | 'A'..'F';
 	public TerminalRule getEXTENDED_DIGITRule() {
 		return gaCommon.getEXTENDED_DIGITRule();
-	} 
-
+	}
+	
 	//terminal fragment BASED_INTEGER:
 	//	EXTENDED_DIGIT ('_'? EXTENDED_DIGIT)*;
 	public TerminalRule getBASED_INTEGERRule() {
 		return gaCommon.getBASED_INTEGERRule();
-	} 
-
+	}
+	
 	//// Qualified classifier reference
 	//AadlClassifierReference:
 	//	ID ('::' ID)+ ('.' ID)?;
@@ -1145,7 +1151,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getAadlClassifierReferenceRule() {
 		return getAadlClassifierReferenceAccess().getRule();
 	}
-
+	
 	//AADLPROPERTYREFERENCE:
 	//	ID ('::' ID)?;
 	public CommonGrammarAccess.AADLPROPERTYREFERENCEElements getAADLPROPERTYREFERENCEAccess() {
@@ -1155,7 +1161,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getAADLPROPERTYREFERENCERule() {
 		return getAADLPROPERTYREFERENCEAccess().getRule();
 	}
-
+	
 	//URIID:
 	//	STRING;
 	public CommonGrammarAccess.URIIDElements getURIIDAccess() {
@@ -1165,7 +1171,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getURIIDRule() {
 		return getURIIDAccess().getRule();
 	}
-
+	
 	////terminal URIID : ('a'..'z'|'A'..'Z') ('a'..'z'|'A'..'Z'|'_'|'0'..'9'|'#'|'@'|'/'|':')*;
 	//QualifiedName:
 	//	ID ('.' ID)*;
@@ -1176,7 +1182,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getQualifiedNameRule() {
 		return getQualifiedNameAccess().getRule();
 	}
-
+	
 	//ThisKeyword:
 	//	'this';
 	public CommonGrammarAccess.ThisKeywordElements getThisKeywordAccess() {
@@ -1186,47 +1192,47 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getThisKeywordRule() {
 		return getThisKeywordAccess().getRule();
 	}
-
+	
 	//terminal ID:
 	//	'^'? ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '_' | '0'..'9')*;
 	public TerminalRule getIDRule() {
 		return gaTerminals.getIDRule();
-	} 
-
+	}
+	
 	//terminal INT returns ecore::EInt:
 	//	'0'..'9'+;
 	public TerminalRule getINTRule() {
 		return gaTerminals.getINTRule();
-	} 
-
+	}
+	
 	//terminal STRING:
 	//	'"' ('\\' . | !('\\' | '"'))* '"' |
 	//	"'" ('\\' . | !('\\' | "'"))* "'";
 	public TerminalRule getSTRINGRule() {
 		return gaTerminals.getSTRINGRule();
-	} 
-
+	}
+	
 	//terminal ML_COMMENT:
 	//	'/*'->'*/';
 	public TerminalRule getML_COMMENTRule() {
 		return gaTerminals.getML_COMMENTRule();
-	} 
-
+	}
+	
 	//terminal SL_COMMENT:
 	//	'//' !('\n' | '\r')* ('\r'? '\n')?;
 	public TerminalRule getSL_COMMENTRule() {
 		return gaTerminals.getSL_COMMENTRule();
-	} 
-
+	}
+	
 	//terminal WS:
 	//	' ' | '\t' | '\r' | '\n'+;
 	public TerminalRule getWSRule() {
 		return gaTerminals.getWSRule();
-	} 
-
+	}
+	
 	//terminal ANY_OTHER:
 	//	.;
 	public TerminalRule getANY_OTHERRule() {
 		return gaTerminals.getANY_OTHERRule();
-	} 
+	}
 }
