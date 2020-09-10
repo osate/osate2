@@ -31,23 +31,12 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.NamedElement;
 import org.osate.ba.aadlba.BehaviorAnnex;
 
-public class BaNamingUtil {
+public class BehaviorAnnexNamingUtil {
 	public static String buildUniqueIdentifier(final BehaviorAnnex ba, final String baseIdentifier) {
 		final Set<String> existingIdentifiers = buildNameSet(ba);
 		final String prefix = ba.getContainingClassifier() == null ? ""
 				: (ba.getContainingClassifier().getName().replace('.', '_') + "_");
 		return buildUniqueIdentifier(existingIdentifiers, prefix + baseIdentifier);
-	}
-
-	/**
-	 * Returns null if validation succeeds. Otherwise, returns a reason the name is not valid.
-	 * @param ba
-	 * @param oldName
-	 * @param newName
-	 * @return
-	 */
-	public static String validateName(final BehaviorAnnex ba, final String oldName, final String newName) {
-		return validateName(buildNameSet(ba), oldName, newName);
 	}
 
 	public static String validateName(final Set<String> existingNames, final String oldName, final String newName) {

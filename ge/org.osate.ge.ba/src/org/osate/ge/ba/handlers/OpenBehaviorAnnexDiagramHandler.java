@@ -12,17 +12,18 @@ import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.ge.DiagramCreationUtil;
 import org.osate.ge.ba.diagram.diagramType.BehaviorAnnexDiagramType;
 import org.osate.ge.ba.util.BehaviorAnnexHandlerUtil;
-import org.osate.ge.ba.util.SelectionUtil;
+import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
 
 public class OpenBehaviorAnnexDiagramHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		final IEditorPart activeEditor = HandlerUtil.getActiveEditor(event);
-		final DefaultAnnexSubclause annexSubclause = BehaviorAnnexHandlerUtil.getBehaviorAnnexDiagramContext(activeEditor)
+		final DefaultAnnexSubclause annexSubclause = BehaviorAnnexHandlerUtil
+				.getBehaviorAnnexDiagramContext(activeEditor)
 				.orElseThrow(() -> new RuntimeException("AnnexSubclause cannot be null"));
 		final Classifier classifier = Objects.requireNonNull(annexSubclause.getContainingClassifier(),
 				"Classifier cannot be null");
-		final String fileName = BehaviorAnnexHandlerUtil.getFileName(classifier, annexSubclause);
+		final String fileName = BehaviorAnnexHandlerUtil.getFilename(classifier, annexSubclause);
 		DiagramCreationUtil.openOrCreateDiagram(annexSubclause, true, false, new BehaviorAnnexDiagramType(),
 				fileName);
 		return null;
@@ -31,6 +32,6 @@ public class OpenBehaviorAnnexDiagramHandler extends AbstractHandler {
 	@Override
 	public void setEnabled(final Object evaluationContext) {
 		setBaseEnabled(BehaviorAnnexHandlerUtil
-				.getBehaviorAnnexDiagramContext(SelectionUtil.getActiveEditorFromContext(evaluationContext)).isPresent());
+				.getBehaviorAnnexDiagramContext(BehaviorAnnexSelectionUtil.getActiveEditorFromContext(evaluationContext)).isPresent());
 	}
 }

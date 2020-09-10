@@ -39,7 +39,7 @@ import org.osate.ge.DiagramCreationUtil;
 import org.osate.ge.ProjectUtil;
 import org.osate.ge.ba.diagram.diagramType.BehaviorAnnexDiagramType;
 import org.osate.ge.ba.util.BehaviorAnnexHandlerUtil;
-import org.osate.ge.ba.util.SelectionUtil;
+import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
 import org.osate.ge.swt.name.DiagramNameDialog;
 import org.osate.ge.swt.name.NameEditorDialogModel;
 
@@ -47,7 +47,7 @@ public class CreateBehaviorAnnexDiagramHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		final IEditorPart activeEditor = HandlerUtil.getActiveEditor(event);
-		SelectionUtil.getDiagramContext(SelectionUtil.getCurrentSelection(), activeEditor);
+		BehaviorAnnexSelectionUtil.getDiagramContext(BehaviorAnnexSelectionUtil.getCurrentSelection(), activeEditor);
 		final DefaultAnnexSubclause diagramContext = BehaviorAnnexHandlerUtil
 				.getBehaviorAnnexDiagramContext(activeEditor)
 				.orElseThrow(() -> new RuntimeException("diagram context cannot be null"));
@@ -63,7 +63,7 @@ public class CreateBehaviorAnnexDiagramHandler extends AbstractHandler {
 	private static NameEditorDialogModel getDialogModel(final IEditorPart activeEditor, final Classifier classifier,
 			final DefaultAnnexSubclause diagramContext) {
 		final IProject project = ProjectUtil.getProjectForBoOrThrow(classifier);
-		final String initialFilename = getFileName(project, classifier, diagramContext);
+		final String initialFilename = getFilename(project, classifier, diagramContext);
 		return createNameDialogModel(initialFilename, project, activeEditor, diagramContext);
 	}
 
@@ -94,9 +94,14 @@ public class CreateBehaviorAnnexDiagramHandler extends AbstractHandler {
 		};
 	}
 
-	private static String getFileName(final IProject project, final Classifier classifier,
+	private static String getFilename(final IProject project, final Classifier classifier,
 			final DefaultAnnexSubclause diagramContext) {
-		final String baseName = BehaviorAnnexHandlerUtil.getFileName(classifier, diagramContext);
+		final String baseName = BehaviorAnnexHandlerUtil.getFilename(classifier, diagramContext);
+		return getUniqueFilename(project, baseName);
+	}
+
+	// Create unique filename
+	private static String getUniqueFilename(final IProject project, final String baseName) {
 		int nameCount = 1;
 		String name;
 		IFile tmpFile;
@@ -112,7 +117,7 @@ public class CreateBehaviorAnnexDiagramHandler extends AbstractHandler {
 
 	@Override
 	public void setEnabled(final Object evaluationContext) {
-		final IEditorPart activeEditor = SelectionUtil.getActiveEditorFromContext(evaluationContext);
+		final IEditorPart activeEditor = BehaviorAnnexSelectionUtil.getActiveEditorFromContext(evaluationContext);
 		setBaseEnabled(
 				BehaviorAnnexHandlerUtil.getBehaviorAnnexDiagramContext(activeEditor).isPresent());
 	}

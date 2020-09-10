@@ -34,7 +34,7 @@ import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ge.aadl2.GraphicalAnnexUtil;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
-import org.osate.ge.ba.util.BaNamingUtil;
+import org.osate.ge.ba.util.BehaviorAnnexNamingUtil;
 import org.osate.ge.ba.util.BehaviorAnnexHandlerUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
@@ -44,7 +44,7 @@ import org.osate.ge.palette.TargetedPaletteCommand;
 
 public class CreateSpecificationPaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	public CreateSpecificationPaletteCommand() {
-		super("Specification", BaPaletteContributor.BEHAVIOR_ANNEX, null);
+		super("Specification", BehaviorAnnexPaletteContributor.BEHAVIOR_ANNEX, null);
 	}
 
 	@Override
@@ -129,7 +129,7 @@ public class CreateSpecificationPaletteCommand extends BasePaletteCommand implem
 			behaviorState.setComplete(isComplete);
 
 			// Set state name
-			final String newName = BaNamingUtil.buildUniqueIdentifier(ba, "new_state");
+			final String newName = BehaviorAnnexNamingUtil.buildUniqueIdentifier(ba, "new_state");
 			behaviorState.setName(newName);
 
 			return behaviorState;

@@ -7,7 +7,7 @@ import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.xtext.ui.editor.XtextEditor;
-import org.osate.ge.ba.util.SelectionUtil;
+import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
 
 public class BehaviorAnnexPropertyTester extends PropertyTester {
 	@Override
@@ -20,11 +20,11 @@ public class BehaviorAnnexPropertyTester extends PropertyTester {
 						return false;
 					}
 
-					return SelectionUtil.getDiagramContext(selectionProvider.getSelection(), xtextEditor).isPresent();
+					return BehaviorAnnexSelectionUtil.getDiagramContext(selectionProvider.getSelection(), xtextEditor).isPresent();
 				}).orElse(false);
 			} else {
-				return SelectionUtil.getActiveEditor()
-						.map(activeEditor -> SelectionUtil.getDiagramContext((ISelection) receiver, activeEditor).orElse(null))
+				return BehaviorAnnexSelectionUtil.getActiveEditor()
+						.map(activeEditor -> BehaviorAnnexSelectionUtil.getDiagramContext((ISelection) receiver, activeEditor).orElse(null))
 						.isPresent();
 			}
 		}
@@ -33,7 +33,7 @@ public class BehaviorAnnexPropertyTester extends PropertyTester {
 	}
 
 	private static Optional<XtextEditor> getActiveXtextEditor() {
-		return SelectionUtil.getActiveEditor()
+		return BehaviorAnnexSelectionUtil.getActiveEditor()
 				.map(editor -> editor instanceof XtextEditor ? (XtextEditor) editor : null);
 	}
 }

@@ -46,13 +46,6 @@ public class SetStateCompletePropertySection extends StatePropertySection {
 		@Override
 		public boolean select(final Object toTest) {
 			return PropertySectionUtil.isBoCompatible(toTest, bo -> {
-//				if (bo instanceof BehaviorState) {
-//					final BehaviorState behaviorState = (BehaviorState) bo;
-//					final Classifier classifier = behaviorState.getContainingClassifier();
-//					// Subprograms cannot have complete states
-//					return !(classifier instanceof Subprogram);
-//				}
-
 				return bo instanceof BehaviorState;
 			});
 		}
@@ -124,6 +117,7 @@ public class SetStateCompletePropertySection extends StatePropertySection {
 
 				setCompleteStateBtn.setEnabled(allowRemovingCompleteness);
 			} else {
+				// Setting complete state
 				// Check if state is a source, if dispatch is not allowed, cannot make state complete
 				// If already a source, cannot make complete if dispatch is not allowed
 				final Optional<BehaviorTransition> transition = BehaviorAnnexHandlerUtil
@@ -142,9 +136,9 @@ public class SetStateCompletePropertySection extends StatePropertySection {
 		}
 	}
 
-	// Check if completeness can be removed from behavior state
+	// Determine if completeness can be removed from behavior state by checking if another
+	// complete state exists
 	private static boolean allowRemoveCompleteness(final Classifier classifier, final BehaviorState behaviorState) {
-		// Check if another complete state exists
 		final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorState.getOwner();
 		return behaviorAnnex.getStates().stream().filter(BehaviorState::isComplete).count() > 1;
 	}
