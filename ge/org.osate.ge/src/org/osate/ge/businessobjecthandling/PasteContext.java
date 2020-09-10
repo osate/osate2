@@ -29,7 +29,10 @@ import java.util.Optional;
 import org.eclipse.emf.ecore.EObject;
 
 /**
+ * Contains contextual information for getting the reference to the business object being pasted.
+ *
  * @since 2.0
+ * @noextend This class is not intended to be subclassed by clients.
  */
 public class PasteContext {
 	private final EObject copiedEObject;
