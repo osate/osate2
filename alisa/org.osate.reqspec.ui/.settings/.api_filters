@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.reqspec.ui" version="2">
-    <resource path="src-gen/org/osate/reqspec/ui/contentassist/antlr/PartialReqSpecContentAssistParser.java" type="org.osate.reqspec.ui.contentassist.antlr.PartialReqSpecContentAssistParser">
-        <filter comment="xtext" id="576725006">
+    <resource path="src-gen/org/osate/reqspec/ide/contentassist/antlr/PartialReqSpecContentAssistParser.java" type="org.osate.reqspec.ide.contentassist.antlr.PartialReqSpecContentAssistParser">
+        <filter comment="Xtext generated code" id="1110441988">
             <message_arguments>
-                <message_argument value="IPartialContentAssistParser"/>
-                <message_argument value="PartialReqSpecContentAssistParser"/>
+                <message_argument value="org.osate.reqspec.ide.contentassist.antlr.PartialReqSpecContentAssistParser"/>
             </message_arguments>
         </filter>
     </resource>
-    <resource path="src-gen/org/osate/reqspec/ui/contentassist/antlr/ReqSpecParser.java" type="org.osate.reqspec.ui.contentassist.antlr.ReqSpecParser">
-        <filter comment="xtext" id="643842064">
+    <resource path="src-gen/org/osate/reqspec/ide/contentassist/antlr/ReqSpecParser.java" type="org.osate.reqspec.ide.contentassist.antlr.ReqSpecParser">
+        <filter comment="Xtext generated code" id="1110441988">
             <message_arguments>
-                <message_argument value="InternalReqSpecParser"/>
-                <message_argument value="ReqSpecParser"/>
-                <message_argument value="createParser()"/>
+                <message_argument value="org.osate.reqspec.ide.contentassist.antlr.ReqSpecParser"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/reqspec/ide/contentassist/antlr/internal/InternalReqSpecLexer.java" type="org.osate.reqspec.ide.contentassist.antlr.internal.InternalReqSpecLexer">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.reqspec.ide.contentassist.antlr.internal.InternalReqSpecLexer"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/reqspec/ide/contentassist/antlr/internal/InternalReqSpecParser.java" type="org.osate.reqspec.ide.contentassist.antlr.internal.InternalReqSpecParser">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.reqspec.ide.contentassist.antlr.internal.InternalReqSpecParser"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/reqspec/ui/internal/ReqspecActivator.java" type="org.osate.reqspec.ui.internal.ReqspecActivator">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.reqspec.ui.internal.ReqspecActivator"/>
             </message_arguments>
         </filter>
     </resource>

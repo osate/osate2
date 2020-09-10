@@ -27,10 +27,10 @@ import java.io.InputStream;
 import org.eclipse.xtext.parser.antlr.IAntlrTokenFileProvider;
 
 public class CommonAntlrTokenFileProvider implements IAntlrTokenFileProvider {
-	
+
 	@Override
 	public InputStream getAntlrTokenFile() {
 		ClassLoader classLoader = getClass().getClassLoader();
-    	return classLoader.getResourceAsStream("org/osate/alisa/common/parser/antlr/internal/InternalCommon.tokens");
+		return classLoader.getResourceAsStream("org/osate/alisa/common/parser/antlr/internal/InternalCommon.tokens");
 	}
 }
