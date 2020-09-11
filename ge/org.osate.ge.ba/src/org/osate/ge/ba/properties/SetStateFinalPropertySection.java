@@ -31,7 +31,7 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Subprogram;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
-import org.osate.ge.ba.util.BehaviorAnnexHandlerUtil;
+import org.osate.ge.ba.util.BehaviorAnnexUtil;
 
 public class SetStateFinalPropertySection extends StatePropertySection {
 	public SetStateFinalPropertySection() {
@@ -74,7 +74,7 @@ public class SetStateFinalPropertySection extends StatePropertySection {
 			} else {
 				// Determine if final can be set for state
 				// If behavior state is a source of a transition, it cannot be final
-				final boolean isSourceState = BehaviorAnnexHandlerUtil.getTransitionsForSourceState(selectedState)
+				final boolean isSourceState = BehaviorAnnexUtil.getTransitionsForSourceState(selectedState)
 						.findAny().isPresent();
 				setFinalStateBtn.setEnabled(!isSourceState);
 			}

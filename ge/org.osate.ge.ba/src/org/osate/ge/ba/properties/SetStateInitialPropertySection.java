@@ -31,7 +31,7 @@ import org.eclipse.swt.widgets.Button;
 import org.osate.aadl2.Classifier;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
-import org.osate.ge.ba.util.BehaviorAnnexHandlerUtil;
+import org.osate.ge.ba.util.BehaviorAnnexUtil;
 import org.osate.ge.ui.PropertySectionUtil;
 
 public class SetStateInitialPropertySection extends StatePropertySection {
@@ -49,7 +49,7 @@ public class SetStateInitialPropertySection extends StatePropertySection {
 			return (behaviorState, boc) -> {
 				final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorState.eContainer();
 				final Classifier classifier = behaviorAnnex.getContainingClassifier();
-				if (isInitial && BehaviorAnnexHandlerUtil.requireSingleInitialState(classifier)) {
+				if (isInitial && BehaviorAnnexUtil.requireSingleInitialState(classifier)) {
 					// Clear initial states
 					behaviorAnnex.getStates().forEach(state -> state.setInitial(false));
 				}
@@ -77,7 +77,7 @@ public class SetStateInitialPropertySection extends StatePropertySection {
 				// Removing initial state
 				final Classifier classifier = selectedState.getContainingClassifier();
 				// Cannot remove if classifier requires only one initial state
-				setInitialStateBtn.setEnabled(!BehaviorAnnexHandlerUtil.requireSingleInitialState(classifier));
+				setInitialStateBtn.setEnabled(!BehaviorAnnexUtil.requireSingleInitialState(classifier));
 			} else {
 				// Setting initial state
 				setInitialStateBtn.setEnabled(true);

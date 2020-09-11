@@ -21,25 +21,17 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.ba.util;
+package org.osate.ge.ba.handlers;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IEditorPart;
-import org.osate.aadl2.Abstract;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.aadl2.Device;
-import org.osate.aadl2.Subprogram;
-import org.osate.aadl2.Thread;
-import org.osate.aadl2.VirtualProcessor;
-import org.osate.ba.aadlba.BehaviorAnnex;
-import org.osate.ba.aadlba.BehaviorState;
-import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ge.aadl2.AnnexHandler;
+import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
 
 public class BehaviorAnnexHandlerUtil {
 	private BehaviorAnnexHandlerUtil() {
@@ -62,38 +54,5 @@ public class BehaviorAnnexHandlerUtil {
 		final StringBuilder fileName = new StringBuilder(classifier.getQualifiedName().replaceAll("::|:|\\.", "_"));
 		fileName.append("_behavior_");
 		return fileName.append(AnnexHandler.getAnnexSubclauseIndex(annexSubclause, true)).toString();
-	}
-
-	/**
-	 * Determine if the classifier requires owned BehaviorAnnexes to have a complete BehaviorState
-	 */
-	public static boolean requiresCompleteState(final Classifier classifier) {
-		return classifier instanceof VirtualProcessor || classifier instanceof Thread || classifier instanceof Device;
-	}
-
-	/**
-	 * Determine if the classifier allows BehaviorTransistions to have on dispatch conditions
-	 */
-	public static boolean allowsOnDispatchConditions(final Classifier classifier) {
-		return classifier instanceof Abstract || classifier instanceof Device || classifier instanceof Thread;
-	}
-
-	/**
-	 * Determines if the classifier only allows a single initial BehaviorState
-	 */
-	public static boolean requireSingleInitialState(final Classifier classifier) {
-		return classifier instanceof Device || classifier instanceof Thread || classifier instanceof Subprogram
-				|| classifier instanceof VirtualProcessor;
-	}
-
-	/**
-	 * Get all BehaviorTransitions that have the specified BehaviorState as the source state.
-	 * @param behaviorState the state to match to a source
-	 * @return behavior transitions that have the behavior state as a source
-	 */
-	public static Stream<BehaviorTransition> getTransitionsForSourceState(final BehaviorState behaviorState) {
-		final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorState.getOwner();
-		return behaviorAnnex.getTransitions().stream()
-				.filter(behaviorTransition -> behaviorTransition.getSourceState() == behaviorState);
 	}
 }

@@ -36,7 +36,7 @@ import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
-import org.osate.ge.ba.util.BehaviorAnnexHandlerUtil;
+import org.osate.ge.ba.util.BehaviorAnnexUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
@@ -81,11 +81,11 @@ public class BehaviorStateHandler implements BusinessObjectHandler, CustomDelete
 			}
 
 			final Classifier classifier = behaviorAnnex.getContainingClassifier();
-			if (bs.isInitial() && BehaviorAnnexHandlerUtil.requireSingleInitialState(classifier)) {
+			if (bs.isInitial() && BehaviorAnnexUtil.requireSingleInitialState(classifier)) {
 				return false;
 			}
 
-			if (bs.isComplete() && BehaviorAnnexHandlerUtil.requiresCompleteState(classifier)) {
+			if (bs.isComplete() && BehaviorAnnexUtil.requiresCompleteState(classifier)) {
 				// Can delete if there are more than 1 complete states
 				final long completeStates = behaviorAnnex.getStates().stream().filter(BehaviorState::isComplete)
 						.count();
