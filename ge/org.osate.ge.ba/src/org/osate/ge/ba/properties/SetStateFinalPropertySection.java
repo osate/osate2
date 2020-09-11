@@ -33,6 +33,9 @@ import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ge.ba.util.BehaviorAnnexUtil;
 
+/**
+ * Property section for setting {@link BehaviorState} to final.
+ */
 public class SetStateFinalPropertySection extends StatePropertySection {
 	public SetStateFinalPropertySection() {
 		super("Final:", "Set Final State", (e) -> {

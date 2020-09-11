@@ -48,6 +48,9 @@ import org.osate.ge.businessobjecthandling.RenameContext;
 import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.ge.graphics.StyleBuilder;
 
+/**
+ * Business Object Handler for {@link BehaviorVariable}.
+ */
 public class BehaviorVariableHandler implements BusinessObjectHandler, CustomDeleter, CustomRenamer {
 	private static final GraphicalConfiguration graphicalConfig = GraphicalConfigurationBuilder.create()
 			.graphic(RectangleBuilder.create().build()).style(StyleBuilder.create().labelsCenter().build()).build();

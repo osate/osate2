@@ -32,6 +32,9 @@ import org.osate.aadl2.NamedElement;
 import org.osate.ba.aadlba.BehaviorAnnex;
 
 public class BehaviorAnnexNamingUtil {
+	private BehaviorAnnexNamingUtil() {
+	}
+
 	public static String buildUniqueIdentifier(final BehaviorAnnex ba, final String baseIdentifier) {
 		final Set<String> existingIdentifiers = buildNameSet(ba);
 		final String prefix = ba.getContainingClassifier() == null ? ""

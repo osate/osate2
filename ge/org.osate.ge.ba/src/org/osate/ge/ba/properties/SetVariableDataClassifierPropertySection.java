@@ -54,6 +54,9 @@ import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.ba.util.BehaviorAnnexUtil;
 import org.osate.ge.ui.PropertySectionUtil;
 
+/**
+ * Property section for setting a {@link BehaviorVariable}'s data classifier.
+ */
 public class SetVariableDataClassifierPropertySection extends AbstractPropertySection {
 	public static class Filter implements IFilter {
 		@Override

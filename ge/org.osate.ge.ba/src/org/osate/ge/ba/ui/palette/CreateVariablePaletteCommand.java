@@ -47,6 +47,9 @@ import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.palette.TargetedPaletteCommand;
 
+/**
+ * Palette command for creating {@link BehaviorVariable}.
+ */
 public class CreateVariablePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	public CreateVariablePaletteCommand() {
 		super("Variable", BehaviorAnnexPaletteContributor.BEHAVIOR_ANNEX, null);

@@ -11,6 +11,9 @@ import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.RefinableElement;
 
 public class AadlArrayUtil {
+	private AadlArrayUtil() {
+	}
+
 	public static String getDimensionUserString(final ArrayableElement ae) {
 		ArrayableElement tmpEl = ae;
 		List<ArrayDimension> dims;
