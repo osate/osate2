@@ -54,6 +54,9 @@ import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
+/**
+ * Business Object Handler for {@link BehaviorTransition}.
+ */
 public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomDeleter, CustomRenamer {
 	private static final StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children()
 			.filterByBusinessObjectRelativeReference((BehaviorTransition bt) -> bt.getSourceState()));

@@ -44,6 +44,9 @@ import org.osate.ge.palette.GetCreateConnectionOperationContext;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
+/**
+ * Palette command for create {@link BehaviorTransition}.
+ */
 public class CreateTransitionPaletteCommand extends BasePaletteCommand implements CreateConnectionPaletteCommand {
 	private static final StandaloneQuery containerQuery = StandaloneQuery
 			.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof BehaviorAnnex).first());

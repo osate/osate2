@@ -41,6 +41,9 @@ import org.osate.ba.aadlba.DispatchCondition;
 import org.osate.ge.ba.util.BehaviorAnnexUtil;
 import org.osate.ge.ui.PropertySectionUtil;
 
+/**
+ * Property section for setting {@link BehaviorState} to complete.
+ */
 public class SetStateCompletePropertySection extends StatePropertySection {
 	public static class Filter implements IFilter {
 		@Override

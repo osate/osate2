@@ -59,6 +59,9 @@ import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
 import com.google.common.collect.ImmutableList;
 
 public class BehaviorAnnexSelectionUtil {
+	private BehaviorAnnexSelectionUtil() {
+	}
+
 	private static EObjectAtOffsetHelper eObjectAtOffsetHelper = new EObjectAtOffsetHelper();
 
 	public static ISelection getCurrentSelection() {

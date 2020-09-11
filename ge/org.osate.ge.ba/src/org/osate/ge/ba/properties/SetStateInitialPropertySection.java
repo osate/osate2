@@ -34,6 +34,9 @@ import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ge.ba.util.BehaviorAnnexUtil;
 import org.osate.ge.ui.PropertySectionUtil;
 
+/**
+ * Property section for setting {@link BehaviorState} to initial.
+ */
 public class SetStateInitialPropertySection extends StatePropertySection {
 	public static class Filter implements IFilter {
 		@Override

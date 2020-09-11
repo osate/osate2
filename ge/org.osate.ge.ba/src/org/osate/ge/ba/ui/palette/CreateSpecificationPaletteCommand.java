@@ -42,6 +42,9 @@ import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.palette.TargetedPaletteCommand;
 
+/**
+ * Palette command for creating {@link BehaviorAnnex}.
+ */
 public class CreateSpecificationPaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	public CreateSpecificationPaletteCommand() {
 		super("Specification", BehaviorAnnexPaletteContributor.BEHAVIOR_ANNEX, null);

@@ -36,6 +36,9 @@ import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.palette.TargetedPaletteCommand;
 
+/**
+ * Palette command for creating {@link BehaviorState}.
+ */
 public class CreateStatePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	public CreateStatePaletteCommand() {
 		super("State", BehaviorAnnexPaletteContributor.BEHAVIOR_ANNEX, null);
