@@ -33,6 +33,7 @@ import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
+import org.osate.ge.ba.util.AadlArrayUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
@@ -101,7 +102,16 @@ public class BehaviorVariableHandler implements BusinessObjectHandler, CustomDel
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(BehaviorVariable.class).map(BehaviorVariable::getFullName).orElse("");
+		return ctx.getBusinessObject(BehaviorVariable.class).map(behaviorTransition -> {
+			String name = (behaviorTransition.getName() == null ? "" : behaviorTransition.getName())
+					+ AadlArrayUtil.getDimensionUserString(behaviorTransition);
+			return name;
+		}).orElse("");
+	}
+
+	@Override
+	public String getNameForRenaming(GetNameContext ctx) {
+		return ctx.getBusinessObject(BehaviorVariable.class).map(BehaviorVariable::getName).orElse("");
 	}
 
 	@Override

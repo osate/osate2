@@ -35,7 +35,7 @@ import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ge.aadl2.GraphicalAnnexUtil;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
 import org.osate.ge.ba.util.BehaviorAnnexNamingUtil;
-import org.osate.ge.ba.util.BehaviorAnnexHandlerUtil;
+import org.osate.ge.ba.util.BehaviorAnnexUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
@@ -58,7 +58,7 @@ public class CreateSpecificationPaletteCommand extends BasePaletteCommand implem
 					final StateBuilder stateBuilder = new StateBuilder(ba);
 
 					// Determine if behavior annex must have initial state
-					if (BehaviorAnnexHandlerUtil.requireSingleInitialState(modifyBo)) {
+					if (BehaviorAnnexUtil.requireSingleInitialState(modifyBo)) {
 						// Set state to initial
 						stateBuilder.setInitial();
 					}
@@ -69,7 +69,7 @@ public class CreateSpecificationPaletteCommand extends BasePaletteCommand implem
 					}
 
 					// Determine if behavior annex must have a complete state
-					if (BehaviorAnnexHandlerUtil.requiresCompleteState(modifyBo)) {
+					if (BehaviorAnnexUtil.requiresCompleteState(modifyBo)) {
 						stateBuilder.setComplete();
 					}
 

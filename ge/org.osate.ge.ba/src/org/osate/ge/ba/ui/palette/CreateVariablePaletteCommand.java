@@ -30,19 +30,15 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DataClassifier;
-import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.PublicPackageSection;
 import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorVariable;
-import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
-import org.osate.ge.ba.ui.dialogs.DataClassifierDescriptionModel;
 import org.osate.ge.ba.util.BehaviorAnnexNamingUtil;
+import org.osate.ge.ba.util.BehaviorAnnexUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.OperationBuilder;
 import org.osate.ge.operations.StepResult;
@@ -50,8 +46,6 @@ import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.palette.TargetedPaletteCommand;
-import org.osate.ge.swt.selectors.FilteringSelectorDialog;
-import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
 
 public class CreateVariablePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	public CreateVariablePaletteCommand() {
@@ -94,30 +88,8 @@ public class CreateVariablePaletteCommand extends BasePaletteCommand implements 
 		public static Optional<VariableOperation> show(final Shell shell, final PublicPackageSection section,
 				final BehaviorAnnex behaviorAnnex) {
 			final Resource resource = behaviorAnnex.eResource();
-
-			final DataClassifierDescriptionModel model = new DataClassifierDescriptionModel(
-					AadlModelAccessUtil.getAllEObjectsByType(resource, Aadl2Package.eINSTANCE.getDataClassifier()));
-			if (!FilteringSelectorDialog.open(Display.getCurrent().getActiveShell(),
-					"Set the Variable's Data Classifier",
-					new LabelFilteringListSelectorModel<>(model))) {
-				return Optional.empty();
-			}
-
-			final DataClassifier dataClassifier = (DataClassifier) EcoreUtil
-					.resolve(model.getSelectedElement().getEObjectOrProxy(), resource);
-
-			return getPackage(dataClassifier)
-					.map(pkg -> new VariableOperation(section, behaviorAnnex, dataClassifier, pkg));
-
-//			final ElementSelectionDialog dlg = new ElementSelectionDialog(Display.getDefault().getActiveShell(),
-//					"Set Variable Data Classifier", "Select a Data Classifier",
-//					AadlModelAccessUtil.getAllEObjectsByType(resource, Aadl2Package.eINSTANCE.getDataClassifier()));
-//			if (dlg.open() != Window.OK) {
-//				return null;
-//			}
-//
-//			final DataClassifier dataClassifier = (DataClassifier) EcoreUtil
-//					.resolve((EObject) dlg.getFirstSelectedElement(), resource);
+			return BehaviorAnnexUtil.getDataClassifier(resource).map(dataClassifier -> getPackage(dataClassifier)
+					.map(pkg -> new VariableOperation(section, behaviorAnnex, dataClassifier, pkg)).orElse(null));
 		}
 	}
 
@@ -133,7 +105,7 @@ public class CreateVariablePaletteCommand extends BasePaletteCommand implements 
 
 					return Operation.createWithBuilder(builder -> {
 						builder.supply(() -> {
-							final Optional<VariableOperation> variableOperation = buildCreateOperations(section,
+							final Optional<VariableOperation> variableOperation = getVariableBuildOperation(section,
 									behaviorAnnex);
 							return !variableOperation.isPresent() ? StepResult.abort()
 									: StepResult.forValue(variableOperation.get());
@@ -141,7 +113,8 @@ public class CreateVariablePaletteCommand extends BasePaletteCommand implements 
 							final OperationBuilder<VariableOperation> opBuilder = innerBuilder.modifyModel(
 									variableOp.getPublicSection(), (tag, prevResult) -> tag,
 									(tag, sectionToModify, prevResult) -> {
-										addImportIfNeeded(sectionToModify, variableOp.getDataClassifierPackage());
+										BehaviorAnnexUtil.addImportIfNeeded(sectionToModify,
+												variableOp.getDataClassifierPackage());
 										return StepResult.forValue(variableOp);
 									});
 							opBuilder.modifyModel(variableOp.getBehaviorAnnex(), (tag, prevResult) -> tag,
@@ -162,7 +135,7 @@ public class CreateVariablePaletteCommand extends BasePaletteCommand implements 
 
 	}
 
-	private Optional<VariableOperation> buildCreateOperations(final PublicPackageSection section,
+	private Optional<VariableOperation> getVariableBuildOperation(final PublicPackageSection section,
 			final BehaviorAnnex behaviorAnnex) {
 		return VariableDialog.show(Display.getCurrent().getActiveShell(), section, behaviorAnnex);
 	}
@@ -175,38 +148,5 @@ public class CreateVariablePaletteCommand extends BasePaletteCommand implements 
 		final NamedElement root = element.getElementRoot();
 		final AadlPackage pkg = root instanceof AadlPackage ? (AadlPackage) root : null;
 		return Optional.ofNullable(pkg);
-	}
-
-	/**
-	 * Adds an import for pkg to section if it is not already imported.
-	 * @param section
-	 * @param pkg
-	 */
-	public static void addImportIfNeeded(final PackageSection section, final AadlPackage pkg) {
-		final String pkgQualifiedName = pkg.getQualifiedName();
-		if (pkgQualifiedName == null) {
-			return;
-		}
-
-		// Don't do anything if the package is the owner of the section
-		if (section.getOwner() instanceof AadlPackage
-				&& pkgQualifiedName.equalsIgnoreCase(((AadlPackage) section.getOwner()).getQualifiedName())) {
-			return;
-		}
-
-		//
-		boolean isImported = false;
-		for (final ModelUnit mu : section.getImportedUnits()) {
-			final String qn = mu.getQualifiedName();
-			if (pkgQualifiedName.equalsIgnoreCase(qn)) {
-				isImported = true;
-				break;
-			}
-		}
-
-		// Import the package if needed
-		if (!isImported) {
-			section.getImportedUnits().add(pkg);
-		}
 	}
 }

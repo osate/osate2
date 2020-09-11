@@ -34,7 +34,7 @@ import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ba.aadlba.DispatchCondition;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.ba.util.BehaviorAnnexHandlerUtil;
+import org.osate.ge.ba.util.BehaviorAnnexUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
@@ -58,7 +58,7 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 		return ctx.getSource().getBusinessObject(BehaviorState.class).map(behaviorState -> {
 			final Classifier classifier = behaviorState.getContainingClassifier();
 			return !behaviorState.isFinal()
-					&& (!behaviorState.isComplete() || BehaviorAnnexHandlerUtil.allowsOnDispatchConditions(classifier));
+					&& (!behaviorState.isComplete() || BehaviorAnnexUtil.allowsOnDispatchConditions(classifier));
 		})
 				.orElse(false);
 	}

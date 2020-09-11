@@ -11,7 +11,6 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.ge.DiagramCreationUtil;
 import org.osate.ge.ba.diagram.diagramType.BehaviorAnnexDiagramType;
-import org.osate.ge.ba.util.BehaviorAnnexHandlerUtil;
 import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
 
 public class OpenBehaviorAnnexDiagramHandler extends AbstractHandler {

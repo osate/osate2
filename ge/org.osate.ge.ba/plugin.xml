@@ -48,6 +48,9 @@ censes only apply to the Third Party Software and not any other portion of this 
       <contentFilter
             class="org.osate.ge.ba.diagram.contentFilters.BehaviorTransitionFilter">
       </contentFilter>
+      <contentFilter
+            class="org.osate.ge.ba.diagram.contentFilters.BehaviorVariableFilter">
+      </contentFilter>
    </extension>
    <extension
          point="org.osate.ge.businessObjectProviders">
@@ -57,7 +60,7 @@ censes only apply to the Third Party Software and not any other portion of this 
    </extension>
    <extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
 	<propertySections contributorId="org.osate.ge.editor.AgeDiagramEditor">
-		<propertySection
+	 <propertySection
 			class="org.osate.ge.ba.properties.SetStateInitialPropertySection"
 			filter="org.osate.ge.ba.properties.StatePropertySection$Filter"
 			id="org.osate.ge.ba.properties.setBehaviorStateInitialPropertySection"
@@ -73,6 +76,12 @@ censes only apply to the Third Party Software and not any other portion of this 
 			class="org.osate.ge.ba.properties.SetStateCompletePropertySection"
 			filter="org.osate.ge.ba.properties.SetStateCompletePropertySection$Filter"
 			id="org.osate.ge.ba.properties.setBehaviorStateCompletePropertySection"
+			tab="org.osate.ge.ui.properties.tabs.aadl">
+     </propertySection>
+     <propertySection
+			class="org.osate.ge.ba.properties.SetVariableDataClassifierPropertySection"
+			filter="org.osate.ge.ba.properties.SetVariableDataClassifierPropertySection$Filter"
+			id="org.osate.ge.ba.properties.setVariableDataClassifierPropertySection"
 			tab="org.osate.ge.ui.properties.tabs.aadl">
      </propertySection>
      </propertySections>

@@ -38,7 +38,7 @@ import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ba.aadlba.DispatchCondition;
-import org.osate.ge.ba.util.BehaviorAnnexHandlerUtil;
+import org.osate.ge.ba.util.BehaviorAnnexUtil;
 import org.osate.ge.ui.PropertySectionUtil;
 
 public class SetStateCompletePropertySection extends StatePropertySection {
@@ -58,7 +58,7 @@ public class SetStateCompletePropertySection extends StatePropertySection {
 			return (behaviorState, boc) -> {
 				final Consumer<BehaviorTransition> modifyTransitionForCompleteSourceStates = getModificationForTransition(
 						isComplete);
-				BehaviorAnnexHandlerUtil.getTransitionsForSourceState(behaviorState).forEach(behaviorTransition -> {
+				BehaviorAnnexUtil.getTransitionsForSourceState(behaviorState).forEach(behaviorTransition -> {
 					modifyTransitionForCompleteSourceStates.accept(behaviorTransition);
 				});
 
@@ -110,7 +110,7 @@ public class SetStateCompletePropertySection extends StatePropertySection {
 				// Removing complete state
 				// If classifier requires complete state, check if this complete state can be removed.
 				boolean allowRemovingCompleteness = true;
-				if (BehaviorAnnexHandlerUtil.requiresCompleteState(classifier)) {
+				if (BehaviorAnnexUtil.requiresCompleteState(classifier)) {
 					// Check if completeness can be removed
 					allowRemovingCompleteness = allowRemoveCompleteness(classifier, selectedState);
 				}
@@ -120,11 +120,11 @@ public class SetStateCompletePropertySection extends StatePropertySection {
 				// Setting complete state
 				// Check if state is a source, if dispatch is not allowed, cannot make state complete
 				// If already a source, cannot make complete if dispatch is not allowed
-				final Optional<BehaviorTransition> transition = BehaviorAnnexHandlerUtil
+				final Optional<BehaviorTransition> transition = BehaviorAnnexUtil
 						.getTransitionsForSourceState(selectedState).findAny();
 				boolean allowAddingCompleteness = true;
 				if (transition.isPresent()) {
-					allowAddingCompleteness = BehaviorAnnexHandlerUtil.allowsOnDispatchConditions(classifier);
+					allowAddingCompleteness = BehaviorAnnexUtil.allowsOnDispatchConditions(classifier);
 				}
 
 				setCompleteStateBtn.setEnabled(allowAddingCompleteness);

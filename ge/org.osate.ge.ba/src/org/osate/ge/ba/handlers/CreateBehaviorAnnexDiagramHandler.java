@@ -38,7 +38,6 @@ import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.ge.DiagramCreationUtil;
 import org.osate.ge.ProjectUtil;
 import org.osate.ge.ba.diagram.diagramType.BehaviorAnnexDiagramType;
-import org.osate.ge.ba.util.BehaviorAnnexHandlerUtil;
 import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
 import org.osate.ge.swt.name.DiagramNameDialog;
 import org.osate.ge.swt.name.NameEditorDialogModel;
