@@ -5372,44 +5372,52 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 						+ "' to have classifier '" + sourceClassifier.getQualifiedName() + '\'', connection,
 						Aadl2Package.eINSTANCE.getConnection_Destination());
 			} else if (sourceClassifier != null && destinationClassifier != null) {
-				String classifierMatchingRuleValue = GetProperties.getClassifierMatchingRuleProperty(connection);
-				if (ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue)) {
-					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
-							destinationClassifier)) {
-						error(connection, '\'' + source.getName() + "' and '" + destination.getName()
-								+ "' have incompatible classifiers.");
-					}
-				} else if (ModelingProperties.EQUIVALENCE.equalsIgnoreCase(classifierMatchingRuleValue)) {
-					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
-							destinationClassifier)
-							&& !classifiersFoundInSupportedClassifierEquivalenceMatchesProperty(connection,
-									sourceClassifier, destinationClassifier)) {
-						error(connection, "The types of '" + source.getName() + "' and '" + destination.getName()
-								+ "' ('" + sourceClassifier.getQualifiedName() + "' and '"
-								+ destinationClassifier.getQualifiedName()
-								+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
-								+ AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES + "'.");
-					}
-				} else if (ModelingProperties.SUBSET.equalsIgnoreCase(classifierMatchingRuleValue)) {
-					if (!classifiersFoundInSupportedClassifierSubsetMatchesProperty(connection, sourceClassifier,
-							destinationClassifier) && !isDataSubset(sourceClassifier, destinationClassifier)) {
-						error(connection,
-								"The data type of '" + source.getName() + "' ('" + sourceClassifier.getQualifiedName()
-										+ "') is not a subset of the data type of '" + destination.getName() + "' ('"
-										+ destinationClassifier.getQualifiedName()
-										+ "') based on name matching or the property constant '"
-										+ AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES + "'.");
-					}
-				} else if (ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue)) {
-					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
-							destinationClassifier)
-							&& !classifiersFoundInSupportedTypeConversionsProperty(connection, sourceClassifier,
-									destinationClassifier)) {
-						error(connection, "The types of '" + source.getName() + "' and '" + destination.getName()
-								+ "' ('" + sourceClassifier.getQualifiedName() + "' and '"
-								+ destinationClassifier.getQualifiedName()
-								+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
-								+ AadlProject.SUPPORTED_TYPE_CONVERSIONS + "'.");
+				// check if property is modal
+				Object feature = connection.eContainingFeature();
+				if (!connection.getContainingComponentImpl().getAllModes().isEmpty()) {
+					error(connection.eContainingFeature(),
+							'\'' + source.getFullName()
+							+ "' and '"
+							+ destination.getFullName() + "' properties should not be modal.");
+				} else {
+					String classifierMatchingRuleValue = GetProperties.getClassifierMatchingRuleProperty(connection);
+					if (ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue)) {
+						if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
+								destinationClassifier)) {
+							error(connection, '\'' + source.getName() + "' and '" + destination.getName()
+									+ "' have incompatible classifiers.");
+						}
+					} else if (ModelingProperties.EQUIVALENCE.equalsIgnoreCase(classifierMatchingRuleValue)) {
+						if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
+								destinationClassifier)
+								&& !classifiersFoundInSupportedClassifierEquivalenceMatchesProperty(connection,
+										sourceClassifier, destinationClassifier)) {
+							error(connection, "The types of '" + source.getName() + "' and '" + destination.getName()
+									+ "' ('" + sourceClassifier.getQualifiedName() + "' and '"
+									+ destinationClassifier.getQualifiedName()
+									+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
+									+ AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES + "'.");
+						}
+					} else if (ModelingProperties.SUBSET.equalsIgnoreCase(classifierMatchingRuleValue)) {
+						if (!classifiersFoundInSupportedClassifierSubsetMatchesProperty(connection, sourceClassifier,
+								destinationClassifier) && !isDataSubset(sourceClassifier, destinationClassifier)) {
+							error(connection, "The data type of '" + source.getName() + "' ('"
+									+ sourceClassifier.getQualifiedName() + "') is not a subset of the data type of '"
+									+ destination.getName() + "' ('" + destinationClassifier.getQualifiedName()
+									+ "') based on name matching or the property constant '"
+									+ AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES + "'.");
+						}
+					} else if (ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue)) {
+						if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
+								destinationClassifier)
+								&& !classifiersFoundInSupportedTypeConversionsProperty(connection, sourceClassifier,
+										destinationClassifier)) {
+							error(connection, "The types of '" + source.getName() + "' and '" + destination.getName()
+									+ "' ('" + sourceClassifier.getQualifiedName() + "' and '"
+									+ destinationClassifier.getQualifiedName()
+									+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
+									+ AadlProject.SUPPORTED_TYPE_CONVERSIONS + "'.");
+						}
 					}
 				}
 			}
