@@ -49,7 +49,7 @@ censes only apply to the Third Party Software and not any other portion of this 
   <extension
          point="org.eclipse.ui.propertyPages">
        <page
-            class="org.osate.aadl2.errormodel.faulttree.FaultTreePropertyPage"
+            class="org.osate.aadl2.errormodel.FaultTree.ui.FaultTreePropertyPage"
             category="org.osate.ui.properties.OSATE"
             id="org.osate.aadl2.errormodel.FaultTree.ui.FaultTreePropertyPage"
             name="Fault Tree">
