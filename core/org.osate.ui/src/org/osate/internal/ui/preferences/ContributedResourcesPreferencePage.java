@@ -39,8 +39,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -267,23 +267,44 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		return ok;
 	}
 
+	private static boolean filterContainer(final Map<Object, Boolean> visible, final IResource irsrc,
+			final String fileName) throws CoreException {
+		boolean isViz = false;
+		if (irsrc instanceof IFile) {
+			isViz = irsrc.getName().contentEquals(fileName);
+		} else if (irsrc instanceof IContainer) {
+			for (final IResource child : ((IContainer) irsrc).members()) {
+				isViz |= filterContainer(visible, child, fileName);
+			}
+		}
+		visible.put(irsrc, isViz);
+		return isViz;
+	}
+
 	private URI getWorkspaceContributedResource(final String fileName) {
 		final ElementTreeSelectionDialog dialog = new ElementTreeSelectionDialog(getShell(),
 				new WorkbenchLabelProvider(), new WorkbenchContentProvider());
+		dialog.setTitle("Choose the Replacement Resource");
+		dialog.setMessage(
+				"Choose a file named \"" + fileName
+						+ "\" in the workspace to override the contributed resource." + System.lineSeparator()
+						+ "Only acceptable replacements are shown below.");
 		dialog.setInput(ResourcesPlugin.getWorkspace().getRoot());
+
+		final Map<Object, Boolean> visible = new HashMap<>();
+		try {
+			for (final IResource irsrc : ResourcesPlugin.getWorkspace().getRoot().members()) {
+				filterContainer(visible, irsrc, fileName);
+			}
+		} catch (final CoreException e) {
+			OsateUiPlugin.log(e);
+		}
+
 		dialog.setAllowMultiple(false); // only singleton selections
 		dialog.addFilter(new ViewerFilter() {
 			@Override
 			public boolean select(final Viewer viewer, final Object parentElement, final Object element) {
-				if (element instanceof IFolder) {
-					// Don't show hidden folders
-					return !((IFolder) element).getName().startsWith(".");
-				} else if (element instanceof IFile) {
-					// Only show files whose name equals the given file name.
-					return ((IFile) element).getName().equals(fileName);
-				} else {
-					return true;
-				}
+				return visible.getOrDefault(element, false);
 			}
 		});
 		dialog.setValidator(selection -> {

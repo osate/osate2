@@ -48,7 +48,12 @@ public class AadlContributionLabelProvider extends LabelProvider implements IDes
 			List<String> directoryPath = ((ContributedDirectory) element).getPath();
 			text = directoryPath.get(directoryPath.size() - 1);
 		} else if (element instanceof ContributedAadlStorage) {
+			final URI uri = ((ContributedAadlStorage) element).getUri();
+			final URI overrides = PredeclaredProperties.getOverriddingResources().get(uri);
 			text = ((ContributedAadlStorage) element).getName();
+			if (overrides != null) {
+				text = "<" + text + ">";
+			}
 		}
 		return text;
 	}
