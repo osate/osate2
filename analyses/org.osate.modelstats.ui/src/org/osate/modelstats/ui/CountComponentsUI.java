@@ -16,7 +16,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.modelstats.ElementsCounts;
 
@@ -62,7 +61,8 @@ public class CountComponentsUI extends Dialog {
 				if (element instanceof String) {
 					return element.toString();
 				} else if (element instanceof ComponentCategory) {
-					return StringExtensions.toFirstUpper(((ComponentCategory) element).getName());
+					String compName = ((ComponentCategory) element).getName();
+					return compName.substring(0, 1).toUpperCase() + compName.substring(1);
 				} else {
 					return null;
 				}
