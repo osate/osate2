@@ -71,10 +71,11 @@ public class AadlContributionContentProvider extends WorkbenchContentProvider {
 			}
 			return new Object[0];
 		} else if (element instanceof VirtualPluginResources) {
-			return PredeclaredProperties.getEffectiveContributedResources().stream().map(uri -> {
+			return PredeclaredProperties.getContributedResources().stream().map(uri -> {
 				OptionalInt firstSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri);
 				if (!firstSignificantIndex.isPresent() || firstSignificantIndex.getAsInt() == uri.segmentCount() - 1) {
-					return new ContributedAadlStorage((VirtualPluginResources) element, uri);
+					final URI replacedBy = PredeclaredProperties.getOverriddenResources().getOrDefault(uri, uri);
+					return new ContributedAadlStorage((VirtualPluginResources) element, replacedBy);
 				} else {
 					return new ContributedDirectory((VirtualPluginResources) element,
 							Collections.singletonList(uri.segment(firstSignificantIndex.getAsInt())));
@@ -82,7 +83,7 @@ public class AadlContributionContentProvider extends WorkbenchContentProvider {
 			}).distinct().toArray();
 		} else if (element instanceof ContributedDirectory) {
 			List<String> directoryPath = ((ContributedDirectory) element).getPath();
-			Stream<URI> inDirectory = PredeclaredProperties.getEffectiveContributedResources().stream().filter(uri -> {
+			Stream<URI> inDirectory = PredeclaredProperties.getContributedResources().stream().filter(uri -> {
 				OptionalInt firstSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri);
 				if (firstSignificantIndex.isPresent() && firstSignificantIndex.getAsInt() < uri.segmentCount() - 1) {
 					List<String> uriDirectory = uri.segmentsList().subList(firstSignificantIndex.getAsInt(),
@@ -97,7 +98,8 @@ public class AadlContributionContentProvider extends WorkbenchContentProvider {
 				int nextSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri).getAsInt()
 						+ directoryPath.size();
 				if (nextSignificantIndex == uri.segmentCount() - 1) {
-					return new ContributedAadlStorage((ContributedDirectory) element, uri);
+					final URI replacedBy = PredeclaredProperties.getOverriddenResources().getOrDefault(uri, uri);
+					return new ContributedAadlStorage((ContributedDirectory) element, replacedBy);
 				} else {
 					ArrayList<String> newPath = new ArrayList<>(directoryPath);
 					newPath.add(uri.segment(nextSignificantIndex));
