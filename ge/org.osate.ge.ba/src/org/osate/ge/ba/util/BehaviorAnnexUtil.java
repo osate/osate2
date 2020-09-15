@@ -23,12 +23,14 @@
  */
 package org.osate.ge.ba.util;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Abstract;
@@ -36,7 +38,9 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.Device;
 import org.osate.aadl2.ModelUnit;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.PublicPackageSection;
 import org.osate.aadl2.Subprogram;
 import org.osate.aadl2.Thread;
 import org.osate.aadl2.VirtualProcessor;
@@ -101,9 +105,9 @@ public class BehaviorAnnexUtil {
 	}
 
 	/**
-	 * Adds an import for pkg to section if it is not already imported.
-	 * @param section
-	 * @param pkg
+	 * Adds an import for package to section if it is not already imported.
+	 * @param section the section to add the package to
+	 * @param pkg the package to import
 	 */
 	public static void addImportIfNeeded(final PackageSection section, final AadlPackage pkg) {
 		final String pkgQualifiedName = pkg.getQualifiedName();
@@ -117,7 +121,7 @@ public class BehaviorAnnexUtil {
 			return;
 		}
 
-		//
+		// Check if package is already imported
 		boolean isImported = false;
 		for (final ModelUnit mu : section.getImportedUnits()) {
 			final String qn = mu.getQualifiedName();
@@ -131,5 +135,74 @@ public class BehaviorAnnexUtil {
 		if (!isImported) {
 			section.getImportedUnits().add(pkg);
 		}
+	}
+
+	/**
+	 * Operation for creating behavior variables
+	 */
+	public static class VariableOperation {
+		private final PublicPackageSection section;
+		private final BehaviorAnnex behaviorAnnex;
+		private final DataClassifier dataClassifier;
+		private final AadlPackage dataClassifierPkg;
+
+		public VariableOperation(final PublicPackageSection section, final BehaviorAnnex behaviorAnnex,
+				final DataClassifier dataClassifier, final AadlPackage dataClassifierPkg) {
+			this.section = Objects.requireNonNull(section, "section cannot be null");
+			this.behaviorAnnex = Objects.requireNonNull(behaviorAnnex, "behavior annex cannot be null");
+			this.dataClassifier = Objects.requireNonNull(dataClassifier, "data classifier cannot be null");
+			this.dataClassifierPkg = Objects.requireNonNull(dataClassifierPkg,
+					"data classifier package cannot be null");
+		}
+
+		public BehaviorAnnex getBehaviorAnnex() {
+			return behaviorAnnex;
+		}
+
+		public PublicPackageSection getPublicSection() {
+			return section;
+		}
+
+		public DataClassifier getDataClassifier() {
+			return dataClassifier;
+		}
+
+		public AadlPackage getDataClassifierPackage() {
+			return dataClassifierPkg;
+		}
+	}
+
+	/**
+	 * Show dialog to select a data classifier for behavior variables
+	 */
+	static class VariableDialog {
+		public static Optional<VariableOperation> show(final Shell shell, final PublicPackageSection section,
+				final BehaviorAnnex behaviorAnnex) {
+			final Resource resource = behaviorAnnex.eResource();
+			return BehaviorAnnexUtil.getDataClassifier(resource).map(dataClassifier -> getPackage(dataClassifier)
+					.map(pkg -> new VariableOperation(section, behaviorAnnex, dataClassifier, pkg)).orElse(null));
+		}
+	}
+
+	/**
+	 * Prompt user for data classifier and get information needed for creating new behavior variable
+	 * @return the operation that contains the information for creating behavior variables
+	 */
+	public static Optional<VariableOperation> getVariableBuildOperation(final PublicPackageSection section,
+			final BehaviorAnnex behaviorAnnex) {
+		return VariableDialog.show(Display.getCurrent().getActiveShell(), section, behaviorAnnex);
+	}
+
+	/**
+	 * Return the package of the specified named element
+	 */
+	public static Optional<AadlPackage> getPackage(final NamedElement ne) {
+		if (ne == null) {
+			return Optional.empty();
+		}
+
+		final NamedElement root = ne.getElementRoot();
+		final AadlPackage pkg = root instanceof AadlPackage ? (AadlPackage) root : null;
+		return Optional.ofNullable(pkg);
 	}
 }

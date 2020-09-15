@@ -259,21 +259,38 @@ public class OsateGeTestCommands {
 	 * @param newVariableName the new name for the behavior variable
 	 */
 	public static void createBehaviorVariable(final DiagramReference diagram,
-			final DiagramElementReference parentSpec, final String dataClassifier, final String newVariableName) {
+			final DiagramElementReference parentSpec, final String dataClassifierQualifiedName,
+			final String defaultVariableName, final String newName) {
 		openDiagramEditor(diagram);
 
 		selectPaletteItem(diagram, "Variable");
 		clickDiagramElement(diagram, parentSpec);
 
 		waitForWindowWithTitle("Set the Variable's Data Classifier");
-		doubleClickListItem(0, dataClassifier);
+		doubleClickListItem(0, dataClassifierQualifiedName);
 		waitForDiagramElementToExist(diagram,
-				parentSpec.join(BehaviorAnnexReferenceUtil.getVariableRelativeReference(newVariableName)));
+				parentSpec.join(BehaviorAnnexReferenceUtil.getVariableRelativeReference(defaultVariableName)));
 
-		renameElementDirectEdit(diagram, parentSpec, BehaviorAnnexReferenceUtil.getVariableRelativeReference(newVariableName),
-				"ba_variable");
+		renameElementDirectEdit(diagram, parentSpec,
+				BehaviorAnnexReferenceUtil.getVariableRelativeReference(defaultVariableName), newName);
 
 		layoutDiagram(diagram, parentSpec);
+	}
+
+	/**
+	 * Sets a behavior variables data classifier to the specified value
+	 * @param behaviorVariable is the behavior variable to edit
+	 * @param dataClassifierQualifiedName is the qualified name of the new data classifier
+	 */
+	public static void setBehaviorVariableDataClassifier(final DiagramReference diagram,
+			final DiagramElementReference behaviorVariable, final String dataClassifierQualifiedName) {
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, behaviorVariable);
+
+		clickButtonInPropertiesView("AADL", "Choose...");
+
+		waitForWindowWithTitle("Set the Variable's Data Classifier");
+		doubleClickListItem(0, dataClassifierQualifiedName);
 	}
 
 	/**

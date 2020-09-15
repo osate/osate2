@@ -174,9 +174,10 @@ public class GraphicalAnnexUtil {
 			return null;
 		}
 
+		return null;
 		// If unable to get the parsed annex subclause, throw an exception. Should not mistake this case for simply not having the annex subclause.
-		throw new RuntimeException(
-				"Annex subclause found but unable to retrieve parsed annex subclause of type: " + parsedType.getName());
+		// throw new RuntimeException(
+		// "Annex subclause found but unable to retrieve parsed annex subclause of type: " + parsedType.getName());
 	}
 
 	public static Stream<AnnexSubclause> getAllParsedAnnexSubclauses(final Classifier c, final String annexName,

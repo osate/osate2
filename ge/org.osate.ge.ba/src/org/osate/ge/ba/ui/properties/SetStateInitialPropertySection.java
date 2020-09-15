@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.ba.properties;
+package org.osate.ge.ba.ui.properties;
 
 import java.util.Set;
 import java.util.stream.Collectors;

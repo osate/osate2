@@ -21,14 +21,17 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.ba.properties;
+package org.osate.ge.ba.ui.properties;
+
+import static org.osate.ge.ba.util.BehaviorAnnexUtil.getPackage;
+import static org.osate.ge.ba.util.BehaviorAnnexUtil.getVariableBuildOperation;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.Adapters;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.viewers.IFilter;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
@@ -46,12 +49,16 @@ import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DataClassifier;
-import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.PublicPackageSection;
+import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorVariable;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.ba.util.BehaviorAnnexUtil;
+import org.osate.ge.ba.util.BehaviorAnnexUtil.VariableOperation;
+import org.osate.ge.operations.Operation;
+import org.osate.ge.operations.OperationBuilder;
+import org.osate.ge.operations.StepResult;
 import org.osate.ge.ui.PropertySectionUtil;
 
 /**
@@ -105,32 +112,35 @@ public class SetVariableDataClassifierPropertySection extends AbstractPropertySe
 		public void widgetSelected(final SelectionEvent e) {
 			final BehaviorVariable behaviorVariable = selectedBos.boStream(BehaviorVariable.class).findAny()
 					.orElseThrow(() -> new RuntimeException("Selected behavior variable cannot be found"));
-			final Resource resource = behaviorVariable.eResource();
-			final DataClassifier dataClassifier = BehaviorAnnexUtil.getDataClassifier(resource).orElse(null);
-			if (dataClassifier == null) {
+			final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorVariable.getOwner();
+			final PublicPackageSection section = getPackage(behaviorAnnex)
+					.map(AadlPackage::getPublicSection).orElse(null);
+			if (section == null) {
 				return;
 			}
 
-			// Set the data classifier
-			selectedBos.modify(BehaviorVariable.class, bv -> {
-				setDataClassifier(bv, dataClassifier);
+			final Operation op = Operation.createWithBuilder(builder -> {
+				builder.supply(() -> {
+					final Optional<VariableOperation> variableOperation = getVariableBuildOperation(section, behaviorAnnex);
+					return !variableOperation.isPresent() ? StepResult.abort()
+							: StepResult.forValue(variableOperation.get());
+				}).executeOperation(variableOp -> Operation.createWithBuilder(innerBuilder -> {
+					final OperationBuilder<VariableOperation> opBuilder = innerBuilder.modifyModel(
+							variableOp.getPublicSection(), (tag, prevResult) -> tag,
+							(tag, sectionToModify, prevResult) -> {
+								BehaviorAnnexUtil.addImportIfNeeded(sectionToModify,
+										variableOp.getDataClassifierPackage());
+								return StepResult.forValue(variableOp);
+							});
+
+					selectedBos.modifyWithOperation(opBuilder, BehaviorVariable.class,
+							(bv, varOp) -> bv.setDataClassifier(varOp.getDataClassifier()));
+				}));
 			});
+
+			PropertySectionUtil.execute(op);
 		}
 	};
-
-	private void setDataClassifier(final BehaviorVariable behaviorVariable, final DataClassifier dataClassifier) {
-		// Import its package if necessary
-		final AadlPackage pkg = (AadlPackage) behaviorVariable.getElementRoot();
-		if (dataClassifier instanceof Classifier && dataClassifier.getNamespace() != null && pkg != null) {
-			final PackageSection section = pkg.getPublicSection();
-			final AadlPackage selectedDataClassifierPkg = (AadlPackage) dataClassifier.getNamespace().getOwner();
-			if (selectedDataClassifierPkg != null && pkg != selectedDataClassifierPkg) {
-				BehaviorAnnexUtil.addImportIfNeeded(section, selectedDataClassifierPkg);
-			}
-		}
-
-		behaviorVariable.setDataClassifier(dataClassifier);
-	}
 
 	@Override
 	public void setInput(final IWorkbenchPart part, final ISelection selection) {
