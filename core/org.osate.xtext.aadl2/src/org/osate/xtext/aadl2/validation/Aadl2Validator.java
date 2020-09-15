@@ -69,8 +69,10 @@ import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.osate.aadl2.*;
+import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 import org.osate.aadl2.modelsupport.scoping.IEClassGlobalScopeProvider;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.properties.PropertyIsModalException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.xtext.aadl2.properties.util.AadlProject;
@@ -379,6 +381,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		}
 		checkDirectionOfFeatureGroupMembers(connection);
 		checkNoConnectedSubcomponents(connection);
+		checkConnectionPropertyIsModal(connection);
 	}
 
 	@Check(CheckType.FAST)
@@ -5372,14 +5375,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 						+ "' to have classifier '" + sourceClassifier.getQualifiedName() + '\'', connection,
 						Aadl2Package.eINSTANCE.getConnection_Destination());
 			} else if (sourceClassifier != null && destinationClassifier != null) {
-				// check if property is modal
-				Object feature = connection.eContainingFeature();
-				if (!connection.getContainingComponentImpl().getAllModes().isEmpty()) {
-					error(connection.eContainingFeature(),
-							'\'' + source.getFullName()
-							+ "' and '"
-							+ destination.getFullName() + "' properties should not be modal.");
-				} else {
+				try {
 					String classifierMatchingRuleValue = GetProperties.getClassifierMatchingRuleProperty(connection);
 					if (ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue)) {
 						if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
@@ -5419,10 +5415,26 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 									+ AadlProject.SUPPORTED_TYPE_CONVERSIONS + "'.");
 						}
 					}
+				} catch (PropertyIsModalException e) {
+					// ignored exception. handled in separate validation method checkConnectionPropertyIsModal(Connection connection)
 				}
 			}
 		}
+	}
 
+	private void checkConnectionPropertyIsModal(Connection connection) {
+		Property classifierMatchingRuleProperty = Aadl2GlobalScopeUtil.get(connection,
+				Aadl2Package.eINSTANCE.getProperty(),
+				ModelingProperties._NAME + "::" + ModelingProperties.CLASSIFIER_MATCHING_RULE);
+
+		connection.getOwnedPropertyAssociations().forEach(pa -> {
+			if (pa.getProperty() == classifierMatchingRuleProperty
+					&& (pa.getOwnedValues().size() > 1 || !pa.getOwnedValues().get(0).getInModes().isEmpty())) {
+				error(ModelingProperties.CLASSIFIER_MATCHING_RULE + ": Property can not be modal",
+						pa, Aadl2Package.eINSTANCE.getPropertyAssociation_Property());
+				return;
+			}
+		});
 	}
 
 	private boolean testAccessClassifierMatchRule(Connection connection, ConnectionEnd source,
