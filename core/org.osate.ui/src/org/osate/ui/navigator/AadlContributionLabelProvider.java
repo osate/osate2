@@ -86,6 +86,8 @@ public class AadlContributionLabelProvider extends LabelProvider implements IDes
 			if (overrides != null) {
 				description = description + " (" + uriToWorkspacePath(uri) + " overrides "
 						+ uriToWorkspacePath(overrides) + ")";
+			} else {
+				description = description + " (contributed by " + uri.segment(1) + ")";
 			}
 		}
 		return description;
