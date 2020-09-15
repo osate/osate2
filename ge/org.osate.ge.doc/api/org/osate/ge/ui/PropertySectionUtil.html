@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":9,"i1":9,"i2":9};
+var methods = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -151,17 +151,37 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>static org.eclipse.swt.widgets.Button</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/ui/PropertySectionUtil.html#createButton-TabbedPropertySheetWidgetFactory-org.eclipse.swt.widgets.Composite-java.lang.Object-org.eclipse.swt.events.SelectionListener-java.lang.String-int-">createButton</a></span>(TabbedPropertySheetWidgetFactory&nbsp;widgetFactory,
+            org.eclipse.swt.widgets.Composite&nbsp;container,
+            java.lang.Object&nbsp;data,
+            org.eclipse.swt.events.SelectionListener&nbsp;listener,
+            java.lang.String&nbsp;txt,
+            int&nbsp;type)</code>
+<div class="block">Creates a button with the specified data, selection listener, text, and type
+ intended to be created on a <code>org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage</code>.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>static org.eclipse.swt.widgets.Label</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/ui/PropertySectionUtil.html#createSectionLabel-org.eclipse.swt.widgets.Composite-TabbedPropertySheetWidgetFactory-java.lang.String-">createSectionLabel</a></span>(org.eclipse.swt.widgets.Composite&nbsp;container,
+                  TabbedPropertySheetWidgetFactory&nbsp;widgetFactory,
+                  java.lang.String&nbsp;lblTxt)</code>
+<div class="block">Creates a label intended to be used as the section label.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>static void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/ui/PropertySectionUtil.html#execute-org.osate.ge.operations.Operation-">execute</a></span>(<a href="../../../../org/osate/ge/operations/Operation.html" title="interface in org.osate.ge.operations">Operation</a>&nbsp;operation)</code>
 <div class="block">Executes an operation in a context which is not associated with a diagram.</div>
 </td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/ui/PropertySectionUtil.html#isBocCompatible-java.lang.Object-java.util.function.Predicate-">isBocCompatible</a></span>(java.lang.Object&nbsp;toTest,
                java.util.function.Predicate&lt;<a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&gt;&nbsp;predicate)</code>&nbsp;</td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/ui/PropertySectionUtil.html#isBoCompatible-java.lang.Object-java.util.function.Predicate-">isBoCompatible</a></span>(java.lang.Object&nbsp;toTest,
               java.util.function.Predicate&lt;java.lang.Object&gt;&nbsp;predicate)</code>&nbsp;</td>
@@ -228,7 +248,7 @@ extends java.lang.Object</pre>
 <a name="execute-org.osate.ge.operations.Operation-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>execute</h4>
 <pre>public static&nbsp;void&nbsp;execute(<a href="../../../../org/osate/ge/operations/Operation.html" title="interface in org.osate.ge.operations">Operation</a>&nbsp;operation)</pre>
@@ -236,6 +256,53 @@ extends java.lang.Object</pre>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>operation</code> - </dd>
+</dl>
+</li>
+</ul>
+<a name="createSectionLabel-org.eclipse.swt.widgets.Composite-TabbedPropertySheetWidgetFactory-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>createSectionLabel</h4>
+<pre>public static&nbsp;org.eclipse.swt.widgets.Label&nbsp;createSectionLabel(org.eclipse.swt.widgets.Composite&nbsp;container,
+                                                               TabbedPropertySheetWidgetFactory&nbsp;widgetFactory,
+                                                               java.lang.String&nbsp;lblTxt)</pre>
+<div class="block">Creates a label intended to be used as the section label. Returned label will have a <code>FormData</code> layout data set to align to the left.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>container</code> - is the container for the label.</dd>
+<dd><code>widgetFactory</code> - the widget factory used to create the label</dd>
+<dd><code>lblTxt</code> - is the text for the label</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>is the created label.</dd>
+</dl>
+</li>
+</ul>
+<a name="createButton-TabbedPropertySheetWidgetFactory-org.eclipse.swt.widgets.Composite-java.lang.Object-org.eclipse.swt.events.SelectionListener-java.lang.String-int-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>createButton</h4>
+<pre>public static&nbsp;org.eclipse.swt.widgets.Button&nbsp;createButton(TabbedPropertySheetWidgetFactory&nbsp;widgetFactory,
+                                                          org.eclipse.swt.widgets.Composite&nbsp;container,
+                                                          java.lang.Object&nbsp;data,
+                                                          org.eclipse.swt.events.SelectionListener&nbsp;listener,
+                                                          java.lang.String&nbsp;txt,
+                                                          int&nbsp;type)</pre>
+<div class="block">Creates a button with the specified data, selection listener, text, and type
+ intended to be created on a <code>org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage</code>.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>widgetFactory</code> - the widget factory used to create the label</dd>
+<dd><code>container</code> - is the container for the label.</dd>
+<dd><code>data</code> - is the data for the button</dd>
+<dd><code>listener</code> - is the selection listener for the button</dd>
+<dd><code>txt</code> - is the text for the button</dd>
+<dd><code>type</code> - is the type of button</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>is the created button</dd>
 </dl>
 </li>
 </ul>

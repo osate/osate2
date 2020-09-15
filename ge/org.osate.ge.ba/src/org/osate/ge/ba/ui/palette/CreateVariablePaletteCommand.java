@@ -23,22 +23,20 @@
  */
 package org.osate.ge.ba.ui.palette;
 
-import java.util.Objects;
+import static org.osate.ge.ba.util.BehaviorAnnexUtil.getPackage;
+import static org.osate.ge.ba.util.BehaviorAnnexUtil.getVariableBuildOperation;
+
 import java.util.Optional;
 
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.DataClassifier;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PublicPackageSection;
 import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorVariable;
 import org.osate.ge.ba.util.BehaviorAnnexNamingUtil;
 import org.osate.ge.ba.util.BehaviorAnnexUtil;
+import org.osate.ge.ba.util.BehaviorAnnexUtil.VariableOperation;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.OperationBuilder;
 import org.osate.ge.operations.StepResult;
@@ -53,47 +51,6 @@ import org.osate.ge.palette.TargetedPaletteCommand;
 public class CreateVariablePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	public CreateVariablePaletteCommand() {
 		super("Variable", BehaviorAnnexPaletteContributor.BEHAVIOR_ANNEX, null);
-	}
-
-	static class VariableOperation {
-		private final PublicPackageSection section;
-		private final BehaviorAnnex behaviorAnnex;
-		private final DataClassifier dataClassifier;
-		private final AadlPackage dataClassifierPkg;
-
-		public VariableOperation(final PublicPackageSection section, final BehaviorAnnex behaviorAnnex,
-				final DataClassifier dataClassifier, final AadlPackage dataClassifierPkg) {
-			this.section = Objects.requireNonNull(section, "section cannot be null");
-			this.behaviorAnnex = Objects.requireNonNull(behaviorAnnex, "behavior annex cannot be null");
-			this.dataClassifier = Objects.requireNonNull(dataClassifier, "data classifier cannot be null");
-			this.dataClassifierPkg = Objects.requireNonNull(dataClassifierPkg,
-					"data classifier package cannot be null");
-		}
-
-		public BehaviorAnnex getBehaviorAnnex() {
-			return behaviorAnnex;
-		}
-
-		public PublicPackageSection getPublicSection() {
-			return section;
-		}
-
-		public DataClassifier getDataClassifier() {
-			return dataClassifier;
-		}
-
-		public AadlPackage getDataClassifierPackage() {
-			return dataClassifierPkg;
-		}
-	}
-
-	static class VariableDialog {
-		public static Optional<VariableOperation> show(final Shell shell, final PublicPackageSection section,
-				final BehaviorAnnex behaviorAnnex) {
-			final Resource resource = behaviorAnnex.eResource();
-			return BehaviorAnnexUtil.getDataClassifier(resource).map(dataClassifier -> getPackage(dataClassifier)
-					.map(pkg -> new VariableOperation(section, behaviorAnnex, dataClassifier, pkg)).orElse(null));
-		}
 	}
 
 	@Override
@@ -135,21 +92,5 @@ public class CreateVariablePaletteCommand extends BasePaletteCommand implements 
 						}));
 					});
 				});
-
-	}
-
-	private Optional<VariableOperation> getVariableBuildOperation(final PublicPackageSection section,
-			final BehaviorAnnex behaviorAnnex) {
-		return VariableDialog.show(Display.getCurrent().getActiveShell(), section, behaviorAnnex);
-	}
-
-	public static Optional<AadlPackage> getPackage(final NamedElement element) {
-		if (element == null || element.eIsProxy()) {
-			return Optional.empty();
-		}
-
-		final NamedElement root = element.getElementRoot();
-		final AadlPackage pkg = root instanceof AadlPackage ? (AadlPackage) root : null;
-		return Optional.ofNullable(pkg);
 	}
 }

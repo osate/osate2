@@ -61,26 +61,26 @@ censes only apply to the Third Party Software and not any other portion of this 
    <extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
 	<propertySections contributorId="org.osate.ge.editor.AgeDiagramEditor">
 	 <propertySection
-			class="org.osate.ge.ba.properties.SetStateInitialPropertySection"
-			filter="org.osate.ge.ba.properties.StatePropertySection$Filter"
+			class="org.osate.ge.ba.ui.properties.SetStateInitialPropertySection"
+			filter="org.osate.ge.ba.ui.properties.StatePropertySection$Filter"
 			id="org.osate.ge.ba.properties.setBehaviorStateInitialPropertySection"
 			tab="org.osate.ge.ui.properties.tabs.aadl">
      </propertySection>
      <propertySection
-			class="org.osate.ge.ba.properties.SetStateFinalPropertySection"
-			filter="org.osate.ge.ba.properties.StatePropertySection$Filter"
+			class="org.osate.ge.ba.ui.properties.SetStateFinalPropertySection"
+			filter="org.osate.ge.ba.ui.properties.StatePropertySection$Filter"
 			id="org.osate.ge.ba.properties.setBehaviorStateFinalPropertySection"
 			tab="org.osate.ge.ui.properties.tabs.aadl">
      </propertySection>
      <propertySection
-			class="org.osate.ge.ba.properties.SetStateCompletePropertySection"
-			filter="org.osate.ge.ba.properties.SetStateCompletePropertySection$Filter"
+			class="org.osate.ge.ba.ui.properties.SetStateCompletePropertySection"
+			filter="org.osate.ge.ba.ui.properties.SetStateCompletePropertySection$Filter"
 			id="org.osate.ge.ba.properties.setBehaviorStateCompletePropertySection"
 			tab="org.osate.ge.ui.properties.tabs.aadl">
      </propertySection>
      <propertySection
-			class="org.osate.ge.ba.properties.SetVariableDataClassifierPropertySection"
-			filter="org.osate.ge.ba.properties.SetVariableDataClassifierPropertySection$Filter"
+			class="org.osate.ge.ba.ui.properties.SetVariableDataClassifierPropertySection"
+			filter="org.osate.ge.ba.ui.properties.SetVariableDataClassifierPropertySection$Filter"
 			id="org.osate.ge.ba.properties.setVariableDataClassifierPropertySection"
 			tab="org.osate.ge.ui.properties.tabs.aadl">
      </propertySection>

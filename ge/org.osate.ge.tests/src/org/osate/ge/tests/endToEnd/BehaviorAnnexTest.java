@@ -42,6 +42,8 @@ public class BehaviorAnnexTest {
 	private static final String BA_TEST = "ba_test";
 	private static final String TYPE = " Type";
 	private static final String NAME_SUFFIX = "_type";
+	private static final String DATA_PKG = "data_test";
+	private static final String DATA_CLASSIFIER = "temp";
 
 	@Test
 	public void testBehaviorAnnex() {
@@ -51,6 +53,14 @@ public class BehaviorAnnexTest {
 		// Create package
 		createNewPackageWithPackageDiagram(BA_TEST, BA_TEST);
 
+		// Create package for data classifier reference
+		createNewPackageWithPackageDiagram(BA_TEST, DATA_PKG);
+
+		// Create Data Type
+		createElementAndLayout(defaultDiagram(BA_TEST, DATA_PKG), packageElement(DATA_PKG), "Data Type",
+				getClassifierRelativeReference("new_classifier"), DATA_CLASSIFIER);
+
+		// Create default diagram for testing classifiers
 		final DiagramReference diagram = defaultDiagram(BA_TEST, BA_TEST);
 		final RelativeBusinessObjectReference pkgRef = getRelativeReferenceForPackage(BA_TEST);
 		final DiagramElementReference pkgElement = packageElement(BA_TEST);
@@ -81,7 +91,8 @@ public class BehaviorAnnexTest {
 	 * - Create source Behavior State
 	 * - Execute Open -> Behavior Annex Diagram
 	 * - Create destination Behavior State
-	 * - Create behavior variable
+	 * - Create behavior variable with data classifier set as Base_Types::Character
+	 * - Set data classifier for variable to data classifier data_test::temp
 	 * - Create a behavior transition between source and destination
 	 * - Test state and transition properties for classifier
 	 * - Repeat for impl, but execute Open -> New Diagram...
@@ -142,7 +153,14 @@ public class BehaviorAnnexTest {
 				BehaviorAnnexReferenceUtil.getStateRelativeReference(newStatePrefix + "_new_state"), "dest_state");
 
 		// Create variable
-		createBehaviorVariable(baDiagram, baDiagramSpecRef, "Base_Types::Character", newStatePrefix + "_new_variable");
+		final String newVariableName = "ba_variable";
+		createBehaviorVariable(baDiagram, baDiagramSpecRef, "Base_Types::Character", newStatePrefix + "_new_variable",
+				newVariableName);
+
+		// Change variable data classifier
+		setBehaviorVariableDataClassifier(baDiagram,
+				baDiagramSpecRef.join(BehaviorAnnexReferenceUtil.getVariableRelativeReference(newVariableName)),
+				DATA_PKG + "::" + DATA_CLASSIFIER);
 
 		final DiagramElementReference dest = new DiagramElementReference(behaviorSpecification)
 				.join(BehaviorAnnexReferenceUtil.getStateRelativeReference("dest_state"));
@@ -150,6 +168,8 @@ public class BehaviorAnnexTest {
 				new DiagramElementReference(behaviorSpecification,
 						BehaviorAnnexReferenceUtil.getStateRelativeReference(srcStateName)),
 				dest, baDiagram, behaviorSpecification, requiresInitialState, allowsOnDispatchCondition);
+
+		saveAndClose(baDiagram);
 	}
 
 	private void testBehaviorSpecification(final DiagramElementReference src, final DiagramElementReference dest,
