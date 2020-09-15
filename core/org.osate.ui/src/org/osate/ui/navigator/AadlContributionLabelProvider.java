@@ -81,14 +81,20 @@ public class AadlContributionLabelProvider extends LabelProvider implements IDes
 			description = "Plug-in Contributions/" + String.join("/", directoryPath);
 		} else if (element instanceof ContributedAadlStorage) {
 			final URI uri = ((ContributedAadlStorage) element).getUri();
-			final URI overrides = PredeclaredProperties.getOverriddingResources().get(uri);
+			final URI overridesURI = PredeclaredProperties.getOverriddingResources().get(uri);
 			description = uriToNavigatorPath(uri);
-			if (overrides != null) {
-				description = description + " (" + uriToWorkspacePath(uri) + " overrides "
-						+ uriToWorkspacePath(overrides) + ")";
+			if (overridesURI != null) {
+				description = description + " (contributed by " + overridesURI.segment(1) + ") (Overridden by "
+						+ uriToWorkspacePath(uri) + ")";
 			} else {
 				description = description + " (contributed by " + uri.segment(1) + ")";
 			}
+//			if (overrides != null) {
+//				description = description + " (" + uriToWorkspacePath(uri) + " overrides "
+//						+ uriToWorkspacePath(overrides) + ")";
+//			} else {
+//				description = description + " (contributed by " + uri.segment(1) + ")";
+//			}
 		}
 		return description;
 	}
