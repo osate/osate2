@@ -110,29 +110,6 @@ public class GraphicalAnnexUtil {
 				"Annex library found but unable to retrieve parsed annex library of type: " + parsedType.getName());
 	}
 
-	//
-	// Subclause
-	//
-	public static AnnexSubclause getOrCreateParsedAnnexSubclause(final Classifier c, final String annexName,
-			final EClass parsedType) {
-		// Get or create the DefaultAnnexSubclause
-		DefaultAnnexSubclause defaultSubclause = getFirstDefaultAnnexSubclause(c, annexName);
-		if (defaultSubclause == null) {
-			// Must create new annex
-			defaultSubclause = c.createOwnedAnnexSubclause();
-			defaultSubclause.setName(annexName);
-			defaultSubclause.setSourceText("{** **}");
-		}
-
-		// Create the parsed subclause as needed
-		AnnexSubclause parsedSubclause = getParsedAnnexSubclause(defaultSubclause, parsedType);
-		if (parsedSubclause == null) {
-			parsedSubclause = defaultSubclause.createParsedAnnexSubclause(parsedType);
-		}
-
-		return parsedSubclause;
-	}
-
 	public static AnnexSubclause createParsedAnnexSubclause(final Classifier c, final String annexName,
 			final EClass parsedType) {
 		// Must create new annex
@@ -141,26 +118,6 @@ public class GraphicalAnnexUtil {
 		defaultSubclause.setSourceText("{** **}");
 
 		return defaultSubclause.createParsedAnnexSubclause(parsedType);
-	}
-
-	public static AnnexSubclause getFirstParsedAnnexSubclause(final Classifier c, final String annexName,
-			final EClass parsedType) {
-		DefaultAnnexSubclause defaultSubclause = getFirstDefaultAnnexSubclause(c, annexName);
-		if (defaultSubclause == null) {
-			return null;
-		}
-
-		return getParsedAnnexSubclause(defaultSubclause, parsedType);
-	}
-
-	private static DefaultAnnexSubclause getFirstDefaultAnnexSubclause(final Classifier c, final String annexName) {
-		for (final AnnexSubclause subclause : c.getOwnedAnnexSubclauses()) {
-			if (subclause.getName().equals(annexName) && subclause instanceof DefaultAnnexSubclause) {
-				return (DefaultAnnexSubclause) subclause;
-			}
-		}
-
-		return null;
 	}
 
 	private static AnnexSubclause getParsedAnnexSubclause(final DefaultAnnexSubclause defaultSubclause,
@@ -175,9 +132,6 @@ public class GraphicalAnnexUtil {
 		}
 
 		return null;
-		// If unable to get the parsed annex subclause, throw an exception. Should not mistake this case for simply not having the annex subclause.
-		// throw new RuntimeException(
-		// "Annex subclause found but unable to retrieve parsed annex subclause of type: " + parsedType.getName());
 	}
 
 	public static Stream<AnnexSubclause> getAllParsedAnnexSubclauses(final Classifier c, final String annexName,
