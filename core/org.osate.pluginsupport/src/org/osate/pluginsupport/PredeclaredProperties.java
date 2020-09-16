@@ -128,7 +128,7 @@ public final class PredeclaredProperties {
 	 * Return <code>null</code> if the workspace URI doesn't override anything.
 	 */
 	public static URI getOverridesURI(final URI workspaceURI) {
-		return overriddenResources.get(workspaceURI);
+		return overriddingResources.get(workspaceURI);
 	}
 
 	/**
