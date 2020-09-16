@@ -13,8 +13,20 @@ import org.eclipse.jface.preference.IPreferenceStore;
  * @since 5.0
  */
 public final class PredeclaredProperties {
+	/**
+	 * Property that declares the total number of predeclared resource that are overridden by resources in the workspace.
+	 */
 	public static final String NUMBER_OF_WORKSPACE_OVERRIDES = "contributed.resource.numOverrides";
+	/**
+	 * Each resource that is overridden is identified by a property <code>contributed.resource.override.key.N</code>
+	 * where <code>N</code> is an integer starting at 0.  The value here is the URI of the resource as it is
+	 * contributed.
+	 */
 	private static final String WORKSPACE_OVERRIDE_KEY_PREFIX = "contributed.resource.override.key.";
+	/**
+	 * The overriding resource is identified by a property <code>contributed.resource.override.value.N</code> where
+	 * <code>N</code> is an integer starting at 0.  The value is the URI of the resource in the workspace.
+	 */
 	private static final String WORKSPACE_OVERRIDE_VALUE_PREFIX = "contributed.resource.override.value.";
 
 	private static final IPreferenceStore preferenceStore = PluginSupportPlugin.getDefault().getPreferenceStore();
@@ -44,10 +56,6 @@ public final class PredeclaredProperties {
 				isChanged = true;
 			}
 		});
-	}
-
-	public static IPreferenceStore getPreferenceStore() {
-		return preferenceStore;
 	}
 
 	private static synchronized void buildContributedResources() {
@@ -82,24 +90,45 @@ public final class PredeclaredProperties {
 		}
 	}
 
+	/**
+	 * Get the list of resources contributed by plug-ins.  This list is not affected by
+	 * overriding.
+	 * @return An immutable list.
+	 */
 	public static List<URI> getContributedResources() {
 		updateCachedState();
 		return contributedResources;
 	}
 
+	/**
+	 * Get the effective list of contributed resources, as determined by replacing contributed resources with
+	 * workspace overrides.
+	 * @return An immutable list.
+	 */
+	public static List<URI> getEffectiveContributedResources() {
+		updateCachedState();
+		return effectiveContributedResources;
+	}
+
+	/**
+	 * Get a map that describes the contributed resources that are overridden by workspace resources.
+	 * Contains one entry for each workspace resource that is actually overridden.  Keys are the
+	 * URIs from {@link #getContributedResources}.  Values are URIs to the workspace.  Looking up
+	 * a URI for a resource that is not overridden returns <code>null</code>.
+	 *
+	 * @return An immutable map.
+	 */
 	public static Map<URI, URI> getOverriddenResources() {
 		updateCachedState();
 		return overriddenResources;
 	}
 
-	public static Map<URI, URI> getOverriddingResources() {
-		updateCachedState();
-		return overriddingResources;
-	}
-
-	public static List<URI> getEffectiveContributedResources() {
-		updateCachedState();
-		return effectiveContributedResources;
+	/**
+	 * Given a URI from the workspace, return the contributed URI, if any, that it overrides.
+	 * Return <code>null</code> if the workspace URI doesn't override anything.
+	 */
+	public static URI getOverridesURI(final URI workspaceURI) {
+		return overriddenResources.get(workspaceURI);
 	}
 
 	/**
