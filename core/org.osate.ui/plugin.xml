@@ -1276,26 +1276,6 @@ censes only apply to the Third Party Software and not any other portion of this 
           </enabledWhen>
        </handler>
        <handler
-             class="org.osate.ui.handlers.SetAadlProjectPropertiesHandler"
-             commandId="org.osate.ui.setAadlProjectProperties">
-          <enabledWhen>
-             <with
-                   variable="selection">
-                <and>
-                   <count
-                         value="1">
-                   </count>
-                   <iterate
-                         ifEmpty="false">
-                      <reference
-                            definitionId="org.osate.is_aadl_project_propertyset">
-                      </reference>
-                   </iterate>
-                </and>
-             </with>
-          </enabledWhen>
-       </handler>
-       <handler
              class="org.osate.ui.handlers.InstantiationHandler"
              commandId="org.osate.ui.instantiate">
           <enabledWhen>
