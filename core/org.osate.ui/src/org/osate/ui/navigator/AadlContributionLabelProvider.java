@@ -52,7 +52,7 @@ public class AadlContributionLabelProvider extends LabelProvider implements IDes
 			final URI overridesURI = PredeclaredProperties.getOverridesURI(uri);
 			text = ((ContributedAadlStorage) element).getName();
 			if (overridesURI != null) {
-				text = "<" + text + ">";
+				text = text + " (overridden)"; // "<" + text + ">";
 			}
 		}
 		return text;
