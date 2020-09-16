@@ -49,9 +49,9 @@ public class AadlContributionLabelProvider extends LabelProvider implements IDes
 			text = directoryPath.get(directoryPath.size() - 1);
 		} else if (element instanceof ContributedAadlStorage) {
 			final URI uri = ((ContributedAadlStorage) element).getUri();
-			final URI overrides = PredeclaredProperties.getOverriddingResources().get(uri);
+			final URI overridesURI = PredeclaredProperties.getOverridesURI(uri);
 			text = ((ContributedAadlStorage) element).getName();
-			if (overrides != null) {
+			if (overridesURI != null) {
 				text = "<" + text + ">";
 			}
 		}
@@ -81,7 +81,7 @@ public class AadlContributionLabelProvider extends LabelProvider implements IDes
 			description = "Plug-in Contributions/" + String.join("/", directoryPath);
 		} else if (element instanceof ContributedAadlStorage) {
 			final URI uri = ((ContributedAadlStorage) element).getUri();
-			final URI overridesURI = PredeclaredProperties.getOverriddingResources().get(uri);
+			final URI overridesURI = PredeclaredProperties.getOverridesURI(uri);
 			description = uriToNavigatorPath(uri);
 			if (overridesURI != null) {
 				description = description + " (contributed by " + overridesURI.segment(1) + ") (Overridden by "
@@ -89,12 +89,6 @@ public class AadlContributionLabelProvider extends LabelProvider implements IDes
 			} else {
 				description = description + " (contributed by " + uri.segment(1) + ")";
 			}
-//			if (overrides != null) {
-//				description = description + " (" + uriToWorkspacePath(uri) + " overrides "
-//						+ uriToWorkspacePath(overrides) + ")";
-//			} else {
-//				description = description + " (contributed by " + uri.segment(1) + ")";
-//			}
 		}
 		return description;
 	}
