@@ -48,6 +48,7 @@ import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.annexsupport.AnnexParseUtil;
 import org.osate.annexsupport.AnnexUtil;
+import org.osate.annexsupport.ParseResultHolder;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -138,7 +139,8 @@ public class AnnexAwareCompletionProposalComputer extends CompletionProposalComp
 					}
 
 					if (annexObject != null && offset >= NodeModelUtils.findActualNodeFor(semanticObject).getOffset()) {
-						IParseResult annexParseResult = AnnexParseUtil.getParseResult(annexObject);
+						IParseResult annexParseResult = ParseResultHolder.Factory.INSTANCE.adapt(annexObject)
+								.getParseResult();
 
 						if (annexParseResult != null) {
 							Injector injector = AnnexUtil.getInjector(annexParseResult);
