@@ -370,14 +370,14 @@ public class Services {
 		for (Setting s : relatedConstraints) {
 			found = false;
 			Constraint c = (Constraint) s.getEObject();
-///			FeatureInstance hRef = c.getHazard().getSystemElement();
+			FeatureInstance hRef = c.getHazard().getSystemElement();
 
 			for (ConnectionReference cr : ((ConnectionInstance) self).getConnectionReferences()) {
 				// Check to see if the system element referred to by the hazard associated with this constraint
 				// is the same component as the destination of the current connection
-///				if (hRef == cr.getDestination()) {
-///					found = true;
-///				}
+				if (hRef == cr.getDestination()) {
+					found = true;
+				}
 			}
 
 			if (found) {
