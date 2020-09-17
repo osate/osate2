@@ -24,7 +24,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
  *   <li>{@link org.osate.alisa2.model.safe2.Hazard#getHazardousFactor <em>Hazardous Factor</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.Hazard#getErrorType <em>Error Type</em>}</li>
  *   <li>{@link org.osate.alisa2.model.safe2.Hazard#getSystemState <em>System State</em>}</li>
- *   <li>{@link org.osate.alisa2.model.safe2.Hazard#getEnvironmentState <em>Environment State</em>}</li>
  * </ul>
  *
  * @see org.osate.alisa2.model.safe2.Safe2Package#getHazard()
@@ -199,27 +198,5 @@ public interface Hazard extends Fundamental {
 	 * @generated
 	 */
 	void setSystemState(ErrorBehaviorState value);
-
-	/**
-	 * Returns the value of the '<em><b>Environment State</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Environment State</em>' reference.
-	 * @see #setEnvironmentState(ErrorBehaviorState)
-	 * @see org.osate.alisa2.model.safe2.Safe2Package#getHazard_EnvironmentState()
-	 * @model
-	 * @generated
-	 */
-	ErrorBehaviorState getEnvironmentState();
-
-	/**
-	 * Sets the value of the '{@link org.osate.alisa2.model.safe2.Hazard#getEnvironmentState <em>Environment State</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Environment State</em>' reference.
-	 * @see #getEnvironmentState()
-	 * @generated
-	 */
-	void setEnvironmentState(ErrorBehaviorState value);
 
 } // Hazard

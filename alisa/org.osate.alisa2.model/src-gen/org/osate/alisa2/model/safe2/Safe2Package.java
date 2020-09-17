@@ -322,22 +322,13 @@ public interface Safe2Package extends EPackage {
 	int HAZARD__SYSTEM_STATE = FUNDAMENTAL_FEATURE_COUNT + 6;
 
 	/**
-	 * The feature id for the '<em><b>Environment State</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int HAZARD__ENVIRONMENT_STATE = FUNDAMENTAL_FEATURE_COUNT + 7;
-
-	/**
 	 * The number of structural features of the '<em>Hazard</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int HAZARD_FEATURE_COUNT = FUNDAMENTAL_FEATURE_COUNT + 8;
+	int HAZARD_FEATURE_COUNT = FUNDAMENTAL_FEATURE_COUNT + 7;
 
 	/**
 	 * The number of operations of the '<em>Hazard</em>' class.
@@ -748,17 +739,6 @@ public interface Safe2Package extends EPackage {
 	EReference getHazard_SystemState();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.alisa2.model.safe2.Hazard#getEnvironmentState <em>Environment State</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Environment State</em>'.
-	 * @see org.osate.alisa2.model.safe2.Hazard#getEnvironmentState()
-	 * @see #getHazard()
-	 * @generated
-	 */
-	EReference getHazard_EnvironmentState();
-
-	/**
 	 * Returns the meta object for class '{@link org.osate.alisa2.model.safe2.AccidentLevel <em>Accident Level</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1036,14 +1016,6 @@ public interface Safe2Package extends EPackage {
 		 * @generated
 		 */
 		EReference HAZARD__SYSTEM_STATE = eINSTANCE.getHazard_SystemState();
-
-		/**
-		 * The meta object literal for the '<em><b>Environment State</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference HAZARD__ENVIRONMENT_STATE = eINSTANCE.getHazard_EnvironmentState();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.alisa2.model.safe2.impl.AccidentLevelImpl <em>Accident Level</em>}' class.

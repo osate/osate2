@@ -301,16 +301,6 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 	 * @generated
 	 */
 	@Override
-	public EReference getHazard_EnvironmentState() {
-		return (EReference)hazardEClass.getEStructuralFeatures().get(7);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EClass getAccidentLevel() {
 		return accidentLevelEClass;
 	}
@@ -480,7 +470,6 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 		createEAttribute(hazardEClass, HAZARD__HAZARDOUS_FACTOR);
 		createEReference(hazardEClass, HAZARD__ERROR_TYPE);
 		createEReference(hazardEClass, HAZARD__SYSTEM_STATE);
-		createEReference(hazardEClass, HAZARD__ENVIRONMENT_STATE);
 
 		accidentLevelEClass = createEClass(ACCIDENT_LEVEL);
 		createEReference(accidentLevelEClass, ACCIDENT_LEVEL__ACCIDENT);
@@ -559,8 +548,7 @@ public class Safe2PackageImpl extends EPackageImpl implements Safe2Package {
 		initEReference(getHazard_SystemElement(), theInstancePackage.getFeatureInstance(), null, "systemElement", null, 0, 1, Hazard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getHazard_HazardousFactor(), theEcorePackage.getEString(), "hazardousFactor", null, 0, 1, Hazard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getHazard_ErrorType(), theErrorModelPackage.getErrorType(), null, "errorType", null, 0, 1, Hazard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getHazard_SystemState(), theErrorModelPackage.getErrorBehaviorState(), null, "systemState", null, 0, 1, Hazard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getHazard_EnvironmentState(), theErrorModelPackage.getErrorBehaviorState(), null, "environmentState", null, 0, 1, Hazard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getHazard_SystemState(), theErrorModelPackage.getErrorBehaviorState(), null, "SystemState", null, 0, 1, Hazard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(accidentLevelEClass, AccidentLevel.class, "AccidentLevel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAccidentLevel_Accident(), this.getAccident(), this.getAccident_Accidentlevel(), "accident", null, 1, -1, AccidentLevel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
