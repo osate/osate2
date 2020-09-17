@@ -26,10 +26,8 @@ package org.osate.aadl2.errormodel.FaultTree.ui;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.core.runtime.Assert;
-import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.jface.preference.IPreferenceNode;
 import org.eclipse.jface.preference.IPreferencePage;
 import org.eclipse.jface.preference.PreferenceDialog;
@@ -37,16 +35,17 @@ import org.eclipse.jface.preference.PreferenceManager;
 import org.eclipse.jface.preference.PreferenceNode;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.BusyIndicator;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.PropertyPage;
 import org.osate.aadl2.errormodel.FaultTree.util.FaultTreeModel;
-import org.osgi.service.prefs.BackingStoreException;
-import org.osgi.service.prefs.Preferences;
 
 /* NB: The parts of this that synchronized behavior between project properties
  * and workspace preferences are based on the web page
@@ -58,23 +57,24 @@ import org.osgi.service.prefs.Preferences;
 public class FaultTreePropertyPage extends PropertyPage {
 	private static String BAD_VALUE = "Must be an integer >= 1";
 
-	private Text maxPrecisionText;
-	private Preferences preferences;
+	private Text PrecisionText;
+	private IProject project;
 	private boolean isValid;
+
+	Button useWorkspaceSettingsButton;
+	Button useProjectSettingsButton;
+	Button configureButton;
 
 	@Override
 	protected Control createContents(final Composite parent) {
 		// Get the project
-		IProject project = Adapters.adapt(getElement(), IProject.class);
+		project = Adapters.adapt(getElement(), IProject.class);
 		if (project == null) {
 			IResource resource = Adapters.adapt(getElement(), IResource.class);
 			Assert.isNotNull(resource, "unable to adapt element to a project"); //$NON-NLS-1$
 			project = resource.getProject();
 		}
 
-		// Get the project's preferences
-		final IScopeContext context = new ProjectScope(project);
-		preferences = context.getNode(FaultTreeModel.PREFS_QUALIFIER);
 		isValid = true;
 
 		// Create the overall composite to fill up
@@ -89,21 +89,66 @@ public class FaultTreePropertyPage extends PropertyPage {
 		selectionGroup.setLayout(sgLayout);
 		selectionGroup.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false, 2, 1));
 
+		final Composite radioGroup = new Composite(selectionGroup, SWT.NONE);
+		radioGroup.setLayout(new GridLayout());
+		radioGroup.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+		useWorkspaceSettingsButton = new Button(radioGroup, SWT.RADIO);
+		useWorkspaceSettingsButton.setText("Use workspace settings");
+
+		useProjectSettingsButton = new Button(radioGroup, SWT.RADIO);
+		useProjectSettingsButton.setText("Use project settings");
+
+		configureButton = new Button(selectionGroup, SWT.PUSH);
+		configureButton.setText("Configure Workspace Settings ...");
+
 		// Create the actual property field that we want to edit
 		final Label label = new Label(composite, SWT.NONE);
 		label.setText("Probability precision preferences for fault tree analysis:");
 		label.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false, 1, 1));
 
-		maxPrecisionText = new Text(composite, SWT.BORDER);
-		maxPrecisionText.setText(Integer.toString(FaultTreeModel.getPrecision()));
-		maxPrecisionText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		PrecisionText = new Text(composite, SWT.BORDER);
+		PrecisionText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 
-		maxPrecisionText.setEnabled(false);
+		// Configure button status
+		if (useWorkspacePreferences()) {
+			useWorkspaceSettingsButton.setSelection(true);
+			useProjectSettingsButton.setSelection(false);
+			configureButton.setEnabled(true);
+			PrecisionText.setText(Integer.toString(FaultTreeModel.getPrecision()));
+			PrecisionText.setEnabled(false);
+		} else {
+			useWorkspaceSettingsButton.setSelection(false);
+			useProjectSettingsButton.setSelection(true);
+			configureButton.setEnabled(false);
+			PrecisionText.setText(Integer.toString(FaultTreeModel.getPrecision(project)));
+			PrecisionText.setEnabled(true);
+		}
 
-		configureWorkspaceSettings();
+		// Add listeners
+		useWorkspaceSettingsButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				configureButton.setEnabled(true);
+				PrecisionText.setEnabled(false);
+			}
+		});
+		useProjectSettingsButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				configureButton.setEnabled(false);
+				PrecisionText.setEnabled(true);
+			}
+		});
+		configureButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				configureWorkspaceSettings();
+			}
+		});
 
-		final Text localText = maxPrecisionText;
-		maxPrecisionText.addModifyListener(event -> {
+		final Text localText = PrecisionText;
+		PrecisionText.addModifyListener(event -> {
 			final String s = localText.getText();
 			try {
 				final int v = Integer.parseInt(s);
@@ -121,11 +166,10 @@ public class FaultTreePropertyPage extends PropertyPage {
 		return composite;
 	}
 
-	/*
-	 * private int getPrecision() {
-	 * return preferences.getInt(FaultTreeModel.PREF_PRECISION, getPrecision());
-	 * }
-	 */
+	private boolean useWorkspacePreferences() {
+		return FaultTreeModel.getWorkspacePref(project);
+	}
+
 	private void enterErrorState() {
 		isValid = false;
 		setErrorMessage(BAD_VALUE);
@@ -139,24 +183,21 @@ public class FaultTreePropertyPage extends PropertyPage {
 	@Override
 	public boolean performOk() {
 		if (isValid) {
-			preferences.putInt(FaultTreeModel.PREF_PRECISION, Integer.parseInt(maxPrecisionText.getText()));
-			// preferences.putBoolean(InstantiateModel.PREF_SOM_USE_WORKSPACE, useWorkspaceSettingsButton.getSelection());
-			try {
-				preferences.flush();
-			} catch (final BackingStoreException e) {
-				// TODO replace log OsateUiPlugin.log(e);
-			}
-
-			return true;
-		} else {
-			return false;
+			FaultTreeModel.setWorkspacePref(useWorkspaceSettingsButton.getSelection(), project);
+			FaultTreeModel.setPrecision(Integer.parseInt(PrecisionText.getText()), project);
 		}
+
+		return isValid;
 	}
 
 	@Override
 	protected void performDefaults() {
-		maxPrecisionText.setText(Integer.toString(FaultTreeModel.getPrecision()));
-		maxPrecisionText.setEnabled(false);
+		PrecisionText.setText(Integer.toString(FaultTreeModel.getPrecision()));
+
+		useWorkspaceSettingsButton.setSelection(true);
+		useProjectSettingsButton.setSelection(false);
+		configureButton.setEnabled(true);
+		PrecisionText.setEnabled(false);
 
 		// Why? Because the default implementation does this
 		updateApplyButton();

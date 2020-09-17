@@ -423,14 +423,14 @@ public class FaultTreeUtils {
 	public static String getProbability(EObject context) {
 		Event ev = (Event) context;
 		String specProb = "";
-		String precisionPref = "." + FaultTreeModel.getPrecision() + "f";
+
+
+		String precisionPref = "." + FaultTreeModel.getPrecision() + "e";
 		System.out.println("probability setting here is " + precisionPref);
 		if (ev.getComputedProbability() != null && ev.getComputedProbability().compareTo(BigZero) != 0
 				&& ev.getAssignedProbability() != null && ev.getAssignedProbability().compareTo(BigZero) != 0) {
-			// specProb = String.format(" (Spec %1$.1e)", ev.getAssignedProbability());
 			specProb = String.format(" (Spec %1$" + precisionPref + ")", ev.getAssignedProbability());
 		}
-		// return String.format("%1$.1e%2$s", ev.getProbability(), specProb) + getScale(context);
 		return String.format("%1$" + precisionPref + "%2$s", ev.getProbability(), specProb) + getScale(context);
 	}
 

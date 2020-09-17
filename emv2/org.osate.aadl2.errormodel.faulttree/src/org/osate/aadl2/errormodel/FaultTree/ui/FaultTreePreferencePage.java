@@ -24,23 +24,43 @@
 
 package org.osate.aadl2.errormodel.FaultTree.ui;
 
+import java.util.ArrayList;
+
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.IntegerFieldEditor;
+import org.eclipse.jface.window.Window;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Link;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.eclipse.ui.dialogs.PreferencesUtil;
 import org.osate.aadl2.errormodel.FaultTree.util.FaultTreeModel;
+import org.osate.core.AadlNature;
 import org.osate.core.OsateCorePlugin;
+import org.osate.ui.dialogs.ProjectSelectionDialog;
 
 /**
  * This class represents the OSATE > Fault Tree workspace preferences.
  * @since 5.0
  */
 public class FaultTreePreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
-	private static final String ID = "org.osate.internal.ui.properties.FaultTreePreferencePage";
-	public static final String PRECISION = "precision";
+//	public static final String PRECISION = "4";
 	private IntegerFieldEditor precisionField;
+	private static final String TITLE = "Project Specific Configuration";
+	private static final String LABEL = "Configure Project Specific Settings...";
+	private static final String MESSAGE = "Select the project to configure:";
+	private static final String ID = "org.osate.internal.ui.properties.FaultTreePropertyPage";
+	private static final String[] ID_LIST = { ID };
+	private static final Object DUMMY_DATA = new Object();
+
+	private Link changeWorkspaceSettings;
 
 	public FaultTreePreferencePage() {
 		super(GRID);
@@ -50,7 +70,27 @@ public class FaultTreePreferencePage extends FieldEditorPreferencePage implement
 
 	@Override
 	protected Label createDescriptionLabel(final Composite parent) {
+		changeWorkspaceSettings = createLink(parent, LABEL);
+		changeWorkspaceSettings.setLayoutData(new GridData(SWT.END, SWT.CENTER, true, false));
 		return super.createDescriptionLabel(parent);
+	}
+
+	private Link createLink(final Composite composite, final String text) {
+		Link link = new Link(composite, SWT.NONE);
+		link.setFont(composite.getFont());
+		link.setText("<A>" + text + "</A>");
+		link.addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				doLinkActivated((Link) e.widget);
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				doLinkActivated((Link) e.widget);
+			}
+		});
+		return link;
 	}
 
 	/**
@@ -58,11 +98,10 @@ public class FaultTreePreferencePage extends FieldEditorPreferencePage implement
 	 */
 	@Override
 	public void createFieldEditors() {
-		precisionField = new IntegerFieldEditor(PRECISION,
+		precisionField = new IntegerFieldEditor(FaultTreeModel.PREF_PRECISION,
 				"Probability precision",
 				getFieldEditorParent());
 		precisionField.setValidRange(1, Integer.MAX_VALUE);
-		precisionField.setStringValue(Integer.toString(FaultTreeModel.getPrecision()));
 		addField(precisionField);
 	}
 
@@ -74,5 +113,22 @@ public class FaultTreePreferencePage extends FieldEditorPreferencePage implement
 	public boolean performOk() {
 		FaultTreeModel.setPrecision(precisionField.getIntValue());
 		return true;
+	}
+
+	final void doLinkActivated(final Link link) {
+		final ArrayList<IProject> projectsWithSpecifics = new ArrayList<>();
+		final IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+		for (IProject project : projects) {
+			if (AadlNature.hasNature(project)) {
+				projectsWithSpecifics.add(project);
+			}
+		}
+
+		final ProjectSelectionDialog dialog = new ProjectSelectionDialog(getShell(), projectsWithSpecifics, TITLE,
+				MESSAGE);
+		if (dialog.open() == Window.OK) {
+			final IProject project = dialog.getSelectedProject();
+			PreferencesUtil.createPropertyDialogOn(getShell(), project, ID, ID_LIST, DUMMY_DATA).open();
+		}
 	}
 }
