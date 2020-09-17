@@ -1,12 +1,22 @@
 package org.osate.pluginsupport;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
@@ -44,16 +54,22 @@ public final class PredeclaredProperties {
 	private static volatile Map<URI, URI> overriddingResources;
 	private static volatile List<URI> effectiveContributedResources;
 
+	private static volatile boolean selfUpdating = false;
+	private static volatile boolean openingAndClosing = false;
+
 	static {
 		// Init the cached list of contributions
 		buildContributedResources();
 
-		// Add a listener so we know when to update the cached list of contributions
+		// Add a listener for EXTERNAL changes to the properties, so we know when to update the cached list of contributions
 		preferenceStore.addPropertyChangeListener(e -> {
-			final String propName = e.getProperty();
-			if (propName.startsWith(NUMBER_OF_WORKSPACE_OVERRIDES) || propName.startsWith(WORKSPACE_OVERRIDE_KEY_PREFIX)
-					|| propName.equals(WORKSPACE_OVERRIDE_VALUE_PREFIX)) {
-				isChanged = true;
+			if (!selfUpdating) {
+				final String propName = e.getProperty();
+				if (propName.startsWith(NUMBER_OF_WORKSPACE_OVERRIDES)
+						|| propName.startsWith(WORKSPACE_OVERRIDE_KEY_PREFIX)
+						|| propName.equals(WORKSPACE_OVERRIDE_VALUE_PREFIX)) {
+					isChanged = true;
+				}
 			}
 		});
 	}
@@ -81,12 +97,12 @@ public final class PredeclaredProperties {
 		overriddenResources = Collections.unmodifiableMap(replaced);
 		overriddingResources = Collections.unmodifiableMap(replaces);
 		effectiveContributedResources = Collections.unmodifiableList(effective);
+		isChanged = false;
 	}
 
 	private static void updateCachedState() {
 		if (isChanged) {
 			buildContributedResources();
-			isChanged = false;
 		}
 	}
 
@@ -135,6 +151,7 @@ public final class PredeclaredProperties {
 	 * Update the overridden contributed resources in the the stored properties.
 	 */
 	public static synchronized void setOverriddenResources(final Map<URI, URI> replaced) {
+		selfUpdating = true;
 		final int size = replaced.size();
 		preferenceStore.setValue(NUMBER_OF_WORKSPACE_OVERRIDES, size);
 		int i = 0;
@@ -144,6 +161,71 @@ public final class PredeclaredProperties {
 
 			final String valueName = WORKSPACE_OVERRIDE_VALUE_PREFIX + i;
 			preferenceStore.setValue(valueName, entry.getValue().toString());
+		}
+		isChanged = true;
+		selfUpdating = false;
+	}
+
+	/**
+	 * Update the contributed resources that have workspace overrides when those files are
+	 * moved or deleted.
+	 */
+	public static synchronized void processDelta(final Set<URI> deleted, final Map<URI, URI> moved) {
+		/*
+		 * DO NOT PROCESS CHANGES IF THEY ARE RESULT OF OUR OWN OPENING AND CLOSING OF PROJECTS TO
+		 * FORCE THE BUILD TO UPDATE!! Otherwise we end up processing a _delete_ of the all the workspace
+		 * files and erase all our settings.
+		 */
+		if (!openingAndClosing) {
+			// Make sure we have the most recent information
+			updateCachedState();
+			final Map<URI, URI> overridden = new HashMap<>(overriddenResources);
+			boolean changed = false;
+
+			// Restore any predeclared resources that were overridden by the removed file
+			for (final URI d : deleted) {
+				final URI key = overriddingResources.get(d);
+				if (key != null) {
+					overridden.remove(key);
+					changed = true;
+				}
+			}
+
+			/*
+			 * Update any predeclared resources that are overridden by the moved file.
+			 * If the file is renamed so that it no longer matches the name of the
+			 * plug-in contribution, then we treat the file as removed.
+			 */
+			for (final Map.Entry<URI, URI> entry : moved.entrySet()) {
+				final URI key = overriddingResources.get(entry.getKey());
+				if (key != null) {
+					final String contributedName = key.lastSegment();
+					final String newName = entry.getValue().lastSegment();
+					if (contributedName.equalsIgnoreCase(newName)) {
+						// name is the same, but the location changed
+						overridden.put(key, entry.getValue());
+					} else {
+						// name changed, violation of the invariants, so we remove it
+						overridden.remove(key);
+					}
+					changed = true;
+				}
+			}
+
+			if (changed) {
+				setOverriddenResources(overridden);
+				save();
+				buildContributedResources();
+				closeAndReopenProjects();
+			}
+		}
+	}
+
+	private static void save() {
+		try {
+			((IPersistentPreferenceStore) preferenceStore).save();
+		} catch (final IOException e) {
+			PluginSupportPlugin.logError(e);
 		}
 	}
 
@@ -155,5 +237,51 @@ public final class PredeclaredProperties {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * In a separate job, closes and reopens all the projects in the workspace to force the new
+	 * set of contributed resources to be considered.
+	 */
+	public static void closeAndReopenProjects() {
+		/*
+		 * Rebuilding or cleaning the workspace doesn't seem to get the job done. It leaves
+		 * dangling links and other strangeness in the workspace. The most effective thing
+		 * to do seems to be closing and reopening projects. Have no idea why.
+		 *
+		 * NB. THis CANNOT be a WorkspaceJob because that will cause various events to be suppressed or
+		 * optimized away, and then the build won't happen correctly.
+		 */
+		final Job job = new Job("Contributed Resources Rebuild") {
+			@Override
+			public IStatus run(final IProgressMonitor monitor) {
+				openingAndClosing = true;
+				try {
+					final IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+					final List<IProject> projectsToOpenAndClose = new ArrayList<>(projects.length);
+
+					// (1) close all the open projects
+					for (final IProject project : projects) {
+						if (project.isOpen()) {
+							projectsToOpenAndClose.add(project);
+							project.close(monitor);
+						}
+					}
+
+					// (2) Reopen all the projects we closed
+					for (final IProject project : projectsToOpenAndClose) {
+						project.open(monitor);
+					}
+
+					return Status.OK_STATUS;
+				} catch (final CoreException e) {
+					return new Status(IStatus.ERROR, PluginSupportPlugin.PLUGIN_ID, "Error building workspace");
+				} finally {
+					openingAndClosing = false;
+				}
+			}
+		};
+		job.setRule(ResourcesPlugin.getWorkspace().getRoot()); // Lock the workspace?
+		job.schedule();
 	}
 }

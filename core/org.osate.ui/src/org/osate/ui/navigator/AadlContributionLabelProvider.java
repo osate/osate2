@@ -50,9 +50,10 @@ public class AadlContributionLabelProvider extends LabelProvider implements IDes
 		} else if (element instanceof ContributedAadlStorage) {
 			final URI uri = ((ContributedAadlStorage) element).getUri();
 			final URI overridesURI = PredeclaredProperties.getOverridesURI(uri);
-			text = ((ContributedAadlStorage) element).getName();
 			if (overridesURI != null) {
-				text = text + " (overridden)"; // "<" + text + ">";
+				text = overridesURI.lastSegment() + " (overridden)";
+			} else {
+				text = ((ContributedAadlStorage) element).getName();
 			}
 		}
 		return text;
@@ -82,12 +83,11 @@ public class AadlContributionLabelProvider extends LabelProvider implements IDes
 		} else if (element instanceof ContributedAadlStorage) {
 			final URI uri = ((ContributedAadlStorage) element).getUri();
 			final URI overridesURI = PredeclaredProperties.getOverridesURI(uri);
-			description = uriToNavigatorPath(uri);
 			if (overridesURI != null) {
-				description = description + " (contributed by " + overridesURI.segment(1) + ") (Overridden by "
-						+ uriToWorkspacePath(uri) + ")";
+				description = uriToNavigatorPath(overridesURI) + " (contributed by " + overridesURI.segment(1)
+						+ ") (Overridden by " + uriToWorkspacePath(uri) + ")";
 			} else {
-				description = description + " (contributed by " + uri.segment(1) + ")";
+				description = uriToNavigatorPath(uri) + " (contributed by " + uri.segment(1) + ")";
 			}
 		}
 		return description;
