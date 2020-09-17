@@ -5,6 +5,7 @@ import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.osate.core.OsateCorePlugin;
+import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 
 /**
@@ -13,25 +14,66 @@ import org.osgi.service.prefs.Preferences;
 public class FaultTreeModel {
 	public static final String PREFS_QUALIFIER = "org.osate.aadl2.errormodel.faulttree";
 	public static final String PREF_PRECISION = "org.osate.aadl2.errormodel.faulttree.precision";
-
-//	public FaultTreeModel() {
-//	}
+	public static final String PREF_PRECISION_USE_WORKSPACE = "org.osate.aadl2.errormodel.faulttree.precision_use_workspace";
 
 	// Methods
-	private static int getPrecision(final IProject project) {
+	public static final boolean getWorkspacePref(IProject project) {
 		final IScopeContext context = new ProjectScope(project);
 		final Preferences prefs = context.getNode(PREFS_QUALIFIER);
-
-		return prefs.getInt(PREF_PRECISION, 1);
+		return prefs.getBoolean(FaultTreeModel.PREF_PRECISION_USE_WORKSPACE, true);
 	}
 
 	public static final int getPrecision() {
 		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
+		System.out.println("GETPrecision-> " + store.getInt(PREF_PRECISION));
 		return store.getInt(PREF_PRECISION);
 	}
 
+	public static final int getPrecision(final IProject project) {
+		final IScopeContext context = new ProjectScope(project);
+		final Preferences prefs = context.getNode(PREFS_QUALIFIER);
+
+		int precision = -1;
+		if (!prefs.getBoolean(PREF_PRECISION_USE_WORKSPACE, true)) {
+			precision = prefs.getInt(PREF_PRECISION, -1);
+		}
+		// It's possible the above may have failed for some reason, in which case we revert to the workspace preferences
+		if (precision == -1) {
+			final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
+			precision = store.getInt(PREF_PRECISION);
+		}
+
+		System.out.println("GETPrecision project-> " + precision);
+
+		return precision;
+	}
+
+	public static final void setPrecision(int value, IProject project) {
+		final IScopeContext context = new ProjectScope(project);
+		final Preferences prefs = context.getNode(PREFS_QUALIFIER);
+		System.out.println("setPrecision-> " + value + " <-project");
+		if (!prefs.getBoolean(PREF_PRECISION_USE_WORKSPACE, true)) {
+			prefs.putInt(PREF_PRECISION, value);
+			try {
+				prefs.flush();
+			} catch (BackingStoreException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			setPrecision(value);
+		}
+	}
+
 	public static final void setPrecision(int value) {
+		System.out.println("setPrecision-> " + value);
 		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
 		store.setValue(PREF_PRECISION, value);
+	}
+
+	public static final void setWorkspacePref(boolean useWorkspace, IProject project) {
+		final IScopeContext context = new ProjectScope(project);
+		final Preferences prefs = context.getNode(PREFS_QUALIFIER);
+		prefs.putBoolean(FaultTreeModel.PREF_PRECISION_USE_WORKSPACE, useWorkspace);
 	}
 }
