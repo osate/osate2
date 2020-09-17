@@ -34,7 +34,6 @@
  */
 package org.osate.internal.ui.preferences;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,10 +44,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.viewers.ISelection;
@@ -150,10 +147,12 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 				final URI uri = getURIFromSelection(contributedList.getSelection());
 				if (uri != null) {
 					final URI newURI = getWorkspaceContributedResource(uri.lastSegment());
-					overriddenAadl.put(uri, newURI);
-					restoreButton.setEnabled(true);
-					contributedList.refresh();
-					uriLabel.setText(uriToReadable(newURI));
+					if (newURI != null) {
+						overriddenAadl.put(uri, newURI);
+						restoreButton.setEnabled(true);
+						contributedList.refresh();
+						uriLabel.setText(uriToReadable(newURI));
+					}
 				}
 			}
 		});
@@ -225,43 +224,7 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 
 		if (changed) {
 			PredeclaredProperties.setOverriddenResources(overriddenAadl);
-
-			/*
-			 * Rebuilding or cleaning the workspace doesn't seem to get the job done. It leaves
-			 * dangling links and other strangeness in the workspace. The most effective thing
-			 * to do seems to be closing and reopening projects. Have no idea why.
-			 *
-			 * NB. THis CANNOT be a WorkspaceJob because that will cause various events to be suppressed or
-			 * optimized away, and then the build won't happen correctly.
-			 */
-			final Job job = new Job("Contributed Resources Rebuild") {
-				@Override
-				public IStatus run(final IProgressMonitor monitor) {
-					try {
-						final IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
-						final List<IProject> projectsToOpenAndClose = new ArrayList<>(projects.length);
-
-						// (1) close all the open projects
-						for (final IProject project : projects) {
-							if (project.isOpen()) {
-								projectsToOpenAndClose.add(project);
-								project.close(monitor);
-							}
-						}
-
-						// (2) Reopen all the projects we closed
-						for (final IProject project : projectsToOpenAndClose) {
-							project.open(monitor);
-						}
-
-						return Status.OK_STATUS;
-					} catch (final CoreException e) {
-						return new Status(IStatus.ERROR, OsateUiPlugin.PLUGIN_ID, "Error building workspace");
-					}
-				}
-			};
-			job.setRule(ResourcesPlugin.getWorkspace().getRoot()); // Lock the workspace?
-			job.schedule();
+			PredeclaredProperties.closeAndReopenProjects();
 		}
 
 		return ok;
@@ -271,10 +234,12 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 			final String fileName) throws CoreException {
 		boolean isViz = false;
 		if (irsrc instanceof IFile) {
-			isViz = irsrc.getName().contentEquals(fileName);
+			isViz = irsrc.getName().equalsIgnoreCase(fileName);
 		} else if (irsrc instanceof IContainer) {
-			for (final IResource child : ((IContainer) irsrc).members()) {
-				isViz |= filterContainer(visible, child, fileName);
+			if (!(irsrc instanceof IProject) || ((IProject) irsrc).isOpen()) {
+				for (final IResource child : ((IContainer) irsrc).members()) {
+					isViz |= filterContainer(visible, child, fileName);
+				}
 			}
 		}
 		visible.put(irsrc, isViz);
@@ -313,7 +278,7 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 			 * the given filename.
 			 */
 			if (selection.length == 1 && selection[0] instanceof IFile &&
-					((IFile) selection[0]).getName().equals(fileName)) {
+					((IFile) selection[0]).getName().equalsIgnoreCase(fileName)) {
 				return new Status(IStatus.OK, OsateUiPlugin.PLUGIN_ID, "");
 			} else {
 				return new Status(IStatus.ERROR, OsateUiPlugin.PLUGIN_ID,
