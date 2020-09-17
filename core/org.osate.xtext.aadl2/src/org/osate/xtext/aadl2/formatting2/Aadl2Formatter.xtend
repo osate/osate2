@@ -2337,7 +2337,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 		int indentationLevel,
 		IFormattableDocument document
 	) {
-		if (sourceTextRegion !== null) {
+		if (annexObject !== null && sourceTextRegion !== null) {
 			try {
 				unsafeFormatAnnexText(annexObject, sourceTextRegion, indentationLevel, document)
 			} catch (ConfigurationException e) {
