@@ -17,13 +17,13 @@ The *Model Statistics* analysis returns basic statistics about your system. The 
 5. **Model Statistics** should appear in solid black text, if the text is gray then an instance model is not currently selected in the **AADL Navigator**.
 
 <div style="text-align:center">
-<img src="images/ModelLocation.PNG" width="600" height="200"/>
+<img src="images/ModelLocation.png" width="600" height="200"/>
 </div>
 
 After running the analysis, a window will be displayed with the counts from your instance model. The **Components** category can be expanded to see more specific counts, as demonstrated in the image below.
 
 <div style="text-align:center">
-<img src="images/ModelStatistics.PNG" width="500" height="400"/>
+<img src="images/ModelStatistics.png" width="500" height="400"/>
 </div>
 
 Click 'OK' to close the window.
