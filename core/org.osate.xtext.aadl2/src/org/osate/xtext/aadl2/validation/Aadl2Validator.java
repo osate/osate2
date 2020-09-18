@@ -1913,28 +1913,23 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 				if (kind == FlowKind.PATH) {
 					switch (((FlowSpecification) segment.getFlowElement()).getKind()) {
 					case SOURCE:
-						error(segment, "Illegal reference to '" + segment.getContext().getName() + '.'
-								+ segment.getFlowElement().getName()
-								+ "'.  Cannot refer to a flow source except for the first segment of a flow implementation.");
+						error(segment,
+								"Flow source in only allowed as the first element of a flow source implementation");
 						break;
 					case SINK:
-						error(segment, "Illegal reference to '" + segment.getContext().getName() + '.'
-								+ segment.getFlowElement().getName()
-								+ "'.  Cannot refer to a flow sink except for the last segment of a flow implementation.");
+						error(segment, "Flow sink in only allowed as the last element of a flow sink implementation");
 						break;
 					}
 				} else {
 					if (i != 0 && i != flowImpl.getOwnedFlowSegments().size() - 1) {
 						switch (((FlowSpecification) segment.getFlowElement()).getKind()) {
 						case SOURCE:
-							error(segment, "Illegal reference to '" + segment.getContext().getName() + '.'
-									+ segment.getFlowElement().getName()
-									+ "'.  Cannot refer to a flow source except for the first segment of a source specification.");
+							error(segment,
+									"Flow source in only allowed as the first element of a flow source implementation");
 							break;
 						case SINK:
-							error(segment, "Illegal reference to '" + segment.getContext().getName() + '.'
-									+ segment.getFlowElement().getName()
-									+ "'.  Cannot refer to a flow sink except for the last segment of a sink specification.");
+							error(segment,
+									"Flow sink in only allowed as the last element of a flow sink implementation");
 							break;
 						}
 					}
