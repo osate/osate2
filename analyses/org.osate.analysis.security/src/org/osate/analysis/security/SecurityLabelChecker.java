@@ -11,9 +11,11 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
+import org.osate.properties.security.Security;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Result;
 import org.osate.result.util.ResultUtil;
@@ -56,9 +58,6 @@ public class SecurityLabelChecker {
 		 */
 		@Override
 		public Boolean caseComponentInstance(ComponentInstance ci) {
-			if (isTrusted(ci)) {
-				return DONE;
-			}
 			checkValidContainment(ci);
 			return DONE;
 		}
@@ -70,9 +69,6 @@ public class SecurityLabelChecker {
 		 */
 		@Override
 		public Boolean caseFeatureInstance(FeatureInstance fi) {
-			if (isTrusted(fi.getContainingComponentInstance())) {
-				return DONE;
-			}
 			checkValidContainment(fi);
 			return DONE;
 		}
@@ -87,7 +83,7 @@ public class SecurityLabelChecker {
 			ConnectionInstanceEnd dst = conni.getDestination();
 
 			checkSameLabel(conni, src, dst);
-			return PRUNE;
+			return DONE;
 		}
 
 		/**
@@ -123,23 +119,23 @@ public class SecurityLabelChecker {
 			return PRUNE;
 		}
 
-//		/**
-//		 * Check flow specification for security policy compliance:
-//		 * Data flow from source and destination label must conform to policy.
-//		 */
-//		@Override
-//		public Boolean caseFlowSpecificationInstance(FlowSpecificationInstance fsi) {
-//
-//			if (isTrusted(fsi.getContainingComponentInstance())) {
-//				return Boolean.TRUE;
-//			}
-//
-//			NamedElement src = fsi.getSource();
-//			NamedElement dst = fsi.getDestination();
-//
-//			return checkValidFlow(fsi, src, dst);
-//		}
-//
+		/**
+		 * Check flow specification for security policy compliance:
+		 * Data flow from source and destination label must conform to policy.
+		 */
+		@Override
+		public Boolean caseFlowSpecificationInstance(FlowSpecificationInstance fsi) {
+			Optional<Boolean> trusted = Security.getDowngrading(fsi);
+
+			if (!trusted.orElse(false)) {
+				FeatureInstance src = fsi.getSource();
+				FeatureInstance dst = fsi.getDestination();
+
+				checkValidFlow(fsi, src, dst);
+			}
+			return DONE;
+		}
+
 	};
 
 	private void checkValidContainment(InstanceObject io) {
@@ -208,37 +204,32 @@ public class SecurityLabelChecker {
 		}
 	}
 
-//	protected Boolean checkValidFlow(Element element, NamedElement src, NamedElement dst) {
-//		return checkValidFlow(element, Access.FLOW, src, dst);
-//	}
-//
-//	protected Boolean checkValidFlow(Element element, Access dir, NamedElement src, NamedElement dst) {
-//		if (src == null || dst == null) {
-//			return Boolean.TRUE;
-//		}
-//		try {
-//			Optional<SecurityLabel> srcLabel = SecurityLabel.of(src);
-//			Optional<SecurityLabel> dstLabel = SecurityLabel.of(dst);
-//
-//			if (srcLabel.isPresent() && dstLabel.isPresent()) {
-//				SecurityLabel sl = srcLabel.get();
-//				SecurityLabel dl = dstLabel.get();
-//				if (!policy.allows(dir, sl, dl)) {
-//					error(element, "Security policy violation: Flow from " + sl.toString() + " to " + dl.toString());
-//				}
-//			} else {
-//				if (!srcLabel.isPresent() && dstLabel.isPresent()) {
-//					error(src, "Missing security label for " + src.getQualifiedName());
-//				}
-//				if (srcLabel.isPresent() && !dstLabel.isPresent()) {
-//					error(dst, "Missing security label for " + dst.getQualifiedName());
-//				}
-//			}
-//		} catch (InvalidModelException e) {
-//			error(e.getElement(), e.getMessage());
-//		}
-//		return Boolean.TRUE;
-//	}
+	protected void checkValidFlow(InstanceObject flow, FeatureInstance src, FeatureInstance dst) {
+		Optional<SecurityLabel> srcLabel = LabelUtil.getLabel(src);
+		Optional<SecurityLabel> dstLabel = SecurityLabel.of(dst);
+
+		if (!srcLabel.isPresent() && !dstLabel.isPresent()) {
+			String msg = "Missing security labels on flow specification ends";
+			result.getDiagnostics().add(ResultUtil.createInfoDiagnostic(msg, flow));
+		} else if (srcLabel.isPresent()) {
+			SecurityLabel sl = srcLabel.get();
+			if (dstLabel.isPresent()) {
+				SecurityLabel dl = dstLabel.get();
+
+				if (!dl.dominates(sl)) {
+					String msg = "Destination security label " + dl.toString() + " does not dominate source label "
+							+ sl.toString();
+					result.getDiagnostics().add(ResultUtil.createErrorDiagnostic(msg, flow));
+				}
+			} else {
+				String msg = "Missing security label on destination end";
+				result.getDiagnostics().add(ResultUtil.createWarningDiagnostic(msg, flow));
+			}
+		} else {
+			String msg = "Missing security label on source end";
+			result.getDiagnostics().add(ResultUtil.createWarningDiagnostic(msg, flow));
+		}
+	}
 
 	boolean isTrusted(ComponentInstance ci) {
 		return false;
