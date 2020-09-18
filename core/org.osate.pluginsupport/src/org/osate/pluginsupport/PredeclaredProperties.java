@@ -16,8 +16,10 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.ui.PlatformUI;
 
 /**
  * @since 5.0
@@ -181,6 +183,7 @@ public final class PredeclaredProperties {
 			updateCachedState();
 			final Map<URI, URI> overridden = new HashMap<>(overriddenResources);
 			boolean changed = false;
+			String message = "";
 
 			// Restore any predeclared resources that were overridden by the removed file
 			for (final URI d : deleted) {
@@ -188,6 +191,7 @@ public final class PredeclaredProperties {
 				if (key != null) {
 					overridden.remove(key);
 					changed = true;
+					message += "    " + d + " removed" + System.lineSeparator();
 				}
 			}
 
@@ -207,12 +211,22 @@ public final class PredeclaredProperties {
 					} else {
 						// name changed, violation of the invariants, so we remove it
 						overridden.remove(key);
+						message += "    " + entry.getKey() + " renamed" + System.lineSeparator();
 					}
 					changed = true;
 				}
 			}
 
 			if (changed) {
+				if (!message.isEmpty()) {
+					final String finalMessage = message;
+					PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
+						MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+								"Overriding of Contributed Resources Updated",
+								"Contributed resources updated because resources in workpace" + System.lineSeparator()
+										+ "that override them have changed:" + System.lineSeparator() + finalMessage);
+					});
+				}
 				setOverriddenResources(overridden);
 				save();
 				buildContributedResources();
