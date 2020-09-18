@@ -731,8 +731,10 @@ class Aadl2Formatter extends PropertiesFormatter {
 		defaultAnnexLibrary.conditionalAppend(document, [setNewLines(newLineCount, newLineCount, 2)])
 		defaultAnnexLibrary.regionFor.assignment(defaultAnnexLibraryAccess.nameAssignment_1).surround[oneSpace]
 		
+		val parsedLibrary = defaultAnnexLibrary.parsedAnnexLibrary
 		val sourceTextRegion = defaultAnnexLibrary.regionFor.assignment(defaultAnnexLibraryAccess.sourceTextAssignment_2)
-		formatAnnexText(defaultAnnexLibrary.parsedAnnexLibrary, sourceTextRegion, 1, document)
+		formatAnnexText(parsedLibrary, sourceTextRegion, 1, document)
+		defaultAnnexLibrary.parsedAnnexLibrary = parsedLibrary
 		
 		defaultAnnexLibrary.regionFor.keyword(defaultAnnexLibraryAccess.semicolonKeyword_3).prepend[noSpace]
 	}
@@ -1485,8 +1487,10 @@ class Aadl2Formatter extends PropertiesFormatter {
 		defaultAnnexSubclause.conditionalAppend(document, [setNewLines(1, 1, 2)])
 		defaultAnnexSubclause.regionFor.assignment(defaultAnnexSubclauseAccess.nameAssignment_1).surround[oneSpace]
 		
+		val parsedSubclause = defaultAnnexSubclause.parsedAnnexSubclause
 		val sourceTextRegion = defaultAnnexSubclause.regionFor.assignment(defaultAnnexSubclauseAccess.sourceTextAssignment_2)
-		formatAnnexText(defaultAnnexSubclause.parsedAnnexSubclause, sourceTextRegion, 2, document)
+		formatAnnexText(parsedSubclause, sourceTextRegion, 2, document)
+		defaultAnnexSubclause.parsedAnnexSubclause = parsedSubclause
 		
 		//In modes
 		val leftParenthesis = defaultAnnexSubclause.regionFor.keyword(defaultAnnexSubclauseAccess.leftParenthesisKeyword_3_1)
@@ -2322,6 +2326,9 @@ class Aadl2Formatter extends PropertiesFormatter {
 	 * It was not obvious how to replace an ISemanticRegion with a given String. It is not enough to simply
 	 * call ISemanticRegion.replaceWith(String). This must be wrapped in an ITextReplacer which is then
 	 * added to the document. See https://www.eclipse.org/forums/index.php/t/1093069/
+	 * 
+	 * Since the annex object is placed into its resource, it is removed from its existing resource. The caller of this
+	 * method is responsible for re-attaching the annex object to the DefaultAnnexLibrary or DefaultAnnexSubclause.
 	 *
 	 * @param annexObject The AnnexLibrary or AnnexSubclause to format.
 	 * @param sourceTextRegion The ISemanticRegion for the sourceText assignment of the DefaultAnnexLibrary
