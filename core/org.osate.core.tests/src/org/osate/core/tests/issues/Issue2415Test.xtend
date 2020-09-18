@@ -48,54 +48,8 @@ class Issue2415Test extends XtextTest {
 
 	@Test
 	def void issue2415Test(){
-		val test ='''
-		package Issue2415
-		public
-			
-			abstract A
-				features
-					i: in data port;
-					o: out data port;
-				flows
-					fsrc: flow source o;
-					fpth: flow path i -> o;
-					fsnk: flow sink i;
-			end A;
-			
-			abstract implementation A.impl
-				subcomponents
-					mm1: abstract A;
-					mm2: abstract A;
-				connections
-					cml: port i -> mm1.i;
-					cmm: port mm1.o -> mm2.i;
-					cmr: port mm2.o -> o;
-				flows
-					--this one is ok
-					fpth: flow path i -> cml -> mm1.fpth -> cmm -> mm2.fpth -> cmr -> o;
-					fpth: flow path i -> cml -> mm1.fsrc -> cmm -> mm2.fpth -> cmr -> o; 
-					fpth: flow path i -> cml -> mm1.fsnk -> cmm -> mm2.fpth -> cmr -> o;
-					fpth: flow path i -> cml -> mm2.fsrc -> cmm -> mm2.fpth -> cmr -> o; 
-					fpth: flow path i -> cml -> mm2.fsnk -> cmm -> mm2.fpth -> cmr -> o;
-					-- this one is ok
-					fsrc: flow source mm2.fsrc -> cmr -> o; 
-					-- this one is ok
-					fsrc: flow source mm1.fsrc -> cmm -> mm2.fpth -> cmr -> o;
-					fsrc: flow source mm1.fsrc -> cmm -> mm2.fsrc -> cmr -> o; 
-					fsrc: flow source mm1.fsrc -> cmm -> mm2.fsnk -> cmr -> o;
-					-- this one is ok
-					fsnk: flow sink i -> cml -> mm1.fsnk;
-					-- this one is ok
-					fsnk: flow sink i -> cml -> mm1.fpth -> cmm -> mm2.fsnk; 
-					fsnk: flow sink i -> cml -> mm2.fsrc -> cmm -> mm2.fsnk; 
-					fsnk: flow sink i -> cml -> mm1.fsnk -> cmm -> mm2.fsnk;
-			end A.impl;
-		
-			
-		end Issue2415;
-		'''
-		
-		val testFileResult = issues = testHelper.testString(test)
+
+		val testFileResult = issues = testHelper.testFile("org.osate.core.tests/models/Issue2415/Issue2415.aadl")
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		
 		testFileResult.resource.contents.head as AadlPackage => [
@@ -103,28 +57,28 @@ class Issue2415Test extends XtextTest {
 			publicSection.ownedClassifiers.get(1) as AbstractImplementation => [
 				"A.impl".assertEquals(name)
 				allFlowImplementations.get(1) as FlowImplementation => [
-					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "Illegal reference to 'mm1.fsrc'.  Cannot refer to a flow source except for the first segment of a flow implementation.")
+					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "Flow source in only allowed as the first element of a flow source implementation")
 				]
 				allFlowImplementations.get(2) as FlowImplementation => [
-					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "Illegal reference to 'mm1.fsnk'.  Cannot refer to a flow sink except for the last segment of a flow implementation.")
+					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "Flow sink in only allowed as the last element of a flow sink implementation")
 				]
 				allFlowImplementations.get(3) as FlowImplementation => [
-					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "Illegal reference to 'mm2.fsrc'.  Cannot refer to a flow source except for the first segment of a flow implementation.")
+					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "Flow source in only allowed as the first element of a flow source implementation")
 				]
 				allFlowImplementations.get(4) as FlowImplementation => [
-					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "Illegal reference to 'mm2.fsnk'.  Cannot refer to a flow sink except for the last segment of a flow implementation.")
+					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "Flow sink in only allowed as the last element of a flow sink implementation")
 				]
 				allFlowImplementations.get(7) as FlowImplementation => [
-					it.ownedFlowSegments.get(2).assertError(testFileResult.issues, issueCollection, "Illegal reference to 'mm2.fsrc'.  Cannot refer to a flow source except for the first segment of a source specification.")
+					it.ownedFlowSegments.get(2).assertError(testFileResult.issues, issueCollection, "Flow source in only allowed as the first element of a flow source implementation")
 				]
 				allFlowImplementations.get(8) as FlowImplementation => [
-					it.ownedFlowSegments.get(2).assertError(testFileResult.issues, issueCollection, "Illegal reference to 'mm2.fsnk'.  Cannot refer to a flow sink except for the last segment of a sink specification.")
+					it.ownedFlowSegments.get(2).assertError(testFileResult.issues, issueCollection, "Flow sink in only allowed as the last element of a flow sink implementation")
 				]
 				allFlowImplementations.get(11) as FlowImplementation => [
-					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "Illegal reference to 'mm2.fsrc'.  Cannot refer to a flow source except for the first segment of a source specification.")
+					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "Flow source in only allowed as the first element of a flow source implementation")
 				]
 				allFlowImplementations.get(12) as FlowImplementation => [
-					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "Illegal reference to 'mm1.fsnk'.  Cannot refer to a flow sink except for the last segment of a sink specification.")
+					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "Flow sink in only allowed as the last element of a flow sink implementation")
 				]
 			]
 		]
