@@ -56,6 +56,16 @@ public final class PredeclaredProperties {
 	private static volatile Map<URI, URI> overriddingResources;
 	private static volatile List<URI> effectiveContributedResources;
 
+	/*
+	 * These are used to control the updating of preference properties and prevent harmful or
+	 * unneeded updates. selfUpdating is set to true when we are setting the preference
+	 * properties and therefore property change listener should not respond to the
+	 * corresponding update events. openingAndClosing is true when we are reseting the
+	 * workspace to force it to rebuild using the new workspace contributions. This shuts down
+	 * the processing of resource change events because otherwise we will be flooded with spurious
+	 * remove and add events as projects open and close. These would cause the workspace
+	 * overrides to BE REMOVED because they would be seen as deleted in the workspace
+	 */
 	private static volatile boolean selfUpdating = false;
 	private static volatile boolean openingAndClosing = false;
 
