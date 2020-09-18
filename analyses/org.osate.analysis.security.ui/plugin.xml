@@ -104,7 +104,7 @@
             locationURI="toolbar:org.osate.ui.semanticChecksToolbar?after=core">
          <command
                commandId="org.osate.analysis.security.checkSecurityRules"
-               tooltip="%checkSecurity.toolTip">
+               tooltip="Check Security Rules">
             <!--
                Remove visibleWhen on the command when this bug is fixed:
                https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
@@ -124,7 +124,7 @@
             locationURI="toolbar:org.osate.ui.semanticChecksToolbar?after=core">
          <command
                commandId="org.osate.analysis.security.checkSecurityLabels"
-               tooltip="%checkSecurity.toolTip">
+               tooltip="Check Security Labels">
             <!--
                Remove visibleWhen on the command when this bug is fixed:
                https://bugs.eclipse.org/bugs/show_bug.cgi?id=201589
