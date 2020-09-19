@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Model Statistics Tests
+Bundle-SymbolicName: org.osate.modelstats.tests
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.osate.modelstats.tests.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ org.osate.modelstats;bundle-version="1.0.0",
+ org.eclipse.xtext.testing,
+ org.eclipse.xtext.junit4,
+ org.junit,
+ org.osate.testsupport,
+ org.osate.aadl2,
+ org.osate.aadl2.instantiation
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Automatic-Module-Name: org.osate.componentcounter.tests
+Bundle-ActivationPolicy: lazy
+Bundle-Vendor: CMU/SEI
