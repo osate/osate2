@@ -1,0 +1,49 @@
+package Exhaustive
+public
+	system s
+	end s;
+	
+	system implementation s.impl
+		subcomponents
+			sub1: abstract;
+			sub2: bus;
+			sub3: data;
+			sub4: device;
+			sub5: memory;
+			sub6: process p.impl;
+			sub7: processor;
+			sub8: subprogram;
+			sub9: subprogram group;
+			sub10: system;
+			sub11: virtual bus;
+			sub12: virtual processor;
+	end s.impl;
+	
+	process p
+	end p;
+	
+	process implementation p.impl
+		subcomponents
+			sub13: thread group;
+			t1: thread t1;
+			t2: thread t2;
+		connections
+			con1: feature t1.f1 -> t2.f2;
+		flows
+			flow1: end to end flow t1.source1 -> con1 -> t2.sink2;
+	end p.impl;
+	
+	thread t1
+		features
+			f1: feature;
+		flows
+			source1: flow source f1;
+	end t1;
+	
+	thread t2
+		features
+			f2: feature;
+		flows
+			sink2: flow sink f2;
+	end t2;
+end Exhaustive;
