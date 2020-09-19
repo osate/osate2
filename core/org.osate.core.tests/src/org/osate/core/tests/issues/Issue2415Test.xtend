@@ -31,14 +31,12 @@ import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
+import org.osate.aadl2.AbstractImplementation
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.osate.testsupport.AssertHelper.assertError
-import org.osate.aadl2.FlowImplementation
-import org.osate.aadl2.ThreadImplementation
-import org.osate.aadl2.AbstractImplementation
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
@@ -56,29 +54,29 @@ class Issue2415Test extends XtextTest {
 			"Issue2415".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) as AbstractImplementation => [
 				"A.impl".assertEquals(name)
-				allFlowImplementations.get(1) as FlowImplementation => [
-					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "Flow source in only allowed as the first element of a flow source implementation")
+				allFlowImplementations.get(1) => [
+					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "Flow sources are not allowed in a flow path implementation")
 				]
-				allFlowImplementations.get(2) as FlowImplementation => [
-					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "Flow sink in only allowed as the last element of a flow sink implementation")
+				allFlowImplementations.get(2) => [
+					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "Flow sinks are not allowed in a flow path implementation")
 				]
-				allFlowImplementations.get(3) as FlowImplementation => [
-					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "Flow source in only allowed as the first element of a flow source implementation")
+				allFlowImplementations.get(3) => [
+					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "Flow sources are not allowed in a flow path implementation")
 				]
-				allFlowImplementations.get(4) as FlowImplementation => [
-					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "Flow sink in only allowed as the last element of a flow sink implementation")
+				allFlowImplementations.get(4) => [
+					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "Flow sinks are not allowed in a flow path implementation")
 				]
-				allFlowImplementations.get(7) as FlowImplementation => [
-					it.ownedFlowSegments.get(2).assertError(testFileResult.issues, issueCollection, "Flow source in only allowed as the first element of a flow source implementation")
+				allFlowImplementations.get(7) => [
+					it.ownedFlowSegments.get(2).assertError(testFileResult.issues, issueCollection, "Flow source is only allowed as the first element of a flow source implementation")
 				]
-				allFlowImplementations.get(8) as FlowImplementation => [
-					it.ownedFlowSegments.get(2).assertError(testFileResult.issues, issueCollection, "Flow sink in only allowed as the last element of a flow sink implementation")
+				allFlowImplementations.get(8) => [
+					it.ownedFlowSegments.get(2).assertError(testFileResult.issues, issueCollection, "Flow sink is only allowed as the last element of a flow sink implementation")
 				]
-				allFlowImplementations.get(11) as FlowImplementation => [
-					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "Flow source in only allowed as the first element of a flow source implementation")
+				allFlowImplementations.get(11) => [
+					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "Flow source is only allowed as the first element of a flow source implementation")
 				]
-				allFlowImplementations.get(12) as FlowImplementation => [
-					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "Flow sink in only allowed as the last element of a flow sink implementation")
+				allFlowImplementations.get(12) => [
+					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "Flow sink is only allowed as the last element of a flow sink implementation")
 				]
 			]
 		]
