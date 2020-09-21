@@ -32,6 +32,10 @@
 		<module>org.osate.analysis.resource.budgets.tests</module>
 		<module>org.osate.analysis.flows.tests</module>
 		<module>org.osate.analysis.architecture.tests</module>
+		
+		<module>org.osate.modelstats</module>
+		<module>org.osate.modelstats.ui</module>
+		<module>org.osate.modelstats.tests</module>
 	</modules>
 
 </project>
