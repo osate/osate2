@@ -28,6 +28,8 @@ import com.google.inject.Inject
 import com.google.inject.ProvisionException
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.transaction.RecordingCommand
+import org.eclipse.emf.transaction.TransactionalEditingDomain
 import org.eclipse.xtend2.lib.StringConcatenation
 import org.eclipse.xtext.formatting2.FormatterRequest
 import org.eclipse.xtext.formatting2.IFormattableDocument
@@ -734,7 +736,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 		val parsedLibrary = defaultAnnexLibrary.parsedAnnexLibrary
 		val sourceTextRegion = defaultAnnexLibrary.regionFor.assignment(defaultAnnexLibraryAccess.sourceTextAssignment_2)
 		formatAnnexText(parsedLibrary, sourceTextRegion, 1, document)
-		defaultAnnexLibrary.parsedAnnexLibrary = parsedLibrary
+		performModification(defaultAnnexLibrary, [defaultAnnexLibrary.parsedAnnexLibrary = parsedLibrary])
 		
 		defaultAnnexLibrary.regionFor.keyword(defaultAnnexLibraryAccess.semicolonKeyword_3).prepend[noSpace]
 	}
@@ -1490,7 +1492,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 		val parsedSubclause = defaultAnnexSubclause.parsedAnnexSubclause
 		val sourceTextRegion = defaultAnnexSubclause.regionFor.assignment(defaultAnnexSubclauseAccess.sourceTextAssignment_2)
 		formatAnnexText(parsedSubclause, sourceTextRegion, 2, document)
-		defaultAnnexSubclause.parsedAnnexSubclause = parsedSubclause
+		performModification(defaultAnnexSubclause, [defaultAnnexSubclause.parsedAnnexSubclause = parsedSubclause])
 		
 		//In modes
 		val leftParenthesis = defaultAnnexSubclause.regionFor.keyword(defaultAnnexSubclauseAccess.leftParenthesisKeyword_3_1)
@@ -2371,7 +2373,7 @@ class Aadl2Formatter extends PropertiesFormatter {
 				val annexExtension = annexInjector.getInstance(FileExtensionProvider).primaryFileExtension
 				val fakeURI = URI.createURI("__synthetic." + annexExtension)
 				val fakeResource = resourceFactory.createResource(fakeURI) as XtextResource
-				fakeResource.contents += annexObject
+				performModification(annexObject, [fakeResource.contents += annexObject])
 				fakeResource.parseResult = annexParseResult
 
 				// Setup the formatting request.
@@ -2410,6 +2412,22 @@ class Aadl2Formatter extends PropertiesFormatter {
 					})
 				}
 			}
+		}
+	}
+	
+	def private void performModification(EObject semanticObject, ()=>void runnable) {
+		val resourceSet = semanticObject?.eResource?.resourceSet
+		val domain = if (resourceSet !== null) {
+			TransactionalEditingDomain.Factory.INSTANCE.getEditingDomain(resourceSet)
+		}
+		if (domain === null) {
+			runnable.apply
+		} else {
+			domain.commandStack.execute(new RecordingCommand(domain) {
+				override protected doExecute() {
+					runnable.apply
+				}
+			})
 		}
 	}
 }
