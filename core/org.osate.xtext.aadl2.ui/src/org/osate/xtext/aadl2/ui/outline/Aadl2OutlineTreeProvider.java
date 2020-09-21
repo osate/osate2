@@ -54,8 +54,8 @@ import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.TypeExtension;
 import org.osate.aadl2.impl.EndToEndFlowImpl;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.annexsupport.AnnexParseUtil;
 import org.osate.annexsupport.AnnexUtil;
+import org.osate.annexsupport.ParseResultHolder;
 
 import com.google.inject.ConfigurationException;
 import com.google.inject.Injector;
@@ -80,7 +80,7 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 
 		if (annexRoot != null) {
 			// delegate to annex specific outline tree provider
-			IParseResult annexParseResult = AnnexParseUtil.getParseResult(annexRoot);
+			IParseResult annexParseResult = ParseResultHolder.Factory.INSTANCE.adapt(annexRoot).getParseResult();
 			if (annexParseResult != null) {
 				Injector injector = AnnexUtil.getInjector(annexParseResult);
 				if (injector != null) {
